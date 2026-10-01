@@ -131,12 +131,15 @@ on a place nobody ever sees (`Q092.X6`).
 
 ### 7. How many offers at once
 
-- FOCUS OR DROWN. `Q037.X2`: "taking many quests at once floods the journal." Round one's default: one open
-  contract next to the main quest.
+- FOCUS OR DROWN. `Q037.X2`: "taking many quests at once floods the journal." Round one's default was one open
+  contract next to the main quest; (folded 10/1 from rule 51) Paolo 9/30 set it at TWO contract slots next to ONE
+  main quest, with a third offer waiting, because a haul to a city and a hunt near it belong on one road.
 - THE HUB MUST NOT BE A SPREADSHEET. `Q065.X2`: an overwhelming first hour. `Q046.X1`: between good procedural
   beats, play feels like dry administrative busywork. A board of ten rows is that busywork.
 - SO: offers on a board = the tier: camp 1, town 2, fortress 3. A crisis stage can add ONE (the crisis client)
-  and a raid can remove ALL BUT ONE. The phone never shows more than four. Battle Brothers boards run small for
+  and a raid can remove ALL BUT ONE. The phone never shows more than four. (folded 10/1 from rule 51: the phone's
+  read-only board lists what each settlement offers right now, so this cap reads per settlement: no hall and no
+  settlement's row on the phone shows more than four; the phone never accepts.) Battle Brothers boards run small for
   the same reason (08_CONTRACTS_EVENTS.md: a handful of contracts per hall).
 
 ### 8. What the other buildings do for quests

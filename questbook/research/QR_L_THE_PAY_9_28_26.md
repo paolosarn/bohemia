@@ -3,6 +3,7 @@
 QUESTION (row [second shelf], the CONTRACTS half, letter L): How does the library price a job? What is the fee measured against, how do the best games make pay legible, when is pay in kind better than money, how do advances work, and when is the pay a person's favour? Turn it into the rule for pricing Bohemia contracts in BATTERIES, on the Battle Brothers offer screen Paolo named on 9/28 (records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md). The numbers are TUNING's (chat 21, laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md); this page gives the SHAPE.
 
 STATUS: draft:true, research only, nothing built (rule 35). For RUN, ECONOMY, TUNING, WORDS, UI. Every example line is an attempt; contents are Paolo's.
+FOLDED 10/1 (QR-AB): new P16 (QR-U), reconciled with QR-G line 30 by QR-X's house rule; a note on P7. Each edit is marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -80,7 +81,7 @@ P5. **NO ACCEPT BUTTON UNTIL THE PAY IS SHOWN.** Test: the accept control is unr
 
 P6. **THE FEE LOCKS AT ACCEPT.** No node after accept can change the amount, the currency or the timing, except that the twist bank may remove the payer (T11, T12) or add a second offer (T14). Test: no post-accept node writes the fee. (`Q148.W1`, `Q148.P1`, `Q148.W9`)
 
-P7. **THE FEE DOES NOT DEPEND ON HOW.** Every ending that counts as DONE pays the same fee; DONE WRONG and FAILED pay what the screen said they pay (part or nothing), and the crueller branch never pays more. No batteries or goods lie in the room where the moral fork happens. Test: the ending table's DONE rows share one fee; a body-drop validator finds no loot on a fork's grid. (`Q004.W4`, `Q097.W10`, `Q108.X2`, `Q070.X2`, `Q130.X9`, `Q125.X7`)
+P7. **THE FEE DOES NOT DEPEND ON HOW.** Every ending that counts as DONE pays the same fee; DONE WRONG and FAILED pay what the screen said they pay (part or nothing), and the crueller branch never pays more. No batteries or goods lie in the room where the moral fork happens. Test: the ending table's DONE rows share one fee; a body-drop validator finds no loot on a fork's grid. (`Q004.W4`, `Q097.W10`, `Q108.X2`, `Q070.X2`, `Q130.X9`, `Q125.X7`) (folded 10/1 from QR-X: P7 is the contract half of THE HOUSE RULE in P16 and QR-G line 30; it does not bind road events or main beats.)
 
 P8. **ASK FOR MORE HAS A CEILING YOU CAN SEE.** ASK FOR MORE moves the fee one step toward the client's CEILING (set by the settlement's wealth: low in bust, high in boom). The portrait's expression changes each step, and at the ceiling the client says so out loud ("That's all there is."). Test: the ceiling is a table value; the at-ceiling line exists for every client; no hidden random counter. (`Q126.N8`, 08_CONTRACTS_EVENTS.md, the 9/11 deterministic limit)
 
@@ -97,6 +98,8 @@ P13. **A FAVOUR SAYS "NO PAY" AND NAMES WHAT IT OPENS.** A favour contract's pay
 P14. **THE SCREEN PRICE AND THE STREET PRICE AGREE.** A contract offered in a bust settlement pays from that settlement's purse and its scarcity; the same job in a boom settlement pays more batteries and less in kind. Test: generate the same contract kind in a boom and a bust settlement; the fee moves by S and the in-kind share moves the other way. (`Q151.W3`, `Q094.P5`, `Q061.W2`)
 
 P15. **DECLINE STAYS FREE.** Decline writes nothing, anywhere (QR-A C6). The offer stays in the hall until the world changes it. Test: state after decline equals state before the offer, except the clock. (`Q126.W3`, `Q126.N12`, `Q134.W3`)
+
+P16. **A PRICE ON A PERSON OR A SACRED THING TEMPTS, AND IT LIVES ONLY ON EVENTS AND MAIN BEATS.** (folded 10/1 from QR-U, reconciled with QR-G line 30 by QR-X's house rule.) THE HOUSE RULE, written the same way on both pages so no sweep has to choose: CONTRACTS PAY ONE FEE ON EVERY BRANCH THAT COUNTS AS DONE (P7); EVENTS AND MAIN BEATS MAY CARRY ONE STATED TEMPTATION, WITH THE NUMBER ON THE BUTTON, AND THE OTHER SIDE FULLY BUILT. The library says why the number must be there: the miracle gets priced, cash held against a homecoming (`Q204.W5`); a price that is cartoonishly evil tempts nobody, so the money must matter to a desperate company (`Q204.X3`); "the temptation has a number on it, the only kind that tempts" (`Q166.W4`). And why it stays off the contract: when a side's reward buys the decision, the choice is bought (`Q164.W4`), and a contract's reward economy that tilts the fork undercuts it (`Q070.X2`, `Q108.X2`). The other side is fully built when it carries its own real weight (a person, standing, a later door), never only "the right thing" (`Q226.X2`, `Q157.X1`, `Q161.X3`; QR-G line 32). Tests: (a) no contract's DONE rows differ in fee (P7); (b) an event or main beat has at most ONE button whose number exceeds the others, and that number is printed on the button and said by a mouth; (c) the other button names what it gives or keeps. How often the road may carry such a price is TUNING's research (QR-U OPEN 1). (`Q204.W5`, `Q204.X3`, `Q166.W4`, `Q164.W4`, `Q226.X2`)
 
 ## WHAT TO AVOID (the flaws)
 

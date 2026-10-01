@@ -266,7 +266,8 @@ QR-U and point opposite ways on a road event. So does the older pair, QR-G line 
 ("the kind choice is never also the profitable one"). This sweep read them together as: contracts pay one fee on every
 done branch; events and main beats may carry one stated temptation, number on the button, with the other side fully
 built. When QR-G and QR-L fold QR-U, they should write that sentence into both pages so the next sweep does not have to
-choose.
+choose. (FOLDED 10/1, QR-AB: written into QR-G under line 30 as THE HOUSE RULE, with a note on line 21, and into QR-L
+as P16 with a note on P7.)
 
 ## WHAT TO AVOID (the flaws this sweep guarded)
 
@@ -283,7 +284,8 @@ choose.
 
 1. The 48 round-one designs need a line-by-line run against checklist lines 1 to 28 (QR-I did the .bq bank, not these).
 2. QR-A, QR-G, QR-L, QR-D and QR-H still carry their pre-QR-U text; the designs now cite C19, lines 29 and 30, P16 and the
-   amended rules by QR-U's numbers.
+   amended rules by QR-U's numbers. (FOLDED 10/1, QR-AB: all five pages now carry these rules in place, under the same
+   numbers the designs cite.)
 3. No design yet uses a lab-made beast. The first road-beast events (dire wolves on the dam road, cattle gone feral in
    the wash) are new designs for the next round, cut to QR-B's shapes and the bestiary's rules when COMBAT publishes them.
 4. The narrator's lines are words; SOUNDS decides how "too even" sounds, and whether the narrator ever reads a contract

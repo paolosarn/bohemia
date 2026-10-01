@@ -9,6 +9,8 @@ it" means in practice.
 
 STATUS: research only (rule 35, laws/BOHEMIA_ADDENDUM_QUESTS_IS_RESEARCH_ONLY_9_27_26.md). Nothing here is built.
 The builders (RUN, WORLD, PEOPLE, WORDS) cite this page when they build contracts.
+FOLDED 10/1 (QR-AB): C1 (the phone shows a read-only board, rule 51), C9 (two contract slots, rule 51), new C19 (the
+scavenge floor, QR-U), OPEN 5, and section 4's count. Each edit is marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -133,11 +135,16 @@ standing temptation per act that the story is built around. None of them is abou
 - **There is no quit button.** A contract is dropped the way a person drops a job: in the world. You go back and say
   it to the client's face, or you let the stated window pass. Both are deeds. Neither is a menu item, because a quit
   button in a list would make the contract a card.
-- **One contract at a time.** `Q037.X2`: hoarding quests "floods the journal into confusion"; a system built on
-  directions "needs FOCUS". `Q148.W10`: the contract is the best-scoped quest container because "nothing has time to
-  dilute it". With one main quest and one open contract, the phone never needs a quest log; the player's head holds
-  both. Paolo's own words point here: "you have to finish a side quest as soon as you pick up the contract". A second
-  offer while one is open is simply declined (free), or taken only by dropping the first (a deed).
+- **Two contracts at a time, never a pile.** (folded 10/1 from rule 51, which replaces round one's "one contract at a
+  time".) `Q037.X2`: hoarding quests "floods the journal into confusion"; a system built on directions "needs FOCUS".
+  `Q148.W10`: the contract is the best-scoped quest container because "nothing has time to dilute it". Paolo 9/30
+  set the number: one main quest and TWO contract slots, because Battle Brothers' one slot (`Q236.W2`, `Q236.N1`) is
+  "wack" when a caravan job carries you to a city and a hunt waits near that city. Two promises still fit in the
+  player's head, so the phone still never needs a quest log; the focus finding holds at two and breaks at a pile.
+  `Q043.X3` is the warning for the second slot (there about juggling several romances): threads held at once break
+  silently unless their state is legible and robust, so each slot shows on the map (its marker, its window). Paolo's own words still point here: "you have to finish a side
+  quest as soon as you pick up the contract". A third offer while both slots are full is readable and waits (free);
+  it is taken only by finishing one, or by dropping one (a deed).
 - **Deadlines: stated, generous, audible, and only when the job is about time.** `Q011.W2` and `Q011.P3`: a real
   deadline has teeth, "use sparingly", and a failed timed quest should "REROUTE, not softlock". `Q038.X1`: the hard
   clock alienates; tune it. `Q018.W8`: "the pressure is generous". `Q119.X3`: a timer nobody feels is not there; make
@@ -193,9 +200,13 @@ standing temptation per act that the story is built around. None of them is abou
 
 ## THE RULE FOR THE BUILDERS (numbered, testable)
 
-C1. **A CONTRACT IS OFFERED BY A PERSON STANDING IN A PLACE.** Never a board, list, card or pop-up. The offerer has a
+C1. **A CONTRACT IS OFFERED BY A PERSON STANDING IN A PLACE.** Never a card or a pop-up. The offerer has a
 portrait and speaks. Test: every contract definition names a person id and a place id; none names a UI panel.
-(`Q108.W1`, `Q013.W6`, `Q114.W2`, `Q148.W2` translated.)
+(`Q108.W1`, `Q013.W6`, `Q114.W2`, `Q148.W2` translated.) (folded 10/1 from rule 51: the cracked phone, in the city
+view only, may SHOW a read-only board of which settlement offers what right now, a board that ages, so the player can
+plan a road; nothing on the phone can accept. Accepting is a mouth at the place, on the settlement screen's offer.
+Test: no phone element writes a contract state; every TAKEN row was written from an offer screen at a place.
+`Q236.W1`: the board is a readout of the map, not a quest list; `Q236.W7`: the accept button is the only promise.)
 
 C2. **NOTHING OFFERS ITSELF.** The client may be walked past; the offer opens only when the player stops and talks
 (rule 34, the second votes). Walking past is not a decline and writes nothing. (Swept 9/29: there is no walking
@@ -225,9 +236,15 @@ C8. **THE WORLD KEEPS WORLD-STATE, NOT A NAME.** A declined job may still happen
 or the harm lands). That outcome is written without the player's id. Test: the outcome entry is byte-identical
 whether the player declined or never met the client. (`Q055.W1`, `Q061.W2`, `Q051.W2`.)
 
-C9. **ONE OPEN CONTRACT AT A TIME, PLUS THE MAIN QUEST.** A new offer while one is open can be declined free, or taken
-only by dropping the open one (a deed, C13). Test: the contract table allows at most one row in state TAKEN.
-(`Q037.X2`, `Q148.W10`.)
+C9. **TWO CONTRACT SLOTS, PLUS ONE MAIN QUEST.** (folded 10/1 from rule 51; this replaces "one open contract at a
+time".) The company holds at most two TAKEN contracts and one main quest thread. Once taken, each is finished (C10).
+A third offer while both slots are full can be declined free, read in full, or left to wait; it is taken only when a
+slot opens, by finishing one or by dropping one (a deed, C13). The pair is the design: a haul to a city and a hunt
+near that city share one road (rule 51). Test: the contract table allows at most two rows in state TAKEN; while two
+are TAKEN, every other offer screen still opens and shows its terms, and only accept is disabled, shown as a greyed
+button, never a speech (`Q236.N1`). We differ from Battle Brothers here on purpose: its hall holds ONE (`Q236.W2`,
+`Q236.N2`); ours holds two. TUNING holds the slot count as a felt number. (`Q037.X2`, `Q148.W10`, `Q236.N1`,
+`Q236.W2`.)
 
 C10. **NO QUIT BUTTON.** A contract ends only in the world: DONE, DONE WRONG, FAILED, VOIDED, or DROPPED. DROPPED
 happens by telling the client face to face, or by letting a stated window pass. Test: no UI element changes a
@@ -264,6 +281,14 @@ C18. **A DECLINED OFFER MAY BE MADE AGAIN BY THE WORLD, NEVER BY THE GRUDGE.** I
 pass, the client may ask again with the same words (or a new price if the world's economy moved, boom or bust).
 Never "you again?". (`Q126.W3`, C6.)
 
+C19. **A NO IS NEVER A SLOW DEATH.** (folded 10/1 from QR-U.) The wage treadmill makes every offer weighed
+(`Q236.W10`), and the same treadmill can force the yes: the decline is free in the ledger but not on the treasury
+(`Q236.X4`). So a second income always exists: SCAVENGE on the settlement screen (QR-O rule 11) covers the company's
+keep (FOOD and WATER, rule 47) at a thin margin, so one declined offer never forces the next yes. C6 keeps the ledger
+clean; C19 keeps the purse honest. Test: a company that declines every offer for ten map days and scavenges at each
+stop does not go bankrupt at default tuning. TUNING owns the numbers (QR-U rule 3). (`Q236.X4`, `Q236.W10`,
+`Q236.W7`, `Q126.W3`.)
+
 ## WHAT TO AVOID (the flaws)
 
 - `Q084.X5`: a refusal that deletes something is a losing button.
@@ -278,7 +303,8 @@ Never "you again?". (`Q126.W3`, C6.)
 - `Q119.X3`: a timer too quiet to exist.
 - `Q121.X6`: a timer that makes players postpone the good content.
 - `Q038.X1`: the hard clock that alienates.
-- `Q037.X2`: hoarded quests that drown the log.
+- `Q037.X2`: hoarded quests that drown the log (two slots is the cap, rule 51; a pile is the flaw).
+- `Q236.X4`: the treasury that forces the yes (C19 is the floor).
 - `Q148.X1`: a lie to the client with zero risk.
 - `Q148.X2`: an investigation that cannot fail.
 - `Q148.X3`: the twist on every job until it is a genre beat.
@@ -301,6 +327,7 @@ Never "you again?". (`Q126.W3`, C6.)
 4. **What Battle Brothers itself does.** The blind spots record says its game docks relations for a refused contract.
    None of the 152 studies is Battle Brothers, so the library cannot confirm or refute it; the rule above does not
    depend on it.
-5. **Whether "one open contract" survives the three acts at once.** (Swept 9/29: the flip exists only once the next
-   act has unlocked, rule 39c, so this only arises mid-game.) If the player flips acts with a contract open in
-   Act 1, does the contract's window run while he is in Act 3? DYNASTY owns the flip; the library is silent.
+5. **Whether the two contract slots survive the three acts at once.** (Swept 9/29: the flip exists only once the next
+   act has unlocked, rule 39c, so this only arises mid-game. Folded 10/1 from rule 51: the count is now TWO slots,
+   not one.) If the player flips acts with a contract open in Act 1, does the contract's window run while he is in
+   Act 3, and does a slot held in one act count against the other? DYNASTY owns the flip; the library is silent.
