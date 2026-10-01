@@ -105,3 +105,18 @@ walks, 36% lit) and his burning oil drums restored warm in three hard rings (ell
 every pixel snapped to the allowed palette (numpy nearest). light[5][5] = 'lit' where 40% of a tile
 is inside a pool. Guard: colours, size, not stamped, at least one lit tile.
 NEXT: store-front facades, the casino floor interior.
+
+## ROUND SEVEN (10/1, sweep J and rule 61): THE HOUSE AT 45, AND THE BIG BOARD
+
+tools/bohemia_combat2_houses_at_45_and_the_big_board_cook_10_1_26.py ->
+banks/BOHEMIA_THE_HOUSE_AT_45_AND_THE_BIG_BOARD_10_1_26.txt, VOTE combat2-houses-at-45-and-the-big-board-10-1.
+  house45(seed, facing): on the 45 lot, a 9.6-10.6 x 7.6 m footprint; roof plane 7.6 m x cos45 of his
+    roof_slope, his roof_ridge a third down, the far plane shaded, the west hip lit and the east hip in
+    shade, his roof_eave along the eave; a 2.7 m x cos45 stucco face (his wall tiles) with his garage,
+    door and window (north-side houses) or a slider and window (south-side, the back wall); the drive;
+    the shadow SE. Pitched roofs are 'blocked'; (1,1) and (3,3) keep the flat roof as 'height'.
+  suburb45: round four's suburb block with the 45 houses.
+  big_board: 20 x 15 house tiles = 4 x 3 blocks of the kinds (suburb45 x4, strip, culdesac, ruin, scrub,
+    freeway x4 along the south); start rows 4 and 9 (distance 5). The bank stores the layout and points at
+    each kind's bank, not one giant picture. COMBAT 1 owns the cutter and the code ([board size]).
+NEXT: the 45 house in the cul-de-sac, ruin and night boards; block seams; store fronts.

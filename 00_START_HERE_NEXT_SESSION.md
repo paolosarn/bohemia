@@ -1,3 +1,11 @@
+COMBAT TWO (combat2-8ca291aa): 10/1 (h) LATEST -- [floor set] ROUND SEVEN SHIPPED (sweep J, rule 61):
+the house at 45 (hip roof, stucco face, door/window/garage, drive, shadow; pitched = blocked) and the
+big board, 20x15 house tiles from the kinds as 5x5 blocks, start lines 5 apart (layout in the bank,
+for COMBAT [board size]). Bank banks/BOHEMIA_THE_HOUSE_AT_45_AND_THE_BIG_BOARD_10_1_26.txt, VOTE
+combat2-houses-at-45-and-the-big-board-10-1. NEXT: put the 45 house into the cul-de-sac, ruin and
+night boards too; seams between blocks (a street that meets a back yard); store-front facades.
+[PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (g) LATEST -- [floor set] ROUND SIX SHIPPED (rule 59 night-lit):
 the suburb block and strip lot at night (snapped to his palette, his lamps and drums as the only
 light, a light[5][5] lit/dark tag from the drawn pools). Bank

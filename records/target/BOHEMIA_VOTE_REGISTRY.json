@@ -4120,7 +4120,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+{"id": "combat2-houses-at-45-and-the-big-board-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "HOUSES THAT LOOK LIKE HOUSES, ON A BATTLE BROTHERS SIZED BOARD", "why": "The houses now have a real tile roof, a front wall with a door and garage, and a shadow, and the fight board is 20 houses across and 15 deep with the two sides starting five houses apart. Thumbs up and combat fights on boards this big, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_HOUSES_AT_45_AND_THE_BIG_BOARD_10_1.png"}}
 ],
  "verdicts": [
   {
