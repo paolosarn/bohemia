@@ -23640,7 +23640,27 @@ if(typeof module!=='undefined')module.exports=BOH_DAYCYCLE;
 
 /* ============ dual traversal proof ============ */
 const OM=window.BohemiaOvermap;
-const cv=document.getElementById('cv'), g=cv.getContext('2d');
+const cv=document.getElementById('cv'); var g=cv.getContext('2d');   /* var, not const: __THE_MAP_GROUND_IS_PAINTED_ONCE__ points it at the cached ground while the ground is painted, and back */
+/* __THE_MAP_AT_THE_PHONES_PIXELS__ (RUN [map pixels] G1, rule 38a, 10/1). CVW x CVH is the
+   canvas in CSS pixels, the size every layout line in this file reads; cv.width x cv.height is
+   the backing store. On the map they differ by the phone's pixel ratio (1134 x 2490 on his 3x
+   phone, not 378 x 830 blown up 3x), and the context carries that scale, so every line that
+   draws keeps drawing in CSS pixels and the picture comes out at the phone's own pixels.
+   The street stays at one: it is dead as a way to cross the city (38b) and it repaints every
+   frame, so nine times the pixels there buys nothing he can see and costs the frame. */
+var CVW=cv.width, CVH=cv.height, CV_DPR=1;
+function cvWantDpr(){ return (typeof MODE!=='undefined' && MODE==='city')
+  ? Math.max(1, Math.min(3, Math.round((window.devicePixelRatio||1)*100)/100)) : 1; }
+function cvSize(w,h){
+  var d=cvWantDpr();
+  CVW=w; CVH=h; CV_DPR=d;
+  cv.width=Math.round(w*d); cv.height=Math.round(h*d);
+  cv.style.width=w+'px'; cv.style.height=h+'px';
+  g.setTransform(d,0,0,d,0,0);
+  g.imageSmoothingEnabled=false;   /* a resize resets it to smooth; the map's art is pixels and every later frame drew it unsmoothed */
+}
+function cvKeepDpr(){ if(cvWantDpr()!==CV_DPR) cvSize(CVW,CVH); }
+window.cvPixels=function(){ return {cssW:CVW, cssH:CVH, w:cv.width, h:cv.height, dpr:CV_DPR}; };
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1,interchange:1,rail:1}; // rail: tracks are crossable paths, never walls (Paolo 7/6)
 const BEAT=500; // 120BPM law
 /* ==== ZOOM-BUILD (7/25, Paolo: "as you zoom out ... it organically becomes the
@@ -34669,7 +34689,7 @@ function cbPaintAt(rec,px,py){
   }catch(_e){ return true; }   /* a tainted or unreadable plate: trust the rectangle */
 }
 function CBcellAt(sx,sy){
-  const ox=Math.round(cv.width/2-(city.x-city.y)*TW/2+panX), oy=Math.round(cv.height/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
+  const ox=Math.round(CVW/2-(city.x-city.y)*TW/2+panX), oy=Math.round(CVH/2-(city.x+city.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const dx=sx-ox, dy=sy-oy-TH/2;
   const x=Math.round(dx/TW+dy/TH), y=Math.round(dy/TH-dx/TW);
   /* THE GROUND ANSWER, which is exact for a flat tile and was measured 25 of 25 at every
@@ -35149,7 +35169,7 @@ function CBpanel(){
     if(hl) hl.textContent=cbHouseLine(); };
 }
 
-window.__CITY={power:function(){return POWER;},night:function(){return isNight();},rerender:function(){render();},state:function(){return {seed:seed,TW:TW,TH:TH,cx:city.x,cy:city.y,panX:panX,panY:panY,mode:MODE};},isoAt:function(x,y){var ox=cv.width/2-(city.x-city.y)*TW/2+panX,oy=cv.height/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);},district:function(x,y){var c=om.at(x,y);return c&&c.district;},wallArtReady:function(){var t=saTex('perimeter',0);return !!(t&&t.width);}};
+window.__CITY={power:function(){return POWER;},night:function(){return isNight();},rerender:function(){render();},state:function(){return {seed:seed,TW:TW,TH:TH,cx:city.x,cy:city.y,panX:panX,panY:panY,mode:MODE};},isoAt:function(x,y){var ox=CVW/2-(city.x-city.y)*TW/2+panX,oy=CVH/2-(city.x+city.y)*TH/2+panY;return iso(x,y,ox,oy);},district:function(x,y){var c=om.at(x,y);return c&&c.district;},wallArtReady:function(){var t=saTex('perimeter',0);return !!(t&&t.width);}};
 
 
 /* __DAY_LOOP__ */
@@ -42434,13 +42454,13 @@ function iso(x,y,ox,oy){ return {sx:ox+(x-y)*TW/2, sy:oy+(x+y)*TH/2}; }
 function zoomBounds(){
   // min zoom = whole map fits the screen (projected map ~ N*TW0 wide, N*TH0 tall)
   const N=om.n;
-  const fit=Math.min(cv.width/((N+1)*TW0), cv.height/((N+1)*TH0))*0.96;
+  const fit=Math.min(CVW/((N+1)*TW0), CVH/((N+1)*TH0))*0.96;
   return [Math.max(0.05,fit), 2.6];
 }
 function clampPan(){
   // never let the whole valley slide fully off screen: cap pan to the map's
   // projected half-span plus a screen margin
-  const N=om.n, hx2=(N*TW0*CZOOM)/2+cv.width*0.5, hy2=(N*TH0*CZOOM)/2+cv.height*0.5;
+  const N=om.n, hx2=(N*TW0*CZOOM)/2+CVW*0.5, hy2=(N*TH0*CZOOM)/2+CVH*0.5;
   panX=Math.max(-hx2,Math.min(hx2,panX)); panY=Math.max(-hy2,Math.min(hy2,panY));
 }
 function setZoomAt(z,pvx,pvy){
@@ -42487,10 +42507,10 @@ function setZoomAt(z,pvx,pvy){
      Same guard, same reason: a gesture that crosses is finished. */
   if(z<zmin&&CZOOM<=zmin+1e-3){ SEAM_GUARD=true; skyEnter(); return; }
   z=Math.max(zmin,Math.min(zmax,z));
-  if(pvx===undefined){ pvx=cv.width/2; pvy=cv.height/2; }
+  if(pvx===undefined){ pvx=CVW/2; pvy=CVH/2; }
   const k=z/CZOOM;                                   // keep the pivot point fixed
-  panX=(pvx-cv.width/2)*(1-k)+panX*k;
-  panY=(pvy-cv.height/2)*(1-k)+panY*k;
+  panX=(pvx-CVW/2)*(1-k)+panX*k;
+  panY=(pvy-CVH/2)*(1-k)+panY*k;
   CZOOM=z; TW=TW0*z; TH=TH0*z;
   if(Math.abs(z-zmin)<1e-4){ panX=0; panY=0; }       // snap to centered at full fit
   clampPan(); renderSoon();
@@ -42534,13 +42554,13 @@ function drawUnder(ox,oy){
   // dim surface for orientation
   g.globalAlpha=0.13;
   for(let y=0;y<om.n;y++)for(let x=0;x<om.n;x++){ const t=om.at(x,y); if(!t)continue;
-    const p=iso(x,y,ox,oy); if(p.sx<-TW||p.sx>cv.width+TW||p.sy<-40||p.sy>cv.height+40)continue;
+    const p=iso(x,y,ox,oy); if(p.sx<-TW||p.sx>CVW+TW||p.sy<-40||p.sy>CVH+40)continue;
     dia(p, t.district==='mountain'?'#b87848':t.district==='water'?'#3a7a9a':'#8a8278'); }
   g.globalAlpha=1;
   function net(set,col,wpx){
     if(!set)return;
     for(const k of set){ const [x,y]=k.split(',').map(Number);
-      const p=iso(x,y,ox,oy); if(p.sx<-TW||p.sx>cv.width+TW||p.sy<-40||p.sy>cv.height+40)continue;
+      const p=iso(x,y,ox,oy); if(p.sx<-TW||p.sx>CVW+TW||p.sy<-40||p.sy>CVH+40)continue;
       g.fillStyle='#14100c'; g.beginPath();
       g.moveTo(p.sx,p.sy); g.lineTo(p.sx+TW*0.5,p.sy+TH*0.5); g.lineTo(p.sx,p.sy+TH); g.lineTo(p.sx-TW*0.5,p.sy+TH*0.5); g.closePath(); g.fill();
       g.fillStyle=col; g.fillRect(p.sx-wpx/2,p.sy+TH*0.5-wpx/2,wpx,wpx); }
@@ -42776,6 +42796,12 @@ function _overpassCalc(x,y){
 function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||!im.naturalWidth)return false;
   var plate=(HERO_PLATE&&HERO_PLATE[name])||(im.naturalWidth-28),sc=TW*(span||1)/plate,a=HERO_ANCH[name];
   var dx=p.sx-a.bx*sc, dy=p.sy+TH/2-a.by*sc, w=im.naturalWidth*sc, h=im.naturalHeight*sc;
+  /* __THE_MAP_AT_THE_PHONES_PIXELS__: the picture lands on a whole CSS pixel, where it always landed
+     when the canvas was one pixel per CSS pixel. Drawn unsmoothed at a fraction of a pixel, the
+     art was sampled a hair differently at every camera position (the ground shimmered as the
+     camera slid), and a third of a pixel is never exact in floating point, so a slid picture
+     could not equal a fresh one: measured 12,585 to 55,077 phone pixels off at three slides. */
+  dx=Math.round(dx); dy=Math.round(dy);
   /* __THE_TAP_PICKS_WHAT_YOU_SEE__ (9/11) -- AND THIS IS WHERE THE CITY IS ACTUALLY
      DRAWN. The first cut of this fix recorded prism(), the procedural block fallback,
      and measured ZERO prism calls at every zoom: the valley is painted with BAKED HERO
@@ -42822,7 +42848,7 @@ function drawHero(name,p,flip,span){var im=HERO_IMG[name];if(!im||!im.complete||
    NO ART IS COOKED: gradients and a silhouette derived from the seed's own rim.
    ========================================================================= */
 function vistaBackdrop(plateTop){
-  const night=isNight(), W=cv.width, H=cv.height;
+  const night=isNight(), W=CVW, H=CVH;
   /* 1. SKY. A real desert sky is much deeper overhead than at the horizon --
      the band near the ground is washed pale by the long air path. */
   const sky=g.createLinearGradient(0,0,0,H*0.62);
@@ -43073,37 +43099,119 @@ var MAP_DREW = null;
    map is drawn (every travelled block, every pan and pinch), and hold still when nothing moves:
    COOK's own banner "hangs dead when you stop", and the long stillness is the bible's. */
 /* ==== /__THE_MAP_HAS_ITS_PEOPLE__ ==== */
+/* ==== __THE_MAP_GROUND_IS_PAINTED_ONCE__ (RUN [map pixels], 10/1/26, rule 38a) ====
+   The map at the phone's pixels (__THE_MAP_AT_THE_PHONES_PIXELS__) is nine times the pixels,
+   and the ground under him was repainted whole on every frame of the glide: about 3,900 tile
+   draws a frame. MEASURED on the demo's map through the one driver, a full map paint went
+   from 67 ms to 115 ms, and at 4x CPU the speed pad's 3x crossed 12 blocks in 4 s where 1x
+   crossed 8 -- the 3x button delivered 1.5x, because the paint ate the beat.
+   SO THE GROUND IS PAINTED ONCE INTO A PICTURE A MARGIN BIGGER THAN THE SCREEN, and while he
+   moves (a glide in flight, or a journey set) each frame slides that picture under him and
+   draws only what moves on top: him, the parties, the crowds, the route, the plates. The
+   taps (CB_DREW) and the lamps (__LAMPQ) the paint recorded slide with it, so a tap still
+   lands on the building he sees.
+   WHEN IT IS PAINTED FRESH: whenever the map is standing still (so anything that changed the
+   world shows the next time it is drawn, and every checker that changes the world and asks
+   for a render sees it); when he moves past the margin; when the zoom, the size, the pixel
+   ratio, night or the legend filter change; and at least every 4 s while moving. That last
+   number bounds how stale a moving picture can be: a light that comes on mid-journey shows
+   inside four seconds, and the moment he stops it is painted fresh. (1.5 s was the first
+   number: at 4x CPU it repainted six times in eight seconds and the repaints were the cost.) This is PLUMBER [native map]'s shape (the map painted once,
+   only movers redrawn), built on the map that is RUN's, and the row stays PLUMBER's. */
+var MAP_GROUND_FRESH_MS = 4000;   /* [DIAL] the oldest a sliding picture may be */
+var MAP_GROUND = { cv:null, x:null, key:'', ox:0, oy:0, M:0, t:0, cb:null, lamps:null, builds:0, reuses:0, on:true };
+window.MAP_GROUND = MAP_GROUND;
+function mapGroundMoving(G){
+  if(G && G.u<1) return true;
+  return !!(typeof TRAVEL!=='undefined' && TRAVEL && TRAVEL.path && TRAVEL.i<TRAVEL.path.length);
+}
+function mapGroundBlit(dx,dy){
+  var MG=MAP_GROUND, sm=g.imageSmoothingEnabled;
+  g.imageSmoothingEnabled=false;
+  g.drawImage(MG.cv, 0,0,MG.cv.width,MG.cv.height, dx-MG.M, dy-MG.M, CVW+2*MG.M, CVH+2*MG.M);
+  g.imageSmoothingEnabled=sm;
+}
+function mapGroundBegin(ox,oy,night,G){
+  var MG=MAP_GROUND;
+  if(!MG.on || typeof MODE==='undefined' || MODE!=='city') return null;
+  var key=TW+'|'+TH+'|'+CVW+'|'+CVH+'|'+CV_DPR+'|'+(night?1:0)+'|'
+    +(typeof activeF!=='undefined'&&activeF.size?Array.from(activeF).join(','):'');
+  var now=performance.now(), dx=ox-MG.ox, dy=oy-MG.oy;
+  if(MG.cv && MG.key===key && mapGroundMoving(G) && now-MG.t<MAP_GROUND_FRESH_MS
+     && Math.abs(dx)<=MG.M && Math.abs(dy)<=MG.M){
+    mapGroundBlit(dx,dy);
+    MG.cb.forEach(function(v,k){ var r=Object.assign({},v); r.sx+=dx; r.sy+=dy;
+      if(r.dx!==undefined){ r.dx+=dx; r.dy+=dy; } CB_DREW.set(k,r); });
+    window.__LAMPQ = MG.lamps ? MG.lamps.map(function(q){ return {sx:q.sx+dx, sy:q.sy+dy}; }) : null;
+    MG.reuses++;
+    return { reused:true, M:MG.M };
+  }
+  /* why it is painted fresh, counted, so the next person can see what the cache is losing to */
+  var why = !MG.cv ? 'first' : MG.key!==key ? 'key' : !mapGroundMoving(G) ? 'still'
+          : now-MG.t>=MAP_GROUND_FRESH_MS ? 'age' : 'margin';
+  MG.why=MG.why||{}; MG.why[why]=(MG.why[why]||0)+1;
+  var M=Math.max(64, Math.ceil(TW*4));
+  var W=Math.round((CVW+2*M)*CV_DPR), H=Math.round((CVH+2*M)*CV_DPR);
+  if(!MG.cv) MG.cv=document.createElement('canvas');
+  if(MG.cv.width!==W || MG.cv.height!==H || !MG.x){ MG.cv.width=W; MG.cv.height=H; MG.x=MG.cv.getContext('2d'); }
+  var x=MG.x;
+  x.setTransform(CV_DPR,0,0,CV_DPR,M*CV_DPR,M*CV_DPR);
+  x.globalAlpha=1; x.globalCompositeOperation='source-over';
+  x.imageSmoothingEnabled=false;   /* pixel art, the map's steady state: the markers leave g unsmoothed after the first frame */
+  x.clearRect(-M,-M,CVW+2*M,CVH+2*M);
+  var st={ reused:false, M:M, g0:g, ox:ox, oy:oy, key:key, t:now };
+  g=x;
+  return st;
+}
+function mapGroundEnd(st){
+  var MG=MAP_GROUND;
+  g=st.g0;
+  MG.key=st.key; MG.ox=st.ox; MG.oy=st.oy; MG.M=st.M; MG.t=st.t; MG.builds++;
+  if(!st.done){ MG.key=''; MG.broken=(MG.broken||0)+1; }   /* a paint that threw half way is shown once, the way it always was, and never slid */
+  MG.cb=new Map(); CB_DREW.forEach(function(v,k){ MG.cb.set(k,v); });
+  MG.lamps=window.__LAMPQ ? window.__LAMPQ.slice() : null;
+  mapGroundBlit(0,0);
+}
 function renderCity(){
+  cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null };   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
   const __G=cityGlidePos(performance.now());   /* __THE_MAP_GLIDES__: the DRAWN position */
-  const ox=Math.round(cv.width/2-(__G.x-__G.y)*TW/2+panX), oy=Math.round(cv.height/2-(__G.x+__G.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
+  const ox=Math.round(CVW/2-(__G.x-__G.y)*TW/2+panX), oy=Math.round(CVH/2-(__G.x+__G.y)*TH/2+panY);   /* PIXEL FIX: whole-pixel camera */
   const night=isNight(); window.__LAMPQ=null;
   /* __THE_TAP_PICKS_WHAT_YOU_SEE__ -- this frame's record starts empty, so the picker can
      never answer from a body that is no longer on the glass. */
   CB_DREW.clear(); CB_DREW_AT=null;
-  if(UNDERV){ g.fillStyle='#0a0806'; g.fillRect(0,0,cv.width,cv.height); drawUnder(ox,oy); return; }
+  if(UNDERV){ g.fillStyle='#0a0806'; g.fillRect(0,0,CVW,CVH); drawUnder(ox,oy); return; }
   /* THE VISTA GETS A REAL BACKDROP; the normal city view keeps its flat field.
      A map on flat blue is a map -- an overlook is sky, then the far side of the
      basin, then the floor. Only paid for when the moment is actually open. */
-  if(typeof VISTA!=='undefined' && VISTA && typeof vistaBackdrop==='function'){ vistaBackdrop(oy); }
+  /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: while he moves, the ground is the cached picture slid
+     under him; the loop below runs only when the cache is rebuilt (see mapGroundBegin). */
+  const __vista = (typeof VISTA!=='undefined' && VISTA && typeof vistaBackdrop==='function');
+  const __mg = __vista ? null : mapGroundBegin(ox, oy, night, __G);
+  if(__mg && __mg.reused){ /* the ground is on the glass already, and its taps and lamps */ }
+  else {
+  if(__vista){ vistaBackdrop(oy); }
   /* __CITY_VOID__ -- the valley sits in the MOJAVE, not in the sea. This used to
      clear to #3a6a8a, which is literally this game's WATER colour, so the whole-map
      view showed a city floating in an ocean -- "still in blue around the city"
      (Paolo 8/16). Beyond the mapped 96x96 there is more desert, because the map is
      a window onto the Mojave and not an island. */
-  else { g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(0,0,cv.width,cv.height); }
+  else { g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(__mg?-__mg.M:0,__mg?-__mg.M:0,CVW+(__mg?2*__mg.M:0),CVH+(__mg?2*__mg.M:0)); }
   // view radius auto-scales with zoom: enough slots to fill the screen at the
   // current tile size, so zooming out reveals the whole valley, in caps the work.
-  const R=Math.min(N,Math.ceil(Math.max((cv.width+2*Math.abs(panX))/TW,(cv.height+2*Math.abs(panY))/TH))+3);
+  const __M=__mg?__mg.M:0;   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: the cache is the screen plus a margin */
+  const R=Math.min(N,Math.ceil(Math.max((CVW+2*__M+2*Math.abs(panX))/TW,(CVH+2*__M+2*Math.abs(panY))/TH))+3);
+  try {
   for(let s=Math.max(0,city.x+city.y-2*R); s<=Math.min(2*(N-1),city.x+city.y+2*R); s++){
     for(let x=Math.max(0,s-(N-1),city.x-R); x<=Math.min(N-1,s,city.x+R); x++){
       const y=s-x; if(Math.abs(y-city.y)>R)continue;
       const t=om.at(x,y); if(!t)continue;
       const p=iso(x,y,ox,oy);
-      if(p.sx<-TW||p.sx>cv.width+TW||p.sy<-40||p.sy>cv.height+40)continue;
+      if(p.sx<-TW-__M||p.sx>CVW+TW+__M||p.sy<-40-__M||p.sy>CVH+40+__M)continue;
       g.globalAlpha=cellActive(t)?1:0.15;
       CB_DREW_AT=x+','+y;            /* __THE_TAP_PICKS_WHAT_YOU_SEE__ */
       const d=t.district, r=OM.rng(t.seed);
@@ -43285,6 +43393,9 @@ function renderCity(){
       g.globalAlpha=1;
     }
   }
+  if(__mg) __mg.done=true;
+  } finally { if(__mg) mapGroundEnd(__mg); }   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: g back on the glass, the picture blitted */
+  }
 
   // CARGO rolling the I-15 spine (ambient, never stops)
   { const L=om.layout, cy2=Math.round(6+cargo.t*(96-12));
@@ -43403,8 +43514,8 @@ function renderCity(){
         var __s = (__tg.own[(__ty + 1) * __N + __tx] !== __me && __ty + 1 < __N);
         if(!__e && !__s) continue;
         var __q = iso(__tx, __ty, ox, oy);
-        if(__q.sx < -60 || __q.sx > cv.width + 60) continue;
-        if(__q.sy < -60 || __q.sy > cv.height + 60) continue;
+        if(__q.sx < -60 || __q.sx > CVW + 60) continue;
+        if(__q.sy < -60 || __q.sy > CVH + 60) continue;
         var __own = !!(__tm && __tn(__me) === __tn(__tm));
         g.strokeStyle = __holderInk(__me, __own);
         /* AND THE RENDER SAYS WHAT IT ACTUALLY DID, the same way this renderer
@@ -43482,8 +43593,8 @@ function renderCity(){
             for (var __ci = 1; __ci < __tr.length; __ci++) {
               var __a = iso(__tr[__ci - 1][0], __tr[__ci - 1][1], ox, oy);
               var __b2 = iso(__tr[__ci][0], __tr[__ci][1], ox, oy);
-              if (__b2.sx < -60 || __b2.sx > cv.width + 60) continue;
-              if (__b2.sy < -60 || __b2.sy > cv.height + 60) continue;
+              if (__b2.sx < -60 || __b2.sx > CVW + 60) continue;
+              if (__b2.sy < -60 || __b2.sy > CVH + 60) continue;
               /* brightest at the head, which is where they are standing now */
               var __f = __ci / (__tr.length - 1);
               g.globalAlpha = (__mineP ? 0.30 : 0.18) + __f * (__mineP ? 0.55 : 0.42);
@@ -43564,8 +43675,8 @@ function renderCity(){
             for (var __li = 0; __li < __pc.length; __li++) {
               var __c = __pc[__li];
               var __p = iso(__c.x, __c.y, ox, oy);
-              if (__p.sx < -40 || __p.sx > cv.width + 40) continue;
-              if (__p.sy < -40 || __p.sy > cv.height + 40) continue;
+              if (__p.sx < -40 || __p.sx > CVW + 40) continue;
+              if (__p.sy < -40 || __p.sy > CVH + 40) continue;
               var __cx = __p.sx, __cy = __p.sy + TH / 2;
               var __rad = Math.max(1.5, Math.min(TW * 0.16, 3.5));
               var __dead = false;
@@ -43638,8 +43749,8 @@ function renderCity(){
         var __cx = __px * __NB + (__NB >> 1), __cy = __py * __NB + (__NB >> 1);
         if(__cx >= om.n || __cy >= om.n) continue;
         var __c = iso(__cx, __cy, ox, oy);
-        if(__c.sx < -40 || __c.sx > cv.width + 40) continue;
-        if(__c.sy < -40 || __c.sy > cv.height + 40) continue;
+        if(__c.sx < -40 || __c.sx > CVW + 40) continue;
+        if(__c.sy < -40 || __c.sy > CVH + 40) continue;
         var __my = __c.sy + TH / 2;
         g.globalAlpha = 1;
         /* __THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f): "all those little circles should
@@ -43718,8 +43829,8 @@ function renderCity(){
         var __b = __gb[__n];
         if(!__b || __b.x == null || __b.y == null) continue;
         var __p = iso(__b.x|0, __b.y|0, ox, oy);
-        if(__p.sx < -40 || __p.sx > cv.width+40) continue;
-        if(__p.sy < -40 || __p.sy > cv.height+40) continue;
+        if(__p.sx < -40 || __p.sx > CVW+40) continue;
+        if(__p.sy < -40 || __p.sy > CVH+40) continue;
         var __is = !!(__mine && __norm(__n) === __norm(__mine));
         /* YOURS reads differently from theirs, because "that one is mine" is
            the first thing anybody looks for on a map of who holds what. */
@@ -43815,7 +43926,7 @@ function renderCity(){
          own seat and piled onto the town's building. They are drawn once they are OUT. */
       if (__q.from && !__q.arrived && (__q.at.x | 0) === (__q.from.x | 0) && (__q.at.y | 0) === (__q.from.y | 0)) continue;
       var __qp = iso(__q.at.x | 0, __q.at.y | 0, ox, oy);
-      if (__qp.sx < -30 || __qp.sx > cv.width + 30 || __qp.sy < -30 || __qp.sy > cv.height + 40) continue;
+      if (__qp.sx < -30 || __qp.sx > CVW + 30 || __qp.sy < -30 || __qp.sy > CVH + 40) continue;
       var __look = mapPartyLook(__q);
       var __qy = __qp.sy + TH / 2;
       g.fillStyle = 'rgba(14,11,8,0.5)';
@@ -43836,7 +43947,7 @@ function renderCity(){
     g.save();
     for(var __ri=TRAVEL.i; __ri<TRAVEL.path.length; __ri++){
       var __rp=iso(TRAVEL.path[__ri][0], TRAVEL.path[__ri][1], ox, oy);
-      if(__rp.sx<-40||__rp.sx>cv.width+40||__rp.sy<-40||__rp.sy>cv.height+40) continue;
+      if(__rp.sx<-40||__rp.sx>CVW+40||__rp.sy<-40||__rp.sy>CVH+40) continue;
       var __last=(__ri===TRAVEL.path.length-1);
       var __ry=__rp.sy+TH*0.4;
       if(__last){
@@ -43914,7 +44025,7 @@ function renderCity(){
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
   }
-  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,cv.width,cv.height); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
+  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
 /* *** THE CAMERA IS THE REST OF HIS RULING (Paolo 9/15 rule 16; coordinator ruling
@@ -44337,8 +44448,8 @@ function sigPick(gx,gy,lanes){
    existing notion of a crossing -- no second definition invented here. */
 function sigPass(ox,oy,C){
   if(typeof SIG_IMG==='undefined')return;
-  const gx0=Math.max(0,Math.floor(-ox/C)), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C));
-  const gy0=Math.max(0,Math.floor(-oy/C)), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C));
+  const gx0=Math.max(0,Math.floor(-ox/C)), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C));
+  const gy0=Math.max(0,Math.floor(-oy/C)), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C));
   const t0x=(gx0/FN)|0, t1x=(gx1/FN)|0, t0y=(gy0/FN)|0, t1y=(gy1/FN)|0;
   for(let ty=t0y;ty<=t1y;ty++)for(let tx=t0x;tx<=t1x;tx++){
     let mm=null; try{ mm=tileMeta(tx,ty); }catch(_e){ continue; }
@@ -44973,14 +45084,14 @@ function tpWalkableFine(fx,fy){
   const c=cellAt(fx,fy); return (c&&c.walk)?c:null;
 }
 function tpDistrictAt(fx,fy){ const t=om.at((fx/FN)|0,(fy/FN)|0); return t?t.district:'suburb'; }
-function tpCellAt(sx,sy){ const C=HC; const _gc=camCell(hx,hy); const ox=Math.round(cv.width/2-_gc[0]*C), oy=Math.round(cv.height/2-_gc[1]*C);   /* __WALK_FEEL_SLIDE__: derived with the SAME formula the renderer uses, so a tap mid-step hits the tile he can see rather than the one the model has already moved to. PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
+function tpCellAt(sx,sy){ const C=HC; const _gc=camCell(hx,hy); const ox=Math.round(CVW/2-_gc[0]*C), oy=Math.round(CVH/2-_gc[1]*C);   /* __WALK_FEEL_SLIDE__: derived with the SAME formula the renderer uses, so a tap mid-step hits the tile he can see rather than the one the model has already moved to. PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
   return {fx:Math.floor((sx-ox)/C), fy:Math.floor((sy-oy)/C)}; }
 const TP_OVER=1.28;
 function tpDrawOne(im,dx,dy,C){ if(!im||!im.complete)return; const ov=C*TP_OVER,off=(ov-C)/2; g.drawImage(im,dx-off,dy-off,ov,ov); }
 function tpDraw(ox,oy){
   const C=HC;
   const cx0=Math.floor(-ox/C)-1, cy0=Math.floor(-oy/C)-1;
-  const cx1=cx0+Math.ceil(cv.width/C)+2, cy1=cy0+Math.ceil(cv.height/C)+2;
+  const cx1=cx0+Math.ceil(CVW/C)+2, cy1=cy0+Math.ceil(CVH/C)+2;
   if(TP.scatter){
     // GROUND layer: fill every walkable cell with its district ground
     for(let fy=cy0;fy<=cy1;fy++)for(let fx=cx0;fx<=cx1;fx++){
@@ -45538,8 +45649,8 @@ const CONTACT_OF_C=0.05;    /* 2px at the walk zoom's 44, 1px zoomed out: the
                                measured against rather than a number typed twice */
 function contactPass(ox,oy,C){
   const h=Math.max(1,Math.round(C*CONTACT_OF_C));
-  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
-  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+1);
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C)+1);
   let n=0;
   g.beginPath();
   for(let gy=gy0;gy<=gy1;gy++)for(let gx=gx0;gx<=gx1;gx++){
@@ -45576,8 +45687,8 @@ function shadowPass(ox,oy,C){
   const S=sunVec(); if(!S)return 0;
   const sxi=Math.round(S.dx), syi=Math.round(S.dy);
   const M=SHADOW_MAX+1;
-  const gx0=Math.max(0,Math.floor(-ox/C)-M), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+M);
-  const gy0=Math.max(0,Math.floor(-oy/C)-M), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+M);
+  const gx0=Math.max(0,Math.floor(-ox/C)-M), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C)+M);
+  const gy0=Math.max(0,Math.floor(-oy/C)-M), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C)+M);
   let n=0;
   g.beginPath();
   for(let gy=gy0;gy<=gy1;gy++)for(let gx=gx0;gx<=gx1;gx++){
@@ -45654,8 +45765,8 @@ function jambFlush(){
    one. Two tiles tall, like every other door in this game. */
 function ewDoorPass(ox,oy,C){
   const n=(typeof JAMB_WI!=='undefined')?JAMB_WI.length:0; if(!n)return;
-  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
-  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+2);
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C)+2);
   for(let gy=gy0;gy<=gy1;gy++)for(let gx=gx0;gx<=gx1;gx++){
     const c=cellAt(gx,gy); if(!c||(!c.doorW&&!c.doorE))continue;
     const dx=Math.round(ox+gx*C), dy=Math.round(oy+gy*C);
@@ -45731,8 +45842,8 @@ function ohHeight(entry){
   return OH_H;
 }
 function overheadPass(ox,oy,C,front,pgy){
-  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
-  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+2);
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C)+2);
   for(let gy=gy0;gy<=gy1;gy++){
     if((gy>=pgy)!==front)continue;
     for(let gx=gx0;gx<=gx1;gx++){
@@ -45768,8 +45879,8 @@ function overheadPass(ox,oy,C,front,pgy){
   }
 }
 function facadePass(ox,oy,C,front,pgy,pbox){
-  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((cv.width-ox)/C)+1);
-  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((cv.height-oy)/C)+WALL_H);
+  const gx0=Math.max(0,Math.floor(-ox/C)-1), gx1=Math.min(WORLD_F-1,Math.ceil((CVW-ox)/C)+1);
+  const gy0=Math.max(0,Math.floor(-oy/C)-1), gy1=Math.min(WORLD_F-1,Math.ceil((CVH-oy)/C)+WALL_H);
   for(let gy=gy0;gy<=gy1;gy++){
     if((gy>=pgy)!==front)continue;          /* behind him first, in front of him after */
     for(let gx=gx0;gx<=gx1;gx++){
@@ -55806,7 +55917,7 @@ const BODY_SCALE = {
     try {
       if (typeof MODE !== 'undefined' && MODE !== 'human') return false;
       /* __ONE_LOT_NUMBER__: this one really does mean THE LOT, so it reads the lattice. */
-      return BOH_LATTICE.LOT_FINE * C <= cv.width * 0.9;
+      return BOH_LATTICE.LOT_FINE * C <= CVW * 0.9;
     } catch (e) { return false; }
   }
 };
@@ -55871,7 +55982,7 @@ function barkPass(ox, oy, C){
   barkTick(typeof performance !== 'undefined' ? performance.now() : Date.now());
   if (!BARK.p || !BARK.text || !BARK.at) return;
   var sx = ox + BARK.at[0] * C, sy = oy + BARK.at[1] * C;
-  if (sx < -C * 4 || sy < -C * 6 || sx > cv.width + C * 4 || sy > cv.height + C * 4) return;
+  if (sx < -C * 4 || sy < -C * 6 || sx > CVW + C * 4 || sy > CVH + C * 4) return;
   /* *** THE CITY'S 2D CONTEXT IS `g`, NOT `ctx`. *** The first cut opened with
      `var g = ctx;` -- which is BOTH a reference to something this frame does not
      have AND a shadow of the real one -- so barkPass threw on its first line,
@@ -55884,7 +55995,7 @@ function barkPass(ox, oy, C){
   gg.save();
   gg.font = '11px ' + FACE('body');
   var txt = String(BARK.text);
-  var maxW = Math.min(210, cv.width - 16);
+  var maxW = Math.min(210, CVW - 16);
   /* wrap on words, never mid-word */
   var words = txt.split(' '), lines = [], cur = '';
   for (var i = 0; i < words.length; i++) {
@@ -55930,7 +56041,7 @@ function barkPass(ox, oy, C){
   var _fs = _fc ? Math.max(18, Math.min(44, h - padY)) : 0;
   var _fg = _fc ? 6 : 0;
   w += _fs + _fg;
-  var bx = Math.max(4, Math.min(cv.width - w - 4, sx + C / 2 - w / 2));
+  var bx = Math.max(4, Math.min(CVW - w - 4, sx + C / 2 - w / 2));
   /* *** THE BUBBLE SITS ABOVE THE HEAD, NOT ON IT. ***
      MEASURED ON THE DEMO AT THE DOOR: the one person standing two cells from him
      had a near-black panel at 0.92 alpha covering the top quarter of their body,
@@ -56056,8 +56167,8 @@ function animalPass(ox, oy, C) {
   /* 120 BPM LAW: everything moves on the one clock, so a rat crossing a doorway is
      on the beat with his own footsteps. */
   var beat = t / 500;
-  var x0 = Math.floor(-ox / C) - 1, x1 = Math.ceil((cv.width - ox) / C) + 1;
-  var y0 = Math.floor(-oy / C) - 1, y1 = Math.ceil((cv.height - oy) / C) + 1;
+  var x0 = Math.floor(-ox / C) - 1, x1 = Math.ceil((CVW - ox) / C) + 1;
+  var y0 = Math.floor(-oy / C) - 1, y1 = Math.ceil((CVH - oy) / C) + 1;
   var drawn = 0, kinds = { flies: 0, rats: 0, ravens: 0 };
   g.save();
   for (var y = y0; y <= y1; y++) {
@@ -56488,7 +56599,7 @@ function packPass(ox, oy, C) {
   PACK_DREW = [];
   if (typeof BohemiaPacks === 'undefined') return 0;
   if (typeof wildSprites !== 'function' || !wildSprites()) return 0;
-  var seeR = Math.ceil(Math.max(cv.width, cv.height) / C / 2) + 6;
+  var seeR = Math.ceil(Math.max(CVW, CVH) / C / 2) + 6;
   var day = 0; try { day = (T.day | 0); } catch (_e) {}
   var list;
   try {
@@ -56511,7 +56622,7 @@ function packPass(ox, oy, C) {
     p.state = st;
     var frame = st === 'settled' ? 'rest' : 'look';
     var sx = ox + p.at[0] * C, sy = oy + p.at[1] * C;
-    if (sx < -C * 4 || sy < -C * 5 || sx > cv.width + C * 4 || sy > cv.height + C * 4) continue;
+    if (sx < -C * 4 || sy < -C * 5 || sx > CVW + C * 4 || sy > CVH + C * 4) continue;
     var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
     var ringCells = null;
     if (st === 'warn') { try { ringCells = BohemiaPacks.ring(p, [hx, hy], wildProbe); } catch (_e) {} }
@@ -56538,7 +56649,7 @@ function packPass(ox, oy, C) {
       /* RECORD ONLY WHAT LANDED ON THE GLASS, never what was drawn into the
          cull margin. Tier 1 got this wrong first and a probe reported a flock
          it could not see: A CLAIM THAT COUNTS THE THING INSTEAD OF READING IT. */
-      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < cv.width && dy0 < cv.height) onGlass = true;
+      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < CVW && dy0 < CVH) onGlass = true;
     }
     if (onGlass) PACK_DREW.push(p);
   }
@@ -56644,7 +56755,7 @@ function wildPass(ox, oy, C) {
   if (typeof BohemiaWildlife === 'undefined') return 0;
   var min = 0; try { min = T.min | 0; } catch (_e) {}
   var hour = Math.floor(min / 60);
-  var seeR = Math.ceil(Math.max(cv.width, cv.height) / C / 2) + 4;
+  var seeR = Math.ceil(Math.max(CVW, CVH) / C / 2) + 4;
   var list;
   try {
     list = BohemiaWildlife.near({ seed: (typeof seed !== 'undefined' ? seed : 0),
@@ -56662,7 +56773,7 @@ function wildPass(ox, oy, C) {
     var frame = s.state === 'alert' ? 'look' : 'rest';
     var spr = wildCanvas(s.species, frame); if (!spr) continue;
     var sx = ox + s.at[0] * C, sy = oy + s.at[1] * C;
-    if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
+    if (sx < -C * 3 || sy < -C * 4 || sx > CVW + C * 3 || sy > CVH + C * 3) continue;
     /* THE SIZE LADDER, the same one the player and the residents use: never a
        fractional scale, so nothing in this world is ever resampled. */
     var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
@@ -56681,7 +56792,7 @@ function wildPass(ox, oy, C) {
          sighting into WILD_DREW, so a probe walking the street reported a flock
          it could not see, seven cells past the right edge. A CLAIM THAT COUNTS
          THE THING INSTEAD OF READING IT, in the newest code in the file. */
-      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < cv.width && dy0 < cv.height) onGlass = true;
+      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < CVW && dy0 < CVH) onGlass = true;
     }
     if (onGlass) WILD_DREW.push(s);
   }
@@ -56822,7 +56933,7 @@ function hostilePass(ox, oy, C){
   if (!PLAYER_CV) return 0;               /* no body yet: draw nobody, never a placeholder */
   var danger = hostDanger();
   if (!danger.length) return 0;
-  var seeR = Math.ceil(Math.max(cv.width, cv.height) / C / 2) + 6;
+  var seeR = Math.ceil(Math.max(CVW, CVH) / C / 2) + 6;
   var day = 0; try { day = (T.day | 0); } catch(_e) {}
   var list;
   try {
@@ -56904,7 +57015,7 @@ function hostilePass(ox, oy, C){
       fx = pos.x; fy = pos.y;
       if (Math.round(fx) === hx && Math.round(fy) === hy) continue;   /* OCCUPANCY LAW: one body per cell */
       var sx = ox + fx * C, sy = oy + fy * C;
-      if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) continue;
+      if (sx < -C * 3 || sy < -C * 4 || sx > CVW + C * 3 || sy > CVH + C * 3) continue;
       /* THEY LOOK AT YOU. The facing is toward the player, which is the whole
          read at a glance: a body that means you harm is pointed at you. */
       var dir = 'S';
@@ -56969,7 +57080,7 @@ function hostilePass(ox, oy, C){
          margin so nobody pops in at the edge, which is right for DRAWING and
          wrong for a record -- tier 1 got this wrong and a probe reported a
          flock it could not see. */
-      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < cv.width && dy0 < cv.height) onGlass = true;
+      if (dx0 + lad > 0 && dy0 + lad > 0 && dx0 < CVW && dy0 < CVH) onGlass = true;
     }
     if (onGlass) HOST_DREW.push(cw);
   }
@@ -57315,8 +57426,8 @@ function peoplePass(ox, oy, C) {
      the near field already has; iterating that list is the same bodies for none of
      the cost. A window is the wrong instrument for finding people who are not from
      around here. */
-  const nx0 = Math.floor((-ox / C) / span) - 1, nx1 = Math.floor(((cv.width - ox) / C) / span) + 1;
-  const ny0 = Math.floor((-oy / C) / span) - 1, ny1 = Math.floor(((cv.height - oy) / C) / span) + 1;
+  const nx0 = Math.floor((-ox / C) / span) - 1, nx1 = Math.floor(((CVW - ox) / C) / span) + 1;
+  const ny0 = Math.floor((-oy / C) / span) - 1, ny1 = Math.floor(((CVH - oy) / C) / span) + 1;
   let drawn = 0, out = 0;
   /* WHAT WAS ACTUALLY DRAWN, recorded for the gate. The first version of the
      facing assertion called pplFace() itself and therefore passed even when the
@@ -57421,7 +57532,7 @@ function peoplePass(ox, oy, C) {
       drawnAt.push([fx, fy]);
       onCell.add(cellK);
       const sx = ox + fx * C, sy = oy + fy * C;
-      if (sx < -C * 3 || sy < -C * 4 || sx > cv.width + C * 3 || sy > cv.height + C * 3) { skip.offscreen++; continue; }
+      if (sx < -C * 3 || sy < -C * 4 || sx > CVW + C * 3 || sy > CVH + C * 3) { skip.offscreen++; continue; }
       const dir = pplFace(p, at);
       /* CITY CAST (Paolo 8/3, "have it not be a copy of me"): their OWN
          body from the baked cast, and only the player's tinted sprite if that
@@ -57627,7 +57738,7 @@ function pitDraw(ox,oy){
   if(typeof BohemiaDead==='undefined'||typeof BohemiaDead.pits!=='function')return;
   const C=HC;
   const fx0=Math.floor(-ox/C)-1, fy0=Math.floor(-oy/C)-1;
-  const fx1=fx0+Math.ceil(cv.width/C)+2, fy1=fy0+Math.ceil(cv.height/C)+2;
+  const fx1=fx0+Math.ceil(CVW/C)+2, fy1=fy0+Math.ceil(CVH/C)+2;
   const tx0=Math.max(0,(fx0/FN)|0), tx1=Math.min(OM.OVER_N-1,(fx1/FN)|0);
   const ty0=Math.max(0,(fy0/FN)|0), ty1=Math.min(OM.OVER_N-1,(fy1/FN)|0);
   for(let ty=ty0;ty<=ty1;ty++)for(let tx=tx0;tx<=tx1;tx++){
@@ -57794,7 +57905,7 @@ function deadDraw(ox,oy){
   if(!DEAD_IMG.length)return;
   const C=HC;
   const fx0=Math.floor(-ox/C)-1, fy0=Math.floor(-oy/C)-1;
-  const fx1=fx0+Math.ceil(cv.width/C)+2, fy1=fy0+Math.ceil(cv.height/C)+2;
+  const fx1=fx0+Math.ceil(CVW/C)+2, fy1=fy0+Math.ceil(CVH/C)+2;
   const tx0=Math.max(0,(fx0/FN)|0), tx1=Math.min(OM.OVER_N-1,(fx1/FN)|0);
   const ty0=Math.max(0,(fy0/FN)|0), ty1=Math.min(OM.OVER_N-1,(fy1/FN)|0);
   for(let ty=ty0;ty<=ty1;ty++)for(let tx=tx0;tx<=tx1;tx++){
@@ -57868,7 +57979,7 @@ function vistaCard(s){
 function vistaOpen(){
   if(VISTA) return true;
   let o=null, f=null;
-  try{ o=BohemiaVista.overlook(WORLDREF); f=o&&BohemiaVista.framing(WORLDREF,o,cv.width,cv.height); }catch(e){ return false; }
+  try{ o=BohemiaVista.overlook(WORLDREF); f=o&&BohemiaVista.framing(WORLDREF,o,CVW,CVH); }catch(e){ return false; }
   if(!o||!f) return false;
   /* __THE_VALLEY_IS_A_PLACE__ -- THE MARKER GOES IN returnTo TOO. vistaClose gave back
      hx/hy/MODE and LEFT city.x/city.y parked on the mountain rim, so HOME -- which
@@ -57894,7 +58005,7 @@ function vistaOpen(){
      empty sky, which is a screenshot of nothing. A tenth of a screen of pan puts
      the basin where the eye goes and keeps sky above it, which is what an
      overlook actually looks like. */
-  panY=-Math.round(cv.height*0.10);
+  panY=-Math.round(CVH*0.10);
   TW=f.tw; TH=f.th;
   render();
   vistaCardDraw();
@@ -58045,16 +58156,16 @@ function renderHuman(){
      FIX below) -- the camera still lands on a whole pixel every frame, it just
      lands on a different one every frame instead of every half second. */
   const _gc=camCell(hx,hy);
-  const ox=Math.round(cv.width/2-_gc[0]*C), oy=Math.round(cv.height/2-_gc[1]*C);   /* PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
+  const ox=Math.round(CVW/2-_gc[0]*C), oy=Math.round(CVH/2-_gc[1]*C);   /* PIXEL FIX: whole-pixel camera - an odd canvas height put every tile on a half pixel */
   const night=isNight();
   /* decided ONCE a frame, not once a cell: see the danger pass below */
   const __DANGER_ON = !!(window.BOHEMIA_DANGER && typeof window.BOHEMIA_DANGER.at==='function');
-  g.fillStyle=night?'#141c28':'#20303e'; g.fillRect(0,0,cv.width,cv.height);
+  g.fillStyle=night?'#141c28':'#20303e'; g.fillRect(0,0,CVW,CVH);
   g.imageSmoothingEnabled=false;
   // visible chunk window -> blit baked 128x128 texture canvases, scaled
   const cs=C*CHK;
-  const cx0=Math.floor(-ox/cs)-1, cx1=Math.ceil((cv.width-ox)/cs)+1;
-  const cy0=Math.floor(-oy/cs)-1, cy1=Math.ceil((cv.height-oy)/cs)+1;
+  const cx0=Math.floor(-ox/cs)-1, cx1=Math.ceil((CVW-ox)/cs)+1;
+  const cy0=Math.floor(-oy/cs)-1, cy1=Math.ceil((CVH-oy)/cs)+1;
   const maxC=WORLD_F>>4;
   for(let cy=Math.max(0,cy0);cy<=Math.min(maxC-1,cy1);cy++)
   for(let cx=Math.max(0,cx0);cx<=Math.min(maxC-1,cx1);cx++){
@@ -58314,10 +58425,10 @@ function screenFilter(mode){
          If the live canvas is smaller than the floor asked for, the copy is scaled
          rather than short -- a short floor would put his block off-centre, which is
          the one thing the law's "centred on the block" cannot survive. */
-      var sw=Math.min(cv.width, pl.w), sh=Math.min(cv.height, pl.h);
-      var sx=Math.max(0, Math.round((cv.width-sw)/2)), sy=Math.max(0, Math.round((cv.height-sh)/2));
+      var sw=Math.min(CVW, pl.w), sh=Math.min(CVH, pl.h);
+      var sx=Math.max(0, Math.round((CVW-sw)/2)), sy=Math.max(0, Math.round((CVH-sh)/2));
       dest.imageSmoothingEnabled=false;
-      dest.drawImage(cv, sx,sy,sw,sh, 0,0,pl.w,pl.h);
+      dest.drawImage(cv, sx*CV_DPR,sy*CV_DPR,sw*CV_DPR,sh*CV_DPR, 0,0,pl.w,pl.h);   /* backing pixels: __THE_MAP_AT_THE_PHONES_PIXELS__ */
       return { from:{ sx:sx, sy:sy, sw:sw, sh:sh } };
     } finally {
       city.x=was.x; city.y=was.y; TW=was.tw; TH=was.th; panX=was.px; panY=was.py;
@@ -58338,6 +58449,7 @@ function screenFilter(mode){
 })();
 
 function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
+  cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__: the map at the phone's pixels, the street at one */
   if(SKY){ screenFilter('city'); renderSky(); return; }   /* __ONE_ZOOM_TO_THE_MOON__ */
   /* __YOUR_HOUSE__: you slept at home, so the day starts at your own door.
      CONSUMED HERE AND NOT IN swapMode, which is where the first draft put it.
@@ -58540,7 +58652,7 @@ function fightShadeAt(u){    /* where the core is, in fractions of the width */
 }
 function fightShade(a, u, skin){
   if(a<=0.002) return;
-  const W=cv.width, H=cv.height;
+  const W=CVW, H=CVH;
   const core=(skin==='door')?FZ_DOOR_CORE:FZ_CORE;
   const A=(1-core)*Math.min(1,a);          /* black at an alpha IS a value multiply */
   g.save();
@@ -58616,11 +58728,11 @@ function fzSnap(){
   return { sharp:c, soft:b };
 }
 function fzPaint(snap,s,a,u,skin){
-  const W=cv.width,H=cv.height;
+  const W=CVW,H=CVH;
   g.save();
   g.imageSmoothingEnabled=true;
   try{ g.drawImage(snap.soft,0,0,W,H); }catch(_e){}
-  try{ g.drawImage(snap.sharp,0,0,W,H,(W-W*s)/2,(H-H*s)/2,W*s,H*s); }catch(_e){}
+  try{ g.drawImage(snap.sharp,0,0,snap.sharp.width,snap.sharp.height,(W-W*s)/2,(H-H*s)/2,W*s,H*s); }catch(_e){}
   g.restore();
   fightShade(a,u,skin||FZ_SKIN);
 }
@@ -59001,7 +59113,7 @@ function transition(){
     render();
     // fade veil peaking at the swap
     const a=1-Math.abs(u-0.5)*2;
-    g.fillStyle='rgba(8,8,10,'+(a*0.9)+')'; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='rgba(8,8,10,'+(a*0.9)+')'; g.fillRect(0,0,CVW,CVH);
     if(u<1)requestAnimationFrame(frame);
     else { TW=TW0*CZOOM; TH=TH0*CZOOM; HC=HZOOM; transing=false; render(); reportState(); }
   }
@@ -59060,7 +59172,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
      permanently false. A caught exception is a feature that silently does nothing, and
      I have written that sentence into this file twice already. */
   function toCv(e){ const r=cv.getBoundingClientRect();
-    return {x:(e.clientX-r.left)*cv.width/r.width, y:(e.clientY-r.top)*cv.height/r.height}; }
+    return {x:(e.clientX-r.left)*CVW/r.width, y:(e.clientY-r.top)*CVH/r.height}; }
   function two(){ const a=[...pts.values()]; return a.length>=2?a:null; }
   function dist(a){ return Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y); }
   function mid(a){ return {x:(a[0].x+a[1].x)/2,y:(a[0].y+a[1].y)/2}; }
@@ -59337,8 +59449,7 @@ function FACE(which){
 function fit(){ const st=document.getElementById('stage');
   const r=st.getBoundingClientRect();
   const w=Math.max(1,Math.round(r.width)), h=Math.max(1,Math.ceil(r.height));
-  cv.width=w; cv.height=h;
-  cv.style.width=w+'px'; cv.style.height=h+'px';
+  cvSize(w,h);   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   render(); }
 window.addEventListener('resize',fit);
 const KEY=[
@@ -62473,7 +62584,7 @@ function homePass(ox,oy,C){
      exactly when he was standing on his own doorstep looking at it. The building
      decides whether to draw; the label is then pulled onto the screen. */
   const cxp=Math.round(ox+(h.x+h.w/2)*C), cyp=Math.round(oy+(h.y+h.h/2)*C);
-  if(cxp<-C*8||cyp<-C*8||cxp>cv.width+C*8||cyp>cv.height+C*8){
+  if(cxp<-C*8||cyp<-C*8||cxp>CVW+C*8||cyp>CVH+C*8){
     /* __HOME_IS_FINDABLE__ (8/24). Paolo: "It's hard to find my house. It's not easy."
        This was a bare `return`: eight cells past the edge of the screen and the
        only thing in the game that knows where he lives stopped drawing, so one
@@ -62487,8 +62598,8 @@ function homePass(ox,oy,C){
     homeArrow(cxp,cyp,C);
     return;
   }
-  const sx=Math.max(24,Math.min(cv.width-24,cxp));
-  const sy=Math.max(18,Math.min(cv.height-8,Math.round(oy+h.y*C-Math.round(C*0.55))));
+  const sx=Math.max(24,Math.min(CVW-24,cxp));
+  const sy=Math.max(18,Math.min(CVH-8,Math.round(oy+h.y*C-Math.round(C*0.55))));
   g.save();
   g.font='700 '+Math.max(9,Math.round(C*0.26))+'px '+FACE('body');
   g.textAlign='center'; g.textBaseline='bottom';
@@ -62500,16 +62611,16 @@ function homePass(ox,oy,C){
 }
 /* __HOME_IS_FINDABLE__ -- WHICH WAY HOME IS, from the edge of the screen. */
 function homeArrow(cxp,cyp,C){
-  const mx=cv.width/2, my=cv.height/2;
+  const mx=CVW/2, my=CVH/2;
   let dx=cxp-mx, dy=cyp-my;
   const len=Math.hypot(dx,dy); if(!len) return;
   dx/=len; dy/=len;
   /* THE INSET BOX KEEPS IT OFF THE PAD. The nav ring is 180px in the bottom
      right and it is the one thing his thumb lives on, so the arrow is never
      allowed into that corner. */
-  const padL=26, padT=Math.round(cv.height*0.16), padR=26, padB=34;
-  let bx=cv.width-padR, by=cv.height-padB;
-  if(dx>0&&dy>0){ bx=Math.min(bx,cv.width-206); by=Math.min(by,cv.height-206); }
+  const padL=26, padT=Math.round(CVH*0.16), padR=26, padB=34;
+  let bx=CVW-padR, by=CVH-padB;
+  if(dx>0&&dy>0){ bx=Math.min(bx,CVW-206); by=Math.min(by,CVH-206); }
   /* march out from the middle until the point leaves the box: cheap, exact, and
      it cannot divide by zero on a straight-up or straight-across direction. */
   let t=0; const step=4;
@@ -62536,13 +62647,13 @@ function homeArrow(cxp,cyp,C){
   g.font='700 '+Math.max(9,Math.round(C*0.20))+'px '+FACE('body');
   g.textAlign='center'; g.textBaseline='top';
   const lbl='HOME '+mins+' MIN';                                  /* draft:true */
-  const ly=Math.min(cv.height-14,ay+Math.max(10,Math.round(C*0.26)));
+  const ly=Math.min(CVH-14,ay+Math.max(10,Math.round(C*0.26)));
   /* CLAMP THE TEXT, NOT JUST THE ARROW. First cut clamped where the arrow sits and
      then centred the label on it, so at the right edge the words ran off the
      canvas and he read "HOME 4 MI". The arrow can touch the margin; the sentence
      has to fit inside it, so its own half-width is measured and used. */
   const half=g.measureText(lbl).width/2;
-  const lx=Math.max(half+4,Math.min(cv.width-half-4,ax));
+  const lx=Math.max(half+4,Math.min(CVW-half-4,ax));
   g.fillStyle='rgba(12,14,10,0.85)';
   for(let ddx=-1;ddx<=1;ddx++)for(let ddy=-1;ddy<=1;ddy++)if(ddx||ddy)g.fillText(lbl,lx+ddx,ly+ddy);
   g.fillStyle='#e8b84a'; g.fillText(lbl,lx,ly);
@@ -63124,7 +63235,7 @@ function skyDisc(cx,cy,r,lit,dark,rim){
 }
 
 function renderSky(){
-  var W=cv.width,H=cv.height,u=SKYU,band=skyBand();
+  var W=CVW,H=CVH,u=SKYU,band=skyBand();
   var night=isNight();
   /* THE GROUND FALLS AWAY. Below u=0.25 you are still over the Mojave: the desert
      floor fills the frame and the valley sits in it. Past that the horizon curves
@@ -63230,12 +63341,12 @@ function renderSky(){
 /* the valley, drawn small, by the city's own projection */
 function skyValley(horizon){
   var N=om.n;
-  var ox=Math.round(cv.width/2-(city.x-city.y)*TW/2);
+  var ox=Math.round(CVW/2-(city.x-city.y)*TW/2);
   var oy=Math.round(horizon-((city.x+city.y)*TH/2)+ (N*TH)/2*0 );
   for(var y=0;y<N;y++)for(var x=0;x<N;x++){
     var t=om.at(x,y); if(!t)continue;
     var p=iso(x,y,ox,oy);
-    if(p.sx<-8||p.sy<-8||p.sx>cv.width+8||p.sy>cv.height+8)continue;
+    if(p.sx<-8||p.sy<-8||p.sx>CVW+8||p.sy>CVH+8)continue;
     g.fillStyle=skyTone(t.district);
     g.fillRect(p.sx-TW/2,p.sy,Math.max(1,TW),Math.max(1,TH));
   }
@@ -68090,7 +68201,7 @@ function renderInside(){
   // plate with a fractional cell size, which is exactly that. The cell is now
   // always a WHOLE number of pixels: fit the plate, then floor to an integer,
   // and never below the walk zoom's own step.
-  let C=Math.floor(Math.min(cv.width*0.88/fp.W, cv.height*0.64/fp.H));
+  let C=Math.floor(Math.min(CVW*0.88/fp.W, CVH*0.64/fp.H));
   let ox,oy;
   /* __WALK_FEEL_SLIDE__ indoors, and there are TWO cameras in this one function.
      A plate small enough to FIT gives a static camera, so the BODY is what moves
@@ -68098,16 +68209,16 @@ function renderInside(){
      following the body, so the CAMERA glides and the body sits still. One cell
      feeds both, and the body draw below reads it either way. */
   const _gc=camCell(INSIDE.ix,INSIDE.iy);
-  if(C<Math.floor(HC*0.75)){ C=Math.max(1,Math.floor(HC)); ox=Math.round(cv.width/2-_gc[0]*C); oy=Math.round(cv.height/2-_gc[1]*C); }
-  else { C=Math.max(1,Math.min(C,140)); ox=Math.round((cv.width-fp.W*C)/2); oy=Math.round((cv.height-fp.H*C)/2); }
-  g.fillStyle='#0d0b09'; g.fillRect(0,0,cv.width,cv.height);
+  if(C<Math.floor(HC*0.75)){ C=Math.max(1,Math.floor(HC)); ox=Math.round(CVW/2-_gc[0]*C); oy=Math.round(CVH/2-_gc[1]*C); }
+  else { C=Math.max(1,Math.min(C,140)); ox=Math.round((CVW-fp.W*C)/2); oy=Math.round((CVH-fp.H*C)/2); }
+  g.fillStyle='#0d0b09'; g.fillRect(0,0,CVW,CVH);
   g.imageSmoothingEnabled=false;
   const isWall=(x,y)=>(x<0||y<0||x>=fp.W||y>=fp.H)||fp.grid[y][x].g==='wall';
   const onEdge=(x,y)=>(x===0||y===0||x===fp.W-1||y===fp.H-1);
   // GROUND PASS: the judged concrete slab / decomposed-granite ground
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x], sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height)continue;
+    if(sx<-C||sy<-C-C||sx>CVW||sy>CVH)continue;
     if(c.g==='wall')continue;
     /* __HOUSE_FLOORS__ -- his tile first. A room is NEVER the street. */
     /* __ROOM_FLOOR__ CALL -- and the room decides which floor it is (8/26). */
@@ -68121,7 +68232,7 @@ function renderInside(){
   // carries a dead window or a boarded one.
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x], sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height)continue;
+    if(sx<-C||sy<-C-C||sx>CVW||sy>CVH)continue;
     if(c.g==='wall'){
       /* __INTERIOR_WALLS_STAND_UP__ (Paolo: "MY BIGGEST THING WITH INTERIORS WHY IS THE
          DOOR TWO TILES AND THE WALLS ARE ONE TILE SOUTH AND NORTH").
@@ -68181,7 +68292,7 @@ function renderInside(){
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x]; if(!c||!c.furn)continue;
     const sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height+C)continue;
+    if(sx<-C||sy<-C-C||sx>CVW||sy>CVH+C)continue;
     const hi=(c.furn.cls==='cover');
     const me=c.furn.id, rm=c.furn.room;
     const same=(ax,ay)=>{ const q=fp.grid[ay]&&fp.grid[ay][ax];
@@ -68210,7 +68321,7 @@ function renderInside(){
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x]; if(c.g!=='door')continue;
     const sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C-C||sx>cv.width||sy>cv.height+C)continue;
+    if(sx<-C||sy<-C-C||sx>CVW||sy>CVH+C)continue;
     if(!inDoor((x*7+y*13)>>>0,sx,sy,C)) inBlit('hdoor',(x*7+y*13),sx,sy,C);
   }
   /* ==== THE DEAD, INDOORS (8/8) ============================================
@@ -68236,7 +68347,7 @@ function renderInside(){
           (x,y)=>fp.grid[y]&&fp.grid[y][x]&&fp.grid[y][x].g!=='wall');
         for(const d of inn){
           const sx=ox+d.x*C, sy=oy+d.y*C;
-          if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
+          if(sx<-C||sy<-C||sx>CVW||sy>CVH)continue;
           /* ONE RULER INDOORS TOO (8/11). This drew its own square at C*d.scale --
              both bugs the outdoor pass had already fixed, still living in here:
              a FORCED SQUARE squashes a judged sprite, and a single scale makes a
@@ -68251,7 +68362,7 @@ function renderInside(){
   for(let y=0;y<fp.H;y++)for(let x=0;x<fp.W;x++){
     const c=fp.grid[y][x]; if(c.g==='wall'||c.g==='door')continue;
     const sx=ox+x*C, sy=oy+y*C;
-    if(sx<-C||sy<-C||sx>cv.width||sy>cv.height)continue;
+    if(sx<-C||sy<-C||sx>CVW||sy>CVH)continue;
     g.fillStyle='rgba(0,0,0,0.20)';
     if(isWall(x,y-1))g.fillRect(sx,sy,C,Math.max(1,C*0.16));
     if(isWall(x,y+1))g.fillRect(sx,sy+C-Math.max(1,C*0.12),C,Math.max(1,C*0.12));
@@ -68260,7 +68371,7 @@ function renderInside(){
   }
   // LIGHT = TERRITORY: dark inside at night unless this plot is on the live network
   if(isNight()&&!(POWER.at(INSIDE.tx,INSIDE.ty)||{}).live){
-    g.fillStyle='rgba(8,10,18,0.62)'; g.fillRect(0,0,cv.width,cv.height);
+    g.fillStyle='rgba(8,10,18,0.62)'; g.fillRect(0,0,CVW,CVH);
   }
   const px=ox+_gc[0]*C, py=oy+_gc[1]*C;   /* __WALK_FEEL_SLIDE__ */
   const _hf=faceNow();   /* __THE_TURN_TAKES_THE_BEAT__ */
@@ -79937,7 +80048,7 @@ function ctNames(ox,oy,C){
     if(!nm) continue;
     var at=ctAt(p);
     var sx=Math.round(ox+at[0]*C+C/2), sy=Math.round(oy+at[1]*C-Math.round(C*0.30));
-    if(sx<-40||sy<-40||sx>cv.width+40||sy>cv.height+40) continue;
+    if(sx<-40||sy<-40||sx>CVW+40||sy>CVH+40) continue;
     var first=String(nm).split(' ')[0];
     g.fillStyle='rgba(12,14,10,0.85)';
     for(var dx=-1;dx<=1;dx++) for(var dy=-1;dy<=1;dy++) if(dx||dy) g.fillText(first,sx+dx,sy+dy);

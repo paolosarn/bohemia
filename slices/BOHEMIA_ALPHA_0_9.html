@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1h - EVERY FIGHT ENDS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1i - EVERY FIGHT BRINGS YOU HOME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11570,8 +11570,16 @@ function cityFightHome(outcome){
      real tab is what rebuilds/refreshes the frame, so this clicks what his
      thumb clicks instead of hand-toggling classes and leaving the tab strip
      lying about where he is. */
+  /* __THE_WAY_HOME_IS_INSTANT__ (RUN 10/1, [fight returns], rule 57; Paolo: "combat didn't end
+     so I couldn't get back into the overworld"). The tab click re-sent his body and the whole
+     cast to the map, re-baking every frame of both, ON THE ONE THREAD, before anything else
+     could run: MEASURED on the demo, 6.7 s of cast and 1.2 s of him, and the shell heard the
+     fight's own end 10 to 11 s after it was called -- ten seconds staring at a finished fight.
+     The map already holds both from the door and a fight changes neither, so the way home
+     takes the tab without the re-bake. Every other tab click still re-sends. */
   try{ const t=document.querySelector('.tab[data-p=run]');
-    if(t)t.click(); else showTabPanel('city'); }catch(_e){}
+    window.CITY_HOME_FROM_FIGHT=true;
+    try{ if(t)t.click(); else showTabPanel('city'); } finally { window.CITY_HOME_FROM_FIGHT=false; } }catch(_e){}
   try{ const cf=document.getElementById('cityFrame');
     if(cf&&cf.contentWindow)cf.contentWindow.postMessage({type:'BOHEMIA_CITY_COMBAT_END',
       outcome:outcome||null, at:CITYFIGHT_AT},'*'); }catch(_e){}
@@ -12598,7 +12606,7 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
     document.getElementById('p-city').appendChild(fr);
     fr.addEventListener('load',()=>{setTimeout(citySendPlayer,120);setTimeout(cityGoToRunCell,300);setTimeout(()=>{ if(G._prefabApproved)try{fr.contentWindow.postMessage({bohemiaPrefabApproved:G._prefabApproved},'*');}catch(e){} },200);
       setTimeout(()=>{ const sv=CITYSAVE.load(); if(sv&&sv.data){ try{fr.contentWindow.postMessage({bohemiaCityRestore:sv.data},'*');}catch(e){} if(sv.prefabs&&!G._prefabApproved){G._prefabApproved=sv.prefabs;try{fr.contentWindow.postMessage({bohemiaPrefabApproved:sv.prefabs},'*');}catch(e){}} } },320);});}
-  else if(PANEL==='city'){ citySendPlayer(); try{citySendCast();}catch(_e){} }   /* CITY CAST */
+  else if(PANEL==='city'&&!window.CITY_HOME_FROM_FIGHT){ citySendPlayer(); try{citySendCast();}catch(_e){} }   /* CITY CAST; not on the way home from a fight: __THE_WAY_HOME_IS_INSTANT__ */
   if(t.dataset.p==='prefab'&&!document.getElementById('prefabFrame')){
     const fr=document.createElement('iframe');fr.id='prefabFrame';fr.allow='clipboard-write';
     fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(PREFAB_B64),c=>c.charCodeAt(0)));

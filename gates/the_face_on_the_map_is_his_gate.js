@@ -206,9 +206,9 @@ ok('A6 a doused circuit still names its holder (the light went out, the claim di
         await fr.evaluate(t => { MODE = 'city'; TW = t; TH = t / 2; panX = 0; panY = 0; render(); }, TWv);
         await page.waitForTimeout(500);
         zooms.push(await fr.evaluate(() => {
-          const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-          const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
-          const gg = cv.getContext('2d', { willReadFrequently: true });
+          const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+          const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
+          const gg = ((() => { /* RUN 10/1: the map canvas is the phone's pixels now; read a CSS-size copy, the picture this was written against */ const D = window.CV_DPR || 1; if (D === 1) return cv.getContext('2d', { willReadFrequently: true }); const s = document.createElement('canvas'); s.width = window.CVW; s.height = window.CVH; const x = s.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false; x.drawImage(cv, 0, 0, s.width, s.height); return x; })());
           const litIn = (cx, cy) => {
             const R = Math.round(TW * 1.25); let n = 0;
             try {
@@ -224,7 +224,7 @@ ok('A6 a doused circuit still names its holder (the light went out, the claim di
             const cx = x * pg.NB + (pg.NB >> 1), cy = y * pg.NB + (pg.NB >> 1);
             if (cx >= om.n || cy >= om.n) continue;
             const c = iso(cx, cy, ox, oy); const my = c.sy + TH / 2;
-            if (c.sx < 20 || c.sx > cv.width - 20 || my < 20 || my > cv.height - 20) continue;
+            if (c.sx < 20 || c.sx > (window.CVW || cv.width) - 20 || my < 20 || my > (window.CVH || cv.height) - 20) continue;
             rings.push(litIn(c.sx, my));
           }
           const p = iso(city.x, city.y, ox, oy);
@@ -260,7 +260,7 @@ ok('A6 a doused circuit still names its holder (the light went out, the claim di
       const me = await fr.evaluate(() => {
         MODE = 'city'; if (typeof setZoomAt === 'function') setZoomAt(1); render();
         const y = MAP_DREW && MAP_DREW.you; if (!y) return null;
-        const gg = cv.getContext('2d', { willReadFrequently: true });
+        const gg = ((() => { /* RUN 10/1: the map canvas is the phone's pixels now; read a CSS-size copy, the picture this was written against */ const D = window.CV_DPR || 1; if (D === 1) return cv.getContext('2d', { willReadFrequently: true }); const s = document.createElement('canvas'); s.width = window.CVW; s.height = window.CVH; const x = s.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false; x.drawImage(cv, 0, 0, s.width, s.height); return x; })());
         const x0 = Math.round(y.x - y.w / 2), y0 = Math.round(y.y - y.h);
         let cols = {}, n = 0;
         try { const d = gg.getImageData(x0, y0, y.w, y.h).data;

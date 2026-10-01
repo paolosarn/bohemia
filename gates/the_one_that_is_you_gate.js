@@ -99,9 +99,9 @@ ok('A2 the player is drawn as his own body at ONE size, never following the zoom
     await fr.evaluate(t => { MODE = 'city'; TW = t; TH = t / 2; panX = 0; panY = 0; render(); }, TW);
     await page.waitForTimeout(400);
     zooms.push(await fr.evaluate(() => {
-      const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-      const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
-      const gg = cv.getContext('2d', { willReadFrequently: true });
+      const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+      const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
+      const gg = ((() => { /* RUN 10/1: the map canvas is the phone's pixels now; read a CSS-size copy, the picture this was written against */ const D = window.CV_DPR || 1; if (D === 1) return cv.getContext('2d', { willReadFrequently: true }); const s = document.createElement('canvas'); s.width = window.CVW; s.height = window.CVH; const x = s.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false; x.drawImage(cv, 0, 0, s.width, s.height); return x; })());
       const px = (x, y) => { try { const d = gg.getImageData(Math.round(x), Math.round(y), 1, 1).data;
                                    return [d[0], d[1], d[2]]; } catch (e) { return null; } };
       const dist = (a, b) => a && b ? Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]) : -1;
@@ -130,7 +130,7 @@ ok('A2 the player is drawn as his own body at ONE size, never following the zoom
         if (cx >= om.n || cy >= om.n) continue;
         const c = iso(cx, cy, ox, oy);
         const my = c.sy + TH / 2;
-        if (c.sx < 20 || c.sx > cv.width - 20 || my < 20 || my > cv.height - 20) continue;
+        if (c.sx < 20 || c.sx > (window.CVW || cv.width) - 20 || my < 20 || my > (window.CVH || cv.height) - 20) continue;
         rings.push({ sx: c.sx, sy: my, r: Math.max(4, TW * 0.34), centre: px(c.sx, my),
                      lit: litIn(c.sx, my) });
       }

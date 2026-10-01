@@ -127,7 +127,7 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
     /* E. HE WALKS WHEN HE TRAVELS */
     const walk = await fr.evaluate(() => {
       const c2 = document.getElementById('cv'), r = c2.getBoundingClientRect();
-      const kx = c2.width / r.width, ky = c2.height / r.height;
+      const kx = (window.CVW || c2.width) / r.width, ky = (window.CVH || c2.height) / r.height;   /* CSS pixels (10/1) */
       for (let sy = 80; sy < r.height - 80; sy += 13) for (let sx = 30; sx < r.width - 30; sx += 13) {
         const cell = CBcellAt(sx * kx, sy * ky); if (!cell || !cityWalkable(cell[0], cell[1])) continue;
         const p = cityRoute(city.x, city.y, cell[0], cell[1]);

@@ -121,7 +121,7 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
   const tapAt = async (cx, cy) => {
     const pt = await fr.evaluate(([x, y]) => {
       const r = cv.getBoundingClientRect();
-      const px = r.left + x * r.width / cv.width, py = r.top + y * r.height / cv.height;
+      const px = r.left + x * r.width / (window.CVW || cv.width), py = r.top + y * r.height / (window.CVH || cv.height);
       if (document.elementFromPoint(px, py) !== cv) return null;
       return [px, py];
     }, [cx, cy]);
@@ -177,7 +177,7 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
            finding. This census is about ART PLATES and where their pixels landed; a
            drawn shape has no plate to measure, so it is not part of this count. */
         if (!v.im) return;
-        if (v.dx < 24 || v.dy < 24 || v.dx + v.w > cv.width - 24 || v.dy + v.h > cv.height - 24) return;
+        if (v.dx < 24 || v.dy < 24 || v.dx + v.w > (window.CVW || cv.width) - 24 || v.dy + v.h > (window.CVH || cv.height) - 24) return;
         const a = k.split(',').map(Number);
         out.push({ x: a[0], y: a[1], solid: cbArtRise(v.im) * v.h,
                    d: (om.at(a[0], a[1]) || {}).district });
@@ -230,10 +230,10 @@ ok('A2 only art that stands up can take a tap off the ground, at the gap the art
     let fh = 0, fn = 0;
     for (const t of flats) {
       const pt = await fr.evaluate(([tx, ty]) => {
-        const ox = Math.round(cv.width / 2 - (city.x - city.y) * TW / 2 + panX);
-        const oy = Math.round(cv.height / 2 - (city.x + city.y) * TH / 2 + panY);
+        const ox = Math.round((window.CVW || cv.width) / 2 - (city.x - city.y) * TW / 2 + panX);
+        const oy = Math.round((window.CVH || cv.height) / 2 - (city.x + city.y) * TH / 2 + panY);
         const sx = ox + (tx - ty) * TW / 2, sy = oy + (tx + ty) * TH / 2;
-        if (sx < 24 || sy < 24 || sx > cv.width - 24 || sy > cv.height - 24) return null;
+        if (sx < 24 || sy < 24 || sx > (window.CVW || cv.width) - 24 || sy > (window.CVH || cv.height) - 24) return null;
         return [sx, sy + TH / 2];
       }, [t.x, t.y]);
       if (!pt) continue;
