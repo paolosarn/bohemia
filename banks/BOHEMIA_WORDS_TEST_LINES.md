@@ -3051,3 +3051,48 @@ All four are one line each, English (rule 27), no em dash, no mechanism named in
 the person lines (the creditor, engineer and kid never say "vendor financing" or
 any equivalent); the filing line is the only place a number appears, and it is
 the wrong one.
+
+## WHAT THE MACHINE SAYS OUT LOUD -- THE NARRATOR (9/29, draft:true)
+Row [narrator lines], round two. School: records/BOHEMIA_WORDS_NARRATOR_LINES_
+SCHOOL_9_29_26.md. Rule 45d. speaker:machine on every line; never in the first
+minute (rule 32a); the voice itself (too even, tape, room) is SOUNDS'/DIRECTION's,
+not written here.
+
+**ROAD-EVENT SETUPS -- NOTHING NEW WRITTEN, A FINDING INSTEAD.** The twelve
+ROAD_WORDS captions (slices/BOHEMIA_CITY_WORLD.html) already pass finding 2's test
+(flat, factual, zero adjectives, no editorializing) because they were built to the
+same hold this round reuses. The two machine-acting ones that had no rule-19 mouth
+-- spotter_drone ("Small, four rotors, holding still overhead...") and
+ghost_robotaxi ("An empty cab opens its door for nobody...") -- are exactly the
+narrator's job under rule 45a ("the road events' setup... what the machine says");
+casino_security_bot's quoted line is a machine speaking too, so it is read by the
+narrator, not the squiggle (rule 45b reserves the squiggle for a PERSON). NOTHING
+IN THE TWELVE NEEDS REWRITING; the only new thing is the speaker:machine tag the
+voice gate reads, which is PLUMBER's wiring, not new words.
+
+**THE FLIP'S YEAR.** Self-identifies as a record resuming, states the gap as a
+fact, no comment on what changed (that is the player's to discover):
+
+    flip       {N} YEARS HAVE PASSED. THE RECORD CONTINUES.
+
+**THE FEED'S HEADLINE.** A second, formal layer ABOVE Q15's own feed voice
+(records/BOHEMIA_WORDS_Q15_HOW_A_FEED_TALKS_9_5_26.md), never replacing it: Q15's
+posts stay lowercase, personal, named people, read by the player or the squiggle;
+the narrator's headline is the territory-level digest a person would never phrase
+that way, template-keyed to data this lane does not own:
+
+    headline   TERRITORY REPORT. {FACTION} HOLDS {DISTRICT}. {N} DAYS RUNNING.
+
+**THE FIRST LINE ON THE MAP.** Reuse-first, not invented: the loading screen's own
+boot log (slices/BOHEMIA_ALPHA_0_9.html, "READING THE VALLEY... NO OPERATOR ON
+DUTY") already established this machine's voice before any narrator rule existed.
+The map's first line is the SAME machine, picking back up, which rule 45's "first
+heard on the map" asks for in effect even though it does not say it:
+
+    mapFirst   STILL HERE. STILL READING THE VALLEY.
+
+All four swept clean (no em dash, no Spanish, no banned phrase, all under the
+98-character dwell ceiling, {N}/{FACTION}/{DISTRICT} excluded from the sweep as
+template keys). NOT WIRED: no narrator playback exists yet (SOUNDS [read aloud]
+is the voice; PLUMBER's language-gate leg is the speaker:machine tag); nothing
+here reaches VOTE until a real line plays through the real voice (rule 29).

@@ -21,6 +21,30 @@ KEEP 2 = "Effective Hitpoints": one number beside the armour plus its stamina co
 as [honest number], pieces from CHARACTER's attachments trade. 9 KEEPS left; next is
 Backgrounds and Attribute Ranges. [one weapon file] still open; [grok sources] waits on
 EYES's PASSED FILTER stamp. Record records/BOHEMIA_MODS_READ_COUNT_ROUND_TWO_AND_KEEP_2_10_1_26.md.
+
+WORDS (words-8dqrnq): 10/1 LATEST -- *** [narrator lines] CLOSED, BOTH ROUNDS. THE BIGGEST
+FINDING WAS THAT NOTHING NEEDED REWRITING. ***
+TAB: nothing new for a tab (a bank entry, not a wired surface).
+
+The twelve road-event captions already shipped by [bb event writing] already pass the
+too-calm register the narrator needs, because they were built to the same hold. The two
+machine-acting ones that had nobody to speak them, a drone and an empty robotaxi, are
+exactly what rule 45's new narrator is for; a security bot's quoted warning is a machine
+talking too, so the narrator reads it instead of needing the people-voice. Nothing old had
+to change, just a tag added later by PLUMBER so the game knows which voice to use.
+
+Three brand new lines, in banks/BOHEMIA_WORDS_TEST_LINES.md: one for when the game jumps
+years ahead, one for a short radio-style news report about who controls what, and one for
+the very first thing the machine says when you open the map. That last one reuses the
+exact words from the loading screen's own boot log, so it reads as the same machine
+picking back up, not a new voice showing up out of nowhere.
+
+Nothing is wired into the game yet. The actual voice (SOUNDS) and the switch that tells
+the game which lines use which voice (PLUMBER) still need to be built.
+
+Also rechecked (rule 12): [reputation lines] still needs the fight team's group-tactics
+work; Q26 still needs a built settlement screen. Neither has moved.
+NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
