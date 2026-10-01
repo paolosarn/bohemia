@@ -67,6 +67,10 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
       fresh(6);
       try { loseGame(); } catch (e) { out.err4 = String(e); }
       out.down = { over: !!G.over, win: !!G.win };
+      /* 5. his health at 0 and NOTHING called the loss (a damage path threw first): the next frame ends it */
+      fresh(7);
+      G.pHP = 0; try { draw(); } catch (e) { out.err5 = String(e); }
+      out.silent = { over: !!G.over, win: !!G.win };
       sendCombatEnd = _send;
       return out;
     });
@@ -83,8 +87,10 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
     ok('*** AND THE CHASE ENDS: within ROUT_TURNS turns the fight is over and won, never a quiet board forever ***',
        R.chase_end.over && R.chase_end.win && R.chase_end.turns <= 4, JSON.stringify(R.chase_end));
     ok('his side down: over, and lost', R.down.over && !R.down.win, JSON.stringify(R.down));
-    ok('and every end goes out through the one door RUN listens on (sendCombatEnd, the V59 handoff): three wins and one loss sent',
-       R.sent.won === 3 && R.sent.lost === 1, JSON.stringify(R.sent) + ', ' + ends + ' messages reached the page');
+    ok('*** AND HIS SIDE DOWN IS A LOSS EVEN WHEN NOTHING CALLED IT: health 0 with the fight not over is ended by the next frame (V240; one fight in three sat 300 s like that) ***',
+       R.silent.over && !R.silent.win, JSON.stringify(R.silent));
+    ok('and every end goes out through the one door RUN listens on (sendCombatEnd, the V59 handoff): three wins and two losses sent',
+       R.sent.won === 3 && R.sent.lost === 2, JSON.stringify(R.sent) + ', ' + ends + ' messages reached the page');
     ok('no page errors', d.errs.length === 0 && !R.err1 && !R.err2 && !R.err3 && !R.err4, d.errs.slice(0, 2).join(' ; '));
   } finally {
     console.log('=== EVERY FIGHT ENDS GATE: ' + pass + ' passed, ' + fail + ' failed ===');

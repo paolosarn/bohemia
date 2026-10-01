@@ -4075,7 +4075,20 @@
     }
   },
 {"id": "combat2-shore-landfill-ruin-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THREE MORE FIGHT BOARDS: THE SHORE, THE LANDFILL, THE RUIN", "why": "Three more places a fight can start: the dried-up lake shore where you wade at the edge of black water, the city dump with trash heaps as high ground, and a burnt-out block where half the roofs fell in. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_SHORE_LANDFILL_RUIN_10_1.png"}},
-  {"id": "run-map-at-your-pixels-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP NOW USES EVERY PIXEL OF YOUR PHONE", "why": "The map painted one dot for every nine pixels on your phone and now it paints every one, left is before and right is now, and travelling got smoother, not slower. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_AT_YOUR_PIXELS_10_1.png"}}
+  {"id": "run-map-at-your-pixels-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP NOW USES EVERY PIXEL OF YOUR PHONE", "why": "The map painted one dot for every nine pixels on your phone and now it paints every one, left is before and right is now, and travelling got smoother, not slower. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_AT_YOUR_PIXELS_10_1.png"}},
+  {
+   "id": "combat-the-ground-is-45-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "THE GROUND IS 45 DEGREES",
+   "why": "The fight's ground is now seen at 45 degrees like you ruled, and the street is one tile with real thin sidewalks and kerbs instead of a sidewalk as wide as a house. You see it in the COMBAT tab, standing on the second combat chat's street and dirt lots.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_GROUND_IS_45_10_1.png"
+   }
+  }
 ],
  "verdicts": [
   {

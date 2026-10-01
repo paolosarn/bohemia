@@ -3229,7 +3229,7 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
   ok('V94 THE GROUND IS APPROVED ART, NOT A PROCEDURAL FILL. Combat was the last surface still inventing its own ground: a coordinate hash, a tone jitter and a flat rgb() per cell. It now blits the tileset Paolo approved 7/28 and picked again 7/29 -- the one the RUN ships and the constitution byte-locks',
     demo.includes('V94 THE FIGHT STANDS ON THE APPROVED STREET') &&
     demo.includes('const STREET_B64=') &&
-    demo.includes('x.drawImage(_st,Math.floor(sx2),Math.floor(sy2),_px,_px);'));   /* RE-POINTED BY V234: built at the phone's real pixels, drawn at its screen size */
+    demo.includes('x.drawImage(_st,Math.floor(sx2),Math.floor(sy2),_px,_ph);'));   /* RE-POINTED BY V234: built at the phone's real pixels, drawn at its screen size; BY V240 (rule 56): the row is _ph tall, the tile at 45 degrees */
 
   ok('V94 AND THE HAND-PAINTED MARKINGS ARE GONE. The double-yellow median and the lane dashes were drawn in code at hardcoded world coordinates, AFTER the vignette meant to dim them, and Paolo reported that object as a persistent orange for three turns. The markings live in the ground now',
     !demo.includes("x.fillStyle='rgba(184,160,40,'") &&

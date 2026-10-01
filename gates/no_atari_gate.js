@@ -79,9 +79,21 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
       /* V237: the street's cross-section, column by column, and the floor really builds it */
       const n = lotSub(), col = (k, sd) => Array.from({ length: n }, (_, i) => xsecKind(k, sd, i, n));
       out.xs = { n, road: col('road', 'L'), walkL: col('walk', 'L'), walkR: col('walk', 'R') };
-      let built = 0; const _x = xsecPatch; xsecPatch = function () { built++; return _x.apply(this, arguments); };
-      try { _FLK = null; } catch (e) {} try { BohemiaArena.set(3); setupCombat(); G.phase = 'cover'; draw(); } catch (e) {} xsecPatch = _x;
-      out.xs.built = built;
+      /* V240 RE-POINTED (rules 55, 56): the road column draws COMBAT 2's north-south street, a whole street in one
+         tile with its sidewalks at their real 1.4 m; V237's cross-section is the fallback while the bank decodes */
+      if (typeof fsetPatch !== 'function' || typeof py45 !== 'function') { out.xs.built = {}; out.xs.map = { road: null, walk: null, yard: null }; out.p45 = { ratio: 1, want: 0.7068, lit: 1, back: [[0, 0], [0, 0]] }; } else {   /* a build before V240 FAILS these legs, it does not crash past them */
+      const built = {}; const _f = fsetPatch; fsetPatch = function (id) { const r = _f.apply(this, arguments); if (r) built[id] = (built[id] || 0) + 1; return r; };
+      try { _FLK = null; } catch (e) {} try { BohemiaArena.set(3); setupCombat(); G.phase = 'cover'; draw(); } catch (e) {} fsetPatch = _f;
+      out.xs.built = built; out.xs.map = { road: fsetGround('road', 0, 0), walk: fsetGround('walk', 1, 0), yard: fsetGround('yard', 3, 1) };
+      /* THE GROUND IS 45 (rule 56): a step north is drawn H45 of a step east, a tap reads back to the tile it
+         hit, and a lit tile lies flat */
+      { const F = G._field || { cx: 0, cy: 0, ring: 100 }, W = cv.width, H = cv.height;
+        const pe = fieldPos({ ea: 0, edist: 1 }, W, H, F.cx, F.cy), pn = fieldPos({ ea: Math.PI / 2, edist: 1 }, W, H, F.cx, F.cy);
+        const dx = Math.abs(pe[0] - F.cx), dy = Math.abs(pn[1] - F.cy);
+        let lit = null; const _fr = ctx.fillRect; ctx.fillRect = function (...a) { lit = a; return _fr.apply(this, a); };
+        try { litTile(ctx, [F.cx, F.cy], F.ring, 0.01); } catch (e) {} ctx.fillRect = _fr;
+        const back = [tapTile(F.cx, F.cy + 2 * F.ring * py45()), tapTile(F.cx + 3 * F.ring, F.cy - 1 * F.ring * py45())];
+        out.p45 = { ratio: +(dy / dx).toFixed(4), want: +H45.toFixed(4), lit: lit ? +(lit[3] / lit[2]).toFixed(3) : null, back: back }; } }
       /* THE BOARDS, 24 of them: the kinds of ground, the houses, the blockers, what is inside */
       const hb = [];
       for (let s = 1; s <= 24; s++) { try { BohemiaArena.set(s); setupCombat(); } catch (e) { continue; }
@@ -156,11 +168,23 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
     ok('and nobody starts inside a house: no enemy, no crate, no car, no way out',
        HB.every(b => b.inside === 0), HB.reduce((a, b) => a + b.inside, 0) + ' things inside a house');
     const XS = R.xs;
-    ok('*** THE STREET HAS ITS PARTS (V237, rule 46f): the road is gutter, two lanes split by the double yellow, '
-       + 'gutter; each sidewalk is dirt, concrete and the kerb facing the road, from the street bank\'s own tiles ***',
+    ok('*** THE STREET IS ONE TILE WITH ITS PARTS (V240, rules 46g, 55, 56): the road column draws COMBAT 2\'s north-south '
+       + 'street (sidewalks, kerbs, two lanes, the centre line), the cells beside it and the yards their lots ***',
+       XS.map.road === 'street_small_ns' && /^lot(_b)?$/.test(XS.map.walk) && /^lot(_b)?$/.test(XS.map.yard)
+       && (XS.built.street_small_ns || 0) > 0 && ((XS.built.lot || 0) + (XS.built.lot_b || 0)) > 0,
+       JSON.stringify(XS.map) + ' | built ' + JSON.stringify(XS.built));
+    { const fs = require('fs'), bank = JSON.parse(fs.readFileSync(require('path').join(__dirname, '..', 'banks', 'BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt'), 'utf8'));
+      const side = bank.sidewalk_m, road = bank.roadway_m;
+      ok('*** THE SIDEWALK RULER (rule 56, "the sidewalks are way too fucking big"): the sidewalk he sees is at most a sixth of its road '
+         + '(the board no longer draws a 12 m sidewalk tile beside a 12 m road) ***',
+         side > 0 && road > 0 && side / road <= 1 / 6 && XS.map.road === 'street_small_ns' && /^lot(_b)?$/.test(XS.map.walk), side + ' m on a ' + road + ' m roadway = ' + (side / road).toFixed(3)); }
+    ok('*** THE GROUND IS 45 DEGREES (rule 56, "everything we do is 45 when it comes to the land underneath"): a step north is drawn '
+       + 'cos 45 of a step east, a lit tile lies flat the same way, and a tap reads back to the tile it landed on ***',
+       Math.abs(R.p45.ratio - R.p45.want) < 0.01 && Math.abs(R.p45.lit - R.p45.want) < 0.02
+       && R.p45.back[0][0] === 0 && R.p45.back[0][1] === 2 && R.p45.back[1][0] === 3 && R.p45.back[1][1] === -1, JSON.stringify(R.p45));
+    ok('and V237\'s cross-section is still whole underneath, the fallback while the floor set decodes',
        XS.road[0] === 'gutterL' && XS.road[XS.n - 1] === 'gutterR' && XS.road.filter(k => k === 'median').length === 1
-       && XS.walkL[XS.n - 1] === 'kerbL' && XS.walkR[0] === 'kerbR' && XS.walkL.includes('yard') && XS.walkL.includes('walk')
-       && XS.built > 0, 'road ' + XS.road.join(' ').replace(/road( road)+/g, 'road..') + ' | built ' + XS.built + ' tiles');
+       && XS.walkL[XS.n - 1] === 'kerbL' && XS.walkR[0] === 'kerbR', 'road ' + XS.road.join(' ').replace(/road( road)+/g, 'road..'));
     /* ===== THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON (his UP, 9/27; s14e) ===== */
     ok('*** THE HIGH GROUND STANDS ON A LOT, NEVER IN THE ROAD (measured before: 80 of 80 in the '
        + 'carriageway) ***', HG.withDeck > 5 && HG.onLot === HG.withDeck, HG.onLot + ' of ' + HG.withDeck + ' street fights with one');
