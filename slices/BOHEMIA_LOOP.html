@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Loop</title>
+<!-- ============================================================================
+     THE ONE-FILE LOOP  (RUN TWO, row [one file loop], rule 58, Paolo 10/1:
+     "what would happen if I told you to remake Battle Brothers right now... off one
+     sentence you can create a whole game")
+
+     The whole Battle Brothers loop in one file, ugly on purpose (placeholder art is
+     allowed in THIS file only until it plays): the valley map with roads and places, the
+     party marker, tap a place to travel at PAUSE 1x 2x 3x 5x, the clock, the settlement
+     screen on arrival (RUN TWO's own file, in a frame), two contracts, a fight on house
+     tiles against a crew that ENDS and PAYS, back to the map, hire, wages at night, food
+     every morning, days passing, crews roaming the roads.
+
+     OUR LOCKS WIN over Battle Brothers' numbers (Grok's stamped pages): a step or a swing
+     is one action (EVERYTHING COSTS ONE, not 9 AP); you are DOWNED, never dead; a hire
+     struck down dies one time in five, else is laid up 30 to 40 days (rule 36b); the
+     pistol reaches the next house and ignores armour but spends a round; the pipe reaches
+     the next house and spends nothing; the rifle reaches two. A crew breaks when half of
+     it is down (Battle Brothers' morale ladder, one rung). Wages: a battery a night per
+     hire (BohemiaFollowers.WAGE). A day is about 1 minute 45 at 1x (GROK_25).
+     The driver: gates/one_file_loop_gate.js plays it end to end on his phone's profile.
+     ============================================================================ -->
+<style>
+:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--red:#c4553f;--line:#3a2f24}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:14px/1.35 ui-monospace,Menlo,Consolas,monospace;
+  overflow:hidden;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+#bar{position:fixed;left:0;right:0;top:0;display:flex;gap:8px;align-items:center;padding:max(8px,env(safe-area-inset-top)) 10px 8px;
+  background:var(--plate2);border-bottom:1px solid var(--line);z-index:5;font-size:12px}
+#bar b{color:var(--gold)} #bar .sp{flex:1}
+#cv{position:fixed;left:0;top:0;image-rendering:pixelated;touch-action:none}
+#pad{position:fixed;left:0;right:0;bottom:0;display:flex;gap:6px;padding:8px 8px max(8px,env(safe-area-inset-bottom));
+  background:var(--plate2);border-top:1px solid var(--line);z-index:5}
+#pad button,.btn{flex:1;min-height:48px;background:linear-gradient(#33281e,#211a13);color:var(--ink);border:1px solid var(--line);
+  border-radius:6px;font:inherit;font-weight:700}
+#pad button.on{border-color:var(--gold);color:var(--gold)}
+#line{position:fixed;left:8px;right:8px;z-index:5;color:var(--ink);background:rgba(18,14,10,.85);border:1px solid var(--line);
+  border-radius:4px;padding:6px 8px;font-size:12px;min-height:30px}
+#settle{position:fixed;inset:0;border:0;width:100%;height:100%;z-index:20;display:none;background:#000}
+#ev{position:fixed;left:10px;right:10px;bottom:90px;z-index:15;background:rgba(22,17,12,.97);border:1px solid var(--gold);
+  border-radius:6px;padding:12px;display:none}
+#ev p{margin:0 0 10px} #ev .row{display:flex;gap:8px}
+#ev .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
+#roster{font-size:11px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div id="bar"><span>DAY <b id="day">1</b> <b id="hr">08:00</b></span><span><b id="bat">5</b> BATT</span><span><b id="food">3</b> FOOD</span>
+  <span><b id="rds">6</b> RDS</span><span class="sp"></span><span id="roster"></span></div>
+<canvas id="cv"></canvas>
+<div id="line">Tap a place on the map to travel there.</div>
+<div id="ev"><div class="nm" id="evwho"></div><p id="evtx"></p><div class="row" id="evrow"></div></div>
+<div id="pad"></div>
+<iframe id="settle" title="settlement"></iframe>
+<script src="../engine/bohemia_followers.js"></script>
+<script>
+(function(){
+'use strict';
+/* ---------------- THE VALLEY ---------------- */
+var MARK = new Image();
+MARK.src = 'data:image/png;base64,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';
+/* six places and four junctions, on a 0..1 valley (north up). kinds: camp town fortress */
+var N = [
+  {id:'wash',   name:'THE WASH',        x:.30, y:.30, tier:'town',     spr:1},
+  {id:'fort',   name:'THE FORT',        x:.72, y:.70, tier:'fortress', spr:4},
+  {id:'pump',   name:'PUMP CAMP',       x:.20, y:.70, tier:'camp',     spr:3},
+  {id:'shed',   name:'COPPER SHEDS',    x:.78, y:.22, tier:'camp',     spr:2},
+  {id:'tower',  name:'THE TOWER',       x:.50, y:.88, tier:'camp',     spr:5},
+  {id:'j1', x:.50, y:.40}, {id:'j2', x:.45, y:.62}, {id:'j3', x:.80, y:.45}, {id:'j4', x:.15, y:.48}
+];
+var E = [['wash','j1','road'],['j1','shed','road'],['j1','j2','road'],['j2','fort','road'],['j2','pump','dirt'],
+         ['j3','shed','dirt'],['j3','fort','road'],['j1','j3','dirt'],['wash','j4','dirt'],['j4','pump','road'],['j2','tower','dirt'],['tower','fort','dirt']];
+var NB = {}; N.forEach(function(n){ NB[n.id] = n; });
+function dist(a,b){ return Math.hypot(a.x-b.x, a.y-b.y); }
+/* hours per valley unit: roads are faster than dirt (rule 33, roads faster) */
+var HPU = {road:30, dirt:55};
+function edgeKind(a,b){ for(var i=0;i<E.length;i++){ var e=E[i]; if((e[0]===a&&e[1]===b)||(e[0]===b&&e[1]===a)) return e[2]; } return null; }
+function route(from, to){
+  var d = {}, prev = {}, Q = N.map(function(n){ return n.id; });
+  Q.forEach(function(q){ d[q] = Infinity; }); d[from] = 0;
+  while(Q.length){
+    Q.sort(function(a,b){ return d[a]-d[b]; }); var u = Q.shift();
+    if(u === to) break;
+    E.forEach(function(e){
+      var v = e[0]===u ? e[1] : e[1]===u ? e[0] : null; if(!v || Q.indexOf(v)<0) return;
+      var c = d[u] + dist(NB[u],NB[v])*HPU[e[2]];
+      if(c < d[v]){ d[v] = c; prev[v] = u; }
+    });
+  }
+  var p = [to]; while(p[0] !== from){ if(!prev[p[0]]) return null; p.unshift(prev[p[0]]); }
+  return p;
+}
+
+/* ---------------- THE COMPANY ---------------- */
+var NAMES = ['Reyna','Ezekiel','Perla','Araceli','Jonah','Lupe','Wyatt','Fern','Tavo','Marisol'];
+var G = {
+  day:1, hour:8, speed:0, bats:5, food:3, rounds:6, real:0,
+  party:{x:NB.wash.x, y:NB.wash.y, at:'wash', path:[], edge:null},
+  /* you start with a company, like Battle Brothers: yourself and two who came with you */
+  crew:[{id:'you', name:'YOU', hp:3, max:3, armour:1, weapon:'pistol', you:true, hurt:0},
+        {id:'c1', name:'Reyna', hp:3, max:3, armour:1, weapon:'rifle', hurt:0},
+        {id:'c2', name:'Tavo', hp:3, max:3, armour:1, weapon:'pipe', hurt:0}],
+  held:[], done:0, log:[], mode:'map', fight:null, roam:[], paidNights:0, lastNight:0, lastMorning:1, events:[]
+};
+/* two crews walk the roads: Battle Brothers' parties that leave tracks and find you */
+function roamer(at){ return {x:NB[at].x, y:NB[at].y, path:[], at:at, n:3, cool:0}; }
+G.roam = [roamer('shed'), roamer('tower')];
+
+var OFFER_TARGET = {}; /* contract id -> where the crew sits on the valley */
+var CONTRACT_SPOTS = [{a:'j1',b:'j3'},{a:'j2',b:'pump'},{a:'j2',b:'tower'},{a:'wash',b:'j4'}];
+
+/* ---------------- DRAW ---------------- */
+var cv = document.getElementById('cv'), cx = cv.getContext('2d'), W=0, H=0, top=0, bot=0, dpr=1;
+function size(){
+  dpr = window.devicePixelRatio||1; W = innerWidth; H = innerHeight;
+  cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr); cv.style.width = W+'px'; cv.style.height = H+'px';
+  top = document.getElementById('bar').offsetHeight; bot = document.getElementById('pad').offsetHeight;
+  document.getElementById('line').style.top = (top+6)+'px';
+}
+function mx(x){ return 14 + x*(W-28); }
+function my(y){ return top + 44 + y*(H-top-bot-60); }
+function drawMap(){
+  cx.fillStyle = '#2b2118'; cx.fillRect(0,0,W,H);
+  /* the valley floor: dry ground, a wash, the dead grid */
+  cx.fillStyle = '#33281d';
+  for(var i=0;i<14;i++) for(var j=0;j<22;j++) if((i*7+j*13)%5===0) cx.fillRect(mx(i/14),my(j/22),(W-28)/14-2,(H-top-bot-60)/22-2);
+  E.forEach(function(e){
+    var a = NB[e[0]], b = NB[e[1]];
+    cx.strokeStyle = e[2]==='road' ? '#6b5a44' : '#4a3b2c'; cx.lineWidth = e[2]==='road' ? 4 : 2;
+    cx.setLineDash(e[2]==='road' ? [] : [4,4]);
+    cx.beginPath(); cx.moveTo(mx(a.x),my(a.y)); cx.lineTo(mx(b.x),my(b.y)); cx.stroke();
+  });
+  cx.setLineDash([]);
+  /* the route he chose */
+  if(G.party.path.length){
+    cx.strokeStyle = 'rgba(217,168,90,.8)'; cx.lineWidth = 2; cx.beginPath(); cx.moveTo(mx(G.party.x),my(G.party.y));
+    G.party.path.forEach(function(id){ cx.lineTo(mx(NB[id].x),my(NB[id].y)); }); cx.stroke();
+  }
+  /* contracts held: a red mark where the crew sits */
+  G.held.forEach(function(c){ var t = c.target; cx.fillStyle = '#c4553f'; cx.fillRect(mx(t.x)-6,my(t.y)-6,12,12);
+    cx.fillStyle = '#e9dcc4'; cx.font = '10px monospace'; cx.textAlign='center'; cx.fillText('JOB',mx(t.x),my(t.y)-9); });
+  N.forEach(function(n){
+    if(!n.name) return;
+    var X = Math.round(mx(n.x)), Y = Math.round(my(n.y));
+    if(MARK.complete) { cx.imageSmoothingEnabled = false; cx.drawImage(MARK, n.spr*48, 0, 48, 48, X-24, Y-40, 48, 48); }
+    cx.fillStyle = '#e9dcc4'; cx.font = 'bold 11px monospace'; cx.textAlign = 'center'; cx.fillText(n.name, X, Y+18);
+  });
+  G.roam.forEach(function(r){ cx.fillStyle = '#8a2f22'; cx.beginPath(); cx.arc(mx(r.x),my(r.y),6,0,7); cx.fill();
+    cx.fillStyle='#e9dcc4'; cx.font='9px monospace'; cx.fillText('CREW',mx(r.x),my(r.y)-9); });
+  /* you: the banner marker */
+  if(MARK.complete) cx.drawImage(MARK, 0, 0, 48, 48, Math.round(mx(G.party.x))-24, Math.round(my(G.party.y))-44, 48, 48);
+  /* night falls on the map, it does not stop */
+  var dark = G.hour>=20||G.hour<6 ? .45 : G.hour>=18 ? .25 : 0;
+  if(dark){ cx.fillStyle = 'rgba(5,6,14,'+dark+')'; cx.fillRect(0,0,W,H); }
+}
+
+/* ---------------- TIME AND TRAVEL ---------------- */
+var HOURS_PER_SEC = 24/105;
+function hud(){
+  document.getElementById('day').textContent = G.day;
+  var h = Math.floor(G.hour), m = Math.floor((G.hour-h)*60);
+  document.getElementById('hr').textContent = (h<10?'0':'')+h+':'+(m<10?'0':'')+m;
+  document.getElementById('bat').textContent = G.bats;
+  document.getElementById('food').textContent = G.food;
+  document.getElementById('rds').textContent = G.rounds;
+  document.getElementById('roster').textContent = G.crew.map(function(c){ return c.name + (c.hurt?'(hurt)':''); }).join(' ');
+}
+function say(t){ document.getElementById('line').textContent = t; G.log.push(t); }
+function tick(dt){
+  if(G.mode !== 'map' || !G.speed) return;
+  G.real += dt;
+  var hrs = dt*HOURS_PER_SEC*G.speed;
+  var before = G.hour; G.hour += hrs;
+  if(G.hour >= 24){ G.hour -= 24; G.day++; }
+  /* a night: wages; a morning: food, wounds heal a day */
+  if(before < 22 && G.hour >= 22 || (before > G.hour && before < 22)) night();
+  if(before < 6 && G.hour >= 6) morning();
+  /* the party walks its path */
+  var P = G.party;
+  if(P.path.length){
+    var nx = NB[P.path[0]], k = edgeKind(P.at, P.path[0]) || 'road';
+    var step = hrs / HPU[k], d = Math.hypot(nx.x-P.x, nx.y-P.y);
+    var drv = window.BohemiaFollowers && G.crew.some(function(c){ return c.role==='driver'; }) ? 1/0.85 : 1;
+    step *= drv;
+    if(step >= d){ P.x = nx.x; P.y = nx.y; P.at = P.path.shift(); if(!P.path.length) arrive(P.at); }
+    else { P.x += (nx.x-P.x)/d*step; P.y += (nx.y-P.y)/d*step; }
+  }
+  /* a contract's crew: walk onto it and the fight starts */
+  for(var i=0;i<G.held.length;i++){ var c = G.held[i];
+    if(Math.hypot(c.target.x-P.x, c.target.y-P.y) < .03){ setSpeed(0); startFight(c.target.n, c); return; } }
+  /* the roaming crews wander from place to place; one that sees you after the first
+     minute stops the march (a sighted party stops the march, MODS keep 1) */
+  G.roam.forEach(function(r){
+    if(r.cool > 0) r.cool -= hrs;
+    if(!r.path.length){ var opts = N.filter(function(n){ return n.name && n.id !== r.at; }); var to = opts[(G.day*7+r.x*100|0)%opts.length].id; r.path = route(r.at,to)||[]; r.path.shift(); }
+    if(r.path.length){ var nx2 = NB[r.path[0]], d2 = Math.hypot(nx2.x-r.x,nx2.y-r.y), s2 = hrs/HPU.dirt*0.7;
+      if(s2>=d2){ r.x=nx2.x; r.y=nx2.y; r.at=r.path.shift(); } else { r.x+=(nx2.x-r.x)/d2*s2; r.y+=(nx2.y-r.y)/d2*s2; } }
+    if(G.real > 60 && r.cool <= 0 && Math.hypot(r.x-P.x, r.y-P.y) < .04 && G.mode === 'map'){
+      setSpeed(0); r.cool = 24;
+      event('ROAD CREW', 'Three of them on the road ahead, pipes out. They have not seen you yet.',
+        [['FIGHT', function(){ startFight(r.n, null, r); }], ['GO AROUND', function(){ say('You wait them out off the road. Two hours lost.'); G.hour = Math.min(23.9, G.hour+2); }]]);
+    }
+  });
+}
+function night(){
+  var hires = G.crew.filter(function(c){ return !c.you; });
+  hires.forEach(function(h){
+    if(G.bats >= 1){ G.bats--; }
+    else { G.crew.splice(G.crew.indexOf(h),1); say((window.BohemiaFollowers && h.role && BohemiaFollowers.unpaidLine(h.role)) || h.name+' says the batteries dried up, and leaves.'); }
+  });
+  if(hires.length) say('Night. Wages paid: '+hires.length+' batter'+(hires.length===1?'y':'ies')+'.');
+}
+function morning(){
+  if(G.food >= 1){ G.food--; say('Morning. The crew eats. Day '+G.day+'.'); }
+  else { G.crew.forEach(function(c){ c.hp = Math.max(1, c.hp-1); }); say('Morning. No food. Everybody is weaker.'); }
+  G.crew.forEach(function(c){ if(c.hurt){ c.hurt--; if(!c.hurt) c.hp = c.max; } else if(c.hp < c.max) c.hp++; });
+}
+function travelTo(id){
+  if(G.mode !== 'map') return;
+  var p = route(G.party.at, id);
+  if(!p || p.length < 2){ if(id === G.party.at) arrive(id); return; }
+  /* if he is between two places, finish the edge he is on first */
+  p.shift(); G.party.path = p;
+  if(!G.speed) setSpeed(1);
+  say('On the road to '+NB[id].name+'.');
+}
+function setSpeed(s){
+  G.speed = s;
+  [].slice.call(document.querySelectorAll('#pad button')).forEach(function(b){ b.classList.toggle('on', +b.dataset.s === s); });
+}
+
+/* ---------------- ARRIVAL: THE SETTLEMENT SCREEN ---------------- */
+var fr = document.getElementById('settle'), frReady = false, here = null;
+fr.addEventListener('load', function(){ frReady = true; if(here) openSettle(here); });
+fr.src = 'BOHEMIA_SETTLEMENT_SCREEN.html';
+function arrive(id){
+  setSpeed(0);
+  var n = NB[id]; if(!n.name) return;
+  say('Arrived at '+n.name+'.');
+  here = id; G.mode = 'settle';
+  if(frReady) openSettle(id);
+}
+function openSettle(id){
+  var n = NB[id];
+  fr.style.display = 'block';
+  var hired = {}; G.crew.forEach(function(c){ if(c.role) hired[c.role] = true; });
+  fr.contentWindow.postMessage({type:'BOHEMIA_SETTLEMENT_OPEN', place:{name:n.name, tier:n.tier, district:'commercial'},
+    batteries:G.bats, contracts:G.held.map(function(c){ return c.id; }), hired:hired,
+    wounded:G.crew.filter(function(c){ return c.hurt; }).map(function(c){ return c.name; }), veterans:[]}, '*');
+}
+window.addEventListener('message', function(e){
+  var d = e.data || {}; if(d.type !== 'BOHEMIA_SETTLEMENT') return;
+  if(typeof d.batteries === 'number') G.bats = d.batteries;
+  if(d.act === 'contract' && G.held.length < 2){
+    var spot = CONTRACT_SPOTS[(G.done + G.held.length) % CONTRACT_SPOTS.length], a = NB[spot.a], b = NB[spot.b];
+    G.held.push({id:d.contract.id, title:d.contract.title, pay:3, target:{x:(a.x+b.x)/2, y:(a.y+b.y)/2, n:3 + (G.done%3)}});
+    say('Contract: '+d.contract.title+'. Pay 3 batteries. The red JOB mark is where.');
+  }
+  if(d.act === 'hire'){
+    G.crew.push({id:'h'+G.crew.length, role:d.role, name:NAMES[G.crew.length % NAMES.length], hp:3, max:3, armour:0,
+                 weapon: d.role === 'driver' || d.role === 'fixer' ? 'pipe' : 'rifle', hurt:0});
+  }
+  if(d.act === 'buy'){ if(d.good === 'food') G.food++; if(d.good === 'rounds') G.rounds += 6; }
+  if(d.act === 'clinic'){ G.crew.forEach(function(c){ if(c.name === d.who) c.hurt = Math.ceil(c.hurt/2); }); }
+  if(d.act === 'scavenge' && d.result && d.result.found){ G.food++; say('Scavenged: a ration, in your pack.'); }
+  if(d.act === 'leave'){ fr.style.display = 'none'; G.mode = 'map'; say('Back on the map. Tap a place, or a red JOB.'); }
+  hud();
+});
+
+/* ---------------- THE FIGHT ---------------- */
+var COLS = 6, ROWS = 8;
+var WEAP = { pistol:{reach:1, dmg:1, pierce:true, ammo:1}, pipe:{reach:1, dmg:1}, rifle:{reach:2, dmg:1, ammo:1}, shield:{reach:1, dmg:1} };
+function startFight(n, contract, roam){
+  G.mode = 'fight';
+  var units = [];
+  var mine = G.crew.filter(function(c){ return !c.hurt; });
+  mine.forEach(function(c,i){ units.push({side:'you', ref:c, name:c.name, hp:c.hp, armour:c.armour, w:c.weapon, x:(1+i*2)%COLS, y:ROWS-1-(i>2?1:0), down:false}); });
+  var kinds = ['pipe','pipe','shield','pistol','pipe','pipe'];
+  for(var i=0;i<n;i++) units.push({side:'them', name:'CREW '+(i+1), hp:2, armour: kinds[i]==='shield'?2:0, w:kinds[i]==='shield'?'pipe':kinds[i], x:i%COLS, y:i<COLS?0:1, down:false, fled:false});
+  G.fight = {units:units, turn:0, contract:contract, roam:roam, busy:false, start:n};
+  say('A fight. Tap a lit house to step, a red one to hit.');
+  nextYou();
+}
+function alive(side){ return G.fight.units.filter(function(u){ return u.side===side && !u.down && !u.fled; }); }
+function at(x,y){ return G.fight.units.filter(function(u){ return !u.down && !u.fled && u.x===x && u.y===y; })[0]; }
+function reach(u,t){ return Math.max(Math.abs(u.x-t.x), Math.abs(u.y-t.y)) <= WEAP[u.w].reach; }
+function canShoot(u){ var w = WEAP[u.w]; return !w.ammo || u.side!=='you' || G.rounds >= w.ammo; }
+function hit(u,t){
+  var w = WEAP[u.w];
+  if(w.ammo && u.side==='you') G.rounds -= w.ammo;
+  if(t.armour > 0 && !w.pierce){ t.armour--; return u.name+' hits '+t.name+'. The armour takes it.'; }
+  t.hp -= w.dmg;
+  if(t.hp <= 0){ t.down = true; return u.name+' puts '+t.name+' down.'; }
+  return u.name+' hits '+t.name+'.';
+}
+function cur(){ var f = G.fight; return f && f.order ? f.order[f.idx] : null; }
+function nextYou(){
+  var f = G.fight; if(end()) return;
+  f.order = alive('you'); f.idx = 0; f.phase = 'you';
+}
+function youAct(tx,ty){
+  var f = G.fight; if(!f || f.phase !== 'you' || f.busy) return;
+  var u = f.order[f.idx]; if(!u) return;
+  var t = at(tx,ty);
+  if(t && t.side === 'them' && reach(u,t)){
+    if(!canShoot(u)){ say('No rounds. '+u.name+' has nothing to shoot with.'); return; }
+    say(hit(u,t));
+  } else if(!t && Math.max(Math.abs(u.x-tx),Math.abs(u.y-ty)) === 1){ u.x = tx; u.y = ty; }
+  else return;
+  advance();
+}
+function advance(){
+  var f = G.fight; if(end()) return;
+  f.idx++;
+  while(f.idx < f.order.length && (f.order[f.idx].down)) f.idx++;
+  if(f.idx >= f.order.length) themTurn();
+}
+function themTurn(){
+  var f = G.fight; f.phase = 'them'; f.busy = true;
+  var them = alive('them'), k = 0;
+  var broken = them.length <= f.start/2;
+  (function step(){
+    if(end()){ f.busy = false; return; }
+    if(k >= them.length){ f.busy = false; nextYou(); return; }
+    var e = them[k++]; if(e.down || e.fled){ step(); return; }
+    /* MORALE: when half the crew is down, each one left may break and run */
+    if(broken && ((G.day*31 + k*17 + f.turn*7) % 10) < 4){ e.fled = true; say(e.name+' breaks and runs.'); }
+    else {
+      var foes = alive('you'); var near = foes.sort(function(a,b){ return Math.max(Math.abs(a.x-e.x),Math.abs(a.y-e.y)) - Math.max(Math.abs(b.x-e.x),Math.abs(b.y-e.y)); })[0];
+      if(near && reach(e,near)) say(hit(e,near));
+      else if(near){ var sx = Math.sign(near.x-e.x), sy = Math.sign(near.y-e.y);
+        if(!at(e.x+sx,e.y+sy)){ e.x += sx; e.y += sy; } else if(!at(e.x,e.y+sy)) e.y += sy; else if(!at(e.x+sx,e.y)) e.x += sx; }
+    }
+    setTimeout(step, 250); /* every enemy act on the half beat of 120 BPM */
+  })();
+  f.turn++;
+}
+function end(){
+  var f = G.fight; if(!f || f.over) return true;
+  var us = alive('you'), them = alive('them');
+  if(them.length && us.length) return false;
+  f.over = true;
+  var won = !them.length;
+  /* the struck down: you are downed, never dead; a hire dies one time in five, else 30-40 days */
+  f.units.forEach(function(u){
+    if(u.side !== 'you') return;
+    var c = u.ref; c.hp = Math.max(1,u.hp); c.armour = Math.max(c.armour, 0);
+    if(u.down && !c.you){
+      if(((G.day*13 + c.name.length*7) % 5) === 0){ G.crew.splice(G.crew.indexOf(c),1); G.events.push(c.name+' died.'); }
+      else { c.hurt = 30 + ((G.day + c.name.length) % 11); G.events.push(c.name+' is laid up '+c.hurt+' days.'); }
+    }
+  });
+  var msg;
+  if(won){
+    var pay = f.contract ? f.contract.pay : 1;
+    G.bats += pay; G.food += 1;
+    if(f.contract){ G.held.splice(G.held.indexOf(f.contract),1); G.done++; }
+    if(f.roam){ G.roam.splice(G.roam.indexOf(f.roam),1); setTimeout(function(){ G.roam.push(roamer('shed')); }, 0); }
+    msg = 'The crew is down or gone. Paid '+pay+' batter'+(pay===1?'y':'ies')+', and a ration off them.';
+  } else {
+    msg = 'Your side is down. You come to on the roadside, alive, with nothing to show.';
+    if(f.contract){ G.held.splice(G.held.indexOf(f.contract),1); }
+  }
+  if(G.events.length) msg += ' ' + G.events.splice(0).join(' ');
+  setTimeout(function(){
+    G.fight = null; G.mode = 'map'; say(msg); hud();
+    event(won ? 'WON' : 'LOST', msg, [['BACK TO THE MAP', function(){}]]);
+  }, 400);
+  return true;
+}
+function tileSize(){ return Math.floor(Math.min((W-16)/COLS, (H-top-bot-60)/ROWS)); }
+function tileOrigin(){ var t = tileSize(); return {x:Math.round((W-COLS*t)/2), y:top+44}; }
+function drawFight(){
+  var f = G.fight, t = tileSize(), o = tileOrigin();
+  cx.fillStyle = '#16110c'; cx.fillRect(0,0,W,H);
+  for(var y=0;y<ROWS;y++) for(var x=0;x<COLS;x++){
+    /* the street runs down the middle two columns, houses either side (placeholder) */
+    var street = x===2||x===3, X = o.x+x*t, Y = o.y+y*t;
+    cx.fillStyle = street ? '#3b3632' : ((x+y)%2 ? '#5a4632' : '#54412f');
+    cx.fillRect(X,Y,t-1,t-1);
+    if(street && x===2){ cx.fillStyle='#a08a3a'; if(y%2) cx.fillRect(X+t-2,Y+t*.3,2,t*.4); }
+    if(!street){ cx.fillStyle = 'rgba(0,0,0,.25)'; cx.fillRect(X+6,Y+6,t-13,t*.45); }
+  }
+  var u = f.phase==='you' && f.order ? f.order[f.idx] : null;
+  if(u){
+    for(var dy=-1;dy<=1;dy++) for(var dx=-1;dx<=1;dx++){ var nx=u.x+dx, ny=u.y+dy;
+      if((dx||dy) && nx>=0&&ny>=0&&nx<COLS&&ny<ROWS && !at(nx,ny)){ cx.fillStyle='rgba(217,168,90,.25)'; cx.fillRect(o.x+nx*t,o.y+ny*t,t-1,t-1); } }
+    alive('them').forEach(function(e){ if(reach(u,e)){ cx.fillStyle='rgba(196,85,63,.45)'; cx.fillRect(o.x+e.x*t,o.y+e.y*t,t-1,t-1); } });
+    cx.strokeStyle='#d9a85a'; cx.lineWidth=2; cx.strokeRect(o.x+u.x*t+1,o.y+u.y*t+1,t-3,t-3);
+  }
+  f.units.forEach(function(v){
+    if(v.down || v.fled) return;
+    var X = o.x+v.x*t+t/2, Y = o.y+v.y*t+t/2;
+    /* a person: placeholder body, tiny next to the house tile (NO ATARI: the art lanes dress it) */
+    cx.fillStyle = v.side==='you' ? (v.ref&&v.ref.you ? '#1b1b1b' : '#3d4a3a') : '#6e2a20';
+    cx.fillRect(X-5,Y-8,10,16); cx.fillStyle = '#c9a98a'; cx.fillRect(X-4,Y-15,8,7);
+    cx.fillStyle = '#e9dcc4'; cx.font='9px monospace'; cx.textAlign='center';
+    cx.fillText(v.name.slice(0,7)+' '+v.hp+(v.armour?'+'+v.armour:''), X, Y+t/2-4);
+  });
+}
+
+/* ---------------- EVENTS: A MOUTH, TWO OR THREE CHOICES ---------------- */
+function event(who, text, choices){
+  var ev = document.getElementById('ev'); document.getElementById('evwho').textContent = who;
+  document.getElementById('evtx').textContent = text;
+  var row = document.getElementById('evrow'); row.textContent = '';
+  choices.forEach(function(c){ var b = document.createElement('button'); b.className = 'btn'; b.textContent = c[0];
+    b.addEventListener('click', function(){ ev.style.display = 'none'; c[1](); hud(); }); row.appendChild(b); });
+  ev.style.display = 'block';
+}
+
+/* ---------------- INPUT ---------------- */
+cv.addEventListener('click', function(e){
+  if(document.getElementById('ev').style.display === 'block') return;
+  if(G.mode === 'map'){
+    var best = null, bd = 34;
+    N.forEach(function(n){ if(!n.name) return; var d = Math.hypot(mx(n.x)-e.clientX, my(n.y)-20-e.clientY); if(d < bd){ bd = d; best = n; } });
+    G.held.forEach(function(c){ var d = Math.hypot(mx(c.target.x)-e.clientX, my(c.target.y)-e.clientY); if(d < bd){ bd = d; best = {job:c}; } });
+    if(best && best.job){ goJob(best.job); }
+    else if(best) travelTo(best.id);
+  } else if(G.mode === 'fight'){
+    var t = tileSize(), o = tileOrigin();
+    youAct(Math.floor((e.clientX-o.x)/t), Math.floor((e.clientY-o.y)/t));
+  }
+});
+function goJob(c){
+  /* the job sits on a road between two places: travel to the nearer end, then onto it */
+  var spot = null;
+  CONTRACT_SPOTS.forEach(function(s){ var a = NB[s.a], b = NB[s.b]; if(Math.abs((a.x+b.x)/2-c.target.x)<1e-6 && Math.abs((a.y+b.y)/2-c.target.y)<1e-6) spot = s; });
+  var p = route(G.party.at, spot.a) || []; p.shift();
+  G.party.path = p.concat([spot.b]);
+  if(!G.speed) setSpeed(1);
+  say('Heading for the job: '+c.title+'.');
+}
+var pad = document.getElementById('pad');
+[['II',0],['1x',1],['2x',2],['3x',3],['5x',5]].forEach(function(s){
+  var b = document.createElement('button'); b.textContent = s[0]; b.dataset.s = s[1];
+  b.addEventListener('click', function(){ if(G.mode==='map') setSpeed(s[1]); }); pad.appendChild(b);
+});
+
+/* ---------------- LOOP ---------------- */
+var last = performance.now();
+function frame(now){
+  var dt = Math.min(.1, (now-last)/1000); last = now;
+  tick(dt);
+  cx.setTransform(dpr,0,0,dpr,0,0);
+  if(G.mode === 'fight' && G.fight) drawFight(); else drawMap();
+  hud();
+  requestAnimationFrame(frame);
+}
+window.addEventListener('resize', size);
+size(); setSpeed(0); hud(); requestAnimationFrame(frame);
+
+/* the driver's eyes: where things are on the glass, never a shortcut through the game */
+window.LOOP = {
+  G:G,
+  placeAt:function(id){ var n = NB[id]; return {x:mx(n.x), y:my(n.y)-20}; },
+  jobAt:function(i){ var c = G.held[i]; return c ? {x:mx(c.target.x), y:my(c.target.y)} : null; },
+  fightTap:function(){
+    var f = G.fight; if(!f || f.phase!=='you' || f.busy) return null;
+    var u = f.order[f.idx]; if(!u) return null;
+    var t = tileSize(), o = tileOrigin(), them = alive('them');
+    var tg = them.filter(function(e){ return reach(u,e); })[0];
+    var gx, gy;
+    if(tg && canShoot(u)){ gx = tg.x; gy = tg.y; }
+    else { var near = them.sort(function(a,b){ return Math.max(Math.abs(a.x-u.x),Math.abs(a.y-u.y)) - Math.max(Math.abs(b.x-u.x),Math.abs(b.y-u.y)); })[0];
+      if(!near) return null; gx = u.x + Math.sign(near.x-u.x); gy = u.y + Math.sign(near.y-u.y);
+      if(at(gx,gy)){ gx = u.x + Math.sign(near.x-u.x); gy = u.y; } if(at(gx,gy)){ gx = u.x; gy = u.y + Math.sign(near.y-u.y); }
+      if(at(gx,gy) || gx<0||gy<0||gx>=COLS||gy>=ROWS){ gx = u.x + (u.x>0?-1:1); gy = u.y; } }
+    return {x:o.x+gx*t+t/2, y:o.y+gy*t+t/2};
+  }
+};
+})();
+</script>
+</body>
+</html>
