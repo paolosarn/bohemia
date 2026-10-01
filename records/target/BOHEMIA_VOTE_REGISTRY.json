@@ -3817,7 +3817,22 @@
     "how": "image",
     "src": "vote/DYNASTY_HEIRS_10_1.png"
    }
-  }
+  },
+{
+  "id": "grok-reported-six-piles-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "GROK SAYS YOU GAVE IT SIX PILES: MEDICINE, BATTERIES, RESOURCES, CLOUT, AMMO, TOOLS",
+  "why": "Grok wrote that you told it the money splits into six piles with food, gas and water as one pile, and that a car shot spends gas. Until you say it here, the old six stand (batteries, food, meds, rounds, tape, water) and only the car-spends-gas line is adopted; thumbs up to switch to Grok's six.",
+  "show": {
+    "how": "text",
+    "src": "GROK'S SIX (from your chat with it, unverified): medicine, batteries, resources (food + gas + water), clout (a score, not spent), ammunition, tools. A car shot spends the resources pile.\n\nTHE OLD SIX (rule 47): batteries, food, meds, rounds, tape, water.\n\nYES = Grok's six. NO = the old six."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {

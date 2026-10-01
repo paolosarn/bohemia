@@ -26,7 +26,7 @@ Every thing you pick up lands in one of these six, even if the icon changes.
 - Ammo: arrows, bolts, throwing, guns. A shot spends one.
 - Translation: a pistol or rifle spends ammunition. A car does not. A car spends resources, because he said the shot is gas.
 - Wages: crowns out every day. Level-up adds 2 crowns. Greedy adds 2. Miss pay and mood falls, then desertion. https://battlebrothers.fandom.com/wiki/Game_mechanics
-- Translation: batteries out every day per hired person. Miss a payday, mood falls.
+- Translation: batteries out every day per hired person. His rule this chat: a hire can leave only a couple of days after batteries hit zero, not the same day the purse empties.
 - Renown: a score, not a pile you drink. It opens bigger work.
 - Translation: clout is the score. It is not spent like a battery.
 - Start kit by difficulty, same page: high 2500 crowns / 50 food / 40 tools / 80 ammo / 30 medicine. Medium 2000 / 50 / 20 / 40 / 20. Low 1500 / 50 / 10 / 20 / 10.
@@ -35,8 +35,8 @@ Every thing you pick up lands in one of these six, even if the icon changes.
 
 It does not price a bag of rice. His 8/15 lock says everything costs one until he plays it. I am not inventing prices.
 
-WHAT IS CERTAIN: The six-pile map is his, this chat. The Battle Brothers spend rates above are from the wiki and one Steam repair note.
+WHAT IS CERTAIN: The six-pile map is his, this chat. The desertion grace is his, this chat: a couple of days after zero batteries. The Battle Brothers spend rates above are from the wiki and one Steam repair note.
 
-WHAT IS NOT: Exact tool-per-durability is player-reported, not a wiki line. Desertion timing is not a hard day count on the page I used.
+WHAT IS NOT: Exact tool-per-durability is player-reported, not a wiki line. "A couple of days" is not a hard number yet. I am using 2 until he names one.
 
-WHAT WE SHOULD ASK NEXT: Does a missed battery payday make a hired person leave, the way a missed wage does in Battle Brothers?
+WHAT WE SHOULD ASK NEXT: Nothing on this pile. Next fork is the fight roster, not another coin.
