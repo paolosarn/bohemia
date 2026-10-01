@@ -1,0 +1,1254 @@
+{
+  "what": "the translation table counted fresh against the live board, not against its own summary line",
+  "row": "[translation count], rule 48",
+  "when": "2026-10-01T01:16:49.103Z",
+  "controls": [
+    {
+      "name": "C1 A KNOWN BRACKET RESOLVES: [bb map] is a real SHIPPED row",
+      "pass": true,
+      "detail": "found 11 board line(s) carrying [bb map], statuses: [\"CLAIMED\",\"SHIPPED\",\"SHIPPED\",\"SHIPPED\",\"CLAIMED\",\"CLAIMED\",\"SHIPPED\",\"CLAIMED\",\"OPEN\",\"OPEN\",\"OPEN\"]"
+    },
+    {
+      "name": "C2 A FAKE BRACKET DOES NOT RESOLVE: zero matches for a label that cannot exist",
+      "pass": true,
+      "detail": "0 match(es) found (must be 0)"
+    }
+  ],
+  "sections": [],
+  "rows": [
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "The world map, tap to travel, the clock",
+      "translation": "The valley map, the party marker, the clock (33)",
+      "owner_raw": "RUN [bb map]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bb map",
+          "board_statuses": [
+            "CLAIMED",
+            "SHIPPED",
+            "SHIPPED",
+            "SHIPPED",
+            "CLAIMED",
+            "CLAIMED",
+            "SHIPPED",
+            "CLAIMED",
+            "OPEN",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Travel speed (pause, 1x, fast)",
+      "translation": "The speed pad: pause 1x 2x 3x 5x (44a)",
+      "owner_raw": "UI [speed pad]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "speed pad",
+          "board_statuses": [
+            "CLAIMED",
+            "CLAIMED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Day and night on the map",
+      "translation": "The valley's day and night; night fights (existing)",
+      "owner_raw": "WORLD",
+      "status_raw": "DONE (map)",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Settlements (village, town, city, castle)",
+      "translation": "Places as settlement screens (37b); the fourteen parts; home bases (37e)",
+      "owner_raw": "RUN [settlement screen], FACTIONS [home bases]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "settlement screen",
+          "board_statuses": [
+            "SHIPPED",
+            "CLAIMED",
+            "DONE",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "home bases",
+          "board_statuses": [
+            "OPEN",
+            "CLAIMED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Settlement services (market, armourer, weaponsmith, tavern, temple, kennel, taxidermist, training hall, barber)",
+      "translation": "Buildings you tap: the shop, the armourer, the bar (hiring), the clinic, the kennel (keepers), the trophy buyer, the training ground (respec), the barber (37i)",
+      "owner_raw": "RUN, UI [market screen], PEOPLE [recruit at the place], CHARACTER [barber], TUNING [respec]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "market screen",
+          "board_statuses": [
+            "OPEN"
+          ]
+        },
+        {
+          "label": "recruit at the place",
+          "board_statuses": [
+            "OPEN"
+          ]
+        },
+        {
+          "label": "barber",
+          "board_statuses": [
+            "CLAIMED"
+          ]
+        },
+        {
+          "label": "respec",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Attached locations (farms, mines, mills) that feed a town",
+      "translation": "A settlement's pumps, sheds, solar, lots; what a held lot produces (40b)",
+      "owner_raw": "LIFE+CITY [build a lot], WORLD [bb places]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "build a lot",
+          "board_statuses": [
+            "SHIPPED",
+            "CLAIMED",
+            "SHIPPED",
+            "CLAIMED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "bb places",
+          "board_statuses": [
+            "OPEN",
+            "SHIPPED",
+            "SHIPPED",
+            "CUT",
+            "CLAIMED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Settlement situations (raided, drought, well supplied)",
+      "translation": "A place's state from the ledgers (raided falls, helped rises; 37c)",
+      "owner_raw": "WORLD [bb places], FACTIONS",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bb places",
+          "board_statuses": [
+            "OPEN",
+            "SHIPPED",
+            "SHIPPED",
+            "CUT",
+            "CLAIMED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "The noble houses (3) and their standing",
+      "translation": "The factions with home bases; standing per faction (existing)",
+      "owner_raw": "FACTIONS, PEOPLE [weights shape]",
+      "status_raw": "DONE (standing)",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weights shape",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Renown",
+      "translation": "Renown: what the valley knows of your company (deeds, the feed)",
+      "owner_raw": "PEOPLE [weights shape]",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weights shape",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Ambitions",
+      "translation": "A company goal the player sets, light, with a reward",
+      "owner_raw": "PEOPLE (from QUESTS' research)",
+      "status_raw": "NOT STARTED",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Contracts (types, skulls, negotiation, the twist)",
+      "translation": "Asks from a mouth at a place; the haggle; declining is free (35c)",
+      "owner_raw": "RUN [settlement screen], ECONOMY [contract pay], QUESTS (research)",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "settlement screen",
+          "board_statuses": [
+            "SHIPPED",
+            "CLAIMED",
+            "DONE",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "contract pay",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Events on the road",
+      "translation": "Road events: a face, 2-3 choices (33 s2)",
+      "owner_raw": "RUN [road events], WORDS, PORTRAIT",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "road events",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "The late crises (noble war, greenskins, undead)",
+      "translation": "The three acts and the flip; the factions moving without you (31)",
+      "owner_raw": "DYNASTY",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Legendary locations (Kraken, Goblin City, the Monolith)",
+      "translation": "The landmarks: the Sphere, the Stratosphere, Lake Mead's hippo, the fossil-beds lab, the mammoth herd",
+      "owner_raw": "WORLD, COMBAT [bestiary]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bestiary",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Origins (12 starting stories)",
+      "translation": "Origins: who you were the day the money died (36c, 37)",
+      "owner_raw": "PEOPLE [origins], TUNING [origins difficulty]",
+      "status_raw": "DONE (3 of 4 written)",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "origins",
+          "board_statuses": [
+            "SHIPPED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "origins difficulty",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Difficulty (beginner, veteran, expert; ironman)",
+      "translation": "The sliders: enemy level, enemy gear, your mistake (40a)",
+      "owner_raw": "TUNING [difficulty sliders]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "difficulty sliders",
+          "board_statuses": [
+            "CLAIMED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE CAMPAIGN LAYER",
+      "bb_system": "Retirement and the ending",
+      "translation": "Endings by stance toward the Amalgamation (39e)",
+      "owner_raw": "DYNASTY [the ending]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "the ending",
+          "board_statuses": [
+            "SHIPPED",
+            "SHIPPED",
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Recruitment at the tavern",
+      "translation": "Hiring is a building you tap; a stranger gets the worst work",
+      "owner_raw": "PEOPLE [recruit at the place]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "recruit at the place",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Backgrounds (60+)",
+      "translation": "Backgrounds from the county (former jobs, DONE) plus heirs' backgrounds (39d)",
+      "owner_raw": "PEOPLE [former jobs], [heirs backgrounds]",
+      "status_raw": "DONE / IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "former jobs",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        },
+        {
+          "label": "heirs backgrounds",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Traits (70 hidden, revealed by play)",
+      "translation": "Traits revealed by play (existing partly)",
+      "owner_raw": "PEOPLE",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Star talents, stat rolls",
+      "translation": "Talents on the sheet; TUNING's rows",
+      "owner_raw": "TUNING [numbers table]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "numbers table",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Levels 1 to 11, the cap",
+      "translation": "Levels; past 11 the mastery swap (40e)",
+      "owner_raw": "TUNING [respec]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "respec",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "PERKS (about 50 in 7 tiers)",
+      "translation": "THE PERK TREE TRANSLATED one for one: mechanic kept, our name (a 23-perk tree exists; BB has ~50; the gap is the job)",
+      "owner_raw": "COMBAT [perks translated], TUNING",
+      "status_raw": "NOT STARTED (the row is created today)",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "perks translated",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Weapon masteries",
+      "translation": "Masteries per weapon class (the guns decided together, 47b)",
+      "owner_raw": "COMBAT [weapon shapes]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weapon shapes",
+          "board_statuses": [
+            "RETIRED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Injuries, temporary (30) and permanent (25)",
+      "translation": "The long injury 30-40 days and the permanent mark (36b)",
+      "owner_raw": "PEOPLE [long injury]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "long injury",
+          "board_statuses": [
+            "OPEN",
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Morale and resolve",
+      "translation": "Morale in the fight (existing: BB-NERVE-ON), resolve on the sheet",
+      "owner_raw": "COMBAT",
+      "status_raw": "DONE (partly)",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Fatigue",
+      "translation": "Fatigue: a turn is a beat, EVERYTHING COSTS ONE; TUNING says how it tires",
+      "owner_raw": "COMBAT, TUNING",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Wages and the daily pay",
+      "translation": "Batteries per man per day; the debt is the first wage (Q49)",
+      "owner_raw": "ECONOMY [six resources]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "six resources",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Food, medicine, tools, ammo",
+      "translation": "The six resources (47a)",
+      "owner_raw": "ECONOMY [six resources]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "six resources",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "The retinue (followers: scout, surgeon, negotiator, blacksmith, drill sergeant)",
+      "translation": "Followers hired for the company: the mechanic, the medic, the fixer, the handler with a beast (keepers)",
+      "owner_raw": "PEOPLE [keepers] (+ a followers row)",
+      "status_raw": "NOT STARTED (followers)",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "keepers",
+          "board_statuses": [
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "The reserve and the roster (12 on the field, 27 in the company)",
+      "translation": "12 an act, the roster screen (UI [roster]); the reserve",
+      "owner_raw": "UI [roster], TUNING",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "roster",
+          "board_statuses": [
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "The stash and inventory",
+      "translation": "The company's stash and gear screen",
+      "owner_raw": "UI [market screen]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "market screen",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Loot, scavenging after a fight",
+      "translation": "Loot leaves with you (existing); scavenge (37k)",
+      "owner_raw": "COMBAT, WORLD [scavenge]",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "scavenge",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Trade goods and prices per town",
+      "translation": "Prices per place; trade goods; batteries",
+      "owner_raw": "ECONOMY [prices per place]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "prices per place",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Taxidermy (beast trophies)",
+      "translation": "What a beast is worth (hide, ivory, trophies)",
+      "owner_raw": "ECONOMY [what a beast is worth]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "what a beast is worth",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Named items (champions' drops)",
+      "translation": "Named runway pieces from named men",
+      "owner_raw": "CHARACTER, COMBAT [bestiary]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bestiary",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE COMPANY",
+      "bb_system": "Retirement of a man, death, the funeral",
+      "translation": "Death 10% for veterans, the heir line (39d)",
+      "owner_raw": "DYNASTY [heirs], PEOPLE",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "heirs",
+          "board_statuses": [
+            "OPEN",
+            "SHIPPED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "The hex grid",
+      "translation": "The square grid of house tiles (37f, 38)",
+      "owner_raw": "COMBAT [house tiles back]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "house tiles back",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Action points and fatigue per turn",
+      "translation": "A turn is a beat at 120; everything costs one",
+      "owner_raw": "COMBAT",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Initiative and turn order",
+      "translation": "The beat order (existing)",
+      "owner_raw": "COMBAT",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Hit chance (skill vs defence), armour and HP split",
+      "translation": "The dial for the important shot; routine hits cost one (23); TUNING's numbers",
+      "owner_raw": "COMBAT [fight feel], TUNING",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "fight feel",
+          "board_statuses": [
+            "RETIRED",
+            "FOLDED",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Shieldwall, spearwall",
+      "translation": "The line of car doors; the bayonet's spearwall",
+      "owner_raw": "COMBAT [weapon shapes]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weapon shapes",
+          "board_statuses": [
+            "RETIRED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "High ground",
+      "translation": "The roof (37g); the only terrain effect",
+      "owner_raw": "COMBAT [house tiles back]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "house tiles back",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Obstacles, blockers, the map per terrain",
+      "translation": "The generated board (46a), fifteen terrains",
+      "owner_raw": "COMBAT [board generator], COOK [board assets]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "board generator",
+          "board_statuses": [
+            "SHIPPED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "board assets",
+          "board_statuses": [
+            "SHIPPED",
+            "OPEN",
+            "CLAIMED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Night fights, sight range",
+      "translation": "Night on the board (existing), the sodium light",
+      "owner_raw": "COMBAT, DIRECTION",
+      "status_raw": "DONE (partly)",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Weapons by class",
+      "translation": "The arsenal, decided together (47b)",
+      "owner_raw": "COMBAT [weapon shapes]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weapon shapes",
+          "board_statuses": [
+            "RETIRED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Armour, helmets, attachments",
+      "translation": "Armour by weight, attachments (36c)",
+      "owner_raw": "CHARACTER [attachments]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "attachments",
+          "board_statuses": [
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Throwables and bombs",
+      "translation": "Molotov, net, smoke, the extinguisher",
+      "owner_raw": "COMBAT [weapon shapes]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "weapon shapes",
+          "board_statuses": [
+            "RETIRED",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Formation before the fight",
+      "translation": "Who stands where (36a)",
+      "owner_raw": "COMBAT [formation]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "formation",
+          "board_statuses": [
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Gambits / the AI's turn",
+      "translation": "FF12 gambits: the company acts on its own (36a)",
+      "owner_raw": "COMBAT [gambits]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "gambits",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Retreat and the rout",
+      "translation": "The rout exists (BB-THE-ROUT); retreat to the map",
+      "owner_raw": "COMBAT",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Enemy factions and rosters",
+      "translation": "Twelve factions, seventy-five types, the floor (42)",
+      "owner_raw": "COMBAT [bestiary], FACTIONS, PEOPLE",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bestiary",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Beasts and their mechanics",
+      "translation": "The seventeen, mechanic first (42i)",
+      "owner_raw": "COMBAT [bestiary], WORLD [creatures]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bestiary",
+          "board_statuses": [
+            "OPEN"
+          ]
+        },
+        {
+          "label": "creatures",
+          "board_statuses": [
+            "SHIPPED",
+            "OPEN",
+            "OPEN",
+            "HELD"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "Champions",
+      "translation": "Named men with a unique piece",
+      "owner_raw": "COMBAT [bestiary]",
+      "status_raw": "RESEARCHED",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bestiary",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE FIGHT",
+      "bb_system": "The save before the bell",
+      "translation": "Exists (BB-SAVE-BEFORE-THE-BELL)",
+      "owner_raw": "COMBAT",
+      "status_raw": "DONE",
+      "owner_cell_has_no_bracket_at_all": true,
+      "owner_brackets": [],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "The top bar (money, food, tools, meds, ammo, day)",
+      "translation": "The HUD's six, one HUD everywhere (47a, 24)",
+      "owner_raw": "UI [bb interface]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bb interface",
+          "board_statuses": [
+            "FOLDED",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "The character screen",
+      "translation": "The company screen, opened from the portrait (44b)",
+      "owner_raw": "UI [roster], [portrait menu]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "roster",
+          "board_statuses": [
+            "OPEN",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "portrait menu",
+          "board_statuses": [
+            "OPEN",
+            "CLAIMED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "The world-map UI (contracts, ambitions, the log)",
+      "translation": "The map's UI; the phone as the log and feed",
+      "owner_raw": "UI [bb interface]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "bb interface",
+          "board_statuses": [
+            "FOLDED",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "Event screens (a painting and choices)",
+      "translation": "A face and a mouth with choices (19, 33 s2)",
+      "owner_raw": "RUN [road events], PORTRAIT",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "road events",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "The settlement screen",
+      "translation": "The settlement screen (37b)",
+      "owner_raw": "RUN [settlement screen], COOK [settlement art]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "settlement screen",
+          "board_statuses": [
+            "SHIPPED",
+            "CLAIMED",
+            "DONE",
+            "OPEN",
+            "CLAIMED",
+            "SHIPPED",
+            "SHIPPED",
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "CLAIMED",
+            "OPEN"
+          ]
+        },
+        {
+          "label": "settlement art",
+          "board_statuses": [
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    },
+    {
+      "section": "THE SCREENS",
+      "bb_system": "The battle HUD",
+      "translation": "The fight HUD (17)",
+      "owner_raw": "UI [fight hud]",
+      "status_raw": "IN HAND",
+      "owner_cell_has_no_bracket_at_all": false,
+      "owner_brackets": [
+        {
+          "label": "fight hud",
+          "board_statuses": [
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "OPEN",
+            "OPEN"
+          ]
+        }
+      ],
+      "no_owner_found": false,
+      "drift_table_behind_board": false
+    }
+  ],
+  "fresh_tally": {
+    "DONE": 11,
+    "IN HAND": 37,
+    "RESEARCHED": 9,
+    "NOT STARTED": 3,
+    "MIXED": 1
+  },
+  "fresh_total": 61,
+  "table_claims": {
+    "total": 62,
+    "DONE": 12,
+    "IN HAND": 40,
+    "RESEARCHED": 8,
+    "NOT STARTED": 2
+  },
+  "table_claim_matches_fresh_tally": false,
+  "rows_with_no_owner_anywhere_on_board": 0,
+  "rows_where_table_says_not_started_but_board_already_shows_shipped": 0,
+  "rows_whose_owner_cell_names_no_bracket_at_all": 11,
+  "baseline_rows_tracked": 3,
+  "baseline_rows_newly_added_this_round": 0,
+  "findings": [
+    "TABLE CLAIM DOES NOT MATCH A FRESH COUNT",
+    "11 row(s) whose owner cell names no bracket at all -- cannot be checked either way"
+  ]
+}
