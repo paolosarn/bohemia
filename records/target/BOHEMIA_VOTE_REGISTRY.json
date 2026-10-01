@@ -3639,7 +3639,8 @@
    "show": {
     "how": "image",
     "src": "vote/WORLD_WHAT_A_TILE_IS.png"
-   }
+   },
+   "sha": "19192e3"
   }
  ],
  "verdicts": [
