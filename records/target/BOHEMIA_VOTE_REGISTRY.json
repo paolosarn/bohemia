@@ -3933,8 +3933,9 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
- ],
+},
+{"id": "combat2-the-floor-set-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "THE FIGHT'S FLOOR: YOUR STREET UNDER THE FIGHTERS", "why": "The ground under the fight is now your own street art, house-sized: road with its kerbs and faded line, a crossing, a big street, a freeway lane, two gravel lots, a driveway slab and a flat roof you can stand on, plus a dead car and a block wall for cover. Thumbs up and combat drops these under the fighters in place of the ovals and cardboard on the left.", "show": {"how": "image", "src": "vote/COMBAT2_THE_FLOOR_SET_10_1.png"}}
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

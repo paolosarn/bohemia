@@ -1,3 +1,11 @@
+COMBAT 2 (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
+(small street, crossing, big street two halves, freeway lane, two lots, slab, standable roof) and
+two cover pieces (his own dead car sprite, a block wall), all at 42.9 px/m from the 7/28 bank,
+guarded (size, his colours, seamless, not stamped, cover hides a man). Bank
+banks/BOHEMIA_THE_FIGHT_FLOOR_SET_10_1_26.txt; VOTE combat2-the-floor-set-10-1; how COMBAT 1 drops
+them in: records/BOHEMIA_COMBAT2_THE_FLOOR_SET_10_1_26.md. NEXT: [cover pieces] (the shed, calmer
+slab and walk bands, north-south sun pass). [PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bk) LATEST -- *** PAOLO NARROWED THIS LANE: VISUALS AND SOUNDS
 ONLY (rule 54a). *** records/BOHEMIA_PAOLO_EYES_JUDGES_VISUALS_AND_SOUNDS_ONLY_10_1_26.md: "eyes
 and ears should only be judging visuals and sounds that's it not looking over notes and shit."
