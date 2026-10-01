@@ -1,3 +1,10 @@
+COMBAT 2 (combat2-8ca291aa): 10/1 (d) LATEST -- [floor set] ROUND THREE SHIPPED (rule 57): the first
+two board kinds, CUL-DE-SAC and DESERT WASH, each a 60 m plan cut into 25 house tiles at 45 with a
+cover placement list. Bank banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt, VOTE
+combat2-the-board-kinds-10-1, record records/BOHEMIA_COMBAT2_THE_FLOOR_SET_10_1_26.md (round three).
+NEXT: suburb block, strip lot, scrub, freeway (same tool, new kind functions). The desert pools
+'boulder' list is lava/coral: never use it. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (c) LATEST -- [floor set] ROUND TWO SHIPPED (his fifth votes,
 rule 56): real sidewalks (1.4 m on 9.2 m, ruler guard), the 45 camera (tiles 515x364, south faces
 seen, cars with flanks), a north-south street tile; cover sheet re-cut at 45. VOTE

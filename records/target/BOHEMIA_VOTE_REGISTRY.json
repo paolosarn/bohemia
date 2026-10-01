@@ -4030,8 +4030,9 @@
     "src": "BOHEMIA_LOOP.html"
    },
    "draft": true
-  }
- ],
+  },
+{"id": "combat2-the-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "TWO FIGHT BOARDS: THE CUL-DE-SAC AND THE DESERT WASH", "why": "Two whole fight boards that are places, not a straight street: a cul-de-sac with six houses round the turnaround and their driveways, and a dry desert wash snaking through creosote with rocks to hide behind and one outcrop for high ground. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on a suburb or desert cell.", "show": {"how": "image", "src": "vote/COMBAT2_THE_BOARD_KINDS_10_1.png"}}
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
