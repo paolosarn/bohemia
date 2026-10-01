@@ -337,11 +337,18 @@ FIVE PAIRS (ten files; each names its partner in a PAIRS WITH line and the share
   collision, visible before the second yes).
 - QD-AE09 THE WATER CARTS TO THE WASH + QD-AE10 THE WOLVES THAT FOLLOW THE WATER (act 1; Paolo's own shape).
 
-TEN THAT ADVANCE AN AMBITION (QR-Z names):
-- QD-AE11 MEDS IN THE BOX (act 3), QD-AE12 THE GRAVE WITH A NAME (act 3), QD-AE13 A ROOM THAT ISN'T RECORDED (act 3),
-  QD-AE14 FINISH WHAT ABUELA STARTED (act 3), QD-AE15 THE MAMMOTH (act 3), QD-AE16 THE NAME AT THE GATE (act 2),
-  QD-AE17 SIXTEEN AND A SERGEANT (act 2), QD-AE18 PAY THE LOAN OFF (act 2), QD-AE19 A WEEK OF WATER (act 1),
-  QD-AE20 THE COAT THAT OUTLIVES US (across, 1 -> 3).
+TEN THAT ADVANCE AN AMBITION (the QR-Z ambition each one counts toward, in brackets):
+- QD-AE11 THE FIRST BATCH FROM FLOOR NINE [MEDS IN THE BOX] (act 3)
+- QD-AE12 THE TRAM LINE OVER THE WASH [THE GRAVE WITH A NAME] (act 3)
+- QD-AE13 THE DOOR THEY SAID TO SEAL [A ROOM THAT ISN'T RECORDED] (act 3)
+- QD-AE14 THE KILN FIRING [FINISH WHAT ABUELA STARTED, the inherited wall] (act 3)
+- QD-AE15 THE GROUND TRACK NORTH [THE MAMMOTH] (act 3)
+- QD-AE16 THE TABLE ON THE THIRD FLOOR [THE NAME AT THE GATE] (act 2)
+- QD-AE17 FOUR DRIVERS AT MILE NINETY [SIXTEEN AND A SERGEANT] (act 2)
+- QD-AE18 ONE NIGHT AT THE PUMP HOUSE [PAY THE LOAN OFF] (act 2)
+- QD-AE19 THE CATTLE IN THE INTAKE [A WEEK OF WATER] (act 1)
+- QD-AE20 THE BOLT OF BLACK WOOL [THE COAT THAT OUTLIVES US] (across, 1 -> 3)
+Each pays the same with or without its ambition open; the only mark is the senior member's one spoken line (rule 16).
 
 Weight: eleven of twenty are act 3, the thinnest shelf.
 
