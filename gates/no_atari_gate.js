@@ -76,6 +76,12 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
         if (k === 'lot') hg.onLot++; if (standingHouse()) hg.standing++;
         hg.dists.push(+Math.hypot(q[0], q[1]).toFixed(2)); }
       out.hg = hg;
+      /* V237: the street's cross-section, column by column, and the floor really builds it */
+      const n = lotSub(), col = (k, sd) => Array.from({ length: n }, (_, i) => xsecKind(k, sd, i, n));
+      out.xs = { n, road: col('road', 'L'), walkL: col('walk', 'L'), walkR: col('walk', 'R') };
+      let built = 0; const _x = xsecPatch; xsecPatch = function () { built++; return _x.apply(this, arguments); };
+      try { _FLK = null; } catch (e) {} try { BohemiaArena.set(3); setupCombat(); G.phase = 'cover'; draw(); } catch (e) {} xsecPatch = _x;
+      out.xs.built = built;
       /* THE BOARDS, 24 of them: the kinds of ground, the houses, the blockers, what is inside */
       const hb = [];
       for (let s = 1; s <= 24; s++) { try { BohemiaArena.set(s); setupCombat(); } catch (e) { continue; }
@@ -149,6 +155,12 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
        HB.reduce((a, b) => a + b.houses, 0) + ' houses standing, ' + HB.reduce((a, b) => a + b.housesUnblocked, 0) + ' with no blocker');
     ok('and nobody starts inside a house: no enemy, no crate, no car, no way out',
        HB.every(b => b.inside === 0), HB.reduce((a, b) => a + b.inside, 0) + ' things inside a house');
+    const XS = R.xs;
+    ok('*** THE STREET HAS ITS PARTS (V237, rule 46f): the road is gutter, two lanes split by the double yellow, '
+       + 'gutter; each sidewalk is dirt, concrete and the kerb facing the road, from the street bank\'s own tiles ***',
+       XS.road[0] === 'gutterL' && XS.road[XS.n - 1] === 'gutterR' && XS.road.filter(k => k === 'median').length === 1
+       && XS.walkL[XS.n - 1] === 'kerbL' && XS.walkR[0] === 'kerbR' && XS.walkL.includes('yard') && XS.walkL.includes('walk')
+       && XS.built > 0, 'road ' + XS.road.join(' ').replace(/road( road)+/g, 'road..') + ' | built ' + XS.built + ' tiles');
     /* ===== THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON (his UP, 9/27; s14e) ===== */
     ok('*** THE HIGH GROUND STANDS ON A LOT, NEVER IN THE ROAD (measured before: 80 of 80 in the '
        + 'carriageway) ***', HG.withDeck > 5 && HG.onLot === HG.withDeck, HG.onLot + ' of ' + HG.withDeck + ' street fights with one');

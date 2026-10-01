@@ -45872,6 +45872,17 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 6 -- V237: THE STREET HAS KERBS (road and sidewalk as a cross-section of the approved street bank) + fight length round two. ***
+Stamp 10/1e. Record: records/BOHEMIA_COMBAT_THE_STREET_HAS_KERBS_10_1_26.md
+COOK's block war kit was voted DOWN 9/30 ("It looks bad man so ugly"): NOT used. V237 xsecPatch/xsecKind:
+road = gutterL | road | ONE median | road | gutterR; walk W = dirt | concrete | kerbL, walk E mirrored;
+the floor builds them on the house board. Centre line is true-size faint (~3 px at camera): DIRECTION's
+call whether to draw it louder. no_atari 17/0 (street-parts leg). FIGHT LENGTH: cover-mode bot (follows
+V193's lit tiles, holds, shoots in reach): 37.2 / 9.4 / 4.7 s, downed, 0 kills. Either far more lethal
+than the 2-4 min default or a bad bot (pops the dial in reach); NEXT read the damage beat by beat, hand
+the lethality line to TUNING. Still owed: a dead car / block wall as cover dressing (no approved art
+beyond CAR_IMG and the wall tile), [board generator].
+
 *** [house tiles back] ROUND 5 -- V236: A STREET IS ONE TILE (his 9/30 UP); THE FLOOR, ROUND TWO (no grid, no discs, cover no wider than a house) + THE FIRST FIGHT-LENGTH NUMBER. ***
 Stamp 10/1d. Record: records/BOHEMIA_COMBAT_THE_FLOOR_ROUND_TWO_10_1_26.md
 His UP on the street of houses: 'a street has to be a tile' (46g): ONE road tile, walk each side, lots from +-2.
