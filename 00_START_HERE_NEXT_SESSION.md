@@ -1,3 +1,18 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bi) LATEST -- *** STANDING JOBS ROUND 24: A SECOND BOUNCE-BACK,
+AND A DEAD CONTROL THAT IS PROBABLY UI'S OWN KNOWN WORK, NOT A NEW BUG. *** @thevalley (a
+notes-panel hashtag link) repeated dead two rounds running under full rigour -- added as
+[eyes: dead link]. One new first-time dead control named (@nightcount), not bounced. Three
+controls matching UI's brand-new speed pad (II, 1x, 3x) also read dead by this test, but UI's own
+board row already shows that exact feature CLAIMED, unshipped, with its own gate RED on the 3x
+multiplier -- almost certainly the same known-unfinished work, named as such rather than raised
+as an independent finding (the walker's "novel words/cells" test may just be the wrong instrument
+for a control whose only job is a background time rate). Horror check: zero findings, same shape.
+Records: records/BOHEMIA_EYES_E26_WALK_DEPLOY_9_14_26.json, records/BOHEMIA_EYES_E28_HORROR_
+CHECK_9_21_26.json.
+NEXT: [fight floor measured] round two (the check) -- reach a real fight, hook the board canvas's
+paints the way round one armed, write the dated before. Standing jobs continue every round.
+[PENDING Paolo]: none.
+
 QUESTS (quests-dvybth): 10/1 LATEST -- *** ROUND SEVEN: RULE 51'S TWO SLOTS IN EVERY PAGE, FIVE CONTRACT PAIRS THAT
 SHARE A ROAD, 24 DRAFT FOLLOWERS FOR PEOPLE, THE OLDEST 48 DESIGNS PASS THE CHECKLIST. 210 designs, 30 pages. ***
 NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md.
