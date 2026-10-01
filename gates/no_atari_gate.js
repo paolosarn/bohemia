@@ -130,9 +130,9 @@ const ok = (n, c, note) => { c ? (pass++, console.log('  PASS ' + n + (note ? ' 
 
     /* ===== THE STREET IS A STREET, IN HOUSES ===== */
     const road = D.bands.filter(k => k === 'road').length, walk = D.bands.filter(k => k === 'walk').length;
-    ok('*** THE STREET IS FOUR HOUSES WIDE, NOT SEVENTEEN: two tiles of road (24 m), one of sidewalk '
-       + 'each side, then the lots (it was 204 m of road on a glass 6.6 houses across) ***',
-       road === 2 && walk === 2 && D.bands.filter(k => k === 'lot').length === D.bands.length - 4,
+    ok('*** A STREET IS ONE TILE (Paolo 9/30, his UP on the street of houses: "a street has to be a tile bro, '
+       + 'if it\'s a freeway it might be three or four"): one tile of road, a sidewalk each side, then the lots ***',
+       road === 1 && walk === 2 && D.bands.filter(k => k === 'lot').length === D.bands.length - 3,
        D.bands.join(' '));
     ok('*** NO ROOF LIES ON THE GROUND, AND THE NEIGHBOURS STAND UP (Paolo 9/28: "one tile is the size of '
        + 'a house doesn\'t mean every tile is a house; it still has to look like a city; we have neighbours"): '
