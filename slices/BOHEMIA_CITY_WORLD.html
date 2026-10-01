@@ -59572,15 +59572,15 @@ function citySnapshot(){
        times here. So export did not carry the people, a restore gave yesterday's
        world with today's population, and the two-slot rollback DESYNCED. */
     people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })(),
+    /* __THE_COMPANY_INHERITS__ -- THE ACT'S OWN LEDGER OF EVENTS (a man who fell, a deed
+       an heir did), keyed by the person. The heirs themselves are NOT here: they are
+       derived every flip. */
+    heirs:(function(){ try{ return BohemiaHeirs.save(ctHeirLed()); }catch(_e){ return null; } })(),
     /* __ONE_THEN_HEIRS__ -- WHICH PEOPLE EXIST AND WHO HE MADE THEM. A door that opened
        (act 2, act 3), where he stands, and every reshuffle, typed name and chosen sex,
        so closing the tab does not give him one face again. Absent on any save written
        before this, which is correct: that save has one person. */
-    acts:(function(){ try{ return BohemiaActs.save(); }catch(_e){ return null; } })(),
-    /* __THE_COMPANY_INHERITS__ -- THE ACT'S OWN LEDGER OF EVENTS (a man who fell, a deed
-       an heir did), keyed by the person. The heirs themselves are NOT here: they are
-       derived every flip. */
-    heirs:(function(){ try{ return BohemiaHeirs.save(ctHeirLed()); }catch(_e){ return null; } })() };
+    acts:(function(){ try{ return BohemiaActs.save(); }catch(_e){ return null; } })() };
 }
 /* __THE_COLD_OPEN_CLEARS_THE_TOOLBAR__ -- THE CITY REPORTS ITS OWN CHROME.
    The shell floats the cold-open invite over this iframe and it was landing ON
