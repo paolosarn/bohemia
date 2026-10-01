@@ -174,7 +174,8 @@ var SLOTS = 2;
    each, and only FOOD is counted by the purse (the six in the bar). */
 var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
              {good:'water', label:'Water, four litres', counts:null},
-             {good:'meds', label:'A dose of meds', counts:null}];
+             {good:'meds', label:'A dose of meds', counts:null},
+             {good:'rounds', label:'Six rounds', counts:null}];
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
@@ -183,7 +184,7 @@ var S = {
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
 function post(act, o){
-  var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name};
+  var m = {type:'BOHEMIA_SETTLEMENT', act:act, place:S.place.name, batteries:bats()};
   for(var k in (o||{})) m[k]=o[k];
   window.__settleLog = (window.__settleLog||[]); window.__settleLog.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){}

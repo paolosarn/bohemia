@@ -46,3 +46,11 @@
 14. NEVER WRITE A FIRST FIGHT AGAIN. He voted your slice sheet down: 'who are you to decide what the first fight is? That's
     the great thing about Battle Brothers.' Instead: how does Battle Brothers produce the first fights (spawn rules by day,
     distance, contract type) so ours can be generated the same way.
+
+15. EVERY TERRAIN TILE, EXACT (Paolo 10/1, TOP PRIORITY: 'every floor tile from Battle Brothers needs a proper translation... how
+    it impacts your accuracy or your defence, the positioning, how many action points it costs to move through'). From the
+    wiki (Combat Mechanics, Hit Chance, terrain pages) and the dev blogs: every tile type the tactical map can have (plains,
+    grass, road, dirt, sand, snow, ice?, tall grass?, forest floor, swamp, murky water, shallow water, hills by level, cliffs,
+    rocks, trees, fences, ruins, bridges, night) with its AP cost, fatigue cost, hit-chance change, defence change, line of
+    sight rule, range change, and which perks change it (Pathfinder and any other). One row per tile, a link per row. Then
+    one line per row: what you would make it in Las Vegas (mechanic first, the skin second).

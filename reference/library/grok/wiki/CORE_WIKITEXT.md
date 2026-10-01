@@ -1,4 +1,5 @@
 source: battlebrothers.fandom.com wikitext, 2026-09-30
+PASSED FILTER (coordinator 10/1: verbatim wiki text, CC BY-SA 3.0, attribution: battlebrothers.fandom.com and its editors; kept in reference/ which the site never publishes; cited, never pasted into the game)
 
 # WIKI FULL TEXT, CORE PAGES
 

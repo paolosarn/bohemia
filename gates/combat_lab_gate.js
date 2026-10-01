@@ -3609,7 +3609,10 @@ ok('V102/V104 THE NEEDLE SCRUBS cover-fire -- the peek up out of cover onto the 
     demo.includes('const CAR_W=2, CAR_L=3;'));
 
   ok('V103 A CAR IS SIX CELLS THAT SHARE AN ID -- so rectangle blocking, and cover along its LENGTH, come free from machinery that already understood a cell. No new geometry, no rectangle intersection code',
-    /for\(let a=0;a<\(vert\?CAR_W:CAR_L\);a\+\+\)for\(let b=0;b<\(vert\?CAR_L:CAR_W\);b\+\+\)/.test(demo) &&
+    /* V238 RE-POINTED (Paolo 9/28, 'for the combat a tile is as big as a house'; his 7/29 2x3 was on the
+       1.5 m tile): on the BODY board a car is still six cells, 2 by 3; on the house board it is one. */
+    /const _ca=houseOn\(\)\?1:\(vert\?CAR_W:CAR_L\), _cb=houseOn\(\)\?1:\(vert\?CAR_L:CAR_W\);/.test(demo) &&
+    /for\(let a=0;a<_ca;a\+\+\)for\(let b=0;b<_cb;b\+\+\)/.test(demo) &&
     demo.includes('G.pillars.push({ea:Math.atan2(c[1],c[0]),edist:Math.hypot(c[0],c[1]),'));
 
   ok('V103 ONE OBJECT, TWO COVER VALUES: engine and cabin are TALL (chest, no vault), the boot is LOW (waist, vaultable). That is the thing a car has that no block can do, and it rides the tall/low flag that already existed',

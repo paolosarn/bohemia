@@ -27,3 +27,42 @@ roof. Cover: replace the tan blocks with dead_car / block_wall. Nothing else pai
 KNOWN WEAK, NEXT ROUND ([cover pieces] row): the slab and sidewalk bands carry his tiles' heavy
 cracks and read busy at half zoom; the shed is not drawn yet; north-south street variants are
 a rotation, not their own sun pass.
+
+## ROUND TWO (10/1, his fifth votes, rule 56): REAL SIDEWALKS, SEEN AT 45
+
+His vote on round one: up, with "it's not a eagle Birdseye view 90... everything we do is 45 when
+it comes to the land underneath" and four NOs on the sidewalk width.
+  * SIDEWALK 1.4 m (4.6 ft) on a 9.2 m roadway: 0.15, about an eighth (Vegas 4-5 ft on 37 ft).
+    Round one was 1.8 on 8.4 (0.21). A ruler guard refuses anything over a sixth.
+  * 45 CAMERA: every tile is 515 x 364 (12 m wide, 12 m deep x cos45). The plan is baked square
+    and NEAREST-squashed (every pixel his), then the south-looking faces are drawn at cos45: the
+    north kerb's face, the roof's parapet (north inner face, south outer face, swamp cooler box),
+    the walls' and shed's faces, and the cars' south flanks (his paint in its own shadow, flat
+    tyres). Bank declares perspective; art_45_gate 16/0.
+  * NEW TILE street_small_ns: the north-south street, its plan turned BEFORE the tilt (a rotated
+    tilted tile would be wrong), so roads can cross.
+  * VOTE combat2-the-floor-set-r2-10-1 (redoOf the voted one), sheet COMBAT2_THE_FLOOR_SET_R2_10_1.png;
+    round one's sheet left as he voted it. The cover sheet (combat2-the-cover-pieces-10-1) re-cut
+    at 45 in place (not yet voted).
+FOR COMBAT 1: tiles are now 515 x 364 per house; the board's row pitch is 364 px at authored size.
+NEXT (rule 57): a sheet per board kind, CUL-DE-SAC and DESERT WASH first.
+
+## ROUND THREE (10/1, rule 57): THE BOARD KINDS, CUL-DE-SAC AND DESERT WASH
+
+tools/bohemia_combat2_the_board_kinds_cook_10_1_26.py -> banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt,
+VOTE combat2-the-board-kinds-10-1 (slices/vote/COMBAT2_THE_BOARD_KINDS_10_1.png).
+A kind = one 60 x 60 m plan (5 x 5 house tiles) dressed from the banks, seen at 45 (faces drawn
+where a high surface sits north of a low one), then CUT into 25 tiles of 515 x 364. Cover is NOT
+baked: kinds[].cover is a placement list (piece id + metres) so the cutter can reshuffle per seed.
+  culdesac: 9.2 m stem from the south, 22 m bulb, 1.4 m walks, kerb faces seen, six houses on whole
+    tiles (round-two roof tile, six seeds) with 4.4 m slab drives to the kerb, dead planter island,
+    cars, walls, shed placed.
+  wash: a meandering dry bed 6-10 m wide, one soil per surface with ragged patches (the first cut
+    checkerboarded the pool's four soils), cut banks shaded and their south faces seen, 120 creosote
+    clumps from the rock's own olive, 9 grey rocks as cover, one three-dome outcrop as the mound.
+  Pieces: cover bank ids plus extra_pieces rock_N and outcrop (in this bank).
+GUARDS: tile size, colours (7/28 bank + desert pools bank), sidewalk ruler, placements on the
+board and on legal surfaces (no wall in the road, no car in a house), no stamped tile.
+NOT USED (measured): the desert pools 'boulder' list is lava spikes and blue coral; never Mojave.
+FOR COMBAT 1 (the cutter): map cell kind -> kinds[id]; draw tiles[r][c]; drop cover by placement.
+NEXT (rule 57): suburb block, strip lot, scrub, freeway.
