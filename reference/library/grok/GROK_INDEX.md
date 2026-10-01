@@ -4,6 +4,7 @@ source: Grok, unverified, written 2026-09-30
 
 Newest first.
 
+- 2026-09-30 | VAMILY | GROK_10_JOBS_PAY_2026_09_30.md | contracts pay batteries and clout, one job at a time
 - 2026-09-30 | VAMILY | GROK_09_ORC_GOBLIN_SKINS_2026_09_30.md | orc and goblin jobs skinned, mechanics unchanged
 - 2026-09-30 | VAMILY | GROK_08_BEAST_SKINS_2026_09_30.md | beast jobs skinned as lab animals, non-animals named
 - 2026-09-30 | VAMILY | GROK_07_FIRST_FIGHT_2026_09_30.md | first fight is the wiki contract, skin only
