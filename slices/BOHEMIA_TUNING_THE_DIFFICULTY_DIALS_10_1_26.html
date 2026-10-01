@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Difficulty Dials</title>
+<!-- TUNING 10/1 [difficulty sliders], draft:true. A toy, never in the game. Model: struck-down chance = 5% x accuracy ratio (the build's THREAT_BY_PKG on a
+     mid/far hit chance) x enemy damage x bodies/4.33. Death rule 20%/10% is Paolo's default. Record: records/BOHEMIA_TUNING_DIFFICULTY_SLIDERS_THE_FIVE_TIERS_BARELY_MOVE_ANYTHING_10_1_26.md -->
+<style>
+:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--hot:#e8593a;--ok:#8fe89a;--amb:#e8a04a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+.row{border:1px solid var(--line);padding:8px 10px;margin:8px 0}input[type=range]{width:100%}
+button{background:#1a1510;color:var(--ink);border:1px solid var(--line);padding:10px 12px;font:inherit;margin:2px}button.on{border-color:var(--amb);color:var(--amb)}
+.big{font-size:24px}.g{color:var(--ok)}.a{color:var(--amb)}.r{color:var(--hot)}
+</style></head><body>
+<h1>THE DIFFICULTY DIALS</h1>
+<p>Today's five tiers barely change what you feel. These are the dials that do. Pick a preset or move the dials yourself.</p>
+<div id="pre"></div>
+<div class="row">ENEMY AIM tier <b id="av"></b> <input id="a" type="range" min="0" max="4" value="1"></div>
+<div class="row">ENEMY DAMAGE x <b id="dv"></b> <input id="d" type="range" min="70" max="150" value="100"></div>
+<div class="row">ENEMIES in a fight, more or fewer <b id="bv"></b> <input id="b" type="range" min="-2" max="3" value="0"></div>
+<div class="row">STRUCK DOWN, IT KILLS <b id="kv"></b>% (veterans half) <input id="k" type="range" min="5" max="40" value="20"></div>
+<div class="row">
+<div>Struck down per fight: <span id="s" class="big a"></span></div>
+<div>A man lives about <span id="m" class="big g"></span> fights</div>
+<div>Dead before he is a veteran: <span id="e" class="big r"></span></div>
+<div>A normal fight is about <span id="r" class="big"></span> rounds, men laid up at once <span id="o" class="big"></span></div>
+</div>
+<script>
+var T=[1.00,1.12,1.26,1.42,1.60];function acc(b,t){return 1-(1-b)/t}function av(t){return(acc(0.699,t)+acc(0.37,t))/2}
+var P={STEADY:[0,85,-1,10],STANDARD:[1,100,0,20],HARD:[2,115,1,20],IRON:[4,130,1,30]};
+function life(ps,pd){var f=0;while(f<3000){f++;if(Math.random()<ps){if(Math.random()<(f>=20?pd/2:pd))return f;}}return f;}
+function $(i){return document.getElementById(i)}
+function draw(){var a=+$('a').value,dm=+$('d').value/100,bd=+$('b').value,pd=+$('k').value/100;
+ $('av').textContent=['EASY','NORMAL','HARD','V.HARD','BOHEMIAN'][a];$('dv').textContent=dm.toFixed(2);$('bv').textContent=(bd>0?'+':'')+bd;$('kv').textContent=Math.round(pd*100);
+ var bodies=Math.max(1.5,4.33+bd),ps=Math.min(0.5,0.05*(av(T[a])/av(T[1]))*dm*(bodies/4.33));
+ var R=3000,fs=[],e=0;for(var i=0;i<R;i++){var f=life(ps,pd);fs.push(f);if(f<20)e++;}fs.sort(function(x,y){return x-y});
+ $('s').textContent=(ps*100).toFixed(1)+'%';$('m').textContent=fs[R>>1];$('e').textContent=Math.round(e/R*100)+'%';
+ var rounds=9.4*bodies/4.33*(1+(dm-1)*0.5),out=0.25*6*ps*0.85*35;
+ $('r').textContent=rounds.toFixed(1);var o=$('o');o.textContent=out.toFixed(1);o.className='big '+(out>4?'r':out>2.5?'a':'g');}
+var h='';for(var n in P)h+='<button data-n="'+n+'">'+n+'</button>';$('pre').innerHTML=h;
+$('pre').onclick=function(ev){var n=ev.target.dataset.n;if(!n)return;var v=P[n];$('a').value=v[0];$('d').value=v[1];$('b').value=v[2];$('k').value=v[3];
+ [].forEach.call($('pre').children,function(c){c.className=c.dataset.n===n?'on':''});draw();};
+['a','d','b','k'].forEach(function(i){$(i).oninput=function(){[].forEach.call($('pre').children,function(c){c.className=''});draw();}});draw();
+</script></body></html>

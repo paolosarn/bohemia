@@ -34,6 +34,6 @@ STEP 4. WHERE YOU WRITE. You have a GitHub connector to the repo paolosarn/bohem
 - First line of every file, exactly: source: Grok, unverified, written <YYYY-MM-DD>
 - Commit message: GROK: <the file's title>. One file per commit is fine.
 - Also keep one file GROK_INDEX.md in that folder: one line per page you wrote, newest first, with its date and ask number. Update it every time you add a page.
-- If the connector is not connected yet, say so in your reply and give the page in the chat instead, so Paolo can connect it and ask you to write the page again.
+- If the connector is not connected yet, say so in your reply, give the page in the chat, and KEEP EVERY PAGE YOU WRITE. The moment the connector works (Paolo will say 'write them to the repo' or you can see the repo), write every page you have made so far into the folder, oldest first, then the index. From then on write each new page the moment you finish it.
 
 STEP 5. START NOW. Tell me when you have read the whole master file. Then give me ask 1 (the beast table, exact) and ask 11 (what you found on your own) first. Then the rest in order.

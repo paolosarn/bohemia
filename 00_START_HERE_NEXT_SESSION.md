@@ -1,3 +1,185 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bh) LATEST -- *** [translation count] SHIPPED, BOTH ROUNDS:
+THE TABLE IS ALREADY WRONG ABOUT ITSELF. *** Built the counter round one armed (tools/bohemia_
+eyes_translation_count.js): recomputed DONE/IN HAND/RESEARCHED/NOT STARTED fresh from the 62-row
+table instead of trusting its own closing line. Found the table claims 62 rows and there are
+really 61, its bucket tally disagrees with a fresh recount in every column, and real drift: the
+Ambitions row still reads NOT STARTED while the live board already carries TWO SHIPPED rows
+([ambitions], QUESTS and PEOPLE) that cite this exact table entry as their reason for building
+it. A first cut of the checker silently passed Ambitions (its owner cell names no bracket to
+search), caught and fixed before publishing. Routed to the coordinator, who owns the table.
+Records: records/BOHEMIA_EYES_TRANSLATION_COUNT_ROUND_2_THE_TABLE_IS_ALREADY_WRONG_ABOUT_ITSELF_
+9_30_26.md, records/BOHEMIA_EYES_TRANSLATION_COUNT_9_30_26.json, records/BOHEMIA_TRANSLATION_
+COUNT_BASELINE_9_30_26.json (a staleness clock for next round, since the table itself is one
+round old).
+CLAIMED NEXT: [fight floor measured] (rule 46f, Paolo's own bug: "the tiles below the people
+dont look good"), first OPEN row. ROUND ONE (SCHOOL) SHIPPED:
+records/BOHEMIA_EYES_FIGHT_FLOOR_ROUND_1_SCHOOL_A_PAINTED_OVAL_HAS_A_NAME_9_30_26.md -- what he
+is describing is "programmer art," a documented category; round two reuses this lane's own
+canvas-hook pattern to bucket the real fight board's paints (ground art / flat fill / painted
+shapes / cover blocks) and write the dated before.
+STANDING JOBS: a fresh demo cut for the next round of the five-minute walk and the horror check
+was still cloning (slow, stalled around 124 KB for several checks) when this round ended -- not
+skipped, picked up the moment a usable cut lands or a fresh clone is started.
+[PENDING Paolo]: none.
+
+WORLD (world-9lfjtf): 10/1 LATEST -- *** MOST OF WHAT THE CITY DRAWS IS NOT A
+TILE AT HOUSE SIZE, AND THE CITY ALREADY NAMED EVERY KIND ITSELF. ***
+Row [tile options] SHIPPED (the half that is mine, the KIND LIST; COOK owns the look).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-what-a-tile-is-10-1. Record records/BOHEMIA_WORLD_WHAT_A_TILE_IS_10_1_26.md.
+
+THE JOB (coordinator 9/28): "the list of tile KINDS at house size is yours: every
+kind the city has, from the block's own layout; the board must still read as the
+city." It sits straight on top of last round's [board terrains]: a TERRAIN kind
+says what kind of BOARD you get, a TILE kind says what the SQUARES on it are.
+Built: engine/bohemia_tilekinds.js + records/target/BOHEMIA_TILE_KINDS.json.
+
+HARVESTED, NOT INVENTED, and it is not close: the city already declares this
+vocabulary. FIFTY-TWO district kits each carry a legend whose every entry names a
+kind -- NINETEEN distinct across 922 entries, none invented here. The gate
+RE-HARVESTS THE KITS OFF DISK EVERY RUN and refuses a kind the table has not heard
+of, so the list cannot quietly fall behind the city it describes. Same shape as
+[board terrains]' own leg, for the same reason.
+
+*** THE FINDING, which is rule 38(e) turned into a count instead of a promise. ***
+The kits were drawn for THE WALK at 0.75 m a cell, so at HOUSE SIZE most of their
+kinds stop being a square you stand on and become something that happens ON one.
+A painted lane line is paint. A SIDEWALK IS NOT A TILE -- his words 9/28, "never a
+fight where one tile is one sidewalk". A parked car is not a tile, it is the cover
+ON one, which is exactly what makes it useful. All nineteen are classified and
+ONLY TEN ARE TILES:
+  TILE      552 entries  ground, drive, building, structure, water, water_dead,
+                         turf_dead, court, play, panel
+  DRESSING   71          marking, walk
+  BLOCKER   213          prop, vehicle, tree_dead, fence
+  EDGE       70          gate, portal (a door is a property of a BOUNDARY, not a square)
+  OVERHEAD   16
+*** 40.1% OF WHAT THE CITY DRAWS IS NOT A TILE AT HOUSE SIZE. *** Nothing is
+thrown away, it changes job.
+
+THE SIZE IS MEASURED, NOT CHOSEN, and re-measured every run. A COMBAT TILE IS A
+HOUSE is a ruling in HOUSES, so the metres came off our own suburb kit: a house
+footprint is 21x12 cells = 15.8 m x 9.0 m, and THE LOT PITCH, nearest house centre
+to nearest, is 26 cells = 19.5 m over a range of 18.0 to 21.8. The PITCH is the
+number that matters, because what tiles a city is not the house, it is the house
+plus its yard and half its driveway. So a house tile is about TWENTY METRES SQUARE
+and a 96 m block is FIVE TILES ACROSS. Faking it in the module turns the gate red.
+
+COOK (rule 22/29): WHAT A TILE IS, slices/vote/WORLD_WHAT_A_TILE_IS.png -- THE
+SAME BLOCK TWICE. Left is what the city really draws, every cell the walk ever
+needed. Right is the same block cut on the measured pitch: 5x5 house tiles of 676
+kit cells each, 15 of the 25 a building. The left panel is the inventory and the
+right panel is the board. AH-01: two site plans of a cul-de-sac is the ordinary
+part; THE WRONG THING IS THAT THE RIGHT ONE IS A GAME BOARD, the same houses
+squared off with the one way in marked.
+
+*** THREE THINGS I GOT WRONG, ALL CAUGHT BEFORE HE SAW THEM. ***
+ 1 THE CENSUS READ ONE KIT WHILE THE TEXT CLAIMED 52. The picture's own file said
+   "52 kits, 922 entries" beside a census built from the suburb's own fifteen
+   legend entries -- a number in a file that did not come from the thing it
+   described. It harvests all 52 now, the same way the gate does, so the claim and
+   the measurement are ONE number.
+ 2 HOUSES WERE LOSING THEIR OWN TILES TO THEIR YARDS. The first cut took the
+   commonest tile kind per square and only 2 OF 16 came out a building, in a block
+   with twenty houses in it, because a measured house is 252 of a tile's 676 cells
+   and the yard around it wins a headcount. That is not what A COMBAT TILE IS A
+   HOUSE means. The threshold came off the measurement rather than being picked: a
+   real house fills 37% of a tile, so a quarter is comfortably under a whole house
+   and comfortably over a neighbour's clipped corner. 15 of 25 now.
+ 3 THE FILE CLAIMED THE DOORS WERE MARKED AND NOT ONE DOOR PIXEL WAS DRAWN. The
+   suburb kit declares exactly one EDGE kind, `gate`, and PLACES IT ZERO TIMES IN
+   ITS CELLS -- the block's one gate lives in the kit's own `gates` list as
+   {edge,x,y}. My AH-01 line described a picture the picture did not contain. Read
+   from where it really lives now, marked on both panels, and the tool refuses if
+   not one door pixel lands. THE DATA WAS THERE, IN A PLACE I HAD NOT LOOKED.
+
+LOOKS SHIPS EMPTY: what a tile is DRAWN as is COOK's and what it DOES in a fight is
+COMBAT's. Asking answers NO_RULING and says whose it is, and the gate holds that
+the module carries NO COLOUR, NO PIXEL AND NO DAMAGE NUMBER.
+
+GATE TILE KINDS 37/0, registered, mutation-proved three ways: make the sidewalk a
+tile -> RED; drop a kind the city declares -> RED naming it in both directions;
+fake the pitch -> RED at 40 against 26.
+
+ROUTED: COMBAT [board generator] -- with [board terrains] this is now the full
+input, the terrain kind picks the board and the tile kinds fill it. COOK [board
+assets] -- the running order is the entry counts; ground, structure and building
+are 90% of everything the city draws. COMBAT/TUNING -- a door is an EDGE, so
+whatever it costs to go through is a rule about CROSSING BETWEEN two tiles, never
+about standing on one. PLUMBER -- the kit legends are the only place this
+vocabulary lives and nothing enforced a kind list before this round; a kit can
+still invent a kind, it just goes red now.
+
+HIS RULE 47 ANSWERED MY OWN [PENDING Paolo] FROM LAST ROUND: the resources are
+BATTERIES, FOOD, MEDS, ROUNDS, TAPE and WATER. My scavenge module's find kinds are
+food, medicine, battery, tape and ammo -- five of the six, MISSING WATER, and
+"medicine" should read as MEDS. Not fixed this round; it is a one-line correction
+next round and it is mine. [NOTE TO SELF]
+
+STILL RED ON CLEAN MAIN AND NOT MINE: PAGES PUBLISH at 299 MB against a 260 MB cap
+(verified red with my work stashed last round; my whole contribution is kilobytes).
+The weight is slices/ at 185 MB and records/target at 112 MB. The published surface
+is what builds his link. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb tiles] BATTLE BROTHERS HAS ONE TILE KIND AND DRESSES IT: its board is a hex
+field of ground with props scattered on it, and whether a hex is forest or swamp
+changes your NUMBERS, not what the hex IS; everything else -- a rock, a tree, a
+wall -- is decoration or an obstacle placed on top. OUR TWIST (rule 39b): ours has
+TEN kinds of square because ours is a CITY, and a city is made of different THINGS,
+not different ground. A BB hex is somewhere to stand. ONE OF OUR TILES IS
+SOMEBODY'S HOUSE -- it has an inside, a door that is the only way in, and an owner
+who is either dead or watching you. That is the difference between fighting in a
+landscape and fighting in a place.
+
+TUNING (tuning-f59l1w): 10/1 LATEST -- [difficulty sliders] SHIPPED (research, no code touched). [grok sources] LEFT OPEN.
+TAB: VOTE, item THE DIFFICULTY DIALS (presets + four dials, draft:true).
+RECORD: records/BOHEMIA_TUNING_DIFFICULTY_SLIDERS_THE_FIVE_TIERS_BARELY_MOVE_ANYTHING_10_1_26.md
+FINDING: the five packages (EASY..BOHEMIAN) set the player's dial AND the enemy's aim from one number
+(THREAT_BY_PKG 1.00..1.60 divides the enemy MISS). Top tier = 21% more enemy hits than NORMAL, median life 96
+vs 121 fights: nobody can feel it. They never reach damage, count, level, gear, death odds or pay (the V121
+comment says damage; the code scales only the miss). Design: three kinds of slider kept apart: PRESSURE (the
+world), STAKES (death rule), ASSIST (dial and beat window, accessibility). Four presets, measured: STEADY
+median life 440, STANDARD 117 (his rule), HARD 72, IRON 29. Rules never move.
+[grok sources]: reference/library/grok/ has only its README, no page has passed EYES' filter, so nothing
+cites Grok and no table number was corrected; re-read my rows when the first page lands.
+NEXT OPEN: [respec], [recruit odds], [ammo], [origins difficulty].
+MODS (mods-59jyd6): 10/1 LATEST -- [read count] round two and [keep list into defaults]
+KEEP 2 of 11. Both rows stay CLAIMED. TAB: VOTE, item ONE HONEST NUMBER: two brothers
+dressed from body, helmet, extra slots; each shows the damage it takes to drop him AND the
+stamina the gear costs, plus a verdict line (all numbers are TUNING placeholders).
+READ COUNT unchanged on fresh main (7ad4472): 4 files for one weapon's damage (2 hidden in
+blobs), 3 for a background, 4 for a sound; target 1 each. It only moves when content moves
+into a data file, which is research-only until he says build.
+KEEP 2 = "Effective Hitpoints": one number beside the armour plus its stamina cost, row on UI
+as [honest number], pieces from CHARACTER's attachments trade. 9 KEEPS left; next is
+Backgrounds and Attribute Ranges. [one weapon file] still open; [grok sources] waits on
+EYES's PASSED FILTER stamp. Record records/BOHEMIA_MODS_READ_COUNT_ROUND_TWO_AND_KEEP_2_10_1_26.md.
+
+WORDS (words-8dqrnq): 10/1 LATEST -- *** [narrator lines] CLOSED, BOTH ROUNDS. THE BIGGEST
+FINDING WAS THAT NOTHING NEEDED REWRITING. ***
+TAB: nothing new for a tab (a bank entry, not a wired surface).
+
+The twelve road-event captions already shipped by [bb event writing] already pass the
+too-calm register the narrator needs, because they were built to the same hold. The two
+machine-acting ones that had nobody to speak them, a drone and an empty robotaxi, are
+exactly what rule 45's new narrator is for; a security bot's quoted warning is a machine
+talking too, so the narrator reads it instead of needing the people-voice. Nothing old had
+to change, just a tag added later by PLUMBER so the game knows which voice to use.
+
+Three brand new lines, in banks/BOHEMIA_WORDS_TEST_LINES.md: one for when the game jumps
+years ahead, one for a short radio-style news report about who controls what, and one for
+the very first thing the machine says when you open the map. That last one reuses the
+exact words from the loading screen's own boot log, so it reads as the same machine
+picking back up, not a new voice showing up out of nowhere.
+
+Nothing is wired into the game yet. The actual voice (SOUNDS) and the switch that tells
+the game which lines use which voice (PLUMBER) still need to be built.
+
+Also rechecked (rule 12): [reputation lines] still needs the fight team's group-tactics
+work; Q26 still needs a built settlement screen. Neither has moved.
+NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
+PENDING Paolo: nothing.
+
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
 AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
 Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
@@ -3250,6 +3432,20 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/1 LATEST -- *** EVERYTHING YOU CAN BUILD, ALL EIGHT DRAWN; A LOT LIES IN A REAL
+BLOCK ([build a lot] round 3). ***
+TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_EVERYTHING_YOU_CAN_BUILD_10_1_26.md
+lotbuild now takes FACTIONS' blockHolder (73aad0e8): a lot may carry its block (bx,by), the hold its geography
+(partAt, n): another part's block on this part's screen = WRONG_PART (free), outside every part = NO_BLOCK;
+holdings() returns blocks. Real valley (overmap 12345): 0 blocks before a taking, Mob 1,415 of 9,216, + Cartel
+2,723, ruin the Mob and back to 1,308; "half the city by act 3" is about four parts. BUILD A LOT 56 -> 62/0.
+COOK: slices/vote/LIFECITY_EVERYTHING_YOU_CAN_BUILD_10_1.png, eight cards cut from HIS APPROVED STREET, words
+from the module (wall and tank in gold, first). New in the street's panel() this round: shed, pump house,
+garden bed, roof (LOT_ITEMS, approved pictures byte-identical by md5). The first roof read as a second solar
+array -> now a gable. COOK's round-1 route (draw five pieces) is CLOSED: all drawn here.
+STILL OWED: RUN [settlement screen] is OPEN and unbuilt; it calls holdings/list/start/tick with the ledger and
+partAt. WORLD kinds, ECONOMY six, COMBAT fightTile, beasts exposed.
+
 LIFE + CITY (city-1eztay): 9/30 LATEST -- *** YOU BUILD WHAT YOU HOLD, AND WHAT YOU HOLD GROWS ([build a lot]
 round 2, rule 43 + the invasive round + rule 47). ***
 TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_YOU_BUILD_WHAT_YOU_HOLD_9_30_26.md
@@ -5256,6 +5452,75 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/1 LATEST -- *** FOUR MORE OF THE REDO LIST, AND NONE OF THEM NEEDED
+A NEW IDEA. *** Row [not sand], round nine, ROW STAYS CLAIMED.
+Record: VAMILY.md row [not sand], round nine block (no separate record file this round).
+Gates: COOKED SOUNDS 181/0 (was 168), --mutate bites 51 (was 45). FOOTSTEP GATE 24/0.
+VERDICT-FROZEN 6/0. MERGE DEBRIS 4/0. HANDOFF GATE 9/0. Build stamp UNCHANGED this round.
+
+NO NEW VOTES on any of the sixteen candidates across rounds five through nine, all still
+WAITING FOR HIM. So this round continues last round's own NEXT item 1: the twelve remaining
+items on records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b, taking the four that were free
+reuse of machinery this row already had before touching anything that needs new physics.
+
+dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments, not
+synthesis") IS footstepModelled with the heel-toe stride switched off, on the dirt ground
+already built two rounds ago: one contact, no second step, its ring matching the dirt mode
+already in the table exactly. boots_go ("a gun leaves his rock to flank you") IS last round's
+walk-that-never-repeats function, just outdoors on dirt instead of a sidewalk. set_down ("the
+weight arriving and settling... NOT A CHIME") is the same single contact on the sidewalk's own
+concrete -- his own words already ruled out a struck-object chime, and the concrete slab a boot
+already rings was the honest answer sitting there. seton_more ("placing a thing, twice,
+forever") is set_down's own complaint: the variant seed from two rounds ago means a second
+placement is a different render by construction, so the fix was free.
+
+THREE NEW WRAPPER FUNCTIONS: groundTakesIt (footstepModelled, dirt, heelToe 0), bootsGoDirt
+(footstepWalk, dirt), objectSetDown + objectSetDownAgain (footstepModelled, concrete, heelToe 0,
+variant 0 and 1 respectively). Registered as four new ids: sounds-the-ground-takes-it-10-1,
+sounds-boots-going-somewhere-on-dirt-10-1, sounds-it-goes-down-10-1,
+sounds-set-it-down-again-10-1, on a new page
+(slices/BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html). Verified on the
+glass: 4 of 4 buttons play, 0 errors.
+
+*** THE SAME CLOSURE TRAP, NAMED A THIRD TIME: THE FIRST CUT OF THE GATE CLAIMS DID NOT
+ACTUALLY BITE UNDER MUTATION. *** All four new wrappers call footstepModelled/footstepWalk BY
+CLOSURE, never through the exported H.footstepModelled, so the existing mutation (which swaps
+H.footstepModelled for the sand recipe) touched none of them, and all five new claims stayed
+green with the cook removed -- a pass that would also pass with the cook removed is not a
+pass. FIXED THE SAME WAY the hums were fixed last round: the falsifier now replaces
+H.groundTakesIt/H.objectSetDown/H.objectSetDownAgain/H.bootsGoDirt directly with the
+graveyarded sand recipe, and all five claims correctly go red. THIS IS NOW THE THIRD TIME this
+exact trap has bitten a fresh wrapper (wowFlutter, the three hums, now these four) -- IF YOU
+EVER WRAP A FUNCTION FOR H.list()'S GENERIC SWEEP, THE MUTATION TEST HAS TO REPLACE THE
+WRAPPER'S OWN EXPORTED NAME, NEVER THE THING IT CALLS BY CLOSURE. Read this before writing a
+fifth one.
+
+GATES: COOKED SOUNDS 181/0 (was 168 last round), --mutate bites 51 (was 45). FOOTSTEP GATE
+24/0, VERDICT-FROZEN 6/0, MERGE DEBRIS 4/0, HANDOFF GATE 9/0, all re-run clean; bohemia_sfx.js
+untouched this round (confirmed by diff before shipping).
+
+NEXT, IN ORDER:
+ 1. THE REMAINING EIGHT OF THE HARD-CONTACT REDO LIST: block, demolish, door_more, hit,
+    melee_hit, parts_pass, pickup, shot_more. None of these are footsteps or ground contact,
+    so none of them reuse what this row has built -- they need real new physics: block/hit/
+    melee_hit are a weapon-on-body or weapon-on-weapon impact (closer to struckMetal's
+    inharmonic-bar model than to a footstep's ground plate, but a body is not a bar either and
+    deserves its own research pass); demolish is destruction, which this row has never
+    modelled in any form; door_more can likely reuse theDoor directly, almost no new work;
+    parts_pass is metal changing hands, closer to struckMetal again but lighter and shorter;
+    pickup is the reverse motion of set_down (a lift, not a landing) and deserves its own
+    moment rather than being bundled in; shot_more needs an actual gunshot model (a pressure
+    transient plus muzzle blast), the one item on this whole list with zero existing
+    machinery to stand on.
+ 2. ATTRIBUTE THE 19 NODES ON THE MAP, with a probe that cannot throw.
+ 3. THE FIRST SOUND GATE'S FLAKE, one red in five. Named nine rounds running now.
+ 4. [beds play] is still HELD. Then [enemy heard], [fight music], [quiet floor], [rumour
+    heard], [pump hum].
+ 5. TWO MUSIC HOLES, STILL MINE: a room handing music back does not check whether a fight
+    owns it, and the shell obeys the city's music message with no fight guard.
+ 6. RULE 33j (9/27): read reference/library/battle_brothers/README.md for this department,
+    cite it, fix a wrong number there with a source. STILL NOT DONE.
+
 SOUNDS (sound-xk7pjp): 9/30 LATEST -- *** THE SAME FOOTSTEP NEVER LANDED THE SAME WAY TWICE
 UNTIL TODAY, AND IT WAS THIS LANE'S OWN BUG. *** Row [not sand], round eight, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round eight block (no separate record file this round).
@@ -11675,6 +11940,24 @@ rom face 14/0, feed 15/0, alpha loads 20/0, readable ruler 7/0. THE SUITE LINE s
 full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
+
+PLUMBER (plumber-ont6t5): 10/1 LATEST -- *** CHAT 18. ROUND 48. [grok fence] AND [grok filter gate] SHIPPED. GROK STAYS IN
+ITS FOLDER, AND NOTHING CITES A GROK PAGE UNTIL IT IS STAMPED. ***
+Record: records/BOHEMIA_THE_FENCE_AND_THE_STAMP_FOR_GROK_10_1_26.md. The two rows sat above [no overlap] in this lane's
+section (rule 49d: Paolo connected Grok's GitHub connector), so they went first; [no overlap] round 2 (the fight,
+the phone opened out) is next.
+  GROK FENCE, in the suite, 5/0, about 1 s. MEASURED FIRST: the 3 Grok commits on the branch grok are signed with the
+  repo owner's own account (the connector pushes as him), so the row's "author says Grok" would find nothing, ever.
+  The mark is the GROK: message the paste page asks for, plus any author or committer that says grok. A coordinator
+  commit that only mentions Grok is not fenced (8 on main, none flagged). 0 Grok commits on main; 3 on the branch, all
+  inside reference/library/grok/. A Grok commit on the branch outside the folder is a WARN for the coordinator.
+  GROK FILTER, in the suite, 6/0, about 2 s: a file outside the folder may cite a Grok page only if the page is on the
+  branch and its line 2 starts PASSED FILTER (the folder README's own shape, stamped by EYES). 0 citations today,
+  printed as zero.
+  BOTH proven on planted repositories (fence 4 cases, filter 5). Two first cuts corrected: listing every commit's
+  files took 30 s (git pre-filters now); git refused a JavaScript-style pattern (it has its own now).
+  STILL [PENDING Paolo]: the 145-file move (32.3 MB); the two Battle Brothers hosts (Grok now covers part of that ask).
+  PROOF: GROK FENCE 5/0; GROK FILTER 6/0; both GREEN through the suite runner.
 
 PLUMBER (plumber-ont6t5): 9/30 LATEST -- *** CHAT 18. ROUND 47. [no overlap] CONTINUING, ROUND 1. NO OVERLAP IS IN
 THE SUITE AND RED ON PURPOSE ON TWO REAL LAYOUT FAULTS, BOTH SEEN ON THE GLASS. ***
@@ -49116,7 +49399,7 @@ THEN (gw) THE WEAK TIER (Paolo 9/29): crossbows and real melee as BB's weaker we
 THEN (gx) EVERYTHING TRANSLATED (Paolo 9/29): rule 48; the translation table records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md (62 rows, owners, status); COMBAT [perks translated], PEOPLE [followers], [ambitions], EYES [translation count]. records/BOHEMIA_PAOLO_EVERYTHING_NEEDS_A_PROPER_TRANSLATION_9_29_26.md.
 THEN (gy) VAMILY 9/30 (the sweep 41c2b9f..HEAD, 442 commits): records/BOHEMIA_COORDINATOR_ROUND_9_30_26.md. The demo opens on the map and a tap is how you travel (RUN e4c66f2b, demo 9/28i); the cell board is deleted and the high ground is a house with its roof (COMBAT V231/V232); the circles are places at the map floor (COOK r4); the fight draws his art 2.6x too coarse (COOK r2 + DIRECTION): COMBAT [device canvas] new; the family faces are black on the first screen: DYNASTY [one then heirs] takes UI's proved line; PLUMBER retries the excavate move (PAGES PUBLISH red on size); the coordinator's 14 VOTE items lacked sha/show and were the vote tab's red since 9/28, fixed. Front page: DEPLOY, SUITE, CUT, COOK lines rewritten. Registry 242/169/74 waiting.
 THEN (gz) GROK AS A RESEARCH HELPER (Paolo 9/30): reference/BOHEMIA_GROK_BRIEF.md and reference/BOHEMIA_GROK_ASKS.md; rule 49; he pastes the brief and the asks, pastes the answers back, the coordinator files them 'source: Grok, unverified'; first asks are the Battle Brothers numbers the sandboxes cannot fetch.
-THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md.
+THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md. THEN (hh) BIGGER JUMPS (Paolo 10/1 with VAMILY: 'combat and the run make bigger jumps every chat... im getting this demo released'): rule 52; COMBAT and RUN MODE: SPRINT with a jump list of three to four whole features; THE RELEASE LINE on the front page (ten lines, RUN refreshes); RUN [release list]. records/BOHEMIA_PAOLO_BIGGER_JUMPS_COMBAT_AND_THE_RUN_THE_DEMO_RELEASE_10_1_26.md. THEN (hi) GROK'S FIRST PAGES PULLED (rule 49e): the beast table and what-I-found, on main in reference/library/grok/; EYES stamps; notes on TUNING/MODS/QUESTS/WORLD/WORDS/RUN/DYNASTY; SOUNDS [dead battery], ECONOMY [price of mercy]; two coordinator defaults in VOTE; the brief's flip and reference lines fixed; asks round two. THEN (hj) THE 10/1 SWEEP: 73 commits read, 11 rows marked SHIPPED, the four lines rewritten, THE RELEASE LINE added, records/BOHEMIA_COORDINATOR_ROUND_10_1_26.md; the next sweep starts after this commit.
 
 
 
@@ -55220,7 +55503,29 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 9/30a (latest): [ai slop] SHIPPED (rule 45c). The strand: the
+[PENDING coordinator] PAOLO SPOKE TO THIS CHAT 10/1: "I don't even wanna wall of
+text before they can start entering the world... maybe one screen and then if
+they're an expert they can start maneuvering... multiple runs". Recorded as a
+ruling: records/BOHEMIA_PAOLO_NO_WALL_OF_TEXT_BEFORE_THE_WORLD_10_1_26.md (at
+most ONE screen between setup and play, <= 40 words, one tap anywhere, silent;
+off by default on a replay; setup one screen with defaults; teaching in the
+world). DIRECTION's look card for that screen is in the same record. ROUTES
+FOR THE COORDINATOR TO MAKE ROWS: UI (one-screen setup), WORDS (origin lines
+<= 40 words), DYNASTY (names on the same screen), RUN (demo carries none),
+PLUMBER (words-before-first-control gate), EYES (source BB's new-campaign flow).
+ROUND LOG 10/1b (latest): his no-wall-of-text words recorded and routed (above).
+ROUND LOG 10/1a: RULE 46f ROUND - he saw the fight floor ("the
+tiles below the people dont look good"). FIGHT VERDICT ROUND 21, FLOOR
+ONLY, judged LIVE (alpha COMBAT tab, 390x844@3x, V233, seeds 1/5/9/13):
+FAIL on all five tests of THE FLOOR PASS BAR, which RUN now cuts by:
+F1 painted unit <= 1.5 device px (today 3.0), F2 fine band >= 0.020
+(today 0.007-0.011), F3 no non-ground marks (today 3-10% by colour class,
+lower bound, plus ovals/disc/words/diamonds/ring by eye), F4 tiles from
+the banks at 5A, bank named per kind, F5 cover is a thing. Picture in VOTE
+(direction-the-floor-under-their-feet-10-1), tool tools/bohemia_direction_
+the_floor_verdict.js/.py re-shoots and re-measures any round. [flip look]
+still OPEN, not claimed this round (the floor was his words).
+ROUND LOG 9/30a: [ai slop] SHIPPED (rule 45c). The strand: the
 world rough and hand-made, the machine smooth, polite, sure and a little
 wrong; the gap is the fear. Card records/BOHEMIA_AI_SLOP_THE_MACHINE_AND_
 THE_WORLD_9_30_26.md + a bible section; three pairs SHOT FROM THE GAME'S

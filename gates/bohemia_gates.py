@@ -828,6 +828,22 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('TILE KINDS', ['node', 'gates/tile_kinds_gate.js'],
+     'ROW [tile options], its surviving half (coordinator 9/28: "the list of tile KINDS at house '
+     'size is yours: every kind the city has, from the block\'s own layout; the board must still '
+     'read as the city"). COOK owns what a tile LOOKS like; this owns WHAT A TILE CAN BE. '
+     '*** HARVESTED, NOT INVENTED, AND RE-HARVESTED EVERY RUN: *** 52 district kits each carry a '
+     'legend whose every entry names a kind, 19 distinct across 922 entries, and the gate reads '
+     'them off disk and refuses a kind the table has not heard of, so the list cannot fall behind '
+     'the city it describes. *** AND THE FINDING IS THAT MOST OF WHAT THE CITY DRAWS IS NOT A TILE '
+     'AT HOUSE SIZE: *** the kits were drawn for THE WALK at 0.75 m a cell, so 40% of their entries '
+     'stop being a square you stand on -- a painted line is paint, A SIDEWALK IS NOT A TILE (his '
+     'words 9/28, "never a fight where one tile is one sidewalk"), a parked car is the cover ON a '
+     'tile. Ten kinds are tiles, nine are not; nothing is thrown away (rule 38e), it changes job. '
+     'THE SIZE IS MEASURED NOT CHOSEN, every run, off our own suburb: a house footprint is 21x12 '
+     'cells and the LOT PITCH -- what actually tiles a city, being the house plus its yard and half '
+     'its driveway -- is 26 cells = 19.5 m. LOOKS ships empty and the module carries no colour, no '
+     'pixel and no damage.', False),
     ('BOARD TERRAINS', ['node', 'gates/board_terrains_gate.js'],
      'ROW [board terrains], rule 46 (Paolo 9/29: "no single combat map in Battle Brothers is '
      'exactly the same... different terrains, nature zones, tile blockers", and the correction '
@@ -4669,6 +4685,22 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('GROK FENCE', ['node', 'gates/grok_fence_gate.js'],
+     'A GROK COMMIT ON MAIN STAYS IN ITS FOLDER. 10/1, PLUMBER, row [grok fence], rule 49d: Grok writes through its '
+     'own GitHub connector, only in reference/library/grok/, only on the branch grok, every message starting GROK:. '
+     'MEASURED FIRST: its commits are signed with the repo owner account, so "author says Grok" finds nothing; the '
+     'mark is the GROK: message (or an author or committer that says grok). A coordinator commit that only mentions '
+     'Grok is not fenced. Legs: four planted-repository self-tests; every Grok commit reachable from main touches '
+     'only its folder (the shallow depth is printed); a WARN for a Grok commit on the branch grok outside the folder. '
+     'About a second (git filters the candidates first; listing every commit was 30 s).',
+     False),
+    ('GROK FILTER', ['node', 'gates/grok_filter_gate.js'],
+     'A CITED GROK PAGE MUST BE STAMPED PASSED FILTER. 10/1, PLUMBER, row [grok filter gate], rule 49b and the '
+     'outside-helper law s5: Grok pages are "source: Grok, unverified" until the eyes-and-ears chat stamps line 2 '
+     'PASSED FILTER or FAILED FILTER. Any file outside the folder that names a page inside it must name one that is on '
+     'the branch and stamped PASSED. Five planted self-tests (stamped passes; unstamped, FAILED and missing are caught; '
+     'naming the folder itself is not a citation). Zero citations is printed as zero, never as a pass over something.',
+     False),
     ('NO OVERLAP', ['node', 'gates/no_overlap_gate.js'],
      'NO TWO TEXTS ON TOP OF EACH OTHER, NONE CUT OFF BY A PANEL. 9/30, PLUMBER, row [no overlap], rule 44c. '
      'Paolo 9/29: "when texts are overlapping each other, I dont know why its so difficult for you to '

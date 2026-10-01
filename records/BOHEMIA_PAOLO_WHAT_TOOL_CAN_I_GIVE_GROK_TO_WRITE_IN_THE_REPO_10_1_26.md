@@ -21,3 +21,9 @@ connector is read/write: a public test on 9/17/26 showed it creating a branch, p
    moot. If Grok writes outside its folder or to main, the coordinator reverts it the same round and tightens the paste.
 5. GATE OWED: PLUMBER [grok fence]: a gate on main that refuses any commit whose author or message is Grok's touching a
    path outside reference/library/grok/; and the existing [grok filter gate] for citations.
+
+## 10/1, LATER: CONNECTED FROM THE PHONE
+His words: "I didn't need to even go home on a laptop to get it to connect a big hub it already did it so awesome it can
+start typing and talking now I think so yeah". The GitHub connector connects from the Grok phone app; no laptop needed.
+Measured the same minute: the branch grok carried no Grok file yet (only the coordinator's README). The coordinator pulls
+origin/grok every VAMILY and reports the first page the round it lands.

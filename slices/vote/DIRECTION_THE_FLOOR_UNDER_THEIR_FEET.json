@@ -1,0 +1,62 @@
+[
+ {
+  "seed": 1,
+  "kind": "street",
+  "canvas": "390x635",
+  "unit": 3,
+  "band": [
+   0.0091,
+   0.0108
+  ],
+  "fake": 3.1,
+  "pale pads": 1.0,
+  "red": 1.0,
+  "white marks": 0.9,
+  "green words": 0.3
+ },
+ {
+  "seed": 5,
+  "kind": "street",
+  "canvas": "390x635",
+  "unit": 3,
+  "band": [
+   0.0068,
+   0.0075
+  ],
+  "fake": 9.6,
+  "pale pads": 5.4,
+  "red": 2.0,
+  "white marks": 2.1,
+  "green words": 0.1
+ },
+ {
+  "seed": 9,
+  "kind": "street",
+  "canvas": "390x635",
+  "unit": 3,
+  "band": [
+   0.0096,
+   0.011
+  ],
+  "fake": 4.8,
+  "pale pads": 2.5,
+  "red": 0.1,
+  "white marks": 1.9,
+  "green words": 0.3
+ },
+ {
+  "seed": 13,
+  "kind": "street",
+  "canvas": "390x635",
+  "unit": 3,
+  "band": [
+   0.0102,
+   0.0113
+  ],
+  "fake": 3.3,
+  "pale pads": 1.2,
+  "red": 0.1,
+  "white marks": 1.7,
+  "green words": 0.3
+ }
+]

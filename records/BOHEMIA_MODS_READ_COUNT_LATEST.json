@@ -1,5 +1,5 @@
 {
- "measuredAt": "ca7655c",
+ "measuredAt": "7ad4472",
  "note": "MODS [read count]. touch = live copies (found + hidden in a blob) + gates that pin the literal. The data line has to beat these numbers; the target is 1.",
  "probes": [
   {
@@ -8,8 +8,8 @@
    "found": {
     "LIVE": 0,
     "GATE": 2,
-    "TOOL": 3,
-    "DOC": 5
+    "TOOL": 4,
+    "DOC": 6
    },
    "foundLive": [],
    "foundGates": [
@@ -28,8 +28,8 @@
    "found": {
     "LIVE": 3,
     "GATE": 0,
-    "TOOL": 0,
-    "DOC": 1
+    "TOOL": 1,
+    "DOC": 2
    },
    "foundLive": [
     "engine/bohemia_people.js",
@@ -46,8 +46,8 @@
    "found": {
     "LIVE": 3,
     "GATE": 1,
-    "TOOL": 0,
-    "DOC": 0
+    "TOOL": 1,
+    "DOC": 1
    },
    "foundLive": [
     "engine/bohemia_sfx.js",

@@ -31,6 +31,11 @@
  *   M  THE SIX (rule 47): every entry feeds one of the six or none; nothing makes meds or rounds.
  *   N  MUTATION: the same part with the ledger's taking erased refuses, so the ledger is what is read.
  *
+ * ROUND 3 (10/1): A LOT LIES IN A REAL BLOCK of the real valley (overmap 12345, FACTIONS' turf grid):
+ *   O  take the Mob's part and the blocks you hold are exactly the Mob's blocks; a lot in one of them
+ *      builds, a lot in a Cartel block on the Mob's screen is WRONG_PART, and taking more parts grows
+ *      the count; a ruin takes its blocks with it.
+ *
  * Run:  node gates/build_a_lot_gate.js
  */
 'use strict';
@@ -53,6 +58,10 @@ const C = require(path.join(ENGINE, 'bohemia_century.js'));
 const F = require(path.join(ENGINE, 'bohemia_future.js'));
 const W = require(path.join(ENGINE, 'bohemia_powerbuild.js'));
 const HB = require(path.join(ENGINE, 'bohemia_homebases.js'));
+const TOWNS = require(path.join(ENGINE, 'bohemia_towns.js'));
+const CE = require(path.join(ENGINE, 'bohemia_cityedit.js'));
+const OM = require(path.join(ENGINE, 'bohemia_overmap.js'));
+const GRAPH = require(path.join(ENGINE, 'BOHEMIA_faction_graph.json'));
 
 let pass = 0, fail = 0;
 const ok = (name, cond, detail) => {
@@ -244,6 +253,35 @@ ok('M a thing that feeds one of the six makes something today', LB.CATALOG.every
   erased.rec.entries = [];
   ok('N MUTATION: erase the taking from the ledger and the same part refuses (the ledger is what is read)',
      LB.start(yours(), p, { x: 1, y: 1 }, 'wall', 0, h).ok && LB.start(yours(), p, { x: 1, y: 1 }, 'wall', 0, erased).why === 'NOT_HELD');
+}
+
+/* ---- O: A LOT LIES IN A REAL BLOCK ---- */
+{
+  const m = OM.buildOvermap(12345), seats = TOWNS.derive(GRAPH, TOWNS.districtsOf(m, CE.cat), 1);
+  const grid = TOWNS.turf(m, CE.cat, seats), partAt = (x, y) => grid.at(x, y), N = m.n;
+  const size = {}, first = {};
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const t = partAt(x, y); if (!t) continue;
+    size[t.faction] = (size[t.faction] || 0) + 1; if (!first[t.faction]) first[t.faction] = { bx: x, by: y };
+  }
+  const parts = Object.keys(size).sort((a, b) => size[b] - size[a]);
+  const A = parts[0], B2 = parts[1];
+  const rec = HB.make({ act: 1 }), hold = { rec: rec, act: 1, partAt: partAt, n: N };
+  ok('O nothing is yours before you take anything: 0 blocks', LB.holdings({}, hold, seats).blocks === 0);
+  HB.took(rec, { base: A, to: HB.YOU, day: 1, by: 'contract' });
+  let g = LB.holdings({}, hold, seats);
+  ok('O take one part and the blocks you hold are exactly its blocks', g.blocks === size[A], A + ': ' + g.blocks + ' of ' + N * N);
+  const p = rich(3);
+  ok('O a lot in one of its blocks builds', LB.start(g.book[A], p, Object.assign({ x: 1, y: 1 }, first[A]), 'wall', 1, hold).ok);
+  const wrong = LB.start(g.book[A], p, Object.assign({ x: 2, y: 1 }, first[B2]), 'wall', 1, hold);
+  ok('O a lot in another part\'s block, on this part\'s screen, is WRONG_PART and costs nothing',
+     wrong.why === 'WRONG_PART' && wrong.part === B2 && P.balance(p, 'electricity') === 2, JSON.stringify(wrong));
+  HB.took(rec, { base: B2, to: HB.YOU, day: 2, by: 'raid' });
+  g = LB.holdings(g.book, hold, seats);
+  ok('O *** WHAT YOU HOLD GROWS, IN BLOCKS: take a second part and the count is both ***',
+     g.blocks === size[A] + size[B2], size[A] + ' + ' + size[B2] + ' = ' + g.blocks + ' of ' + N * N + ' blocks');
+  HB.ruined(rec, { base: A, day: 3, by: 'raid' });
+  ok('O a ruin takes its blocks with it', LB.holdings(g.book, hold, seats).blocks === size[B2]);
 }
 
 console.log('\nBUILD A LOT GATE: ' + pass + ' ok, ' + fail + ' failed');

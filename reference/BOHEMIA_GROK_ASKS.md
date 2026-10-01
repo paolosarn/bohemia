@@ -1,5 +1,8 @@
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
-# 9/30/26, round one. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12). The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
+# 10/1/26, round two. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12).
+# ANSWERED 9/30 (on the branch grok, pulled to main 10/1): ask 1 (the beast table) and ask 11 (what you found). THANK YOU; both were used.
+# NEXT, IN THIS ORDER: 6 (fight length, measured minutes), 2 (the enemy roster), 3 (the weapon table), 7 (the map), then 4, 5, 8, 9, 10, then 12.
+# FOLLOW-UPS ON ASK 1: the medium and large Nachzehrer claws (you said you did not quote them); the Alp's melee skill if any page has it; the Ijirok, Serpent, Lindwurm, Hexe, Schrat, Geist, Kraken lines if the file was cut short. The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
 # Brothers wiki and dev blog, so every number in our library is from memory. Grok can read them.
 
 1. THE BEAST TABLE, EXACT. For each Battle Brothers beast (Direwolf, Frenzied Direwolf, Hyena, Nachzehrer, Webknecht,
