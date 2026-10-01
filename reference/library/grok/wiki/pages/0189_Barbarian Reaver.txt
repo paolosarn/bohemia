@@ -1,0 +1,77 @@
+{{Combatant3
+|title           =Barbarian Reaver
+|image           =token-barbarian-reaver.png
+|health          =120
+|head-armor      =0-145
+|body-armor      =65-95
+|fatigue         =130
+|fatigue-recovery=20
+|resolve         =80
+|initiative      =115
+|melee-skill     =65
+|ranged-skill    =60
+|melee-defense   =10
+|ranged-defense  =10
+|action-points   =9
+|xp              =250
+|skills=
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_17.png|25px]] [[Bullseye]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_39.png|25px]] [[Quick Hands]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+{{SkillInfo|Perk_26.png|[[Relentless]] after day 60}}
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Reaver is an enemy from the [[Barbarians]] faction.
+
+== Equipment ==
+* A [[Two-Handed Spiked Mace]], [[Two-Handed Skull Hammer]], [[Blunt Cleaver]], [[Crude Axe]] or [[Axehammer]].
+* 40% chance of a [[Bundle of Heavy Javelins]], [[Bundle of Heavy Throwing Axes]] or [[Throwing Spear]].
+* A [[Hide and Bone Armor]] (95), [[Scrap Metal Armor]] (75) or [[Reinforced Animal Hide Armor]] (65).
+* 80% chance or a [[Crude Metal Helmet]] (145), [[Leather Helmet]] (105), [[Bear Headpiece]] (50) or [[Leather Headband]] (30).
+* 20% chance of an [[Old Wooden Shield]].
+
+== Skills ==
+{| class="article-table" style="font-size:85%;"
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue''''' 
+! align="left" |'''''Description'''''
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+Like all barbarians, they move forward and switch to [[Throwing Weapons|throwing weapons]] if they have them. They will use [[Adrenaline (20 fatigue)|Adrenaline]] to get ahead of the enemy if not already faster than them. Usually they wait after acting, and activate it at the very end. They can [[Barbarian Fury (5 fatigue)|rotate]] with each other to save a wounded ally, attack someone vulnerable, or without a clear purpose.
+
+== Tips ==
+* Barbarians with [[Throwing Weapons|throwing weapons]] won't charge into Spearwall, and can be problematic if they take a high ground.
+* Their two-handed weapons can instantly kill without high HP or defensive [[perks]] even through a helmet.
+* Take [[Nine Lives]] to survive a heavy hit.
+* They can hit backliners with throwing weapons. Protect them accordingly.
+* Prioritize better armed and less protected ones.
+* Their [[Hide and Bone Armor]] is surprisingly good, having stats exactly like [[Leather Lamellar Armor]].
+* Use [[flails]] to hit their unprotected heads and loot the armor, however it may take a while due to their high HP.
+* Can be [[Daggers|punctured]] for their armor when fleeing, but they will rarely be due to high resolve.
+* Use [[shields]] and take [[Dodge]] to reduce their chance to hit.
+* They like to break shields, don't bring fragile shields you don't want to lose. [[Shield Expert]] and extra shields can win more time.
+* They are the only source of heavy throwing weapons.
+* If they waited, don't [[Taunt (Skill)|Taunt]] or [[Battle Whip|Disarm]] them as the effect will instantly go away. [[Maces|Stun]] goes away but prevents [[Adrenaline (20 fatigue)|Adrenaline]].
+
+== Notes ==
+*Their throwing weapons can drop (90% chance) if above 0 ammo when held or above 0 but less than max ammo when in the bag.<ref>https://steamcommunity.com/app/365360/discussions/0/2971776551517767395/</ref> If you are looking to loot their throwing weapons it is therefore best to either kill them with ranged brothers before they use up all their ammo or by letting them throw at least once before engaging with melee brothers, unless you can kill them before they switch to their melee weapon.
+<references/>
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

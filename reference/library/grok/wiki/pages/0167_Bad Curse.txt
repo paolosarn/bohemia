@@ -1,0 +1,112 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="bad_curse" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Bad Curse]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 50
+|-
+!style="white-space: nowrap; border-right:1px dotted #505050"|[[File:Trait icon 26.png|25px]] <span style="color:grey">Superstitous</span>
+|colspan="2"|A brother with the [[Superstitious]] trait will ask you for 400 [[File:Crowns.png|25px]] to lift a curse with the aid of a witch. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"If it must be... go take care of it. Here are the crowns."
+**He gets a [[File:Good_mood.png|21px]] good mood and you lose 400 [[File:Crowns.png|25px]]
+*"This isn't going to happen."
+**He gets a [[File:Bad_mood.png|21px]] bad mood and becomes [[File:Status_effect_52.png|25px]] [[Afraid (Status Effect)]]
+*"Have [[File:Background_13.png|25px]] [[Monk (Background)|Monk]] or [[File:Flagellant.png|25px]] [[Flagellant (Background)|Monk turned Flagellant]] the monk take a look instead."
+**Both brothers gain +1 [[File:Resolve.png|25px|Resolve]]
+[[File:Requirements.png|150px]]
+*It has to be day-time
+*Have at least 1000 [[File:Crowns.png|25px]]
+*You have to be near an allied town
+[[File:Score.png|150px]]
+*Score = 15 for every brother with [[Superstitious]] trait
+[[File:Other_notes.png|150px]]
+*A brother can gain the resolve bonus only once from this event
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Superstitious's token}}
+[[File:event_05.png|left]]
+{{EventVariable|Superstitious}} enters your tent with hat in hand. The rim of it turns round and round in his fingers as though he were plucking feathers from it. Even though you haven't said a word the man's head nods furiously and his eyes jet around as if looking for the words to say.
+
+You put your quill pen down and ask what the issue is. Licking his lips, he nods again and begins to explain his predicament. The words come fast, but the general gist of it seems to be that a local witch has cursed the man to be incapable of some sexual export, as it were.
+
+You shake your head and ask what it is the witch wants and {{EventVariable|Superstitious}} says 400 crowns, lest the curse be on him for life.
+{{EventButtons}}
+{{EventButton||#B|If it must be... go take care of it. Here are the crowns.}}
+{{EventButton||#C|This isn't going to happen.}}
+{{EventButton||#D|Have {{EventVariable|Monk}} the monk take a look instead.|{{Sp}}(requires Monk or Monk turned Flagellant)}}
+{{EventTabEnd}}
+
+|-|B=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Superstitious's token}}
+[[File:event_05.png|left]]
+Thumb and finger pinching your eyes shut, you wonder if maybe this wasn't the life for you. Killing's easy, but this? Whatever. You throw your hands up and get out of your chair to retrieve a satchel of crowns. The superstitious man totters up on the tips of his toes.
+
+{{EventSpeech|Please count it out! It mustn't be a crown short!}}
+
+You begrudgingly set the satchel on the table and begin counting. Once the appropriate number is had, you shuffle it into a purse and toss it to {{EventVariable|Superstitious}}. He bows, thanking you and your mercy. You wave the man off to quickly get him out of your tent.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:effect mood euphoric.png|x25px]] || {{EventVariable|Superstitious}} gets a {{Tooltip|good mood|+3 (Was cured of a curse)}}
+ |-
+ | [[File:crowns.png|x25px]] || You spend 400 crowns
+ |}
+{{EventButtons}}
+{{EventButton|The things I put up with... (the event ends)}}
+{{EventTabEnd}}
+
+|-|C=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Superstitious's token}}
+[[File:event_05.png|left]]
+You further muddy {{EventVariable|Superstitious}}'s poor countenance with some bad news: you're not paying any witch anything.
+
+{{EventSpeech|A few farcical words from some strange woman in the woods is no basis for an exchange of business. What you've heard is a tramp's attempt to get at you, mercenary. You cannot listen to such tripe, especially a tramp's tripe for a tramp's tripe is always in pursuit of one's coin.}}
+
+None of these words help {{EventVariable|Superstitious}} for he quickly runs out of the tent, perhaps in pursuit of another mercenary who will give him a loan.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:status effect 52.png|x25px]] || {{EventVariable|Superstitious}} is afraid
+ |-
+ | [[File:effect mood disgruntled.png|x25px]] || {{EventVariable|Superstitious}} gets a {{Tooltip|bad mood|-2 (Felt let down by you)}}
+ |}
+{{EventButtons}}
+{{EventButton|Some people can't be helped. (the event ends)}}
+{{EventTabEnd}}
+
+|-|D=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Superstitious's token|right=Monk's token}}
+[[File:event_05.png|left]]
+Wondering if maybe {{EventVariable|Monk}} the monk could help, you go and fetch the holy man.
+
+He says he can indeed lend a hand for the old gods are always at war with the evils of witchcraft and other sorcery. Before he goes off on a long monologue about this old god or that one, you dip away and send him {{EventVariable|Superstitious}}. For a few minutes, there is peace and quiet in your tent. But you know it can't last, for you are like a man beneath a rockslide, awaiting the tumbling stone with his name on it.
+
+However, {{EventVariable|Superstitious}} doesn't return. After a few minutes more you realize he still hasn't made a disruptive entrance. In fact, his absence altogether has you on edge, as though silence itself might be haranguing. You leave the tent to find the monk and so-called cursed man deep in religious talks. Smiling, you return to your tent. If there's one thing the holy men are best at, it's maintaining a sense of tranquility.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:resolve.png|x25px]] || {{EventVariable|Superstitious}} gains +1 Resolve
+ |-
+ | [[File:resolve.png|x25px]] || {{EventVariable|Monk}} gains +1 Resolve
+ |}
+{{EventButtons}}
+{{EventButton|That should put an end to this. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Bad_curse.png|Start
+Bad_curse_monk.png|Monk
+</gallery>
+
+[[Category:Event]]

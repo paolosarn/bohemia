@@ -1,0 +1,24 @@
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=Apron.png
+|imagewidth=500px
+|imagecaption=
+|worth=55 
+|durability=25
+|maxfatigue=
+|useforspecial=
+|misc_1=
+}}
+
+==Description==
+''A leather apron usually worn by apprentices and craftsmen.''
+
+==Where can it be found?==
+* Can be bought at a [[Settlement_buildings#Marketplace|Marketplace]] in settlements with [[Settlements_and_attached_locations#Provisions|Beekeeper]], [[Settlements_and_attached_locations#Provisions|Mushroom Grove]], [[Settlements_and_attached_locations#Armorer|Leather Tanner]], [[Settlements_and_attached_locations#Armorer|Blast Furnace]].
+* Can be looted from: [[Militia]], [[Peasant]], [[Armed Peasant]], [[Wiederganger]].
+* Possible starting armor of new mercenaries: [[Apprentice (Background)|Apprentice]], [[Bowyer (Background)|Bowyer]].
+
+__NOTOC__
+
+[[Category:Body Armor]]
+[[Category:Armor]]

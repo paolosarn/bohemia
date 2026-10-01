@@ -1,0 +1,22 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_helps_blighted_guy_2" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Helps Blighted Guy 2]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|The [[Anatomist Helps Blighted Guy 1|blighted vagabond]] becomes better. His background changes to a [[File:Militia.png|25px]] [[Militia (Background)|Militia]] and he gains +4 [[File:Melee defense.png]], +4 [[File:Ranged defense.png]], +8 [[File:Melee skill.png]], +7 [[File:Ranged skill.png]], +3 [[File:Fatigue.png]], +6 [[File:Initiative.png]], +12 [[File:Resolve.png]], +5 [[File:Health.png]] and a [[File:Good mood.png]] good mood
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*You must have taken in the blighted man as part of the [[Anatomist Helps Blighted Guy 1]] event
+*He must have been in your company for at least 5 days
+*He must no longer be sick or injured
+[[File:Score.png|150px]]
+*Score = 25
+[[File:Other notes.png|150px]]
+*Compared with the stats you would expect a normal [[Militia (Background)|milita]] to get and taking into account the [[Vagabond (Background)|vagabonds']] rolls this event makes the brother +2 [[File:Melee defense.png]], +2 [[File:Ranged defense.png]], +4 [[File:Melee skill.png]], +1.5 [[File:Ranged skill.png]], +11.5 [[File:Fatigue.png]], +6 [[File:Initiative.png]], +2 [[File:Resolve.png]] and 3.5 [[File:Health.png]] better than a regular [[Militia (Background)|millita]]
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:BB Blight Heal.jpg]]</div>
+[[Category:Event]]

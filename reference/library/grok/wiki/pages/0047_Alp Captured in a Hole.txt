@@ -1,0 +1,56 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="alp_captured_in_a_hole" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Alp Captured in a Hole]]</span>
+!style="white-space: nowrap"|[[File:Dlc_2.png|25px|Beasts & Exploration DLC]] <span style="color:green">Beasts & Exploration DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 170
+|-
+|colspan="3"|You find a man sitting next to a hole in the ground. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Alright I'll pay a bit to have a look." 
+**You play 10 [[File:Crowns.png|25px]] and choose:
+***"You should kill it."
+****"I'll kill it myself."
+*****You gain 25-100 [[File:Crowns.png|25px]] and 33% of your brothers suffer [[File:Days_wounded.png|25px]] light wounds
+****"Fine, let it live."
+*****Every [[File:Background_57.png|25px]] [[Beast Slayer (Background)|Beast Slayer]], [[File:Background_23.png|25px]] [[Witchhunter (Background)|Witchhunter]], brother with [[File:Trait_icon_48.png|25px]] [[Fear of Beasts]],<br />[[File:Trait_icon_51.png|25px]] [[Hate for Beasts]], [[File:Trait_icon_42.png|25px]] [[Bloodthirsty]], [[File:Trait_icon_55.png|25px]] [[Paranoid]] or [[File:Trait_icon_26.png|25px]] [[Superstitious]] trait gets a [[File:Bad_mood.png|21px]] bad mood
+****"[[File:Background_57.png|25px]] [[Beast Slayer (Background)|Beast Slayer]], you're an expert on these things. What say you?"
+*****You gain 25 [[File:Crowns.png|25px]] and 1 [[File:Inventory_alp_skin.png|25px]] [[Trophies|Parched Skin]]
+***"Alright, uh, good luck then."
+****(nothing happens)
+*"We're good."
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*Your campaign is at least 30 days old
+*You are not on a road or snow terrain currently
+*Have at least 1 free inventory slot
+[[File:Score.png|150px]]
+*Score = 5
+</div>
+|}</onlyinclude>
+
+== Start ==
+
+<div class="res-img">[[File:Alpinahole1.png]]</div>
+
+=== Path 1 ===
+
+<div class="res-img">[[File:Alpinahole2.png]]</div>
+
+=== Path 1.1 ===
+
+<div class="res-img">[[File:Alpinahole3.png]]</div>
+
+==== Path 1.1.1 ====
+
+<div class="res-img">[[File:Alpinahole4.png]]</div>
+
+==== Path 1.1.2 ====
+
+<div class="res-img">[[File:Alp_captured_in_a_hole.png]]</div>
+
+==== Path 1.1.3 (Beast Slayer) ====
+
+<div class="res-img">[[File:Alpinholeslayer.png]]</div>
+[[Category:Event]]

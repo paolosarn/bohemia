@@ -1,0 +1,18 @@
+<!-- Alp_trophy.png|55px -->
+
+{|class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+!class="unsortable"|
+!style="white-space: nowrap;"|Name
+!style="white-space: nowrap" data-sort-type="number"|[[File:Resolve.png|20px|Resolve]]
+!style="white-space: nowrap"|Ingredients
+!style="white-space: nowrap" data-sort-type="number"|Cost
+|-
+<onlyinclude>
+|[[File:Alp_trophy.png|55px]]
+|[[Alp Trophy Necklace]]
+| +5
+|style="white-space: nowrap"|<div style="position: relative">[[File:Inventory_alp_skin.png|50px|Parched Skin (Alp)]][[File:Inventory_alp_eye.png|50px|Third Eye (Alp)]][[File:Inventory_alp_scream.png|50px|Petrified Scream (Alp)]]<div style="font-size: 6px; color: transparent; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Parched Skin Third Eye Petrified Scream</div></div>
+|style="white-space: nowrap"|300 [[File:crowns.png|20px]]
+</onlyinclude>
+|}
+[[Category:Trophy Necklaces (Craftable)]]

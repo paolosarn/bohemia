@@ -1,0 +1,15 @@
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |
+! align="center" |
+! align="left" |'''''Description'''''
+|-<onlyinclude>
+| align="center" |[[File:Acid.png|35px|center]]
+| align="center" |[[Acid Blood]]
+|
+|
+| align="left" |<span style="color:olive">Acid Blood</span> Every time you do at least 10 [[File:Damage_dealt.png|25px|Damage]] to their [[File:Health.png|25px|Hitpoints|bottom]] with melee, the tile next to the Lindwurm will be sprayed with acid - the acid corrodes both body and head armor at the rate of 10% of armor each turn for three turns - this effect doesn't stack, but it will refresh
+</onlyinclude>
+|}
+[[Category:Racial Perks]]

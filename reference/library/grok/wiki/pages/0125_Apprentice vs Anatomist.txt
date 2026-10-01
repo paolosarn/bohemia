@@ -1,0 +1,20 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="apprentice_vs_anatomist" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Apprentice vs Anatomist]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 90
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background 40.png|25px]] Apprentice<br />[[File:Background_70.png|25px]] Anatomist
+|colspan="2"|An [[Apprentice (Background)|Apprentice]] learns from an [[Anatomist (Background)|Anatomist]] and gains a 1.35 experience multiplier [[File:Xp_received.png|25px]] for 3 days. Both he and the [[Anatomist (Background)|Anatomist]] gain a [[File:Good mood.png]] good mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*No extra requirements
+[[File:Score.png|150px]]
+*Score = 3 for every [[Anatomist (Background)|Anatomist]] and eligible [[Apprentice (Background)|Apprentice]]
+[[File:Other notes.png|150px]]
+*An apprentice can only receive this bonus once
+*An apprentice cannot receive this bonus if they already have a training bonus, such as from the training hall
+</div>
+|}</onlyinclude>
+[[Category:Event]]

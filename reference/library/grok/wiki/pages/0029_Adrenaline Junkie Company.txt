@@ -1,0 +1,659 @@
+==Introduction==
+The game has changed a lot since v1.1.0.8, when the first version of this guide was written. Looking back, I felt embarrassed by my cheap exploits of olde, and decided to totally re-write it to reflect the current state of my exploitation of game mechanics (just in time for everything to be altered by the next DLC).
+
+Shield-swapping and cheating fatigue recovery with orcish items are things of the past, but Quick Hands and the ability to cycle potent combinations of fatigue-intensive skills (via Adrenaline and Recover) are still very distinctive features of the overall build.
+
+The build now features a greater variety of niche roles (many of them, however, with ample room for overlap). Most of them require masses of fatigue (and I predominantly recruit from high-fatigue backgrounds), but some of them are fatigue-neutral or initiative-based.
+
+The introduction of the new form of the Nimble perk has made it easier to combine a high usable pool of fatigue with strong innate protection against injuries, and some of the rare Nimble-worthy armours (e.g. nightcloaks and steppe helms) offer amazing 200+ durability. With the addition of Light Padding Replacement, some heavier rare body-armours (even ones with ~300 durability) can become Nimble-worthy in combination with an efficient helm. Obviously, so much combined armour and Nimbleness synergizes very well with Indomitable! (In times past, I was happy enough to combine 150-240 armours with a plentiful pool of fatigue, high HPs, generous Indomitable usage, and no innate damage-reduction!)
+
+Usually my companies have only a very limited number of members who combine exceptional values of both melee skill and melee defence. Recruiting someone with mega-talent for both (while still needing a significant investment to make several other stats meet my standards of well-roundedness) often causes me more anxiety than excitement. Most of my characters are designed to max out only one of them, taking only high rolls for the other. High HPs (almost always with Colossus) are desirable on everyone. High fatigue is even more desirable on the ones who aren’t mostly fatigue-neutral or initiative-based. Additionally, I have a bad conscience about making use of anyone (even an archer) who isn’t (by level 11) at least 50% enthusiastic about charging around in the mud amid pieces of sharp/blunt metal and shower-storms of blood.
+
+With a mixture of predominantly offensive and predominantly defensive characters, a small handful of heroic or devious utilitarian ones, a bit of careful positioning and the timely application of powerful skills, every fight in the game can be beaten with level 11 stats (but heavy casualties may be incurred at the most challenging legendary locations) ...
+
+The individual character builds (roughly grouped) are covered first, followed by an outline of the approach used (with a fully-developed party) against particular tough enemy types in the game.
+
+I don't quite believe it, but apparently the word-count for this new version comes out at almost 20,000 (a quarter of a novel) ...
+
+==Offensive Character Builds==
+===>> Axe Murderer <<===
+I always have at least two characters who can one-shot tower/kite shields in direct melee engagement (with greataxes or rusty barbarian equivalents) and one-shot schrat/heater shields from a safer distance of 2 tiles (with longaxes). Quick Hands is an essential perk for these characters.
+
+Against enemies without high-durability shields and/or the Shield Expert perk (or against enemies with lots of 2-tile weapons), bardiches may be favoured for their AOE split ability. If you get a rare bardiche with greataxe-esque shield damage, that may be favoured for all engagements. On the other hand, if the character’s fatigue is high enough, you could even carry all three 2H axe variants. Other options for the third item slot include a 1H weapon (so that you can Recover after Berserk, or so that you can have an extra attack and use Indomitable after getting a kill and going Berserk in a tight situation) or a jagged pike (so that, after a kill/Berserk, you can move a tile and make an additional 2-tile attack, gaining part of the advantage of polearms without needing to master them) or a battle-whip (so that you can do all the above things, with a 3-tile range, but only inflict meaningful damage if the target is unarmoured).
+
+This character needs lots of fatigue and good melee skill (super-high values of 85-95 at level 11 would be ideal, although the ability to rapidly remove large shields and thus lower enemy defences means that even values of 75-80 can be acceptable on an otherwise remarkable recruit (e.g. a wildman with masses of fatigue, HPs and resolve).
+
+Although the character is expected to get involved in direct melee engagement some of the time, it is not supposed to be surrounded by enemies and does not need exceptionally high defence (although you may choose Reach Advantage and even Underdog as optional perks if you chance to get lots of good rolls). Forget about cycling Round Swing with Indomitable, but by all means consider cycling Split with Indomitable. In the absence of high defences, excessive danger can avoided by using Rotation and/or Footwork (ideally on a different character, thus saving perks for this one) and by using Indomitable in tight spots.
+
+Ideally, fatigue should be 90+ in gear when using a bardiche (91+ when holding a longaxe with the bardiche in a bag slot), so that the character has the option to continue cycling AOE Split attacks with Indomitable in tight spots. These figures can be reduced by 12 if the character has Iron Lungs.
+
+The character should have as many HPs as can be spared (bolstered by Colossus unless the value is already high, in which case the addition of Colossus will probably feel irresistible) and should have at least decent resolve (minimum of ~50 with a trophy, although ~60+ is ideal for fights like the Black Monolith).
+
+Since the character revolves primarily around attacks costing 6 action points (APs), the Pathfinder perk is very useful for fighting effectively in swamps and switching height levels in forests/mountains/snow (although a back-up jagged pike could offer a partial work-around for this difficulty). Pathfinder also synergizes brilliantly well with Adrenaline and an abundance of fatigue for trapping and slaughtering annoying, high-initiative enemies in the early stages of battles, and for advantageous positioning (in concert with allies) prior to an onslaught of attacks on rough terrain. In the absence of Pathfinder, use of Rotation and/or Footwork (by this character or another) can compensate partially for the lack of general mobility on tough terrain (e.g. still only 3 APs to shift a tile in swamp or up/down height levels in forests/mountains/snow).
+
+Another potentially valuable anti-annoyance perk for this character (and other offence-oriented ones) is Resilient. While this perk is very optional, I’d say it’s vital to have it on at least some damage-dealers with high melee skill, since it makes life a lot easier in slow, frustrating fights against shamans and hexen (e.g. advance into attacking range, use Adrenaline, wait turn, and then recover from any curses or charms before slaughtering those devious cheating bastards at the start of the next turn)!
+
+Since the character revolves primarily around offence and damage, however, Killing Frenzy (possibly bolstered by Strange Mushrooms if you have a spare slot for them) is always an enticing perk (even if you always end up opting for easy kills against near-dead enemies to ensure that the bonus remains active, and hardly ever manage to get an additional kill thanks to the effect of KF). For otherwise remarkable recruits with mediocre melee skill in the high 70s or even low 80s, you could consider Backstabber (excellent against barbarians, swordmasters and irrlichts). Other optional perks include Rotation and/or Footwork (for avoiding direct melee engagement after smashing large shields or spamming Split attacks), Reach Advantage and/or Underdog (if the character has decent talent/rolls for melee defence), a second mastery (whips?), Fortified Mind (if resolve is below ~50), or Bags and Belts so that you can store Strange Mushrooms (and/or carry back-up 1H items and nets)!
+
+The character should either be Nimble or wearing armours with durability at least around the mid-200s (in the latter case, ideally without using a perk on Brawny). Ideally the character would be highly Nimble in super-efficient famed armours with durability in the low/mid-200s, or Battle Forged (still without using a perk on Brawny) in super-efficient famed armours with durability in the mid/high-300s. A perk-sparing compromise would to have a high pool of fatigue in efficient armours in the mid/high 200s, with no Nimble, Brawny or BF (but yes Indomitable).
+
+Bone Plating attachments tend to be best for Nimble armours, and Additional Fur Padding (AFP) for heavy ones (BF or not), but sometimes Light Padding Replacement (LPR) is necessary for the latter to save using a perk on Brawny, and Bone Plating may be the best attachment for all armours against enemies like lindwurms. Direwolf mantles are the coolest-looking attachment, however, and (by stackingly lowering the resolve of engaged enemies) may help you to do some cheap spooking against unholds, orc warlords et al. Fur Padding attachments (the type that lower ranged armour and HP damage by 20%) could be used for some large goblin fights (these armours can be kept spare in the inventory the rest of the time, if you have room for them).
+
+'''Essential Perks:''' AxeM, QH, Adren, Recover, Indom, Berserk
+
+'''Probable Perks:''' Colossus, Nimble or [Brawny and/or BF]
+
+'''Possible Perks:''' Pathfinder, Resilient, Killing Frenzy, Backstabber, Reach Advantage, Underdog, Rotation, Footwork, Fortified Mind, B&B, 2nd mastery
+
+'''Most Vital Stats:''' Melee Skill (~80+), Max Fatigue (136 base for minimal Nimble armour and one 2H axe of each type!)
+
+'''Also Important Stats:''' HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+), Melee Defence (usually ~10-25, but feel free to neglect if Huge/Cocky/Wild without talent)
+
+'''Optional Stats:''' Ranged Defence, Ranged Skill (if it can get to 50-65 with 0-3 rolls)
+
+'''Recommended Traits:''' Huge, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Dexterous, Surefooted, Paranoid, Hate for Beasts/Greenskins/Undead, Deathwish
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' wildman, lumberjack, farmhand, beastslayer, brawler, messenger, vagabond, flagellant, caravan hand, graverobber, gravedigger, butcher, fisherman, cultist, mason, miller, daytaler
+
+---
+
+===>> Heavy Metal Dazer <<===
+The new 2H maces are magnificent weapons and I use of them a lot (without mastery) for the powerful Daze effect of their basic (fatigue-neutral) attack. Additionally, however, I sometimes have one or two characters who master the mace, since 1H maces can be useful if you want to stun multiple enemies who have the Resilient perk (or move two tiles to stun one enemy), and they also tend to be the best Duellist weapons (Duellist becoming an enticing perk if you’ve chanced to loot an awesome 1H mace with exaggerated damage). Against many medium-armoured enemies, an attack from a 2H mace leaves them devoid of armour but clinging onto just a few HPs; an attack from a 1H mace with Duellist doesn’t do as much devastation, but does leave enough APs for another attack that will finish them off.
+
+Other than specializing in the mace, such characters are often not massively different from Axe Murderers, but they are a little more liable to end up in direct melee engagement with more than one enemy, and defence may be more of a priority (although it’s not that vital so long as most nearby enemies are either stunned or dazed). Also, since 1H maces usually make the best Duellist weapons, that perk is more likely to be an option for this build (although the character still functions primarily as a 2-hander, initially from 2 tiles, only advancing to engage enemies when the right opportunity arises).
+
+This build can potentially be fatigue-intensive (with Adrenaline and Indomitable), mostly fatigue-neutral (still with Recover for facilitating sprees of stunning or Berserking) or even initiative-based.
+
+At one extreme, having 88 fatigue in gear with a 2H mace (76 with Iron Lungs) allows you (after using Recover+Adrenaline from a state of exhaustion on the previous turn) to kill/Berserk, use Indomitable, switch to a 1H mace, and make a 4 AP attack. However, since the mace is not an AOE weapon (and since high damage from 1H maces is highly situational), this character should generally not be surrounded and needing to cycle Indomitable to prevent injuries (a dazed enemy makes you 35% Indomitable anyway), and Adrenaline is not an essential perk even if the character is fatigue-intensive and has Indomitable (the initiative-lowering effect of dazing often leaves an enemy after you in the turn order anyway). Adrenaline is still a very viable pick for incapacitating quick and nasty enemies such as necrosavants and bounty hunters, and Indomitable is still very handy after those annoying clutch misses against Resilient enemies (e.g. barbarians, large beasts, orc warriors/warlords/berserkers).
+
+At the other extreme, you could have just 60-70 fatigue in minimal Nimble gear (just enough for a bit of situational stun spamming and/or Berserking) and could take high initiative rolls and take Dodge and Overwhelm and maybe Relentless as well (the Daze effect lowering enemy initiative by 35% and making it easier to stay ahead in the turn order to apply Overwhelm and keep them dazed to compensate for not having Indomitable).
+
+The above variant is shaky against barbarians/chosen, but its lack of access to fatigue-intensive skills can be compensated for by using such skills on other characters (e.g. a positioner can use Rotation+Footwork to rescue them both from an unpleasant spot, or a Huge wildman who is much easier to hit can enter the melee next to the dodgy dazer and use Indomitable). Also, if one of your fatigue-intensive characters and a barbarian have both used Adrenaline (yours first), hitting that barbarian with a 2H hammer at the start of the subsequent turn will stagger it and send it straight back to the end of the turn order in spite of having used Adrenaline (like being sent directly to jail in Monopoly). (You should also be cautious to avoid having this happen to your guys!) Since barbarians use Adrenaline when they sense that you have more initiative, there is no reason for a high-initiative character not to wait turn to assess developments again them, and sometimes it is possible to stun a chosen after it has closed in and waited to use Adrenaline (which is not possible once it’s stunned). High-initiative characters can also be protected against barbarians by Spearwalls (which can prevent Adrenalized chosen from engaging to get the first attack) and by throwing nets (to delay engagement or to prevent chosen from rotating to focus attacks after they’ve already engaged).
+
+A mostly fatigue-neutral variant (better-suited to backgrounds with high melee skill and mediocre/crap fatigue) would also have around 60-70 fatigue in gear, would spend no stat points on initiative, and would save more stat points for defence, HPs and resolve (and good rolls for fatigue). In this case, the Bags and Belts perk could be handy for carrying nets and/or throwing spears to make it even easier to hit and incapacitate nearby enemies (and, in the case of nets, to manipulate the turn order without Adrenaline or high initiative, and to prevent dangerous enemies from engaging too soon).
+
+While very high melee skill is best for this build (a minimum of ~85 at level 11), the Backstabber perk remains an option for making annoying sequences of clutch misses less common. Melee defence can vary depending on talent and the base value. The high-initiative variant will add significant defence via Dodge, and Underdog and Reach Advantage are options for those with a high value/talent, but you can also neglect defence and be more careful to ensure that the character is usually only in attacking range of enemies who can be quickly dazed/stunned/killed.
+
+The character’s armour should be Nimble (if mostly fatigue-neutral or initiative-based) or (if fatigue-intensive) either Nimble or heavy (in the latter case, preferably with BF and without Brawny).
+
+'''Essential Perks:''' MaceM, QH, Recover
+
+'''Probable Perks:''' Berserk, Colossus, Nimble or [Brawny and/or BF]
+
+'''Possible Perks:''' Indom, Adren, Pathfinder, Resilient, Killing Frenzy, Duellist, Backstabber, Reach Advantage, Underdog, Rotation, Footwork, Dodge, Overwhelm, Relentless, Fortified Mind, B&B, 2nd mastery
+
+'''Most Vital Stats:''' Melee Skill (~85+)
+
+'''Also Important Stats:''' Melee Defence (usually ~10-40, but feel free to neglect if Huge/Cocky/Wild without talent), Max Fatigue (or Initiative), HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+)
+
+'''Optional Stats:''' Ranged Defence, Ranged Skill (if it can get to 50-65 with 0-3 rolls)
+
+'''Recommended Traits:''' Iron Lungs, Dexterous, Strong, Iron Jaw, Athletic, Huge, Tough, Brave/Fearless, Surefooted, Paranoid (or Quick), Hate for Beasts/Greenskins/Undead, Deathwish
+
+'''Recommended Permanent Injuries:''' Brain Damage (unless initiative-based)
+
+'''Recommended Backgrounds:''' squire, militia, beastslayer, wildman, lumberjack, brawler, caravan hand, graverobber, butcher, farmhand, messenger, gravedigger, vagabond, flagellant, fisherman, cultist, mason, miller, daytaler, thief, gambler, miner, bastard, disowned noble, retired soldier
+
+---
+
+===>> High-Functioning Mushroom Addict <<===
+Not massively different from the other melee/fatigue-based offensive types/variants (with room for enough overlap to make them indistinguishable), but this is an exciting one based on maximizing damage with any awesome rare weapons you’ve been able to find.
+
+This character may or may not have a mastery, but should have a big 2-hander (often a mace), a 2-tile weapon and either Strange Mushrooms or a 4-AP weapon (ideally all weapons rare variants with exaggerated damage and/or fatigue efficiency). Foregoing a mastery frees up more perk options for damage (Killing Frenzy, Duellist), for making sure you hit bastards in the first place (Backstabber), or for carrying more offensive weapons and/or nets and/or throwing spears and/or Strange Mushrooms (Bags and Belts).
+
+There are no very specific fatigue requirements, but more fatigue is generally very desirable for bursts of aggression. Indomitable usage is situational. Several rounds of Adrenaline are good for taking out dangerous enemies who have high initiative. Generally, the character hangs behind the frontline with a 2-tile item (close to gaps in the formation that have been left to entice enemies), and switches to a more offensive implement to bash in anything that foolishly advances through the gap. Nets can be useful to prevent barbarian chosen from using Rotation (aka Barbarian Wrath) to focus attacks on this character (or other less defensive or tanky characters).
+
+The armour requirements are the same as for the Axe Murderer.
+
+'''Essential Perks:''' Adren, Recover, Indom, Berserk, QH
+
+'''Probable Perks:''' Colossus, Nimble or [Brawny and/or BF]
+
+'''Possible Perks:''' Killing Frenzy, Backstabber, Duellist, Resilient, Pathfinder, B&B, Weapon Mastery, Fortified Mind, Fast Adaptation, Rotation, Footwork
+
+'''Most Vital Stats:''' Melee Skill (~80+)
+
+'''Also Important Stats:''' Max Fatigue, HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+)
+
+'''Optional Stats:''' Melee Defence, Ranged Defence, Ranged Skill (if it can get to 50-65 with 0-3 rolls)
+
+'''Recommended Traits:''' Huge, Drunkard, Dexterous, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Paranoid, Surefooted
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' wildman, lumberjack, brawler, beastslayer, farmhand, messenger, caravan hand, graverobber, gravedigger, butcher, vagabond, flagellant, fisherman, cultist, mason, miller, daytaler, militia, squire
+
+---
+
+===>> Throwing Duellist <<===
+The ranged offensive variant, with no need for Adrenaline or Indomitable, and Recover merely an option. It’s a good idea to take high rolls for fatigue; but, so long as you can chuck most of your ammo before being exhausted, it’s not otherwise overly important.
+
+You could have this character in heavy armour, but Nimble is by far the most practical option. Bags and Belts allows a decent ammo count and extra nets (and even a back-up shield).
+
+If you want the character to be a bit more useful against massive beasts (unholds, schrats, lindwurms), or if you just fancy some weird roleplaying with a cheap no-ammo weapon (the staff sling), you could take Head Hunter to try keeping more of those creatures dazed. Since lindwurms are divided into head/body and tail components, you can deliberately miss the head by hitting the tail, and then stand a very good chance of applying Daze by aiming at the head/body.
+
+Although they are one-use only, throwing spears can inflict absolutely awe-inspiring damage from 2 tiles with Throwing Mastery and Duellist. You can save a single spear for after a kill when Killing Frenzy is active, and then salivate ecstatically as blood flows forth from an enemy’s supposedly impenetrable armour (or fume as it bounces off an orc warlord’s helmet).
+
+Nimble and high HPs make ranged characters relatively safe from enemy x-bow bolts, but ranged defence can be very useful pre-Nimble in the early-game. However, since pre-Nimble is also pre-Duellist, there’s no reason why a thrower can’t carry a shield in the early/mid-game.
+
+'''Essential Perks:''' ThrowM, Duellist, B&B
+
+'''Probable Perks:''' Colossus, Nimble, Killing Frenzy, Berserk, QH
+
+'''Possible Perks:''' Pathfinder, Recover, Bullseye, Fast Adaptation, Head Hunter, XBowM, BowM, MeleeM
+
+'''Most Vital Stats:''' Ranged Skill (~75+)
+
+'''Also Important Stats:''' HPs (at least ~80, ideally 100+), Max Fatigue (enough to not be exhausted before throwing most ammo)
+
+'''Optional Stats:''' Melee Skill (ideally ~75+, but neglect if low value and no talent), Ranged Defence, Resolve, Melee Defence
+
+'''Recommended Traits:''' Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Paranoid, Swift, Surefooted, Deathwish, Hate for Beasts/Greenskins/Undead
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' hunter, poacher, shepherd, squire, militia, beastslayer
+
+---
+
+==Defensive Character Builds==
+===>> Indomitable/AOE Zweihander <<===
+A specialist 2-handed tank who has enough fatigue (in gear) to cyclically AOE and use Indomitable. Swords are recommended, since they have more AOE options and are lighter to carry. However, in rare instances (e.g. Iron-Lunged wildmen with high melee talents), you may be able to achieve the fatigue (98 in gear) to cycle Indomitable with 2H axe Round Swing attacks (while still having enough resolve to avoid dropping to negative morale states on being engaged by additional enemies from a position of isolation). Bardiche Split attacks are not recommended, because there are many situations in which you’re surrounded and want to use a swinging attack. Hammer Shatter attacks are not recommended, since 2H hammers potentially apply the Staggered effect which lowers the initiative of enemies and leaves them behind you in the turn order when you need to use Recover. Split attacks are sometimes highly desirable (e.g. for killing ancient pike wielders), but swords can do that as well as swinging. Greataxes and their rusty (but situationally slightly superior) barbarian equivalents can only swing and have a rather impractical AOE with a nasty penalty to accuracy, but remain a temptation (more damage, more Reach Advantage) in those rare instances …
+
+This kind of character, while somewhat heroic and inspiring, is also a bit boring and restricted and immobile, usually spending every turn either using Recover+Adrenaline at the very end of the turn order (hopefully) or using an AOE attack (Split or Swing) with Indomitable at the very start of the turn order (hopefully). Moving instead of remaining Indomitable feels dangerous in the most challenging fights (for which this character is made), and Berserk (which may allow you to move and use Indomitable, but only if you have surplus fatigue available) is a luxury perk that is difficult to fit in. Quick Hands allows 2-tile attacks when movement isn’t possible, but also adds to the fatigue requirements and requires the sacrifice of probably more important perks. The character’s immobility can be compensated for by using other characters (e.g. Spear/2H Positioners or Sergeants) to achieve favourable positioning (and favourable AOE angles).
+
+The character needs a bare minimum of 90 in-gear fatigue (98 if being stupid and going for axes and Round Swing), and it is preferable to have some extra as security against accidents (and to allow move+Indom after a kill if you’ve found room for Berserk). From a state of exhaustion (90/75), you can use Recover+Adrenaline (90/37, 90/57, since Recover rounds figures down) and then, at the start of the next turn (90/42), use an AOE attack (90/65) followed by Indomitable (90/90). If any enemies are behind you in the turn order when you Recover (e.g. because they’re dazed or staggered or because you’re cursed with too much initiative in spite of all the fatigue you’ve used wantonly), any attacks against you will add +2 to your fatigue (+5 if they hit) and will prevent you from being able to use both an AOE and Indom at the start of the next turn. If the character has Iron Lungs, the above minimum values of 90/98 can be reduced to 78/86.
+
+For the above reasons, it’s preferable to wear armour that’s as heavy as possible, to guarantee having the lowest possible initiative. For obvious practical reasons, however, it’s very difficult to meet the fatigue requirements for the build in heavy armour, and Nimble (or a vulnerable medium-armoured build with no Nimble but with an extra perk point freed) is often the only option. With minimal Nimble armour and a greatsword and no back-up items, only 117 base max fatigue is the minimum value needed (but your initiative will sometimes still be too high, forcing you to awkwardly wait turn to lower it on the active turns, which is often still not enough). In theory, in the most efficient rare armours offering ~300+ durability and with LPR and no Brawny, you could get by with 130 base max fatigue. In more realistic conditions, you’re more likely to need ~140 base max fatigue for sub-optimal heavy-ish ~250+ armours with LPR and no back-up items, and that leaves little room for HPs and resolve (which are also very important in the tough fights for which this kind of character is made). Traits such as Strong and Iron Lungs (and Tough and Fearless) are therefore gifts from the grim gods of battle. Remember that Iron Lungs reduces the base fatigue requirements by 12.
+
+This character has a significant degree of overlap with the next (shield-based) one, the main difference being that the latter has less ability/talent in the area of melee skill (and is therefore easier to find). In some cases, though, a character with melee skill in the 70s but an abundance of defence and fatigue (enough to have 90 fatigue with a greatsword in ~300+ armours without needing Brawny or even LPR) can make a viable zweihander, since this build is primarily defensive (and Reach Advantage is more of a lucky bonus if you’re already Indomitable in an enormous suit of BF armour with AFP). HPs and resolve must remain strong, however, and must be bolstered by the relevant perks if necessary. HPs need to be ~100 (or at least ~90) and resolve needs to be ~60 for the Black Monolith (and at least ~75 for anyone on the frontal/western flanks of the formation).
+
+Both Underdog and Reach Advantage are usually highly advisable. Just Underdog may be viable (as suggested above) on a character with abundant defence and fatigue but melee skill in the 70s. Just Reach Advantage (with Berserk for extra stacks and for killing off additional enemies to remove surrounding malus) may be viable for a relatively more offensive character (~85+ melee skill) who has more support from shield tanks (less heavy surrounding) and/or positioners (Rotations) and/or damage-dealers (more rapid removal of surrounding enemies).
+
+Resilient is a highly recommended perk for this character, since it provides an escape from the Dazed, Cursed and Charmed status effects and allows the continuation (with normal performance) of AOE+Indomitable cycles. Without Resilient in the Goblin City (Rul’Gazhix), you could remain cursed for five turns (-50% melee defence, plus any additional penalty from vines/nets), and that in turn would greatly increase the risk of being Punctured and Poisoned and of not having enough APs to Recover (further increasing the risk of additional poisoning and debilitation). With Resilient, you can use Recover+Adrenaline, wait turn (if there are any shamans still to act), and then savagely annihilate an evil shaman piece of shit (and use Indomitable) at the start of the next round! The same goes for being Charmed by hexen (Resilient also lessens the pressure on resolve in hex and alp fights). Being Dazed by chosen (or lindwurms or any raiders or hedge knights with 2H maces) reduces your fatigue to a minimal state, making you unable to use both Indomitable and an attack (even a single-target attack) after using Recover+Adrenaline. With Resilient, your fatigue parameters miraculously return to normal on the turn after using Recover+Adrenaline (despite still looking awful at the end of the previous turn), and normal service can be resumed. Since the whole point of this character is to serve as a bulwark against such enemies, it’s highly advisable to take Resilient, in spite of its deceptive un-sexiness.
+
+Note that, while this character is usually an AOE’er, AOE attacks are weak against large beasts (unholds, schrats, lindwurms), and large beasts have such vast pools of fatigue that, once they’ve started catching their breath, they are likely to be behind any zweihander in the turn order, even a Paranoid, Brain-Damaged one that’s been pedantically waiting turn. For fights against large beasts, this sort of character is best given a 2H mace and a spare suit of armour with AFP (Bone Plates for lindwurms), using Indomitable only when threatened by a non-Dazed giant (and, against unholds, to resist charges and to prevent throws when a vulnerable ally would be engaged). Another benefit from Resilient is that, if you are staggered and fatigued against a not-entirely-fresh unhold/schrat whose turn has already passed, just using Recover will leave you ahead of it (with abundant fatigue) for the next turn.
+
+'''Essential Perks:''' Adren, Recover, Indom, Sword/AxeM
+
+'''Probable Perks:''' Colossus, Nimble or [Brawny and/or BF], Resilient, Underdog, Reach Advantage
+
+'''Possible Perks:''' Pathfinder, Berserk, QH, Fortified Mind, Killing Frenzy, Shield Expert, 2nd Mastery
+
+'''Most Vital Stats:''' Melee Defence (at least ~25, ideally 35+), Melee Skill (at least ~75, ideally 85+)
+
+'''Also Important Stats:''' Max Fatigue (at least 90 with all gear, ideally with ~10 spare), HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+)
+
+'''Optional Stats:''' no room for anything else
+
+'''Recommended Traits:''' Paranoid, Surefooted, Dexterous, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Optimist, Hesitant
+
+'''Recommended Permanent Injuries:''' Brain Damage, Missing Ear
+
+'''Recommended Backgrounds:''' wildman, hedge knight, messenger, lumberjack, beastslayer, farmhand, brawler, squire, militia, caravan hand, graverobber, gravedigger, butcher, vagabond, flagellant, fisherman, cultist, houndmaster, mason, miller, daytaler
+
+---
+
+===>> Indomitable/Riposte Shield Tank <<===
+An easier variant of the above character, with less need for high melee skill and with free additional defence from a shield. Instead of cyclically combining Indomitable with an AOE attack (which requires 90 fatigue in gear, or 82 with Iron Lungs), this character combines it with Riposte (which requires 82 fatigue in gear, or 70 with Iron Lungs). Assuming a fatigue cost of 8 for the 1H sword and of 18 for the best kind of rare shield (offering both high melee defence and high durability), this character would require a minimum of 123 base max fatigue to perform the role in minimal Nimble armour, or 130 allowing for a back-up heater shield (since any shield tends to break in the most massive fights, even without any axes in sight). If you want the role to be performed in efficient heavy armours with ~300+ durability and with LPR and no Brawny (saving a perk only to agonize over whether it’s worth spending it on BF), those requirements will increase to over 140 base max fatigue, again leaving precious little room to distribute stat points (except in instances of Iron Lungs, where the requirements are reduced by 12). Since this character needs less melee skill, it is at least possible to devote more attention to HPs and resolve while taking defence and fatigue to max and near-max values. HPs and resolve need more attention, however, since these guys will always occupy the most vulnerable and isolated positions in the formation (furthest from any sergeant) and will be the most swarmed with enemies (and miasma).
+
+As mentioned above, the degree of overlap between this character and the zweihander is sufficient that, in some cases, you might be tempted to try combining the two (e.g. taking both Shield Expert and Reach Advantage, or foregoing both of them). Taking Shield Expert makes it much easier to develop this character in the early-mid game, however, as well as prolonging the lifespan and inflating the defence values of any magnificent rare shields you find.
+
+While Riposte and 1H swords inflict rather pitiable damage against heavily armoured opponents, they become highly impressive once most of that armour has been removed from afar by 2-tile weapons, and Riposte is an excellent counter to necrosavants in fights like the Black Monolith.
+Combining Indomitable with Riposte is mostly more effective (against tough late-game enemies) than combining it with Shieldwall (or Riposte with Shieldwall). Because of diminishing returns, the additional defence gained from Shieldwall is (with standard heater shields) usually not enough to minimize the hit chances of elite, high-damage enemies, and the volume of attacks sustained by these characters in the most massive, prolonged fights is sufficient to make at least one high-damage hit per round likely, even if all hit chances are minimized. Furthermore, enemies with the Shield Expert perk and high melee skill (e.g. honor guards) get a +40 bonus to hit with the Knock Back skill (75+40=115), meaning that they (when spamming the skill en masse, as they always do) still have an obscenely high chance of knocking you back and cancelling Shieldwall and/or Riposte if you use them without Indomitable. Indomitable+Riposte gives more security than Shieldwall+Riposte while allowing the shield tank to contribute a surprisingly impressive amount of damage that reduces the volume/duration of enemy attacks (even with mediocre melee skill values ~65).
+
+Increasing the pool of in-gear fatigue to 84+ allows the possibility of combining Indomitable with Shieldwall when you want to remain alive in especially tough situations (or if you have an excellent rare shield with an exaggerated melee defence value and want to minimize enemy hit chances in massive fights at legendary locations).
+
+'''Essential Perks:''' Adren, Recover, Indom, SwordM, Underdog
+
+'''Probable Perks:''' Shield Expert, Resilient, Colossus, Nimble or [Brawny and/or BF], Fortified Mind
+
+'''Possible Perks:''' Pathfinder, B&B, Reach Advantage, Nine Lives, Steel Brow
+
+'''Most Vital Stats:''' Melee Defence (at least 30+ pre-shield)
+
+'''Also Important Stats:''' Max Fatigue (at least 82 with all gear, ideally with a bit of spare), HPs (at least ~90, ideally 100+), Resolve (at least ~60, ideally 75+), Melee Skill (~65+)
+
+'''Optional Stats:''' no room for anything else
+
+'''Recommended Traits:''' Paranoid, Surefooted, Dexterous, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Optimist, Hesitant
+
+'''Recommended Permanent Injuries:''' Brain Damage, Missing Ear
+
+'''Recommended Backgrounds:''' wildman, messenger, lumberjack, farmhand, brawler, squire, militia, beastslayer, houndmaster, caravan hand, graverobber, gravedigger, butcher, flagellant, fisherman, cultist, mason, miller, daytaler
+
+---
+
+===>> Dodge/Overwhelm Shield Tank <<===
+A cheap, cheesy build combining a large shield (and maybe several spares with Bags and Belts) with high initiative to add a significant bonus to melee defence and further lower enemy hit chances by applying Overwhelm with fatigue-neutral attacks. Hitting and damaging things is of no importance. Non-mastered dagger stabs are perfectly sufficient; punches may be even better (unless you have a rare fencing sword with a -3 fatigue cost per skill use). Resilient ensures that any Stagger effect lasts just a single turn. Relentless and Recover are not necessary unless you want to try using some fancy shield skills and/or taking advantage of a small free pool of fatigue to use Indomitable until you have been entirely surrounded by charging orcs (this does help to make this character usable in more high-level fights). While this build is a stop-gap that isn’t intended for the biggest and toughest encounters, it is possible to emerge unscathed from fights against large numbers of lindwurms (especially with Overwhelming assistance from long-distance whippers and bows) …
+
+'''Essential Perks:''' Dodge, Overwhelm, Shield Expert, Underdog, Nimble
+
+'''Probable Perks:''' Colossus, Resilient, B&B, Fortified Mind
+
+'''Possible Perks:''' DaggerM, otherM, Nine Lives, Steel Brow, Relentless, Recover, Indom, Pathfinder, Taunt
+
+'''Most Vital Stats:''' Melee Defence, Initiative
+
+'''Also Important Stats:''' HPs, Resolve
+
+'''Optional Stats:''' Melee Skill
+
+'''Recommended Traits:''' Surefooted, Quick, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Optimist, Lucky
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' thief, gambler, messenger, graverobber, houndmaster, miner, brawler, cultist, fisherman, butcher, caravan hand, graverobber, gravedigger, ratcatcher
+
+---
+
+===>> Fatigue-Neutral Shield Tank <<===
+Another cheap, cheesy stop-gap that can be effective before finding something better. The heavy equivalent of the above. No intention of being able to attack twice per turn or use shield skills or make use of any 1H weapon special skills other than those (e.g. Decapitate, Puncture, Split Shield) that are already fatigue-neutral with (or even without) mastery (unless the character is an otherwise mediocre recruit who has Iron Lungs, in which case every-turn use of Destroy Armor is an option). Wears/carries as much gear as possible while still leaving at least 15 fatigue or 19 with Iron Lungs (always recovered and usable each turn). Waiting turn is the only defence against stunning charges. The neglect of fatigue (and initiative) makes it much easier to get HPs and resolve to good values along with melee defence and melee skill. If melee skill is still on the low side (or you want to do Puncture every turn), Fast Adaptation is an option; if it’s already quite high, Killing Frenzy is an option. Bags and Belts allows the carrying of many spare weapons and shields. Quick Hands is not at all necessary (unless you have Iron Lungs and want to combine Destroy Armor with dagger stabs or something).
+
+'''Essential Perks:''' Colossus, B&B, Shield Expert, Underdog, BF
+
+'''Probable Perks:''' Fortified Mind
+
+'''Possible Perks:''' Cleaver/Axe/Hammer/DaggerM, Fast Adaptation, Killing Frenzy, Resilient, Steel Brow, Nine Lives, Pathfinder, QH
+
+'''Most Vital Stats:''' Melee Defence
+
+'''Also Important Stats:''' HPs, Resolve, Melee Skill
+
+'''Optional Stats:''' n/a
+
+'''Recommended Traits:''' Surefooted, Paranoid, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Optimist, Dexterous, Lucky, Survivor
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' miner, brawler, houndmaster, messenger, graverobber, gambler, thief, caravan hand, gravedigger, butcher, fisherman, cultist, flagellant
+
+---
+
+==Utilitarian Character Builds==
+===>> Spear/Shield Positioner <<===
+Instead of being a conventional shield-user built primarily around high defence, this one is made for the utility of keeping enemies away from vulnerable spots (or encouraging/forcing them into ones that are vulnerable to themselves) with the use of spear and shield skills, and of keeping allies out of harm with Rotation (or one’s self out of it with Rotation or Footwork). Footwork can also be used to disengage from breaching enemies before re-setting Spearwall. If only one enemy has breached the Spearwall, and you want to remain on the same tile (or force the enemy onto a vulnerable tile), shield Knock Back has the same fatigue cost and (with Expert) +40 chance to hit.
+
+90 fatigue with all gear allows (after Recover+Adrenaline on the previous turn) the use of Footwork or Rotation or Indomitable followed by Spearwall. 94 fatigue with all gear allows (after the same) the use of any two combinations of Footwork/Rotation/Indomitable. Iron Lungs would reduce these fatigue requirements to 78 and 82. Combining Spearwall with Indomitable is good when there are lots of charging orcs about and an eventual breach is likely. Combining Rotation with Indomitable or Footwork is good for rescuing wounded allies from tight spots while protecting one’s self (or just avoiding the same spot altogether).
+
+In theory, the character could use a spetum to lower fatigue costs, and could take Reach Advantage instead of Shield Expert, but a spetum provides no defence once the wall has been breached, and cannot be used to re-position enemies like a shield can. Also, if you do end up surrounded by orcs after the eventual breach of the wall, a few turns of Indomitable+Shieldwall may be the order of the day until assistance arrives.
+
+Fatigue is the most important stat for this build. In addition to a boar/fighting spear and a preferably large and durable shield, a spare of each is advisable for long and gruelling fights (the extra spear could be just a little goblin one). With this gear and the ideal geared fatigue requirement of 94+, you’ll be looking at a base max fatigue value of over 140 (reduced by 12 by Iron Lungs), even if wearing minimal Nimble armour (the most practical option).
+Defence, HPs, resolve and melee skill all have some importance (especially if you’re being silly and trying to use a spetum for weird roleplaying reasons), but melee skill is of more moderate importance considering that a 1H Spearwall has +20 chance to hit (and that its mere existence often forces enemies to wait) and that shield Knock Back (with Expert) has +40 chance to hit.
+
+'''Essential Perks:''' SpearM, Rotation, Footwork, Adren, Recover, Indom
+
+'''Probable Perks:''' Colossus, Nimble or [Brawny and/or BF], Pathfinder, Shield Expert
+
+'''Possible Perks:''' B&B, Reach Advantage, QH, Fortified Mind, Underdog, Resilient
+
+'''Most Vital Stats:''' Max Fatigue (94+ with all gear)
+
+'''Also Important Stats:''' Melee Defence (at least ~20 pre-shield), HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+), Melee Skill (~60+)
+
+'''Optional Stats:''' n/a
+
+'''Recommended Traits:''' Iron Lungs, Strong, Athletic, Iron Jaw, Tough, Brave/Fearless, Surefooted, Paranoid, Dexterous, Deathwish, Hate for Beasts/Greenskins/Undead
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' wildman, farmhand, lumberjack, messenger, brawler, vagabond, flagellant, beastslayer, caravan hand, graverobber, gravedigger, butcher, fisherman, mason, miller, daytaler
+
+---
+
+===>> 2H “Barbaric” Positioner <<===
+This character is potentially very similar to the fatigue-intensive offensive builds, but with less focus on offence (“barbaric” level-11 melee skill in the 70s is okay, but more is welcome if available), a primary focus on fatigue (94+ in all gear with the heaviest weapon equipped), and a definite requirement for the Rotation and Footwork perks (hence “positioner”). The role is ideal for someone from a high-fatigue, high-HP background (ideally with a strong resolve value/talent as well) who seems exceptional except for not being able (except with extremely lucky rolls) to reach ~80 melee skill by level 11.
+
+This character can still make a strong contribution to damage at times, but is also used to position others advantageously and (if things go wrong) to rescue them from tight spots (also rescuing themselves with Footwork or tanking damage with Indomitable).
+
+A weapon mastery is optional for this character, but mastery of an AOE weapon (or just usage of it with a high fatigue pool) would be useful. Swords offer more angles and are lighter and more accurate (important considerations for this build with its already high fatigue requirements and its lesser focus on melee skill), but axes offer the possibility of being useful by removing shields (and splitting enemy ranged/2-tile units with bardiche attacks).
+
+Alternatively, the character can just have Quick Hands (a viable option with or without a mastery) and can select a 1-tile and 2-tile item suited to each enemy faced. Maces and dazing are always good. Or, since this character is expected to have less elite melee skill, you may find situational uses for (e.g.) a rare 2H flail with a good damage bonus, or a rare spetum that’s highly fatigue efficient and highly effective against armour.
+
+This character should have Adrenaline, Recover and Indomitable, but should not just mindlessly engage enemies and continually cycle Indomitable with AOE attacks (although this should still be an option for tight situations). Instead, more use should be made of Rotation and Footwork, which have the same fatigue and AP costs as Indomitable, can be used to evade damage altogether (instead of staying in the same spot to stoically tank it), and can be used (Rotation) to position allies favourably or (either) to position one’s self favourably, or (both in tandem) to rescue you both from an awkward spot. For the latter to always be possible (after Recover+Adrenaline at the end of the previous turn), a minimum of 94 fatigue (or 82 with Iron Lungs) is required in gear with the heaviest weapon equipped.
+
+The character’s mobility also allows it to unleash bursts of offensive activity (possibly including AOE attacks) without needing to have elite melee defence (a “barbaric” value ~15 is fine).
+
+As an example, this character might take the initiative and engage lots of enemies, use Adrenaline (after making an initial attack if possible), make another attack at the start of the next turn, and then rotate a high-defence ally (e.g. an Indomitable/Riposte shield tank or an Indomitable/AOE zweihander) into position. This ally may also have used Adrenaline (or Indomitable on its own), and can subsequently perform its own actions. You can even use two 2H Positioners in tandem, as the barbarians do (hence “barbaric”), with the second one rotating the tankier, more defensive ally into place. For this, you need to keep a careful eye on their initiative values to make sure that they remain in the desired order at the start of the next round.
+
+If the character is quickly fatigued after an opening onslaught of activity, that does not matter, since it also has the ability to be fatigue-neutral from the backline with a 2-tile item. If an emergency arises for an ally, the character can co-use Recover and Adrenaline and then, at the start of the subsequent turn, Rotation (to rescue the ally) followed by Indomitable (to tank damage and possibly divert attacks from other allies) or Footwork (to avoid damage) or even (if in an especially heroic/reckless frame of mind) an AOE attack (to finish all the bastards off before they can do any more harm … good luck with that). Recover+Adrenaline (followed by attacks and Indomitable) can also be used if lots of enemies swarm around the formation and make mobility impossible.
+
+The armour requirements for this character are the same as for all the other fatigue-intensive ones.
+
+'''Essential Perks:''' Rotation, Footwork, Adren, Recover, Indom
+
+'''Probable Perks:''' QH, Colossus, Nimble or [Brawny and/or BF]
+
+'''Possible Perks:''' Berserk, Weapon Mastery, Pathfinder, Backstabber, Resilient, Fortified Mind, B&B
+
+'''Most Vital Stats:''' Max Fatigue (94+ with all gear)
+
+'''Also Important Stats:''' Melee Skill (~75+), HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+), Melee Defence (usually ~10-25, but feel free to neglect if Huge/Cocky/Wild with no talent)
+
+'''Optional Stats:''' Ranged Defence, Ranged Skill (if it can get to 50-65 with 0-3 rolls)
+
+'''Recommended Traits:''' Strong, Iron Lungs, Iron Jaw, Athletic, Huge, Tough, Brave/Fearless, Dexterous, Surefooted, Paranoid, Hate for Beasts/Greenskins/Undead, Deathwish
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' wildman, lumberjack, farmhand, messenger, beastslayer, brawler, vagabond, flagellant, caravan hand, graverobber, gravedigger, fisherman, mason, miller, daytaler
+
+---
+
+===>> Sergeant <<===
+Sergeants need ridiculously high resolve (for obvious reasons). Since their most important role is repeatedly using the Rally the Troops skill when lots of people are wavering/breaking/fleeing in the face of stupid blue ghosts or ancient priests, they also need lots of fatigue. Rally the Troops has the same fatigue cost as Rotation, Footwork and Indomitable. So why not use all of these perks (and Recover and Adrenaline) so that a good sergeant (who’ll more easily meet the minimum requirement of 94 in-gear fatigue, or 82 with Iron Lungs) can be useful as a positioner/saviour (similar to the Spear/Shield Positioner and the 2H Barbaric Positioner) in fights that don’t pose a severe challenge to resolve?
+
+Alternatively, sergeants can be made more useful by letting them also be whippers/disarmers (if they have high melee skill) or by letting them also be throwers (if they have high ranged skill). They could also in essence be Spear/2H Positioners who take Rally the Troops and Fortified Mind over two of the optional perks for those builds.
+
+'''Essential Perks:''' Rally, Fortified Mind, Recover
+
+'''Probable Perks:''' Colossus, Nimble or [Brawny and/or BF]
+
+'''Possible Perks:''' Indom, Adren, Rotation, Footwork, Pathfinder, PoleM, ThrowM, CleaverM, SpearM, SwordM, AxeM, QH, B&B, Duellist
+
+'''Most Vital Stats:''' Resolve (at least 100+ with sash and FM), Max Fatigue (ideally 94+ with all gear)
+
+'''Also Important Stats:''' HPs (at least ~90, ideally 100+)
+
+'''Optional Stats:''' Melee Skill, Melee Defence, Ranged Defence, Ranged Skill
+
+'''Recommended Traits:''' Brave/Fearless, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Hate for Beasts/Greenskins/Undead, Paranoid, Surefooted, Swift, Survivor, Dexterous, Cocky
+
+'''Recommended Permanent Injuries:''' Brain Damage
+
+'''Recommended Backgrounds:''' wildman, cultist, flagellant, lumberjack, brawler, beastslayer, squire, graverobber, gravedigger, caravan hand, butcher, houndmaster
+
+---
+
+===>> Overwhelming Whipper <<===
+Battle whips are very light. They have a range of 3 tiles. They can be used to disarm dangerous enemies (whatever their armour). They suck against armour, but they apply two stacks of two-turn bleeding damage per hit against unarmoured enemies, and can be used to hit those enemies twice per turn (potentially eight stacks of 10 bleeding damage inflicted per turn, on top of the base damage of 36-74 for two hits with double grip, resulting in a potential 116-154 total HP damage inflicted per turn, or 76-114 against Resilient enemies – better than a much heavier billhook).
+
+So why not use this wonderful weapon on a light, high-initiative character who applies two stacks of Overwhelm (and multiple stacks of bleeding and more total HP damage than with a billhook) every turn against large beasts with no remaining armour (e.g. unholds, schrats, lindwurms), or who disarms one dangerous enemy every turn (and maybe finishes off another) in tough fights against orcs (berserkers/warlords), barbarians (chosen) and undead (necrosavants, honour guards, possessed fallen heroes), often while standing in a position of safety (but with at least good defence against encroaching enemies thanks to high initiative and Dodge)?
+
+Whips are also excellent for killing geists.
+
+Since the whip’s skills require 4 or 5 APs, it is possible to switch to bigger, more armour-efficient weapons (1H or 2H cleavers, throwing items or a mastered billhook) without needing Quick Hands (which is still a nice optional perk, especially if you’d still like to smash things with a 2H mace). The high initiative on this character could also make a fencing sword a tempting option (and a means of escaping from tight spots without Rotation or Footwork).
+
+Resilient is a very useful perk for rapidly restoring the character’s effectiveness after being staggered (although that should not happen often, especially if you’re careful).
+
+While the character should have super-high initiative (ideally over 120 at the start of battle) and could come from a low-fatigue background (ensuring a high ratio of initiative versus fatigue), whips can potentially use a lot of fatigue each turn (making Recover a vital perk for restoring effectiveness) and recruits from fairly-high-fatigue backgrounds who also have high talent for initiative are also great for the role.
+
+Since this role is very useful for fights involving orc warlords, geists and ancient priests, resolve should not be entirely neglected, despite the character’s typical position of safety.
+
+'''Essential Perks:''' CleaverM, Dodge, Overwhelm, Recover, Nimble
+
+'''Probable Perks:''' Colossus, Resilient, Pathfinder, Relentless
+
+'''Possible Perks:''' QH, B&B, Underdog, Reach Advantage, Duellist, SwordM, ThrowM, PoleM, Fortified Mind
+
+'''Most Vital Stats:''' Initiative (ideally 120+ with all gear), Melee Skill (ideally ~85+)
+
+'''Also Important Stats:''' Melee Defence (anything from ~10-35 pre-Dodge), HPs (at least ~90, ideally 100+), Resolve (at least ~50, ideally 60+)
+
+'''Optional Stats:''' Max Fatigue, Ranged Defence, Ranged Skill (if it can get to 50-65 with 0-3 rolls)
+
+'''Recommended Traits:''' Quick, Dexterous, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Swift
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' thief, gambler, brawler, beastslayer, graverobber, caravan hand, butcher, miner, ratcatcher, juggler, squire, militia
+
+---
+
+===>> Fencer <<===
+I haven’t actually tried them out much in proper campaigns, but I’ve experimented with them in improper ones, and they can certainly be effective and exciting (especially if you manage to get your hands on a rare fencing sword with -3 fatigue costs per skill use).
+
+'''Essential Perks:''' SwordM, Dodge, Recover (unless Iron Lungs), Nimble
+
+'''Probable Perks:''' Colossus, Resilient, Duellist, Overwhelm
+
+'''Possible Perks:''' Underdog, Pathfinder, Killing Frenzy, Berserk, Relentless, Fortified Mind, QH, PoleM, CleaverM, ThrowM, B&B, Steel Brow, Nine Lives
+
+'''Most Vital Stats:''' Melee Defence, Initiative, Melee Skill
+
+'''Also Important Stats:''' HPs, Resolve
+
+'''Optional Stats:''' Max Fatigue
+
+'''Recommended Traits:''' Surefooted, Quick, Strong, Iron Lungs, Iron Jaw, Athletic, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Dexterous, Lucky, Swift
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' thief, gambler, beastslayer, squire, militia, miner, brawler, houndmaster, messenger, graverobber, caravan hand, gravedigger, butcher, fisherman, cultist, ratcatcher, juggler
+
+---
+
+===>> Pole Dualist <<===
+Basically a character who combines Polearm Mastery (5 APs per attack) with use/mastery of another weapon with a 4-AP cost per skill use.
+
+Depending on the talents/stats and the perks selected, the character could be fatigue-intensive, mostly fatigue-neutral or initiative-based, and could be very similar to (or the same as) some of the builds already outlined above (e.g. Throwing Duellist, Overwhelming Whip, Heavy Metal Dazer, High-Functioning Mushroom Addict, 2H “Barbaric” Positioner).
+
+For the fatigue-intensive options, 92 in-gear fatigue (80 with Iron Lungs) would allow (after Recover+Adrenaline) two billhook attacks (either side of Berserk) to be combined with use of Indomitable (or Rotation or Footwork). 94 in-gear fatigue (82 with Iron Lungs) would allow the combined use (after the same) of any two of the 25-fatigue skills.
+
+While it might be said that the combination of Polearm Mastery (5 APs) and Throwing Mastery (4 APs) is unnecessary, since the latter can attack twice per turn (and inflict more HP damage against suitable targets), it should be remembered that polearms inflict more damage against naked or heavily armoured enemies (and can be used initially to lower the value of enemy armour to Duellist-prey levels), and that throwing weapons can be used to attack targets from 3 or 4 tiles (even 6 with a sling) after killing a first target from 2 tiles. With Berserk, a kill with a mastered billhook (after no initial movement) leaves you with 8 APs and the ability to move one tile before attacking again. If you have throwing weapons and good ranged skill, you can move two tiles before attacking again. Even in situations in which throwing weapons can do more damage than a polearm, it is possible for accuracy with ranged attacks to be severely impeded by terrain obstacles that pose no problem for polearms. Ranged accuracy is also impeded at night, and high-damage throwing weapons also have limited ammo.
+
+'''Essential Perks:''' PoleM, QH, Recover
+
+'''Probable Perks:''' Berserk, Adren, Indom, Colossus, Nimble or [Brawny and/or BF], Pathfinder, 2nd Mastery (Cleaver/Throwing/Mace)
+
+'''Possible Perks:''' Duellist, Killing Frenzy, Backstabber, Fast Adaptation, B&B, Resilient, Rotation, Footwork, Dodge, Overwhelm, Relentless, Reach Advantage, Underdog
+
+'''Most Vital Stats:''' Melee Skill (~80+)
+
+'''Also Important Stats:''' Max Fatigue or Initiative, HPs (at least ~90, ideally 100+), Melee Defence (usually ~10-25, but feel free to neglect if Huge/Cocky/Wild with no talent), Resolve (at least ~50)
+
+'''Optional Stats:''' Ranged Skill (if throwing), Ranged Defence
+
+'''Recommended Traits:''' Dexterous, Strong, Iron Lungs, Iron Jaw, Tough, Brave/Fearless, Surefooted, Paranoid or Quick, Huge, Swift, Hate for Beasts/Greenskins/Undead, Deathwish
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' squire, militia, beastslayer, wildman, lumberjack, brawler, caravan hand, butcher, graverobber, miner, bastard, disowned noble, retired soldier, thief, gambler, juggler, shepherd, farmhand, messenger, vagabond, flagellant, gravedigger, fisherman, cultist, mason, miller, daytaler
+
+---
+
+===>> Bow <<===
+A traditional, reliable sniper against necromancers in the early-mid game. Takes conventional ranged perks (and levels ranged defence) to stay alive before reaching level 7 and becoming semi-immortal with Nimble. May continue to boost initiative to more readily Overwhelm enemies for the benefit of allies. May later metamorphose into a damage-dealer with Throwing Mastery and Duellist, or may (with good melee skill and especially with Iron Lungs) metamorphose into a hybrid fencer or whipper.
+
+'''Essential Perks:''' BowM, Bullseye, Nimble
+
+'''Probable Perks:''' Colossus, Pathfinder, Dodge, Overwhelm
+
+'''Possible Perks:''' Recover, Relentless, Anticipation, Berserk, Killing Frenzy, Steel Brow, Nine Lives, ThrowM, Duellist, Head Hunter, XBowM, CleaverM, SwordM, PoleM, QH, B&B, Resilient
+
+'''Most Vital Stats:''' Ranged Skill (at least ~80+)
+
+'''Also Important Stats:''' HPs (at least ~75, ideally 100+), Initiative (~100+ with gear, ideally 120+), Ranged Defence (~10-25)
+
+'''Optional Stats:''' Melee Skill, Melee Defence, Max Fatigue, Resolve
+
+'''Recommended Traits:''' Strong, Iron Lungs, Iron Jaw, Athletic, Swift, Quick, Tough, Brave/Fearless, Hate for Beasts/Greenskins/Undead, Deathwish, Lucky
+
+'''Recommended Permanent Injuries:''' n/a
+
+'''Recommended Backgrounds:''' hunter, poacher, shepherd, messenger, graverobber, gambler, thief, juggler, squire, militia
+
+---
+
+==Tactics/Formations==
+===>> vs Orc Seas of Tents <<===
+The nature of fights against giant orc camps (and the effectiveness of set-ups against them) can vary somewhat depending on the composition of the garrison. Some of them have very large numbers of heavily armoured warriors and only small-ish numbers of youngs and berserkers (often a total garrison size ~24); others have masses of youngs and berserkers and a more modest number of warriors (often a garrison size in the low 30s); others have rather large quantities of youngs, berserkers and warriors (often a garrison size in the mid/high 30s).
+
+Despite their masses of armour, the camps with large numbers of warriors and very few berserkers tend to be the easiest. Not having to worry about being stunned by charging youngs (or split in two by berserkers) makes it much easier to handle the warriors, despite their greater individual difficulty rating. More berserkers increases the actual difficulty because of their menacing weapons, their greater resistance to injuries and negative morale states, and their greater mobility for moving over terrain (Pathfinder) and lesser stupidity in charging into enemies using Indomitable or Spearwall (they tend to keep moving around and forcing you to use more energy as a precaution). The combination of large numbers of berserkers and warriors (and a warlord with a double-gripped rare weapon with an obscene damage boost) makes for the toughest orc fight.
+
+High numbers of charging young can pose problems, but they make orc battles easier because of the ease with which they drop to wavering/breaking/fleeing morale if you take the initiative with Adrenaline and spam AOE and/or 2-tile attacks against them (or even just as a result of being repelled by Spearwalls). Lots of fleeing young often has a knock-on effect on the morale of warriors and even the warlord (I once encountered a “champion” warrior who was already fleeing before managing to strike a blow), but the warlord is likely to rally some of them, and you need to remain vigilant for irritating end-of-round stunning charges by youngs who seemed as good as dead only moments before.
+
+For large orc camps, I usually have 3-4 Indomitable tanks (2H/AOE or Shield/Riposte, the latter type on the flanks), 4-6 offensive quick-handed 2H characters, 0-2 Spear/Shield Positioners, 1-2 Overwhelming Whippers, and 1 sergeant (who may also be a whipper). Sometimes I may have a ranged character as well. If not, I usually give the sergeant or someone else a staff sling to start the battle, to trick the orcs into thinking that we have a ranged threat and that they need to advance instead of sitting back and adopting a clumsy defensive formation.
+If there are lots of warriors and only a few berserkers, taking up a desired position (with Indomitable on the frontline) and waiting for the orcs to advance into it is fine.
+
+If there are lots of berserkers, it’s better to be more proactive in tying lots of them up with tanks in the opening rounds (but you don’t need to be pedantic and it’s fine if a few of them still end up circling around your formation).
+
+In either case, I like to leave a gap of one or two tiles between each of the Indomitable tanks at the front of my formation (or, if there are two sword-wielding zweihanders, they may stand next to each other in the centre, with a gap of two tiles between the others). Generally, a 2-tile gap between the occupants of the frontline is desirable, since that leaves just enough room for a single careless orc to advance through each of the gaps to engage the backline. Usually, this careless orc is a warrior who is unable to attack on that same turn, and who is quickly Dazed and/or Disarmed and stripped of all armour, and close to death before it gets any chance to attack (if it even does).
+
+Ideally, the sergeant should be within a 4-tile range of everyone (or at least within 5 tiles of the tanks on either flank, so that it is a simple matter to move one tile to either side and use Rally if required).
+
+If there are lots of berserkers, they can be proactively engaged by tanks who advance and (after attacking if possible) use Adrenaline (followed by Indomitable and AOE or Riposte at the start of the next turn). It may be possible for a positioner to advance and rotate a zweihander in the opening round, so that the latter can advance one tile and AOE, and then use Adrenaline (followed by AOE+Indomitable at the start of the next round). Thereafter, the tanks should continue cycling Indomitable with AOE or Riposte, sometimes waiting turn as a precaution (e.g. to lower their initiative on “on” turns, and as a precaution against stunning charges from rallied orcs on “off” turns after using Recover+Adrenaline).
+
+2-handers with 2-tile items should advance behind the tanks and use Adrenaline to try to kill/injure/demoralize as many berserkers as possible in round 2. They may repeat this in round 3 (waiting turn after Adrenaline use if there’s a risk of a stunning charge onto the backline). Whippers should be positioned to be in range of a couple of berserkers (or youngs with double-gripped orc weapons), while remaining relatively guarded within the formation. Whippers may be engaged by warriors in the late stages of long battles, and may choose to Recover and Disarm and/or switch to a 1H or 2H cleaver to do more damage while continuing to apply Overwhelm.
+Lots of youngs (and hopefully lots of berserkers) will be killed/injured/demoralized in the early rounds. The warriors and the warlord will shamble slowly forwards. If there are a couple of Spear/Shield Positioners, they should be on the rear flanks to delay any outflanking berserkers and to delay the warriors/warlord until enough of the others have been cleared out of the way. After Spearwall is breached, the positioner may be able to Recover and use Footwork+Spearwall, but more probably should either just Footwork away and re-form Spearwall at another point later on, or go into tank mode with Shieldwall+Indomitable (this helps to tie up lots of orcs to let the damage-dealers focus on offence and not worry about stuns/Indomitable).
+Often, the warriors will start trying to outflank, but then change their minds and try to occupy a spot vacated by a dead/fleeing young/berserker. This often means that they move into engagement without being able to attack, allowing them to be netted and/or disarmed and/or dazed and quickly reduced to a state of uselessness. Nets make warriors even easier to hit/disarm/daze, prevent them from pushing through the formation (unless you want to lure them further in), and encourage them to waste APs on trying to break free. Nets can also be thrown over any berserkers who have advanced to within 2 tiles of the general formation (making it rather safe to stand and attack them with 2-tile items).
+
+The fight will be overwhelmingly in your favour, but there will be lots of orcs and lots of armour to break through, and the warlord will rally some fleers and you will need to remain vigilant for end-of-round stunning charges. Any shield tanks will almost certainly have their shields broken, and will need to arm with a spare (if they can afford the fatigue to carry one) or hope that double-gripped Ripostes will help to finish off any remaining youngs/berserkers and allow the 2-handers (no longer threatened by stunning charges) to advance on the warriors/warlord with 2H maces/axes and 2-tile weapons. Zweihanders (or shield tanks) may end up in the awkward position (despite having waited turn) of being ahead of warriors in the turn order when they need to Recover, and will have to hope that Nimble/HPs/armour/defence (or even a bit of offence) keeps them safe until the final orc-slaying advance of their offensive comrades. It usually does.
+
+---
+
+===>> vs Goblin Cities <<===
+Generally speaking, the largest goblin camps are tougher (and less enjoyable to fight) than the largest orc ones. Rul’gazhix always has 43 goblins (including 3 shamans and 3 overseers); other large camps have a garrison size from the mid-20s to mid-30s, including more than one shaman and/or more than one overseer.
+
+Overseers whip their underlings directly into a state of confident morale (or rally them if they’re fleeing from a spree of slaughtered allies) and occasionally shoot crossbow bolts that (if they hit the head) are much more comfortably countered by Nimble than by heavy armour (BF makes no meaningful difference to ignore-armour damage). AFP is good against body-shots from spiked impalers, but the Fur Padding attachment (the white one created from two unhold furs) may be better to have against large goblin camps, since the persistent low-level damage from ambusher bows can easily remove a suit of Nimble armour in a single round (even with Indomitable active). Heavy suits of armour last longer, of course, but their occupants are more susceptible to Puncture attacks (and poisoning) while cursed/vined/netted, and are dead meat if their armour eventually runs out.
+
+Shamans have the automatic ability to trap any enemy (within an 8-tile range) within vines, and additional enemies from 9 tiles away will also be trapped if they are behind the ones who are in range. Having a height advantage increases the range of the shaman’s skills (i.e. potentially to 11 tiles, and potentially trapping enemies from 12 tiles away, in the worse-case scenario).
+
+The goblin trophy confers immunity to being trapped in nets/vines. You can give this to a backliner who focuses on freeing others from nets/vines so that they can concentrate on offence, or you can give it to an Indomitable shield tank who tries to press through the melee to catch the shamans and/or chase them away out of range of others.
+
+Shamans also have the ability (with the same range) to curse any enemy (including the one wearing the goblin trophy). Whereas vines reduce melee and ranged defence (and initiative) by 35% (compared to 45% with the nets thrown by many of the skirmishers), curses reduce these values (and melee and ranged skill) by 50% and essentially render the combatant useless for the duration of the curse (4 entire turns without the Resilient perk).
+
+As a general rule, shamans prioritize trapping you in vines while any of you are loose and in range, and resort to cursing if you make no attempt to break free from the traps and just try to slaughter goblins with AOE and/or Berserking attacks. Without the Resilient perk, it’s easy to end up with an entire company cursed (as well as netted/vined) and all too easy to poison with Puncture attacks (or arrows once most armour is gone). The Poisoned status effect lasts for 5 turns without Resilient, and initially reduces your AP count to 5 (not enough for a big 2H attack, and only just enough to try to break free from any nets/vines, which feels futile since they’ll just be replaced before you get another chance to act).
+
+So it’s a conundrum. High-initiative troops are relatively useless against large goblin parties with multiple shamans (even if their initial initiative is higher than any of the goblins), since freeing themselves from nets/vines lowers their initiative and lowers their offensive output, and remaining in the nets/vines keeps their initiative lowered and results in them being perpetually cursed and incapacitated (but I suppose that an entire company of Relentless fencers with extreme values of melee attack and defence could work for this fight thanks to the ease of killing goblins with lunge attacks after breaking free). High-fatigue troops can attack/kill, break free with the additional APs from Berserk, and then advance one tile (and maybe use Adrenaline to kill a goblin at the start of the next turn if they’re very lucky), but it doesn’t take long for them to be back in nets (and more likely to be Poisoned since they moved instead of using Indomitable on the previous turn). If they are cautious and use Indomitable instead of moving after breaking free, the shamans will curse them and make them useless for the duration of the curse.
+
+That is why Resilient is a great perk against annoying enemies like shamans and hexen. After using Recover+Adrenaline from a state of exhaustion, and waiting turn if any shamans are still to act in the round, any tank or damage-dealer can then use a curse-free combination of fatigue-intensive offensive/defensive skills at the start of the next round, potentially allowing you to win the battle even if you’re boring and decide to remain rooted in nets/vines for much of the fight. Fortunately, the poor resolve of goblins means that several untouched ones are liable to end up fleeing after a sudden spree of kills.
+
+The most stress-free way to beat the biggest goblin city (besides using a load of level-25 archers with 110 ranged skill and continually reloading until you start on the high-ground) is to leave just a few Indomitable shield tanks within range of the shamans and to withdraw everyone else out of range (taking care to allow for the effect of any height elevations held by the shamans). Luckily, the wolfriders and skirmishers (and some ambushers) will still advance towards your main body, even if you don’t have any archers.
+
+Almost everyone except the trophy-wearer is liable to be vined in round 1, since the shamans will have range on those in the front rank (at least 3), and anyone behind will also be caught. This impedes mobility, but everyone should be able to break free (hopefully at the first attempt) and then move away from the frontal tanks (hopefully out of range of the shamans) if they have any more APs. If they are unable to move out of range of the shamans in round 1, or if they are unable to move away onto neutral or advantageous terrain, they should use Adrenaline and then move to suitable terrain at the start of round 2. After that, from their position of relative safety, it should be straight-forward to slaughter the goblins who advance (remaining cautious to avoid being in range of too many ambushers).
+
+The shield tanks at the front will need to remain rooted in nets/vines, except any one of them to which you have given the goblin trophy. A tank with the trophy can try to move through the melee (probably using Indomitable as a precaution) to catch or chase one or more of the shamans (and probably several ambushers and the odd overseer as well). The others should continue using Riposte+Indomitable (or even Shieldwall+Indomitable if their armour’s getting thin) every other turn, always waiting turn (if they have the Resilient perk) to recover from any curses before coming under attack in the next round). After using Recover+Adrenaline on “off” turns, they should also wait turn if any shamans are still to act, since this will cause them to recover from any fresh curses before the start of the next round. The shamans will almost certainly curse them again in the next round, but the shamans usually act after the other goblins, and so the curse will not be active for the majority of attacks.
+
+Once the advancing goblins have been slaughtered by the main body of troops who moved back in the opening rounds, there is likely to be an awkward spell in which the main body needs to move forwards again to get at the remaining goblins (and the shamans who can curse and trap them). The best thing to do is take a turn or two to Recover everyone’s fatigue and to move them all to within 9 tiles of the nearest shaman (again taking account of the effect of height levels). In the next round, after all of them have waited turn until the shamans have (hopefully) ended their turns, they can all advance 4 tiles (keeping at least 1 tile’s gap between themselves) and use Adrenaline, and then all advance to within attacking range of a shaman (again keeping a gap of at least one tile between themselves). This advance will also threaten lots of ambushers (and possibly the overseers) and make them less willing to remain still and shoot. In the next round, it won’t be possible for the shamans to root everyone, and any shamans or other goblins who remain still to use skills will probably be within attacking range of someone who isn’t rooted in place (even anyone who is rooted in place might have a 2-tile attacking opportunity). The rest of the battle could still be a bit messy, and casualties are a possibility (especially if any of the advancers were already bereft of armour), but from this point your victory is assured.
+
+---
+
+===>> vs the Black Monolith, Ancient Dead and Necrosavants <<===
+Honor guards have 75 melee skill and often wield ancient pikes with +10 chance to hit that inflict 68-100 raw damage against armour (or rhomphaias with +10 chance to hit that inflict up to ~70 raw armour damage per hit). Necrosavants have 85 melee skill and wield double-gripped cleavers that inflict up to 85 raw damage (per hit) against armour. The Conqueror has 90 melee skill and Fast Adaptation and an innate damage bonus and wields a crypt cleaver that (accounting for the damage bonus) can inflict over 100 raw armour damage per hit. A level 11 veteran who started with 5 base melee defence and 2 talent stars and levelled melee defence every time will have 35 melee defence, meaning that necrosavants and pike/rhomphaia-wielding honor guards will have a basal 50% chance to hit, and that one stack of Reach Advantage will be required for The Conqueror to have half a chance of missing (before instantly gaining +8 from Fast Adaptation). Other honor guards and ancient legionaries wield tower shields (with an effective 48 durability) and habitually form shieldwalls that give them 50 melee defence (plus another 5 for any adjacent allies using the skill). Necrosavants and The Conqueror don’t have shields but do have 25 base melee defence. A level 11 veteran who started with 55 melee skill and 2 talent stars and levelled melee skill every time will have 85 melee skill, and will still miss shieldwalling legionaries more than half the time, and necrosavants and The Conqueror more than a third of the time. And our hypothetical level 11 veteran would have only another 10 stat improvements available to distribute among fatigue, HPs and resolve. Given the high-damage and high hit-chances of the above enemies, it’s pretty important to wear good armour and to be able to use Indomitable a lot, which means that plenty of fatigue is needed. Given that it takes a lot of time to kill shieldwalling skeletons and teleporting necrosavants (and to work through all The Conqueror’s armour and HPs), and given that many of their weapons inflict bleeding damage and that they are accompanied by priests who continually plant miasma clouds across the battlefield, HPs are also of high importance. And, given that priestly spooking can drop morale (and impair combat stats and increase the risk of further morale failures) or impose the Horrified status effect (and potentially cause the sacrifice of a turn and the inability to use Indomitable when surrounded by perilous enemies in miasma), resolve is also important. 62 HPs and 33 resolve won’t cut it (truly, I’ve seen tanks with ~90 resolve drop from steady to wavering to breaking morale just as a result of being engaged in melee by a couple of legionaries with broken swords).
+
+In the Black Monolith, you face a total of 47 enemies, including The Conqueror, 6 necrosavants, 3 ancient priests and a plethora (i.e. an awful bloody lot of) honor guards (as well as an awful bloody lot of shieldwalling or pike-wielding legionaries). How can you beat this host in a single battle with a level 11 party (or a level 11-16 party, given that some veterans will probably gain additional levels while you’re getting the others up to scratch)? And how can you do it now that it’s no longer possible for 2H damage-dealers to gain free defence from shields without crippling themselves offensively?
+
+The most effective formation I’ve found for this fight (using the typical kind of troops that I use, some with uber-defence, some with uber-offence, but few with uber-both) involves four lines. The frontline has two zweihanders next to each other in the centre, and two shield tanks on either flank, with a 1-tile gap between the tanks and zweihanders. The shield tank on the western flank (the most vulnerable spot) could be a pure shield (armed only with a dagger to reduce fatigue and allow a spare shield) who endlessly cycles Indomitable+Shieldwall (ideally with a rare shield with enhanced durability and melee defence); the other shield tank at the front should also have enough usable fatigue to cycle Indom+Shieldwall in an emergency, but should generally favour Indom+Riposte (better for clearing necrosavants). Three characters are positioned in the centre of the second line, behind the zweihanders at the front. Two of these (the ones to either side) are axe-users (with a longaxe, a bardiche and/or greataxe and/or a battle-whip); the one in the centre could be another axe-user or a whipper with mastery (fatigue-intensive or initiative-based). In the centre of the third line, behind the axes/whips, are two more offensive characters who should have very high melee skill and preferably an abundance of fatigue and high mobility (i.e. the Rotation and Footwork perks). These two should be armed with 2H maces, battle-whips (mastered or not) and either a bill or a longaxe. Behind these two, in the centre of the backline, is the sergeant (4 tiles from each of the shield tanks on the flanks of the frontline), who should also have abundant fatigue and the Rotation and Footwork perks (and possibly, if you can squeeze it in, a whip with Quick Hands). (The sergeant’s position could be switched with one of those immediately ahead, if one of those has fairly high melee defence, but these three are likely to switch positions at points in the fight anyway.) On the flanks of the backline, 3 tiles behind the front flanks and just to their inside, are two more troops with high melee defence. The one on the western flank (the second-most vulnerable spot, most likely to encounter The Conqueror) should definitely be a shield-user (with the option of Indom+Riposte or Indom+Shieldwall, and ideally with a spare shield, since the initial one is almost certain to break); the one on the eastern flank could be another zweihander (even a Round-Swinger). Since the eastern rear flank is the position from which exposure to miasma and curses is most minimal, this is the best spot for a zweihander with exceptional melee values but mediocre HPs and resolve (but at least try to have close to ~90 and ~50 instead of 62 and 33, since teleporting necrosavants can easily break morale when it most needs to stay solid).
+
+If any of the quick-handed characters have any spare slots for additional items, they could start the battle with throwing spears and/or nets (most of them will only be able to have the latter). Nets are best thrown over necrosavants once they have engaged one of the flank tanks, so that others can whip/Disarm/bleed them and shift a tile to hit them with bigger items, sometimes using Adrenaline when there’s a chance to finish one off). If no quick-handed character can manage a throwing spear, the zweihanders at the front (or even one or both of the shield tanks at the front) could start the battle with a throwing spear, which should be used in pairs to remove a tower shield from a skeleton who is advancing towards the zweihanders (making it easier for the vulnerable shieldless zweihanders to get off to a good start, building up some Reach Advantage and making early kills and confident morale more likely). If using throwing spears without QH on the frontline, you’ll need to be committed to keeping them in the same spots, since they’ll need the rest of their APs to arm with their usual weapons in round 1 (allowing them to attack in round 2).
+
+While shield-splitting seems severely laborious against such a host, only a small number of shieldwalling legionaries will be able to engage the vulnerable zweihanders at any one time, and there’s no reason why the axe-users on the second line can’t occasionally remove a tower shield as a team (perhaps after Berserking). Making the frontal legionaries vulnerable makes it easier for the zweihanders to build higher defence and can create opportunities for them (after kills, especially if they’ve found room for Berserk) to advance a tile to directly engage the pike-wielding legionaries, who do not have Polearm Mastery and who will incur a -15 penalty to hit-chance. Such an opportunity should probably be seized even if the zweihanders aren’t able to remain Indomitable, since the axes behind them will probably be able to advance and make quick work of the ancient pikes.
+
+Another excellent way of keeping the zweihanders safer against ancient pikes is to disarm their wielders, who are much easier to disarm than necrosavants (The Conqueror is immune). Disarming honor guards with rhomphaias or crypt cleavers is also sometimes a good idea (e.g. if they’ve engaged the zweihanders or any of the axe-users). Necrosavants should mostly only be disarmed by masters of the whip (but extinguishing their Nine Lives with bigger weapons and then finishing them off with basic whips is best, and hopefully some of them will be taken out by Ripostes from the tanks).
+
+The longer the shield tanks in the most vulnerable spots can stay alive, the greater the chance of victory. It is unlikely that those on the western flanks will survive, but they should cling to every last HP with clenched fists. The better their health (and that of their armour) when The Conqueror engages, the better the chance of victory.
+
+Since The Conqueror engages (towards the western rear flank) after the initial engagement, it is typical for the tank on that flank to already be almost entirely surrounded when the boss arrives. Ideally, there will be one free spot for the boss to engage the tank to the interior of the formation, near or next to the sergeant or one of the 2H mace-wielding troops towards the rear. Alternatively, The Conqueror may engage one of these centre-rear troops directly. Either way, the protocol is to try to Daze it after its turn has ended, so that it is not necessary to use Adrenaline. If the sergeant is engaged, one of the damage-dealers can be rotated into place to daze The Conqueror. The other centre-rear damage-dealer (also now armed with a 2H mace) can either move a tile to attack The Conqueror (if this is possible without engaging anything else) or be rotated in turn for an attack (or just attack from 2 tiles if that’s the only option). On the next turn, they can attack again, with Footwork probably being used to avoid damage (or the sergeant can rotate one of them away and then use Footwork or Indomitable). If the western rear tank is engaged by The Conqueror and getting into to trouble, Indomitable can be used instead of Footwork so that one/some of these fresher troops with lower melee defence are likely to be attacked instead. The axe-users from the second line may also be able to attack with longaxes (even whips), and quickly killing The Conqueror should be a priority. Note that hitting The Conqueror’s armour from 2 tiles does not incur the 20% damage reflection, and that using Indomitable before hitting it from 1 tile (but not after doing so) halves the reflective damage.
+
+If you’ve killed The Conqueror and all the necrosavants, and the flank tanks are all still alive and with at least a little bit of durability left in them, victory is at this point assured. If one or even both of the western tanks have fallen (or are on the brink of it), but the zweihanders are still in good/decent health, there is still a reasonable chance of victory, but it’s liable to be an awkward and laborious mess.
+
+Not having any more teleporting necrosavants makes it much easier to Recover in safety, to patiently wait turn within 2 or 3 tiles of pike-wielders, and then move in to attack after their turn has ended, knowing you’ll get to attack again (and hopefully kill them and Berserk) before being attacked yourself. Whippers can disarm pike-wielders. Longaxe-users can occasionally team up to remove a tower shield (making infuriating prolonged sequences of team-missing less likely). Zweihanders should prioritize directly engaging pike-wielders. Those with 2H maces should prioritize dazing enemies while any adjacent pikes have been disarmed.
+
+The hard (or at least irritating) part is when the priests move towards you and start spawning more miasma and uttering curses. This is when you’ll wish you hadn’t gone along with the common wisdom that ~50 resolve is fine on “frontliners” and that resolve can be more-or-less neglected on everyone else. Sometimes someone will have advanced close to a priest and waited to see if there’s an opportunity for Adrenaline, only to be trapped in miasma and then Horrified and unable to move away. It’s best to try to keep everyone within a reasonable distance of the sergeant, in addition to keeping away from the miasma.
+
+The remaining honor guards, who are actually acting as guards to the priests, have such low initiative that they are always behind you in the turn order, and they always wait turn as well. You can’t maintain Indomitable cycles against them, and they can always attack you after you engage them. However, if any shield tank is still alive with decent HPs (and hopefully a tiny bit of armour too), it’s good to engage one or more of these guards and use Indomitable (thereby preventing them from further movement to protect the priests). In the absence of any shield tanks with semblance of life, zweihanders will have to perform this role. In either case, it will create opportunities for damage-dealers to advance into range of the priests and use Adrenaline to attack before they can be Horrified. There will still be some loose honor guards to advance against these troops, but these ones will be relatively isolated and it should be fairly simple for someone to daze or disarm them (or just kill them as quickly as possible). Once only one priest remains, it is highly satisfying (even if it’s clinging to just a few HPs) to ritually execute it with the most gruesome, gratuitous weapon/attack available. This is a special moment for rare 2H axes or maces, or for Decapitate with a rare cleaver.
+
+---
+
+===>> vs Krakens <<===
+Buggered if I know. Watch this space …
+
+Okay …
+
+Give the goblin trophy (also a kraken trophy) to someone who has Hammer Mastery (or a rare billhook with awesome armour effectiveness), and spend the opening rounds removing the kraken’s head armour with Demolish Armour (or just Strikes). The kraken’s body-armour is never hit/removed. The tentacles/irrlichts are (unarmoured) parts of the beast’s body, and killing them directly removes its HPs despite the presence of armour (but only up to a point). Once only eight irrlichts remain (vs 12 at the start), killing them no longer removes HPs (and they always regenerate) and you can only remove HPs by attacking the kraken directly – but all attacks are to the head and remove HPs once the head armour is gone. So that means that everyone should be armed with a battle whip (the 3-tile range is very handy), and that at least some of them should have Cleaver Mastery to increase the bleeding damage. Those without mastery should also have a jagged pike or a mastered billhook (better damage when only one attack is possible), and everyone should also have a high damage 2H sword/axe/mace/cleaver. Everyone in the party should have high melee skill (at least ~80+, but the more the better) for breaking free and freeing others (no shield tanks), along with a high pool of usable fatigue and the Recover perk. High melee defence makes casualties less likely, but you can get away with mediocre values on most people (e.g. 10-25) if the gods are pleased with you. High HPs (with Nimble or heavy armour) is highly advisable. Resolve isn’t important if you avoid casualties, but no sergeant means no Rally if anyone’s morale weakens after a casualty.
+
+Once a certain portion of the kraken’s HPs have been removed by killing irrlichts, and possibly before the trophy-wearer has finished removing the head armour, these tentacles will become enraged and sometimes attack instead of dragging someone towards the beast (so it’s best if the trophy-wearer has high melee defence, even if the gods are pleased with you). Their attacks hit the head 50% of the time (so it’s best to have relatively heavy headgear, e.g. a barbute on Nimble guys), and they do high damage with high armour effectiveness, and cause bleeding (luckily just 5 per turn). They’re also frightfully accurate, and they always have high melee defence (25) and the Underdog perk. Hitting them (or breaking free from them) is especially awkward if you’re in the swamp. It may be worth having two Backstabber guys trying to stun two tentacles per turn with maces, but this uses a lot of fatigue (and they may be in the swamp and miss, or just miss anyway) and they may be dragged while highly fatigued and unable to move much (or at all) if they break free (sure to be snared before getting a chance to Recover). You may be better off just dazing lots of them (with or without mastery) to reduce their damage and quickly kill them and force them to re-spawn at a remove.
+
+Indomitable is a useful skill in this fight (you can’t be dragged while it’s active), but trying to cycle it endlessly is utterly futile. The kraken always waits turn, and irrlichts also wait turn if there is no one to drag or attack, meaning that you will be dragged after using Recover (and that co-use of Adrenaline will leave you with less fatigue to move away or hide or use Indomitable after breaking free). In some cases, however, enraged irrlichts will act to attack you (and do less damage) while you are Indomitable, and therefore leave you free to Recover with Adrenaline and re-use Indomitable.
+
+If you are hidden in bushes, irrlichts will generally not be able to find and drag you, but it is still possible for them to re-spawn on adjacent tiles (or be displaced onto adjacent tiles when someone breaks free), and in these cases they will snare/drag you. Also, if everyone is hidden, they immediately become miraculously capable of locating you. Still, hiding in bushes (especially at a remove from others, e.g. after being dragged and breaking free and using Adrenaline to run and hide and avoid being recaptured before you can act again) is sometimes a very sound strategy (including in the opening rounds when you are trying to get everyone to good terrain before being dragged).
+
+Adrenaline is situationally useful in this fight, including for getting everyone to good terrain in the opening rounds and for escaping and hiding after breaking free in proximity to the kraken, as indicated above. You may be able to Recover safely from a hidden spot at a 2- or 3-tile distance from the kraken, and then attack it with a whip or 2-tile item while the irrlichts attack/snare others further away.
+
+Pathfinder is of course very useful for getting everyone to good terrain in the opening rounds.
+Once everyone (except the trophy-wearer) is grouped on good terrain, keeping everyone free from tentacles (which applies some damage to the tentacles) should generally be prioritized over attacks, but opportunities for kills should often be taken, since this forces the slain tentacle to re-spawn at a remove and reduces the rate at which they can snare and drag. Once the irrlichts are enraged, it’s a good idea to minimize their numbers with kills as quickly as possible. In other cases, when no kills are available and there is no one adjacent who can’t be freed by someone else, it is sometimes best to take a turn to Recover if quite a bit of fatigue has been built up.
+
+At some point, some/many/most of you will need to move closer to the kraken (by themselves or by being dragged), and it’s best to have a high pool of fatigue free when this happens. Some may hang back and try to occupy lots of irrlichts (or lead them further away). The irrlichts tend to be more attack-oriented (and less drag-oriented) when someone has lost their armour and some HPs, and so this might be a fitting time for someone to become a noble sacrifice.
+
+Depending on how things pan out, and on the layout of the terrain, it may be possible for one or more of you to move forwards and occupy a hidden tile (ideally on good ground) in attacking range of the kraken. If this is not possible, it will not be possible to apply further damage so freely, and more of you will need to go forth (which increases the risk of someone breaking free next to the kraken only to have no free tile to move to). If some of the irrlichts stay back and keep attacking, some of you can stay back to kill them (if someone has been Devoured and others have dropped to wavering morale, killing irrlichts is the only way to induce a positive morale check in the absence of a sergeant).
+
+Once some/many/most of you are close to the kraken and in range to attack, some/many of you will still be snared and potentially dragged into contact with the kraken, and the options when this happens are (a) to be freed by someone else who sacrifices one attack, (b) to free yourself and move to a good tile and use Indomitable, (c) to free yourself and move one tile, (d) to free yourself and move a tile and use Adrenaline (and then move to a hidden tile or as far away as possible), (e) to free yourself (or fail to free yourself) and be exhausted (and/or still snared) and get Devoured, or (f) to free yourself and (in sheer frustration and as a last act of defiance) use Decapitate with a 2H cleaver (or a rare orc 1H one) before being Devoured (or you may even manage to finish the beast off in style with this course of action).
+
+Kraken fights are generally repetitive yet unpredictable, with a high risk of casualties (which can impair morale and increase the risk of further casualties). But if everyone in attacking range of the kraken is either fresh or Indomitable or hidden, and if everyone who’s fatigued has managed to move further away (too far to be dragged next to the kraken, but maybe at just the right distance to be dragged next to someone fresher who can free them and allow them to Recover), the risk of casualties will be lower and the chance of victory greater.
+
+---
+
+===>> vs Barbarians/Chosen <<===
+Adrenaline allows you to act before anyone else in the next round. It does this by adding a value of 2000 to your initiative (for the purpose of determining the turn order). If more than one person uses Adrenaline, the one with the highest initiative (for the purpose of determining the turn order) will act first in the next round. Adrenaline usage isn’t the only thing that affects initiative for the purpose of determining the turn order. The other thing that affects it (and that also is not reflected in the initiative value displayed on character screens) is waiting turn. Waiting turn results in 25% of your initiative being subtracted (for the purpose of determining the turn order). So, if you’ve used Adrenaline and waited turn, your initiative (for the purpose of determining the turn order) will be 1500 (plus whatever probably low value of regular initiative remained on the character screen after using Adrenaline).
+
+Barbarians have more initiative than the vast majority of my guys (despite, in the case of chosen, also wearing much heavier armour than many of them), and they also recover astronomical amounts of fatigue each turn (often bolstered still further by drummers) and (unlike any other enemy in the game) also have the Adrenaline perk (and will readily use it if they sense that a nearby opponent has higher initiative than themselves – including initiative from the turn-order bonus applied by Adrenaline).
+
+Fortunately, barbarians also wait turn before using Adrenaline, lest they waste energy unnecessarily when no one nearby will be ahead of them for the next turn anyway (not that it would really matter, given how much fatigue they recover). This means that, if you move in and use Adrenaline and don’t wait turn, you will be ahead of them for the next round, despite their usually higher regular initiative. For example, even if your regular initiative is -100 and theirs is 100, using Adrenaline without waiting turn will increase your initiative (for the purpose of determining the turn order) to 1880, whereas using it with waiting turn will increase theirs to 1560.
+
+If you and a barbarian have both used Adrenaline, and you are first to act in the subsequent round, staggering that barbarian with a 2H hammer will send it right to the end of the turn order for that round, despite having used Adrenaline! But beware that the same thing can happen to you if you accidentally wait before/after using Adrenaline!
+
+Because of the Adrenaline/initiative/turn-order mechanics outlined above, chosen do not get to act before tanks who are using Indomitable cycles (phew). It means that you can seize the initiative and use Adrenaline yourselves, or hang back and wait and take precautions if some of them do eventually use Adrenaline. If they are separated from your frontline by one tile, you can use Indomitable or throw nets over them or just move back so that they are unable to move+attack on the next turn anyway (possibly protecting any ranged characters whose turn has ended with a Rotation or Spearwall).
+
+A downside of knowing that you can usually out-Adrenaline chosen is in situations in which you realize that a chosen could engage you (but not attack) later in the current turn, and will definitely be ahead of you for the next turn – unless you immediately use your last little bit of fatigue on Adrenaline as a precaution against this (thereby guaranteeing that you won’t be able to use Indomitable after attacking them in the next round, if they even engage you to start with).
+
+While their tendency to wait turn is disadvantageous to chosen in some respects, it can also be advantageous to them in that, since they have the Resilient perk, they often recover from the Dazed status effect before their next attack. You can even play this to your advantage, by waiting turn yourself before dazing them, but only if you can afford to wait.
+
+Positioners with both the Rotation and Footwork perks can be very useful against large chosen parties. Those with spears can occupy the rear flanks to prevent chosen from outflanking the formation and surrounding more offensive characters. 2H Positioners can pre-emptively “rescue” offensive characters (e.g. the above one who was angsting over whether to use Adrenaline in case a chosen closed in) who’ve been engaged by non-isolated chosen that are liable to use their own form of Rotation (Barbarian Wrath) to focus attacks upon a character who is easier to hit. A fresh Positioner can use Rotation+Footwork or even Rotation+Attack+Adrenaline+Attack+Footwork.
+
+As suggested above, one or two whippers are very useful against barbarians. They can hang back two tiles from the frontline (making the barbarians less likely to sense their high initiative), wait turn and then Disarm any dangerous chosen whose turn has already ended. Obviously any chosen engaging anyone who is already wounded or without armour is a threat (especially if wielding a cleaver). Otherwise, the most threatening ones are those with 2H maces (who can apply Dazed) and those with rusty 2H axes (which can make very short work of durable shields).
+
+Also, as more and more players are discovering, throwers (especially with looted heavy barbarian javelins) can do devastation to chosen from close range, and one or two of these are always good to have.
+
+My usual approach to large chosen battles is to have 3-4 more defensive tanks (shielded Indom+Riposte ones or 2H Indom+AOE ones) spread out (with a gap of one or two tiles) across the front (any shielded ones on the flanks), at least 4 offensive melee characters (and maybe one or two throwers) behind them, one or two whippers at the back, and sometimes Spear/Shield Positioners on the rear flanks (especially if there are no shielded tanks on the front flanks). Sometimes there may be some 2H Positioners mixed in with (and perhaps barely distinguishable from) the offensive melee characters.
+
+If there are any 2H Positioners, it’s fun to use them to seize the initiative with Adrenaline and do as the barbarians do by attacking and then rotating another attacker into place. In my case, the next attacker (who has also used Adrenaline) will be a more defensive tank who will then use Indomitable with either Riposte or a 2H attack. At least some of the offensive characters (or Positioners) on the second line will be in danger of becoming the focus of the barbarians’ own wrathful rotating attacks if/when a barbarian advances into one of the gaps between the tanks. This danger can be pre-empted by throwing a net over that barbarian (and then disarming/dazing it etc., and/or pelting it with heavy javelins) or subsequently evaded via use of Rotation and/or Footwork.
+
+The general approach of the offensive melee characters is to hang on the second line with 2-tile items and wait for chosen to advance into the gaps in the frontline, and then (once those chosens’ turns have ended without using Adrenaline) wait for someone to chuck nets over them (preventing others from rotating them) and advance to daze them with 2H maces, knowing that they will act before those advanced chosen in the next round and that those chosen will be very nearly dead (or very actually dead) before they next get to act. If an advanced chosen waits turn and uses Adrenaline because of sensing the higher initiative of a whipper, it may be possible for an offensive character with a whip and lower initiative to Disarm that chosen at the end of the round.
+
+The more the chosens’ numbers are thinned, the easier it is for offensive characters and whippers to group together and focus attention on the remaining chosen tied up by the tankiest characters, prioritizing whichever ones are posing the greatest threat.
+
+---
+
+===>> vs Unholds/Schrats/Lindwurms <<===
+Large beasts have a massive pool of HPs but (mostly) not much armour. Snow/tundra unholds and lindwurms have some armour (mostly removed by one or two hits from 2-handed items), and schrats take a lot less HP damage when they have a “shield” (which has 32 durability like a heater shield), but the main problem (from an offensive perspective) is working through their HPs. From a defensive perspective, the main problem is their massive ignore-armour damage and, in the case of lindwurms, their massive armour damage (often ~100 versus Indomitable) and high melee skill (85 after ~day 200). Unholds pose the additional problem of being able to stun you with charges or toss you over their heads for a loss of 10 HPs (combining the orc menaces into one), and schrats pose the additional problem of being able to AOE three targets with a “Split” attack (and, although it’s easy to avoid the angle of any one particular schrat, battles against many schrats on complex terrain sometimes make it difficult to get in range to attack one schrat without accidentally being in range to be attacked by another). Oh, and lindwurms are able to attack any target within a 2-tile range, and their tails can AOE any 3 targets within a 2-tiles range with a “Swing/Shatter” attack, and sometimes apply the Dazed status effect (or knock them back – which is often beneficial, since it at least puts them out of range of the heads). Most hits from these enemies also apply the Staggered status effect, which lowers initiative by 50% and is not of much concern for fatigue-intensive characters, but of very big concern for any high-initiative characters whose role is to apply the Overwhelmed status effect to lower the melee skill of these beasts.
+
+Naturally, it’s useful to have weapons that can attack these enemies without engaging them directly, and to be highly mobile to avoid being in line for schrat or lindwurm long-range attacks, or to avoid being engaged by an unhold who has tossed someone aside. Polearms (with mastery) afford good mobility thanks to their 5-AP cost. Jagged pikes offer the same thing without mastery, and (thanks to 10 bleeding damage per hit) do nearly as much damage as a billhook against unarmoured targets that are not immune to bleed (schrats are immune to bleed, but 50-70 damage is still decent and often avoids spawning a sapling). But battle whips have a range of 3 tiles and can make two attacks per turn, and apply a total of 4 lots of 10 bleeding (split over two turns) per hit against non-immune targets (meaning a total of 8 lots of 10 from two hits in one turn, or 4 lots of 10 against enemies who have the Resilient perk, as all these large beasts do). Their base damage of 15-30 may sound pathetic, but this increases to 18-37 with double-grip, and two hits with this (36-74) plus 8 lots of 10 bleeding damage equals 116-154 total damage from a single turn, or 76-114 total damage against Resilient non-immune enemies such as unholds and lindwurms (better than a billhook or longaxe, and applied from a safer distance). Even against non-bleeding targets, such as schrats, the whip is very useful for applying stacks of Overwhelm (while avoiding being in line for another schrat’s attacks).
+
+Bows can also apply stacks of Overwhelm (and deal high damage to unarmoured targets) from long-range, but they have the disadvantage of requiring line of sight to guarantee getting to the intended target.
+
+A small number of tanks (especially of the shielded variety) is very useful against large beasts, and nearly essential against lindwurms (just 2-handers is viable against unholds and schrats, though sometimes slightly awkward). Engaging as many beasts as possible with each individual tank allows the other, more offensive characters to concentrate on hitting stuff. In the earlier days of campaigns, before proto-tanks have the Indomitable perk, unhold charges and tosses can be prevented (or at least delayed) by throwing nets over them (which also allows several characters to engage and attack them with 2H weapons and attack again on the next turn before the beast can do anything back).
+
+Tanks often need to be pro-active at engaging multiple large beasts, since the beasts often try to work around the formation to attack your most vulnerable troops. Spreading the tanks out along with front, with a gap of 2 tiles between each of them, makes it impossible for more than a single isolated beast to advance through the gap onto your backline, and focusing damage on isolated beasts is one of the keys to an efficient victory. An unhold that advances thus can be netted to prevent tosses and then dazed with 2H maces and struck with 2-tile items and Overwhelmed/bled with whips.
+
+If you have only a few tanks, they may need (after initial engagement with a single beast) to use Indomitable and then try to move through zone-of-control to engage as many additional beasts as possible, freeing less defensive characters from having to worry about defence.
+If they suffer sequences of hits and lose most of their armour, it may be judicious for the tanks (if they are shield-users) to cycle Indomitable+Shieldwall to maximize melee defence (especially against lindwurms with their massive armour damage and 85 melee skill). Most of the time, however, Indomitable+Riposte is a preferable combination, since it contributes damage to make shorter work of them (against unholds it often returns the damage that they recover at the start of each turn). Ideally, the hit chances of large beasts (especially lindwurms) should be lowered as much as possible by stacks of Overwhelm applied from a safe distance by whippers (or by any high-initiative ranged characters you may have).
+
+Against unholds and schrats, 2H tanks with maces or axes (whatever their usual weapon) are viable, but it is easier and safer to tie up an especially large mass of beasts with a shielded tank.
+
+Against unholds, ideally, all the beasts will be tied up by a few tanks spread across the centre, and then the damage-dealers and debuffers will be able to divide into two groups that outflank the giants from both sides and (from each side) focus damage upon them one by one. Whips, jagged pikes and mastered bills make it easier for them to attack and move to within a single tile of a beast, so that (if needed) they can engage and daze it with a 2H mace after its next turn has ended. The more beasts that have already been removed, the easier it is to rapidly incapacitate and annihilate those that remain.
+
+While 2H maces are excellent against large beasts for their Daze effect, it should also be noted that 2H axes with the Split Man attack are excellent against unarmoured targets with lots of HPs, since this single attack induces two negative morale checks and sometimes causes them to break early.
+
+Axes, for obvious reasons, are extremely useful against schrats. I always like to have at least two people with Axe Mastery, which allows schrat “shields” to be one-shotted by longaxes. I also sometimes have those without mastery use longaxes in pairs to quickly remove shields from safety. Throwing spears can also be used in pairs to remove durable shields, including those of schrats. All 1-tile 2H weapons (except flails) have the Split Shield skill and can (in pairs) remove schrat shields in one turn for the modest fatigue cost of 20 (except for longswords, which do just 12 damage to shields, but this is still enough to two-shot schrat shields in pairing with the 20 damage applied by 2H maces).
+
+Against schrats, who can annoyingly regenerate their shields to massively lower your damage, it is much more efficient to have at least a couple of guys with Axe Mastery, or to use a lot of greataxes (since these can one-shot schrat shields without mastery). Rare versions of other 2H weapons (or of smaller axes) sometimes have enough extra shield damage to one-shot schrat shields. But it is still useful to have lots of throwing spears at the start of schrat battles, to facilitate a quick and efficient offensive. Shield-splitting aside, 2H maces are an excellent tool for schrat fights, since they can Daze them whether shielded or not, and this (thanks to their lowered initiative) often allows several characters to advance and attack twice without having to worry about being attacked back. 2H hammers achieve the same thing thanks to Stagger, but don’t reduce their damage.
+
+The key to schrat fights is to engage them all with as few tanky characters as possible (or engage any isolated ones with multiple offensive characters) and to get a couple of Axe Masters in suitable range of a couple of them (preferably ones that others can then attack without being endangered by other schrats’ AOE attacks). Alternatively, all the tanky characters (or some of them) can carry greataxes and serve as shield removers, allowing the others to concentrate on offence or debuffing. For a tank, cycling Indomitable with Split Shield with a non-mastered greataxe requires 82 in-gear fatigue (the same as Indomitable+Riposte, but with lesser total fatigue from in-hand items). Being unshielded makes a tank easier to hit, but also makes it quicker to kill the schrats (and encourages them to sacrifice attacks to regenerate the shields).
+
+Saplings are mostly just a minor nuisance, with much weaker ignore-armour damage, but their basic armour damage is still decent and you need to be careful to not allow anyone to be too swarmed with them. Berserk is sometimes great for clearing them away (but a new one will be spawned if you immediately hit an unshielded schrat). Indomitable is very handy for when someone is swarmed by saplings or is unable to get in attacking range without also being in range for AOE attacks from one or more schrats. Ideally, damage-dealers should be able to wait safely within 2 tiles of a single schrat, and then advance and hit it with a 2H mace, leaving it low on initiative (and low on damage if it gets another chance to attack).
+
+Unlike unholds and schrats, lindwurm heads do not necessarily try to advance to engage anyone. Since their attacks have a range of 2 tiles, without requiring an angle, they often park themselves (along with their tails) behind another head (and tail) that is already engaged, and attack a target that cannot attack them back. This increases the volume of attacks endured by a tank, making it more likely that the armour will be stripped (Indomitable or not) and the HPs exposed. This, along with their higher melee skill, makes Overwhelming Whippers extra-important against lindwurms, since they can keep a precious shield tank alive (so that it can fulfil its destiny of being sacrificed in the Black Monolith). While Indomitable is highly recommended for tanks against lindwurms (along with Nimble or very heavy armour with bone platings), somewhat cheesy fatigue-neutral initiative-based shield tanks (applying Overwhelm with daggers or punches) can also be effective against lindwurms (and schrats) as a stop-gap in the early/mid-game.
+
+An advantage of the wurm heads’ tendency to hang back is that it leaves offensive characters free to focus damage on the more advanced heads/tails, knowing that the ones behind are unlikely to move even a single tile to attack them if they stay out of range.
+
+The initial priority against lindwurms is to engage as many heads as possible with as few shield tanks as possible, while simultaneously trying to avoid having each shield tank being in range of heads/tails that are already being tied up by others (try to avoid giving them the option to focus attacks on a tank whose armour is stripped). Once this is done, offensive characters with longaxes/bills/polehammers should try to remove the armour from a couple of them (the most isolated ones that can be attacked most freely) as quickly as possible. These exposed wurms can then be spammed with 2-tile or whip attacks, and the Overwhelming Whippers (with their extra bleeding damage from mastery) can also prioritize attacking these ones to hasten their demise (but may want to apply Overwhelm to other heads/tails if a tank is in trouble elsewhere). Once some of the wurms have been removed, the tanks may still be in good health (in which case the same process can be followed) or they may be in a bit of trouble. If they are in trouble, the offensive characters (after removing most of the remaining wurms’ armour from distance) can close in en masse with 2H maces to try to keep everything dazed (using Indomitable when it isn’t or if their armour has been stripped). Since the damage-dealers are easier to hit, this should divert some attacks from any endangered tanks, and the greater volume of high-damage attacks (combined with continued Overwhelming and bleeding applied by whippers) should (hopefully) be sufficient to slay the beasts before anyone loses an eye.
+
+---
+
+===>> vs Hexen and Alps <<===
+Have the Resilient perk. Move into attacking range of the hexen and use Adrenaline. Wait turn. Recover from any charms at the end of the round, having used Indomitable on anyone who’s Hexed. Kill. Repeat as necessary. Similar (but more relaxed) for alps.
+
+[[Category:Legacy Content]]

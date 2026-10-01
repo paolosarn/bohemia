@@ -1,0 +1,21 @@
+{{Infobox helmet
+|title={{PAGENAME}}
+|image=Inventory_helmet_239.png
+|worth=3700
+|durability=300
+|maxfatigue=-18
+|vision=-3
+|misc_1=[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+}}
+
+
+==Description==
+''A closed metal helm with breathing holes. Adorned with relics and lovingly maintained despite its extensive use, this is the helmet of a true questing knight.''
+
+==Where can it be found?==
+* Can be looted from [[Oathbringer]].
+* Possible starting gear of new mercenaries: [[Oathtaker (Background)|Oathtaker]].
+* Can be obtained in the [[Oathbreaker]], [[Oathtaker Joins]] events.
+
+[[Category:Armor]]
+[[Category:Headgear]]

@@ -1,0 +1,12 @@
+Alchemy is an important part of the medieval ages' science, and rulers of the magnificent city states have always been patrons of it.
+
+[[File:Alchemist.png]]
+
+The alchemist is always ready to offer a variety of exotic and dangerous alchemical contraptions at a reasonable price.
+
+The assortment of goods is following:
+* Available in more quantities: [[File:Daze_bomb_01_70x70.png|25px|bottom]][[Flash Pot]], [[File:Fire_pot_01_70x70.png|25px|bottom]][[Fire Pot]], [[File:Smoke_bomb_01_70x70.png|25px|bottom]][[Smoke Pot]], [[File:Antidote_01.png|25px|bottom]][[Antidote]], [[Fire Lance]], [[Powder Bag]].
+* Moderately available: [[Handgonne]], [[File:Potion_06.png|25px|bottom]] [[Cat Potion]], [[File:Potion_07.png|25px|bottom]] [[Iron Will Potion]], [[File:Potion_02.png|25px|bottom]] [[Lionheart Potion]], [[File:Potion_03.png|25px|bottom]] [[Night Owl Elixir]], [[File:Potion_01.png|25px|bottom]] [[Second Wind Potion]], [[File:Potion_04.png|25px|bottom]] [[Poisoned Oil]], [[File:Potion_05.png|25px|bottom]] [[Potion of Knowledge]], [[File:Acid_flask_01_70x70.png|25px|bottom]] [[Acid Flask]].
+* Very rare: [[Named Handgonne]].
+
+[[Category:Settlement Buildings]]

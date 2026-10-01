@@ -1,0 +1,22 @@
+{{Infobox helmet
+|title={{PAGENAME}}
+|image=Inventory_helmet_238.png
+|worth=2000
+|durability=250
+|maxfatigue=-15
+|vision=-3
+|misc_1=[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+}}
+
+
+==Description==
+''A closed helmet with complete faceguard and mail to protect the neck. Heavily worn from extensive use, but adorned with relics and well-maintained.''
+
+==Where can it be found?==
+* Can be looted from [[Oathbringer]].
+* Possible starting gear of new mercenaries: [[Oathtaker (Background)|Oathtaker]].
+* Can be obtained in the [[Captured Oathbringer]], [[Oathtaker Joins]] events.
+* [[Oathtakers]] origin starting gear.
+
+[[Category:Armor]]
+[[Category:Headgear]]

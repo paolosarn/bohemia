@@ -1,0 +1,207 @@
+'''Attributes''' are a type of gameplay mechanic associated with the level up system in ''Battle Brothers''. Attributes are character stats that affect combat performance. These stats are displayed in the lower left area of the character screen. The numerical values include modifiers from [[Character Backgrounds|Backgrounds]], [[Traits]], and [[:Category:Items|Equipment]].
+{{TOCleft}}<br /><br />
+{|class="table" align="center"
+|
+{|class="article-table" style="font-size:95%; margin-right:-8px; text-align:right; background-color:transparent;" border="0"
+| style="border:0;" |Head Armor
+|-
+| style="border:0;" |Body Armor
+|-
+| style="border:0;" |Hitpoints
+|-
+| style="border:0;" |Action Points
+|-
+| style="border:0;" |Fatigue
+|-
+| style="border:0;" |Morale
+|-
+| style="border:0;" |Resolve
+|-
+| style="border:0;" |Initiative
+|}
+|[[File:BrothersStats.PNG|400px|link=[[Talents]]]]
+|
+{|class="article-table" style="font-size:95%; margin-left:-11px; text-align:left; background-color:transparent;" border="0"
+| style="border:0;" |Melee Skill
+|-
+| style="border:0;" |Ranged Skill
+|-
+| style="border:0;" |Melee Defense
+|-
+| style="border:0;" |Ranged Defense
+|-
+| style="border:0;" |Damage
+|-
+| style="border:0;" |Effectiveness vs. Armor
+|-
+| style="border:0;" |Chance to hit head
+|-
+| style="border:0;" |Vision
+|}
+|-
+| colspan="3" style="text-align:center;" |What 1-3 stars next to an attribute mean, is explained on the [[Talents]] page&emsp;&emsp;&emsp;&emsp;&ensp;
+|}
+{{clr}}
+==Head Armor==
+:''For calculation and further info see: [[Combat_Mechanics#HP_and_Armor_Damage|Armor Damage]]''
+'''Head Armor''' is determined by a character's [[Headgear|helmet]] and is reduced by [[:Category:Enemies|enemy]] hits to the head.
+
+Depending on the incoming [[Weapons|weapon]] skill’s damage and armor ignoring values, some damage can go directly to the [[File:Health.png|25px|bottom]] hitpoints even with the best head gear equipped. With no or destroyed helmet any hit to the head will cause direct damage to [[File:Health.png|25px|bottom]] HP.
+
+The head of a character is harder to hit than the body, but is more vulnerable to damage.''' '''Hits on the head are called '''critical hits''' and inflict 50% more [[File:Health.png|25px|bottom]]HP damage. [[Melee_Weapons#One-Handed_Axes|One-handed Axes]]' [[Chop (13_fatigue)|Chop]] skill deals additional 50% [[File:Health.png|25px|bottom]] HP damage on top of that. These bonus damages are negated by [[File:Perk_09.png|25px|bottom]] [[Steel Brow]] perk; enemies possessing this perk also negate the [[File:Trait_icon_01.png|25px|bottom]] [[Brute]] trait bonus damage of player's mercenaries.
+
+[[Headgear|Head armor]] weighs less than [[Body Armor|body armor]] for the same amount of durability, but [[Armor Attachments]] cannot be applied. Heavy head armor incurs substantial [[File:Vision.png|25px|bottom]] [[Attributes#Vision|Vision]] penalty, which may handicap the use of some weapons and items, especially during the [[File:Night.png|25px|bottom]] [[Nighttime (Status Effect)|Nighttime]].
+
+==Body Armor==
+:''For calculation and further info see: [[Combat_Mechanics#HP_and_Armor_Damage|Armor Damage]]''
+'''Body Armor''' value is determined by a character's body armor and is reduced by enemy hits to the body.
+
+Depending on the incoming attack’s armor ignoring properties and damage value, some damage can go thru the best body armor directly to the hitpoints. With no or destroyed body armor any hit to the body will cause direct damage to HP.
+
+Some of the crafted [[Armor Attachments]] reduce the incoming damage of certain types: melee, ranged, armor ignoring damage. Some body armor Attachments give other benefits: permanent acid protection or blocking damage of the first hit once a battle (unless it’s a 100% direct hit to HP).
+
+Heavily armored mercenaries can benefit from [[File:Perk_03.png|25px|bottom]] [[Battle Forged]] perk, which grants 30% armor damage reduction at 300/300 head/body armor setup (alas it has diminishing returns, when the current armor value decreases).
+
+Heavy armor also comes at the expense of a high penalty to Fatigue and Initiative. This penalty can be decreased with [[File:Perk_40.png|25px|bottom]] [[Brawny]] perk, which also applies its effects to the head armor. There is a specific Armor Attachment that applies similar effect for the body armor as well.
+
+==Hitpoints==
+:''For calculation and further info see: [[Combat_Mechanics#HP_and_Armor_Damage|HP Damage]]''
+
+'''Hitpoints''' ('''HP''') represent the health of a character. If this attribute falls to 0, the character is killed or "''struck down''". Characters with the [[File:Trait_icon_43.png|25px|bottom]] [[Survivor]] trait have 90% chance of being ''struck down'' instead of getting killed (battle log will show "struck down"), unless they suffer a fatality or already have all the [[Permanent Injuries|permanent injuries]]. Characters without the [[File:Trait_icon_43.png|25px|bottom]] [[Survivor]] trait have less chances to survive after losing all hitpoints. Being ''struck down'' always incurs a [[Permanent Injuries|permanent injury]] that can only be removed with the [[File:Water_skin.png|25px|bottom]] [[Water Skin]], which is a legendary item of single quantity.
+
+Hitpoints can be lost due to several effects that inflict ''Damage over Time (DoT)''. These are: ''poison'' (by Webknecht/Poison Oil), ''bleed'' (inflicted by cleavers and whips, caused by some wounds), ''Miasma'' spell. Poison and bleed effects can be healed by items and mitigated by [[File:Perk 04.png|25px|bottom]] [[Resilient]] perk (''DoT'' duration is reduced to a minimum of 1 turn). Certain amount of Hitpoints is lost when a character is devoured by a grown [[Nachzehrer]], attacked by [[Alp]]s’ ''Nightmare'', or touched by [[Geist]]s.
+
+Ways to preserve HP, while wearing armor, are most commonly split between picking either [[File:Perk_03.png|25px|bottom]] [[Battle Forged]] or [[File:Perk_29.png|25px|bottom]] [[Nimble]] perks. Heavily armored brothers can receive a lot of hits before they start losing hitpoints, but are very susceptible to high ''armor ignoring damage'' (AID), e.g. from crossbow bolts and [[Humans#Barbarians|barbarian]] 2-handed weapons, especially combined with [[File:Perk_57.png|25px|bottom]] [[Crippling Strikes]]. Thus, [[File:upgrade_03.png|25px|bottom]] [[Additional Fur Padding]] helps weaken this high AID and keep your men alive. [[File:Upgrade_06.png|25px|bottom]] [[Bone Platings]] completely absorb body armor damage from the first hit once a battle, so it helps too. But the most vulnerable spot is the head, which cannot be protected with [[Armor Attachments|armor attachments]] and takes additional damage that can only be negated with [[File:Perk_09.png|25px|bottom]] [[Steel Brow]].
+
+Lightly armored brothers that go Nimble benefit from light-weight, but efficient armor and helmet. They take only 40% of the damage to their hitpoints, if weight is below a certain threshold. Not only do they get less Fatigue penalty from the armor and thus more endurance for fights, but also lose less Initiative which synergizes with defensive perk [[File:Perk_01.png|25px|bottom]] [[Dodge]]. These kind of mercenaries effectively use their HP as armor, both with its pros and cons. Most notable are: you can swap damaged armor, but health restores very slowly; very susceptible to ''DoT'', especially inflicted by cleavers with Mastery; high and further HP losses mean more negative morale checks. Non-Steel Brow brothers suffer much from 1-handed axes’ attacks to the head too.
+
+Enemies reduced to 0 HP are always killed, unless they possess [[File:Perk_07.png|25px|bottom]] [[Nine Lives]] perk, which restores little health pool and removes any applied poison and/or bleeding. [[Wiederganger]]s can come back to life if not killed by decapitation or fatality, [[Fallen Hero]]es self-reanimate even in the headless state. [[Necromancer]] can reanimate any humans to fight for him (your dead mercenaries included). On the other hand, "''struck down''" Brothers can't be eaten by [[Nachzehrer]]s or reanimated by [[Necromancer]]s. At some point player will gain the [[Obsidian Dagger]] that will allow him to reanimate any humans killed with it to fight along his company's side.
+
+During one of the possible end-game crises - [[Late_Game_Crises#Undead_Scourge|Undead Scourge]] - killed humans reanimate on their own, and [[Zombies]] often come together with [[Ancient Dead]]. Be advised that a [[Necromancer]] possesses powers to also reanimate killed skeletons.
+
+Certain backgrounds ([[File:Background_33.png|25px|bottom]] [[Hedge Knight (Background)|Hedge Knight]], [[File:Wildman.png|25px|bottom]] [[Wildman (Background)|Wildman]], [[File:Lumberjack.png|25px|bottom]] [[Lumberjack (Background)|Lumberjack]], [[File:Miner.png|25px|bottom]] [[Miner (Background)|Miner]], [[File:Brawler.png|25px|bottom]] [[Brawler (Background)|Brawler]]) have higher initial HP pool and can come with [[File:Trait_icon_14.png|25px|bottom]] [[Tough]] trait. Other backgrounds ([[File:Cripple2.png|25px|bottom]] [[Cripple (Background)|Cripple]], [[File:Beggar.png|25px|bottom]] [[Beggar (Background)|Beggar]]) have the least hitpoints, and are excluded from positive health trait and talent, and may possess negative [[File:Trait_icon_04.png|25px|bottom]] [[Fragile]] trait. Some ([[File:Retired_soldier.png|25px|bottom]] [[Retired Soldier (Background)|Retired Soldier]], [[File:Swordmaster2.png|25px|bottom]] [[Swordmaster (Background)|Swordmaster]]) have generally low health pool and are excluded from [[File:Trait_icon_14.png|25px|bottom]] [[Tough]] trait, but can never be [[File:Trait_icon_04.png|25px|bottom]] [[Fragile]] and cannot be excluded from health talent.
+
+Certain [[injuries]] reduce HP pool, either temporarily or permanently, depending on the injury. Strong health pool reduces chances to receive injuries and helps maintain good morale during combat upon losing hitpoints.
+
+On the world map lost hitpoints are recovered at a rate of 1HP/hour on march and 2HP/hour while camping or escorting a caravan. [[The Cook (Follower)|The Cook]] increases hitpoint healing rate by 33%.
+
+==Action Points==
+'''Action Points''' ('''AP''') are used in combat to perform different kinds of actions and movement.
+
+Different units possess a varying number of Action Points. A certain amount of AP is required to perform a specific action or move. When AP reach 0, the turn for the character ends, and the next unit acts (''auto-end turns'' feature can be disabled in the options menu). Action Points fully recover every round unless a unit is stunned or affected by goblin poison or by a certain injury.
+
+The only ways to work around the limited amount of Action Points are to either conserve or regain them. Most common action, beside attacking, is movement. Difficult terrain and changing height levels negatively impact AP availability and thus tactics options: [[File:Perk 23.png|25px|bottom]] [[Pathfinder]] substantially helps mitigate the impact.
+
+As for the combat part of battle, [[Perks#Tier_4|Mastery]] perks make some tactics available with certain weapons – [[Polearms]] and [[Daggers]] – by reducing AP cost of their skills. Additional opportunities come with [[File:Perk_35.png|25px|bottom]] [[Berserk]] perk, which restores 4 AP upon enemy kill (though it activates only once per round). When a situation dictates a different approach, a weapon or an item can be switched without losing AP with [[File:Perk_39.png|25px|bottom]] [[Quick Hands]] (it works only once per round, ''auto-end turns'' feature can specifically be disabled for that; limitation - any swap to/from a shield does require a standard amount of AP).
+
+==Fatigue==
+'''Fatigue''' determines how exhausted a character is. Using either skills or movement will not only use up Action Points, but will also build up Fatigue. A character will not able to move or execute any skills, if too much Fatigue is accumulated.
+
+Fatigue recovers for a basic amount of 15 every round. It can be regained at a faster pace with [[File:Trait_icon_33.png|25px|bottom]] [[Iron Lungs]], or slower for [[File:Trait_icon_22.png|25px|bottom]] [[Asthmatic]]. Fatigue build-up while moving is reduced for [[File:Trait_icon_21.png|25px|bottom]] [[Athletic]] and [[File:Perk 23.png|25px|bottom]] [[Pathfinder]], in combat - by picking up  [[Perks#Tier_4|Weapon Masteries]]. [[File:Potion_01.png|25px|bottom]] [[Second Wind Potion]] helps recover more Fatigue after use. More drastic and efficient: [[File:Perk_54.png|25px|bottom]] [[Recover]] perk.
+
+Being hit by melee or ranged weapon builds up 5 Fatigue, 10 and 20 if hit by one- and two-handed maces respectively. Dodging or blocking melee attacks with a shield builds up 2 Fatigue points. Some enemies’ attacks build up more Fatigue on targets they hit (e.g. [[Fallen Hero]]es deal double fatigue damage, as well as [[Armored Wiederganger]]s after day 20). Dodging or blocking ranged attacks does not incur Fatigue build-up.
+
+Orc weapons and shields have higher penalty to Fatigue on equip than their equivalents and also build up additional 5 Fatigue points for every skill when used by humans.
+
+Some recruits ([[File:Wildman.png|25px|bottom]] [[Wildman (Background)|Wildman]], [[File:Farmhand.png|25px|bottom]] [[Farmhand (Background)|Farmhand]], [[File:Lumberjack.png|25px|bottom]] [[Lumberjack (Background)|Lumberjack]], [[File:Background_33.png|25px|bottom]] [[Hedge Knight (Background)|Hedge Knight]]) have higher initial Fatigue reserves and can possess Fatigue-positive traits ( [[File:Trait_icon_15.png|25px|bottom]] [[Strong]], [[File:Trait_icon_33.png|25px|bottom]] [[Iron Lungs]]), while others ([[File:Swordmaster2.png|25px|bottom]] [[Swordmaster (Background)|Swordmaster]], [[File:Retired_soldier.png|25px|bottom]] [[Retired Soldier (Background)|Retired Soldier]], [[File:Miner.png|25px|bottom]] [[Miner (Background)|Miner]]) generally start with less Fatigue reserves and are excluded from Fatigue-positive traits.
+
+Most mid- and high-tier enemies restore more fatigue per turn than player's mercenaries, and some strong opponents possess passive Battle Flow skill that lowers accumulated fatigue upon kill. Besides, [[Humans#Barbarians|Barbarians]] tend to rely on [[File:Perk_01.png||25px|bottom]] [[Dodge]] and [[File:Perk_26.png|25px|bottom]] [[Relentless]] perks and often have [[Barbarian Drummer|Drummer]] support unit, which lowers accumulated Fatigue of his teammates. [[Zombies]] (except Necromancer) and [[Ancient Dead]] do not accumulate Fatigue at all.
+
+==Morale==
+:''See full article: [[Combat Mechanics#Morale|Morale]]''
+{{:Morale}}
+==Resolve==
+:''For further info see: [[Combat Mechanics]]''
+
+'''Resolve''' represents the willpower and bravery of characters. High Resolve makes it less likely that characters fall to lower morale states due to negative events and the more likely that characters gain confidence from positive events. Resolve acts as defense against certain mental attacks that inflict panic, fear or mind control. Resolve also affects the ability of a character to rally (leave the Fleeing morale state) and the effectiveness of the [[Rally the Troops]] perk. High resolve prevents sleep status applied by alps and lowers their nightmare damage to brothers in sleep state.
+
+==Initiative==
+:''For further info see: [[Combat Mechanics]]''
+
+'''Initiative''' is a secondary attribute that determines turn order of characters on the battlefield. The higher this value, the earlier the position in the turn order. In general, someone in light armor will act before someone in heavy armor, and someone fresh will act before someone fatigued. The average Battle Brother has a value around 100, which is reduced by the current fatigue as well as any penalty to maximum fatigue (such as from heavy armor and weapons, other equipment).
+
+Apart from its main purpose, Initiative has other uses and can benefit from some perks. The most apparent benefit comes with [[Dodge]] perk, which allows to boost both Melee and Ranged Defense by 15% of the current Initiative value. [[Relentless]] perk serves as a complimentary measure to capitalize on Initiative-Defense boost, as well as to maintain a certain strategic turn order.
+
+And last, but by far not the least Initiative related perk, is [[Adrenaline]]. It guarantees early actions next turn, but turn order among Adrenaline users is still governed by the current Initiative value.
+
+==Melee Skill==
+:''For hit-chance calculation and further info see: [[Combat Mechanics]]''
+
+'''Melee Skill''' determines the base probability of hitting a target with a melee attack, such as with swords and spears. Can be increased as the character gains experience.
+
+==Ranged Skill==
+:''For hit-chance calculation and further info see: [[Combat Mechanics]]''
+
+'''Ranged Skill''' determines the base probability of hitting a target with a ranged attack. It defines a hit chance for bows, crossbows, handgonne, firelance and all sort of throwing weapons. Can be increased by allocating attribute points as the character gains experience levels, and by picking up [[Gifted]] perk for that purpose as well.
+
+Apart from leveling up Ranged Skill stat and some rare [[Events#Events_by_Background|events]] that have marginal impact, there is only one factor that improves it substantially, though temporarily: a Confident Morale state (10% boost). On the contrary, low Morale state effects Ranged Skill in a negative way (until morale state is improved). 
+
+Moreover, there are more factors that handicap Ranged Skill: [[Nighttime (Status Effect)|Nighttime]], [[injuries]], [[Swarm of Insects (Status Effect)|Swarm of Insects]] and other [[Status Effects]]. Some of them can be mitigated, while others - cannot.
+
+==Melee Defense==
+:''For hit-chance calculation and further info see: [[Combat Mechanics]]''
+
+'''Melee Defense''' reduces the probability of being hit by melee attacks. It can be increased as the character gains experience and by equipping a good shield and acquiring [[Shield Expert]] perk (+25% of the shield defense bonus). Use a shieldwall (and even more with additional shieldwalls adjacency bonus applied). Confident morale status also boosts this attribute. [[Dodge]] perk adds up more defense, dependent on current Initiative value. [[Reach Advantage]] perk after hitting opponents with two-handed melee weapon provides boost as well. And, [[Underdog]] perk cancels enemies' surround to-hit bonus or [[Backstabber]] perk, thus improving the defense. [[Lone Wolf (Perk)|Lone Wolf]] perk has defense benefits, though activates only at certain conditions.
+
+==Ranged Defense==
+:''For hit-chance calculation and further info see: [[Combat Mechanics]]''
+
+Ranged Defense reduces the probability of being hit with a ranged attack, such as an arrow shot from afar. It can be increased as the character gains experience and by equipping a good shield.
+
+Some recruits’ backgrounds and traits can impact Ranged defense resulting in negative values. Most common examples are [[Adventurous Noble (Background)|Adventurous Noble]] (with [[Cocky]]) and [[Wildman (Background)|Wildman]] (with [[Huge]]).
+
+Substantial boost to Ranged defense is achieved by equipping an appropriate ([[Kite Shield|Kite]] or [[Sipar Shield|Sipar]]) shield and using Shieldwall skill (which effectively doubles the defense bonus granted by shield). Moreover, taking [[Shield Expert]] perk raises shield defense values by 25% and also gives this increase for Shieldwall. Maintaining a Shieldwall formation adds flat +5 defense for every adjacent companion with active skill.
+
+Mercenary’s Ranged Defense can be improved with some perks. [[Dodge]] perk can benefit lightly armored units: 15% of the current Initiative value is added to the current defense. As Initiative decreases with a flow of the battle, so does the [[Dodge]] benefit. Fatigue’s negative influence on Initiative and, hence on Dodge defense bonus, can partially be circumvented by [[Relentless]] perk, or [[Recover]]. There is also a dedicated Ranged defense perk – [[Anticipation]], which effectiveness adheres to the current Ranged defense value and the distance from shooter.
+
+There are many factors that can influence Ranged defense of units. [[Nighttime (Status Effect)|Nighttime]] decreases Ranged defense by -30% and can be negated by [[Night Owl Elixir]] (by some opponents as well). Being rooted results in -35% ([[Trapped in Vines (Status Effect)|Trapped in Vines]]) or -45% ([[Throwing Net]]s) penalty, while [[Swarm of Insects (Status Effect)|Swarm of Insects]] decreases defense by -50%.
+
+Some character traits and deriving status effects have impact too: [[Drunk (Status Effect)|Drunk]] (-25%), [[Hangover (Status Effect)|Hangover]] (-10%), [[Addict]] (-10%) – these can be gained, and also removed/treated. Temporary (Permanent) [[injuries]] have debuffs to Ranged defense also. Consuming [[Strange Mushrooms]] not only makes mercenaries hit harder, but also makes them more susceptible to attacks.
+
+Confident morale state grants +10% bonus to cumulative defense value, whereas morale state lower than Steady gives -10%/-20%/-30% penalty.
+
+And, finally, taking higher position than a shooting enemy lowers enemies’ chance to hit, which is as good as higher Ranged defense. Taking cover decreases opponent's hit chance even further, though it can be somewhat mitigated by [[Bullseye]] perk.
+
+==Damage==
+:''For calculation and further info see: [[Combat_Mechanics#HP_and_Armor_Damage|Armor Damage]]''
+
+'''Damage''' attribute denotes the base damage the currently equipped weapon does. Will be applied in full against hitpoints if no armor is protecting the target. If the target is protected by armor, the damage is applied to armor instead based on the weapon's effectiveness against armor. Depending on how much damage is done, some of the damage might go directly through the worn armor to the hitpoints. The actual damage done is modified by the skill used and the target hit.
+
+This parameter can be influenced by a fair variety of factors. Firstly, by Traits. Damage is increased for [[Huge]], [[Drunkard]] and [[Brute]] characters, and decreased for [[Tiny]]. Secondly, Double Gripping one-handed weapons results in +25% damage increase, which excellently synergizes with [[Duelist]] perk. Ranged weapon users have their own counterparts - [[Crossbow Mastery]] and [[Throwing Mastery]] (also benefits from [[Duelist]]) perks. On top of that, killing an enemy grants some bonus damage (+25%, [[Killing Frenzy]]) or hitting an injured opponent deals more damage to the target (+20%, [[Executioner (Perk)|Executioner]]). And, finally, there are [[Strange Mushrooms]], which seriously boost melee damage during the combat.
+
+On the other hand, there are means to reduce incoming Damage. This can be achieved with heavy armor in conjunction with [[Battle Forged]] perk and/or [[Armor Attachments]]. As a light armor counterpart, there is [[Nimble]]. Some situations call for drastic measures, and this is [[Indomitable]]. Additional Damage to Hitpoints with Critical hits and also with head hits by one-handed axes can also be mitigated, with [[Steel Brow]] perk.
+
+Besides, some injuries and status effects influence Damage as well. Some enemies gain additional damage: in combat (with skills) and as campaign gets older.
+
+There is a separate category of damage, and this is [[Damage#Damage_over_Time|Damage over Time]] (DoT). This type of damage is related primarily to poison and bleed procs, which can be countered by similar defensive measures and items. These DoT are modified by some perks and/or traits and mainly mitigated by [[Resilient]] perk: it reduces this type of damage (and other status effects) to just 1 turn duration. Damage coming from Fire and Miasma spell can be cancelled by [[Smoke Pot]].
+
+==Effectiveness vs. Armor==
+:''For calculation and further info see: [[Combat_Mechanics#HP_and_Armor_Damage|Armor Damage]]''
+
+'''Effectiveness vs. Armor''' denotes the base percentage of damage that will be applied when hitting a target protected by armor. Once the armor is destroyed, the weapon damage applies at 100% to hitpoints. The actual damage done is modified by the skill used and the target hit.
+
+Effectiveness against Armor as a weapon parameter is governed by the weapon properties, weapon skill and, sometimes, Mastery perk. For example, [[Hammer Mastery]] perk in conjunction with [[Melee_Weapons#Hammers|hammers]]' Destroy / Demolish Armor skills.
+
+Effectiveness against Armor as an armor damage value is influenced by many factors, similarly to overall Damage parameter, though with some distinctions. 
+
+Some traits influence overall damage, hence the resulting armor damage is modified by that value. Double Gripping vs armor results in more damage too. Ranged units have [[Throwing Mastery]] for armor damage boosting as well (at 2-3 tile range). [[Killing Frenzy]] and [[Executioner (Perk)|Executioner]] give bonus both to HP and armor damage. And, at last, a single use item buff from [[Strange Mushrooms]] can help tear some heavy armor off.
+
+On the defensive side, we have some overall damage mitigating [[Armor Attachments]] and [[Battle Forged]]. And, of course, [[Indomitable]] defense bonus from incoming overall damage.
+
+==Chance to hit head==
+:''For calculation and further info see: [[Combat_Mechanics#To-Hit_Chance|To-Hit Chance]]''
+
+'''Chance to hit head''' denotes the base percentage chance to hit a target's head for increased HP damage. Though, this additional damage can be completely negated by [[Steel Brow]] perk. 
+
+The resulting chance to hit head is modified by some factors: weapon used, weapon skill, [[Brute]] trait and backgrounds ([[Killer on the Run (Background)|Killer on the Run]], [[Juggler (Background)|Juggler]]). Moreover, there is a specialized perk for getting more critical hits - [[Head Hunter]].
+
+==Vision==
+:''For vision ranged hit-chance influence and further info see: [[Combat_Mechanics#Ranged_To-Hit_Chance|Combat Mechanics]]''
+
+'''Vision''', or view range, determines how far a character can see to uncover the fog of war, discover threats and hit with ranged and long-reach melee attacks.
+
+An obvious Vision limiting factor is [[File:Night.png|25px|bottom]] [[Nighttime (Status Effect)|Nighttime]]. Heavier [[Headgear|helmets]] can reduce Vision. Certain [[Traits]] ([[File:Trait_icon_27.png|25px|bottom]] [[Short Sighted]], [[File:Trait_icon_56.png|25px|bottom]] [[Night Blind]]) or [[Injuries]] can also impact it. Additionally, being affected by [[File:Poison_01.png|25px|bottom]] [[Goblin Poison]] temporary limits view range as well. Vision cannot be reduced below 1. Elevation is taken into account after the cap, so it is possible to stand on higher ground and see and attack beyond 1 tile, even with every possible debuff.
+
+Commonly, a hired mercenary has a Vision value of 7. One way to increase the view range, besides having positive Vision traits ([[File:Trait_icon_09.png|25px|bottom]] [[Eagle Eyes]], [[File:Trait_icon_57.png|25px|bottom]] [[Night Owl]]) and [[File:Perk_49.png|25px|bottom]] [[Bow Mastery]] perk, is to occupy a higher elevation tile. Though, this gain is applied only vs lower positioned opponents (or terrain).
+
+[[Category:Game Mechanics]]

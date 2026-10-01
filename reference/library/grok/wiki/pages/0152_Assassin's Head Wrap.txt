@@ -1,0 +1,19 @@
+{{Infobox helmet
+|title={{PAGENAME}}
+|image=inventory_helmet_southern_10.png
+|worth=60 
+|durability=40
+|maxfatigue=
+|vision=
+|misc_1=[[File:Dlc_6.png|25px|Blazing Deserts DLC]] <span style="color:orange">Blazing Deserts DLC</span>
+}}
+
+==Description==
+''The dark head wrap of an assassin.''
+
+==Where can it be found?==
+* Can be looted from [[Assassin]].
+* Possible starting gear of new mercenaries: [[Assassin (Background)|Southern Assassin]].
+
+[[Category:Headgear]]
+[[Category:Armor]]

@@ -1,0 +1,41 @@
+{{Infobox shield
+|title=Ancient Auxiliary Shield
+|image=
+<gallery>
+Inventory_shield_auxiliary_01.png|1
+Inventory_shield_auxiliary_02.png|2
+Inventory_shield_auxiliary_03.png|3
+Inventory_shield_auxiliary_04.png|4
+</gallery>
+|imagecaption=
+|worth=80 
+|durability=16
+|meleedefense=+15
+|rangeddefense=+15
+|maxfatigue=-10
+}}
+
+== Description ==
+''A wooden light shield in oval shape. The wood seems brittle and old, making it less durable.''
+
+== Where can it be found? ==
+* Used by [[Ancient Auxiliary|Ancient Auxiliaries]].
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Knock Back (20 fatigue)}}
+|-
+{{:Shieldwall (20 fatigue)}}
+|}
+
+__NOTOC__
+
+[[ru:Древний щит мёртвых]]
+[[Category:Shield]]
+[[Category:Armor]]

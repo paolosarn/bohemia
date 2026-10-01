@@ -1,0 +1,64 @@
+{{Combatant3
+|title           =Ancient Honor Guard
+|image           =token-skeleton-3.png
+|health          =65
+|head-armor      =180
+|body-armor      =<small>180-210</small>
+|initiative      =70*
+|resolve         =130
+|melee-skill     =75
+|melee-defense   =5
+|ranged-defense  =5
+|action-points   =9
+|xp              =350
+|immune=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|stats=
+{{SkillInfo|Initiative.png|-50 initiative if he is a bodyguard}}
+|skills=
+{{SkillInfo|Allmasteries.png|Axe and Cleaver Masteries}}
+{{SkillInfo|Perk 58.png|[[Polearm Mastery]] after day 100}}
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 19.png|25px]] [[Reach Advantage]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Ancient Honor Guard is a heavily armored enemy from the [[Ancient Dead]] faction.
+
+Can become a [[Ancient Honor Guard (Champion)|champion]] with a 1% chance.
+
+== Equipment ==
+* An [[Ancient Sword]], [[Khopesh]], [[Rhomphaia]], [[Crypt Cleaver]] or [[Warscythe]].
+* An [[Ancient Plated Scale Hauberk]] (210), [[Ancient Plate Harness]] (200), [[Ancient Scale Coat]] (190) or [[Ancient Plated Mail Hauberk]] (180).
+* An [[Ancient Honor Guard Helmet]] (180).
+* If the weapon is one-handed, an [[Ancient Tower Shield]].
+
+== Skills ==
+{| class="article-table" style="font-size:85%;"
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Resistant to Ranged Attacks}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Tips ==
+* Armor piercing or anti-armor weapons are required to penetrate their armor, just make sure they do blunt or slashing damage and not actual piercing.
+* Prioritize those who have two-handed weapons.
+* Their weaponry doesn't work well against heavy [[armor]], but will cause early [[morale]] checks on [[Nimble]] brothers because of [[Fearsome]].
+* [[Bundle of Throwing Axes|Throwing Axes]] are required for your ranged brothers to be effective.
+* Can be [[Daggers|punctured]] for their armor if the risk is low enough or you can reliably [[Maces|stun]] or [[Battle Whip|disarm]] them.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Undead]]
+[[Category:Ancient Dead]]

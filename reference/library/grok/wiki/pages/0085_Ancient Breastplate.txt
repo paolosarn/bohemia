@@ -1,0 +1,15 @@
+{{Infobox bodyarmor
+|image = Inventory body armor 62.png
+|worth = 900
+|durability = 135
+|maxfatigue = -22
+}}
+
+== Description ==
+''A tarnished thick breastplate of ancient origin.''
+
+== Where can it be found? ==
+* Looted from [[Ancient Legionary|Ancient Legionaries]].
+* Can be found in the [[Treasure in Rock]] event.
+[[Category:Body Armor]]
+[[Category:Armor]]

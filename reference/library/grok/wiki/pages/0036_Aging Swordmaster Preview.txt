@@ -1,0 +1,58 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="aging_swordmaster_preview" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Aging Swordmaster Preview]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 60
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Swordmaster2.png|25px]] Swordmaster
+|colspan="2"|A [[Swordmaster (Background)|Swordmaster]] realized he's getting [[Old]]. He gets a [[File:Bad_mood.png|21px]] bad mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*The [[Swordmaster (Background)|Swordmaster]] needs to be level 6 or higher
+*The [[Swordmaster (Background)|Swordmaster]] hasn't consumed the [[Water Skin]]
+*The [[Swordmaster (Background)|Swordmaster]] doesn't have the [[Old]] trait yet
+[[File:Score.png|150px]]
+*Score = Level of the [[Swordmaster (Background)|Swordmaster]]. If more than one meets conditions, the game picks randomly each time it calculates score.
+[[File:Other_notes.png|150px]]
+*A [[Swordmaster (Background)|Swordmaster]] can get this event only once
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+You find {{EventVariable|Swordmaster}} sitting on a stump. He's looking out at the land.
+
+{{EventSpeech|You know, I've realized something as an old man who has operated far too long in this business of killing. I'm so much wiser these days. I've come to know so much, so much that I now know what I don't know. And I look back and think, I was such a dummy back in my youth. Then I thought, what of all the men I've slain, stopping their mortal coil when it was young and so ready to spring?}}
+
+You take a seat and shrug. He continues.
+
+{{EventSpeech|What I've realized is that I'm a killer of wisdom. That I took a lot of old men out of this world, and with them went so much learning and knowledge. There's so many worlds out there that I destroyed. Worlds where those men lived and went on living and did the great things they knew not was in them. Had the first man I fought slew me down, how many lives would he have saved? How much wisdom would have been spared? I'm sorry, I don't mean to drone on.}}
+
+The man stands, patting his wobbly legs. You grab his arm.
+
+{{EventSpeech|Have you considered that you may have also saved worlds? That some of those men you've slain could have lived on to be horrible monsters?}}
+
+He smiles, but you know he's already thought that through and doesn't wish to disturb you with the answer. He simply nods before going off to join the rest of the company.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:effect mood dissatisfied.png|x25px]] || {{EventVariable|Swordmaster}} gets a {{Tooltip|bad mood|-1 (Realized he's getting old)}}
+ |}
+{{EventButtons}}
+{{EventButton|I hope he cheers up. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Aging_Swordmaster_Preview.jpg
+</gallery>
+
+[[Category:Event]]

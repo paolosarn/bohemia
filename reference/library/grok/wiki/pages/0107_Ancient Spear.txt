@@ -1,0 +1,36 @@
+{{Infobox_weapon
+|image = Ancient spear 01.png
+|worth = 150
+|durability = 36
+|damage = 20 - 35
+|ignorearmor = 25%
+|vsarmor = 100%
+|hithead = 
+|tilerange = 1
+|maxfatigue = -6
+}}
+
+[[File:Ancient Spear.png|thumb|280x280px]]
+
+== Description ==
+''An ancient wooden spear of simple design.Time has taken its toll on this weapon.''
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Auxiliary]].
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Thrust (10 fatigue)}}
+|-
+{{:Spearwall (30 fatigue)}}
+|}
+
+__NOTOC__
+
+[[Category:Melee Weapon]]

@@ -1,0 +1,67 @@
+{{Combatant3
+|title           =Ancient Legionary with Polearm
+
+|image           =token-skeleton-2-pike.png
+|health          =55
+|head-armor      =130
+|body-armor      =<small>100-125</small>
+|initiative      =45
+|resolve         =100
+|melee-skill     =65
+|melee-defense   =0
+|ranged-defense  =0
+|action-points   =9
+|xp              =250
+|immune=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|skills=
+{{SkillInfo|Perk 58.png|[[Polearm Mastery]] after day 100}}
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert|<span style="color:gray">Shield Expert</span>]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Ancient Legionary is a backline enemy from the [[Ancient Dead]] faction.
+
+== Equipment ==
+
+* An [[Ancient Bladed Pike]] or [[Broken Ancient Bladed Pike]].
+** Chances start as 40/60, and each day changes them by +1/-1, until they are 90/10.
+* An [[Ancient Scale Harness]] (125), [[Ancient Double Layer Mail]] (120) or [[Ancient Mail]] (100).
+* An [[Ancient Legionary Helmet]] (130).
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Resistant to Ranged Attacks}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+If engaged in melee, they can [[Rotation (Skill)|Rotate]] to backline if possible. However, if your squad's formation is wide, they often come into frontline.
+
+== Tips ==
+
+* Priority targets because of their threat.
+* Reach weapons and [[Split (30 fatigue)|Split]] skill can take them out early.
+* Use wide formation to provoke them to walk into exposure.
+* Armor piercing weapons kill them through their medium armor, just make sure they do blunt or slashing damage and not actual piercing.
+* Their weaponry doesn't work well against heavy [[armor]], but will cause early [[morale]] checks on [[Nimble]] brothers because of [[Fearsome]].
+* [[Bundle of Throwing Axes|Throwing Axes]] are required for your ranged brothers to be effective.
+* [[Heavy Rusty Axe]] kills them in one hit with a [[Traits|trait]] like [[Huge]]. [[Two-Handed Flanged Mace]] does it with [[Killing Frenzy]]. [[Named and Legendary Items|Named]] two-handed weapons can be even better.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Undead]]
+[[Category:Ancient Dead]]

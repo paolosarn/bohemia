@@ -1,0 +1,22 @@
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=[[File:inventory_body_southern_armor_03.png|thumb]]
+|imagewidth=500px
+|imagecaption=
+|worth=1400
+|durability=120
+|maxfatigue=-9
+|useforspecial=
+|misc_1=
+}}
+
+==Description==
+''The dark robes of an assassin. Fine chainmail is tied and woven tightly into the fabric.''
+
+==Where can it be found?==
+* Looted in battle: [[Assassin]], [[Blade Dancer]].
+* Hiring new mercenaries: [[Assassin (Background)|Assassin (southern)]].
+
+__NOTOC__
+[[Category:Armor]]
+[[Category:Body Armor]]

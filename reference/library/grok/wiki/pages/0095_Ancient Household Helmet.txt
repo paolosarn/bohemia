@@ -1,0 +1,24 @@
+{{Infobox_helmet
+|image =
+<gallery>
+Inventory helmet 64.png|1
+Inventory helmet 65.png|2
+Inventory helmet 70.png|3
+Inventory helmet 71.png|4
+Inventory helmet 78.png|5
+</gallery>
+|worth = 250
+|durability = 95
+|maxfatigue = -8
+|vision = -1
+}}
+
+== Description ==
+''An ancient light helmet that time has taken a toll on over many years.''
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Auxiliary]].
+* Possible starting gear of new mercenaries: [[Graverobber (Background)|Graverobber]].
+
+[[Category:Headgear]]
+[[Category:Armor]]

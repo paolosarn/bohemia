@@ -1,0 +1,15 @@
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-<onlyinclude>
+| align="center" |[[File:Perk_37_active.png|35px]]
+| align="center" |[[Adrenaline (20 fatigue)|Adrenaline]]
+| align="center" |1
+| align="center" |20
+| align="left" |Gain <span style="color:green">+2000</span> [[File:Initiative.png|25px|bottom]] Initiative for the next turn. The bonus [[File:Initiative.png|25px|bottom]] Initiative only counts towards the turn order. Character attracts slightly more attention from enemies.
+</onlyinclude>
+|}
+[[Category:Perk Skills]]

@@ -1,0 +1,8 @@
+{{Infobox_bodyarmor|image = Inventory body armor 69.png|worth = 3200|durability = 210|maxfatigue = -30}}
+== Description ==
+''A heavy coat of scales, partly reinforced with a layer of plated metal on top. It's a massive armor of ancient origin that didn't age well.'' 
+
+== Where can it be found? ==
+* Looted from [[Ancient Honor Guard]].
+[[Category:Armor]]
+[[Category:Body Armor]]

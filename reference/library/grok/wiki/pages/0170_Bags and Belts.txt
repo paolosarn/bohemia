@@ -1,0 +1,9 @@
+{| class="article-table" width="100%"
+!style="width:27%; text-align:center;"|'''Perk'''
+!style="width:73%; text-align:center;"|'''Description'''
+|-<onlyinclude>
+|[[File:Perk 20.png|34px]]&nbsp;&nbsp;&nbsp;'''[[Bags and Belts]]'''
+|id="bags_and_belts" |Unlock two extra bag slots to carry all your favorite things. Items placed in bags no longer give a penalty to Maximum Fatigue, except for two-handed weapons.
+</onlyinclude>
+|}
+[[Category:Perks]]

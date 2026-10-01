@@ -1,0 +1,18 @@
+{{Infobox helmet
+|title={{PAGENAME}}
+|image=inventory_helmet_southern_11.png
+|worth=1800
+|durability=140
+|maxfatigue=-6
+|vision=-1
+|misc_1=[[File:Dlc_6.png|25px|Blazing Deserts DLC]] <span style="color:orange">Blazing Deserts DLC</span>
+}}
+
+==Description==
+''An assassin's face mask and head wrap.''
+
+==Where can it be found?==
+* Can be looted from [[Assassin]].
+
+[[Category:Headgear]]
+[[Category:Armor]]

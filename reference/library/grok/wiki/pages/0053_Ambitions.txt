@@ -1,0 +1,83 @@
+<div class="res-img">[[File:Ambitions.jpg|center]]</div>
+
+==Basic Information==
+
+All ambitions give at least 100 [[Renown|renown]] (which boosts contract payout) and lift the mood of the entire company. Some offer other rewards. An ambition can be cancelled at any time but it comes at the cost of a morale hit for the company. Abandoned ambitions will not be available the next time an ambition is chosen, though subsequently can appear again.
+
+After the [[Make Nobles Aware]] ambition has been completed, an option to select "No Ambition" will begin appearing. Selecting "No Ambition" means waiting 3 days before you get to choose again. Cancelling an ambition only results in waiting a day or two before getting to choose again.
+
+Ambition unavailability is often temporary. For example: if you have 3 helms with 230+ durability when choosing an ambition, the [[Armor Mastery]] ambition will never be an option, but if you sell one of the helms, you can once again receive the ambition as a choice. The [[Have 50000 Crowns]] ambition can even be completed prior to the [[Have 10000 Crowns]] ambition.
+
+However, there are a fair number of ambitions that can end up unobtainable. Some just have requirements, like a maximum number of contracts completed, that can never be reduced in campaign once exceeded. Others, the game will <span style="color:red">permanently</span> mark as already completed if certain conditions are met. This check is only ever carried out immediately prior to the display of the ambition selection screen. No rewards are received for auto-completing an ambition this way, but it will unlock any other ambitions that have this ambition as a prerequisite.
+
+Care should be taken with the requirements for the {{tooltip|'''following ambitions'''|press Expand on the right}}:
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+<ul class="arrow">
+<li>[[Allied Civilians]]</li>
+<li>[[Defeat Kraken]]</li>
+<li>[[Discover All Unique Locations]]/[[Discover Unique Locations]]</li>
+<li>[[Fulfill Southern Contracts]]</li>
+<li>[[Have Armor Upgrades]]</li>
+<li>[[Have 2750 Renown]]/[[Have 8000 Renown]]</li>
+<li>[[Hire Follower]]</li>
+<li>[[Make Nobles Aware]]</li>
+<li>[[More Contracts]]</li>
+<li>[[Named Item]]</li>
+<li>[[Roster of 12]]/[[Roster of 16]]/[[Roster of 20]]</li>
+<li>[[Taxidermist Crafting]]</li>
+<li>[[Visit Settlements]]</li>
+<li>[[Win Arena Fights]]</li>
+</ul>
+</div>
+<br />
+
+==List of Ambitions==
+{{:Allied Civilians}}
+{{:Allied Nobles}}
+{{:Armor Mastery}}
+{{:Cart}}
+{{:Defeat Civil War}}
+{{:Defeat Beasts}}
+{{:Defeat Goblin Location}}
+{{:Defeat Greenskins}}
+{{:Defeat Holy War}}
+{{:Defeat Kraken}}
+{{:Defeat Mercenaries}}
+{{:Defeat Orc Location}}
+{{:Defeat Undead}}
+{{:Defeat Undead Location}}
+{{:Discover All Unique Locations}}
+{{:Discover Locations}}
+{{:Discover Unique Locations}}
+{{:Find and Destroy Location}}
+{{:Fulfill Southern Contracts}}
+{{:Hammer Mastery}}
+{{:Have All Provisions}}
+{{:Have Armor Upgrades}}
+{{:Have 10000 Crowns}}
+{{:Have 50000 Crowns}}
+{{:Have 2750 Renown}}
+{{:Have 8000 Renown}}
+{{:Have Talent}}
+{{:Hire Follower}}
+{{:Make Nobles Aware}}
+{{:More Contracts}}
+{{:Named Item}}
+{{:Named Item Set}}
+{{:Player Banner}}
+{{:Raid Caravans}}
+{{:Ranged Mastery}}
+{{:Roster of 12}}
+{{:Roster of 16}}
+{{:Roster of 20}}
+{{:Sergeant Sash}}
+{{:Taxidermist Crafting}}
+{{:Trade Goods}}
+{{:Visit Settlements}}
+{{:Wagon}}
+{{:Weapon Mastery}}
+{{:Win Against 12}}
+{{:Win Against 24}}
+{{:Win Arena Fights}}
+
+[[Category:Game Mechanics]]

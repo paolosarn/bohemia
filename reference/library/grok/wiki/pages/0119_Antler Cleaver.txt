@@ -1,0 +1,36 @@
+{{Infobox_weapon
+|image = Wildmen_01.png
+|worth = 120
+|durability = 48
+|damage = 20 - 30
+|ignorearmor = 35%
+|vsarmor = 75%
+|tilerange = 1
+|maxfatigue = -8
+|misc_1 = [[File:Dlc_4.png|25px|Warriors of the North DLC]] <span style="color:teal">Warriors of the North DLC</span>
+}}
+
+[[File:Antler Cleaver.png|thumb|280x280px]]
+
+== Description ==
+''A very crude cleaver crafted from a sharpened antler. Heavy and blunt, but still dangerous.''
+
+== Where can it be found? ==
+* Can be looted from [[Barbarian Thrall]], [[Barbarian Drummer]].
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Cleave (12 fatigue)}}
+|-
+{{:Decapitate (20 fatigue)}}
+|}
+
+__NOTOC__
+
+[[Category:Melee Weapon]]

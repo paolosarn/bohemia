@@ -1,0 +1,8 @@
+{| style="background: #141414; margin: 2px; width: 230px; border-spacing: 6px 0px; padding:6px 0px; display: block"
+! style="background: black"|[[Abducted Children (Settlement Situation)|Abducted Children]]<br />[[File:Settlement_effect_34.png]]
+|-
+| style="border-bottom: 1px dashed #505050"|Children have been disappearing from this settlement. Distrust and fear rule the streets and are slowly poisoning the community.
+|-
+| style="border-bottom: 1px solid #505050; padding: 6px"|[[File:Buy_price.png|25px]] <span style="color:red">+25%</span> buying prices<br/>[[File:Sell_price.png|25px]] <span style="color:red">−25%</span> selling prices<br/>[[File:Asset_brothers.png|25px]] <span style="color:red">−50%</span> recruits available
+|}
+[[Category:Settlement Situations]]

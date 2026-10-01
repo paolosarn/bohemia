@@ -1,0 +1,43 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_vs_ailing" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist vs Ailing]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] wishes to cure an [[Ailing]] brother. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog tree.png|150px]]
+*"Go and and heal him of his ailments."
+**33% chance the [[File:Ailing2.png|25px]] [[Ailing]] trait is removed and the brother gains 2-4 [[File:Health.png]]
+**33% chance the [[File:Ailing2.png|25px]] [[Ailing]] trait is replaced with [[File:Paranoid.png|25px]] [[Paranoid]]
+**33% chance the [[File:Ailing2.png|25px]] [[Ailing]] trait is replaced with 2 random traits from the "loot" table
+*"No, this doesn't sound safe at all."
+**The [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+[[File:Loot table.png|150px]]
+*[[File:Bloodthirsty.png|25px]] [[Bloodthirsty]]
+*[[File:Trait_icon_01.png|25px]] [[Brute]]
+*[[File:Cocky.png|25px]] [[Cocky]]
+*[[File:Deathwish.png|25px]] [[Deathwish]]
+*[[File:Dumb.png|25px]] [[Dumb]]
+*[[File:Gluttonous.png|25px]] [[Gluttonous]]
+*[[File:Impatient.png|25px]] [[Impatient]]
+*[[File:Trait_icon_28.png|25px]] [[Irrational]]
+*[[File:Paranoid.png|25px]] [[Paranoid]]
+*[[File:Trait_icon_08.png|25px]] [[Spartan]]
+*[[File:Superstitious.png|25px]] [[Superstitious]]
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Anatomist (Background)|Anatomist]]
+*You must have at least 1 [[File:Ailing2.png|25px]] [[Ailing]] brother who is not an [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+[[File:Score.png|150px]]
+*Score = 5 for every [[File:Ailing2.png|25px]] [[Ailing]] Brother who is not an [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+[[File:Other notes.png|150px]]
+*This event cannot cure an [[File:Ailing2.png|25px]] [[Ailing]] [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+</div>
+|}</onlyinclude>
+==Start==
+<div class="res-img">[[File:Anatomist vs Ailing start.png]]</div>
+===Path 1A===
+<div class="res-img">[[File:Anatomist vs Ailing 1A.png]]</div>
+[[Category:Event]]

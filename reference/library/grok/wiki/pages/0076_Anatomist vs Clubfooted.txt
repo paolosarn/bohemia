@@ -1,0 +1,26 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_vs_clubfooted" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist vs Clubfooted]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] wishes to cure a [[Clubfooted]] brother. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog tree.png|150px]]
+*"Do it, work your trade."
+**50% chance the [[File:Trait_icon_23.png|25px]] [[Clubfooted]] trait is removed and the brother suffers a [[File:broken_leg.png|25px]] [[Broken Leg]] and [[File:Cut Achilles Tendon.png|25px]] [[Cut Achilles Tendon]] but gains a [[File:Good mood.png]] good mood
+**50% chance the [[File:Trait_icon_23.png|25px]] [[Clubfooted]] brother suffers a [[File:broken_leg.png|25px]] [[Broken Leg]], gains a [[File:Bad mood.png]] bad mood and becomes [[File:injury_permanent_icon_13.png|25px]] [[Traumatized]]
+*"No, the risk is too great."
+**The [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Anatomist (Background)|Anatomist]]
+*You must have at least 1 [[File:Trait_icon_23.png|25px]] [[Clubfooted]] brother who is not an [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+[[File:Score.png|150px]]
+*Score = 5 for every [[File:Trait_icon_23.png|25px]] [[Clubfooted]] brother who is not an [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+[[File:Other notes.png|150px]]
+*This event cannot cure a [[File:Trait_icon_23.png|25px]] [[Clubfooted]] [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]]
+</div>
+|}</onlyinclude>
+[[Category:Event]]

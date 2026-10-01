@@ -1,0 +1,214 @@
+[[File:Arena.png]]
+
+The '''Arena''' is a place where you can fight in small battle and gain a large sum of crowns without the need of [[contracts|'''contracts''']]. You can put up to three men for the fight. The fight is randomized, however, and might not always be entirely fair. The '''Arena''' can be found in one of the [[Settlements and attached locations|'''Deserts Cities''']] with the Blazing Deserts DLC. You can earn three traits; <strong>[[Pit Fighter]]</strong>,<strong> [[Arena Fighter]] </strong>and <strong>[[Arena Veteran]]</strong>.
+
+== Regular Arena Fights ==
+You may compete in the Arena once per day. It is worth noting that a new day begins in the Morning phase; the game considers Dawn to be part of the prior day. Therefore if you arrive at the city during the night, you can compete in the Arena once during Dawn, and a second time when it's Morning.
+
+=== Rewards===
+Victory will reward you with gold, reputation, and the traits mentioned above. Every fifth win will require you to beat a harder than normal fight (1/3 higher difficulty rating than normal) and reward you with a piece of gladiator gear. These rewards are as follows.
+
+*5 wins: [[Gladiator Harness]] with [[Padded Armor Pieces]] (total +100 [[File:Supplies_icon.png|20px|Durability]], -8 [[File:Fatigue.png|20px|Maximum Fatigue]])
+*10 wins: [[Gladiator Helmet]] (+225 [[File:Supplies_icon.png|20px|Durability]], -13 [[File:Fatigue.png|20px|Maximum Fatigue]])
+* 15 wins: [[Gladiator Harness]] with [[Metal Armor Pieces]] (total +155 [[File:Supplies_icon.png|20px|Durability]], -14 [[File:Fatigue.png|20px|Maximum Fatigue]])
+*Every 5 wins after 15: a random piece from the previous options
+
+Note that the pool of potential enemies for these matches is the same as for all others. You will just fight more enemies due to the increased difficulty rating. The gear reward will wait for you until your next win, so you can and should skip difficult fights (eg., Gladiators, Hedge Knights) if you are not prepared, as you can always get the gear on a different day.
+
+The potential enemies you can fight each day vary widely in difficulty, but the rewards only scale up by a very modest amount for the harder opponents. An experienced arena fighter should know when a fight is not worth it, at the cost of having to wait until the next day to try again. The Champion fights in particular give very poor rewards considering the extreme danger. It is possible to get weak opponents in the late game, and it's also possible to get extremely hard fights against opponents such as Hedge Knights and Swordmasters early on, so be sure to skip these unless you're feeling lucky (suicidal).
+
+===Mechanics===
+There is a small list of generally weak opponents at the start, though they can still prove quite challenging for rosters without strongs bros and equipment. New potential enemies are unlocked with more wins in the arena (up to 15). The opponents for each day are picked from a weighted pool of all unlocked opponents. Some fights are more common than others, with many of the weaker opponents, and notably Gladiators, being the most common.
+
+====Potential Arena Enemies====
+The table gives numbers for normal fights. Every fifth win will require you to beat a harder than normal fight (1/3 higher difficulty rating than normal), meaning the enemy counts will increase by ~1/3 for those fights. This could differ significantly due to rounding, however. For instance, you might have to fight 2 lindwurms on fifth-win fights, whereas the max is normally 1. You can tell you're up for a harder fight when you're offered a piece of gladiator gear. All values in the table reflect Expert combat difficulty, which slightly increases enemy counts (Beginner = 0.85, Veteran = 1.0, Expert = 1.15).
+{| class="article-table" style="text-align: center; width: 200px;" |
+! style="text-align: center;" |Enemy
+! style="text-align: center;" |Arena Wins Requirement
+!Selection Weight
+! style="text-align: center;" |Min
+! style="text-align: center;" |Max
+! style="text-align: center;" |Allies
+! style="text-align: center;" |Min Allies
+! style="text-align: center;" |Max Allies
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Webknecht]]</span><br />[[File:Webknecht.png]]</div>
+|<div style="text-align: center;"><=5</div>
+|10
+|<div style="text-align: center;">3</div>
+|<div style="text-align: center;">13</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Hyena]]</span><br />[[File:Hyena orientation.png]]</div>
+|<div style="text-align: center;"><=3</div>
+|10
+|2
+|11
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Serpent]]</span><br />[[File:Serpent orientation.png]]</div>
+|0
+|10
+|2
+|8
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Nachzehrer]]</span><br />[[File:Nachzehrer.png]]</div>
+|0
+|10
+|1
+|10
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Nomad Outlaw]]</span><br />[[File:Nomad 02 orientation.png]]</div>
+|0
+|15
+|2
+|6
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Ifrit]]</span><br />[[File:Sand golem orientation.png]]</div>
+|>=3
+|5
+|<div style="text-align: center;">3</div>
+|<div style="text-align: center;">13</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Gladiator]]</span><br />[[File:Gladiator orientation.png]]</div>
+|>=3
+|15
+|2
+|4
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Frenzied Hyena]]</span><br />[[File:Hyena orientation.png]]</div>
+|>=4
+|10
+|2
+|8
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Mercenary]]</span><br />[[File:Mercenary orientation.png]]</div>
+|<div style="text-align: center;">>=5</div>
+|5
+|2
+|5
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Swordmaster]]</span><br />[[File:Swordmaster orientation.png]]</div>
+|<div style="text-align: center;">>=5</div>
+|5
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Brigand Raider]]</span><br />[[File:Bandit raider orientation.png]]</div>
+|0
+|6
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Hedge Knight]]</span><br />[[File:Hedge knight orientation.png]]</div>
+|<div style="text-align: center;">>=5</div>
+|5
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Brigand Raider]]</span><br />[[File:Bandit raider orientation.png]]</div>
+|0
+|6
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Blade Dancer]]</span><br />[[File:Desert devil orientation.png]]</div>
+|<div style="text-align: center;">>=5</div>
+|5
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Nomad Outlaw]]</span><br />[[File:Nomad 02 orientation.png]]</div>
+|0
+|5
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Unhold]]</span><br />[[File:Unhold 01 orientation.png]]</div>
+|<div style="text-align: center;">>=6</div>
+|5
+|1
+|3
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Lindwurm]]</span><br />[[File:Lindwurm orientation.png]]</div>
+|<div style="text-align: center;">>=10</div>
+|5
+|1
+|1
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|<div style="text-align: center;">N/A</div>
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Champions|Gladiator Champion]]</span><br />[[File:Gladiator orientation.png]]</div>
+|<div style="text-align: center;">>=15</div>
+|5
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Gladiator]]</span><br />[[File:Gladiator orientation.png]]</div>
+|2
+|2
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Champions|Swordmaster Champion]]</span><br />[[File:Swordmaster orientation.png]]</div>
+|<div style="text-align: center;">>=15</div>
+|2
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Mercenary]]</span><br />[[File:Mercenary orientation.png]]</div>
+|2
+|3
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Champions|Blade Dancer Champion]]</span><br />[[File:Desert devil orientation.png]]</div>
+|<div style="text-align: center;">>=15</div>
+|2
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Nomad Outlaw]]</span><br />[[File:Nomad 02 orientation.png]]</div>
+|2
+|3
+|-
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Champions|Nomad Executioner Champion]]</span><br />[[File:Executioner orientation.png]]</div>
+|<div style="text-align: center;">>=15</div>
+|2
+|1
+|1
+|<div style="text-align: center;"><span style="font-variant: small-caps; font-size: 120%">[[Gladiator]]</span><br />[[File:Gladiator orientation.png]]</div>
+|2
+|2
+|}
+
+====Scaling====
+Once an opponent type is picked from those available based on the number of wins the player has achieved in the arena, the number of enemies is scaled with the factors described below. For the hardest opponents, only 1 will spawn in a match, but they may bring some allies with them to round out their numbers. Most fights simply spawn X of a single unit. Note that, due to hard minimums, some fights are barely affected by scaling. The champions, for instance, are at max or almost max difficulty even at minimum scaling.  
+
+*Number of days passed + Arena victories is a minor factor, but it caps at 50 and will stop affecting scaling after this.
+*The main factor is roster strength. This is similar to contract scaling, and starts with the sum of [10 + 2*(lvl-1)] for each of the 12 highest-level brothers.
+*A multiplier of (12 / roster size) is also applied. This means you cannot get around scaling and force very easy fights by maintaining a small roster. This also rewards roster sizes larger than 12 with ''easier'' fights.
+*There is a min and max scaling from 0.75 to 5. Your final scaling value linearly adjusts the number of enemy mobs (outside of rounding and hard minimums, which significantly reduce the effect of scaling on some fights). Max requires an enormous amount of veteran levels, so most campaigns won't hit it (probably requires levels well above 20+ on 12 bros for full rosters that include 18+ bros. Origins that force 12 max roster will hit max scaling around lvl ~16 on all bros).
+
+If you are struggling with difficult arena fights in the mid to late game, consider filling your ranks up to max with indebted to make things easier. For example, having exactly 12 bros, with all at lvl 11, results in a difficulty factor of 3.9. Increasing the roster to 20 would reduce this to 2.6, and it could go all the way down to 2.2 at 25 bros. Note, however, that due to hardcoded minimums, this won't help that much in a lot of the hardest fights. Champion fights, for instance, are barely affected by scaling.
+
+=='''Arena Tournament'''==
+You use five men instead of the regular three, it consists of three rounds with no chance to rest or change brothers and gear, but with a possibility to quit after each round. The earlier you quit, the lower the prize. The further you progress, the tougher the opponents. If you win the tournament you will get a [[Named and Legendary Items|named item]].
+
+Arena fights and tournaments are timed so you need to enter the Arena the same day you accepted the challenge, otherwise it is considered a failed contract. However you can cancel it, before starting, like a regular contract.
+
+In either case, it pays to be prepared. A visit to the alchemist before a particularly hard fight, switching gear and brothers around to counter a specific opponent and using nets to control engagements will help you survive a lot longer in the pits.
+[[Category:Settlement Buildings]]

@@ -1,0 +1,130 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="archery_stunt" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Archery Stunt]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 90
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background_10.png|25px]] Sellsword<br />[[File:Background_29.png|25px]] Bowyer<br />[[File:Background_21.png|25px]] Poacher<br />[[File:Background_22.png|25px]] Hunter<br />[[File:Background_42.png|25px]] Minstrel<br />[[File:Background_14.png|25px]] Juggler<br />[[File:Background_32.png|25px]] Vagabond
+|colspan="2"|An "archer" brother wants to shoot at an apple on another "clown" brothers head. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Stop at once!" (Both get a [[File:Bad_mood.png|21px]] bad mood)
+*"Well... this should be interesting."
+**Success: The archer gets +1 [[File:Ranged_skill.png|25px|Ranged Skill]] and the other brother +1 [[File:Resolve.png|25px|Resolve]]. Both get a [[File:Good_mood.png|25px]] good mood. Other brothers (that arent [[File:Trait_icon_11.png|25px]] [[Bright]]) might get a [[File:Good_mood.png|25px]] mood boost too.
+**Failure: The archer gets a [[File:Bad_mood.png|21px]] bad mood and the other brother suffers a [[File:Injury_icon_34.png|25px]] [[Split Nose]], [[File:Injury_icon_43.png|25px]] [[Grazed Eye Socket]], [[File:Injury_permanent_icon_03.png|25px]] [[Missing Eye]] or [[File:Injury_permanent_icon_12.png|25px]] [[Brain Damage]] injury. Every [[File:Trait_icon_11.png|25px]] [[Bright]] or [[File:Trait_icon_40.png|25px]] [[Fainthearted]] brother gets a [[File:Bad_mood.png|21px]] bad mood too.
+[[File:Requirements.png|150px]]
+*Brother doesn't have the [[Bright]], [[Hesitant]], [[Fainthearted]], [[Insecure]] or [[Craven]] trait
+*Brother has no [[Temporary Injuries|Temporary Injury]]
+[[File:Score.png|150px]]
+*Score = 3 for every "clown" brother that meets the requirements
+[[File:Other_notes.png|150px]]
+*The success chance is based on the archer's ranged skill (70 [[File:Ranged_skill.png|25px|Ranged Skill]] = 70% chance for success for example)
+*"Archer" brothers are: [[Poacher (Background)|Poacher]], [[Hunter (Background)|Hunter]], [[Sellsword (Background)|Sellsword]] and [[Bowyer (Background)|Bowyer]]
+*"Clown" brothers are: [[Minstrel (Background)|Minstrel]], [[Juggler (Background)|Juggler]] and [[Vagabond (Background)|Vagabond]]
+*Brothers can participate in this event more than once
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=During camp...|left=Clown's token|right=Archer's token}}
+[[File:event_05.png|left]]
+Something of a commotion draws you from your tent. Men are sitting on a few stumps or on the ground, eagerly watching something in the distance. With squinting eyes, you spot {{EventVariable|Clown}} and {{EventVariable|Archer}} doing something odd. An apple rests on one man's head, while the other is walking away - a bow in hand.
+
+You ask {{EventVariable|Otherguy}} what is going on and he explains that the two men are going to try some sort of stunt or trick that involves shooting a piece of fruit off a man's head. Shocked, you exclaim that's not safe at all, to which the brother grins and explains that is the point.
+{{EventButtons}}
+{{EventButton||#D|Stop at once!}}
+{{EventButton|Well... this should be interesting. (|#C|Success (chance is {{EventVariable|Archer}}'s ranged skill)|,{{Sp}}|#B1|Failure|)}}
+{{EventTabEnd}}
+
+|-|B1=
+{{EventTab|header=During camp...|left=Clown's token|right=Archer's token}}
+[[File:event_10.png|left]]
+You mull the situation over. The brothers look to you, expecting a stoppage, but instead you take a seat amongst them. This spurs a brief cheer from the crowd which quickly quiets to hushed whispers as {{EventVariable|Clown}} and {{EventVariable|Archer}} get ready.
+
+{{EventSpeech|Make sure to hit the apple!}}
+
+One brother shouts. Laughter ripples through the group.
+
+{{EventSpeech|From that distance {{EventVariable|Clown}}'s nose kinda looks like an apple to me.}}
+
+More laughter, but it is ever nervous as the stunt is about to unfold.
+{{EventButtons}}
+{{EventButton||#B2|Ohh!}}
+{{EventTabEnd}}
+
+|-|B2=
+{{EventTab|header=During camp...|left=Clown's token|right=Archer's token}}
+[[File:event_10.png|left]]
+{{EventVariable|Archer}} angles his shoulders to {{EventVariable|Clown}} and draws his bow, the silhouette of the man but a crescent of wood, string, and arm. You can't see {{EventVariable|Clown}}'s face, but you assume his eyes are closed. The shot is released. It zips. It disappears. {{EventVariable|Clown}} rocks backward, clutching his face. This isn't looking good. The man screams. The crowd oohs. {{EventVariable|Archer}} slowly lowers his bow and looks at it as though it is at fault.
+
+Eventually, {{EventVariable|Clown}} is carried past you, a shaft of an arrow sticking out of his head. Another brother lingers behind, quietly eating an apple in the wake of the chaos.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:injury permanent icon 03.png|x25px]] || {{EventVariable|Clown}} suffers an {{Tooltip|injury|Split Nose, Grazed Eye Socket, Missing Eye or Brain Damage}}
+ |-
+ | [[File:effect mood disgruntled.png|x25px]] || {{EventVariable|Archer}} gets a {{Tooltip|bad mood|-2 (Severely injured Clown by accident)}}
+ |-
+ | [[File:effect mood dissatisfied.png|x25px]] || Bright and Fainthearted brothers get a {{Tooltip|bad mood|-1 (Felt for Clown)}}
+ |}
+{{EventButtons}}
+{{EventButton|That's going to leave a mark... (the event ends)}}
+{{EventTabEnd}}
+
+|-|C=
+{{EventTab|header=During camp...|left=Clown's token|right=Archer's token}}
+[[File:event_10.png|left]]
+The men cheer as you give an affirming nod. You take a seat amongst them as {{EventVariable|Archer}} and {{EventVariable|Clown}} get ready, the former nocking an arrow while the latter balances an apple atop his head. When the fruit is good and steady, the archer draws back his bow, forming but a silhouette of man, wood, and string, a crescent of determination as he aims downfield. The men are exchanging bets on whether or not he misses. You want to look away, but the spectacle truly is too much.
+
+A great gasp follows the arrow's release, as though some ominous event long foretold had finally happened. Men reel back in their seats, wincing and gritting their teeth. The apple is shot off {{EventVariable|Clown}}'s head, fruit and arrow spinning away. After a brief silence, the men erupt in cheers. {{EventVariable|Clown}} takes a bow, while {{EventVariable|Archer}} slackens his draw and looks a bit relieved.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:resolve.png|x25px]] || {{EventVariable|Clown}} gains +1 Resolve
+ |-
+ | [[File:ranged skill.png|x25px]] || {{EventVariable|Archer}} gains +1 Ranged Skill
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Clown}} gets a {{Tooltip|good mood|+1 (Took part in a show)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Archer}} gets a {{Tooltip|good mood|+1 (Displayed his archery skills)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || 10% of brothers who are not Bright {{Tooltip|and whose mood is at least content|likely a bug}} get a {{Tooltip|good mood|+1 (Felt entertained)}}
+ |}
+{{EventButtons}}
+{{EventButton|Nailed it. (the event ends)}}
+{{EventTabEnd}}
+
+|-|D=
+{{EventTab|header=During camp...|left=Clown's token|right=Archer's token}}
+You shake your head 'no' as you walk out into the field and step between the two men.
+
+{{EventSpeech|If y'all wanted to play tricks, you should've joined a circus. Now get back to work before someone gets seriously hurt.}}
+
+A wave of disappointment washes over the men. A few even boo and give you a thumbs down or other, rowdier, gestures.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:effect mood dissatisfied.png|x25px]] || {{EventVariable|Clown}} gets a {{Tooltip|bad mood|-1 (Was denied a request)}}
+ |-
+ | [[File:effect mood dissatisfied.png|x25px]] || 10% of brothers who are not Bright or Fainthearted {{Tooltip|and whose mood is at least content|likely a bug}} get a {{Tooltip|bad mood|-1 (Didn't get the entertainment he had hoped for)}}
+ |}
+{{EventButtons}}
+{{EventButton|It's for their own good. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Archery_stunt_event_01.png|Start
+Archery_stunt_event_02.png|Success
+Archery_stunt.png|Failure
+Archery_stunt_no_image.png|Stop at once
+</gallery>
+
+[[Category:Event]]

@@ -1,0 +1,235 @@
+{{Navbox Melee Weapons}}
+<onlyinclude>
+==[[Axes]]==
+</onlyinclude>
+Axes are versatile [[Melee Weapons|weapons]]. From a utility perspective, they can deal direct damage to shields with the Split Shield attack, which can be effective against shield-carrying opponents or [[Schrat]]s.
+<onlyinclude>
+==='''One-Handed Axes'''===
+</onlyinclude>
+Offensively, 1-handed axes do 50% additional damage to HP on a hit to the head, which compounds with the normal head shot bonus (of +50% HP damage).
+
+[[Perks#Tier_4|Axe Mastery]] perk gives these bonuses:
+* [[File:Split Shield.png|25px|bottom]] [[Split Shield (15 fatigue)|Split Shield]] damage is increased by <span style="color:green">50%</span>.
+* Axe skills require <span class="" style="color:green">25%</span> less [[File:Fatigue.png|25px|bottom|Fatigue]].
+
+Orc Weapons require 5 additional fatigue per skill use for humans. 
+<onlyinclude>
+{| class="article-table" style="font-size:85%;"
+! colspan="5" style="font-size:larger; text-align:center;" |Skills
+|-
+! style="text-align:center;" |'''''Icon'''''
+! style="text-align:center;" |'''''Name'''''
+! style="text-align:center;" |'''''AP'''''
+! style="text-align:center;" |'''''Fatigue'''''
+! style="text-align:left;" |&emsp;&emsp;'''''Description'''''
+|-
+{{:Chop (13 fatigue)}}
+|-
+{{:Split Shield (15 fatigue)}}
+|-
+{{:Batter (14 fatigue)}}
+|}
+
+{| class="article-table sortable" style="text-align:center;" width="100%"
+! style="text-align:center;" class="unsortable" |Name
+! style="text-align:center;" |Worth
+! style="text-align:center;" |Damage
+! style="text-align:center;" |Ignores Armor
+! style="text-align:center;" |Vs. Armor
+! style="text-align:center;" |Shield Damage
+! style="text-align:center;" |Durability
+! style="text-align:center;" |Max. Fatigue
+! style="text-align:center;" |Skills
+! style="text-align:center;" |{{tooltip|DLC|requirement}}
+|-
+|[[Hatchet]]<br />[[File:Hatchet.png|50px]]
+|210
+|25-40
+|30%
+|110%
+|8
+|52
+| -6
+|[[File:Chop.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Crude Axe]]<br />[[File:Wildmen_05.png|50px]]
+|800
+|30-40
+|40%
+|120%
+|12
+|82
+| -12
+|[[File:Active_185.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|[[File:Dlc_4.png|25px|Warriors of the North DLC]]
+|-
+|[[Handaxe]]<br />[[File:Hand Axe.png|50px]]
+|900
+|30-45
+|30%
+|120%
+|12
+|68
+| -10
+|[[File:Chop.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Fighting Axe]]<br />[[File:Fighting Axe.png|50px]]
+|2800
+|35-55
+|30%
+|130%
+|16
+|80
+| -12
+|[[File:Chop.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Head Splitter]]<br />(Orc weapon)<br />[[File:Orc_axe.png|50px]]
+|1100
+|35-65
+|30%
+|130%
+|16
+|64
+| -22
+|[[File:Chop.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Axehammer]]<br />[[File:Wildmen_03.png|50px]]
+|800
+|20-30
+|60%
+|200%
+|14
+|96
+| -10
+|[[File:Active_184.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|[[File:Dlc_4.png|25px|Warriors of the North DLC]]
+|}
+</onlyinclude>
+<onlyinclude>
+==='''Two-Handed Axes'''===
+</onlyinclude>
+[[Split Man (15 fatigue)|Split Man]] skill damage mechanics are explaned [https://battlebrothers.fandom.com/wiki/Combat_Mechanics#Split_Man here].
+
+[[Longaxe]] has an attack range of 1-2 tiles, making it possible to attack from behind the frontline. Note that the Longaxe is not considered a [[Polearms|polearm]], so it will not receive bonuses from Polearm Mastery. Longaxe has <span style="color:red">-15%</span> accuracy penalty for hitting adjacent targets.
+
+[[Perks#Tier_4|Axe Mastery]] perk grants:
+* [[File:Split Shield.png|25px|bottom]] Split Shield damage is increased by <span style="color:green">50%</span>.
+* [[Round Swing (35 fatigue)|Round Swing]] gains <span style="color:green">+5%</span> chance to hit.
+* [[Longaxe]] no longer has penalty for hitting targets directly adjacent.
+* Axes skills require <span class="" style="color:green">25%</span> less [[File:Fatigue.png|30px|bottom|Fatigue]].
+
+Orc Weapons require 5 additional fatigue per skill use for humans. 
+<onlyinclude>
+{| class="article-table" style="font-size:85%;"
+! colspan="5" style="font-size:larger; text-align:center;" |Skills
+|-
+! style="text-align:center;" |'''''Icon'''''
+! style="text-align:center;" |'''''Name'''''
+! style="text-align:center;" |'''''AP'''''
+! style="text-align:center;" |'''''Fatigue'''''
+! style="text-align:left;" |&emsp;&emsp;'''''Description'''''
+|-
+{{:Split Man (15 fatigue)}}
+|-
+{{:Round Swing (35 fatigue)}}
+|-
+{{:Split (30 fatigue)}}
+|-
+{{:Split Shield (20 fatigue)}}
+|-
+{{:Axe Strike (15 fatigue)}}
+|-
+{{:Split Shield (25 fatigue)}}
+|}
+
+{| class="article-table sortable" style="text-align:center;" width="100%"
+! style="text-align:center;" class="unsortable" |Name
+! style="text-align:center;" |Worth
+! style="text-align:center;" |Damage
+! style="text-align:center;" |Ignores Armor
+! style="text-align:center;" |Vs. Armor
+! style="text-align:center;" |Chance to hit head
+! style="text-align:center;" |Shield Damage
+! style="text-align:center;" |Durability
+! style="text-align:center;" |Max. Fatigue
+! style="text-align:center;" |Skills
+! style="text-align:center;" |{{tooltip|DLC|requirement}}
+|-
+|[[Woodcutter's Axe]]<br />[[File:Axe_two_handed_02.png|50px]]
+|400
+|35-70
+|40%
+|125%
+| ±0%
+|30
+|48
+| -14
+|[[File:Split Man.png|center|35px]] [[File:Round Swing.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Heavy Rusty Axe]]<br />[[File:Wildmen_09.png|50px]]
+|2000
+|75-90
+|50%
+|150%
+| ±0%
+|36
+|96
+| -16
+|[[File:Active_187.png|center|35px]] [[File:Active_188.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|[[File:Dlc_4.png|25px|Warriors of the North DLC]]
+|-
+|[[Bardiche]]<br />[[File:Bardiche.png|50px]]
+|2200
+|75-95
+|40%
+|130%
+| ±0%
+|24
+|64
+| -16
+|[[File:Active_168.png|center|35px]] [[File:Split_in_two.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|[[File:Dlc_4.png|25px|Warriors of the North DLC]]
+|-
+|[[Greataxe]]<br />[[File:Axe_two_handed_01.png|50px]]
+|2400
+|80-100
+|40%
+|150%
+| ±0%
+|36
+|80
+| -16
+|[[File:Split Man.png|center|35px]] [[File:Round Swing.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Man Splitter]]<br />(Orc weapon)<br />[[File:Orc_axe_two_handed.png|50px]]
+|1500
+|90-120
+|40%
+|160%
+| ±0%
+|42
+|64
+| -34
+|[[File:Split Man.png|center|35px]] [[File:Round Swing.png|center|35px]] [[File:Split Shield.png|center|35px]]
+|
+|-
+|[[Longaxe]]<br />[[File:Longaxe_01.png|50px]]
+|1200
+|70-95
+|30%
+|110%
+| +5%
+|24
+|72
+| -14
+|[[File:Active_66.png|center|35px]] [[File:active_67.png|center|35px]]
+|
+|}
+</onlyinclude>
+[[Category:Melee Weapon]]

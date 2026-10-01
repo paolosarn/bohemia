@@ -1,0 +1,34 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_confronts_healer" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Confronts Healer]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] confronts a healer in a town. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Go on and correct him then."
+**50% chance the [[File:background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Good mood.png]] good mood, <span style="color:green">+ 100</span>[[File:Xp_received.png|25px]] and you gain either some [[File:venison.png|25px|cured venison]] [[Provisions|cured venison]], [[File:mushrooms.png|25px|mushrooms]] [[Provisions|mushrooms]] or [[File:Roots_and_berries.png|25px|roots and berries]] [[Provisions|roots and berries]]
+** 50% chance the [[File:background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood and suffers light wounds, an additional 10% of your brothers suffer light wounds
+*"It's not worth upsetting the locals"
+**The [[File:background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+*"[[File:Monk.png|25px]] [[Monk (Background)|Monk]] can you talk some sense into him?"
+**The [[File:background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Good mood.png]] good mood and <span style="color:green">+ 50</span>[[File:Xp_received.png|25px]], additionaly the [[File:Monk.png|25px]] [[Monk (Background)|Monk]] gains a [[File:Good mood.png]] good mood and +1-2 [[File:Resolve.png]]
+[[File:Requirements.png|150px]]
+*You must be within 3 tiles of a town
+*The town must be Southern or Military
+*You must have an [[Anatomist (Background)|Anatomist]]
+*You must have a [[Monk (Background)|Monk]] to select the final option
+[[File:Score.png|150px]]
+*Score = 10
+</div>
+|}</onlyinclude>
+
+==Start==
+<div class="res-img">[[File:Anatomist_Confronts_Healer Start.png]]</div>
+
+===Path 3 (Monk)===
+<div class="res-img">[[File:Anatomist_Confronts_Healer Monk.png]]</div>
+[[Category:Event]]

@@ -1,0 +1,16 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" style="width: 15%"|Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="arena_veteran"| [[Arena Veteran]]<br />[[File:Trait_icon_75.png]]<!-- Trait -->
+|align="center"|
+<span style="color:green">+10</span> [[File:Resolve.png|25px|Resolve]]
+|
+*<span style="color:green">+50%</span> chance to survive if struck down and not killed by a fatality.
+*You gain this trait by winning 12 fights in the [[Arena]].
+*Also displays the number of arena fights and wins.
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

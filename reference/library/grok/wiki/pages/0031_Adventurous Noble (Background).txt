@@ -1,0 +1,66 @@
+{| class="article-table" style="text-align:center"
+!colspan=5 id="adventurous_noble"|[[File:Background_06.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> [[Adventurous Noble (Background)|Adventurous Noble]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 1-3
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 25
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|50<br />60
+|align='center'|57<br />67
+|align='center'|32<br />42
+|align='center'|5<br />13
+|align='center'|<span style="color:red">-10</span><br />0
+|align='center'|90<br />105
+|align='center'|45<br />60
+|align='center'|100<br />110
+|-
+!Attribute<br />Averages
+|align='center'|55
+|align='center'|62
+|align='center'|37
+|align='center'|9
+|align='center'|<span style="color:red">-5</span>
+|align='center'|97,5
+|align='center'|52,5
+|align='center'|105
+|-
+!Attribute<br />min./max.
+|align='center'|
+|align='center'| +10<br />+10
+|align='center'|
+|align='center'| +5<br />+8
+|align='center'|<span style="color:red">-10</span><br /><span style="color:red">-5</span>
+|align='center'| -<br />+5
+|align='center'| +15<br />+20
+|align='center'|
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Affiliations'''
+*[[Combat (Affiliation)|Combat]], [[Noble (Affiliation)|Noble]] & [[Veteran (Affiliation)|Veteran]]
+'''Events'''
+*Can learn from a swordmaster brother for +1-4 [[File:Melee_defense.png|25px|Melee Defense]]. ([[Swordmaster Teaches]])
+
+*Will compete in tournaments. ([[Jousting Tournament]])
+
+*Can get a [[File:Good_mood.png|21px]] good mood for all men. ([[Traveling Troupe]])
+<!--
+*Retirement 1: Adventurousness never leaves the soul of a man like %name. He departed the Battle Brothers and ventured west, sailing across the oceans to unseen lands. There's no telling where he is these days, but you've little doubt that he'll be coming back with stories to tell.
+*Retirement 2: Adventurousness never leaves the soul of a man like %name. The nobleman the Battle Brothers and, preferring the life of adventure to noble boredom, he headed north. Word has it that he's currently marching a troop of explorers to the furthest reaches of the world.
+*Retirement 3:Adventurousness never leaves the soul of a man like %name. He retired from the Battle Brothers and, instead of returning to his noble family, headed south. Word has it that he fought in a great noble civil war, killed an orc warlord, climbed the highest mountain in the land, and is currently writing an epic abut his travels.
+*Retirement 1: Adventurousness never leaves the soul of a man like %name. Instead of returning to his noble family, he left the Battle Brothers and headed east in search of rare beasts. Word has it that he returned to town with the head of what looked like a giant lizard, but you don't believe such fantastic tripe.-->
+
+'''Excluded Traits'''
+*[[File:Trait_icon_22.png|25px|bottom|link=Asthmatic]][[File:Trait_icon_23.png|25px|bottom|link=Clubfooted]][[File:Trait_icon_40.png|25px|bottom|link=Craven]][[File:Trait_icon_38.png|25px|bottom|link=Dastard]][[File:Trait_icon_29.png|25px|bottom|link=Drunkard]][[File:Trait_icon_41.png|25px|bottom|link=Fainthearted]][[File:Trait_icon_48.png|25px|bottom|link=Fear of Beasts]][[File:Trait_icon_04.png|25px|bottom|link=Fragile]][[File:Trait_icon_25.png|25px|bottom|link=Hesitant]][[File:Trait_icon_03.png|25px|bottom|link=Insecure]][[File:Trait_icon_28.png|25px|bottom|link=Irrational]][[File:Trait_icon_08.png|25px|bottom|link=Spartan]][[File:Trait_icon_60.png|25px|bottom|link=Weasel]]
+</div>
+|}
+<noinclude>{{Navbox Backgrounds}}</noinclude>
+[[Category:Backgrounds]]

@@ -1,0 +1,15 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" |Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="asthmatic"| [[Asthmatic]]<br />[[File:Trait_icon_22.png]]<!-- Trait -->
+|align="center"|[[File:Special.png|25px]]<br /><span style="color:red">-3</span> [[File:Fatigue.png|25px|Fatigue]] recovery per turn
+|
+*The base [[File:Fatigue.png|25px|Fatigue]] recovery is 15 / turn, this trait reduces it to 12 / turn.
+*Will always get [[File:Status_effect_53.png|25px|bottom]] [[Exhausted (Status Effect)|Exhausted]] in the ([[Combat Drill]]) event.
+*This trait can be removed or replaced by [[File:Trait_icon_33.png|25px]] [[Iron Lungs]] and 2 random traits. ([[Anatomist vs Asthmatic]])
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

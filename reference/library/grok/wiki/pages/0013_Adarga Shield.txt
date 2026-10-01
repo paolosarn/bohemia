@@ -1,0 +1,43 @@
+{{Infobox shield
+|title={{PAGENAME}}
+|image=
+<gallery>
+Inventory_adarga_shield_01.png|1
+Inventory_adarga_shield_02.png|2
+Inventory_adarga_shield_03.png|3
+</gallery>
+|imagewidth=
+|imagecaption=
+|worth=100
+|durability=18
+|meleedefense=+15
+|rangeddefense=+20
+|maxfatigue=-10
+|misc_1=[[File:Dlc_6.png|25px|Blazing Deserts DLC]] <span style="color:orange">Blazing Deserts DLC</span>
+}}
+==Description==
+''A light wooden shield with a metal frame, covered in leather. Offers good protection against ranged attacks due to its size, but is not very sturdy.''
+
+==Where can it be found?==
+* [[Settlement_buildings#Marketplace|Marketplace]] in southern city states.
+** Militia Barracks, Stone Watchtower increase availability.
+* [[Settlement_buildings#Armorer|Armorer]] in southern city states.
+* Loot in battle: [[Nomad Cutthroat]], [[Nomad Outlaw]], [[Conscript]], [[Wiederganger Nomad]].
+* Hiring new southern mercenaries: [[Nomad (Background)|Nomad]], [[Companion (Background)|Companion (1H) (southern)]].
+
+==Skills==
+{| class="article-table" style="font-size:85%;"
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Knock Back (20 fatigue)}}
+|-
+{{:Shieldwall (20 fatigue)}}
+|}
+
+__NOTOC__
+[[Category:Shield]]
+[[Category:Armor]]

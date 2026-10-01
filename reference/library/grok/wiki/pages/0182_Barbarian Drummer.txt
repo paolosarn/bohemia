@@ -1,0 +1,69 @@
+{{Combatant3
+|title           =Barbarian Drummer
+
+|image           =token-barbarian-drummer.png
+|health          =90
+|head-armor      =30-50
+|body-armor      =30-65
+|fatigue         =150
+|fatigue-recovery=15
+|resolve         =80
+|initiative      =90
+|melee-skill     =65
+|ranged-skill    =<span style="color:gray">40</span>
+|melee-defense   =15
+|ranged-defense  =5
+|action-points   =9
+|xp              =250
+|skills=
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_01.png|25px]] [[Dodge]] after day 30<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 163.png|25px]] [[Drums of War (15 fatigue)|Drums of War]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Drummer is a specialist from the [[Barbarians]] faction. He reduces fatigue that other barbarians accumulate.
+
+== Equipment ==
+
+* A Drum.
+* An [[Antler Cleaver]] or [[Claw Club]].
+* A [[Reinforced Animal Hide Armor]] (65), [[Animal Hide Armor]] (45) or [[Thick Furs]] (30).
+* A [[Bear Headpiece]] (50) or [[Leather Headband]] (30).
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Drums of War (15 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+Drummers will always simply stand there and beat their drums. If engaged in melee, they, however, draw weapons and try to fight. Sometimes they continue to beat drums even with melee attackers next to them.
+
+Their drums don't drop.
+
+==Tips==
+
+* This enemy only reduces fatigue of other barbarians. Barbarians already have a high fatigue limit and almost never reach it, and especially it isn't happening instantly when Drummers are killed, so it's better to simply ignore them.
+* Don't let them escape because they are worth XP.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

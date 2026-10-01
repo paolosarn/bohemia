@@ -1,0 +1,9 @@
+{{Infobox_bodyarmor|image = Inventory body armor 63.png|worth = 750|durability = 125|maxfatigue = -20}}
+
+== Description ==
+''A sturdy, but heavy and partly decayed ancient scale harness.''
+
+== Where can it be found? ==
+* Looted from [[Ancient Legionary|Ancient Legionaries]].
+[[Category:Body Armor]]
+[[Category:Armor]]

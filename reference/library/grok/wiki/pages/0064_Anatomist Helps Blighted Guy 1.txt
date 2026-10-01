@@ -1,0 +1,35 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_helps_blighted_guy_1" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Helps Blighted Guy 1]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|You come across a sick man being buried alive. Your [[Anatomist (Background)|Anatomist]] claims he can cure him:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"In that case we're going to help him."
+**50% chance that man is incurable, you gain 45 [[File:Crowns.png]] and the [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Good mood.png]] good mood and <span style="color:green">+ 200</span>[[File:Xp_received.png|25px]]
+**50% chance the man is cured and offers to join you
+***If you refuse you gain 65 [[File:Crowns.png]] and the [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+***If you accept you gain a naked [[File:Vagabond.png|25px]] [[Vagabond (Background)|Vagabond]] with two stars in [[File:Melee skill.png]], [[File:Melee defense.png]] and [[File:Resolve.png]], he has a [[File:Bad mood.png]] bad mood and is [[File:injury_icon_25.png|25px]] [[Sick]] for [[File:Days_wounded.png|25px]] 8 days
+*"This is not our problem." (nothing happens)
+[[File:Requirements.png|150px]]
+*You must be on a road
+*You must have at least one [[Anatomist (Background)|Anatomist]]
+[[File:Score.png|150px]]
+*Score = 10
+[[File:Other notes.png|150px]]
+*If you cure the man but refuse to take him in the amount your [[Anatomist (Background)|Anatomists]] mood drops by is variable
+*Taking in the man can lead to [[Anatomist Helps Blighted Guy 2]]
+</div>
+|}</onlyinclude>
+
+==Start==
+<div class="res-img">[[File:Buried_1.png]]</div>
+==Path 1==
+<div class="res-img">[[File:BB Sick OK.jpg]]</div>
+<div class="res-img">[[File:Buried_2.png]]</div>
+<div class="res-img">[[File:Buried_3.png]]</div>
+[[Category:Event]]

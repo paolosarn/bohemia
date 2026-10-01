@@ -1,0 +1,14 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" |Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="ailing"| [[Ailing]]<br />[[File:Trait_icon_59.png]]<!-- Trait -->
+|align="center"|[[File:Special.png|25px]]<br />Poison effects last 1 additional turn
+|
+*Can be removed by a [[File:Monk.png|25px]] [[Character_Backgrounds#monk|monk]] or [[File:Beast_slayer.png|25px]] [[Character_Backgrounds#beast_slayer|beast slayer]] brother. ([[Events#ailing_recovers2|Ailing Recovers]])
+*Can be removed or replaced with other traits by an [[File:Background 70.png|25px]] [[Anatomist (Background)|anatomist]]. ([[Anatomist vs Ailing]])
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

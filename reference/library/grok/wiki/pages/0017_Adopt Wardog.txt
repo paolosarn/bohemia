@@ -1,0 +1,137 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="adopt_wardog" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Adopt Wardog]]</span>
+!style="white-space: nowrap"|
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 120
+|-
+|colspan="3"|You notice a dog following you. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Chase that mongrel away!"
+**(nothing happens)
+*"Better to put it down now before it steals any of our supplies later."
+**60% chance: '''flavor text A''' (nothing happens)
+**40% chance: '''flavor text B''' (nothing happens)
+*"The company needs a mascot. Take it in."
+**75% chance: You gain a [[Hounds|Wardog]] with the name "Battle Brother"
+**25% chance: You suffer 1 injury:
+***40% chance: [[File:Injury_icon_08.png|25px]] [[Split Hand]]
+***40% chance: [[File:Injury_icon_21.png|25px]] [[Crushed Finger]]
+***20% chance: [[File:Injury_permanent_icon_02.png|25px]] [[Missing Finger]]
+*"[[File:Background_50.png|25px|bottom]] [[Houndmaster (Background)|Houndmaster]], you're trained to handle dogs, right?"
+**You gain a [[Hounds|Wardog]] with the name "Battle Brother"
+[[File:Requirements.png|150px]]
+*It has to be day-time
+*You are not on forest, leafy forest, snow or mountain terrain
+*Have at least 1 free slot in your inventory
+[[File:Score.png|150px]]
+*Score = 5
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the way...}}
+[[File:event_27.png|left]]
+You noticed the mutt a few miles back, and a few miles forward he's still there, bobbing and slinking in and out of sight.
+
+A mongrel such as he doesn't follow a band of dangerous men for no reason - maybe someone is feeding it?
+{{EventButtons}}
+{{EventButton||#B|Chase that mongrel away!}}
+{{EventButton|Better to put it down now before it steals any of our supplies later. (|#C|60%|,{{Sp}}|#D|40%|)}}
+{{EventButton|The company needs a mascot. Take it in. (|#E|75% Success|,{{Sp}}|#F|25% Failure|)}}
+{{EventButton||#G|{{EventVariable|Houndmaster}}, you're trained to handle dogs, right?|{{Sp}}(requires Houndmaster)}}
+{{EventTabEnd}}
+
+|-|B=
+{{EventTab|header=Along the way...}}
+[[File:event_75.png|left]]
+This is no place for a pup to be. The next time the dog appears, you crack it between the eyes with a well-placed stone. Yelping, the dog retreats. It pauses, perhaps thinking that there was some sort of mistake here, but you quickly correct the foul thing with another rock. The dog leaves and is not seen again.
+{{EventButtons}}
+{{EventButton|And stay away! (the event ends)}}
+{{EventTabEnd}}
+
+|-|C=
+{{EventTab|header=Along the way...}}
+[[File:event_75.png|left]]
+You take a bow and nock an arrow. A few of the brothers watch as you take aim. The shot goes wide, but the dog gets the message and quickly scampers off.
+{{EventButtons}}
+{{EventButton|I meant to scare it off. (the event ends)}}
+{{EventTabEnd}}
+
+|-|D=
+{{EventTab|header=Along the way...}}
+[[File:event_27.png|left]]
+You take a bow and nock an arrow. A few of the brothers watch as you take aim. The wind comes, goes, and comes again. You wait patiently before drawing the string and closing one eye to put the dog into focus. It sits down and stares at you between long-tongued pants.
+
+You release the shot. The arrow zips through the air and the dog yelps. It keels back on its hind legs and falls over, its feet kicking and scraping on the ground until it stops. You put the bow back into its holding and get the company back on the road.
+{{EventButtons}}
+{{EventButton|Poor thing. (the event ends)}}
+{{EventTabEnd}}
+
+|-|E=
+{{EventTab|header=Along the way...}}
+[[File:event_27.png|left]]
+You decide to take a chunk of meat and approach the dog. It is skittish at first, backing away on your approach, but the aroma you have in hand is an alluring one to be sure. The mongrel slinks back toward you, pausing here and there, eyes flicking in search of an ambush.
+
+You can see a barrel of ribs on the dog, many days on the road having given the pup a gaunt frame. Its ears are stitched up and its tail bolted with signs of battle. This here animal knows how to fight and that's just what it'll be doing for you from now on.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Dog 01 01 70x70.png|x25px]] || You gain Battle Brother
+ |}
+{{EventButtons}}
+{{EventButton|Welcome to the company. (the event ends)}}
+{{EventTabEnd}}
+
+|-|F=
+{{EventTab|header=Along the way...|left=Bro's token}}
+[[File:event_37.png|left]]
+A rugged dog such as he would make for a great mascot. The little mutt could definitely boost morale. You order {{EventVariable|Bro}} to feed it some food in the hopes that it'll tag along. He goes out with a scrap of leftovers and crouches down.
+
+{{EventSpeech|Good dog.}}
+
+The mongrel sniffs the food, then chomps down on it - and the mercenary's hand along with it. The brother jumps back, nestling his arm into his chest as though he might lose it otherwise. The dog, on the other hand, swallows the scrap and then runs off.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Injury permanent icon 02.png|x25px]] || {{EventVariable|Bro}} suffers an {{Tooltip|injury|40% Split Hand, 40% Crushed Finger, 20% Missing Finger}}
+ |}
+{{EventButtons}}
+{{EventButton|Damn, he really would have fit in. (the event ends)}}
+{{EventTabEnd}}
+
+|-|G=
+{{EventTab|header=Along the way...|left=Houndmaster's token}}
+[[File:event_27.png|left]]
+You ask {{EventVariable|Houndmaster}} the houndmaster if he can try and 'woo' this dog. He nods and steps toward it. The wild mongrel's ears go from pinned to pointed. Crouched, the houndmaster slowly edges his way toward the beast. He keeps his hand out with a piece of meat in the palm. Hunger overcomes heedfulness and the dog sniffs its way ever closer to the houndmaster's hand. The dog tongues it out of his palm and chows down. The dog trainer feeds him another bite. He scruffs him up and finds the sweet spot behind his ears. Looking back, {{EventVariable|Houndmaster}} nods.
+
+{{EventSpeech|Aye, it's an agreeable beast and will be easily trained.}}
+
+That's great. You ask if it can fight. The houndmaster purses his lips.
+
+{{EventSpeech|A dog is akin to a man. If it can breathe, it can fight.}}
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Dog 01 01 70x70.png|x25px]] || You gain Battle Brother
+ |}
+{{EventButtons}}
+{{EventButton|Nice. (the event ends)}}
+{{EventTabEnd}}
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Adopt_wardog_event_01.png|Start
+AdoptWardog 1.png|Path 1
+AdoptWardog.png|Success
+AdoptWardog Failure3.png|Failure
+Adopt_wardog_event_02.png|Houndmaster
+</gallery>
+
+[[Category:Event]]

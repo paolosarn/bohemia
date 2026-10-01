@@ -1,0 +1,92 @@
+Ancient Dead are one of two [[Undead]] factions. [[Zombies]] are the other, and they unite during the Undead Scourge.
+
+== Units ==
+{| class="article-table" style="text-align:center"
+! style="text-align:center" |Icon
+! style="text-align:center" |Name
+! style="text-align:center" |[[File:Health.png|25px|Health]]
+! style="text-align:center" |[[File:Armor head.png|25px|Head armor]]
+! style="text-align:center" |[[File:Armor body.png|25px|Body armor]]
+! style="text-align:center" |[[File:Melee skill.png|25px|Melee skill]]
+! style="text-align:center" |[[File:Ranged skill.png|25px|Ranged skill]]
+! style="text-align:center" |[[File:Melee defense.png|25px|Melee defense]]
+! style="text-align:center" |[[File:Ranged defense.png|25px|Ranged defense]]
+! style="text-align:center" |[[File:Resolve.png|25px|Resolve]]
+! style="text-align:center" |[[File:Initiative.png|25px|Initiative]]
+! style="text-align:center" |[[File:Fatigue.png|25px|Fatigue]]
+! style="text-align:center" |[[File:Fatigue recovery.png|25px|Fatigue recovery]]
+! style="text-align:center" |[[File:Action points.png|25px|Action points]]
+! style="text-align:center" |[[File:Miniboss.png|25px|Champion probability]]
+! style="text-align:center" |[[File:XP.png|25px|XP]]
+|-
+|[[File:Skeleton 01 orientation.png]]||[[Ancient Auxiliary]]
+|45||0-95||0-25||55||-||0||0||80||65||-||-||9||-||150
+|-
+|[[File:Skeleton 02 orientation.png]]||[[Ancient Legionary]]
+|55||130||100-135||65||-||0||0||100||65||-||-||9||-||250
+|-
+|[[File:Skeleton 02 orientation.png]]||[[Ancient Legionary with Polearm]]
+|55||130||100-125||65||-||0||0||100||45||-||-||9||-||250
+|-
+|[[File:Skeleton 03 orientation.png]]||[[Ancient Honor Guard]]
+|65||180||180-210||75||-||5||5||130||70||-||-||9||1%||350
+|-
+|[[File:Skeleton 03 orientation.png]]||[[Ancient Honor Guard with Polearm]]
+|65||180||180-210||75||-||5||5||130||50||-||-||9||-||350
+|-
+|[[File:Skeleton 04 orientation.png]]||[[Ancient Priest]]
+|65||50||40||40||-||0||5||130||5||-||-||9||-||450
+|-
+|[[File:Vampire 01 orientation.png]]||[[Necrosavant|Lower Necrosavant]]
+|56-146||0||20||85||-||25||25||-||130||-||-||8||-||400
+|-
+|[[File:Vampire 01 orientation.png]]||[[Necrosavant]]
+|225||0||20||85||-||25||25||-||130||-||-||8||-||400
+|-
+|[[File:Skeleton orientation.png]]||[[The Lorekeeper]]
+|240||80||60||-||-||15||15||130||50||-||-||12||-||750
+|-
+|[[File:Phylactery orientation.png]]||[[Phylactery]]
+|25||-||-||-||-||-50||0||-||-||-||-||-||-||0
+|-
+|[[File:Skeleton 08 orientation.png]]||[[Screaming Skull]]
+|25||-||-||-||-||10||10||-||80||-||-||6||-||1
+|-
+|[[File:Skeleton 07 orientation.png]]||[[Lorekeeper's Apparition]]
+|1||-||-||75||-||20||20||-||70||-||-||5||-||1
+|-
+|[[File:Skeleton conqueror.png]]||[[The Conqueror]]
+|350||50||380||90||-||20||10||140||70||-||-||9||-||600
+|}
+
+== Tactics ==
+Ancient Dead fight in a tight formation, which they try to not break. Their main strength is the [[Shieldwall (20 fatigue)|shieldwall]] that they can maintain indefinitely. In the early game you will only see weak unarmored [[Ancient Auxiliary|Auxiliaries]], but later you will face [[Ancient Legionary|Legionaries]] with their medium armor and backline full of [[Ancient Legionary with Polearm|pikemen]]. Their [[Ancient Priest|Priests]] summon [[Miasma (0 fatigue)|harmful gas clouds]] that damage HP directly without missing, and their [[Horror (0 fatigue)|other spell]] can lower your [[morale]] and even [[Horrified (Status Effect)|stun]].
+
+Being skeletons, they [[Resistant to Ranged Attacks|resist piercing damage]], especially ranged. But skeletons are also very fragile, and non-piercing weapons with high enough direct damage quickly destroy them.
+
+They use rusty slashing and piercing weaponry, that isn't good against heavy [[armor]].
+
+If the spacing is right, they will approach without shieldwall, and you will have two turns of attacks before they activate it. Waiting and then walking two steps back does the trick.
+
+[[Necrosavant|Necrosavants]] are vampires. They are healed by damage they deal and can teleport. They can be extremely dangerous in the middle game.
+
+== Description ==
+[[File:AncientDeadConcept.jpg|thumb|400px|Ancient Dead concept drawings]]The world wasn’t always like it is now. Ruins dot the map, mass graves, sunken castles. But where did they come from?
+
+Many hundred years ago, in a different era, an empire of man spanned much of the known world. What has fallen into ruin now, what was abandoned to nature and beast, what has long been forgotten, all this was that of man once. An empire, not of petty noble houses, but one of a dozen provinces, from the frozen tundra of the north to the blistering sands of the south, of a dozen peoples under one banner.
+
+So many peoples, so many cultures and ideas under one roof, all vying to pull the empire into a direction of their own. Could those not be reconciled? Did they, in the end, just pull the empire apart? As remote lands became provinces of the empire, so could local cults become religions that swept across its entirety. Was the authority of the emperor lost to religion? Was it the gods that punished man for worshipping spirits that promised to give what they would not?
+
+Does it matter now what brought it down? The ancient dead are rising again, not living and yet not dead. Long lost legions heed the call of their emperor. They march once more, tirelessly and without emotion, to claim again what was once theirs. What brought down the empire in the end, and what is bringing it back to unlife, is for you to piece together based on clues hidden within the world, if you want to learn more.
+
+=== Military Tactics ===
+The bulk of the ancient dead is made up of the ancient legions. They are what conquered most of the known world once, and they may well do so again. Legions that never tire, legionaries that know no fear, a cold machine that ever marches forward. What could stop them?
+
+The legions fight like they did hundreds of years ago – in tight formation two ranks deep, with shields in front and polearms in the back. They rely quite heavily on the front row providing protection with their shields and locking down the enemy, while the second row uses polearms to inflict heavy damage on their opponents. A formation like this doesn’t charge like undisciplined rabble, but advances slowly and makes heavy use of shields to protect against arrow fire. They don’t possess any ranged weaponry and don’t do flanking maneuvers, preferring to simply walk through any enemy. Because much of their strength is in their formation, they’re at a disadvantage when fighting in difficult terrain, such as forests. They are also the missing piece of the puzzle that makes resolve an important attribute, as fighting them continually puts a test to the morale of the men.
+
+The ancient legions come with a whole lot of unique armor, helmets and weapons. It’s old, it’s brittle and sometimes broken, but it can still be deadly.
+
+{{Navbox Enemies}}
+
+[[Category:Factions]]
+[[Category:Enemies]]

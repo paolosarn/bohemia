@@ -1,0 +1,10 @@
+{| class="article-table" width="100%"
+!style="width:27%; text-align:center;"|'''Perk'''
+!style="width:73%; text-align:center;"|'''Description'''
+|-<onlyinclude>
+|[[File:Perk_37.png|34px]]&nbsp;&nbsp;&nbsp;'''[[Adrenaline (Perk)|Adrenaline]]'''
+|id="adrenaline"|Unlocks the [[File:Perk_37_active.png|25px|bottom]] [[Adrenaline (20 fatigue)|Adrenaline skill]] (costs 1[[File:Action_points.png|25px|Action Point|bottom]] and 20[[File:Fatigue.png|25px|Fatigue|bottom]]) which puts you first in the turn order for the next round, to have another turn before your enemies do.<br />
+Note: if two characters are using [[File:Perk_37_active.png|25px|bottom]] [[Adrenaline (20 fatigue)|Adrenaline skill]], the one with the highest [[File:Initiative.png|25px|bottom]] Initiative will act first. The character attracts slightly more attention from enemies.
+</onlyinclude>
+|}
+[[Category:Perks]]

@@ -1,0 +1,25 @@
+{{Infobox accessory
+|title={{PAGENAME}}
+|image=[[File:Pills_01.png|thumb]]
+|imagewidth=
+|imagecaption=
+|worth=450
+|durability=
+|maxfatigue=
+|special1=Treats all [[Temporary Injuries]] of a mercenary (equivalent of Temple treatment)
+|special2=Removes the [[File:Status_effect_62.png|25px]] [[Hangover (Status Effect)]]
+|special3=
+|special4=
+|misc_1=Non-combat consumable
+}}
+== Description ==
+''A powerful remedy against many common illnesses and diseases, to reduce inflammation, and to support the body's natural healing. Characters treated with this drug will recover faster from injuries, just like if they've been treated at a temple.''
+
+== Where Can They Be Found? ==
+* Can be crafted at a [[Taxidermist]] from [[File:Inventory_hexe_herbs.png|25px|bottom|Mysterious Herbs (Hexe)]] [[Mysterious Herbs]] and an [[File:Inventory_unhold_01.png|25px|bottom|Unhold's Heart (Unhold)]] [[Unhold's Heart]] for 250 [[File:crowns.png|25px|bottom]].
+
+== Notes ==
+* Doesn't shorten the duration of the [[Sick]] 'injury', which also cannot be 'treated' in the Temple. But [[The Surgeon (Follower)|The Surgeon]] decreases sickness duration down to 1-2 days.
+
+__NOTOC__
+[[Category:Consumable (Non-combat)]]

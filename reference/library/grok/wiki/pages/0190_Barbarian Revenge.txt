@@ -1,0 +1,7 @@
+==Start==
+<div class="res-img">[[File:Barbarian Revenge.png]]</div>
+
+=== After Victory ===
+<div class="res-img">[[File:Barbarian Revenge Victory.png]]</div>
+
+[[Category:Event]]

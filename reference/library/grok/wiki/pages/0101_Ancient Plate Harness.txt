@@ -1,0 +1,7 @@
+{{Infobox_bodyarmor|image = Inventory body armor 67.png|worth = 2800|durability = 200|maxfatigue = -28}}
+== Description ==
+''Made of thick metal plates and mail, this heavy ancient armor still offers great protection after countless years. It's crusted and rotten in parts, however, severely limiting the mobility of the wearer.     '' 
+
+== Where can it be found? ==
+* Looted from [[Ancient Honor Guard]]. [[Category:Body Armor]]
+[[Category:Armor]]

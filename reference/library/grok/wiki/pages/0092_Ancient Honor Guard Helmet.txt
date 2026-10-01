@@ -1,0 +1,24 @@
+{{
+Infobox_helmet
+|image =
+<gallery>
+Inventory helmet 73.png|1
+Inventory helmet 74.png|2
+Inventory helmet 75.png|3
+Inventory helmet 76.png|4
+Inventory helmet 77.png|5
+</gallery>
+|worth = 1000
+|durability = 180
+|maxfatigue = -13
+|vision = -3
+}}
+
+== Description ==
+''An ancient heavy helmet with intricate decoration. '' 
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Honor Guard]].
+
+[[Category:Headgear]]
+[[Category:Armor]]

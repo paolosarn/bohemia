@@ -1,0 +1,45 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="all_naked" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[All Naked]]</span>
+!style="white-space: nowrap"|
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+|colspan="3"|You have a conversation with a traveler about your naked men. Has no further consequences.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"What a beautiful day!"
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*Your campaign is at least 15 days old
+*It has to be day-time
+*You have to be on a road
+*No brother wears his body armor currently
+[[File:Score.png|150px]]
+*Score = 25
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the road...}}
+[[File:event_16.png|left]]
+Marching along, you spot a fellow traveler who leans forward and then back and then forward again, all the while his hand knowing not whether to shield the sun or peel away to let himself be blinded. He shakes his head and spits.
+
+{{EventSpeech|I'd heard word of you folks. Buncha trouserless men in a land of evil, like some devil's little joke sprung to life. The hell are you?}}
+
+You shrug and tell the man that, so far, you've no issue with taking on your troubles sans leather or plate or cloth of loin. Again, the traveler shakes his head and spits.
+
+{{EventSpeech|Farkin' hell. A man in battle with nothing on him is more naked than the day he'd done been born! I s'pose the irony is that if we - and I mean anybody-we - come find ya dead in the fields, then we'll probably dress ya better for the grave than you dress yourself now. Which shan't be hard, seeing as how you've dressed yourself none at all.}}
+
+With a bit of a wave, you thank the traveler for his kind words before continuing your merry march.
+{{EventButtons}}
+{{EventButton|What a beautiful day! (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+[[Category:Event]]

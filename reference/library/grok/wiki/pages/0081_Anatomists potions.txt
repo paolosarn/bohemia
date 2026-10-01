@@ -1,0 +1,184 @@
+{{ToDo|Add icons (for status effects, skills), apply font color (green for positive effect values, red for negative), add links (for status effects, skills, game mechanics).}}
+'''Hint''': To expand all Potion Effects content, try the solution from this [https://battlebrothers.fandom.com/wiki/Events?commentId=4400000000000043531&replyId=4400000000000099464 comment].
+{| class="fandom-table sortable" width="100%"
+! style="width:229px;" |Potion
+! style="width:229px;" |Source&nbsp;Creature
+! class=unsortable |Potion Effects
+|-
+| style="text-align:center;" |[[File:Potion_34.png|35px|center|link=Nightking's Draft]] [[Nightking's Draft]]
+|[[File:Alp_01_orientation.png|42px|link=Alp]] [[Alp]]
+|Immune to [[File:Night.png|28px]] [[Nighttime (Status Effect)|night time]] effects
+|-
+| style="text-align:center;" |[[File:Potion_18.png|35px|center|link=Potion of the Sleepless]] [[Potion of the Sleepless]]
+|[[File:Skeleton_01_orientation.png|42px|link=Ancient Auxiliary]] [[Ancient Auxiliary]] or<br />[[File:Skeleton_02_orientation.png|42px|link=Ancient Legionary]] [[Ancient Legionary]]
+|[[File:Fatigue.png]]Fatigue cost of shieldwall is reduced by 25%
+|-
+| style="text-align:center;" |[[File:Potion_19.png|35px|center|link=Elixir of Boneflesh]][[Elixir of Boneflesh]]
+|[[File:Skeleton_03_orientation.png|42px|link=Ancient Honor Guard]]&nbsp;[[Ancient&nbsp;Honor&nbsp;Guard]]
+|Take between 25% and 50% less damage from piercing attacks, such as those from bows or spears
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Take 50% less hp damage from bows, crossbow, slings, handgonnes, javelins and the ignite firelance skill.
+*Take 25% less hp damage from daggers, spears, swords, pikes.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_21.png|35px|center|link=Dastard's Valor]] [[Dastard's Valor]]
+|[[File:Skeleton_04_orientation.png|42px|link=Ancient Priest]] [[Ancient Priest]]
+|Cannot be reduced to Fleeing morale, only Breaking
+|-
+| style="text-align:center;" |[[File:Potion_26.png|35px|center|link=Potion of Blade Dancing]] [[Potion of Blade Dancing]]
+|[[File:Direwolf_01_orientation.png|42px|link=Direwolf]] [[Direwolf]]
+|Refunds 50% of [[File:Fatigue.png]] fatigue cost of missed attacks
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Seems that for multi-attack skills you need to miss all attacks.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_23.png|35px|center|link=Elixer of Perseverance]] [[Elixer of Perseverance]]
+|[[File:Zombie_03_orientation.png|42px|link=Fallen Hero]] [[Fallen Hero]]
+|Accumulate no [[File:Fatigue.png]] Fatigue from enemy attacks, whether they hit or miss
+|-
+| style="text-align:center;" |[[File:Potion_42.png|35px|center|link=Potion of Change]][[Potion of Change]]
+|[[File:Flesh_golem_orientation.png|42px|link=Flesh Golem]] [[Flesh Golem]]
+|Grants one [[Potion of Change|random]] positive [[Trait]]
+|-
+| style="text-align:center;" |[[File:Potion_24.png|35px|center|link=Deadman's Drink]][[Deadman's Drink]]
+|[[File:Ghost_01_orientation.png|42px|link=Geist]] [[Geist]]
+|Increases armor pen for melee weapons by 5%
+|-
+| style="text-align:center;" |[[File:Potion_11.png|35px|center|link=Potion of Fleetfoot]][[Potion of Fleetfoot]]
+|
+<br />[[File:Goblin_01_orientation.png|42px|link=Goblin Ambusher]][[Goblin Ambusher]], 
+<br />[[File:Goblin_04_orientation.png|42px|link=Goblin Skirmisher]][[Goblin Skirmisher]], or
+<br />[[File:Goblin_05_orientation.png|42px|link=Goblin Wolfrider]][[Goblin Wolfrider]]
+|Rotation and Footwork cost half [[File:Fatigue.png]] fatigue and 1 less [[File:Action_points.png]] AP
+|-
+| style="text-align:center;" |[[File:Potion_13.png|35px|center|link=Deadeye's Draught]][[Deadeye's Draught]]
+|[[File:Goblin_03_orientation.png|42px|link=Goblin Overseer]] [[Goblin Overseer]]
+|Increases [[File:Direct_damage.png]] armor pen for bows and crossbows by 5%
+|-
+| style="text-align:center;" |[[File:Potion_12.png|35px|center|link=Greasejar Potion]][[Greasejar Potion]]
+|[[File:Goblin_02_orientation.png|42px|link=Goblin Shaman]] [[Goblin Shaman]]
+|Always succeeds at escaping nets, roots, etc.
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Works for all effects that use the "Break Free" skill, so Kraken Tentancle grapple, Nets, Webs, Roots.
+*It won't work if potioned brother tries to help free someone else, but it WILL work if someone else tries to break free the potioned brother.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_39.png|35px|center|link=Elixir Of Enlightenment]] [[Elixir Of Enlightenment]]
+|[[File:Grand Diviner_orientation.png|42px|link=The Grand&nbsp;Diviner]] [[The Grand&nbsp;Diviner]]
+|Gives 15000 [[File:Xp_received.png|20px]]
+|-
+| style="text-align:center;" |[[File:Potion_43.png|35px|center|link=Potion of Progress]][[Potion of Progress]]
+|[[File:Greater_flesh_golem_orientation.png|42px|link=Greater Flesh Golem]] [[Greater Flesh&nbsp;Golem]]
+|Grants two [[Potion of Progress|random]] positive [[Traits]]
+|-
+| style="text-align:center;" |[[File:Potion_35.png|35px|center|link=Potion of Malevolence]] [[Potion of Malevolence]]
+|[[File:Hexe_01_orientation.png|42px|link=Hexe]] [[Hexe]]
+|Reflects 100% of[[File:Health.png]]Hitpoints damage back to attacker
+|-
+| style="text-align:center;" |[[File:Potion_30.png|35px|center|link=Bloodgate Brew]][[Bloodgate Brew]]
+|[[File:Hyena_orientation.png|42px|link=Hyena]] [[Hyena]]
+|Take half damage from [[File:Bleeding.png|20px]] Bleeds
+|-
+| style="text-align:center;" |[[File:Potion_28.png|35px|center|link=Potion of Stoneskin]] [[Potion of Stoneskin]]
+|[[File:Sand_golem_orientation.png|42px|link=Ifrit]] [[Ifrit]]
+|Grants 25 natural[[File:Armor_body.png]]body and[[File:Armor_head.png]]head armor
+|-
+| style="text-align:center;" |[[File:Potion_37.png|35px|center|link=Elixir of the Mad God]] [[Elixir of the Mad God]]
+|[[File:Thing_orientation.png|42px|link=Ijirok]] [[Ijirok|The Ijirok]]
+|Grants 50% chance to resist status effects
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Works against Charm, Chilled, Hex, Bleeding, Dazed, Disarmed, Distracted, Horrified, Insect Swarm, Lindwurm Acid, Overwhelm, Shellshocked, Sleep, Staggered, Stunned, Withered.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_41.png|35px|center|link=Bog King's Draught]] [[Bog King's Draught]]
+|[[File:Kraken_01_orientation.png|42px|link=Kraken]] [[Kraken]]
+|Grants +50[[File:Health.png]]Hitpoints
+|-
+| style="text-align:center;" |[[File:Potion_27.png|35px|center|link=Tincture of Emberblood]] [[Tincture of Emberblood]]
+|[[File:Lindwurm_orientation.png|42px|link=Lindwurm]] [[Lindwurm]]
+|Causes[[File:Health.png]]Hitpoints damage to make melee attackers suffer the Lindwurm acid effect
+|-
+| style="text-align:center;" |[[File:Potion_38.png|35px|center|link=Potion of Inner Sanctum]] [[Potion of Inner Sanctum]]
+|[[File:Skeleton_orientation.png|42px|link=The Lorekeeper]] [[The Lorekeeper]]
+|Once per battle, upon receiving a killing blow, survive instead and regain full health
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Also removes damage over time effects.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_36.png|35px|center|link=Potion of Flesh Knitting]] [[Potion of Flesh Knitting]]
+|[[File:Ghoul_01_orientation.png|42px|link=Nachzehrer]] [[Nachzehrer]]
+|Reduces the time it takes to heal from any injury by one day, down to a mininum of one day
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Works just like the surgeons bonus, and stacks with it.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_25.png|35px|center|link=The King in Chains]] [[The King in Chains]]
+|[[File:Human_01_orientation.png|42px|link=Necromancer]] [[Necromancer]]
+|Increases [[File:Xp_received.png|20px]] gained by 20%
+|-
+| style="text-align:center;" |[[File:Potion_20.png|35px|center|link=Potion of the Nightstalker]] [[Potion of the Nightstalker]]
+|[[File:Vampire_01_orientation.png|42px|link=Necrosavant]] [[Necrosavant]]
+|Heal for 25% of[[File:Health.png]]Hitpoints damage inflicited against adjacent enemies that have blood
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Need to be adjacent to enemy, enemy must not be immune to [[File:bleeding.png|42px|link=Necrosavant]]bleeding.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_16.png|35px|center|link=Rose Philter]] [[Rose Philter]]
+|[[File:Orc_03_orientation.png|42px|link=Orc Berserker]] [[Orc Berserker]]
+|Gain rage stacks when taking[[File:Health.png]]Hitpoints damage
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*The buff is functionally the same as the berserkers rage passive, except that you can only gain stacks by taking [[File:Health.png]]Hitpoints damage, and gain 3 stacks each time, up to a cap of 15, losing 1 at turn end.
+*Each stack reduces damage taken by 2%, increases resolve, initiative and damage by 1.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_17.png|35px|center|link=Font of Strength]] [[Font of Strength]]
+|[[File:Orc_01_orientation.png|42px|link=Orc Warlord]] [[Orc Warlord]]
+|Suffers no[[File:Fatigue.png]][[Fatigue]] penalty for using orc weapons
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Works for orc weapons and shields, but only applies to skill use and not the increased base weight of them.
+*With named variants, if they roll reduced [[File:Fatigue.png]]Fatigue on skill use, these benefits won't stack. It's just going to be a fixed 0.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_15.png|35px|center|link=Ironhead Potion]] [[Ironhead Potion]]
+|[[File:Orc_02_orientation.png|42px|link=Orc Warrior]] [[Orc Warrior]]
+|33% chance to resist [[Dazed (Status Effect)|Dazed]], [[Staggered (Status Effect)|Staggered]], [[Stunned (Status Effect)|Stunned]], [[Distracted (Status Effect)|Distracted]] and Withered effects
+|-
+| style="text-align:center;" |[[File:Potion_14.png|35px|center|link=Kineticist's Draft]] [[Kineticist's Draft]]
+|[[File:Orc_04_orientation.png|42px|link=Orc Young]] [[Orc Young]]
+|Grants +10% armor effectiveness for attacks
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*It's a flat +10% bonus, i.e. a warhammer will go from 225% armor damage to 235%.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_40.png|35px|center|link=Knife Edge Potion]] [[Knife Edge Potion]]
+|[[File:Zombie_03_orientation.png|42px|link=Rachegeist]] [[Rachegeist]]
+|Deal +25% damage and take only 75% damage when[[File:Health.png]]Hitpoints is below 50%
+|-
+| style="text-align:center;" |[[File:Potion_33.png|35px|center|link=Draught of Godtree Roots]] [[Draught of Godtree Roots]]
+|[[File:Schrat_01_orientation.png|42px|link=Schrat]] [[Schrat]]
+|Immune to knockbacks and grabs
+|-
+| style="text-align:center;" |[[File:Potion_29.png|35px|center|link=Quickfang Potion]] [[Quickfang Potion]]
+|[[File:Serpent_orientation.png|42px|link=Serpent]] [[Serpent]]
+|Increases surround bonus from allies by 3% per ally
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*Seems this will be doubled by Backstabber for +16% to hit per ally, and Underdog is a flat -5%, meaning Backstabber and pot vs Underdog is still +11%.
+</div>
+|-
+| style="text-align:center;" |[[File:Potion_32.png|35px|center|link=Fool's Treasure Potion]] [[Fool's Treasure Potion]]
+|[[File:Unhold_01_orientation.png|42px|link=Unhold]][[File:Unhold_03_orientation.png|42px|link=Unhold]][[File:Unhold_02_orientation.png|42px|link=Unhold]][[Unhold]]
+|Regenerate 10[[File:Health.png]]Hitpoints each turn
+|-
+| style="text-align:center;" |[[File:Potion_31.png|35px|center|link=Venomblood Potion]] [[Venomblood Potion]]
+|[[File:Spider_01_orientation.png|42px|link=Webknecht]] [[Webknecht]]
+|Immune to all poisons
+|-
+| style="text-align:center;" |[[File:Potion_22.png|35px|center|link=Potion of Leather Skin]] [[Potion of Leather Skin]]
+|[[File:Zombie_01_orientation.png|42px|link=Wiederganger]] [[Wiederganger]]
+|Threshold for injuries is increased by 33%
+<div style="text-align: left" class="mw-collapsible mw-collapsed txoggle-center">
+*This results in the brother needing to take 33.25% of max hp to suffer a light injury and 66.5% to suffer a heavy injury.
+*Stacks with Ironjaw Trait for a 66.25% increased threshold, meaning you'd need to take 41% of max hp for a light injury and 83% for a heavy injury.
+</div>
+|}
+[[Category:Anatomists Potions]]

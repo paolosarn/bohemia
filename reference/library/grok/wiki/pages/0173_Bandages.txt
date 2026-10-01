@@ -1,0 +1,24 @@
+{{Infobox accessory
+|title={{PAGENAME}}
+|image=Bandages_01.png
+|imagewidth=
+|imagecaption=
+|worth=25
+|text=Costs 6 AP and builds up <span style="color:teal">5</span> fatigue either to use it on self or an adjacent mercenary
+|range=0-1
+|maxfatigue=-2
+|special1=Removes [[File:Bleeding.png|20px|bottom]] [[Bleeding (Status Effect)|Bleeding status effect]] from a character it is used on
+|special2=Heals and removes newly sustained (fresh) [[Grazed Neck]], [[Cut Artery]] and [[Cut Neck Vein]] temporary injuries
+|special3=Cannot be used if engaged in melee, either self or a brother being healed
+|special4=
+|misc_1=Combat consumable item
+}}
+== Description ==
+''Clean bandages that can be used in combat to apply pressure to bleeding wounds and stop any hemorrhaging.''
+
+== Where Can They Be Found? ==
+* Can be bought at a [[Settlement_buildings#Marketplace|Marketplace]].
+** [[Settlements_and_attached_locations#Supplies|Herbalist's Grove]] increases availability.
+
+__NOTOC__
+[[Category:Consumable (Combat)]]

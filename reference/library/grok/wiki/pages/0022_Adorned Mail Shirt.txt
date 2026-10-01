@@ -1,0 +1,22 @@
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=Inventory_body_armor_107.png
+|imagewidth=
+|imagecaption=
+|worth=1050
+|durability=150
+|maxfatigue=-16
+|useforspecial=
+|misc_1=[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+}}
+
+==Description==
+''A heavy mail shirt covered by a quilted surcoat. An impressive and well-maintained piece, adorned with trophies and holy symbols.''
+
+==Where can it be found?==
+* Possible starting armor of new mercenaries: [[Oathtaker (Background)|Oathtaker]].
+* Can be obtained in the [[Captured Oathbringer]] event.
+* [[Oathtakers]] origin starting gear.
+
+[[Category:Armor]]
+[[Category:Body Armor]]

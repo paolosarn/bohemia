@@ -1,0 +1,67 @@
+{| class="article-table" style="text-align:center"
+!colspan=5 id="barbarian"|[[File:Barbarian.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> [[Barbarian (Background)|Barbarian]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 2-4
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 20
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|60<br />65
+|align='center'|57<br />62
+|align='center'|32<br />42
+|align='center'|0<br />5
+|align='center'|0<br />5
+|align='center'|100<br />105
+|align='center'|40<br />45
+|align='center'|105<br />120
+|-
+!Attribute<br />Averages
+|align='center'|62,5
+|align='center'|59,5
+|align='center'|37
+|align='center'|2,5
+|align='center'|2,5
+|align='center'|102,5
+|align='center'|42,5
+|align='center'|112,5
+|-
+!Attribute<br />min./max.
+|align='center'| +10<br />+5
+|align='center'| +10<br />+5
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| +10<br />+5
+|align='center'| +10<br />+5
+|align='center'| +5<br />+10
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Affiliations'''
+*[[Combat (Affiliation)|Combat]]
+'''Events'''
+*You can gain a barbarian brother in ([[Barbarian Volunteer]]) and ([[Barbarian Survivor]]).
+
+*Can tame wild warhounds. ([[Adopt Warhound]])
+
+*Can hunt in the forest for some venison and mood boost. ([[Hunt Food]])
+
+*Can tell a story to improve the mood of your men. ([[Barbarian Tells Story]])
+
+*May try to scare away unholds during a hunt unhold contract. ([[Scare Unholds]])
+<!--
+*Retirement 1: %name the barbarian took all the coin he earned with the company and ventured north. with his money, he gathered a band of warriors and conquered so many tribes that, last you heard, he had been ordained 'king of the north'.-->
+
+'''Excluded Traits'''
+*[[File:Trait_icon_59.png|25px|bottom|link=Ailing]][[File:Trait_icon_22.png|25px|bottom|link=Asthmatic]][[File:Trait_icon_16.png|25px|bottom|link=Bleeder]][[File:Trait_icon_23.png|25px|bottom|link=Clubfooted]][[File:Trait_icon_36.png|25px|bottom|link=Clumsy]][[File:Trait_icon_40.png|25px|bottom|link=Craven]][[File:Trait_icon_38.png|25px|bottom|link=Dastard]][[File:Trait_icon_41.png|25px|bottom|link=Fainthearted]][[File:Trait_icon_04.png|25px|bottom|link=Fragile]][[File:Trait_icon_50.png|25px|bottom|link=Hate for Undead]][[File:Trait_icon_25.png|25px|bottom|link=Hesitant]][[File:Trait_icon_03.png|25px|bottom|link=Insecure]][[File:Loyal.png|25px|bottom|link=Loyal]][[File:Trait_icon_56.png|25px|bottom|link=Night Blind]][[File:Trait_icon_02.png|25px|bottom|link=Tiny]][[File:Trait_icon_60.png|25px|bottom|link=Weasel]]
+</div>
+|}
+<noinclude>{{Navbox Backgrounds}}</noinclude>
+[[Category:Backgrounds]]

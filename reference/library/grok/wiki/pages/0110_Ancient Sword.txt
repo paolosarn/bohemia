@@ -1,0 +1,36 @@
+{{Infobox weapon
+|image = Ancient sword 01.png
+|worth = 850
+|durability = 42
+|damage = 38 - 43
+|vsarmor = 80%
+|maxfatigue = -6
+|ignorearmor = 20%
+}}
+
+[[File:Ancient Sword.png|thumb|280x280px]]
+
+== Description ==
+''A straight blade of ancient origin. The grip is covered with strange ornamentations, which may make it valuable to historians and other scholarly-minded individuals.''
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Legionary]], [[Ancient Honor Guard]].
+* Can be found in the [[Treasure in Rock]] event.
+* Can be found in the [[Obtain Item]] contract.
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Slash (10 fatigue)}}
+|-
+{{:Riposte (25 fatigue)}}
+|}
+
+__NOTOC__
+
+[[Category:Melee Weapon]]

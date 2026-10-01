@@ -1,0 +1,8 @@
+{| style="background: #141414; margin: 2px; width: 230px; border-spacing: 6px 0px; padding:6px 0px; display: block"
+! style="background: black"|[[Ambushed Trade Routes (Settlement Situation)|Ambushed Trade Routes]]<br />[[File:settlement_effect_12.png]]
+|-
+| style="border-bottom: 1px dashed #505050"|The roads leading here are unsafe of late, and many a caravan has been ambushed and plundered. With little successful trade, the selection of goods is lower and the prices higher.
+|-
+| style="border-bottom: 1px solid #505050; padding: 6px"|[[File:Buy_price.png|25px]] <span style="color:red">+20%</span> buying prices<br/>[[File:Sell_price.png|25px]] <span style="color:green">+10%</span> selling prices<br/>[[File:Bag.png|25px]] <span style="color:red">−25%</span> items available
+|}
+[[Category:Settlement Situations]]

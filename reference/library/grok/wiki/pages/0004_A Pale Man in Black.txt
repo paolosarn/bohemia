@@ -1,0 +1,8 @@
+<div class="res-img">[[File:PaleManInBlack1.png]]</div>
+<div class="res-img">[[File:PaleManInBlack2.png]]</div>
+Ennemies :
+* [[Necromancer]]
+* [[Brigand Thug]]
+* [[Brigand Poacher]]
+* [[Brigand Raider]]
+[[Category:Event]]

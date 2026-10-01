@@ -1,0 +1,81 @@
+{{Combatant3
+|title           =Alp
+
+|image           =token-alp.png
+|health          =100
+|fatigue         =100
+|fatigue-recovery=15
+|resolve         =100
+|initiative      =60-115
+|melee-defense   =10
+|ranged-defense  =10
+|action-points   =10
+|xp              =300
+|immune=[[File:Status_effect_111.png|23px|Disarm]][[File:Night.png|23px|Nighttime]][[File:Knock_Back.png|23px|Forced movement]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Net2.png|23px|Nets]][[File:Status_effect_116.png|23px|Fire]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|skills=
+[[File:Perk 60.png|25px]] [[Underdog]]<br/>
+{{SkillInfo|Status effect 81.png|[[Existing Partly in Dreams]]}}
+[[File:Fade.png|25px]] [[Fade]]<br/>
+[[File:Active 117.png|25px]] [[Nightmare (10 fatigue)|Nightmare]]<br/>
+[[File:Active 116.png|25px]] [[Sleep (5 fatigue)|Sleep]]
+}}Alp is a nighttime enemy from the [[Beasts]] faction.
+
+== Spawning ==
+Alps spawn everywhere, except forests, swamps, hills and mountains. They can also be encountered in [[Ending the Nightmare]] contracts, that appear in villages except forest ones.
+
+== Skills ==
+{| class="article-table" style="font-size:85%;"
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Existing Partly in Dreams}}
+|-
+{{:Fade}}
+|-
+{{:Nightmare (10 fatigue)}}
+|-
+{{:Sleep (5 fatigue)}}
+|}
+
+== Loot ==
+<tabber>
+|-|Regular origins=
+
+* A [[Parched Skin]] (40% chance), [[Third Eye]] (40% chance) or [[Petrified Scream]] (20% chance).
+* 20% chance of a [[Treasures|Soul Splinter]] (300 crowns).
+
+|-|Beast Slayers=
+
+* A [[Parched Skin]] (40% chance), [[Third Eye]] (40% chance) or [[Petrified Scream]] (20% chance). 50% chance of another, rolling separately.
+* 20% chance of a [[Treasures|Soul Splinter]] (300 crowns).
+</tabber>
+
+==Behavior==
+Alp groups are only visible and interactable at night. Sometimes there are [[Direwolf|Direwolves]] alongside them, including [[Frenzied Direwolf|Frenzied]] ones.
+
+Alps fight by first putting their enemies to sleep and then casting nightmares, dealing damage and waking them up. You can wake up an ally for 4 AP, and [[Rally the Troops]] wakes up everyone in its range.
+
+When one Alp takes damage, they all teleport to tiles one empty space away from you. They have no zone of control, and are unable to break free from [[Throwing Net|nets]], and can't even teleport when caught.
+
+[[Morale|Fleeing]] Alps don't actually flee, probably due to a bug. One brother standing near them is enough to prevent rallying, as long as he isn't [[Sleeping (Status Effect)|sleeping]].
+
+==Tips==
+*Resolve protects against both Sleep and Nightmare.
+*Alps can stunlock an already sleeping brother, using Nightmare then Sleep. They don't actively try to do it though.
+*Don't hurry to attack the first Alp you see. They will all teleport and attack you instead of spending all AP on movement.
+*Prefer blunt and slashing damage. [[Ranged Weapons|Ranged weapons]] are not recommended due to resistance and Nighttime.
+*Stand in your [[Battle Standard|banner]]'s resolve aura to resist their attacks and be affected by [[Rally the Troops]].
+*Their attacks are mental, so [[Witchhunter (Background)|Witchhunters]], [[Undead Trophy]], [[Protective Runes and Sigils]] and [[Mad]] trait are effective against it.
+*Lack of zone of control allows you to step back if you miss and have enough AP.
+*They can't teleport if [[Stunned (Status Effect)|stunned]], fleeing or caught in net.
+*Alps' inability to break free makes [[Throwing Net|nets]] extremely useful. Have some in your inventory in the early game to make easy money on an occational Alp contract.
+*Alps' attacks deal direct damage to HP, so fighting them without body armor/helmets/shields can help you reduce the penalty to your soldiers' initiative and maximum fatigue. But beware: they can be accompanied by (Frenzied) Direwolves.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Beasts]]

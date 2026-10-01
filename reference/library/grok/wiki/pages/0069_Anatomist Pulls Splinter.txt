@@ -1,0 +1,20 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_pulls_splinter" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Pulls Splinter]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 110
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background_70.png|25px]] Anatomist<br />[[File:Background_0.png|25px]] Random Brother
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] pulls a splinter out of a random brother who gains +1[[File:Melee_defense.png|25px|Melee Defense|bottom]].
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*You must have at least 1 non [[Anatomist (Background)|Anatomist]]
+[[File:Score.png|150px]]
+*Score = 3 for every [[Anatomist (Background)|Anatomist]]
+[[File:Other notes.png|150px]]
+*[Bugged]: the game is supposed to exclude a [[bright]] [[Monk (Background)]], [[Historian (Background)]], [[Adventurous Noble (Background)]], [[Disowned Noble (Background)]], [[Disowned Noble (Background)|Regent in Absentia (Background)]] and [[Minstrel (Background)]] brothers from this event, but it doesn't due to code errors in the game event file; see the [https://steamcommunity.com/app/365360/discussions/1/3820781363194736333/ Steam forum thread].
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:Splinter_event.png]]</div>
+[[Category:Event]]

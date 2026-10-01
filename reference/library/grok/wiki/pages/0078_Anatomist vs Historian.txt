@@ -1,0 +1,22 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_vs_historian" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist vs Historian]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|A [[Historian (Background)|Historian]] gets into an argument with the [[Anatomist (Background)|Anatomists]]. (no effect)
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Historian (Background)|historian]]
+*You must have at least 1 [[Anatomist (Background)|anatomist]]
+[[File:Score.png|150px]]
+*Score = 5 for each [[Historian (Background)|historian]]
+[[File:Other notes.png|150px]]
+*Niether of the options in this event have any effect
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:Anatomist vs Historian 1.png]]</div>
+<div class="res-img">[[File:Anatomist vs Historian 2.png]]</div>
+[[Category:Event]]

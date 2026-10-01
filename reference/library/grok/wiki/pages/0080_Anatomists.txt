@@ -1,0 +1,69 @@
+{| class="article-table"
+! colspan="1" id="anatomists" align="center" |[[File:Anatomists.png|30px]] [[Anatomists]]
+! colspan="1" align="center" |[[File:Difficulty_medium.png|80px]]
+|-
+! colspan="1" align="left" |[[File:Event_181.png|200px|center]]
+! colspan="1" align="left" |<span style="color:grey">Fueled by an unquenchable thirst for knowledge, the Anatomists have spent years dissecting the exoctic and the alien. With social mores dogging their research, however, they've turned to you to form a mercenary company and provide them a new source of fresh specimens.</span><br /><br />[[File:Special.png|25px|bottom]] <span style="color:gold">Anatomists</span>: Start with three men and high funds.<br />[[File:Special.png|25px|bottom]] <span style="color:gold">Researchers</span>: Research the corpses of your fallen foes and gain knowledge to empower your men.<br />[[File:Special.png|25px|bottom]] <span style="color:gold">Not Fighters</span>: Your men will never be of confident morale.
+|-
+! colspan="2" align="left" |<div class="mw-collapsible mw-collapsed toggle-center">
+
+'''Backgrounds'''
+
+[[File:Background 70.png|40px|Anatomist]] [[Anatomist (Background)|Anatomist]] (lvl.1),
+[[File:Background 70.png|40px|Anatomist]] [[Anatomist (Background)|Anatomist]] (lvl.1),
+[[File:Background 70.png|40px|Anatomist]] [[Anatomist (Background)|Anatomist]] (lvl.1)
+
+'''Resources'''
+
+{| class="article-table" width="60%" |
+! width="30%" |Starting Funds
+! width="10%" align="left" |[[File:Crowns.png|40px|center|Crowns]]
+! width="10%" align="center" |[[File:Supplies_icon.png|40px|center|Tools]]
+! width="10%" align="center" |[[File:Ammo_icon.png|40px|center|Ammunition]]
+! width="10%" align="center" |[[File:Medicine_icon.png|40px|center|Medicine]]
+|-
+|High:
+| align="center" |3200
+| align="center" |40
+| align="center" |80
+| align="center" |30
+|-
+|Medium:
+| align="center" |2700
+| align="center" |20
+| align="center" |40
+| align="center" |20
+|-
+|Low:
+| align="center" |2200
+| align="center" |10
+| align="center" |20
+| align="center" |10
+|}
+
+{| class="article-table" width="70%" |
+! width="10%" align="center" |[[File:Asset_business_reputation.png|40px|Renown]]
+! width="10%" align="center" |[[File:Asset_moral_reputation.png|40px|Reputation]]
+! width="10%" align="center" |[[File:Relations.png|40px|Relations]]
+! width="10%" align="center" |[[File:Food.png|40px|center|Provisions]]
+! width="10%" align="center" |[[File:Bag.png|40px|center|Other Items]]
+|-
+| align="center" |'''0'''
+| align="center" |'''Neutral'''
+| align="center" |'''Neutral'''
+| align="center" |1x [[File:Mead.png|bottom|25px|Mead]]<br />1x [[File:Smoked_Ham.png|bottom|25px|Smoked Ham]]
+| align="center" |1x [[File:Inventory_anatomists_book_01.png|bottom|25px|Greenskin Research Notes]]<br />1x [[File:Inventory_anatomists_book_02.png|bottom|25px|Ledger of the Dead]]<br />1x [[File:Inventory_anatomists_book_03.png|bottom|25px|Tome of Beasts]]<br />1x [[File:Inventory_anatomists_book_04.png|bottom|25px|Book of Legends]]<br />1x [[File:Potion_10.png|bottom|25px|Apotheosis potion]]
+|}
+
+'''Special'''
+
+*Your brothers may never be of confident morale, which makes certain traits less undesirable
+*Slaying non human enemies for the first time will yield unique [[Anatomists potions|potions]]
+*Each potion will provide a permanent buff but will make the brother who drank it sick, the sickness will last longer the more potions they have drank
+*If a potion is lost or the brother who drank it killed another can be acquired by killing the relevant enemy again
+*Begins the game with an apotheosis potion and four ledgers to keep track of what potions you have acquired
+*Has access to a plethora of events; [[Anatomist vs Ailing]], [[Anatomist vs Asthmatic]], [[Anatomist vs Clubfooted]], [[Anatomist vs Dog]], [[Anatomist vs Historian]], [[Anatomist vs Iron Lungs]], [[Anatomist Wants Skull]], [[Anatomist Bummed at Mutations]], [[Anatomist Okay With Mutations]], [[Anatomist Old Patient]], [[Anatomist Creeps Out Locals]], [[Anatomist Dead Knight]], [[Anatomist Exhumes Hero]], [[Anatomist Joins]], [[Anatomist Helps Blighted Guy 1]], [[Anatomist Helps Blighted Guy 2]], [[Anatomist Confronts Healer]], [[Black Market]], [[Killer on the Run Reminisces]], [[Missing Kids]], [[Mutated Gladiator Annoys Others]], [[Something in Barn]] & [[Strange Scribe]]
+
+</div>
+|}
+[[Category:Origins]]

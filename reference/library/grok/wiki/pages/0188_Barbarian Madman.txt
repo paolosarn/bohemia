@@ -1,0 +1,73 @@
+{{Combatant3
+|title           =Barbarian Madman
+
+|image           =token-barbarian-madman.png
+|health          =160
+|head-armor      =300
+|body-armor      =300
+|fatigue         =200
+|fatigue-recovery=25
+|initiative      =115
+|melee-skill     =80
+|melee-defense   =10
+|ranged-defense  =10
+|action-points   =9
+|xp              =500
+|immune=[[File:Stunned.png|23px|Stun]][[File:Morale.png|23px|Morale]]
+|not-immune=[[File:Status_effect_111.png|25px|Disarm]][[File:Night.png|23px|Nighttime]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Status effect 116.png|23px|Fire]][[File:Fatigue.png|23px|Fatigue]]
+|skills=
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk_16.png|25px]] [[Executioner (Perk)|Executioner]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Status effect 79.png|25px]] [[Ijirok Regeneration]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Madman is the boss of the [[Icy Cave]] [[Legendary locations|legendary location]].
+
+==Equipment==
+
+*A random [[Named Rusty Warblade]].
+*A Ritual Armor (300).
+*A Ritual Helmet (300).
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Ijirok Regeneration}}
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+You must fight him one on one. The game lets you choose one of four most experienced brothers who are not currently in reserve. Unlike most enemies, he prioritizes attacking a [[Wardog|dog]] over a brother. He is excluded from [[morale]] checks.
+
+His armor does not drop. You always receive [[Broken Ritual Armor]] no matter what.
+
+His token's base is the one used for [[beasts]], and battle with him counts as battle with beasts.
+
+==Tips==
+
+* This fight is especially random and can kill a high-level brother with bad enough luck.
+* Popular weapon choices against him are [[Two-Handed Hammer|two-handed hammers]], [[Throwing Weapons|throwing weapons]] and hard-hitting [[Named and Legendary Items|named]] two-handed weapons.
+* [[Throwing Net|Nets]] and an armored [[Wardog|dog]] distract him for a while, winning time.
+* Being unaffected by [[morale]], he does not gain confidence after killing a dog.
+* The [[Named Rusty Warblade|named cleaver]] he wields is more dangerous to [[Nimble]] than to [[Battle Forged]] brothers.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

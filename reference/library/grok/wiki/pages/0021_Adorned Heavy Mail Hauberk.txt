@@ -1,0 +1,23 @@
+{{Infobox bodyarmor
+|misc_1=[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+|title={{PAGENAME}}
+|image=Inventory_body_armor_109.png
+|imagewidth=
+|imagecaption=
+|worth=6000
+|durability=300
+|maxfatigue=-34
+|useforspecial=
+}}
+
+==Description==
+''A heavy chainmail hauberk worn under a thick riveted jacket and reinforced with vambraces. Adorned with trophies and lovingly maintained despite its extensive use, this is the armor of a true questing knight.''
+
+==Where can it be found?==
+* Can be looted from [[Oathbringer]].
+* Possible starting armor of new mercenaries: [[Oathtaker (Background)|Oathtaker]].
+* Can be obtained in the [[Oathbreaker]], [[Oathtaker Joins]] events.
+
+__NOTOC__
+[[Category:Armor]]
+[[Category:Body Armor]]

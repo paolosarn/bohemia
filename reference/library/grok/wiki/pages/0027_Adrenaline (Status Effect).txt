@@ -1,0 +1,18 @@
+{|class="article-table"
+! align="center" |Icon
+! align="center" |Name
+! align="center ; width: 15%"|Effect
+! align="center" |Duration
+! align="center" |Notes
+|-<onlyinclude>
+|align="center" id="adrenaline"|[[File:Perk_37.png|35px]]<!-- Status -->
+|align="center"|[[Adrenaline (Status Effect)|Adrenaline]]
+|align="center"|
+<span style="color:green">+2000</span> [[File:Initiative.png|25px|Initiative]]
+|align="center" data-sort-value="1"|1 turn
+|
+*Caused by the [[Adrenaline (20 fatigue)]] skill.
+*The bonus initiative only counts towards the turn order.
+</onlyinclude>
+|}
+[[Category:Status Effects]]

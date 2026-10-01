@@ -1,0 +1,64 @@
+{| class="article-table"
+!colspan=1 align="center" id="band_of_poachers"|[[File:Poachers.png|30px]] [[Band of Poachers]]
+!colspan=1 align="center"|[[File:Difficulty_medium.png|80px]]
+|-
+!colspan=1 align="left"  |[[File:Event_10.png|200px|center]]
+!colspan=1 align="left"  |<span style="color:grey">For years you've made a decent living by poaching in the local woods, evading your lord's men by being quick on your feet. But pickings have become slimmer and slimmer, and you're faced with a decision - how to make a living when all you know is how to use a bow?</span><br /><br />[[File:Special.png|25px|bottom]] <span style="color:gold">Hunters</span>: Start with a group of three woodsmen.<br />[[File:Special.png|25px|bottom]] <span style="color:gold">Expert Scouts</span>: You move faster and can always get a scouting report for any enemies near you.<br />[[File:Special.png|25px|bottom]] <span style="color:gold">Travel Light</span>: You can carry less items in your company's inventory.
+|-
+!colspan=2 align="left"|<div class="mw-collapsible mw-collapsed toggle-center">
+
+'''Backgrounds'''
+
+[[File:Hunter2.png|40px]] [[Character_Backgrounds#hunter|Hunter]], [[File:Poacher.png|40px]] [[Character_Backgrounds#poacher|Poacher]], [[File:Poacher.png|40px]] [[Character_Backgrounds#poacher|Poacher]]
+
+'''Resources'''
+
+{| class='article-table' width='60%' |
+! width='30%' |Starting Funds
+! align='left' width='10%' |[[File:Crowns.png|40px|center|Crowns]]
+! align='center' width='10%' |[[File:Supplies_icon.png|40px|center|Tools]]
+! align='center' width='10%' |[[File:Ammo_icon.png|40px|center|Ammunition]]
+! align='center' width='10%' |[[File:Medicine_icon.png|40px|center|Medicine]]
+|-
+| High:
+|align='center'|2500
+|align='center'|20
+|align='center'|160
+|align='center'|30
+|-
+| Medium:
+|align='center'|2000
+|align='center'|10
+|align='center'|80
+|align='center'|20
+|-
+| Low:
+|align='center'|1500
+|align='center'|5
+|align='center'|40
+|align='center'|10
+|}
+
+{| class='article-table' width='70%' |
+! align='center' width='10%' |[[File:Asset_business_reputation.png|40px|Renown]]
+! align='center' width='10%' |[[File:Asset_moral_reputation.png|40px|Reputation]]
+! align='center' width='10%' |[[File:Relations.png|40px|Relations]]
+! align='center' width='10%' |[[File:Food.png|40px|center|Provisions]]
+! align='center' width='10%' |[[File:Bag.png|40px|center|Other Items]]
+|-
+|align='center'|100
+|align='center'|Neutral
+|align='center'|<span style="color:red">-20</span> towards the closest noble house
+|align='center'|1x [[File:Venison.png|bottom|25px|Cured Venison]]
+|align='center'|1x [[File:Furs.png|bottom|25px|Furs]]
+|}
+
+'''Special'''
+
+*Has only <span style="color:red">81</span> instead of 99 inventory slots
+*Has a movement speed of <span style="color:green">111</span> instead of 105
+*Can always see the enemy composition in wild locations
+*Has access to the [[Rangers Origin Hunt Food]] event
+</div>
+|}
+[[Category:Origins]]

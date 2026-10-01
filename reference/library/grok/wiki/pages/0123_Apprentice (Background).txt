@@ -1,0 +1,67 @@
+{| class="article-table" style="text-align:center"
+!colspan=5|[[File:Background_40.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> [[Apprentice (Background)|Apprentice]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 1
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 8
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|50<br />60
+|align='center'|47<br />57
+|align='center'|32<br />42
+|align='center'|0<br />5
+|align='center'|0<br />5
+|align='center'|90<br />100
+|align='center'|30<br />40
+|align='center'|100<br />110
+|-
+!Attribute<br />Averages
+|align='center'|55
+|align='center'|52
+|align='center'|37
+|align='center'|2,5
+|align='center'|2,5
+|align='center'|95
+|align='center'|35
+|align='center'|105
+|-
+!Attribute<br />min./max.
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|align='center'| <br />
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Special'''
+*+10% [[File:Xp_received.png|25px|Experience recieved|bottom]]
+'''Affiliations'''
+* [[No Affiliation (Affiliation)|None]]
+'''Events'''
+*Can learn from a retired soldier, hedge knight, swordmaster or sellsword. ([[Apprentice Learns]])
+
+*Can gain you +1 [[Reputation]], an [[Arming Sword]] and a [[File:Good_mood.png|25px]] good mood. ([[Kid Blacksmith]])
+
+*You can gain an apprentice brother. ([[Master No Use Apprentice]])
+
+*Can receive a temporary XP multiplier from an anatomist. ([[Apprentice vs Anatomist]])
+<!--
+*Retirement 1: Perhaps one of the sharpest men you've ever met, %name the apprentice was the quickest learner in the Battle Brothers. With plenty of crowns stored, he retired from fighting to take his talents to the business world. Last you heard he was ding very well for himself across multiple trades. If you ever have a son, this is the man you'd send him to for apprenticeship.-->
+
+'''Excluded Traits'''
+*[[File:Trait_icon_22.png|25px|bottom|link=Asthmatic]][[File:Trait_icon_21.png|25px|bottom|link=Athletic]][[File:Trait_icon_01.png|25px|bottom|link=Brute]][[File:Trait_icon_42.png|25px|bottom|link=Bloodthirsty]][[File:Trait_icon_36.png|25px|bottom|link=Clumsy]][[File:Trait_icon_17.png|25px|bottom|link=Dumb]][[File:Trait_icon_47.png|25px|bottom|link=Fear of Undead]][[File:Trait_icon_50.png|25px|bottom|link=Hate for Undead]]
+</div>
+|}
+<noinclude>{{Navbox Backgrounds}}</noinclude>
+[[Category:Backgrounds]]

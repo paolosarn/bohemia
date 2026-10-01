@@ -1,0 +1,118 @@
+{| class="article-table" style="text-align:center"
+!colspan=5|[[File:Background_53.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> [[Assassin (Background)|Assassin]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 4
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 25
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|45<br />55
+|align='center'|59<br />67
+|align='center'|32<br />42
+|align='center'|5<br />13
+|align='center'|0<br />5
+|align='center'|85<br />95
+|align='center'|40<br />50
+|align='center'|120<br />125
+|-
+!Attribute<br />Averages
+|align='center'|50
+|align='center'|63
+|align='center'|37
+|align='center'|9
+|align='center'|2,5
+|align='center'|90
+|align='center'|45
+|align='center'|122,5
+|-
+!Attribute<br />min./max.
+|align='center'| <span style="color:red">-5</span><br /><span style="color:red">-5</span>
+|align='center'| +12<br />+10
+|align='center'| <br />
+|align='center'| +5<br />+8
+|align='center'| <br />
+|align='center'| <span style="color:red">-5</span><br /><span style="color:red">-5</span>
+|align='center'| +10<br />+10
+|align='center'| +20<br />+15
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Affiliations'''
+*[[Combat (Affiliation)|Combat]]
+'''Events'''
+*You can only gain an assassin brother if you have a bastard brother. ([[Bastard Assassin]])
+<!--
+*Retirement 1: %name joined the company in place f the bastard he had come to kill. So strange was this agreement that you kept an eye on the assassin for many day. But all he did was fight for the Battle Brothers, and fight well. last you heard, the assassin departed the company and has not been seen or heard from since. You checked in on the bastard nobleman to see if perhaps the assassin had finished the job, but ithe man was alive and well. A peculiar run in, in the end.-->
+
+'''Excluded Talents'''
+*[[File:Health.png|25px|Hitpoints|bottom]] [[File:Fatigue.png|25px|Fatigue|bottom]] [[File:Ranged_defense.png|25px|Ranged Defense|bottom]] [[File:Resolve.png|25px|Resolve|bottom]]
+'''Excluded Traits'''
+*[[File:Trait_icon_42.png|25px|bottom|link=Bloodthirsty]][[File:Trait_icon_01.png|25px|bottom|link=Brute]][[File:Trait_icon_23.png|25px|bottom|link=Clubfooted]][[File:Trait_icon_36.png|25px|bottom|link=Clumsy]][[File:Trait_icon_17.png|25px|bottom|link=Dumb]][[File:Trait_icon_10.png|25px|bottom|link=Fat]][[File:Trait_icon_25.png|25px|bottom|link=Hesitant]][[File:Trait_icon_61.png|25px|bottom|link=Huge]][[File:Trait_icon_03.png|25px|bottom|link=Insecure]][[File:Loyal.png|25px|bottom|link=Loyal]][[File:Trait_icon_56.png|25px|bottom|link=Night Blind]][[File:Trait_icon_27.png|25px|bottom|link=Short Sighted]][[File:Trait_icon_15.png|25px|bottom|link=Strong]][[File:Trait_icon_58.png|25px|bottom|link=Team Player]][[File:Trait_icon_60.png|25px|bottom|link=Weasel]]
+</div>
+|}
+
+{| class="article-table" style="text-align:center"
+!colspan=5|[[File:Background_53.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> Southern [[Assassin (Background)|Assassin]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 1
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 25
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|45<br />55
+|align='center'|57<br />67
+|align='center'|32<br />42
+|align='center'|5<br />13
+|align='center'|0<br />5
+|align='center'|85<br />95
+|align='center'|40<br />50
+|align='center'|120<br />125
+|-
+!Attribute<br />Averages
+|align='center'|50
+|align='center'|62
+|align='center'|37
+|align='center'|9
+|align='center'|2,5
+|align='center'|90
+|align='center'|45
+|align='center'|122,5
+|-
+!Attribute<br />min./max.
+|align='center'| <span style="color:red">-5</span><br /><span style="color:red">-5</span>
+|align='center'| +10<br />+10
+|align='center'| <br />
+|align='center'| +5<br />+8
+|align='center'| <br />
+|align='center'| <span style="color:red">-5</span><br /><span style="color:red">-5</span>
+|align='center'| +10<br />+10
+|align='center'| +20<br />+15
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Affiliations'''
+*[[Combat (Affiliation)|Combat]]
+'''Events'''
+*None
+'''Excluded Talents'''
+*[[File:Health.png|25px|Hitpoints|bottom]] [[File:Fatigue.png|25px|Fatigue|bottom]]
+'''Excluded Traits'''
+*[[File:Trait_icon_42.png|25px|bottom|link=Bloodthirsty]][[File:Trait_icon_01.png|25px|bottom|link=Brute]][[File:Trait_icon_23.png|25px|bottom|link=Clubfooted]][[File:Trait_icon_36.png|25px|bottom|link=Clumsy]][[File:Trait_icon_17.png|25px|bottom|link=Dumb]][[File:Trait_icon_10.png|25px|bottom|link=Fat]][[File:Trait_icon_25.png|25px|bottom|link=Hesitant]][[File:Trait_icon_61.png|25px|bottom|link=Huge]][[File:Trait_icon_03.png|25px|bottom|link=Insecure]][[File:Loyal.png|25px|bottom|link=Loyal]][[File:Trait_icon_56.png|25px|bottom|link=Night Blind]][[File:Trait_icon_27.png|25px|bottom|link=Short Sighted]][[File:Trait_icon_15.png|25px|bottom|link=Strong]][[File:Trait_icon_26.png|25px|bottom|link=Superstitious]][[File:Trait_icon_58.png|25px|bottom|link=Team Player]][[File:Trait_icon_60.png|25px|bottom|link=Weasel]]
+</div>
+|}
+<noinclude>{{Navbox Backgrounds}}</noinclude>
+[[Category:Backgrounds]]

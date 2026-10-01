@@ -1,0 +1,68 @@
+{{Combatant3
+|title           =Ancient Legionary
+
+|image           =token-skeleton-2.png
+|health          =55
+|head-armor      =130
+|body-armor      =<small>100-135</small>
+|initiative      =65
+|resolve         =100
+|melee-skill     =65
+|melee-defense   =0
+|ranged-defense  =0
+|action-points   =9
+|xp              =250
+|immune=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|skills=
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Ancient Legionary is an enemy from the [[Ancient Dead]] faction.
+
+== Equipment ==
+
+* An [[Ancient Sword]] (75% chance) or [[Broken Ancient Sword]] (25% chance).
+* An [[Ancient Breastplate]] (135), [[Ancient Scale Harness]] (125), [[Ancient Double Layer Mail]] (120) or [[Ancient Mail]] (100).
+* An [[Ancient Legionary Helmet]] (130).
+* An [[Ancient Coffin Shield]] (66% chance) or [[Ancient Tower Shield]] (34% chance).
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Resistant to Ranged Attacks}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+These enemies often [[Shieldwall (20 fatigue)|shieldwall]] to protect themselves. They use [[Rotation (Skill)|Rotation]] to swap places with a [[Ancient Legionary with Polearm|pikeman]] engaged in melee, if they are not in melee themselves.
+
+== Tips ==
+
+* Fragile, but armored and difficult to hit when shieldwalling.
+* Armor piercing weapons kill them through their medium armor, just make sure they do blunt or slashing damage and not actual piercing.
+* Have good accuracy to hit them reliably.
+* Breaking their shields takes time, but does not require melee skill or Double Grip.
+* If [[Taunt (Skill)|taunted]], they can't shieldwall.
+* Their weaponry doesn't work well against heavy [[armor]], but will cause early [[morale]] checks on [[Nimble]] brothers because of [[Fearsome]].
+* Wait and move two tiles back on your first turn. Wait on the second turn, enemies will approach with no shieldwall. You have two turns in a row to attack them.
+* [[Bundle of Throwing Axes|Throwing Axes]] are required for your ranged brothers to be effective.
+* [[Heavy Rusty Axe]] kills them in one hit with a [[Traits|trait]] like [[Huge]]. [[Two-Handed Flanged Mace]] does it with [[Killing Frenzy]]. [[Named and Legendary Items|Named]] two-handed weapons can be even better.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Undead]]
+[[Category:Ancient Dead]]

@@ -1,0 +1,34 @@
+<onlyinclude>
+{| class="article-table"
+|-
+! id="allied_civilians" align="center"|[[Allied Civilians]]
+! align="center"|[[File:Ambition_goal.png|18px]] Get to 'Friendly' relations with a civilian faction
+|-
+! align="left"  |[[File:Event_65.png|100px]]
+! align="left"  |"We need allies. Forging a bond of friendship and trust with one of the towns will get the company better prices, more volunteers and more steady work."
+|-
+|
+| align="left"|<div class="mw-collapsible mw-collapsed toggle-center">
+<div class="flex-container" style="">
+
+<br />
+<div class="dialog-panel">[[File:Contract_scroll_disabled.png|center|Instructions]]<ul class="arrow">
+<li>Increase the relation with a civilian faction of one of the world's villages or towns to 'Friendly' by fulfilling contracts given in the faction's settlement. Failing contracts or betraying their trust will lower your relations. Increasing relations with city states takes longer than increasing relations with small villages. Noble houses do not count as civilian factions.</li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Bag.png|center|Rewards]]<ul class="arrow">
+<li>100 [[File:Asset_business_reputation.png|25px|Renown]]</li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Icon_locked.png|center|Requirements]]<ul class="arrow">
+<li><span style="color:red">permanently</span> marked as already completed if, when ambition selection screen displayed, relations with any settlement or city-state are at 'Friendly' or higher</li>
+</ul></div>
+
+</div></div>
+|}
+</onlyinclude>
+
+<div class="res-img">[[File:Allied_Civilians_v2.png|810px]]</div>
+[[Category:Ambitions]]

@@ -1,0 +1,21 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="arena_tournament" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Arena Tournament]]</span>
+!style="white-space: nowrap"|[[File:Dlc_6.png|25px|Blazing Deserts DLC]] <span style="color:orange">Blazing Deserts DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 14
+|-
+|colspan="3"|You learn about a settlement which is hosting an arena tournament:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Interesting."
+**The settlement will have the [[File:Settlement_effect_45.png|25px|bottom]] [[Tournament (Settlement Situation)|Tournament]] settlement situation for the next 5 days
+[[File:Requirements.png|150px]]
+*You are in the bottom 40% part (south) of the global map
+*You have to be on a road
+*The settlement can't already have the [[File:Settlement_effect_45.png|25px|bottom]] [[Tournament (Settlement Situation)|Tournament]] settlement situation before this event
+[[File:Score.png|150px]]
+*Score = 50
+</div>
+|}</onlyinclude>
+[[Category:Event]]

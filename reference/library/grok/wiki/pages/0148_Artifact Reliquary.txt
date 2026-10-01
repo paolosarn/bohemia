@@ -1,0 +1,26 @@
+{| class="article-table" width="100%"
+! align="left" id="black_monolith" |[[File:event_182.png|50x50px]] [[Artifact Reliquary]]
+|-
+! align="center" width="100%" |<!-- Black Monolith -->[[File:Artifact_reliquary.png|left|200x200px]]A collapsed ruin from days long past. The occasional flicker of torchlight betrays the presence of current inhabitants, as do the strange sounds eminating from deep within.
+|-
+|<div class="mw-collapsible mw-collapsed toggle-center">
+'''On the first visit:'''
+
+* "Onward, men."
+** "To battle!" (the fight starts)
+*** You will face:
+**** 4 [[File:Flesh_golem_orientation.png|25x25px]] unarmed [[Flesh Golem|Flesh Golems]]
+**** 4 [[File:Flesh_whisperer_orientation.png|25x25px]] [[Fault Finder|Fault Finders]]
+**** 3 [[File:Greater flesh golem orientation.png|25x25px]] [[Greater Flesh Golem|Greater Flesh Golems]]
+**** 1 [[File:Grand diviner orientation.png|25x25px]] [[The Grand Diviner]]
+**** 10 [[Flesh Cradle|Flesh Cradles]]
+* "Let's come back later." (nothing happens)
+
+'''After the battle:'''
+
+* "At least the most monstrous of the lot is dead."
+** You gain [[File:Miasma_flail_01.png|50x50px]] [[Censer of the Diviner]]
+</div>
+|}
+<noinclude>
+[[Category:Legendary Locations]]
