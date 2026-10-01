@@ -3877,6 +3877,21 @@
   },
   "verdict": "default",
   "status": "ruled"
+},
+{
+  "id": "grok-cut-b-melee-spends-nothing-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: MELEE IS THE NEXT TILE AND SPENDS NOTHING; GUNS SPEND AMMO",
+  "why": "Grok says you told it a fighter never shares a house tile, so melee means the next tile over, and that fighting without a gun should be a real way to play. Its cut: pistol and shotgun spend ammo, pipe, machete and sledge spend nothing but only reach the next tile, the shotgun is the hand-carried handgonne and the car the big one; thumbs up and combat builds it, thumbs down and you pick letters off Grok's page.",
+  "show": {
+    "how": "text",
+    "src": "RANGE AT HOUSE SCALE: 1 tile = melee, the next house or the gap. 2 = across the street: shotgun, spike strip, a thrown bottle. 3 to 6 = the rifle. 7 to 13 = a roof gun, only if you say so.\n\nTHE REWARD: a melee hit costs no ammo. A gun hit costs one round.\n\nSeen in: the fight (COMBAT), round two."
+  },
+  "verdict": "default",
+  "status": "ruled"
 }
  ],
  "verdicts": [
