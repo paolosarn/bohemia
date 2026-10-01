@@ -5,6 +5,7 @@ PASSED FILTER (coordinator 10/1, rule 54a: no game he has not named; nothing new
 
 Newest first.
 
+- 2026-09-30 | WIKI | GROK_26_WIKI_BULK_2_2026_09_30.md | noble troops, armor, ambitions
 - 2026-09-30 | WIKI | GROK_25_WIKI_BULK_2026_09_30.md | brigands, goblins, dead, beasts, weapon AP
 - 2026-09-30 | WIKI | GROK_24_WIKI_ROUND_04_2026_09_30.md | injuries, mood, and the map day
 - 2026-09-30 | WIKI | GROK_23_WIKI_ROUND_03_2026_09_30.md | perks 4 to 7 and the fight numbers
