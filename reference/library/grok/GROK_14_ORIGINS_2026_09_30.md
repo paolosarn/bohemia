@@ -1,18 +1,29 @@
 source: Grok, unverified, written 2026-09-30
 
-# VAMILY. HOW A RUN STARTS
+# HOW A RUN STARTS
 
-An origin is the company you pick before the map. It sets who you start with, the rules you cannot break, and the trouble already on you. https://battlebrothers.fandom.com/wiki/Origins
+You were adding. Lone Wolf is one origin. The game has a pile. Pulled from https://battlebrothers.fandom.com/wiki/Origins
 
-Trader: 10% better buy and sell. No renown at start. Renown comes in at 66%.
-Peasant militia: 12 poor men. Up to 16 in a fight, 25 on the roster. You can only hire lowborn.
-Deserters: three men, decent armor, low cash, a noble house hunting you. Your men act first in round one.
-Manhunters: two sellers and four indebted. Up to 16 in a fight. If the bought men are not the majority, the crew gets unhappy. Ranks grow after a fight. You buy them. His correction stands.
+1. Rebuilding a Company. Three men, 2500 crowns, tutorial.
+2. A New Company. Three men, 2900 crowns, no tutorial.
+3. Southern Mercenaries. Three men, start in the south.
+4. Trading Caravan. Two caravan hands, 10% better prices, renown at 66%.
+5. Peasant Militia. About 10 lowborn. Roster 25. Field 16. Only lowborn hires.
+6. Band of Poachers. Three hunters. Extra ammo. You see what is in a wild camp.
+7. Oathtakers. Two men and a skull. Roster 18. You take oaths, not ambitions.
+8. Deserters. Three men. A noble house hates you. You act first in round one.
+9. Northern Raiders. Three barbarians and a monk. Two houses hate you. More loot.
+10. Anatomists. Three cutters. You study bodies for potions. Never confident.
+11. Davkul Cultists. Four cultists. Sacrifices.
+12. Manhunters. Two sellers and four indebted. You buy them. Field 16. Non-indebted can whip the bought men.
+13. Beast Slayers. Three hunters. You see tracks farther. Extra trophies.
+14. Gladiators. Three pit fighters, level 3. Roster 12. High wages. Run ends if all three die.
+15. Lone Wolf. One hedge knight, level 4. Roster 12. Run ends if he dies. His favorite.
 
-Skin: the phone asks who you are. A stall crew. A block watch. Three cops who left, and a compound wants them. Or two sellers and four people you bought. The rules do not change. Only the name of the trouble.
+Skin later. The list is the mechanic.
 
-WHAT IS CERTAIN: Those four starts are from the origins page. Buying the indebted is his.
+WHAT IS CERTAIN: The fifteen starts and the caps are from the origins page. Lone Wolf is his favorite, this chat.
 
-WHAT IS NOT: I did not paste every origin. Northern raiders, gladiators, and the rest are the next pull.
+WHAT IS NOT: I did not skin all fifteen. That is a later file.
 
-WHAT WE SHOULD ASK NEXT: Nothing mechanic.
+WHAT WE SHOULD ASK NEXT: Nothing.
