@@ -4088,7 +4088,8 @@
     "how": "image",
     "src": "vote/COMBAT_THE_GROUND_IS_45_10_1.png"
    }
-  }
+  },
+  {"id": "run-map-icons-own-art-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP ICONS ARE THE GAME'S OWN PEOPLE AND BUILDINGS", "why": "You said the icons suck, so the blobs are gone: crowds are three real dressed people, crews are two people walking under their faction's flag, and home bases are a fort, a town or a trailer camp with a flag on it. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png"}}
 ],
  "verdicts": [
   {

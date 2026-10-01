@@ -110,6 +110,15 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
     const kinds = Object.keys(places).filter(k => places[k] > 0);
     ok('*** EVERY HOME BASE ON SCREEN IS A BUILDING OF ITS TIER *** (' + kinds.join(', ') + ')',
        kinds.length >= 2 && kinds.every(k => ['fortress', 'town', 'camp'].indexOf(k) >= 0));
+    /* C2. THE ICONS ARE THE GAME'S OWN ART (RUN 10/1; PAOLO: "the icons fucking suck ass"). A crowd
+       is three of the street's own dressed people, a base its tier's own building from the art the
+       ground is painted with. Counted by the render as it draws them, not guessed from pixels. */
+    const art = c.drew.art || {};
+    const nBases = kinds.reduce((n, k) => n + (places[k] || 0), 0);
+    ok('*** EVERY CROWD IS THREE OF THE GAME\'S OWN PEOPLE *** (' + (art.crowdPeople | 0) + ' people for ' + c.drew.crowds + ' crowds)',
+       c.drew.crowds > 0 && art.crowdPeople === c.drew.crowds * 3);
+    ok('*** EVERY HOME BASE IS ITS TIER\'S OWN BUILDING *** (' + (art.buildings | 0) + ' of ' + nBases + ')',
+       nBases > 0 && art.buildings === nBases);
 
     /* D. THE PARTIES ARE ON THE ROAD */
     const moved = await fr.evaluate(() => {
@@ -123,6 +132,9 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
     say('five game hours: ' + moved.moved + ' of ' + moved.n + ' parties moved; ' + moved.drawn + ' drawn on screen');
     ok('*** THE PARTIES MOVE IN DAYLIGHT *** (' + moved.moved + ' of ' + moved.n + '; it was 0)', moved.moved >= moved.n / 2);
     ok('*** AND THEY ARE DRAWN ON THE ROAD *** (' + moved.drawn + ')', moved.drawn > 0);
+    const pp = await fr.evaluate(() => { render(); return { parties: MAP_DREW.parties, people: (MAP_DREW.art || {}).partyPeople | 0 }; });
+    ok('*** AND EVERY CREW ON THE ROAD IS TWO OF THE GAME\'S OWN PEOPLE UNDER A FLAG *** (' + pp.people + ' people for ' + pp.parties + ' crews)',
+       pp.parties > 0 && pp.people === pp.parties * 2);
 
     /* E. HE WALKS WHEN HE TRAVELS */
     const walk = await fr.evaluate(() => {
