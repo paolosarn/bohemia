@@ -2,12 +2,14 @@ source: Grok, unverified, written 2026-10-01
 
 # PRICE FLOOR
 
-Paolo, this chat. 1 battery is the lowest a trade can go. Nothing sells for a fraction.
+Crowns are not in the game. Paolo, this chat. Crowns are the wiki word. The game spends batteries.
 
-The master file says EVERYTHING COSTS ONE until he plays it. That was the demo rule. His newer line wins. 10 crowns equal 1 battery. A thing worth under 10 crowns still costs 1 battery.
+10 wiki crowns become 1 battery. 1 battery is the lowest a trade can go. Nothing sells for a fraction of a battery.
 
-A level adds 2 crowns. That is under the floor, so the daily bump waits until it adds up to 10 crowns, or the wage is already at least 1 battery. Do not invent the wage table.
+The master file said everything costs one until he plays it. His newer line wins. A wiki price under 10 crowns still costs 1 battery.
 
-WHAT IS CERTAIN: The floor is his, 2026-10-01. The old line is in reference/BOHEMIA_MASTER_FOR_GROK.md.
+A level adds 2 wiki crowns. That is under the floor, so the daily bump waits until it adds up to 1 battery. Do not invent the wage table.
 
-WHAT IS NOT: I have not finished the Claude economy pass. That is next.
+WHAT IS CERTAIN: No crowns in the game. The floor is 1 battery. His, 2026-10-01.
+
+WHAT IS NOT: The wage table. Next pull, then divide by 10, then floor at 1.
