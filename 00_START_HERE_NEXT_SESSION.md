@@ -1,3 +1,16 @@
+MODS (mods-59jyd6): 10/1 LATEST -- [read count] round two and [keep list into defaults]
+KEEP 2 of 11. Both rows stay CLAIMED. TAB: VOTE, item ONE HONEST NUMBER: two brothers
+dressed from body, helmet, extra slots; each shows the damage it takes to drop him AND the
+stamina the gear costs, plus a verdict line (all numbers are TUNING placeholders).
+READ COUNT unchanged on fresh main (7ad4472): 4 files for one weapon's damage (2 hidden in
+blobs), 3 for a background, 4 for a sound; target 1 each. It only moves when content moves
+into a data file, which is research-only until he says build.
+KEEP 2 = "Effective Hitpoints": one number beside the armour plus its stamina cost, row on UI
+as [honest number], pieces from CHARACTER's attachments trade. 9 KEEPS left; next is
+Backgrounds and Attribute Ranges. [one weapon file] still open; [grok sources] waits on
+EYES's PASSED FILTER stamp. Record records/BOHEMIA_MODS_READ_COUNT_ROUND_TWO_AND_KEEP_2_10_1_26.md.
+PENDING Paolo: nothing.
+
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
 AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
 Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
