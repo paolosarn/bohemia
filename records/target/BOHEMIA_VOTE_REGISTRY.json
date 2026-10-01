@@ -4031,7 +4031,20 @@
    },
    "draft": true
   },
-{"id": "combat2-the-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "TWO FIGHT BOARDS: THE CUL-DE-SAC AND THE DESERT WASH", "why": "Two whole fight boards that are places, not a straight street: a cul-de-sac with six houses round the turnaround and their driveways, and a dry desert wash snaking through creosote with rocks to hide behind and one outcrop for high ground. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on a suburb or desert cell.", "show": {"how": "image", "src": "vote/COMBAT2_THE_BOARD_KINDS_10_1.png"}}
+{"id": "combat2-the-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "TWO FIGHT BOARDS: THE CUL-DE-SAC AND THE DESERT WASH", "why": "Two whole fight boards that are places, not a straight street: a cul-de-sac with six houses round the turnaround and their driveways, and a dry desert wash snaking through creosote with rocks to hide behind and one outcrop for high ground. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on a suburb or desert cell.", "show": {"how": "image", "src": "vote/COMBAT2_THE_BOARD_KINDS_10_1.png"}},
+  {
+   "id": "combat-cover-is-a-thing-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "COVER IS A THING",
+   "why": "The tan boxes in the fight are now the second combat chat's dead cars, block walls and shed, and the rings and red bars at the enemies' feet moved over their heads. You see it in the COMBAT tab, where a parked car is now one tile instead of six.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_COVER_IS_A_THING_10_1.png"
+   }
+  }
 ],
  "verdicts": [
   {

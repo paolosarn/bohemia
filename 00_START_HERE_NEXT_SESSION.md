@@ -45976,6 +45976,10 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 7 -- V238: COVER IS A THING (COMBAT 2's seven cover pieces dropped in, rule 55: dead cars on road tiles, walls/corner/shed on lots, seeded by cell, biggest whole scale that fits a tile), a parked car is ONE tile (was 2x3 = 24x36 m), the "sees you" ring, feet health bar, gun stick and car ovals moved onto/off the man. ***
+Stamp 10/1g. Record: records/BOHEMIA_COMBAT_COVER_IS_A_THING_10_1_26.md. Gate nothing_on_the_ground 18/0 (4 new legs, 14/4 on the build before). FIGHT LENGTH (cover bot) 45.7 / 7.9 / 4.7 s, downed, kills 3/1/0.
+RULE 55 caught at the rebase: my first cut picked its own cover art (his perimeter walls); that pick is COMBAT 2's, thrown away before the push. SCALE GAP for COMBAT 2/DIRECTION: their pieces are at the ground's 42.9 px/m, the man ~4x that, a 1.8 m wall reaches his thigh.
+NEXT (in order): rule 57's END CONDITION (his newest: 'combat didn't end'; all down / all fled / your side down; COMBAT owns it, RUN [fight returns] plugs in); then THE BOARD AT 45 DEGREES + COMBAT 2's ground tiles (515x364, real 1.4 m sidewalks, rule 56; today the sidewalk tile is a whole house wide); then JUMP 2 [board generator] with rule 59's tile table.
 *** [house tiles back] ROUND 6 -- V237: THE STREET HAS KERBS (road and sidewalk as a cross-section of the approved street bank) + fight length round two. ***
 Stamp 10/1e. Record: records/BOHEMIA_COMBAT_THE_STREET_HAS_KERBS_10_1_26.md
 COOK's block war kit was voted DOWN 9/30 ("It looks bad man so ugly"): NOT used. V237 xsecPatch/xsecKind:
