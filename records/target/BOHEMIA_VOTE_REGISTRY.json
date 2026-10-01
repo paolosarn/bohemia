@@ -3804,7 +3804,20 @@
      "how": "image",
      "src": "vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png"
     }
+   },
+  {
+   "id": "dynasty-heirs-10-1",
+   "kind": "tile",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "YOUR PEOPLE HAVE KIDS. THEY ARE THE NEXT ACT'S COMPANY.",
+   "why": "You asked if the people you hire belong to the dynasty each act, and what happens if one dies in an earlier act. Here is the answer, shot on the real phone. Left: act 1, one person in the company (the game wrote him itself: a real job, finished, its own bond). Second: in act 2 the phone shows his heir, Fern, 29, with his surname if you ever asked his name, or a fresh one if you never did. Third: act 3 shows Fern's heir, Wyatt, 20. Right: I made him fall early in act 1 with no kid, and his line is gone from act 2 (and 3). If he had been with you 60 days, or came with a family, he would have left a kid. A death in act 2 or 3 changes nothing in the past. And if the past changes, who is there is worked out again, but what the heirs already did stays done. Each act holds up to 12 of these lines, 36 across the game. Two things I am not hiding. The game cannot kill anyone yet (your people are down, never dead, an older ruling your 20 percent replaced and nobody has built), so today every one of your people carries a line forward, and the death part is proven on the rules, not on the street. And it shows names and ages only: the faces and the company screen are the portrait and UI lanes' jobs. Thumbs up and this is how the company inherits. Thumbs down and tell me which of the numbers (60 days, 15 to 35 years old, half the traits, 12 an act) is wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/DYNASTY_HEIRS_10_1.png"
    }
+  }
  ],
  "verdicts": [
   {

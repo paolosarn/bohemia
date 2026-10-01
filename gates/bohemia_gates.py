@@ -5066,6 +5066,26 @@ GATES = [
      'the shell\'s face function ignores the chosen sex (0 of 4096 pixels moved, 8 of 8 variants), so the '
      'gate asserts the wire and prints the pixel result rather than asserting a defect. 97 legs.',
      True),
+    ('HEIRS', ['node', 'gates/heirs_gate.js'],
+     'DYNASTY row [heirs], 10/1, rule 39d (Paolo 9/28): "do the people you hire also belong to the dynasty '
+     'each act? 36 instead of 12?" and his hole, "what happens if they die earlier in an earlier act". '
+     'EACH ACT STARTS WITH THE HEIRS OF THE LAST ACT\'S COMPANY, DERIVED FROM THE LEDGER EVERY TIME AND '
+     'NEVER STORED. The five rules of the three-acts law s12, one leg each: a death in act 1 removes the '
+     'line from acts 2 and 3 (no kid, no heir; a kid if he was with the company 60 days or came with a '
+     'family); a death in act 2 or 3 leaves the past byte for byte; a change in the past re-derives who is '
+     'there and never deletes what the future did (the orphaned deeds are still on the ledger, byte for '
+     'byte); a man recruited later in act 1 is an heir on the next flip; the main character is never in it. '
+     'Plus: the cap (15 lines, room for 12, the strongest kept, order-independent), three generations '
+     'carrying the first surname, a frozen ledger derives all three acts (pure), the save carries what '
+     'HAPPENED and never the heirs, and the city\'s copy is the engine\'s file verbatim. ON THE GLASS: a '
+     'REAL company the game wrote itself (a real job taken and finished, its own bond fired, resolved to a '
+     'person six neighbourhoods away), the heirs row on the phone with a real finger, flipping away takes '
+     'it away, a fall in act 1 cuts the line and the chip goes, the city\'s own save and restore carry it. '
+     'Negative controls run by sabotaging the engine five ways, each turned the gate red. STATES WHAT IT '
+     'DOES NOT CLAIM: the walked game cannot kill anyone (down, not dead), has no hire day, no gear and no '
+     'family flag, so those clauses are proved on the ledger input and the glass proves the survivors line. '
+     '83 legs.',
+     True),
     ('STRIKE ASK', ['node', 'gates/strike_ask_gate.js'],
      'QUESTS row [strike ask], 9/22, harvested from ECONOMY Q35. Rule 12: the named blocker was MEASURED '
      'rather than waited on -- WORLD shipped engine/bohemia_strike.js on 9/21 (THE BLOCK HOLDS THE DOOR), '
