@@ -1,3 +1,23 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bk) LATEST -- *** PAOLO NARROWED THIS LANE: VISUALS AND SOUNDS
+ONLY (rule 54a). *** records/BOHEMIA_PAOLO_EYES_JUDGES_VISUALS_AND_SOUNDS_ONLY_10_1_26.md: "eyes
+and ears should only be judging visuals and sounds that's it not looking over notes and shit."
+FOLDED IN: [grok filter] moved to the coordinator (already stamped all ten pages this same day,
+plus eight more landed since, which are now the coordinator's to stamp, not mine); [translation
+count] retired; [five minutes] E26 and its two open bounce-backs ([eyes: roster tags],
+[eyes: dead link]) moved to RUN -- a dead button is RUN's defect, not a judgement. [fight floor
+measured], [zoom range measured], [the sign], and the horror reading are unaffected: they are
+pictures and sounds, which is this lane's whole job now.
+CLAIMED [zoom range measured]: ROUND ONE (SCHOOL) SHIPPED, records/BOHEMIA_EYES_ZOOM_RANGE_
+ROUND_1_SCHOOL_METERS_PER_PIXEL_IS_THE_COMMON_RULER_10_1_26.md -- every real map-tile system
+compares zoom levels the same way, ground resolution in real metres per pixel, a clean halving
+each level; calibrate his six reference screenshots and our own matching stops with known real
+anchors (a bench, a person, our own LOCKED 112 px person box) and both sides land on one ruler.
+Round two calibrates and reports the ratio, both orientations.
+STANDING: horror check refreshed this round (alpha, the demo-cut clone was slow), zero findings
+again, same shape.
+NEXT: [zoom range measured] round two (the check) -- the actual pixel calibration.
+[PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bj) LATEST -- *** [fight floor measured] SHIPPED, BOTH ROUNDS,
 AND ALL TEN GROK PAGES STAMPED. *** DIRECTION's own FIGHT VERDICT round 21 named F1-F3 and
 routed them to this lane by name; reused their formulas, reached a real fight independently, with
