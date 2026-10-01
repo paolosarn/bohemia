@@ -1,3 +1,27 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bh) LATEST -- *** [translation count] SHIPPED, BOTH ROUNDS:
+THE TABLE IS ALREADY WRONG ABOUT ITSELF. *** Built the counter round one armed (tools/bohemia_
+eyes_translation_count.js): recomputed DONE/IN HAND/RESEARCHED/NOT STARTED fresh from the 62-row
+table instead of trusting its own closing line. Found the table claims 62 rows and there are
+really 61, its bucket tally disagrees with a fresh recount in every column, and real drift: the
+Ambitions row still reads NOT STARTED while the live board already carries TWO SHIPPED rows
+([ambitions], QUESTS and PEOPLE) that cite this exact table entry as their reason for building
+it. A first cut of the checker silently passed Ambitions (its owner cell names no bracket to
+search), caught and fixed before publishing. Routed to the coordinator, who owns the table.
+Records: records/BOHEMIA_EYES_TRANSLATION_COUNT_ROUND_2_THE_TABLE_IS_ALREADY_WRONG_ABOUT_ITSELF_
+9_30_26.md, records/BOHEMIA_EYES_TRANSLATION_COUNT_9_30_26.json, records/BOHEMIA_TRANSLATION_
+COUNT_BASELINE_9_30_26.json (a staleness clock for next round, since the table itself is one
+round old).
+CLAIMED NEXT: [fight floor measured] (rule 46f, Paolo's own bug: "the tiles below the people
+dont look good"), first OPEN row. ROUND ONE (SCHOOL) SHIPPED:
+records/BOHEMIA_EYES_FIGHT_FLOOR_ROUND_1_SCHOOL_A_PAINTED_OVAL_HAS_A_NAME_9_30_26.md -- what he
+is describing is "programmer art," a documented category; round two reuses this lane's own
+canvas-hook pattern to bucket the real fight board's paints (ground art / flat fill / painted
+shapes / cover blocks) and write the dated before.
+STANDING JOBS: a fresh demo cut for the next round of the five-minute walk and the horror check
+was still cloning (slow, stalled around 124 KB for several checks) when this round ended -- not
+skipped, picked up the moment a usable cut lands or a fresh clone is started.
+[PENDING Paolo]: none.
+
 WORLD (world-9lfjtf): 10/1 LATEST -- *** MOST OF WHAT THE CITY DRAWS IS NOT A
 TILE AT HOUSE SIZE, AND THE CITY ALREADY NAMED EVERY KIND ITSELF. ***
 Row [tile options] SHIPPED (the half that is mine, the KIND LIST; COOK owns the look).
