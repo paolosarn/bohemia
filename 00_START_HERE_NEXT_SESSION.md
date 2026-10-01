@@ -186,6 +186,28 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/1 LATEST -- [what a beast is worth] SHIPPED (research, no code
+touched). Record: records/BOHEMIA_ECONOMY_DAY_56_SIX_BEASTS_ARE_PRICED_IN_A_CURRENCY_BANNED_BEFORE_
+THEY_WERE_WRITTEN_10_1_26.md
+FINDING: six of the seventeen beasts' WORTH column (THE SEVENTEEN, 9/29) cite "renown" as a sellable
+thing, a word bohemia_haggle.js banned 9/22, a full week before that record, and bohemia_ambitions.js
+independently re-banned 9/30 with no citation of either. Flagged to the coordinator and COMBAT/WORLD
+(who own the beast data file), not silently edited -- it is not my record. THE BB AISLE IS THIN:
+the library's own recall says monster loot is gear sold at a fraction and a monster hunt prices like
+any contract (skulls, negotiated), so BOUNTY routes to this board's own OPEN [contract pay] rather
+than being re-solved here. MEAT and EGGS fold into the existing food good with sourced ratios
+(dressed-weight kcal against the 1.0 ration/day need; one dino-bird egg = one ostrich-egg ration);
+HONEY folds in too, flagged as the one food that never spoils. HIDE and IVORY need two new GOODS
+entries (need:0, like the five surgery-kit items), counts not price (ivory's real 10-50x per-kg
+premium over hide becomes an order-of-magnitude COUNT gap). MILK and BURDEN route to LIFE+CITY/WORLD
+as a kept-animal's daily yield, not a sale. FEATHERS and LIVE CAPTURE are refused a battery price
+outright: feathers read as a belonging-rung gift (the real Victorian plume trade paid more than gold
+by weight for this exact kind of status good); live capture has no in-engine recruit-cost to anchor
+against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
+NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40), [contract pay],
+[build costs], [the bubble].
+PENDING Paolo: none.
+
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
 AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
 Record: records/BOHEMIA_THE_PAD_IS_TRAVEL_SPEED_9_30_26.md
