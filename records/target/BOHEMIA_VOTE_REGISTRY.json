@@ -4090,7 +4090,37 @@
    }
   },
   {"id": "run-map-icons-own-art-10-1", "kind": "tile", "lane": "run", "made": "10/1", "sha": "pending", "title": "THE MAP ICONS ARE THE GAME'S OWN PEOPLE AND BUILDINGS", "why": "You said the icons suck, so the blobs are gone: crowds are three real dressed people, crews are two people walking under their faction's flag, and home bases are a fort, a town or a trailer camp with a flag on it. You see it on the map, the first screen of the demo after loading.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_ICONS_ARE_THE_GAMES_OWN_ART_10_1.png"}},
-{"id": "combat2-night-boards-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FIGHTS AT NIGHT: THE ONLY LIGHT IS WHAT STILL WORKS", "why": "The suburb street and the strip lot after dark: black except where one street lamp in three still burns and where people keep fire barrels going, and only those lit squares let you shoot and see like daytime. Thumbs up and combat uses these for night fights, and you see it in the COMBAT tab when a fight starts after sundown.", "show": {"how": "image", "src": "vote/COMBAT2_NIGHT_BOARDS_10_1.png"}}
+{"id": "combat2-night-boards-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FIGHTS AT NIGHT: THE ONLY LIGHT IS WHAT STILL WORKS", "why": "The suburb street and the strip lot after dark: black except where one street lamp in three still burns and where people keep fire barrels going, and only those lit squares let you shoot and see like daytime. Thumbs up and combat uses these for night fights, and you see it in the COMBAT tab when a fight starts after sundown.", "show": {"how": "image", "src": "vote/COMBAT2_NIGHT_BOARDS_10_1.png"}},
+{
+  "id": "grok-ten-crowns-one-battery-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: TEN WIKI CROWNS ARE ONE BATTERY, AND ONE BATTERY IS THE FLOOR",
+  "why": "Grok says you told it there are no crowns in the game, every Battle Brothers price gets divided by ten into batteries, and nothing sells for less than one battery. Thumbs up and the economy and tuning chats convert every wiki price that way; thumbs down and everything stays at one until you play it.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, FROM YOUR CHAT: 10 crowns = 1 battery. The floor is 1 battery. The shop's town markup applies first, then divide by ten. A level's 2-crown raise adds up to 1 battery every five levels. A bought (indebted) man costs batteries up front and 0 a day.\n\nSeen in: the settlement screen's stall and posts (RUN TWO), the top bar."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-see-the-hire-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: YOU SEE THE WHOLE PERSON BEFORE YOU PAY, AND THE GEAR COMES WITH THEM",
+  "why": "Grok says you told it the hidden hire in vanilla Battle Brothers was the worst part and you modded it, so our hire row shows the face, the past, the stats with their stars and the traits before you pay, no tryout fee, a hire runs 20 to 1,000 batteries, and the gear they stand in comes with them. Thumbs up and the posts in the settlement screen are built that way; thumbs down and the hire stays hidden like vanilla.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, FROM YOUR CHAT: no tryout, no fee to look. The row shows face, past, stats, stars, traits. The button spends 20 to 1,000 batteries and buys the person and their kit. Daily pay from the wage table after; a bought man pays 0 a day.\n\nSeen in: the settlement screen's posts (RUN TWO)."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
 ],
  "verdicts": [
   {
