@@ -71,8 +71,28 @@ SPR = {s['id']: s for s in K._B['sprites']}
 SIDE, KERB, GUT = m(1.8), m(0.18), m(0.5)
 
 
+def quiet(im, k=0.45):
+    """THE FLOOR IS QUIETER THAN THE MEN ON IT (CGRD-01). His walk and slab tiles carry heavy
+       black cracks that read as noise at fight zoom (round 1's own weak note). Each colour is
+       pulled toward the middle of ITS OWN family ramp and snapped back onto that ramp, so the
+       cracks stay drawn and every pixel stays his; only the shouting goes."""
+    byf = {f: sorted(r, key=K.LUM) for f, r in RAMPS.items()}
+    memo, p = {}, im.load()
+    for y in range(im.size[1]):
+        for x in range(im.size[0]):
+            c = p[x, y][:3]
+            if c not in memo:
+                ramp = byf[K.fam_of(c)]
+                mid = K.LUM(ramp[len(ramp) // 2])
+                v = K.LUM(c) + (mid - K.LUM(c)) * k
+                memo[c] = min(ramp, key=lambda e: abs(K.LUM(e) - v))
+            p[x, y] = memo[c] + p[x, y][3:]
+    return im
+
+
 def band(img, variants, y0, y1, seed, flip=False):
     b = dress(variants, PX, y1 - y0, seed)
+    if variants[0].startswith('walk'): b = quiet(b)
     if flip: b = b.transpose(Image.FLIP_TOP_BOTTOM)
     img.paste(b, (0, y0))
 
@@ -179,7 +199,7 @@ def lot(seed=51):
 
 
 def slab(seed=61):
-    im = dress(['concrete_0', 'concrete_1'], PX, PX, seed)
+    im = quiet(dress(['concrete_0', 'concrete_1'], PX, PX, seed))
     d = ImageDraw.Draw(im)
     for k in range(1, 4):                                          # joints every 3 m
         v = m(3.0 * k)

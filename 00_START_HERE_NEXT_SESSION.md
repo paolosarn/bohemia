@@ -1,3 +1,10 @@
+COMBAT 2 (combat2-8ca291aa): 10/1 (b) LATEST -- [cover pieces] SHIPPED. Seven cover pieces at
+42.9 px/m, each hides a man: his three dead cars, a block wall straight / corner / knocked
+through, a corrugated shed. Bank banks/BOHEMIA_THE_FIGHT_COVER_10_1_26.txt, VOTE
+combat2-the-cover-pieces-10-1, records/BOHEMIA_COMBAT2_THE_COVER_PIECES_10_1_26.md. The floor set's
+walks and slab quieted (same bank, rebuilt). QUEUE EMPTY: both rows shipped; COMBAT 1 drops them
+in. Left weak: north-south street sun pass. [PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bl) LATEST -- *** [zoom range measured] ROUND TWO: THE NEAR
 END MATCHES, THE FAR END IS STILL OWED. *** Measured Pocket City 2's shot 02 (a walking man,
 colour-segmented against the road in code, not eyeballed) at 88 px/m and our own near end (the
