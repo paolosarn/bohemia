@@ -2,7 +2,10 @@ COMBAT TWO (combat2-8ca291aa): 10/1 (g) LATEST -- [floor set] ROUND SIX SHIPPED 
 the suburb block and strip lot at night (snapped to his palette, his lamps and drums as the only
 light, a light[5][5] lit/dark tag from the drawn pools). Bank
 banks/BOHEMIA_THE_FIGHT_BOARDS_AT_NIGHT_10_1_26.txt, VOTE combat2-night-boards-10-1. The cook takes
-~4 min (palette snap over 250k allowed colours). NEXT: store-front facades, the casino floor.
+~4 min (palette snap over 250k allowed colours). NEXT, FIRST (rule 61, COMBAT [board size]): the
+board kinds are 5x5; Battle Brothers' board is twenty-plus across with lines five apart, so re-cut
+every kind at COMBAT's board size (the plan generator takes N; the cutter seeds it). Then store-front
+facades, the casino floor.
 [PENDING Paolo]: none.
 
 COMBAT TWO (combat2-8ca291aa): 10/1 (f) LATEST -- [floor set] ROUND FIVE SHIPPED (rules 57, 59): the
