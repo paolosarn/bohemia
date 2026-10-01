@@ -45982,6 +45982,9 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 7b -- V239: EVERY FIGHT ENDS (rule 57, his 'combat didn't end'): V159 had made the way out the ONLY win, so a cleared board waited forever. Now all down / all fled -> won; runners in reach get ROUT_TURNS=3 turns, then won; the way out is the early win; his side down lost; each end through sendCombatEnd (RUN's door). ***
+Stamp 10/1h. Record: records/BOHEMIA_COMBAT_EVERY_FIGHT_ENDS_10_1_26.md. FIGHT LENGTH (cover bot) 65.3 / 6.7 / 6.2 s, downed, kills 3/0/0. Gate every_fight_ends 9/0 (4/5 on the build before: all down gave over:false). combat_lab 923/9 (main 922/10). This lane's 4 gates registered in the suite (orphans 34 -> 30).
+NEXT: THE BOARD AT 45 DEGREES + COMBAT 2's ground tiles (515x364, real 1.4 m sidewalks, rule 56); then JUMP 2 [board generator] with rule 59's tile table and COMBAT 2's board kinds (banks/BOHEMIA_THE_FIGHT_BOARD_KINDS_10_1_26.txt: cul-de-sac, desert wash).
 *** [house tiles back] ROUND 7 -- V238: COVER IS A THING (COMBAT 2's seven cover pieces dropped in, rule 55: dead cars on road tiles, walls/corner/shed on lots, seeded by cell, biggest whole scale that fits a tile), a parked car is ONE tile (was 2x3 = 24x36 m), the "sees you" ring, feet health bar, gun stick and car ovals moved onto/off the man. ***
 Stamp 10/1g. Record: records/BOHEMIA_COMBAT_COVER_IS_A_THING_10_1_26.md. Gate nothing_on_the_ground 18/0 (4 new legs, 14/4 on the build before). FIGHT LENGTH (cover bot) 45.7 / 7.9 / 4.7 s, downed, kills 3/1/0.
 RULE 55 caught at the rebase: my first cut picked its own cover art (his perimeter walls); that pick is COMBAT 2's, thrown away before the push. SCALE GAP for COMBAT 2/DIRECTION: their pieces are at the ground's 42.9 px/m, the man ~4x that, a 1.8 m wall reaches his thigh.

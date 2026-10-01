@@ -4045,7 +4045,20 @@
     "src": "vote/COMBAT_COVER_IS_A_THING_10_1.png"
    }
   },
-{"id": "combat2-four-more-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FOUR MORE FIGHT BOARDS: SUBURB, STRIP LOT, SCRUB, FREEWAY", "why": "Four more places a fight can start: a suburb street with houses both sides, a dead strip mall parking lot, open desert scrub, and eight lanes of jammed freeway, and every tile now says if it is rough ground, high ground or a wall, like Battle Brothers. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_FOUR_MORE_BOARD_KINDS_10_1.png"}}
+{"id": "combat2-four-more-board-kinds-10-1", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/1", "title": "FOUR MORE FIGHT BOARDS: SUBURB, STRIP LOT, SCRUB, FREEWAY", "why": "Four more places a fight can start: a suburb street with houses both sides, a dead strip mall parking lot, open desert scrub, and eight lanes of jammed freeway, and every tile now says if it is rough ground, high ground or a wall, like Battle Brothers. Thumbs up and combat cuts fights from these, and you see it in the COMBAT tab when a fight starts on that kind of map cell.", "show": {"how": "image", "src": "vote/COMBAT2_FOUR_MORE_BOARD_KINDS_10_1.png"}},
+  {
+   "id": "combat-every-fight-ends-10-1",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "EVERY FIGHT ENDS",
+   "why": "When the last man drops or the rest run off, the fight now ends and pays out, instead of waiting quietly for you to walk to the way out, which is why your fight never ended. You see it in the COMBAT tab: win a fight and the receipt comes up the moment nobody is left to shoot.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_EVERY_FIGHT_ENDS_10_1.png"
+   }
+  }
 ],
  "verdicts": [
   {

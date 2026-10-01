@@ -5689,11 +5689,14 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
    The behaviour lives in gates/fight_moves_you_gate.js, which plays it. What
    belongs here is the shape: derived not designed, world state not a direction,
    and the win reading as the way out rather than as a board clear. */
-  ok('V159 EVERY FIGHT HAS A WAY OUT AND REACHING IT IS THE WIN, and killing every man no longer ends the encounter -- the RF4 shape, where clearing a floor does not advance you, taking the stairs does',
+  /* V239 RE-POINTED (rule 57, Paolo 10/1: "combat didn't end so I couldn't get back into the overworld"):
+     the way out stays and reaching it is the EARLY win, but the last man down ends the fight too, and the
+     chase after runners is capped. The play-through proof is gates/every_fight_ends_gate.js. */
+  ok('V159 + V239 EVERY FIGHT HAS A WAY OUT AND REACHING IT IS THE EARLY WIN -- and every fight ENDS: the last man down wins it, the chase after runners is capped at ROUT_TURNS (rule 57)',
     demo.includes('function placeWayOut(){') &&
     demo.includes('function exitCheck(){') &&
-    /if\(EXIT_ON&&G\.exit\)\{ try\{ setRead\('NOTHING LEFT IN YOUR WAY'/.test(demo) &&
-    /function afterKill\(\)\{ if\(aliveEnemies\(\)\.length===0&&!\(EXIT_ON&&G\.exit\)\)return winGame\(\);/.test(demo));
+    /const ROUT_TURNS=\d+;/.test(demo) &&
+    /function afterKill\(\)\{ if\(fightOver\(\)\)return winGame\(\);/.test(demo));
 
   ok('V159 DERIVED, NEVER DESIGNED (MAP LAW): the way out is read off the bearing the threat is coming FROM, exactly as V137 derives the hold place from that same bearing. Nothing authors a layout',
     /const threat=n\?Math\.atan2\(sy,sx\):0;\s*\n\s*const d?=?.*G\.exit=\{ea:threat/.test(demo.replace(/\r/g, '')) ||
@@ -5707,7 +5710,8 @@ ok('V144 AND A CAPPED TICK NEVER LEAVES A BACKLOG for the next one to inherit, a
     /resetFightState\(\); placeWayOut\(\);/.test(demo));
 
   ok('V159 AND THE WIN SAYS WHICH WIN IT WAS -- getting out is not "area clear", and a readout that called it that would teach him the wrong rule',
-    /setRead\(G\._wonByExit\?'YOU MADE IT':'AREA CLEAR'/.test(demo));
+    /* V239 RE-POINTED: three wins now, each named: out, they ran, area clear (rule 57) */
+    /setRead\(G\._wonByExit\?'YOU MADE IT':\(_ran\?'THEY RAN':'AREA CLEAR'\)/.test(demo));
 
   ok('V159 THE AMMO IS OFF BY HIS SECOND REJECTION, behind ONE dial, with the mechanism intact underneath so one word brings it back',
     demo.includes('const AMMO_ON=false;') &&
