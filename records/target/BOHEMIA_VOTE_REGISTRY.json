@@ -3709,7 +3709,37 @@
     "how": "page",
     "src": "BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html"
    }
-  }
+  },
+{
+  "id": "sprint-combat-run-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "COMBAT AND THE RUN SPRINT: ONE WHOLE FEATURE PER ROUND, UNTIL THE DEMO SHIPS",
+  "why": "You said combat and the run must make bigger jumps every chat and go way faster because you are getting the demo released. So both chats are in sprint mode: a round is a whole feature on the thing you play, never a slice, a study page or a measurement. Their next three rounds are written on the board already. Combat round one is the whole floor under the fighters. Run round one is the whole demo loop: map, travel, arrive, contract, fight, return. And there is a release list now: ten things the demo must do before a stranger gets it, each checked by a machine, refreshed every round.",
+  "show": {
+    "how": "text",
+    "src": "SPRINT, LOCKED 10/1.\n\nCOMBAT: 1 the floor, all of it. 2 reach lit on square tiles and the roof. 3 no two boards alike. 4 the roster file.\n\nRUN: 1 the whole demo loop on the map. 2 road events. 3 the release list green.\n\nTHE RELEASE LIST: opens in 3 s; the loop has no dead end; the floor passes the judge; no text overlaps; 60 fps through a fight; the save survives; both orientations; the first sixty seconds are a game; a stranger knows what to press; NOTES sends."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "beast-defaults-from-grok-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "TWO BEAST DEFAULTS FROM GROK'S FIRST FINDINGS: NO GLOW, AND THE MAMMOTHS ARE FIRST BIRTHS",
+  "why": "Grok read the whole pack and found seven places where two of our pages disagree. Two are about the beasts. One page said the lab's animals glow at night; you locked 'nothing glowing' the same day, so your lock wins and glow is dead. And Grok checked the mammoth: the real lab edits elephant cells, nobody has a living mammoth genome, so a wild herd that forgot the lab by 2040 is not honest. Default: the herd in act three is the first births, a funded bet that walked out. The dino-bird stays, but as an edited living bird, never a dinosaur.",
+  "show": {
+    "how": "text",
+    "src": "FROM GROK, 10/1 (unverified by a lane yet).\n\n1. NOTHING GLOWS. Your 9/29 lock wins over the round-three 'glow animals' line.\n\n2. THE MAMMOTHS ARE FIRST BIRTHS in act three, not a wild herd.\n\n3. THE DINO-BIRD is a lab-edited living bird. The word dinosaur never appears.\n\nSource: colossal.com/mammoth, cited by Grok."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {

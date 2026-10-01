@@ -18,8 +18,9 @@
 
 ## THE GAME IN ONE LINE (Paolo's words)
 ECONOMIC APOCALYPSE BATTLE BROTHERS ON A PHONE, WITH A BETTER STORY. Las Vegas after the US dollar dies (about
-2040-2045; a tech bubble on circular vendor financing, the debt was tech debt). Three generations of one family,
-played all at once (flip between them; the future is computed from what the earlier acts did). Analog horror in
+2040-2045; a tech bubble on circular vendor financing, the debt was tech debt). Three generations of one family;
+you start as ONE person, the next is born from how you played him, and the flip between the three unlocks later in the game
+(never the first screen; the future is computed from what the earlier acts did). Analog horror in
 every pixel and every sound. Batteries are the money. Everything costs one. The overworld is a Battle Brothers style
 map of the valley (tap to travel, time passes, roads faster than dirt, events on the road); a place is a settlement
 screen with buildings you tap; the fight is quick, on the beat at 120 BPM, on a square grid of house-sized tiles cut
@@ -31,8 +32,9 @@ rip-off.
 ## THE REFERENCES, AND WHAT EACH IS FOR (never add one)
 Battle Brothers = the campaign layer, the map, travel, events, places, the company (its fight is flavour only).
 Rogue Fable 4 = the fight's speed and feel. Final Fantasy XII = gambits (the company acts on its own). Final Fantasy
-X and Fallout 1 = the interface look only. Ocarina of Time = the three-acts flip only. Newgrounds = the look's era.
-Las Vegas = the city, real geography.
+X and Fallout 1 = the interface look only. Ocarina of Time = the three-acts flip only. Assassin's Creed = the story frame and the
+ending twist only, 'possibly'. Pocket City 2 = the zoom range and the drop-in transition only. Newgrounds = the look's
+era. Las Vegas = the city, real geography.
 
 ## HOW TO ANSWER AN ASK
 - One page per ask, plain English, eighth-grade reading, no fluff. Numbers with a SOURCE (a URL) on every one; if a
