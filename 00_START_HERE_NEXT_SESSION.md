@@ -405,6 +405,129 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/1 LATEST -- *** THE FIGHT'S FLOOR. HE SAID THE TILES BELOW THE
+PEOPLE LOOK BAD, SO THE DESERT WAITED AND THE GROUND WENT FIRST (rule 46f).
+Shipped: records/BOHEMIA_THE_FIGHTS_FLOOR_MEASURED_10_1_26.txt,
+banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt, tools/bohemia_the_fights_floor_cook_10_1_26.py,
+VOTE cook-the-fights-floor-10-1 (slices/vote/COOK_THE_FIGHTS_FLOOR.png, three panels: HIS OWN
+SCREENSHOT as the before, the same frame with this floor under it, and the pixels close up).
+
+COOKED: five house-sized GROUND tiles and two things that go on them.
+  THE ROAD   two lanes, his lane line turned to run with the street, gutters both edges,
+             four wheel tracks.
+  THE KERB   the tile that makes a street read from above: road, gutter, kerb face,
+             sidewalk, and the strip of yard behind it. TG-04.
+  THE YARD   a front lot: gravel, dead scrub, bare patches, and the path somebody wore.
+  THE SLAB   parking and loading concrete, pour joints and bay lines.
+  THE ROOF   a STANDABLE deck (rule 37g, his own up-vote): gravel, a parapet you can read,
+             a drain, and A STAIR HEAD, because high ground nobody can reach is not high
+             ground.
+  THE DEAD CAR    HIS OWN APPROVED WRECK out of the 7/28 bank, REUSED NOT REDRAWN, not one
+             pixel touched. Cabin 1.45 m blocks, hood and boot 1.10 m are cover: one piece,
+             two jobs, which is the fact this lane put in the bank last round.
+  THE BLOCK WALL  NEW, and it is the thinnest kind on the whole board: this lane's 9/30
+             count found 389 cover pieces against 2,899 blockers. 12 m of concrete block,
+             1.9 m standing, a 3 m section knocked down to 1.0 m, rubble on the ground in
+             front of the gap.
+
+*** THE FAULT, AND IT NEEDED NO MEASUREMENT AT ALL: THERE WAS NEVER A HOUSE-SIZED GROUND
+TILE. *** Not one. The banks hold 44 px paving cells, the board holds a house tile, and
+nothing in the repo ever said how many of one go in the other. No metre contract, so the
+board was free to paint a paving cell at whatever size it liked, and it did. THE FLOOR IS
+NOW A CONTRACT: 42.9 painted pixels a metre, which is HIS OWN APPROVED STREET'S density, on
+a seamless 44 px lattice, every cell pasted 1:1. 37 guards, all green, all able to refuse the
+build. 720 cells verified pixel for pixel against the bank cell each came from as it was
+laid, zero differences, and 81 to 100 per cent of each finished tile is still his untouched
+pixels. Nothing translucent, nothing near the pad grey, no two tiles the same picture, every
+field tile joins itself.
+
+*** A NUMBER I REFUSED TO CLAIM. *** I wanted to say how many metres of street his one-metre
+paving is being stretched over on the live board, and the repeat ruler gives a clean answer
+off his panel. I am not claiming it. That panel is 491 px wide and his phone is 1170, so
+COMBAT's sheet already resized it by a factor I cannot recover from the file, and every
+length inside it is multiplied by that factor. A clean reading off the wrong surface looks
+exactly like a fact, and this lane has shipped about nineteen of those. REPORTED, NOT
+CLAIMED; the real reading is EYES', on the running fight at his phone's profile.
+
+*** THE GUARD THAT GOT REWRITTEN TWICE, AND IT IS THE LESSON OF THE ROUND. *** To prove
+nothing had been resampled I measured each tile's repeat and demanded it be 44. IT FAILED MY
+OWN GOOD ART, TWICE, FOR TWO DIFFERENT REASONS. First: a MULTIPLE of a period is a louder
+peak than the period, so three paving variants answer 132 and the jitter answers 176, both
+perfectly honest. Second, and worse: THE YARD HAS ALMOST NO REPEAT AT ALL, because his yard
+cells meet edge to edge with nearly no contrast -- which is exactly what a yard should look
+like. A ruler that demands a visible grid is a ruler that rewards a worse picture. The repeat
+ruler diagnosed HIS board and is the wrong instrument for certifying mine; the proof is exact
+now and needs no ruler.
+
+*** AND THREE MORE THAT ONLY LOOKING CAUGHT, AFTER EVERY GUARD WAS GREEN. ***
+ 1 THE ROAD'S WEAR BANDS CAME OUT PALE. A shadow that lightens is not a shadow: the nearest
+   entry on a colour's own family ramp can sit above it. Darkening now only ever picks
+   downward and lightening only upward, which is a one-line fix to a bug this lane has
+   written in three different shapes.
+ 2 THE ROOF READ AS A WOVEN MAT. His deck cell tiled flat is a pattern, not a surface you
+   would put a boot on. It is gravel now, with a stair head and a vent box.
+ 3 THE WALL WAS DRAWN STRAIGHT ON. Every other thing in this game is seen from above at
+   forty-five degrees, so a flat elevation reads as a sticker. Redrawn as a cap you look
+   down on and a face below it, with the rubble lying where it fell.
+ And one the palette guard caught on its own: the broken top of the wall was lit by
+ multiplying the colour by 1.2, which invents colours that are on nobody's ramp. Lighting is
+ one step up the family's own ramp now.
+
+*** FLAGGED FOR COMBAT, NOT DECIDED HERE: HOW BIG IS A HOUSE TILE? *** Two live numbers.
+12.0 m in the fight's own code (TILE_WIDE 1.75 x the 112 box, carried in the no-Atari gate).
+About 20 m in WORLD's 10/1 measurement off our own suburb kit: a house is 15.8 x 9.0 m and
+the lot pitch, centre to centre, is 19.5 m over 18.0 to 21.8. That is a 1.7x disagreement
+about the most basic measurement on the board, and WORLD's is the better evidenced: theirs
+came off our own drawn city, the 12 came off a sprite-width convention. THIS FLOOR DOES NOT
+HAVE TO PICK, on purpose: it is a density on a seamless lattice, so lay 12 cells for a 12.3 m
+tile or 20 for a 20.5 m one and the art is identical. The call is COMBAT's, with WORLD's
+number in front of them, because it changes how far a man walks in a turn.
+
+WHAT THIS DOES NOT FIX, AND IT IS NOW THE LOUDEST THING ON THE BOARD: THE BODIES. The fight
+draws a body at 0.57 of a tile, so on a 3x phone a body fills about 336 device pixels and the
+body art we own is 67. With the ground at 1:1 the people become the coarsest thing in the
+picture. They are in the AFTER panel at a clean 4x on purpose, where he can see it.
+
+*** FOR PLUMBER AND THE COORDINATOR: A WHOLE-SUITE RUN NO LONGER FITS IN ONE GO, AND THE
+RUNNER SAYS SO ITSELF. *** I started the full suite the way the ship law says and it printed
+its own verdict partway through: "MEASURED THIS RUN: 21.7s a gate, so this run's 752 gates
+need ~16342s against a 2700s budget. AT LEAST 11 SHARD(S)". That is four and a half hours of
+gates against a forty-five minute budget. I had guessed two and a half hours from the rate I
+was watching; the runner's own number is nearly double that, and the runner's is the one to
+use. THE SHARDING IS BUILT AND IT IS HONEST: --shard i/n interleaves so no shard inherits
+every browser gate, it counts the union and the multiplicity against a full run instead of
+trusting the arithmetic, it never claims ALL GATES GREEN, and a malformed shard refuses
+rather than quietly running the wrong set. SO THE REAL SHIP FLOW IS ELEVEN SHARDS, not one
+run, and the 7/25 ONE GATE PASS PER SHIP law still holds in spirit (one pass, not two) but
+its "~95s suite" is a hundred and seventy times out of date. Somebody should write that into
+the law, because every lane is otherwise starting a run that cannot finish. Not this lane's
+to fix; the number is here because nobody had put one on it.
+
+*** AND COOK IS PAUSED FROM HERE (rule 54, Paolo 10/1: "only combat, the run and eyes and
+ears, that's it"). *** This round's work predates the pause, and rule 54 points COMBAT
+straight at it: "COMBAT takes COOK's floor tiles from the banks under DIRECTION's bible."
+The bank is banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt and it carries its own 'contract'
+field with the metre rule, so COMBAT does not have to read this file to use it. No further
+cooking until he names this chat.
+
+TWO THINGS THE REBASE ON TO MAIN CAUGHT, BOTH WORTH KNOWING:
+ 1 RULE 22f LANDED WHILE I WAS COOKING (Paolo 10/1, the fourth votes: "two sentences max").
+   The VOTE tab now refuses any waiting item whose why is more than two sentences or whose
+   last sentence does not say where YOU SEE IT and name the tab. Mine was six sentences and
+   the gate caught it on the rebase, not before. Rewritten to two; the gate is 32 ok, 0
+   failed. Any paused lane with items still in the queue has the same problem waiting.
+ 2 THE REGISTRY SPLICER THIS LANE USES ASSUMED AN INDENT. It looked for the end of the items
+   array as a literal two-space string; main's copy came back with one space and it refused.
+   It finds the terminator with a pattern now and asserts the match is unique. Worth copying:
+   the same splice runs in several lanes.
+
+STILL OPEN IN THIS LANE, IN THE ORDER THE 9/30 COUNT SETS: the freeway (39 pieces), the
+landfill (37), the trailer park (35) and the airport (21); then COVER everywhere, the
+thinnest kind on the whole board; then LIGHT (99) and WEATHER (36); then the desert, the
+shore and the hills, which the count says are in better shape than the sheet believed.
+Also still open: the boot's heel on the WHICH WAY IS HE FACING card, three undrawn landmarks
+(luxor, springs, robofactory), and 103 place kinds still drawn as canvas circles.
+
 COOK (cook-mce6r5): 9/30 LATEST -- *** THE BLOCK WAR KIT, AND THE COUNT THE ROW ASKED FOR:
 15,010 DRAWN PIECES IN 53 BANKS, AND THE SHEET'S GUESS WAS WRONG IN BOTH DIRECTIONS. THE
 SHORE IS THE SECOND BEST STOCKED THING WE OWN AND COVER IS THE THINNEST KIND ANYWHERE. ***

@@ -4058,6 +4058,21 @@
     "how": "image",
     "src": "vote/COMBAT_EVERY_FIGHT_ENDS_10_1.png"
    }
+  },
+  {
+    "id": "cook-the-fights-floor-10-1",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/1",
+    "floor": "fight",
+    "ppm": 42.9,
+    "title": "THE FIGHT'S FLOOR: THE TILES BELOW THE PEOPLE",
+    "why": "The ground under your fighters is cut from your own street bank now, one pixel to one pixel, with your wrecked car and a broken block wall instead of the cardboard. You see it in the VOTE tab: your old board, the same frame with the new floor, and the pixels up close.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FIGHTS_FLOOR.png"
+    }
   }
 ],
  "verdicts": [
