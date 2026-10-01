@@ -54,3 +54,8 @@
     rocks, trees, fences, ruins, bridges, night) with its AP cost, fatigue cost, hit-chance change, defence change, line of
     sight rule, range change, and which perks change it (Pathfinder and any other). One row per tile, a link per row. Then
     one line per row: what you would make it in Las Vegas (mechanic first, the skin second).
+
+16. THE COMBAT MAP'S SIZE AND THE MAP'S ICONS (Paolo 10/1). (a) Exactly how many hexes wide and deep is a Battle Brothers
+    tactical battle map (normal, and the arena); how far apart the two lines start; sources. (b) On the world map: which
+    things scale with the zoom (the town art, the party sprites, the roads) and which stay screen-size (names, banners,
+    situation icons); a line per thing, with where you read it.
