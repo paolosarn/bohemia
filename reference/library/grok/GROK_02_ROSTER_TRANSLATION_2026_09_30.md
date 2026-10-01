@@ -3,7 +3,7 @@ source: Grok, unverified, written 2026-09-30
 # ASK 2. THE ROSTER, TRANSLATED
 
 Floor is the Battle Brothers enemy list. https://battlebrothers.fandom.com/wiki/Enemies
-His rule this chat: humans stay people. Fantasy units become a real machine or a real animal. Goblins-as-drones was an example, not a lock. I am proposing the best fit. He corrects.
+His rule this chat: humans stay people. Fantasy units become a real machine or a real animal. Goblins-as-drones was an example, not a lock. He corrects.
 
 ## Humans, still people
 
@@ -18,21 +18,23 @@ His rule this chat: humans stay people. Fantasy units become a real machine or a
 
 Count of human factions he named: 8. Wiki also has bounty hunters, gladiators, oathbringers, envoys as extras. I am not adding them as factions.
 
-## Not people. Proposed translation
+## Not people
 
-1. Orcs. Heavy machines with no driver. Young = forklift and loader. Warrior = armored security robot. Berserker = the same robot with the limiter off. Warlord = a yard boss unit. Catapult = a trailer mortar. Reason: orcs are the armor wall. A person in a truck is already the noble knight.
-2. Goblins. Small machines. Skirmisher = roomba-class with a sting. Ambusher = a drone on a roof. Wolfrider = a drone on a dog or a mule. Shaman = a jammer. Overseer = a handheld controller. Reason: goblins are many, fast, weak, and annoying. That is the delivery-bot layer.
-3. Wiedergangers and fallen heroes. Bodies still moving because a lab collar or a leftover implant did not die with the dollar. Not magic. Not zombies-as-fantasy. Geist = a speaker rig that fakes a voice and breaks morale. Necromancer = the person with the controller.
-4. Ancient dead. Old National Guard and museum armor still on a power pack. Legionary = sealed infantry kit. Honor guard = the heavy suit. Priest = a radio relic. Necrosavant = a night thing that drinks power or blood. This is the one I am least sure of.
-5. Beasts. Already his lock: de-extinct animals, Ice Age and after, labs that lost power. Direwolf, hyena, camel, lion, short-faced bear, sabre-tooth, hippo, mammoth, sloth. The seventeen page is the skin. This roster is the Battle Brothers lesson under it.
+1. Orcs. Proposal: heavy machines with no driver. Young = forklift and loader. Warrior = armored security robot. Berserker = the same robot with the limiter off. Warlord = a yard boss unit. Catapult = a trailer mortar. Not locked.
+2. Goblins. Proposal: small machines. Skirmisher = roomba-class. Ambusher = a drone on a roof. Wolfrider = a drone on a dog or a mule. Shaman = a jammer. Overseer = a handheld controller. Not locked. He called this an example.
+3. Wiedergangers and fallen heroes. LOCKED this chat: a body with a chip still in it. Analog horror. Not magic. Not an empty robot. The chip is why it gets back up. The necromancer is the person with the controller. A geist is a speaker rig that fakes a voice.
+4. Ancient dead. Proposal, weak: old National Guard kits still on a power pack. Not locked.
+5. Beasts. His 9/29 lock: de-extinct animals, Ice Age and after, labs that lost power.
 
-## Traits, because he named them
+Real anchor, not a how-to: deep-brain stimulators and pacemakers already sit in living people and stop when the battery dies. A collar that outlives the person is the horror version of that. I am not designing the chip.
+
+## Traits
 
 Loyal: 50% less likely to desert if unhappy. https://battlebrothers.fandom.com/wiki/Loyal
-Translation: some hires stay a couple days past the grace, some walk on day one of empty. The base rule stays his: a couple of days after zero batteries. Traits move that clock. I am not inventing new traits.
+Base clock is his: a couple of days after zero batteries. Traits move that clock.
 
-WHAT IS CERTAIN: The human list is the wiki. The six-pile economy is his. Beasts are lab animals by his 9/29 lock.
+WHAT IS CERTAIN: Humans stay people. Undead are chipped bodies. Beasts are lab animals. Six-pile economy is his.
 
-WHAT IS NOT: Orcs-as-robots and goblins-as-drones are a proposal. Undead-as-collared-bodies is a proposal. Ancient dead is the weak one.
+WHAT IS NOT: Orcs and goblins are still a proposal.
 
-WHAT WE SHOULD ASK NEXT: Are the dead still bodies with a leftover collar, or are they machines with no driver?
+WHAT WE SHOULD ASK NEXT: Nothing on the dead. Next is weapons, car as the handgonne.
