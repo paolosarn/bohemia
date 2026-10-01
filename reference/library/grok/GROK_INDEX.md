@@ -4,6 +4,7 @@ source: Grok, unverified, written 2026-09-30
 
 Newest first.
 
+- 2026-09-30 | VAMILY | GROK_09_ORC_GOBLIN_SKINS_2026_09_30.md | orc and goblin jobs skinned, mechanics unchanged
 - 2026-09-30 | VAMILY | GROK_08_BEAST_SKINS_2026_09_30.md | beast jobs skinned as lab animals, non-animals named
 - 2026-09-30 | VAMILY | GROK_07_FIRST_FIGHT_2026_09_30.md | first fight is the wiki contract, skin only
 - 2026-09-30 | ask 6 | GROK_06_HOW_A_FIGHT_RUNS_2026_09_30.md | how a Battle Brothers fight runs, and the house-tile options
