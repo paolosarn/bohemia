@@ -1513,7 +1513,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1a - THE RETINUE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/1b - THE HAIR HAS VOLUME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4563,7 +4563,26 @@ function renderFace(spec,opts){
         if(((s>>>19)&3)===0)P(xx,yy,hs);else if(((s>>>25)&7)===0)P(xx,yy,hi);});
     }
   }
-  if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}}
+  if(h.braid){let bs=h.braid,bx=cx+bs*(fw-1);for(let yy=Y0+5;yy<jaw-1;yy++){let z=((yy/2|0)%2);P(bx+bs*z,yy,[30,28,32]);P(bx+bs*(1-z),yy,[58,54,60]);}}
+  /* THE HAIR HAS NO VOLUME ([blank faces] school, 9/28 -- 84.8% average flat-tone share
+     of every hairstyle's own pixels). Same light the face mass already takes under this
+     flag, lit on the right: a highlight across the upper-right dome, a shadow down the
+     whole left side. Run LAST, after the part, the flare, the fringe, the texture and the
+     braid, and READ OFF THE BUFFER rather than guessed from the polys -- the lesson the
+     texture overlays above already paid for, since the mass is several overlapping polys
+     and a bounding box leaks at the temples and the crown. Only pixels still carrying the
+     flat hc tone move, so a loc, a coil or a wave mark already drawn is never touched
+     twice or flattened back out. */
+  if(_3d){
+    const _hMid=(htop+jaw)/2;
+    for(let yy=0;yy<N;yy++)for(let xx=0;xx<N;xx++){
+      const i=(yy*N+xx)*4;
+      if(buf[i]!==hc[0]||buf[i+1]!==hc[1]||buf[i+2]!==hc[2])continue;
+      if(xx>cx&&yy<_hMid)P(xx,yy,hi);
+      else if(xx<cx)P(xx,yy,hs);
+    }
+  }
+ }
  /* *** THE PORTRAIT WEARS THE HAT THE BODY IS WEARING (rule 37i, Paolo 9/27: "head gear
     MUST show in the portrait"). *** Same law as the glasses fix below, same shape: read
     the garment off the body (spec.hat, set two hundred lines up from _np.equipped.hat),

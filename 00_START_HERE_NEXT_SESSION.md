@@ -1,3 +1,45 @@
+PORTRAIT (portrait-vamily-yke55s): 10/1 LATEST -- *** [blank faces] ROUND TWO
+SHIPPED: THE HAIR GETS THE SAME LIGHT THE FACE DOES. The school round's own
+second finding, left unaddressed when [three d look] fixed the first (THE
+LIGHT) -- 84.8% average flat-tone share of every hairstyle's own pixels, a
+colored cap with no shape. *** Record: records/BOHEMIA_THE_HAIR_HAS_VOLUME_10_1_26.md.
+TAB: VOTE (portrait-the-hair-has-volume-10-1).
+
+THE FIX, SAME FLAG AS [three d look]: `_3d` was already in scope at the end
+of the hair-drawing block, one function, nothing new to thread through.
+Added one step, run LAST after the cap, part, flare, fringe, texture overlay
+and braid: a highlight sweep (the `hi` tone the renderer already computed
+and only ever used for a 3-pixel crown triangle) across the upper-right
+dome, a shadow sweep (`hs`) down the whole left side, same light direction
+the face mass already takes under this flag. READ OFF THE BUFFER, not
+guessed from the polys -- the texture overlays a few lines above already
+paid for that lesson ("the mass is three overlapping polys plus a
+highlight, any bounding box clips the temples and leaks at the crown").
+Only pixels still carrying the flat `hc` tone move, so a loc/coil/wave mark
+a textured cut already drew is never repainted.
+
+MEASURED, THE SCHOOL ROUND'S OWN RULER, SAME 20 CROWD IDS: flat-tone share
+85.1% (agrees with the school round's 84.8%) -> 20.6% with the flag on,
+range 10.5%-35.6%. The three named phone-strip faces, reused not recast:
+Reyna 92.2%->16.8%, Ezekiel 92.3%->16.4%, Perla 76.7%->32.1% (she rolled a
+durag, less crown dome for the sweep to reach -- the same real coverage
+cost [three d look]'s own card named for her).
+
+PROVED NOTHING SHIPPED MOVED (rule 18): opts.threeD still never set on the
+play surface; his approved face hash 8c2cac60 unmoved in talking_portrait
+(34/0) and family (17/0).
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, character_in_the_vote_tab 9/0, handoff 9/0, speak_along
+6/0, portrait_matches_body 11/0, vote_tab 30/1 (pre-existing, world-what-a-
+tile-is-10-1's own missing sha, checked against a clean origin/main
+worktree, not mine).
+
+NOT DONE: THE BROW SHADOW IS AN ACCIDENT, the school round's third finding,
+is still untouched -- the next line of [blank faces] if nobody else picks
+it up first.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bi) LATEST -- *** STANDING JOBS ROUND 24: A SECOND BOUNCE-BACK,
 AND A DEAD CONTROL THAT IS PROBABLY UI'S OWN KNOWN WORK, NOT A NEW BUG. *** @thevalley (a
 notes-panel hashtag link) repeated dead two rounds running under full rigour -- added as
