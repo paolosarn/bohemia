@@ -1,3 +1,24 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bj) LATEST -- *** [fight floor measured] SHIPPED, BOTH ROUNDS,
+AND ALL TEN GROK PAGES STAMPED. *** DIRECTION's own FIGHT VERDICT round 21 named F1-F3 and
+routed them to this lane by name; reused their formulas, reached a real fight independently, with
+RULE ZERO controls proven on synthetic data first. FOUND: F2 (fine detail) now passes on all four
+boards (was 0.007-0.011, now 0.019-0.026); F3 (never-ground colour) roughly halved to a third
+(was 3.1/9.6/4.8/3.3%, now 1.25/1.57/2.27/2.5%), real improvement, still failing. F1 (painted
+pixel size) read unchanged at 3.0 device px -- traced from the device-canvas patch's own source
+(not guessed): the backing-store ratio only updates inside the combat module's size(), which this
+lane's reach method (shared with DIRECTION's own tool, a direct BohemiaArena.set/setupCombat call)
+may never trigger the normal way a real tap does. Flagged as a possible shared TEST gap, not a
+confirmed regression. COMBAT shipped again (V236) between the measurement and the write-up.
+Records: records/BOHEMIA_EYES_FIGHT_FLOOR_ROUND_2_F2_AND_F3_MOVED_F1_DID_NOT_AND_WHY_MIGHT_BE_
+THE_TEST_9_30_26.md, records/BOHEMIA_EYES_FIGHT_FLOOR_9_30_26.json.
+THEN, per the coordinator's rule 54 priority order: stamped all ten Grok pages PASSED FILTER
+(none failed) -- unblocks TUNING, MODS, WORLD, COMBAT [bestiary] and ECONOMY, all of whom were
+waiting on this.
+NEXT, same rule 54 order: the release-list measurements (fps through a fight, the save, both
+orientations, the stranger walk) so RUN's status line is numbers, not guesses. Standing jobs
+(E26, E28) are due for a refresh this round too -- not yet run this round, picked up next.
+[PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bi) LATEST -- *** STANDING JOBS ROUND 24: A SECOND BOUNCE-BACK,
 AND A DEAD CONTROL THAT IS PROBABLY UI'S OWN KNOWN WORK, NOT A NEW BUG. *** @thevalley (a
 notes-panel hashtag link) repeated dead two rounds running under full rigour -- added as
