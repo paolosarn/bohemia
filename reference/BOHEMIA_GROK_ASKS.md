@@ -36,3 +36,13 @@
     ending, the Moon, the de-extinct beasts, the dollar's death by circular tech financing: where does the story break
     against real science, real economics, real history? One hole per line, with the source that breaks it and one way
     it could hold. Paolo talks these through with you; only what he then rules becomes canon.
+
+13. WHICH BEASTS SURVIVE THE MOJAVE (Paolo 10/1: 'could a mammoth survive in the desert of the Mojave? we need to continue
+    beast research'). For each of the seventeen (dogs, dire wolves, hyenas, hogs, camels, horses, cattle, the lion, the
+    bear, the sabre-tooth, the hippo, the mammoth, the dino-bird, the swarm, the eagle, the lizards, the sloth): could a
+    breeding population last 20 years in a Las Vegas economic apocalypse on real water, heat and food? Sources. Cut the
+    ones that cannot. Then: Battle Brothers' Unhold as something that is NOT an animal (a boss is never an animal, 'one
+    shot and it's dead'). PLAIN ENGLISH, full sentences; he read one of your pages and said 'not even proper English'.
+14. NEVER WRITE A FIRST FIGHT AGAIN. He voted your slice sheet down: 'who are you to decide what the first fight is? That's
+    the great thing about Battle Brothers.' Instead: how does Battle Brothers produce the first fights (spawn rules by day,
+    distance, contract type) so ours can be generated the same way.
