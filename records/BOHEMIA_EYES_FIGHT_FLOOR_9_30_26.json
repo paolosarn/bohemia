@@ -1,0 +1,207 @@
+{
+  "what": "F1-F3 of the fight floor, read by machine, fresh off the current alpha",
+  "row": "[fight floor measured], rule 46f",
+  "when": "2026-10-01T02:53:47.772Z",
+  "surface": "slices/BOHEMIA_ALPHA_0_9.html (current main)",
+  "seeds": [
+    1,
+    5,
+    9,
+    13
+  ],
+  "controls": [
+    {
+      "name": "C0 THE DOOR IS BEHIND US",
+      "pass": true,
+      "detail": "the door held 33704 ms after the first knock"
+    },
+    {
+      "name": "C1 THE FIGHT ANSWERED: setupCombat/houseOn found in a real frame",
+      "pass": true,
+      "detail": "found"
+    },
+    {
+      "name": "C2 THE CLASSIFIER KNOWS GROUND FROM A MARK",
+      "pass": true,
+      "detail": "flat grey patch fired classes={\"pale pads\": false, \"red\": false, \"white marks\": false, \"green words\": false}; saturated red patch read red=1.0 (must be >0.95) with other classes at 0.0"
+    },
+    {
+      "name": "C3 THE BAND READER KNOWS FINE FROM FLAT",
+      "pass": true,
+      "detail": "flat patch band=(0.0,0.0) (must be ~0); checkerboard band=(1.0,1.0) (must be ~1)"
+    }
+  ],
+  "fresh_rows": [
+    {
+      "seed": 1,
+      "w": 390,
+      "h": 635,
+      "cw": 390,
+      "ch": 641,
+      "x": 0,
+      "y": 161,
+      "dpr": 3,
+      "kind": "street",
+      "unit": 3,
+      "shot": "/home/user/bohemia/records/eyes_fight_floor/fight_1.png"
+    },
+    {
+      "seed": 5,
+      "w": 390,
+      "h": 635,
+      "cw": 390,
+      "ch": 641,
+      "x": 0,
+      "y": 161,
+      "dpr": 3,
+      "kind": "street",
+      "unit": 3,
+      "shot": "/home/user/bohemia/records/eyes_fight_floor/fight_5.png"
+    },
+    {
+      "seed": 9,
+      "w": 390,
+      "h": 635,
+      "cw": 390,
+      "ch": 641,
+      "x": 0,
+      "y": 161,
+      "dpr": 3,
+      "kind": "street",
+      "unit": 3,
+      "shot": "/home/user/bohemia/records/eyes_fight_floor/fight_9.png"
+    },
+    {
+      "seed": 13,
+      "w": 390,
+      "h": 635,
+      "cw": 390,
+      "ch": 641,
+      "x": 0,
+      "y": 161,
+      "dpr": 3,
+      "kind": "street",
+      "unit": 3,
+      "shot": "/home/user/bohemia/records/eyes_fight_floor/fight_13.png"
+    }
+  ],
+  "F1_painted_unit_device_px": [
+    3,
+    3,
+    3,
+    3
+  ],
+  "F1_pass": false,
+  "F2_fine_band": [
+    [
+      0.0191,
+      0.0191
+    ],
+    [
+      0.0213,
+      0.0207
+    ],
+    [
+      0.026,
+      0.026
+    ],
+    [
+      0.0214,
+      0.0219
+    ]
+  ],
+  "F2_pass": false,
+  "F3_never_ground_pct": [
+    {
+      "pale pads": 0.08,
+      "red": 0.33,
+      "white marks": 0.79,
+      "green words": 0.04,
+      "fake_pct": 1.25
+    },
+    {
+      "pale pads": 0.08,
+      "red": 0.21,
+      "white marks": 1.22,
+      "green words": 0.06,
+      "fake_pct": 1.57
+    },
+    {
+      "pale pads": 0.06,
+      "red": 0.07,
+      "white marks": 2.07,
+      "green words": 0.07,
+      "fake_pct": 2.27
+    },
+    {
+      "pale pads": 0.26,
+      "red": 0.08,
+      "white marks": 2.12,
+      "green words": 0.04,
+      "fake_pct": 2.5
+    }
+  ],
+  "F3_pass": false,
+  "against_round_21_verdict": {
+    "F1_then": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "F1_now": [
+      3,
+      3,
+      3,
+      3
+    ],
+    "F2_then": [
+      [
+        0.0091,
+        0.0108
+      ],
+      [
+        0.0068,
+        0.0075
+      ],
+      [
+        0.0096,
+        0.011
+      ],
+      [
+        0.0102,
+        0.0113
+      ]
+    ],
+    "F2_now": [
+      [
+        0.0191,
+        0.0191
+      ],
+      [
+        0.0213,
+        0.0207
+      ],
+      [
+        0.026,
+        0.026
+      ],
+      [
+        0.0214,
+        0.0219
+      ]
+    ],
+    "F3_then_pct": [
+      3.1,
+      9.6,
+      4.8,
+      3.3
+    ],
+    "F3_now_pct": [
+      1.25,
+      1.57,
+      2.27,
+      2.5
+    ]
+  }
+}
