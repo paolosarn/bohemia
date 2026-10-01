@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a motel office at the edge of a dead strip mall, on a dirt road off the map's main highway
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the favour's landing and its floor), 9 (three ways past the burned stretch), 10 and 23 (a lost fight has a result), 12 (the waystation exit), 22 (the filter rig), 28 (flags and saves named).
 TWIST: T11 THE REWARD IS GONE (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs BATTERIES. Lands AT HAND-IN.
 
 ## THE SITUATION
@@ -34,8 +34,15 @@ At hand-in (the twist), the party finds the office door open and Omar sitting on
 - B. TAKE THE MOTEL'S GENERATOR. He will not stop you. Cost: STANDING with Omar and his sister's household (both remember); gained: a generator worth about 4 batteries at a trader. Closes as FINISHED.
 - C. WRITE IT OFF. Say nothing, leave. Cost: 6 batteries. Closes as FINISHED; Omar owes the company, and the debt stays in his ledger, not ours.
 
+THE ROAD EAST (QR-AC, lines 9, 10, 12 and 23; `Q087.X4`, `Q095.X3`, `Q139.P2`): three ways past the burned stretch: the road (a day; a Destroyer group may stand on it, the fight board); the wash (a day longer, nobody on it); or the night (cross after dark while the group sleeps, half a day slower). A LOST FIGHT leaves the crate with the group and the party alive; Omar is told, pays nothing, and the contract closes FAILED WHILE TRYING, never a reload. THE PRICED EXIT: he may leave the crate at the waystation before the burned stretch for the sister's people to collect; the contract closes FINISHED at half, 3, and the empty rack still meets him at hand-in.
+
 ## WHAT THE LEDGERS REMEMBER
 Delivered: the sister's household holds clean water for the season (a small WORLD effect: that settlement's food leg holds). Hand-in choice writes to Omar's standing and to the company's deeds. Choice C writes an open favour Omar can pay later, in another act, if the motel survives the Destroyers. DECLINING LEAVES NOTHING: nobody remembers the no, the crate goes with someone else or does not go.
+
+DONE, SHOWN (QR-AC, line 22; `Q078.X2`): the sister's settlement screen shows a filter rig on its well on the next visit.
+THE LANDING AND THE FLOOR (QR-AC, lines 5 and 18; `Q121.X1`, `Q022.X2`): C's favour lands on arrival at the motel in a later act, drawn first as Omar's lamp lit in the office window. If the favour was never set, or the motel fell to the Destroyers, it reads as any motel and nothing names the company.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes omar_handin = room | generator | written_off | failed | waystation; omar_favour = open | none. A play-forward test sets each value and walks to every place that reads it (Omar's standing, the sister's well prop, the later-act motel window); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE SIGN (the world testifies first)
 When the player takes the job, the battery rack behind the counter is visible, and its padlock is a zip tie. A careful eye reads it.

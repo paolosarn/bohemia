@@ -1,3 +1,24 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bi) LATEST -- *** STANDING JOBS ROUND 24: A SECOND BOUNCE-BACK,
+AND A DEAD CONTROL THAT IS PROBABLY UI'S OWN KNOWN WORK, NOT A NEW BUG. *** @thevalley (a
+notes-panel hashtag link) repeated dead two rounds running under full rigour -- added as
+[eyes: dead link]. One new first-time dead control named (@nightcount), not bounced. Three
+controls matching UI's brand-new speed pad (II, 1x, 3x) also read dead by this test, but UI's own
+board row already shows that exact feature CLAIMED, unshipped, with its own gate RED on the 3x
+multiplier -- almost certainly the same known-unfinished work, named as such rather than raised
+as an independent finding (the walker's "novel words/cells" test may just be the wrong instrument
+for a control whose only job is a background time rate). Horror check: zero findings, same shape.
+Records: records/BOHEMIA_EYES_E26_WALK_DEPLOY_9_14_26.json, records/BOHEMIA_EYES_E28_HORROR_
+CHECK_9_21_26.json.
+NEXT: [fight floor measured] round two (the check) -- reach a real fight, hook the board canvas's
+paints the way round one armed, write the dated before. Standing jobs continue every round.
+[PENDING Paolo]: none.
+
+QUESTS (quests-dvybth): 10/1 LATEST -- *** ROUND SEVEN: RULE 51'S TWO SLOTS IN EVERY PAGE, FIVE CONTRACT PAIRS THAT
+SHARE A ROAD, 24 DRAFT FOLLOWERS FOR PEOPLE, THE OLDEST 48 DESIGNS PASS THE CHECKLIST. 210 designs, 30 pages. ***
+NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md.
+PEOPLE: [followers] researched (QR-AD). UI: the phone board spec is in QR-AE. [grok sources] waits on the first page.
+NEXT: [fold the rest], [lines 31 and 32], [eighth shelf].
+
 EYES AND EARS (eyes-5vql33): 10/1 (bh) LATEST -- *** [translation count] SHIPPED, BOTH ROUNDS:
 THE TABLE IS ALREADY WRONG ABOUT ITSELF. *** Built the counter round one armed (tools/bohemia_
 eyes_translation_count.js): recomputed DONE/IN HAND/RESEARCHED/NOT STARTED fresh from the 62-row
@@ -179,6 +200,34 @@ Also rechecked (rule 12): [reputation lines] still needs the fight team's group-
 work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
+
+ECONOMY (economy-vamily-knxaeh): 10/1 LATEST -- [what a beast is worth] SHIPPED (research, no code
+touched). Record: records/BOHEMIA_ECONOMY_DAY_56_SIX_BEASTS_ARE_PRICED_IN_A_CURRENCY_BANNED_BEFORE_
+THEY_WERE_WRITTEN_10_1_26.md
+FINDING: six of the seventeen beasts' WORTH column (THE SEVENTEEN, 9/29) cite "renown" as a sellable
+thing, a word bohemia_haggle.js banned 9/22, a full week before that record, and bohemia_ambitions.js
+independently re-banned 9/30 with no citation of either. Flagged to the coordinator and COMBAT/WORLD
+(who own the beast data file), not silently edited -- it is not my record. THE BB AISLE IS THIN:
+the library's own recall says monster loot is gear sold at a fraction and a monster hunt prices like
+any contract (skulls, negotiated), so BOUNTY routes to this board's own OPEN [contract pay] rather
+than being re-solved here. MEAT and EGGS fold into the existing food good with sourced ratios
+(dressed-weight kcal against the 1.0 ration/day need; one dino-bird egg = one ostrich-egg ration);
+HONEY folds in too, flagged as the one food that never spoils. HIDE and IVORY need two new GOODS
+entries (need:0, like the five surgery-kit items), counts not price (ivory's real 10-50x per-kg
+premium over hide becomes an order-of-magnitude COUNT gap). MILK and BURDEN route to LIFE+CITY/WORLD
+as a kept-animal's daily yield, not a sale. FEATHERS and LIVE CAPTURE are refused a battery price
+outright: feathers read as a belonging-rung gift (the real Victorian plume trade paid more than gold
+by weight for this exact kind of status good); live capture has no in-engine recruit-cost to anchor
+against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
+NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40), [contract pay],
+[build costs], [the bubble].
+PENDING Paolo: none.
+
+UI (ui-kmqmrf): 10/1 LATEST -- *** [bb interface] ROUND NINE: THE SIX IN THE BAR, BUILT. *** TAB: the demo's map, top bar.
+BATTERIES FOOD MEDS ROUNDS TAPE WATER in one plate, pixel mark + the game's own count; meds/rounds/tape/water have no count
+anywhere (ECONOMY r55) so they draw a dim dash; BohemiaLedger.count(kind) is the one socket a company ledger plugs into.
+Gate the bar says three things 23/0 (2 mutations). VOTE ui-the-six-in-the-bar-10-1. Record ..._ROUND_NINE_THE_SIX_IN_THE_BAR_10_1_26.md.
+FOR TUNING: vote item tuning-who-dies-9-30 has no sha, so the vote tab gate is 30/1. NEXT: the road event; [speed pad] still waits on PLUMBER.
 
 UI (ui-kmqmrf): 9/30 LATEST -- *** [speed pad] BUILT AND LIVE, NOT SHIPPED: II 1x 2x 3x 5x ON THE MAP,
 AND 3x ONLY DELIVERS ABOUT 2x ON THE GATE BOX. *** TAB: the demo's first screen (the map), bottom right; same on the alpha's map.
@@ -1826,6 +1875,39 @@ ITS SOURCE CAN HOLD A GATE GREEN; DO NOT INVENT A MOUTH TO HIT A SHAPE; and
 now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
+
+CHARACTER (character-0lurbs): 10/1 (a) LATEST -- *** [barber] FIRST COOK: THE COST IS REAL
+MATH, AND THE TWO EDITORS IT GATES ARE REAL DOORS, NOT A MOCKUP. ***
+TAB: CHARACTER (open the portrait or the HAIR shelf, both really open), and the VOTE tab.
+
+[attachments] shipped last round, so this round I claimed the next open line: the
+barber, where you change your look and it costs a battery. Rule 41 split the job
+three ways. PORTRAIT owns the face. RUN owns the settlement screen and the
+building you tap, neither built yet. This lane owns the haircut bank (already
+ours) and the cost itself, which nobody had ever built.
+
+Built a small, honest piece: a visit costs exactly one battery, checked with
+real numbers against the real currency system, and refuses cleanly when you
+cannot pay. It does not invent a fifth spending rule; the game already freezes
+spending to four fixed kinds, so this reuses the same plain payment method
+everything else uses, just for a new reason.
+
+Then proved what a visit is actually FOR is real, not a drawing of it: one real
+tap on your own face opens the real face editor, one real tap on the hair shelf
+opens the real haircut bank, twelve cuts on it today. Three separate pictures,
+each matching exactly what it claims, nothing scrolled past or hidden.
+
+Not done on purpose: the settlement screen and the barber building itself
+(RUN's job), and new hairstyles, which rule 37i also asked for but is its own
+separate round, not rushed in beside the plumbing.
+
+Gates: reference check 250/0, reuse-first 244 passed / 4 failed (all 4
+pre-existing, none mine), vote tab 30/1 (one pre-existing red, not mine), the
+build-a-lot gate re-checked clean (56/0) to make sure the new engine file
+did not disturb anything already shipped.
+
+Record and files: records/BOHEMIA_THE_BARBER_10_1_26.txt,
+engine/bohemia_barber.js, gates/barber_gate.js, tools/bohemia_cook_the_barber.js.
 
 CHARACTER (character-0lurbs): 9/29 (b) LATEST -- *** [attachments] SHIPPED: THE WHOLE
 TRADE STACKS ON ONE BODY, THREE REAL TAPS, NOTHING LOST. ROW CLOSED. ***
@@ -15940,6 +16022,136 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/1 LATEST -- *** [followers] SHIPPED. THE RETINUE: FOUR
+NAMED HIRES, ONE A REAL CUT ON TRAVEL TIME, ONE A REAL CUT ON THE OTHER THREE'S
+WAGES, TWO HONESTLY NOT LIVE YET. ***
+
+Row (rule 48's translation table, the second of two it named NOT STARTED, the
+first being [ambitions] last round): THE-RETINUE. Battle Brothers hires camp
+staff (scout, surgeon, negotiator, blacksmith) for a daily wage. The board row's
+own translation: the mechanic, the medic, the fixer, the driver (the
+beast-handler is [keepers]'s own row).
+
+CHECKED FIRST: the reference library has nothing on followers at all -- it is
+Grok ask #9, unanswered (our own sandboxes cannot reach the wiki). Rather than
+guess precise Battle Brothers numbers from memory, this ships the MECHANISM
+against the row's own stated shape, every number tuned:false, same discipline
+as [ambitions].
+
+TWO EFFECTS ARE REAL TODAY, found by reading the actual code rather than
+assuming: the DRIVER's hire multiplies cityStepMins (the real function the
+map's own travel-speed system calls for every block) by 0.85. The FIXER's
+hire makes every OTHER hired follower's wage due only every second time wages
+are collected. TWO ARE HONESTLY NOT LIVE: the MEDIC would heal wounds faster,
+but no wound clock exists in code (rule 36b is a ruling, not a mechanism); the
+MECHANIC would repair cheaper, but the only repair fact in this codebase is a
+flat spent/not-spent switch, not a meter to discount. Building a fake meter
+just to give them a job would be inventing a system nobody asked for.
+
+THE WAGE IS A TRANSFER, NOT A FIFTH FROZEN VERB: the purse's upkeep() refuses
+a fifth verb by name ("a fifth is a design change, and design changes are
+Paolo's"), so wages debit directly -- the identical shape [block rent] already
+used for the same reason. An unpaid follower leaves the same night, no
+invented grace period, same immediate consequence an unpaid circuit already
+gets.
+
+THE PICK IS THE ASK ITSELF, reusing [ambitions]'s own proven companion mouth
+(rule 19/20 killed a card, a new button is UI's call on a settlement screen
+that doesn't exist yet). UNLIKE ambitions, this round BUILT the accept/decline
+gesture ambitions named as missing: an offer stays live and silent for two
+beats (120 BPM, 500 ms/beat, the same window [bb company]'s own retired
+fall-in mechanic used) with the same companion still the one you're with, then
+they fall in; walking off to somebody else declines for free, never asked
+again this session for that role.
+
+*** A BUG THIS ROUND FOUND IN ITS OWN FIRST DRAFT, BEFORE IT SHIPPED: *** a
+single decline on the very first role offered would have silenced the WHOLE
+mechanism forever. offerFor only skipped roles already HIRED, never ones
+ASKED-and-declined, so after a decline the first unfilled slot was still the
+same slot, offered again every time -- except the once-ever-ask guard would
+then refuse to speak it, so nothing further was ever offered. Caught by
+writing the gate's own decline-then-advance test BEFORE trusting the
+mechanism and watching it fail. FIXED: offerFor now skips a role that is
+EITHER hired or asked. NEGATIVE-CONTROLLED in the gate itself: the exact
+pre-fix function is reconstructed as a [self-test] and proven to still
+reproduce the block, right beside the real function proving it does not.
+
+BUILT: engine/bohemia_followers.js (four FOLLOWERS, all tuned:false),
+inlined into BOHEMIA_CITY_WORLD.html exactly like [ambitions] and
+[bb company]. ctFollowerBark wired into the SAME bark ladder, right beside
+[ambitions]'s own entry. followerWagesNight wired into the real nightfall
+sequence, right after loanNight(), using its OWN internal night counter for
+the fixer's relief parity (not the game's own day number -- a cleaner,
+self-contained design found while debugging the gate, see below). The
+driver's multiplier is one extra multiply inside cityStepMins, a no-op by
+default.
+
+ONE MORE THING THE GATE CAUGHT DURING BUILD, NAMED FOR THE RECORD: the first
+draft tried to key the fixer's "every other night" relief off the game's own
+DAY.day. The gate's own test proved this wrong immediately -- DAY.day turned
+out to already be 1 on a fresh boot (not settable the way a plain property
+assignment would suggest, likely derived rather than stored), so a test that
+set window.DAY.day=0 and expected that value back got silently overridden.
+Rather than fight another lane's clock semantics for a detail nobody but this
+mechanism cares about, [followers] now owns a tiny internal counter
+(CT_FOLLOWER_NIGHTS) for its own relief parity, while still passing the REAL
+day to the purse's ledger for honest history. Simpler, fully self-contained,
+fully testable on demand.
+
+PROVEN ON THE REAL CITY: ask fires once in the real words; two beats with the
+same companion hires through the real bark; the second role offered is the
+next one, never a repeat; walking off before two beats declines for free AND
+the next offer skips straight past the declined role (the exact bug above,
+proven fixed on the real surface, not just the pure function); a night with
+two hired followers charges 2 electricity; the very next night, relieved,
+charges 1; the night after, 2 again; the driver's real effect read off the
+real cityStepMins is exactly 0.85x; draining the purse removes everyone who
+can't be paid in the same beat and the next bark announces it in the real
+declared words; nobody walking beside the player, it never speaks at all.
+
+THE GATE: gates/followers_gate.js, new (REUSE-FIRST: nothing existed to
+extend). 44/0: pure mechanism never throws, every number tuned:false, the
+decline-fix negative-controlled, the wage currency checked against the real
+locked list, the frozen upkeep() verbs table checked to still hold exactly
+its original four, followerWagesNight checked structurally to never call
+upkeep()/upkeepPost(), the driver's hook checked to be wired into the real
+cityStepMins body, the full real-city walk above. Checked for collateral:
+ambitions_gate 34/0 unaffected, people_gate 158/0 unaffected (both reconfirmed
+after this round's edits, not assumed from an earlier run).
+
+Cook: THE RETINUE, in VOTE -- the real offer, the real hire, the real unpaid
+departure, in the game's own words, the four-role table naming which two are
+live and which two honestly are not, the measured proof table.
+Record records/BOHEMIA_THE_RETINUE_10_1_26.txt.
+
+FOUND WHILE SHIPPING, FLAGGED NOT CHASED: QUESTS' own research landed the
+SAME round (records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md,
+QR-AD) and reads Battle Brothers' retinue differently -- "18 followers,
+one-off fee, deed unlocks, 5 slots by renown... no wage treadmill," a
+generational "chamberlain class" that raises an apprentice offered to the
+heir, plus 24 draft follower characters. That is a bigger, named,
+generational shape, and "no wage treadmill" sits in real tension with this
+round's nightly wage. NOT RECONCILED: the board row this round answered
+explicitly asked for "a daily wage" in the coordinator's own words, which is
+what got built, honestly and completely; QUESTS' finding is itself unverified
+research, not a ruling, and folding in named characters and an
+apprentice-to-heir handoff across generations is a real round of its own, for
+the next [followers] round, DYNASTY (the heir thread), and TUNING (wage vs.
+fee) to pick up.
+
+MEASURED, NOT FIXED, named rather than built speculatively: "hired at a
+place" is not yet an actual place -- reuses the companion mouth for the exact
+reason ambitions did (a settlement-screen building is RUN's surface to build,
+not there yet); when it ships, the same pure offerFor/askLine/hireLine
+functions get called from a building tap instead, not rewritten. No
+persistence of CT_FOLLOWERS/CT_FOLLOWER_OFFER/CT_FOLLOWER_NIGHTS across a
+reload -- the same pre-existing, shared gap every bark-state tracker in this
+file already has (CT_AMBITION and CT_WALKS_WITH itself included), not
+introduced or scoped to this round alone.
+
+TAB: CITY, the walked street, until the settlement screen exists. VOTE, for
+the cook. Nothing [PENDING Paolo] from this block.
+
 PEOPLE (people-7h9sfy): 9/30 LATEST -- *** [ambitions] SHIPPED. THE COMPANY NOW SETS
 ITSELF A GOAL, ASKED AND ANSWERED THROUGH A MOUTH, NEVER A CARD. ***
 
@@ -19898,6 +20110,52 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 
 NEXT IN THIS LANE: Q23 [who eats first].
 
+
+FACTIONS (factions-ovkjpf): 10/1 (round 50) LATEST -- *** [home bases] ROUND FIVE: A CREW ARRIVING AT A BASE YOU HOLD IS A RAID,
+AND THE LEDGER HALF OF THE CHAIN IS BUILT. *** The coordinator's 9/30 note on my row: "'nothing happens when they arrive' is the
+next row: a crew arriving at a base you hold is a RAID." PREMISE MEASURED FIRST (rule 12): nothing in the game reads an arrival, and a
+before-and-after look at the parties' `arrived` flag cannot see one reliably (a crew's whole trip is 25 to 40 cells against 89 cells a
+waking day, and the module turns a crew round the step after it arrives, so a clock call that walks many steps, a night's sleep, can see a
+crew arrive AND leave inside one call; a gate leg builds that case). The research was already written: QUESTS QR-R found a siege is a short
+chain on one base (warning, offer, preparation days, one fight, outcome) and that the world may take a base nobody came to, but only after
+a warning with days on the clock. BUILT (engine only, commit 756a2a94, on main): engine/bohemia_homebases.js gains advanceWatching (the
+parties module's advance one step at a time, ending in EXACTLY its state, returning every arrival once, a drop-in for the clock's call),
+raidsFrom (which arrivals are raids: a crew, at a base you hold, not a ruin, whose own home stands, open yet by the DEPTH thirds, no clock
+given means the start of an act, not already raided this act), openRaid (due in four map days, against whoever held it), closeRaid (HELD
+closes and writes nothing; TAKEN and RUINED go through the same two writes the rest of the game uses, by 'raid'), settle (the world's answer
+on the due day when nobody came: a base at least as strong as the crew holds, a tie holds, a weaker one is TAKEN by the crew, NEVER burned,
+no number no fall, a moot raid closes held, idempotent), a `raid` {by, due} on the base marker, and the raids in the save (older saves load
+as no raid ever came). THE NUMBERS ARE DEFAULTS, NOT RULINGS: RAID_DEFAULTS {prepDays 4, perAct 1} (QR-R's suggestions) and the one
+comparison (the act power column the parties module already hands out); every function takes opts to replace them for TUNING, and
+opts.holds(seat, raid) is the seam for anything that should make a base stronger (LIFE+CITY's wall and tank). Gate HOME BASES 142 checks
+(was 94), red 69 ways by mutation (was 37); two first-draft mutations were silent and each found something real (a check that counted an
+arrival's step but not its repeats; three isRuin tests that heldBy already made redundant, which I deleted instead of testing). BUILD A LOT
+56 to 62 green, ONE THEN HEIRS 97/0, TURF LEDGER 30/0, THREE ACTS 28/0 with the change in. MEASURED on twelve valleys: THE FOUR CREWS ARE THE
+SAME FOUR ON EVERY VALLEY AND ALL FOUR ARE SENT AT FORTRESSES (Caravans 10 at the Cartel 12, Cartel 12 at the Remnants 14, Cartel 12 at the
+Caravans 10, Remnants 14 at the Cartel 12), no crew is ever sent at a camp or a town, and if nobody comes exactly half hold (24 of 48);
+a crew arrives at its target 4 to 18 times a waking day (median 6), which is why a base is raided once an act and not polish. SO TODAY A
+PLAYER WHO HOLDS ONLY CAMPS AND TOWNS CAN NEVER BE RAIDED, and the fortresses open two thirds into an act: a roster fact, WORLD's to change.
+I REVERSED MY ROUND-THREE DEFAULT (a base falls only from what you do): his own words say 'taken or ruined' and 'losing one is how it
+shrinks', QR-R says the world may take a base nobody came to after a warning with days on the clock, and the coordinator's note needs an
+end; the round-three card now carries a one-line pointer so a thumb on the old question is not read as a thumb on the new one. THE COOK, in
+VOTE: A CREW AT YOUR GATE (vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html, id factions-a-crew-at-your-gate-10-1): three real frames of the
+game's own map with RUN's new building art and rings over it: two Cartel crews walking at two bases you would hold (red dashed rings, dashed
+lines), a crew camped at each with four red squares for four days, then four days later the Remnants base (14 against 12) holds in gold and the
+Caravans base (10 against 12) is ringed in the Cartel's pink; a table of the four crews; the thumb. WHAT WE DO DIFFERENTLY FROM BB (39b): BB's
+'raided' is a temporary situation on a town you do not own and its crises burn settlements whether you watch or not; ours is a clock on YOUR
+base, takes only the weak ones after four days, never burns unattended, and MOVES (a line, a camp, squares that go down by day). HOW THE FRAME WAS
+MADE: toMap() lands on the SKY rung, so skyExit(); the camera is set from the three seats with the player's own body panned off the glass; the
+overlay wraps render(); positions go through the game's own iso(); the arrivals, raids and answers are the module run in the page on the live
+valley. ROUTED (full list in the record): RUN swaps BohemiaParties.advance for advanceWatching in partiesAdvance and calls raidsFrom, openRaid,
+settle once a map day; WORLD [parties move] BUY half sends crews at what is worth taking, the player's bases (ownedBy) included; COMBAT and
+LIFE+CITY [where a raid is fought] call closeRaid when the fight ends and read the marker's raid for the offer; LIFE+CITY could make a wall raise
+a base's strength through opts.holds; TUNING holds the three numbers; WORLD's feed reads settle() events; PEOPLE/WORDS one person and one line at the
+gate; [PENDING coordinator] COLOUR IS TERRITORY vs 37e unchanged. NEXT IN THIS LANE: [home bases] and [territory ledger] stay CLAIMED. (1) rule 42a,
+the human combat factions and rosters, WITH PEOPLE (COMBAT [bestiary] owns the data file); (2) a base's job facts on the marker once WORLD/ECONOMY
+resolve the dark pumps; (3) when RUN's clock calls advanceWatching, look at it on the glass; (4) cut my border and ground ink on the map when RUN's
+map is stable; (5) when a raid exists, inline the module and wire the save. Four of my VOTE cards now wait on him (the fourteen bases, the crews
+heading at bases, your base grows part by part, a crew at your gate).
+Record: records/BOHEMIA_HOME_BASES_ROUND_FIVE_THE_RAID_AT_YOUR_GATE_10_1_26.md.
 
 FACTIONS (factions-ovkjpf): 9/30 (round 49) LATEST -- *** [home bases] ROUND FOUR: THE LEDGER NAMES THE WAY A PART
 CHANGES HANDS AND ANSWERS FOR ANY BLOCK (RULE 43), AND A BASE GROWS IN JUMPS. *** Rule 43 (Paolo 9/29): taking a part
@@ -34346,6 +34604,61 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 60 [heirs] THE COMPANY INHERITS. YOUR PEOPLE HAVE KIDS AND THEY ARE THE NEXT ACT'S COMPANY. (BUILD)
+DYNASTY, BUILD, rule 39d. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone on
+the map in the alpha (standing in act 2 or 3, a row says HEIRS); the picture is in the VOTE tab
+(dynasty-heirs-10-1). RECORD: records/BOHEMIA_DYNASTY_HEIRS_10_1_26.md. BUILD 10/1c.
+
+WHY NOT THE FIRST OPEN LINE (said): [grok lore] was first. It is a standing trigger ("when a ruling arrives
+marked via Grok, run the lore-yap test"). 0 records or laws carry that mark; the one Grok page (branch grok,
+not on main, not through EYES' filter) is Grok's own findings, not a ruling, so nothing was cited. It stays
+OPEN and waits. If the coordinator wants it closed or reworded, that is the coordinator's row to change.
+
+WHAT SHIPPED: engine/bohemia_heirs.js (pure, no clock, no dice, inlined verbatim in the city).
+heirs(ledger, act), roster, line (SURVIVED / LONG_ENOUGH 60 days / FAMILY / DIED_TOO_SOON; the main man is
+never an heir), heirOf (key H2:parent; the parent's surname only if his name was earned; age 15 to 35;
+about half the traits; the family's gear; the parent's look to descend from; half the strength), the
+writers died / note / recruit, orphans (what stays done), save / load (what HAPPENED is kept, never the
+heirs). ROWS are TUNING [recruit odds]'s to replace (60 days, 15-35, half, 12 an act), draft:true.
+The city: ctHeirMembers (act 1's company LIVE from ctYours), ctHeirs, ctHeirRoster, ctHeirDied, ctHeirLedger,
+ctPersonByKey; the phone row #actheirs (acts 2 and 3 only, a readout not a button); the city's save carries
+`heirs` (events only). GATE gates/heirs_gate.js 83/0 registered as HEIRS, mutation-proved seven ways
+(--headless runs the controls in a second). The five rules of the three-acts law s12 are one leg each.
+
+MEASURED FIRST (rule 12): (1) the company has NO roster by design, so the heirs are a function and only the
+act's events are kept. (2) NOBODY CAN DIE in the walked game (bohemia_down.js, 9/11; his 9/27 twenty percent
+is unbuilt), so the death/day/family clauses are proved on the ledger input and idle on the street.
+(3) A person has no age, hire day, gear or family flag. (4) The ground does not move on a flip, so the heirs
+have no house and no body: names, ages, traits and a look. (5) A bonded person is usually six neighbourhoods
+away; ctEveryone() is the 3x3 around the player, so the first cut handed the derive nobody (the gate caught
+it). ctPersonName has the SAME blind spot (nothing for that man): QUESTS / PEOPLE's seam.
+
+DEFAULTS I DECIDED (draft, in the VOTE item): an heir of a survivor is an APPRENTICE, of a man who fell a
+KID (flavour); an heir starts with half the parent's strength; over 12 lines the strongest 12 get the room and
+the rest are CROWDED_OUT until a later derive; a parent never asked leaves no surname to carry; the row shows
+names and ages only.
+
+ROUTED: COMBAT / TUNING (call ctHeirDied the day somebody can fall for good; replace BohemiaHeirs.ROWS with
+[recruit odds]); QUESTS / PEOPLE (stamp the day a bond starts, the 60-day clause reads `since`; fix
+ctPersonName for a person away from you); UI [roster] (the heir line reads ctHeirRoster(act)); PORTRAIT
+(every heir carries lookFrom and lookSeed); WORLD (the heirs need houses in act 2 and 3's city, keys H2:...
+and H3:H2:...); FACTIONS / RUN (still owed: ctActUnlock(2) when the first base is his).
+[PENDING Paolo], NONE BLOCKING: are 60 days, 15 to 35 years old, half the traits and twelve an act right?
+
+NEXT for DYNASTY, checked on the live board: [the frame] (SCHOOL ONLY, three shapes of what the flip is in the
+story, default A), then the Q-list from [old body] Q19. [grok lore] stays OPEN (a trigger, nothing to test).
+Two orphaned QUESTS rows ([light the pump], [main quest live]) are STILL CLAIMED under this session and
+un-buildable under rule 35: not touched, re-flagged for the coordinator.
+
+PRE-PUSH PASS (rule 13, run on the committed and rebased tree, then compared with a clean worktree of main): GREEN: HEIRS 83/0,
+ONE THEN HEIRS 97/0, THE FLIP 23/0, THREE NAMES 31/0, VOTE TAB 31/0, MERGE DEBRIS, ENGINE SYNC, ENGINE CENSUS, ACT STAMP,
+THREE ACTS 28/0, REPLY CONTRACT, CANON ROT. RED, AND RED ON CLEAN MAIN WITH THE SAME NUMBERS, so not mine: INLINED FRESH (the resync
+tool refuses on bohemia_ambitions.js's missing closing banner; I proved bohemia_heirs.js and bohemia_acts.js byte-identical by hand and
+in the HEIRS gate), ONE ENGINE (page.click timeout), PHONE READABLE (colour collisions 14/12/10 against ratchets 13/11/9, identical on
+main; its text-size leg flakes), NO OVERLAP (alpha P2 the danger line, 21/1 both), HUD OVERLAP (9/6 both), DERIVED FRESH (38 of 43 re-derive
+on both: the same five stale files), PAGES PUBLISH (304 MB over 260, main's), REUSE FIRST (four tools files, main's). The suite itself
+is unmeasured since the last PLUMBER line.
+
 ROUND 59 [the ending] THE THREE ENDINGS WERE ALREADY CANON. THE GAUGE IS WHAT IS MISSING.
 DYNASTY, SCHOOL (rule 39e), no code, nothing in the alpha changed. Claimed and pushed as its own
 commit BEFORE work (rule 5): it was the first OPEN line. TAB: NOT IN A TAB YET (research); one
@@ -45538,6 +45851,20 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 4 -- V234 + V235: THE GROUND UNDER THE FIGHTERS (his 10/1 "the tiles below the people dont look good"). ***
+Stamp 10/1b. Record: records/BOHEMIA_COMBAT_NOTHING_ON_THE_GROUND_10_1_26.md
+V234 [device canvas]: backing store at the phone's ratio (FD 1-3), every rule in screen units (cv
+reports CSS size; ctx.setTransform multiplies by FD; hiDPI() on cv and the floor cache); ground built
+at real pixels (streetTile, lotPatch, the house bake). Cost measured: draw() JS 1.5 -> 1.6 ms, fps in
+this software-painting box 49 -> 16 at FD 3, so a SAFETY VALVE (fdWatch): settled cover phase, 4 s
+grace, two 90-frame windows under 40 fps -> FD-1, logged in G._fdDrop (here it settles at FD 2, ~42).
+NOT PROVEN ON HIS PHONE. V235 rule 46f: no oval lids (flat lit wall top), no diamonds/CLEAR (litTile
+in the ground's colour), red pip off his body (5 px), no ROSA/oval on the board, OUT/HOLD are lit
+tiles, no range ring. GATE gates/nothing_on_the_ground_gate.js 11/0 (draw-call watch). combat_lab 4
+text pins re-pointed (back to 10). combat_floor 12/1 is main's. FIGHT LENGTH NOT MEASURED.
+VOTE combat-nothing-on-the-ground-10-1. NEXT: the cover's width (1.8 houses of wall), the lit-tile
+frame reading as a grid, drops/grenade discs; then the fight-to-the-end driver; then [board generator].
+
 *** [house tiles back] ROUND 3 -- V233: HOUSE-SIZED, NOT HOUSE-FILLED. THE NEIGHBOURS STAND UP. ***
 Stamp 9/30a. Record: records/BOHEMIA_COMBAT_A_STREET_OF_HOUSES_9_30_26.md
 His 9/28 line on this row ("one tile is the size of a house doesn't mean every tile is a house...
@@ -49399,7 +49726,7 @@ THEN (gw) THE WEAK TIER (Paolo 9/29): crossbows and real melee as BB's weaker we
 THEN (gx) EVERYTHING TRANSLATED (Paolo 9/29): rule 48; the translation table records/BOHEMIA_THE_BATTLE_BROTHERS_TRANSLATION_TABLE_9_29_26.md (62 rows, owners, status); COMBAT [perks translated], PEOPLE [followers], [ambitions], EYES [translation count]. records/BOHEMIA_PAOLO_EVERYTHING_NEEDS_A_PROPER_TRANSLATION_9_29_26.md.
 THEN (gy) VAMILY 9/30 (the sweep 41c2b9f..HEAD, 442 commits): records/BOHEMIA_COORDINATOR_ROUND_9_30_26.md. The demo opens on the map and a tap is how you travel (RUN e4c66f2b, demo 9/28i); the cell board is deleted and the high ground is a house with its roof (COMBAT V231/V232); the circles are places at the map floor (COOK r4); the fight draws his art 2.6x too coarse (COOK r2 + DIRECTION): COMBAT [device canvas] new; the family faces are black on the first screen: DYNASTY [one then heirs] takes UI's proved line; PLUMBER retries the excavate move (PAGES PUBLISH red on size); the coordinator's 14 VOTE items lacked sha/show and were the vote tab's red since 9/28, fixed. Front page: DEPLOY, SUITE, CUT, COOK lines rewritten. Registry 242/169/74 waiting.
 THEN (gz) GROK AS A RESEARCH HELPER (Paolo 9/30): reference/BOHEMIA_GROK_BRIEF.md and reference/BOHEMIA_GROK_ASKS.md; rule 49; he pastes the brief and the asks, pastes the answers back, the coordinator files them 'source: Grok, unverified'; first asks are the Battle Brothers numbers the sandboxes cannot fetch.
-THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md. THEN (hh) BIGGER JUMPS (Paolo 10/1 with VAMILY: 'combat and the run make bigger jumps every chat... im getting this demo released'): rule 52; COMBAT and RUN MODE: SPRINT with a jump list of three to four whole features; THE RELEASE LINE on the front page (ten lines, RUN refreshes); RUN [release list]. records/BOHEMIA_PAOLO_BIGGER_JUMPS_COMBAT_AND_THE_RUN_THE_DEMO_RELEASE_10_1_26.md. THEN (hi) GROK'S FIRST PAGES PULLED (rule 49e): the beast table and what-I-found, on main in reference/library/grok/; EYES stamps; notes on TUNING/MODS/QUESTS/WORLD/WORDS/RUN/DYNASTY; SOUNDS [dead battery], ECONOMY [price of mercy]; two coordinator defaults in VOTE; the brief's flip and reference lines fixed; asks round two. THEN (hj) THE 10/1 SWEEP: 73 commits read, 11 rows marked SHIPPED, the four lines rewritten, THE RELEASE LINE added, records/BOHEMIA_COORDINATOR_ROUND_10_1_26.md; the next sweep starts after this commit.
+THEN (ha) THE ZOOM RANGE (Paolo 9/30, five Pocket City 2 screenshots at reference/pocket_city_2/): rule 50; Pocket City 2's department widened to the drop-in transition and the zoom range; RUN [zoom range] first, EYES [zoom range measured], UI and RUN notes; his phone's profile 1170x2532 at 3x is the fleet's. records/BOHEMIA_PAOLO_POCKET_CITY_2_THE_ZOOM_RANGE_9_30_26.md. THEN (hb) BOTH ORIENTATIONS (his sixth shot, 9/30): rule 50b; UI [landscape]; PLUMBER's driver gains the landscape profile; EYES measures both. THEN (hc) ONE MAIN QUEST, TWO CONTRACTS, THE PHONE ONLY SHOWS (Paolo 9/30): rule 51; quests addendum s9; UI [phone contracts]; notes on RUN, QUESTS, ECONOMY. records/BOHEMIA_PAOLO_ONE_MAIN_QUEST_TWO_CONTRACTS_THE_PHONE_ONLY_SHOWS_9_30_26.md. THEN (hd) GROK IS C (Paolo 9/30: 'grok gotta know everything everything, not a two pager i didnt approve'; then 'Lets do c'): rule 49b; laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md; the master pack reference/BOHEMIA_MASTER_FOR_GROK.md rebuilt every VAMILY by reference/build_grok_master.py; the brief rewritten as the how-to-work page; asks 11-12 standing; reference/library/grok/ opened; EYES [grok filter], PLUMBER [grok filter gate], DYNASTY [grok lore], TUNING/MODS/QUESTS [grok sources]. records/BOHEMIA_PAOLO_GROK_IS_C_IT_KNOWS_EVERYTHING_AND_DIGS_ON_ITS_OWN_9_30_26.md. THEN (he) HE SAW THE FIGHT'S FLOOR (Paolo 10/1: 'the tiles below the people dont look good... its all fucked up'): rule 46f; the break list's first line; COMBAT [house tiles back] is the floor with [device canvas] as step one; COOK [board assets] floor first; DIRECTION FIGHT VERDICT 21 floor only; EYES [fight floor measured]; RUN cuts no failing fight; registry fight-floor-first-10-1. records/BOHEMIA_PAOLO_COMBAT_IS_FUCKED_UP_THE_TILES_BELOW_THE_PEOPLE_10_1_26.md. THEN (hf) GROK ON LINKS, NOT PASTES (Paolo 10/1: 'make something public for it to enter'): rule 49c; the way in is one link to reference/BOHEMIA_GROK_PASTE.md; the way out is Grok's share link, readable only once grok.com is allowed in the environment (his laptop click; sandbox blocked from grok.com and x.com, measured). records/BOHEMIA_PAOLO_HELL_NAH_MAKE_SOMETHING_PUBLIC_FOR_GROK_TO_ENTER_10_1_26.md. THEN (hg) GROK WRITES THROUGH ITS GITHUB CONNECTOR (Paolo 10/1: 'what tool can I give Grok to write in the repo? I'll connect a tool with it'): rule 49d; Grok writes reference/library/grok/ on branch grok, never main, never a PR; the coordinator pulls origin/grok every VAMILY; PLUMBER [grok fence]; 49c's share-link route dropped. records/BOHEMIA_PAOLO_WHAT_TOOL_CAN_I_GIVE_GROK_TO_WRITE_IN_THE_REPO_10_1_26.md. THEN (hh) BIGGER JUMPS (Paolo 10/1 with VAMILY: 'combat and the run make bigger jumps every chat... im getting this demo released'): rule 52; COMBAT and RUN MODE: SPRINT with a jump list of three to four whole features; THE RELEASE LINE on the front page (ten lines, RUN refreshes); RUN [release list]. records/BOHEMIA_PAOLO_BIGGER_JUMPS_COMBAT_AND_THE_RUN_THE_DEMO_RELEASE_10_1_26.md. THEN (hi) GROK'S FIRST PAGES PULLED (rule 49e): the beast table and what-I-found, on main in reference/library/grok/; EYES stamps; notes on TUNING/MODS/QUESTS/WORLD/WORDS/RUN/DYNASTY; SOUNDS [dead battery], ECONOMY [price of mercy]; two coordinator defaults in VOTE; the brief's flip and reference lines fixed; asks round two. THEN (hj) THE 10/1 SWEEP: 73 commits read, 11 rows marked SHIPPED, the four lines rewritten, THE RELEASE LINE added, records/BOHEMIA_COORDINATOR_ROUND_10_1_26.md; the next sweep starts after this commit. THEN (hk) THE FOURTH VOTES (Paolo's 9/30 export, read 10/1, 17 new verdicts landed in the registry, 186 now): rule 53, 22f (two sentences max, UI [two sentences], PLUMBER [two sentences leg]), 38j (assets for the fight and the close zoom only), 46g (street width in tiles); TUNING [difficulty sliders] and MODS [keep list into defaults] RETIRED; renown is clout; the speed pad is the old dial; COOK's kit and FACTIONS' base re-shown from the game's camera. laws/BOHEMIA_ADDENDUM_THE_FOURTH_VOTES_10_1_26.md; records/BOHEMIA_PAOLO_THE_FOURTH_VOTES_NOT_A_LOT_OF_GOOD_AND_TWO_SENTENCES_MAX_10_1_26.md. (The commit 0d34eb6a carried only the index and the master; this commit is its body.) THEN (hl) SWEEP B 10/1 (51a573bd and its body): COMBAT V234+V235 (blobs gone, real pixels; JUMP 1 half), DYNASTY [heirs] and PEOPLE [followers] SHIPPED, UI r9 six in the bar, FACTIONS r5 raid at the gate, ECONOMY beast worth, QUESTS r7, CHARACTER barber; Grok's economy and roster pages pulled, the six piles in VOTE (grok-reported-six-piles-10-1), rule 47 stands; EYES owes four stamps. records/BOHEMIA_COORDINATOR_ROUND_10_1_26_B.md.
 
 
 

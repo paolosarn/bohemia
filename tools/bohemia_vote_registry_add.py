@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-attachments-trade-9-28'
+MINE_ID = 'character-the-barber-10-1'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "outfit", "lane": "character",
-  "sha": "pending", "made": "9/28",
-  "title": "ARMOUR ATTACHMENTS, THE FIRST ONE",
-  "why": "You said you want to customize armor with attachments. I checked our closet first: a cloak and a padded vest were already in there under other names, nobody just called them attachments yet. The one thing missing was a spiked shoulder guard, so that is the one I built. Watch the guy on the right, he is wearing a cloak he already had plus the new spikes, walking. The other guy is wearing the padding. No numbers are attached to any of this yet, that part is a different job. Thumbs up and the spike joins the wardrobe for real. Thumbs down and tell me if the spikes are too small or in the wrong place.",
+  "sha": "pending", "made": "10/1",
+  "title": "THE BARBER",
+  "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_THE_ATTACHMENTS_TRADE.html"
+    "src": "vote/CHARACTER_THE_BARBER.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

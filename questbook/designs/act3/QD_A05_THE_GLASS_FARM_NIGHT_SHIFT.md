@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a reclaimed office tower turned hydroponic farm, floors six to nine; the pump room is on six
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (Thursday and Tuesday became map nights), 9 (three ways to keep six), 12 (the two-night exit), 28 (flags and saves named).
 SHOWS: a contract WITH A WINDOW done right, and FAILED WHILE TRYING as an honest end, not a drop (C11, C12)
 
 ## THE SITUATION
@@ -15,8 +15,8 @@ pumps have to be kept running by hand and kept away from scavengers who know the
 
 ## THE PERSON AND THE FIRST LINE
 Ines Carvajal, farm manager, a sculpted white coverall, reading glasses on a chain, standing under the grow lights.
-"Cinco baterías. Three nights, hasta el camión. The harvest truck comes Thursday, you'll hear it test the horn
-Tuesday. Keep the pumps wet and keep people off six. Some nights people come."
+"Cinco baterías. Three nights, hasta el camión. The harvest truck comes the third night, you'll hear it test the horn
+the first. Keep the pumps wet and keep people off six. Some nights people come."
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 (Added 9/28, Paolo's ruling: contracts are the Battle Brothers settlement contract screen. records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md. The job after the yes is unchanged; only the front door moved. Research: questbook/research/QR_P_THE_FRONT_DOOR_MOVED_9_28_26.md.)
@@ -27,29 +27,34 @@ Tuesday. Keep the pumps wet and keep people off six. Some nights people come."
   - "Cinco baterías. Three nights, hasta el camión."
   - "Keep the pumps wet and keep people off six."
   - "Some nights people come."
-- PAY, SHOWN BEFORE ACCEPT: 5 batteries on Thursday, plus first pick of the harvest at cost (FOOD, rule 47).
+- PAY, SHOWN BEFORE ACCEPT: 5 batteries on the third night, plus first pick of the harvest at cost (FOOD, rule 47).
 - NEGOTIATION: ASK FOR MORE: "Cinco, and the pick." ADVANCE: none. The one other ask is the start day (choice 3).
-- ACCEPT / DECLINE: ACCEPT sets Thursday on the map's clock. DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
+- ACCEPT / DECLINE: ACCEPT sets the third night on the map's clock (QR-AC, line 3; `Q095.X1`: the window counts in map nights, never weekdays). DECLINE, or closing the screen, or never tapping the building, writes nothing: no row, no line, no look, and the offer sits in the same building on the next visit while the job is still real.
 
 ## THE CHOICES
 1. **"Not this week."** "Okay. I'll ask downstairs." COST: nothing. The farm finds someone, or loses a floor; either way
    it is a world event, and the market's lettuce price the next week shows it without naming anybody (C8).
-2. **"Deal."** TAKEN. The window is spoken (Thursday), heard (the horn test Tuesday, the truck's horn Thursday), and
+2. **"Deal."** TAKEN. The window is spoken (the third night), heard (the horn test on the first, the truck's horn on the third), and
    generous: three map nights for a job that needs one good hand each night. The work is in the pump room, a building on the farm's
    screen: valves are things the player taps, the stairwell door the way in. If it comes to a fight, the
    fight board is cut from the farm (house-sized tiles). One night, a group comes
    up the stairs: a fight on the beat with the companion.
-   - **Win the nights:** five batteries on Thursday, and first pick of the harvest at cost.
+   - **Win the nights:** five batteries on the third night, and first pick of the harvest at cost.
    - **Lose the fight:** the scavengers cut the lines on one floor and leave. FAILED WHILE TRYING. Ines pays two
      batteries "for the floors that lived". It is an attempt, not a flake; she will offer again next harvest.
-   - **Leave before Thursday:** DROPPED. No advance, so no debt; the floors dry; she stops offering; the crew hears it
+   - **Leave before the third night:** DROPPED. No advance, so no debt; the floors dry; she stops offering; the crew hears it
      when they come back from the yards.
-3. **"Deal, but I start tomorrow."** She allows it: "Mañana. Pero Thursday es Thursday." The window does not move.
+3. **"Deal, but I start tomorrow."** She allows it: "Mañana. Pero el camión es el camión." The window does not move.
+
+THREE WAYS TO KEEP SIX (QR-AC, line 9; `Q087.X4`): fight on the stairs; chain the stairwell door with TAPE and run the pumps from seven (slower: one floor dries, the same 5); or leave a crate of lettuce at the foot of the stairs (they take it and go; 1 FOOD out of the pick).
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): after two nights he may say two is what he has; she pays 3 and the contract closes FINISHED, not dropped.
 
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing about the player.
 - Done: a deed, and the tower's lights are one of the "future gets better" facts the flip can show.
 - Failed while trying: an attempt, recorded as tried. Dropped: a deed, recorded as left.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes glass_farm = done | two_nights | failed | dropped. A play-forward test sets each value and walks to every place that reads it (the tower's lights in the flip, the lettuce price, her next harvest offer); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 One row of lettuce on floor seven grows leaning toward the dark corner, away from the lamps, every harvest.

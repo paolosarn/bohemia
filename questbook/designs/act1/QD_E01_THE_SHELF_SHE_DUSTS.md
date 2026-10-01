@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a corner bodega on a strip-mall street off Boulder Highway; one aisle, one shelf bare (PL01, THE EMPTY SHELF)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways at the truck), 10 and 23 (a lost fight has a result), 12 (tell her where the truck is), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 1, the anarchy decade. The player arrives on the strip from the map; the settlement screen draws it. The bodega's door is open.
@@ -46,6 +46,8 @@ Tuesday." She does not say it was her nephew.
 3. NO. "Okay." She goes back to dusting. Costs nothing. The shelf stays bare until somebody else fills
    it. If the player comes back after another trip, she is still there and the offer stands.
 
+THE WASH ROAD (QR-AC, lines 9, 10, 12 and 23; `Q087.X4`, `Q095.X3`, `Q139.P2`): three ways at the truck: fight the group on the fight board; trade them 1 battery of the company's own for the crate; or wait for dusk, when they walk back to their camp (a map day). A LOST FIGHT leaves the crate with them; Lupe says "Okay", the shelf stays bare, and the contract closes FAILED WHILE TRYING (an advance, if taken, is owed). THE PRICED EXIT: he may come back without the crate and tell her exactly where the truck is; she pays nothing, her neighbours go for it, and the contract closes FINISHED.
+
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing: no deed, no standing, no rumour, no feed post. TAKEN: a contract row. DONE:
 the shelf shows cans on it (the result is in the place); a feed post in the city view ("the
@@ -54,6 +56,8 @@ bring it"), and if he took the battery up front, the ledger says so. If the crat
 jacket (the one rationed twist, most runs it holds cans), she says one line and pays anyway.
 
 THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes lupe_crate = done | told_where | failed | dropped; advance_taken = yes | no; crate_twist = cans | jacket. A play-forward test sets each value and walks to every place that reads it (the shelf prop, the feed post, her later offers); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 She dusts the empty shelf on every beat, and the dust cloth is clean every time.

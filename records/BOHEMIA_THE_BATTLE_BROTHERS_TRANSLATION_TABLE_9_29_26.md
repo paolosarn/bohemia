@@ -15,7 +15,7 @@
 | Attached locations (farms, mines, mills) that feed a town | A settlement's pumps, sheds, solar, lots; what a held lot produces (40b) | LIFE+CITY [build a lot], WORLD [bb places] | IN HAND |
 | Settlement situations (raided, drought, well supplied) | A place's state from the ledgers (raided falls, helped rises; 37c) | WORLD [bb places], FACTIONS | IN HAND |
 | The noble houses (3) and their standing | The factions with home bases; standing per faction (existing) | FACTIONS, PEOPLE [weights shape] | DONE (standing) |
-| Renown | Renown: what the valley knows of your company (deeds, the feed) | PEOPLE [weights shape] | DONE |
+| Renown | CLOUT: what the valley knows of your company (deeds, the feed). Paolo 10/1: 'Renown is out, clout' | PEOPLE [weights shape] | DONE, renamed |
 | Ambitions | A company goal the player sets, light, with a reward | PEOPLE (from QUESTS' research) | NOT STARTED |
 | Contracts (types, skulls, negotiation, the twist) | Asks from a mouth at a place; the haggle; declining is free (35c) | RUN [settlement screen], ECONOMY [contract pay], QUESTS (research) | IN HAND |
 | Events on the road | Road events: a face, 2-3 choices (33 s2) | RUN [road events], WORDS, PORTRAIT | IN HAND |

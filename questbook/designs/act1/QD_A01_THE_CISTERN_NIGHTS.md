@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pump house on the dam road, the last one before the road turns to dirt; a rooftop cistern behind it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways through night two), 12 (the priced one-night exit), 22 (the glass on the wall), 28 (flags and saves named).
 SHOWS: the TAP-PAST (the old walk-past, moved to the settlement screen) and the PLAIN NO, both leaving nothing (QR-A rules C2, C6, C7, C8)
 
 ## THE SITUATION
@@ -43,6 +43,9 @@ of them, one has a pipe."
    companion (a routine fight, 2 to 4 minutes). COST: two map days, the risk of the fight. Win: three batteries, paid at dawn, counted into the player's
    hand. Lose: the men take two cans (2 WATER) and leave; she pays one battery "for the nights", FAILED, an attempt (C12).
 
+THREE WAYS THROUGH NIGHT TWO (QR-AC, line 9; `Q087.X4`, `Q084.X2`): fight them on the roof; light the roof lamp at midnight and stand where the street can see him, so the four count the guard and try the next house (the cistern holds, the same 3); or talk across the wall: they are the dry block two streets up, and one can (1 WATER, the company's own) sends them home. Every way that keeps the cistern pays the same 3.
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): after the quiet first night he may tell her one night is all he has. She pays 1 battery "por la noche" and the contract closes FINISHED, not dropped: the ledger reads 'guarded one night', and she still offers next time.
+
 ## WHAT THE LEDGERS REMEMBER
 - Declined or walked past: NOTHING about the player. The world still runs: if no one guards the roof, on the third
   morning the cistern lid is off and the family queues at the public pump. That entry is written with no player id,
@@ -52,6 +55,10 @@ of them, one has a pipe."
   this player; the neighbours know by the next week.
 
 THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
+
+DONE, SHOWN (QR-AC, line 22; `Q078.X2`): on the next visit the back wall carries a row of broken bottle glass set in fresh mortar, drawn on the settlement screen.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes remedios_roof = done | one_night | failed | dropped. A play-forward test sets each value and walks to every place that reads it (her next offer, the back-wall prop, the public-pump queue entry); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The cistern is drawn from every day, and the water line painted on its side never moves.

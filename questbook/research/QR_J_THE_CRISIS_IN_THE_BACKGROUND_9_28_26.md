@@ -136,7 +136,9 @@ as a kindness done from above. A row is a voice in the ending, never a toll for 
 - THE WORLD EXPLAINS ITSELF THROUGH ITS OWN MEDIA. `Q088.W8` (TV and radio "until the stations go dark"),
   `Q101.W3` (the quest arrives by an automated broadcast from a dead machine), `Q090.W7` (the story arrives by
   radio "just when you might be lost for things to do"). In Bohemia the phone feed is the city view's radio: it
-  may REPORT a crisis stage (the feed law); it never delivers a contract.
+  may REPORT a crisis stage (the feed law); it never delivers a contract. (folded 10/1 from rule 51: the phone may also
+  LIST which settlements offer what, read-only, so a crisis client can show on it as a board line; accepting is still
+  only at the place.)
 - RELIEF AFTER THE HIT. `Q044.W7` (after a hard hit, send relief), `Q088.W10` (the bleakest sim ships a cartoon
   raccoon "TO COUNTERACT THE BLEAKNESS"). A crisis road table needs good-hour events too, or it becomes
   `Q031.X2` (relentless) and `Q088.X6` ("it's not a typically fun game").

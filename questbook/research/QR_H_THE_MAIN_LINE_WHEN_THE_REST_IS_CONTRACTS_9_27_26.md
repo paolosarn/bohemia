@@ -3,6 +3,7 @@
 STATUS: draft:true, research only, nothing built (rule 35). Letter H, question (g) of the QUESTS lane.
 Answers blind spot 1 of records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md ("THE STORY DOES NOT EXIST").
 Written for RUN, WORLD, PEOPLE, WORDS and DYNASTY. Every naming or identity choice below is Paolo's.
+FOLDED 10/1 (QR-AB): rule 18 (QR-U, applied in QR-X), and a note on rule 8 (rule 51). Each edit is marked in place.
 
 QUESTION: What do the 152 say a MAIN LINE is when the side content is contracts? How does a main
 quest stay alive and pull the player while they are free to do contracts at their own pace (no
@@ -289,7 +290,8 @@ act 2/act 3 boundary is listed as FLOATED/PENDING in the ACT3 MOONSHOT law; this
    lowers standing, never is spoken of. Only taken contracts (finished or dropped) are rows.
    (Paolo 9/27 shape, `Q126.W3`)
 8. ONE VISIBLE MAIN THREAD PER ACT. At any moment, each act shows the player at most one person in
-   one place who moves the spine. (`Q037.X2`, `Q023.X1`)
+   one place who moves the spine. (`Q037.X2`, `Q023.X1`) (folded 10/1 from rule 51: Paolo 9/30 made it law, ONE
+   main quest at a time beside TWO contract slots; the main thread never takes a contract slot.)
 9. THE PULL WHEN IDLE IS A THING IN THE WORLD, NEVER A PROMPT. After a long stretch with no main step
    the world places one new in-world pull in the player's current street; nothing pops up; nothing
    speaks in the first sixty seconds. (`Q090.W7`, `Q013.W6`)
@@ -305,9 +307,22 @@ act 2/act 3 boundary is listed as FLOATED/PENDING in the ACT3 MOONSHOT law; this
 15. ACT 1 NEVER NAMES THE MACHINE, EVEN AFTER A FLIP. (ACT1 GHOST law; DYNASTY rules the flip's
     knowledge.)
 16. REVEALS DRIP. No main beat delivers more than one new truth about the secret. (`Q068.X3`)
+17. (Reserved for QR-U's proposed rule 17, EVERY STEP TOWARD THE SECRET HAS AN OFF-RAMP, `Q154.P3`, `Q154.X2`; not
+    folded by the 10/1 row, which folded rule 18 only. The number is held so designs that cite QR-H rule 18 resolve.)
+18. THE COUNTERFEIT OFFER IS GENUINELY GOOD. (folded 10/1 from QR-U, applied to the designs in QR-X.) Every offer the
+    Amalgamation or its copies make (the dead back on a screen, free power for a face, a grief that stops) must TEMPT:
+    not a bad thing dressed as good, but the real wish (`Q174.W7`). "No one is ever lost, the dead are back" is its
+    whole promise, made a place you leave by refusing (`Q174.W10`). BECOME must be genuinely tempting or LIBERATE is a
+    difficulty setting (`Q156.P2`); the villain's diagnosis is right (`Q210.W1`); and refusing must never be the
+    obviously correct, free pick (`Q161.X3`). This is the main-line form of QR-L P16: the temptation is stated and the
+    other side is fully built (QR-G line 32). Test: a reader who does not know the canon can argue for BECOME in one
+    sentence from what the game showed; every counterfeit offer shows the offer WORKING for someone the player has met.
+    (QR-X checked seven designs and sharpened QD-D05, where the son now says, plainly and correctly, that he is happier
+    with it.) (`Q174.W7`, `Q174.W10`, `Q156.P2`, `Q210.W1`, `Q161.X3`)
 
 ## WHAT TO AVOID (the flaws)
 
+- The counterfeit offer so bad that refusing is obvious: `Q161.X3` (folded 10/1 from QR-U, rule 18).
 - Theme only in optional content: `Q104.X3`, `Q111.X5`, `Q118.X4`, `Q095.X5`, `Q092.X5`, `Q074.X2`,
   `Q084.X1`, `Q086.X1`.
 - A spineless sandbox: `Q044.X4`, `Q061.X1`, `Q055.X1`.

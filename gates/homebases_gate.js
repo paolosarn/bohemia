@@ -391,6 +391,176 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
      share.camp + share.town + share.fortress === total);
 }
 
+/* ---- 10f. *** THE RAID AT YOUR GATE *** (rule 43; the coordinator's 10/1 note on [home bases]) --------- */
+{
+  const CPD = 89;     /* cells a party walks in a waking day: the clock's number, used here only as a scale */
+  const cellOf = {}; seats.forEach(s => { cellOf[s.x + ',' + s.y] = s; });
+  const fresh = () => P.all(seats, { n: m.n });
+  const crewsNow = fresh().filter(p => p.agenda === 'crew');
+  const targetOf = (p) => cellOf[p.to.x + ',' + p.to.y];
+  const SEAT_AT = (f) => seats.find(s => s.faction === f);
+  const dist = (p) => Math.max(Math.abs(p.at.x - p.to.x), Math.abs(p.at.y - p.to.y));
+  const perTarget = {}; crewsNow.forEach(p => { const f = targetOf(p).faction; perTarget[f] = (perTarget[f] || 0) + 1; });
+  const mine = Object.keys(perTarget).filter(f => perTarget[f] === 1).sort().slice(0, 2);   /* two bases, one crew heading at each */
+  const holdRec = () => { const r = H.make(); mine.forEach(f => H.took(r, { base: f, to: 'you', by: 'raid' })); return r; };
+
+  ok('THE TWO NUMBERS ARE DEFAULTS, FROZEN AND NAMED FOR TUNING: four map days, one raid a base an act',
+     H.RAID_DEFAULTS.prepDays === 4 && H.RAID_DEFAULTS.perAct === 1 && Object.isFrozen(H.RAID_DEFAULTS));
+  ok('a raid can end three ways and no others: held, taken, ruined', H.OUTCOMES.join(',') === 'held,taken,ruined');
+  ok('the valley has crews and two bases with exactly one crew each heading at them (' + mine.join(', ') + ')',
+     crewsNow.length >= 2 && mine.length === 2);
+
+  /* A. advance-and-watch is the parties module's advance plus the news */
+  const A = fresh(), B = fresh();
+  P.advance(A, CPD, 1);
+  const ev1 = H.advanceWatching(B, CPD, 1);
+  ok('ADVANCE-AND-WATCH ENDS IN EXACTLY THE STATE THE PARTIES MODULE WOULD HAVE: a drop-in for the clock\'s own call',
+     JSON.stringify(A) === JSON.stringify(B));
+  ok('and every arrival it reports is a party that really flipped to arrived, at the cell it was sent to',
+     ev1.length > 0 && ev1.every(e => { const p = B.find(q => q.id === e.id); return p && e.to.x === p.to.x && e.to.y === p.to.y; }));
+  const nearest = fresh().filter(p => p.agenda === 'crew').sort((a, b) => dist(a) - dist(b))[0];
+  const naive = JSON.parse(JSON.stringify(nearest)), watched = JSON.parse(JSON.stringify(nearest));
+  const wasArrived = naive.arrived;
+  P.advance([naive], 1, 2 * dist(nearest) + 8);
+  const evN = H.advanceWatching([watched], 1, 2 * dist(nearest) + 8);
+  ok('A CREW THAT ARRIVES AND LEAVES INSIDE ONE CALL IS STILL SEEN: a before-and-after look at the flag sees nothing ('
+     + wasArrived + ' then ' + naive.arrived + ') while the watcher saw it arrive',
+     naive.arrived === wasArrived && evN.length >= 1 && evN[0].to.x === nearest.to.x && evN[0].step < dist(nearest) + 1);
+  ok('AN ARRIVAL IS NEWS ONCE: walking home with the flag still up is not arriving again (' + evN.length + ' arrival in ' + (2 * dist(nearest) + 8) + ' steps)',
+     evN.length === 1);
+  ok('no steps, no news', H.advanceWatching(fresh(), CPD, 0).length === 0 && H.advanceWatching(fresh(), 0, 1).length === 0);
+
+  /* B. which arrivals are raids on a base you hold */
+  const evs = H.advanceWatching(fresh(), CPD, 0.6);
+  const want = crewsNow.filter(p => mine.includes(targetOf(p).faction) && p.from.faction !== targetOf(p).faction)
+                       .map(p => targetOf(p).faction + '<' + p.from.faction).sort();
+  const got = H.raidsFrom(evs, seats, holdRec(), 'you', { progress: 0.7 });
+  ok('A CREW ARRIVING AT A BASE YOU HOLD IS A RAID, AND ONLY THAT: ' + got.map(r => r.base + '<' + r.by).join(' ')
+     + ' (worked out by hand: ' + want.join(' ') + ')',
+     want.length === 2 && JSON.stringify(got.map(r => r.base + '<' + r.by).sort()) === JSON.stringify(want));
+  ok('each raid says who came, how strong they look, and which party it was',
+     got.every(r => r.by && typeof r.power === 'number' && r.party && typeof r.step === 'number'));
+  ok('NOBODY HOLDS ANYTHING, NOTHING IS A RAID: three days of arrivals on the empty ledger, at any point in an act',
+     [0, 0.5, 1].every(pg => H.raidsFrom(H.advanceWatching(fresh(), CPD, 3), seats, H.make(), 'you', { progress: pg }).length === 0));
+  ok('arrivals at somebody else\'s base are not yours to answer: the ledger held by the Reds changes who is raided',
+     (() => { const r = H.make(); mine.forEach(f => H.took(r, { base: f, to: 'Reds' })); return H.raidsFrom(evs, seats, r, 'you', { progress: 0.7 }).length === 0; })());
+  ok('THE HARD ONES LATE IN AN ACT: the fortresses are closed at the start (progress 0), at a third in, and when no clock is given; open at two thirds',
+     [0, 0.3].every(pg => H.raidsFrom(evs, seats, holdRec(), 'you', { progress: pg }).length === 0)
+     && H.raidsFrom(evs, seats, holdRec(), 'you', {}).length === 0
+     && H.raidsFrom(evs, seats, holdRec(), 'you', { progress: 2 / 3 }).length === 2);
+  ok('A CARAVAN OR A PATROL REACHING YOUR BASE IS NOT A RAID: only the agenda that comes to take something',
+     ['caravan', 'patrol'].every(ag => H.raidsFrom(got.map(r => ({ id: 'x', agenda: ag, faction: r.by, power: r.power,
+       to: { x: SEAT_AT(r.base).x, y: SEAT_AT(r.base).y }, step: 0 })), seats, holdRec(), 'you', { progress: 1 }).length === 0));
+  ok('A RUIN IS NOT RAIDED: they move into it',
+     (() => { const r = holdRec(); H.setAct(r, 2); H.ruined(r, { base: mine[0] }); const x = H.raidsFrom(evs, seats, r, 'you', { progress: 1 });
+              return x.length === 1 && x[0].base === mine[1]; })());
+  const hunter = got[0].by;
+  ok('A CREW WHOSE OWN BASE FELL IS GONE: it raids nobody (the same rule that silences its party)',
+     (() => { const r = holdRec(); H.took(r, { base: hunter, to: 'Reds' }); const x = H.raidsFrom(evs, seats, r, 'you', { progress: 1 });
+              return x.filter(q => q.by === hunter).length === 0 && x.length < got.length; })());
+  ok('A BASE IS RAIDED ONCE AN ACT, whoever arrives again: the second batch of arrivals finds the first raid on the books',
+     (() => { const r = holdRec(); const first = H.raidsFrom(evs, seats, r, 'you', { progress: 1 });
+              first.forEach(x => H.openRaid(r, { base: x.base, by: x.by, power: x.power, party: x.party, day: 0 }));
+              return first.length === 2 && H.raidsFrom(evs, seats, r, 'you', { progress: 1 }).length === 0; })());
+  ok('AND AT MOST ONE OF TWO CREWS ARRIVING AT THE SAME BASE IN ONE BATCH OPENS ONE RAID',
+     (() => { const r = holdRec(); const e = got[0];
+              const dup = [Object.assign({}, e, { id: 'a', step: 1 }), Object.assign({}, e, { id: 'b', step: 2 })].map(x => ({ id: x.id, agenda: 'crew', faction: x.by, power: x.power, to: { x: SEAT_AT(x.base).x, y: SEAT_AT(x.base).y }, step: x.step }));
+              return H.raidsFrom(dup, seats, r, 'you', { progress: 1 }).length === 1; })());
+  ok('the same arrivals in the same order give the same answer, byte for byte',
+     JSON.stringify(H.raidsFrom(evs, seats, holdRec(), 'you', { progress: 0.7 })) === JSON.stringify(H.raidsFrom(evs, seats, holdRec(), 'you', { progress: 0.7 })));
+
+  /* C. the raid, from the opening to the end */
+  const r1 = holdRec(), b0 = mine[0], b1 = mine[1];
+  ok('a raid with no base, no raider or no day is refused, and told why',
+     H.openRaid(r1, { by: 'Cartel', day: 1 }).reason === 'NO_BASE' && H.openRaid(r1, { base: b0, day: 1 }).reason === 'NO_RAIDER'
+     && H.openRaid(r1, { base: b0, by: 'Cartel' }).reason === 'NO_DAY' && r1.raids.length === 0);
+  const op = H.openRaid(r1, { base: b0, by: 'Cartel', power: 12, party: 'p', day: 3 });
+  ok('A RAID OPENS AT THE GATE AND ITS CLOCK STARTS: due is the arrival day plus four, against whoever held it',
+     op.applied && op.raid.due === 7 && op.raid.day === 3 && op.raid.state === 'open' && op.raid.against === 'you' && op.raid.act === 1);
+  ok('the same base cannot be raided twice in one act, open or closed', H.openRaid(r1, { base: b0, by: 'Remnants', day: 4 }).reason === 'ALREADY_RAIDED');
+  ok('a base the raider already holds cannot be raided by them', H.openRaid(r1, { base: b1, by: 'you', day: 4 }).reason === 'NOT_A_CHANGE');
+  ok('a ruin cannot be raided', (() => { const r = H.make(); H.ruined(r, { base: b0 }); return H.openRaid(r, { base: b0, by: 'Cartel', day: 1 }).reason === 'RUIN'; })());
+  const mk1 = H.markers(seats, parties, r1, 1, { progress: 0.7 }).filter(x => x.kind === 'base');
+  ok('THE MAP\'S MARKER SAYS A CREW IS AT THE GATE: who, and the day it is due, on that base alone and nowhere else',
+     JSON.stringify(mk1.find(x => x.faction === b0).raid) === JSON.stringify({ by: 'Cartel', due: 7 })
+     && mk1.filter(x => x.raid).length === 1 && mk1.every(x => 'raid' in x));
+  const rm = mk1.find(x => x.faction === b0).raid;
+  ok('and everything on the raid marker is an id or a number, never a sentence: two keys, who and the day',
+     Object.keys(rm).sort().join(',') === 'by,due' && Object.keys(rm).every(k => typeof rm[k] === 'number' || /^[A-Za-z0-9:,._-]+$/.test(rm[k])));
+  ok('the open raids are listed', H.raidsOpen(r1).length === 1 && H.raidsOpen(r1)[0].base === b0 && H.raidsOn(r1, b0) === 1 && H.raidsOn(r1, b1) === 0);
+
+  const rH = holdRec(); H.openRaid(rH, { base: b0, by: 'Cartel', power: 12, day: 3 });
+  const ch = H.closeRaid(rH, { base: b0, outcome: 'held', day: 5 });
+  ok('HELD closes the raid and writes nothing to the bases: it is still yours, the ledger has only the one taking',
+     ch.applied && ch.raid.state === 'held' && ch.raid.end.day === 5 && H.heldBy(rH, b0) === 'you' && rH.entries.length === mine.length
+     && H.raidsOpen(rH).length === 0 && ch.entry === null);
+  const rT = holdRec(); H.openRaid(rT, { base: b0, by: 'Cartel', power: 12, day: 3 });
+  const ct = H.closeRaid(rT, { base: b0, outcome: 'taken', day: 7, how: 'unattended' });
+  ok('TAKEN WRITES THE BASE TO THE CREW, BY THE RAID: the same write the rest of the game uses',
+     ct.applied && ct.entry.how === 'taken' && ct.entry.from === 'you' && ct.entry.to === 'Cartel' && ct.entry.by === 'raid' && ct.entry.day === 7
+     && H.heldBy(rT, b0) === 'Cartel' && H.ownedBy(rT, seats, 'you').indexOf(b0) < 0);
+  ok('and the future reads it signed: the crew gains one, and you hold one fewer than the ' + mine.length + ' you had taken',
+     (() => { const n = H.netFor(rT, 1); return n.Cartel === 1 && n.you === mine.length - 1; })());
+  const rR = holdRec(); H.openRaid(rR, { base: b0, by: 'Cartel', power: 12, day: 3 });
+  const cr = H.closeRaid(rR, { base: b0, outcome: 'ruined', day: 6 });
+  ok('RUINED WRITES THE FALL, BY THE RAID', cr.applied && cr.entry.how === 'ruined' && cr.entry.by === 'raid' && H.isRuin(rR, b0));
+  ok('an outcome that is not one of the three is refused and the raid stays open',
+     (() => { const r = holdRec(); H.openRaid(r, { base: b0, by: 'Cartel', day: 1 }); const x = H.closeRaid(r, { base: b0, outcome: 'won' });
+              return x.reason === 'UNKNOWN_OUTCOME' && H.raidsOpen(r).length === 1; })());
+  ok('closing a raid that is not open is refused, and so is closing one twice',
+     H.closeRaid(holdRec(), { base: b0, outcome: 'held' }).reason === 'NO_RAID' && H.closeRaid(rH, { base: b0, outcome: 'held' }).reason === 'NO_RAID');
+
+  /* D. what the world does when nobody came */
+  const seatPow = (f) => SEAT_AT(f).power;
+  const rS = holdRec();
+  mine.forEach(f => H.openRaid(rS, { base: f, by: 'Cartel', power: 12, day: 3 }));
+  ok('NOTHING IS SETTLED BEFORE ITS DAY: the day before it is due, every raid is still open',
+     H.settle(rS, seats, 6).length === 0 && H.raidsOpen(rS).length === 2);
+  const ev = H.settle(rS, seats, 7);
+  const fell = mine.filter(f => seatPow(f) < 12), held = mine.filter(f => seatPow(f) >= 12);
+  ok('ON ITS DAY THE WORLD ANSWERS: a base weaker than the crew is taken by it, and a base at least as strong holds ('
+     + ev.map(e => e.base + ' ' + e.outcome).join(', ') + ')',
+     ev.length === 2 && fell.every(f => ev.find(e => e.base === f).outcome === 'taken' && H.heldBy(rS, f) === 'Cartel')
+     && held.every(f => ev.find(e => e.base === f).outcome === 'held' && H.heldBy(rS, f) === 'you')
+     && ev.every(e => e.how === 'unattended' && e.day === 7));
+  ok('the numbers are the real valley\'s: both outcomes happen here, so this check has something to bite on', fell.length >= 1 && held.length >= 1, fell + ' / ' + held);
+  ok('SETTLING TWICE THE SAME DAY DOES NOTHING THE SECOND TIME, AND THE WORLD NEVER RUINS A BASE NOBODY CAME TO',
+     H.settle(rS, seats, 7).length === 0 && !mine.some(f => H.isRuin(rS, f)) && rS.entries.length === mine.length + fell.length);
+  ok('A TIE HOLDS: a crew exactly as strong as the base does not take it',
+     H.holdsUnattended(12, 12) === true && H.holdsUnattended(11, 12) === false && H.holdsUnattended(13, 12) === true);
+  ok('AND NO NUMBER, NO FALL: a base is never lost on a guess', H.holdsUnattended(null, 12) === true && H.holdsUnattended(5, null) === true && H.holdsUnattended(undefined, undefined) === true);
+  ok('the comparison can be replaced by whoever owns the table: a rule that always loses takes both',
+     (() => { const r = holdRec(); mine.forEach(f => H.openRaid(r, { base: f, by: 'Cartel', power: 1, day: 0 }));
+              return H.settle(r, seats, 4, { holds: () => false }).every(e => e.outcome === 'taken'); })());
+  ok('and so can the days: a table of two gives a raid two days',
+     H.openRaid(H.make(), { base: b0, by: 'Cartel', day: 5 }, { prepDays: 2 }).raid.due === 7
+     && (() => { const r = holdRec(); H.openRaid(r, { base: b0, by: 'Cartel', day: 1 }, { prepDays: 2 }); return H.settle(r, seats, 3).length === 1; })());
+  ok('A RAID WHOSE BASE CHANGED HANDS OR FELL IN THE MEANTIME IS MOOT: it closes as held and writes nothing',
+     (() => { const r = holdRec(); H.openRaid(r, { base: b0, by: 'Cartel', power: 99, day: 0 }); H.took(r, { base: b0, to: 'Reds', by: 'deal' });
+              const n0 = r.entries.length; const e = H.settle(r, seats, 4);
+              return e.length === 1 && e[0].outcome === 'held' && e[0].how === 'moot' && r.entries.length === n0 && H.heldBy(r, b0) === 'Reds'; })());
+  ok('the world\'s answer does not depend on the order the raids were opened in',
+     (() => { const a = holdRec(), b = holdRec();
+              mine.forEach(f => H.openRaid(a, { base: f, by: 'Cartel', power: 12, day: 1 })); mine.slice().reverse().forEach(f => H.openRaid(b, { base: f, by: 'Cartel', power: 12, day: 1 }));
+              const k = (x) => JSON.stringify(x.slice().sort((p, q) => (p.base < q.base ? -1 : 1)));
+              return k(H.settle(a, seats, 5)) === k(H.settle(b, seats, 5)); })());
+
+  /* E. the save */
+  const rv = holdRec(); mine.forEach(f => H.openRaid(rv, { base: f, by: 'Cartel', power: 12, party: 'q', day: 2 })); H.settle(rv, seats, 6);
+  const back = H.load(JSON.parse(JSON.stringify(H.toJSON(rv))));
+  ok('THE RAIDS SURVIVE A SAVE, open ones and closed ones, byte for byte', JSON.stringify(H.toJSON(back)) === JSON.stringify(H.toJSON(rv)) && back.raids.length === 2);
+  ok('A SAVE FROM BEFORE THERE WERE RAIDS IS A PLAYABLE SAVE: no raids key reads as no raid ever came',
+     (() => { const l = H.load({ V: 1, act: 1, entries: [{ base: 'Mob', how: 'taken', to: 'you', act: 1 }] }); return l.raids.length === 0 && l.entries.length === 1; })());
+  ok('a raid that is junk is dropped on load: no base, no day, an unknown end',
+     H.load({ act: 1, entries: [], raids: [null, { by: 'x', day: 1, due: 2 }, { base: 'Mob', by: 'x', due: 2 }, { base: 'Mob', by: 'x', day: 1, due: 5, state: 'exploded' }, { base: 'Mob', by: 'x', day: 1, due: 5, state: 'open' }] }).raids.length === 1);
+  ok('A ledger with raids on it is still a few hundred bytes, not rows of anything', JSON.stringify(H.toJSON(rv)).length < 1600, JSON.stringify(H.toJSON(rv)).length + ' bytes');
+
+  /* F. the real valley, every crew against the base it is sent at: what the world answers for each */
+  const table = crewsNow.map(p => { const b = targetOf(p); return p.from.faction + '(' + p.from.power + ') at ' + b.faction + '(' + b.power + ') ' + (H.holdsUnattended(b.power, p.from.power) ? 'holds' : 'falls'); });
+  ok('EVERY CREW THE VALLEY SENDS IS SENT AT A BASE, AND EACH ONE HAS AN ANSWER: ' + table.join('; '),
+     crewsNow.length === table.length && crewsNow.every(p => targetOf(p) && typeof targetOf(p).power === 'number' && typeof p.from.power === 'number'));
+}
+
 /* ---- 11. *** A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME *** ---------- */
 {
   const logic = stripComments(fs.readFileSync(path.join(ROOT, 'engine/bohemia_homebases.js'), 'utf8'));

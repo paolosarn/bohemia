@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: the paved road along the dam approach, where the faction holding the largest share of the power has put a booth
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 28 (flags and saves named).
 SHAPE: E2, THE TOLL (QR-B)
 
 ## THE SITUATION
@@ -32,6 +32,8 @@ First line: "Five percent of the load, papi. It's on the paper. Everybody pays t
 - The echo: if the company's name is in the handwritten book, later in act 2 a street contract comes from someone
   who got that book and wants to know why you are in it. On the feed: a post about the booth, from a trader who
   also paid.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes toll = paid_5 | argued_2_named | dirt; handwritten_book = yes | no. A play-forward test sets each value and walks to every place that reads it (the next booth that day, the later street contract from the book, the feed post); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "A small fee keeps the road in good repair. Please keep your receipt. It will be needed."

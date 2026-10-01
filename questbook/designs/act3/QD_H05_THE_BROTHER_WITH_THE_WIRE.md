@@ -6,7 +6,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom (the world healing; the reclaimed city is techier than the start)
 PLACE: a relay mast on a reclaimed rooftop that keeps the super-captcha running
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 28 (flags and saves named); a walk-era trigger ('close enough') became a tap.
 
 ## THE SITUATION
 Shaped from the ACT3 MOONSHOT law: the Network's god has gone silent, its leaders want the
@@ -19,7 +19,7 @@ many.
 
 ## THE PERSON AND THE FIRST LINE
 The sister, a Network member in the faction's clean uniform with one sleeve torn off. She waits at
-the foot of the mast until the family is close enough that no one else can hear. First line: "My
+the foot of the mast and speaks only when the family taps her there, on the rooftop's settlement screen, where no one else can hear (rule 38). First line: "My
 brother is on their list for tonight. He doesn't know he's on it. He thinks it's his idea."
 
 ## THE CHOICES
@@ -36,6 +36,8 @@ brother is on their list for tonight. He doesn't know he's on it. He thinks it's
 ## WHAT THE LEDGERS REMEMBER
 Relay condition; Network standing; whether she and her people converted; the brother alive or not.
 The act 3 city shows it (a repaired mast, a family of Network deserters on the family's street).
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes mast_brother = forced | talked | let_go; converted = yes | no. A play-forward test sets each value and walks to every place that reads it (the relay's condition, Network standing, the deserters on the family's street); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 Her brother, when he finally speaks, uses their dead mother's pet name for her, a name she says

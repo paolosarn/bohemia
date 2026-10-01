@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: either
 PLACE: the rocket yard's outer gate at the old Nellis fence line; a folding table, a printed manifest, a queue of people waiting to register (PL13, THE GATE WITH A RULE, and PL03, THE QUEUE)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 5 and 18 (the floor when act 1 holds nobody), 12 (stop looking, priced), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 3: the rocket is being built for the one-way trip to the Moon, and anyone who wants a seat registers
@@ -46,6 +46,8 @@ on a list that became this one.)
 3. NO. "No problem. Next." She skips line forty for the forty-first time and calls the next name. Nothing
    is written. The line stays unsigned until the rocket is done.
 
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): he may come back and say he will not look further; Hale pays nothing, line forty stays unsigned, and the contract closes FINISHED, not dropped.
+
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. TAKEN AND DONE: the manifest shows forty signed or struck; if signed, the
 person is at the launch in the rocket's last beat; if struck, the registrar reads the name once aloud
@@ -53,6 +55,10 @@ and moves on. If the player lets the Network portrait sign, the manifest carries
 and the fold records it (a counterfeit family on a true list). DROPPED: a deed, and line forty stays
 unsigned forever. Across the flip, the act 1 descendant can see the list being written if the ledger
 places him there.
+
+THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`): act 1 is always played first (rule 39c), but if its ledger holds nobody the act 1 dynast helped or failed, line forty names the relative from the family's first morning (QD-F01), and the search ends at the family block.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes line_forty = signed | struck | portrait_signed | left | dropped. A play-forward test sets each value and walks to every place that reads it (the manifest, the launch's last beat, the fold, the act 1 list); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 Line forty is written in the player's own handwriting.

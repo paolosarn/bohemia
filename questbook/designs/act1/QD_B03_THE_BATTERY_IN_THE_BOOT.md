@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: night camp under a highway overpass, on the map between two faction towns
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING); bends 21 on purpose: backing the accuser gets the 2 batteries back, so the harder branch pays more. It is a road-event temptation with the number on the button (QR-X reading 3, QR-L P16, `Q166.W4`), and the kind branch carries its own weight (the widow's settlement). Fixed in place: 28 (flags and saves named).
 SHAPE: E4, THE QUARREL IN THE COMPANY (QR-B)
 
 ## THE SITUATION
@@ -32,6 +32,8 @@ Accused (only if asked): "I paid for what we did on the road. You want it back, 
 - People: a possible departure, a possible friendship, a possible injury.
 - Standing with the widow's settlement (choice 2).
 - The echo: whichever pair forms, the two speak about this night once, later, in a different event.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes quarrel = backed_accuser | heard | settled_fight | settled_peace. A play-forward test sets each value and walks to every place that reads it (the departure at the next town, the widow's settlement standing, the pair's later event); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The company counts to the same number twice. Only one of the counts is correct."

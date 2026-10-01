@@ -77,10 +77,12 @@ twist every visit is `Q148.X3` at phone speed. QR-A C15 and QR-E rule 15 survive
 1.7 TOLD AND HAPPENED. `Q148.P2` (the discoverable lie). Survives whole; it is about the hand-in, which is also a
 screen now (the client's portrait again, in the same building).
 
-1.8 ONE OPEN CONTRACT AT A TIME. `Q037.X2` (hoarding floods the journal) and `Q148.W10` (notice to payment in one
-sitting). QR-A C9 survives, and Battle Brothers agrees (one contract at a time). On the screen it becomes a visible
-rule: while one is TAKEN, the hall shows other offers greyed with the line "one job at a time", and taking a new one
-is the drop.
+1.8 TWO OPEN CONTRACTS AT A TIME (folded 10/1 from rule 51; was "one open contract at a time"). `Q037.X2` (hoarding
+floods the journal) and `Q148.W10` (notice to payment in one sitting). QR-A C9 survives as TWO slots. Battle Brothers
+holds one (`Q236.W2`); Paolo 9/30 called that wack and set two, so a haul to a city and a hunt near it share one road.
+On the screen it stays a visible rule: while BOTH slots are TAKEN, the hall shows other offers readable with accept
+greyed (`Q236.N1`), and taking a third is only possible by finishing one or by the drop. The phone may show which
+settlement offers what (a read-only board); the offer is accepted only here, on the settlement screen.
 
 1.9 THE PERSON IS DOING SOMETHING. `Q095.W3` (character established in staging, not dialogue), `Q083.W1` (every NPC
 has a life), against `Q149.X3` (shallow schedules). QR-E rule 3 survives in a smaller frame: the client portrait on

@@ -6,7 +6,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a battery-charging counter in a gutted gas station on the highway into Henderson (a settlement screen; the counter is a building he taps); the leg is a dead substation yard one map stop east.
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 10 and 23 (B lost has a result), 28 (flags and saves named).
 
 REBUILT FROM: the fetch chain ("collect two halves of an item", `Q095.X2`; back and forth between towns, `Q079.X1`, `Q083.X1`). The phone version is one leg, one place, three ways in, and the job ends when you hand it over.
 
@@ -36,8 +36,12 @@ B. TAKE IT AT NIGHT. One map day waiting, then a Rogue Fable 4 fight on the yard
 C. BRING NENA THE TRUTH. Walk back with no part. Nena comes to the yard herself, and she and the father rig the two arrays to share one controller. The contract FINISHES (you did what she needed, not what she said); she pays 4, not 8. Cost: 4 batteries of fee, half a day.
 The refusal inside the job is choice C, priced and finishing, never a drop (`Q139.P2`).
 
+B LOST (QR-AC, lines 10 and 23; `Q095.X3`, `Q146.W1`): if the night fight is lost, the cousins keep the controller; nothing is paid; FAILED WHILE TRYING, and an advance, if taken, stays owed in chalk on Nena's wall.
+
 ## WHAT THE LEDGERS REMEMBER
 A: the yard stays dark on the map at night from now on. B: the yard is empty on your next pass, the family's cart is at another camp. C: a new line on the map between the two places, and a feed post in the city view ("East yard and the counter share one sun now"). Dropping the contract after taking it (never going back to Nena) is the deed: her counter is shut on your next visit and she will not offer again. DECLINING the offer leaves nothing.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes cc60 = bought | taken | truth_shared | failed | dropped; advance_chalk = 0 | 2. A play-forward test sets each value and walks to every place that reads it (the yard's night light on the map, the family's cart at another camp, the shared-sun feed post, Nena's counter); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The controller is warm when you touch it, and nothing is plugged into it.

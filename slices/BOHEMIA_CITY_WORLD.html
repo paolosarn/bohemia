@@ -596,6 +596,7 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
            IT IS THIS LANE'S OWN BLOCK AND IT TOUCHES NOTHING UI WROTE: appended
            inside the screen, above the feed, with its own id and its own paint. -->
       <div id="cityfeedlist" role="log" aria-live="polite"></div>
+      <div id="actheirs" role="status" aria-label="the people who come after yours"></div>
       <div id="actedit" role="group" aria-label="make this person yours"></div>
       <div id="actflip" role="group" aria-label="who you are"></div>
       <div id="cityfeedfade"></div>
@@ -1014,6 +1015,16 @@ html,body{background:#1c1a15;/*__SKY_VOID__*/color:var(--ink);font-family:var(--
 #actedit .aeb.on{color:var(--skin-lit,#e6d9ae);background:rgba(216,180,90,.18);
   border-color:rgba(216,180,90,.6)}
 #actedit .aeb:active{background:rgba(216,180,90,.35)}
+/* THE HEIRS (rule 39d, [heirs]). A READOUT, NOT A BUTTON: one row of the phone above the
+   offer, only in an act that has heirs, drawn in the phone's own face and the skin's own
+   colours. Chips wrap rather than ellipsize because a name he cannot read is a name that
+   did not ship. */
+#actheirs{flex:0 0 auto;display:none;flex-wrap:wrap;gap:2px 3px;padding:4px 5px 0;position:relative;z-index:2;
+  align-items:center}
+#actheirs.on{display:flex}
+#actheirs .hl{font-size:6px;letter-spacing:.4px;line-height:1.1;color:var(--skin-dim,#7d7458)}
+#actheirs .hc{font-size:6px;letter-spacing:.2px;line-height:1.1;white-space:nowrap;padding:1px 3px;border-radius:2px;
+  color:var(--skin-lit,#e6d9ae);background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14)}
 #cityfeedlist{flex:1 1 auto;min-height:0;overflow:hidden;padding:5px 7px 9px;position:relative;z-index:1}
 #cityfeed .fp{margin:0 0 7px;opacity:0;transform:translateY(7px);
   transition:opacity .28s linear,transform .28s linear}
@@ -14024,6 +14035,327 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   return API;
 })(typeof globalThis !== 'undefined' ? globalThis : this);
 /* ==== /engine/bohemia_acts.js ==== */
+/* ==== engine/bohemia_heirs.js ==== */
+// BOHEMIA HEIRS -- THE COMPANY INHERITS (10/1/26, DYNASTY lane)
+// Board row [heirs] / THE-COMPANY-INHERITS. Rule 39d, three-acts law s11(c) and s12.
+//
+// HIS QUESTION (9/28): "do the people you hire also belong to the dynasty each act?
+// 36 instead of 12?" The default, in VOTE, and now built: YES. Each act starts with
+// the HEIRS of the last act's company, prepared from the ledger the way the city is.
+//
+// HIS HOLE (9/28), AND THE LAW'S ANSWER (s12), WHICH IS THE WHOLE SPEC:
+//   - A man dies in act 1  -> his line is gone from acts 2 and 3 on the next flip
+//     forward. No heir, unless he already had a kid (a man who has been with the
+//     company long enough, or came with a family in his background, leaves one).
+//   - A man dies in act 2 or 3 -> NOTHING in the past moves. It is that act's own
+//     ledger. You recruit there. Act 3 loses that heir's line on the next flip.
+//   - A change in the past re-derives the future's ROSTER and NEVER un-does the
+//     future's deeds (the Day of the Tentacle rule, three-acts law s2c).
+//   - A man recruited later in act 1 shows up as an heir on the next flip forward.
+//   - The main character never dies (37g): he is not in this file at all.
+//
+// *** THE SHAPE IS "NO ROSTER", BECAUSE THE COMPANY MODULE ALREADY SAID SO. ***
+// engine/bohemia_company.js keeps NO list of people (membership is computed from
+// bonds and witnesses, and deleting the record deletes the member in the same
+// instant). So the heirs are not stored either. They are a PURE FUNCTION of the
+// act before, computed every call, exactly like the derived city. What a person
+// DOES in an act is the act's own ledger, keyed by that person, and that is the
+// only thing kept; it is never touched by a re-derive.
+//
+// WHAT THE WALKED GAME CAN FEED IT TODAY, MEASURED BEFORE THIS WAS WRITTEN:
+//   a person has a key, a trade (role), a looks-seed, a former trade (wasOf) and a
+//   name only once you have asked. It has NO age, NO hire day, NO gear, NO family
+//   flag, and NOBODY CAN DIE (bohemia_down.js: your people are down, never dead,
+//   a 9/11 law; his 9/27 "struck down = 20% dead" is the newer word and nothing
+//   has built it). So the three clauses that need a death, a day or a family are
+//   built and proved here on the input shape, and the walked game feeds them
+//   nothing yet. Said, not hidden: the glass shows the survivors' line only.
+//
+// EVERY NUMBER BELOW IS A DEFAULT FROM records/BOHEMIA_PAOLO_WHEN_A_MAN_DIES_IN_ONE_ACT_
+// 9_28_26.md AND BELONGS TO TUNING [recruit odds]. draft:true. They sit in ROWS so the
+// day TUNING's table lands one object is swapped and nothing else reads a literal.
+//
+// REUSE CHECK: cooks no pixels, opens no bank, owns no list, and draws names from
+// the city's own bank (BohemiaPeople.GIVEN / SURNAME) rather than a second one.
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+
+  /* ==================================================================== */
+  /*  THE ROWS (TUNING's, draft:true). Nothing else in this file is a     */
+  /*  number he would feel.                                               */
+  /* ==================================================================== */
+  var ROWS = {
+    daysWithCompany: 60,    /* a man dead after this long with the company had a life: he leaves a kid */
+    heirAgeMin: 15,         /* heirs arrive 15 to 35 years old */
+    heirAgeMax: 35,
+    /* the 35 years between acts is the phone strip's (bohemia_acts.js, +35Y); nothing here reads it */
+    traitShare: 0.5,        /* an heir carries roughly half the parent's traits */
+    perAct: 12              /* ~12 men an act, 36 lives a game */
+  };
+  var ACTS = [1, 2, 3];
+
+  /* WHY A LINE CONTINUES, OR DOES NOT. These are the whole vocabulary. */
+  var WHY = {
+    SURVIVED: 'SURVIVED',                /* alive at the act's end: the normal case */
+    LONG_ENOUGH: 'LONG_ENOUGH',          /* died after the threshold: had a life */
+    FAMILY: 'FAMILY',                    /* came with a family in his background */
+    TOO_SOON: 'DIED_TOO_SOON',           /* died early and left no one: the line ends */
+    MAIN: 'THE_MAIN_LINE',               /* the main character is not an heir, he is the person */
+    CROWDED: 'CROWDED_OUT'               /* more lines than the act has room for */
+  };
+
+  function arr(x) { return Object.prototype.toString.call(x) === '[object Array]' ? x : []; }
+  function str(x) { return String(x == null ? '' : x); }
+  function num(x, d) { x = +x; return (x === x && isFinite(x)) ? x : d; }
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+
+  /* A STRING HASH. Pure, no clock, no Math.random: the same line is the same
+     person on every device and every reload, which is the rule GDD v4 58 sets for
+     heir selection and bohemia_down.js applies to injuries. FNV-1a, then mixed. */
+  function hash32(s) {
+    s = str(s);
+    var h = 2166136261 >>> 0;
+    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; }
+    h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0;
+    h ^= h >>> 13; h = Math.imul(h, 3266489909) >>> 0;
+    h ^= h >>> 16;
+    return h >>> 0;
+  }
+  function unit(s) { return hash32(s) / 4294967296; }
+
+  function peopleBank() {
+    var P = null;
+    try { P = HASREQ ? require('./bohemia_people.js') : root.BohemiaPeople; } catch (_e) { P = root.BohemiaPeople || null; }
+    return P || {};
+  }
+  function pick(list, s) { return (list && list.length) ? list[hash32(s) % list.length] : ''; }
+
+  /* ==================================================================== */
+  /*  THE LEDGER (what is kept) AND ITS WRITERS                           */
+  /* ==================================================================== */
+  /* ledger = { acts: { 1: {members:[...], recruits:[], events:{}}, 2: {recruits:[], events:{}}, 3: {...} } }
+     act 1's members are handed in LIVE by the caller (the walked game computes its
+     company and hands it here, and they are never saved); acts 2 and 3 have no
+     members of their own, only what the act's own ledger recorded: recruits and
+     events. EVENTS ARE THE ONLY THING KEPT ABOUT A PERSON, keyed by the person
+     (a man's death in act 1 is an event of act 1), and they are never deleted. */
+  function fresh() {
+    return { v: 1, acts: { 1: { recruits: [], events: {} }, 2: { recruits: [], events: {} }, 3: { recruits: [], events: {} } } };
+  }
+  function slot(led, act) {
+    led.acts = led.acts || {};
+    var a = led.acts[act] = led.acts[act] || {};
+    if (!a.events) a.events = {};
+    if (!a.recruits) a.recruits = [];
+    return a;
+  }
+  /* A death is an EVENT in the act it happened in. Nothing else moves. */
+  function died(led, act, key, day) {
+    act = +act;
+    if (ACTS.indexOf(act) < 0 || !key) return { ok: false, why: 'NOT_AN_ACT_OR_KEY' };
+    var e = slot(led, act).events;
+    e[key] = e[key] || {};
+    if (e[key].died) return { ok: false, why: 'ALREADY' };
+    e[key].died = { day: num(day, 0) };
+    return { ok: true };
+  }
+  function note(led, act, key, patch) {
+    act = +act;
+    if (ACTS.indexOf(act) < 0 || !key || !patch || typeof patch !== 'object') return { ok: false, why: 'BAD' };
+    var e = slot(led, act).events;
+    var cur = e[key] = e[key] || {};
+    for (var k in patch) if (Object.prototype.hasOwnProperty.call(patch, k)) {
+      if (k === 'died') continue;           /* a death has its own door and its own refusal */
+      cur[k] = patch[k];
+    }
+    return { ok: true };
+  }
+  /* RECRUITING INSIDE AN ACT STAYS BATTLE BROTHERS HARD. This only RECORDS a man
+     the act's own play found; how hard it was is TUNING's. A recruit is never
+     capped by this file. */
+  function recruit(led, act, member) {
+    act = +act;
+    if (ACTS.indexOf(act) < 0 || !member || !member.key) return { ok: false, why: 'BAD' };
+    var a = slot(led, act);
+    for (var i = 0; i < a.recruits.length; i++) if (a.recruits[i].key === member.key) return { ok: false, why: 'ALREADY' };
+    a.recruits.push(clone(member));
+    return { ok: true };
+  }
+
+  /* ==================================================================== */
+  /*  DOES A LINE CONTINUE                                                */
+  /* ==================================================================== */
+  function line(m, rows) {
+    rows = rows || ROWS;
+    if (!m) return { heir: false, why: WHY.TOO_SOON };
+    if (m.main) return { heir: false, why: WHY.MAIN };
+    if (!m.died) return { heir: true, why: WHY.SURVIVED };
+    if (m.family) return { heir: true, why: WHY.FAMILY };
+    var since = m.since, day = m.died && m.died.day;
+    if (since != null && day != null && (day - since) >= rows.daysWithCompany) return { heir: true, why: WHY.LONG_ENOUGH };
+    return { heir: false, why: WHY.TOO_SOON };
+  }
+
+  /* ==================================================================== */
+  /*  ONE HEIR                                                            */
+  /* ==================================================================== */
+  function traitsOf(m) {
+    var t = arr(m.traits).slice();
+    if (m.was && m.was.keeps) t.push(str(m.was.keeps));
+    return t;
+  }
+  /* A NAME THAT REMEMBERS THEM: the parent's surname, a given name of the heir's
+     own. A parent you never asked has no name you could carry, so the heir gets a
+     whole name from the bank and the card says whose kid by trade instead. */
+  function nameOf(m, key, opts) {
+    var P = peopleBank(), G = (opts && opts.given) || P.GIVEN || [], S = (opts && opts.surname) || P.SURNAME || [];
+    var given = pick(G, key + '|given');
+    var parent = str(m.name).replace(/^\s+|\s+$/g, '');
+    var bits = parent ? parent.split(/\s+/) : [];
+    var sur = bits.length > 1 ? bits[bits.length - 1] : pick(S, key + '|surname');
+    return { name: (given + ' ' + sur).replace(/^\s+|\s+$/g, ''), carriesName: bits.length > 1 };
+  }
+  function heirOf(m, toAct, why, opts) {
+    var rows = (opts && opts.rows) || ROWS;
+    var key = 'H' + toAct + ':' + m.key;
+    var span = Math.max(0, rows.heirAgeMax - rows.heirAgeMin);
+    var age = rows.heirAgeMin + (hash32(key + '|age') % (span + 1));
+    var all = traitsOf(m), kept = [];
+    /* roughly half: floor(n * share + u) is exactly n*share on average, and one
+       trait is a coin the key decides, so a reload never changes who kept what. */
+    var want = Math.floor(all.length * rows.traitShare + unit(key + '|traits'));
+    var ranked = all.map(function (t) { return { t: t, h: hash32(key + '|' + t) }; })
+                    .sort(function (a, b) { return a.h - b.h || (a.t < b.t ? -1 : 1); });
+    for (var i = 0; i < want && i < ranked.length; i++) kept.push(ranked[i].t);
+    var nm = nameOf(m, key, opts);
+    /* the parent's look: a man's own seed, or for an heir of an heir the seed the
+       parent heir was drawn from, so the third generation descends from the second */
+    var look = m.look != null ? m.look : (m.lookSeed != null ? m.lookSeed : hash32(m.key + '|look'));
+    return {
+      key: key,
+      act: toAct,
+      parent: m.key,
+      line: arr(m.line).length ? m.line.concat([key]) : [m.key, key],
+      name: nm.name,
+      carriesName: nm.carriesName,
+      age: age,
+      kind: (why === WHY.SURVIVED) ? 'APPRENTICE' : 'KID',  /* a survivor trained one; a man who died left one (draft) */
+      role: m.role || null,
+      was: m.was ? { id: m.was.id || null, keeps: null } : null,
+      traits: kept,
+      gear: arr(m.gear).slice(),            /* gear stays in the family (37g) */
+      lookFrom: look,                       /* PORTRAIT's heredity takes the parent's look from here */
+      lookSeed: hash32(look + '|' + toAct),
+      strength: num(m.strength, 0) / 2,     /* an heir starts with half of what the parent had earned */
+      why: why,
+      draft: true
+    };
+  }
+
+  /* ==================================================================== */
+  /*  THE DERIVE                                                          */
+  /* ==================================================================== */
+  /* roster(ledger, act, opts) -> everyone in the company IN that act, each with the
+     act's own events laid on top. Act 1 is what the caller hands in; act n>1 is
+     the heirs of act n-1 PLUS the act's own recruits. Dead men stay in the list,
+     marked, because a roster that hides the fallen cannot be told apart from one
+     that forgot them, and because their line may continue. */
+  function overlay(base, events) {
+    var out = [];
+    for (var i = 0; i < base.length; i++) {
+      var m = clone(base[i]), e = events && events[m.key];
+      if (e) for (var k in e) if (Object.prototype.hasOwnProperty.call(e, k)) m[k] = clone(e[k]);
+      out.push(m);
+    }
+    return out;
+  }
+  function roster(led, act, opts) {
+    act = +act;
+    led = led || fresh();
+    var events = (led.acts && led.acts[act] && led.acts[act].events) || {};
+    var base;
+    if (ACTS.indexOf(act) < 0) return [];
+    base = (act === 1) ? arr(led.acts && led.acts[1] && led.acts[1].members).slice()
+                       : heirs(led, act, opts).heirs;
+    var rec = arr(led.acts && led.acts[act] && led.acts[act].recruits);
+    var seen = {};
+    for (var i = 0; i < base.length; i++) seen[base[i].key] = 1;
+    for (var j = 0; j < rec.length; j++) if (!seen[rec[j].key]) base.push(rec[j]);
+    return overlay(base, events);
+  }
+  /* heirs(ledger, toAct) -> { act, from, heirs, gone, crowded } : the next act's
+     people, computed from the act before and from nothing else. */
+  function heirs(led, toAct, opts) {
+    toAct = +toAct;
+    var rows = (opts && opts.rows) || ROWS;
+    var out = { act: toAct, from: toAct - 1, heirs: [], gone: [], crowded: [] };
+    if (ACTS.indexOf(toAct) < 1) return out;
+    var from = roster(led, toAct - 1, opts), cands = [];
+    for (var i = 0; i < from.length; i++) {
+      var v = line(from[i], rows);
+      if (!v.heir) { out.gone.push({ key: from[i].key, name: from[i].name || null, why: v.why }); continue; }
+      cands.push({ m: from[i], why: v.why });
+    }
+    /* the room is limited: the strongest lines first, ties by key so the answer
+       never depends on the order the caller listed them in. */
+    cands.sort(function (a, b) {
+      var d = num(b.m.strength, 0) - num(a.m.strength, 0);
+      return d || (a.m.key < b.m.key ? -1 : a.m.key > b.m.key ? 1 : 0);
+    });
+    for (var k = 0; k < cands.length; k++) {
+      if (k < rows.perAct) out.heirs.push(heirOf(cands[k].m, toAct, cands[k].why, opts));
+      else out.crowded.push({ key: cands[k].m.key, name: cands[k].m.name || null, why: WHY.CROWDED });
+    }
+    return out;
+  }
+  /* WHAT STAYS DONE. Events keyed by somebody who is not in this act's derived
+     roster any more (their line was cut in the past). They are NEVER deleted: the
+     past rewrites the future's world, never the future's hands. */
+  function orphans(led, act, opts) {
+    var ev = (led && led.acts && led.acts[act] && led.acts[act].events) || {};
+    var here = {}, r = roster(led, act, opts), out = [];
+    for (var i = 0; i < r.length; i++) here[r[i].key] = 1;
+    for (var k in ev) if (Object.prototype.hasOwnProperty.call(ev, k) && !here[k]) out.push({ key: k, event: clone(ev[k]) });
+    return out;
+  }
+  function living(r) { return arr(r).filter(function (m) { return !m.died; }); }
+
+  /* ==================================================================== */
+  /*  THE SAVE. Tolerant: garbage in, a fresh ledger out.                 */
+  /* ==================================================================== */
+  function save(led) { return JSON.parse(JSON.stringify(led || fresh())); }
+  function load(blob) {
+    var led = fresh();
+    if (!blob || typeof blob !== 'object' || blob.v !== 1 || !blob.acts) return led;
+    [1, 2, 3].forEach(function (n) {
+      var a = blob.acts[n];
+      if (!a || typeof a !== 'object') return;
+      arr(a.recruits).forEach(function (m) {
+        if (m && typeof m === 'object' && typeof m.key === 'string' && m.key) led.acts[n].recruits.push(clone(m));
+      });
+      var ev = a.events;
+      if (ev && typeof ev === 'object') for (var k in ev) if (Object.prototype.hasOwnProperty.call(ev, k)) {
+        var e = ev[k];
+        if (!e || typeof e !== 'object') continue;
+        var keep = clone(e);
+        if (keep.died && typeof keep.died !== 'object') delete keep.died;
+        led.acts[n].events[k] = keep;
+      }
+    });
+    return led;
+  }
+
+  var API = {
+    ROWS: ROWS, WHY: WHY, ACTS: ACTS,
+    fresh: fresh, died: died, note: note, recruit: recruit,
+    line: line, heirOf: heirOf, heirs: heirs, roster: roster, orphans: orphans, living: living,
+    save: save, load: load, hash32: hash32
+  };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  root.BohemiaHeirs = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_heirs.js ==== */
 /* ==== engine/bohemia_heir.js ==== */
 // BOHEMIA HEIR — WHAT THE NEXT ONE ACTUALLY WALKS INTO (9/16/26, WORLD lane)
 // Board row [fold carries] / THE-FOLD-CARRIES-THE-WRONG-THINGS.
@@ -41908,7 +42240,14 @@ function cityStepMins(x,y){
   var f = 1;
   try{ var t=om.at(x,y);
        if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; }catch(_e){}
-  return base*f;
+  /* THE DRIVER (VAMILY [followers], 10/1/26): 1 with no driver hired, so this
+     is a no-op by default. The one real, live-wired effect of the four
+     followers; see engine/bohemia_followers.js for why the other three
+     (fixer excepted) are not. */
+  var dm = 1;
+  try{ if (typeof BohemiaFollowers!=='undefined' && typeof CT_FOLLOWERS!=='undefined')
+       dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); }catch(_e){}
+  return base*f*dm;
 }
 
 /* THE ONE PLACE A JOURNEY ENDS, for the same reason latchStop() is one place: a new
@@ -42004,6 +42343,9 @@ function travelStepped(moved){
   if(!TRAVEL) return;
   if(!moved){ travelSay('The way is blocked.'); travelStop(); return; }
   TRAVEL.i++; TRAVEL.cells++;
+  /* THE BAR READS THE STEP THAT JUST HAPPENED (UI 10/1): the bar's half-second repaint could
+     show 06:21 while the clock already said 06:26, one block behind. Each step repaints it. */
+  try{ if(typeof window.__barPaintRead==='function') window.__barPaintRead(); }catch(_e){}
   if(TRAVEL.i>=TRAVEL.path.length){
     var to=TRAVEL.to, cells=TRAVEL.cells;
     TRAVEL=null;
@@ -54968,6 +55310,13 @@ function ctRoadBark(now){
 var CT_AMBITION = null;          /* the chosen goal's id, or null */
 var CT_AMBITION_ASKED = {};      /* id -> asked already, so the ask itself is once per goal */
 var CT_AMBITION_PAID = {};       /* id -> reward already paid, so a completed goal never pays twice */
+var CT_FOLLOWERS = {};           /* role id -> true, who is currently hired */
+var CT_FOLLOWER_ASKED = {};      /* role id -> asked already, once ever, same economy as ambitions */
+var CT_FOLLOWER_OFFER = null;    /* role id of the offer currently waiting on an answer, or null */
+var CT_FOLLOWER_OFFER_AT = 0;    /* performance.now() the offer first appeared */
+var CT_FOLLOWER_OFFER_WITH = null; /* who made the offer, so walking off to somebody else is a free decline */
+var CT_FOLLOWER_LEFT = [];       /* role ids who left unpaid overnight, waiting for a mouth to say so */
+var CT_FOLLOWER_NIGHTS = 0;      /* how many times wages have been collected; the fixer's relief owns this, never the game's own day number */
 function ctAmbitionFacts(){
   var facts = { company: 0, electricity: 0, usefulWith: [] };
   try { facts.company = ctYours().length; } catch (_e) {}
@@ -55034,6 +55383,108 @@ function ctAmbitionBark(now){
     }
   }
   return false;
+}
+
+/* THE RETINUE (VAMILY [followers], rule 48, 10/1/26). Reuses the exact same
+   companion mouth and bark-ladder slot as ctAmbitionBark, for the same reason
+   ambitions did: rule 19/20 killed a card as the surface and a new button is
+   UI's call on a settlement screen that does not exist yet. UNLIKE ambitions,
+   this one DOES build the accept/decline gesture ambitions named as missing:
+   an offer stays live and silent for two beats (120 BPM, 500 ms/beat -- the
+   same "two beats" window [bb company]'s own retired fall-in mechanic used),
+   and walking off to a different companion before then is a free decline,
+   never asked again this session for that role (rule 35c). */
+function ctFollowerBark(now){
+  if (typeof BohemiaFollowers === 'undefined') return false;
+  if (CT_WALKS_WITH == null) return false;
+  if (CT_FOLLOWER_OFFER && CT_FOLLOWER_OFFER_WITH !== CT_WALKS_WITH) CT_FOLLOWER_OFFER = null;
+  var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
+  var d = null;
+  for (var i = 0; i < drew.length; i++)
+    if (drew[i] && drew[i].p && drew[i].p.id === CT_WALKS_WITH) { d = drew[i]; break; }
+  if (!d || !d.at) return false;
+
+  /* BREAKING NEWS FIRST: somebody left overnight unpaid. Said once, whenever a
+     mouth is next available, same deferred-announcement shape as every other
+     thing this file waits to say until somebody is actually there to say it. */
+  if (CT_FOLLOWER_LEFT.length) {
+    var leftId = CT_FOLLOWER_LEFT.shift();
+    var leftLine = BohemiaFollowers.unpaidLine(leftId);
+    if (leftLine) {
+      BARK.p = d.p; BARK.at = d.at; BARK.text = leftLine;
+      BARK.until = now + barkHold(leftLine);
+      try { window.__FOLLOWER_LEFT = { id: leftId }; } catch (_e) {}
+      return true;
+    }
+  }
+
+  /* AN OFFER IS LIVE: say nothing new until two beats have passed with the
+     same companion still the one you are with, then they fall in. */
+  if (CT_FOLLOWER_OFFER) {
+    if (now - CT_FOLLOWER_OFFER_AT >= 1000) {
+      var hired = BohemiaFollowers.hireLine(CT_FOLLOWER_OFFER);
+      if (hired) {
+        CT_FOLLOWERS[CT_FOLLOWER_OFFER] = true;
+        try { window.__FOLLOWER_HIRED = { id: CT_FOLLOWER_OFFER }; } catch (_e) {}
+        BARK.p = d.p; BARK.at = d.at; BARK.text = hired;
+        BARK.until = now + barkHold(hired);
+        CT_FOLLOWER_OFFER = null;
+        return true;
+      }
+      CT_FOLLOWER_OFFER = null;
+    }
+    return false;
+  }
+
+  /* NO OFFER LIVE: the next role neither hired nor already declined. */
+  var offer = BohemiaFollowers.offerFor(CT_FOLLOWERS, CT_FOLLOWER_ASKED);
+  if (offer && !CT_FOLLOWER_ASKED[offer]) {
+    CT_FOLLOWER_ASKED[offer] = 1;
+    var ask = BohemiaFollowers.askLine(offer);
+    if (ask) {
+      CT_FOLLOWER_OFFER = offer; CT_FOLLOWER_OFFER_AT = now; CT_FOLLOWER_OFFER_WITH = CT_WALKS_WITH;
+      BARK.p = d.p; BARK.at = d.at; BARK.text = ask;
+      BARK.until = now + barkHold(ask);
+      try { window.__FOLLOWER_ASKED = { id: offer }; } catch (_e) {}
+      return true;
+    }
+  }
+  return false;
+}
+
+/* THE RETINUE IS PAID, OR IT WALKS (VAMILY [followers], 10/1/26). Called once
+   a night, same cadence and the same place in the order as nightPower() and
+   blockRent() -- after your own debts are collected, because hired help you
+   pay yourself comes after what you owe somebody else. A plain debit per
+   hired follower, skipped on a night the fixer's relief makes not due
+   (wageDueTonight); NEVER posted through the frozen upkeep() verbs -- this is
+   a transfer with its own name, the identical shape block rent already uses
+   (63033: "a fifth is a design change, and design changes are Paolo's").
+   UNPAID LEAVES THAT SAME NIGHT: no invented grace period, the same immediate
+   consequence an unpaid circuit already gets from nightPower(). */
+function followerWagesNight(){
+  if (typeof BohemiaFollowers === 'undefined') return;
+  var ids = Object.keys(CT_FOLLOWERS); if (!ids.length) return;
+  /* THE LEDGER DAY IS THE REAL GAME DAY (for honest history); THE RELIEF TICK
+     IS THIS MECHANISM'S OWN COUNT (for a provable, self-contained parity) --
+     two different numbers on purpose, so the fixer's "every other time" never
+     depends on another lane's day-number semantics. */
+  var realDay = (typeof DAY !== 'undefined' && typeof DAY.day === 'number') ? DAY.day : 0;
+  var tick = CT_FOLLOWER_NIGHTS++;
+  for (var i = 0; i < ids.length; i++) {
+    var id = ids[i];
+    if (!CT_FOLLOWERS[id]) continue;
+    if (!BohemiaFollowers.wageDueTonight(id, CT_FOLLOWERS, tick)) continue;
+    var f = BohemiaFollowers.byId(id);
+    if (!f) continue;
+    var r = null;
+    try { r = BohemiaPurse.debit(purseGet(), 'electricity', f.wage,
+      'follower wage: ' + id, 'follower:' + id, realDay); } catch (_e) {}
+    if (!r || !r.applied) {
+      delete CT_FOLLOWERS[id];
+      CT_FOLLOWER_LEFT.push(id);
+    }
+  }
 }
 
 /* ==== __THE_INJURED__ : A PERSON WHO WENT DOWN TALKS ABOUT IT, AND CARRIES
@@ -55186,6 +55637,7 @@ function barkTick(now){
   if (ctHurtBark(now)) return;     /* __THE_INJURED__ */
   if (ctRoadBark(now)) return;     /* __THE_COMPANY_IS_A_CAST__ */
   if (ctAmbitionBark(now)) return; /* __A_GOAL_THE_COMPANY_SETS_ITSELF__ */
+  if (ctFollowerBark(now)) return; /* __THE_RETINUE__ */
   if (ctWasBark(now)) return;      /* __THE_COMPANY_IS_A_CAST__ */
   var pick = barkPick();
   if (!pick) return;
@@ -59120,6 +59572,10 @@ function citySnapshot(){
        times here. So export did not carry the people, a restore gave yesterday's
        world with today's population, and the two-slot rollback DESYNCED. */
     people:(function(){ try{ return ctPeopleSave(); }catch(_e){ return null; } })(),
+    /* __THE_COMPANY_INHERITS__ -- THE ACT'S OWN LEDGER OF EVENTS (a man who fell, a deed
+       an heir did), keyed by the person. The heirs themselves are NOT here: they are
+       derived every flip. */
+    heirs:(function(){ try{ return BohemiaHeirs.save(ctHeirLed()); }catch(_e){ return null; } })(),
     /* __ONE_THEN_HEIRS__ -- WHICH PEOPLE EXIST AND WHO HE MADE THEM. A door that opened
        (act 2, act 3), where he stands, and every reshuffle, typed name and chosen sex,
        so closing the tab does not give him one face again. Absent on any save written
@@ -61364,6 +61820,15 @@ function onNightfall(){
      ground's owner, because rent on where you stand is collected before a
      handshake is. */
   try{ loanNight(); }catch(_e){}
+  /* __THE_RETINUE_IS_PAID__ (10/1, [followers]) -- AND THEN YOUR OWN HIRED HELP.
+     After your own debts, because the people you pay yourself come after what
+     you owe somebody else; before the valley's own market turns over, because
+     this is still a personal ledger line, not a valley-wide one. A TRANSFER,
+     NOT A FIFTH VERB (same shape as block rent, 63033): the four upkeep verbs
+     stay frozen, this is a plain debit with its own name. A follower who
+     cannot be paid leaves that same night -- no invented grace period, the
+     same immediate consequence an unpaid circuit already gets (nightPower). */
+  try{ followerWagesNight(); }catch(_e){}
   try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
@@ -64267,6 +64732,7 @@ function applyRestore(st){
      before today, which is correct: that save never had them. */
   if(st.people){ try{ ctPeopleLoad(st.people); }catch(_e){} }
   if(st.acts){ try{ BohemiaActs.load(st.acts); ACTFLIP_BUILT=''; }catch(_e){} }
+  if(st.heirs){ try{ HEIR_LED=BohemiaHeirs.load(st.heirs); HEIR_SEEN.at=-1e9; }catch(_e){} }
   if(st.loop&&DAY.restore(st.loop)){ daySync(); DAY_RESTORED=true;
     if(st.quest)DQ.restore(st.quest,DAY.day); else DQ.openDay(DAY.day);
     /* __CITY_ADDRESS__ -- WHO THE JOB IS ABOUT SURVIVES A RELOAD. Restored
@@ -65027,6 +65493,7 @@ function ctActFlipPaint(){
     }
   }
   try { ctActEditPaint(list, cur); } catch (_e) {}
+  try { ctActHeirsPaint(cur); } catch (_e) {}
   return true;
 }
 /* THE OFFER TO CUSTOMIZE, ONE ROW OF THE PHONE (rule 39c: "when you hop into the
@@ -65157,6 +65624,7 @@ function ctActFlipTo(n){
   try { r = BohemiaActs.flip(n); } catch (_e) { return false; }
   if (!r || !r.moved) return false;
   ACTFLIP_BUILT = '';                      /* the lit one moved: repaint */
+  HEIR_SEEN.at = -1e9;                     /* heirs are re-derived every flip, like the city */
   try { window.__ACT_FLIP = { to: r.to, from: r.from, first: !!r.first, at: performance.now() }; } catch (_e) {}
   try { ctActFlipPaint(); } catch (_e) {}
   /* THE GROUND DOES NOT MOVE YET AND THAT IS THE TRUTH, NOT A GAP. Rule 32(b):
@@ -65166,6 +65634,133 @@ function ctActFlipTo(n){
   try { render(); } catch (_e) {}
   return true;
 }
+
+/* ==========================================================================
+   __THE_COMPANY_INHERITS__ (10/1/26, DYNASTY [heirs], rule 39d). Each act starts with
+   the HEIRS of the last act's company. THE HEIRS ARE NOT STORED. They are a pure
+   function of the act before (engine/bohemia_heirs.js), computed here from the
+   company the walked game already computes (ctYours: bonds and witnesses, no roster)
+   and re-derived every time he looks, exactly like the derived city. What IS kept is
+   the act's own ledger of events (a death, a deed), keyed by the person, in the
+   city's own save, and a re-derive never touches it.
+   WHAT THE WALKED GAME FEEDS IT TODAY, SAID PLAINLY: a person's key, trade, looks seed,
+   former trade and a name once you have asked. No age, no hire day, no gear, no
+   family flag, and nobody can die yet (down, not dead; his 9/27 twenty percent is not
+   built). So today every one of his people carries a line forward; ctHeirDied() is the
+   door COMBAT/TUNING open the day somebody can fall for good.
+   ========================================================================== */
+var HEIR_LED = null;
+var HEIR_SEEN = { at: -1e9, cur: 0, res: null };
+function ctHeirLed(){
+  if (!HEIR_LED) { try { HEIR_LED = BohemiaHeirs.fresh(); } catch (_e) { HEIR_LED = null; } }
+  return HEIR_LED;
+}
+/* WHO A KEY IS, the way ctPersonName finds them, but handing back the whole person
+   (looks seed, name only if earned). */
+function ctPersonByKey(key){
+  try{
+    var id = String(key).indexOf('P:city:') === 0 ? String(key).slice(7) : String(key);
+    var p = CT_WHO[id];
+    if (!p) {
+      var all = ctEveryone() || [];
+      for (var i = 0; i < all.length; i++) if (String(all[i].id) === id) { p = all[i]; break; }
+    }
+    /* A PERSON YOU BONDED WITH IS USUALLY NOT STANDING NEXT TO YOU. The id is
+       'nx:ny:i' (the neighbourhood and the seat), and any neighbourhood's people can
+       be asked for, so ask the one the key names. Measured on the walked surface:
+       the meter reader's lineman is P:city:18:14:2 while he stands 6 neighbourhoods
+       away, ctEveryone() (the 3x3 around the player) does not have them, and the
+       first cut handed the derive nobody. */
+    if (!p) {
+      var q = id.split(':');
+      if (q.length === 3) {
+        var list = pplPeople(+q[0], +q[1]) || [];
+        for (var j = 0; j < list.length; j++) if (String(list[j].id) === id) { p = list[j]; break; }
+      }
+    }
+    return p ? ctPerson(p) : null;
+  }catch(_e){ return null; }
+}
+/* ACT 1'S COMPANY, LIVE. Computed from ctYours() every call, never saved. A name is
+   carried only if you earned it (asked); a stranger's kid is "the kid of a cab
+   driver", because you cannot remember a name you never had. */
+function ctHeirMembers(){
+  var out = [], ys = [];
+  try { ys = ctYours() || []; } catch (_e) { ys = []; }
+  for (var i = 0; i < ys.length; i++) {
+    var y = ys[i]; if (!y || !y.who) continue;
+    var who = ctPersonByKey(y.who);
+    var m = { key: String(y.who), name: (who && who.name) || null, role: y.role || null,
+              strength: +y.strength || 0 };
+    if (who) {
+      if (who.lookSeed != null) m.look = who.lookSeed;
+      try { var w = BohemiaPeople.wasOf(who); if (w) m.was = { id: w.id, keeps: w.keeps || null }; } catch (_e) {}
+    }
+    out.push(m);
+  }
+  return out;
+}
+/* THE WORKING LEDGER: the kept events as saved, with act 1's company handed in live. */
+function ctHeirLedger(){
+  var led = null;
+  try { led = BohemiaHeirs.save(ctHeirLed()); } catch (_e) { return null; }
+  led.acts[1].members = ctHeirMembers();
+  return led;
+}
+/* heirs / roster of an act, derived now. */
+function ctHeirs(act){
+  try { var led = ctHeirLedger(); return led ? BohemiaHeirs.heirs(led, act) : null; } catch (_e) { return null; }
+}
+function ctHeirRoster(act){
+  try { var led = ctHeirLedger(); return led ? BohemiaHeirs.roster(led, act) : []; } catch (_e) { return []; }
+}
+/* THE DOOR A DEATH WALKS THROUGH. Nothing in the walked game calls it yet. */
+function ctHeirDied(act, key, day){
+  var r = null;
+  try { r = BohemiaHeirs.died(ctHeirLed(), act, String(key), day == null ? (T.day|0) : day); } catch (_e) { return false; }
+  HEIR_SEEN.at = -1e9;
+  try { ctActFlipPaint(); } catch (_e) {}
+  return !!(r && r.ok);
+}
+/* THE ROW. Only in an act that has heirs; names and ages; throttled, because the phone
+   ticks every beat and the company walk is not free. */
+var ACTHEIRS_BUILT = '';
+function ctActHeirsPaint(cur){
+  var box = document.getElementById('actheirs');
+  if (!box) return;
+  var list = [];
+  if (cur >= 2) {
+    var now = (typeof performance !== 'undefined') ? performance.now() : 0;
+    if (HEIR_SEEN.cur !== cur || now - HEIR_SEEN.at > 1500) {
+      HEIR_SEEN.cur = cur; HEIR_SEEN.at = now;
+      HEIR_SEEN.res = ctHeirRoster(cur).filter(function (m) { return m.parent && !m.died; });
+    }
+    list = HEIR_SEEN.res || [];
+  }
+  if (!list.length) { box.className = ''; box.innerHTML = ''; ACTHEIRS_BUILT = ''; return; }
+  var sig = cur + '|' + list.map(function (m) { return m.key + ':' + m.age; }).join(',');
+  if (sig === ACTHEIRS_BUILT) return;
+  box.innerHTML = '';
+  var lab = document.createElement('span'); lab.className = 'hl'; lab.textContent = 'HEIRS';   /* draft:true */
+  box.appendChild(lab);
+  var shown = Math.min(list.length, 6);
+  for (var i = 0; i < shown; i++) {
+    var c = document.createElement('span'); c.className = 'hc';
+    c.setAttribute('data-heir', list[i].key);
+    c.textContent = String(list[i].name || '').split(/\s+/)[0] + ' ' + list[i].age;
+    box.appendChild(c);
+  }
+  if (list.length > shown) {
+    var more = document.createElement('span'); more.className = 'hc'; more.textContent = '+' + (list.length - shown);
+    box.appendChild(more);
+  }
+  box.setAttribute('aria-label', 'heirs: ' + list.map(function (m) { return m.name + ', ' + m.age; }).join('; '));
+  box.className = 'on';
+  ACTHEIRS_BUILT = sig;
+}
+try { window.ctHeirs = ctHeirs; window.ctHeirRoster = ctHeirRoster; window.ctHeirDied = ctHeirDied;
+      window.ctHeirLedger = ctHeirLedger; window.ctHeirMembers = ctHeirMembers; } catch (_e) {}
+
 try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo;
       window.ctActReshuffle = ctActReshuffle; window.ctActUnlock = ctActUnlock;
       window.ctActEditCommit = ctActEditCommit;
@@ -76591,6 +77186,75 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
 })(typeof window !== 'undefined' ? window
    : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== /engine/bohemia_ambitions.js ==== */
+/* ==== engine/bohemia_followers.js ==== */
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports);
+
+  var WAGE = 1; // batteries/night, flat, matching the house style (every upkeep verb debits exactly 1)
+
+  var FOLLOWERS = [
+    { id: 'mechanic', bb: 'blacksmith', wage: WAGE, tuned: false,
+      ask: "I used to keep machines running for a living. A mechanic, if you want one. A battery a night.",
+      hireSays: "The mechanic falls in.",
+      unpaidSays: "The mechanic says the batteries dried up, and leaves.",
+      changes: { kind: 'repair', mult: null, tuned: false,
+        note: "not yet live: this game has a flat plate-spent switch (fight:plate), not a repair meter, so there is nothing yet to make cheaper" } },
+    { id: 'medic', bb: 'surgeon', wage: WAGE, tuned: false,
+      ask: "I patched people up for a living. A medic, if you want one. A battery a night.",
+      hireSays: "The medic falls in.",
+      unpaidSays: "The medic says the batteries dried up, and leaves.",
+      changes: { kind: 'healing', mult: null, tuned: false,
+        note: "not yet live: this game has no wound/injury clock to speed up yet (rule 36b, long injury, is a ruling, not code)" } },
+    { id: 'fixer', bb: 'negotiator', wage: WAGE, tuned: false,
+      ask: "I can talk a price down, for a cut. A fixer, if you want one. A battery a night.",
+      hireSays: "The fixer falls in. The rest of the crew gets paid a little less often now.",
+      unpaidSays: "The fixer says the batteries dried up, and leaves.",
+      changes: { kind: 'wageRelief', everyNights: 2, tuned: false,
+        note: "every OTHER hired follower is only charged every second night instead of every night" } },
+    { id: 'driver', bb: 'scout', wage: WAGE, tuned: false,
+      ask: "I used to run routes before the roads got bad. A driver, if you want one. A battery a night.",
+      hireSays: "The driver falls in. The roads go by quicker now.",
+      unpaidSays: "The driver says the batteries dried up, and leaves.",
+      changes: { kind: 'travel', mult: 0.85, tuned: false,
+        note: "every block crossed on the map costs 15% less time" } }
+  ];
+
+  function byId(id) { for (var i = 0; i < FOLLOWERS.length; i++) if (FOLLOWERS[i].id === id) return FOLLOWERS[i]; return null; }
+
+  function offerFor(hired, asked) {
+    hired = hired || {}; asked = asked || {};
+    for (var i = 0; i < FOLLOWERS.length; i++) {
+      var f = FOLLOWERS[i];
+      if (!hired[f.id] && !asked[f.id]) return f.id;
+    }
+    return null;
+  }
+
+  function askLine(id) { var f = byId(id); return f ? f.ask : null; }
+  function hireLine(id) { var f = byId(id); return f ? f.hireSays : null; }
+  function unpaidLine(id) { var f = byId(id); return f ? f.unpaidSays : null; }
+
+  function wageDueTonight(id, hired, tick) {
+    hired = hired || {}; tick = tick | 0;
+    if (id === 'fixer' || !hired.fixer) return true;
+    var every = (byId('fixer').changes.everyNights) | 0 || 2;
+    return (tick % every) === 0;
+  }
+
+  function travelMultiplier(hired) {
+    if (hired && hired.driver) { var f = byId('driver'); return (f && typeof f.changes.mult === 'number') ? f.changes.mult : 1; }
+    return 1;
+  }
+
+  var API = { FOLLOWERS: FOLLOWERS, WAGE: WAGE, byId: byId, offerFor: offerFor,
+    askLine: askLine, hireLine: hireLine, unpaidLine: unpaidLine,
+    wageDueTonight: wageDueTonight, travelMultiplier: travelMultiplier };
+  if (HASREQ) module.exports = API;
+  root.BohemiaFollowers = API;
+})(typeof window !== 'undefined' ? window
+   : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_followers.js ==== */
 
 /* __THE_WORLD_DOES_THE_ASKING__ -- the seam between the running valley and the
    ask generator. (9/6, QUESTS [asks exist].)
@@ -81389,6 +82053,21 @@ window.BOHEMIA_BAR = (function(){
       +'#barread .rd b{font-weight:700;color:var(--acc)}'
       +'#barread .cell{position:relative;display:inline-block;width:13px;height:7px;border:1px solid var(--acc);border-radius:1px}'
       +'#barread .cell:after{content:"";position:absolute;right:-3px;top:1px;width:2px;height:3px;background:var(--acc)}'
+      /* __THE_SIX_IN_THE_BAR__ (UI 10/1, [bb interface] round nine, rule 47a: 'the HUD's six are
+         UI's'). Battle Brothers keeps its five stores in one row at the top of the map, always
+         read, never a button. Ours are six (BATTERIES FOOD MEDS ROUNDS TAPE WATER), in ONE lit
+         plate, each a pixel mark and a count. A store the game does not count yet shows its mark
+         and a dim dash, never an invented number (ECONOMY round 55: four of the six have no
+         player ledger). */
+      +'#barread .rd.six{gap:7px;padding:0 7px}'
+      +'#barread .sx{display:inline-flex;align-items:center;gap:2px}'
+      +'#barread .sx svg{width:10px;height:10px;display:block;shape-rendering:crispEdges;fill:var(--acc)}'
+      +'#barread .sx b{min-width:6px}'
+      +'#barread .sx.none{opacity:.42}'
+      +'#barread .sx.none b{color:var(--ink);font-weight:400}'
+      +'#barread .rd[data-k="where"]{max-width:92px;overflow:hidden;text-overflow:ellipsis}'
+      /* the narrowest phones (320) keep all six and the hour whole; the place gives way first */
+      +'@media (max-width:360px){#barread .rd[data-k="where"]{max-width:40px}#barread .rd.six{gap:5px}}'
       /* while the three readings show, the old words for the same facts step aside, so the
          bar never says the place or the hour twice (the alpha keeps them on the street). */
       +'#menubar.reads #hmode,#menubar.reads #hslot,#menubar.reads #barmid{display:none!important}'
@@ -81461,7 +82140,44 @@ window.BOHEMIA_BAR = (function(){
     try{ var full=(typeof clockStr==='function')?clockStr():'';
          var bits=String(full).split('\u00b7'); hr=(bits.length>1?bits[bits.length-1]:full).trim()||null; }catch(_e){}
     try{ var t=om.at(city.x,city.y); where=(t&&t.district)?String(t.district).toUpperCase():null; }catch(_e){}
-    return { batteries:b, hour:hr, where:where };
+    return { batteries:b, hour:hr, where:where, six:sixCounts() };
+  }
+  /* __THE_SIX_IN_THE_BAR__: the six stores, in rule 47a's order, each asked of the game.
+     ONE SOCKET FOR THE COMPANY LEDGER: when a lane builds the ledger rule 47a names
+     (ECONOMY round 55: it does not exist yet), it answers BohemiaLedger.count(kind) and the
+     bar reads it first, with no edit here. Until then the bar reads the two the purse
+     already keeps: BATTERIES = electricity (batteries are the money, 9/4) and FOOD =
+     resources (day:ate, the daily food bill, is drawn from it). MEDS, ROUNDS, TAPE and
+     WATER have no player count anywhere in the game, so they read null and draw a dash. */
+  var SIX=[
+    ['batteries','M0 2h8v6H0zM1 3v4h6V3zM2 4h3v2H2z','M8 4h2v2H8z'],
+    ['food','M2 1h6v1H2zM1 2h8v7H1zM2 4h6v1H2zM2 6h6v1H2z'],
+    ['meds','M4 1h2v3h3v2H6v3H4V6H1V4h3z'],
+    ['rounds','M4 0h2v1h1v2H3V1h1zM3 3h4v6H3zM4 4v1h2V4z'],
+    ['tape','M2 1h4v1h1v1h1v4H7v1H6v1H2V8H1V7H0V3h1V2h1zM3 4h2v2H3z','M8 5h2v5H8z'],
+    ['water','M4 0h2v2h1v2h1v1h1v3H8v1H2V8H1V5h1V4h1V2h1z']
+  ];
+  function sixCounts(){
+    var pb=null; try{ pb=(typeof purseBalances==='function')?purseBalances():null; }catch(_e){}
+    var from={ batteries:(pb&&typeof pb.electricity==='number')?pb.electricity:null,
+               food:(pb&&typeof pb.resources==='number')?pb.resources:null };
+    var out={};
+    for(var i=0;i<SIX.length;i++){
+      var k=SIX[i][0], n=null;
+      try{ if(typeof BohemiaLedger!=='undefined' && BohemiaLedger && typeof BohemiaLedger.count==='function'){
+             var v=BohemiaLedger.count(k); if(typeof v==='number' && isFinite(v)) n=v; } }catch(_e){}
+      if(n===null && typeof from[k]==='number') n=from[k];
+      out[k]=n;
+    }
+    return out;
+  }
+  function sixPlate(six){
+    var h='<span class="rd six" data-k="six">';
+    for(var i=0;i<SIX.length;i++){
+      var k=SIX[i][0], n=six?six[k]:null, has=(typeof n==='number');
+      h+='<span class="sx'+(has?'':' none')+'" data-s="'+k+'"><svg viewBox="0 0 10 10" aria-hidden="true"><path d="'+SIX[i][1]+'" fill-rule="evenodd"/>'+(SIX[i][2]?'<path d="'+SIX[i][2]+'"/>':'')+'</svg><b>'+(has?n:'\u2013')+'</b></span>';
+    }
+    return h+'</span>';
   }
   function paintRead(){
     var RD=document.getElementById('barread'), bar=document.getElementById('menubar');
@@ -81470,14 +82186,15 @@ window.BOHEMIA_BAR = (function(){
     var r=readings();
     /* A READING DRAWS ITSELF OR IT DOES NOT DRAW. No placeholder, no invented zero. */
     var parts=[];
-    if(typeof r.batteries==='number') parts.push('<span class="rd" data-k="batteries"><i class="cell"></i><b>'+r.batteries+'</b></span>');
+    /* the battery plate became the first of the six (round nine): one plate, six stores */
+    parts.push(sixPlate(r.six));
     if(r.hour) parts.push('<span class="rd" data-k="hour">'+r.hour+'</span>');
     if(r.where) parts.push('<span class="rd" data-k="where">'+r.where+'</span>');
     var show=onMap && parts.length>0;
     RD.classList.toggle('on',show); bar.classList.toggle('reads',show);
     var html=parts.join('');
     if(show && RD.__was!==html){ RD.innerHTML=html; RD.__was=html; }
-    try{ window.__BAR_READ={ on:show, batteries:r.batteries, hour:r.hour, where:r.where }; }catch(_e){}
+    try{ window.__BAR_READ={ on:show, batteries:r.batteries, hour:r.hour, where:r.where, six:r.six }; }catch(_e){}
     /* ONE CLOCK ON ONE SCREEN (UI 9/30, measured on the demo's map: the bar said 06:32 while the
        phone's status clock still said 06:26, because the phone rewrites its clock on its own,
        slower tick). Both read clockStr(); the phone's is simply refreshed on this same half-second
@@ -81506,6 +82223,7 @@ window.BOHEMIA_BAR = (function(){
       try{ setInterval(paint, 1000); }catch(_e){}
       /* the hour moves on the party's beat while it travels; half a second keeps the
          bar within one step of the phone's own clock without touching the map's tick */
+      try{ window.__barPaintRead=paintRead; }catch(_e){}
       try{ setInterval(function(){ try{ paintRead(); }catch(_e){} }, 500); }catch(_e){}
     }
   }

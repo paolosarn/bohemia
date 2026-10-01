@@ -3,6 +3,7 @@
 QUESTION: row [phone flaws], question (f). Read the FLAWS master (questbook/BOHEMIA_FLAWS_MASTER_7_16_26.txt, the 693 X ids in records/BOHEMIA_QUESTBOOK_LAW_INDEX.json) for a PHONE with a THUMB and a FIVE-MINUTE session. Which flaws bite hardest here? Cluster all 693 into families, count each, rank them for a phone, and for the top 25 give the X ids, what it looks like in Bohemia, a checkable rule, and the W/P ids that show the fix. Finish with THE CHECKLIST a builder answers before shipping any event or contract.
 
 STATUS: draft:true, research only, nothing built (rule 35). Author: QUESTS lane, writer G, round 9/27.
+FOLDED 10/1 (QR-AB): checklist lines 29 and 30 (QR-U, QR-X), THE HOUSE RULE under line 30 (QR-X), a note on line 21, lines 31 and 32 (QR-U, judged well-founded), and OPEN 2 (rule 51). Each edit is marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -255,7 +256,7 @@ A builder answers every line YES or the item does not ship. Each line cites the 
 18. If it plants something for another act, does the other act show the landing on arrival and have a full read if the plant was never set? (`Q121.X1`, `Q022.X2`, `Q096.X1`)
 19. Is it offered after the first minute, and does it introduce at most one new faction name and one new system? (`Q065.X2`, `Q081.X4`, `Q051.X1`)
 20. Does every choice write a different ledger line, and do at least two choices lead to different next states? (`Q040.X1`, `Q126.X6`, `Q152.X2`)
-21. Does the crueller branch pay the same or less, with no number shown and no batteries lying by a body? (`Q130.X9`, `Q121.X2`, `Q125.X7`)
+21. Does the crueller branch pay the same or less, with no number shown and no batteries lying by a body? (`Q130.X9`, `Q121.X2`, `Q125.X7`) (folded 10/1 from QR-X: "no number shown" binds CONTRACTS; on a road event or a main beat, ONE stated temptation may carry its number on the button, per THE HOUSE RULE under line 30 and QR-L P16.)
 22. When it finishes, does the world show it (a feed post, a line, a changed prop)? (`Q078.X2`, `Q130.X10`, `Q131.X2`, `Q146.X1`)
 23. Is the emotional scene reachable without a mandatory fight, and does a lost fight lead to a result, not a reload? (`Q095.X3`, `Q098.X2`, `Q017.X1`)
 24. Is the kindest ending reachable with no boss verb? (`Q123.X2`, `Q120.X1`)
@@ -263,6 +264,13 @@ A builder answers every line YES or the item does not ship. Each line cites the 
 26. Is there one warm or funny beat, and is the horror one wrong detail, not gore? (`Q030.X2`, `Q041.X3`, `Q113.X3`)
 27. Is this a plain job, or, if it has a twist, is it inside the rationed minority? (`Q148.X3`, `Q066.X1`)
 28. Is every persistent flag it writes covered by a play-forward test, and does it save only at clean states? (`Q123.X1`, `Q116.X1`, `Q040.X3`)
+29. Is every ending, including the best, reachable by understanding what people said and places showed, with no hidden check and no meta-knowledge? (folded 10/1 from QR-U.) The most repeated flaw on the new shelf. Our game has no persuasion stat; this guards the next worst thing, a best ending that needs a guide. The port: gate the best ending on assembled understanding (`Q155.P2`). (`Q155.X1`, `Q162.X1`, `Q170.X1`, `Q186.X1`, `Q207.X2`, `Q210.X1`, `Q221.X1`, `Q156.X3`, `Q175.X1`, `Q179.X3`, `Q168.X1`)
+30. Does no branch of a moral fork pay more, in any currency, including power and people? (folded 10/1 from QR-U and QR-X.) It stretches line 21 from the crueller branch to every branch. (`Q190.X1`, `Q191.X1`, `Q171.X3`, `Q184.X2`, `Q164.W4`, with the older law `Q004.W4`, `Q097.W10`, `Q108.X2`)
+    THE HOUSE RULE (folded 10/1 from QR-X, so line 30 and QR-L P16 never have to be chosen between): CONTRACTS PAY ONE FEE ON EVERY BRANCH THAT COUNTS AS DONE (QR-L P7); EVENTS AND MAIN BEATS MAY CARRY ONE STATED TEMPTATION, WITH THE NUMBER ON THE BUTTON, AND THE OTHER SIDE FULLY BUILT. Three readings that pass: (a) a price the player chooses to pay out of his own purse is not a reward (the kindness is bought; `Q108.X2`); (b) a priced refusal pays less for less work, not for a side, as long as some branch at least as kind pays the full fee (line 12, `Q139.P2`); (c) a stated temptation on a road event or an honest-devil beat is the dilemma, not a tilt, because "the temptation has a number on it, the only kind that tempts" (`Q166.W4`) and a cartoonish offer tempts nobody (`Q204.X3`). A design that bends this line says so in its CHECKLIST line and why.
+31. Can the theme be met without winning a fight, and does a fight never decide what a conversation should? (folded 10/1 from QR-U; proposed there as line 31 and judged well-founded here: four separate studies show the same failure, the theme swallowed by a boss or a firefight, and none of them is already covered by line 23, which guards the emotional SCENE but not the THEME.) With fights of 2 to 15 minutes and the hours on the world, a theme that only a fight answers is a theme most players skip. (`Q216.X1`, `Q183.X3`, `Q199.X3`, `Q197.X1`)
+32. Are both sides of a two-person choice, a bargain or a refusal equally built, so neither is the obvious pick? (folded 10/1 from QR-U; proposed there as line 32 and judged well-founded here: it is the "other side fully built" half of THE HOUSE RULE under line 30, and four studies name it.) If one of two is more likable, more useful or carries no risk, the impossible choice becomes easy. (`Q226.X2`, `Q231.X3`, `Q157.X1`, `Q161.X3`, `Q204.X3`)
+
+NOTE ON THE COUNT (10/1): the designs on the shelf say "passes all 30" (QR-X ran lines 29 and 30 on all 170). Lines 31 and 32 have not been run on any design yet; a design written from now on says "passes all 32" or names the lines it bends, and the next sweep runs 31 and 32 on the shelf.
 
 ## WHAT TO AVOID (the short list, by id)
 
@@ -271,7 +279,7 @@ The silent timer (`Q095.X1`, `Q106.X5`). The silent break (`Q071.X1`, `Q128.X2`)
 ## OPEN (what the library could not answer)
 
 1. THE RESUME. No study measures a player coming back after two days. The library has the parts (`Q037.W3`, `Q021.W7`, `Q109.P6`) but never the moment. Is the resume a "first sixty seconds" under our law (nothing speaks)? RUN and UI own that call; this page only says the map must answer "what was I doing" without text.
-2. THE CAP ON TAKEN CONTRACTS. `Q037.X2` says focus; no study gives a number for a phone. PEOPLE/RUN pick it and measure.
+2. THE CAP ON TAKEN CONTRACTS. `Q037.X2` says focus; no study gives a number for a phone. (Folded 10/1 from rule 51: ANSWERED by Paolo 9/30, TWO contract slots and one main quest; Battle Brothers holds one, `Q236.W2`, and we differ on purpose. TUNING holds the number; RUN and EYES measure whether two stay legible on the map.)
 3. WHERE THE TELL LIVES WHEN THE PLAYER IS ON THE STREET. The feed is in the city view only (Paolo 9/23). A tell for a fail that happens while the player is on the fight board or a settlement screen must be a person or a prop there, or it waits for the next city view. Which is better is a playtest question, not a library one.
 4. THE REFUSAL INSIDE vs "ONCE TAKEN YOU FINISH IT". Our law says a taken contract is finished or it is a deed. The library says an in-contract refusal must be a path (`Q139.P2`). This page reads them together: the priced refusal FINISHES the contract. If Paolo reads "finish" as "do what was asked", the refusal becomes the drop, and it is a deed. His call.
 5. `Q148.W2` praises the notice board as "a dignified front door". Our law says NEVER A CARD and the ask comes from a person, so this page takes `Q148.W1` (the fee locks before the truth) and leaves the board.

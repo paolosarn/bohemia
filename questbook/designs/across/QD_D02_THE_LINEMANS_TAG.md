@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: a fenced substation at the end of a dead strip-mall road, act 1; the same corner, lit or not, act 3
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to an ask that is not a contract); bends 21 on purpose: selling the brass pays 1 battery and the promise pays nothing, so the colder branch pays more. It is the stated temptation, a number on the button (QR-X reading 3, `Q166.W4`), and the act 3 landing carries the weight. Fixed in place: 5 and 18 (the floor with no promise row), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 1. A lineman from the old utility is still keeping one substation alive with parts he steals from his own employer's yard. He is sick and he knows it. This is not a contract: he asks, and the player may walk past. What he asks is a promise made by the grandparent and paid by the heir: "when the power's back on this street, tell my daughter I kept it on as long as I could." He hands over his brass tool-check tag, his number stamped on it. The tag is the thing that crosses the ages; batteries never do.
@@ -28,6 +28,10 @@ Act 2 says nothing (a repayment that skips a generation). Act 3's derive reads t
 - Street dark, tag kept: she is on the same corner. "Dicen que the lights come back to this street. I'm waiting." The pointer chain: her line names the substation; the substation is on the map.
 - Tag sold: she is there, and nobody in the family has the thing that would let her believe the message.
 At the landing the heir chooses: give her the tag, or tell her and keep it. No battery changes hands either way. The record reads who kept the promise, and in which generation.
+
+THE FLOOR (QR-AC, lines 5 and 18; `Q022.X2`, `Q121.X1`): with no promise row (he never tapped the substation), act 3's corner has the daughter on it, old and waiting, and no landing reads: no tag, no line about the family.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes lineman = promised | sold | held_night; tag_in_drawer = yes | no; street_lit_any_act = yes | no. A play-forward test sets each value and walks to every place that reads it (the act 3 corner, the family drawer); the save lands only at clean states: before the beat and after its choice is written; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The tag is warm when the heir takes it out of the drawer, as if somebody had just been holding it.

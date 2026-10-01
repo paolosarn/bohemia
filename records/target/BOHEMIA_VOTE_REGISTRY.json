@@ -3219,7 +3219,7 @@
    "sha": "45c2a04b",
    "made": "9/29",
    "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
-   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking.",
+   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking. (10/1: I changed this default. The thumb that counts now is on A CREW AT YOUR GATE.)",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
@@ -3736,6 +3736,99 @@
   "show": {
     "how": "text",
     "src": "FROM GROK, 10/1 (unverified by a lane yet).\n\n1. NOTHING GLOWS. Your 9/29 lock wins over the round-three 'glow animals' line.\n\n2. THE MAMMOTHS ARE FIRST BIRTHS in act three, not a wild herd.\n\n3. THE DINO-BIRD is a lab-edited living bird. The word dinosaur never appears.\n\nSource: colossal.com/mammoth, cited by Grok."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+  {
+   "id": "character-the-barber-10-1",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE BARBER",
+   "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_BARBER.html"
+   }
+  },
+  {
+   "id": "people-the-retinue-10-1",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "8e69c21",
+   "made": "10/1",
+   "title": "THE RETINUE",
+   "why": "Battle Brothers hires camp staff for a daily wage: a scout, a surgeon, a negotiator, a blacksmith. Ours are the driver, the medic, the fixer, the mechanic, offered one at a time by whoever is walking with you, hired by staying close, never a popup. A driver really makes the map faster to cross. A fixer really gets the rest of the crew paid less often. A medic and a mechanic are honestly not doing anything live yet, because this game doesn't have a wound clock or a repair meter for them to speed up, and faking one just to give them a job felt worse than saying so.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_RETINUE_10_1_26.html"
+   }
+  },
+  {
+   "id": "factions-a-crew-at-your-gate-10-1",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "756a2a94",
+   "made": "10/1",
+   "title": "A CREW AT YOUR GATE",
+   "why": "A crew walks up to a base you hold. Tap LOOK AT IT: the game's own map, two crews walking at two bases you would hold, then both at the gate with four days on the clock, then four days later with nobody there: the strong base holds and the weak one is taken. I changed my mind from last time: the world can take a base nobody came to, after four days of warning, and it never burns it. Thumbs up keeps that. Thumbs down puts it back: a crew at your gate does nothing until you fight.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html"
+   }
+  },
+  {
+   "id": "ui-the-six-in-the-bar-10-1",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE SIX IN THE BAR",
+   "why": "You said Battle Brothers' supplies fit ours: gold, food, medicine, ammo, tools. Ours are six: batteries, food, meds, rounds, tape, water. In Battle Brothers they sit in one row across the top of the map, so you always see what you are running low on while you travel. A is in the game now: all six in one plate next to the hour and the place. B gives them their own bigger row under the bar. C keeps only batteries in the bar and drops the six down when you tap it. All three are the real demo map. The game only counts batteries and food so far, so the other four show a dim dash instead of a made-up number, and they light up by themselves the moment the game starts counting them.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_SIX_IN_THE_BAR_10_1.png"
+   }
+  },
+   {
+    "id": "combat-nothing-on-the-ground-10-1",
+    "kind": "tile",
+    "lane": "combat",
+    "sha": "PENDING",
+    "made": "10/1",
+    "title": "THE GROUND UNDER THE FIGHTERS, CLEANED UP",
+    "why": "You said the tiles below the people look fucked up. Same fight, before and after. Gone from the ground: the pale blue ovals and tan cardboard blocks (the cover is now low stone walls cut from the street's own wall art), the see-through diamonds, the big red disc floating on the street, and the words ROSA and CLEAR printed on top of each other. A good spot to stand is now its own square tile, lit a little brighter. The red dot that means he can reach you is small, right over the man's head. Rosa's name lives in the bar at the top, and her health is a small bar over her. The ground is also drawn with your phone's real pixels now, not blown-up 3x3 blocks, so the cracks in the sidewalk and road show up. Look at the right two pictures up close. One honest note: if a phone can't keep the fight smooth at full sharpness, it steps down a notch by itself rather than stutter. Thumbs up and I keep cleaning the board this way. Thumbs down and tell me what still looks wrong under their feet.",
+    "show": {
+     "how": "image",
+     "src": "vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png"
+    }
+   },
+  {
+   "id": "dynasty-heirs-10-1",
+   "kind": "tile",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "YOUR PEOPLE HAVE KIDS. THEY ARE THE NEXT ACT'S COMPANY.",
+   "why": "You asked if the people you hire belong to the dynasty each act, and what happens if one dies in an earlier act. Here is the answer, shot on the real phone. Left: act 1, one person in the company (the game wrote him itself: a real job, finished, its own bond). Second: in act 2 the phone shows his heir, Fern, 29, with his surname if you ever asked his name, or a fresh one if you never did. Third: act 3 shows Fern's heir, Wyatt, 20. Right: I made him fall early in act 1 with no kid, and his line is gone from act 2 (and 3). If he had been with you 60 days, or came with a family, he would have left a kid. A death in act 2 or 3 changes nothing in the past. And if the past changes, who is there is worked out again, but what the heirs already did stays done. Each act holds up to 12 of these lines, 36 across the game. Two things I am not hiding. The game cannot kill anyone yet (your people are down, never dead, an older ruling your 20 percent replaced and nobody has built), so today every one of your people carries a line forward, and the death part is proven on the rules, not on the street. And it shows names and ages only: the faces and the company screen are the portrait and UI lanes' jobs. Thumbs up and this is how the company inherits. Thumbs down and tell me which of the numbers (60 days, 15 to 35 years old, half the traits, 12 an act) is wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/DYNASTY_HEIRS_10_1.png"
+   }
+  },
+{
+  "id": "grok-reported-six-piles-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "GROK SAYS YOU GAVE IT SIX PILES: MEDICINE, BATTERIES, RESOURCES, CLOUT, AMMO, TOOLS",
+  "why": "Grok wrote that you told it the money splits into six piles with food, gas and water as one pile, and that a car shot spends gas. Until you say it here, the old six stand (batteries, food, meds, rounds, tape, water) and only the car-spends-gas line is adopted; thumbs up to switch to Grok's six.",
+  "show": {
+    "how": "text",
+    "src": "GROK'S SIX (from your chat with it, unverified): medicine, batteries, resources (food + gas + water), clout (a score, not spent), ammunition, tools. A car shot spends the resources pile.\n\nTHE OLD SIX (rule 47): batteries, food, meds, rounds, tape, water.\n\nYES = Grok's six. NO = the old six."
   },
   "verdict": "default",
   "status": "ruled"
@@ -4924,6 +5017,23 @@
    "said": "Yeah, maybe it's a random variable number. You know procedure generated shit of how old people can live you know so maybe do some big brain research on them. You know come up with a mechanics that make fun",
    "when": "9/27",
    "at": "2026-09-28"
-  }
+  },
+  {"id": "world-what-a-tile-is-10-1", "vote": "down", "said": "Hell, no bro if a street is small then it's one time if the street has been then it's two it's a freeway then it's more, but yeah man that was that was so bad bro", "when": "9/30", "at": "2026-10-01"},
+  {"id": "direction-the-floor-under-their-feet-10-1", "vote": "down", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "lifecity-everything-you-can-build-10-1", "vote": "up", "said": "I like Garden bed, water tank and solar panel only", "when": "9/30", "at": "2026-10-01"},
+  {"id": "tuning-the-difficulty-dials-10-1", "vote": "up", "said": "Whatever battle Brothers does, I don't need you to do this bullshit", "when": "9/30", "at": "2026-10-01"},
+  {"id": "mods-one-honest-number-10-1", "vote": "up", "said": "Bro, the point of the mods chat is not to make mods is to just make mods easy to be made", "when": "9/30", "at": "2026-10-01"},
+  {"id": "fight-floor-first-10-1", "vote": "down", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "grok-role-c-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "dynasty-the-ending-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "dynasty-one-then-heirs-9-29", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "people-a-goal-the-company-sets-itself-9-30", "vote": "up", "said": "Renown is out clout economy translation dumbass", "when": "9/30", "at": "2026-10-01"},
+  {"id": "portrait-speak-along-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "animation-fast-travel-glides-9-30", "vote": "down", "said": "Why can't it look exactly like the combat dial, bro we already had that in the game already like the portrait with the directions around it but instead of it could just be you know not all UI or the text has to be like exactly perfect perfectly 90° bro like what the fuck is wrong with you", "when": "9/30", "at": "2026-10-01"},
+  {"id": "factions-your-base-grows-part-by-part-9-30", "vote": "down", "said": "Hard to tell this look like dog shit", "when": "9/30", "at": "2026-10-01"},
+  {"id": "combat-a-street-of-houses-9-30", "vote": "up", "said": "Yeah, like a street has to be a tile bro if it's a freeway it might be three or four you know like come on", "when": "9/30", "at": "2026-10-01"},
+  {"id": "direction-ai-slop-three-pairs-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
+  {"id": "cook-the-block-war-kit-9-30", "vote": "down", "said": "It looks bad man so ugly", "when": "9/30", "at": "2026-10-01"},
+  {"id": "lifecity-what-you-hold-9-30", "vote": "down", "said": "OK, but when would you see this like this is what I'm talking to you about like so is it gonna be viewable when you zoom in the city map mode a lot like but you have to remember like we're not walking around anymore it's gonna be tapped to move on this like awesome dynamic static city but also is very a lot of action going on on the static procedure. He generated map and shit like so when is it gonna be in the city settlement menu or something like bro?", "when": "9/30", "at": "2026-10-01"}
  ]
 }

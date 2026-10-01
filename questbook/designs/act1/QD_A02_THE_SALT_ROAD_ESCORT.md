@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a truck stop on the old interstate at the valley's north edge; the escort runs on the map to a salt flat camp
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways past the gun truck), 10 and 23 (a lost fight pays half and rolls on), 12 (the halfway well), 15 (headlights with the horn), 22 and 26 (the feed post, the salted fish), 28 (flags and saves named).
 SHOWS: the "TOO STRONG FOR YOU" no, made safe by an honest offer; and a spoken, audible window (C3, C7, C11, C13)
 
 ## THE SITUATION
@@ -36,7 +36,7 @@ gun bolted on. We roll at first light. The horn goes twice before we move."
    No line anywhere ever reads this answer (C7). The player who comes back in Act 1 with a bigger company hears the
    same offer, at the day's price (C18).
 2. **"Deal."** TAKEN. The window is stated: first light. The night before, the horn is tested once, loud, from the
-   lot (the audible clock). At dawn it sounds twice. If the player is at the lot, the party marker joins the convoy on
+   lot (the audible clock). At dawn it sounds twice, and the lead truck's headlights flash twice with it, drawn at the lot on the map (QR-AC, line 15; `Q141.X3`: the clock is heard and seen). If the player is at the lot, the party marker joins the convoy on
    the map; time passes as it rolls; on the road an EVENT stops it (the gun truck across the lane, a face, two or
    three choices) and the fight is on the fight board around the trucks. Win: twelve batteries at the salt camp.
    COST: a map day each way, and real danger.
@@ -45,12 +45,20 @@ gun bolted on. We roll at first light. The horn goes twice before we move."
    drivers who went short-handed tell it at the pumps (C13). If the convoy is hit because it went one gun short, that
    loss is a world event, and it names the empty seat.
 
+THREE WAYS PAST THE GUN TRUCK (QR-AC, line 9; `Q087.X4`): fight on the fight board around the trucks; let Yesenia pay the road crew a sack of salt off the load (her call, the same 12 to him); or turn the convoy down the dry wash, a map day longer, behind the crew's lookout.
+A LOST FIGHT (QR-AC, lines 10 and 23; `Q095.X3`, `Q146.W1`): the crew takes one truck's salt and lets the rest roll; Yesenia pays half, 6, at the camp. FAILED WHILE TRYING, never a reload.
+THE PRICED EXIT (QR-AC, line 12; `Q139.P2`): at the halfway well he may say he rides no further; she pays 4 there and takes on a gun from the well camp. FINISHED, not dropped.
+
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing. The convoy rolls with whoever else took the seat.
 - Done: a deed ("rode the salt road with Ochoa"), and a door that stays open: she offers the next run first.
 - Dropped by missing the horn: a deed, with the drivers' story travelling at walking speed.
 
 THE FREE NO HAS A FLOOR (QR-A C19, rule 47): declining costs nothing on the treasury either; SCAVENGE on this settlement screen covers the company's keep in FOOD and WATER at a thin margin, so one declined offer never forces the next yes (`Q236.X4`).
+
+DONE, SHOWN (QR-AC, lines 22 and 26; `Q078.X2`, `Q030.X2`): the feed carries a driver's post from the salt camp, and at the camp the cook tries to teach the companion to salt a fish, badly, and they both laugh.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes ochoa_salt = done | half | halfway | dropped. A play-forward test sets each value and walks to every place that reads it (her next run's offer, the drivers' story at the pumps, the convoy world event that names the empty seat); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 Strapped to the roof of the lead truck is a child's car seat, buckled, facing backward, empty every trip.

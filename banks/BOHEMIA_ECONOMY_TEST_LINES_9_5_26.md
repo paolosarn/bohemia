@@ -4498,3 +4498,45 @@ SSSSSSSSSSSSSSS8  a settlement's own tally keeper, at the shelf       draft:true
   this round hands over is a shelf, a spent case, and a rifle with an unknown count.
 - Spanish register: 0 of 8 lines. Under the 15% cap; plain, blunt exchanges that did
   not call for it.
+
+## UUUUUUUUUUUUUUUUU. WHAT A BEAST IS WORTH, SAID BY NOBODY WHO WOULD SAY A NUMBER (round 56)
+
+SSSSSSSSSSSSSSSS1  a hide trader, laying one out flat                draft:true
+    "A dog's worth is in the count of them. One alone is a blanket."
+
+SSSSSSSSSSSSSSSS2  a boy who found a tusk half out of the mud          draft:true
+    "I didn't dig for it. I dug around it. Some things you don't want loose."
+
+SSSSSSSSSSSSSSSS3  the trader who buys the tusk off him                draft:true
+    "This one piece is worth more than everything else you've brought me all year."
+
+SSSSSSSSSSSSSSSS4  a woman smoking meat off a big kill                 draft:true
+    "Three days of this and I still can't give it all away before it turns."
+
+SSSSSSSSSSSSSSSS5  a man with a split lip, holding a jar               draft:true
+    "The honey's the easy part. It's getting away with the honey."
+
+SSSSSSSSSSSSSSSS6  the one who keeps the camel                        draft:true
+    "She gives more than she eats. That's the whole arithmetic."
+
+SSSSSSSSSSSSSSSS7  a hunter holding up a long feather                  draft:true
+    "Keep it clean and don't let them see you want it. Wanting it is what raises the price."
+
+SSSSSSSSSSSSSSSS8  a settlement's own butcher, at the scale            draft:true
+    "A hide, I can weigh. What it's worth is a different man's job."
+
+## VVVVVVVVVVVVVVVVV. WHAT IS NOT HERE, ON PURPOSE (round 56)
+
+- No line says a battery, a price, a count or a currency. The whole finding is said as
+  a blanket of small hides, a tusk, smoked meat going bad, a stolen jar, a kept animal,
+  and a feather nobody should look too eager to want.
+- No line says GOODS, ivory, renown, rung or any module or mechanism name.
+- No line claims an animal is worth a fixed number. SSSSSSSSSSSSSSSS3 says one tusk
+  outweighs a year of everything else WITHOUT naming the year's total or the tusk's.
+- No line resolves whether a captured animal is bought or earned. That is PEOPLE/
+  FACTIONS' question, not said here.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 610 role-place entries in this file now,
+  zero of them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

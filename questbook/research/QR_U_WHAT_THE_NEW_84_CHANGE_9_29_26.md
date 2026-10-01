@@ -6,7 +6,8 @@ finding that argues against a page rule) or SHARPEN (a better example or a numbe
 which new studies are the richest for our game?
 
 STATUS: draft:true, research only, nothing built (rule 35). No page is edited by this one; the owning writer of each
-page folds these in, or the coordinator does. Rule numbers below are the page's own numbers (QR-A uses C1..C18,
+page folds these in, or the coordinator does. (FOLDED 10/1, QR-AB: QR-A C19, QR-G lines 29 to 32, QR-L P16, QR-D rules
+4, 5 and 17, and QR-H rule 18 now live in their pages; the rest of this page's items are still to fold.) Rule numbers below are the page's own numbers (QR-A uses C1..C18,
 QR-L uses P1..P15, QR-P uses P1..P13, the rest are plain numbers; QR-G's checklist lines are "line N").
 
 ROUND FIVE READ: the fight is on HOUSE TILES (the fight board is a piece of the city); the one-cell walk is dead; no
@@ -45,7 +46,8 @@ browsing, reading and haggling are free of commitment. `Q236.N2`: decline return
 nothing is written. `Q236.P3` states it as a port: only accept, finish, fail and drop are deeds. This is the first
 primary study behind C6; until now C6 stood on `Q126.W3` and Paolo's words.
 
-SHARPEN C9 (one open contract). `Q236.N1` and `Q236.W2`: a second offer is readable but not takeable, and the game
+SHARPEN C9 (one open contract; folded 10/1 from rule 51: QR-A C9 is now TWO slots, and the test below reads "while
+both are TAKEN"). `Q236.N1` and `Q236.W2`: a second offer is readable but not takeable, and the game
 teaches the one-at-a-time rule as a greyed button, not a speech. New test for C9: while one contract is TAKEN, every
 other offer screen still opens and shows its terms; only accept is disabled.
 
@@ -439,7 +441,8 @@ QR-N was written from reference notes. `Q236` is the study it needed, and it con
 
 - Rule 1 and 2 (situation first; hand-in writes the situation): `Q236.W1` (the hall is a readout of the map, not a
   quest list), `Q236.W8`, `Q236.P4` (a finished pump job flips the base from dry to running).
-- Rule 3 (one active contract): `Q236.W2`, `Q236.N1`.
+- Rule 3 (one active contract): `Q236.W2`, `Q236.N1`. (folded 10/1 from rule 51: our count is two; `Q236.W2` is now
+  cited as the thing we differ from.)
 - Rule 4 (skulls before accept): `Q236.W3`.
 - Rule 5 (decline and thrown-out write nothing): `Q236.P3`. The thrown-out half is ours, not theirs (`Q236.N3`, see
   QR-L).

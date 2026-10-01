@@ -5,7 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: boom
 PLACE: a reclaimed row of stucco townhouses in Paradise, every window lit but one (PL02, THE DARK WINDOW)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (breaker, the share board, or the knock), 12 (the look through the window), 28 (flags and saves named).
 
 ## THE SITUATION
 Act 2, the world clawing back: brownouts, not darkness, and most blocks buy their breaker share. The
@@ -43,6 +43,8 @@ WITHHELD: she stopped paying his share for him two weeks ago, when her own went 
 3. NO. "Okay, no worries." She goes back to her phones. The window stays dark. When he next passes it is
    still dark, and she is still on the step. Nothing is written.
 
+AT THE DARK DOOR (QR-AC, lines 9 and 12; `Q087.X4`, `Q139.P2`): three ways to put the light on: throw the breaker inside the door; pay his share at the row's breaker board (1 battery of the company's own; the light comes on from outside and nobody goes in); or knock and wait until he opens (an hour; he lets the companion in). THE PRICED EXIT: he may look through the window only and tell her Okafor is breathing; she pays nothing, the light stays off, and the contract closes FINISHED.
+
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. DONE: the window is lit (the result in the place); the feed carries a
 line from Marisol's account; the block's share ledger shows Okafor's share paid, by whom it does not
@@ -51,6 +53,8 @@ is on anyway, showing a face talking with no sound, and Mr. Okafor is watching i
 broadcast arriving through infrastructure that is not powered. The player is not asked to do anything
 about it; the contract still pays when the light is on. The ledger plants it for the whisper broadcast
 beat later in the act.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes okafor = lit | window_only | dropped; broadcast_twist_seen = yes | no. A play-forward test sets each value and walks to every place that reads it (the window prop, the feed, the block's share ledger, the act's whisper broadcast beat); the save lands only at clean states: the offer screen closed, the hand-in, and the map between legs; never mid-fight and never mid-screen.
 
 ## THE ONE WRONG DETAIL
 The note on the door is in Mr. Okafor's handwriting and it is addressed to Marisol, dated tomorrow.

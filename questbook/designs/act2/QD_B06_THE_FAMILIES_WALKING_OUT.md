@@ -5,7 +5,7 @@ CRISIS: the earth-side nuke
 ECONOMY: either
 PLACE: the highway leaving the valley to the south, where the paved road crosses the dry wash
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the act 3 landing moved to a settlement screen, with a floor if the event never fired), 28 (flags and saves named).
 SHAPE: E7, THE PEOPLE WALKING THE OTHER WAY (QR-B)
 
 ## THE SITUATION
@@ -32,6 +32,10 @@ First line: "They say it's coming here. You're driving into it. Why?"
 - Standing with the neighbourhood they left.
 - The echo: if the reckoning is stopped, some of them come back and the feed carries it; the woman's face appears
   on a street in act 3 (older), and remembers which way your truck was pointed.
+
+- THE LANDING AND THE FLOOR (QR-AC, lines 5 and 18; `Q121.X1`, `Q022.X2`, `Q096.X1`): in act 3 she is not on a street (the walk is dead) but on the settlement screen of the home base nearest the old neighbourhood, older, drawn before any talk. If this event never fired (act 2 not played this far when act 3 is opened), that home base has no woman on it, the population reads the derive's default, and nothing names the family.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes walkers = gave | told_true | told_guess | passed; turned_back = n. A play-forward test sets each value and walks to every place that reads it (the valley population, the act 3 home base face, the feed); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "Thirty people are walking toward safety. Safety is in the other direction."

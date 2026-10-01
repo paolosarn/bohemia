@@ -6,7 +6,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the map road below the dam, at the turn to the dam clinic (a lit point on the map); the event stops the party on the road.
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: lines 29 and 30 pass (QR-X sweep, 9/30); a round-one design, not yet run line by line against lines 1 to 28 (QR-G).
+CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 9 and 12 read as not applicable to a road event; 11 is the free KEEP GOING). Fixed in place: 28 (flags and saves named); rule 51 applied (both held contracts' lamps shown).
 
 REBUILT FROM: the silent appointment. `Q106.X5` (a missed 7pm appointment permanently kills the best content, no warning), `Q128.X2` (players lose the chain without learning they lost it), `Q129.X5` (the massacre fires on a hidden clock), `Q119.X3` (a timer so generous it is invisible). The phone version is the same schedule, shown on the map, counted in map days, and stopped when the app is closed.
 
@@ -19,12 +19,14 @@ First line: "The lamp's blinking, you see it? That's tonight. On foot we get the
 The clock is said aloud and shown on the map at the same time. It moves only when the party moves (`Q142.P5`, `Q128.P2`).
 
 ## THE CHOICES
-A. CARRY HER. The party takes Hilda to the clinic. Cost: one map day off your road (Ruben says so: "It's a day off your road, I know"); any contract you hold keeps its own visible deadline, and the map shows both lamps so the player sees the trade before choosing.
+A. CARRY HER. The party takes Hilda to the clinic. Cost: one map day off your road (Ruben says so: "It's a day off your road, I know"); every contract you hold (up to two at once, rule 51) keeps its own visible deadline, and the map shows each of their lamps beside the clinic's, so the player sees the trade before choosing.
 B. PAY THE CONVOY. A water convoy is two map stops back; you give Ruben 2 batteries for a seat. Cost: 2 batteries, no time. The convoy is on the map, so the player can watch it arrive.
 C. KEEP GOING. Free. Ruben says one line ("Okay. Okay.") and keeps pushing. No ledger write beyond the event itself.
 
 ## WHAT THE LEDGERS REMEMBER
 A or B: Hilda's session happens; the clinic lamp is steady on your next pass, and in the city view the feed posts a photo of the cart parked at the clinic door. C: the lamp goes dark for one session and then blinks again for someone else. On the next pass Ruben is at the clinic step, alone, and he nods at you (the tell, `Q128.X2`'s law, one diegetic tell per broken link). This is an event, not a contract, so C is not a deed; it is only what happened.
+
+FLAGS AND SAVES (QR-AC, line 28; `Q123.X1`, `Q116.X1`, `Q040.X3`): writes hilda = carried | convoy | passed. A play-forward test sets each value and walks to every place that reads it (the clinic lamp, the feed photo, Ruben at the clinic step); the save lands only at clean states: before the event screen opens and after it closes; never mid-choice and never mid-fight.
 
 ## THE NARRATOR
 Read over the event screen in the machine voice (rule 45: too even, tape and room, a little wrong; never in the first minute; people on the screen still speak in the squiggle): "The lamp is blinking. It will stop blinking tonight, one way or another."

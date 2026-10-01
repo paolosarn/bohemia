@@ -368,7 +368,9 @@ ok('the aim readout shows which shot of the turn this is, against the cap the fi
   ok('corpses ride the grid-true ruler',
     demo.includes('const rr=c.edist*ring;'));
   ok('pillars render tan with a sky-lit top, zero purple in the palette (V54: low pillars get a blue-lit top)',
-    demo.includes("'#6e604a'") && demo.includes("?'#7a94a8':'#94836a'"));
+    /* RE-POINTED BY V235 (rule 46f, Paolo 10/1): the blue and tan OVAL LIDS were 13.9% of the board under the fighters;
+       the top is now a flat face of the same wall, lit from above. The palette half (no purple) is unchanged. */
+    demo.includes("'#6e604a'") && demo.includes("g.fillStyle='rgba(255,236,204,0.22)'; g.fillRect(fx,fy-lid,w,lid);") && !demo.includes("?'#7a94a8':'#94836a'"));
   // v20: the animation pass (walk, static corpses, counter-snap, real glide)
   ok('V20 WALK: loaders carry walk frames for player and enemies',
     demo.includes('V20 WALK') && demo.includes('walk:(d.dirs[dir].walk||[]).map(mk)') &&
@@ -814,12 +816,15 @@ ok('V67 ONE ARMED MOVE AT A TIME (Paolo: "when I press Dash it like automaticall
    INTO THE BREACH IS THE MODEL: intent transparent BEFORE the commit, on the
    board, next to the thing it is about. */
   ok('V148 ONE PIP PER MAN, ANSWERING ONE QUESTION -- can THIS one reach me right now. Solid means he can shoot you where you stand; hollow means he is still walking. It sits over his head, on him, not in a corner of the screen',
-    /const _hot=inHisRange\(e\), _pr=Math\.max\(3,ring\*0\.22\)/.test(demo) &&
+    /const _bs=bodyScale\(\), _hot=inHisRange\(e\), _pr=Math\.max\(3\*_bs,5\*_bs\)/.test(demo) &&   /* RE-POINTED BY V235: off his body (rule 46f) */
     demo.includes("x.fillStyle='rgba(240,70,48,0.98)'") &&
     demo.includes("x.strokeStyle='rgba(210,220,235,0.75)'"));
 
   ok('V148 AND IT IS SIZED OFF THE TILE PITCH, NOT THE SPRITE: the first cut scaled the pip from the body radius and came out ~2px on the zoomed-out board -- drawn and completely unreadable, which is the same as not shipping it. It carries a dark halo so it reads on pale sand and on dark asphalt',
-    /_py=ey\+MASS_DY-ring\*0\.85/.test(demo) &&
+    /* RE-POINTED BY V235 (COMBAT 10/1, rule 46f, Paolo: 'the tiles below the people dont look good'): sized off
+       the tile pitch, on the house board the pip was a 25 px red DISC floating 137 px above a man, alone on the
+       street. It is sized and placed off HIS BODY now; nothing_on_the_ground_gate holds it at <= 8 px on him. */
+    /_py=ey-84\*_bs-9\*_bs/.test(demo) &&
     demo.includes("x.fillStyle='rgba(0,0,0,0.55)'; x.beginPath(); x.arc(ex,_py,_pr+1.6,0,7); x.fill();"));
 
   ok('V148 EIGHT RANGE RINGS WOULD BE NOISE, so there are none: the reach bubble is drawn for the ONE man he has selected or is aiming at, and never for a dead, downed, broken, fled or melee body',
@@ -3222,7 +3227,7 @@ ok('A STOREY READS AS TALL, and never again as a lighter patch of ground (v105: 
   ok('V94 THE GROUND IS APPROVED ART, NOT A PROCEDURAL FILL. Combat was the last surface still inventing its own ground: a coordinate hash, a tone jitter and a flat rgb() per cell. It now blits the tileset Paolo approved 7/28 and picked again 7/29 -- the one the RUN ships and the constitution byte-locks',
     demo.includes('V94 THE FIGHT STANDS ON THE APPROVED STREET') &&
     demo.includes('const STREET_B64=') &&
-    demo.includes('x.drawImage(_st,Math.floor(sx2),Math.floor(sy2));'));
+    demo.includes('x.drawImage(_st,Math.floor(sx2),Math.floor(sy2),_px,_px);'));   /* RE-POINTED BY V234: built at the phone's real pixels, drawn at its screen size */
 
   ok('V94 AND THE HAND-PAINTED MARKINGS ARE GONE. The double-yellow median and the lane dashes were drawn in code at hardcoded world coordinates, AFTER the vignette meant to dim them, and Paolo reported that object as a persistent orange for three turns. The markings live in the ground now',
     !demo.includes("x.fillStyle='rgba(184,160,40,'") &&
