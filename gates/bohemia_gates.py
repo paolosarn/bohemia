@@ -4669,6 +4669,22 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('GROK FENCE', ['node', 'gates/grok_fence_gate.js'],
+     'A GROK COMMIT ON MAIN STAYS IN ITS FOLDER. 10/1, PLUMBER, row [grok fence], rule 49d: Grok writes through its '
+     'own GitHub connector, only in reference/library/grok/, only on the branch grok, every message starting GROK:. '
+     'MEASURED FIRST: its commits are signed with the repo owner account, so "author says Grok" finds nothing; the '
+     'mark is the GROK: message (or an author or committer that says grok). A coordinator commit that only mentions '
+     'Grok is not fenced. Legs: four planted-repository self-tests; every Grok commit reachable from main touches '
+     'only its folder (the shallow depth is printed); a WARN for a Grok commit on the branch grok outside the folder. '
+     'About a second (git filters the candidates first; listing every commit was 30 s).',
+     False),
+    ('GROK FILTER', ['node', 'gates/grok_filter_gate.js'],
+     'A CITED GROK PAGE MUST BE STAMPED PASSED FILTER. 10/1, PLUMBER, row [grok filter gate], rule 49b and the '
+     'outside-helper law s5: Grok pages are "source: Grok, unverified" until the eyes-and-ears chat stamps line 2 '
+     'PASSED FILTER or FAILED FILTER. Any file outside the folder that names a page inside it must name one that is on '
+     'the branch and stamped PASSED. Five planted self-tests (stamped passes; unstamped, FAILED and missing are caught; '
+     'naming the folder itself is not a citation). Zero citations is printed as zero, never as a pass over something.',
+     False),
     ('NO OVERLAP', ['node', 'gates/no_overlap_gate.js'],
      'NO TWO TEXTS ON TOP OF EACH OTHER, NONE CUT OFF BY A PANEL. 9/30, PLUMBER, row [no overlap], rule 44c. '
      'Paolo 9/29: "when texts are overlapping each other, I dont know why its so difficult for you to '
