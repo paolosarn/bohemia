@@ -45796,6 +45796,20 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 4 -- V234 + V235: THE GROUND UNDER THE FIGHTERS (his 10/1 "the tiles below the people dont look good"). ***
+Stamp 10/1b. Record: records/BOHEMIA_COMBAT_NOTHING_ON_THE_GROUND_10_1_26.md
+V234 [device canvas]: backing store at the phone's ratio (FD 1-3), every rule in screen units (cv
+reports CSS size; ctx.setTransform multiplies by FD; hiDPI() on cv and the floor cache); ground built
+at real pixels (streetTile, lotPatch, the house bake). Cost measured: draw() JS 1.5 -> 1.6 ms, fps in
+this software-painting box 49 -> 16 at FD 3, so a SAFETY VALVE (fdWatch): settled cover phase, 4 s
+grace, two 90-frame windows under 40 fps -> FD-1, logged in G._fdDrop (here it settles at FD 2, ~42).
+NOT PROVEN ON HIS PHONE. V235 rule 46f: no oval lids (flat lit wall top), no diamonds/CLEAR (litTile
+in the ground's colour), red pip off his body (5 px), no ROSA/oval on the board, OUT/HOLD are lit
+tiles, no range ring. GATE gates/nothing_on_the_ground_gate.js 11/0 (draw-call watch). combat_lab 4
+text pins re-pointed (back to 10). combat_floor 12/1 is main's. FIGHT LENGTH NOT MEASURED.
+VOTE combat-nothing-on-the-ground-10-1. NEXT: the cover's width (1.8 houses of wall), the lit-tile
+frame reading as a grid, drops/grenade discs; then the fight-to-the-end driver; then [board generator].
+
 *** [house tiles back] ROUND 3 -- V233: HOUSE-SIZED, NOT HOUSE-FILLED. THE NEIGHBOURS STAND UP. ***
 Stamp 9/30a. Record: records/BOHEMIA_COMBAT_A_STREET_OF_HOUSES_9_30_26.md
 His 9/28 line on this row ("one tile is the size of a house doesn't mean every tile is a house...
