@@ -1,4 +1,4 @@
-COMBAT 2 (combat2-8ca291aa): 10/1 (b) LATEST -- [cover pieces] SHIPPED. Seven cover pieces at
+COMBAT TWO (combat2-8ca291aa): 10/1 (b) LATEST -- [cover pieces] SHIPPED. Seven cover pieces at
 42.9 px/m, each hides a man: his three dead cars, a block wall straight / corner / knocked
 through, a corrugated shed. Bank banks/BOHEMIA_THE_FIGHT_COVER_10_1_26.txt, VOTE
 combat2-the-cover-pieces-10-1, records/BOHEMIA_COMBAT2_THE_COVER_PIECES_10_1_26.md. The floor set's
@@ -25,7 +25,7 @@ NEXT: round three on [zoom range measured] -- confirm the live zoom variable's r
 ask for a real anchor at the far end, then the full ratio and both orientations.
 [PENDING Paolo]: none.
 
-COMBAT 2 (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
+COMBAT TWO (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
 (small street, crossing, big street two halves, freeway lane, two lots, slab, standable roof) and
 two cover pieces (his own dead car sprite, a block wall), all at 42.9 px/m from the 7/28 bank,
 guarded (size, his colours, seamless, not stamped, cover hides a man). Bank
