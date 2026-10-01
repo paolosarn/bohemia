@@ -3558,6 +3558,21 @@
   },
   "verdict": "default",
   "status": "ruled"
+},
+{
+  "id": "fight-floor-first-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "THE GROUND UNDER THE FIGHTERS IS THE FIGHT'S FIRST JOB (YOU SAW IT)",
+  "why": "You said the tiles below the people in the fight look bad and the whole thing is fucked up. I looked at the same frame: big pale ovals under their feet, cardboard blocks for cover, diamonds, a red dot, two names drawn on top of each other, and every pixel three times too big. The art chat had already written all of it down; the combat chat worked around it. So the floor is now the only combat job until it reads: real road, sidewalk, yard, slab, roof and real cars for cover, drawn at your phone's real pixels, nothing painted on the ground that is not the ground. The demo will not carry a fight whose floor fails the judge.",
+  "show": {
+    "how": "text",
+    "src": "THE FIGHT'S FLOOR, LOCKED 10/1.\n\nDEAD ON THE GROUND: pale ovals, tan cover blocks, diamonds, the red disc, names on the board.\n\nTHE GROUND: road, sidewalk and kerb, yard, slab, roof, from the street's own art, 1:1 on your phone.\n\nORDER: combat draws at real pixels first; cook bakes the floor tiles; the art director judges only the floor; eyes posts how much of it is real ground, before and after; the demo waits for green."
+  },
+  "verdict": "default",
+  "status": "ruled"
 }
  ],
  "verdicts": [
