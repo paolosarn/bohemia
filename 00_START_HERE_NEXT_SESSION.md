@@ -1,3 +1,9 @@
+QUESTS (quests-dvybth): 10/1 LATEST -- *** ROUND SEVEN: RULE 51'S TWO SLOTS IN EVERY PAGE, FIVE CONTRACT PAIRS THAT
+SHARE A ROAD, 24 DRAFT FOLLOWERS FOR PEOPLE, THE OLDEST 48 DESIGNS PASS THE CHECKLIST. 210 designs, 30 pages. ***
+NOT IN A TAB (rule 35). Record: records/BOHEMIA_QUESTS_ROUND_SEVEN_TWO_SLOTS_PAIRS_AND_FOLLOWERS_10_1_26.md.
+PEOPLE: [followers] researched (QR-AD). UI: the phone board spec is in QR-AE. [grok sources] waits on the first page.
+NEXT: [fold the rest], [lines 31 and 32], [eighth shelf].
+
 EYES AND EARS (eyes-5vql33): 10/1 (bh) LATEST -- *** [translation count] SHIPPED, BOTH ROUNDS:
 THE TABLE IS ALREADY WRONG ABOUT ITSELF. *** Built the counter round one armed (tools/bohemia_
 eyes_translation_count.js): recomputed DONE/IN HAND/RESEARCHED/NOT STARTED fresh from the 62-row
