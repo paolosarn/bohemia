@@ -1827,6 +1827,39 @@ now -- WHEN THE GROUND A SYSTEM STANDS ON GETS PULLED, THE WORDS SURVIVE AND
 THE MECHANISM WAITS. Don't rebuild speculatively; write down where the words
 go once the real surface exists.
 
+CHARACTER (character-0lurbs): 10/1 (a) LATEST -- *** [barber] FIRST COOK: THE COST IS REAL
+MATH, AND THE TWO EDITORS IT GATES ARE REAL DOORS, NOT A MOCKUP. ***
+TAB: CHARACTER (open the portrait or the HAIR shelf, both really open), and the VOTE tab.
+
+[attachments] shipped last round, so this round I claimed the next open line: the
+barber, where you change your look and it costs a battery. Rule 41 split the job
+three ways. PORTRAIT owns the face. RUN owns the settlement screen and the
+building you tap, neither built yet. This lane owns the haircut bank (already
+ours) and the cost itself, which nobody had ever built.
+
+Built a small, honest piece: a visit costs exactly one battery, checked with
+real numbers against the real currency system, and refuses cleanly when you
+cannot pay. It does not invent a fifth spending rule; the game already freezes
+spending to four fixed kinds, so this reuses the same plain payment method
+everything else uses, just for a new reason.
+
+Then proved what a visit is actually FOR is real, not a drawing of it: one real
+tap on your own face opens the real face editor, one real tap on the hair shelf
+opens the real haircut bank, twelve cuts on it today. Three separate pictures,
+each matching exactly what it claims, nothing scrolled past or hidden.
+
+Not done on purpose: the settlement screen and the barber building itself
+(RUN's job), and new hairstyles, which rule 37i also asked for but is its own
+separate round, not rushed in beside the plumbing.
+
+Gates: reference check 250/0, reuse-first 244 passed / 4 failed (all 4
+pre-existing, none mine), vote tab 30/1 (one pre-existing red, not mine), the
+build-a-lot gate re-checked clean (56/0) to make sure the new engine file
+did not disturb anything already shipped.
+
+Record and files: records/BOHEMIA_THE_BARBER_10_1_26.txt,
+engine/bohemia_barber.js, gates/barber_gate.js, tools/bohemia_cook_the_barber.js.
+
 CHARACTER (character-0lurbs): 9/29 (b) LATEST -- *** [attachments] SHIPPED: THE WHOLE
 TRADE STACKS ON ONE BODY, THREE REAL TAPS, NOTHING LOST. ROW CLOSED. ***
 TAB: CHARACTER (open OUTER, BAGS and GEAR, tap all three, they stack), and the VOTE tab.

@@ -1,0 +1,28 @@
+THE BARBER -- CHARACTER, 10/1/26, [barber], rule 37i / rule 41
+
+HIS WORDS (9/27): "customization at the barber in the settlement... many more
+hairstyles and head shapes." The coordinator's row (9/29): a building you tap in the
+settlement screen; the face maker and the haircut bank open there and nowhere else;
+it costs a battery; with PORTRAIT (the face) and RUN (the screen).
+
+WHAT THIS LANE OWNS: the haircut bank (already ours) and the cost gate (built this
+round). RUN has not built the settlement screen or the building tap yet, so this
+round proves the two pieces that ARE ours, each the honest way, not a mockup of the
+whole thing before the other two lanes have their half.
+
+THE COST, IN NODE, AGAINST THE REAL PURSE:
+  a rich purse (3 batteries): a visit leaves 2 -- exactly one spent, no more.
+  a broke purse (0 batteries): the visit is refused, named CANNOT_AFFORD, nothing moved.
+  no fifth verb: bohemia_purse.js freezes VERBS at four and refuses a new one by
+  name, so this debits directly, the same primitive the four frozen verbs use.
+
+WHAT OPENS, IN A REAL BROWSER, FROM A REAL TAP:
+  the face editor: PORTRAIT's own portrait-click handler, untouched, really opens
+  #faceEd when tapped.
+  the haircut bank: this lane's own wardrobe HAIR shelf, really opens when tapped,
+  12 cuts on it today (11 generated shapes plus his own painted curtain-bob).
+
+NOT HERE, ON PURPOSE: the settlement screen and the barber building itself (RUN's),
+and any new hairstyles (rule 37i's other half -- "many more hairstyles and head
+shapes" is a content round, routed as its own line next, not rushed in beside the
+mechanism so neither one gets a half job).

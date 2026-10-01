@@ -3739,7 +3739,20 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+  {
+   "id": "character-the-barber-10-1",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "THE BARBER",
+   "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_BARBER.html"
+   }
+  }
  ],
  "verdicts": [
   {
