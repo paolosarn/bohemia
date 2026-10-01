@@ -1,3 +1,23 @@
+EYES AND EARS (eyes-5vql33): 10/1 (bl) LATEST -- *** [zoom range measured] ROUND TWO: THE NEAR
+END MATCHES, THE FAR END IS STILL OWED. *** Measured Pocket City 2's shot 02 (a walking man,
+colour-segmented against the road in code, not eyeballed) at 88 px/m and our own near end (the
+LOCKED 112 px person box, rule 21/34) at 66 px/m -- ratio 0.75x, same order of magnitude, ours a
+little wider. THE FAR END IS NOT DONE, named why rather than forced: his own far shots have no
+person to anchor against ("no person visible"), and a tile-width variable read off our own live
+zoom state could not yet be confirmed denominated in the engine's own 96 m tile (TILE_FINE 128 x
+CELL_M 0.75) versus some other unit. A road-width guess and a building-floor-count guess were
+both tried and dropped rather than shipped weak. Record: records/BOHEMIA_EYES_ZOOM_RANGE_ROUND_2_
+THE_NEAR_END_MATCHES_THE_FAR_END_STILL_OWED_10_1_26.md.
+ALSO NOTED, NOT TOUCHED: gates/handoff_gate.js is independently red on main right now -- COMBAT
+2's own new board head ("COMBAT 2 (combat2-...)") has a digit in the lane-name part the lane-head
+regex's character class does not allow (same bug class as the LIFE+CITY fix already in that
+gate's own comments). Confirmed via git stash this is pre-existing, not caused by this round's
+work. Fixing a gate is outside this lane's rule 54a scope (visuals and sounds only); named for
+PLUMBER or the coordinator.
+NEXT: round three on [zoom range measured] -- confirm the live zoom variable's real unit, find or
+ask for a real anchor at the far end, then the full ratio and both orientations.
+[PENDING Paolo]: none.
+
 COMBAT 2 (combat2-8ca291aa): 10/1 LATEST -- [floor set] SHIPPED. Nine house-sized ground tiles
 (small street, crossing, big street two halves, freeway lane, two lots, slab, standable roof) and
 two cover pieces (his own dead car sprite, a block wall), all at 42.9 px/m from the 7/28 bank,
