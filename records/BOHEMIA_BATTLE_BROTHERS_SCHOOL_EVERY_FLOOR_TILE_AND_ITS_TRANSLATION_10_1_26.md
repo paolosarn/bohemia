@@ -13,7 +13,7 @@ them (our sandboxes cannot open them); (recall) marks a number from memory; Grok
   risks hitting the friend.
 - ZONE OF CONTROL: leaving a tile next to an enemy gives him a free swing; it is terrain-free but every tile shape sets
   who is adjacent.
-- NIGHT: ranged hit chance and vision fall (recall: -? at night); not a tile, but the board carries it.
+- NIGHT (CONFIRMED from the wiki text Grok dumped 10/1, reference/library/grok/wiki/CORE_WIKITEXT.md): -2 vision, -30% ranged skill, -30% ranged defence; not a tile, but the board carries it. Also confirmed there: lines start at least 5 hexes apart; a bow reaches 7 on the flat (8 with mastery), a crossbow 6; one-hand strikes 4 AP, two-hand 6.
 
 ## THE TILE KINDS, AND OURS (mechanic first, rule 46d; the skin is Vegas)
 | Battle Brothers tile | cost | effect | BOHEMIA translation | our cost (everything costs one) |

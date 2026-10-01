@@ -5,3 +5,5 @@ whose second line is not PASSED FILTER (gate owed: gates/grok_filter_gate.js, PL
 The filter: no game he has not named and each named game inside its department (rule 6); nothing that contradicts a
 newer ruling in BOHEMIA_CANON_INDEX.md; a source on every number, or (recall).
 Law: laws/BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md
+
+wiki/ (10/1): Grok's dump of the wiki's core page text and title list. CC BY-SA 3.0, attribution battlebrothers.fandom.com; reference/ is excluded from the published site; the lanes cite it, nobody pastes it into the game.
