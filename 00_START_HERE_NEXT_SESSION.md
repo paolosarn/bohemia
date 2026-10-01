@@ -130282,3 +130282,7 @@ BOHEMIA_THREE_RULERS_AND_TWO_COULD_NEVER_FAIL_8_27_26.txt
 --------------------------------------------------------------------------------
 
       /* __CITY_FEEDBACK__ -- AND WHICH BUILD, WHICH THE CITY HAS NEVER KNOWN. */
+
+## RUN 2 (01b, rule 55) -- handoff 10/1
+DONE [two sentences]: all 102 waiting VOTE items rewritten to two sentences max, the second naming where he sees or hears it; ten coordinator rows with no why got one; vote_tab_gate leg added (refuses >2 sentences or a last sentence without 'you see it'/'you hear it'); gate 32/0, leg proven to bite. Any lane registering a new item must follow it.
+NEXT [settlement screen]: a new settlement screen file RUN 1 plugs into the arrival; buildings as tappable art from the banks (barber from CHARACTER a00bb5cf, market, recruiter, contract board, SCAVENGE), the phone shows contracts (rule 51). Never the demo's map, travel or cut.

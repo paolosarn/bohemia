@@ -2256,7 +2256,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "THIS ONE IS ALREADY DEAD, NOTHING TO TAP",
-   "why": "This was your small character shrunk down small. You already killed the idea behind it in your last votes: you said not to make a whole new tiny character, keep the same one, same detail. So this does not need a thumb, it is already dead. I wrote down what happened and why in the records so nobody builds it again by mistake. Nothing for you to do here.",
+   "why": "The tiny one-cell guy is already dead by your own vote, so there is nothing to tap here. You see it only as this row in the VOTE tab.",
    "show": {
     "how": "text",
     "src": ""
@@ -2296,7 +2296,7 @@
    "sha": "PENDING",
    "made": "9/28",
    "title": "THE FIGHT IS ON CELLS NOW",
-   "why": "You said one house does not equal one tile. It does not any more. Both of these are a real fight I walked into off the street on a phone, one build apart. On the left a tile was a whole house, 12 metres, 196 pixels, and the board held TWO of them. On the right a cell is 3 metres and 32 pixels, and the same phone holds 12 across and 20 down. Your man went from 112 pixels to one cell. Look at the right one: that is a street you could actually walk down, with a sidewalk and a road, instead of standing in a car park. Here is the part I care most about. NOT ONE DISTANCE YOU PICKED MOVED. A pistol was 1 tile and is now 4 cells, which is still 12 metres. Rifle 8 cells, still 24. Scope 12, still 36. Only the unit changed, and I did not touch the accuracy either. Two things I am not hiding from you. Your man is small now, and that is just what one cell costs. And the thumb ring in the corner is big next to the new board, which is a thing I already owe you a fix for. Thumbs up and I keep building the fight on these cells. Thumbs down and tell me which of those two is the problem: the man being small, or the ring being big.",
+   "why": "The fight moved from house tiles to small 3-metre cells, and no weapon's reach changed in metres. You see it in the VOTE tab under LOOK, a before and after shot from the fight on a phone.",
    "show": {
     "how": "image",
     "src": "vote/COMBAT_THE_FIGHT_IS_ON_CELLS_9_28.png"
@@ -2309,7 +2309,7 @@
    "sha": "b202b0e7",
    "made": "9/27",
    "title": "THE WATER YOU COULD STAND ON",
-   "why": "This is not a drawing, it is the dam pulled straight out of the game and coloured by one question: can you stand here. Green means you can walk on it. Grey is something solid. Top picture is what the game actually believed: THE WHOLE RESERVOIR IS RED, and red means you could walk out onto it. Over a third of that block was water you could stand on, 5,832 squares of it, plus the creek at the fort. It happened because every square has a word saying what it is, one list decides what each word does, and the word water was not on the list. Anything not on the list quietly becomes floor. Bottom picture is the same block after the fix: the water is water again and nothing else moved. Empty fountains and drained pools are still floor like they should be. Thumbs up and the blue is what deep water looks like from now on. Thumbs down and tell me what water should do to you instead.",
+   "why": "The dam's reservoir was floor you could walk on, and now water is water again while dry pools stay floor. You see it in the VOTE tab under LOOK, the same block before and after.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_SAME_STREET_THREE_TIMES_9_24.png"
@@ -2322,7 +2322,7 @@
    "sha": "871b1203",
    "made": "9/27",
    "title": "WHAT THE BAR SAYS",
-   "why": "B IS IN THE GAME NOW. You said build it and don't ask, so I did: on the map the top strip says your batteries, the hour and where you are, and the hour ticks while the party travels, the way Battle Brothers shows time passing. Before, it said nothing: one NOTES button on black, and the only clock was the tiny one on the phone. Every number is the game's own. A is what it was. C adds the day and who is with you, the Battle Brothers count of five. Tap A or C only if you want it changed.",
+   "why": "B is in the game: the top strip shows your batteries, the hour and where you are, and the hour ticks while you travel. You see it on the MAP in the RUN tab, and A and C are in the VOTE tab under LOOK.",
    "show": {
     "how": "image",
     "src": "vote/UI_WHAT_THE_BAR_SAYS_9_27.png"
@@ -2335,7 +2335,7 @@
    "sha": "pending",
    "made": "9/27",
    "title": "RESHUFFLE ONE. TYPE ONE. PICK A SEX.",
-   "why": "You said the three come prepared like Battle Brothers, with a reroll and a way to type your own. Here it is, shot on the real phone before and after. Left: the three prepared, Reyna, Ezekiel, Perla. Right: I tapped the little circle on the middle face to reroll just that one (Ezekiel became Araceli, the other two never moved), typed a name over the first one myself (Guadalupe), and picked a sex for the third (Jonah). One thing I am not hiding: the little faces did not change when the names did. That is a real gap and it is written up, not hidden behind a lucky screenshot. Thumbs up and this is how you set up your three when the naming screen ships. Thumbs down and tell me if it is the reroll, the crop, or the faces staying still.",
+   "why": "The three come prepared with names, and you can reroll one, type your own, or pick a sex for each. You see it in the VOTE tab under LOOK, shot on the real phone before and after.",
    "show": {
     "how": "image",
     "src": "vote/DYNASTY_THREE_NAMES_RESHUFFLE_9_27.png"
@@ -2348,7 +2348,7 @@
    "sha": "5bec0cfc",
    "made": "9/27",
    "title": "THE VALLEY STILL BROADCASTS",
-   "why": "Your own bible says the machines keep talking and never acknowledge you. Nothing in the game does that yet, and this is the one place a transmitter's band, hiss, wobble and drop-outs belong by right. I built it two rounds ago and then killed three sounds for sounding like sand in the same round, so I pulled this one out of your queue myself: its carrier was the same band-limited noise you had just rejected, and putting it in front of you anyway would have been the fourth sand sound in a row. Now it is rebuilt from real material. A transmitter's hiss is really two things: the power supply's own ripple (the same 60 Hz hum this valley's grid already has everywhere) and atmospheric static, which is not a smooth hiss at all, it is distant lightning arriving as separate clicks. Ten years of nobody buys more of both: a corroded antenna lets in more clicks, and a dried-out filter capacitor lets more ripple through. Zero noise generators in it. A plays it the way a maintained station sounds, B is the same signal off a machine nobody has touched in ten years, C is B on a loop, which is how you would actually meet it.",
+   "why": "A dead radio station still hissing to nobody, rebuilt from real hum and lightning clicks instead of sand noise. You hear it in the VOTE tab under LOOK, where A is a kept station and B and C are ten years neglected.",
    "options": [
     "A, as it left the station",
     "B, as it arrives ten years later",
@@ -2366,7 +2366,7 @@
    "sha": "pending",
    "made": "9/27",
    "title": "48 QUESTS ALREADY CUT FOR OUR WORLD",
-   "why": "You asked for volume and nothing built. This round read the whole library and cut 48 quest designs for Bohemia, filed by act, by crisis, and by boom or bust. It also wrote 8 rule pages the builders follow. Nothing is in the game. Thumb down if the rules below are wrong.",
+   "why": "48 quest designs cut for our world plus 8 rules the builders follow, research only and nothing in the game. You see it in the VOTE tab under LOOK as the list of rules, so thumb down any rule you hate.",
    "show": {
     "how": "text",
     "src": "THE RULES ALL EIGHT PAGES AGREE ON\n\n1. The pay is said out loud before you say yes, and it never changes after.\n2. Saying no writes nothing. Nobody frowns, nobody brings it up, ever.\n3. Once you take a job, the only way out is in the world: tell the person to their face, or let their deadline pass. That is the only thing people remember.\n4. Most jobs have no twist. About one in four does.\n5. The place asks before the person does: an empty shelf, one dark window, a line at a dry pipe.\n6. The first minute of the game nobody talks. You still have something to find within six steps.\n7. Events on the road always have a cause you can see on the map, one per trip at most, and 'keep moving' is always free.\n8. The family story lives on the one main quest. The jobs you took come back at the end as the people who show up for you.\n\n48 designs: act 1 has 16, act 2 has 13, act 3 has 11, and 8 run across acts. 1,220 findings cited from 151 of the 152 quests you collected."
@@ -2379,7 +2379,7 @@
    "sha": "137efe74",
    "made": "9/27",
    "title": "WHO YOU WERE THE DAY THE MONEY DIED",
-   "why": "Your four origins. Three of them were already written into this game weeks ago and nobody noticed: the casino floor is the four trades that kept nothing when the city died, and that is why it is the hard one. I did not pick which is hardest, it is counted. Both pictures are the walked street from the game's own camera: the same man saying what he can still do, then saying it after he went down and could not. Is this the right four, and is the casino floor the one you would play?",
+   "why": "Your four starting origins, with the casino floor counted as the hardest, not picked. You see it in the VOTE tab under LOOK, a page shot on the street from the game's own camera.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_WHO_YOU_WERE_9_27_26.html"
@@ -2392,7 +2392,7 @@
    "sha": "c248f61f",
    "made": "9/27",
    "title": "SIX MORE WALKS HAD THE SAME LIMP",
-   "why": "Last round the plain walk turned out to be drawing THREE pictures instead of four, because a step has two middles and the code drew them as the same picture. So I asked that of every other way this guy moves. NINE MORE WALKS, SIX OF THEM HAD IT, AND FOUR WERE BROKEN IN EVERY SINGLE DIRECTION: tired walking, swagger and walking with the gun out on all 8; sneaking 7 of 8; wandering 5 of 8; shoving something 4 of 8. Forty of forty-eight. Drunk, sprinting and scrambling were already fine because each carries a second wobble on a different clock, and that is the only reason they escaped. Fixed the same way, but THE FOOT CLEARS A DIFFERENT AMOUNT FOR EACH WALK, because they are different walks: a crouch and a shove keep the foot down, a stroll lifts it, a swagger is meant to be seen. It was in the shared facing-you code too, at the source. How much of his body changes between those two middles: it was ZERO for all six, and the machine check refuses zero now. AND I BROKE THE COAT DOING IT and the coat's own checker caught me: the first lift made the trenchcoat jump 26% of itself in one frame, so I swept four sizes and took the biggest one the coat does not notice at all. This one PLAYS, at full size (it first showed a tiny one-cell cut, which you killed, so that is gone; the fix never depended on the size).",
+   "why": "Six more walks were drawing three pictures instead of four, so 40 of 48 directions limped, and now they step clean. You see it in the VOTE tab under LOOK, playing at full size.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_EVERY_GAIT.html"
@@ -2406,7 +2406,7 @@
    "sha": "c248f61f",
    "made": "9/27",
    "title": "BATTLE BROTHERS SCHOOL: WHERE A BODY SPENDS ITS PICTURES",
-   "why": "Battle Brothers has NO BODY on the map at all, just a marker with footstep sound, and in the fight it spends everything on the moment a weapon lands, not on the walking. I counted ours with the game's own counter: WE SPEND THE SAME ON A STROLL AS ON A PUNCH, and the most animated thing our guy owns is playing air guitar, at nearly twice the budget of a spear through the chest. The obvious answer is to move pictures from the walk to the hit, AND THAT IS WRONG FOR US: their fighter is a big sprite seen close, ours is now one cell, about 24 rows of body, and a hit that small cannot carry eight readable pictures. What a one-cell body CAN read is the silhouette changing, which is walking language. So my call: at one cell the walk keeps the pictures and the hit gets carried by sound and by the board. Up keeps that. Down and the hit gets the frames instead.",
+   "why": "Research: we spend as many drawings on a stroll as on a punch, and my call is the walk keeps its drawings while sound and the board carry the hit. You see it only as this row in the VOTE tab; it is NOT IN A TAB YET in the game.",
    "show": {
     "how": "text",
     "src": ""
@@ -2419,7 +2419,7 @@
    "sha": "pending",
    "made": "9/27",
    "title": "NOT STRANGERS ANYMORE",
-   "why": "Your own phone strip has said since the flip shipped: the three faces are placeholders, not your family yet. That is fixed now, and it turned out worse than I thought before I measured it: ALL THREE were random rolls, not just the two older ones. The bridge that hands the strip a face only ever recognized the exact word you, so even Reyna at zero years was a stranger. Here are the same three slots, before and after, played on the real clock so you can watch them, not a still. Measured on things you can name about a face (haircut, hair colour, skin, eye colour, shades, hat, stubble, shirt, a braid), against 50 strangers who average 4.4 things apart from you: before the fix, Ezekiel and Perla were 3 and 4 things apart, no different from strangers. After, they are 1 and 2. And because the size you actually meet these three at is 26 pixels on the phone, not the 132 this card shows them at, the true-scale row is here too so the claim is honest about what you will actually see. draft:true: I picked both weights myself, you have not corrected either yet.",
+   "why": "The three faces on your phone were random strangers, and now they look like your family. You see it in the VOTE tab under LOOK, the same three before and after, at true phone size too.",
    "show": {
     "how": "page",
     "src": "vote/PORTRAIT_NOT_STRANGERS_ANYMORE.html"
@@ -2432,7 +2432,7 @@
    "sha": "9001d26c",
    "made": "9/27",
    "title": "THE CELL IS THE STEP",
-   "why": "Your 7/28 tiles, cut to the new cell, and one whole block built out of them. Top of the page: every cell next to the tile of yours it came from, so you can see nothing got redrawn behind your back. Five of them are your pixels and nothing else. Four are your material with one edge added, because your wall is drawn as a FACE and looking down at a street you need a CAP, and no picture of a cap exists at any size. Bottom of the page: one block whole, at your phone's own width. Now the thing worth looking at. HOW BIG IS A CELL? The law gives six numbers and they do not agree. One cell per step says 0.75 metres. Your own 7/28 tile bank says 0.75. Your own drawn car, which is already drawn from above, measures 0.80. But a car at 2 by 1 says 2.25 and a house at 4 by 4 says 2.90. Your own sentence and your own two drawings all say 0.75, and two round numbers say 3. I built 0.75 and here is why, in one line: at 3 metres a cell your whole approved tile bank is at the wrong size by four and every tile has to be drawn again, and at 0.75 it cuts straight across, which is what this whole page is. Look at the car sitting in the road next to the house. The car is as long as the whole house. That is the 4 by 4 being wrong, not the car. COMBAT shipped 3 metres this same round off the house number, so one of us is drawing at the wrong size and it is a number for you, not for us. Up keeps 0.75 and a house gets bigger, about 15 by 17 cells. Down and say 3 and I redraw the bank.",
+   "why": "Your 7/28 tiles cut into 0.75-metre cells and built into one block, and the cell size is the number I need you to pick. You see it in the VOTE tab under LOOK; up keeps 0.75 and down means 3 metres.",
    "show": {
     "how": "image",
     "src": "vote/COOK_THE_CELL_IS_THE_STEP.png"
@@ -2450,7 +2450,8 @@
    "text": "Your ruling: the map has as many pixels as the Battle Brothers map, exactly, as the bare minimum. Until DIRECTION measures that number off real screenshots, the floor is one painted pixel per screen pixel at your phone's own ratio (no scaled-up blocks anywhere on the map). DOWN means you want a different floor named.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "The map draws one painted pixel per real phone pixel until Battle Brothers' map is measured. You see it on the MAP in the RUN tab."
   },
   {
    "id": "coordinator-the-strip-is-the-only-walked-place-9-28",
@@ -2464,7 +2465,8 @@
    "text": "Tile-to-tile through the city is dead. You are on foot in the fight and in special places. The Strip is the one you named, so it is the only walked place for now. DOWN means you have more places in mind; say them in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "The Strip is the only special place you walk on foot, until you name another. You see it in the RUN tab when you reach the Strip; down means name more places in a note."
   },
   {
    "id": "ui-how-you-know-she-is-with-you-9-28",
@@ -2473,7 +2475,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "HOW YOU KNOW SHE IS WITH YOU",
-   "why": "Somebody walks with you now. In the real game Estella Gaines lost her work, told you about it, and fell in beside you. But look at the screen: the only thing that says she is yours is her body, and your body is standing in front of it. Her name shows only while she talks, and the little gold name tag at her feet is under your boots. In Battle Brothers you can never forget who is in your company, because their faces never leave the screen. So, one question: A is what you have now. B puts her face in the top bar with a gold ring that empties when she gets hurt, in the spot the song title had. C puts nothing up top and marks her instead: a gold ring on the ground at her feet and a small mark over her head. It matters more after your last votes: places become settlement screens and you only walk in fights and special places, so most of the time her body is not on screen at all. And if she gets hurt and sits out for a month, only B still shows her.",
+   "why": "Pick how you know a companion is with you: A as now, B her face in the top bar, C a ring at her feet. You see it in the VOTE tab under LOOK, three shots of the real game.",
    "show": {
     "how": "image",
     "src": "vote/UI_HOW_YOU_KNOW_SHE_IS_WITH_YOU_9_28.png"
@@ -2486,7 +2488,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "96 QUESTS ON THE SHELF, NOW ON YOUR CONTRACT SCREEN",
-   "why": "Round two, built to your settlement contract screen the moment you said it. Nothing is in the game. Thumb down any rule below you hate.",
+   "why": "96 quests on the shelf, each one now a Battle Brothers contract offered by a face in a town, research only. You see it in the VOTE tab under LOOK as a list of rules, so thumb down any you hate.",
    "show": {
     "how": "text",
     "src": "WHAT CHANGED THIS ROUND\n\n1. Every job is a Battle Brothers contract now: you walk into a town, tap the hall, a face offers the job with the pay, you haggle, you take it or leave it.\n2. The pay is worked out from days, danger and how scarce things are, never typed in by hand.\n3. Push the haggle too far and the offer closes for that visit. Nothing else. Nobody holds it against you.\n4. A crisis never runs a countdown. It changes what each town's board is offering.\n5. No loyalty meter for your company. You see loyalty in how they fight, and some of them quit.\n6. Every old quest we wrote was checked against the phone checklist. None passed. 14 become contracts, 11 become road events, 12 stay story beats, 5 are retired.\n\n96 designs now: act 1 has 31, act 2 has 34, act 3 has 22, and 9 run across acts. All 152 quests you collected are cited."
@@ -2499,7 +2501,7 @@
    "sha": "PENDING",
    "made": "9/28",
    "title": "HOUSES, AND A MOUND YOU CAN STAND ON",
-   "why": "Two things, same fight, same spot, one build apart. FIRST THE ROOFS. On the left is what my last change did by accident: I made a cell 3 metres, and one piece of the code still thought a cell was a whole house, so it stamped a whole roof on every little square. That is the orange checkerboard, the exact thing your friend saw on 9/18. On the right a house is 4 by 4 cells, which is the number you set, and its roof is drawn ONCE across the whole house, with a yard behind it and a wall between neighbours. It reads as a street with houses on it now. SECOND THE MOUND. You picked one ground rule for fights: high ground helps you aim. It had never fired once, because the high ground was a block the size of a city block, six cells away. It is ONE CELL now, about two steps from you. Over 84 fights you got up there 77 times, and standing on it made the shot easier on 112 men, every single one who was hiding behind something. Before this it had never happened in a fight anybody played. What I am not hiding: the mound still draws as a little striped ladder, not as a hill. That is the art and it is next. Thumbs up and I keep going this way. Thumbs down and tell me if it is the roofs or the mound.",
+   "why": "Roofs now draw once per house instead of a checkerboard, and the mound you aim from is close enough to use. You see it in the VOTE tab under LOOK, the same fight before and after.",
    "show": {
     "how": "image",
     "src": "vote/COMBAT_HOUSES_AND_A_MOUND_9_28.png"
@@ -2512,7 +2514,7 @@
    "sha": "688da60",
    "made": "9/28",
    "title": "YOUR THREE",
-   "why": "The one screen before act 1 where you name and sex the three of you. Every slot comes with a real prepared name so nobody starts unnamed. Tap the little circle to try another name for that one person, nobody else changes. Type your own name and it sticks. Pick male or female for each. This is the real screen, working, not a picture of one: every tap and every typed letter is really talking to the same engine the phone's own flip already uses.",
+   "why": "The one screen before act 1 where you name your three, reroll a name, type your own and pick a sex. You see it in the VOTE tab under LOOK, a working screen, NOT IN A TAB YET in the game.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html"
@@ -2530,7 +2532,8 @@
    "text": "You said tuning and mods are big brain research, like quests. So they study how other games do it and write pages, and they build nothing. When you want the numbers table or the mods folder actually wired in, say build and the plumber wires what they recommend. DOWN means you want them building now.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "Tuning and mods only study and write pages, and build nothing until you say build. You see it only as this row in the VOTE tab; down means build now."
   },
   {
    "id": "tuning-five-points-9-28",
@@ -2540,7 +2543,7 @@
    "made": "9/28",
    "draft": true,
    "title": "FIVE POINTS",
-   "why": "Why a slightly better armour feels huge in Battle Brothers, and the fix ours needs: today a plate eats one whole hit of any size, so 'slightly better' cannot exist. Slide a plate's hold and watch how many hits you last against a goon, a bat and a sniper, using the fight's real damage numbers.",
+   "why": "Today a plate of armour eats one whole hit of any size, so slightly better armour cannot exist, and this shows the fix. You see it in the VOTE tab under LOOK, a slider page using the fight's real damage.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_FIVE_POINTS_9_28_26.html"
@@ -2553,7 +2556,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "WHY A FACE READS AS NOBODY",
-   "why": "School round, [blank faces]. The old answer to why a face reads as nobody was bead eyes and a flat mouth, from a round ago. Both are fixed now, checked before I wrote this, not assumed. So I measured twenty of your own crowd fresh, at your real phone size, and three things are still true. ONE, THE LIGHT: your own world rule says the right side of a lit thing should out-shine the left by at least 8 percent. Zero of twenty faces meet that. Eighteen of twenty actually lean the other way, left brighter than right, which is backwards, not just flat. TWO, THE HAIR HAS NO SHAPE: on average 85 percent of every hairstyle's own pixels are one single flat colour. A hairstyle can be a quarter of the whole picture and it still reads as a coloured cap. THREE, THE SHADOW ABOVE THE EYE IS AN ACCIDENT: of the faces with bare eyes, only half show any darkening there at all, and nothing in the renderer puts it there on purpose, it only happens where another shadow already overlaps that spot by luck. No fix in this card, this is the school round. Does this match what you see when you look at your own people?",
+   "why": "Research on why faces read as nobody: the light falls the wrong way, hair is one flat colour, and the brow shadow is an accident. You see it in the VOTE tab under LOOK, measured on 20 of your crowd.",
    "show": {
     "how": "page",
     "src": "vote/PORTRAIT_WHY_A_FACE_READS_AS_NOBODY.html"
@@ -2566,7 +2569,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "THE MACHINE IS STILL TALKING. THE BILL HAS NO SENDER. THE TAPE DOES NOT EXIST.",
-   "why": "What a generation inherits, under the analog horror bible, in three pieces we already built and did not know fit. The loading screen's own boot log (NO OPERATOR ON DUTY) is the machine still talking, and it says the same calm sentence to every act, not a message aimed at whoever is standing there. The fold already rules debt dies with the person who owed it, and ECONOMY's own study calls a dead office's bill a PROP with no sender, never a per-family charge -- so the bill an heir meets is the valley's own dead utility, not his father's debt come back. And a literal recorded tape of the parent's own voice does not exist anywhere in the engine, on purpose: what does exist is living witnesses retelling a deed until the last one forgets, which is a truer and sadder shape than a cassette, and building the cassette anyway would be a second ONE WRONG THING competing with the loading screen's own line. Research only, nothing to look at yet.",
+   "why": "Research: an heir inherits the machine still talking, a bill with no sender, and witnesses retelling a deed, never a tape of the parent's voice. You see it only as text in the VOTE tab; it is NOT IN A TAB YET in the game.",
    "show": {
     "how": "text",
     "src": "THE HEIR INHERITS THE BROADCAST, NOT A MESSAGE ADDRESSED TO THEM.\n\nThree things a generation inherits, measured against what we already shipped:\n\n1. THE MACHINE STILL TALKING. Every boot reads READING THE VALLEY, COUNTING WHAT STILL STANDS, CHECKING STREETS FOR LIGHT, then NO OPERATOR ON DUTY. It does not know which descendant is about to stand up. That is the horror for free: an institution running its own checklist since before you were born.\n\n2. THE BILL STILL COMING, BUT IT HAS NO SENDER. The fold already rules a debt dies with the one who owed it -- you inherit less, and you inherit the people he owed, still standing there, never a number. A bill that keeps arriving anyway is the valley's own dead office, not a family debt.\n\n3. THE TAPE THE PARENT LEFT DOES NOT EXIST, AND IT SHOULD NOT. What exists instead: living witnesses retelling a deed until the last one who saw it dies, and then it is gone. Sadder and truer than a recording, and it costs no new lore."
@@ -2579,7 +2582,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "HOW YOU PICK A BUILDING",
-   "why": "You said a place is a settlement screen: you see the place and you tap the building, like Battle Brothers. Battle Brothers does that with a mouse on a big screen. On a phone the question is where your thumb goes. All three use the same real shot of a place from the game's own camera. A is Battle Brothers straight: the buildings are the buttons, with their names on the roofs. The catch: the thin house on the left is only 42 pixels wide, and every building is up top where your thumb is not. B keeps the buildings tappable and ALSO puts them in a row of big plates along the bottom, because the bottom third of this place is empty dirt, right where your thumb sits. C shrinks the place to a picture at the top and turns the buildings into a list, which is easy but the least like Battle Brothers. Which building is the hall, the market and the barber is made up for the picture.",
+   "why": "Pick how your thumb taps a building in a place: A tap the buildings, B also big plates along the bottom, C a list. You see it in the VOTE tab under LOOK, three versions of one real place.",
    "show": {
     "how": "image",
     "src": "vote/UI_HOW_YOU_PICK_A_BUILDING_9_28.png"
@@ -2592,7 +2595,7 @@
    "sha": "1f3936f",
    "made": "9/28",
    "title": "ONE GUN, FORTY TWO PLACES",
-   "why": "Research, nothing in the game. To change the pistol today a modder has to find it in 42 spots inside the fight's hidden code, and 10 tests break if a number moves. Tap AS DATA to see the same pistol as one row in one file, every number read from the real fight. Thumb up if one file per kind of thing is the direction.",
+   "why": "Research: the pistol lives in 42 spots of code today, and this shows it as one row in one data file. You see it in the VOTE tab under LOOK; tap AS DATA on that page.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html"
@@ -2605,7 +2608,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "MAKE IT RIGHT ALREADY SHIPPED. THE GAP IS THE MECHANISM HAS NO FLOOR.",
-   "why": "This lane's own row asked for the forgiveness verb list PEOPLE should build, and PEOPLE already built it two rounds after this lane found the hole (make it right, 9/7): settled, paid, forgiven, spared, correctly grounded in the two strongest real findings (amends raise forgiveness, severity lowers it). What is still missing, measured directly in the code: wouldSquare() is one sum with no exception in it, so a stolen loaf and a killing are the same kind of number, only a bigger one -- real reconciliation research and every legal system treat some harms as a different kind, not a bigger number of the same kind. And forgiving is not the same verb as trusting again in the literature, but the mechanism has one bit for both. Research only, nothing to look at yet.",
+   "why": "Research: making things right already shipped, but a stolen loaf and a killing are still the same kind of number. You see it only as text in the VOTE tab; it is NOT IN A TAB YET in the game.",
    "show": {
     "how": "text",
     "src": "THE ANGEL'S VERBS ALREADY SHIPPED. THE FLOOR DID NOT.\n\nPEOPLE's make it right (9/7) already built settled, paid, forgiven, spared -- correctly grounded: amends raise forgiveness, severity lowers it, only the wronged person decides for themselves, forgiven is not forgotten.\n\nWHAT REAL RECONCILIATION STILL SPLITS THAT THE CODE DOES NOT:\n\n1. NO FLOOR. wouldSquare() is one sum, no exception. A heavier wrong needs more good deeds -- but it is never categorically different, only a bigger number. Real practice treats some harms as a different KIND, not a bigger number of the same kind.\n\n2. FORGIVE IS NOT TRUST. You can genuinely stop carrying a grudge and still never let someone back into a position to hurt you again. The code has one bit, d.right, for both.\n\n3. THE APOLOGY'S MIDDLE STEPS ARE MISSING. Real apologies run acknowledgment, explanation, remorse, reparation, a testable promise. The code has acknowledgment (the button) and reparation (priceOf). Explanation, remorse and a testable promise have no representation.\n\nWhich deed kinds should carry the floor is his call, not mine. What the mechanism is missing is the shape of the floor itself."
@@ -2618,7 +2621,7 @@
    "made": "9/28",
    "redoOf": "world-the-valley-three-acts-9-27",
    "title": "TWO FUTURES",
-   "why": "You killed the last one and you were right: I had built it so the future could only ever get better. You said it could get worse, that if you start as a raiding party then later the places you wrecked are wrecked, and that the future is a reflection of your past actions. So this is the SAME date, twice, off two different pasts. Left: you raided. Right: you built. Both are the same valley, and I checked 7,515 ground pixels across the two panels, zero moved. The lights are also the clustered kind you just voted for, straight out of the game now, not drawn by hand. The creepy part: the dark is the exact same shape in both. Whatever you did, the city never moved, it just kept more or less of itself switched on.",
+   "why": "The same date off two pasts, one where you raided and one where you built, so the future can get worse. You see it in the VOTE tab under LOOK, two panels side by side.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_TWO_FUTURES.png"
@@ -2632,7 +2635,7 @@
    "sha": "8b97875b",
    "made": "9/28",
    "title": "WHAT A GOOD TILE LOOKS LIKE",
-   "why": "You said show you options before the grid, so here is one block three ways, all built out of your own art. Same house, same yard, same road, same car in all three. The only thing that changes is where you are standing when you look at it. A is your 7/28 street exactly as you approved it, looking across. B is the same block with its roofs on, looking down at an angle, which is how Battle Brothers looks at its world. C is the same block roofless, looking straight down, which is what you need to fight inside a house. Under each one is a house tile and a street tile blown up four times so you can count the pixels yourself. NOW THE PART THAT MATTERS. You said everything has to be as many pixels as the zoomed-in roaming art. I went looking for that number and it is not written down anywhere, so I measured it off your own picture. Your bank records where every sprite stands, in tiles, and three of them have a real size: your person is 1.54 tiles tall, your car is 4.36 tiles long, your door is 2 tiles tall. All three say a tile in your street is about ONE METRE and your art is about 39 to 43 pixels per metre. Nothing on this page is drawn below that and the checker refuses if it ever is. AND YOU WERE RIGHT ABOUT THE THIN STUFF, EXACTLY RIGHT. The person in that road party I drew is 9 pixels tall with 28 lit pixels in his whole body, which is 5 pixels per metre. Yours is 67 pixels tall. That is eight times the pixels and the card puts them side by side at the same size so you can see it. But here is the thing worth knowing: all three things you killed are MAP art. The tiles were never the thin ones. The map is, and that is the same thing you told us about the Battle Brothers map back on the 24th. Pick A, B or C and I build the block out at that camera. Say none of them and tell me what you want to be looking at.",
+   "why": "One block three ways from your own art: A across, B down at an angle with roofs, C straight down, and I need a letter. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "image",
     "src": "vote/COOK_WHAT_A_GOOD_TILE_LOOKS_LIKE.png"
@@ -2645,7 +2648,7 @@
    "sha": "c90f634",
    "made": "9/28",
    "title": "A STRANGER GETS THE WORST WORK",
-   "why": "A stranger standing at a real business still only gets scavenging work. Somebody who has done favors for the outfit running that block gets the real job. Same street, same corner, same minute in both pictures, from the game's own camera. Is this the right feeling for the first job you're ever offered?",
+   "why": "A stranger only gets scavenging work, while somebody who did the block's outfit favors gets the real job. You see it in the VOTE tab under LOOK, the same corner twice from the game's camera.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html"
@@ -2658,7 +2661,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "REAL FAMILIES DO NOT COME OUT FOUR OF FOUR",
-   "why": "You said the cold-open family's eyes all came out the same, 80,110,150 for the dad, the mom, the brother and the sister. That was real: two bugs stacked, a kid copying a parent's eyes by re-rolling instead of reading what the parent actually wears, and the mom and dad landing on the same colour by pure chance since they share no blood. The dad keeps his eyes, the mom now avoids his colour instead of risking it again, and the two kids each still take their own coin flip between their real mom and dad. Same four people, same generator, nothing else touched. Does the family read as a family now?",
+   "why": "The cold-open family all had the same eyes from two stacked bugs, and now each kid takes after a real parent. You see it in the VOTE tab under LOOK, the same four people before and after.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_REAL_FAMILIES_DONT_COME_OUT_FOUR_OF_FOUR_9_28_26.html"
@@ -2671,7 +2674,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "ARMOUR ATTACHMENTS, THE FIRST ONE",
-   "why": "You said you want to customize armor with attachments. I checked our closet first: a cloak and a padded vest were already in there under other names, nobody just called them attachments yet. The one thing missing was a spiked shoulder guard, so that is the one I built. Watch the guy on the right, he is wearing a cloak he already had plus the new spikes, walking. The other guy is wearing the padding. No numbers are attached to any of this yet, that part is a different job. Thumbs up and the spike joins the wardrobe for real. Thumbs down and tell me if the spikes are too small or in the wrong place.",
+   "why": "The first armour attachment, a spiked shoulder guard, worn walking with a cloak we already had. You see it in the VOTE tab under LOOK; no numbers are attached yet.",
    "show": {
     "how": "page",
     "src": "vote/CHARACTER_THE_ATTACHMENTS_TRADE.html"
@@ -2684,7 +2687,7 @@
    "sha": "d408f23d",
    "made": "9/28",
    "title": "A FOOTSTEP THAT IS NOT GLASS",
-   "why": "You said the last footstep had the reverb of a glass jar. You were right and I found exactly why: three high pure tones I made up (I never had real numbers for a shoe, and I said so at the time) were carrying a third of the whole sound's energy. Three clean tones ringing together is the textbook recipe for a chime, not a footstep. I deleted them. What is left is the real physics: the contact click and the grit, both already broadband on their own, with nothing invented layered on top. Same three options as before, same page, so you can hear the difference directly against what you rejected.",
+   "why": "The footstep rang like a glass jar because of three made-up tones, and they are deleted now. You hear it in the VOTE tab under LOOK, next to the one you rejected.",
    "options": [
     "A, the one you called sand, unchanged",
     "B, concrete",
@@ -2702,7 +2705,7 @@
    "sha": "d408f23d",
    "made": "9/28",
    "title": "THE DECK DOES NOT RING",
-   "why": "You voted this down with no note, but you also killed the flip that shares its knock the same round and said why: you hated the noises. Measured, the knock was ringing a single clean 493 Hz tone for 32 milliseconds, and that one pitch alone carried 56% of the sound. That is a wine glass being tapped, not a plastic shell. The shell is held in a hand and seated in a machine, so it cannot ring free the way the number I picked let it; I raised how much energy it loses per cycle and now it rings for about 3 milliseconds, in the same range as a real footstep's own ground contact. Same page, same three options.",
+   "why": "The deck's knock rang like a tapped wine glass, and now it dies in about 3 milliseconds like plastic. You hear it in the VOTE tab under LOOK, three options on one page.",
    "options": [
     "A, the whole deck",
     "B, just the machine, no song",
@@ -2720,7 +2723,7 @@
    "sha": "d408f23d",
    "made": "9/28",
    "title": "THE FLIP IS A KNOCK, NOT A CHIME",
-   "why": "You said you hated all these noises. Same shell as the deck above and the same fix: it was ringing one clean pitch for 32 milliseconds, carrying 56% of the sound by itself, because I let a plastic shell ring almost as freely as a struck bell. A shell in your hand is not a bell. It is now damped the way holding it and seating it in a machine actually damps it, so the ring is about 3 milliseconds, a knock you feel rather than a note you hear. You will hear this one hundreds of times if it lands, so it had to stop sounding like a chime. Same page, same three options.",
+   "why": "The flip sound was a chime, and now it is a short knock you feel instead of a note. You hear it in the VOTE tab under LOOK, the same page as the deck.",
    "options": [
     "A, the shell seats and the machine takes it",
     "B, one knock",
@@ -2738,7 +2741,7 @@
    "sha": "58fd221f",
    "made": "9/28",
    "title": "TWO MOVES THAT WERE DEAD",
-   "why": "Heard you: no tiny Atari guy, same character, full detail. The one-cell version is in the graveyard. Two moves were basically dead. BRACING (getting ready to take a hit) was two pictures in a whole bar, and facing you it moved 1 percent of his body, as still as a guy aiming a gun on purpose. Now he plants, drops his weight, tightens, resets. SHADOWBOXING was just the arm; now the body throws the punch and facing you the fist comes at you. Full size, on the beat, before beside after.",
+   "why": "Bracing and shadowboxing barely moved, and now he plants and tightens, and the body throws the punch. You see it in the VOTE tab under LOOK, before beside after on the beat.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_BRACE_AND_SHADOWBOX.html"
@@ -2752,7 +2755,7 @@
    "sha": "37337e48",
    "made": "9/28",
    "title": "THE MAP GLIDES",
-   "why": "You said: very very smooth, not a block at a time, boom boom boom, and the animation plays to the beat inside the thing that slides. Before, every step moved the whole map one cell in a single frame and then it froze: I measured 18 pixels on 1 frame out of 36. Now the same distance is spread across the beat, never more than 1 pixel a frame, and two steps in a row flow into one slide instead of two jumps. Your pin hops once on every beat while it travels, so the 120 BPM is still there inside the slide, and it sits still when it stops. A long jump, like landing somewhere new, still cuts. Both strips are the real map filmed off the game.",
+   "why": "The map used to jump a whole cell in one frame, and now it slides smoothly while your pin hops on the beat. You see it in the VOTE tab under LOOK, filmed off the real map.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_THE_MAP_GLIDES.html"
@@ -2771,7 +2774,8 @@
    "text": "Combat is on house tiles, and the tile-by-tile city walk is dead. The Strip is the one place you still walk on foot. Default: it uses the walk art we already have, the normal-sized person, no tiny sprite. DOWN means you want the Strip done another way; say it in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "On the Strip you walk as the normal full-size person we already have, never a tiny sprite. You see it in the RUN tab when you reach the Strip."
   },
   {
    "id": "tuning-how-long-they-live-9-28",
@@ -2781,7 +2785,7 @@
    "made": "9/28",
    "draft": true,
    "title": "HOW LONG THEY LIVE",
-   "why": "Your dies-of-age vote, as a roll. Twelve adults, each life rolled fresh with the real curve (risk doubles about every 8 years). Pick the times: in CRASH the middle age is about 69, in GOOD about 81, so a better future literally gives your people years. Add scars and watch lives shorten. The orange part is when the body starts to show it, so no death comes without a warning.",
+   "why": "Your dies-of-age rule as a roll, where a good future gives your people about 12 more years. You see it in the VOTE tab under LOOK, twelve lives rolled fresh on every tap.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_LONG_THEY_LIVE_9_28_26.html"
@@ -2794,7 +2798,7 @@
    "sha": "75ece9f",
    "made": "9/28",
    "title": "TRY A MOD",
-   "why": "Research, nothing in the game. Big games all let a mod change one row of a data file, not replace the whole file. Here is that with the real four guns: edit the box, press APPLY, see the pistol's magazine change. Press BROKEN MOD to see a bad mod get named and skipped without crashing anything. Thumb up if this is how you want mods to work.",
+   "why": "Research: a mod changes one row of a data file, and a broken mod gets named and skipped without a crash. You see it in the VOTE tab under LOOK; press APPLY and BROKEN MOD.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TRY_A_MOD_9_28_26.html"
@@ -2807,7 +2811,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "HER PAGE",
-   "why": "In Battle Brothers, tapping a man opens his page, and that is where his story lives: his face, where he came from, his numbers, his gear, his scars. This is what one tap on Estella would open, built only from what the real game knows about her. Her face, her words, her day and her habits are real. The game does not track her health, aim, gear or injuries yet, and the page says so instead of making numbers up. A is every box Battle Brothers has, and most of them are empty on her. B is her story first: big face, the last thing she said, why she came, her day as a clock, her habits, and the numbers one tap down. C is one small card over the game: face, name, what she wants, her health ring, nothing else.",
+   "why": "Pick what one tap on a companion opens: A every Battle Brothers box, B her story first, C one small card. You see it in the VOTE tab under LOOK, built from what the game knows about her.",
    "show": {
     "how": "image",
     "src": "vote/UI_HER_PAGE_9_28.png"
@@ -2820,7 +2824,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "COMING BACK: ONE LINE IN YOUR OWN VOICE, NO STREAK, NO GIFT, NO NUMBER OF DAYS.",
-   "why": "What should be waiting when you open the game tomorrow, or after a week away. The world already freezes while you are gone, so nothing rots and nothing is owed. That makes absence free, which is the strongest thing a return can have. The words to say where you stopped already exist: 249 first-person journal lines across all 42 quests, and nothing hands them to you when you come back. The real habit research says a habit takes a median of 66 days and one missed day barely matters, so a streak that punishes a miss is against the science, and a daily gift teaches you the visit is for the gift. So the morning is one line, the last thing you wrote, on the phone that already rings, longer after a longer gap, never a list, never a count of days. Research only, nothing to look at yet.",
+   "why": "Research: when you come back, the phone shows one line in your own voice, with no streak, no gift and no count of days. You see it only as text in the VOTE tab; it is NOT IN A TAB YET in the game.",
    "show": {
     "how": "text",
     "src": "WHAT SHOULD WAIT FOR YOU WHEN YOU COME BACK.\n\nOne line. The last thing you wrote in your own voice, on the phone that already rings.\n\nAfter a night: that one line. After about a week: that line, plus who you last spoke to and where you are standing. Never a list. Never a number of days. Never a reward.\n\nWHY: the world freezes while you are away, so nothing is owed (absence is free). One missed day barely matters to a real habit (66 days median, one miss changes almost nothing), so a streak that punishes a miss is against the research. A daily gift teaches you the visit is for the gift. A cue left at the moment you stopped is what makes getting back in fast.\n\nWHAT IT COSTS TO BUILD: no new writing and no new screen. The lines exist (249 of them) and the phone exists. It needs one time stamp and one pick of the right line."
@@ -2838,7 +2842,8 @@
    "text": "You ruled it: narration in the machine's voice, AI slop on purpose, creepy as fuck; people keep the squiggle voice with variations. This item is closed by your words.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "Ruled by your words: the narrator is the machine's voice made creepy, and people keep the squiggle voice. You see it only as this row in the VOTE tab, with nothing to tap."
   },
   {
    "id": "mods-mods-at-boot-9-28",
@@ -2847,7 +2852,7 @@
    "sha": "322edef",
    "made": "9/28",
    "title": "MODS AT BOOT",
-   "why": "Research, nothing in the game. This is what the loading screen would say about mods, with a real button that reads a file off your phone. Press TWO SAMPLE MODS to see one mod override another and get named. Add your own file to see a bad one get refused without crashing. Thumb up if this is how mods should show up when the game starts.",
+   "why": "Research: what the loading screen says about mods, with one mod overriding another and a bad file refused. You see it in the VOTE tab under LOOK; press TWO SAMPLE MODS.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_AT_BOOT_9_28_26.html"
@@ -2860,7 +2865,7 @@
    "sha": "0541d8ca",
    "made": "9/28",
    "title": "THE STREET FALLS AND THE EMPTY HOUSE STAYS LIT",
-   "why": "You gave the same-street-three-times picture a thumbs up, and then you said the future can get worse. So this is that street in act 3 after three different pasts, and the game decides what stands, not me: the numbers come straight from the part that computes the future from what you did. Built a lot: panels on both sides, the swap stand, a second lamp. Built some: less. Tore it down: the solar rack stripped bare, the cabinet door ripped off, the swap stand a burn mark, the windows it fed gone dark. The old houses never come down, because the game cannot count wrecking the city that was already there yet, so I did not fake it. And in every one of the four, the empty house is still lit with nobody in it. Everything around it rises or falls and it never changes. Thumbs up and this is how an act draws itself from your past. Thumbs down and tell me which future is wrong.",
+   "why": "One street in act 3 after three different pasts, drawn by the game's own future, and the empty house stays lit in every one. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_STREET_FALLS_AND_THE_HOUSE_STAYS_LIT_9_28.png"
@@ -2874,7 +2879,7 @@
    "made": "9/28",
    "draft": true,
    "title": "EVERY NUMBER YOU FEEL",
-   "why": "The one numbers table, as a page you can scroll: 41 cards, each a number you feel in a fight (what it does in plain words, its real value read straight from the game, and the safe range a slider or a mod can never leave). Green is live, red is what you ruled and nobody built yet (20% dead, 10% veteran, 30 to 40 days), orange is what tuning proposes. Plus all 8 enemy kinds with their health, aim and damage.",
+   "why": "The one numbers table: 41 cards for every number you feel in a fight, plus all 8 enemy kinds. You see it in the VOTE tab under LOOK, a page you scroll.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_EVERY_NUMBER_9_28_26.html"
@@ -2887,7 +2892,7 @@
    "sha": "37dc1cb3",
    "made": "9/28",
    "title": "A HOUSE IS ONE TILE",
-   "why": "You said it again: in combat a tile is as big as a house. Last round I drew a block out of one-metre tiles, which was the walking scale, and the walking is dead. Same question, right size. Three ways to look at one house tile, all made from your own art. A is down at an angle with the roof on, which is how Battle Brothers looks at its board and the one that makes your roof-you-can-stand-on idea work. B is straight down. C is across, your 7/28 street's look. Each one has four tiles beside it at the size the board actually draws them, with your man standing on one, because a tile means nothing until you see the figure on it. One of the four has its roof gone so you can see the slab inside. NOW THE THING MEASURING FOUND. The fight board draws a house at 16 pixels per metre. Your street art is 43. They are 2.6 times apart. You said all the walking art gets used for the combat, and it cannot just be pasted on: your kerb would arrive two and a half times too big, and shrinking it to fit throws away 62 percent of the pixels. That is the Atari thing again coming from the other side. So every tile here is DRAWN at your street's density, 515 pixels for 12 metres, and SHOWN at the board's 196. The art keeps its pixels whatever the board does with them. That is the only way both your rules hold at once. ONE MORE THING YOU SHOULD SEE. Your man is 112 pixels on a 196 pixel tile, which is 57 percent of it. A real man on a real 12 metre house lot is 15 percent. So he is drawn about four times life size on his own square. That is the board-game way and it is how Battle Brothers looks, but it is the number everything else follows, so if it reads wrong to you say so now. Pick A, B or C and I build the tiles out at that camera.",
+   "why": "One house tile three ways from your art: A at an angle with the roof, B straight down, C across, and I need a letter. You see it in the VOTE tab under LOOK, with your man standing on a tile.",
    "show": {
     "how": "image",
     "src": "vote/COOK_A_HOUSE_IS_ONE_TILE.png"
@@ -2899,7 +2904,7 @@
    "lane": "world",
    "made": "9/28",
    "title": "THREE SHAPES",
-   "why": "You said maybe the animals came out of a lab. I went and read what actually happened in the real world, and it is not monsters. Three pairs here, and in every one the LEFT side is what we already ship and the RIGHT side is the thing that is slightly off. TOP: the dire wolf that was on the news was three normal wolves with twenty gene edits for a bigger body and a paler coat, and their own head scientist admitted it. So that is our coyote, a quarter bigger, a shade paler. You cannot tell across a street, and the tool refuses to draw it if you can. MIDDLE: when a lab runs out of money the real record is that they put the animals down, not set them free. So what is loose is the one the paperwork missed, an ordinary dog with a numbered ear tag. BOTTOM, and this is the one that surprised me: almost everything that has ever escaped a lab for real is a PLANT, not an animal. Weedkiller-proof grass got out and now lives on roadsides in nine countries. And we already have a rule that act one has nothing green in it anywhere. So the only green thing in Las Vegas is the thing that beat us, it is growing out of the kerb, and the spray is what it was built to survive. None of this is canon. Which one do you want?",
+   "why": "Three real-science ideas for lab animals: a slightly big pale coyote, a tagged stray dog, and weedkiller-proof grass in the kerb. You see it in the VOTE tab under LOOK, and none of it is canon yet.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_THREE_SHAPES.png"
@@ -2918,7 +2923,8 @@
    "text": "You asked if the people you hire are part of the dynasty, and whether that means recruiting 36 instead of 12. Default: the company inherits. Each act starts with the heirs of the last act's crew, a killer's kid or apprentice with some of the parent's traits, gear kept in the family. About 12 people an act, 36 lives a game. Recruiting inside an act stays Battle Brothers hard. Keeping your killers alive and paid is how you get S-tier killers three acts later. DOWN means every act recruits from scratch, or say your version in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-28",
-   "draft": true
+   "draft": true,
+   "why": "Your company passes down, so each act starts with the last crew's heirs, about 12 an act and 36 a game. You see it only as this row in the VOTE tab; it is NOT IN A TAB YET in the game."
   },
   {
    "id": "sounds-the-generator-is-sixty-hertz-9-28",
@@ -2927,7 +2933,7 @@
    "sha": "937c6e9f",
    "made": "9/28",
    "title": "THE GENERATOR IS SIXTY HERTZ",
-   "why": "Last round I fixed this hum's pitch in place and had to undo it, because you already thumbed it and a judged sound cannot change what it sounds like. This is the right way to fix it: a brand new sound, a real 2-pole alternator running at 3,600 RPM, which makes 60 Hz by shaft speed, not by choice. Measured at 60.3 Hz, under 1% off. The old one keeps your thumb and keeps playing until you hear this and decide.",
+   "why": "A new generator hum at a real 60 Hz, built from an alternator's shaft speed. You hear it in the VOTE tab under LOOK, and the old one plays until you decide.",
    "options": [
     "A, the sixty hertz version",
     "B, keep the one that is already in the game"
@@ -2944,7 +2950,7 @@
    "sha": "937c6e9f",
    "made": "9/28",
    "title": "THE BLOCK LIGHTS AT ONE TWENTY",
-   "why": "Same story as the generator: this hum is judged and frozen, so the fix is a new sound, not an edit. A transformer energizing a city block has a core that pulls twice every power cycle, so it settles at 120 Hz once it comes up. This one rises from 40 Hz over six tenths of a second and lands at 119.1, under 1% off.",
+   "why": "A new transformer hum that rises and settles at a real 120 Hz as a city block powers up. You hear it in the VOTE tab under LOOK, on the three hums page.",
    "options": [
     "A, the one twenty version",
     "B, keep the one that is already in the game"
@@ -2961,7 +2967,7 @@
    "sha": "937c6e9f",
    "made": "9/28",
    "title": "THE SIGN CATCHES, THEN HOLDS",
-   "why": "This one is not just a fix, it is a real limit found in the old sound: it played through a borrowed instrument that can only hit certain notes, and no note on it sits within 3% of the true 120 Hz a sign's ballast actually hums at. Built fresh from real oscillators instead, so it hits 120 Hz for real (119.1 measured), with a few uneven catches before it holds, like a sign coming on.",
+   "why": "A new neon sign hum at a real 120 Hz, catching a few times before it holds. You hear it in the VOTE tab under LOOK, on the three hums page.",
    "options": [
     "A, the one twenty version, catching then holding",
     "B, keep the one that is already in the game"
@@ -2978,7 +2984,7 @@
    "sha": "3186b5a0",
    "made": "9/28",
    "title": "A HIT FACING YOU",
-   "why": "You said the fight is on house tiles with the full-size guy, so these are the swings you will actually see. A throw and a heavy punch both go forward, and when he faces you forward is into the screen, so facing you his whole body stood still and only an arm waved. From the side the throw moves 85 percent of him; facing you it moved 34. The heavy punch the same: 85 from the side, 38 facing you. Now facing you the throw goes up over his head and comes down with his weight stepping into it, and the punch cocks back and the fist comes across his chest at you with his hip behind it (69 and 68 percent now). The side views did not change, pixel for pixel. Before beside after, on the beat.",
+   "why": "Facing you, the throw and the heavy punch barely moved, and now the whole body swings into them. You see it in the VOTE tab under LOOK, before beside after on the beat.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_A_HIT_FACING_YOU.html"
@@ -2992,7 +2998,7 @@
    "sha": "pending",
    "made": "9/28",
    "title": "THE HEAD AND THE GEAR",
-   "why": "Rule 37i, one of your Third Votes, 55 verdicts, locked. You said the portrait is head only for now, head gear has to show, and eyes should sit slightly off from dead center. Notes are rulings, so this is already built, not something waiting on a thumb. Head gear: 68 of 200 people in the valley wear a hat or a durag, and none of them showed it on the face that pops up when they talk. All 68 do now, read straight off what the body is already wearing. Head only: the old collar color under the chin was never real clothing, it was a random color with nothing behind it, so I checked and it failed your own test for keeping it. It's gone, so a bare neck now against the background does the job. Eyes off-centre: I moved this at the screen, not the face, so the face itself did not change, only where it sits in its frame. Also did the Battle Brothers homework for the barber ask: I read all ten of the reference books before writing this, and none of them cover hair or faces at all. That's because Battle Brothers does not let you pick your recruit's hair, it's a fixed painted face per background. There is no number of their hairstyles to match, so I am not inventing one.",
+   "why": "Your ruling is built: the talking face is head only, shows the hat the body wears, and sits a little off centre. You see it in the VOTE tab under LOOK, and in the game on any face that talks.",
    "show": {
     "how": "page",
     "src": "vote/PORTRAIT_THE_HEAD_AND_THE_GEAR.html"
@@ -3005,7 +3011,7 @@
    "sha": "PENDING",
    "made": "9/28",
    "title": "THE HIGH GROUND IS A HOUSE WITH ITS ROOF ON",
-   "why": "You said a fight tile is a house, and you voted UP on high ground being a building you can stand on top of. So three things, same fight, before and after. ONE: the tiny-square board is gone for good, not kept as an option. TWO: the street was 17 houses wide in a fight, so you never saw a single house. Now it is 4 houses wide: two of road, a sidewalk each side, then yards and walls. THREE: the one high spot is a two-storey house on a yard, two or three houses from you, with a steel stair down the front. Walk up it and your shots get easier. Over 82 fights you got up there 80 times and it helped in all 80. What I am not hiding: the camera pulls way back to fit every enemy, so the house comes out smaller than the men. That is the next fix, not this one. Thumbs up and I keep building the street this way. Thumbs down and tell me if it is the street or the house.",
+   "why": "The street in a fight is 4 houses wide, and the high ground is a two-storey house with a stair you climb. You see it in the VOTE tab under LOOK, the same fight before and after.",
    "show": {
     "how": "image",
     "src": "vote/COMBAT_THE_ROOF_YOU_STAND_ON_9_28.png"
@@ -3018,7 +3024,7 @@
    "sha": "5a99e148",
    "made": "9/28",
    "title": "THE FOURTEEN HOME BASES ON THE MAP",
-   "why": "You said territory is not a thing: home bases and roaming crews are. Tap LOOK AT IT: the fourteen bases drawn on the game's own map (big for a fortress, small for a camp, in the crew's own colour), a raid that ruins one, and the crews that vanish with it. I also owe you a correction: the game's 28 roaming crews are a fixed set that never changes, and at this zoom 6 of the 14 bases sit on top of another. Thumbs up if this is the right shape, down and tell me what is wrong.",
+   "why": "The fourteen faction home bases on the map, and a raid that ruins one and the crews that vanish with it. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_THE_FOURTEEN_HOME_BASES_9_28.html"
@@ -3036,7 +3042,8 @@
    "text": "You said tough Battle Brothers battles run 30 to 40 minutes and nobody told me 90 seconds. Right. This one is dead; the new default is the next item.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "Dead by your correction: the 90-second fight is gone, and the next row holds the new numbers. You see it only as this row in the VOTE tab, with nothing to tap."
   },
   {
    "id": "coordinator-you-build-inside-your-home-bases-screen-9-29",
@@ -3050,7 +3057,8 @@
    "text": "Buildable world, your words. Default: in a home base you own, the settlement screen has a build action. Tap a lot, put a shed, a pump, a wall, a shop or a roof on it from the art we have. It costs batteries and time. It shows on the map, on the fight board when you fight there, and in your descendants' future. No separate builder screen. DOWN means no building, or say your version in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "In a home base you own, the settlement screen lets you tap a lot and build on it for batteries and time. You see it in the settlement screen, NOT IN A TAB YET."
   },
   {
    "id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29",
@@ -3064,7 +3072,8 @@
    "text": "Your correction: tough Battle Brothers battles run 30 to 40 minutes, and ours should be shorter even when tough. Default: a routine fight takes 2 to 4 minutes, a tough fight 8 to 15 and never past 15. A fight is tough for three reasons only: the enemy is higher level, the enemy has better gear, or you messed up. Those three are the difficulty dials. DOWN means different numbers; say them in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "A routine fight takes 2 to 4 minutes and a tough one never past 15, and tough means enemy level, enemy gear or your mistake. You see it in the fight, in the RUN tab."
   },
   {
    "id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29",
@@ -3078,7 +3087,8 @@
    "text": "Your ruling: in the endgame you can switch out a weapon mastery past level 11 without mods. Default: a veteran past level 11 swaps one mastery for another at a settlement that has a training ground. It costs batteries and a few days of the clock. Below level 11 the pick stays permanent like Battle Brothers, so the early choice still matters. DOWN means free swaps, or say your version in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "Past level 11 a veteran can swap one weapon mastery at a training ground for batteries and a few days. You see it in the settlement screen, NOT IN A TAB YET."
   },
   {
    "id": "mods-what-mods-fix-9-29",
@@ -3087,7 +3097,7 @@
    "sha": "b54e84b",
    "made": "9/29",
    "title": "WHAT MODS FIX",
-   "why": "Research, nothing in the game. 19 Battle Brothers mods people install, and what we do about each one. 11 are ours by default, 6 are proposals, 2 are a no. Tap the KEEP, MAYBE and NO buttons to filter. Thumb up if 'what players install mods to get is already in our game' is the right rule.",
+   "why": "Research: 19 mods Battle Brothers players install, and whether each is ours by default, a maybe, or a no. You see it in the VOTE tab under LOOK; tap KEEP, MAYBE and NO.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_WHAT_MODS_FIX_9_29_26.html"
@@ -3101,7 +3111,7 @@
    "made": "9/29",
    "draft": true,
    "title": "HOW LONG A FIGHT TAKES",
-   "why": "Why a Battle Brothers fight runs 30 to 40 minutes and ours does not. In theirs every man and enemy takes a turn one after another, so time multiplies (rounds x units x seconds each). In ours everyone acts on the same beat. Slide your three reasons a fight gets tough (stronger enemy, better gear, your mistake) and watch both bars against your 15 minute ceiling. Our routine fight comes out near 50 seconds, so the danger is not too long, it is too shallow.",
+   "why": "Why their fights run 30 to 40 minutes and ours run near 50 seconds, so the risk is a fight too shallow, not too long. You see it in the VOTE tab under LOOK, with sliders against your 15-minute ceiling.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_LONG_A_FIGHT_TAKES_9_29_26.html"
@@ -3114,7 +3124,7 @@
    "sha": "3e9aeddf",
    "made": "9/29",
    "title": "TWO DAYS OF BUILDING ON YOUR LOT",
-   "why": "You said building is back, in your own home base. This is it running for real on the street you already approved. You start with 2 batteries. Day 0 you put up a solar panel: costs 1 battery and a day. Day 1 it's standing, it pays you a battery back, the windows it feeds come on, and you put up a stall. Day 2 both stand: the panel pays again and the stall makes your name known. The numbers under each picture are the game's own money, not mine. Everything you build carries into your kids' generation, and a raid can take it away. There are seven things on the list: shed, pump house, garden bed, solar panel, stall, a roof back on a dead house (that one houses a family and is high ground in a fight), and a wall that makes nothing but is there for the day they come. Two of them are drawn here; the other five get drawn next from your approved street. Thumbs up and that is the build list. Thumbs down and tell me what should be on it instead.",
+   "why": "Building on your own lot, running for real: a solar panel day 0 and a stall day 1, out of a list of seven things. You see it in the VOTE tab under LOOK, three days on your approved street.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_TWO_DAYS_OF_BUILDING_9_29.png"
@@ -3127,7 +3137,7 @@
    "sha": "60b35edb",
    "made": "9/29",
    "title": "A FOOTSTEP ON DIRT",
-   "why": "step_dirt is one of 21 sounds this lane measured with no real top end, from the same batch as the sidewalk you already fixed. Packed soil is so much softer than concrete that the ring physics puts its note below what anyone can hear, so this one is almost all the click and the grain crush, which is honest rather than a shortcut.",
+   "why": "A footstep on packed dirt, almost all click and grain crush because soft soil barely rings. You hear it in the VOTE tab under LOOK, on the three grounds page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3144,7 +3154,7 @@
    "sha": "60b35edb",
    "made": "9/29",
    "title": "A FOOTSTEP ON SAND",
-   "why": "Not the noise-filter sand you killed twice. This is one real material: loose sand does not ring like a slab, so nearly the whole sound is the contact and the grain crush, which is what a boot sinking into sand actually does.",
+   "why": "A footstep on sand built from one real material, not the noise sand you killed twice. You hear it in the VOTE tab under LOOK, on the three grounds page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3161,7 +3171,7 @@
    "sha": "60b35edb",
    "made": "9/29",
    "title": "A FOOTSTEP ON A WOOD FLOOR",
-   "why": "step_wood is the third of this batch. Floorboards on joists really do ring, so unlike dirt and sand this one keeps almost all of it on purpose.",
+   "why": "A footstep on a wood floor that keeps its ring, because boards on joists really do ring. You hear it in the VOTE tab under LOOK, on the three grounds page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3177,7 +3187,7 @@
    "lane": "world",
    "made": "9/29",
    "title": "PICKED CLEAN",
-   "why": "The scavenge button you asked for. Here is the one decision that matters: a search gives you ONE thing or NOTHING, never a pile. A pile would kill everything costs one inside a week, and this game already got caught doing exactly that once with solar panels. So luck decides IF you find something, not how much. The other decision: a block RUNS OUT. This is one real block of Vegas, eight lots, drawn three times. Left, how you find it. Middle, halfway. Right, picked clean. Nothing was destroyed, nothing moved, nobody is there, there is just nothing left on it and you are the reason. I checked 4,228 ground pixels across the three and zero moved. Searching a street does not rearrange it. Every other game's scavenge button pays forever. Yours is a map you can spend, and since the future is signed now, a valley you strip in act one is a poorer valley in act three.",
+   "why": "Scavenging gives one thing or nothing, never a pile, and a block runs out until it is picked clean. You see it in the VOTE tab under LOOK, one block three times.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_PICKED_CLEAN.png"
@@ -3191,7 +3201,7 @@
    "sha": "bc0169f1",
    "made": "9/29",
    "title": "TAKING A HIT FACING YOU",
-   "why": "Same problem as the punch and the throw, two more moves. Facing you, the code only moved his body forward and back, which is into the screen, so he barely moved. GETTING HIT: 92 percent of him moves from the side, facing you it was 40. Now his head snaps back, his knees buckle so he drops, his arms come up, and he lurches to the side, the other side on the second hit, because nobody takes two hits the same (71 percent now). SHOVING: facing you it was 42; now both hands come together in front of his chest as his weight drops into it (57). The shove is the smaller win and I stopped at the second try. Side views did not change, pixel for pixel. Before beside after, on the beat.",
+   "why": "Facing you, getting hit and shoving barely moved, and now his head snaps back, his knees buckle and his hands drive in. You see it in the VOTE tab under LOOK, before beside after on the beat.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_TAKING_A_HIT.html"
@@ -3206,7 +3216,7 @@
    "made": "9/29",
    "floor": "map",
    "title": "THE CIRCLES BECOME PLACES",
-   "why": "You said you should see yourself on the city screen and that all those little circles should be icons or people. Here they are, and they are going on the map this round. Six markers: you with a banner over you, a shop, a shed, a pump station, a fortress and a tower. AND YOU WERE RIGHT ABOUT THE LAST ONES, twice over. The marker I shipped for you was 9 pixels wide. Nine. You said you could count them on one hand and you could. Here is the number behind it: the map tile is 18 by 9 on the screen, your phone draws 3 pixels for every 1 the map paints, so a marker has about 54 real pixels to fill and I was giving it 9. These are 48 pixels each, which is one painted pixel for one real pixel on your phone, the same as Battle Brothers. That is 6 to 16 times the pixels of the ones you killed, counted, not stretched. NOTHING HERE IS THE OLD ONE BLOWN UP. A 9 pixel shape scaled to 48 is still 9 pixels of picture in a bigger box. Every one is drawn again as what the place actually is, a building with a roof, lit from the north-west like everything else in the game, out of your own approved colours. AND THEY TELL APART WITH THE COLOUR THROWN AWAY, which is the test that matters on a map: the shop is low and wide with an awning sticking out, the shed is square with one roof, the fortress is tall and narrow with a toothed top, the tower is the thinnest thing on the map, the pump is a frame with nothing solid in it, and you are the only person. Battle Brothers map icons sit still. Each of these has one moving part on a still body, half a second a frame, one beat: the pump's beam, the tower's lamp, your banner. The feet never move, so the valley reads like a place where machines are still running instead of a board with counters on it. There are 109 kinds of place on the city screen and six are done. The rest are next.",
+   "why": "The map's little circles become six drawn places at 48 pixels: you with a banner, a shop, a shed, a pump, a fortress and a tower. You see it in the VOTE tab under LOOK, and on the MAP in the RUN tab.",
    "show": {
     "how": "image",
     "src": "vote/COOK_THE_CIRCLES_BECOME_PLACES.png"
@@ -3219,7 +3229,7 @@
    "sha": "45c2a04b",
    "made": "9/29",
    "title": "FOUR CREWS ARE ALREADY WALKING AT SOMEBODY'S BASE",
-   "why": "Four of the game's 28 roaming crews are already walking at a rival's home base: the Caravans, the Cartel and the Remnants going at each other. When they arrive, nothing happens. The map can show it: every crew's path, and a red ring on a base a crew is heading at. Tap LOOK AT IT. My default is that a base only falls from what you do, until you say otherwise. Thumbs up keeps it that way. Thumbs down lets crews take bases while you are not looking. (10/1: I changed this default. The thumb that counts now is on A CREW AT YOUR GATE.)",
+   "why": "Four roaming crews walk at rival bases and nothing happens when they arrive, and this is replaced by A CREW AT YOUR GATE. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_WHO_IS_COMING_FOR_WHOM_9_29.html"
@@ -3232,7 +3242,7 @@
    "sha": "PENDING",
    "made": "9/29",
    "title": "A HOUSE IS NEVER SMALLER THAN A MAN",
-   "why": "Same fight, same spot, before and after. BEFORE: the camera pulled way back to fit every enemy on screen, and your men never shrink, so a house came out a third the size of a man. That broke your own rule that the character is tiny next to buildings. AFTER: the camera stops pulling back once a house is as wide as a man. Enemies it cannot fit are shown as arrows on the edge of the screen with how many houses away they are. A red arrow means that one is aiming at you. Over 24 fights: a house was never smaller than a man, and all 99 enemies off screen had an arrow. You can still pinch to see wider. What I am not hiding: the blue-topped barrels are drawn house-sized and cover a lot of the street. That is next. Thumbs up and the camera stays like this. Thumbs down and tell me if you want to see more of the fight at once, even if the houses get small again.",
+   "why": "The fight camera stops pulling back once a house is as wide as a man, and enemies off screen get arrows. You see it in the VOTE tab under LOOK, the same fight before and after.",
    "show": {
     "how": "image",
     "src": "vote/COMBAT_A_HOUSE_IS_NEVER_SMALLER_THAN_A_MAN_9_29.png"
@@ -3245,7 +3255,7 @@
    "sha": "19ca5ab",
    "made": "9/29",
    "title": "ONE HUMAN, ONE PAST",
-   "why": "UI's new companion page asked a real person what they used to be and got nothing back, even though that person has a real former trade. The reason: their page asks one step earlier than the street does, with an object that never learned how to answer. Fixed so both ways of asking agree, checked against 24 real people with zero disagreements. Same fix, same shape, as the bug that made a stranger's card say two different pasts back in early September.",
+   "why": "A companion's page said they had no past job when they had one, and now both ways of asking agree. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html"
@@ -3263,7 +3273,8 @@
    "text": "Your ruling: the beasts are animals humans brought back with genetics that broke out of their lab when the dollar died, not radiation. I researched which real animals could actually be brought back (DNA lasts about a million years, so Ice Age and after, no dinosaurs) and which would thrive in a broken desert city. Default: the road's beasts are dire wolf packs, hyena clans, feral dog packs and feral cattle. Horses and the American camel are the mounts. The bosses are the American lion, the short-faced bear, the sabre-tooth at the water, and one mammoth herd at Lake Mead. The hunts are the ground sloth, bison and mountain goat. All of them once lived at the fossil beds 20 miles north of the Strip, which is where the lab was. DOWN means a different list; name the animal in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "The road's beasts are dire wolves, hyenas, feral dogs and cattle, and the bosses are the lion, the bear, the sabre-tooth and one mammoth herd. You see it only as this row in the VOTE tab; it is NOT IN A TAB YET in the game."
   },
   {
    "id": "coordinator-you-build-what-you-hold-and-it-grows-9-29",
@@ -3277,7 +3288,8 @@
    "text": "You asked: build only on your base, or a settlement of blocks, or the Pocket City route where you edit everything. Default: you build on the parts of Vegas you hold. Take the next part, by a raid, a contract, a boss or a deal, and it is yours to build too. Lose it and it goes back. By act 3 your base can be half the city. Bosses and contracts also unlock kinds of building and make the places you helped get better on their own, like Battle Brothers. Nobody edits a block they do not hold. DOWN means you want one big settlement from the start, or the edit-everything route; say which in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "You build on the parts of Vegas you hold, and what you hold grows block by block. You see it in the settlement screen and on the MAP, NOT IN A TAB YET."
   },
   {
    "id": "coordinator-the-seventeen-beasts-9-29",
@@ -3291,7 +3303,8 @@
    "text": "Four rounds of research, closed. The seventeen beasts, each with where it came from, which road it walked in on, which act it shows up in, the lesson it teaches in a fight, how big it is on the board, and what it is worth. Feral dogs are act 1's first fight. Hyenas own act 2. The hippo pod closes Lake Mead. The mammoths are act 3's landmark. The swarm cannot be shot. Haast's eagle strikes the roof. DOWN means swap one out; name it in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "The seventeen beasts, each with where it came from, which act it shows up in and what it teaches in a fight. You see it only as this row in the VOTE tab; it is NOT IN A TAB YET in the game."
   },
   {
    "id": "coordinator-the-speed-pad-pause-1x-2x-3x-5x-9-29",
@@ -3305,7 +3318,8 @@
    "text": "Your idea: the old pad comes back on the map as a speed control like Battle Brothers, 1x to 4x or 5x. Default: five buttons, PAUSE, 1x, 2x, 3x, 5x, in the pad's old spot. I skipped 4x so each step feels different. A road event drops it to pause on its own. DOWN means you want 4x in there too, or different steps; say them in a note.",
    "asked": "UP or DOWN",
    "when": "2026-09-29",
-   "draft": true
+   "draft": true,
+   "why": "The old pad comes back on the map as travel speed with five buttons: pause, 1x, 2x, 3x and 5x. You see it on the MAP in the RUN tab."
   },
   {
    "id": "tuning-who-dies-9-30",
@@ -3315,7 +3329,7 @@
    "made": "9/30",
    "draft": true,
    "title": "WHO DIES",
-   "why": "Your 20% death rule, played on a whole company. The 20% alone does nothing; how often a man is struck down per fight decides everything. Slide it and see how long a man lives, how many scars he collects, and how many of your twelve are laid up at once with 30 to 40 days out. At 5% a man lives about 120 fights. At 20% half of them die before they are veterans. Twelve men roll again on every tap.",
+   "why": "Your 20 percent death rule played on a whole company of twelve, where how often a man goes down decides everything. You see it in the VOTE tab under LOOK, with a slider.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHO_DIES_9_30_26.html"
@@ -3328,7 +3342,7 @@
    "sha": "6f927ce",
    "made": "9/30",
    "title": "THE MARCH STOPS",
-   "why": "Nothing is in the game yet. Battle Brothers players install a mod so the march stops when an enemy party comes into view. Here it is a default. Press MARCH with STOPS ON SIGHT, then try KEEPS WALKING to see what the game is like without it. Thumb up if this should be how the map works.",
+   "why": "Research: the march stops when an enemy party comes into view, as a default, not a mod. You see it in the VOTE tab under LOOK; press MARCH.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_A_SIGHTED_PARTY_STOPS_THE_MARCH_9_30_26.html"
@@ -3341,7 +3355,7 @@
    "sha": "pending",
    "made": "9/29",
    "title": "THREE-D EAT TWO-D",
-   "why": "You said try to make the portrait look 3-D too. Here are you, Ezekiel and Perla, the same three faces off your own phone strip, shown flat like they ship today next to one real light, the world's own. The old shadow sat on the right side of every face, which is backwards from your own world rule (the right side of a lit thing should be brighter). Measured on 20 of your crowd, 0 of 20 met that rule before this and 18 of 20 leaned the wrong way. Moving the shadow to the correct side and giving it a real falloff instead of one flat patch gets 14 of the same 20 over the bar. The turned-head part is done with light only, not new face shapes, the safer half of the ask for a first try. Perla's own number barely moves because she rolled a durag and it covers the same forehead area the light lives in, which is a real thing a hat does, not a bug. Nothing here has shipped; your own face has not moved. Worth putting in the game?",
+   "why": "Your three faces lit the right way so they look rounder, getting 14 of 20 faces past the light rule instead of 0. You see it in the VOTE tab under LOOK, flat beside lit.",
    "show": {
     "how": "page",
     "src": "vote/PORTRAIT_THREE_D_EAT_TWO_D.html"
@@ -3353,7 +3367,7 @@
    "lane": "world",
    "made": "9/30",
    "title": "THE FIFTEEN GROUNDS",
-   "why": "Every square of the map now knows what kind of ground a fight there would start on, so the fight board can be cut from the real place you tapped. This is the whole valley painted by that. Pale spine down the middle is the Strip, black grid is the freeways, blue is the water, green is parks and golf, dark scallops top and bottom are the mountains. You said most fights are block wars and nature is the edge: it came out 81% city, 19% nature, without me nudging anything. THE BIGGEST KIND OF GROUND A GUNFIGHT STARTS ON, BY A MILE, IS THE PARKING LOT. That is just what Vegas is, and it tells us where the art hours go. Two of the fifteen turned out not to be ground at all: a RUIN is not a place, it is a state a normal block is in, since act one already IS the ruin. And a CASINO FLOOR is indoors, you get there by walking in off the Strip. Naming those two saves building a tileset nothing would ever use. Also: I built this against one map and it looked perfect, then checked a hundred maps and found three kinds of block that map never happens to make. Each one would have been a fight with no floor under it.",
+   "why": "Every square of the map knows what ground a fight there starts on, 81 percent city and 19 percent nature. You see it in the VOTE tab under LOOK, the whole valley painted by ground.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_FIFTEEN_GROUNDS.png"
@@ -3367,7 +3381,7 @@
    "sha": "7e06088e",
    "made": "9/30",
    "title": "A WALK ON THE SIDEWALK DOES NOT REPEAT",
-   "why": "walk_more exists because one recorded sidewalk step plays for every step in the game. The real fix is not another sample, it is a footstep that never renders the same way twice: a heel never lands with exactly the same force, so each step here drifts a few percent in timing and loudness, forever, with no pool to run out of.",
+   "why": "A sidewalk walk where no two steps sound exactly the same. You hear it in the VOTE tab under LOOK, on the walk page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3384,7 +3398,7 @@
    "sha": "7e06088e",
    "made": "9/30",
    "title": "A WALK ON A WOOD FLOOR DOES NOT REPEAT",
-   "why": "wood_more is the same complaint on a wood floor: two samples for every porch, deck and floorboard in the game. Same fix, same page.",
+   "why": "A wood floor walk where no two steps sound exactly the same. You hear it in the VOTE tab under LOOK, on the walk page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3401,7 +3415,7 @@
    "sha": "7e06088e",
    "made": "9/30",
    "title": "A RUN ON THE SIDEWALK DOES NOT REPEAT",
-   "why": "tread_more is the running version: a boot on a hard floor on a two-beat pattern, currently one sample. Twice the footfalls of the walk, same variety fix, and a real run: two strides in the time of one walked stride, never two jammed into one instant.",
+   "why": "A run on a hard floor, two strides per walked stride, never the same step twice. You hear it in the VOTE tab under LOOK, on the walk page.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3649,7 +3663,7 @@
    "sha": "e42cb2e0",
    "made": "10/1",
    "title": "THE GROUND TAKES IT",
-   "why": "dirt_take is a missed shot landing somewhere, and it is already solved by the dirt ground this row built: one contact, no second step after it, the same material that already keeps footsteps on dirt from ringing.",
+   "why": "A missed shot landing in the dirt, one dull contact and nothing after it. You hear it in the VOTE tab under LOOK.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3666,7 +3680,7 @@
    "sha": "e42cb2e0",
    "made": "10/1",
    "title": "BOOTS GOING SOMEWHERE, ON DIRT",
-   "why": "boots_go is an enemy repositioning outdoors, and it is the walk this row already built, never the same step twice, just on dirt instead of a sidewalk.",
+   "why": "An enemy moving outdoors, the never-repeating walk on dirt. You hear it in the VOTE tab under LOOK.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3683,7 +3697,7 @@
    "sha": "e42cb2e0",
    "made": "10/1",
    "title": "IT GOES DOWN",
-   "why": "set_down is a weight arriving and settling, by his own words not a chime. This is the floor taking the weight, the same slab a boot already rings, with no second step to follow it.",
+   "why": "A weight set down on a slab, the floor taking it, not a chime. You hear it in the VOTE tab under LOOK.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3700,7 +3714,7 @@
    "sha": "e42cb2e0",
    "made": "10/1",
    "title": "SET IT DOWN AGAIN",
-   "why": "seton_more is set_down's own complaint, in his words: \"placing a thing, twice, forever.\" Same recipe, a fresh variant, so the second placement is not the first one copied.",
+   "why": "A second version of setting a thing down, so the second time is not a copy of the first. You hear it in the VOTE tab under LOOK.",
    "options": [
     "A, this one",
     "B, keep the one that is already in the game"
@@ -3710,36 +3724,36 @@
     "src": "BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html"
    }
   },
-{
-  "id": "sprint-combat-run-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "COMBAT AND THE RUN SPRINT: ONE WHOLE FEATURE PER ROUND, UNTIL THE DEMO SHIPS",
-  "why": "You said combat and the run must make bigger jumps every chat and go way faster because you are getting the demo released. So both chats are in sprint mode: a round is a whole feature on the thing you play, never a slice, a study page or a measurement. Their next three rounds are written on the board already. Combat round one is the whole floor under the fighters. Run round one is the whole demo loop: map, travel, arrive, contract, fight, return. And there is a release list now: ten things the demo must do before a stranger gets it, each checked by a machine, refreshed every round.",
-  "show": {
+  {
+   "id": "sprint-combat-run-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "COMBAT AND THE RUN SPRINT: ONE WHOLE FEATURE PER ROUND, UNTIL THE DEMO SHIPS",
+   "why": "Combat and the run sprint: one whole feature per round until the demo ships, with a release list of ten things a machine checks. You see it only as this row in the VOTE tab, and the result in the RUN tab.",
+   "show": {
     "how": "text",
     "src": "SPRINT, LOCKED 10/1.\n\nCOMBAT: 1 the floor, all of it. 2 reach lit on square tiles and the roof. 3 no two boards alike. 4 the roster file.\n\nRUN: 1 the whole demo loop on the map. 2 road events. 3 the release list green.\n\nTHE RELEASE LIST: opens in 3 s; the loop has no dead end; the floor passes the judge; no text overlaps; 60 fps through a fight; the save survives; both orientations; the first sixty seconds are a game; a stranger knows what to press; NOTES sends."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "beast-defaults-from-grok-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "TWO BEAST DEFAULTS FROM GROK'S FIRST FINDINGS: NO GLOW, AND THE MAMMOTHS ARE FIRST BIRTHS",
-  "why": "Grok read the whole pack and found seven places where two of our pages disagree. Two are about the beasts. One page said the lab's animals glow at night; you locked 'nothing glowing' the same day, so your lock wins and glow is dead. And Grok checked the mammoth: the real lab edits elephant cells, nobody has a living mammoth genome, so a wild herd that forgot the lab by 2040 is not honest. Default: the herd in act three is the first births, a funded bet that walked out. The dino-bird stays, but as an edited living bird, never a dinosaur.",
-  "show": {
+  {
+   "id": "beast-defaults-from-grok-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "TWO BEAST DEFAULTS FROM GROK'S FIRST FINDINGS: NO GLOW, AND THE MAMMOTHS ARE FIRST BIRTHS",
+   "why": "Two beast defaults from Grok: nothing glows, and the mammoths in act 3 are first births from the lab, not a wild herd. You see it only as text in the VOTE tab; it is NOT IN A TAB YET in the game.",
+   "show": {
     "how": "text",
     "src": "FROM GROK, 10/1 (unverified by a lane yet).\n\n1. NOTHING GLOWS. Your 9/29 lock wins over the round-three 'glow animals' line.\n\n2. THE MAMMOTHS ARE FIRST BIRTHS in act three, not a wild herd.\n\n3. THE DINO-BIRD is a lab-edited living bird. The word dinosaur never appears.\n\nSource: colossal.com/mammoth, cited by Grok."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
   {
    "id": "character-the-barber-10-1",
    "kind": "outfit",
@@ -3747,7 +3761,7 @@
    "sha": "pending",
    "made": "10/1",
    "title": "THE BARBER",
-   "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
+   "why": "The barber costs one battery, and a tap opens the face editor and the haircut bank with twelve cuts. You see it in the VOTE tab under LOOK; the barber building comes with the settlement screen.",
    "show": {
     "how": "page",
     "src": "vote/CHARACTER_THE_BARBER.html"
@@ -3760,7 +3774,7 @@
    "sha": "8e69c21",
    "made": "10/1",
    "title": "THE RETINUE",
-   "why": "Battle Brothers hires camp staff for a daily wage: a scout, a surgeon, a negotiator, a blacksmith. Ours are the driver, the medic, the fixer, the mechanic, offered one at a time by whoever is walking with you, hired by staying close, never a popup. A driver really makes the map faster to cross. A fixer really gets the rest of the crew paid less often. A medic and a mechanic are honestly not doing anything live yet, because this game doesn't have a wound clock or a repair meter for them to speed up, and faking one just to give them a job felt worse than saying so.",
+   "why": "Camp staff like Battle Brothers: a driver, a medic, a fixer and a mechanic, hired by staying close to whoever offers. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_RETINUE_10_1_26.html"
@@ -3773,7 +3787,7 @@
    "sha": "756a2a94",
    "made": "10/1",
    "title": "A CREW AT YOUR GATE",
-   "why": "A crew walks up to a base you hold. Tap LOOK AT IT: the game's own map, two crews walking at two bases you would hold, then both at the gate with four days on the clock, then four days later with nobody there: the strong base holds and the weak one is taken. I changed my mind from last time: the world can take a base nobody came to, after four days of warning, and it never burns it. Thumbs up keeps that. Thumbs down puts it back: a crew at your gate does nothing until you fight.",
+   "why": "A crew at a base you hold gives four days of warning, then a weak base is taken but never burned. You see it in the VOTE tab under LOOK, on the game's own map.",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_A_CREW_AT_YOUR_GATE_10_1.html"
@@ -3786,25 +3800,25 @@
    "sha": "pending",
    "made": "10/1",
    "title": "THE SIX IN THE BAR",
-   "why": "You said Battle Brothers' supplies fit ours: gold, food, medicine, ammo, tools. Ours are six: batteries, food, meds, rounds, tape, water. In Battle Brothers they sit in one row across the top of the map, so you always see what you are running low on while you travel. A is in the game now: all six in one plate next to the hour and the place. B gives them their own bigger row under the bar. C keeps only batteries in the bar and drops the six down when you tap it. All three are the real demo map. The game only counts batteries and food so far, so the other four show a dim dash instead of a made-up number, and they light up by themselves the moment the game starts counting them.",
+   "why": "Your six supplies sit in the top bar while you travel, and A is in the game now with B and C as other layouts. You see it on the MAP in the RUN tab.",
    "show": {
     "how": "image",
     "src": "vote/UI_THE_SIX_IN_THE_BAR_10_1.png"
    }
   },
-   {
-    "id": "combat-nothing-on-the-ground-10-1",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "10/1",
-    "title": "THE GROUND UNDER THE FIGHTERS, CLEANED UP",
-    "why": "The ovals, cardboard blocks, diamonds, red disc and the words ROSA and CLEAR are gone from the ground, and it now draws at your phone's real pixels so the cracks show. Thumbs down and say what still looks wrong under their feet.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png"
-    }
-   },
+  {
+   "id": "combat-nothing-on-the-ground-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "THE GROUND UNDER THE FIGHTERS, CLEANED UP",
+   "why": "The ovals, blocks and words are gone from the fight's ground, and it draws at your phone's real pixels. You see it in the VOTE tab under LOOK, and in the fight in the RUN tab.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_NOTHING_ON_THE_GROUND_10_1.png"
+   }
+  },
   {
    "id": "dynasty-heirs-10-1",
    "kind": "tile",
@@ -3812,142 +3826,142 @@
    "sha": "pending",
    "made": "10/1",
    "title": "YOUR PEOPLE HAVE KIDS. THEY ARE THE NEXT ACT'S COMPANY.",
-   "why": "You asked if the people you hire belong to the dynasty each act, and what happens if one dies in an earlier act. Here is the answer, shot on the real phone. Left: act 1, one person in the company (the game wrote him itself: a real job, finished, its own bond). Second: in act 2 the phone shows his heir, Fern, 29, with his surname if you ever asked his name, or a fresh one if you never did. Third: act 3 shows Fern's heir, Wyatt, 20. Right: I made him fall early in act 1 with no kid, and his line is gone from act 2 (and 3). If he had been with you 60 days, or came with a family, he would have left a kid. A death in act 2 or 3 changes nothing in the past. And if the past changes, who is there is worked out again, but what the heirs already did stays done. Each act holds up to 12 of these lines, 36 across the game. Two things I am not hiding. The game cannot kill anyone yet (your people are down, never dead, an older ruling your 20 percent replaced and nobody has built), so today every one of your people carries a line forward, and the death part is proven on the rules, not on the street. And it shows names and ages only: the faces and the company screen are the portrait and UI lanes' jobs. Thumbs up and this is how the company inherits. Thumbs down and tell me which of the numbers (60 days, 15 to 35 years old, half the traits, 12 an act) is wrong.",
+   "why": "Your people have kids, and the kids are the next act's company, unless one falls early with no kid. You see it in the VOTE tab under LOOK, shot on the real phone across three acts.",
    "show": {
     "how": "image",
     "src": "vote/DYNASTY_HEIRS_10_1.png"
    }
   },
-{
-  "id": "grok-reported-six-piles-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "GROK SAYS YOU GAVE IT SIX PILES: MEDICINE, BATTERIES, RESOURCES, CLOUT, AMMO, TOOLS",
-  "why": "Grok wrote that you told it the money splits into six piles with food, gas and water as one pile, and that a car shot spends gas. Until you say it here, the old six stand (batteries, food, meds, rounds, tape, water) and only the car-spends-gas line is adopted; thumbs up to switch to Grok's six.",
-  "show": {
+  {
+   "id": "grok-reported-six-piles-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "GROK SAYS YOU GAVE IT SIX PILES: MEDICINE, BATTERIES, RESOURCES, CLOUT, AMMO, TOOLS",
+   "why": "Grok says you split the money into six different piles, and thumbs up switches to Grok's six. You see it only as text in the VOTE tab; in the game the piles sit in the top bar on the MAP.",
+   "show": {
     "how": "text",
     "src": "GROK'S SIX (from your chat with it, unverified): medicine, batteries, resources (food + gas + water), clout (a score, not spent), ammunition, tools. A car shot spends the resources pile.\n\nTHE OLD SIX (rule 47): batteries, food, meds, rounds, tape, water.\n\nYES = Grok's six. NO = the old six."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "grok-car-is-the-handgonne-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "VIA GROK: THE CAR IS THE HANDGONNE",
-  "why": "Grok says you locked it in your chat: the car is our handgonne, a short loud cone shot that eats the turn to reload and spends gas. Thumbs up makes it law for the fight's weapon shapes; thumbs down kills it.",
-  "show": {
+  {
+   "id": "grok-car-is-the-handgonne-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "VIA GROK: THE CAR IS THE HANDGONNE",
+   "why": "The car is our handgonne: a short loud cone shot that spends gas and eats the turn to reload. You see it only as text in the VOTE tab; up builds it into the fight.",
+   "show": {
     "how": "text",
     "src": "BATTLE BROTHERS' HANDGONNE: 35 to 75 damage, a cone, range 2, fire 3 AP, reload 9 AP, cannot fire and reload in one turn.\n\nOURS, VIA GROK: the car. Ram or a blast from the lane. The shot is gas, so it spends the resources pile.\n\nSeen in: the fight (COMBAT), round two."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "grok-the-dead-are-chipped-bodies-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "VIA GROK: THE DEAD ARE BODIES WITH A CHIP STILL IN THEM",
-  "why": "Grok says you locked it in your chat: Battle Brothers' walking dead are, for us, bodies that get back up because a lab chip or implant did not die with the dollar, and the necromancer is the person holding the controller. Thumbs up makes it the roster's rule; orcs as driverless machines and goblins as drones stay proposals either way.",
-  "show": {
+  {
+   "id": "grok-the-dead-are-chipped-bodies-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "VIA GROK: THE DEAD ARE BODIES WITH A CHIP STILL IN THEM",
+   "why": "The walking dead are bodies with a lab chip still in them, and the necromancer holds the controller. You see it only as text in the VOTE tab; it is NOT IN A TAB YET in the game.",
+   "show": {
     "how": "text",
     "src": "VIA GROK, FROM YOUR CHAT: humans stay people (eight factions). The dead are chipped bodies, analog horror, not magic. The necromancer is the person with the controller.\n\nSTILL PROPOSALS: orcs = driverless heavy machines, goblins = drones.\n\nSeen in: the fight (COMBAT), the roster file."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "grok-first-fight-weapons-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "VIA GROK: THE FIRST FIGHT'S SIX WEAPONS",
-  "why": "Grok mapped every Battle Brothers weapon job to our world and picked a first-fight set: pistol as the dagger, car as the handgonne, rifle as the crossbow, sledge as the hammer, car door as the shield, bottles to throw. Thumbs up and combat builds exactly these six for round two; thumbs down and you pick letters off Grok's page.",
-  "show": {
+  {
+   "id": "grok-first-fight-weapons-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "VIA GROK: THE FIRST FIGHT'S SIX WEAPONS",
+   "why": "The first fight's six weapons: pistol, car, rifle, sledge, car door as a shield, and things to throw. You see it only as text in the VOTE tab; up builds them into the fight.",
+   "show": {
     "how": "text",
     "src": "THE SIX: pistol (dagger, 1 tile). Car (handgonne, cone, reload). Rifle (crossbow, one hard shot then rack). Sledge (hammer, breaks armour and doors). Car door (shield). Bottles, bricks, flares (throw).\n\nNOT YET: no bow, no flame line, no mortar until the second district.\n\nSeen in: the fight (COMBAT)."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "grok-cut-b-melee-spends-nothing-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "VIA GROK: MELEE IS THE NEXT TILE AND SPENDS NOTHING; GUNS SPEND AMMO",
-  "why": "Grok says you told it a fighter never shares a house tile, so melee means the next tile over, and that fighting without a gun should be a real way to play. Its cut: pistol and shotgun spend ammo, pipe, machete and sledge spend nothing but only reach the next tile, the shotgun is the hand-carried handgonne and the car the big one; thumbs up and combat builds it, thumbs down and you pick letters off Grok's page.",
-  "show": {
+  {
+   "id": "grok-cut-b-melee-spends-nothing-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "VIA GROK: MELEE IS THE NEXT TILE AND SPENDS NOTHING; GUNS SPEND AMMO",
+   "why": "Melee reaches the next tile and spends nothing, while guns spend ammo. You see it only as text in the VOTE tab; up builds it into the fight.",
+   "show": {
     "how": "text",
     "src": "RANGE AT HOUSE SCALE: 1 tile = melee, the next house or the gap. 2 = across the street: shotgun, spike strip, a thrown bottle. 3 to 6 = the rifle. 7 to 13 = a roof gun, only if you say so.\n\nTHE REWARD: a melee hit costs no ammo. A gun hit costs one round.\n\nSeen in: the fight (COMBAT), round two."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-   {
-    "id": "combat-the-floor-round-two-10-1",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "10/1",
-    "title": "THE FLOOR, ROUND TWO: NO GRID",
-    "why": "A street is one tile now like you said, with the houses at both edges, and the grid, the grenade circle, the ammo circles and the two-house-long walls are gone from the ground. Thumbs down and say what still looks wrong under their feet.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_THE_FLOOR_ROUND_TWO_10_1.png"
-    }
-   },
-   {
-    "id": "combat-the-street-has-kerbs-10-1",
-    "kind": "tile",
-    "lane": "combat",
-    "sha": "PENDING",
-    "made": "10/1",
-    "title": "THE STREET HAS KERBS",
-    "why": "The road and sidewalks under the fight are now built like a real street from the approved street tiles: gutters, two lanes and the yellow centre line, then kerb, sidewalk and a dirt strip before the yards. The centre line is faint because at true size it is only a few pixels wide, so say if you want it louder.",
-    "show": {
-     "how": "image",
-     "src": "vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png"
-    }
-   },
-{
-  "id": "grok-first-fight-slice-10-1",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/1",
-  "title": "VIA GROK: THE FIRST FIGHT, ONE SHEET A BUILDER CAN CODE",
-  "why": "Grok wrote the first fight as one sheet: a board eight houses wide and six deep with the street down the middle, you alone on the south row with a pistol, a pipe and the car, six road crew five tiles north with pipes, one shield and one pistol. Thumbs up and combat builds exactly this as the demo's first fight, with two fixes where Grok's page clashes with your locks: you are downed, never dead, and a step or a swing costs one, not Battle Brothers' nine points.",
-  "show": {
+  {
+   "id": "combat-the-floor-round-two-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "THE FLOOR, ROUND TWO: NO GRID",
+   "why": "A street is one tile with houses on both edges, and the grid and circles are gone from the ground. You see it in the VOTE tab under LOOK, and in the fight in the RUN tab.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_FLOOR_ROUND_TWO_10_1.png"
+   }
+  },
+  {
+   "id": "combat-the-street-has-kerbs-10-1",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/1",
+   "title": "THE STREET HAS KERBS",
+   "why": "The fight's street has gutters, two lanes, a faint yellow line, kerbs and sidewalks. You see it in the VOTE tab under LOOK, and in the fight in the RUN tab.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_STREET_HAS_KERBS_10_1.png"
+   }
+  },
+  {
+   "id": "grok-first-fight-slice-10-1",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/1",
+   "title": "VIA GROK: THE FIRST FIGHT, ONE SHEET A BUILDER CAN CODE",
+   "why": "Grok's first fight on one sheet: an 8 by 6 board, you alone with a pistol, a pipe and the car against six road crew. You see it only as text in the VOTE tab; up builds it as the demo's first fight.",
+   "show": {
     "how": "text",
     "src": "THE SLICE: 8 by 6 house tiles. Street down the middle. You south, six road crew north, five tiles apart. You: pistol (1 tile, spends ammo, ignores armour), pipe (1 tile, stun, spends nothing), the car on the south edge (cone at 2 tiles, spends gas, reload eats the turn). Them: four pipes, one car door, one pistol. Win: all six down or fleeing; pay in batteries and a post to hire one person.\n\nFIXED TO YOUR LOCKS: you are downed, never dead. Everything costs one.\n\nSeen in: the fight (COMBAT), the demo's first fight."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{
-  "id": "animation-a-trader-facing-you-10-1",
-  "kind": "animation",
-  "lane": "animation",
-  "sha": "1ec03902",
-  "made": "10/1",
-  "title": "A TRADER FACING YOU",
-  "why": "When you zoom all the way in you are looking at one person, so the moves people make to your face have to work facing you. Two barely moved. HAGGLING: 66 percent of him moves from the side, facing you it was 13 and from behind 6. Now he offers (one hand up and out, palm up, head cocked) and then shrugs (both hands out low, shoulders up): 25 facing you, 19 from behind. BOWING: 115 percent from the side, 20 facing you. Now the top of him dips, one hand comes in over his leg and the other arm sweeps out low: 39 facing you, 29 from behind. Smaller wins than the fight moves and I stopped; a hand crossing the black coat draws as a smudge, so nothing crosses it. Side views did not change, pixel for pixel. Before beside after, on the beat.",
-  "show": {
+  {
+   "id": "animation-a-trader-facing-you-10-1",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "1ec03902",
+   "made": "10/1",
+   "title": "A TRADER FACING YOU",
+   "why": "Facing you, haggling and bowing barely moved, and now he offers a palm and shrugs, and the bow dips with an arm sweeping out. You see it in the VOTE tab under LOOK, before beside after on the beat.",
+   "show": {
     "how": "page",
     "src": "vote/ANIMATION_A_TRADER_FACING_YOU.html"
-  },
-  "said": "once you understand the scale of how far you can zoom out and zoom in, that's really important to me"
-}
+   },
+   "said": "once you understand the scale of how far you can zoom out and zoom in, that's really important to me"
+  }
  ],
  "verdicts": [
   {
@@ -5133,22 +5147,124 @@
    "when": "9/27",
    "at": "2026-09-28"
   },
-  {"id": "world-what-a-tile-is-10-1", "vote": "down", "said": "Hell, no bro if a street is small then it's one time if the street has been then it's two it's a freeway then it's more, but yeah man that was that was so bad bro", "when": "9/30", "at": "2026-10-01"},
-  {"id": "direction-the-floor-under-their-feet-10-1", "vote": "down", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "lifecity-everything-you-can-build-10-1", "vote": "up", "said": "I like Garden bed, water tank and solar panel only", "when": "9/30", "at": "2026-10-01"},
-  {"id": "tuning-the-difficulty-dials-10-1", "vote": "up", "said": "Whatever battle Brothers does, I don't need you to do this bullshit", "when": "9/30", "at": "2026-10-01"},
-  {"id": "mods-one-honest-number-10-1", "vote": "up", "said": "Bro, the point of the mods chat is not to make mods is to just make mods easy to be made", "when": "9/30", "at": "2026-10-01"},
-  {"id": "fight-floor-first-10-1", "vote": "down", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "grok-role-c-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "dynasty-the-ending-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "dynasty-one-then-heirs-9-29", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "people-a-goal-the-company-sets-itself-9-30", "vote": "up", "said": "Renown is out clout economy translation dumbass", "when": "9/30", "at": "2026-10-01"},
-  {"id": "portrait-speak-along-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "animation-fast-travel-glides-9-30", "vote": "down", "said": "Why can't it look exactly like the combat dial, bro we already had that in the game already like the portrait with the directions around it but instead of it could just be you know not all UI or the text has to be like exactly perfect perfectly 90° bro like what the fuck is wrong with you", "when": "9/30", "at": "2026-10-01"},
-  {"id": "factions-your-base-grows-part-by-part-9-30", "vote": "down", "said": "Hard to tell this look like dog shit", "when": "9/30", "at": "2026-10-01"},
-  {"id": "combat-a-street-of-houses-9-30", "vote": "up", "said": "Yeah, like a street has to be a tile bro if it's a freeway it might be three or four you know like come on", "when": "9/30", "at": "2026-10-01"},
-  {"id": "direction-ai-slop-three-pairs-9-30", "vote": "up", "said": "", "when": "9/30", "at": "2026-10-01"},
-  {"id": "cook-the-block-war-kit-9-30", "vote": "down", "said": "It looks bad man so ugly", "when": "9/30", "at": "2026-10-01"},
-  {"id": "lifecity-what-you-hold-9-30", "vote": "down", "said": "OK, but when would you see this like this is what I'm talking to you about like so is it gonna be viewable when you zoom in the city map mode a lot like but you have to remember like we're not walking around anymore it's gonna be tapped to move on this like awesome dynamic static city but also is very a lot of action going on on the static procedure. He generated map and shit like so when is it gonna be in the city settlement menu or something like bro?", "when": "9/30", "at": "2026-10-01"}
+  {
+   "id": "world-what-a-tile-is-10-1",
+   "vote": "down",
+   "said": "Hell, no bro if a street is small then it's one time if the street has been then it's two it's a freeway then it's more, but yeah man that was that was so bad bro",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "direction-the-floor-under-their-feet-10-1",
+   "vote": "down",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "lifecity-everything-you-can-build-10-1",
+   "vote": "up",
+   "said": "I like Garden bed, water tank and solar panel only",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "tuning-the-difficulty-dials-10-1",
+   "vote": "up",
+   "said": "Whatever battle Brothers does, I don't need you to do this bullshit",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "mods-one-honest-number-10-1",
+   "vote": "up",
+   "said": "Bro, the point of the mods chat is not to make mods is to just make mods easy to be made",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "fight-floor-first-10-1",
+   "vote": "down",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "grok-role-c-9-30",
+   "vote": "up",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "dynasty-the-ending-9-30",
+   "vote": "up",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "dynasty-one-then-heirs-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "people-a-goal-the-company-sets-itself-9-30",
+   "vote": "up",
+   "said": "Renown is out clout economy translation dumbass",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "portrait-speak-along-9-30",
+   "vote": "up",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "animation-fast-travel-glides-9-30",
+   "vote": "down",
+   "said": "Why can't it look exactly like the combat dial, bro we already had that in the game already like the portrait with the directions around it but instead of it could just be you know not all UI or the text has to be like exactly perfect perfectly 90\u00b0 bro like what the fuck is wrong with you",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "factions-your-base-grows-part-by-part-9-30",
+   "vote": "down",
+   "said": "Hard to tell this look like dog shit",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "combat-a-street-of-houses-9-30",
+   "vote": "up",
+   "said": "Yeah, like a street has to be a tile bro if it's a freeway it might be three or four you know like come on",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "direction-ai-slop-three-pairs-9-30",
+   "vote": "up",
+   "said": "",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "cook-the-block-war-kit-9-30",
+   "vote": "down",
+   "said": "It looks bad man so ugly",
+   "when": "9/30",
+   "at": "2026-10-01"
+  },
+  {
+   "id": "lifecity-what-you-hold-9-30",
+   "vote": "down",
+   "said": "OK, but when would you see this like this is what I'm talking to you about like so is it gonna be viewable when you zoom in the city map mode a lot like but you have to remember like we're not walking around anymore it's gonna be tapped to move on this like awesome dynamic static city but also is very a lot of action going on on the static procedure. He generated map and shit like so when is it gonna be in the city settlement menu or something like bro?",
+   "when": "9/30",
+   "at": "2026-10-01"
+  }
  ]
 }
