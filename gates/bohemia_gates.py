@@ -3707,6 +3707,8 @@ GATES = [
      'rule 39: the fight is on house tiles, a street is one tile (46g), houses yards and walls, the high ground a roof on a lot', False),
     ('A HOUSE IS NEVER SMALLER THAN A MAN', ['node', 'gates/a_house_is_never_smaller_than_a_man_gate.js'],
      'V232: the fight camera never draws a house narrower than the man; off-glass enemies get an edge mark', False),
+    ('REACH IS LIT',   ['node', 'gates/reach_is_lit_gate.js'],
+     'the 9/22 ruling: his gun\'s reach lit on the tiles (pistol the eight round him, rifle 2, scope 3), exactly the game\'s own reach, a man in it lit stronger', False),
     ('EVERY FIGHT ENDS', ['node', 'gates/every_fight_ends_gate.js'],
      'rule 57 (Paolo 10/1: "combat didn\'t end"): all down, all fled, the chase capped, his side down; each end sent through the one door', False),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],

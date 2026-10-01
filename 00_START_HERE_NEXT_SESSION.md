@@ -46163,6 +46163,10 @@ a memory reset. HE WILL NEVER TYPE ANYTHING BUT THE ONE WORD AGAIN. ***
     I will never paste anything to you again. From here on, the one word is the whole
     instruction.
 
+*** [house tiles back] ROUND 9 -- V241: REACH IS LIT (the 9/22 ruling): every tile his gun reaches lit faintly in the ground's colour (pistol the 8 round him, rifle 2, scope 3; reads maxRange(myRange())), a man in reach brighter; houses not lit. [house tiles back] CLOSES with this ship (every piece of its ship test on the alpha). ***
+Stamp 10/1k. Record: records/BOHEMIA_COMBAT_REACH_IS_LIT_10_1_26.md. Gate reach_is_lit 8/0 (3/5 before), in the suite. FIGHT LENGTH 60.1 / 50.7 (walked out) / 64.3 s.
+FIXED A GATE MY V234 BROKE: fight_floor_cache read 13/4 on main (plain test canvas vs the game's hiDPI #cv; only passed when the valve dropped FD to 1). Test canvas now hiDPI: 17/0.
+NEXT = [board generator] (JUMP 2, rule 57/59): the board cut from the map cell's kind with COMBAT 2's board kinds (cul-de-sac, desert wash, suburb block, strip lot, scrub, freeway, shore, landfill, ruin) and rule 59's tile table; retire the one-terrain-effect gate.
 *** [house tiles back] ROUND 8 -- V240: THE GROUND IS 45 DEGREES (rule 56): flat things squash N-S by 364/515 (floor rows, lit tiles, roof tops, where bodies stand, tap read-back), upright things keep their height; the ground is COMBAT 2's floor set (rule 55): their N-S street in ONE tile with 1.4 m sidewalks (0.152 of the road), lots beside it and in yards, slab between plots. And rule 57's last leg: health 0 is a loss every frame (a fight sat 300 s at 0 hp). ***
 Stamp 10/1j. Record: records/BOHEMIA_COMBAT_THE_GROUND_IS_45_10_1_26.md. Gates no_atari 20/0 (17/3 before), every_fight_ends 10/0 (8/2 before), combat_lab 923/9.
 INSTRUMENT FIX: tools/bohemia_fight_length.js started fights 2 and 3 at the last fight's health (0): every earlier "second/third fight" time was the tool. Honest: 94.2 s lost / 77.3 s WON / 22.5 s lost (median 77 s vs 2-4 min).
