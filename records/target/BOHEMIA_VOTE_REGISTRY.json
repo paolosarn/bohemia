@@ -3600,6 +3600,19 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_THE_DIFFICULTY_DIALS_10_1_26.html"
    }
+  },
+  {
+   "id": "lifecity-everything-you-can-build-10-1",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "aef365c3",
+   "made": "10/1",
+   "title": "EVERYTHING YOU CAN BUILD",
+   "why": "This is the whole build list, all eight things, each one drawn on the street you already approved. Every one costs 1 battery and 1 day. The two in gold come first in any part of the city you take: a WALL, which makes nothing but keeps wild hogs out of your gardens, and a WATER TANK with a lid, which makes water and keeps pigeons from fouling it. Then a SHED (tape, for fixing armor), a PUMP HOUSE (water), a GARDEN BED (food), a SOLAR PANEL (a battery back every day), a VENDOR STALL (people learn your name) and a ROOF on a dead house, which puts a family back in it and is high ground in a fight. Nothing you build makes medicine or bullets: you buy those, like in Battle Brothers. The words on each card come straight from the game. Thumbs up and this is the list. Thumbs down and say what is missing or wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_EVERYTHING_YOU_CAN_BUILD_10_1.png"
+   }
   }
  ],
  "verdicts": [
