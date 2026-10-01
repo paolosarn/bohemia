@@ -426,7 +426,7 @@ HANDOFF GATE 9/0, all re-run clean; bohemia_sfx.js untouched this round. NO NEW 
 the twelve candidates across rounds five through eight, all still WAITING FOR HIM. STILL OPEN:
 the fifteen combat and object-contact sounds from the redo list (block, boots_go, demolish,
 dirt_take, door_more, hit, melee_hit, parts_pass, pickup, set_down, seton_more, shot_more), on
-their own real-material models next. ***  *** >>> ROUND NINE IN (10/1), ROW STAYS CLAIMED. FOUR
+their own real-material models next. ***  *** >>> ROUND NINE IN (10/1, e42cb2e0), ROW STAYS CLAIMED. FOUR
 MORE OF THE REDO LIST, AND NONE OF THEM NEEDED A NEW IDEA. *** dirt_take, boots_go, set_down and
 seton_more, continuing records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b, all turned out to be
 free reuse of the two machines this row already built across rounds seven and eight: a single
