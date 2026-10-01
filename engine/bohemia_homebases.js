@@ -34,10 +34,19 @@
 //     the parties              BohemiaParties.all()    (WORLD's [parties move])
 //     the thirds a hard base   BohemiaTowns.DEPTH      (his own DEPTH thirds)
 //     how far through an act   THE CALLER'S. The act's length is not this file's.
-//   It does NOT decide who may attack, what an attack costs, or how a fight ends.
-//   That is COMBAT's [bb fight] and a ruling of his. The moment the game has a
-//   raid it calls took() or ruined(), and a base is a thing that persists per act,
-//   which is what rule 31's derive reads.
+//   It does NOT decide what an attack costs or how a fight ends. That is COMBAT's
+//   [bb fight] and a ruling of his. The moment the game has a raid it calls took()
+//   or ruined(), and a base is a thing that persists per act, which is what rule
+//   31's derive reads.
+//   AMENDED 10/1 (round 50, the coordinator's note on this row: "a crew arriving at a
+//   base you hold is a RAID"): it also keeps the RAID AT YOUR GATE, the one chain QUESTS'
+//   QR-R found a siege to be (warning, preparation days, one fight, an outcome), the part
+//   that is a LEDGER and not a screen or a fight: when a crew's arrival opens a raid, how
+//   many map days the base has, and what the WORLD does if nobody comes (QR-R: "the world
+//   may take a base whether the player engages or not, but only after a warning in stated
+//   map days"). The two numbers it needs, and the one comparison, are DEFAULTS marked for
+//   TUNING's table, not rulings. The offer, the preparation and the fight are RUN's,
+//   LIFE+CITY's and COMBAT's; the fight calls closeRaid() with how it ended.
 //
 // NO TEXT. A marker is ids and classes and numbers. "No text on screen he did not
 // ask for" (37e) is enforced at the source: nothing here carries a sentence.
@@ -62,6 +71,14 @@
      change and design changes are Paolo's. `by` is optional (a write with none records null), but a `by`
      that is not one of these is refused by name. */
   var WAYS = ['raid', 'contract', 'boss', 'deal'];
+  /* THE RAID CHAIN'S NUMBERS ARE DEFAULTS, NOT RULINGS (QR-R rule 2 suggests four map days of warning; its NOT A FARM
+     finding says a base is besieged at most once per act). They are the manager's until TUNING's one table holds them
+     (fight-gets-deep law, TUNING: "every number a player feels in ONE table"), and every function that reads one takes
+     an `opts` that can replace it, so moving them later changes no code here. */
+  var RAID_DEFAULTS = Object.freeze({ prepDays: 4, perAct: 1 });
+  /* HOW A RAID CAN END. HELD: the base stood. TAKEN: it changed hands to the crew. RUINED: it fell for good, and in QR-R
+     that is the player's own choice on a take contract, never what the world does to a base nobody came to. */
+  var OUTCOMES = ['held', 'taken', 'ruined'];
 
   function clampAct(a) {
     a = a | 0;
@@ -72,7 +89,7 @@
 
   function make(o) {
     o = o || {};
-    return { V: V, act: clampAct(o.act == null ? 1 : o.act), entries: [] };
+    return { V: V, act: clampAct(o.act == null ? 1 : o.act), entries: [], raids: [] };
   }
 
   /* THE ACT NEVER RUNS BACKWARDS. Same refusal the century module makes. */
@@ -311,6 +328,162 @@
     return out;
   }
 
+  /* ---- THE RAID AT YOUR GATE (rule 43; the coordinator's 10/1 note on this row) ---------------------------------
+     QUESTS' QR-R is the research, and its answer is that a siege is no mode: it is a short chain on one base. WARNING (a
+     crew walking at it: `threat`, above), then the crew is AT THE GATE and the preparation days run, then ONE FIGHT if the
+     company comes, then an OUTCOME written to the base. What follows is the part of that chain which is a LEDGER. It is
+     stored, because a raid is history (the next siege of the same base reads it), but it is small: who came, from which
+     day, due which day, against whom, and how it ended. The offer, the preparation and the fight are not here. */
+
+  /* ADVANCE THE PARTIES AND SAY WHO GOT WHERE. The parties module sets `arrived` in the step that arrives and turns the
+     crew round on the very next step, so a caller that walks many steps in one call (a night's sleep is dozens) can see
+     a crew arrive AND leave inside that call and never learn it came. This takes the same steps one at a time, ends in
+     EXACTLY the state BohemiaParties.advance would have (the gate compares the two), and returns every arrival in the
+     order it happened. It is a drop-in for the call the clock already makes. */
+  function advanceWatching(parties, cellsPerDay, days) {
+    var P = PARTIES(), out = [];
+    if (!P || typeof P.advance !== 'function') return out;
+    var steps = Math.max(0, Math.floor((cellsPerDay || 0) * (days == null ? 1 : days)));
+    for (var s = 0; s < steps; s++) {
+      for (var i = 0; i < (parties || []).length; i++) {
+        var p = parties[i]; if (!p) continue;
+        var was = !!p.arrived;
+        P.advance([p], 1, 1);
+        if (!was && p.arrived && p.from && p.to)
+          out.push({ id: p.id, agenda: p.agenda, faction: p.from.faction,
+                     power: (typeof p.from.power === 'number') ? p.from.power : null,
+                     to: { x: p.to.x, y: p.to.y }, step: s });
+      }
+    }
+    return out;
+  }
+
+  function ruleOf(opts, key) {
+    return (opts && typeof opts[key] === 'number' && opts[key] >= 0) ? opts[key] : RAID_DEFAULTS[key];
+  }
+
+  /* how many raids a base has had in an act, open or closed */
+  function raidsOn(rec, base, act) {
+    var n = 0, list = (rec && rec.raids) || [], a = clampAct(act == null ? (rec && rec.act) : act);
+    for (var i = 0; i < list.length; i++) if (list[i].base === base && list[i].act === a) n++;
+    return n;
+  }
+
+  /* the raid that is open on a base right now, or null; the oldest if a table ever allows two */
+  function raidOf(rec, base) {
+    var list = (rec && rec.raids) || [];
+    for (var i = 0; i < list.length; i++) if (list[i].base === base && list[i].state === 'open') return list[i];
+    return null;
+  }
+
+  function raidsOpen(rec) {
+    var out = [], list = (rec && rec.raids) || [];
+    for (var i = 0; i < list.length; i++) if (list[i].state === 'open') out.push(list[i]);
+    return out;
+  }
+
+  /* WHICH ARRIVALS ARE RAIDS ON A BASE YOU HOLD. A CREW (the agenda that comes to take something; a caravan trades and a
+     patrol walks a border) reaching the cell of a base that `who` holds, that is not a ruin, whose own people still hold
+     THEIR base (a crew whose home fell is gone, the same rule that silences its party), that can be attacked yet (the
+     hard ones late in an act: `progress` is the CALLER's, and none given means the start of an act, camps only), and that
+     has not had its raid this act. Derived from the arrivals it is handed, in the order they came; it stores nothing. */
+  function raidsFrom(events, seats, rec, who, opts) {
+    opts = opts || {};
+    var holder = (who == null) ? YOU : who, a = clampAct(rec && rec.act), per = ruleOf(opts, 'perAct');
+    var progress = (typeof opts.progress === 'number') ? opts.progress : 0;
+    var out = [], seen = {}, i, j;
+    for (i = 0; i < (events || []).length; i++) {
+      var e = events[i];
+      if (!e || e.agenda !== 'crew' || !e.to) continue;
+      if (heldBy(rec, e.faction, a) !== e.faction) continue;      /* a ruin answers null, so a fallen home sends nobody */
+      for (j = 0; j < (seats || []).length; j++) {
+        var s = seats[j];
+        if (!s || s.x !== e.to.x || s.y !== e.to.y || s.faction === e.faction) continue;
+        if (heldBy(rec, s.faction, a) !== holder) continue;         /* and a ruin is nobody's, so it is never yours to defend */
+        if (raidable(s.tier, progress, false) !== true) continue;
+        if (raidsOn(rec, s.faction, a) + (seen[s.faction] || 0) >= per) continue;
+        seen[s.faction] = (seen[s.faction] || 0) + 1;
+        out.push({ base: s.faction, by: e.faction, party: e.id, power: e.power, step: e.step });
+      }
+    }
+    return out;
+  }
+
+  /* A CREW IS AT THE GATE: the raid opens and its clock starts. `day` is the caller's map day, and the base is due
+     `prepDays` after it. Refused, and told why, never thrown. */
+  function openRaid(rec, r, opts) {
+    r = r || {};
+    if (!rec || !r.base) return { applied: false, reason: 'NO_BASE' };
+    if (!r.by) return { applied: false, reason: 'NO_RAIDER' };
+    if (typeof r.day !== 'number') return { applied: false, reason: 'NO_DAY' };
+    if (!rec.raids) rec.raids = [];
+    var a = clampAct(rec.act);
+    if (isRuin(rec, r.base, a)) return { applied: false, reason: 'RUIN' };
+    var holder = heldBy(rec, r.base, a);
+    if (holder === r.by) return { applied: false, reason: 'NOT_A_CHANGE' };
+    if (raidsOn(rec, r.base, a) >= ruleOf(opts, 'perAct')) return { applied: false, reason: 'ALREADY_RAIDED' };
+    var raid = { n: rec.raids.length + 1, act: a, base: r.base, by: r.by, party: r.party || null,
+                 power: (typeof r.power === 'number') ? r.power : null,
+                 day: r.day, due: r.day + ruleOf(opts, 'prepDays'), against: holder, state: 'open', end: null };
+    rec.raids.push(raid);
+    return { applied: true, raid: raid };
+  }
+
+  /* HOW A RAID ENDED. The fight calls this with what happened; the world calls it through settle() when nobody came.
+     TAKEN writes the base to the crew and RUINED writes the fall, both through the same two writes the rest of the game
+     uses, by 'raid'; HELD writes nothing to the bases and only closes the raid. */
+  function closeRaid(rec, r) {
+    r = r || {};
+    if (!rec || !r.base) return { applied: false, reason: 'NO_BASE' };
+    if (OUTCOMES.indexOf(r.outcome) < 0) return { applied: false, reason: 'UNKNOWN_OUTCOME' };
+    var raid = raidOf(rec, r.base);
+    if (!raid) return { applied: false, reason: 'NO_RAID' };
+    var day = (typeof r.day === 'number') ? r.day : null, how = r.how || 'fought', wrote = null;
+    if (r.outcome === 'taken') {
+      wrote = took(rec, { base: raid.base, to: raid.by, by: 'raid', day: day, why: how });
+      if (!wrote.applied) return wrote;
+    } else if (r.outcome === 'ruined') {
+      wrote = ruined(rec, { base: raid.base, by: 'raid', day: day, why: how });
+      if (!wrote.applied) return wrote;
+    }
+    raid.state = r.outcome;
+    raid.end = { day: day, how: how };
+    return { applied: true, raid: raid, entry: wrote ? wrote.entry : null };
+  }
+
+  /* WHAT THE WORLD DOES WHEN NOBODY CAME: the only comparison in the chain, and it is a default for TUNING. A base holds
+     if it is at least as strong as the crew, and strength is the number the game already ranks every faction by (the
+     act power column, which the parties module hands out unchanged). A tie holds. With no number on either side nothing
+     falls: a base is never lost on a guess. */
+  function holdsUnattended(basePower, crewPower) {
+    if (typeof basePower !== 'number' || typeof crewPower !== 'number') return true;
+    return basePower >= crewPower;
+  }
+
+  /* THE WORLD'S ANSWER, ON THE DAY IT IS DUE. Every open raid whose day has come and which nobody answered: the base
+     holds, or the crew takes it (never a ruin: that is somebody's choice). A raid whose base changed hands or fell in the
+     meantime is moot and closes as held. Idempotent: a second call the same day finds nothing open and returns []. */
+  function settle(rec, seats, day, opts) {
+    opts = opts || {};
+    var out = [], list = (rec && rec.raids) || [], bySeat = {}, i;
+    for (i = 0; i < (seats || []).length; i++) if (seats[i]) bySeat[seats[i].faction] = seats[i];
+    if (typeof day !== 'number') return out;
+    for (i = 0; i < list.length; i++) {
+      var r = list[i];
+      if (r.state !== 'open' || day < r.due) continue;
+      var a = clampAct(rec.act), outcome, how;
+      if (heldBy(rec, r.base, a) !== r.against) { outcome = 'held'; how = 'moot'; }   /* changed hands or fell: nobody to answer to */
+      else {
+        var seat = bySeat[r.base] || null;
+        var holds = (typeof opts.holds === 'function') ? !!opts.holds(seat, r) : holdsUnattended(seat ? seat.power : null, r.power);
+        outcome = holds ? 'held' : 'taken'; how = 'unattended';
+      }
+      var res = closeRaid(rec, { base: r.base, outcome: outcome, day: day, how: how });
+      if (res.applied) out.push({ base: r.base, by: r.by, outcome: outcome, how: how, day: day });
+    }
+    return out;
+  }
+
   /* THE MAP'S MARKER LIST. Ids, classes and numbers, never a sentence.
        base   : where, whose, what kind of place, how big (tier), its state, whether
                 it can be attacked yet, and which crews are heading at it
@@ -325,9 +498,10 @@
     var P = PARTIES();
     for (i = 0; i < bl.length; i++) {
       var b = bl[i];
+      var rd = raidOf(rec, b.faction);
       out.push({ kind: 'base', id: b.id, x: b.x, y: b.y, faction: b.faction, holder: b.holder,
                  state: b.state, tier: b.tier, glyph: b.kind, raidable: b.raidable,
-                 threat: threats[b.id] });
+                 threat: threats[b.id], raid: rd ? { by: rd.by, due: rd.due } : null });
     }
     for (i = 0; i < pl.kept.length; i++) {
       var p = pl.kept[i];
@@ -341,11 +515,27 @@
   /* ---- the save ---------------------------------------------------------------- */
   function toJSON(rec) {
     if (!rec) return null;
-    return { V: V, act: clampAct(rec.act), entries: (rec.entries || []).slice() };
+    return { V: V, act: clampAct(rec.act), entries: (rec.entries || []).slice(),
+             raids: (rec.raids || []).map(function (r) { return Object.assign({}, r, { end: r.end ? Object.assign({}, r.end) : null }); }) };
   }
   function load(blob) {
     if (!blob || typeof blob !== 'object') return make();
     var rec = make({ act: blob.act });
+    /* the raids first: a blob written before 10/1 has none and reads as no raid ever came */
+    var rs = blob.raids;
+    if (Object.prototype.toString.call(rs) === '[object Array]') {
+      for (var k = 0; k < rs.length; k++) {
+        var r = rs[k];
+        if (!r || !r.base || !r.by || typeof r.day !== 'number' || typeof r.due !== 'number') continue;
+        if (!(r.state === 'open' || OUTCOMES.indexOf(r.state) >= 0)) continue;   /* a state we do not know is junk, never an open raid */
+        var st = r.state;
+        rec.raids.push({ n: rec.raids.length + 1, act: clampAct(r.act), base: r.base, by: r.by, party: r.party || null,
+                         power: (typeof r.power === 'number') ? r.power : null, day: r.day, due: r.due,
+                         against: r.against == null ? null : r.against, state: st,
+                         end: (st !== 'open' && r.end && typeof r.end === 'object')
+                           ? { day: (typeof r.end.day === 'number') ? r.end.day : null, how: r.end.how || null } : null });
+      }
+    }
     var src = blob.entries;
     if (Object.prototype.toString.call(src) !== '[object Array]') return rec;
     for (var i = 0; i < src.length; i++) {
@@ -366,6 +556,9 @@
     netFor: netFor, ruinsThrough: ruinsThrough,
     openAt: openAt, raidable: raidable,
     ownedBy: ownedBy, blockHolder: blockHolder, heldBlocks: heldBlocks, bases: bases, partiesLeft: partiesLeft, threatsTo: threatsTo, markers: markers,
+    RAID_DEFAULTS: RAID_DEFAULTS, OUTCOMES: OUTCOMES.slice(),
+    advanceWatching: advanceWatching, raidsFrom: raidsFrom, openRaid: openRaid, closeRaid: closeRaid,
+    raidsOpen: raidsOpen, raidsOn: raidsOn, holdsUnattended: holdsUnattended, settle: settle,
     toJSON: toJSON, load: load
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
