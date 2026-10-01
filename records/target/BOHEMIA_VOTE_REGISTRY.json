@@ -3832,6 +3832,51 @@
   },
   "verdict": "default",
   "status": "ruled"
+},
+{
+  "id": "grok-car-is-the-handgonne-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: THE CAR IS THE HANDGONNE",
+  "why": "Grok says you locked it in your chat: the car is our handgonne, a short loud cone shot that eats the turn to reload and spends gas. Thumbs up makes it law for the fight's weapon shapes; thumbs down kills it.",
+  "show": {
+    "how": "text",
+    "src": "BATTLE BROTHERS' HANDGONNE: 35 to 75 damage, a cone, range 2, fire 3 AP, reload 9 AP, cannot fire and reload in one turn.\n\nOURS, VIA GROK: the car. Ram or a blast from the lane. The shot is gas, so it spends the resources pile.\n\nSeen in: the fight (COMBAT), round two."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-the-dead-are-chipped-bodies-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: THE DEAD ARE BODIES WITH A CHIP STILL IN THEM",
+  "why": "Grok says you locked it in your chat: Battle Brothers' walking dead are, for us, bodies that get back up because a lab chip or implant did not die with the dollar, and the necromancer is the person holding the controller. Thumbs up makes it the roster's rule; orcs as driverless machines and goblins as drones stay proposals either way.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, FROM YOUR CHAT: humans stay people (eight factions). The dead are chipped bodies, analog horror, not magic. The necromancer is the person with the controller.\n\nSTILL PROPOSALS: orcs = driverless heavy machines, goblins = drones.\n\nSeen in: the fight (COMBAT), the roster file."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-first-fight-weapons-10-1",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/1",
+  "title": "VIA GROK: THE FIRST FIGHT'S SIX WEAPONS",
+  "why": "Grok mapped every Battle Brothers weapon job to our world and picked a first-fight set: pistol as the dagger, car as the handgonne, rifle as the crossbow, sledge as the hammer, car door as the shield, bottles to throw. Thumbs up and combat builds exactly these six for round two; thumbs down and you pick letters off Grok's page.",
+  "show": {
+    "how": "text",
+    "src": "THE SIX: pistol (dagger, 1 tile). Car (handgonne, cone, reload). Rifle (crossbow, one hard shot then rack). Sledge (hammer, breaks armour and doors). Car door (shield). Bottles, bricks, flares (throw).\n\nNOT YET: no bow, no flame line, no mortar until the second district.\n\nSeen in: the fight (COMBAT)."
+  },
+  "verdict": "default",
+  "status": "ruled"
 }
  ],
  "verdicts": [

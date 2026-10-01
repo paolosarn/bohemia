@@ -1,8 +1,8 @@
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
 # 10/1/26, round two. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12).
-# ANSWERED 9/30 (on the branch grok, pulled to main 10/1): asks 1 (the beast table), 2 (the roster), 5 (the economy) and 11 (what you found). THANK YOU; all four were used.
+# ANSWERED 9/30 (on the branch grok, pulled to main 10/1): asks 1 (the beast table), 2 (the roster), 3 (weapons), 5 (the economy) and 11 (what you found). THANK YOU; all five were used; what he ruled in your chat is in his VOTE tab to confirm.
 # ON ASK 5: you wrote 'his words, this chat' for the six piles. Paolo's rulings become canon only when he says them to the coordinator; the coordinator put the six piles in the VOTE tab for him to confirm. When you and he land on something, put it at the top of the page as 'PAOLO SAID IN THIS CHAT:' with his words as close to verbatim as you have them.
-# NEXT, IN THIS ORDER: 6 (fight length, measured minutes), 2 (the enemy roster), 3 (the weapon table), 7 (the map), then 4, 5, 8, 9, 10, then 12.
+# NEXT, IN THIS ORDER: 6 (fight length, measured minutes), 7 (the map's pixels and generation), 4 (the perk tree), 8, 9, 10, then 12.
 # FOLLOW-UPS ON ASK 1: the medium and large Nachzehrer claws (you said you did not quote them); the Alp's melee skill if any page has it; the Ijirok, Serpent, Lindwurm, Hexe, Schrat, Geist, Kraken lines if the file was cut short. The first asks are the ones our own machines cannot do: our sandboxes are blocked from the Battle
 # Brothers wiki and dev blog, so every number in our library is from memory. Grok can read them.
 
