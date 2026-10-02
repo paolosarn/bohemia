@@ -372,8 +372,10 @@ const FIGHT = (function () {
       let r = rng() * tot; fam = fams.filter(function (f) { r -= mix.weights[f]; return r < 0; })[0] || fams[0];
     }
     const have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
-    let kinds = shuffled(have).filter(function (k) { return k !== opts.kind; });
-    if (opts.kind && have.indexOf(opts.kind) >= 0) kinds.unshift(opts.kind);
+    /* the kind the loop asks for leads; a name with aliases ('suburb') leads with one of its blocks */
+    const leads = opts.kind ? shuffled(((mix.aliases || {})[opts.kind] || [opts.kind]).filter(function (k) { return have.indexOf(k) >= 0; })) : [];
+    let kinds = shuffled(have).filter(function (k) { return k !== leads[0]; });
+    if (leads.length) kinds.unshift(leads[0]);
     kinds = kinds.slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]));
     const pool = Object.keys(lib).filter(function (n) { return kinds.indexOf(kindOf(n)) >= 0; });
     const cols = S.w / bt, rows = S.h / bt, grid = [];
@@ -382,7 +384,7 @@ const FIGHT = (function () {
       for (let bx = 0; bx < cols; bx++) {
         let can = pool.filter(function (n) { return n !== row[bx - 1] && !(by && grid[by - 1][bx] === n); });
         /* the first kind leads: the place the loop says this is */
-        if (opts.kind && by === rows - 1 && bx === 0) can = can.filter(function (n) { return kindOf(n) === kinds[0]; }).concat([]);
+        if (leads.length && by === rows - 1 && bx === 0) can = can.filter(function (n) { return kindOf(n) === kinds[0]; }).concat([]);
         row.push((can.length ? can : pool)[Math.floor(rng() * (can.length || pool.length))]);
       }
       grid.push(row);
@@ -392,7 +394,11 @@ const FIGHT = (function () {
     grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].cover.forEach(function (c) {
       cover.push({ piece: c.piece, x_m: c.x_m + bx * bt * tm, y_m: c.y_m + by * bt * tm }); }); }); });
     const used = []; grid.forEach(function (r) { r.forEach(function (n) { if (used.indexOf(kindOf(n)) < 0) used.push(kindOf(n)); }); });
-    return { blocks: grid, terrain: terrain, cover: cover, name: used.join(' + '), kinds: used, family: fam };
+    if (opts.kind && leads.length && used.indexOf(opts.kind) < 0) used.unshift(opts.kind);   /* the board answers to the name it was asked by */
+    /* the name on the bar: a suburb's renamed blocks all read SUBURB */
+    const call = function (k) { const al = mix.aliases || {}; return Object.keys(al).filter(function (n) { return al[n].indexOf(k) >= 0; })[0] || k; };
+    const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
+    return { blocks: grid, terrain: terrain, cover: cover, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null };
   }
   function applyBoard(B) {
     const G = DB.ground;
@@ -1302,7 +1308,7 @@ function draw(now) {
   /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
   UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 2; });
   UI.pops.forEach(function (p) {
-    const k = (now - p.t) / (beatMs() * 2);
+    const k = Math.max(0, Math.min(1, (now - p.t) / (beatMs() * 2)));   /* a pop made later in this frame than 'now' is not negative */
     const X = sx((p.x + .5) * UI.tw), Y = sy((p.y + .62) * UI.th), r = Math.max(5, tw * .2) * (1 + k * (p.big ? 1.6 : .9));
     cx.globalAlpha = (1 - k) * .9; cx.strokeStyle = p.col; cx.lineWidth = Math.max(1.5, tw * (p.big ? .05 : .03));
     cx.beginPath(); cx.ellipse(X, Y, r, r * .45, 0, 0, Math.PI * 2); cx.stroke();
@@ -1501,7 +1507,12 @@ document.getElementById('oagain').onclick = function () { document.getElementByI
 
 /* ---------------- boot ---------------- */
 let hudN = 0;
-function frame(now) { tick(now); draw(now); if (++hudN % 6 === 0) hud(); requestAnimationFrame(frame); }
+/* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
+function frame(now) {
+  requestAnimationFrame(frame);
+  try { tick(now); draw(now); if (++hudN % 6 === 0) hud(); }
+  catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
+}
 function start() {
   const o = window.FIGHT_OPTS || {};
   if (o.seed !== undefined) SEED = o.seed >>> 0;

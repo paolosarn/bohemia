@@ -39,8 +39,8 @@ async function fight(F, first) {
   if (!loaded) { await d.close(); return; }
   const deal = await ev(() => { const B = FIGHT.S.boardDef, g = B.blocks; let twin = 0;
     g.forEach((r, y) => r.forEach((n, x) => { if ((x && r[x - 1] === n) || (y && g[y - 1][x] === n)) twin++; }));
-    return { kinds: B.kinds, lead: g[g.length - 1][0].split('.')[0], twin: twin, name: B.name }; });
-  leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.lead === F.board,
+    return { kinds: B.kinds, lead: g[g.length - 1][0].split('.')[0], twin: twin, name: B.name, al: (DB.ours.board_mix.value.aliases || {}) }; });
+  leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.kinds.indexOf(F.board) >= 0 && (deal.al[F.board] || [F.board]).indexOf(deal.lead) >= 0,
     F.board + ': *** THE BOARD IS DEALT FROM MIXED KINDS (sweep L) ***, led by the kind the loop asked for, no block beside its twin', deal.name);
   const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
     zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
@@ -78,7 +78,13 @@ async function fight(F, first) {
     leg(back > 2, 'and back in, one continuous zoom', 'zoom ' + back.toFixed(2) + 'x the far stop');
 
     /* ONE FINGER WALKS A MAN: wait for one of yours, tap a lit tile twice */
-    await until(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide; }, 30000);
+    /* a man boxed in by his own line has nowhere to go: a finger ends his turn and the next of yours is tried */
+    for (let tries = 0; tries < 12; tries++) {
+      await until(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide; }, 30000);
+      const free = await ev(() => { const u = FIGHT.current(), f = FIGHT.reach(u); return Object.keys(f.best).length > 1; });
+      if (free) break;
+      await p.tap('#bend'); await p.waitForTimeout(150);
+    }
     const plan = await ev(() => {
       const u = FIGHT.current(), f = FIGHT.reach(u); let best = null;
       Object.keys(f.best).forEach(k => { k = +k; const x = k % FIGHT.S.w, y = Math.floor(k / FIGHT.S.w);
@@ -171,7 +177,30 @@ async function fight(F, first) {
   await d.close();
 }
 
+/* EVERY KIND THE DEMO'S MAP CAN ASK FOR ENDS (RUN measured a board that stalled at round 60, 10/2;
+   a fight that never ends is his 10/1 bug). AUTO on both sides, the beat sixty times fast: each must end
+   inside forty rounds, with no page error (the 10/2 freeze was a drawing error that killed the frame loop). */
+const DEMO_KINDS = ['strip', 'freeway', 'landfill', 'ruin', 'scrub', 'shore', 'suburb', 'suburb_stem', 'culdesac', 'wash'];
+async function sweep() {
+  const res = [];
+  for (let i = 0; i < DEMO_KINDS.length; i++) {
+    const k = DEMO_KINDS[i];
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:' + (31 + i) + ',speed:60,auto:true,kind:"' + k + '"}' });
+    const t0 = Date.now(); let o = null;
+    for (;;) {
+      await d.page.waitForTimeout(300);
+      o = await d.page.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round ? { over: FIGHT.S.over, r: FIGHT.S.round, kinds: FIGHT.S.boardDef.kinds } : null);
+      if ((o && (o.over || o.r > 40)) || Date.now() - t0 > 90000) break;
+    }
+    res.push({ k, ok: !!(o && o.over && o.kinds.indexOf(k) >= 0) && d.errs.length === 0, r: o && o.r, err: d.errs[0] });
+    await d.close();
+  }
+  leg(res.every(x => x.ok), '*** EVERY KIND THE DEMO\'S MAP CAN ASK FOR DEALS ITS BOARD AND THE FIGHT ENDS ***, inside 40 rounds, no page error',
+    res.map(x => x.k + ' ' + (x.ok ? x.r : 'NO(' + x.r + (x.err ? ' ' + x.err.slice(0, 60) : '') + ')')).join(', '));
+}
+
 (async () => {
+  await sweep();
   for (let i = 0; i < FIGHTS.length; i++) await fight(FIGHTS[i], i === 0);
   leg(all.hit > 0 && all.miss > 0, 'swings hit and miss by the rolled chance', all.hit + ' / ' + all.miss);
   leg(all.head > 0, 'heads get hit for half again (wiki: base 25%, x1.5)', all.head);

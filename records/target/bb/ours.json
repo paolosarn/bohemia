@@ -297,8 +297,11 @@
   "value": {
    "families": {
     "city": [
-     "suburb",
+     "subs",
      "suburb_stem",
+     "corner",
+     "cornerw",
+     "lots",
      "culdesac",
      "strip",
      "ruin",
@@ -318,10 +321,18 @@
    "kinds_per_board": [
     2,
     3
-   ]
+   ],
+   "aliases": {
+    "suburb": [
+     "subs",
+     "suburb_stem",
+     "corner",
+     "cornerw"
+    ]
+   }
   },
   "source": "records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md",
   "quote": "Most of it won't be Nature though you know most of it will be city based terrain",
-  "why": "the board is dealt from COMBAT TWO's 21 blocks (rule 57: 'there's gonna be different map types'; sweep L: 'the board kinds must mix'): two or three kinds of one family per board, no block beside its twin, city three times in four; a named board or kind from the loop overrides; TUNING may move the weights"
+  "why": "the board is dealt from COMBAT TWO's 21 blocks (rule 57: 'there's gonna be different map types'; sweep L: 'the board kinds must mix'): two or three kinds of one family per board, no block beside its twin, city three times in four; a named board or kind from the loop overrides; TUNING may move the weights; 10/2 round three: COMBAT TWO's round eleven renamed the suburb blocks 'subs' and added the corner, the west corner and the empty lots, so the city family carries them, and a loop asking for 'suburb' is led by one of the suburb's blocks (aliases)"
  }
 }
