@@ -231,5 +231,66 @@
   "source": "slices/fight_ground/fight_ground.json cover (COMBAT TWO, rule 63)",
   "quote": "COVER",
   "why": "a dead car or a block wall on a house tile is Battle Brothers' obstacle in the line of fire: a shot at the man behind it takes the blocked penalty"
+ },
+ "perk_builds": {
+  "value": {
+   "pipe": [
+    "colossus",
+    "steel_brow",
+    "shield_expert",
+    "mace_mastery",
+    "underdog",
+    "battle_forged",
+    "killing_frenzy"
+   ],
+   "sledge": [
+    "colossus",
+    "steel_brow",
+    "brawny",
+    "hammer_mastery",
+    "reach_advantage",
+    "battle_forged",
+    "killing_frenzy"
+   ],
+   "pistol": [
+    "fast_adaptation",
+    "dodge",
+    "backstabber",
+    "dagger_mastery",
+    "overwhelm",
+    "battle_forged",
+    "duelist"
+   ],
+   "rifle": [
+    "fast_adaptation",
+    "bullseye",
+    "anticipation",
+    "crossbow_mastery",
+    "lone_wolf",
+    "battle_forged",
+    "head_hunter"
+   ],
+   "shotgun": [
+    "fast_adaptation",
+    "bullseye",
+    "brawny",
+    "crossbow_mastery",
+    "overwhelm",
+    "battle_forged",
+    "head_hunter"
+   ],
+   "bottles": [
+    "fast_adaptation",
+    "bullseye",
+    "anticipation",
+    "throwing_mastery",
+    "overwhelm",
+    "battle_forged",
+    "duelist"
+   ]
+  },
+  "source": "CORE_WIKITEXT.md # PAGE Perks",
+  "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
+  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them"
  }
 }

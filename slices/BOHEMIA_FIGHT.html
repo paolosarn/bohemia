@@ -99,13 +99,15 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 const DATA_FILES = [
   '../records/target/bb/rules.json', '../records/target/bb/ours.json', '../records/target/bb/ai.json',
   '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
-  '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json'];
+  '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json',
+  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
+      DB.perks = a[9]; DB.perkNames = a[10];
     });
 }
 function R(path) {
@@ -162,6 +164,43 @@ const FIGHT = (function () {
   function unitAt(x, y) { return S.units.filter(function (u) { return onField(u) && u.x === x && u.y === y; })[0] || null; }
   function emit(e) { e.round = S.round; S.events.push(e); S.log.push(e); }
 
+  /* ---------------- THE PERKS (rule 48: their fifty, mechanic kept, records/target/bb/perks.json) ----------------
+     PK(u, id) is the perk's numbers when the man has it, else null. Every number a perk
+     adds comes off its row, beside the wiki's words. */
+  function perkRow(id) { return DB.perks.rows.filter(function (r) { return r.id === id; })[0]; }
+  function PK(u, id) { if (!u.perks || u.perks.indexOf(id) < 0) return null; const r = perkRow(id); return r ? (r.numbers || {}) : null; }
+  const MASTERY = { mace: 'mace_mastery', flail: 'flail_mastery', hammer: 'hammer_mastery', axe: 'axe_mastery', cleaver: 'cleaver_mastery',
+    sword: 'sword_mastery', dagger: 'dagger_mastery', polearm: 'polearm_mastery', spear: 'spear_mastery', crossbow: 'crossbow_mastery',
+    firearm: 'crossbow_mastery', bow: 'bow_mastery', throwing: 'throwing_mastery' };
+  function mastery(u) { return PK(u, MASTERY[u.weapon.class]); }
+  /* LONE WOLF: nobody of his within its tiles */
+  function loneMult(u) {
+    const p = PK(u, 'lone_wolf'); if (!p) return 1;
+    return friends(u).some(function (f) { return dist(f, u) <= p.no_ally_within_tiles; }) ? 1 : 1 + p.bonus_pct / 100;
+  }
+  /* a perk build: a level's points spent in order, a row opening once the rows before it hold that many points (Perks page) */
+  function pickPerks(order, points) {
+    const got = [];
+    (order || []).forEach(function (id) {
+      const r = perkRow(id); if (!r || got.length >= points) return;
+      if (got.length >= r.tier - 1) got.push(id);
+    });
+    return got;
+  }
+  function perksByName(names) {
+    const out = [];
+    (names || []).forEach(function (n) {
+      const s = String(n).toLowerCase();
+      if (/after day/.test(s)) return;                       /* a perk that comes later in the campaign, not on day one */
+      if (/all weapon masteries/.test(s)) { Object.keys(MASTERY).forEach(function (k) { if (out.indexOf(MASTERY[k]) < 0) out.push(MASTERY[k]); }); return; }
+      DB.perks.rows.forEach(function (r) {
+        const nm = r.name.toLowerCase();
+        if ((s === nm || (/masteries/.test(s) && s.indexOf(nm.split(' ')[0]) >= 0 && /mastery/.test(nm))) && out.indexOf(r.id) < 0) out.push(r.id);
+      });
+    });
+    return out;
+  }
+
   /* ---------------- THE GROUND ---------------- */
   function terrainAt(x, y) { return S.terrain[y][x]; }
   function level(x, y) { return terrainAt(x, y) === 'height' ? R('board.height_levels')[1] : R('board.height_levels')[0]; }
@@ -171,7 +210,9 @@ const FIGHT = (function () {
     const t = terrainAt(bx, by);
     let c = t === 'water' ? R('ap.move_cost.murky_water_swamp')
           : (t === 'rough' || t === 'debris') ? R('ap.move_cost.rough') : R('ap.move_cost.flat');
-    if (level(ax, ay) !== level(bx, by)) c += R('ap.move_cost.height_change_extra') * Math.abs(level(ax, ay) - level(bx, by));
+    const pf = PK(u, 'pathfinder');
+    if (pf) c = Math.max(pf.movement_ap_min_per_tile, c - pf.movement_ap_reduction);
+    if (level(ax, ay) !== level(bx, by)) c += (pf ? pf.height_change_extra_ap : R('ap.move_cost.height_change_extra')) * Math.abs(level(ax, ay) - level(bx, by));
     u.injuries.forEach(function (j) { if (j.effects && j.effects.extra_ap_per_tile_moved) c += j.effects.extra_ap_per_tile_moved; });
     return c;
   }
@@ -211,14 +252,25 @@ const FIGHT = (function () {
   function isRanged(w) { return RANGED.indexOf(w.class) >= 0; }
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
-  function skillAP(w, s) {
+  function skillAP(w, s, u) {
+    const dm = u && w.class === 'dagger' ? PK(u, 'dagger_mastery') : null;
+    if (dm && s && /^(Stab|Puncture|Deathblow)/.test(s.name)) return dm.stab_puncture_deathblow_ap_cost;
+    const cm = u && w.class === 'firearm' ? PK(u, 'crossbow_mastery') : null;
+    if (cm && s && /^Reload/.test(s.name)) return cm.handgonne_reload_ap_cost;
     if (s && typeof s.ap === 'number') return s.ap;
     return w.hands === 1 ? R('ap.strike_cost.one_handed') : R('ap.strike_cost.two_handed');
   }
   function gearFat(u) {
-    let f = 0;
-    [u.weapon, u.shield, u.bodyRow, u.headRow].forEach(function (g) { if (g && typeof g.fatigue === 'number') f += g.fatigue; });
-    return f;
+    let f = 0, worn = 0;
+    [u.weapon, u.shield].forEach(function (g) { if (g && typeof g.fatigue === 'number') f += g.fatigue; });
+    [u.bodyRow, u.headRow].forEach(function (g) { if (g && typeof g.fatigue === 'number') worn += g.fatigue; });
+    const b = PK(u, 'brawny');                          /* the armour and helmet weigh less on him */
+    return f + (b ? worn * (1 - b.armor_fatigue_initiative_penalty_reduction_pct / 100) : worn);
+  }
+  /* what a skill costs his wind: a mastery of the weapon's kind takes a quarter off */
+  function skillFat(u, s) {
+    const m = mastery(u);
+    return (s.fatigue || 0) * (m ? 1 - m.fatigue_reduction_pct / 100 : 1);
   }
   function injMult(u, key) {
     let m = 1;
@@ -226,11 +278,18 @@ const FIGHT = (function () {
     return m;
   }
   function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u)) * injMult(u, 'max_fatigue_pct'))); }
-  function curIni(u) { return u.initiative * injMult(u, 'initiative_pct') - u.fat + gearFat(u); }
+  function curIni(u) {
+    const rl = PK(u, 'relentless');
+    return u.initiative * injMult(u, 'initiative_pct') - u.fat * (rl ? rl.initiative_reduced_by_fatigue_pct / 100 : 1) + gearFat(u);
+  }
   function makeUnit(o) {
     const u = Object.assign({ fat: 0, ap: 0, morale: R('morale.default_state'), injuries: [], loaded: true,
       waited: false, waitedLast: false, roundsFleeing: 0, dead: false, down: false, fled: false, laidUp: 0 }, o);
+    u.perks = u.perks || [];
+    const co = PK(u, 'colossus'); if (co) u.hp = Math.round(u.hp * (1 + co.hitpoints_increase_pct / 100));
+    const fm = PK(u, 'fortified_mind'); if (fm && u.resolve !== null) u.resolve = Math.round(u.resolve * (1 + fm.resolve_increase_pct / 100));
     u.hpMax = u.hp; u.armHMax = u.armH; u.armBMax = u.armB;
+    u.missStack = 0; u.headNext = false; u.frenzy = 0; u.reachStacks = 0; u.overwhelmed = 0; u.nineUsed = false; u.nineUp = false; u.berserkUsed = false;
     const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
     u.ammo = ammo ? Number(ammo[0]) : null;
     S.units.push(u); return u;
@@ -244,11 +303,13 @@ const FIGHT = (function () {
     const sh = c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null;
     const body = armourRow('body', c.body), head = armourRow('head', c.head);
     const xp = R('parsed.brother_xp');
-    return makeUnit({ id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job,
+    const lv = rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);
+    const perks = pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);
+    return makeUnit({ id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
-      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base, arche: 'crew' });
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
   }
   function enemyUnit(id, i) {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
@@ -260,7 +321,7 @@ const FIGHT = (function () {
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
-    return makeUnit({ id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class,
+    return makeUnit({ id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: stat(r.melee_skill), rskill: stat(r.ranged_skill), mdef: stat(r.melee_defense), rdef: stat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
@@ -330,7 +391,7 @@ const FIGHT = (function () {
     const live = S.units.filter(onField);
     live.forEach(function (u) {
       let ini = curIni(u);
-      if (u.waitedLast) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
+      if (u.waitedLast && !PK(u, 'relentless')) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
       if (u.morale === 'Fleeing') ini += R('initiative_and_turn_order.fleeing_turn_order');
       u.turnIni = ini;
     });
@@ -352,15 +413,18 @@ const FIGHT = (function () {
   }
   function beginTurn(u) {
     emit({ t: 'turn', id: u.id });
+    u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false;   /* 'until your next turn' ends here */
     if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
     }
   }
-  function advance(u) { u.begun = false; S.idx++; if (!S.over) settle(); }
+  /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
+  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; }
+  function advance(u) { turnOver(u); u.begun = false; S.idx++; if (!S.over) settle(); }
   function endTurn(u) {
     if (S.over || current() !== u) return false;
-    u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); settle(); return true;
+    turnOver(u); u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); settle(); return true;
   }
   function wait(u) {
     if (S.over || current() !== u || u.waited) return false;
@@ -461,19 +525,27 @@ const FIGHT = (function () {
     const w = a.weapon, parts = [];
     let ch;
     if (!isRanged(w)) {
-      let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct');
+      let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct') * loneMult(a) * overMult(a);
       if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
-      let df = t.mdef + (t.shield ? t.shield.melee_defense : 0);
+      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus');
+      if (t.reachStacks) df += t.reachStacks * perkRow('reach_advantage').numbers.melee_defense_per_stack;
       const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
-      if (around > 1) { df -= R('hit_chance.surround.per_extra_adjacent') * (around - 1); parts.push('surrounded'); }
-      df = softCap(df) * moraleMult(t, 'melee_defense') * injMult(t, 'melee_defense_pct');
+      const bs = PK(a, 'backstabber'), ud = PK(t, 'underdog');
+      if (around > 1 && !(ud && !bs)) {
+        /* Backstabber doubles it; Underdog cancels it, and against a Backstabber cancels only the doubling */
+        const per = bs && !ud ? R('hit_chance.surround.backstabber') : R('hit_chance.surround.per_extra_adjacent');
+        df -= per * (around - 1); parts.push('surrounded');
+      }
+      df = softCap(df) * moraleMult(t, 'melee_defense') * injMult(t, 'melee_defense_pct') * loneMult(t);
       if (inWater(t)) df *= R('hit_chance.terrain_swamp').melee_defense;
       ch = sk - df + (skill && typeof skill.hit_bonus === 'number' ? skill.hit_bonus : 0);
     } else {
       const nightM = S.night ? R('hit_chance.night.multiplier') : 1;
-      const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM;
-      let df = t.rdef + (t.shield ? t.shield.ranged_defense : 0);
-      df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightM;
+      const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
+      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus');
+      const an = PK(t, 'anticipation');
+      if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
+      df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightM * loneMult(t);
       if (inWater(t)) df *= R('hit_chance.terrain_swamp').ranged_defense;
       let per, base, free = 1, ignores = false;
       if (w.class === 'crossbow') { const g = R('hit_chance.ranged.distance.crossbow_shoot_bolt'); per = g.per_hex; base = g.base_bonus; }
@@ -481,13 +553,36 @@ const FIGHT = (function () {
       else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
       else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
       ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
-      if (!ignores && shotLine(a, t)) { ch *= (1 + R('hit_chance.ranged.cover_line_of_fire_blocked')); parts.push('cover'); }
+      if (!ignores && shotLine(a, t)) {
+        ch *= PK(a, 'bullseye') ? 1 - R('hit_chance.ranged.cover_bullseye') : 1 + R('hit_chance.ranged.cover_line_of_fire_blocked');
+        parts.push('cover');
+      }
     }
+    const fa = PK(a, 'fast_adaptation');
+    if (fa && a.missStack) { ch += fa.hit_chance_per_miss_pct * a.missStack; parts.push('reads you'); }
     const la = level(a.x, a.y), lt = level(t.x, t.y);
     if (la > lt) { ch += R('hit_chance.height.higher_attacker_bonus'); parts.push('above'); }
     if (la < lt && !isRanged(w)) { ch += R('hit_chance.height.lower_attacker_penalty'); parts.push('below'); }
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
+  }
+  /* the car door, and Shield Expert's quarter more on it */
+  function shieldDef(t, k) {
+    if (!t.shield) return 0;
+    const se = PK(t, 'shield_expert');
+    return t.shield[k] * (se ? 1 + se.shield_defense_bonus_increase_pct / 100 : 1);
+  }
+  /* Dodge: a share of his current initiative; Nine Lives: its bonus until his next turn */
+  function defenceBonus(t, k) {
+    let b = 0;
+    const dg = PK(t, 'dodge'); if (dg) b += Math.max(0, curIni(t)) * dg.initiative_to_defense_pct / 100;
+    const nl = PK(t, 'nine_lives'); if (nl && t.nineUp) b += nl[k];
+    return b;
+  }
+  /* Overwhelmed: each stack takes a tenth off his skills for one turn */
+  function overMult(u) {
+    if (!u.overwhelmed) return 1;
+    return Math.pow(1 - perkRow('overwhelm').numbers.melee_ranged_skill_reduction_pct / 100, u.overwhelmed);
   }
   function headChance(a) { return R('head_and_critical.base_head_chance_pct') + (a.weapon.head_hit_chance || 0); }
   function damageType(w) {
@@ -503,15 +598,24 @@ const FIGHT = (function () {
     const roll = forced.roll !== undefined ? forced.roll : die();
     const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0 };
     if (!res.hit) return res;
-    res.head = die() <= headChance(a);
+    res.head = forced.head !== undefined ? forced.head : (PK(a, 'head_hunter') && a.headNext) || die() <= headChance(a);
     const w = a.weapon;
-    const base = rint(w.damage_min, w.damage_max) * injMult(a, 'damage_inflicted_pct');
-    const ignore = w.armor_ignore_pct / 100;
+    let base = (forced.base !== undefined ? forced.base : rint(w.damage_min, w.damage_max)) * injMult(a, 'damage_inflicted_pct');
+    const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
+    const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
+    const tm = w.class === 'throwing' ? PK(a, 'throwing_mastery') : null;
+    if (tm && dist(a, t) === tm.near_distance_tiles) base *= 1 + tm.damage_bonus_at_2_tiles_pct / 100;
+    if (tm && dist(a, t) === tm.far_distance_tiles) base *= 1 + tm.damage_bonus_at_3_tiles_pct / 100;
+    let ignore = w.armor_ignore_pct / 100;
+    const cm = w.class === 'crossbow' ? PK(a, 'crossbow_mastery') : null; if (cm) ignore += cm.crossbow_armor_ignore_bonus_pct / 100;
+    const du = PK(a, 'duelist'); if (du && w.hands === 1 && !a.shield && !isRanged(w)) ignore += du.armor_ignore_bonus_pct / 100;
+    ignore = Math.min(1, ignore);
     const armour = res.head ? t.armH : t.armB;
-    const armourHit = Math.min(armour, base * w.armor_damage_pct / 100);
+    let armourHit = Math.min(armour, base * w.armor_damage_pct / 100);
+    const bf = PK(t, 'battle_forged'); if (bf) armourHit *= 1 - bf.armor_damage_reduction_pct_of_total_armor / 100 * (t.armH + t.armB) / 100;
     let hp = Math.max(0, base * ignore - armour * R('damage.remaining_armor_reduction'));
     if (armour - armourHit <= 0) hp += Math.max(0, base * (1 - ignore) - armourHit);
-    if (res.head) hp *= R('head_and_critical.head_damage_multiplier');
+    if (res.head && !PK(t, 'steel_brow')) hp *= R('head_and_critical.head_damage_multiplier');
     res.armour = Math.floor(armourHit); res.hp = Math.floor(hp);
     return res;
   }
@@ -520,23 +624,37 @@ const FIGHT = (function () {
     opt = opt || {};
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts });
+    if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     if (!r.hit) {
+      a.missStack++;
       if (!isRanged(a.weapon)) t.fat = Math.min(fatMax(t), t.fat + R('fatigue.on_dodge_or_block'));
       return;
     }
+    a.missStack = 0;
+    if (PK(a, 'head_hunter')) a.headNext = a.headNext ? false : r.head;
+    const ra = PK(a, 'reach_advantage');
+    if (ra && a.weapon.hands === 1 + 1 && !isRanged(a.weapon)) a.reachStacks = Math.min(ra.max_stacks, a.reachStacks + 1);
     if (r.head) t.armH = Math.max(0, t.armH - r.armour); else t.armB = Math.max(0, t.armB - r.armour);
     t.hp -= r.hp;
     const mace = R('fatigue.on_struck_by_mace');
     t.fat = Math.min(fatMax(t), t.fat + (a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck')));
+    const nl = PK(t, 'nine_lives');
+    if (t.hp <= 0 && nl && !t.nineUsed) {
+      t.nineUsed = true; t.nineUp = true; t.hp = rint(nl.hitpoints_left_min, nl.hitpoints_left_max);
+      emit({ t: 'nine', id: t.id });
+    }
     if (t.hp <= 0) { fall(t, a); return; }
     injure(t, a, r);
-    const s = R('parsed.morale_struck');
-    if (r.hp >= s.threshold_hp) check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax));
+    const s = R('parsed.morale_struck'), fs = PK(a, 'fearsome');
+    if (fs && r.hp >= fs.min_hitpoint_damage_to_trigger)
+      check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax) - Math.min(fs.resolve_bonus_cap, a.resolve * fs.morale_penalty_pct_of_resolve / 100));
+    else if (r.hp >= s.threshold_hp) check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax));
   }
   function injure(t, a, r) {
     if (r.hp < R('injuries_and_death.temp_injury_min_damage')) return;
     const type = damageType(a.weapon), part = r.head ? 'head' : 'body';
-    const mult = r.head ? R('injuries_and_death.temp_injury_multipliers').head_hit_bonus : 1;
+    const im = R('injuries_and_death.temp_injury_multipliers');
+    const mult = (r.head ? im.head_hit_bonus : 1) * (PK(a, 'crippling_strikes') ? im.crippling_strikes_inflict : 1);
     const ratio = r.hp / t.hpMax;
     const can = DB.injuries.rows.filter(function (j) {
       return j.kind === 'temporary' && j.damage_type && j.damage_type.indexOf(type) >= 0 && j.body_part && j.body_part.indexOf(part) >= 0
@@ -553,6 +671,11 @@ const FIGHT = (function () {
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else { const d = R('ours.struck_down_laid_up_days'); t.down = true; t.laidUp = rint(d[0], d[1]); emit({ t: 'down', id: t.id, days: t.laidUp }); }
+    if (a && onField(a)) {
+      const kf = PK(a, 'killing_frenzy'); if (kf) a.frenzy = kf.duration_turns;
+      const bz = PK(a, 'berserk');
+      if (bz && !a.berserkUsed) { a.berserkUsed = true; a.ap = Math.min(a.apTurn, a.ap + bz.ap_regained_on_kill); emit({ t: 'berserk', id: a.id }); }
+    }
     ripple(t, a, 'dies');
   }
   /* a death or a man running moves everyone's nerve, nearer more (Morale page) */
@@ -576,7 +699,8 @@ const FIGHT = (function () {
   /* Resolve is the base chance; the result moves one rung (Morale page) */
   function check(u, kind, mod, quiet) {
     if (u.resolve === null || u.resolve === undefined) return true;
-    let c = u.resolve * moraleMult(u, 'resolve') + mod;
+    const nl = PK(u, 'nine_lives');
+    let c = (u.resolve + (nl && u.nineUp ? nl.resolve_bonus : 0)) * moraleMult(u, 'resolve') * loneMult(u) + mod;
     if (kind === 'neg') {
       c += R('morale.check_modifiers.allies_adjacent') * friends(u).filter(function (f) { return dist(f, u) === 1; }).length;
       c += R('morale.check_modifiers.enemies_adjacent') * foes(u).filter(function (f) { return dist(f, u) === 1; }).length;
@@ -597,8 +721,8 @@ const FIGHT = (function () {
   function canStrike(a, t) {
     if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
     const s = strikeSkill(a.weapon);
-    if (a.ap < skillAP(a.weapon, s)) return false;
-    if (a.fat + (s.fatigue || 0) > fatMax(a)) return false;
+    if (a.ap < skillAP(a.weapon, s, a)) return false;
+    if (a.fat + skillFat(a, s) > fatMax(a)) return false;
     if (reloadSkill(a.weapon) && !a.loaded) return false;
     if (a.ammo !== null && a.ammo <= 0) return false;
     return inRange(a, t);
@@ -606,7 +730,7 @@ const FIGHT = (function () {
   function strike(a, t, forced) {
     if (S.over || current() !== a || !canStrike(a, t)) return null;
     const s = strikeSkill(a.weapon);
-    a.ap -= skillAP(a.weapon, s); a.fat += (s.fatigue || 0);
+    a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     if (reloadSkill(a.weapon)) a.loaded = false;
     if (a.ammo !== null) a.ammo--;
     const r = resolveAttack(a, t, s, forced);
@@ -615,11 +739,11 @@ const FIGHT = (function () {
   }
   function canReload(a) {
     const s = reloadSkill(a.weapon);
-    return !!s && !a.loaded && a.ap >= s.ap && a.fat + s.fatigue <= fatMax(a);
+    return !!s && !a.loaded && a.ap >= skillAP(a.weapon, s, a) && a.fat + skillFat(a, s) <= fatMax(a);
   }
   function reload(a) {
     if (S.over || current() !== a || !canReload(a)) return false;
-    const s = reloadSkill(a.weapon); a.ap -= s.ap; a.fat += s.fatigue; a.loaded = true;
+    const s = reloadSkill(a.weapon); a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); a.loaded = true;
     emit({ t: 'reload', id: a.id }); afterAction(a); return true;
   }
   /* a fleeing man runs for the nearest edge and leaves the field from it */
@@ -708,7 +832,7 @@ const FIGHT = (function () {
       /* the backline holds while something is in its range; it steps only to find a line */
     }
     /* move: to a tile where a foe is in reach (and we still have AP to strike), else toward the fight */
-    const f = reach(u); const strikeAP = skillAP(w, strikeSkill(w));
+    const f = reach(u); const strikeAP = skillAP(w, strikeSkill(w), u);
     const coming = foes(u).some(function (fo) { return !isRanged(fo.weapon) && fo.morale !== 'Fleeing'; });
     const holds = A.hold_line && coming && !S.contact;
     const avoid = R('ai.tactics.avoid_surround');
@@ -749,7 +873,10 @@ const FIGHT = (function () {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, reload: reload, canReload: canReload,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
-    level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId
+    level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    /* the parts a gate needs to hold one perk against its wiki number */
+    _t: { PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+      makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow }
   };
 })();
 </script>
@@ -859,7 +986,7 @@ function take() {
   ev.forEach(function (e) {
     if (e.t === 'step') UI.anim.push({ k: 'step', e: e, dur: beatMs() / 4 });
     else if (e.t === 'attack') UI.anim.push({ k: 'attack', e: e, dur: beatMs() });
-    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally')
+    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally' || e.t === 'nine' || e.t === 'berserk')
       UI.anim.push({ k: 'note', e: e, dur: e.t === 'morale' || e.t === 'injury' ? 0 : beatMs() / 2 });
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
@@ -886,6 +1013,8 @@ function startAnim(a) {
     if (e.t === 'reload') say(u.name + ' reloads.');
     if (e.t === 'held') say(u.name + ' is held in place.');
     if (e.t === 'rally') pop(u, 'RALLIES', '#a8d08a');
+    if (e.t === 'nine') { pop(u, perkName('nine_lives'), '#f0d296'); say(u.name + ' should be down. He is not.'); }
+    if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
   }
   if (a.k === 'over') showOver(e.result);
 }
@@ -1037,6 +1166,7 @@ function hud() {
     row('HP', 100 * show.hp / show.hpMax, '#8fae6a', show.hp + '/' + show.hpMax) +
     row('ARMOUR', 100 * (show.armB + show.armH) / Math.max(1, show.armBMax + show.armHMax), '#9aa6b0', show.armH + ' head ' + show.armB + ' body') +
     row('FATIGUE', 100 * show.fat / Math.max(1, fm), '#6a8fb0', show.fat + '/' + fm) +
+    (show.perks.length ? '<span style="grid-column:1/4;color:#d9a85a">' + show.perks.map(perkName).join(' · ') + '</span>' : '') +
     '<span style="grid-column:1/4;color:#cbb">' + show.morale.toUpperCase() + ' · ' + show.job.toUpperCase().replace('_', ' ') + (show.ammo !== null ? ' x' + show.ammo : '') + (FIGHT.reloadSkill(show.weapon) && !show.loaded ? ' · EMPTY' : '') + '</span>';
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const p = document.createElement('i'); if (i < show.ap) p.className = 'on'; ap.appendChild(p); }
@@ -1046,6 +1176,8 @@ function hud() {
   document.getElementById('breload').disabled = !mine || !FIGHT.canReload(u);
   document.getElementById('bauto').classList.toggle('on', UI.auto);
 }
+/* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
+function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
 function showOver(result) {
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round((performance.now() - UI.t0) / 1000);

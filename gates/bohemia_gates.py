@@ -3742,6 +3742,8 @@ GATES = [
      'rule 57 (Paolo 10/1: "combat didn\'t end"): all down, all fled, the chase capped, his side down; each end sent through the one door', False),
     ('THE FIGHT READS ONLY SOURCED NUMBERS', ['node', 'gates/the_fight_reads_only_sourced_numbers_gate.js'],
      'rule 63d (Paolo 10/2: "all the numbers and stats play a huge important part"): the rebuilt fight types no number; every felt number comes through R() from records/target/bb/, each row with its wiki page and the words', False),
+    ('THE PERKS ARE LIVE', ['node', 'gates/the_perks_are_live_gate.js'],
+     'rule 48 (Paolo 9/29: "the perks need to be translated"): the fifty one for one with our draft names; every perk marked live held to its own wiki number, the same two men with and without it; crew perks obey the row unlocking; enemies carry what their wiki page lists', False),
     ('THE REBUILT FIGHT PLAYS', ['node', 'gates/the_rebuilt_fight_plays_gate.js'],
      'rule 63 (Paolo 10/2: "start combat over... re-create Battle Brothers combat"): two whole fights played start to end on his phone with real taps; whole board on the glass at the open, the pinch, initiative order, the 5-95 cap, head hits, morale, injuries, free swings, YOU never dead, hires dead or laid up 30-40 days, under 15 minutes on the beat', True),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
