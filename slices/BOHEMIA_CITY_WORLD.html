@@ -42569,10 +42569,11 @@ function loopJobsDraw(ox, oy){
     if(p.sx < -40 || p.sx > CVW + 40 || p.sy < -60 || p.sy > CVH + 60) continue;
     var fy = p.sy + TH / 2 + 2, bt = mapArtBeat();
     if(mapCastOf(0)){
-      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7, fy - 2);
-      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7, fy - 1);
-      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2);
-      mapFlagDraw(p.sx - 14, fy, (L ? L.h : 30) + 10, '#c4553f', bt, true);
+      var kp = MAP_PEOPLE_K;
+      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7 * kp, fy - 2 * kp);
+      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7 * kp, fy - kp);
+      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2 * kp);
+      mapFlagDraw(p.sx - 14 * kp, fy, (L ? L.h : 30 * kp) + 10 * kp, '#c4553f', bt, true);
     }
     /* a SHORT plate right over the crew's heads: the long name ran under him (photographed);
        the job's whole name is on the quest line and on the phone */
@@ -43331,6 +43332,13 @@ function mapPlatesDraw(){
 var MAP_PERSON_K = 2 / 3;
 var MAP_TIER_HERO = { fortress: 'fort', town: 'town', camp: 'trailer' };
 var MAP_BASE_W = 74;   /* a base on the glass, CSS px wide: a little bigger than a block at the opening zoom */
+/* THE ART SCALES WITH THE ZOOM, THE NAMES DO NOT (rule 61's answer: Battle Brothers' town art scales
+   with its zoom and its labels stay screen size; ours the same). At the opening zoom (a block 18 CSS
+   px) everything is its own size; pulled out, the towns, the crowds and the crews shrink with the
+   ground, to a floor they still read at, so at the far end the painted city is not buried under
+   them. HE does not shrink (rule 21: the ground may zoom, the person may not); the names do not. */
+var MAP_ART_K = 1, MAP_PEOPLE_K = 1;
+function mapArtScale(){ var z = TW / TW0; MAP_ART_K = Math.max(0.4, Math.min(1, z)); MAP_PEOPLE_K = Math.max(0.55, Math.min(1, z)); }
 function mapSnap(v){ var q = (typeof CV_DPR === 'number' && CV_DPR) || 1; return Math.round(v * q) / q; }
 function mapCastOf(i){
   if (!CAST_CV || !CAST_CV.length) return null;
@@ -43345,7 +43353,7 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
 function mapPersonDraw(set, face, beat, sx, footY){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
-  var w = fr.width * MAP_PERSON_K, h = fr.height * MAP_PERSON_K;
+  var w = fr.width * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * MAP_PERSON_K * MAP_PEOPLE_K;
   g.fillStyle = 'rgba(10,8,6,0.45)';
   g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill();
   g.imageSmoothingEnabled = false;
@@ -43356,7 +43364,7 @@ function mapPersonDraw(set, face, beat, sx, footY){
 function mapFlagDraw(px, footY, tall, col, beat, moving){
   var top = footY - tall;
   g.fillStyle = '#1b1813'; g.fillRect(mapSnap(px - 0.67), mapSnap(top), 1.34, tall);
-  var fw = 11, fh = 7, k = moving ? (beat % 2) : 0;
+  var fw = Math.max(5, Math.round(11 * MAP_PEOPLE_K)), fh = Math.max(3, Math.round(7 * MAP_PEOPLE_K)), k = moving ? (beat % 2) : 0;
   g.fillStyle = '#1b1813';
   g.fillRect(mapSnap(px + 0.67), mapSnap(top - 0.67), fw + 1.34, fh + 1.34);
   g.fillStyle = col || '#8f8672';
@@ -43371,7 +43379,7 @@ function mapCrowdDraw(sx, footY, a, b, beat){
   var spots = [[-8, -3, 'SE'], [8, -2, 'SW'], [0, 2, (h0 & 1) ? 'S' : 'SW']];
   for (var i = 0; i < spots.length; i++) {
     if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.crowdPeople++;
-    mapPersonDraw(mapCastOf(h0 + i * 5), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0], footY + spots[i][1]);
+    mapPersonDraw(mapCastOf(h0 + i * 5), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0] * MAP_PEOPLE_K, footY + spots[i][1] * MAP_PEOPLE_K);
   }
   return true;
 }
@@ -43387,9 +43395,10 @@ function mapPartyDraw(p, idx, sx, footY, beat){
   var fac = p && p.from && p.from.faction;
   var base = mapHash(String(fac || '').length * 31 + idx, idx * 7 + 3);
   var face = mapPartyFace(p);
-  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7, footY - 2);
-  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3, footY + 1);
-  mapFlagDraw(sx - 11, footY + 1, (lead ? lead.h : 30) + 8, mapFactionColour(fac), beat, true);
+  var kp = MAP_PEOPLE_K;
+  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp);
+  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3 * kp, footY + kp);
+  mapFlagDraw(sx - 11 * kp, footY + kp, (lead ? lead.h : 30 * kp) + 8 * kp, mapFactionColour(fac), beat, true);
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
 }
@@ -43419,7 +43428,7 @@ function mapBaseSprite(key, im, w, h, mine){
 function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var im = HERO_IMG[MAP_TIER_HERO[tier] || 'trailer'];
   if (!im || !im.complete || !im.naturalWidth) return null;
-  var w = MAP_BASE_W, h = im.naturalHeight * (w / im.naturalWidth);
+  var w = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), h = im.naturalHeight * (w / im.naturalWidth);   /* whole even sizes: each is baked once */
   g.fillStyle = mine ? 'rgba(232,220,192,0.35)' : 'rgba(10,8,6,0.5)';
   g.beginPath(); g.ellipse(sx, footY - h * 0.12, w * 0.52, w * 0.2, 0, 0, 7); g.fill();
   var spr = mapBaseSprite(MAP_TIER_HERO[tier] || 'trailer', im, w, h, mine);
@@ -43760,6 +43769,164 @@ function vbCore(inp){
   return { seed: inp.seed, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
     roads: roads.map(function (r) { return { edge: r.edge, name: r.name || null, c: r.c }; }), ms: Math.round(performance.now() - t0) };
 }
+/* ---- THE CITY, PAINTED (rule 65, Paolo 10/2: "I want the map graphics to be bigger and better and
+   especially when you zoom out of the city for a fat minute, bro please"; the fourth time) ----
+   MEASURED: at the far end the 96 x 96 blocks are drawn as the tiles' own building pictures shrunk
+   to 3.7 CSS px a block, which reads as one dark grid carpet: no ranges, no streets you can follow,
+   nothing standing up. DIRECTION's floor (38a) says every map cell is painted art at about one
+   painted pixel per screen pixel. So the far end paints the city the way the land around it is
+   painted: eight texels a block (1.4 device px a texel at the far stop), every block painted by
+   what it is -- houses as small two-tone roofs on dry yards, big flat roofs, towers and casinos
+   standing up, streets with their lane line, the boulevard with its neon, parks, water, the solar
+   fields, the rim mountains rising toward the ranges outside -- some blocks burned (act one is the
+   ruin), and at night only the blocks with power show light. Baked in the worker, drawn once a
+   frame over the tiles as the camera pulls out. */
+var VB_CS = 12, VB_CPAD = 2;   /* twelve texels a block: 0.93 device px a texel at the far stop (DIRECTION's 3a floor is 1.5) */
+var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
+function vbClassOf(d){
+  d = String(d || '');
+  if (d === 'arterial') return VB_CLASS.road;
+  if (/^(freeway|beltway|interchange)$/.test(d)) return VB_CLASS.freeway;
+  if (d === 'strip') return VB_CLASS.blvd;
+  if (/^(rail|railyard)$/.test(d)) return VB_CLASS.rail;
+  if (/^(suburb|estate|gated|trailer|apartment|town)$/.test(d)) return VB_CLASS.houses;
+  if (/^(downtown|strat|highroller|sign|stadium|ballpark|medical|cityhall|courthouse)$/.test(d)) return VB_CLASS.tower;
+  if (/^(resort|casino|luxor|sphere)$/.test(d)) return VB_CLASS.casino;
+  if (/^(park|golf|cemetery|farm|campus)$/.test(d)) return VB_CLASS.green;
+  if (/^(water|reservoir|intake|waterpark)$/.test(d)) return VB_CLASS.water;
+  if (/^(desert|wash|basin|quarry|gypsum|landfill|boneyard|springs)$/.test(d)) return VB_CLASS.land;
+  if (d === 'mountain') return VB_CLASS.mountain;
+  if (d === 'solar') return VB_CLASS.solar;
+  if (/^(airport|airbase|speedway|minigp|drivein|swapmeet|truckstop)$/.test(d)) return VB_CLASS.field;
+  if (d === 'dam') return VB_CLASS.dam;
+  if (/^(commercial|industrial|warehouse|mall|convention|school|prison|jail|library|firestation|policestation|robofactory|datafort|arsenal|fueldepot|granary|storage|substation|pumpstation|watertreat|radio|battery|reclaim|terminal|chapel|fort|swapmeet)$/.test(d)) return VB_CLASS.roof;
+  return VB_CLASS.lot;
+}
+var VB_CCOL = { yard: '#76694d', yard2: '#6a5f46', roofA: '#8a6650', roofB: '#9c8c72', roofC: '#625a52', burn: '#2e2924', ash: '#4a423a',
+  asphalt: '#3b3834', line: '#7d725c', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a8882', hvac: '#64625c',
+  tower: '#9a9c98', towerTop: '#c4c6c0', gold: '#b89a5c', green: '#5f6a45', tree: '#3f4a30', water: '#2f4a5e', shore: '#4e6d7a',
+  floor: '#8f7d59', brush: '#5f5440', pebble: '#b09c74', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#857a62',
+  rail: '#4a4038', tie: '#6b5a48', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a' };
+function vbCityCore(inp){
+  var t0 = performance.now();
+  var N = inp.N, S = inp.S, PAD = inp.PAD, D = N + 2 * PAD, P = D * S, sd = ((inp.seed | 0) ^ 0x7c1d) >>> 0;
+  var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
+  var cls = inp.cls, live = inp.live;
+  function clsAt(x, y){ return (x < 0 || y < 0 || x >= N || y >= N) ? -1 : cls[y * N + x]; }
+  /* the rim's height, continuous with the ranges outside: a blurred mountain mask, rising to the far
+     edges and falling to the near ones (the near side never stands up as a wall in front of the city) */
+  var MH = new Float32Array(N * N);
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+    if (cls[y * N + x] !== VB_CLASS.mountain) continue;
+    var cnt = 0, tot = 0; for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) { var c = clsAt(x + dx, y + dy); if (c < 0) continue; tot++; if (c === VB_CLASS.mountain) cnt++; }
+    var near = Math.min(N - 1 - x, N - 1 - y) + 0.5;
+    MH[y * N + x] = (cnt / tot) * (1.2 + 3.6 * vbFbm(x / 7, y / 7, sd + 3)) * vbSm(0, 3, near);
+  }
+  var HS = new Float32Array(P * P), COLI = new Int32Array(P * P).fill(-1);
+  /* per texel: the colour index and the lift (texels). Colour index = class * 16 + part */
+  var PART = { ground: 0, roof: 1, roofL: 2, top: 3, side: 4, line: 5, edge: 6, spot: 7, burn: 8, hole: 9, tree: 10, row: 11, neon: 12, window: 13, lampspot: 14 };
+  function idx(c, p){ return c * 16 + p; }
+  for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
+    var cl = cls[cy * N + cx], h0 = vbHash(cx, cy, sd), h1 = vbHash(cy, cx, sd + 1), h2 = vbHash(cx + 7, cy + 3, sd + 2);
+    var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
+    var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
+    for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
+      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5);
+      switch (cl) {
+        case VB_CLASS.road: case VB_CLASS.freeway: case VB_CLASS.blvd: {
+          var along = (horiz && !vert) ? ty : (vert && !horiz) ? tx : -1, mid = S / 2;
+          if (cl === VB_CLASS.freeway) { part = (along === 0 || along === S - 1) ? PART.edge : (along === mid && ((cl === VB_CLASS.freeway && ((horiz ? tx : ty) % 3) !== 0))) ? PART.line : PART.ground; }
+          else if (along === mid - 1 && ((horiz ? tx : ty) % 4) < 2) part = PART.line;
+          if (cl === VB_CLASS.blvd && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1) && r < 0.35) part = PART.neon;
+          if (cl === VB_CLASS.road && (along === 0 || along === S - 1) && ((horiz ? tx : ty) % 4) === 1) part = PART.lampspot;
+          break; }
+        case VB_CLASS.rail: part = ((horiz ? tx : ty) % 2 === 0) ? PART.line : PART.ground; break;
+        case VB_CLASS.houses: {
+          var lx = tx % 4, ly = ty % 4, lot = (tx >> 2) + 2 * (ty >> 2), hh = vbHash(cx * 2 + (tx >> 2), cy * 2 + (ty >> 2), sd + 9);
+          var ox = hh < 0.5 ? 0 : 1, oy = hh < 0.25 || hh > 0.75 ? 0 : 1;
+          if (lx >= ox && lx < ox + 3 && ly >= oy && ly < oy + 3) { lift = 1; part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : ((lx - ox) < 1.5 ? PART.roofL : PART.roof); if (lx === ox + 1 && ly === oy + 1 && !burned) part = PART.window; }
+          else if (r < 0.06) part = PART.spot;
+          break; }
+        case VB_CLASS.roof: {
+          if (tx >= 1 && tx < S - 1 && ty >= 1 && ty < S - 1) { lift = 1 + (h0 < 0.4 ? 1 : 0); part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof); if (!burned && tx === 2 && ty % 2 === 0) part = PART.window; }
+          break; }
+        case VB_CLASS.tower: case VB_CLASS.casino: {
+          var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
+          var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= 1 && (tx % half) < half - 1 && (ty % half) >= 1 && (ty % half) < half - 1)
+                        : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
+          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top; }
+          else if (r < 0.05) part = PART.spot;
+          break; }
+        case VB_CLASS.green: if (r < 0.12) { part = PART.tree; lift = 1; } break;
+        case VB_CLASS.water: part = PART.ground; break;
+        case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row; break;
+        case VB_CLASS.mountain: {
+          var fxm = (tx + 0.5) / S, fym = (ty + 0.5) / S, xa = Math.min(N - 1, cx + 1), ya = Math.min(N - 1, cy + 1);
+          var hm = (MH[cy * N + cx] * (1 - fxm) + MH[cy * N + xa] * fxm) * (1 - fym) + (MH[ya * N + cx] * (1 - fxm) + MH[ya * N + xa] * fxm) * fym;
+          lift = hm * S + (vbNoise(u / 5, v / 5, sd + 13) - 0.5) * 2; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
+        case VB_CLASS.solar: part = (ty % 2 === 0 && tx > 0 && tx < S - 1) ? PART.row : PART.ground; break;
+        case VB_CLASS.field: part = ((tx + ty) % 5 === 0 && r < 0.5) ? PART.line : PART.ground; break;
+        case VB_CLASS.dam: lift = 2; part = PART.top; break;
+        default: if (r < 0.1) part = PART.spot;
+      }
+      HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0);
+    }
+  }
+  function base(ci){
+    var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
+    var cl = ci >> 4, part = ci & 15;
+    switch (cl) {
+      case VB_CLASS.road: return part === PART.line ? C.line : part === PART.lampspot ? C.edge : C.asphalt;
+      case VB_CLASS.freeway: return part === PART.line ? C.line : part === PART.edge ? C.edge : C.conc;
+      case VB_CLASS.blvd: return part === PART.line ? C.line : part === PART.neon ? C.neon : C.asphalt;
+      case VB_CLASS.rail: return part === PART.line ? C.tie : C.rail;
+      case VB_CLASS.houses: return part === PART.roofL ? C.roofB : part === PART.roof ? C.roofA : part === PART.window ? C.roofC : part === PART.burn ? C.burn : part === PART.hole ? C.ash : part === PART.spot ? C.brush : C.yard;
+      case VB_CLASS.roof: return part === PART.roof || part === PART.window ? C.roof : part === PART.spot ? C.hvac : part === PART.burn ? C.burn : part === PART.hole ? C.ash : C.field;
+      case VB_CLASS.tower: return part === PART.top ? C.tower : part === PART.spot ? C.mark : C.field;
+      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.spot ? C.neon : C.field;
+      case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
+      case VB_CLASS.water: return C.water;
+      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : C.floor;
+      case VB_CLASS.mountain: return part === PART.spot ? C.brush : C.floor;
+      case VB_CLASS.solar: return part === PART.row ? C.solarRow : C.solar;
+      case VB_CLASS.field: return part === PART.line ? C.mark : C.field;
+      case VB_CLASS.dam: return C.dam;
+      default: return part === PART.spot ? C.mark : C.field;
+    }
+  }
+  /* the picture: along each view diagonal, near to far, the nearest column that rises over a texel owns it */
+  var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
+  for (var dg = -(P - 1); dg <= P - 1; dg++) {
+    var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
+    for (var uu = ub; uu >= ua; uu--) {
+      var vv = uu - dg, rq = uu - HS[vv * P + uu];
+      if (tail === head || (dq[tail - 1] - HS[(dq[tail - 1] - dg) * P + dq[tail - 1]]) > rq) dq[tail++] = uu;
+      while (head < tail - 1 && dq[head] - HS[(dq[head] - dg) * P + dq[head]] > uu) head++;
+      var qu = dq[head], qv = qu - dg, qo = qv * P + qu, ci = COLI[qo];
+      if (ci < 0) continue;
+      var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;
+      var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
+      if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + (cl2 === VB_CLASS.mountain ? 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5)) : 0);
+        if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; } }
+      else sh = (sxp < syp) ? 0.56 : 0.76;
+      sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
+      var o8 = (vv * P + uu) * 4;
+      for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
+      day[o8 + 3] = 255; night[o8 + 3] = 255;
+      /* NIGHT: light only where the block has power, the way the map's lamps already decide */
+      var cxl = Math.floor(qu / S) - PAD, cyl = Math.floor(qv / S) - PAD, lv = cxl >= 0 && cyl >= 0 && cxl < N && cyl < N && live[cyl * N + cxl];
+      if (lv) {
+        var lr = vbHash(qu, qv, sd + 19), Lc = null;
+        if (part2 === PART.window && top) Lc = C.lit;
+        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (liftk % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
+        else if (part2 === PART.lampspot) Lc = C.lamp;
+        else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
+        if (Lc) for (var z2 = 0; z2 < 3; z2++) night[o8 + z2] = Lc[z2];
+      }
+    }
+  }
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, ms: Math.round(performance.now() - t0) };
+}
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
   var N = V.n, mtn = new Uint8Array(N * N), road = new Uint8Array(N * N), soft = new Uint8Array(N * N), L = V.layout || {};
@@ -43784,15 +43951,59 @@ function vbAsk(){
   var inp = vbInput();
   try {
     if (!VB.worker) {
-      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore].map(String).join('\n')
-        + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
-        + '\nonmessage=function(e){ var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
-      VB.worker = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
-      VB.worker.onmessage = function (e) { vbLand(e.data); };
-      VB.worker.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); };
+      VB.worker = vbWorker();
     }
     VB.where = 'worker'; VB.worker.postMessage(inp);
   } catch (e) { VB.err = String(e && e.message || e); VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); }
+}
+/* ONE WORKER BAKES BOTH PICTURES: the land past the map, and the city painted for the far end */
+function vbWorker(){
+      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore].map(String).join('\n')
+        + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
+        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';'
+        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer]); return; }'
+        + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
+      var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      w.onmessage = function (e) { if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
+      w.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; };
+      return w;
+}
+/* ---- the painted city: asked for when the camera is far, re-asked when the lights change ---- */
+var VBC = { key: null, busy: false, day: null, night: null, seed: null, checked: 0, asks: 0, ms: 0, draws: 0 };
+window.VBC = VBC;
+function vbCityInput(){
+  var N = om.n, cls = new Uint8Array(N * N), live = new Uint8Array(N * N), h = 0;
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district);
+    var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, key: om.seed + ':' + h };
+}
+function vbCityLand(r){
+  VBC.busy = false;
+  if (!r || r.seed !== om.seed) return;
+  function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
+  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P;
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+}
+function vbCityReady(){
+  var now = performance.now();
+  if (!VBC.busy && (VBC.seed !== om.seed || now - VBC.checked > 5000)) {   /* the lights are read at most every 5 s */
+    VBC.checked = now;
+    var inp = vbCityInput();
+    if (inp.key !== VBC.key) { VBC.busy = true; VBC.asks++;
+      try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp); }
+      catch (e) { VBC.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); c.kind = 'city'; vbCityLand(c); }, 0); } }
+  }
+  return !!VBC.day && VBC.seed === om.seed;
+}
+/* the far end: the painted city fades in over the tiles as the blocks get small */
+var VB_CITY_FULL = 6, VB_CITY_NONE = 10;   /* CSS px a block: painted below 6, tiles above 10 */
+function vbCityDraw(ox, oy, night){
+  if (TW >= VB_CITY_NONE || !vbCityReady()) return;
+  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
+  g.drawImage(night ? VBC.night : VBC.day, 0, 0);
+  g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a;
 }
 function vbReady(){
   if (VB.seed !== om.seed && !VB.busy) vbAsk();
@@ -43879,7 +44090,8 @@ function vbLabels(ox, oy, night){
 function renderCity(){
   cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
-  MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
+  MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
+  try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
@@ -44099,7 +44311,7 @@ function renderCity(){
       g.globalAlpha=1;
     }
   }
-  if(!__vista){ try{ vbSeam(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
+  if(!__vista){ try{ vbSeam(ox,oy,night); vbCityDraw(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__ + rule 65: the city painted at the far end */   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
   if(__mg) __mg.done=true;
   } finally { if(__mg) mapGroundEnd(__mg); }   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: g back on the glass, the picture blitted */
   }
@@ -44645,7 +44857,6 @@ function renderCity(){
   } catch (_e) {}
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
   if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
-  try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
      it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
@@ -44736,6 +44947,7 @@ function renderCity(){
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
   }
+  try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking -- and over him, since the towns scale with the zoom and a name can land on him (rule 65) */
   if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 

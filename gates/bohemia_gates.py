@@ -2313,6 +2313,15 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE FAR END IS PAINTED', ['node', 'gates/the_far_end_is_painted_gate.js'],
+     'VAMILY [map pixels now], rule 65 (PAOLO 10/2, the fourth time: "I want the map graphics to be bigger and '
+     'better and especially when you zoom out of the city"). MEASURED BEFORE: at the far stop the blocks were the '
+     'tiles shrunk to 3.7 px, a grid carpet, under towns 74 px wide. NOW the city is painted for the far end, twelve '
+     'texels a block by what each block is, faded in as the camera pulls out; lights only where there is power; the '
+     'art scales with the zoom, the names and he do not. HOLDS on the demo: every kind painted; DIRECTION\'s floor on '
+     'the ground picture at the far stop (3a unit <= 1.5 device px, 3b fine band >= 0.020); things stand up; night '
+     'light only on powered blocks; painting 1 far, 0 at the opening; towns and people smaller far, he the same; '
+     'baked in the worker, one drawImage. Mutations: never drawn; lights without power; art not scaling.', True),
     ('THE VALLEY HAS AN EDGE', ['node', 'gates/the_valley_has_an_edge_gate.js'],
      'VAMILY [the valley edge], rule 61c (PAOLO 10/1: "when I zoom out of Las Vegas there\'s a square and then '
      'the rest is desert brown; it\'s really bad"). MEASURED BEFORE: at the far end of the pinch every canvas '

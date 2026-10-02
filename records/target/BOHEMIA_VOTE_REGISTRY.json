@@ -4285,6 +4285,19 @@
    }
   },
   {
+   "id": "run-the-far-end-is-painted-10-2",
+   "kind": "tile",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "ZOOMED OUT, THE CITY IS PAINTED",
+   "why": "Pulled all the way out, the city is no longer a grid carpet under giant town icons: every block is painted (roofs, streets, towers that stand up, the rim rising into the ranges) and the towns shrink with the ground the way Battle Brothers does it. You see it on the map when you pinch all the way out.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FAR_END_IS_PAINTED_10_2.jpg"
+   }
+  },
+  {
    "id": "combat2-the-ground-for-the-new-fight-10-2",
    "kind": "tile",
    "lane": "combat 2",
