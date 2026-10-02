@@ -120,3 +120,15 @@ banks/BOHEMIA_THE_HOUSE_AT_45_AND_THE_BIG_BOARD_10_1_26.txt, VOTE combat2-houses
     freeway x4 along the south); start rows 4 and 9 (distance 5). The bank stores the layout and points at
     each kind's bank, not one giant picture. COMBAT 1 owns the cutter and the code ([board size]).
 NEXT: the 45 house in the cul-de-sac, ruin and night boards; block seams; store fronts.
+
+## ROUND EIGHT (10/2): STORE FRONTS AT 45, AND THE 45 HOUSE ON EVERY BLOCK
+
+tools/bohemia_combat2_store_fronts_and_houses_everywhere_cook_10_2_26.py ->
+banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE combat2-store-fronts-and-houses-everywhere-10-2.
+  store45: deck + parapet, a 4.5 m x cos45 face: a blank sign band with a paler ghost of the letters, the
+    glass run in A[0] with mullions every 2.4 m and a few reflections, one bay boarded (his tile), his door,
+    the face's shadow on the walk. Four of five bays on the strip lot (the ladder roof stays flat, 'height').
+  culdesac45: the six bulb houses as house45 (north row fronts, south row backs), all 'blocked'.
+  ruin45: the four burnt houses as house45 soot-shaded and broken through to the joists; two standing
+    houses at 45 ('blocked'); one flat roof each side kept ('height').
+  The big board card re-drawn with these kinds (same layout).

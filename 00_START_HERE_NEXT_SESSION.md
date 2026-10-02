@@ -1,3 +1,9 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (i) LATEST -- [floor set] ROUND EIGHT SHIPPED: store fronts at 45
+on the strip lot, the 45 house on the cul-de-sac and (burnt) on the ruin, the big board re-drawn.
+Bank banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE
+combat2-store-fronts-and-houses-everywhere-10-2. NEXT: block seams on the big board (a street that
+meets a back yard), night boards re-cut with the 45 houses. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/1 (h) LATEST -- [floor set] ROUND SEVEN SHIPPED (sweep J, rule 61):
 the house at 45 (hip roof, stucco face, door/window/garage, drive, shadow; pitched = blocked) and the
 big board, 20x15 house tiles from the kinds as 5x5 blocks, start lines 5 apart (layout in the bank,
