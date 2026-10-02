@@ -214,14 +214,11 @@
    "brigand_thug",
    "brigand_thug",
    "brigand_thug",
-   "lower_brigand_raider",
-   "lower_brigand_raider",
-   "lower_brigand_marksman",
-   "lower_brigand_marksman"
+   "lower_brigand_raider"
   ],
   "source": "bb_all/0299_Brigands.txt",
   "quote": "In the early game Brigand groups usually consist of [[Brigand Thug|Thugs]] and sometimes [[Brigand Raider|Raiders]]. Later, Raiders become more common, ranged attackers appear",
-  "why": "twelve against twelve (rule 63b), the wiki's early brigand mix: thugs, some raiders, a backline of marksmen; TUNING sets the real count per contract"
+  "why": "the FIRST fight is an early one, so it is the wiki's early band: thugs and one raider, no shooters yet (they 'appear later'); twelve of ours (rule 63b) against nine. Measured: twelve against twelve with two marksmen lost 4 fights in 4. TUNING sets the real count per contract."
  },
  "night": {
   "value": false,

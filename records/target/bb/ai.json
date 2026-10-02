@@ -84,13 +84,15 @@
   "crew": {
    "value": {
     "advance": true,
+    "hold_line": true,
     "surround": true,
     "stand_and_shoot": true,
     "step_out_of_melee": true,
     "reload": true
    },
-   "source": "VAMILY.md rule 63b",
-   "quote": "the driver gate fields 12 against a crew that behaves"
+   "source": "bb_all/0424_Combat Mechanics.txt",
+   "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
+   "why": "the crew keeps the line it starts in and lets the undisciplined brigands come (VAMILY rule 63b: 'the driver gate fields 12 against a crew that behaves'); it walks forward only when no foe is coming"
   }
  },
  "hunt": {
@@ -98,5 +100,13 @@
   "source": "VAMILY.md rule 63b",
   "quote": "Battle Brothers has its AI for the enemies correctly",
   "why": "measured on the frozen fight (V165): enemies who never see you hold forever and the fight never ends"
+ },
+ "tactics": {
+  "avoid_surround": {
+   "value": true,
+   "source": "bb_all/1191_Loading Screen Tips.txt",
+   "quote": "Surrounding an opponent from multiple sides makes it easier to score a hit.",
+   "why": "every brain weighs a tile by friends beside it against foes beside it, so nobody walks alone into three men"
+  }
  }
 }
