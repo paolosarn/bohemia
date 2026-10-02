@@ -59,3 +59,11 @@
     tactical battle map (normal, and the arena); how far apart the two lines start; sources. (b) On the world map: which
     things scale with the zoom (the town art, the party sprites, the roads) and which stay screen-size (names, banners,
     situation icons); a line per thing, with where you read it.
+
+17. MORE BUILDING TYPES FOR THE FIGHT BOARDS (Paolo 10/2: 'we need so much more building types'). The real Las Vegas block
+    inventory: what stands on a suburban block, a strip, an industrial lot, the edge of downtown (house types, apartment
+    blocks, strip stores, churches, schools, gas stations, motels, warehouses, casino backs, car lots, storage yards), with
+    rough footprints in feet from the city code or assessor pages, so COMBAT TWO can cut them as house-sized tiles.
+18. BATTLE BROTHERS' RELATIONS AND CRIME (Paolo 10/2: 'beef with a settlement... you can't even steal bread in this game').
+    How relations per faction work (the numbers, what moves them, when a faction's parties hunt you) and every way the game
+    lets you do wrong (looting, breaking a contract, attacking caravans) and what it costs; sources.
