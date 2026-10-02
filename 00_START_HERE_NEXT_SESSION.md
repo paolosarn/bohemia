@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (m) LATEST -- [floor set] ROUND TWELVE SHIPPED: cross streets run
+through whole board columns (streets_run_through in the round-nine builder; at most two a board; the
+cul-de-sac stem's column continues), and fight_ground.json boards[].lights (lamp/drum, x_m/y_m sprite
+base, live, radius_m) + light_*.png sprites, lights_key in the manifest: FOR COMBAT [rebuild]: at night
+draw live pools (round six's look) instead of the flat wash. 27 blocks, 23.8 MB (site over cap; PLUMBER).
+VOTE combat2-streets-run-through-10-2. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (l) LATEST -- [floor set] ROUND ELEVEN SHIPPED (sweep L): boards no
 longer clone one row. tools/bohemia_combat2_mixed_blocks_cook_10_2_26.py (suburb_seeded: houses per seed,
 burnt one in six, an optional cross street column; empty_lots) feeds round nine's builder, whose BOARDS

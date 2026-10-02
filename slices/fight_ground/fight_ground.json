@@ -272,6 +272,9 @@
   "cornerw.0": {
    "src": "block_cornerw_0.png"
   },
+  "cornerw.1": {
+   "src": "block_cornerw_1.png"
+  },
   "culdesac.0": {
    "src": "block_culdesac_0.png"
   },
@@ -342,26 +345,31 @@
    "src": "block_wash_1.png"
   }
  },
+ "lights_key": {
+  "lamp": "a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)",
+  "drum": "an oil drum with a fire in it, always live",
+  "anchor": "x_m, y_m = the sprite base; draw it bottom-centred"
+ },
  "boards": {
   "suburb": {
    "blocks": [
     [
-     "subs.1",
+     "corner.0",
      "corner.1",
      "subs.0",
-     "cornerw.0"
+     "subs.2"
     ],
     [
+     "corner.1",
+     "corner.0",
+     "subs.1",
+     "subs.3"
+    ],
+    [
+     "corner.0",
      "corner.1",
      "subs.2",
-     "corner.1",
-     "corner.0"
-    ],
-    [
-     "corner.0",
-     "corner.1",
-     "corner.0",
-     "cornerw.0"
+     "subs.0"
     ]
    ],
    "terrain": [
@@ -388,51 +396,9 @@
      "flat"
     ],
     [
-     "height",
-     "flat",
      "blocked",
      "blocked",
      "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
      "blocked",
      "blocked",
      "blocked",
@@ -441,192 +407,14 @@
      "blocked",
      "flat",
      "flat",
-     "height",
      "blocked",
      "blocked",
      "blocked",
-     "height",
-     "flat",
-     "flat",
      "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
      "flat",
      "height",
      "blocked",
      "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "height",
-     "flat",
-     "blocked",
-     "flat",
-     "flat",
-     "height"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "flat",
-     "flat",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
      "blocked"
     ],
     [
@@ -662,6 +450,106 @@
      "flat",
      "flat",
      "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
      "flat",
      "blocked",
      "flat",
@@ -669,9 +557,129 @@
      "height",
      "flat",
      "blocked",
+     "flat",
+     "flat",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
      "blocked",
      "blocked",
      "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat"
     ],
     [
      "flat",
@@ -698,19 +706,19 @@
    ],
    "cover": [
     {
-     "piece": "wall_broken",
-     "x_m": 51.0,
-     "y_m": 11.0
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 50.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 26.1,
-     "y_m": 28.9
+     "piece": "car_kerb",
+     "x_m": 5.2,
+     "y_m": 30.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 18.2,
-     "y_m": 27.2
+     "piece": "car_kerb",
+     "x_m": 12.8,
+     "y_m": 29.6
     },
     {
      "piece": "wall",
@@ -743,14 +751,24 @@
      "y_m": 30.1
     },
     {
+     "piece": "wall_broken",
+     "x_m": 183.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 208.0,
+     "y_m": 50.0
+    },
+    {
      "piece": "car_kerb",
-     "x_m": 218.4,
-     "y_m": 29.4
+     "x_m": 200.2,
+     "y_m": 27.6
     },
     {
      "piece": "car_lane",
-     "x_m": 223.8,
-     "y_m": 30.5
+     "x_m": 222.0,
+     "y_m": 27.1
     },
     {
      "piece": "wall",
@@ -768,54 +786,39 @@
      "y_m": 71.0
     },
     {
-     "piece": "wall_broken",
-     "x_m": 63.0,
-     "y_m": 71.0
-    },
-    {
      "piece": "shed",
-     "x_m": 88.0,
+     "x_m": 64.0,
      "y_m": 110.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 80.2,
-     "y_m": 87.6
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 102.0,
-     "y_m": 87.1
-    },
-    {
-     "piece": "wall",
-     "x_m": 135.0,
-     "y_m": 71.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 160.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 171.0,
-     "y_m": 71.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 184.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 185.2,
+     "x_m": 65.2,
      "y_m": 90.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 192.8,
+     "x_m": 72.8,
      "y_m": 89.6
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 171.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 146.1,
+     "y_m": 88.9
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 138.2,
+     "y_m": 87.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 207.5,
+     "y_m": 89.9
     },
     {
      "piece": "shed",
@@ -848,29 +851,1041 @@
      "y_m": 131.0
     },
     {
+     "piece": "wall_broken",
+     "x_m": 123.0,
+     "y_m": 131.0
+    },
+    {
      "piece": "shed",
-     "x_m": 124.0,
+     "x_m": 148.0,
      "y_m": 170.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 125.2,
-     "y_m": 150.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 132.8,
-     "y_m": 149.6
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 218.4,
-     "y_m": 149.4
+     "x_m": 140.2,
+     "y_m": 147.6
     },
     {
      "piece": "car_lane",
-     "x_m": 223.8,
-     "y_m": 150.5
+     "x_m": 162.0,
+     "y_m": 147.1
+    },
+    {
+     "piece": "wall",
+     "x_m": 183.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 232.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 211.9,
+     "y_m": 150.1
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 143.5,
+     "y_m": 8,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 204.1,
+     "y_m": 52,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 169.3,
+     "y_m": 68,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 228.1,
+     "y_m": 112,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 154.2,
+     "y_m": 128,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
     }
    ]
   },
@@ -889,9 +1904,9 @@
      "subs.0"
     ],
     [
+     "corner.0",
      "corner.1",
-     "cornerw.0",
-     "subs.2",
+     "corner.0",
      "lots.0"
     ]
    ],
@@ -1140,19 +2155,19 @@
     ],
     [
      "blocked",
+     "blocked",
      "flat",
-     "flat",
+     "blocked",
+     "blocked",
      "blocked",
      "flat",
      "flat",
      "blocked",
+     "flat",
      "blocked",
-     "height",
      "blocked",
      "flat",
-     "height",
      "blocked",
-     "flat",
      "blocked",
      "flat",
      "flat",
@@ -1190,14 +2205,14 @@
      "height",
      "flat",
      "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
+     "flat",
+     "flat",
+     "height",
      "flat",
      "blocked",
-     "blocked",
+     "flat",
+     "flat",
+     "height",
      "flat",
      "flat",
      "flat",
@@ -1474,49 +2489,49 @@
      "y_m": 90.1
     },
     {
-     "piece": "wall",
-     "x_m": 15.0,
-     "y_m": 131.0
-    },
-    {
      "piece": "shed",
-     "x_m": 40.0,
-     "y_m": 170.0
-    },
-    {
-     "piece": "wall",
-     "x_m": 51.0,
-     "y_m": 131.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 98.4,
-     "y_m": 149.4
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 103.8,
-     "y_m": 150.5
-    },
-    {
-     "piece": "wall_broken",
-     "x_m": 123.0,
-     "y_m": 131.0
-    },
-    {
-     "piece": "shed",
-     "x_m": 148.0,
+     "x_m": 4.0,
      "y_m": 170.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 140.2,
-     "y_m": 147.6
+     "x_m": 5.2,
+     "y_m": 150.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 162.0,
-     "y_m": 147.1
+     "piece": "car_kerb",
+     "x_m": 12.8,
+     "y_m": 149.6
+    },
+    {
+     "piece": "wall",
+     "x_m": 75.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 100.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 111.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 125.2,
+     "y_m": 150.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 132.8,
+     "y_m": 149.6
     },
     {
      "piece": "rubble_9",
@@ -1553,21 +2568,759 @@
      "x_m": 198.8,
      "y_m": 151.5
     }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 217.7,
+     "y_m": 68,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 201.2,
+     "y_m": 128,
+     "live": true,
+     "radius_m": 5.0
+    }
    ]
   },
   "strip": {
    "blocks": [
     [
-     "lots.0",
+     "cornerw.0",
      "strip.0",
      "strip.1",
      "lots.0"
     ],
     [
-     "corner.0",
+     "cornerw.1",
      "subs.1",
-     "lots.0",
-     "cornerw.0"
+     "corner.0",
+     "subs.1"
     ],
     [
      "cornerw.0",
@@ -1601,10 +3354,54 @@
     ],
     [
      "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
      "flat",
      "flat",
      "flat",
      "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
      "flat",
      "flat",
      "flat",
@@ -1668,48 +3465,14 @@
     [
      "flat",
      "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "height",
      "flat",
+     "blocked",
+     "blocked",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
      "blocked",
      "blocked",
      "flat",
@@ -1719,17 +3482,7 @@
      "flat",
      "blocked",
      "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "height",
-     "blocked"
+     "flat"
     ],
     [
      "flat",
@@ -1757,23 +3510,23 @@
      "flat",
      "blocked",
      "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
      "flat",
      "height",
      "blocked",
      "blocked",
      "blocked",
      "blocked",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked"
+     "flat"
     ],
     [
      "flat",
@@ -1910,39 +3663,14 @@
    ],
    "cover": [
     {
-     "piece": "rubble_9",
-     "x_m": 40.6,
-     "y_m": 9.2
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 17.2,
-     "y_m": 5.7
-    },
-    {
-     "piece": "rubble_11",
-     "x_m": 35.4,
-     "y_m": 2.8
-    },
-    {
-     "piece": "rubble_10",
-     "x_m": 34.4,
-     "y_m": 51.9
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 21.9,
-     "y_m": 54.7
-    },
-    {
-     "piece": "rubble_11",
-     "x_m": 35.8,
-     "y_m": 54.4
-    },
-    {
      "piece": "car_kerb",
-     "x_m": 18.8,
-     "y_m": 31.5
+     "x_m": 38.4,
+     "y_m": 29.4
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 43.8,
+     "y_m": 30.5
     },
     {
      "piece": "car_lane",
@@ -2050,19 +3778,9 @@
      "y_m": 31.5
     },
     {
-     "piece": "shed",
-     "x_m": 4.0,
-     "y_m": 110.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 5.2,
-     "y_m": 90.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 12.8,
-     "y_m": 89.6
+     "piece": "wall",
+     "x_m": 15.0,
+     "y_m": 71.0
     },
     {
      "piece": "wall_broken",
@@ -2080,49 +3798,34 @@
      "y_m": 87.2
     },
     {
-     "piece": "rubble_9",
-     "x_m": 160.6,
-     "y_m": 69.2
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 137.2,
-     "y_m": 65.7
-    },
-    {
-     "piece": "rubble_11",
-     "x_m": 155.4,
-     "y_m": 62.8
-    },
-    {
-     "piece": "rubble_10",
-     "x_m": 154.4,
-     "y_m": 111.9
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 141.9,
-     "y_m": 114.7
-    },
-    {
-     "piece": "rubble_11",
-     "x_m": 155.8,
-     "y_m": 114.4
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 110.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 138.8,
-     "y_m": 91.5
+     "x_m": 125.2,
+     "y_m": 90.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 218.4,
-     "y_m": 89.4
+     "x_m": 132.8,
+     "y_m": 89.6
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 231.0,
+     "y_m": 71.0
     },
     {
      "piece": "car_lane",
-     "x_m": 223.8,
-     "y_m": 90.5
+     "x_m": 206.1,
+     "y_m": 88.9
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 198.2,
+     "y_m": 87.2
     },
     {
      "piece": "car_kerb",
@@ -2189,6 +3892,976 @@
      "x_m": 198.8,
      "y_m": 151.5
     }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 100.7,
+     "y_m": 112,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    }
    ]
   },
   "ruin": {
@@ -2201,7 +4874,7 @@
     ],
     [
      "ruin.0",
-     "corner.1",
+     "corner.0",
      "ruin.0",
      "ruin.1"
     ],
@@ -2352,10 +5025,10 @@
      "blocked",
      "blocked",
      "blocked",
-     "flat",
-     "flat",
      "blocked",
      "flat",
+     "blocked",
+     "blocked",
      "height",
      "blocked",
      "debris",
@@ -2766,19 +5439,19 @@
      "y_m": 108.0
     },
     {
-     "piece": "wall",
-     "x_m": 75.0,
-     "y_m": 71.0
-    },
-    {
      "piece": "shed",
-     "x_m": 100.0,
+     "x_m": 64.0,
      "y_m": 110.0
     },
     {
-     "piece": "wall",
-     "x_m": 111.0,
-     "y_m": 71.0
+     "piece": "car_kerb",
+     "x_m": 65.2,
+     "y_m": 90.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 72.8,
+     "y_m": 89.6
     },
     {
      "piece": "rubble_0",
@@ -3029,6 +5702,984 @@
      "piece": "wall_corner",
      "x_m": 229.0,
      "y_m": 168.0
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 96.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 84.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 84.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 96.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 107.0,
+     "y_m": 128,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 131.1,
+     "y_m": 172,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 144.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 156.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 144.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 156.0,
+     "live": true,
+     "radius_m": 7.0
     }
    ]
   },
@@ -3908,6 +7559,48 @@
      "y_m": 164.0,
      "mound": true
     }
+   ],
+   "lights": [
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 67.2,
+     "y_m": 52,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 173.4,
+     "y_m": 8,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 201.7,
+     "y_m": 8,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 167.8,
+     "y_m": 68,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 136.5,
+     "y_m": 128,
+     "live": true,
+     "radius_m": 5.0
+    }
    ]
   },
   "freeway": {
@@ -4767,6 +8460,352 @@
      "x_m": 220.0,
      "y_m": 164.0,
      "mound": true
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 5,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 5,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 17,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 17,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 29,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 29,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 41,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 41,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 53,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 53,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 41.5,
+     "y_m": 52,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 65,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 65,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 77,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 77,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 89,
+     "y_m": 14.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 89,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 101,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 101,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 113,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 113,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 125,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 125,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 137,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 137,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 149,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 149,
+     "y_m": 46.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 161,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 161,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 173,
+     "y_m": 14.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 173,
+     "y_m": 46.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 185,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 185,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 197,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 197,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 209,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 209,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 221,
+     "y_m": 24.4,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 221,
+     "y_m": 36.0,
+     "live": false,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.png",
+     "x_m": 233,
+     "y_m": 24.4,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_your_side.png",
+     "x_m": 233,
+     "y_m": 36.0,
+     "live": true,
+     "radius_m": 7.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 210.4,
+     "y_m": 52,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 130.5,
+     "y_m": 128,
+     "live": true,
+     "radius_m": 5.0
     }
    ]
   },
@@ -5635,6 +9674,32 @@
      "x_m": 220.0,
      "y_m": 164.0,
      "mound": true
+    }
+   ],
+   "lights": [
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 67.9,
+     "y_m": 68,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 80.9,
+     "y_m": 172,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 230.1,
+     "y_m": 172,
+     "live": true,
+     "radius_m": 5.0
     }
    ]
   },
@@ -6564,6 +10629,56 @@
      "piece": "car_kerb",
      "x_m": 220.0,
      "y_m": 166.0
+    }
+   ],
+   "lights": [
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 32.5,
+     "y_m": 52,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 72.7,
+     "y_m": 8,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 191.7,
+     "y_m": 8,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 187.9,
+     "y_m": 68,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 34.7,
+     "y_m": 172,
+     "live": true,
+     "radius_m": 5.0
+    },
+    {
+     "kind": "drum",
+     "src": "light_oil_drum.png",
+     "x_m": 217.4,
+     "y_m": 172,
+     "live": true,
+     "radius_m": 5.0
     }
    ]
   }
