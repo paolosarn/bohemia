@@ -10694,6 +10694,10 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2c LATEST -- [the valley edge] SHIPPED (45460a2): zoomed all the way out, the city sits in a valley between named ranges. TAB: the DEMO's map, pinch all the way out.
+Land 200 blocks past every edge, baked in a worker, lifted the way the camera sees it: Spring Mtns + Mt Charleston, Sheep Range, Frenchman, Black Mtns on the map's compass; the 15/95/93 keep going; Lake Mead; a far tile to any screen's edge; bare land 0.9% (was 100%).
+GATE THE VALLEY HAS AN EDGE 12/0, four mutations. LEFT: the map's own rim blocks still draw as street grid (COOK/WORLD tile); the moon zoom's REGION band still draws the valley flat.
+NEXT: [screen fit] (claimed): four screen classes, one HUD laid out by rule; then [map pixels now]'s near end, [the reel].
 RUN (run-eak241): 10/2b LATEST -- [the front door] SHIPPED (31c56c2): pick the fights, the shelves, who you were and the crew's name at the door. TAB: the DEMO's loading screen.
 BB's combat and economic difficulty and its fifteen origins (GROK_14), translated, draft:true names; every number on a card is applied (start batteries once, then each job's pay, crew, fight package). The door stays a door: only a tap on a pick is held back.
 GATE THE FRONT DOOR 7/0 (one driver, beforeTap). a_stranger_opens_it re-aimed to tap BEGIN. Rule 63: the old fight is frozen; the loop still uses it until COMBAT's new file plays, then RUN folds that in.
