@@ -4272,6 +4272,19 @@
    }
   },
   {
+   "id": "run-the-new-fight-in-the-demo-10-2",
+   "kind": "ui",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "THE REBUILT FIGHT IS THE DEMO'S FIGHT",
+   "why": "Every fight on the map now opens the new Battle Brothers fight on the board of the block you stand on, and when it ends you are back on the map in about two seconds, paid if you won the job. You see it in the demo the first time a crew or a job fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_NEW_FIGHT_IN_THE_DEMO_10_2.jpg"
+   }
+  },
+  {
    "id": "combat2-the-ground-for-the-new-fight-10-2",
    "kind": "tile",
    "lane": "combat 2",

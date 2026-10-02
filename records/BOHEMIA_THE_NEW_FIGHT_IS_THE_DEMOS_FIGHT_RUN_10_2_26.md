@@ -29,12 +29,14 @@ COMBAT shipped it (645c31f, `slices/BOHEMIA_FIGHT.html`, THE REBUILT FIGHT PLAYS
 | the loop: a JOB fight on AUTO, landfill board | won, paid 1 battery (5 to 6) |
 | a second contract, cleared | paid (6 to 7), the bar says 7 |
 
-## ONE BOARD STALLS, ROUTED TO COMBAT
-I played all eight boards alone on AUTO (seed 5). Seven ended in 6 to 19 rounds. **The freeway
-board did not end.** At round 60 the band was still holding its line out of sight, and the last
-two of yours were Breaking and Wavering, with no end. A fight that never ends is his 10/1 bug, so
-**freeway blocks fight on the strip board** (`NF_FREEWAY_BOARD`) until COMBAT says the freeway
-board ends. The gate prints this every run as a NOTE.
+## ONE BOARD STALLED, AND COMBAT'S ROUND TWO ALREADY FIXED IT
+I played all eight NAMED boards alone on AUTO (seed 5). Seven ended in 6 to 19 rounds. **The named
+freeway board did not end** (round 60: the band holding its line out of sight, the last two of yours
+Breaking and Wavering). COMBAT's round two (2b16ed5) DEALS the board instead: give it the place's
+kind and it leads with that block, mixes two or three kinds, and re-deals until the two lines can
+reach each other. So the shell passes the **kind** (the block's district says it), not a named
+board. Dealt freeway and arterial fights on AUTO, seeds 5, 9 and 21: **all six ended, in 3 to 17
+rounds.** No workaround is left in the shell.
 
 ## CHECKS
 - **EVERY FIGHT HANDS HIM BACK**, re-aimed to the rebuilt fight, 9/0. A whole fight plays to its

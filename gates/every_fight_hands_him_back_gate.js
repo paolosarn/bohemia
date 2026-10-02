@@ -16,7 +16,8 @@
 
    LEGS, on the baked demo (which opens on the map):
      F1  a road party's fight opens THE REBUILT FIGHT from the map (it is on screen, the map is
-         not, the frozen fight is not opened), on the board of the block he is standing on
+         not, the frozen fight is not opened), on a board the fight deals led by the KIND of the
+         block he is standing on
      F2  *** A WHOLE FIGHT PLAYS TO ITS END *** with a real tap on AUTO (the beat run six times
          fast so a gate fits, the way COMBAT's own gate runs it)
      F3  he is back on the MAP, on the block he left, and the fight is gone
@@ -81,10 +82,11 @@ const HOME_MS = 3000;
     const st = await startRoadFight(d);
     const { f: cf, box } = await fightFrame(d);
     const s1 = await shell(d);
-    const want = await d.page.evaluate((dd) => nfBoard(dd), st.district);
-    const board = cf ? await cf.evaluate(() => FIGHT.S.board) : null;
-    ok('F1 a road party\'s fight opens THE REBUILT FIGHT (on screen ' + s1.fight + ', map ' + s1.map + ', frozen fight ' + s1.old + '), on the ' + board
-      + ' board for the ' + st.district + ' block he stands on', st.started && s1.inFight && s1.fight && !s1.map && !s1.old && !!cf && board === want);
+    const want = await d.page.evaluate((dd) => nfKind(dd), st.district);
+    const bd = cf ? await cf.evaluate(() => ({ name: FIGHT.S.board, kinds: (FIGHT.S.boardDef && FIGHT.S.boardDef.kinds) || [] })) : { name: null, kinds: [] };
+    const board = bd.name;
+    ok('F1 a road party\'s fight opens THE REBUILT FIGHT (on screen ' + s1.fight + ', map ' + s1.map + ', frozen fight ' + s1.old + '), dealt "' + board
+      + '", led by the ' + want + ' kind of the ' + st.district + ' block he stands on', st.started && s1.inFight && s1.fight && !s1.map && !s1.old && !!cf && bd.kinds.indexOf(want) >= 0);
 
     let tEnd = null, played = null;
     if (cf) {
@@ -134,9 +136,6 @@ const HOME_MS = 3000;
         s0.started && was.inFight && h.ms !== null && h.ms <= lim && h.s.result === wantR && at[0] === s0.at[0] && at[1] === s0.at[1]);
     }
 
-    /* the board the map does not use yet, measured so its fix is seen the round it lands */
-    const fw = await d.page.evaluate(() => NF_FREEWAY_BOARD);
-    console.log('  NOTE for COMBAT (not this lane\'s leg): freeway blocks fight on the ' + fw + ' board while the freeway board stalls (seed 5 on AUTO: round 60, no end; see nfBoard)');
     ok('nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);

@@ -1547,7 +1547,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/2e - THE NEW FIGHT IS IN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/2h - THE NEW FIGHT IS IN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11586,35 +11586,31 @@ try{ var _bp=localStorage.getItem(BOH_POCKET_LS);
    and is hidden here: a fight he finished is finished.
    THE FROZEN FIGHT IS UNTOUCHED (rule 63a: keep the dial's code, sounds and ring). */
 var NEW_FIGHT_ON = true;
-var NF_FREEWAY_BOARD = 'strip';   /* 'freeway' once its fights end (see nfBoard) */
 /* the fight's rules live in a const of its page, not on its window; same origin, so it is asked by name */
 function nfFight(cw){ try{ return cw && cw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); }catch(_e){ return null; } }
 /* the fight carries its own round line where the shell's gear sits: the gear steps out while it is up */
 (function(){ try{ var st=document.createElement('style'); st.textContent='body.nf-on #gearbtn{display:none !important}'; document.head.appendChild(st); }catch(_e){} })();
 var NF = { frame: null, opts: null, over: null, homeAt: null, opened: 0 };
 window.NF = NF;
-/* the eight boards are named for block kinds; a district takes the board of its kind */
-function nfBoard(district){
+/* THE FIGHT DEALS ITS OWN BOARD (COMBAT [rebuild] round two, 2b16ed5): given the KIND of the place
+   ("the place the loop says this is") it leads with that kind's block, mixes two or three kinds of
+   its family, and re-deals until the two lines can reach each other. The map's district says the kind. */
+function nfKind(district){
   var d = String(district || '');
   if (/^(strip|resort|casino|commercial|mall|downtown|convention|luxor|sphere|highroller|strat|sign|truckstop|swapmeet|drivein)$/.test(d)) return 'strip';
-  /* THE FREEWAY BOARD STALLS, MEASURED 10/2 (seed 5, AUTO, the fight file alone): round 60, the band
-     holding its line at row 4 out of sight, the last two of yours Breaking and Wavering, no end; the
-     other seven boards end in 6 to 19 rounds. A fight that never ends is the 10/1 bug ("combat didn't
-     end so I couldn't get back"), so freeway blocks fight on the STRIP board (paved, dead cars) until
-     COMBAT says the freeway board ends; routed in RUN's handoff. Flip NF_FREEWAY_BOARD then. */
-  if (/^(freeway|beltway|interchange)$/.test(d)) return NF_FREEWAY_BOARD;
-  if (/^(rail|railyard)$/.test(d)) return 'landfill';
-  if (d === 'arterial') return 'suburb';   /* a mile road runs between suburb blocks */
+  if (/^(freeway|beltway|interchange)$/.test(d)) return 'freeway';
   if (/^(water|reservoir|intake|dam|springs|waterpark)$/.test(d)) return 'shore';
-  if (/^(landfill|quarry|gypsum|industrial|warehouse|robofactory|boneyard|fueldepot|storage)$/.test(d)) return 'landfill';
-  if (/^(desert|mountain|wash|solar|farm|basin|park|golf)$/.test(d)) return 'desert';
+  if (/^(landfill|quarry|gypsum|industrial|warehouse|robofactory|boneyard|fueldepot|storage|rail|railyard)$/.test(d)) return 'landfill';
+  if (/^(wash|basin)$/.test(d)) return 'wash';
+  if (/^(desert|mountain|solar|farm|park|golf)$/.test(d)) return 'scrub';
   if (/^(estate|gated|trailer)$/.test(d)) return 'culdesac';
+  if (d === 'arterial') return 'suburb_stem';   /* a mile road with the suburb on both sides */
   if (/^(suburb|apartment|town|school|campus|library|chapel|cemetery)$/.test(d)) return 'suburb';
   return 'ruin';   /* everything else is act one: the ruin */
 }
 function nfOpts(d){
   var w = (d && d.world) || {};
-  return { board: nfBoard(d && d.district), night: w.night === true };
+  return { kind: nfKind(d && d.district), night: w.night === true };
 }
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
@@ -11639,7 +11635,7 @@ function nfOpen(d){
       /* if its data beat the options, start it again with them before he has touched it */
       var t = setInterval(function(){ try{
         var F = nfFight(cw); if (!F || !F.S || !F.S.board) { if (performance.now() - NF.opened > 30000) clearInterval(t); return; } clearInterval(t);
-        if (F.S.board !== opts.board && typeof cw.start === 'function') { cw.FIGHT_OPTS = opts; cw.start(); NF.restarted = (NF.restarted || 0) + 1; }
+        if (F.S.boardDef && (F.S.boardDef.kinds || []).indexOf(opts.kind) < 0 && typeof cw.start === 'function') { cw.FIGHT_OPTS = opts; cw.start(); NF.restarted = (NF.restarted || 0) + 1; }
         var again = cw.document.getElementById('oagain'); if (again) again.style.display = 'none';
         var card = cw.document.getElementById('over'); if (card) card.addEventListener('click', function(){ nfHome(); });
       }catch(_e){ clearInterval(t); } }, 50);
@@ -11658,7 +11654,7 @@ function nfOverIn(d, src){
   try{ var S = nfFight(NF.frame.contentWindow).S;
     S.units.forEach(function(u){ if (u.side === 'them') { theirs++; if (u.dead) dead++; if (u.fled) ran++; } else if (u.dead || u.down) fell++; }); }catch(_e){}
   var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
-    alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: NF.opts && NF.opts.board, newFight: true };
+    alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: (function(){ try{ return nfFight(NF.frame.contentWindow).S.board; }catch(_e){ return NF.opts && NF.opts.kind; } })(), kind: NF.opts && NF.opts.kind, newFight: true };
   NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
   try{ if (window.STING) STING.play(won ? 'win' : 'loss'); }catch(_e){}
   try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
