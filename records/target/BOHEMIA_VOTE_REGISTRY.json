@@ -4232,7 +4232,8 @@
     "src": "vote/RUN_THE_LOOP_ON_THE_MAP_10_2.png"
    }
   },
-{"id": "combat2-store-fronts-and-houses-everywhere-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "REAL STORE FRONTS, AND THE NEW HOUSES ON EVERY BLOCK", "why": "The strip mall now has real store fronts (blank sign, dark glass, a boarded window, the door), and the cul-de-sac and the burnt block use the new 3-D houses, the burnt ones caved in to the beams. Thumbs up and combat uses these blocks, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2.png"}}
+{"id": "combat2-store-fronts-and-houses-everywhere-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "REAL STORE FRONTS, AND THE NEW HOUSES ON EVERY BLOCK", "why": "The strip mall now has real store fronts (blank sign, dark glass, a boarded window, the door), and the cul-de-sac and the burnt block use the new 3-D houses, the burnt ones caved in to the beams. Thumbs up and combat uses these blocks, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2.png"}},
+  {"id": "run-the-front-door-10-2", "kind": "ui", "lane": "run", "made": "10/2", "sha": "pending", "title": "THE FRONT DOOR: DIFFICULTY, ORIGIN AND A NAME", "why": "While the valley loads you pick how hard the fights are, how bare the shelves are, which of fifteen crews you were (Battle Brothers' origins, ours), and your crew's name, and every number on a card is what the game really does. You see it on the loading screen, the first thing the demo shows.", "show": {"how": "image", "src": "vote/RUN_THE_FRONT_DOOR_10_2.png"}}
 ],
  "verdicts": [
   {

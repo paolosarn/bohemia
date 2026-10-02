@@ -223,7 +223,10 @@ const GROUND_FLOOR = 2000;
 
     /* ---- 2. THE TAP ----------------------------------------------------- */
     const t1 = Date.now();
-    await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
+    /* RE-AIMED 10/2 (RUN [the front door]): the middle of the door is the new company now (the fights,
+       the shelves, who you were), so a tap there makes a pick, not an entrance. BEGIN is the door, the
+       instruction this gate already reads above; it is what a stranger presses, and what the one driver taps. */
+    await page.tap('#fronttap').catch(async () => { await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); }); });
     await SETTLE(page, WORLD_CEIL_MS, async () => {
       const f = page.frames().find(x => x.name() === 'cityFrame');
       if (!f) return false;

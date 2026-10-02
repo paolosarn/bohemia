@@ -42404,6 +42404,24 @@ function travelStepped(moved){
 var LOOP = { held: [], done: 0, fighting: null, frame: null, ready: false, open: null, log: [] };
 window.LOOP = LOOP;
 var LOOP_MAX = 2;   /* rule 51: two contracts at a time */
+/* __THE_FRONT_DOOR__ (RUN 10/2): the new company he picked at the door. The start batteries are given
+   ONCE (the purse ref makes a second BEGIN a no-op); every job then carries the picks: the fights'
+   tier and the origin add to the crew, the origin adds to the pay, the shelves multiply it, and the
+   fights' tier is the fight's own difficulty package. Nothing picked = the middle of everything. */
+LOOP.start = null;
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_START' || !d.picks) return;
+  var p = d.picks; LOOP.start = p;
+  /* ONCE. BEGIN can arrive more than once (the door has two elements and a tap can reach both;
+     measured: three copies, 33 batteries for an 11-battery start). The purse's ref does not dedupe. */
+  if(LOOP.startPaid) return;
+  LOOP.startPaid = true;
+  try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
+  try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
+  try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
+});
+function loopJobPay(base){ var p = LOOP.start; if(!p) return Math.max(1, base | 0); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1))); }
+function loopJobCrew(base){ var p = LOOP.start; return Math.max(1, (base | 0) + (p ? (p.crew | 0) : 0)); }
 /* NEWS OF THE LOOP GOES TO THE PHONE (rule 61b: nothing sits over the map; the phone shows the
    contracts, rule 51c): a post from the board, kind 'mine', what he did. */
 function loopSay(txt){
@@ -42468,8 +42486,8 @@ function loopTakeContract(c){
   if(LOOP.held.some(function(h){ return h.id === c.id; })) return false;
   var town = LOOP.open || loopTownAt(city.x, city.y, 2) || { x: city.x, y: city.y, name: '?' };
   var tg = loopTarget(town, c.id); if(!tg) return false;
-  var job = { id: c.id, title: String(c.title || 'a job'), pay: Math.max(1, c.pay | 0), from: town.name,
-              target: tg, crew: 2 + (LOOP.done % 3) };
+  var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay), from: town.name,
+              target: tg, crew: loopJobCrew(2 + (LOOP.done % 3)) };   /* __THE_FRONT_DOOR__: the picks shape every job */
   LOOP.held.push(job);
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
   loopSay('Contract from ' + town.name + ': ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.');
@@ -42507,6 +42525,7 @@ function loopArrived(to){
     var roster = []; for(var i = 0; i < job.crew; i++) roster.push({ arch: 'human' });
     var ok = false;
     try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: job.title, faction: null, draft: true,
+      packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1,   /* __THE_FRONT_DOOR__: the fights' tier */
       roster: roster, street: true, why: 'contract:' + job.id, at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){ ok = false; }
     if(!ok) LOOP.fighting = null;
     return;

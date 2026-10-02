@@ -140,6 +140,31 @@ canvas{image-rendering:pixelated;image-rendering:crisp-edges}
 /* THE ONE WRONG THING, and it is set in the same register as everything else --
    the horror is the calm (bible R5), so it is a shade, not a colour. */
 #loadgl .w{ color:#8fa889 }
+/* __THE_FRONT_DOOR__ (RUN 10/2): the new company, in the terminal's own green, every target a thumb */
+/* A COMPACT BLOCK AT THE TOP, AND THE MIDDLE OF THE DOOR STAYS THE DOOR: a tap anywhere on the
+   splash has always opened the game once it is loaded (his thumb and twenty-odd checkers rely on it),
+   so the picks never reach the middle of the screen; the fifteen origins are a strip you flip through
+   sideways, the way Battle Brothers flips its origins. */
+#newco{ flex:0 0 auto; padding:6px 10px 6px; border:1px solid #1d2a1a; background:#0c0d0a; margin-bottom:8px;
+  font:12px ui-monospace,Menlo,monospace; color:#a9c79c; letter-spacing:1px }
+#newco .strip{ display:flex; gap:6px; overflow-x:auto; -webkit-overflow-scrolling:touch; touch-action:pan-x; padding-bottom:4px }
+#newco h4{ margin:7px 0 5px; font-size:10px; color:#6f8f64; letter-spacing:3px; font-weight:400 }
+#newco h4:first-child{ margin-top:2px }
+#newco .row{ display:flex; gap:6px }
+#newco .row button{ flex:1 1 0; min-height:44px; background:#11160f; color:#a9c79c; border:1px solid #2a3a25;
+  font:inherit; font-size:11px; letter-spacing:1px; padding:4px 2px; line-height:1.2 }
+#newco .row button.on{ background:#8fbf7e; color:#0a0907; border-color:#8fbf7e }
+#newco .row button small{ display:block; font-size:9px; opacity:.75; letter-spacing:0 }
+#newco .org{ flex:0 0 168px; display:flex; flex-direction:column; align-items:flex-start; gap:4px; min-height:96px; text-align:left;
+  background:#11160f; color:#a9c79c; border:1px solid #2a3a25; font:inherit; padding:6px 8px; margin:0 }
+#newco .org.on{ border-color:#8fbf7e; background:#16200f }
+#newco .org b{ display:block; font-size:12px; color:#cfe6c2; font-weight:700 }
+#newco .org i{ display:block; font-style:normal; font-size:10px; color:#86a07b; letter-spacing:0; margin-top:2px; white-space:normal; line-height:1.25 }
+#newco .org em{ flex:0 0 auto; font-style:normal; font-size:9px; padding:2px 5px; border:1px solid #2a3a25; color:#a9c79c }
+#newco .org em.d2{ color:#d9c47a; border-color:#5a5226 } #newco .org em.d3{ color:#e0906a; border-color:#5e3626 } #newco .org em.d4{ color:#e8605a; border-color:#6a2420 }
+#newco .name{ display:flex; gap:6px; align-items:stretch }
+#newco .name span{ flex:1; display:flex; align-items:center; min-height:44px; padding:0 10px; border:1px solid #2a3a25; color:#cfe6c2; font-weight:700 }
+#newco .name button{ min-width:88px; min-height:44px; background:#11160f; color:#a9c79c; border:1px solid #2a3a25; font:inherit; font-size:11px }
 #loadrow{ display:flex; align-items:center; gap:8px; margin-top:10px; flex:0 0 auto }
 #loadwell{ flex:1 1 auto; height:13px; border-radius:2px; padding:2px;
   background:#0b0a07; box-shadow:inset 0 2px 0 #050403, inset 0 -1px 0 #2e2719 }
@@ -1496,6 +1521,9 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        approved art is deleted; it is covered while a machine is talking. -->
   <div id="loadwrap">
     <div id="loadtag"><b>BOHEMIA</b><i>CLARK COUNTY POWER AUTHORITY</i></div>
+    <!-- __THE_FRONT_DOOR__ (RUN 10/2, [the front door], rule 61d): the new company, picked while
+         the valley loads: the fight, the shelves, the origin, the name. Built by the script below. -->
+    <div id="newco"></div>
     <div id="loadgl"></div>
     <div id="loadrow"><div id="loadwell"><div id="loadfill"></div></div>
       <span id="loadpct">0 OF 5</span></div>
@@ -1513,7 +1541,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/2a - THE LOOP: TOWN, JOB, FIGHT, PAY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/2b - PICK YOUR CREW AT THE DOOR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12386,6 +12414,86 @@ function __loadStart(){
     }catch(_e){}
   }, 500);   /* one beat at 120 BPM: the screen keeps the game's own pulse */
 }
+/* ==== __THE_FRONT_DOOR__ (RUN 10/2, [the front door], rule 61d) =====================================
+   PAOLO 10/1: "the loading screen looks like shit... I can't select the difficulty... I can't select
+   the origin... I told you this is gonna be translated." Rule 56: DIFFICULTY IS BATTLE BROTHERS',
+   TRANSLATED, no slider design of ours. Battle Brothers starts a company with a COMBAT difficulty and
+   an ECONOMIC difficulty (beginner, veteran, expert) and an ORIGIN (fifteen, reference/library/grok/
+   GROK_14_ORIGINS, passed filter), then a name. Ours, translated, picked WHILE the valley loads, in
+   the loading screen's own terminal green. Nothing is forced: the middle is picked already, so BEGIN
+   works the moment it lights. EVERY NUMBER ON A CARD IS A NUMBER THE GAME APPLIES (the start
+   batteries, the size of a job's crew, the pay): an origin's flavour is a line, never a promise of a
+   rule that is not built. Words are draft:true attempts. The map reads the picks (BOHEMIA_START). */
+var BOH_START = (function(){
+  var COMBAT = [ { id:'new',  name:'NEW HERE',     sub:'crews one smaller', crew:-1, pkg:0 },
+                 { id:'seen', name:'SEEN IT',      sub:'as they come',      crew:0,  pkg:1 },
+                 { id:'out',  name:'OUTLIVED IT',  sub:'crews one bigger',  crew:1,  pkg:2 } ];      /* draft:true */
+  var ECON   = [ { id:'full', name:'FULL SHELVES', sub:'pay and start x1.5', mult:1.5 },
+                 { id:'thin', name:'THIN SHELVES', sub:'as it is',           mult:1 },
+                 { id:'bare', name:'BARE SHELVES', sub:'pay and start x0.75', mult:0.75 } ];          /* draft:true */
+  /* Battle Brothers' fifteen, in order, translated. d: 1 easy .. 4 very hard (its own, recall-grade).
+     start: batteries. crew/pay: added to every job. Lines are draft:true. */
+  var ORIGINS = [
+    { id:'rebuild',  bb:'Rebuilding a Company', name:'THE CREW THAT IS LEFT', d:1, start:6, crew:0, pay:0, line:'Three of you, a debt paid off, and a name to fix.' },
+    { id:'newcrew',  bb:'A New Company',        name:'A NEW CREW',            d:1, start:5, crew:0, pay:0, line:'Three of you and a battery each. Start clean.' },
+    { id:'south',    bb:'Southern Mercenaries', name:'UP FROM HENDERSON',     d:2, start:5, crew:0, pay:0, line:'You came north on the 95 with three guns and no friends.' },
+    { id:'truck',    bb:'Trading Caravan',      name:'THE WATER TRUCK',       d:1, start:7, crew:0, pay:1, line:'Two drivers and a tank. People pay more to the truck.' },
+    { id:'watch',    bb:'Peasant Militia',      name:'THE BLOCK WATCH',       d:2, start:3, crew:-1,pay:0, line:'Ten neighbours with pipes. Nobody brings a small crew at you.' },
+    { id:'scav',     bb:'Band of Poachers',     name:'THE SCAVENGERS',        d:2, start:4, crew:0, pay:0, line:'You know every gutted store from here to the dam.' },
+    { id:'promise',  bb:'Oathtakers',           name:'THE PROMISE KEEPERS',   d:3, start:4, crew:0, pay:0, line:'Two of you and a promise you made at a grave.' },
+    { id:'desert',   bb:'Deserters',            name:'THE DESERTERS',         d:3, start:4, crew:1, pay:0, line:'You walked off a faction\'s line. They have not forgotten.' },
+    { id:'raid',     bb:'Northern Raiders',     name:'THE RAIDERS',           d:3, start:3, crew:1, pay:1, line:'You take, and the valley knows your faces.' },
+    { id:'lab',      bb:'Anatomists',           name:'THE LAB RATS',          d:3, start:4, crew:0, pay:0, line:'You worked at the lab the animals broke out of.' },
+    { id:'faith',    bb:'Davkul Cultists',      name:'THE FAITHFUL',          d:3, start:3, crew:0, pay:0, line:'Four of you, and something you pray to that is not a god.' },
+    { id:'debt',     bb:'Manhunters',           name:'THE DEBT COLLECTORS',   d:3, start:5, crew:0, pay:1, line:'Half your crew owes you. The other half collects.' },
+    { id:'hunt',     bb:'Beast Slayers',        name:'THE HUNTERS',           d:2, start:4, crew:0, pay:0, line:'You track what came out of the lab. It tracks you back.' },
+    { id:'pit',      bb:'Gladiators',           name:'THE FIGHT PIT',         d:4, start:6, crew:1, pay:1, line:'Three of you off a casino floor that charged to watch.' },
+    { id:'wolf',     bb:'Lone Wolf',            name:'THE LONE WOLF',         d:4, start:3, crew:1, pay:0, line:'Just you. If you go down, it ends.' }
+  ];
+  var NAMES = ['THE NIGHT SHIFT','LOW BATTERY','DEAD AIR','THE LAST CREW','NO SIGNAL','THE GRID','BLACKOUT','THE METER READERS','STATIC','THE LATE CREW'];  /* draft:true */
+  var D = ['','EASY','NORMAL','HARD','VERY HARD'];
+  var pick = { combat:'seen', econ:'thin', origin:'newcrew', name:0 };
+  try{ var sv = JSON.parse(localStorage.getItem('bohemia.start') || 'null'); if(sv) for(var k in pick) if(sv[k] != null) pick[k] = sv[k]; }catch(_e){}
+  function find(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[1] || list[0]; }
+  function save(){ try{ localStorage.setItem('bohemia.start', JSON.stringify(pick)); }catch(_e){} }
+  function sign(n){ return n>0 ? '+'+n : String(n); }
+  function card(o){
+    var bits = ['START '+Math.max(0,Math.round(o.start*find(ECON,pick.econ).mult))+' BATTERIES'];
+    if(o.crew) bits.push('CREWS '+sign(o.crew)); if(o.pay) bits.push('PAY '+sign(o.pay));
+    return '<b>'+o.name+'</b><i>'+o.line+'</i><i>'+bits.join(' &middot; ')+'</i>';
+  }
+  function build(){
+    var el = document.getElementById('newco'); if(!el) return;
+    var h = '<h4>THE FIGHTS</h4><div class="row">';
+    COMBAT.forEach(function(c){ h += '<button data-k="combat" data-v="'+c.id+'"'+(c.id===pick.combat?' class="on"':'')+'>'+c.name+'<small>'+c.sub+'</small></button>'; });
+    h += '</div><h4>THE SHELVES</h4><div class="row">';
+    ECON.forEach(function(c){ h += '<button data-k="econ" data-v="'+c.id+'"'+(c.id===pick.econ?' class="on"':'')+'>'+c.name+'<small>'+c.sub+'</small></button>'; });
+    h += '</div><h4>WHO YOU WERE &middot; SWIPE</h4><div class="strip" id="newcostrip">';
+    ORIGINS.forEach(function(o){ h += '<button class="org'+(o.id===pick.origin?' on':'')+'" data-k="origin" data-v="'+o.id+'"><em class="d'+o.d+'">'+D[o.d]+'</em><span>'+card(o)+'</span></button>'; });
+    h += '</div><h4>YOUR CREW\'S NAME</h4><div class="name"><span id="newconame">'+NAMES[pick.name % NAMES.length]+'</span><button data-k="name">ANOTHER</button></div>';
+    el.innerHTML = h;
+  }
+  function onTap(ev){
+    var b = ev.target.closest && ev.target.closest('button'); if(!b) return;   /* a tap that is not on a pick is still the door */
+    ev.stopPropagation();   /* a pick is never the BEGIN tap: #front starts the game on any tap once loaded */
+    var k = b.getAttribute('data-k'), v = b.getAttribute('data-v');
+    if(k==='name') pick.name = (pick.name + 1) % NAMES.length;
+    else if(k) pick[k] = v;
+    save(); var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
+  }
+  function picks(){
+    var c = find(COMBAT, pick.combat), e = find(ECON, pick.econ), o = find(ORIGINS, pick.origin);
+    return { combat:c.id, combatName:c.name, pkg:c.pkg, econ:e.id, econName:e.name, mult:e.mult,
+             origin:o.id, originName:o.name, bb:o.bb, difficulty:D[o.d],
+             start:Math.max(0, Math.round(o.start * e.mult)), crew:c.crew + o.crew, pay:o.pay,
+             name:NAMES[pick.name % NAMES.length], draft:true };
+  }
+  function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
+  function boot(){ build(); showPicked(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+  return { picks:picks, COMBAT:COMBAT, ECON:ECON, ORIGINS:ORIGINS, NAMES:NAMES, state:pick };
+})();
+window.BOH_START = BOH_START;
 document.getElementById('front').addEventListener('click',()=>{
   /* *** NOTHING IS TAPPABLE UNTIL IT IS LOADED (rule 18a). *** Before this, the
      first tap started a hundred and thirteen seconds of work and took the screen
@@ -12415,8 +12523,10 @@ document.getElementById('front').addEventListener('click',()=>{
   try{
     window.__PLAY_BEGAN = true;
     var _cf0 = document.getElementById('cityFrame');
-    if(_cf0 && _cf0.contentWindow)
+    if(_cf0 && _cf0.contentWindow){
       _cf0.contentWindow.postMessage({type:'BOHEMIA_PLAY_BEGAN'},'*');
+      try{ _cf0.contentWindow.postMessage({type:'BOHEMIA_START', picks:BOH_START.picks()},'*'); }catch(_e){}   /* __THE_FRONT_DOOR__ */
+    }
   }catch(_e){}
   document.getElementById('front').style.display='none';
   /* AND THE TERMINAL GOES AWAY WITH IT. UI's QUIT brings this door back mid

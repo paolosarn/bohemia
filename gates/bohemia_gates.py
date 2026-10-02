@@ -2313,6 +2313,16 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE FRONT DOOR', ['node', 'gates/the_front_door_gate.js'],
+     'VAMILY [the front door], rule 61d and rule 56 s5 (PAOLO 10/1: "the loading screen looks like shit... I '
+     'can\'t select the difficulty... I can\'t select the origin... I told you this is gonna be translated"). '
+     'MEASURED BEFORE: a title, an empty box and BEGIN. NOW, picked while the valley loads, through the one '
+     'driver\'s beforeTap with real touches: 3 fights and 3 shelves (Battle Brothers\' combat and economic '
+     'difficulty, translated), 15 origins (its fifteen, translated, each with its difficulty) and a prepared '
+     'name, every one a thumb; the middle picked already; a pick is never BEGIN; every number a card shows is '
+     'the number applied; BEGIN carries the picks to the map (the start batteries once: it paid three times '
+     'until this gate); every job carries the pay, the crew and the fight\'s difficulty. Mutations: BEGIN '
+     'without the picks; a pick leaking to BEGIN; jobs ignoring the picks.', True),
     ('THE LOOP PLAYS ON THE MAP', ['node', 'gates/the_loop_plays_on_the_map_gate.js'],
      'VAMILY [fold the loop], rules 52 and 58, release line 2 (PAOLO 10/1: "I want the demo"). RUN TWO\'s '
      'loop (one file, a placeholder map and fight) and its settlement screen folded onto the REAL map and '
