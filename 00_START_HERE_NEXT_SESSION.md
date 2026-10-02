@@ -10711,6 +10711,10 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2d LATEST -- [fold the loop] THE REBUILT FIGHT IS THE DEMO'S FIGHT (rule 63). TAB: the DEMO's map; any fight (a JOB, a road crew).
+Every fight the map starts opens COMBAT's slices/BOHEMIA_FIGHT.html (same door, same way home); board = the block's kind, night = the clock; won pays the contract, lost loses it; card four beats, a tap goes home.
+[PENDING COMBAT] the FREEWAY board stalls on AUTO (seed 5: round 60, band holding its line out of sight, no end); freeway blocks use the strip board until it ends (flip NF_FREEWAY_BOARD in the shell). The fight passes no difficulty yet: the front door's fight pick and the job's crew size do not reach the band (TUNING's count per contract, ours.json first_band 'why').
+GATES re-aimed: EVERY FIGHT HANDS HIM BACK 9/0, THE LOOP PLAYS ON THE MAP 12/0. NEXT: [screen fit] (claimed), then [map pixels now]'s near end, [the reel].
 RUN (run-eak241): 10/2c LATEST -- [the valley edge] SHIPPED (45460a2): zoomed all the way out, the city sits in a valley between named ranges. TAB: the DEMO's map, pinch all the way out.
 Land 200 blocks past every edge, baked in a worker, lifted the way the camera sees it: Spring Mtns + Mt Charleston, Sheep Range, Frenchman, Black Mtns on the map's compass; the 15/95/93 keep going; Lake Mead; a far tile to any screen's edge; bare land 0.9% (was 100%).
 GATE THE VALLEY HAS AN EDGE 12/0, four mutations. LEFT: the map's own rim blocks still draw as street grid (COOK/WORLD tile); the moon zoom's REGION band still draws the valley flat.

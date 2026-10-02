@@ -59673,6 +59673,9 @@ function cityHandOver(msg, skin){
      same reason V207 put the hour on it -- one place, and an entry built after
      this one gets it without knowing it exists. */
   try{ if(msg && !msg.plate) msg.plate=cityPlateNow(); }catch(_e){}
+  /* __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2): and the kind of block it starts on, which picks the
+     rebuilt fight's board (COMBAT TWO cut its boards from the city's own block kinds) */
+  try{ if(msg && !msg.district){ var _fa=(msg.at&&msg.at.length===2)?msg.at:[city.x,city.y], _ft=om.at(_fa[0]|0,_fa[1]|0); msg.district=_ft?_ft.district:null; } }catch(_e){}
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
