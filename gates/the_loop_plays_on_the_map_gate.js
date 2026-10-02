@@ -17,6 +17,9 @@
          STILL HIS and still on the map, unpaid: leaving is not doing the job
      L8  back to the JOB, and a fight he CLEARS (the fight's own winGame, said plainly) pays:
          one battery in the purse, on the bar, and the contract is done
+     L8b the phone carries the news (the contract taken, the pay), because
+     L8c nothing sits over the map: the quest line is off it (rule 61b, Paolo 10/1: 'the quest you
+         put on the forefront telling me how far it is away... so fucking bad')
      L9  no dead end: the map is on screen, the screen and the fight are gone
 
    node gates/the_loop_plays_on_the_map_gate.js
@@ -139,6 +142,13 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
         q: ((document.getElementById('qline') || {}).textContent || '') }; });
     ok('*** L8 A CLEARED JOB PAYS *** (back to it ' + f2 + '; batteries ' + bats0 + ' -> ' + s8.bats + ', the bar says ' + s8.bar + '; "' + s8.q.slice(0, 60) + '")',
       f2 && s8.bats === bats0 + job.pay && s8.held === 0 && s8.done === 1 && s8.jobs === 0 && String(s8.bar) === String(s8.bats));
+
+    /* L8b: the news is on the phone, and nothing sits over the map (rule 61b) */
+    await d.page.waitForTimeout(1500);
+    const ph = await fr.evaluate(() => { const f = document.getElementById('cityfeed'); const q = document.getElementById('qline');
+      return { feed: f ? f.innerText : '', qShown: !!(q && getComputedStyle(q).display !== 'none' && q.getBoundingClientRect().width > 0) }; });
+    ok('*** L8b THE PHONE SAYS IT *** (' + (/Paid 1 battery/.test(ph.feed) ? 'a post: Paid 1 battery' : 'no post') + ')', /Paid \d+ battery/.test(ph.feed) && /Contract from/.test(ph.feed));
+    ok('L8c nothing sits over the map: the quest line is not on the map (rule 61b)', !ph.qShown);
 
     /* L9 */
     const s9 = await d.page.evaluate(() => { const vis = el => { if (!el) return false; const r = el.getBoundingClientRect(); const st = getComputedStyle(el); return r.width > 0 && st.display !== 'none' && st.visibility !== 'hidden'; };
