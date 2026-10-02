@@ -10678,6 +10678,11 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2 LATEST -- [fold the loop] SHIPPED: THE LOOP PLAYS IN THE DEMO. TAB: the DEMO link, tap CHURCH.
+Folded onto the REAL map and fight (not the loop file's placeholders): arrive at a town -> RUN TWO's settlement screen; BOARD -> contract, a JOB on the map (cast under a red flag); reach it -> the real fight; clear -> paid 1 battery; walk out -> job stays unpaid; lose -> lost. Rule 61b: the quest line is off the map; the loop's news is a phone post.
+GATE THE LOOP PLAYS ON THE MAP 12/0 (one driver end to end; mutations caught). records/BOHEMIA_THE_LOOP_PLAYS_ON_THE_MAP_RUN_10_1_26.md
+NOT FOLDED: hire, wages, food, days, the phone's read-only contract list (UI). The settlement gate needs NODE_PATH=/opt/node22/lib/node_modules (bare require of playwright).
+NEXT: [the front door] (claimed): the loading screen with Battle Brothers' difficulty (translated) and the 15 origins (GROK_14, translated, each with its difficulty); then [the valley edge], [screen fit].
 RUN (run-eak241): 10/1b LATEST -- PAOLO: "the icons fucking suck ass" -> THE MAP ICONS ARE THE GAME'S OWN ART (b4d70be). TAB: the DEMO link, first screen.
 Crowds = three of the street's 12 baked dressed people; crews = two of them walking their way under the faction's flag; bases = the tier's own building (FORT, TOWN, TRAILER camp) with a flag and a dark edge. People at 2/3 of him (2 phone px per pixel), names painted after crews, crews within a block of home hidden. Read as the MAP icons; if he meant the bar's six glyphs, that is next.
 GATE: THE MAP HAS ITS PEOPLE 19/0 (three new legs; blobs back -> 2 red, blocks back -> 1 red). VOTE before/after. records/BOHEMIA_THE_ICONS_ARE_THE_GAMES_OWN_ART_RUN_10_1_26.md
