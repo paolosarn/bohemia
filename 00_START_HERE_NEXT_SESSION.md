@@ -1,3 +1,11 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (k) LATEST -- [floor set] ROUND TEN SHIPPED: verified on the real
+surface. The new fight loads slices/fight_ground; phone-profile captures (culdesac, desert; far and near;
+0 page errors) are the VOTE sheet (combat2-the-ground-in-the-new-fight-10-2). Fixed round nine's weak
+spots: scrub wears the wash's two soils (no boxed wash), landfill's freeway stub gone. fight_ground
+19.2 MB (site already over the 260 MB cap; PLUMBER). NEXT: night as art in the manifest (the fight
+currently lays a flat blue wash for night; round six's lit pools could ship as a light layer per
+board), shore seams between blocks. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (j) LATEST -- [floor set] ROUND NINE SHIPPED (rule 63): the ground
 for the NEW fight. slices/fight_ground/fight_ground.json + block_*.png + cover_*.png: eight boards
 (suburb, culdesac, strip, ruin, desert, freeway, shore, landfill), each 20 x 15 house tiles of

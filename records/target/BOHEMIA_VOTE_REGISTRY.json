@@ -4251,7 +4251,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+{"id": "combat2-the-ground-in-the-new-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "THE NEW FIGHT IS STANDING ON THE NEW GROUND", "why": "Screenshots from the new fight on a phone: the cul-de-sac and the desert, first the whole board as the fight opens, then zoomed in on your crew, and the desert creek no longer looks boxed in. Thumbs up and this ground stays under every fight, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png"}}
 ],
  "verdicts": [
   {
