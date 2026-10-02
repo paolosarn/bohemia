@@ -4232,29 +4232,115 @@
     "src": "vote/RUN_THE_LOOP_ON_THE_MAP_10_2.png"
    }
   },
-{"id": "combat2-store-fronts-and-houses-everywhere-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "REAL STORE FRONTS, AND THE NEW HOUSES ON EVERY BLOCK", "why": "The strip mall now has real store fronts (blank sign, dark glass, a boarded window, the door), and the cul-de-sac and the burnt block use the new 3-D houses, the burnt ones caved in to the beams. Thumbs up and combat uses these blocks, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2.png"}},
-  {"id": "run-the-front-door-10-2", "kind": "ui", "lane": "run", "made": "10/2", "sha": "pending", "title": "THE FRONT DOOR: DIFFICULTY, ORIGIN AND A NAME", "why": "While the valley loads you pick how hard the fights are, how bare the shelves are, which of fifteen crews you were (Battle Brothers' origins, ours), and your crew's name, and every number on a card is what the game really does. You see it on the loading screen, the first thing the demo shows.", "show": {"how": "image", "src": "vote/RUN_THE_FRONT_DOOR_10_2.png"}},
-  {"id": "run-the-valley-edge-10-2", "kind": "tile", "lane": "run", "made": "10/2", "sha": "pending", "title": "THE VALLEY HAS AN EDGE: MOUNTAINS, LAKE MEAD AND THE ROADS OUT", "why": "Zoomed all the way out, the city is no longer a square on brown: it sits in a valley between the Spring Mountains, the Sheep Range, Frenchman and the Black Mountains, with Lake Mead and the 15, 95 and 93 running out, all named. You see it on the map when you pinch all the way out.", "show": {"how": "image", "src": "vote/RUN_THE_VALLEY_EDGE_10_2.png"}},
-{"id": "combat2-the-ground-for-the-new-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "EIGHT BATTLE BROTHERS SIZED BOARDS FOR THE NEW FIGHT", "why": "Eight full fight boards, each 20 houses across and 15 deep with the two sides five houses apart: suburb, cul-de-sac, strip mall, burnt block, desert, freeway, lake shore and dump, ready for the new combat to load. Thumbs up and the new fight starts on these, and you see it in the COMBAT tab once the new fight is in.", "show": {"how": "image", "src": "vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png"}},
- {"id": "combat-the-fight-rebuilt-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "THE FIGHT, STARTED OVER: BATTLE BROTHERS' RULES ON OUR HOUSE TILES", "why": "Twelve of yours against a road crew on COMBAT TWO's suburb and desert boards, with Battle Brothers' 9 action points, hit chances, armour, head hits, injuries, morale and running, every number copied from their wiki, a whole fight in about 2 to 3 minutes. Tap a lit tile twice to walk and a red man twice to swing (AUTO plays your crew), and you see it in the VOTE tab, NOT IN A TAB YET until the run puts it in the loop.", "show": {"how": "page", "src": "BOHEMIA_FIGHT.html"}, "draft": true},
-{
-  "id": "grok-food-stacks-10-2",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/2",
-  "title": "VIA GROK: WHAT FOOD IS LEFT TEN YEARS IN, ONE WINNER PER STACK",
-  "why": "Grok researched what food survives ten years of Vegas heat (jars, cans, dried, the locker and vault leftovers) and laid out six stacks with one pick each; it wrote that you choose one per stack and the rest are not in the game. Thumb this up and the economy chat takes Grok's picks as the food list; thumb it down and the food stays the one generic 'resources' pile.",
-  "show": {
+  {
+   "id": "combat2-store-fronts-and-houses-everywhere-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "REAL STORE FRONTS, AND THE NEW HOUSES ON EVERY BLOCK",
+   "why": "The strip mall now has real store fronts (blank sign, dark glass, a boarded window, the door), and the cul-de-sac and the burnt block use the new 3-D houses, the burnt ones caved in to the beams. Thumbs up and combat uses these blocks, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2.png"
+   }
+  },
+  {
+   "id": "run-the-front-door-10-2",
+   "kind": "ui",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "THE FRONT DOOR: DIFFICULTY, ORIGIN AND A NAME",
+   "why": "While the valley loads you pick how hard the fights are, how bare the shelves are, which of fifteen crews you were (Battle Brothers' origins, ours), and your crew's name, and every number on a card is what the game really does. You see it on the loading screen, the first thing the demo shows.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FRONT_DOOR_10_2.png"
+   }
+  },
+  {
+   "id": "run-the-valley-edge-10-2",
+   "kind": "tile",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "THE VALLEY HAS AN EDGE: MOUNTAINS, LAKE MEAD AND THE ROADS OUT",
+   "why": "Zoomed all the way out, the city is no longer a square on brown: it sits in a valley between the Spring Mountains, the Sheep Range, Frenchman and the Black Mountains, with Lake Mead and the 15, 95 and 93 running out, all named. You see it on the map when you pinch all the way out.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_VALLEY_EDGE_10_2.png"
+   }
+  },
+  {
+   "id": "combat2-the-ground-for-the-new-fight-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "EIGHT BATTLE BROTHERS SIZED BOARDS FOR THE NEW FIGHT",
+   "why": "Eight full fight boards, each 20 houses across and 15 deep with the two sides five houses apart: suburb, cul-de-sac, strip mall, burnt block, desert, freeway, lake shore and dump, ready for the new combat to load. Thumbs up and the new fight starts on these, and you see it in the COMBAT tab once the new fight is in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png"
+   }
+  },
+  {
+   "id": "combat-the-fight-rebuilt-10-2",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE FIGHT, STARTED OVER: BATTLE BROTHERS' RULES ON OUR HOUSE TILES",
+   "why": "Twelve of yours against a road crew on COMBAT TWO's suburb and desert boards, with Battle Brothers' 9 action points, hit chances, armour, head hits, injuries, morale and running, every number copied from their wiki, a whole fight in about 2 to 3 minutes. Tap a lit tile twice to walk and a red man twice to swing (AUTO plays your crew), and you see it in the VOTE tab, NOT IN A TAB YET until the run puts it in the loop.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_FIGHT.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "grok-food-stacks-10-2",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "VIA GROK: WHAT FOOD IS LEFT TEN YEARS IN, ONE WINNER PER STACK",
+   "why": "Grok picked what food survives ten years of Vegas heat, one winner in each of six stacks; thumbs up and the economy chat makes those the food list, thumbs down and food stays one plain pile. You see it only as text in the VOTE tab, and in the game as the food in the top bar and at the stall.",
+   "show": {
     "how": "text",
     "src": "VIA GROK, pages GROK_39 to GROK_43: fresh grocery is dead; what lasts is canned, dried, jarred, honey, hard liquor, salt; a hot room halves shelf life. One winner per stack, Grok's picks on the pages.\n\nSeen in: the settlement screen's stall (RUN TWO), the top bar's food count."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-{"id": "combat2-the-ground-in-the-new-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "THE NEW FIGHT IS STANDING ON THE NEW GROUND", "why": "Screenshots from the new fight on a phone: the cul-de-sac and the desert, first the whole board as the fight opens, then zoomed in on your crew, and the desert creek no longer looks boxed in. Thumbs up and this ground stays under every fight, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png"}},
- {"id": "combat-the-perks-translated-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "BATTLE BROTHERS' FIFTY PERKS, WITH OUR NAMES, IN THE NEW FIGHT", "why": "All fifty Battle Brothers perks with a draft name of ours (BUILT LIKE A DOOR is Colossus, HARD HEAD is Steel Brow, DOOR MAN is Shield Expert, READS YOU is Fast Adaptation), and 37 of them already change the new fight by their exact wiki numbers, so a level-4 man really is tougher than a level-1. Tap one of yours in the new fight and you see it under his health bar on his card, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_PERKS_ON_HIS_CARD_10_2.jpg"}, "draft": true}
-],
+  {
+   "id": "combat2-the-ground-in-the-new-fight-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE NEW FIGHT IS STANDING ON THE NEW GROUND",
+   "why": "Screenshots from the new fight on a phone: the cul-de-sac and the desert, first the whole board as the fight opens, then zoomed in on your crew, and the desert creek no longer looks boxed in. Thumbs up and this ground stays under every fight, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png"
+   }
+  },
+  {
+   "id": "combat-the-perks-translated-10-2",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "BATTLE BROTHERS' FIFTY PERKS, WITH OUR NAMES, IN THE NEW FIGHT",
+   "why": "All fifty Battle Brothers perks with a draft name of ours (BUILT LIKE A DOOR is Colossus, HARD HEAD is Steel Brow, DOOR MAN is Shield Expert, READS YOU is Fast Adaptation), and 37 of them already change the new fight by their exact wiki numbers, so a level-4 man really is tougher than a level-1. Tap one of yours in the new fight and you see it under his health bar on his card, in the VOTE tab, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_PERKS_ON_HIS_CARD_10_2.jpg"
+   },
+   "draft": true
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
