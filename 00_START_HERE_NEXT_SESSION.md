@@ -1,3 +1,12 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (l) LATEST -- [floor set] ROUND ELEVEN SHIPPED (sweep L): boards no
+longer clone one row. tools/bohemia_combat2_mixed_blocks_cook_10_2_26.py (suburb_seeded: houses per seed,
+burnt one in six, an optional cross street column; empty_lots) feeds round nine's builder, whose BOARDS
+are now seeded layouts from PALETTES (no twin beside or above; the cul-de-sac's stem is carried south).
+slices/fight_ground: 26 blocks, 22.8 MB (site over cap; PLUMBER). Verified in the new fight (suburb,
+strip; phone profile; 0 errors); VOTE combat2-mixed-boards-in-the-fight-10-2. WEAK: cross streets stop
+at the block edge (they do not continue into the block above or below); night still a flat wash in
+the fight. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (k) LATEST -- [floor set] ROUND TEN SHIPPED: verified on the real
 surface. The new fight loads slices/fight_ground; phone-profile captures (culdesac, desert; far and near;
 0 page errors) are the VOTE sheet (combat2-the-ground-in-the-new-fight-10-2). Fixed round nine's weak

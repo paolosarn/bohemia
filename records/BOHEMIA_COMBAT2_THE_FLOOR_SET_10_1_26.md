@@ -153,3 +153,14 @@ bakes a board from the block PNGs and cover PNGs. Captured through Playwright at
 zero page errors. Sheet: slices/vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png.
 Fixes: R4.scrub dresses the same two soils as B.wash (soil 1 with soil 2 through a 14x14 noise cut at 160);
 the landfill board's bottom row is scrub/landfill, no freeway stub. fight_ground re-cooked: 19.2 MB.
+
+## ROUND ELEVEN (10/2, sweep L): NO BOARD IS ONE PATTERN CLONED
+
+tools/bohemia_combat2_mixed_blocks_cook_10_2_26.py: suburb_seeded(seed, cross_col) draws which lots carry a house
+(p 0.72 a side, at least two), one climbable flat roof, one burnt in six, seeded walls, sheds and cars; with
+cross_col a north-south street column and a crosswalk at the block street; empty_lots(seed) pours foundation
+slabs, drive aprons, chain-link, rubble. The round-nine builder (same file names) now lays every board from
+PALETTES with a seeded rng: no block equals its left or upper neighbour, the cul-de-sac's stem is carried south
+by suburb_stem. Old suburb.0-2 blocks removed. 26 blocks, 22.8 MB. Verified in slices/BOHEMIA_FIGHT.html on
+suburb and strip at 390x844 DPR 3, 0 page errors; sheet COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png.
+WEAK: cross streets end at block edges.
