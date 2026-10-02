@@ -46,3 +46,12 @@ rounds.** No workaround is left in the shell.
 - **THE LOOP PLAYS ON THE MAP**, re-aimed, 12/0. The JOB opens the rebuilt fight; AUTO plays it
   out and the loop keeps its word; a second contract is cleared and paid.
 - The frozen fight's walk-out legs went with the frozen fight (rule 63: its gates stop counting).
+
+## WHAT THE SWAP TURNS RED, NAMED (rule 13, against main)
+Two frozen-fight checks go red because the map's fights no longer reach the frozen fight. **FIGHT
+KNOWS DAY** went 11/0 to 8/3: the frozen fight read the hour and the weather. **PLATE COSTS TAPE**
+went 15/0 to 12/3: the frozen fight charged the plate. Rule 63 says those checks stop counting. The
+rebuilt fight takes the night from the map, and nothing else of the old fight comes back. Routed to
+COMBAT to retire them or move them onto the rebuilt fight. COMBAT ENTRY, ENTER ZOOM and ONE MODE are
+red on main as well. THE REBUILT FIGHT PLAYS shows one red, the same on main (COMBAT's mixed-kind
+leg). THE CUT IS THE FOUR THINGS was re-aimed to find the rebuilt fight's frame: 29/0.
