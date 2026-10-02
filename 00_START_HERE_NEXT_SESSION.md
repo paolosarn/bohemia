@@ -1,3 +1,13 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (j) LATEST -- [floor set] ROUND NINE SHIPPED (rule 63): the ground
+for the NEW fight. slices/fight_ground/fight_ground.json + block_*.png + cover_*.png: eight boards
+(suburb, culdesac, strip, ruin, desert, freeway, shore, landfill), each 20 x 15 house tiles of
+515 x 364 = 4 x 3 blocks, terrain[15][20] (flat/rough/debris/water/height/blocked, BB AP in the key),
+cover placements in metres, start_rows [4, 9]. FOR COMBAT [rebuild]: load the manifest, draw a board's
+blocks at block offsets (5 tiles = 2575 x 1820 px each), read terrain per tile, drop cover PNGs at
+x_m*42.9, y_m*42.9*cos45. COST FLAGGED: +18 MB published (site was already 331 MB over the 260 cap,
+now 349; PLUMBER's call whether to trim variants). WEAK: the wash blocks' soil does not match the scrub
+around them (boxed); landfill's freeway stub ends abruptly. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (i) LATEST -- [floor set] ROUND EIGHT SHIPPED: store fronts at 45
 on the strip lot, the 45 house on the cul-de-sac and (burnt) on the ruin, the big board re-drawn.
 Bank banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE

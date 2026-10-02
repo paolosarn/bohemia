@@ -132,3 +132,15 @@ banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE combat2-store
   ruin45: the four burnt houses as house45 soot-shaded and broken through to the joists; two standing
     houses at 45 ('blocked'); one flat roof each side kept ('height').
   The big board card re-drawn with these kinds (same layout).
+
+## ROUND NINE (10/2, rule 63): THE GROUND FOR THE NEW FIGHT
+
+tools/bohemia_combat2_the_ground_for_the_new_fight_cook_10_2_26.py -> slices/fight_ground/ (published).
+Eight boards x 20 x 15 house tiles from 21 blocks (suburb x3, suburb_stem x2, culdesac x2, strip x2, ruin x2,
+scrub x3, wash x2, freeway, shore x2, landfill x2); variants by offsetting every seed (R and dress) in the
+imported cooks. fight_ground.json: tile_px, block_tiles 5, board_tiles [20,15], start_rows [4,9], terrain_key
+with BB AP, cover and cover_extra (src, metres, kind), blocks (src), boards (blocks layout, terrain 15x20,
+cover in board metres). Guards: board >= 20 x 15, start rows 5 apart, no identical block side by side (the
+freeway exempt: its lanes must run on), no cover on blocked, every named file exists. 18.2 MB.
+SIZE: the published site was 331 MB against PAGES PUBLISH's 260 MB cap before this round (already red); this
+adds 18 MB (349). Flagged for PLUMBER.

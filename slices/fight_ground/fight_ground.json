@@ -1,0 +1,7572 @@
+{
+ "version": "fight-ground-10-2",
+ "built": "10/2/26",
+ "lane": "combat 2",
+ "for_file": "slices/BOHEMIA_FIGHT.html (rule 63)",
+ "tile_px": [
+  515,
+  364
+ ],
+ "tile_metres": 12.0,
+ "px_per_metre": 42.9,
+ "block_tiles": 5,
+ "board_tiles": [
+  20,
+  15
+ ],
+ "perspective": "45 DEGREE ART LAW: depth and heights x cos45, south faces seen",
+ "start_rows": [
+  4,
+  9
+ ],
+ "terrain_key": {
+  "flat": "Battle Brothers flat (2 AP)",
+  "rough": "BB forest floor / rough (3 AP)",
+  "debris": "BB snow (3 AP)",
+  "water": "BB swamp (4 AP, melee defence malus)",
+  "height": "+1 level: +10% hit down, -10% up, +1 range",
+  "blocked": "impassable, blocks sight"
+ },
+ "cover": {
+  "car_lane": {
+   "src": "cover_car_lane.png",
+   "w": 2.09,
+   "l": 4.36,
+   "h": 1.45,
+   "kind": "COVER",
+   "name": "DEAD CAR, IN THE LANE",
+   "from_sprite": "wreck_road"
+  },
+  "car_kerb": {
+   "src": "cover_car_kerb.png",
+   "w": 2.0,
+   "l": 4.36,
+   "h": 1.45,
+   "kind": "COVER",
+   "name": "DEAD CAR, AT THE KERB",
+   "from_sprite": "wreck_kerb"
+  },
+  "car_drive": {
+   "src": "cover_car_drive.png",
+   "w": 2.09,
+   "l": 4.36,
+   "h": 1.45,
+   "kind": "COVER",
+   "name": "DEAD PATROL CAR, ON THE DRIVE",
+   "from_sprite": "wreck_driveway"
+  },
+  "wall": {
+   "src": "cover_wall.png",
+   "w": 0.2,
+   "l": 6.0,
+   "h": 1.8,
+   "kind": "COVER",
+   "name": "BLOCK WALL"
+  },
+  "wall_corner": {
+   "src": "cover_wall_corner.png",
+   "w": 4.0,
+   "l": 4.0,
+   "h": 1.8,
+   "kind": "COVER",
+   "name": "BLOCK WALL, CORNER"
+  },
+  "wall_broken": {
+   "src": "cover_wall_broken.png",
+   "w": 0.2,
+   "l": 6.0,
+   "h": 1.8,
+   "kind": "COVER",
+   "name": "BLOCK WALL, KNOCKED THROUGH",
+   "gap_m": 1.3
+  },
+  "shed": {
+   "src": "cover_shed.png",
+   "w": 2.4,
+   "l": 3.0,
+   "h": 2.2,
+   "kind": "COVER",
+   "name": "SHED",
+   "blocks_move": true
+  }
+ },
+ "cover_extra": {
+  "rock_0": {
+   "src": "cover_rock_0.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_1": {
+   "src": "cover_rock_1.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_2": {
+   "src": "cover_rock_2.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_3": {
+   "src": "cover_rock_3.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_4": {
+   "src": "cover_rock_4.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_5": {
+   "src": "cover_rock_5.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_6": {
+   "src": "cover_rock_6.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_7": {
+   "src": "cover_rock_7.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_8": {
+   "src": "cover_rock_8.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_9": {
+   "src": "cover_rock_9.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_10": {
+   "src": "cover_rock_10.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_11": {
+   "src": "cover_rock_11.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_12": {
+   "src": "cover_rock_12.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_13": {
+   "src": "cover_rock_13.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_14": {
+   "src": "cover_rock_14.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_15": {
+   "src": "cover_rock_15.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_16": {
+   "src": "cover_rock_16.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_17": {
+   "src": "cover_rock_17.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_18": {
+   "src": "cover_rock_18.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_19": {
+   "src": "cover_rock_19.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rock_20": {
+   "src": "cover_rock_20.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "outcrop": {
+   "src": "cover_outcrop.png",
+   "h": 2.5,
+   "kind": "MOUND"
+  },
+  "rubble_0": {
+   "src": "cover_rubble_0.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_1": {
+   "src": "cover_rubble_1.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_2": {
+   "src": "cover_rubble_2.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_3": {
+   "src": "cover_rubble_3.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_4": {
+   "src": "cover_rubble_4.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_5": {
+   "src": "cover_rubble_5.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_6": {
+   "src": "cover_rubble_6.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_7": {
+   "src": "cover_rubble_7.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_8": {
+   "src": "cover_rubble_8.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_9": {
+   "src": "cover_rubble_9.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_10": {
+   "src": "cover_rubble_10.png",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "rubble_11": {
+   "src": "cover_rubble_11.png",
+   "h": 1.4,
+   "kind": "COVER"
+  }
+ },
+ "blocks": {
+  "culdesac.0": {
+   "src": "block_culdesac_0.png"
+  },
+  "culdesac.1": {
+   "src": "block_culdesac_1.png"
+  },
+  "freeway.0": {
+   "src": "block_freeway_0.png"
+  },
+  "landfill.0": {
+   "src": "block_landfill_0.png"
+  },
+  "landfill.1": {
+   "src": "block_landfill_1.png"
+  },
+  "ruin.0": {
+   "src": "block_ruin_0.png"
+  },
+  "ruin.1": {
+   "src": "block_ruin_1.png"
+  },
+  "scrub.0": {
+   "src": "block_scrub_0.png"
+  },
+  "scrub.1": {
+   "src": "block_scrub_1.png"
+  },
+  "scrub.2": {
+   "src": "block_scrub_2.png"
+  },
+  "shore.0": {
+   "src": "block_shore_0.png"
+  },
+  "shore.1": {
+   "src": "block_shore_1.png"
+  },
+  "strip.0": {
+   "src": "block_strip_0.png"
+  },
+  "strip.1": {
+   "src": "block_strip_1.png"
+  },
+  "suburb.0": {
+   "src": "block_suburb_0.png"
+  },
+  "suburb.1": {
+   "src": "block_suburb_1.png"
+  },
+  "suburb.2": {
+   "src": "block_suburb_2.png"
+  },
+  "suburb_stem.0": {
+   "src": "block_suburb_stem_0.png"
+  },
+  "suburb_stem.1": {
+   "src": "block_suburb_stem_1.png"
+  },
+  "wash.0": {
+   "src": "block_wash_0.png"
+  },
+  "wash.1": {
+   "src": "block_wash_1.png"
+  }
+ },
+ "boards": {
+  "suburb": {
+   "blocks": [
+    [
+     "suburb.0",
+     "suburb.1",
+     "suburb.2",
+     "suburb.0"
+    ],
+    [
+     "suburb.1",
+     "suburb.2",
+     "suburb.0",
+     "suburb.1"
+    ],
+    [
+     "suburb.2",
+     "suburb.0",
+     "suburb.1",
+     "suburb.2"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 135.0
+    }
+   ]
+  },
+  "culdesac": {
+   "blocks": [
+    [
+     "culdesac.0",
+     "suburb.1",
+     "culdesac.1",
+     "suburb.2"
+    ],
+    [
+     "suburb_stem.0",
+     "suburb.0",
+     "suburb_stem.1",
+     "suburb.1"
+    ],
+    [
+     "suburb.2",
+     "suburb.1",
+     "suburb.0",
+     "suburb.2"
+    ]
+   ],
+   "terrain": [
+    [
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "flat",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "car_lane",
+     "x_m": 27.8,
+     "y_m": 20.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 41.0,
+     "y_m": 13.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 28.8
+    },
+    {
+     "piece": "wall",
+     "x_m": 53,
+     "y_m": 28.8
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 2.4,
+     "y_m": 49.2
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 43.2,
+     "y_m": 50.4
+    },
+    {
+     "piece": "shed",
+     "x_m": 51.6,
+     "y_m": 1.2
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 147.8,
+     "y_m": 20.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 161.0,
+     "y_m": 13.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 28.8
+    },
+    {
+     "piece": "wall",
+     "x_m": 173,
+     "y_m": 28.8
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 122.4,
+     "y_m": 49.2
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 163.2,
+     "y_m": 50.4
+    },
+    {
+     "piece": "shed",
+     "x_m": 171.6,
+     "y_m": 1.2
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 135.0
+    }
+   ]
+  },
+  "strip": {
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "suburb.0",
+     "suburb.1",
+     "suburb.2",
+     "suburb.0"
+    ],
+    [
+     "suburb.1",
+     "suburb.2",
+     "suburb.0",
+     "suburb.1"
+    ]
+   ],
+   "terrain": [
+    [
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "car_lane",
+     "x_m": 6.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 22.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 41.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 33.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 9.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 50.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 27.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 66.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 82.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 101.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 93.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 69.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 110.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 87.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 126.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 142.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 161.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 153.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 129.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 170.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 147.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 186.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 202.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 221.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 213.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 189.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 230.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 207.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 135.0
+    }
+   ]
+  },
+  "ruin": {
+   "blocks": [
+    [
+     "ruin.0",
+     "suburb.1",
+     "ruin.1",
+     "ruin.0"
+    ],
+    [
+     "ruin.1",
+     "ruin.0",
+     "suburb.2",
+     "ruin.1"
+    ],
+    [
+     "suburb.0",
+     "ruin.1",
+     "ruin.0",
+     "suburb.2"
+    ]
+   ],
+   "terrain": [
+    [
+     "debris",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "debris",
+     "debris",
+     "debris"
+    ],
+    [
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris"
+    ],
+    [
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris"
+    ],
+    [
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "debris",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "flat",
+     "flat",
+     "debris",
+     "debris"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "debris",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "flat",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "debris",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "height",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "rubble_0",
+     "x_m": 26,
+     "y_m": 4
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 27,
+     "y_m": 15
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 14,
+     "y_m": 47
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 6,
+     "y_m": 53
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 52,
+     "y_m": 52
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 19,
+     "y_m": 43
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 12.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 44.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 2.0,
+     "y_m": 10.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 49.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 61.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 85.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 109.0,
+     "y_m": 11.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 73.0,
+     "y_m": 47.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 110.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 87.0,
+     "y_m": 1.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 64.0,
+     "y_m": 50.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 98.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 87.0,
+     "y_m": 15.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 146,
+     "y_m": 4
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 147,
+     "y_m": 15
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 134,
+     "y_m": 47
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 126,
+     "y_m": 53
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 172,
+     "y_m": 52
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 139,
+     "y_m": 43
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 132.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 164.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 122.0,
+     "y_m": 10.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 169.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 206,
+     "y_m": 4
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 207,
+     "y_m": 15
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 194,
+     "y_m": 47
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 186,
+     "y_m": 53
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 232,
+     "y_m": 52
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 199,
+     "y_m": 43
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 192.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 224.0,
+     "y_m": 31.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 182.0,
+     "y_m": 10.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 229.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 26,
+     "y_m": 64
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 27,
+     "y_m": 75
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 14,
+     "y_m": 107
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 6,
+     "y_m": 113
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 52,
+     "y_m": 112
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 19,
+     "y_m": 103
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 12.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 44.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 2.0,
+     "y_m": 70.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 49.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 86,
+     "y_m": 64
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 87,
+     "y_m": 75
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 74,
+     "y_m": 107
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 66,
+     "y_m": 113
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 112,
+     "y_m": 112
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 79,
+     "y_m": 103
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 72.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 104.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 62.0,
+     "y_m": 70.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 109.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 121.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 145.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 169.0,
+     "y_m": 71.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 133.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 170.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 147.0,
+     "y_m": 61.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 124.0,
+     "y_m": 110.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 158.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 147.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 206,
+     "y_m": 64
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 207,
+     "y_m": 75
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 194,
+     "y_m": 107
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 186,
+     "y_m": 113
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 232,
+     "y_m": 112
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 199,
+     "y_m": 103
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 192.0,
+     "y_m": 87.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 224.0,
+     "y_m": 91.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 182.0,
+     "y_m": 70.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 229.0,
+     "y_m": 108.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 1.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 25.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 49.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 13.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 50.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 27.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 4.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 38.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 27.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 86,
+     "y_m": 124
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 87,
+     "y_m": 135
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 74,
+     "y_m": 167
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 66,
+     "y_m": 173
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 112,
+     "y_m": 172
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 79,
+     "y_m": 163
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 72.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 104.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 62.0,
+     "y_m": 130.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 109.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 146,
+     "y_m": 124
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 147,
+     "y_m": 135
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 134,
+     "y_m": 167
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 126,
+     "y_m": 173
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 172,
+     "y_m": 172
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 139,
+     "y_m": 163
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 132.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 164.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 122.0,
+     "y_m": 130.5
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 169.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 181.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 205.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 229.0,
+     "y_m": 131.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 193.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "wall_corner",
+     "x_m": 230.0,
+     "y_m": 168.0
+    },
+    {
+     "piece": "shed",
+     "x_m": 207.0,
+     "y_m": 121.5
+    },
+    {
+     "piece": "shed",
+     "x_m": 184.0,
+     "y_m": 170.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 147.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 218.0,
+     "y_m": 151.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 207.0,
+     "y_m": 135.0
+    }
+   ]
+  },
+  "desert": {
+   "blocks": [
+    [
+     "scrub.0",
+     "scrub.1",
+     "scrub.2",
+     "scrub.0"
+    ],
+    [
+     "wash.0",
+     "scrub.2",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "scrub.1",
+     "scrub.0",
+     "scrub.2",
+     "scrub.1"
+    ]
+   ],
+   "terrain": [
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 20
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 14
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 22
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 47
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 50
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 8
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 44.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 20
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 14
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 22
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 47
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 50
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 8
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 44.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 128,
+     "y_m": 20
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 141,
+     "y_m": 14
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 164,
+     "y_m": 22
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 172,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 133,
+     "y_m": 47
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150,
+     "y_m": 50
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 157,
+     "y_m": 8
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 160.0,
+     "y_m": 44.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 20
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 14
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 22
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 47
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 50
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 8
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 44.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_8",
+     "x_m": 50.9,
+     "y_m": 103.1
+    },
+    {
+     "piece": "rock_10",
+     "x_m": 35.3,
+     "y_m": 89.6
+    },
+    {
+     "piece": "rock_20",
+     "x_m": 38.0,
+     "y_m": 100.3
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 26.4,
+     "y_m": 113.7
+    },
+    {
+     "piece": "rock_10",
+     "x_m": 14.6,
+     "y_m": 81.4
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 25.6,
+     "y_m": 92.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 16.9,
+     "y_m": 91.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 25.1,
+     "y_m": 86.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 36.9,
+     "y_m": 84.1
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 8.0,
+     "y_m": 100.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 144.3,
+     "y_m": 65.3
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 171.4,
+     "y_m": 111.8
+    },
+    {
+     "piece": "rock_19",
+     "x_m": 130.9,
+     "y_m": 78.1
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 139.4,
+     "y_m": 67.1
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 157.8,
+     "y_m": 75.8
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 169.3,
+     "y_m": 85.7
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 168.5,
+     "y_m": 113.1
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 148.1,
+     "y_m": 80.3
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 140.8,
+     "y_m": 108.9
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 128.0,
+     "y_m": 100.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 128,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 141,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 164,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 172,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 133,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 157,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 160.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 164.0,
+     "mound": true
+    }
+   ]
+  },
+  "freeway": {
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "freeway.0",
+     "freeway.0",
+     "freeway.0",
+     "freeway.0"
+    ],
+    [
+     "scrub.0",
+     "scrub.2",
+     "scrub.1",
+     "scrub.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "height",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "car_lane",
+     "x_m": 6.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 22.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 41.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 33.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 9.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 50.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 27.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 66.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 82.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 101.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 93.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 69.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 110.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 87.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 126.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 142.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 161.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 153.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 129.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 170.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 147.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 186.0,
+     "y_m": 19.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 202.0,
+     "y_m": 24.5
+    },
+    {
+     "piece": "car_drive",
+     "x_m": 221.5,
+     "y_m": 18.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 213.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 189.0,
+     "y_m": 41.0
+    },
+    {
+     "piece": "wall",
+     "x_m": 230.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "wall_broken",
+     "x_m": 207.0,
+     "y_m": 29.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 3.0,
+     "y_m": 74.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 11.0,
+     "y_m": 78.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 20.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 29.0,
+     "y_m": 81.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 44.0,
+     "y_m": 78.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 7.0,
+     "y_m": 99.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 24.0,
+     "y_m": 103.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 36.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 51.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 15.0,
+     "y_m": 110.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 63.0,
+     "y_m": 74.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 71.0,
+     "y_m": 78.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 80.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 89.0,
+     "y_m": 81.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 104.0,
+     "y_m": 78.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 67.0,
+     "y_m": 99.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 84.0,
+     "y_m": 103.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 96.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 111.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 75.0,
+     "y_m": 110.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 123.0,
+     "y_m": 74.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 131.0,
+     "y_m": 78.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 140.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 149.0,
+     "y_m": 81.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 164.0,
+     "y_m": 78.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 127.0,
+     "y_m": 99.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 144.0,
+     "y_m": 103.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 156.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 171.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 135.0,
+     "y_m": 110.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 183.0,
+     "y_m": 74.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 191.0,
+     "y_m": 78.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 200.0,
+     "y_m": 75.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 209.0,
+     "y_m": 81.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 224.0,
+     "y_m": 78.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 187.0,
+     "y_m": 99.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 204.0,
+     "y_m": 103.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 216.0,
+     "y_m": 107.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 231.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 195.0,
+     "y_m": 110.5
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 128,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 141,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 164,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 172,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 133,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 157,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 160.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 164.0,
+     "mound": true
+    }
+   ]
+  },
+  "shore": {
+   "blocks": [
+    [
+     "shore.0",
+     "shore.1",
+     "shore.0",
+     "shore.1"
+    ],
+    [
+     "scrub.0",
+     "wash.0",
+     "scrub.1",
+     "wash.1"
+    ],
+    [
+     "scrub.2",
+     "scrub.0",
+     "scrub.1",
+     "scrub.2"
+    ]
+   ],
+   "terrain": [
+    [
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "blocked",
+     "blocked",
+     "water",
+     "water",
+     "water",
+     "blocked",
+     "blocked",
+     "water",
+     "water",
+     "water",
+     "blocked",
+     "blocked",
+     "water",
+     "water",
+     "water",
+     "blocked",
+     "blocked",
+     "water",
+     "water",
+     "water"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "rock_0",
+     "x_m": 6,
+     "y_m": 35
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 18,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 33,
+     "y_m": 37
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 47,
+     "y_m": 44
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 55,
+     "y_m": 33
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 25,
+     "y_m": 52
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 40.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 10.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 48.0,
+     "y_m": 50.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 66,
+     "y_m": 35
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 78,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 93,
+     "y_m": 37
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 107,
+     "y_m": 44
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 115,
+     "y_m": 33
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 85,
+     "y_m": 52
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 100.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 70.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 108.0,
+     "y_m": 50.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 126,
+     "y_m": 35
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 138,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 153,
+     "y_m": 37
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 167,
+     "y_m": 44
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 175,
+     "y_m": 33
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 145,
+     "y_m": 52
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 160.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 130.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 168.0,
+     "y_m": 50.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 186,
+     "y_m": 35
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 198,
+     "y_m": 41
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 213,
+     "y_m": 37
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 227,
+     "y_m": 44
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 235,
+     "y_m": 33
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 205,
+     "y_m": 52
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 220.0,
+     "y_m": 27.0
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 190.0,
+     "y_m": 48.0
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 228.0,
+     "y_m": 50.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_8",
+     "x_m": 110.9,
+     "y_m": 103.1
+    },
+    {
+     "piece": "rock_10",
+     "x_m": 95.3,
+     "y_m": 89.6
+    },
+    {
+     "piece": "rock_20",
+     "x_m": 98.0,
+     "y_m": 100.3
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 86.4,
+     "y_m": 113.7
+    },
+    {
+     "piece": "rock_10",
+     "x_m": 74.6,
+     "y_m": 81.4
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 85.6,
+     "y_m": 92.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 76.9,
+     "y_m": 91.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 85.1,
+     "y_m": 86.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 96.9,
+     "y_m": 84.1
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 68.0,
+     "y_m": 100.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 128,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 141,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 164,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 172,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 133,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 157,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 160.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 204.3,
+     "y_m": 65.3
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 231.4,
+     "y_m": 111.8
+    },
+    {
+     "piece": "rock_19",
+     "x_m": 190.9,
+     "y_m": 78.1
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 199.4,
+     "y_m": 67.1
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 217.8,
+     "y_m": 75.8
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 229.3,
+     "y_m": 85.7
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 228.5,
+     "y_m": 113.1
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 208.1,
+     "y_m": 80.3
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 200.8,
+     "y_m": 108.9
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 188.0,
+     "y_m": 100.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 128,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 141,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 164,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 172,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 133,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 150,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 157,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 160.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 164.0,
+     "mound": true
+    }
+   ]
+  },
+  "landfill": {
+   "blocks": [
+    [
+     "landfill.0",
+     "landfill.1",
+     "landfill.0",
+     "landfill.1"
+    ],
+    [
+     "landfill.1",
+     "scrub.0",
+     "landfill.0",
+     "scrub.1"
+    ],
+    [
+     "scrub.2",
+     "freeway.0",
+     "freeway.0",
+     "scrub.0"
+    ]
+   ],
+   "terrain": [
+    [
+     "height",
+     "rough",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "height"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "height",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ]
+   ],
+   "cover": [
+    {
+     "piece": "rubble_0",
+     "x_m": 5,
+     "y_m": 10
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 20,
+     "y_m": 6
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 37,
+     "y_m": 13
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 52,
+     "y_m": 9
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 12,
+     "y_m": 26
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 44,
+     "y_m": 28
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 28,
+     "y_m": 54
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 50,
+     "y_m": 55
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 40.0,
+     "y_m": 46.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 65,
+     "y_m": 10
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 80,
+     "y_m": 6
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 97,
+     "y_m": 13
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 112,
+     "y_m": 9
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 72,
+     "y_m": 26
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 104,
+     "y_m": 28
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 88,
+     "y_m": 54
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 110,
+     "y_m": 55
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 77.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 100.0,
+     "y_m": 46.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 125,
+     "y_m": 10
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 140,
+     "y_m": 6
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 157,
+     "y_m": 13
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 172,
+     "y_m": 9
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 132,
+     "y_m": 26
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 164,
+     "y_m": 28
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 148,
+     "y_m": 54
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 170,
+     "y_m": 55
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 160.0,
+     "y_m": 46.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 185,
+     "y_m": 10
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 200,
+     "y_m": 6
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 217,
+     "y_m": 13
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 232,
+     "y_m": 9
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 192,
+     "y_m": 26
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 224,
+     "y_m": 28
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 208,
+     "y_m": 54
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 230,
+     "y_m": 55
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 197.0,
+     "y_m": 40.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 220.0,
+     "y_m": 46.0
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 5,
+     "y_m": 70
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 20,
+     "y_m": 66
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 37,
+     "y_m": 73
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 52,
+     "y_m": 69
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 12,
+     "y_m": 86
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 44,
+     "y_m": 88
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 28,
+     "y_m": 114
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 50,
+     "y_m": 115
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 17.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 40.0,
+     "y_m": 106.0
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 68,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 81,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 104,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 112,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 73,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 90,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 97,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 100.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 125,
+     "y_m": 70
+    },
+    {
+     "piece": "rubble_1",
+     "x_m": 140,
+     "y_m": 66
+    },
+    {
+     "piece": "rubble_2",
+     "x_m": 157,
+     "y_m": 73
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 172,
+     "y_m": 69
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 132,
+     "y_m": 86
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 164,
+     "y_m": 88
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 148,
+     "y_m": 114
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 170,
+     "y_m": 115
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 137.0,
+     "y_m": 100.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 160.0,
+     "y_m": 106.0
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 110
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 37,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 164.0,
+     "mound": true
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 63.0,
+     "y_m": 134.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 71.0,
+     "y_m": 138.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 80.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 89.0,
+     "y_m": 141.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 104.0,
+     "y_m": 138.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 67.0,
+     "y_m": 159.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 84.0,
+     "y_m": 163.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 96.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 111.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 75.0,
+     "y_m": 170.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 123.0,
+     "y_m": 134.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 131.0,
+     "y_m": 138.2
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 140.0,
+     "y_m": 135.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 149.0,
+     "y_m": 141.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 164.0,
+     "y_m": 138.5
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 127.0,
+     "y_m": 159.5
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 144.0,
+     "y_m": 163.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 156.0,
+     "y_m": 167.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 171.0,
+     "y_m": 160.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 135.0,
+     "y_m": 170.5
+    },
+    {
+     "piece": "rock_0",
+     "x_m": 188,
+     "y_m": 140
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 201,
+     "y_m": 134
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 224,
+     "y_m": 142
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 232,
+     "y_m": 161
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 193,
+     "y_m": 167
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 210,
+     "y_m": 170
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 217,
+     "y_m": 128
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 220.0,
+     "y_m": 164.0,
+     "mound": true
+    }
+   ]
+  }
+ }
+}
