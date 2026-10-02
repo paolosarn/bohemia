@@ -124,7 +124,7 @@ BOARDS = {
     'desert':   [['scrub.0', 'scrub.1', 'scrub.2', 'scrub.0'], ['wash.0', 'scrub.2', 'wash.1', 'scrub.1'], ['scrub.1', 'scrub.0', 'scrub.2', 'scrub.1']],
     'freeway':  [['strip.0', 'strip.1', 'strip.0', 'strip.1'], ['freeway.0', 'freeway.0', 'freeway.0', 'freeway.0'], ['scrub.0', 'scrub.2', 'scrub.1', 'scrub.0']],
     'shore':    [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.0', 'wash.0', 'scrub.1', 'wash.1'], ['scrub.2', 'scrub.0', 'scrub.1', 'scrub.2']],
-    'landfill': [['landfill.0', 'landfill.1', 'landfill.0', 'landfill.1'], ['landfill.1', 'scrub.0', 'landfill.0', 'scrub.1'], ['scrub.2', 'freeway.0', 'freeway.0', 'scrub.0']],
+    'landfill': [['landfill.0', 'landfill.1', 'landfill.0', 'landfill.1'], ['landfill.1', 'scrub.0', 'landfill.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']]   # no freeway stub (round nine's weak note),
 }
 START_ROWS = (4, 9)
 

@@ -186,7 +186,11 @@ def strip():
 
 
 def scrub():
+    # THE SAME TWO SOILS AS THE WASH (round nine's weak note: dressed in one soil, the scrub boxed
+    # the wash blocks in at the far zoom); soil 2 comes through in ragged patches, as in B.wash.
     floor = B.dress_any([B.DGROUND[1]], BP, BP, 71)
+    rr = R(70); f = Image.new('L', (14, 14)); f.putdata([int(rr() * 255) for _ in range(196)])
+    floor.paste(B.dress_any([B.DGROUND[2]], BP, BP, 72), (0, 0), f.resize((BP, BP), Image.BICUBIC).point(lambda v: 255 if v > 160 else 0))
     plan = floor
     rough = mask(); rd = ImageDraw.Draw(rough)
     rr = R(72); f = Image.new('L', (8, 8)); f.putdata([int(rr() * 255) for _ in range(64)])

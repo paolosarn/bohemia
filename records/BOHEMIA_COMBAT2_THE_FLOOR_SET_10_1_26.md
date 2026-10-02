@@ -144,3 +144,12 @@ cover in board metres). Guards: board >= 20 x 15, start rows 5 apart, no identic
 freeway exempt: its lanes must run on), no cover on blocked, every named file exists. 18.2 MB.
 SIZE: the published site was 331 MB against PAGES PUBLISH's 260 MB cap before this round (already red); this
 adds 18 MB (349). Flagged for PLUMBER.
+
+## ROUND TEN (10/2): VERIFIED ON THE REAL SURFACE, AND ROUND NINE'S WEAK SPOTS
+
+The new fight (slices/BOHEMIA_FIGHT.html, COMBAT [rebuild] 645c31f) reads fight_ground/fight_ground.json and
+bakes a board from the block PNGs and cover PNGs. Captured through Playwright at 390x844, DPR 3, FIGHT_OPTS
+{board, night:false, seed:7}: culdesac and desert, at 1.5 s (the whole-board open) and 5.5 s (glided in);
+zero page errors. Sheet: slices/vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png.
+Fixes: R4.scrub dresses the same two soils as B.wash (soil 1 with soil 2 through a 14x14 noise cut at 160);
+the landfill board's bottom row is scrub/landfill, no freeway stub. fight_ground re-cooked: 19.2 MB.

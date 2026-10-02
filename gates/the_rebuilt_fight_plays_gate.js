@@ -22,19 +22,26 @@ const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? 
 const shot = n => path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + '_10_2.jpg');
 /* phone-size jpegs: the published site is already over its cap, so a gate's pictures stay small */
 const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
-const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'desert', seed: 9, taps: false }];
+const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
+/* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
+const WORDS = 'window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0 };
 
 async function fight(F, first) {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true,
-    arm: 'window.FIGHT_OPTS={seed:' + F.seed + ',speed:' + SPEED + ',board:"' + F.board + '"}' });
+    arm: WORDS + 'window.FIGHT_OPTS={seed:' + F.seed + ',speed:' + SPEED + ',kind:"' + F.board + '"}' });
   const p = d.page;
   const ev = (f, a) => p.evaluate(f, a);
   const until = async (fn, ms) => { const t = Date.now(); while (Date.now() - t < ms) { if (await p.evaluate(fn)) return true; await p.waitForTimeout(60); } return false; };
   const loaded = await until(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board, 30000);
   leg(loaded, F.board + ': the ground loads (COMBAT TWO\'s blocks and cover, baked once)');
   if (!loaded) { await d.close(); return; }
+  const deal = await ev(() => { const B = FIGHT.S.boardDef, g = B.blocks; let twin = 0;
+    g.forEach((r, y) => r.forEach((n, x) => { if ((x && r[x - 1] === n) || (y && g[y - 1][x] === n)) twin++; }));
+    return { kinds: B.kinds, lead: g[g.length - 1][0].split('.')[0], twin: twin, name: B.name }; });
+  leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.lead === F.board,
+    F.board + ': *** THE BOARD IS DEALT FROM MIXED KINDS (sweep L) ***, led by the kind the loop asked for, no block beside its twin', deal.name);
   const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
     zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
     W: innerWidth, avail: innerHeight - document.getElementById('top').offsetHeight - document.getElementById('bot').offsetHeight,
@@ -76,7 +83,7 @@ async function fight(F, first) {
       const u = FIGHT.current(), f = FIGHT.reach(u); let best = null;
       Object.keys(f.best).forEach(k => { k = +k; const x = k % FIGHT.S.w, y = Math.floor(k / FIGHT.S.w);
         if ((x !== u.x || y !== u.y) && (!best || y < best.y || (y === best.y && f.best[k] > best.c))) best = { x, y, c: f.best[k] }; });
-      FIGHT_UI.cx = (u.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (u.y - 1) * FIGHT_UI.th;
+      FIGHT_UI.cx = (best.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (best.y + .5) * FIGHT_UI.th;   /* the tile the finger will press is on the glass */
       return { id: u.id, name: u.name, ap: u.ap, to: best };
     });
     const scr = await ev(t => ({ x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }), plan.to);
@@ -151,6 +158,14 @@ async function fight(F, first) {
   leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or laid up 30 to 40 days (rule 36b)', R.hires.join(',') || 'nobody fell');
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.down + ' fell');
+  const words = await ev(() => window.__words);
+  leg(words === 0, F.board + ': *** NOT ONE WORD WAS WRITTEN ON THE GROUND THE WHOLE FIGHT (rule 46f) ***: names, misses, morale, injuries are in the bar', words + ' words on the fight canvas');
+  if (first) {
+    const many = await ev(() => { const out = []; for (let i = 0; i < 12; i++) { SEED = 1000 + i; FIGHT.setup({}); out.push(FIGHT.S.boardDef.blocks.map(r => r.join(',')).join('/') + '|' + FIGHT.S.boardDef.family); } return out; });
+    const fams = many.map(m => m.split('|')[1]);
+    leg(new Set(many).size === many.length && fams.filter(f => f === 'city').length > fams.length / 2,
+      'twelve seeds deal twelve different boards, most of them city (Paolo 9/29: "most of it will be city")', new Set(many).size + ' different, ' + fams.filter(f => f === 'city').length + ' city');
+  }
   leg(d.errs.length === 0, F.board + ': no page errors', d.errs.slice(0, 2).join(' | '));
   if (first) await p.screenshot(Object.assign({ path: shot('END') }, SHOT));
   await d.close();

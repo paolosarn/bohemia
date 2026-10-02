@@ -4251,7 +4251,9 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+{"id": "combat2-the-ground-in-the-new-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "THE NEW FIGHT IS STANDING ON THE NEW GROUND", "why": "Screenshots from the new fight on a phone: the cul-de-sac and the desert, first the whole board as the fight opens, then zoomed in on your crew, and the desert creek no longer looks boxed in. Thumbs up and this ground stays under every fight, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_GROUND_IN_THE_NEW_FIGHT_10_2.png"}},
+ {"id": "combat-the-perks-translated-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "BATTLE BROTHERS' FIFTY PERKS, WITH OUR NAMES, IN THE NEW FIGHT", "why": "All fifty Battle Brothers perks with a draft name of ours (BUILT LIKE A DOOR is Colossus, HARD HEAD is Steel Brow, DOOR MAN is Shield Expert, READS YOU is Fast Adaptation), and 37 of them already change the new fight by their exact wiki numbers, so a level-4 man really is tougher than a level-1. Tap one of yours in the new fight and you see it under his health bar on his card, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_PERKS_ON_HIS_CARD_10_2.jpg"}, "draft": true}
 ],
  "verdicts": [
   {
