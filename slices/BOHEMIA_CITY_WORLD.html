@@ -43514,6 +43514,365 @@ function mapGroundEnd(st){
   MG.lamps=window.__LAMPQ ? window.__LAMPQ.slice() : null;
   mapGroundBlit(0,0);
 }
+/* ==== __THE_VALLEY_HAS_AN_EDGE__ (RUN [the valley edge], 10/2/26, rule 61c) ====
+   PAOLO 10/1: "when I zoom out of Las Vegas there's a square and then the rest is desert brown;
+   it's really bad." MEASURED: at the far end of the pinch the 96 x 96 map is a strip 360 px tall
+   across the middle of an 830 px screen, and the other 77% of the glass was one flat fill
+   (#8a7a58, __CITY_VOID__). The valley was a square on a field.
+   NOW THE LAND GOES ON. Past the map's edge the valley floor runs into ranges, the way it does
+   from any rooftop in Las Vegas: the SPRING MOUNTAINS on the west with MT CHARLESTON at the
+   north-west corner, the SHEEP RANGE on the north, FRENCHMAN on the east, the BLACK MOUNTAINS on
+   the south, LAKE MEAD out past the dam, and the freeways that leave the map keep going (the 15
+   both ways, the 95, the 93). The compass is the map's own: north is y = 0 (the I-15 spine
+   comes up from the south border) and east is the side the town is on (layout dirE).
+   HOW IT IS DRAWN: one picture, baked once per valley OFF THE MAIN THREAD (a worker: it is about
+   a second of arithmetic on a phone and the map must never wait on it; until it lands the map
+   paints the old fill, and nobody pinches all the way out in the first seconds), in the map's own grid (two texels a
+   block), each texel lifted by its height the way the iso camera sees it, and drawn under the
+   tiles with the same projection the tiles use. So it is the same diamond, the same 45 degrees,
+   and it slides and zooms with the map for one drawImage a frame. The far side stands tall
+   behind the city; the near side is held under the line where it would cover a block of the
+   map, so the foothills in front rise away from you and never sit on a street.
+   THE FAR END HAZES INTO THE OLD FILL, so the picture has no edge either. */
+var VB_S = 2, VB_K = 200, VB_FAR_HAZE = 0.5;   /* the far land's haze: the picture fades into it, and it runs to any screen's edge */                 /* texels a block; blocks of land past each edge */
+var VB = { seed: null, day: null, night: null, ms: 0, draws: 0, labels: [], peak: 0, roads: [], lake: null };
+window.VB = VB;
+function vbHash(x, y, s){ var h = (s ^ Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263)) >>> 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+function vbNoise(x, y, s){ var xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi;
+  var u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+  var a = vbHash(xi, yi, s), b = vbHash(xi + 1, yi, s), c = vbHash(xi, yi + 1, s), d = vbHash(xi + 1, yi + 1, s);
+  return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+function vbFbm(x, y, s){ return vbNoise(x, y, s) * 0.55 + vbNoise(x * 2.03, y * 2.03, s + 7) * 0.3 + vbNoise(x * 4.1, y * 4.1, s + 13) * 0.15; }
+function vbSm(a, b, t){ t = Math.max(0, Math.min(1, (t - a) / (b - a))); return t * t * (3 - 2 * t); }
+function vbHex(h){ return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+var VB_OUT = { x0: [-1, 0], x1: [1, 0], y0: [0, -1], y1: [0, 1] };
+/* the colours: the city's own desert and the ranges' rock, the haze is the old fill */
+var VB_COL = { floor: vbHex('#8f7d59'), fan: vbHex('#9b8762'), low: vbHex('#7e6b4f'), rock: vbHex('#6a5843'),
+  high: vbHex('#5b4b3a'), crest: vbHex('#a48e66'), brush: vbHex('#5f5440'), pebble: vbHex('#b09c74'),
+  road: vbHex('#3d3933'), shoulder: vbHex('#5a5244'), water: vbHex('#2f4a5e'), shore: vbHex('#4e6d7a'),
+  playa: vbHex('#bcae8c'), haze: vbHex('#8a7a58') };
+/* THE BAKE. Pure: everything it knows about the map comes in `inp` (so it can run in a worker). */
+function vbCore(inp){
+  var t0 = performance.now();
+  var N = inp.N, K = inp.K, S = inp.S, D = N + 2 * K, P = D * S, L = inp.L || {}, sd = ((inp.seed | 0) ^ 0x51a7) >>> 0;
+  /* the compass, from the map itself: north is y = 0, east is the town's side of the 15 */
+  var dirE = (L.fwyX < L.stripX) ? 1 : -1, C = { n: 'y0', s: 'y1', e: dirE > 0 ? 'x1' : 'x0', w: dirE > 0 ? 'x0' : 'x1' }, side = {}; side[C.w] = 1.55; side[C.n] = 1.25; side[C.e] = 1.0; side[C.s] = 1.05;
+  /* how much of the map's own rim is mountain near each edge spot (a 9 x 9 box, from a prefix sum) */
+  var PS = new Int32Array((N + 1) * (N + 1));
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+    PS[(y + 1) * (N + 1) + x + 1] = inp.mtn[y * N + x] + PS[y * (N + 1) + x + 1] + PS[(y + 1) * (N + 1) + x] - PS[y * (N + 1) + x]; }
+  function mShare(cx, cy){ var x0 = Math.max(0, cx - 4), y0 = Math.max(0, cy - 4), x1 = Math.min(N, cx + 5), y1 = Math.min(N, cy + 5);
+    return (PS[y1 * (N + 1) + x1] - PS[y0 * (N + 1) + x1] - PS[y1 * (N + 1) + x0] + PS[y0 * (N + 1) + x0]) / ((x1 - x0) * (y1 - y0)); }
+  /* MT CHARLESTON: north-west, out past the north rim at its west end (the far side, so it stands up
+     behind the city instead of being held down in front of it) */
+  var chx = C.w === 'x0' ? 22 : N - 22, chy = -17;
+  var H = new Float32Array(D * D), CARVE = new Float32Array(D * D).fill(1), KIND = new Uint8Array(D * D);
+  /* heights on every other block, filled between: a range is twenty blocks wide, and this is a quarter of the work */
+  for (var j = 0; j < D; j += 2) for (var i = 0; i < D; i += 2) {
+    var gx = i - K + 0.5, gy = j - K + 0.5;
+    var dX = Math.max(-gx, gx - N), dY = Math.max(-gy, gy - N), d = Math.max(dX, dY);
+    if (d <= 0) continue;
+    var ex = Math.max(0, Math.min(N - 1, Math.floor(gx))), ey = Math.max(0, Math.min(N - 1, Math.floor(gy)));
+    var sname = dX >= dY ? (gx < 0 ? 'x0' : 'x1') : (gy < 0 ? 'y0' : 'y1');
+    var f1 = vbFbm(gx / 13, gy / 13, sd), f2 = vbFbm(gx / 21, gy / 21, sd + 31), f3 = vbFbm(gx / 31, gy / 31, sd + 57);
+    var m = Math.pow(mShare(ex, ey), 0.7);
+    var w = 10 + 16 * f2;
+    var hNear = (0.35 + 0.65 * m) * side[sname] * (4.5 + 7 * f1) * vbSm(0, 0.42 * w, d) * (1 - vbSm(0.55 * w, w, d));
+    /* basin and range: the ranges past the rim run north-south, so they are bands of x */
+    var ew = gx + 0.42 * gy + 40 * (f3 - 0.5), tri = 1 - Math.abs(2 * (((ew / 47 + (sd % 97) / 97) % 1 + 1) % 1) - 1);
+    var seg = vbSm(0.25, 0.5, vbNoise(gy / 34 - gx / 90, gx / 47, sd + 91));   /* a range ends, a pass, the next one starts */
+    var hFar = Math.pow(vbSm(0.3, 1, tri), 1.4) * (4 + 9 * vbFbm(gx / 15, gy / 15, sd + 77)) * seg * vbSm(14, 34, d);
+    var dc = Math.hypot(gx - chx, gy - chy), hCh = 16 * Math.exp(-dc * dc / (2 * 17 * 17)) * (0.8 + 0.4 * f1) * vbSm(0, 10, d);
+    var h = Math.max(hNear, hFar, hCh) * (0.8 + 0.4 * vbFbm(gx / 6, gy / 6, sd + 5));
+    if (h > 1) h += (vbNoise(gx / 2.2, gy / 2.2, sd + 11) - 0.5) * 1.3;
+    H[j * D + i] = Math.max(0, h);
+  }
+  for (var j1 = 0; j1 < D; j1++) for (var i1 = 0; i1 < D; i1++) { if (!(i1 & 1) && !(j1 & 1)) continue;
+    var ia = i1 & ~1, ja = j1 & ~1, ib = Math.min(D - 1 - ((D - 1) & 1), ia + 2), jb = Math.min(D - 1 - ((D - 1) & 1), ja + 2), fa = (i1 - ia) / 2, fb = (j1 - ja) / 2;
+    H[j1 * D + i1] = (H[ja * D + ia] * (1 - fa) + H[ja * D + ib] * fa) * (1 - fb) + (H[jb * D + ia] * (1 - fa) + H[jb * D + ib] * fa) * fb; }
+  /* LAKE MEAD: out past the corner the map's mead sits in, filling the low ground between ranges */
+  var lake = null;
+  if (L.mead) { var mx = L.mead.x + L.mead.w / 2, my = L.mead.y + L.mead.h / 2, ox = 0, oy = 0;
+    if (L.mead.x <= 1) ox--; if (L.mead.x + L.mead.w >= N - 1) ox++; if (L.mead.y <= 1) oy--; if (L.mead.y + L.mead.h >= N - 1) oy++;
+    var ol = Math.hypot(ox, oy) || 1; ox /= ol; oy /= ol;
+    var px = -oy, py = ox, ax = mx + ox * 30, ay = my + oy * 30, bx = ax + px * 34 + ox * 10, by = ay + py * 34 + oy * 10;
+    var segs = [[mx, my, ax, ay, 11], [ax, ay, bx, by, 8], [ax, ay, ax - px * 22 + ox * 18, ay - py * 22 + oy * 18, 7]];
+    var lx0 = Math.min(mx, ax, bx, ax - px * 22 + ox * 18) - 30, lx1 = Math.max(mx, ax, bx, ax - px * 22 + ox * 18) + 30, ly0 = Math.min(my, ay, by, ay - py * 22 + oy * 18) - 30, ly1 = Math.max(my, ay, by, ay - py * 22 + oy * 18) + 30;
+    var sx = 0, sy = 0, sn = 0, sxN = 0, syN = 0, snN = 0;
+    for (var j2 = 0; j2 < D; j2++) for (var i2 = 0; i2 < D; i2++) {
+      var gx2 = i2 - K + 0.5, gy2 = j2 - K + 0.5;
+      if (gx2 > 0 && gx2 < N && gy2 > 0 && gy2 < N) continue;
+      if (gx2 < lx0 || gx2 > lx1 || gy2 < ly0 || gy2 > ly1) continue;
+      var best = 1e9;
+      for (var q = 0; q < segs.length; q++) { var s = segs[q], vx = s[2] - s[0], vy = s[3] - s[1];
+        var tq = Math.max(0, Math.min(1, ((gx2 - s[0]) * vx + (gy2 - s[1]) * vy) / (vx * vx + vy * vy)));
+        var dq = Math.hypot(gx2 - s[0] - tq * vx, gy2 - s[1] - tq * vy) - s[4] * (0.6 + 0.8 * vbFbm(gx2 / 9, gy2 / 9, sd + 201));
+        if (dq < best) best = dq; }
+      var k2 = j2 * D + i2;
+      if (best < 0) { KIND[k2] = 1; H[k2] = 0; sx += gx2; sy += gy2; sn++;
+        if (Math.max(-gx2, gx2 - N, -gy2, gy2 - N) < 22) { sxN += gx2; syN += gy2; snN++; } }
+      else CARVE[k2] = Math.min(CARVE[k2], vbSm(0, 7, best));
+    }
+    if (sn) lake = { x: sx / sn, y: sy / sn };
+    if (snN) lake = { x: sxN / snN, y: syN / snN };   /* named where it meets the valley, not out in the haze */
+  }
+  /* THE ROADS OUT: every freeway that reaches the map's edge keeps going */
+  var roads = [], RM = new Uint8Array(P * P);
+  ['x0', 'x1', 'y0', 'y1'].forEach(function (en) {
+    var run = [];
+    function flush(){ if (!run.length) return; var a = run[0], b = run[run.length - 1];
+      roads.push({ edge: en, c: (a + b) / 2 + 0.5, w: Math.max(0.7, (b - a + 1) / 2) }); run = []; }
+    for (var k = 0; k <= N; k++) {
+      var isR = k < N && inp.road[en === 'x0' ? k * N : en === 'x1' ? k * N + N - 1 : en === 'y0' ? k : (N - 1) * N + k];
+      if (isR) run.push(k); else flush();
+    }
+  });
+  for (var ri = 0; ri < roads.length; ri++) { var r = roads[ri];
+    var o = VB_OUT[r.edge], px = -o[1], py = o[0];
+    var sx0 = r.edge[0] === 'x' ? (r.edge === 'x0' ? 0 : N) : r.c, sy0 = r.edge[0] === 'y' ? (r.edge === 'y0' ? 0 : N) : r.c;
+    if (r.edge === 'y1') r.name = '15';
+    else if (r.edge === 'y0') r.name = '93';
+    else if (Math.abs(r.c - (L.bendNorthY + 1)) <= 3) r.name = (L.i15Exit && ((L.i15Exit[0] === 0) === (r.edge === 'x0'))) ? '15' : '95';
+    var ph = vbHash(ri, 3, sd) * 6.28, pts = [];
+    for (var t = 0; t <= K + 4; t += 0.5) {
+      var lat = 7 * Math.sin(t / 19 + ph) * vbSm(6, 30, t);
+      pts.push([sx0 + o[0] * t + px * lat, sy0 + o[1] * t + py * lat]);
+    }
+    r.pts = pts;
+    pts.forEach(function (p) {
+      var rr = r.w + 6, i0 = Math.floor(p[0] - rr + K), i1 = Math.ceil(p[0] + rr + K), j0 = Math.floor(p[1] - rr + K), j1 = Math.ceil(p[1] + rr + K);
+      for (var jj = Math.max(0, j0); jj < Math.min(D, j1); jj++) for (var ii = Math.max(0, i0); ii < Math.min(D, i1); ii++) {
+        var dd = Math.hypot(ii - K + 0.5 - p[0], jj - K + 0.5 - p[1]);
+        var kk = jj * D + ii; CARVE[kk] = Math.min(CARVE[kk], vbSm(r.w + 0.5, r.w + 6, dd)); }
+      var rs = r.w * S, cu = (p[0] + K) * S, cv = (p[1] + K) * S;
+      for (var v = Math.max(0, Math.floor(cv - rs - 1)); v < Math.min(P, Math.ceil(cv + rs + 1)); v++)
+        for (var u = Math.max(0, Math.floor(cu - rs - 1)); u < Math.min(P, Math.ceil(cu + rs + 1)); u++) {
+          var dr = Math.hypot(u + 0.5 - cu, v + 0.5 - cv);
+          if (dr <= rs) RM[v * P + u] = Math.max(RM[v * P + u], dr > rs - 0.9 ? 1 : 2); }
+    });
+  }
+  for (var k3 = 0; k3 < D * D; k3++) H[k3] *= CARVE[k3];
+  /* the heights at the texels, in texels of lift, held under the line where they would cover the map */
+  var HS = new Float32Array(P * P), peak = 0;
+  for (var v2 = 0; v2 < P; v2++) for (var u2 = 0; u2 < P; u2++) {
+    var cx = (u2 + 0.5) / S - 0.5, cy = (v2 + 0.5) / S - 0.5, ci = Math.max(0, Math.min(D - 2, Math.floor(cx))), cj = Math.max(0, Math.min(D - 2, Math.floor(cy)));
+    var fx = Math.max(0, Math.min(1, cx - ci)), fy = Math.max(0, Math.min(1, cy - cj));
+    var hh = (H[cj * D + ci] * (1 - fx) + H[cj * D + ci + 1] * fx) * (1 - fy) + (H[(cj + 1) * D + ci] * (1 - fx) + H[(cj + 1) * D + ci + 1] * fx) * fy;
+    var qx = (u2 + 0.5) / S - K, qy = (v2 + 0.5) / S - K;
+    if (qx > 0 && qx < N && qy > 0 && qy < N) continue;
+    var lo = Math.max(qx - N, qy - N, 0), hi = Math.min(qx, qy);
+    if (lo < hi) hh = Math.min(hh, 0.38 * lo - 0.2);   /* shallower than the camera: a slope at the camera's own angle is seen edge-on, as a wall */
+    if (KIND[Math.min(D - 1, Math.floor(qy + K)) * D + Math.min(D - 1, Math.floor(qx + K))] === 1) hh = 0;
+    HS[v2 * P + u2] = Math.max(0, hh) * S;
+    if (hh > peak) peak = hh;
+  }
+  /* the picture: along each diagonal, near to far, the nearest column that rises over a texel owns it */
+  var px8 = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), C2 = VB_COL, HZ = new Float32Array(K + 2);
+  var AL = new Uint8Array(K + 2);
+  for (var hzi = 0; hzi < K + 2; hzi++) { HZ[hzi] = VB_FAR_HAZE * vbSm(K * 0.3, K * 0.82, hzi); AL[hzi] = Math.round(255 * (1 - vbSm(K * 0.8, K * 0.97, hzi))); }
+  var al8 = 255;
+  function put(o, c, sh, hz){ for (var z = 0; z < 3; z++) px8[o + z] = Math.round((c[z] * sh) * (1 - hz) + C2.haze[z] * hz); px8[o + 3] = al8; }
+  for (var dg = -(P - 1); dg <= P - 1; dg++) {
+    var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
+    for (var uu = ub; uu >= ua; uu--) {
+      var vv = uu - dg, hq = HS[vv * P + uu], rq = uu - hq;
+      if (tail === head || (dq[tail - 1] - HS[(dq[tail - 1] - dg) * P + dq[tail - 1]]) > rq) dq[tail++] = uu;
+      while (head < tail - 1 && dq[head] - HS[(dq[head] - dg) * P + dq[head]] > uu) head++;
+      var qu = dq[head], qv = qu - dg;
+      var gxq = (uu + 0.5) / S - K, gyq = (vv + 0.5) / S - K;
+      if (gxq > 0 && gxq < N && gyq > 0 && gyq < N) continue;   /* the map's own blocks: clear, the tiles are there */
+      var o8 = (vv * P + uu) * 4, Hq = HS[qv * P + qu], lift = qu - uu;
+      var dOut = Math.max(-((qu + 0.5) / S - K), (qu + 0.5) / S - K - N, -((qv + 0.5) / S - K), (qv + 0.5) / S - K - N);
+      var dI = Math.max(0, Math.min(K + 1, dOut | 0)), hz = HZ[dI]; al8 = AL[dI];
+      var r8 = vbHash(qu, qv, sd + 3);
+      var ci2 = Math.min(D - 1, Math.floor(qv / S)) * D + Math.min(D - 1, Math.floor(qu / S));
+      if (KIND[ci2] === 1) { var shore = (qu > 0 && KIND[Math.min(D - 1, Math.floor(qv / S)) * D + Math.floor((qu - 1) / S)] !== 1) || (qv > 0 && KIND[Math.floor((qv - 1) / S) * D + Math.min(D - 1, Math.floor(qu / S))] !== 1);
+        put(o8, shore ? C2.shore : C2.water, r8 > 0.97 ? 1.25 : 1, hz); continue; }
+      var rm = RM[qv * P + qu];
+      if (rm && lift < 1) { put(o8, rm === 2 ? C2.road : C2.shoulder, 1, hz); continue; }
+      var hc = Hq / S, top = (Hq - lift) < 1.0;
+      var sxp = qu + 1 < P ? HS[qv * P + qu + 1] : Hq, sxm = qu > 0 ? HS[qv * P + qu - 1] : Hq;
+      var syp = qv + 1 < P ? HS[(qv + 1) * P + qu] : Hq;
+      var base = hc < 0.25 ? C2.floor : hc < 1.2 ? C2.fan : hc < 3 ? C2.low : hc < 6.5 ? C2.rock : C2.high, sh;
+      if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5));
+        if (hc > 3 && sl > 0.6 && r8 > 0.5) base = C2.crest; }
+      else sh = (sxp < syp) ? 0.56 : 0.76;
+      sh = Math.round(sh * 5) / 5;   /* banded, the way the rest of the map is lit */
+      if (hc < 1.2 && top) { if (r8 < 0.07) base = C2.brush; else if (r8 > 0.965) base = C2.pebble;
+        /* the floor is never one colour: desert pavement and washes in patches, grit in every texel */
+        var pv = vbNoise(qu / (S * 5), qv / (S * 5), sd + 41); if (pv > 0.88 && base === C2.floor) base = C2.fan;
+        sh *= 0.9 + 0.14 * vbNoise(qu / (S * 2.5), qv / (S * 2.5), sd + 43) + 0.08 * (vbHash(qu, qv, sd + 47) - 0.5); }
+      else sh *= 0.94 + 0.12 * r8;
+      put(o8, base, sh, hz);
+    }
+  }
+  /* THE SEAM: the map's outermost blocks of open ground (mountain, desert, wash) are dithered into the
+     land's own floor, two and a half blocks deep, so the diamond's edge is not a ruled line */
+  var SP = N * S, seam = new Uint8ClampedArray(SP * SP * 4), BY = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5], seamN = 0;
+  for (var sv = 0; sv < SP; sv++) for (var su = 0; su < SP; su++) {
+    var cxs = (su + 0.5) / S, cys = (sv + 0.5) / S, de = Math.min(cxs, cys, N - cxs, N - cys);
+    if (de > 2.6 || !inp.soft[Math.floor(cys) * N + Math.floor(cxs)]) continue;
+    if (BY[(su & 3) + (sv & 3) * 4] / 16 >= (1 - de / 2.6) * 0.92) continue;
+    var r9 = vbHash(su, sv, sd + 9), c9 = r9 < 0.07 ? C2.brush : r9 > 0.965 ? C2.pebble : C2.floor, o9 = (sv * SP + su) * 4;
+    seam[o9] = c9[0]; seam[o9 + 1] = c9[1]; seam[o9 + 2] = c9[2]; seam[o9 + 3] = 255; seamN++;
+  }
+  var seamNt = new Uint8ClampedArray(seam);
+  for (var z3 = 0; z3 < seamNt.length; z3 += 4) { seamNt[z3] *= 0.26; seamNt[z3 + 1] *= 0.254; seamNt[z3 + 2] *= 0.295; }
+  /* THE FAR LAND: one tile, 64 blocks square and seamless, of the same desert with low ranges,
+     at the haze the picture fades into, laid under everything to the edge of any screen */
+  var TT = 64, TP = TT * S, TH2 = new Float32Array(TP * TP), tile = new Uint8ClampedArray(TP * TP * 4);
+  function nP(x, y, s2, per){ var xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+    function hh(a, b){ return vbHash(((a % per) + per) % per, ((b % per) + per) % per, s2); }
+    var a = hh(xi, yi), b = hh(xi + 1, yi), c = hh(xi, yi + 1), d = hh(xi + 1, yi + 1); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+  for (var tv = 0; tv < TP; tv++) for (var tu = 0; tu < TP; tu++) { var tx = (tu + 0.5) / S, ty = (tv + 0.5) / S;
+    var tew = (tx + ty * 0.5) / 32 + 0.45 * (nP(tx / 16, ty / 16, sd + 301, 4) - 0.5), ttri = 1 - Math.abs(2 * ((tew % 1 + 1) % 1) - 1);
+    TH2[tv * TP + tu] = vbSm(0.5, 1, ttri) * (0.4 + 0.6 * nP(tx / 8, ty / 8, sd + 303, 8)) * 4 + nP(tx / 2, ty / 2, sd + 307, 32) * 0.3; }
+  for (var tv2 = 0; tv2 < TP; tv2++) for (var tu2 = 0; tu2 < TP; tu2++) { var th = TH2[tv2 * TP + tu2];
+    var tsl = (TH2[tv2 * TP + (tu2 + 1) % TP] - TH2[tv2 * TP + (tu2 + TP - 1) % TP]) * 0.5;
+    var tsh = Math.round((1 + 0.9 * Math.max(-1, Math.min(1, tsl * 1.4))) * 5) / 5, tr = vbHash(tu2, tv2, sd + 311);
+    var tb = th < 0.5 ? C2.floor : th < 1.6 ? C2.fan : th < 2.6 ? C2.low : C2.rock;
+    if (th < 0.5) { if (tr < 0.07) tb = C2.brush; else if (tr > 0.965) tb = C2.pebble;
+      else if (nP(tx / 4, ty / 4, sd + 41, 16) > 0.88) tb = C2.fan;
+      tsh *= 0.9 + 0.16 * nP(tx / 4, ty / 4, sd + 43, 16) + 0.1 * (vbHash(tu2, tv2, sd + 47) - 0.5); }
+    var to = (tv2 * TP + tu2) * 4;
+    for (var z4 = 0; z4 < 3; z4++) tile[to + z4] = Math.round(tb[z4] * tsh * (1 - VB_FAR_HAZE) + C2.haze[z4] * VB_FAR_HAZE);
+    tile[to + 3] = 255; }
+  var tileN = new Uint8ClampedArray(tile);
+  for (var z5 = 0; z5 < tileN.length; z5 += 4) { tileN[z5] *= 0.26; tileN[z5 + 1] *= 0.254; tileN[z5 + 2] *= 0.295; }
+  /* night: the same picture under the night the map's fill already uses (#241f1a over #8a7a58) */
+  var nd = new Uint8ClampedArray(px8), NM = [0.26, 0.254, 0.295];
+  for (var z2 = 0; z2 < nd.length; z2 += 4) { nd[z2] *= NM[0]; nd[z2 + 1] *= NM[1]; nd[z2 + 2] *= NM[2]; }
+  /* the names, BB style: the land scales with the zoom, the words do not */
+  var labels = [], mid = N / 2;
+  /* a range's name sits along its edge where no road leaves and away from the peak's own name */
+  function at(en, out, nm, big){ var o = VB_OUT[en], best = mid, bestD = -1;
+    [0.3, 0.5, 0.7, 0.2, 0.8].forEach(function (f) { var c = N * f, dmin = 1e9;
+      roads.forEach(function (r) { if (r.edge === en) dmin = Math.min(dmin, Math.abs(r.c - c)); });
+      var lx = en[0] === 'x' ? (en === 'x0' ? -out : N + out) : c, ly = en[0] === 'y' ? (en === 'y0' ? -out : N + out) : c;
+      dmin = Math.min(dmin, Math.hypot(lx - chx, ly - chy) * 0.8);
+      if (dmin > bestD + 4) { bestD = dmin; best = c; } });
+    labels.push({ txt: nm, x: en[0] === 'x' ? (en === 'x0' ? -out : N + out) : best, y: en[0] === 'y' ? (en === 'y0' ? -out : N + out) : best, kind: big ? 'range' : 'peak', ox: o[0], oy: o[1] }); }
+  at(C.w, 30, 'SPRING MOUNTAINS', 1); at(C.n, 30, 'SHEEP RANGE', 1); at(C.e, 22, 'FRENCHMAN MOUNTAIN', 1); at(C.s, 26, 'BLACK MOUNTAINS', 1);
+  labels.push({ txt: 'MT CHARLESTON', x: chx, y: chy, kind: 'peak', ox: 0, oy: -1 });
+  if (lake) { var lo2 = Math.hypot(lake.x - mid, lake.y - mid) || 1; labels.push({ txt: 'LAKE MEAD', x: lake.x, y: lake.y, kind: 'lake', ox: (lake.x - mid) / lo2, oy: (lake.y - mid) / lo2 }); }
+  roads.forEach(function (r) { if (r.name) { var p = r.pts[Math.min(r.pts.length - 1, 36)]; labels.push({ txt: r.name, x: p[0], y: p[1], kind: 'road' }); } });
+  return { seed: inp.seed, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
+    roads: roads.map(function (r) { return { edge: r.edge, name: r.name || null, c: r.c }; }), ms: Math.round(performance.now() - t0) };
+}
+function vbInput(m){
+  var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
+  var N = V.n, mtn = new Uint8Array(N * N), road = new Uint8Array(N * N), soft = new Uint8Array(N * N), L = V.layout || {};
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = V.at(x, y), d = t && t.district;
+    mtn[y * N + x] = d === 'mountain' ? 1 : 0; road[y * N + x] = /^(freeway|beltway|interchange)$/.test(d || '') ? 1 : 0;
+    soft[y * N + x] = /^(mountain|desert|wash)$/.test(d || '') ? 1 : 0; }
+  return { N: N, K: VB_K, S: VB_S, seed: V.seed, mtn: mtn, road: road, soft: soft,
+    L: { fwyX: L.fwyX, stripX: L.stripX, mead: L.mead, bendNorthY: L.bendNorthY, i15Exit: L.i15Exit } };
+}
+function vbLand(r){
+  VB.busy = false;
+  if (!r || r.seed !== om.seed) return;   /* a valley rolled since it was asked for */
+  function cv(a, n){ n = n || r.P; var c = document.createElement('canvas'); c.width = n; c.height = n; c.getContext('2d').putImageData(new ImageData(a, n, n), 0, 0); return c; }
+  var t = performance.now();
+  VB.day = cv(r.day); VB.night = cv(r.night); VB.tile = cv(r.tile, r.TP); VB.tileNight = cv(r.tileNight, r.TP); VB.seam = cv(r.seam, r.SP); VB.seamNight = cv(r.seamNight, r.SP); VB.seamN = r.seamN; VB.seed = r.seed; VB.P = r.P;
+  VB.labels = r.labels; VB.peak = r.peak; VB.lake = r.lake; VB.compass = r.compass; VB.roads = r.roads; VB.ms = r.ms;
+  VB.landMs = Math.round(performance.now() - t); VB.waitMs = Math.round(performance.now() - VB.asked);
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {}
+}
+function vbAsk(){
+  VB.busy = true; VB.asked = performance.now(); VB.day = null; VB.night = null;
+  var inp = vbInput();
+  try {
+    if (!VB.worker) {
+      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore].map(String).join('\n')
+        + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
+        + '\nonmessage=function(e){ var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
+      VB.worker = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      VB.worker.onmessage = function (e) { vbLand(e.data); };
+      VB.worker.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); };
+    }
+    VB.where = 'worker'; VB.worker.postMessage(inp);
+  } catch (e) { VB.err = String(e && e.message || e); VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); }
+}
+function vbReady(){
+  if (VB.seed !== om.seed && !VB.busy) vbAsk();
+  return !!VB.day && VB.seed === om.seed;
+}
+function vbDraw(ox, oy, night){
+  if (!vbReady()) return;
+  var img = night ? VB.night : VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
+  g.save(); g.imageSmoothingEnabled = false;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, f0);
+  /* the far land first, over the whole glass and the cache's margin, in the picture's own texels */
+  var tl = night ? VB.tileNight : VB.tile;
+  var Mg = 80 + Math.ceil(TW * 4), us = [], vs = [];
+  [[-Mg, -Mg], [CVW + Mg, -Mg], [-Mg, CVH + Mg], [CVW + Mg, CVH + Mg]].forEach(function (c) {
+    var a = (c[0] - ox) / (TW / 2), b = (c[1] - f0) / (TH / 2); us.push(S * (a + b) / 2); vs.push(S * (b - a) / 2); });
+  if (tl) {
+    var u0 = Math.floor(Math.min.apply(null, us)), v0 = Math.floor(Math.min.apply(null, vs)), u1 = Math.ceil(Math.max.apply(null, us)), v1 = Math.ceil(Math.max.apply(null, vs));
+    if (!VB.pat || VB.patOf !== tl) { VB.pat = g.createPattern(tl, 'repeat'); VB.patOf = tl; }
+    /* only where the picture is not already solid (it is solid out to 0.8 of its reach): the glass
+       is painted once, not twice */
+    var a0 = Math.round(VB_K * 0.2 * S), a1 = Math.round((VB_K + om.n + VB_K * 0.8) * S);
+    if (u0 < a0 || v0 < a0 || u1 > a1 || v1 > a1) {
+      g.beginPath(); g.rect(u0, v0, u1 - u0, v1 - v0); g.rect(a0, a0, a1 - a0, a1 - a0);
+      g.fillStyle = VB.pat; g.fill('evenodd'); } }
+  /* and the picture, only the part that can reach the glass */
+  var P = VB.P, cu0 = Math.max(0, Math.floor(Math.min.apply(null, us || [0]))), cv0 = Math.max(0, Math.floor(Math.min.apply(null, vs || [0])));
+  var cu1 = Math.min(P, Math.ceil(Math.max.apply(null, us || [P])) + 1), cv1 = Math.min(P, Math.ceil(Math.max.apply(null, vs || [P])) + 1);
+  if (cu1 > cu0 && cv1 > cv0) g.drawImage(img, cu0, cv0, cu1 - cu0, cv1 - cv0, cu0, cv0, cu1 - cu0, cv1 - cv0); g.restore(); g.imageSmoothingEnabled = sm;
+  VB.draws++;
+}
+function vbSeam(ox, oy, night){
+  if (!VB.seam || VB.seed !== om.seed) return;
+  var S = VB_S, sm = g.imageSmoothingEnabled;
+  g.save(); g.imageSmoothingEnabled = false;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy);
+  g.drawImage(night ? VB.seamNight : VB.seam, 0, 0); g.restore(); g.imageSmoothingEnabled = sm;
+}
+function vbLabels(ox, oy, night){
+  if (!VB.day || VB.seed !== om.seed) return;
+  var shown = 0, taken = [], drawn = [];
+  g.save(); g.textAlign = 'center'; g.textBaseline = 'middle';
+  /* roads first (a number is small and sits on its road), then the land; a name that would sit on
+     another is left off, and one hanging off the glass is nudged on if it is close */
+  var order = VB.labels.slice().sort(function (a, b) { return (a.kind === 'road' ? 0 : 1) - (b.kind === 'road' ? 0 : 1); });
+  var N = om.n;
+  function onMap(b){ for (var c = 0; c < 5; c++) { var X = c === 4 ? (b[0] + b[2]) / 2 : b[c & 1 ? 2 : 0], Y = c === 4 ? (b[1] + b[3]) / 2 : b[c & 2 ? 3 : 1];
+      var a = (X - ox) / (TW / 2), q = (Y - oy) / (TH / 2), gx = (a + q) / 2, gy = (q - a) / 2;
+      if (gx > -0.5 && gx < N + 0.5 && gy > -0.5 && gy < N + 0.5) return true; } return false; }
+  for (var i = 0; i < order.length; i++) { var l = order[i];
+    g.font = (l.kind === 'road' ? '700 9px ' : l.kind === 'range' ? '700 9px ' : '700 8px ') + FACE('body');
+    var lw = l.kind === 'road' ? Math.ceil(g.measureText(l.txt).width) + 8 : Math.ceil(g.measureText(l.txt).width * 1.25) + 4;
+    /* a name never sits on the city: it walks out along its own edge until it is on the land */
+    var lx = l.x, ly = l.y, p = iso(lx, ly, ox, oy);
+    for (var tries = 0; l.kind !== 'road' && tries < 12; tries++) {
+      var cx0 = Math.max(lw / 2 + 4, Math.min(CVW - lw / 2 - 4, p.sx)), bx0 = [cx0 - lw / 2 - 3, p.sy - 8, cx0 + lw / 2 + 3, p.sy + 8], hit0 = false;
+      for (var k0 = 0; k0 < taken.length; k0++) { var b0 = taken[k0]; if (bx0[0] < b0[2] && bx0[2] > b0[0] && bx0[1] < b0[3] && bx0[3] > b0[1]) { hit0 = true; break; } }
+      if (!hit0 && !onMap([cx0 - lw / 2, p.sy - 7, cx0 + lw / 2, p.sy + 7])) break;   /* off the city and off another name */
+      lx += (l.ox || 0) * 4; ly += (l.oy || 0) * 4; p = iso(lx, ly, ox, oy); }
+    var sy = p.sy;
+    var sx0 = p.sx; p = { sx: Math.max(lw / 2 + 4, Math.min(CVW - lw / 2 - 4, p.sx)), sy: sy };
+    if ((Math.abs(p.sx - sx0) > 70 && l.kind !== 'range' && l.kind !== 'lake') || sy < 8 || sy > CVH - 8) continue;   /* a range or a lake runs the whole edge: its name may slide onto the glass; a road number or a peak may not */
+    var box = [p.sx - lw / 2 - 3, sy - 8, p.sx + lw / 2 + 3, sy + 8], hit = false;
+    for (var k = 0; k < taken.length; k++) { var b = taken[k]; if (box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]) { hit = true; break; } }
+    if (hit) continue;
+    taken.push(box); shown++; drawn.push(l.txt);
+    if (l.kind === 'road') {   /* a shield: the number on a dark plate, the road's own colour */
+      var tw = lw;
+      g.fillStyle = 'rgba(12,10,8,0.85)'; g.fillRect(Math.round(p.sx - tw / 2), Math.round(sy - 7), tw, 14);
+      g.strokeStyle = night ? '#6a604c' : '#c8b48a'; g.lineWidth = 1; g.strokeRect(Math.round(p.sx - tw / 2) + 0.5, Math.round(sy - 7) + 0.5, tw - 1, 13);
+      g.fillStyle = night ? '#a89a7a' : '#e8d8b0'; g.fillText(l.txt, Math.round(p.sx), Math.round(sy) + 1);
+      continue; }
+    var txt = l.txt.split('').join(String.fromCharCode(8202));   /* letter-spaced, the way a survey map names land */
+    g.fillStyle = 'rgba(12,10,8,0.7)'; g.fillText(txt, Math.round(p.sx) + 1, Math.round(sy) + 1);
+    g.fillStyle = l.kind === 'lake' ? (night ? '#5a7a8a' : '#cfe0e6') : (night ? '#8a7c60' : '#efe0b8');
+    g.fillText(txt, Math.round(p.sx), Math.round(sy));
+  }
+  g.restore();
+  VB.shown = shown; VB.drawn = drawn;
+}
+/* ==== /__THE_VALLEY_HAS_AN_EDGE__ ==== */
 function renderCity(){
   cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
@@ -43543,7 +43902,8 @@ function renderCity(){
      view showed a city floating in an ocean -- "still in blue around the city"
      (Paolo 8/16). Beyond the mapped 96x96 there is more desert, because the map is
      a window onto the Mojave and not an island. */
-  else { g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(__mg?-__mg.M:0,__mg?-__mg.M:0,CVW+(__mg?2*__mg.M:0),CVH+(__mg?2*__mg.M:0)); }
+  else { if(!(typeof VB!=='undefined'&&VB.tile&&VB.seed===om.seed)){ g.fillStyle=night?'#241f1a':'#8a7a58'; g.fillRect(__mg?-__mg.M:0,__mg?-__mg.M:0,CVW+(__mg?2*__mg.M:0),CVH+(__mg?2*__mg.M:0)); }   /* the old fill, only until the land is baked: the far land covers the glass after */
+    try{ vbDraw(ox,oy,night); }catch(_e){ VB.err=String(_e&&_e.message||_e); }   /* __THE_VALLEY_HAS_AN_EDGE__: the land goes on past the map */ }
   // view radius auto-scales with zoom: enough slots to fill the screen at the
   // current tile size, so zooming out reveals the whole valley, in caps the work.
   const __M=__mg?__mg.M:0;   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: the cache is the screen plus a margin */
@@ -43736,6 +44096,7 @@ function renderCity(){
       g.globalAlpha=1;
     }
   }
+  if(!__vista){ try{ vbSeam(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
   if(__mg) __mg.done=true;
   } finally { if(__mg) mapGroundEnd(__mg); }   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: g back on the glass, the picture blitted */
   }
@@ -44280,6 +44641,7 @@ function renderCity(){
     }
   } catch (_e) {}
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
+  if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
   try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in

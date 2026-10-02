@@ -2313,6 +2313,17 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE VALLEY HAS AN EDGE', ['node', 'gates/the_valley_has_an_edge_gate.js'],
+     'VAMILY [the valley edge], rule 61c (PAOLO 10/1: "when I zoom out of Las Vegas there\'s a square and then '
+     'the rest is desert brown; it\'s really bad"). MEASURED BEFORE: at the far end of the pinch every canvas '
+     'pixel past the 96 x 96 map was one flat #8a7a58. NOW the land goes on: one picture baked in a worker, '
+     'drawn under the tiles in their own projection, a seamless far tile under that to any screen\'s edge. '
+     'HOLDS at the widest zoom on the demo: under 10% of the land past the map is bare; it has relief; a range '
+     'stands 8+ blocks; the four ranges, Lake Mead and Mt Charleston are named with no name on another; every '
+     'freeway at the edge has a road out and the 15, 95 and 93 are named; the land never paints on a block '
+     'and has no holes; the near side is a slope, never a wall; the bake is off the main thread; a fresh paint '
+     'is under 15 ms dearer; night is darker; the edge is dithered; three other seeds bake the same. '
+     'Mutations: land off; near cap at the camera angle; bake on the page; lake unnamed.', True),
     ('THE FRONT DOOR', ['node', 'gates/the_front_door_gate.js'],
      'VAMILY [the front door], rule 61d and rule 56 s5 (PAOLO 10/1: "the loading screen looks like shit... I '
      'can\'t select the difficulty... I can\'t select the origin... I told you this is gonna be translated"). '
