@@ -26,7 +26,7 @@
      E7 the near side is a slope, never a wall: no texel in front of the city stands taller
         than the camera can see past (lift no more than 0.38 of its distance in front)
      E8 the bake is off the main thread (a worker), and landing it costs the page under 60 ms
-     E9 a frame pays for it once: a fresh map paint with the land is under 15 ms dearer
+     E9 a frame pays for it once: the land's own draw is under 15 ms (timed alone, median of 9)
      E10 night has its own darker picture, and the map's edge is dithered into the land (seam)
      E11 *** EVERY VALLEY, NOT ONE SEED *** three other rolls bake with ranges, a lake, the 15,
          and no land on a block
@@ -121,12 +121,16 @@ const done = () => { console.log('THE VALLEY HAS AN EDGE: ' + pass + ' passed, '
     ok('E8 the bake is off the main thread (' + m.where + ', ' + m.ms + ' ms in the worker; landing it on the page ' + m.landMs + ' ms)', m.where === 'worker' && m.landMs < 60);
 
     const cost = await d.fr.evaluate(() => {
-      const t = (on) => { const keep = VB.day; if (!on) VB.day = null; const ts = [];
-        for (let i = 0; i < 5; i++) { MAP_GROUND.key = ''; const a = performance.now(); renderCity(); ts.push(performance.now() - a); }
-        VB.day = keep; ts.sort((a, b) => a - b); return ts[2]; };
-      t(true); const off = t(false), on = t(true); return { on: Math.round(on * 10) / 10, off: Math.round(off * 10) / 10 };
+      /* the land's own draw, timed alone (median of 9): the difference of two whole map paints was
+         the first measure and it swung 4 to 16 ms with the box's load, which is noise, not the land */
+      const ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY);
+      const ts = [], tp = [];
+      for (let i = 0; i < 9; i++) { let a = performance.now(); vbDraw(ox, oy, false); g.getImageData(0, 0, 1, 1); ts.push(performance.now() - a);
+        MAP_GROUND.key = ''; a = performance.now(); renderCity(); g.getImageData(0, 0, 1, 1); tp.push(performance.now() - a); }
+      ts.sort((a, b) => a - b); tp.sort((a, b) => a - b); render();
+      return { land: Math.round(ts[4] * 10) / 10, paint: Math.round(tp[4] * 10) / 10 };
     });
-    ok('E9 a frame pays for the land once (a fresh map paint: ' + cost.on + ' ms with it, ' + cost.off + ' ms without)', cost.on - cost.off < 15);
+    ok('E9 a frame pays for the land once (the land\'s own draw: ' + cost.land + ' ms, inside a ' + cost.paint + ' ms fresh map paint)', cost.land < 15);
 
     const nt = await d.fr.evaluate(() => {
       const lum = (cv) => { const a = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data; let s = 0, n = 0;
