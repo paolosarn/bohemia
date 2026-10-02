@@ -4,16 +4,19 @@ PASSED FILTER (coordinator 10/2, rule 54a: no game he has not named; what it rep
 # FOOD PICKS
 
 One winner. The rest of that stack are out.
+Alcohol stays drinkable and looks modern. The food is the dogshit.
 
 Grains. Communion wafers. 5 batteries. 7 days.
 Rice. Cup noodles. Square brick. Logo mashed. 6 batteries. 8 days.
 Roots. Fruit leather. 6 batteries. 8 days.
-Bread. Hardtack. Bio line: this hardtack will give you a heart attack. 6 batteries. 8 days.
-Fish. Tuna can. He said this is the iconic can. 7 batteries. 8 days.
-Beer. Alcohol is fine. Still drinkable. Looks modern. The joke is the food is dogshit and the booze is not.
+Bread. Hardtack. Bio: this hardtack will give you a heart attack. 6 batteries. 8 days.
+Fish. Tuna can. The iconic can. 7 batteries. 8 days.
+Mushrooms. Truffle fungus. Bio: it says truffle so it has to be good. 7 batteries. 9 days.
+Beer. Modern. Still good. Looks like now.
 Fruit. Fossil raisin box. 8 batteries. 10 days.
+Dates. Protein powder. 8 batteries. 10 days.
 Cheese. Cheez Whiz. It is not cheese. 8 batteries. 11 days.
-Mead. Same as beer. Alcohol is fine and looks modern.
+Mead. Modern. Still good. Looks like now.
 Ham. Smoked meat. 9 batteries. 12 days.
 Venison. Slim Jims. 9 batteries. 12 days.
 Lamb. Beef jerky. 10 batteries. 13 days.
@@ -23,6 +26,4 @@ Strange meat. Mysterious meat in a plastic bag. 5 batteries. 4 days.
 Stew. Canned chili. 8 batteries. 12 days.
 The jar. Strange pickles. 15 batteries. 20 days.
 
-Still open. Mushrooms. Dates.
-
-Note. He said the tuna can is the iconic can, then also picked canned chili. Both stay until he cuts one.
+Note. Tuna is the iconic can. Canned chili also stayed. Both stay until he cuts one.
