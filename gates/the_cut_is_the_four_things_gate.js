@@ -229,7 +229,8 @@ const drawn = (fr, id) => fr.evaluate((i) => {
     await d.pageEval(() => { try { cityEncounterIn({ packageId: 1, label: 'the cut proof', street: true }); } catch (e) { window.__ENCERR = String(e.message); } });
     await d.page.waitForTimeout(3500);
     const fight = await d.pageEval(() => {
-      const f = document.getElementById('combatFrame');
+      /* the door opens the REBUILT fight since 10/2 (rule 63, __THE_NEW_FIGHT_IS_THE_FIGHT__), the frozen one only if that is switched off */
+      const f = document.getElementById('fightFrame') || document.getElementById('combatFrame');
       const b = f ? f.getBoundingClientRect() : null;
       return { frame: !!f, err: window.__ENCERR || null,
                w: b ? Math.round(b.width) : 0, h: b ? Math.round(b.height) : 0,

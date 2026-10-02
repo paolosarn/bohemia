@@ -237,27 +237,27 @@
    "pipe": [
     "colossus",
     "steel_brow",
+    "rally_the_troops",
     "shield_expert",
-    "mace_mastery",
     "underdog",
     "battle_forged",
-    "killing_frenzy"
+    "indomitable"
    ],
    "sledge": [
     "colossus",
-    "steel_brow",
-    "brawny",
+    "recover",
+    "taunt",
     "hammer_mastery",
     "reach_advantage",
     "battle_forged",
     "killing_frenzy"
    ],
    "pistol": [
-    "fast_adaptation",
+    "adrenaline",
     "dodge",
-    "backstabber",
+    "rotation",
     "dagger_mastery",
-    "overwhelm",
+    "footwork",
     "battle_forged",
     "duelist"
    ],
@@ -271,11 +271,11 @@
     "head_hunter"
    ],
    "shotgun": [
-    "fast_adaptation",
+    "adrenaline",
     "bullseye",
     "brawny",
     "crossbow_mastery",
-    "overwhelm",
+    "footwork",
     "battle_forged",
     "head_hunter"
    ],
@@ -291,7 +291,7 @@
   },
   "source": "CORE_WIKITEXT.md # PAGE Perks",
   "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
-  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them"
+  "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them; round two puts the seven skills a perk unlocks into the orders where a job would take them (the captain's ON ME, the sledge's COME AT ME and CATCH YOUR BREATH, the pistol's FIRST OUT THE DOOR and SWAP OUT, SIDESTEP for the quick ones)"
  },
  "board_mix": {
   "value": {

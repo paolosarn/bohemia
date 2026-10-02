@@ -60,6 +60,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, 'tools'))
 S8 = importlib.import_module('bohemia_combat2_store_fronts_and_houses_everywhere_cook_10_2_26')
 H7, R5, R4, B, F, K, CV = S8.H7, S8.R5, S8.R4, S8.B, S8.F, S8.K, S8.CV
+MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')   # round eleven: the plan varies, not just the dirt
 os.chdir(REPO)
 
 OUT_DIR = 'slices/fight_ground'
@@ -67,7 +68,7 @@ OUT_MANIFEST = OUT_DIR + '/fight_ground.json'
 OUT_CARD = 'slices/vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png'
 PX, PY, N, die = B.PX, B.PY, B.N, K.die
 BW, BH = 4, 3                                      # blocks across, down: 20 x 15 house tiles
-MODS = [K, F, CV, B, R4, R5, H7, S8]
+MODS = [K, F, CV, B, R4, R5, H7, S8, MX]
 _R0, _DRESS0, _DANY0 = K.R, K.dress, B.dress_any
 
 
@@ -93,7 +94,10 @@ def stem_through(block):
 
 
 MAKERS = {
-    'suburb': lambda: H7.suburb45(),
+    'subs': lambda: MX.suburb_seeded(601),
+    'corner': lambda: MX.suburb_seeded(701, cross_col=2),
+    'cornerw': lambda: MX.suburb_seeded(751, cross_col=0),
+    'lots': lambda: MX.empty_lots(801),
     'suburb_stem': lambda: stem_through(H7.suburb45()),
     'culdesac': lambda: S8.culdesac45(),
     'strip': lambda: S8.strip45(),
@@ -116,16 +120,40 @@ def wash_terrain(b):
     return g
 
 
-BOARDS = {
-    'suburb':   [['suburb.0', 'suburb.1', 'suburb.2', 'suburb.0'], ['suburb.1', 'suburb.2', 'suburb.0', 'suburb.1'], ['suburb.2', 'suburb.0', 'suburb.1', 'suburb.2']],
-    'culdesac': [['culdesac.0', 'suburb.1', 'culdesac.1', 'suburb.2'], ['suburb_stem.0', 'suburb.0', 'suburb_stem.1', 'suburb.1'], ['suburb.2', 'suburb.1', 'suburb.0', 'suburb.2']],
-    'strip':    [['strip.0', 'strip.1', 'strip.0', 'strip.1'], ['suburb.0', 'suburb.1', 'suburb.2', 'suburb.0'], ['suburb.1', 'suburb.2', 'suburb.0', 'suburb.1']],
-    'ruin':     [['ruin.0', 'suburb.1', 'ruin.1', 'ruin.0'], ['ruin.1', 'ruin.0', 'suburb.2', 'ruin.1'], ['suburb.0', 'ruin.1', 'ruin.0', 'suburb.2']],
-    'desert':   [['scrub.0', 'scrub.1', 'scrub.2', 'scrub.0'], ['wash.0', 'scrub.2', 'wash.1', 'scrub.1'], ['scrub.1', 'scrub.0', 'scrub.2', 'scrub.1']],
-    'freeway':  [['strip.0', 'strip.1', 'strip.0', 'strip.1'], ['freeway.0', 'freeway.0', 'freeway.0', 'freeway.0'], ['scrub.0', 'scrub.2', 'scrub.1', 'scrub.0']],
-    'shore':    [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.0', 'wash.0', 'scrub.1', 'wash.1'], ['scrub.2', 'scrub.0', 'scrub.1', 'scrub.2']],
-    'landfill': [['landfill.0', 'landfill.1', 'landfill.0', 'landfill.1'], ['landfill.1', 'scrub.0', 'landfill.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']]   # no freeway stub (round nine's weak note),
+import random
+# ROUND ELEVEN (sweep L): every board is SEEDED from a palette of blocks per row, so the plan changes
+# across the width and down the board; no block sits beside or above its own twin.
+TOWN = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'cornerw.0', 'lots.0']
+PALETTES = {
+    'suburb':   [TOWN, TOWN, TOWN],
+    'culdesac': [['culdesac.0', 'culdesac.1'] + TOWN[:4], None, TOWN],
+    'strip':    [['strip.0', 'strip.1', 'lots.0'], TOWN, TOWN],
+    'ruin':     [['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']],
+    'desert':   [['scrub.0', 'scrub.1', 'scrub.2'], ['wash.0', 'wash.1', 'scrub.2', 'scrub.0'], ['scrub.1', 'scrub.0', 'scrub.2']],
+    'freeway':  [['strip.0', 'strip.1', 'lots.0'], ['freeway.0'], ['scrub.0', 'scrub.1', 'scrub.2']],
+    'shore':    [['shore.0', 'shore.1'], ['scrub.0', 'wash.0', 'scrub.1', 'wash.1'], ['scrub.2', 'scrub.0', 'scrub.1']],
+    'landfill': [['landfill.0', 'landfill.1'], ['landfill.1', 'landfill.0', 'scrub.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']],
 }
+
+
+def seeded_layout(name):
+    rng = random.Random('bohemia-board-' + name)
+    lay = []
+    for br, pal in enumerate(PALETTES[name]):
+        row = []
+        for bc in range(BW):
+            if pal is None:                                         # under a cul-de-sac: carry its stem south
+                above = lay[br - 1][bc]
+                row.append('suburb_stem.%d' % (bc % 2) if above.startswith('culdesac') else rng.choice([b for b in TOWN if b != above]))
+                continue
+            opts = [b for b in pal if (not row or b != row[-1]) and (br == 0 or b != lay[br - 1][bc])] or pal
+            if 'culdesac' in name and br == 0 and bc in (0, 2): opts = [b for b in opts if b.startswith('culdesac')] or opts
+            row.append(rng.choice(opts))
+        lay.append(row)
+    return lay
+
+
+BOARDS = {k: seeded_layout(k) for k in PALETTES}
 START_ROWS = (4, 9)
 
 
