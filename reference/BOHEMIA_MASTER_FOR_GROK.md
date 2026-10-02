@@ -596,6 +596,7 @@ THE FIGHT VERDICT (DIRECTION posts it every round, coverage order). ROUND 21, 10
 64. THE NEW FIGHT IN THE DEMO NOW, AND ONE SONG AT A TIME (PAOLO 10/2: 'in the demo, I don't know if you reset the combat, I got excited... it's gonna be the new combat system... and make sure two songs aren't playing at the same time'; records/BOHEMIA_PAOLO_IS_THE_NEW_COMBAT_IN_THE_DEMO_AND_TWO_SONGS_AT_ONCE_10_2_26.md). RUN's two first lines: [the new fight in the demo] (the demo's one door opens the rebuilt fight with the loop's board kind, crew and band, and takes its result back; the frozen fight is unreachable from the demo) and [one song] (one music bus, one playing source at any moment, hand-off on a phrase; a driver gate counts playing music through map, settlement, fight and return and fails on two). ***
 65. THE MAP, BIGGER AND BETTER, ESPECIALLY ZOOMED OUT, FIRST (PAOLO 10/2, the fourth time: 'I've been telling you I want the map graphics bigger and better, especially when you zoom out of the city, for a fat minute'; records/BOHEMIA_PAOLO_THE_MAP_GRAPHICS_BIGGER_AND_BETTER_ZOOMED_OUT_FOR_A_FAT_MINUTE_10_2_26.md). RUN's FIRST LINE above everything: (a) the map at the phone's real pixels, everything drawn 1:1 from its art; (b) THE FAR END IS A PAINTED VALLEY at Battle Brothers' density (38a's floor): ranges, blocks, roads, lights at night, towns as drawn places, land texture, nothing flat; COOK's map sheet and the banks are the source; EYES counts the far frame against the floor. No other RUN row ships first. The painters (COOK, DIRECTION) are paused by 54; lifting that is one word from him. ***
 66. ONE MAN IS NOT A WALL, TWO ARE; THE CHARACTERS LARGER; A START SCREEN (PAOLO 10/2: 'combat's looking a lot better, I really do appreciate it... you can walk through one person but not two... I want the characters larger... the UI sucks, there should be a start screen: new game, continue, settings... really proud of the progress, keep going optimizing it like Battle Brothers with our assets'; records/BOHEMIA_PAOLO_COMBAT_LOOKS_BETTER_WALK_THROUGH_ONE_NOT_TWO_BIGGER_CHARACTERS_A_START_SCREEN_10_2_26.md). His first good word on the fight; the rebuild holds. COMBAT round three: Battle Brothers' blocking and zone of control exactly (a man's tile is never walked through; pass a lone man at the price of his free swing; two side by side are a wall), a gate that walks the cases; THE MAN READS AS A MAN: after the open glide the camera idles near his 112 size, the pinch goes out to the whole board and back. RUN [the start screen]: title, NEW GAME / CONTINUE / SETTINGS, then the picks; the loading screen behind NEW GAME. ***
+67. THE SIXTH VOTES (PAOLO 10/2 in the tab, 91 verdicts, LOCKED; 'there we go, good progress, just the UI is consistently horse shit... AI dogshit slop that needs so much love'; laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md; records/BOHEMIA_PAOLO_THE_SIXTH_VOTES_THERE_WE_GO_THE_UI_IS_SLOP_10_2_26.md). THE UI: the fight's HUD stripped to bars above the people and the attack button, the rest in the background, no combat log, a drawn icon for every perk and trait (COMBAT, in the fight file); the settlement screen rebuilt the way Battle Brothers' work, the buildings are the buttons (RUN TWO); her page: stats with stars beside them. THE FIGHT HOLDS: cars on a tile raise its defence by count; a recap screen after every fight (blood, kills, experience); fights start LEFT TO RIGHT; landfill and freeway re-cut; many more building types; tiles' lines agree with their neighbours (COMBAT, COMBAT TWO). THE MAP: one painted pixel per screen pixel is Battle Brothers' floor (38a) and the map now draws at his phone's pixels (his YES); the far end generates with the world; the zoom into a fight goes through clouds (RUN). THE HEIRS ARE MADE WHEN YOU ENTER THE ACT, one at a time, about 42% of the last crew; the three prepared names at the start (39c) are DEAD; start older or younger. TUNING copies Battle Brothers; MODS: no folder at boot. SOUNDS approved, quieter. QUESTS: contracts only. ANIMATION: no more school pages. BEEF and crime exist (FACTIONS, PEOPLE, when they run). 'Our game will be better than Battle Brothers.' ***
 
 THE HORROR READING (EYES E28, rule 20, STANDING; latest 10/1 on the alpha (rule 54a narrows this lane to visuals and sounds; the standing demo-cut clone was slow this round so the alpha stood in, same tool, same rules), ZERO FINDINGS AGAIN: controls all green, 0 findings, 0 unmeasured-and-unsaid; the fight was not reached on this route (R3 n/a), same known shape as every alpha-only pass. Record records/BOHEMIA_EYES_E28_HORROR_CHECK_9_21_26.json. This lane does NOT judge the tone -- DIRECTION decides taste, the bible IS the taste written down, and what makes it checkable is that every rule carries its own MEASURE)
  THREE OF THE TEN NOW HAVE A NUMBER, AND THE CUT PASSES ALL THREE. ZERO FINDINGS.
@@ -2473,14 +2474,14 @@ Law: laws/BOHEMIA_ADDENDUM_THE_CENTRAL_CHAT_9_4_26.md
 # THE CANON INDEX (every addendum, newest wins)
 # source: BOHEMIA_CANON_INDEX.md
 ====================================================================================================
-# BOHEMIA CANON INDEX — regenerated 10/01/26
+# BOHEMIA CANON INDEX — regenerated 10/02/26
 
 **LAW: on any conflict between addenda, the NEWEST date wins.**
 This index is the map. Consult it BEFORE citing an addendum as current.
 A contradiction between two files is a BUG: file it, gate it if mechanical,
 flag it [PENDING Paolo] if canon-level.
 
-403 canon files indexed across 2 locations.
+404 canon files indexed across 2 locations.
 
 ## THE GDD LINEAGE — ALL FOUR ARE LIVE (gated: node gdd_gate.js)
 
@@ -2774,7 +2775,8 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_ADDENDUM_PRODUCTION_HARDENING_7_2_26.md`
 - `BOHEMIA_ADDENDUM_CHARACTER_PIPELINE_6_30_26.md`
 
-### UNCLASSIFIED (235) — add keywords to DOMAINS
+### UNCLASSIFIED (236) — add keywords to DOMAINS
+- `BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md`
 - `BOHEMIA_ADDENDUM_THE_FIFTH_VOTES_10_1_26.md`
 - `BOHEMIA_ADDENDUM_THE_FOURTH_VOTES_10_1_26.md`
 - `BOHEMIA_ADDENDUM_AN_OUTSIDE_HELPER_KNOWS_EVERYTHING_9_30_26.md`
@@ -3010,6 +3012,40 @@ opening line. Each is the SOLE home of load-bearing canon. Never archive one.
 - `BOHEMIA_GDD_v4.md`
 - `BOHEMIA_GDD_v5.md`
 - `BOHEMIA_PAOLO_TASTE_CANON.md`
+
+
+====================================================================================================
+# LAW BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md
+# source: laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md
+====================================================================================================
+# BOHEMIA ADDENDUM: THE SIXTH VOTES (Paolo 10/2 in the tab; 91 verdicts; 'there we go, good progress, just the UI is consistently horse shit') -- 10/2/26, LOCKED
+His words: records/BOHEMIA_PAOLO_THE_SIXTH_VOTES_THERE_WE_GO_THE_UI_IS_SLOP_10_2_26.md. Front page rule 67. Newest date wins.
+1. THE UI IS THE BIGGEST CONCERN. 'AI dogshit slop that needs so much love; not like a studio-made game.' THE FIGHT'S HUD IS
+   STRIPPED: health and armour bars above the people and the attack button stay on screen; everything else lives in the
+   background until asked for; no combat log on screen; every perk and trait gets a drawn icon (a studio's, not text).
+   The settlement screen is rebuilt to the way Battle Brothers' settlements work (the buildings ARE the buttons, no extra
+   buttons). Her page shows stats with their stars beside them. The UI chat is paused by rule 54; the fight's HUD is
+   COMBAT's inside the fight file, the settlement's is RUN TWO's; opening the UI chat is his call.
+2. THE FIGHT HOLDS ('I like it'): cars on a tile raise its defence by count (one car some, three cars more); a recap screen
+   after every fight (blood drawn, kills, experience) like Battle Brothers; fights start LEFT TO RIGHT on the glass, never
+   south to north; the landfill and freeway boards are re-cut; many more building types; every tile's lines run through
+   and agree with its neighbours.
+3. THE MAP ('got to be able to zoom in so much and out all the way'; 'the world map has to be like 5x more pixels to match
+   Battle Brothers'): Battle Brothers draws one painted pixel per screen pixel at native resolution (DIRECTION 9/28,
+   records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md); on his phone that is 1170x2532; the map now draws at those
+   pixels (run-map-at-your-pixels, his YES) and the far end is painted (his YES, 'as long as it procedurally generates');
+   what remains is the art density at every stop, measured against that floor (65). THE ZOOM INTO A FIGHT GOES THROUGH
+   CLOUDS as the loading screen again. The painted far end generates with the rest of the world, never a fixed picture.
+4. THE HEIRS ARE MADE WHEN YOU ENTER THE ACT, ONE AT A TIME ('you make the people fresh when you enter a new act'; 'one at a
+   time when you enter the new era, not all three at once, my bad'); the three prepared names at the start (39c, the
+   second votes) are DEAD; the company inherits about 42% of the last crew, not all; you can choose to start older or
+   younger; nobody dies of old age inside an act, lifespan matters at the step to the next.
+5. TUNING COPIES BATTLE BROTHERS (every number theirs, 63d); MODS: no mods folder at boot, no try-a-mod; the data line stays.
+6. SOUNDS: the new ones are approved and the volume comes down ('quieter please'). QUESTS: contracts only. PEOPLE: many more
+   portrait assets. ANIMATION: no more Battle Brothers school pages ('who cares, do what we have to do').
+7. BEEF: a settlement or its roaming parties come for you after a contract against them, or for no contract at all; crime
+   exists ('you can't even steal bread in this game'): a FACTIONS and PEOPLE row for when they run.
+8. 'OUR GAME WILL BE BETTER THAN BATTLE BROTHERS': the revamp leads, and we do more than they did.
 
 
 ====================================================================================================
@@ -48396,6 +48432,24 @@ battle Brothers combat because honestly, I think it's just too fucked up and too
    costs one' in the fight are SET ASIDE until the Battle Brothers fight plays; they return only if he asks.
 4. THE OWNER: COMBAT (04), in REBUILD mode, with COMBAT TWO drawing. Nothing else on COMBAT's board runs until a whole
    fight plays end to end in the new file on his phone; then the loop file hosts it and RUN folds the loop into the demo.
+
+
+====================================================================================================
+# HIS WORDS BOHEMIA_PAOLO_THE_SIXTH_VOTES_THERE_WE_GO_THE_UI_IS_SLOP_10_2_26.md
+# source: records/BOHEMIA_PAOLO_THE_SIXTH_VOTES_THERE_WE_GO_THE_UI_IS_SLOP_10_2_26.md
+====================================================================================================
+# PAOLO 10/2/26: THE SIXTH VOTES. 'THERE WE GOOOO. GOOD PROGRESS, JUST THE UI IS CONSISTENTLY HORSE SHIT.'
+91 verdicts from his 10/2 export, every comment verbatim in the registry under its id. The ones that rule:
+- THE FIGHT, STARTED OVER: YES ('I like it; the amount of cars on a tile can increase the defence rating: one car a certain amount, three cars more'). EVERY FIGHT ENDS: YES ('Battle Brothers has a recap screen: blood drawn, kills, experience; keep that in mind'). THE PERK BUTTONS: YES but 'this UI is looking like dogshit, not like a studio-made game, like AI slop; where is the attack button? health and armour bars above the people is cool, the rest of the info is not needed, keep it in the background; the combat log is not needed; all traits need cool graphic icons'. THE FIFTY PERKS: YES ('make sure the main coordinator talks with me about this').
+- THE BOARDS: YES x9 ('make sure all tiles and elements talk to each other and the lines that run through are consistent'; 'landfill and freeway look like dog shit'; 'most fights start LEFT TO RIGHT, not south to north'; 'we need so much more building types'; 'consistency and quality'; 'good progress, not final, not even close').
+- THE MAP: YES ('as long as it procedurally generates with the rest'; 'got to be able to zoom tf in so much and zoom out all the way'; 'I want it to zoom in with clouds being the loading screen again; the world map has to be like 5x more pixels to match Battle Brothers'; 'WE SHOULD HAVE THE BATTLE BROTHERS PIXEL COUNT BY NOW').
+- THE LOOP AND THE DOORS: YES ('the buildings will be the buttons, extra buttons not needed'; the front door 'awesome, not close to final'; the settlement screen 'looking real dogshit, look how Battle Brothers settlements work').
+- THE COMPANY INHERITS: YES, 'not all of them, maybe like 42%'. THREE NAMES RESHUFFLE: NO, 'dead idea, you make the people fresh when you enter a new act'. YOUR THREE: 'you'll make your relatives one at a time when you enter the new era, not all three at once, my bad'. WHO YOU WERE: 'you can choose to be older or younger'. HOW LONG THEY LIVE: 'no one is dying of old age in the current act; when you go to the next age it depends on this'.
+- TUNING: 'COPY BATTLE BROTHERS' (every number NO, five points NO). MODS AT BOOT: 'NAH'; TRY A MOD: NO. ANIMATION'S BATTLE BROTHERS SCHOOL: NO, 'who cares, do what we have to do, our game will be better than Battle Brothers'.
+- SOUNDS: 'new ones are fire, put the volume down a little'; 'quieter please, it's loud'. PEOPLE: 'we need wayyyy more portrait assets'. HER PAGE: 'stats and stars next to stats, how Battle Brothers does it'. QUESTS: 'contracts only'. DYNASTY ANGEL VERBS: 'beef with a settlement where they attack you or their roaming parties do, for taking a contract that attacks them first, or no contract needed; you can't even steal bread in this game'. THREE SHAPES: 'needs way more pixels'. A HOUSE IS ONE TILE: 'always a 45-degree angle looking down'.
+- Downvotes on anything that showed the old combat or the old map ('you showed me the old combat so I downvote') are not rulings; they are the frozen fight.
+- ANYTHING ELSE: 'Battle Brothers revamp will lead the way and we will do more than Battle Brothers did, but my biggest concern right now is the UI is AI dogshit slop that needs so much love.'
+Rule 67 and laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md carry the readings.
 
 
 ====================================================================================================
