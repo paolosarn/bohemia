@@ -1541,7 +1541,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/2g - THE PERK SKILLS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/2h - THE NEW FIGHT IS IN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11564,7 +11564,119 @@ try{ var _bk=localStorage.getItem(BOH_KEYS_LS);
   if(_bk){ var _a=JSON.parse(_bk); if(Array.isArray(_a))window.bohemiaKeys=_a; } }catch(_e){}
 try{ var _bp=localStorage.getItem(BOH_POCKET_LS);
   if(_bp)window.bohemiaPocket=JSON.parse(_bp); }catch(_e){}
+/* ===== __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2, [fold the loop], rule 63) =====
+   PAOLO 10/2: "combat is so glitchy ugly and fucked up... start combat over from the ground up...
+   re-create Battle Brothers combat." COMBAT rebuilt it in ONE FILE (slices/BOHEMIA_FIGHT.html,
+   645c31f, a whole fight plays on the phone profile 33/0) and rule 63 hands the fold to RUN:
+   "the loop hosts it and RUN folds it into the demo."
+   SO EVERY FIGHT THE MAP STARTS NOW OPENS THAT FILE, not the frozen one. Same door (the city's
+   cityHandOver, the shell's cityEncounterIn), same way home (cityFightHome, the map on the block
+   he left), so the loop, the road parties and the jobs need no second path.
+   WHAT THE MAP TELLS IT: the board is the block he is standing on (COMBAT TWO cut eight boards
+   from the city's own block kinds; the district picks one), and night is the map's clock.
+   WHAT IT TELLS THE MAP: won or lost (its one message, BOHEMIA_FIGHT_OVER), and who fell and
+   who ran, read off its own state. Its result card stays up for four beats, then he is home;
+   a tap on the card takes him home at once. The card's "again" is the fight's test-bench door
+   and is hidden here: a fight he finished is finished.
+   THE FROZEN FIGHT IS UNTOUCHED (rule 63a: keep the dial's code, sounds and ring). */
+var NEW_FIGHT_ON = true;
+var NF_FREEWAY_BOARD = 'strip';   /* 'freeway' once its fights end (see nfBoard) */
+/* the fight's rules live in a const of its page, not on its window; same origin, so it is asked by name */
+function nfFight(cw){ try{ return cw && cw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); }catch(_e){ return null; } }
+/* the fight carries its own round line where the shell's gear sits: the gear steps out while it is up */
+(function(){ try{ var st=document.createElement('style'); st.textContent='body.nf-on #gearbtn{display:none !important}'; document.head.appendChild(st); }catch(_e){} })();
+var NF = { frame: null, opts: null, over: null, homeAt: null, opened: 0 };
+window.NF = NF;
+/* the eight boards are named for block kinds; a district takes the board of its kind */
+function nfBoard(district){
+  var d = String(district || '');
+  if (/^(strip|resort|casino|commercial|mall|downtown|convention|luxor|sphere|highroller|strat|sign|truckstop|swapmeet|drivein)$/.test(d)) return 'strip';
+  /* THE FREEWAY BOARD STALLS, MEASURED 10/2 (seed 5, AUTO, the fight file alone): round 60, the band
+     holding its line at row 4 out of sight, the last two of yours Breaking and Wavering, no end; the
+     other seven boards end in 6 to 19 rounds. A fight that never ends is the 10/1 bug ("combat didn't
+     end so I couldn't get back"), so freeway blocks fight on the STRIP board (paved, dead cars) until
+     COMBAT says the freeway board ends; routed in RUN's handoff. Flip NF_FREEWAY_BOARD then. */
+  if (/^(freeway|beltway|interchange)$/.test(d)) return NF_FREEWAY_BOARD;
+  if (/^(rail|railyard)$/.test(d)) return 'landfill';
+  if (d === 'arterial') return 'suburb';   /* a mile road runs between suburb blocks */
+  if (/^(water|reservoir|intake|dam|springs|waterpark)$/.test(d)) return 'shore';
+  if (/^(landfill|quarry|gypsum|industrial|warehouse|robofactory|boneyard|fueldepot|storage)$/.test(d)) return 'landfill';
+  if (/^(desert|mountain|wash|solar|farm|basin|park|golf)$/.test(d)) return 'desert';
+  if (/^(estate|gated|trailer)$/.test(d)) return 'culdesac';
+  if (/^(suburb|apartment|town|school|campus|library|chapel|cemetery)$/.test(d)) return 'suburb';
+  return 'ruin';   /* everything else is act one: the ruin */
+}
+function nfOpts(d){
+  var w = (d && d.world) || {};
+  return { board: nfBoard(d && d.district), night: w.night === true };
+}
+function nfOpen(d){
+  var pc = document.getElementById('p-combat'); if (!pc) return false;
+  fightVeil(true);
+  CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
+  NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
+  var old = document.getElementById('combatFrame'); if (old) old.style.display = 'none';
+  var fr = document.getElementById('fightFrame');
+  if (fr) fr.remove();
+  fr = document.createElement('iframe');
+  fr.id = 'fightFrame'; fr.title = 'The fight';
+  fr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#0d0b09';
+  pc.appendChild(fr);
+  NF.frame = fr;
+  /* the options go on the fight's own window before it reads them: it reads FIGHT_OPTS once its
+     data has loaded, so they are set the moment its window exists, and checked again at load */
+  var opts = NF.opts, set = function(){ try{ var cw = fr.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = opts; }catch(_e){} };
+  var iv = setInterval(set, 4);
+  fr.addEventListener('load', function(){
+    set(); clearInterval(iv);
+    try{ var cw = fr.contentWindow;
+      /* if its data beat the options, start it again with them before he has touched it */
+      var t = setInterval(function(){ try{
+        var F = nfFight(cw); if (!F || !F.S || !F.S.board) { if (performance.now() - NF.opened > 30000) clearInterval(t); return; } clearInterval(t);
+        if (F.S.board !== opts.board && typeof cw.start === 'function') { cw.FIGHT_OPTS = opts; cw.start(); NF.restarted = (NF.restarted || 0) + 1; }
+        var again = cw.document.getElementById('oagain'); if (again) again.style.display = 'none';
+        var card = cw.document.getElementById('over'); if (card) card.addEventListener('click', function(){ nfHome(); });
+      }catch(_e){ clearInterval(t); } }, 50);
+    }catch(_e){}
+  });
+  fr.src = 'BOHEMIA_FIGHT.html';
+  showTabPanel('combat');
+  document.body.classList.add('nf-on');
+  return true;
+}
+/* four beats to read the card, on the game's one clock */
+function nfReadMs(){ try{ return 4 * 60000 / (window.BPM || 120); }catch(_e){ return 2000; } }
+function nfOverIn(d, src){
+  if (!NF.frame || src !== NF.frame.contentWindow || NF.over) return false;
+  var won = d.result === 'won', fell = 0, dead = 0, ran = 0, theirs = 0;
+  try{ var S = nfFight(NF.frame.contentWindow).S;
+    S.units.forEach(function(u){ if (u.side === 'them') { theirs++; if (u.dead) dead++; if (u.fled) ran++; } else if (u.dead || u.down) fell++; }); }catch(_e){}
+  var outcome = { result: won ? 'win' : 'loss', victory: won, reason: 'the rebuilt fight', dead: dead, fled: ran, spared: 0,
+    alive: won ? 0 : Math.max(0, theirs - dead - ran), fellOfYours: fell, turns: d.rounds | 0, board: NF.opts && NF.opts.board, newFight: true };
+  NF.over = outcome; NF.overWall = Date.now(); G.lastEncounter = outcome;
+  try{ if (window.STING) STING.play(won ? 'win' : 'loss'); }catch(_e){}
+  try{ if (window.FIGHTMUS) FIGHTMUS.leave(); }catch(_e){}
+  G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });
+  if (G.combatLog.length > 40) G.combatLog.shift();
+  NF.homeAt = setTimeout(nfHome, nfReadMs());
+  return true;
+}
+function nfHome(){
+  if (!NF.over || !CITYFIGHT) return false;
+  if (NF.homeAt) { clearTimeout(NF.homeAt); NF.homeAt = null; }
+  var fr = NF.frame; NF.frame = null;
+  document.body.classList.remove('nf-on');
+  var ok = cityFightHome(NF.over); NF.homeWall = Date.now();
+  try{ if (fr) { fr.src = 'about:blank'; fr.remove(); } }catch(_e){}
+  return ok;
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_FIGHT_OVER') return;
+  nfOverIn(d, ev.source);
+});
+/* ===== /__THE_NEW_FIGHT_IS_THE_FIGHT__ ===== */
 function cityEncounterIn(d){
+  if(NEW_FIGHT_ON){ try{ if(nfOpen(d))return; }catch(_e){} }   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ */
   fightVeil(true);   /* V205 __ENTER_ZOOM__: the dust outlives the panel swap */
   CITYFIGHT=true; CITYFIGHT_AT=(d&&d.at)||null;
   const go=()=>{ const enc=startEncounter({

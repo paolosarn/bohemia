@@ -43845,15 +43845,18 @@ function vbLabels(ox, oy, night){
     g.font = (l.kind === 'road' ? '700 9px ' : l.kind === 'range' ? '700 9px ' : '700 8px ') + FACE('body');
     var lw = l.kind === 'road' ? Math.ceil(g.measureText(l.txt).width) + 8 : Math.ceil(g.measureText(l.txt).width * 1.25) + 4;
     /* a name never sits on the city: it walks out along its own edge until it is on the land */
-    var lx = l.x, ly = l.y, p = iso(lx, ly, ox, oy);
-    for (var tries = 0; l.kind !== 'road' && tries < 12; tries++) {
+    var lx = l.x, ly = l.y, p = iso(lx, ly, ox, oy), clear = l.kind === 'road';
+    for (var tries = 0; l.kind !== 'road' && tries < 40; tries++) {
       var cx0 = Math.max(lw / 2 + 4, Math.min(CVW - lw / 2 - 4, p.sx)), bx0 = [cx0 - lw / 2 - 3, p.sy - 8, cx0 + lw / 2 + 3, p.sy + 8], hit0 = false;
       for (var k0 = 0; k0 < taken.length; k0++) { var b0 = taken[k0]; if (bx0[0] < b0[2] && bx0[2] > b0[0] && bx0[1] < b0[3] && bx0[3] > b0[1]) { hit0 = true; break; } }
-      if (!hit0 && !onMap([cx0 - lw / 2, p.sy - 7, cx0 + lw / 2, p.sy + 7])) break;   /* off the city and off another name */
-      lx += (l.ox || 0) * 4; ly += (l.oy || 0) * 4; p = iso(lx, ly, ox, oy); }
+      if (!hit0 && !onMap([cx0 - lw / 2, p.sy - 7, cx0 + lw / 2, p.sy + 7])) { clear = true; break; }   /* off the city and off another name */
+      if (tries < 10) { lx += (l.ox || 0) * 4; ly += (l.oy || 0) * 4; p = iso(lx, ly, ox, oy); }
+      else { var cy0 = iso(N / 2, N / 2, ox, oy).sy + TH / 2; p = { sx: p.sx, sy: p.sy + (p.sy >= cy0 ? 8 : -8) }; } }   /* then straight up or down the glass, away from the city */
     var sy = p.sy;
     var sx0 = p.sx; p = { sx: Math.max(lw / 2 + 4, Math.min(CVW - lw / 2 - 4, p.sx)), sy: sy };
-    if ((Math.abs(p.sx - sx0) > 70 && l.kind !== 'range' && l.kind !== 'lake') || sy < 8 || sy > CVH - 8) continue;   /* a range or a lake runs the whole edge: its name may slide onto the glass; a road number or a peak may not */
+    /* a name is never left on the city; a road number or a peak is never slid more than half its width
+       onto the glass, while a range or a lake (it runs the whole edge) may slide to be read */
+    if (!clear || (Math.abs(p.sx - sx0) > lw / 2 + 24 && l.kind !== 'range' && l.kind !== 'lake') || sy < 8 || sy > CVH - 8) continue;
     var box = [p.sx - lw / 2 - 3, sy - 8, p.sx + lw / 2 + 3, sy + 8], hit = false;
     for (var k = 0; k < taken.length; k++) { var b = taken[k]; if (box[0] < b[2] && box[2] > b[0] && box[1] < b[3] && box[3] > b[1]) { hit = true; break; } }
     if (hit) continue;
