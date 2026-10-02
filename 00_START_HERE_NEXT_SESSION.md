@@ -10684,6 +10684,10 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2b LATEST -- [the front door] SHIPPED (31c56c2): pick the fights, the shelves, who you were and the crew's name at the door. TAB: the DEMO's loading screen.
+BB's combat and economic difficulty and its fifteen origins (GROK_14), translated, draft:true names; every number on a card is applied (start batteries once, then each job's pay, crew, fight package). The door stays a door: only a tap on a pick is held back.
+GATE THE FRONT DOOR 7/0 (one driver, beforeTap). a_stranger_opens_it re-aimed to tap BEGIN. Rule 63: the old fight is frozen; the loop still uses it until COMBAT's new file plays, then RUN folds that in.
+NEXT: [the valley edge] (claimed): no square and no bare brown when he zooms out; then [screen fit], [map pixels now]'s near end, [the reel].
 RUN (run-eak241): 10/2 LATEST -- [fold the loop] SHIPPED: THE LOOP PLAYS IN THE DEMO. TAB: the DEMO link, tap CHURCH.
 Folded onto the REAL map and fight (not the loop file's placeholders): arrive at a town -> RUN TWO's settlement screen; BOARD -> contract, a JOB on the map (cast under a red flag); reach it -> the real fight; clear -> paid 1 battery; walk out -> job stays unpaid; lose -> lost. Rule 61b: the quest line is off the map; the loop's news is a phone post.
 GATE THE LOOP PLAYS ON THE MAP 12/0 (one driver end to end; mutations caught). records/BOHEMIA_THE_LOOP_PLAYS_ON_THE_MAP_RUN_10_1_26.md
