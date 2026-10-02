@@ -4134,7 +4134,8 @@
     "how": "image",
     "src": "vote/COMBAT_REACH_IS_LIT_10_1.png"
    }
-  }
+  },
+  {"id": "run-the-loop-on-the-map-10-2", "kind": "ui", "lane": "run", "made": "10/2", "sha": "pending", "title": "THE LOOP IS THE DEMO: TOWN, JOB, FIGHT, PAY", "why": "Walk to a town and its screen opens, take a job off the board, the job shows up on the map with a red flag, go there and fight, clear it and you get paid, walk away and the job waits for you. You see it in the demo: tap the town next to you, CHURCH, two blocks away.", "show": {"how": "image", "src": "vote/RUN_THE_LOOP_ON_THE_MAP_10_2.png"}}
 ],
  "verdicts": [
   {

@@ -2313,6 +2313,14 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE LOOP PLAYS ON THE MAP', ['node', 'gates/the_loop_plays_on_the_map_gate.js'],
+     'VAMILY [fold the loop], rules 52 and 58, release line 2 (PAOLO 10/1: "I want the demo"). RUN TWO\'s '
+     'loop (one file, a placeholder map and fight) and its settlement screen folded onto the REAL map and '
+     'the REAL fight. ONE DRIVER PLAYS IT END TO END ON THE DEMO, real touches: a touch on the town next to him '
+     'travels there; arriving opens the settlement screen named for the town with his batteries; the BOARD '
+     'gives him a contract; LEAVE closes it and the JOB is on the map; reaching the JOB opens the real '
+     'fight; walking out keeps the job unpaid; a cleared job pays one battery in the purse and on the bar; '
+     'no dead end. Mutations: arriving opens nothing; walking out pays; a cleared job pays nothing.', True),
     ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
      'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
      'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '

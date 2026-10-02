@@ -42335,6 +42335,12 @@ function travelTo(sx,sy){
     if(!best){ travelSay('No road that way.'); return false; }
     tx=best[0]; ty=best[1];
   }
+  if(Math.max(Math.abs(tx-city.x),Math.abs(ty-city.y))<=1){
+    /* __THE_LOOP_ON_THE_MAP__: a touch on the JOB or the town he is standing at IS the arrival:
+       the fight starts, the town opens. Without this a walked-out job could never be retried
+       from where he stood (driven: the second touch said "You are standing there"). */
+    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1)){ travelStop(); loopArrived([city.x,city.y]); return true; } }catch(_e){}
+  }
   if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
   var p=cityRoute(city.x,city.y,tx,ty);
   if(!p){ travelSay('No way through to there.'); return false; }
@@ -42374,9 +42380,182 @@ function travelStepped(moved){
        and leaves the spread to him -- no teleport, no mode (rule 24). */
     travelSay('Arrived: '+cells+' block'+(cells===1?'':'s')+' crossed.');
     try{ render(); }catch(_e){}
+    try{ loopArrived(to); }catch(_e){}   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight */
   }
 }
 /* ==== /__THE_MAP_IS_HOW_YOU_TRAVEL__ ==== */
+
+/* ==== __THE_LOOP_ON_THE_MAP__ (RUN 10/1, [fold the loop], rules 52 and 58) ===================
+   PAOLO 10/1: "I want the demo." RUN TWO built the whole Battle Brothers loop in one file
+   (slices/BOHEMIA_LOOP.html, a placeholder map and a placeholder fight) and the settlement
+   screen as a file THIS map plugs in. The fold keeps the real map (his body, the cast, the
+   towns, the phone's pixels) and the real fight (which ends and brings him home), and brings
+   the loop's systems onto them:
+     ARRIVE at a town (a faction's home base) -> RUN TWO's settlement screen opens over the map,
+       told the place, its tier and his batteries.
+     THE BOARD there -> a CONTRACT (two at most, rule 51): a JOB is marked on the map a few
+       blocks out, a crew of the cast under a red flag.
+     REACH THE JOB -> the real fight, through the one door every fight uses.
+     WIN -> paid in batteries (the purse, 'electricity'), the contract is done; lose or walk
+       out -> the contract is lost and you are home on the map either way.
+   Batteries spent or earned inside the settlement screen (the stall, the barber, the hall) are
+   settled against the same purse, so there is ONE number. */
+var LOOP = { held: [], done: 0, fighting: null, frame: null, ready: false, open: null, log: [] };
+window.LOOP = LOOP;
+var LOOP_MAX = 2;   /* rule 51: two contracts at a time */
+function loopBats(){ try{ return BohemiaPurse.balance(purseGet(), 'electricity') | 0; }catch(_e){ return 0; } }
+function loopDay(){ return (typeof DAY !== 'undefined' && DAY.day) ? DAY.day : 0; }
+function loopTownAt(x, y, r){
+  var bs = null; try{ bs = (typeof ctBases === 'function') ? ctBases() : null; }catch(_e){}
+  if(!bs) return null;
+  var best = null, bd = 1e9;
+  for(var n in bs){ var b = bs[n]; if(!b) continue;
+    var d = Math.max(Math.abs((b.x|0) - x), Math.abs((b.y|0) - y));
+    if(d <= (r == null ? 1 : r) && d < bd){ bd = d; best = { name: n, x: b.x|0, y: b.y|0, tier: mapTierOf(n) }; } }
+  return best;
+}
+function loopFrame(){
+  if(LOOP.frame) return LOOP.frame;
+  var f = document.createElement('iframe');
+  f.id = 'settleFrame'; f.title = 'settlement';
+  f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:60;display:none;background:#000');
+  f.addEventListener('load', function(){ LOOP.ready = true; if(LOOP.open) loopPostOpen(); });
+  f.src = 'BOHEMIA_SETTLEMENT_SCREEN.html';
+  document.body.appendChild(f);
+  return (LOOP.frame = f);
+}
+function loopPostOpen(){
+  var t = LOOP.open; if(!t || !LOOP.frame || !LOOP.ready) return;
+  var dist = null; try{ var c = om.at(t.x, t.y); dist = c && c.district; }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
+    place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
+    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {} }, '*'); }catch(_e){}
+}
+function loopOpenTown(t){
+  LOOP.open = t;
+  var f = loopFrame(); f.style.display = 'block';
+  try{ travelStop(); }catch(_e){}
+  if(LOOP.ready) loopPostOpen();
+}
+function loopClose(){ if(LOOP.frame) LOOP.frame.style.display = 'none'; LOOP.open = null; try{ render(); }catch(_e){} }
+/* where a contract's crew waits: a block he can stand on, six to ten out from the town,
+   in a direction the contract's own id picks, with a road to it */
+function loopTarget(town, id){
+  var h = 0; for(var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
+  h = (h + LOOP.done * 7 + LOOP.held.length * 13) >>> 0;
+  for(var k = 0; k < 8; k++){
+    var di = (h + k) % 8, D = DIRS[di];
+    for(var r = 6 + (h % 3); r <= 10; r++){
+      var x = town.x + D[0] * r, y = town.y + D[1] * r;
+      if(x < 1 || y < 1 || x >= om.n - 1 || y >= om.n - 1) continue;
+      if(!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue;
+      if(cityRoute(city.x, city.y, x, y)) return { x: x, y: y };
+    }
+  }
+  return null;
+}
+function loopTakeContract(c){
+  if(!c || !c.id) return false;
+  if(LOOP.held.length >= LOOP_MAX){ travelSay('Two contracts already. Finish one first.'); return false; }
+  if(LOOP.held.some(function(h){ return h.id === c.id; })) return false;
+  var town = LOOP.open || loopTownAt(city.x, city.y, 2) || { x: city.x, y: city.y, name: '?' };
+  var tg = loopTarget(town, c.id); if(!tg) return false;
+  var job = { id: c.id, title: String(c.title || 'a job'), pay: Math.max(1, c.pay | 0), from: town.name,
+              target: tg, crew: 2 + (LOOP.done % 3) };
+  LOOP.held.push(job);
+  try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
+  travelSay('Contract: ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.');
+  return true;
+}
+function loopSettleBats(n, why){
+  if(typeof n !== 'number') return;
+  var have = loopBats(), d = (n | 0) - have;
+  try{
+    if(d > 0) BohemiaPurse.credit(purseGet(), 'electricity', d, why || 'the settlement', null, loopDay());
+    else if(d < 0) BohemiaPurse.debit(purseGet(), 'electricity', -d, why || 'the settlement', null, loopDay());
+  }catch(_e){}
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_SETTLEMENT') return;
+  if(LOOP.frame && ev.source !== LOOP.frame.contentWindow) return;
+  LOOP.log.push(d.act);
+  if(d.act !== 'contract') loopSettleBats(d.batteries, 'settlement: ' + d.act);
+  if(d.act === 'contract') loopTakeContract(d.contract || null);
+  if(d.act === 'leave') loopClose();
+  try{ if(typeof updHud === 'function') updHud(); }catch(_e){}
+  try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
+});
+function loopJobAt(x, y){
+  for(var i = 0; i < LOOP.held.length; i++){ var t = LOOP.held[i].target;
+    if(Math.max(Math.abs(t.x - x), Math.abs(t.y - y)) <= 1) return LOOP.held[i]; }
+  return null;
+}
+function loopArrived(to){
+  var x = city.x, y = city.y;
+  var job = loopJobAt(x, y);
+  if(job){
+    LOOP.fighting = job.id;
+    var w = [x, y]; try{ w = roadWhere(); }catch(_e){}
+    var roster = []; for(var i = 0; i < job.crew; i++) roster.push({ arch: 'human' });
+    var ok = false;
+    try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: job.title, faction: null, draft: true,
+      roster: roster, street: true, why: 'contract:' + job.id, at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){ ok = false; }
+    if(!ok) LOOP.fighting = null;
+    return;
+  }
+  var t = loopTownAt(x, y, 1);
+  if(t) setTimeout(function(){ loopOpenTown(t); }, 250);
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !LOOP.fighting) return;
+  var id = LOOP.fighting; LOOP.fighting = null;
+  var i = -1; LOOP.held.forEach(function(h, k){ if(h.id === id) i = k; });
+  if(i < 0) return;
+  var o = d.outcome || {}, won = !!(o.victory || o.result === 'win');
+  var line;
+  /* WALKING OUT IS NOT THE JOB. The fight lets him leave by the way out and calls that a win
+     (COMBAT V239: "leaving before it is over"); the crew he was paid to move is still standing,
+     so the contract stays and the JOB stays on the map for another try. */
+  if(won && (o.alive | 0) > 0){
+    line = 'You walked away. The job is still there: ' + LOOP.held[i].title + '.';   /* draft:true */
+    try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(line, 'contract'); }catch(_e){}
+    setTimeout(function(){ try{ var q = document.getElementById('qline'); if(q) q.textContent = line; travelSay(line); }catch(_e){} try{ render(); }catch(_e){} }, 600);
+    return;
+  }
+  var job = LOOP.held.splice(i, 1)[0];
+  if(won){
+    try{ BohemiaPurse.credit(purseGet(), 'electricity', job.pay, 'contract: ' + job.title, 'contract:' + job.id + ':' + LOOP.done, loopDay()); }catch(_e){}
+    LOOP.done++;
+    line = 'Paid ' + job.pay + ' battery: ' + job.title + '.';                        /* draft:true */
+  } else {
+    line = 'The job is lost: ' + job.title + '. Nobody pays for that.';               /* draft:true */
+  }
+  try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened(line, 'contract'); }catch(_e){}
+  setTimeout(function(){ try{ var q = document.getElementById('qline'); if(q) q.textContent = line; travelSay(line); }catch(_e){}
+    try{ if(typeof updHud === 'function') updHud(); }catch(_e){} try{ render(); }catch(_e){}
+    try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){} }, 600);   /* the bar's battery number */
+});
+/* the JOB on the map: three of the cast under a red flag, named on a plate */
+function loopJobsDraw(ox, oy){
+  for(var i = 0; i < LOOP.held.length; i++){
+    var j = LOOP.held[i], p = iso(j.target.x, j.target.y, ox, oy);
+    if(p.sx < -40 || p.sx > CVW + 40 || p.sy < -60 || p.sy > CVH + 60) continue;
+    var fy = p.sy + TH / 2 + 2, bt = mapArtBeat();
+    if(mapCastOf(0)){
+      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7, fy - 2);
+      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7, fy - 1);
+      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2);
+      mapFlagDraw(p.sx - 14, fy, (L ? L.h : 30) + 10, '#c4553f', bt, true);
+    }
+    /* a SHORT plate right over the crew's heads: the long name ran under him (photographed);
+       the job's whole name is on the quest line and on the phone */
+    var t = 'JOB';
+    g.font = '700 9px ' + FACE('casing');
+    var w = g.measureText(t).width;
+    MAP_PLATES.push({ t: t, lx: p.sx - w / 2 - 3, ly: fy - 44, w: w, col: '#e8806a', sx: p.sx, cy: fy, r: 33 });
+    try{ MAP_DREW.jobs = (MAP_DREW.jobs || 0) + 1; }catch(_e){}
+  }
+}
 
 // ---- WORLD MOVERS LAW (Paolo 7/5/26): NOTHING moves until you do, cars and
 // planes included. Movers advance ONLY on player steps, then TWEEN fluidly over
@@ -44073,6 +44252,7 @@ function renderCity(){
       MAP_DREW.parties++;
     }
   } catch (_e) {}
+  try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
   try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
