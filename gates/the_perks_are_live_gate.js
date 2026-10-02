@@ -159,6 +159,39 @@ leg(live.length >= 30 && unread.length === 0, 'every perk marked live is read by
     say('BUILT LIKE A DOOR (colossus): +' + num('colossus').hitpoints_increase_pct + '% health', mk(['colossus']).hpMax === 75 && mk([]).hpMax === 60);
     say('NOTHING SCARES HIM (fortified mind): +' + num('fortified_mind').resolve_increase_pct + '% nerve', mk(['fortified_mind']).resolve === 50);
 
+    /* the seven skills a perk unlocks: each from a man whose turn it is */
+    const myTurn = (s2) => { S.over = false; S.order = [s2.a.id, s2.t.id]; S.idx = 0; s2.a.ap = s2.a.apTurn; s2.a.fat = 0; };
+    const nAtk = () => S.log.filter(e => e.t === 'attack').length;
+    s = fresh(); s.a.perks = ['adrenaline']; myTurn(s); s.t.initiative = 999;
+    const adr = FIGHT.useSkill(s.a, 'adrenaline'); FIGHT.endTurn(s.a); FIGHT.endTurn(s.t);
+    say('FIRST OUT THE DOOR (adrenaline, ' + num('adrenaline').skill_ap_cost + ' AP): he goes first next round, even ahead of a faster man', adr && S.order[0] === s.a.id, S.order.slice(0, 2).join(' '));
+    S.over = true;
+    s = fresh('sledge'); s.a.perks = ['recover']; myTurn(s); s.a.fat = 60;
+    FIGHT.useSkill(s.a, 'recover');
+    say('CATCH YOUR BREATH (recover, the whole turn): half his tiredness gone, and his turn is spent', s.a.fat === 30 && FIGHT.current() !== s.a, 'fatigue ' + s.a.fat);
+    S.over = true;
+    s = fresh('pistol'); s.a.perks = ['rotation']; myTurn(s);
+    const mate = S.units.filter(u => u.side === 'you' && u !== s.a)[0]; mate.fled = false; mate.x = s.a.x - 1; mate.y = s.a.y; mate.morale = 'Steady';
+    const ax = s.a.x, n0 = nAtk(); FIGHT.useSkill(s.a, 'rotation', { x: mate.x, y: mate.y });
+    say('SWAP OUT (rotation): two of yours trade places, out of a man\'s reach with no free swing', s.a.x === ax - 1 && mate.x === ax && nAtk() === n0, 'swings ' + (nAtk() - n0));
+    S.over = true;
+    s = fresh(); s.a.perks = ['rally_the_troops']; myTurn(s); s.a.resolve = 100;
+    const shaky = S.units.filter(u => u.side === 'you' && u !== s.a).slice(0, 2);
+    shaky.forEach((u, i) => { u.fled = false; u.x = s.a.x - 1 - i; u.y = s.a.y; u.resolve = 100; u.morale = i ? 'Fleeing' : 'Breaking'; });
+    FIGHT.useSkill(s.a, 'rally_the_troops');
+    say('ON ME (rally the troops): the breaking stand Steady again, the running turn back Wavering', shaky[0].morale === 'Steady' && shaky[1].morale === 'Wavering', shaky.map(u => u.morale).join(', '));
+    S.over = true;
+    s = fresh('sledge'); s.a.perks = ['taunt']; myTurn(s); s.t.x = s.a.x + 2;
+    FIGHT.useSkill(s.a, 'taunt', { x: s.t.x, y: s.t.y });
+    say('COME AT ME (taunt, range ' + num('taunt').max_range_tiles + '): the man he calls goes for him', s.t.tauntedBy === s.a.id);
+    S.over = true;
+    s = fresh(); s.a.perks = ['footwork']; myTurn(s);
+    const fx = s.a.x, n1 = nAtk(); FIGHT.useSkill(s.a, 'footwork', { x: s.a.x - 1, y: s.a.y });
+    say('SIDESTEP (footwork, ' + num('footwork').skill_ap_cost + ' AP): out of a man\'s reach without his free swing', s.a.x === fx - 1 && nAtk() === n1 && s.a.ap === s.a.apTurn - num('footwork').skill_ap_cost, 'swings ' + (nAtk() - n1));
+    S.over = true;
+    s = fresh(); s.t.armH = 0; s.t.armB = 0; b = hit(s.a, s.t).hp; s.t.perks = ['indomitable']; s.t.indomitable = true;
+    say('IMMOVABLE (indomitable): half damage until his next turn', hit(s.a, s.t).hp === Math.floor(b * (1 - num('indomitable').damage_reduction_pct / 100)), b + ' -> ' + hit(s.a, s.t).hp);
+
     /* who carries what */
     FIGHT.setup({ board: "freeway" }); S.over = true;
     const crew = S.units.filter(u => u.side === 'you');

@@ -63,6 +63,12 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #feed div{overflow:hidden;text-overflow:ellipsis}
 #say{font-size:11px;color:var(--dim);min-height:15px;margin:4px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #btns{display:flex;gap:6px}
+#skills{display:flex;gap:6px;margin-bottom:6px}
+#skills:empty{display:none}
+#skills button{flex:1;min-height:38px;background:linear-gradient(#2c2a1c,#1a1810);color:#e8d39a;border:1px solid #5a4a26;
+  border-radius:6px;font:inherit;font-size:11px;font-weight:700;letter-spacing:.03em}
+#skills button:disabled{opacity:.35}
+#skills button.on{border-color:#f0d296;background:#3d3420}
 #btns button{flex:1;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
   border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:.05em}
 #btns button:disabled{opacity:.35}
@@ -83,6 +89,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   <div id="ap"></div>
   <div id="feed"></div>
   <div id="say"></div>
+  <div id="skills"></div>
   <div id="btns">
     <button id="bwait">WAIT</button>
     <button id="breload">RELOAD</button>
@@ -471,6 +478,7 @@ const FIGHT = (function () {
     live.forEach(function (u) {
       let ini = curIni(u);
       if (u.waitedLast && !PK(u, 'relentless')) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
+      if (u.adrenaline) { ini += R('initiative_and_turn_order.adrenaline'); u.adrenaline = false; }
       if (u.morale === 'Fleeing') ini += R('initiative_and_turn_order.fleeing_turn_order');
       u.turnIni = ini;
     });
@@ -492,14 +500,14 @@ const FIGHT = (function () {
   }
   function beginTurn(u) {
     emit({ t: 'turn', id: u.id });
-    u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false;   /* 'until your next turn' ends here */
+    u.nineUp = false; u.reachStacks = 0; u.berserkUsed = false; u.indomitable = false;   /* 'until your next turn' ends here */
     if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
       const p = R('parsed.morale_stop_fleeing');
       if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; }
+  function turnOver(u) { u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; u.tauntedBy = null; }
   function advance(u) { turnOver(u); u.begun = false; S.idx++; if (!S.over) settle(); }
   function endTurn(u) {
     if (S.over || current() !== u) return false;
@@ -695,6 +703,8 @@ const FIGHT = (function () {
     let hp = Math.max(0, base * ignore - armour * R('damage.remaining_armor_reduction'));
     if (armour - armourHit <= 0) hp += Math.max(0, base * (1 - ignore) - armourHit);
     if (res.head && !PK(t, 'steel_brow')) hp *= R('head_and_critical.head_damage_multiplier');
+    const ind = t.indomitable ? PK(t, 'indomitable') : null;
+    if (ind) { hp *= 1 - ind.damage_reduction_pct / 100; armourHit *= 1 - ind.damage_reduction_pct / 100; }
     res.armour = Math.floor(armourHit); res.hp = Math.floor(hp);
     return res;
   }
@@ -825,6 +835,71 @@ const FIGHT = (function () {
     const s = reloadSkill(a.weapon); a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); a.loaded = true;
     emit({ t: 'reload', id: a.id }); afterAction(a); return true;
   }
+  /* ---------------- THE SEVEN SKILLS A PERK UNLOCKS (rule 48) ----------------
+     Each costs what its wiki row says in AP and fatigue, and does what its row says. */
+  const ACTIVE = ['adrenaline', 'recover', 'rotation', 'rally_the_troops', 'taunt', 'footwork', 'indomitable'];
+  function activeCost(u, id) {
+    const n = PK(u, id); if (!n) return null;
+    return { ap: n.skill_ap_cost, fat: n.skill_fatigue_cost || 0 };
+  }
+  /* who or where a skill can be pointed at; [] for a skill that needs no target */
+  function skillTargets(u, id) {
+    if (id === 'rotation') return friends(u).filter(function (f) { return dist(f, u) === 1 && !f.stunned && f.morale !== 'Fleeing'; })
+      .map(function (f) { return { x: f.x, y: f.y, id: f.id }; });
+    if (id === 'taunt') { const n = PK(u, id); return foes(u).filter(function (f) { return dist(f, u) <= n.max_range_tiles && sideSees(u.side, f); })
+      .map(function (f) { return { x: f.x, y: f.y, id: f.id }; }); }
+    if (id === 'footwork') return DIRS.map(function (d) { return { x: u.x + d[0], y: u.y + d[1] }; })
+      .filter(function (q) { return passable(q.x, q.y) && !unitAt(q.x, q.y) && !squeezes(u.x, u.y, q.x, q.y); });
+    return [];
+  }
+  function needsTarget(id) { return id === 'rotation' || id === 'taunt' || id === 'footwork'; }
+  function canUse(u, id) {
+    if (S.over || current() !== u || !onField(u) || u.morale === 'Fleeing') return false;
+    const c = activeCost(u, id); if (!c) return false;
+    if (u.ap < c.ap || u.fat + c.fat > fatMax(u)) return false;
+    if (id === 'adrenaline' && u.adrenaline) return false;
+    if (id === 'indomitable' && u.indomitable) return false;
+    if (id === 'rally_the_troops' && !rallyable(u).length) return false;
+    if (needsTarget(id) && !skillTargets(u, id).length) return false;
+    return true;
+  }
+  function rallyable(u) {
+    const n = PK(u, 'rally_the_troops'); if (!n) return [];
+    const st = STATES();
+    return friends(u).filter(function (f) { return dist(f, u) <= n.range_tiles && st.indexOf(f.morale) >= st.indexOf('Wavering') && !f.atEdge; });
+  }
+  function useSkill(u, id, target) {
+    if (!canUse(u, id)) return false;
+    const c = activeCost(u, id), n = PK(u, id);
+    let tg = null;
+    if (needsTarget(id)) {
+      tg = skillTargets(u, id).filter(function (q) { return target && q.x === target.x && q.y === target.y; })[0];
+      if (!tg) return false;
+    }
+    u.ap -= c.ap; u.fat += c.fat;
+    emit({ t: 'skill', id: u.id, skill: id, to: tg && tg.id ? tg.id : null });
+    if (id === 'adrenaline') u.adrenaline = true;              /* first in the turn order next round */
+    if (id === 'recover') { u.fat = Math.round(u.fat * (1 - n.fatigue_reduction_pct / 100)); u.ap = 0; }
+    if (id === 'indomitable') u.indomitable = true;            /* half damage until his next turn */
+    if (id === 'rotation') { const f = byId(tg.id), x = u.x, y = u.y; u.x = f.x; u.y = f.y; f.x = x; f.y = y; }
+    if (id === 'footwork') { emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: tg.x, y: tg.y }); u.x = tg.x; u.y = tg.y; }
+    if (id === 'taunt') byId(tg.id).tauntedBy = u.id;
+    if (id === 'rally_the_troops') {
+      const row = R('morale.rally.rally_the_troops'), st = STATES(), cap = R('morale.check.cap');
+      rallyable(u).forEach(function (f) {
+        const fleeing = f.morale === 'Fleeing';
+        if (!fleeing && st.indexOf(f.morale) <= st.indexOf(row.max_state)) return;
+        let ch = f.resolve * moraleMult(f, 'resolve') + u.resolve * n.resolve_bonus_pct_of_user / 100 + (fleeing ? 0 : n.penalty_per_tile * dist(f, u));
+        ch = Math.max(cap.min, Math.min(cap.max, ch));
+        if (die() > ch) return;
+        f.morale = fleeing ? row.fleeing_becomes : row.max_state;   /* 'raise morale of all nearby allies to a steady level' */
+        emit({ t: 'morale', id: f.id, to: f.morale });
+      });
+    }
+    if (u.ap <= 0) { afterAction(u); endTurn(u); return true; }
+    afterAction(u); return true;
+  }
+
   /* a fleeing man runs for the nearest edge and leaves the field from it */
   function flee(u) {
     if (u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1) {
@@ -865,7 +940,31 @@ const FIGHT = (function () {
     const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
     return hc * mean / Math.max(1, t.hp + t.armB);
   }
+  /* the start of a turn: rally the breaking, rest when too winded to swing (Recover takes the whole turn) */
+  function aiFirst(u) {
+    if (canUse(u, 'rally_the_troops') && rallyable(u).some(function (f) { return f.morale === 'Breaking' || f.morale === 'Fleeing'; })) return useSkill(u, 'rally_the_troops');
+    if (canUse(u, 'recover') && u.ap === u.apTurn) {
+      const s = strikeSkill(u.weapon);
+      if (u.fat + skillFat(u, s) > fatMax(u)) return useSkill(u, 'recover');
+    }
+    return false;
+  }
+  /* the end of a turn, AP left: plant his feet when more than one is on him, call a man off a breaking friend, go first next round */
+  function aiLast(u) {
+    const on = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); }).length;
+    if (on > 1 && canUse(u, 'indomitable')) return useSkill(u, 'indomitable');
+    if (canUse(u, 'taunt')) {
+      const st = STATES();
+      const t = skillTargets(u, 'taunt').map(function (q) { return byId(q.id); }).filter(function (f) {
+        return friends(u).some(function (fr) { return dist(fr, f) === 1 && st.indexOf(fr.morale) >= st.indexOf('Breaking'); }); })[0];
+      if (t) return useSkill(u, 'taunt', t);
+    }
+    if (canUse(u, 'adrenaline') && foes(u).some(function (f) { return sideSees(u.side, f); })) return useSkill(u, 'adrenaline');
+    return false;
+  }
   function bestTarget(u) {
+    const tz = u.tauntedBy ? byId(u.tauntedBy) : null;
+    if (tz && canStrike(u, tz)) return tz;                    /* taunted: he goes for the man who called him */
     let best = null, bs = -Infinity;
     foes(u).forEach(function (t) { if (!canStrike(u, t)) return; const s = expected(u, t); if (s > bs) { bs = s; best = t; } });
     return best;
@@ -891,6 +990,12 @@ const FIGHT = (function () {
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
+    if (aiFirst(u)) return true;
+    if (ranged && adj.length && A.step_out_of_melee && canUse(u, 'footwork')) {
+      /* sidestep out of reach without the free swing */
+      const out = skillTargets(u, 'footwork').filter(function (q) { return !zocOn(u, q.x, q.y).length; })[0];
+      if (out && useSkill(u, 'footwork', out)) return true;
+    }
     if (ranged && adj.length && A.step_out_of_melee && !u.steppedOut) {
       u.steppedOut = true;
       const f = reach(u); let best = null, bs = -Infinity;
@@ -906,7 +1011,7 @@ const FIGHT = (function () {
     const t = bestTarget(u);
     if (t) { strike(u, t); return true; }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
-    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { endTurn(u); return false; }
+    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { if (aiLast(u)) return true; endTurn(u); return false; }
     if (ranged && (A.stand_and_shoot && !A.advance) && foes(u).some(function (f) { return sideSees(u.side, f) && dist(u, f) <= rangeMax(w.range); })) {
       /* the backline holds while something is in its range; it steps only to find a line */
     }
@@ -945,6 +1050,7 @@ const FIGHT = (function () {
     if (best && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {
       if (moveTo(u, best.x, best.y)) return true;
     }
+    if (aiLast(u)) return true;
     endTurn(u); return false;
   }
 
@@ -954,6 +1060,7 @@ const FIGHT = (function () {
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
+    canUse: canUse, useSkill: useSkill, aiStep_: null, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     _t: { PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow }
   };
@@ -1065,7 +1172,7 @@ function take() {
   ev.forEach(function (e) {
     if (e.t === 'step') UI.anim.push({ k: 'step', e: e, dur: beatMs() / 4 });
     else if (e.t === 'attack') UI.anim.push({ k: 'attack', e: e, dur: beatMs() });
-    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally' || e.t === 'nine' || e.t === 'berserk')
+    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally' || e.t === 'nine' || e.t === 'berserk' || e.t === 'skill')
       UI.anim.push({ k: 'note', e: e, dur: e.t === 'morale' || e.t === 'injury' ? 0 : beatMs() / 2 });
     else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
   });
@@ -1096,6 +1203,7 @@ function startAnim(a) {
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'nine') { pop(u, perkName('nine_lives'), '#f0d296'); say(u.name + ' should be down. He is not.'); }
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
+    if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
   if (a.k === 'over') showOver(e.result);
 }
@@ -1170,6 +1278,11 @@ function draw(now) {
       if (!FIGHT.canStrike(u, t) || !FIGHT.sideSees('you', t)) return;
       cx.fillStyle = 'rgba(196,85,63,.32)'; cx.fillRect(sx(t.x * UI.tw) + 1, sy(t.y * UI.th) + 1, tw - 2, th - 2);
     });
+    if (UI.skillMode) {
+      FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) {
+        cx.fillStyle = 'rgba(120,170,220,.3)'; cx.fillRect(sx(q.x * UI.tw) + 1, sy(q.y * UI.th) + 1, tw - 2, th - 2);
+      });
+    }
     if (UI.pend && UI.pend.path) {
       cx.strokeStyle = 'rgba(240,210,150,.9)'; cx.lineWidth = Math.max(2, tw * .04); cx.beginPath();
       cx.moveTo(sx((u.x + .5) * UI.tw), sy((u.y + .5) * UI.th));
@@ -1270,6 +1383,21 @@ function hud() {
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const p = document.createElement('i'); if (i < show.ap) p.className = 'on'; ap.appendChild(p); }
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
+  const sk = document.getElementById('skills');
+  const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
+  const key = want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',') + (u ? u.id : '');
+  if (sk.dataset.key !== key) {
+    sk.dataset.key = key; sk.textContent = '';
+    want.forEach(function (id) {
+      const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
+      b.textContent = perkName(id) + ' ' + n.skill_ap_cost; b.dataset.skill = id;
+      b.disabled = !FIGHT.canUse(u, id); if (UI.skillMode === id) b.className = 'on';
+      b.onclick = function () { skillTap(id); };
+      sk.appendChild(b);
+    });
+  }
+  const bh = document.getElementById('bot').offsetHeight;
+  if (bh !== BOTH) { BOTH = bh; if (UI.board) fitStops(); }
   document.getElementById('bwait').disabled = !mine || u.waited;
   document.getElementById('bend').disabled = !mine;
   document.getElementById('breload').disabled = !mine || !FIGHT.canReload(u);
@@ -1331,11 +1459,25 @@ cv.addEventListener('wheel', function (e) {
   const X = wx(e.clientX), Y = wy(e.clientY); UI.zoom = z;
   UI.cx = X - (e.clientX - W / 2) / z; UI.cy = Y - (e.clientY - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
 }, { passive: false });
+/* a skill button: one with no target goes at once; one with a target waits for the tap on the board */
+function skillTap(id) {
+  audio(); const u = FIGHT.current(); if (!crewControlled(u)) return;
+  UI.pend = null;
+  if (UI.skillMode === id) { UI.skillMode = null; say('Put away.'); return; }
+  if (!FIGHT.needsTarget(id)) { FIGHT.useSkill(u, id); UI.skillMode = null; take(); return; }
+  UI.skillMode = id;
+  say(id === 'rotation' ? 'Tap the friend to swap places with.' : id === 'taunt' ? 'Tap the man to call over.' : 'Tap the tile to step to. No free swing.');
+}
 function tileAt(px, py) { return { x: Math.floor(wx(px) / UI.tw), y: Math.floor(wy(py) / UI.th) }; }
 function tapAt(px, py) {
   const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
   const p = tileAt(px, py), S = FIGHT.S;
   if (p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h) return;
+  if (UI.skillMode) {
+    const id = UI.skillMode; UI.skillMode = null;
+    if (!FIGHT.useSkill(u, id, p)) say('Not there.'); else take();
+    return;
+  }
   const who = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
@@ -1351,10 +1493,10 @@ function tapAt(px, py) {
   const f = FIGHT.reach(u); UI.pend = { tile: p, path: path };
   say('Tap again to walk there: ' + f.best[f.key(p.x, p.y)] + ' AP.');
 }
-document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; FIGHT.wait(u); take(); } };
-document.getElementById('bend').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; FIGHT.endTurn(u); take(); } };
+document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
+document.getElementById('bend').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.endTurn(u); take(); } };
 document.getElementById('breload').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { FIGHT.reload(u); take(); } };
-document.getElementById('bauto').onclick = function () { audio(); UI.auto = !UI.auto; UI.pend = null; };
+document.getElementById('bauto').onclick = function () { audio(); UI.auto = !UI.auto; UI.pend = null; UI.skillMode = null; };
 document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };
 
 /* ---------------- boot ---------------- */

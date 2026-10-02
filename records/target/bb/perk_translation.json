@@ -2,9 +2,12 @@
  "_about": "THE FIFTY, TRANSLATED (COMBAT [perks translated], rule 48, Paolo 9/29: 'the perks need to be translated'): every Battle Brothers perk one for one, its mechanic and its numbers kept exactly (they live in perks.json beside the wiki's words), with our draft name and a one-line skin. Names are attempts (draft:true, rule: words get an attempt, decisions wait); WORDS owns the final voice. THE GAP: the frozen fight's tree (PLATE CARRIER, SECOND SKIN, WALK IT OFF, THEY KNOW YOU, STEADY EYE, QUICK STUDY, LONG WIND, CLOSER, OPENING MOVE: 9 built of the 23 it described) maps to almost none of these; old_tree names the nearest one where there is one, and the frozen tree is not carried over.",
  "count": {
   "all": 50,
-  "live": 37,
-  "active_next": 7,
-  "outside_the_fight": 4
+  "live": 44,
+  "outside_the_fight": 4,
+  "held": [
+   "resilient",
+   "nimble"
+  ]
  },
  "rows": [
   {
@@ -86,7 +89,7 @@
    "name": "FIRST OUT THE DOOR",
    "draft": true,
    "skin": "he goes first next round, whatever it costs him",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": "OPENING MOVE (one kit piece ready at the bell)",
    "numbers_from": "records/target/bb/perks.json#adrenaline",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0026_Adrenaline (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -98,7 +101,7 @@
    "name": "CATCH YOUR BREATH",
    "draft": true,
    "skin": "a whole turn spent breathing gives half his wind back",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": "WALK IT OFF (one plate back each fight)",
    "numbers_from": "records/target/bb/perks.json#recover",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1654_Recover (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -278,7 +281,7 @@
    "name": "SWAP OUT",
    "draft": true,
    "skin": "trade places with a friend in trouble",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#rotation",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1711_Rotation (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -290,7 +293,7 @@
    "name": "ON ME",
    "draft": true,
    "skin": "a shout that pulls the runners back",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#rally_the_troops",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1634_Rally the Troops.txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -302,7 +305,7 @@
    "name": "COME AT ME",
    "draft": true,
    "skin": "makes the man in front pick him",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#taunt",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1929_Taunt (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -506,7 +509,7 @@
    "name": "SIDESTEP",
    "draft": true,
    "skin": "walks out of a man's reach without the free swing",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#footwork",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0804_Footwork (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"
@@ -602,7 +605,7 @@
    "name": "IMMOVABLE",
    "draft": true,
    "skin": "plants his feet: half damage until his turn",
-   "in_the_fight": "next: an active skill, a button on the card",
+   "in_the_fight": "live",
    "old_tree": null,
    "numbers_from": "records/target/bb/perks.json#indomitable",
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1077_Indomitable (Perk).txt (tier from '# PAGE Perks' in CORE_WIKITEXT.md)"

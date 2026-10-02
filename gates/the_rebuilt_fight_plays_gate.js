@@ -26,7 +26,7 @@ const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
 const WORDS = 'window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
-const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0 };
+const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
 
 async function fight(F, first) {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true,
@@ -132,10 +132,10 @@ async function fight(F, first) {
   /* THE WHOLE FIGHT, TO ITS END */
   const ended = await until(() => FIGHT.S.over && !FIGHT_UI.anim.length, 300000);
   const R = await ev(() => {
-    const S = FIGHT.S, side = id => FIGHT.byId(id).side, c = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0 };
+    const S = FIGHT.S, side = id => FIGHT.byId(id).side, c = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
     S.log.forEach(e => {
       if (e.t === 'attack') { if (e.hit) c.hit++; else c.miss++; if (e.head) c.head++; if (e.free) c.free++; }
-      if (e.t === 'morale') c.morale++; if (e.t === 'injury') c.injury++; if (e.t === 'down' || e.t === 'dead') c.down++;
+      if (e.t === 'skill') c.skill++; if (e.t === 'morale') c.morale++; if (e.t === 'injury') c.injury++; if (e.t === 'down' || e.t === 'dead') c.down++;
     });
     const atk = S.log.filter(e => e.t === 'attack');
     const fair = atk.every(e => e.chance >= 5 && e.chance <= 95);
@@ -157,7 +157,7 @@ async function fight(F, first) {
   const lu = OURS.struck_down_laid_up_days.value;
   leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or laid up 30 to 40 days (rule 36b)', R.hires.join(',') || 'nobody fell');
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
-    + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.down + ' fell');
+    + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
   leg(words === 0, F.board + ': *** NOT ONE WORD WAS WRITTEN ON THE GROUND THE WHOLE FIGHT (rule 46f) ***: names, misses, morale, injuries are in the bar', words + ' words on the fight canvas');
   if (first) {
@@ -177,6 +177,7 @@ async function fight(F, first) {
   leg(all.head > 0, 'heads get hit for half again (wiki: base 25%, x1.5)', all.head);
   leg(all.morale > 0, 'nerve moves: the morale ladder ran in the fight', all.morale);
   leg(all.injury > 0, 'injuries land apart from hitpoints', all.injury);
+  leg(all.skill > 0, 'the brains reach for the skills a perk unlocks (rally, recover, taunt, sidestep, plant the feet, go first)', all.skill);
   leg(all.free > 0, 'leaving a man\'s reach draws his free swing (zone of control)', all.free);
   console.log('=== THE REBUILT FIGHT PLAYS GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   process.exit(fail ? 1 : 0);

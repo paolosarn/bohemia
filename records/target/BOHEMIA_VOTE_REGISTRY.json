@@ -4339,7 +4339,8 @@
     "src": "vote/COMBAT_THE_PERKS_ON_HIS_CARD_10_2.jpg"
    },
    "draft": true
-  }
+  },
+  {"id": "combat-the-perk-skills-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "THE PERKS YOU PRESS: SEVEN BUTTONS ON A MAN'S CARD", "why": "The seven Battle Brothers perks you press are buttons on a man's card now, each at its wiki cost: ON ME pulls your breaking men back to steady, CATCH YOUR BREATH halves his tiredness for the whole turn, SWAP OUT trades places with a friend, COME AT ME calls a man onto him, SIDESTEP walks out of reach with no free swing, IMMOVABLE halves the damage, FIRST OUT THE DOOR puts him first next round, and the enemy uses them too. In a fight, when one of yours has one, you see it as a gold button above WAIT, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
