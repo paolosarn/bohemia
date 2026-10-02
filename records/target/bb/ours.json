@@ -292,5 +292,36 @@
   "source": "CORE_WIKITEXT.md # PAGE Perks",
   "quote": "With each new character level reached by your mercenary he will gain 1 Perk point... To unlock the second perk row, you need to spend one perk point.",
   "why": "a hire's level is rolled in his background's starting range and each level past the first is a perk, picked in this order where its row is unlocked; the orders are the plain ones per job (a front man gets tougher, a shooter steadier); TUNING and Paolo may change them"
+ },
+ "board_mix": {
+  "value": {
+   "families": {
+    "city": [
+     "suburb",
+     "suburb_stem",
+     "culdesac",
+     "strip",
+     "ruin",
+     "freeway"
+    ],
+    "edge": [
+     "scrub",
+     "wash",
+     "landfill",
+     "shore"
+    ]
+   },
+   "weights": {
+    "city": 3,
+    "edge": 1
+   },
+   "kinds_per_board": [
+    2,
+    3
+   ]
+  },
+  "source": "records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md",
+  "quote": "Most of it won't be Nature though you know most of it will be city based terrain",
+  "why": "the board is dealt from COMBAT TWO's 21 blocks (rule 57: 'there's gonna be different map types'; sweep L: 'the board kinds must mix'): two or three kinds of one family per board, no block beside its twin, city three times in four; a named board or kind from the loop overrides; TUNING may move the weights"
  }
 }

@@ -59,6 +59,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #ap{display:flex;gap:2px;margin-top:4px}
 #ap i{width:10px;height:6px;border-radius:1px;background:#2a221a}
 #ap i.on{background:var(--gold)}
+#feed{font-size:10px;line-height:1.35;min-height:41px;margin-top:4px;white-space:nowrap;overflow:hidden}
+#feed div{overflow:hidden;text-overflow:ellipsis}
 #say{font-size:11px;color:var(--dim);min-height:15px;margin:4px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #btns{display:flex;gap:6px}
 #btns button{flex:1;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
@@ -79,6 +81,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <div id="bot">
   <div id="card"><div class="nm" id="cnm">-</div><div class="bars" id="cbars"></div></div>
   <div id="ap"></div>
+  <div id="feed"></div>
   <div id="say"></div>
   <div id="btns">
     <button id="bwait">WAIT</button>
@@ -329,13 +332,64 @@ const FIGHT = (function () {
   }
 
   /* ---------------- SETUP ---------------- */
-  function setup(opts) {
-    opts = opts || {};
-    const G = DB.ground, names = Object.keys(G.boards);
-    const bname = opts.board && G.boards[opts.board] ? opts.board : names[Math.floor(rng() * names.length)];
-    const B = G.boards[bname];
-    S.board = bname; S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
-    S.terrain = B.terrain; S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+  /* ---------------- THE BOARD, DEALT (rule 57, sweep L: the kinds mix) ----------------
+     COMBAT TWO's 21 blocks, each lifted with its own terrain and cover out of the boards
+     it was cut into, dealt into a 4 x 3 board: one family (city most of the time, the
+     valley's edge the rest, Paolo 9/29), two or three kinds of it, no block beside its
+     twin, and every board one connected field from your line to theirs. */
+  function blockLibrary() {
+    if (S.lib) return S.lib;
+    const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = {};
+    Object.keys(G.boards).forEach(function (bn) {
+      const B = G.boards[bn];
+      B.blocks.forEach(function (row, by) { row.forEach(function (name, bx) {
+        if (lib[name]) return;
+        const x0 = bx * bt * tm, y0 = by * bt * tm, x1 = (bx + 1) * bt * tm, y1 = (by + 1) * bt * tm;
+        lib[name] = {
+          terrain: B.terrain.slice(by * bt, (by + 1) * bt).map(function (r) { return r.slice(bx * bt, (bx + 1) * bt); }),
+          cover: (B.cover || []).filter(function (c) { return c.x_m >= x0 && c.x_m < x1 && c.y_m >= y0 && c.y_m < y1; })
+            .map(function (c) { return { piece: c.piece, x_m: c.x_m - x0, y_m: c.y_m - y0 }; })
+        };
+      }); });
+    });
+    S.lib = lib; return lib;
+  }
+  function kindOf(name) { return name.split('.')[0]; }
+  function shuffled(a) { return a.map(function (x) { return { x: x, k: rng() }; }).sort(function (p, q) { return p.k - q.k; }).map(function (o) { return o.x; }); }
+  function dealOnce(opts) {
+    const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
+    const fams = Object.keys(mix.families);
+    let fam = opts.kind ? fams.filter(function (f) { return mix.families[f].indexOf(opts.kind) >= 0; })[0] : null;
+    if (!fam) {
+      const tot = fams.reduce(function (t, f) { return t + mix.weights[f]; }, 0);
+      let r = rng() * tot; fam = fams.filter(function (f) { r -= mix.weights[f]; return r < 0; })[0] || fams[0];
+    }
+    const have = mix.families[fam].filter(function (k) { return Object.keys(lib).some(function (n) { return kindOf(n) === k; }); });
+    let kinds = shuffled(have).filter(function (k) { return k !== opts.kind; });
+    if (opts.kind && have.indexOf(opts.kind) >= 0) kinds.unshift(opts.kind);
+    kinds = kinds.slice(0, rint(mix.kinds_per_board[0], mix.kinds_per_board[1]));
+    const pool = Object.keys(lib).filter(function (n) { return kinds.indexOf(kindOf(n)) >= 0; });
+    const cols = S.w / bt, rows = S.h / bt, grid = [];
+    for (let by = 0; by < rows; by++) {
+      const row = [];
+      for (let bx = 0; bx < cols; bx++) {
+        let can = pool.filter(function (n) { return n !== row[bx - 1] && !(by && grid[by - 1][bx] === n); });
+        /* the first kind leads: the place the loop says this is */
+        if (opts.kind && by === rows - 1 && bx === 0) can = can.filter(function (n) { return kindOf(n) === kinds[0]; }).concat([]);
+        row.push((can.length ? can : pool)[Math.floor(rng() * (can.length || pool.length))]);
+      }
+      grid.push(row);
+    }
+    const terrain = [], cover = [];
+    for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(lib[grid[Math.floor(y / bt)][Math.floor(x / bt)]].terrain[y % bt][x % bt]); }
+    grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].cover.forEach(function (c) {
+      cover.push({ piece: c.piece, x_m: c.x_m + bx * bt * tm, y_m: c.y_m + by * bt * tm }); }); }); });
+    const used = []; grid.forEach(function (r) { r.forEach(function (n) { if (used.indexOf(kindOf(n)) < 0) used.push(kindOf(n)); }); });
+    return { blocks: grid, terrain: terrain, cover: cover, name: used.join(' + '), kinds: used, family: fam };
+  }
+  function applyBoard(B) {
+    const G = DB.ground;
+    S.terrain = B.terrain; S.boardDef = B;
     S.solid = []; S.cover = [];
     for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); } }
     (B.cover || []).forEach(function (c) {
@@ -345,6 +399,31 @@ const FIGHT = (function () {
       S.cover[ty][tx] = c.piece;
       if (def.blocks_move) S.solid[ty][tx] = true;
     });
+  }
+  /* one field: some tile of your start row walks to some tile of theirs */
+  function connected() {
+    const rows = DB.ground.start_rows, seen = {}, q = [];
+    for (let x = 0; x < S.w; x++) if (passable(x, rows[1])) { seen[rows[1] * S.w + x] = true; q.push({ x: x, y: rows[1] }); }
+    while (q.length) {
+      const n = q.shift();
+      if (n.y === rows[0]) return true;
+      DIRS.forEach(function (d) { const x = n.x + d[0], y = n.y + d[1];
+        if (passable(x, y) && !squeezes(n.x, n.y, x, y) && !seen[y * S.w + x]) { seen[y * S.w + x] = true; q.push({ x: x, y: y }); } });
+    }
+    return false;
+  }
+  function setup(opts) {
+    opts = opts || {};
+    const G = DB.ground;
+    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
+    S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+    if (opts.board && G.boards[opts.board]) {
+      const B = G.boards[opts.board];
+      applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, name: opts.board, kinds: [opts.board], family: 'named' });
+    } else {
+      for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
+    }
+    S.board = S.boardDef.name;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     const crew = R('ours.crew').slice(0, R('ours.field_size'));
     const crewUnits = crew.map(crewUnit);
@@ -910,7 +989,7 @@ function load(src) {
 }
 /* the ground: COMBAT TWO's blocks and cover baked once into one picture */
 function bakeBoard() {
-  const G = DB.ground, B = G.boards[FIGHT.S.board], bt = G.block_tiles;
+  const G = DB.ground, B = FIGHT.S.boardDef, bt = G.block_tiles;
   UI.th = UI.tw * G.tile_px[1] / G.tile_px[0];
   const c = document.createElement('canvas');
   c.width = Math.round(UI.tw * FIGHT.S.w); c.height = Math.round(UI.th * FIGHT.S.h);
@@ -1000,25 +1079,36 @@ function startAnim(a) {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     (FIGHT.isRanged(u.weapon) ? SND.shot : SND.swing)();
     setTimeout(function () { (e.hit ? (e.head ? SND.head : SND.hit) : SND.miss)(); }, beatMs() * 0.45);
-    pop(t, e.hit ? (e.head ? 'HEAD ' : '') + '-' + e.hp + (e.armour ? '  [' + e.armour + ']' : '') : 'MISS', e.hit ? '#f0b3a5' : '#c8bda8');
+    pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
+      (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
+        : ' misses ' + t.name) + ' (' + e.chance + '%)');
     say((e.free ? 'FREE SWING: ' : '') + u.name + ' ' + (e.hit ? (e.head ? 'hits ' + t.name + ' in the head' : 'hits ' + t.name) : 'misses ' + t.name) + ' (' + e.chance + '%)');
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
-    if (e.t === 'dead') { SND.fall(); pop(u, u.side === 'you' ? 'DEAD' : 'DOWN', '#e05a44'); say(u.name + (u.side === 'you' ? ' is dead.' : ' is down.')); }
-    if (e.t === 'down') { SND.fall(); pop(u, 'STRUCK DOWN', '#e0a044'); say(u.main ? 'You are down. You get back up after.' : u.name + ' is struck down. Laid up ' + e.days + ' days.'); }
+    if (e.t === 'dead') { SND.fall(); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); say(u.name + (u.side === 'you' ? ' is dead.' : ' is down.')); }
+    if (e.t === 'down') { SND.fall(); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); say(u.main ? 'You are down. You get back up after.' : u.name + ' is struck down. Laid up ' + e.days + ' days.'); }
     if (e.t === 'fled') { SND.flee(); say(u.name + ' runs off the board.'); }
-    if (e.t === 'morale') { pop(u, e.to.toUpperCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
-    if (e.t === 'injury') pop(u, e.name.toUpperCase(), '#e0a0d0');
+    if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
+    if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
     if (e.t === 'reload') say(u.name + ' reloads.');
     if (e.t === 'held') say(u.name + ' is held in place.');
-    if (e.t === 'rally') pop(u, 'RALLIES', '#a8d08a');
+    if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'nine') { pop(u, perkName('nine_lives'), '#f0d296'); say(u.name + ' should be down. He is not.'); }
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
   }
   if (a.k === 'over') showOver(e.result);
 }
-function pop(u, text, col) { UI.pops.push({ x: u.x, y: u.y, text: text, col: col, t: performance.now() }); }
+function pop(u, text, col, big, line) {
+  UI.pops.push({ x: u.x, y: u.y, col: col, big: !!big, t: performance.now() });
+  feed(line || u.name + ': ' + text, col);
+}
+/* the bar's feed: the last three things that happened, in words, where words belong */
+function feed(text, col) {
+  UI.feedLines = (UI.feedLines || []).concat([{ text: text, col: col || '#c8bda8' }]).slice(-3);
+  const f = document.getElementById('feed'); f.textContent = '';
+  UI.feedLines.forEach(function (l) { const d = document.createElement('div'); d.textContent = l.text; d.style.color = l.col; f.appendChild(d); });
+}
 
 /* ---------------- the director: whose turn, what happens next ---------------- */
 function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
@@ -1091,26 +1181,39 @@ function draw(now) {
     cx.strokeStyle = u.side === 'you' ? '#f0d296' : '#f08a70'; cx.lineWidth = 2;
     cx.strokeRect(sx(dx(u) * UI.tw) + 1.5, sy(dy(u) * UI.th) + 1.5, tw - 3, th - 3);
   }
+  S.units.filter(function (v) { return (v.dead || v.down) && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
   const live = S.units.filter(function (v) { return FIGHT.onField(v) && (v.side === 'you' || FIGHT.sideSees('you', v)); })
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
-  /* the numbers that float off a hit */
-  UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 3; });
+  /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
+  UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 2; });
   UI.pops.forEach(function (p) {
-    const k = (now - p.t) / (beatMs() * 3);
-    cx.globalAlpha = 1 - k * k; cx.fillStyle = p.col; cx.font = 'bold ' + Math.max(11, Math.min(18, tw * .16)) + 'px ui-monospace,monospace';
-    cx.textAlign = 'center'; cx.fillText(p.text, sx((p.x + .5) * UI.tw), sy((p.y + .2) * UI.th) - k * 26);
+    const k = (now - p.t) / (beatMs() * 2);
+    const X = sx((p.x + .5) * UI.tw), Y = sy((p.y + .62) * UI.th), r = Math.max(5, tw * .2) * (1 + k * (p.big ? 1.6 : .9));
+    cx.globalAlpha = (1 - k) * .9; cx.strokeStyle = p.col; cx.lineWidth = Math.max(1.5, tw * (p.big ? .05 : .03));
+    cx.beginPath(); cx.ellipse(X, Y, r, r * .45, 0, 0, Math.PI * 2); cx.stroke();
     cx.globalAlpha = 1;
   });
+  /* the man you are about to swing at: a reticle, the chance is in the bar */
   if (UI.pend && UI.pend.target && u) {
-    const t = UI.pend.target, hc = FIGHT.hitChance(u, t, FIGHT.strikeSkill(u.weapon));
-    const X = sx((t.x + .5) * UI.tw), Y = sy(t.y * UI.th) - 6;
-    cx.fillStyle = 'rgba(20,14,10,.92)'; cx.fillRect(X - 46, Y - 34, 92, 30);
-    cx.strokeStyle = '#c4553f'; cx.strokeRect(X - 46 + .5, Y - 34 + .5, 91, 29);
-    cx.fillStyle = '#f2e6d0'; cx.font = 'bold 14px ui-monospace,monospace'; cx.textAlign = 'center';
-    cx.fillText(hc.chance + '%  TAP', X, Y - 14);
+    const t = UI.pend.target, X0 = sx(t.x * UI.tw) + 3, Y0 = sy(t.y * UI.th) + 3, X1 = X0 + tw - 6, Y1 = Y0 + th - 6, c = Math.min(tw, th) * .22;
+    cx.strokeStyle = '#e0604a'; cx.lineWidth = Math.max(2, tw * .03); cx.beginPath();
+    [[X0, Y0, 1, 1], [X1, Y0, -1, 1], [X0, Y1, 1, -1], [X1, Y1, -1, -1]].forEach(function (q) {
+      cx.moveTo(q[0] + q[2] * c, q[1]); cx.lineTo(q[0], q[1]); cx.lineTo(q[0], q[1] + q[3] * c); });
+    cx.stroke();
   }
+}
+/* the fallen stay where they fell: a body on the ground, no word over it */
+function drawBody(v, tw, th) {
+  const G = DB.ground, X = sx((v.x + .5) * UI.tw), Y = sy((v.y + .62) * UI.th);
+  const len = Math.max(6, 1.8 * G.px_per_metre * (UI.tw / G.tile_px[0]) * UI.zoom * 1.6);
+  cx.save(); cx.translate(X, Y); cx.rotate(v.side === 'you' ? -.35 : .35);
+  cx.fillStyle = 'rgba(0,0,0,.4)'; cx.beginPath(); cx.ellipse(0, len * .08, len * .62, len * .2, 0, 0, Math.PI * 2); cx.fill();
+  cx.fillStyle = v.side === 'you' ? '#2b2a26' : '#3b1d18'; cx.fillRect(-len * .45, -len * .1, len * .7, len * .2);
+  cx.fillStyle = '#7d6552'; cx.fillRect(len * .25, -len * .09, len * .18, len * .18);
+  if (v.dead) { cx.fillStyle = 'rgba(110,20,14,.55)'; cx.beginPath(); cx.ellipse(-len * .05, len * .12, len * .32, len * .1, 0, 0, Math.PI * 2); cx.fill(); }
+  cx.restore();
 }
 /* where a man is drawn, mid-step included */
 function dx(v) { if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
@@ -1141,10 +1244,6 @@ function drawMan(v, tw, th) {
     cx.fillStyle = 'rgba(0,0,0,.6)'; cx.fillRect(bx - 1, by - 1, bw + 2, 8);
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * (v.armB / Math.max(1, v.armBMax || 1)), 2.5);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + 3.5, bw * Math.max(0, v.hp / v.hpMax), 2.5);
-    if (tw > 70) {
-      cx.fillStyle = '#efe3cc'; cx.font = 'bold 10px ui-monospace,monospace'; cx.textAlign = 'center';
-      cx.fillText(v.name.slice(0, 9), X, by - 3);
-    }
   }
 }
 
@@ -1241,7 +1340,9 @@ function tapAt(px, py) {
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
-    UI.pend = { target: who }; say('Tap ' + who.name + ' again to strike.'); return;
+    UI.pend = { target: who };
+    const hc = FIGHT.hitChance(u, who, FIGHT.strikeSkill(u.weapon));
+    say(who.name + ': ' + hc.chance + '% to hit' + (hc.parts.length ? ' (' + hc.parts.join(', ') + ')' : '') + '. Tap him again.'); return;
   }
   if (who) { UI.pend = null; return; }
   const path = FIGHT.pathTo(u, p.x, p.y);
@@ -1265,7 +1366,7 @@ function start() {
   if (o.speed) UI.speed = o.speed;
   if (o.auto) UI.auto = true;
   FIGHT.setup(o);
-  UI.anim = []; UI.pops = []; UI.beats = 0; FIGHT.S.events = [];
+  UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   return bakeBoard().then(function () {
     resize();
     /* open on the whole board (62), hold two beats, then glide in on your line */
