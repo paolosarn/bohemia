@@ -10724,6 +10724,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2e LATEST -- [map pixels now] rule 65 half (b): THE FAR END IS PAINTED. TAB: the DEMO's map, pinch all the way out.
+The city painted twelve texels a block by kind (vbCityCore, same worker as the land), faded in under 10 px a block; night light only where there is power; the art scales with the zoom, he and the names do not.
+GATE THE FAR END IS PAINTED 9/0 (DIRECTION's floor read on MAP_GROUND.cv, not the glass). STILL OPEN: markers 1:1 from their art; the near end at 42.9 px/m. Then [one song] (rule 64), [screen fit].
 RUN (run-eak241): 10/2d LATEST -- [fold the loop] THE REBUILT FIGHT IS THE DEMO'S FIGHT (rule 63). TAB: the DEMO's map; any fight (a JOB, a road crew).
 Every fight the map starts opens COMBAT's slices/BOHEMIA_FIGHT.html (same door, same way home); the fight deals its board led by the block's KIND (nfKind in the shell), night = the clock; won pays the contract, lost loses it; card four beats, a tap goes home.
 [PENDING COMBAT/TUNING] the fight passes no difficulty yet: the front door's fight pick and the job's crew size do not reach the band (ours.json first_band 'why': TUNING's count per contract). The old NAMED freeway board stalls on AUTO (round 60); the shell never asks for named boards.
