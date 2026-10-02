@@ -164,3 +164,12 @@ PALETTES with a seeded rng: no block equals its left or upper neighbour, the cul
 by suburb_stem. Old suburb.0-2 blocks removed. 26 blocks, 22.8 MB. Verified in slices/BOHEMIA_FIGHT.html on
 suburb and strip at 390x844 DPR 3, 0 page errors; sheet COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png.
 WEAK: cross streets end at block edges.
+
+## ROUND TWELVE (10/2): CROSS STREETS RUN THROUGH, AND THE LIGHTS AS DATA
+
+streets_run_through(lay, rng) in the round-nine builder: columns carrying a cross street (or a cul-de-sac stem)
+keep it through every town block (corner/cornerw variants differing from left/upper/right), at most two such
+columns a board (the stem's column always kept, no two side by side beside a stem), other corners become seeded
+suburbs. boards[].lights: lamps every 12 m on both walks of every street block (36% live, seeded per board),
+drums in some lots/scrub (live); sprites light_lamp_house_side/your_side/oil_drum.png (his 7/28 sprites);
+lights_key in the manifest. 27 blocks, 23.8 MB.

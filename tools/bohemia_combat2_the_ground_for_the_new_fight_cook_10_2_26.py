@@ -150,6 +150,39 @@ def seeded_layout(name):
             if 'culdesac' in name and br == 0 and bc in (0, 2): opts = [b for b in opts if b.startswith('culdesac')] or opts
             row.append(rng.choice(opts))
         lay.append(row)
+    return streets_run_through(lay, rng)
+
+
+def streets_run_through(lay, rng):
+    """ROUND TWELVE: A CROSS STREET DOES NOT STOP AT THE BLOCK EDGE. Where any town block in a
+       column carries a cross street (or a cul-de-sac stem comes down it), every town block in that
+       column carries the same street, in the variant that differs from its left and upper
+       neighbours; an empty-lots block in such a column becomes a corner."""
+    town = lambda b: b.split('.')[0] in ('subs', 'corner', 'cornerw', 'lots')
+    # at most two cross streets a board (a real grid has long blocks); the stem's column always counts
+    has = [bc for bc in range(BW) if any(lay[br][bc].startswith(('corner', 'suburb_stem')) for br in range(BH))]
+    stems = [bc for bc in has if any(lay[br][bc].startswith('suburb_stem') for br in range(BH))]
+    keep = stems + [bc for bc in has if bc not in stems and bc - 1 not in stems and bc + 1 not in stems][:max(0, 2 - len(stems))]
+    for bc in range(BW):
+        if bc in keep: continue
+        for br in range(BH):
+            if lay[br][bc].startswith('corner'):
+                ok = ['subs.%d' % v for v in range(4) if (bc == 0 or lay[br][bc - 1] != 'subs.%d' % v) and (br == 0 or lay[br - 1][bc] != 'subs.%d' % v) and (bc == BW - 1 or lay[br][bc + 1] != 'subs.%d' % v)]
+                lay[br][bc] = rng.choice(ok)
+    for bc in keep:
+        col = [lay[br][bc] for br in range(BH)]
+        fam = None
+        for b in col:
+            if b.startswith('cornerw'): fam = 'cornerw'
+            elif b.startswith('corner') and fam is None: fam = 'corner'
+        if any(b.startswith('suburb_stem') for b in col): fam = 'corner'   # the stem is at column 2, as is 'corner'
+        if not fam: continue
+        for br in range(BH):
+            if not town(lay[br][bc]): continue
+            for v in range(3):
+                cand = '%s.%d' % (fam, v)
+                if (bc == 0 or lay[br][bc - 1] != cand) and (br == 0 or lay[br - 1][bc] != cand) and (bc == BW - 1 or lay[br][bc + 1] != cand):
+                    lay[br][bc] = cand; break
     return lay
 
 
@@ -178,6 +211,8 @@ def main():
     extra['outcrop'] = B.outcrop()
     extra.update(R5.EXTRA)
     for k, im in extra.items(): im.save('%s/cover_%s.png' % (OUT_DIR, k))
+    for sid in ('lamp_house_side', 'lamp_your_side', 'oil_drum'):          # his 7/28 light sprites
+        F.load(F.SPR[sid]).convert('RGBA').save('%s/light_%s.png' % (OUT_DIR, sid))
     man = dict(version='fight-ground-10-2', built='10/2/26', lane='combat 2', for_file='slices/BOHEMIA_FIGHT.html (rule 63)',
                tile_px=[PX, PY], tile_metres=K.TILE_M, px_per_metre=K.PPM, block_tiles=N, board_tiles=[BW * N, BH * N],
                perspective='45 DEGREE ART LAW: depth and heights x cos45, south faces seen',
@@ -188,6 +223,8 @@ def main():
                cover={k: dict(src='cover_%s.png' % k, **{kk: vv for kk, vv in meta.items()}) for k, (im, meta) in cover.items()},
                cover_extra={k: dict(src='cover_%s.png' % k, h=(2.5 if k == 'outcrop' else 1.4), kind=('MOUND' if k == 'outcrop' else 'COVER')) for k in extra},
                blocks={bid: dict(src='block_%s.png' % bid.replace('.', '_')) for bid in blocks},
+               lights_key={'lamp': 'a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)',
+                           'drum': 'an oil drum with a fire in it, always live', 'anchor': 'x_m, y_m = the sprite base; draw it bottom-centred'},
                boards={})
     for name, lay in BOARDS.items():
         terr = [[None] * (BW * N) for _ in range(BH * N)]
@@ -209,7 +246,24 @@ def main():
         for q in cov:
             t = terr[int(q['y_m'] // 12)][int(q['x_m'] // 12)]
             if t in ('blocked',): die('%s: %s on a blocked tile' % (name, q['piece']))
-        man['boards'][name] = dict(blocks=lay, terrain=terr, cover=cov)
+        # ROUND TWELVE: THE LIGHTS THAT STILL WORK, as data. Round six drew night with his lamps (one
+        # in three lit) and the drums people keep burning; the new fight lays a flat wash for night.
+        # Each board now lists its lamps on the walks of every street block and a drum in some
+        # lots, live or dead (seeded), with the sprites beside them, so the fight can light pools.
+        lr = random.Random('bohemia-lights-' + name); lights = []
+        for br, row in enumerate(lay):
+            for bc, bid in enumerate(row):
+                k = bid.split('.')[0]
+                if k in ('subs', 'corner', 'cornerw', 'lots', 'ruin', 'suburb_stem', 'strip'):
+                    ys = (14.4, 46.0) if k == 'strip' else (24.4, 36.0)
+                    for x in range(5, 60, 12):
+                        for y in ys:
+                            lights.append(dict(kind='lamp', src='light_lamp_house_side.png' if y < 30 else 'light_lamp_your_side.png',
+                                               x_m=bc * 60 + x, y_m=br * 60 + y, live=lr.random() < 0.36, radius_m=7.0))
+                if k in ('subs', 'lots', 'ruin', 'landfill', 'scrub') and lr.random() < 0.5:
+                    lights.append(dict(kind='drum', src='light_oil_drum.png', x_m=round(bc * 60 + 6 + lr.random() * 48, 1),
+                                       y_m=round(br * 60 + (8 if lr.random() < 0.5 else 52), 1), live=True, radius_m=5.0))
+        man['boards'][name] = dict(blocks=lay, terrain=terr, cover=cov, lights=lights)
     for bid, b in man['blocks'].items():
         if not os.path.exists(os.path.join(OUT_DIR, b['src'])): die('missing ' + b['src'])
     json.dump(man, open(OUT_MANIFEST, 'w'), indent=1)
