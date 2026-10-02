@@ -1,0 +1,8275 @@
+{
+ "_about": "Battle Brothers character backgrounds, extracted from the fandom wiki dump. One row per stat table on each '(Background)' page, so variants (Southern Assassin, Barbarian/Southern Indebted, Companion 1H/2H/Ranged, Regent in Absentia, Monk turned Flagellant, Pacified Flagellant, Melee/Ranged Nomad) are their own rows. stats = the absolute [min,max] range a recruit rolls (page row 'Attribute Range'); stat_modifiers = the [min,max] the background adds to the shared base range (page row 'min./max.'); base_stats = that shared base. daily_wage = the page's Base Wage. hiring_cost is null everywhere: the wiki gives no per-background base hiring cost (Game Guide: 'from 30 for the worst ones up to around 150 for the best ones. Swordmasters are an exception with a base cost of 400!'); where the Game Guide quotes an observed hiring range it is kept as hiring_cost_game_guide_observed. Every row is cross-checked against the 'Character Backgrounds/Attribute Ranges' table and against base+modifiers; cross_check says the result. Numbers copied exactly. Extraction 2026-10-02, research only.",
+ "base_stats": {
+  "stats": {
+   "hp": [
+    50,
+    60
+   ],
+   "fatigue": [
+    90,
+    100
+   ],
+   "resolve": [
+    30,
+    40
+   ],
+   "initiative": [
+    100,
+    110
+   ],
+   "melee_skill": [
+    47,
+    57
+   ],
+   "ranged_skill": [
+    32,
+    42
+   ],
+   "melee_defense": [
+    0,
+    5
+   ],
+   "ranged_defense": [
+    0,
+    5
+   ]
+  },
+  "starting_level": [
+   1,
+   1
+  ],
+  "quote": "Character Backgrounds Attributes are not fixed but rather randomized inside ranges. Each Background shares a base range and adds modifiers on top. Apprentice is the only Background with no modifiers.",
+  "derived_from": "the Apprentice row of the Attribute Ranges table (the background with no modifiers, so its range IS the shared base range)",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0368_Character Backgrounds_Attribute Ranges.txt"
+ },
+ "hiring_and_wage_rules": {
+  "hiring_quote": "The background defines a base hiring cost going from 30 for the worst ones up to around 150 for the best ones. Swordmasters are an exception with a base cost of 400! The cost of equipment is set at 1.25 its base value... Levels are valued thus: 500 x (level – 1) ^ 1.5. With a possible range of 1 to 5, the additional cost goes from 0 to 3,000.",
+  "hiring_base_min": 30,
+  "hiring_base_max_approx": 150,
+  "hiring_base_swordmaster": 400,
+  "equipment_cost_multiplier": 1.25,
+  "level_cost_formula": "500 x (level – 1) ^ 1.5",
+  "wage_quote": "Each background has a base daily cost which ranges from 3 to 35. This base value is multiplied by a random number between 90% and 110%. The result is then multiplied by 1.1 ^ (level – 1) for the first 11 levels (1 to 2.6 multiplier)... The cost of 11 levels is taken as a base and multiplied by 1.03 ^ (level – 11). For example, a level 11 Hedge Knight costs, with no other modifiers, 91. And on level 21, he costs 122 in daily upkeep.",
+  "wage_base_min": 3,
+  "wage_base_max": 35,
+  "wage_random_multiplier": [
+   0.9,
+   1.1
+  ],
+  "wage_level_formula_to_11": "1.1 ^ (level – 1)",
+  "wage_level_formula_after_11": "wage_at_11 x 1.03 ^ (level – 11)",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0827_Game Guide.txt"
+ },
+ "rows": [
+  {
+   "id": "adventurous_noble",
+   "name": "Adventurous Noble",
+   "wiki_page": "Adventurous Noble (Background)",
+   "hiring_cost": null,
+   "daily_wage": 25,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     105
+    ],
+    "resolve": [
+     45,
+     60
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     57,
+     67
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     -10,
+     0
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0031_Adventurous Noble (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     5
+    ],
+    "resolve": [
+     15,
+     20
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     10,
+     10
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     -10,
+     -5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Clubfooted",
+    "Craven",
+    "Dastard",
+    "Drunkard",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fragile",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Spartan",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0031_Adventurous Noble (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "anatomist",
+   "name": "Anatomist",
+   "wiki_page": "Anatomist (Background)",
+   "hiring_cost": null,
+   "daily_wage": 12,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     46,
+     56
+    ],
+    "fatigue": [
+     90,
+     95
+    ],
+    "resolve": [
+     40,
+     50
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     54,
+     64
+    ],
+    "ranged_skill": [
+     41,
+     51
+    ],
+    "melee_defense": [
+     1,
+     5
+    ],
+    "ranged_defense": [
+     1,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0056_Anatomist (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -4,
+     -4
+    ],
+    "fatigue": [
+     0,
+     -5
+    ],
+    "resolve": [
+     10,
+     10
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     7,
+     7
+    ],
+    "ranged_skill": [
+     9,
+     9
+    ],
+    "melee_defense": [
+     1,
+     0
+    ],
+    "ranged_defense": [
+     1,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Huge",
+    "Determined",
+    "Fear of Beasts",
+    "Hate for Beasts",
+    "Fear of Greenskins",
+    "Hate for Greenskins",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Team Player",
+    "impatient",
+    "Clumsy",
+    "Iron Jaw",
+    "Dumb",
+    "Athletic",
+    "Brute",
+    "Fragile",
+    "Fainthearted",
+    "Iron Lungs",
+    "Irrational",
+    "Cocky",
+    "Strong",
+    "Tough",
+    "Superstitious"
+   ],
+   "cross_check": "Attribute Ranges table differs: ranged_skill page [41, 51] vs table [39, 49]",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0056_Anatomist (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "apprentice",
+   "name": "Apprentice",
+   "wiki_page": "Apprentice (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0123_Apprentice (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Athletic",
+    "Brute",
+    "Bloodthirsty",
+    "Clumsy",
+    "Dumb",
+    "Fear of Undead",
+    "Hate for Undead"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0123_Apprentice (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "assassin",
+   "name": "Assassin",
+   "wiki_page": "Assassin (Background)",
+   "hiring_cost": null,
+   "daily_wage": 25,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    4,
+    4
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     40,
+     50
+    ],
+    "initiative": [
+     120,
+     125
+    ],
+    "melee_skill": [
+     59,
+     67
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0154_Assassin (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     10,
+     10
+    ],
+    "initiative": [
+     20,
+     15
+    ],
+    "melee_skill": [
+     12,
+     10
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Dumb",
+    "Fat",
+    "Hesitant",
+    "Huge",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Short Sighted",
+    "Strong",
+    "Team Player",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0154_Assassin (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "southern_assassin",
+   "name": "Southern Assassin",
+   "wiki_page": "Assassin (Background)",
+   "hiring_cost": null,
+   "daily_wage": 25,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     40,
+     50
+    ],
+    "initiative": [
+     120,
+     125
+    ],
+    "melee_skill": [
+     57,
+     67
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0154_Assassin (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     10,
+     10
+    ],
+    "initiative": [
+     20,
+     15
+    ],
+    "melee_skill": [
+     10,
+     10
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Dumb",
+    "Fat",
+    "Hesitant",
+    "Huge",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Short Sighted",
+    "Strong",
+    "Superstitious",
+    "Team Player",
+    "Weasel"
+   ],
+   "cross_check": "level page [1, 1] vs table [1, 4]",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0154_Assassin (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "barbarian",
+   "name": "Barbarian",
+   "wiki_page": "Barbarian (Background)",
+   "hiring_cost": null,
+   "daily_wage": 20,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     60,
+     65
+    ],
+    "fatigue": [
+     100,
+     105
+    ],
+    "resolve": [
+     40,
+     45
+    ],
+    "initiative": [
+     105,
+     120
+    ],
+    "melee_skill": [
+     57,
+     62
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0177_Barbarian (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     5
+    ],
+    "fatigue": [
+     10,
+     5
+    ],
+    "resolve": [
+     10,
+     5
+    ],
+    "initiative": [
+     5,
+     10
+    ],
+    "melee_skill": [
+     10,
+     5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0177_Barbarian (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "bastard",
+   "name": "Bastard",
+   "wiki_page": "Bastard (Background)",
+   "hiring_cost": null,
+   "daily_wage": 14,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     52,
+     67
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     -5,
+     10
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0202_Bastard (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     5,
+     10
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     -5,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clumsy",
+    "Dastard",
+    "Fat",
+    "Hesitant",
+    "Team Player",
+    "Tiny"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0202_Bastard (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "beast_slayer",
+   "name": "Beast Slayer",
+   "wiki_page": "Beast Slayer (Background)",
+   "hiring_cost": null,
+   "daily_wage": 15,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    3
+   ],
+   "stats": {
+    "hp": [
+     50,
+     63
+    ],
+    "fatigue": [
+     95,
+     107
+    ],
+    "resolve": [
+     43,
+     50
+    ],
+    "initiative": [
+     107,
+     115
+    ],
+    "melee_skill": [
+     52,
+     62
+    ],
+    "ranged_skill": [
+     43,
+     49
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0219_Beast Slayer (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     3
+    ],
+    "fatigue": [
+     5,
+     7
+    ],
+    "resolve": [
+     13,
+     10
+    ],
+    "initiative": [
+     7,
+     5
+    ],
+    "melee_skill": [
+     5,
+     5
+    ],
+    "ranged_skill": [
+     11,
+     7
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Brute",
+    "Dastard",
+    "Dumb",
+    "Fat",
+    "Fear of Beasts",
+    "Fragile",
+    "Gluttonous",
+    "Night Blind",
+    "Short Sighted",
+    "Superstitious",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0219_Beast Slayer (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "beggar",
+   "name": "Beggar",
+   "wiki_page": "Beggar (Background)",
+   "hiring_cost": null,
+   "daily_wage": 3,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     40,
+     50
+    ],
+    "fatigue": [
+     80,
+     90
+    ],
+    "resolve": [
+     20,
+     35
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0228_Beggar (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -10
+    ],
+    "fatigue": [
+     -10,
+     -10
+    ],
+    "resolve": [
+     -10,
+     -5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Brave",
+    "Bright",
+    "Cocky",
+    "Deathwish",
+    "Determined",
+    "Fat",
+    "Fearless",
+    "Greedy",
+    "Iron Jaw",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0228_Beggar (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "belly_dancer",
+   "name": "Belly Dancer",
+   "wiki_page": "Belly Dancer (Background)",
+   "hiring_cost": null,
+   "daily_wage": 20,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     110,
+     120
+    ],
+    "melee_skill": [
+     57,
+     67
+    ],
+    "ranged_skill": [
+     37,
+     47
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0231_Belly Dancer (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     10,
+     10
+    ],
+    "melee_skill": [
+     10,
+     10
+    ],
+    "ranged_skill": [
+     5,
+     5
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Deathwish",
+    "Fat",
+    "Hesitant",
+    "Huge",
+    "Insecure",
+    "Short Sighted",
+    "Strong"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0231_Belly Dancer (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "bowyer",
+   "name": "Bowyer",
+   "wiki_page": "Bowyer (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     85,
+     100
+    ],
+    "resolve": [
+     25,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     42,
+     52
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0275_Bowyer (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     -5,
+     0
+    ],
+    "resolve": [
+     -5,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     10,
+     10
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brave",
+    "Brute",
+    "Clumsy",
+    "Cocky",
+    "Dumb",
+    "Fear of Undead",
+    "Fearless",
+    "Hate for Undead",
+    "Iron Jaw",
+    "Iron Lungs",
+    "Short Sighted",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0275_Bowyer (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "brawler",
+   "name": "Brawler",
+   "wiki_page": "Brawler (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "120 - 170",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 13,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     55,
+     70
+    ],
+    "fatigue": [
+     100,
+     105
+    ],
+    "resolve": [
+     37,
+     45
+    ],
+    "initiative": [
+     105,
+     110
+    ],
+    "melee_skill": [
+     52,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0281_Brawler (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     5,
+     10
+    ],
+    "fatigue": [
+     10,
+     5
+    ],
+    "resolve": [
+     7,
+     5
+    ],
+    "initiative": [
+     5,
+     0
+    ],
+    "melee_skill": [
+     5,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fat",
+    "Fear of Undead",
+    "Fragile",
+    "Hate for Undead",
+    "Insecure",
+    "Irrational",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0281_Brawler (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "butcher",
+   "name": "Butcher",
+   "wiki_page": "Butcher (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "187 - 287",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 7,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     64
+    ],
+    "fatigue": [
+     90,
+     104
+    ],
+    "resolve": [
+     37,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     50,
+     59
+    ],
+    "ranged_skill": [
+     29,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0337_Butcher (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     4
+    ],
+    "fatigue": [
+     0,
+     4
+    ],
+    "resolve": [
+     7,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     3,
+     2
+    ],
+    "ranged_skill": [
+     -3,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bleeder",
+    "Bright",
+    "Clumsy",
+    "Fainthearted",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Iron Lungs",
+    "Optimist",
+    "Spartan",
+    "Swift",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0337_Butcher (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "caravan_hand",
+   "name": "Caravan Hand",
+   "wiki_page": "Caravan Hand (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     53,
+     65
+    ],
+    "fatigue": [
+     95,
+     107
+    ],
+    "resolve": [
+     33,
+     43
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     51,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0348_Caravan Hand (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     3,
+     5
+    ],
+    "fatigue": [
+     5,
+     7
+    ],
+    "resolve": [
+     3,
+     3
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     4,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Bright",
+    "Clubfooted",
+    "Fat",
+    "Gluttonous",
+    "Tiny"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Caravan Hand",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0348_Caravan Hand (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "companion_2hand",
+   "name": "Companion (2Hand)",
+   "wiki_page": "Companion (Background)",
+   "hiring_cost": null,
+   "daily_wage": 14,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     60,
+     65
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     40,
+     45
+    ],
+    "initiative": [
+     95,
+     110
+    ],
+    "melee_skill": [
+     57,
+     62
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     2,
+     5
+    ],
+    "ranged_defense": [
+     2,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0427_Companion (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     5
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     10,
+     5
+    ],
+    "initiative": [
+     -5,
+     0
+    ],
+    "melee_skill": [
+     10,
+     5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     2,
+     0
+    ],
+    "ranged_defense": [
+     2,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Dexterous",
+    "Disloyal",
+    "Drunkard",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Impatient",
+    "Insecure",
+    "Night Blind",
+    "Paranoid",
+    "Tiny",
+    "Weasel"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Companion",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0427_Companion (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "companion_1hand",
+   "name": "Companion (1Hand)",
+   "wiki_page": "Companion (Background)",
+   "hiring_cost": null,
+   "daily_wage": 14,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     40,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     57,
+     62
+    ],
+    "ranged_skill": [
+     37,
+     47
+    ],
+    "melee_defense": [
+     5,
+     10
+    ],
+    "ranged_defense": [
+     5,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0427_Companion (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     10,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     10,
+     5
+    ],
+    "ranged_skill": [
+     5,
+     5
+    ],
+    "melee_defense": [
+     5,
+     5
+    ],
+    "ranged_defense": [
+     5,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Drunkard",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Huge",
+    "Impatient",
+    "Insecure",
+    "Night Blind",
+    "Paranoid",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0427_Companion (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "companion_ranged",
+   "name": "Companion (Ranged)",
+   "wiki_page": "Companion (Background)",
+   "hiring_cost": null,
+   "daily_wage": 14,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     105,
+     115
+    ],
+    "melee_skill": [
+     52,
+     57
+    ],
+    "ranged_skill": [
+     48,
+     52
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0427_Companion (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     5,
+     5
+    ],
+    "melee_skill": [
+     5,
+     0
+    ],
+    "ranged_skill": [
+     16,
+     10
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Drunkard",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Huge",
+    "Impatient",
+    "Insecure",
+    "Night Blind",
+    "Paranoid",
+    "Short Sighted",
+    "Weasel"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Companion",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0427_Companion (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "converted_crusader",
+   "name": "Converted Crusader",
+   "wiki_page": "Converted Crusader (Background)",
+   "hiring_cost": null,
+   "daily_wage": 30,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     60,
+     67
+    ],
+    "ranged_skill": [
+     44,
+     52
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     5,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0442_Converted Crusader (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     13,
+     10
+    ],
+    "ranged_skill": [
+     12,
+     10
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     5,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Loyal",
+    "Night Blind",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0442_Converted Crusader (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "cripple",
+   "name": "Cripple",
+   "wiki_page": "Cripple (Background)",
+   "hiring_cost": null,
+   "daily_wage": 3,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     30,
+     50
+    ],
+    "fatigue": [
+     80,
+     100
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     75,
+     100
+    ],
+    "melee_skill": [
+     42,
+     52
+    ],
+    "ranged_skill": [
+     27,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0454_Cripple (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -20,
+     -10
+    ],
+    "fatigue": [
+     -10,
+     0
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     -25,
+     -10
+    ],
+    "melee_skill": [
+     -5,
+     -5
+    ],
+    "ranged_skill": [
+     -5,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Cocky",
+    "Dexterous",
+    "Fat",
+    "Greedy",
+    "Huge",
+    "Impatient",
+    "Iron Jaw",
+    "Lucky",
+    "Quick",
+    "Strong",
+    "Swift",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0454_Cripple (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "crusader",
+   "name": "Crusader",
+   "wiki_page": "Crusader (Background)",
+   "hiring_cost": null,
+   "daily_wage": 25,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    9,
+    9
+   ],
+   "stats": {
+    "hp": [
+     60,
+     70
+    ],
+    "fatigue": [
+     100,
+     110
+    ],
+    "resolve": [
+     45,
+     60
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     57,
+     67
+    ],
+    "ranged_skill": [
+     22,
+     37
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     -5,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0468_Crusader (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     10
+    ],
+    "fatigue": [
+     10,
+     10
+    ],
+    "resolve": [
+     15,
+     20
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     10,
+     10
+    ],
+    "ranged_skill": [
+     -10,
+     -5
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     -5,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Undead",
+    "Fragile",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Night Blind",
+    "Paranoid",
+    "Swift",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0468_Crusader (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "cultist",
+   "name": "Cultist",
+   "wiki_page": "Cultist (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     65
+    ],
+    "fatigue": [
+     93,
+     103
+    ],
+    "resolve": [
+     45,
+     50
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0476_Cultist (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     5
+    ],
+    "fatigue": [
+     3,
+     3
+    ],
+    "resolve": [
+     15,
+     10
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bright",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Drunkard",
+    "Fainthearted",
+    "Fat",
+    "Fear of Undead",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Lucky",
+    "Night Blind",
+    "Team Player"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0476_Cultist (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "daytaler",
+   "name": "Daytaler",
+   "wiki_page": "Daytaler (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     103
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0513_Daytaler (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     3
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Fear of Undead",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Daytaler",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0513_Daytaler (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "deserter",
+   "name": "Deserter",
+   "wiki_page": "Deserter (Background)",
+   "hiring_cost": null,
+   "daily_wage": 11,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    2
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     15,
+     30
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     52,
+     62
+    ],
+    "ranged_skill": [
+     39,
+     42
+    ],
+    "melee_defense": [
+     3,
+     10
+    ],
+    "ranged_defense": [
+     3,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0567_Deserter (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     -15,
+     -10
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     5,
+     5
+    ],
+    "ranged_skill": [
+     7,
+     0
+    ],
+    "melee_defense": [
+     3,
+     5
+    ],
+    "ranged_defense": [
+     3,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brave",
+    "Clubfooted",
+    "Cocky",
+    "Deathwish",
+    "Determined",
+    "Fearless",
+    "Fragile",
+    "Impatient",
+    "Loyal",
+    "Optimist",
+    "Sure Footing",
+    "Team Player"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0567_Deserter (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "disowned_noble",
+   "name": "Disowned Noble",
+   "wiki_page": "Disowned Noble (Background)",
+   "hiring_cost": null,
+   "daily_wage": 18,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     80,
+     95
+    ],
+    "resolve": [
+     25,
+     38
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     55,
+     67
+    ],
+    "ranged_skill": [
+     35,
+     48
+    ],
+    "melee_defense": [
+     0,
+     8
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0647_Disowned Noble (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     -10,
+     -5
+    ],
+    "resolve": [
+     -5,
+     -2
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     8,
+     10
+    ],
+    "ranged_skill": [
+     3,
+     6
+    ],
+    "melee_defense": [
+     0,
+     3
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Clubfooted",
+    "Clumsy",
+    "Fragile",
+    "Spartan",
+    "Team Player"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0647_Disowned Noble (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "regent_in_absentia",
+   "name": "Regent in Absentia",
+   "wiki_page": "Disowned Noble (Background)",
+   "hiring_cost": null,
+   "daily_wage": 18,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    6,
+    6
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     80,
+     95
+    ],
+    "resolve": [
+     35,
+     53
+    ],
+    "initiative": [
+     106,
+     120
+    ],
+    "melee_skill": [
+     55,
+     67
+    ],
+    "ranged_skill": [
+     35,
+     48
+    ],
+    "melee_defense": [
+     2,
+     12
+    ],
+    "ranged_defense": [
+     3,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0647_Disowned Noble (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     -10,
+     -5
+    ],
+    "resolve": [
+     5,
+     13
+    ],
+    "initiative": [
+     6,
+     10
+    ],
+    "melee_skill": [
+     8,
+     10
+    ],
+    "ranged_skill": [
+     3,
+     6
+    ],
+    "melee_defense": [
+     2,
+     7
+    ],
+    "ranged_defense": [
+     3,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Clubfooted",
+    "Clumsy",
+    "Fragile",
+    "Spartan",
+    "Team Player"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0647_Disowned Noble (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "eunuch",
+   "name": "Eunuch",
+   "wiki_page": "Eunuch (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0706_Eunuch (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Cocky",
+    "Deathwish",
+    "Impatient",
+    "Lucky",
+    "Weasel"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Eunuch",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0706_Eunuch (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "executioner",
+   "name": "Executioner",
+   "wiki_page": "Executioner (Background)",
+   "hiring_cost": null,
+   "daily_wage": 12,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     60,
+     67
+    ],
+    "fatigue": [
+     99,
+     114
+    ],
+    "resolve": [
+     42,
+     50
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     53,
+     65
+    ],
+    "ranged_skill": [
+     27,
+     42
+    ],
+    "melee_defense": [
+     -5,
+     5
+    ],
+    "ranged_defense": [
+     -5,
+     0
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0715_Executioner (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     7
+    ],
+    "fatigue": [
+     9,
+     14
+    ],
+    "resolve": [
+     12,
+     10
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     6,
+     8
+    ],
+    "ranged_skill": [
+     -5,
+     0
+    ],
+    "melee_defense": [
+     -5,
+     0
+    ],
+    "ranged_defense": [
+     -5,
+     -5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Clubfooted",
+    "Clumsy",
+    "Cocky",
+    "Craven",
+    "Fainthearted",
+    "Fearless",
+    "Fragile",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Lucky",
+    "Optimist",
+    "Team Player"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Executioner",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0715_Executioner (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "farmhand",
+   "name": "Farmhand",
+   "wiki_page": "Farmhand (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "115 - 409",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 10,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     62,
+     70
+    ],
+    "fatigue": [
+     100,
+     120
+    ],
+    "resolve": [
+     28,
+     37
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0740_Farmhand (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     12,
+     10
+    ],
+    "fatigue": [
+     10,
+     20
+    ],
+    "resolve": [
+     -2,
+     -3
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Clubfooted",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0740_Farmhand (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "fisherman",
+   "name": "Fisherman",
+   "wiki_page": "Fisherman (Background)",
+   "hiring_cost": null,
+   "daily_wage": 7,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     55,
+     60
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     35,
+     40
+    ],
+    "initiative": [
+     100,
+     115
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0774_Fisherman (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     5,
+     0
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     5,
+     0
+    ],
+    "initiative": [
+     0,
+     5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Fat",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Night Blind",
+    "Paranoid",
+    "Tiny",
+    "Weasel"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Fisherman",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0774_Fisherman (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "flagellant",
+   "name": "Flagellant",
+   "wiki_page": "Flagellant (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     40,
+     55
+    ],
+    "fatigue": [
+     95,
+     110
+    ],
+    "resolve": [
+     42,
+     52
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0777_Flagellant (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -5
+    ],
+    "fatigue": [
+     5,
+     10
+    ],
+    "resolve": [
+     12,
+     12
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bright",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Disloyal",
+    "Fainthearted",
+    "Fat",
+    "Gluttonous",
+    "Greedy",
+    "Insecure",
+    "Strong",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0777_Flagellant (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "monk_turned_flagellant",
+   "name": "Monk turned Flagellant",
+   "wiki_page": "Flagellant (Background)",
+   "hiring_cost": null,
+   "daily_wage": 5,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     80,
+     100
+    ],
+    "resolve": [
+     41,
+     51
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     42,
+     52
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0777_Flagellant (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     -10,
+     0
+    ],
+    "resolve": [
+     11,
+     11
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     -5,
+     -5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Disloyal",
+    "Dumb",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Impatient",
+    "Iron Lungs",
+    "Quick",
+    "Superstitious",
+    "Swift",
+    "Weasel"
+   ],
+   "cross_check": "not in the Attribute Ranges table",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0777_Flagellant (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "gambler",
+   "name": "Gambler",
+   "wiki_page": "Gambler (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     48,
+     58
+    ],
+    "fatigue": [
+     84,
+     95
+    ],
+    "resolve": [
+     42,
+     52
+    ],
+    "initiative": [
+     112,
+     120
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     7
+    ],
+    "ranged_defense": [
+     2,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0825_Gambler (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -2,
+     -2
+    ],
+    "fatigue": [
+     -6,
+     -5
+    ],
+    "resolve": [
+     12,
+     12
+    ],
+    "initiative": [
+     12,
+     10
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     2
+    ],
+    "ranged_defense": [
+     2,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Deathwish",
+    "Dumb",
+    "Fear of Undead",
+    "Hate for Beasts",
+    "Hate for Undead",
+    "Hesitant",
+    "Huge",
+    "Insecure",
+    "Loyal",
+    "Paranoid",
+    "Short Sighted",
+    "Spartan",
+    "Strong",
+    "Tough"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Gambler",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0825_Gambler (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "gladiator",
+   "name": "Gladiator",
+   "wiki_page": "Gladiator (Background)",
+   "hiring_cost": null,
+   "daily_wage": 35,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     60,
+     67
+    ],
+    "ranged_skill": [
+     40,
+     48
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     5,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0841_Gladiator (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     13,
+     10
+    ],
+    "ranged_skill": [
+     8,
+     6
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     5,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Ailing",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Hesitant",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Superstitious",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0841_Gladiator (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "gravedigger",
+   "name": "Gravedigger",
+   "wiki_page": "Gravedigger (Background)",
+   "hiring_cost": null,
+   "daily_wage": 5,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     64
+    ],
+    "fatigue": [
+     95,
+     107
+    ],
+    "resolve": [
+     37,
+     45
+    ],
+    "initiative": [
+     95,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0896_Gravedigger (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     4
+    ],
+    "fatigue": [
+     5,
+     7
+    ],
+    "resolve": [
+     7,
+     5
+    ],
+    "initiative": [
+     -5,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Cocky",
+    "Craven",
+    "Dexterous",
+    "Fainthearted",
+    "Fear of Undead",
+    "Iron Lungs",
+    "Night Blind",
+    "Optimist",
+    "Quick",
+    "Swift",
+    "Team Player",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0896_Gravedigger (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "graverobber",
+   "name": "Graverobber",
+   "wiki_page": "Graverobber (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     38,
+     45
+    ],
+    "initiative": [
+     100,
+     114
+    ],
+    "melee_skill": [
+     50,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     6
+    ],
+    "ranged_defense": [
+     0,
+     6
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0897_Graverobber (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     8,
+     5
+    ],
+    "initiative": [
+     0,
+     4
+    ],
+    "melee_skill": [
+     3,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     1
+    ],
+    "ranged_defense": [
+     0,
+     1
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Cocky",
+    "Craven",
+    "Deathwish",
+    "Determined",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Undead",
+    "Loyal",
+    "Night Blind",
+    "Optimist",
+    "Superstitious",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0897_Graverobber (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "hedge_knight",
+   "name": "Hedge Knight",
+   "wiki_page": "Hedge Knight (Background)",
+   "hiring_cost": null,
+   "daily_wage": 35,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    5
+   ],
+   "stats": {
+    "hp": [
+     62,
+     73
+    ],
+    "fatigue": [
+     105,
+     110
+    ],
+    "resolve": [
+     39,
+     44
+    ],
+    "initiative": [
+     86,
+     103
+    ],
+    "melee_skill": [
+     58,
+     67
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     6,
+     10
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0973_Hedge Knight (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     12,
+     13
+    ],
+    "fatigue": [
+     15,
+     10
+    ],
+    "resolve": [
+     9,
+     4
+    ],
+    "initiative": [
+     -14,
+     -7
+    ],
+    "melee_skill": [
+     11,
+     10
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     6,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Loyal",
+    "Swift",
+    "Team Player",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0973_Hedge Knight (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "historian",
+   "name": "Historian",
+   "wiki_page": "Historian (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     48,
+     55
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     42,
+     52
+    ],
+    "ranged_skill": [
+     29,
+     40
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/0998_Historian (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -2,
+     -5
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     -5,
+     -5
+    ],
+    "ranged_skill": [
+     -3,
+     -2
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Cocky",
+    "Dexterous",
+    "Dumb",
+    "Hate for Beasts",
+    "Huge",
+    "Impatient",
+    "Iron Jaw",
+    "Iron Lungs",
+    "Irrational",
+    "Paranoid",
+    "Spartan",
+    "Strong",
+    "Superstitious",
+    "Sure Footing",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0998_Historian (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "houndmaster",
+   "name": "Houndmaster",
+   "wiki_page": "Houndmaster (Background)",
+   "hiring_cost": null,
+   "daily_wage": 7,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     55,
+     60
+    ],
+    "fatigue": [
+     95,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     105,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     3,
+     8
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1031_Houndmaster (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     5,
+     0
+    ],
+    "fatigue": [
+     5,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     5,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     3,
+     3
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Hate for Beasts",
+    "Hate for Undead",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1031_Houndmaster (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "hunter",
+   "name": "Hunter",
+   "wiki_page": "Hunter (Background)",
+   "hiring_cost": null,
+   "daily_wage": 20,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    2
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     97,
+     105
+    ],
+    "resolve": [
+     30,
+     45
+    ],
+    "initiative": [
+     100,
+     115
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     52,
+     59
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     8
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1040_Hunter (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     7,
+     5
+    ],
+    "resolve": [
+     0,
+     5
+    ],
+    "initiative": [
+     0,
+     5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     20,
+     17
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     3
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Drunkard",
+    "Fat",
+    "Fear of Beasts",
+    "Fear of Undead",
+    "Gluttonous",
+    "Hate for Beasts",
+    "Night Blind",
+    "Short Sighted",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1040_Hunter (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "indebted",
+   "name": "Indebted",
+   "wiki_page": "Indebted (Background)",
+   "hiring_cost": null,
+   "daily_wage": 0,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     40,
+     50
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     25,
+     40
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1073_Indebted (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -10
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     -5,
+     0
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Brave",
+    "Cocky",
+    "Determined",
+    "Drunkard",
+    "Fat",
+    "Fearless",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Iron Jaw",
+    "Loyal",
+    "Lucky",
+    "Spartan",
+    "Strong",
+    "Survivor",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1073_Indebted (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "barbarian_indebted",
+   "name": "Barbarian Indebted",
+   "wiki_page": "Indebted (Background)",
+   "hiring_cost": null,
+   "daily_wage": 0,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     20,
+     35
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     -2,
+     4
+    ],
+    "ranged_defense": [
+     -2,
+     4
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1073_Indebted (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     -10,
+     -5
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     -2,
+     -1
+    ],
+    "ranged_defense": [
+     -2,
+     -1
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Brave",
+    "Cocky",
+    "Determined",
+    "Drunkard",
+    "Fat",
+    "Fearless",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Iron Jaw",
+    "Loyal",
+    "Lucky",
+    "Spartan",
+    "Strong",
+    "Survivor",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1073_Indebted (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "southern_indebted",
+   "name": "Southern Indebted",
+   "wiki_page": "Indebted (Background)",
+   "hiring_cost": null,
+   "daily_wage": 0,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     40,
+     50
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     20,
+     35
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1073_Indebted (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -10
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     -10,
+     -5
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Brave",
+    "Cocky",
+    "Determined",
+    "Drunkard",
+    "Fat",
+    "Fearless",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Iron Jaw",
+    "Loyal",
+    "Lucky",
+    "Spartan",
+    "Strong",
+    "Survivor",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1073_Indebted (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "juggler",
+   "name": "Juggler",
+   "wiki_page": "Juggler (Background)",
+   "hiring_cost": null,
+   "daily_wage": 7,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     112,
+     120
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     35,
+     45
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1105_Juggler (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     12,
+     10
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     3,
+     3
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Deathwish",
+    "Dumb",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Short Sighted",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1105_Juggler (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "killer_on_the_run",
+   "name": "Killer on the Run",
+   "wiki_page": "Killer on the Run (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     100,
+     115
+    ],
+    "melee_skill": [
+     51,
+     57
+    ],
+    "ranged_skill": [
+     34,
+     45
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1115_Killer on the Run (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     0,
+     5
+    ],
+    "melee_skill": [
+     4,
+     0
+    ],
+    "ranged_skill": [
+     2,
+     3
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Brave",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Cocky",
+    "Craven",
+    "Deathwish",
+    "Determined",
+    "Fainthearted",
+    "Fearless",
+    "Hate for Undead",
+    "Hesitant",
+    "Loyal",
+    "Lucky",
+    "Optimist",
+    "Team Player"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1115_Killer on the Run (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "king_s_guard",
+   "name": "King's Guard",
+   "wiki_page": "King's Guard (Background)",
+   "hiring_cost": null,
+   "daily_wage": 30,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    3,
+    3
+   ],
+   "stats": {
+    "hp": [
+     45,
+     65
+    ],
+    "fatigue": [
+     90,
+     110
+    ],
+    "resolve": [
+     45,
+     55
+    ],
+    "initiative": [
+     85,
+     110
+    ],
+    "melee_skill": [
+     54,
+     64
+    ],
+    "ranged_skill": [
+     27,
+     42
+    ],
+    "melee_defense": [
+     7,
+     12
+    ],
+    "ranged_defense": [
+     7,
+     12
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1121_King's Guard (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     5
+    ],
+    "fatigue": [
+     0,
+     10
+    ],
+    "resolve": [
+     15,
+     15
+    ],
+    "initiative": [
+     -15,
+     0
+    ],
+    "melee_skill": [
+     7,
+     7
+    ],
+    "ranged_skill": [
+     -5,
+     0
+    ],
+    "melee_defense": [
+     7,
+     7
+    ],
+    "ranged_defense": [
+     7,
+     7
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [],
+   "traits_excluded_note": "This background is event-exclusive and will always spawn without any traits",
+   "cross_check": "level page [3, 3] vs table [1, 1]",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1121_King's Guard (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "lindwurm_slayer",
+   "name": "Lindwurm Slayer",
+   "wiki_page": "Lindwurm Slayer (Background)",
+   "hiring_cost": null,
+   "daily_wage": 28,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     56,
+     63
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     42,
+     50
+    ],
+    "initiative": [
+     108,
+     122
+    ],
+    "melee_skill": [
+     55,
+     65
+    ],
+    "ranged_skill": [
+     42,
+     50
+    ],
+    "melee_defense": [
+     5,
+     9
+    ],
+    "ranged_defense": [
+     -3,
+     2
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1181_Lindwurm Slayer (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     6,
+     3
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     12,
+     10
+    ],
+    "initiative": [
+     8,
+     12
+    ],
+    "melee_skill": [
+     8,
+     8
+    ],
+    "ranged_skill": [
+     10,
+     8
+    ],
+    "melee_defense": [
+     5,
+     4
+    ],
+    "ranged_defense": [
+     -3,
+     -3
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fragile",
+    "Greedy",
+    "Hesistant",
+    "Irrational",
+    "Insecure",
+    "Team Player",
+    "Night Blind",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1181_Lindwurm Slayer (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "lumberjack",
+   "name": "Lumberjack",
+   "wiki_page": "Lumberjack (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "419 - 1,388",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 13,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     60,
+     70
+    ],
+    "fatigue": [
+     100,
+     115
+    ],
+    "resolve": [
+     30,
+     45
+    ],
+    "initiative": [
+     95,
+     110
+    ],
+    "melee_skill": [
+     52,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1220_Lumberjack (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     10
+    ],
+    "fatigue": [
+     10,
+     15
+    ],
+    "resolve": [
+     0,
+     5
+    ],
+    "initiative": [
+     -5,
+     0
+    ],
+    "melee_skill": [
+     5,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Fainthearted",
+    "Fat",
+    "Fragile",
+    "Hate for Undead",
+    "Night Blind",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1220_Lumberjack (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "manhunter",
+   "name": "Manhunter",
+   "wiki_page": "Manhunter (Background)",
+   "hiring_cost": null,
+   "daily_wage": 10,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     52,
+     63
+    ],
+    "fatigue": [
+     93,
+     105
+    ],
+    "resolve": [
+     37,
+     45
+    ],
+    "initiative": [
+     103,
+     115
+    ],
+    "melee_skill": [
+     52,
+     62
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     2,
+     7
+    ],
+    "ranged_defense": [
+     -1,
+     4
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1238_Manhunter (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     2,
+     3
+    ],
+    "fatigue": [
+     3,
+     5
+    ],
+    "resolve": [
+     7,
+     5
+    ],
+    "initiative": [
+     3,
+     5
+    ],
+    "melee_skill": [
+     5,
+     5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     2,
+     2
+    ],
+    "ranged_defense": [
+     -1,
+     -1
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Insecure",
+    "Iron Lungs",
+    "Optimist",
+    "Short Sighted",
+    "Tiny"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1238_Manhunter (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "mason",
+   "name": "Mason",
+   "wiki_page": "Mason (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     95,
+     105
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1246_Mason (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     5,
+     5
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Athletic",
+    "Bloodthirsty",
+    "Clumsy",
+    "Dumb",
+    "Fear of Undead",
+    "Hate for Undead",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1246_Mason (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "messenger",
+   "name": "Messenger",
+   "wiki_page": "Messenger (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "117 - 217",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     105,
+     110
+    ],
+    "resolve": [
+     35,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     7
+    ],
+    "ranged_defense": [
+     3,
+     8
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1265_Messenger (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     15,
+     10
+    ],
+    "resolve": [
+     5,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     2
+    ],
+    "ranged_defense": [
+     3,
+     3
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Brute",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Deathwish",
+    "Dumb",
+    "Fat",
+    "Gluttonous",
+    "Hate for Undead",
+    "Huge",
+    "Paranoid"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1265_Messenger (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "militia",
+   "name": "Militia",
+   "wiki_page": "Militia (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "254 - 2,248",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 10,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    2
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     93,
+     105
+    ],
+    "resolve": [
+     33,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     52,
+     62
+    ],
+    "ranged_skill": [
+     38,
+     47
+    ],
+    "melee_defense": [
+     2,
+     7
+    ],
+    "ranged_defense": [
+     2,
+     7
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1285_Militia (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     3,
+     5
+    ],
+    "resolve": [
+     3,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     5,
+     5
+    ],
+    "ranged_skill": [
+     6,
+     5
+    ],
+    "melee_defense": [
+     2,
+     2
+    ],
+    "ranged_defense": [
+     2,
+     2
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Clubfooted",
+    "Craven",
+    "Dastard",
+    "Fat",
+    "Hate for Undead",
+    "Insecure"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1285_Militia (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "miller",
+   "name": "Miller",
+   "wiki_page": "Miller (Background)",
+   "hiring_cost": null,
+   "daily_wage": 7,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     53,
+     60
+    ],
+    "fatigue": [
+     98,
+     105
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1290_Miller (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     3,
+     0
+    ],
+    "fatigue": [
+     8,
+     5
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Bright",
+    "Cocky",
+    "Deathwish",
+    "Dexterous",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Hate for Undead",
+    "Quick",
+    "Sure Footing"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1290_Miller (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "miner",
+   "name": "Miner",
+   "wiki_page": "Miner (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     60,
+     70
+    ],
+    "fatigue": [
+     80,
+     90
+    ],
+    "resolve": [
+     35,
+     48
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     52,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1292_Miner (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     10
+    ],
+    "fatigue": [
+     -10,
+     -10
+    ],
+    "resolve": [
+     5,
+     8
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     5,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bright",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fat",
+    "Fragile",
+    "Hate for Undead",
+    "Huge",
+    "Iron Lungs",
+    "Night Blind",
+    "Strong",
+    "Swift"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1292_Miner (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "minstrel",
+   "name": "Minstrel",
+   "wiki_page": "Minstrel (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     57
+    ],
+    "fatigue": [
+     80,
+     90
+    ],
+    "resolve": [
+     35,
+     50
+    ],
+    "initiative": [
+     100,
+     115
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1296_Minstrel (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -3
+    ],
+    "fatigue": [
+     -10,
+     -10
+    ],
+    "resolve": [
+     5,
+     10
+    ],
+    "initiative": [
+     0,
+     5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Craven",
+    "Dastard",
+    "Dumb",
+    "Huge",
+    "Insecure",
+    "Iron Jaw",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1296_Minstrel (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "monk",
+   "name": "Monk",
+   "wiki_page": "Monk (Background)",
+   "hiring_cost": null,
+   "daily_wage": 5,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     80,
+     100
+    ],
+    "resolve": [
+     41,
+     51
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     42,
+     52
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1311_Monk (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     -10,
+     0
+    ],
+    "resolve": [
+     11,
+     11
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     -5,
+     -5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Disloyal",
+    "Dumb",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Impatient",
+    "Iron Lungs",
+    "Quick",
+    "Superstitious",
+    "Swift",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1311_Monk (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "pacified_flagellant",
+   "name": "Pacified Flagellant",
+   "wiki_page": "Monk (Background)",
+   "hiring_cost": null,
+   "daily_wage": 5,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     40,
+     55
+    ],
+    "fatigue": [
+     95,
+     110
+    ],
+    "resolve": [
+     42,
+     52
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1311_Monk (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -5
+    ],
+    "fatigue": [
+     5,
+     10
+    ],
+    "resolve": [
+     12,
+     12
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bright",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Disloyal",
+    "Fainthearted",
+    "Fat",
+    "Gluttonous",
+    "Greedy",
+    "Insecure",
+    "Strong",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "not in the Attribute Ranges table",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1311_Monk (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "melee_nomad",
+   "name": "Melee Nomad",
+   "wiki_page": "Nomad (Background)",
+   "hiring_cost": null,
+   "daily_wage": 28,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     92,
+     100
+    ],
+    "resolve": [
+     30,
+     37
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     59,
+     67
+    ],
+    "ranged_skill": [
+     37,
+     42
+    ],
+    "melee_defense": [
+     6,
+     10
+    ],
+    "ranged_defense": [
+     6,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1436_Nomad (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     2,
+     0
+    ],
+    "resolve": [
+     0,
+     -3
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     12,
+     10
+    ],
+    "ranged_skill": [
+     5,
+     0
+    ],
+    "melee_defense": [
+     6,
+     5
+    ],
+    "ranged_defense": [
+     6,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Superstitious",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1436_Nomad (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "ranged_nomad",
+   "name": "Ranged Nomad",
+   "wiki_page": "Nomad (Background)",
+   "hiring_cost": null,
+   "daily_wage": 28,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     92,
+     100
+    ],
+    "resolve": [
+     30,
+     37
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     52,
+     60
+    ],
+    "ranged_skill": [
+     47,
+     56
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     6,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1436_Nomad (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     2,
+     0
+    ],
+    "resolve": [
+     0,
+     -3
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     5,
+     3
+    ],
+    "ranged_skill": [
+     15,
+     14
+    ],
+    "melee_defense": [
+     5,
+     3
+    ],
+    "ranged_defense": [
+     6,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Superstitious",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1436_Nomad (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "oathtaker",
+   "name": "Oathtaker",
+   "wiki_page": "Oathtaker (Background)",
+   "hiring_cost": null,
+   "daily_wage": 22,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     60,
+     66
+    ],
+    "fatigue": [
+     90,
+     96
+    ],
+    "resolve": [
+     43,
+     56
+    ],
+    "initiative": [
+     113,
+     122
+    ],
+    "melee_skill": [
+     60,
+     67
+    ],
+    "ranged_skill": [
+     30,
+     39
+    ],
+    "melee_defense": [
+     4,
+     10
+    ],
+    "ranged_defense": [
+     -10,
+     0
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1466_Oathtaker (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     6
+    ],
+    "fatigue": [
+     0,
+     -4
+    ],
+    "resolve": [
+     13,
+     16
+    ],
+    "initiative": [
+     13,
+     12
+    ],
+    "melee_skill": [
+     13,
+     10
+    ],
+    "ranged_skill": [
+     -2,
+     -3
+    ],
+    "melee_defense": [
+     4,
+     5
+    ],
+    "ranged_defense": [
+     -10,
+     -5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Drunkard",
+    "Disloyal",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Hesistant",
+    "Insecure",
+    "Paranoid",
+    "Tiny",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "Attribute Ranges table differs: melee_defense page [4, 10] vs table [4, 8]",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1466_Oathtaker (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "orc_slayer",
+   "name": "Orc Slayer",
+   "wiki_page": "Orc Slayer (Background)",
+   "hiring_cost": null,
+   "daily_wage": 25,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    9,
+    9
+   ],
+   "stats": {
+    "hp": [
+     60,
+     70
+    ],
+    "fatigue": [
+     100,
+     110
+    ],
+    "resolve": [
+     45,
+     60
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     57,
+     67
+    ],
+    "ranged_skill": [
+     22,
+     37
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     -5,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1496_Orc Slayer (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     10,
+     10
+    ],
+    "fatigue": [
+     10,
+     10
+    ],
+    "resolve": [
+     15,
+     20
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     10,
+     10
+    ],
+    "ranged_skill": [
+     -10,
+     -5
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     -5,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Greenskins",
+    "Fragile",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Night Blind",
+    "Paranoid",
+    "Swift",
+    "Team Player",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1496_Orc Slayer (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "peddler",
+   "name": "Peddler",
+   "wiki_page": "Peddler (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     117
+    ],
+    "melee_skill": [
+     37,
+     48
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     2,
+     12
+    ],
+    "ranged_defense": [
+     2,
+     12
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1534_Peddler (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     7
+    ],
+    "melee_skill": [
+     -10,
+     -9
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     2,
+     7
+    ],
+    "ranged_defense": [
+     2,
+     7
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Cocky",
+    "Deathwish",
+    "Dexterous",
+    "Dumb",
+    "Fear of Undead",
+    "Hate for Beasts",
+    "Hate for Undead",
+    "Huge",
+    "Iron Jaw",
+    "Iron Lungs",
+    "Strong",
+    "Tough"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Peddler",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1534_Peddler (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "pimp",
+   "name": "Pimp",
+   "wiki_page": "Pimp (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     100,
+     117
+    ],
+    "melee_skill": [
+     42,
+     52
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     2,
+     12
+    ],
+    "ranged_defense": [
+     2,
+     12
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1557_Pimp (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     0,
+     7
+    ],
+    "melee_skill": [
+     -5,
+     -5
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     2,
+     7
+    ],
+    "ranged_defense": [
+     2,
+     7
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Cocky",
+    "Deathwish",
+    "Dexterous",
+    "Dumb",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Huge",
+    "Insecure",
+    "Iron Jaw",
+    "Iron Lungs",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1557_Pimp (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "poacher",
+   "name": "Poacher",
+   "wiki_page": "Poacher (Background)",
+   "hiring_cost": null,
+   "daily_wage": 8,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     93,
+     100
+    ],
+    "resolve": [
+     25,
+     45
+    ],
+    "initiative": [
+     100,
+     114
+    ],
+    "melee_skill": [
+     49,
+     57
+    ],
+    "ranged_skill": [
+     47,
+     49
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1572_Poacher (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     3,
+     0
+    ],
+    "resolve": [
+     -5,
+     5
+    ],
+    "initiative": [
+     0,
+     4
+    ],
+    "melee_skill": [
+     2,
+     0
+    ],
+    "ranged_skill": [
+     15,
+     7
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Brave",
+    "Bright",
+    "Clubfooted",
+    "Fat",
+    "Fearless",
+    "Hate for Undead",
+    "Loyal",
+    "Night Blind",
+    "Short Sighted"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1572_Poacher (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "raider",
+   "name": "Raider",
+   "wiki_page": "Raider (Background)",
+   "hiring_cost": null,
+   "daily_wage": 28,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     92,
+     100
+    ],
+    "resolve": [
+     30,
+     37
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     59,
+     67
+    ],
+    "ranged_skill": [
+     37,
+     42
+    ],
+    "melee_defense": [
+     6,
+     10
+    ],
+    "ranged_defense": [
+     6,
+     10
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1628_Raider (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     2,
+     0
+    ],
+    "resolve": [
+     0,
+     -3
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     12,
+     10
+    ],
+    "ranged_skill": [
+     5,
+     0
+    ],
+    "melee_defense": [
+     6,
+     5
+    ],
+    "ranged_defense": [
+     6,
+     5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1628_Raider (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "ratcatcher",
+   "name": "Ratcatcher",
+   "wiki_page": "Ratcatcher (Background)",
+   "hiring_cost": null,
+   "daily_wage": 4,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     118,
+     125
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1638_Ratcatcher (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     18,
+     15
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Brave",
+    "Bright",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Cocky",
+    "Deathwish",
+    "Determined",
+    "Fat",
+    "Fearless",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Undead",
+    "Hesitant",
+    "Huge",
+    "Short Sighted",
+    "Strong",
+    "Sure Footing",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1638_Ratcatcher (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "refugee",
+   "name": "Refugee",
+   "wiki_page": "Refugee (Background)",
+   "hiring_cost": null,
+   "daily_wage": 4,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     42,
+     55
+    ],
+    "fatigue": [
+     97,
+     105
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     1,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1657_Refugee (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -8,
+     -5
+    ],
+    "fatigue": [
+     7,
+     5
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     1,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brave",
+    "Bright",
+    "Cocky",
+    "Deathwish",
+    "Determined",
+    "Fat",
+    "Fearless",
+    "Greedy",
+    "Impatient",
+    "Iron Jaw",
+    "Loyal",
+    "Strong",
+    "Tough"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1657_Refugee (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "retired_soldier",
+   "name": "Retired Soldier",
+   "wiki_page": "Retired Soldier (Background)",
+   "hiring_cost": null,
+   "daily_wage": 15,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    3
+   ],
+   "stats": {
+    "hp": [
+     40,
+     45
+    ],
+    "fatigue": [
+     80,
+     90
+    ],
+    "resolve": [
+     43,
+     50
+    ],
+    "initiative": [
+     95,
+     100
+    ],
+    "melee_skill": [
+     60,
+     67
+    ],
+    "ranged_skill": [
+     37,
+     42
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     5,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1690_Retired Soldier (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -10,
+     -15
+    ],
+    "fatigue": [
+     -10,
+     -10
+    ],
+    "resolve": [
+     13,
+     10
+    ],
+    "initiative": [
+     -5,
+     -10
+    ],
+    "melee_skill": [
+     13,
+     10
+    ],
+    "ranged_skill": [
+     5,
+     0
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     5,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bleeder",
+    "Bloodthirsty",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Fainthearted",
+    "Fragile",
+    "Gluttonous",
+    "Hesitant",
+    "Insecure",
+    "Iron Lungs",
+    "Irrational",
+    "Strong",
+    "Swift",
+    "Tiny",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1690_Retired Soldier (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "sellsword",
+   "name": "Sellsword",
+   "wiki_page": "Sellsword (Background)",
+   "hiring_cost": null,
+   "daily_wage": 35,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    2,
+    4
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     45
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     60,
+     67
+    ],
+    "ranged_skill": [
+     44,
+     52
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     5,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1749_Sellsword (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     5
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     13,
+     10
+    ],
+    "ranged_skill": [
+     12,
+     10
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     5,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Fainthearted",
+    "Fragile",
+    "Hesitant",
+    "Insecure",
+    "Irrational",
+    "Loyal",
+    "Night Blind",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1749_Sellsword (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "servant",
+   "name": "Servant",
+   "wiki_page": "Servant (Background)",
+   "hiring_cost": null,
+   "daily_wage": 4,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     45,
+     55
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     25,
+     35
+    ],
+    "initiative": [
+     105,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     2,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1761_Servant (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -5,
+     -5
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     -5,
+     -5
+    ],
+    "initiative": [
+     5,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     2,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brave",
+    "Bright",
+    "Brute",
+    "Cocky",
+    "Determined",
+    "Disloyal",
+    "Fat",
+    "Fearless",
+    "Greedy",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Huge",
+    "Impatient",
+    "Iron Jaw",
+    "Optimist",
+    "Strong",
+    "Sure Footing"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Servant",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1761_Servant (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "shepherd",
+   "name": "Shepherd",
+   "wiki_page": "Shepherd (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     105
+    ],
+    "resolve": [
+     35,
+     40
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     37,
+     49
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1774_Shepherd (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     5
+    ],
+    "resolve": [
+     5,
+     0
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     5,
+     7
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brave",
+    "Brute",
+    "Cocky",
+    "Deathwish",
+    "Disloyal",
+    "Drunkard",
+    "Fearless",
+    "Greedy",
+    "Hate for Undead",
+    "Impatient",
+    "Iron Jaw",
+    "Iron Lungs",
+    "Strong",
+    "Sure Footing",
+    "Tough"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Shepherd",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1774_Shepherd (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "squire",
+   "name": "Squire",
+   "wiki_page": "Squire (Background)",
+   "hiring_cost": null,
+   "daily_wage": 20,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     97,
+     105
+    ],
+    "resolve": [
+     42,
+     52
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     54,
+     62
+    ],
+    "ranged_skill": [
+     39,
+     50
+    ],
+    "melee_defense": [
+     1,
+     8
+    ],
+    "ranged_defense": [
+     1,
+     8
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1861_Squire (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     7,
+     5
+    ],
+    "resolve": [
+     12,
+     12
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     7,
+     5
+    ],
+    "ranged_skill": [
+     7,
+     8
+    ],
+    "melee_defense": [
+     1,
+     3
+    ],
+    "ranged_defense": [
+     1,
+     3
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Bleeder",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Disloyal",
+    "Fainthearted",
+    "Fat",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Greedy",
+    "Insecure",
+    "Irrational",
+    "Pessimist",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1861_Squire (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "swordmaster",
+   "name": "Swordmaster",
+   "wiki_page": "Swordmaster (Background)",
+   "hiring_cost": null,
+   "daily_wage": 35,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    3,
+    5
+   ],
+   "stats": {
+    "hp": [
+     38,
+     48
+    ],
+    "fatigue": [
+     75,
+     90
+    ],
+    "resolve": [
+     42,
+     50
+    ],
+    "initiative": [
+     90,
+     100
+    ],
+    "melee_skill": [
+     72,
+     77
+    ],
+    "ranged_skill": [
+     27,
+     37
+    ],
+    "melee_defense": [
+     10,
+     20
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1916_Swordmaster (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -12,
+     -12
+    ],
+    "fatigue": [
+     -15,
+     -10
+    ],
+    "resolve": [
+     12,
+     10
+    ],
+    "initiative": [
+     -10,
+     -10
+    ],
+    "melee_skill": [
+     25,
+     20
+    ],
+    "ranged_skill": [
+     -5,
+     -5
+    ],
+    "melee_defense": [
+     10,
+     15
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bleeder",
+    "Bloodthirsty",
+    "Bright",
+    "Clubfooted",
+    "Clumsy",
+    "Craven",
+    "Dastard",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Fragile",
+    "Gluttonous",
+    "Hesitant",
+    "Huge",
+    "Impatient",
+    "Insecure",
+    "Iron Lungs",
+    "Irrational",
+    "Paranoid",
+    "Strong",
+    "Tiny",
+    "Tough",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1916_Swordmaster (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "tailor",
+   "name": "Tailor",
+   "wiki_page": "Tailor (Background)",
+   "hiring_cost": null,
+   "daily_wage": 5,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     47,
+     60
+    ],
+    "fatigue": [
+     85,
+     95
+    ],
+    "resolve": [
+     30,
+     40
+    ],
+    "initiative": [
+     100,
+     115
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1924_Tailor (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -3,
+     0
+    ],
+    "fatigue": [
+     -5,
+     -5
+    ],
+    "resolve": [
+     0,
+     0
+    ],
+    "initiative": [
+     0,
+     5
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Athletic",
+    "Bloodthirsty",
+    "Brave",
+    "Brute",
+    "Clumsy",
+    "Cocky",
+    "Deathwish",
+    "Dumb",
+    "Fearless",
+    "Hate for Undead",
+    "Huge",
+    "Iron Lungs",
+    "Spartan",
+    "Strong",
+    "Tough"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Tailor",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1924_Tailor (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "thief",
+   "name": "Thief",
+   "wiki_page": "Thief (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "195 - 452",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 10,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     35,
+     40
+    ],
+    "initiative": [
+     112,
+     120
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     5,
+     13
+    ],
+    "ranged_defense": [
+     5,
+     13
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/1982_Thief (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     5,
+     0
+    ],
+    "initiative": [
+     12,
+     10
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     5,
+     8
+    ],
+    "ranged_defense": [
+     5,
+     8
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Bloodthirsty",
+    "Brute",
+    "Clubfooted",
+    "Clumsy",
+    "Dumb",
+    "Fat",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Hesitant",
+    "Huge",
+    "Insecure",
+    "Loyal",
+    "Night Blind",
+    "Paranoid",
+    "Short Sighted",
+    "Strong",
+    "Team Player"
+   ],
+   "traits_excluded_variant": {
+    "variant": "Southern Thief",
+    "also_excludes": [
+     "Superstitious"
+    ]
+   },
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1982_Thief (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "vagabond",
+   "name": "Vagabond",
+   "wiki_page": "Vagabond (Background)",
+   "hiring_cost": null,
+   "daily_wage": 6,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    1
+   ],
+   "stats": {
+    "hp": [
+     47,
+     60
+    ],
+    "fatigue": [
+     100,
+     115
+    ],
+    "resolve": [
+     25,
+     33
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     32,
+     42
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/2157_Vagabond (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     -3,
+     0
+    ],
+    "fatigue": [
+     10,
+     15
+    ],
+    "resolve": [
+     -5,
+     -7
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     0,
+     0
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Asthmatic",
+    "Clubfooted",
+    "Fat",
+    "Gluttonous",
+    "Hate for Beasts",
+    "Hate for Greenskins",
+    "Hate for Undead",
+    "Loyal"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2157_Vagabond (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "wildman",
+   "name": "Wildman",
+   "wiki_page": "Wildman (Background)",
+   "hiring_cost": null,
+   "hiring_cost_game_guide_observed": {
+    "range": "144 (100 without the B&E DLC) - 1588",
+    "note": "observed hiring cost range quoted by the Game Guide, includes equipment and level, not the base",
+    "source": "bb_all/0827_Game Guide.txt"
+   },
+   "daily_wage": 12,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    2
+   ],
+   "stats": {
+    "hp": [
+     62,
+     70
+    ],
+    "fatigue": [
+     108,
+     123
+    ],
+    "resolve": [
+     42,
+     50
+    ],
+    "initiative": [
+     95,
+     105
+    ],
+    "melee_skill": [
+     53,
+     57
+    ],
+    "ranged_skill": [
+     27,
+     42
+    ],
+    "melee_defense": [
+     -5,
+     5
+    ],
+    "ranged_defense": [
+     -5,
+     0
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/2209_Wildman (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     12,
+     10
+    ],
+    "fatigue": [
+     18,
+     23
+    ],
+    "resolve": [
+     12,
+     10
+    ],
+    "initiative": [
+     -5,
+     -5
+    ],
+    "melee_skill": [
+     6,
+     0
+    ],
+    "ranged_skill": [
+     -5,
+     0
+    ],
+    "melee_defense": [
+     -5,
+     0
+    ],
+    "ranged_defense": [
+     -5,
+     -5
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Ailing",
+    "Asthmatic",
+    "Bleeder",
+    "Bright",
+    "Clubfooted",
+    "Cocky",
+    "Craven",
+    "Dastard",
+    "Dexterous",
+    "Drunkard",
+    "Fainthearted",
+    "Fat",
+    "Fear of Beasts",
+    "Fragile",
+    "Gluttonous",
+    "Greedy",
+    "Hate for Undead",
+    "Hesitant",
+    "Insecure",
+    "Night Blind",
+    "Optimist",
+    "Paranoid",
+    "Pessimist",
+    "Short Sighted",
+    "Team Player",
+    "Tiny",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2209_Wildman (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  },
+  {
+   "id": "witchhunter",
+   "name": "Witchhunter",
+   "wiki_page": "Witchhunter (Background)",
+   "hiring_cost": null,
+   "daily_wage": 13,
+   "daily_wage_kind": "base wage (before the 90%-110% random multiplier and level scaling)",
+   "starting_level": [
+    1,
+    3
+   ],
+   "stats": {
+    "hp": [
+     50,
+     60
+    ],
+    "fatigue": [
+     90,
+     100
+    ],
+    "resolve": [
+     42,
+     50
+    ],
+    "initiative": [
+     100,
+     110
+    ],
+    "melee_skill": [
+     47,
+     57
+    ],
+    "ranged_skill": [
+     47,
+     50
+    ],
+    "melee_defense": [
+     0,
+     5
+    ],
+    "ranged_defense": [
+     0,
+     5
+    ]
+   },
+   "stats_kind": "range: absolute [min,max] a recruit of this background can roll (page row \"Attribute Range\")",
+   "stats_source": "bb_all/2225_Witchhunter (Background).txt",
+   "stat_modifiers": {
+    "hp": [
+     0,
+     0
+    ],
+    "fatigue": [
+     0,
+     0
+    ],
+    "resolve": [
+     12,
+     10
+    ],
+    "initiative": [
+     0,
+     0
+    ],
+    "melee_skill": [
+     0,
+     0
+    ],
+    "ranged_skill": [
+     15,
+     8
+    ],
+    "melee_defense": [
+     0,
+     0
+    ],
+    "ranged_defense": [
+     0,
+     0
+    ]
+   },
+   "stat_modifiers_kind": "[added to base min, added to base max]; the page shows blank or \"-\" for no change, written here as 0",
+   "traits_excluded": [
+    "Clubfooted",
+    "Craven",
+    "Drunkard",
+    "Dumb",
+    "Fainthearted",
+    "Fear of Beasts",
+    "Fear of Greenskins",
+    "Fear of Undead",
+    "Hate for Beasts",
+    "Hesitant",
+    "Insecure",
+    "Short Sighted",
+    "Superstitious",
+    "Team Player",
+    "Weasel"
+   ],
+   "cross_check": "matches the Attribute Ranges table and base+modifiers",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2225_Witchhunter (Background).txt; cross-checked with bb_all/0368_Character Backgrounds_Attribute Ranges.txt",
+   "missing": [
+    "hiring_cost (no per-background base hiring cost on the wiki; Game Guide: base 30 for the worst up to around 150 for the best, Swordmaster 400)"
+   ]
+  }
+ ]
+}
