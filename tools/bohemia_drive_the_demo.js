@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['alpha', 'arm', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+const KNOWN_OPTS = ['alpha', 'arm', 'bare', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
                     'noWorker', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -195,6 +195,16 @@ async function open(opts) {
        : WANT === DEMO_FILE ? '  (the baked demo, which only RUN re-cuts)' : ''));
   await page.goto('http://127.0.0.1:' + port + '/slices/' + WANT,
     { waitUntil: 'load', timeout: 300000 });
+  /* EXTENDED 10/2 (COMBAT, [rebuild], rule 14g: extend the one driver, never fork it).
+     opts.bare: a ONE-FILE surface with no front door and no city frame (the rebuilt fight,
+     slices/BOHEMIA_FIGHT.html; the loop is the same shape). Same server, same phone, same
+     arm; the door and the city frame are skipped because there are none, and the caller
+     gets the page, the browser and the errors. Off unless asked, so nothing else changes. */
+  if (opts.bare) {
+    return { page, ctx, browser, errs, server, openedFile: () => WANT, isAlpha: () => false,
+      says: () => 'measured on ' + WANT + ' (a one-file surface)',
+      close: async () => { await browser.close(); server.close(); } };
+  }
   /* WAIT FOR THE DOOR, DO NOT GUESS HOW LONG IT TAKES (COOK 9/14, [streets fixed] r3).
      The two waits here were blind: 15 s for the front splash, 22 s for the city frame.
      That is tuned to the DEMO on one machine. Pointed at the ALPHA -- which is where

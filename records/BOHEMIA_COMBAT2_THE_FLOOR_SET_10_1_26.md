@@ -105,3 +105,42 @@ walks, 36% lit) and his burning oil drums restored warm in three hard rings (ell
 every pixel snapped to the allowed palette (numpy nearest). light[5][5] = 'lit' where 40% of a tile
 is inside a pool. Guard: colours, size, not stamped, at least one lit tile.
 NEXT: store-front facades, the casino floor interior.
+
+## ROUND SEVEN (10/1, sweep J and rule 61): THE HOUSE AT 45, AND THE BIG BOARD
+
+tools/bohemia_combat2_houses_at_45_and_the_big_board_cook_10_1_26.py ->
+banks/BOHEMIA_THE_HOUSE_AT_45_AND_THE_BIG_BOARD_10_1_26.txt, VOTE combat2-houses-at-45-and-the-big-board-10-1.
+  house45(seed, facing): on the 45 lot, a 9.6-10.6 x 7.6 m footprint; roof plane 7.6 m x cos45 of his
+    roof_slope, his roof_ridge a third down, the far plane shaded, the west hip lit and the east hip in
+    shade, his roof_eave along the eave; a 2.7 m x cos45 stucco face (his wall tiles) with his garage,
+    door and window (north-side houses) or a slider and window (south-side, the back wall); the drive;
+    the shadow SE. Pitched roofs are 'blocked'; (1,1) and (3,3) keep the flat roof as 'height'.
+  suburb45: round four's suburb block with the 45 houses.
+  big_board: 20 x 15 house tiles = 4 x 3 blocks of the kinds (suburb45 x4, strip, culdesac, ruin, scrub,
+    freeway x4 along the south); start rows 4 and 9 (distance 5). The bank stores the layout and points at
+    each kind's bank, not one giant picture. COMBAT 1 owns the cutter and the code ([board size]).
+NEXT: the 45 house in the cul-de-sac, ruin and night boards; block seams; store fronts.
+
+## ROUND EIGHT (10/2): STORE FRONTS AT 45, AND THE 45 HOUSE ON EVERY BLOCK
+
+tools/bohemia_combat2_store_fronts_and_houses_everywhere_cook_10_2_26.py ->
+banks/BOHEMIA_STORE_FRONTS_AND_HOUSES_EVERYWHERE_10_2_26.txt, VOTE combat2-store-fronts-and-houses-everywhere-10-2.
+  store45: deck + parapet, a 4.5 m x cos45 face: a blank sign band with a paler ghost of the letters, the
+    glass run in A[0] with mullions every 2.4 m and a few reflections, one bay boarded (his tile), his door,
+    the face's shadow on the walk. Four of five bays on the strip lot (the ladder roof stays flat, 'height').
+  culdesac45: the six bulb houses as house45 (north row fronts, south row backs), all 'blocked'.
+  ruin45: the four burnt houses as house45 soot-shaded and broken through to the joists; two standing
+    houses at 45 ('blocked'); one flat roof each side kept ('height').
+  The big board card re-drawn with these kinds (same layout).
+
+## ROUND NINE (10/2, rule 63): THE GROUND FOR THE NEW FIGHT
+
+tools/bohemia_combat2_the_ground_for_the_new_fight_cook_10_2_26.py -> slices/fight_ground/ (published).
+Eight boards x 20 x 15 house tiles from 21 blocks (suburb x3, suburb_stem x2, culdesac x2, strip x2, ruin x2,
+scrub x3, wash x2, freeway, shore x2, landfill x2); variants by offsetting every seed (R and dress) in the
+imported cooks. fight_ground.json: tile_px, block_tiles 5, board_tiles [20,15], start_rows [4,9], terrain_key
+with BB AP, cover and cover_extra (src, metres, kind), blocks (src), boards (blocks layout, terrain 15x20,
+cover in board metres). Guards: board >= 20 x 15, start rows 5 apart, no identical block side by side (the
+freeway exempt: its lanes must run on), no cover on blocked, every named file exists. 18.2 MB.
+SIZE: the published site was 331 MB against PAGES PUBLISH's 260 MB cap before this round (already red); this
+adds 18 MB (349). Flagged for PLUMBER.

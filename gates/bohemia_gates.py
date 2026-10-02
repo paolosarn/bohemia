@@ -2313,6 +2313,35 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE VALLEY HAS AN EDGE', ['node', 'gates/the_valley_has_an_edge_gate.js'],
+     'VAMILY [the valley edge], rule 61c (PAOLO 10/1: "when I zoom out of Las Vegas there\'s a square and then '
+     'the rest is desert brown; it\'s really bad"). MEASURED BEFORE: at the far end of the pinch every canvas '
+     'pixel past the 96 x 96 map was one flat #8a7a58. NOW the land goes on: one picture baked in a worker, '
+     'drawn under the tiles in their own projection, a seamless far tile under that to any screen\'s edge. '
+     'HOLDS at the widest zoom on the demo: under 10% of the land past the map is bare; it has relief; a range '
+     'stands 8+ blocks; the four ranges, Lake Mead and Mt Charleston are named with no name on another; every '
+     'freeway at the edge has a road out and the 15, 95 and 93 are named; the land never paints on a block '
+     'and has no holes; the near side is a slope, never a wall; the bake is off the main thread; a fresh paint '
+     'is under 15 ms dearer; night is darker; the edge is dithered; three other seeds bake the same. '
+     'Mutations: land off; near cap at the camera angle; bake on the page; lake unnamed.', True),
+    ('THE FRONT DOOR', ['node', 'gates/the_front_door_gate.js'],
+     'VAMILY [the front door], rule 61d and rule 56 s5 (PAOLO 10/1: "the loading screen looks like shit... I '
+     'can\'t select the difficulty... I can\'t select the origin... I told you this is gonna be translated"). '
+     'MEASURED BEFORE: a title, an empty box and BEGIN. NOW, picked while the valley loads, through the one '
+     'driver\'s beforeTap with real touches: 3 fights and 3 shelves (Battle Brothers\' combat and economic '
+     'difficulty, translated), 15 origins (its fifteen, translated, each with its difficulty) and a prepared '
+     'name, every one a thumb; the middle picked already; a pick is never BEGIN; every number a card shows is '
+     'the number applied; BEGIN carries the picks to the map (the start batteries once: it paid three times '
+     'until this gate); every job carries the pay, the crew and the fight\'s difficulty. Mutations: BEGIN '
+     'without the picks; a pick leaking to BEGIN; jobs ignoring the picks.', True),
+    ('THE LOOP PLAYS ON THE MAP', ['node', 'gates/the_loop_plays_on_the_map_gate.js'],
+     'VAMILY [fold the loop], rules 52 and 58, release line 2 (PAOLO 10/1: "I want the demo"). RUN TWO\'s '
+     'loop (one file, a placeholder map and fight) and its settlement screen folded onto the REAL map and '
+     'the REAL fight. ONE DRIVER PLAYS IT END TO END ON THE DEMO, real touches: a touch on the town next to him '
+     'travels there; arriving opens the settlement screen named for the town with his batteries; the BOARD '
+     'gives him a contract; LEAVE closes it and the JOB is on the map; reaching the JOB opens the real '
+     'fight; walking out keeps the job unpaid; a cleared job pays one battery in the purse and on the bar; '
+     'no dead end. Mutations: arriving opens nothing; walking out pays; a cleared job pays nothing.', True),
     ('EVERY FIGHT HANDS HIM BACK', ['node', 'gates/every_fight_hands_him_back_gate.js'],
      'VAMILY [fight returns], rule 57 (PAOLO 10/1, having played the demo: "combat didn\'t end so I couldn\'t '
      'get back into the overworld"). REPRODUCED: a road fight (the toll crew) ran 60 s of SHOOT and 60 s of '
@@ -3707,8 +3736,14 @@ GATES = [
      'rule 39: the fight is on house tiles, a street is one tile (46g), houses yards and walls, the high ground a roof on a lot', False),
     ('A HOUSE IS NEVER SMALLER THAN A MAN', ['node', 'gates/a_house_is_never_smaller_than_a_man_gate.js'],
      'V232: the fight camera never draws a house narrower than the man; off-glass enemies get an edge mark', False),
+    ('REACH IS LIT',   ['node', 'gates/reach_is_lit_gate.js'],
+     'the 9/22 ruling: his gun\'s reach lit on the tiles (pistol the eight round him, rifle 2, scope 3), exactly the game\'s own reach, a man in it lit stronger', False),
     ('EVERY FIGHT ENDS', ['node', 'gates/every_fight_ends_gate.js'],
      'rule 57 (Paolo 10/1: "combat didn\'t end"): all down, all fled, the chase capped, his side down; each end sent through the one door', False),
+    ('THE FIGHT READS ONLY SOURCED NUMBERS', ['node', 'gates/the_fight_reads_only_sourced_numbers_gate.js'],
+     'rule 63d (Paolo 10/2: "all the numbers and stats play a huge important part"): the rebuilt fight types no number; every felt number comes through R() from records/target/bb/, each row with its wiki page and the words', False),
+    ('THE REBUILT FIGHT PLAYS', ['node', 'gates/the_rebuilt_fight_plays_gate.js'],
+     'rule 63 (Paolo 10/2: "start combat over... re-create Battle Brothers combat"): two whole fights played start to end on his phone with real taps; whole board on the glass at the open, the pinch, initiative order, the 5-95 cap, head hits, morale, injuries, free swings, YOU never dead, hires dead or laid up 30-40 days, under 15 minutes on the beat', True),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
      'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
     ('COMBAT ENTRY',  ['node', 'gates/combat_entry_gate.js'],

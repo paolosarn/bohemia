@@ -1,0 +1,2657 @@
+{
+ "_about": "Battle Brothers body armour, headgear and shields copied exactly from the wiki text in the repo (rule 63d); every row cites its page. Rows = the Body Armor, Headgear and Shields list pages (transcluded by # PAGE Armor in CORE_WIKITEXT.md); the item's own page infobox fills blanks and any disagreement is kept in conflicts. fatigue = Max. Fatigue penalty as the wiki shows it (negative). A blank Max. Fatigue cell on cloth items is left null (the wiki prints nothing). vision on headgear = the Vision column (negative). Named, legendary and unique items are left out (see _excluded); the crafted Lindwurm, Living Tree and Kraken shields are standard list rows and are kept. Shield skills come from each shield page's Skills section, looked up on the skill pages. Shield list notes: Buckler 'Shieldwall skill is unavailable'; skirmisher shields 'Knock Back skill is unavailable'; Heavy Metal Shield 'Shield skills build up additional 5 Fatigue for humans'.",
+ "_source_archive": "reference/library/grok/wiki/PAGES_ALL.tar.gz (bb_all/NNNN_Title.txt)",
+ "_excluded": [
+  {
+   "name": "The Fangshire",
+   "kind": "head",
+   "reason": "page category \"Unique Items\"",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1958_The Fangshire.txt"
+  }
+ ],
+ "body": [
+  {
+   "id": "tattered_sackcloth",
+   "name": "Tattered Sackcloth",
+   "durability": 5,
+   "fatigue": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1927_Tattered Sackcloth.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "sackcloth",
+   "name": "Sackcloth",
+   "durability": 10,
+   "fatigue": null,
+   "value": 20,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1725_Sackcloth.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "linen_tunic",
+   "name": "Linen Tunic",
+   "durability": 20,
+   "fatigue": null,
+   "value": 45,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1183_Linen Tunic.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "cloth_sash",
+   "name": "Cloth Sash",
+   "durability": 20,
+   "fatigue": null,
+   "value": 30,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0409_Cloth Sash.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "leather_wraps",
+   "name": "Leather Wraps",
+   "durability": 20,
+   "fatigue": null,
+   "value": 40,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1158_Leather Wraps.txt",
+   "notes": "Worn by Wildmen",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "monk_s_robe",
+   "name": "Monk's Robe",
+   "durability": 20,
+   "fatigue": null,
+   "value": 45,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1310_Monk's Robe.txt",
+   "notes": "Worn by Monks",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "noble_tunic",
+   "name": "Noble Tunic",
+   "durability": 20,
+   "fatigue": null,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1434_Noble Tunic.txt",
+   "notes": "Worn by Pimps",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "wizard_s_robe",
+   "name": "Wizard's Robe",
+   "durability": 20,
+   "fatigue": null,
+   "value": 60,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2229_Wizard's Robe.txt",
+   "notes": "Can be found in events",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "apron",
+   "name": "Apron",
+   "durability": 25,
+   "fatigue": null,
+   "value": 55,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0127_Apron.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "butcher_s_apron",
+   "name": "Butcher's Apron",
+   "durability": 25,
+   "fatigue": null,
+   "value": 55,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0335_Butcher's Apron.txt",
+   "notes": "Worn by Butchers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "undertaker_s_apron",
+   "name": "Undertaker's Apron",
+   "durability": 30,
+   "fatigue": null,
+   "value": 65,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2069_Undertaker's Apron.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "leather_tunic",
+   "name": "Leather Tunic",
+   "durability": 30,
+   "fatigue": null,
+   "value": 65,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1157_Leather Tunic.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "thick_furs",
+   "name": "Thick Furs",
+   "durability": 30,
+   "fatigue": -1,
+   "value": 40,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1976_Thick Furs.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Thrall gear",
+   "missing": []
+  },
+  {
+   "id": "nomad_robe",
+   "name": "Nomad Robe",
+   "durability": 30,
+   "fatigue": -2,
+   "value": 50,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1451_Nomad Robe.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "dark_thick_tunic",
+   "name": "Dark Thick Tunic",
+   "durability": 35,
+   "fatigue": -2,
+   "value": 75,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0507_Dark Thick Tunic.txt",
+   "notes": "Used by Necromancers",
+   "missing": []
+  },
+  {
+   "id": "thick_tunic",
+   "name": "Thick Tunic",
+   "durability": 35,
+   "fatigue": -3,
+   "value": 75,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1979_Thick Tunic.txt",
+   "missing": []
+  },
+  {
+   "id": "gladiator_harness",
+   "name": "Gladiator Harness",
+   "durability": 40,
+   "fatigue": -4,
+   "value": 150,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0844_Gladiator Harness.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Usually paired with either Padded Armor Pieces (+60 Durability, -4 Maximum Fatigue) or Metal Armor Pieces (+115 Durability, -10 Maximum Fatigue) armor attachment, which are replaceable but not refundable. The total worth value is affected by the attachment.",
+   "missing": []
+  },
+  {
+   "id": "animal_hide_armor",
+   "name": "Animal Hide Armor",
+   "durability": 45,
+   "fatigue": -3,
+   "value": 80,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0116_Animal Hide Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Thrall gear",
+   "missing": []
+  },
+  {
+   "id": "padded_surcoat",
+   "name": "Padded Surcoat",
+   "durability": 50,
+   "fatigue": -4,
+   "value": 90,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1519_Padded Surcoat.txt",
+   "missing": []
+  },
+  {
+   "id": "thick_nomad_robe",
+   "name": "Thick Nomad Robe",
+   "durability": 50,
+   "fatigue": -5,
+   "value": 80,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1977_Thick Nomad Robe.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "rugged_surcoat",
+   "name": "Rugged Surcoat",
+   "durability": 55,
+   "fatigue": -6,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1715_Rugged Surcoat.txt",
+   "missing": []
+  },
+  {
+   "id": "dark_rugged_surcoat",
+   "name": "Dark Rugged Surcoat",
+   "durability": 60,
+   "fatigue": -4,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0506_Dark Rugged Surcoat.txt",
+   "notes": "Used by Necromancers",
+   "missing": []
+  },
+  {
+   "id": "padded_vest",
+   "name": "Padded Vest",
+   "durability": 60,
+   "fatigue": -5,
+   "value": 140,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1520_Padded Vest.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "wanderer_s_coat",
+   "name": "Wanderer's Coat",
+   "durability": 65,
+   "fatigue": -5,
+   "value": 180,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2169_Wanderer's Coat.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists",
+   "missing": []
+  },
+  {
+   "id": "gambeson",
+   "name": "Gambeson",
+   "durability": 65,
+   "fatigue": -6,
+   "value": 150,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0824_Gambeson.txt",
+   "missing": []
+  },
+  {
+   "id": "leather_nomad_robe",
+   "name": "Leather Nomad Robe",
+   "durability": 65,
+   "fatigue": -7,
+   "value": 140,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1154_Leather Nomad Robe.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Nomad Outlaws",
+   "missing": []
+  },
+  {
+   "id": "reinforced_animal_hide_armor",
+   "name": "Reinforced Animal Hide Armor",
+   "durability": 65,
+   "fatigue": -7,
+   "value": 120,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1662_Reinforced Animal Hide Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Reaver gear",
+   "missing": []
+  },
+  {
+   "id": "blotched_gambeson",
+   "name": "Blotched Gambeson",
+   "durability": 70,
+   "fatigue": -8,
+   "value": 160,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0259_Blotched Gambeson.txt",
+   "notes": "Used by Brigand Thugs, Brigand Marksmen",
+   "missing": []
+  },
+  {
+   "id": "linothorax",
+   "name": "Linothorax",
+   "durability": 75,
+   "fatigue": -7,
+   "value": 180,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1186_Linothorax.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Conscripts",
+   "missing": []
+  },
+  {
+   "id": "scrap_metal_armor",
+   "name": "Scrap Metal Armor",
+   "durability": 75,
+   "fatigue": -8,
+   "value": 130,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1742_Scrap Metal Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Reaver gear",
+   "missing": []
+  },
+  {
+   "id": "padded_leather",
+   "name": "Padded Leather",
+   "durability": 80,
+   "fatigue": -8,
+   "value": 200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1516_Padded Leather.txt",
+   "notes": "Used by Brigand Raiders, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "stitched_nomad_armor",
+   "name": "Stitched Nomad Armor",
+   "durability": 80,
+   "fatigue": -8,
+   "value": 200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1881_Stitched Nomad Armor.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Nomad Outlaws",
+   "missing": []
+  },
+  {
+   "id": "cultist_leather_robe",
+   "name": "Cultist Leather Robe",
+   "durability": 88,
+   "fatigue": -9,
+   "value": 240,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0481_Cultist Leather Robe.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Worn by Cultists",
+   "missing": []
+  },
+  {
+   "id": "patched_mail_shirt",
+   "name": "Patched Mail Shirt",
+   "durability": 90,
+   "fatigue": -10,
+   "value": 250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1527_Patched Mail Shirt.txt",
+   "notes": "Used by Brigand Raiders, Mercenaries, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "leather_lamellar_armor",
+   "name": "Leather Lamellar Armor",
+   "durability": 95,
+   "fatigue": -10,
+   "value": 300,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1152_Leather Lamellar Armor.txt",
+   "notes": "Used by Brigand Raiders",
+   "missing": []
+  },
+  {
+   "id": "hide_and_bone_armor",
+   "name": "Hide and Bone Armor",
+   "durability": 95,
+   "fatigue": -10,
+   "value": 220,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0995_Hide and Bone Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Reaver gear",
+   "missing": []
+  },
+  {
+   "id": "reinforced_leather_armor",
+   "name": "Reinforced Leather Armor",
+   "durability": 100,
+   "fatigue": -9,
+   "value": 500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1664_Reinforced Leather Armor.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists",
+   "missing": []
+  },
+  {
+   "id": "direwolf_hide_armor",
+   "name": "Direwolf Hide Armor",
+   "durability": 100,
+   "fatigue": -9,
+   "value": 500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0631_Direwolf Hide Armor.txt",
+   "special": "-5 Resolve for every enemy engaged in melee",
+   "dlc": "Don't have the Beasts & Exploration",
+   "missing": []
+  },
+  {
+   "id": "ancient_mail",
+   "name": "Ancient Mail",
+   "durability": 100,
+   "fatigue": -14,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0100_Ancient Mail.txt",
+   "notes": "Ancient Legionary gear",
+   "missing": []
+  },
+  {
+   "id": "plated_nomad_mail",
+   "name": "Plated Nomad Mail",
+   "durability": 105,
+   "fatigue": -11,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1565_Plated Nomad Mail.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Nomad Outlaws, Nomad Leaders, Desert Stalkers",
+   "missing": []
+  },
+  {
+   "id": "southern_mail_shirt",
+   "name": "Southern Mail Shirt",
+   "durability": 110,
+   "fatigue": -11,
+   "value": 400,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1833_Southern Mail Shirt.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Conscripts",
+   "missing": []
+  },
+  {
+   "id": "worn_mail_shirt",
+   "name": "Worn Mail Shirt",
+   "durability": 110,
+   "fatigue": -12,
+   "value": 400,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2241_Worn Mail Shirt.txt",
+   "notes": "Used by Brigand Raiders, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "basic_mail_shirt",
+   "name": "Basic Mail Shirt",
+   "durability": 115,
+   "fatigue": -12,
+   "value": 450,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0200_Basic Mail Shirt.txt",
+   "notes": "Used by Mercenaries, Swordmaster, Noble House Forces, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "assassin_s_robe",
+   "name": "Assassin's Robe",
+   "durability": 120,
+   "fatigue": -9,
+   "value": 1400,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0153_Assassin's Robe.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Assassins, Blade Dancers",
+   "missing": []
+  },
+  {
+   "id": "ancient_double_layer_mail",
+   "name": "Ancient Double Layer Mail",
+   "durability": 120,
+   "fatigue": -16,
+   "value": 450,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0088_Ancient Double Layer Mail.txt",
+   "notes": "Ancient Legionary gear",
+   "missing": []
+  },
+  {
+   "id": "ancient_scale_harness",
+   "name": "Ancient Scale Harness",
+   "durability": 125,
+   "fatigue": -20,
+   "value": 750,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0106_Ancient Scale Harness.txt",
+   "notes": "Ancient Legionary gear",
+   "missing": []
+  },
+  {
+   "id": "mail_shirt",
+   "name": "Mail Shirt",
+   "durability": 130,
+   "fatigue": -14,
+   "value": 650,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1230_Mail Shirt.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Swordmaster, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "mail_with_lamellar_plating",
+   "name": "Mail with Lamellar Plating",
+   "durability": 135,
+   "fatigue": -15,
+   "value": 750,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1231_Mail with Lamellar Plating.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Officers",
+   "missing": []
+  },
+  {
+   "id": "ancient_breastplate",
+   "name": "Ancient Breastplate",
+   "durability": 135,
+   "fatigue": -22,
+   "value": 900,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0085_Ancient Breastplate.txt",
+   "notes": "Ancient Legionary gear",
+   "missing": []
+  },
+  {
+   "id": "direwolf_mail_armor",
+   "name": "Direwolf Mail Armor",
+   "durability": 140,
+   "fatigue": -13,
+   "value": 900,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0632_Direwolf Mail Armor.txt",
+   "special": "-5 Resolve for every enemy engaged in melee",
+   "dlc": "Don't have the Beasts & Exploration",
+   "missing": []
+  },
+  {
+   "id": "leather_scale_armor",
+   "name": "Leather Scale Armor",
+   "durability": 140,
+   "fatigue": -16,
+   "value": 800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1155_Leather Scale Armor.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Used by Brigand Leaders, Mercenaries, Swordmaster",
+   "missing": []
+  },
+  {
+   "id": "rugged_scale_armor",
+   "name": "Rugged Scale Armor",
+   "durability": 140,
+   "fatigue": -18,
+   "value": 550,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1714_Rugged Scale Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "adorned_mail_shirt",
+   "name": "Adorned Mail Shirt",
+   "durability": 150,
+   "fatigue": -16,
+   "value": 1050,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0022_Adorned Mail Shirt.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers",
+   "missing": []
+  },
+  {
+   "id": "mail_hauberk",
+   "name": "Mail Hauberk",
+   "durability": 150,
+   "fatigue": -18,
+   "value": 1000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1228_Mail Hauberk.txt",
+   "notes": "Used by Mercenaries, Swordmaster, Footmen, Zweihanders, Sergeants",
+   "missing": []
+  },
+  {
+   "id": "noble_mail",
+   "name": "Noble Mail",
+   "durability": 160,
+   "fatigue": -15,
+   "value": 2500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1431_Noble Mail.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "light_scale_armor",
+   "name": "Light Scale Armor",
+   "durability": 170,
+   "fatigue": -21,
+   "value": 1300,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1168_Light Scale Armor.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Used by Brigand Leaders, Mercenaries, Swordmaster",
+   "missing": []
+  },
+  {
+   "id": "heavy_iron_armor",
+   "name": "Heavy Iron Armor",
+   "durability": 170,
+   "fatigue": -24,
+   "value": 700,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0964_Heavy Iron Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "decayed_reinforced_mail_hauberk",
+   "name": "Decayed Reinforced Mail Hauberk",
+   "durability": 170,
+   "fatigue": -26,
+   "value": 1000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0533_Decayed Reinforced Mail Hauberk.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "ancient_plated_mail_hauberk",
+   "name": "Ancient Plated Mail Hauberk",
+   "durability": 180,
+   "fatigue": -22,
+   "value": 2000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0102_Ancient Plated Mail Hauberk.txt",
+   "notes": "Ancient Honor Guard gear",
+   "missing": []
+  },
+  {
+   "id": "footman_s_armor",
+   "name": "Footman's Armor",
+   "durability": 190,
+   "fatigue": -24,
+   "value": 1600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0802_Footman's Armor.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Used by Brigand Leaders, Mercenaries, Swordmaster, Zweihanders",
+   "missing": []
+  },
+  {
+   "id": "ancient_scale_coat",
+   "name": "Ancient Scale Coat",
+   "durability": 190,
+   "fatigue": -25,
+   "value": 2400,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0105_Ancient Scale Coat.txt",
+   "notes": "Ancient Honor Guard gear",
+   "missing": []
+  },
+  {
+   "id": "adorned_warrior_s_armor",
+   "name": "Adorned Warrior's Armor",
+   "durability": 200,
+   "fatigue": -22,
+   "value": 1600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0023_Adorned Warrior's Armor.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers",
+   "missing": []
+  },
+  {
+   "id": "southern_long_mail_shirt_with_padding",
+   "name": "Southern Long Mail Shirt with Padding",
+   "durability": 200,
+   "fatigue": -25,
+   "value": 1800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1832_Southern Long Mail Shirt with Padding.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Nomad Leaders, Officers",
+   "missing": []
+  },
+  {
+   "id": "ancient_plate_harness",
+   "name": "Ancient Plate Harness",
+   "durability": 200,
+   "fatigue": -28,
+   "value": 2800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0101_Ancient Plate Harness.txt",
+   "notes": "Ancient Honor Guard gear",
+   "missing": []
+  },
+  {
+   "id": "reinforced_mail_hauberk",
+   "name": "Reinforced Mail Hauberk",
+   "durability": 210,
+   "fatigue": -26,
+   "value": 2000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1666_Reinforced Mail Hauberk.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Hedge Knights, Zweihanders, Sergeants, Knights",
+   "missing": []
+  },
+  {
+   "id": "ancient_plated_scale_hauberk",
+   "name": "Ancient Plated Scale Hauberk",
+   "durability": 210,
+   "fatigue": -30,
+   "value": 3200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0103_Ancient Plated Scale Hauberk.txt",
+   "notes": "Ancient Honor Guard gear",
+   "missing": []
+  },
+  {
+   "id": "lamellar_harness",
+   "name": "Lamellar Harness",
+   "durability": 230,
+   "fatigue": -30,
+   "value": 3000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1138_Lamellar Harness.txt",
+   "notes": "Used by Mercenaries",
+   "missing": []
+  },
+  {
+   "id": "thick_plated_barbarian_armor",
+   "name": "Thick Plated Barbarian Armor",
+   "durability": 230,
+   "fatigue": -35,
+   "value": 1200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1978_Thick Plated Barbarian Armor.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "scale_armor",
+   "name": "Scale Armor",
+   "durability": 240,
+   "fatigue": -28,
+   "value": 4000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1734_Scale Armor.txt",
+   "notes": "Used by Zweihanders",
+   "missing": []
+  },
+  {
+   "id": "decayed_coat_of_scales",
+   "name": "Decayed Coat of Scales",
+   "durability": 240,
+   "fatigue": -36,
+   "value": 3000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0529_Decayed Coat of Scales.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "heraldic_hauberk",
+   "name": "Heraldic Hauberk",
+   "durability": 250,
+   "fatigue": -26,
+   "value": 4000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0983_Heraldic Hauberk.txt",
+   "notes": "Obtainable via the Allied Nobles ambition, gained in the Civilwar Wounded Soldier event",
+   "missing": []
+  },
+  {
+   "id": "sellsword_s_armor",
+   "name": "Sellsword's Armor",
+   "durability": 260,
+   "fatigue": -32,
+   "value": 4500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1748_Sellsword's Armor.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Used by Mercenaries",
+   "missing": []
+  },
+  {
+   "id": "decayed_coat_of_plates",
+   "name": "Decayed Coat of Plates",
+   "durability": 260,
+   "fatigue": -42,
+   "value": 4000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0528_Decayed Coat of Plates.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "heavy_lamellar_armor",
+   "name": "Heavy Lamellar Armor",
+   "durability": 285,
+   "fatigue": -40,
+   "value": 5000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0965_Heavy Lamellar Armor.txt",
+   "notes": "Used by Hedge Knights",
+   "missing": []
+  },
+  {
+   "id": "padded_mail_and_lamellar_hauberk",
+   "name": "Padded Mail and Lamellar Hauberk",
+   "durability": 290,
+   "fatigue": -36,
+   "value": 5600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1517_Padded Mail and Lamellar Hauberk.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Officers",
+   "missing": []
+  },
+  {
+   "id": "adorned_heavy_mail_hauberk",
+   "name": "Adorned Heavy Mail Hauberk",
+   "durability": 300,
+   "fatigue": -34,
+   "value": 6000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0021_Adorned Heavy Mail Hauberk.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers, used by Oathbringers",
+   "missing": []
+  },
+  {
+   "id": "coat_of_scales",
+   "name": "Coat of Scales",
+   "durability": 300,
+   "fatigue": -38,
+   "value": 6000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0414_Coat of Scales.txt",
+   "notes": "Used by Hedge Knights, Knights",
+   "missing": []
+  },
+  {
+   "id": "coat_of_plates",
+   "name": "Coat of Plates",
+   "durability": 320,
+   "fatigue": -42,
+   "value": 7000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0264_Body Armor.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0413_Coat of Plates.txt",
+   "notes": "Used by Hedge Knights, Knights",
+   "missing": []
+  }
+ ],
+ "head": [
+  {
+   "id": "mouthpiece",
+   "name": "Mouthpiece",
+   "durability": 10,
+   "fatigue": null,
+   "vision": null,
+   "value": 15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1324_Mouthpiece.txt",
+   "notes": "Worn by Miners",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "headscarf",
+   "name": "Headscarf",
+   "durability": 20,
+   "fatigue": null,
+   "vision": null,
+   "value": 30,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0959_Headscarf.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "hood",
+   "name": "Hood",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 40,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1020_Hood.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "straw_hat",
+   "name": "Straw Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 60,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1886_Straw Hat.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "nomad_head_wrap",
+   "name": "Nomad Head Wrap",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 40,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1442_Nomad Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "southern_head_wrap",
+   "name": "Southern Head Wrap",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 50,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1830_Southern Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "hunter_s_hat",
+   "name": "Hunter's Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 70,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1039_Hunter's Hat.txt",
+   "notes": "Worn by Hunters",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "feathered_hat",
+   "name": "Feathered Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 80,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0755_Feathered Hat.txt",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "leather_headband",
+   "name": "Leather Headband",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 30,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1150_Leather Headband.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Thrall and Barbarian Reaver gear",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "engineer_s_hat",
+   "name": "Engineer's Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 50,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0692_Engineer's Hat.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Engineers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "gunner_s_hat",
+   "name": "Gunner's Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 50,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0927_Gunner's Hat.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Gunners",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "jester_s_hat",
+   "name": "Jester's Hat",
+   "durability": 30,
+   "fatigue": null,
+   "vision": null,
+   "value": 70,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1103_Jester's Hat.txt",
+   "notes": "Worn by Jugglers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "cultist_hood",
+   "name": "Cultist Hood",
+   "durability": 30,
+   "fatigue": null,
+   "vision": -1,
+   "value": 20,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0479_Cultist Hood.txt",
+   "notes": "Worn by Cultists",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)"
+   ]
+  },
+  {
+   "id": "undertaker_s_hat",
+   "name": "Undertaker's Hat",
+   "durability": 40,
+   "fatigue": null,
+   "vision": null,
+   "value": 120,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2070_Undertaker's Hat.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "witchhunter_s_hat",
+   "name": "Witchhunter's Hat",
+   "durability": 40,
+   "fatigue": null,
+   "vision": null,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2224_Witchhunter's Hat.txt",
+   "notes": "Worn by Witchhunters, and used by Necromancers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "dark_cowl",
+   "name": "Dark Cowl",
+   "durability": 40,
+   "fatigue": null,
+   "vision": null,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0505_Dark Cowl.txt",
+   "notes": "Used by Necromancers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "assassin_s_head_wrap",
+   "name": "Assassin's Head Wrap",
+   "durability": 40,
+   "fatigue": null,
+   "vision": null,
+   "value": 60,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0152_Assassin's Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Assassins",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "aketon_cap",
+   "name": "Aketon Cap",
+   "durability": 40,
+   "fatigue": -1,
+   "vision": null,
+   "value": 70,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0040_Aketon Cap.txt",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "open_leather_cap",
+   "name": "Open Leather Cap",
+   "durability": 40,
+   "fatigue": -2,
+   "vision": null,
+   "value": 60,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1487_Open Leather Cap.txt",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "leather_head_wrap",
+   "name": "Leather Head Wrap",
+   "durability": 40,
+   "fatigue": -2,
+   "vision": null,
+   "value": 60,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1149_Leather Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "desert_stalker_s_head_wrap",
+   "name": "Desert Stalker's Head Wrap",
+   "durability": 45,
+   "fatigue": null,
+   "vision": null,
+   "value": 120,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0563_Desert Stalker's Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Desert Stalkers",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "full_leather_cap",
+   "name": "Full Leather Cap",
+   "durability": 45,
+   "fatigue": -3,
+   "vision": null,
+   "value": 80,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0821_Full Leather Cap.txt",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "full_aketon_cap",
+   "name": "Full Aketon Cap",
+   "durability": 50,
+   "fatigue": -2,
+   "vision": null,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0819_Full Aketon Cap.txt",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "nomad_leather_cap",
+   "name": "Nomad Leather Cap",
+   "durability": 50,
+   "fatigue": -2,
+   "vision": null,
+   "value": 110,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1446_Nomad Leather Cap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "bear_headpiece",
+   "name": "Bear Headpiece",
+   "durability": 50,
+   "fatigue": -3,
+   "vision": null,
+   "value": 100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0217_Bear Headpiece.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Thrall and Barbarian Reaver gear",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "blade_dancer_s_head_wrap",
+   "name": "Blade Dancer's Head Wrap",
+   "durability": 60,
+   "fatigue": -1,
+   "vision": null,
+   "value": 150,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0247_Blade Dancer's Head Wrap.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Blade Dancers",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "cultist_leather_hood",
+   "name": "Cultist Leather Hood",
+   "durability": 60,
+   "fatigue": -3,
+   "vision": -1,
+   "value": 140,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0480_Cultist Leather Hood.txt",
+   "notes": "Worn by Cultists",
+   "missing": []
+  },
+  {
+   "id": "nomad_light_helmet",
+   "name": "Nomad Light Helmet",
+   "durability": 70,
+   "fatigue": -3,
+   "vision": null,
+   "value": 140,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1447_Nomad Light Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "physician_s_mask",
+   "name": "Physician's Mask",
+   "durability": 70,
+   "fatigue": -3,
+   "vision": -1,
+   "value": 170,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1547_Physician's Mask.txt",
+   "special": "Only take 50% of damage inflicted by Miasma.",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists. Only take 50% of damage inflicted by Miasma.",
+   "missing": []
+  },
+  {
+   "id": "duelist_s_hat",
+   "name": "Duelist's Hat",
+   "durability": 70,
+   "fatigue": -3,
+   "vision": null,
+   "value": 200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0679_Duelist's Hat.txt",
+   "notes": "Worn by Swordmasters, and used by Zweihanders",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "rusty_mail_coif",
+   "name": "Rusty Mail Coif",
+   "durability": 70,
+   "fatigue": -4,
+   "vision": null,
+   "value": 150,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1723_Rusty Mail Coif.txt",
+   "notes": "Used by Brigand Raiders",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "mail_coif",
+   "name": "Mail Coif",
+   "durability": 80,
+   "fatigue": -4,
+   "vision": null,
+   "value": 200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1227_Mail Coif.txt",
+   "notes": "Used by Mercenaries, Bounty Hunters, Noble House Forces, Armored Wiedergangers",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "closed_mail_coif",
+   "name": "Closed Mail Coif",
+   "durability": 90,
+   "fatigue": -4,
+   "vision": null,
+   "value": 250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0406_Closed Mail Coif.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "ancient_household_helmet",
+   "name": "Ancient Household Helmet",
+   "durability": 95,
+   "fatigue": -8,
+   "vision": -1,
+   "value": 250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0095_Ancient Household Helmet.txt",
+   "notes": "Worn by Graverobbers, Ancient Auxiliary gear",
+   "missing": []
+  },
+  {
+   "id": "reinforced_mail_coif",
+   "name": "Reinforced Mail Coif",
+   "durability": 100,
+   "fatigue": -5,
+   "vision": -1,
+   "value": 300,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1665_Reinforced Mail Coif.txt",
+   "notes": "Used by Mercenaries, Bounty Hunters",
+   "missing": []
+  },
+  {
+   "id": "nasal_helmet",
+   "name": "Nasal Helmet",
+   "durability": 105,
+   "fatigue": -5,
+   "vision": -1,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1405_Nasal Helmet.txt",
+   "notes": "Used by Brigand Raiders, Mercenaries, Bounty Hunters, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "wrapped_southern_helmet",
+   "name": "Wrapped Southern Helmet",
+   "durability": 105,
+   "fatigue": -5,
+   "vision": -1,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2244_Wrapped Southern Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "leather_helmet",
+   "name": "Leather Helmet",
+   "durability": 105,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 320,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1151_Leather Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Reaver gear",
+   "missing": []
+  },
+  {
+   "id": "heavy_mail_coif",
+   "name": "Heavy Mail Coif",
+   "durability": 110,
+   "fatigue": -5,
+   "vision": null,
+   "value": 375,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0967_Heavy Mail Coif.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "padded_dented_nasal_helmet",
+   "name": "Padded Dented Nasal Helmet",
+   "durability": 110,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1513_Padded Dented Nasal Helmet.txt",
+   "notes": "Used by Brigand Raiders, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "kettle_hat",
+   "name": "Kettle Hat",
+   "durability": 115,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 450,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1108_Kettle Hat.txt",
+   "notes": "Used by Mercenaries, Bounty Hunters, Noble House Forces, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "sallet_helmet",
+   "name": "Sallet Helmet",
+   "durability": 120,
+   "fatigue": -5,
+   "vision": null,
+   "value": 1200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1730_Sallet Helmet.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Sold at Armorer. Best regular head armor for archers without Eagle Eyes trait",
+   "missing": [
+    "vision (not listed)"
+   ]
+  },
+  {
+   "id": "masked_kettle_helmet",
+   "name": "Masked Kettle Helmet",
+   "durability": 120,
+   "fatigue": -6,
+   "vision": -2,
+   "value": 550,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1245_Masked Kettle Helmet.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Anatomists",
+   "missing": []
+  },
+  {
+   "id": "flat_top_helmet",
+   "name": "Flat Top Helmet",
+   "durability": 125,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0788_Flat Top Helmet.txt",
+   "notes": "Used by Mercenaries, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "nordic_helmet",
+   "name": "Nordic Helmet",
+   "durability": 125,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1456_Nordic Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Used by Mercenaries, Bounty Hunters",
+   "missing": []
+  },
+  {
+   "id": "spiked_skull_cap_with_mail",
+   "name": "Spiked Skull Cap with Mail",
+   "durability": 125,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1846_Spiked Skull Cap with Mail.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "nomad_reinforced_helmet",
+   "name": "Nomad Reinforced Helmet",
+   "durability": 125,
+   "fatigue": -8,
+   "vision": -1,
+   "value": 450,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1450_Nomad Reinforced Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "padded_nasal_helmet",
+   "name": "Padded Nasal Helmet",
+   "durability": 130,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 550,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1518_Padded Nasal Helmet.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "beastmaster_s_headpiece",
+   "name": "Beastmaster's Headpiece",
+   "durability": 130,
+   "fatigue": -8,
+   "vision": -1,
+   "value": 350,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0223_Beastmaster's Headpiece.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Beastmaster gear",
+   "missing": []
+  },
+  {
+   "id": "ancient_legionary_helmet",
+   "name": "Ancient Legionary Helmet",
+   "durability": 130,
+   "fatigue": -10,
+   "vision": -2,
+   "value": 600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0097_Ancient Legionary Helmet.txt",
+   "notes": "Ancient Legionary gear",
+   "missing": []
+  },
+  {
+   "id": "assassin_s_face_mask",
+   "name": "Assassin's Face Mask",
+   "durability": 140,
+   "fatigue": -6,
+   "vision": -1,
+   "value": 1800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0151_Assassin's Face Mask.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Assassins",
+   "missing": []
+  },
+  {
+   "id": "padded_kettle_hat",
+   "name": "Padded Kettle Hat",
+   "durability": 140,
+   "fatigue": -8,
+   "vision": -1,
+   "value": 650,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1515_Padded Kettle Hat.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Noble House Forces, Armored Wiedergangers",
+   "missing": []
+  },
+  {
+   "id": "nasal_helmet_with_rusty_mail",
+   "name": "Nasal Helmet with Rusty Mail",
+   "durability": 140,
+   "fatigue": -9,
+   "vision": -2,
+   "value": 600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1408_Nasal Helmet with Rusty Mail.txt",
+   "notes": "Used by Brigand Raiders",
+   "missing": []
+  },
+  {
+   "id": "crude_metal_helmet",
+   "name": "Crude Metal Helmet",
+   "durability": 145,
+   "fatigue": -11,
+   "vision": -1,
+   "value": 550,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0464_Crude Metal Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Reaver and Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "padded_flat_top_helmet",
+   "name": "Padded Flat Top Helmet",
+   "durability": 150,
+   "fatigue": -9,
+   "vision": -1,
+   "value": 800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1514_Padded Flat Top Helmet.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "zweihander_s_helmet",
+   "name": "Zweihander's Helmet",
+   "durability": 160,
+   "fatigue": -7,
+   "vision": -1,
+   "value": 850,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2251_Zweihander's Helmet.txt",
+   "notes": "Used by Zweihanders",
+   "missing": []
+  },
+  {
+   "id": "crude_faceguard_helmet",
+   "name": "Crude Faceguard Helmet",
+   "durability": 160,
+   "fatigue": -15,
+   "vision": -2,
+   "value": 650,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0463_Crude Faceguard Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "closed_flat_top_helmet",
+   "name": "Closed Flat Top Helmet",
+   "durability": 170,
+   "fatigue": -10,
+   "vision": -3,
+   "value": 1000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0404_Closed Flat Top Helmet.txt",
+   "notes": "Used by Mercenaries",
+   "missing": []
+  },
+  {
+   "id": "closed_and_padded_flat_top",
+   "name": "Closed and Padded Flat Top",
+   "durability": 180,
+   "fatigue": -11,
+   "vision": -3,
+   "value": 1100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0408_Closed and Padded Flat Top.txt",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "ancient_honor_guard_helmet",
+   "name": "Ancient Honor Guard Helmet",
+   "durability": 180,
+   "fatigue": -13,
+   "vision": -3,
+   "value": 1000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0092_Ancient Honor Guard Helmet.txt",
+   "notes": "Ancient Honor Guard gear",
+   "missing": []
+  },
+  {
+   "id": "barbute_helmet",
+   "name": "Barbute Helmet",
+   "durability": 190,
+   "fatigue": -9,
+   "vision": -2,
+   "value": 2600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0196_Barbute Helmet.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "closed_scrap_metal_helmet",
+   "name": "Closed Scrap Metal Helmet",
+   "durability": 190,
+   "fatigue": -18,
+   "vision": -2,
+   "value": 800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0407_Closed Scrap Metal Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian Chosen gear",
+   "missing": []
+  },
+  {
+   "id": "nasal_helmet_with_mail",
+   "name": "Nasal Helmet with Mail",
+   "durability": 200,
+   "fatigue": -12,
+   "vision": -2,
+   "value": 1250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1407_Nasal Helmet with Mail.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Bounty Hunters, Swordmasters, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "steppe_helmet_with_mail",
+   "name": "Steppe Helmet with Mail",
+   "durability": 200,
+   "fatigue": -12,
+   "vision": -2,
+   "value": 1250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1880_Steppe Helmet with Mail.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Used by Mercenaries",
+   "missing": []
+  },
+  {
+   "id": "southern_helmet_with_coif",
+   "name": "Southern Helmet with Coif",
+   "durability": 200,
+   "fatigue": -12,
+   "vision": -2,
+   "value": 1250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1831_Southern Helmet with Coif.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "bascinet_with_mail",
+   "name": "Bascinet with Mail",
+   "durability": 210,
+   "fatigue": -13,
+   "vision": -2,
+   "value": 1400,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0198_Bascinet with Mail.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries",
+   "missing": []
+  },
+  {
+   "id": "kettle_hat_with_mail",
+   "name": "Kettle Hat with Mail",
+   "durability": 215,
+   "fatigue": -14,
+   "vision": -2,
+   "value": 1500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1110_Kettle Hat with Mail.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Bounty Hunters, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "gladiator_helmet",
+   "name": "Gladiator Helmet",
+   "durability": 225,
+   "fatigue": -13,
+   "vision": -3,
+   "value": 2200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0845_Gladiator Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Gladiators",
+   "missing": []
+  },
+  {
+   "id": "flat_top_with_mail",
+   "name": "Flat Top with Mail",
+   "durability": 230,
+   "fatigue": -15,
+   "vision": -2,
+   "value": 1800,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0790_Flat Top with Mail.txt",
+   "notes": "Used by Brigand Leaders, Mercenaries, Noble House Forces",
+   "missing": []
+  },
+  {
+   "id": "decayed_closed_flat_top_with_mail",
+   "name": "Decayed Closed Flat Top With Mail",
+   "durability": 230,
+   "fatigue": -19,
+   "vision": -3,
+   "value": 1250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0527_Decayed Closed Flat Top with Mail.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "covered_decayed_closed_flat_top_with_mail",
+   "name": "Covered Decayed Closed Flat Top With Mail",
+   "durability": 230,
+   "fatigue": -19,
+   "vision": -3,
+   "value": 1250,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0446_Covered Decayed Closed Flat Top With Mail.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "nasal_helmet_with_closed_mail",
+   "name": "Nasal Helmet with Closed Mail",
+   "durability": 240,
+   "fatigue": -16,
+   "vision": -2,
+   "value": 2000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1406_Nasal Helmet with Closed Mail.txt",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "decayed_full_helm",
+   "name": "Decayed Full Helm",
+   "durability": 240,
+   "fatigue": -20,
+   "vision": -3,
+   "value": 1500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0530_Decayed Full Helm.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "adorned_closed_flat_top",
+   "name": "Adorned Closed Flat Top",
+   "durability": 250,
+   "fatigue": -15,
+   "vision": -3,
+   "value": 2000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0019_Adorned Closed Flat Top.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers, used by Oathbringers",
+   "missing": []
+  },
+  {
+   "id": "kettle_hat_with_closed_mail",
+   "name": "Kettle Hat with Closed Mail",
+   "durability": 250,
+   "fatigue": -17,
+   "vision": -2,
+   "value": 2200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1109_Kettle Hat with Closed Mail.txt",
+   "notes": "Used by Brigand Leaders",
+   "missing": []
+  },
+  {
+   "id": "heavy_horned_plate_helmet",
+   "name": "Heavy Horned Plate Helmet",
+   "durability": 250,
+   "fatigue": -23,
+   "vision": -3,
+   "value": 1300,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0963_Heavy Horned Plate Helmet.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Barbarian King gear",
+   "missing": []
+  },
+  {
+   "id": "heavy_lamellar_helmet",
+   "name": "Heavy Lamellar Helmet",
+   "durability": 255,
+   "fatigue": -17,
+   "vision": -2,
+   "value": 2500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0966_Heavy Lamellar Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "Used by Officers",
+   "missing": []
+  },
+  {
+   "id": "decayed_great_helm",
+   "name": "Decayed Great Helm",
+   "durability": 255,
+   "fatigue": -22,
+   "vision": -3,
+   "value": 2000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0531_Decayed Great Helm.txt",
+   "notes": "Fallen Hero gear",
+   "missing": []
+  },
+  {
+   "id": "nordic_helmet_with_closed_mail",
+   "name": "Nordic Helmet with Closed Mail",
+   "durability": 265,
+   "fatigue": -18,
+   "vision": -2,
+   "value": 2600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1457_Nordic Helmet with Closed Mail.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "conic_helmet_with_closed_mail",
+   "name": "Conic Helmet with Closed Mail",
+   "durability": 265,
+   "fatigue": -18,
+   "vision": -2,
+   "value": 2600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0433_Conic Helmet with Closed Mail.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "flat_top_with_closed_mail",
+   "name": "Flat Top with Closed Mail",
+   "durability": 265,
+   "fatigue": -18,
+   "vision": -2,
+   "value": 2600,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0789_Flat Top with Closed Mail.txt",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "conic_helmet_with_faceguard",
+   "name": "Conic Helmet with Faceguard",
+   "durability": 280,
+   "fatigue": -19,
+   "vision": -3,
+   "value": 3000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0434_Conic Helmet with Faceguard.txt",
+   "dlc": "Warriors of the North DLC Warriors of the North",
+   "notes": "Sold at Armorer",
+   "missing": []
+  },
+  {
+   "id": "closed_flat_top_with_mail",
+   "name": "Closed Flat Top with Mail",
+   "durability": 280,
+   "fatigue": -19,
+   "vision": -3,
+   "value": 3000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0405_Closed Flat Top with Mail.txt",
+   "notes": "Used by Hedge Knights",
+   "missing": []
+  },
+  {
+   "id": "turban_helmet",
+   "name": "Turban Helmet",
+   "durability": 290,
+   "fatigue": -20,
+   "vision": -3,
+   "value": 3200,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2042_Turban Helmet.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "missing": []
+  },
+  {
+   "id": "adorned_full_helm",
+   "name": "Adorned Full Helm",
+   "durability": 300,
+   "fatigue": -18,
+   "vision": -3,
+   "value": 3700,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0020_Adorned Full Helm.txt",
+   "dlc": "Of Flesh and Faith DLC Of Flesh and Faith",
+   "notes": "Worn by Oathtakers, used by Oathbringers",
+   "missing": []
+  },
+  {
+   "id": "full_helm",
+   "name": "Full Helm",
+   "durability": 300,
+   "fatigue": -20,
+   "vision": -3,
+   "value": 3500,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0820_Full Helm.txt",
+   "notes": "Used by Hedge Knights, Noble House Knights",
+   "missing": []
+  },
+  {
+   "id": "decorated_full_helm",
+   "name": "Decorated Full Helm",
+   "durability": 320,
+   "fatigue": -21,
+   "vision": -3,
+   "value": 4000,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0536_Decorated Full Helm.txt",
+   "notes": "Obtainable via Allied Nobles ambition and some War of the Noble Houses crisis events, used by Noble House Knights",
+   "missing": []
+  }
+ ],
+ "shields": [
+  {
+   "id": "buckler",
+   "name": "Buckler",
+   "melee_defense": 10,
+   "ranged_defense": 5,
+   "durability": 16,
+   "fatigue": -4,
+   "value": 45,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0320_Buckler.txt",
+   "notes": "Shieldwall skill is unavailable",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "wooden_skirmisher_shield",
+   "name": "Wooden Skirmisher Shield",
+   "melee_defense": 10,
+   "ranged_defense": 10,
+   "durability": 12,
+   "fatigue": -4,
+   "value": 45,
+   "skills": [
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2238_Wooden Skirmisher Shield.txt",
+   "notes": "Used by Goblin Skirmishers. Knock Back skill is unavailable",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "reinforced_skirmisher_shield",
+   "name": "Reinforced Skirmisher Shield",
+   "melee_defense": 10,
+   "ranged_defense": 10,
+   "durability": 16,
+   "fatigue": -8,
+   "value": 65,
+   "skills": [
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1667_Reinforced Skirmisher Shield.txt",
+   "notes": "Used by Goblin Skirmishers. Knock Back skill is unavailable",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "old_wooden_shield",
+   "name": "Old Wooden Shield",
+   "melee_defense": 15,
+   "ranged_defense": 15,
+   "durability": 16,
+   "fatigue": -10,
+   "value": 60,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1484_Old Wooden Shield.txt",
+   "notes": "Used by Barbarian Thralls and Reavers, bodyguard Armored Wiedergangers",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "ancient_auxiliary_shield",
+   "name": "Ancient Auxiliary Shield",
+   "melee_defense": 15,
+   "ranged_defense": 15,
+   "durability": 16,
+   "fatigue": -10,
+   "value": 80,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0083_Ancient Auxiliary Shield.txt",
+   "notes": "Ancient Auxiliary gear",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "wooden_shield",
+   "name": "Wooden Shield",
+   "melee_defense": 15,
+   "ranged_defense": 15,
+   "durability": 24,
+   "fatigue": -10,
+   "value": 100,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2237_Wooden Shield.txt",
+   "notes": "A common type of shield used by different human factions",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "heavy_metal_shield",
+   "name": "Heavy Metal Shield",
+   "melee_defense": 15,
+   "ranged_defense": 15,
+   "durability": 72,
+   "fatigue": -22,
+   "value": 250,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0968_Heavy Metal Shield.txt",
+   "notes": "Used by Orc Warriors. Shield skills build up additional 5 Fatigue for humans",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "feral_shield",
+   "name": "Feral Shield",
+   "melee_defense": 15,
+   "ranged_defense": 20,
+   "durability": 16,
+   "fatigue": -12,
+   "value": 50,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0759_Feral Shield.txt",
+   "notes": "Used by Orc Youngs",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "adarga_shield",
+   "name": "Adarga Shield",
+   "melee_defense": 15,
+   "ranged_defense": 20,
+   "durability": 18,
+   "fatigue": -10,
+   "value": 100,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0013_Adarga Shield.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "A common type of shield used by southern factions",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "ancient_coffin_shield",
+   "name": "Ancient Coffin Shield",
+   "melee_defense": 15,
+   "ranged_defense": 20,
+   "durability": 20,
+   "fatigue": -12,
+   "value": 100,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0086_Ancient Coffin Shield.txt",
+   "notes": "Ancient Legionary gear",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "worn_kite_shield",
+   "name": "Worn Kite Shield",
+   "melee_defense": 15,
+   "ranged_defense": 20,
+   "durability": 40,
+   "fatigue": -16,
+   "value": 150,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2240_Worn Kite Shield.txt",
+   "notes": "Used by Fallen Heroes",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "kite_shield",
+   "name": "Kite Shield",
+   "melee_defense": 15,
+   "ranged_defense": 25,
+   "durability": 48,
+   "fatigue": -16,
+   "value": 200,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1124_Kite Shield.txt",
+   "notes": "A common type of shield used by different human factions",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "lindwurm_shield",
+   "name": "Lindwurm Shield",
+   "melee_defense": 17,
+   "ranged_defense": 25,
+   "durability": 64,
+   "fatigue": -14,
+   "value": 800,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1179_Lindwurm Shield.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Crafted shield",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "sipar_shield",
+   "name": "Sipar Shield",
+   "melee_defense": 18,
+   "ranged_defense": 18,
+   "durability": 60,
+   "fatigue": -18,
+   "value": 250,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1795_Sipar Shield.txt",
+   "dlc": "Blazing Deserts DLC Blazing Deserts",
+   "notes": "A common type of shield used by southern factions",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "decayed_heater_shield",
+   "name": "Decayed Heater Shield",
+   "melee_defense": 20,
+   "ranged_defense": 15,
+   "durability": 24,
+   "fatigue": -14,
+   "value": 150,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0532_Decayed Heater Shield.txt",
+   "notes": "Used by Fallen Heroes",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "heater_shield",
+   "name": "Heater Shield",
+   "melee_defense": 20,
+   "ranged_defense": 15,
+   "durability": 32,
+   "fatigue": -14,
+   "value": 250,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0961_Heater Shield.txt",
+   "notes": "A common type of shield used by different human factions",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "living_tree_shield",
+   "name": "Living Tree Shield",
+   "melee_defense": 20,
+   "ranged_defense": 17,
+   "durability": 40,
+   "fatigue": -12,
+   "value": 1000,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1189_Living Tree Shield.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Crafted shield. Regenerates by 50% of its maximum durability each turn",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "ancient_tower_shield",
+   "name": "Ancient Tower Shield",
+   "melee_defense": 20,
+   "ranged_defense": 20,
+   "durability": 24,
+   "fatigue": -20,
+   "value": 200,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0112_Ancient Tower Shield.txt",
+   "notes": "Ancient Legionary and Honor Guard gear",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  },
+  {
+   "id": "kraken_shield",
+   "name": "Kraken Shield",
+   "melee_defense": 24,
+   "ranged_defense": 24,
+   "durability": 50,
+   "fatigue": -15,
+   "value": 1200,
+   "skills": [
+    {
+     "name": "Knock Back",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Knocks a hostile target one tile away (except for when it is rooted, immune, or blocked from behind and sides). The knocked back target will receive Fatigue damage and also HP damage, if it is pushed down several levels of height. Removes Shieldwall, Spearwall and Riposte. Gains +15% chance to hit if you have Shield Expert perk.",
+     "page": "Knock Back (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1130_Knock Back (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    },
+    {
+     "name": "Shieldwall",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Doubles Melee Defense and Ranged Defense shield stats for 1 turn (including the Shield Expert perk bonus). Grants additional +5 Melee Defense and +5 Ranged Defense for each adjacent ally using the Shieldwall.",
+     "page": "Shieldwall (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1780_Shieldwall (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1779_Shields.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1136_Kraken Shield.txt",
+   "dlc": "Beasts & Exploration DLC Beasts & Exploration",
+   "notes": "Crafted shield",
+   "skills_basis": "shield page Skills section",
+   "missing": []
+  }
+ ],
+ "_counts": {
+  "body": 78,
+  "head": 87,
+  "shields": 19
+ }
+}

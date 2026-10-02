@@ -1,0 +1,235 @@
+{
+ "_about": "Bohemia's own numbers in the rebuilt fight (rule 63): only what Paolo ruled, each row citing the law or record that holds his words. Everything else the fight feels is Battle Brothers' and lives in the other files of this folder. TUNING owns changing any of these.",
+ "beat_bpm": {
+  "value": 120,
+  "source": "laws/BOHEMIA_ADDENDUM_120BPM_FIRST_AND_THE_PERMISSION_PRESS_7_26_26.md",
+  "quote": "120 BPM GAMEPLAY COMES FIRST. The beat is not decoration"
+ },
+ "field_size": {
+  "value": 12,
+  "source": "VAMILY.md rule 63b",
+  "quote": "12 on the field in a normal fight, the roster 20"
+ },
+ "roster_size": {
+  "value": 20,
+  "source": "VAMILY.md rule 63b",
+  "quote": "12 on the field in a normal fight, the roster 20"
+ },
+ "struck_down_death_chance": {
+  "value": 0.2,
+  "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md",
+  "quote": "When a person is STRUCK DOWN in a fight: 20% they die"
+ },
+ "struck_down_laid_up_days": {
+  "value": [
+   30,
+   40
+  ],
+  "source": "laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md",
+  "quote": "a DEBILITATING INJURY that takes them out of fights for 30 to 40 game days"
+ },
+ "main_character_dies": {
+  "value": false,
+  "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md",
+  "quote": "THE MAIN CHARACTER NEVER DIES"
+ },
+ "first_enemy_band": {
+  "value": 6,
+  "source": "reference/library/grok/GROK_07_FIRST_FIGHT_2026_09_30.md",
+  "quote": "Six road crew on a side street. Pipes, a car door, one pistol."
+ },
+ "weapon_jobs": {
+  "value": {
+   "pistol": "dagger",
+   "shotgun": "handgonne",
+   "rifle": "crossbow",
+   "pipe": "mace",
+   "sledge": "hammer",
+   "car_door": "shield",
+   "bottles": "throwing"
+  },
+  "source": "VAMILY.md 04 COMBAT [rebuild]",
+  "quote": "pistol = dagger, shotgun = the hand handgonne, car = the big one, rifle = crossbow, pipe = mace, sledge = hammer, car door = shield, bottles = throw"
+ },
+ "board_tiles": {
+  "value": [
+   20,
+   15
+  ],
+  "source": "slices/fight_ground/fight_ground.json board_tiles (COMBAT TWO, rule 63)",
+  "quote": "the board is Battle Brothers' size now (twenty-plus house tiles across)"
+ },
+ "grid": {
+  "value": "square",
+  "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md",
+  "quote": "THE GRID IS SQUARE (37f) Square cells. What is two tiles away is always obvious. Not hex, not diamond."
+ },
+ "veteran_death_chance": {
+  "value": 0.1,
+  "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md",
+  "quote": "a veteran of about 20 fights dies at 10%"
+ },
+ "weapon_rows": {
+  "value": {
+   "pipe": "bludgeon",
+   "car_door": "wooden_shield",
+   "pistol": "dagger",
+   "shotgun": "handgonne",
+   "rifle": "light_crossbow",
+   "sledge": "two_handed_mallet",
+   "bottles": "bundle_of_throwing_axes"
+  },
+  "source": "VAMILY.md 04 COMBAT [rebuild]",
+  "quote": "pistol = dagger, shotgun = the hand handgonne, car = the big one, rifle = crossbow, pipe = mace, sledge = hammer, car door = shield, bottles = throw",
+  "why": "each job takes the plainest row of its Battle Brothers class (a renamed thing keeps its number, rule 63d): a pipe is a bludgeon, a sledge the two-handed mallet, the rifle the light crossbow, bottles the throwing axes"
+ },
+ "crew": {
+  "value": [
+   {
+    "name": "YOU",
+    "main": true,
+    "background": "sellsword",
+    "jobs": [
+     "pipe",
+     "car_door"
+    ],
+    "body": "padded_surcoat",
+    "head": "open_leather_cap"
+   },
+   {
+    "name": "DESI",
+    "background": "militia",
+    "jobs": [
+     "pipe",
+     "car_door"
+    ],
+    "body": "gambeson",
+    "head": "hood"
+   },
+   {
+    "name": "RAUL",
+    "background": "brawler",
+    "jobs": [
+     "sledge"
+    ],
+    "body": "padded_vest",
+    "head": "leather_headband"
+   },
+   {
+    "name": "TINA",
+    "background": "retired_soldier",
+    "jobs": [
+     "pipe",
+     "car_door"
+    ],
+    "body": "padded_surcoat",
+    "head": "aketon_cap"
+   },
+   {
+    "name": "BOOKIE",
+    "background": "thief",
+    "jobs": [
+     "pistol"
+    ],
+    "body": "leather_tunic",
+    "head": "hood"
+   },
+   {
+    "name": "OSO",
+    "background": "miner",
+    "jobs": [
+     "sledge"
+    ],
+    "body": "thick_tunic",
+    "head": "open_leather_cap"
+   },
+   {
+    "name": "MARISOL",
+    "background": "hunter",
+    "jobs": [
+     "rifle"
+    ],
+    "body": "leather_tunic",
+    "head": "hunter_s_hat"
+   },
+   {
+    "name": "CHEWY",
+    "background": "butcher",
+    "jobs": [
+     "pipe",
+     "car_door"
+    ],
+    "body": "butcher_s_apron",
+    "head": "hood"
+   },
+   {
+    "name": "LUPE",
+    "background": "poacher",
+    "jobs": [
+     "rifle"
+    ],
+    "body": "leather_tunic",
+    "head": "hood"
+   },
+   {
+    "name": "GRIZ",
+    "background": "caravan_hand",
+    "jobs": [
+     "pipe",
+     "car_door"
+    ],
+    "body": "padded_vest",
+    "head": "aketon_cap"
+   },
+   {
+    "name": "DEUCE",
+    "background": "gambler",
+    "jobs": [
+     "bottles"
+    ],
+    "body": "leather_tunic",
+    "head": "feathered_hat"
+   },
+   {
+    "name": "NENA",
+    "background": "daytaler",
+    "jobs": [
+     "shotgun"
+    ],
+    "body": "thick_tunic",
+    "head": "straw_hat"
+   }
+  ],
+  "source": "VAMILY.md rule 63b",
+  "quote": "12 on the field in a normal fight, the roster 20",
+  "why": "twelve hires, each a Battle Brothers background (stats rolled in its wiki range) carrying our jobs (rule 63's weapon list) in low-tier wiki armour; the names are drafts"
+ },
+ "first_band": {
+  "value": [
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "brigand_thug",
+   "lower_brigand_raider"
+  ],
+  "source": "bb_all/0299_Brigands.txt",
+  "quote": "In the early game Brigand groups usually consist of [[Brigand Thug|Thugs]] and sometimes [[Brigand Raider|Raiders]]. Later, Raiders become more common, ranged attackers appear",
+  "why": "the FIRST fight is an early one, so it is the wiki's early band: thugs and one raider, no shooters yet (they 'appear later'); twelve of ours (rule 63b) against nine. Measured: twelve against twelve with two marksmen lost 4 fights in 4. TUNING sets the real count per contract."
+ },
+ "night": {
+  "value": false,
+  "source": "VAMILY.md rule 63",
+  "quote": "night -2 vision -30% ranged",
+  "why": "the first fight is by day; the loop sets night from its clock"
+ },
+ "cover_tile_blocks_line": {
+  "value": true,
+  "source": "slices/fight_ground/fight_ground.json cover (COMBAT TWO, rule 63)",
+  "quote": "COVER",
+  "why": "a dead car or a block wall on a house tile is Battle Brothers' obstacle in the line of fire: a shot at the man behind it takes the blocked penalty"
+ }
+}

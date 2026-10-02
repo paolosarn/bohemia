@@ -50,7 +50,14 @@ const BOTH_WAYS = `(() => {
   const aimP = (G.phase === 'aim' || !!G.ks);
   const cx = aimP ? W*0.42 : W/2, cy = aimP ? H*0.46 : H*0.56;
 
-  const mk = () => { const k = document.createElement('canvas'); k.width=W; k.height=H;
+  /* RE-POINTED BY COMBAT V241 (10/1): the destination is built THE WAY THE GAME BUILDS #cv. Since V234 the
+     fight canvas is hiDPI (its backing store at the phone's ratio, every setTransform scaled by FD), and so is
+     the cache canvas. A plain canvas here gave a different matrix whenever FD > 1, so the cache stood down
+     (correctly) and this gate read 391 calls a frame -- it only passed when the safety valve had dropped FD
+     to 1. The game's own #cv is hiDPI, so that is what is measured. */
+  const mk = () => { const k = document.createElement('canvas');
+                     if (typeof hiDPI === 'function') hiDPI(k, k.getContext('2d'));
+                     k.width=W; k.height=H;
                      return k; };
   /* THE DESTINATION IS SET UP THE WAY draw() SETS IT UP, using the game's own
      fieldFloorCam. Rebuilding the camera by hand here would be measuring a

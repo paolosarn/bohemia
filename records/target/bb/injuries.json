@@ -1,0 +1,1682 @@
+{
+ "_about": "Battle Brothers injuries, extracted from the fandom wiki dump (2256 pages). 48 temporary + 11 permanent = 59 rows. Each row comes from the injury's own card page (threshold, effects, heal days, flavor); kind and damage_type/body_part come from which section of the 'Temporary Injuries' / 'Permanent Injuries' page transcludes it (an injury listed under two types, e.g. Grazed Neck under Cutting and Piercing, gets both). Effects keys: *_pct = percent change as written (−50% Melee Skill -> melee_skill_pct: -50); extra_ap_per_tile_moved, action_points, vision, fatigue_recovery_per_turn, hitpoints_lost_per_turn_in_combat are flat. threshold_pct_of_max_hp: the injury happens if damage ÷ max hitpoints ≥ threshold × multipliers (see rules). Every row was cross-checked against the Injuries page Effects and Parameters tables; cross_check says the result. Conflicts found: ['Exposed Ribs']. Extraction 2026-10-02, research only.",
+ "rules": {
+  "what": {
+   "quote": "Injuries are (mostly) negative status effects inflicted upon getting hit for a certain amount of damage by regular attacks or sustained after some events. Injuries can be temporary or permanent.",
+   "source": "bb_all/1084_Injuries.txt"
+  },
+  "temporary_base_conditions": {
+   "quote": "Successful attacks can inflict injuries if these conditions are met: the target can receive injuries; damage received ≥ 10 hitpoints",
+   "min_damage_hitpoints": 10,
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  },
+  "temporary_threshold_formula": {
+   "quote": "injury = injury threshold × injury threshold multiplier × inflict injury threshold multiplier × receive injury threshold multiplier × bonus ≤ damage ÷ max hitpoints",
+   "quote_selection": "a random injury of a type that depends on the weapon used is selected among possible candidates. All candidates have the same chance to be selected (no distinction is made between light and heavy injuries for instance).",
+   "quote_range": "Injuries have different thresholds comprised between 25% and 60% of maximum hitpoints",
+   "threshold_min_pct": 25,
+   "threshold_max_pct": 60,
+   "multipliers": {
+    "default": 1,
+    "injury_threshold_multiplier": {
+     "value": 1,
+     "quote": "the injury threshold multiplier is not currently modified by anything"
+    },
+    "inflict_injury_threshold_multiplier_crippling_strikes": {
+     "value": 0.66,
+     "quote": "modified by the Crippling Strikes perk which sets it at 0.66 effectively reducing the threshold by 33%"
+    },
+    "receive_injury_threshold_multiplier_iron_jaw": {
+     "value": 1.25,
+     "quote": "modified by the Iron Jaw trait which sets it at 1.25 effectively raising the threshold by 25%"
+    },
+    "bonus_head_hit": {
+     "value": 1.25,
+     "quote": "the bonus multiplier is set to 1.25 if the head was hit (critical hits deal more damage)"
+    }
+   },
+   "quote_compare": "The result is compared to the relative amount of hitpoints lost. So reducing incoming damage or increasing the maximum amount of hitpoints helps avoid injuries. Suffering an injury will cause a mood drop.",
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  },
+  "damage_types": {
+   "blunt": "A non penetrating injury caused by blunt weapons that bruise organs and crush bones.",
+   "cutting": "An incised injury caused by sharp weapons that slash the skin clean and sever tissues.",
+   "piercing": "A deep penetrating injury caused by weapons that stab and puncture the skin.",
+   "burning": null,
+   "note": "each type is split into Body and Head lists; the wiki gives no description line for Burning",
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  },
+  "immune_to_injuries": {
+   "list": [
+    "Alp",
+    "Hounds",
+    "Ifrit",
+    "Ijirok",
+    "Kraken",
+    "Schrat and Sapling",
+    "Zombies and Ancient Dead"
+   ],
+   "unaffected_but_can_be_injured": [
+    "Orc Berserker"
+   ],
+   "iron_will_potion": "The Iron Will Potion makes brothers not affected by injuries and immune to new temporary injuries for the duration of a battle.",
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  },
+  "temporary_healing": {
+   "quote": "Cure (removal): medicine and time; bandages for hemorrhaging injuries (Grazed Neck, Cut Neck Vein, Cut Artery) but only during the battle they were sustained; the Wound Heals event. Treatment (halves healing time): in a settlement temple for a price; the Apothecary's Miracle drug. Injuries that have not been treated can fester (Wound Gets Infected).",
+   "treatment_heal_time_multiplier": 0.5,
+   "temple_price_formula": "price = base wound treatment price (20) × treatment price multiplier (1) × settlement prices multiplier × max remaining healing time (in days) × (1 + (character level - 1) × 0.2)",
+   "base_wound_treatment_price": 20,
+   "treatment_price_multiplier": 1,
+   "per_level_price_factor": 0.2,
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  },
+  "permanent": {
+   "quote": "Permanent injuries are incurable disabilities received after having been struck down in battle or rarely after experiencing certain events. Consuming the Water Skin legendary item is the only way to remove a permanent injury. Suffering a permanent injury aggravates mood.",
+   "quote_struck_down": "A character whose hitpoints have reached 0 has a chance of surviving with a random permanent injury an otherwise fatal blow. Surviving is not possible if: the last hit was a fatality; the character was retreating; the damage was self inflicted (result of an effect like bleeding, poison, etc.) The chance to survive is 33% or 90% with the Survivor trait. The part hit does not matter in selecting the injury.",
+   "survive_chance_pct": 33,
+   "survive_chance_with_survivor_trait_pct": 90,
+   "quote_after": "If a character survives, the combat log will display 'struck down' instead of 'killed' or 'died'. Surviving characters cannot be eaten by Nachzehrers or reanimated as Wiedergangers.",
+   "source": "bb_all/1540_Permanent Injuries.txt"
+  },
+  "events_injury_lists": {
+   "note": "The Temporary Injuries page also lists which injuries events can give (Brawl, Mountains, Flagellation, Accident_1/2/3); not copied here",
+   "source": "bb_all/1936_Temporary Injuries.txt"
+  }
+ },
+ "rows": [
+  {
+   "id": "sick",
+   "name": "Sick",
+   "kind": "temporary",
+   "damage_type": null,
+   "body_part": null,
+   "special": "not sustained through the usual means (event/consumable only), per Temporary Injuries page section Special",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "all_levelable_attributes_pct": -25,
+    "vision": -2
+   },
+   "effects_text": [
+    "−25% to all attributes that can be leveled up",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    1,
+    3
+   ],
+   "flavor": "Struck with sickness and disease, the character isn't feeling well at all and hardly in a condition to fight. If the fever doesn't take him it'll probably pass in time.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1790_Sick.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "damage_type",
+    "body_part",
+    "threshold"
+   ],
+   "effects_note": "The card says '−25% to all attributes that can be leveled up'; the Injuries page Effects table spells this out as −25% Hitpoints, Max Fatigue, Resolve, Initiative, Melee Skill, Ranged Skill, Melee Defense, Ranged Defense, plus −2 Vision.",
+   "cross_check": "Injuries page Effects table expands the card (see effects_note)"
+  },
+  {
+   "id": "infected_wound",
+   "name": "Infected Wound",
+   "kind": "temporary",
+   "damage_type": null,
+   "body_part": null,
+   "special": "not sustained through the usual means (event/consumable only), per Temporary Injuries page section Special",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "hitpoints_pct": -25,
+    "max_fatigue_pct": -25
+   },
+   "effects_text": [
+    "−25% Hitpoints",
+    "−25% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "An unclean wound has painfully festered, draining this character's constitution.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1079_Infected Wound.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "damage_type",
+    "body_part",
+    "threshold"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_arm",
+   "name": "Broken Arm",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -50,
+    "ranged_skill_pct": -50,
+    "damage_inflicted_pct": -50
+   },
+   "effects_text": [
+    "−50% Melee Skill",
+    "−50% Ranged Skill",
+    "−50% Damage inflicted"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "A broken arm makes it almost impossible to use any weapon effectively.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0304_Broken Arm.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_leg",
+   "name": "Broken Leg",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "extra_ap_per_tile_moved": 2,
+    "initiative_pct": -40
+   },
+   "effects_text": [
+    "2 Additional Action Point per tile moved",
+    "−40% Initiative"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "A broken leg severely limits mobility and can take a long time to heal.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0308_Broken Leg.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_ribs",
+   "name": "Broken Ribs",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "max_fatigue_pct": -40
+   },
+   "effects_text": [
+    "−40% Max Fatigue"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "Several ribs have been broken by blunt force, making every single breath a painful process.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0310_Broken Ribs.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "bruised_leg",
+   "name": "Bruised Leg",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "extra_ap_per_tile_moved": 1,
+    "initiative_pct": -20
+   },
+   "effects_text": [
+    "1 Additional Action Point per tile moved",
+    "−20% Initiative"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "A heavily bruised leg severely limits mobility, but won't take long to recover from.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0318_Bruised Leg.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "crushed_finger",
+   "name": "Crushed Finger",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -5,
+    "ranged_skill_pct": -5
+   },
+   "effects_text": [
+    "−5% Melee Skill",
+    "−5% Ranged Skill"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "An unlucky hit crushed a finger, making it painful to maintain a firm grip.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0469_Crushed Finger.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "dislocated_shoulder",
+   "name": "Dislocated Shoulder",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "action_points": -3
+   },
+   "effects_text": [
+    "−3 Action Points"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "A hard hit has knocked the shoulder out of its joint, making it hard to move the arm at all.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0645_Dislocated Shoulder.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "fractured_elbow",
+   "name": "Fractured Elbow",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_defense_pct": -25
+   },
+   "effects_text": [
+    "−25% Melee Defense"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "A fractured elbow makes it hard to block or parry any attacks effectively.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0809_Fractured Elbow.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "fractured_hand",
+   "name": "Fractured Hand",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -20,
+    "ranged_skill_pct": -20
+   },
+   "effects_text": [
+    "−20% Melee Skill",
+    "−20% Ranged Skill"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "Minor bone fractures at the hand make it difficult to hold firmly any weapon.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0810_Fractured Hand.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "fractured_ribs",
+   "name": "Fractured Ribs",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "max_fatigue_pct": -30
+   },
+   "effects_text": [
+    "−30% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "Fractured ribs send a wave of pain through the body with every breath.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0811_Fractured Ribs.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "smashed_hand",
+   "name": "Smashed Hand",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -40,
+    "ranged_skill_pct": -40
+   },
+   "effects_text": [
+    "−40% Melee Skill",
+    "−40% Ranged Skill"
+   ],
+   "heal_days": [
+    4,
+    6
+   ],
+   "flavor": "A hand smashed by blunt force makes it almost impossible to hold on to any kind of weapon.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1820_Smashed Hand.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "sprained_ankle",
+   "name": "Sprained Ankle",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "extra_ap_per_tile_moved": 1,
+    "initiative_pct": -20
+   },
+   "effects_text": [
+    "1 Additional Action Point per tile moved",
+    "−20% Initiative"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "A sprained ankle makes even the quickest man hobble across the battlefield.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1858_Sprained Ankle.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_nose",
+   "name": "Broken Nose",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "fatigue_recovery_per_turn": -5
+   },
+   "effects_text": [
+    "−5 Fatigue recovery per turn"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "Blunt force broke this character's nose, making it hard for them to catch breath properly.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0309_Broken Nose.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "crushed_windpipe",
+   "name": "Crushed Windpipe",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt",
+    "piercing"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "fatigue_recovery_per_turn": -10,
+    "max_fatigue_pct": -50
+   },
+   "effects_text": [
+    "−10 Fatigue recovery per turn",
+    "−50% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "A blow to the neck injured the windpipe, making it very hard and painful to draw breath, let alone to keep fighting.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0470_Crushed Windpipe.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "fractured_skull",
+   "name": "Fractured Skull",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 60,
+   "effects": {
+    "melee_skill_pct": -50,
+    "ranged_skill_pct": -50,
+    "melee_defense_pct": -50,
+    "ranged_defense_pct": -50,
+    "initiative_pct": -50,
+    "vision": -2
+   },
+   "effects_text": [
+    "−50% Melee Skill",
+    "−50% Ranged Skill",
+    "−50% Melee Defense",
+    "−50% Ranged Defense",
+    "−50% Initiative",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    6,
+    9
+   ],
+   "flavor": "This character's skull has sustained multiple fractures, and the brain has sustained blunt trauma leading to swelling and a build-up of pressure inside the skull.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0812_Fractured Skull.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "severe_concussion",
+   "name": "Severe Concussion",
+   "kind": "temporary",
+   "damage_type": [
+    "blunt"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -50,
+    "ranged_skill_pct": -50,
+    "melee_defense_pct": -50,
+    "ranged_defense_pct": -50,
+    "initiative_pct": -50,
+    "vision": -2
+   },
+   "effects_text": [
+    "−50% Melee Skill",
+    "−50% Ranged Skill",
+    "−50% Melee Defense",
+    "−50% Ranged Defense",
+    "−50% Initiative",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "A severe concussion makes it hard to focus, see or even walk straight. Not to mention the nausea and in some cases also amnesia.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1766_Severe Concussion.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_achilles_tendon",
+   "name": "Cut Achilles Tendon",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "extra_ap_per_tile_moved": 2,
+    "initiative_pct": -30
+   },
+   "effects_text": [
+    "2 Additional Action Point per tile moved",
+    "−30% Initiative"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "An injury like this makes even the quickest man hobble across the battlefield.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0495_Cut Achilles Tendon.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_arm",
+   "name": "Cut Arm",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -15,
+    "ranged_skill_pct": -15
+   },
+   "effects_text": [
+    "−15% Melee Skill",
+    "−15% Ranged Skill"
+   ],
+   "heal_days": [
+    2,
+    4
+   ],
+   "flavor": "A deep cut at the arm makes it difficult to use.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0496_Cut Arm.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_arm_sinew",
+   "name": "Cut Arm Sinew",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "damage_inflicted_pct": -40
+   },
+   "effects_text": [
+    "−40% Damage inflicted"
+   ],
+   "heal_days": [
+    4,
+    6
+   ],
+   "flavor": "A partially cut arm sinew makes it difficult to put force into any strike.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0497_Cut Arm Sinew.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_artery",
+   "name": "Cut Artery",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "hitpoints_lost_per_turn_in_combat": 3,
+    "hitpoints_pct": -35
+   },
+   "effects_text": [
+    "This character will continue to lose 3 hitpoints each turn in combat",
+    "−35% Hitpoints"
+   ],
+   "heal_days": [
+    1,
+    3
+   ],
+   "flavor": "An artery has been cut, leading to massive hemorrhaging and ultimately death if not treated out of combat. If survived, it is followed by severely lowered constitution due to loss of blood.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0498_Cut Artery.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_leg_muscles",
+   "name": "Cut Leg Muscles",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_defense_pct": -40,
+    "initiative_pct": -40
+   },
+   "effects_text": [
+    "−40% Melee Defense",
+    "−40% Initiative"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "A cut into the muscles of the leg makes any quick and sudden movements impossible.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0499_Cut Leg Muscles.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "deep_abdominal_cut",
+   "name": "Deep Abdominal Cut",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "hitpoints_pct": -25,
+    "max_fatigue_pct": -25
+   },
+   "effects_text": [
+    "−25% Hitpoints",
+    "−25% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "A deep cut at the abdomen has injured the muscle and makes it painful to move or even stand upright, reducing the constitution of this character.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0537_Deep Abdominal Cut.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "deep_chest_cut",
+   "name": "Deep Chest Cut",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "hitpoints_pct": -35,
+    "max_fatigue_pct": -35,
+    "melee_skill_pct": -35,
+    "ranged_skill_pct": -35
+   },
+   "effects_text": [
+    "−35% Hitpoints",
+    "−35% Max Fatigue",
+    "−35% Melee Skill",
+    "−35% Ranged Skill"
+   ],
+   "heal_days": [
+    5,
+    6
+   ],
+   "flavor": "A deep, bleeding cut into the chest and pectoral muscle makes it hard to keep standing, let alone use a weapon.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0538_Deep Chest Cut.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "exposed_ribs",
+   "name": "Exposed Ribs",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "hitpoints_pct": -35
+   },
+   "effects_text": [
+    "−35% Hitpoints"
+   ],
+   "heal_days": [
+    3,
+    6
+   ],
+   "flavor": "A deep cut to the side peeled the skin right off of this character's rib cage.",
+   "threshold_parameters_table_pct": 35,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0721_Exposed Ribs.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table; THRESHOLD CONFLICT: the injury card says 25% but the Injuries page Parameters table says 35% (threshold field keeps the card value)"
+  },
+  {
+   "id": "split_hand",
+   "name": "Split Hand",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -50,
+    "ranged_skill_pct": -50
+   },
+   "effects_text": [
+    "−50% Melee Skill",
+    "−50% Ranged Skill"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "A sharp cut split the hand right down the middle. Until healed, it can barely be used anymore.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1849_Split Hand.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "split_shoulder",
+   "name": "Split Shoulder",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "damage_inflicted_pct": -50
+   },
+   "effects_text": [
+    "−50% Damage inflicted"
+   ],
+   "heal_days": [
+    4,
+    6
+   ],
+   "flavor": "A deep cut has split this character's shoulder open, injuring the muscle tissue and severely limiting mobility of the arms.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1855_Split Shoulder.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "cut_neck_vein",
+   "name": "Cut Neck Vein",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "hitpoints_lost_per_turn_in_combat": 6,
+    "hitpoints_pct": -50
+   },
+   "effects_text": [
+    "This character will continue to lose 6 hitpoints each turn in combat",
+    "−50% Hitpoints"
+   ],
+   "heal_days": [
+    1,
+    4
+   ],
+   "flavor": "A vein on the throat has been cut, leading to massive hemorrhaging and ultimately death if not treated out of combat. If survived, it is followed by a period of severely lowered constitution due to loss of blood, and will leave a menacing scar.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0500_Cut Neck Vein.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "deep_face_cut",
+   "name": "Deep Face Cut",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -25,
+    "ranged_skill_pct": -25,
+    "melee_defense_pct": -25,
+    "ranged_defense_pct": -25,
+    "vision": -2
+   },
+   "effects_text": [
+    "−25% Melee Skill",
+    "−25% Ranged Skill",
+    "−25% Melee Defense",
+    "−25% Ranged Defense",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "A jagged cut across the face is bleeding profusely over eyes, nose and mouth.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0539_Deep Face Cut.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "grazed_neck",
+   "name": "Grazed Neck",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting",
+    "piercing"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "hitpoints_lost_per_turn_in_combat": 1,
+    "hitpoints_pct": -15
+   },
+   "effects_text": [
+    "This character will continue to lose 1 hitpoints each turn in combat",
+    "−15% Hitpoints"
+   ],
+   "heal_days": [
+    1,
+    2
+   ],
+   "flavor": "A grazing wound on the neck bleeds profusely. If survived, it is followed by lowered constitution due to loss of blood.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0904_Grazed Neck.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_cheek",
+   "name": "Pierced Cheek",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting",
+    "piercing"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "fatigue_recovery_per_turn": -3
+   },
+   "effects_text": [
+    "−3 Fatigue recovery per turn"
+   ],
+   "heal_days": [
+    1,
+    2
+   ],
+   "flavor": "Contrary to what one might think, having an additional hole in the cheek does not help with breathing.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1550_Pierced Cheek.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "ripped_ear",
+   "name": "Ripped Ear",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting",
+    "piercing"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "initiative_pct": -15
+   },
+   "effects_text": [
+    "−15% Initiative"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "This character's ear almost got torn off, sending blood down their head and neck, and making them less aware of their surroundings.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1697_Ripped Ear.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "split_nose",
+   "name": "Split Nose",
+   "kind": "temporary",
+   "damage_type": [
+    "cutting"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "fatigue_recovery_per_turn": -5
+   },
+   "effects_text": [
+    "−5 Fatigue recovery per turn"
+   ],
+   "heal_days": [
+    2,
+    4
+   ],
+   "flavor": "A close swing split this character's nose in two and made any attempt to breathe an exercise in swallowing copious amounts of blood.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1851_Split Nose.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "grazed_kidney",
+   "name": "Grazed Kidney",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "hitpoints_pct": -60
+   },
+   "effects_text": [
+    "−60% Hitpoints"
+   ],
+   "heal_days": [
+    3,
+    6
+   ],
+   "flavor": "Abdominal pain, blood in the urine and always the danger of infection. A grazed kidney is a severe risk to the life of any character, draining their constitution.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0903_Grazed Kidney.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "injured_knee_cap",
+   "name": "Injured Knee Cap",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "extra_ap_per_tile_moved": 2,
+    "initiative_pct": -40
+   },
+   "effects_text": [
+    "2 Additional Action Point per tile moved",
+    "−40% Initiative"
+   ],
+   "heal_days": [
+    5,
+    8
+   ],
+   "flavor": "The sensitive knee cap has been injured, resulting in pain with every movement and severely limiting the mobility of this character.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1082_Injured Knee Cap.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "injured_shoulder",
+   "name": "Injured Shoulder",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "damage_inflicted_pct": -25
+   },
+   "effects_text": [
+    "−25% Damage inflicted"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "Injured muscles in the shoulder make it hard to put any force into a strike.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1083_Injured Shoulder.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_arm_muscles",
+   "name": "Pierced Arm Muscles",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -25,
+    "ranged_skill_pct": -25
+   },
+   "effects_text": [
+    "−25% Melee Skill",
+    "−25% Ranged Skill"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "A piercing attack has punctured the arm and injured muscle tissue, limiting it's mobility.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1549_Pierced Arm Muscles.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_chest",
+   "name": "Pierced Chest",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "max_fatigue_pct": -20
+   },
+   "effects_text": [
+    "−20% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "A piercing attack has punctured the chest, injured muscle tissue and grazed the ribs. Although no vital organs have been hit, it's still painful to just breathe.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1551_Pierced Chest.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_hand",
+   "name": "Pierced Hand",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -20,
+    "ranged_skill_pct": -20
+   },
+   "effects_text": [
+    "−20% Melee Skill",
+    "−20% Ranged Skill"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "Having a hole in the hand may not stop a determined fighter, but it does make handling a weapon more difficult.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1552_Pierced Hand.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_leg_muscles",
+   "name": "Pierced Leg Muscles",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_defense_pct": -30,
+    "initiative_pct": -30
+   },
+   "effects_text": [
+    "−30% Melee Defense",
+    "−30% Initiative"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "Punctured leg muscles make any attempts to do quick and sudden movements a painful experience, if not outright impossible.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1553_Pierced Leg Muscles.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_lung",
+   "name": "Pierced Lung",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "max_fatigue_pct": -60
+   },
+   "effects_text": [
+    "−60% Max Fatigue"
+   ],
+   "heal_days": [
+    5,
+    7
+   ],
+   "flavor": "A second opening for air proves of little use, except for sounding like a bagpipe.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1554_Pierced Lung.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "pierced_side",
+   "name": "Pierced Side",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "max_fatigue_pct": -20
+   },
+   "effects_text": [
+    "−20% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "A piercing attack has punctured the side, injured muscle tissue and grazed the ribs. Although no vital organs have been hit, it's still painful to just breathe.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1555_Pierced Side.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "stabbed_guts",
+   "name": "Stabbed Guts",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "hitpoints_pct": -40,
+    "max_fatigue_pct": -40
+   },
+   "effects_text": [
+    "−40% Hitpoints",
+    "−40% Max Fatigue"
+   ],
+   "heal_days": [
+    3,
+    5
+   ],
+   "flavor": "A wound at the intestines drains constitution, and the high chance of infection and the prospect of a slow and painful death don't help either.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1865_Stabbed Guts.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "grazed_eye_socket",
+   "name": "Grazed Eye Socket",
+   "kind": "temporary",
+   "damage_type": [
+    "piercing"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "ranged_skill_pct": -50,
+    "vision": -2
+   },
+   "effects_text": [
+    "−50% Ranged Skill",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    2,
+    4
+   ],
+   "flavor": "A blow grazed and ripped the tissue close to the eye, causing it to fill with blood and swell shut.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0902_Grazed Eye Socket.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "burnt_leg",
+   "name": "Burnt Leg",
+   "kind": "temporary",
+   "damage_type": [
+    "burning"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "extra_ap_per_tile_moved": 1,
+    "initiative_pct": -20
+   },
+   "effects_text": [
+    "1 Additional Action Point per tile moved",
+    "−20% Initiative"
+   ],
+   "heal_days": [
+    2,
+    3
+   ],
+   "flavor": "Burn wounds on the legs limit mobility and make it painful to move quickly.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0333_Burnt Leg.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "burnt_hands",
+   "name": "Burnt Hands",
+   "kind": "temporary",
+   "damage_type": [
+    "burning"
+   ],
+   "body_part": [
+    "body"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "melee_skill_pct": -25,
+    "ranged_skill_pct": -25
+   },
+   "effects_text": [
+    "−25% Melee Skill",
+    "−25% Ranged Skill"
+   ],
+   "heal_days": [
+    4,
+    5
+   ],
+   "flavor": "Burnt hands severly reduce the ability to make swift and precise motions. Also, it stings like hell.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0332_Burnt Hands.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "burnt_face",
+   "name": "Burnt Face",
+   "kind": "temporary",
+   "damage_type": [
+    "burning"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 25,
+   "effects": {
+    "melee_skill_pct": -25,
+    "ranged_skill_pct": -25,
+    "melee_defense_pct": -25,
+    "ranged_defense_pct": -25,
+    "vision": -2
+   },
+   "effects_text": [
+    "−25% Melee Skill",
+    "−25% Ranged Skill",
+    "−25% Melee Defense",
+    "−25% Ranged Defense",
+    "−2 Vision"
+   ],
+   "heal_days": [
+    3,
+    4
+   ],
+   "flavor": "Burned patches over the face and eyes make it harder to see and focus on a target.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0331_Burnt Face.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "inhaled_flames",
+   "name": "Inhaled Flames",
+   "kind": "temporary",
+   "damage_type": [
+    "burning"
+   ],
+   "body_part": [
+    "head"
+   ],
+   "threshold_pct_of_max_hp": 50,
+   "effects": {
+    "action_points": -2,
+    "max_fatigue_pct": -40
+   },
+   "effects_text": [
+    "−2 Action Points",
+    "−40% Max Fatigue"
+   ],
+   "heal_days": [
+    4,
+    6
+   ],
+   "flavor": "A second opening for air proves of little use, except for sounding like a bagpipe.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1081_Inhaled Flames.txt; type/part from bb_all/1936_Temporary Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "brain_damage",
+   "name": "Brain Damage",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "resolve_pct": 15,
+    "experience_gain_pct": -25,
+    "initiative_pct": -25
+   },
+   "effects_text": [
+    "+15% Resolve",
+    "−25% Experience Gain",
+    "−25% Initiative"
+   ],
+   "heal_days": null,
+   "flavor": "A hard hit to the head shook some things up and didn't exactly benefit this character's cognitive skills. On the bright side, he may now be just too stupid to realize when it's time to run.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0277_Brain Damage.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_elbow_joint",
+   "name": "Broken Elbow Joint",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "melee_skill_pct": -20,
+    "ranged_skill_pct": -20,
+    "melee_defense_pct": -30,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "−20% Melee Skill",
+    "−20% Ranged Skill",
+    "−30% Melee Defense",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "A broken elbow that never fully healed hinders all movement of the arm and severely reduces combat effectiveness.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0306_Broken Elbow Joint.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "broken_knee",
+   "name": "Broken Knee",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "melee_defense_pct": -40,
+    "ranged_defense_pct": -40,
+    "initiative_pct": -40,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "−40% Melee Defense",
+    "−40% Ranged Defense",
+    "−40% Initiative",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "This character took something to the knee, and it never fully healed. Lunging forward or dodging can be painful, and it lacks any grace.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0307_Broken Knee.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "partly_collapsed_lung",
+   "name": "Partly Collapsed Lung",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "max_fatigue_pct": -40,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "−40% Max Fatigue",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "A part of the lung has died, making it very hard for this character to catch breath.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1526_Partly Collapsed Lung.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "maimed_foot",
+   "name": "Maimed Foot",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "extra_ap_per_tile_moved": 1,
+    "initiative_pct": -20,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "1 Additional Action Point per tile moved",
+    "−20% Initiative",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "An injury to the foot has never fully healed, making it hard to win any dancing competitions or otherwise move around quickly.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1232_Maimed Foot.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "missing_ear",
+   "name": "Missing Ear",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "initiative_pct": -10
+   },
+   "effects_text": [
+    "−10% Initiative"
+   ],
+   "heal_days": null,
+   "flavor": "Luckily, a missing ear isn't that much of a hindrance for this character. But it does look gross.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1303_Missing Ear.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "missing_eye",
+   "name": "Missing Eye",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "ranged_skill_pct": -50,
+    "vision": -2
+   },
+   "effects_text": [
+    "−50% Ranged Skill",
+    "−2 Vision"
+   ],
+   "heal_days": null,
+   "flavor": "A missing eye makes it difficult to judge distance properly, and limits the field of view.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1304_Missing Eye.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "missing_finger",
+   "name": "Missing Finger",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "melee_skill_pct": -5,
+    "ranged_skill_pct": -5
+   },
+   "effects_text": [
+    "−5% Melee Skill",
+    "−5% Ranged Skill"
+   ],
+   "heal_days": null,
+   "flavor": "A missing finger makes it harder to firmly grab a weapon or shield, but it also makes for a good story.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1305_Missing Finger.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "missing_nose",
+   "name": "Missing Nose",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "max_fatigue_pct": -10
+   },
+   "effects_text": [
+    "−10% Max Fatigue"
+   ],
+   "heal_days": null,
+   "flavor": "A gaping hole is all that is left of the nose, making this character hard to look at.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1307_Missing Nose.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "traumatized",
+   "name": "Traumatized",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "resolve_pct": -40,
+    "initiative_pct": -30,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "−40% Resolve",
+    "−30% Initiative",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "This character has been to the other side. Faced with his own mortality, the experience of dying and coming back has left him a broken man.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2028_Traumatized.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  },
+  {
+   "id": "weakened_heart",
+   "name": "Weakened Heart",
+   "kind": "permanent",
+   "damage_type": null,
+   "body_part": null,
+   "note": "permanent injuries come from being struck down (any body part); no damage type or threshold applies",
+   "threshold_pct_of_max_hp": null,
+   "effects": {
+    "hitpoints_pct": -30,
+    "content_in_reserve": true
+   },
+   "effects_text": [
+    "−30% Hitpoints",
+    "Is always content with being in reserve"
+   ],
+   "heal_days": null,
+   "flavor": "Past injuries left this character with a weakened heart, severely lowering his constitution.",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2190_Weakened Heart.txt; type/part from bb_all/1540_Permanent Injuries.txt; cross-checked against bb_all/1084_Injuries.txt (Effects + Parameters tables)",
+   "missing": [
+    "threshold",
+    "heal_days (permanent: never heals; only the Water Skin legendary item removes one)"
+   ],
+   "cross_check": "matches Injuries page Effects table"
+  }
+ ]
+}

@@ -35,6 +35,7 @@ for t in \
   tools/bohemia_cover_is_a_thing_patch.py \
   tools/bohemia_every_fight_ends_patch.py \
   tools/bohemia_the_ground_is_45_patch.py \
+  tools/bohemia_reach_is_lit_patch.py \
 ; do
   [ -f "$t" ] || { echo "MISSING $t"; exit 1; }
   printf '%-58s ' "$t"

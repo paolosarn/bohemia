@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>The Fight</title>
+<!-- ============================================================================
+     THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
+     ground up; re-create Battle Brothers combat... too far gone").
+
+     Battle Brothers' combat, re-created in one file, on COMBAT TWO's ground: a 20 x 15
+     board of house tiles cut from the city's blocks, at 45 degrees. THEIR RULES EXACTLY
+     (rule 63d): 9 action points; a step costs what the ground costs (flat 2, rough 3,
+     water 4, +1 to climb); a one-hand strike 4, a two-hand strike 6; the round goes by
+     initiative and fatigue pushes you down it; hit chance is skill minus defence, defence
+     past 50 counts half, +5 for each extra man around you, +10 from above; a shot loses
+     some per tile, three quarters behind cover; the head is hit one time in four for half
+     again; armour takes the hit before the body does; the morale ladder runs Confident,
+     Steady, Wavering, Breaking, Fleeing; leaving a man's reach draws his free swing;
+     injuries apart from hitpoints. NOT ONE OF THOSE NUMBERS IS TYPED BELOW: the rules
+     script reads them through R() from records/target/bb/, where each sits beside the
+     wiki page and the words it came from. gates/the_fight_reads_only_sourced_numbers_gate.js
+     holds that line.
+
+     OURS ON TOP (rule 63, (c)): house tiles on a square grid; our guns as their jobs
+     (a pipe is their mace, a car door their shield, a pistol their dagger, the rifle
+     their crossbow, a shotgun their handgonne, a sledge their hammer, bottles their
+     throwing axes); YOU are downed, never dead; a hire struck down dies one time in five,
+     else is laid up 30 to 40 days; the beat (120) is the clock every swing lands on;
+     the fight opens with the whole board on the glass and the pinch brings it in (62).
+
+     SET ASIDE until he calls this right (63a): the dial. The shot resolves in ONE
+     function, resolveAttack(), hit chance in, result out, so the dial can take the
+     important shot over without a rewrite.
+     The driver: gates/the_rebuilt_fight_plays_gate.js plays a whole fight on his phone.
+     ============================================================================ -->
+<style>
+:root{--bg:#0d0b09;--plate:#1d1712;--plate2:#15110d;--ink:#e6d9c2;--dim:#9c8c74;--gold:#d9a85a;--red:#c4553f;--line:#352b21;--green:#8fae6a}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+  font:13px/1.3 ui-monospace,Menlo,Consolas,monospace;overflow:hidden;user-select:none;
+  -webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none}
+#cv{position:fixed;left:0;top:0;width:100vw;height:100vh;touch-action:none;display:block}
+#top{position:fixed;left:0;right:0;top:0;padding:max(6px,env(safe-area-inset-top)) 8px 6px;
+  background:linear-gradient(var(--plate2),rgba(21,17,13,.82));border-bottom:1px solid var(--line);z-index:4}
+#round{font-weight:700;color:var(--gold);letter-spacing:.08em;font-size:12px}
+#order{display:flex;gap:3px;margin-top:5px;overflow:hidden;height:22px}
+#order .chip{flex:0 0 auto;min-width:22px;height:22px;padding:0 4px;border-radius:3px;font-size:10px;
+  line-height:22px;text-align:center;font-weight:700;border:1px solid var(--line)}
+#order .you{background:#3a2e1c;color:var(--gold)} #order .them{background:#3a1d17;color:#f0b3a5}
+#order .now{outline:2px solid var(--ink);outline-offset:-2px}
+#bot{position:fixed;left:0;right:0;bottom:0;padding:6px 8px max(8px,env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(21,17,13,.86),var(--plate2));border-top:1px solid var(--line);z-index:4}
+#card{display:flex;gap:8px;align-items:center;min-height:42px}
+#card .nm{font-weight:700;font-size:13px;min-width:74px}
+#card .bars{flex:1;display:grid;grid-template-columns:auto 1fr auto;gap:2px 6px;align-items:center;font-size:10px;color:var(--dim)}
+.bar{height:6px;background:#2a221a;border-radius:2px;overflow:hidden}
+.bar i{display:block;height:100%}
+#ap{display:flex;gap:2px;margin-top:4px}
+#ap i{width:10px;height:6px;border-radius:1px;background:#2a221a}
+#ap i.on{background:var(--gold)}
+#say{font-size:11px;color:var(--dim);min-height:15px;margin:4px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#btns{display:flex;gap:6px}
+#btns button{flex:1;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
+  border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:.05em}
+#btns button:disabled{opacity:.35}
+#btns button.on{border-color:var(--gold);color:var(--gold)}
+#over{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,6,4,.78);z-index:6}
+#over .box{width:min(92vw,420px);background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:16px}
+#over h2{margin:0 0 8px;color:var(--gold);font-size:16px;letter-spacing:.06em}
+#over p{margin:4px 0;font-size:12px;color:var(--ink)}
+#over button{margin-top:12px;width:100%;min-height:46px;background:#33281e;color:var(--ink);border:1px solid var(--gold);border-radius:6px;font:inherit;font-weight:700}
+#load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
+</style>
+</head>
+<body>
+<canvas id="cv"></canvas>
+<div id="top"><div id="round">THE FIGHT</div><div id="order"></div></div>
+<div id="bot">
+  <div id="card"><div class="nm" id="cnm">-</div><div class="bars" id="cbars"></div></div>
+  <div id="ap"></div>
+  <div id="say"></div>
+  <div id="btns">
+    <button id="bwait">WAIT</button>
+    <button id="breload">RELOAD</button>
+    <button id="bend">END TURN</button>
+    <button id="bauto">AUTO</button>
+  </div>
+</div>
+<div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
+<div id="load">LOADING THE GROUND</div>
+
+<script id="fight-data">
+'use strict';
+/* THE DATA: every file the fight reads, and nothing else. R('a.b.c') is the only door from
+   the rules to a number: it returns the row's value and remembers that it was read, so
+   the gate can list every number the fight felt. 'ours.' reads Paolo's rulings, 'ai.'
+   the behaviours, anything else Battle Brothers' rules. */
+const DATA_FILES = [
+  '../records/target/bb/rules.json', '../records/target/bb/ours.json', '../records/target/bb/ai.json',
+  '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
+  '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json'];
+const DB = { read: {} };
+function loadAll() {
+  return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
+    .then(function (a) {
+      DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
+      DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
+    });
+}
+function R(path) {
+  const parts = path.split('.');
+  let node = parts[0] === 'ours' ? DB.ours : parts[0] === 'ai' ? DB.ai : DB.rules;
+  const walk = (parts[0] === 'ours' || parts[0] === 'ai') ? parts.slice(1) : parts;
+  for (let i = 0; i < walk.length; i++) node = node ? node[walk[i]] : undefined;
+  if (!node || !('value' in node) || node.value === null) throw new Error('no sourced row at ' + path);
+  DB.read[path] = node.source;
+  return node.value;
+}
+/* a seeded die, so a fight can be played twice the same way */
+let SEED = (Date.now() >>> 0);
+function rng() {
+  SEED = (SEED + 0x6D2B79F5) >>> 0; let t = SEED;
+  t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+  return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+}
+</script>
+
+<script id="fight-rules">
+'use strict';
+/* ======================= THE RULES =======================
+   No number is typed in this script but 0, 1 and 100 (a count, a toggle, a percent).
+   Everything a player feels comes through R() or off a data row. */
+const FIGHT = (function () {
+  const S = { units: [], events: [], round: 0, order: [], idx: 0, over: false, result: null, log: [] };
+  const STATES = function () { return R('morale.states'); };
+  const RANGED = ['bow', 'crossbow', 'firearm', 'throwing'];
+  const DIRS = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
+
+  function rint(a, b) { return Math.floor(rng() * (b - a + 1)) + a; }
+  function die() { return rint(1, R('parsed.hit_roll_die')); }
+  /* a wiki value: 55, or '0-45' (rolled), or null (none) */
+  function stat(v) {
+    if (v === null || v === undefined || v === '*') return 0;
+    if (typeof v === 'number') return v;
+    const m = String(v).split('-').map(function (s) { return parseFloat(s); }).filter(function (n) { return !isNaN(n); });
+    if (!m.length) return 0;
+    return m.length > 1 ? rint(m[0], m[m.length - 1]) : m[0];
+  }
+  function rangeMax(v) {
+    if (typeof v === 'number') return v;
+    if (v === null || v === undefined) return 1;
+    const m = String(v).match(/\d+/g); return m ? Math.max.apply(null, m.map(Number)) : 1;
+  }
+  function rangeMin(row) { return row.range_min !== undefined && row.range_min !== null ? rangeMax(row.range_min) : 1; }
+  function dist(a, b) { return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)); }
+  function inBoard(x, y) { return x >= 0 && y >= 0 && x < S.w && y < S.h; }
+  function onField(u) { return !u.dead && !u.down && !u.fled; }
+  function alive(side) { return S.units.filter(function (u) { return u.side === side && onField(u); }); }
+  function foes(u) { return S.units.filter(function (v) { return v.side !== u.side && onField(v); }); }
+  function friends(u) { return S.units.filter(function (v) { return v.side === u.side && v !== u && onField(v); }); }
+  function unitAt(x, y) { return S.units.filter(function (u) { return onField(u) && u.x === x && u.y === y; })[0] || null; }
+  function emit(e) { e.round = S.round; S.events.push(e); S.log.push(e); }
+
+  /* ---------------- THE GROUND ---------------- */
+  function terrainAt(x, y) { return S.terrain[y][x]; }
+  function level(x, y) { return terrainAt(x, y) === 'height' ? R('board.height_levels')[1] : R('board.height_levels')[0]; }
+  function passable(x, y) { return inBoard(x, y) && terrainAt(x, y) !== 'blocked' && !S.solid[y][x]; }
+  function sightBlock(x, y) { return terrainAt(x, y) === 'blocked'; }
+  function stepCost(u, ax, ay, bx, by) {
+    const t = terrainAt(bx, by);
+    let c = t === 'water' ? R('ap.move_cost.murky_water_swamp')
+          : (t === 'rough' || t === 'debris') ? R('ap.move_cost.rough') : R('ap.move_cost.flat');
+    if (level(ax, ay) !== level(bx, by)) c += R('ap.move_cost.height_change_extra') * Math.abs(level(ax, ay) - level(bx, by));
+    u.injuries.forEach(function (j) { if (j.effects && j.effects.extra_ap_per_tile_moved) c += j.effects.extra_ap_per_tile_moved; });
+    return c;
+  }
+  /* a diagonal step may not squeeze between two house corners */
+  function squeezes(ax, ay, bx, by) {
+    if (ax === bx || ay === by) return false;
+    return !passable(bx, ay) && !passable(ax, by);
+  }
+  function line(a, b) {
+    const pts = []; let x0 = a.x, y0 = a.y; const x1 = b.x, y1 = b.y;
+    const dx = Math.abs(x1 - x0), dy = -Math.abs(y1 - y0), sx = x0 < x1 ? 1 : -1, sy = y0 < y1 ? 1 : -1;
+    let err = dx + dy;
+    for (;;) { pts.push({ x: x0, y: y0 }); if (x0 === x1 && y0 === y1) break;
+      const e2 = err + err; if (e2 >= dy) { err += dy; x0 += sx; } if (e2 <= dx) { err += dx; y0 += sy; } }
+    return pts;
+  }
+  function sees(a, b) {
+    const pts = line(a, b);
+    for (let i = 1; i < pts.length - 1; i++) if (sightBlock(pts[i].x, pts[i].y)) return false;
+    return true;
+  }
+  function vision(u) {
+    let v = R('board.vision_default');
+    if (S.night) v += R('hit_chance.night.nighttime_status').vision;
+    return Math.max(R('board.vision_floor'), v);
+  }
+  function sideSees(side, t) {
+    return S.units.some(function (u) { return u.side === side && onField(u) && dist(u, t) <= vision(u) && sees(u, t); });
+  }
+
+  /* ---------------- THE PEOPLE ---------------- */
+  function weaponRow(id) { return DB.weapons.rows.filter(function (r) { return r.id === id; })[0]; }
+  function weaponByName(n) { return DB.weapons.rows.filter(function (r) { return r.name === n; })[0]; }
+  function shieldRow(id) { return DB.armor.shields.filter(function (r) { return r.id === id; })[0]; }
+  function shieldByName(n) { return DB.armor.shields.filter(function (r) { return r.name === n; })[0]; }
+  function armourRow(part, id) { return DB.armor[part].filter(function (r) { return r.id === id; })[0]; }
+  function isRanged(w) { return RANGED.indexOf(w.class) >= 0; }
+  function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
+  function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
+  function skillAP(w, s) {
+    if (s && typeof s.ap === 'number') return s.ap;
+    return w.hands === 1 ? R('ap.strike_cost.one_handed') : R('ap.strike_cost.two_handed');
+  }
+  function gearFat(u) {
+    let f = 0;
+    [u.weapon, u.shield, u.bodyRow, u.headRow].forEach(function (g) { if (g && typeof g.fatigue === 'number') f += g.fatigue; });
+    return f;
+  }
+  function injMult(u, key) {
+    let m = 1;
+    u.injuries.forEach(function (j) { if (j.effects && typeof j.effects[key] === 'number') m *= (1 + j.effects[key] / 100); });
+    return m;
+  }
+  function fatMax(u) { return Math.max(0, Math.round((u.fatigue + gearFat(u)) * injMult(u, 'max_fatigue_pct'))); }
+  function curIni(u) { return u.initiative * injMult(u, 'initiative_pct') - u.fat + gearFat(u); }
+  function makeUnit(o) {
+    const u = Object.assign({ fat: 0, ap: 0, morale: R('morale.default_state'), injuries: [], loaded: true,
+      waited: false, waitedLast: false, roundsFleeing: 0, dead: false, down: false, fled: false, laidUp: 0 }, o);
+    u.hpMax = u.hp; u.armHMax = u.armH; u.armBMax = u.armB;
+    const ammo = u.weapon.ammo ? String(u.weapon.ammo).match(/\d+/) : null;
+    u.ammo = ammo ? Number(ammo[0]) : null;
+    S.units.push(u); return u;
+  }
+  function crewUnit(c, i) {
+    const bg = DB.backgrounds.rows.filter(function (r) { return r.id === c.background; })[0];
+    const st = bg.stats, roll = function (k) { return rint(st[k][0], st[k][st[k].length - 1]); };
+    const rows = R('ours.weapon_rows');
+    const job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
+    const w = weaponRow(rows[job]);
+    const sh = c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null;
+    const body = armourRow('body', c.body), head = armourRow('head', c.head);
+    const xp = R('parsed.brother_xp');
+    return makeUnit({ id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job,
+      hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
+      mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
+      apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base, arche: 'crew' });
+  }
+  function enemyUnit(id, i) {
+    const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
+    const gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
+    const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line';
+    const wantRanged = kind === 'backline';
+    let w = null;
+    gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing') w = x; });
+    if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
+    let sh = null;
+    if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
+    return makeUnit({ id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class,
+      hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
+      mskill: stat(r.melee_skill), rskill: stat(r.ranged_skill), mdef: stat(r.melee_defense), rdef: stat(r.ranged_defense),
+      apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
+      armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
+  }
+
+  /* ---------------- SETUP ---------------- */
+  function setup(opts) {
+    opts = opts || {};
+    const G = DB.ground, names = Object.keys(G.boards);
+    const bname = opts.board && G.boards[opts.board] ? opts.board : names[Math.floor(rng() * names.length)];
+    const B = G.boards[bname];
+    S.board = bname; S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
+    S.terrain = B.terrain; S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+    S.solid = []; S.cover = [];
+    for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); } }
+    (B.cover || []).forEach(function (c) {
+      const tx = Math.floor(c.x_m / G.tile_metres), ty = Math.floor(c.y_m / G.tile_metres);
+      if (!inBoard(tx, ty)) return;
+      const def = G.cover[c.piece] || G.cover_extra[c.piece] || {};
+      S.cover[ty][tx] = c.piece;
+      if (def.blocks_move) S.solid[ty][tx] = true;
+    });
+    S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
+    const crew = R('ours.crew').slice(0, R('ours.field_size'));
+    const crewUnits = crew.map(crewUnit);
+    const band = (opts.band || R('ours.first_band'));
+    const bandUnits = band.map(enemyUnit);
+    const rows = G.start_rows;
+    place(crewUnits, rows[1], 1);
+    place(bandUnits, rows[0], -1);
+    newRound();
+  }
+  /* the two lines, melee in front, shooters behind; the lines are the board's start rows,
+     which COMBAT TWO set five tiles apart (deployment.min_gap_between_lines_hexes) */
+  function place(units, row, back) {
+    const front = units.filter(function (u) { return !isRanged(u.weapon); });
+    const rear = units.filter(function (u) { return isRanged(u.weapon); });
+    const mid = (S.w - 1) / (1 + 1);
+    function cols(y) {
+      const c = [];
+      for (let x = 0; x < S.w; x++) if (passable(x, y) && !unitAt(x, y)) c.push(x);
+      return c.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
+    }
+    function fill(list, y0) {
+      let y = y0;
+      while (list.length && y >= 0 && y < S.h) {
+        const c = cols(y);
+        while (list.length && c.length) { const u = list.shift(); u.x = c.shift(); u.y = y; }
+        y += back;
+      }
+    }
+    fill(front, row);
+    fill(rear, row + back);
+    if (front.length) fill(front, row + back);
+  }
+
+  /* ---------------- THE ROUND ---------------- */
+  function newRound() {
+    S.round++;
+    S.units.forEach(function (u) {
+      if (!onField(u)) return;
+      u.ap = u.apTurn; u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn'));
+      u.waitedLast = u.waited; u.waited = false;
+      if (u.morale === 'Fleeing') u.roundsFleeing++;
+    });
+    const live = S.units.filter(onField);
+    live.forEach(function (u) {
+      let ini = curIni(u);
+      if (u.waitedLast) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
+      if (u.morale === 'Fleeing') ini += R('initiative_and_turn_order.fleeing_turn_order');
+      u.turnIni = ini;
+    });
+    S.order = live.sort(function (a, b) { return b.turnIni - a.turnIni; }).map(function (u) { return u.id; });
+    S.idx = 0;
+    emit({ t: 'round' });
+    settle();
+  }
+  function byId(id) { return S.units.filter(function (u) { return u.id === id; })[0]; }
+  function current() { return S.over ? null : byId(S.order[S.idx]); }
+  /* skip the fallen; begin the next man's turn */
+  function settle() {
+    if (S.over) return;
+    if (!S.units.some(onField)) { S.over = true; return; }
+    while (S.idx < S.order.length && !onField(byId(S.order[S.idx]))) S.idx++;
+    if (S.idx >= S.order.length) { newRound(); return; }
+    const u = current();
+    if (u && !u.begun) { u.begun = true; beginTurn(u); }
+  }
+  function beginTurn(u) {
+    emit({ t: 'turn', id: u.id });
+    if (u.morale === 'Fleeing' && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
+      const p = R('parsed.morale_stop_fleeing');
+      if (check(u, 'pos', p.per_round * u.roundsFleeing, true)) { u.morale = STATES()[STATES().indexOf('Wavering')]; emit({ t: 'rally', id: u.id }); }
+    }
+  }
+  function advance(u) { u.begun = false; S.idx++; if (!S.over) settle(); }
+  function endTurn(u) {
+    if (S.over || current() !== u) return false;
+    u.begun = false; S.idx++; emit({ t: 'end', id: u.id }); settle(); return true;
+  }
+  function wait(u) {
+    if (S.over || current() !== u || u.waited) return false;
+    u.waited = true; u.begun = false;
+    S.order.splice(S.idx, 1); S.order.push(u.id);
+    emit({ t: 'wait', id: u.id }); settle(); return true;
+  }
+
+  /* ---------------- MOVING ---------------- */
+  function zocOn(u, x, y) {
+    return foes(u).filter(function (f) {
+      if (f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon)) return false;
+      if (Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
+      return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= R('zone_of_control.radius_hexes');
+    });
+  }
+  /* every tile u can reach on its AP this turn; a path stops on entering a zone of control */
+  function reach(u, budget) {
+    budget = budget === undefined ? u.ap : budget;
+    const key = function (x, y) { return y * S.w + x; };
+    const best = {}; const prev = {}; const open = [{ x: u.x, y: u.y, c: 0 }];
+    best[key(u.x, u.y)] = 0;
+    while (open.length) {
+      open.sort(function (a, b) { return a.c - b.c; });
+      const n = open.shift();
+      if (n.c > best[key(n.x, n.y)]) continue;
+      if ((n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
+      DIRS.forEach(function (d) {
+        const x = n.x + d[0], y = n.y + d[1];
+        if (!passable(x, y) || unitAt(x, y) || squeezes(n.x, n.y, x, y)) return;
+        const c = n.c + stepCost(u, n.x, n.y, x, y);
+        if (c > budget) return;
+        if (best[key(x, y)] === undefined || c < best[key(x, y)]) { best[key(x, y)] = c; prev[key(x, y)] = key(n.x, n.y); open.push({ x: x, y: y, c: c }); }
+      });
+    }
+    return { best: best, prev: prev, key: key };
+  }
+  function pathTo(u, x, y, field) {
+    field = field || reach(u);
+    const k = field.key(x, y); if (field.best[k] === undefined) return null;
+    const out = []; let c = k;
+    while (c !== field.key(u.x, u.y)) { out.unshift({ x: c % S.w, y: Math.floor(c / S.w) }); c = field.prev[c]; }
+    return out;
+  }
+  function moveTo(u, x, y) {
+    if (S.over || current() !== u) return false;
+    const p = pathTo(u, x, y); if (!p || !p.length) return false;
+    for (let i = 0; i < p.length; i++) {
+      const s = p[i], cost = stepCost(u, u.x, u.y, s.x, s.y);
+      if (cost > u.ap) break;
+      const zoc = zocOn(u, u.x, u.y);
+      u.ap -= cost;
+      let held = false;
+      zoc.forEach(function (f) {
+        if (held || !onField(u) || !onField(f)) return;
+        const r = resolveAttack(f, u, strikeSkill(f.weapon), { free: true });
+        apply(f, u, r, { free: true });
+        if (r.hit) held = true;
+      });
+      if (!onField(u)) { afterAction(u); advance(u); return true; }
+      if (held) { emit({ t: 'held', id: u.id }); break; }
+      emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
+      u.x = s.x; u.y = s.y;
+    }
+    afterAction(u); return true;
+  }
+
+  /* ---------------- THE SHOT: ONE FUNCTION (63a) ---------------- */
+  function moraleMult(u, k) {
+    const m = R('morale.state_multipliers')[u.morale];
+    return m && typeof m[k] === 'number' ? m[k] : 1;
+  }
+  function softCap(d) {
+    const c = R('hit_chance.defense_soft_cap');
+    return d > c.threshold ? c.threshold + (d - c.threshold) * c.over_threshold_multiplier : d;
+  }
+  function inWater(u) { return terrainAt(u.x, u.y) === 'water'; }
+  function shotLine(a, t) {
+    /* the wiki's 'blocked target': something stands in the line next to him, or he stands in cover */
+    if (R('ours.cover_tile_blocks_line') && S.cover[t.y][t.x] && dist(a, t) > 1) return true;
+    const pts = line(a, t); if (pts.length < 1 + 1 + 1) return false;
+    const n = pts[pts.length - 1 - 1];
+    if (sightBlock(n.x, n.y) || S.cover[n.y][n.x]) return true;
+    const who = unitAt(n.x, n.y);
+    if (who && !(who.side === a.side && dist(a, t) === 1 + 1)) return true;
+    return false;
+  }
+  function inRange(a, t, w) {
+    w = w || a.weapon;
+    const d = dist(a, t);
+    if (!isRanged(w)) {
+      return d <= rangeMax(w.range) && Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap');
+    }
+    const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
+    return d >= rangeMin(w) && d <= rangeMax(w.range) + up && sees(a, t);
+  }
+  function hitChance(a, t, skill) {
+    const w = a.weapon, parts = [];
+    let ch;
+    if (!isRanged(w)) {
+      let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct');
+      if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
+      let df = t.mdef + (t.shield ? t.shield.melee_defense : 0);
+      const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
+      if (around > 1) { df -= R('hit_chance.surround.per_extra_adjacent') * (around - 1); parts.push('surrounded'); }
+      df = softCap(df) * moraleMult(t, 'melee_defense') * injMult(t, 'melee_defense_pct');
+      if (inWater(t)) df *= R('hit_chance.terrain_swamp').melee_defense;
+      ch = sk - df + (skill && typeof skill.hit_bonus === 'number' ? skill.hit_bonus : 0);
+    } else {
+      const nightM = S.night ? R('hit_chance.night.multiplier') : 1;
+      const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM;
+      let df = t.rdef + (t.shield ? t.shield.ranged_defense : 0);
+      df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightM;
+      if (inWater(t)) df *= R('hit_chance.terrain_swamp').ranged_defense;
+      let per, base, free = 1, ignores = false;
+      if (w.class === 'crossbow') { const g = R('hit_chance.ranged.distance.crossbow_shoot_bolt'); per = g.per_hex; base = g.base_bonus; }
+      else if (w.class === 'firearm') { const g = R('parsed.handgonne'); per = g.per_hex; base = g.base_bonus; ignores = g.ignores_line_of_fire; }
+      else if (w.class === 'throwing') { const g = R('parsed.throw_axe'); per = g.per_hex; base = g.base_bonus; free = g.free_tiles; }
+      else { const g = R('hit_chance.ranged.distance.bow_quick_shot'); per = g.per_hex; base = g.base_bonus; }
+      ch = sk - df + base + per * Math.max(0, dist(a, t) - free);
+      if (!ignores && shotLine(a, t)) { ch *= (1 + R('hit_chance.ranged.cover_line_of_fire_blocked')); parts.push('cover'); }
+    }
+    const la = level(a.x, a.y), lt = level(t.x, t.y);
+    if (la > lt) { ch += R('hit_chance.height.higher_attacker_bonus'); parts.push('above'); }
+    if (la < lt && !isRanged(w)) { ch += R('hit_chance.height.lower_attacker_penalty'); parts.push('below'); }
+    const cap = R('hit_chance.cap');
+    return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
+  }
+  function headChance(a) { return R('head_and_critical.base_head_chance_pct') + (a.weapon.head_hit_chance || 0); }
+  function damageType(w) {
+    if (['mace', 'hammer', 'flail'].indexOf(w.class) >= 0) return 'blunt';
+    if (['dagger', 'spear', 'crossbow', 'bow', 'firearm', 'polearm'].indexOf(w.class) >= 0) return 'piercing';
+    return 'cutting';
+  }
+  /* hit chance in, result out. The dial takes this over for the important shot (63a):
+     it passes forced.roll (the needle's verdict) and everything after is the same. */
+  function resolveAttack(a, t, skill, forced) {
+    forced = forced || {};
+    const hc = hitChance(a, t, skill);
+    const roll = forced.roll !== undefined ? forced.roll : die();
+    const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0 };
+    if (!res.hit) return res;
+    res.head = die() <= headChance(a);
+    const w = a.weapon;
+    const base = rint(w.damage_min, w.damage_max) * injMult(a, 'damage_inflicted_pct');
+    const ignore = w.armor_ignore_pct / 100;
+    const armour = res.head ? t.armH : t.armB;
+    const armourHit = Math.min(armour, base * w.armor_damage_pct / 100);
+    let hp = Math.max(0, base * ignore - armour * R('damage.remaining_armor_reduction'));
+    if (armour - armourHit <= 0) hp += Math.max(0, base * (1 - ignore) - armourHit);
+    if (res.head) hp *= R('head_and_critical.head_damage_multiplier');
+    res.armour = Math.floor(armourHit); res.hp = Math.floor(hp);
+    return res;
+  }
+  /* what a result does to the two men: armour, hitpoints, fatigue, injury, morale, death */
+  function apply(a, t, r, opt) {
+    opt = opt || {};
+    if (!isRanged(a.weapon)) S.contact = true;
+    emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts });
+    if (!r.hit) {
+      if (!isRanged(a.weapon)) t.fat = Math.min(fatMax(t), t.fat + R('fatigue.on_dodge_or_block'));
+      return;
+    }
+    if (r.head) t.armH = Math.max(0, t.armH - r.armour); else t.armB = Math.max(0, t.armB - r.armour);
+    t.hp -= r.hp;
+    const mace = R('fatigue.on_struck_by_mace');
+    t.fat = Math.min(fatMax(t), t.fat + (a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck')));
+    if (t.hp <= 0) { fall(t, a); return; }
+    injure(t, a, r);
+    const s = R('parsed.morale_struck');
+    if (r.hp >= s.threshold_hp) check(t, 'neg', s.per_missing_hp_fraction * (1 - t.hp / t.hpMax));
+  }
+  function injure(t, a, r) {
+    if (r.hp < R('injuries_and_death.temp_injury_min_damage')) return;
+    const type = damageType(a.weapon), part = r.head ? 'head' : 'body';
+    const mult = r.head ? R('injuries_and_death.temp_injury_multipliers').head_hit_bonus : 1;
+    const ratio = r.hp / t.hpMax;
+    const can = DB.injuries.rows.filter(function (j) {
+      return j.kind === 'temporary' && j.damage_type && j.damage_type.indexOf(type) >= 0 && j.body_part && j.body_part.indexOf(part) >= 0
+        && typeof j.threshold_pct_of_max_hp === 'number' && j.threshold_pct_of_max_hp / 100 * mult <= ratio
+        && !t.injuries.some(function (h) { return h.id === j.id; });
+    });
+    if (!can.length) return;
+    const j = can[Math.floor(rng() * can.length)];
+    t.injuries.push(j); emit({ t: 'injury', id: t.id, name: j.name });
+  }
+  function fall(t, a) {
+    t.hp = 0;
+    if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
+    else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
+    else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
+    else { const d = R('ours.struck_down_laid_up_days'); t.down = true; t.laidUp = rint(d[0], d[1]); emit({ t: 'down', id: t.id, days: t.laidUp }); }
+    ripple(t, a, 'dies');
+  }
+  /* a death or a man running moves everyone's nerve, nearer more (Morale page) */
+  function distTerm(table, d) {
+    const tb = R('morale.distance_tables')[table];
+    return tb[Math.min(tb.length, Math.max(1, d)) - 1];
+  }
+  function ripple(t, a, what) {
+    S.units.filter(onField).forEach(function (u) {
+      if (u === t) return;
+      const d = dist(u, t);
+      if (u.side === t.side) {
+        const p = what === 'dies' ? R('parsed.morale_ally_dies') : R('parsed.morale_ally_flees');
+        check(u, 'neg', p.base + p.per_xp * t.xp + p.distance_sign * distTerm(p.distance_table, d));
+      } else if (what === 'dies' && u.morale !== 'Fleeing') {
+        const p = R('parsed.morale_enemy_dies');
+        check(u, 'pos', p.base + p.per_xp * t.xp + p.distance_sign * distTerm(p.distance_table, d) + (a === u ? p.killer_extra : 0));
+      }
+    });
+  }
+  /* Resolve is the base chance; the result moves one rung (Morale page) */
+  function check(u, kind, mod, quiet) {
+    if (u.resolve === null || u.resolve === undefined) return true;
+    let c = u.resolve * moraleMult(u, 'resolve') + mod;
+    if (kind === 'neg') {
+      c += R('morale.check_modifiers.allies_adjacent') * friends(u).filter(function (f) { return dist(f, u) === 1; }).length;
+      c += R('morale.check_modifiers.enemies_adjacent') * foes(u).filter(function (f) { return dist(f, u) === 1; }).length;
+    }
+    const cap = R('morale.check.cap');
+    c = Math.max(cap.min, Math.min(cap.max, c));
+    const ok = die() <= c;
+    const st = STATES(), i = st.indexOf(u.morale), step = R('morale.check.step');
+    if (kind === 'pos' && ok && u.morale !== 'Fleeing' && !u.atEdge && i - step >= st.indexOf('Confident')) { u.morale = st[i - step]; if (!quiet) emit({ t: 'morale', id: u.id, to: u.morale }); }
+    if (kind === 'neg' && !ok && i + step <= st.indexOf('Fleeing')) {
+      u.morale = st[i + step]; emit({ t: 'morale', id: u.id, to: u.morale });
+      if (u.morale === 'Fleeing') { u.roundsFleeing = 0; ripple(u, null, 'flees'); }
+    }
+    return ok;
+  }
+
+  /* ---------------- STRIKING ---------------- */
+  function canStrike(a, t) {
+    if (!onField(a) || !onField(t) || a.side === t.side || a.morale === 'Fleeing') return false;
+    const s = strikeSkill(a.weapon);
+    if (a.ap < skillAP(a.weapon, s)) return false;
+    if (a.fat + (s.fatigue || 0) > fatMax(a)) return false;
+    if (reloadSkill(a.weapon) && !a.loaded) return false;
+    if (a.ammo !== null && a.ammo <= 0) return false;
+    return inRange(a, t);
+  }
+  function strike(a, t, forced) {
+    if (S.over || current() !== a || !canStrike(a, t)) return null;
+    const s = strikeSkill(a.weapon);
+    a.ap -= skillAP(a.weapon, s); a.fat += (s.fatigue || 0);
+    if (reloadSkill(a.weapon)) a.loaded = false;
+    if (a.ammo !== null) a.ammo--;
+    const r = resolveAttack(a, t, s, forced);
+    apply(a, t, r);
+    afterAction(a); return r;
+  }
+  function canReload(a) {
+    const s = reloadSkill(a.weapon);
+    return !!s && !a.loaded && a.ap >= s.ap && a.fat + s.fatigue <= fatMax(a);
+  }
+  function reload(a) {
+    if (S.over || current() !== a || !canReload(a)) return false;
+    const s = reloadSkill(a.weapon); a.ap -= s.ap; a.fat += s.fatigue; a.loaded = true;
+    emit({ t: 'reload', id: a.id }); afterAction(a); return true;
+  }
+  /* a fleeing man runs for the nearest edge and leaves the field from it */
+  function flee(u) {
+    if (u.x === 0 || u.y === 0 || u.x === S.w - 1 || u.y === S.h - 1) {
+      if (u.side === 'you') {
+        /* a brother at the edge does not leave: his morale drops to Breaking and stays there (Morale page) */
+        u.morale = R('morale.check_triggers.brother_at_map_edge').result; u.atEdge = true;
+        emit({ t: 'morale', id: u.id, to: u.morale }); endTurn(u); return true;
+      }
+      u.fled = true; emit({ t: 'fled', id: u.id }); afterAction(u); advance(u); return true;
+    }
+    const f = reach(u); let best = null, bs = Infinity;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      const edge = Math.min(x, y, S.w - 1 - x, S.h - 1 - y);
+      const near = foes(u).reduce(function (m, e) { return Math.min(m, dist(e, { x: x, y: y })); }, Infinity);
+      const sc = edge * S.w - near;
+      if (sc < bs) { bs = sc; best = { x: x, y: y }; }
+    });
+    if (best && (best.x !== u.x || best.y !== u.y)) return moveTo(u, best.x, best.y);
+    return false;
+  }
+  function afterAction(u) {
+    const you = alive('you'), them = alive('them');
+    const themFight = them.filter(function (e) { return e.morale !== 'Fleeing'; });
+    if (!themFight.length || !you.length) {
+      S.over = true;
+      S.result = !you.length ? 'lost' : 'won';
+      emit({ t: 'over', result: S.result });
+    }
+  }
+
+  /* ---------------- THE AI: one brain, every archetype's switches as data (63b) ---------------- */
+  function arche(u) {
+    return R('ai.archetypes.' + (DB.ai.archetypes[u.arche] ? u.arche : 'line'));
+  }
+  function expected(a, t) {
+    const hc = hitChance(a, t, strikeSkill(a.weapon)).chance;
+    const mean = (a.weapon.damage_min + a.weapon.damage_max) / (1 + 1);
+    return hc * mean / Math.max(1, t.hp + t.armB);
+  }
+  function bestTarget(u) {
+    let best = null, bs = -Infinity;
+    foes(u).forEach(function (t) { if (!canStrike(u, t)) return; const s = expected(u, t); if (s > bs) { bs = s; best = t; } });
+    return best;
+  }
+  function huntField(u) {
+    /* breadth-first over open ground from every foe, so a man who sees nobody still finds the fight */
+    const key = function (x, y) { return y * S.w + x; };
+    const d = {}; const q = [];
+    foes(u).forEach(function (f) { d[key(f.x, f.y)] = 0; q.push(f); });
+    while (q.length) {
+      const n = q.shift(), nd = d[key(n.x, n.y)];
+      DIRS.forEach(function (o) {
+        const x = n.x + o[0], y = n.y + o[1];
+        if (!passable(x, y) || squeezes(n.x, n.y, x, y) || d[key(x, y)] !== undefined) return;
+        d[key(x, y)] = nd + 1; q.push({ x: x, y: y });
+      });
+    }
+    return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
+  }
+  /* one action per call; false when the man is done for this turn */
+  function aiStep(u) {
+    if (S.over || current() !== u) return false;
+    if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { endTurn(u); return false; } return true; }
+    const A = arche(u), w = u.weapon, ranged = isRanged(w);
+    const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
+    if (ranged && adj.length && A.step_out_of_melee && !u.steppedOut) {
+      u.steppedOut = true;
+      const f = reach(u); let best = null, bs = -Infinity;
+      Object.keys(f.best).forEach(function (k) {
+        k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+        if (zocOn(u, x, y).length) return;
+        const sc = -f.best[k];
+        if (sc > bs) { bs = sc; best = { x: x, y: y }; }
+      });
+      if (best && moveTo(u, best.x, best.y)) return true;
+    }
+    if (ranged && A.reload && canReload(u)) { reload(u); return true; }
+    const t = bestTarget(u);
+    if (t) { strike(u, t); return true; }
+    /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
+    if (!ranged && foes(u).some(function (f2) { return inRange(u, f2); })) { endTurn(u); return false; }
+    if (ranged && (A.stand_and_shoot && !A.advance) && foes(u).some(function (f) { return sideSees(u.side, f) && dist(u, f) <= rangeMax(w.range); })) {
+      /* the backline holds while something is in its range; it steps only to find a line */
+    }
+    /* move: to a tile where a foe is in reach (and we still have AP to strike), else toward the fight */
+    const f = reach(u); const strikeAP = skillAP(w, strikeSkill(w));
+    const coming = foes(u).some(function (fo) { return !isRanged(fo.weapon) && fo.morale !== 'Fleeing'; });
+    const holds = A.hold_line && coming && !S.contact;
+    const avoid = R('ai.tactics.avoid_surround');
+    let best = null, bs = -Infinity;
+    const hunt = huntField(u);
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (x === u.x && y === u.y) return;
+      const left = u.ap - f.best[k];
+      const ghost = { x: x, y: y, side: u.side, weapon: w };
+      const ox = u.x, oy = u.y; u.x = x; u.y = y;
+      const tgts = foes(u).filter(function (t2) { return inRange(u, t2); });
+      u.x = ox; u.y = oy;
+      let sc;
+      if (tgts.length && (left >= strikeAP || A.rush_even_without_ap_to_strike)) {
+        sc = R('hit_chance.cap').max + left;
+        if (avoid) {
+          const pal = friends(u).filter(function (fr) { return dist(fr, ghost) === 1; }).length;
+          const foe = foes(u).filter(function (fo) { return dist(fo, ghost) === 1 && !isRanged(fo.weapon); }).length;
+          sc += (pal - foe) * R('hit_chance.surround.per_extra_adjacent');
+        }
+        if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
+        if (ranged) sc += Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
+      } else {
+        sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
+        if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
+      }
+      if (sc > bs) { bs = sc; best = { x: x, y: y }; }
+    });
+    const here = hunt(u.x, u.y);
+    if (best && (bs > -Infinity) && (hunt(best.x, best.y) < here || bs >= R('hit_chance.cap').max)) {
+      if (moveTo(u, best.x, best.y)) return true;
+    }
+    endTurn(u); return false;
+  }
+
+  return {
+    S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
+    canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, reload: reload, canReload: canReload,
+    wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
+    level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId
+  };
+})();
+</script>
+
+<script id="fight-draw">
+'use strict';
+/* ======================= THE SCREEN =======================
+   Draws the rules' state and turns taps into the rules' commands. It never writes a
+   fighter's numbers. The beat (ours.beat_bpm) paces every swing and step. */
+const cv = document.getElementById('cv'), cx = cv.getContext('2d');
+const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
+  anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0 };
+let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
+
+function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
+function resize() {
+  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  TOPH = document.getElementById('top').offsetHeight; BOTH = document.getElementById('bot').offsetHeight;
+  if (UI.board) fitStops();
+}
+function fitStops() {
+  const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
+  UI.far = Math.min(W / bw, ah / bh);           /* the whole board on the glass (rule 62) */
+  UI.near = Math.max(UI.far, W / (UI.tw * 5.5)); /* about five houses across */
+  UI.max = Math.max(UI.near, W / (UI.tw * 2.2));
+}
+function load(src) {
+  return new Promise(function (ok) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; });
+}
+/* the ground: COMBAT TWO's blocks and cover baked once into one picture */
+function bakeBoard() {
+  const G = DB.ground, B = G.boards[FIGHT.S.board], bt = G.block_tiles;
+  UI.th = UI.tw * G.tile_px[1] / G.tile_px[0];
+  const c = document.createElement('canvas');
+  c.width = Math.round(UI.tw * FIGHT.S.w); c.height = Math.round(UI.th * FIGHT.S.h);
+  const g = c.getContext('2d');
+  g.fillStyle = '#2a2219'; g.fillRect(0, 0, c.width, c.height);
+  const names = [];
+  B.blocks.forEach(function (row) { row.forEach(function (n) { if (names.indexOf(n) < 0) names.push(n); }); });
+  const covers = (B.cover || []).map(function (k) { return k.piece; });
+  const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
+    .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
+  return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
+    .then(function () {
+      B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
+        const im = UI.imgs['fight_ground/' + G.blocks[n].src];
+        if (im) g.drawImage(im, bx * bt * UI.tw, by * bt * UI.th, bt * UI.tw, bt * UI.th);
+      }); });
+      const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
+      (B.cover || []).forEach(function (cv2) {
+        const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece]).src];
+        if (im) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);
+      });
+      /* the grid, faint: what is two tiles away is always obvious (37f) */
+      g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 1;
+      for (let x = 0; x <= FIGHT.S.w; x++) { g.beginPath(); g.moveTo(x * UI.tw + .5, 0); g.lineTo(x * UI.tw + .5, c.height); g.stroke(); }
+      for (let y = 0; y <= FIGHT.S.h; y++) { g.beginPath(); g.moveTo(0, y * UI.th + .5); g.lineTo(c.width, y * UI.th + .5); g.stroke(); }
+      if (FIGHT.S.night) { g.fillStyle = 'rgba(8,10,24,.55)'; g.fillRect(0, 0, c.width, c.height); }
+      UI.board = c; fitStops();
+    });
+}
+/* world <-> screen */
+function sx(wx) { return (wx - UI.cx) * UI.zoom + W / 2; }
+function sy(wy) { return (wy - UI.cy) * UI.zoom + TOPH + (H - TOPH - BOTH) / 2; }
+function wx(px) { return (px - W / 2) / UI.zoom + UI.cx; }
+function wy(py) { return (py - TOPH - (H - TOPH - BOTH) / 2) / UI.zoom + UI.cy; }
+function clampCam() {
+  const bw = UI.board.width, bh = UI.board.height;
+  const hw = W / 2 / UI.zoom, hh = (H - TOPH - BOTH) / 2 / UI.zoom;
+  UI.cx = bw / 2 * 2 <= hw * 2 ? bw / 2 : Math.max(hw, Math.min(bw - hw, UI.cx));
+  UI.cy = bh <= hh * 2 ? bh / 2 : Math.max(hh, Math.min(bh - hh, UI.cy));
+}
+
+/* ---------------- sound: low, dry, on the beat ---------------- */
+let AC = null;
+function tone(f, d, v, type) {
+  if (!AC) return;
+  const o = AC.createOscillator(), g = AC.createGain();
+  o.type = type || 'sine'; o.frequency.value = f; g.gain.value = v;
+  g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime + d);
+  o.connect(g); g.connect(AC.destination); o.start(); o.stop(AC.currentTime + d);
+}
+function noise(d, v, f) {
+  if (!AC) return;
+  const n = AC.createBuffer(1, Math.floor(AC.sampleRate * d), AC.sampleRate), a = n.getChannelData(0);
+  for (let i = 0; i < a.length; i++) a[i] = (Math.random() * 2 - 1) * (1 - i / a.length);
+  const s = AC.createBufferSource(), g = AC.createGain(), bq = AC.createBiquadFilter();
+  bq.type = 'lowpass'; bq.frequency.value = f || 900; s.buffer = n; g.gain.value = v;
+  s.connect(bq); bq.connect(g); g.connect(AC.destination); s.start();
+}
+const SND = {
+  step: function () { tone(70, 0.05, 0.05, 'triangle'); },
+  swing: function () { noise(0.12, 0.18, 1400); },
+  hit: function () { tone(92, 0.18, 0.22, 'square'); noise(0.08, 0.2, 500); },
+  head: function () { tone(61, 0.32, 0.26, 'square'); noise(0.14, 0.28, 400); },
+  miss: function () { noise(0.1, 0.08, 2600); },
+  shot: function () { noise(0.22, 0.45, 2200); tone(48, 0.25, 0.25, 'sawtooth'); },
+  fall: function () { tone(41, 0.6, 0.3, 'sawtooth'); },
+  flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); }
+};
+
+/* ---------------- the events become motion, paced on the beat ---------------- */
+function take() {
+  const ev = FIGHT.S.events; FIGHT.S.events = [];
+  ev.forEach(function (e) {
+    if (e.t === 'step') UI.anim.push({ k: 'step', e: e, dur: beatMs() / 4 });
+    else if (e.t === 'attack') UI.anim.push({ k: 'attack', e: e, dur: beatMs() });
+    else if (e.t === 'dead' || e.t === 'down' || e.t === 'fled' || e.t === 'morale' || e.t === 'injury' || e.t === 'reload' || e.t === 'held' || e.t === 'rally')
+      UI.anim.push({ k: 'note', e: e, dur: e.t === 'morale' || e.t === 'injury' ? 0 : beatMs() / 2 });
+    else if (e.t === 'over') UI.anim.push({ k: 'over', e: e, dur: beatMs() });
+  });
+}
+function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
+function say(s) { document.getElementById('say').textContent = s; }
+function startAnim(a) {
+  const e = a.e;
+  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step(); }
+  if (a.k === 'attack') {
+    const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
+    (FIGHT.isRanged(u.weapon) ? SND.shot : SND.swing)();
+    setTimeout(function () { (e.hit ? (e.head ? SND.head : SND.hit) : SND.miss)(); }, beatMs() * 0.45);
+    pop(t, e.hit ? (e.head ? 'HEAD ' : '') + '-' + e.hp + (e.armour ? '  [' + e.armour + ']' : '') : 'MISS', e.hit ? '#f0b3a5' : '#c8bda8');
+    say((e.free ? 'FREE SWING: ' : '') + u.name + ' ' + (e.hit ? (e.head ? 'hits ' + t.name + ' in the head' : 'hits ' + t.name) : 'misses ' + t.name) + ' (' + e.chance + '%)');
+  }
+  if (a.k === 'note') {
+    const u = FIGHT.byId(e.id);
+    if (e.t === 'dead') { SND.fall(); pop(u, u.side === 'you' ? 'DEAD' : 'DOWN', '#e05a44'); say(u.name + (u.side === 'you' ? ' is dead.' : ' is down.')); }
+    if (e.t === 'down') { SND.fall(); pop(u, 'STRUCK DOWN', '#e0a044'); say(u.main ? 'You are down. You get back up after.' : u.name + ' is struck down. Laid up ' + e.days + ' days.'); }
+    if (e.t === 'fled') { SND.flee(); say(u.name + ' runs off the board.'); }
+    if (e.t === 'morale') { pop(u, e.to.toUpperCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
+    if (e.t === 'injury') pop(u, e.name.toUpperCase(), '#e0a0d0');
+    if (e.t === 'reload') say(u.name + ' reloads.');
+    if (e.t === 'held') say(u.name + ' is held in place.');
+    if (e.t === 'rally') pop(u, 'RALLIES', '#a8d08a');
+  }
+  if (a.k === 'over') showOver(e.result);
+}
+function pop(u, text, col) { UI.pops.push({ x: u.x, y: u.y, text: text, col: col, t: performance.now() }); }
+
+/* ---------------- the director: whose turn, what happens next ---------------- */
+function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
+function tick(now) {
+  if (!UI.board) return;
+  /* motion first: nothing new happens while something is still moving */
+  if (UI.anim.length) {
+    const a = UI.anim[0];
+    if (!a.at) { a.at = now; startAnim(a); UI.beats += a.dur / beatMs(); }
+    if (now - a.at >= a.dur) { const d = UI.anim.shift(); if (d.k === 'step') { const u = FIGHT.byId(d.e.id); u._fx = undefined; } }
+    return;
+  }
+  if (FIGHT.S.over) return;
+  if (UI.glide || now < UI.openUntil) return;
+  const u = FIGHT.current();
+  if (!u) return;
+  if (crewControlled(u)) { follow(u); return; }
+  if (now < UI.nextAI) return;
+  follow(u);
+  FIGHT.aiStep(u);
+  take();
+  UI.nextAI = now + beatMs() / 2; UI.beats += 0.5;
+}
+function follow(u) {
+  if (UI.lastFollow === u.id + ':' + FIGHT.S.round) return;
+  UI.lastFollow = u.id + ':' + FIGHT.S.round;
+  const px = (u.x + .5) * UI.tw, py = (u.y + .5) * UI.th;
+  const m = 0.18;
+  const inView = sx(px) > W * m && sx(px) < W * (1 - m) && sy(py) > TOPH + 40 && sy(py) < H - BOTH - 40;
+  if (!inView && UI.zoom > UI.far * 1.05) glideTo(px, py, UI.zoom, beatMs());
+}
+function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
+function stepGlide(now) {
+  const g = UI.glide; if (!g) return;
+  let k = Math.min(1, (now - g.t0) / g.ms); const e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  UI.zoom = g.fz * Math.pow(g.tz / g.fz, e); UI.cx = g.fx + (g.tx - g.fx) * e; UI.cy = g.fy + (g.ty - g.fy) * e;
+  clampCam(); if (k >= 1) UI.glide = null;
+}
+
+/* ---------------- drawing ---------------- */
+function draw(now) {
+  stepGlide(now);
+  cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
+  if (!UI.board) return;
+  cx.imageSmoothingEnabled = UI.zoom < 1;
+  cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom);
+  const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
+  const busy = UI.anim.length > 0;
+  /* reach lit: where the active man can step, and who he can hit */
+  if (u && crewControlled(u) && !busy && !S.over) {
+    const f = FIGHT.reach(u);
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (x === u.x && y === u.y) return;
+      cx.fillStyle = 'rgba(217,168,90,.16)'; cx.fillRect(sx(x * UI.tw) + 1, sy(y * UI.th) + 1, tw - 2, th - 2);
+    });
+    S.units.forEach(function (t) {
+      if (!FIGHT.canStrike(u, t) || !FIGHT.sideSees('you', t)) return;
+      cx.fillStyle = 'rgba(196,85,63,.32)'; cx.fillRect(sx(t.x * UI.tw) + 1, sy(t.y * UI.th) + 1, tw - 2, th - 2);
+    });
+    if (UI.pend && UI.pend.path) {
+      cx.strokeStyle = 'rgba(240,210,150,.9)'; cx.lineWidth = Math.max(2, tw * .04); cx.beginPath();
+      cx.moveTo(sx((u.x + .5) * UI.tw), sy((u.y + .5) * UI.th));
+      UI.pend.path.forEach(function (p) { cx.lineTo(sx((p.x + .5) * UI.tw), sy((p.y + .5) * UI.th)); });
+      cx.stroke();
+    }
+  }
+  if (u && !S.over) {
+    cx.strokeStyle = u.side === 'you' ? '#f0d296' : '#f08a70'; cx.lineWidth = 2;
+    cx.strokeRect(sx(dx(u) * UI.tw) + 1.5, sy(dy(u) * UI.th) + 1.5, tw - 3, th - 3);
+  }
+  /* the people, back rows first */
+  const live = S.units.filter(function (v) { return FIGHT.onField(v) && (v.side === 'you' || FIGHT.sideSees('you', v)); })
+    .sort(function (a, b) { return dy(a) - dy(b); });
+  live.forEach(function (v) { drawMan(v, tw, th); });
+  /* the numbers that float off a hit */
+  UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 3; });
+  UI.pops.forEach(function (p) {
+    const k = (now - p.t) / (beatMs() * 3);
+    cx.globalAlpha = 1 - k * k; cx.fillStyle = p.col; cx.font = 'bold ' + Math.max(11, Math.min(18, tw * .16)) + 'px ui-monospace,monospace';
+    cx.textAlign = 'center'; cx.fillText(p.text, sx((p.x + .5) * UI.tw), sy((p.y + .2) * UI.th) - k * 26);
+    cx.globalAlpha = 1;
+  });
+  if (UI.pend && UI.pend.target && u) {
+    const t = UI.pend.target, hc = FIGHT.hitChance(u, t, FIGHT.strikeSkill(u.weapon));
+    const X = sx((t.x + .5) * UI.tw), Y = sy(t.y * UI.th) - 6;
+    cx.fillStyle = 'rgba(20,14,10,.92)'; cx.fillRect(X - 46, Y - 34, 92, 30);
+    cx.strokeStyle = '#c4553f'; cx.strokeRect(X - 46 + .5, Y - 34 + .5, 91, 29);
+    cx.fillStyle = '#f2e6d0'; cx.font = 'bold 14px ui-monospace,monospace'; cx.textAlign = 'center';
+    cx.fillText(hc.chance + '%  TAP', X, Y - 14);
+  }
+}
+/* where a man is drawn, mid-step included */
+function dx(v) { if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
+function dy(v) { if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
+function drawMan(v, tw, th) {
+  const G = DB.ground, X = sx((dx(v) + .5) * UI.tw), Y = sy((dy(v) + .62) * UI.th);
+  const lvl = FIGHT.level(v.x, v.y) ? th * .18 : 0;
+  /* a man at his real size against a house tile (rule 37a: tiny next to buildings), never under 7 px */
+  const hgt = Math.max(7, 1.8 * G.px_per_metre * (UI.tw / G.tile_px[0]) * UI.zoom * 1.6);
+  const base = Math.max(4, tw * .2);
+  const you = v.side === 'you';
+  cx.fillStyle = 'rgba(0,0,0,.45)'; cx.beginPath(); cx.ellipse(X, Y - lvl, base, base * .45, 0, 0, Math.PI * 2); cx.fill();
+  cx.strokeStyle = you ? '#d9a85a' : '#c4553f'; cx.lineWidth = Math.max(1.5, tw * .025);
+  cx.beginPath(); cx.ellipse(X, Y - lvl, base, base * .45, 0, 0, Math.PI * 2); cx.stroke();
+  const top = Y - lvl - hgt;
+  const flee = v.morale === 'Fleeing';
+  cx.fillStyle = flee ? '#6b6155' : (you ? '#2b2a26' : '#3b1d18');
+  cx.fillRect(X - hgt * .16, top + hgt * .28, hgt * .32, hgt * .42);       /* coat */
+  cx.fillStyle = '#1a1714'; cx.fillRect(X - hgt * .14, top + hgt * .7, hgt * .1, hgt * .3); cx.fillRect(X + hgt * .04, top + hgt * .7, hgt * .1, hgt * .3);
+  cx.fillStyle = '#b59478'; cx.fillRect(X - hgt * .1, top + hgt * .05, hgt * .2, hgt * .22); /* head */
+  cx.fillStyle = you ? '#d9a85a' : '#c4553f'; cx.fillRect(X - hgt * .16, top + hgt * .28, hgt * .32, hgt * .06); /* band */
+  cx.strokeStyle = '#8a8378'; cx.lineWidth = Math.max(1, hgt * .05);
+  cx.beginPath(); cx.moveTo(X + hgt * .16, top + hgt * .45); cx.lineTo(X + hgt * .38, top + hgt * (FIGHT.isRanged(v.weapon) ? .4 : .18)); cx.stroke();
+  if (v.shield) { cx.fillStyle = '#5a5f63'; cx.fillRect(X - hgt * .34, top + hgt * .32, hgt * .14, hgt * .34); }
+  /* his numbers, once he is big enough to read them */
+  if (tw > 46) {
+    const bw = Math.min(tw * .7, 70), bx = X - bw / 2, by = top - 9;
+    cx.fillStyle = 'rgba(0,0,0,.6)'; cx.fillRect(bx - 1, by - 1, bw + 2, 8);
+    cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * (v.armB / Math.max(1, v.armBMax || 1)), 2.5);
+    cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + 3.5, bw * Math.max(0, v.hp / v.hpMax), 2.5);
+    if (tw > 70) {
+      cx.fillStyle = '#efe3cc'; cx.font = 'bold 10px ui-monospace,monospace'; cx.textAlign = 'center';
+      cx.fillText(v.name.slice(0, 9), X, by - 3);
+    }
+  }
+}
+
+/* ---------------- the HUD ---------------- */
+function hud() {
+  const S = FIGHT.S, u = FIGHT.current();
+  document.getElementById('round').textContent = 'ROUND ' + S.round + (S.night ? '  NIGHT' : '') + '   ' + S.board.toUpperCase()
+    + '   ' + FIGHT.alive('you').length + ' v ' + FIGHT.alive('them').length;
+  const ord = document.getElementById('order'); ord.textContent = '';
+  S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 14).forEach(function (v, i) {
+    const c = document.createElement('div'); c.className = 'chip ' + v.side + (i === 0 ? ' now' : '');
+    c.textContent = v.side === 'them' && !FIGHT.sideSees('you', v) ? '?' : v.name.slice(0, 3); ord.appendChild(c);
+  });
+  const show = u || S.units[0];
+  document.getElementById('cnm').textContent = show.name + (show.main ? ' *' : '');
+  const fm = FIGHT.fatMax(show);
+  const row = function (l, w, c, v) { return '<span>' + l + '</span><div class="bar"><i style="width:' + Math.max(0, Math.min(100, w)) + '%;background:' + c + '"></i></div><span>' + v + '</span>'; };
+  document.getElementById('cbars').innerHTML =
+    row('HP', 100 * show.hp / show.hpMax, '#8fae6a', show.hp + '/' + show.hpMax) +
+    row('ARMOUR', 100 * (show.armB + show.armH) / Math.max(1, show.armBMax + show.armHMax), '#9aa6b0', show.armH + ' head ' + show.armB + ' body') +
+    row('FATIGUE', 100 * show.fat / Math.max(1, fm), '#6a8fb0', show.fat + '/' + fm) +
+    '<span style="grid-column:1/4;color:#cbb">' + show.morale.toUpperCase() + ' · ' + show.job.toUpperCase().replace('_', ' ') + (show.ammo !== null ? ' x' + show.ammo : '') + (FIGHT.reloadSkill(show.weapon) && !show.loaded ? ' · EMPTY' : '') + '</span>';
+  const ap = document.getElementById('ap'); ap.textContent = '';
+  for (let i = 0; i < show.apTurn; i++) { const p = document.createElement('i'); if (i < show.ap) p.className = 'on'; ap.appendChild(p); }
+  const mine = crewControlled(u) && !UI.anim.length && !S.over;
+  document.getElementById('bwait').disabled = !mine || u.waited;
+  document.getElementById('bend').disabled = !mine;
+  document.getElementById('breload').disabled = !mine || !FIGHT.canReload(u);
+  document.getElementById('bauto').classList.toggle('on', UI.auto);
+}
+function showOver(result) {
+  const S = FIGHT.S, o = document.getElementById('over');
+  const secs = Math.round((performance.now() - UI.t0) / 1000);
+  document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW BROKE' : 'YOUR CREW IS DOWN';
+  const fell = S.units.filter(function (v) { return v.side === 'you' && (v.dead || v.down); })
+    .map(function (v) { return v.main ? 'You are down, up again after' : v.name + (v.dead ? ' is dead' : ' laid up ' + v.laidUp + ' days'); });
+  document.getElementById('ob').innerHTML = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + '.</p>'
+    + '<p>' + S.units.filter(function (v) { return v.side === 'them' && v.dead; }).length + ' of theirs down, '
+    + S.units.filter(function (v) { return v.side === 'them' && v.fled; }).length + ' ran.</p>'
+    + (fell.length ? '<p>' + fell.join('. ') + '.</p>' : '<p>Nobody of yours fell.</p>');
+  o.style.display = 'flex';
+  try { if (window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round }, '*'); } catch (_e) {}
+}
+
+/* ---------------- input: tap, drag, pinch ---------------- */
+const touches = {}; let gest = null;
+function audio() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (_e) {} } }
+cv.addEventListener('pointerdown', function (e) {
+  audio(); cv.setPointerCapture(e.pointerId);
+  touches[e.pointerId] = { x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t: performance.now() };
+  const ids = Object.keys(touches);
+  if (ids.length === 2) {
+    const a = touches[ids[0]], b = touches[ids[1]];
+    gest = { pinch: true, d0: Math.hypot(a.x - b.x, a.y - b.y), z0: UI.zoom, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
+    gest.wx = wx(gest.mx); gest.wy = wy(gest.my);
+  } else gest = { pinch: false, moved: false, cx0: UI.cx, cy0: UI.cy };
+  UI.glide = null;
+});
+cv.addEventListener('pointermove', function (e) {
+  const t = touches[e.pointerId]; if (!t || !gest) return;
+  t.x = e.clientX; t.y = e.clientY;
+  const ids = Object.keys(touches);
+  if (gest.pinch && ids.length >= 2) {
+    const a = touches[ids[0]], b = touches[ids[1]];
+    const z = Math.max(UI.far, Math.min(UI.max, gest.z0 * Math.hypot(a.x - b.x, a.y - b.y) / Math.max(1, gest.d0)));
+    UI.zoom = z; const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    UI.cx = gest.wx - (mx - W / 2) / z; UI.cy = gest.wy - (my - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
+  } else if (!gest.pinch) {
+    if (Math.hypot(t.x - t.x0, t.y - t.y0) > 8) gest.moved = true;
+    if (gest.moved) { UI.cx = gest.cx0 - (t.x - t.x0) / UI.zoom; UI.cy = gest.cy0 - (t.y - t.y0) / UI.zoom; clampCam(); }
+  }
+});
+function up(e) {
+  const t = touches[e.pointerId]; delete touches[e.pointerId];
+  if (!gest) return;
+  if (!gest.pinch && !gest.moved && t) tapAt(t.x, t.y);
+  if (!Object.keys(touches).length) gest = null;
+}
+cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+cv.addEventListener('wheel', function (e) {
+  e.preventDefault(); const z = Math.max(UI.far, Math.min(UI.max, UI.zoom * Math.pow(1.0015, -e.deltaY)));
+  const X = wx(e.clientX), Y = wy(e.clientY); UI.zoom = z;
+  UI.cx = X - (e.clientX - W / 2) / z; UI.cy = Y - (e.clientY - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
+}, { passive: false });
+function tileAt(px, py) { return { x: Math.floor(wx(px) / UI.tw), y: Math.floor(wy(py) / UI.th) }; }
+function tapAt(px, py) {
+  const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
+  const p = tileAt(px, py), S = FIGHT.S;
+  if (p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h) return;
+  const who = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
+  if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
+    if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
+    if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
+    UI.pend = { target: who }; say('Tap ' + who.name + ' again to strike.'); return;
+  }
+  if (who) { UI.pend = null; return; }
+  const path = FIGHT.pathTo(u, p.x, p.y);
+  if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
+  if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; FIGHT.moveTo(u, p.x, p.y); take(); return; }
+  const f = FIGHT.reach(u); UI.pend = { tile: p, path: path };
+  say('Tap again to walk there: ' + f.best[f.key(p.x, p.y)] + ' AP.');
+}
+document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; FIGHT.wait(u); take(); } };
+document.getElementById('bend').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; FIGHT.endTurn(u); take(); } };
+document.getElementById('breload').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { FIGHT.reload(u); take(); } };
+document.getElementById('bauto').onclick = function () { audio(); UI.auto = !UI.auto; UI.pend = null; };
+document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };
+
+/* ---------------- boot ---------------- */
+let hudN = 0;
+function frame(now) { tick(now); draw(now); if (++hudN % 6 === 0) hud(); requestAnimationFrame(frame); }
+function start() {
+  const o = window.FIGHT_OPTS || {};
+  if (o.seed !== undefined) SEED = o.seed >>> 0;
+  if (o.speed) UI.speed = o.speed;
+  if (o.auto) UI.auto = true;
+  FIGHT.setup(o);
+  UI.anim = []; UI.pops = []; UI.beats = 0; FIGHT.S.events = [];
+  return bakeBoard().then(function () {
+    resize();
+    /* open on the whole board (62), hold two beats, then glide in on your line */
+    UI.zoom = UI.far; UI.cx = UI.board.width / 2; UI.cy = UI.board.height / 2;
+    const mine = FIGHT.alive('you');
+    const mx = mine.reduce(function (s, v) { return s + v.x; }, 0) / mine.length, my = mine.reduce(function (s, v) { return s + v.y; }, 0) / mine.length;
+    UI.hold = setTimeout(function () { glideTo((mx + .5) * UI.tw, (my - 1.5) * UI.th, UI.near, beatMs() * 2); }, beatMs() * 2);
+    UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
+    document.getElementById('load').style.display = 'none';
+    say('Tap a lit tile to walk, a red one to strike. Pinch to see the board.'); hud();
+  });
+}
+window.addEventListener('resize', resize);
+loadAll().then(function () { resize(); return start(); }).then(function () { requestAnimationFrame(frame); })
+  .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
+window.FIGHT_UI = UI;
+</script>
+</body>
+</html>

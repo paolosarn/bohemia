@@ -1,0 +1,168 @@
+#!/usr/bin/env node
+/* THE REBUILT FIGHT PLAYS (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
+   ground up; re-create Battle Brothers combat"). The row's one driver gate: it plays whole
+   fights in slices/BOHEMIA_FIGHT.html start to end on his phone's profile (390x844 at 3x,
+   through the one driver), with REAL taps: a finger walks a man, a finger strikes, a finger
+   turns AUTO on for the rest, two fingers pinch the board out to the whole and back in.
+   Then it reads the log the rules wrote and checks Battle Brothers' rules actually happened
+   in the fight, not just exist in the file: turn order by initiative, hits and misses at the
+   rolled chance, head hits, morale moving, the fight ending, YOU never dead, a hire struck
+   down either dead or laid up 30 to 40 days, and the length of the fight on the beat.
+   Shots: slices/vote/COMBAT_THE_FIGHT_REBUILT_*_10_2.jpg.
+   Run: node gates/the_rebuilt_fight_plays_gate.js */
+'use strict';
+const fs = require('fs');
+const path = require('path');
+const { open } = require('../tools/bohemia_drive_the_demo.js');
+const ROOT = path.resolve(__dirname, '..');
+const BB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8'));
+const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8'));
+let pass = 0, fail = 0;
+const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
+const shot = n => path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + '_10_2.jpg');
+/* phone-size jpegs: the published site is already over its cap, so a gate's pictures stay small */
+const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
+const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'desert', seed: 9, taps: false }];
+const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
+const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0 };
+
+async function fight(F, first) {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true,
+    arm: 'window.FIGHT_OPTS={seed:' + F.seed + ',speed:' + SPEED + ',board:"' + F.board + '"}' });
+  const p = d.page;
+  const ev = (f, a) => p.evaluate(f, a);
+  const until = async (fn, ms) => { const t = Date.now(); while (Date.now() - t < ms) { if (await p.evaluate(fn)) return true; await p.waitForTimeout(60); } return false; };
+  const loaded = await until(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board, 30000);
+  leg(loaded, F.board + ': the ground loads (COMBAT TWO\'s blocks and cover, baked once)');
+  if (!loaded) { await d.close(); return; }
+  const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
+    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
+    W: innerWidth, avail: innerHeight - document.getElementById('top').offsetHeight - document.getElementById('bot').offsetHeight,
+    gap: Math.min.apply(null, FIGHT.alive('you').map(u => Math.min.apply(null, FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))),
+    ini: FIGHT.S.order.map(id => FIGHT.byId(id).turnIni) }));
+  if (first) await p.screenshot(Object.assign({ path: shot('OPEN') }, SHOT));
+  leg(s0.you === OURS.field_size.value, F.board + ': twelve of yours on the field (rule 63b)', s0.you + ' v ' + s0.them);
+  leg(Math.abs(s0.zoom - s0.far) < 1e-6 && s0.bw <= s0.W + 1 && s0.bh <= s0.avail + 1,
+    F.board + ': *** IT OPENS WITH THE WHOLE BOARD ON THE GLASS (rule 62) ***', Math.round(s0.bw) + 'x' + Math.round(s0.bh) + ' in ' + s0.W + 'x' + s0.avail);
+  leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
+  leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
+  const glided = await until(() => FIGHT_UI.zoom >= FIGHT_UI.near * 0.95 && !FIGHT_UI.glide, 8000);
+  leg(glided, F.board + ': then it glides in on your line on the beat', await ev(() => FIGHT_UI.zoom.toFixed(3) + ' near ' + FIGHT_UI.near.toFixed(3)));
+
+  if (F.taps) {
+    /* TWO FINGERS: pinch the board out to the whole, then back in (rule 62: the pinch is the map's) */
+    const cdp = await p.context().newCDPSession(p);
+    const pinch = async (from, to) => {
+      const CX = 195, CY = 430, steps = 14;
+      for (let i = 0; i <= steps; i++) {
+        const r = from + (to - from) * i / steps;
+        await cdp.send('Input.dispatchTouchEvent', { type: i === 0 ? 'touchStart' : 'touchMove',
+          touchPoints: [{ x: CX - r, y: CY, id: 1 }, { x: CX + r, y: CY, id: 2 }] });
+        await p.waitForTimeout(25);
+      }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+      await p.waitForTimeout(250);
+    };
+    await pinch(150, 8); await pinch(150, 8);
+    const out = await ev(() => FIGHT_UI.zoom / FIGHT_UI.far);
+    leg(out < 1.02, 'two fingers pinch the board all the way out to the whole of it', 'zoom ' + out.toFixed(2) + 'x the far stop');
+    await pinch(20, 170); await pinch(20, 170);
+    const back = await ev(() => FIGHT_UI.zoom / FIGHT_UI.far);
+    leg(back > 2, 'and back in, one continuous zoom', 'zoom ' + back.toFixed(2) + 'x the far stop');
+
+    /* ONE FINGER WALKS A MAN: wait for one of yours, tap a lit tile twice */
+    await until(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide; }, 30000);
+    const plan = await ev(() => {
+      const u = FIGHT.current(), f = FIGHT.reach(u); let best = null;
+      Object.keys(f.best).forEach(k => { k = +k; const x = k % FIGHT.S.w, y = Math.floor(k / FIGHT.S.w);
+        if ((x !== u.x || y !== u.y) && (!best || y < best.y || (y === best.y && f.best[k] > best.c))) best = { x, y, c: f.best[k] }; });
+      FIGHT_UI.cx = (u.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (u.y - 1) * FIGHT_UI.th;
+      return { id: u.id, name: u.name, ap: u.ap, to: best };
+    });
+    const scr = await ev(t => ({ x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th) }), plan.to);
+    await p.touchscreen.tap(scr.x, scr.y); await p.waitForTimeout(120);
+    const lit = await ev(() => !!(FIGHT_UI.pend && FIGHT_UI.pend.path));
+    await p.touchscreen.tap(scr.x, scr.y);
+    await until(() => !FIGHT_UI.anim.length, 10000);
+    const after = await ev(id => { const u = FIGHT.byId(id); return { x: u.x, y: u.y, ap: u.ap }; }, plan.id);
+    leg(lit && after.x === plan.to.x && after.y === plan.to.y && after.ap === plan.ap - plan.to.c,
+      'a finger walks ' + plan.name + ': the first tap shows the path, the second walks it, the ground\'s AP comes off',
+      plan.ap + ' AP -> ' + after.ap + ' (' + plan.to.c + ' for the walk)');
+    await p.tap('#bend'); await p.waitForTimeout(150);
+    await p.screenshot(Object.assign({ path: shot('WALK') }, SHOT));
+
+    /* AUTO plays the crew until one of yours can strike; then a finger strikes */
+    await p.tap('#bauto');
+    let struck = null;
+    const t0 = Date.now();
+    while (!struck && Date.now() - t0 < 120000) {
+      const ready = await ev(() => { const u = FIGHT.current(); if (!u || u.side !== 'you' || u.morale === 'Fleeing' || FIGHT.S.over) return null;
+        const t = FIGHT.S.units.filter(v => FIGHT.canStrike(u, v) && FIGHT.sideSees('you', v))[0]; return t ? { u: u.id, t: t.id } : null; });
+      if (await ev(() => FIGHT.S.over)) break;
+      if (ready) {
+        await p.tap('#bauto');                      /* AUTO off: the man waits for the finger */
+        await until(() => !FIGHT_UI.anim.length, 5000);
+        const still = await ev(r => { const u = FIGHT.current(); const t = FIGHT.byId(r.t);
+          if (!u || u.id !== r.u || !FIGHT.canStrike(u, t)) return null;
+          FIGHT_UI.cx = (t.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (t.y + .5) * FIGHT_UI.th; FIGHT_UI.pend = null;
+          return { x: sx((t.x + .5) * FIGHT_UI.tw), y: sy((t.y + .5) * FIGHT_UI.th), n: FIGHT.S.log.length }; }, ready);
+        if (still) {
+          await p.touchscreen.tap(still.x, still.y); await p.waitForTimeout(120);
+          await p.screenshot(Object.assign({ path: shot('AIM') }, SHOT));
+          await p.touchscreen.tap(still.x, still.y); await p.waitForTimeout(80);
+          struck = await ev(r => FIGHT.S.log.filter(e => e.t === 'attack' && e.id === r.u && e.to === r.t && !e.free).length, ready) ? ready : null;
+          await until(() => !FIGHT_UI.anim.length, 5000);
+          await p.screenshot(Object.assign({ path: shot('FIGHT') }, SHOT));
+        }
+        await p.tap('#bauto');
+      }
+      await p.waitForTimeout(80);
+    }
+    leg(!!struck, 'a finger strikes: the first tap on a red man shows his hit chance, the second swings');
+  } else {
+    await p.tap('#bauto');
+  }
+  /* THE WHOLE FIGHT, TO ITS END */
+  const ended = await until(() => FIGHT.S.over && !FIGHT_UI.anim.length, 300000);
+  const R = await ev(() => {
+    const S = FIGHT.S, side = id => FIGHT.byId(id).side, c = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0 };
+    S.log.forEach(e => {
+      if (e.t === 'attack') { if (e.hit) c.hit++; else c.miss++; if (e.head) c.head++; if (e.free) c.free++; }
+      if (e.t === 'morale') c.morale++; if (e.t === 'injury') c.injury++; if (e.t === 'down' || e.t === 'dead') c.down++;
+    });
+    const atk = S.log.filter(e => e.t === 'attack');
+    const fair = atk.every(e => e.chance >= 5 && e.chance <= 95);
+    const you = S.units.filter(u => u.side === 'you');
+    return { result: S.result, rounds: S.round, beats: FIGHT_UI.beats, c, fair,
+      mainDead: you.some(u => u.main && u.dead),
+      hires: you.filter(u => !u.main && (u.dead || u.down)).map(u => u.dead ? 'dead' : u.laidUp),
+      youLeft: FIGHT.alive('you').length, themLeft: FIGHT.alive('them').length,
+      overShown: getComputedStyle(document.getElementById('over')).display === 'flex' };
+  });
+  Object.keys(all).forEach(k => { all[k] += R.c[k]; });
+  leg(ended && R.overShown, F.board + ': *** THE WHOLE FIGHT PLAYS TO ITS END, AND THE END IS ON THE SCREEN ***',
+    (R.result || 'not over') + ' in ' + R.rounds + ' rounds, ' + R.youLeft + ' of yours standing, ' + R.themLeft + ' of theirs');
+  const secs = R.beats * 60 / OURS.beat_bpm.value;
+  leg(secs <= 15 * 60, F.board + ': the fight is under 15 minutes on the beat (rule 40a: never past 15)',
+    Math.floor(secs / 60) + ':' + String(Math.round(secs % 60)).padStart(2, '0') + ' (' + Math.round(R.beats) + ' beats at ' + OURS.beat_bpm.value + ', not counting your thinking)');
+  leg(R.fair, F.board + ': every swing rolled inside the wiki\'s 5 to 95 cap');
+  leg(!R.mainDead, F.board + ': YOU are downed, never dead (rule 37)');
+  const lu = OURS.struck_down_laid_up_days.value;
+  leg(R.hires.every(h => h === 'dead' || (h >= lu[0] && h <= lu[1])), F.board + ': a hire struck down is dead or laid up 30 to 40 days (rule 36b)', R.hires.join(',') || 'nobody fell');
+  console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
+    + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.down + ' fell');
+  leg(d.errs.length === 0, F.board + ': no page errors', d.errs.slice(0, 2).join(' | '));
+  if (first) await p.screenshot(Object.assign({ path: shot('END') }, SHOT));
+  await d.close();
+}
+
+(async () => {
+  for (let i = 0; i < FIGHTS.length; i++) await fight(FIGHTS[i], i === 0);
+  leg(all.hit > 0 && all.miss > 0, 'swings hit and miss by the rolled chance', all.hit + ' / ' + all.miss);
+  leg(all.head > 0, 'heads get hit for half again (wiki: base 25%, x1.5)', all.head);
+  leg(all.morale > 0, 'nerve moves: the morale ladder ran in the fight', all.morale);
+  leg(all.injury > 0, 'injuries land apart from hitpoints', all.injury);
+  leg(all.free > 0, 'leaving a man\'s reach draws his free swing (zone of control)', all.free);
+  console.log('=== THE REBUILT FIGHT PLAYS GATE: ' + pass + ' passed, ' + fail + ' failed ===');
+  process.exit(fail ? 1 : 0);
+})().catch(e => { console.log('  FAIL the gate crashed: ' + e.message); console.log('=== THE REBUILT FIGHT PLAYS GATE: ' + pass + ' passed, ' + (fail + 1) + ' failed ==='); process.exit(1); });
