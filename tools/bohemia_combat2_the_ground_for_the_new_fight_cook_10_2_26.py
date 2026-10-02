@@ -291,6 +291,7 @@ def main():
     out.save(OUT_CARD, optimize=True)
     tot = sum(os.path.getsize(os.path.join(OUT_DIR, f)) for f in os.listdir(OUT_DIR))
     print('ok: %d boards, %d blocks, %.1f MB in %s' % (len(BOARDS), len(blocks), tot / 1e6, OUT_DIR))
+    importlib.import_module('bohemia_combat2_fight_ground_pack_10_2_26').pack()   # round thirteen: ship lossless WebP, never PNG
 
 
 if __name__ == '__main__':

@@ -173,3 +173,11 @@ columns a board (the stem's column always kept, no two side by side beside a ste
 suburbs. boards[].lights: lamps every 12 m on both walks of every street block (36% live, seeded per board),
 drums in some lots/scrub (live); sprites light_lamp_house_side/your_side/oil_drum.png (his 7/28 sprites);
 lights_key in the manifest. 27 blocks, 23.8 MB.
+
+## ROUND THIRTEEN (10/2): THE GROUND PACKED
+
+tools/bohemia_combat2_fight_ground_pack_10_2_26.py: every PNG in slices/fight_ground saved as lossless WebP
+(method 6), decoded back and compared on every visible pixel (refuses on any difference), PNG removed, the
+manifest's src fields rewritten to .webp, every named file checked present. 23.6 MB -> 4.8 MB (71 files).
+Verified in slices/BOHEMIA_FIGHT.html (culdesac, shore; 390x844 DPR 3; 0 page errors). The round-nine
+builder imports and calls pack() last.

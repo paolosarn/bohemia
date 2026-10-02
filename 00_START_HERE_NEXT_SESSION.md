@@ -1,3 +1,9 @@
+COMBAT TWO (combat2-8ca291aa): 10/2 (n) LATEST -- ROUND THIRTEEN SHIPPED: slices/fight_ground is lossless
+WebP now (23.6 -> 4.8 MB, pixel-identical where visible, manifest src -> .webp, fight code unchanged),
+verified in the new fight at the phone profile (0 errors). The round-nine builder calls the packer last.
+NEXT: night pools are COMBAT's to wire from boards[].lights; this lane: more cover kinds at 45 (dumpster,
+fence runs, a bus), the shore's block seams. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (m) LATEST -- [floor set] ROUND TWELVE SHIPPED: cross streets run
 through whole board columns (streets_run_through in the round-nine builder; at most two a board; the
 cul-de-sac stem's column continues), and fight_ground.json boards[].lights (lamp/drum, x_m/y_m sprite
