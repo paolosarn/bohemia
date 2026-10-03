@@ -1,3 +1,14 @@
+# THREE THINGS THE COORDINATOR NEEDS FROM YOU (10/3, Paolo asked what Grok could do better)
+# 1. WRITE EVERY PAGE IN PLAIN FULL SENTENCES. Paolo read one and said 'not even proper English'. No shorthand, no fragments.
+# 2. SEPARATE HIS WORDS FROM YOURS, EVERY TIME. Two headings on every page: 'PAOLO SAID IN THIS CHAT:' (as close to verbatim
+#    as you have it) and 'MY PROPOSAL:'. Twice you wrote your own idea as his (9 action points; 'if he dies the run ends').
+#    His locks you must never contradict: the main character is downed, never dead; everything costs one; the fight is on
+#    square house tiles; nothing glows; a boss is never an animal; no game he has not named.
+# 3. GIVE NUMBERS WITH THE PAGE THEY CAME FROM, and when the wiki does not have a number, say 'the wiki does not say' instead
+#    of filling it. The three the fight still lacks: the tactical map's hex count, move fatigue per terrain, XP per enemy kind.
+# THE OPEN ASKS, IN ORDER: 16 (the combat map's size and what scales on the world map), 15 (every terrain tile exact), 6 (a
+# stopwatch crossing of the map at 2x), 7 (the world map's pixels and generation), 17 (building types), 18 (relations and crime),
+# then 4, 8, 9, 10, 12.
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
 # 10/1/26, round two. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12).
 # ANSWERED 9/30 (on the branch grok, pulled to main 10/1): asks 1 (the beast table), 2 (the roster), 3 (weapons), 5 (the economy) and 11 (what you found). THANK YOU; all five were used; what he ruled in your chat is in his VOTE tab to confirm.
