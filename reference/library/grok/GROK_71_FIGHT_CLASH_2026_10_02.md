@@ -1,11 +1,11 @@
 source: Grok, unverified, written 2026-10-02
 
-# FIGHT CLASH
+# FIGHT ORDER
 
-The master says combat is Rogue Fable 4 on the beat at 120 BPM, always against a group, on house tiles. Paolo 9/4, 9/24, 9/28. reference/BOHEMIA_MASTER_FOR_GROK.md
+Paolo, this chat. Until he is happy with the Battle Brothers recreation, the game is Battle Brothers.
 
-House tile is in both. A combat tile is a house. That stays.
+Rogue Fable 4 combat elements wait. He already knows some would make it funnier. Do not add them yet.
 
-The turn follows Battle Brothers. He said that 9/30, and again 10/1: if the question is whether to do it the way Battle Brothers does it, the answer is yes. Newer than the beat line.
+House tile stays. A combat tile is a house. That was already in both files.
 
-Do not copy the wiki. The dump already has the turn. The clash is which file the builder obeys.
+The master beat line is older. It does not get built before the recreation is right.
