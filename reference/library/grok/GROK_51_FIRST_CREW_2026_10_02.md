@@ -2,13 +2,15 @@ source: Grok, unverified, written 2026-10-02
 
 # FIRST CREW
 
-Six people. Health 55. They walk at him. Thug numbers. https://battlebrothers.fandom.com/wiki/Brigands
+This file is the first fight only. Not the map. Not factions. Not caravans. Not traitors.
 
-Pick one crew. The rest are not in the first fight.
+Six people in the demo street fight. Health 55. They walk at him. Thug numbers. https://battlebrothers.fandom.com/wiki/Brigands
 
-Parking-lot kids. Pipes. Too close to the stall.
-Tow-yard crew. Hooks. They want the car.
-Casino dishwashers. Still in the shirts. Pipes from the pit.
-Freeway shoulder gang. They live on the ramp.
-Hotel security. Badges still on. No radios.
-Scrap-yard brothers. Hammers. Nails in a can.
+He has not picked a crew. Do not treat the names below as locked.
+
+Parking-lot kids.
+Tow-yard crew.
+Casino dishwashers.
+Freeway shoulder gang.
+Hotel security.
+Scrap-yard brothers.
