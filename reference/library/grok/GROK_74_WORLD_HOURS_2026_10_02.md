@@ -2,8 +2,8 @@ source: Grok, unverified, written 2026-10-02
 
 # WORLD HOURS
 
-Paolo, this chat. The short fight is permanent. Do not file it as a later cut.
+Paolo, this chat. No hard minute count. Do not ask him for one.
 
-Recreate Battle Brothers. Do not recreate a 30 to 40 minute fight. The hours go to the world. Paolo 9/29, confirmed 2026-10-02.
+A stomp can kill a party fast. A mess can still run long. There is no average.
 
-Claude builds. Grok does not. Rogue Fable still waits.
+What he does not want is the 30 to 40 minute chess-puzzle feeling. That is the permanent rule. The hours go to the world.
