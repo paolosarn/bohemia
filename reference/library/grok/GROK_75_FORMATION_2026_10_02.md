@@ -1,9 +1,7 @@
 source: Grok, unverified, written 2026-10-02
 
-# FORMATION
+# FORMATION. PARKED.
 
-Paolo, this chat. Battle Brothers does not have an auto formation gambit. Bohemia will.
+Paolo, this chat. The front line and the back line are already set by how you layered the company before the fight. That is the Battle Brothers start.
 
-It has to feel organic. Not a button that snaps the line into a diagram.
-
-Combat only until he leaves it. Do not invent the gambit.
+A gambit comes later. It needs research. Do not invent it. Combat is parked.
