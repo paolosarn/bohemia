@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Fight</title>
+<script src="bohemia_ui_materials.js"></script>
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -35,73 +36,91 @@
      The driver: gates/the_rebuilt_fight_plays_gate.js plays a whole fight on his phone.
      ============================================================================ -->
 <style>
-:root{--bg:#0d0b09;--plate:#1d1712;--plate2:#15110d;--ink:#e6d9c2;--dim:#9c8c74;--gold:#d9a85a;--red:#c4553f;--line:#352b21;--green:#8fae6a}
+:root{--bg:#0d0b09;--plate:#1d1712;--plate2:#15110d;--ink:#e6d9c2;--dim:#9c8c74;--gold:#d9a85a;--red:#c4553f;--line:#352b21;--green:#8fae6a;--paper-ink:#2a221a}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   font:13px/1.3 ui-monospace,Menlo,Consolas,monospace;overflow:hidden;user-select:none;
   -webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none}
 #cv{position:fixed;left:0;top:0;width:100vw;height:100vh;touch-action:none;display:block}
-#top{position:fixed;left:0;right:0;top:0;padding:max(6px,env(safe-area-inset-top)) 8px 6px;
-  background:linear-gradient(var(--plate2),rgba(21,17,13,.82));border-bottom:1px solid var(--line);z-index:4}
-#round{font-weight:700;color:var(--gold);letter-spacing:.08em;font-size:12px}
-#order{display:flex;gap:3px;margin-top:5px;overflow:hidden;height:22px}
-#order .chip{flex:0 0 auto;min-width:22px;height:22px;padding:0 4px;border-radius:3px;font-size:10px;
-  line-height:22px;text-align:center;font-weight:700;border:1px solid var(--line)}
-#order .you{background:#3a2e1c;color:var(--gold)} #order .them{background:#3a1d17;color:#f0b3a5}
-#order .now{outline:2px solid var(--ink);outline-offset:-2px}
-#bot{position:fixed;left:0;right:0;bottom:0;padding:6px 8px max(8px,env(safe-area-inset-bottom));
-  background:linear-gradient(rgba(21,17,13,.86),var(--plate2));border-top:1px solid var(--line);z-index:4}
-#card{display:flex;gap:8px;align-items:center;min-height:30px}
-#picons{display:flex;gap:3px;flex:1;flex-wrap:wrap}
-#picons canvas{border-radius:3px}
-#drawer{position:fixed;left:8px;right:8px;display:none;z-index:5;background:rgba(21,17,13,.96);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:11px}
-#drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #241d16}
-#drawer .p{display:flex;gap:6px;align-items:center;margin-top:4px;color:var(--gold)}
-#over table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
-#over td,#over th{padding:4px 3px;text-align:right;border-bottom:1px solid #2a221a}
-#over th{color:var(--dim);font-weight:400}
-#over td:first-child,#over th:first-child{text-align:left}
-#over .lv{color:var(--gold);font-weight:700}
-#card .nm{font-weight:700;font-size:13px;min-width:74px}
-#card .bars{flex:1;display:grid;grid-template-columns:auto 1fr auto;gap:2px 6px;align-items:center;font-size:10px;color:var(--dim)}
-.bar{height:6px;background:#2a221a;border-radius:2px;overflow:hidden}
-.bar i{display:block;height:100%}
-#ap{display:flex;gap:2px;margin-top:4px}
-#ap i{width:10px;height:6px;border-radius:1px;background:#2a221a}
+/* THE BAR, Battle Brothers' layout in our materials (rule 67a): the turn strip of faces on tape at the top;
+   one cardboard bar at the bottom, taped on: his face and bars at the left, END TURN at the right, the
+   skill row of 44-point squares of cracked glass under the thumbs, WAIT at its end. */
+#top{position:fixed;left:0;right:0;top:0;padding:max(6px,env(safe-area-inset-top)) 6px 6px;z-index:4;display:flex;align-items:center;gap:6px;
+  background:linear-gradient(rgba(13,11,9,.92),rgba(13,11,9,.55))}
+#round{flex:0 0 auto;padding:3px 6px;font-weight:700;font-size:11px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;
+  transform:rotate(-2deg);box-shadow:0 2px 3px rgba(0,0,0,.5)}
+#order{flex:1;display:flex;gap:4px;align-items:center;overflow:hidden;height:46px;padding:0 4px;background:var(--mat-tape) center/100% 100%}
+#order canvas{flex:0 0 auto;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.6)}
+#order canvas.now{outline:2px solid #f0d296}
+#bauto{flex:0 0 auto;width:48px;height:44px;font:inherit;font-size:10px;font-weight:700;color:var(--paper-ink);border:0;
+  background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.5);transform:rotate(1.5deg)}
+#bauto.on{outline:2px solid var(--gold);color:#6b3a14}
+#bot{position:fixed;left:0;right:0;bottom:0;padding:10px 8px max(8px,env(safe-area-inset-bottom));z-index:4;
+  background:var(--mat-cardboard,#3a2c1e);background-size:256px 256px;box-shadow:0 -4px 10px rgba(0,0,0,.6),inset 0 2px 0 rgba(255,225,180,.10)}
+#bot::before,#bot::after{content:'';position:absolute;top:-8px;width:72px;height:18px;background:var(--mat-tape) center/100% 100%}
+#bot::before{left:18px;transform:rotate(-4deg)} #bot::after{right:22px;transform:rotate(3deg)}
+#row1{display:flex;gap:8px;align-items:stretch;height:58px}
+#card{flex:0 0 auto;width:56px;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+#face{width:48px;height:48px;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,.6);background:#0d0b09}
+#cnm{font-size:9px;font-weight:700;color:#efe3cc;margin-top:1px;white-space:nowrap;max-width:60px;overflow:hidden;text-shadow:0 1px 0 #000}
+#stats{flex:1;display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0}
+.bar{height:5px;background:rgba(0,0,0,.55);border-radius:1px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(0,0,0,.6)}
+.bar i{display:block;height:100%;box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+#apicons{display:flex;gap:6px;align-items:center;margin-top:1px}
+#ap{display:flex;gap:2px}
+#ap i{width:7px;height:5px;border-radius:1px;background:rgba(0,0,0,.5)}
 #ap i.on{background:var(--gold)}
-#say{font-size:11px;color:var(--dim);min-height:15px;margin:4px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#btns{display:flex;gap:6px}
-#skills{display:flex;gap:6px;margin-bottom:6px}
-#skills:empty{display:none}
-#skills button{flex:1;min-height:38px;background:linear-gradient(#2c2a1c,#1a1810);color:#e8d39a;border:1px solid #5a4a26;
-  border-radius:6px;font:inherit;font-size:11px;font-weight:700;letter-spacing:.03em}
-#skills button:disabled{opacity:.35}
-#skills button.on{border-color:#f0d296;background:#3d3420}
-#btns button{flex:1;min-width:0;padding:0 2px;font-size:12px;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
-  border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:.05em}
-#btns button:disabled{opacity:.35}
-#btns button.on{border-color:var(--gold);color:var(--gold)}
+#picons{display:flex;gap:2px;overflow:hidden}
+#bend{flex:0 0 auto;width:76px;font:inherit;font-weight:700;font-size:12px;color:var(--paper-ink);border:0;
+  background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 3px 4px rgba(0,0,0,.55);transform:rotate(-1.5deg)}
+#row2{display:flex;gap:6px;margin-top:8px;height:48px;align-items:center}
+#skills{flex:1;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;height:48px;align-items:center}
+#skills::-webkit-scrollbar{display:none}
+.sq{flex:0 0 auto;width:46px;height:46px;position:relative;border:1px solid rgba(0,0,0,.6);border-radius:4px;padding:0;
+  background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.08);color:#efe3cc;font:inherit}
+.sq canvas{position:absolute;left:7px;top:5px}
+.sq b{position:absolute;right:3px;bottom:2px;font-size:10px;color:#f0d296;text-shadow:0 1px 0 #000}
+.sq:disabled{opacity:.32}
+.sq.on{outline:2px solid #8fb8e0}
+.sq.hot{outline:2px solid #e0604a}
+#bwait{flex:0 0 auto;width:56px;height:46px;font:inherit;font-weight:700;font-size:11px;color:var(--paper-ink);border:0;
+  background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.55);transform:rotate(1deg)}
+#bend:disabled,#bwait:disabled{opacity:.45}
+#say{position:fixed;left:50%;transform:translateX(-50%) rotate(-.6deg);z-index:4;display:none;max-width:92vw;padding:4px 10px;
+  font-size:11px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#drawer{position:fixed;left:10px;right:10px;display:none;z-index:5;color:var(--paper-ink);
+  background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
+#drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(42,34,26,.3)}
+#drawer .p{display:flex;gap:6px;align-items:center;margin-top:4px;font-weight:700}
 #over{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(8,6,4,.78);z-index:6}
-#over .box{width:min(92vw,420px);background:var(--plate);border:1px solid var(--line);border-radius:8px;padding:16px}
-#over h2{margin:0 0 8px;color:var(--gold);font-size:16px;letter-spacing:.06em}
-#over p{margin:4px 0;font-size:12px;color:var(--ink)}
-#over button{margin-top:12px;width:100%;min-height:46px;background:#33281e;color:var(--ink);border:1px solid var(--gold);border-radius:6px;font:inherit;font-weight:700}
+#over .box{width:min(92vw,420px);color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;
+  box-shadow:0 8px 24px rgba(0,0,0,.7);padding:16px 14px 14px;transform:rotate(-.5deg)}
+#over h2{margin:0 0 8px;font-size:15px;letter-spacing:.06em;text-align:center;border-bottom:2px dashed rgba(42,34,26,.4);padding-bottom:6px}
+#over p{margin:4px 0;font-size:11px}
+#over table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
+#over td,#over th{padding:4px 2px;text-align:right;border-bottom:1px dashed rgba(42,34,26,.25)}
+#over th{font-weight:400;opacity:.7}
+#over td:first-child,#over th:first-child{text-align:left;font-weight:700}
+#over .lv{color:#7a3d10;font-weight:700}
+#over button{margin-top:12px;width:100%;min-height:46px;color:#efe3cc;border:0;font:inherit;font-weight:700;
+  background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.5)}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
 <body>
 <canvas id="cv"></canvas>
-<div id="top"><div id="round">THE FIGHT</div><div id="order"></div></div>
+<div id="top"><div id="round">R1</div><div id="order"></div><button id="bauto">AUTO</button></div>
+<div id="say"></div>
 <div id="bot">
-  <div id="card"><div class="nm" id="cnm">-</div><div id="picons"></div><div id="ap"></div></div>
-  <div id="say"></div>
-  <div id="skills"></div>
-  <div id="btns">
-    <button id="bstrike" disabled>STRIKE</button>
-    <button id="breload">RELOAD</button>
+  <div id="row1">
+    <div id="card"><canvas id="face" width="144" height="144"></canvas><div id="cnm">-</div></div>
+    <div id="stats"><div class="bar"><i id="bhp"></i></div><div class="bar"><i id="barm"></i></div><div class="bar"><i id="bfat"></i></div>
+      <div id="apicons"><div id="ap"></div><div id="picons"></div></div></div>
+    <button id="bend">END TURN</button>
+  </div>
+  <div id="row2">
+    <div id="skills"><button class="sq" id="bstrike" disabled></button><button class="sq" id="breload" disabled></button></div>
     <button id="bwait">WAIT</button>
-    <button id="bend">END</button>
-    <button id="bauto">AUTO</button>
   </div>
 </div>
 <div id="drawer"></div>
@@ -1119,7 +1138,7 @@ const cv = document.getElementById('cv'), cx = cv.getContext('2d');
 const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
   anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0 };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
-const MAN_OF_TILE = 0.86, MAN_IDLE = 104;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
+const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
 function resize() {
@@ -1223,7 +1242,7 @@ function take() {
   });
 }
 function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
-function say(s) { document.getElementById('say').textContent = s; }
+function say(s) { const e = document.getElementById('say'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
 function startAnim(a) {
   const e = a.e;
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step(); }
@@ -1430,14 +1449,42 @@ function drawMan(v, tw, th) {
   if (v.shield) { part([[-.3, -.74], [-.12, -.74], [-.12, -.36], [-.3, -.36]], '#4c4f50'); cx.fillStyle = 'rgba(160,190,210,.35)'; cx.fillRect(-.28 * h, -.71 * h, .14 * h, .1 * h); }
   cx.restore();
   /* bars above him: armour, then health (and the tired, for the man whose turn it is) */
-  if (h > 26) {
-    const bw = Math.min(h * .55, 64), bx = X - bw / 2, by = Y - h - 10;
-    cx.fillStyle = 'rgba(0,0,0,.62)'; cx.fillRect(bx - 1, by - 1, bw + 2, FIGHT.current() === v ? 11 : 8);
-    cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), 2.5);
-    cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + 3.5, bw * Math.max(0, v.hp / v.hpMax), 2.5);
-    if (FIGHT.current() === v) { cx.fillStyle = '#6a8fb0'; cx.fillRect(bx, by + 7, bw * Math.max(0, 1 - v.fat / Math.max(1, FIGHT.fatMax(v))), 2); }
+  /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
+  if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
+    const bw = Math.max(18, h * .42), bx = X - bw / 2, by = Y - h - 9;
+    cx.fillStyle = 'rgba(0,0,0,.65)'; cx.fillRect(bx - 1, by - 1, bw + 2, BAR_PT * 2 + 3);
+    cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
+    cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
   }
 }
+/* A FACE for the bar and the turn strip: head and shoulders of the same man the board draws */
+function drawPortrait(g, v, S) {
+  const you = v.side === 'you', unseen = v.side === 'them' && !FIGHT.sideSees('you', v);
+  g.clearRect(0, 0, S, S);
+  const bg = g.createLinearGradient(0, 0, 0, S); bg.addColorStop(0, you ? '#2b2620' : '#2c1714'); bg.addColorStop(1, '#0d0b09');
+  g.fillStyle = bg; g.fillRect(0, 0, S, S);
+  if (unseen) { g.fillStyle = '#3a332b'; g.beginPath(); g.ellipse(S * .5, S * .42, S * .17, S * .2, 0, 0, Math.PI * 2); g.fill();
+    g.fillRect(S * .2, S * .7, S * .6, S * .3); return; }
+  const coat = v.morale === 'Fleeing' ? '#5d564d' : you ? '#24231f' : '#3d1a15', trim = you ? '#d9a85a' : '#c4553f';
+  g.fillStyle = coat; g.beginPath(); g.moveTo(S * .1, S); g.lineTo(S * .18, S * .7); g.lineTo(S * .82, S * .7); g.lineTo(S * .9, S); g.closePath(); g.fill();
+  g.fillStyle = trim; g.fillRect(S * .18, S * .69, S * .64, S * .045);
+  g.fillStyle = skinOf(v); g.fillRect(S * .44, S * .6, S * .12, S * .1);
+  g.beginPath(); g.ellipse(S * .5, S * .44, S * .17, S * .2, 0, 0, Math.PI * 2); g.fill();
+  g.strokeStyle = 'rgba(0,0,0,.5)'; g.lineWidth = Math.max(1, S * .02); g.stroke();
+  g.fillStyle = '#16110e'; g.beginPath(); g.ellipse(S * .5, S * .33, S * .18, S * .11, 0, Math.PI, 0); g.fill();
+  g.fillStyle = '#1b1410'; g.fillRect(S * .4, S * .44, S * .06, S * .025); g.fillRect(S * .54, S * .44, S * .06, S * .025);
+  if (!FIGHT.onField(v)) { g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, S, S); }
+  g.fillStyle = 'rgba(0,0,0,.16)'; for (let y = 1; y < S; y += Math.max(2, Math.round(S / 24))) g.fillRect(0, y, S, 1);
+}
+function faceCanvas(v, css, now) {
+  const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3);
+  c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
+  drawPortrait(c.getContext('2d'), v, c.width); if (now) c.className = 'now'; return c;
+}
+/* the weapon of his job on the STRIKE square, drawn with the mastery's glyph */
+const JOB_ICON = { pipe: 'mace_mastery', mace: 'mace_mastery', sledge: 'hammer_mastery', hammer: 'hammer_mastery', pistol: 'dagger_mastery', dagger: 'dagger_mastery',
+  rifle: 'crossbow_mastery', crossbow: 'crossbow_mastery', shotgun: 'crossbow_mastery', firearm: 'crossbow_mastery', bottles: 'throwing_mastery', throwing: 'throwing_mastery',
+  axe: 'axe_mastery', sword: 'sword_mastery', cleaver: 'cleaver_mastery', spear: 'spear_mastery', polearm: 'polearm_mastery', flail: 'flail_mastery', bow: 'bow_mastery' };
 /* ---------------- THE PERK ICONS (rule 67: 'a drawn icon for every perk and trait, art, not text') ----------------
    Fifty pictograms drawn with the pen on a dark plate: gold for what he carries, red for what he
    draws out of a man, blue for the skills he presses. One glyph per perk, no letters. */
@@ -1537,43 +1584,56 @@ function iconCanvas(id, css) {
 /* ---------------- the HUD ---------------- */
 function hud() {
   const S = FIGHT.S, u = FIGHT.current();
-  document.getElementById('round').textContent = 'ROUND ' + S.round + (S.night ? ' · NIGHT' : '');
-  const ord = document.getElementById('order'); ord.textContent = '';
-  S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 14).forEach(function (v, i) {
-    const c = document.createElement('div'); c.className = 'chip ' + v.side + (i === 0 ? ' now' : '');
-    c.textContent = v.side === 'them' && !FIGHT.sideSees('you', v) ? '?' : v.name.slice(0, 3); ord.appendChild(c);
-  });
-  const show = u || S.units[0];
+  document.getElementById('round').textContent = 'R' + S.round + (S.night ? ' NIGHT' : '');
+  /* the turn strip: faces in initiative order on the tape, the one acting larger (rule 67a) */
+  const ord = document.getElementById('order'), line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9);
+  const okey = line.map(function (v) { return v.id + v.morale[0] + (v.side === 'them' && !FIGHT.sideSees('you', v) ? '?' : ''); }).join(',');
+  if (ord.dataset.key !== okey) { ord.dataset.key = okey; ord.textContent = ''; line.forEach(function (v, i) { ord.appendChild(faceCanvas(v, i ? 36 : 42, !i)); }); }
+  const show = (UI.pend && UI.pend.target) || u || S.units[0];
+  const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
+  if (UI.faceKey !== fkey) { UI.faceKey = fkey; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }
   document.getElementById('cnm').textContent = show.name + (show.main ? ' *' : '');
-  /* his perks as drawn icons; the names and numbers are in the drawer behind a tap (rule 67) */
+  const fm = FIGHT.fatMax(show), pct = function (a, b) { return Math.max(0, Math.min(100, 100 * a / Math.max(1, b))) + '%'; };
+  const hpBar = document.getElementById('bhp'); hpBar.style.width = pct(show.hp, show.hpMax); hpBar.style.background = show.side === 'you' ? '#8fae6a' : '#c4553f';
+  const ab = document.getElementById('barm'); ab.style.width = pct(show.armB + show.armH, show.armBMax + show.armHMax); ab.style.background = '#9aa6b0';
+  const fb = document.getElementById('bfat'); fb.style.width = pct(show.fat, fm); fb.style.background = '#6a8fb0';
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
-  if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 22)); }); }
+  if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
-  for (let i = 0; i < show.apTurn; i++) { const p = document.createElement('i'); if (i < show.ap) p.className = 'on'; ap.appendChild(p); }
+  for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
   if (UI.drawer) drawer(show);
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
+  /* the skill row: STRIKE with his weapon, RELOAD, then the skills his perks unlock, each a 46-point square */
+  const tgt = mine && UI.pend && UI.pend.target && FIGHT.canStrike(u, UI.pend.target) ? UI.pend.target : null;
   const sk = document.getElementById('skills');
   const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
-  const key = want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',') + (u ? u.id : '');
+  const chance = tgt ? FIGHT.hitChance(u, tgt, FIGHT.strikeSkill(u.weapon)).chance : null;
+  const key = (u ? u.id + u.job : '') + '|' + chance + '|' + (mine && FIGHT.canReload(u)) + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',');
   if (sk.dataset.key !== key) {
-    sk.dataset.key = key; sk.textContent = '';
+    sk.dataset.key = key;
+    const bs = document.getElementById('bstrike'), br = document.getElementById('breload');
+    sk.textContent = ''; sk.appendChild(bs); sk.appendChild(br);
+    bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE';
+    if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
+    const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : ''; bs.appendChild(bt);
+    br.textContent = ''; br.disabled = !(mine && FIGHT.canReload(u)); br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
+    const rc = document.createElement('canvas'), dd = Math.min(window.devicePixelRatio || 1, 3); rc.width = rc.height = Math.round(30 * dd); rc.style.width = rc.style.height = '30px';
+    const rg = rc.getContext('2d'); rg.fillStyle = '#e0b062'; [0, 1, 2].forEach(function (i) { rg.fillRect((6 + i * 7) * dd, 8 * dd, 4 * dd, 14 * dd); rg.fillStyle = i ? '#e0b062' : '#c4553f'; });
+    br.appendChild(rc);
     want.forEach(function (id) {
       const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
-      b.appendChild(iconCanvas(id, 20)); const t = document.createElement('span'); t.textContent = ' ' + n.skill_ap_cost; b.appendChild(t);
-      b.dataset.skill = id; b.title = perkName(id);
-      b.disabled = !FIGHT.canUse(u, id); if (UI.skillMode === id) b.className = 'on';
+      b.className = 'sq' + (UI.skillMode === id ? ' on' : ''); b.appendChild(iconCanvas(id, 30));
+      const t = document.createElement('b'); t.textContent = n.skill_ap_cost; b.appendChild(t);
+      b.dataset.skill = id; b.title = perkName(id); b.disabled = !FIGHT.canUse(u, id);
       b.onclick = function () { skillTap(id); };
       sk.appendChild(b);
     });
   }
-  const bh = document.getElementById('bot').offsetHeight;
-  if (bh !== BOTH) { BOTH = bh; if (UI.board) fitStops(); }
-  const tgt = mine && UI.pend && UI.pend.target && FIGHT.canStrike(u, UI.pend.target) ? UI.pend.target : null;
-  const bs = document.getElementById('bstrike');
-  bs.disabled = !tgt; bs.textContent = tgt ? 'STRIKE ' + FIGHT.hitChance(u, tgt, FIGHT.strikeSkill(u.weapon)).chance + '%' : 'STRIKE';
+  const bh = document.getElementById('bot').offsetHeight, th = document.getElementById('top').offsetHeight;
+  if (bh !== BOTH || th !== TOPH) { BOTH = bh; TOPH = th; if (UI.board) fitStops(); }
+  const say = document.getElementById('say'); say.style.bottom = (BOTH + 8) + 'px'; say.style.display = say.textContent ? 'block' : 'none';
   document.getElementById('bwait').disabled = !mine || u.waited;
   document.getElementById('bend').disabled = !mine;
-  document.getElementById('breload').disabled = !mine || !FIGHT.canReload(u);
   document.getElementById('bauto').classList.toggle('on', UI.auto);
 }
 /* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
@@ -1588,7 +1648,7 @@ function drawer(v) {
     + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
   v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
-  d.style.bottom = (BOTH + 6) + 'px'; d.style.display = 'block';
+  d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
 }
 document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; if (!UI.drawer) document.getElementById('drawer').style.display = 'none'; else hud(); };
 document.getElementById('drawer').onclick = function () { UI.drawer = false; this.style.display = 'none'; };
@@ -1729,6 +1789,7 @@ function start() {
   });
 }
 window.addEventListener('resize', resize);
+try { BohemiaMaterials.apply(); } catch (_e) {}
 loadAll().then(function () { resize(); return start(); }).then(function () { requestAnimationFrame(frame); })
   .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
 window.FIGHT_UI = UI;

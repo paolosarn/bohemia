@@ -24,7 +24,7 @@ const shot = n => path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + 
 const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
-const WORDS = 'window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});})();';
+const WORDS = 'window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3)window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
 
@@ -56,6 +56,28 @@ async function fight(F, first) {
   const glided = await until(() => FIGHT_UI.zoom >= FIGHT_UI.near * 0.95 && !FIGHT_UI.glide, 8000);
   leg(glided, F.board + ': then it glides in on your line on the beat', await ev(() => FIGHT_UI.zoom.toFixed(3) + ' near ' + FIGHT_UI.near.toFixed(3)));
 
+  /* THE BAR AT PHONE SIZES (rule 67a): every tapped thing at least 44 points; the bar about 120; the
+     turn strip's faces 36 to 44; bars over a man only while he acts or is picked, three points tall */
+  if (first) {
+    const ui = await ev(() => {
+      const box = el => { const r = el.getBoundingClientRect(); return { w: Math.round(r.width), h: Math.round(r.height), id: el.id || el.className }; };
+      const taps = ['bend', 'bwait', 'bauto', 'card'].map(id => box(document.getElementById(id)))
+        .concat(Array.from(document.querySelectorAll('#skills .sq')).filter(b => b.style.display !== 'none').map(box));
+      const faces = Array.from(document.querySelectorAll('#order canvas')).map(c => Math.round(c.getBoundingClientRect().width));
+      const css = el => getComputedStyle(el).backgroundImage;
+      window.__bars = 0; return { taps, faces, bar: document.getElementById('bot').getBoundingClientRect().height,
+        mats: [css(document.getElementById('bot')), css(document.getElementById('bend')), css(document.querySelector('#skills .sq'))].every(b => /url\("?data:image/.test(b)),
+        font: getComputedStyle(document.body).fontFamily };
+    });
+    const small = ui.taps.filter(t => t.w < 44 || t.h < 44);
+    leg(small.length === 0, '*** EVERY THING HE TAPS IN THE FIGHT IS AT LEAST 44 POINTS (rule 67a, Apple\'s floor) ***', ui.taps.map(t => t.id + ' ' + t.w + 'x' + t.h).join(', '));
+    leg(ui.bar >= 100 && ui.bar <= 150, 'the bar is about 120 points, under a quarter of the glass', Math.round(ui.bar) + ' pt');
+    leg(ui.faces.length > 0 && ui.faces.every(f => f >= 36 && f <= 44), 'the turn strip is faces in initiative order, 36 to 44 points', ui.faces.join(' '));
+    leg(ui.mats, 'the bar is made of our materials (cardboard, receipt paper, cracked glass), drawn, not flat boxes');
+    await p.waitForTimeout(400);
+    const bars = await ev(() => window.__bars);
+    leg(bars > 0 && bars <= 4 * 25, 'bars over a man only while he acts or is picked, three points tall', bars + ' three-point bars drawn in ~25 frames');
+  }
   const man = await ev(() => Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE));
   leg(man >= 96 && man <= 120, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands near his 112 box ***', man + ' css px tall (was 17 before round three)');
   if (F.taps) {
