@@ -124,6 +124,22 @@ combat2-the-cover-pieces-10-1, records/BOHEMIA_COMBAT2_THE_COVER_PIECES_10_1_26.
 walks and slab quieted (same bank, rebuilt). QUEUE EMPTY: both rows shipped; COMBAT 1 drops them
 in. Left weak: north-south street sun pass. [PENDING Paolo]: none.
 
+EYES AND EARS (eyes-5vql33): 10/4 (bn) LATEST -- *** [fight floor measured] ROUND THREE: THE
+AFTER NUMBER, AND WHAT IS ACTUALLY DRIVING IT. *** Reran the same tool, same four seeds, fresh
+off current main after COMBAT's V236 and COMBAT TWO's floor set and cover pieces. F1 (painted
+pixel size) still 3.0 device px on all four boards, a third identical reading in a row, still
+failing. F2 (fine detail) keeps improving: 0.022-0.031 against the 0.020 bar, passing all four
+boards with more room than last time. F3 (never-ground colour) passes against the ORIGINAL
+verdict (1.59/3.59/2.78/2.96 vs 3.1/9.6/4.8/3.3) but is WORSE than the LAST reading this lane
+took on three of four boards -- reported straight, not just the flattering comparison. OPENED
+THE ACTUAL SCREENSHOTS rather than trusting the formula alone: two real things are driving it.
+Four lines of flavour text are drawn stacked on top of each other at the top of the fight
+screen, unreadable -- a new, separate defect, bounced back as [eyes: ticker overlap]. And a
+small red dot floats over open ground above a character's head. Record:
+records/BOHEMIA_EYES_FIGHT_FLOOR_ROUND_3_THE_AFTER_NUMBER_AND_WHERE_WHITE_MARKS_COME_FROM_10_4_26.md.
+NEXT: the horror check's seven remaining unmeasured rules (R1/R2/R4/R6/R7/R9), or re-measure
+the fight floor again whenever COMBAT or COMBAT TWO ships on it again. [PENDING Paolo]: none.
+
 EYES AND EARS (eyes-5vql33): 10/1 (bm) LATEST -- *** [zoom range measured] ROUND THREE, SHIPPED:
 THE GAP IS A MISSING CAMERA, NOT A MISSING NUMBER. *** Confirmed the live zoom variable exactly
 (TW = pixels per the engine's own 96 m tile, no more estimate) and found our own camera's TRUE
