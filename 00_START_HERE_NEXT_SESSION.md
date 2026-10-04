@@ -10738,6 +10738,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/4a LATEST -- [map pixels now] rule 65 (a): THE PEOPLE AT THE RIG'S OWN PIXELS (CAST_PX 112, spriteAt size-aware, the map's people x1.00). TAB: the DEMO's map.
+Also re-aimed: THE LOOP PLAYS ON THE MAP taps the BOARD building (RUN TWO's rebuilt screen, BohemiaSettlement.where). Twenty body checks same as main (CAST SILHOUETTE better).
+NEXT on [map pixels now]: the near end at 42.9 px/m. Rule 64/66/68 rows wait behind it ([one song], [the start screen], [you can flee]).
 RUN (run-eak241): 10/2f LATEST -- [map pixels now] rule 67 s3: INTO A FIGHT THROUGH CLOUDS + THE NEAR STOP. TAB: the DEMO, any fight; the map pinched all the way in. BUILD 10/2j.
 Clouds: __THE_ZOOM_GOES_THROUGH_CLOUDS__ in the shell (compositor layers, held until the fight's #load is gone). Near stop: zoomBounds ceiling = 256 art px / ratio / TW0 (4.74), ground margin capped 220.
 GATES: THE ZOOM GOES THROUGH CLOUDS 8/0 (new), FAR END F11. Seen, not ours: a big purple marker and black freeway arcs scale up at the near stop. NEXT: [one song] (rule 64), [the start screen] (rule 66), [screen fit].

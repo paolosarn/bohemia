@@ -30,6 +30,7 @@
         at the opening zoom, he is the same size, a name plate the same size
      F9 baked off the main thread; a frame pays one drawImage (under 15 ms)
      F10 nothing threw
+     F12 the people on the map are one art pixel to one device pixel (the rig's own 112, CAST_PX)
      F11 the near stop is a block's art at its own pixels (his 'zoom in so much'), and the ground
          picture stays under the 16-million-pixel canvas limit there
    node gates/the_far_end_is_painted_gate.js
@@ -151,6 +152,15 @@ const r2 = v => Math.round(v * 1000) / 1000;
     const near = await d.fr.evaluate(() => { const b = zoomBounds()[1]; setZoomAt(b); MAP_GROUND.key = ''; render(); const r = { stop: b, TW, dev: TW * CV_DPR, art: MAP_NEAR_ART_PX, M: MAP_GROUND.M, px: MAP_GROUND.cv ? MAP_GROUND.cv.width * MAP_GROUND.cv.height : 0 }; setZoomAt(1); render(); return r; });
     ok('F11 the near stop shows a block\'s art at its own pixels (a block ' + Math.round(near.dev) + ' device px for ' + near.art + ' px of art; the ground picture ' + (near.px / 1e6).toFixed(1) + ' million px)',
       Math.abs(near.dev - near.art) <= 2 && near.px < 16e6);
+    /* F12: rule 65 (a), every marker 1:1 from its art -- the people: the baked body against the device
+       pixels it is drawn on at the opening zoom (him too, said, not judged: rule 21 sizes him) */
+    const ppl = await d.fr.evaluate(() => { setZoomAt(1); MAP_GROUND.key = ''; render();
+      const set = mapCastOf(0), fr = set && (set.S || set[Object.keys(set)[0]]).idle; if (!fr) return null;
+      const s56 = 56 / Math.max(56, fr.width), cssW = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
+      const you = PLAYER_CV && (PLAYER_CV.S || PLAYER_CV[Object.keys(PLAYER_CV)[0]]).idle;
+      return { art: fr.width, dev: cssW * CV_DPR, ratio: (cssW * CV_DPR) / fr.width, youArt: you ? you.width : null, youDev: MAP_DREW.you ? MAP_DREW.you.w * CV_DPR : null }; });
+    ok('F12 the people on the map are drawn one art pixel to one device pixel (' + (ppl ? ppl.art + ' px of art on ' + Math.round(ppl.dev) + ' device px, x' + ppl.ratio.toFixed(2)
+      + '; he is ' + ppl.youArt + ' px of art on ' + Math.round(ppl.youDev) + ', sized by rule 21' : 'no cast') + ')', !!ppl && Math.abs(ppl.ratio - 1) <= 0.05);
     ok('F10 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);
