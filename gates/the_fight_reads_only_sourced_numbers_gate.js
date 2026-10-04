@@ -111,8 +111,8 @@ const fetches = [];
 const fr = /fetch\(\s*([^)]*)\)/g;
 let fm;
 while ((fm = fr.exec(html))) fetches.push(fm[1]);
-const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
-leg(fetches.length > 0 && strays.length === 0, 'the page loads only the bb data and COMBAT TWO\'s ground',
+const strays = fetches.filter(function (f) { return !/records\/target\/bb\/|fight_ground\/|fight_people\//.test(f) && !/^\s*(u|url|src|p)\s*$/.test(f); });
+leg(fetches.length > 0 && strays.length === 0, 'the page loads only the bb data, COMBAT TWO\'s ground and the character bank\'s baked people',
   strays.join(' | '));
 const loader = html.match(/const DATA_FILES\s*=\s*\[([^\]]*)\]/);
 leg(!!loader && /records\/target\/bb\//.test(html), 'the data list names the bb folder');

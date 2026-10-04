@@ -137,14 +137,14 @@ const DATA_FILES = [
   '../records/target/bb/rules.json', '../records/target/bb/ours.json', '../records/target/bb/ai.json',
   '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
   '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json',
-  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json'];
+  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
-      DB.perks = a[9]; DB.perkNames = a[10];
+      DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11];
     });
 }
 function R(path) {
@@ -344,7 +344,8 @@ const FIGHT = (function () {
     const xp = R('parsed.brother_xp');
     const lv = rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);
     const perks = pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);
-    return makeUnit({ id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    const lk = R('ours.people_looks').crew;
+    return makeUnit({ look: lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve'), initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
@@ -360,7 +361,8 @@ const FIGHT = (function () {
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
-    return makeUnit({ id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks),
+    const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'];
+    return makeUnit({ look: pool[i % pool.length], id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: stat(r.melee_skill), rskill: stat(r.ranged_skill), mdef: stat(r.melee_defense), rdef: stat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
@@ -581,12 +583,19 @@ const FIGHT = (function () {
       if (!through && (n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
       DIRS.forEach(function (d) {
         const x = n.x + d[0], y = n.y + d[1];
-        if (!passable(x, y) || unitAt(x, y) || squeezes(n.x, n.y, x, y)) return;
+        if (!passable(x, y) || squeezes(n.x, n.y, x, y)) return;
+        /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): through one of his own company's men, never two in a row,
+           never through an enemy; nobody stops on a friend's tile, and the brains never stop in a reach on one */
+        const occ = unitAt(x, y), mate = occ && occ !== u;
+        if (mate && (occ.side !== u.side || n.ally)) return;
+        if (mate && !through && zocOn(u, x, y).length) return;
         const c = n.c + stepCost(u, n.x, n.y, x, y);
         if (c > budget) return;
-        if (best[key(x, y)] === undefined || c < best[key(x, y)]) { best[key(x, y)] = c; prev[key(x, y)] = key(n.x, n.y); open.push({ x: x, y: y, c: c }); }
+        if (best[key(x, y)] === undefined || c < best[key(x, y)]) { best[key(x, y)] = c; prev[key(x, y)] = key(n.x, n.y); open.push({ x: x, y: y, c: c, ally: !!mate }); }
       });
     }
+    /* a friend's tile is a way through, never a place to stand */
+    Object.keys(best).forEach(function (k) { k = Number(k); const o = unitAt(k % S.w, Math.floor(k / S.w)); if (o && o !== u) delete best[k]; });
     return { best: best, prev: prev, key: key };
   }
   function pathTo(u, x, y, field) {
@@ -599,6 +608,7 @@ const FIGHT = (function () {
   function moveTo(u, x, y, through) {
     if (S.over || current() !== u) return false;
     const p = pathTo(u, x, y, through ? reach(u, null, true) : null); if (!p || !p.length) return false;
+    let back = { x: u.x, y: u.y };
     for (let i = 0; i < p.length; i++) {
       const s = p[i], cost = stepCost(u, u.x, u.y, s.x, s.y);
       if (cost > u.ap) break;
@@ -614,8 +624,11 @@ const FIGHT = (function () {
       if (!onField(u)) { afterAction(u); advance(u); return true; }
       if (held) { emit({ t: 'held', id: u.id }); break; }
       emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: s.x, y: s.y });
-      u.x = s.x; u.y = s.y;
+      back = { x: u.x, y: u.y }; u.x = s.x; u.y = s.y;
     }
+    /* cut short on a friend's tile (a swing landed, the AP ran out): the two trade places, his reading of the rule */
+    const mate = S.units.filter(function (o) { return o !== u && onField(o) && o.x === u.x && o.y === u.y; })[0];
+    if (mate) { emit({ t: 'step', id: mate.id, fx: mate.x, fy: mate.y, x: back.x, y: back.y }); mate.x = back.x; mate.y = back.y; emit({ t: 'swap', id: u.id, to: mate.id }); }
     afterAction(u); return true;
   }
 
@@ -1171,6 +1184,8 @@ function bakeBoard() {
   const covers = (B.cover || []).map(function (k) { return k.piece; });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
+  /* the people: every look a fighter wears, baked from the character bank (rule 69) */
+  Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
   return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
     .then(function () {
       B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
@@ -1250,6 +1265,7 @@ function startAnim(a) {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     (FIGHT.isRanged(u.weapon) ? SND.shot : SND.swing)();
     setTimeout(function () { (e.hit ? (e.head ? SND.head : SND.hit) : SND.miss)(); }, beatMs() * 0.45);
+    if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -1377,78 +1393,55 @@ function draw(now) {
   }
 }
 /* the fallen stay where they fell: a body on the ground, no word over it */
+/* THE CHARACTER BANK ON THE BOARD (rule 69): every man is a frame of his own look's atlas, baked from the
+   alpha's 112 rig in his clothes (slices/fight_people); nothing on the field is redrawn by hand */
+function atlasOf(v) { const L = DB.people.looks[v.look] || DB.people.looks[Object.keys(DB.people.looks)[0]]; return UI.imgs['fight_people/' + L.file]; }
+function col(name) { return DB.people.cols.indexOf(name); }
+function frameFor(v, now) {
+  const C = DB.people.cols, a = UI.anim[0];
+  if (!FIGHT.onField(v)) return C.indexOf('sleep@0');
+  if (a && a.at) {
+    const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
+    if (a.k === 'step' && a.e.id === v.id) return col('walk@0') + Math.floor(k * 4);
+    if (a.k === 'attack' && a.e.id === v.id) return FIGHT.isRanged(v.weapon) ? C.indexOf('two-hand@0') : col('bat-arc@0.2') + Math.floor(k * 3);
+    if (a.k === 'attack' && a.e.to === v.id && a.e.hit && k > .45) return col('stagger-hit@0.03') + Math.floor((k - .45) / .55 * 4);
+  }
+  if (UI.hitUntil && UI.hitUntil[v.id] > now) return col('stagger-hit@0.16');
+  return C.indexOf('idle@0');
+}
+function blitMan(v, X, feet, h, face, now, fallen) {
+  const img = atlasOf(v); if (!img) return;
+  const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
+  const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
+  UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
+  cx.imageSmoothingEnabled = k < 1;
+  cx.drawImage(img, c * F, row * F, F, F, X - size / 2, feet - (bb[1] + bb[3]) * k, size, size);
+}
 function drawBody(v, tw, th) {
-  const X = sx((v.x + .5) * UI.tw), Y = sy((v.y + .82) * UI.th);
-  const len = Math.max(6, th * MAN_OF_TILE * .9);
-  cx.save(); cx.translate(X, Y); cx.rotate(v.side === 'you' ? -.12 : .12);
-  cx.fillStyle = 'rgba(0,0,0,.45)'; cx.beginPath(); cx.ellipse(0, len * .04, len * .5, len * .12, 0, 0, Math.PI * 2); cx.fill();
-  cx.fillStyle = v.side === 'you' ? '#26241f' : '#3a1b16'; cx.fillRect(-len * .4, -len * .09, len * .62, len * .16);
-  cx.fillStyle = '#1a1714'; cx.fillRect(-len * .46, -len * .07, len * .12, len * .12);
-  cx.fillStyle = '#8a6c56'; cx.beginPath(); cx.ellipse(len * .3, -len * .01, len * .08, len * .07, 0, 0, Math.PI * 2); cx.fill();
-  if (v.dead) { cx.fillStyle = 'rgba(105,18,12,.6)'; cx.beginPath(); cx.ellipse(len * .05, len * .07, len * .3, len * .07, 0, 0, Math.PI * 2); cx.fill(); }
-  cx.restore();
+  const X = sx((v.x + .5) * UI.tw), feet = sy((v.y + .9) * UI.th), h = Math.max(7, th * MAN_OF_TILE);
+  if (v.dead) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
+  blitMan(v, X, feet, h, v.side === 'you' ? 1 : -1, performance.now(), true);
 }
 /* where a man is drawn, mid-step included */
 function dx(v) { if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
 function dy(v) { if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
-/* A MAN, drawn at most of a house tile tall (rule 66: 'the characters larger'): boots, legs, a long coat cut
-   like a runway (rule 9/4), arms, a head with hair, the weapon of his job; ours in charcoal, theirs in oxblood;
-   he faces the man he is fighting. Bars above him: armour, then health (rule 67: bars above the people). */
-function skinOf(v) { const k = (v.id.charCodeAt(1) * 7 + v.name.length * 13) % 4; return ['#b08868', '#8c6a52', '#c79c7c', '#6e5040'][k]; }
+function skinOf(v) { return '#8c6a52'; }
 function drawMan(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
   const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
-  const h = Math.max(7, th * MAN_OF_TILE), you = v.side === 'you', flee = v.morale === 'Fleeing';
-  const Y = feet - lvl;
+  const h = Math.max(7, th * MAN_OF_TILE), you = v.side === 'you';
+  const Y = feet - lvl, now = performance.now();
   const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
     .sort(function (a, b) { return Math.abs(a.x - v.x) + Math.abs(a.y - v.y) - Math.abs(b.x - v.x) - Math.abs(b.y - v.y); })[0];
-  const face = foe ? (foe.x >= v.x ? 1 : -1) : (you ? 1 : -1);
-  const walking = UI.anim.length && UI.anim[0].k === 'step' && UI.anim[0].e.id === v.id;
-  const swing = walking ? Math.sin(performance.now() / 70) * h * .04 : 0;
-  const coat = flee ? '#5d564d' : you ? '#24231f' : '#3d1a15', trim = you ? '#d9a85a' : '#c4553f', ink = 'rgba(0,0,0,.55)';
-  /* the ring he stands in */
-  const base = Math.max(4, Math.min(tw * .4, h * .36));
+  const face = v.morale === 'Fleeing' ? (you ? -1 : 1) : foe ? (foe.x >= v.x ? 1 : -1) : (you ? 1 : -1);
+  /* the ring he stands in: his side's colour, under the bank's figure */
+  const trim = you ? '#d9a85a' : '#c4553f', base = Math.max(4, Math.min(tw * .4, h * .36));
   cx.fillStyle = 'rgba(0,0,0,.42)'; cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.fill();
   cx.strokeStyle = trim; cx.lineWidth = Math.max(1.5, h * .022); cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.stroke();
   if (FIGHT.current() === v) { cx.strokeStyle = 'rgba(240,210,150,.85)'; cx.lineWidth = Math.max(1, h * .012); cx.beginPath(); cx.ellipse(X, Y, base * 1.18, base * .44, 0, 0, Math.PI * 2); cx.stroke(); }
-  cx.save(); cx.translate(X, Y); cx.scale(face, 1);
-  cx.lineJoin = 'round'; cx.lineCap = 'round';
-  const part = function (pts, fill) { cx.beginPath(); pts.forEach(function (p, i) { (i ? cx.lineTo : cx.moveTo).call(cx, p[0] * h, p[1] * h); }); cx.closePath(); cx.fillStyle = fill; cx.fill(); cx.strokeStyle = ink; cx.lineWidth = Math.max(.8, h * .014); cx.stroke(); };
-  /* legs and boots */
-  part([[-.09, -.46], [-.02, -.46], [-.03 + swing / h, -.06], [-.1 + swing / h, -.06]], '#1b1916');
-  part([[.02, -.46], [.09, -.46], [.1 - swing / h, -.06], [.03 - swing / h, -.06]], '#1f1c19');
-  part([[-.12 + swing / h, -.07], [-.02 + swing / h, -.07], [0 + swing / h, 0], [-.13 + swing / h, 0]], '#0e0d0c');
-  part([[.02 - swing / h, -.07], [.12 - swing / h, -.07], [.15 - swing / h, 0], [.02 - swing / h, 0]], '#0e0d0c');
-  /* the back arm, the coat (long, cut past the knee), the trim */
-  part([[-.14, -.76], [-.08, -.76], [-.1, -.5], [-.15, -.5]], coat);
-  part([[-.15, -.79], [.15, -.79], [.17, -.3], [.06, -.24], [-.12, -.27], [-.18, -.32]], coat);
-  part([[-.15, -.79], [.15, -.79], [.13, -.74], [-.13, -.74]], trim);
-  cx.fillStyle = 'rgba(255,240,220,.07)'; cx.fillRect(-.04 * h, -.74 * h, .05 * h, .45 * h);
-  /* the head: skin, hair, the eye line */
-  part([[-.035, -.82], [.035, -.82], [.035, -.79], [-.035, -.79]], skinOf(v));
-  cx.beginPath(); cx.ellipse(.01 * h, -.885 * h, .068 * h, .078 * h, 0, 0, Math.PI * 2); cx.fillStyle = skinOf(v); cx.fill(); cx.strokeStyle = ink; cx.lineWidth = Math.max(.8, h * .014); cx.stroke();
-  cx.beginPath(); cx.ellipse(-.005 * h, -.925 * h, .07 * h, .045 * h, 0, Math.PI, 0); cx.fillStyle = '#16110e'; cx.fill();
-  cx.fillStyle = '#1b1410'; cx.fillRect(.035 * h, -.895 * h, .022 * h, .012 * h);
-  /* the front arm and the weapon of his job */
-  const job = v.job;
-  const hand = [.17, -.5];
-  part([[.08, -.77], [.14, -.77], [.2, -.52], [.15, -.49]], coat);
-  cx.lineWidth = Math.max(1.2, h * .03); cx.strokeStyle = '#8b8780';
-  const ln = function (a, b, c, w) { cx.beginPath(); cx.moveTo(a[0] * h, a[1] * h); cx.lineTo(b[0] * h, b[1] * h); cx.strokeStyle = c; cx.lineWidth = Math.max(1, h * w); cx.stroke(); };
-  if (job === 'pipe' || job === 'mace') { ln(hand, [.3, -.82], '#8d8a84', .035); ln([.28, -.8], [.32, -.85], '#a8a49c', .05); }
-  else if (job === 'sledge' || job === 'hammer') { ln([.06, -.36], [.3, -.86], '#6a4a30', .03); part([[.24, -.94], [.4, -.86], [.37, -.8], [.21, -.88]], '#5b5a57'); }
-  else if (job === 'rifle' || job === 'crossbow') { ln([.02, -.62], [.46, -.7], '#2e2b27', .04); ln([.02, -.62], [.0, -.55], '#4a3523', .06); }
-  else if (job === 'shotgun' || job === 'firearm') { ln([.05, -.6], [.38, -.66], '#262421', .055); }
-  else if (job === 'pistol' || job === 'dagger') { ln(hand, [.29, -.55], '#1e1c1a', .045); }
-  else if (job === 'bottles' || job === 'throwing') { part([[.17, -.6], [.22, -.6], [.23, -.5], [.16, -.5]], '#3e5a34'); ln([.195, -.6], [.195, -.66], '#3e5a34', .02); }
-  else if (job === 'axe') { ln(hand, [.27, -.84], '#6a4a30', .03); part([[.24, -.86], [.33, -.82], [.3, -.74]], '#7d7a74'); }
-  else if (job === 'spear' || job === 'polearm') { ln([.0, -.3], [.36, -1.0], '#6a4a30', .025); part([[.34, -1.02], [.4, -1.08], [.37, -.97]], '#8d8a84'); }
-  else { ln(hand, [.33, -.74], '#9c9890', .03); }
-  part([[.15, -.53], [.2, -.53], [.2, -.48], [.15, -.48]], skinOf(v));
-  /* the car door on the back arm */
-  if (v.shield) { part([[-.3, -.74], [-.12, -.74], [-.12, -.36], [-.3, -.36]], '#4c4f50'); cx.fillStyle = 'rgba(160,190,210,.35)'; cx.fillRect(-.28 * h, -.71 * h, .14 * h, .1 * h); }
-  cx.restore();
-  /* bars above him: armour, then health (and the tired, for the man whose turn it is) */
+  if (v.morale === 'Fleeing') cx.globalAlpha = .7;
+  blitMan(v, X, Y, h, face, now, false);
+  cx.globalAlpha = 1;
   /* bars over a man only while he acts or is picked (rule 67a), as wide as the man, three points tall */
   if (h > 26 && (FIGHT.current() === v || (UI.pend && UI.pend.target === v) || UI.allBars)) {
     const bw = Math.max(18, h * .42), bx = X - bw / 2, by = Y - h - 9;
@@ -1461,20 +1454,16 @@ function drawMan(v, tw, th) {
 function drawPortrait(g, v, S) {
   const you = v.side === 'you', unseen = v.side === 'them' && !FIGHT.sideSees('you', v);
   g.clearRect(0, 0, S, S);
-  const bg = g.createLinearGradient(0, 0, 0, S); bg.addColorStop(0, you ? '#2b2620' : '#2c1714'); bg.addColorStop(1, '#0d0b09');
-  g.fillStyle = bg; g.fillRect(0, 0, S, S);
-  if (unseen) { g.fillStyle = '#3a332b'; g.beginPath(); g.ellipse(S * .5, S * .42, S * .17, S * .2, 0, 0, Math.PI * 2); g.fill();
-    g.fillRect(S * .2, S * .7, S * .6, S * .3); return; }
-  const coat = v.morale === 'Fleeing' ? '#5d564d' : you ? '#24231f' : '#3d1a15', trim = you ? '#d9a85a' : '#c4553f';
-  g.fillStyle = coat; g.beginPath(); g.moveTo(S * .1, S); g.lineTo(S * .18, S * .7); g.lineTo(S * .82, S * .7); g.lineTo(S * .9, S); g.closePath(); g.fill();
-  g.fillStyle = trim; g.fillRect(S * .18, S * .69, S * .64, S * .045);
-  g.fillStyle = skinOf(v); g.fillRect(S * .44, S * .6, S * .12, S * .1);
-  g.beginPath(); g.ellipse(S * .5, S * .44, S * .17, S * .2, 0, 0, Math.PI * 2); g.fill();
-  g.strokeStyle = 'rgba(0,0,0,.5)'; g.lineWidth = Math.max(1, S * .02); g.stroke();
-  g.fillStyle = '#16110e'; g.beginPath(); g.ellipse(S * .5, S * .33, S * .18, S * .11, 0, Math.PI, 0); g.fill();
-  g.fillStyle = '#1b1410'; g.fillRect(S * .4, S * .44, S * .06, S * .025); g.fillRect(S * .54, S * .44, S * .06, S * .025);
+  g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
+  const img = atlasOf(v);
+  if (img) {
+    /* his face, from the bank (renderFace with his key), at one face pixel to whole screen pixels */
+    g.imageSmoothingEnabled = false;
+    g.drawImage(img, DB.people.frame * DB.people.cols.length, 0, DB.people.face.size, DB.people.face.size, 0, 0, S, S);
+  }
+  if (unseen) { g.globalCompositeOperation = 'source-atop'; g.fillStyle = 'rgba(20,16,12,.92)'; g.fillRect(0, 0, S, S); g.globalCompositeOperation = 'source-over'; }
   if (!FIGHT.onField(v)) { g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(0, 0, S, S); }
-  g.fillStyle = 'rgba(0,0,0,.16)'; for (let y = 1; y < S; y += Math.max(2, Math.round(S / 24))) g.fillRect(0, y, S, 1);
+  g.strokeStyle = you ? '#d9a85a' : '#c4553f'; g.lineWidth = Math.max(1, S * .04); g.strokeRect(0, 0, S, S);
 }
 function faceCanvas(v, css, now) {
   const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3);

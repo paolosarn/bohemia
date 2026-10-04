@@ -355,5 +355,44 @@
   "source": "laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md",
   "quote": "cars on a tile raise its defence by count (one car some, three cars more)",
   "why": "a man on a tile with dead cars, walls or a shed behind him gains defence per piece, up to three: three pieces are a wooden shield's +15 against swings (armor.json wooden_shield) and twice that against shots, because cars stop bullets better than they stop a pipe; TUNING owns the numbers"
+ },
+ "people_looks": {
+  "value": {
+   "crew": [
+    "you",
+    "cast_longcoat",
+    "cast_barearms",
+    "cast_widebrim",
+    "cast_poncho",
+    "cast_shortcoat",
+    "cast_apron",
+    "cast_cape",
+    "cast_pack",
+    "cast_satchel",
+    "cast_skirt",
+    "cast_shorts"
+   ],
+   "band": {
+    "brigand_thug": [
+     "faction_homeless",
+     "faction_anarchists",
+     "faction_reds",
+     "faction_trades",
+     "faction_caravans"
+    ],
+    "lower_brigand_raider": [
+     "faction_mob",
+     "faction_cartel"
+    ],
+    "default": [
+     "faction_remnants",
+     "faction_network",
+     "faction_volunteers"
+    ]
+   }
+  },
+  "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
+  "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change"
  }
 }

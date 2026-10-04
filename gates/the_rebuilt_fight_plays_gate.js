@@ -24,7 +24,7 @@ const shot = n => path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + 
 const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
-const WORDS = 'window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3)window.__bars++;return fr.apply(this,arguments);};})();';
+const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0)window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3)window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
 const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
 
@@ -78,6 +78,20 @@ async function fight(F, first) {
     const bars = await ev(() => window.__bars);
     leg(bars > 0 && bars <= 4 * 25, 'bars over a man only while he acts or is picked, three points tall', bars + ' three-point bars drawn in ~25 frames');
   }
+  /* RULE 69: every fighter is the character bank's rig in his own clothes, his face the bank's face */
+  const bank = await ev(() => {
+    const units = FIGHT.S.units.filter(v => FIGHT.onField(v) && (v.side === 'you' || FIGHT.sideSees('you', v)));
+    const loaded = FIGHT.S.units.every(v => { const i = atlasOf(v); return i && i.complete && i.naturalWidth > 0 && !!DB.people.looks[v.look]; });
+    window.__bank = 0;
+    return { loaded, visible: units.length, looks: new Set(FIGHT.S.units.map(v => v.look)).size, src: DB.people.source,
+      handDrawn: /coat|part\(/.test(drawMan.toString()) || !/blitMan/.test(drawMan.toString()), faceFromBank: /atlasOf/.test(drawPortrait.toString()) };
+  });
+  await p.waitForTimeout(300);
+  const blits = await ev(() => window.__bank);
+  leg(bank.loaded && /famPaintBody/.test(bank.src) && !bank.handDrawn, F.board + ': *** EVERY FIGHTER IS THE CHARACTER BANK\'S RIG IN HIS CLOTHES (rule 69), nothing hand-drawn ***',
+    bank.looks + ' looks on the board, from ' + bank.src.split(':')[0]);
+  leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
+  leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face from the bank (renderFace with his key)');
   const man = await ev(() => Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE));
   leg(man >= 96 && man <= 120, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands near his 112 box ***', man + ' css px tall (was 17 before round three)');
   if (F.taps) {
@@ -98,12 +112,28 @@ async function fight(F, first) {
       const two = goal();
       es[1].x = cx0 + 1; es[1].y = 8; es[0].x = cx0; es[0].y = 7;
       const diag = FIGHT._t.squeezes(cx0, 8, cx0 + 1, 7);
+      /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): a one-wide lane two houses long, cut through the block */
+      es.forEach(e => { e.x = 0; e.y = 0; e.fled = true; });
+      for (let y = 0; y < S.h; y++) { S.terrain[y][cx0] = y === 7 ? 'flat' : 'blocked'; S.terrain[y][cx0 + 1] = y === 7 ? 'flat' : 'blocked'; }
+      const pals = S.units.filter(u => u.side === 'you' && u !== a).slice(0, 2);
+      const far = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, 7)] !== undefined; };
+      pals.forEach(m => { m.fled = false; m.x = 0; m.y = S.h - 1; });
+      pals[0].x = cx0; pals[0].y = 7; pals[1].x = 1; pals[1].y = S.h - 1;
+      const throughOne = far();
+      const standOn = (() => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0, 7)] === undefined; })();
+      pals[1].x = cx0 + 1; pals[1].y = 7;
+      const throughTwo = far();
+      pals.forEach(m => { m.x = 0; m.y = 0; m.fled = true; });
+      es[0].fled = false; es[0].x = cx0; es[0].y = 7;
+      const throughFoe = far();
       S.terrain = keep.terrain; S.solid = keep.solid; S.coverCount = keep.cnt; keep.units.forEach(k => { k[0].x = k[1]; k[0].y = k[2]; k[0].fled = k[3]; });
-      return { one, two, ownTile, diag };
+      return { one, two, ownTile, diag, throughOne, standOn, throughTwo, throughFoe };
     });
     leg(walls.ownTile, 'a man\'s tile is never walked through');
     leg(walls.one, 'ONE MAN IS NOT A WALL: a lone man in a two-wide gap can be walked past (at the price of his free swing)');
     leg(!walls.two && walls.diag, 'TWO ARE: two men side by side close the gap, and nobody squeezes diagonally between two men');
+    leg(walls.throughOne && walls.standOn, '*** PASS ONE OF YOUR OWN (rule 70): a man walks through one of his own company in a one-wide lane, and never stops on him ***');
+    leg(!walls.throughTwo && !walls.throughFoe, '  NEVER TWO, NEVER AN ENEMY: two of his own in a row close the lane, and so does one of theirs');
     /* TWO FINGERS: pinch the board out to the whole, then back in (rule 62: the pinch is the map's) */
     const cdp = await p.context().newCDPSession(p);
     const pinch = async (from, to) => {
@@ -212,6 +242,9 @@ async function fight(F, first) {
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
+  const clips = await ev(() => FIGHT_UI.clipSeen || {});
+  leg(['walk', 'stagger-hit', 'sleep'].every(k => clips[k] > 0) && (clips['bat-arc'] > 0 || clips['two-hand'] > 0),
+    F.board + ': the bank\'s clips play: the walk, the hit clip when struck, the swing or the aim, the fallen', Object.keys(clips).join(', '));
   const noLog = await ev(() => !document.getElementById('feed') && !/ (hits|misses) /.test(document.getElementById('say').textContent));
   leg(noLog, F.board + ': NO COMBAT LOG ON THE SCREEN (rule 67): the bar never prints who hit whom');
   const recap = await ev(() => { const rows = document.querySelectorAll('#over table tr'); return { rows: rows.length - 1, xp: Array.from(rows).slice(1).some(r => /\+[1-9]/.test(r.children[4].textContent)) }; });
