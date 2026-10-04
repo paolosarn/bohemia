@@ -400,5 +400,13 @@
   "source": "bb_all/0424_Combat Mechanics.txt",
   "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy)",
   "why": "rule 70b: AUTO holds the formation; a man walking up may lead the middle of his line by at most the line's depth less one, so the line moves as a line; TUNING owns the number"
+ },
+ "night_lights": {
+  "value": {
+   "lit_tile_plays_as_day": true
+  },
+  "source": "slices/fight_ground/fight_ground.json lights_key (COMBAT TWO 10/2, round twelve) and bb_all/1423_Nighttime (Status Effect).txt",
+  "quote": "a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)",
+  "why": "Battle Brothers' night is one status on everybody (-2 vision, -30% ranged skill, -30% ranged defence); our streets have lamps and burning drums, so the night is per tile: a man standing in a pool is seen at day range; a shooter takes the night's -30% only when his target stands in the dark; a target takes the night's -30% defence only when the shot comes out of the dark. Both lit is day, both dark is Battle Brothers' night exactly. The lesson: stay out of the light. No new number: the pool radius is COMBAT TWO's, the penalties the wiki's."
  }
 }

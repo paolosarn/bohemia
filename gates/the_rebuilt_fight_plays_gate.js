@@ -344,7 +344,44 @@ async function table70() {
   await d.close();
 }
 
+/* THE NIGHT IS LIT BY THE STREET (COMBAT TWO's lamps and drums, routed to COMBAT 10/2; ours.night_lights): at night the
+   board goes dark and every live light cuts its pool back out; a tile whose middle sits in a pool plays as day; the men in
+   the dark are the same bank frames, shaded. */
+async function nightLights() {
+  const arm = 'window.__lamps=0;window.__darkmen=0;window.__litmen=0;(function(){const P=CanvasRenderingContext2D.prototype,di=P.drawImage;P.drawImage=function(img){'
+    + 'if(img&&img.src&&img.src.indexOf("fight_ground/light_")>=0)window.__lamps++;'
+    + 'if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0){if(img instanceof HTMLCanvasElement)window.__darkmen++;else window.__litmen++;}'
+    + 'return di.apply(this,arguments);};})();window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",night:true}';
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: arm });
+  await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+  await d.page.waitForTimeout(1500);
+  const r = await d.page.evaluate(() => {
+    const S = FIGHT.S, T = FIGHT._t, L = S.boardDef.lights || [], live = L.filter(l => l.live).length;
+    const b = FIGHT_UI.board, g = b.getContext('2d'), tw = b.width / S.w, th = b.height / S.h;
+    const lum = (x, y) => { const px = g.getImageData(Math.floor((x + .5) * tw) - 2, Math.floor((y + .5) * th) - 2, 5, 5).data; let s = 0; for (let i = 0; i < px.length; i += 4) s += .3 * px[i] + .59 * px[i + 1] + .11 * px[i + 2]; return s / (px.length / 4); };
+    let litL = 0, litN = 0, darkL = 0, darkN = 0;
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const v = lum(x, y); if (T.litAt(x, y)) { litL += v; litN++; } else { darkL += v; darkN++; } }
+    /* the rules at the table: one of your shooters, one of theirs, the four ways the light can fall, and the day */
+    const a = FIGHT.alive('you').filter(u => FIGHT.isRanged(u.weapon))[0], t = FIGHT.alive('them')[0];
+    const sk = FIGHT.strikeSkill(a.weapon), was = S.lit;
+    const at = (la, lt) => { S.lit = S.lit.map(row => row.slice()); S.lit[a.y][a.x] = la; S.lit[t.y][t.x] = lt; const c = FIGHT.hitChance(a, t, sk).chance; S.lit = was; return c; };
+    const LL = at(true, true), DD = at(false, false), DL = at(false, true), LD = at(true, false);
+    S.night = false; const day = FIGHT.hitChance(a, t, sk).chance; S.night = true;
+    const far = { x: t.x, y: t.y }; S.lit = S.lit.map(row => row.slice()); S.lit[far.y][far.x] = true; const vLit = T.vision(a, far); S.lit[far.y][far.x] = false; const vDark = T.vision(a, far); S.lit = was;
+    return { live, pools: FIGHT_UI.poolsDrawn, litN, litL: litN ? litL / litN : 0, darkL: darkN ? darkL / darkN : 0, LL, DD, DL, LD, day, vLit, vDark,
+      lamps: window.__lamps, darkmen: window.__darkmen, litmen: window.__litmen };
+  });
+  leg(r.live > 0 && r.pools === r.live && r.lamps > 0, '*** AT NIGHT THE STREET\'S OWN LAMPS AND DRUMS STAND ON THE BOARD AND EVERY LIVE ONE THROWS ITS POOL *** (COMBAT TWO\'s lights)', r.lamps + ' lamp and drum sprites drawn, ' + r.pools + ' pools for ' + r.live + ' live lights');
+  leg(r.litN > 0 && r.litL >= 1.4 * r.darkL, 'what plays lit is lit on the glass: a lit tile is far brighter than a dark one', 'lit ' + Math.round(r.litL) + ' vs dark ' + Math.round(r.darkL) + ' on ' + r.litN + ' lit tiles');
+  leg(r.LL === r.day && r.DD < r.LL && r.DL > r.LL && r.LD < r.DD, '*** A LIT TILE PLAYS AS DAY; STAY OUT OF THE LIGHT ***: both lit is the day\'s chance, both dark the wiki\'s night, a shot out of the dark at a lit man is best, a lit shooter at a dark man worst',
+    'day ' + r.day + ', both lit ' + r.LL + ', both dark ' + r.DD + ', dark at lit ' + r.DL + ', lit at dark ' + r.LD);
+  leg(r.vLit > r.vDark, 'a man in a pool is seen at day range, a man in the dark at the night\'s (the wiki: -2 vision)', r.vLit + ' vs ' + r.vDark + ' tiles');
+  leg(r.darkmen > 0 && d.errs.length === 0, 'the men in the dark are the bank\'s frames shaded the night\'s colour, no page error', r.darkmen + ' shaded, ' + r.litmen + ' lit blits' + (d.errs[0] ? ' ' + d.errs[0] : ''));
+  await d.close();
+}
+
 (async () => {
+  await nightLights();
   await table70();
   await sweep();
   for (let i = 0; i < FIGHTS.length; i++) await fight(FIGHTS[i], i === 0);

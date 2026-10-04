@@ -273,13 +273,17 @@ const FIGHT = (function () {
     for (let i = 1; i < pts.length - 1; i++) if (sightBlock(pts[i].x, pts[i].y)) return false;
     return true;
   }
-  function vision(u) {
+  /* how far a man sees a man: the wiki's night takes two tiles off, unless the one looked at stands in a pool of light */
+  function vision(u, t) {
     let v = R('board.vision_default');
-    if (S.night) v += R('hit_chance.night.nighttime_status').vision;
+    if (S.night && !(t && litAt(t.x, t.y))) v += R('hit_chance.night.nighttime_status').vision;
     return Math.max(R('board.vision_floor'), v);
   }
+  /* a live lamp or burning drum lights the tiles its pool touches (COMBAT TWO's lights, ours.night_lights) */
+  function litAt(x, y) { return !!(S.lit && S.lit[y] && S.lit[y][x]); }
+  function darkAt(x, y) { return S.night && !litAt(x, y); }
   function sideSees(side, t) {
-    return S.units.some(function (u) { return u.side === side && onField(u) && dist(u, t) <= vision(u) && sees(u, t); });
+    return S.units.some(function (u) { return u.side === side && onField(u) && dist(u, t) <= vision(u, t) && sees(u, t); });
   }
 
   /* ---------------- THE PEOPLE ---------------- */
@@ -386,7 +390,9 @@ const FIGHT = (function () {
         lib[name] = {
           terrain: B.terrain.slice(by * bt, (by + 1) * bt).map(function (r) { return r.slice(bx * bt, (bx + 1) * bt); }),
           cover: (B.cover || []).filter(function (c) { return c.x_m >= x0 && c.x_m < x1 && c.y_m >= y0 && c.y_m < y1; })
-            .map(function (c) { return { piece: c.piece, x_m: c.x_m - x0, y_m: c.y_m - y0 }; })
+            .map(function (c) { return { piece: c.piece, x_m: c.x_m - x0, y_m: c.y_m - y0 }; }),
+          lights: (B.lights || []).filter(function (l) { return l.x_m >= x0 && l.x_m < x1 && l.y_m >= y0 && l.y_m < y1; })
+            .map(function (l) { return Object.assign({}, l, { x_m: l.x_m - x0, y_m: l.y_m - y0 }); })
         };
       }); });
     });
@@ -424,12 +430,15 @@ const FIGHT = (function () {
     for (let y = 0; y < S.h; y++) { terrain.push([]); for (let x = 0; x < S.w; x++) terrain[y].push(lib[grid[Math.floor(y / bt)][Math.floor(x / bt)]].terrain[y % bt][x % bt]); }
     grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].cover.forEach(function (c) {
       cover.push({ piece: c.piece, x_m: c.x_m + bx * bt * tm, y_m: c.y_m + by * bt * tm }); }); }); });
+    const lights = [];
+    grid.forEach(function (row, by) { row.forEach(function (n, bx) { lib[n].lights.forEach(function (l) {
+      lights.push(Object.assign({}, l, { x_m: l.x_m + bx * bt * tm, y_m: l.y_m + by * bt * tm })); }); }); });
     const used = []; grid.forEach(function (r) { r.forEach(function (n) { if (used.indexOf(kindOf(n)) < 0) used.push(kindOf(n)); }); });
     if (opts.kind && leads.length && used.indexOf(opts.kind) < 0) used.unshift(opts.kind);   /* the board answers to the name it was asked by */
     /* the name on the bar: a suburb's renamed blocks all read SUBURB */
     const call = function (k) { const al = mix.aliases || {}; return Object.keys(al).filter(function (n) { return al[n].indexOf(k) >= 0; })[0] || k; };
     const shown = []; used.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
-    return { blocks: grid, terrain: terrain, cover: cover, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null };
+    return { blocks: grid, terrain: terrain, cover: cover, lights: lights, name: shown.join(' + '), kinds: used, family: fam, lead: leads[0] || null };
   }
   function applyBoard(B) {
     const G = DB.ground;
@@ -443,6 +452,15 @@ const FIGHT = (function () {
       S.cover[ty][tx] = c.piece;
       S.coverCount[ty][tx]++;
       if (def.blocks_move) S.solid[ty][tx] = true;
+    });
+    /* the pools: a tile is lit when the middle of it sits inside a live light's pool (radius_m round the lamp's foot) */
+    const tm = G.tile_metres; S.lit = [];
+    for (let y = 0; y < S.h; y++) { S.lit.push([]); for (let x = 0; x < S.w; x++) S.lit[y].push(false); }
+    if (R('ours.night_lights').lit_tile_plays_as_day) (B.lights || []).forEach(function (l) {
+      if (!l.live) return;
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+        if (Math.hypot((x + 1 / (1 + 1)) * tm - l.x_m, (y + 1 / (1 + 1)) * tm - l.y_m) < l.radius_m) S.lit[y][x] = true;
+      }
     });
   }
   /* one field: some tile of your start row walks to some tile of theirs */
@@ -464,7 +482,7 @@ const FIGHT = (function () {
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
-      applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, name: opts.board, kinds: [opts.board], family: 'named' });
+      applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
     }
@@ -680,12 +698,14 @@ const FIGHT = (function () {
       if (inWater(t)) df *= R('hit_chance.terrain_swamp').melee_defense;
       ch = sk - df + (skill && typeof skill.hit_bonus === 'number' ? skill.hit_bonus : 0);
     } else {
-      const nightM = S.night ? R('hit_chance.night.multiplier') : 1;
+      /* night (ours.night_lights): the shooter is blind to a man in the dark; the man cannot see a shot come out of the dark */
+      const nightM = darkAt(t.x, t.y) ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;
+      if (S.night) parts.push(nightM === 1 ? 'lit' : 'dark');
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
       let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense');
       const an = PK(t, 'anticipation');
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
-      df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightM * loneMult(t);
+      df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightD * loneMult(t);
       if (inWater(t)) df *= R('hit_chance.terrain_swamp').ranged_defense;
       let per, base, free = 1, ignores = false;
       if (w.class === 'crossbow') { const g = R('hit_chance.ranged.distance.crossbow_shoot_bolt'); per = g.per_hex; base = g.base_bonus; }
@@ -1181,7 +1201,7 @@ const FIGHT = (function () {
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    _t: { passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -1231,6 +1251,8 @@ function bakeBoard() {
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
   /* the people: every look a fighter wears, baked from the character bank (rule 69) */
   Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
+  /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
+  (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
     .then(function () {
       B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
@@ -1246,9 +1268,54 @@ function bakeBoard() {
       g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 1;
       for (let x = 0; x <= FIGHT.S.w; x++) { g.beginPath(); g.moveTo(x * UI.tw + .5, 0); g.lineTo(x * UI.tw + .5, c.height); g.stroke(); }
       for (let y = 0; y <= FIGHT.S.h; y++) { g.beginPath(); g.moveTo(0, y * UI.th + .5); g.lineTo(c.width, y * UI.th + .5); g.stroke(); }
-      if (FIGHT.S.night) { g.fillStyle = 'rgba(8,10,24,.55)'; g.fillRect(0, 0, c.width, c.height); }
+      /* the lamps and the drums stand on the ground by day and by night, bottom-centred on their foot */
+      (B.lights || []).forEach(function (l) {
+        const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
+        g.drawImage(im, l.x_m * pxm * k - im.width * k / 2, l.y_m * pym * k - im.height * k, im.width * k, im.height * k);
+      });
+      if (FIGHT.S.night) nightPools(g, c, B.lights || [], k, pxm, pym);
       UI.board = c; fitStops();
     });
+}
+/* THE NIGHT (COMBAT TWO's lights, ours.night_lights): the board goes dark, and every live lamp and burning drum cuts its
+   pool back out of the dark (radius_m round its foot, squashed to the ground's 45), then warms it: sodium orange under a
+   lamp, fire under a drum. A tile the pool touches plays as day in the rules, so what is lit on the glass is what is lit. */
+const NIGHT_SHADE = 'rgba(6,8,20,.68)';
+function nightPools(g, c, lights, k, pxm, pym) {
+  const dark = document.createElement('canvas'); dark.width = c.width; dark.height = c.height;
+  const d = dark.getContext('2d');
+  d.fillStyle = NIGHT_SHADE; d.fillRect(0, 0, dark.width, dark.height);
+  const pool = function (ctx, l, stops) {
+    const X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
+    ctx.save(); ctx.translate(X, Y); ctx.scale(1, pym / pxm);
+    const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+    stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); });
+    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  };
+  const live = lights.filter(function (l) { return l.live; });
+  d.globalCompositeOperation = 'destination-out';
+  live.forEach(function (l) { pool(d, l, [[0, 'rgba(0,0,0,1)'], [.62, 'rgba(0,0,0,.85)'], [1, 'rgba(0,0,0,0)']]); });
+  g.drawImage(dark, 0, 0);
+  g.save(); g.globalCompositeOperation = 'screen';
+  live.forEach(function (l) {
+    const warm = l.kind === 'drum' ? '255,118,40' : '255,168,88';
+    pool(g, l, [[0, 'rgba(' + warm + ',.34)'], [.55, 'rgba(' + warm + ',.16)'], [1, 'rgba(' + warm + ',0)']]);
+  });
+  g.restore();
+  UI.poolsDrawn = live.length;
+}
+/* a man standing in the dark is drawn from the same bank frames, shaded the night's colour (cached per atlas) */
+function nightAtlas(img) {
+  UI.darkOf = UI.darkOf || new Map();
+  let c = UI.darkOf.get(img);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const g = c.getContext('2d'); g.drawImage(img, 0, 0);
+    g.globalCompositeOperation = 'source-atop'; g.fillStyle = NIGHT_SHADE; g.fillRect(0, 0, c.width, c.height);
+    c.src = img.src;   /* the bank's frames still: the gate traces every man to fight_people */
+    UI.darkOf.set(img, c);
+  }
+  return c;
 }
 /* world <-> screen */
 function sx(wx) { return (wx - UI.cx) * UI.zoom + W / 2; }
@@ -1455,7 +1522,8 @@ function frameFor(v, now) {
   return C.indexOf('idle@0');
 }
 function blitMan(v, X, feet, h, face, now, fallen) {
-  const img = atlasOf(v); if (!img) return;
+  let img = atlasOf(v); if (!img) return;
+  if (FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y)) img = nightAtlas(img);
   const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
   const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
   UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
