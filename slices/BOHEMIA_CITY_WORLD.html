@@ -42658,11 +42658,16 @@ function moversAdvance(){
 const TW0=18, TH0=9;
 let TW=18, TH=9, CZOOM=1, panX=0, panY=0;
 function iso(x,y,ox,oy){ return {sx:ox+(x-y)*TW/2, sy:oy+(x+y)*TH/2}; }
+var MAP_NEAR_ART_PX = 256;   /* a block's building art is authored 256 px wide (HERO_IMG) */
 function zoomBounds(){
   // min zoom = whole map fits the screen (projected map ~ N*TW0 wide, N*TH0 tall)
   const N=om.n;
   const fit=Math.min(CVW/((N+1)*TW0), CVH/((N+1)*TH0))*0.96;
-  return [Math.max(0.05,fit), 2.6];
+  /* __THE_NEAR_STOP_IS_THE_ART_AT_ITS_OWN_PIXELS__ (RUN 10/2, rule 67 s3, Paolo: "got to be able to zoom tf
+     in so much and out all the way"). The closest map stop was 2.6 (a block 47 CSS px), where a block's
+     256-px building art is shown at half its own pixels on a 3x phone. The near stop is now where that
+     art lands ONE ART PIXEL TO ONE DEVICE PIXEL: a block 256/ratio CSS px wide (85 on his phone). */
+  return [Math.max(0.05,fit), Math.max(2.6, MAP_NEAR_ART_PX/((typeof CV_DPR==='number'&&CV_DPR)||1)/TW0)];
 }
 function clampPan(){
   // never let the whole valley slide fully off screen: cap pan to the map's
@@ -43501,7 +43506,7 @@ function mapGroundBegin(ox,oy,night,G){
   var why = !MG.cv ? 'first' : MG.key!==key ? 'key' : !mapGroundMoving(G) ? 'still'
           : now-MG.t>=MAP_GROUND_FRESH_MS ? 'age' : 'margin';
   MG.why=MG.why||{}; MG.why[why]=(MG.why[why]||0)+1;
-  var M=Math.max(64, Math.ceil(TW*4));
+  var M=Math.min(220, Math.max(64, Math.ceil(TW*4)));   /* capped: at the near stop TW*4 would make the picture 14 million px */
   var W=Math.round((CVW+2*M)*CV_DPR), H=Math.round((CVH+2*M)*CV_DPR);
   if(!MG.cv) MG.cv=document.createElement('canvas');
   if(MG.cv.width!==W || MG.cv.height!==H || !MG.x){ MG.cv.width=W; MG.cv.height=H; MG.x=MG.cv.getContext('2d'); }

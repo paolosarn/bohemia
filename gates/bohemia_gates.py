@@ -2313,6 +2313,15 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE ZOOM GOES THROUGH CLOUDS', ['node', 'gates/the_zoom_goes_through_clouds_gate.js'],
+     'VAMILY [map pixels now], rule 67 s3 (PAOLO 10/2, the sixth votes: "the zoom into a fight goes through clouds '
+     'as the loading screen again"). MEASURED BEFORE: the rebuilt fight cut in after about 1.0 s and built its ground '
+     'for 1.7 s behind its own plain loading line. NOW three layers of pixel cloud, drawn once and moved by the '
+     'compositor, roll in at the door, hold until the ground is built, part on two beats; home goes through them '
+     'too. HOLDS, driven: up within 400 ms over the whole glass; never parting while the fight loads; gone within '
+     '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
+     'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
+     'none on the way home.', True),
     ('THE FAR END IS PAINTED', ['node', 'gates/the_far_end_is_painted_gate.js'],
      'VAMILY [map pixels now], rule 65 (PAOLO 10/2, the fourth time: "I want the map graphics to be bigger and '
      'better and especially when you zoom out of the city"). MEASURED BEFORE: at the far stop the blocks were the '

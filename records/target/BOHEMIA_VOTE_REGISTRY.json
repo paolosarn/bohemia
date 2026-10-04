@@ -4298,6 +4298,19 @@
    }
   },
   {
+   "id": "run-clouds-and-the-near-stop-10-2",
+   "kind": "ui",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "INTO A FIGHT THROUGH CLOUDS, AND ZOOMED ALL THE WAY IN",
+   "why": "Going into a fight now rolls through drifting pixel clouds that hold until the fight is built and part on two beats, and coming home goes back through them; and the map now zooms in until a block's own building art sits at your phone's own pixels. You see it the first time a fight starts, and when you pinch all the way in on the map.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_CLOUDS_AND_THE_NEAR_STOP_10_2.jpg"
+   }
+  },
+  {
    "id": "combat2-the-ground-for-the-new-fight-10-2",
    "kind": "tile",
    "lane": "combat 2",

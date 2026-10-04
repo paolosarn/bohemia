@@ -30,6 +30,8 @@
         at the opening zoom, he is the same size, a name plate the same size
      F9 baked off the main thread; a frame pays one drawImage (under 15 ms)
      F10 nothing threw
+     F11 the near stop is a block's art at its own pixels (his 'zoom in so much'), and the ground
+         picture stays under the 16-million-pixel canvas limit there
    node gates/the_far_end_is_painted_gate.js
    ========================================================================== */
 'use strict';
@@ -144,6 +146,11 @@ const r2 = v => Math.round(v * 1000) / 1000;
       for (let i = 0; i < 9; i++) { const a = performance.now(); vbCityDraw(ox, oy, false); g.getImageData(0, 0, 1, 1); ts.push(performance.now() - a); } ts.sort((a, b) => a - b); render();
       return { draw: Math.round(ts[4] * 10) / 10, where: VB.where, asks: VBC.asks, ms: VBC.ms }; });
     ok('F9 baked off the main thread (' + cost.where + ', ' + cost.ms + ' ms there, asked ' + cost.asks + 'x); the frame pays one picture (' + cost.draw + ' ms)', cost.where === 'worker' && cost.draw < 15);
+    /* F11: the other end of his ask ("got to be able to zoom in so much"): the near stop is where a
+       block's 256-px art lands one art pixel to one device pixel */
+    const near = await d.fr.evaluate(() => { const b = zoomBounds()[1]; setZoomAt(b); MAP_GROUND.key = ''; render(); const r = { stop: b, TW, dev: TW * CV_DPR, art: MAP_NEAR_ART_PX, M: MAP_GROUND.M, px: MAP_GROUND.cv ? MAP_GROUND.cv.width * MAP_GROUND.cv.height : 0 }; setZoomAt(1); render(); return r; });
+    ok('F11 the near stop shows a block\'s art at its own pixels (a block ' + Math.round(near.dev) + ' device px for ' + near.art + ' px of art; the ground picture ' + (near.px / 1e6).toFixed(1) + ' million px)',
+      Math.abs(near.dev - near.art) <= 2 && near.px < 16e6);
     ok('F10 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);
