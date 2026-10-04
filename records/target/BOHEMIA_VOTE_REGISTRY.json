@@ -4806,7 +4806,7 @@
    "sha": "a6c18a4",
    "made": "10/4",
    "title": "THE TURN CLOSES",
-   "why": "The END TURN button in the new fight makes no sound at all. This is a small steel catch, built from the same pipe this valley already strikes on the hour, heard only for its first bright instant instead of its full ring: the turn closing the way a bolt drops into its notch. Not in the game yet, same as every other new sound this round until you hear it and say yes.",
+   "why": "The END TURN button in the new fight is silent, so this gives it a short steel click, like a bolt dropping into its notch. You hear it in the VOTE tab under LOOK, and it goes on END TURN in the fight once you say yes.",
    "options": [
     "A, the click"
    ],
@@ -4815,7 +4815,19 @@
     "src": "BOHEMIA_THE_TURN_CLOSES_10_4_26.html"
    }
   },
-{"id": "run-one-song-10-4", "kind": "sound", "lane": "run", "sha": "3aaf22a", "made": "10/4", "title": "ONE SONG AT A TIME: THE FIGHT TAKES THE MUSIC, HOME GIVES IT BACK", "why": "The map's song used to keep playing under every fight, and coming home from a fight left the map silent; now the fight takes over with its own song and the map's song comes back after the fight's song finishes its phrase. You hear it here, recorded from the demo itself, and on the DEMO's map in any fight.", "show": {"how": "page", "src": "vote/RUN_ONE_SONG_10_4.html"}}
+  {
+   "id": "run-one-song-10-4",
+   "kind": "sound",
+   "lane": "run",
+   "sha": "3aaf22a",
+   "made": "10/4",
+   "title": "ONE SONG AT A TIME: THE FIGHT TAKES THE MUSIC, HOME GIVES IT BACK",
+   "why": "The map's song used to keep playing under every fight, and coming home from a fight left the map silent; now the fight takes over with its own song and the map's song comes back after the fight's song finishes its phrase. You hear it here, recorded from the demo itself, and on the DEMO's map in any fight.",
+   "show": {
+    "how": "page",
+    "src": "vote/RUN_ONE_SONG_10_4.html"
+   }
+  }
  ],
  "verdicts": [
   {
