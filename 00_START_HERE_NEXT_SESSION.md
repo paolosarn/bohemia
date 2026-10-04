@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (r) LATEST -- ROUND SEVENTEEN SHIPPED (rule 71a): settlement pictures for
+RUN TWO, slices/settlement_ground/{camp,town,fortress}.webp (2060 x 1092, 45, lossless) + settlement_ground.json
+(tiers[].hotspots{barber,clinic,stall,posts,board}.box in picture px). FOR RUN TWO: draw the picture, light
+the box under the finger, name it only then. Tool tools/bohemia_combat2_settlement_pictures_cook_10_4_26.py.
+VOTE combat2-settlement-pictures-10-4. WEAK/NEXT: the camp is sparse (more tarps, a fire ring, scrap);
+seeded variants per settlement; night versions with the lamps. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (q) LATEST -- ROUND SIXTEEN SHIPPED (rule 67, lines run through): every
 curve crossing a block edge is periodic over 60 m (shore waterline/wade/ring, landfill haul road, scrub
 track, wash meander in its depth); the desert and shore boards' washes run the full depth (explicit layouts

@@ -213,3 +213,13 @@ bathtub ring sin(2 TAU x), landfill haul road sin(TAU x) (TAU = 2 pi / 60); B.wa
 sin(4 pi t) and width sin(2 pi t + 1.1); R4 scrub track sin(2 pi x / 60). The round-nine builder sets the desert
 and shore layouts explicitly so each wash runs its column's whole depth (and from the lake on the shore).
 31 blocks, 5.1 MB WebP. VOTE combat2-lines-run-through-10-4.
+
+## ROUND SEVENTEEN (10/4, rule 71a): THE SETTLEMENT PICTURES
+
+tools/bohemia_combat2_settlement_pictures_cook_10_4_26.py -> slices/settlement_ground/ (published; 0.3 MB): camp,
+town, fortress, each a 4 x 3 house-tile picture (2060 x 1092) at 45 from the boards' pieces. The five usable kinds
+drawn as objects: barber pole (his terracotta and white ramps, spiral stripe), the cross (T[1] on T[6]) in a
+store front's sign band or on a tent, the stall (striped awning, plank table, crates), the posted wall (the cover
+block wall papered 14-30 sheets), the board on a pole. settlement_ground.json: tiers[name] = {src, px, hotspots:
+{kind: {box [x0,y0,x1,y1], kind}}}. Guards: all five kinds per tier, hotspots inside the picture, his colours.
+VOTE combat2-settlement-pictures-10-4. Weak: the camp is sparse.
