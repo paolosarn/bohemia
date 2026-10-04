@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-04
+PASSED FILTER (coordinator 10/4 sweep R, rule 54a: no game he has not named; numbers carry a source; a lore pass is a reading of the master, never canon)
 
 # THE UNDERBELLY. HIT CHANCE
 

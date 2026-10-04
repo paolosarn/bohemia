@@ -731,6 +731,26 @@ const MEASURE = `
     } catch (e) { out.groundTakesItErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE TURN CLOSES (10/4, row [one song and the volumes]). A small steel catch heard
+     before it has time to ring like the pipe it is built from -- the whole claim is
+     that it REUSES struckMetal's own modes rather than inventing a new material, and
+     that the buffer is short enough for the 200 ms end-fade to cover all of it (no
+     chopped edge, which is how a ring becomes a click by accident). */
+  (function () {
+    try {
+      const et = H.endTurnClick(ctx, {});
+      const sr = ctx.sampleRate;
+      out.endTurnClick = {
+        seconds: et.seconds, what: et.what, f0: et.f0,
+        samples: Math.round(et.seconds * sr),
+        fadeCoversAll: Math.round(et.seconds * sr) <= Math.round(0.20 * sr),
+        shorterThanPipesOwnRing: et.seconds < H.STRIKE.pipe.secs,
+        usesPipeTable: et.what === 'pipe',
+        f0RaisedFromPipeDefault: et.f0 > H.STRIKE.pipe.f0
+      };
+    } catch (e) { out.endTurnClickErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1118,6 +1138,14 @@ const MEASURE = `
         H.bootsGoDirt = (ctx, o) => {
           const one = sandStep(ctx, {});
           return { buffer: one.buffer, steps: 1, surface: 'mutated', perBeat: 1, atSeconds: [0] };
+        };
+        /* AND THE TURN CLOSES (10/4): SAME TRAP AGAIN. endTurnClick calls struckMetal BY
+           CLOSURE, so the H.struckMetal swap above never reaches it; the falsifier has to
+           replace H.endTurnClick itself, with the full-length pipe ring at its own f0 and
+           none of the short-cut-off fields the claims read. */
+        H.endTurnClick = (ctx, o) => {
+          const m = realStrike(ctx, { what: 'pipe', f0: 196 });
+          return { buffer: m.buffer, seconds: m.seconds, what: 'pipe', f0: 196 };
         };
       });
     }
@@ -1815,6 +1843,23 @@ const MEASURE = `
         + 'forever" is exactly what asking for a second variant already proves');
     } else { claim('The ground takes it and things get set down were measured', false,
       d.groundTakesItErr || 'no reading'); }
+
+    /* ---- THE TURN CLOSES (10/4, row [one song and the volumes]) ---------------- */
+    if (d.endTurnClick) {
+      const ET = d.endTurnClick;
+      claim('THE TURN CLOSES IS BUILT FROM THE PIPE\'S OWN MODES, NOT A NEW MATERIAL',
+        ET.usesPipeTable === true && ET.f0RaisedFromPipeDefault === true,
+        'endTurnClick calls struckMetal with what:"pipe", f0 ' + ET.f0 + ' Hz raised from the '
+        + 'pipe\'s own default so a small stiff part rings higher than a pipe somebody is holding');
+      claim('AND IT IS HEARD BEFORE THE PIPE HAS TIME TO RING, which is what turns a ring into a click',
+        ET.seconds < 0.15 && ET.shorterThanPipesOwnRing === true,
+        'rendered at ' + ET.seconds + ' s against the pipe\'s own ' + 'full ring; the strike\'s bright '
+        + 'first instant, nothing invented for the cut-off');
+      claim('AND THE WHOLE BUFFER IS INSIDE THE STRIKE\'S OWN END-FADE, so nothing is chopped',
+        ET.fadeCoversAll === true,
+        ET.samples + ' samples against a 200 ms fade window -- the natural envelope, not a second '
+        + 'one pasted over a cut edge');
+    } else { claim('The turn closes was measured', false, d.endTurnClickErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

@@ -1547,7 +1547,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/4h - PINCH IN, YOU ARE ON THE BLOCK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/4l - ONE SONG AT A TIME</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11623,7 +11623,20 @@ function nfOpen(d){
   try { nfcIn(); } catch (_e) {}   /* __THE_ZOOM_GOES_THROUGH_CLOUDS__ */
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
   NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
-  var old = document.getElementById('combatFrame'); if (old) old.style.display = 'none';
+  var old = document.getElementById('combatFrame');
+  if (old) { old.style.display = 'none';
+    try{ if (old.contentWindow) old.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} }
+  /* ===== __ONE_ENGINE_OWNS_THE_ROOM_IN_THE_NEW_FIGHT_TOO__ (SOUNDS, rule 54b, 10/4) =====
+     Paolo 8/26: "when I'm playing the combat, bro, IT'S LIKE TWO SONGS AT THE SAME TIME."
+     V186 fixed that, but only inside the TAB CLICK handler, gated on t.dataset.p==='combat' --
+     it never touches showTabPanel(), which is the function this door calls two lines below.
+     MEASURED: nfOpen() never ran through the click handler at all, so CITYMUS.stopShuffle()
+     and FIGHTMUS.enter() never fired for a single rebuilt fight -- the street's shuffle kept
+     picking new songs on the same shared transport straight through every fight this door
+     opens, same bug, new door. FIGHTMUS already knows how to stand the street down and hand
+     it back on a phrase when the fight ends (nfOverIn already calls FIGHTMUS.leave()); it was
+     just never told a fight here had begun. One call closes the loop both ways. */
+  try{ if (window.FIGHTMUS) FIGHTMUS.enter(); }catch(_e){}
   var fr = document.getElementById('fightFrame');
   if (fr) fr.remove();
   fr = document.createElement('iframe');
@@ -11651,6 +11664,13 @@ function nfOpen(d){
   try { nfcHoldUntilReady(fr); } catch (_e) {}
   showTabPanel('combat');
   document.body.classList.add('nf-on');
+  /* __ONE_SONG__ (RUN 10/4, [one song], rule 64): AND THE FIGHT GETS ITS OWN SONG. SOUNDS' FIGHTMUS.enter()
+     above stands the street down; with nothing more, MEASURED, the street's own song simply carried on as
+     the fight's. The old fight's frame used to report a pick; the rebuilt one never does, so the pick goes
+     through the one handler every fight pick goes through (the latch, never the scratch patch). The map
+     names no faction yet (cityFactionHere is never defined), so it is the weighted draw over the faction
+     songs. nfOverIn's FIGHTMUS.leave() hands the street back on a phrase. One song at any moment. */
+  try { if (window.FIGHTMUS && FIGHTMUS.on) window.postMessage({ bohemiaFactionPicked: 0 }, '*'); } catch (_e) {}
   return true;
 }
 /* four beats to read the card, on the game's one clock */
@@ -12306,6 +12326,17 @@ function startEncounter(spec){
   /* THE STREETS STAND DOWN (8/19). Immediate, because danger is now. See
      FIGHTMUS: without this the overworld shuffle takes the music back 64 bars
      into any fight, measured on the cold open. */
+  /* __ONE_SONG__ (RUN 10/4, [one song], rules 64, 64a: 'I only heard the double music on the old combat
+     model'). MEASURED on the demo through this door: the shell's song went on (FIGHTMUS.enter stands the
+     street down, it does not stop the engine) AND the old fight's frame played its own, about 35 notes every
+     two seconds each, TWO SONGS. The one-engine rule below the tabs (combat owns the music while its tab is
+     the visible one, and the tab click stops the shell) only runs on a TAB CLICK, and the demo's door opens
+     this panel without one. So: when the shell is already playing as this fight starts, the shell's engine
+     is the one bus -- the fight's frame is muted and FIGHTMUS scores the fight and hands the street back on
+     a phrase, the same as the rebuilt fight. A tab click still stops the shell first, so the workshop's
+     COMBAT tab keeps its own music exactly as before. */
+  try{ const _cf=document.getElementById('combatFrame');
+    if(_cf&&_cf.contentWindow&&typeof MUS!=='undefined'&&MUS.playing){ _cf.contentWindow.postMessage({bohemiaMusicMute:true},'*'); window.__ONE_SONG_MUTED=(window.__ONE_SONG_MUTED|0)+1; } }catch(_e){}
   try{ if(window.FIGHTMUS)FIGHTMUS.enter(); }catch(_e){}
   /* and every fight starts CALM, whatever the last one ended on */
   try{ if(window.KILLMUS)KILLMUS.reset(); }catch(_e){}
@@ -12939,7 +12970,13 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
   if(t.dataset.p==='combat'){ try{ if(CITYMUS.on)CITYMUS.stopShuffle(); }catch(e){}
                               try{ if(MUS.playing)MUS.stop(); }catch(e){} }
   else if(t.dataset.p!=='music'&&MUS.playing){
-    if(t.dataset.p==='city'&&CITYMUS.on){/* city shuffle owns playback here */}
+    /* __ONE_SONG__ (RUN 10/4, [one song], rule 64): THE MAP'S PANEL, by either tab. The demo's map is the
+       RUN tab (PANEL maps run to city), and this read t.dataset.p==='city', so every way back to the map
+       through RUN -- the way home from every fight -- took the else below and stopped the street's song:
+       MEASURED on the demo, home from a fight with MUS.playing false and CITYMUS.on false, a silent map.
+       And on the way home the fight's song is still playing and FIGHTMUS.leave is handing the music back
+       on a phrase; it owns that, so this does not cut it. */
+    if(PANEL==='city'&&(CITYMUS.on||window.CITY_HOME_FROM_FIGHT||(window.FIGHTMUS&&(FIGHTMUS.on||FIGHTMUS.watch)))){/* the street shuffle, or the fight handing it back, owns playback here */}
     else { if(CITYMUS.on)CITYMUS.stopShuffle(); else MUS.stop(); } }   /* leaving the studio (or city shuffle) silences it */
   /* V186: *** THE ONE-WORD LOGIC ERROR, AND IT IS THE WHOLE BUG. ***
      This read `if(t.dataset.p!=='music')` and posted mute:FALSE -- so going
@@ -22321,6 +22358,35 @@ drawLogoBig();requestAnimationFrame(loop);
     return w;
   }
   window.__sfxVary=vary;   /* exposed so the gate can measure the real spread */
+  /* ===== THE AMBIENCE COMES DOWN (SOUNDS, rule 54b, 10/4) =====================
+     PAOLO, his sixth votes (10/2): "new ones are fire, put the volume down"; "quieter
+     please, it's loud." Rule 54b's row names four of the sounds he means by name: the
+     sign, the block lights, the generator, the valley broadcast. THE ROOM already did
+     this exact move on 9/23 (HOW LOW THE ROOM, ROOM.REL below) -- a ratio applied OVER
+     the approved recipe, never a rewrite of it, because the recipe is frozen
+     (verdict_frozen_gate.py) and only HOW LOUD is being asked for here, never WHAT IT
+     SOUNDS LIKE. Same move, three more sounds: sign_alive, power_on and generator are
+     all TIER 1 (ambience, "the valley being the valley") -- the valley's incidental
+     noise, never the thing he is supposed to be listening to -- and nothing was ever
+     pulling them down the way ROOM's own ratio pulls the room tone down.
+     A VALLEY BROADCAST IS NOT YET IN THE ROOM TO TURN DOWN: theBroadcast (round [not
+     sand], 9/27) is a built, measured candidate -- sounds-the-valley-still-broadcasts-
+     9-27 in the VOTE tab -- that was never wired into a live event, so there is no
+     live instance of it for him to be hearing; nothing here claims otherwise.
+     -6 dB (half the energy) is what ships, the same size of cut HOW LOW THE ROOM's own
+     page offers as its middle option; A/B/C in the VOTE tab for exactly how much,
+     never for which recipe -- the recipe is untouched, only the ratio changes, same
+     as ROOM.REL. */
+  var AMB_TRIM = { sign_alive: 0.50, power_on: 0.50, generator: 0.50 };
+  window.__ambTrim = AMB_TRIM;
+  function ambTrim(ev, v){
+    var t = AMB_TRIM[ev];
+    if(t == null || !v) return v;
+    var w = {}; var k; for(k in v) w[k] = v[k];
+    w.gain = (v.gain || 0) * t;
+    return w;
+  }
+  window.__sfxAmbTrim = ambTrim;
   /* === THE ROOM TAKES THE SOUND (8/4) ==================================
      Measured RT60 from the acoustics literature, mapped onto the four places
      this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
@@ -22363,6 +22429,7 @@ drawLogoBig();requestAnimationFrame(loop);
       if(!voiceOK(ev))return null;
       var c=pick(ev); if(c==null)return null;
       var v=vary(vec(c[0],c[1])); if(!v)return null;
+      v=ambTrim(ev,v);
       v=inSpace(v);
       MUS.audio();
       var AC=MUS.AC;

@@ -173,3 +173,66 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+# ---------------------------------------------------------------------------------------------
+# ROUND NINETEEN (10/4, rule 73: NIGHT IS A COLOUR, NOT A DARKNESS; THE GAME IS PLAYABLE IN THE SUN).
+# The round-six night above multiplied sRGB by 0.30, which is about 0.07 in linear light: mud on a
+# sunlit glass. The floor (records/BOHEMIA_SCHOOL_PLAYABLE_IN_THE_SUN_10_4_26.md): luminance lowered by
+# no more than about half (multiplier >= 0.55, in LINEAR light), the walkable ground's median luminance
+# >= 0.20 of white, a lit tile against an unlit one >= 3:1, and all of it still true with a flat 25%
+# white laid over (the sun test). night_sun() is that night, and sun_measure() reads the four numbers
+# off the picture itself.
+# ---------------------------------------------------------------------------------------------
+def _lin(a): a = a / 255.0; return np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+def _srgb(l): l = np.clip(l, 0, 1); return np.where(l <= 0.0031308, l * 12.92, 1.055 * l ** (1 / 2.4) - 0.055) * 255.0
+def _Y(a): l = _lin(a.astype(np.float32)); return 0.2126 * l[..., 0] + 0.7152 * l[..., 1] + 0.0722 * l[..., 2]
+
+
+NIGHT_MULT = 0.58                      # linear-light multiplier on the unlit ground (floor: >= 0.55)
+NIGHT_TINT = np.array([0.86, 0.94, 1.18])   # the colour of the hour: cool, a little blue; luminance kept by the mult
+
+
+def night_sun(board, lights, pool_lift=5.0, floor=0.235):   # 0.235: the palette snap and the cool tint lose a little; the floor is 0.20 after both
+    """Night you can read in the sun: the unlit ground at NIGHT_MULT of its linear luminance and cooled;
+       each live light's pool lifted toward warm white in hard rings (pixel art, no blur), so a lit tile
+       stands at least 3:1 over the dark around it. Snapped to his palette like round six."""
+    a = np.array(board.convert('RGB')).astype(np.float32)
+    lin = _lin(a)
+    # MEASURED 10/4: our DAY pictures sit at 0.15-0.30 of white (the town 0.149, already under the night
+    # floor). So the multiplier is adaptive: as dark as the floor allows and never darker than 0.58; a
+    # picture already under the floor gets night as COLOUR only (rule 73's own words).
+    day_med = float(np.median(_Y(a)))
+    mult = min(1.35, max(NIGHT_MULT, floor / max(day_med, 1e-3)))   # a picture darker than the floor by day is lifted to it (up to 1.35x): the floor binds
+    dark = lin * mult * NIGHT_TINT
+    H, W = a.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    keep = np.zeros((H, W), np.float32)
+    for (x, y, rad) in lights:
+        d = np.sqrt((xx - x) ** 2 + ((yy - y) / TILT_R) ** 2) / rad
+        keep = np.maximum(keep, np.where(d < 0.45, 1.0, np.where(d < 0.75, 0.75, np.where(d < 1.0, 0.5, 0.0))))
+    # the pool lifts until a lit tile stands 3:1 over the dark round it (measured, before the snap), up to 12x
+    Yd = 0.2126 * dark[..., 0] + 0.7152 * dark[..., 1] + 0.0722 * dark[..., 2]
+    unlit_med = float(np.median(Yd[keep == 0])) if (keep == 0).any() else float(np.median(Yd))
+    for lift in (pool_lift, 6.5, 8.0, 10.0, 12.0):
+        warm = np.clip(lin * lift * np.array([1.0, 0.92, 0.72]), 0, 1)
+        Yw = 0.2126 * warm[..., 0] + 0.7152 * warm[..., 1] + 0.0722 * warm[..., 2]
+        lit = Yw[keep >= 0.75]
+        if not lit.size or (float(np.median(lit)) + 0.05) / (unlit_med + 0.05) >= 3.3: break
+    out = dark * (1 - keep[..., None]) + warm * keep[..., None]
+    return Image.fromarray(snap(np.clip(_srgb(out), 0, 255))), keep
+
+
+def sun_measure(img, keep):
+    """The four numbers of rule 73, read off the picture, plain and with a flat 25% white over it."""
+    res = {}
+    for tag, glare in (('plain', 0.0), ('sun', 0.25)):
+        a = np.array(img.convert('RGB')).astype(np.float32)
+        a = a + (255 - a) * glare
+        Y = _Y(a)
+        unlit, lit = Y[keep == 0], Y[keep >= 0.75]
+        med_u = float(np.median(unlit)) if unlit.size else 0.0
+        med_l = float(np.median(lit)) if lit.size else 0.0
+        res[tag] = dict(ground_median=round(float(np.median(Y)), 3), unlit_median=round(med_u, 3),
+                        lit_median=round(med_l, 3), lit_vs_unlit=round((med_l + 0.05) / (med_u + 0.05), 2))
+    return res

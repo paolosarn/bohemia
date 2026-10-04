@@ -290,13 +290,16 @@ def main():
         for i, sd in enumerate(seeds[name]):
             im, spots, lights = fn(sd)
             guard(name, im, spots)
-            nim, _ = NB.night(im, lights)
+            nim, keep = NB.night_sun(im, lights)                         # ROUND NINETEEN: rule 73's sun-readable night
             guard(name + ' night', nim, spots)
+            sm = NB.sun_measure(nim, keep)
+            if sm['plain']['ground_median'] < 0.20 or sm['plain']['lit_vs_unlit'] < 3.0 or sm['sun']['ground_median'] < 0.20:
+                die('%s night under rule 73: %s' % (tag if False else name, sm))
             tag = '%s_%d' % (name, i)
             im.save('%s/%s.webp' % (OUT_DIR, tag), 'WEBP', lossless=True, method=6)
             nim.save('%s/%s_night.webp' % (OUT_DIR, tag), 'WEBP', lossless=True, method=6)
             vs.append(dict(src='%s.webp' % tag, night_src='%s_night.webp' % tag, px=list(im.size),
-                           hotspots={k: dict(box=list(v), kind=k) for k, v in spots.items()}, lights=len(lights)))
+                           hotspots={k: dict(box=list(v), kind=k) for k, v in spots.items()}, lights=len(lights), night_measured=sm))
             if i == 0: tiers[name] = (im, spots, nim)
         man['tiers'][name] = dict(src=vs[0]['src'], px=vs[0]['px'], hotspots=vs[0]['hotspots'], variants=vs)
     for old in ('camp.webp', 'town.webp', 'fortress.webp'):

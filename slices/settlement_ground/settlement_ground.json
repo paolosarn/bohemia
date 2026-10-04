@@ -115,7 +115,21 @@
        "kind": "board"
       }
      },
-     "lights": 2
+     "lights": 2,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.215,
+       "unlit_median": 0.215,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.13
+      },
+      "sun": {
+       "ground_median": 0.348,
+       "unlit_median": 0.348,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.21
+      }
+     }
     },
     {
      "src": "camp_1.webp",
@@ -171,7 +185,21 @@
        "kind": "board"
       }
      },
-     "lights": 2
+     "lights": 2,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.219,
+       "unlit_median": 0.219,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.352,
+       "unlit_median": 0.352,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.19
+      }
+     }
     }
    ]
   },
@@ -283,7 +311,21 @@
        "kind": "board"
       }
      },
-     "lights": 3
+     "lights": 3,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.256,
+       "unlit_median": 0.185,
+       "lit_median": 0.675,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.387,
+       "unlit_median": 0.319,
+       "lit_median": 0.748,
+       "lit_vs_unlit": 2.16
+      }
+     }
     },
     {
      "src": "town_1.webp",
@@ -339,7 +381,21 @@
        "kind": "board"
       }
      },
-     "lights": 3
+     "lights": 3,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.256,
+       "unlit_median": 0.185,
+       "lit_median": 0.675,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.387,
+       "unlit_median": 0.319,
+       "lit_median": 0.748,
+       "lit_vs_unlit": 2.16
+      }
+     }
     }
    ]
   },
@@ -451,7 +507,21 @@
        "kind": "posts"
       }
      },
-     "lights": 5
+     "lights": 5,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.247,
+       "unlit_median": 0.187,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.49
+      },
+      "sun": {
+       "ground_median": 0.38,
+       "unlit_median": 0.321,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.37
+      }
+     }
     },
     {
      "src": "fortress_1.webp",
@@ -507,7 +577,21 @@
        "kind": "posts"
       }
      },
-     "lights": 5
+     "lights": 5,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.245,
+       "unlit_median": 0.182,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.57
+      },
+      "sun": {
+       "ground_median": 0.378,
+       "unlit_median": 0.315,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.41
+      }
+     }
     }
    ]
   }

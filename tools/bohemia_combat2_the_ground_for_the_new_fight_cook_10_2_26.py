@@ -236,7 +236,8 @@ def main():
                cover_extra={k: dict(src='cover_%s.png' % k, h=(2.5 if k == 'outcrop' else 1.4), kind=('MOUND' if k == 'outcrop' else 'COVER')) for k in extra},
                blocks={bid: dict(src='block_%s.png' % bid.replace('.', '_')) for bid in blocks},
                lights_key={'lamp': 'a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)',
-                           'drum': 'an oil drum with a fire in it, always live', 'anchor': 'x_m, y_m = the sprite base; draw it bottom-centred'},
+                           'drum': 'an oil drum with a fire in it, always live', 'anchor': 'x_m, y_m = the sprite base; draw it bottom-centred',
+                           'circuit': "'grid' lamps burn only where the map says this block has power (rule 73); 'fire' always burns", 'block': '[block row, block column]: the unit the map powers'},
                boards={})
     for name, lay in BOARDS.items():
         terr = [[None] * (BW * N) for _ in range(BH * N)]
@@ -271,10 +272,12 @@ def main():
                     for x in range(5, 60, 12):
                         for y in ys:
                             lights.append(dict(kind='lamp', src='light_lamp_house_side.png' if y < 30 else 'light_lamp_your_side.png',
-                                               x_m=bc * 60 + x, y_m=br * 60 + y, live=lr.random() < 0.36, radius_m=7.0))
+                                               x_m=bc * 60 + x, y_m=br * 60 + y, live=lr.random() < 0.36, radius_m=7.0,
+                                               circuit='grid', block=[br, bc]))   # rule 73: the map powers a block on or off
                 if k in ('subs', 'lots', 'ruin', 'landfill', 'scrub') and lr.random() < 0.5:
                     lights.append(dict(kind='drum', src='light_oil_drum.png', x_m=round(bc * 60 + 6 + lr.random() * 48, 1),
-                                       y_m=round(br * 60 + (8 if lr.random() < 0.5 else 52), 1), live=True, radius_m=5.0))
+                                       y_m=round(br * 60 + (8 if lr.random() < 0.5 else 52), 1), live=True, radius_m=5.0,
+                                       circuit='fire', block=[br, bc]))
         man['boards'][name] = dict(blocks=lay, terrain=terr, cover=cov, lights=lights)
     for bid, b in man['blocks'].items():
         if not os.path.exists(os.path.join(OUT_DIR, b['src'])): die('missing ' + b['src'])
