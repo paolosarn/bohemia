@@ -11617,7 +11617,20 @@ function nfOpen(d){
   try { nfcIn(); } catch (_e) {}   /* __THE_ZOOM_GOES_THROUGH_CLOUDS__ */
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
   NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
-  var old = document.getElementById('combatFrame'); if (old) old.style.display = 'none';
+  var old = document.getElementById('combatFrame');
+  if (old) { old.style.display = 'none';
+    try{ if (old.contentWindow) old.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} }
+  /* ===== __ONE_ENGINE_OWNS_THE_ROOM_IN_THE_NEW_FIGHT_TOO__ (SOUNDS, rule 54b, 10/4) =====
+     Paolo 8/26: "when I'm playing the combat, bro, IT'S LIKE TWO SONGS AT THE SAME TIME."
+     V186 fixed that, but only inside the TAB CLICK handler, gated on t.dataset.p==='combat' --
+     it never touches showTabPanel(), which is the function this door calls two lines below.
+     MEASURED: nfOpen() never ran through the click handler at all, so CITYMUS.stopShuffle()
+     and FIGHTMUS.enter() never fired for a single rebuilt fight -- the street's shuffle kept
+     picking new songs on the same shared transport straight through every fight this door
+     opens, same bug, new door. FIGHTMUS already knows how to stand the street down and hand
+     it back on a phrase when the fight ends (nfOverIn already calls FIGHTMUS.leave()); it was
+     just never told a fight here had begun. One call closes the loop both ways. */
+  try{ if (window.FIGHTMUS) FIGHTMUS.enter(); }catch(_e){}
   var fr = document.getElementById('fightFrame');
   if (fr) fr.remove();
   fr = document.createElement('iframe');
@@ -22315,6 +22328,35 @@ drawLogoBig();requestAnimationFrame(loop);
     return w;
   }
   window.__sfxVary=vary;   /* exposed so the gate can measure the real spread */
+  /* ===== THE AMBIENCE COMES DOWN (SOUNDS, rule 54b, 10/4) =====================
+     PAOLO, his sixth votes (10/2): "new ones are fire, put the volume down"; "quieter
+     please, it's loud." Rule 54b's row names four of the sounds he means by name: the
+     sign, the block lights, the generator, the valley broadcast. THE ROOM already did
+     this exact move on 9/23 (HOW LOW THE ROOM, ROOM.REL below) -- a ratio applied OVER
+     the approved recipe, never a rewrite of it, because the recipe is frozen
+     (verdict_frozen_gate.py) and only HOW LOUD is being asked for here, never WHAT IT
+     SOUNDS LIKE. Same move, three more sounds: sign_alive, power_on and generator are
+     all TIER 1 (ambience, "the valley being the valley") -- the valley's incidental
+     noise, never the thing he is supposed to be listening to -- and nothing was ever
+     pulling them down the way ROOM's own ratio pulls the room tone down.
+     A VALLEY BROADCAST IS NOT YET IN THE ROOM TO TURN DOWN: theBroadcast (round [not
+     sand], 9/27) is a built, measured candidate -- sounds-the-valley-still-broadcasts-
+     9-27 in the VOTE tab -- that was never wired into a live event, so there is no
+     live instance of it for him to be hearing; nothing here claims otherwise.
+     -6 dB (half the energy) is what ships, the same size of cut HOW LOW THE ROOM's own
+     page offers as its middle option; A/B/C in the VOTE tab for exactly how much,
+     never for which recipe -- the recipe is untouched, only the ratio changes, same
+     as ROOM.REL. */
+  var AMB_TRIM = { sign_alive: 0.50, power_on: 0.50, generator: 0.50 };
+  window.__ambTrim = AMB_TRIM;
+  function ambTrim(ev, v){
+    var t = AMB_TRIM[ev];
+    if(t == null || !v) return v;
+    var w = {}; var k; for(k in v) w[k] = v[k];
+    w.gain = (v.gain || 0) * t;
+    return w;
+  }
+  window.__sfxAmbTrim = ambTrim;
   /* === THE ROOM TAKES THE SOUND (8/4) ==================================
      Measured RT60 from the acoustics literature, mapped onto the four places
      this game actually has. STREET is 1.0 on every dial ON PURPOSE: it is the
@@ -22357,6 +22399,7 @@ drawLogoBig();requestAnimationFrame(loop);
       if(!voiceOK(ev))return null;
       var c=pick(ev); if(c==null)return null;
       var v=vary(vec(c[0],c[1])); if(!v)return null;
+      v=ambTrim(ev,v);
       v=inSpace(v);
       MUS.audio();
       var AC=MUS.AC;

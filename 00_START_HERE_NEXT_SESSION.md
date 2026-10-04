@@ -6003,6 +6003,61 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/4 LATEST -- *** THE DEMO PAUSED [not sand] AND OPENED A NEW ROW: THE
+FENCE AROUND THE REBUILT FIGHT'S MUSIC, AND THREE AMBIENCE SOUNDS DOWN. *** Row [not sand] is
+PAUSED (rule 54b: demo-only mode, one row runs). Row [one song and the volumes] is CLAIMED,
+round one done, ROW STAYS CLAIMED.
+
+WHY THE ROW CHANGED: Paolo asked the coordinator which other chats to run to push the demo out
+(records/BOHEMIA_PAOLO_WHICH_OTHER_CHATS_FOR_THE_DEMO_10_4_26.md, rule 54b). SOUNDS opened for
+the demo only, one row: music (one bus, the volumes) then the new fight's SFX then the narrator.
+Everything else in this lane is on hold until the demo ships.
+
+RULE 64a LANDED MID-ROUND AND CHANGED THE OWNERSHIP SPLIT: Paolo corrected the coordinator --
+"I only heard the double Music on the old combat model. It's not everywhere." RUN already
+claimed [one song] and owns the OLD fight's door (where he actually heard it) and the
+map-to-new-fight hand-off. SOUNDS' job on the music half is narrower: be the FENCE that keeps
+"one bus" true everywhere, not re-chase RUN's bug.
+
+WHAT SHIPPED THIS ROUND:
+1. THE FENCE ON THE REBUILT FIGHT'S DOOR. nfOpen() (slices/BOHEMIA_ALPHA_0_9.html, the door the
+   REBUILT fight opens through) never ran through the tab-click handler V186 (8/26) lives in --
+   it calls showTabPanel(), which only toggles CSS. MEASURED with a direct Playwright call to
+   nfOpen(): before the fix, CITYMUS.on stayed true and FIGHTMUS.on never flipped true, meaning
+   the street shuffle could still reach into a rebuilt fight. After: nfOpen() calls
+   FIGHTMUS.enter() (the existing fence the old fight already uses), and nfOverIn() already
+   calls FIGHTMUS.leave() on the way out, so it holds both directions. Zero console errors
+   either side of the fix. This does NOT touch the old fight's door or the map hand-off --
+   that is RUN's [one song], untouched.
+2. THE ROOM is already done (9/23, ROOM.REL 0.025) -- re-verified live and unchanged, no action
+   needed.
+3. THREE VOLUMES DOWN. sign_alive, power_on (the block lights) and generator had nothing
+   pulling them down the way ROOM's own ratio pulls the room tone down. playSFX now applies a
+   -6 dB ratio to exactly those three events, over the approved recipe -- the frozen recipe in
+   bohemia_sfx.js is untouched, only the mixer output moved. New judge page
+   slices/BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html plays the real candidates at A (ships,
+   -6 dB) / B (lower, -12 dB) / C (unchanged); registered sounds-the-ambience-comes-down-10-4.
+4. THE VALLEY BROADCAST has no live instance to turn down: theBroadcast
+   (sounds-the-valley-still-broadcasts-9-27) is a built, measured candidate that was never
+   wired into a live event. Said plainly rather than invented.
+
+GATES: cooked_sounds_gate.js still 181/0 (unchanged by this round's work, which lives in the
+alpha and the gate file, not the engine module). gates/one_engine_gate.js gets two new claims,
+E4 (the rebuilt fight's door stands the shuffle down) and E5 (the three-event trim table) --
+BUT THIS GATE'S OWN BOOT IS CURRENTLY BROKEN, unrelated to this round: its blind 9 s wait for
+the front splash tap, then a hardcoded coordinate click at (215,450), used to work and no
+longer does -- the splash button has moved (now near the bottom of the screen, not the middle,
+probably another lane's UI/start-screen work) AND window.__LOAD_READY is not reaching true
+within 30 s even when the real button is clicked by its own bounding box. PLUMBER territory,
+flagged, not fixed here -- fixing a shared boot harness mid-sprint risked a collision with
+whichever lane is mid-edit on the splash/loader. The before/after mutation proof in this
+round's VAMILY.md block is the real evidence for E4/E5 until that harness boots again.
+
+NEXT (in order, per the row): the new fight's SFX on COMBAT's rebuilt fight (a shot, a hit, a
+fall, a miss, the end-turn, the recap), then the narrator's end-screen voice (rule 45).
+
+---
+
 SOUNDS (sound-xk7pjp): 10/1 LATEST -- *** FOUR MORE OF THE REDO LIST, AND NONE OF THEM NEEDED
 A NEW IDEA. *** Row [not sand], round nine, ROW STAYS CLAIMED.
 Record: VAMILY.md row [not sand], round nine block (no separate record file this round).
