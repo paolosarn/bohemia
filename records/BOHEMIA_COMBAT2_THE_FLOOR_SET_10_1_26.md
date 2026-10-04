@@ -173,3 +173,53 @@ columns a board (the stem's column always kept, no two side by side beside a ste
 suburbs. boards[].lights: lamps every 12 m on both walks of every street block (36% live, seeded per board),
 drums in some lots/scrub (live); sprites light_lamp_house_side/your_side/oil_drum.png (his 7/28 sprites);
 lights_key in the manifest. 27 blocks, 23.8 MB.
+
+## ROUND THIRTEEN (10/2): THE GROUND PACKED
+
+tools/bohemia_combat2_fight_ground_pack_10_2_26.py: every PNG in slices/fight_ground saved as lossless WebP
+(method 6), decoded back and compared on every visible pixel (refuses on any difference), PNG removed, the
+manifest's src fields rewritten to .webp, every named file checked present. 23.6 MB -> 4.8 MB (71 files).
+Verified in slices/BOHEMIA_FIGHT.html (culdesac, shore; 390x844 DPR 3; 0 page errors). The round-nine
+builder imports and calls pack() last.
+
+## ROUND FOURTEEN (10/4, rule 67): MANY MORE BUILDING TYPES
+
+tools/bohemia_combat2_building_types_cook_10_4_26.py -> banks/BOHEMIA_THE_BUILDING_TYPES_10_4_26.txt, VOTE
+combat2-building-types-10-4. shell(w, d, h, roof): roof plane d x cos45 (flat deck+parapet / corrugated metal /
+terracotta hip or gable), face h x cos45 from his wall tiles, shadow SE. Apartments 24x11x9 (window grid, stair,
+walkways, AC); church 12x18x6 + gable end + bell tower; school 30x12x4.5 (windows, doors, flagpole); gas station
+(store 12x7 + canopy 20x8 on four posts, pumps); motel 30x9x3.2 (door+window per room, office); warehouse 30x20x7
+(corrugated, roll-ups, dock); casino back 36x14x12 (tilt-up panels, docks, ducts). Sprites sit bottom-on-tile and
+stand into the row behind. Blocks main_street (gas station, motel / church, school) and the_works (casino back,
+apartments / warehouse) feed the round-nine builder (HOUSES for suburb boards, TOWN = HOUSES + main + works for
+strip and the culdesac's south row); streets_run_through counts them as town and keeps cross streets out of their
+columns. 30 blocks, 5.1 MB WebP. Verified in the new fight (strip, suburb; 390x844 DPR 3; 0 errors).
+
+## ROUND FIFTEEN (10/4, his sixth votes): THE FREEWAY AND THE LANDFILL RE-CUT
+
+tools/bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26.py, VOTE combat2-freeway-and-landfill-recut-10-4.
+freeway2(seed, overpass): north sound wall face 4 m (row 0 blocked), eight lanes 3.7 m with dashes, shoulders with
+rumble strips, yellow inside edges, a 1.2 m jersey median top lit with its 0.8 m face seen, a seeded jam; overpass
+variant: a 12 m deck x 24-36 m (column 2 'height') with railings, a faded centre line, spalls and joints, piers in
+the lane gaps, its shadow east. landfill2(seed): benches 0-16 (capped soil, vents, the flare), 16-30 and 30-42 m
+(open trash) with 2 m faces seen, bales (top/face pairs off his ramps), tyre stacks, the switchback haul road, the
+south litter fence; rows 0-1 'height', row 2 'rough'. Wired into the round-nine builder ('freeway', 'freewayo',
+'landfill'); 31 blocks, 5.1 MB WebP. Verified in the new fight (freeway, landfill; 0 errors).
+
+## ROUND SIXTEEN (10/4, rule 67): THE LINES RUN THROUGH
+
+Curves made periodic over one block (60 m): R5 shore waterline sin(TAU x) + sin(4 TAU x), wade band sin(2 TAU x),
+bathtub ring sin(2 TAU x), landfill haul road sin(TAU x) (TAU = 2 pi / 60); B.wash meander sin(2 pi t + .6) +
+sin(4 pi t) and width sin(2 pi t + 1.1); R4 scrub track sin(2 pi x / 60). The round-nine builder sets the desert
+and shore layouts explicitly so each wash runs its column's whole depth (and from the lake on the shore).
+31 blocks, 5.1 MB WebP. VOTE combat2-lines-run-through-10-4.
+
+## ROUND SEVENTEEN (10/4, rule 71a): THE SETTLEMENT PICTURES
+
+tools/bohemia_combat2_settlement_pictures_cook_10_4_26.py -> slices/settlement_ground/ (published; 0.3 MB): camp,
+town, fortress, each a 4 x 3 house-tile picture (2060 x 1092) at 45 from the boards' pieces. The five usable kinds
+drawn as objects: barber pole (his terracotta and white ramps, spiral stripe), the cross (T[1] on T[6]) in a
+store front's sign band or on a tent, the stall (striped awning, plank table, crates), the posted wall (the cover
+block wall papered 14-30 sheets), the board on a pole. settlement_ground.json: tiers[name] = {src, px, hotspots:
+{kind: {box [x0,y0,x1,y1], kind}}}. Guards: all five kinds per tier, hotspots inside the picture, his colours.
+VOTE combat2-settlement-pictures-10-4. Weak: the camp is sparse.

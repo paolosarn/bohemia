@@ -86,7 +86,8 @@ leg(live.length >= 30 && unread.length === 0, 'every perk marked live is read by
 
     /* ranged: rifle at range behind the cover rule */
     s = fresh('rifle'); s.t.x = s.fp.x + 2; s.a.loaded = true;
-    S.cover[s.t.y][s.t.x] = 'rock_0'; b = hc(s.a, s.t); s.a.perks = ['bullseye']; const bul = hc(s.a, s.t); S.cover[s.t.y][s.t.x] = null; const open0 = hc(s.a, s.t);
+    /* a car between him and his man (the wiki's blocked line), not under the man (that is defence by count now, rule 67) */
+    S.cover[s.t.y][s.fp.x + 1] = 'rock_0'; b = hc(s.a, s.t); s.a.perks = ['bullseye']; const bul = hc(s.a, s.t); S.cover[s.t.y][s.fp.x + 1] = null; const open0 = hc(s.a, s.t);
     say('THREADS THE NEEDLE (bullseye): cover costs half, not three quarters', Math.abs(bul - open0 * 0.5) <= 1 && Math.abs(b - open0 * 0.25) <= 1, 'open ' + open0 + ', cover ' + b + ', cover with it ' + bul);
     s.a.perks = []; s.t.perks = ['anticipation']; const ant = hc(s.a, s.t);
     const an = num('anticipation'), want = Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + 10 * an.ranged_defense_per_tile_pct_of_base / 100) * 2);
@@ -191,6 +192,16 @@ leg(live.length >= 30 && unread.length === 0, 'every perk marked live is read by
     S.over = true;
     s = fresh(); s.t.armH = 0; s.t.armB = 0; b = hit(s.a, s.t).hp; s.t.perks = ['indomitable']; s.t.indomitable = true;
     say('IMMOVABLE (indomitable): half damage until his next turn', hit(s.a, s.t).hp === Math.floor(b * (1 - num('indomitable').damage_reduction_pct / 100)), b + ' -> ' + hit(s.a, s.t).hp);
+
+    /* CARS RAISE A TILE'S DEFENCE BY COUNT (rule 67) */
+    s = fresh(); b = hc(s.a, s.t); S.coverCount[s.t.y][s.t.x] = 1; const one = hc(s.a, s.t); S.coverCount[s.t.y][s.t.x] = 3; const three = hc(s.a, s.t);
+    S.coverCount[s.t.y][s.t.x] = 5; const five = hc(s.a, s.t); S.coverCount[s.t.y][s.t.x] = 0;
+    const cd = DB.ours.cover_defence.value;
+    say('one car on his tile is some defence, three cars more, never past three', b - one === cd.melee_per_piece && b - three === 3 * cd.melee_per_piece && five === three, b + ' -> ' + one + ' -> ' + three + ' (five: ' + five + ')');
+    /* every perk has its own drawn icon (rule 67: art, not text) */
+    const sums = DB.perks.rows.map(r => { const c = document.createElement('canvas'); c.width = c.height = 48; perkIcon(c.getContext('2d'), r.id, 48);
+      const d = c.getContext('2d').getImageData(0, 0, 48, 48).data; let h = 0; for (let i = 0; i < d.length; i += 4) h = (h * 31 + d[i] * 3 + d[i + 1] * 5 + d[i + 2]) >>> 0; return h; });
+    say('A DRAWN ICON FOR EVERY ONE OF THE FIFTY (rule 67), no two alike', new Set(sums).size === DB.perks.rows.length, new Set(sums).size + ' distinct of ' + DB.perks.rows.length);
 
     /* who carries what */
     FIGHT.setup({ board: "freeway" }); S.over = true;

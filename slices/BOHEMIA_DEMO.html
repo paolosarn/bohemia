@@ -1547,7 +1547,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/2h - THE NEW FIGHT IS IN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/4h - PINCH IN, YOU ARE ON THE BLOCK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -10703,7 +10703,12 @@ function bake112(d,clip,ph){
    the law gives RUN the one constant and gives this lane "the rig at the new size".
    The name carries no number either -- a function called bakeCast that bakes at
    CAST_PX is the seventh copy. */
-const CAST_PX=56;
+/* RUN 10/4 ([map pixels now], rule 65 (a): every marker drawn 1:1 from its authored art): THE ONE EDIT
+   THIS NOTE PROMISED. The map draws a person 37 CSS px tall, which is 112 device px on his phone, and was
+   drawing the halved 56 doubled back up. At 112 the rig's frame ships as it renders (no halve), the map
+   draws it one art pixel to one device pixel, and the city's ladder (spriteAt) is size-aware, so every
+   body keeps the on-screen size it had. */
+const CAST_PX=112;
 function bakeCast(d,clip,ph,noBorder){const f=buildFrame(d,clip,ph,!!noBorder);const r=frameToRGBA(f);
   return packIdx(f.CW===CAST_PX?r:_rgbaHalf(r,f.CW,f.CH),CAST_PX,CAST_PX);} /* RAW art: city applies the Scale2x ladder itself (integer scale law) */
 G._sentLook=null;
@@ -11615,6 +11620,7 @@ function nfOpts(d){
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   fightVeil(true);
+  try { nfcIn(); } catch (_e) {}   /* __THE_ZOOM_GOES_THROUGH_CLOUDS__ */
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
   NF.opts = nfOpts(d); NF.over = null; NF.homeAt = null; NF.opened = performance.now();
   var old = document.getElementById('combatFrame'); if (old) old.style.display = 'none';
@@ -11642,6 +11648,7 @@ function nfOpen(d){
     }catch(_e){}
   });
   fr.src = 'BOHEMIA_FIGHT.html';
+  try { nfcHoldUntilReady(fr); } catch (_e) {}
   showTabPanel('combat');
   document.body.classList.add('nf-on');
   return true;
@@ -11661,11 +11668,14 @@ function nfOverIn(d, src){
   G.combatLog.push({ t: Date.now(), outcome: won ? 'encounter-won' : 'encounter-lost', recorded: true, newFight: true });
   if (G.combatLog.length > 40) G.combatLog.shift();
   NF.homeAt = setTimeout(nfHome, nfReadMs());
+  NF.cloudAt = setTimeout(function(){ try { nfcIn(); } catch (_e) {} }, Math.max(0, nfReadMs() - 60000 / 120));   /* the clouds close over the card in its last beat */
   return true;
 }
 function nfHome(){
   if (!NF.over || !CITYFIGHT) return false;
   if (NF.homeAt) { clearTimeout(NF.homeAt); NF.homeAt = null; }
+  if (NF.cloudAt) { clearTimeout(NF.cloudAt); NF.cloudAt = null; }
+  try { if (NFC.state !== 'in') nfcIn(); setTimeout(nfcPart, 250); } catch (_e) {}   /* and part over the map */
   var fr = NF.frame; NF.frame = null;
   document.body.classList.remove('nf-on');
   var ok = cityFightHome(NF.over); NF.homeWall = Date.now();
@@ -11677,6 +11687,73 @@ window.addEventListener('message', function(ev){
   nfOverIn(d, ev.source);
 });
 /* ===== /__THE_NEW_FIGHT_IS_THE_FIGHT__ ===== */
+/* ===== __THE_ZOOM_GOES_THROUGH_CLOUDS__ (RUN 10/2, [map pixels now], rule 67 s3) =====
+   PAOLO 10/2 (the sixth votes): "the zoom into a fight goes through clouds as the loading screen
+   again." MEASURED: the door opens the rebuilt fight about 1.0 s after the bell, and its ground takes
+   another 1.7 s to build, all of it shown as the fight's own plain loading line.
+   NOW THE CLOUDS ARE THE LOADING SCREEN. Three layers of pixel cloud, drawn ONCE at a quarter of the
+   screen's pixels in the dust and ash of the valley's own palette, and MOVED BY THE COMPOSITOR (CSS
+   transforms): the fight builds on this same thread, so clouds drawn frame by frame would freeze
+   exactly when they are needed. They roll in at the door, hold until the fight's ground is built
+   (never a moment less), then part on two beats. Going home they close over the fight's card in its
+   last beat and part over the map. pointer-events none: they never eat a tap. */
+var NFC = { el: null, layers: [], state: 'off', since: 0, shown: 0, parts: 0 };
+window.NFC = NFC;
+function nfcBuild(){
+  if (NFC.el) return NFC.el;
+  var st = document.createElement('style');
+  st.textContent = '#nfclouds{position:fixed;inset:0;z-index:999990;pointer-events:none;overflow:hidden;opacity:0;transition:opacity 250ms linear;background:transparent}'
+    + '#nfclouds.on{opacity:1}#nfclouds.part{opacity:0;transition:opacity 1000ms ease-in}'
+    + '#nfclouds canvas{position:absolute;left:-25%;top:-25%;width:150%;height:150%;image-rendering:pixelated;will-change:transform}'
+    + '#nfclouds.part canvas{transition:transform 1000ms ease-in}'
+    + '#nfclouds.part canvas.l0{transform:scale(1.25) translate(-6%,0) !important}#nfclouds.part canvas.l1{transform:scale(1.5) translate(8%,-4%) !important}#nfclouds.part canvas.l2{transform:scale(1.9) translate(-10%,6%) !important}'
+    + '@keyframes nfcd0{from{transform:translate(0,0)}to{transform:translate(-8%,2%)}}@keyframes nfcd1{from{transform:translate(0,0)}to{transform:translate(9%,-3%)}}@keyframes nfcd2{from{transform:translate(0,0)}to{transform:translate(-12%,4%)}}'
+    + '#nfclouds canvas.l0{animation:nfcd0 14s linear infinite alternate}#nfclouds canvas.l1{animation:nfcd1 9s linear infinite alternate}#nfclouds canvas.l2{animation:nfcd2 6s linear infinite alternate}';
+  document.head.appendChild(st);
+  var el = document.createElement('div'); el.id = 'nfclouds';
+  /* the valley's own dust and ash: far layer the darkest, near layer the lightest; a solid floor
+     under them so nothing of the cut shows through while they are up */
+  var W = Math.max(64, Math.round(innerWidth / 4)), H = Math.max(64, Math.round(innerHeight / 4));
+  function hx(h){ return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+  function hh(x, y, s){ var h = (s ^ Math.imul(x | 0, 374761393) ^ Math.imul(y | 0, 668265263)) >>> 0; h = Math.imul(h ^ (h >>> 13), 1274126177); return ((h ^ (h >>> 16)) >>> 0) / 4294967296; }
+  function nz(x, y, s){ var xi = Math.floor(x), yi = Math.floor(y), fx = x - xi, fy = y - yi, u = fx * fx * (3 - 2 * fx), v = fy * fy * (3 - 2 * fy);
+    var a = hh(xi, yi, s), b = hh(xi + 1, yi, s), c = hh(xi, yi + 1, s), d = hh(xi + 1, yi + 1, s); return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v; }
+  /* a billow field: big soft shapes, flattened like desert cloud, lit from above (the rim), dark beneath */
+  function field(xx, yy, sc, s){ return nz(xx / sc, yy / (sc * 0.55), s) * 0.62 + nz(xx / sc * 2.2, yy / (sc * 0.55) * 2.2, s + 3) * 0.26 + nz(xx / sc * 5, yy / (sc * 0.55) * 5, s + 5) * 0.12; }
+  var LAY = [ { sc: 60, cut: -1, body: hx('#211b15'), rim: hx('#2c241c'), under: hx('#17130f') },     /* the dusk floor, solid */
+              { sc: 34, cut: 0.53, body: hx('#4a3e31'), rim: hx('#6e5d47'), under: hx('#2f261d') },
+              { sc: 46, cut: 0.6, body: hx('#7a6850'), rim: hx('#a8936c'), under: hx('#54463a') } ];
+  for (var L = 0; L < 3; L++) {
+    var c = document.createElement('canvas'); c.width = W; c.height = H; c.className = 'l' + L;
+    var x = c.getContext('2d'), im = x.createImageData(W, H), dta = im.data, Ly = LAY[L];
+    for (var yy = 0; yy < H; yy++) for (var xx = 0; xx < W; xx++) {
+      var o = (yy * W + xx) * 4, n = field(xx, yy, Ly.sc, 91 + L * 7), up = field(xx, yy - 2, Ly.sc, 91 + L * 7), dn = field(xx, yy + 2, Ly.sc, 91 + L * 7), col;
+      if (Ly.cut < 0) { var g2 = yy / H; col = n > 0.55 ? Ly.rim : (g2 > 0.6 ? Ly.under : Ly.body); }
+      else { if (n < Ly.cut) { dta[o + 3] = 0; continue; }
+        col = (up < Ly.cut + 0.03) ? Ly.rim : (dn < Ly.cut + 0.05) ? Ly.under : Ly.body; }
+      var gr = 1 + (hh(xx, yy, 7 + L) - 0.5) * 0.08;   /* grain, the bible's */
+      dta[o] = col[0] * gr; dta[o + 1] = col[1] * gr; dta[o + 2] = col[2] * gr; dta[o + 3] = 255;
+    }
+    x.putImageData(im, 0, 0); el.appendChild(c); NFC.layers.push(c);
+  }
+  document.body.appendChild(el); NFC.el = el; return el;
+}
+/* in: roll in at once; out: part (once the fight is ready, never sooner) */
+function nfcIn(){ var el = nfcBuild(); el.classList.remove('part'); void el.offsetWidth; el.classList.add('on'); NFC.state = 'in'; NFC.since = performance.now(); NFC.shown++; }
+function nfcPart(){ var el = NFC.el; if (!el || NFC.state === 'off') return; el.classList.add('part'); el.classList.remove('on'); NFC.state = 'parting'; NFC.parts++;
+  setTimeout(function(){ if (NFC.state === 'parting') { el.classList.remove('part'); NFC.state = 'off'; } }, 1100); }
+/* the fight is ready when its own loading line is gone (it hides it when the ground is built) */
+function nfReady(fr){ try{ var l = fr.contentDocument.getElementById('load'); return !!(l && l.style.display === 'none'); }catch(_e){ return false; } }
+function nfcHoldUntilReady(fr){
+  var t0 = performance.now(), MIN = 60000 / 120;   /* at least one beat of cloud, so it reads as clouds */
+  var iv = setInterval(function(){
+    if (!NF.frame || NF.frame !== fr) { clearInterval(iv); nfcPart(); return; }
+    if (nfReady(fr) && performance.now() - t0 >= MIN) { clearInterval(iv); NFC.readyAt = performance.now(); nfcPart(); }
+    else if (performance.now() - t0 > 20000) { clearInterval(iv); nfcPart(); }   /* a fight that never builds still leaves the clouds */
+  }, 50);
+}
+/* ===== /__THE_ZOOM_GOES_THROUGH_CLOUDS__ ===== */
+
 function cityEncounterIn(d){
   if(NEW_FIGHT_ON){ try{ if(nfOpen(d))return; }catch(_e){} }   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ */
   fightVeil(true);   /* V205 __ENTER_ZOOM__: the dust outlives the panel swap */

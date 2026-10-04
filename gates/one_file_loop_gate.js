@@ -41,7 +41,7 @@ const srv = http.createServer((rq, rs) => {
   await p.waitForTimeout(500);
   /* 2. the board: take a contract */
   const f = fr();
-  await f.click('.pl[data-k="board"]'); await p.waitForTimeout(300);
+  await p.mouse.click(...Object.values(await f.evaluate(() => { const w = BohemiaSettlement.where('board'); return {x:w.x, y:w.y}; }))); await p.waitForTimeout(300);
   await f.click('#sbody .act:not([disabled])'); await p.waitForTimeout(300);
   await f.click('#sbody .act:not([disabled])'); await p.waitForTimeout(300);
   await p.screenshot({ path: shot('BOARD') });
@@ -76,7 +76,7 @@ const srv = http.createServer((rq, rs) => {
   await p.click('#pad button[data-s="5"]');
   ok('back to a town', await waitFor(() => { const ev = document.getElementById('ev'); if (ev.style.display === 'block') ev.querySelector('button').click(); return LOOP.G.mode === 'settle'; }, 90000));
   await p.waitForTimeout(500);
-  await fr().click('.pl[data-k="hall"]'); await p.waitForTimeout(300);
+  await p.mouse.click(...Object.values(await fr().evaluate(() => { const w = BohemiaSettlement.where('hall'); return {x:w.x, y:w.y}; }))); await p.waitForTimeout(300);
   await fr().click('#sbody .act'); await p.waitForTimeout(300);
   ok('hire one at the hall', await G(() => LOOP.G.crew.length === 4), await G(() => LOOP.G.crew.map(c => c.name + ':' + c.role).join()));
   await fr().click('#leave'); await p.waitForTimeout(300);

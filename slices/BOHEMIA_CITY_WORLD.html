@@ -42316,6 +42316,7 @@ function cityRoute(ax,ay,bx,by){
 
 /* A TAP ON THE MAP. Canvas coordinates, the same ones cityTapPlot is handed. */
 function travelTo(sx,sy){
+  if(typeof LOOK!=='undefined'&&LOOK.on) return false;   /* looking, not walking (rule 38b) */
   var c=null; try{ c=CBcellAt(sx,sy); }catch(_e){ c=null; }
   if(!c) return false;
   var tx=c[0], ty=c[1];
@@ -42569,10 +42570,11 @@ function loopJobsDraw(ox, oy){
     if(p.sx < -40 || p.sx > CVW + 40 || p.sy < -60 || p.sy > CVH + 60) continue;
     var fy = p.sy + TH / 2 + 2, bt = mapArtBeat();
     if(mapCastOf(0)){
-      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7, fy - 2);
-      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7, fy - 1);
-      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2);
-      mapFlagDraw(p.sx - 14, fy, (L ? L.h : 30) + 10, '#c4553f', bt, true);
+      var kp = MAP_PEOPLE_K;
+      mapPersonDraw(mapCastOf(i * 5 + 3), 'S', bt, p.sx - 7 * kp, fy - 2 * kp);
+      mapPersonDraw(mapCastOf(i * 5 + 7), 'SW', bt + 1, p.sx + 7 * kp, fy - kp);
+      var L = mapPersonDraw(mapCastOf(i * 5 + 11), 'SE', bt + 2, p.sx, fy + 2 * kp);
+      mapFlagDraw(p.sx - 14 * kp, fy, (L ? L.h : 30 * kp) + 10 * kp, '#c4553f', bt, true);
     }
     /* a SHORT plate right over the crew's heads: the long name ran under him (photographed);
        the job's whole name is on the quest line and on the phone */
@@ -42657,11 +42659,16 @@ function moversAdvance(){
 const TW0=18, TH0=9;
 let TW=18, TH=9, CZOOM=1, panX=0, panY=0;
 function iso(x,y,ox,oy){ return {sx:ox+(x-y)*TW/2, sy:oy+(x+y)*TH/2}; }
+var MAP_NEAR_ART_PX = 256;   /* a block's building art is authored 256 px wide (HERO_IMG) */
 function zoomBounds(){
   // min zoom = whole map fits the screen (projected map ~ N*TW0 wide, N*TH0 tall)
   const N=om.n;
   const fit=Math.min(CVW/((N+1)*TW0), CVH/((N+1)*TH0))*0.96;
-  return [Math.max(0.05,fit), 2.6];
+  /* __THE_NEAR_STOP_IS_THE_ART_AT_ITS_OWN_PIXELS__ (RUN 10/2, rule 67 s3, Paolo: "got to be able to zoom tf
+     in so much and out all the way"). The closest map stop was 2.6 (a block 47 CSS px), where a block's
+     256-px building art is shown at half its own pixels on a 3x phone. The near stop is now where that
+     art lands ONE ART PIXEL TO ONE DEVICE PIXEL: a block 256/ratio CSS px wide (85 on his phone). */
+  return [Math.max(0.05,fit), Math.max(2.6, MAP_NEAR_ART_PX/((typeof CV_DPR==='number'&&CV_DPR)||1)/TW0)];
 }
 function clampPan(){
   // never let the whole valley slide fully off screen: cap pan to the map's
@@ -42669,6 +42676,7 @@ function clampPan(){
   const N=om.n, hx2=(N*TW0*CZOOM)/2+CVW*0.5, hy2=(N*TH0*CZOOM)/2+CVH*0.5;
   panX=Math.max(-hx2,Math.min(hx2,panX)); panY=Math.max(-hy2,Math.min(hy2,panY));
 }
+var ZGEST = { t: 0, z0: 1, s0: null, down: false, fresh: false };   /* the zoom gesture: when it started and from where */
 function setZoomAt(z,pvx,pvy){
   if(MODE!=='city'||transing)return;
   const [zmin,zmax]=zoomBounds();
@@ -42693,6 +42701,16 @@ function setZoomAt(z,pvx,pvy){
      exists the camera simply stops at its closest, like any camera. The alpha keeps
      the walked street (rule 18g) until [no city walk] excavates it. */
   var __demoMap = (typeof CT_IS_DEMO!=='undefined' && CT_IS_DEMO);
+  /* __THE_NEAR_END_IS_THE_BLOCK__: while looking at the block, the pinch scales it; and on the demo map the
+     pinch past the closest stop drops into it (looking, never walking: rule 38b) */
+  /* ONE GESTURE, ONE RUNG: the block opens only for a gesture that STARTED at the closest map stop, and
+     closes only for one that started at one-to-one -- one squeeze that climbs the map to its closest stop
+     does not also drop into the block. A pinch's gesture is the fingers (a second finger down starts one,
+     lifting ends it), so a slow phone that spaces the steps out never splits one squeeze in two; the wheel
+     has no fingers, so for it a 250 ms gap is a new gesture */
+  { const __now=performance.now(); if(ZGEST.fresh||(!ZGEST.down&&__now-ZGEST.t>250)){ ZGEST.fresh=false; ZGEST.z0=CZOOM; ZGEST.s0=(typeof LOOK!=='undefined'&&LOOK.on)?LOOK.s:null; } ZGEST.t=__now; }
+  if(typeof LOOK!=='undefined'&&LOOK.on){ lookZoom(z/CZOOM); return; }
+  if(__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&Math.abs(ZGEST.z0-zmax)<1e-3){ SEAM_GUARD=true; lookEnter(); return; }
   if(!__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
     SEAM_GUARD=true;
@@ -43331,6 +43349,13 @@ function mapPlatesDraw(){
 var MAP_PERSON_K = 2 / 3;
 var MAP_TIER_HERO = { fortress: 'fort', town: 'town', camp: 'trailer' };
 var MAP_BASE_W = 74;   /* a base on the glass, CSS px wide: a little bigger than a block at the opening zoom */
+/* THE ART SCALES WITH THE ZOOM, THE NAMES DO NOT (rule 61's answer: Battle Brothers' town art scales
+   with its zoom and its labels stay screen size; ours the same). At the opening zoom (a block 18 CSS
+   px) everything is its own size; pulled out, the towns, the crowds and the crews shrink with the
+   ground, to a floor they still read at, so at the far end the painted city is not buried under
+   them. HE does not shrink (rule 21: the ground may zoom, the person may not); the names do not. */
+var MAP_ART_K = 1, MAP_PEOPLE_K = 1;
+function mapArtScale(){ var z = TW / TW0; MAP_ART_K = Math.max(0.4, Math.min(1, z)); MAP_PEOPLE_K = Math.max(0.55, Math.min(1, z)); }
 function mapSnap(v){ var q = (typeof CV_DPR === 'number' && CV_DPR) || 1; return Math.round(v * q) / q; }
 function mapCastOf(i){
   if (!CAST_CV || !CAST_CV.length) return null;
@@ -43345,7 +43370,8 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
 function mapPersonDraw(set, face, beat, sx, footY){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
-  var w = fr.width * MAP_PERSON_K, h = fr.height * MAP_PERSON_K;
+  var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
+  var w = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
   g.fillStyle = 'rgba(10,8,6,0.45)';
   g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill();
   g.imageSmoothingEnabled = false;
@@ -43356,7 +43382,7 @@ function mapPersonDraw(set, face, beat, sx, footY){
 function mapFlagDraw(px, footY, tall, col, beat, moving){
   var top = footY - tall;
   g.fillStyle = '#1b1813'; g.fillRect(mapSnap(px - 0.67), mapSnap(top), 1.34, tall);
-  var fw = 11, fh = 7, k = moving ? (beat % 2) : 0;
+  var fw = Math.max(5, Math.round(11 * MAP_PEOPLE_K)), fh = Math.max(3, Math.round(7 * MAP_PEOPLE_K)), k = moving ? (beat % 2) : 0;
   g.fillStyle = '#1b1813';
   g.fillRect(mapSnap(px + 0.67), mapSnap(top - 0.67), fw + 1.34, fh + 1.34);
   g.fillStyle = col || '#8f8672';
@@ -43371,7 +43397,7 @@ function mapCrowdDraw(sx, footY, a, b, beat){
   var spots = [[-8, -3, 'SE'], [8, -2, 'SW'], [0, 2, (h0 & 1) ? 'S' : 'SW']];
   for (var i = 0; i < spots.length; i++) {
     if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.crowdPeople++;
-    mapPersonDraw(mapCastOf(h0 + i * 5), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0], footY + spots[i][1]);
+    mapPersonDraw(mapCastOf(h0 + i * 5), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0] * MAP_PEOPLE_K, footY + spots[i][1] * MAP_PEOPLE_K);
   }
   return true;
 }
@@ -43387,9 +43413,10 @@ function mapPartyDraw(p, idx, sx, footY, beat){
   var fac = p && p.from && p.from.faction;
   var base = mapHash(String(fac || '').length * 31 + idx, idx * 7 + 3);
   var face = mapPartyFace(p);
-  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7, footY - 2);
-  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3, footY + 1);
-  mapFlagDraw(sx - 11, footY + 1, (lead ? lead.h : 30) + 8, mapFactionColour(fac), beat, true);
+  var kp = MAP_PEOPLE_K;
+  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp);
+  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3 * kp, footY + kp);
+  mapFlagDraw(sx - 11 * kp, footY + kp, (lead ? lead.h : 30 * kp) + 8 * kp, mapFactionColour(fac), beat, true);
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
 }
@@ -43419,7 +43446,7 @@ function mapBaseSprite(key, im, w, h, mine){
 function mapBaseDraw(tier, faction, sx, footY, mine, beat){
   var im = HERO_IMG[MAP_TIER_HERO[tier] || 'trailer'];
   if (!im || !im.complete || !im.naturalWidth) return null;
-  var w = MAP_BASE_W, h = im.naturalHeight * (w / im.naturalWidth);
+  var w = Math.max(30, Math.round(MAP_BASE_W * MAP_ART_K / 2) * 2), h = im.naturalHeight * (w / im.naturalWidth);   /* whole even sizes: each is baked once */
   g.fillStyle = mine ? 'rgba(232,220,192,0.35)' : 'rgba(10,8,6,0.5)';
   g.beginPath(); g.ellipse(sx, footY - h * 0.12, w * 0.52, w * 0.2, 0, 0, 7); g.fill();
   var spr = mapBaseSprite(MAP_TIER_HERO[tier] || 'trailer', im, w, h, mine);
@@ -43492,7 +43519,7 @@ function mapGroundBegin(ox,oy,night,G){
   var why = !MG.cv ? 'first' : MG.key!==key ? 'key' : !mapGroundMoving(G) ? 'still'
           : now-MG.t>=MAP_GROUND_FRESH_MS ? 'age' : 'margin';
   MG.why=MG.why||{}; MG.why[why]=(MG.why[why]||0)+1;
-  var M=Math.max(64, Math.ceil(TW*4));
+  var M=Math.min(220, Math.max(64, Math.ceil(TW*4)));   /* capped: at the near stop TW*4 would make the picture 14 million px */
   var W=Math.round((CVW+2*M)*CV_DPR), H=Math.round((CVH+2*M)*CV_DPR);
   if(!MG.cv) MG.cv=document.createElement('canvas');
   if(MG.cv.width!==W || MG.cv.height!==H || !MG.x){ MG.cv.width=W; MG.cv.height=H; MG.x=MG.cv.getContext('2d'); }
@@ -43760,6 +43787,164 @@ function vbCore(inp){
   return { seed: inp.seed, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
     roads: roads.map(function (r) { return { edge: r.edge, name: r.name || null, c: r.c }; }), ms: Math.round(performance.now() - t0) };
 }
+/* ---- THE CITY, PAINTED (rule 65, Paolo 10/2: "I want the map graphics to be bigger and better and
+   especially when you zoom out of the city for a fat minute, bro please"; the fourth time) ----
+   MEASURED: at the far end the 96 x 96 blocks are drawn as the tiles' own building pictures shrunk
+   to 3.7 CSS px a block, which reads as one dark grid carpet: no ranges, no streets you can follow,
+   nothing standing up. DIRECTION's floor (38a) says every map cell is painted art at about one
+   painted pixel per screen pixel. So the far end paints the city the way the land around it is
+   painted: eight texels a block (1.4 device px a texel at the far stop), every block painted by
+   what it is -- houses as small two-tone roofs on dry yards, big flat roofs, towers and casinos
+   standing up, streets with their lane line, the boulevard with its neon, parks, water, the solar
+   fields, the rim mountains rising toward the ranges outside -- some blocks burned (act one is the
+   ruin), and at night only the blocks with power show light. Baked in the worker, drawn once a
+   frame over the tiles as the camera pulls out. */
+var VB_CS = 12, VB_CPAD = 2;   /* twelve texels a block: 0.93 device px a texel at the far stop (DIRECTION's 3a floor is 1.5) */
+var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
+function vbClassOf(d){
+  d = String(d || '');
+  if (d === 'arterial') return VB_CLASS.road;
+  if (/^(freeway|beltway|interchange)$/.test(d)) return VB_CLASS.freeway;
+  if (d === 'strip') return VB_CLASS.blvd;
+  if (/^(rail|railyard)$/.test(d)) return VB_CLASS.rail;
+  if (/^(suburb|estate|gated|trailer|apartment|town)$/.test(d)) return VB_CLASS.houses;
+  if (/^(downtown|strat|highroller|sign|stadium|ballpark|medical|cityhall|courthouse)$/.test(d)) return VB_CLASS.tower;
+  if (/^(resort|casino|luxor|sphere)$/.test(d)) return VB_CLASS.casino;
+  if (/^(park|golf|cemetery|farm|campus)$/.test(d)) return VB_CLASS.green;
+  if (/^(water|reservoir|intake|waterpark)$/.test(d)) return VB_CLASS.water;
+  if (/^(desert|wash|basin|quarry|gypsum|landfill|boneyard|springs)$/.test(d)) return VB_CLASS.land;
+  if (d === 'mountain') return VB_CLASS.mountain;
+  if (d === 'solar') return VB_CLASS.solar;
+  if (/^(airport|airbase|speedway|minigp|drivein|swapmeet|truckstop)$/.test(d)) return VB_CLASS.field;
+  if (d === 'dam') return VB_CLASS.dam;
+  if (/^(commercial|industrial|warehouse|mall|convention|school|prison|jail|library|firestation|policestation|robofactory|datafort|arsenal|fueldepot|granary|storage|substation|pumpstation|watertreat|radio|battery|reclaim|terminal|chapel|fort|swapmeet)$/.test(d)) return VB_CLASS.roof;
+  return VB_CLASS.lot;
+}
+var VB_CCOL = { yard: '#76694d', yard2: '#6a5f46', roofA: '#8a6650', roofB: '#9c8c72', roofC: '#625a52', burn: '#2e2924', ash: '#4a423a',
+  asphalt: '#3b3834', line: '#7d725c', conc: '#5c5852', edge: '#47433d', neon: '#c9a456', roof: '#8a8882', hvac: '#64625c',
+  tower: '#9a9c98', towerTop: '#c4c6c0', gold: '#b89a5c', green: '#5f6a45', tree: '#3f4a30', water: '#2f4a5e', shore: '#4e6d7a',
+  floor: '#8f7d59', brush: '#5f5440', pebble: '#b09c74', solar: '#36424e', solarRow: '#56677a', field: '#4c4842', mark: '#857a62',
+  rail: '#4a4038', tie: '#6b5a48', dam: '#a8aaa8', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a' };
+function vbCityCore(inp){
+  var t0 = performance.now();
+  var N = inp.N, S = inp.S, PAD = inp.PAD, D = N + 2 * PAD, P = D * S, sd = ((inp.seed | 0) ^ 0x7c1d) >>> 0;
+  var C = {}; for (var k in VB_CCOL) C[k] = vbHex(VB_CCOL[k]);
+  var cls = inp.cls, live = inp.live;
+  function clsAt(x, y){ return (x < 0 || y < 0 || x >= N || y >= N) ? -1 : cls[y * N + x]; }
+  /* the rim's height, continuous with the ranges outside: a blurred mountain mask, rising to the far
+     edges and falling to the near ones (the near side never stands up as a wall in front of the city) */
+  var MH = new Float32Array(N * N);
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+    if (cls[y * N + x] !== VB_CLASS.mountain) continue;
+    var cnt = 0, tot = 0; for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) { var c = clsAt(x + dx, y + dy); if (c < 0) continue; tot++; if (c === VB_CLASS.mountain) cnt++; }
+    var near = Math.min(N - 1 - x, N - 1 - y) + 0.5;
+    MH[y * N + x] = (cnt / tot) * (1.2 + 3.6 * vbFbm(x / 7, y / 7, sd + 3)) * vbSm(0, 3, near);
+  }
+  var HS = new Float32Array(P * P), COLI = new Int32Array(P * P).fill(-1);
+  /* per texel: the colour index and the lift (texels). Colour index = class * 16 + part */
+  var PART = { ground: 0, roof: 1, roofL: 2, top: 3, side: 4, line: 5, edge: 6, spot: 7, burn: 8, hole: 9, tree: 10, row: 11, neon: 12, window: 13, lampspot: 14 };
+  function idx(c, p){ return c * 16 + p; }
+  for (var cy = 0; cy < N; cy++) for (var cx = 0; cx < N; cx++) {
+    var cl = cls[cy * N + cx], h0 = vbHash(cx, cy, sd), h1 = vbHash(cy, cx, sd + 1), h2 = vbHash(cx + 7, cy + 3, sd + 2);
+    var burned = (cl === VB_CLASS.houses || cl === VB_CLASS.roof) && h2 < 0.16;   /* act one is the ruin */
+    var horiz = (clsAt(cx - 1, cy) === cl || clsAt(cx + 1, cy) === cl), vert = (clsAt(cx, cy - 1) === cl || clsAt(cx, cy + 1) === cl);
+    for (var ty = 0; ty < S; ty++) for (var tx = 0; tx < S; tx++) {
+      var u = (cx + PAD) * S + tx, v = (cy + PAD) * S + ty, o = v * P + u, part = PART.ground, lift = 0, r = vbHash(u, v, sd + 5);
+      switch (cl) {
+        case VB_CLASS.road: case VB_CLASS.freeway: case VB_CLASS.blvd: {
+          var along = (horiz && !vert) ? ty : (vert && !horiz) ? tx : -1, mid = S / 2;
+          if (cl === VB_CLASS.freeway) { part = (along === 0 || along === S - 1) ? PART.edge : (along === mid && ((cl === VB_CLASS.freeway && ((horiz ? tx : ty) % 3) !== 0))) ? PART.line : PART.ground; }
+          else if (along === mid - 1 && ((horiz ? tx : ty) % 4) < 2) part = PART.line;
+          if (cl === VB_CLASS.blvd && (tx === 0 || ty === 0 || tx === S - 1 || ty === S - 1) && r < 0.35) part = PART.neon;
+          if (cl === VB_CLASS.road && (along === 0 || along === S - 1) && ((horiz ? tx : ty) % 4) === 1) part = PART.lampspot;
+          break; }
+        case VB_CLASS.rail: part = ((horiz ? tx : ty) % 2 === 0) ? PART.line : PART.ground; break;
+        case VB_CLASS.houses: {
+          var lx = tx % 4, ly = ty % 4, lot = (tx >> 2) + 2 * (ty >> 2), hh = vbHash(cx * 2 + (tx >> 2), cy * 2 + (ty >> 2), sd + 9);
+          var ox = hh < 0.5 ? 0 : 1, oy = hh < 0.25 || hh > 0.75 ? 0 : 1;
+          if (lx >= ox && lx < ox + 3 && ly >= oy && ly < oy + 3) { lift = 1; part = burned && hh < 0.7 ? (r < 0.3 ? PART.hole : PART.burn) : ((lx - ox) < 1.5 ? PART.roofL : PART.roof); if (lx === ox + 1 && ly === oy + 1 && !burned) part = PART.window; }
+          else if (r < 0.06) part = PART.spot;
+          break; }
+        case VB_CLASS.roof: {
+          if (tx >= 1 && tx < S - 1 && ty >= 1 && ty < S - 1) { lift = 1 + (h0 < 0.4 ? 1 : 0); part = burned ? (r < 0.35 ? PART.hole : PART.burn) : (r < 0.08 ? PART.spot : PART.roof); if (!burned && tx === 2 && ty % 2 === 0) part = PART.window; }
+          break; }
+        case VB_CLASS.tower: case VB_CLASS.casino: {
+          var half = S >> 1, two = h0 < 0.45, q4 = S >> 2;
+          var inT = two ? (((tx < half) === (ty < half)) && (tx % half) >= 1 && (tx % half) < half - 1 && (ty % half) >= 1 && (ty % half) < half - 1)
+                        : (tx >= q4 && tx < S - q4 && ty >= q4 && ty < S - q4);
+          if (inT) { var th = ((cl === VB_CLASS.casino ? 3 : 4) + Math.floor((two ? vbHash(cx + (tx < half ? 0 : 1), cy, sd + 11) : h1) * (cl === VB_CLASS.casino ? 6 : 11))) * S / 8; lift = th; part = PART.top; }
+          else if (r < 0.05) part = PART.spot;
+          break; }
+        case VB_CLASS.green: if (r < 0.12) { part = PART.tree; lift = 1; } break;
+        case VB_CLASS.water: part = PART.ground; break;
+        case VB_CLASS.land: if (r < 0.07) part = PART.spot; else if (r > 0.965) part = PART.row; break;
+        case VB_CLASS.mountain: {
+          var fxm = (tx + 0.5) / S, fym = (ty + 0.5) / S, xa = Math.min(N - 1, cx + 1), ya = Math.min(N - 1, cy + 1);
+          var hm = (MH[cy * N + cx] * (1 - fxm) + MH[cy * N + xa] * fxm) * (1 - fym) + (MH[ya * N + cx] * (1 - fxm) + MH[ya * N + xa] * fxm) * fym;
+          lift = hm * S + (vbNoise(u / 5, v / 5, sd + 13) - 0.5) * 2; if (lift < 0) lift = 0; if (r < 0.06) part = PART.spot; break; }
+        case VB_CLASS.solar: part = (ty % 2 === 0 && tx > 0 && tx < S - 1) ? PART.row : PART.ground; break;
+        case VB_CLASS.field: part = ((tx + ty) % 5 === 0 && r < 0.5) ? PART.line : PART.ground; break;
+        case VB_CLASS.dam: lift = 2; part = PART.top; break;
+        default: if (r < 0.1) part = PART.spot;
+      }
+      HS[o] = lift; COLI[o] = idx(cl, part) + (burned ? 16 * 32 : 0);
+    }
+  }
+  function base(ci){
+    var burned = ci >= 16 * 32; if (burned) ci -= 16 * 32;
+    var cl = ci >> 4, part = ci & 15;
+    switch (cl) {
+      case VB_CLASS.road: return part === PART.line ? C.line : part === PART.lampspot ? C.edge : C.asphalt;
+      case VB_CLASS.freeway: return part === PART.line ? C.line : part === PART.edge ? C.edge : C.conc;
+      case VB_CLASS.blvd: return part === PART.line ? C.line : part === PART.neon ? C.neon : C.asphalt;
+      case VB_CLASS.rail: return part === PART.line ? C.tie : C.rail;
+      case VB_CLASS.houses: return part === PART.roofL ? C.roofB : part === PART.roof ? C.roofA : part === PART.window ? C.roofC : part === PART.burn ? C.burn : part === PART.hole ? C.ash : part === PART.spot ? C.brush : C.yard;
+      case VB_CLASS.roof: return part === PART.roof || part === PART.window ? C.roof : part === PART.spot ? C.hvac : part === PART.burn ? C.burn : part === PART.hole ? C.ash : C.field;
+      case VB_CLASS.tower: return part === PART.top ? C.tower : part === PART.spot ? C.mark : C.field;
+      case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.spot ? C.neon : C.field;
+      case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
+      case VB_CLASS.water: return C.water;
+      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : C.floor;
+      case VB_CLASS.mountain: return part === PART.spot ? C.brush : C.floor;
+      case VB_CLASS.solar: return part === PART.row ? C.solarRow : C.solar;
+      case VB_CLASS.field: return part === PART.line ? C.mark : C.field;
+      case VB_CLASS.dam: return C.dam;
+      default: return part === PART.spot ? C.mark : C.field;
+    }
+  }
+  /* the picture: along each view diagonal, near to far, the nearest column that rises over a texel owns it */
+  var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), lights = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
+  for (var dg = -(P - 1); dg <= P - 1; dg++) {
+    var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
+    for (var uu = ub; uu >= ua; uu--) {
+      var vv = uu - dg, rq = uu - HS[vv * P + uu];
+      if (tail === head || (dq[tail - 1] - HS[(dq[tail - 1] - dg) * P + dq[tail - 1]]) > rq) dq[tail++] = uu;
+      while (head < tail - 1 && dq[head] - HS[(dq[head] - dg) * P + dq[head]] > uu) head++;
+      var qu = dq[head], qv = qu - dg, qo = qv * P + qu, ci = COLI[qo];
+      if (ci < 0) continue;
+      var Hq = HS[qo], liftk = qu - uu, top = (Hq - liftk) < 1, sh, b = base(ci), cl2 = (ci % (16 * 32)) >> 4, part2 = ci & 15;
+      var sxp = qu + 1 < P ? HS[qo + 1] : Hq, sxm = qu > 0 ? HS[qo - 1] : Hq, syp = qv + 1 < P ? HS[qo + P] : Hq;
+      if (top) { var sl = (sxp - sxm) * 0.5; sh = 1 + (cl2 === VB_CLASS.mountain ? 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, (syp - Hq) * 0.5)) : 0);
+        if (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) { if (part2 === PART.top) b = cl2 === VB_CLASS.casino ? C.gold : C.towerTop; } }
+      else sh = (sxp < syp) ? 0.56 : 0.76;
+      sh = Math.round(sh * 5) / 5 * (0.92 + 0.12 * vbHash(qu, qv, sd + 17));
+      var o8 = (vv * P + uu) * 4;
+      for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
+      day[o8 + 3] = 255; night[o8 + 3] = 255;
+      /* NIGHT: light only where the block has power, the way the map's lamps already decide */
+      var cxl = Math.floor(qu / S) - PAD, cyl = Math.floor(qv / S) - PAD, lv = cxl >= 0 && cyl >= 0 && cxl < N && cyl < N && live[cyl * N + cxl];
+      if (lv) {
+        var lr = vbHash(qu, qv, sd + 19), Lc = null;
+        if (part2 === PART.window && top) Lc = C.lit;
+        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (liftk % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
+        else if (part2 === PART.lampspot) Lc = C.lamp;
+        else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
+        if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
+      }
+    }
+  }
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, ms: Math.round(performance.now() - t0) };
+}
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
   var N = V.n, mtn = new Uint8Array(N * N), road = new Uint8Array(N * N), soft = new Uint8Array(N * N), L = V.layout || {};
@@ -43784,27 +43969,98 @@ function vbAsk(){
   var inp = vbInput();
   try {
     if (!VB.worker) {
-      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore].map(String).join('\n')
-        + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
-        + '\nonmessage=function(e){ var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
-      VB.worker = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
-      VB.worker.onmessage = function (e) { vbLand(e.data); };
-      VB.worker.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); };
+      VB.worker = vbWorker();
     }
     VB.where = 'worker'; VB.worker.postMessage(inp);
   } catch (e) { VB.err = String(e && e.message || e); VB.where = 'page'; setTimeout(function () { vbLand(vbCore(inp)); }, 0); }
+}
+/* ONE WORKER BAKES BOTH PICTURES: the land past the map, and the city painted for the far end */
+function vbWorker(){
+      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore].map(String).join('\n')
+        + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
+        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';'
+        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
+        + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
+      var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      w.onmessage = function (e) { if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
+      w.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; };
+      return w;
+}
+/* ---- the painted city: asked for when the camera is far, re-asked when the lights change ---- */
+var VBC = { key: null, busy: false, day: null, night: null, seed: null, checked: 0, asks: 0, ms: 0, draws: 0 };
+window.VBC = VBC;
+function vbCityInput(){
+  var N = om.n, cls = new Uint8Array(N * N), live = new Uint8Array(N * N), h = 0;
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district);
+    var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, key: om.seed + ':' + h };
+}
+function vbCityLand(r){
+  VBC.busy = false;
+  if (!r || r.seed !== om.seed) return;
+  function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
+  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.lights = r.lights ? cv(r.lights) : null; VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P;
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+}
+function vbCityReady(){
+  var now = performance.now();
+  if (!VBC.busy && (VBC.seed !== om.seed || now - VBC.checked > 5000)) {   /* the lights are read at most every 5 s */
+    VBC.checked = now;
+    var inp = vbCityInput();
+    if (inp.key !== VBC.key) { VBC.busy = true; VBC.asks++;
+      try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp); }
+      catch (e) { VBC.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); c.kind = 'city'; vbCityLand(c); }, 0); } }
+  }
+  return !!VBC.day && VBC.seed === om.seed;
+}
+/* the far end: the painted city fades in over the tiles as the blocks get small */
+var VB_CITY_FULL = 6, VB_CITY_NONE = 10;   /* CSS px a block: painted below 6, tiles above 10 */
+function vbCityDraw(ox, oy, night){
+  if (TW >= VB_CITY_NONE || !vbCityReady()) return;
+  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
+  g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
+  g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a;
+}
+/* and its lights come AFTER that pass, the way the map's own lamps do, so a lit window cuts the dark */
+/* the far land's tile at a chosen block size: from altitude a block is under a pixel, and the tile at that
+   size averages to one flat tan -- the "goes away" he saw -- so the sky draws it at a size it can be read at */
+function vbPatternDraw(ox, oy, tw){
+  if (!VB.tile || VB.seed !== om.seed) return;
+  var S = VB_S, th = tw / 2, f0 = oy - VB_K * th;
+  g.save(); g.imageSmoothingEnabled = false;
+  g.transform(tw / 2 / S, th / 2 / S, -tw / 2 / S, th / 2 / S, ox, f0);
+  var us = [], vs = [];
+  [[0, 0], [CVW, 0], [0, CVH], [CVW, CVH]].forEach(function (c) { var a = (c[0] - ox) / (tw / 2), b = (c[1] - f0) / (th / 2); us.push(S * (a + b) / 2); vs.push(S * (b - a) / 2); });
+  if (!VB.pat || VB.patOf !== VB.tile) { VB.pat = g.createPattern(VB.tile, 'repeat'); VB.patOf = VB.tile; }
+  var u0 = Math.floor(Math.min.apply(null, us)), v0 = Math.floor(Math.min.apply(null, vs));
+  g.fillStyle = VB.pat; g.fillRect(u0, v0, Math.ceil(Math.max.apply(null, us)) - u0, Math.ceil(Math.max.apply(null, vs)) - v0);
+  g.restore();
+}
+function vbCityLightsDraw(ox, oy){
+  if (TW >= VB_CITY_NONE || !VBC.lights || VBC.seed !== om.seed) return;
+  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
+  g.drawImage(VBC.lights, 0, 0);
+  g.restore(); g.imageSmoothingEnabled = sm; VBC.lightDraws = (VBC.lightDraws | 0) + 1;
 }
 function vbReady(){
   if (VB.seed !== om.seed && !VB.busy) vbAsk();
   return !!VB.day && VB.seed === om.seed;
 }
-function vbDraw(ox, oy, night){
+function vbDraw(ox, oy, night, noPattern){
   if (!vbReady()) return;
-  var img = night ? VB.night : VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
+  /* ONE LIGHT (rule 70a, Paolo 10/4: "the outside valley and the city have to go through the same lighting"):
+     the land is drawn UNLIT, the day picture at every hour, and the city's own light pass (the night wash
+     at the end of renderCity) lights it with everything else. It used to carry its own night (x0.26), so
+     at night it sat far darker than the city beside it. */
+  var img = VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
   g.save(); g.imageSmoothingEnabled = false;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, f0);
   /* the far land first, over the whole glass and the cache's margin, in the picture's own texels */
-  var tl = night ? VB.tileNight : VB.tile;
+  var tl = noPattern ? null : VB.tile;   /* unlit, as above */
   var Mg = 80 + Math.ceil(TW * 4), us = [], vs = [];
   [[-Mg, -Mg], [CVW + Mg, -Mg], [-Mg, CVH + Mg], [CVW + Mg, CVH + Mg]].forEach(function (c) {
     var a = (c[0] - ox) / (TW / 2), b = (c[1] - f0) / (TH / 2); us.push(S * (a + b) / 2); vs.push(S * (b - a) / 2); });
@@ -43828,7 +44084,7 @@ function vbSeam(ox, oy, night){
   var S = VB_S, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = false;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy);
-  g.drawImage(night ? VB.seamNight : VB.seam, 0, 0); g.restore(); g.imageSmoothingEnabled = sm;
+  g.drawImage(VB.seam, 0, 0); g.restore(); g.imageSmoothingEnabled = sm;   /* unlit: one light (rule 70a) */
 }
 function vbLabels(ox, oy, night){
   if (!VB.day || VB.seed !== om.seed) return;
@@ -43876,10 +44132,126 @@ function vbLabels(ox, oy, night){
   VB.shown = shown; VB.drawn = drawn;
 }
 /* ==== /__THE_VALLEY_HAS_AN_EDGE__ ==== */
+/* the near end of the pinch (below) */
+/* ==== __THE_NEAR_END_IS_THE_BLOCK__ (RUN 10/4, [map pixels now], rules 50, 65, 67 s3) ====
+   PAOLO 9/30 (rule 50): "how far you can zoom out and zoom in, that's really important to me" -- ONE
+   continuous pinch from one person on a bench to the whole valley; the near end is LOOKING, not
+   walking (38b). 10/2: "got to be able to zoom tf in so much." The map's closest stop is a block's
+   map art at its own pixels; past it there was nothing. The walk's banks live on as the FIGHT'S
+   ground (38e): COMBAT TWO baked them into block pictures at 42.9 px a metre (slices/fight_ground,
+   one per kind of block). So pinching in past the closest map stop drops into THE BLOCK HE STANDS ON
+   in that art -- its neighbours around it, him in it at his own 112 box (rule 21: the ground zooms,
+   the person does not) -- from one art pixel per device pixel in to the walk's 42.9 px a metre;
+   pinching out past one-to-one hands back to the map at its closest stop. Looking only: a tap does
+   not travel from here; the clock, the phone and the speed pad stay. */
+var LOOK = { on: false, s: 0, t0: 0, cx: 0, cy: 0, imgs: {}, enters: 0, exits: 0, drawn: 0, grid: null, kind: null };
+window.LOOK = LOOK;
+var LOOK_ART = { w: 2575, h: 1820, pxm: 42.9 };   /* slices/fight_ground/fight_ground.json: 5 tiles of 515 x 364, 12 m each */
+function lookKind(d, x, y){
+  d = String(d || ''); var v = (mapHash(x | 0, y | 0) & 1);
+  var k = /^(strip|resort|casino|luxor|sphere|highroller|strat|sign)$/.test(d) ? 'strip'
+    : /^(freeway|beltway|interchange)$/.test(d) ? 'freeway'
+    : /^(water|reservoir|intake|dam|waterpark|springs)$/.test(d) ? 'shore'
+    : /^(landfill|quarry|gypsum|boneyard)$/.test(d) ? 'landfill'
+    : /^(industrial|warehouse|robofactory|fueldepot|storage|railyard|rail|substation|pumpstation|watertreat|datafort|arsenal)$/.test(d) ? 'works'
+    : /^(wash|basin)$/.test(d) ? 'wash'
+    : /^(desert|mountain|solar|farm|park|golf|cemetery)$/.test(d) ? 'scrub'
+    : /^(estate|gated|trailer)$/.test(d) ? 'culdesac'
+    : d === 'arterial' ? 'suburb_stem'
+    : /^(suburb|apartment|town|school|campus|library|chapel)$/.test(d) ? 'subs'
+    : /^(commercial|mall|downtown|convention|medical|cityhall|courthouse|truckstop|swapmeet|drivein)$/.test(d) ? 'main'
+    : 'ruin';
+  /* the kinds with one picture take .0; the rest pick by the block's own hash */
+  var one = { freeway: 1, freewayo: 1, lots: 1, strip: 1, subs: 1, suburb_stem: 1, works: 1, wash: 1 };
+  return 'block_' + k + '_' + (one[k] ? 0 : v) + '.webp';
+}
+function lookImg(src){
+  var im = LOOK.imgs[src]; if (im) return im;
+  im = new Image(); im.onload = function(){ if (LOOK.on) try { render(); } catch (_e) {} };
+  im.onerror = function(){ im.bad = true; };
+  im.src = 'fight_ground/' + src; LOOK.imgs[src] = im; return im;
+}
+/* WHERE HE STANDS IN THE BLOCK: the flat tile nearest its middle (COMBAT TWO's boards carry every block's
+   tiles: flat, rough, debris, water, height, blocked), so he stands on the street or a yard, never a roof */
+var LOOK_FG = null;
+function lookFoot(src, done){
+  function pick(){
+    var foot = { x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 };
+    try {
+      var key = null; for (var k in LOOK_FG.blocks) if (LOOK_FG.blocks[k].src === src) { key = k; break; }
+      var T = LOOK_FG.tile_px, bt = LOOK_FG.block_tiles, best = 1e9;
+      for (var bn in LOOK_FG.boards) { var B = LOOK_FG.boards[bn];
+        for (var by = 0; by < B.blocks.length; by++) for (var bx = 0; bx < B.blocks[by].length; bx++) { if (B.blocks[by][bx] !== key) continue;
+          for (var ty = 0; ty < bt; ty++) for (var tx = 0; tx < bt; tx++) { var t = B.terrain[by * bt + ty][bx * bt + tx];
+            if (t !== 'flat' && t !== 'rough' && t !== 'debris') continue;
+            var dd = Math.hypot(tx - (bt - 1) / 2, ty - (bt - 1) / 2); if (dd < best) { best = dd; foot = { x: (tx + 0.5) * T[0], y: (ty + 0.85) * T[1] }; } } }
+        if (best < 1e9) break; }
+    } catch (_e) {}
+    done(foot);
+  }
+  if (LOOK_FG) return pick();
+  fetch('fight_ground/fight_ground.json').then(function(r){ return r.json(); }).then(function(j){ LOOK_FG = j; pick(); }).catch(function(){ done({ x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 }); });
+}
+function lookSMin(){ return 1 / ((typeof CV_DPR === 'number' && CV_DPR) || 1); }   /* one art pixel per device pixel */
+function lookEnter(){
+  if (LOOK.on) return;
+  var g3 = [];
+  for (var dy = -1; dy <= 1; dy++) { var row = []; for (var dx = -1; dx <= 1; dx++) { var x = city.x + dx, y = city.y + dy, t = om.at(x, y); row.push(lookKind(t && t.district, x, y)); } g3.push(row); }
+  LOOK.grid = g3; LOOK.kind = g3[1][1]; g3.forEach(function(r){ r.forEach(lookImg); });
+  LOOK.on = true; LOOK.s = lookSMin(); LOOK.t0 = performance.now(); LOOK.enters++; LOOK.px = panX; LOOK.py = panY;
+  LOOK.foot = { x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 }; lookFoot(LOOK.kind, function(f){ LOOK.foot = f; if (LOOK.on) try { render(); } catch (_e) {} });
+  try { travelStop(); } catch (_e) {}
+  lookFade();
+}
+function lookExit(){
+  if (!LOOK.on) return;
+  LOOK.on = false; LOOK.exits++; panX = LOOK.px || 0; panY = LOOK.py || 0; LOOK.t0 = performance.now();
+  try { MAP_GROUND.key = ''; render(); } catch (_e) {}
+}
+/* a short fade in, on the beat's quarter, so the drop reads as a drop and not a cut */
+function lookFade(){ var t = performance.now(); (function f(){ if (!LOOK.on) return; try { render(); } catch (_e) {} if (performance.now() - t < 260) requestAnimationFrame(f); })(); }
+/* the pinch, while looking: the same gesture scales the block; out past one-to-one is the map again */
+function lookZoom(r){
+  var s = LOOK.s * r, smin = lookSMin();
+  /* out past one-to-one, by a gesture that started there: the map again, at its closest stop */
+  if (r < 1 && LOOK.s <= smin + 1e-6 && ZGEST.s0 !== null && ZGEST.s0 <= smin + 1e-6) { SEAM_GUARD = true; lookExit(); return; }
+  LOOK.s = Math.max(smin, Math.min(1, s));
+  try { render(); } catch (_e) {}
+}
+function lookRender(){
+  var W = CVW, H = CVH, s = LOOK.s, A = LOOK_ART;
+  g.save(); g.setTransform(CV_DPR, 0, 0, CV_DPR, 0, 0);
+  g.fillStyle = '#17130f'; g.fillRect(0, 0, W, H);
+  g.imageSmoothingEnabled = s < 0.999;   /* at the walk's own scale the art's pixels are drawn as pixels */
+  if (g.imageSmoothingEnabled) g.imageSmoothingQuality = 'high';
+  var dxp = (panX - (LOOK.px || 0)), dyp = (panY - (LOOK.py || 0));   /* a drag pans the look as it pans the map */
+  var F = LOOK.foot || { x: A.w / 2, y: A.h / 2 };
+  var ox = W / 2 - (A.w + F.x) * s + dxp, oy = H / 2 - (A.h + F.y) * s + dyp, ready = 0;   /* his foot tile under the middle of the glass */
+  for (var r = 0; r < 3; r++) for (var c = 0; c < 3; c++) {
+    var im = LOOK.imgs[LOOK.grid[r][c]], x = ox + c * A.w * s, y = oy + r * A.h * s, w = A.w * s, h = A.h * s;
+    if (x > W || y > H || x + w < 0 || y + h < 0) continue;
+    if (im && im.complete && im.naturalWidth) { g.drawImage(im, Math.round(x * CV_DPR) / CV_DPR, Math.round(y * CV_DPR) / CV_DPR, w, h); ready++; }
+    else { g.fillStyle = '#2a231c'; g.fillRect(x, y, w, h); }
+  }
+  /* HIM, at his own size: the 112 box (rule 21), feet on the middle of his block */
+  var you = null;
+  try { var set = PLAYER_CV && (PLAYER_CV.S || PLAYER_CV[Object.keys(PLAYER_CV)[0]]), spr = set && set.idle;
+    if (spr) { var b = spriteAt(spr, 32), bw = 112, bh = b.height * (112 / b.width), fx = W / 2 + dxp, fy = H / 2 + dyp;
+      g.fillStyle = 'rgba(10,8,6,0.45)'; g.beginPath(); g.ellipse(fx, fy, bw * 0.2, bw * 0.06, 0, 0, 7); g.fill();
+      g.imageSmoothingEnabled = false; g.drawImage(b, Math.round(fx - bw / 2), Math.round(fy - bh * 0.93), bw, bh); you = { w: bw, h: bh }; } } catch (_e) {}
+  if (isNight()) { g.fillStyle = 'rgba(10,18,40,0.25)'; g.fillRect(0, 0, W, H); }   /* one light (rule 70a) */
+  var fade = Math.min(1, (performance.now() - LOOK.t0) / 260);
+  if (fade < 1) { g.fillStyle = 'rgba(23,19,15,' + (1 - fade).toFixed(2) + ')'; g.fillRect(0, 0, W, H); }
+  g.restore();
+  LOOK.drawn++; LOOK.ready = ready; LOOK.you = you;
+}
+/* ==== /__THE_NEAR_END_IS_THE_BLOCK__ ==== */
 function renderCity(){
-  cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
+  cvKeepDpr();
+  if(typeof LOOK!=='undefined'&&LOOK.on){ try{ lookRender(); }catch(_e){} return; }   /* __THE_NEAR_END_IS_THE_BLOCK__ */   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
-  MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
+  MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
+  try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
   qlineFit();   /* __THE_QUEST_LINE_CLEARS_THE_PHONE__: the phone comes and goes with the map */
   CITY_FRAME++;            /* __FRAME_CACHE__ -- one frame, one world snapshot */
   const N=om.n;
@@ -44099,7 +44471,7 @@ function renderCity(){
       g.globalAlpha=1;
     }
   }
-  if(!__vista){ try{ vbSeam(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
+  if(!__vista){ try{ vbSeam(ox,oy,night); vbCityDraw(ox,oy,night); }catch(_e){} }   /* __THE_VALLEY_HAS_AN_EDGE__ + rule 65: the city painted at the far end */   /* __THE_VALLEY_HAS_AN_EDGE__: the map's edge dithered into the land */
   if(__mg) __mg.done=true;
   } finally { if(__mg) mapGroundEnd(__mg); }   /* __THE_MAP_GROUND_IS_PAINTED_ONCE__: g back on the glass, the picture blitted */
   }
@@ -44645,7 +45017,6 @@ function renderCity(){
   } catch (_e) {}
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
   if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
-  try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
      Rule 33g, his words: Battle Brothers is a bunch of pictures and we put life in
      it. BB draws a static dotted line to the click; this SHORTENS as he crosses,
@@ -44710,7 +45081,7 @@ function renderCity(){
       let __spr=__set&&__set.idle;
       if(__set&&__moving&&__set.walk&&__set.walk.length)
         __spr=__set.walk[Math.floor(performance.now()/125)%__set.walk.length];
-      if(__spr){ __body=spriteAt(__spr,24); __how='rig'; }
+      if(__spr){ __body=spriteAt(__spr,32); __how='rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
     /* THE BANNER FIRST, so his body stands in front of its pole */
     const __flagH = 30;                                   /* the pole, screen px */
@@ -44725,9 +45096,9 @@ function renderCity(){
     let __bw=0, __bh=0;
     if(__body){
       g.imageSmoothingEnabled=false;
-      __bw=__body.width; __bh=__body.height;
+      __bw=__body.width/2; __bh=__body.height/2;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
-      g.drawImage(__body, Math.round(__gx-__bw/2), Math.round(__gy-__bh*0.93));
+      g.drawImage(__body, mapSnap(__gx-__bw/2), mapSnap(__gy-__bh*0.93), __bw, __bh);
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
@@ -44736,7 +45107,8 @@ function renderCity(){
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
   }
-  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
+  try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking -- and over him, since the towns scale with the zoom and a name can land on him (rule 65) */
+  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); try{ vbCityLightsDraw(ox,oy); }catch(_e){} } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
 /* *** THE CAMERA IS THE REST OF HIS RULING (Paolo 9/15 rule 16; coordinator ruling
@@ -59904,7 +60276,8 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     cv.setPointerCapture(e.pointerId);
     pts.set(e.pointerId,toCv(e));
     const a=two();
-    if(a){ lastDist=dist(a); lastMid=mid(a); CB._tapStart=null; }   /* ZOOM-BUILD: a pinch is never a tap */
+    if(a){ lastDist=dist(a); lastMid=mid(a); CB._tapStart=null;   /* ZOOM-BUILD: a pinch is never a tap */
+      if(typeof ZGEST!=='undefined'&&!ZGEST.down){ ZGEST.down=true; ZGEST.fresh=true; } }   /* __THE_NEAR_END_IS_THE_BLOCK__: a new squeeze */
     else { lastMid=toCv(e); CB._tapStart=toCv(e); CB._tapMoved=0;
       const now=performance.now();                 // double-tap = recenter to 1x
       if(now-lastTap<300){ recenter(); lastTap=0; } else lastTap=now;
@@ -60001,7 +60374,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        is the gesture; fewer than two and whatever comes next is a new one. A timer
        here would have to guess how long a thumb takes, and would be wrong on a slow
        hand in exactly the way that reads as a dead control. */
-    if(pts.size<2) SEAM_GUARD=false;
+    if(pts.size<2){ SEAM_GUARD=false; if(typeof ZGEST!=='undefined') ZGEST.down=false; }
   }
   cv.addEventListener('pointerup',up);
   cv.addEventListener('pointercancel',up);
@@ -63962,8 +64335,13 @@ function renderSky(){
      colour is the city's OWN #d8c08a, not a new one. And it goes to black FASTER
      on the way up (t*1.45) because airglow is a thin shell, not a whole-frame
      gradient: past the atmosphere there should be no blue left to see. */
-  var skyTop=mixHex(night?'#101826':'#33607f','#05060b',Math.min(1,t*1.45));
-  var skyLow=mixHex(night?'#1a2436':'#d8c08a','#05060b',Math.min(1,t*1.25));
+  /* __THE_FAR_STOP_KEEPS_THE_LAND__ (RUN 10/4, rule 70, Paolo with a screenshot: "when I zoom out past a
+     certain point the valley around the city goes away and looks like dog shit"). What he saw: a flat blue
+     sky, a flat tan floor, the city a tilted grey slab, REGION over it. The sky is the valley's own dust now
+     (dark above, the land's haze at the horizon, so the two meet), and below it the SAME land and the SAME
+     painted city the map draws, out to the horizon. */
+  var skyTop=mixHex(night?'#0b0a0c':'#2a2420','#05060b',Math.min(1,t*1.45));
+  var skyLow=mixHex(night?'#1a1612':'#8a7a58','#05060b',Math.min(1,t*1.25));
   var gd=g.createLinearGradient(0,0,0,H);
   gd.addColorStop(0,skyTop); gd.addColorStop(1,skyLow);
   g.fillStyle=gd; g.fillRect(0,0,W,H);
@@ -63997,7 +64375,8 @@ function renderSky(){
     /* still over the world: the desert floor, and the valley drawn on it by the
        CITY's own renderer at a smaller tile, so this is the same picture the city
        builder draws -- not a second map of the same place. */
-    var horizon=H*(0.42+u*0.36);
+    /* the horizon starts at the top of the glass where the map left off and comes down as he rises */
+    var horizon=H*Math.min(0.62, 0.02+u*1.1);
     /* __SKY_CURVE__ -- THE HORIZON BOWS, AND THAT IS THE WHOLE FIX. Paolo 8/16: "it doesn't
        even look like it's moving out from the Earth." It never could: this was a fillRect
        with a dead straight top edge, and A STRAIGHT HORIZON READS AS STANDING ON A PLAIN AT
@@ -64009,43 +64388,45 @@ function renderSky(){
        the same reason a real horizon looks flat from a rooftop and curved from a jet. */
     var bow=H*0.34*u*u;                     /* quadratic: nothing early, obvious late */
     var edgeY=function(x){ var d=(x-W/2)/(W/2); return horizon+bow*(d*d); };
-    g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5));
-    g.beginPath();
-    g.moveTo(0,edgeY(0));
-    for(var sx=0;sx<=W;sx+=8) g.lineTo(sx,edgeY(sx));
-    g.lineTo(W,H); g.lineTo(0,H); g.closePath(); g.fill();
-    /* the lit rim of the limb, following the same curve rather than a straight bar */
-    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.strokeStyle='#d8c08a'; g.lineWidth=3;
-    g.beginPath(); g.moveTo(0,edgeY(0));
-    for(var rx=0;rx<=W;rx+=8) g.lineTo(rx,edgeY(rx));
-    g.stroke(); g.restore();
     var k=Math.max(0.06,1-u*3.2);
     var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
-    /* __SKY_CLIP__ -- THE VALLEY IS ON THE PLANET, NOT FLOATING BESIDE IT. Paolo 8/16:
-       "the square grid that's poking out the side of the Earth... it's kind of weird."
-       That was a bug I introduced the day before: curving the horizon turned the ground
-       into a LIMB, but the valley kept being painted as a flat diamond on top, so its
-       corners hung off into space past the planet's edge. The straight horizon had hidden
-       it, because nothing can stick out of a floor that spans the whole frame -- a fix can
-       expose a fault that was always there but had nowhere to show.
-       Clipped to the limb silhouette, so the planet's edge cuts the city exactly the way a
-       real horizon cuts one. */
+    /* __SKY_CLIP__ -- the land and the city, clipped to the limb so the planet's edge cuts them the way a
+       horizon does (Paolo 8/16: "the square grid that's poking out the side of the Earth") */
     g.save();
     g.beginPath();
     g.moveTo(0,edgeY(0));
     for(var cx2=0;cx2<=W;cx2+=8) g.lineTo(cx2,edgeY(cx2));
     g.lineTo(W,H); g.lineTo(0,H); g.closePath();
     g.clip();
-    try{ skyValley(horizon); }catch(_e){}
+    g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5)); g.fillRect(0,0,W,H);   /* under the land, only until it is baked */
+    var drewLand=false;
+    try{
+      /* the city where the map left it at the first step, settling toward the horizon as he rises */
+      var cyT=H/2+(horizon+H*0.14-H/2)*Math.min(1,u/0.3);
+      var sox=Math.round(W/2-(city.x-city.y)*TW/2), soy=Math.round(cyT-((city.x+city.y)*TH/2));
+      if(vbReady()){ vbPatternDraw(sox,soy,Math.max(TW,1.6)); vbDraw(sox,soy,false,true); vbCityDraw(sox,soy,false); drewLand=true; }
+    }catch(_e){}
+    if(!drewLand){ try{ skyValley(horizon); }catch(_e){} }
+    /* the air thickens toward the horizon and as he rises, in the land's own haze */
+    var hz=g.createLinearGradient(0,horizon,0,H);
+    hz.addColorStop(0,'rgba(138,122,88,'+Math.min(0.7,0.35+u).toFixed(2)+')'); hz.addColorStop(0.3,'rgba(138,122,88,'+Math.min(0.35,u*0.6).toFixed(2)+')'); hz.addColorStop(1,'rgba(138,122,88,'+Math.min(0.3,u*0.4).toFixed(2)+')');
+    g.fillStyle=hz; g.fillRect(0,horizon-bow-4,W,H);
+    if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,W,H); }   /* the city's one light (rule 70a) */
     g.restore();
+    /* the lit rim of the limb, following the same curve */
+    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.strokeStyle='#d8c08a'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(0,edgeY(0));
+    for(var rx=0;rx<=W;rx+=8) g.lineTo(rx,edgeY(rx));
+    g.stroke(); g.restore();
+    window.__SKY_LAND=(window.__SKY_LAND||0)+(drewLand?1:0);
     TW=tw; TH=th;
   }
 
   /* THE LABEL, and the honest one about the art. */
   g.save();
   g.font='700 10px '+FACE('body'); g.textAlign='center';
-  g.fillStyle='rgba(12,14,10,0.85)'; g.fillText(band,W/2+1,19);
-  g.fillStyle='#b89a6a'; g.fillText(band,W/2,18);
+  if(band==='MOON'){ g.fillStyle='rgba(12,14,10,0.85)'; g.fillText(band,W/2+1,19);
+  g.fillStyle='#b89a6a'; g.fillText(band,W/2,18); }   /* no label over the land (rule 70: 'no REGION label') */
   /* __SKY_ART__ -- THE PLACEHOLDER LINE IS GONE BECAUSE THE ART IS COOKED. It printed
      the word PLACEHOLDER and the request id on his screen at the two widest zooms, and he
      zoomed out all the way on 9/15 and called what he saw dogshit. AR-005 is closed. */
@@ -66019,11 +66400,14 @@ function outline1(src){
    _hd0 is the UNBORDERED double, kept so the x4 tier chains off it -- chaining x4
    off the bordered x2 would border a border and put 2px back at the closest zoom. */
 function spriteAt(spr,C){
-  if(C>=64){ if(!spr._hd4){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd4=outline1(epx2(spr._hd0)); } return spr._hd4; }
-  if(C>=32){ if(!spr._hd){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd=outline1(spr._hd0); } return spr._hd; }
-  if(C<17){ if(!spr._half)spr._half=outline1(half2(spr)); return spr._half; }
-  if(!spr._b)spr._b=outline1(spr);      /* RAW 56 NEEDS IT TOO -- the art arrives borderless */
-  return spr._b;
+  /* SIZE-AWARE (RUN 10/4): the ladder is in 56-px boxes -- 4x past 64, 2x past 32, half under 17, else 1x --
+     and the body may arrive at 56 (the old bake) or 112 (the rig's own size, CAST_PX 112). The box it
+     returns is the same either way; at 112 the 2x rung is the rig's real pixels instead of EPX's guess. */
+  var want = C>=64 ? 4 : C>=32 ? 2 : C<17 ? 0.5 : 1, k = want*56/Math.max(1, spr.width), key = '_k'+k;
+  if(spr[key]) return spr[key];
+  var c = spr;
+  if(k>=4) c = epx2(epx2(spr)); else if(k>=2) c = epx2(spr); else if(k<=0.25) c = half2(half2(spr)); else if(k<=0.5) c = half2(spr);
+  return (spr[key] = outline1(c));      /* RAW NEEDS IT TOO -- the art arrives borderless */
 }
 function epx2(src){
   const w=src.width,h=src.height;

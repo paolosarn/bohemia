@@ -14,3 +14,14 @@ this chat'. None of this is canon until he thumbs the VOTE item; each line below
 11. SEE THE HIRE: no tryout, no look fee, the row shows face, past, stats, stars, traits; a hire is 20 to 1,000 batteries; the gear comes with the hire (GROK_36-38; grok-see-the-hire-10-1). 'If the question is whether to do it the way Battle Brothers does it, the answer is yes; do not ask that again' (GROK_38) restates rule 46.
 12. He types VAMILY into Grok too (GROK_35): Grok does the next pile and asks one two-sentence question. Grok is still not a lane; its piles land here.
 13. GROK_30 BUILD ORDER says 'if he dies, the run ends' and '9 action points': those are Grok's, not his, and his locks win (the main character never dies; everything costs one).
+
+
+## ADDED 10/4 (sweep P; pages GROK_48 to GROK_102 pulled and stamped)
+14. ONE PAIN LINE (GROK_49, GROK_67): the injury trait shares one label; the penalty follows the body part; one medicine a day. VOTE grok-one-pain-line-10-4.
+15. THE GROUND PICKS THE POOL, THE DAY PICKS THE SIZE (GROK_52-54, 58-60): no scripted first fight (his fifth vote agrees). VOTE grok-the-ground-picks-the-pool-10-4.
+16. NO TILE NAMES; FACTIONS ARE BANNERS AND PARTIES (GROK_56-58). VOTE grok-no-tile-names-10-4.
+17. GAS IS AMMO (GROK_45, 64, 70; 10/2 beats 10/1's six piles). VOTE grok-gas-is-ammo-10-4.
+18. UNTIL THE RECREATION IS RIGHT, THE GAME IS BATTLE BROTHERS; THE BEAT AND THE DIAL WAIT (GROK_71-72). VOTE grok-the-beat-and-the-dial-wait-10-4. Rules 63, 63a agree.
+19. FORMATION IS THE COMPANY'S LAYOUT BEFORE THE FIGHT (GROK_75). VOTE grok-formation-is-the-layout-10-4.
+20. THE STEW IS SPAGHETTIOH, CANNED CHILI OUT (GROK_76). VOTE grok-spaghettioh-10-4.
+Also reported, already his to the coordinator: the one-not-two rule (GROK_101 = rule 70), no minute count for a fight (GROK_83 = the fifth votes), the main character downed never dead (GROK_95 = the third votes). Grok behaviour ruling: STOP COPYING THE WIKI (GROK_68), now behaviour 4 on the ask list. Grok's lore passes 1-16 are readings of the master file (3.30 of 3.74 million characters read), none canon; Grok flags the 9/27 two-scales reading against the 9/28 house-tile page, which is the known amendment (CLAUDE.md pillar line).

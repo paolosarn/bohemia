@@ -62,7 +62,7 @@ const alpha = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 
    by construction. These legs hold that, not the pin; the [see me] claim is unchanged: the
    person on the map is his, and it is a person, not a disc. */
 ok('A1 the map draws the player from his OWN rig, not a rolled face or a symbol',
-   /__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) && /spriteAt\(__spr,24\)/.test(world));
+   /__set=PLAYER_CV&&\(PLAYER_CV\[__face\]\|\|PLAYER_CV\.S\)/.test(world) && /spriteAt\(__spr,(24|32)\)/.test(world)   /* a FIXED rung, never TW: 24 drew the 56 body raw; since 10/4 (CAST_PX 112) 32 is the 112 box drawn at half, the same 56 on the glass */);
 ok('A2 *** the bridge hands the player his OWN spec and everybody else a rolled one ***',
    /_who==='you'&&typeof buildSpec==='function'\)\?buildSpec\(\):faceFor\(_who\)/.test(alpha));
 { const __i = world.indexOf('__THE_MAP_HAS_ITS_PEOPLE__ (RUN 9/29, rule 40f) -- HIM, AS HIMSELF');

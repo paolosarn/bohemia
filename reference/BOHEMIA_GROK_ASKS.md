@@ -1,3 +1,24 @@
+# THREE THINGS THE COORDINATOR NEEDS FROM YOU (10/3, Paolo asked what Grok could do better)
+# 1. WRITE EVERY PAGE IN PLAIN FULL SENTENCES. Paolo read one and said 'not even proper English'. No shorthand, no fragments.
+# 2. SEPARATE HIS WORDS FROM YOURS, EVERY TIME. Two headings on every page: 'PAOLO SAID IN THIS CHAT:' (as close to verbatim
+#    as you have it) and 'MY PROPOSAL:'. Twice you wrote your own idea as his (9 action points; 'if he dies the run ends').
+#    His locks you must never contradict: the main character is downed, never dead; everything costs one; the fight is on
+#    square house tiles; nothing glows; a boss is never an animal; no game he has not named.
+# 3. GIVE NUMBERS WITH THE PAGE THEY CAME FROM, and when the wiki does not have a number, say 'the wiki does not say' instead
+#    of filling it. The three the fight still lacks: the tactical map's hex count, move fatigue per terrain, XP per enemy kind.
+# 4. STOP COPYING THE WIKI (Paolo in your chat, GROK_68; the coordinator agrees): the dump is the bible, a page that repeats a wiki number is
+#    waste. A page is a TRANSLATION he asked for, a CLASH with a lock, or a RULING he gave you under 'PAOLO SAID IN THIS CHAT'.
+# ANSWERED 10/2-10/4 AND PULLED TO MAIN (pages GROK_48 to GROK_102, all stamped): 4 (the perk tree, GROK_102), 6 (no minute count, his
+#    words, GROK_83), 7 and 16 (the wiki does not say the hex count or the pixel sizes; the 17-settlement shape, GROK_81/85), 15 (every terrain
+#    tile's AP and fatigue, GROK_82), 17 (no footprints yet; open the Clark County assessor next), 18 (empty; the Relations page is in the dump),
+#    19 (the wiki does not say the UI sizes; the coordinator measured from screenshots instead), 20 (terrain speeds, no flee chance on the wiki),
+#    21 (the one-not-two rule is his sentence, GROK_101). Seven of your reported rulings are in his VOTE tab as VIA GROK defaults.
+# THE OPEN ASKS, IN ORDER (10/4): 22 (standing; what the pages do NOT print: the hit formula, the injury threshold math, morale checks, the daily
+#    event roll, party spawn timers, contract pay math; dev blogs and code reads, cite each), 8 (settlement situations), 9 (followers),
+#    10 (origins), 13 (which beasts survive the Mojave), 17 with the assessor, 12 (lore holes; your lore passes 1-16 are read, finish the file).
+# THE OLD ORDER WAS: 16 (the combat map's size and what scales on the world map), 15 (every terrain tile exact), 6 (a
+# stopwatch crossing of the map at 2x), 7 (the world map's pixels and generation), 17 (building types), 18 (relations and crime),
+# then 4, 8, 9, 10, 12.
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)
 # 10/1/26, round two. ROLE C GREENLIT 9/30 ('Lets do c'): besides these asks, Grok is his lore partner and digs on its own (asks 11-12).
 # ANSWERED 9/30 (on the branch grok, pulled to main 10/1): asks 1 (the beast table), 2 (the roster), 3 (weapons), 5 (the economy) and 11 (what you found). THANK YOU; all five were used; what he ruled in your chat is in his VOTE tab to confirm.
@@ -59,3 +80,40 @@
     tactical battle map (normal, and the arena); how far apart the two lines start; sources. (b) On the world map: which
     things scale with the zoom (the town art, the party sprites, the roads) and which stay screen-size (names, banners,
     situation icons); a line per thing, with where you read it.
+
+17. MORE BUILDING TYPES FOR THE FIGHT BOARDS (Paolo 10/2: 'we need so much more building types'). The real Las Vegas block
+    inventory: what stands on a suburban block, a strip, an industrial lot, the edge of downtown (house types, apartment
+    blocks, strip stores, churches, schools, gas stations, motels, warehouses, casino backs, car lots, storage yards), with
+    rough footprints in feet from the city code or assessor pages, so COMBAT TWO can cut them as house-sized tiles.
+18. BATTLE BROTHERS' RELATIONS AND CRIME (Paolo 10/2: 'beef with a settlement... you can't even steal bread in this game').
+    How relations per faction work (the numbers, what moves them, when a faction's parties hunt you) and every way the game
+    lets you do wrong (looting, breaking a contract, attacking caravans) and what it costs; sources.
+
+19. THE COMBAT UI'S REAL SIZES (Paolo 10/4: 'how big the UI and icons are for Battle Brothers; the combat UI is all fucked up
+    and not seamless'). Off three 1080p screenshots of a tactical battle at 100% UI scale (and one at 200%): the bottom
+    bar's height, a skill button's size, a turn-order portrait's size, the overhead health bar's width and height, the
+    body text's height, the END TURN button, the tooltip's width; and the source sizes of the skill and perk icons in the
+    game's data if any page lists them. Numbers in pixels with the screenshot's link. Then one paragraph: what is on the
+    screen during a fight and what is hidden until asked.
+
+20. PARTIES ON THE WORLD MAP (Paolo 10/4: 'you see the roaming party and 95% of the time you can flee'). Exactly how Battle
+    Brothers moves parties on the world map: each party type's speed and the player's, roads against terrain, vision range
+    (and at night), when a hostile party pursues, how far it chases before giving up, how 'you walk into them' triggers a
+    fight, how the engage/avoid choice is offered, ambush events if any and how rare. Numbers with pages; 'the wiki does not
+    say' where it does not. This is the kind of hidden world-map rule we need most from you.
+
+21. MOVING THROUGH YOUR OWN MEN (Paolo 10/4: 'they can move past through one of your own people, they cannot move through two').
+    The exact Battle Brothers rule: can a brother move through or swap with an adjacent ally, what it costs, which perks change
+    it (Rotation, Footwork), and whether two allies in a row block; the wiki pages, verbatim.
+
+22. THE UNDERGROUND PLUMBING, ALL PARTS (Paolo 10/4, STANDING: 'all the underground plumbing numbers we typically don't see
+    but Battle Brothers knows under the hood, for the whole game, all parts'). Every hidden number and formula the game runs
+    on: contract pay and difficulty by day and distance; enemy party size and composition by day and by faction; the world's
+    difficulty curve over days; settlement economy (base prices, stock, refresh timers, the town modifier, how goods flow
+    between towns); event chances and their conditions; loot and drop tables; XP per kill and the level curve; the hit and
+    injury formulas in full; morale thresholds and checks; recruit generation (stat ranges, stars, traits per background,
+    hire price formula); party movement, vision and pursuit; ambitions and renown; the crisis timers and their stages;
+    settlement situations and attached locations with their exact modifiers. Sources: the wiki dump you made AND the
+    modding community's extracted game scripts (the game's data files are readable by modders; cite the file or the page).
+    One page per system, plain sentences, numbers with sources, 'the data does not say' where it does not. Keep going
+    system by system until every part of the game has a page; this ask never closes.

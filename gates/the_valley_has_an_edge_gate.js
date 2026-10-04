@@ -31,6 +31,8 @@
      E11 *** EVERY VALLEY, NOT ONE SEED *** three other rolls bake with ranges, a lake, the 15,
          and no land on a block
      E12 nothing threw
+     E13 ONE LIGHT (rule 70a): a rim block and the land beside it change with the hour together, at four hours
+     E14 THE FAR STOP KEEPS THE LAND (rule 70): in the sky past the widest zoom, land below the horizon, not a fill
    node gates/the_valley_has_an_edge_gate.js
    ========================================================================== */
 'use strict';
@@ -151,6 +153,46 @@ const done = () => { console.log('THE VALLEY HAS AN EDGE: ' + pass + ' passed, '
     ok('*** E11 EVERY VALLEY, NOT ONE SEED *** (' + seeds.map(s => 'seed ' + s.sd + ': peak ' + s.peak + ', lake ' + s.lake + ', the 15 ' + s.i15 + ', on a block ' + s.onBlock).join('; ') + ')',
       seeds.every(s => s.peak >= 8 && s.lake && s.i15 && s.onBlock === 0));
 
+    /* E13 ONE LIGHT (rule 70a): a rim block inside the map and the land just outside it, read at four
+       hours; the land's change with the hour must be the city's change (a split fails) */
+    const light = await d.fr.evaluate(() => {
+      SKY = false; setZoomAt(zoomBounds()[0]);
+      const N = om.n, c = document.getElementById('cv'), x = c.getContext('2d'), R = c.width / CVW;
+      /* a rim cell of open ground on the far edge (y = 1), mid-way along, and the land four blocks out from it */
+      let cx = null; for (let k = 0; k < N; k++) { const xx = (N >> 1) + ((k & 1) ? -(k >> 1) : (k >> 1)), t = om.at(xx, 1); if (t && /^(mountain|desert|wash)$/.test(t.district)) { cx = xx; break; } }
+      if (cx === null) return null;
+      const lum = (gx, gy) => { const ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY);
+        const p = iso(gx, gy, ox, oy), X = Math.round(p.sx * R), Y = Math.round((p.sy + TH / 2) * R), r = Math.max(2, Math.round(TW * R * 0.25));
+        const dd = x.getImageData(X - r, Y - r, 2 * r, 2 * r).data; let sum = 0, n = 0; for (let i = 0; i < dd.length; i += 4) { sum += 0.3 * dd[i] + 0.59 * dd[i + 1] + 0.11 * dd[i + 2]; n++; } return sum / n; };
+      const keep = T.min, out = [];
+      for (const h of [3, 9, 15, 21]) { T.min = h * 60; MAP_GROUND.key = ''; render(); out.push({ h, city: lum(cx + 0.5, 1.5), land: lum(cx + 0.5, -3.5), night: isNight() }); }
+      T.min = keep; MAP_GROUND.key = ''; render();
+      return out;
+    });
+    const noon = light && light.find(r => r.h === 15), split = light ? light.map(r => Math.abs((r.city / noon.city) - (r.land / noon.land))) : [1];
+    ok('E13 ONE LIGHT: the land beside the city changes with the hour as the city does (' + (light ? light.map(r => r.h + ':00 city ' + Math.round(r.city) + ' land ' + Math.round(r.land)).join(', ') : 'no rim block') + '; worst split ' + Math.max(...split).toFixed(3) + ')',
+      !!light && light.some(r => r.night) && Math.max(...split) <= 0.08);
+
+    /* E14 THE FAR STOP KEEPS THE LAND (rule 70): past the map's widest zoom the sky is entered; below its
+       horizon the land and the city are drawn (not a flat fill), with no REGION label */
+    const far = await d.fr.evaluate(() => {
+      const out = [];
+      for (const u of [0.12, 0.35]) {
+        setZoomAt(zoomBounds()[0]); skyEnter(); SKYU = u; const before = window.__SKY_LAND || 0; render();
+        const c = document.getElementById('cv'), x = c.getContext('2d'), R = c.width / CVW, H = CVH;
+        const horizon = H * Math.min(0.62, 0.02 + u * 1.1);
+        const y0 = Math.round((horizon + 40) * R), y1 = Math.round((H - 120) * R), px = x.getImageData(0, y0, c.width, y1 - y0).data, w = c.width;
+        let blocks = 0, flat = 0;
+        for (let Y = 0; Y + 9 < y1 - y0; Y += 9) for (let X = 0; X + 9 < w; X += 9) { blocks++; let lo = 1e9, hi = -1e9;
+          for (let dy = 0; dy < 9; dy += 2) for (let dx = 0; dx < 9; dx += 2) { const j = ((Y + dy) * w + X + dx) * 4, l = 0.3 * px[j] + 0.59 * px[j + 1] + 0.11 * px[j + 2]; if (l < lo) lo = l; if (l > hi) hi = l; }
+          if (hi - lo < 3) flat++; }
+        out.push({ u, band: skyBand(), land: (window.__SKY_LAND || 0) > before, bare: Math.round(flat / Math.max(1, blocks) * 1000) / 10 });
+      }
+      skyExit(); setZoomAt(zoomBounds()[0]); render();
+      return out;
+    });
+    ok('E14 THE FAR STOP KEEPS THE LAND: in the sky past the widest zoom the land is drawn below the horizon (' + far.map(f => f.band + ' ' + (f.land ? 'land' : 'NO LAND') + ', ' + f.bare + '% bare').join('; ') + '), no label over it',
+      far.every(f => f.land && f.bare < 15 && f.band !== 'MOON'));
     ok('E12 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 100) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 160) + ']', false);

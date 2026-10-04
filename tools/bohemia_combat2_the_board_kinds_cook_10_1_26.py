@@ -241,8 +241,8 @@ def wash():
     wm = mask(); d = ImageDraw.Draw(wm)
     for yy in range(0, BP, 2):
         t = yy / BP
-        xc = BP * (0.5 + 0.18 * math.sin(t * 5.2 + 0.6) + 0.05 * math.sin(t * 13.0))
-        hw = M(3.2 + 1.8 * (0.5 + 0.5 * math.sin(t * 7.3 + 1.1)))
+        xc = BP * (0.5 + 0.18 * math.sin(2 * math.pi * t + 0.6) + 0.05 * math.sin(4 * math.pi * t))   # periodic in t: a wash meets the wash below it
+        hw = M(3.2 + 1.8 * (0.5 + 0.5 * math.sin(2 * math.pi * t + 1.1)))
         d.rectangle([int(xc - hw), yy, int(xc + hw), yy + 2], fill=255)
     plan = floor.copy()
     plan.paste(sand, (0, 0), wm)

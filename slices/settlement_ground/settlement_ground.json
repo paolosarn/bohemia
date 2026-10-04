@@ -1,0 +1,173 @@
+{
+ "version": "settlement-ground-10-4",
+ "built": "10/4/26",
+ "lane": "combat 2",
+ "for_screen": "RUN TWO, the settlement screen (rule 71a)",
+ "note": "the picture is one place; light the building under the finger, name it only when touched; no text on the picture",
+ "px_per_metre": 42.9,
+ "perspective": "45 DEGREE ART LAW",
+ "tiers": {
+  "camp": {
+   "src": "camp.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   }
+  },
+  "town": {
+   "src": "town.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   }
+  },
+  "fortress": {
+   "src": "fortress.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   }
+  }
+ }
+}

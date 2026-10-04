@@ -63,7 +63,7 @@ ok('A1 the settlement marks are PEOPLE now, not cream rings (rule 40f)',
 /* A2. AND THE PLAYER'S MARK SCALES WITH THE MAP, like everything else on it. A fixed
    pixel size is what made zooming in make this worse. */
 ok('A2 the player is drawn as his own body at ONE size, never following the zoom (rule 21\'s shape)',
-   /spriteAt\(__spr,24\)/.test(CITY));
+   /spriteAt\(__spr,(24|32)\)/.test(CITY)   /* a FIXED rung, never TW: 24 drew the 56 body raw; since 10/4 (CAST_PX 112) 32 is the 112 box drawn at half, the same 56 on the glass */);
 
 (async () => {
   const server = http.createServer((req, res) => {

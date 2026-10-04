@@ -96,7 +96,6 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
     <div id="sheet" aria-live="polite"><button id="close" aria-label="close">&times;</button><div id="sbody"></div></div>
   </div>
   <div id="heard"></div>
-  <div id="shelf"></div>
 </div>
 <script src="../engine/bohemia_economy.js"></script>
 <script src="../engine/bohemia_purse.js"></script>
@@ -107,28 +106,34 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script>
 (function(){
 'use strict';
-var ART = '../records/target/tileforms/TF-ART-008__SHOPRUN_IN_PLACE_2x.png';
-/* The storefront run is 1408x616. Each building is a rect in ITS pixels; the screen maps
-   them through the same transform it draws with, so a tap lands on the picture. */
+/* ROUND THREE (RUN TWO, 10/4; the sixth votes, rule 67, Paolo 10/2: 'the settlement screen
+   looking real dogshit, look how Battle Brothers settlements work... the buildings will be the
+   buttons, extra buttons not needed'; and 'always a 45-degree angle looking down').
+   Battle Brothers' settlement is one painted picture of the town with its buildings standing in
+   it; you click a building and its window opens; there is nothing else on the screen but the
+   town's name and the way out. So: the town is a 3x3 plot of the game's OWN 45-degree buildings
+   (the sixty the map's ground is painted with, HERO_SRC, copied to slices/settlement/), each one
+   standing on its lot, and a tap on the building's own pixels opens it. The shelf of plates is
+   gone. A place only has the buildings its size carries (Battle Brothers: a hamlet has fewer);
+   an empty lot is bare ground. Translated names (rule 48). */
 var B = {
-  stall:  {x:88,  y:88, w:440, h:270, name:'THE STALL',   short:'buy, sell'},
-  hall:   {x:616, y:88, w:264, h:262, name:'THE HALL',    short:'who wants work'},
-  board:  {x:528, y:200, w:88, h:150, name:'THE BOARD',   short:'contracts'},
-  barber: {x:968, y:88, w:352, h:270, name:'THE BARBER',  short:'1 battery'},
-  bar:    {x:1496, y:88, w:440, h:270, name:'THE BAR',    short:'a round, a rumour'},
-  clinic: {x:2024, y:88, w:264, h:262, name:'THE CLINIC', short:'cuts wound days'},
-  train:  {x:2376, y:88, w:352, h:270, name:'THE YARD',   short:'swap a mastery'},
-  lot:    {x:0,   y:360, w:2816, h:160, name:'SCAVENGE',  short:'one thing or nothing'}
+  hall:   {spr:'chapel',      gx:0, gy:0, name:'THE HALL',   short:'who wants work'},
+  board:  {spr:'cityhall',    gx:1, gy:0, name:'THE BOARD',  short:'contracts'},
+  clinic: {spr:'medical',     gx:2, gy:0, name:'THE CLINIC', short:'cuts wound days'},
+  stall:  {spr:'swapmeet',    gx:0, gy:1, name:'THE STALL',  short:'buy, sell'},
+  barber: {spr:'commercial',  gx:2, gy:1, name:'THE BARBER', short:'1 battery'},
+  train:  {spr:'firestation', gx:0, gy:2, name:'THE YARD',   short:'swap a mastery'},
+  bar:    {spr:'truckstop',   gx:1, gy:2, name:'THE BAR',    short:'a round, a rumour'},
+  lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'}
 };
-/* ROUND TWO (RUN 2, 10/1): A PLACE HAS THE BUILDINGS ITS SIZE CARRIES, like Battle Brothers,
-   where a hamlet has a market and recruits and a city has the temple and the training hall
-   (GROK_20/21, stamped). The street is the shop run twice, so the second three fronts are
-   real fronts; the ones a place does not have are drawn SHUT, never hidden. Translated
-   (rule 48): tavern -> THE BAR, temple -> THE CLINIC, training hall -> THE YARD. */
+var SPR = {};
+['chapel','cityhall','medical','swapmeet','commercial','firestation','truckstop','boneyard','desert'].forEach(function(k){
+  var im = new Image(); im.onload = function(){ if(typeof layout === 'function') layout(); }; im.src = 'settlement/'+k+'.png'; SPR[k] = im;
+});
 var TIERS = {
   camp:     ['hall','board','stall','lot'],
   town:     ['hall','board','stall','barber','bar','lot'],
-  fortress: ['hall','board','stall','barber','bar','clinic','train','lot']
+  fortress: ['clinic','board','hall','stall','barber','bar','train','lot']
 };
 var ORDER = TIERS.town.slice();
 
@@ -191,106 +196,135 @@ function post(act, o){
 }
 function heard(t){ document.getElementById('heard').textContent = t; }
 
-/* ---------- THE PLACE, DRAWN ---------- */
-var img = new Image(), view = {s:1,ox:0,oy:0}, t0 = performance.now();
+/* ---------- THE PLACE, DRAWN: a 45-degree town, every building a button ---------- */
+var view = {tw:120, ox:0, oy:0, W:0, H:0}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
+var idc = document.createElement('canvas'), idx2 = idc.getContext('2d', {willReadFrequently:true});
 function layout(){
   var sc = document.getElementById('scene'), W = sc.clientWidth, H = sc.clientHeight;
+  if(W < 40 || H < 40){ view.W = W; view.H = H; return; }
   var dpr = window.devicePixelRatio||1;
   cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
   cv.style.width = W+'px'; cv.style.height = H+'px';
-  /* Fit the run's height into the scene; on a phone it is wider than the screen, so it
-     is centred on the hall and the edges crop, the art never squashes. */
-  /* rule 62 (Paolo 10/1, the screen decides the layout): a phone sees one and a half
-     fronts, an iPad about the same taller, a computer more of the street, never one blown up */
-  var s = Math.min(H*0.6/616, W/(1408*0.62));
-  view.s = s; view.W = W; view.oy = Math.round(H*0.30);
-  pan(view.cx == null ? (B.hall.x + B.hall.w/2) : view.cx);
-  hots(); draw();
+  idc.width = Math.max(1,Math.round(W)); idc.height = Math.max(1,Math.round(H));
+  /* rule 62: the screen decides. The plot is 3 lots wide on the diagonal; it takes the width on
+     a phone and the height on a wide screen, and never draws a building past its own pixels x2 */
+  view.W = W; view.H = H;
+  /* A PHONE HELD UPRIGHT gets the town as two rows of lots stepping down the glass (each lot as
+     wide as half the phone); anything wider gets the town's 3x3 diamond. Same buildings, same taps. */
+  view.tall = H > W*1.15;
+  var tw;
+  if(view.tall){ var rows = Math.ceil(ORDER.length/2); tw = Math.min(W/2.05, (H-30)/(rows*0.42+0.75), 256);
+    /* the rows spread over the whole glass, so a tall building never stands on the one behind it */
+    view.step = Math.min(tw*0.75, (H - 30 - tw*1.25) / Math.max(1, rows-1)); view.top = 12 + tw*1.05; }
+  else tw = Math.min(W/3.05, (H-24)/2.55, 256);
+  view.tw = tw;
+  view.ox = Math.round(W/2);
+  view.oy = view.tall ? Math.round((H - (Math.ceil(ORDER.length/2)*0.42+0.75)*tw)/2 + tw*0.75) : Math.round((H - tw*2.55)/2 + tw*1.0);
+  draw(true);
 }
-/* THE STREET PANS: drag it, or tap a plate and it walks the camera to that front */
-function pan(cxArt){
-  var s = view.s, half = view.W/2/s;
-  cxArt = Math.max(half, Math.min(2816 - half, cxArt));
-  view.cx = cxArt; view.ox = Math.round(view.W/2 - cxArt*s);
-  if(document.querySelector('.hot')) placeHots();
-}
-function draw(){
-  var dpr = window.devicePixelRatio||1, now = performance.now();
-  cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = false;
-  cx.fillStyle = '#0b0907'; cx.fillRect(0,0,cv.width,cv.height);
-  if(img.complete && img.naturalWidth){
-    var Wc = cv.width/dpr, Hc = cv.height/dpr, s = view.s;
-    /* THE SKY: act one's dusk, dead power line across it, no glow */
-    var sk = cx.createLinearGradient(0,0,0,view.oy);
-    sk.addColorStop(0,'#17120e'); sk.addColorStop(1,'#3a2c20');
-    cx.fillStyle = sk; cx.fillRect(0,0,Wc,view.oy+2);
-    cx.strokeStyle = 'rgba(10,8,6,.9)'; cx.lineWidth = 1;
-    for(var li=0;li<2;li++){ cx.beginPath(); cx.moveTo(0,view.oy*0.35+li*6);
-      cx.quadraticCurveTo(Wc/2,view.oy*0.55+li*6,Wc,view.oy*0.30+li*6); cx.stroke(); }
-    /* THE ROAD keeps going toward you: the run's own asphalt rows, repeated down, darker
-       the closer they get, never a new drawing */
-    var ry = view.oy + 616*s, step = 90*s, n = 0;
-    for(var y = ry; y < Hc; y += step, n++){
-      for(var c=0;c<2;c++) cx.drawImage(img, 0, 526, 1408, 90, view.ox+c*1408*s, Math.floor(y), 1408*s, Math.ceil(step)+1);
-      cx.fillStyle = 'rgba(0,0,0,'+Math.min(.6,.12+n*.08).toFixed(2)+')'; cx.fillRect(0,Math.floor(y),Wc,Math.ceil(step)+1);
-    }
-    for(var c2=0;c2<2;c2++) cx.drawImage(img, view.ox+c2*1408*s, view.oy, 1408*s, 616*s);
-    /* SHUT: a front this place does not have is dark behind its shutter, and says so */
-    ['stall','barber','bar','clinic','train'].forEach(function(k){
-      if(ORDER.indexOf(k) >= 0) return;
-      var r = B[k]; cx.fillStyle = 'rgba(8,6,4,.72)';
-      cx.fillRect(view.ox+r.x*s, view.oy+r.y*s, r.w*s, r.h*s);
-      cx.fillStyle = '#6e5f4c'; cx.font = '11px ui-monospace,monospace'; cx.textAlign = 'center';
-      cx.fillText('SHUT', view.ox+(r.x+r.w/2)*s, view.oy+(r.y+r.h/2)*s);
-    });
-    /* THE HUM: the shop light over the stall breathes on the 120 BPM beat and drops out
-       for a beat every so often, on its own, at the source. */
-    var beat = ((now-t0)/500)|0, out = (beat % 13 === 7);
-    var a = out ? 0 : 0.10 + 0.04*Math.sin((now-t0)/500*Math.PI);
-    cx.fillStyle = 'rgba(255,214,140,'+a.toFixed(3)+')';
-    cx.fillRect(view.ox+88*view.s, view.oy+88*view.s, 440*view.s, 90*view.s);
+function lotXY(gx, gy){ var tw = view.tw; return {x: view.ox + (gx-gy)*tw/2, y: view.oy + (gx+gy)*tw/4}; }
+function placed(){
+  var out = [];
+  if(view.tall){
+    /* upright phone: the open buildings two to a row, in the order you meet them */
+    ORDER.forEach(function(k, i){ out.push({k:k, slot:i}); });
+    return out;
   }
-  /* the dusk over everything: act one is the ruin */
-  var g = cx.createRadialGradient(cv.width/dpr/2, cv.height/dpr/2, 40, cv.width/dpr/2, cv.height/dpr/2, Math.max(cv.width,cv.height)/dpr*0.7);
-  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,'rgba(0,0,0,.55)');
-  cx.fillStyle = g; cx.fillRect(0,0,cv.width/dpr,cv.height/dpr);
+  for(var gy=0; gy<3; gy++) for(var gx=0; gx<3; gx++){
+    var k = null; for(var key in B) if(B[key].gx===gx && B[key].gy===gy && ORDER.indexOf(key)>=0) k = key;
+    out.push({k:k, gx:gx, gy:gy});
+  }
+  /* back to front: the lot nearer the bottom of the glass is drawn last */
+  return out.sort(function(a,b){ return (a.gx+a.gy)-(b.gx+b.gy) || a.gx-b.gx; });
 }
-function loop(){ draw(); requestAnimationFrame(loop); }
-
-function hots(){
-  var sc = document.getElementById('scene');
-  [].slice.call(sc.querySelectorAll('.hot')).forEach(function(h){ h.remove(); });
-  ORDER.forEach(function(k){
-    var r = B[k], h = document.createElement('button');
-    h.className = 'hot'; h.dataset.k = k; h.setAttribute('aria-label', r.name);
-    var lab = document.createElement('span'); lab.textContent = r.name; h.appendChild(lab);
-    h.addEventListener('click', function(){ if(!view.dragged) openB(k); });
-    sc.insertBefore(h, document.getElementById('sheet'));
+function sprRect(spr, gx, gy, slot){
+  var im = SPR[spr], tw = view.tw, sc = tw/256, p;
+  if(view.tall && slot != null){
+    var row = slot >> 1, col = slot & 1;
+    p = {x: view.W/2 + (col ? 1 : -1)*view.W/4, y: view.top + row*view.step + (col ? tw*0.12 : 0) - tw/4};
+  } else p = lotXY(gx, gy);
+  var w = 256*sc, h = (im.naturalHeight||132)*sc;
+  /* the sprite's own ground diamond is its bottom 128 px: its bottom point sits on the lot's */
+  return {x: p.x - w/2, y: p.y + tw/4 - h, w:w, h:h, cx:p.x, base:p.y + tw/4};
+}
+function draw(full){
+  var dpr = window.devicePixelRatio||1, now = performance.now(), W = view.W, H = view.H;
+  if(W < 40 || H < 40 || !(view.tw > 0)) return;  /* hidden in its frame: nothing to draw */
+  cx.setTransform(dpr,0,0,dpr,0,0); cx.imageSmoothingEnabled = true;
+  /* dusk: act one is the ruin, the light is low and brown */
+  var sk = cx.createLinearGradient(0,0,0,H); sk.addColorStop(0,'#1a140f'); sk.addColorStop(1,'#2e241a');
+  cx.fillStyle = sk; cx.fillRect(0,0,W,H);
+  if(full){ idx2.setTransform(1,0,0,1,0,0); idx2.clearRect(0,0,idc.width,idc.height); }
+  var ps = placed();
+  /* the bare ground under every lot first, so the town reads as one plot */
+  ps.forEach(function(q){ var g = SPR.desert; if(!g.complete) return; var r = sprRect('desert', q.gx, q.gy, q.slot); cx.drawImage(g, r.x, r.y, r.w, r.h); });
+  ps.forEach(function(q, i){
+    if(!q.k) return;
+    var im = SPR[B[q.k].spr]; if(!im.complete || !im.naturalWidth) return;
+    var r = sprRect(B[q.k].spr, q.gx, q.gy, q.slot);
+    cx.drawImage(im, r.x, r.y, r.w, r.h);
+    if(S.open === q.k){ cx.save(); cx.globalAlpha = .18; cx.globalCompositeOperation = 'lighter'; cx.drawImage(im, r.x, r.y, r.w, r.h); cx.restore(); }
+    if(full){
+      /* THE TAP MAP: each building's own pixels painted in its own id colour, back to front, so
+         a tap belongs to the building you see on top, never to a box around it */
+      var t = document.createElement('canvas'); t.width = Math.ceil(r.w); t.height = Math.ceil(r.h);
+      var tx = t.getContext('2d'); tx.drawImage(im, 0, 0, r.w, r.h);
+      /* hard edges only: a blended edge between two ids would read as a third building */
+      var dd = tx.getImageData(0,0,t.width,t.height), v = 10+ORDERALL.indexOf(q.k)*20;
+      for(var pi=0; pi<dd.data.length; pi+=4){ var on = dd.data[pi+3] >= 128; dd.data[pi]=v; dd.data[pi+1]=0; dd.data[pi+2]=0; dd.data[pi+3]= on ? 255 : 0; }
+      tx.putImageData(dd,0,0);
+      idx2.imageSmoothingEnabled = false; idx2.drawImage(t, Math.round(r.x), Math.round(r.y));
+    }
   });
-  placeHots();
-}
-/* a front off the edge of the screen has no button until you pan to it */
-function placeHots(){
-  var W = view.W;
-  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){
-    var r = B[h.dataset.k];
-    var x = view.ox + r.x*view.s, y = view.oy + r.y*view.s, w = r.w*view.s, hh = r.h*view.s;
-    if(x < 0){ w += x; x = 0; } if(x + w > W) w = W - x;
-    h.style.display = w < 30 ? 'none' : '';
-    if(w < 44){ x -= (44-w)/2; w = 44; }
-    h.style.left = x+'px'; h.style.top = y+'px'; h.style.width = w+'px'; h.style.height = Math.max(44,hh)+'px';
+  /* THE HUM, at the source: the bar's light breathes on the 120 BPM beat and drops a beat now
+     and then; nothing else in the town is lit */
+  if(ORDER.indexOf('bar') >= 0 && SPR.truckstop.complete){
+    var rb = sprRect('truckstop', B.bar.gx, B.bar.gy, view.tall ? ORDER.indexOf('bar') : null), beat = ((now-t0)/500)|0;
+    var a = (beat % 13 === 7) ? 0 : 0.10 + 0.05*Math.sin((now-t0)/500*Math.PI);
+    var gl = cx.createRadialGradient(rb.cx, rb.base - rb.h*0.35, 2, rb.cx, rb.base - rb.h*0.35, view.tw*0.5);
+    gl.addColorStop(0,'rgba(255,200,120,'+a.toFixed(3)+')'); gl.addColorStop(1,'rgba(255,200,120,0)');
+    cx.fillStyle = gl; cx.fillRect(rb.x, rb.y, rb.w, rb.h);
+  }
+  /* the name under each building: words, never a button */
+  ps.forEach(function(q){
+    if(!q.k) return; var r = sprRect(B[q.k].spr, q.gx, q.gy, q.slot);
+    var t = B[q.k].name, t2 = sub(q.k) || '';
+    cx.font = 'bold 10px ui-monospace,Menlo,monospace'; var w1 = cx.measureText(t).width;
+    cx.font = '9px ui-monospace,Menlo,monospace'; var w2 = cx.measureText(t2).width;
+    var tw = Math.max(w1, w2) + 10, y = r.base - view.tw*0.06;
+    cx.fillStyle = 'rgba(14,11,8,.85)'; cx.fillRect(Math.round(r.cx - tw/2), Math.round(y - 10), Math.round(tw), t2 ? 25 : 14);
+    cx.textAlign = 'center';
+    cx.fillStyle = S.open === q.k ? '#d9a85a' : '#e9dcc4'; cx.font = 'bold 10px ui-monospace,Menlo,monospace'; cx.fillText(t, r.cx, y);
+    if(t2){ cx.fillStyle = '#a8977c'; cx.font = '9px ui-monospace,Menlo,monospace'; cx.fillText(t2, r.cx, y + 11); }
   });
+  var g2 = cx.createRadialGradient(W/2, H/2, 40, W/2, H/2, Math.max(W,H)*0.7);
+  g2.addColorStop(0,'rgba(0,0,0,0)'); g2.addColorStop(1,'rgba(0,0,0,.5)');
+  cx.fillStyle = g2; cx.fillRect(0,0,W,H);
 }
+var ORDERALL = ['hall','board','clinic','stall','barber','train','bar','lot'];
+function loop(){ draw(false); requestAnimationFrame(loop); }
+function hitAt(x, y){
+  if(x<0||y<0||x>=idc.width||y>=idc.height) return null;
+  var d = idx2.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+  if(d[3] < 128) return null;
+  var k = ORDERALL[Math.round((d[0]-10)/20)];
+  return ORDER.indexOf(k) >= 0 ? k : null;
+}
+/* where a building can be tapped: the middle of its own visible pixels (the driver uses it) */
+function where(k){
+  var d = idx2.getImageData(0,0,idc.width,idc.height).data, want = 10+ORDERALL.indexOf(k)*20, xs=[], ys=[];
+  for(var y=0;y<idc.height;y+=2) for(var x=0;x<idc.width;x+=2){ var i=(y*idc.width+x)*4; if(d[i+3]>=128 && Math.abs(d[i]-want)<3){ xs.push(x); ys.push(y); } }
+  if(!xs.length) return null;
+  xs.sort(function(a,b){return a-b;}); ys.sort(function(a,b){return a-b;});
+  var r = document.getElementById('scene').getBoundingClientRect();
+  return {x: r.left + xs[xs.length>>1], y: r.top + ys[ys.length>>1], px: xs.length*4};
+}
+cv.addEventListener('click', function(e){
+  var r = cv.getBoundingClientRect(), k = hitAt(e.clientX - r.left, e.clientY - r.top);
+  if(k) openB(k); else if(S.open) hide();
+});
 function shelf(){
-  var sh = document.getElementById('shelf'); sh.textContent = '';
-  ORDER.forEach(function(k){
-    var b = document.createElement('button'); b.className = 'pl'+(S.open===k?' on':''); b.dataset.k = k;
-    var n = document.createElement('b'); n.textContent = B[k].name.replace('THE ',''); b.appendChild(n);
-    var s = document.createElement('small'); s.textContent = sub(k); b.appendChild(s);
-    b.addEventListener('click', function(){ if(k!=='lot') pan(B[k].x + B[k].w/2); openB(k); });
-    sh.appendChild(b);
-  });
   document.getElementById('bat').textContent = bats()+' BATTER'+(bats()===1?'Y':'IES');
   document.getElementById('pname').textContent = S.place.name;
 }
@@ -433,10 +467,9 @@ function openB(k, line){
 }
 function show(){
   document.getElementById('sheet').classList.add('on');
-  [].slice.call(document.querySelectorAll('.hot,.pl')).forEach(function(h){ h.classList.toggle('on', h.dataset.k===S.open); });
+
 }
-function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf();
-  [].slice.call(document.querySelectorAll('.hot')).forEach(function(h){ h.classList.remove('on'); }); }
+function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
@@ -471,11 +504,10 @@ function open(o){
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();
   ORDER = (TIERS[S.place.tier] || TIERS.town).slice();
-  view.cx = null;
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {where:where, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};
@@ -485,21 +517,10 @@ window.addEventListener('message', function(e){
 document.getElementById('close').addEventListener('click', hide);
 document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); heard('You head back out to the map.'); });
 window.addEventListener('resize', layout);
-(function(){
-  var sc = document.getElementById('scene'), x0 = null, c0 = 0;
-  sc.addEventListener('pointerdown', function(e){ if(e.target.closest('#sheet')) return; x0 = e.clientX; c0 = view.cx; view.dragged = false; });
-  window.addEventListener('pointermove', function(e){
-    if(x0 === null) return; var d = e.clientX - x0;
-    if(Math.abs(d) > 8) view.dragged = true;
-    if(view.dragged) pan(c0 - d/view.s);
-  });
-  window.addEventListener('pointerup', function(){ x0 = null; setTimeout(function(){ view.dragged = false; }, 0); });
-})();
-img.onload = layout; img.src = ART;
 
 var q = new URLSearchParams(location.search);
 open({place:{name:q.get('place')||S.place.name, tier:q.get('tier')||S.place.tier}, batteries: S.standalone ? 3 : undefined});
-/* window.BohemiaSettlement.order() is the open buildings, in shelf order */
+/* window.BohemiaSettlement.order() is the open buildings; where(k) is the middle of a building's own tappable pixels */
 requestAnimationFrame(loop);
 })();
 </script>

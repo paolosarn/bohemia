@@ -4285,6 +4285,45 @@
    }
   },
   {
+   "id": "run-the-far-end-is-painted-10-2",
+   "kind": "tile",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "ZOOMED OUT, THE CITY IS PAINTED",
+   "why": "Pulled all the way out, the city is no longer a grid carpet under giant town icons: every block is painted (roofs, streets, towers that stand up, the rim rising into the ranges) and the towns shrink with the ground the way Battle Brothers does it. You see it on the map when you pinch all the way out.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FAR_END_IS_PAINTED_10_2.jpg"
+   }
+  },
+  {
+   "id": "run-clouds-and-the-near-stop-10-2",
+   "kind": "ui",
+   "lane": "run",
+   "made": "10/2",
+   "sha": "pending",
+   "title": "INTO A FIGHT THROUGH CLOUDS, AND ZOOMED ALL THE WAY IN",
+   "why": "Going into a fight now rolls through drifting pixel clouds that hold until the fight is built and part on two beats, and coming home goes back through them; and the map now zooms in until a block's own building art sits at your phone's own pixels. You see it the first time a fight starts, and when you pinch all the way in on the map.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_CLOUDS_AND_THE_NEAR_STOP_10_2.jpg"
+   }
+  },
+  {
+   "id": "run-the-far-stop-keeps-the-land-10-4",
+   "kind": "tile",
+   "lane": "run",
+   "made": "10/4",
+   "sha": "pending",
+   "title": "PAST THE MAP THE VALLEY STAYS, AND IT HAS ONE LIGHT",
+   "why": "Pinching out past the map no longer drops to a flat blue sky and a slab: the same land and painted city run to a curved horizon under a dust sky, with no label, and at night the land outside the city goes dark exactly as the city does. You see it on the map when you pinch out past the widest zoom.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FAR_STOP_KEEPS_THE_LAND_10_4.jpg"
+   }
+  },
+  {
    "id": "combat2-the-ground-for-the-new-fight-10-2",
    "kind": "tile",
    "lane": "combat 2",
@@ -4353,9 +4392,189 @@
    },
    "draft": true
   },
-  {"id": "combat-the-perk-skills-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "THE PERKS YOU PRESS: SEVEN BUTTONS ON A MAN'S CARD", "why": "The seven Battle Brothers perks you press are buttons on a man's card now, each at its wiki cost: ON ME pulls your breaking men back to steady, CATCH YOUR BREATH halves his tiredness for the whole turn, SWAP OUT trades places with a friend, COME AT ME calls a man onto him, SIDESTEP walks out of reach with no free swing, IMMOVABLE halves the damage, FIRST OUT THE DOOR puts him first next round, and the enemy uses them too. In a fight, when one of yours has one, you see it as a gold button above WAIT, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg"}, "draft": true},
-{"id": "combat2-mixed-boards-in-the-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "NO MORE COPY-PASTED BOARDS: A REAL STREET GRID", "why": "The fight boards no longer repeat one strip of houses across the screen: houses sit on different lots every block, cross streets cut through, some lots are empty slabs, and one house in six is burnt, shown here inside the new fight on a phone. Thumbs up and every fight board is mixed like this, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png"}},
-{"id": "combat2-streets-run-through-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "CROSS STREETS RUN ALL THE WAY THROUGH", "why": "On every town board the cross streets now run top to bottom through every block like a real street grid instead of stopping at a block's edge, and each board now lists its street lamps and fire barrels so night fights can be lit by them. Thumbs up and the fight uses these boards, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_STREETS_RUN_THROUGH_10_2.png"}}
+  {
+   "id": "combat-the-perk-skills-10-2",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE PERKS YOU PRESS: SEVEN BUTTONS ON A MAN'S CARD",
+   "why": "The seven Battle Brothers perks you press are buttons on a man's card now, each at its wiki cost: ON ME pulls your breaking men back to steady, CATCH YOUR BREATH halves his tiredness for the whole turn, SWAP OUT trades places with a friend, COME AT ME calls a man onto him, SIDESTEP walks out of reach with no free swing, IMMOVABLE halves the damage, FIRST OUT THE DOOR puts him first next round, and the enemy uses them too. In a fight, when one of yours has one, you see it as a gold button above WAIT, in the VOTE tab, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "combat2-mixed-boards-in-the-fight-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "NO MORE COPY-PASTED BOARDS: A REAL STREET GRID",
+   "why": "The fight boards no longer repeat one strip of houses across the screen: houses sit on different lots every block, cross streets cut through, some lots are empty slabs, and one house in six is burnt, shown here inside the new fight on a phone. Thumbs up and every fight board is mixed like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png"
+   }
+  },
+  {
+   "id": "combat2-streets-run-through-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "CROSS STREETS RUN ALL THE WAY THROUGH",
+   "why": "On every town board the cross streets now run top to bottom through every block like a real street grid instead of stopping at a block's edge, and each board now lists its street lamps and fire barrels so night fights can be lit by them. Thumbs up and the fight uses these boards, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_STREETS_RUN_THROUGH_10_2.png"
+   }
+  },
+  {
+   "id": "combat2-the-ground-packed-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE SAME FIGHT GROUND, FIVE TIMES LIGHTER",
+   "why": "The fight boards now download in about 5 MB instead of 24 with not one visible pixel changed, so fights open faster on a phone; shown here inside the new fight on the cul-de-sac and the lake shore. Thumbs up and nothing else changes, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_GROUND_PACKED_10_2.png"
+   }
+  },
+  {
+   "id": "run2-settlement-like-battle-brothers-10-4",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "THE SETTLEMENT SCREEN, REBUILT LIKE BATTLE BROTHERS",
+   "why": "You said look how Battle Brothers settlements work, so the place is now the game's own 45-degree buildings standing in a town, you tap the building itself to open it, and the row of extra buttons is gone. You see it in the VOTE tab under LOOK, and in the demo every time you arrive at a place on the map.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_FORTRESS_10_1.png"
+   },
+   "draft": true
+  },
+{"id": "combat2-building-types-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "SEVEN NEW BUILDINGS: APARTMENTS, CHURCH, SCHOOL, GAS STATION, MOTEL, WAREHOUSE, CASINO BACK", "why": "You asked for many more building types, so here are seven new ones at 45 degrees, each with its own shape you can name from far away, plus two new city blocks that use them: main street and the works. Thumbs up and they go on the fight boards, and you see it in the COMBAT tab when a fight starts in town.", "show": {"how": "image", "src": "vote/COMBAT2_BUILDING_TYPES_10_4.png"}},
+{"id": "combat2-buildings-in-the-fight-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "THE NEW BUILDINGS INSIDE THE NEW FIGHT", "why": "The warehouse, motel, school and the rest inside the actual new fight on a phone, on the strip and suburb boards, with the cross streets running straight past them. Thumbs up and the fight keeps these boards, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_BUILDINGS_IN_THE_FIGHT_10_4.png"}},
+ {"id": "combat-the-fifty-perk-names-10-4", "kind": "line", "lane": "combat", "sha": "pending", "made": "10/4", "title": "THE FIFTY PERK NAMES, TO TALK THROUGH", "why": "All fifty Battle Brothers perks with the name we gave each one (READS YOU for Fast Adaptation, BUILT LIKE A DOOR for Colossus, ON ME for Rally the Troops) and the icon now drawn for it, gold for what a man carries and blue for what you press. Rename any you hate in your notes and the fight picks it up, and you see it on every man's card in the fight, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_FIFTY_PERK_NAMES_10_4.jpg"}, "draft": true},
+ {"id": "combat-the-bar-in-our-materials-10-4", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/4", "title": "THE FIGHT'S BAR, BATTLE BROTHERS' LAYOUT IN CARDBOARD, TAPE AND RECEIPTS", "why": "The fight's controls laid out like Battle Brothers' (faces in turn order across the top, his face and bars bottom left, the skills as cracked-glass squares under your thumbs, END TURN and WAIT at the right) but made of our stuff, a taped-on cardboard bar and receipt-paper buttons, every one big enough for a thumb. Play a fight and you see it at the bottom of the screen, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_BAR_IN_OUR_MATERIALS_10_4.jpg"}, "draft": true},
+{"id": "combat2-freeway-and-landfill-recut-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "THE FREEWAY AND THE DUMP, REDONE", "why": "You said the dump and the freeway looked bad, so both are rebuilt around their real shapes: the freeway between sound walls with a raised divider, a jam of cars and an overpass you can climb onto, and the dump as stepped terraces of trash bales and tyres with a road switchbacking up. Thumbs up and these become the fight boards, and you see it in the COMBAT tab when a fight starts on the freeway or the dump.", "show": {"how": "image", "src": "vote/COMBAT2_FREEWAY_AND_LANDFILL_RECUT_10_4.png"}},
+{"id": "combat2-lines-run-through-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "THE LINES RUN THROUGH: SHORELINES AND CREEKS MEET BLOCK TO BLOCK", "why": "Every line that crosses from one block to the next now meets itself: the lake shore, the dump road and the desert track line up, and the dry creeks run the whole board top to bottom and down into the lake. Thumbs up and the fight boards keep this, and you see it in the COMBAT tab when a fight starts in the desert or on the shore.", "show": {"how": "image", "src": "vote/COMBAT2_LINES_RUN_THROUGH_10_4.png"}},
+ {"id": "combat-your-characters-in-the-fight-10-4", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/4", "title": "YOUR CHARACTERS ARE THE FIGHTERS NOW", "why": "Every man in the new fight is your character art from the bank, the rig in his runway clothes with his own face in the turn strip, walking, swinging, flinching when hit and lying where he falls, and one of your own can be walked through but never two. Play a fight and you see it on the whole board, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_YOUR_CHARACTERS_IN_THE_FIGHT_10_4.jpg"}, "draft": true},
+ {"id": "combat-auto-plays-like-battle-brothers-10-4", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/4", "title": "AUTO PLAYS YOUR MEN LIKE BATTLE BROTHERS' AI", "why": "AUTO now does what Battle Brothers' own AI does: shooters climb the roofs first (41% of their turns, up from 6%), the line walks up as a line, shooters stay behind the front man, and your men stop piling every swing on one guy. Tap AUTO in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_AUTO_PLAYS_LIKE_BATTLE_BROTHERS_10_4.jpg"}, "draft": true},
+{"id": "run-the-near-end-is-the-block-10-4", "kind": "ui", "lane": "run", "sha": "451b9d9", "made": "10/4", "title": "PINCH IN PAST THE MAP AND YOU ARE ON THE BLOCK", "why": "Pinching in past the map's closest zoom now drops you onto the block you stand on, drawn from the fight's own street pictures, and you can keep pinching until it is the walk's size while you stay the same size on the street. You see it on the map when you pinch in as far as it goes and then once more.", "show": {"how": "image", "src": "vote/RUN_THE_NEAR_END_IS_THE_BLOCK_10_4.jpg"}},
+{"id": "combat2-settlement-pictures-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "SETTLEMENTS AS ONE PLACE: CAMP, TOWN, FORTRESS", "why": "The settlement buildings are now part of one picture instead of a row of options: the barber is a house with a striped pole, the clinic a storefront with a cross, the stall sits on the sidewalk, notices are papered on a wall and the job board is a board on a pole, for a camp, a town and a fortress. Thumbs up and the settlement screen uses these pictures, and you see it in the settlement screen when you enter a place (the dotted boxes are what lights up under your finger).", "show": {"how": "image", "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"}},
+ {"id": "combat-the-night-is-lit-by-the-street-10-4", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/4", "title": "AT NIGHT THE FIGHT IS LIT BY THE STREET'S OWN LAMPS", "why": "A night fight goes dark and only the live street lamps and burning drums light it, and a man under a lamp is seen from farther and easy to shoot, so you keep your men out of the light. Fight after dark in the demo and you see it, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_NIGHT_IS_LIT_BY_THE_STREET_10_4.jpg"}, "draft": true},
+{
+  "id": "grok-one-pain-line-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: AN INJURY IS ONE PAIN LINE, NOT FIVE",
+  "why": "Grok reports you said a hurt neck, head, arm, leg or chest all show as one pain line, while the game still picks the body part and its penalty the way Battle Brothers does, and one medicine a day closes it. You see it on a hurt man's card in the fight and in the settlement screen's clinic.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_49, GROK_67: one label for the injury trait; the penalty follows the body part; a hit of 10 or more health that is a big enough share of max health can leave it; bandages, ibuprofen and super glue all treat it.\n\nSeen in: the man's card in the fight, the clinic in the settlement screen."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-the-ground-picks-the-pool-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE GROUND PICKS WHO SHOWS UP, THE DAY PICKS HOW MANY",
+  "why": "Grok reports you said there is no scripted first fight: the part of the map you stand on picks which faction's pool a party comes from, and the day count, your crew's strength and your level pick its size, Battle Brothers' shape. You see it as which crews roam which part of the valley on the map and who stands across the board when a fight opens.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_52, GROK_53, GROK_54, GROK_58, GROK_59, GROK_60: the pool by ground; size by roster strength (the 12 strongest men, 10 plus 2 a level past 1), days and the job's skulls; a camp already on the map scales by days and distance, not the crew. Matches his fifth vote (no authored first fight).\n\nSeen in: the map's roaming crews, the enemy line-up when a fight opens."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-no-tile-names-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE PLAYER NEVER READS A TILE'S NAME; FACTIONS ARE BANNERS AND PARTIES",
+  "why": "Grok reports you said the player does not see street or ground names on the map, the way Battle Brothers never labels its ground, and a faction shows itself as a banner and a party you can tap. You see it on the map: no labels on the land, a banner over every crew.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_56, GROK_57, GROK_58: no tile labels; a party on the map shows a banner and its name when tapped; the ground still picks the pool underneath. Grok's own name lists (GROK_55, GROK_57) are marked bad votes by him and are not locked.\n\nSeen in: the map (no ground labels; banners over crews), the party card on a tap."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-gas-is-ammo-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: GAS MOVES TO THE AMMO PILE",
+  "why": "Grok reports you moved gas out of the resources pile into the ammo pile on 10/2, so a car's shot spends gas and a pistol's shot spends bullets or nails from the same ammo count. You see it in the top bar's ammo number and at the stall.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_45, GROK_64, GROK_70: the ammo pile holds a gas can and loose bullets and nails as one skin; a pistol shot takes bullets or nails; a car shot takes gas; 10 batteries a bundle. His newer line (10/2) beats the older six piles (10/1) where they clash.\n\nSeen in: the top bar's ammo count, the stall in the settlement screen, the car's shot in the fight."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-the-beat-and-the-dial-wait-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: UNTIL THE BATTLE BROTHERS FIGHT IS RIGHT, THE GAME IS BATTLE BROTHERS",
+  "why": "Grok reports you said the Rogue Fable pieces, the beat and the dial, wait until the Battle Brothers recreation is right, because they would make it more fun later, not now. You see it in the demo's fight: turns, no beat, no dial.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_71, GROK_72, GROK_75: the fight is Battle Brothers until he is happy; the beat line and the dial are later pieces; the gambit comes later and needs research; a combat tile stays a house. Matches rules 63 and 63a (the dial is next, not dead).\n\nSeen in: the demo's fight (turn-based, no beat bar, no dial)."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-formation-is-the-layout-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE FRONT AND BACK LINES ARE SET BY HOW YOU LAID THE COMPANY OUT BEFORE THE FIGHT",
+  "why": "Grok reports you said the formation is already set by how you layered your company on the roster screen before the fight, Battle Brothers' start, with no extra placing step. You see it in the fight's first turn: your men stand where you put them on the roster.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_75: the front line and the back line come from the company layout; a gambit comes later. For COMBAT's rebuilt fight and RUN TWO's roster.\n\nSeen in: the roster screen's rows, the fight's opening positions."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-spaghettioh-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE STEW IS SPAGHETTIOH, CANNED CHILI IS OUT",
+  "why": "Grok reports you named the stew SpaghettiOh, the Os fused into one ring after ten years in a can, at 8 batteries and 12 days of food, and canned chili leaves the list. You see it at the stall and in the food count.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_76: SpaghettiOh, his spelling; not a real brand on the screen; 8 batteries, 12 days; canned chili out. For ECONOMY's food list and WORDS' line.\n\nSeen in: the stall in the settlement screen, the top bar's food."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
 ],
  "verdicts": [
   {
@@ -5974,6 +6193,643 @@
    "said": "So all these good ass mod ideas they have to be in our game I didn't know you were spending credits thinking of making mods for our game. Are you fucking insane? The whole point of the mods chat is to make it easy for people to make mods for the game but all the mod ideas you came up with like a low-key fire so now they gotta be implemented in our game and shit like.",
    "when": "9/30",
    "at": "2026-10-01"
+  },
+  {
+   "id": "combat2-the-ground-packed-10-2",
+   "vote": "up",
+   "said": "nice just make sure all the tiles and elements tlak to eachother and lines that run through are consistent and make sense please",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-streets-run-through-10-2",
+   "vote": "up",
+   "said": "land fill and freeway look like dog shit i would like most fights to start left to right not south to north you know also im glad we got suburb house buildings but we need so much more buildings type shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-mixed-boards-in-the-fight-10-2",
+   "vote": "up",
+   "said": "makin progress nice remember west to east not south to north fighting",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-perk-skills-10-2",
+   "vote": "up",
+   "said": "this ui is looking like dogshit not like a studio made game like some ai slop claude bullshit so thatll need upgrading also here the attack button? health and armor bars above the people for now is cool but the rest of the info is not needed to be presented. it can be in the background not visible for now. the combat log is not needed all traits need cool graphic icons and shit too",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-perks-translated-10-2",
+   "vote": "up",
+   "said": "All fifty Battle Brothers perks with a draft name of ours make sure main coordinator talks w me about this shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-ground-in-the-new-fight-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-food-stacks-10-2",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-fight-rebuilt-10-2",
+   "vote": "up",
+   "said": "i like i the amount of cars on a tile can increase the defense rating on that tile to 1 car a certain amount 3 cars more",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-ground-for-the-new-fight-10-2",
+   "vote": "up",
+   "said": "good progress need more",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-far-end-is-painted-10-2",
+   "vote": "up",
+   "said": "good as long as it proceduraly generates with the rest nice good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-new-fight-in-the-demo-10-2",
+   "vote": "up",
+   "said": "i want it to zoom in with clouds being the loading screen again the world map has to be like 5x more pixels if im correct to match battle brothers so yeah",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-valley-edge-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-front-door-10-2",
+   "vote": "up",
+   "said": "good progress not close to final but awesome",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-store-fronts-and-houses-everywhere-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-loop-on-the-map-10-2",
+   "vote": "up",
+   "said": "good progress not final the buildings will be the buttons so extra buttons not needed",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-reach-is-lit-10-1",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-houses-at-45-and-the-big-board-10-1",
+   "vote": "up",
+   "said": "good progress not final",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-see-the-hire-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-ten-crowns-one-battery-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-night-boards-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-map-icons-own-art-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-ground-is-45-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-map-at-your-pixels-10-1",
+   "vote": "up",
+   "said": "got to be able to zoom tf in so much and zoom out all the way so much",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-shore-landfill-ruin-10-1",
+   "vote": "up",
+   "said": "consisdtency and quality good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-the-fights-floor-10-1",
+   "vote": "down",
+   "said": "you showed me the old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-every-fight-ends-10-1",
+   "vote": "up",
+   "said": "battle brothers has a recap screen showing how much blood was drawn how many kills and how much experience was awarded so yeah keep that in mind",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-four-more-board-kinds-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-cover-is-a-thing-10-1",
+   "vote": "down",
+   "said": "u showed me the old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-board-kinds-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run2-the-one-file-loop-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-floor-set-r2-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-cover-pieces-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run2-the-settlement-screen-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close and its looking real dogshit look how battle brothers settlements work",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-you-build-inside-your-home-bases-screen-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-a-routine-fight-ends-inside-90-seconds-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "factions-the-fourteen-home-bases-9-28",
+   "vote": "down",
+   "said": "looking like dogshit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-roof-you-stand-on-9-28",
+   "vote": "down",
+   "said": "u showed me old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-the-head-and-the-gear-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close looking like dogshiut",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-a-hit-facing-you-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-sign-catches-then-holds-9-28",
+   "vote": "up",
+   "said": "new ones are fire put the volume down a little bit and yeah",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-block-lights-at-one-twenty-9-28",
+   "vote": "up",
+   "said": "new ones fire make sure its not super loud",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-generator-is-sixty-hertz-9-28",
+   "vote": "up",
+   "said": "new ones fire make sure its not super loud",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-company-inherits-9-28",
+   "vote": "up",
+   "said": "not all of them though but maybe like 42% maybe",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "world-three-shapes-9-28",
+   "vote": "down",
+   "said": "NEEDS WAY MORE PIXELS LOOKING BAD MAN",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-a-house-is-one-tile-9-28",
+   "vote": "up",
+   "said": "ALWAYS A 45 DEGREE ANGLE LOOKING DOWN",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-every-number-9-28",
+   "vote": "down",
+   "said": "COPY BATTLE BROTHERS",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "lifecity-the-street-falls-and-the-house-stays-lit-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-mods-at-boot-9-28",
+   "vote": "down",
+   "said": "NAH",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-return-ritual-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-her-page-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close REMEMBER STATS AND STARS NEXT TO STATS AND YEAH HOW BATTLE BROTHERS DOES IT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-try-a-mod-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-how-long-they-live-9-28",
+   "vote": "up",
+   "said": "YEAH I MEAN NO ONE IS DYING OF OLD AGE IN THE CURRENT ACT UR IN BUT STORY WISE OR LORE WISE WHEN U GO TO NEXT AGE ITLL DEPEND ON THIS SHIT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-strip-on-foot-uses-the-112-walk-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-the-map-glides-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-two-moves-that-were-dead-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-flip-is-a-knock-not-a-chime-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-deck-does-not-ring-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-a-footstep-that-is-not-glass-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "character-the-attachments-trade-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-real-families-dont-come-out-four-of-four-9-28",
+   "vote": "up",
+   "said": "WE NEED WAYYYYYY MORE PROTRAIT ASSESTS good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-a-stranger-gets-the-worst-work-9-28",
+   "vote": "down",
+   "said": "the world doesnt look like this anymore so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-what-a-good-tile-looks-like-9-28",
+   "vote": "down",
+   "said": "45 degress above only looking like shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "world-two-futures-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-angel-verbs-9-28",
+   "vote": "up",
+   "said": "pretty much having beef with a settlement where they attack u or their roaming parties do for taking a contract that attacks them first or no contract needed type shit but yeah u cant even steal bread in this game",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-one-gun-forty-two-places-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-how-you-pick-a-building-9-28",
+   "vote": "down",
+   "said": "old map and old combat vibes i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-horror-heir-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-why-a-face-reads-as-nobody-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-five-points-9-28",
+   "vote": "down",
+   "said": "HOW BATTLE BROTHERS DOESIT WE COPY THEM",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "words-the-three-before-act-one-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close YOULL PROBABLY MAKE YOUR RELATIVES ONE AT A TIME WHEN U ENTER THE NEW ERA TYPE SHIT NOT ALL 3 AT ONCE MY BADA",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-houses-and-a-mound-9-28",
+   "vote": "down",
+   "said": "I SEE THE OLD COMBAT I DOWNVOTE",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "quests-the-second-shelf-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-how-you-know-she-is-with-you-9-28",
+   "vote": "down",
+   "said": "OLD AND RETIRED BEFORE BATTLE BROTHER REVAMP",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-strip-is-the-only-walked-place-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-map-floor-is-the-phones-pixels-9-28",
+   "vote": "up",
+   "said": "WE SHOULD HAVE THE BATTLE BROTHERS PIXEL COUNT BY NOW",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-the-cell-is-the-step-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-not-strangers-anymore-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-bb-where-a-body-spends-its-pictures-9-27",
+   "vote": "down",
+   "said": "WHO CARES DO WHAT WE DHAVE TO DO OUR GAME WILL BE BETTER THAN BATTLE BROTHERS",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-six-more-walks-had-the-same-limp-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-who-you-were-9-27",
+   "vote": "up",
+   "said": "YOU CAN CHOOSE TO BE OLDER OR YOUNGER AND SHIT SO YEAH good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "quests-the-first-shelf-9-27",
+   "vote": "up",
+   "said": "CONTRTACTS ONLY good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-valley-still-broadcasts-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close QUIETER PLEASE ITS LOUD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-three-names-reshuffle-9-27",
+   "vote": "down",
+   "said": "DEAD IDEA U MAKE THE PEOPLE FRESH WHEN U ENTER A NEW ACT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-what-the-bar-says-9-27",
+   "vote": "down",
+   "said": "DEAD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "lifecity-the-water-you-could-stand-on-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-fight-is-on-cells-9-28",
+   "vote": "down",
+   "said": "DEAD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "character-the-one-cell-sprite-9-27",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
   }
  ]
 }

@@ -227,10 +227,10 @@
   "why": "the first fight is by day; the loop sets night from its clock"
  },
  "cover_tile_blocks_line": {
-  "value": true,
+  "value": false,
   "source": "slices/fight_ground/fight_ground.json cover (COMBAT TWO, rule 63)",
   "quote": "COVER",
-  "why": "a dead car or a block wall on a house tile is Battle Brothers' obstacle in the line of fire: a shot at the man behind it takes the blocked penalty"
+  "why": "a dead car or a block wall on a house tile is Battle Brothers' obstacle in the line of fire: a shot at the man behind it takes the blocked penalty; 10/4 SUPERSEDED by cover_defence (his sixth votes: cover on a man's own tile is defence by count); a car BETWEEN shooter and target still blocks the line by the wiki's 75%"
  },
  "perk_builds": {
   "value": {
@@ -305,7 +305,9 @@
      "culdesac",
      "strip",
      "ruin",
-     "freeway"
+     "freeway",
+     "main",
+     "works"
     ],
     "edge": [
      "scrub",
@@ -333,6 +335,78 @@
   },
   "source": "records/BOHEMIA_PAOLO_MOSTLY_CITY_A_BLOCK_WAR_PISTOL_IS_A_DAGGER_9_29_26.md",
   "quote": "Most of it won't be Nature though you know most of it will be city based terrain",
-  "why": "the board is dealt from COMBAT TWO's 21 blocks (rule 57: 'there's gonna be different map types'; sweep L: 'the board kinds must mix'): two or three kinds of one family per board, no block beside its twin, city three times in four; a named board or kind from the loop overrides; TUNING may move the weights; 10/2 round three: COMBAT TWO's round eleven renamed the suburb blocks 'subs' and added the corner, the west corner and the empty lots, so the city family carries them, and a loop asking for 'suburb' is led by one of the suburb's blocks (aliases)"
+  "why": "the board is dealt from COMBAT TWO's 21 blocks (rule 57: 'there's gonna be different map types'; sweep L: 'the board kinds must mix'): two or three kinds of one family per board, no block beside its twin, city three times in four; a named board or kind from the loop overrides; TUNING may move the weights; 10/2 round three: COMBAT TWO's round eleven renamed the suburb blocks 'subs' and added the corner, the west corner and the empty lots, so the city family carries them, and a loop asking for 'suburb' is led by one of the suburb's blocks (aliases); 10/4: COMBAT TWO's round fourteen adds MAIN STREET and THE WORKS to the city"
+ },
+ "start_cols": {
+  "value": [
+   7,
+   12
+  ],
+  "source": "laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md",
+  "quote": "fights start LEFT TO RIGHT on the glass, never south to north",
+  "why": "your line on column 7 facing right, theirs on column 12 facing left: five tiles between the fronts, the wiki's 'at least 5 hexes between parties' (deployment.min_gap_between_lines_hexes); back ranks one column behind each"
+ },
+ "cover_defence": {
+  "value": {
+   "melee_per_piece": 5,
+   "ranged_per_piece": 10,
+   "max_pieces": 3
+  },
+  "source": "laws/BOHEMIA_ADDENDUM_THE_SIXTH_VOTES_10_2_26.md",
+  "quote": "cars on a tile raise its defence by count (one car some, three cars more)",
+  "why": "a man on a tile with dead cars, walls or a shed behind him gains defence per piece, up to three: three pieces are a wooden shield's +15 against swings (armor.json wooden_shield) and twice that against shots, because cars stop bullets better than they stop a pipe; TUNING owns the numbers"
+ },
+ "people_looks": {
+  "value": {
+   "crew": [
+    "you",
+    "cast_longcoat",
+    "cast_barearms",
+    "cast_widebrim",
+    "cast_poncho",
+    "cast_shortcoat",
+    "cast_apron",
+    "cast_cape",
+    "cast_pack",
+    "cast_satchel",
+    "cast_skirt",
+    "cast_shorts"
+   ],
+   "band": {
+    "brigand_thug": [
+     "faction_homeless",
+     "faction_anarchists",
+     "faction_reds",
+     "faction_trades",
+     "faction_caravans"
+    ],
+    "lower_brigand_raider": [
+     "faction_mob",
+     "faction_cartel"
+    ],
+    "default": [
+     "faction_remnants",
+     "faction_network",
+     "faction_volunteers"
+    ]
+   }
+  },
+  "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
+  "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change"
+ },
+ "formation_depth_lines": {
+  "value": 2,
+  "source": "bb_all/0424_Combat Mechanics.txt",
+  "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy)",
+  "why": "rule 70b: AUTO holds the formation; a man walking up may lead the middle of his line by at most the line's depth less one, so the line moves as a line; TUNING owns the number"
+ },
+ "night_lights": {
+  "value": {
+   "lit_tile_plays_as_day": true
+  },
+  "source": "slices/fight_ground/fight_ground.json lights_key (COMBAT TWO 10/2, round twelve) and bb_all/1423_Nighttime (Status Effect).txt",
+  "quote": "a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)",
+  "why": "Battle Brothers' night is one status on everybody (-2 vision, -30% ranged skill, -30% ranged defence); our streets have lamps and burning drums, so the night is per tile: a man standing in a pool is seen at day range; a shooter takes the night's -30% only when his target stands in the dark; a target takes the night's -30% defence only when the shot comes out of the dark. Both lit is day, both dark is Battle Brothers' night exactly. The lesson: stay out of the light. No new number: the pool radius is COMBAT TWO's, the penalties the wiki's."
  }
 }

@@ -101,6 +101,10 @@ def _snap_dark(im, k=0.6):
     return Image.fromarray(pal[best][inv.ravel()].reshape(a.shape).astype('uint8'))
 
 
+TAU = 2 * math.pi / 60.0      # ROUND SIXTEEN (rule 67, the lines run through): every curve repeats every block width,
+                              # so the waterline, the ring and the haul road meet the next block at the same height
+
+
 def noise(seed, n, cut, blur=Image.BICUBIC):
     r = R(seed); f = Image.new('L', (n, n)); f.putdata([int(r() * 255) for _ in range(n * n)])
     return f.resize((BP, BP), blur).point(lambda v: 255 if v > cut else 0)
@@ -114,8 +118,8 @@ def shore():
     dd, wd = ImageDraw.Draw(deep), ImageDraw.Draw(wade)
     pts_d, pts_w = [(0, 0)], [(0, 0)]
     for x in range(0, 61, 2):                                          # a shoreline that wanders
-        yd = 17 + 3.5 * math.sin(x / 9.0) + 1.2 * math.sin(x / 3.1)
-        pts_d.append((M(x), M(yd))); pts_w.append((M(x), M(yd + 4.5 + 1.5 * math.sin(x / 5.0))))
+        yd = 17 + 3.5 * math.sin(TAU * x) + 1.2 * math.sin(TAU * 4 * x)   # periodic over 60 m: blocks meet
+        pts_d.append((M(x), M(yd))); pts_w.append((M(x), M(yd + 4.5 + 1.5 * math.sin(TAU * 2 * x))))
     pts_d.append((BP, 0)); pts_w.append((BP, 0))
     wd.polygon(pts_w, fill=255); dd.polygon(pts_d, fill=255)
     plan.paste(B.dress_any(SHALLOW, BP, BP, 94), (0, 0), wade)
@@ -124,10 +128,10 @@ def shore():
     # THE BATHTUB RING: the cut bank above the old waterline, a band of bleached rock on dry land,
     # 3 m back from the wading edge; its face is seen (it looks south, at the camera).
     ring = mask(); rd = ImageDraw.Draw(ring)
-    rd.line([(M(x), M(30 + 2.0 * math.sin(x / 7.0))) for x in range(0, 61, 2)], fill=255, width=M(1.6))
+    rd.line([(M(x), M(30 + 2.0 * math.sin(TAU * 2 * x))) for x in range(0, 61, 2)], fill=255, width=M(1.6))
     plan.paste(Image.new('RGB', (BP, BP), S[4]), (0, 0), ring)
     below = mask(); bd = ImageDraw.Draw(below)
-    bd.polygon([(0, BP)] + [(M(x), M(30 + 2.0 * math.sin(x / 7.0)) + M(0.8)) for x in range(0, 61, 2)] + [(BP, BP)], fill=255)
+    bd.polygon([(0, BP)] + [(M(x), M(30 + 2.0 * math.sin(TAU * 2 * x)) + M(0.8)) for x in range(0, 61, 2)] + [(BP, BP)], fill=255)
     board = plan.resize((BP, PY * N), Image.NEAREST)
     B.faces(board, below.resize((BP, PY * N), Image.NEAREST), S[1], 1.6)
     pieces = [dict(piece='rock_%d' % i, x_m=x, y_m=y) for i, (x, y) in enumerate([(6, 35), (18, 41), (33, 37), (47, 44), (55, 33), (25, 52)])]
@@ -141,7 +145,7 @@ def shore():
 def landfill():
     plan = B.dress_any([B.DGROUND[0]], BP, BP, 101)
     plan.paste(B.dress_any([B.DGROUND[1]], BP, BP, 102), (0, 0), noise(103, 9, 150))
-    haul = mask(); ImageDraw.Draw(haul).line([(M(x), M(42 + 6 * math.sin(x / 15.0))) for x in range(0, 61, 2)], fill=255, width=M(6.0))
+    haul = mask(); ImageDraw.Draw(haul).line([(M(x), M(42 + 6 * math.sin(TAU * x))) for x in range(0, 61, 2)], fill=255, width=M(6.0))
     plan.paste(B.dress_any([B.DGROUND[2]], BP, BP, 104), (0, 0), haul)
     heaps = noise(105, 6, 175)                                         # the trash heaps: the high ground
     hp = np.array(heaps) > 127; hp &= ~(np.array(haul) > 127)

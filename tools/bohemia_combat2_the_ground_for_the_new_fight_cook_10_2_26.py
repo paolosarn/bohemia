@@ -60,7 +60,9 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, 'tools'))
 S8 = importlib.import_module('bohemia_combat2_store_fronts_and_houses_everywhere_cook_10_2_26')
 H7, R5, R4, B, F, K, CV = S8.H7, S8.R5, S8.R4, S8.B, S8.F, S8.K, S8.CV
-MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')   # round eleven: the plan varies, not just the dirt
+MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')
+BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')   # round fourteen: many more building types
+FL = importlib.import_module('bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26')   # round fifteen: his NO, re-cut   # round eleven: the plan varies, not just the dirt
 os.chdir(REPO)
 
 OUT_DIR = 'slices/fight_ground'
@@ -68,7 +70,7 @@ OUT_MANIFEST = OUT_DIR + '/fight_ground.json'
 OUT_CARD = 'slices/vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png'
 PX, PY, N, die = B.PX, B.PY, B.N, K.die
 BW, BH = 4, 3                                      # blocks across, down: 20 x 15 house tiles
-MODS = [K, F, CV, B, R4, R5, H7, S8, MX]
+MODS = [K, F, CV, B, R4, R5, H7, S8, MX, BT, FL]
 _R0, _DRESS0, _DANY0 = K.R, K.dress, B.dress_any
 
 
@@ -98,15 +100,18 @@ MAKERS = {
     'corner': lambda: MX.suburb_seeded(701, cross_col=2),
     'cornerw': lambda: MX.suburb_seeded(751, cross_col=0),
     'lots': lambda: MX.empty_lots(801),
+    'main': lambda: BT.main_street(911)[:4],
+    'works': lambda: BT.the_works(933)[:4],
     'suburb_stem': lambda: stem_through(H7.suburb45()),
     'culdesac': lambda: S8.culdesac45(),
     'strip': lambda: S8.strip45(),
     'ruin': lambda: S8.ruin45(),
     'scrub': lambda: R4.scrub(),
     'wash': lambda: (lambda b: (b[0], b[1], b[2], wash_terrain(b)))(B.wash()),
-    'freeway': lambda: R4.freeway(),
+    'freeway': lambda: FL.freeway2(1201),
+    'freewayo': lambda: FL.freeway2(1213, overpass=True),
     'shore': lambda: R5.shore(),
-    'landfill': lambda: R5.landfill(),
+    'landfill': lambda: FL.landfill2(1301),
 }
 
 
@@ -123,14 +128,15 @@ def wash_terrain(b):
 import random
 # ROUND ELEVEN (sweep L): every board is SEEDED from a palette of blocks per row, so the plan changes
 # across the width and down the board; no block sits beside or above its own twin.
-TOWN = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'cornerw.0', 'lots.0']
+HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'cornerw.0', 'lots.0']
+TOWN = HOUSES + ['main.0', 'main.1', 'works.0']            # round fourteen: main street and the works mix into town boards
 PALETTES = {
-    'suburb':   [TOWN, TOWN, TOWN],
-    'culdesac': [['culdesac.0', 'culdesac.1'] + TOWN[:4], None, TOWN],
-    'strip':    [['strip.0', 'strip.1', 'lots.0'], TOWN, TOWN],
+    'suburb':   [HOUSES, HOUSES + ['main.0'], HOUSES],
+    'culdesac': [['culdesac.0', 'culdesac.1'] + HOUSES[:4], None, HOUSES + ['main.1']],
+    'strip':    [['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN],
     'ruin':     [['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']],
     'desert':   [['scrub.0', 'scrub.1', 'scrub.2'], ['wash.0', 'wash.1', 'scrub.2', 'scrub.0'], ['scrub.1', 'scrub.0', 'scrub.2']],
-    'freeway':  [['strip.0', 'strip.1', 'lots.0'], ['freeway.0'], ['scrub.0', 'scrub.1', 'scrub.2']],
+    'freeway':  [['strip.0', 'strip.1', 'lots.0'], ['freeway.0', 'freewayo.0'], ['scrub.0', 'scrub.1', 'scrub.2']],
     'shore':    [['shore.0', 'shore.1'], ['scrub.0', 'wash.0', 'scrub.1', 'wash.1'], ['scrub.2', 'scrub.0', 'scrub.1']],
     'landfill': [['landfill.0', 'landfill.1'], ['landfill.1', 'landfill.0', 'scrub.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']],
 }
@@ -158,11 +164,13 @@ def streets_run_through(lay, rng):
        column carries a cross street (or a cul-de-sac stem comes down it), every town block in that
        column carries the same street, in the variant that differs from its left and upper
        neighbours; an empty-lots block in such a column becomes a corner."""
-    town = lambda b: b.split('.')[0] in ('subs', 'corner', 'cornerw', 'lots')
+    town = lambda b: b.split('.')[0] in ('subs', 'corner', 'cornerw', 'lots', 'main', 'works')   # a street never stops at a main-street block either (rule 67: the lines run through)
     # at most two cross streets a board (a real grid has long blocks); the stem's column always counts
     has = [bc for bc in range(BW) if any(lay[br][bc].startswith(('corner', 'suburb_stem')) for br in range(BH))]
     stems = [bc for bc in has if any(lay[br][bc].startswith('suburb_stem') for br in range(BH))]
-    keep = stems + [bc for bc in has if bc not in stems and bc - 1 not in stems and bc + 1 not in stems][:max(0, 2 - len(stems))]
+    busy = lambda bc: sum(lay[br][bc].startswith(('main', 'works')) for br in range(BH))   # keep main street and the works where they stand
+    cand = sorted([bc for bc in has if bc not in stems and bc - 1 not in stems and bc + 1 not in stems], key=busy)
+    keep = stems + [bc for bc in cand if busy(bc) == 0][:max(0, 2 - len(stems))]
     for bc in range(BW):
         if bc in keep: continue
         for br in range(BH):
@@ -187,6 +195,10 @@ def streets_run_through(lay, rng):
 
 
 BOARDS = {k: seeded_layout(k) for k in PALETTES}
+# ROUND SIXTEEN (rule 67): a wash is a line too. It runs the whole depth of its column (periodic in its own
+# depth, so each wash block meets the next), and on the shore it runs down into the lake.
+BOARDS['desert'] = [['scrub.2', 'wash.0', 'scrub.1', 'scrub.0'], ['scrub.0', 'wash.1', 'scrub.2', 'wash.0'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1']]
+BOARDS['shore'] = [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1'], ['scrub.2', 'wash.1', 'scrub.1', 'wash.0']]
 START_ROWS = (4, 9)
 
 
@@ -291,6 +303,7 @@ def main():
     out.save(OUT_CARD, optimize=True)
     tot = sum(os.path.getsize(os.path.join(OUT_DIR, f)) for f in os.listdir(OUT_DIR))
     print('ok: %d boards, %d blocks, %.1f MB in %s' % (len(BOARDS), len(blocks), tot / 1e6, OUT_DIR))
+    importlib.import_module('bohemia_combat2_fight_ground_pack_10_2_26').pack()   # round thirteen: ship lossless WebP, never PNG
 
 
 if __name__ == '__main__':

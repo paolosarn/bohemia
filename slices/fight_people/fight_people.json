@@ -1,0 +1,362 @@
+{
+ "version": "fight-people-10-4",
+ "built": "10/4/26",
+ "lane": "combat",
+ "rule": 69,
+ "source": "slices/BOHEMIA_ALPHA_0_9.html: famPaintBody / drawChar (the 112 rig, the runway clothes, the hair bank), renderFace / faceFor (the faces), the clips idle, walk, stagger-hit, bat-arc, two-hand, sleep",
+ "frame": 112,
+ "figure_bbox": [
+  36,
+  6,
+  42,
+  102
+ ],
+ "rows": [
+  "SE",
+  "SW"
+ ],
+ "cols": [
+  "idle@0",
+  "walk@0",
+  "walk@0.25",
+  "walk@0.5",
+  "walk@0.75",
+  "stagger-hit@0.03",
+  "stagger-hit@0.09",
+  "stagger-hit@0.16",
+  "stagger-hit@0.26",
+  "bat-arc@0.2",
+  "bat-arc@0.5",
+  "bat-arc@0.68",
+  "two-hand@0",
+  "sleep@0"
+ ],
+ "face": {
+  "size": 64,
+  "at": "right of the last column, top row"
+ },
+ "looks": {
+  "you": {
+   "file": "you.webp",
+   "name": "YOU",
+   "kind": "you",
+   "worn": "the player as he stands"
+  },
+  "cast_longcoat": {
+   "file": "cast_longcoat.webp",
+   "name": "longcoat",
+   "kind": "cast",
+   "worn": {
+    "hair": "TEMPLE TAPER",
+    "base": "FADED BLACK LONGSLEEVE",
+    "outer": "WASTELAND DUSTER",
+    "legs": "BLACK DENIM",
+    "feet": "TALL MOTO BOOTS"
+   }
+  },
+  "cast_barearms": {
+   "file": "cast_barearms.webp",
+   "name": "barearms",
+   "kind": "cast",
+   "worn": {
+    "hair": "COIL CROWN",
+    "base": "SOOT TANK",
+    "gear": "BRICK SUSPENDERS",
+    "legs": "KHAKI CARGOS",
+    "feet": "RANCH BOOTS"
+   }
+  },
+  "cast_pack": {
+   "file": "cast_pack.webp",
+   "name": "pack",
+   "kind": "cast",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "OLIVE HOODIE",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "STORM KNIT CAP",
+    "legs": "SOOT CARGOS",
+    "feet": "WRAPPED BOOTS"
+   }
+  },
+  "cast_skirt": {
+   "file": "cast_skirt.webp",
+   "name": "skirt",
+   "kind": "cast",
+   "worn": {
+    "hair": "CURTAIN CUT",
+    "base": "STRIPED TEE",
+    "legs": "ANKLE WRAP SKIRT",
+    "feet": "SLATE SNEAKERS"
+   }
+  },
+  "cast_widebrim": {
+   "file": "cast_widebrim.webp",
+   "name": "widebrim",
+   "kind": "cast",
+   "worn": {
+    "hair": "DEEP TAPER",
+    "base": "DUST PLAID SHIRT",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS",
+    "waist": "SCAV TOOL BELT"
+   }
+  },
+  "cast_cape": {
+   "file": "cast_cape.webp",
+   "name": "cape",
+   "kind": "cast",
+   "worn": {
+    "hair": "SHAG",
+    "base": "BONE HENLEY",
+    "back": "ROAD CAPE",
+    "neck": "TRAILING SCARF",
+    "legs": "CUTOFF DENIM SHORTS",
+    "feet": "TALL MOTO BOOTS"
+   }
+  },
+  "cast_apron": {
+   "file": "cast_apron.webp",
+   "name": "apron",
+   "kind": "cast",
+   "worn": {
+    "hair": "DEEP TAPER",
+    "base": "RUST HENLEY",
+    "outer": "SMITH'S APRON",
+    "legs": "WIDE PLEAT TROUSER",
+    "feet": "RANCH BOOTS"
+   }
+  },
+  "cast_poncho": {
+   "file": "cast_poncho.webp",
+   "name": "poncho",
+   "kind": "cast",
+   "worn": {
+    "hair": "CURTAIN CUT",
+    "base": "SOOT TANK",
+    "outer": "OXBLOOD PONCHO",
+    "legs": "CROPPED WORK TROUSER",
+    "feet": "SANDWALKERS"
+   }
+  },
+  "cast_bedroll": {
+   "file": "cast_bedroll.webp",
+   "name": "bedroll",
+   "kind": "cast",
+   "worn": {
+    "hair": "TEMPLE TAPER",
+    "base": "DUST PLAID SHIRT",
+    "back": "BEDROLL",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "WRAPPED BOOTS"
+   }
+  },
+  "cast_shorts": {
+   "file": "cast_shorts.webp",
+   "name": "shorts",
+   "kind": "cast",
+   "worn": {
+    "hair": "COIL CROWN",
+    "base": "STRIPED TEE",
+    "legs": "CHARCOAL SHORTS",
+    "feet": "STACKED SOLE BOOT"
+   }
+  },
+  "cast_satchel": {
+   "file": "cast_satchel.webp",
+   "name": "satchel",
+   "kind": "cast",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "OLIVE HOODIE",
+    "back": "SALVAGE SATCHEL",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "BONE WIDE TROUSER",
+    "feet": "SLATE SNEAKERS"
+   }
+  },
+  "cast_shortcoat": {
+   "file": "cast_shortcoat.webp",
+   "name": "shortcoat",
+   "kind": "cast",
+   "worn": {
+    "hair": "LAYERED FALL",
+    "base": "FADED BLACK LONGSLEEVE",
+    "outer": "LEATHER JACKET",
+    "head": "OXBLOOD SLOUCH BEANIE",
+    "legs": "BLACK DENIM",
+    "feet": "BONE SNEAKERS"
+   }
+  },
+  "faction_caravans": {
+   "file": "faction_caravans.webp",
+   "name": "Caravans",
+   "kind": "faction",
+   "worn": {
+    "hair": "COIL CROWN",
+    "base": "DUST PLAID SHIRT",
+    "outer": "SAND COCOON COAT",
+    "back": "OLIVE SHOULDER MANTLE",
+    "head": "CHINESE RICE FARMER HAT",
+    "legs": "DUST TROUSERS",
+    "feet": "SANDWALKERS"
+   }
+  },
+  "faction_colorful": {
+   "file": "faction_colorful.webp",
+   "name": "Colorful",
+   "kind": "faction",
+   "worn": {
+    "hair": "SHAG",
+    "base": "TEAL STRIPED TEE",
+    "outer": "GRASS CAR COAT",
+    "head": "ROSE KNIT CAP",
+    "legs": "GRASS DROP TROUSER",
+    "feet": "GRASS BOOTS"
+   }
+  },
+  "faction_anarchists": {
+   "file": "faction_anarchists.webp",
+   "name": "Anarchists",
+   "kind": "faction",
+   "worn": {
+    "hair": "LAYERED FALL",
+    "base": "BLACK TANK",
+    "outer": "LEATHER WRAP COAT",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "LEATHER STACK PANT",
+    "feet": "LEATHER STACK BOOT"
+   }
+  },
+  "faction_blues": {
+   "file": "faction_blues.webp",
+   "name": "Blues",
+   "kind": "faction",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "COBALT SHIRT",
+    "outer": "COBALT CHORE COAT",
+    "back": "COBALT SHOULDER MANTLE",
+    "legs": "COBALT WIDE TROUSER",
+    "feet": "COBALT STACK BOOT"
+   }
+  },
+  "faction_homeless": {
+   "file": "faction_homeless.webp",
+   "name": "Homeless",
+   "kind": "faction",
+   "worn": {
+    "hair": "LAYERED FALL",
+    "base": "TATTERED TEE",
+    "back": "SHOULDER MANTLE",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
+  },
+  "faction_church": {
+   "file": "faction_church.webp",
+   "name": "Church",
+   "kind": "faction",
+   "worn": {
+    "hair": "COIL CROWN",
+    "base": "VESTMENT GOLD SHIRT",
+    "back": "GOLD SHOULDER MANTLE",
+    "head": "BONE KNIT CAP",
+    "legs": "GOLD DROP TROUSER",
+    "feet": "BROWN BOOTS"
+   }
+  },
+  "faction_reds": {
+   "file": "faction_reds.webp",
+   "name": "Reds",
+   "kind": "faction",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "SIGNAL RED SHIRT",
+    "outer": "BRICK SPLIT-TAIL DUSTER",
+    "legs": "BRICK WIDE TROUSER",
+    "feet": "BRICK STACK BOOT"
+   }
+  },
+  "faction_cartel": {
+   "file": "faction_cartel.webp",
+   "name": "Cartel",
+   "kind": "faction",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "FADED BLACK LONGSLEEVE",
+    "back": "STEEL ROAD CAPE",
+    "head": "CHARCOAL WATCH CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT"
+   }
+  },
+  "faction_trades": {
+   "file": "faction_trades.webp",
+   "name": "Trades",
+   "kind": "faction",
+   "worn": {
+    "hair": "TEMPLE TAPER",
+    "base": "SCAVENGER FLANNEL",
+    "outer": "LEATHER SPLIT-TAIL COAT",
+    "head": "DUST WORK CAP",
+    "legs": "DUST TROUSERS",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "SOOT TOOL BELT"
+   }
+  },
+  "faction_mob": {
+   "file": "faction_mob.webp",
+   "name": "Mob",
+   "kind": "faction",
+   "worn": {
+    "hair": "DRY TAPER",
+    "base": "MOB PINSTRIPE SHIRT",
+    "back": "CHARCOAL SHOULDER MANTLE",
+    "legs": "CHARCOAL CROP TROUSER",
+    "feet": "STACKED SOLE BOOT",
+    "waist": "LEATHER BELT"
+   }
+  },
+  "faction_network": {
+   "file": "faction_network.webp",
+   "name": "Network",
+   "kind": "faction",
+   "worn": {
+    "hair": "TEMPLE TAPER",
+    "base": "TEAL WORK SHIRT",
+    "outer": "TEAL COCOON COAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "SLOUCH BOOT"
+   }
+  },
+  "faction_volunteers": {
+   "file": "faction_volunteers.webp",
+   "name": "Volunteers",
+   "kind": "faction",
+   "worn": {
+    "hair": "HEAVY FRINGE",
+    "base": "WHITE TEE",
+    "outer": "BONE COCOON COAT",
+    "legs": "STACKED JERSEY PANT",
+    "feet": "COLUMN PANT-BOOT"
+   }
+  },
+  "faction_remnants": {
+   "file": "faction_remnants.webp",
+   "name": "Remnants",
+   "kind": "faction",
+   "worn": {
+    "hair": "TEMPLE TAPER",
+    "base": "OLIVE DRAB TEE",
+    "outer": "OLIVE ASYM COAT",
+    "head": "STORM KNIT CAP",
+    "legs": "OLIVE WIDE TROUSER",
+    "feet": "OLIVE STACK BOOT"
+   }
+  }
+ },
+ "packed": "lossless WebP, every pixel checked identical to the bake"
+}

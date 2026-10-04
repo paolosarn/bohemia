@@ -2313,6 +2313,33 @@ GATES = [
      'and the street-only HOLD TO WALK lesson is not shown on the map where the pad is speed. The '
      'phone\'s own cracked glass over its own feed is the ruled look and is named, not counted. '
      'Mutations: line not fitted -> 4 red; lesson on the map -> 1 red; line under the gear -> 2 red.', True),
+    ('THE ZOOM GOES THROUGH CLOUDS', ['node', 'gates/the_zoom_goes_through_clouds_gate.js'],
+     'VAMILY [map pixels now], rule 67 s3 (PAOLO 10/2, the sixth votes: "the zoom into a fight goes through clouds '
+     'as the loading screen again"). MEASURED BEFORE: the rebuilt fight cut in after about 1.0 s and built its ground '
+     'for 1.7 s behind its own plain loading line. NOW three layers of pixel cloud, drawn once and moved by the '
+     'compositor, roll in at the door, hold until the ground is built, part on two beats; home goes through them '
+     'too. HOLDS, driven: up within 400 ms over the whole glass; never parting while the fight loads; gone within '
+     '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
+     'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
+     'none on the way home.', True),
+    ('THE NEAR END IS THE BLOCK', ['node', 'gates/the_near_end_is_the_block_gate.js'],
+     'VAMILY [map pixels now], rules 50, 65, 67 s3 (PAOLO 10/2: "got to be able to zoom tf in so much"). MEASURED '
+     'BEFORE: the map\'s closest stop clamped and past it there was nothing. NOW a new pinch in at the closest stop '
+     'drops into the block he stands on, drawn from COMBAT TWO\'s block pictures (the walk\'s banks, 42.9 px a metre), '
+     'from one art pixel per device pixel in to the walk\'s scale; he stands on its ground at his 112 box; pinching '
+     'out past one-to-one is the map. HOLDS, driven with real pinches: one squeeze one rung; the block from his '
+     'cell, drawn; 1/DPR -> 1; 112 at both ends; ground under him in every block picture; a tap does not travel; '
+     'the pad and the phone stay; out is the map and the next squeeze zooms it out. Mutations: no way in; no '
+     'gesture check (one squeeze goes straight past the stop); foot at the middle of the block.', True),
+    ('THE FAR END IS PAINTED', ['node', 'gates/the_far_end_is_painted_gate.js'],
+     'VAMILY [map pixels now], rule 65 (PAOLO 10/2, the fourth time: "I want the map graphics to be bigger and '
+     'better and especially when you zoom out of the city"). MEASURED BEFORE: at the far stop the blocks were the '
+     'tiles shrunk to 3.7 px, a grid carpet, under towns 74 px wide. NOW the city is painted for the far end, twelve '
+     'texels a block by what each block is, faded in as the camera pulls out; lights only where there is power; the '
+     'art scales with the zoom, the names and he do not. HOLDS on the demo: every kind painted; DIRECTION\'s floor on '
+     'the ground picture at the far stop (3a unit <= 1.5 device px, 3b fine band >= 0.020); things stand up; night '
+     'light only on powered blocks; painting 1 far, 0 at the opening; towns and people smaller far, he the same; '
+     'baked in the worker, one drawImage. Mutations: never drawn; lights without power; art not scaling.', True),
     ('THE VALLEY HAS AN EDGE', ['node', 'gates/the_valley_has_an_edge_gate.js'],
      'VAMILY [the valley edge], rule 61c (PAOLO 10/1: "when I zoom out of Las Vegas there\'s a square and then '
      'the rest is desert brown; it\'s really bad"). MEASURED BEFORE: at the far end of the pinch every canvas '
