@@ -26,7 +26,7 @@ const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed
 /* every word the fight writes onto its own canvas is counted (rule 46f: names and states live in the bar) */
 const WORDS = 'window.__bank=0;window.__bars=0;window.__words=0;(function(){const P=CanvasRenderingContext2D.prototype;["fillText","strokeText"].forEach(function(k){const o=P[k];P[k]=function(){if(this.canvas&&this.canvas.id==="cv")window.__words++;return o.apply(this,arguments);};});const di=P.drawImage;P.drawImage=function(img){if(this.canvas&&this.canvas.id==="cv"&&img&&img.src&&img.src.indexOf("fight_people")>=0)window.__bank++;return di.apply(this,arguments);};const fr=P.fillRect;P.fillRect=function(x,y,w,h){if(this.canvas&&this.canvas.id==="cv"&&h===3)window.__bars++;return fr.apply(this,arguments);};})();';
 const SPEED = 6;           /* the beat runs six times fast so a gate fits; the length is counted in beats */
-const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0 };
+const all = { hit: 0, miss: 0, head: 0, morale: 0, injury: 0, free: 0, down: 0, skill: 0, auto: {} };
 
 async function fight(F, first) {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true,
@@ -270,6 +270,23 @@ async function sweep() {
   for (let i = 0; i < DEMO_KINDS.length; i++) {
     const k = DEMO_KINDS[i];
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:' + (31 + i) + ',speed:60,auto:true,kind:"' + k + '"}' });
+    /* rule 70b: watch every crew turn AUTO ends (where he stands when his turn is over) */
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S, null, { timeout: 30000 });
+    await d.page.evaluate(() => {
+      const T = FIGHT._t, S = FIGHT.S, m = window.M70 = { engaged: 0, alone: 0, walks: 0, ahead: 0, shots: 0, roof: 0, breach: 0 }, orig = FIGHT.aiStep;
+      const dd = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+      FIGHT.aiStep = function (u) {
+        const r = orig(u);
+        if (r === false && u.side === 'you' && FIGHT.onField(u) && u.morale !== 'Fleeing') {
+          const mates = FIGHT.alive('you').filter(f => f !== u && FIGHT.onField(f)), h = T.huntField(u), L = T.lineOf(u, h);
+          const eng = FIGHT.alive('them').some(f => dd(f, u) === 1);
+          if (eng) { m.engaged++; if (!mates.some(f => dd(f, u) === 1)) m.alone++; }
+          else if (!S.contact) { m.walks++; if (L.mid !== null && h(u.x, u.y) < L.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
+          if (FIGHT.isRanged(u.weapon)) { m.shots++; if (S.terrain[u.y][u.x] === 'height') m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
+        }
+        return r;
+      };
+    });
     const t0 = Date.now(); let o = null;
     for (;;) {
       await d.page.waitForTimeout(300);
@@ -277,14 +294,58 @@ async function sweep() {
       if ((o && (o.over || o.r > 40)) || Date.now() - t0 > 90000) break;
     }
     if (o) all.skill += o.skills;
+    const m = await d.page.evaluate(() => window.M70);
+    Object.keys(m).forEach(k => { all.auto[k] = (all.auto[k] || 0) + m[k]; });
     res.push({ k, ok: !!(o && o.over && o.kinds.indexOf(k) >= 0) && d.errs.length === 0, r: o && o.r, err: d.errs[0] });
     await d.close();
   }
+  /* RULE 70b (Paolo 10/4: 'the Auto button, we are far from complete'): AUTO plays his men the way Battle Brothers'
+     AI plays its own, formation held. Measured on these ten fights 10/4: old AUTO 6% of shooter turns on a roof,
+     21% of fighting turns alone; the new 41% and 16%. */
+  const A = all.auto, pc = (a, b) => b ? Math.round(100 * a / b) : 0;
+  leg(A.shots > 0 && pc(A.roof, A.shots) >= 25, '*** AUTO TAKES THE HIGH GROUND, ESPECIALLY THE SHOOTERS *** (wiki: \'the AI will try to occupy the high ground whenever possible, especially their ranged units\'): a quarter or more of the shooters\' turns end on a roof',
+    A.roof + ' of ' + A.shots + ' = ' + pc(A.roof, A.shots) + '%');
+  leg(A.walks > 0 && pc(A.ahead, A.walks) <= 5, '*** AUTO HOLDS THE FORMATION *** (Dev Blog 105: \'better coordination amongst their ranks\'): walking up, a man is ahead of the middle of his line by more than the line\'s depth in 5% of turns or fewer',
+    A.ahead + ' of ' + A.walks + ' = ' + pc(A.ahead, A.walks) + '%');
+  leg(A.shots > 0 && pc(A.breach, A.shots) <= 5, '*** AUTO SHIELDS THE BACKLINE *** (Dev Blog 105: \'better at protecting their vulnerable units\'): a shooter ends past his front melee man in 5% of his turns or fewer',
+    A.breach + ' of ' + A.shots + ' = ' + pc(A.breach, A.shots) + '%');
+  leg(A.engaged > 0 && pc(A.alone, A.engaged) <= 20, '*** AUTO DOES NOT FIGHT ALONE ***: a man in a foe\'s reach has a friend beside him in 80% of his turns or more',
+    A.alone + ' of ' + A.engaged + ' = ' + pc(A.alone, A.engaged) + '% alone');
   leg(res.every(x => x.ok), '*** EVERY KIND THE DEMO\'S MAP CAN ASK FOR DEALS ITS BOARD AND THE FIGHT ENDS ***, inside 40 rounds, no page error',
     res.map(x => x.k + ' ' + (x.ok ? x.r : 'NO(' + x.r + (x.err ? ' ' + x.err.slice(0, 60) : '') + ')')).join(', '));
 }
 
+/* RULE 70b at the table: two foes at a man's elbow, equal but for how often his friends already swung at one this
+   round; AUTO takes the other (Developer Posts: 'The AI will not stack all its attacks on the weakest target'). */
+async function table70() {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:7,speed:1}' });
+  await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
+  const r = await d.page.evaluate(() => {
+    const S = FIGHT.S, T = FIGHT._t;
+    const u = FIGHT.alive('you').filter(v => !FIGHT.isRanged(v.weapon))[0];
+    const them = FIGHT.alive('them'), a = them[0], b = them[1];
+    them.slice(2).forEach(t => { t.x = -9; t.y = -9; t.fled = true; });
+    const empty = (x, y) => T.passable(x, y) && T.level(x, y) === T.level(u.x, u.y) && !S.units.some(v => v !== u && v !== a && v !== b && FIGHT.onField(v) && v.x === x && v.y === y);
+    const around = (x, y) => [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]].map(o => ({ x: x + o[0], y: y + o[1] })).filter(q => empty(q.x, q.y));
+    let free = [];
+    for (let y = 0; y < S.h && free.length < 2; y++) for (let x = 0; x < S.w && free.length < 2; x++) if (empty(x, y) && around(x, y).length >= 2) { u.x = x; u.y = y; free = around(x, y); }
+    if (free.length < 2) return { skip: 'no room' };
+    a.x = free[0].x; a.y = free[0].y; b.x = free[1].x; b.y = free[1].y;
+    [a, b].forEach(t => { t.hp = 50; t.armB = 0; t.armH = 0; });
+    u.ap = u.apTurn; u.fat = 0;
+    S.aimed = {}; const first = T.bestTarget(u);
+    const other = first === a ? b : a;
+    S.aimed = {}; S.aimed['you' + first.id] = 2; const second = T.bestTarget(u);
+    S.aimed = {};
+    return { first: first && first.id, second: second && second.id, other: other.id };
+  });
+  leg(!r.skip && r.second === r.other, '*** AUTO SPREADS ITS SWINGS *** (Developer Posts: \'The AI will not stack all its attacks on the weakest target\'): two equal foes, his friends already swung twice at one this round, he takes the other',
+    r.skip || ('first pick ' + r.first + ', after two swings on him: ' + r.second));
+  await d.close();
+}
+
 (async () => {
+  await table70();
   await sweep();
   for (let i = 0; i < FIGHTS.length; i++) await fight(FIGHTS[i], i === 0);
   leg(all.hit > 0 && all.miss > 0, 'swings hit and miss by the rolled chance', all.hit + ' / ' + all.miss);

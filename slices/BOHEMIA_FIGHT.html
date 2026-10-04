@@ -507,7 +507,7 @@ const FIGHT = (function () {
 
   /* ---------------- THE ROUND ---------------- */
   function newRound() {
-    S.round++;
+    S.round++; S.aimed = {};
     S.units.forEach(function (u) {
       if (!onField(u)) return;
       u.ap = u.apTurn; u.fat = Math.max(0, u.fat - R('fatigue.recovery_per_turn'));
@@ -897,6 +897,7 @@ const FIGHT = (function () {
     a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     if (reloadSkill(a.weapon)) a.loaded = false;
     if (a.ammo !== null) a.ammo--;
+    S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
     const r = resolveAttack(a, t, s, forced);
     apply(a, t, r);
     afterAction(a); return r;
@@ -1040,9 +1041,26 @@ const FIGHT = (function () {
   function bestTarget(u) {
     const tz = u.tauntedBy ? byId(u.tauntedBy) : null;
     if (tz && canStrike(u, tz)) return tz;                    /* taunted: he goes for the man who called him */
+    const A = arche(u);
     let best = null, bs = -Infinity;
-    foes(u).forEach(function (t) { if (!canStrike(u, t)) return; const s = expected(u, t); if (s > bs) { bs = s; best = t; } });
+    foes(u).forEach(function (t) {
+      if (!canStrike(u, t) || (A.sees_only && !sideSees(u.side, t))) return;   /* 70b: never a man his side cannot see */
+      let s = expected(u, t);
+      if (A.spread_attacks) s /= 1 + ((S.aimed || {})[u.side + t.id] || 0);  /* 70b: not every swing on the weakest */
+      if (s > bs) { bs = s; best = t; }
+    });
     return best;
+  }
+  /* 70b, the crew's formation: how far toward the fight the middle of his own line stands, and his front melee man */
+  function lineOf(u, hunt) {
+    const mates = friends(u).filter(function (f) { return f !== u && onField(f) && f.morale !== 'Fleeing'; });
+    const melee = mates.filter(function (f) { return !isRanged(f.weapon); }).map(function (f) { return hunt(f.x, f.y); }).filter(isFinite).sort(function (a, b) { return a - b; });
+    const all = mates.map(function (f) { return hunt(f.x, f.y); }).filter(isFinite).sort(function (a, b) { return a - b; });
+    return { mid: all.length ? all[Math.floor(all.length / (1 + 1))] : null, front: melee.length ? melee[0] : null };
+  }
+  function heightGain(x, y, u, ranged) {
+    const g = (level(x, y) - level(u.x, u.y)) * R('hit_chance.height.higher_attacker_bonus');
+    return ranged ? g * (1 + 1) : g;
   }
   function huntField(u) {
     /* breadth-first over open ground from every foe, so a man who sees nobody still finds the fight */
@@ -1058,6 +1076,24 @@ const FIGHT = (function () {
       });
     }
     return function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
+  }
+  /* 70b: a shooter on the flat with a roof in reach, a target still in range from it and AP left to shoot, climbs first */
+  function climb(u, A) {
+    if (u.climbed === S.round) return false;
+    u.climbed = S.round;
+    const f = reach(u), strikeAP = skillAP(u.weapon, strikeSkill(u.weapon), u), hunt = huntField(u);
+    const line = A.shield_the_backline ? lineOf(u, hunt) : null;
+    let best = null, bs = -Infinity;
+    Object.keys(f.best).forEach(function (k) {
+      k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if (level(x, y) <= level(u.x, u.y) || u.ap - f.best[k] < strikeAP || zocOn(u, x, y).length) return;
+      if (line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) return;
+      const ox = u.x, oy = u.y; u.x = x; u.y = y;
+      const ok = foes(u).some(function (t2) { return inRange(u, t2) && sideSees(u.side, t2); });
+      u.x = ox; u.y = oy;
+      if (ok && -f.best[k] > bs) { bs = -f.best[k]; best = { x: x, y: y }; }
+    });
+    return !!(best && moveTo(u, best.x, best.y));
   }
   /* one action per call; false when the man is done for this turn */
   function aiStep(u) {
@@ -1083,6 +1119,7 @@ const FIGHT = (function () {
       if (best && moveTo(u, best.x, best.y)) return true;
     }
     if (ranged && A.reload && canReload(u)) { reload(u); return true; }
+    if (ranged && A.high_ground && climb(u, A)) return true;   /* 70b: the shooter takes the roof before he shoots */
     const t = bestTarget(u);
     if (t) { strike(u, t); return true; }
     /* already in a man's reach and out of AP or breath: stand, do not walk out through his swing */
@@ -1097,13 +1134,15 @@ const FIGHT = (function () {
     const avoid = R('ai.tactics.avoid_surround');
     let best = null, bs = -Infinity;
     const hunt = huntField(u);
+    const line = (A.keep_formation || A.shield_the_backline) ? lineOf(u, hunt) : null;
+    const depth = R('ours.formation_depth_lines');
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if (x === u.x && y === u.y) return;
       const left = u.ap - f.best[k];
       const ghost = { x: x, y: y, side: u.side, weapon: w };
       const ox = u.x, oy = u.y; u.x = x; u.y = y;
-      const tgts = foes(u).filter(function (t2) { return inRange(u, t2); });
+      const tgts = foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); });
       u.x = ox; u.y = oy;
       let sc;
       if (tgts.length && (left >= strikeAP || A.rush_even_without_ap_to_strike)) {
@@ -1118,7 +1157,13 @@ const FIGHT = (function () {
       } else {
         sc = holds ? -Infinity : -hunt(x, y) * R('hit_chance.cap').max + left;
         if (ranged && !A.advance && foes(u).some(function (fo) { return sideSees(u.side, fo); })) sc = -Infinity;
+        if (A.keep_formation && line && line.mid !== null && sc > -Infinity) {
+          if (hunt(x, y) < line.mid - (depth - 1)) sc = -Infinity;           /* never run out ahead of the line */
+          else sc += friends(u).filter(function (fr) { return fr !== u && dist(fr, ghost) === 1; }).length;
+        }
       }
+      if (A.high_ground && sc > -Infinity) sc += heightGain(x, y, u, ranged);
+      if (A.shield_the_backline && ranged && line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) sc = -Infinity;
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
     const here = hunt(u.x, u.y);
@@ -1136,7 +1181,7 @@ const FIGHT = (function () {
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    _t: { PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();

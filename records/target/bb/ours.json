@@ -394,5 +394,11 @@
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
   "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change"
+ },
+ "formation_depth_lines": {
+  "value": 2,
+  "source": "bb_all/0424_Combat Mechanics.txt",
+  "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy)",
+  "why": "rule 70b: AUTO holds the formation; a man walking up may lead the middle of his line by at most the line's depth less one, so the line moves as a line; TUNING owns the number"
  }
 }

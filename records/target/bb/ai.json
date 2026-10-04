@@ -88,11 +88,45 @@
     "surround": true,
     "stand_and_shoot": true,
     "step_out_of_melee": true,
-    "reload": true
+    "reload": true,
+    "high_ground": true,
+    "spread_attacks": true,
+    "keep_formation": true,
+    "shield_the_backline": true,
+    "sees_only": true
    },
    "source": "bb_all/0424_Combat Mechanics.txt",
    "quote": "A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
-   "why": "the crew keeps the line it starts in and lets the undisciplined brigands come (VAMILY rule 63b: 'the driver gate fields 12 against a crew that behaves'); it walks forward only when no foe is coming"
+   "why": "the crew keeps the line it starts in and lets the undisciplined brigands come (VAMILY rule 63b: 'the driver gate fields 12 against a crew that behaves'); it walks forward only when no foe is coming",
+   "auto": {
+    "_about": "Rule 70b (Paolo 10/4: 'the Auto button, we are far from complete'): AUTO plays your men the way Battle Brothers' AI plays its own, formation held. Each switch the crew brain reads, with the page it comes from.",
+    "high_ground": {
+     "source": "bb_all/0424_Combat Mechanics.txt",
+     "quote": "It is always advantageous to have the high ground in any battle and the AI will try to occupy the high ground whenever possible, especially their ranged units.",
+     "how": "a tile on a roof scores the rules' own height bonus per level over flat; a shooter weighs it twice"
+    },
+    "spread_attacks": {
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "The AI will not stack all its attacks on the weakest target as this would be unfair and really hard to counter.",
+     "how": "a target's worth is divided by one plus the number of times your men already swung at him this round"
+    },
+    "keep_formation": {
+     "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+     "quote": "all enemies will benefit from better positioning and better coordination amongst their ranks.",
+     "how": "a man walking toward the fight never ends more than the line's depth ahead of the middle of his own line, and prefers a tile with a friend beside him (ours.formation_depth_lines)"
+    },
+    "shield_the_backline": {
+     "source": "bb_all/0583_Dev Blog 105: Additions & Changes.txt",
+     "quote": "They'll be better at protecting their vulnerable units",
+     "also": "bb_all/1145_Late Game Builds.txt: 'they must not be left unprotected for highly mobile melee units will slay them without difficulty'",
+     "how": "a shooter never steps level with or ahead of the front man of his own melee line while that line stands"
+    },
+    "sees_only": {
+     "source": "bb_all/0626_Developer Posts.txt",
+     "quote": "the AI can not target anyone it can not see.",
+     "how": "a man picks only targets his side can see"
+    }
+   }
   }
  },
  "hunt": {
