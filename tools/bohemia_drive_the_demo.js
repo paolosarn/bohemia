@@ -80,7 +80,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['alpha', 'arm', 'bare', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+const KNOWN_OPTS = ['profile', 'alpha', 'arm', 'bare', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
                     'noWorker', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
@@ -133,10 +133,16 @@ async function open(opts) {
      always-fresh service worker (slices/sw.js), and a worker answers requests itself, so a
      probe that throttles or logs the NETWORK measures the worker, not the wire. Blocking it
      makes every request a real one. Off unless asked: the player's phone has the worker. */
-  const ctx = await browser.newContext({
-    viewport: { width: 390, height: 844 }, deviceScaleFactor: 3,
-    hasTouch: true, isMobile: true,
-    serviceWorkers: opts.noWorker ? 'block' : 'allow' });
+  /* opts.profile (COMBAT 10/4, rules 62 and 72: 'fit on an iPhone screen, fit differently flipped, on widescreen
+     monitors'): the four screen classes. Unset is the phone held upright, as before. */
+  const PROFILES = {
+    phone_portrait: { viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
+    phone_landscape: { viewport: { width: 844, height: 390 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true },
+    tablet: { viewport: { width: 820, height: 1180 }, deviceScaleFactor: 2, hasTouch: true, isMobile: true },
+    computer: { viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1, hasTouch: false, isMobile: false } };
+  const prof = PROFILES[opts.profile || 'phone_portrait'];
+  const ctx = await browser.newContext(Object.assign({}, prof, {
+    serviceWorkers: opts.noWorker ? 'block' : 'allow' }));
   /* EXTENDED 9/20 (PORTRAIT, rule 14(g), for [faces first]). opts.arm is a string of
      JavaScript run on EVERY new document BEFORE any page script, in the page AND in
      the city iframe. It exists because a question like "whose face does a stranger
