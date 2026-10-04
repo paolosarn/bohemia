@@ -91,3 +91,7 @@
     (and at night), when a hostile party pursues, how far it chases before giving up, how 'you walk into them' triggers a
     fight, how the engage/avoid choice is offered, ambush events if any and how rare. Numbers with pages; 'the wiki does not
     say' where it does not. This is the kind of hidden world-map rule we need most from you.
+
+21. MOVING THROUGH YOUR OWN MEN (Paolo 10/4: 'they can move past through one of your own people, they cannot move through two').
+    The exact Battle Brothers rule: can a brother move through or swap with an adjacent ally, what it costs, which perks change
+    it (Rotation, Footwork), and whether two allies in a row block; the wiki pages, verbatim.
