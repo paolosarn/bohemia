@@ -194,3 +194,14 @@ stand into the row behind. Blocks main_street (gas station, motel / church, scho
 apartments / warehouse) feed the round-nine builder (HOUSES for suburb boards, TOWN = HOUSES + main + works for
 strip and the culdesac's south row); streets_run_through counts them as town and keeps cross streets out of their
 columns. 30 blocks, 5.1 MB WebP. Verified in the new fight (strip, suburb; 390x844 DPR 3; 0 errors).
+
+## ROUND FIFTEEN (10/4, his sixth votes): THE FREEWAY AND THE LANDFILL RE-CUT
+
+tools/bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26.py, VOTE combat2-freeway-and-landfill-recut-10-4.
+freeway2(seed, overpass): north sound wall face 4 m (row 0 blocked), eight lanes 3.7 m with dashes, shoulders with
+rumble strips, yellow inside edges, a 1.2 m jersey median top lit with its 0.8 m face seen, a seeded jam; overpass
+variant: a 12 m deck x 24-36 m (column 2 'height') with railings, a faded centre line, spalls and joints, piers in
+the lane gaps, its shadow east. landfill2(seed): benches 0-16 (capped soil, vents, the flare), 16-30 and 30-42 m
+(open trash) with 2 m faces seen, bales (top/face pairs off his ramps), tyre stacks, the switchback haul road, the
+south litter fence; rows 0-1 'height', row 2 'rough'. Wired into the round-nine builder ('freeway', 'freewayo',
+'landfill'); 31 blocks, 5.1 MB WebP. Verified in the new fight (freeway, landfill; 0 errors).

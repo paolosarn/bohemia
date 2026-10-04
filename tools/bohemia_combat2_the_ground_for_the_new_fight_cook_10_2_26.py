@@ -61,7 +61,8 @@ sys.path.insert(0, os.path.join(REPO, 'tools'))
 S8 = importlib.import_module('bohemia_combat2_store_fronts_and_houses_everywhere_cook_10_2_26')
 H7, R5, R4, B, F, K, CV = S8.H7, S8.R5, S8.R4, S8.B, S8.F, S8.K, S8.CV
 MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')
-BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')   # round fourteen: many more building types   # round eleven: the plan varies, not just the dirt
+BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')   # round fourteen: many more building types
+FL = importlib.import_module('bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26')   # round fifteen: his NO, re-cut   # round eleven: the plan varies, not just the dirt
 os.chdir(REPO)
 
 OUT_DIR = 'slices/fight_ground'
@@ -69,7 +70,7 @@ OUT_MANIFEST = OUT_DIR + '/fight_ground.json'
 OUT_CARD = 'slices/vote/COMBAT2_THE_GROUND_FOR_THE_NEW_FIGHT_10_2.png'
 PX, PY, N, die = B.PX, B.PY, B.N, K.die
 BW, BH = 4, 3                                      # blocks across, down: 20 x 15 house tiles
-MODS = [K, F, CV, B, R4, R5, H7, S8, MX, BT]
+MODS = [K, F, CV, B, R4, R5, H7, S8, MX, BT, FL]
 _R0, _DRESS0, _DANY0 = K.R, K.dress, B.dress_any
 
 
@@ -107,9 +108,10 @@ MAKERS = {
     'ruin': lambda: S8.ruin45(),
     'scrub': lambda: R4.scrub(),
     'wash': lambda: (lambda b: (b[0], b[1], b[2], wash_terrain(b)))(B.wash()),
-    'freeway': lambda: R4.freeway(),
+    'freeway': lambda: FL.freeway2(1201),
+    'freewayo': lambda: FL.freeway2(1213, overpass=True),
     'shore': lambda: R5.shore(),
-    'landfill': lambda: R5.landfill(),
+    'landfill': lambda: FL.landfill2(1301),
 }
 
 
@@ -134,7 +136,7 @@ PALETTES = {
     'strip':    [['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN],
     'ruin':     [['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']],
     'desert':   [['scrub.0', 'scrub.1', 'scrub.2'], ['wash.0', 'wash.1', 'scrub.2', 'scrub.0'], ['scrub.1', 'scrub.0', 'scrub.2']],
-    'freeway':  [['strip.0', 'strip.1', 'lots.0'], ['freeway.0'], ['scrub.0', 'scrub.1', 'scrub.2']],
+    'freeway':  [['strip.0', 'strip.1', 'lots.0'], ['freeway.0', 'freewayo.0'], ['scrub.0', 'scrub.1', 'scrub.2']],
     'shore':    [['shore.0', 'shore.1'], ['scrub.0', 'wash.0', 'scrub.1', 'wash.1'], ['scrub.2', 'scrub.0', 'scrub.1']],
     'landfill': [['landfill.0', 'landfill.1'], ['landfill.1', 'landfill.0', 'scrub.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']],
 }

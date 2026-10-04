@@ -284,6 +284,9 @@
   "freeway.0": {
    "src": "block_freeway_0.webp"
   },
+  "freewayo.0": {
+   "src": "block_freewayo_0.webp"
+  },
   "landfill.0": {
    "src": "block_landfill_0.webp"
   },
@@ -7269,9 +7272,9 @@
     ],
     [
      "freeway.0",
+     "freewayo.0",
      "freeway.0",
-     "freeway.0",
-     "freeway.0"
+     "freewayo.0"
     ],
     [
      "scrub.2",
@@ -7399,6 +7402,7 @@
      "blocked",
      "blocked",
      "blocked",
+     "height",
      "blocked",
      "blocked",
      "blocked",
@@ -7408,8 +7412,7 @@
      "blocked",
      "blocked",
      "blocked",
-     "blocked",
-     "blocked",
+     "height",
      "blocked",
      "blocked"
     ],
@@ -7421,6 +7424,7 @@
      "flat",
      "flat",
      "flat",
+     "height",
      "flat",
      "flat",
      "flat",
@@ -7430,30 +7434,7 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "height",
      "flat",
      "flat"
     ],
@@ -7465,6 +7446,7 @@
      "flat",
      "flat",
      "flat",
+     "height",
      "flat",
      "flat",
      "flat",
@@ -7474,8 +7456,7 @@
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
+     "height",
      "flat",
      "flat"
     ],
@@ -7487,6 +7468,7 @@
      "flat",
      "flat",
      "flat",
+     "height",
      "flat",
      "flat",
      "flat",
@@ -7496,8 +7478,29 @@
      "flat",
      "flat",
      "flat",
+     "height",
+     "flat",
+     "flat"
+    ],
+    [
      "flat",
      "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "height",
      "flat",
      "flat"
     ],
@@ -7754,204 +7757,144 @@
      "y_m": 31.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 3.0,
-     "y_m": 74.5
-    },
-    {
      "piece": "car_kerb",
-     "x_m": 11.0,
-     "y_m": 78.2
+     "x_m": 47.8,
+     "y_m": 75.8
     },
     {
      "piece": "car_lane",
-     "x_m": 20.0,
-     "y_m": 75.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 29.0,
-     "y_m": 81.8
+     "x_m": 52.9,
+     "y_m": 72.0
     },
     {
      "piece": "car_lane",
-     "x_m": 44.0,
-     "y_m": 78.5
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 7.0,
-     "y_m": 99.5
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 24.0,
-     "y_m": 103.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 36.0,
+     "x_m": 52.8,
      "y_m": 107.0
     },
     {
      "piece": "car_lane",
-     "x_m": 51.0,
-     "y_m": 100.0
+     "x_m": 40.7,
+     "y_m": 107.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 15.0,
-     "y_m": 110.5
+     "x_m": 37.3,
+     "y_m": 103.2
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 12.9,
+     "y_m": 83.2
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 15.8,
+     "y_m": 75.8
     },
     {
      "piece": "car_lane",
-     "x_m": 63.0,
-     "y_m": 74.5
+     "x_m": 29.7,
+     "y_m": 83.2
     },
     {
      "piece": "car_kerb",
-     "x_m": 71.0,
-     "y_m": 78.2
+     "x_m": 40.3,
+     "y_m": 75.8
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 68.6,
+     "y_m": 79.5
     },
     {
      "piece": "car_lane",
-     "x_m": 80.0,
-     "y_m": 75.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 89.0,
-     "y_m": 81.8
+     "x_m": 65.6,
+     "y_m": 79.5
     },
     {
      "piece": "car_lane",
-     "x_m": 104.0,
-     "y_m": 78.5
+     "x_m": 75.5,
+     "y_m": 75.8
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 70.4,
+     "y_m": 107.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 67.0,
+     "x_m": 103.3,
      "y_m": 99.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 84.0,
-     "y_m": 103.0
+     "piece": "car_kerb",
+     "x_m": 167.8,
+     "y_m": 75.8
     },
     {
-     "piece": "car_kerb",
-     "x_m": 96.0,
+     "piece": "car_lane",
+     "x_m": 172.9,
+     "y_m": 72.0
+    },
+    {
+     "piece": "car_lane",
+     "x_m": 172.8,
      "y_m": 107.0
     },
     {
      "piece": "car_lane",
-     "x_m": 111.0,
-     "y_m": 100.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 75.0,
-     "y_m": 110.5
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 123.0,
-     "y_m": 74.5
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 131.0,
-     "y_m": 78.2
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 140.0,
-     "y_m": 75.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 149.0,
-     "y_m": 81.8
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 164.0,
-     "y_m": 78.5
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 127.0,
-     "y_m": 99.5
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 144.0,
-     "y_m": 103.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 156.0,
+     "x_m": 160.7,
      "y_m": 107.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 171.0,
-     "y_m": 100.0
+     "piece": "car_kerb",
+     "x_m": 157.3,
+     "y_m": 103.2
     },
     {
      "piece": "car_kerb",
-     "x_m": 135.0,
-     "y_m": 110.5
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 183.0,
-     "y_m": 74.5
+     "x_m": 132.9,
+     "y_m": 83.2
     },
     {
      "piece": "car_kerb",
-     "x_m": 191.0,
-     "y_m": 78.2
+     "x_m": 135.8,
+     "y_m": 75.8
     },
     {
      "piece": "car_lane",
-     "x_m": 200.0,
-     "y_m": 75.0
+     "x_m": 149.7,
+     "y_m": 83.2
     },
     {
      "piece": "car_kerb",
-     "x_m": 209.0,
-     "y_m": 81.8
+     "x_m": 160.3,
+     "y_m": 75.8
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 188.6,
+     "y_m": 79.5
     },
     {
      "piece": "car_lane",
-     "x_m": 224.0,
-     "y_m": 78.5
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 187.0,
-     "y_m": 99.5
+     "x_m": 185.6,
+     "y_m": 79.5
     },
     {
      "piece": "car_lane",
-     "x_m": 204.0,
-     "y_m": 103.0
+     "x_m": 195.5,
+     "y_m": 75.8
     },
     {
-     "piece": "car_kerb",
-     "x_m": 216.0,
+     "piece": "car_lane",
+     "x_m": 190.4,
      "y_m": 107.0
     },
     {
-     "piece": "car_lane",
-     "x_m": 231.0,
-     "y_m": 100.0
-    },
-    {
      "piece": "car_kerb",
-     "x_m": 195.0,
-     "y_m": 110.5
+     "x_m": 223.3,
+     "y_m": 99.5
     },
     {
      "piece": "rock_0",
@@ -9383,112 +9326,46 @@
    "terrain": [
     [
      "height",
-     "rough",
      "height",
      "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "height",
-     "rough",
      "height",
      "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
      "height",
-     "rough"
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
     ],
     [
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough"
-    ],
-    [
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
      "height",
      "height",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "height",
-     "flat",
      "height",
      "height",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
      "height"
     ],
     [
@@ -9497,16 +9374,82 @@
      "rough",
      "rough",
      "rough",
-     "height",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
      "rough",
      "height",
      "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
      "height",
-     "rough",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
      "flat",
      "rough",
      "rough",
@@ -9519,16 +9462,16 @@
      "rough",
      "flat",
      "rough",
-     "rough",
-     "rough",
-     "rough",
      "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
      "height",
-     "rough",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
      "rough",
      "rough",
      "flat",
@@ -9542,15 +9485,15 @@
      "flat",
      "rough",
      "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "height",
      "rough",
      "rough",
      "rough",
-     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
      "flat",
      "rough",
      "rough",
@@ -9563,16 +9506,16 @@
      "rough",
      "height",
      "flat",
+     "debris",
      "flat",
      "flat",
      "flat",
+     "debris",
+     "debris",
      "flat",
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
+     "debris",
      "rough",
      "flat",
      "rough",
@@ -9586,15 +9529,15 @@
      "rough",
      "rough",
      "flat",
-     "height",
-     "height",
-     "rough",
-     "rough",
      "flat",
      "flat",
      "flat",
-     "rough",
-     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "rough",
@@ -9603,7 +9546,8 @@
     ],
     [
      "height",
-     "rough",
+     "height",
+     "height",
      "height",
      "height",
      "rough",
@@ -9611,307 +9555,266 @@
      "rough",
      "rough",
      "rough",
-     "rough",
-     "height",
-     "rough",
      "height",
      "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough"
-    ],
-    [
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "height",
-     "rough"
-    ],
-    [
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "height",
-     "rough",
-     "rough",
-     "rough",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
      "height",
      "height",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
      "height",
      "height",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
+     "height",
+     "height",
+     "height",
      "height"
+    ],
+    [
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height",
+     "height"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris",
+     "debris",
+     "flat",
+     "flat",
+     "flat",
+     "debris"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
     ]
    ],
    "cover": [
     {
-     "piece": "rubble_0",
-     "x_m": 5,
-     "y_m": 10
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 20,
-     "y_m": 6
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 37,
-     "y_m": 13
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 52,
-     "y_m": 9
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 12,
-     "y_m": 26
-    },
-    {
      "piece": "rubble_5",
-     "x_m": 44,
-     "y_m": 28
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 28,
-     "y_m": 54
+     "x_m": 52.8,
+     "y_m": 32.9
     },
     {
      "piece": "rubble_7",
-     "x_m": 50,
-     "y_m": 55
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 17.0,
-     "y_m": 40.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 40.0,
-     "y_m": 46.0
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 65,
-     "y_m": 10
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 80,
-     "y_m": 6
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 97,
-     "y_m": 13
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 112,
-     "y_m": 9
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 72,
-     "y_m": 26
-    },
-    {
-     "piece": "rubble_5",
-     "x_m": 104,
-     "y_m": 28
+     "x_m": 14.8,
+     "y_m": 33.5
     },
     {
      "piece": "rubble_6",
-     "x_m": 88,
-     "y_m": 54
+     "x_m": 39.1,
+     "y_m": 39.0
     },
     {
-     "piece": "rubble_7",
-     "x_m": 110,
-     "y_m": 55
+     "piece": "rubble_10",
+     "x_m": 39.2,
+     "y_m": 38.7
     },
     {
-     "piece": "car_lane",
-     "x_m": 77.0,
-     "y_m": 40.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 100.0,
-     "y_m": 46.0
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 125,
-     "y_m": 10
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 140,
-     "y_m": 6
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 157,
-     "y_m": 13
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 172,
-     "y_m": 9
+     "piece": "rubble_9",
+     "x_m": 51.6,
+     "y_m": 34.5
     },
     {
      "piece": "rubble_4",
-     "x_m": 132,
-     "y_m": 26
-    },
-    {
-     "piece": "rubble_5",
-     "x_m": 164,
-     "y_m": 28
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 148,
-     "y_m": 54
-    },
-    {
-     "piece": "rubble_7",
-     "x_m": 170,
-     "y_m": 55
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 137.0,
-     "y_m": 40.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 160.0,
-     "y_m": 46.0
+     "x_m": 50.4,
+     "y_m": 32.3
     },
     {
      "piece": "rubble_0",
-     "x_m": 185,
-     "y_m": 10
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 200,
-     "y_m": 6
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 217,
-     "y_m": 13
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 232,
-     "y_m": 9
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 192,
-     "y_m": 26
-    },
-    {
-     "piece": "rubble_5",
-     "x_m": 224,
-     "y_m": 28
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 208,
-     "y_m": 54
-    },
-    {
-     "piece": "rubble_7",
-     "x_m": 230,
-     "y_m": 55
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 197.0,
-     "y_m": 40.0
+     "x_m": 13.0,
+     "y_m": 37.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 220.0,
-     "y_m": 46.0
+     "x_m": 45.3,
+     "y_m": 53.3
+    },
+    {
+     "piece": "rubble_8",
+     "x_m": 74.7,
+     "y_m": 37.1
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 85.1,
+     "y_m": 33.1
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 107.0,
+     "y_m": 33.7
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 92.2,
+     "y_m": 35.6
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 96.1,
+     "y_m": 34.4
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 91.4,
+     "y_m": 36.6
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 79.3,
+     "y_m": 38.3
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 82.7,
+     "y_m": 46.8
+    },
+    {
+     "piece": "rubble_5",
+     "x_m": 172.8,
+     "y_m": 32.9
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 134.8,
+     "y_m": 33.5
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 159.1,
+     "y_m": 39.0
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 159.2,
+     "y_m": 38.7
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 171.6,
+     "y_m": 34.5
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 170.4,
+     "y_m": 32.3
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 133.0,
+     "y_m": 37.0
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 165.3,
+     "y_m": 53.3
+    },
+    {
+     "piece": "rubble_8",
+     "x_m": 194.7,
+     "y_m": 37.1
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 205.1,
+     "y_m": 33.1
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 227.0,
+     "y_m": 33.7
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 212.2,
+     "y_m": 35.6
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 216.1,
+     "y_m": 34.4
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 211.4,
+     "y_m": 36.6
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 199.3,
+     "y_m": 38.3
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 202.7,
+     "y_m": 46.8
     },
     {
      "piece": "rock_0",
@@ -9955,104 +9858,84 @@
      "mound": true
     },
     {
-     "piece": "rubble_0",
-     "x_m": 65,
-     "y_m": 70
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 80,
-     "y_m": 66
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 97,
-     "y_m": 73
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 112,
-     "y_m": 69
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 72,
-     "y_m": 86
-    },
-    {
      "piece": "rubble_5",
-     "x_m": 104,
-     "y_m": 88
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 88,
-     "y_m": 114
+     "x_m": 112.8,
+     "y_m": 92.9
     },
     {
      "piece": "rubble_7",
-     "x_m": 110,
-     "y_m": 115
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 77.0,
-     "y_m": 100.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 100.0,
-     "y_m": 106.0
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 125,
-     "y_m": 70
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 140,
-     "y_m": 66
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 157,
-     "y_m": 73
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 172,
-     "y_m": 69
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 132,
-     "y_m": 86
-    },
-    {
-     "piece": "rubble_5",
-     "x_m": 164,
-     "y_m": 88
+     "x_m": 74.8,
+     "y_m": 93.5
     },
     {
      "piece": "rubble_6",
-     "x_m": 148,
-     "y_m": 114
+     "x_m": 99.1,
+     "y_m": 99.0
     },
     {
-     "piece": "rubble_7",
-     "x_m": 170,
-     "y_m": 115
+     "piece": "rubble_10",
+     "x_m": 99.2,
+     "y_m": 98.7
     },
     {
-     "piece": "car_lane",
-     "x_m": 137.0,
-     "y_m": 100.0
+     "piece": "rubble_9",
+     "x_m": 111.6,
+     "y_m": 94.5
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 110.4,
+     "y_m": 92.3
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 73.0,
+     "y_m": 97.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 160.0,
-     "y_m": 106.0
+     "x_m": 105.3,
+     "y_m": 113.3
+    },
+    {
+     "piece": "rubble_8",
+     "x_m": 134.7,
+     "y_m": 97.1
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 145.1,
+     "y_m": 93.1
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 167.0,
+     "y_m": 93.7
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 152.2,
+     "y_m": 95.6
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 156.1,
+     "y_m": 94.4
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 151.4,
+     "y_m": 96.6
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 139.3,
+     "y_m": 98.3
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 142.7,
+     "y_m": 106.8
     },
     {
      "piece": "rock_0",
@@ -10096,54 +9979,44 @@
      "mound": true
     },
     {
-     "piece": "rubble_0",
-     "x_m": 5,
-     "y_m": 130
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 20,
-     "y_m": 126
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 37,
-     "y_m": 133
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 52,
-     "y_m": 129
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 12,
-     "y_m": 146
-    },
-    {
      "piece": "rubble_5",
-     "x_m": 44,
-     "y_m": 148
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 28,
-     "y_m": 174
+     "x_m": 52.8,
+     "y_m": 152.9
     },
     {
      "piece": "rubble_7",
-     "x_m": 50,
-     "y_m": 175
+     "x_m": 14.8,
+     "y_m": 153.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 17.0,
-     "y_m": 160.0
+     "piece": "rubble_6",
+     "x_m": 39.1,
+     "y_m": 159.0
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 39.2,
+     "y_m": 158.7
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 51.6,
+     "y_m": 154.5
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 50.4,
+     "y_m": 152.3
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 13.0,
+     "y_m": 157.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 40.0,
-     "y_m": 166.0
+     "x_m": 45.3,
+     "y_m": 173.3
     },
     {
      "piece": "rock_0",
@@ -10187,104 +10060,84 @@
      "mound": true
     },
     {
-     "piece": "rubble_0",
-     "x_m": 125,
-     "y_m": 130
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 140,
-     "y_m": 126
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 157,
-     "y_m": 133
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 172,
-     "y_m": 129
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 132,
-     "y_m": 146
-    },
-    {
      "piece": "rubble_5",
-     "x_m": 164,
-     "y_m": 148
-    },
-    {
-     "piece": "rubble_6",
-     "x_m": 148,
-     "y_m": 174
+     "x_m": 172.8,
+     "y_m": 152.9
     },
     {
      "piece": "rubble_7",
-     "x_m": 170,
-     "y_m": 175
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 137.0,
-     "y_m": 160.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 160.0,
-     "y_m": 166.0
-    },
-    {
-     "piece": "rubble_0",
-     "x_m": 185,
-     "y_m": 130
-    },
-    {
-     "piece": "rubble_1",
-     "x_m": 200,
-     "y_m": 126
-    },
-    {
-     "piece": "rubble_2",
-     "x_m": 217,
-     "y_m": 133
-    },
-    {
-     "piece": "rubble_3",
-     "x_m": 232,
-     "y_m": 129
-    },
-    {
-     "piece": "rubble_4",
-     "x_m": 192,
-     "y_m": 146
-    },
-    {
-     "piece": "rubble_5",
-     "x_m": 224,
-     "y_m": 148
+     "x_m": 134.8,
+     "y_m": 153.5
     },
     {
      "piece": "rubble_6",
-     "x_m": 208,
-     "y_m": 174
+     "x_m": 159.1,
+     "y_m": 159.0
     },
     {
-     "piece": "rubble_7",
-     "x_m": 230,
-     "y_m": 175
+     "piece": "rubble_10",
+     "x_m": 159.2,
+     "y_m": 158.7
     },
     {
-     "piece": "car_lane",
-     "x_m": 197.0,
-     "y_m": 160.0
+     "piece": "rubble_9",
+     "x_m": 171.6,
+     "y_m": 154.5
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 170.4,
+     "y_m": 152.3
+    },
+    {
+     "piece": "rubble_0",
+     "x_m": 133.0,
+     "y_m": 157.0
     },
     {
      "piece": "car_kerb",
-     "x_m": 220.0,
-     "y_m": 166.0
+     "x_m": 165.3,
+     "y_m": 173.3
+    },
+    {
+     "piece": "rubble_8",
+     "x_m": 194.7,
+     "y_m": 157.1
+    },
+    {
+     "piece": "rubble_6",
+     "x_m": 205.1,
+     "y_m": 153.1
+    },
+    {
+     "piece": "rubble_4",
+     "x_m": 227.0,
+     "y_m": 153.7
+    },
+    {
+     "piece": "rubble_7",
+     "x_m": 212.2,
+     "y_m": 155.6
+    },
+    {
+     "piece": "rubble_10",
+     "x_m": 216.1,
+     "y_m": 154.4
+    },
+    {
+     "piece": "rubble_3",
+     "x_m": 211.4,
+     "y_m": 156.6
+    },
+    {
+     "piece": "rubble_9",
+     "x_m": 199.3,
+     "y_m": 158.3
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 202.7,
+     "y_m": 166.8
     }
    ],
    "lights": [

@@ -1,3 +1,9 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (p) LATEST -- ROUND FIFTEEN SHIPPED: the freeway and the landfill
+re-cut (tools/bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26.py: freeway2 with sound walls,
+median, overpass variant 'freewayo'; landfill2 with benches, bales, tyres, switchback, vents, flare);
+wired into the round-nine builder. 31 blocks, 5.1 MB. VOTE combat2-freeway-and-landfill-recut-10-4.
+NEXT: lines across block seams (shore waterline, wash bed, landfill benches meeting scrub). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (o) LATEST -- ROUND FOURTEEN SHIPPED (rule 67): seven building types at
 45 (tools/bohemia_combat2_building_types_cook_10_4_26.py: apartments, church, school, gas station, motel,
 warehouse, casino back; tall sprites stand into the row behind), blocks main_street and the_works mixed
