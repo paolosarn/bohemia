@@ -43901,7 +43901,7 @@ function vbCityCore(inp){
     }
   }
   /* the picture: along each view diagonal, near to far, the nearest column that rises over a texel owns it */
-  var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
+  var day = new Uint8ClampedArray(P * P * 4), night = new Uint8ClampedArray(P * P * 4), lights = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), NM = [0.26, 0.254, 0.295];
   for (var dg = -(P - 1); dg <= P - 1; dg++) {
     var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
     for (var uu = ub; uu >= ua; uu--) {
@@ -43927,11 +43927,11 @@ function vbCityCore(inp){
         else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino) && (liftk % 2 === 1) && lr < 0.45) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;
         else if (part2 === PART.lampspot) Lc = C.lamp;
         else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
-        if (Lc) for (var z2 = 0; z2 < 3; z2++) night[o8 + z2] = Lc[z2];
+        if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
       }
     }
   }
-  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, ms: Math.round(performance.now() - t0) };
+  return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, ms: Math.round(performance.now() - t0) };
 }
 function vbInput(m){
   var V = m || om;   /* any valley: the one he is in, or one a checker rolls */
@@ -43967,7 +43967,7 @@ function vbWorker(){
       var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore].map(String).join('\n')
         + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
         + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';'
-        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer]); return; }'
+        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
       w.onmessage = function (e) { if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
@@ -43987,7 +43987,7 @@ function vbCityLand(r){
   VBC.busy = false;
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
-  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P;
+  VBC.day = cv(r.day); VBC.night = cv(r.night); VBC.lights = r.lights ? cv(r.lights) : null; VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P;
   try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
 }
 function vbCityReady(){
@@ -44008,20 +44008,47 @@ function vbCityDraw(ox, oy, night){
   var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
-  g.drawImage(night ? VBC.night : VBC.day, 0, 0);
+  g.drawImage(VBC.day, 0, 0);   /* unlit: the city's night pass lights it like everything else (rule 70a) */
   g.restore(); g.imageSmoothingEnabled = sm; VBC.draws++; VBC.alpha = a;
+}
+/* and its lights come AFTER that pass, the way the map's own lamps do, so a lit window cuts the dark */
+/* the far land's tile at a chosen block size: from altitude a block is under a pixel, and the tile at that
+   size averages to one flat tan -- the "goes away" he saw -- so the sky draws it at a size it can be read at */
+function vbPatternDraw(ox, oy, tw){
+  if (!VB.tile || VB.seed !== om.seed) return;
+  var S = VB_S, th = tw / 2, f0 = oy - VB_K * th;
+  g.save(); g.imageSmoothingEnabled = false;
+  g.transform(tw / 2 / S, th / 2 / S, -tw / 2 / S, th / 2 / S, ox, f0);
+  var us = [], vs = [];
+  [[0, 0], [CVW, 0], [0, CVH], [CVW, CVH]].forEach(function (c) { var a = (c[0] - ox) / (tw / 2), b = (c[1] - f0) / (th / 2); us.push(S * (a + b) / 2); vs.push(S * (b - a) / 2); });
+  if (!VB.pat || VB.patOf !== VB.tile) { VB.pat = g.createPattern(VB.tile, 'repeat'); VB.patOf = VB.tile; }
+  var u0 = Math.floor(Math.min.apply(null, us)), v0 = Math.floor(Math.min.apply(null, vs));
+  g.fillStyle = VB.pat; g.fillRect(u0, v0, Math.ceil(Math.max.apply(null, us)) - u0, Math.ceil(Math.max.apply(null, vs)) - v0);
+  g.restore();
+}
+function vbCityLightsDraw(ox, oy){
+  if (TW >= VB_CITY_NONE || !VBC.lights || VBC.seed !== om.seed) return;
+  var a = TW <= VB_CITY_FULL ? 1 : (VB_CITY_NONE - TW) / (VB_CITY_NONE - VB_CITY_FULL), S = VB_CS, sm = g.imageSmoothingEnabled;
+  g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = a;
+  g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy - VB_CPAD * TH);
+  g.drawImage(VBC.lights, 0, 0);
+  g.restore(); g.imageSmoothingEnabled = sm; VBC.lightDraws = (VBC.lightDraws | 0) + 1;
 }
 function vbReady(){
   if (VB.seed !== om.seed && !VB.busy) vbAsk();
   return !!VB.day && VB.seed === om.seed;
 }
-function vbDraw(ox, oy, night){
+function vbDraw(ox, oy, night, noPattern){
   if (!vbReady()) return;
-  var img = night ? VB.night : VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
+  /* ONE LIGHT (rule 70a, Paolo 10/4: "the outside valley and the city have to go through the same lighting"):
+     the land is drawn UNLIT, the day picture at every hour, and the city's own light pass (the night wash
+     at the end of renderCity) lights it with everything else. It used to carry its own night (x0.26), so
+     at night it sat far darker than the city beside it. */
+  var img = VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
   g.save(); g.imageSmoothingEnabled = false;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, f0);
   /* the far land first, over the whole glass and the cache's margin, in the picture's own texels */
-  var tl = night ? VB.tileNight : VB.tile;
+  var tl = noPattern ? null : VB.tile;   /* unlit, as above */
   var Mg = 80 + Math.ceil(TW * 4), us = [], vs = [];
   [[-Mg, -Mg], [CVW + Mg, -Mg], [-Mg, CVH + Mg], [CVW + Mg, CVH + Mg]].forEach(function (c) {
     var a = (c[0] - ox) / (TW / 2), b = (c[1] - f0) / (TH / 2); us.push(S * (a + b) / 2); vs.push(S * (b - a) / 2); });
@@ -44045,7 +44072,7 @@ function vbSeam(ox, oy, night){
   var S = VB_S, sm = g.imageSmoothingEnabled;
   g.save(); g.imageSmoothingEnabled = false;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, oy);
-  g.drawImage(night ? VB.seamNight : VB.seam, 0, 0); g.restore(); g.imageSmoothingEnabled = sm;
+  g.drawImage(VB.seam, 0, 0); g.restore(); g.imageSmoothingEnabled = sm;   /* unlit: one light (rule 70a) */
 }
 function vbLabels(ox, oy, night){
   if (!VB.day || VB.seed !== om.seed) return;
@@ -44954,7 +44981,7 @@ function renderCity(){
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
   }
   try { mapPlatesDraw(); } catch (_e) { MAP_PLATES = []; }   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: the names, over everybody walking -- and over him, since the towns scale with the zoom and a name can land on him (rule 65) */
-  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
+  if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,CVW,CVH); try{ vbCityLightsDraw(ox,oy); }catch(_e){} } if(window.__LAMPQ){ const ga2=g.globalAlpha; g.globalAlpha=1; for(const q of window.__LAMPQ){ g.fillStyle='rgba(255,170,60,0.25)'; g.beginPath(); g.ellipse(q.sx,q.sy+TH*0.5,TW*0.55,TH*0.55,0,0,7); g.fill(); g.fillStyle='rgba(255,205,100,0.95)'; g.fillRect(q.sx-1.5,q.sy+TH*0.35,3,3); } g.globalAlpha=ga2; window.__LAMPQ=null; }
 }
 
 /* *** THE CAMERA IS THE REST OF HIS RULING (Paolo 9/15 rule 16; coordinator ruling
@@ -64180,8 +64207,13 @@ function renderSky(){
      colour is the city's OWN #d8c08a, not a new one. And it goes to black FASTER
      on the way up (t*1.45) because airglow is a thin shell, not a whole-frame
      gradient: past the atmosphere there should be no blue left to see. */
-  var skyTop=mixHex(night?'#101826':'#33607f','#05060b',Math.min(1,t*1.45));
-  var skyLow=mixHex(night?'#1a2436':'#d8c08a','#05060b',Math.min(1,t*1.25));
+  /* __THE_FAR_STOP_KEEPS_THE_LAND__ (RUN 10/4, rule 70, Paolo with a screenshot: "when I zoom out past a
+     certain point the valley around the city goes away and looks like dog shit"). What he saw: a flat blue
+     sky, a flat tan floor, the city a tilted grey slab, REGION over it. The sky is the valley's own dust now
+     (dark above, the land's haze at the horizon, so the two meet), and below it the SAME land and the SAME
+     painted city the map draws, out to the horizon. */
+  var skyTop=mixHex(night?'#0b0a0c':'#2a2420','#05060b',Math.min(1,t*1.45));
+  var skyLow=mixHex(night?'#1a1612':'#8a7a58','#05060b',Math.min(1,t*1.25));
   var gd=g.createLinearGradient(0,0,0,H);
   gd.addColorStop(0,skyTop); gd.addColorStop(1,skyLow);
   g.fillStyle=gd; g.fillRect(0,0,W,H);
@@ -64215,7 +64247,8 @@ function renderSky(){
     /* still over the world: the desert floor, and the valley drawn on it by the
        CITY's own renderer at a smaller tile, so this is the same picture the city
        builder draws -- not a second map of the same place. */
-    var horizon=H*(0.42+u*0.36);
+    /* the horizon starts at the top of the glass where the map left off and comes down as he rises */
+    var horizon=H*Math.min(0.62, 0.02+u*1.1);
     /* __SKY_CURVE__ -- THE HORIZON BOWS, AND THAT IS THE WHOLE FIX. Paolo 8/16: "it doesn't
        even look like it's moving out from the Earth." It never could: this was a fillRect
        with a dead straight top edge, and A STRAIGHT HORIZON READS AS STANDING ON A PLAIN AT
@@ -64227,43 +64260,45 @@ function renderSky(){
        the same reason a real horizon looks flat from a rooftop and curved from a jet. */
     var bow=H*0.34*u*u;                     /* quadratic: nothing early, obvious late */
     var edgeY=function(x){ var d=(x-W/2)/(W/2); return horizon+bow*(d*d); };
-    g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5));
-    g.beginPath();
-    g.moveTo(0,edgeY(0));
-    for(var sx=0;sx<=W;sx+=8) g.lineTo(sx,edgeY(sx));
-    g.lineTo(W,H); g.lineTo(0,H); g.closePath(); g.fill();
-    /* the lit rim of the limb, following the same curve rather than a straight bar */
-    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.strokeStyle='#d8c08a'; g.lineWidth=3;
-    g.beginPath(); g.moveTo(0,edgeY(0));
-    for(var rx=0;rx<=W;rx+=8) g.lineTo(rx,edgeY(rx));
-    g.stroke(); g.restore();
     var k=Math.max(0.06,1-u*3.2);
     var tw=TW,th=TH; TW=TW0*zoomBounds()[0]*k; TH=TH0*zoomBounds()[0]*k;
-    /* __SKY_CLIP__ -- THE VALLEY IS ON THE PLANET, NOT FLOATING BESIDE IT. Paolo 8/16:
-       "the square grid that's poking out the side of the Earth... it's kind of weird."
-       That was a bug I introduced the day before: curving the horizon turned the ground
-       into a LIMB, but the valley kept being painted as a flat diamond on top, so its
-       corners hung off into space past the planet's edge. The straight horizon had hidden
-       it, because nothing can stick out of a floor that spans the whole frame -- a fix can
-       expose a fault that was always there but had nowhere to show.
-       Clipped to the limb silhouette, so the planet's edge cuts the city exactly the way a
-       real horizon cuts one. */
+    /* __SKY_CLIP__ -- the land and the city, clipped to the limb so the planet's edge cuts them the way a
+       horizon does (Paolo 8/16: "the square grid that's poking out the side of the Earth") */
     g.save();
     g.beginPath();
     g.moveTo(0,edgeY(0));
     for(var cx2=0;cx2<=W;cx2+=8) g.lineTo(cx2,edgeY(cx2));
     g.lineTo(W,H); g.lineTo(0,H); g.closePath();
     g.clip();
-    try{ skyValley(horizon); }catch(_e){}
+    g.fillStyle=mixHex('#8a7a58','#3a3226',Math.min(1,u/0.5)); g.fillRect(0,0,W,H);   /* under the land, only until it is baked */
+    var drewLand=false;
+    try{
+      /* the city where the map left it at the first step, settling toward the horizon as he rises */
+      var cyT=H/2+(horizon+H*0.14-H/2)*Math.min(1,u/0.3);
+      var sox=Math.round(W/2-(city.x-city.y)*TW/2), soy=Math.round(cyT-((city.x+city.y)*TH/2));
+      if(vbReady()){ vbPatternDraw(sox,soy,Math.max(TW,1.6)); vbDraw(sox,soy,false,true); vbCityDraw(sox,soy,false); drewLand=true; }
+    }catch(_e){}
+    if(!drewLand){ try{ skyValley(horizon); }catch(_e){} }
+    /* the air thickens toward the horizon and as he rises, in the land's own haze */
+    var hz=g.createLinearGradient(0,horizon,0,H);
+    hz.addColorStop(0,'rgba(138,122,88,'+Math.min(0.7,0.35+u).toFixed(2)+')'); hz.addColorStop(0.3,'rgba(138,122,88,'+Math.min(0.35,u*0.6).toFixed(2)+')'); hz.addColorStop(1,'rgba(138,122,88,'+Math.min(0.3,u*0.4).toFixed(2)+')');
+    g.fillStyle=hz; g.fillRect(0,horizon-bow-4,W,H);
+    if(night){ g.fillStyle='rgba(10,18,40,0.25)'; g.fillRect(0,0,W,H); }   /* the city's one light (rule 70a) */
     g.restore();
+    /* the lit rim of the limb, following the same curve */
+    g.save(); g.globalAlpha=Math.max(0,0.55-u); g.strokeStyle='#d8c08a'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(0,edgeY(0));
+    for(var rx=0;rx<=W;rx+=8) g.lineTo(rx,edgeY(rx));
+    g.stroke(); g.restore();
+    window.__SKY_LAND=(window.__SKY_LAND||0)+(drewLand?1:0);
     TW=tw; TH=th;
   }
 
   /* THE LABEL, and the honest one about the art. */
   g.save();
   g.font='700 10px '+FACE('body'); g.textAlign='center';
-  g.fillStyle='rgba(12,14,10,0.85)'; g.fillText(band,W/2+1,19);
-  g.fillStyle='#b89a6a'; g.fillText(band,W/2,18);
+  if(band==='MOON'){ g.fillStyle='rgba(12,14,10,0.85)'; g.fillText(band,W/2+1,19);
+  g.fillStyle='#b89a6a'; g.fillText(band,W/2,18); }   /* no label over the land (rule 70: 'no REGION label') */
   /* __SKY_ART__ -- THE PLACEHOLDER LINE IS GONE BECAUSE THE ART IS COOKED. It printed
      the word PLACEHOLDER and the request id on his screen at the two widest zooms, and he
      zoomed out all the way on 9/15 and called what he saw dogshit. AR-005 is closed. */

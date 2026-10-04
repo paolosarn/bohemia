@@ -10738,6 +10738,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/4b LATEST -- [the valley edge] round two (rule 70, 70a): THE FAR STOP KEEPS THE LAND + ONE LIGHT. TAB: the DEMO's map, pinch out past the widest zoom; and at night.
+renderSky's REGION/PLANET bands draw vbPatternDraw + vbDraw + vbCityDraw clipped to the limb (__SKY_CLIP__ kept); vbDraw/vbSeam/vbCityDraw unlit, vbCityLightsDraw after the night wash.
+GATE THE VALLEY HAS AN EDGE 14/0 (E13 one light, E14 the far stop). NEXT: [map pixels now]'s near end; then [one song], [the start screen], [you can flee].
 RUN (run-eak241): 10/4a LATEST -- [map pixels now] rule 65 (a): THE PEOPLE AT THE RIG'S OWN PIXELS (CAST_PX 112, spriteAt size-aware, the map's people x1.00). TAB: the DEMO's map.
 Also re-aimed: THE LOOP PLAYS ON THE MAP taps the BOARD building (RUN TWO's rebuilt screen, BohemiaSettlement.where). Twenty body checks same as main (CAST SILHOUETTE better).
 NEXT on [map pixels now]: the near end at 42.9 px/m. Rule 64/66/68 rows wait behind it ([one song], [the start screen], [you can flee]).

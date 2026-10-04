@@ -4311,6 +4311,19 @@
    }
   },
   {
+   "id": "run-the-far-stop-keeps-the-land-10-4",
+   "kind": "tile",
+   "lane": "run",
+   "made": "10/4",
+   "sha": "pending",
+   "title": "PAST THE MAP THE VALLEY STAYS, AND IT HAS ONE LIGHT",
+   "why": "Pinching out past the map no longer drops to a flat blue sky and a slab: the same land and painted city run to a curved horizon under a dust sky, with no label, and at night the land outside the city goes dark exactly as the city does. You see it on the map when you pinch out past the widest zoom.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FAR_STOP_KEEPS_THE_LAND_10_4.jpg"
+   }
+  },
+  {
    "id": "combat2-the-ground-for-the-new-fight-10-2",
    "kind": "tile",
    "lane": "combat 2",
