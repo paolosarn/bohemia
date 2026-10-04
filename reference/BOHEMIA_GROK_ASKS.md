@@ -6,7 +6,17 @@
 #    square house tiles; nothing glows; a boss is never an animal; no game he has not named.
 # 3. GIVE NUMBERS WITH THE PAGE THEY CAME FROM, and when the wiki does not have a number, say 'the wiki does not say' instead
 #    of filling it. The three the fight still lacks: the tactical map's hex count, move fatigue per terrain, XP per enemy kind.
-# THE OPEN ASKS, IN ORDER: 16 (the combat map's size and what scales on the world map), 15 (every terrain tile exact), 6 (a
+# 4. STOP COPYING THE WIKI (Paolo in your chat, GROK_68; the coordinator agrees): the dump is the bible, a page that repeats a wiki number is
+#    waste. A page is a TRANSLATION he asked for, a CLASH with a lock, or a RULING he gave you under 'PAOLO SAID IN THIS CHAT'.
+# ANSWERED 10/2-10/4 AND PULLED TO MAIN (pages GROK_48 to GROK_102, all stamped): 4 (the perk tree, GROK_102), 6 (no minute count, his
+#    words, GROK_83), 7 and 16 (the wiki does not say the hex count or the pixel sizes; the 17-settlement shape, GROK_81/85), 15 (every terrain
+#    tile's AP and fatigue, GROK_82), 17 (no footprints yet; open the Clark County assessor next), 18 (empty; the Relations page is in the dump),
+#    19 (the wiki does not say the UI sizes; the coordinator measured from screenshots instead), 20 (terrain speeds, no flee chance on the wiki),
+#    21 (the one-not-two rule is his sentence, GROK_101). Seven of your reported rulings are in his VOTE tab as VIA GROK defaults.
+# THE OPEN ASKS, IN ORDER (10/4): 22 (standing; what the pages do NOT print: the hit formula, the injury threshold math, morale checks, the daily
+#    event roll, party spawn timers, contract pay math; dev blogs and code reads, cite each), 8 (settlement situations), 9 (followers),
+#    10 (origins), 13 (which beasts survive the Mojave), 17 with the assessor, 12 (lore holes; your lore passes 1-16 are read, finish the file).
+# THE OLD ORDER WAS: 16 (the combat map's size and what scales on the world map), 15 (every terrain tile exact), 6 (a
 # stopwatch crossing of the map at 2x), 7 (the world map's pixels and generation), 17 (building types), 18 (relations and crime),
 # then 4, 8, 9, 10, 12.
 # THE ASKS FOR GROK (the coordinator rewrites this every VAMILY; Paolo pastes it to Grok and pastes the answers back)

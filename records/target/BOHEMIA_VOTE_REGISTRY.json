@@ -4469,7 +4469,112 @@
  {"id": "combat-auto-plays-like-battle-brothers-10-4", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/4", "title": "AUTO PLAYS YOUR MEN LIKE BATTLE BROTHERS' AI", "why": "AUTO now does what Battle Brothers' own AI does: shooters climb the roofs first (41% of their turns, up from 6%), the line walks up as a line, shooters stay behind the front man, and your men stop piling every swing on one guy. Tap AUTO in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_AUTO_PLAYS_LIKE_BATTLE_BROTHERS_10_4.jpg"}, "draft": true},
 {"id": "run-the-near-end-is-the-block-10-4", "kind": "ui", "lane": "run", "sha": "451b9d9", "made": "10/4", "title": "PINCH IN PAST THE MAP AND YOU ARE ON THE BLOCK", "why": "Pinching in past the map's closest zoom now drops you onto the block you stand on, drawn from the fight's own street pictures, and you can keep pinching until it is the walk's size while you stay the same size on the street. You see it on the map when you pinch in as far as it goes and then once more.", "show": {"how": "image", "src": "vote/RUN_THE_NEAR_END_IS_THE_BLOCK_10_4.jpg"}},
 {"id": "combat2-settlement-pictures-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "SETTLEMENTS AS ONE PLACE: CAMP, TOWN, FORTRESS", "why": "The settlement buildings are now part of one picture instead of a row of options: the barber is a house with a striped pole, the clinic a storefront with a cross, the stall sits on the sidewalk, notices are papered on a wall and the job board is a board on a pole, for a camp, a town and a fortress. Thumbs up and the settlement screen uses these pictures, and you see it in the settlement screen when you enter a place (the dotted boxes are what lights up under your finger).", "show": {"how": "image", "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"}},
- {"id": "combat-the-night-is-lit-by-the-street-10-4", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/4", "title": "AT NIGHT THE FIGHT IS LIT BY THE STREET'S OWN LAMPS", "why": "A night fight goes dark and only the live street lamps and burning drums light it, and a man under a lamp is seen from farther and easy to shoot, so you keep your men out of the light. Fight after dark in the demo and you see it, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_NIGHT_IS_LIT_BY_THE_STREET_10_4.jpg"}, "draft": true}
+ {"id": "combat-the-night-is-lit-by-the-street-10-4", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/4", "title": "AT NIGHT THE FIGHT IS LIT BY THE STREET'S OWN LAMPS", "why": "A night fight goes dark and only the live street lamps and burning drums light it, and a man under a lamp is seen from farther and easy to shoot, so you keep your men out of the light. Fight after dark in the demo and you see it, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_NIGHT_IS_LIT_BY_THE_STREET_10_4.jpg"}, "draft": true},
+{
+  "id": "grok-one-pain-line-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: AN INJURY IS ONE PAIN LINE, NOT FIVE",
+  "why": "Grok reports you said a hurt neck, head, arm, leg or chest all show as one pain line, while the game still picks the body part and its penalty the way Battle Brothers does, and one medicine a day closes it. You see it on a hurt man's card in the fight and in the settlement screen's clinic.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_49, GROK_67: one label for the injury trait; the penalty follows the body part; a hit of 10 or more health that is a big enough share of max health can leave it; bandages, ibuprofen and super glue all treat it.\n\nSeen in: the man's card in the fight, the clinic in the settlement screen."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-the-ground-picks-the-pool-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE GROUND PICKS WHO SHOWS UP, THE DAY PICKS HOW MANY",
+  "why": "Grok reports you said there is no scripted first fight: the part of the map you stand on picks which faction's pool a party comes from, and the day count, your crew's strength and your level pick its size, Battle Brothers' shape. You see it as which crews roam which part of the valley on the map and who stands across the board when a fight opens.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_52, GROK_53, GROK_54, GROK_58, GROK_59, GROK_60: the pool by ground; size by roster strength (the 12 strongest men, 10 plus 2 a level past 1), days and the job's skulls; a camp already on the map scales by days and distance, not the crew. Matches his fifth vote (no authored first fight).\n\nSeen in: the map's roaming crews, the enemy line-up when a fight opens."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-no-tile-names-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE PLAYER NEVER READS A TILE'S NAME; FACTIONS ARE BANNERS AND PARTIES",
+  "why": "Grok reports you said the player does not see street or ground names on the map, the way Battle Brothers never labels its ground, and a faction shows itself as a banner and a party you can tap. You see it on the map: no labels on the land, a banner over every crew.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_56, GROK_57, GROK_58: no tile labels; a party on the map shows a banner and its name when tapped; the ground still picks the pool underneath. Grok's own name lists (GROK_55, GROK_57) are marked bad votes by him and are not locked.\n\nSeen in: the map (no ground labels; banners over crews), the party card on a tap."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-gas-is-ammo-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: GAS MOVES TO THE AMMO PILE",
+  "why": "Grok reports you moved gas out of the resources pile into the ammo pile on 10/2, so a car's shot spends gas and a pistol's shot spends bullets or nails from the same ammo count. You see it in the top bar's ammo number and at the stall.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_45, GROK_64, GROK_70: the ammo pile holds a gas can and loose bullets and nails as one skin; a pistol shot takes bullets or nails; a car shot takes gas; 10 batteries a bundle. His newer line (10/2) beats the older six piles (10/1) where they clash.\n\nSeen in: the top bar's ammo count, the stall in the settlement screen, the car's shot in the fight."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-the-beat-and-the-dial-wait-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: UNTIL THE BATTLE BROTHERS FIGHT IS RIGHT, THE GAME IS BATTLE BROTHERS",
+  "why": "Grok reports you said the Rogue Fable pieces, the beat and the dial, wait until the Battle Brothers recreation is right, because they would make it more fun later, not now. You see it in the demo's fight: turns, no beat, no dial.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_71, GROK_72, GROK_75: the fight is Battle Brothers until he is happy; the beat line and the dial are later pieces; the gambit comes later and needs research; a combat tile stays a house. Matches rules 63 and 63a (the dial is next, not dead).\n\nSeen in: the demo's fight (turn-based, no beat bar, no dial)."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-formation-is-the-layout-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE FRONT AND BACK LINES ARE SET BY HOW YOU LAID THE COMPANY OUT BEFORE THE FIGHT",
+  "why": "Grok reports you said the formation is already set by how you layered your company on the roster screen before the fight, Battle Brothers' start, with no extra placing step. You see it in the fight's first turn: your men stand where you put them on the roster.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_75: the front line and the back line come from the company layout; a gambit comes later. For COMBAT's rebuilt fight and RUN TWO's roster.\n\nSeen in: the roster screen's rows, the fight's opening positions."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-spaghettioh-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "VIA GROK: THE STEW IS SPAGHETTIOH, CANNED CHILI IS OUT",
+  "why": "Grok reports you named the stew SpaghettiOh, the Os fused into one ring after ten years in a can, at 8 batteries and 12 days of food, and canned chili leaves the list. You see it at the stall and in the food count.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_76: SpaghettiOh, his spelling; not a real brand on the screen; 8 batteries, 12 days; canned chili out. For ECONOMY's food list and WORDS' line.\n\nSeen in: the stall in the settlement screen, the top bar's food."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
 ],
  "verdicts": [
   {
