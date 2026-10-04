@@ -231,3 +231,14 @@ wreck; every tier function returns its lights (drums; town lamps one in two lit,
 lamps on a generator plus a drum). Two seeds a tier; each variant gets a night picture through the night-boards
 cook's night() (x 0.30/0.31/0.38, hard-ringed warm pools, snapped to the allowed palette). 12 lossless WebP, 2.9 MB.
 settlement_ground.json tiers[t] = {src, px, hotspots (variant 0, for the current reader), variants[...]}.
+
+## ROUND NINETEEN (10/4, rule 73): NIGHT YOU CAN READ IN THE SUN, AND THE LAMPS' POWER
+
+night_sun(board, lights) added to tools/bohemia_combat2_night_boards_cook_10_1_26.py: sRGB -> linear; unlit
+ground x mult (mult = clamp(0.235 / day median Y, 0.58, 1.35)) x cool tint (0.86, 0.94, 1.18); pools in three
+hard rings lifted x5 (up to x12) toward warm until lit:unlit >= 3.3 before the snap; back to sRGB, snapped to the
+allowed palette. sun_measure(): median Y overall, unlit, lit, (lit+.05)/(unlit+.05), plain and with 25% white.
+Day medians MEASURED: camp 0.283, town 0.149, fortress 0.283, suburb block 0.251, desert block 0.298.
+Settlement nights (6): ground 0.215-0.256, lit:unlit 3.08-3.57, sun ground 0.348-0.387: PASS. Sun lit:unlit
+2.16-2.41: FAIL (25% white over 0.2 ground caps it). The settlement cook refuses any night under the plain floors.
+fight_ground lights: circuit ('grid' | 'fire') and block [r, c] (473 tagged; the builder writes them from now on).

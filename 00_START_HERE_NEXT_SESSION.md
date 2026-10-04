@@ -1,3 +1,11 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (t) LATEST -- ROUND NINETEEN SHIPPED (rule 73): settlement nights re-cut with
+night_sun() (night cook; linear light, adaptive multiplier >= 0.58 and to the 0.20 floor, pools lifted to 3:1),
+each variant's numbers in settlement_ground.json night_measured; plain floor PASS on all six, sun-test lit:unlit
+2.16-2.41 (3 asked; unreachable without white pools; the slider). fight_ground lights carry circuit
+('grid'/'fire') and block [r, c] for the map's power. FOR COMBAT [night you can read]: use NB.night_sun's
+numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
+rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
+
 EYES AND EARS (eyes-5vql33): 10/4 (bo) LATEST -- *** CLAIMED [night in the sun measured] (rule 73),
 ROUND ONE SCHOOL DONE. ***
 TAB: not a tab yet, an internal measurement.
