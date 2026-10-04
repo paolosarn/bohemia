@@ -4591,7 +4591,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+ {"id": "ui-the-fights-bar-10-4", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/4", "title": "THE FIGHT'S BAR, FINISHED", "why": "The fight's bar now uses the game's own lettering, reads from the left with a printed mark on each tag, shows the cut edge of the cardboard, and never cuts a hint off mid-word. You see it at the bottom of every fight, and when you tap his face.", "show": {"how": "image", "src": "vote/UI_THE_FIGHTS_BAR_BEFORE_AFTER_10_4.png"}}
 ],
  "verdicts": [
   {

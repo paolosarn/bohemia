@@ -495,6 +495,12 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/4 LATEST -- [the demo's screens] round one: THE FIGHT'S BAR FINISHED (the fight, bottom bar and his face's drawer).
+Finish lives in slices/bohemia_ui_materials.js (SKIN), so BOHEMIA_FIGHT.html is untouched; the skin must never change #bot/#top heights.
+Gate the fight bar is studio made 15/0, 4 mutations; COMBAT's fight 74/0, perks 47/0. VOTE ui-the-fights-bar-10-4.
+Lesson: document.fonts.check() is true for a face that does not exist; check FontFace status instead.
+NEXT: (2) the start screen, then (3) settlement picture + her page stars, then (4) the six icons redrawn.
+
 UI (ui-kmqmrf): 10/1 LATEST -- *** [bb interface] ROUND NINE: THE SIX IN THE BAR, BUILT. *** TAB: the demo's map, top bar.
 BATTERIES FOOD MEDS ROUNDS TAPE WATER in one plate, pixel mark + the game's own count; meds/rounds/tape/water have no count
 anywhere (ECONOMY r55) so they draw a dim dash; BohemiaLedger.count(kind) is the one socket a company ledger plugs into.
