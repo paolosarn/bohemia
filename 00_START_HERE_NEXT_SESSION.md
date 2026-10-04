@@ -490,6 +490,51 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/4 LATEST -- *** PAUSED. NOTHING COOKED THIS ROUND, ON PURPOSE. ***
+Rule 54 (Paolo 10/1, 'only combat, the run and eyes and ears right now') put this lane on
+MODE: PAUSED, and rule 69 (Paolo 10/4) says it again in one line: "The art lanes are paused;
+their banks are used, not re-cooked." So this round read the board and stopped. STOP
+PRODUCING is explicit that finding a legal way to ship anyway IS the violation, and the
+first line [board assets] carries no new instruction since this lane's own 10/1 correction.
+
+THE ONE THING WORTH SAYING, AND IT IS NOT THIS LANE'S TO FIX: RULE 54'S PULL MECHANISM HAS
+NEVER BEEN USED ON THIS LANE. Rule 54 says the three running chats "pull what they need from
+a paused lane and mark the paused row 'pulled by <lane> 10/1'". Searched the whole board:
+the phrase appears only in rule 54 itself and in the four paused lanes' MODE lines. NOT ONE
+ROW, in any paused lane, has ever been marked pulled. So nobody can tell from the board what
+the running lanes took and what is still sitting unused, which is the whole thing the mark
+was invented to show. The coordinator's or the running lanes' to act on.
+
+WHAT IS ON THE SHELF FOR THE THREE RUNNING LANES, so nobody has to dig:
+  FOR COMBAT, rule 69 ("every person on every play surface is drawn from the character
+  bank", and its owed gate "no sprite in the fight file that is not from the bank"):
+    the 112 rig and its grid        banks/_rig_grid.json, banks/BOHEMIA_THE_RIG_ON_THE_ROOF_9_22_26.txt
+    the runway clothes              banks/BOHEMIA_WARDROBE_CANON_7_19_26.txt
+    the faces                       banks/BOHEMIA_FACE_CANDIDATES_8_28_26.txt
+  FOR COMBAT, the board:
+    the block war kit, 9 pieces at real size   banks/BOHEMIA_THE_BLOCK_WAR_KIT_9_30_26.txt
+    this lane's floor set                      banks/BOHEMIA_THE_FIGHTS_FLOOR_10_1_26.txt
+    *** AND READ THE CORRECTION BEFORE USING THAT LAST ONE: its tiles are 528x528, drawn
+    flat from straight above. COMBAT TWO's own set is 515x364, which is cos 45, and theirs
+    is the one that fits the board (rule 56). Do not squash mine to fit; that resamples
+    every one of his pixels. The metre contract in its 'contract' field is still good and
+    both lanes independently measured the same 42.9 px a metre off his 7/28 bank.
+  FOR RUN, the map (and this is the one path I had to go and check, because I first wrote a
+  file name from memory that does not exist, which is exactly how a shelf list wastes
+  somebody's round):
+    the place markers, at the map's density    banks/BOHEMIA_THE_MAP_MARKERS_AT_DENSITY_9_29_26.txt
+    the markers before that pass               banks/BOHEMIA_THE_MAP_MARKERS_9_24_26.txt
+    the roaming parties' shapes and banners    banks/BOHEMIA_THE_PARTIES_ON_THE_MAP_9_27_26.txt
+  THE COUNT ANYBODY CAN READ INSTEAD OF GUESSING: 15,010 drawn pieces across 53 banks, filed
+  by terrain and kind, in records/BOHEMIA_THE_BOARD_ASSET_COUNT_9_30_26.txt. COVER is the
+  thinnest kind anywhere, 389 against 2,899 blockers; emptiest terrains are freeway 39,
+  landfill 37, trailer park 35, airport 21, open desert 11.
+
+WHEN HE NAMES THIS CHAT AGAIN, THE ORDER THE COUNT SETS: the freeway, the landfill, the
+trailer park and the airport; then COVER everywhere; then LIGHT (99) and WEATHER (36); then
+the desert, the shore and the hills, which the count says are in better shape than the sheet
+believed. And the floor set gets re-cut at the 45-degree height if COMBAT ever wants it.
+
 COOK (cook-mce6r5): 10/1 LATEST -- *** THE FIGHT'S FLOOR. HE SAID THE TILES BELOW THE
 PEOPLE LOOK BAD, SO THE DESERT WAITED AND THE GROUND WENT FIRST (rule 46f).
 Shipped: records/BOHEMIA_THE_FIGHTS_FLOOR_MEASURED_10_1_26.txt,
