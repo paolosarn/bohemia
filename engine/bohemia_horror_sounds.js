@@ -1331,6 +1331,38 @@
     };
   }
 
+  /* ==== 5c. THE TURN CLOSES (row [one song and the volumes], 10/4) ===============
+     Rule 54b's demo-only row asks for "the end-turn" on COMBAT's rebuilt fight, from
+     real material, no sand. There is no sound on that button at all right now: the
+     fight's own placeholder SND object (slices/BOHEMIA_FIGHT.html) never wired one.
+     A TURN ENDING IS A SMALL STEEL PART ENGAGING, NOT A CHIME. struckMetal's 'pipe'
+     material is already a published free-free-bar series (REUSE-FIRST, no new modal
+     math); heard for 90 ms instead of the full 5 s a pipe actually rings for, it is
+     the first bright instant of that same strike and nothing invented. f0 is raised
+     from the pipe's own 196 Hz to 1400 Hz because a bolt catch or a ratchet pawl is a
+     much smaller, stiffer part than a pipe somebody is holding, and a smaller part's
+     modes sit higher -- the same relation GROUND's own materials use (stiffer/smaller
+     rings higher), applied here by ear rather than a fourth material table for one
+     click. secs is short enough that struckMetal's own 200 ms end-fade covers the
+     WHOLE buffer, so what plays is a clean rise-and-fall with no chopped edge, built
+     out of the strike's true bright modes rather than a separate envelope pasted over
+     noise. NOT WIRED LIVE THIS ROUND: every other new sound this lane has ever cooked
+     stayed out of the real game until he thumbed it (unjudged = silent is the bank's
+     own law, bohemia_sfx.js); this keeps that line rather than making itself the one
+     exception because it is small. */
+  function endTurnClick(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 0.09 : opts.secs;
+    var f0 = opts.f0 == null ? 1400 : opts.f0;
+    var m = struckMetal(ctx, { what: 'pipe', f0: f0, secs: secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe',
+      noiseSources: 0, f0: f0, secs: secs,
+      why: 'a small steel catch, struck and heard before it has time to ring like a pipe: ' +
+        'the turn closing the way a bolt drops into its notch'
+    };
+  }
+
   function footstepModelled(ctx, opts) {
     opts = opts || {};
     var sr = ctx.sampleRate;
@@ -2173,6 +2205,7 @@
     objectSetDown: objectSetDown,
     objectSetDownAgain: objectSetDownAgain,
     struckMetal: struckMetal,
+    endTurnClick: endTurnClick,
     STRIKE: STRIKE,
     theTapeDeck: theTapeDeck,
     theTapeChange: theTapeChange,
@@ -2289,7 +2322,13 @@
         { id: 'sounds-it-goes-down-10-1', make: 'objectSetDown',
           title: 'IT GOES DOWN' },
         { id: 'sounds-set-it-down-again-10-1', make: 'objectSetDownAgain',
-          title: 'SET IT DOWN AGAIN' }
+          title: 'SET IT DOWN AGAIN' },
+        /* THE TURN CLOSES (row [one song and the volumes], 10/4): end_turn, one of the
+           six named sounds for COMBAT's rebuilt fight, has no approved sound yet so it
+           is built and registered here, not wired into the live fight (unjudged =
+           silent, the bank's own law, same as every other new sound this round). */
+        { id: 'sounds-the-turn-closes-10-4', make: 'endTurnClick',
+          title: 'THE TURN CLOSES' }
       ];
     }
   };

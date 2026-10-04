@@ -1394,14 +1394,29 @@ function noise(d, v, f) {
   bq.type = 'lowpass'; bq.frequency.value = f || 900; s.buffer = n; g.gain.value = v;
   s.connect(bq); bq.connect(g); g.connect(AC.destination); s.start();
 }
+/* SOUNDS, rule 54b [one song and the volumes]: "a shot, a hit, a fall, a miss" named by
+   name, from real material, no sand. Each of these is an event this lane already built,
+   judged and shipped elsewhere in the game (shot/hit/melee_hit/vital/hurt/miss/kill/
+   went_down/clear) -- not new content, so there is nothing here for him to vote on, only
+   the wiring that was missing. One postMessage to the parent, which already renders every
+   approved sound through its one engine (the mix, the space, the ambience trim, the voice
+   limiter) -- reusing that is the whole reason this is not a second sound system. */
+function sfx(ev) { try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {} }
 const SND = {
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
-  swing: function () { noise(0.12, 0.18, 1400); },
-  hit: function () { tone(92, 0.18, 0.22, 'square'); noise(0.08, 0.2, 500); },
-  head: function () { tone(61, 0.32, 0.26, 'square'); noise(0.14, 0.28, 400); },
-  miss: function () { noise(0.1, 0.08, 2600); },
-  shot: function () { noise(0.22, 0.45, 2200); tone(48, 0.25, 0.25, 'sawtooth'); },
-  fall: function () { tone(41, 0.6, 0.3, 'sawtooth'); },
+  swing: function () { sfx('swing_air'); },
+  shot: function () { sfx('shot'); },
+  /* ranged vs melee picks the material (a bullet landing is not a pipe landing); head is
+     'vital' ("worse than a hit, not yet a kill"); hurtsYou is 'hurt', the one sound in the
+     whole catalogue built to mean "that was you" rather than "you did that". */
+  resolve: function (ranged, head, hurtsYou) {
+    if (hurtsYou) { sfx('hurt'); return; }
+    sfx(head ? 'vital' : (ranged ? 'hit' : 'melee_hit'));
+  },
+  miss: function () { sfx('miss'); },
+  /* dead is 'kill'; struck down (not dead, the 20%-else-injury rule) is 'went_down' --
+     two different real sounds for two different things that used to share one tone. */
+  fall: function (dead) { sfx(dead ? 'kill' : 'went_down'); },
   flee: function () { tone(220, 0.15, 0.06, 'triangle'); tone(196, 0.3, 0.05, 'triangle'); }
 };
 
@@ -1423,8 +1438,9 @@ function startAnim(a) {
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step(); }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
-    (FIGHT.isRanged(u.weapon) ? SND.shot : SND.swing)();
-    setTimeout(function () { (e.hit ? (e.head ? SND.head : SND.hit) : SND.miss)(); }, beatMs() * 0.45);
+    const ranged = FIGHT.isRanged(u.weapon);
+    (ranged ? SND.shot : SND.swing)();
+    setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
@@ -1432,8 +1448,8 @@ function startAnim(a) {
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
-    if (e.t === 'dead') { SND.fall(); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
-    if (e.t === 'down') { SND.fall(); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
+    if (e.t === 'dead') { SND.fall(true); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
+    if (e.t === 'down') { SND.fall(false); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
     if (e.t === 'fled') SND.flee();
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
@@ -1806,6 +1822,11 @@ document.getElementById('drawer').onclick = function () { UI.drawer = false; thi
 function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
 /* THE RECAP (rule 67: 'a recap screen after every fight: blood drawn, kills, experience, like Battle Brothers') */
 function showOver(result) {
+  /* THE RECAP (sixth votes, rule 54b): this screen is the recap, and it played no
+     sound at all. 'clear' is already approved and already means exactly this --
+     "THE FIGHT IS OVER... the room goes quiet" -- so the recap opening is the moment
+     to play it, not a new sound invented for a screen the catalogue already covers. */
+  sfx('clear');
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
   document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW BROKE' : 'YOUR CREW IS DOWN';

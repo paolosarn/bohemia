@@ -6043,6 +6043,57 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/4 LATEST (round two) -- *** THE REBUILT FIGHT HAD ITS OWN SECOND SOUND
+SYSTEM, MADE OF PLACEHOLDER TONES, AND NOW IT TALKS TO THE REAL ONE. *** Row [not sand] still
+PAUSED. Row [one song and the volumes], round two done, ROW STAYS CLAIMED.
+
+NO NEW VOTES landed on anything pending (checked the registry and records/ fresh this round).
+Continuing the row's own order: music fence and volumes were round one; this round is "the new
+fight's sounds... from real material (no sand)."
+
+WHAT I FOUND: slices/BOHEMIA_FIGHT.html (the rebuilt fight) had tone()/noise() placeholder
+functions wired to its own game events (a shot, a swing, a hit, a head hit, a miss, a fall) --
+a second, unapproved sound engine living inside the new fight, completely separate from the
+one this lane has spent nine rounds building and getting judged. The recap screen and the
+end-turn button made no sound at all.
+
+WHAT SHIPPED: five of the six named sounds now play ALREADY-APPROVED real sounds through a
+single sfx() function that posts to the parent window -- the exact bridge the rest of the game
+already uses (window.addEventListener('message') with type:'BOHEMIA_SFX', which calls the real
+playSFX). No new sound content, no new vote needed: shot->'shot', a melee swing->'swing_air', a
+connecting hit->'hit' (ranged) or 'melee_hit' (melee), a head/vital hit->'vital', a hit on the
+PLAYER's own crew->'hurt' (side-aware now; the catalogue's one sound built to mean "that was
+you", previously unused anywhere in the fight), a miss->'miss', a kill->'kill', struck-down-not-
+dead->'went_down' (previously the same placeholder tone as a kill; now two different real
+sounds for two different outcomes), and the recap screen opening->'clear' ("the fight is over,
+the room goes quiet", already approved, never wired to this screen). step and flee are UNTOUCHED
+this round (no approved surface-aware/flee event to map to; named out of scope, not forgotten).
+
+THE SIXTH, end-turn, has no approved sound. Built new (engine/bohemia_horror_sounds.js,
+endTurnClick: struckMetal's own 'pipe' modes -- the same published free-free-bar series this
+lane already uses for the valley's hourly chime -- heard for 90 ms instead of the full ring,
+f0 raised to 1400 Hz so a small steel catch rings higher than a pipe someone is holding),
+judge page slices/BOHEMIA_THE_TURN_CLOSES_10_4_26.html, registered sounds-the-turn-closes-10-4.
+NOT WIRED LIVE: unjudged = silent is the SFX bank's own law, and every other new sound this
+lane has ever cooked (nine rounds of them) stayed out of the real game until he thumbed it --
+this round does not make itself the exception because the sound is small.
+
+PROOF: a Playwright probe opens the rebuilt fight through the real door (nfOpen(), the same
+function round one's fence lives in), calls the fight's own exported sfx() for all ten events
+the fight can now make, and confirms every one reaches window.playSFX in the parent with zero
+console errors. gates/cooked_sounds_gate.js 186/0 (was 181/0); the three new claims for
+endTurnClick bite clean under --mutate (the closure-trap lesson from rounds six, eight and nine
+applied again: the mutation replaces H.endTurnClick directly, never H.struckMetal, which it
+calls by closure). gates/one_engine_gate.js gets a third claim (E6); its own boot is still the
+same pre-existing, unrelated break flagged last round (the splash button moved and
+window.__LOAD_READY does not reach true within 30-45 s even on a direct click) -- PLUMBER
+territory, not this lane's to fix mid-sprint.
+
+NEXT: the narrator's creepy machine voice reading the end screen (rule 45), the last item on
+this row.
+
+---
+
 SOUNDS (sound-xk7pjp): 10/4 LATEST -- *** THE DEMO PAUSED [not sand] AND OPENED A NEW ROW: THE
 FENCE AROUND THE REBUILT FIGHT'S MUSIC, AND THREE AMBIENCE SOUNDS DOWN. *** Row [not sand] is
 PAUSED (rule 54b: demo-only mode, one row runs). Row [one song and the volumes] is CLAIMED,

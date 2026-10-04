@@ -4785,7 +4785,36 @@
     "src": "BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html"
    }
   },
-  {"id": "combat-night-you-can-read-10-4", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/4", "title": "THE NIGHT FIGHT YOU CAN PLAY IN THE SUN", "why": "Night is now a cool moonlit colour instead of a black wash, keeping about two thirds of the day's light, the lamp pools stand three to one over the dark, and the men get a thin moon rim so they never sink into the ground. Hold the phone outside in a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_NIGHT_YOU_CAN_READ_10_4.jpg"}, "draft": true}
+  {
+   "id": "combat-night-you-can-read-10-4",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "THE NIGHT FIGHT YOU CAN PLAY IN THE SUN",
+   "why": "Night is now a cool moonlit colour instead of a black wash, keeping about two thirds of the day's light, the lamp pools stand three to one over the dark, and the men get a thin moon rim so they never sink into the ground. Hold the phone outside in a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_NIGHT_YOU_CAN_READ_10_4.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-turn-closes-10-4",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "10/4",
+   "title": "THE TURN CLOSES",
+   "why": "The END TURN button in the new fight makes no sound at all. This is a small steel catch, built from the same pipe this valley already strikes on the hour, heard only for its first bright instant instead of its full ring: the turn closing the way a bolt drops into its notch. Not in the game yet, same as every other new sound this round until you hear it and say yes.",
+   "options": [
+    "A, the click"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_TURN_CLOSES_10_4_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

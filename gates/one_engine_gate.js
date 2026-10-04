@@ -158,6 +158,37 @@ function ok(claim, cond, detail) {
       && ambCheck.trimmedGain === 0.5 && ambCheck.untouchedGain === 1,
     'ambience trim missing or wrong: ' + JSON.stringify(ambCheck));
 
+  /* ---- E6: THE REBUILT FIGHT'S OWN SOUNDS ARE REAL MATERIAL NOW, NOT SAND (SOUNDS,
+     rule 54b, 10/4). slices/BOHEMIA_FIGHT.html had its own placeholder tone()/noise()
+     for a shot, a hit, a fall, a miss and the recap -- a second, unapproved sound
+     system sitting inside the rebuilt fight. Each of those is now a postMessage to
+     the parent's one real engine, carrying an event this lane already shipped
+     elsewhere (shot, swing_air, hit, melee_hit, vital, hurt, miss, kill, went_down,
+     clear). Exercised through the fight's own exported sfx(), the same function its
+     game code calls, not a copy of it. */
+  const fightSfxCheck = await p.evaluate(async () => {
+    /* self-sufficient: opens its own fight rather than trusting E4's frame still to
+       be alive, since nfHome() removes fightFrame on a timer E4's own cleanup starts. */
+    try { if (window.nfOpen) nfOpen({ district: 'ruin', at: null, faction: null }); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const fr = document.getElementById('fightFrame');
+    if (!fr || !fr.contentWindow || typeof fr.contentWindow.sfx !== 'function')
+      return { ready: false };
+    const calls = [];
+    const orig = window.playSFX;
+    window.playSFX = function (ev, when) { calls.push(ev); return orig(ev, when); };
+    const want = ['shot', 'swing_air', 'hit', 'melee_hit', 'vital', 'hurt', 'miss', 'kill', 'went_down', 'clear'];
+    want.forEach(ev => fr.contentWindow.sfx(ev));
+    await new Promise(r => setTimeout(r, 200));
+    window.playSFX = orig;
+    return { ready: true, want: want, got: calls };
+  });
+  console.log('  rebuilt fight sfx bridge: ' + JSON.stringify(fightSfxCheck));
+  ok('E6 *** THE REBUILT FIGHT TALKS TO THE ONE REAL ENGINE, EVERY NAMED EVENT. *** a shot, a hit (ranged and melee), a vital hit, hurt (your own side taking it), a miss, a kill, a struck-down and the recap all reach window.playSFX through the fight\'s own iframe boundary, which is how every other approved sound in this game already gets heard',
+    fightSfxCheck.ready === true && fightSfxCheck.want && fightSfxCheck.got
+      && fightSfxCheck.want.every(ev => fightSfxCheck.got.includes(ev)),
+    'the fight\'s own sfx bridge is missing or incomplete: ' + JSON.stringify(fightSfxCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);
