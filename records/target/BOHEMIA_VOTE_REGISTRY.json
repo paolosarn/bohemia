@@ -4576,7 +4576,22 @@
   "status": "ruled"
 },
 {"id": "combat2-settlement-pictures-night-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "SETTLEMENTS AT NIGHT, AND NO TWO ALIKE", "why": "The camp is fuller, every size of settlement now comes in two versions, and each has a night picture lit only by the street lamps and fire barrels that still burn. Thumbs up and the settlement screen uses these, and you see it in the settlement screen when you enter a place at night.", "show": {"how": "image", "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"}},
- {"id": "combat-the-fight-on-every-screen-10-4", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/4", "title": "THE FIGHT FITS A PHONE ON ITS SIDE, A TABLET AND A COMPUTER", "why": "Turn the phone sideways or open the fight on a computer and the bar becomes Battle Brothers' one-row bar, face and bars left, skills middle, WAIT and END TURN right, so the board keeps at least two thirds of the screen instead of half. Rotate your phone in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_FIGHT_ON_EVERY_SCREEN_10_4.jpg"}, "draft": true}
+ {"id": "combat-the-fight-on-every-screen-10-4", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/4", "title": "THE FIGHT FITS A PHONE ON ITS SIDE, A TABLET AND A COMPUTER", "why": "Turn the phone sideways or open the fight on a computer and the bar becomes Battle Brothers' one-row bar, face and bars left, skills middle, WAIT and END TURN right, so the board keeps at least two thirds of the screen instead of half. Rotate your phone in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_FIGHT_ON_EVERY_SCREEN_10_4.jpg"}, "draft": true},
+{
+  "id": "night-you-can-read-in-the-sun-10-4",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/4",
+  "title": "NIGHT IS A COLOUR, NOT A DARKNESS: THE NIGHT FIGHT MUST READ IN FULL SUN",
+  "why": "You loved the night and its street lights but could not see at its darkest, so the night now gets a measured floor: the ground never drops below a fifth of white, a man always stands out three to one from his ground, and the same frame still passes with a quarter of white glare added like sun on the glass. You see it in the demo's night fight and on the map at night, and later as a brightness slider in SETTINGS.",
+  "show": {
+    "how": "text",
+    "src": "Rule 73; records/BOHEMIA_SCHOOL_PLAYABLE_IN_THE_SUN_10_4_26.md. The lamps and drums stay and light only where the block has power.\n\nSeen in: the demo's night fight, the map at night, SETTINGS on the start screen."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
 ],
  "verdicts": [
   {
