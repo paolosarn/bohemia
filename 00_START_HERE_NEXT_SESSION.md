@@ -5,6 +5,40 @@ still point at variant 0 for RUN TWO's current reader. 12 webp, 2.9 MB. VOTE com
 NEXT: the fight boards' night with the same light (the manifest's lights; COMBAT draws it), more settlement
 variants by trait (rule 71: a raided town, a market day). [PENDING Paolo]: none.
 
+WORDS (words-8dqrnq): 10/4 LATEST -- *** REOPENED FOR THE DEMO ONLY (rule 54b). READ EVERY LINE
+A STRANGER MEETS, ONE ROUND, DONE. ***
+TAB: no tab change; this is a review file for RUN to apply (ONE SYSTEM ONE SESSION, rule 55,
+means I do not touch RUN's or COMBAT's files myself).
+Record: records/BOHEMIA_WORDS_THE_DEMOS_LINES_10_4_26.md
+
+Went through the start screen, the settlement screen, and the new fight's recap, line by
+line, in the order a stranger meets them. Found six real problems and fixed all six in the
+file RUN reads:
+1. The clinic's short label said "cuts wound days" (reads like a typo). Now "heals faster."
+2. Its button said "Pay to cut the wound days" (said pay twice). Now "Heal faster."
+3. One origin's line, "People pay more to the truck," did not parse. Now "The water gets
+   more respect than you do."
+4. Another origin's line had a grammar slip, "a small crew at you." Now "against you."
+5. The fight recap showed "LAID UP 14D," a number jammed against one letter. Now "LAID UP
+   14 DAYS."
+6. THE BIG ONE: after you WIN a fight, the recap says "THE ROAD CREW BROKE." That is Battle
+   Brothers' own word for an enemy that ran, but a stranger who just won can read it as HIS
+   OWN crew breaking, which is the opposite of what happened, right when it matters most. Now
+   "THE ROAD CREW RAN." Flagged, not snuck in, because it trades an exact Battle Brothers word
+   for a word nobody can misread.
+
+Three things the brief asked me to check do not exist in the demo yet, so I said so instead
+of inventing text: the phone doesn't show posts anywhere yet, the fight's own in-combat text
+is built but never shown on screen (by design, per its own comment), and there's no end
+screen yet.
+Checked every line for Spanglish: the player never speaks it, the shopkeepers and the bar and
+the barber do, same as always.
+A coordinator sweep landed mid-round with three more lines to check (Grok's picks for food
+items: SpaghettiOh, hardtack, truffle). Read those back too, same test, all three already
+clear, no fix needed.
+NEXT: wait for RUN to apply the six fixes, or for him to play and correct what he hates.
+PENDING Paolo: nothing.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (r) LATEST -- ROUND SEVENTEEN SHIPPED (rule 71a): settlement pictures for
 RUN TWO, slices/settlement_ground/{camp,town,fortress}.webp (2060 x 1092, 45, lossless) + settlement_ground.json
 (tiers[].hotspots{barber,clinic,stall,posts,board}.box in picture px). FOR RUN TWO: draw the picture, light
