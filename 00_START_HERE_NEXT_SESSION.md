@@ -1,3 +1,11 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (o) LATEST -- ROUND FOURTEEN SHIPPED (rule 67): seven building types at
+45 (tools/bohemia_combat2_building_types_cook_10_4_26.py: apartments, church, school, gas station, motel,
+warehouse, casino back; tall sprites stand into the row behind), blocks main_street and the_works mixed
+into the town boards (round-nine builder: HOUSES/TOWN palettes; cross streets avoid those columns).
+fight_ground 30 blocks, 5.1 MB. VOTE combat2-building-types-10-4, combat2-buildings-in-the-fight-10-4.
+NEXT (his sixth votes): RE-CUT THE LANDFILL AND THE FREEWAY ('look like dog shit'), lines that agree
+across block seams (the shore's waterline, the wash's bed). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/2 (n) LATEST -- ROUND THIRTEEN SHIPPED: slices/fight_ground is lossless
 WebP now (23.6 -> 4.8 MB, pixel-identical where visible, manifest src -> .webp, fight code unchanged),
 verified in the new fight at the phone profile (0 errors). The round-nine builder calls the packer last.

@@ -181,3 +181,16 @@ tools/bohemia_combat2_fight_ground_pack_10_2_26.py: every PNG in slices/fight_gr
 manifest's src fields rewritten to .webp, every named file checked present. 23.6 MB -> 4.8 MB (71 files).
 Verified in slices/BOHEMIA_FIGHT.html (culdesac, shore; 390x844 DPR 3; 0 page errors). The round-nine
 builder imports and calls pack() last.
+
+## ROUND FOURTEEN (10/4, rule 67): MANY MORE BUILDING TYPES
+
+tools/bohemia_combat2_building_types_cook_10_4_26.py -> banks/BOHEMIA_THE_BUILDING_TYPES_10_4_26.txt, VOTE
+combat2-building-types-10-4. shell(w, d, h, roof): roof plane d x cos45 (flat deck+parapet / corrugated metal /
+terracotta hip or gable), face h x cos45 from his wall tiles, shadow SE. Apartments 24x11x9 (window grid, stair,
+walkways, AC); church 12x18x6 + gable end + bell tower; school 30x12x4.5 (windows, doors, flagpole); gas station
+(store 12x7 + canopy 20x8 on four posts, pumps); motel 30x9x3.2 (door+window per room, office); warehouse 30x20x7
+(corrugated, roll-ups, dock); casino back 36x14x12 (tilt-up panels, docks, ducts). Sprites sit bottom-on-tile and
+stand into the row behind. Blocks main_street (gas station, motel / church, school) and the_works (casino back,
+apartments / warehouse) feed the round-nine builder (HOUSES for suburb boards, TOWN = HOUSES + main + works for
+strip and the culdesac's south row); streets_run_through counts them as town and keeps cross streets out of their
+columns. 30 blocks, 5.1 MB WebP. Verified in the new fight (strip, suburb; 390x844 DPR 3; 0 errors).
