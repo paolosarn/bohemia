@@ -95,3 +95,15 @@
 21. MOVING THROUGH YOUR OWN MEN (Paolo 10/4: 'they can move past through one of your own people, they cannot move through two').
     The exact Battle Brothers rule: can a brother move through or swap with an adjacent ally, what it costs, which perks change
     it (Rotation, Footwork), and whether two allies in a row block; the wiki pages, verbatim.
+
+22. THE UNDERGROUND PLUMBING, ALL PARTS (Paolo 10/4, STANDING: 'all the underground plumbing numbers we typically don't see
+    but Battle Brothers knows under the hood, for the whole game, all parts'). Every hidden number and formula the game runs
+    on: contract pay and difficulty by day and distance; enemy party size and composition by day and by faction; the world's
+    difficulty curve over days; settlement economy (base prices, stock, refresh timers, the town modifier, how goods flow
+    between towns); event chances and their conditions; loot and drop tables; XP per kill and the level curve; the hit and
+    injury formulas in full; morale thresholds and checks; recruit generation (stat ranges, stars, traits per background,
+    hire price formula); party movement, vision and pursuit; ambitions and renown; the crisis timers and their stages;
+    settlement situations and attached locations with their exact modifiers. Sources: the wiki dump you made AND the
+    modding community's extracted game scripts (the game's data files are readable by modders; cite the file or the page).
+    One page per system, plain sentences, numbers with sources, 'the data does not say' where it does not. Keep going
+    system by system until every part of the game has a page; this ask never closes.
