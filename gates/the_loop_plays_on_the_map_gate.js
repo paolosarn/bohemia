@@ -10,7 +10,7 @@
      L1  the demo opens on the map
      L2  a touch on the town next to him sets a journey there
      L3  arriving opens the SETTLEMENT SCREEN over the map, named for the town, with his batteries
-     L4  the BOARD offers work, and "Take it" gives him the contract
+     L4  the BOARD (a building since RUN TWO's rebuild: a finger on it) offers work, and "Take it" gives him the contract
      L5  LEAVE closes the screen, and the JOB is drawn on the map
      L6  a touch on the JOB sets a journey, and reaching it opens THE REBUILT FIGHT (rule 63,
          10/2: the shell opens COMBAT's one-file fight for every fight the map starts)
@@ -83,7 +83,11 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
         els.sort((a, b) => a.getBoundingClientRect().width * a.getBoundingClientRect().height - b.getBoundingClientRect().width * b.getBoundingClientRect().height);
         const e = els[0]; if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, t: e.textContent.trim() }; }, re.source);
       if (p) await d.page.touchscreen.tap(fb.x + p.x, fb.y + p.y); return p; };
-    await tapText(/^BOARD/); await d.page.waitForTimeout(1000);
+    /* the board is a BUILDING since RUN TWO's rebuild (rule 67: the buildings are the buttons): a finger on its own pixels */
+    let bp = null; for (let i = 0; i < 20 && !bp; i++) { bp = await sf.evaluate(() => (window.BohemiaSettlement && BohemiaSettlement.where) ? BohemiaSettlement.where('board') : null); if (!bp) await d.page.waitForTimeout(250); }
+    if (bp) await d.page.touchscreen.tap(fb.x + bp.x, fb.y + bp.y);
+    else await tapText(/^BOARD/);
+    await d.page.waitForTimeout(1000);
     const offer = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button, #sheet .act, #sheet div')].filter(e => /battery$/i.test((e.textContent || '').trim()) && e.getBoundingClientRect().height > 20)
         .sort((a, b) => a.getBoundingClientRect().width * a.getBoundingClientRect().height - b.getBoundingClientRect().width * b.getBoundingClientRect().height)[0];
       return b ? b.textContent.trim().replace(/\d+ battery$/i, '').trim() : null; });
