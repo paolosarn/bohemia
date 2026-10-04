@@ -85,3 +85,9 @@
     body text's height, the END TURN button, the tooltip's width; and the source sizes of the skill and perk icons in the
     game's data if any page lists them. Numbers in pixels with the screenshot's link. Then one paragraph: what is on the
     screen during a fight and what is hidden until asked.
+
+20. PARTIES ON THE WORLD MAP (Paolo 10/4: 'you see the roaming party and 95% of the time you can flee'). Exactly how Battle
+    Brothers moves parties on the world map: each party type's speed and the player's, roads against terrain, vision range
+    (and at night), when a hostile party pursues, how far it chases before giving up, how 'you walk into them' triggers a
+    fight, how the engage/avoid choice is offered, ambush events if any and how rare. Numbers with pages; 'the wiki does not
+    say' where it does not. This is the kind of hidden world-map rule we need most from you.
