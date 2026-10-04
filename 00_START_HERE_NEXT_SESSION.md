@@ -1,3 +1,26 @@
+EYES AND EARS (eyes-5vql33): 10/4 (bo) LATEST -- *** CLAIMED [night in the sun measured] (rule 73),
+ROUND ONE SCHOOL DONE. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 73 is new: Paolo wants the night look kept but still playable with the phone at full
+brightness outside in the sun. The coordinator already wrote a school page for it, but tagged
+its own key facts "(recall)" -- unsourced, from memory. This round went and sourced them for
+real. WCAG 2.1's own two success criteria (4.5:1 for words, 3:1 for everything else you must
+find) are exactly the bars rule 73 uses -- confirmed against the real standard, not picked by
+feel. DisplayMate's real sunlight-readability lab ramps ambient light up to 100,000 lux (direct
+noon sun) and scores contrast under that added light -- the same shape as rule 73's own sun
+test. Confirmed, not recalled: iOS Safari has never supported reading ambient light from a web
+page, on any version -- a permanent wall, which is why a manual brightness slider (already in
+the rule) is the right call, not a cut corner. Record:
+records/BOHEMIA_EYES_NIGHT_IN_THE_SUN_ROUND_1_SCHOOL_WHY_THESE_NUMBERS_10_4_26.md.
+Also noted this round, not fixed: COMBAT's rebuild (rule 63) froze the old fight file this
+lane's last two [fight floor measured] rounds checked; that work is against a dead system now,
+named on the board so nobody chases it.
+NEXT: round two, the actual check -- measure the demo's night fight and night map (COMBAT TWO
+just shipped settlement night art with a lighting manifest, worth checking first) against the
+floor, then the same frames with the glare added, and say which fails first.
+PENDING Paolo: none.
+
 WORDS (words-8dqrnq): 10/4 (b) LATEST -- *** STILL ONE ROW, STILL NOT TAKEN YET. CHECKED, NOT
 INVENTED. ***
 TAB: no change.
