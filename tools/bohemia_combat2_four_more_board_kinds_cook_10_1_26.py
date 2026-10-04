@@ -198,7 +198,7 @@ def scrub():
     a = np.array(rough) > 127
     track = mask(); td = ImageDraw.Draw(track)                            # the two ruts
     for off in (-1.0, 1.0):
-        pts = [(M(x), M(34 + 8 * math.sin(x / 13.0) + off)) for x in range(0, 61, 2)]
+        pts = [(M(x), M(34 + 8 * math.sin(2 * math.pi * x / 60.0) + off)) for x in range(0, 61, 2)]   # periodic: the track runs on into the next block
         td.line(pts, fill=255, width=M(0.5))
     plan.paste(B.dress_any([B.DGROUND[0]], BP, BP, 73), (0, 0), track)
     pd = ImageDraw.Draw(plan); r = R(74)

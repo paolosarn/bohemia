@@ -195,6 +195,10 @@ def streets_run_through(lay, rng):
 
 
 BOARDS = {k: seeded_layout(k) for k in PALETTES}
+# ROUND SIXTEEN (rule 67): a wash is a line too. It runs the whole depth of its column (periodic in its own
+# depth, so each wash block meets the next), and on the shore it runs down into the lake.
+BOARDS['desert'] = [['scrub.2', 'wash.0', 'scrub.1', 'scrub.0'], ['scrub.0', 'wash.1', 'scrub.2', 'wash.0'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1']]
+BOARDS['shore'] = [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1'], ['scrub.2', 'wash.1', 'scrub.1', 'wash.0']]
 START_ROWS = (4, 9)
 
 

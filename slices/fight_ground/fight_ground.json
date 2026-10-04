@@ -6346,21 +6346,21 @@
    "blocks": [
     [
      "scrub.2",
+     "wash.0",
      "scrub.1",
-     "scrub.0",
-     "scrub.2"
+     "scrub.0"
     ],
     [
+     "scrub.0",
      "wash.1",
-     "wash.0",
      "scrub.2",
      "wash.0"
     ],
     [
      "scrub.1",
-     "scrub.2",
+     "wash.0",
      "scrub.0",
-     "scrub.2"
+     "wash.1"
     ]
    ],
    "terrain": [
@@ -6370,16 +6370,16 @@
      "rough",
      "rough",
      "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
      "flat",
      "rough",
      "rough",
      "flat",
      "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
      "rough",
      "rough",
      "rough",
@@ -6395,6 +6395,48 @@
      "rough",
      "rough",
      "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "height",
      "flat",
      "rough",
      "rough",
@@ -6402,60 +6444,23 @@
      "rough",
      "flat",
      "rough",
-     "rough",
-     "rough",
+     "height",
      "rough",
      "flat",
+     "rough",
+     "rough",
+     "height",
      "flat"
     ],
     [
      "rough",
      "rough",
      "rough",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
      "rough",
      "rough",
      "rough",
      "rough",
      "flat",
-     "rough"
-    ],
-    [
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "flat"
-    ],
-    [
-     "rough",
-     "rough",
-     "rough",
      "rough",
      "rough",
      "flat",
@@ -6464,11 +6469,6 @@
      "flat",
      "flat",
      "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
      "rough",
      "rough",
      "rough",
@@ -6478,7 +6478,7 @@
      "rough",
      "rough",
      "rough",
-     "flat",
+     "rough",
      "rough",
      "rough",
      "rough",
@@ -6504,14 +6504,102 @@
      "rough",
      "rough",
      "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
      "rough",
      "flat",
      "rough",
      "rough",
      "rough",
      "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
      "flat",
      "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
      "rough",
      "rough",
      "rough",
@@ -6522,7 +6610,7 @@
      "rough",
      "rough",
      "flat",
-     "rough",
+     "flat",
      "rough",
      "rough",
      "rough",
@@ -6541,18 +6629,40 @@
      "rough"
     ],
     [
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
      "height",
      "flat",
      "rough",
      "rough",
      "rough",
-     "height",
      "flat",
      "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
      "rough",
      "height",
      "flat",
@@ -6563,116 +6673,6 @@
      "rough"
     ],
     [
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough"
-    ],
-    [
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough"
-    ],
-    [
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat"
-    ],
-    [
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough"
-    ],
-    [
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "flat"
-    ],
-    [
      "flat",
      "flat",
      "rough",
@@ -6680,7 +6680,7 @@
      "flat",
      "rough",
      "rough",
-     "rough",
+     "flat",
      "rough",
      "rough",
      "flat",
@@ -6690,7 +6690,7 @@
      "rough",
      "rough",
      "rough",
-     "rough",
+     "flat",
      "rough",
      "rough"
     ]
@@ -6738,44 +6738,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 68,
-     "y_m": 20
+     "piece": "rock_8",
+     "x_m": 110.9,
+     "y_m": 43.1
     },
     {
-     "piece": "rock_1",
-     "x_m": 81,
-     "y_m": 14
+     "piece": "rock_10",
+     "x_m": 95.3,
+     "y_m": 29.6
     },
     {
-     "piece": "rock_2",
-     "x_m": 104,
-     "y_m": 22
+     "piece": "rock_20",
+     "x_m": 98.0,
+     "y_m": 40.3
     },
     {
      "piece": "rock_3",
-     "x_m": 112,
-     "y_m": 41
+     "x_m": 86.4,
+     "y_m": 53.7
     },
     {
-     "piece": "rock_4",
-     "x_m": 73,
-     "y_m": 47
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 90,
-     "y_m": 50
+     "piece": "rock_10",
+     "x_m": 74.6,
+     "y_m": 21.4
     },
     {
      "piece": "rock_6",
-     "x_m": 97,
-     "y_m": 8
+     "x_m": 85.6,
+     "y_m": 32.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 76.9,
+     "y_m": 31.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 85.1,
+     "y_m": 26.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 96.9,
+     "y_m": 24.1
     },
     {
      "piece": "outcrop",
-     "x_m": 100.0,
-     "y_m": 44.0,
+     "x_m": 68.0,
+     "y_m": 40.0,
      "mound": true
     },
     {
@@ -6861,100 +6871,90 @@
      "mound": true
     },
     {
+     "piece": "rock_0",
+     "x_m": 8,
+     "y_m": 80
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 21,
+     "y_m": 74
+    },
+    {
+     "piece": "rock_2",
+     "x_m": 44,
+     "y_m": 82
+    },
+    {
+     "piece": "rock_3",
+     "x_m": 52,
+     "y_m": 101
+    },
+    {
+     "piece": "rock_4",
+     "x_m": 13,
+     "y_m": 107
+    },
+    {
+     "piece": "rock_5",
+     "x_m": 30,
+     "y_m": 110
+    },
+    {
      "piece": "rock_6",
-     "x_m": 24.3,
+     "x_m": 37,
+     "y_m": 68
+    },
+    {
+     "piece": "outcrop",
+     "x_m": 40.0,
+     "y_m": 104.0,
+     "mound": true
+    },
+    {
+     "piece": "rock_6",
+     "x_m": 84.3,
      "y_m": 65.3
     },
     {
      "piece": "rock_12",
-     "x_m": 51.4,
+     "x_m": 111.4,
      "y_m": 111.8
     },
     {
      "piece": "rock_19",
-     "x_m": 10.9,
+     "x_m": 70.9,
      "y_m": 78.1
     },
     {
      "piece": "rock_6",
-     "x_m": 19.4,
+     "x_m": 79.4,
      "y_m": 67.1
     },
     {
      "piece": "rock_9",
-     "x_m": 37.8,
+     "x_m": 97.8,
      "y_m": 75.8
     },
     {
      "piece": "rock_17",
-     "x_m": 49.3,
+     "x_m": 109.3,
      "y_m": 85.7
     },
     {
      "piece": "rock_12",
-     "x_m": 48.5,
+     "x_m": 108.5,
      "y_m": 113.1
     },
     {
      "piece": "rock_17",
-     "x_m": 28.1,
+     "x_m": 88.1,
      "y_m": 80.3
     },
     {
      "piece": "rock_11",
-     "x_m": 20.8,
+     "x_m": 80.8,
      "y_m": 108.9
-    },
-    {
-     "piece": "outcrop",
-     "x_m": 8.0,
-     "y_m": 100.0,
-     "mound": true
-    },
-    {
-     "piece": "rock_8",
-     "x_m": 110.9,
-     "y_m": 103.1
-    },
-    {
-     "piece": "rock_10",
-     "x_m": 95.3,
-     "y_m": 89.6
-    },
-    {
-     "piece": "rock_20",
-     "x_m": 98.0,
-     "y_m": 100.3
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 86.4,
-     "y_m": 113.7
-    },
-    {
-     "piece": "rock_10",
-     "x_m": 74.6,
-     "y_m": 81.4
-    },
-    {
-     "piece": "rock_6",
-     "x_m": 85.6,
-     "y_m": 92.4
-    },
-    {
-     "piece": "rock_7",
-     "x_m": 76.9,
-     "y_m": 91.8
-    },
-    {
-     "piece": "rock_1",
-     "x_m": 85.1,
-     "y_m": 86.4
-    },
-    {
-     "piece": "rock_12",
-     "x_m": 96.9,
-     "y_m": 84.1
     },
     {
      "piece": "outcrop",
@@ -7096,44 +7096,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 68,
-     "y_m": 140
+     "piece": "rock_8",
+     "x_m": 110.9,
+     "y_m": 163.1
     },
     {
-     "piece": "rock_1",
-     "x_m": 81,
-     "y_m": 134
+     "piece": "rock_10",
+     "x_m": 95.3,
+     "y_m": 149.6
     },
     {
-     "piece": "rock_2",
-     "x_m": 104,
-     "y_m": 142
+     "piece": "rock_20",
+     "x_m": 98.0,
+     "y_m": 160.3
     },
     {
      "piece": "rock_3",
-     "x_m": 112,
-     "y_m": 161
+     "x_m": 86.4,
+     "y_m": 173.7
     },
     {
-     "piece": "rock_4",
-     "x_m": 73,
-     "y_m": 167
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 90,
-     "y_m": 170
+     "piece": "rock_10",
+     "x_m": 74.6,
+     "y_m": 141.4
     },
     {
      "piece": "rock_6",
-     "x_m": 97,
-     "y_m": 128
+     "x_m": 85.6,
+     "y_m": 152.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 76.9,
+     "y_m": 151.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 85.1,
+     "y_m": 146.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 96.9,
+     "y_m": 144.1
     },
     {
      "piece": "outcrop",
-     "x_m": 100.0,
-     "y_m": 164.0,
+     "x_m": 68.0,
+     "y_m": 160.0,
      "mound": true
     },
     {
@@ -7178,44 +7188,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 188,
-     "y_m": 140
+     "piece": "rock_6",
+     "x_m": 204.3,
+     "y_m": 125.3
     },
     {
-     "piece": "rock_1",
-     "x_m": 201,
-     "y_m": 134
+     "piece": "rock_12",
+     "x_m": 231.4,
+     "y_m": 171.8
     },
     {
-     "piece": "rock_2",
-     "x_m": 224,
-     "y_m": 142
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 232,
-     "y_m": 161
-    },
-    {
-     "piece": "rock_4",
-     "x_m": 193,
-     "y_m": 167
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 210,
-     "y_m": 170
+     "piece": "rock_19",
+     "x_m": 190.9,
+     "y_m": 138.1
     },
     {
      "piece": "rock_6",
-     "x_m": 217,
-     "y_m": 128
+     "x_m": 199.4,
+     "y_m": 127.1
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 217.8,
+     "y_m": 135.8
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 229.3,
+     "y_m": 145.7
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 228.5,
+     "y_m": 173.1
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 208.1,
+     "y_m": 140.3
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 200.8,
+     "y_m": 168.9
     },
     {
      "piece": "outcrop",
-     "x_m": 220.0,
-     "y_m": 164.0,
+     "x_m": 188.0,
+     "y_m": 160.0,
      "mound": true
     }
    ],
@@ -7223,7 +7243,7 @@
     {
      "kind": "drum",
      "src": "light_oil_drum.webp",
-     "x_m": 67.2,
+     "x_m": 127.2,
      "y_m": 52,
      "live": true,
      "radius_m": 5.0
@@ -7231,7 +7251,7 @@
     {
      "kind": "drum",
      "src": "light_oil_drum.webp",
-     "x_m": 173.4,
+     "x_m": 233.4,
      "y_m": 8,
      "live": true,
      "radius_m": 5.0
@@ -7239,8 +7259,8 @@
     {
      "kind": "drum",
      "src": "light_oil_drum.webp",
-     "x_m": 201.7,
-     "y_m": 8,
+     "x_m": 21.7,
+     "y_m": 68,
      "live": true,
      "radius_m": 5.0
     },
@@ -7249,14 +7269,6 @@
      "src": "light_oil_drum.webp",
      "x_m": 167.8,
      "y_m": 68,
-     "live": true,
-     "radius_m": 5.0
-    },
-    {
-     "kind": "drum",
-     "src": "light_oil_drum.webp",
-     "x_m": 136.5,
-     "y_m": 128,
      "live": true,
      "radius_m": 5.0
     }
@@ -8418,15 +8430,15 @@
     ],
     [
      "scrub.1",
+     "wash.0",
      "scrub.0",
-     "scrub.1",
-     "scrub.0"
+     "wash.1"
     ],
     [
      "scrub.2",
+     "wash.1",
      "scrub.1",
-     "scrub.0",
-     "scrub.1"
+     "wash.0"
     ]
    ],
    "terrain": [
@@ -8549,6 +8561,160 @@
      "rough",
      "rough",
      "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "flat",
+     "rough",
+     "height",
+     "rough",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "height",
+     "flat",
+     "height",
+     "flat",
+     "rough",
+     "rough",
+     "rough"
+    ],
+    [
+     "flat",
+     "flat",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough"
+    ],
+    [
+     "rough",
+     "rough",
+     "rough",
+     "flat",
+     "rough",
+     "rough",
+     "rough",
+     "rough",
      "rough",
      "rough",
      "flat",
@@ -8564,88 +8730,22 @@
     ],
     [
      "rough",
-     "rough",
-     "flat",
      "flat",
      "rough",
-     "rough",
-     "rough",
-     "rough",
+     "height",
+     "flat",
+     "height",
      "flat",
      "rough",
      "rough",
      "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough"
-    ],
-    [
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough"
-    ],
-    [
      "rough",
      "flat",
      "rough",
      "height",
      "rough",
-     "flat",
-     "rough",
-     "rough",
      "height",
      "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "flat"
-    ],
-    [
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
      "rough",
      "rough",
      "rough"
@@ -8656,109 +8756,21 @@
      "rough",
      "rough",
      "rough",
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
      "rough",
      "rough",
      "flat",
      "rough",
      "rough",
      "flat",
-     "flat"
-    ],
-    [
-     "rough",
-     "rough",
+     "flat",
      "rough",
      "flat",
      "flat",
      "rough",
      "rough",
      "flat",
-     "flat",
      "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
      "rough"
-    ],
-    [
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "flat",
-     "flat"
-    ],
-    [
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough",
-     "flat",
-     "rough",
-     "rough",
-     "height",
-     "flat",
-     "rough",
-     "flat",
-     "rough",
-     "height",
-     "rough"
-    ],
-    [
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat",
-     "flat",
-     "rough",
-     "rough",
-     "rough",
-     "rough",
-     "flat",
-     "flat",
-     "rough",
-     "flat",
-     "flat"
     ]
    ],
    "cover": [
@@ -8988,44 +9000,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 68,
-     "y_m": 80
+     "piece": "rock_8",
+     "x_m": 110.9,
+     "y_m": 103.1
     },
     {
-     "piece": "rock_1",
-     "x_m": 81,
-     "y_m": 74
+     "piece": "rock_10",
+     "x_m": 95.3,
+     "y_m": 89.6
     },
     {
-     "piece": "rock_2",
-     "x_m": 104,
-     "y_m": 82
+     "piece": "rock_20",
+     "x_m": 98.0,
+     "y_m": 100.3
     },
     {
      "piece": "rock_3",
-     "x_m": 112,
-     "y_m": 101
+     "x_m": 86.4,
+     "y_m": 113.7
     },
     {
-     "piece": "rock_4",
-     "x_m": 73,
-     "y_m": 107
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 90,
-     "y_m": 110
+     "piece": "rock_10",
+     "x_m": 74.6,
+     "y_m": 81.4
     },
     {
      "piece": "rock_6",
-     "x_m": 97,
-     "y_m": 68
+     "x_m": 85.6,
+     "y_m": 92.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 76.9,
+     "y_m": 91.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 85.1,
+     "y_m": 86.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 96.9,
+     "y_m": 84.1
     },
     {
      "piece": "outcrop",
-     "x_m": 100.0,
-     "y_m": 104.0,
+     "x_m": 68.0,
+     "y_m": 100.0,
      "mound": true
     },
     {
@@ -9070,44 +9092,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 188,
-     "y_m": 80
+     "piece": "rock_6",
+     "x_m": 204.3,
+     "y_m": 65.3
     },
     {
-     "piece": "rock_1",
-     "x_m": 201,
-     "y_m": 74
+     "piece": "rock_12",
+     "x_m": 231.4,
+     "y_m": 111.8
     },
     {
-     "piece": "rock_2",
-     "x_m": 224,
-     "y_m": 82
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 232,
-     "y_m": 101
-    },
-    {
-     "piece": "rock_4",
-     "x_m": 193,
-     "y_m": 107
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 210,
-     "y_m": 110
+     "piece": "rock_19",
+     "x_m": 190.9,
+     "y_m": 78.1
     },
     {
      "piece": "rock_6",
-     "x_m": 217,
-     "y_m": 68
+     "x_m": 199.4,
+     "y_m": 67.1
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 217.8,
+     "y_m": 75.8
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 229.3,
+     "y_m": 85.7
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 228.5,
+     "y_m": 113.1
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 208.1,
+     "y_m": 80.3
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 200.8,
+     "y_m": 108.9
     },
     {
      "piece": "outcrop",
-     "x_m": 220.0,
-     "y_m": 104.0,
+     "x_m": 188.0,
+     "y_m": 100.0,
      "mound": true
     },
     {
@@ -9152,44 +9184,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 68,
-     "y_m": 140
+     "piece": "rock_6",
+     "x_m": 84.3,
+     "y_m": 125.3
     },
     {
-     "piece": "rock_1",
-     "x_m": 81,
-     "y_m": 134
+     "piece": "rock_12",
+     "x_m": 111.4,
+     "y_m": 171.8
     },
     {
-     "piece": "rock_2",
-     "x_m": 104,
-     "y_m": 142
-    },
-    {
-     "piece": "rock_3",
-     "x_m": 112,
-     "y_m": 161
-    },
-    {
-     "piece": "rock_4",
-     "x_m": 73,
-     "y_m": 167
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 90,
-     "y_m": 170
+     "piece": "rock_19",
+     "x_m": 70.9,
+     "y_m": 138.1
     },
     {
      "piece": "rock_6",
-     "x_m": 97,
-     "y_m": 128
+     "x_m": 79.4,
+     "y_m": 127.1
+    },
+    {
+     "piece": "rock_9",
+     "x_m": 97.8,
+     "y_m": 135.8
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 109.3,
+     "y_m": 145.7
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 108.5,
+     "y_m": 173.1
+    },
+    {
+     "piece": "rock_17",
+     "x_m": 88.1,
+     "y_m": 140.3
+    },
+    {
+     "piece": "rock_11",
+     "x_m": 80.8,
+     "y_m": 168.9
     },
     {
      "piece": "outcrop",
-     "x_m": 100.0,
-     "y_m": 164.0,
+     "x_m": 68.0,
+     "y_m": 160.0,
      "mound": true
     },
     {
@@ -9234,44 +9276,54 @@
      "mound": true
     },
     {
-     "piece": "rock_0",
-     "x_m": 188,
-     "y_m": 140
+     "piece": "rock_8",
+     "x_m": 230.9,
+     "y_m": 163.1
     },
     {
-     "piece": "rock_1",
-     "x_m": 201,
-     "y_m": 134
+     "piece": "rock_10",
+     "x_m": 215.3,
+     "y_m": 149.6
     },
     {
-     "piece": "rock_2",
-     "x_m": 224,
-     "y_m": 142
+     "piece": "rock_20",
+     "x_m": 218.0,
+     "y_m": 160.3
     },
     {
      "piece": "rock_3",
-     "x_m": 232,
-     "y_m": 161
+     "x_m": 206.4,
+     "y_m": 173.7
     },
     {
-     "piece": "rock_4",
-     "x_m": 193,
-     "y_m": 167
-    },
-    {
-     "piece": "rock_5",
-     "x_m": 210,
-     "y_m": 170
+     "piece": "rock_10",
+     "x_m": 194.6,
+     "y_m": 141.4
     },
     {
      "piece": "rock_6",
-     "x_m": 217,
-     "y_m": 128
+     "x_m": 205.6,
+     "y_m": 152.4
+    },
+    {
+     "piece": "rock_7",
+     "x_m": 196.9,
+     "y_m": 151.8
+    },
+    {
+     "piece": "rock_1",
+     "x_m": 205.1,
+     "y_m": 146.4
+    },
+    {
+     "piece": "rock_12",
+     "x_m": 216.9,
+     "y_m": 144.1
     },
     {
      "piece": "outcrop",
-     "x_m": 220.0,
-     "y_m": 164.0,
+     "x_m": 188.0,
+     "y_m": 160.0,
      "mound": true
     }
    ],
@@ -9279,24 +9331,8 @@
     {
      "kind": "drum",
      "src": "light_oil_drum.webp",
-     "x_m": 67.9,
+     "x_m": 127.9,
      "y_m": 68,
-     "live": true,
-     "radius_m": 5.0
-    },
-    {
-     "kind": "drum",
-     "src": "light_oil_drum.webp",
-     "x_m": 80.9,
-     "y_m": 172,
-     "live": true,
-     "radius_m": 5.0
-    },
-    {
-     "kind": "drum",
-     "src": "light_oil_drum.webp",
-     "x_m": 230.1,
-     "y_m": 172,
      "live": true,
      "radius_m": 5.0
     }

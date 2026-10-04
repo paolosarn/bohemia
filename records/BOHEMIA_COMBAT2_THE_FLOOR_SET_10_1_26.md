@@ -205,3 +205,11 @@ the lane gaps, its shadow east. landfill2(seed): benches 0-16 (capped soil, vent
 (open trash) with 2 m faces seen, bales (top/face pairs off his ramps), tyre stacks, the switchback haul road, the
 south litter fence; rows 0-1 'height', row 2 'rough'. Wired into the round-nine builder ('freeway', 'freewayo',
 'landfill'); 31 blocks, 5.1 MB WebP. Verified in the new fight (freeway, landfill; 0 errors).
+
+## ROUND SIXTEEN (10/4, rule 67): THE LINES RUN THROUGH
+
+Curves made periodic over one block (60 m): R5 shore waterline sin(TAU x) + sin(4 TAU x), wade band sin(2 TAU x),
+bathtub ring sin(2 TAU x), landfill haul road sin(TAU x) (TAU = 2 pi / 60); B.wash meander sin(2 pi t + .6) +
+sin(4 pi t) and width sin(2 pi t + 1.1); R4 scrub track sin(2 pi x / 60). The round-nine builder sets the desert
+and shore layouts explicitly so each wash runs its column's whole depth (and from the lake on the shore).
+31 blocks, 5.1 MB WebP. VOTE combat2-lines-run-through-10-4.

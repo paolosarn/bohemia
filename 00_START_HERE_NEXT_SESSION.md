@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (q) LATEST -- ROUND SIXTEEN SHIPPED (rule 67, lines run through): every
+curve crossing a block edge is periodic over 60 m (shore waterline/wade/ring, landfill haul road, scrub
+track, wash meander in its depth); the desert and shore boards' washes run the full depth (explicit layouts
+after BOARDS). 31 blocks, 5.1 MB. VOTE combat2-lines-run-through-10-4. NEXT: rule 69 is COMBAT's (the
+character bank in the fight); this lane: the shore's deep-water seam under the lighter wade band, night
+art per rule 70a's one light (lights data is in the manifest). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (p) LATEST -- ROUND FIFTEEN SHIPPED: the freeway and the landfill
 re-cut (tools/bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26.py: freeway2 with sound walls,
 median, overpass variant 'freewayo'; landfill2 with benches, bales, tyres, switchback, vents, flare);
