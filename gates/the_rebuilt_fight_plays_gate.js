@@ -56,7 +56,32 @@ async function fight(F, first) {
   const glided = await until(() => FIGHT_UI.zoom >= FIGHT_UI.near * 0.95 && !FIGHT_UI.glide, 8000);
   leg(glided, F.board + ': then it glides in on your line on the beat', await ev(() => FIGHT_UI.zoom.toFixed(3) + ' near ' + FIGHT_UI.near.toFixed(3)));
 
+  const man = await ev(() => Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE));
+  leg(man >= 96 && man <= 120, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands near his 112 box ***', man + ' css px tall (was 17 before round three)');
   if (F.taps) {
+    /* ONE MAN IS NOT A WALL, TWO ARE (rule 66), on a corridor cut through a column of houses */
+    const walls = await ev(() => {
+      const S = FIGHT.S, a = FIGHT.alive('you')[0], es = FIGHT.alive('them').slice(0, 2);
+      const keep = { terrain: S.terrain, solid: S.solid, cover: S.cover, cnt: S.coverCount, units: S.units.map(u => [u, u.x, u.y, u.fled]) };
+      S.terrain = S.terrain.map(r => r.map(() => 'flat')); S.solid = S.solid.map(r => r.map(() => false));
+      S.coverCount = S.coverCount.map(r => r.map(() => 0));
+      S.units.forEach(u => { if (u !== a && es.indexOf(u) < 0) u.fled = true; });
+      const cx0 = 10; for (let y = 0; y < S.h; y++) if (y !== 7 && y !== 8) S.terrain[y][cx0] = 'blocked';
+      a.x = cx0 - 3; a.y = 7;
+      const goal = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, 7)] !== undefined || f.best[f.key(cx0 + 3, 8)] !== undefined; };
+      es[0].x = cx0; es[0].y = 7; es[1].x = 0; es[1].y = 0;
+      const one = goal();
+      const own = FIGHT.reach(a, 99, true); const ownTile = own.best[own.key(cx0, 7)] === undefined;
+      es[1].x = cx0; es[1].y = 8;
+      const two = goal();
+      es[1].x = cx0 + 1; es[1].y = 8; es[0].x = cx0; es[0].y = 7;
+      const diag = FIGHT._t.squeezes(cx0, 8, cx0 + 1, 7);
+      S.terrain = keep.terrain; S.solid = keep.solid; S.coverCount = keep.cnt; keep.units.forEach(k => { k[0].x = k[1]; k[0].y = k[2]; k[0].fled = k[3]; });
+      return { one, two, ownTile, diag };
+    });
+    leg(walls.ownTile, 'a man\'s tile is never walked through');
+    leg(walls.one, 'ONE MAN IS NOT A WALL: a lone man in a two-wide gap can be walked past (at the price of his free swing)');
+    leg(!walls.two && walls.diag, 'TWO ARE: two men side by side close the gap, and nobody squeezes diagonally between two men');
     /* TWO FINGERS: pinch the board out to the whole, then back in (rule 62: the pinch is the map's) */
     const cdp = await p.context().newCDPSession(p);
     const pinch = async (from, to) => {
@@ -81,12 +106,12 @@ async function fight(F, first) {
     /* a man boxed in by his own line has nowhere to go: a finger ends his turn and the next of yours is tried */
     for (let tries = 0; tries < 12; tries++) {
       await until(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide; }, 30000);
-      const free = await ev(() => { const u = FIGHT.current(), f = FIGHT.reach(u); return Object.keys(f.best).length > 1; });
+      const free = await ev(() => { const u = FIGHT.current(), f = FIGHT.reach(u, null, true); return Object.keys(f.best).length > 1; });
       if (free) break;
       await p.tap('#bend'); await p.waitForTimeout(150);
     }
     const plan = await ev(() => {
-      const u = FIGHT.current(), f = FIGHT.reach(u); let best = null;
+      const u = FIGHT.current(), f = FIGHT.reach(u, null, true); let best = null;
       Object.keys(f.best).forEach(k => { k = +k; const x = k % FIGHT.S.w, y = Math.floor(k / FIGHT.S.w);
         if ((x !== u.x || y !== u.y) && (!best || y < best.y || (y === best.y && f.best[k] > best.c))) best = { x, y, c: f.best[k] }; });
       FIGHT_UI.cx = (best.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (best.y + .5) * FIGHT_UI.th;   /* the tile the finger will press is on the glass */
@@ -165,6 +190,10 @@ async function fight(F, first) {
   console.log('  ' + F.board + ': ' + R.c.hit + ' hits, ' + R.c.miss + ' misses, ' + R.c.head + ' to the head, ' + R.c.free + ' free swings, '
     + R.c.morale + ' morale moves, ' + R.c.injury + ' injuries, ' + R.c.skill + ' perk skills used, ' + R.c.down + ' fell');
   const words = await ev(() => window.__words);
+  const noLog = await ev(() => !document.getElementById('feed') && !/ (hits|misses) /.test(document.getElementById('say').textContent));
+  leg(noLog, F.board + ': NO COMBAT LOG ON THE SCREEN (rule 67): the bar never prints who hit whom');
+  const recap = await ev(() => { const rows = document.querySelectorAll('#over table tr'); return { rows: rows.length - 1, xp: Array.from(rows).slice(1).some(r => /\+[1-9]/.test(r.children[4].textContent)) }; });
+  leg(recap.rows === 12 && (R.result !== 'won' || recap.xp), F.board + ': *** THE RECAP (rule 67): every man of yours, his kills, blood drawn, blood taken, experience ***', recap.rows + ' rows' + (recap.xp ? ', experience earned' : ''));
   leg(words === 0, F.board + ': *** NOT ONE WORD WAS WRITTEN ON THE GROUND THE WHOLE FIGHT (rule 46f) ***: names, misses, morale, injuries are in the bar', words + ' words on the fight canvas');
   if (first) {
     const many = await ev(() => { const out = []; for (let i = 0; i < 12; i++) { SEED = 1000 + i; FIGHT.setup({}); out.push(FIGHT.S.boardDef.blocks.map(r => r.join(',')).join('/') + '|' + FIGHT.S.boardDef.family); } return out; });
@@ -189,9 +218,10 @@ async function sweep() {
     const t0 = Date.now(); let o = null;
     for (;;) {
       await d.page.waitForTimeout(300);
-      o = await d.page.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round ? { over: FIGHT.S.over, r: FIGHT.S.round, kinds: FIGHT.S.boardDef.kinds } : null);
+      o = await d.page.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round ? { over: FIGHT.S.over, r: FIGHT.S.round, kinds: FIGHT.S.boardDef.kinds, skills: FIGHT.S.log.filter(e => e.t === 'skill').length } : null);
       if ((o && (o.over || o.r > 40)) || Date.now() - t0 > 90000) break;
     }
+    if (o) all.skill += o.skills;
     res.push({ k, ok: !!(o && o.over && o.kinds.indexOf(k) >= 0) && d.errs.length === 0, r: o && o.r, err: d.errs[0] });
     await d.close();
   }
@@ -206,7 +236,7 @@ async function sweep() {
   leg(all.head > 0, 'heads get hit for half again (wiki: base 25%, x1.5)', all.head);
   leg(all.morale > 0, 'nerve moves: the morale ladder ran in the fight', all.morale);
   leg(all.injury > 0, 'injuries land apart from hitpoints', all.injury);
-  leg(all.skill > 0, 'the brains reach for the skills a perk unlocks (rally, recover, taunt, sidestep, plant the feet, go first)', all.skill);
+  leg(all.skill > 0, 'the brains reach for the skills a perk unlocks (rally, recover, taunt, sidestep, plant the feet, go first), across the twelve fights', all.skill);
   leg(all.free > 0, 'leaving a man\'s reach draws his free swing (zone of control)', all.free);
   console.log('=== THE REBUILT FIGHT PLAYS GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   process.exit(fail ? 1 : 0);

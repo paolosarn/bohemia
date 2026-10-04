@@ -51,7 +51,17 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #order .now{outline:2px solid var(--ink);outline-offset:-2px}
 #bot{position:fixed;left:0;right:0;bottom:0;padding:6px 8px max(8px,env(safe-area-inset-bottom));
   background:linear-gradient(rgba(21,17,13,.86),var(--plate2));border-top:1px solid var(--line);z-index:4}
-#card{display:flex;gap:8px;align-items:center;min-height:42px}
+#card{display:flex;gap:8px;align-items:center;min-height:30px}
+#picons{display:flex;gap:3px;flex:1;flex-wrap:wrap}
+#picons canvas{border-radius:3px}
+#drawer{position:fixed;left:8px;right:8px;display:none;z-index:5;background:rgba(21,17,13,.96);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:11px}
+#drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #241d16}
+#drawer .p{display:flex;gap:6px;align-items:center;margin-top:4px;color:var(--gold)}
+#over table{width:100%;border-collapse:collapse;font-size:11px;margin-top:6px}
+#over td,#over th{padding:4px 3px;text-align:right;border-bottom:1px solid #2a221a}
+#over th{color:var(--dim);font-weight:400}
+#over td:first-child,#over th:first-child{text-align:left}
+#over .lv{color:var(--gold);font-weight:700}
 #card .nm{font-weight:700;font-size:13px;min-width:74px}
 #card .bars{flex:1;display:grid;grid-template-columns:auto 1fr auto;gap:2px 6px;align-items:center;font-size:10px;color:var(--dim)}
 .bar{height:6px;background:#2a221a;border-radius:2px;overflow:hidden}
@@ -59,8 +69,6 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #ap{display:flex;gap:2px;margin-top:4px}
 #ap i{width:10px;height:6px;border-radius:1px;background:#2a221a}
 #ap i.on{background:var(--gold)}
-#feed{font-size:10px;line-height:1.35;min-height:41px;margin-top:4px;white-space:nowrap;overflow:hidden}
-#feed div{overflow:hidden;text-overflow:ellipsis}
 #say{font-size:11px;color:var(--dim);min-height:15px;margin:4px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #btns{display:flex;gap:6px}
 #skills{display:flex;gap:6px;margin-bottom:6px}
@@ -69,7 +77,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   border-radius:6px;font:inherit;font-size:11px;font-weight:700;letter-spacing:.03em}
 #skills button:disabled{opacity:.35}
 #skills button.on{border-color:#f0d296;background:#3d3420}
-#btns button{flex:1;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
+#btns button{flex:1;min-width:0;padding:0 2px;font-size:12px;min-height:44px;background:linear-gradient(#33281e,#1f1812);color:var(--ink);
   border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700;letter-spacing:.05em}
 #btns button:disabled{opacity:.35}
 #btns button.on{border-color:var(--gold);color:var(--gold)}
@@ -85,18 +93,18 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <canvas id="cv"></canvas>
 <div id="top"><div id="round">THE FIGHT</div><div id="order"></div></div>
 <div id="bot">
-  <div id="card"><div class="nm" id="cnm">-</div><div class="bars" id="cbars"></div></div>
-  <div id="ap"></div>
-  <div id="feed"></div>
+  <div id="card"><div class="nm" id="cnm">-</div><div id="picons"></div><div id="ap"></div></div>
   <div id="say"></div>
   <div id="skills"></div>
   <div id="btns">
-    <button id="bwait">WAIT</button>
+    <button id="bstrike" disabled>STRIKE</button>
     <button id="breload">RELOAD</button>
-    <button id="bend">END TURN</button>
+    <button id="bwait">WAIT</button>
+    <button id="bend">END</button>
     <button id="bauto">AUTO</button>
   </div>
 </div>
+<div id="drawer"></div>
 <div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
 <div id="load">LOADING THE GROUND</div>
 
@@ -226,10 +234,12 @@ const FIGHT = (function () {
     u.injuries.forEach(function (j) { if (j.effects && j.effects.extra_ap_per_tile_moved) c += j.effects.extra_ap_per_tile_moved; });
     return c;
   }
-  /* a diagonal step may not squeeze between two house corners */
+  /* ONE MAN IS NOT A WALL, TWO ARE (rule 66): a man's tile is never walked through, and a diagonal
+     step may not squeeze between two of anything that fills a tile: two houses, two men, a man and a house */
+  function wallPiece(x, y) { return !passable(x, y) || !!unitAt(x, y); }
   function squeezes(ax, ay, bx, by) {
     if (ax === bx || ay === by) return false;
-    return !passable(bx, ay) && !passable(ax, by);
+    return wallPiece(bx, ay) && wallPiece(ax, by);
   }
   function line(a, b) {
     const pts = []; let x0 = a.x, y0 = a.y; const x1 = b.x, y1 = b.y;
@@ -403,23 +413,24 @@ const FIGHT = (function () {
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
-    S.solid = []; S.cover = [];
-    for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); } }
+    S.solid = []; S.cover = []; S.coverCount = [];
+    for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); S.coverCount.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); S.coverCount[y].push(0); } }
     (B.cover || []).forEach(function (c) {
       const tx = Math.floor(c.x_m / G.tile_metres), ty = Math.floor(c.y_m / G.tile_metres);
       if (!inBoard(tx, ty)) return;
       const def = G.cover[c.piece] || G.cover_extra[c.piece] || {};
       S.cover[ty][tx] = c.piece;
+      S.coverCount[ty][tx]++;
       if (def.blocks_move) S.solid[ty][tx] = true;
     });
   }
   /* one field: some tile of your start row walks to some tile of theirs */
   function connected() {
-    const rows = DB.ground.start_rows, seen = {}, q = [];
-    for (let x = 0; x < S.w; x++) if (passable(x, rows[1])) { seen[rows[1] * S.w + x] = true; q.push({ x: x, y: rows[1] }); }
+    const cols = R('ours.start_cols'), seen = {}, q = [];
+    for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { seen[y * S.w + cols[0]] = true; q.push({ x: cols[0], y: y }); }
     while (q.length) {
       const n = q.shift();
-      if (n.y === rows[0]) return true;
+      if (n.x === cols[1]) return true;
       DIRS.forEach(function (d) { const x = n.x + d[0], y = n.y + d[1];
         if (passable(x, y) && !squeezes(n.x, n.y, x, y) && !seen[y * S.w + x]) { seen[y * S.w + x] = true; q.push({ x: x, y: y }); } });
     }
@@ -442,33 +453,35 @@ const FIGHT = (function () {
     const crewUnits = crew.map(crewUnit);
     const band = (opts.band || R('ours.first_band'));
     const bandUnits = band.map(enemyUnit);
-    const rows = G.start_rows;
-    place(crewUnits, rows[1], 1);
-    place(bandUnits, rows[0], -1);
+    /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
+    const cols = R('ours.start_cols');
+    place(crewUnits, cols[0], -1);
+    place(bandUnits, cols[1], 1);
     newRound();
   }
   /* the two lines, melee in front, shooters behind; the lines are the board's start rows,
      which COMBAT TWO set five tiles apart (deployment.min_gap_between_lines_hexes) */
-  function place(units, row, back) {
+  /* the two lines are COLUMNS: melee in front, shooters one behind, filled from the middle row out */
+  function place(units, col, back) {
     const front = units.filter(function (u) { return !isRanged(u.weapon); });
     const rear = units.filter(function (u) { return isRanged(u.weapon); });
-    const mid = (S.w - 1) / (1 + 1);
-    function cols(y) {
+    const mid = (S.h - 1) / (1 + 1);
+    function rowsIn(x) {
       const c = [];
-      for (let x = 0; x < S.w; x++) if (passable(x, y) && !unitAt(x, y)) c.push(x);
+      for (let y = 0; y < S.h; y++) if (passable(x, y) && !unitAt(x, y)) c.push(y);
       return c.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
     }
-    function fill(list, y0) {
-      let y = y0;
-      while (list.length && y >= 0 && y < S.h) {
-        const c = cols(y);
-        while (list.length && c.length) { const u = list.shift(); u.x = c.shift(); u.y = y; }
-        y += back;
+    function fill(list, x0) {
+      let x = x0;
+      while (list.length && x >= 0 && x < S.w) {
+        const c = rowsIn(x);
+        while (list.length && c.length) { const u = list.shift(); u.y = c.shift(); u.x = x; }
+        x += back;
       }
     }
-    fill(front, row);
-    fill(rear, row + back);
-    if (front.length) fill(front, row + back);
+    fill(front, col);
+    fill(rear, col + back);
+    if (front.length) fill(front, col + back);
   }
 
   /* ---------------- THE ROUND ---------------- */
@@ -534,9 +547,11 @@ const FIGHT = (function () {
       return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= R('zone_of_control.radius_hexes');
     });
   }
-  /* every tile u can reach on its AP this turn; a path stops on entering a zone of control */
-  function reach(u, budget) {
-    budget = budget === undefined ? u.ap : budget;
+  /* every tile u can reach on its AP this turn. through=false (the brains): a path stops on entering a
+     zone of control. through=true (your finger): a path may walk on past a lone man, and each tile it
+     leaves inside his reach costs his free swing, which moveTo rolls (the wiki's zone of control). */
+  function reach(u, budget, through) {
+    budget = budget === undefined || budget === null ? u.ap : budget;
     const key = function (x, y) { return y * S.w + x; };
     const best = {}; const prev = {}; const open = [{ x: u.x, y: u.y, c: 0 }];
     best[key(u.x, u.y)] = 0;
@@ -544,7 +559,7 @@ const FIGHT = (function () {
       open.sort(function (a, b) { return a.c - b.c; });
       const n = open.shift();
       if (n.c > best[key(n.x, n.y)]) continue;
-      if ((n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
+      if (!through && (n.x !== u.x || n.y !== u.y) && zocOn(u, n.x, n.y).length) continue;
       DIRS.forEach(function (d) {
         const x = n.x + d[0], y = n.y + d[1];
         if (!passable(x, y) || unitAt(x, y) || squeezes(n.x, n.y, x, y)) return;
@@ -562,9 +577,9 @@ const FIGHT = (function () {
     while (c !== field.key(u.x, u.y)) { out.unshift({ x: c % S.w, y: Math.floor(c / S.w) }); c = field.prev[c]; }
     return out;
   }
-  function moveTo(u, x, y) {
+  function moveTo(u, x, y, through) {
     if (S.over || current() !== u) return false;
-    const p = pathTo(u, x, y); if (!p || !p.length) return false;
+    const p = pathTo(u, x, y, through ? reach(u, null, true) : null); if (!p || !p.length) return false;
     for (let i = 0; i < p.length; i++) {
       const s = p[i], cost = stepCost(u, u.x, u.y, s.x, s.y);
       if (cost > u.ap) break;
@@ -620,7 +635,7 @@ const FIGHT = (function () {
     if (!isRanged(w)) {
       let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct') * loneMult(a) * overMult(a);
       if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
-      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus');
+      let df = t.mdef + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense');
       if (t.reachStacks) df += t.reachStacks * perkRow('reach_advantage').numbers.melee_defense_per_stack;
       const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
       const bs = PK(a, 'backstabber'), ud = PK(t, 'underdog');
@@ -635,7 +650,7 @@ const FIGHT = (function () {
     } else {
       const nightM = S.night ? R('hit_chance.night.multiplier') : 1;
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
-      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus');
+      let df = t.rdef + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense');
       const an = PK(t, 'anticipation');
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
       df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightM * loneMult(t);
@@ -658,6 +673,11 @@ const FIGHT = (function () {
     if (la < lt && !isRanged(w)) { ch += R('hit_chance.height.lower_attacker_penalty'); parts.push('below'); }
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
+  }
+  /* CARS RAISE A TILE'S DEFENCE BY COUNT (rule 67): the dead cars, walls and sheds on the tile he stands on */
+  function coverDef(t, k) {
+    const cd = R('ours.cover_defence'), n = Math.min(cd.max_pieces, S.coverCount[t.y][t.x]);
+    return n * (k === 'melee_defense' ? cd.melee_per_piece : cd.ranged_per_piece);
   }
   /* the car door, and Shield Expert's quarter more on it */
   function shieldDef(t, k) {
@@ -730,6 +750,7 @@ const FIGHT = (function () {
     const ra = PK(a, 'reach_advantage');
     if (ra && a.weapon.hands === 1 + 1 && !isRanged(a.weapon)) a.reachStacks = Math.min(ra.max_stacks, a.reachStacks + 1);
     if (r.head) t.armH = Math.max(0, t.armH - r.armour); else t.armB = Math.max(0, t.armB - r.armour);
+    a.dealt = (a.dealt || 0) + Math.min(r.hp, Math.max(0, t.hp)); t.taken = (t.taken || 0) + Math.min(r.hp, Math.max(0, t.hp));
     t.hp -= r.hp;
     const mace = R('fatigue.on_struck_by_mace');
     t.fat = Math.min(fatMax(t), t.fat + (a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck')));
@@ -766,6 +787,8 @@ const FIGHT = (function () {
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else { const d = R('ours.struck_down_laid_up_days'); t.down = true; t.laidUp = rint(d[0], d[1]); emit({ t: 'down', id: t.id, days: t.laidUp }); }
+    if (a) a.kills = (a.kills || 0) + 1;
+    if (t.side === 'them') experience(t, a);
     if (a && onField(a)) {
       const kf = PK(a, 'killing_frenzy'); if (kf) a.frenzy = kf.duration_turns;
       const bz = PK(a, 'berserk');
@@ -773,6 +796,20 @@ const FIGHT = (function () {
     }
     ripple(t, a, 'dies');
   }
+  /* a kill's experience: 20% to the killer, 80% shared by the whole party, all less the wiki's flat 15% */
+  function experience(t, a) {
+    const xs = R('experience.kill_split'), whole = t.xp * (1 + R('experience.global_modifier'));
+    const party = S.units.filter(function (u) { return u.side === 'you'; });
+    party.forEach(function (u) { u.xpGained = (u.xpGained || 0) + whole * xs.shared_among_party / party.length; });
+    if (a && a.side === 'you') a.xpGained = (a.xpGained || 0) + whole * xs.killer;
+  }
+  /* the level a man ends on, from the wiki's table of total experience */
+  function levelFor(totalXp) {
+    const tb = R('experience.level_table_total_xp'); let lv = 1;
+    Object.keys(tb).forEach(function (k) { if (totalXp >= tb[k] && Number(k) > lv) lv = Number(k); });
+    return lv;
+  }
+  function xpAt(level) { const tb = R('experience.level_table_total_xp'); return level <= 1 ? 0 : tb[String(level)]; }
   /* a death or a man running moves everyone's nerve, nearer more (Morale page) */
   function distTerm(table, d) {
     const tb = R('morale.distance_tables')[table];
@@ -1066,9 +1103,9 @@ const FIGHT = (function () {
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
-    canUse: canUse, useSkill: useSkill, aiStep_: null, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
+    canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     _t: { PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
-      makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow }
+      makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
 </script>
@@ -1082,6 +1119,7 @@ const cv = document.getElementById('cv'), cx = cv.getContext('2d');
 const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
   anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0 };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
+const MAN_OF_TILE = 0.86, MAN_IDLE = 104;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
 function resize() {
@@ -1094,8 +1132,9 @@ function resize() {
 function fitStops() {
   const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
   UI.far = Math.min(W / bw, ah / bh);           /* the whole board on the glass (rule 62) */
-  UI.near = Math.max(UI.far, W / (UI.tw * 5.5)); /* about five houses across */
-  UI.max = Math.max(UI.near, W / (UI.tw * 2.2));
+  /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box) */
+  UI.near = Math.max(UI.far, MAN_IDLE / (MAN_OF_TILE * UI.th));
+  UI.max = UI.near * 1.6;
 }
 function load(src) {
   return new Promise(function (ok) { const i = new Image(); i.onload = function () { ok(i); }; i.onerror = function () { ok(null); }; i.src = src; });
@@ -1195,19 +1234,17 @@ function startAnim(a) {
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
-    say((e.free ? 'FREE SWING: ' : '') + u.name + ' ' + (e.hit ? (e.head ? 'hits ' + t.name + ' in the head' : 'hits ' + t.name) : 'misses ' + t.name) + ' (' + e.chance + '%)');
   }
   if (a.k === 'note') {
     const u = FIGHT.byId(e.id);
-    if (e.t === 'dead') { SND.fall(); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); say(u.name + (u.side === 'you' ? ' is dead.' : ' is down.')); }
-    if (e.t === 'down') { SND.fall(); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); say(u.main ? 'You are down. You get back up after.' : u.name + ' is struck down. Laid up ' + e.days + ' days.'); }
-    if (e.t === 'fled') { SND.flee(); say(u.name + ' runs off the board.'); }
+    if (e.t === 'dead') { SND.fall(); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); }
+    if (e.t === 'down') { SND.fall(); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); }
+    if (e.t === 'fled') SND.flee();
     if (e.t === 'morale') { pop(u, e.to.toLowerCase(), e.to === 'Confident' ? '#a8d08a' : '#e0c06a'); if (e.to === 'Fleeing') SND.flee(); }
     if (e.t === 'injury') pop(u, e.name.toLowerCase(), '#e0a0d0');
-    if (e.t === 'reload') say(u.name + ' reloads.');
-    if (e.t === 'held') say(u.name + ' is held in place.');
+
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
-    if (e.t === 'nine') { pop(u, perkName('nine_lives'), '#f0d296'); say(u.name + ' should be down. He is not.'); }
+    if (e.t === 'nine') pop(u, perkName('nine_lives'), '#f0d296', true);
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
     if (e.t === 'skill') pop(u, '', '#9cc3e8', false, u.name + ' uses ' + perkName(e.skill) + (e.to ? ' on ' + nameOf(e.to) : '') + '.');
   }
@@ -1218,11 +1255,8 @@ function pop(u, text, col, big, line) {
   feed(line || u.name + ': ' + text, col);
 }
 /* the bar's feed: the last three things that happened, in words, where words belong */
-function feed(text, col) {
-  UI.feedLines = (UI.feedLines || []).concat([{ text: text, col: col || '#c8bda8' }]).slice(-3);
-  const f = document.getElementById('feed'); f.textContent = '';
-  UI.feedLines.forEach(function (l) { const d = document.createElement('div'); d.textContent = l.text; d.style.color = l.col; f.appendChild(d); });
-}
+/* the fight's words are kept, never shown on the screen (rule 67: no combat log); the recap is where they land */
+function feed(text, col) { UI.feedLines = (UI.feedLines || []).concat([{ text: text, col: col || '#c8bda8' }]).slice(-50); }
 
 /* ---------------- the director: whose turn, what happens next ---------------- */
 function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
@@ -1274,11 +1308,11 @@ function draw(now) {
   const busy = UI.anim.length > 0;
   /* reach lit: where the active man can step, and who he can hit */
   if (u && crewControlled(u) && !busy && !S.over) {
-    const f = FIGHT.reach(u);
+    const f = FIGHT.reach(u, null, true);
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
       if (x === u.x && y === u.y) return;
-      cx.fillStyle = 'rgba(217,168,90,.16)'; cx.fillRect(sx(x * UI.tw) + 1, sy(y * UI.th) + 1, tw - 2, th - 2);
+      cx.fillStyle = FIGHT.zocOn(u, x, y).length ? 'rgba(200,110,70,.18)' : 'rgba(217,168,90,.16)'; cx.fillRect(sx(x * UI.tw) + 1, sy(y * UI.th) + 1, tw - 2, th - 2);
     });
     S.units.forEach(function (t) {
       if (!FIGHT.canStrike(u, t) || !FIGHT.sideSees('you', t)) return;
@@ -1325,52 +1359,185 @@ function draw(now) {
 }
 /* the fallen stay where they fell: a body on the ground, no word over it */
 function drawBody(v, tw, th) {
-  const G = DB.ground, X = sx((v.x + .5) * UI.tw), Y = sy((v.y + .62) * UI.th);
-  const len = Math.max(6, 1.8 * G.px_per_metre * (UI.tw / G.tile_px[0]) * UI.zoom * 1.6);
-  cx.save(); cx.translate(X, Y); cx.rotate(v.side === 'you' ? -.35 : .35);
-  cx.fillStyle = 'rgba(0,0,0,.4)'; cx.beginPath(); cx.ellipse(0, len * .08, len * .62, len * .2, 0, 0, Math.PI * 2); cx.fill();
-  cx.fillStyle = v.side === 'you' ? '#2b2a26' : '#3b1d18'; cx.fillRect(-len * .45, -len * .1, len * .7, len * .2);
-  cx.fillStyle = '#7d6552'; cx.fillRect(len * .25, -len * .09, len * .18, len * .18);
-  if (v.dead) { cx.fillStyle = 'rgba(110,20,14,.55)'; cx.beginPath(); cx.ellipse(-len * .05, len * .12, len * .32, len * .1, 0, 0, Math.PI * 2); cx.fill(); }
+  const X = sx((v.x + .5) * UI.tw), Y = sy((v.y + .82) * UI.th);
+  const len = Math.max(6, th * MAN_OF_TILE * .9);
+  cx.save(); cx.translate(X, Y); cx.rotate(v.side === 'you' ? -.12 : .12);
+  cx.fillStyle = 'rgba(0,0,0,.45)'; cx.beginPath(); cx.ellipse(0, len * .04, len * .5, len * .12, 0, 0, Math.PI * 2); cx.fill();
+  cx.fillStyle = v.side === 'you' ? '#26241f' : '#3a1b16'; cx.fillRect(-len * .4, -len * .09, len * .62, len * .16);
+  cx.fillStyle = '#1a1714'; cx.fillRect(-len * .46, -len * .07, len * .12, len * .12);
+  cx.fillStyle = '#8a6c56'; cx.beginPath(); cx.ellipse(len * .3, -len * .01, len * .08, len * .07, 0, 0, Math.PI * 2); cx.fill();
+  if (v.dead) { cx.fillStyle = 'rgba(105,18,12,.6)'; cx.beginPath(); cx.ellipse(len * .05, len * .07, len * .3, len * .07, 0, 0, Math.PI * 2); cx.fill(); }
   cx.restore();
 }
 /* where a man is drawn, mid-step included */
 function dx(v) { if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
 function dy(v) { if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
+/* A MAN, drawn at most of a house tile tall (rule 66: 'the characters larger'): boots, legs, a long coat cut
+   like a runway (rule 9/4), arms, a head with hair, the weapon of his job; ours in charcoal, theirs in oxblood;
+   he faces the man he is fighting. Bars above him: armour, then health (rule 67: bars above the people). */
+function skinOf(v) { const k = (v.id.charCodeAt(1) * 7 + v.name.length * 13) % 4; return ['#b08868', '#8c6a52', '#c79c7c', '#6e5040'][k]; }
 function drawMan(v, tw, th) {
-  const G = DB.ground, X = sx((dx(v) + .5) * UI.tw), Y = sy((dy(v) + .62) * UI.th);
-  const lvl = FIGHT.level(v.x, v.y) ? th * .18 : 0;
-  /* a man at his real size against a house tile (rule 37a: tiny next to buildings), never under 7 px */
-  const hgt = Math.max(7, 1.8 * G.px_per_metre * (UI.tw / G.tile_px[0]) * UI.zoom * 1.6);
-  const base = Math.max(4, tw * .2);
-  const you = v.side === 'you';
-  cx.fillStyle = 'rgba(0,0,0,.45)'; cx.beginPath(); cx.ellipse(X, Y - lvl, base, base * .45, 0, 0, Math.PI * 2); cx.fill();
-  cx.strokeStyle = you ? '#d9a85a' : '#c4553f'; cx.lineWidth = Math.max(1.5, tw * .025);
-  cx.beginPath(); cx.ellipse(X, Y - lvl, base, base * .45, 0, 0, Math.PI * 2); cx.stroke();
-  const top = Y - lvl - hgt;
-  const flee = v.morale === 'Fleeing';
-  cx.fillStyle = flee ? '#6b6155' : (you ? '#2b2a26' : '#3b1d18');
-  cx.fillRect(X - hgt * .16, top + hgt * .28, hgt * .32, hgt * .42);       /* coat */
-  cx.fillStyle = '#1a1714'; cx.fillRect(X - hgt * .14, top + hgt * .7, hgt * .1, hgt * .3); cx.fillRect(X + hgt * .04, top + hgt * .7, hgt * .1, hgt * .3);
-  cx.fillStyle = '#b59478'; cx.fillRect(X - hgt * .1, top + hgt * .05, hgt * .2, hgt * .22); /* head */
-  cx.fillStyle = you ? '#d9a85a' : '#c4553f'; cx.fillRect(X - hgt * .16, top + hgt * .28, hgt * .32, hgt * .06); /* band */
-  cx.strokeStyle = '#8a8378'; cx.lineWidth = Math.max(1, hgt * .05);
-  cx.beginPath(); cx.moveTo(X + hgt * .16, top + hgt * .45); cx.lineTo(X + hgt * .38, top + hgt * (FIGHT.isRanged(v.weapon) ? .4 : .18)); cx.stroke();
-  if (v.shield) { cx.fillStyle = '#5a5f63'; cx.fillRect(X - hgt * .34, top + hgt * .32, hgt * .14, hgt * .34); }
-  /* his numbers, once he is big enough to read them */
-  if (tw > 46) {
-    const bw = Math.min(tw * .7, 70), bx = X - bw / 2, by = top - 9;
-    cx.fillStyle = 'rgba(0,0,0,.6)'; cx.fillRect(bx - 1, by - 1, bw + 2, 8);
-    cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * (v.armB / Math.max(1, v.armBMax || 1)), 2.5);
+  const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
+  const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
+  const h = Math.max(7, th * MAN_OF_TILE), you = v.side === 'you', flee = v.morale === 'Fleeing';
+  const Y = feet - lvl;
+  const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
+    .sort(function (a, b) { return Math.abs(a.x - v.x) + Math.abs(a.y - v.y) - Math.abs(b.x - v.x) - Math.abs(b.y - v.y); })[0];
+  const face = foe ? (foe.x >= v.x ? 1 : -1) : (you ? 1 : -1);
+  const walking = UI.anim.length && UI.anim[0].k === 'step' && UI.anim[0].e.id === v.id;
+  const swing = walking ? Math.sin(performance.now() / 70) * h * .04 : 0;
+  const coat = flee ? '#5d564d' : you ? '#24231f' : '#3d1a15', trim = you ? '#d9a85a' : '#c4553f', ink = 'rgba(0,0,0,.55)';
+  /* the ring he stands in */
+  const base = Math.max(4, Math.min(tw * .4, h * .36));
+  cx.fillStyle = 'rgba(0,0,0,.42)'; cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.fill();
+  cx.strokeStyle = trim; cx.lineWidth = Math.max(1.5, h * .022); cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.stroke();
+  if (FIGHT.current() === v) { cx.strokeStyle = 'rgba(240,210,150,.85)'; cx.lineWidth = Math.max(1, h * .012); cx.beginPath(); cx.ellipse(X, Y, base * 1.18, base * .44, 0, 0, Math.PI * 2); cx.stroke(); }
+  cx.save(); cx.translate(X, Y); cx.scale(face, 1);
+  cx.lineJoin = 'round'; cx.lineCap = 'round';
+  const part = function (pts, fill) { cx.beginPath(); pts.forEach(function (p, i) { (i ? cx.lineTo : cx.moveTo).call(cx, p[0] * h, p[1] * h); }); cx.closePath(); cx.fillStyle = fill; cx.fill(); cx.strokeStyle = ink; cx.lineWidth = Math.max(.8, h * .014); cx.stroke(); };
+  /* legs and boots */
+  part([[-.09, -.46], [-.02, -.46], [-.03 + swing / h, -.06], [-.1 + swing / h, -.06]], '#1b1916');
+  part([[.02, -.46], [.09, -.46], [.1 - swing / h, -.06], [.03 - swing / h, -.06]], '#1f1c19');
+  part([[-.12 + swing / h, -.07], [-.02 + swing / h, -.07], [0 + swing / h, 0], [-.13 + swing / h, 0]], '#0e0d0c');
+  part([[.02 - swing / h, -.07], [.12 - swing / h, -.07], [.15 - swing / h, 0], [.02 - swing / h, 0]], '#0e0d0c');
+  /* the back arm, the coat (long, cut past the knee), the trim */
+  part([[-.14, -.76], [-.08, -.76], [-.1, -.5], [-.15, -.5]], coat);
+  part([[-.15, -.79], [.15, -.79], [.17, -.3], [.06, -.24], [-.12, -.27], [-.18, -.32]], coat);
+  part([[-.15, -.79], [.15, -.79], [.13, -.74], [-.13, -.74]], trim);
+  cx.fillStyle = 'rgba(255,240,220,.07)'; cx.fillRect(-.04 * h, -.74 * h, .05 * h, .45 * h);
+  /* the head: skin, hair, the eye line */
+  part([[-.035, -.82], [.035, -.82], [.035, -.79], [-.035, -.79]], skinOf(v));
+  cx.beginPath(); cx.ellipse(.01 * h, -.885 * h, .068 * h, .078 * h, 0, 0, Math.PI * 2); cx.fillStyle = skinOf(v); cx.fill(); cx.strokeStyle = ink; cx.lineWidth = Math.max(.8, h * .014); cx.stroke();
+  cx.beginPath(); cx.ellipse(-.005 * h, -.925 * h, .07 * h, .045 * h, 0, Math.PI, 0); cx.fillStyle = '#16110e'; cx.fill();
+  cx.fillStyle = '#1b1410'; cx.fillRect(.035 * h, -.895 * h, .022 * h, .012 * h);
+  /* the front arm and the weapon of his job */
+  const job = v.job;
+  const hand = [.17, -.5];
+  part([[.08, -.77], [.14, -.77], [.2, -.52], [.15, -.49]], coat);
+  cx.lineWidth = Math.max(1.2, h * .03); cx.strokeStyle = '#8b8780';
+  const ln = function (a, b, c, w) { cx.beginPath(); cx.moveTo(a[0] * h, a[1] * h); cx.lineTo(b[0] * h, b[1] * h); cx.strokeStyle = c; cx.lineWidth = Math.max(1, h * w); cx.stroke(); };
+  if (job === 'pipe' || job === 'mace') { ln(hand, [.3, -.82], '#8d8a84', .035); ln([.28, -.8], [.32, -.85], '#a8a49c', .05); }
+  else if (job === 'sledge' || job === 'hammer') { ln([.06, -.36], [.3, -.86], '#6a4a30', .03); part([[.24, -.94], [.4, -.86], [.37, -.8], [.21, -.88]], '#5b5a57'); }
+  else if (job === 'rifle' || job === 'crossbow') { ln([.02, -.62], [.46, -.7], '#2e2b27', .04); ln([.02, -.62], [.0, -.55], '#4a3523', .06); }
+  else if (job === 'shotgun' || job === 'firearm') { ln([.05, -.6], [.38, -.66], '#262421', .055); }
+  else if (job === 'pistol' || job === 'dagger') { ln(hand, [.29, -.55], '#1e1c1a', .045); }
+  else if (job === 'bottles' || job === 'throwing') { part([[.17, -.6], [.22, -.6], [.23, -.5], [.16, -.5]], '#3e5a34'); ln([.195, -.6], [.195, -.66], '#3e5a34', .02); }
+  else if (job === 'axe') { ln(hand, [.27, -.84], '#6a4a30', .03); part([[.24, -.86], [.33, -.82], [.3, -.74]], '#7d7a74'); }
+  else if (job === 'spear' || job === 'polearm') { ln([.0, -.3], [.36, -1.0], '#6a4a30', .025); part([[.34, -1.02], [.4, -1.08], [.37, -.97]], '#8d8a84'); }
+  else { ln(hand, [.33, -.74], '#9c9890', .03); }
+  part([[.15, -.53], [.2, -.53], [.2, -.48], [.15, -.48]], skinOf(v));
+  /* the car door on the back arm */
+  if (v.shield) { part([[-.3, -.74], [-.12, -.74], [-.12, -.36], [-.3, -.36]], '#4c4f50'); cx.fillStyle = 'rgba(160,190,210,.35)'; cx.fillRect(-.28 * h, -.71 * h, .14 * h, .1 * h); }
+  cx.restore();
+  /* bars above him: armour, then health (and the tired, for the man whose turn it is) */
+  if (h > 26) {
+    const bw = Math.min(h * .55, 64), bx = X - bw / 2, by = Y - h - 10;
+    cx.fillStyle = 'rgba(0,0,0,.62)'; cx.fillRect(bx - 1, by - 1, bw + 2, FIGHT.current() === v ? 11 : 8);
+    cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), 2.5);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + 3.5, bw * Math.max(0, v.hp / v.hpMax), 2.5);
+    if (FIGHT.current() === v) { cx.fillStyle = '#6a8fb0'; cx.fillRect(bx, by + 7, bw * Math.max(0, 1 - v.fat / Math.max(1, FIGHT.fatMax(v))), 2); }
   }
+}
+/* ---------------- THE PERK ICONS (rule 67: 'a drawn icon for every perk and trait, art, not text') ----------------
+   Fifty pictograms drawn with the pen on a dark plate: gold for what he carries, red for what he
+   draws out of a man, blue for the skills he presses. One glyph per perk, no letters. */
+function perkIcon(g, id, S) {
+  const u = S / 24, L = function (pts, w, c, fill) {
+    g.beginPath(); pts.forEach(function (p, i) { (i ? g.lineTo : g.moveTo).call(g, p[0] * u, p[1] * u); });
+    if (fill) { g.fillStyle = c; g.closePath(); g.fill(); } else { g.strokeStyle = c; g.lineWidth = w * u; g.lineCap = 'round'; g.lineJoin = 'round'; g.stroke(); }
+  };
+  const C = function (x, y, r, c, fill, w) { g.beginPath(); g.arc(x * u, y * u, r * u, 0, Math.PI * 2); if (fill) { g.fillStyle = c; g.fill(); } else { g.strokeStyle = c; g.lineWidth = (w || 2) * u; g.stroke(); } };
+  const Rr = function (x, y, w, h, c) { g.fillStyle = c; g.fillRect(x * u, y * u, w * u, h * u); };
+  const row = (DB.perkNames.rows.filter(function (r) { return r.id === id; })[0] || {});
+  const act = FIGHT.ACTIVE.indexOf(id) >= 0;
+  const GOLD = '#e0b062', RED = '#d4583f', BLUE = '#8fb8e0', DIM = '#6d5a3a', INK = act ? BLUE : GOLD;
+  /* the plate: a worn tile, darker at the foot, a tier notch in the corner */
+  g.fillStyle = '#17120d'; g.fillRect(0, 0, S, S);
+  g.fillStyle = 'rgba(255,220,160,.05)'; g.fillRect(0, 0, S, S * .45);
+  g.strokeStyle = act ? '#3c5470' : '#4a3a24'; g.lineWidth = Math.max(1, u); g.strokeRect(u * .5, u * .5, S - u, S - u);
+  for (let i = 0; i < (row.tier || 1); i++) Rr(2 + i * 2, 21, 1, 1.2, DIM);
+  const W = function (k) {
+    switch (k) {
+      case 'pipe': L([[6, 18], [17, 7]], 2.4, INK); C(17, 7, 2.2, INK, true); break;
+      case 'chain': L([[6, 18], [11, 13]], 2.2, INK); C(13.5, 10.5, 1.4, INK, false, 1.4); C(16, 8, 1.4, INK, false, 1.4); C(18.5, 5.5, 2, INK, true); break;
+      case 'sledge': L([[6, 19], [15, 10]], 2.2, INK); L([[12, 5], [19, 12], [21, 10], [14, 3]], 0, INK, true); break;
+      case 'hatchet': L([[7, 19], [15, 7]], 2.2, INK); L([[13, 5], [19, 6], [17, 12]], 0, INK, true); break;
+      case 'cleaver': L([[6, 19], [10, 15]], 2.4, INK); L([[9, 14], [18, 5], [21, 8], [12, 17]], 0, INK, true); break;
+      case 'blade': L([[6, 19], [18, 5]], 1.8, INK); L([[8, 14], [11, 17]], 2, INK); break;
+      case 'pistol': L([[5, 10], [18, 10], [18, 13], [11, 13], [10, 18], [6, 18], [7, 13], [5, 13]], 0, INK, true); break;
+      case 'pole': L([[4, 21], [19, 4]], 1.8, INK); L([[16, 3], [21, 3], [21, 8]], 2, INK); break;
+      case 'spear': L([[4, 21], [17, 8]], 1.8, INK); L([[15, 6], [21, 3], [18, 9]], 0, INK, true); break;
+      case 'rifle': L([[3, 15], [20, 8]], 2.4, INK); L([[3, 15], [6, 19], [8, 15]], 0, INK, true); L([[11, 12], [12, 15]], 1.6, INK); break;
+      case 'bow': g.beginPath(); g.arc(8 * u, 12 * u, 9 * u, -1.1, 1.1); g.strokeStyle = INK; g.lineWidth = 2 * u; g.stroke(); L([[12, 4], [12, 20]], 1, INK); L([[6, 12], [20, 12]], 1.4, INK); break;
+      case 'bottle': L([[10, 4], [14, 4], [14, 8], [16, 11], [16, 20], [8, 20], [8, 11], [10, 8]], 0, INK, true); Rr(9.5, 13, 5, 3, '#17120d'); break;
+    }
+  };
+  switch (id) {
+    case 'colossus': C(12, 5.5, 3, INK, true); L([[5, 10], [19, 10], [17, 21], [7, 21]], 0, INK, true); break;
+    case 'fast_adaptation': L([[3, 12], [12, 6], [21, 12], [12, 18]], 1.6, INK); C(12, 12, 2.6, INK, true); L([[18, 3], [18, 8]], 1.6, INK); L([[15.5, 5.5], [20.5, 5.5]], 1.6, INK); break;
+    case 'crippling_strikes': L([[5, 7], [10, 12]], 3, INK); L([[13, 13], [19, 18]], 3, INK); C(5, 6, 2, INK, true); C(19.5, 19, 2, INK, true); L([[10, 11], [12, 14], [11, 15], [14, 12]], 1.2, RED); break;
+    case 'nine_lives': L([[12, 20], [4, 11], [5, 6], [9, 5], [12, 8], [15, 5], [19, 6], [20, 11]], 0, RED, true); for (let i = 0; i < 3; i++) C(9 + i * 3, 11, .8, '#17120d', true); break;
+    case 'bags_and_belts': L([[6, 9], [18, 9], [19, 20], [5, 20]], 0, INK, true); L([[9, 9], [9, 5], [15, 5], [15, 9]], 1.6, INK); Rr(10, 12, 4, 2, '#17120d'); break;
+    case 'pathfinder': L([[8, 4], [13, 4], [13, 14], [19, 16], [19, 20], [8, 20]], 0, INK, true); break;
+    case 'adrenaline': L([[13, 2], [6, 13], [11, 13], [9, 22], [18, 9], [13, 9], [16, 2]], 0, INK, true); break;
+    case 'recover': [7, 12, 17].forEach(function (y) { g.beginPath(); g.moveTo(4 * u, y * u); g.bezierCurveTo(9 * u, (y - 3) * u, 13 * u, (y + 3) * u, 20 * u, (y - 1) * u); g.strokeStyle = INK; g.lineWidth = 1.8 * u; g.stroke(); }); break;
+    case 'student': L([[4, 6], [12, 8], [20, 6], [20, 18], [12, 20], [4, 18]], 1.8, INK); L([[12, 8], [12, 20]], 1.4, INK); break;
+    case 'executioner': C(12, 10, 6, INK, true); Rr(9, 15, 6, 4, INK); C(9.6, 10, 1.6, '#17120d', true); C(14.4, 10, 1.6, '#17120d', true); L([[10, 17], [10, 19]], 1, '#17120d'); L([[14, 17], [14, 19]], 1, '#17120d'); break;
+    case 'bullseye': C(12, 12, 8, INK, false, 1.8); C(12, 12, 4.5, INK, false, 1.8); C(12, 12, 1.6, RED, true); break;
+    case 'dodge': L([[4, 18], [9, 8], [13, 15], [19, 4]], 2.2, INK); L([[15, 4], [19, 4], [19, 8]], 2.2, INK); break;
+    case 'fortified_mind': C(12, 11, 7, INK, false, 1.8); L([[8, 11], [12, 8], [16, 11], [12, 15], [8, 11]], 1.4, INK); L([[10, 18], [14, 18], [12, 21]], 0, INK, true); break;
+    case 'resilient': L([[6, 4], [18, 7], [6, 10], [18, 13], [6, 16], [18, 19]], 1.8, INK); break;
+    case 'steel_brow': g.beginPath(); g.arc(12 * u, 14 * u, 8 * u, Math.PI, 0); g.closePath(); g.fillStyle = INK; g.fill(); Rr(4, 14, 16, 2.4, INK); Rr(11, 14, 2, 6, INK); break;
+    case 'quick_hands': L([[7, 20], [7, 9], [9, 9], [9, 14], [10, 6], [12, 6], [12, 14], [13, 5], [15, 5], [15, 14], [16, 8], [18, 8], [18, 16], [15, 20]], 0, INK, true); break;
+    case 'gifted': L([[12, 3], [14.5, 9], [21, 9.5], [16, 13.5], [17.5, 20], [12, 16.5], [6.5, 20], [8, 13.5], [3, 9.5], [9.5, 9]], 0, INK, true); break;
+    case 'backstabber': C(9, 8, 3, DIM, true); L([[5, 12], [13, 12], [13, 21], [5, 21]], 0, DIM, true); L([[22, 6], [12, 16]], 2, INK); L([[19, 4], [23, 8]], 2, INK); break;
+    case 'anticipation': L([[3, 12], [12, 6], [21, 12], [12, 18]], 1.6, INK); C(12, 12, 2.6, INK, true); L([[1, 4], [5, 7]], 1.2, INK); L([[1, 20], [5, 17]], 1.2, INK); break;
+    case 'shield_expert': L([[5, 4], [19, 4], [19, 20], [5, 20]], 0, INK, true); Rr(7, 6, 10, 5, '#17120d'); L([[15, 14], [17, 14]], 1.4, '#17120d'); break;
+    case 'brawny': L([[5, 18], [8, 9], [13, 6], [16, 9], [15, 13], [19, 12], [20, 16], [13, 20]], 0, INK, true); break;
+    case 'relentless': L([[4, 6], [10, 12], [4, 18]], 2.4, INK); L([[11, 6], [17, 12], [11, 18]], 2.4, INK); L([[17, 6], [21, 12], [17, 18]], 1.4, DIM); break;
+    case 'rotation': g.beginPath(); g.arc(12 * u, 12 * u, 7 * u, .3, Math.PI - .3); g.strokeStyle = INK; g.lineWidth = 2 * u; g.stroke(); g.beginPath(); g.arc(12 * u, 12 * u, 7 * u, Math.PI + .3, -.3); g.stroke(); L([[4, 9], [5, 13], [8, 11]], 0, INK, true); L([[20, 15], [19, 11], [16, 13]], 0, INK, true); break;
+    case 'rally_the_troops': L([[7, 21], [7, 3]], 2, INK); L([[8, 4], [19, 7], [8, 11]], 0, INK, true); break;
+    case 'taunt': C(9, 12, 6, INK, true); L([[9, 12], [15, 9], [15, 15]], 0, '#17120d', true); L([[17, 6], [21, 4]], 1.6, INK); L([[18, 12], [22, 12]], 1.6, INK); L([[17, 18], [21, 20]], 1.6, INK); break;
+    case 'mace_mastery': W('pipe'); break;
+    case 'flail_mastery': W('chain'); break;
+    case 'hammer_mastery': W('sledge'); break;
+    case 'axe_mastery': W('hatchet'); break;
+    case 'cleaver_mastery': W('cleaver'); break;
+    case 'sword_mastery': W('blade'); break;
+    case 'dagger_mastery': W('pistol'); break;
+    case 'polearm_mastery': W('pole'); break;
+    case 'spear_mastery': W('spear'); break;
+    case 'crossbow_mastery': W('rifle'); break;
+    case 'bow_mastery': W('bow'); break;
+    case 'throwing_mastery': W('bottle'); break;
+    case 'reach_advantage': L([[3, 21], [16, 5]], 1.8, INK); L([[13, 12], [20, 12], [20, 19], [16.5, 21], [13, 19]], 0, INK, true); break;
+    case 'overwhelm': [4, 10, 16].forEach(function (x) { L([[x, 6], [x + 5, 12], [x, 18]], 2.2, x > 12 ? RED : INK); }); break;
+    case 'lone_wolf': L([[5, 4], [9, 9], [15, 9], [19, 4], [19, 13], [12, 21], [5, 13]], 0, INK, true); C(9.5, 13, 1.2, '#17120d', true); C(14.5, 13, 1.2, '#17120d', true); break;
+    case 'underdog': L([[12, 3], [12, 21]], 2, INK); L([[7, 16], [12, 21], [17, 16]], 2, DIM); L([[7, 8], [12, 3], [17, 8]], 2, INK); break;
+    case 'footwork': L([[6, 14], [9, 13], [10, 19], [7, 20]], 0, INK, true); L([[13, 5], [16, 4], [17, 10], [14, 11]], 0, INK, true); break;
+    case 'berserk': L([[3, 12], [12, 6], [21, 12], [12, 18]], 1.6, RED); C(12, 12, 3, RED, true); L([[4, 4], [9, 7]], 1.6, RED); L([[20, 4], [15, 7]], 1.6, RED); break;
+    case 'head_hunter': C(12, 12, 4, INK, true); C(12, 12, 8, RED, false, 1.4); L([[12, 1], [12, 6]], 1.4, RED); L([[12, 18], [12, 23]], 1.4, RED); L([[1, 12], [6, 12]], 1.4, RED); L([[18, 12], [23, 12]], 1.4, RED); break;
+    case 'nimble': g.beginPath(); g.moveTo(6 * u, 21 * u); g.quadraticCurveTo(8 * u, 6 * u, 20 * u, 3 * u); g.quadraticCurveTo(16 * u, 14 * u, 6 * u, 21 * u); g.fillStyle = INK; g.fill(); L([[6, 21], [15, 9]], 1, '#17120d'); break;
+    case 'battle_forged': L([[5, 5], [10, 4], [12, 6], [14, 4], [19, 5], [18, 20], [6, 20]], 0, INK, true); L([[8, 10], [16, 10]], 1.2, '#17120d'); L([[8, 14], [16, 14]], 1.2, '#17120d'); break;
+    case 'fearsome': L([[4, 7], [20, 7], [17, 15], [7, 15]], 0, INK, true); L([[7, 7], [9, 13], [11, 7]], 0, '#f2e8d8', true); L([[13, 7], [15, 13], [17, 7]], 0, '#f2e8d8', true); L([[6, 18], [18, 18]], 1.4, RED); break;
+    case 'duelist': W('blade'); C(18, 18, 3, RED, false, 1.4); break;
+    case 'killing_frenzy': L([[12, 3], [18, 13], [18, 16], [15, 20], [9, 20], [6, 16], [6, 13]], 0, RED, true); break;
+    case 'indomitable': L([[12, 3], [12, 18]], 2.4, INK); C(12, 4.5, 2, INK, false, 1.6); g.beginPath(); g.arc(12 * u, 13 * u, 8 * u, .2, Math.PI - .2); g.strokeStyle = INK; g.lineWidth = 2.2 * u; g.stroke(); L([[7, 9], [17, 9]], 1.8, INK); break;
+    default: C(12, 12, 6, DIM, true);
+  }
+  /* a scanline, faint: everything in this valley came off a monitor once */
+  g.fillStyle = 'rgba(0,0,0,.18)'; for (let y = 1; y < S; y += Math.max(2, Math.round(u * 2))) g.fillRect(0, y, S, Math.max(1, u * .5));
+}
+function iconCanvas(id, css) {
+  const c = document.createElement('canvas'), d = Math.min(window.devicePixelRatio || 1, 3);
+  c.width = c.height = Math.round(css * d); c.style.width = c.style.height = css + 'px';
+  perkIcon(c.getContext('2d'), id, c.width); c.dataset.perk = id; c.className = 'picon'; return c;
 }
 
 /* ---------------- the HUD ---------------- */
 function hud() {
   const S = FIGHT.S, u = FIGHT.current();
-  document.getElementById('round').textContent = 'ROUND ' + S.round + (S.night ? '  NIGHT' : '') + '   ' + S.board.toUpperCase()
-    + '   ' + FIGHT.alive('you').length + ' v ' + FIGHT.alive('them').length;
+  document.getElementById('round').textContent = 'ROUND ' + S.round + (S.night ? ' · NIGHT' : '');
   const ord = document.getElementById('order'); ord.textContent = '';
   S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 14).forEach(function (v, i) {
     const c = document.createElement('div'); c.className = 'chip ' + v.side + (i === 0 ? ' now' : '');
@@ -1378,16 +1545,12 @@ function hud() {
   });
   const show = u || S.units[0];
   document.getElementById('cnm').textContent = show.name + (show.main ? ' *' : '');
-  const fm = FIGHT.fatMax(show);
-  const row = function (l, w, c, v) { return '<span>' + l + '</span><div class="bar"><i style="width:' + Math.max(0, Math.min(100, w)) + '%;background:' + c + '"></i></div><span>' + v + '</span>'; };
-  document.getElementById('cbars').innerHTML =
-    row('HP', 100 * show.hp / show.hpMax, '#8fae6a', show.hp + '/' + show.hpMax) +
-    row('ARMOUR', 100 * (show.armB + show.armH) / Math.max(1, show.armBMax + show.armHMax), '#9aa6b0', show.armH + ' head ' + show.armB + ' body') +
-    row('FATIGUE', 100 * show.fat / Math.max(1, fm), '#6a8fb0', show.fat + '/' + fm) +
-    (show.perks.length ? '<span style="grid-column:1/4;color:#d9a85a">' + show.perks.map(perkName).join(' · ') + '</span>' : '') +
-    '<span style="grid-column:1/4;color:#cbb">' + show.morale.toUpperCase() + ' · ' + show.job.toUpperCase().replace('_', ' ') + (show.ammo !== null ? ' x' + show.ammo : '') + (FIGHT.reloadSkill(show.weapon) && !show.loaded ? ' · EMPTY' : '') + '</span>';
+  /* his perks as drawn icons; the names and numbers are in the drawer behind a tap (rule 67) */
+  const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
+  if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(iconCanvas(id, 22)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const p = document.createElement('i'); if (i < show.ap) p.className = 'on'; ap.appendChild(p); }
+  if (UI.drawer) drawer(show);
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
   const sk = document.getElementById('skills');
   const want = mine ? FIGHT.ACTIVE.filter(function (id) { return u.perks.indexOf(id) >= 0; }) : [];
@@ -1396,7 +1559,8 @@ function hud() {
     sk.dataset.key = key; sk.textContent = '';
     want.forEach(function (id) {
       const b = document.createElement('button'), n = FIGHT._t.PK(u, id);
-      b.textContent = perkName(id) + ' ' + n.skill_ap_cost; b.dataset.skill = id;
+      b.appendChild(iconCanvas(id, 20)); const t = document.createElement('span'); t.textContent = ' ' + n.skill_ap_cost; b.appendChild(t);
+      b.dataset.skill = id; b.title = perkName(id);
       b.disabled = !FIGHT.canUse(u, id); if (UI.skillMode === id) b.className = 'on';
       b.onclick = function () { skillTap(id); };
       sk.appendChild(b);
@@ -1404,27 +1568,51 @@ function hud() {
   }
   const bh = document.getElementById('bot').offsetHeight;
   if (bh !== BOTH) { BOTH = bh; if (UI.board) fitStops(); }
+  const tgt = mine && UI.pend && UI.pend.target && FIGHT.canStrike(u, UI.pend.target) ? UI.pend.target : null;
+  const bs = document.getElementById('bstrike');
+  bs.disabled = !tgt; bs.textContent = tgt ? 'STRIKE ' + FIGHT.hitChance(u, tgt, FIGHT.strikeSkill(u.weapon)).chance + '%' : 'STRIKE';
   document.getElementById('bwait').disabled = !mine || u.waited;
   document.getElementById('bend').disabled = !mine;
   document.getElementById('breload').disabled = !mine || !FIGHT.canReload(u);
   document.getElementById('bauto').classList.toggle('on', UI.auto);
 }
+/* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
+function drawer(v) {
+  const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v);
+  const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
+  d.innerHTML = '<div style="color:#d9a85a;font-weight:700;margin-bottom:4px">' + v.name + ' · LEVEL ' + (v.level || 1) + ' · ' + v.job.toUpperCase().replace('_', ' ') + '</div>'
+    + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', v.armH + ' / ' + v.armHMax) + r('Armour, body', v.armB + ' / ' + v.armBMax)
+    + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
+    + r('Ranged skill / defence', v.rskill + ' / ' + v.rdef) + r('Initiative', v.initiative) + r('Resolve', v.resolve === null ? '-' : v.resolve)
+    + (v.ammo !== null ? r('Throws left', v.ammo) : '') + (FIGHT.reloadSkill(v.weapon) ? r('Loaded', v.loaded ? 'yes' : 'no') : '')
+    + (v.injuries.length ? r('Hurt', v.injuries.map(function (j) { return j.name; }).join(', ')) : '');
+  v.perks.forEach(function (id) { const p = document.createElement('div'); p.className = 'p'; p.appendChild(iconCanvas(id, 18));
+    const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
+  d.style.bottom = (BOTH + 6) + 'px'; d.style.display = 'block';
+}
+document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; if (!UI.drawer) document.getElementById('drawer').style.display = 'none'; else hud(); };
+document.getElementById('drawer').onclick = function () { UI.drawer = false; this.style.display = 'none'; };
 /* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
 function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
+/* THE RECAP (rule 67: 'a recap screen after every fight: blood drawn, kills, experience, like Battle Brothers') */
 function showOver(result) {
   const S = FIGHT.S, o = document.getElementById('over');
-  const secs = Math.round((performance.now() - UI.t0) / 1000);
+  const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
   document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW BROKE' : 'YOUR CREW IS DOWN';
-  const fell = S.units.filter(function (v) { return v.side === 'you' && (v.dead || v.down); })
-    .map(function (v) { return v.main ? 'You are down, up again after' : v.name + (v.dead ? ' is dead' : ' laid up ' + v.laidUp + ' days'); });
-  document.getElementById('ob').innerHTML = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + '.</p>'
-    + '<p>' + S.units.filter(function (v) { return v.side === 'them' && v.dead; }).length + ' of theirs down, '
-    + S.units.filter(function (v) { return v.side === 'them' && v.fled; }).length + ' ran.</p>'
-    + (fell.length ? '<p>' + fell.join('. ') + '.</p>' : '<p>Nobody of yours fell.</p>');
+  const theirs = S.units.filter(function (v) { return v.side === 'them'; });
+  let html = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
+    + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
+  html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
+  S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
+    const lv0 = v.level || 1, base = FIGHT.xpAt(lv0), gained = Math.round(v.xpGained || 0), lv1 = FIGHT.levelFor(base + gained);
+    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + 'D') : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
+    html += '<tr><td>' + v.name + '</td><td>' + (v.kills || 0) + '</td><td>' + (v.dealt || 0) + '</td><td>' + (v.taken || 0) + '</td><td>+' + gained + '</td><td>' + state + '</td></tr>';
+  });
+  html += '</table>';
+  document.getElementById('ob').innerHTML = html;
   o.style.display = 'flex';
   try { if (window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round }, '*'); } catch (_e) {}
 }
-
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
 function audio() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (_e) {} } }
@@ -1479,26 +1667,34 @@ function tapAt(px, py) {
   const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
   const p = tileAt(px, py), S = FIGHT.S;
   if (p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h) return;
+  UI.drawer = false; document.getElementById('drawer').style.display = 'none';
   if (UI.skillMode) {
     const id = UI.skillMode; UI.skillMode = null;
     if (!FIGHT.useSkill(u, id, p)) say('Not there.'); else take();
     return;
   }
-  const who = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
+  const th = UI.th * UI.zoom, hgt = th * MAN_OF_TILE;
+  const who = S.units.filter(function (v) {
+    if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
+    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
+  }).sort(function (a, b) { return b.y - a.y; })[0] || S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
-    UI.pend = { target: who };
-    const hc = FIGHT.hitChance(u, who, FIGHT.strikeSkill(u.weapon));
-    say(who.name + ': ' + hc.chance + '% to hit' + (hc.parts.length ? ' (' + hc.parts.join(', ') + ')' : '') + '. Tap him again.'); return;
+    UI.pend = { target: who }; say(''); hud(); return;
   }
   if (who) { UI.pend = null; return; }
-  const path = FIGHT.pathTo(u, p.x, p.y);
+  const f = FIGHT.reach(u, null, true), path = FIGHT.pathTo(u, p.x, p.y, f);
   if (!path) { UI.pend = null; say('Too far for the AP left.'); return; }
-  if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; FIGHT.moveTo(u, p.x, p.y); take(); return; }
-  const f = FIGHT.reach(u); UI.pend = { tile: p, path: path };
-  say('Tap again to walk there: ' + f.best[f.key(p.x, p.y)] + ' AP.');
+  if (UI.pend && UI.pend.tile && UI.pend.tile.x === p.x && UI.pend.tile.y === p.y) { UI.pend = null; FIGHT.moveTo(u, p.x, p.y, true); take(); return; }
+  UI.pend = { tile: p, path: path };
+  /* the price of walking past: every tile left inside a man's reach is a free swing */
+  let swings = 0, at = { x: u.x, y: u.y };
+  path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
+  say('Walk there, ' + f.best[f.key(p.x, p.y)] + ' AP' + (swings ? ': ' + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '. Tap again.'));
 }
+document.getElementById('bstrike').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target; UI.pend = null; FIGHT.strike(u, t); take(); } };
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
 document.getElementById('bend').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.endTurn(u); take(); } };
 document.getElementById('breload').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { FIGHT.reload(u); take(); } };
@@ -1526,10 +1722,10 @@ function start() {
     UI.zoom = UI.far; UI.cx = UI.board.width / 2; UI.cy = UI.board.height / 2;
     const mine = FIGHT.alive('you');
     const mx = mine.reduce(function (s, v) { return s + v.x; }, 0) / mine.length, my = mine.reduce(function (s, v) { return s + v.y; }, 0) / mine.length;
-    UI.hold = setTimeout(function () { glideTo((mx + .5) * UI.tw, (my - 1.5) * UI.th, UI.near, beatMs() * 2); }, beatMs() * 2);
+    UI.hold = setTimeout(function () { glideTo((mx + 1.5) * UI.tw, (my + .5) * UI.th, UI.near, beatMs() * 2); }, beatMs() * 2);
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
-    say('Tap a lit tile to walk, a red one to strike. Pinch to see the board.'); hud();
+    say('Tap a lit tile to walk, a red man to aim. Pinch for the board.'); hud();
   });
 }
 window.addEventListener('resize', resize);
