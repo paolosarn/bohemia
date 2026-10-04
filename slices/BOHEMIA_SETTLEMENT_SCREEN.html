@@ -133,7 +133,7 @@ var SPR = {};
 var TIERS = {
   camp:     ['hall','board','stall','lot'],
   town:     ['hall','board','stall','barber','bar','lot'],
-  fortress: ['hall','board','stall','barber','bar','train','clinic','lot']
+  fortress: ['clinic','board','hall','stall','barber','bar','train','lot']
 };
 var ORDER = TIERS.town.slice();
 
@@ -216,7 +216,7 @@ function layout(){
   var tw;
   if(view.tall){ var rows = Math.ceil(ORDER.length/2); tw = Math.min(W/2.05, (H-30)/(rows*0.42+0.75), 256);
     /* the rows spread over the whole glass, so a tall building never stands on the one behind it */
-    view.step = Math.min(tw*0.75, (H - 24 - tw*1.05) / Math.max(1, rows-1)); view.top = 12 + tw*0.85; }
+    view.step = Math.min(tw*0.75, (H - 30 - tw*1.25) / Math.max(1, rows-1)); view.top = 12 + tw*1.05; }
   else tw = Math.min(W/3.05, (H-24)/2.55, 256);
   view.tw = tw;
   view.ox = Math.round(W/2);
