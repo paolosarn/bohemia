@@ -42316,6 +42316,7 @@ function cityRoute(ax,ay,bx,by){
 
 /* A TAP ON THE MAP. Canvas coordinates, the same ones cityTapPlot is handed. */
 function travelTo(sx,sy){
+  if(typeof LOOK!=='undefined'&&LOOK.on) return false;   /* looking, not walking (rule 38b) */
   var c=null; try{ c=CBcellAt(sx,sy); }catch(_e){ c=null; }
   if(!c) return false;
   var tx=c[0], ty=c[1];
@@ -42675,6 +42676,7 @@ function clampPan(){
   const N=om.n, hx2=(N*TW0*CZOOM)/2+CVW*0.5, hy2=(N*TH0*CZOOM)/2+CVH*0.5;
   panX=Math.max(-hx2,Math.min(hx2,panX)); panY=Math.max(-hy2,Math.min(hy2,panY));
 }
+var ZGEST = { t: 0, z0: 1, s0: null, down: false, fresh: false };   /* the zoom gesture: when it started and from where */
 function setZoomAt(z,pvx,pvy){
   if(MODE!=='city'||transing)return;
   const [zmin,zmax]=zoomBounds();
@@ -42699,6 +42701,16 @@ function setZoomAt(z,pvx,pvy){
      exists the camera simply stops at its closest, like any camera. The alpha keeps
      the walked street (rule 18g) until [no city walk] excavates it. */
   var __demoMap = (typeof CT_IS_DEMO!=='undefined' && CT_IS_DEMO);
+  /* __THE_NEAR_END_IS_THE_BLOCK__: while looking at the block, the pinch scales it; and on the demo map the
+     pinch past the closest stop drops into it (looking, never walking: rule 38b) */
+  /* ONE GESTURE, ONE RUNG: the block opens only for a gesture that STARTED at the closest map stop, and
+     closes only for one that started at one-to-one -- one squeeze that climbs the map to its closest stop
+     does not also drop into the block. A pinch's gesture is the fingers (a second finger down starts one,
+     lifting ends it), so a slow phone that spaces the steps out never splits one squeeze in two; the wheel
+     has no fingers, so for it a 250 ms gap is a new gesture */
+  { const __now=performance.now(); if(ZGEST.fresh||(!ZGEST.down&&__now-ZGEST.t>250)){ ZGEST.fresh=false; ZGEST.z0=CZOOM; ZGEST.s0=(typeof LOOK!=='undefined'&&LOOK.on)?LOOK.s:null; } ZGEST.t=__now; }
+  if(typeof LOOK!=='undefined'&&LOOK.on){ lookZoom(z/CZOOM); return; }
+  if(__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&Math.abs(ZGEST.z0-zmax)<1e-3){ SEAM_GUARD=true; lookEnter(); return; }
   if(!__demoMap&&z>zmax&&Math.abs(CZOOM-zmax)<1e-4&&typeof swapMode==='function'){
     SEAM_INTENT='look';   /* __LOOKING_IS_NOT_TRAVELLING__: and so is pinching back in */
     SEAM_GUARD=true;
@@ -44120,8 +44132,123 @@ function vbLabels(ox, oy, night){
   VB.shown = shown; VB.drawn = drawn;
 }
 /* ==== /__THE_VALLEY_HAS_AN_EDGE__ ==== */
+/* the near end of the pinch (below) */
+/* ==== __THE_NEAR_END_IS_THE_BLOCK__ (RUN 10/4, [map pixels now], rules 50, 65, 67 s3) ====
+   PAOLO 9/30 (rule 50): "how far you can zoom out and zoom in, that's really important to me" -- ONE
+   continuous pinch from one person on a bench to the whole valley; the near end is LOOKING, not
+   walking (38b). 10/2: "got to be able to zoom tf in so much." The map's closest stop is a block's
+   map art at its own pixels; past it there was nothing. The walk's banks live on as the FIGHT'S
+   ground (38e): COMBAT TWO baked them into block pictures at 42.9 px a metre (slices/fight_ground,
+   one per kind of block). So pinching in past the closest map stop drops into THE BLOCK HE STANDS ON
+   in that art -- its neighbours around it, him in it at his own 112 box (rule 21: the ground zooms,
+   the person does not) -- from one art pixel per device pixel in to the walk's 42.9 px a metre;
+   pinching out past one-to-one hands back to the map at its closest stop. Looking only: a tap does
+   not travel from here; the clock, the phone and the speed pad stay. */
+var LOOK = { on: false, s: 0, t0: 0, cx: 0, cy: 0, imgs: {}, enters: 0, exits: 0, drawn: 0, grid: null, kind: null };
+window.LOOK = LOOK;
+var LOOK_ART = { w: 2575, h: 1820, pxm: 42.9 };   /* slices/fight_ground/fight_ground.json: 5 tiles of 515 x 364, 12 m each */
+function lookKind(d, x, y){
+  d = String(d || ''); var v = (mapHash(x | 0, y | 0) & 1);
+  var k = /^(strip|resort|casino|luxor|sphere|highroller|strat|sign)$/.test(d) ? 'strip'
+    : /^(freeway|beltway|interchange)$/.test(d) ? 'freeway'
+    : /^(water|reservoir|intake|dam|waterpark|springs)$/.test(d) ? 'shore'
+    : /^(landfill|quarry|gypsum|boneyard)$/.test(d) ? 'landfill'
+    : /^(industrial|warehouse|robofactory|fueldepot|storage|railyard|rail|substation|pumpstation|watertreat|datafort|arsenal)$/.test(d) ? 'works'
+    : /^(wash|basin)$/.test(d) ? 'wash'
+    : /^(desert|mountain|solar|farm|park|golf|cemetery)$/.test(d) ? 'scrub'
+    : /^(estate|gated|trailer)$/.test(d) ? 'culdesac'
+    : d === 'arterial' ? 'suburb_stem'
+    : /^(suburb|apartment|town|school|campus|library|chapel)$/.test(d) ? 'subs'
+    : /^(commercial|mall|downtown|convention|medical|cityhall|courthouse|truckstop|swapmeet|drivein)$/.test(d) ? 'main'
+    : 'ruin';
+  /* the kinds with one picture take .0; the rest pick by the block's own hash */
+  var one = { freeway: 1, freewayo: 1, lots: 1, strip: 1, subs: 1, suburb_stem: 1, works: 1, wash: 1 };
+  return 'block_' + k + '_' + (one[k] ? 0 : v) + '.webp';
+}
+function lookImg(src){
+  var im = LOOK.imgs[src]; if (im) return im;
+  im = new Image(); im.onload = function(){ if (LOOK.on) try { render(); } catch (_e) {} };
+  im.onerror = function(){ im.bad = true; };
+  im.src = 'fight_ground/' + src; LOOK.imgs[src] = im; return im;
+}
+/* WHERE HE STANDS IN THE BLOCK: the flat tile nearest its middle (COMBAT TWO's boards carry every block's
+   tiles: flat, rough, debris, water, height, blocked), so he stands on the street or a yard, never a roof */
+var LOOK_FG = null;
+function lookFoot(src, done){
+  function pick(){
+    var foot = { x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 };
+    try {
+      var key = null; for (var k in LOOK_FG.blocks) if (LOOK_FG.blocks[k].src === src) { key = k; break; }
+      var T = LOOK_FG.tile_px, bt = LOOK_FG.block_tiles, best = 1e9;
+      for (var bn in LOOK_FG.boards) { var B = LOOK_FG.boards[bn];
+        for (var by = 0; by < B.blocks.length; by++) for (var bx = 0; bx < B.blocks[by].length; bx++) { if (B.blocks[by][bx] !== key) continue;
+          for (var ty = 0; ty < bt; ty++) for (var tx = 0; tx < bt; tx++) { var t = B.terrain[by * bt + ty][bx * bt + tx];
+            if (t !== 'flat' && t !== 'rough' && t !== 'debris') continue;
+            var dd = Math.hypot(tx - (bt - 1) / 2, ty - (bt - 1) / 2); if (dd < best) { best = dd; foot = { x: (tx + 0.5) * T[0], y: (ty + 0.85) * T[1] }; } } }
+        if (best < 1e9) break; }
+    } catch (_e) {}
+    done(foot);
+  }
+  if (LOOK_FG) return pick();
+  fetch('fight_ground/fight_ground.json').then(function(r){ return r.json(); }).then(function(j){ LOOK_FG = j; pick(); }).catch(function(){ done({ x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 }); });
+}
+function lookSMin(){ return 1 / ((typeof CV_DPR === 'number' && CV_DPR) || 1); }   /* one art pixel per device pixel */
+function lookEnter(){
+  if (LOOK.on) return;
+  var g3 = [];
+  for (var dy = -1; dy <= 1; dy++) { var row = []; for (var dx = -1; dx <= 1; dx++) { var x = city.x + dx, y = city.y + dy, t = om.at(x, y); row.push(lookKind(t && t.district, x, y)); } g3.push(row); }
+  LOOK.grid = g3; LOOK.kind = g3[1][1]; g3.forEach(function(r){ r.forEach(lookImg); });
+  LOOK.on = true; LOOK.s = lookSMin(); LOOK.t0 = performance.now(); LOOK.enters++; LOOK.px = panX; LOOK.py = panY;
+  LOOK.foot = { x: LOOK_ART.w / 2, y: LOOK_ART.h / 2 }; lookFoot(LOOK.kind, function(f){ LOOK.foot = f; if (LOOK.on) try { render(); } catch (_e) {} });
+  try { travelStop(); } catch (_e) {}
+  lookFade();
+}
+function lookExit(){
+  if (!LOOK.on) return;
+  LOOK.on = false; LOOK.exits++; panX = LOOK.px || 0; panY = LOOK.py || 0; LOOK.t0 = performance.now();
+  try { MAP_GROUND.key = ''; render(); } catch (_e) {}
+}
+/* a short fade in, on the beat's quarter, so the drop reads as a drop and not a cut */
+function lookFade(){ var t = performance.now(); (function f(){ if (!LOOK.on) return; try { render(); } catch (_e) {} if (performance.now() - t < 260) requestAnimationFrame(f); })(); }
+/* the pinch, while looking: the same gesture scales the block; out past one-to-one is the map again */
+function lookZoom(r){
+  var s = LOOK.s * r, smin = lookSMin();
+  /* out past one-to-one, by a gesture that started there: the map again, at its closest stop */
+  if (r < 1 && LOOK.s <= smin + 1e-6 && ZGEST.s0 !== null && ZGEST.s0 <= smin + 1e-6) { SEAM_GUARD = true; lookExit(); return; }
+  LOOK.s = Math.max(smin, Math.min(1, s));
+  try { render(); } catch (_e) {}
+}
+function lookRender(){
+  var W = CVW, H = CVH, s = LOOK.s, A = LOOK_ART;
+  g.save(); g.setTransform(CV_DPR, 0, 0, CV_DPR, 0, 0);
+  g.fillStyle = '#17130f'; g.fillRect(0, 0, W, H);
+  g.imageSmoothingEnabled = s < 0.999;   /* at the walk's own scale the art's pixels are drawn as pixels */
+  if (g.imageSmoothingEnabled) g.imageSmoothingQuality = 'high';
+  var dxp = (panX - (LOOK.px || 0)), dyp = (panY - (LOOK.py || 0));   /* a drag pans the look as it pans the map */
+  var F = LOOK.foot || { x: A.w / 2, y: A.h / 2 };
+  var ox = W / 2 - (A.w + F.x) * s + dxp, oy = H / 2 - (A.h + F.y) * s + dyp, ready = 0;   /* his foot tile under the middle of the glass */
+  for (var r = 0; r < 3; r++) for (var c = 0; c < 3; c++) {
+    var im = LOOK.imgs[LOOK.grid[r][c]], x = ox + c * A.w * s, y = oy + r * A.h * s, w = A.w * s, h = A.h * s;
+    if (x > W || y > H || x + w < 0 || y + h < 0) continue;
+    if (im && im.complete && im.naturalWidth) { g.drawImage(im, Math.round(x * CV_DPR) / CV_DPR, Math.round(y * CV_DPR) / CV_DPR, w, h); ready++; }
+    else { g.fillStyle = '#2a231c'; g.fillRect(x, y, w, h); }
+  }
+  /* HIM, at his own size: the 112 box (rule 21), feet on the middle of his block */
+  var you = null;
+  try { var set = PLAYER_CV && (PLAYER_CV.S || PLAYER_CV[Object.keys(PLAYER_CV)[0]]), spr = set && set.idle;
+    if (spr) { var b = spriteAt(spr, 32), bw = 112, bh = b.height * (112 / b.width), fx = W / 2 + dxp, fy = H / 2 + dyp;
+      g.fillStyle = 'rgba(10,8,6,0.45)'; g.beginPath(); g.ellipse(fx, fy, bw * 0.2, bw * 0.06, 0, 0, 7); g.fill();
+      g.imageSmoothingEnabled = false; g.drawImage(b, Math.round(fx - bw / 2), Math.round(fy - bh * 0.93), bw, bh); you = { w: bw, h: bh }; } } catch (_e) {}
+  if (isNight()) { g.fillStyle = 'rgba(10,18,40,0.25)'; g.fillRect(0, 0, W, H); }   /* one light (rule 70a) */
+  var fade = Math.min(1, (performance.now() - LOOK.t0) / 260);
+  if (fade < 1) { g.fillStyle = 'rgba(23,19,15,' + (1 - fade).toFixed(2) + ')'; g.fillRect(0, 0, W, H); }
+  g.restore();
+  LOOK.drawn++; LOOK.ready = ready; LOOK.you = you;
+}
+/* ==== /__THE_NEAR_END_IS_THE_BLOCK__ ==== */
 function renderCity(){
-  cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
+  cvKeepDpr();
+  if(typeof LOOK!=='undefined'&&LOOK.on){ try{ lookRender(); }catch(_e){} return; }   /* __THE_NEAR_END_IS_THE_BLOCK__ */   /* __THE_MAP_AT_THE_PHONES_PIXELS__ */
   MAP_DREW = { crowds: 0, places: {}, parties: 0, you: null, art: { crowdPeople: 0, partyPeople: 0, buildings: 0 } };
   MAP_PLATES = [];   /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: names are painted after the parties */
   try { mapArtScale(); } catch (_e) {}   /* the art scales with the zoom, the names do not */   /* __THE_MAP_HAS_ITS_PEOPLE__: what this frame drew */
@@ -60149,7 +60276,8 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
     cv.setPointerCapture(e.pointerId);
     pts.set(e.pointerId,toCv(e));
     const a=two();
-    if(a){ lastDist=dist(a); lastMid=mid(a); CB._tapStart=null; }   /* ZOOM-BUILD: a pinch is never a tap */
+    if(a){ lastDist=dist(a); lastMid=mid(a); CB._tapStart=null;   /* ZOOM-BUILD: a pinch is never a tap */
+      if(typeof ZGEST!=='undefined'&&!ZGEST.down){ ZGEST.down=true; ZGEST.fresh=true; } }   /* __THE_NEAR_END_IS_THE_BLOCK__: a new squeeze */
     else { lastMid=toCv(e); CB._tapStart=toCv(e); CB._tapMoved=0;
       const now=performance.now();                 // double-tap = recenter to 1x
       if(now-lastTap<300){ recenter(); lastTap=0; } else lastTap=now;
@@ -60246,7 +60374,7 @@ document.getElementById('bikebtn').addEventListener('click',()=>{
        is the gesture; fewer than two and whatever comes next is a new one. A timer
        here would have to guess how long a thumb takes, and would be wrong on a slow
        hand in exactly the way that reads as a dead control. */
-    if(pts.size<2) SEAM_GUARD=false;
+    if(pts.size<2){ SEAM_GUARD=false; if(typeof ZGEST!=='undefined') ZGEST.down=false; }
   }
   cv.addEventListener('pointerup',up);
   cv.addEventListener('pointercancel',up);

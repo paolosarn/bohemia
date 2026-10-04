@@ -2322,6 +2322,15 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE NEAR END IS THE BLOCK', ['node', 'gates/the_near_end_is_the_block_gate.js'],
+     'VAMILY [map pixels now], rules 50, 65, 67 s3 (PAOLO 10/2: "got to be able to zoom tf in so much"). MEASURED '
+     'BEFORE: the map\'s closest stop clamped and past it there was nothing. NOW a new pinch in at the closest stop '
+     'drops into the block he stands on, drawn from COMBAT TWO\'s block pictures (the walk\'s banks, 42.9 px a metre), '
+     'from one art pixel per device pixel in to the walk\'s scale; he stands on its ground at his 112 box; pinching '
+     'out past one-to-one is the map. HOLDS, driven with real pinches: one squeeze one rung; the block from his '
+     'cell, drawn; 1/DPR -> 1; 112 at both ends; ground under him in every block picture; a tap does not travel; '
+     'the pad and the phone stay; out is the map and the next squeeze zooms it out. Mutations: no way in; no '
+     'gesture check (one squeeze goes straight past the stop); foot at the middle of the block.', True),
     ('THE FAR END IS PAINTED', ['node', 'gates/the_far_end_is_painted_gate.js'],
      'VAMILY [map pixels now], rule 65 (PAOLO 10/2, the fourth time: "I want the map graphics to be bigger and '
      'better and especially when you zoom out of the city"). MEASURED BEFORE: at the far stop the blocks were the '

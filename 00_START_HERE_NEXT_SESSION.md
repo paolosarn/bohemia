@@ -10790,6 +10790,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/4c LATEST -- [map pixels now] SHIPPED: THE NEAR END IS THE BLOCK. TAB: the DEMO's map, pinch in as far as it goes, then once more.
+City file __THE_NEAR_END_IS_THE_BLOCK__: LOOK {on,s,kind,foot}, lookKind (cell -> fight_ground block_<kind>_<n>.webp), lookFoot (nearest flat/rough/debris tile), lookEnter/Exit/Zoom/Render; renderCity returns into lookRender while LOOK.on; setZoomAt routes to lookZoom; ZGEST = the gesture (fingers down/up, the wheel by a 250 ms gap).
+GATE THE NEAR END IS THE BLOCK 9/0. NEXT: [one song] (rule 64), [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range]. Seen, not mine: the purple marker and the freeway arcs scale up at the near stop.
 RUN (run-eak241): 10/4b LATEST -- [the valley edge] round two (rule 70, 70a): THE FAR STOP KEEPS THE LAND + ONE LIGHT. TAB: the DEMO's map, pinch out past the widest zoom; and at night.
 renderSky's REGION/PLANET bands draw vbPatternDraw + vbDraw + vbCityDraw clipped to the limb (__SKY_CLIP__ kept); vbDraw/vbSeam/vbCityDraw unlit, vbCityLightsDraw after the night wash.
 GATE THE VALLEY HAS AN EDGE 14/0 (E13 one light, E14 the far stop). NEXT: [map pixels now]'s near end; then [one song], [the start screen], [you can flee].
