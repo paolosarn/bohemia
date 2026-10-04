@@ -78,3 +78,10 @@
 18. BATTLE BROTHERS' RELATIONS AND CRIME (Paolo 10/2: 'beef with a settlement... you can't even steal bread in this game').
     How relations per faction work (the numbers, what moves them, when a faction's parties hunt you) and every way the game
     lets you do wrong (looting, breaking a contract, attacking caravans) and what it costs; sources.
+
+19. THE COMBAT UI'S REAL SIZES (Paolo 10/4: 'how big the UI and icons are for Battle Brothers; the combat UI is all fucked up
+    and not seamless'). Off three 1080p screenshots of a tactical battle at 100% UI scale (and one at 200%): the bottom
+    bar's height, a skill button's size, a turn-order portrait's size, the overhead health bar's width and height, the
+    body text's height, the END TURN button, the tooltip's width; and the source sizes of the skill and perk icons in the
+    game's data if any page lists them. Numbers in pixels with the screenshot's link. Then one paragraph: what is on the
+    screen during a fight and what is hidden until asked.
