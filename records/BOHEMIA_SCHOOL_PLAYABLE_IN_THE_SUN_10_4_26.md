@@ -16,3 +16,7 @@
 6. WHERE THE LIGHTS ARE: lamps and drums light only where the block has power (the map's powered blocks; CLUSTERED POWER); the act decides how much of the town has power (act one the ruin, little; the future better). The fight reads its block's power from the handover.
 
 Nothing here is a reference game he has not named. Battle Brothers is cited for the campaign and its fight's flavour only.
+
+## 10/4 LATER: SOURCED AND CORRECTED
+- EYES (57a03621) sourced the (recall) lines: WCAG 2.1 success criteria 1.4.3 (4.5 to 1 text) and 1.4.11 (3 to 1 non-text) are exactly the bars above; DisplayMate's sunlight-readability lab ramps ambient to 100,000 lux and scores contrast under it, the shape of the sun test; veiling-glare physics is why a flat white overlay is a fair software proxy; iOS Safari has never shipped the Ambient Light Sensor API, so the slider is the right tool.
+- RULE 73a (the maths of the glare test): adding 25 percent white to both sides of a 3 to 1 pair lands near 2 to 1 every time, so under the glare the floor is 2 to 1 (lit against unlit; a man against his ground, counted WITH his one-pixel rim); at rest 3 to 1 and 4.5 to 1 stand. COMBAT measured 64 percent of the day's light, 3.13 to 1 lit against unlit, 1.83 to 1 men with the cold rim (2e62bd5); COMBAT TWO's settlement nights pass the plain floor and read 2.2 to 2.4 under glare (0126ef29). Both pass 73a.
