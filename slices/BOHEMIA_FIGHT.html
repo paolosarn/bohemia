@@ -477,7 +477,7 @@ const FIGHT = (function () {
     const tm = G.tile_metres; S.lit = [];
     for (let y = 0; y < S.h; y++) { S.lit.push([]); for (let x = 0; x < S.w; x++) S.lit[y].push(false); }
     if (R('ours.night_lights').lit_tile_plays_as_day) (B.lights || []).forEach(function (l) {
-      if (!l.live) return;
+      if (!l.live || !S.power) return;
       for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
         if (Math.hypot((x + 1 / (1 + 1)) * tm - l.x_m, (y + 1 / (1 + 1)) * tm - l.y_m) < l.radius_m) S.lit[y][x] = true;
       }
@@ -500,6 +500,7 @@ const FIGHT = (function () {
     const G = DB.ground;
     S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+    S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
       applyBoard({ blocks: B.blocks, terrain: B.terrain, cover: B.cover, lights: B.lights || [], name: opts.board, kinds: [opts.board], family: 'named' });
@@ -1304,14 +1305,27 @@ function bakeBoard() {
       UI.board = c; fitStops();
     });
 }
-/* THE NIGHT (COMBAT TWO's lights, ours.night_lights): the board goes dark, and every live lamp and burning drum cuts its
-   pool back out of the dark (radius_m round its foot, squashed to the ground's 45), then warms it: sodium orange under a
-   lamp, fire under a drum. A tile the pool touches plays as day in the rules, so what is lit on the glass is what is lit. */
-const NIGHT_SHADE = 'rgba(6,8,20,.68)';
+/* THE NIGHT IS A COLOUR, NOT A DARKNESS (rule 73, Paolo 10/4: 'I love the nighttime aesthetic... even at its darkest
+   it's really hard to see... full brightness and outside, I should still be able to play'; the school page
+   records/BOHEMIA_SCHOOL_PLAYABLE_IN_THE_SUN_10_4_26.md). The board is not buried under a black wash any more: it is
+   pulled a third of the way to grey and multiplied by a cool moonlight, which takes its luminance down to about 0.58
+   of the day's (the floor says never under half); then every live lamp and burning drum (COMBAT TWO's lights, only
+   where the block has power) screens a warm pool onto it, bright enough that a lit tile stands three to one over the
+   dark round it, so what plays lit (ours.night_lights) is lit on the glass. BRIGHTNESS (the settings slider, UI's;
+   localStorage 'bohemia.brightness', 0 to 1) lifts the moonlight toward white and never touches the day. */
+const NIGHT_TINT = [185, 198, 240], NIGHT_GREY = 0.35;
+function brightness() { try { const b = parseFloat(localStorage.getItem('bohemia.brightness')); return isFinite(b) ? Math.max(0, Math.min(1, b)) : 0; } catch (_e) { return 0; } }
+function nightTint(lift) { const b = Math.min(1, brightness() / 2 + (lift || 0)); return 'rgb(' + NIGHT_TINT.map(function (v) { return Math.round(v + (255 - v) * b); }).join(',') + ')'; }
+/* the night's colour on any picture: a third of the way to grey, then the moonlight multiplied in; keepAlpha for a figure */
+function nightPass(g, w, h, keep, lift) {
+  g.save();
+  g.globalCompositeOperation = 'saturation'; g.fillStyle = 'rgba(128,128,128,' + NIGHT_GREY + ')'; g.fillRect(0, 0, w, h);
+  g.globalCompositeOperation = 'multiply'; g.fillStyle = nightTint(lift); g.fillRect(0, 0, w, h);
+  if (keep) { g.globalCompositeOperation = 'destination-in'; g.drawImage(keep, 0, 0); }
+  g.restore();
+}
 function nightPools(g, c, lights, k, pxm, pym) {
-  const dark = document.createElement('canvas'); dark.width = c.width; dark.height = c.height;
-  const d = dark.getContext('2d');
-  d.fillStyle = NIGHT_SHADE; d.fillRect(0, 0, dark.width, dark.height);
+  nightPass(g, c.width, c.height);
   const pool = function (ctx, l, stops) {
     const X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
     ctx.save(); ctx.translate(X, Y); ctx.scale(1, pym / pxm);
@@ -1319,26 +1333,33 @@ function nightPools(g, c, lights, k, pxm, pym) {
     stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); });
     ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.restore();
   };
-  const live = lights.filter(function (l) { return l.live; });
-  d.globalCompositeOperation = 'destination-out';
-  live.forEach(function (l) { pool(d, l, [[0, 'rgba(0,0,0,1)'], [.62, 'rgba(0,0,0,.85)'], [1, 'rgba(0,0,0,0)']]); });
-  g.drawImage(dark, 0, 0);
+  const live = FIGHT.S.power ? lights.filter(function (l) { return l.live; }) : [];
   g.save(); g.globalCompositeOperation = 'screen';
   live.forEach(function (l) {
-    const warm = l.kind === 'drum' ? '255,118,40' : '255,168,88';
-    pool(g, l, [[0, 'rgba(' + warm + ',.34)'], [.55, 'rgba(' + warm + ',.16)'], [1, 'rgba(' + warm + ',0)']]);
+    const warm = l.kind === 'drum' ? '255,150,70' : '255,196,128';
+    pool(g, l, [[0, 'rgba(' + warm + ',.88)'], [.55, 'rgba(' + warm + ',.72)'], [.8, 'rgba(' + warm + ',.34)'], [.93, 'rgba(' + warm + ',.08)'], [1, 'rgba(' + warm + ',0)']]);
   });
   g.restore();
   UI.poolsDrawn = live.length;
 }
-/* a man standing in the dark is drawn from the same bank frames, shaded the night's colour (cached per atlas) */
+/* a man standing in the dark is drawn from the same bank frames in the night's colour (cached per atlas), the moonlight
+   lifted halfway to white on him (a figure catches the light his ground swallows), so he stands off the night's ground
+   at least as well as off the day's, never sunk into it */
+const MAN_MOON = 0.5, MOON_RIM = 'rgb(196,212,246)';
 function nightAtlas(img) {
   UI.darkOf = UI.darkOf || new Map();
   let c = UI.darkOf.get(img);
   if (!c) {
     c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
     const g = c.getContext('2d'); g.drawImage(img, 0, 0);
-    g.globalCompositeOperation = 'source-atop'; g.fillStyle = NIGHT_SHADE; g.fillRect(0, 0, c.width, c.height);
+    nightPass(g, c.width, c.height, img, MAN_MOON);
+    /* the moon's rim: his own silhouette in cold light, one pixel out on the moon's side (up and left), behind him */
+    const rim = document.createElement('canvas'); rim.width = c.width; rim.height = c.height;
+    const r = rim.getContext('2d'); r.drawImage(img, 0, 0);
+    r.globalCompositeOperation = 'source-in'; r.fillStyle = MOON_RIM; r.fillRect(0, 0, rim.width, rim.height);
+    g.save(); g.globalCompositeOperation = 'destination-over';
+    [[-1, 0], [0, -1], [-1, -1], [1, 0], [0, 1]].forEach(function (o, i) { g.globalAlpha = i < 3 ? 1 : .55; g.drawImage(rim, o[0], o[1]); });
+    g.restore();
     c.src = img.src;   /* the bank's frames still: the gate traces every man to fight_people */
     UI.darkOf.set(img, c);
   }

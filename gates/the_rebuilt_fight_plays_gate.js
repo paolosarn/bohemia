@@ -409,7 +409,63 @@ async function screens() {
   leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, the whole board fits at the far stop, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
 }
 
+/* NIGHT YOU CAN READ (rule 73, Paolo 10/4: 'even at its darkest it's really hard to see... full brightness and outside,
+   I should still be able to play'; the school page records/BOHEMIA_SCHOOL_PLAYABLE_IN_THE_SUN_10_4_26.md). The same
+   board by day and by night, read in relative luminance (WCAG's), on the baked ground and on the glass; the sun is a
+   flat 25% white laid over the frame. Measured 10/4 before: the night's dark ground at 0.011 (a fifth of the day's
+   0.059), a lit tile 1.77 to 1 over an unlit one, a man 1.41 to 1 off his ground (the day's 1.95). */
+const SUN = function (glare) {
+  const S = FIGHT.S, T = FIGHT._t, lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
+  const Yof = (d, i) => { let r = d[i], g = d[i + 1], b = d[i + 2]; if (glare) { r = r * .75 + 64; g = g * .75 + 64; b = b * .75 + 64; } return .2126 * lin(r) + .7152 * lin(g) + .0722 * lin(b); };
+  const med = a => { a = a.slice().sort((p, q) => p - q); return a.length ? a[Math.floor(a.length / 2)] : 0; };
+  const cr = (a, b) => (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+  /* the ground, on the baked board: the middle of every open tile nobody stands on */
+  const B = FIGHT_UI.board, bd = B.getContext('2d').getImageData(0, 0, B.width, B.height).data, tw = B.width / S.w, th = B.height / S.h;
+  const occ = {}; S.units.forEach(u => { if (FIGHT.onField(u)) occ[u.x + ',' + u.y] = 1; });
+  const lit = [], dark = [];
+  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
+    if (!T.passable(x, y) || occ[x + ',' + y]) continue;
+    const v = []; for (let i = 1; i < 6; i++) for (let j = 1; j < 6; j++) v.push(Yof(bd, (Math.floor((y + j / 6) * th) * B.width + Math.floor((x + i / 6) * tw)) * 4));
+    (T.litAt(x, y) ? lit : dark).push(med(v));
+  }
+  /* a man against his ground, on the glass: the pixels of his figure that are not his ground, their middle against it */
+  const c = document.getElementById('cv'), D = c.width / innerWidth, cd = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+  const at = (X, Y) => Yof(cd, (Math.floor(Y * D) * c.width + Math.floor(X * D)) * 4);
+  const z = FIGHT_UI.zoom, sx = w => (w - FIGHT_UI.cx) * z + innerWidth / 2, sy = w => (w - FIGHT_UI.cy) * z + TOPH + (innerHeight - TOPH - BOTH) / 2;
+  const men = [];
+  S.units.forEach(u => { if (!FIGHT.onField(u)) return; const X = sx((u.x + .5) * FIGHT_UI.tw), feet = sy((u.y + .9) * FIGHT_UI.th), h = FIGHT_UI.th * z * .86;
+    if (X < 0 || X > innerWidth || feet - h < TOPH || feet > innerHeight - BOTH) return;
+    const gr = med([[.08, .2], [.92, .2], [.08, .6], [.92, .6]].map(o => at(sx((u.x + o[0]) * FIGHT_UI.tw), sy((u.y + o[1]) * FIGHT_UI.th))));
+    const px = []; for (let i = 0; i < 9; i++) for (let j = 0; j < 18; j++) { const v = at(X - h * .12 + h * .24 * i / 8, feet - h * .95 + h * .85 * j / 17); if (cr(v, gr) > 1.15) px.push(v); }
+    if (px.length >= 8) men.push(cr(med(px), gr)); });
+  return { dark: med(dark), lit: med(lit), nLit: lit.length, litVsDark: cr(med(lit), med(dark)), man: med(men), men: men.length, pools: FIGHT_UI.poolsDrawn || 0 };
+};
+async function sunTest() {
+  const look = async (night, extra, pre) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: (pre || '') + 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",night:' + night + (extra || '') + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(3000);
+    await d.page.evaluate(() => { FIGHT_UI.glide = null; FIGHT_UI.zoom = FIGHT_UI.far * 1.8; });
+    await d.page.waitForTimeout(400);
+    const r = { plain: await d.page.evaluate(SUN, false), sun: await d.page.evaluate(SUN, true), err: d.errs[0] };
+    await d.close(); return r;
+  };
+  const day = await look(false), night = await look(true), dead = await look(true, ',power:false'),
+    bright = await look(true, '', 'try{localStorage.setItem("bohemia.brightness","1")}catch(e){};');
+  const f = v => v.toFixed(3), x = v => v.toFixed(2);
+  leg(night.plain.dark >= .55 * day.plain.dark, '*** NIGHT IS A COLOUR, NOT A DARKNESS (rule 73) ***: the dark ground at night keeps at least half the day\'s light (it kept a fifth)',
+    'day ' + f(day.plain.dark) + ', night ' + f(night.plain.dark) + ' = ' + Math.round(100 * night.plain.dark / day.plain.dark) + '%');
+  leg(night.plain.nLit > 0 && night.plain.litVsDark >= 3, '*** A LIT TILE STANDS THREE TO ONE OVER AN UNLIT ONE *** (the floor: 3 to 1 for anything the player must find; it was 1.77)',
+    x(night.plain.litVsDark) + ' to 1 (' + f(night.plain.lit) + ' vs ' + f(night.plain.dark) + '); under the sun ' + x(night.sun.litVsDark) + ' to 1');
+  leg(night.plain.man >= .9 * day.plain.man && night.sun.man >= .9 * day.sun.man, 'a man stands off his ground at night as well as by day (within a tenth), in the shade and under the sun: the moon lifts him and rims him',
+    'day ' + x(day.plain.man) + ', night ' + x(night.plain.man) + '; in the sun day ' + x(day.sun.man) + ', night ' + x(night.sun.man));
+  leg(dead.plain.pools === 0 && dead.plain.nLit === 0, 'no power on the block, no lamps: the night stays the moon\'s (the map hands the power over)', dead.plain.pools + ' pools, ' + dead.plain.nLit + ' lit tiles');
+  leg(bright.plain.dark > night.plain.dark && !day.err && !night.err && !bright.err, 'BRIGHTNESS lifts the night\'s floor (the settings slider, bohemia.brightness), never the day, no page error',
+    'night ' + f(night.plain.dark) + ' -> ' + f(bright.plain.dark) + ' at full brightness');
+}
+
 (async () => {
+  await sunTest();
   await screens();
   await nightLights();
   await table70();
