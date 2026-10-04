@@ -43358,7 +43358,8 @@ function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>>
 function mapPersonDraw(set, face, beat, sx, footY){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
-  var w = fr.width * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * MAP_PERSON_K * MAP_PEOPLE_K;
+  var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
+  var w = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
   g.fillStyle = 'rgba(10,8,6,0.45)';
   g.beginPath(); g.ellipse(sx, footY, w * 0.22, w * 0.07, 0, 0, 7); g.fill();
   g.imageSmoothingEnabled = false;
@@ -44926,7 +44927,7 @@ function renderCity(){
       let __spr=__set&&__set.idle;
       if(__set&&__moving&&__set.walk&&__set.walk.length)
         __spr=__set.walk[Math.floor(performance.now()/125)%__set.walk.length];
-      if(__spr){ __body=spriteAt(__spr,24); __how='rig'; }
+      if(__spr){ __body=spriteAt(__spr,32); __how='rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
     /* THE BANNER FIRST, so his body stands in front of its pole */
     const __flagH = 30;                                   /* the pole, screen px */
@@ -44941,9 +44942,9 @@ function renderCity(){
     let __bw=0, __bh=0;
     if(__body){
       g.imageSmoothingEnabled=false;
-      __bw=__body.width; __bh=__body.height;
+      __bw=__body.width/2; __bh=__body.height/2;
       /* the rig's box carries the body in its lower middle with the feet near the bottom */
-      g.drawImage(__body, Math.round(__gx-__bw/2), Math.round(__gy-__bh*0.93));
+      g.drawImage(__body, mapSnap(__gx-__bw/2), mapSnap(__gy-__bh*0.93), __bw, __bh);
     } else {
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
@@ -66236,11 +66237,14 @@ function outline1(src){
    _hd0 is the UNBORDERED double, kept so the x4 tier chains off it -- chaining x4
    off the bordered x2 would border a border and put 2px back at the closest zoom. */
 function spriteAt(spr,C){
-  if(C>=64){ if(!spr._hd4){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd4=outline1(epx2(spr._hd0)); } return spr._hd4; }
-  if(C>=32){ if(!spr._hd){ if(!spr._hd0)spr._hd0=epx2(spr); spr._hd=outline1(spr._hd0); } return spr._hd; }
-  if(C<17){ if(!spr._half)spr._half=outline1(half2(spr)); return spr._half; }
-  if(!spr._b)spr._b=outline1(spr);      /* RAW 56 NEEDS IT TOO -- the art arrives borderless */
-  return spr._b;
+  /* SIZE-AWARE (RUN 10/4): the ladder is in 56-px boxes -- 4x past 64, 2x past 32, half under 17, else 1x --
+     and the body may arrive at 56 (the old bake) or 112 (the rig's own size, CAST_PX 112). The box it
+     returns is the same either way; at 112 the 2x rung is the rig's real pixels instead of EPX's guess. */
+  var want = C>=64 ? 4 : C>=32 ? 2 : C<17 ? 0.5 : 1, k = want*56/Math.max(1, spr.width), key = '_k'+k;
+  if(spr[key]) return spr[key];
+  var c = spr;
+  if(k>=4) c = epx2(epx2(spr)); else if(k>=2) c = epx2(spr); else if(k<=0.25) c = half2(half2(spr)); else if(k<=0.5) c = half2(spr);
+  return (spr[key] = outline1(c));      /* RAW NEEDS IT TOO -- the art arrives borderless */
 }
 function epx2(src){
   const w=src.width,h=src.height;

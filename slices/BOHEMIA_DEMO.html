@@ -10703,7 +10703,12 @@ function bake112(d,clip,ph){
    the law gives RUN the one constant and gives this lane "the rig at the new size".
    The name carries no number either -- a function called bakeCast that bakes at
    CAST_PX is the seventh copy. */
-const CAST_PX=56;
+/* RUN 10/4 ([map pixels now], rule 65 (a): every marker drawn 1:1 from its authored art): THE ONE EDIT
+   THIS NOTE PROMISED. The map draws a person 37 CSS px tall, which is 112 device px on his phone, and was
+   drawing the halved 56 doubled back up. At 112 the rig's frame ships as it renders (no halve), the map
+   draws it one art pixel to one device pixel, and the city's ladder (spriteAt) is size-aware, so every
+   body keeps the on-screen size it had. */
+const CAST_PX=112;
 function bakeCast(d,clip,ph,noBorder){const f=buildFrame(d,clip,ph,!!noBorder);const r=frameToRGBA(f);
   return packIdx(f.CW===CAST_PX?r:_rgbaHalf(r,f.CW,f.CH),CAST_PX,CAST_PX);} /* RAW art: city applies the Scale2x ladder itself (integer scale law) */
 G._sentLook=null;
