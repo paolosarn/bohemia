@@ -1,3 +1,20 @@
+WORDS (words-8dqrnq): 10/4 (b) LATEST -- *** STILL ONE ROW, STILL NOT TAKEN YET. CHECKED, NOT
+INVENTED. ***
+TAB: no change.
+
+Checked three things this round: whether the demo is out yet (no; RUN is still mid-sprint on
+the map), whether anyone had applied the six fixes from last round yet (no, all six still show
+the old wording in the real files), and whether any new verdict came in for this lane. One did:
+his vote on the naming screen from a few rounds back came back UP, with a note that he'd
+rather name his people one at a time, as each new era starts, not all three up front. That is
+already settled; a newer rule already killed that whole screen and replaced it with naming one
+person at a time, so there is nothing left to do about it.
+No new row landed. The rule that opened this lane back up says only one job runs until the demo
+ships, and that job is already done and waiting on the run team. Nothing to invent, nothing to
+chase.
+NEXT: keep watching for the fixes to land or for a new job.
+PENDING Paolo: nothing.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (s) LATEST -- ROUND EIGHTEEN SHIPPED: settlement pictures, two variants a
 tier, each with a night_src (round six's night: his lamps and drums only), the camp filled out.
 settlement_ground.json tiers[t].variants[] = {src, night_src, px, hotspots, lights}; tiers[t].src/hotspots
