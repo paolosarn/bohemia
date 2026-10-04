@@ -49,6 +49,14 @@ const srv = http.createServer((rq, rs) => {
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
   await p.waitForTimeout(600);
 
+  /* a thumb on the building itself (rule 67: the buildings are the buttons); a window that is
+     open is closed first, the way a player would */
+  const tapB = async k => {
+    if (await p.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await p.click('#close'); await p.waitForTimeout(300); }
+    const xy = await p.evaluate(k => BohemiaSettlement.where(k), k);
+    if (!xy) throw new Error('no pixels for ' + k);
+    await p.mouse.click(xy.x, xy.y);
+  };
   ok('every file the screen loads is there', missing.length === 0, missing.slice(0, 2).join(' '));
   const art = await p.evaluate(() => {
     const c = document.getElementById('cv'); const x = c.getContext('2d');
@@ -61,26 +69,25 @@ const srv = http.createServer((rq, rs) => {
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
   ok('a town has six: hall, board, stall, barber, bar, scavenge', keys.join() === 'hall,board,stall,barber,bar,lot', keys.join());
-  const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.hot,.pl,#leave')).filter(e => e.style.display !== 'none').map(e => {
-    const r = e.getBoundingClientRect(); return [e.dataset.k || e.id, Math.round(r.width), Math.round(r.height)]; }));
-  const small = sizes.filter(s => s[1] < 44 || s[2] < 44);
-  /* tap each plate: the street walks to that front and its button is there on the picture */
-  const onPic = [];
+  /* every building is a button on its own pixels, big enough for a thumb, and there is no
+     other button on the screen but LEAVE (no shelf, no plates) */
+  const onPic = [], small = [];
   for (const k of keys) {
-    await p.click('.pl[data-k="' + k + '"]'); await p.waitForTimeout(80);
-    if (await p.evaluate(k => { const h = document.querySelector('.hot[data-k="' + k + '"]'); if (!h || h.style.display === 'none') return false;
-      const r = h.getBoundingClientRect(); return r.width >= 44 && r.left >= -1 && r.right <= innerWidth + 1; }, k)) onPic.push(k);
-    await p.click('#close'); await p.waitForTimeout(260);
+    const xy = await p.evaluate(k => BohemiaSettlement.where(k), k);
+    if (!xy) continue;
+    if (xy.px < 44 * 44) small.push(k + ':' + xy.px);
+    await tapB(k); await p.waitForTimeout(150);
+    if (await p.evaluate(k => BohemiaSettlement.state.open === k, k)) onPic.push(k);
   }
-  ok('every building is tappable on the picture AND on the shelf', onPic.length === keys.length, onPic.join());
-  ok('  and every target is 44', small.length === 0, JSON.stringify(small.slice(0, 3)));
-  const inside = await p.evaluate(() => [].slice.call(document.querySelectorAll('.hot')).every(h => {
-    const r = h.getBoundingClientRect(); return r.left >= -1 && r.right <= innerWidth + 1; }));
-  ok('  and every building on the picture is on the screen', inside);
+  ok('every building is a button: tap its own pixels and it opens', onPic.length === keys.length, onPic.join());
+  ok('  and every building is bigger than a thumb', small.length === 0, small.join(' ') || 'all over 44x44');
+  const extra = await p.evaluate(() => [].slice.call(document.querySelectorAll('button')).filter(b => b.offsetParent && !b.closest('#sheet') && b.id !== 'leave').length);
+  ok('  and there are no extra buttons (Battle Brothers: the buildings are the buttons)', extra === 0, extra + ' extra');
+  await p.click('#close'); await p.waitForTimeout(300);
 
   /* every building through a mouth */
   for (const k of keys) {
-    await p.click('.pl[data-k="' + k + '"]');
+    await tapB(k);
     await p.waitForTimeout(320);
     const s = await p.evaluate(() => {
       const sh = document.getElementById('sheet');
@@ -94,7 +101,7 @@ const srv = http.createServer((rq, rs) => {
   /* the barber costs one battery */
   const bat = () => p.evaluate(() => BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity'));
   const b0 = await bat();
-  await p.click('.pl[data-k="barber"]'); await p.waitForTimeout(250);
+  await tapB('barber'); await p.waitForTimeout(250);
   await p.click('#sbody .act'); await p.waitForTimeout(250);
   const b1 = await bat();
   const opens = await p.evaluate(() => document.querySelectorAll('#sbody .act').length);
@@ -102,14 +109,14 @@ const srv = http.createServer((rq, rs) => {
   ok('  and opens the face maker and the haircut shelf', opens === 2);
   await p.screenshot({ path: SHOT2 });
   await p.evaluate(() => { const s = BohemiaSettlement.state; BohemiaPurse.debit(s.purse, 'electricity', BohemiaPurse.balance(s.purse, 'electricity'), 'gate', null, 0); });
-  await p.click('.pl[data-k="stall"]'); await p.click('.pl[data-k="barber"]'); await p.waitForTimeout(250);
+  await tapB('stall'); await tapB('barber'); await p.waitForTimeout(250);
   const broke = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
   ok('  and refuses when you are broke', broke && (await bat()) === 0);
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 3, 'gate', null, 0));
 
   /* the bar: a round costs one battery and pays a rumour */
   const bb = await bat();
-  await p.click('.pl[data-k="bar"]'); await p.waitForTimeout(200);
+  await tapB('bar'); await p.waitForTimeout(200);
   await p.click('#sbody .act'); await p.waitForTimeout(200);
   const rum = await p.evaluate(() => (window.__settleLog.filter(m => m.act === 'round').pop() || {}).rumour || '');
   ok('the bar: one battery for a round, and a rumour out of a mouth', bb - (await bat()) === 1 && rum.length > 20, rum.slice(0, 50));
@@ -117,7 +124,7 @@ const srv = http.createServer((rq, rs) => {
 
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
-    await p.click('.pl[data-k="board"]'); await p.waitForTimeout(200);
+    await tapB('board'); await p.waitForTimeout(200);
     const first = await p.$('#sbody .act:not([disabled])');
     if (!first) break;
     await first.click(); await p.waitForTimeout(150);
@@ -130,7 +137,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  and tells the game each one it hands over', held.told === 2, held.told + ' posted');
 
   /* the hall hires through a mouth */
-  await p.click('.pl[data-k="hall"]'); await p.waitForTimeout(200);
+  await tapB('hall'); await p.waitForTimeout(200);
   await p.click('#sbody .act'); await p.waitForTimeout(200);
   const hired = await p.evaluate(() => Object.keys(BohemiaSettlement.state.hired));
   ok('the hall hires the one who asked', hired.length === 1, hired.join());
@@ -138,40 +145,34 @@ const srv = http.createServer((rq, rs) => {
   /* scavenge: one thing or nothing, and the lot runs out */
   const finds = [];
   for (let i = 0; i < 40; i++) {
-    await p.click('.pl[data-k="lot"]'); await p.waitForTimeout(60);
+    await tapB('lot'); await p.waitForTimeout(60);
     const btn = await p.$('#sbody .act');
     if (!btn || await btn.isDisabled()) break;
     await btn.click(); await p.waitForTimeout(60);
     finds.push(await p.evaluate(() => { const l = window.__settleLog.filter(m => m.act === 'scavenge').pop(); return l.result.found ? 1 : 0; }));
   }
   const total = finds.reduce((a, c) => a + c, 0);
-  const clean = await p.evaluate(() => document.querySelector('.pl[data-k="lot"] small').textContent);
+  const clean = await p.evaluate(() => /took it all|picked clean/.test(document.getElementById('sbody').textContent) ? 'picked clean' : 'not');
   ok('scavenge finds one thing or nothing, never a pile', finds.every(f => f === 0 || f === 1), finds.join(''));
   ok('  and the lot runs out', clean === 'picked clean' && total === 6, total + ' found, shelf says ' + clean);
 
-  /* the street pans with a drag */
   await p.click('#close'); await p.waitForTimeout(300);
-  const c0 = await p.evaluate(() => { BohemiaSettlement.open({}); return 0; });
-  const before = await p.evaluate(() => document.querySelector('.hot[data-k="hall"]').getBoundingClientRect().left);
-  await p.mouse.move(300, 300); await p.mouse.down(); await p.mouse.move(150, 300, { steps: 6 }); await p.mouse.up();
-  const after = await p.evaluate(() => document.querySelector('.hot[data-k="hall"]').getBoundingClientRect().left);
-  ok('drag the street and it pans', before - after > 60, Math.round(before) + ' -> ' + Math.round(after));
 
   /* a camp has four and the rest are SHUT, not tappable */
   const camp = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'camp', name: 'A CAMP' } });
-    return { o: BohemiaSettlement.order().join(), shut: !!document.querySelector('.hot[data-k="barber"]') }; });
-  ok('a camp: hall, board, stall, scavenge, and the barber is shut', camp.o === 'hall,board,stall,lot' && !camp.shut, camp.o);
+    return { o: BohemiaSettlement.order().join(), shut: !!BohemiaSettlement.where('barber') }; });
+  ok('a camp: hall, board, stall, scavenge, and no barber standing', camp.o === 'hall,board,stall,lot' && !camp.shut, camp.o);
 
   /* a fortress has all eight; the clinic and the yard only work for a real reason */
   const fort = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'A FORTRESS' } }); return BohemiaSettlement.order().length; });
   ok('a fortress has all eight', fort === 8, fort);
-  await p.click('.pl[data-k="clinic"]'); await p.waitForTimeout(200);
+  await tapB('clinic'); await p.waitForTimeout(200);
   const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
   await p.evaluate(() => BohemiaSettlement.open({ wounded: ['rosa'], veterans: ['jonah'] }));
-  await p.click('.pl[data-k="clinic"]'); await p.waitForTimeout(200);
+  await tapB('clinic'); await p.waitForTimeout(200);
   const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
   ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
-  await p.click('.pl[data-k="train"]'); await p.waitForTimeout(200);
+  await tapB('train'); await p.waitForTimeout(200);
   const tb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
   ok('the yard swaps a veteran\'s mastery for one battery', tb - (await bat()) === 1);
   await p.click('#close'); await p.waitForTimeout(300);
@@ -179,7 +180,6 @@ const srv = http.createServer((rq, rs) => {
   await p.waitForTimeout(200);
   await p.screenshot({ path: SHOT });
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'THE FORT, HENDERSON' } }));
-  await p.mouse.move(300, 300); await p.mouse.down(); await p.mouse.move(40, 300, { steps: 6 }); await p.mouse.up();
   await p.waitForTimeout(200);
   await p.screenshot({ path: SHOT.replace('_10_1', '_FORTRESS_10_1') });
   await p.click('#leave');

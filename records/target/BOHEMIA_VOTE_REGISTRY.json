@@ -4366,11 +4366,74 @@
    },
    "draft": true
   },
-  {"id": "combat-the-perk-skills-10-2", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/2", "title": "THE PERKS YOU PRESS: SEVEN BUTTONS ON A MAN'S CARD", "why": "The seven Battle Brothers perks you press are buttons on a man's card now, each at its wiki cost: ON ME pulls your breaking men back to steady, CATCH YOUR BREATH halves his tiredness for the whole turn, SWAP OUT trades places with a friend, COME AT ME calls a man onto him, SIDESTEP walks out of reach with no free swing, IMMOVABLE halves the damage, FIRST OUT THE DOOR puts him first next round, and the enemy uses them too. In a fight, when one of yours has one, you see it as a gold button above WAIT, in the VOTE tab, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg"}, "draft": true},
-{"id": "combat2-mixed-boards-in-the-fight-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "NO MORE COPY-PASTED BOARDS: A REAL STREET GRID", "why": "The fight boards no longer repeat one strip of houses across the screen: houses sit on different lots every block, cross streets cut through, some lots are empty slabs, and one house in six is burnt, shown here inside the new fight on a phone. Thumbs up and every fight board is mixed like this, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png"}},
-{"id": "combat2-streets-run-through-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "CROSS STREETS RUN ALL THE WAY THROUGH", "why": "On every town board the cross streets now run top to bottom through every block like a real street grid instead of stopping at a block's edge, and each board now lists its street lamps and fire barrels so night fights can be lit by them. Thumbs up and the fight uses these boards, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_STREETS_RUN_THROUGH_10_2.png"}},
-{"id": "combat2-the-ground-packed-10-2", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/2", "title": "THE SAME FIGHT GROUND, FIVE TIMES LIGHTER", "why": "The fight boards now download in about 5 MB instead of 24 with not one visible pixel changed, so fights open faster on a phone; shown here inside the new fight on the cul-de-sac and the lake shore. Thumbs up and nothing else changes, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_GROUND_PACKED_10_2.png"}}
-],
+  {
+   "id": "combat-the-perk-skills-10-2",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE PERKS YOU PRESS: SEVEN BUTTONS ON A MAN'S CARD",
+   "why": "The seven Battle Brothers perks you press are buttons on a man's card now, each at its wiki cost: ON ME pulls your breaking men back to steady, CATCH YOUR BREATH halves his tiredness for the whole turn, SWAP OUT trades places with a friend, COME AT ME calls a man onto him, SIDESTEP walks out of reach with no free swing, IMMOVABLE halves the damage, FIRST OUT THE DOOR puts him first next round, and the enemy uses them too. In a fight, when one of yours has one, you see it as a gold button above WAIT, in the VOTE tab, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_PERK_SKILLS_ON_HIS_CARD_10_2.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "combat2-mixed-boards-in-the-fight-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "NO MORE COPY-PASTED BOARDS: A REAL STREET GRID",
+   "why": "The fight boards no longer repeat one strip of houses across the screen: houses sit on different lots every block, cross streets cut through, some lots are empty slabs, and one house in six is burnt, shown here inside the new fight on a phone. Thumbs up and every fight board is mixed like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_MIXED_BOARDS_IN_THE_FIGHT_10_2.png"
+   }
+  },
+  {
+   "id": "combat2-streets-run-through-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "CROSS STREETS RUN ALL THE WAY THROUGH",
+   "why": "On every town board the cross streets now run top to bottom through every block like a real street grid instead of stopping at a block's edge, and each board now lists its street lamps and fire barrels so night fights can be lit by them. Thumbs up and the fight uses these boards, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_STREETS_RUN_THROUGH_10_2.png"
+   }
+  },
+  {
+   "id": "combat2-the-ground-packed-10-2",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/2",
+   "title": "THE SAME FIGHT GROUND, FIVE TIMES LIGHTER",
+   "why": "The fight boards now download in about 5 MB instead of 24 with not one visible pixel changed, so fights open faster on a phone; shown here inside the new fight on the cul-de-sac and the lake shore. Thumbs up and nothing else changes, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_GROUND_PACKED_10_2.png"
+   }
+  },
+  {
+   "id": "run2-settlement-like-battle-brothers-10-4",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "THE SETTLEMENT SCREEN, REBUILT LIKE BATTLE BROTHERS",
+   "why": "You said look how Battle Brothers settlements work, so the place is now the game's own 45-degree buildings standing in a town, you tap the building itself to open it, and the row of extra buttons is gone. You see it in the VOTE tab under LOOK, and in the demo every time you arrive at a place on the map.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_FORTRESS_10_1.png"
+   },
+   "draft": true
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
@@ -5989,96 +6052,642 @@
    "when": "9/30",
    "at": "2026-10-01"
   },
-  {"id": "combat2-the-ground-packed-10-2", "vote": "up", "said": "nice just make sure all the tiles and elements tlak to eachother and lines that run through are consistent and make sense please", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-streets-run-through-10-2", "vote": "up", "said": "land fill and freeway look like dog shit i would like most fights to start left to right not south to north you know also im glad we got suburb house buildings but we need so much more buildings type shit", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-mixed-boards-in-the-fight-10-2", "vote": "up", "said": "makin progress nice remember west to east not south to north fighting", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-perk-skills-10-2", "vote": "up", "said": "this ui is looking like dogshit not like a studio made game like some ai slop claude bullshit so thatll need upgrading also here the attack button? health and armor bars above the people for now is cool but the rest of the info is not needed to be presented. it can be in the background not visible for now. the combat log is not needed all traits need cool graphic icons and shit too", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-perks-translated-10-2", "vote": "up", "said": "All fifty Battle Brothers perks with a draft name of ours make sure main coordinator talks w me about this shit", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-the-ground-in-the-new-fight-10-2", "vote": "up", "said": "good progress", "when": "10/2", "at": "2026-10-02"},
-  {"id": "grok-food-stacks-10-2", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-fight-rebuilt-10-2", "vote": "up", "said": "i like i the amount of cars on a tile can increase the defense rating on that tile to 1 car a certain amount 3 cars more", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-the-ground-for-the-new-fight-10-2", "vote": "up", "said": "good progress need more", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-the-far-end-is-painted-10-2", "vote": "up", "said": "good as long as it proceduraly generates with the rest nice good progress", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-the-new-fight-in-the-demo-10-2", "vote": "up", "said": "i want it to zoom in with clouds being the loading screen again the world map has to be like 5x more pixels if im correct to match battle brothers so yeah", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-the-valley-edge-10-2", "vote": "up", "said": "good progress", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-the-front-door-10-2", "vote": "up", "said": "good progress not close to final but awesome", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-store-fronts-and-houses-everywhere-10-2", "vote": "up", "said": "good progress", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-the-loop-on-the-map-10-2", "vote": "up", "said": "good progress not final the buildings will be the buttons so extra buttons not needed", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-reach-is-lit-10-1", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-houses-at-45-and-the-big-board-10-1", "vote": "up", "said": "good progress not final", "when": "10/2", "at": "2026-10-02"},
-  {"id": "grok-see-the-hire-10-1", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "grok-ten-crowns-one-battery-10-1", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-night-boards-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-map-icons-own-art-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-ground-is-45-10-1", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run-map-at-your-pixels-10-1", "vote": "up", "said": "got to be able to zoom tf in so much and zoom out all the way so much", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-shore-landfill-ruin-10-1", "vote": "up", "said": "consisdtency and quality good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "cook-the-fights-floor-10-1", "vote": "down", "said": "you showed me the old combat so i downvote", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-every-fight-ends-10-1", "vote": "up", "said": "battle brothers has a recap screen showing how much blood was drawn how many kills and how much experience was awarded so yeah keep that in mind", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-four-more-board-kinds-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-cover-is-a-thing-10-1", "vote": "down", "said": "u showed me the old combat so i downvote", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-the-board-kinds-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run2-the-one-file-loop-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-the-floor-set-r2-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat2-the-cover-pieces-10-1", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "run2-the-settlement-screen-10-1", "vote": "up", "said": "good progress not final not even close and its looking real dogshit look how battle brothers settlements work", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-you-build-inside-your-home-bases-screen-9-29", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-a-routine-fight-ends-inside-90-seconds-9-29", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "factions-the-fourteen-home-bases-9-28", "vote": "down", "said": "looking like dogshit", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-roof-you-stand-on-9-28", "vote": "down", "said": "u showed me old combat so i downvote", "when": "10/2", "at": "2026-10-02"},
-  {"id": "portrait-the-head-and-the-gear-9-28", "vote": "up", "said": "good progress not final not even close looking like dogshiut", "when": "10/2", "at": "2026-10-02"},
-  {"id": "animation-a-hit-facing-you-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-sign-catches-then-holds-9-28", "vote": "up", "said": "new ones are fire put the volume down a little bit and yeah", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-block-lights-at-one-twenty-9-28", "vote": "up", "said": "new ones fire make sure its not super loud", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-generator-is-sixty-hertz-9-28", "vote": "up", "said": "new ones fire make sure its not super loud", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-the-company-inherits-9-28", "vote": "up", "said": "not all of them though but maybe like 42% maybe", "when": "10/2", "at": "2026-10-02"},
-  {"id": "world-three-shapes-9-28", "vote": "down", "said": "NEEDS WAY MORE PIXELS LOOKING BAD MAN", "when": "10/2", "at": "2026-10-02"},
-  {"id": "cook-a-house-is-one-tile-9-28", "vote": "up", "said": "ALWAYS A 45 DEGREE ANGLE LOOKING DOWN", "when": "10/2", "at": "2026-10-02"},
-  {"id": "tuning-every-number-9-28", "vote": "down", "said": "COPY BATTLE BROTHERS", "when": "10/2", "at": "2026-10-02"},
-  {"id": "lifecity-the-street-falls-and-the-house-stays-lit-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "mods-mods-at-boot-9-28", "vote": "down", "said": "NAH", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "dynasty-return-ritual-9-28", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "ui-her-page-9-28", "vote": "up", "said": "good progress not final not even close REMEMBER STATS AND STARS NEXT TO STATS AND YEAH HOW BATTLE BROTHERS DOES IT", "when": "10/2", "at": "2026-10-02"},
-  {"id": "mods-try-a-mod-9-28", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "tuning-how-long-they-live-9-28", "vote": "up", "said": "YEAH I MEAN NO ONE IS DYING OF OLD AGE IN THE CURRENT ACT UR IN BUT STORY WISE OR LORE WISE WHEN U GO TO NEXT AGE ITLL DEPEND ON THIS SHIT", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-the-strip-on-foot-uses-the-112-walk-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "animation-the-map-glides-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "animation-two-moves-that-were-dead-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-flip-is-a-knock-not-a-chime-9-28", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-deck-does-not-ring-9-28", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-a-footstep-that-is-not-glass-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "character-the-attachments-trade-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "people-real-families-dont-come-out-four-of-four-9-28", "vote": "up", "said": "WE NEED WAYYYYYY MORE PROTRAIT ASSESTS good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "people-a-stranger-gets-the-worst-work-9-28", "vote": "down", "said": "the world doesnt look like this anymore so i downvote", "when": "10/2", "at": "2026-10-02"},
-  {"id": "cook-what-a-good-tile-looks-like-9-28", "vote": "down", "said": "45 degress above only looking like shit", "when": "10/2", "at": "2026-10-02"},
-  {"id": "world-two-futures-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "dynasty-angel-verbs-9-28", "vote": "up", "said": "pretty much having beef with a settlement where they attack u or their roaming parties do for taking a contract that attacks them first or no contract needed type shit but yeah u cant even steal bread in this game", "when": "10/2", "at": "2026-10-02"},
-  {"id": "mods-one-gun-forty-two-places-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "ui-how-you-pick-a-building-9-28", "vote": "down", "said": "old map and old combat vibes i downvote", "when": "10/2", "at": "2026-10-02"},
-  {"id": "dynasty-horror-heir-9-28", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "portrait-why-a-face-reads-as-nobody-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "tuning-five-points-9-28", "vote": "down", "said": "HOW BATTLE BROTHERS DOESIT WE COPY THEM", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "words-the-three-before-act-one-9-28", "vote": "up", "said": "good progress not final not even close YOULL PROBABLY MAKE YOUR RELATIVES ONE AT A TIME WHEN U ENTER THE NEW ERA TYPE SHIT NOT ALL 3 AT ONCE MY BADA", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-houses-and-a-mound-9-28", "vote": "down", "said": "I SEE THE OLD COMBAT I DOWNVOTE", "when": "10/2", "at": "2026-10-02"},
-  {"id": "quests-the-second-shelf-9-28", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "ui-how-you-know-she-is-with-you-9-28", "vote": "down", "said": "OLD AND RETIRED BEFORE BATTLE BROTHER REVAMP", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-the-strip-is-the-only-walked-place-9-28", "vote": "up", "said": "", "when": "10/2", "at": "2026-10-02"},
-  {"id": "coordinator-the-map-floor-is-the-phones-pixels-9-28", "vote": "up", "said": "WE SHOULD HAVE THE BATTLE BROTHERS PIXEL COUNT BY NOW", "when": "10/2", "at": "2026-10-02"},
-  {"id": "cook-the-cell-is-the-step-9-27", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "portrait-not-strangers-anymore-9-27", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "animation-bb-where-a-body-spends-its-pictures-9-27", "vote": "down", "said": "WHO CARES DO WHAT WE DHAVE TO DO OUR GAME WILL BE BETTER THAN BATTLE BROTHERS", "when": "10/2", "at": "2026-10-02"},
-  {"id": "animation-six-more-walks-had-the-same-limp-9-27", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "people-who-you-were-9-27", "vote": "up", "said": "YOU CAN CHOOSE TO BE OLDER OR YOUNGER AND SHIT SO YEAH good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "quests-the-first-shelf-9-27", "vote": "up", "said": "CONTRTACTS ONLY good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "sounds-the-valley-still-broadcasts-9-27", "vote": "up", "said": "good progress not final not even close QUIETER PLEASE ITS LOUD", "when": "10/2", "at": "2026-10-02"},
-  {"id": "dynasty-three-names-reshuffle-9-27", "vote": "down", "said": "DEAD IDEA U MAKE THE PEOPLE FRESH WHEN U ENTER A NEW ACT", "when": "10/2", "at": "2026-10-02"},
-  {"id": "ui-what-the-bar-says-9-27", "vote": "down", "said": "DEAD", "when": "10/2", "at": "2026-10-02"},
-  {"id": "lifecity-the-water-you-could-stand-on-9-27", "vote": "up", "said": "good progress not final not even close", "when": "10/2", "at": "2026-10-02"},
-  {"id": "combat-the-fight-is-on-cells-9-28", "vote": "down", "said": "DEAD", "when": "10/2", "at": "2026-10-02"},
-  {"id": "character-the-one-cell-sprite-9-27", "vote": "down", "said": "", "when": "10/2", "at": "2026-10-02"}
+  {
+   "id": "combat2-the-ground-packed-10-2",
+   "vote": "up",
+   "said": "nice just make sure all the tiles and elements tlak to eachother and lines that run through are consistent and make sense please",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-streets-run-through-10-2",
+   "vote": "up",
+   "said": "land fill and freeway look like dog shit i would like most fights to start left to right not south to north you know also im glad we got suburb house buildings but we need so much more buildings type shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-mixed-boards-in-the-fight-10-2",
+   "vote": "up",
+   "said": "makin progress nice remember west to east not south to north fighting",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-perk-skills-10-2",
+   "vote": "up",
+   "said": "this ui is looking like dogshit not like a studio made game like some ai slop claude bullshit so thatll need upgrading also here the attack button? health and armor bars above the people for now is cool but the rest of the info is not needed to be presented. it can be in the background not visible for now. the combat log is not needed all traits need cool graphic icons and shit too",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-perks-translated-10-2",
+   "vote": "up",
+   "said": "All fifty Battle Brothers perks with a draft name of ours make sure main coordinator talks w me about this shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-ground-in-the-new-fight-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-food-stacks-10-2",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-fight-rebuilt-10-2",
+   "vote": "up",
+   "said": "i like i the amount of cars on a tile can increase the defense rating on that tile to 1 car a certain amount 3 cars more",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-ground-for-the-new-fight-10-2",
+   "vote": "up",
+   "said": "good progress need more",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-far-end-is-painted-10-2",
+   "vote": "up",
+   "said": "good as long as it proceduraly generates with the rest nice good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-new-fight-in-the-demo-10-2",
+   "vote": "up",
+   "said": "i want it to zoom in with clouds being the loading screen again the world map has to be like 5x more pixels if im correct to match battle brothers so yeah",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-valley-edge-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-front-door-10-2",
+   "vote": "up",
+   "said": "good progress not close to final but awesome",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-store-fronts-and-houses-everywhere-10-2",
+   "vote": "up",
+   "said": "good progress",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-the-loop-on-the-map-10-2",
+   "vote": "up",
+   "said": "good progress not final the buildings will be the buttons so extra buttons not needed",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-reach-is-lit-10-1",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-houses-at-45-and-the-big-board-10-1",
+   "vote": "up",
+   "said": "good progress not final",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-see-the-hire-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "grok-ten-crowns-one-battery-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-night-boards-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-map-icons-own-art-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-ground-is-45-10-1",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run-map-at-your-pixels-10-1",
+   "vote": "up",
+   "said": "got to be able to zoom tf in so much and zoom out all the way so much",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-shore-landfill-ruin-10-1",
+   "vote": "up",
+   "said": "consisdtency and quality good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-the-fights-floor-10-1",
+   "vote": "down",
+   "said": "you showed me the old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-every-fight-ends-10-1",
+   "vote": "up",
+   "said": "battle brothers has a recap screen showing how much blood was drawn how many kills and how much experience was awarded so yeah keep that in mind",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-four-more-board-kinds-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-cover-is-a-thing-10-1",
+   "vote": "down",
+   "said": "u showed me the old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-board-kinds-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run2-the-one-file-loop-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-floor-set-r2-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat2-the-cover-pieces-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "run2-the-settlement-screen-10-1",
+   "vote": "up",
+   "said": "good progress not final not even close and its looking real dogshit look how battle brothers settlements work",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-swap-a-mastery-past-level-11-at-the-training-ground-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-fights-shorter-than-battle-brothers-even-when-tough-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-you-build-inside-your-home-bases-screen-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-a-routine-fight-ends-inside-90-seconds-9-29",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "factions-the-fourteen-home-bases-9-28",
+   "vote": "down",
+   "said": "looking like dogshit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-roof-you-stand-on-9-28",
+   "vote": "down",
+   "said": "u showed me old combat so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-the-head-and-the-gear-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close looking like dogshiut",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-a-hit-facing-you-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-sign-catches-then-holds-9-28",
+   "vote": "up",
+   "said": "new ones are fire put the volume down a little bit and yeah",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-block-lights-at-one-twenty-9-28",
+   "vote": "up",
+   "said": "new ones fire make sure its not super loud",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-generator-is-sixty-hertz-9-28",
+   "vote": "up",
+   "said": "new ones fire make sure its not super loud",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-company-inherits-9-28",
+   "vote": "up",
+   "said": "not all of them though but maybe like 42% maybe",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "world-three-shapes-9-28",
+   "vote": "down",
+   "said": "NEEDS WAY MORE PIXELS LOOKING BAD MAN",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-a-house-is-one-tile-9-28",
+   "vote": "up",
+   "said": "ALWAYS A 45 DEGREE ANGLE LOOKING DOWN",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-every-number-9-28",
+   "vote": "down",
+   "said": "COPY BATTLE BROTHERS",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "lifecity-the-street-falls-and-the-house-stays-lit-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-mods-at-boot-9-28",
+   "vote": "down",
+   "said": "NAH",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-phone-reads-the-machines-text-aloud-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-return-ritual-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-her-page-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close REMEMBER STATS AND STARS NEXT TO STATS AND YEAH HOW BATTLE BROTHERS DOES IT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-try-a-mod-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-how-long-they-live-9-28",
+   "vote": "up",
+   "said": "YEAH I MEAN NO ONE IS DYING OF OLD AGE IN THE CURRENT ACT UR IN BUT STORY WISE OR LORE WISE WHEN U GO TO NEXT AGE ITLL DEPEND ON THIS SHIT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-strip-on-foot-uses-the-112-walk-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-the-map-glides-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-two-moves-that-were-dead-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-flip-is-a-knock-not-a-chime-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-deck-does-not-ring-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-a-footstep-that-is-not-glass-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "character-the-attachments-trade-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-real-families-dont-come-out-four-of-four-9-28",
+   "vote": "up",
+   "said": "WE NEED WAYYYYYY MORE PROTRAIT ASSESTS good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-a-stranger-gets-the-worst-work-9-28",
+   "vote": "down",
+   "said": "the world doesnt look like this anymore so i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-what-a-good-tile-looks-like-9-28",
+   "vote": "down",
+   "said": "45 degress above only looking like shit",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "world-two-futures-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-angel-verbs-9-28",
+   "vote": "up",
+   "said": "pretty much having beef with a settlement where they attack u or their roaming parties do for taking a contract that attacks them first or no contract needed type shit but yeah u cant even steal bread in this game",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "mods-one-gun-forty-two-places-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-how-you-pick-a-building-9-28",
+   "vote": "down",
+   "said": "old map and old combat vibes i downvote",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-horror-heir-9-28",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-why-a-face-reads-as-nobody-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "tuning-five-points-9-28",
+   "vote": "down",
+   "said": "HOW BATTLE BROTHERS DOESIT WE COPY THEM",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-tuning-and-mods-research-until-you-say-build-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "words-the-three-before-act-one-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close YOULL PROBABLY MAKE YOUR RELATIVES ONE AT A TIME WHEN U ENTER THE NEW ERA TYPE SHIT NOT ALL 3 AT ONCE MY BADA",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-houses-and-a-mound-9-28",
+   "vote": "down",
+   "said": "I SEE THE OLD COMBAT I DOWNVOTE",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "quests-the-second-shelf-9-28",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-how-you-know-she-is-with-you-9-28",
+   "vote": "down",
+   "said": "OLD AND RETIRED BEFORE BATTLE BROTHER REVAMP",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-strip-is-the-only-walked-place-9-28",
+   "vote": "up",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "coordinator-the-map-floor-is-the-phones-pixels-9-28",
+   "vote": "up",
+   "said": "WE SHOULD HAVE THE BATTLE BROTHERS PIXEL COUNT BY NOW",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "cook-the-cell-is-the-step-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "portrait-not-strangers-anymore-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-bb-where-a-body-spends-its-pictures-9-27",
+   "vote": "down",
+   "said": "WHO CARES DO WHAT WE DHAVE TO DO OUR GAME WILL BE BETTER THAN BATTLE BROTHERS",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "animation-six-more-walks-had-the-same-limp-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "people-who-you-were-9-27",
+   "vote": "up",
+   "said": "YOU CAN CHOOSE TO BE OLDER OR YOUNGER AND SHIT SO YEAH good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "quests-the-first-shelf-9-27",
+   "vote": "up",
+   "said": "CONTRTACTS ONLY good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "sounds-the-valley-still-broadcasts-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close QUIETER PLEASE ITS LOUD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "dynasty-three-names-reshuffle-9-27",
+   "vote": "down",
+   "said": "DEAD IDEA U MAKE THE PEOPLE FRESH WHEN U ENTER A NEW ACT",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "ui-what-the-bar-says-9-27",
+   "vote": "down",
+   "said": "DEAD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "lifecity-the-water-you-could-stand-on-9-27",
+   "vote": "up",
+   "said": "good progress not final not even close",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "combat-the-fight-is-on-cells-9-28",
+   "vote": "down",
+   "said": "DEAD",
+   "when": "10/2",
+   "at": "2026-10-02"
+  },
+  {
+   "id": "character-the-one-cell-sprite-9-27",
+   "vote": "down",
+   "said": "",
+   "when": "10/2",
+   "at": "2026-10-02"
+  }
  ]
 }
