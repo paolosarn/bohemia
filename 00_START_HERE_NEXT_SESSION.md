@@ -10732,6 +10732,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/2f LATEST -- [map pixels now] rule 67 s3: INTO A FIGHT THROUGH CLOUDS + THE NEAR STOP. TAB: the DEMO, any fight; the map pinched all the way in. BUILD 10/2j.
+Clouds: __THE_ZOOM_GOES_THROUGH_CLOUDS__ in the shell (compositor layers, held until the fight's #load is gone). Near stop: zoomBounds ceiling = 256 art px / ratio / TW0 (4.74), ground margin capped 220.
+GATES: THE ZOOM GOES THROUGH CLOUDS 8/0 (new), FAR END F11. Seen, not ours: a big purple marker and black freeway arcs scale up at the near stop. NEXT: [one song] (rule 64), [the start screen] (rule 66), [screen fit].
 RUN (run-eak241): 10/2e LATEST -- [map pixels now] rule 65 half (b): THE FAR END IS PAINTED. TAB: the DEMO's map, pinch all the way out.
 The city painted twelve texels a block by kind (vbCityCore, same worker as the land), faded in under 10 px a block; night light only where there is power; the art scales with the zoom, he and the names do not.
 GATE THE FAR END IS PAINTED 9/0 (DIRECTION's floor read on MAP_GROUND.cv, not the glass). STILL OPEN: markers 1:1 from their art; the near end at 42.9 px/m. Then [one song] (rule 64), [screen fit].
