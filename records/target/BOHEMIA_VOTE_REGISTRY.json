@@ -4814,7 +4814,8 @@
     "how": "page",
     "src": "BOHEMIA_THE_TURN_CLOSES_10_4_26.html"
    }
-  }
+  },
+{"id": "run-one-song-10-4", "kind": "sound", "lane": "run", "sha": "pending", "made": "10/4", "title": "ONE SONG AT A TIME: THE FIGHT TAKES THE MUSIC, HOME GIVES IT BACK", "why": "The map's song used to keep playing under every fight, and coming home from a fight left the map silent; now the fight takes over with its own song and the map's song comes back after the fight's song finishes its phrase. You hear it here, recorded from the demo itself, and on the DEMO's map in any fight.", "show": {"how": "page", "src": "vote/RUN_ONE_SONG_10_4.html"}}
  ],
  "verdicts": [
   {

@@ -11006,6 +11006,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/4d LATEST -- [one song] SHIPPED (rules 64, 64a). TAB: the DEMO, any fight and home; the VOTE tab plays the recording.
+Shell __ONE_SONG__: nfOpen posts bohemiaFactionPicked 0 after SOUNDS' FIGHTMUS.enter (the fight's own song, once); the tab rule spares PANEL city (RUN) while the street or the fight's hand-back owns the music; startEncounter (the old door) mutes the old frame's loop when MUS is already playing.
+GATE THE ONE SONG 8/0. SOUNDS holds [one song and the volumes] (volumes, the new fight's sounds): one bus is the fence, do not add a second music path. NEXT: [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range].
 RUN (run-eak241): 10/4c LATEST -- [map pixels now] SHIPPED: THE NEAR END IS THE BLOCK. TAB: the DEMO's map, pinch in as far as it goes, then once more.
 City file __THE_NEAR_END_IS_THE_BLOCK__: LOOK {on,s,kind,foot}, lookKind (cell -> fight_ground block_<kind>_<n>.webp), lookFoot (nearest flat/rough/debris tile), lookEnter/Exit/Zoom/Render; renderCity returns into lookRender while LOOK.on; setZoomAt routes to lookZoom; ZGEST = the gesture (fingers down/up, the wheel by a 250 ms gap).
 GATE THE NEAR END IS THE BLOCK 9/0. NEXT: [one song] (rule 64), [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range]. Seen, not mine: the purple marker and the freeway arcs scale up at the near stop.

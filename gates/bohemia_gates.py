@@ -2322,6 +2322,19 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE ONE SONG', ['node', 'gates/the_one_song_gate.js'],
+     'VAMILY [one song], rule 64 (PAOLO 10/2: "two songs are playing at the same time"). MEASURED with every '
+     'AudioContext and media element in every frame hooked: one music engine, and the folds broke its hand-offs '
+     'both ways -- the rebuilt fight never told the music a fight began, so the map\'s song played under every '
+     'fight; and the way home clicks RUN, which the tab rule did not spare, so every fight came home to a silent '
+     'map. NOW the fight takes the music (FIGHTMUS.enter, one pick through the one handler) and hands the street '
+     'back on a phrase; the map\'s panel never stops it. HOLDS, one walk map -> settlement -> fight -> home: never '
+     'two playing; the street on the map and in the settlement; the fight\'s faction song within 2 s, once; home '
+     'never silent; the street back after a phrase with an overworld song. Mutations: the fight never takes it '
+     '(S3/S4/S6); the old tab rule (S5); a second song in the fight frame (S1). AND THE OLD FIGHT\'S DOOR (rule 64a, '
+     'where he heard it): measured two songs (the shell went on, the old frame played its loop); the demo\'s walk '
+     'never uses it (counted: 0) and forced open from a fresh-boot state the shell scores it alone (S8; mutation: '
+     'no mute -> two playing in 6 of 6).', True),
     ('THE NEAR END IS THE BLOCK', ['node', 'gates/the_near_end_is_the_block_gate.js'],
      'VAMILY [map pixels now], rules 50, 65, 67 s3 (PAOLO 10/2: "got to be able to zoom tf in so much"). MEASURED '
      'BEFORE: the map\'s closest stop clamped and past it there was nothing. NOW a new pinch in at the closest stop '
