@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE AMBIENCE COMES DOWN</title>
+<!-- SOUNDS lane, 10/4, row [one song and the volumes], rule 54b.
+     PAOLO, his sixth votes (10/2): "new ones are fire, put the volume down"; "quieter
+     please, it's loud." Rule 54b's row names these by name: the sign, the block
+     lights, the generator (the room already got this exact move on 9/23, HOW LOW
+     THE ROOM, and is not repeated here).
+     SAME MOVE AS THE ROOM: a ratio OVER the approved recipe, never a rewrite of it
+     (the recipe is frozen, verdict_frozen_gate.py; only HOW LOUD is being asked for).
+     -6 dB (A, half the energy) is what ships now; this page plays the REAL candidate
+     0 of each event through BOH_SFX.render, at A/B/C, so what he hears here is what
+     the game actually renders, not a lookalike. NO VOTE LIVES ON THIS PAGE (rule 25):
+     you vote once, in the VOTE tab. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE AMBIENCE COMES DOWN</h1>
+<div class="sub">SOUNDS &middot; 10/4 &middot; your words: "put the volume down" &middot; turn your phone up first</div>
+
+<div class="loud"><b>TURN YOUR VOLUME UP BEFORE YOU START.</b> All three are quiet on purpose.
+The point is which one you stop noticing in a room that is never silent. Each plays the
+real candidate the game renders, at three ratios: A is what ships now, B is lower still,
+C is what you have been hearing.</div>
+
+<div class="part">ONE &middot; THE SIGN</div>
+<div class="card">
+  <h2>SIGN ALIVE</h2>
+  <div class="why">A lit sign hums; it sits under everything because a lit sign is a place, not an event.</div>
+  <div class="row">
+    <button data-ev="sign_alive" data-r="0.50">PLAY A</button>
+    <button data-ev="sign_alive" data-r="0.25">PLAY B</button>
+    <button data-ev="sign_alive" data-r="1.00">PLAY C</button>
+    <button data-ev="sign_alive" data-r="stop">STOP</button>
+  </div>
+  <div class="num" id="num-sign_alive"></div>
+</div>
+
+<div class="part">TWO &middot; THE BLOCK LIGHTS</div>
+<div class="card">
+  <h2>POWER ON</h2>
+  <div class="why">The grid takes a block. Light is territory, so it is a choir coming up under a rising line.</div>
+  <div class="row">
+    <button data-ev="power_on" data-r="0.50">PLAY A</button>
+    <button data-ev="power_on" data-r="0.25">PLAY B</button>
+    <button data-ev="power_on" data-r="1.00">PLAY C</button>
+    <button data-ev="power_on" data-r="stop">STOP</button>
+  </div>
+  <div class="num" id="num-power_on"></div>
+</div>
+
+<div class="part">THREE &middot; THE GENERATOR</div>
+<div class="card">
+  <h2>GENERATOR, SOMEWHERE</h2>
+  <div class="why">Somebody is running one. That means people, and it does not need to compete with them.</div>
+  <div class="row">
+    <button data-ev="generator" data-r="0.50">PLAY A</button>
+    <button data-ev="generator" data-r="0.25">PLAY B</button>
+    <button data-ev="generator" data-r="1.00">PLAY C</button>
+    <button data-ev="generator" data-r="stop">STOP</button>
+  </div>
+  <div class="num" id="num-generator"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_sfx.js"></script>
+<script>
+var AC = null, live = null, playingKey = null;
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function baseVec(ev){ return BOH_SFX.cook(ev, 5)[0]; }
+function scaled(ev, r){
+  var v = baseVec(ev); var w = {}; var k; for(k in v) w[k] = v[k];
+  w.gain = v.gain * r;
+  return w;
+}
+function stopAll(){ try{ if(live) live.stop(); }catch(e){} live = null; playingKey = null;
+  document.querySelectorAll('button[data-r]').forEach(function(b){ b.classList.remove('on'); }); }
+function dB(x){ return (20*Math.log10(x)).toFixed(1); }
+function play(ev, r, btn){
+  stopAll();
+  if(r === 'stop') return;
+  var c = ac(), v = scaled(ev, +r);
+  var out = c.createGain(); out.gain.value = 1; out.connect(c.destination);
+  var s = c.createBufferSource();
+  /* a hum loops in the game; render once and loop the one-shot's own buffer */
+  BOH_SFX.render(v, c, out, c.currentTime + 0.02);
+  playingKey = ev + '.' + r; btn.classList.add('on');
+  head(ev);
+}
+document.querySelectorAll('button[data-r]').forEach(function(b){
+  b.onclick = function(){
+    var ev = b.dataset.ev, r = b.dataset.r, key = ev + '.' + r;
+    if(playingKey === key){ stopAll(); head(ev); } else play(ev, r, b);
+  };
+});
+function head(ev){
+  var el = document.getElementById('num-' + ev); if(!el) return;
+  var v = baseVec(ev);
+  el.textContent = 'A ' + dB(0.50) + ' dB under C (what ships now). B ' + dB(0.25)
+    + ' dB under C (lower still). C is unchanged, candidate 0 at gain ' + (v.gain||0).toFixed(2) + '.';
+}
+['sign_alive','power_on','generator'].forEach(head);
+
+/* HIS WORDS SURVIVE BY DEFAULT, NOT BY HIM REMEMBERING A BUTTON. */
+var KEY = 'bohemia_ambience_down_notes_v1';
+function save(){ try{ localStorage.setItem(KEY, document.getElementById('all').value); }catch(e){} }
+try{ var v = localStorage.getItem(KEY); if(v) document.getElementById('all').value = v; }catch(e){}
+document.getElementById('all').addEventListener('input', save);
+function noteText(){
+  var a = document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE AMBIENCE COMES DOWN (SOUNDS, 10/4). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-ambience-comes-down-10-4\n\n' + (a || '(nothing written yet)');
+}
+function say(msg){ var n = document.getElementById('footnote'), was = n.textContent;
+  n.textContent = msg; setTimeout(function(){ n.textContent = was; }, 2200); }
+document.getElementById('copy').onclick = function(){
+  var txt = noteText();
+  function fallback(){ var ta = document.createElement('textarea'); ta.value = txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard && navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fallback);
+  else fallback();
+};
+document.getElementById('exp').onclick = function(){
+  var blob = new Blob([noteText()], {type:'text/plain'});
+  var u = URL.createObjectURL(blob), el = document.createElement('a');
+  el.href = u; el.download = 'BOHEMIA_NOTES_THE_AMBIENCE_COMES_DOWN.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); }, 1500);
+};
+</script>
+</div></body></html>

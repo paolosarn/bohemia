@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>The Fight</title>
 <script src="bohemia_ui_materials.js"></script>
+<script src="bohemia_screen_class.js"></script>
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -104,6 +105,25 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #over .lv{color:#7a3d10;font-weight:700}
 #over button{margin-top:12px;width:100%;min-height:46px;color:#efe3cc;border:0;font:inherit;font-weight:700;
   background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.5)}
+/* THE BAR ON EVERY SCREEN (rules 62 and 72; slices/bohemia_screen_class.js): the phone held upright keeps the two rows
+   above. Wide screens get Battle Brothers' own bar, ONE ROW: his face and bars at the left, the skill squares in the
+   middle, WAIT and END TURN at the right. On its side the phone's bar runs the whole width inside the notch's safe
+   area, the strip of faces slims; on a tablet or a computer the bar and the strip are a taped plate centred at the
+   width of Battle Brothers' own bar, the board running out to the edges round them. */
+html[data-screen=phone_landscape] #bot,html[data-screen=tablet] #bot,html[data-screen=computer] #bot{display:flex;align-items:center;gap:8px;
+  padding:8px max(10px,env(safe-area-inset-right)) max(6px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left))}
+html[data-screen=phone_landscape] #row1,html[data-screen=tablet] #row1,html[data-screen=computer] #row1,
+html[data-screen=phone_landscape] #row2,html[data-screen=tablet] #row2,html[data-screen=computer] #row2{display:contents}
+html[data-screen=phone_landscape] #card,html[data-screen=tablet] #card,html[data-screen=computer] #card{order:1}
+html[data-screen=phone_landscape] #stats,html[data-screen=tablet] #stats,html[data-screen=computer] #stats{order:2;flex:0 0 200px}
+html[data-screen=phone_landscape] #skills,html[data-screen=tablet] #skills,html[data-screen=computer] #skills{order:3;flex:1;margin-left:6px}
+html[data-screen=phone_landscape] #bwait,html[data-screen=tablet] #bwait,html[data-screen=computer] #bwait{order:4}
+html[data-screen=phone_landscape] #bend,html[data-screen=tablet] #bend,html[data-screen=computer] #bend{order:5;height:56px}
+html[data-screen=phone_landscape] #top{padding:max(4px,env(safe-area-inset-top)) max(8px,env(safe-area-inset-right)) 4px max(8px,env(safe-area-inset-left))}
+html[data-screen=phone_landscape] #order{height:44px}
+html[data-screen=tablet] #bot,html[data-screen=computer] #bot{left:50%;right:auto;bottom:12px;width:min(980px,calc(100vw - 24px));transform:translateX(-50%);border-radius:3px}
+html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:auto;top:8px;width:min(980px,calc(100vw - 24px));transform:translateX(-50%);
+  border-radius:3px;padding:6px;background:rgba(13,11,9,.78);box-shadow:0 3px 8px rgba(0,0,0,.5)}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
@@ -1219,11 +1239,18 @@ let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
 const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
+/* what the HUD covers from the top and from the bottom of the glass, the floating plates' margins included */
+function hudEdges() {
+  const t = document.getElementById('top').getBoundingClientRect(), b = document.getElementById('bot').getBoundingClientRect();
+  const th = Math.round(t.bottom), bh = Math.round(H - b.top);
+  const moved = th !== TOPH || bh !== BOTH; TOPH = th; BOTH = bh; return moved;
+}
 function resize() {
+  try { BohemiaScreen.apply(); } catch (_e) {}
   DPR = Math.min(window.devicePixelRatio || 1, 2);
   W = window.innerWidth; H = window.innerHeight;
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
-  TOPH = document.getElementById('top').offsetHeight; BOTH = document.getElementById('bot').offsetHeight;
+  hudEdges();
   if (UI.board) fitStops();
 }
 function fitStops() {
@@ -1731,8 +1758,8 @@ function hud() {
       sk.appendChild(b);
     });
   }
-  const bh = document.getElementById('bot').offsetHeight, th = document.getElementById('top').offsetHeight;
-  if (bh !== BOTH || th !== TOPH) { BOTH = bh; TOPH = th; if (UI.board) fitStops(); }
+  if (window.innerWidth !== W || window.innerHeight !== H) resize();   /* a phone's viewport can settle a frame late: re-measure, never keep a stale stop */
+  else if (hudEdges() && UI.board) fitStops();
   const say = document.getElementById('say'); say.style.bottom = (BOTH + 8) + 'px'; say.style.display = say.textContent ? 'block' : 'none';
   document.getElementById('bwait').disabled = !mine || u.waited;
   document.getElementById('bend').disabled = !mine;
@@ -1892,6 +1919,7 @@ function start() {
 }
 window.addEventListener('resize', resize);
 try { BohemiaMaterials.apply(); } catch (_e) {}
+try { BohemiaScreen.watch(function () { resize(); }); } catch (_e) {}
 loadAll().then(function () { resize(); return start(); }).then(function () { requestAnimationFrame(frame); })
   .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
 window.FIGHT_UI = UI;

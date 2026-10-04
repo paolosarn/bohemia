@@ -380,7 +380,37 @@ async function nightLights() {
   await d.close();
 }
 
+/* THE FIGHT ON EVERY SCREEN (rules 62 and 72, Paolo 10/4: 'fit on an iPhone screen, fit differently flipped, on
+   widescreen monitors'): the driver opens the fight at the four screen classes; slices/bohemia_screen_class.js names
+   the class by rule; wide screens get Battle Brothers' one-row bar. Measured 10/4 before the re-lay: on its side the
+   HUD took 49% of the glass, on a monitor the bars ran 1,300 px wide. */
+async function screens() {
+  const res = [];
+  for (const pr of ['phone_portrait', 'phone_landscape', 'tablet', 'computer']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip"}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1500);
+    const m = await d.page.evaluate(() => {
+      const r = id => document.getElementById(id).getBoundingClientRect();
+      const taps = ['bend', 'bwait', 'bauto', 'card'].map(r).concat([].slice.call(document.querySelectorAll('#skills .sq')).map(e => e.getBoundingClientRect())).filter(q => q.width > 0);   /* a hidden square (no reload on a pistol) is not a tap */
+      const b = r('bot'), t = r('top'), cls = document.documentElement.dataset.screen;
+      const inside = [b, t].concat(taps).every(q => q.left >= -1 && q.right <= innerWidth + 1 && q.top >= -1 && q.bottom <= innerHeight + 1);
+      return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
+        oneRow: b.height <= 90 && Math.abs(r('bend').top - r('skills').top) < 30, barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
+        fits: FIGHT_UI.far * FIGHT_UI.board.width <= innerWidth + 1 && FIGHT_UI.far * FIGHT_UI.board.height <= innerHeight - TOPH - BOTH + 1, inside };
+    });
+    m.pr = pr; m.err = d.errs[0]; res.push(m); await d.close();
+  }
+  const by = k => res.filter(x => x.pr === k)[0], wide = res.filter(x => x.pr !== 'phone_portrait');
+  leg(res.every(x => x.cls === x.pr), '*** ONE RULE NAMES THE SCREEN (rule 62) ***: phone upright, phone on its side, tablet, computer, read from the real viewport', res.map(x => x.pr + '=' + x.cls).join(', '));
+  leg(res.every(x => x.glass >= 65), '*** THE BOARD KEEPS TWO THIRDS OF THE GLASS ON EVERY SCREEN *** (on its side the HUD took 49% before)', res.map(x => x.pr + ' ' + x.glass + '%').join(', '));
+  leg(wide.every(x => x.oneRow), 'wide screens get Battle Brothers\' one-row bar: face and bars, the skill squares, WAIT and END TURN in one row', wide.map(x => x.pr + (x.oneRow ? ' one row' : ' TWO ROWS')).join(', '));
+  leg(['tablet', 'computer'].every(k => by(k).centred && by(k).barW <= 980), 'on a tablet and a computer the bar is a centred plate no wider than 980 (it ran 1,300 wide on a monitor)', ['tablet', 'computer'].map(k => k + ' ' + by(k).barW + (by(k).centred ? ' centred' : ' OFF CENTRE')).join(', '));
+  leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, the whole board fits at the far stop, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
+}
+
 (async () => {
+  await screens();
   await nightLights();
   await table70();
   await sweep();

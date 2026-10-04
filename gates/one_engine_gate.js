@@ -112,6 +112,52 @@ function ok(claim, cond, detail) {
     + ' a second here). The law is ONE ENGINE AT A TIME, never "tabs are quiet", and the first write of this claim got that wrong and went red on correct behaviour',
     inFight.shell < Math.max(2.5, inFight.combat * 0.25));
 
+  /* ---- E4: THE NEW FIGHT HAS ITS OWN DOOR, AND NFOPEN() NEVER WENT THROUGH THE
+     CLICK HANDLER THIS WHOLE LAW LIVES IN (SOUNDS, rule 54b, 10/4). Every claim
+     above opens combat by clicking the .tab element -- that is the OLD door, and
+     its click listener is where V186's stand-down lives. showTabPanel(), the
+     function the REBUILT fight's nfOpen() calls instead, only toggles CSS classes.
+     MEASURED: calling nfOpen() left CITYMUS.on true and never touched FIGHTMUS at
+     all -- the street shuffle rode straight through the rebuilt fight, the exact
+     "two songs" complaint, through a door this gate never opened until now. */
+  await p.click('[data-p="run"]'); await p.waitForTimeout(2000);
+  const nfCheck = await p.evaluate(async () => {
+    try { if (window.CITYMUS && !CITYMUS.on) CITYMUS.startShuffle(); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const cityOnBefore = !!(window.CITYMUS && CITYMUS.on);
+    let opened = false;
+    try { opened = !!(window.nfOpen && nfOpen({ district: 'ruin', at: null, faction: null })); } catch (e) {}
+    await new Promise(r => setTimeout(r, 300));
+    const cityOnAfter = !!(window.CITYMUS && CITYMUS.on);
+    const fightOnAfter = !!(window.FIGHTMUS && FIGHTMUS.on);
+    try { window.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: 'lost', rounds: 1 }, '*'); } catch (e) {}
+    return { cityOnBefore, opened, cityOnAfter, fightOnAfter };
+  });
+  console.log('  nfOpen() door: ' + JSON.stringify(nfCheck));
+  ok('E4 *** THE REBUILT FIGHT\'S OWN DOOR STANDS THE STREET DOWN TOO. *** nfOpen() is how a walked-into encounter opens the rebuilt fight. Before the fix this measured CITYMUS.on still true and FIGHTMUS.on still false after opening -- same bug as 8/26, on a door E1-E3 cannot see because it never clicks a .tab',
+    nfCheck.opened === true && nfCheck.cityOnBefore === true && nfCheck.cityOnAfter === false && nfCheck.fightOnAfter === true,
+    'nfOpen() left the street shuffle running: ' + JSON.stringify(nfCheck));
+
+  /* ---- E5: THE AMBIENCE COMES DOWN (SOUNDS, rule 54b, 10/4). "Quieter please,
+     it's loud." sign_alive, power_on and generator are TIER 1 ambience and nothing
+     was ever pulling them down the way ROOM's own ratio pulls the room tone down.
+     A ratio OVER the approved recipe, never a rewrite of it -- the recipe stays
+     frozen and only playSFX's output changes. */
+  const ambCheck = await p.evaluate(() => {
+    const trim = window.__ambTrim || {};
+    const fn = window.__sfxAmbTrim;
+    let trimmed = null, untouched = null;
+    try { trimmed = fn('power_on', { gain: 1 }); } catch (e) {}
+    try { untouched = fn('equip', { gain: 1 }); } catch (e) {}
+    return { trim, hasFn: typeof fn === 'function',
+      trimmedGain: trimmed && trimmed.gain, untouchedGain: untouched && untouched.gain };
+  });
+  console.log('  ambience trim: ' + JSON.stringify(ambCheck));
+  ok('E5 *** SIGN, BLOCK LIGHTS AND GENERATOR ARE QUIETER, AND NOTHING ELSE MOVED. *** playSFX applies a named ratio to these three ambience events only; power_on at gain 1 renders at ' + ambCheck.trimmedGain + ' (half), equip (not named) renders untouched at ' + ambCheck.untouchedGain,
+    ambCheck.hasFn && ambCheck.trim.sign_alive === 0.5 && ambCheck.trim.power_on === 0.5 && ambCheck.trim.generator === 0.5
+      && ambCheck.trimmedGain === 0.5 && ambCheck.untouchedGain === 1,
+    'ambience trim missing or wrong: ' + JSON.stringify(ambCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);
