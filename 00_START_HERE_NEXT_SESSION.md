@@ -543,6 +543,12 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/4 (b) LATEST -- [settings and the slider] BUILT on the alpha (gear in the game; RUN's start screen calls BohemiaSettings.open({atStart:true})).
+slices/bohemia_settings.js dresses the ONE settings card: MUSIC/SOUNDS on the mix hooks, BRIGHT -> BOH_BRIGHTNESS {step,lift} posted to every frame.
+Gate settings in our materials 15/0, 4 mutations. VOTE ui-settings-in-our-materials-10-4. Row stays CLAIMED until a night pass reads the lift.
+A full start screen I built before RUN's claim (e31bb315) was NOT pushed; the art is kept for [the start screen's look] (scratch: night valley, glass plates).
+NEXT: [the start screen's look] once RUN's logic lands, then [the settlement's labels].
+
 UI (ui-kmqmrf): 10/4 LATEST -- [the demo's screens] round one: THE FIGHT'S BAR FINISHED (the fight, bottom bar and his face's drawer).
 Finish lives in slices/bohemia_ui_materials.js (SKIN), so BOHEMIA_FIGHT.html is untouched; the skin must never change #bot/#top heights.
 Gate the fight bar is studio made 15/0, 4 mutations; COMBAT's fight 74/0, perks 47/0. VOTE ui-the-fights-bar-10-4.
