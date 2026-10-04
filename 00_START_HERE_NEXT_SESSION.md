@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/4 (s) LATEST -- ROUND EIGHTEEN SHIPPED: settlement pictures, two variants a
+tier, each with a night_src (round six's night: his lamps and drums only), the camp filled out.
+settlement_ground.json tiers[t].variants[] = {src, night_src, px, hotspots, lights}; tiers[t].src/hotspots
+still point at variant 0 for RUN TWO's current reader. 12 webp, 2.9 MB. VOTE combat2-settlement-pictures-night-10-4.
+NEXT: the fight boards' night with the same light (the manifest's lights; COMBAT draws it), more settlement
+variants by trait (rule 71: a raided town, a market day). [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (r) LATEST -- ROUND SEVENTEEN SHIPPED (rule 71a): settlement pictures for
 RUN TWO, slices/settlement_ground/{camp,town,fortress}.webp (2060 x 1092, 45, lossless) + settlement_ground.json
 (tiers[].hotspots{barber,clinic,stall,posts,board}.box in picture px). FOR RUN TWO: draw the picture, light

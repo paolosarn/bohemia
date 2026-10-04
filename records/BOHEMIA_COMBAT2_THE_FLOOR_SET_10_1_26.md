@@ -223,3 +223,11 @@ store front's sign band or on a tent, the stall (striped awning, plank table, cr
 block wall papered 14-30 sheets), the board on a pole. settlement_ground.json: tiers[name] = {src, px, hotspots:
 {kind: {box [x0,y0,x1,y1], kind}}}. Guards: all five kinds per tier, hotspots inside the picture, his colours.
 VOTE combat2-settlement-pictures-10-4. Weak: the camp is sparse.
+
+## ROUND EIGHTEEN (10/4): SETTLEMENTS FULLER, TWICE, AND AT NIGHT
+
+Settlement tool: camp gains two tarps, a stone fire ring round a drum, a second drum, rubble, pallets, a second
+wreck; every tier function returns its lights (drums; town lamps one in two lit, at least one; fortress four wall
+lamps on a generator plus a drum). Two seeds a tier; each variant gets a night picture through the night-boards
+cook's night() (x 0.30/0.31/0.38, hard-ringed warm pools, snapped to the allowed palette). 12 lossless WebP, 2.9 MB.
+settlement_ground.json tiers[t] = {src, px, hotspots (variant 0, for the current reader), variants[...]}.

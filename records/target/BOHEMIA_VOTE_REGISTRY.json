@@ -4574,7 +4574,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+{"id": "combat2-settlement-pictures-night-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "SETTLEMENTS AT NIGHT, AND NO TWO ALIKE", "why": "The camp is fuller, every size of settlement now comes in two versions, and each has a night picture lit only by the street lamps and fire barrels that still burn. Thumbs up and the settlement screen uses these, and you see it in the settlement screen when you enter a place at night.", "show": {"how": "image", "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"}}
 ],
  "verdicts": [
   {

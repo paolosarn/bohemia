@@ -55,6 +55,7 @@ from PIL import Image, ImageDraw
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, 'tools'))
 BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')
+NB = importlib.import_module('bohemia_combat2_night_boards_cook_10_1_26')   # round eighteen: the same night as the fight's (rule 70a: one light)
 MX, S8, H7, R5, R4, B, F, K, CV = BT.MX, BT.S8, BT.H7, BT.R5, BT.R4, BT.B, BT.F, BT.K, BT.CV
 os.chdir(REPO)
 
@@ -185,9 +186,23 @@ def camp(seed):
     pw = posted_wall(seed + 5, 14).crop((0, 0, m(12.0), ty(m(2.0)) + 12))
     spots['posts'] = paste(base, pw, m(2.0), ty(m(29.6)))
     spots['board'] = paste(base, board_on_pole(seed + 6), m(40.0), ty(m(26.0)))
-    drum = F.load(F.SPR['oil_drum']).convert('RGBA'); paste(base, drum, m(20.0), ty(m(14.0)))
+    r = K.R(seed)
+    lights = []
+    drum = F.load(F.SPR['oil_drum']).convert('RGBA')
+    for (x, y) in ((20.0, 14.0), (36.0 + r() * 4, 20.0)):              # the fires people keep burning, a ring of stone round one
+        bx = paste(base, drum, m(x), ty(m(y)))
+        lights.append(((bx[0] + bx[2]) // 2, bx[3], m(5.5)))
+    for k in range(9):
+        a = k / 9 * 6.283; ImageDraw.Draw(base).ellipse([m(20.4 + 1.3 * __import__('math').cos(a)), ty(m(14.6 + 1.0 * __import__('math').sin(a))), m(20.4 + 1.3 * __import__('math').cos(a)) + 8, ty(m(14.6 + 1.0 * __import__('math').sin(a))) + 6], fill=C[3])
+    paste(base, tarp(seed + 7, 3.6, 2.6), m(6.0 + r() * 3), ty(m(9.0)))   # more of the squat: tarps, scrap, a second wreck
+    paste(base, tarp(seed + 8, 4.2, 3.0), m(38.0 + r() * 3), ty(m(9.5)))
+    for k in range(5):
+        rb = R5.EXTRA['rubble_%d' % r.i(len(R5.EXTRA))]; paste(base, rb, m(3 + r() * 40), ty(m(22 + r() * 6)))
+    for k in range(4):                                                   # pallets stacked by the lock-up
+        ImageDraw.Draw(base).rectangle([m(31 + k * 0.3), ty(m(10.5)) - k * 6, m(32.4 + k * 0.3), ty(m(10.5)) - k * 6 + 6], fill=D[3 + (k % 2)])
     paste(base, CV.PIECES[1][1]()[0], m(34.0), ty(m(28.0)))            # a dead car pulled in off the road
-    return base, spots
+    paste(base, CV.PIECES[0][1]()[0], m(10.0 + r() * 8), ty(m(32.0)))
+    return base, spots, lights
 
 
 def town(seed):
@@ -210,7 +225,11 @@ def town(seed):
     bp = board_on_pole(seed + 9)                                        # at the south kerb
     spots['board'] = paste(base, bp, PX + m(5.0), ty(m(29.8)) - bp.size[1])
     im = CV.PIECES[1][1]()[0]; paste(base, im, m(32.0), ty(m(21.5)))
-    return base, spots
+    r = K.R(seed); lights = []
+    for (x, y, sid) in ((5.0, 19.0, 'lamp_house_side'), (29.0, 19.0, 'lamp_house_side'), (17.0, 30.0, 'lamp_your_side'), (41.0, 30.0, 'lamp_your_side')):
+        fx, fy = NB.place(base, sid, x, y)
+        if r() < 0.5 or not lights: lights.append((fx, fy, m(7.0)))     # one in two still burns; at least one
+    return base, spots, lights
 
 
 def fortress(seed):
@@ -237,7 +256,13 @@ def fortress(seed):
         y = k * ty(m(2.3)); td.rectangle([0, y, m(2.6), y + ty(m(2.3)) - 2], fill=(A[3] if k % 2 else T[1]) + (255,))
         for x in range(0, m(2.6), m(0.28)): td.line([(x, y), (x, y + ty(m(2.3)) - 2)], fill=A[1] + (255,))
     paste(base, tower, W - m(4.0), H - ty(m(9.0)))
-    return base, spots
+    lights = []
+    for x in (6.0, 20.0, 34.0, 44.0):                                   # the fortress keeps a generator: its wall lamps all burn
+        fx, fy = NB.place(base, 'lamp_your_side', x, 33.0)
+        lights.append((fx, fy, m(7.0)))
+    bx = paste(base, F.load(F.SPR['oil_drum']).convert('RGBA'), 2 * PX + m(8.0), PY + ty(m(12.0)))
+    lights.append(((bx[0] + bx[2]) // 2, bx[3], m(5.0)))
+    return base, spots, lights
 
 
 def guard(name, im, spots):
@@ -251,24 +276,42 @@ def guard(name, im, spots):
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    tiers = {'camp': camp(1401), 'town': town(1501), 'fortress': fortress(1601)}
-    man = dict(version='settlement-ground-10-4', built='10/4/26', lane='combat 2', for_screen='RUN TWO, the settlement screen (rule 71a)',
-               note='the picture is one place; light the building under the finger, name it only when touched; no text on the picture',
+    # ROUND EIGHTEEN: two variants a tier (no two settlements of a size the same picture), each with its
+    # NIGHT: round six's night (a third of itself, colder, snapped to his palette), lit only by the lamps
+    # and drums that still burn, the pools in hard rings; the same night the fight uses (rule 70a, one light).
+    make = {'camp': camp, 'town': town, 'fortress': fortress}
+    seeds = {'camp': (1401, 1451), 'town': (1501, 1551), 'fortress': (1601, 1651)}
+    man = dict(version='settlement-ground-10-4b', built='10/4/26', lane='combat 2', for_screen='RUN TWO, the settlement screen (rule 71a)',
+               note='the picture is one place; light the building under the finger, name it only when touched; no text on the picture; variants[] pick one per settlement by seed; night_src at night',
                px_per_metre=K.PPM, perspective='45 DEGREE ART LAW', tiers={})
-    for name, (im, spots) in tiers.items():
-        guard(name, im, spots)
-        im.save('%s/%s.webp' % (OUT_DIR, name), 'WEBP', lossless=True, method=6)
-        man['tiers'][name] = dict(src='%s.webp' % name, px=list(im.size),
-                                  hotspots={k: dict(box=list(v), kind=k) for k, v in spots.items()})
+    tiers = {}
+    for name, fn in make.items():
+        vs = []
+        for i, sd in enumerate(seeds[name]):
+            im, spots, lights = fn(sd)
+            guard(name, im, spots)
+            nim, _ = NB.night(im, lights)
+            guard(name + ' night', nim, spots)
+            tag = '%s_%d' % (name, i)
+            im.save('%s/%s.webp' % (OUT_DIR, tag), 'WEBP', lossless=True, method=6)
+            nim.save('%s/%s_night.webp' % (OUT_DIR, tag), 'WEBP', lossless=True, method=6)
+            vs.append(dict(src='%s.webp' % tag, night_src='%s_night.webp' % tag, px=list(im.size),
+                           hotspots={k: dict(box=list(v), kind=k) for k, v in spots.items()}, lights=len(lights)))
+            if i == 0: tiers[name] = (im, spots, nim)
+        man['tiers'][name] = dict(src=vs[0]['src'], px=vs[0]['px'], hotspots=vs[0]['hotspots'], variants=vs)
+    for old in ('camp.webp', 'town.webp', 'fortress.webp'):
+        if os.path.exists(os.path.join(OUT_DIR, old)): os.remove(os.path.join(OUT_DIR, old))
     json.dump(man, open(OUT_DIR + '/settlement_ground.json', 'w'), indent=1)
     sc = 0.36
-    thumbs = [(k, im.resize((int(im.size[0] * sc), int(im.size[1] * sc)), Image.LANCZOS), sp) for k, (im, sp) in tiers.items()]
+    thumbs = [(k, im.resize((int(im.size[0] * sc), int(im.size[1] * sc)), Image.LANCZOS), sp) for k, (im, sp, nim) in tiers.items()]
+    nights = [nim.resize((int(nim.size[0] * sc), int(nim.size[1] * sc)), Image.LANCZOS) for k, (im, sp, nim) in tiers.items()]
     w, h = thumbs[0][1].size
-    out = Image.new('RGB', (w + 40, (h + 50) * 3 + 20), (12, 11, 10)); d = ImageDraw.Draw(out)
+    out = Image.new('RGB', (w * 2 + 60, (h + 50) * 3 + 20), (12, 11, 10)); d = ImageDraw.Draw(out)
     for i, (k, im, sp) in enumerate(thumbs):
         y = 20 + i * (h + 50)
         d.text((20, y), {'camp': 'CAMP', 'town': 'TOWN', 'fortress': 'FORTRESS'}[k] + '   (dotted: what lights up under your finger)', font=K.font(15), fill=(222, 181, 118))
-        out.paste(im, (20, y + 26))
+        out.paste(im, (20, y + 26)); out.paste(nights[i], (w + 40, y + 26))
+        d.text((w + 40, y), 'AT NIGHT: only the lamps and fires that still burn', font=K.font(15), fill=(222, 181, 118))
         for kk, (x0, y0, x1, y1) in sp.items():
             bx = [20 + int(x0 * sc), y + 26 + int(y0 * sc), 20 + int(x1 * sc), y + 26 + int(y1 * sc)]
             for t in range(0, bx[2] - bx[0], 6): d.point((bx[0] + t, bx[1]), fill=(255, 236, 160)); d.point((bx[0] + t, bx[3]), fill=(255, 236, 160))
