@@ -1,0 +1,18 @@
+{
+ "_about": "A PLACE HAS TRAITS (rule 71, Paolo 10/4: 'settlements have traits too, depending on random variables'). Battle Brothers' settlement situations, in our skin. RUN TWO rolls them from this file per place (seeded by the place's name and the week, so a trait comes and goes); each one changes the PICTURE (look), the SHOPS' prices and stock, WHO stands at the posts, and what the KEEPERS say. Numbers are Battle Brothers-shaped and marked for TUNING; words are draft:true. COMBAT TWO draws the real picture variants later (burnt, boarded, flooded, market day): when a 'variant' name is set here and that picture exists, it is drawn instead of the overlay.",
+ "roll": {"chance_any": 0.7, "max": 2, "period_days": 7},
+ "traits": [
+  {"id": "raided", "bb": "Raided", "name": "RAIDED", "look": "burnt", "variant": "burnt",
+   "price_mult": 1.25, "stock_mult": 0.6, "recruits": -1, "draft": true,
+   "says": {"any": "A crew came through three nights back. Burned the Ortega house. Everything costs more now, mijo.",
+            "hall": "Nobody wants work. They want to leave."}},
+  {"id": "sickness", "bb": "Sickness", "name": "SICKNESS", "look": "boarded", "variant": "boarded",
+   "price_mult": 1.1, "stock_mult": 0.8, "recruits": -1, "clinic_busy": true, "draft": true,
+   "says": {"any": "Half the block is coughing. They boarded up the clinic windows to keep it in.",
+            "hall": "Nobody is signing on. Not with the cough going around."}},
+  {"id": "market_day", "bb": "Celebration", "name": "MARKET DAY", "look": "crowd", "variant": "market_day",
+   "price_mult": 0.85, "stock_mult": 1.5, "recruits": 1, "draft": true,
+   "says": {"any": "Market day. Everybody is out, everything is moving, prices are down.",
+            "hall": "Lot of new faces in town today. Some of them want work."}}
+ ]
+}

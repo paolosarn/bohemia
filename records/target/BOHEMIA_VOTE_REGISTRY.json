@@ -5149,7 +5149,34 @@
     "src": "vote/UI_EVERY_ITEM_IS_AN_ICON_10_5.png"
    }
   },
-  {"id": "combat-the-enemy-plays-its-part-10-5", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/5", "title": "EVERY BRIGAND FIGHTS LIKE HIS BATTLE BROTHERS SELF", "why": "Thugs rush the nearest man, a raider with a pike waits for his line and then hits from two tiles, the marksman shoots the shieldless rookie and backs off, and the leader hangs back keeping his men brave, each from its wiki page. Play this clip or any fight against a mixed band and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ENEMY_PLAYS_ITS_PART_10_5.gif"}, "draft": true}
+  {
+   "id": "combat-the-enemy-plays-its-part-10-5",
+   "kind": "animation",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "EVERY BRIGAND FIGHTS LIKE HIS BATTLE BROTHERS SELF",
+   "why": "Thugs rush the nearest man, a raider with a pike waits for his line and then hits from two tiles, the marksman shoots the shieldless rookie and backs off, and the leader hangs back keeping his men brave, each from its wiki page. Play this clip or any fight against a mixed band and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_ENEMY_PLAYS_ITS_PART_10_5.gif"
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-settlement-traits-10-5",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "A PLACE HAS TRAITS: THE SAME TOWN RAIDED, AND ON MARKET DAY",
+   "why": "You said settlements have traits from random rolls, so a place now rolls Battle Brothers-style situations: raided burns a house and raises prices with nobody hiring, sickness boards the clinic, market day fills the street and drops prices, and the keeper tells you first. You see it in the VOTE tab under LOOK, the same town rolled two ways side by side, and in the demo whenever you arrive somewhere.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_TRAITS_TWO_ROLLS_10_5.png"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {
