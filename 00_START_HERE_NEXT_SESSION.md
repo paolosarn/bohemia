@@ -1,3 +1,30 @@
+WORDS (words-8dqrnq): 10/5 (c) LATEST -- *** THE BIGGEST FIND WASN'T BAD WORDING, IT WAS A
+WRONG NUMBER: A JOB SHOWS "30 BATT" WHEN IT ACTUALLY PAYS 3. ***
+TAB: no tab change; a review file for RUN TWO to apply.
+Record: records/BOHEMIA_WORDS_THE_SETTLEMENTS_WORDS_10_5_26.md
+
+Read every word on the settlement screen again, since it grew a lot since I last checked (a
+weapon shop got added). Found a real bug: a contract's pay used to be in crowns, now shows
+up on the board still labeled like it's batteries, with no math to convert it. A job that
+really pays 3 batteries shows "30 batt," ten times too much. That's not a wording problem,
+it's a missing division, so I flagged it for the team that owns that file instead of trying
+to fix code myself.
+
+One real wording fix: a weapon's line said it "breaks armour and doors." Checked the real
+data. It does break armour (confirmed, best in its class). It does not break doors, because
+nothing in the game breaks doors. Fixed the line so it only claims what's true.
+
+Also: the three food lines from Grok (SpaghettiOh, the hardtack joke, the truffle joke) have
+now been checked for plainness TWICE and are still sitting unused. The shop still shows the
+same generic food item it always has. Proposed the simplest fix: reuse the same trick the bar
+already uses to rotate between its four rumors, just for food instead.
+
+Two things the job sheet asked me to check don't exist yet (how far away a job is, and a
+trait for the person running the place), so I said that plainly instead of inventing text for
+something that isn't built.
+NEXT: the jump list's next job is the start screen's words.
+PENDING Paolo: nothing.
+
 COMBAT TWO (combat2-8ca291aa): 10/5 (v) LATEST -- [the wide board] SHIPPED: fight_ground.json boards[b].apron
 (7 x 5 blocks with a one-block ring of the same city, playable tiles given) and boards[b].frames (phone_portrait,
 phone_landscape, tablet, computer: rect in aproned px + letterbox share). FOR COMBAT: draw the apron, open on the
