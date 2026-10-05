@@ -47,7 +47,8 @@ const srv = http.createServer((rq, rs) => {
   p.on('pageerror', e => errs.push(String(e.message)));
   p.on('response', r => { if (r.status() >= 400) missing.push(r.url()); });
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
-  await p.waitForTimeout(600);
+  await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+  await p.waitForTimeout(300);
 
   /* a thumb on the building itself (rule 67: the buildings are the buttons); a window that is
      open is closed first, the way a player would */
@@ -68,7 +69,10 @@ const srv = http.createServer((rq, rs) => {
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
-  ok('a town has six: hall, board, stall, barber, bar, scavenge', keys.join() === 'hall,board,stall,barber,bar,lot', keys.join());
+  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, barber, clinic, scavenge', keys.join() === 'hall,board,stall,barber,clinic,lot', keys.join());
+  /* nothing is written on the picture until a finger is on a building (rule 71a) */
+  const quiet = await p.evaluate(() => BohemiaSettlement.state.open === null);
+  ok('  and no building names itself until it is touched', quiet);
   /* every building is a button on its own pixels, big enough for a thumb, and there is no
      other button on the screen but LEAVE (no shelf, no plates) */
   const onPic = [], small = [];
@@ -114,14 +118,6 @@ const srv = http.createServer((rq, rs) => {
   ok('  and refuses when you are broke', broke && (await bat()) === 0);
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 3, 'gate', null, 0));
 
-  /* the bar: a round costs one battery and pays a rumour */
-  const bb = await bat();
-  await tapB('bar'); await p.waitForTimeout(200);
-  await p.click('#sbody .act'); await p.waitForTimeout(200);
-  const rum = await p.evaluate(() => (window.__settleLog.filter(m => m.act === 'round').pop() || {}).rumour || '');
-  ok('the bar: one battery for a round, and a rumour out of a mouth', bb - (await bat()) === 1 && rum.length > 20, rum.slice(0, 50));
-  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 1, 'gate', null, 0));
-
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
     await tapB('board'); await p.waitForTimeout(200);
@@ -158,29 +154,24 @@ const srv = http.createServer((rq, rs) => {
 
   await p.click('#close'); await p.waitForTimeout(300);
 
-  /* a camp has four and the rest are SHUT, not tappable */
-  const camp = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'camp', name: 'A CAMP' } });
-    return { o: BohemiaSettlement.order().join(), shut: !!BohemiaSettlement.where('barber') }; });
-  ok('a camp: hall, board, stall, scavenge, and no barber standing', camp.o === 'hall,board,stall,lot' && !camp.shut, camp.o);
-
-  /* a fortress has all eight; the clinic and the yard only work for a real reason */
-  const fort = await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'fortress', name: 'A FORTRESS' } }); return BohemiaSettlement.order().length; });
-  ok('a fortress has all eight', fort === 8, fort);
+  /* every tier is its own painting, and the same buildings stand in each */
+  for (const t of ['camp', 'fortress']) {
+    const o = await p.evaluate(t => { BohemiaSettlement.open({ place: { tier: t, name: 'A ' + t.toUpperCase() } }); return BohemiaSettlement.order().join(); }, t);
+    await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
+    ok('a ' + t + ' is its own picture with the same doors', o === 'hall,board,stall,barber,clinic,lot', o);
+  }
   await tapB('clinic'); await p.waitForTimeout(200);
   const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
   await p.evaluate(() => BohemiaSettlement.open({ wounded: ['rosa'], veterans: ['jonah'] }));
   await tapB('clinic'); await p.waitForTimeout(200);
   const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
   ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
-  await tapB('train'); await p.waitForTimeout(200);
-  const tb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
-  ok('the yard swaps a veteran\'s mastery for one battery', tb - (await bat()) === 1);
   await p.click('#close'); await p.waitForTimeout(300);
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' } }));
-  await p.waitForTimeout(200);
+  await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT });
-  await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'THE FORT, HENDERSON' } }));
-  await p.waitForTimeout(200);
+  await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'THE FORT, HENDERSON' }, night: true }));
+  await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT.replace('_10_1', '_FORTRESS_10_1') });
   await p.click('#leave');
   const left = await p.evaluate(() => (window.__settleLog || []).some(m => m.act === 'leave'));
