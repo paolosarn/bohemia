@@ -1,3 +1,33 @@
+WORDS (words-8dqrnq): 10/5 LATEST -- *** TOOK THE TOP JOB FROM THE NEW JUMP LIST (rule 74).
+CHECKED ALL FIFTY FIGHT PERKS AGAINST THEIR REAL BATTLE BROTHERS EFFECT, NOT JUST HOW THEY
+SOUND. THREE WERE ACTUALLY WRONG. ***
+TAB: no tab change; this is a review file for COMBAT to apply.
+Record: records/BOHEMIA_WORDS_THE_FIGHTS_WORDS_10_5_26.md
+
+A new rule landed since last round (74): every chat now gets at least three open jobs lined
+up at once, so nobody runs dry. My three: the fight's words (done this round), the
+settlement's words, and the start screen's words. Took the top one.
+
+Checked all fifty fight perks against the real Battle Brothers rule each one is based on,
+not just whether the sentence sounded fine. Three described the wrong thing:
+1. One perk's line made a one-time bonus sound like a permanent one.
+2. Another never said it was about landing hits, or that it needs two allies helping.
+3. A third gave a bare number nobody can compare to anything, instead of saying the real
+   upgrade (a gun that used to reload every other turn now fires every turn).
+All three rewritten plain and correct.
+
+Also found a design note from a few rounds back that asked for ONE simple word for any
+injury (not fifty different medical names) with the hurt body part shown small. That part of
+the game isn't built yet, so I wrote a proposed line for whoever builds it, rather than
+pretending I fixed something that doesn't exist.
+
+And I checked whether last round's two recap fixes (the win message, the "14D" typo-looking
+text) ever got applied. They haven't, so I put them in this round's file too, so they don't
+get lost between rounds.
+
+NEXT: the jump list's next job is the settlement screen's words.
+PENDING Paolo: nothing.
+
 COMBAT TWO (combat2-8ca291aa): 10/4 (t) LATEST -- ROUND NINETEEN SHIPPED (rule 73): settlement nights re-cut with
 night_sun() (night cook; linear light, adaptive multiplier >= 0.58 and to the 0.20 floor, pools lifted to 3:1),
 each variant's numbers in settlement_ground.json night_measured; plain floor PASS on all six, sun-test lit:unlit
