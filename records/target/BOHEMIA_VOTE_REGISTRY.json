@@ -5009,8 +5009,9 @@
     "how": "image",
     "src": "vote/RUN_THE_START_SCREEN_10_4.jpg"
    }
-  }
- ],
+  },
+{"id": "combat2-the-wide-board-10-5", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/5", "title": "THE SAME FIGHT BOARD ON A PHONE, A TABLET AND A COMPUTER", "why": "Every fight board now has a ring of the same city around it that you can see but not walk on, so a sideways phone, a tablet and a computer all open on the whole fight with no black bars. Thumbs up and the fight opens like this on every screen, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_WIDE_BOARD_10_5.png"}}
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

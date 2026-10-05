@@ -308,6 +308,7 @@ def main():
     tot = sum(os.path.getsize(os.path.join(OUT_DIR, f)) for f in os.listdir(OUT_DIR))
     print('ok: %d boards, %d blocks, %.1f MB in %s' % (len(BOARDS), len(blocks), tot / 1e6, OUT_DIR))
     importlib.import_module('bohemia_combat2_fight_ground_pack_10_2_26').pack()   # round thirteen: ship lossless WebP, never PNG
+    importlib.import_module('bohemia_combat2_the_wide_board_cook_10_5_26').main()  # round twenty-one: the apron and the four frames
 
 
 if __name__ == '__main__':

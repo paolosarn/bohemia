@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/5 (v) LATEST -- [the wide board] SHIPPED: fight_ground.json boards[b].apron
+(7 x 5 blocks with a one-block ring of the same city, playable tiles given) and boards[b].frames (phone_portrait,
+phone_landscape, tablet, computer: rect in aproned px + letterbox share). FOR COMBAT: draw the apron, open on the
+class's frame; the landscape classes have no bars. Tool tools/bohemia_combat2_the_wide_board_cook_10_5_26.py (the
+builder should call it after pack; until then re-run it after any rebuild). OPEN: [settlement traits], [the casino
+floor], [the future boards]. [PENDING Paolo]: none.
+
 COMBAT TWO (combat2-8ca291aa): 10/5 (u) LATEST -- [more building types] SHIPPED (round twenty): building fight
 facts (pumps burn, canopy open, motel walkway and school roof and warehouse dock high ground, church steps low cover,
 school fence see-through cover, casino dumpsters) in the building cook (FURN_MAKERS/FURN_META), in fight_ground.json

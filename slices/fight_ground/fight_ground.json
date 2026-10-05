@@ -2409,7 +2409,96 @@
       3
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "corner.1",
+      "corner.0",
+      "subs.1",
+      "cornerw.1",
+      "subs.2",
+      "subs.3"
+     ],
+     [
+      "corner.0",
+      "corner.0",
+      "subs.2",
+      "cornerw.0",
+      "subs.2",
+      "subs.0"
+     ],
+     [
+      "corner.1",
+      "corner.1",
+      "main.0",
+      "cornerw.1",
+      "subs.1",
+      "subs.2"
+     ],
+     [
+      "corner.0",
+      "corner.0",
+      "subs.3",
+      "cornerw.0",
+      "lots.0",
+      "lots.0"
+     ],
+     [
+      "corner.1",
+      "corner.0",
+      "subs.1",
+      "cornerw.1",
+      "lots.0",
+      "lots.0"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "culdesac": {
    "blocks": [
@@ -4258,7 +4347,96 @@
       3
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "culdesac.1",
+      "culdesac.0",
+      "culdesac.1",
+      "culdesac.0",
+      "subs.1",
+      "subs.3"
+     ],
+     [
+      "culdesac.0",
+      "culdesac.1",
+      "culdesac.0",
+      "culdesac.1",
+      "subs.2",
+      "subs.0"
+     ],
+     [
+      "suburb_stem.1",
+      "suburb_stem.0",
+      "suburb_stem.1",
+      "suburb_stem.0",
+      "subs.0",
+      "subs.1"
+     ],
+     [
+      "corner.0",
+      "corner.1",
+      "corner.0",
+      "corner.1",
+      "subs.3",
+      "subs.2"
+     ],
+     [
+      "corner.1",
+      "corner.0",
+      "corner.1",
+      "corner.0",
+      "subs.0",
+      "subs.3"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "strip": {
    "blocks": [
@@ -6135,7 +6313,96 @@
       3
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "strip.0",
+      "strip.1",
+      "strip.0",
+      "works.0",
+      "strip.1",
+      "strip.0"
+     ],
+     [
+      "strip.1",
+      "strip.0",
+      "strip.1",
+      "works.0",
+      "strip.1",
+      "strip.0"
+     ],
+     [
+      "main.1",
+      "main.1",
+      "subs.2",
+      "subs.1",
+      "works.0",
+      "works.0"
+     ],
+     [
+      "subs.1",
+      "subs.2",
+      "subs.3",
+      "subs.2",
+      "subs.0",
+      "subs.3"
+     ],
+     [
+      "subs.3",
+      "subs.0",
+      "subs.1",
+      "subs.3",
+      "subs.2",
+      "subs.0"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "ruin": {
    "blocks": [
@@ -8564,7 +8831,96 @@
       3
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "ruin.0",
+      "ruin.1",
+      "ruin.0",
+      "ruin.1",
+      "subs.3",
+      "subs.0"
+     ],
+     [
+      "ruin.1",
+      "ruin.1",
+      "ruin.0",
+      "ruin.1",
+      "subs.2",
+      "subs.1"
+     ],
+     [
+      "ruin.0",
+      "ruin.0",
+      "corner.0",
+      "ruin.0",
+      "ruin.1",
+      "ruin.0"
+     ],
+     [
+      "subs.1",
+      "subs.0",
+      "ruin.1",
+      "lots.0",
+      "ruin.0",
+      "ruin.1"
+     ],
+     [
+      "subs.3",
+      "subs.2",
+      "ruin.0",
+      "lots.0",
+      "ruin.1",
+      "ruin.0"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "desert": {
    "blocks": [
@@ -9516,7 +9872,96 @@
       2
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "scrub.2",
+      "scrub.1",
+      "wash.0",
+      "scrub.2",
+      "scrub.0",
+      "scrub.2"
+     ],
+     [
+      "scrub.1",
+      "scrub.2",
+      "wash.0",
+      "scrub.1",
+      "scrub.0",
+      "scrub.1"
+     ],
+     [
+      "scrub.0",
+      "scrub.0",
+      "wash.1",
+      "scrub.2",
+      "wash.0",
+      "wash.1"
+     ],
+     [
+      "scrub.2",
+      "scrub.1",
+      "wash.0",
+      "scrub.0",
+      "wash.1",
+      "wash.0"
+     ],
+     [
+      "scrub.0",
+      "scrub.2",
+      "wash.1",
+      "scrub.2",
+      "wash.0",
+      "wash.1"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "freeway": {
    "blocks": [
@@ -10877,7 +11322,96 @@
       2
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "lots.0",
+      "lots.0",
+      "strip.0",
+      "strip.1",
+      "lots.0",
+      "lots.0"
+     ],
+     [
+      "lots.0",
+      "lots.0",
+      "strip.0",
+      "strip.1",
+      "lots.0",
+      "lots.0"
+     ],
+     [
+      "freeway.0",
+      "freeway.0",
+      "freewayo.0",
+      "freeway.0",
+      "freewayo.0",
+      "freewayo.0"
+     ],
+     [
+      "scrub.0",
+      "scrub.2",
+      "scrub.0",
+      "scrub.2",
+      "scrub.1",
+      "scrub.0"
+     ],
+     [
+      "scrub.1",
+      "scrub.0",
+      "scrub.2",
+      "scrub.1",
+      "scrub.2",
+      "scrub.1"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "shore": {
    "blocks": [
@@ -11800,7 +12334,96 @@
       2
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "shore.1",
+      "shore.0",
+      "shore.1",
+      "shore.0",
+      "shore.1",
+      "shore.0"
+     ],
+     [
+      "shore.0",
+      "shore.0",
+      "shore.1",
+      "shore.0",
+      "shore.1",
+      "shore.0"
+     ],
+     [
+      "scrub.1",
+      "scrub.1",
+      "wash.0",
+      "scrub.0",
+      "wash.1",
+      "wash.0"
+     ],
+     [
+      "scrub.2",
+      "scrub.2",
+      "wash.1",
+      "scrub.1",
+      "wash.0",
+      "wash.1"
+     ],
+     [
+      "scrub.0",
+      "scrub.1",
+      "wash.0",
+      "scrub.2",
+      "wash.1",
+      "wash.0"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   },
   "landfill": {
    "blocks": [
@@ -12719,8 +13342,119 @@
       3
      ]
     }
-   ]
+   ],
+   "apron": {
+    "blocks": [
+     [
+      "landfill.1",
+      "landfill.0",
+      "landfill.1",
+      "landfill.0",
+      "landfill.1",
+      "landfill.0"
+     ],
+     [
+      "landfill.0",
+      "landfill.0",
+      "landfill.1",
+      "landfill.0",
+      "landfill.1",
+      "landfill.0"
+     ],
+     [
+      "scrub.2",
+      "scrub.0",
+      "landfill.0",
+      "landfill.1",
+      "scrub.1",
+      "scrub.0"
+     ],
+     [
+      "landfill.0",
+      "landfill.0",
+      "scrub.0",
+      "landfill.0",
+      "landfill.1",
+      "landfill.0"
+     ],
+     [
+      "landfill.1",
+      "landfill.1",
+      "scrub.2",
+      "landfill.1",
+      "landfill.0",
+      "landfill.1"
+     ]
+    ],
+    "playable": [
+     5,
+     5,
+     25,
+     20
+    ],
+    "note": "one block of the same city round the board, NOT playable; draw it, never walk it"
+   },
+   "frames": {
+    "phone_portrait": {
+     "rect": [
+      2575,
+      0,
+      12875,
+      9100
+     ],
+     "letterbox": 0.592
+    },
+    "phone_landscape": {
+     "rect": [
+      1817,
+      1820,
+      13633,
+      7280
+     ],
+     "letterbox": 0.0
+    },
+    "tablet": {
+     "rect": [
+      2575,
+      689,
+      12875,
+      8410
+     ],
+     "letterbox": 0.0
+    },
+    "computer": {
+     "rect": [
+      2575,
+      1653,
+      12875,
+      7446
+     ],
+     "letterbox": 0.0
+    }
+   }
   }
  },
- "format": "lossless webp (round thirteen): every visible pixel identical to the PNG it replaced"
+ "format": "lossless webp (round thirteen): every visible pixel identical to the PNG it replaced",
+ "frames_key": {
+  "rect": "[x0, y0, x1, y1] px in the aproned board (apron origin top-left): the fight opens on it",
+  "letterbox": "share of the glass past the apron (upright phone only): the HUD's band",
+  "classes": {
+   "phone_portrait": [
+    390,
+    844
+   ],
+   "phone_landscape": [
+    844,
+    390
+   ],
+   "tablet": [
+    1366,
+    1024
+   ],
+   "computer": [
+    1920,
+    1080
+   ]
+  }
+ }
 }

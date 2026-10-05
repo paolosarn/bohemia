@@ -253,3 +253,12 @@ car moved clear of the church. the_works: dumpsters on the north walk (y 24.4), 
 (y 48.4, tile (4,1) height); the warehouse cut to 30 x 8 x 5.5 m (20 m deep spilled over the street at 45).
 fight_ground rebuilt: cover_extra carries the facts; 31 blocks, 5.1 MB; new fight 0 errors (strip, suburb).
 Sheets: tools/bohemia_combat2_building_fight_facts_cook_10_5_26.py -> three VOTE items.
+
+## ROUND TWENTY-ONE (10/5, OPEN row [the wide board])
+
+tools/bohemia_combat2_the_wide_board_cook_10_5_26.py writes into fight_ground.json: boards[b].apron = {blocks 5 x 7
+(one ring of the board's own kind, edge blocks' kin, no twin left/up, freeway rows run on), playable [5,5,25,20]
+tiles} and boards[b].frames per class (phone_portrait 390x844, phone_landscape 844x390, tablet 1366x1024,
+computer 1920x1080): the smallest window at the glass's aspect holding the playable board, centred, clipped to the
+apron; letterbox share where the apron runs out (upright phone only). Guards: frames hold the board and sit in
+the apron; landscape classes letterbox 0; apron blocks all shipped. No new pictures.
