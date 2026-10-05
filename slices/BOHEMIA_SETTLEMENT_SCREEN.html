@@ -85,6 +85,16 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .act em{font-style:normal;color:var(--gold);white-space:nowrap}
 .slots{margin-top:10px;color:var(--dim);font-size:12px}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
+/* the shelf and the bag: square slots, Battle Brothers' stash grid */
+.gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+.grid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);
+  font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;
+  box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
+.slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c;box-shadow:inset 0 1px 0 rgba(255,235,200,.1),0 1px 0 #000}
+.slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
+.slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.slot em{font-style:normal;color:var(--dim);font-size:9px}
 #heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
 </style>
 </head>
@@ -189,33 +199,65 @@ function restock(){
                     .concat(pick(BB.armor.head, Math.floor(n/2)).map(function(r){ return armourItem('head', r); })); };
   S.stock = {arms: W(4).concat(A(3)), smith: W(7), armourer: A(6).concat(pick(BB.armor.shields, 2).map(function(r){ return armourItem('shields', r); }))};
 }
+/* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
+   in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
+   is two grids, its shelf on top and your bag under it, the way Battle Brothers' trade screen puts
+   the town's goods beside your stash. An item is an icon (UI [item icons] draws the real ones; until
+   then a drawn mark of its kind and its short name). Buying moves it shelf -> bag and takes the
+   batteries; selling moves it back. The bag lives with the company, so it is posted to the game on
+   every change ('bag') and handed back on open ({bag}); this phone keeps a copy too. */
+var BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1';
+function bagSave(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.stash)); }catch(e){} post('bag', {bag:S.stash.slice(), slots:BAG_SLOTS}); }
+function bagLoad(){ try{ var b = JSON.parse(localStorage.getItem(BAGKEY) || '[]'); if(Array.isArray(b)) S.stash = b; }catch(e){} }
+var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
+function iconTile(it, onTap, sub){
+  var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
+  if(it){
+    var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g);
+    var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
+    if(sub){ var c = document.createElement('em'); c.textContent = sub; b.appendChild(c); }
+    b.setAttribute('aria-label', it.name);
+    b.addEventListener('click', onTap);
+  } else b.disabled = true;
+  return b;
+}
 function shopSheet(k, body, acts, line){
   var items = S.stock[k] || [];
   var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
   body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
-  items.forEach(function(it, i){
-    acts.appendChild(act(it.name, it.price + ' batt', function(){
+  var h1 = document.createElement('div'); h1.className = 'gridh'; h1.textContent = 'THEIR SHELF'; acts.appendChild(h1);
+  var shelfG = document.createElement('div'); shelfG.className = 'grid'; shelfG.id = 'shelfgrid'; acts.appendChild(shelfG);
+  items.forEach(function(it){
+    shelfG.appendChild(iconTile(it, function(){
       openB(k, it.name.charAt(0).toUpperCase() + it.name.slice(1) + '. ' + it.price + ' batter' + (it.price===1?'y':'ies') + '. ' + it.line);
       var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
-      var card = document.createElement('div'); card.className = 'slots';
-      card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
-      sb.appendChild(act('Buy it', it.price + ' batt', function(){
+      var card = document.createElement('div'); card.className = 'slots'; card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
+      var full = S.stash.length >= BAG_SLOTS;
+      sb.appendChild(act(full ? 'Your bag is full' : 'Buy it', it.price + ' batt', function(){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
         P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
-        S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it);
-        post('buyArms', {item:it}); shelf(); openB(k, 'Yours. It goes on whoever you hand it to.');
-      }, bats() < it.price));
+        S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
+        post('buyArms', {item:it}); shelf(); openB(k, 'Yours. It is in your bag.');
+      }, full || bats() < it.price));
       sb.appendChild(act('Not this one', '', function(){ openB(k); }));
-    }));
+    }, it.price + 'b'));
   });
-  /* selling back what you carry: the cut is half until TUNING sources it */
-  S.stash.forEach(function(it){
-    var back = Math.max(1, Math.floor(it.price * SELL_CUT));
-    acts.appendChild(act('Sell your ' + it.name, '+' + back + ' batt', function(){
-      P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
-      S.stash.splice(S.stash.indexOf(it), 1); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'I give you ' + back + ' for it. That is fair.');
-    }));
-  });
+  var h2 = document.createElement('div'); h2.className = 'gridh'; h2.textContent = 'YOUR BAG  ' + S.stash.length + ' / ' + BAG_SLOTS; acts.appendChild(h2);
+  var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
+  for(var si = 0; si < BAG_SLOTS; si++){
+    (function(it){
+      var back = it ? Math.max(1, Math.floor(it.price * SELL_CUT)) : 0;
+      bagG.appendChild(iconTile(it, function(){
+        openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
+        var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
+        sb.appendChild(act('Sell it', '+' + back + ' batt', function(){
+          P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
+          S.stash.splice(S.stash.indexOf(it), 1); bagSave(); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'Pleasure. ' + back + ' batteries.');
+        }));
+        sb.appendChild(act('Keep it', '', function(){ openB(k); }));
+      }, it ? '+' + back : null));
+    })(S.stash[si] || null);
+  }
 }
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
@@ -603,6 +645,8 @@ function open(o){
   }
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
+  if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
+  S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();
   if(typeof o.night === 'boolean') view.night = o.night;
@@ -610,7 +654,7 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

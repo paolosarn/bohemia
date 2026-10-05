@@ -5037,24 +5037,75 @@
    },
    "draft": true
   },
-{
-  "id": "the-title-in-two-seconds-10-5",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/5",
-  "title": "THE TITLE SHOWS IN TWO SECONDS AND THE WORLD LOADS BEHIND IT",
-  "why": "You loved the new opening screen but waited forty seconds for it, so the title now has to paint within two seconds of your tap while the world loads behind it, with NEW GAME lighting up when it is ready and the loading shown as the camera's own feed instead of a bar. You see it the moment you open the demo on your phone.",
-  "show": {
+  {
+   "id": "the-title-in-two-seconds-10-5",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE TITLE SHOWS IN TWO SECONDS AND THE WORLD LOADS BEHIND IT",
+   "why": "You loved the new opening screen but waited forty seconds for it, so the title now has to paint within two seconds of your tap while the world loads behind it, with NEW GAME lighting up when it is ready and the loading shown as the camera's own feed instead of a bar. You see it the moment you open the demo on your phone.",
+   "show": {
     "how": "text",
     "src": "Rule 66a; RUN [first load] and PLUMBER [first load] (opened DEMO ONLY, rule 54c). Measured at 4x throttle before and after.\n\nSeen in: the demo's first two seconds."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
- {"id": "ui-the-settlements-labels-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE SETTLEMENT'S LABELS", "why": "A building now names itself on a torn paper tag only while your finger is on it, and the prices and pay inside print on receipt lines you can read in the sun. You see it in any settlement, when you touch a building and when you open the stall or the board.", "show": {"how": "image", "src": "vote/UI_THE_SETTLEMENTS_LABELS_10_5.png"}},
-  {"id": "combat-the-enemy-math-10-5", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/5", "title": "DAY 1 IS A FEW THUGS, DAY 100 IS A LEADER AND MARAUDERS", "why": "The fight now takes the party the map hands it and dresses it by the days and the difficulty, Battle Brothers' way: early it is thugs and a lesser raider in cheap gear, late a leader, armoured marauders and marksmen with twice the armour. Compare the two parties in this card and you see it, in the VOTE tab and the demo once the map sends parties, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ENEMY_MATH_10_5.jpg"}, "draft": true},
-{"id": "run-the-origin-sets-the-company-10-5", "kind": "ui", "lane": "run", "sha": "89f993e", "made": "10/5", "title": "YOUR ORIGIN DECIDES WHO YOU START WITH", "why": "Picking THE LONE WOLF now starts you as one level-4 fighter alone, THE BLOCK WATCH as twelve neighbours who can field sixteen, and every origin's men, money and caps come from Battle Brothers' own fifteen. You see it on the door's origin cards after NEW GAME, and in your first fight in the DEMO.", "show": {"how": "image", "src": "vote/RUN_THE_ORIGIN_SETS_THE_COMPANY_10_5.jpg"}}
+  {
+   "id": "ui-the-settlements-labels-10-5",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE SETTLEMENT'S LABELS",
+   "why": "A building now names itself on a torn paper tag only while your finger is on it, and the prices and pay inside print on receipt lines you can read in the sun. You see it in any settlement, when you touch a building and when you open the stall or the board.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_SETTLEMENTS_LABELS_10_5.png"
+   }
+  },
+  {
+   "id": "combat-the-enemy-math-10-5",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "DAY 1 IS A FEW THUGS, DAY 100 IS A LEADER AND MARAUDERS",
+   "why": "The fight now takes the party the map hands it and dresses it by the days and the difficulty, Battle Brothers' way: early it is thugs and a lesser raider in cheap gear, late a leader, armoured marauders and marksmen with twice the armour. Compare the two parties in this card and you see it, in the VOTE tab and the demo once the map sends parties, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_ENEMY_MATH_10_5.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "run-the-origin-sets-the-company-10-5",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "89f993e",
+   "made": "10/5",
+   "title": "YOUR ORIGIN DECIDES WHO YOU START WITH",
+   "why": "Picking THE LONE WOLF now starts you as one level-4 fighter alone, THE BLOCK WATCH as twelve neighbours who can field sixteen, and every origin's men, money and caps come from Battle Brothers' own fifteen. You see it on the door's origin cards after NEW GAME, and in your first fight in the DEMO.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_ORIGIN_SETS_THE_COMPANY_10_5.jpg"
+   }
+  },
+  {
+   "id": "run2-the-bag-10-5",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "YOUR BAG: 36 SLOTS, AND WHAT YOU BUY LANDS IN IT",
+   "why": "You said you still could not buy weapons, so every shop is now two grids like Battle Brothers, their shelf of icons on top and your 36-slot bag under it, and buying moves the item into the bag for its price while selling takes it out. You see it in the VOTE tab under LOOK, and in the demo at the smith, the armourer or a camp's guns-and-plate stall.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_SMITH_10_5.png"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {
