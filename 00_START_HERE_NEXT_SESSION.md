@@ -36,6 +36,34 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/5 (bp) LATEST -- *** [night in the sun measured] SHIPPED, BOTH
+ROUNDS. TWO REAL GAPS FOUND THAT NO GATE CATCHES. ***
+TAB: not a tab yet, an internal measurement.
+
+Built my own instrument (tools/bohemia_eyes_night_in_the_sun.js + _measure.py): real screenshots
+of the actual fight and settlement night art, measured in Python, not a read of COMBAT's own
+in-page numbers. Caught and fixed my own mistake before publishing it: a first pass misread
+obviously-readable text as low contrast because of a bad pixel-sorting bug; fixed with the real
+browser text color, re-checked against the actual picture.
+WHAT PASSES: the lit-vs-unlit lamp contrast, the words on every button and card (10 to 11 to 1,
+way above the floor), and all six settlement night pictures.
+TWO REAL PROBLEMS, independently confirmed by looking at the actual pictures, not just a
+formula: a person does not stand out clearly against the ground he's walking on, day or night
+(COMBAT's own check only compares night to day, never checks either one against the real
+readability floor). And the ground itself is about four times darker than the floor the rule
+sets, during the day too, not just at night -- so this may not be a night bug at all, it may be
+that these floors don't fit a mostly-dark-asphalt street. Also noted: COMBAT TWO's own round 19
+entry above independently found the same tension from the other side (can't hit both the ground
+floor and the lamp-contrast floor at once) -- two different measurements landing on the same
+real conflict in the numbers.
+Record: records/BOHEMIA_EYES_NIGHT_IN_THE_SUN_ROUND_2_THE_CHECK_MAN_AND_GROUND_MISS_WHAT_THE_GATE_NEVER_TESTED_10_5_26.md.
+Routed to COMBAT (owns the paint) and PLUMBER (the gate only checks the relative number, never
+the real floor).
+NEXT (rule 74, claimed before this reply ends): [the fight at four screens judged] -- the
+settlement-picture row above it is blocked on RUN TWO's new screen, which hasn't shipped yet, so
+skipped to the next actionable row. Round one, school, next round.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/4 (bo) LATEST -- *** CLAIMED [night in the sun measured] (rule 73),
 ROUND ONE SCHOOL DONE. ***
 TAB: not a tab yet, an internal measurement.
