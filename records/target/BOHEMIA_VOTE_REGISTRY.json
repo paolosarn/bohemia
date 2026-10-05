@@ -5106,7 +5106,36 @@
    },
    "draft": true
   },
-  {"id": "combat-weapons-say-what-they-do-10-5", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/5", "title": "HOLD A FINGER ON A WEAPON AND IT SAYS WHAT IT DOES", "why": "Every weapon now has a card: our name, its Battle Brothers base, one plain line, and its real numbers (damage, armour, reach, AP), with the car door's line under it when he carries one. Hold a finger on the strike square or on any man in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_WEAPONS_SAY_WHAT_THEY_DO_10_5.jpg"}, "draft": true}
+  {
+   "id": "combat-weapons-say-what-they-do-10-5",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "HOLD A FINGER ON A WEAPON AND IT SAYS WHAT IT DOES",
+   "why": "Every weapon now has a card: our name, its Battle Brothers base, one plain line, and its real numbers (damage, armour, reach, AP), with the car door's line under it when he carries one. Hold a finger on the strike square or on any man in a fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_WEAPONS_SAY_WHAT_THEY_DO_10_5.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-title-is-detuned-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "10/5",
+   "title": "THE TITLE IS DETUNED",
+   "why": "The start screen plays no music at all. This is a slow theme on a deck that drifted flat and is slipping, through a dead broadcast, the loading room's own hum underneath. Hear it and two comparisons on the title's music page.",
+   "options": [
+    "A, the whole thing"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

@@ -6243,6 +6243,74 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round three) -- *** PAOLO ASKED FOR TITLE MUSIC DIRECTLY,
+AND IT TOP-OF-LIST'D ITS WAY IN FRONT OF THE MAP ROW. *** Row [the title's music], round one,
+CLAIMED (not shipped: a real song built and auditioned, not yet wired to the start screen).
+Row [the map's sounds] still CLAIMED and still stalled on RUN's [the map hears].
+
+WHY THE SWITCH: a fresh commit (b162992) landed mid-row with Paolo's own direct words --
+"I wish there was cool main menu music... everything we do has to follow this analog horror
+aesthetic" -- and the coordinator named it explicitly as "SOUNDS [the title's music] first."
+[the map's sounds] genuinely cannot move further without RUN's terrain/speed signal (confirmed
+again this round: still nothing posted from BOHEMIA_MAP_CURRENT.html), so sitting on a blocked
+row while a fresh, fully buildable, Paolo-prioritized one sat unclaimed above it would have
+been producing nothing on purpose. Claimed it instead of guessing at the blocked one's answer.
+
+NO NEW VOTES this round (checked fresh, same as every round).
+
+BUILT, FROM REAL MATERIAL, AND IT IS NEARLY ALL REUSE -- the row names tape hiss and wow, a
+mains hum, a detuned slow theme, and the room tone of the power authority's last camera (RUN's
+new start screen IS that camera), and three of those four already existed in this lane before
+this round started:
+- songThroughSpeaker (built 9/22): an ORIGINAL warm phrase this lane composed, not borrowed
+  from the MUSIC tab -- minor pentatonic, patient, a bass under it, root F3 -- run through a
+  dead AM transmitter with its own hiss and two drop-outs. This is the dead-broadcast machine.
+- songOnTape (built round 5): the same phrase through wowFlutter, the slipping tape deck this
+  lane already measured at 0.35% wobble at 1.4 Hz, inside a real worn cassette's documented
+  range. This is the wow.
+- roomHum (built 9/23, carrying his own picked level, ROOM_REL_SHIPPED): its own comment
+  already calls it "the room the loading sits in" -- the power authority's camera, named
+  before this row existed, because the loading screen and the new start screen are the same
+  kind of in-world machine.
+
+ONE GENUINELY NEW NUMBER: DETUNE. Rule 66a names "a detuned slow theme" as its own thing,
+separate from wow, and it is a separate real cause: wow is the motor moving NOW, a wobble
+around a centre pitch; detune is an instrument that drifted off true and STAYED there, no
+motion in it at all -- a deck whose bias wandered off spec years ago. So the root is a fixed
+3% flat of the canon F3 (174.61 Hz, standard 12-TET), applied before any wobble, which is the
+only number this round's new function (titleTheme, engine/bohemia_horror_sounds.js) adds that
+the three reused pieces do not already carry. It sums the detuned/wow'd/broadcast phrase with
+the room tone underneath, 32 seconds (four passes of the phrase, at half the master beat --
+felt slow on purpose, still an exact multiple of the 120 BPM grid everything else quantises to).
+
+ONE VOTE ITEM: slices/BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html plays A (the whole thing), B
+(the same theme with detune removed, so the 3% is audible by comparison) and C (the same
+theme with the room silenced, so its contribution is audible by comparison). Registered
+sounds-the-title-is-detuned-10-5. NOT WIRED LIVE: unjudged = silent is this bank's own law,
+and this lane has never once made an exception for itself across nine-plus rounds -- this
+round does not become the first.
+
+GATES: gates/cooked_sounds_gate.js 200/0 (was 194/0). Three new claims, all clean under
+--mutate: (1) the rendered root really sits at 0.97 of the canon pitch, not just a label on
+an untouched one; (2) the wow depth/rate read back off songOnTape's own real output, not
+assumed to have survived the mix; (3) the room tone really changes the rendered buffer when
+silenced, proved behaviourally (render twice, once with roomRel 0, diff the samples) rather
+than trusted from a metadata field. The mutation replaces H.titleTheme directly -- the usual
+closure-trap fix from round six onward, since titleTheme calls the local songOnTape and
+roomHum by closure and no earlier mutation in this file reaches it. Re-verified clean on this
+round's tree: the music-door fence (round one of [one song and the volumes]), the fight-sfx
+bridge (round two of that row), and the ambience-on-the-map fence (round two of [the map's
+sounds]) -- nothing in this round's diff touches any of those three, confirmed rather than
+assumed.
+
+NEXT: once he hears the title theme in VOTE and picks a version (or kills it), wire whichever
+survives to actually play over RUN's start screen, one playing source until NEW GAME or
+CONTINUE, then hand off to the map's song on a phrase (RUN's one-bus system this lane already
+fenced twice). [the map's sounds] keeps its claim in parallel and resumes the moment RUN's
+[the map hears] lands.
+
+---
+
 SOUNDS (sound-xk7pjp): 10/5 LATEST (round two) -- *** THE QUESTION FROM LAST ROUND IS ANSWERED:
 THE VALLEY'S WEATHER NOW PLAYS ON THE MAP TAB TOO. *** Row [the map's sounds], round two,
 CLAIMED (still not shipped: the travel beds need a terrain/speed signal from the map frame

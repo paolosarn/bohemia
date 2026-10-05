@@ -1603,6 +1603,59 @@
     };
   }
 
+  /* ==== 13b. THE TITLE'S OWN MUSIC (row [the title's music], 10/5) ===============
+     PAOLO 10/5: "I wish there was cool main menu music... everything we do has to
+     follow this analog horror aesthetic." Rule 66a names the pieces: tape hiss and
+     wow, a mains hum, a detuned slow theme, the room tone of the power authority's
+     last camera (RUN's new start screen IS that camera).
+     EVERY PIECE ALREADY EXISTS, REUSE-FIRST, DOWN TO THE LETTER. songThroughSpeaker
+     already built an original warm phrase (minor pentatonic, patient, a bass under
+     it) run through an AM transmitter's band with its own hiss and two drop-outs;
+     songOnTape already runs that same phrase through wowFlutter, the slipping-tape
+     deck this lane proved in round 5 (0.35% at 1.4 Hz, inside the real wow-and-
+     flutter range a worn consumer cassette actually measures). That is three of the
+     four pieces, already built and already this lane's own composition, not the
+     MUSIC tab's content (MECHANISM-MINE: this treats a phrase, it does not touch
+     the MUSIC tab's songs or its vote). roomHum is the fourth: its own comment
+     already calls it "the room the loading sits in" -- the power authority's own
+     camera, named before this row ever existed, because the loading screen and the
+     new start screen are the same kind of in-world machine.
+     DETUNED IS A SEPARATE REAL CAUSE FROM WOW, AND BOTH ARE ASKED FOR BY NAME. Wow
+     is the motor moving NOW, a wobble around a centre; detuned is an instrument
+     that drifted off true pitch and stayed there, a fixed offset with no motion in
+     it at all -- an old tape deck's bias long since wandered off spec. So the root
+     is a fixed 3% flat of the canon F3 (174.61 Hz, standard 12-TET) before any of
+     the wobble is added, which is the one number this function adds that the three
+     reused pieces do not already carry.
+     THE TEMPO IS A THEME'S, NOT THE BEAT'S, AND IT IS STILL 120 BPM FRIENDLY: twice
+     the master beat (1.0 s instead of 0.5 s) is a theme felt as half speed while
+     staying an exact multiple of the grid everything else in this game is
+     quantised to -- a phrase that could still hand off on a beat boundary if the
+     start screen ever needed it to. */
+  function titleTheme(ctx, opts) {
+    opts = opts || {};
+    var beats = opts.beats == null ? 32 : opts.beats;        /* four passes of the 8-note phrase */
+    var beat = opts.beat == null ? BEAT * 2 : opts.beat;      /* half speed, still a clean multiple of BEAT */
+    var detune = opts.detune == null ? 0.97 : opts.detune;    /* 3% flat: drifted, not wobbling */
+    var root = (opts.root == null ? 174.61 : opts.root) * detune;
+    var song = songOnTape(ctx, { beats: beats, beat: beat, root: root,
+      depth: opts.wowDepth, rate: opts.wowRate, band: opts.band });
+    var room = roomHum(ctx, { rel: opts.roomRel == null ? ROOM_REL_SHIPPED : opts.roomRel });
+    var sr = ctx.sampleRate, n = song.buffer.length;
+    var sd = song.buffer.getChannelData(0), rd = room.buffer.getChannelData(0), rn = rd.length;
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = sd[i] + rd[i % rn];
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: song.machine, seconds: n / sr,
+      root: song.root, detune: detune, canonRoot: opts.root == null ? 174.61 : opts.root,
+      wowDepth: song.wowDepth, wowRateHz: song.wowRateHz,
+      dropouts: song.dropouts, roomRel: room.rel,
+      why: 'the warm phrase on a slipping, detuned deck, through the dead broadcast, '
+        + 'with the room the loading sits in underneath it'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2229,6 +2282,7 @@
                different filters at different corners. */
             bandOrder: ROOM_BAND_ORDER },
     songOnTape: songOnTape,
+    titleTheme: titleTheme,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2384,7 +2438,12 @@
         { id: 'sounds-dirt-is-slower-10-5', make: 'travelDirtBed',
           title: 'DIRT IS SLOWER' },
         { id: 'sounds-the-night-has-insects-10-5', make: 'nightInsects',
-          title: 'THE NIGHT HAS INSECTS' }
+          title: 'THE NIGHT HAS INSECTS' },
+        /* THE TITLE'S OWN MUSIC (row [the title's music], 10/5): Paolo's own direct ask,
+           analog horror, built from three already-reused pieces (the tape deck's wow, the
+           dead broadcast, the loading screen's room tone) plus one new number (detuned). */
+        { id: 'sounds-the-title-is-detuned-10-5', make: 'titleTheme',
+          title: "THE TITLE IS DETUNED" }
       ];
     }
   };
