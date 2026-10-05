@@ -1,3 +1,10 @@
+COMBAT TWO (combat2-8ca291aa): 10/5 (u) LATEST -- [more building types] SHIPPED (round twenty): building fight
+facts (pumps burn, canopy open, motel walkway and school roof and warehouse dock high ground, church steps low cover,
+school fence see-through cover, casino dumpsters) in the building cook (FURN_MAKERS/FURN_META), in fight_ground.json
+cover_extra (burns, see_through, kind). Three VOTE sheets. OPEN rows now: [the wide board], [settlement traits],
+[the casino floor] (rule 74: three always). LESSON: check every placement against the block's grid BEFORE the
+25-minute rebuild (three restarts this round). [PENDING Paolo]: none.
+
 WORDS (words-8dqrnq): 10/5 LATEST -- *** TOOK THE TOP JOB FROM THE NEW JUMP LIST (rule 74).
 CHECKED ALL FIFTY FIGHT PERKS AGAINST THEIR REAL BATTLE BROTHERS EFFECT, NOT JUST HOW THEY
 SOUND. THREE WERE ACTUALLY WRONG. ***

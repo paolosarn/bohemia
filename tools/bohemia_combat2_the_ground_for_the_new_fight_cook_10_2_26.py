@@ -222,6 +222,7 @@ def main():
     for i in range(len(B.DROCK)): extra['rock_%d' % i] = B.rock_piece(i)
     extra['outcrop'] = B.outcrop()
     extra.update(R5.EXTRA)
+    extra.update(BT.FURNITURE)                                          # round twenty: the buildings' own pieces
     for k, im in extra.items(): im.save('%s/cover_%s.png' % (OUT_DIR, k))
     for sid in ('lamp_house_side', 'lamp_your_side', 'oil_drum'):          # his 7/28 light sprites
         F.load(F.SPR[sid]).convert('RGBA').save('%s/light_%s.png' % (OUT_DIR, sid))
@@ -233,7 +234,7 @@ def main():
                             'water': 'BB swamp (4 AP, melee defence malus)', 'height': '+1 level: +10% hit down, -10% up, +1 range',
                             'blocked': 'impassable, blocks sight'},
                cover={k: dict(src='cover_%s.png' % k, **{kk: vv for kk, vv in meta.items()}) for k, (im, meta) in cover.items()},
-               cover_extra={k: dict(src='cover_%s.png' % k, h=(2.5 if k == 'outcrop' else 1.4), kind=('MOUND' if k == 'outcrop' else 'COVER')) for k in extra},
+               cover_extra={k: dict(src='cover_%s.png' % k, **(BT.FURN_META[k] if k in BT.FURN_META else dict(h=(2.5 if k == 'outcrop' else 1.4), kind=('MOUND' if k == 'outcrop' else 'COVER')))) for k in extra},
                blocks={bid: dict(src='block_%s.png' % bid.replace('.', '_')) for bid in blocks},
                lights_key={'lamp': 'a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)',
                            'drum': 'an oil drum with a fire in it, always live', 'anchor': 'x_m, y_m = the sprite base; draw it bottom-centred',

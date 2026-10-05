@@ -4931,8 +4931,11 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
- ],
+},
+{"id": "combat2-buildings-gas-and-motel-10-5", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/5", "title": "THE GAS STATION AND THE MOTEL IN A FIGHT", "why": "The gas pumps under the canopy are cover that can catch fire if hit, and you can stand up on the motel's walkway as high ground. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts on main street.", "show": {"how": "image", "src": "vote/COMBAT2_BUILDINGS_GAS_AND_MOTEL_10_5.png"}},
+{"id": "combat2-buildings-church-and-school-10-5", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/5", "title": "THE CHURCH AND THE SCHOOL IN A FIGHT", "why": "The church's front steps are low cover, the school's fence is cover you can see through, and the school's flat roof is high ground. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts on main street.", "show": {"how": "image", "src": "vote/COMBAT2_BUILDINGS_CHURCH_AND_SCHOOL_10_5.png"}},
+{"id": "combat2-buildings-warehouse-and-casino-10-5", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/5", "title": "THE WAREHOUSE AND THE CASINO BACK IN A FIGHT", "why": "The warehouse's loading dock is high ground and the dumpsters behind the casino are cover. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts in the works.", "show": {"how": "image", "src": "vote/COMBAT2_BUILDINGS_WAREHOUSE_AND_CASINO_10_5.png"}}
+],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
