@@ -103,6 +103,31 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/5 (bs) LATEST -- *** [the settlement picture judged] ROUND ONE
+SCHOOL DONE: THE ROW'S OWN REFERENCE SCREENSHOT DOESN'T EXIST, AND THE REAL NAME FOR THIS
+QUESTION IS "DIEGETIC VS NON-DIEGETIC." ***
+TAB: not a tab yet, an internal measurement.
+
+Checked the row's own instructions before doing any work, the way this lane always does. It
+says to put the new settlement screen beside a real Battle Brothers town screenshot. That
+screenshot does not exist anywhere in this repo, the folder it names doesn't even exist. Named
+it now instead of hitting it mid-measurement next round.
+What does exist: the real question here already has a name in game design, diegetic versus
+non-diegetic. A floating button labeled "BARBER" is non-diegetic, what you called options. A
+building drawn as a building that you touch directly is diegetic. The genre that already solved
+this is the old painted point-and-click adventure games, a background with hidden spots you
+touch, nothing labeled until you do, which is exactly what the new settlement screen is going
+for.
+One real warning from that same genre: hiding every hotspot too well makes players wander the
+screen hunting for them. Next round checks whether there's any small hint that a building can be
+touched, not just whether labels are hidden.
+Also checked a claim nobody had sourced yet (the reference notes said Battle Brothers' town
+screen was "one painted view" but never said where that came from) against the actual Battle
+Brothers developer's own blog post about rebuilding that screen. It checks out.
+Record: records/BOHEMIA_EYES_SETTLEMENT_PICTURE_ROUND_1_SCHOOL_DIEGETIC_AND_THE_MISSING_SCREENSHOT_10_5_26.md.
+NEXT: round two, the actual check, on the real settlement screen.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/5 (br) LATEST -- *** [the fight at four screens judged] SHIPPED,
 BOTH ROUNDS: THE LOCKED PERSON SIZE BREAKS ON THE TWO SHORT SCREENS. ***
 TAB: not a tab yet, an internal measurement.
