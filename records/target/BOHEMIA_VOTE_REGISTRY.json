@@ -5010,8 +5010,34 @@
     "src": "vote/RUN_THE_START_SCREEN_10_4.jpg"
    }
   },
-{"id": "combat2-the-wide-board-10-5", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/5", "title": "THE SAME FIGHT BOARD ON A PHONE, A TABLET AND A COMPUTER", "why": "Every fight board now has a ring of the same city around it that you can see but not walk on, so a sideways phone, a tablet and a computer all open on the whole fight with no black bars. Thumbs up and the fight opens like this on every screen, and you see it in the COMBAT tab when a fight starts.", "show": {"how": "image", "src": "vote/COMBAT2_THE_WIDE_BOARD_10_5.png"}}
-],
+  {
+   "id": "combat2-the-wide-board-10-5",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE SAME FIGHT BOARD ON A PHONE, A TABLET AND A COMPUTER",
+   "why": "Every fight board now has a ring of the same city around it that you can see but not walk on, so a sideways phone, a tablet and a computer all open on the whole fight with no black bars. Thumbs up and the fight opens like this on every screen, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_WIDE_BOARD_10_5.png"
+   }
+  },
+  {
+   "id": "run2-the-market-10-5",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE MARKET: A SMITH AND AN ARMOURER IN THE PLACE",
+   "why": "You said there was nowhere to buy weapons or armour, so a camp now has one guns-and-plate stall and a town or fortress a smith and an armourer, stocked from Battle Brothers' own lists in our names at ten crowns a battery, and the board shows each job's skulls and pay. You see it in the VOTE tab under LOOK, and in the demo when you tap the smith or armourer in a place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_SMITH_10_5.png"
+   },
+   "draft": true
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

@@ -124,6 +124,9 @@ var B = {
   barber: {spr:'commercial',  gx:2, gy:1, name:'THE BARBER', short:'1 battery'},
   train:  {spr:'firestation', gx:0, gy:2, name:'THE YARD',   short:'swap a mastery'},
   bar:    {spr:'truckstop',   gx:1, gy:2, name:'THE BAR',    short:'a round, a rumour'},
+  arms:   {name:'GUNS AND PLATE', short:'buy, sell'},
+  smith:  {name:'THE SMITH',     short:'weapons'},
+  armourer:{name:'THE ARMOURER', short:'armour'},
   lot:    {spr:'boneyard',    gx:2, gy:2, name:'SCAVENGE',   short:'one thing or nothing'}
 };
 
@@ -133,6 +136,86 @@ var TIERS = {
   fortress: ['clinic','board','hall','stall','barber','bar','train','lot']
 };
 var ORDER = TIERS.town.slice();
+
+/* ---------- THE ARMS: the wiki's rows (records/target/bb/, rule 63d), in our names ----------
+   A renamed thing keeps its numbers. The job names are COMBAT's (ours.json weapon_jobs); the classes
+   COMBAT has not named yet get a plain one here (draft:true). The quality word is the row's rank in
+   its class by the wiki's own value. Price: 10 crowns to 1 battery, floor 1 (GROK_33, stamped).
+   Selling back: the wiki pages in the repo do not give the cut, so it is HALF, marked for TUNING. */
+var BB = {weapons:null, armor:null};
+fetch('../records/target/bb/weapons.json').then(function(r){ return r.json(); }).then(function(j){ BB.weapons = j.rows; restock(); }).catch(function(){});
+fetch('../records/target/bb/armor.json').then(function(r){ return r.json(); }).then(function(j){ BB.armor = j; restock(); }).catch(function(){});
+var CLASSNAME = {dagger:'pistol', mace:'pipe', hammer:'sledge', crossbow:'rifle', firearm:'shotgun', throwing:'bottles',
+  throwable_item:'bottles', sword:'machete', axe:'fire axe', spear:'rebar spear', cleaver:'cleaver', flail:'chain',
+  polearm:'pole hook', bow:'compound bow'};
+var PLAIN = {pistol:'One house away, ignores some armour, spends rounds.', pipe:'Next house over, dents plate, spends nothing.',
+  sledge:'Breaks armour and doors.', rifle:'One hard shot, then rack it.', shotgun:'A short loud cone, reload eats the turn.',
+  bottles:'Thrown, a few houses.', machete:'Cuts fast, bleeds them.', 'fire axe':'Splits shields.', 'rebar spear':'Keeps them a step off.',
+  cleaver:'Opens wounds.', chain:'Goes over a shield.', 'pole hook':'Reaches over your own front row.', 'compound bow':'Quiet, far, rounds-free.'};
+var SELL_CUT = 0.5;  /* TUNING: unsourced, the wiki pages in the repo do not state it */
+function priceOf(v){ return Math.max(1, Math.round((v||0)/10)); }
+function qualityWord(rank, n){ var q = rank/(Math.max(1,n-1)); return q < .34 ? 'beat-up' : q < .67 ? 'solid' : 'good'; }
+function armourName(kind, dur){
+  if(kind==='head') return dur < 40 ? 'a rag hood' : dur < 100 ? 'a hard hat' : dur < 180 ? 'a riot helmet' : 'a full riot helm';
+  if(kind==='shields') return dur < 40 ? 'a car door' : 'a riot shield';
+  return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
+}
+function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x>>>17; x ^= x<<5; return ((x>>>0)%100000)/100000; }; }
+function weaponItem(r){
+  var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class']; }).sort(function(a,b){ return a.value-b.value; });
+  var nm = qualityWord(same.indexOf(r), same.length) + ' ' + c;
+  return {id:r.id, kind:'weapon', name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'',
+          nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')};
+}
+function armourItem(kind, r){
+  return {id:r.id, kind:kind==='body'?'body':kind==='head'?'head':'shield', name:armourName(kind, r.durability), was:r.name, price:priceOf(r.value),
+          line: kind==='shields' ? 'Held up, it takes the hit first.' : 'Takes hits until it is worn through.',
+          nums:'holds '+r.durability+(r.fatigue!=null?'  weight '+Math.abs(r.fatigue):'')};
+}
+/* the shelf: what a place this size carries, rolled from its name so it is the same every visit */
+function restock(){
+  if(!BB.weapons || !BB.armor || !VAR) return;
+  var tier = S.place.tier, band = tier==='camp' ? [0,.4] : tier==='town' ? [.15,.75] : [.3,1];
+  var R0 = rng(seedOf(S.place.name + ':stock'));
+  function pick(rows, n){
+    var sorted = rows.filter(function(r){ return r.value != null; }).sort(function(a,b){ return a.value-b.value; });
+    var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
+    for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
+    return out;
+  }
+  var W = function(n){ return pick(BB.weapons.filter(function(r){ return CLASSNAME[r['class']]; }), n).map(weaponItem); };
+  var A = function(n){ return pick(BB.armor.body, Math.ceil(n/2)).map(function(r){ return armourItem('body', r); })
+                    .concat(pick(BB.armor.head, Math.floor(n/2)).map(function(r){ return armourItem('head', r); })); };
+  S.stock = {arms: W(4).concat(A(3)), smith: W(7), armourer: A(6).concat(pick(BB.armor.shields, 2).map(function(r){ return armourItem('shields', r); }))};
+}
+function shopSheet(k, body, acts, line){
+  var items = S.stock[k] || [];
+  var hello = {arms:'Guns and plate, whatever made it through. Everything has a price, mijo.', smith:'Fixed, sharpened, loaded. Pick one.', armourer:'If it stops a pipe, I sell it.'}[k];
+  body.appendChild(speak(k, line || (items.length ? hello : 'Shelves are empty today.')));
+  items.forEach(function(it, i){
+    acts.appendChild(act(it.name, it.price + ' batt', function(){
+      openB(k, it.name.charAt(0).toUpperCase() + it.name.slice(1) + '. ' + it.price + ' batter' + (it.price===1?'y':'ies') + '. ' + it.line);
+      var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
+      var card = document.createElement('div'); card.className = 'slots';
+      card.textContent = it.nums + '   (was ' + it.was + ')'; sb.appendChild(card);
+      sb.appendChild(act('Buy it', it.price + ' batt', function(){
+        if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
+        P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
+        S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it);
+        post('buyArms', {item:it}); shelf(); openB(k, 'Yours. It goes on whoever you hand it to.');
+      }, bats() < it.price));
+      sb.appendChild(act('Not this one', '', function(){ openB(k); }));
+    }));
+  });
+  /* selling back what you carry: the cut is half until TUNING sources it */
+  S.stash.forEach(function(it){
+    var back = Math.max(1, Math.floor(it.price * SELL_CUT));
+    acts.appendChild(act('Sell your ' + it.name, '+' + back + ' batt', function(){
+      P.credit(S.purse, 'electricity', back, 'sell:' + it.id, S.place.name, S.day);
+      S.stash.splice(S.stash.indexOf(it), 1); post('sellArms', {item:it, got:back}); shelf(); openB(k, 'I give you ' + back + ' for it. That is fair.');
+    }));
+  });
+}
 
 /* WHO STANDS IN EACH BUILDING. draft:true: names and lines are attempts (rule 8/11);
    they speak Spanglish, the player does not (the first votes). */
@@ -144,6 +227,9 @@ var KEEPERS = {
   bar:    {who:'settle-bar',    name:'MANNY, BEHIND THE BAR', draft:true},
   clinic: {who:'settle-clinic', name:'DOC ROSALES',        draft:true},
   train:  {who:'settle-yard',   name:'SARGE, AT THE YARD', draft:true},
+  arms:   {who:'settle-arms',   name:'TOÑO, GUNS AND PLATE', draft:true},
+  smith:  {who:'settle-smith',  name:'RUBÉN, THE SMITH',   draft:true},
+  armourer:{who:'settle-armour',name:'IRMA, THE ARMOURER', draft:true},
   lot:    {who:'you',           name:'YOU',                draft:true}
 };
 
@@ -152,16 +238,19 @@ var KEEPERS = {
    (camp 1, town 2, fortress 3). Pay is ONE battery (EVERYTHING COSTS ONE) until TUNING
    prices a contract. Words are draft:true attempts. */
 var OFFERS = [
-  {id:'ct-escort-water', title:'Walk the water cart to the pump', pay:1, draft:true,
+  {id:'ct-escort-water', skulls:1, title:'Walk the water cart to the pump', pay:30, draft:true,
    says:'The cart goes to the pump at dawn, mijo. Two hands, one battery when it comes back full.'},
-  {id:'ct-road-crew',    title:'Run the road crew off the corner', pay:1, draft:true,
+  {id:'ct-road-crew', skulls:2,    title:'Run the road crew off the corner', pay:60, draft:true,
    says:'Six of them on the corner, pipes and one pistol. They leave, you get paid. Simple.'},
-  {id:'ct-find-the-kid', title:'Find the Ortiz kid', pay:1, draft:true,
+  {id:'ct-find-the-kid', skulls:2, title:'Find the Ortiz kid', pay:60, draft:true,
    says:'The Ortiz boy went out for copper and did not come back. Bring him home, alive if you can.'},
-  {id:'ct-dogs',         title:'Clear the dog lot', pay:1, draft:true,
+  {id:'ct-dogs', skulls:3,         title:'Clear the dog lot', pay:90, draft:true,
    says:'The dogs took the lot behind the wash. Not pets no more. Clear it and the lot is ours again.'}
 ];
 var TIER_OFFERS = {camp:1, town:2, fortress:3};
+/* PAY BY SKULLS (10/5, with the market): a job must buy a gun, so it pays like Battle Brothers' at
+   ten crowns a battery: the wiki's contract line is 610 to 760 crowns (GROK_10, unverified), so a
+   one-skull job 30, two 60, three 90. TUNING owns these numbers. */
 /* THE BAR's rumours: draft:true attempts, each one a real thing the valley has (a pump, a
    road crew, the lab's animals), never a quest card. Spanglish from his mouth. */
 var RUMOURS = [
@@ -181,7 +270,7 @@ var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
-  purse:null, day:0, rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
+  purse:null, day:0, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
@@ -204,6 +293,11 @@ function heard(t){ document.getElementById('heard').textContent = t; }
 var GROUND = null, PIC = {day:null, night:null}, VAR = null;
 var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:'clinic'};
 /* scavenge has no hotspot in the pictures, so it is the junk/empty lot in each, picked by eye */
+/* THE MARKET (rule 75d, Paolo 10/5: 'there's no place where you can buy weapons or armor'). Battle
+   Brothers' shape: a camp has one stall for both, a town a smith and an armourer, a fortress both
+   plus its market. The buildings are ones already standing in COMBAT TWO's pictures, picked by eye. */
+var ARMSBOX = {camp:{arms:[86,130,300,250]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092]},
+               fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470]}};
 var LOTBOX = {camp:[1290,680,1570,800], town:[520,900,1050,1092], fortress:[1330,700,1480,830]};
 var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, lit:null, night:false}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
@@ -216,7 +310,9 @@ function pickVariant(){
   VAR.boxes = {};
   for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
-  ORDER = ['hall','board','stall','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
+  var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
+  ORDER = ['hall','board','stall','arms','smith','armourer','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
+  restock();
   ['day','night'].forEach(function(w){
     var im = new Image(); im.onload = function(){ layout(); }; im.src = 'settlement_ground/' + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
   });
@@ -387,7 +483,7 @@ function openB(k, line){
     for(var i=0;i<OFFERS.length && shown<n;i++){
       (function(o){
         if(S.held.indexOf(o.id)>=0) return; shown++;
-        acts.appendChild(act(o.title, o.pay+' battery', function(){
+        acts.appendChild(act(o.title, '\u2620'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){
           openB('board', o.says);
           var sb = document.getElementById('sbody').querySelector('.acts');
           sb.textContent = '';
@@ -425,6 +521,7 @@ function openB(k, line){
       sb.appendChild(act('Your haircut', '12 cuts', function(){ post('barber',{open:'hairBank'}); heard('The haircut shelf opens.'); }));
     }, bats()<1));
   }
+  else if(k==='arms' || k==='smith' || k==='armourer'){ shopSheet(k, body, acts, line); }
   else if(k==='bar'){
     body.appendChild(speak(k, line || 'A round for the crew is one battery. Drink, and I tell you what I heard.'));
     acts.appendChild(act('Buy the crew a round', '1 battery', function(){

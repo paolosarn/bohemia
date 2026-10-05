@@ -69,7 +69,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
-  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, barber, clinic, scavenge', keys.join() === 'hall,board,stall,barber,clinic,lot', keys.join());
+  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,smith,armourer,barber,clinic,lot', keys.join());
   /* nothing is written on the picture until a finger is on a building (rule 71a) */
   const quiet = await p.evaluate(() => BohemiaSettlement.state.open === null);
   ok('  and no building names itself until it is touched', quiet);
@@ -118,6 +118,37 @@ const srv = http.createServer((rq, rs) => {
   ok('  and refuses when you are broke', broke && (await bat()) === 0);
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 3, 'gate', null, 0));
 
+  /* THE MARKET (rule 75d): the smith sells weapons from the wiki's rows in our names at 10 crowns
+     to a battery; the keeper says the price; buying spends exactly that and you carry it; selling
+     it back pays the cut */
+  await p.waitForFunction(() => (BohemiaSettlement.state.stock.smith || []).length > 0, null, { timeout: 30000 });
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 400, 'gate', null, 0));
+  await tapB('smith'); await p.waitForTimeout(250);
+  const shelfN = await p.evaluate(() => document.querySelectorAll('#sbody .act').length);
+  await p.screenshot({ path: SHOT.replace('_10_1', '_SMITH_10_5') });
+  const first = await p.evaluate(() => BohemiaSettlement.state.stock.smith[0]);
+  await p.click('#sbody .act'); await p.waitForTimeout(250);
+  const said = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + ' | ' + (document.querySelector('#sbody .slots') || {}).textContent);
+  ok('the smith has a shelf of weapons in our names', shelfN >= 5 && /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), shelfN + ' items, first ' + first.name + ' (was ' + first.was + ')');
+  ok('  the keeper says the price and the card shows the numbers', said.indexOf(String(first.price)) >= 0 && /dmg/.test(said), said.slice(0, 90));
+  const m0 = await bat();
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+  const m1 = await bat(), carried = await p.evaluate(() => BohemiaSettlement.state.stash.length);
+  ok('  buying spends exactly the price (10 crowns a battery, floor 1) and you carry it', m0 - m1 === first.price && carried === 1, m0 + ' -> ' + m1 + ', price ' + first.price);
+  await tapB('armourer'); await p.waitForTimeout(250);
+  const armShelf = await p.evaluate(() => BohemiaSettlement.state.stock.armourer.map(i => i.name).join(', '));
+  ok('the armourer sells armour and shields', /vest|jacket|carrier|riot|hood|hat|helm|door|shield/.test(armShelf), armShelf.slice(0, 80));
+  const sellBtn = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act')).findIndex(b => /^Sell your/.test(b.textContent)));
+  const s0 = await bat();
+  await p.evaluate(i => document.querySelectorAll('#sbody .act')[i].click(), sellBtn); await p.waitForTimeout(250);
+  const s1 = await bat();
+  ok('  and what you carry sells back for half (the cut is TUNING\'s to source)', sellBtn >= 0 && s1 - s0 === Math.max(1, Math.floor(first.price / 2)), s0 + ' -> ' + s1);
+  await p.evaluate(() => BohemiaPurse.debit(BohemiaSettlement.state.purse, 'electricity', BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') - 3, 'gate', null, 0));
+  /* the board reads as work: every contract shows its skulls and its pay */
+  await tapB('board'); await p.waitForTimeout(250);
+  const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act em')).map(e => e.textContent));
+  ok('the board is where work is: each job shows its skulls and its pay', skulls.length > 0 && skulls.every(t => /\u2620/.test(t) && /batt/.test(t)), skulls.join(' / '));
+
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
     await tapB('board'); await p.waitForTimeout(200);
@@ -158,7 +189,8 @@ const srv = http.createServer((rq, rs) => {
   for (const t of ['camp', 'fortress']) {
     const o = await p.evaluate(t => { BohemiaSettlement.open({ place: { tier: t, name: 'A ' + t.toUpperCase() } }); return BohemiaSettlement.order().join(); }, t);
     await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
-    ok('a ' + t + ' is its own picture with the same doors', o === 'hall,board,stall,barber,clinic,lot', o);
+    const want = t === 'camp' ? 'hall,board,stall,arms,barber,clinic,lot' : 'hall,board,stall,smith,armourer,barber,clinic,lot';
+    ok('a ' + t + ' is its own picture, with Battle Brothers\' shops for its size (camp one stall, town and fortress a smith and an armourer)', o === want, o);
   }
   await tapB('clinic'); await p.waitForTimeout(200);
   const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
