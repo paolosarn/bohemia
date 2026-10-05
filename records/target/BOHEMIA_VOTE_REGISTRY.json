@@ -4916,7 +4916,22 @@
     "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
    }
   },
- {"id": "ui-the-start-screens-look-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE START SCREEN'S LOOK", "why": "The crew picks are now cardboard cards, a posted sheet of origins with your pick ringed in marker, and a paper form for the name, and the start screen has its look: a taped card, a receipt and a cracked glass pane over the valley at night. You see it the moment the game opens, on the picks now and on the start screen once its buttons are wired in.", "show": {"how": "image", "src": "vote/UI_THE_START_SCREENS_LOOK_10_5.png"}}
+ {"id": "ui-the-start-screens-look-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE START SCREEN'S LOOK", "why": "The crew picks are now cardboard cards, a posted sheet of origins with your pick ringed in marker, and a paper form for the name, and the start screen has its look: a taped card, a receipt and a cracked glass pane over the valley at night. You see it the moment the game opens, on the picks now and on the start screen once its buttons are wired in.", "show": {"how": "image", "src": "vote/UI_THE_START_SCREENS_LOOK_10_5.png"}},
+{
+  "id": "a-few-not-twelve-10-5",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/5",
+  "title": "THE FIRST FIGHT IS A FEW THUGS BY THE MATH, NOT ONE AND NOT TWELVE",
+  "why": "You said twelve against twelve cannot be the flow and asked for just one enemy so you can test the rest, so the road's parties are now sized by Battle Brothers' own math (your strength, the days, the difficulty, the ground) and on day one near the start that math gives two or three thugs, never a hand-placed single man. You see it in the demo's first fight after the start screen, and later in bigger parties as the days pass.",
+  "show": {
+    "how": "text",
+    "src": "Rule 75b; RUN [a few, not twelve], COMBAT [the enemy math]. The count words are Battle Brothers': a few 2-3, some 4-6, many 7-10, lots 11-13.\n\nSeen in: the demo's first fight; the party's count word on the map when the clock stops."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
