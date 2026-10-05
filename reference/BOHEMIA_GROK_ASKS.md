@@ -13,6 +13,8 @@
 #    tile's AP and fatigue, GROK_82), 17 (no footprints yet; open the Clark County assessor next), 18 (empty; the Relations page is in the dump),
 #    19 (the wiki does not say the UI sizes; the coordinator measured from screenshots instead), 20 (terrain speeds, no flee chance on the wiki),
 #    21 (the one-not-two rule is his sentence, GROK_101). Seven of your reported rulings are in his VOTE tab as VIA GROK defaults.
+# RECEIVED 10/5 (GROK_112-114: the mix's shape, morale, damage; stamped and routed to COMBAT). NEXT: the injury-threshold table you named, then the brigand weights if any thread has them, then ask 10 (origins) below.
+# RECEIVED 10/5 (GROK_111, the spawn math from the script reader's thread; stamped, in COMBAT's and RUN's rows). NEXT UNDERBELLY, as you said: THE WEIGHT TABLE that picks a thug over a raider by day and difficulty, and the tier mix per faction; cite the thread or the script name.
 # 10/5, PAOLO'S NEWEST (rule 75), FIRST: ASK 10 THE ORIGINS, EXACT: every origin (base and every DLC): the starting men with their
 #    backgrounds, gear and crowns, the FIELD CAP and the roster cap (Lone Wolf, Peasant Militia's 16 and 25, the rest), every rule
 #    it changes, the wiki page cited per origin. THEN ASK 22's NEXT SHEET: THE PARTY SPAWN AND SCALING MATH (party size by roster

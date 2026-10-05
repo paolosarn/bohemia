@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/5b - THE START SCREEN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/5c - THE ENEMY MATH</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23756,8 +23756,20 @@ drawLogoBig();requestAnimationFrame(loop);
          (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
          'on' is what the alpha itself uses to mean "this is the open tab", so
          use the app's own answer instead of inventing a third one. */
+      /* AND THE MAP TAB TOO (SOUNDS, row [the map's sounds], 10/5). This check
+         was written before the MAP tab existed, so the valley's weather (a
+         gust, a generator, somebody's dog) has never once played while he is
+         actually travelling -- only while looking at the old walked-city
+         view. MEASURED before changing this: BOHEMIA_WHERE keeps arriving
+         every ~4 s whichever tab is on screen (the city/run frame is a
+         hidden iframe and hidden iframes keep their timers, same as the
+         comment above already says), worst gap seen 11 s, always under the
+         12 s cutoff above -- so the data this bed reads is exactly as fresh
+         on the map as it is on the run tab, and widening this one line costs
+         nothing new: every sound it can pick is already his. */
       var tab=document.querySelector('.tab[data-p="run"]');
-      if(!tab || !tab.classList.contains('on')) return;
+      var mapTab=document.querySelector('.tab[data-p="map"]');
+      if(!(tab && tab.classList.contains('on')) && !(mapTab && mapTab.classList.contains('on'))) return;
       var now=Date.now();
       if(!this.next){ this.next = now + this.gap()*1000; return; }
       if(now < this.next) return;

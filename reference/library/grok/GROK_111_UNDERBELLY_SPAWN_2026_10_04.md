@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-04
+PASSED FILTER (coordinator 10/5 sweep T, rule 54a: no game he has not named; numbers carry a source (a Steam thread by a script reader, named as such); not canon until it is in a data file)
 
 # THE UNDERBELLY. SPAWN
 

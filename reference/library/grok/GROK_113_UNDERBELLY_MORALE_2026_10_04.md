@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-04
+PASSED FILTER (coordinator 10/5 sweep U, rule 54a: no game he has not named; every number names its page or thread; a player sheet or a mod's before-numbers are marked as such, not script)
 
 # THE UNDERBELLY. MORALE
 

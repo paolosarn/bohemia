@@ -388,12 +388,35 @@
      "faction_remnants",
      "faction_network",
      "faction_volunteers"
+    ],
+    "brigand_raider": [
+     "faction_mob",
+     "faction_cartel"
+    ],
+    "brigand_marauder": [
+     "faction_remnants",
+     "faction_blues"
+    ],
+    "brigand_leader": [
+     "faction_church"
+    ],
+    "brigand_marksman": [
+     "faction_network",
+     "faction_colorful"
+    ],
+    "lower_brigand_marksman": [
+     "faction_network",
+     "faction_colorful"
+    ],
+    "brigand_poacher": [
+     "faction_volunteers",
+     "faction_caravans"
     ]
    }
   },
   "source": "records/BOHEMIA_PAOLO_I_WANT_ALL_MY_CHARACTER_ART_LIVE_IN_THE_GAME_10_4_26.md",
   "quote": "I wanna see all my character art that we've worked so hard on doing good work live in the game please even if it's new combat",
-  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change"
+  "why": "every fighter wears a look from the character bank (slices/fight_people, baked from the alpha's rig): YOU as the player stands, your eleven as the twelve city cast looks, the road crew in the runway thirteen's street factions (thugs in the poorer crews, the raider in the Mob or the Cartel); a draft pairing, his to change (10/5, [the enemy math]: the tiers wear their own crews: the raider the Mob or the Cartel, the armoured marauder the Remnants or the Blues, the shooters the Network or the Colorful, the poacher the Volunteers or the Caravans, the one leader the Church; draft)"
  },
  "formation_depth_lines": {
   "value": 2,
@@ -416,5 +439,58 @@
   "source": "bb_all/1415_News and Dev Blogs.txt",
   "quote": "In the lower right corner of the inventory screen you now have three rows with 9 slots each. The lower row is your reserves; characters placed here do not take part in battle. The top two rows are your front and back battle lines, allowing you to place archers in the back and build a sturdy shieldwall in front.",
   "why": "COMBAT [your formation] (Paolo's sixth votes: 'formation and gear are the depth'; GROK_75: 'the front line and the back line are already set by how you layered the company before the fight'). The fight opens with your men where the roster's two rows put them: slot 1 to 9 of the front row stand top to bottom on your front column, the back row one column behind. The roster order is RUN TWO's (FIGHT_OPTS.formation {front:[...], back:[...]}, crew indices or null); until its roster screen exists the default is Battle Brothers' own advice: the shieldwall in front, the shooters behind, in roster order, centred. Before turn one you may move any man to any tile of your two columns (ours: Battle Brothers sets this on the company screen; our roster screen is not built, so the fight hosts it); END TURN reads FIGHT and starts it; AUTO skips it."
+ },
+ "enemy_tiers": {
+  "value": {
+   "phases": [
+    {
+     "name": "early",
+     "from_day": 1
+    },
+    {
+     "name": "middle",
+     "from_day": 20
+    },
+    {
+     "name": "late",
+     "from_day": 60
+    }
+   ],
+   "difficulty_days": [
+    0,
+    0,
+    20,
+    40
+   ],
+   "day_cap": 100,
+   "skill_day": 40,
+   "leader_from_count": 4,
+   "leaders_max": 1,
+   "mix": {
+    "brigands": {
+     "early": {
+      "brigand_thug": 8,
+      "lower_brigand_raider": 2
+     },
+     "middle": {
+      "brigand_thug": 4,
+      "brigand_raider": 3,
+      "brigand_marksman": 2,
+      "brigand_poacher": 1,
+      "brigand_marauder": 1
+     },
+     "late": {
+      "brigand_thug": 1,
+      "brigand_raider": 3,
+      "brigand_marksman": 2,
+      "brigand_marauder": 3,
+      "brigand_leader": 1
+     }
+    }
+   }
+  },
+  "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
+  "quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders. Later, Raiders become more common, ranged attackers appear and their numbers increase, and armored Marauders can spawn. In the late game you will usually see a Brigand Leader and other elite enemies among them. / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. It's rare to see simultaneously more than one. / Melee skill is 65 before day 40, 70 after. / (GROK_60) Combat difficulty, set at the start, raises both the count and the tier. Higher tier means more leaders and fewer thugs. Day scaling for those stops at day 100. A few is 2 to 3. Some is 4 to 6. / (Brigand Marksman) Ranged defense is 10 before day 40, 15 after.",
+  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll."
  }
 }

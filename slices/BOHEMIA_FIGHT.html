@@ -244,11 +244,12 @@ const FIGHT = (function () {
     });
     return got;
   }
-  function perksByName(names) {
+  function perksByName(names, days) {
     const out = [];
     (names || []).forEach(function (n) {
-      const s = String(n).toLowerCase();
-      if (/after day/.test(s)) return;                       /* a perk that comes later in the campaign, not on day one */
+      let s = String(n).toLowerCase();
+      const late = s.match(/^(?<perk>.*?)\s*after day (?<day>\d+)/);
+      if (late) { if ((days || 1) < Number(late.groups.day)) return; s = late.groups.perk.trim(); }   /* a perk that comes later in the campaign, not before its day */
       if (/all weapon masteries/.test(s)) { Object.keys(MASTERY).forEach(function (k) { if (out.indexOf(MASTERY[k]) < 0) out.push(MASTERY[k]); }); return; }
       DB.perks.rows.forEach(function (r) {
         const nm = r.name.toLowerCase();
@@ -375,6 +376,39 @@ const FIGHT = (function () {
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head,
       armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' });
   }
+  /* a skill or a defence the wiki gives as a range is its before-and-after of the day (ours.enemy_tiers.skill_day) */
+  function dayStat(v) {
+    if (typeof v !== 'string' || v.indexOf('-') < 0) return stat(v);
+    const m = v.split('-').map(Number);
+    return (S.days || 1) >= R('ours.enemy_tiers').skill_day ? m[m.length - 1] : m[0];
+  }
+  /* THE ENEMY MATH (COMBAT [the enemy math], rule 75b): the map hands the party; the fight dresses it by tier.
+     party = [ids] | [{kind, count}] | {faction, count, days, difficulty}; the last is dressed from ours.enemy_tiers:
+     the days (plus the difficulty's days, capped where Battle Brothers stops scaling) pick the phase, the phase's mix
+     picks each man, a 'some'-sized late party brings its one leader */
+  function tierPhase(days, difficulty) {
+    const T = R('ours.enemy_tiers');
+    const d = Math.min(T.day_cap, (days || 1) + (T.difficulty_days[difficulty || 0] || 0));
+    return T.phases.filter(function (ph) { return ph.from_day <= d; }).pop().name;
+  }
+  function partyFor(p) {
+    const T = R('ours.enemy_tiers'), phase = tierPhase(p.days, p.difficulty), mix = T.mix[p.faction || 'brigands'][phase];
+    const out = [], ids = Object.keys(mix), lead = ids.filter(function (k) { return /leader/.test(k); })[0];
+    if (lead && p.count >= T.leader_from_count) out.push(lead);
+    while (out.length < p.count) {
+      const pool = ids.filter(function (k) { return !(/leader/.test(k) && out.filter(function (o) { return o === k; }).length >= T.leaders_max); });
+      let r = rng() * pool.reduce(function (t, k) { return t + mix[k]; }, 0);
+      out.push(pool.filter(function (k) { r -= mix[k]; return r < 0; })[0] || pool[0]);
+    }
+    return out;
+  }
+  function bandOf(opts) {
+    const p = opts.party;
+    if (Array.isArray(p) && p.length && typeof p[0] === 'object') return p.reduce(function (a, q) { for (let i = 0; i < q.count; i++) a.push(q.kind); return a; }, []);
+    if (Array.isArray(p)) return p.slice();
+    if (p && p.count) return partyFor(p);
+    return opts.band || R('ours.first_band');
+  }
   function enemyUnit(id, i) {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
     const gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
@@ -386,9 +420,9 @@ const FIGHT = (function () {
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
     const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'];
-    return makeUnit({ look: pool[i % pool.length], id: 'e' + i, side: 'them', name: r.name.replace(/^Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks),
+    return makeUnit({ look: pool[i % pool.length], id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
-      mskill: stat(r.melee_skill), rskill: stat(r.ranged_skill), mdef: stat(r.melee_defense), rdef: stat(r.ranged_defense),
+      mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
       armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
   }
@@ -509,9 +543,11 @@ const FIGHT = (function () {
     }
     S.board = S.boardDef.name;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
-    const crew = R('ours.crew').slice(0, R('ours.field_size'));
+    /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
+    S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
+    const crew = R('ours.crew').slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), R('ours.crew').length)));
     const crewUnits = crew.map(crewUnit);
-    const band = (opts.band || R('ours.first_band'));
+    const band = bandOf(opts);
     const bandUnits = band.map(enemyUnit);
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
     const cols = R('ours.start_cols');
@@ -1293,7 +1329,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
