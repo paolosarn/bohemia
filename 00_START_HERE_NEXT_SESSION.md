@@ -5,6 +5,32 @@ class's frame; the landscape classes have no bars. Tool tools/bohemia_combat2_th
 builder should call it after pack; until then re-run it after any rebuild). OPEN: [settlement traits], [the casino
 floor], [the future boards]. [PENDING Paolo]: none.
 
+WORDS (words-8dqrnq): 10/5 (b) LATEST -- *** THE JOB ASKED FOR FIVE WEAPON EXAMPLES THAT DON'T
+MATCH THE REAL DATA. WROTE THE REAL SEVEN INSTEAD OF GUESSING PAST THE GAP. ***
+TAB: no tab change; a review file for COMBAT and RUN TWO to apply.
+Record: records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md
+
+The job sheet gave five example weapons (one said a car is a cannon-gun, another said a
+scope is a longbow). Checked the real file both claims live in: neither exists. The real
+list has seven weapon types, and one of the five examples named the wrong gun for the wrong
+type. Wrote one short line for each of the real seven instead of forcing the five made-up
+ones to fit:
+- a cheap handgun (weak, but fast)
+- a shotgun (one big hit up close, slow to reload)
+- a rifle (hits far, slow to reload)
+- a pipe (crushes through armor)
+- a sledgehammer (the heaviest thing you can swing)
+- a car door (a shield, not a weapon; you hide behind it and can shove someone with it)
+- bottles (thrown, short supply, reaches further than a swing)
+
+Each line is built from the AVERAGE of every real Battle Brothers weapon in that family, not
+one random pick, so the line describes the whole family honestly.
+
+Also said plainly: none of this is on a screen yet. There's no weapon shop built, so these
+seven lines are ready and waiting, not proof of something already working.
+NEXT: the jump list's next job is the settlement screen's words.
+PENDING Paolo: nothing.
+
 COMBAT TWO (combat2-8ca291aa): 10/5 (u) LATEST -- [more building types] SHIPPED (round twenty): building fight
 facts (pumps burn, canopy open, motel walkway and school roof and warehouse dock high ground, church steps low cover,
 school fence see-through cover, casino dumpsters) in the building cook (FURN_MAKERS/FURN_META), in fight_ground.json
