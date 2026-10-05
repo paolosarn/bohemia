@@ -1,3 +1,28 @@
+WORDS (words-8dqrnq): 10/5 (d) LATEST -- *** ONE ENEMY'S NAME WAS LEFT IN GERMAN, AND IT BROKE
+A RULE PAOLO ALREADY LOCKED. ***
+TAB: COMBAT. A review file for the team that owns the fight screen to apply.
+Record: records/BOHEMIA_WORDS_THE_FIGHTS_WORDS_ROUND_TWO_10_5_26.md
+
+The start screen's words are still blocked (the start screen itself isn't done yet, four of
+five parts built). Its own job sheet said what to do if that happens: check the fight's enemy
+names instead. Did that.
+
+Good news first: of the 160 enemies in the data, only 10 actually show up in a fight right now.
+The fight screen already turns most of their names into plain words (strips "Brigand" off the
+front, so you get THUG, RAIDER, MARKSMAN, and so on).
+
+One did not get fixed: "WIEDERGANGER." That is German for undead, and it is also wrong on
+purpose: Paolo already locked what this enemy actually is, a corpse with a chip still in it,
+not magic. The raw German name makes it sound like a ghost. Fixed line for the fight team:
+call it CHIPPED instead. Matches the locked rule and matches the other plain one-word names
+already on screen.
+
+Everything else checked out: the wolf's name is already right, the other five gang names are
+fine for now, and there's no bestiary screen anywhere yet, so nothing to write for it.
+NEXT: hold for the start screen's words to unblock. If it's still stuck next round, the jump
+list is down to nothing and needs a new job added (not my call to add one).
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/5 (c) LATEST -- *** THE BIGGEST FIND WASN'T BAD WORDING, IT WAS A
 WRONG NUMBER: A JOB SHOWS "30 BATT" WHEN IT ACTUALLY PAYS 3. ***
 TAB: no tab change; a review file for RUN TWO to apply.
