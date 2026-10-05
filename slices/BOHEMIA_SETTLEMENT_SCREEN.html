@@ -103,6 +103,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_followers.js"></script>
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
+<script src="bohemia_ui_materials.js"></script>  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
 'use strict';
@@ -366,8 +367,11 @@ function draw(){
     var beat = ((performance.now()-t0)/500)|0, a = .22 + .05*Math.sin((performance.now()-t0)/500*Math.PI);
     cx.save(); cx.globalCompositeOperation = 'lighter'; cx.globalAlpha = a;
     cx.drawImage(im, b[0], b[1], b[2]-b[0], b[3]-b[1], x, y, w, h); cx.restore();
-    /* it names itself, in one plate under it, only now */
+    /* it names itself only under the finger (UI [the settlement's labels], rule 71a: gone when the finger
+       lifts): UI's torn tag from bohemia_ui_materials.js; the plate below is the fallback if that file is missing */
     var t = B[k].name, t2 = sub(k) || '';
+    if(view.lit === k && window.BohemiaMaterials && BohemiaMaterials.settleTag){ BohemiaMaterials.settleTag(cx, {x:x, y:y, w:w, h:h}, t, t2, W, H); }
+    else if(view.lit === k){
     cx.font = 'bold 11px ui-monospace,Menlo,monospace'; var w1 = cx.measureText(t).width;
     cx.font = '10px ui-monospace,Menlo,monospace'; var w2 = cx.measureText(t2).width;
     var pw = Math.max(w1,w2) + 14, px = Math.max(4, Math.min(W - pw - 4, x + w/2 - pw/2)), py = Math.min(H - 34, y + h + 6);
@@ -375,6 +379,7 @@ function draw(){
     cx.fillStyle = '#d9a85a'; cx.fillRect(Math.round(px), Math.round(py), 2, t2 ? 30 : 18);
     cx.textAlign = 'center'; cx.fillStyle = '#e9dcc4'; cx.font = 'bold 11px ui-monospace,Menlo,monospace'; cx.fillText(t, px + pw/2, py + 13);
     if(t2){ cx.fillStyle = '#a8977c'; cx.font = '10px ui-monospace,Menlo,monospace'; cx.fillText(t2, px + pw/2, py + 25); }
+    }
   }
   var g2 = cx.createRadialGradient(W/2, H/2, 40, W/2, H/2, Math.max(W,H)*0.75);
   g2.addColorStop(0,'rgba(0,0,0,0)'); g2.addColorStop(1,'rgba(0,0,0,.45)');

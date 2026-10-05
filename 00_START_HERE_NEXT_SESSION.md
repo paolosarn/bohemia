@@ -665,6 +665,11 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/5 (b) LATEST -- [the settlement's labels] SHIPPED: the torn tag under the finger and receipt price/pay lines, any settlement.
+settleTag()/dressSettlement() in bohemia_ui_materials.js; RUN TWO's file: one include + the call while view.lit. Gate the settlement's labels 10/0, 5 mutations.
+RUN TWO's settlement gate needs NODE_PATH=/opt/node22/lib/node_modules (bare require('playwright')); 27/0. VOTE ui-the-settlements-labels-10-5.
+NEW OPEN ROWS (rule 74): [six icons], [the map's bar], [the roster's look]. [settings and the slider] still waits on a night pass reading the lift.
+
 UI (ui-kmqmrf): 10/5 LATEST -- [the start screen's look] SHIPPED: the picks are dressed live (the first screen); the start screen's look is one call for RUN.
 BohemiaMaterials.startScreen(host,{onNew,onContinue,onSettings,saved}) and dressFrontDoor() (automatic on #newco), all in bohemia_ui_materials.js.
 Gate the start screen's look 17/0 (5 mutations); RUN's THE FRONT DOOR 7/0. VOTE ui-the-start-screens-look-10-5.

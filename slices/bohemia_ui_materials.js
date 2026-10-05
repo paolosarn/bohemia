@@ -333,8 +333,60 @@
     api.paint(opts.saved || null);
     return api;
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressFrontDoor); else dressFrontDoor();
+  /* ======================================================================================================
+     THE SETTLEMENT'S LABELS  (UI [the settlement's labels], 10/5/26; rule 71a, RUN TWO [one painted place])
+     RUN TWO's settlement is one painted picture and a building names itself only under the finger. This is
+     what that name looks like: a TORN TAG of receipt paper under the building, held by a strip of tape, its
+     name stamped in CASING and its line printed in ROM, 44 points tall, read from the left, a hard one-pixel
+     contact edge, clamped inside the glass. RUN TWO's picture calls settleTag() while the finger is down (its
+     own plate stays as the fallback when this file is missing). dressSettlement() puts the pay and the price
+     lines (the board's contracts, the stall's goods, every act in the keeper's sheet) in the receipt face;
+     it applies by itself on any page that has the settlement's #sbody.
+     ====================================================================================================== */
+  var TAGPAPER = null, TAPEPIC = null;
+  function settleTag(cx, box, title, line, W, H) {
+    if (!TAGPAPER) { seed = 7; TAGPAPER = receipt(); TAPEPIC = tape(); }
+    var F1 = '13px "BohemiaCasing", ui-sans-serif, sans-serif', F2 = '11px "BohemiaROM", ui-monospace, monospace';
+    cx.save();
+    cx.font = F1; var w1 = cx.measureText(title).width; cx.font = F2; var w2 = line ? cx.measureText(line).width : 0;
+    var pw = Math.ceil(Math.max(w1, w2) + 30), ph = 44;
+    var px = Math.round(Math.max(6, Math.min(W - pw - 6, box.x + box.w / 2 - pw / 2)));
+    var py = Math.round(box.y + box.h + 8); if (py + ph > H - 6) py = Math.round(Math.max(6, box.y - ph - 8));
+    /* the torn outline: straight top, ragged sides, a torn foot */
+    var path = function () {
+      cx.beginPath(); cx.moveTo(px, py); cx.lineTo(px + pw, py);
+      for (var yy = py + 4; yy < py + ph; yy += 4) cx.lineTo(px + pw - ((yy / 4) % 2 ? 1.5 : 0), yy);
+      for (var xx = px + pw; xx > px; xx -= 4) cx.lineTo(xx, py + ph - ((xx / 4) % 2 ? 0 : 3));
+      for (yy = py + ph; yy > py; yy -= 4) cx.lineTo(px + ((yy / 4) % 2 ? 1.5 : 0), yy);
+      cx.closePath();
+    };
+    cx.translate(0, 1); path(); cx.fillStyle = 'rgba(0,0,0,.85)'; cx.fill(); cx.translate(0, -1);   /* the contact edge */
+    /* the paper, and a wash that keeps its darkest curl light enough for the ink in the sun (rule 73: the
+       smallest tag's corner read 4.3:1 under +25% white without it, the armourer's 4.48 at a .38 wash) */
+    path(); cx.save(); cx.clip(); cx.drawImage(TAGPAPER, px, py, pw, ph); cx.fillStyle = 'rgba(255,250,236,.52)'; cx.fillRect(px, py, pw, ph); cx.restore();
+    cx.drawImage(TAPEPIC, Math.round(px + pw / 2 - 22), py - 6, 44, 12);
+    cx.textAlign = 'left'; cx.textBaseline = 'alphabetic';
+    cx.fillStyle = '#1f1710'; cx.font = F1; cx.fillText(title, px + 12, py + (line ? 19 : 27));
+    if (line) { cx.fillStyle = '#1f1710'; cx.font = F2; cx.fillText(line, px + 12, py + 35); }
+    cx.restore();
+    var r = { x: px, y: py, w: pw, h: ph }; try { window.__SETTLE_TAG = r; } catch (e) {}
+    return r;
+  }
+  var SETTLE_CSS = FACES
+    + 'html body #sheet .act{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;'
+    +   'font-family:"BohemiaROM",ui-monospace,monospace;font-size:13px;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));min-height:48px}'
+    + 'html body #sheet .act span{text-align:left}'
+    + 'html body #sheet .act em{color:#3e1608;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;border-left:1px dashed rgba(42,34,26,.4);padding-left:8px}'
+    + 'html body #sheet .act[disabled]{opacity:1;color:#6b5f4f}html body #sheet .act[disabled] em{color:#7a6a58}';
+  function dressSettlement() {
+    if (!document.getElementById('sbody')) return false;
+    rootVars(); style('bm-settle', SETTLE_CSS);
+    try { document.fonts.load('13px "BohemiaCasing"'); document.fonts.load('11px "BohemiaROM"'); } catch (e) {}
+    return true;
+  }
+  function dressAll() { dressFrontDoor(); dressSettlement(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
-    startScreen: startScreen, dressFrontDoor: dressFrontDoor };
+    startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement };
 })();

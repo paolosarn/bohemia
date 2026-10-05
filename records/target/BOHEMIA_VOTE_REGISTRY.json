@@ -5051,7 +5051,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+ {"id": "ui-the-settlements-labels-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE SETTLEMENT'S LABELS", "why": "A building now names itself on a torn paper tag only while your finger is on it, and the prices and pay inside print on receipt lines you can read in the sun. You see it in any settlement, when you touch a building and when you open the stall or the board.", "show": {"how": "image", "src": "vote/UI_THE_SETTLEMENTS_LABELS_10_5.png"}}
  ],
  "verdicts": [
   {
