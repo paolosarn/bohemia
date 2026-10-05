@@ -4867,6 +4867,54 @@
     "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-the-road-is-faster-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "10/5",
+   "title": "THE ROAD IS FASTER",
+   "why": "Travel on the map has no sound at all right now. This is your party's own footsteps on a paved road, moving at the faster cadence a road already gives you. Hear it in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the road bed"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
+  },
+  {
+   "id": "sounds-dirt-is-slower-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "10/5",
+   "title": "DIRT IS SLOWER",
+   "why": "The same footsteps, on open dirt instead of a road, at the slower walking cadence dirt already costs you. Hear it in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the dirt bed"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-night-has-insects-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "PENDING",
+   "made": "10/5",
+   "title": "THE NIGHT HAS INSECTS",
+   "why": "Travel at night has nothing in it but silence. This is many insects calling, built from real clicks the way the dead radio's static already is, never a hiss. Hear it in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the insects"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
   }
  ],
  "verdicts": [

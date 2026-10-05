@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE MAP IN MOTION</title>
+<!-- SOUNDS lane, 10/5, row [the map's sounds], rule 54b.
+     Right now travel on the map is completely silent -- BOHEMIA_MAP_CURRENT.html posts
+     nothing to the parent and has no audio of its own. This page builds and plays the
+     real-material pieces the row names: the party's steps on asphalt and on dirt (two
+     beds, the road faster -- footstepWalk's own perBeat read as the game's own travel-
+     speed ratio), the night's insects (a dense click train, the same real mechanism as
+     the broadcast's lightning, band-limited to a cricket's own range), and the valley's
+     EXISTING approved weather (wind_gust, generator, dog_far) laid over the bed the way
+     it already plays for anyone standing still.
+     TWO NAMED ITEMS ARE NOT HERE, SAID PLAINLY: "voices low" at a settlement and "the
+     crew's shout" at a fight's approach are both vocal-sounding moments, and this
+     lane's whole palette is struck/resonant/particle material, never a faked voice --
+     building either one honestly needs a different technique than this page has, and a
+     weak fake is worse than naming the gap.
+     NOT WIRED LIVE: unjudged = silent, same as every new sound this lane has shipped. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  button.hero{background:var(--ink);color:var(--paper);min-height:56px;font-size:15px}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE MAP IN MOTION</h1>
+<div class="sub">SOUNDS &middot; 10/5 &middot; travel has no sound at all right now</div>
+
+<div class="loud"><b>THE TRAVEL CLIP.</b> One button plays the whole thing in order: the road
+bed starts, the valley speaks over it (a gust, a generator, a dog, the way it already does
+standing still), the insects come up if it's night, then the bed thins as you arrive.</div>
+
+<div class="card">
+  <div class="row">
+    <button class="hero" id="clipRoad">PLAY THE TRAVEL CLIP -- ROAD, NIGHT</button>
+    <button class="hero" id="clipDirt">PLAY THE TRAVEL CLIP -- DIRT, DAY</button>
+    <button id="clipStop">STOP</button>
+  </div>
+  <div class="num" id="clipNum"></div>
+</div>
+
+<div class="part">ONE &middot; THE PARTY'S OWN STEPS</div>
+<div class="card">
+  <h2>THE ROAD IS FASTER</h2>
+  <div class="why">footstepWalk on asphalt at the running cadence: a paved road moves the party quicker, the same ratio the map already costs in travel time, read onto the footfall engine instead of a second number.</div>
+  <div class="row"><button data-play="road">PLAY IT</button></div>
+  <div class="num" id="num-road"></div>
+</div>
+<div class="card">
+  <h2>DIRT IS SLOWER</h2>
+  <div class="why">The same function, the walking cadence, on dirt instead of asphalt.</div>
+  <div class="row"><button data-play="dirt">PLAY IT</button></div>
+  <div class="num" id="num-dirt"></div>
+</div>
+
+<div class="part">TWO &middot; THE NIGHT'S INSECTS</div>
+<div class="card">
+  <h2>MANY INSECTS, NOT A HISS</h2>
+  <div class="why">A dense click train -- the same real mechanism as the broadcast's distant lightning -- band-limited to 3 to 6 kHz, where a cricket's own calling song sits.</div>
+  <div class="row"><button data-play="insects">PLAY IT</button></div>
+  <div class="num" id="num-insects"></div>
+</div>
+
+<div class="part">THREE &middot; THE VALLEY ALREADY SPEAKS (approved, replayed here)</div>
+<div class="card">
+  <h2>A GUST, A GENERATOR, A DOG</h2>
+  <div class="why">All three are already his, already in the game standing still. This just proves they are the right volume to sit under a travel bed, not new content.</div>
+  <div class="row">
+    <button data-play="wind_gust">WIND</button>
+    <button data-play="generator">GENERATOR</button>
+    <button data-play="dog_far">DOG</button>
+  </div>
+  <div class="num" id="num-approved"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script src="../engine/bohemia_sfx.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = [], clipTimers = [];
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+function stopAll(){
+  live.forEach(function(n){ try{ n.stop(); }catch(e){} }); live=[];
+  clipTimers.forEach(function(t){ clearTimeout(t); }); clipTimers=[];
+  document.querySelectorAll('button[data-play], .hero').forEach(function(b){ b.classList.remove('on'); });
+}
+function playBuf(buf, gain, loop){
+  var c = ac();
+  var s = c.createBufferSource(); s.buffer = buf; s.loop = !!loop;
+  var g = c.createGain(); g.gain.value = gain == null ? 0.85 : gain;
+  s.connect(g); g.connect(c.destination); s.start();
+  live.push(s);
+  return s;
+}
+function playRecipe(ev, gain){
+  var v = BOH_SFX.cook(ev, 5)[0];
+  var out = ac().createGain(); out.gain.value = 1; out.connect(ac().destination);
+  BOH_SFX.render(v, ac(), out, ac().currentTime + 0.02);
+}
+var roadM = null, dirtM = null, insM = null;
+function made(){
+  if(!roadM) roadM = H.travelRoadBed(ac(), { beats: 40 });
+  if(!dirtM) dirtM = H.travelDirtBed(ac(), { beats: 40 });
+  if(!insM)  insM  = H.nightInsects(ac(), { secs: 8, ratePerSec: 90 });
+}
+document.querySelectorAll('button[data-play]').forEach(function(b){
+  b.onclick = function(){
+    stopAll();
+    var k = b.dataset.play;
+    made();
+    if(k==='road') playBuf(roadM.buffer, 0.7, false);
+    else if(k==='dirt') playBuf(dirtM.buffer, 0.7, false);
+    else if(k==='insects') playBuf(insM.buffer, 0.5, false);
+    else playRecipe(k, 0.9);
+    b.classList.add('on');
+  };
+});
+function playClip(surface, night, btn){
+  stopAll();
+  made();
+  var bedM = surface==='road' ? roadM : dirtM;
+  var bed = playBuf(bedM.buffer, 0.55, true);
+  btn.classList.add('on');
+  if(night){
+    var ins = playBuf(insM.buffer, 0.35, true);
+  }
+  // the valley speaks: a gust at 2s, a generator at 5s (closer -> arrival), a dog at 7s
+  clipTimers.push(setTimeout(function(){ playRecipe('wind_gust', 0.5); }, 2000));
+  clipTimers.push(setTimeout(function(){ playRecipe('generator', 0.5); }, 5000));
+  clipTimers.push(setTimeout(function(){ playRecipe('dog_far', 0.45); }, 7000));
+  // thins at 9s: the bed stops, signalling arrival
+  clipTimers.push(setTimeout(function(){ stopAll(); }, 10000));
+}
+document.getElementById('clipRoad').onclick = function(){ playClip('road', true, this); };
+document.getElementById('clipDirt').onclick = function(){ playClip('dirt', false, this); };
+document.getElementById('clipStop').onclick = stopAll;
+function head(){
+  made();
+  document.getElementById('num-road').textContent =
+    roadM.steps + ' footfalls, perBeat ' + roadM.perBeat + ', on ' + roadM.surface;
+  document.getElementById('num-dirt').textContent =
+    dirtM.steps + ' footfalls, perBeat ' + dirtM.perBeat + ', on ' + dirtM.surface;
+  document.getElementById('num-insects').textContent =
+    insM.clicks + ' clicks, band ' + insM.lo + '-' + insM.hi + ' Hz';
+  document.getElementById('num-approved').textContent =
+    'these three play from the same approved candidates the game already uses standing still';
+  document.getElementById('clipNum').textContent =
+    'the clip runs 10 s: bed in, a gust at 2 s, a generator at 5 s, a dog at 7 s, the bed thins at 10 s';
+}
+head();
+
+var KEY='bohemia_map_in_motion_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE MAP IN MOTION (SOUNDS, 10/5). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-the-road-is-faster-10-5, sounds-dirt-is-slower-10-5, sounds-the-night-has-insects-10-5\n\n'
+    + (a || '(nothing written yet)'); }
+function say(msg){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_MAP_IN_MOTION.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

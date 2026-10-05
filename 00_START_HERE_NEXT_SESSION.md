@@ -6115,6 +6115,81 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/5 LATEST -- *** THE BOARD WAS RESTRUCTURED (RULE 74, "A JOB IS AN
+OPEN ROW"): [one song and the volumes] IS DONE, THREE NEW OPEN ROWS REPLACED IT, AND THIS
+ROUND WORKED THE TOP ONE. *** Row [the map's sounds], round one, CLAIMED (not shipped: three
+of five pieces built, two left out on purpose, live wiring blocked on another lane's file).
+
+THE BOARD CHANGED UNDER ME. Between last round and this one, the coordinator rewrote every
+running lane's section to rule 74: a job is an OPEN row, the top one is the job, the ones under
+it are a jump list. My old row, [one song and the volumes], is now fully closed (RUN finished
+the music-bus half on both doors, 3aaf22a; this lane's two rounds covered the fence and the
+fight's own sounds). Three NEW rows took its place: [the map's sounds] (top, claimed this
+round), [the settlement's sounds], [the narrator]. No votes landed on anything pending (checked
+fresh, same as every round).
+
+[the map's sounds] asks for travel to have a sound: the party's steps on asphalt and dirt, the
+wind by hour, night insects, arriving at a settlement (a dog, a generator, voices low), the
+fight's approach (the crew's shout), all under RUN's one song, from real material.
+
+MEASURED FIRST, BEFORE BUILDING ANYTHING: BOHEMIA_MAP_CURRENT.html (the actual travel screen,
+the mapFrame tab) posts NOTHING to the parent window -- no postMessage, no audio hooks at all.
+It is a pure visual map, completely disconnected from the rest of the game's message bridges.
+Also found: the existing ambience bed (window.__AMB, which already plays wind_gust, generator,
+dog_far and sign_alive) only checks whether the RUN tab is on screen before it plays a single
+tick -- it has never once played while looking at the MAP tab, a gap of the exact same shape as
+last round's music-door bug (a tab the game grew after the check was written). I did NOT patch
+this live: a quick probe switching tabs showed the city/run frame's heartbeat (BOHEMIA_WHERE)
+going stale once the map tab is up, which may be a measurement artefact of my own probe's boot
+timing rather than a real finding -- it needs a cleaner read before anything live changes,
+and RUN is actively rebuilding this exact surface this sprint. Guessing wrong here risks feeding
+the ambience bed a stale location, which is worse than staying silent.
+
+BUILT AND COOKED, FROM REAL MATERIAL, THREE OF FIVE NAMED PIECES:
+- travelRoadBed / travelDirtBed (engine/bohemia_horror_sounds.js): footstepWalk, already real
+  and already proven never to repeat a footfall, called at perBeat 2 for the road and perBeat 1
+  for dirt -- "the road is faster" read straight onto the footfall engine's own tempo control,
+  zero new engine math.
+- nightInsects: a dense click train, the exact same mechanism (crackleInto) the broadcast's
+  distant lightning already uses, run far denser and band-limited to 3-6 kHz, a field cricket's
+  own calling-song range -- zero noise generators, same as everything else this lane ships.
+- the wind, the generator and the dog are already his, already approved, needed nothing new;
+  this round only proves they sit at the right level under a travel bed.
+
+ONE VOTE ITEM, THE TRAVEL CLIP (rule 74's own instruction: "one VOTE item with the sounds
+playing on a travel clip"): slices/BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html plays all three new
+pieces plus the three approved ones together, 10 seconds, in the order the row describes (bed
+in, a gust at 2s, a generator at 5s, a dog at 7s, the bed thins at 10s for arrival). Registered:
+sounds-the-road-is-faster-10-5, sounds-dirt-is-slower-10-5, sounds-the-night-has-insects-10-5.
+
+TWO NAMED PIECES NOT BUILT, SAID PLAINLY RATHER THAN FAKED: "voices low" at a settlement and
+"the crew's shout" at a fight's approach are both vocal-sounding moments. Every sound this lane
+has ever shipped is struck, resonant or particle material -- never a synthesized voice -- and
+there is no honest way to fake a voice with that palette. Building either one for real needs a
+different technique (the squiggle/Animalese voice system elsewhere on the board is the closest
+candidate, and it is still its own open row, unclaimed by this lane). A weak fake would read as
+sand with extra steps; naming the gap is more honest than shipping one.
+
+GATES: gates/cooked_sounds_gate.js 194/0 (was 186/0). Three new claims for the three new
+pieces, all clean under --mutate: the mutation replaces H.travelRoadBed, H.travelDirtBed and
+H.nightInsects directly (never the local footstepWalk/crackleInto/bandTo they call by closure --
+the same trap this lane has now hit and fixed on EVERY new wrapper since round six: generator/
+power_on/sign_alive hums, groundTakesIt/bootsGoDirt/objectSetDown, endTurnClick, and now these
+three). Re-verified round two's fight-sfx bridge and round one's music-door fence both still
+hold clean on this round's tree (no regression).
+
+NEXT ROUND: get a clean, repeatable read on whether the city/run frame's BOHEMIA_WHERE heartbeat
+really does stay fresh while the MAP tab is on screen (hidden iframes keep their timers, but
+that is a claim to verify on the glass, not assume). If it does, widen AMB.tick()'s tab check
+to the map tab too -- the same shape of fence this lane built last round for the fight's music
+door, and it lights up wind/generator/dog/sign on the map immediately, for free, no new vote
+needed since they are already approved. If the heartbeat does not survive the tab switch, the
+map frame itself needs its own bridge, which is RUN's file -- ask, do not edit around them.
+Either way, "voices low" and "the crew's shout" stay open until this lane has a real technique
+for a voice-like sound, or until the squiggle row lands and can be borrowed from.
+
+---
+
 SOUNDS (sound-xk7pjp): 10/4 LATEST (round two) -- *** THE REBUILT FIGHT HAD ITS OWN SECOND SOUND
 SYSTEM, MADE OF PLACEHOLDER TONES, AND NOW IT TALKS TO THE REAL ONE. *** Row [not sand] still
 PAUSED. Row [one song and the volumes], round two done, ROW STAYS CLAIMED.
