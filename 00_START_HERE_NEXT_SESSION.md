@@ -828,6 +828,11 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/5 (d) LATEST -- [six icons] + [the map's bar] SHIPPED: the demo's map, top bar and the speed pad bottom right.
+supplyIcon()/dressMapBar() in bohemia_ui_materials.js; CITY_WORLD includes it (one line) and the six plate draws supplyIcon (fallback the old SVG).
+Gate the map's bar 7/0, 5 mutations; the old bar's words failed the sun test undressed. VOTE ui-the-maps-bar-10-5.
+OPEN: [the phone's look] (new, actionable), [the roster's look] (waits on RUN TWO). [settings and the slider] still waits on a night pass reading the lift.
+
 UI (ui-kmqmrf): 10/5 (c) LATEST -- [item icons] SHIPPED: 310 drawn item icons (23 objects), in RUN TWO's shelf and bag slots (5ba404c) by position.
 BohemiaMaterials.itemIcon(item, cssPx) / itemFromRow(kind,row,all) mirror RUN TWO's names (gate compares 272 stocked items). Market match is by SHELF ORDER.
 Gate every item has an icon 10/0, 5 mutations. VOTE ui-every-item-is-an-icon-10-5. Settlement acts' names now left-read (span flex:1).

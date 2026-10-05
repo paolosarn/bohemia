@@ -5258,7 +5258,8 @@
     "how": "image",
     "src": "vote/COMBAT2_TILES_ARE_LEGOS_10_5.png"
    }
-  }
+  },
+ {"id": "ui-the-maps-bar-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE MAP'S BAR AND THE SIX", "why": "The six supplies are drawn as little objects now (a battery, a tin, a first-aid box, cartridges, tape, a water bottle), and the map's bar and speed buttons wear the same cardboard, receipt and glass as the fight and the settlement, readable in the sun. You see it on the map, across the top and in the bottom right.", "show": {"how": "image", "src": "vote/UI_THE_MAPS_BAR_10_5.png"}}
  ],
  "verdicts": [
   {

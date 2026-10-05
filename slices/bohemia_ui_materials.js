@@ -262,7 +262,7 @@
     + 'html body #newco .row button{position:relative;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:12px;letter-spacing:1px;text-align:left;padding:8px 9px;'
     +   'color:#f2e6cc;border:0;border-radius:0;background:linear-gradient(rgba(12,8,4,.38),rgba(12,8,4,.38)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%;filter:drop-shadow(0 1px 0 #000)}'
     + 'html body #newco .row button small{font-family:"BohemiaROM",ui-monospace,monospace;font-size:10px;opacity:1;color:#e6d6b6;margin-top:3px}'
-    + 'html body #newco .row button.on{color:#1c140c;background:linear-gradient(#e9bd62,#b07c30);box-shadow:inset 0 1px 0 rgba(255,240,200,.6)}'
+    + 'html body #newco .row button.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6)}'
     + 'html body #newco .row button.on small{color:#2a1c0e}'
     + 'html body #newco .row button.on::after{content:"";position:absolute;top:-6px;left:50%;width:44px;height:13px;margin-left:-22px;background:var(--bm-tape) center/100% 100%;transform:rotate(-3deg)}'
     /* the origins: one sheet posted on the terminal, each origin a printed entry, the picked one ringed */
@@ -546,10 +546,75 @@
     try { new MutationObserver(paint).observe(body, { childList: true, subtree: true }); } catch (e) {}
     paint();
   }
-  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); }
+  /* ======================================================================================================
+     THE SIX ON THE MAP'S BAR, AND THE BAR ITSELF  (UI [six icons] + [the map's bar], 10/5/26)
+     His fifth votes on THE SIX IN THE BAR: A, 'the icons could use work'. Rule 67a: ONE UI across map,
+     settlement and fight. supplyIcon(kind) draws the six as small OBJECTS on a 10x10 grid (3 device pixels
+     each: 30 px, the same 10 points the bar already gives them, so the bar still fits a 320 phone): an AA
+     cell with its copper cap, a tin with its label, a first-aid box, three cartridges, a roll of tape, a
+     water bottle; lit top-left, a hard outline, the family of the item icons. dressMapBar() dresses the bar
+     and the speed pad in the materials (the cut cardboard, receipt tags for what is printed, glass for what
+     is pressed or counted), applied by itself on the page that has #menubar (the city, the demo's map).
+     ====================================================================================================== */
+  var SUPPLY_URL = {};
+  function supplyIcon(kind) {
+    if (SUPPLY_URL[kind]) return SUPPLY_URL[kind];
+    var N = 10, G = []; for (var i = 0; i < N * N; i++) G.push(null);
+    var put = function (x, y, m) { if (x >= 0 && y >= 0 && x < N && y < N) G[y * N + x] = m; };
+    var rect = function (x, y, w, h, m) { for (var yy = y; yy < y + h; yy++) for (var xx = x; xx < x + w; xx++) put(xx, yy, m); };
+    var C = { cell: [70, 74, 80], copper: [214, 140, 60], label: [200, 60, 40], tin: [176, 182, 186], paper: [232, 226, 210], red: [196, 40, 32],
+      brass: [210, 168, 72], tip: [176, 104, 56], tape: [170, 176, 180], hole: null, blue: [92, 150, 196], cap: [230, 230, 236], green: [96, 160, 90] };
+    switch (kind) {
+      case 'batteries': rect(1, 3, 6, 4, 'cell'); rect(1, 3, 2, 4, 'green'); put(7, 4, 'copper'); put(7, 5, 'copper'); put(8, 4, 'copper'); put(8, 5, 'copper'); break;
+      case 'food': rect(2, 1, 6, 8, 'tin'); rect(2, 3, 6, 3, 'label'); rect(2, 1, 6, 1, 'cap'); break;
+      case 'meds': rect(1, 2, 8, 7, 'paper'); rect(4, 3, 2, 5, 'red'); rect(2, 4, 6, 2, 'red'); break;
+      case 'rounds': for (var k = 0; k < 3; k++) { rect(1 + k * 3, 4, 2, 5, 'brass'); rect(1 + k * 3, 2, 2, 2, 'tip'); } break;
+      case 'tape': rect(2, 2, 6, 6, 'tape'); put(2, 2, null); put(7, 2, null); put(2, 7, null); put(7, 7, null); rect(4, 4, 2, 2, null); put(8, 6, 'tape'); put(9, 7, 'tape'); break;
+      case 'water': rect(3, 3, 4, 6, 'blue'); rect(4, 1, 2, 2, 'cap'); rect(3, 5, 4, 1, 'paper'); break;
+    }
+    var get = function (x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? null : G[y * N + x]; };
+    var S3 = 3, cv = document.createElement('canvas'); cv.width = cv.height = N * S3; var g = cv.getContext('2d');
+    for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
+      var m = G[y * N + x];
+      if (!m) { if (get(x - 1, y) || get(x + 1, y) || get(x, y - 1) || get(x, y + 1)) { g.fillStyle = '#0c0805'; g.fillRect(x * S3, y * S3, S3, S3); } continue; }
+      var c = C[m], f = 1; if (!get(x - 1, y) || !get(x, y - 1)) f = 1.25; else if (!get(x + 1, y) || !get(x, y + 1)) f = .7;
+      g.fillStyle = 'rgb(' + Math.min(255, c[0] * f | 0) + ',' + Math.min(255, c[1] * f | 0) + ',' + Math.min(255, c[2] * f | 0) + ')'; g.fillRect(x * S3, y * S3, S3, S3);
+    }
+    SUPPLY_URL[kind] = cv.toDataURL('image/png');
+    return SUPPLY_URL[kind];
+  }
+  var MAPBAR_CSS = ''
+    /* the bar: a strip of the cut cardboard, its flutes along the foot where it meets the map */
+    + 'html body #menubar{background:var(--bm-cardedge-up) bottom left/252px 10px repeat-x,linear-gradient(rgba(12,8,4,.45),rgba(12,8,4,.45)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%;'
+    +   'box-shadow:0 1px 0 #000}'
+    /* what is printed (the hour, the place) on receipt tags in ink; the six counted on a pane of glass */
+    + 'html body #barread .rd{color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;box-shadow:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));border-radius:0}'
+    + 'html body #barread .rd.six{color:#f2e4c6;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.18)}'
+    + 'html body #barread .rd.six b{color:#f0c46a}'
+    + 'html body #barread .sx img{width:10px;height:10px;display:block;image-rendering:pixelated}'
+    + 'html body #barread .sx.none img{opacity:.55}'
+    + 'html body #menubar #noteplate{color:#1f1710!important;background:#e2dac6 var(--bm-receipt) center/100% 100%!important;box-shadow:none!important;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85))}'
+    /* the speed pad: panes of cracked glass on a taped card, the speed you are at lit amber */
+    + 'html body #speedpad{border-radius:2px;padding:8px 6px 6px;background:linear-gradient(rgba(12,8,4,.4),rgba(12,8,4,.4)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%;filter:drop-shadow(0 1px 0 #000)}'
+    + 'html body #speedpad::before{content:"";position:absolute;top:-6px;left:50%;width:56px;height:14px;margin-left:-28px;background:var(--bm-tape) center/100% 100%;transform:rotate(-2deg)}'
+    + 'html body #speedpad .sp{border:1px solid #0d0a07;border-radius:2px;color:#f2e4c6;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.18);font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
+    + 'html body #speedpad .sp.now{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}';
+  function dressMapBar() {
+    if (!document.getElementById('menubar') && !document.getElementById('speedpad')) return false;
+    rootVars();
+    if (!document.documentElement.style.getPropertyValue('--bm-cardedge-up')) {
+      var e = cardedge(), f = document.createElement('canvas'); f.width = e.width; f.height = e.height; var fg = f.getContext('2d');
+      fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0);   /* the flutes face down, toward the map */
+      document.documentElement.style.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')');
+    }
+    style('bm-mapbar', MAPBAR_CSS); return true;
+  }
+  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar();
+    /* the bar and the pad are built after load by the city's own modules: try again until they exist */
+    if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS };
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar };
 })();
