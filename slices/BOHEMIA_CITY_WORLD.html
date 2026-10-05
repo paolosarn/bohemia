@@ -40665,9 +40665,13 @@ function roadContactFight(ev){
      field decides which board you fight on and this is the field. */
   /* V205 __ENTER_ZOOM__: the camera pulls back first, and the handover happens
      inside the cloud. */
+  /* __A_FEW_NOT_TWELVE__ (rule 75b): a roaming party's size is the math's (time, distance from a town, a little of the
+     roster), not the event's fixed number; the event keeps its name and its words */
+  var party=null; try{ party=partyMath('roaming',{x:city.x,y:city.y}); }catch(_e){}
+  var roster=roadFightRoster(P,ev); if(party){ roster=[]; for(var k=0;k<party.count;k++) roster.push({arch:P.arch}); }
   if(!cityHandOver({type:'BOHEMIA_CITY_ENCOUNTER',
     label:String((ev&&ev.name)||'on the road'), faction:fac, draft:true,
-    roster:roadFightRoster(P,ev), street:true, why:'road:'+(ev&&ev.id),
+    roster:roster, party:party, street:true, why:'road:'+(ev&&ev.id),
     at:{gx:w[0]|0, gy:w[1]|0}})) return false;
   CITY_CONTACT_POSTED = true;
   try{ if(typeof SF_LAST!=='undefined' && typeof SF_STEPS!=='undefined') SF_LAST=SF_STEPS; }catch(_e){}
@@ -42426,6 +42430,47 @@ window.addEventListener('message', function(ev){
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
 });
 function loopJobPay(base){ var p = LOOP.start; if(!p) return Math.max(1, base | 0); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1))); }
+/* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
+   attacking... 12 vs 12 is cool but that can't be the flow... a lot of math on the type of enemies, the difficulty, the
+   equipment as you progress.' MEASURED: every fight dealt COMBAT's fixed nine brigands -- the map's own crew list never
+   reached the fight (the shell dropped it), and a job's crew was 2 + the jobs done, bent by the picks.
+   NOW a party's SIZE comes from records/target/bb/party_math.json: Battle Brothers' inputs (roster strength = the 12
+   strongest at 10 + 2 a level, 14 for the militia and the manhunters; the skulls; days, capped at 100; distance from a
+   town; the combat difficulty) and its count words, with the few coefficients that make a number marked ours. A job
+   scales with the roster and the skulls; a roaming party with time and distance and a little with the roster. The
+   party goes to the fight as {count, days, difficulty, faction} and COMBAT's enemy math dresses it by tier. */
+var PARTY_MATH = { roster_strength: { value: { per_man: 10, per_level: 2, strongest: 12, strongest_wide: 14, wide_origins: ['watch', 'debt'] } },
+  count_words: { value: [{ word: 'A FEW', lo: 2, hi: 3 }, { word: 'SOME', lo: 4, hi: 6 }, { word: 'MANY', lo: 7, hi: 10 }, { word: 'LOTS', lo: 11, hi: 13 }, { word: 'A PLETHORA', lo: 14, hi: 99 }] },
+  day_cap: { value: 100 }, difficulty_by_pick: { value: { 'new': 0, seen: 1, out: 2 } }, difficulty_count_mult: { value: [0.85, 1, 1.15, 1.3] },
+  job: { value: { strength_per_enemy: 10, skull_mult: { '1': 0.8, '2': 1.0, '3': 1.3 }, min: 2, max: 13 } },
+  roaming: { value: { base: 2, per_day: 0.1, per_block_from_town: 0.1, per_strength: 0.01, min: 2, max: 13 } }, loaded: false };   /* the file's numbers until it loads */
+try{ fetch('../records/target/bb/party_math.json').then(function(r){ return r.json(); }).then(function(j){ j.loaded = true; PARTY_MATH = j; }).catch(function(){}); }catch(_e){}
+function partyV(k){ return PARTY_MATH[k] && PARTY_MATH[k].value; }
+/* the roster's strength: the strongest 12 (14 for the wide origins) at 10 + 2 a level past 1; a man with no stated level
+   is a recruit, level 1 (the origin file states the levels Battle Brothers states) */
+function partyRosterStrength(){
+  var R = partyV('roster_strength'), st = LOOP.start || {}, co = st.company || [];
+  var lv = co.map(function(m){ return Math.max(1, (m && m.level) | 0 || 1); });
+  if(!lv.length) lv = [1, 1, 1];                        /* no picks yet: Battle Brothers' own three */
+  lv.sort(function(a, b){ return b - a; });
+  var top = (R.wide_origins || []).indexOf(st.origin) >= 0 ? R.strongest_wide : R.strongest;
+  return lv.slice(0, top).reduce(function(t, l){ return t + R.per_man + R.per_level * (l - 1); }, 0);
+}
+function partyWord(n){ var W = partyV('count_words') || []; for(var i = 0; i < W.length; i++) if(n >= W[i].lo && n <= W[i].hi) return W[i].word; return n < 2 ? 'ONE' : 'A FEW'; }
+function partyDays(){ return Math.max(1, Math.min(partyV('day_cap') || 100, loopDay() || 1)); }
+function partyDifficulty(){ var m = partyV('difficulty_by_pick') || {}; var c = LOOP.start && LOOP.start.combat; return (c && m[c] != null) ? m[c] : 1; }   /* COMBAT's scale: 0 Beginner .. 3 Legendary; SEEN IT is Veteran */
+function partyTownDistance(x, y){ var best = 99; try{ var bs = ctBases() || {}; for(var n in bs){ var b = bs[n]; best = Math.min(best, Math.max(Math.abs(b.x - x), Math.abs(b.y - y))); } }catch(_e){} return best === 99 ? 0 : best; }
+/* kind 'job' {skulls} or 'roaming' {x, y}: the party's size and what the fight needs to dress it */
+function partyMath(kind, ctx){
+  ctx = ctx || {};
+  var str = partyRosterStrength(), days = partyDays(), dif = partyDifficulty(), mult = (partyV('difficulty_count_mult') || [])[dif] || 1, n, P;
+  if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
+  else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
+    n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }
+  n = Math.max(P.min, Math.min(P.max, Math.floor(n + 0.5)));
+  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind };
+}
+window.partyMath = partyMath;
 function loopJobCrew(base){ var p = LOOP.start; return Math.max(1, (base | 0) + (p ? (p.crew | 0) : 0)); }
 /* NEWS OF THE LOOP GOES TO THE PHONE (rule 61b: nothing sits over the map; the phone shows the
    contracts, rule 51c): a post from the board, kind 'mine', what he did. */
@@ -42492,7 +42537,8 @@ function loopTakeContract(c){
   var town = LOOP.open || loopTownAt(city.x, city.y, 2) || { x: city.x, y: city.y, name: '?' };
   var tg = loopTarget(town, c.id); if(!tg) return false;
   var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay), from: town.name,
-              target: tg, crew: loopJobCrew(2 + (LOOP.done % 3)) };   /* __THE_FRONT_DOOR__: the picks shape every job */
+              target: tg, skulls: (c.skulls | 0) || 1 };
+  job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: sized by the math */
   LOOP.held.push(job);
   try{ if(typeof DAY !== 'undefined' && DAY.happened) DAY.happened('Took a contract in ' + town.name + ': ' + job.title + '.', 'contract'); }catch(_e){}
   loopSay('Contract from ' + town.name + ': ' + job.title + '. Pay ' + job.pay + ' battery. The JOB is marked on the map.');
@@ -42527,11 +42573,12 @@ function loopArrived(to){
   if(job){
     LOOP.fighting = job.id;
     var w = [x, y]; try{ w = roadWhere(); }catch(_e){}
+    job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: as the company stands today */
     var roster = []; for(var i = 0; i < job.crew; i++) roster.push({ arch: 'human' });
     var ok = false;
     try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: job.title, faction: null, draft: true,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1,   /* __THE_FRONT_DOOR__: the fights' tier */
-      roster: roster, street: true, why: 'contract:' + job.id, at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){ ok = false; }
+      roster: roster, party: job.party, street: true, why: 'contract:' + job.id, at: { gx: w[0] | 0, gy: w[1] | 0 } }); }catch(_e){ ok = false; }
     if(!ok) LOOP.fighting = null;
     return;
   }

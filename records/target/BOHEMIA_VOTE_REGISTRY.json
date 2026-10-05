@@ -5244,7 +5244,8 @@
     "src": "vote/RUN2_TRAITS_TWO_ROLLS_10_5.png"
    },
    "draft": true
-  }
+  },
+{"id": "run-a-few-not-twelve-10-5", "kind": "ui", "lane": "run", "sha": "pending", "made": "10/5", "title": "THE FIRST ROAD GIVES A FEW THUGS, NOT NINE", "why": "Every fight used to throw the same nine brigands at you; now a party's size comes from Battle Brothers' math (your crew's strength, the days, the difficulty), so day one gives two thugs and day one hundred gives twelve with a leader. You see it in your first fight on the DEMO's map, before on the left and now on the right.", "show": {"how": "image", "src": "vote/RUN_A_FEW_NOT_TWELVE_10_5.jpg"}}
  ],
  "verdicts": [
   {

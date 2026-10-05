@@ -2322,6 +2322,15 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('A FEW, NOT TWELVE', ['node', 'gates/a_few_not_twelve_gate.js'],
+     'VAMILY [a few, not twelve], rule 75b (PAOLO 10/5: "12 vs 12 is cool but that can\'t be the flow... a lot of math on '
+     'the type of enemies, the difficulty, the equipment as you progress"). MEASURED BEFORE: every fight dealt COMBAT\'s '
+     'fixed nine brigands; the map\'s crew list never reached the fight. NOW records/target/bb/party_math.json sizes every '
+     'party from Battle Brothers\' inputs (roster strength, skulls, days to 100, distance from a town, the difficulty) and '
+     'count words, the coefficients that are ours marked; the party goes to COMBAT\'s enemy math. HOLDS, driven: the file '
+     'sourced; a fresh crew\'s first job a few, the Block Watch\'s many; day 1 on the road two thugs, day 100 twelve with '
+     'a leader; the fight deals exactly the party; the difficulty raises the count; a job carries its party. Mutations: '
+     'the shell drops the party (9 for 2); a job forgets it; roaming ignores days; the off-by-one difficulty scale.', True),
     ('THE ORIGIN SETS THE COMPANY', ['node', 'gates/the_origin_sets_the_company_gate.js'],
      'VAMILY [the origin sets the company], rule 75a (PAOLO 10/5: "depending on your origin, that\'s how many people will '
      'be in your group... Lone Wolf by himself... peasant militia up to 16 instead of 12... the demo has none of it"). '

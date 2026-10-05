@@ -11522,6 +11522,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/5g LATEST -- [a few, not twelve] SHIPPED (rule 75b). TAB: the DEMO's map, any fight.
+City __A_FEW_NOT_TWELVE__: partyMath(kind 'job'|'roaming', ctx) from records/target/bb/party_math.json (loaded at boot; same numbers inline until then); jobs carry job.party, the road sends party; shell nfOpts passes d.party to FIGHT_OPTS.party (COMBAT's partyFor dresses it).
+GATE A FEW, NOT TWELVE 7/0. partyMath('roaming',{x,y}).word is ready for [you can flee] (68a: a sighted party with its count word). Coefficients marked ours wait on Grok ask 22 / TUNING. NEXT: [you can flee] (68), [the start screen]'s last leg (COMBAT's screen override), and RUN TWO's ask: keep the 'bag' in the save.
 RUN (run-eak241): 10/5c LATEST -- [the origin sets the company] SHIPPED (rule 75a). TAB: the DEMO's door after NEW GAME (the origin cards), then any fight.
 records/target/bb/origins.json is the truth (Battle Brothers' fifteen); BOH_START loads it (picks(): company, cap, roster; start = batteries[shelves]); nfOpts carries company/cap; BOHEMIA_FIGHT.html setup() reads opts.company/opts.cap, crewUnit() honours c.level.
 GATE THE ORIGIN SETS THE COMPANY 7/0; THE FRONT DOOR D4 re-aimed to the file. SEEN, NOT MINE: THE LOOP PLAYS ON THE MAP 3/2 on main (L4: UI's settlement labels moved the price off the offer's line; the gate's /battery$/ finds no offer) -- re-aim with UI's new label. FOR COMBAT: those two reads are in your file. FOR RUN TWO: LOOP.start.company/cap/roster for the roster screen. NEXT: [a few, not twelve] (75b), then [the start screen]'s last leg (waits on COMBAT's screen override), [you can flee].
