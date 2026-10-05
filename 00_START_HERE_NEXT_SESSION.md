@@ -601,6 +601,12 @@ NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40),
 [build costs], [the bubble].
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/5 LATEST -- [the start screen's look] SHIPPED: the picks are dressed live (the first screen); the start screen's look is one call for RUN.
+BohemiaMaterials.startScreen(host,{onNew,onContinue,onSettings,saved}) and dressFrontDoor() (automatic on #newco), all in bohemia_ui_materials.js.
+Gate the start screen's look 17/0 (5 mutations); RUN's THE FRONT DOOR 7/0. VOTE ui-the-start-screens-look-10-5.
+RUN: call startScreen() from [the start screen], SETTINGS -> BohemiaSettings.open({atStart:true}). [settings and the slider] still waits on a night pass reading the lift.
+NEXT: [the settlement's labels] (RUN TWO places the hotspots, [one painted place] claimed).
+
 UI (ui-kmqmrf): 10/4 (b) LATEST -- [settings and the slider] BUILT on the alpha (gear in the game; RUN's start screen calls BohemiaSettings.open({atStart:true})).
 slices/bohemia_settings.js dresses the ONE settings card: MUSIC/SOUNDS on the mix hooks, BRIGHT -> BOH_BRIGHTNESS {step,lift} posted to every frame.
 Gate settings in our materials 15/0, 4 mutations. VOTE ui-settings-in-our-materials-10-4. Row stays CLAIMED until a night pass reads the lift.

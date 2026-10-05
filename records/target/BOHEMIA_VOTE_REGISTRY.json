@@ -4915,7 +4915,8 @@
     "how": "page",
     "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
    }
-  }
+  },
+ {"id": "ui-the-start-screens-look-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE START SCREEN'S LOOK", "why": "The crew picks are now cardboard cards, a posted sheet of origins with your pick ringed in marker, and a paper form for the name, and the start screen has its look: a taped card, a receipt and a cracked glass pane over the valley at night. You see it the moment the game opens, on the picks now and on the start screen once its buttons are wired in.", "show": {"how": "image", "src": "vote/UI_THE_START_SCREENS_LOOK_10_5.png"}}
  ],
  "verdicts": [
   {
