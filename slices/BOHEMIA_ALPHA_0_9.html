@@ -12840,7 +12840,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
       '#title .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 38%,rgba(0,0,0,.62) 100%),linear-gradient(180deg,rgba(0,0,0,.35),transparent 22%,transparent 46%,rgba(2,5,3,.9) 78%,rgba(2,5,3,.97))}',
       '#title.still .feed,#title.still .roll{animation:none}',
       '#title .osd{position:absolute;top:max(12px,env(safe-area-inset-top));left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;font-size:11px;letter-spacing:2px;color:#bfe6b0;text-shadow:0 0 6px rgba(120,220,120,.55)}',
-      '#title .rec{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e2483a;box-shadow:0 0 8px #e2483a;margin-right:7px;vertical-align:1px;animation:tblink 1s steps(1) infinite}',
+      '#title .recdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e2483a;box-shadow:0 0 8px #e2483a;margin-right:7px;vertical-align:1px;animation:tblink 1s steps(1) infinite}',
       '@keyframes tblink{50%{opacity:0}}',
       '#title .osd .r{text-align:right}',
       '#title .logo{position:absolute;left:50%;top:24%;transform:translate(-50%,-50%);line-height:0;filter:drop-shadow(0 0 10px rgba(140,230,130,.35)) drop-shadow(0 6px 0 rgba(0,0,0,.55))}',
@@ -12870,11 +12870,17 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
       '#title .sheet .row .it{flex:1;text-align:center;min-height:46px;padding:12px 8px}',
       '#title .sheet .row .it b{font-size:13px;letter-spacing:3px}',
       '#title .sheet .cnt{font-size:11px;color:#9cc690;margin-top:6px}',
+      '#title.ui>.feed,#title.ui>.roll,#title.ui>.scan,#title.ui>.vig,#title.ui>.osd,#title.ui>.logo,#title.ui>.menu,#title.ui>.stamp{display:none}',
+      '#title.ui .notes{z-index:300;top:max(8px,env(safe-area-inset-top));min-height:40px}#title.ui .sheet{z-index:301}',   /* above UI's logo and the tape on its first card */
       '#setwrap.fromtitle{z-index:260}',
       '#setwrap.fromtitle #setsave,#setwrap.fromtitle #setquit{display:none}'
     ].join('\n');
     document.head.appendChild(s);
   }
+  function btn(k){ var r = T.el; if (!r) return null; return T.ui ? T.ui.root.querySelector('[data-k=' + (k === 'cont' ? 'continue' : k === 'set' ? 'settings' : k) + ']') : r.querySelector('[data-k=' + k + ']'); }
+  function sayOn(k, txt){ var b = btn(k); if (!b) return; var i = b.querySelector('i') || b.querySelector('span'); if (i) i.textContent = txt; }
+  function armNew(line){ if (T.ui) { T.ui.arm(line); return; } var b = btn('new'); b.classList.add('warn'); b.querySelector('b').textContent = 'START OVER?'; sayOn('new', line); }
+  function disarmNew(){ if (T.ui) { T.ui.disarm(); return; } var b = btn('new'); b.classList.remove('warn'); b.querySelector('b').textContent = 'NEW GAME'; sayOn('new', 'pick your crew'); }
   function stamp(){ var b = $('buildstamp'); return b ? b.textContent.trim() : ''; }
   function pad(n){ return (n < 10 ? '0' : '') + n; }
   function clock(min){ var m = Math.max(0, min | 0); return pad(Math.floor(m / 60) % 24) + ':' + pad(m % 60); }
@@ -12892,7 +12898,7 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     css();
     var t = document.createElement('div'); t.id = 'title';
     t.innerHTML = '<div class="feed"></div><div class="roll"></div><div class="scan"></div><div class="vig"></div>'
-      + '<div class="osd"><div><span class="rec"></span>REC  CAM 04<br>VALLEY OVERWATCH</div><div class="r"><span class="tclock">--:--:--</span><br>CLARK COUNTY POWER</div></div>'
+      + '<div class="osd"><div><span class="recdot"></span>REC  CAM 04<br>VALLEY OVERWATCH</div><div class="r"><span class="tclock">--:--:--</span><br>CLARK COUNTY POWER</div></div>'
       + '<div class="notes" role="button" tabindex="0" data-k="notes">NOTES</div>'
       + '<div class="logo"></div>'
       + '<div class="menu">'
@@ -12905,19 +12911,26 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
       + '<div class="sheet"><div class="card"><h2>NOTES</h2><textarea placeholder="what you think, what broke, what you want"></textarea>'
       +   '<div class="cnt"></div><div class="row"><div class="it" role="button" tabindex="0" data-k="nsave"><b>KEEP IT</b></div><div class="it" role="button" tabindex="0" data-k="nclose"><b>CLOSE</b></div></div></div></div>';
     fr.appendChild(t);
+    /* THE LOOK IS UI'S (rule 66 split: RUN the logic, UI the look, [the start screen's look] 21fef9b): when their piece is
+       on the page this title wears it, inside this layer (so it stays inside the door), wired to the logic below. The
+       look above (the camera feed, the plates) is the fallback if their file never loads. */
+    try{ if (window.BohemiaMaterials && BohemiaMaterials.startScreen) {
+      T.ui = BohemiaMaterials.startScreen(t, { saved: null,
+        onNew: function(){ act('new'); }, onContinue: function(){ act('cont'); }, onSettings: function(){ act('set'); } });
+      t.classList.add('ui'); } }catch(_e){ T.ui = null; }
     /* his logo, at the largest integer scale that fits */
     try{ var im = new Image(); im.onload = function(){ t.querySelector('.logo').appendChild(im); place(); };
       im.src = 'data:image/png;base64,' + BOH_FRONT_LOGO_B64; }catch(_e){}
     t.addEventListener('click', function(e){
       e.stopPropagation();
       var b = e.target.closest ? e.target.closest('[data-k]') : null; if (!b) return;
-      act(b.getAttribute('data-k'), b);
+      act(b.getAttribute('data-k'));
     });
     return t;
   }
   function place(){
     var t = T.el; if (!t) return;
-    var m = t.querySelector('.menu'), ft = $('fronttap'), H = innerHeight;
+    var m = T.ui ? T.ui.root.querySelector('.m') : t.querySelector('.menu'), ft = $('fronttap'), H = innerHeight;
     /* THE MENU APPEARS ONCE, IN ITS PLACE. Until the door takes its loading layout, its BEGIN line is somewhere
        else, and a menu placed against it would jump a second later -- under a thumb (measured: a tap aimed at
        NEW GAME on a phone-speed CPU landed on the picture after the menu moved) */
@@ -12926,6 +12939,9 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     var top = H; try{ var r = ft && ft.getBoundingClientRect(); if (r && r.height > 0) top = r.top; }catch(_e){}
     var bottom = Math.max(H * 0.1, H - top + 14);
     m.style.bottom = bottom + 'px';
+    /* UI's piece pins its menu's top on a wide screen; pinned at both ends it was squeezed (measured: CONTINUE folded to
+       30 px wide and SETTINGS slid over BEGIN), so the bottom rule here owns the height and the top lets go */
+    if (T.ui) { m.style.top = 'auto'; m.style.transform = 'none'; return; }   /* and its wide-screen centring transform with it */                               /* UI's piece lays out its own title and width */
     var wide = innerWidth > innerHeight;
     m.style.left = wide ? '5vw' : '16px'; m.style.maxWidth = wide ? '42vw' : '420px';
     var lg = t.querySelector('.logo');
@@ -12942,9 +12958,11 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
        twice a second on the splash broke the beat once already (the door's own painter, BEAT FIRST) */
     if (T.save === undefined && typeof CITYSAVE !== 'undefined') T.save = saved();   /* not yet is not an answer */
     var s = T.save, c = t.querySelector('[data-k=cont]'), n = t.querySelector('[data-k=new]');
-    if (s) { c.classList.remove('off'); c.querySelector('span').textContent = 'DAY ' + s.day + (s.min === null ? '' : ' · ' + clock(s.min)) + (crew() ? ' · ' + crew() : ''); }
-    else { c.classList.add('off'); c.querySelector('span').textContent = 'no saved game yet'; }
-    if (T.armNew && Date.now() > T.armNew) { T.armNew = 0; n.classList.remove('warn'); n.querySelector('b').textContent = 'NEW GAME'; n.querySelector('span').textContent = 'pick your crew'; }
+    if (T.pending !== 'cont') {
+      if (T.ui) T.ui.paint(s ? { day: s.day, min: s.min } : null);
+      else if (s) { c.classList.remove('off'); c.querySelector('span').textContent = 'DAY ' + s.day + (s.min === null ? '' : ' · ' + clock(s.min)) + (crew() ? ' · ' + crew() : ''); }
+      else { c.classList.add('off'); c.querySelector('span').textContent = 'no saved game yet'; } }
+    if (T.armNew && Date.now() > T.armNew) { T.armNew = 0; disarmNew(); }
     var ready = !!window.__LOAD_READY, lw = t.querySelector('.lw');
     lw.style.display = ready ? 'none' : '';
     if (!ready) { var f = $('loadfill'); t.querySelector('.lw em').style.width = f ? (f.style.width || '0%') : '0%'; }
@@ -12969,18 +12987,17 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
       localStorage.setItem(KEY_NOTES, JSON.stringify(a)); return a.length; }catch(_e){ return 0; }
   }
-  function act(k, b){
+  function act(k){
     var t = T.el;
     if (k === 'new') {
       var s = T.save;
-      if (s && !T.armNew) { T.armNew = Date.now() + 4000; b.classList.add('warn'); b.querySelector('b').textContent = 'START OVER?';
-        b.querySelector('span').textContent = 'this ends day ' + s.day + '. tap again'; return; }
+      if (s && !T.armNew) { T.armNew = Date.now() + 4000; armNew('this ends day ' + s.day + '. tap again'); return; }
       T.newgames++;
       if (s) { forget(); try{ sessionStorage.setItem(SKIP, 'new'); }catch(_e){} location.reload(); return; }
       hide(); return;                               /* the door's picks, and BEGIN */
     }
     if (k === 'cont') { if (!T.save) return; T.continues++;
-      if (window.__LOAD_READY) enter(); else { T.pending = 'cont'; b.querySelector('span').textContent = 'the valley is still loading'; } return; }
+      if (window.__LOAD_READY) enter(); else { T.pending = 'cont'; sayOn('cont', 'the valley is still loading'); } return; }
     if (k === 'set') { var w = $('setwrap');
       /* the card lives inside #app, whose layer is under the door's; it moves to the page's top level, where
          its own layer number means what it says (its rules are by id, so it looks the same anywhere) */

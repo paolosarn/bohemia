@@ -37,11 +37,14 @@ const done = () => { console.log('THE START SCREEN: ' + pass + ' passed, ' + fai
 
 const titleState = () => {
   const t = document.getElementById('title'), vis = el => { if (!el) return false; const r = el.getBoundingClientRect(), s = getComputedStyle(el); return r.width > 0 && r.height > 0 && s.display !== 'none' && s.visibility !== 'hidden'; };
-  const it = k => { const e = t && t.querySelector('[data-k=' + k + ']'); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, top: r.top, bottom: r.bottom, left: r.left, right: r.right, off: e.classList.contains('off'), b: e.querySelector('b') ? e.querySelector('b').textContent : '', sub: e.querySelector('span') ? e.querySelector('span').textContent : '', vis: vis(e) }; };
+  /* whichever look the title wears: RUN's fallback plates (cont, set; a span) or UI's piece (continue, settings; an i) */
+  const ui = !!(t && t.classList.contains('ui') && t.querySelector('.bm-start'));
+  const it = k => { const kk = ui ? ({ cont: 'continue', set: 'settings' })[k] || k : k; const e = t && (ui && k !== 'notes' ? t.querySelector('.bm-start [data-k=' + kk + ']') : t.querySelector('[data-k=' + kk + ']'));   /* NOTES is RUN's, on top of either look */ if (!e) return null; const r = e.getBoundingClientRect(); const sub = e.querySelector('i') || e.querySelector('span');
+    return { x: r.x + r.width / 2, y: r.y + r.height / 2, top: r.top, bottom: r.bottom, left: r.left, right: r.right, off: e.classList.contains('off') || !!e.disabled, b: e.querySelector('b') ? e.querySelector('b').textContent : '', sub: sub ? sub.textContent : '', vis: vis(e) }; };
   const ft = document.getElementById('fronttap'), fr = ft ? ft.getBoundingClientRect() : null, front = document.getElementById('front');
-  const tr = t ? t.getBoundingClientRect() : null, logo = t && t.querySelector('.logo img');
-  const feed = t && t.querySelector('.feed'), bg = feed ? getComputedStyle(feed).backgroundImage : '';
-  return { up: vis(t) && !t.classList.contains('gone'), cover: !!tr && tr.width >= innerWidth - 1 && tr.height >= innerHeight - 1, logo: !!(logo && logo.naturalWidth), bg,
+  const tr = t ? t.getBoundingClientRect() : null, logo = t && t.querySelector('.logo img'), mark = t && t.querySelector('.bm-start .t canvas, .bm-start .t .word');
+  const feed = t && t.querySelector('.feed'), bg = feed ? getComputedStyle(feed).backgroundImage : '', gr = t && t.querySelector('.bm-start>canvas.gr');
+  return { ui, up: vis(t) && !t.classList.contains('gone'), cover: !!tr && tr.width >= innerWidth - 1 && tr.height >= innerHeight - 1, logo: ui ? !!mark : !!(logo && logo.naturalWidth), bg, ground: gr ? gr.width : 0,
     new: it('new'), cont: it('cont'), set: it('set'), notes: it('notes'), tap: fr && fr.height > 0 ? { top: fr.top, bottom: fr.bottom, left: fr.left, right: fr.right, x: fr.x + fr.width / 2, y: fr.y + fr.height / 2 } : null,
     front: !!front && getComputedStyle(front).display !== 'none', began: !!window.__PLAY_BEGAN, ready: !!window.__LOAD_READY, iw: innerWidth, ih: innerHeight };
 };
@@ -54,7 +57,8 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
       /* everything before the game, on the title the way a person meets it */
       for (let i = 0; i < 60; i++) { const s = await page.evaluate(titleState); if (s.up && s.ready) break; await page.waitForTimeout(250); }
       pre.t1 = await page.evaluate(titleState);
-      pre.bgOk = await page.evaluate(() => new Promise(res => { const m = /url\("?([^")]+)"?\)/.exec(getComputedStyle(document.querySelector('#title .feed')).backgroundImage); if (!m) return res(0); const i = new Image(); i.onload = () => res(i.naturalWidth); i.onerror = () => res(0); i.src = m[1]; }));
+      /* the picture behind: UI's painted ground when their look is worn, else the camera feed's image, loaded */
+      pre.bgOk = pre.t1.ui ? pre.t1.ground : await page.evaluate(() => new Promise(res => { const m = /url\("?([^")]+)"?\)/.exec(getComputedStyle(document.querySelector('#title .feed')).backgroundImage); if (!m) return res(0); const i = new Image(); i.onload = () => res(i.naturalWidth); i.onerror = () => res(0); i.src = m[1]; }));
       await page.setViewportSize({ width: 844, height: 390 }); await page.waitForTimeout(900);
       pre.side = await page.evaluate(titleState);
       await page.setViewportSize({ width: pre.t1.iw, height: pre.t1.ih }); await page.waitForTimeout(900);
@@ -89,8 +93,9 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
   const page = d.page;
   try {
     const t1 = pre.t1;
-    ok('T1 the demo opens on the title, over the whole glass (' + (t1.up ? 'up' : 'not up') + ', covers ' + t1.cover + ', the camera picture ' + pre.bgOk + ' px wide, his logo ' + t1.logo + ', ' + [t1.new, t1.cont, t1.set].filter(x => x && x.vis).map(x => x.b).join(' / ') + ')',
-      t1.up && t1.cover && pre.bgOk > 300 && t1.logo && [t1.new, t1.cont, t1.set].every(x => x && x.vis) && t1.new.b === 'NEW GAME' && t1.cont.b === 'CONTINUE' && t1.set.b === 'SETTINGS');
+    ok('T1 the demo opens on the title, over the whole glass (' + (t1.ui ? 'UI\'s look' : 'the fallback look') + ', ' + (t1.up ? 'up' : 'not up') + ', covers ' + t1.cover + ', the picture behind ' + pre.bgOk + ' px wide, his logo ' + t1.logo + ', ' + [t1.new, t1.cont, t1.set].filter(x => x && x.vis).map(x => x.b).join(' / ') + ')',
+      t1.up && t1.cover && (t1.ui ? pre.bgOk >= Math.floor(t1.iw / 2) - 1 : pre.bgOk > 300) &&   /* UI paints its ground at half the screen's pixels on purpose */
+      t1.logo && [t1.new, t1.cont, t1.set].every(x => x && x.vis) && t1.new.b === 'NEW GAME' && t1.cont.b === 'CONTINUE' && t1.set.b === 'SETTINGS');
     const clear = s => ['new', 'cont', 'set', 'notes'].every(k => !hits(s[k], s.tap));
     ok('T2 the menu is clear of the door\'s BEGIN, upright and on its side (upright ' + clear(pre.up) + ', BEGIN at ' + (pre.up.tap ? Math.round(pre.up.tap.top) : '?') + ', the menu ends at ' + Math.round(pre.up.set.bottom) + '; on its side ' + clear(pre.side) + ')',
       !!pre.up.tap && !!pre.side.tap && clear(pre.up) && clear(pre.side) && pre.side.set.vis);
@@ -141,7 +146,7 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
     await page.evaluate(() => document.getElementById('front').click()); await page.waitForTimeout(2500);
     const b9b = f9 ? await f9.evaluate(() => ({ bats: loopBats(), start: LOOP.start ? LOOP.start.start : null })) : null;
     ok('*** T9 NEW GAME OVER A SAVE *** (first tap: "' + ask.new.b + ' / ' + ask.new.sub + '"; second: the picks ' + (s9b && s9b.picks) + ', title ' + (s9b && s9b.title) + '; the purse ' + b9a + ' before BEGIN, ' + (b9b && b9b.bats) + ' after for a start of ' + (b9b && b9b.start) + '; notes ' + (s9b && s9b.notes) + ')',
-      ask.up && ask.new.b === 'START OVER?' && /ends day \d+/.test(ask.new.sub) && !!s9b && !s9b.title && s9b.picks >= 6 && b9a === 0 && !!b9b && b9b.start > 0 && b9b.bats === b9b.start && s9b.notes >= pre.t6.n);
+      ask.up && /START OVER\?|TAP AGAIN/.test(ask.new.b) && /ends day \d+/i.test(ask.new.sub) && !!s9b && !s9b.title && s9b.picks >= 6 && b9a === 0 && !!b9b && b9b.start > 0 && b9b.bats === b9b.start && s9b.notes >= pre.t6.n);
 
     /* T10: with the title up, the door's own BEGIN is still the way in (every driver and gate goes this way) */
     const s10 = await back();

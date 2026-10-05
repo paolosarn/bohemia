@@ -39,6 +39,22 @@
 - **The start is paid once per GAME:** the map reads its purse's own ledger, and a crew with a start
   payment in it is never paid again, whatever the order of messages.
 
+## THE LOOK IS UI'S (merged the same round)
+UI shipped [the start screen's look] (21fef9b) while this was in its checks: `BohemiaMaterials.startScreen(host,
+{onNew, onContinue, onSettings, saved})`, the three buttons as three materials (taped cardboard, a receipt,
+cracked glass), his mark, a painted night ridge with pylons. The title now WEARS it, inside its own layer
+(so inside the door), driven by this logic: CONTINUE's line and dark state (`paint`), the START OVER warning
+(`arm`/`disarm`), the menu kept clear of BEGIN and shown once in place. The camera-feed look above stays as the
+fallback when their file does not load (the valley pictures are in `slices/start/`, offered to UI). Measured
+and fixed on the way:
+- **a class-name collision that was mine:** this title's REC dot was `.rec` and UI's receipt button is `b rec`,
+  so CONTINUE was drawn as a 30 px blinking red dot; the dot is `.recdot` now.
+- **pinned at both ends:** UI's wide-screen rule centres its menu with top 50% and a transform; with the
+  bottom rule here the box was squeezed and the buttons spilled off the top. When this logic places the
+  menu it releases top and transform; upright and sideways the three sit clear of BEGIN.
+- NOTES sits at the very top, clear of the logo and the first card's tape in both shapes (measured: no
+  overlap with anything).
+
 ## WORDS' SIX FIXES (records/BOHEMIA_WORDS_THE_DEMOS_LINES_10_4_26.md), applied word for word
 Clinic short "heals faster"; clinic button "Heal faster"; THE WATER TRUCK "The water gets more respect
 than you do."; THE BLOCK WATCH "...a small crew against you."; the recap "LAID UP 14 DAYS"; the win

@@ -21,7 +21,7 @@ async function throughTheTitle(page, ms) {
          is no title */
       if (!t) return document.getElementById('front') && document.readyState === 'complete' && window.BOH_TITLE === undefined ? { none: true } : null;
       if (t.classList.contains('gone')) return { none: true };
-      const b = t.querySelector('[data-k=new]'); if (!b) return null;
+      const b = t.querySelector('.bm-start [data-k=new]') || t.querySelector('[data-k=new]'); if (!b) return null;
       const r = b.getBoundingClientRect(); if (r.width < 4 || r.height < 4 || getComputedStyle(b.parentElement).visibility === 'hidden') return null;
       return { x: r.x + r.width / 2, y: r.y + r.height / 2 };
     }).catch(() => null);
@@ -41,7 +41,7 @@ async function throughTheTitle(page, ms) {
 async function continueThroughTitle(page) {
   const p = await page.evaluate(() => {
     const t = document.getElementById('title'); if (!t || t.classList.contains('gone')) return null;
-    const b = t.querySelector('[data-k=cont]'); if (!b || b.classList.contains('off')) return null;
+    const b = t.querySelector('.bm-start [data-k=continue]') || t.querySelector('[data-k=cont]'); if (!b || b.classList.contains('off') || b.disabled) return null;
     const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null;
   }).catch(() => null);
   if (!p) return false;
@@ -52,8 +52,8 @@ async function continueThroughTitle(page) {
    clock, as 'CONTINUE · DAY N · HH:MM') while the title is up, else the door's own button */
 function doorLineInPage() {
   const t = document.getElementById('title');
-  if (t && !t.classList.contains('gone')) { const c = t.querySelector('[data-k=cont]');
-    if (c && !c.classList.contains('off')) return 'CONTINUE · ' + c.querySelector('span').textContent.split(' · ').slice(0, 2).join(' · '); }
+  if (t && !t.classList.contains('gone')) { const c = t.querySelector('.bm-start [data-k=continue]') || t.querySelector('[data-k=cont]');
+    if (c && !c.classList.contains('off') && !c.disabled) return 'CONTINUE · ' + (c.querySelector('i') || c.querySelector('span')).textContent.split(' · ').slice(0, 2).join(' · '); }
   return (document.getElementById('fronttap') || {}).textContent;
 }
 module.exports = { throughTheTitle, continueThroughTitle, doorLineInPage };
