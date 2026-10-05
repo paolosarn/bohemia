@@ -40,6 +40,17 @@
    "value": "rusher",
    "source": "bb_all/0629_Direwolf.txt",
    "quote": "Direwolves rush you even if they will have no AP left to attack."
+  },
+  "brigand_marauder": {
+   "value": "line",
+   "source": "bb_all/0293_Brigand Marauder.txt",
+   "quote": "Brigand Marauders start appearing in the middle game, one or more among weaker brigands."
+  },
+  "brigand_leader": {
+   "value": "backline",
+   "source": "bb_all/0290_Brigand Leader.txt",
+   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle.",
+   "why": "he deploys behind his line; how he rallies and holds is COMBAT [the enemy plays its part]"
   }
  },
  "archetypes": {

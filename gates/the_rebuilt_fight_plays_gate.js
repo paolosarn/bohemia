@@ -523,7 +523,40 @@ async function formation() {
   leg(auto.deploy === false && dflt.deploy === true, 'AUTO skips the setting: the fight starts on its own', 'auto ' + auto.deploy + ', by hand ' + dflt.deploy);
 }
 
+/* THE ENEMY MATH (COMBAT [the enemy math], rule 75b, Paolo 10/5: 'the beginning is a lot different from the end'):
+   the map hands the party (count, days, difficulty); the fight dresses it by tier from ours.enemy_tiers and arms each
+   man from his own enemies.json row. A day-1 party and a day-100 party from the same seed; the difficulty alone; an
+   exact list; the origin's field cap; and a day-100 fight plays to its end. */
+async function enemyMath() {
+  const look = async (opts, play) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS=Object.assign({seed:11,speed:60,kind:"strip",auto:true},' + JSON.stringify(opts) + ')' });
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
+    const r = await d.page.evaluate(() => { const S = FIGHT.S, them = S.units.filter(u => u.side === 'them'), rows = DB.enemies.rows.map(e => e.id);
+      return { n: them.length, crew: S.units.filter(u => u.side === 'you').length, kinds: them.map(u => u.kind), sourced: them.every(u => rows.indexOf(u.kind) >= 0),
+        arm: them.reduce((a, u) => a + u.armB + u.armH, 0) / Math.max(1, them.length), raider: (them.filter(u => u.kind === 'brigand_raider')[0] || {}).mskill,
+        tierOf: them.filter(u => !/thug|lower|poacher/.test(u.kind)).length / Math.max(1, them.length) }; });
+    if (play) { const t0 = Date.now(); while (Date.now() - t0 < 120000) { if (await d.page.evaluate(() => FIGHT.S.over || FIGHT.S.round > 40)) break; await d.page.waitForTimeout(400); }
+      r.over = await d.page.evaluate(() => ({ over: FIGHT.S.over, r: FIGHT.S.round, res: FIGHT.S.result })); }
+    r.err = d.errs[0]; await d.close(); return r; };
+  const one = await look({ party: { faction: 'brigands', count: 3, days: 1, difficulty: 1 } });
+  const late = await look({ party: { faction: 'brigands', count: 10, days: 100, difficulty: 1 } }, true);
+  const easy = await look({ party: { faction: 'brigands', count: 8, days: 20, difficulty: 0 } });
+  const hard = await look({ party: { faction: 'brigands', count: 8, days: 20, difficulty: 3 } });
+  const list = await look({ party: [{ kind: 'brigand_thug', count: 2 }] });
+  const lone = await look({ cap: 1, party: ['brigand_thug', 'brigand_thug'] });
+  const k = r => r.kinds.map(x => x.replace('brigand_', '')).join(' ');
+  leg(one.n === 3 && late.n === 10 && one.sourced && late.sourced, '*** THE FIGHT TAKES THE PARTY THE MAP HANDS IT *** (rule 75b: never its own twelve): a day-1 party of three, a day-100 party of ten, every man an enemies.json row', 'day 1: ' + k(one) + ' | day 100: ' + k(late));
+  leg(one.kinds.every(x => /thug|lower/.test(x)) && late.kinds.indexOf('brigand_leader') >= 0 && late.kinds.some(x => /marauder/.test(x)),
+    '*** THE BEGINNING IS A LOT DIFFERENT FROM THE END *** (the wiki: early thugs and sometimes raiders; late a leader and marauders): day 1 is thugs and lesser raiders, day 100 has its one leader and armoured marauders', 'leaders at day 100: ' + late.kinds.filter(x => /leader/.test(x)).length);
+  leg(late.arm >= 1.5 * one.arm, 'the gear rises with the tier (Grok: higher tier is the equipment step): the day-100 party wears far more armour', 'mean head and body ' + Math.round(one.arm) + ' -> ' + Math.round(late.arm));
+  leg(hard.tierOf > easy.tierOf, 'the difficulty alone raises the tier (Grok: combat difficulty raises the tier): the same day 20, Legendary fields more of the elite', Math.round(100 * easy.tierOf) + '% elite on Beginner, ' + Math.round(100 * hard.tierOf) + '% on Legendary');
+  leg(late.raider === 70 || late.raider === undefined, 'the late days buff the man (Brigand Raider: melee skill 65 before day 40, 70 after)', 'a day-100 raider swings at ' + late.raider);
+  leg(list.n === 2 && list.kinds.every(x => x === 'brigand_thug') && lone.crew === 1, 'an exact list is fought as handed; the origin\'s field cap is honoured (Lone Wolf: one man)', list.n + ' thugs; ' + lone.crew + ' of yours on the field');
+  leg(late.over && late.over.over && !late.err && !one.err, 'a day-100 fight still plays to its end on AUTO, no page error', late.over ? late.over.res + ' in ' + late.over.r + ' rounds' : 'no end');
+}
+
 (async () => {
+  await enemyMath();
   await formation();
   await sunTest();
   await screens();

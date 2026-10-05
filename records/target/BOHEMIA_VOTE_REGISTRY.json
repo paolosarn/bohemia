@@ -5052,7 +5052,8 @@
   "verdict": "default",
   "status": "ruled"
 },
- {"id": "ui-the-settlements-labels-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE SETTLEMENT'S LABELS", "why": "A building now names itself on a torn paper tag only while your finger is on it, and the prices and pay inside print on receipt lines you can read in the sun. You see it in any settlement, when you touch a building and when you open the stall or the board.", "show": {"how": "image", "src": "vote/UI_THE_SETTLEMENTS_LABELS_10_5.png"}}
+ {"id": "ui-the-settlements-labels-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE SETTLEMENT'S LABELS", "why": "A building now names itself on a torn paper tag only while your finger is on it, and the prices and pay inside print on receipt lines you can read in the sun. You see it in any settlement, when you touch a building and when you open the stall or the board.", "show": {"how": "image", "src": "vote/UI_THE_SETTLEMENTS_LABELS_10_5.png"}},
+  {"id": "combat-the-enemy-math-10-5", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/5", "title": "DAY 1 IS A FEW THUGS, DAY 100 IS A LEADER AND MARAUDERS", "why": "The fight now takes the party the map hands it and dresses it by the days and the difficulty, Battle Brothers' way: early it is thugs and a lesser raider in cheap gear, late a leader, armoured marauders and marksmen with twice the armour. Compare the two parties in this card and you see it, in the VOTE tab and the demo once the map sends parties, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ENEMY_MATH_10_5.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
