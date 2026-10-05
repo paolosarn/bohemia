@@ -43,6 +43,30 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/5 (bq) LATEST -- *** [the fight at four screens judged] ROUND ONE
+SCHOOL DONE: THIS IS "ASPECT RATIO SCALING," A SOLVED PROBLEM WITH A RIGHT ANSWER. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 62 asks for the fight checked on four screen sizes (phone upright, phone sideways, tablet,
+computer). This is the same fight PC gaming already solved for wide monitors, called Hor+ versus
+Vert-. The wrong way (Vert-) crops more off the top and bottom as a screen gets wider, so a
+narrow screen can actually see MORE than a wide one, backwards from what people expect. The
+right way, what the whole industry settled on, keeps the same up-and-down view on every screen
+and only changes how much width you see. So round two isn't just "is each number big," it's
+whether combat's own four numbers (77/67/87/83 percent) actually follow that pattern or are
+scattered.
+Also found a real rulebook to grade this by instead of making one up: the Widescreen Gaming
+Forum, the actual group PC gamers use to grade a game's screen support (gold, silver, limited,
+unsupported). Round two will grade each screen size that way, not just a number.
+Also checked and found the screen classes themselves (phone, phone sideways, tablet, computer)
+match real industry breakpoints closely, so the four chosen sizes are sound, not arbitrary.
+One thing flagged before measuring: combat just shipped a new formation screen that opens before
+the fight board now. The row's old percentages were measured before that existed, so round two
+checks what the fight actually opens on now before trusting old numbers.
+Record: records/BOHEMIA_EYES_FOUR_SCREENS_ROUND_1_SCHOOL_HOR_PLUS_AND_THE_WSGF_RUBRIC_10_5_26.md.
+NEXT: round two, the actual check, on all four real screens.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/5 (bp) LATEST -- *** [night in the sun measured] SHIPPED, BOTH
 ROUNDS. TWO REAL GAPS FOUND THAT NO GATE CATCHES. ***
 TAB: not a tab yet, an internal measurement.
