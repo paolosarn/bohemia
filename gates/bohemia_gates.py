@@ -2322,6 +2322,16 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE ORIGIN SETS THE COMPANY', ['node', 'gates/the_origin_sets_the_company_gate.js'],
+     'VAMILY [the origin sets the company], rule 75a (PAOLO 10/5: "depending on your origin, that\'s how many people will '
+     'be in your group... Lone Wolf by himself... peasant militia up to 16 instead of 12... the demo has none of it"). '
+     'MEASURED BEFORE: the picks made no men; an origin\'s crew changed the ENEMY\'s crew; every fight fielded the same '
+     'twelve. NOW records/target/bb/origins.json (Battle Brothers\' fifteen from the wiki: men, funds at 10 crowns a '
+     'battery, roster and field caps) is what the door builds and the fight fields. HOLDS: the file is the fifteen with '
+     'real backgrounds; 45 of 45 origin x shelves build the file\'s company, cap and start; every card says them; BEGIN '
+     'pays the Lone Wolf\'s bare start (taps); the Lone Wolf fights alone at level 4, the Block Watch with twelve '
+     'peasants, a new crew with three companions. Mutations: the fight\'s options drop the company (O5, O6); the fight '
+     'ignores it (O5, O6); the old start multiplier (O2-O4); the origin\'s level ignored (O5).', True),
     ('THE START SCREEN', ['node', 'gates/the_start_screen_gate.js'],
      'VAMILY [the start screen], rule 66 (PAOLO 10/2: "there should be a start screen: new game, continue game, '
      'settings"). MEASURED BEFORE: the demo opened on the loading terminal with the picks over it; one save and no way '

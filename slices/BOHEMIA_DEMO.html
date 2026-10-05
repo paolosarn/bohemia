@@ -1551,7 +1551,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/5b - THE START SCREEN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/5d - YOUR ORIGIN, YOUR COMPANY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11619,7 +11619,10 @@ function nfKind(district){
 }
 function nfOpts(d){
   var w = (d && d.world) || {};
-  return { kind: nfKind(d && d.district), night: w.night === true };
+  var o = { kind: nfKind(d && d.district), night: w.night === true };
+  /* __THE_ORIGIN_SETS_THE_COMPANY__ (rule 75a): the company the origin built, and its field cap, to the fight */
+  try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
+  return o;
 }
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
@@ -12655,9 +12658,17 @@ var BOH_START = (function(){
   var COMBAT = [ { id:'new',  name:'NEW HERE',     sub:'crews one smaller', crew:-1, pkg:0 },
                  { id:'seen', name:'SEEN IT',      sub:'as they come',      crew:0,  pkg:1 },
                  { id:'out',  name:'OUTLIVED IT',  sub:'crews one bigger',  crew:1,  pkg:2 } ];      /* draft:true */
-  var ECON   = [ { id:'full', name:'FULL SHELVES', sub:'pay and start x1.5', mult:1.5 },
-                 { id:'thin', name:'THIN SHELVES', sub:'as it is',           mult:1 },
-                 { id:'bare', name:'BARE SHELVES', sub:'pay and start x0.75', mult:0.75 } ];          /* draft:true */
+  var ECON   = [ { id:'full', name:'FULL SHELVES', sub:'start rich, pay x1.5', mult:1.5 },
+                 { id:'thin', name:'THIN SHELVES', sub:'as it is',             mult:1 },
+                 { id:'bare', name:'BARE SHELVES', sub:'start poor, pay x0.75', mult:0.75 } ];        /* draft:true */
+  /* __THE_ORIGIN_SETS_THE_COMPANY__ (RUN 10/5, [the origin sets the company], rule 75a). PAOLO 10/5: 'depending on your
+     origin, that's how many people will be in your group... Lone Wolf by himself... peasant militia up to 16 instead of
+     12... the demo has none of it.' MEASURED: the picks made no men at all; the origin's 'crew' changed the size of the
+     ENEMY's crew on a job; every fight fielded the same twelve. NOW records/target/bb/origins.json (Battle Brothers'
+     fifteen from the wiki dump) is the truth: who you start with (background and level), the start money (its High/
+     Medium/Low funds, which ARE the shelves, at 10 crowns to 1 battery), the roster cap and the field cap. The lines
+     below are the fallback until it loads; the door is rebuilt from the file the moment it does. */
+  var ODATA = null;
   /* Battle Brothers' fifteen, in order, translated. d: 1 easy .. 4 very hard (its own, recall-grade).
      start: batteries. crew/pay: added to every job. Lines are draft:true. */
   var ORIGINS = [
@@ -12678,15 +12689,19 @@ var BOH_START = (function(){
     { id:'wolf',     bb:'Lone Wolf',            name:'THE LONE WOLF',         d:4, start:3, crew:1, pay:0, line:'Just you. If you go down, it ends.' }
   ];
   var NAMES = ['THE NIGHT SHIFT','LOW BATTERY','DEAD AIR','THE LAST CREW','NO SIGNAL','THE GRID','BLACKOUT','THE METER READERS','STATIC','THE LATE CREW'];  /* draft:true */
-  var D = ['','EASY','NORMAL','HARD','VERY HARD'];
+  var D = ['','EASY','NORMAL','HARD','VERY HARD'];   /* the wiki has three: Easy, Medium (ours NORMAL), Hard */
   var pick = { combat:'seen', econ:'thin', origin:'newcrew', name:0 };
   try{ var sv = JSON.parse(localStorage.getItem('bohemia.start') || 'null'); if(sv) for(var k in pick) if(sv[k] != null) pick[k] = sv[k]; }catch(_e){}
   function find(list, id){ for(var i=0;i<list.length;i++) if(list[i].id===id) return list[i]; return list[1] || list[0]; }
   function save(){ try{ localStorage.setItem('bohemia.start', JSON.stringify(pick)); }catch(_e){} }
   function sign(n){ return n>0 ? '+'+n : String(n); }
+  /* the start money: the origin's own funds column for the shelves picked; the old multiplier only without the file */
+  function bats(o, econ){ var e = find(ECON, econ || pick.econ); return (o.batteries && o.batteries[e.id] != null) ? o.batteries[e.id] : Math.max(0, Math.round(o.start * e.mult)); }
   function card(o){
-    var bits = ['START '+Math.max(0,Math.round(o.start*find(ECON,pick.econ).mult))+' BATTERIES'];
-    if(o.crew) bits.push('CREWS '+sign(o.crew)); if(o.pay) bits.push('PAY '+sign(o.pay));
+    var bits = ['START '+bats(o)+' BATTERIES'];
+    if(o.men) { bits.push(o.men.length === 1 ? 'JUST YOU' : o.men.length + ' MEN'); bits.push(o.field_cap + ' IN A FIGHT'); }
+    else if(o.crew) bits.push('CREWS '+sign(o.crew));
+    if(o.pay) bits.push('PAY '+sign(o.pay));
     return '<b>'+o.name+'</b><i>'+o.line+'</i><i>'+bits.join(' &middot; ')+'</i>';
   }
   function build(){
@@ -12712,13 +12727,25 @@ var BOH_START = (function(){
     var c = find(COMBAT, pick.combat), e = find(ECON, pick.econ), o = find(ORIGINS, pick.origin);
     return { combat:c.id, combatName:c.name, pkg:c.pkg, econ:e.id, econName:e.name, mult:e.mult,
              origin:o.id, originName:o.name, bb:o.bb, difficulty:D[o.d],
-             start:Math.max(0, Math.round(o.start * e.mult)), crew:c.crew + o.crew, pay:o.pay,
+             start:bats(o, e.id), crew:c.crew + (o.men ? 0 : o.crew), pay:o.pay,
+             /* the company and its caps, from the file (null until it loads, and the fight then fields its own twelve) */
+             company:o.men ? o.men.map(function(m){ return { background:m.background, level:m.level }; }) : null,
+             cap:o.field_cap || null, roster:o.roster_cap || null,
              name:NAMES[pick.name % NAMES.length], draft:true };
   }
+  /* the file, merged over the fallback by id: names, lines and tiers are its, and so is everything a card promises */
+  function load(){
+    try{ fetch('../records/target/bb/origins.json').then(function(r){ return r.json(); }).then(function(j){
+      ODATA = j; (j.origins || []).forEach(function(d){ var o = find(ORIGINS, d.id); if(!o || o.id !== d.id) return;
+        o.name = d.name; o.line = d.line; o.d = d.d; o.bb = d.bb; o.men = d.men; o.batteries = d.batteries;
+        o.field_cap = d.field_cap; o.roster_cap = d.roster_cap; o.pay = d.pay; o.crew = 0; });
+      var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
+    }).catch(function(){}); }catch(_e){}
+  }
   function showPicked(){ try{ var st = document.getElementById('newcostrip'), on = st && st.querySelector('.org.on'); if(on) st.scrollLeft = Math.max(0, on.offsetLeft - 10); }catch(_e){} }
-  function boot(){ build(); showPicked(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
+  function boot(){ build(); showPicked(); load(); var el = document.getElementById('newco'); if(el){ el.addEventListener('click', onTap); el.addEventListener('pointerdown', function(e){ if(e.target.closest && e.target.closest('button')) e.stopPropagation(); }); } }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
-  return { picks:picks, COMBAT:COMBAT, ECON:ECON, ORIGINS:ORIGINS, NAMES:NAMES, state:pick };
+  return { picks:picks, COMBAT:COMBAT, ECON:ECON, ORIGINS:ORIGINS, NAMES:NAMES, state:pick, data:function(){ return ODATA; } };
 })();
 window.BOH_START = BOH_START;
 document.getElementById('front').addEventListener('click',()=>{
@@ -23762,8 +23789,20 @@ drawLogoBig();requestAnimationFrame(loop);
          (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
          'on' is what the alpha itself uses to mean "this is the open tab", so
          use the app's own answer instead of inventing a third one. */
+      /* AND THE MAP TAB TOO (SOUNDS, row [the map's sounds], 10/5). This check
+         was written before the MAP tab existed, so the valley's weather (a
+         gust, a generator, somebody's dog) has never once played while he is
+         actually travelling -- only while looking at the old walked-city
+         view. MEASURED before changing this: BOHEMIA_WHERE keeps arriving
+         every ~4 s whichever tab is on screen (the city/run frame is a
+         hidden iframe and hidden iframes keep their timers, same as the
+         comment above already says), worst gap seen 11 s, always under the
+         12 s cutoff above -- so the data this bed reads is exactly as fresh
+         on the map as it is on the run tab, and widening this one line costs
+         nothing new: every sound it can pick is already his. */
       var tab=document.querySelector('.tab[data-p="run"]');
-      if(!tab || !tab.classList.contains('on')) return;
+      var mapTab=document.querySelector('.tab[data-p="map"]');
+      if(!(tab && tab.classList.contains('on')) && !(mapTab && mapTab.classList.contains('on'))) return;
       var now=Date.now();
       if(!this.next){ this.next = now + this.gap()*1000; return; }
       if(now < this.next) return;

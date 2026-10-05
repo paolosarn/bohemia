@@ -11287,6 +11287,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/5c LATEST -- [the origin sets the company] SHIPPED (rule 75a). TAB: the DEMO's door after NEW GAME (the origin cards), then any fight.
+records/target/bb/origins.json is the truth (Battle Brothers' fifteen); BOH_START loads it (picks(): company, cap, roster; start = batteries[shelves]); nfOpts carries company/cap; BOHEMIA_FIGHT.html setup() reads opts.company/opts.cap, crewUnit() honours c.level.
+GATE THE ORIGIN SETS THE COMPANY 7/0; THE FRONT DOOR D4 re-aimed to the file. FOR COMBAT: those two reads are in your file. FOR RUN TWO: LOOP.start.company/cap/roster for the roster screen. NEXT: [a few, not twelve] (75b), then [the start screen]'s last leg (waits on COMBAT's screen override), [you can flee].
 RUN (run-eak241): 10/5a LATEST -- [the start screen] BUILT, about 4 of 5 (rule 66). TAB: the DEMO opens on it.
 Shell __THE_START_SCREEN__ (inside #front; BOH_TITLE {show, hide, act, saved}); slices/start/title_valley_{wide,tall}.webp; the map's BOHEMIA_START pays once per game by the purse ledger; tools/bohemia_through_the_title.js (NEW GAME / CONTINUE for checks).
 GATE THE START SCREEN 12/0. FOR UI [the start screen's look]: dress #title (.it plates, .logo, .osd, .notes, .sheet); keep the menu clear of #fronttap (place()) and keep it inside #front. [PENDING COMBAT] bohemia_screen_class.js reads BOH_SETTINGS.screen for SETTINGS' screen override (62), then UI adds the row and this row ships. NEXT: [you can flee] (68).

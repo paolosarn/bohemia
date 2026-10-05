@@ -367,7 +367,7 @@ const FIGHT = (function () {
     const sh = c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null;
     const body = armourRow('body', c.body), head = armourRow('head', c.head);
     const xp = R('parsed.brother_xp');
-    const lv = rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);
+    const lv = c.level || rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);   /* an origin's stated level (rule 75a) */
     const perks = pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);
     const lk = R('ours.people_looks').crew;
     return makeUnit({ look: lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
@@ -545,7 +545,16 @@ const FIGHT = (function () {
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
-    const crew = R('ours.crew').slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), R('ours.crew').length)));
+    /* THE COMPANY THE ORIGIN BUILT (RUN 10/5, rule 75a: 'depending on your origin, that's how many people will be in your
+       group'): the map hands its men (a background and a level each, from records/target/bb/origins.json); each keeps the
+       kit and the look of his place in the line, and the line stops at the cap. Nothing handed = the twelve, as before. */
+    const base = R('ours.crew');
+    const roster = (Array.isArray(opts.company) && opts.company.length
+      ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
+          if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; return t; })
+      : base);
+    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length)));
     const crewUnits = crew.map(crewUnit);
     const band = bandOf(opts);
     const bandUnits = band.map(enemyUnit);
