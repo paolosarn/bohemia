@@ -1,0 +1,133 @@
+{
+ "_about": "THE WEAPONS SAY WHAT THEY DO (rule 75e, Paolo 10/5: 'weapons that I don't even think you know what they're supposed to do yet'). One plain line per Battle Brothers weapon class, the name it carries in Bohemia and its base named, read by the fight's weapon card (hold a finger on the strike square or on a man) and by RUN TWO's market. Our seven jobs are WORDS' lines; the eight classes the enemy carries are COMBAT's drafts for WORDS. Every weapon in weapons.json has its class here (THE REBUILT FIGHT PLAYS gate). A modder edits this file.",
+ "rows": {
+  "dagger": {
+   "job": "pistol",
+   "name": "PISTOL",
+   "base": "Dagger",
+   "line": "A cheap handgun. Light and quick, but armor barely feels it.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "firearm": {
+   "job": "shotgun",
+   "name": "SHOTGUN",
+   "base": "Handgonne",
+   "line": "One huge hit point-blank, then a slow reload.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "crossbow": {
+   "job": "rifle",
+   "name": "RIFLE",
+   "base": "Crossbow",
+   "line": "Hits from across the street. You pay for the range with a reload between shots.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "mace": {
+   "job": "pipe",
+   "name": "PIPE",
+   "base": "Mace",
+   "line": "Dumb, heavy, and it crushes straight through armor.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "hammer": {
+   "job": "sledge",
+   "name": "SLEDGE",
+   "base": "Hammer",
+   "line": "The heaviest thing you can swing. Armor does not help against it.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "throwing": {
+   "job": "bottles",
+   "name": "BOTTLES",
+   "base": "Throwing weapon",
+   "line": "Thrown, not swung. It reaches past a pipe, and you only carry a few.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "shield": {
+   "job": "car_door",
+   "name": "CAR DOOR",
+   "base": "Shield",
+   "line": "You do not swing it. You hide behind it, and you can shove a man back with it.",
+   "by": "records/BOHEMIA_WORDS_THE_WEAPONS_LINES_10_5_26.md (WORDS words-8dqrnq, rule 75e)",
+   "draft": true
+  },
+  "sword": {
+   "job": null,
+   "name": "BLADE",
+   "base": "Sword",
+   "line": "A long blade. The easiest swing to land, but armor slows it down.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "swords: 16 rows, 47-58 damage, 81% to armour; Slash +10% to hit (bb_all Slash)",
+   "draft": true
+  },
+  "cleaver": {
+   "job": null,
+   "name": "CLEAVER",
+   "base": "Cleaver",
+   "line": "A butcher's chopper. It leaves a man bleeding and finishes the wounded.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "cleavers: 14 rows, 36-53 damage; Cleave bleeds, Decapitate on the hurt",
+   "draft": true
+  },
+  "axe": {
+   "job": null,
+   "name": "AXE",
+   "base": "Axe",
+   "line": "Big hits that chew through armor and split a car door in two.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "axes: 12 rows, 50-70 damage, 136% to armour; Split Shield",
+   "draft": true
+  },
+  "polearm": {
+   "job": null,
+   "name": "POLE",
+   "base": "Polearm",
+   "line": "Hits from the second row, over your own man's shoulder. Slow to swing.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "polearms: 10 rows, 49-72 damage, reach 2, two hands, 6 AP",
+   "draft": true
+  },
+  "spear": {
+   "job": null,
+   "name": "SPEAR",
+   "base": "Spear",
+   "line": "Keeps them off you. Spearwall stops the first man who steps in.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "spears: 8 rows, 32-43 damage, Thrust +20% to hit, Spearwall",
+   "draft": true
+  },
+  "bow": {
+   "job": null,
+   "name": "BOW",
+   "base": "Bow",
+   "line": "Shoots far and fast with no reload. Weak against armor.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "bows: 8 rows, 37-56 damage, reach 7, 58% to armour, no reload",
+   "draft": true
+  },
+  "flail": {
+   "job": null,
+   "name": "CHAIN",
+   "base": "Flail",
+   "line": "Swings over a car door and goes for the head.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "flails: 7 rows, 30-64 damage; Lash ignores the shield and aims at the head",
+   "draft": true
+  },
+  "throwable_item": {
+   "job": null,
+   "name": "KIT",
+   "base": "Throwable item",
+   "line": "Not a weapon. A net, a fire pot or a flask you throw to change the fight.",
+   "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
+   "why": "nets, acid, fire, smoke and flash pots: no damage of their own, range 3",
+   "draft": true
+  }
+ }
+}
