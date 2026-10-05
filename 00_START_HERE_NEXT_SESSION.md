@@ -76,6 +76,32 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/5 (br) LATEST -- *** [the fight at four screens judged] SHIPPED,
+BOTH ROUNDS: THE LOCKED PERSON SIZE BREAKS ON THE TWO SHORT SCREENS. ***
+TAB: not a tab yet, an internal measurement.
+
+Took real screenshots of the fight on all four screen shapes (phone upright, phone sideways,
+tablet, computer). First confirmed combat's own numbers for how much of the screen the board
+takes up are accurate, matched mine almost exactly. Good sign their own checker works.
+Then found something nobody had measured before: the character's locked size. This game has a
+rule that a person is always the same size on screen no matter how you zoom, about 112 pixels
+tall. On the phone standing up and on the tablet, that holds, measured right at 111. On the
+phone sideways and on a computer, he's under 45 pixels tall, less than half the size he's
+supposed to be, everywhere else in the game.
+Why: those two are the SHORT screens. The game tries to keep your whole line of nine people
+visible top to bottom, and a short screen has way less vertical room, so the camera has to pull
+back much further to fit everyone, shrinking the person. This matches exactly what I found doing
+the research last round: there's a right way and a wrong way to handle different screen shapes,
+and this is the wrong way.
+Smaller thing also found: the FIGHT and WAIT buttons sit closer together than the real minimum
+spacing standard, on every screen size, though each one alone is big enough to tap.
+Record: records/BOHEMIA_EYES_FOUR_SCREENS_ROUND_2_THE_MAN_SHRINKS_ON_SHORT_SCREENS_10_5_26.md.
+Routed to COMBAT.
+NEXT (rule 74, claimed before this reply ends): [the settlement picture judged] -- RUN TWO's new
+picture-based settlement screen shipped this round, so the premise that blocked this row before
+is now cleared. Round one, school, next round.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/5 (bq) LATEST -- *** [the fight at four screens judged] ROUND ONE
 SCHOOL DONE: THIS IS "ASPECT RATIO SCALING," A SOLVED PROBLEM WITH A RIGHT ANSWER. ***
 TAB: not a tab yet, an internal measurement.
