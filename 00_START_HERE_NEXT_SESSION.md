@@ -6185,6 +6185,65 @@ NEXT: [cook panels] is the standing rule-22 row and is OPEN again; items 2, 3 an
 (the fight HUD, the talk panel, the vote tab's own frame) are drawn as sheets but not built
 as skins. [three d ui] still has no gate of its own. [vote plays sound] is still open and
 SOUNDS has items waiting that he cannot hear in the tab. [no slop] stays CLAIMED.
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round two) -- *** THE QUESTION FROM LAST ROUND IS ANSWERED:
+THE VALLEY'S WEATHER NOW PLAYS ON THE MAP TAB TOO. *** Row [the map's sounds], round two,
+CLAIMED (still not shipped: the travel beds need a terrain/speed signal from the map frame
+that does not exist yet; the ambience-on-the-map half is now live).
+
+NO NEW VOTES this round (checked fresh, same as every round).
+
+LAST ROUND LEFT ONE OPEN QUESTION, NAMED RATHER THAN GUESSED: does the city/run frame's own
+heartbeat (BOHEMIA_WHERE, the message that feeds window.__AMB, the ambience bed that already
+plays wind_gust/generator/dog_far/sign_alive) keep arriving fresh while the MAP tab -- the
+actual travel screen -- is the one on screen, or does it go stale because a different tab is
+showing? A quick first probe last round looked like it went stale, but that was a boot-timing
+artefact in my own test, not a real finding, and I said so rather than shipping on it.
+
+MEASURED PROPERLY THIS ROUND, ON THE GLASS: ten samples, 2 seconds apart, over 20 seconds, with
+only the MAP tab on screen. AMB.seen's age never exceeded 11 seconds; the reports keep landing
+every ~4 seconds, same cadence the comment already describes for the RUN tab. Hidden iframes
+really do keep their timers running, confirmed rather than assumed. The city/run frame's report
+is exactly as fresh on the map as it is on the old walked-city view.
+
+So the fence this lane built last round for the fight's music door gets the same move here:
+AMB.tick()'s one-line tab check (slices/BOHEMIA_ALPHA_0_9.html, var tab=document.querySelector
+('.tab[data-p="run"]')) now also accepts the MAP tab. MEASURED BEFORE AND AFTER with a forced
+tick (AMB.next set due, AMB.pick forced to the bed itself, BOH_SFX.render counted): before, 0
+renders with only the map tab shown; after, 1. Zero console errors either side.
+
+THIS IS NOT NEW CONTENT. wind_gust, generator, dog_far and sign_alive are already his, already
+approved, already playing on the old city view. The only thing that changed is that a check
+written before the MAP tab existed now knows about it -- the exact same shape of bug as round
+one's music-door fence (the fight's own door never ran through V186's tab-click handler because
+it never clicked a tab). No new vote needed; this is a correctness fix on already-judged sound.
+
+GATES: gates/one_engine_gate.js gets a fourth claim (E7) for this fence, same self-sufficient
+pattern as E4-E6 (forces its own tab state, doesn't trust another claim's leftover state). Its
+own boot is STILL the same pre-existing break named in both of this row's prior rounds and the
+[not sand] row before that (the splash button's position moved, a direct click still never
+reaches window.__LOAD_READY=true) -- PLUMBER's [one engine boot], not touched again this round,
+not this lane's file. gates/cooked_sounds_gate.js still 194/0 (untouched by this change, which
+lives only in the alpha). gates/handoff_gate.js, footstep_gate.js and verdict_frozen_gate.py all
+re-run clean. Round one's music-door fence and round two's fight-sfx bridge (from the prior row)
+both re-verified clean on this round's tree -- no regression from touching AMB.tick().
+
+STILL OPEN, NAMED NOT GUESSED: the party's steps on asphalt vs dirt (built, cooked, registered
+last round) still cannot play live, because nothing anywhere currently tells the parent window
+which terrain the traveling party is actually on, or how fast -- BOHEMIA_MAP_CURRENT.html posts
+no state at all (confirmed last round, unchanged this round). That signal has to come from
+RUN's own file; this lane asks for it rather than guessing at one. "Voices low" and "the crew's
+shout" are still unbuilt for the same honest reason as last round: this lane's palette cannot
+fake a voice.
+
+NEXT ROUND: ask RUN (through the coordinator, not directly -- lanes don't talk sideways) for a
+travel-state signal the parent can read (terrain under the party, moving or stopped) so the
+footstep beds built last round can finally play; if that is not forthcoming yet, consider
+[the settlement's sounds] (the next row in the jump list) instead of sitting idle on a blocked
+one, per rule 12 (a dependency is a premise, not a gate -- measure first, and the premise here
+really does need another lane's file, so this one is a real gate, not a false one).
+
+---
+
 SOUNDS (sound-xk7pjp): 10/5 LATEST -- *** THE BOARD WAS RESTRUCTURED (RULE 74, "A JOB IS AN
 OPEN ROW"): [one song and the volumes] IS DONE, THREE NEW OPEN ROWS REPLACED IT, AND THIS
 ROUND WORKED THE TOP ONE. *** Row [the map's sounds], round one, CLAIMED (not shipped: three

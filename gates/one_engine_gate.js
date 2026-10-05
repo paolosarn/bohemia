@@ -189,6 +189,39 @@ function ok(claim, cond, detail) {
       && fightSfxCheck.want.every(ev => fightSfxCheck.got.includes(ev)),
     'the fight\'s own sfx bridge is missing or incomplete: ' + JSON.stringify(fightSfxCheck));
 
+  /* ---- E7: THE VALLEY SPEAKS ON THE MAP TOO (SOUNDS, row [the map's sounds], 10/5).
+     AMB.tick() has checked only the RUN tab since before the MAP tab existed, so the
+     wind, the generator and somebody's dog have never once played while he is actually
+     travelling. MEASURED first: the city/run frame's heartbeat (BOHEMIA_WHERE) keeps
+     arriving every ~4 s whichever tab is on screen, worst gap 11 s, always inside the
+     12 s cutoff this bed already uses -- so the data was fresh the whole time and only
+     the tab check was blind to the new tab. */
+  const ambMapCheck = await p.evaluate(async () => {
+    try { if (window.__AMB && !window.__AMB.seen) return { ready: false }; } catch (e) {}
+    const AMB = window.__AMB;
+    const mapTab = document.querySelector('.tab[data-p="map"]');
+    if (mapTab) mapTab.click();
+    await new Promise(r => setTimeout(r, 300));
+    let renderCount = 0;
+    const origRender = window.BOH_SFX && window.BOH_SFX.render;
+    if (origRender) window.BOH_SFX.render = function () { renderCount++; return origRender.apply(this, arguments); };
+    const origPick = AMB.pick;
+    AMB.pick = function () { return this.kind; };
+    AMB.next = Date.now() - 1;
+    const runOn = !!document.querySelector('.tab[data-p="run"].on');
+    const mapOn = !!document.querySelector('.tab[data-p="map"].on');
+    const ageMs = Date.now() - AMB.seen;
+    AMB.tick();
+    if (origRender) window.BOH_SFX.render = origRender;
+    AMB.pick = origPick;
+    return { ready: true, runOn, mapOn, ageMs, renderCount };
+  });
+  console.log('  ambience on the map tab: ' + JSON.stringify(ambMapCheck));
+  ok('E7 *** THE WIND, THE GENERATOR AND THE DOG NOW REACH THE MAP TAB TOO. *** AMB.tick() used to return before rendering anything unless the RUN tab carried class \'on\'; with only the MAP tab on screen and the city frame\'s report well inside its own 12 s freshness window, a due tick now renders',
+    ambMapCheck.ready === true && ambMapCheck.mapOn === true && ambMapCheck.runOn === false
+      && ambMapCheck.ageMs < 12000 && ambMapCheck.renderCount > 0,
+    'the ambience bed is still blind to the map tab: ' + JSON.stringify(ambMapCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

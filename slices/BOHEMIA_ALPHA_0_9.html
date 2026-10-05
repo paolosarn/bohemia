@@ -23756,8 +23756,20 @@ drawLogoBig();requestAnimationFrame(loop);
          (PANEL = t.dataset.p==='run' ? 'city' : ...). The tab carrying class
          'on' is what the alpha itself uses to mean "this is the open tab", so
          use the app's own answer instead of inventing a third one. */
+      /* AND THE MAP TAB TOO (SOUNDS, row [the map's sounds], 10/5). This check
+         was written before the MAP tab existed, so the valley's weather (a
+         gust, a generator, somebody's dog) has never once played while he is
+         actually travelling -- only while looking at the old walked-city
+         view. MEASURED before changing this: BOHEMIA_WHERE keeps arriving
+         every ~4 s whichever tab is on screen (the city/run frame is a
+         hidden iframe and hidden iframes keep their timers, same as the
+         comment above already says), worst gap seen 11 s, always under the
+         12 s cutoff above -- so the data this bed reads is exactly as fresh
+         on the map as it is on the run tab, and widening this one line costs
+         nothing new: every sound it can pick is already his. */
       var tab=document.querySelector('.tab[data-p="run"]');
-      if(!tab || !tab.classList.contains('on')) return;
+      var mapTab=document.querySelector('.tab[data-p="map"]');
+      if(!(tab && tab.classList.contains('on')) && !(mapTab && mapTab.classList.contains('on'))) return;
       var now=Date.now();
       if(!this.next){ this.next = now + this.gap()*1000; return; }
       if(now < this.next) return;
