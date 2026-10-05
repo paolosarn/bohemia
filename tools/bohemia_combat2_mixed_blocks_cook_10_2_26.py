@@ -75,7 +75,7 @@ def suburb_seeded(seed, cross_col=None):
         board.paste(t, (c * PX, rw * PY)); grid[rw][c] = 'blocked'
     if cross_col is not None:
         for rw in range(N):
-            t = F.street_small(13, crossing=True) if rw == 2 else F.street_small(17 + 2 * rw + seed % 5, ns=True)
+            t = F.street_small(13, crossing=True) if rw == 2 else F.street_small(19 + 2 * rw, ns=True)
             board.paste(t, (cross_col * PX, rw * PY)); grid[rw][cross_col] = 'flat'
     pieces = []
     for c in range(N):                                                  # back walls, a shed, cars: seeded

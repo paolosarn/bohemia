@@ -38,7 +38,7 @@ REFERENCE CHECK (the 9/4 standing law):
       -> slices/fight_ground/fight_ground.json (apron + frames)
       -> slices/vote/COMBAT2_THE_WIDE_BOARD_10_5.png
 """
-import json, os, random, sys
+import importlib, json, os, random, sys
 from PIL import Image, ImageDraw
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,6 +79,32 @@ def apron_for(name, lay, blocks):
     return out
 
 
+def apron_lego(name, lay, blocks, edges):
+    """ROUND TWENTY-TWO (rule 77): the apron obeys the same join rule as the board. Every apron cell takes a
+       block of its edge block's own kind, or any block of that board row, whose edges meet every neighbour
+       already placed (the board itself is fixed); the old repeat-outward apron is the fallback."""
+    L = importlib.import_module('bohemia_combat2_tiles_are_legos_cook_10_5_26')
+    rows, cols = len(lay), len(lay[0])
+    fixed = {(r + 1, c + 1): lay[r][c] for r in range(rows) for c in range(cols)}
+    pal = []
+    for r in range(rows + 2):
+        row = []
+        for c in range(cols + 2):
+            rr, cc = min(max(r - 1, 0), rows - 1), min(max(c - 1, 0), cols - 1)
+            src = lay[rr][cc]; kind = src.split('.')[0]
+            opts = [b for b in blocks if b.split('.')[0] == kind] + [src] + list(lay[rr])
+            row.append(sorted(set(opts)))
+        pal.append(row)
+    for wide in (False, True):                                           # first the board's own kinds; then any block in the bank
+        if wide: pal = [[sorted(set(cell) | set(blocks)) for cell in row] for row in pal]
+        for twins in (True, False):
+            for k in range(20):
+                out = L.solve(pal, edges, random.Random('apron-lego-%s-%d-%d' % (name, k, wide)), fixed=fixed, twins=twins, tries=6000, cols=cols + 2)
+                if out: return out
+    print('  apron: no matching apron for %s, the repeat-outward one stands (the gate names its seams)' % name)
+    return apron_for(name, lay, blocks)
+
+
 def frame_for(cls, tile_px, bt, cols, rows):
     """The smallest glass-aspect rectangle holding the playable board, centred, clipped to the apron."""
     vw, vh = CLASSES[cls]
@@ -102,9 +128,11 @@ def main():
     m = json.load(open(MAN))
     bt, tile = m['block_tiles'], m['tile_px']
     blocks = list(m['blocks'])
+    sys.path.insert(0, os.path.join(REPO, 'tools'))
+    edges = importlib.import_module('bohemia_combat2_tiles_are_legos_cook_10_5_26').read_all(m)
     for name, b in m['boards'].items():
         lay = b['blocks']
-        ap = apron_for(name, lay, blocks)
+        ap = apron_lego(name, lay, blocks, edges)
         for row in ap:
             for bid in row:
                 if bid not in m['blocks']: die('%s apron uses %s, which is not shipped' % (name, bid))

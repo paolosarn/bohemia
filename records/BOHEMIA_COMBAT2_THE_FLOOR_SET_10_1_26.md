@@ -262,3 +262,57 @@ tiles} and boards[b].frames per class (phone_portrait 390x844, phone_landscape 8
 computer 1920x1080): the smallest window at the glass's aspect holding the playable board, centred, clipped to the
 apron; letterbox share where the apron runs out (upright phone only). Guards: frames hold the board and sit in
 the apron; landscape classes letterbox 0; apron blocks all shipped. No new pictures.
+
+## ROUND TWENTY-TWO (10/5): [tiles are legos], rule 77, SHIPPED
+
+PAOLO 10/5: 'the tiles aren't speaking to each other, the street tiles and the freeway tiles look like dog
+shit... what's facing north, east, west... these things should conjoin easily like Legos'.
+
+MEASURED FIRST (the reader, tools/bohemia_combat2_tiles_are_legos_cook_10_5_26.py, run on the shipped boards
+before any change): broken seams per board (board / with its apron): freeway 69/140, strip 93/298, ruin 43/95,
+suburb 28/61, culdesac 41/101, landfill 8/21, shore 4/19, desert 1/5. What he saw on the freeway board: the
+lots' street stopped dead against a parking lot, a strip of orange dirt sat between the parking lot and the
+freeway, and the overpass's deck ran off into the desert and into a parking lot with no road to meet it.
+
+THE GRAMMAR (records/target/bb/BOHEMIA_GROUND_EDGES.json, written by the reader from the pictures):
+  the compass: NORTH up the screen (the far side), SOUTH the near side, EAST right, WEST left.
+  the edge types: road, curb (a walk that crosses the side beside a road), yard, desert soil, water, other
+  (a building: meets yard or soil). Every block's four sides are runs in metres plus the lines that cross.
+  the join rule: road, curb and water runs meet within 3 px; a mostly-yard side meets a mostly-yard side and
+  a mostly-desert side a mostly-desert side; a painted stroke at least 1.2 m long that crosses one side
+  crosses the other within 3 px.
+
+WHAT WAS CUT:
+  1. THE STUDS. Every town block's finished picture wears one ring cut from one canonical street block (R4.yards
+     + MX._street): 12 px west and east over the street band, 10 px north and south over the yard rows; the east
+     ring is the west ring mirrored and the south ring the north ring mirrored, so the touching pixels across any
+     seam are the same pixels. A building standing on a side is left alone (the reader names that seam and the
+     generator avoids it). The freeway wears its own lane band mirrored; the desert one clean column and row of
+     one reference desert block; every cross street the same canonical strip.
+  2. ONE CROSS STREET. Every cross-street tile is made once, outside the block variants (seeds 19 to 27, each
+     keeps its dash), so a cross street's worn dashes are the same in every block and its centre line never
+     stops at a block edge.
+  3. THE FREEWAY RE-CUT. The overpass carries the town's own cross street (his street tile) instead of a bare
+     concrete deck, so it lands on a street at both ends; the north verge is town yard (the town above meets it
+     yard to yard), the south verge desert; the deck's shadow only over the cutting; one texture for every
+     freeway block. A new block, scrubroad, carries the overpass's street on south into the desert.
+  4. THE STRIP MALL RE-CUT. It wears the town's street at the town's depth (24 to 36 m), its lots stop a metre
+     short of its sides, its south row is yard: it now joins any town block west, east and south.
+  5. THE GENERATOR. Every board except the desert and the shore (hand-laid: a wash runs the whole depth, which
+     the reader cannot see) is laid by L.solve: a block goes in a cell only where its west and north edges meet
+     what is already there, no twin beside or above, seeded, backtracking. The apron round each board obeys the
+     same rule (the board's own kinds first, then the whole bank).
+
+AFTER (the same reader, the same pictures the fight loads): freeway 0/0, suburb 0/0, strip 0/0, ruin 0/0,
+desert 0/0; shore 3/16, culdesac 28/64, landfill 7/20 (the rest follow; the ratchet holds them).
+Verified in the new fight (slices/BOHEMIA_FIGHT.html, 390 x 844 at 3x, freeway and suburb, 0 page errors): the
+overpass's street runs from the town over the lanes into the desert unbroken.
+
+THE GATE: gates/tiles_are_legos_gate.py (TILES ARE LEGOS in the suite): the freeway and street boards clean,
+board and apron; every other board at or under gates/tiles_are_legos_ratchet.json; the data file true to the
+pictures; and it proves it bites (a town row dropped on the freeway row, the overpass landing on dirt).
+
+KNOWN, NOT HIDDEN: the culdesac board found no matching layout (the stem's street and the cul-de-sac's sides
+disagree), the landfill and shore keep their seams; a ring stud is 12 px (0.28 m) wide, a thin property line
+where a yard meets a yard; the reader cannot see a wash as different from scrub.
+VOTE: combat2-tiles-are-legos-10-5 (slices/vote/COMBAT2_TILES_ARE_LEGOS_10_5.png).

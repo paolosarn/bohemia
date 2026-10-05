@@ -158,27 +158,41 @@ def suburb():
 
 
 def strip():
+    """RE-CUT 10/5 (rule 77, TILES ARE LEGOS): the strip mall wears the town's own street at the town's own
+       depth (walk 24, road 25.4 to 34.6, walk 36), so its west and east edges join any town block; each lot
+       stops a metre short of the block's sides (a planter strip, the property line), and the south row is
+       yard, so nothing asphalt runs off an edge that its neighbour cannot meet."""
     plan = yards(51)
     side = F.SIDE / K.PPM
     shops = [(c, 0) for c in range(N)]
     walk_band(plan, 12.0, 12.0 + 2.4, 52)                                # the store-front walk is wider
-    lot = road_band(plan, 12.0 + 2.4, 46.0, 53)
+    lot = road_band(plan, 12.0 + 2.4, 24.0, 53)
+    lot2 = road_band(plan, 37.0, 58.0, 57)
+    keep = mask(); kd = ImageDraw.Draw(keep)                             # the lots stop a metre short of the sides
+    kd.rectangle([M(1.0), M(12.0 + 2.4), BP - M(1.0), M(24.0)], fill=255); kd.rectangle([M(1.0), M(37.0), BP - M(1.0), M(58.0)], fill=255)
+    yd = yards(58)
+    edge = Image.eval(keep, lambda v: 255 - v); ed = ImageDraw.Draw(edge)
+    ed.rectangle([0, 0, BP, M(12.0 + 2.4)], fill=0); ed.rectangle([0, M(24.0), BP, M(37.0)], fill=0)
+    plan.paste(yd, (0, 0), edge)
+    lot = Image.fromarray(((np.array(lot) > 127) & (np.array(keep) > 127)).astype('uint8') * 255)
+    lot2 = Image.fromarray(((np.array(lot2) > 127) & (np.array(keep) > 127)).astype('uint8') * 255)
     d = ImageDraw.Draw(plan); r = R(54)
-    for row_y in (18.0, 30.0):                                            # two rows of stalls, nose to nose
-        for k in range(int(60 / 2.7)):
+    for row_y, deep in ((14.4, 5.5), (37.0, 5.5), (43.1, 5.5)):          # rows of stalls, nose to nose in the back lot
+        for k in range(1, int(58 / 2.7)):
             x = M(k * 2.7)
-            d.rectangle([x, M(row_y), x + M(0.12), M(row_y + 5.5)], fill=C[5])
-            d.rectangle([x, M(row_y + 5.5 + 0.6), x + M(0.12), M(row_y + 11.6)], fill=C[5])
-        d.rectangle([0, M(row_y + 5.5), BP, M(row_y + 5.5) + M(0.12)], fill=C[4])
+            d.rectangle([x, M(row_y), x + M(0.12), M(row_y + deep)], fill=C[5])
+    d.rectangle([M(1.0), M(42.5), BP - M(1.0), M(42.5) + M(0.12)], fill=C[4])
     for x_m in (13.0, 31.0, 49.0):                                        # the light-pole bases, dark
-        d.ellipse([M(x_m), M(23.7), M(x_m + 0.7), M(24.2)], fill=C[3]); d.ellipse([M(x_m), M(35.7), M(x_m + 0.7), M(36.2)], fill=C[3])
-    walk_band(plan, 46.0, 46.0 + side, 55)
-    road = road_band(plan, 46.0 + side, 60.0, 56, lines=[(53.5, False, C[5])])
-    board = finish(plan, [(lot, C[2], 0.15), (road, C[2], 0.15)], shops, 61)
-    pieces = [dict(piece='car_lane', x_m=6.0, y_m=19.5), dict(piece='car_kerb', x_m=22.0, y_m=24.5),
-              dict(piece='car_drive', x_m=41.5, y_m=18.5), dict(piece='car_lane', x_m=33.0, y_m=37.0),
-              dict(piece='car_kerb', x_m=9.0, y_m=41.0), dict(piece='wall', x_m=50.0, y_m=40.0),
-              dict(piece='wall_broken', x_m=27.0, y_m=29.0)]
+        d.ellipse([M(x_m), M(23.3), M(x_m + 0.7), M(23.8)], fill=C[3]); d.ellipse([M(x_m), M(37.2), M(x_m + 0.7), M(37.7)], fill=C[3])
+    walk_band(plan, 24.0, 24.0 + side, 55); walk_band(plan, 36.0 - side, 36.0, 59)
+    road = road_band(plan, 24.0 + side, 36.0 - side, 56, lines=[(30.0, False, C[5])])
+    d.rectangle([0, M(24.0 + side) - 3, BP, M(24.0 + side)], fill=C[5]); d.rectangle([0, M(36.0 - side), BP, M(36.0 - side) + 3], fill=C[5])
+    lots = Image.fromarray(((np.array(lot) > 127) | (np.array(lot2) > 127)).astype('uint8') * 255)
+    board = finish(plan, [(lots, C[2], 0.15), (road, C[2], 0.15)], shops, 61)
+    pieces = [dict(piece='car_lane', x_m=6.0, y_m=17.0), dict(piece='car_kerb', x_m=22.0, y_m=27.0),
+              dict(piece='car_drive', x_m=41.5, y_m=39.5), dict(piece='car_lane', x_m=33.0, y_m=45.5),
+              dict(piece='car_kerb', x_m=9.0, y_m=52.0), dict(piece='wall', x_m=50.0, y_m=55.0),
+              dict(piece='wall_broken', x_m=27.0, y_m=50.0)]
     grid = terrain([('height', set(shops[1:2]), 0)])                     # one roof has the ladder
     for c in range(N):
         if (c, 0) != (1, 0): grid[0][c] = 'blocked'                        # the other stores are walls: no door in a fight

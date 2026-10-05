@@ -8591,6 +8591,11 @@ GATES = [
      "refuses rather than quietly running the wrong set. Every mutation bites: swallow the "
      "unrun exit code (A6), restore the 1800s cap (A1), kill the child instead of the group "
      "(A11), drop a gate from a shard (A12), overlap the shards (A13)", False),
+    ('TILES ARE LEGOS', ['python3', 'gates/tiles_are_legos_gate.py'],
+     "rule 77 (PAOLO 10/5: 'the tiles aren't speaking to each other... conjoin easily like Legos'): every "
+     "fight block's four edges are read from its picture (road, curb, yard, desert, water, and the lines "
+     "that cross); every seam on every board and its apron must agree; the freeway and street boards are "
+     "clean, the rest ratcheted down; the edge data file is true; the gate proves it bites (COMBAT TWO)", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

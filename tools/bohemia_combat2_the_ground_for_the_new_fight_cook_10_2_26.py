@@ -63,6 +63,7 @@ H7, R5, R4, B, F, K, CV = S8.H7, S8.R5, S8.R4, S8.B, S8.F, S8.K, S8.CV
 MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')
 BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')   # round fourteen: many more building types
 FL = importlib.import_module('bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26')   # round fifteen: his NO, re-cut   # round eleven: the plan varies, not just the dirt
+L = importlib.import_module('bohemia_combat2_tiles_are_legos_cook_10_5_26')   # round twenty-two (rule 77): tiles are legos
 os.chdir(REPO)
 
 OUT_DIR = 'slices/fight_ground'
@@ -90,7 +91,7 @@ def stem_through(block):
        it south as a north-south street to that block's own street (rows 0-1, column 2)."""
     board, pieces, surf, grid = block[:4]
     for r in (0, 1):
-        board.paste(F.street_small(15 + 2 * r, ns=True), (2 * PX, r * PY)); grid[r][2] = 'flat'
+        board.paste(F.street_small(19 + 2 * r, ns=True), (2 * PX, r * PY)); grid[r][2] = 'flat'
     pieces = [p for p in pieces if not (24 <= p['x_m'] < 36 and p['y_m'] < 24)]
     return (board, pieces, surf, grid) + tuple(block[4:])
 
@@ -112,7 +113,18 @@ MAKERS = {
     'freewayo': lambda: FL.freeway2(1213, overpass=True),
     'shore': lambda: R5.shore(),
     'landfill': lambda: FL.landfill2(1301),
+    'scrubroad': lambda: scrub_road(),
 }
+
+
+def scrub_road():
+    """ROUND TWENTY-TWO (rule 77): the overpass's street runs on south into the desert as the same street
+       (the corner blocks' tile at column 2), so the freeway's bridge lands on a road, not on dirt."""
+    board, pieces, surf, grid = R4.scrub()[:4]
+    for r in range(N):
+        board.paste(F.street_small(19 + 2 * r, ns=True), (2 * PX, r * PY)); grid[r][2] = 'flat'
+    pieces = [p for p in pieces if not (20 <= p['x_m'] < 40)]
+    return board, pieces, surf, grid
 
 
 def wash_terrain(b):
@@ -128,7 +140,7 @@ def wash_terrain(b):
 import random
 # ROUND ELEVEN (sweep L): every board is SEEDED from a palette of blocks per row, so the plan changes
 # across the width and down the board; no block sits beside or above its own twin.
-HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'cornerw.0', 'lots.0']
+HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'corner.2', 'cornerw.0', 'cornerw.1', 'lots.0']
 TOWN = HOUSES + ['main.0', 'main.1', 'works.0']            # round fourteen: main street and the works mix into town boards
 PALETTES = {
     'suburb':   [HOUSES, HOUSES + ['main.0'], HOUSES],
@@ -201,22 +213,88 @@ BOARDS['desert'] = [['scrub.2', 'wash.0', 'scrub.1', 'scrub.0'], ['scrub.0', 'wa
 BOARDS['shore'] = [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1'], ['scrub.2', 'wash.1', 'scrub.1', 'wash.0']]
 START_ROWS = (4, 9)
 
+# ROUND TWENTY-TWO (rule 77, TILES ARE LEGOS): the boards above are the fallback. Every board is now laid by
+# L.solve from these palettes: a block goes in a cell only where its four typed edges meet its neighbours'.
+SCRUBS = ['scrub.0', 'scrub.1', 'scrub.2']
+LEGO = {
+    'suburb':   dict(pal=[HOUSES, HOUSES + ['main.0', 'works.0'], HOUSES]),
+    'culdesac': dict(pal=[[['culdesac.0', 'culdesac.1']] * 4, HOUSES + ['suburb_stem.0', 'suburb_stem.1'], HOUSES + ['main.1']],
+                     cells={(0, 1): HOUSES[:4] + ['culdesac.0', 'culdesac.1'], (0, 3): HOUSES[:4] + ['culdesac.0', 'culdesac.1']}),
+    'strip':    dict(pal=[['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN]),
+    'ruin':     dict(pal=[['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']]),
+    'freeway':  dict(pal=[HOUSES, ['freeway.0'], SCRUBS + ['scrubroad.0', 'scrubroad.1']],
+                     fixed={(1, 0): 'freeway.0', (1, 1): 'freewayo.0', (1, 2): 'freeway.0', (1, 3): 'freewayo.0'}),
+    'landfill': dict(pal=[['landfill.0', 'landfill.1'], ['landfill.1', 'landfill.0', 'scrub.0', 'scrub.1'], ['scrub.2', 'landfill.0', 'landfill.1', 'scrub.0']]),
+}
+
+
+def lego_layouts(edges):
+    """The desert and the shore keep their hand-laid plans (round sixteen): a wash runs the whole depth of its
+       column, which the edge reader cannot see (the wash bed and the scrub are both desert soil to it)."""
+    out = {k: v for k, v in BOARDS.items() if k not in LEGO}
+    for name, spec in LEGO.items():
+        pal = [list(map(list, row)) if row and isinstance(row[0], list) else [list(row)] * BW for row in spec['pal']]
+        for (r, c), opts in spec.get('cells', {}).items(): pal[r][c] = list(opts)
+        lay = None
+        for k in range(40):                                             # seeded; a different seed if one dead-ends
+            lay = L.solve(pal, edges, random.Random('bohemia-lego-%s-%d' % (name, k)), fixed=spec.get('fixed'),
+                          twins=not name.startswith(('freeway',)))
+            if lay: break
+        if not lay:
+            print('  LEGO: no matching layout for %s, keeping the seeded one (the gate names its seams)' % name)
+            lay = BOARDS[name]
+        out[name] = lay
+        print('  lego', name, lay)
+    return out
+
+
+CANON = []
+
 
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
-    need = sorted({b for lay in BOARDS.values() for row in lay for b in row})
+    global BOARDS
+    cand = set()
+    for spec in LEGO.values():
+        for row in spec['pal']:
+            for x in row: cand.update(x if isinstance(x, list) else [x])
+        for v in spec.get('cells', {}).values(): cand.update(v)
+        cand.update(spec.get('fixed', {}).values())
+    need = sorted(cand | {b for lay in BOARDS.values() for row in lay for b in row})
     cover = {k: fn() for k, fn in CV.PIECES}
     blocks = {}
+    variant(0)
+    cplan = R4.yards(424242); croad = MX._street(cplan, 424243)          # THE CANONICAL TOWN BLOCK: the studs are cut from it
+    cboard = cplan.resize((B.BP, PY * N), Image.NEAREST); B.faces(cboard, croad.resize((B.BP, PY * N), Image.NEAREST), B.C[2], 0.15)
+    CANON[:] = [cboard, F.street_small(13, ns=True), R4.scrub()[0]]   # and the canonical desert (round twenty-two)
+    # ONE CROSS STREET (round twenty-two, rule 77): every cross-street tile is made once, here, outside the
+    # variants, so a cross street's worn dashes are the same in every block it runs through and its centre
+    # line never stops at a block's edge (rows 0 to 4 use seeds 19 to 27, each of which keeps its dash).
+    if not hasattr(F, '_lego_street_small'):
+        F._lego_street_small = F.street_small
+        cache = {(sd, False, True): F.street_small(sd, ns=True) for sd in range(19, 28, 2)}
+        cache[(13, True, False)] = F.street_small(13, crossing=True)
+        def street_small(seed=11, crossing=False, ns=False):
+            k = (seed, crossing, ns)
+            return cache[k].copy() if k in cache else F._lego_street_small(seed, crossing, ns)
+        F.street_small = street_small
     for bid in need:
         kind, v = bid.split('.')
         variant(int(v) * 1009)
         res = MAKERS[kind]()
         board, pieces, surf, grid = res[:4]
+        if kind in L.TOWN_KINDS or kind in L.CROSS_KINDS: board = L.stud(board, kind, CANON[0], CANON[1], (PX, PY), CANON[2])   # round twenty-two: the studs
         B.guard({bid: (board, pieces, surf)}, cover)
         blocks[bid] = (board, pieces, grid)
-        board.save('%s/block_%s.png' % (OUT_DIR, bid.replace('.', '_')), optimize=True)
         print('  block', bid)
     variant(0)
+    edges = {bid: L.edges_of_img(b[0], (PX, PY)) for bid, b in blocks.items()}
+    BOARDS = lego_layouts(edges)
+    used = sorted({b for lay in BOARDS.values() for row in lay for b in row})
+    for f in os.listdir(OUT_DIR):
+        if f.startswith('block_'): os.remove(os.path.join(OUT_DIR, f))   # only the blocks the boards use ship
+    blocks = {bid: blocks[bid] for bid in used}
+    for bid, (board, _, _) in blocks.items(): board.save('%s/block_%s.png' % (OUT_DIR, bid.replace('.', '_')), optimize=True)
     for k, (im, meta) in cover.items(): im.save('%s/cover_%s.png' % (OUT_DIR, k))
     extra = {}
     for i in range(len(B.DROCK)): extra['rock_%d' % i] = B.rock_piece(i)
@@ -269,7 +347,7 @@ def main():
             for bc, bid in enumerate(row):
                 k = bid.split('.')[0]
                 if k in ('subs', 'corner', 'cornerw', 'lots', 'ruin', 'suburb_stem', 'strip'):
-                    ys = (14.4, 46.0) if k == 'strip' else (24.4, 36.0)
+                    ys = (24.4, 36.0)                                      # round twenty-two: the strip wears the town's street
                     for x in range(5, 60, 12):
                         for y in ys:
                             lights.append(dict(kind='lamp', src='light_lamp_house_side.png' if y < 30 else 'light_lamp_your_side.png',
