@@ -5148,7 +5148,8 @@
     "how": "image",
     "src": "vote/UI_EVERY_ITEM_IS_AN_ICON_10_5.png"
    }
-  }
+  },
+  {"id": "combat-the-enemy-plays-its-part-10-5", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/5", "title": "EVERY BRIGAND FIGHTS LIKE HIS BATTLE BROTHERS SELF", "why": "Thugs rush the nearest man, a raider with a pike waits for his line and then hits from two tiles, the marksman shoots the shieldless rookie and backs off, and the leader hangs back keeping his men brave, each from its wiki page. Play this clip or any fight against a mixed band and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ENEMY_PLAYS_ITS_PART_10_5.gif"}, "draft": true}
  ],
  "verdicts": [
   {

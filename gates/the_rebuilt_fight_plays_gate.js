@@ -589,7 +589,62 @@ async function weaponCards() {
   await d.close();
 }
 
+/* THE ENEMY PLAYS ITS PART (rule 63b; COMBAT [the enemy plays its part]): each kind alone (or with the men it needs) on
+   a flat board, four of yours, its first decisions read off the brain: the thug rushes the nearest; the marksman stands,
+   shoots the softest man (the wiki: 'prefer to shoot at shieldless units or rookies') and never steps in; the raider with
+   a pike waits rather than lead his thugs, then strikes the man his friends hold; the leader is still until the lines meet
+   and stays behind his front man, and his men inside five tiles are led (Captain). And the hit sheet (GROK_110) is all in
+   rules.json. */
+async function enemyParts() {
+  const LOG = function () { window.__dec = []; const T = FIGHT._t, S = FIGHT.S, orig = FIGHT.aiStep;
+    FIGHT.aiStep = function (u) { const b = { x: u.x, y: u.y }, n0 = S.log.length; const h0 = T.huntField(u), L0 = T.lineOf(u, h0), contact0 = S.contact;
+      const soft = FIGHT.alive('you').filter(f => FIGHT.canStrike(u, f)).map(f => ({ id: f.id, s: T.softness(f) }));
+      const r = orig(u);
+      if (u.side === 'them') { const att = S.log.slice(n0).filter(e => e.id === u.id && e.t === 'attack')[0], moved = b.x !== u.x || b.y !== u.y;
+        if (moved || att) { const tgt = att && FIGHT.byId(att.to);
+          window.__dec.push({ kind: u.kind, moved, att: att && att.to, near0: Math.min(...FIGHT.alive('you').map(f => Math.max(Math.abs(f.x - b.x), Math.abs(f.y - b.y)))),
+            near1: Math.min(...FIGHT.alive('you').map(f => Math.max(Math.abs(f.x - u.x), Math.abs(f.y - u.y)))), front: L0.front, me: h0(u.x, u.y), contact: contact0,
+            soft: soft, held: !!(tgt && S.units.some(f => f.side === 'them' && f !== u && FIGHT.onField(f) && Math.max(Math.abs(f.x - tgt.x), Math.abs(f.y - tgt.y)) === 1)),
+            reach: tgt ? Math.max(Math.abs(tgt.x - u.x), Math.abs(tgt.y - u.y)) : null }); } }
+      return r; }; };
+  const run = async (party, pike) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,auto:true,cap:4,days:30,party:' + JSON.stringify(party) + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT._t && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.evaluate(LOG);
+    if (pike) await d.page.evaluate(() => { const r = FIGHT.S.units.find(u => u.kind === 'brigand_raider'); r.weapon = DB.weapons.rows.find(w => w.id === 'pike'); });
+    const t0 = Date.now(); while (Date.now() - t0 < 40000) { if ((await d.page.evaluate(() => window.__dec.length)) >= 12 || await d.page.evaluate(() => FIGHT.S.over)) break; await d.page.waitForTimeout(300); }
+    const r = { dec: await d.page.evaluate(() => window.__dec), err: d.errs[0] };
+    if (party.indexOf('brigand_leader') >= 0) r.led = await d.page.evaluate(() => { const S = FIGHT.S, L = S.units.find(u => u.kind === 'brigand_leader'), T = FIGHT._t;
+      return S.units.filter(u => u.side === 'them' && u !== L && FIGHT.onField(u)).map(u => ({ d: Math.max(Math.abs(u.x - L.x), Math.abs(u.y - L.y)), led: T.ledBy(u) })); });
+    await d.close(); return r; };
+  const of = (r, k) => r.dec.filter(x => x.kind === k).slice(0, 3);
+  const thug = of(await run(['brigand_thug']), 'brigand_thug');
+  leg(thug.length && thug[0].moved && thug[0].near1 < thug[0].near0 && thug.some(x => x.att), '*** THE THUG RUSHES THE NEAREST *** (the wiki: brigands are too undisciplined to keep formation): his first move closes on the nearest man, then he swings',
+    thug.map(x => (x.moved ? 'move ' + x.near0 + '->' + x.near1 : '') + (x.att ? ' hit' : '')).join(', '));
+  const mk = of(await run(['brigand_marksman']), 'brigand_marksman'), shots = mk.filter(x => x.att);
+  const softest = shots.every(x => { const m = Math.max(...x.soft.map(q => q.s)); return x.soft.filter(q => q.id === x.att)[0].s === m; });
+  leg(shots.length && softest && mk.every(x => !x.moved || x.near1 >= x.near0), '*** THE MARKSMAN STANDS AND SHOOTS THE SOFTEST MAN *** (the wiki: \'prefer to shoot at shieldless units or rookies\'): no step toward you, each shot at the softest man he can hit',
+    mk.map(x => (x.moved ? 'step ' + x.near0 + '->' + x.near1 : '') + (x.att ? ' shot ' + x.att + ' (softness ' + x.soft.filter(q => q.id === x.att)[0].s + ' of ' + Math.max(...x.soft.map(q => q.s)) + ')' : '')).join(', '));
+  const rd = of(await run(['brigand_thug', 'brigand_thug', 'brigand_raider'], true), 'brigand_raider');
+  const led0 = rd.filter(x => x.moved && !x.att && x.front !== null && x.me < x.front);
+  leg(rd.length && led0.length === 0 && rd.some(x => x.att && x.reach === 2), '*** THE RAIDER WITH A PIKE WAITS, THEN STRIKES FROM TWO TILES *** (the wiki: \'they wait to not get ahead of their melee allies\')',
+    rd.map(x => (x.moved ? 'move to ' + x.me + ' (front ' + x.front + ')' : '') + (x.att ? ' hit at ' + x.reach + (x.held ? ' a held man' : '') : '')).join(', '));
+  const ldr = await run(['brigand_thug', 'brigand_thug', 'brigand_thug', 'brigand_leader']), L = of(ldr, 'brigand_leader');
+  /* a step up to his front line counts only when his very next act is the swing it was for */
+  leg(L.length && L.every(x => x.contact || !x.moved) && L.every((x, i) => !x.moved || x.att || x.front === null || x.me > x.front || (L[i + 1] && L[i + 1].att && !L[i + 1].moved)), '*** THE LEADER DOES NOT HURRY *** (the wiki: \'spawns in the very back and usually does not hurry\'): still until the lines meet, then a step behind his front man unless he steps up to swing',
+    L.map(x => (x.moved ? 'move to ' + x.me + ' (front ' + x.front + ')' : 'still') + (x.att ? ' hit' : '')).join(', ') || 'still the whole time');
+  leg(ldr.led && ldr.led.every(x => x.led === (x.d <= 5)), 'and his men within five tiles are led (Captain: +15% resolve, range 5)', ldr.led.map(x => x.d + (x.led ? ' led' : ' not')).join(', '));
+  const RL = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8')), PK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/perks.json'), 'utf8')).rows;
+  const hc = RL.hit_chance, se = (PK.filter(r => r.id === 'shield_expert')[0] || {}).numbers || {};
+  const sheet = [['skill minus defence', /skill - defense/.test(hc.main_formula.value)], ['defence over 50 counts half', hc.defense_soft_cap.value.threshold === 50 && hc.defense_soft_cap.value.over_threshold_multiplier === 0.5],
+    ['floor 5, ceiling 95', hc.cap.value.min === 5 && hc.cap.value.max === 95], ['surround 5 a man after the first', hc.surround.per_extra_adjacent.value === 5],
+    ['height 10 a level', hc.height.higher_attacker_bonus.value === 10 && hc.height.lower_attacker_penalty.value === -10], ['head 25', RL.head_and_critical.base_head_chance_pct.value === 25],
+    ['shield expert x1.25', se.shield_defense_bonus_increase_pct === 25]];
+  leg(sheet.every(x => x[1]) && [thug, mk, rd, L].every(() => true), 'Grok\'s hit sheet (GROK_110) is all in rules.json, each from the wiki', sheet.map(x => x[0] + (x[1] ? '' : ' MISSING')).join('; '));
+}
+
 (async () => {
+  await enemyParts();
   await weaponCards();
   await enemyMath();
   await formation();

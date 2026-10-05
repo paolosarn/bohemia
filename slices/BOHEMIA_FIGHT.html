@@ -425,6 +425,7 @@ const FIGHT = (function () {
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
+      captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
       armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
   }
 
@@ -535,6 +536,7 @@ const FIGHT = (function () {
     const G = DB.ground;
     S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
+    S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
     S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
     if (opts.board && G.boards[opts.board]) {
       const B = G.boards[opts.board];
@@ -542,6 +544,7 @@ const FIGHT = (function () {
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
     }
+    if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
     S.board = S.boardDef.name;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
@@ -1021,7 +1024,8 @@ const FIGHT = (function () {
   function check(u, kind, mod, quiet) {
     if (u.resolve === null || u.resolve === undefined) return true;
     const nl = PK(u, 'nine_lives');
-    let c = (u.resolve + (nl && u.nineUp ? nl.resolve_bonus : 0)) * moraleMult(u, 'resolve') * loneMult(u) + mod;
+    const cap0 = R('ours.captain_aura'), led = ledBy(u);
+    let c = (u.resolve + (nl && u.nineUp ? nl.resolve_bonus : 0)) * moraleMult(u, 'resolve') * loneMult(u) * (led ? 1 + cap0.resolve_pct / 100 : 1) + mod;
     if (kind === 'neg') {
       c += R('morale.check_modifiers.allies_adjacent') * friends(u).filter(function (f) { return dist(f, u) === 1; }).length;
       c += R('morale.check_modifiers.enemies_adjacent') * foes(u).filter(function (f) { return dist(f, u) === 1; }).length;
@@ -1204,10 +1208,15 @@ const FIGHT = (function () {
       if (!canStrike(u, t) || (A.sees_only && !sideSees(u.side, t))) return;   /* 70b: never a man his side cannot see */
       let s = expected(u, t);
       if (A.spread_attacks) s /= 1 + ((S.aimed || {})[u.side + t.id] || 0);  /* 70b: not every swing on the weakest */
+      if (A.prefers_soft && isRanged(u.weapon)) s *= 1 + softness(t);       /* the marksman: the shieldless, the rookie, the bare head */
       if (s > bs) { bs = s; best = t; }
     });
     return best;
   }
+  /* a man inside a standing captain's aura (ours.captain_aura) */
+  function ledBy(u) { const c = R('ours.captain_aura'); return friends(u).some(function (f) { return f !== u && f.captain && onField(f) && f.morale !== 'Fleeing' && dist(f, u) <= c.range_tiles; }); }
+  /* how soft a man looks down a sight (ai.json backline.soft): no car door, a rookie, a bare head */
+  function softness(t) { return (t.shield ? 0 : 1) + ((t.level || 1) <= 1 ? 1 : 0) + (t.armH > 0 ? 0 : 1); }
   /* 70b, the crew's formation: how far toward the fight the middle of his own line stands, and his front melee man */
   function lineOf(u, hunt) {
     const mates = friends(u).filter(function (f) { return f !== u && onField(f) && f.morale !== 'Fleeing'; });
@@ -1291,7 +1300,7 @@ const FIGHT = (function () {
     const avoid = R('ai.tactics.avoid_surround');
     let best = null, bs = -Infinity;
     const hunt = huntField(u);
-    const line = (A.keep_formation || A.shield_the_backline) ? lineOf(u, hunt) : null;
+    const line = (A.keep_formation || A.shield_the_backline || A.long_weapon_waits || A.stays_back) ? lineOf(u, hunt) : null;
     const depth = R('ours.formation_depth_lines');
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
@@ -1302,6 +1311,7 @@ const FIGHT = (function () {
       const tgts = foes(u).filter(function (t2) { return inRange(u, t2) && (!A.sees_only || sideSees(u.side, t2)); });
       u.x = ox; u.y = oy;
       let sc;
+      const canHit = tgts.length && left >= strikeAP;
       if (tgts.length && (left >= strikeAP || A.rush_even_without_ap_to_strike)) {
         sc = R('hit_chance.cap').max + left;
         if (avoid) {
@@ -1320,6 +1330,10 @@ const FIGHT = (function () {
         }
       }
       if (A.high_ground && sc > -Infinity) sc += heightGain(x, y, u, ranged);
+      /* the raider with a long weapon, nobody in reach: he waits rather than lead his one-tile men */
+      if (A.long_weapon_waits && !canHit && (w.range_max || 1) > 1 && line && line.front !== null && hunt(x, y) < line.front) sc = -Infinity;
+      /* the leader: still until the lines meet, then a step behind his own front man unless he can strike from there now */
+      if (A.stays_back && (!S.contact || (!canHit && line && line.front !== null && hunt(x, y) <= line.front))) sc = -Infinity;
       if (A.shield_the_backline && ranged && line && line.front !== null && hunt(x, y) <= line.front && hunt(x, y) < hunt(u.x, u.y)) sc = -Infinity;
       if (sc > bs) { bs = sc; best = { x: x, y: y }; }
     });
@@ -1339,7 +1353,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
