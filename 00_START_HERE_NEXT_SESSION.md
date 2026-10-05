@@ -11166,6 +11166,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/5a LATEST -- [the start screen] BUILT, about 4 of 5 (rule 66). TAB: the DEMO opens on it.
+Shell __THE_START_SCREEN__ (inside #front; BOH_TITLE {show, hide, act, saved}); slices/start/title_valley_{wide,tall}.webp; the map's BOHEMIA_START pays once per game by the purse ledger; tools/bohemia_through_the_title.js (NEW GAME / CONTINUE for checks).
+GATE THE START SCREEN 12/0. FOR UI [the start screen's look]: dress #title (.it plates, .logo, .osd, .notes, .sheet); keep the menu clear of #fronttap (place()) and keep it inside #front. [PENDING COMBAT] bohemia_screen_class.js reads BOH_SETTINGS.screen for SETTINGS' screen override (62), then UI adds the row and this row ships. NEXT: [you can flee] (68).
 RUN (run-eak241): 10/4d LATEST -- [one song] SHIPPED (rules 64, 64a). TAB: the DEMO, any fight and home; the VOTE tab plays the recording.
 Shell __ONE_SONG__: nfOpen posts bohemiaFactionPicked 0 after SOUNDS' FIGHTMUS.enter (the fight's own song, once); the tab rule spares PANEL city (RUN) while the street or the fight's hand-back owns the music; startEncounter (the old door) mutes the old frame's loop when MUS is already playing.
 GATE THE ONE SONG 8/0. SOUNDS holds [one song and the volumes] (volumes, the new fight's sounds): one bus is the fence, do not add a second music path. NEXT: [the start screen] (66), [you can flee] (68), then [screen fit], [the reel], [zoom range].

@@ -119,7 +119,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 var B = {
   hall:   {spr:'chapel',      gx:0, gy:0, name:'THE HALL',   short:'who wants work'},
   board:  {spr:'cityhall',    gx:1, gy:0, name:'THE BOARD',  short:'contracts'},
-  clinic: {spr:'medical',     gx:2, gy:0, name:'THE CLINIC', short:'cuts wound days'},
+  clinic: {spr:'medical',     gx:2, gy:0, name:'THE CLINIC', short:'heals faster'},
   stall:  {spr:'swapmeet',    gx:0, gy:1, name:'THE STALL',  short:'buy, sell'},
   barber: {spr:'commercial',  gx:2, gy:1, name:'THE BARBER', short:'1 battery'},
   train:  {spr:'firestation', gx:0, gy:2, name:'THE YARD',   short:'swap a mastery'},
@@ -438,7 +438,7 @@ function openB(k, line){
     var hurt = (S.wounded||[]).length;
     body.appendChild(speak(k, line || (hurt ? 'Leave them with me. One battery and a long wound heals in half the days.'
       : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
-    acts.appendChild(act('Pay to cut the wound days', '1 battery', function(){
+    acts.appendChild(act('Heal faster', '1 battery', function(){
       P.debit(S.purse,'electricity',1,'clinic:wound',S.place.name,S.day);
       post('clinic',{who:S.wounded.shift()}); shelf(); openB('clinic','Half the days. Bring them back in one piece next time.');
     }, !hurt || bats()<1));

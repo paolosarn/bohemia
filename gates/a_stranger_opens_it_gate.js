@@ -72,6 +72,7 @@
    fifth time in two weeks on this lane. So this gate presses ONE direction.
    ========================================================================== */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const path = require('path');
 const fs = require('fs');
 const http = require('http');
@@ -158,6 +159,7 @@ const GROUND_FLOOR = 2000;
     /* ---- 1. THE DOOR ---------------------------------------------------- */
     const t0 = Date.now();
     await page.goto(DEMO, { waitUntil: 'load', timeout: 240000 });
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets this door as before */
     const loadMs = Date.now() - t0;
     await SETTLE(page, 3000);
     ok('the demo opens on a phone in ' + loadMs + 'ms (ceiling ' + LOAD_CEIL_MS + ')',

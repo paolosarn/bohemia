@@ -34,6 +34,7 @@
        through the handshake; the door was lying by omission, not by action.
    ========================================================================== */
 'use strict';
+const { throughTheTitle, continueThroughTitle, doorLineInPage } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
@@ -102,6 +103,7 @@ for (const f of ['BOHEMIA_ALPHA_0_9.html', 'BOHEMIA_DEMO.html']) {
 
     /* ---- A STRANGER WITH NO RUN ---------------------------------------- */
     await page.goto(url, { waitUntil: 'load', timeout: 240000 });
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets this door as before */
     await SETTLE(page, 3000);
     const cold = await page.evaluate(() => ({
       tap: (document.getElementById('fronttap') || {}).textContent,
@@ -124,7 +126,8 @@ for (const f of ['BOHEMIA_ALPHA_0_9.html', 'BOHEMIA_DEMO.html']) {
        of this gate report a clock that had "reset". Wait for the restore to
        have happened, or for the shell to have said there is nothing to restore. */
     const enter = async (expectRestore) => {
-      await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
+      if (!(await continueThroughTitle(page)))   /* __THE_START_SCREEN__: a returning player presses CONTINUE */
+        await page.tap('#front').catch(async () => { await page.click('#front').catch(() => { }); });
       await SETTLE(page, 90000, async () => {
         const f = page.frames().find(x => x.name() === 'cityFrame');
         if (!f) return false;
@@ -169,9 +172,8 @@ for (const f of ['BOHEMIA_ALPHA_0_9.html', 'BOHEMIA_DEMO.html']) {
     /* THE WAY A PERSON ACTUALLY COMES BACK: close it and open the link again. */
     await page.goto(url, { waitUntil: 'load', timeout: 240000 });
     await SETTLE(page, 3000);
-    const back = await page.evaluate(() => ({
-      tap: (document.getElementById('fronttap') || {}).textContent
-    }));
+    /* __THE_START_SCREEN__ (rule 66): coming back, the run is offered by the title's CONTINUE now */
+    const back = { tap: await page.evaluate(doorLineInPage) };
     ok('*** COMING BACK, THE DOOR SAYS THE RUN IS WAITING *** (' + back.tap + ')',
        /CONTINUE/.test(back.tap));
     ok('and it names the day', /DAY 1/.test(back.tap));
@@ -206,9 +208,9 @@ for (const f of ['BOHEMIA_ALPHA_0_9.html', 'BOHEMIA_DEMO.html']) {
       let save = null;
       try { const v = CITYSAVE.load(); if (v && v.data) save = { day: v.data.day, min: v.data.min }; }
       catch (e) { }
-      return { up: !!(st && st.display !== 'none' && +st.opacity > 0),
-               tap: (document.getElementById('fronttap') || {}).textContent, save: save };
+      return { up: !!(st && st.display !== 'none' && +st.opacity > 0), save: save };
     });
+    after.tap = await page.evaluate(doorLineInPage);   /* __THE_START_SCREEN__: QUIT brings the title back with the door */
     const said = after.save
       ? 'CONTINUE · DAY ' + after.save.day + ' · '
         + ('0' + Math.floor(after.save.min / 60) % 24).slice(-2) + ':'

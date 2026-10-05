@@ -1918,14 +1918,14 @@ function showOver(result) {
   sfx('clear');
   const S = FIGHT.S, o = document.getElementById('over');
   const secs = Math.round(UI.beats * 60 / R('ours.beat_bpm'));
-  document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW BROKE' : 'YOUR CREW IS DOWN';
+  document.getElementById('oh').textContent = result === 'won' ? 'THE ROAD CREW RAN' : 'YOUR CREW IS DOWN';
   const theirs = S.units.filter(function (v) { return v.side === 'them'; });
   let html = '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
     const lv0 = v.level || 1, base = FIGHT.xpAt(lv0), gained = Math.round(v.xpGained || 0), lv1 = FIGHT.levelFor(base + gained);
-    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + 'D') : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
+    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + ' DAYS') : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
     html += '<tr><td>' + v.name + '</td><td>' + (v.kills || 0) + '</td><td>' + (v.dealt || 0) + '</td><td>' + (v.taken || 0) + '</td><td>+' + gained + '</td><td>' + state + '</td></tr>';
   });
   html += '</table>';

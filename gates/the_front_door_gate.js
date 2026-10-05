@@ -23,6 +23,7 @@
    node gates/the_front_door_gate.js
    ========================================================================== */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
@@ -34,6 +35,7 @@ const done = () => { console.log('THE FRONT DOOR: ' + pass + ' passed, ' + fail 
 (async () => {
   let door = null, d;
   const beforeTap = async (page) => {
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: NEW GAME first, then the door's picks */
     const look = () => page.evaluate(() => {
       const bs = [...document.querySelectorAll('#newco button')].filter(b => getComputedStyle(b).display !== 'none');
       const on = k => { const b = document.querySelector('#newco button.on[data-k="' + k + '"]'); return b ? b.getAttribute('data-v') : null; };

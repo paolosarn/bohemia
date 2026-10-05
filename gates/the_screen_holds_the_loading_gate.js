@@ -37,6 +37,7 @@
    node gates/the_screen_holds_the_loading_gate.js
    ========================================================================== */
 'use strict';
+const { throughTheTitle } = require(require('path').join(__dirname, '..', 'tools/bohemia_through_the_title.js'));   /* rule 66: the title is in front of the door now */
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
@@ -112,6 +113,7 @@ function serve() {
     const t0 = Date.now();
     await page.goto('http://127.0.0.1:' + srv.address().port + '/slices/BOHEMIA_DEMO.html',
       { waitUntil: 'commit', timeout: 300000 });
+    await throughTheTitle(page);   /* __THE_START_SCREEN__: a stranger presses NEW GAME first, then meets this door as before */
 
     const look = () => page.evaluate(() => ({
       up: (function () { const f = document.getElementById('front');

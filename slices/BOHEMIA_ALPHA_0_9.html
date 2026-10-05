@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/5a - YOUR FORMATION</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/5b - THE START SCREEN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12042,6 +12042,7 @@ function combatMsgIn(d){
     return true;
   }
   if(d.bohemiaCityState!==undefined){
+    if(window.__BOH_FORGET) return true;   /* __THE_START_SCREEN__: NEW GAME killed the save; the page is reloading, and its last snapshot must not write the old game back */
     CITYSAVE.save(d.bohemiaCityState);
     /* AND THE MUSIC HEARS A PAYDAY (8/20). This snapshot already carries the
        purse ledger, so being paid is visible from here without the city world
@@ -12657,8 +12658,8 @@ var BOH_START = (function(){
     { id:'rebuild',  bb:'Rebuilding a Company', name:'THE CREW THAT IS LEFT', d:1, start:6, crew:0, pay:0, line:'Three of you, a debt paid off, and a name to fix.' },
     { id:'newcrew',  bb:'A New Company',        name:'A NEW CREW',            d:1, start:5, crew:0, pay:0, line:'Three of you and a battery each. Start clean.' },
     { id:'south',    bb:'Southern Mercenaries', name:'UP FROM HENDERSON',     d:2, start:5, crew:0, pay:0, line:'You came north on the 95 with three guns and no friends.' },
-    { id:'truck',    bb:'Trading Caravan',      name:'THE WATER TRUCK',       d:1, start:7, crew:0, pay:1, line:'Two drivers and a tank. People pay more to the truck.' },
-    { id:'watch',    bb:'Peasant Militia',      name:'THE BLOCK WATCH',       d:2, start:3, crew:-1,pay:0, line:'Ten neighbours with pipes. Nobody brings a small crew at you.' },
+    { id:'truck',    bb:'Trading Caravan',      name:'THE WATER TRUCK',       d:1, start:7, crew:0, pay:1, line:'Two drivers and a tank. The water gets more respect than you do.' },
+    { id:'watch',    bb:'Peasant Militia',      name:'THE BLOCK WATCH',       d:2, start:3, crew:-1,pay:0, line:'Ten neighbours with pipes. Nobody brings a small crew against you.' },
     { id:'scav',     bb:'Band of Poachers',     name:'THE SCAVENGERS',        d:2, start:4, crew:0, pay:0, line:'You know every gutted store from here to the dam.' },
     { id:'promise',  bb:'Oathtakers',           name:'THE PROMISE KEEPERS',   d:3, start:4, crew:0, pay:0, line:'Two of you and a promise you made at a grave.' },
     { id:'desert',   bb:'Deserters',            name:'THE DESERTERS',         d:3, start:4, crew:1, pay:0, line:'You walked off a faction\'s line. They have not forgotten.' },
@@ -12798,6 +12799,224 @@ document.getElementById('front').addEventListener('click',()=>{
   }catch(_e){}
 });
 window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
+/* ===== __THE_START_SCREEN__ (RUN 10/4, [the start screen], rule 66) ==================================
+   PAOLO 10/2: "the UI sucks... there should be a start screen: new game, continue game, settings."
+   MEASURED BEFORE: the demo opened straight onto the loading terminal with the picks laid over it, a
+   grid of flat green boxes (rule 71's 'vibe coded'); a returning player had no way to start over (one
+   save, no wipe anywhere) and no settings until he was already in.
+   NOW, BATTLE BROTHERS' OWN DOOR: the title, then NEW GAME / CONTINUE / SETTINGS.
+   - THE PICTURE IS THE GAME'S OWN CAMERA (rule 23, 'show it from the game's camera'): the valley's far stop,
+     captured from the map at night, graded as what it is in the story, the power authority's last working
+     camera (analog horror at the source, rule 30: a surveillance feed, its clock, its rolling bar). The
+     grade keeps the ground at 0.24 / 0.29 of white (rule 73's floor). His logo, at an integer scale.
+   - NEW GAME: the door's picks (THE FIGHTS, THE SHELVES, WHO YOU WERE, the crew's name) and BEGIN, as before.
+     Over a save it asks once ("THIS ENDS DAY N"), then kills the save slots the way the save engine marks a
+     killed slot (its own DEAD mark, no tombstone, so the next saves count from zero) and reloads fresh.
+   - CONTINUE: only with a save, labelled with its day, clock and crew; straight in through the door's own
+     BEGIN (waits for the valley if it is still loading).
+   - SETTINGS: the game's one settings card, raised over the door; its GAME row (save, quit) is hidden here.
+   - NOTES: the same notes list the game keeps ('bohemia.notes.v1'), written from here too.
+   IT LIVES INSIDE #front, so everything that goes through the door still does: the door's BEGIN is the one
+   way in, a click on #fronttap/#front still enters exactly as before (every driver and gate), and the menu
+   is kept clear of #fronttap so a finger aimed at it never lands on a title button. A tap anywhere else on
+   the title is held, so a stray thumb never skips it. QUIT (the gear) brings the door back and the title
+   with it. */
+(function(){
+  var KEY_NOTES = 'bohemia.notes.v1', KEY_SAVE = 'bohemia_city_save', DEADMARK = '{"bohemia":"DEAD"}', SKIP = 'bohemia.title';
+  var T = window.BOH_TITLE = { shown: 0, newgames: 0, forgets: 0, continues: 0, el: null };
+  function $(id){ return document.getElementById(id); }
+  function css(){
+    if ($('titlecss')) return;
+    var s = document.createElement('style'); s.id = 'titlecss';
+    s.textContent = [
+      '#title{position:absolute;inset:0;z-index:40;background:#040705;overflow:hidden;color:#cfe9c4;font:13px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:1px;-webkit-user-select:none;user-select:none;touch-action:manipulation}',
+      '#title.gone{display:none}',
+      '#title .feed{position:absolute;inset:-5%;background:#06100a url(start/title_valley_wide.webp) center 45%/cover no-repeat;image-rendering:pixelated;image-rendering:crisp-edges;animation:tdrift 70s ease-in-out infinite alternate;will-change:transform}',
+      '@media (orientation:portrait){#title .feed{background-image:url(start/title_valley_tall.webp);background-position:center 40%}}',
+      '@keyframes tdrift{from{transform:scale(1.03) translate(-1.4%,.8%)}to{transform:scale(1.1) translate(1.4%,-1%)}}',
+      '#title .scan{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.26) 0 1px,transparent 1px 3px)}',
+      '#title .roll{position:absolute;left:0;right:0;height:16%;top:-20%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(200,255,190,.07) 45%,rgba(0,0,0,.18) 55%,transparent);animation:troll 9s linear infinite}',
+      '@keyframes troll{from{transform:translateY(0)}to{transform:translateY(780%)}}',
+      '#title .vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 38%,rgba(0,0,0,.62) 100%),linear-gradient(180deg,rgba(0,0,0,.35),transparent 22%,transparent 46%,rgba(2,5,3,.9) 78%,rgba(2,5,3,.97))}',
+      '#title.still .feed,#title.still .roll{animation:none}',
+      '#title .osd{position:absolute;top:max(12px,env(safe-area-inset-top));left:16px;right:16px;display:flex;justify-content:space-between;align-items:flex-start;font-size:11px;letter-spacing:2px;color:#bfe6b0;text-shadow:0 0 6px rgba(120,220,120,.55)}',
+      '#title .rec{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e2483a;box-shadow:0 0 8px #e2483a;margin-right:7px;vertical-align:1px;animation:tblink 1s steps(1) infinite}',
+      '@keyframes tblink{50%{opacity:0}}',
+      '#title .osd .r{text-align:right}',
+      '#title .logo{position:absolute;left:50%;top:24%;transform:translate(-50%,-50%);line-height:0;filter:drop-shadow(0 0 10px rgba(140,230,130,.35)) drop-shadow(0 6px 0 rgba(0,0,0,.55))}',
+      '#title .logo img{image-rendering:pixelated;image-rendering:crisp-edges;display:block}',
+      '#title .menu{position:absolute;left:16px;right:16px;display:flex;flex-direction:column;gap:10px;max-width:420px}',
+      '#title .it{position:relative;display:block;padding:12px 16px 11px;min-height:52px;box-sizing:border-box;cursor:pointer;color:#e3f7d8;',
+      '  background:linear-gradient(180deg,rgba(40,70,46,.92),rgba(14,28,18,.94) 55%,rgba(8,16,10,.96));',
+      '  border:1px solid #0a140c;box-shadow:inset 0 1px 0 rgba(200,255,190,.32),inset 0 -2px 0 rgba(0,0,0,.55),inset 1px 0 0 rgba(200,255,190,.08),0 3px 0 rgba(0,0,0,.6),0 0 0 1px rgba(110,190,110,.18)}',
+      '#title .it b{display:block;font-size:17px;letter-spacing:4px;text-shadow:0 0 8px rgba(150,240,140,.5),0 1px 0 #000}',
+      '#title .it span{display:block;font-size:11px;letter-spacing:1.5px;color:#9cc690;margin-top:3px}',
+      '#title .it:active,#title .it.hot{transform:translateY(2px);box-shadow:inset 0 1px 0 rgba(200,255,190,.18),inset 0 -1px 0 rgba(0,0,0,.6),0 1px 0 rgba(0,0,0,.6),0 0 0 1px rgba(150,240,140,.45)}',
+      '#title .it.off{color:#6f8a68;cursor:default;background:linear-gradient(180deg,rgba(24,36,27,.9),rgba(10,16,12,.94))}',
+      '#title .it.off b{text-shadow:none}',
+      '#title .it.warn{background:linear-gradient(180deg,rgba(96,40,30,.94),rgba(40,14,10,.96));color:#ffe0d2}',
+      '#title .it.warn span{color:#f0b3a0}',
+      '#title .notes{position:absolute;top:calc(max(12px,env(safe-area-inset-top)) + 34px);right:16px;padding:9px 12px;min-height:40px;box-sizing:border-box;cursor:pointer;font-size:11px;letter-spacing:3px;color:#cfe9c4;background:rgba(8,16,10,.82);border:1px solid rgba(150,230,140,.28);box-shadow:inset 0 1px 0 rgba(200,255,190,.18),0 2px 0 rgba(0,0,0,.6)}',
+      '#title .lw{font-size:10px;letter-spacing:2px;color:#9cc690;display:flex;gap:10px;align-items:center}',
+      '#title .lw i{flex:1;height:3px;background:rgba(150,230,140,.15);position:relative}',
+      '#title .lw i em{position:absolute;left:0;top:0;bottom:0;background:#9bd28f;box-shadow:0 0 6px #9bd28f}',
+      '#title .stamp{position:absolute;left:0;right:0;bottom:max(8px,env(safe-area-inset-bottom));text-align:center;font-size:10px;letter-spacing:2px;color:#6a7e60}',
+      '#title .sheet{position:absolute;inset:0;z-index:5;display:none;align-items:center;justify-content:center;background:rgba(2,5,3,.86)}',
+      '#title .sheet.on{display:flex}',
+      '#title .sheet .card{width:min(92vw,420px);padding:16px;background:#0b140d;border:1px solid rgba(150,230,140,.3);box-shadow:inset 0 1px 0 rgba(200,255,190,.2),0 10px 30px rgba(0,0,0,.6)}',
+      '#title .sheet h2{margin:0 0 8px;font-size:14px;letter-spacing:4px}',
+      '#title .sheet textarea{width:100%;box-sizing:border-box;min-height:120px;background:#050a06;color:#e3f7d8;border:1px solid rgba(150,230,140,.3);font:14px/1.4 ui-monospace,monospace;padding:8px}',
+      '#title .sheet .row{display:flex;gap:8px;margin-top:10px}',
+      '#title .sheet .row .it{flex:1;text-align:center;min-height:46px;padding:12px 8px}',
+      '#title .sheet .row .it b{font-size:13px;letter-spacing:3px}',
+      '#title .sheet .cnt{font-size:11px;color:#9cc690;margin-top:6px}',
+      '#setwrap.fromtitle{z-index:260}',
+      '#setwrap.fromtitle #setsave,#setwrap.fromtitle #setquit{display:none}'
+    ].join('\n');
+    document.head.appendChild(s);
+  }
+  function stamp(){ var b = $('buildstamp'); return b ? b.textContent.trim() : ''; }
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function clock(min){ var m = Math.max(0, min | 0); return pad(Math.floor(m / 60) % 24) + ':' + pad(m % 60); }
+  /* the save, read the same way the door's own CONTINUE line reads it (one reader) */
+  function saved(){
+    try{ if (typeof CITYSAVE === 'undefined' || !CITYSAVE.load) return null;
+      var s = CITYSAVE.load(); if (!s || !s.data) return null;
+      var d = s.data.day | 0; if (d < 1) return null;
+      return { day: d, min: (typeof s.data.min === 'number') ? s.data.min : null };
+    }catch(_e){ return null; }
+  }
+  function crew(){ try{ var p = window.BOH_START && BOH_START.picks(); return p && p.name ? String(p.name) : ''; }catch(_e){ return ''; } }
+  function build(){
+    var fr = $('front'); if (!fr) return null;
+    css();
+    var t = document.createElement('div'); t.id = 'title';
+    t.innerHTML = '<div class="feed"></div><div class="roll"></div><div class="scan"></div><div class="vig"></div>'
+      + '<div class="osd"><div><span class="rec"></span>REC  CAM 04<br>VALLEY OVERWATCH</div><div class="r"><span class="tclock">--:--:--</span><br>CLARK COUNTY POWER</div></div>'
+      + '<div class="notes" role="button" tabindex="0" data-k="notes">NOTES</div>'
+      + '<div class="logo"></div>'
+      + '<div class="menu">'
+      +   '<div class="it" role="button" tabindex="0" data-k="new"><b>NEW GAME</b><span>pick your crew</span></div>'
+      +   '<div class="it" role="button" tabindex="0" data-k="cont"><b>CONTINUE</b><span></span></div>'
+      +   '<div class="it" role="button" tabindex="0" data-k="set"><b>SETTINGS</b><span>sound, text, motion</span></div>'
+      +   '<div class="lw"><span class="lt">THE VALLEY IS LOADING</span><i><em></em></i></div>'
+      + '</div>'
+      + '<div class="stamp"></div>'
+      + '<div class="sheet"><div class="card"><h2>NOTES</h2><textarea placeholder="what you think, what broke, what you want"></textarea>'
+      +   '<div class="cnt"></div><div class="row"><div class="it" role="button" tabindex="0" data-k="nsave"><b>KEEP IT</b></div><div class="it" role="button" tabindex="0" data-k="nclose"><b>CLOSE</b></div></div></div></div>';
+    fr.appendChild(t);
+    /* his logo, at the largest integer scale that fits */
+    try{ var im = new Image(); im.onload = function(){ t.querySelector('.logo').appendChild(im); place(); };
+      im.src = 'data:image/png;base64,' + BOH_FRONT_LOGO_B64; }catch(_e){}
+    t.addEventListener('click', function(e){
+      e.stopPropagation();
+      var b = e.target.closest ? e.target.closest('[data-k]') : null; if (!b) return;
+      act(b.getAttribute('data-k'), b);
+    });
+    return t;
+  }
+  function place(){
+    var t = T.el; if (!t) return;
+    var m = t.querySelector('.menu'), ft = $('fronttap'), H = innerHeight;
+    /* THE MENU APPEARS ONCE, IN ITS PLACE. Until the door takes its loading layout, its BEGIN line is somewhere
+       else, and a menu placed against it would jump a second later -- under a thumb (measured: a tap aimed at
+       NEW GAME on a phone-speed CPU landed on the picture after the menu moved) */
+    var fr = $('front'); m.style.visibility = (fr && (fr.classList.contains('load') || window.__PLAY_BEGAN)) ? '' : 'hidden';   /* after QUIT the door has left its loading layout for good */
+    /* clear of the door's own BEGIN, so a finger aimed at it never lands on a title button */
+    var top = H; try{ var r = ft && ft.getBoundingClientRect(); if (r && r.height > 0) top = r.top; }catch(_e){}
+    var bottom = Math.max(H * 0.1, H - top + 14);
+    m.style.bottom = bottom + 'px';
+    var wide = innerWidth > innerHeight;
+    m.style.left = wide ? '5vw' : '16px'; m.style.maxWidth = wide ? '42vw' : '420px';
+    var lg = t.querySelector('.logo');
+    lg.style.top = wide ? '54%' : '30%'; lg.style.left = wide ? '73%' : '50%';
+    var im = lg.querySelector('img');
+    if (im && im.naturalWidth) { var w = wide ? Math.min(innerWidth * 0.4, 460) : Math.min(innerWidth * 0.86, 460), k = Math.max(1, Math.floor(w / im.naturalWidth));
+      im.style.width = (im.naturalWidth * k) + 'px'; im.style.height = (im.naturalHeight * k) + 'px'; }
+  }
+  function paint(){
+    var t = T.el; if (!t || t.classList.contains('gone')) return;
+    place();                                        /* the door's BEGIN line moves as the load runs */
+    var d = new Date(); t.querySelector('.tclock').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds());
+    /* THE SAVE IS READ ONCE PER SHOWING, never on this tick: CITYSAVE.load() parses the whole run, and doing it
+       twice a second on the splash broke the beat once already (the door's own painter, BEAT FIRST) */
+    if (T.save === undefined && typeof CITYSAVE !== 'undefined') T.save = saved();   /* not yet is not an answer */
+    var s = T.save, c = t.querySelector('[data-k=cont]'), n = t.querySelector('[data-k=new]');
+    if (s) { c.classList.remove('off'); c.querySelector('span').textContent = 'DAY ' + s.day + (s.min === null ? '' : ' · ' + clock(s.min)) + (crew() ? ' · ' + crew() : ''); }
+    else { c.classList.add('off'); c.querySelector('span').textContent = 'no saved game yet'; }
+    if (T.armNew && Date.now() > T.armNew) { T.armNew = 0; n.classList.remove('warn'); n.querySelector('b').textContent = 'NEW GAME'; n.querySelector('span').textContent = 'pick your crew'; }
+    var ready = !!window.__LOAD_READY, lw = t.querySelector('.lw');
+    lw.style.display = ready ? 'none' : '';
+    if (!ready) { var f = $('loadfill'); t.querySelector('.lw em').style.width = f ? (f.style.width || '0%') : '0%'; }
+    if (T.pending === 'cont' && ready) { T.pending = null; enter(); }
+    t.querySelector('.stamp').textContent = stamp();
+    try{ t.classList.toggle('still', !!(window.BOHEMIA_SETTINGS && BOHEMIA_SETTINGS.motion && BOHEMIA_SETTINGS.motion())); }catch(_e){}
+  }
+  /* in through the door's own BEGIN: the one way into the game */
+  function enter(){ hide(); try{ $('front').click(); }catch(_e){} }
+  function hide(){ if (T.el) T.el.classList.add('gone'); }
+  function show(){
+    if (!T.el) T.el = build(); if (!T.el) return;
+    T.el.classList.remove('gone'); T.shown++; T.pending = null; T.save = (typeof CITYSAVE === 'undefined') ? undefined : saved(); place(); paint();
+  }
+  /* the save engine's own kill: its DEAD mark in each slot, read back as 'deliberately killed', and NO
+     tombstone, so the next saves count their generations from zero and are never mistaken for dead ones */
+  function forget(){
+    T.forgets++; window.__BOH_FORGET = true;
+    [KEY_SAVE + '.a', KEY_SAVE + '.b', KEY_SAVE].forEach(function(k){ try{ localStorage.setItem(k, DEADMARK); }catch(_e){} });
+  }
+  function note(txt){
+    try{ var a = JSON.parse(localStorage.getItem(KEY_NOTES) || '[]') || []; a.push({ text: txt, ctx: { where: 'the start screen', build: stamp() }, at: new Date().toISOString() });
+      localStorage.setItem(KEY_NOTES, JSON.stringify(a)); return a.length; }catch(_e){ return 0; }
+  }
+  function act(k, b){
+    var t = T.el;
+    if (k === 'new') {
+      var s = T.save;
+      if (s && !T.armNew) { T.armNew = Date.now() + 4000; b.classList.add('warn'); b.querySelector('b').textContent = 'START OVER?';
+        b.querySelector('span').textContent = 'this ends day ' + s.day + '. tap again'; return; }
+      T.newgames++;
+      if (s) { forget(); try{ sessionStorage.setItem(SKIP, 'new'); }catch(_e){} location.reload(); return; }
+      hide(); return;                               /* the door's picks, and BEGIN */
+    }
+    if (k === 'cont') { if (!T.save) return; T.continues++;
+      if (window.__LOAD_READY) enter(); else { T.pending = 'cont'; b.querySelector('span').textContent = 'the valley is still loading'; } return; }
+    if (k === 'set') { var w = $('setwrap');
+      /* the card lives inside #app, whose layer is under the door's; it moves to the page's top level, where
+         its own layer number means what it says (its rules are by id, so it looks the same anywhere) */
+      if (w) { if (w.parentElement !== document.body) document.body.appendChild(w); w.classList.add('fromtitle'); }
+      /* UI's card in the materials has the start screen's own way in (BACK, no save/quit row); the plain card is the fallback */
+      try{ if (window.BohemiaSettings && BohemiaSettings.open) BohemiaSettings.open({ atStart: true }); else BOHEMIA_SETTINGS.open(); }catch(_e){ try{ BOHEMIA_SETTINGS.open(); }catch(_e2){} } return; }
+    if (k === 'notes') { var sh = t.querySelector('.sheet'); sh.classList.add('on'); sh.querySelector('.cnt').textContent = '';
+      setTimeout(function(){ try{ sh.querySelector('textarea').focus(); }catch(_e){} }, 50); return; }
+    if (k === 'nsave') { var ta = t.querySelector('textarea'), v = ta.value.trim(); if (!v) return;
+      var n = note(v); ta.value = ''; t.querySelector('.cnt').textContent = 'kept. ' + n + ' note' + (n === 1 ? '' : 's') + ' so far.'; return; }
+    if (k === 'nclose') { t.querySelector('.sheet').classList.remove('on'); return; }
+  }
+  T.show = show; T.hide = hide; T.act = act; T.saved = saved;
+  function boot(){
+    /* THE DEMO'S DOOR. The workshop (the alpha) opens on VOTE after its loading screen (rule 18 / the vote tab law),
+       so the title is the demo's alone; the cutter's flag is set before the page finishes loading */
+    if (!window.__BOHEMIA_DEMO_BUILD) { T.skipped = 'workshop'; return; }
+    var skip = null; try{ skip = sessionStorage.getItem(SKIP); sessionStorage.removeItem(SKIP); }catch(_e){}
+    if (skip === 'new') { T.skipped = true; return; }
+    show();
+  }
+  /* the settings card closes back to the title: it only carries .fromtitle while opened from here */
+  setInterval(function(){
+    var w = $('setwrap'); if (w && w.classList.contains('fromtitle') && !w.classList.contains('on')) w.classList.remove('fromtitle');
+    var fr = $('front'), vis = fr && fr.style.display !== 'none' && getComputedStyle(fr).display !== 'none';
+    /* QUIT brings the door back: the title comes with it */
+    /* only a door that comes back AFTER the game began is a QUIT; the door can flicker during the boot, and a
+       title that came back then would cover the picks after NEW GAME had already been pressed */
+    if (vis && T.wasHidden && T.el) { T.wasHidden = false; show(); }
+    if (!vis && window.__PLAY_BEGAN) T.wasHidden = true;
+    paint();
+  }, 500);
+  addEventListener('resize', place); addEventListener('orientationchange', function(){ setTimeout(place, 200); });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true }); else boot();
+})();
+/* ===== /__THE_START_SCREEN__ ===== */
 /* AND THE LOAD BEGINS WITHOUT A TAP, AS SOON AS THE PAGE IS WHOLE -- which is not
    this line, and finding that out cost a measurement. `load` fires after every
    script in this document has parsed and run, so buildUI and everything it reaches
@@ -18401,7 +18620,7 @@ const MUS={AC:null,MAST:null,playing:false,cur:0,curSlot:1,step:0,uiStep:0,nextT
 
  noteHz(s){return 110*Math.pow(2,s/12);},   /* THE OCTAVE BUG (Paolo caught it 7/3/26): this was typed from memory as a MIDI formula and mapped every note ~3 octaves wrong vs combat. VERBATIM combat's mapping now; the parity gate makes drift impossible. */
  stepDur(){return (60/120)/4;},
- audio(){ if(this.AC){if(this.AC.state==='suspended')this.AC.resume();return;}
+ audio(){ if(this.AC){if(this.AC.state==='suspended'&&!/Offline/.test(this.AC.constructor&&this.AC.constructor.name))this.AC.resume();return;}   /* __THE_START_SCREEN__ (RUN 10/4): a bar rendered offline swaps this.AC for an OfflineAudioContext; resuming that rejects (async, so no catch sees it) -- measured as a page error when the first touch lands in that window */
   try{this.AC=new (window.AudioContext||window.webkitAudioContext)();this.MAST=this.AC.createGain();this.MAST.gain.value=0.8;
    const cmp=this.AC.createDynamicsCompressor();cmp.threshold.value=-14;cmp.knee.value=8;cmp.ratio.value=6;cmp.attack.value=0.002;cmp.release.value=0.12;
    const lim=this.AC.createDynamicsCompressor();lim.threshold.value=-5;lim.knee.value=0;lim.ratio.value=20;lim.attack.value=0.001;lim.release.value=0.08;   /* BRICKWALL (7/8 screech incident): nothing gets past this */
@@ -22888,7 +23107,7 @@ drawLogoBig();requestAnimationFrame(loop);
 
   function unlock(){
     claimPlayback();
-    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended') MUS.AC.resume(); }catch(e){}
+    try{ MUS.audio(); if(MUS.AC && MUS.AC.state==='suspended' && !/Offline/.test(MUS.AC.constructor && MUS.AC.constructor.name)) MUS.AC.resume(); }catch(e){}   /* never an offline render's context: see MUS.audio */
     /* BUILD THE SFX MASTER THE INSTANT AUDIO EXISTS. Lazily is not good enough:
        the footstep bus is built on the first footstep and reads window.__SFXBUS
        to decide what to plug into, so if a step happens before any other sound

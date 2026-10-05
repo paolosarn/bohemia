@@ -42417,6 +42417,10 @@ window.addEventListener('message', function(ev){
      measured: three copies, 33 batteries for an 11-battery start). The purse's ref does not dedupe. */
   if(LOOP.startPaid) return;
   LOOP.startPaid = true;
+  /* __THE_START_SCREEN__ (RUN 10/4): AND ONCE PER GAME, NOT PER SITTING. startPaid lives in memory, so every
+     CONTINUE posted the picks again and paid the start batteries onto the restored purse. The purse's own
+     ledger is what survives a save: a 'start:' credit already in it means this crew was paid. */
+  try{ var _pe = purseGet().entries || []; for(var _i = 0; _i < _pe.length; _i++) if(_pe[_i].ref && String(_pe[_i].ref).indexOf('start:') === 0) return; }catch(_e){}
   try{ if(p.start > 0) BohemiaPurse.credit(purseGet(), 'electricity', p.start | 0, 'the crew starts: ' + p.originName, 'start:' + p.origin, loopDay()); }catch(_e){}
   try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@' + String(p.name || 'thecrew').toLowerCase().replace(/[^a-z0-9]+/g, ''), txt: p.originName + '. ' + p.start + ' batteries between us. ' + p.combatName + ', ' + p.econName + '.', kind: 'mine', draft: true }); }catch(_e){}
   try{ if(typeof window.__barPaintRead === 'function') window.__barPaintRead(); }catch(_e){}
