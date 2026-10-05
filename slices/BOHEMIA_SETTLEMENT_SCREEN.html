@@ -393,6 +393,14 @@ function post(act, o){
   if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){}
 }
 function heard(t){ document.getElementById('heard').textContent = t; }
+/* THE CLINIC'S DOOR (row [the settlement's sounds], 10/5): door_open and door_shut are
+   already approved, frozen bank events (bohemia_sfx.js), so this is wiring, not new
+   content -- the same postMessage bridge BOHEMIA_FIGHT.html already uses, reused rather
+   than built twice. */
+function sfx(ev) {
+  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {}
+}
 
 /* ---------- THE PLACE, DRAWN: ONE PAINTED PICTURE (rule 71a, Paolo 10/4) ----------
    'The buildings look like options; it looks like dog shit.' So the place is ONE 45-degree picture,
@@ -584,6 +592,7 @@ function act(label, right, fn, off){
 
 /* ---------- THE BUILDINGS ---------- */
 function openB(k, line){
+  if(k==='clinic' && S.open!=='clinic') sfx('door_open');
   S.open = k;
   /* a trait is said once per building, first thing, by the one who lives with it */
   if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
@@ -689,7 +698,7 @@ function show(){
   document.getElementById('sheet').classList.add('on');
 
 }
-function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ if(S.open==='clinic') sfx('door_shut'); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;

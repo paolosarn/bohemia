@@ -806,6 +806,36 @@ const MEASURE = `
     } catch (e) { out.titleThemeErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5). Four taps, four
+     REUSE-FIRST functions; each claim reads a number straight off the primitive it
+     reused, not a label the wrapper could have typed without calling it. */
+  (function () {
+    try {
+      const bc = H.barberClippers(ctx, {});
+      const d = bc.buffer.getChannelData(0), n = d.length;
+      let q = 0; for (let i = 0; i < n; i++) q += d[i] * d[i];
+      out.barberClippers = { hz: bc.hz, noiseSources: bc.noiseSources, synth: bc.synth,
+        machineIsEar: !!bc.machine && bc.machine.hi === null, rms: Math.sqrt(q / n) };
+    } catch (e) { out.barberClippersErr = String(e && e.message).slice(0,160); }
+    try {
+      const cw = H.canOnWood(ctx, {});
+      out.canOnWood = { woodSurface: cw.woodSurface, tinF0: cw.tinF0,
+        machineIsEar: !!cw.machine && cw.machine.hi === null, seconds: cw.seconds };
+    } catch (e) { out.canOnWoodErr = String(e && e.message).slice(0,160); }
+    try {
+      const bn = H.boardNail(ctx, {});
+      out.boardNail = { what: bn.what, f0: bn.f0, seconds: bn.seconds,
+        machineIsEar: !!bn.machine && bn.machine.hi === null };
+    } catch (e) { out.boardNailErr = String(e && e.message).slice(0,160); }
+    try {
+      const pr = H.paperRustle(ctx, {});
+      const d = pr.buffer.getChannelData(0), n = d.length;
+      let pk = 0; for (let i = 0; i < n; i++) { const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.paperRustle = { clicks: pr.clicks, lo: pr.lo, hi: pr.hi, noiseSources: pr.noiseSources,
+        machineIsEar: !!pr.machine && pr.machine.hi === null, peak: pk };
+    } catch (e) { out.paperRustleErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1236,6 +1266,21 @@ const MEASURE = `
             root: canon, canonRoot: canon, detune: 1, wowDepth: 0, wowRateHz: 0,
             roomRel: (o && o.roomRel) == null ? 0.025 : o.roomRel,
             machine: { hi: 5000 } };
+        };
+        /* AND THE SETTLEMENT'S SOUNDS (10/5): all four call harmonicHum, objectSetDown,
+           struckMetal or crackleInto BY CLOSURE, so each falsifier replaces the OUTER
+           wrapper's own exported name directly, same as every reused wrapper above. */
+        H.barberClippers = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          hz: 60, noiseSources: 1, synth: 'noise', machine: { hi: 5000 } });
+        H.canOnWood = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', tinF0: 0, seconds: 0, machine: { hi: 5000 } });
+        H.boardNail = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
+        H.paperRustle = (ctx, o) => {
+          const secs = (o && o.secs) || 1.5, sr = ctx.sampleRate, n = Math.round(sr * secs);
+          const buf = ctx.createBuffer(1, n, sr), dd = buf.getChannelData(0);
+          for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
+          return { buffer: buf, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1, machine: { hi: 5000 } };
         };
       });
     }
@@ -1986,6 +2031,37 @@ const MEASURE = `
         'the same theme rendered with the room at rel 0 differs from the real one; a room '
         + 'that changes nothing when turned off was never in the mix');
     } else { claim('The title\'s own music was measured', false, d.titleThemeErr || 'no reading'); }
+
+    /* ---- THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5) ------- */
+    if (d.barberClippers) {
+      const BC = d.barberClippers;
+      claim('THE BARBER\'S CLIPPERS ARE A STRUCK ARMATURE AT MAINS DOUBLE-RATE, NOT A MOTOR TONE',
+        BC.hz === 120 && BC.noiseSources === 0 && BC.synth === 'additive' && BC.machineIsEar
+          && BC.rms > 0.01,
+        BC.hz + ' Hz, zero noise generators, heard directly (EAR), rms ' + BC.rms.toFixed(4));
+    } else { claim('The barber\'s clippers were measured', false, d.barberClippersErr || 'no reading'); }
+    if (d.canOnWood) {
+      const CW = d.canOnWood;
+      claim('A CAN ON THE COUNTER IS TWO MATERIALS, THE WOOD CONTACT AND THE TIN RING, NOT ONE',
+        CW.woodSurface === 'boards' && CW.tinF0 === 740 && CW.machineIsEar && CW.seconds > 0,
+        'objectSetDown on ' + CW.woodSurface + ' summed with struckMetal\'s pipe at ' + CW.tinF0
+        + ' Hz, read off the actual render');
+    } else { claim('A can on the counter was measured', false, d.canOnWoodErr || 'no reading'); }
+    if (d.boardNail) {
+      const BN = d.boardNail;
+      claim('THE BOARD\'S OWN NAIL IS endTurnClick\'S SAME STRIKE, SMALLER AND HIGHER',
+        BN.what === 'pipe' && BN.f0 === 1900 && BN.seconds < 0.1 && BN.machineIsEar,
+        BN.f0 + ' Hz pipe mode, ' + BN.seconds.toFixed(3) + ' s -- shorter and higher than the '
+        + 'bolt catch it is a variation of');
+    } else { claim('The board\'s own nail was measured', false, d.boardNailErr || 'no reading'); }
+    if (d.paperRustle) {
+      const PR = d.paperRustle;
+      claim('PAPER AGAINST THE POST IS A DENSE CLICK TRAIN, BROADBAND, NOT A HISS',
+        PR.noiseSources === 0 && PR.clicks > 300 && PR.lo === 1200 && PR.hi === 8000
+          && PR.machineIsEar && PR.peak > 0.01,
+        PR.clicks + ' discrete creases (crackleInto, zero noise generators) band-limited to '
+        + PR.lo + '-' + PR.hi + ' Hz, peak ' + PR.peak.toFixed(4));
+    } else { claim('Paper against the post was measured', false, d.paperRustleErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

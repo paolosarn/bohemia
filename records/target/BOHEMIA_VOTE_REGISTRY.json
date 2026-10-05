@@ -5137,6 +5137,74 @@
    }
   },
   {
+   "id": "sounds-the-barbers-clippers-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE BARBER'S CLIPPERS",
+   "why": "The barber was silent, so now a tap plays a mains clipper's blade striking its stop, a real 120 Hz buzz. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-a-can-on-the-counter-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "A CAN ON THE COUNTER",
+   "why": "The stall was silent, so now a tap plays a tin can's own ring landing on the wood counter, two materials in one contact. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-boards-own-nail-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE BOARD'S OWN NAIL",
+   "why": "The board was silent, so now a tap plays a tack pinning a card, the same strike the fight's turn-close uses, smaller and higher. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-paper-against-the-post-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "PAPER AGAINST THE POST",
+   "why": "The posts were silent, so now a tap plays many tiny paper creases catching and releasing, broadband. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
    "id": "ui-every-item-is-an-icon-10-5",
    "kind": "ui",
    "lane": "ui",

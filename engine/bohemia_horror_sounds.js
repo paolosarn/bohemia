@@ -1656,6 +1656,97 @@
     };
   }
 
+  /* ==== 13b2. THE SETTLEMENT ANSWERS THE FINGER (row [the settlement's sounds], 10/5) ====
+     Rule 54b, rule 71a. Each building taps back before its label does: the barber's
+     clippers, the stall's can on wood, the posts' paper, the board's nail. Every one
+     is a REUSE of a primitive this lane already built; the only new work is which real
+     mechanism each tap is. "The clinic's door" needs nothing new at all -- door_open and
+     door_shut are already approved, frozen bank events (bohemia_sfx.js), so that one is
+     wired live below rather than cooked here. */
+
+  /* A CLIPPER IS A VIBRATING ARMATURE, NOT A MOTOR SPINNING. A mains-driven clipper (the
+     kind that has not needed a battery since before this valley died) uses an
+     electromagnet that pulls the blade once every half-cycle of the AC line -- twice a
+     cycle, so at 60 Hz mains that is 120 Hz, a published, real number, the same family
+     this lane's generator and sign hums already use. The strike against the stop at each
+     end is why it buzzes instead of humming clean: a rich harmonic stack, not one partial. */
+  function barberClippers(ctx, opts) {
+    opts = opts || {};
+    return harmonicHum(ctx, {
+      secs: opts.secs == null ? 3.0 : opts.secs,
+      hz: opts.hz == null ? 120 : opts.hz,
+      parts: opts.parts || [[1, 1.0], [2, 0.55], [3, 0.38], [4, 0.22], [5, 0.12]],
+      why: 'a vibrating-armature clipper, the blade struck against its stop twice every '
+        + 'mains cycle: 120 Hz and a buzzy stack of harmonics, not a clean tone'
+    });
+  }
+
+  /* A CAN SET DOWN ON A COUNTER IS TWO MATERIALS, ONE CONTACT. The same heel-strike
+     physics footstepModelled already uses for a boot on a slab applies here to a boot's
+     own cousin -- a rigid object landing on a surface -- so the wood gets objectSetDown
+     unmodified, just told which ground it is (boards, already in GROUND). What a boot
+     does not have is a thin metal shell ringing on top of the thump, which is what makes
+     a can a can: struckMetal's own 'pipe' modes, shorter and higher than a held pipe
+     because a tin can is far smaller and lighter. */
+  function canOnWood(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var tin = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 740 : opts.f0,
+      secs: opts.tinSecs == null ? 0.22 : opts.tinSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), td = tin.buffer.getChannelData(0);
+    var n = Math.max(wd.length, td.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.7 + (i < td.length ? td[i] : 0) * 0.55;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, tinF0: tin.f0,
+      why: 'a tin can\'s own thin ring (struckMetal\'s pipe modes, short and high) landing on '
+        + 'the stall\'s wood counter (objectSetDown on boards) -- the same contact two ways at once'
+    };
+  }
+
+  /* A TACK PINNING A CARD IS THE SAME STRIKE endTurnClick ALREADY USES, SMALLER. A nail's
+     point is a far smaller, stiffer thing than a bolt catch, so it rings even higher and
+     dies even faster -- the same published pipe series, raised further and heard for even
+     less of it, which is the whole reason this is a variation on that function's own
+     numbers and not a new material. */
+  function boardNail(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 1900 : opts.f0;
+    var secs = opts.secs == null ? 0.05 : opts.secs;
+    var m = struckMetal(ctx, { what: 'pipe', f0: f0, secs: secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe', f0: f0,
+      why: 'a tack pinning a card to the board: the same strike endTurnClick uses, smaller '
+        + 'and higher -- a nail\'s point instead of a bolt catch\'s whole jaw'
+    };
+  }
+
+  /* PAPER CRINKLING IS MANY TINY CREASES, NOT A HISS. The same discrete-click mechanism
+     the broadcast's lightning and the night's insects already use (crackleInto, REUSE-
+     FIRST a third time on a third real cause), run dense and wide: a crease catching and
+     releasing is a broadband transient, not a tone, so the band here is wide (1.2 to 8
+     kHz) rather than the insects' narrow calling-song band. */
+  function paperRustle(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 1.5 : opts.secs;
+    var sr = ctx.sampleRate, n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var rate = opts.ratePerSec == null ? 420 : opts.ratePerSec;
+    var seed = opts.seed == null ? 20261005 : opts.seed;
+    var events = crackleInto(d, n, sr, rate, 0.7, seed, 0);
+    bandTo(d, n, 1200, 8000, sr, 8);
+    normalise(d, n, 0.75);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: secs, clicks: events.length, lo: 1200, hi: 8000,
+      noiseSources: 0,
+      why: 'many tiny paper creases catching and releasing (crackleInto, the same mechanism '
+        + 'the broadcast\'s lightning and the night\'s insects use), broadband 1.2 to 8 kHz the '
+        + 'way real paper crinkle actually spreads'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2283,6 +2374,10 @@
             bandOrder: ROOM_BAND_ORDER },
     songOnTape: songOnTape,
     titleTheme: titleTheme,
+    barberClippers: barberClippers,
+    canOnWood: canOnWood,
+    boardNail: boardNail,
+    paperRustle: paperRustle,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2443,7 +2538,22 @@
            analog horror, built from three already-reused pieces (the tape deck's wow, the
            dead broadcast, the loading screen's room tone) plus one new number (detuned). */
         { id: 'sounds-the-title-is-detuned-10-5', make: 'titleTheme',
-          title: "THE TITLE IS DETUNED" }
+          title: "THE TITLE IS DETUNED" },
+        /* THE SETTLEMENT'S SOUNDS (row [the settlement's sounds], 10/5): Paolo's own
+           words, "the settlement screen looking real dogshit, look how Battle Brothers
+           settlements work" -- taps on the barber, the stall, the board and the posts
+           had nothing. Four new, each REUSE-FIRST off an already-built primitive. The
+           clinic's door is zero new content (door_open/door_shut, already frozen) and
+           is not in this list; the bar's murmur stays unbuilt, same reason as always:
+           this lane's palette cannot fake a voice. */
+        { id: 'sounds-the-barbers-clippers-10-5', make: 'barberClippers',
+          title: "THE BARBER'S CLIPPERS" },
+        { id: 'sounds-a-can-on-the-counter-10-5', make: 'canOnWood',
+          title: "A CAN ON THE COUNTER" },
+        { id: 'sounds-the-boards-own-nail-10-5', make: 'boardNail',
+          title: "THE BOARD'S OWN NAIL" },
+        { id: 'sounds-paper-against-the-post-10-5', make: 'paperRustle',
+          title: "PAPER AGAINST THE POST" }
       ];
     }
   };

@@ -1,3 +1,32 @@
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
+NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
+TAB: VOTE, under LOOK, the settlement's answers page.
+Record: this VAMILY.md round text, row [the settlement's sounds].
+
+Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
+you and on RUN, so I checked and moved a third, open row instead: the settlement screen's
+buildings had nothing when you tapped them.
+
+Built four new sounds, every one made out of a sound already in the game, not invented from
+scratch: the barber's clippers (a real mains clipper buzzes at 120 Hz, not a motor hum), a can
+set down on the stall's wood counter (two materials, one contact), a nail pinning a card to the
+board (the same strike the fight already uses, smaller), and paper against the posts (lots of
+tiny creases, not a hiss).
+
+The clinic's door needed nothing new at all. It already had an approved door sound, it just
+was not hooked up. Now opening and closing the clinic plays it, tested with a real tap on the
+real screen, not guessed at.
+
+Two things from the job sheet I did NOT build, on purpose: the bar's low murmur (this lane
+cannot fake a voice yet, same gap as every round before this) and the night version being
+quieter (a real idea, just not this round's batch).
+
+All four new sounds are a VOTE card now. Nothing goes live until you thumb them; the clinic's
+door is the only thing playing in the actual game right now because it reused something you
+already approved.
+NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
+PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
+
 WORDS (words-8dqrnq): 10/5 (d) LATEST -- *** ONE ENEMY'S NAME WAS LEFT IN GERMAN, AND IT BROKE
 A RULE PAOLO ALREADY LOCKED. ***
 TAB: COMBAT. A review file for the team that owns the fight screen to apply.
@@ -22,6 +51,36 @@ fine for now, and there's no bestiary screen anywhere yet, so nothing to write f
 NEXT: hold for the start screen's words to unblock. If it's still stuck next round, the jump
 list is down to nothing and needs a new job added (not my call to add one).
 PENDING Paolo: nothing.
+=======
+SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
+NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
+TAB: VOTE, under LOOK, the settlement's answers page.
+Record: this VAMILY.md round text, row [the settlement's sounds].
+
+Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
+you and on RUN, so I checked and moved a third, open row instead: the settlement screen's
+buildings had nothing when you tapped them.
+
+Built four new sounds, every one made out of a sound already in the game, not invented from
+scratch: the barber's clippers (a real mains clipper buzzes at 120 Hz, not a motor hum), a can
+set down on the stall's wood counter (two materials, one contact), a nail pinning a card to the
+board (the same strike the fight already uses, smaller), and paper against the posts (lots of
+tiny creases, not a hiss).
+
+The clinic's door needed nothing new at all. It already had an approved door sound, it just
+was not hooked up. Now opening and closing the clinic plays it, tested with a real tap on the
+real screen, not guessed at.
+
+Two things from the job sheet I did NOT build, on purpose: the bar's low murmur (this lane
+cannot fake a voice yet, same gap as every round before this) and the night version being
+quieter (a real idea, just not this round's batch).
+
+All four new sounds are a VOTE card now. Nothing goes live until you thumb them; the clinic's
+door is the only thing playing in the actual game right now because it reused something you
+already approved.
+NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
+PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
+>>>>>>> aa744ae (SOUNDS [the settlement's sounds] round one: four new taps cooked REUSE-FIRST)
 
 WORDS (words-8dqrnq): 10/5 (c) LATEST -- *** THE BIGGEST FIND WASN'T BAD WORDING, IT WAS A
 WRONG NUMBER: A JOB SHOWS "30 BATT" WHEN IT ACTUALLY PAYS 3. ***
