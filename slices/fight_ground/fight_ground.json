@@ -260,6 +260,33 @@
    "src": "cover_rubble_11.webp",
    "h": 1.4,
    "kind": "COVER"
+  },
+  "pump": {
+   "src": "cover_pump.webp",
+   "h": 1.8,
+   "kind": "COVER",
+   "burns": true
+  },
+  "dumpster": {
+   "src": "cover_dumpster.webp",
+   "h": 1.4,
+   "kind": "COVER"
+  },
+  "fence": {
+   "src": "cover_fence.webp",
+   "h": 1.8,
+   "kind": "COVER",
+   "see_through": true
+  },
+  "steps": {
+   "src": "cover_steps.webp",
+   "h": 0.6,
+   "kind": "LOW_COVER"
+  },
+  "dock": {
+   "src": "cover_dock.webp",
+   "h": 1.2,
+   "kind": "HEIGHT"
   }
  },
  "blocks": {
@@ -361,8 +388,8 @@
   "lamp": "a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)",
   "drum": "an oil drum with a fire in it, always live",
   "anchor": "x_m, y_m = the sprite base; draw it bottom-centred",
-  "circuit": "'grid' lamps burn only where the map says this block has power (the act decides how much of the town has power, rule 73); 'fire' drums always burn",
-  "block": "[block row, block column] on this board: the unit the map powers on or off"
+  "circuit": "'grid' lamps burn only where the map says this block has power (rule 73); 'fire' always burns",
+  "block": "[block row, block column]: the unit the map powers"
  },
  "boards": {
   "suburb": {
@@ -525,11 +552,11 @@
      "flat",
      "blocked",
      "flat",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
+     "flat",
+     "flat",
+     "height",
+     "height",
+     "height",
      "flat",
      "flat",
      "blocked",
@@ -801,13 +828,43 @@
     },
     {
      "piece": "car_kerb",
-     "x_m": 70.2,
-     "y_m": 91.5
+     "x_m": 101.6,
+     "y_m": 86.0
     },
     {
      "piece": "wall_broken",
      "x_m": 110.0,
      "y_m": 110.0
+    },
+    {
+     "piece": "pump",
+     "x_m": 66.0,
+     "y_m": 81.0
+    },
+    {
+     "piece": "pump",
+     "x_m": 76.0,
+     "y_m": 81.0
+    },
+    {
+     "piece": "steps",
+     "x_m": 64.0,
+     "y_m": 108.6
+    },
+    {
+     "piece": "fence",
+     "x_m": 73.0,
+     "y_m": 109.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 80.0,
+     "y_m": 109.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 87.0,
+     "y_m": 109.0
     },
     {
      "piece": "wall",
@@ -4325,6 +4382,28 @@
      "flat",
      "flat",
      "flat",
+     "height",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "flat",
      "flat",
      "flat",
@@ -4338,31 +4417,9 @@
     [
      "flat",
      "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat",
-     "flat"
-    ],
-    [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
+     "height",
+     "height",
+     "height",
      "flat",
      "height",
      "blocked",
@@ -4440,7 +4497,7 @@
      "flat",
      "flat",
      "flat",
-     "flat",
+     "height",
      "flat",
      "flat",
      "flat"
@@ -4643,6 +4700,26 @@
      "y_m": 40.0
     },
     {
+     "piece": "dumpster",
+     "x_m": 124.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 134.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 146.0,
+     "y_m": 24.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 130.0,
+     "y_m": 48.4
+    },
+    {
      "piece": "car_lane",
      "x_m": 186.0,
      "y_m": 19.5
@@ -4679,13 +4756,43 @@
     },
     {
      "piece": "car_kerb",
-     "x_m": 29.8,
-     "y_m": 91.5
+     "x_m": 47.4,
+     "y_m": 86.0
     },
     {
      "piece": "wall_broken",
      "x_m": 50.0,
      "y_m": 110.0
+    },
+    {
+     "piece": "pump",
+     "x_m": 6.0,
+     "y_m": 81.0
+    },
+    {
+     "piece": "pump",
+     "x_m": 16.0,
+     "y_m": 81.0
+    },
+    {
+     "piece": "steps",
+     "x_m": 4.0,
+     "y_m": 108.6
+    },
+    {
+     "piece": "fence",
+     "x_m": 13.0,
+     "y_m": 109.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 20.0,
+     "y_m": 109.0
+    },
+    {
+     "piece": "fence",
+     "x_m": 27.0,
+     "y_m": 109.0
     },
     {
      "piece": "wall_broken",
@@ -4736,6 +4843,26 @@
      "piece": "shed",
      "x_m": 230.0,
      "y_m": 100.0
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 184.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 194.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dumpster",
+     "x_m": 206.0,
+     "y_m": 84.4
+    },
+    {
+     "piece": "dock",
+     "x_m": 190.0,
+     "y_m": 108.4
     },
     {
      "piece": "wall_broken",

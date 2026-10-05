@@ -242,3 +242,14 @@ Day medians MEASURED: camp 0.283, town 0.149, fortress 0.283, suburb block 0.251
 Settlement nights (6): ground 0.215-0.256, lit:unlit 3.08-3.57, sun ground 0.348-0.387: PASS. Sun lit:unlit
 2.16-2.41: FAIL (25% white over 0.2 ground caps it). The settlement cook refuses any night under the plain floors.
 fight_ground lights: circuit ('grid' | 'fire') and block [r, c] (473 tagged; the builder writes them from now on).
+
+## ROUND TWENTY (10/5, OPEN row [more building types]): WHAT EACH BUILDING DOES IN A FIGHT
+
+Building cook: FURN_MAKERS (pump 1.0x0.6x1.8 m, dumpster 2.0x1.4x1.4, fence 6 m chain-link 1.8, steps 4.0x1.6x0.6,
+dock 10x3x1.2), FURN_META (pump COVER burns; dumpster COVER; fence COVER see_through; steps LOW_COVER; dock HEIGHT);
+B.piece_img patched to draw them. main_street: canopy tiles (1,0),(1,1) open; motel (1,2..4) height; pumps at the
+canopy; church steps and school fence at the south row's FACE (y 48.6-49: a south-row building faces the camera);
+car moved clear of the church. the_works: dumpsters on the north walk (y 24.4), the dock at the warehouse's face
+(y 48.4, tile (4,1) height); the warehouse cut to 30 x 8 x 5.5 m (20 m deep spilled over the street at 45).
+fight_ground rebuilt: cover_extra carries the facts; 31 blocks, 5.1 MB; new fight 0 errors (strip, suburb).
+Sheets: tools/bohemia_combat2_building_fight_facts_cook_10_5_26.py -> three VOTE items.

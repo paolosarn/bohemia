@@ -1559,6 +1559,50 @@
   function footstepWalkWood(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'boards', perBeat: 1 })); }
   function footstepRunConcrete(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'concrete', perBeat: 2 })); }
 
+  /* ==== 13d. THE MAP IN MOTION (row [the map's sounds], 10/5) =====================
+     Rule 54b: "the party's steps on asphalt and on dirt (two beds, the road faster)."
+     Both are footstepWalk, already real material and already proven never to repeat a
+     footfall -- the only question travel asks of it is TEMPO, and footstepWalk already
+     answers that with perBeat (one footfall a beat walking, two running). A paved road
+     moves the party faster than open dirt (the same relation THE OVERWORLD IS BATTLE
+     BROTHERS already costs in travel time, roughly halved on a road), so the road bed is
+     perBeat 2 and the dirt bed stays perBeat 1 -- no new number, the game's own ratio
+     read onto the footfall engine instead of a second one typed for ambience alone.
+     LOOPS, because a travel bed plays for as long as the clock takes to cross the block,
+     not for a fixed six beats; the caller decides how many. */
+  function travelRoadBed(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'asphalt', perBeat: 2 })); }
+  function travelDirtBed(ctx, opts) { return footstepWalk(ctx, Object.assign({}, opts || {}, { surface: 'dirt', perBeat: 1 })); }
+
+  /* ==== 13e. THE NIGHT HAS INSECTS (row [the map's sounds], 10/5) =================
+     Rule 54b: "the night's insects." A cricket's chirp is not a hiss, it is
+     STRIDULATION -- a wing scraping a wing, mechanically a train of short clicks, the
+     same real mechanism crackleInto already models for the broadcast's distant
+     lightning (REUSE-FIRST, no second click generator). Run far denser (many insects
+     calling, not one distant strike) and band-limited to where a cricket actually
+     sits: a field cricket's calling song carries a tone centred in the low kHz, commonly
+     measured around 4 to 5 kHz for the familiar temperate species, so the band here is
+     3000 to 6000 Hz -- nowhere near the broadcast's own band (100 to 5000 Hz, an AM
+     transmitter's) and nowhere near a footstep's (under a kHz). Still zero noise
+     generators: crackleInto places discrete half-sine clicks at known times, which is
+     exactly what one insect's leg stroke is. */
+  function nightInsects(ctx, opts) {
+    opts = opts || {};
+    var secs = opts.secs == null ? 4.0 : opts.secs;
+    var sr = ctx.sampleRate, n = Math.round(sr * secs);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var rate = opts.ratePerSec == null ? 90 : opts.ratePerSec;
+    var seed = opts.seed == null ? 20261005 : opts.seed;
+    var events = crackleInto(d, n, sr, rate, 0.9, seed, 0);
+    bandTo(d, n, 3000, 6000, sr, 8);
+    normalise(d, n, 0.8);
+    return {
+      buffer: buf, machine: MACHINE.EAR, seconds: secs, clicks: events.length, lo: 3000, hi: 6000,
+      noiseSources: 0,
+      why: 'many insects as a dense click train (crackleInto, the same mechanism the '
+        + 'broadcast\'s lightning uses), band-limited to 3 to 6 kHz, a field cricket\'s own range'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2200,6 +2244,9 @@
     footstepWalkConcrete: footstepWalkConcrete,
     footstepWalkWood: footstepWalkWood,
     footstepRunConcrete: footstepRunConcrete,
+    travelRoadBed: travelRoadBed,
+    travelDirtBed: travelDirtBed,
+    nightInsects: nightInsects,
     groundTakesIt: groundTakesIt,
     bootsGoDirt: bootsGoDirt,
     objectSetDown: objectSetDown,
@@ -2328,7 +2375,16 @@
            is built and registered here, not wired into the live fight (unjudged =
            silent, the bank's own law, same as every other new sound this round). */
         { id: 'sounds-the-turn-closes-10-4', make: 'endTurnClick',
-          title: 'THE TURN CLOSES' }
+          title: 'THE TURN CLOSES' },
+        /* THE MAP IN MOTION (row [the map's sounds], 10/5): the party's steps on asphalt
+           and on dirt, and the night's insects -- three of the five moments the row
+           names, demonstrated together on the travel clip judge page. */
+        { id: 'sounds-the-road-is-faster-10-5', make: 'travelRoadBed',
+          title: 'THE ROAD IS FASTER' },
+        { id: 'sounds-dirt-is-slower-10-5', make: 'travelDirtBed',
+          title: 'DIRT IS SLOWER' },
+        { id: 'sounds-the-night-has-insects-10-5', make: 'nightInsects',
+          title: 'THE NIGHT HAS INSECTS' }
       ];
     }
   };

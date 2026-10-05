@@ -2322,6 +2322,17 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE START SCREEN', ['node', 'gates/the_start_screen_gate.js'],
+     'VAMILY [the start screen], rule 66 (PAOLO 10/2: "there should be a start screen: new game, continue game, '
+     'settings"). MEASURED BEFORE: the demo opened on the loading terminal with the picks over it; one save and no way '
+     'to start over; no settings before the game. NOW Battle Brothers\' own door: the title over the valley\'s far stop '
+     'seen by the power authority\'s last camera (the game\'s own picture, graded at 0.24/0.29 of white), his logo, '
+     'NEW GAME / CONTINUE / SETTINGS and NOTES, inside #front so every driver still enters by BEGIN. HOLDS, driven: '
+     'opens on it; clear of BEGIN upright and sideways; a stray tap holds; CONTINUE off without a save; SETTINGS over '
+     'it without save/quit; NOTES in the game\'s list; NEW GAME is the picks and BEGIN pays the start once; CONTINUE '
+     'after a reload names the day and keeps the purse; the start is paid once per game (the ledger); NEW GAME over '
+     'a save asks, then starts over empty; BEGIN still works with the title up. Mutations: no ledger guard (T8b); '
+     'the title passes taps to the door (crash at T3); NEW GAME keeps the save (T9); the menu over BEGIN (T2, T9).', True),
     ('THE ONE SONG', ['node', 'gates/the_one_song_gate.js'],
      'VAMILY [one song], rule 64 (PAOLO 10/2: "two songs are playing at the same time"). MEASURED with every '
      'AudioContext and media element in every frame hooked: one music engine, and the folds broke its hand-offs '

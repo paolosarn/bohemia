@@ -13,7 +13,12 @@
 #    tile's AP and fatigue, GROK_82), 17 (no footprints yet; open the Clark County assessor next), 18 (empty; the Relations page is in the dump),
 #    19 (the wiki does not say the UI sizes; the coordinator measured from screenshots instead), 20 (terrain speeds, no flee chance on the wiki),
 #    21 (the one-not-two rule is his sentence, GROK_101). Seven of your reported rulings are in his VOTE tab as VIA GROK defaults.
-# THE OPEN ASKS, IN ORDER (10/4): 22 (standing; what the pages do NOT print: the hit formula, the injury threshold math, morale checks, the daily
+# 10/5, PAOLO'S NEWEST (rule 75), FIRST: ASK 10 THE ORIGINS, EXACT: every origin (base and every DLC): the starting men with their
+#    backgrounds, gear and crowns, the FIELD CAP and the roster cap (Lone Wolf, Peasant Militia's 16 and 25, the rest), every rule
+#    it changes, the wiki page cited per origin. THEN ASK 22's NEXT SHEET: THE PARTY SPAWN AND SCALING MATH (party size by roster
+#    strength, days, difficulty and job skulls; the tier mix by day; the late-day buffs; where camps and roaming parties differ;
+#    the count words' thresholds), with the page or the thread each number came from.
+# THE OPEN ASKS, IN ORDER (10/4, after the two above): 22 (standing; what the pages do NOT print: the hit formula, the injury threshold math, morale checks, the daily
 #    event roll, party spawn timers, contract pay math; dev blogs and code reads, cite each), 8 (settlement situations), 9 (followers),
 #    10 (origins), 13 (which beasts survive the Mojave), 17 with the assessor, 12 (lore holes; your lore passes 1-16 are read, finish the file).
 # THE OLD ORDER WAS: 16 (the combat map's size and what scales on the world map), 15 (every terrain tile exact), 6 (a

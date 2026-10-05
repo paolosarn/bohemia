@@ -4828,9 +4828,189 @@
     "src": "vote/RUN_ONE_SONG_10_4.html"
    }
   },
-{"id": "combat2-night-in-the-sun-10-4", "kind": "tile", "lane": "combat 2", "sha": "pending", "made": "10/4", "title": "NIGHT YOU CAN STILL SEE IN THE SUN", "why": "You love the night but said it was too hard to see outside, so every settlement night is now a cool colour instead of near black, and the lamp pools are bright enough to pick out from the dark, measured against the readability floor. Thumbs up and night stays this bright, and you see it in the settlement screen at night.", "show": {"how": "image", "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"}},
- {"id": "ui-settings-in-our-materials-10-4", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/4", "title": "SETTINGS, WITH BRIGHTNESS", "why": "Settings is now taped-up cardboard and receipts with separate music and sound levels and a brightness slider, so you can play outside in the sun. You see it behind the gear in the game, and the start screen will open it too.", "show": {"how": "image", "src": "vote/UI_SETTINGS_IN_OUR_MATERIALS_10_4.png"}}
-],
+  {
+   "id": "combat2-night-in-the-sun-10-4",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "NIGHT YOU CAN STILL SEE IN THE SUN",
+   "why": "You love the night but said it was too hard to see outside, so every settlement night is now a cool colour instead of near black, and the lamp pools are bright enough to pick out from the dark, measured against the readability floor. Thumbs up and night stays this bright, and you see it in the settlement screen at night.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_SETTLEMENT_PICTURES_10_4.png"
+   }
+  },
+  {
+   "id": "ui-settings-in-our-materials-10-4",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "SETTINGS, WITH BRIGHTNESS",
+   "why": "Settings is now taped-up cardboard and receipts with separate music and sound levels and a brightness slider, so you can play outside in the sun. You see it behind the gear in the game, and the start screen will open it too.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_SETTINGS_IN_OUR_MATERIALS_10_4.png"
+   }
+  },
+  {
+   "id": "run2-one-painted-place-10-5",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE SETTLEMENT IS ONE PICTURE, THE BUILDINGS ARE IN IT",
+   "why": "You said the buildings looked like options, so the place is now one painted 45-degree picture with the barber, stall, posts, clinic, board and junk lot standing in it, and a building lights up and says its name only when you touch it. You see it in the VOTE tab under LOOK, and in the demo every time you arrive at a place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-road-is-faster-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "4a0d27c",
+   "made": "10/5",
+   "title": "THE ROAD IS FASTER",
+   "why": "Travel on the map was silent, so this is your party's footsteps on a paved road at the faster road pace. You hear it in the VOTE tab under LOOK, in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the road bed"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
+  },
+  {
+   "id": "sounds-dirt-is-slower-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "4a0d27c",
+   "made": "10/5",
+   "title": "DIRT IS SLOWER",
+   "why": "The same footsteps on open dirt, at the slower pace dirt costs you. You hear it in the VOTE tab under LOOK, in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the dirt bed"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
+  },
+  {
+   "id": "sounds-the-night-has-insects-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "4a0d27c",
+   "made": "10/5",
+   "title": "THE NIGHT HAS INSECTS",
+   "why": "Night travel was silent, so this is many insects calling, built from real clicks and never a hiss. You hear it in the VOTE tab under LOOK, in the travel clip on the map's sounds page.",
+   "options": [
+    "A, the insects"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html"
+   }
+  },
+  {
+   "id": "ui-the-start-screens-look-10-5",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE START SCREEN'S LOOK",
+   "why": "The crew picks are now cardboard cards, a posted sheet of origins with your pick ringed in marker, and a paper form for the name, and the start screen has its look: a taped card, a receipt and a cracked glass pane over the valley at night. You see it the moment the game opens, on the picks now and on the start screen once its buttons are wired in.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_START_SCREENS_LOOK_10_5.png"
+   }
+  },
+  {
+   "id": "a-few-not-twelve-10-5",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE FIRST FIGHT IS A FEW THUGS BY THE MATH, NOT ONE AND NOT TWELVE",
+   "why": "You said twelve against twelve cannot be the flow and asked for just one enemy so you can test the rest, so the road's parties are now sized by Battle Brothers' own math (your strength, the days, the difficulty, the ground) and on day one near the start that math gives two or three thugs, never a hand-placed single man. You see it in the demo's first fight after the start screen, and later in bigger parties as the days pass.",
+   "show": {
+    "how": "text",
+    "src": "Rule 75b; RUN [a few, not twelve], COMBAT [the enemy math]. The count words are Battle Brothers': a few 2-3, some 4-6, many 7-10, lots 11-13.\n\nSeen in: the demo's first fight; the party's count word on the map when the clock stops."
+   },
+   "verdict": "default",
+   "status": "ruled"
+  },
+  {
+   "id": "combat2-buildings-gas-and-motel-10-5",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE GAS STATION AND THE MOTEL IN A FIGHT",
+   "why": "The gas pumps under the canopy are cover that can catch fire if hit, and you can stand up on the motel's walkway as high ground. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts on main street.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BUILDINGS_GAS_AND_MOTEL_10_5.png"
+   }
+  },
+  {
+   "id": "combat2-buildings-church-and-school-10-5",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE CHURCH AND THE SCHOOL IN A FIGHT",
+   "why": "The church's front steps are low cover, the school's fence is cover you can see through, and the school's flat roof is high ground. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts on main street.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BUILDINGS_CHURCH_AND_SCHOOL_10_5.png"
+   }
+  },
+  {
+   "id": "combat2-buildings-warehouse-and-casino-10-5",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE WAREHOUSE AND THE CASINO BACK IN A FIGHT",
+   "why": "The warehouse's loading dock is high ground and the dumpsters behind the casino are cover. Thumbs up and these rules stay, and you see it in the COMBAT tab when a fight starts in the works.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BUILDINGS_WAREHOUSE_AND_CASINO_10_5.png"
+   }
+  },
+  {
+   "id": "combat-your-formation-10-5",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE FIGHT OPENS WITH YOUR LINE, AND YOU SET IT",
+   "why": "Your men now open in Battle Brothers' two rows of nine, fighters in front and shooters behind, and nothing moves until you tap FIGHT, so you can tap a man and drop him on any tile of your two lit columns first. Start any fight by hand and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_YOUR_FORMATION_10_5.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "run-the-start-screen-10-4",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "pending",
+   "made": "10/4",
+   "title": "A START SCREEN: NEW GAME, CONTINUE, SETTINGS",
+   "why": "The demo now opens on a title, dressed by the UI chat in our materials, with NEW GAME (your crew picks), CONTINUE (your saved day, straight in) and SETTINGS, instead of dropping you on the loading screen. You see it the moment you open the DEMO, upright or on its side.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_START_SCREEN_10_4.jpg"
+   }
+  }
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",

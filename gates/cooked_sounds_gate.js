@@ -751,6 +751,35 @@ const MEASURE = `
     } catch (e) { out.endTurnClickErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE MAP IN MOTION (row [the map's sounds], 10/5). Three claims: the road bed is
+     footstepWalk on asphalt at the RUNNING cadence (perBeat 2, "the road faster"), the
+     dirt bed is the same function on dirt at the walking cadence, and the two render
+     different footfall counts for the same length -- the only way tempo actually shows
+     up in a rendered buffer. The insects are a dense click train, not a hiss: clicks
+     counted off the EVENTS crackleInto returns, never assumed from the rate asked for,
+     and band-limited where a cricket's own calling song sits. */
+  (function () {
+    try {
+      const road = H.travelRoadBed(ctx, { beats: 8 });
+      const dirt = H.travelDirtBed(ctx, { beats: 8 });
+      out.travelBeds = {
+        roadSteps: road.steps, roadSurface: road.surface, roadPerBeat: road.perBeat,
+        dirtSteps: dirt.steps, dirtSurface: dirt.surface, dirtPerBeat: dirt.perBeat,
+        roadIsDenser: road.steps > dirt.steps
+      };
+    } catch (e) { out.travelBedsErr = String(e && e.message).slice(0,160); }
+    try {
+      const ins = H.nightInsects(ctx, {});
+      const d = ins.buffer.getChannelData(0), n = d.length;
+      let q = 0, pk = 0;
+      for (let i = 0; i < n; i++) { q += d[i] * d[i]; const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.nightInsects = {
+        clicks: ins.clicks, lo: ins.lo, hi: ins.hi, noiseSources: ins.noiseSources,
+        rms: Math.sqrt(q / n), peak: pk
+      };
+    } catch (e) { out.nightInsectsErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1146,6 +1175,28 @@ const MEASURE = `
         H.endTurnClick = (ctx, o) => {
           const m = realStrike(ctx, { what: 'pipe', f0: 196 });
           return { buffer: m.buffer, seconds: m.seconds, what: 'pipe', f0: 196 };
+        };
+        /* AND THE MAP IN MOTION (10/5): SAME TRAP A THIRD TIME. travelRoadBed and
+           travelDirtBed call the local footstepWalk BY CLOSURE, and nightInsects calls
+           the local crackleInto and bandTo the same way, so none of the swaps above
+           reach them. The falsifier has to replace all three exported names directly:
+           both travel beds collapse to the SAME perBeat (no tempo difference at all),
+           and the insects become a flat, unfiltered noise bed (the thing rule 32e
+           graveyarded) with no clicks to count.
+           Flat noise it may be, but it is not SILENT noise -- rms has to clear the
+           claim's own 0.01 floor as a plain safety-check so this does not falsely read
+           as "clicks: 0" ever doing the mutation's job for it. */
+        const flatSameTempo = (ctx, o) => {
+          const beats = (o && o.beats != null) ? o.beats : 6;
+          return { buffer: ctx.createBuffer(1, 1, ctx.sampleRate), surface: 'mutated',
+            perBeat: 1, steps: beats, seconds: beats * 0.5 };
+        };
+        H.travelRoadBed = flatSameTempo; H.travelDirtBed = flatSameTempo;
+        H.nightInsects = (ctx, o) => {
+          const secs = (o && o.secs) || 4.0, sr = ctx.sampleRate, n = Math.round(sr * secs);
+          const buf = ctx.createBuffer(1, n, sr), dd = buf.getChannelData(0);
+          for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
+          return { buffer: buf, seconds: secs, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1 };
         };
       });
     }
@@ -1860,6 +1911,24 @@ const MEASURE = `
         ET.samples + ' samples against a 200 ms fade window -- the natural envelope, not a second '
         + 'one pasted over a cut edge');
     } else { claim('The turn closes was measured', false, d.endTurnClickErr || 'no reading'); }
+
+    /* ---- THE MAP IN MOTION (row [the map's sounds], 10/5) ---------------------- */
+    if (d.travelBeds) {
+      const TB = d.travelBeds;
+      claim('THE ROAD IS FASTER THAN DIRT, AND IT IS A FOOTFALL COUNT, NOT A LABEL',
+        TB.roadSurface === 'asphalt' && TB.dirtSurface === 'dirt'
+          && TB.roadPerBeat === 2 && TB.dirtPerBeat === 1 && TB.roadIsDenser === true,
+        'over the same 8 beats, asphalt at perBeat 2 renders ' + TB.roadSteps
+        + ' footfalls against dirt at perBeat 1\'s ' + TB.dirtSteps
+        + ' -- the travel time ratio read onto the footfall engine, not a second number typed for ambience');
+    } else { claim('The travel beds were measured', false, d.travelBedsErr || 'no reading'); }
+    if (d.nightInsects) {
+      const NI = d.nightInsects;
+      claim('THE NIGHT\'S INSECTS ARE A CLICK TRAIN, NOT A HISS, AND THEY SIT IN THEIR OWN BAND',
+        NI.noiseSources === 0 && NI.clicks > 300 && NI.lo === 3000 && NI.hi === 6000 && NI.rms > 0.01,
+        NI.clicks + ' discrete clicks (crackleInto, zero noise generators) band-limited to '
+        + NI.lo + '-' + NI.hi + ' Hz, a field cricket\'s own range, rms ' + NI.rms.toFixed(4));
+    } else { claim('Night insects were measured', false, d.nightInsectsErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

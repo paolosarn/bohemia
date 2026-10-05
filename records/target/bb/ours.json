@@ -408,5 +408,13 @@
   "source": "slices/fight_ground/fight_ground.json lights_key (COMBAT TWO 10/2, round twelve) and bb_all/1423_Nighttime (Status Effect).txt",
   "quote": "a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)",
   "why": "Battle Brothers' night is one status on everybody (-2 vision, -30% ranged skill, -30% ranged defence); our streets have lamps and burning drums, so the night is per tile: a man standing in a pool is seen at day range; a shooter takes the night's -30% only when his target stands in the dark; a target takes the night's -30% defence only when the shot comes out of the dark. Both lit is day, both dark is Battle Brothers' night exactly. The lesson: stay out of the light. No new number: the pool radius is COMBAT TWO's, the penalties the wiki's."
+ },
+ "formation": {
+  "value": {
+   "slots_per_row": 9
+  },
+  "source": "bb_all/1415_News and Dev Blogs.txt",
+  "quote": "In the lower right corner of the inventory screen you now have three rows with 9 slots each. The lower row is your reserves; characters placed here do not take part in battle. The top two rows are your front and back battle lines, allowing you to place archers in the back and build a sturdy shieldwall in front.",
+  "why": "COMBAT [your formation] (Paolo's sixth votes: 'formation and gear are the depth'; GROK_75: 'the front line and the back line are already set by how you layered the company before the fight'). The fight opens with your men where the roster's two rows put them: slot 1 to 9 of the front row stand top to bottom on your front column, the back row one column behind. The roster order is RUN TWO's (FIGHT_OPTS.formation {front:[...], back:[...]}, crew indices or null); until its roster screen exists the default is Battle Brothers' own advice: the shieldwall in front, the shooters behind, in roster order, centred. Before turn one you may move any man to any tile of your two columns (ours: Battle Brothers sets this on the company screen; our roster screen is not built, so the fight hosts it); END TURN reads FIGHT and starts it; AUTO skips it."
  }
 }

@@ -53,6 +53,32 @@ async function fight(F, first) {
     F.board + ': *** IT OPENS WITH THE WHOLE BOARD ON THE GLASS (rule 62) ***', Math.round(s0.bw) + 'x' + Math.round(s0.bh) + ' in ' + s0.W + 'x' + s0.avail);
   leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
   leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
+  /* YOUR FORMATION (COMBAT [your formation]): the fight waits for his line; a real finger moves a man inside his two
+     columns, never outside them; a real finger on FIGHT starts it */
+  const ready = await until(() => FIGHT.S.deploy && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil, 8000);
+  await p.waitForTimeout(600);
+  const d0 = await ev(() => ({ acted: FIGHT.S.log.filter(e => e.t === 'step' || e.t === 'attack').length, label: document.getElementById('bend').textContent.trim(),
+    fits: FIGHT_UI.board.height * FIGHT_UI.zoom <= innerHeight - TOPH - BOTH + 1 }));
+  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.fits, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, his two columns fit the glass top to bottom',
+    d0.acted + ' moves, the button reads ' + d0.label + (d0.fits ? ', the columns fit' : ', CUT'));
+  if (first) {
+    const scr = (x, y) => ev((q) => ({ x: (q[0] - FIGHT_UI.cx) * FIGHT_UI.zoom + innerWidth / 2, y: (q[1] - FIGHT_UI.cy) * FIGHT_UI.zoom + TOPH + (innerHeight - TOPH - BOTH) / 2 }), [x, y]);
+    const plan = await ev(() => { const S = FIGHT.S, z = FIGHT._t.zoneCols(), u = FIGHT.alive('you')[0]; let t = null, out = null;
+      for (let y = 0; y < S.h && !t; y++) for (const x of z) if (FIGHT._t.passable(x, y) && !S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y)) { t = { x, y }; break; }
+      for (let y = 0; y < S.h && !out; y++) { const x = Math.max.apply(null, z) + 2; if (FIGHT._t.passable(x, y) && !S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y)) out = { x, y }; }
+      return { id: u.id, from: [u.x, u.y], to: t, out, tw: FIGHT_UI.tw, th: FIGHT_UI.th }; });
+    const tapTile = async (x, y, dy) => { const q = await scr((x + .5) * plan.tw, (y + (dy || .5)) * plan.th); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(250); };
+    await tapTile(plan.from[0], plan.from[1], .6); if (plan.out) await tapTile(plan.out.x, plan.out.y);
+    const stay = await ev(id => { const u = FIGHT.byId(id); return [u.x, u.y]; }, plan.id);
+    await tapTile(plan.to.x, plan.to.y);
+    const went = await ev(id => { const u = FIGHT.byId(id); return [u.x, u.y]; }, plan.id);
+    leg(stay[0] === plan.from[0] && stay[1] === plan.from[1] && went[0] === plan.to.x && went[1] === plan.to.y,
+      '*** HE SETS HIS LINE WITH HIS FINGER ***: a man tapped, then a lit tile: he stands there; a tile outside his two columns: he stays',
+      plan.from.join(',') + ' -> outside ' + stay.join(',') + ' -> ' + went.join(','));
+  }
+  const fb = await ev(() => { const r = document.getElementById('bend').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  await p.touchscreen.tap(fb.x, fb.y);
+  leg(await until(() => !FIGHT.S.deploy, 3000), F.board + ': a finger on FIGHT starts it, and the button reads END TURN again', await ev(() => document.getElementById('bend').textContent.trim()));
   const glided = await until(() => FIGHT_UI.zoom >= FIGHT_UI.near * 0.95 && !FIGHT_UI.glide, 8000);
   leg(glided, F.board + ': then it glides in on your line on the beat', await ev(() => FIGHT_UI.zoom.toFixed(3) + ' near ' + FIGHT_UI.near.toFixed(3)));
 
@@ -275,13 +301,15 @@ async function sweep() {
     await d.page.evaluate(() => {
       const T = FIGHT._t, S = FIGHT.S, m = window.M70 = { engaged: 0, alone: 0, walks: 0, ahead: 0, shots: 0, roof: 0, breach: 0 }, orig = FIGHT.aiStep;
       const dd = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+      const from = {};
       FIGHT.aiStep = function (u) {
+        const k = u.id + ':' + S.round; if (!from[k]) from[k] = [u.x, u.y];
         const r = orig(u);
         if (r === false && u.side === 'you' && FIGHT.onField(u) && u.morale !== 'Fleeing') {
           const mates = FIGHT.alive('you').filter(f => f !== u && FIGHT.onField(f)), h = T.huntField(u), L = T.lineOf(u, h);
           const eng = FIGHT.alive('them').some(f => dd(f, u) === 1);
           if (eng) { m.engaged++; if (!mates.some(f => dd(f, u) === 1)) m.alone++; }
-          else if (!S.contact) { m.walks++; if (L.mid !== null && h(u.x, u.y) < L.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
+          else if (from[k][0] !== u.x || from[k][1] !== u.y) { m.walks++; if (L.mid !== null && h(u.x, u.y) < L.mid - (R('ours.formation_depth_lines') - 1)) m.ahead++; }
           if (FIGHT.isRanged(u.weapon)) { m.shots++; if (S.terrain[u.y][u.x] === 'height') m.roof++; if (L.front !== null && h(u.x, u.y) < L.front) m.breach++; }
         }
         return r;
@@ -305,7 +333,7 @@ async function sweep() {
   const A = all.auto, pc = (a, b) => b ? Math.round(100 * a / b) : 0;
   leg(A.shots > 0 && pc(A.roof, A.shots) >= 25, '*** AUTO TAKES THE HIGH GROUND, ESPECIALLY THE SHOOTERS *** (wiki: \'the AI will try to occupy the high ground whenever possible, especially their ranged units\'): a quarter or more of the shooters\' turns end on a roof',
     A.roof + ' of ' + A.shots + ' = ' + pc(A.roof, A.shots) + '%');
-  leg(A.walks > 0 && pc(A.ahead, A.walks) <= 5, '*** AUTO HOLDS THE FORMATION *** (Dev Blog 105: \'better coordination amongst their ranks\'): walking up, a man is ahead of the middle of his line by more than the line\'s depth in 5% of turns or fewer',
+  leg(A.walks > 0 && pc(A.ahead, A.walks) <= 5, '*** AUTO HOLDS THE FORMATION *** (Dev Blog 105: \'better coordination amongst their ranks\'): a man who walked (and did not walk into a fight) ends ahead of the middle of his line by more than the line\'s depth in 5% of his walks or fewer (where the formation set him is his, not the AI\'s)',
     A.ahead + ' of ' + A.walks + ' = ' + pc(A.ahead, A.walks) + '%');
   leg(A.shots > 0 && pc(A.breach, A.shots) <= 5, '*** AUTO SHIELDS THE BACKLINE *** (Dev Blog 105: \'better at protecting their vulnerable units\'): a shooter ends past his front melee man in 5% of his turns or fewer',
     A.breach + ' of ' + A.shots + ' = ' + pc(A.breach, A.shots) + '%');
@@ -464,7 +492,39 @@ async function sunTest() {
     'night ' + f(night.plain.dark) + ' -> ' + f(bright.plain.dark) + ' at full brightness');
 }
 
+/* YOUR FORMATION at the table: the roster's two rows of nine (ours.formation, Battle Brothers' own) put each man on
+   his slot; without a roster the shieldwall in front and the shooters behind; the enemy's backline deploys behind its
+   line by its ai.json role; AUTO skips the setting */
+async function formation() {
+  const at = async (extra) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:7,speed:1,kind:"scrub"' + extra + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 });
+    const r = await d.page.evaluate(() => { const S = FIGHT.S, col = FIGHT.R ? 0 : 0, c = FIGHT._t.zoneCols();
+      return { deploy: S.deploy, cols: c, crew: S.units.filter(u => u.side === 'you').map(u => ({ x: u.x, y: u.y, slot: u.slot, ranged: FIGHT.isRanged(u.weapon) })),
+        them: S.units.filter(u => u.side === 'them').map(u => ({ x: u.x, back: u.arche === 'backline' })), h: S.h,
+        free: (x, y) => 0 }; });
+    const tiles = await d.page.evaluate((cols) => { const S = FIGHT.S, o = {}; for (let y = 0; y < S.h; y++) cols.forEach(x => { o[x + ',' + y] = FIGHT._t.passable(x, y); }); return o; }, r.cols);
+    r.tiles = tiles; r.err = d.errs[0]; await d.close(); return r; };
+  const want = { front: [11, 10, 9, null, 0, null, 1, 2, 3], back: [4, 5, 6, 7, 8] };
+  const handed = await at(',formation:' + JSON.stringify(want));
+  const n = 9, mid = (handed.h - 1) / 2, front = handed.cols[0], back = handed.cols[1];
+  const misplaced = [];
+  [['front', front], ['back', back]].forEach(([row, x]) => want[row].forEach((k, i) => { if (k === null) return;
+    const u = handed.crew[k], y = Math.round(mid + i - (n - 1) / 2);
+    if (handed.tiles[x + ',' + y] ? !(u.x === x && u.y === y) : u.slot !== row + ':' + i) misplaced.push(k + '@' + u.x + ',' + u.y + ' want ' + x + ',' + y); }));
+  leg(misplaced.length === 0 && !handed.err, '*** THE FIGHT OPENS WITH YOUR MEN WHERE THE ROSTER PUT THEM *** (Battle Brothers: two rows of nine, the front line and the back line): every slot to its tile, a house slot to the nearest open tile',
+    misplaced.length ? misplaced.join(' ') : 'all twelve on their slots');
+  const dflt = await at('');
+  const meleeX = Math.min.apply(null, dflt.crew.filter(u => !u.ranged).map(u => u.x)), rangedX = Math.max.apply(null, dflt.crew.filter(u => u.ranged).map(u => u.x));
+  leg(rangedX < meleeX, 'without a roster: the shieldwall in front, the shooters behind', 'shooters at column ' + rangedX + ' or behind, the line at ' + meleeX + ' or ahead');
+  const band = await at(',band:["brigand_thug","brigand_thug","brigand_thug","lower_brigand_marksman","brigand_poacher"]');
+  const lineX = Math.min.apply(null, band.them.filter(u => !u.back).map(u => u.x)), backX = Math.min.apply(null, band.them.filter(u => u.back).map(u => u.x));
+  leg(backX > lineX, 'the enemy deploys by its ai.json role: the marksman and the poacher behind the thugs', 'thugs at ' + lineX + ', the backline at ' + backX + ' or behind');
+  const auto = await at(',auto:true');
+  leg(auto.deploy === false && dflt.deploy === true, 'AUTO skips the setting: the fight starts on its own', 'auto ' + auto.deploy + ', by hand ' + dflt.deploy);
+}
+
 (async () => {
+  await formation();
   await sunTest();
   await screens();
   await nightLights();

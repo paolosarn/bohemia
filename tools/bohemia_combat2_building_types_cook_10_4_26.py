@@ -204,7 +204,7 @@ def motel(seed):
 
 
 def warehouse(seed):
-    im, box, _ = shell(30, 20, 7.0, 'metal', seed)
+    im, box, _ = shell(30, 8, 5.5, 'metal', seed)               # 8 m deep, 5.5 m tall: at 45 a taller, deeper box on the south row hides the street behind it
     d = ImageDraw.Draw(im); x0, ft, x1, fb = box
     d.rectangle([x0, ft, x1, fb], fill=C[3] + (255,))
     for x in range(x0, x1, m(0.5)): d.line([(x, ft), (x, fb)], fill=C[2] + (255,))
@@ -255,6 +255,69 @@ def town_base(seed, lot_kind='yards'):
     return board, road, R4.terrain([])
 
 
+# ---------------------------------------------------------------------------------------------
+# ROUND TWENTY (10/5, OPEN row [more building types], rule 59): EVERY BUILDING CHANGES THE FIGHT ON ITS
+# TILES. The buildings stood as walls; now each brings what Battle Brothers would give it: the church's
+# steps (low cover), the school's fence (cover you see through), the gas station's pumps (cover that
+# BURNS: a hit can set it alight), the motel's walkway (high ground: you stand on it), the warehouse's
+# dock (high ground, a loading platform), the casino's back lot (dumpsters: cover). Each piece is drawn
+# at 45 like the rest and carries its fight facts in FURN_META.
+# ---------------------------------------------------------------------------------------------
+def _box45(w_m, d_m, h_m, top, face, seed, ribs=None):
+    W, dp, fh = m(w_m), ty(m(d_m)), ty(m(h_m))
+    im = Image.new('RGBA', (W + m(0.6), dp + fh + ty(m(0.6))), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    d.polygon([(m(0.3), dp + fh), (W, dp + fh), (W + m(0.6), dp + fh + ty(m(0.6))), (m(0.6), dp + fh + ty(m(0.6)))], fill=A[2] + (255,))
+    d.rectangle([0, 0, W, dp], fill=top + (255,)); d.line([(0, 0), (W, 0)], fill=C[6] + (255,))
+    d.rectangle([0, dp, W, dp + fh], fill=face + (255,)); d.line([(0, dp), (W, dp)], fill=A[1] + (255,))
+    if ribs:
+        for x in range(0, W, m(ribs)): d.line([(x, dp), (x, dp + fh)], fill=A[1] + (255,))
+    return im
+
+
+def pump(seed):
+    im = _box45(1.0, 0.6, 1.8, C[5], T[3], seed)
+    d = ImageDraw.Draw(im); dp = ty(m(0.6))
+    d.rectangle([m(0.2), dp + 6, m(0.8), dp + ty(m(0.6))], fill=A[0] + (255,))     # the dead display
+    d.line([(m(0.9), dp + ty(m(0.8))), (m(1.2), dp + ty(m(1.6)))], fill=A[0] + (255,), width=3)   # the hose
+    return im
+
+
+def dumpster(seed):
+    im = _box45(2.0, 1.4, 1.4, A[4], [A[3], T[1], B.G[0]][K.R(seed).i(3)], seed, ribs=0.5)
+    return im
+
+
+def fence_run(seed, length=6.0):
+    W, fh = m(length), ty(m(1.8))
+    im = Image.new('RGBA', (W + 4, fh + 8), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
+    for x in range(0, W + 1, m(3.0)): d.rectangle([x, 0, x + 3, fh], fill=A[2] + (255,))
+    for y in range(4, fh, 6):                                             # the chain-link, a diagonal weave you see through
+        for x in range(0, W, 6): d.point((x + (y // 6) % 2 * 3, y), fill=C[4] + (255,))
+    d.line([(0, 2), (W, 2)], fill=C[5] + (255,), width=2)
+    return im
+
+
+def steps(seed):
+    im = _box45(4.0, 1.6, 0.6, ST[4], ST[2], seed)
+    d = ImageDraw.Draw(im); dp = ty(m(1.6))
+    for k in range(1, 3): d.line([(0, k * dp // 3), (m(4.0), k * dp // 3)], fill=ST[1] + (255,), width=2)
+    return im
+
+
+def dock(seed):
+    return _box45(10.0, 3.0, 1.2, C[4], C[2], seed, ribs=2.0)
+
+
+FURN_MAKERS = {'pump': pump, 'dumpster': dumpster, 'fence': fence_run, 'steps': steps, 'dock': dock}
+FURN_META = {'pump': dict(h=1.8, kind='COVER', burns=True), 'dumpster': dict(h=1.4, kind='COVER'),
+             'fence': dict(h=1.8, kind='COVER', see_through=True), 'steps': dict(h=0.6, kind='LOW_COVER'),
+             'dock': dict(h=1.2, kind='HEIGHT')}
+FURNITURE = {k: fn(2000 + i) for i, (k, fn) in enumerate(FURN_MAKERS.items())}
+_pi = B.piece_img
+B.piece_img = lambda pid, cover: FURNITURE[pid] if pid in FURNITURE else _pi(pid, cover)
+for _k, _im in FURNITURE.items(): B.OK |= K.colours(_im)
+
+
 def main_street(seed):
     board, road, grid = town_base(seed)
     sp = {k: fn(seed + 11 * i) for i, (k, fn, _) in enumerate(TYPES)}
@@ -262,7 +325,12 @@ def main_street(seed):
     place(board, grid, sp['motel'], 2, 1, 3, 'blocked')
     place(board, grid, sp['church'], 0, 3, 1, 'blocked', north=False)
     place(board, grid, sp['school'], 1, 3, 3, 'height', north=False)
-    pieces = [dict(piece='car_kerb', x_m=round(5 + K.R(seed)() * 40, 1), y_m=31.5), dict(piece='wall_broken', x_m=50.0, y_m=50.0)]
+    grid[1][2] = grid[1][3] = grid[1][4] = 'height'                     # the motel's walkway: high ground you stand on
+    grid[1][0] = grid[1][1] = 'flat'                                    # under the canopy is open ground; the pumps are the cover, the store is behind
+    pieces = [dict(piece='car_kerb', x_m=round(40 + K.R(seed)() * 12, 1), y_m=26.0), dict(piece='wall_broken', x_m=50.0, y_m=50.0),   # the car clear of the church
+              dict(piece='pump', x_m=6.0, y_m=21.0), dict(piece='pump', x_m=16.0, y_m=21.0),          # under the canopy: cover that burns
+              dict(piece='steps', x_m=4.0, y_m=48.6),          # at the church's face (south rows face the camera)                                                 # the church's steps
+              dict(piece='fence', x_m=13.0, y_m=49.0), dict(piece='fence', x_m=20.0, y_m=49.0), dict(piece='fence', x_m=27.0, y_m=49.0)]   # the school's fence
     return board, pieces, dict(road=road), grid, sp
 
 
@@ -272,7 +340,10 @@ def the_works(seed):
     place(board, grid, sp['casino_back'], 0, 1, 3, 'blocked')
     place(board, grid, sp['apartments'], 3, 1, 2, 'height')
     place(board, grid, sp['warehouse'], 0, 3, 3, 'blocked', north=False)
-    pieces = [dict(piece='car_lane', x_m=40.0, y_m=27.0), dict(piece='wall', x_m=40.0, y_m=50.0), dict(piece='shed', x_m=50.0, y_m=40.0)]
+    pieces = [dict(piece='car_lane', x_m=40.0, y_m=27.0), dict(piece='wall', x_m=40.0, y_m=50.0), dict(piece='shed', x_m=50.0, y_m=40.0),
+              dict(piece='dumpster', x_m=4.0, y_m=24.4), dict(piece='dumpster', x_m=14.0, y_m=24.4), dict(piece='dumpster', x_m=26.0, y_m=24.4),   # the casino's back lot
+              dict(piece='dock', x_m=10.0, y_m=48.4)]                                                 # the warehouse's dock, on its face (south): high ground
+    grid[4][1] = 'height'
     return board, pieces, dict(road=road), grid, sp
 
 
