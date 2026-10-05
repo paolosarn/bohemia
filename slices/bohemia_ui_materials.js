@@ -375,18 +375,181 @@
   var SETTLE_CSS = FACES
     + 'html body #sheet .act{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;'
     +   'font-family:"BohemiaROM",ui-monospace,monospace;font-size:13px;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));min-height:48px}'
-    + 'html body #sheet .act span{text-align:left}'
+    + 'html body #sheet .act span{flex:1 1 auto;text-align:left}'
     + 'html body #sheet .act em{color:#3e1608;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;border-left:1px dashed rgba(42,34,26,.4);padding-left:8px}'
-    + 'html body #sheet .act[disabled]{opacity:1;color:#6b5f4f}html body #sheet .act[disabled] em{color:#7a6a58}';
+    + 'html body #sheet .act[disabled]{opacity:1;color:#6b5f4f}html body #sheet .act[disabled] em{color:#7a6a58}'
+    /* the bag's and the shelf's slots: cracked glass cells, the item's icon, its short name in ROM, the price stamped */
+    + 'html body #sheet .slot{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12)}'
+    + 'html body #sheet .slot.full{background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/256px 100%}'
+    + 'html body #sheet .slot span{font-family:"BohemiaROM",ui-monospace,monospace;font-size:9px;color:#f0e2c4;text-shadow:0 1px 0 #000}'
+    + 'html body #sheet .slot em{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;color:#f0c46a;text-shadow:0 1px 0 #000}'
+    + 'html body #sheet .gridh{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#e8d8b8}';
   function dressSettlement() {
     if (!document.getElementById('sbody')) return false;
     rootVars(); style('bm-settle', SETTLE_CSS);
     try { document.fonts.load('13px "BohemiaCasing"'); document.fonts.load('11px "BohemiaROM"'); } catch (e) {}
     return true;
   }
-  function dressAll() { dressFrontDoor(); dressSettlement(); }
+  /* ======================================================================================================
+     THE ITEM ICONS  (UI [item icons], 10/5/26; rule 76, Paolo 10/5: 'inventory space with icons')
+     One icon per item: every row of weapons.json (126), armor.json body (78), head (87) and shields (19).
+     Each is drawn, not typed: a 22x22 pixel grid cut by hand per OBJECT (what the item is in our world, the
+     names RUN TWO's market gives them: a pipe, a fire axe, a hard hat, a car door...), lit from the top left
+     with a hard dark outline (light and form, the perk icons' way), and made THIS item's by its own id: the
+     handle's material, where the tape wraps, where the rust took, a chip off an edge, a scratch, a tint; its
+     quality word (beat-up, solid, good) decides the wear. Loud and crude on purpose, inside the analog horror
+     bible: nothing shines but a 'good' piece's one glint. 132 device pixels = 44 points on his phone.
+       itemIcon(item, cssPx)      item = {id, kind:'weapon'|'body'|'head'|'shield', name} (RUN TWO's item)
+       itemFromRow(kind, row, all) the same item made from a data row (mirrors RUN TWO's naming)
+     ====================================================================================================== */
+  var OBJ_CLASS = {dagger:'pistol', mace:'pipe', hammer:'sledge', crossbow:'rifle', firearm:'shotgun', throwing:'bottles', throwable_item:'bottles',
+    sword:'machete', axe:'fire axe', spear:'rebar spear', cleaver:'cleaver', flail:'chain', polearm:'pole hook', bow:'compound bow'};
+  /* MIRRORS RUN TWO's naming in BOHEMIA_SETTLEMENT_SCREEN.html (armourName, weaponItem's qualityWord) word for word,
+     so the icon's object is the object the market's line names; the gate compares the two on every stocked item */
+  function armourName(kind, dur) {
+    if (kind === 'head') return dur < 40 ? 'a rag hood' : dur < 100 ? 'a hard hat' : dur < 180 ? 'a riot helmet' : 'a full riot helm';
+    if (kind === 'shield' || kind === 'shields') return dur < 40 ? 'a car door' : 'a riot shield';
+    return dur < 40 ? 'a work jacket' : dur < 100 ? 'a padded vest' : dur < 180 ? 'a plate carrier' : 'full riot armour';
+  }
+  function itemFromRow(kind, row, all) {
+    if (kind === 'weapon') {
+      var c = OBJ_CLASS[row['class']] || 'pipe', same = (all || [row]).filter(function (x) { return x['class'] === row['class']; }).sort(function (a, b) { return a.value - b.value; });
+      var q = same.indexOf(row) / Math.max(1, same.length - 1);
+      return { id: row.id, kind: 'weapon', name: (q < .34 ? 'beat-up ' : q < .67 ? 'solid ' : 'good ') + c };
+    }
+    var k = kind === 'shields' ? 'shield' : kind;
+    return { id: row.id, kind: k, name: armourName(k, row.durability), dur: row.durability || 0 };
+  }
+  var OBJECTS = ['pistol', 'shotgun', 'rifle', 'pipe', 'sledge', 'bottles', 'machete', 'fire axe', 'rebar spear', 'cleaver', 'chain', 'pole hook', 'compound bow',
+    'work jacket', 'padded vest', 'plate carrier', 'full riot armour', 'rag hood', 'hard hat', 'riot helmet', 'full riot helm', 'car door', 'riot shield'];
+  function objOf(item) {
+    var n = String(item.name || '').toLowerCase();
+    for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
+      /* 'riot helmet' is inside 'full riot helm'... the longest match wins */
+      var best = OBJECTS[i]; OBJECTS.forEach(function (o) { if (n.indexOf(o) >= 0 && o.length > best.length) best = o; }); return best; }
+    return item.kind === 'head' ? 'hard hat' : item.kind === 'body' ? 'work jacket' : item.kind === 'shield' ? 'car door' : 'pipe';
+  }
+  function qualOf(item) { var n = String(item.name || '').toLowerCase(); return /beat-up|rag |work jacket|car door/.test(n) ? 0 : /good|full /.test(n) ? 2 : 1; }
+  function hashStr(t) { var h = 2166136261; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  var MAT = { steel: [154, 163, 168], dsteel: [92, 98, 104], rust: [150, 78, 38], wood: [134, 92, 52], red: [176, 46, 32], yellow: [214, 168, 40],
+    black: [44, 42, 40], olive: [96, 104, 60], khaki: [150, 130, 88], glass: [128, 170, 186], tape: [206, 188, 140], rag: [214, 206, 186],
+    leather: [96, 60, 36], green: [70, 120, 70], flame: [240, 140, 40], white: [236, 232, 222], brass: [190, 150, 70] };
+  var ICON_CACHE = {};
+  function itemIcon(item, cssPx) {
+    cssPx = cssPx || 44;
+    var key = item.id + '|' + item.name + '|' + cssPx;
+    if (ICON_CACHE[key]) { var cc = document.createElement('canvas'); cc.width = ICON_CACHE[key].width; cc.height = ICON_CACHE[key].height; cc.getContext('2d').drawImage(ICON_CACHE[key], 0, 0);
+      cc.dataset.obj = ICON_CACHE[key].dataset.obj; cc.dataset.q = ICON_CACHE[key].dataset.q; styleIcon(cc, cssPx); return cc; }
+    var N = 22, G = [], i, j;
+    for (i = 0; i < N * N; i++) G.push(null);
+    var sd = hashStr(String(item.id || item.name)) || 1;
+    var R0 = function () { sd ^= sd << 13; sd ^= sd >>> 17; sd ^= sd << 5; return ((sd >>> 0) % 100000) / 100000; };
+    var obj = objOf(item), q = qualOf(item);
+    var put = function (x, y, m) { x = Math.round(x); y = Math.round(y); if (x >= 1 && y >= 1 && x < N - 1 && y < N - 1) G[y * N + x] = m; };
+    var rect = function (x, y, w, h, m) { for (var yy = y; yy < y + h; yy++) for (var xx = x; xx < x + w; xx++) put(xx, yy, m); };
+    var line = function (x0, y0, x1, y1, m, t) { t = t || 1; var n = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0)) || 1;
+      for (var k = 0; k <= n; k++) { var x = x0 + (x1 - x0) * k / n, y = y0 + (y1 - y0) * k / n; rect(Math.round(x - (t - 1) / 2), Math.round(y - (t - 1) / 2), t, t, m); } };
+    var ell = function (cx, cy, rx, ry, m, hollow) { for (var yy = Math.floor(cy - ry); yy <= Math.ceil(cy + ry); yy++) for (var xx = Math.floor(cx - rx); xx <= Math.ceil(cx + rx); xx++) {
+      var d = ((xx - cx) * (xx - cx)) / (rx * rx) + ((yy - cy) * (yy - cy)) / (ry * ry); if (d <= 1 && (!hollow || d >= .45)) put(xx, yy, m); } };
+    var get = function (x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? null : G[y * N + x]; };
+    var handle = ['wood', 'black', 'leather', 'wood', 'red'][Math.floor(R0() * 5)];
+    var L = Math.round(R0() * 2) - 1;   /* one pixel longer or shorter */
+    switch (obj) {
+      case 'pistol': rect(4, 7, 13 + L, 4, 'dsteel'); rect(4, 8, 2, 2, 'black'); line(7, 11, 5, 17, handle === 'red' ? 'black' : handle, 4); put(10, 12, 'dsteel'); put(11, 13, 'dsteel'); put(10, 13, 'dsteel'); rect(15 + L, 6, 1, 1, 'dsteel'); break;
+      case 'shotgun': line(2, 18, 7, 14, handle, 3); rect(7, 12, 4, 3, 'dsteel'); line(10, 12, 20 + L, 6, 'steel', 2); line(13, 12, 17, 10, 'wood', 2); break;
+      case 'rifle': line(1, 19, 6, 15, handle, 3); line(6, 15, 20 + L, 5, 'dsteel', 2); line(9, 11, 14, 8, 'black', 2); put(15, 8, 'glass'); put(8, 12, 'glass'); put(10, 16, 'dsteel'); break;
+      case 'pipe': line(4, 19, 15, 7 + L, 'steel', 3); rect(14, 3, 5, 4, 'dsteel'); rect(17, 7, 2, 2, 'dsteel'); break;
+      case 'sledge': line(5, 20, 13, 9, handle, 2); rect(10, 3, 9 + L, 6, 'dsteel'); rect(10, 3, 9 + L, 1, 'steel'); break;
+      case 'bottles': rect(8, 10, 6, 10, 'green'); rect(9, 9, 4, 1, 'green'); rect(10, 5, 2, 4, 'green'); line(10, 5, 13, 2, 'rag', 2); put(14, 1 + 1, 'flame'); put(13, 1 + 1, 'flame'); rect(9, 13, 4, 3, 'rag'); break;
+      case 'machete': line(3, 19, 7, 15, handle, 2); line(8, 14, 19 + L, 3, 'steel', 3); line(9, 15, 19 + L, 5, 'dsteel', 1); rect(6, 14, 3, 2, 'dsteel'); break;
+      case 'fire axe': line(4, 20, 15, 5, handle === 'red' ? 'wood' : handle, 2); rect(12, 2, 6, 5, 'red'); rect(17, 1 + 1, 2, 6, 'steel'); put(11, 4, 'red'); break;
+      case 'rebar spear': line(3, 20, 16, 7, 'rust', 1); for (i = 4; i < 16; i += 2) put(3 + i, 20 - i, 'dsteel'); line(16, 7, 20 + Math.min(0, L), 2, 'steel', 2); rect(14, 8, 3, 2, 'tape'); break;
+      case 'cleaver': rect(9, 4, 10 + L, 8, 'steel'); rect(9, 11, 10 + L, 1, 'dsteel'); line(4, 18, 9, 11, handle, 2); put(17 + L, 5, 'dsteel'); break;
+      case 'chain': for (i = 0; i < 4; i++) ell(4.5 + i * 3.6, 17.5 - i * 3.6, 2.8, 2.1, 'steel', true); rect(15, 3, 5, 5, 'brass'); line(16, 3, 16, 1 + 1, 'steel', 1); line(19, 3, 19, 2, 'steel', 1); put(17, 2, 'steel'); put(18, 2, 'steel'); put(17, 5, 'black'); break;
+      case 'pole hook': line(3, 20, 14, 8, handle === 'red' ? 'steel' : handle, 2); line(14, 8, 14, 3, 'dsteel', 2); line(14, 2, 19, 2, 'dsteel', 2); line(19, 2, 19, 6, 'dsteel', 2); put(17, 7, 'dsteel'); break;
+      case 'compound bow': for (j = 2; j <= 19; j++) { var bx = 6 + Math.round(7 * Math.sin(Math.PI * (j - 2) / 17)); put(bx, j, 'black'); put(bx + 1, j, 'black'); } line(7, 2, 7, 19, 'rag', 1); ell(7, 2, 1.4, 1.4, 'dsteel'); ell(7, 19, 1.4, 1.4, 'dsteel'); rect(12, 9, 3, 4, handle === 'red' ? 'leather' : handle); break;
+      case 'work jacket': rect(6, 6, 10, 13, 'khaki'); line(6, 7, 3, 15, 'khaki', 3); line(15, 7, 18, 15, 'khaki', 3); rect(9, 5, 4, 2, 'leather'); line(11, 7, 11, 18, 'dsteel', 1); rect(7, 12, 3, 2, 'olive'); break;
+      case 'padded vest': rect(6, 5, 10, 14, 'olive'); for (j = 7; j < 18; j += 2) rect(6, j, 10, 1, 'black'); rect(9, 4, 4, 2, 'olive'); put(6, 5, null); put(15, 5, null); line(11, 5, 11, 18, 'dsteel', 1); break;
+      case 'plate carrier': rect(5, 5, 12, 14, 'black'); rect(7, 7, 8, 7, 'dsteel'); rect(6, 15, 3, 3, 'olive'); rect(10, 15, 3, 3, 'olive'); rect(14, 15, 2, 3, 'olive'); rect(5, 4, 3, 2, 'black'); rect(14, 4, 3, 2, 'black'); break;
+      case 'full riot armour': rect(6, 7, 10, 12, 'black'); ell(5, 8, 3, 2.2, 'dsteel'); ell(17, 8, 3, 2.2, 'dsteel'); rect(8, 8, 6, 5, 'dsteel'); rect(8, 14, 6, 3, 'dsteel'); rect(9, 5, 4, 2, 'black'); break;
+      case 'rag hood': ell(11, 11, 7, 8.5, 'rag'); ell(11, 13, 3.2, 4, 'black'); rect(6, 18, 10, 2, 'rag'); break;
+      case 'hard hat': ell(11, 12, 7, 6, 'yellow'); for (i = 0; i < N; i++) for (j = 13; j < N; j++) if (G[j * N + i] === 'yellow') G[j * N + i] = null; rect(3, 13, 16, 2, 'yellow'); line(11, 6, 11, 12, 'brass', 1); break;
+      case 'riot helmet': ell(11, 11, 7, 7, 'black'); rect(6, 11, 10, 4, 'glass'); rect(6, 15, 10, 2, 'black'); break;
+      case 'full riot helm': ell(11, 11, 7.5, 7.5, 'black'); rect(5, 9, 12, 7, 'glass'); rect(6, 17, 10, 2, 'dsteel'); rect(5, 8, 12, 1, 'dsteel'); break;
+      case 'car door': rect(3, 4, 16, 15, R0() < .5 ? 'red' : 'olive'); rect(5, 5, 12, 6, 'glass'); rect(14, 13, 3, 1, 'dsteel'); rect(3, 18, 16, 1, 'black'); break;
+      case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;
+    }
+    /* THIS ITEM: tape where it wraps, rust where it took, a chip, a scratch; the quality decides how much */
+    var filled = []; for (i = 0; i < N * N; i++) if (G[i]) filled.push(i);
+    var metal = filled.filter(function (k) { return /steel|red|yellow/.test(G[k]); });
+    var grip = filled.filter(function (k) { return /wood|black|leather|khaki|olive|rag/.test(G[k]); });
+    var nRust = q === 0 ? 4 + Math.floor(R0() * 4) : q === 1 ? 1 + Math.floor(R0() * 2) : 0;
+    for (i = 0; i < nRust && metal.length; i++) G[metal[Math.floor(R0() * metal.length)]] = 'rust';
+    if (q === 0 && grip.length) { var w0 = grip[Math.floor(R0() * grip.length)], wx = w0 % N, wy = (w0 / N) | 0; for (j = -1; j <= 1; j++) if (get(wx + j, wy - j)) G[(wy - j) * N + wx + j] = 'tape'; }
+    var nScr = 1 + Math.floor(R0() * 3);
+    for (i = 0; i < nScr && filled.length; i++) { var sk = filled[Math.floor(R0() * filled.length)]; if (G[sk] && G[sk] !== 'rust') G[sk] = G[sk] + '*'; }
+    if (q < 2 && filled.length) { var edge = filled.filter(function (k) { var x = k % N, y = (k / N) | 0; return !get(x + 1, y) || !get(x, y + 1); }); if (edge.length) G[edge[Math.floor(R0() * edge.length)]] = null; }
+    var tint = 1 + (R0() - .5) * .16;
+    /* LIGHT AND FORM: lit where the top-left is open, shadowed where the bottom-right is, then the outline */
+    var S6 = 6, cv = document.createElement('canvas'); cv.width = cv.height = N * S6; var g = cv.getContext('2d');
+    for (j = 0; j < N; j++) for (i = 0; i < N; i++) {
+      var m = G[j * N + i];
+      if (!m) { var near = get(i - 1, j) || get(i + 1, j) || get(i, j - 1) || get(i, j + 1);
+        if (near) { g.fillStyle = '#120d08'; g.fillRect(i * S6, j * S6, S6, S6); } continue; }
+      var scr = m.charAt(m.length - 1) === '*'; if (scr) m = m.slice(0, -1);
+      var c = MAT[m] || MAT.steel, f = tint;
+      if (!get(i - 1, j) || !get(i, j - 1)) f *= 1.28; else if (!get(i + 1, j) || !get(i, j + 1)) f *= .66;
+      if (scr) f *= 1.18;
+      g.fillStyle = 'rgb(' + Math.min(255, c[0] * f | 0) + ',' + Math.min(255, c[1] * f | 0) + ',' + Math.min(255, c[2] * f | 0) + ')';
+      g.fillRect(i * S6, j * S6, S6, S6);
+    }
+    if (q === 2) { var top = filled.filter(function (k) { return G[k] && /steel|glass|yellow|red|black/.test(G[k]) && !get((k % N) - 1, (k / N) | 0); })[0];
+      if (top == null) top = filled.filter(function (k) { return G[k] && !get((k % N) - 1, (k / N) | 0); })[0];   /* cloth and wood glint too */
+      if (top != null) { g.fillStyle = '#fffbe8'; g.fillRect((top % N) * S6, ((top / N) | 0) * S6, S6, S6); } }
+    cv.dataset.obj = obj; cv.dataset.q = q; ICON_CACHE[key] = cv;
+    var out = document.createElement('canvas'); out.width = cv.width; out.height = cv.height; out.getContext('2d').drawImage(cv, 0, 0);
+    out.dataset.obj = obj; out.dataset.q = q; styleIcon(out, cssPx);
+    return out;
+  }
+  function styleIcon(c, cssPx) { c.style.width = cssPx + 'px'; c.style.height = cssPx + 'px'; c.style.imageRendering = 'pixelated'; c.className = 'bm-icon'; }
+  /* the market's lines: each item line wears its icon (RUN TWO's state.stock and state.stash through its own API,
+     BohemiaSettlement.state, matched by the line's name) */
+  function iconTheMarket() {
+    var body = document.getElementById('sbody'); if (!body || body.__bmIcons) return; body.__bmIcons = true;
+    var paint = function () {
+      var st = (window.BohemiaSettlement && BohemiaSettlement.state) || null; if (!st || !st.stock) return;
+      /* by SHELF ORDER, not by name: two items can share a name (two 'beat-up bottles'), and the lines are made
+         in the shelf's order, the stash's sells after them */
+      var queue = ((st.open && st.stock[st.open]) || []).slice().concat(st.stash || []);
+      Array.prototype.forEach.call(body.querySelectorAll('.act'), function (a) {
+        var t = (a.querySelector('span') || a).textContent.replace(/^Sell your /, '');
+        var at = -1; for (var i = 0; i < queue.length; i++) if (queue[i].name === t) { at = i; break; }
+        if (at < 0) return;
+        var it = queue.splice(at, 1)[0];
+        if (a.querySelector('.bm-icon')) return;
+        var ic = itemIcon(it, 40); ic.style.flex = '0 0 40px'; ic.style.marginRight = '8px'; ic.dataset.id = it.id; a.insertBefore(ic, a.firstChild);
+      });
+      /* RUN TWO's shop grids (THEIR SHELF, YOUR BAG, 5ba404c): slot i is shelf item i and bag item i, in order;
+         the drawn icon takes the place of the placeholder mark */
+      var dress = function (grid, list) {
+        if (!grid || !list) return;
+        Array.prototype.forEach.call(grid.children, function (b, i) {
+          var it = list[i]; if (!it) return;
+          var old = b.querySelector('.bm-icon'); if (old && old.dataset.id === it.id) return; if (old) old.remove();
+          var g = b.querySelector('i'); if (g) g.style.display = 'none';
+          var ic = itemIcon(it, 30); ic.dataset.id = it.id; b.insertBefore(ic, b.firstChild);   /* 30 so the short name and the price still fit the slot */
+        });
+      };
+      dress(document.getElementById('shelfgrid'), st.open && st.stock[st.open]);
+      dress(document.getElementById('baggrid'), st.stash);
+    };
+    try { new MutationObserver(paint).observe(body, { childList: true, subtree: true }); } catch (e) {}
+    paint();
+  }
+  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
-    startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement };
+    startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement,
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS };
 })();

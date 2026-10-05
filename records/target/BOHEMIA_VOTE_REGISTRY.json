@@ -5135,7 +5135,8 @@
     "how": "page",
     "src": "BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html"
    }
-  }
+  },
+ {"id": "ui-every-item-is-an-icon-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "EVERY ITEM IS AN ICON", "why": "All 310 weapons and armour pieces now have their own drawn icon, a pipe or a fire axe or a hard hat, each with its own tape, rust and wear so no two look the same. You see it on every line at the smith, the armourer and the stall, and it is what the inventory bag will show.", "show": {"how": "image", "src": "vote/UI_EVERY_ITEM_IS_AN_ICON_10_5.png"}}
  ],
  "verdicts": [
   {
