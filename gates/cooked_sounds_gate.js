@@ -780,6 +780,32 @@ const MEASURE = `
     } catch (e) { out.nightInsectsErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE TITLE'S OWN MUSIC (row [the title's music], 10/5). Three claims: it really is
+     detuned (the rendered root sits at exactly 0.97 of the canon F3, not the canon pitch
+     itself), it really does carry wow (the same depth/rate numbers songOnTape already
+     proves, read back off this function and not assumed to have survived the mix), and
+     the room tone is really mixed in underneath it (summing song and room changes the
+     buffer; the title's own rms has to differ from the song rendered alone). */
+  (function () {
+    try {
+      const tt = H.titleTheme(ctx, {});
+      /* THE ROOM IS REALLY IN THE MIX, PROVED BEHAVIOURALLY. A metadata field saying
+         roomRel is not proof it was ever added to a sample; changing it and hearing the
+         difference is. Rendered twice, same song, room silenced the second time (rel 0)
+         -- if the two buffers read identically, the room was never summed in at all. */
+      const silentRoom = H.titleTheme(ctx, { roomRel: 0 });
+      const a = tt.buffer.getChannelData(0), b = silentRoom.buffer.getChannelData(0);
+      let maxDiff = 0;
+      for (let i = 0; i < a.length; i += 1009) maxDiff = Math.max(maxDiff, Math.abs(a[i] - b[i]));
+      out.titleTheme = {
+        root: tt.root, canonRoot: tt.canonRoot, detune: tt.detune,
+        wowDepth: tt.wowDepth, wowRateHz: tt.wowRateHz, roomRel: tt.roomRel,
+        machineHi: tt.machine && tt.machine.hi, seconds: tt.seconds,
+        roomChangesTheBuffer: maxDiff > 0.0001
+      };
+    } catch (e) { out.titleThemeErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1197,6 +1223,19 @@ const MEASURE = `
           const buf = ctx.createBuffer(1, n, sr), dd = buf.getChannelData(0);
           for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
           return { buffer: buf, seconds: secs, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1 };
+        };
+        /* AND THE TITLE'S OWN MUSIC (10/5): titleTheme calls the local songOnTape and
+           roomHum BY CLOSURE, so no swap above reaches it either. The falsifier plays the
+           canon pitch untouched (detune 1, so root equals canonRoot exactly), zero wow,
+           and never actually sums the room in regardless of roomRel -- all three claims
+           have to go red together. */
+        H.titleTheme = (ctx, o) => {
+          const canon = (o && o.root) || 174.61;
+          const n = Math.round(ctx.sampleRate * 2);
+          return { buffer: ctx.createBuffer(1, n, ctx.sampleRate), seconds: n / ctx.sampleRate,
+            root: canon, canonRoot: canon, detune: 1, wowDepth: 0, wowRateHz: 0,
+            roomRel: (o && o.roomRel) == null ? 0.025 : o.roomRel,
+            machine: { hi: 5000 } };
         };
       });
     }
@@ -1929,6 +1968,24 @@ const MEASURE = `
         NI.clicks + ' discrete clicks (crackleInto, zero noise generators) band-limited to '
         + NI.lo + '-' + NI.hi + ' Hz, a field cricket\'s own range, rms ' + NI.rms.toFixed(4));
     } else { claim('Night insects were measured', false, d.nightInsectsErr || 'no reading'); }
+
+    /* ---- THE TITLE'S OWN MUSIC (row [the title's music], 10/5) ---------------- */
+    if (d.titleTheme) {
+      const TT = d.titleTheme;
+      claim('THE TITLE IS DETUNED, A FIXED OFFSET AND NOT THE SAME THING AS WOW',
+        Math.abs(TT.root - TT.canonRoot * TT.detune) < 0.01 && TT.detune !== 1,
+        'rendered root ' + TT.root.toFixed(3) + ' Hz against the canon F3 ' + TT.canonRoot
+        + ' Hz times ' + TT.detune + ' -- a fixed drift, read off the actual render, not a '
+        + 'label on an untouched pitch');
+      claim('AND IT STILL CARRIES THE SAME WOW THE TAPE DECK ALREADY PROVES',
+        TT.wowDepth > 0 && TT.wowRateHz > 0 && TT.wowDepth < 0.01,
+        'wow depth ' + TT.wowDepth + ' at ' + TT.wowRateHz + ' Hz, read back off songOnTape\'s '
+        + 'own output rather than assumed to have survived the mix');
+      claim('AND THE ROOM TONE IS REALLY SUMMED IN, PROVED BY SILENCING IT AND HEARING THE DIFFERENCE',
+        TT.roomChangesTheBuffer === true,
+        'the same theme rendered with the room at rel 0 differs from the real one; a room '
+        + 'that changes nothing when turned off was never in the mix');
+    } else { claim('The title\'s own music was measured', false, d.titleThemeErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

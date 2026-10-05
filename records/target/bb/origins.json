@@ -1,0 +1,669 @@
+{
+ "_about": "Battle Brothers' fifteen origins, from the wiki dump (the Origins index at reference/library/grok/wiki/CORE_WIKITEXT.md:342-394 (the Origins index); the Lone Wolf page in CORE_WIKITEXT.md; the other fourteen pages in PAGES_ALL.tar.gz bb_all/), each with our skin (name and line, draft:true, his to rename). men: the starting company, one row per man (background = a backgrounds.json id; level = the page's stated level, null where the page states none, so the background's own starting range applies). crowns: the page's High/Medium/Low funds; batteries = crowns / 10 (rule 75a, 'batteries at 10 crowns to 1'); the door's shelves pick the column (FULL = High, THIN = Medium, BARE = Low). roster_cap and field_cap: the page's when it changes them, else Battle Brothers' default (20 in the roster, 12 in a fight). pay: OURS, not Battle Brothers': batteries added to every job's pay (the door's 10/2 card). rules: the page's own words; only the company, the caps and the start money are built (10/5); the rest is quoted for the lanes that build it.",
+ "defaults": {
+  "roster_cap": {
+   "value": 20,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0848_Gladiators.txt:57",
+   "quote": "Has only 12 instead of 20 slots in the roster"
+  },
+  "field_cap": {
+   "value": 12,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0591_Dev Blog 113.txt:23",
+   "quote": "instead of the usual 12"
+  },
+  "crowns_per_battery": {
+   "value": 10,
+   "source": "VAMILY.md rule 75a",
+   "quote": "batteries at 10 crowns to 1"
+  }
+ },
+ "origins": [
+  {
+   "id": "rebuild",
+   "bb": "Rebuilding a Company",
+   "name": "THE CREW THAT IS LEFT",
+   "line": "Three of you, a debt paid off, and a name to fix.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null
+    },
+    {
+     "background": "companion_1hand",
+     "level": null
+    },
+    {
+     "background": "companion_ranged",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Starts off with a basic tutorial"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Rebuilding a Company"
+  },
+  {
+   "id": "newcrew",
+   "bb": "A New Company",
+   "name": "A NEW CREW",
+   "line": "Three of you and nothing owed. Start clean.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null
+    },
+    {
+     "background": "companion_1hand",
+     "level": null
+    },
+    {
+     "background": "companion_ranged",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Impatient: A quick start into the world, without any particular advantages or disadvantages."
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/A New Company"
+  },
+  {
+   "id": "south",
+   "bb": "Southern Mercenaries",
+   "name": "UP FROM HENDERSON",
+   "line": "You came north on the 95 with three guns and no friends.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null
+    },
+    {
+     "background": "companion_1hand",
+     "level": null
+    },
+    {
+     "background": "companion_ranged",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "You will spawn in the southern part of the map"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Southern Mercenaries"
+  },
+  {
+   "id": "truck",
+   "bb": "Trading Caravan",
+   "name": "THE WATER TRUCK",
+   "line": "Two drivers and a tank. The water gets more respect than you do.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "caravan_hand",
+     "level": null
+    },
+    {
+     "background": "caravan_hand",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 1650,
+    "medium": 1400,
+    "low": 1150
+   },
+   "batteries": {
+    "full": 165,
+    "thin": 140,
+    "bare": 115
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "Trader: Get 10% better prices",
+    "Not a Warrior: Start with no renown, and gain renown at only 66% the normal rate"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Trading Caravan"
+  },
+  {
+   "id": "watch",
+   "bb": "Peasant Militia",
+   "name": "THE BLOCK WATCH",
+   "line": "Twelve neighbours with pipes. Nobody brings a small crew against you.",
+   "draft": true,
+   "difficulty": "Easy",
+   "d": 1,
+   "men": [
+    {
+     "background": "farmhand",
+     "level": null
+    },
+    {
+     "background": "farmhand",
+     "level": null
+    },
+    {
+     "background": "poacher",
+     "level": null
+    },
+    {
+     "background": "daytaler",
+     "level": null
+    },
+    {
+     "background": "daytaler",
+     "level": null
+    },
+    {
+     "background": "miller",
+     "level": null
+    },
+    {
+     "background": "fisherman",
+     "level": null
+    },
+    {
+     "background": "militia",
+     "level": null
+    },
+    {
+     "background": "militia",
+     "level": null
+    },
+    {
+     "background": "minstrel",
+     "level": null
+    },
+    {
+     "background": "vagabond",
+     "level": null
+    },
+    {
+     "background": "butcher",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 25,
+   "field_cap": 16,
+   "pay": 0,
+   "rules": [
+    "Start with a roster of 12 poorly equipped peasants",
+    "Can only hire Lowborn men"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1533_Peasant Militia.txt:6,58",
+   "notes": "the eleventh and twelfth men are one of Vagabond/Thief/Gambler and one of Butcher/Tailor/Shepherd; the first of each is taken"
+  },
+  {
+   "id": "scav",
+   "bb": "Band of Poachers",
+   "name": "THE SCAVENGERS",
+   "line": "You know every gutted store from here to the dam.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "hunter",
+     "level": null
+    },
+    {
+     "background": "poacher",
+     "level": null
+    },
+    {
+     "background": "poacher",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Can always see the enemy composition in wild locations"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Band of Poachers"
+  },
+  {
+   "id": "promise",
+   "bb": "Oathtakers",
+   "name": "THE PROMISE KEEPERS",
+   "line": "Two of you and a promise you made at a grave.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "oathtaker",
+     "level": 3
+    },
+    {
+     "background": "oathtaker",
+     "level": 1
+    }
+   ],
+   "crowns": {
+    "high": 1500,
+    "medium": 1000,
+    "low": 500
+   },
+   "batteries": {
+    "full": 150,
+    "thin": 100,
+    "bare": 50
+   },
+   "roster_cap": 18,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "One is always Old, level 3 and equipped with Young Anselm's Skull and a Battle Standard",
+    "Forced to undertake oaths"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Oathtakers"
+  },
+  {
+   "id": "desert",
+   "bb": "Deserters",
+   "name": "THE DESERTERS",
+   "line": "You walked off a faction's line. They have not forgotten.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "deserter",
+     "level": 2
+    },
+    {
+     "background": "deserter",
+     "level": 2
+    },
+    {
+     "background": "deserter",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "first to act in the very first round of combat",
+    "three Mail Hauberks, two Heater Shields, Aketon Caps, one Light Crossbow, one Shortsword and one Hatchet"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Deserters:56"
+  },
+  {
+   "id": "raid",
+   "bb": "Northern Raiders",
+   "name": "THE RAIDERS",
+   "line": "You take, and the valley knows your faces.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "barbarian",
+     "level": 3
+    },
+    {
+     "background": "barbarian",
+     "level": 3
+    },
+    {
+     "background": "barbarian",
+     "level": 3
+    },
+    {
+     "background": "monk",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "higher chance to get items from slain enemies as loot"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Northern Raiders"
+  },
+  {
+   "id": "lab",
+   "bb": "Anatomists",
+   "name": "THE LAB RATS",
+   "line": "You worked at the lab the animals broke out of.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "anatomist",
+     "level": 1
+    },
+    {
+     "background": "anatomist",
+     "level": 1
+    },
+    {
+     "background": "anatomist",
+     "level": 1
+    }
+   ],
+   "crowns": {
+    "high": 3200,
+    "medium": 2700,
+    "low": 2200
+   },
+   "batteries": {
+    "full": 320,
+    "thin": 270,
+    "bare": 220
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Not Fighters: Your men will never be of confident morale"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Anatomists:32"
+  },
+  {
+   "id": "faith",
+   "bb": "Davkul Cultists",
+   "name": "THE FAITHFUL",
+   "line": "Four of you, and something you pray to that is not a god.",
+   "draft": true,
+   "difficulty": "Medium",
+   "d": 2,
+   "men": [
+    {
+     "background": "cultist",
+     "level": null
+    },
+    {
+     "background": "cultist",
+     "level": null
+    },
+    {
+     "background": "cultist",
+     "level": null
+    },
+    {
+     "background": "cultist",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2900,
+    "medium": 2400,
+    "low": 1900
+   },
+   "batteries": {
+    "full": 290,
+    "thin": 240,
+    "bare": 190
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Needs to do human sacrifices"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Davkul Cultists"
+  },
+  {
+   "id": "debt",
+   "bb": "Manhunters",
+   "name": "THE DEBT COLLECTORS",
+   "line": "Four of you owe the other two, and the two collect.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "manhunter",
+     "level": null
+    },
+    {
+     "background": "manhunter",
+     "level": null
+    },
+    {
+     "background": "indebted",
+     "level": null
+    },
+    {
+     "background": "southern_indebted",
+     "level": null
+    },
+    {
+     "background": "southern_indebted",
+     "level": null
+    },
+    {
+     "background": "southern_indebted",
+     "level": null
+    }
+   ],
+   "crowns": {
+    "high": 2500,
+    "medium": 2000,
+    "low": 1500
+   },
+   "batteries": {
+    "full": 250,
+    "thin": 200,
+    "bare": 150
+   },
+   "roster_cap": 25,
+   "field_cap": 16,
+   "pay": 1,
+   "rules": [
+    "Having equal or fewer indebted than non-indebted will make your men dissatisfied"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Manhunters:33,62"
+  },
+  {
+   "id": "hunt",
+   "bb": "Beast Slayers",
+   "name": "THE HUNTERS",
+   "line": "You track what came out of the lab. It tracks you back.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "beast_slayer",
+     "level": 2
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2
+    }
+   ],
+   "crowns": {
+    "high": 1875,
+    "medium": 1500,
+    "low": 1125
+   },
+   "batteries": {
+    "full": 188,
+    "thin": 150,
+    "bare": 113
+   },
+   "roster_cap": 20,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "50% chance to get additional beast trophies"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/Beast Slayers"
+  },
+  {
+   "id": "pit",
+   "bb": "Gladiators",
+   "name": "THE FIGHT PIT",
+   "line": "Three of you off a casino floor that charged to watch.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "gladiator",
+     "level": 3
+    },
+    {
+     "background": "gladiator",
+     "level": 3
+    },
+    {
+     "background": "gladiator",
+     "level": 3
+    }
+   ],
+   "crowns": {
+    "high": 950,
+    "medium": 700,
+    "low": 450
+   },
+   "batteries": {
+    "full": 95,
+    "thin": 70,
+    "bare": 45
+   },
+   "roster_cap": 12,
+   "field_cap": 12,
+   "pay": 1,
+   "rules": [
+    "You lose the game when all 3 Gladiators die",
+    "Has only 12 instead of 20 slots in the roster"
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0848_Gladiators.txt:57"
+  },
+  {
+   "id": "wolf",
+   "bb": "Lone Wolf",
+   "name": "THE LONE WOLF",
+   "line": "Just you. If you go down, it ends.",
+   "draft": true,
+   "difficulty": "Hard",
+   "d": 3,
+   "men": [
+    {
+     "background": "hedge_knight",
+     "level": 4
+    }
+   ],
+   "crowns": {
+    "high": 1250,
+    "medium": 1000,
+    "low": 750
+   },
+   "batteries": {
+    "full": 125,
+    "thin": 100,
+    "bare": 75
+   },
+   "roster_cap": 12,
+   "field_cap": 12,
+   "pay": 0,
+   "rules": [
+    "Avatar: If your hedge knight dies, the campaign ends",
+    "Start with a single experienced hedge knight and great equipment, but low funds"
+   ],
+   "source": "reference/library/grok/wiki/CORE_WIKITEXT.md:3786-3852"
+  }
+ ]
+}

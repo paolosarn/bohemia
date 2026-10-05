@@ -157,14 +157,15 @@ const DATA_FILES = [
   '../records/target/bb/rules.json', '../records/target/bb/ours.json', '../records/target/bb/ai.json',
   '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
   '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json',
-  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json'];
+  '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json',
+  '../records/target/bb/weapon_lines.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
-      DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11];
+      DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11]; DB.wlines = a[12];
     });
 }
 function R(path) {
@@ -367,7 +368,7 @@ const FIGHT = (function () {
     const sh = c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null;
     const body = armourRow('body', c.body), head = armourRow('head', c.head);
     const xp = R('parsed.brother_xp');
-    const lv = rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);
+    const lv = c.level || rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);   /* an origin's stated level (rule 75a) */
     const perks = pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);
     const lk = R('ours.people_looks').crew;
     return makeUnit({ look: lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
@@ -545,7 +546,16 @@ const FIGHT = (function () {
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
-    const crew = R('ours.crew').slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), R('ours.crew').length)));
+    /* THE COMPANY THE ORIGIN BUILT (RUN 10/5, rule 75a: 'depending on your origin, that's how many people will be in your
+       group'): the map hands its men (a background and a level each, from records/target/bb/origins.json); each keeps the
+       kit and the look of his place in the line, and the line stops at the cap. Nothing handed = the twelve, as before. */
+    const base = R('ours.crew');
+    const roster = (Array.isArray(opts.company) && opts.company.length
+      ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
+          if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; return t; })
+      : base);
+    const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length)));
     const crewUnits = crew.map(crewUnit);
     const band = bandOf(opts);
     const bandUnits = band.map(enemyUnit);
@@ -1941,8 +1951,45 @@ function drawer(v) {
     const t = document.createElement('span'); t.textContent = perkName(id); p.appendChild(t); d.appendChild(p); });
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block';
 }
+/* THE WEAPON SAYS WHAT IT DOES (rule 75e; records/target/bb/weapon_lines.json): hold a finger on the strike square
+   or on any man and his weapon's card comes up on the receipt: its name here, its Battle Brothers base in small print,
+   its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */
+const HOLD_MS = 450;
+function weaponCard(v) {
+  const w = v.weapon, d = document.getElementById('drawer'), L = (DB.wlines.rows[w.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
+  const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
+  const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(L.name || w.class.toUpperCase()) + ' · ' + esc(v.name) + '</div>'
+    + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || w.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || w.class) ? ', an ' : ', a ') + esc((L.base || w.class).toLowerCase())) + '</div>'
+    + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';
+  if (w.damage_min !== null && w.damage_max !== null) h += r('Damage', w.damage_min + ' to ' + w.damage_max);
+  if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
+  if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
+  h += r('Reach', (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : 'one');
+  if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
+  if (rl) h += r(esc(rl.name), rl.ap + ' AP');
+  if (v.shield) { const S2 = DB.wlines.rows.shield || {};
+    h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
+      + r('Melee / ranged defence', '+' + (v.shield.melee_defense || 0) + ' / +' + (v.shield.ranged_defense || 0)); }
+  d.innerHTML = h; d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
+}
+/* who stands under a finger on the board (the man drawn there, or the tile's man) */
+function manAt(px, py) {
+  const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = th * MAN_OF_TILE;
+  return S.units.filter(function (v) {
+    if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
+    const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
+    return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
+  }).sort(function (a, b) { return b.y - a.y; })[0] || S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && (v.side === 'you' || FIGHT.sideSees('you', v)); })[0] || null;
+}
+(function () {
+  const bs = document.getElementById('bstrike'); let t = null;
+  bs.addEventListener('pointerdown', function () { UI.heldCard = false; clearTimeout(t); t = setTimeout(function () { const u = FIGHT.current(); if (u && u.side === 'you') { UI.heldCard = true; weaponCard(u); } }, HOLD_MS); });
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach(function (k) { bs.addEventListener(k, function () { clearTimeout(t); }); });
+  bs.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+})();
 document.getElementById('card').onclick = function () { UI.drawer = !UI.drawer; if (!UI.drawer) document.getElementById('drawer').style.display = 'none'; else hud(); };
-document.getElementById('drawer').onclick = function () { UI.drawer = false; this.style.display = 'none'; };
+document.getElementById('drawer').onclick = function () { UI.drawer = false; UI.wcard = null; this.style.display = 'none'; };
 /* our draft name for a Battle Brothers perk (records/target/bb/perk_translation.json) */
 function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
 /* THE RECAP (rule 67: 'a recap screen after every fight: blood drawn, kills, experience, like Battle Brothers') */
@@ -1980,7 +2027,11 @@ cv.addEventListener('pointerdown', function (e) {
     const a = touches[ids[0]], b = touches[ids[1]];
     gest = { pinch: true, d0: Math.hypot(a.x - b.x, a.y - b.y), z0: UI.zoom, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 };
     gest.wx = wx(gest.mx); gest.wy = wy(gest.my);
-  } else gest = { pinch: false, moved: false, cx0: UI.cx, cy0: UI.cy };
+  } else {
+    gest = { pinch: false, moved: false, cx0: UI.cx, cy0: UI.cy };
+    const g0 = gest, px = e.clientX, py = e.clientY;
+    g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); } }, HOLD_MS);
+  }
   UI.glide = null;
 });
 cv.addEventListener('pointermove', function (e) {
@@ -2000,6 +2051,9 @@ cv.addEventListener('pointermove', function (e) {
 function up(e) {
   const t = touches[e.pointerId]; delete touches[e.pointerId];
   if (!gest) return;
+  clearTimeout(gest.hold);
+  if (gest.held) { if (!Object.keys(touches).length) gest = null; return; }   /* the hold showed a card; it is not a tap */
+  if (UI.wcard) { UI.wcard = null; document.getElementById('drawer').style.display = 'none'; }
   if (!gest.pinch && !gest.moved && t) tapAt(t.x, t.y);
   if (!Object.keys(touches).length) gest = null;
 }
@@ -2076,7 +2130,7 @@ function tapAt(px, py) {
   path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
   say('Walk there, ' + f.best[f.key(p.x, p.y)] + ' AP' + (swings ? ': ' + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '. Tap again.'));
 }
-document.getElementById('bstrike').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target; UI.pend = null; FIGHT.strike(u, t); take(); } };
+document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target; UI.pend = null; FIGHT.strike(u, t); take(); } };
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };
 document.getElementById('bend').onclick = function () { audio();
   if (FIGHT.S.deploy) { fightNow(); return; }

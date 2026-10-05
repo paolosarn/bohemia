@@ -13,6 +13,7 @@
 #    tile's AP and fatigue, GROK_82), 17 (no footprints yet; open the Clark County assessor next), 18 (empty; the Relations page is in the dump),
 #    19 (the wiki does not say the UI sizes; the coordinator measured from screenshots instead), 20 (terrain speeds, no flee chance on the wiki),
 #    21 (the one-not-two rule is his sentence, GROK_101). Seven of your reported rulings are in his VOTE tab as VIA GROK defaults.
+# RECEIVED 10/5 (GROK_115-121: injury thresholds, the day, wages, relations, prices, situations, followers; stamped and routed to COMBAT, RUN TWO, PEOPLE). Asks 8, 9 and 18 are answered by them; RUN built origins.json from the dump (ask 10): CHECK IT against the wiki, origin by origin, and name any wrong number. NEXT: the brigand pick weights if any thread or script read has them; then 13 (the Mojave beasts), 17 (the assessor), 12 (lore).
 # RECEIVED 10/5 (GROK_112-114: the mix's shape, morale, damage; stamped and routed to COMBAT). NEXT: the injury-threshold table you named, then the brigand weights if any thread has them, then ask 10 (origins) below.
 # RECEIVED 10/5 (GROK_111, the spawn math from the script reader's thread; stamped, in COMBAT's and RUN's rows). NEXT UNDERBELLY, as you said: THE WEIGHT TABLE that picks a thug over a raider by day and difficulty, and the tier mix per faction; cite the thread or the script name.
 # 10/5, PAOLO'S NEWEST (rule 75), FIRST: ASK 10 THE ORIGINS, EXACT: every origin (base and every DLC): the starting men with their

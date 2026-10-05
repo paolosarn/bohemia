@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-04
+PASSED FILTER (coordinator 10/5 sweep V, rule 54a: no game he has not named; every number names its wiki page; not converted to batteries by Grok, our data files do that at 10 to 1)
 
 # THE UNDERBELLY. SITUATIONS
 

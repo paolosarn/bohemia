@@ -555,7 +555,42 @@ async function enemyMath() {
   leg(late.over && late.over.over && !late.err && !one.err, 'a day-100 fight still plays to its end on AUTO, no page error', late.over ? late.over.res + ' in ' + late.over.r + ' rounds' : 'no end');
 }
 
+/* THE WEAPONS SAY WHAT THEY DO (rule 75e, Paolo 10/5: 'weapons that I don't even think you know what they're supposed
+   to do yet'): every weapon in weapons.json has its class's line, base and name in weapon_lines.json; a real finger held
+   on the strike square, or on a man, brings up his weapon's card with its line and its numbers; a tap puts it away. */
+async function weaponCards() {
+  const WL = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/weapon_lines.json'), 'utf8')).rows;
+  const WR = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/weapons.json'), 'utf8')).rows;
+  const bare = WR.filter(r => !(WL[r.class] && WL[r.class].line && WL[r.class].base && WL[r.class].name));
+  const bad = Object.keys(WL).filter(k => WL[k].line.length > 98 || /\u2014/.test(WL[k].line));
+  leg(bare.length === 0 && WL.shield && bad.length === 0, '*** EVERY WEAPON HAS ITS ONE PLAIN LINE AND ITS BASE *** (rule 75e): all ' + WR.length + ' weapons in weapons.json, and the car door, under 98 characters, no em dash',
+    bare.length ? bare.length + ' bare: ' + bare.slice(0, 3).map(r => r.name).join(', ') : Object.keys(WL).length + ' classes, ' + Object.keys(WL).filter(k => /^records\/BOHEMIA_WORDS/.test(WL[k].by)).length + ' in WORDS\' words');
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:5,speed:1,kind:"suburb",deploy:false,party:{faction:"brigands",count:6,days:60,difficulty:1}}' });
+  const p = d.page, cdp = await p.context().newCDPSession(p);
+  const hold = async (x, y, ms) => { await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] }); await p.waitForTimeout(ms);
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await p.waitForTimeout(250); };
+  const card = () => p.evaluate(() => { const e = document.getElementById('drawer'); return { shown: e.style.display === 'block', id: e.dataset.card, text: e.innerText }; });
+  await p.waitForFunction(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.glide && !FIGHT_UI.anim.length && performance.now() > FIGHT_UI.openUntil; }, null, { timeout: 60000 });
+  await p.waitForTimeout(400);
+  const me = await p.evaluate(() => { const u = FIGHT.current(), r = document.getElementById('bstrike').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, w: u.weapon }; });
+  await hold(me.x, me.y, 700);
+  const c1 = await card(), L1 = WL[me.w.class];
+  leg(c1.shown && c1.id === me.w.id && c1.text.indexOf(L1.line) >= 0 && c1.text.indexOf(L1.name) >= 0 && c1.text.indexOf(me.w.damage_min + ' to ' + me.w.damage_max) >= 0,
+    '*** HOLD A FINGER ON THE STRIKE SQUARE AND HIS WEAPON SAYS WHAT IT DOES ***: its name, its Battle Brothers base, its line, its numbers from weapons.json', c1.text.split('\n').slice(0, 3).join(' | '));
+  await p.touchscreen.tap(200, 300); await p.waitForTimeout(300);
+  const gone = !(await card()).shown;
+  const e = await p.evaluate(() => { const t = FIGHT.alive('them').filter(v => FIGHT.sideSees('you', v))[0]; FIGHT_UI.glide = null; FIGHT_UI.cx = (t.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (t.y + .5) * FIGHT_UI.th;
+    return { id: t.id, w: t.weapon, x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 + (.1 * FIGHT_UI.th - .3 * FIGHT_UI.th) * FIGHT_UI.zoom }; });
+  await p.waitForTimeout(300);
+  await hold(e.x, e.y, 700);
+  const c2 = await card(), L2 = WL[e.w.class];
+  leg(gone && c2.shown && c2.id === e.w.id && c2.text.indexOf(L2.line) >= 0, 'a tap puts it away; a finger held on one of theirs shows his weapon\'s card', (L2.name + ' (' + e.w.name + ')') + (gone ? '' : ', THE FIRST CARD STAYED'));
+  leg(d.errs.length === 0, 'the cards threw nothing', d.errs[0] || '');
+  await d.close();
+}
+
 (async () => {
+  await weaponCards();
   await enemyMath();
   await formation();
   await sunTest();

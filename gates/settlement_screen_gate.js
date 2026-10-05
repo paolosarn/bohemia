@@ -97,7 +97,7 @@ const srv = http.createServer((rq, rs) => {
       const sh = document.getElementById('sheet');
       return { on: sh.classList.contains('on'), face: !!sh.querySelector('canvas.face'),
                name: (sh.querySelector('.nm') || {}).textContent || '', line: (sh.querySelector('.say p') || {}).textContent || '',
-               acts: sh.querySelectorAll('.act').length };
+               acts: sh.querySelectorAll('.act, .slot.full').length };
     });
     ok(k + ' opens with a face, a name and a line', s.on && s.face && s.name && s.line.length > 10 && s.acts > 0, s.name + ': ' + s.line.slice(0, 40));
   }
@@ -123,26 +123,35 @@ const srv = http.createServer((rq, rs) => {
      it back pays the cut */
   await p.waitForFunction(() => (BohemiaSettlement.state.stock.smith || []).length > 0, null, { timeout: 30000 });
   await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 400, 'gate', null, 0));
+  await p.evaluate(() => { BohemiaSettlement.state.stash.length = 0; });
   await tapB('smith'); await p.waitForTimeout(250);
-  const shelfN = await p.evaluate(() => document.querySelectorAll('#sbody .act').length);
+  const shelfN = await p.evaluate(() => document.querySelectorAll('#shelfgrid .slot.full').length);
+  const bagSlots = await p.evaluate(() => document.querySelectorAll('#baggrid .slot').length);
   await p.screenshot({ path: SHOT.replace('_10_1', '_SMITH_10_5') });
   const first = await p.evaluate(() => BohemiaSettlement.state.stock.smith[0]);
-  await p.click('#sbody .act'); await p.waitForTimeout(250);
+  ok('a shop is two grids: their shelf of icons, and your bag of 36 slots under it', shelfN >= 5 && bagSlots === 36, shelfN + ' on the shelf, ' + bagSlots + ' bag slots');
+  ok('  the shelf is weapons in our names', /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), first.name + ' (was ' + first.was + ')');
+  await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(250);
   const said = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + ' | ' + (document.querySelector('#sbody .slots') || {}).textContent);
-  ok('the smith has a shelf of weapons in our names', shelfN >= 5 && /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), shelfN + ' items, first ' + first.name + ' (was ' + first.was + ')');
   ok('  the keeper says the price and the card shows the numbers', said.indexOf(String(first.price)) >= 0 && /dmg/.test(said), said.slice(0, 90));
   const m0 = await bat();
   await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
-  const m1 = await bat(), carried = await p.evaluate(() => BohemiaSettlement.state.stash.length);
-  ok('  buying spends exactly the price (10 crowns a battery, floor 1) and you carry it', m0 - m1 === first.price && carried === 1, m0 + ' -> ' + m1 + ', price ' + first.price);
+  const m1 = await bat(), inBag = await p.evaluate(() => document.querySelectorAll('#baggrid .slot.full').length);
+  ok('  buying takes exactly the price and the item lands in your bag', m0 - m1 === first.price && inBag === 1, m0 + ' -> ' + m1 + ', bag ' + inBag);
   await tapB('armourer'); await p.waitForTimeout(250);
   const armShelf = await p.evaluate(() => BohemiaSettlement.state.stock.armourer.map(i => i.name).join(', '));
   ok('the armourer sells armour and shields', /vest|jacket|carrier|riot|hood|hat|helm|door|shield/.test(armShelf), armShelf.slice(0, 80));
-  const sellBtn = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act')).findIndex(b => /^Sell your/.test(b.textContent)));
+  await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(200);
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+  const bag2 = await p.evaluate(() => BohemiaSettlement.state.stash.map(i => i.kind).join(','));
+  ok('  armour lands in the same bag', /weapon/.test(bag2) && /(body|head|shield)/.test(bag2), bag2);
   const s0 = await bat();
-  await p.evaluate(i => document.querySelectorAll('#sbody .act')[i].click(), sellBtn); await p.waitForTimeout(250);
-  const s1 = await bat();
-  ok('  and what you carry sells back for half (the cut is TUNING\'s to source)', sellBtn >= 0 && s1 - s0 === Math.max(1, Math.floor(first.price / 2)), s0 + ' -> ' + s1);
+  await p.click('#baggrid .slot.full'); await p.waitForTimeout(200);
+  await p.click('#sbody .act'); await p.waitForTimeout(250);
+  const s1 = await bat(), bag3 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
+  ok('  selling takes it out of the bag and pays the cut (half, TUNING\'s to source)', s1 - s0 === Math.max(1, Math.floor(first.price / 2)) && bag3 === 1, s0 + ' -> ' + s1 + ', bag ' + bag3);
+  const posted = await p.evaluate(() => { const b = (window.__settleLog || []).filter(m => m.act === 'bag').pop(); return b ? b.bag.length + '/' + b.slots : 'none'; });
+  ok('  the game is told what is in the bag on every change', posted === '1/36', posted);
   await p.evaluate(() => BohemiaPurse.debit(BohemiaSettlement.state.purse, 'electricity', BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') - 3, 'gate', null, 0));
   /* the board reads as work: every contract shows its skulls and its pay */
   await tapB('board'); await p.waitForTimeout(250);
@@ -191,6 +200,17 @@ const srv = http.createServer((rq, rs) => {
     await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
     const want = t === 'camp' ? 'hall,board,stall,arms,barber,clinic,lot' : 'hall,board,stall,smith,armourer,barber,clinic,lot';
     ok('a ' + t + ' is its own picture, with Battle Brothers\' shops for its size (camp one stall, town and fortress a smith and an armourer)', o === want, o);
+    if (t === 'camp') {
+      await p.waitForFunction(() => (BohemiaSettlement.state.stock.arms || []).length > 0, null, { timeout: 30000 });
+      await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 300, 'gate', null, 0));
+      const c0 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
+      await tapB('arms'); await p.waitForTimeout(250);
+      await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(200);
+      await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(250);
+      const c1 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
+      ok('  the camp\'s guns-and-plate stall sells into the same bag', c1 === c0 + 1, c0 + ' -> ' + c1);
+      await p.click('#close'); await p.waitForTimeout(300);
+    }
   }
   await tapB('clinic'); await p.waitForTimeout(200);
   const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
