@@ -3,6 +3,13 @@
  * real star mechanic) and bakes them into a static VOTE cook page, with real
  * names drawn from this game's own real name-mix generator (bohemia_people.js),
  * never a placeholder.
+ *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/9 at the seam, the
+ * tool shipped without one): the rulers are AH-01 (the bible: the recruits' card
+ * speaks in the institution's calm register, R5) and AH-03 (the vibe-coded tells:
+ * no stock UI shapes, no box of words without a face, no off-register colour).
+ * Battle Brothers stays a mechanism reference for the hiring post (its department:
+ * the company), never a style source. Ids resolve in the reference library index.
  * node tools/bohemia_cook_good_bros.js */
 'use strict';
 var fs = require('fs');
