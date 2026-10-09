@@ -4,6 +4,7 @@ QUESTION (rows [across the ages], question (c), rule 31): The delayed payoff in 
 
 STATUS: research only, nothing built (rule 35). Written for DYNASTY (the flip and the derive), WORLD and LIFE+CITY (the derived cities that must show a landing), PEOPLE (the named people who carry a debt across ages), WORDS (the past-tense lines), ECONOMY (what a plant costs in batteries).
 FOLDED 10/1 (QR-AB): rules 4, 5 and 17 as amended in QR-U (and applied to the designs in QR-X). Each edit is marked in place.
+FOLDED 10/9 (QR-AK): QR-U rules 19 to 23 and the sharpens of rules 2, 7 and 15 and QR-G lines 5 and 18, at the end of THE RULE FOR THE BUILDERS, each marked in place.
 
 ## ANSWER IN ONE PARAGRAPH
 
@@ -153,6 +154,35 @@ For a phone specifically: one thumb, a small screen, short sessions, no hover (b
 16. NEVER IN THE FIRST SIXTY SECONDS. No landing speaks in a player's first minute of any act, and the first hop into act 3, once it unlocks, shows the ruin plus what the world did, not a scripted callback (three acts law 9a, second votes).
 17. NO CONFESSION VERB AT THE LANDING, BUT A COSTLY SHOULDER VERB. The person in act 3 does not know it was your family unless the record says someone told them (`Q004.N3`); the heir cannot buy relief with a line (`Q126.P24` was the comfort-verb law; this is its other side). (folded 10/1 from QR-U and QR-X, as amended:) the new shelf adds the other side of the ban. The heir is answerable for a self he cannot remember (`Q215.W1`), owning a crime without the memory of it is the truest accountability (`Q215.W9`), and the victim is owed regardless (`Q215.W2`). So the heir MAY choose to SHOULDER an ancestor's deed he learned of, and it must cost MORE than lying or staying silent, in batteries, standing or a person's trust, or it is only a third dialogue option (`Q215.X3`). Nobody makes him; nobody thanks him for free; silence stays a full ending. Test: every shoulder option has a stated price greater than the silence branch's, and no line in the game asks him to shoulder. (QR-X checked QD-T09, QD-B08 and QD-K09 as already passing, and fixed QD-T07, whose confession had paid the same as silence.)
 18. THE FLAG ACROSS AN ACT BOUNDARY HAS A NAMED TEST. Any ledger row read by a later act's derive ships with a checker case (`Q126.P7`, the three acts law 2d).
+
+19. THE GRIEVANCE IS WITNESSED IN ONE ERA AND FORGIVEN IN ANOTHER. (folded 10/9 from QR-U) A prior generation's atrocity and its
+    refusal to forgive, seen in play, so a later forgiveness carries a history the player lived (`Q155.P3`); a crime
+    long dead and still killing (`Q155.W9`); the flaw is grief told, not felt (`Q155.X2`). Test: the forgiving scene in
+    act 2 or 3 points at a scene the player can stand in, in an earlier act.
+20. THE UNTOUCHABLE GETS A LATER THREAD. (folded 10/9 from QR-U) A power beyond reach now carries a discoverable thread a later
+    generation can pull, or a record that names it (`Q154.P2`); without it, untouchability reads as an unfinished
+    quest (`Q154.X1`). Test: every act 1 brush with the Amalgamation plants one named thread for act 2 or 3.
+21. THE CYCLE RACE. (folded 10/9 from QR-U) A parent races to stop the child becoming him (`Q170.W1`); the child's first kill locks the
+    path (`Q219.W6`); the son follows the template, not the sermon (`Q219.W2`); the break is costly, partial, with an
+    aftermath shown across time (`Q219.P2`, `Q170.P4`). Test: a cycle design names the locking deed and shows its
+    aftermath in a later act.
+22. SOME ANCESTORS ARE GUARDED AGAINST. (folded 10/9 from QR-U) The past wants to be the future (`Q199.W1`); not every forebear is a
+    foundation (`Q199.W6`); at least one descendant at risk is known (`Q199.P3`). For Project Angel's uploaded dead
+    this is exact. Test: it never resolves as one boss kill (`Q199.X3`).
+23. THE WAITERS AGED. (folded 10/9 from QR-U) The child stayed and the love aged (`Q204.W1`); nothing saved the ones who searched
+    (`Q204.W3`); show the waiting, not a summary (`Q204.P3`). Test: a person or thing kept unchanged in an earlier act is
+    met in a later one beside named people who waited.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 2 (displaced, not just delayed): the choice detonates hours later and miles away (`Q187.W1`), received like a
+  stranger reading a result (`Q187.W2`), as particular children, not an abstraction (`Q187.W5`). The landing names a
+  small number of specific people.
+- Rule 7 (one clue, never label the hinge): under-signalled stakes land as punishment (`Q187.X1`); keep the
+  displacement and the half-knowledge (`Q187.P1`); the plant says plainly that something is being decided (`Q004.N1`).
+- Rule 15 (one tell per landing): the town carries an uncertain verdict for generations (`Q234.W3`, `Q234.W8`); a thin
+  long consequence makes the verdict a one-time event (`Q234.X3`, `Q234.P4`).
+- QR-G lines 5 and 18 here: a debt from an earlier act must be legible in the landing itself (`Q224.X2`); a player who
+  flips to act 3 first meets every landing with its debt in words.
 
 ## WHAT TO AVOID (the flaws)
 

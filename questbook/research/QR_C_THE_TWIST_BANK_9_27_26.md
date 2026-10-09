@@ -3,6 +3,7 @@
 QUESTION (row [twist bank], question (b)): Every twist the studied quests use (the client lied, the target moved, a third party shows up, the thing you were sent for is a person, the job was a test, the reward is gone, and the rest). Build THE TWIST BANK: each twist with a name, the ids that show it, what it costs the player (nothing / time / batteries / standing / a person), how late it lands (at the offer, mid-job, at hand-in, acts later), and which of our contracts it fits (boom or bust, which act). Sort by cost. This is the bank a Battle Brothers-style contract draws its ONE twist from. Also the rule: when a twist is fair versus a cheat, and how a twist respects DECLINING IS FREE and ONCE TAKEN YOU FINISH IT.
 
 STATUS: draft:true, research only, nothing built (rule 35). For RUN, WORLD, PEOPLE, WORDS when the map and the fight board exist.
+FOLDED 10/9 (QR-AK): QR-U rule 18, four new bank entries and the sharpens of rules 2, 6 and 8, at the end of THE RULE FOR THE BUILDERS, each marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -194,6 +195,27 @@ When a twist proves the client LIED about the job (T17, and T20 when the client 
 15. ACTS-LATER TWISTS ARE READ, NOT WRITTEN. A twist landing in another act reads the ledger of the act it was planted in; it needs a `tell:` line for the act it lands in (`Q004.W5`, `Q128.X2`).
 16. NEVER THE MAIN LINE'S TWIST. T30 is reserved for the Amalgamation and the main quest (`Q152.W1`, `Q032.W9`).
 17. NOTHING IN THE FIRST MINUTE. No twist can land before the player's first hour of play is under way; the first contracts offered are plain jobs, so the player learns the board before the board surprises him (rule 32a).
+
+18. AN INVESTIGATION CAN BE ANSWERED WRONG. (folded 10/9 from QR-U) A reconstruction the player cannot conclude wrong is a corridor
+    (`Q153.X1`); two suspects and a real failure state (`Q160.W2`); the fold records the believed version and the true
+    one (`Q153.P2`). Test: an investigation contract can be handed in with the wrong name; it closes as DONE WRONG (QR-A
+    C12), pays what the screen said, and the truth is written beside the telling (QR-A C16, `Q148.P2`).
+
+ADDED TO THE BANK (folded 10/9 from QR-U) (each rationed by rules 2 and 3):
+- THE HELPER IS THE CULPRIT: the killer hides in civic concern (`Q160.W4`); the obvious suspect is innocent
+  (`Q160.W3`). A contract to find who drains the pumps, where the man who guided you is the one.
+- THE HUNT IS A HISTORY: the beast-kill becomes the excavation of an old atrocity (`Q155.W1`); the curse is a
+  grievance in animal form (`Q155.W2`). A cousin of T23, sharing its ration.
+- A RIVAL CLAIMS THE PAY, THE GUARDS TURN, THE TAKEN ONE LEFT WILLINGLY (`Q236.N4`).
+- THE CLIENT WILL NOT PAY (`Q236.N5`).
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 2 (a minority): the twist as template is the flaw, a second study (`Q236.X2`, with `Q148.X3`).
+- Rule 6 (the world testifies first): seed so the turn is inevitable for the attentive and earned for the
+  inattentive (`Q167.P2`); uneven seeds bore some and blindside others (`Q167.X1`). Test: every twist lists at least
+  two signs in two channels (QR-G line 15, `Q141.X3`).
+- Rule 8 (one fingerprint): the wrong conclusion must land legibly (`Q160.X1`, `Q222.X1`); the fingerprint line
+  reaches a player who did not investigate, from a mouth, within two map stops (QR-G line 1).
 
 ## WHAT TO AVOID (the flaws)
 
