@@ -1,0 +1,30 @@
+/* ACT STATE -- DYNASTY [the act's power and ruin]. The three acts' valley as data. */
+const S = require('../engine/bohemia_act_state.js');
+const F = require('../engine/bohemia_future.js');
+const fs = require('fs');
+let p = 0, f = 0;
+const ok = (w, c) => { if (c) p++; else { f++; console.log('  > FAIL ' + w); } };
+const pg = fs.readFileSync(__dirname + '/../engine/bohemia_powergrid.js', 'utf8');
+const m = /opts\.litFraction==null\?([0-9.]+)/.exec(pg);
+ok('act one IS the powergrid default (measured ' + (m && m[1]) + '), so the demo is unchanged', m && +m[1] === S.litFraction(1, 0) && S.litFraction(1, 999) === +m[1]);
+ok('act one never moves with the past (the demo is act one)', S.litFraction(1, -50) === S.litFraction(1, 50));
+ok('with a doing-nothing past, each act is lit more than the one before (draft base)', S.litFraction(1, 0) < S.litFraction(2, 0) && S.litFraction(2, 0) < S.litFraction(3, 0));
+ok('a great past lights more than a nothing past, in acts 2 and 3', S.litFraction(2, 40) > S.litFraction(2, 0) && S.litFraction(3, 40) > S.litFraction(3, 0));
+ok('a great past never lights more than everything', S.litFraction(3, 9999) <= 1);
+ok('THE FUTURE GOES BOTH WAYS: a past that tore places down lights LESS than a nothing past', S.litFraction(2, -20) < S.litFraction(2, 0) && S.litFraction(3, -20) < S.litFraction(3, 0));
+ok('and a ruin is never negative', S.litFraction(2, -9999) >= 0 && S.litFraction(3, -9999) >= 0);
+ok('garbage in is answered, not thrown', S.litFraction('x', 'y') === 0.12 && S.litFraction(9, NaN) === S.litFraction(3, 0));
+ok('every row is draft:true and has an era and a market', [1, 2, 3].every(a => S.ROWS[a].draft === true && S.ROWS[a].era && S.ROWS[a].market.length >= 5));
+ok('act one is medieval, act three is techy: the market says so', S.stocks(1, 'lamp oil') && !S.stocks(1, 'chips') && S.stocks(3, 'chips') && !S.stocks(3, 'lamp oil'));
+ok('act two is the bridge: it stocks both a cell and iron tools', S.stocks(2, 'cells') && S.stocks(2, 'iron tools'));
+const L = { cells: 1000, lit: 120, standing: 300, people: 900 };
+const a1 = S.stateOf(1, L, 0), a3 = S.stateOf(3, L, 40), a3r = S.stateOf(3, L, -20);
+ok('stateOf act 1 hands the floor back untouched (120 lit, 300 standing)', a1.lit === 120 && a1.standing === 300);
+ok('a great act 3 lights more blocks than the floor and a ruined one fewer', a3.lit > 120 && a3r.lit < a3.lit && a3.lit <= 1000);
+ok('the standing count is the floor plus what the family raised or tore down (signed)', a3.standing === 340 && a3r.standing === 280);
+ok('it reads bohemia_future\'s own signed number: derive().went.standing feeds it', (() => {
+  const d = F.derive(L, { century: null }, 2); return d.ok === true && typeof d.went.standing === 'number'; })());
+ok('the lines never move: cells are never changed', S.stateOf(3, L, 99).cells === undefined && a3.lit <= L.cells);
+ok('a modder can change one row and the answer follows', (() => { const o = S.ROWS[2].litFraction; S.ROWS[2].litFraction = 0.9;
+  const r = S.litFraction(2, 0) === 0.9; S.ROWS[2].litFraction = o; return r; })());
+console.log('ACT STATE GATE: ' + p + ' passed, ' + f + ' failed'); process.exit(f ? 1 : 0);

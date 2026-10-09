@@ -5204,6 +5204,9 @@ GATES = [
      'the shell\'s face function ignores the chosen sex (0 of 4096 pixels moved, 8 of 8 variants), so the '
      'gate asserts the wire and prints the pixel result rather than asserting a defect. 97 legs.',
      True),
+    ('ACT STATE', ['node', 'gates/act_state_gate.js'],
+     'DYNASTY row [the act\'s power and ruin], 10/9: the three acts\' valley as data (how much of the grid is lit, places standing, what the market stocks). Act one IS the powergrid default (0.12) so the demo is unchanged; acts 2 and 3 are draft rows scaled by the signed past, so a ruin the family caused lights LESS than a nothing past (the future goes both ways); every row draft:true and editable. 17 legs, mutation-proved twice. NOT WIRED INTO THE GAME YET: LIFE+CITY and WORLD read it.',
+     False),
     ('HEIRS', ['node', 'gates/heirs_gate.js'],
      'DYNASTY row [heirs], 10/1, rule 39d (Paolo 9/28): "do the people you hire also belong to the dynasty '
      'each act? 36 instead of 12?" and his hole, "what happens if they die earlier in an earlier act". '

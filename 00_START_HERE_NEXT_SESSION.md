@@ -35867,6 +35867,17 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 61 [the act's power and ruin] THE THREE ACTS' VALLEY AS ONE TABLE. (BUILD, data only)
+DYNASTY. Claimed and pushed first (rule 5). TAB: NOT IN A TAB YET (nothing drawn); one text line in VOTE (dynasty-act-state-10-9).
+RECORD: records/BOHEMIA_DYNASTY_ACT_STATE_10_9_26.md. engine/bohemia_act_state.js: ROWS per act (era, litFraction, reach, market), draft:true.
+Act one = 0.12 = powergrid's default (gate reads it), so the demo is unchanged. Acts 2/3: 0.20/0.30 base, a great past closes part of the gap,
+a past that tore places down lights LESS than doing nothing (rule 37c). stateOf(act, layout, derive().went.standing). Gate ACT STATE 17/0,
+mutation-proved twice (act one moving; ruin read as a boost). NOT WIRED: LIFE+CITY [the powered blocks] / WORLD must call stateOf; rule 73.
+ROUTED: ECONOMY the market lists; TUNING litFraction/reach/FULL_PAST 40; the Grok crisis clock (first crisis near day 100) is a vote line only.
+PRE-PUSH: ACT STATE, HANDOFF, VOTE TAB, REPLY CONTRACT run (see commit). [PENDING Paolo], none blocking: are 20% and 30% lit the right feel?
+NEXT for DYNASTY: [heirs made on entry] (listed twice on the board, the dead three-names idea is gone), [the company inherits], [grok lore], [the frame].
+The two orphaned QUESTS rows under this session are still CLAIMED and un-buildable (rule 35); coordinator's.
+
 ROUND 60 [heirs] THE COMPANY INHERITS. YOUR PEOPLE HAVE KIDS AND THEY ARE THE NEXT ACT'S COMPANY. (BUILD)
 DYNASTY, BUILD, rule 39d. Claimed and pushed as its own commit BEFORE work (rule 5). TAB: the phone on
 the map in the alpha (standing in act 2 or 3, a row says HEIRS); the picture is in the VOTE tab

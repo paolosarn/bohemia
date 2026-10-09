@@ -5353,6 +5353,19 @@
     "how": "text",
     "src": "Eight kinds of job: haul, carry, clear, hunt, patrol, hold, recover, find. Each one comes from a town's trouble, and finishing it fixes that trouble."
    }
+  },
+  {
+   "id": "dynasty-act-state-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "HOW MUCH OF THE VALLEY WORKS IN EACH ACT.",
+   "why": "Here is the table the three acts read: how much of the power grid is on, how many places stand, and what the market sells. Act one stays exactly as the demo is now (12 percent lit). Acts two and three start higher (20 and 30 percent, my drafts), a great past lights more, and a past where you tore places down lights less than doing nothing. Act one sells lamp oil and rope, act three sells chips and printed parts. Nothing is drawn yet; the city lanes have to read it. Thumbs up or tell me a number is wrong.",
+   "show": {
+    "how": "text",
+    "src": "ACT ONE: 12% lit, medieval stalls (grain, water, rope, iron tools, lamp oil, salt).\\nACT TWO: 20% lit if you did nothing, more if you built, less if you tore down. Stalls add cells, wire, solar film, medicine.\\nACT THREE: 30% lit by default, techy stalls (cells, chips, solar film, printed parts).\\nA ruin you caused stays a ruin. Not drawn yet."
+   }
   }
  ],
  "verdicts": [
