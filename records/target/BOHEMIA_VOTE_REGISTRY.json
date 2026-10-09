@@ -5381,6 +5381,19 @@
   },
   "verdict": "default",
   "status": "ruled"
+},
+{
+ "id": "lifecity-a-day-on-the-map-10-9",
+ "kind": "tile",
+ "lane": "life+city",
+ "sha": "f7a4987e",
+ "made": "10/9",
+ "title": "A DAY ON THE MAP IN TWENTY SECONDS",
+ "why": "This is the real game's map, filmed from the game's own camera, one frame every half hour from 6 in the morning to 9:30 at night. The parties walk with a reason (caravans between towns, patrols on their border, crews going to take something) and now nobody ever stands on top of anybody: before this, two or three parties stood on the same spot more than half the time. Each party leaves footprints in its faction's colour that fade over a day. The towns having a market day have a bigger crowd at the gate, and when you walk in, it is the same market. Thumbs up and this is how the map lives. Thumbs down and say what feels wrong.",
+ "show": {
+  "how": "image",
+  "src": "vote/LIFECITY_A_DAY_ON_THE_MAP_10_9.gif"
+ }
 }
  ],
  "verdicts": [
