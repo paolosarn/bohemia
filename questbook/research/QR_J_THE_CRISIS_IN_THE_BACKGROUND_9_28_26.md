@@ -6,6 +6,7 @@ Steered mid-round by Paolo's 9/28 ruling (records/BOHEMIA_PAOLO_QUESTS_ARE_THE_S
 contracts are Battle Brothers contracts, offered on a SETTLEMENT SCREEN, in the hall, by a client with a portrait,
 with a price and a negotiation. So the central lever of this page is WHAT IS ON THE BOARD: which settlements offer
 what, at what pay, and which halls go quiet or close while a crisis runs.
+FOLDED 10/9 (QR-AL): QR-U's rules 19 and 20 and the sharpens of rules 8, 9, 11 and 17, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 QUESTION: The crisis shelves are thin (after round one: 1 design on the earth-side nuke, 2 on the whisper
 broadcast, against 26 with no crisis). What do the 152 do with a WORLD CRISIS that runs in the background
@@ -364,6 +365,29 @@ Where the canon does not say how something works, this page says OPEN and design
 18. DECLINING A CRISIS CONTRACT IS FREE, EVEN IN A CRISIS. The screen may show that people need it; the no writes
     nothing, and the stage does not move because the player said no. Strangers may take the job (QD-A06).
     (`Q126.W3`, QR-A)
+
+19. A CRISIS STAGE MAY HAND THE PLAYER THE SWITCH. (folded 10/9 from QR-U) Infrastructure is a moral act; the console is a verdict
+(`Q169.W1`); the output is finite and every allocation leaves someone dark (`Q169.W2`); the console judges nothing
+(`Q169.W5`); the consequence is downstream and quiet (`Q169.W8`). Power and water are held by SHARE; a stage that breaks
+a share may put one allocation in the company's hands. Flaws: effects too diffuse (`Q169.X1`), nobody holds the
+switch-holder to account (`Q169.X3`). Fixes: lit and dark bases differ on their boards (rule 3, `Q169.P2`) and people
+remember who lit them (`Q169.P4`). Test: after an allocation, at least one dark base's board shows it.
+
+20. THE HOARDED CURE. (folded 10/9 from QR-U) The scarcity is a choice; the hoarding IS the scarcity (`Q232.W4`). The poor cannot pay
+(`Q232.W2`); the shining city arranged not to see (`Q232.W5`); at least one of the poor is a named person (`Q232.P4`).
+Medicine is one of our three economy legs; a medicine crisis stage is this study. Test: a medicine stage names one
+poor person with a face and says who holds the stock.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 11 (the crisis keeps costing): every hour of deciding is a body, refusing to commit is a choice (`Q206.W4`);
+  compel, never crush (`Q206.P3`); a different committer saves different people (`Q206.W9`). Prices move by map day,
+  never wall clock (rule 1).
+- Rule 9 (nobody says the secret): `Q218.W6`, `Q209.W8` (see QR-H). A client who half-knows says less than he knows,
+  because saying it spreads the target.
+- Rule 8 (a strange client per stage): the institution has abdicated and the player fills the vacuum (`Q160.W1`); a
+  crisis that empties a base's law makes the strange client a widow with a murder the watch will not look at.
+- Rule 17 (someone leaves, and is not wrong): the departure is correct, not a problem (`Q188.W3`); exile as
+  incompatibility, not punishment (`Q228.W3`).
 
 ## WHAT TO AVOID (the flaws)
 
