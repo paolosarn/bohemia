@@ -382,3 +382,16 @@ the builder runs it last. Gate TILES ARE LEGOS LEG 1c: every board in both futur
 Verified in the new fight: suburb and freeway x today/reclaimed/raided x day/night, 12 runs, 0 errors.
 FOR COMBAT / DYNASTY: the act (or a raid) picks the state; swap blocks[id].src and the board's cover and lights.
 VOTE: combat2-the-future-boards-10-9.
+
+## ROUND TWENTY-SEVEN (10/9): [the freeway round two], SHIPPED
+
+DIRECTION FIGHT VERDICT 22 (e8a6625e) named five freeway pieces that still read as another game; all five re-cut:
+1 cover_jersey: cast concrete (top lit, slope, foot), aggregate grain from his concrete ramp, tar stains, chipped
+corners, joints and lifting holes (was 3 tans, 0.40 col/kpx). 2 the edge lines: fog lines C[5], the street's own
+white; median lines G[5], a faded yellow (was T[5] #db7e46, the loudest thing on the board). 3 cover_trailer:
+ribbed panels with grime, rear doors and bars, rust streaks from the rivet lines, chassis rail and wheels, the
+fleet name painted out (was 4 colours). 4 the asphalt: per cell three patches of a different pour and four
+wandering cracks, inside the lanes only, never across the paint, 0.7 m off the block sides (the Lego edges hold).
+5 the dark band: the overpass's shadow 0.84 (was 0.62), the railing posts lighter, the barrier footing narrow and
+light. Gate TILES ARE LEGOS green, freeway 0/0 today and in both futures. Verified in the new fight (before /
+after, 0 errors). VOTE: combat2-the-freeway-round-two-10-9; DIRECTION re-judges.

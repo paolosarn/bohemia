@@ -6413,6 +6413,19 @@
     "src": "vote/WORLD_THE_SAME_FIGHT.png"
    },
    "sha": "bf86c941"
+  },
+  {
+   "id": "combat2-the-freeway-round-two-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY'S FIVE WRONG PIECES, FIXED",
+   "why": "The barrier is now cast concrete, the lines are the street's white and a faded yellow instead of orange, the trailer is a real rusted box, the asphalt is patched and cracked, and the dark band is gone. Thumbs up and the freeway looks like this in every fight, and you see it in the COMBAT tab on the freeway board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FREEWAY_ROUND_TWO_10_9.png"
+   }
   }
  ],
  "verdicts": [
