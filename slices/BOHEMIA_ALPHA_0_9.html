@@ -22686,7 +22686,21 @@ drawLogoBig();requestAnimationFrame(loop);
     w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
     return w;
   }
-  window.playSFX=function(ev,when){
+  /* A ONE-OFF GAIN MULTIPLIER, OVER THE RECIPE, NEVER A REWRITE OF IT (SOUNDS, row
+     [the settlement's sounds], 10/9). AMB_TRIM pulls three named ambience events
+     down EVERYWHERE they play; this is the opposite shape, for a sound that is only
+     quieter in ONE CALLING CONTEXT (the settlement at night) and unchanged in every
+     other (the same door_open walking into a building in daylight, or anywhere else
+     in the valley). So `mul` travels with the call, not with the event name, and a
+     caller that never passes one renders byte-identical to before this round. */
+  function sfxMul(v, mul){
+    if(!mul || mul===1 || !v) return v;
+    var w={}; var k; for(k in v) w[k]=v[k];
+    w.gain=(v.gain||0)*mul;
+    return w;
+  }
+  window.__sfxMul = sfxMul;
+  window.playSFX=function(ev,when,mul){
     try{
       if(typeof BOH_SFX==='undefined')return null;
       if(!voiceOK(ev))return null;
@@ -22694,6 +22708,7 @@ drawLogoBig();requestAnimationFrame(loop);
       var v=vary(vec(c[0],c[1])); if(!v)return null;
       v=ambTrim(ev,v);
       v=inSpace(v);
+      v=sfxMul(v,mul);
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
@@ -23236,7 +23251,7 @@ drawLogoBig();requestAnimationFrame(loop);
         placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
                            inside:d.inside, when:d.when||null });
         return; }
-      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
+      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when,d.mul);
     }catch(e){}
   });
 

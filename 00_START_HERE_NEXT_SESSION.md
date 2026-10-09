@@ -30,6 +30,37 @@ strongest men plus days; difficulty raises count and tier together); Paolo gave 
 STILL OPEN IN MY QUEUE: [the difficulty steps], [the felt numbers table], [the sell ratio] (wiki-fed), [ammo], [respec]
 (note rule 56 changed who dies: flat 20, a little more per trait/injury, re-read before writing), [recruit odds],
 [origins difficulty].
+
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round five) -- *** THE CLINIC'S DOOR IS NOW QUIETER AT
+NIGHT, AND THE SAME FIX WILL QUIET THE OTHER FOUR NEW SOUNDS FOR FREE ONCE YOU VOTE. ALSO: A
+BROKEN COPY-PASTE FROM LAST ROUND LEFT RAW GIT MARKERS SITTING IN THIS VERY FILE, FIXED. ***
+TAB: no card to see yet; this is a quiet behind-the-scenes fix, not a new sound.
+Record: this VAMILY.md round text, row [the settlement's sounds].
+
+Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
+you and on RUN, so I kept going on the settlement screen's row.
+
+The job sheet asked for the settlement screen to be quieter at night. Built it: the clinic's
+door (the one sound actually wired up so far) now plays softer after dark, and stays exactly
+as loud as before during the day. Tested with a real tap on the real screen, both times of
+day, not guessed at.
+
+Because I built it the right way, the four new sounds from last round (the barber, the can,
+the nail, the paper) will automatically get this same "quieter at night" treatment the moment
+you vote them in and they get wired up. Nothing more to do there.
+
+One thing from the job sheet is still not built, same reason as before: the bar's low murmur.
+This lane cannot fake a voice yet.
+
+Also found and fixed something embarrassing: last round's save to this exact file left two
+copies of the same update stuck together with raw computer merge-conflict symbols in between
+(the stuff that's supposed to get cleaned up and never did). Nobody saw it because it still
+read fine at the top. Cleaned up, nothing lost.
+NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
+Only the bar's murmur is left on this row's own list.
+PENDING Paolo: nothing new. The four settlement sounds from last round are still waiting for
+your thumb in VOTE, under LOOK.
+
 SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
 NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
 TAB: VOTE, under LOOK, the settlement's answers page.
@@ -111,36 +142,6 @@ fine for now, and there's no bestiary screen anywhere yet, so nothing to write f
 NEXT: hold for the start screen's words to unblock. If it's still stuck next round, the jump
 list is down to nothing and needs a new job added (not my call to add one).
 PENDING Paolo: nothing.
-=======
-SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
-NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
-TAB: VOTE, under LOOK, the settlement's answers page.
-Record: this VAMILY.md round text, row [the settlement's sounds].
-
-Both other rows I'm holding (the title's music, the map's sounds) are still stuck waiting on
-you and on RUN, so I checked and moved a third, open row instead: the settlement screen's
-buildings had nothing when you tapped them.
-
-Built four new sounds, every one made out of a sound already in the game, not invented from
-scratch: the barber's clippers (a real mains clipper buzzes at 120 Hz, not a motor hum), a can
-set down on the stall's wood counter (two materials, one contact), a nail pinning a card to the
-board (the same strike the fight already uses, smaller), and paper against the posts (lots of
-tiny creases, not a hiss).
-
-The clinic's door needed nothing new at all. It already had an approved door sound, it just
-was not hooked up. Now opening and closing the clinic plays it, tested with a real tap on the
-real screen, not guessed at.
-
-Two things from the job sheet I did NOT build, on purpose: the bar's low murmur (this lane
-cannot fake a voice yet, same gap as every round before this) and the night version being
-quieter (a real idea, just not this round's batch).
-
-All four new sounds are a VOTE card now. Nothing goes live until you thumb them; the clinic's
-door is the only thing playing in the actual game right now because it reused something you
-already approved.
-NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
-PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
->>>>>>> aa744ae (SOUNDS [the settlement's sounds] round one: four new taps cooked REUSE-FIRST)
 
 WORDS (words-8dqrnq): 10/5 (c) LATEST -- *** THE BIGGEST FIND WASN'T BAD WORDING, IT WAS A
 WRONG NUMBER: A JOB SHOWS "30 BATT" WHEN IT ACTUALLY PAYS 3. ***

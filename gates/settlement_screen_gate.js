@@ -254,6 +254,26 @@ const srv = http.createServer((rq, rs) => {
   const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
   ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
   await p.click('#close'); await p.waitForTimeout(300);
+
+  /* THE NIGHT VARIANT QUIETER (row [the settlement's sounds], 10/9): the clinic's
+     door is the only building sound wired live so far; by day it posts no multiplier
+     at all (byte-identical to every round before this), by night it posts the same
+     -6 dB ratio his sixth votes already approved for the valley's ambience (AMB_TRIM,
+     SOUNDS E5), scoped to the call rather than the event so the same door walking into
+     any other building in daylight is untouched. */
+  await p.evaluate(() => { window.__settleLog = []; });
+  await tapB('clinic'); await p.waitForTimeout(150); await p.click('#close'); await p.waitForTimeout(150);
+  const dayDoorSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  await p.evaluate(() => { window.__settleLog = []; BohemiaSettlement.open({ night: true }); });
+  await p.waitForTimeout(150);
+  await tapB('clinic'); await p.waitForTimeout(150); await p.click('#close'); await p.waitForTimeout(150);
+  const nightDoorSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  await p.evaluate(() => { BohemiaSettlement.open({ night: false }); });
+  console.log('  door sfx by day: ' + JSON.stringify(dayDoorSfx) + '  by night: ' + JSON.stringify(nightDoorSfx));
+  ok('the clinic\'s door is quieter at night, and untouched by day', dayDoorSfx.length === 2 && dayDoorSfx.every(m => !m.mul)
+    && nightDoorSfx.length === 2 && nightDoorSfx.every(m => m.mul === 0.5),
+    JSON.stringify({ day: dayDoorSfx, night: nightDoorSfx }));
+
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' } }));
   await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT });
