@@ -29,12 +29,106 @@
   "bat-arc@0.5",
   "bat-arc@0.68",
   "two-hand@0",
-  "sleep@0"
+  "sleep@0",
+  "idle@0.1042",
+  "idle@0.3542",
+  "idle@0.7292",
+  "floor-rise@0.8125",
+  "floor-rise@0.6458",
+  "floor-rise@0.5208",
+  "floor-rise@0.3125",
+  "floor-rise@0.1042",
+  "crawl-dying@0.1042",
+  "crawl-dying@0.4167",
+  "crawl-dying@0.7083",
+  "crawl-dying@0.9167"
  ],
  "face": {
   "size": 64,
   "at": "right of the last column, top row"
  },
+ "clips": {
+  "idle": {
+   "cols": [
+    "idle@0",
+    "idle@0.1042",
+    "idle@0.3542",
+    "idle@0.7292"
+   ],
+   "beats": 4,
+   "loop": true
+  },
+  "step": {
+   "cols": [
+    "walk@0",
+    "walk@0.25",
+    "walk@0.5",
+    "walk@0.75"
+   ],
+   "beats": 1,
+   "loop": true
+  },
+  "swing": {
+   "cols": [
+    "bat-arc@0.2",
+    "bat-arc@0.5",
+    "bat-arc@0.68"
+   ],
+   "beats": 1,
+   "loop": false
+  },
+  "shot": {
+   "cols": [
+    "two-hand@0"
+   ],
+   "beats": 1,
+   "loop": false,
+   "note": "the aim, held: the bank has no recoil clip and none is invented here"
+  },
+  "hit": {
+   "cols": [
+    "stagger-hit@0.03",
+    "stagger-hit@0.09",
+    "stagger-hit@0.16",
+    "stagger-hit@0.26"
+   ],
+   "beats": 1,
+   "loop": false
+  },
+  "fall": {
+   "cols": [
+    "floor-rise@0.8125",
+    "floor-rise@0.6458",
+    "floor-rise@0.5208",
+    "floor-rise@0.3125",
+    "crawl-dying@0.1042"
+   ],
+   "beats": 2,
+   "loop": false,
+   "then": "down",
+   "note": "ends ON the down man's first picture (his own reaching arm, 2-4 px past floor-rise's seated end), so the seam is exact; a man who dies goes from here to dead (he slumps flat)"
+  },
+  "down": {
+   "cols": [
+    "crawl-dying@0.1042",
+    "crawl-dying@0.4167",
+    "crawl-dying@0.7083",
+    "crawl-dying@0.9167"
+   ],
+   "beats": 4,
+   "loop": true,
+   "note": "struck down, not dead: sitting up, crawling"
+  },
+  "dead": {
+   "cols": [
+    "sleep@0"
+   ],
+   "beats": 1,
+   "loop": false,
+   "note": "flat on the ground: dead reads apart from down at a glance"
+  }
+ },
+ "clips_by": "animation 10/9: frame = cols[floor(progress * cols.length)], progress over beats * 500 ms; fall is followed by down, or by dead for the man who dies",
  "looks": {
   "you": {
    "file": "you.webp",

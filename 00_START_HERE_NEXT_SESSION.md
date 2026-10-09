@@ -15427,6 +15427,19 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/9 (a) LATEST -- *** THE FIGHT'S CLIPS: the fight's sheets now carry a
+breathing idle, a fall and a man struck down who crawls; the dead lie flat. TAB: VOTE playing. ***
+
+Rule 78 put the lane back to work; top row [the fight's clips in the new fight] SHIPPED. Twelve columns appended
+to all 26 fight_people sheets (the fourteen the fight reads unchanged byte for byte) and a CLIP TABLE in
+fight_people.json (idle, step, swing, shot, hit, fall then down, down, dead). Looking turned it round: the fall
+(floor-rise backwards) ends SITTING, where the crawl starts, so sitting = alive, flat = dead. FIGHT CLIPS TABLE
+11/0, 5 mutations. records/BOHEMIA_THE_FIGHTS_CLIPS_10_9_26.md.
+FOR COMBAT (its file untouched, as the row said): frameFor reads DB.people.clips[event]; a fallen man plays fall
+then down, or dead; a waiting man plays idle. Its rebuilt-fight gate expects 'sleep' seen, which dead still is.
+FOR THE COORDINATOR: one Grok ask: how does Battle Brothers draw a man struck down but alive, on the board?
+NEXT: the jump list on the board: [the marker walks], [the settlement's idle people], [the shot kicks].
+
 ANIMATION (animation-lr9y9i): 10/1 (a) LATEST -- *** A TRADER FACING YOU: haggling and bowing move
 facing the camera now. TAB: VOTE playing (the near end of the zoom, rule 50). ***
 

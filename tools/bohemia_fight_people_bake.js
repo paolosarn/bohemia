@@ -6,6 +6,7 @@
    the fight can field, his 112-px frames from the bank's own renderer, nothing redrawn:
      rows SE (facing right) and SW (facing left);
      columns idle | walk x4 | stagger-hit x4 (the hit clip) | bat-arc x3 (a swing) | two-hand (aiming) | sleep (fallen)
+     | idle x3 more | the fall x5 | the down man x4 (ANIMATION 10/9, appended; the clip table says what plays when)
    plus his 64-px face from renderFace with his own face key. Looks: YOU (the player as he stands), the
    twelve CITY_CAST_LOOKS, the thirteen FACTION_LOOKS (the runway thirteen). Out: slices/fight_people/
    <id>.png (then packed to lossless WebP) and fight_people.json, the manifest the fight reads.
@@ -18,8 +19,33 @@ const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'slices/fight_people');
 const COLS = [['idle', 0], ['walk', 0], ['walk', .25], ['walk', .5], ['walk', .75],
   ['stagger-hit', .03], ['stagger-hit', .09], ['stagger-hit', .16], ['stagger-hit', .26],
-  ['bat-arc', .2], ['bat-arc', .5], ['bat-arc', .68], ['two-hand', 0], ['sleep', 0]];
+  ['bat-arc', .2], ['bat-arc', .5], ['bat-arc', .68], ['two-hand', 0], ['sleep', 0],
+  /* ANIMATION [the fight's clips in the new fight] (10/9, rule 69): APPENDED, so every column above keeps its
+     index. The idle breathes (the fight drew idle@0 only: every man stood frozen between beats); the FALL is
+     the bank's floor-rise played BACKWARDS (standing at ph .81, crouch .65, kneel .52, sitting .31, lying .10,
+     measured on the drawn box, 24 buckets). LOOKING at the bake: it ends SITTING on the ground, leaning back,
+     which is exactly where crawl-dying starts. So the fall flows into the DOWN man, struck down and not dead
+     (rule 36b), who crawls (four distinct pictures); the DEAD lie FLAT (sleep), so alive and dead read apart at
+     a glance: sitting is alive, flat is dead. No new shape: every frame is a bank clip, and the 7/2
+     graveyard's 'death' and 'ragdoll' stay dead. */
+  ['idle', .1042], ['idle', .3542], ['idle', .7292],
+  ['floor-rise', .8125], ['floor-rise', .6458], ['floor-rise', .5208], ['floor-rise', .3125], ['floor-rise', .1042],
+  ['crawl-dying', .1042], ['crawl-dying', .4167], ['crawl-dying', .7083], ['crawl-dying', .9167]];
 const ROWS = ['SE', 'SW'];
+/* THE CLIP TABLE (ANIMATION's, 10/9): which columns play for which fight event, how many beats they take and
+   what follows. The fight reads it (frame = cols[floor(progress * cols.length)]); nothing here is a number a
+   player feels, only which picture and how long it lasts on the 120 beat. */
+const CLIPS = {
+  idle:  { cols: ['idle@0', 'idle@0.1042', 'idle@0.3542', 'idle@0.7292'], beats: 4, loop: true },
+  step:  { cols: ['walk@0', 'walk@0.25', 'walk@0.5', 'walk@0.75'], beats: 1, loop: true },
+  swing: { cols: ['bat-arc@0.2', 'bat-arc@0.5', 'bat-arc@0.68'], beats: 1, loop: false },
+  shot:  { cols: ['two-hand@0'], beats: 1, loop: false, note: 'the aim, held: the bank has no recoil clip and none is invented here' },
+  hit:   { cols: ['stagger-hit@0.03', 'stagger-hit@0.09', 'stagger-hit@0.16', 'stagger-hit@0.26'], beats: 1, loop: false },
+  fall:  { cols: ['floor-rise@0.8125', 'floor-rise@0.6458', 'floor-rise@0.5208', 'floor-rise@0.3125', 'crawl-dying@0.1042'], beats: 2, loop: false, then: 'down',
+           note: 'ends ON the down man\'s first picture (his own reaching arm, 2-4 px past floor-rise\'s seated end), so the seam is exact; a man who dies goes from here to dead (he slumps flat)' },
+  down:  { cols: ['crawl-dying@0.1042', 'crawl-dying@0.4167', 'crawl-dying@0.7083', 'crawl-dying@0.9167'], beats: 4, loop: true, note: 'struck down, not dead: sitting up, crawling' },
+  dead:  { cols: ['sleep@0'], beats: 1, loop: false, note: 'flat on the ground: dead reads apart from down at a glance' }
+};
 
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
@@ -33,7 +59,10 @@ const ROWS = ['SE', 'SW'];
     .concat(window.FACTION_LOOKS.map(l => ({ id: 'faction_' + l.faction.toLowerCase(), name: l.faction, kind: 'faction', worn: l.worn }))));
   const manifest = { version: 'fight-people-10-4', built: '10/4/26', lane: 'combat', rule: 69,
     source: 'slices/BOHEMIA_ALPHA_0_9.html: famPaintBody / drawChar (the 112 rig, the runway clothes, the hair bank), renderFace / faceFor (the faces), the clips idle, walk, stagger-hit, bat-arc, two-hand, sleep',
-    frame: 112, figure_bbox: [36, 6, 42, 102], rows: ROWS, cols: COLS.map(c => c[0] + '@' + c[1]), face: { size: 64, at: 'right of the last column, top row' }, looks: {} };
+    frame: 112, figure_bbox: [36, 6, 42, 102], rows: ROWS, cols: COLS.map(c => c[0] + '@' + c[1]), face: { size: 64, at: 'right of the last column, top row' },
+    clips: CLIPS, clips_by: 'animation 10/9: frame = cols[floor(progress * cols.length)], progress over beats * 500 ms; fall is followed by down, or by dead for the man who dies', looks: {} };
+  const _miss = Object.keys(CLIPS).reduce((a, k) => a.concat(CLIPS[k].cols.filter(c => manifest.cols.indexOf(c) < 0)), []);
+  if (_miss.length) { console.log('the clip table names columns the sheet does not bake: ' + _miss.join(', ')); process.exit(1); }
   for (const L of looks) {
     const url = await d.page.evaluate((args) => {
       const L = args.L, COLS = args.COLS, ROWS = args.ROWS, F = 112;
