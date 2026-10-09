@@ -84,6 +84,13 @@ var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
 function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o||{})) m[k] = o[k];
   window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){} }
+/* THE WARDROBE MAKES A SOUND NOW (row [the soundscape], 10/9). 'equip' ("CLOTHES GO ON") has
+   been an approved, frozen bank event since this lane's first SFX batch -- its own why already
+   said "the wardrobe is a whole system that never made a sound" -- and nothing on this screen
+   ever posted it. Zero new content, same precedent as the clinic's door: a ratio or a wire, never
+   a new recipe, over an already-judged sound. */
+function sfx(ev){ window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
+  if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev},'*'); }catch(e){} }
 function say(t){ document.getElementById('said').textContent = t; }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 function formation(){ return {front:S.front.slice(), back:S.back.slice()}; }
@@ -179,12 +186,12 @@ function equip(bi, slot){
   var s = slot || C.slotFor(it);
   if(slot && C.slotFor(it) !== slot){ say('That does not go there.'); return; }
   var old = m.gear[s]; m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old);
-  saveBag(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); say(m.name + ' takes ' + it.name + '.'); draw();
+  saveBag(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); sfx('equip'); say(m.name + ' takes ' + it.name + '.'); draw();
 }
 function unequip(slot){
   var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
   if(S.bag.length >= BAG_SLOTS){ say('Your bag is full.'); return; }
-  m.gear[slot] = null; S.bag.push(it); saveBag(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); say(m.name + ' puts down ' + it.name + '.'); draw();
+  m.gear[slot] = null; S.bag.push(it); saveBag(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
 }
 function moveMan(fromRow, fromI, toRow, toI){
   var a = S[fromRow][fromI], b = S[toRow][toI];

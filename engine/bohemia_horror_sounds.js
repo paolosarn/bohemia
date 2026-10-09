@@ -1747,6 +1747,58 @@
     };
   }
 
+  /* ==== 13b3. THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9) ====
+     Rule 80a, Paolo's own words: "the clinking of someone making disorder" at the smith and
+     the armourer. Both REUSE struckMetal's own free-free bar series (the same one boardNail
+     already uses), never a new material -- what changes is the mass behind the strike and
+     the cadence it is struck at, which is the real difference between a forge and a rivet
+     gun, not a new recipe. */
+
+  /* AN ANVIL IS A MASSIVE, WELL-COUPLED BLOCK, SO IT RINGS LOW AND BRIEF. A pipe somebody is
+     holding keeps most of a free blow's energy in the bar; an anvil bolted to a stump bleeds
+     it into the ground almost at once, so the same inharmonic series rings for a fraction of
+     a pipe's own tail and the fundamental sits low (a heavy mass, not a thin bar). */
+  function smithHammer(ctx, opts) {
+    opts = opts || {};
+    var m = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 140 : opts.f0,
+      secs: opts.secs == null ? 0.6 : opts.secs });
+    return {
+      buffer: m.buffer, machine: m.machine, seconds: m.seconds, what: 'pipe', f0: opts.f0 == null ? 140 : opts.f0,
+      why: 'the same free-free bar series struckMetal already uses for a held pipe, low and '
+        + 'short: an anvil is a massive block bolted to a stump, so the ring bleeds into the '
+        + 'ground almost at once instead of hanging the way a handheld length of steel does'
+    };
+  }
+
+  /* A RIVET IS SET IN SEVERAL QUICK, SMALL BLOWS, NOT ONE. A rivet's own metal is tiny and
+     stiff, so each blow rings even higher and shorter than boardNail's tack; what makes it a
+     rivet gun and not one tap is the cadence, four strikes at a pneumatic hammer's working
+     rate rather than a single hit. */
+  function armourerRivets(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 2600 : opts.f0;
+    var hitSecs = opts.hitSecs == null ? 0.035 : opts.hitSecs;
+    var strikes = opts.strikes == null ? 4 : opts.strikes;
+    var gapSec = opts.gapSec == null ? 0.09 : opts.gapSec;
+    var sr = ctx.sampleRate;
+    var one = struckMetal(ctx, { what: 'pipe', f0: f0, secs: hitSecs });
+    var od = one.buffer.getChannelData(0), ol = od.length;
+    var total = Math.round(sr * (gapSec * (strikes - 1))) + ol;
+    var buf = ctx.createBuffer(1, total, sr), d = buf.getChannelData(0);
+    var i, k, off;
+    for (k = 0; k < strikes; k++) {
+      off = Math.round(sr * gapSec * k);
+      for (i = 0; i < ol && off + i < total; i++) d[off + i] += od[i];
+    }
+    normalise(d, total, 0.85);
+    return {
+      buffer: buf, machine: one.machine, seconds: total / sr, what: 'pipe', f0: f0, strikes: strikes,
+      why: 'the same tiny, stiff pipe mode boardNail uses for a tack, raised higher still, struck '
+        + 'four times at a rivet gun\'s own working cadence -- a rivet is set in several quick '
+        + 'blows, never one'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2378,6 +2430,8 @@
     canOnWood: canOnWood,
     boardNail: boardNail,
     paperRustle: paperRustle,
+    smithHammer: smithHammer,
+    armourerRivets: armourerRivets,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2553,7 +2607,13 @@
         { id: 'sounds-the-boards-own-nail-10-5', make: 'boardNail',
           title: "THE BOARD'S OWN NAIL" },
         { id: 'sounds-paper-against-the-post-10-5', make: 'paperRustle',
-          title: "PAPER AGAINST THE POST" }
+          title: "PAPER AGAINST THE POST" },
+        /* THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9): his own
+           words, "the clinking of someone making disorder" at the smith and the armourer. */
+        { id: 'sounds-the-smiths-hammer-10-9', make: 'smithHammer',
+          title: "THE SMITH'S HAMMER" },
+        { id: 'sounds-the-armourers-rivets-10-9', make: 'armourerRivets',
+          title: "THE ARMOURER'S RIVETS" }
       ];
     }
   };

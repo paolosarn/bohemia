@@ -5785,7 +5785,53 @@
     "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
    }
   },
-  {"id": "quests-the-demos-chain-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "HOW THE DEMO ENDS", "why": "Three jobs from one woman at the Wash: haul water, run off the road crew, clear the dog lot, and the lot becomes yours. Then a thanks screen opens NOTES.", "show": {"how": "text", "src": "The last thing she hands you is the big dog's ear tag. It has a lab number and your company's name on it, and nobody explains why."}}
+  {
+   "id": "quests-the-demos-chain-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "HOW THE DEMO ENDS",
+   "why": "Three jobs from one woman at the Wash: haul water, run off the road crew, clear the dog lot, and the lot becomes yours. Then a thanks screen opens NOTES.",
+   "show": {
+    "how": "text",
+    "src": "The last thing she hands you is the big dog's ear tag. It has a lab number and your company's name on it, and nobody explains why."
+   }
+  },
+  {
+   "id": "sounds-the-smiths-hammer-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE SMITH'S HAMMER",
+   "why": "The smith's forge was silent, so now a tap plays an anvil's own low, short ring, the mass of the stump bleeding it away fast. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-armourers-rivets-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE ARMOURER'S RIVETS",
+   "why": "The armourer's bench was silent, so now a tap plays four quick, tiny strikes setting a rivet, a gun's own working cadence. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

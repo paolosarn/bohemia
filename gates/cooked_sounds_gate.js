@@ -836,6 +836,24 @@ const MEASURE = `
     } catch (e) { out.paperRustleErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9). Both reuse
+     struckMetal's own free-free bar series; the claims read the real difference (mass and
+     cadence) off the actual render, not off a label. */
+  (function () {
+    try {
+      const sh = H.smithHammer(ctx, {});
+      out.smithHammer = { what: sh.what, f0: sh.f0, seconds: sh.seconds,
+        machineIsEar: !!sh.machine && sh.machine.hi === null };
+    } catch (e) { out.smithHammerErr = String(e && e.message).slice(0,160); }
+    try {
+      const ar = H.armourerRivets(ctx, {});
+      const d = ar.buffer.getChannelData(0), n = d.length;
+      let pk = 0; for (let i = 0; i < n; i++) { const a = Math.abs(d[i]); if (a > pk) pk = a; }
+      out.armourerRivets = { what: ar.what, f0: ar.f0, strikes: ar.strikes, seconds: ar.seconds,
+        machineIsEar: !!ar.machine && ar.machine.hi === null, peak: pk };
+    } catch (e) { out.armourerRivetsErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1282,6 +1300,12 @@ const MEASURE = `
           for (let i = 0; i < n; i++) dd[i] = (Math.random() * 2 - 1) * 0.5;
           return { buffer: buf, clicks: 0, lo: 0, hi: sr / 2, noiseSources: 1, machine: { hi: 5000 } };
         };
+        /* AND THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (10/9): both call struckMetal BY
+           CLOSURE, same trap, same fix. */
+        H.smithHammer = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
+        H.armourerRivets = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          what: 'mutated', f0: 0, strikes: 0, seconds: 1, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -2062,6 +2086,22 @@ const MEASURE = `
         PR.clicks + ' discrete creases (crackleInto, zero noise generators) band-limited to '
         + PR.lo + '-' + PR.hi + ' Hz, peak ' + PR.peak.toFixed(4));
     } else { claim('Paper against the post was measured', false, d.paperRustleErr || 'no reading'); }
+
+    /* ---- THE SOUNDSCAPE'S FIRST TWO WORKING SOUNDS (row [the soundscape], 10/9) ---- */
+    if (d.smithHammer) {
+      const SH = d.smithHammer;
+      claim('THE SMITH\'S HAMMER RINGS LOW AND SHORT, AN ANVIL BLEEDING INTO ITS OWN STUMP',
+        SH.what === 'pipe' && SH.f0 === 140 && SH.seconds <= 0.6 && SH.machineIsEar,
+        SH.f0 + ' Hz pipe mode, ' + SH.seconds.toFixed(2) + ' s -- the same free-free bar series '
+        + 'as a held pipe, lower and far shorter because the mass behind it is a bolted anvil');
+    } else { claim('The smith\'s hammer was measured', false, d.smithHammerErr || 'no reading'); }
+    if (d.armourerRivets) {
+      const AR = d.armourerRivets;
+      claim('A RIVET IS SET IN SEVERAL QUICK BLOWS, NOT ONE, AND THE RENDER IS AS LONG AS FOUR STRIKES SAY IT SHOULD BE',
+        AR.what === 'pipe' && AR.f0 === 2600 && AR.strikes === 4 && AR.machineIsEar && AR.peak > 0.01,
+        AR.strikes + ' strikes at ' + AR.f0 + ' Hz, ' + AR.seconds.toFixed(3) + ' s total -- a '
+        + 'pneumatic riveter\'s own working cadence, read off the actual render\'s length');
+    } else { claim('The armourer\'s rivets were measured', false, d.armourerRivetsErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

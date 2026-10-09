@@ -1,3 +1,29 @@
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round six, [the soundscape] round one) -- *** PAOLO ASKED
+FOR SOUNDS EVERYWHERE LIKE BATTLE BROTHERS HAS; BUILT THE FULL LIST AND TWO NEW SOUNDS,
+AND FOUND THE WARDROBE HAS BEEN SILENT FOR WEEKS. ***
+TAB: VOTE, under LOOK, the soundscape's first two page. No tab for the list itself (a record).
+Record: records/BOHEMIA_SOUNDS_THE_SOUNDSCAPE_LIST_10_9_26.md.
+
+You asked Grok to list every sound in Battle Brothers first. That has not come back yet, so I
+built our own list instead of waiting: every screen in the game, what sound plays on it right
+now, and what is still missing. I did not sit on my hands for a list I cannot control.
+
+Along the way I found two real holes nobody noticed: buying anything at the stall, the smith or
+the armourer makes no sound at all, and putting gear on a person in the roster screen has been
+silent even though the sound for it was approved weeks ago. Fixed the second one for free, since
+it needed no new sound, just plugging it in. The first one is written down for next time.
+
+Built two new sounds, the settlement first since you hear that one most: the smith's hammer on
+an anvil, and the armourer setting a rivet with his gun. Both are real metal sounds, not made up.
+
+Also added this lane's required entry to the "better than Battle Brothers" list: every sound we
+make comes from the real physics of the real object, never a canned sample file, which is
+actually more honest than how Battle Brothers itself does it.
+NEXT: the buy sound at the shops; more of the settlement's and the fight's thin spots once this
+round's sounds and the standing four from last round get your thumb.
+PENDING Paolo: nothing new. Six settlement-area sounds are waiting for your thumb in VOTE now
+(four from last round, two from this one).
+
 QUESTS (quests-dvybth): 10/9 (d) LATEST -- [the demo's chain] SHIPPED: QR-AI, the three-contract chain that ends the demo (release line 13) and the thanks screen. RUN: DEMO_CHAIN spec in the page. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [one weapon file] SHIPPED as a research page. TAB: VOTE, item THE
