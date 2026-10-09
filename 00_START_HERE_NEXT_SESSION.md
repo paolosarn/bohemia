@@ -1462,6 +1462,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/9 LATEST -- [the phone's look] SHIPPED: the cracked phone on the demo's map, top right.
+dressPhone() in bohemia_ui_materials.js (city file untouched): his crack/chips/island kept, hard edge, CASING hour+handles, ROM posts, brighter ink,
+family faces as cardboard cards (you amber), 44 pt with three unlocked, so the phone is 156 wide (19.5:9 kept). Gate the phone's look 15/0, 6 mutations.
+Before: the hour 2.97 and the signal 2.36 in the sun, faces 36x54. VOTE ui-the-phones-look-10-9.
+OPEN (rule 78, top three): [glass face] (the reroll '?' as a drawn mark), [phone contracts], [landscape]; then [the roster's look] (waits on RUN TWO).
+
 UI (ui-kmqmrf): 10/5 (d) LATEST -- [six icons] + [the map's bar] SHIPPED: the demo's map, top bar and the speed pad bottom right.
 supplyIcon()/dressMapBar() in bohemia_ui_materials.js; CITY_WORLD includes it (one line) and the six plate draws supplyIcon (fallback the old SVG).
 Gate the map's bar 7/0, 5 mutations; the old bar's words failed the sun test undressed. VOTE ui-the-maps-bar-10-5.
