@@ -279,6 +279,25 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/9 (g) LATEST -- *** THE BIG QUESTION FROM LAST ROUND GOT ANSWERED,
+AND IT MEANT FIXING ONE OF MY OWN MISTAKES. ***
+TAB: COMBAT. A review file for the fight team.
+Record: records/BOHEMIA_WORDS_THE_ENEMIES_NAMES_ROUND_TWO_10_9_26.md
+
+Last round I found that a bunch of fantasy monster enemies couldn't be real animals, and
+flagged it as a question needing a decision. That decision came back this round: those
+monsters are now robots from the old robotics plant near the airport, or in one case a
+person running the show. Renamed all nineteen of them to match.
+
+Caught my own mistake while doing it: last round I called one of them (Unhold, a troll-like
+thing) a real lab animal, a bear. Turns out it's actually a cargo loader robot that walks on
+two legs, same family as the other robot monsters. Fixed it. The game's mechanics for all of
+these stay exactly the same, only the name and the one-line description changed.
+NEXT: the coordinator topped up my list while I worked (two new jobs landed, plus my own
+blocker report got the keepers' job unblocked): the real next job is COMBAT's eight enemy
+weapon class lines, read plain.
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/9 (f) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
 FRESH, NOT GUESSED. NOTHING SHIPPED THIS ROUND ON PURPOSE. ***
 TAB: nothing to show; this is a status check, not a build.
