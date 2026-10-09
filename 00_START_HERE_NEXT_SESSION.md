@@ -18248,6 +18248,15 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/9 (c) LATEST -- *** PLUMBER FLAGGED MY OWN JUST-SHIPPED
+VOTE SHEET RED, RULE 22F: THE WHY DIDN'T SAY WHERE HE SEES IT. FIXED. ***
+TAB: VOTE, item GOOD BROS AT THE POST.
+
+The why for people-good-bros-10-9 was two sentences but never said where to look.
+Rewrote it to name the VOTE tab and the item's own title in the second sentence.
+gates/vote_tab_gate.js no longer lists this id as red. Nothing else touched.
+Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/9 (b) LATEST -- *** [good bros] SHIPPED. SIX REAL
 RECRUITS AT THE POST, REAL WIKI STATS AND PRICES, A SELF-CAUGHT CROWNS-VS-
 BATTERIES BUG FIXED BEFORE IT SHIPPED. ***
