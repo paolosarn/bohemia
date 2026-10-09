@@ -841,6 +841,41 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('GOD GEAR', ['node', 'gates/god_gear_gate.js'],
+     'ROW [where the god gear is] (Paolo 10/9: "finding good bros and good equipment throughout the '
+     'settlements"). The valley\'s six legendary places, each with a guard sized by the math and a '
+     'reward off the best rows of weapons.json and armor.json. *** THE FINDING: THEY ARE NOT '
+     'GUARANTEED. *** Battle Brothers puts its legendary locations on every map it generates; ours '
+     'ROLLS them, and the library is on 48 of 60 valleys, so in roughly one in five a rumour at the '
+     'bar would point at a building that is not there -- the module reports every absence BY NAME '
+     'and the gate proves it does on every swept valley. *** AND THE FIRST CUT RANKED THEM BY CELL '
+     'COUNT, WHICH MADE FIVE OF THE SIX IDENTICAL *** (the data fortress is six cells and every '
+     'other one is exactly one): same guard of 10, same three reward rows, which is [bb places]\' '
+     'own 9/25 defect, a shelf that is a function of tier alone. The gate holds that no two places '
+     'share a guard AND that cell count would not have separated them. THE CHAIN IS NOT A TABLE: '
+     'the rank sizes the guard off HIS OWN CEILING ("12 versus 60", rule 79) and the guard slices '
+     'the reward out of the ranked 310-row gear pool, so BETTER GUARDED IS BETTER GEAR BY '
+     'CONSTRUCTION and the gate proves the monotonicity. The rank is STATED AS MINE with a '
+     'real-world reason rather than dressed up as arithmetic, and WHO GUARDS SHIPS EMPTY because '
+     'the row says FACTIONS owns it.', False),
+    ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
+     'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
+     'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '
+     'off the Battle Brothers wiki in his own row. *** RULE 12 FOUND HALF OF IT BUILT AND THE OTHER '
+     'HALF A GUESS: *** [board terrains] 9/30 already gave every cell a kind, so there is NO second '
+     'list of grounds (a ground IS a terrain kind, and the gate refuses if they stop agreeing) -- '
+     'while the travel cost that shipped is a TWO-SPEED WORLD, PAVED_SPEED.factor = 0.5 on the '
+     'walked surface, where the mountains cost exactly what a parking lot costs. His numbers are a '
+     'five-speed world. Nothing here touches the street; this is the map\'s own table. RULED WHERE '
+     'HE RULED (road 1, dirt 0.75, wash 0.5, the ranges 0.25) AND MEASURED WHERE HE DID NOT, off the '
+     'city\'s own kits, re-measured every run, ON A SCALE ANCHORED TO HIS RULED DIRT SPEED rather '
+     'than a constant somebody picked; every value carries tuned:false because every felt number is '
+     'TUNING\'s. *** AND THE POOL IS NEVER A TABLE: *** who roams a ground is who holds its cells, '
+     'counted off the live turf at read time, so taking ground changes it with nothing to edit -- '
+     'the gate refuses a stored pool or a hard-coded faction name. Three things in his list are not '
+     'grounds and say so: rubble is the RUIN (a CONDITION), the casino floor is an INTERIOR, a RIDGE '
+     'is a feature nothing in the valley marks. And NO FACTION IS GIVEN A COLOUR, because COLOUR IS '
+     'TERRITORY says whose hue is whose is his.', False),
     ('TILE KINDS', ['node', 'gates/tile_kinds_gate.js'],
      'ROW [tile options], its surviving half (coordinator 9/28: "the list of tile KINDS at house '
      'size is yours: every kind the city has, from the block\'s own layout; the board must still '
@@ -2322,6 +2357,14 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE MAP HEARS', ['node', 'gates/the_map_hears_gate.js'],
+     'VAMILY [the map hears] (SOUNDS 10/5: the travel screen posts nothing to the parent, so the road and dirt beds and '
+     'the sight-stop sound have nothing to play to on the MAP). NOW the map posts its travel state on the beat (500 ms): '
+     'moving and the speed pick, road or dirt from the ground under the party (the five paved districts), the clock and '
+     'night, stopped, the settlement open, the last arrival, a party in sight (null until [you can flee]); the shell keeps '
+     'it as window.BOH_MAP_STATE and raises bohemia-mapstate. HOLDS, driven: on the beat; the map\'s own clock; a freeway '
+     'says road, a wash dirt; moving on a journey, still after; pause stops the clock; reaching a town names it; the '
+     'settlement open is said. Mutations: every 2 s; all road; no arrival; the shell drops it.', True),
     ('A FEW, NOT TWELVE', ['node', 'gates/a_few_not_twelve_gate.js'],
      'VAMILY [a few, not twelve], rule 75b (PAOLO 10/5: "12 vs 12 is cool but that can\'t be the flow... a lot of math on '
      'the type of enemies, the difficulty, the equipment as you progress"). MEASURED BEFORE: every fight dealt COMBAT\'s '
@@ -3125,6 +3168,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
+     'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
+     'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '
+     'a gate is the settlement screen\'s own roll', False),
     ('BUILD A LOT',      ['node', 'gates/build_a_lot_gate.js'],
      'rule 40b (Paolo 9/29): what can be built on a lot in your home base and what it does -- every piece '
      'a real kit piece, one battery and one day each, each houses a family or makes one currency (the wall '
@@ -4007,6 +4054,8 @@ GATES = [
      'RULE 34, PAOLO 9/27, LOCKED (TWO SCALES ONE GAME): the walked person is ONE CELL, about 28 px, one cell per step; THE STEP IS A HOUSE is dead and the 112 art is the SOURCE, not the product. THE QUESTION THAT HAD TO BE ANSWERED BEFORE ANY OF IT: cut 112 down to 28, is there still an animation in there? Measured at 112, 56 (what ships to the street today) and 28 with the game own nearest-neighbour cut: eight facings stay eight different pictures (0 identical of 28 pairs), the body goes 98 -> 49 -> 24 rows and 2732 -> 680 -> 168 lit pixels, and there are ZERO lonely pixels at 28. THE CUT SURVIVES and nothing had to be redrawn. *** AND IT FOUND A DEFECT THAT WAS THERE AT EVERY SIZE. *** The lateral walk is driven entirely by s = sin(ph*2pi), and sin is ZERO at ph 0 AND at ph 0.5, so those two keys came out BYTE-IDENTICAL on all six side facings: 6 of 48 pairs, THE SAME SIX at 112, at 56 and at 28, so it was never the cut. THE SIDE WALK HAD THREE PICTURES, NOT FOUR, and run had it too. At 112 you might not notice; at 24 rows it reads as a limp. THE FIX IS ANATOMY: a real walk two crossings differ because one leg is passing forward, what tells them apart is the DIRECTION of travel (cos, +1 at ph 0 and -1 at ph 0.5), and the passing foot CLEARS THE GROUND. 6 of 48 -> 0, at 28 AND AT 112, because a fix that only held small would be a fix in the wrong place. Run the same with a bigger clear. AND A HYPOTHESIS MEASURED AND THROWN AWAY THE SAME ROUND: the 28 px sheet read SPECKLED to me, so I wrote an area-average cut with a palette snap. The ruler said ZERO lonely pixels in BOTH; the light marks are his hands and the coat highlights and they are connected. The second cut moved 105 pixels, added a colour and fixed nothing. Deleted. A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX. 3 mutations caught (the passing foot removed, the lift driven off abs(cos) so both crossings lift the same, and an EMPTY cut) with a CONTROL that the cut draws a real body and not an empty box, because a cut that drew nothing would score zero duplicates and zero lonely pixels and pass everything by drawing nothing. WHAT IT DOES NOT DO, SAID PLAINLY: the grid is a REBUILD and belongs to the world and the map, not here; CAST_PX is untouched; what this lane owns is that the clips are ready at the new size when it lands', True),
     ('BRACE AND SHADOWBOX', ['node', 'gates/the_brace_and_the_shadowbox_move_gate.js'],
      'Two clips that were dead at full detail: brace was 2 pictures on seven of eight facings and 1 percent of the body facing you, an aiming hold score (one arm flex on a frozen stance, every body term spF, zero on N and S); shadowbox was the arm doing all of it, 30 percent facing you. Both rebuilt from the body. A cost ceiling on EVERYBODY (18 pictures a clip, 8000 for the cast) because a first cost control that watched only the holds let a greedy key-picker mutation through. It PRINTS, and does not claim, the key picker bug found the same round (it throws away the remainder of its arc, so fast clips get fewer keys): three repairs all made the trenchcoat pop over its ceiling facing you, and the third was the stop', True),
+    ('FIGHT CLIPS TABLE', ['python3', 'gates/the_fight_clips_play_from_the_table_gate.py'],
+     'ANIMATION [the fight\'s clips in the new fight], rule 69 (Paolo 10/4: all my character art live in the game, the new fight included). The rebuilt fight drew every standing man on ONE idle frame (frozen between beats) and laid the dead in the sleep pose. The baker now APPENDS the breathing idle, the fall (the bank\'s floor-rise played backwards, standing to sitting on the ground) and the man struck down and not dead (crawl-dying), keeping the fourteen columns the fight reads in place, and writes a CLIP TABLE (idle, step, swing, shot, hit, fall, down, dead) into fight_people.json. Asked of the baked pixels of all 26 looks, both ways: the idle has 3+ pictures, the down man 3+, the fall never rises and goes from his feet to the ground, the fall ends ON the down man\'s first picture (no pop), and down and dead read apart by shape (sitting up taller than wide, the dead as wide as tall). 4 mutations caught (no table, a reversed fall, a frozen idle, dead drawn as down) plus a seam mutation', False),
     ('MAP GLIDES', ['node', 'gates/the_map_glides_gate.js'],
      'Rule 37h, Paolo 9/27 in the tab: very very smooth, not a block at a time, boom boom boom; the animation plays to the BPM inside the thing that slides. MEASURED BEFORE with the game own clock driven: one step moved the map camera 18 px on ONE frame of 36 and held; two steps half a beat apart were two jumps. NOW the drawn position eases over one beat, linear so back-to-back steps are one constant slide, never more than 1 px a frame, arriving by frame 30; a second step mid-glide continues from where the picture IS; the pin hops once per beat while travelling and rests still; a far jump (landing, ride, load) SNAPS. city.x/city.y are untouched so every rule still gets the whole cell on the step. 4 mutations caught (no glide, no far snap, a four-beat crawl, no hop) and two controls (the rule position moves on the step; the step moves the map a real distance, because a map that never moved would pass every never-in-a-block claim). THIS LANE PICKED THE OPPOSITE IN ROUND ONE of [bb marker] (one lot per beat); he voted that page up and said glide, and MARKER ON BEAT stays as the honest record of the two options he was shown. 9/30, THE SPEED PAD (rule 44, PAUSE 1x 2x 3x 5x): a glide that always lasted one beat fell behind and jumped three blocks in one frame at 3x and 5x (25.9 and 30 px); a glide now lasts the gap between steps, capped at a beat, and a far jump no longer sets the pace; every speed under half a block per frame, 1x unchanged, 2 more mutations caught', True),
     ('MARKER ON BEAT', ['node', 'gates/the_map_marker_travels_on_the_beat_gate.js'],

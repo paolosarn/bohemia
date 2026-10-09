@@ -13,3 +13,8 @@ bridge). The sheet a cook cites when it works the tone.
 - WHERE: search the real thing (emergency alert card, multigeneration VHS frame, CRT in a dark room, PA horn)
 - KIND: real
 - TEACHES: real tape damage is horizontal (head-switch noise at the frame's foot, dropout lines along scan), real CRT glow is a halo with a sharp raster inside, and a real alert card is set in a bureaucratic register with no urgency in the letterforms - the calm IS the artifact.
+
+### AH-03  THE VIBE-CODED TELLS (ours, DIRECTION 10/9; Paolo 10/5: 'vibe code dog shit', rule 71)
+- WHERE: records/BOHEMIA_THE_DEMO_VERDICT_EVERY_SCREEN_10_9_26.md (section AH-03)
+- KIND: pixel
+- TEACHES: what makes a screen read as machine-made slop rather than made by hand: T1 words in a box over play with no speaker; T2 stock UI shapes (rounded 1 px outlines, pills, glows); T3 soft translucent shapes on the world; T4 a texture blown up past its pixels; T5 labels that collide; T6 web-form vocabulary; T7 a second thing stapled on a screen; T8 one texture over every place; T9 colours off the register; T10 a state change with no picture. A cook names which it checked.

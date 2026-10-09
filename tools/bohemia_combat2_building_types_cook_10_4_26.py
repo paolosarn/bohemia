@@ -308,8 +308,21 @@ def dock(seed):
     return _box45(10.0, 3.0, 1.2, C[4], C[2], seed, ribs=2.0)
 
 
-FURN_MAKERS = {'pump': pump, 'dumpster': dumpster, 'fence': fence_run, 'steps': steps, 'dock': dock}
-FURN_META = {'pump': dict(h=1.8, kind='COVER', burns=True), 'dumpster': dict(h=1.4, kind='COVER'),
+def jersey(seed):
+    """rule 77a: the median's low concrete barrier, one 6 m segment, the top lit and the south face seen."""
+    im = _box45(5.8, 0.6, 0.8, C[5], C[3], seed)
+    d = ImageDraw.Draw(im); dp = ty(m(0.6))
+    for x in (m(0.4), m(2.9), m(5.4)): d.line([(x, dp + 4), (x, dp + ty(m(0.8)) - 2)], fill=C[2] + (255,), width=2)   # the joints and lifting holes
+    return im
+
+
+def trailer(seed):
+    """rule 77a: a truck's trailer left in the lane, a long high box: cover, and it blocks sight."""
+    return _box45(12.0, 2.5, 3.6, C[6], [C[4], T[2], A[4]][K.R(seed).i(3)], seed, ribs=0.6)
+
+
+FURN_MAKERS = {'pump': pump, 'jersey': jersey, 'trailer': trailer, 'dumpster': dumpster, 'fence': fence_run, 'steps': steps, 'dock': dock}
+FURN_META = {'pump': dict(h=1.8, kind='COVER', burns=True), 'jersey': dict(h=0.8, kind='LOW_COVER'), 'trailer': dict(h=3.6, kind='COVER', blocks_sight=True), 'dumpster': dict(h=1.4, kind='COVER'),
              'fence': dict(h=1.8, kind='COVER', see_through=True), 'steps': dict(h=0.6, kind='LOW_COVER'),
              'dock': dict(h=1.2, kind='HEIGHT')}
 FURNITURE = {k: fn(2000 + i) for i, (k, fn) in enumerate(FURN_MAKERS.items())}

@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/5g - A FEW, NOT TWELVE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9c - HEIRS ARE MADE ON ENTRY</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11867,6 +11867,9 @@ function combatMsgIn(d){
     if(!_keyed)return false;
   }
   if(d.type==='BOHEMIA_RUN_ENCOUNTER'){runEncounterIn(d);return true;}
+  /* __THE_MAP_HEARS__ (RUN 10/9): the map's travel state on the beat, kept for whoever plays to it (SOUNDS) */
+  if(d.type==='BOHEMIA_MAP_STATE'){ window.BOH_MAP_STATE = d; window.BOH_MAP_STATE_N = (window.BOH_MAP_STATE_N | 0) + 1; window.BOH_MAP_STATE_AT = performance.now();
+    try{ window.dispatchEvent(new CustomEvent('bohemia-mapstate', { detail: d })); }catch(_e){} return true; }
   if(d.type==='BOHEMIA_CITY_ENCOUNTER'){cityEncounterIn(d);return true;}   /* V161 THE DOOR IS THE FIGHT */
   if(d.type==='BOHEMIA_RUN_NEED_CAST'){runSendCast();return true;}
   /* CITY CAST: the city asks for a body on boot; send the CAST too, so
@@ -22686,7 +22689,21 @@ drawLogoBig();requestAnimationFrame(loop);
     w.dark =Math.max(300,Math.min(9000,(v.dark||2600)*p.dark));
     return w;
   }
-  window.playSFX=function(ev,when){
+  /* A ONE-OFF GAIN MULTIPLIER, OVER THE RECIPE, NEVER A REWRITE OF IT (SOUNDS, row
+     [the settlement's sounds], 10/9). AMB_TRIM pulls three named ambience events
+     down EVERYWHERE they play; this is the opposite shape, for a sound that is only
+     quieter in ONE CALLING CONTEXT (the settlement at night) and unchanged in every
+     other (the same door_open walking into a building in daylight, or anywhere else
+     in the valley). So `mul` travels with the call, not with the event name, and a
+     caller that never passes one renders byte-identical to before this round. */
+  function sfxMul(v, mul){
+    if(!mul || mul===1 || !v) return v;
+    var w={}; var k; for(k in v) w[k]=v[k];
+    w.gain=(v.gain||0)*mul;
+    return w;
+  }
+  window.__sfxMul = sfxMul;
+  window.playSFX=function(ev,when,mul){
     try{
       if(typeof BOH_SFX==='undefined')return null;
       if(!voiceOK(ev))return null;
@@ -22694,6 +22711,7 @@ drawLogoBig();requestAnimationFrame(loop);
       var v=vary(vec(c[0],c[1])); if(!v)return null;
       v=ambTrim(ev,v);
       v=inSpace(v);
+      v=sfxMul(v,mul);
       MUS.audio();
       var AC=MUS.AC;
       /* a footstep goes to the quiet sub-bus; everything else to the master */
@@ -23236,7 +23254,7 @@ drawLogoBig();requestAnimationFrame(loop);
         placeSound(d.ev, { dx:d.dx, dy:d.dy, dist:d.dist,
                            inside:d.inside, when:d.when||null });
         return; }
-      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when);
+      if(d.type==='BOHEMIA_SFX') window.playSFX(d.ev,d.when,d.mul);
     }catch(e){}
   });
 

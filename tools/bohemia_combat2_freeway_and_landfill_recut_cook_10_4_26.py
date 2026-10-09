@@ -79,61 +79,65 @@ def _wall_face(board, y_t, h_m, seed):
 
 
 def freeway2(seed, overpass=False, north='lot'):
-    """RE-CUT 10/5 (rule 77, TILES ARE LEGOS): the north verge is the town's yard ground (north='lot') so the
-       town above meets yard with yard; the south verge stays the desert's soil for the scrub below; the
-       overpass carries the town's own cross street (the same tile the corner blocks use at column 2), so
-       it lands on a street at both ends instead of on dirt."""
+    """RE-CUT 10/9 (rule 77a, PAOLO: 'the freeways and the streets look like dog shit, not the same direction,
+       not working together like they shared assets... an ugly ass gate wall on top of the freeway').
+       ONE ROAD KIT: the street's own asphalt (R4.road_band, his road tiles), its lane paint (C[5] dashes, 3 m in
+       12, exactly the street's), its curb (the street's walk dress and C[5] curb line, the same face shading),
+       at the freeway's width: shoulder 3 m, two lanes of 3.7 m, a median of two 1.2 m inner shoulders either
+       side of a low Jersey barrier, two lanes, shoulder; lanes run west to east, the board's long axis.
+       NOTHING ACROSS OR ABOVE THE ROAD: the 4 m sound wall that stood along the north edge (what he read as a
+       gate wall on top of the freeway) is gone; the shoulders end in a chain-link fence you see through; the
+       median's barrier is a row of low concrete segments (pieces, LOW_COVER) with a crossover gap; the cover
+       is the barrier, stalled cars and a truck's trailer. The north verge is town yard, the south the desert,
+       so the joins of rule 77 hold. The overpass, only where a street crosses, is the town's cross street on a
+       bridge: a railing each side, its shadow on the lanes, piers in the median."""
     r = K.R(seed)
-    seed = 1201                                                          # one texture for every freeway block, so their seams agree; the jam is still seeded per block
+    seed = 1201                                                          # one texture for every freeway block, so their seams agree
     plan = B.dress_any([B.DGROUND[1]], BP, BP, seed)
     if north == 'lot':
-        nv = _mask(); ImageDraw.Draw(nv).rectangle([0, 0, BP, M(8.5)], fill=255)
+        nv = _mask(); ImageDraw.Draw(nv).rectangle([0, 0, BP, M(17.0)], fill=255)
         plan.paste(R4.yards(seed + 9), (0, 0), nv)
-    lanes = [(10.5 + 3.7 * k) for k in range(1, 4)] + [(38.0 + 3.7 * k) for k in range(1, 4)]
-    road = R4.road_band(plan, 8.5, 54.5, seed + 1, lines=[(y, False, C[5]) for y in lanes] +
-                        [(9.6, True, C[5]), (31.4, True, T[5]), (37.4, True, T[5]), (53.4, True, C[5])])
+    R4.walk_band(plan, 17.0, 18.0, seed + 3); R4.walk_band(plan, 42.0, 43.0, seed + 4)   # the curb strips, the street's walk dress
+    lines = [(24.55, False, C[5]), (35.3, False, C[5]),                  # the lane dashes, the street's own
+             (20.85, True, C[5]), (39.0, True, C[5]),                    # the fog lines at the shoulders
+             (28.25, True, T[5]), (31.6, True, T[5])]                    # the median's edge lines, faded yellow
+    road = R4.road_band(plan, 18.0, 42.0, seed + 1, lines=lines)
     d = ImageDraw.Draw(plan)
-    for x in range(0, BP, M(0.6)):                                     # the rumble strips on the shoulders
-        d.line([(x, M(9.0)), (x, M(9.4))], fill=A[1]); d.line([(x, M(53.6)), (x, M(54.0))], fill=A[1])
-    med = _mask(); ImageDraw.Draw(med).rectangle([0, M(33.4), BP, M(34.6)], fill=255)
-    plan.paste(Image.new('RGB', (BP, BP), C[5]), (0, 0), med)           # the jersey median, top lit
-    under_med = _mask(); ImageDraw.Draw(under_med).rectangle([0, M(34.6), BP, BP], fill=255)
-    road_low = Image.fromarray((np.array(road) > 127).astype('uint8') * 255)
+    d.rectangle([0, M(18.0) - 3, BP, M(18.0)], fill=C[5]); d.rectangle([0, M(42.0), BP, M(42.0) + 3], fill=C[5])   # the curb lines, as the street's
+    d.rectangle([0, M(29.4), BP, M(30.6)], fill=C[3])                    # the barrier's footing, a concrete strip under the segments
     board = plan.resize((BP, PY * N), Image.NEAREST)
-    B.faces(board, under_med.resize((BP, PY * N), Image.NEAREST), C[2], 0.8)
-    _wall_face(board, ty(M(5.0)), 4.0, seed + 2)                         # the north sound wall
+    B.faces(board, road.resize((BP, PY * N), Image.NEAREST), C[2], 0.15)
     d = ImageDraw.Draw(board)
-    d.rectangle([0, ty(M(56.5)), BP, ty(M(56.5)) + ty(M(0.6))], fill=C[4])   # the south wall's top (its face looks away)
-    d.line([(0, ty(M(56.5))), (BP, ty(M(56.5)))], fill=C[6])
+    for fy in (ty(M(16.6)), ty(M(43.4))):                                # the chain-link at each shoulder's edge, low and see-through
+        for x in range(0, BP, M(3.0)): d.rectangle([x, fy - ty(M(1.4)), x + 3, fy + 2], fill=B.A[2])
+        d.line([(0, fy - ty(M(1.3))), (BP, fy - ty(M(1.25)))], fill=B.A[3], width=2)
     grid = R4.terrain([])
-    for c in range(N): grid[0][c] = 'blocked'                            # the north wall row
     pieces = []
-    cars = ['car_lane', 'car_kerb']
-    for k in range(9):                                                   # the jam, nose to tail
-        lane_y = [12.0, 15.8, 19.5, 23.2, 39.5, 43.2, 47.0, 50.6][r.i(8)]
-        x = round(2 + r() * 52, 1)
-        pieces.append(dict(piece=cars[r.i(2)], x_m=x, y_m=lane_y))
-    if overpass:                                                         # THE OVERPASS, north-south over the lanes
+    gap = (24.0, 36.0)                                                   # the crossover (and under an overpass)
+    for x in range(0, 60, 6):                                            # the Jersey barrier, 6 m segments
+        if gap[0] <= x < gap[1]: continue
+        pieces.append(dict(piece='jersey', x_m=float(x), y_m=29.5))
+    lanes = [22.7, 26.4, 33.5, 37.2]
+    for k in range(3):                                                   # the cars that stopped where they were
+        pieces.append(dict(piece=['car_lane', 'car_kerb'][r.i(2)], x_m=round(2 + r() * 50, 1), y_m=lanes[r.i(4)]))
+    if r() < 0.7: pieces.append(dict(piece='trailer', x_m=round(4 + r() * 40, 1), y_m=[21.4, 32.4][r.i(2)]))
+    if overpass:                                                         # THE OVERPASS: the cross street on a bridge
         x0, x1 = 24.0, 36.0
-        deck_top = ty(M(2.0))
         dk = Image.new('RGB', (M(x1) - M(x0), PY * N))
-        for rw in range(N): dk.paste(F.street_small(19 + 2 * rw, ns=True).crop((0, 0, M(x1) - M(x0), PY)), (0, rw * PY))   # the town's cross street, carried over
+        for rw in range(N): dk.paste(F.street_small(19 + 2 * rw, ns=True).crop((0, 0, M(x1) - M(x0), PY)), (0, rw * PY))
         shadow = _mask().resize((BP, PY * N)); sd = ImageDraw.Draw(shadow)
-        sd.rectangle([M(x1), ty(M(5.0)), M(x1 + 3.0), ty(M(57.2))], fill=255)          # its shadow east of the deck, over the cutting only
+        sd.rectangle([M(x1), ty(M(17.0)), M(x1 + 3.0), ty(M(43.0))], fill=255)   # its shadow east, on the lanes only
         B.shade_mask(board, shadow, 0.62)
-        for py_ in (ty(M(15.0)), ty(M(44.0))):                           # the piers, seen in the gaps
-            d.rectangle([M(x0 + 2), py_, M(x0 + 3.2), py_ + ty(M(6.0))], fill=C[3])
-            d.rectangle([M(x1 - 3.2), py_, M(x1 - 2), py_ + ty(M(6.0))], fill=C[3])
         board.paste(dk, (M(x0), 0))
-        for y0_, y1_ in ((ty(M(5.0)), ty(M(9.6))), (ty(M(53.4)), ty(M(57.2)))):   # the railings, only where it spans the lanes
-            d.rectangle([M(x0), y0_, M(x0) + M(0.3), y1_], fill=C[6]); d.rectangle([M(x1) - M(0.3), y0_, M(x1), y1_], fill=C[4])
-        d.rectangle([M(x0), ty(M(9.6)), M(x0) + M(0.3), ty(M(53.4))], fill=C[6]); d.rectangle([M(x1) - M(0.3), ty(M(9.6)), M(x1), ty(M(53.4))], fill=C[4])
-        for _ in range(60):                                              # oil stains and spalls, nowhere twice
-            sx, sy = M(x0 + 3) + r.i(M(x1 - x0 - 6)), ty(M(9.6)) + r.i(ty(M(43.8)))
+        d = ImageDraw.Draw(board)
+        for xr, col in ((M(x0), C[6]), (M(x1) - M(0.3), C[4])):          # the railings, over the span only
+            d.rectangle([xr, ty(M(16.0)), xr + M(0.3), ty(M(44.0))], fill=col)
+            for y in range(ty(M(16.0)), ty(M(44.0)), ty(M(2.0))): d.rectangle([xr - 2, y, xr + M(0.3) + 2, y + 4], fill=C[2])
+        for _ in range(40):                                              # oil stains and spalls on the span
+            sx, sy = M(x0 + 3) + r.i(M(x1 - x0 - 6)), ty(M(18.0)) + r.i(ty(M(24.0)))
             d.ellipse([sx, sy, sx + M(0.4 + r() * 1.2), sy + ty(M(0.3 + r() * 0.8))], fill=C[2] if r() < 0.6 else A[3])
-        for k in range(2, 8): yj = k * PY * N // 9 + r.i(20); d.line([(M(x0) + M(1.6), yj), (M(x1) - M(1.6), yj)], fill=C[1], width=2)   # the deck's joints, between the kerbs
         for rw in range(N): grid[rw][2] = 'height'
-        pieces = [p for p in pieces if not (x0 - 5 < p['x_m'] < x1 + 1)]
+        pieces = [p for p in pieces if not (x0 - 13 < p['x_m'] < x1 + 1)]
     pieces = [p for p in pieces if grid[int(p['y_m'] // 12)][int(p['x_m'] // 12)] not in ('blocked',)]
     return board, pieces, dict(road=road), grid
 

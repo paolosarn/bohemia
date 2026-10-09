@@ -1,0 +1,52 @@
+{
+ "rows": {
+  "moon-blade": {
+   "name": "Moon Blade",
+   "class": "sword",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 45,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 20,
+   "fatigue": -3,
+   "durability": 24,
+   "value": 200,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Slash",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, 20% Direct Damage",
+     "page": "Slash (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1807_Slash (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Riposte",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": -10,
+     "range": null,
+     "effect": "-10% chance to hit, counterattack missed or blocked melee attacks until next turn",
+     "page": "Riposte (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1696_Riposte (25 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1920_Swords.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0303_Broken Ancient Sword.txt",
+   "class_page_section": "One-Handed Swords",
+   "hands_basis": "Swords page heading \"One-Handed Swords\"",
+   "skills_basis": "weapon page Skills section",
+   "missing": []
+  }
+ }
+}

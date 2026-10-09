@@ -1,0 +1,63 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The Fight's Clips</title>
+<!-- ANIMATION [the fight's clips in the new fight], 10/9, rule 69. One exchange, played from the fight's own
+     baked sheets (slices/fight_people) and the clip table in fight_people.json. BEFORE picks frames the way the
+     rebuilt fight does today (one idle frame, the dead in the sleep pose at once); NOW reads the table.
+     RULE 25: IT PLAYS, on the 120 beat. No control. Two sentences (rule 22f). -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px;margin-bottom:10px}
+  .lab{font-size:10px;letter-spacing:2px;margin-bottom:4px}
+  .old{color:#9a6b6b}.new{color:#7fa06b}
+  canvas{display:block;width:100%;max-width:448px;image-rendering:pixelated;background:#2a2219;border-radius:3px}
+  .beat{height:3px;background:#2a2833;border-radius:2px;margin:0 0 10px;overflow:hidden;max-width:448px}
+  .beat i{display:block;height:100%;width:6.25%;background:var(--gold)}
+</style>
+<h1>THE FIGHT'S CLIPS</h1>
+<p>In the fight, men now breathe while they wait, and a man struck down sinks to the ground and crawls instead of snapping flat. The dead lie flat, so you can tell down from dead at a glance.</p>
+<div class="beat"><i id="beat"></i></div>
+<div class="panel"><div class="lab old">BEFORE: HOW THE FIGHT PICKS FRAMES NOW</div><canvas id="a" width="448" height="160"></canvas></div>
+<div class="panel"><div class="lab new">NOW: FROM THE CLIP TABLE</div><canvas id="b" width="448" height="160"></canvas></div>
+<script>
+(function(){
+  var BEAT=500, LOOP=16, F=112;
+  /* who does what on which beat (beats from the start of the bar, 16 beats, then it loops) */
+  var CAST=[
+    {look:'you', row:0, x:70,  plan:[[0,'idle',4],[4,'step',1],[5,'swing',1],[6,'idle',6],[12,'swing',1],[13,'idle',3]]},
+    {look:'faction_mob', row:1, x:200, plan:[[0,'idle',5],[5.5,'hit',1],[6.5,'fall',2],[8.5,'down',7.5]]},
+    {look:'faction_reds', row:1, x:330, plan:[[0,'idle',8],[8,'shot',1],[9,'idle',3.5],[12.5,'hit',1],[13.5,'fall',2],[15.5,'dead',0.5]]}];
+  /* the way the rebuilt fight picks a frame today (frameFor): one idle frame, the fallen in the sleep pose */
+  var OLD={idle:['idle@0'],step:['walk@0','walk@0.25','walk@0.5','walk@0.75'],swing:['bat-arc@0.2','bat-arc@0.5','bat-arc@0.68'],
+    hit:['stagger-hit@0.03','stagger-hit@0.09','stagger-hit@0.16','stagger-hit@0.26'],shot:['two-hand@0'],fall:['sleep@0'],down:['sleep@0'],dead:['sleep@0']};
+  var M, imgs={}, A=document.getElementById('a').getContext('2d'), B=document.getElementById('b').getContext('2d');
+  function at(c,t){ /* what this man is doing at beat t, and how far into it */
+    var s=c.plan[0]; for(var i=0;i<c.plan.length;i++) if(t>=c.plan[i][0]) s=c.plan[i];
+    var into=t-s[0]; return {act:s[1], into:into, len:s[2]}; }
+  function pick(table,a,isNew){
+    var e=table[a.act]; var cols=isNew?e.cols:e, beats=isNew?e.beats:(a.act==='idle'?4:1), loop=isNew?e.loop:true;
+    var k=a.into/beats; if(loop) k=k-Math.floor(k); else k=Math.min(.999,k);
+    return cols[Math.min(cols.length-1,Math.floor(k*cols.length))]; }
+  function draw(g,t,isNew){
+    g.fillStyle='#2a2219'; g.fillRect(0,0,448,160);
+    g.fillStyle='#3a3024'; g.fillRect(0,132,448,28);
+    CAST.forEach(function(c){
+      var a=at(c,t), col=pick(isNew?M.clips:OLD,a,isNew), i=M.cols.indexOf(col), im=imgs[c.look];
+      if(i<0||!im) return;
+      var dx=c.x-56+(c.look==='you'&&t>=4?50:0)+(c.look==='you'&&t>=4&&t<5?-50+50*(t-4):0);
+      g.imageSmoothingEnabled=false; g.drawImage(im,i*F,c.row*F,F,F,dx,140-F+4,F,F); });
+  }
+  fetch('../fight_people/fight_people.json').then(function(r){return r.json();}).then(function(m){
+    M=m; return Promise.all(CAST.map(function(c){ return new Promise(function(res){
+      var im=new Image(); im.onload=function(){imgs[c.look]=im;res();}; im.onerror=res; im.src='../fight_people/'+m.looks[c.look].file; }); }));
+  }).then(function(){
+    var t0=performance.now(), bar=document.getElementById('beat');
+    (function tick(){ var t=((performance.now()-t0)/BEAT)%LOOP; draw(A,t,false); draw(B,t,true);
+      bar.style.transform='translateX('+(Math.floor(t)*100)+'%)'; requestAnimationFrame(tick); })();
+  });
+})();
+</script>

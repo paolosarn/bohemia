@@ -222,6 +222,26 @@ function ok(claim, cond, detail) {
       && ambMapCheck.ageMs < 12000 && ambMapCheck.renderCount > 0,
     'the ambience bed is still blind to the map tab: ' + JSON.stringify(ambMapCheck));
 
+  /* ---- E8: THE SETTLEMENT'S DOOR IS QUIETER AFTER DARK, AND NOTHING ELSE MOVED
+     (SOUNDS, row [the settlement's sounds], 10/9). His sixth votes already asked for
+     the valley's ambience turned down (AMB_TRIM, E5); this is the same shape for a
+     sound that is only quieter in ONE CALLING CONTEXT, so the multiplier travels
+     with the CALL (playSFX's third argument) and not with the event name -- the same
+     door_open walking into any other building, in daylight, anywhere else in the
+     valley, is untouched. */
+  const nightTrimCheck = await p.evaluate(() => {
+    const fn = window.__sfxMul;
+    let night = null, day = null;
+    try { night = fn({ gain: 1 }, 0.5); } catch (e) {}
+    try { day = fn({ gain: 1 }, null); } catch (e) {}
+    return { hasFn: typeof fn === 'function', nightGain: night && night.gain, dayGain: day && day.gain };
+  });
+  console.log('  night trim: ' + JSON.stringify(nightTrimCheck));
+  ok('E8 *** A SOUND CAN BE QUIETER FOR ONE CALLER WITHOUT CHANGING FOR EVERY OTHER ONE. *** door_open at gain 1 with a 0.5 night multiplier renders at '
+    + nightTrimCheck.nightGain + ' (half), the same call with no multiplier renders untouched at ' + nightTrimCheck.dayGain,
+    nightTrimCheck.hasFn && nightTrimCheck.nightGain === 0.5 && nightTrimCheck.dayGain === 1,
+    'the per-call night trim is missing or wrong: ' + JSON.stringify(nightTrimCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

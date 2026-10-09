@@ -1,0 +1,301 @@
+{
+ "_readme": "WORLD [the valley's grounds] 10/9, rule 75b: every ground of the valley with its travel speed and its faction pool. Written by tools/bohemia_who_roams_cook_10_9_26.js from engine/bohemia_valleyground.js -- do not hand edit, change the module and re-run. A GROUND IS A TERRAIN KIND ([board terrains], 9/30): there is no second list. SPEEDS ARE RULED WHERE HE RULED ONE (road 1, dirt 0.75, wash 0.5, the ranges 0.25, off the Battle Brothers wiki, translated in his row) AND MEASURED WHERE HE DID NOT, off the city's own kits, on a scale anchored to his ruled dirt speed. Every value carries tuned:false and its source; every felt number is TUNING's (rule 36). THE POOL IS NOT STORED: who roams a ground is who holds its cells, counted off the live turf at read time, so taking ground changes it with nothing to edit. THREE THINGS IN HIS LIST ARE NOT GROUNDS and say so by name: rubble is the RUIN, which is a CONDITION; the casino floor is an INTERIOR; a RIDGE is a feature inside the hills and nothing in this valley marks one.",
+ "version": "BOHEMIA_VALLEY_GROUNDS_v1",
+ "built": "2026-10-09",
+ "grounds": [
+  {
+   "ground": "suburb_block",
+   "speed": 0.49,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.33,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "the_strip",
+   "speed": 0.51,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.34,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "industrial",
+   "speed": 0.46,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.31,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "open_desert",
+   "speed": 0.75,
+   "speedFrom": "RULED",
+   "as": "dirt",
+   "openShare": null,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)"
+  },
+  {
+   "ground": "wash_and_shore",
+   "speed": 0.5,
+   "speedFrom": "RULED",
+   "as": "wash",
+   "openShare": null,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)"
+  },
+  {
+   "ground": "hills",
+   "speed": 0.25,
+   "speedFrom": "RULED",
+   "as": "the ranges",
+   "openShare": null,
+   "sight": 1.25,
+   "tuned": false,
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)"
+  },
+  {
+   "ground": "freeway",
+   "speed": 1,
+   "speedFrom": "RULED",
+   "as": "road",
+   "openShare": null,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)"
+  },
+  {
+   "ground": "lot_and_bigbox",
+   "speed": 0.52,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.35,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "trailer_park",
+   "speed": 0.41,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.27,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "golf_and_park",
+   "speed": 0.72,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.48,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "airport",
+   "speed": 0.38,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.25,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "solar_and_pumps",
+   "speed": 0.55,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.37,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  },
+  {
+   "ground": "landfill",
+   "speed": 0.75,
+   "speedFrom": "MEASURED",
+   "as": null,
+   "openShare": 0.5,
+   "sight": 1,
+   "tuned": false,
+   "ruling": "measured off the city's own district kits: the share of a ground's legend that is open rather than built or blocked"
+  }
+ ],
+ "anchor": {
+  "ground": "open_desert",
+  "measuredOpen": 0.5,
+  "ruledSpeed": 0.75,
+  "factor": 1.5,
+  "ruling": "the scale is anchored on his own ruled dirt speed rather than a constant",
+  "tuned": false
+ },
+ "notGrounds": {
+  "ruin": {
+   "is": "CONDITION",
+   "speed": 0.65,
+   "as": "rubble",
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)",
+   "because": "act one IS the ruin, so rubble is a state a suburb or strip ground is in, not a ground ([board terrains], 9/30)"
+  },
+  "casino_floor": {
+   "is": "INTERIOR",
+   "because": "you arrive at a strip ground and go in ([board terrains], 9/30)"
+  },
+  "ridges": {
+   "is": "FEATURE",
+   "sight": 2,
+   "ruling": "the Battle Brothers wiki map speeds, translated in the row (Paolo 10/5 and 10/9, rule 75b)",
+   "because": "a ridge is inside the hills and nothing in this valley marks one, so a sight bonus for it cannot be read off the map yet"
+  }
+ },
+ "poolIsDerived": "bohemia_valleyground.poolOf({map, turf, ground}) counts the live turf; no pool is stored here",
+ "measured": {
+  "seed": 1337,
+  "cells": 9216,
+  "withGround": 9216,
+  "withSpeed": 9216,
+  "held": 9216,
+  "unheld": 0,
+  "factions": 14,
+  "grounds": 13,
+  "notGrounds": 3,
+  "panelsAgreePct": 12.9,
+  "fastest": {
+   "ground": "freeway",
+   "speed": 1,
+   "from": "RULED"
+  },
+  "slowest": {
+   "ground": "hills",
+   "speed": 0.25,
+   "from": "RULED"
+  },
+  "tightestHeld": {
+   "ground": "the_strip",
+   "topShare": 0.92
+  },
+  "loosestHeld": {
+   "ground": "suburb_block",
+   "topShare": 0.116
+  },
+  "rows": [
+   {
+    "ground": "freeway",
+    "speed": 1,
+    "from": "RULED",
+    "cells": 942,
+    "topShare": 0.239,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "open_desert",
+    "speed": 0.75,
+    "from": "RULED",
+    "cells": 611,
+    "topShare": 0.187,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "landfill",
+    "speed": 0.75,
+    "from": "MEASURED",
+    "cells": 4,
+    "topShare": 0.5,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "golf_and_park",
+    "speed": 0.72,
+    "from": "MEASURED",
+    "cells": 171,
+    "topShare": 0.216,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "solar_and_pumps",
+    "speed": 0.55,
+    "from": "MEASURED",
+    "cells": 311,
+    "topShare": 0.817,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "lot_and_bigbox",
+    "speed": 0.52,
+    "from": "MEASURED",
+    "cells": 2980,
+    "topShare": 0.149,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "the_strip",
+    "speed": 0.51,
+    "from": "MEASURED",
+    "cells": 250,
+    "topShare": 0.92,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "wash_and_shore",
+    "speed": 0.5,
+    "from": "RULED",
+    "cells": 142,
+    "topShare": 0.366,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "suburb_block",
+    "speed": 0.49,
+    "from": "MEASURED",
+    "cells": 2667,
+    "topShare": 0.116,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "industrial",
+    "speed": 0.46,
+    "from": "MEASURED",
+    "cells": 126,
+    "topShare": 0.31,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "trailer_park",
+    "speed": 0.41,
+    "from": "MEASURED",
+    "cells": 15,
+    "topShare": 0.267,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "airport",
+    "speed": 0.38,
+    "from": "MEASURED",
+    "cells": 95,
+    "topShare": 0.568,
+    "topHolder": "derived, not named here"
+   },
+   {
+    "ground": "hills",
+    "speed": 0.25,
+    "from": "RULED",
+    "cells": 902,
+    "topShare": 0.194,
+    "topHolder": "derived, not named here"
+   }
+  ]
+ }
+}

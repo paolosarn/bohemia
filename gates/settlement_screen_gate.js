@@ -72,7 +72,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
-  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,smith,armourer,barber,clinic,lot', keys.join());
+  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, bar, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,bar,smith,armourer,barber,clinic,lot', keys.join());
   /* nothing is written on the picture until a finger is on a building (rule 71a) */
   const quiet = await p.evaluate(() => BohemiaSettlement.state.open === null);
   ok('  and no building names itself until it is touched', quiet);
@@ -193,6 +193,27 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
 
+  /* THE BAR (Battle Brothers' tavern): a round priced by the company's size, morale and the town's
+     opinion up, one rumour from the keeper's mouth that can mark the map, four rounds a night */
+  await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], crewSize: 5 });
+    BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 40, 'gate', null, 0); });
+  await p.waitForTimeout(400);
+  const rumours = [], br0 = await bat();
+  for (let i = 0; i < 5; i++) {
+    await tapB('bar'); await p.waitForTimeout(220);
+    const btn = await p.$('#sbody .act:not([disabled])'); if (!btn) break;
+    await btn.click(); await p.waitForTimeout(220);
+    rumours.push(await p.evaluate(() => document.querySelector('#sbody .say p').textContent));
+    if (i === 0) await p.screenshot({ path: SHOT.replace('_10_1', '_BAR_10_9') });
+  }
+  const br1 = await bat(), rounds = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'round').slice(-4));
+  const marks = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'rumour').map(m => m.mark));
+  ok('the bar: a round costs a battery a head and you can buy four a night', rumours.length === 4 && br0 - br1 === 20, rumours.length + ' rounds, ' + (br0 - br1) + ' batteries for 5 men');
+  ok('  each lifts morale a step and the town likes you a tenth more', rounds.length === 4 && rounds.every(r => r.morale === 1 && r.relation === 0.1));
+  ok('  and the keeper tells a different rumour each round, some marked on your map', new Set(rumours).size === 4 && rumours.every(t => t.length > 30), marks.join(', ') || 'no marks');
+  await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
+  await p.waitForTimeout(300);
+
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
     await tapB('board'); await p.waitForTimeout(200);
@@ -233,7 +254,7 @@ const srv = http.createServer((rq, rs) => {
   for (const t of ['camp', 'fortress']) {
     const o = await p.evaluate(t => { BohemiaSettlement.open({ place: { tier: t, name: 'A ' + t.toUpperCase() } }); return BohemiaSettlement.order().join(); }, t);
     await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
-    const want = t === 'camp' ? 'hall,board,stall,arms,barber,clinic,lot' : 'hall,board,stall,smith,armourer,barber,clinic,lot';
+    const want = t === 'camp' ? 'hall,board,stall,bar,arms,barber,clinic,lot' : 'hall,board,stall,bar,smith,armourer,barber,clinic,lot';
     ok('a ' + t + ' is its own picture, with Battle Brothers\' shops for its size (camp one stall, town and fortress a smith and an armourer)', o === want, o);
     if (t === 'camp') {
       await p.waitForFunction(() => (BohemiaSettlement.state.stock.arms || []).length > 0, null, { timeout: 30000 });
@@ -254,6 +275,26 @@ const srv = http.createServer((rq, rs) => {
   const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
   ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
   await p.click('#close'); await p.waitForTimeout(300);
+
+  /* THE NIGHT VARIANT QUIETER (row [the settlement's sounds], 10/9): the clinic's
+     door is the only building sound wired live so far; by day it posts no multiplier
+     at all (byte-identical to every round before this), by night it posts the same
+     -6 dB ratio his sixth votes already approved for the valley's ambience (AMB_TRIM,
+     SOUNDS E5), scoped to the call rather than the event so the same door walking into
+     any other building in daylight is untouched. */
+  await p.evaluate(() => { window.__settleLog = []; });
+  await tapB('clinic'); await p.waitForTimeout(150); await p.click('#close'); await p.waitForTimeout(150);
+  const dayDoorSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  await p.evaluate(() => { window.__settleLog = []; BohemiaSettlement.open({ night: true }); });
+  await p.waitForTimeout(150);
+  await tapB('clinic'); await p.waitForTimeout(150); await p.click('#close'); await p.waitForTimeout(150);
+  const nightDoorSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  await p.evaluate(() => { BohemiaSettlement.open({ night: false }); });
+  console.log('  door sfx by day: ' + JSON.stringify(dayDoorSfx) + '  by night: ' + JSON.stringify(nightDoorSfx));
+  ok('the clinic\'s door is quieter at night, and untouched by day', dayDoorSfx.length === 2 && dayDoorSfx.every(m => !m.mul)
+    && nightDoorSfx.length === 2 && nightDoorSfx.every(m => m.mul === 0.5),
+    JSON.stringify({ day: dayDoorSfx, night: nightDoorSfx }));
+
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' } }));
   await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT });

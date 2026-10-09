@@ -201,10 +201,10 @@
       return {
         act: a.act, era: a.era, of: a.of,
         later: a.later, laterDraft: a.draft,
-        name: nm, sex: sex,
+        name: nm, sex: sex, age: ov.age || 'younger',
         reads: nm ? readsAs(nm) : 'either',
         named: !!nm,
-        custom: !!(ov.name || ov.sex),
+        custom: !!(ov.name || ov.sex || ov.age),
         draft: DRAFT
       };
     });
@@ -254,6 +254,20 @@
     OVERRIDE[act].sex = s;
     if (!OVERRIDE[act].name) delete OVERRIDE[act].name;  /* re-derive, not stale */
     return { ok: true, act: act | 0, sex: s };
+  }
+
+  /* OLDER OR YOUNGER (Paolo 10/2, rule 67: 'you can choose to be older or younger').
+     Its own door, same shape as setSex: only while the window is open, and it never
+     touches a typed name. Nobody dies of old age inside an act, so this is who he is
+     on arrival, not a clock. */
+  function setAge(act, age) {
+    if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
+    var a = String(age || '').toLowerCase();
+    if (a !== 'older' && a !== 'younger') return { ok: false, why: 'NOT_AN_AGE' };
+    if (!OVERRIDE[act]) OVERRIDE[act] = {};
+    OVERRIDE[act].age = a;
+    return { ok: true, act: act | 0, age: a };
   }
 
   /* RESET, for a screen that offers "start over" before he leaves it. Testing
@@ -417,7 +431,8 @@
         var one = {};
         if (typeof r.name === 'string' && r.name.trim() && r.name.length <= 24) one.name = r.name.trim();
         if (r.sex === 'male' || r.sex === 'female') one.sex = r.sex;
-        if (one.name || one.sex) ov[n] = one;
+        if (r.age === 'older' || r.age === 'younger') one.age = r.age;
+        if (one.name || one.sex || one.age) ov[n] = one;
       }
     UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
     var c = blob.current | 0;
@@ -450,7 +465,7 @@
   var API = {
     ACTS: ACTS, prepare: prepare, nameFor: nameFor, readsAs: readsAs,
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
-    setName: setName, setSex: setSex, resetRoster: resetRoster,
+    setName: setName, setSex: setSex, setAge: setAge, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
     unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
     unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,

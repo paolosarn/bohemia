@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What A Settlement Pays You</title>
+<!-- TUNING 10/10 [the sell ratio], draft:true. Battle Brothers wiki 'Market prices for various items' (read from the dump). Record: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md -->
+<style>:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--amb:#e8a04a;--ok:#8fe89a;--hot:#e8593a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+.row{border:1px solid var(--line);padding:10px;margin:8px 0}input[type=range]{width:100%}.big{font-size:24px}.g{color:var(--ok)}.r{color:var(--hot)}.a{color:var(--amb)}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid var(--line);padding:5px;text-align:center}td:first-child,th:first-child{text-align:left}th{color:var(--amb);font-weight:normal}
+.bar{height:16px;background:#15110d;position:relative;margin:4px 0}.bar i{position:absolute;left:0;top:0;bottom:0}</style></head><body>
+<h1>WHAT A SETTLEMENT PAYS YOU</h1>
+<p>You buy a pistol for what it is worth. Sell it back and Battle Brothers pays about one seventh. Our shop pays half. Slide the price of something you carry.</p>
+<div class="row">WHAT YOU PAID, in batteries <b id="pv"></b><input id="p" type="range" min="1" max="300" value="60"></div>
+<div class="row">
+<div>Battle Brothers, a big town: you get back <span id="a" class="big g"></span></div><div class="bar"><i id="ab" style="background:#3f6b45"></i></div>
+<div>Battle Brothers, a small village: <span id="b" class="big g"></span></div><div class="bar"><i id="bb" style="background:#3f6b45"></i></div>
+<div>Our shop now: <span id="c" class="big r"></span></div><div class="bar"><i id="cb" style="background:#8a3a2a"></i></div>
+</div>
+<table><tr><th>Battle Brothers</th><th>pays</th><th>charges</th></tr>
+<tr><td>City, stronghold</td><td>16 to 20%</td><td>1.22 to 1.34x</td></tr>
+<tr><td>Town, castle</td><td>15 to 18%</td><td>1.08 to 1.17x</td></tr>
+<tr><td>Village, manor</td><td>13 to 16%</td><td>0.95 to 1.04x</td></tr></table>
+<p>Friendly relations add 2 points. A good or bad situation (safe roads, a siege) moves it by 5 to 25%. Whole batteries make cheap things sell for 1 instead of nearly nothing.</p>
+<script>
+function $(i){return document.getElementById(i)}
+function draw(){var p=+$('p').value;$('pv').textContent=p;
+ // BB: buy at ~1.0-1.3x worth; sell at 15-20% (big town, Veteran ~0.19 of worth) or 13-15% (village ~0.14); worth = paid / buy multiple
+ var big=Math.max(0,p/1.28*0.19),small=Math.max(0,p/1.0*0.14),ours=Math.max(1,Math.floor(p*0.5));
+ $('a').textContent=big.toFixed(1)+' ('+Math.round(big/p*100)+'%)';$('b').textContent=small.toFixed(1)+' ('+Math.round(small/p*100)+'%)';$('c').textContent=ours+' ('+Math.round(ours/p*100)+'%)';
+ $('ab').style.width=(big/p*100)+'%';$('bb').style.width=(small/p*100)+'%';$('cb').style.width=(ours/p*100)+'%';}
+$('p').oninput=draw;draw();
+</script></body></html>
