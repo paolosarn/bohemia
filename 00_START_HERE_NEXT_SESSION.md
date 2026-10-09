@@ -1131,6 +1131,82 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/9 LATEST -- *** THE FAR END, PAINTED BY HAND. THIS LANE IS BACK ON
+(rule 78) AND THE TOP OPEN ROW WAS THE JOB (rule 74). ***
+Shipped: tools/bohemia_the_far_end_painted_by_hand_cook_10_9_26.py,
+banks/BOHEMIA_THE_FAR_END_PAINTED_10_9_26.txt,
+records/BOHEMIA_THE_FAR_END_PAINTED_MEASURED_10_9_26.txt, the sheet itself at
+slices/vote/COOK_THE_FAR_END_SHEET.png, VOTE cook-the-far-end-painted-10-9 (it declares
+floor:'map', which is what the [map floor] row asks every map picture to carry).
+
+THE JOB: rule 65 says RUN painted the far end procedurally from twelve texels a block and
+"a hand-painted far end needs COOK". Pinch all the way out on the demo and the whole Las
+Vegas valley is A TAN DOME WITH A RIPPLE IN IT. No ranges, no basin, no grid, no spine, no
+airport, no washes, no depots.
+
+*** THE FIRST THING THIS ROUND DID WAS REFUSE TO INVENT THE GEOGRAPHY. *** The valley is
+not a mood, it is a map the game already builds. The tool shells out to
+engine/bohemia_overmap.js every run and paints what it says is there: 852 mountain tiles
+ringing the basin, 567 desert, 2,530 suburb plus 350 commercial plus 28 downtown, 81 strip
+tiles in one column with 118 resort flanking, 40 airport tiles south-east of the spine's
+south end where McCarran really is, the washes draining to 84 water tiles of Lake Mead in
+the south-east corner, and THE TWO DEPOTS ARE THE LAYOUT'S OWN ind1 AND ind2 BY NAME
+({'x':20,'y':28} and {'x':78,'y':69} on seed 1). If the engine's layout changes the sheet
+changes with it, which is the whole difference between a painting and a decoration.
+
+WHAT "PAINTED BY HAND" MEANS HERE, AND IT IS NOT RESOLUTION. RUN's far end is noise, and
+the ripples ARE the noise function: no amount of it becomes a mountain range. Plain noise
+makes dunes, smooth humps. FOLDING it -- one minus the distance from the middle -- turns
+every zero crossing into a CREST, and stacking those at halving sizes gives ridgelines with
+spurs off them, which is what a range is. Then the height field is shaded BY SLOPE against
+one sun, so a ridge has a lit west face and a shadowed east face. The basin gets ALLUVIAL
+FANS computed off the mountain mask, brightest at the mouth of each canyon, which is what a
+desert floor actually is. The washes braid. The city keeps its grid grain.
+NUMBERS: 2016 x 2016 = 4,064,256 painted pixels, 1.96x Battle Brothers' 2,073,600; a flat
+colour runs 1.05 px both ways against DIRECTION's floor of 1.5 (RUN's own posted far frame
+runs 1.30 x 1.09, measured with the same instrument). Palette is this lane's own approved
+9/27 valley ramps, unchanged. One sun north-west over the land AND the city (rule 70a).
+The power authority's camera grade goes on LAST, over the whole sheet, because one camera
+photographed the land and the city together; it runs after the palette check on purpose,
+so the paint is his and the camera is the horror and the two never get mixed up.
+
+*** THREE SHEETS, AND ONLY LOOKING CAUGHT THE FIRST TWO. EVERY GUARD WAS GREEN OVER BOTH. ***
+ 1 SHEET ONE READ AS A PRINTED CIRCUIT BOARD. Every road tile filled solid, so all 2,543
+   arterials came out as wide as a city block. THE FAULT IS A CATEGORY ERROR: the engine's
+   grid is a TOPOLOGY. A tile is 96 m of world saying "a road runs through here", not
+   "this 96 m is tarmac". A real arterial is 30 m against a 400 m block. Roads are a line
+   down the middle of their own tile now; the net went from most of the sheet to 3.6%.
+ 2 SHEET TWO SAT ON THE LAND AS A GREY SLAB, the thing rule 70 forbids in those words.
+   Three faults under it: the margin was a one-dimensional smear (I grew the land past the
+   grid by copying each edge row outward, which gave a striped frame, not land); the ranges
+   were flat (I multiplied the ridge field by the bulk of the mass, and deep inside a mass
+   the bulk saturates and washes every crest out); the city was one flat step per district
+   with a fuzz on top, when from altitude a city is a mosaic of blocks that DIFFER.
+ 3 AND THE GUARDS THAT WOULD HAVE CAUGHT BOTH ARE NOW WRITTEN, because numbers caught
+   neither: THE ROADS DO NOT SHOUT (their share of the sheet and their value band) and
+   THE CITY DOES NOT FLOAT AS A SLAB (the spread across its blocks and its share).
+ AND THE ROADS GUARD'S OWN FIRST VERSION WAS STRICTER THAN THE APPROVED BANK: I wrote
+ "within one ramp step of the fabric" from memory, and the bank gives route its OWN value
+ band, 108-132, above city's 74-104, on purpose. A guard that refuses his own bank refuses
+ his art. THIS LANE HAS NOW WRITTEN THAT MISTAKE THREE TIMES IN THREE ROUNDS.
+
+*** ONE THING I WILL NOT PAINT AROUND, BECAUSE IT IS NOT A PAINTING FAULT: THE CITY IS A
+RECTANGLE. *** The engine fills its whole 96 x 96 with city out to the grid's edge, so from
+altitude the valley holds a city with four straight sides and square corners. No real city
+in a basin does that: it fingers up the washes and stops where the ground rises. I could
+feather the rim and hide it, and that would be a painting that lies about the map
+underneath, so the edge is painted exactly where the engine puts it. WORLD's or RUN's call,
+with this sheet as the evidence. [PENDING] nobody.
+
+FOR RUN, TO COMPOSITE: the sheet is banks/BOHEMIA_THE_FAR_END_PAINTED_10_9_26.txt, one
+base64 PNG with its own 'composite_note'. It is THE LAND, not the lighting; it is painted
+in the same north-west sun the city uses so the two cannot split under your hour (rule 70a).
+
+NEXT IN THIS LANE, the jump list under the top row: [the settlement pictures finished]
+(camp, town, fortress at paint quality, two variants a tier with their nights), then
+[the board props] (the six new building types' props at the fight's scale, under rule 77's
+Lego edges).
+
 COOK (cook-mce6r5): 10/4 LATEST -- *** PAUSED. NOTHING COOKED THIS ROUND, ON PURPOSE. ***
 Rule 54 (Paolo 10/1, 'only combat, the run and eyes and ears right now') put this lane on
 MODE: PAUSED, and rule 69 (Paolo 10/4) says it again in one line: "The art lanes are paused;

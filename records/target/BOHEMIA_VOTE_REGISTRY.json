@@ -5420,6 +5420,20 @@
     "src": "vote/WORLD_HOW_FAST_AND_WHO.png"
    },
    "sha": "c7491228"
+  },
+  {
+    "id": "cook-the-far-end-painted-10-9",
+    "kind": "map",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/9",
+    "not_a_map_picture": "this item shows a contact sheet (before, after, and a 1:1 crop) because the row asks for before and after; the map picture itself is slices/vote/COOK_THE_FAR_END_SHEET.png and the bank, which run 1.05 against DIRECTION's floor of 1.5",
+    "title": "THE FAR END, PAINTED BY HAND",
+    "why": "The whole valley from altitude is painted now instead of noise: real ranges with lit and shadowed faces, the basin they ring, the city grid, the strip's spine, the dead airport, the washes and the lake, all read off the game's own map. You see it in the VOTE tab, before and after side by side.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FAR_END_PAINTED.png"
+    }
   }
  ],
  "verdicts": [
