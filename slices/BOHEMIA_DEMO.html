@@ -1551,7 +1551,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/9e - THE ORIGINS ARE DATA</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/9i - ONE FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -10909,6 +10909,7 @@ function citySendCast(){
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
   cityBakeRestLater();
+  try{ cityBakeWalkLater(); }catch(_e){}   /* __THE_PARTIES_WALK__ (ANIMATION 10/9): their legs, after the boot */
   return true;
 }
 /* ==== __THE_STREET_IS_SIX_PEOPLE__ -- THE REST OF THE CAST, AFTER THE GAME IS RUNNING.
@@ -10984,6 +10985,52 @@ function cityBakeRestLater(){
   return true;
 }
 if(typeof window!=='undefined') window.cityBakeRestLater=cityBakeRestLater;
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rules 65 and 68: the map's people at 112, the
+   parties roam). The cast came to the map with an idle and a breath and NOTHING ELSE, so every party crossing
+   the valley crossed it standing still and breathing, and his own company was one man. The walk is the rig's
+   own walk clip (ANIMBEATS.walk is 2: one stride a beat), four pictures a facing, baked by the same withLook
+   borrow and bakeCast as the breath, ONE LOOK PER IDLE CALLBACK on the bus cityBakeRestLater proved: measured
+   10/9, a look's eight facings cost ~285 ms (rebuild 40, walk 25 a facing, restore 45), against the 530 ms a
+   rest-of-cast look already costs on the same bus. A look whose walk has not arrived yet keeps breathing:
+   nothing is drawn that was not baked. */
+const CAST_WALK_PHS=[0,0.25,0.5,0.75];
+let CWALK=null;
+function cityBakeWalkLater(){
+  if(CWALK) return false;
+  const all=(window.CITY_CAST_LOOKS||[]).length;
+  if(!all) return false;
+  CWALK={i:0};
+  const idle=(fn)=>(window.requestIdleCallback
+    ? requestIdleCallback(fn,{timeout:4000}) : setTimeout(fn,400));
+  const step=()=>{
+    const fr=document.getElementById('cityFrame');
+    if(!fr||!fr.contentWindow){ CWALK=null; return; }
+    const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
+    if(!src){ CWALK.done=true; return; }
+    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult'}, dirs={};
+    const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
+    const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+    PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+    try{
+      window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+      rebuildFromRig();
+      for(const d of DIRS) dirs[d]=CAST_WALK_PHS.map(ph=>bakeCast(d,'walk',ph,true));
+    }catch(_e){ CWALK=null; return; }
+    finally{
+      /* PUT HIS BODY BACK: the same guarantee citySendCast makes */
+      window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+      for(const s in kE) G.equipped[s]=kE[s];
+      try{ rebuildFromRig(); }catch(_e){}
+      try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+    }
+    try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:L.id,dirs:dirs},'*'); }catch(_e){}
+    CWALK.i++;
+    if(CWALK.i<all) idle(step); else CWALK.done=true;
+  };
+  idle(step);
+  return true;
+}
+if(typeof window!=='undefined') window.cityBakeWalkLater=cityBakeWalkLater;
 /* __CITY_FACTIONBODY__ -- BAKE ONE FACTION LOOK AND POST IT.
    Everything here is citySendCast's own machinery, asked for a single look:
    the same withLook borrow-and-give-back (these are GLOBALS -- leaving one
@@ -12217,6 +12264,10 @@ function ensureCombatFrame(){
      Dial demo, full-time. */
   fr=document.createElement('iframe');fr.id='combatFrame';fr.allow='clipboard-write';
   fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(COMBAT_B64),c=>c.charCodeAt(0)));
+  /* ONE FIGHT, ONE SONG (COMBAT 10/9): nothing warms this frame ahead any more, so it is built cold at its door, and a
+     cold frame starts its own loop before anybody tells it otherwise. The shell's engine scores every fight (FIGHTMUS,
+     SOUNDS 54b), so the frame is told to be quiet the moment it loads. */
+  fr.addEventListener('load',function(){ try{ if(window.FIGHTMUS&&fr.contentWindow)fr.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} });
   pc.appendChild(fr);
   setTimeout(musicPushToCombat,1200);   /* CATEGORY POOL: combat gets the faction pools at boot, not only when the music tab plays */
   return fr;
@@ -13111,6 +13162,11 @@ else {
 (function warmTheFight(){
   let done=false;
   const warm=()=>{ if(done)return; done=true;
+    /* ONE FIGHT (COMBAT 10/9, from MODS [what is data and what is not]): the rebuilt fight is the fight (NEW_FIGHT_ON:
+       every door the demo has opens slices/BOHEMIA_FIGHT.html). Warming the sealed old one built a hidden 1.95 MB copy of
+       the frozen Dead Eye Dial on every phone that idled, a second truth for every gun that nothing could reach. Its doors
+       still build it on demand (the alpha's COMBAT tab, the old RUN slice's handoff); nothing builds it ahead. */
+    if(typeof NEW_FIGHT_ON!=='undefined'&&NEW_FIGHT_ON)return;
     try{ if(!document.getElementById('combatFrame'))ensureCombatFrame(); }catch(_e){} };
   const kick=()=>{ if(typeof requestIdleCallback==='function')requestIdleCallback(warm,{timeout:4000});
                    else setTimeout(warm,1500); };
@@ -23877,10 +23933,46 @@ drawLogoBig();requestAnimationFrame(loop);
         BOH_SFX.render(v,MUS.AC,this.bus,null);
         this.last=ev; SFX_COUNT++;
       }catch(e){}
+    },
+    /* REACHING A TOWN IS THE MOMENT THE ROW NAMED (row [the map's sounds], 10/5:
+       "arriving at a settlement (a dog, a generator...)"), now that RUN's [the map
+       hears] (10/9) posts WHEN it happens instead of leaving it to the tick clock's
+       own random draw.
+       THE DOG IS NOT HERE, AND THAT IS NOT AN OVERSIGHT: checked fresh before
+       writing this, dog_far is DOWN on all five candidates (records/
+       BOHEMIA_SFX_VERDICT_8_12_26.txt, re-confirmed 8/14), graveyarded, and
+       GRAVEYARD IS FINAL. Measured on the glass: dog_far has no entry in this
+       file's own live APPROVED table (window.__sfxPool('dog_far') returns []),
+       so AMB.tick()'s own comment calling it one of "the rare ones" has been
+       describing a dead sound this whole time; that stale comment is not
+       touched here, named instead, since fixing a comment that merely
+       mis-describes already-correct (silent) behaviour is not this round's
+       job. ONLY generator plays here, zero new content: already his, already
+       playing from this same AMB bus every round since 8/12, approved
+       (APPROVED.generator = [0,1,2,3]) -- this only changes WHEN it is heard,
+       the same move [one song and the volumes] already made for the room
+       (the crossing arms the clock instead of waiting on it). */
+    arrivedSeq:null,
+    onArrive:function(seq){
+      if(seq==null || seq===this.arrivedSeq) return;
+      this.arrivedSeq=seq;
+      /* EXPOSED FOR THE GATE, THE SAME REASON __ambHumPlace AND __sfxInSpace ARE:
+         BOH_SFX only exists after his first real gesture unlocks audio, so a
+         checker driving this bridge standalone (no door, no tap through the
+         title) has to see the DECISION made, not only its rendered sound. */
+      window.__ambArriveLog = window.__ambArriveLog || [];
+      window.__ambArriveLog.push({ seq:seq, inside:this.inside });
+      if(this.inside) return;
+      try{
+        placeSound('generator', { dx:(Math.random()*2-1)*7, dist:6+Math.random()*9, inside:false }, this.bus);
+      }catch(e){}
     }
   };
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
+  window.addEventListener('bohemia-mapstate', function(e){
+    var d=e && e.detail; if(d && d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+  });
   /* the parent's own surfaces: every button on the phone is a UI TAP.
      EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
      THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE

@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9h - THE PARTIES WALK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9i - ONE FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12258,6 +12258,10 @@ function ensureCombatFrame(){
      Dial demo, full-time. */
   fr=document.createElement('iframe');fr.id='combatFrame';fr.allow='clipboard-write';
   fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(COMBAT_B64),c=>c.charCodeAt(0)));
+  /* ONE FIGHT, ONE SONG (COMBAT 10/9): nothing warms this frame ahead any more, so it is built cold at its door, and a
+     cold frame starts its own loop before anybody tells it otherwise. The shell's engine scores every fight (FIGHTMUS,
+     SOUNDS 54b), so the frame is told to be quiet the moment it loads. */
+  fr.addEventListener('load',function(){ try{ if(window.FIGHTMUS&&fr.contentWindow)fr.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} });
   pc.appendChild(fr);
   setTimeout(musicPushToCombat,1200);   /* CATEGORY POOL: combat gets the faction pools at boot, not only when the music tab plays */
   return fr;
@@ -13152,6 +13156,11 @@ else {
 (function warmTheFight(){
   let done=false;
   const warm=()=>{ if(done)return; done=true;
+    /* ONE FIGHT (COMBAT 10/9, from MODS [what is data and what is not]): the rebuilt fight is the fight (NEW_FIGHT_ON:
+       every door the demo has opens slices/BOHEMIA_FIGHT.html). Warming the sealed old one built a hidden 1.95 MB copy of
+       the frozen Dead Eye Dial on every phone that idled, a second truth for every gun that nothing could reach. Its doors
+       still build it on demand (the alpha's COMBAT tab, the old RUN slice's handoff); nothing builds it ahead. */
+    if(typeof NEW_FIGHT_ON!=='undefined'&&NEW_FIGHT_ON)return;
     try{ if(!document.getElementById('combatFrame'))ensureCombatFrame(); }catch(_e){} };
   const kick=()=>{ if(typeof requestIdleCallback==='function')requestIdleCallback(warm,{timeout:4000});
                    else setTimeout(warm,1500); };
