@@ -1,0 +1,78 @@
+{
+  "_about": "ECONOMY [the contract's worth], rule 74. Contracts priced by skulls and distance, clout raising the pay, a failed one costing relation, the haggle and its cost. Pulled directly from the wiki's own Contracts and Relations pages (reference/library/grok/wiki/PAGES_ALL.tar.gz, bb_all/0441_Contracts.txt and GROK_118_UNDERBELLY_RELATIONS_2026_10_04.md citing https://battlebrothers.fandom.com/wiki/Relations), not Grok's secondhand summary where the primary page gave more. engine/bohemia_contracts.js is the mechanism; this file never computes. MECHANISM-MINE/CONTENTS-PAOLO'S: every number carries its source.",
+  "difficulty": {
+    "_about": "contract difficulty is measured in skulls (easy/medium/hard on the page's own icons). More skulls means more danger AND better pay. The wiki page states this as a RULE, not a multiplier table -- no numeric skull-to-pay curve exists on the page this file pulled, matching price_table.json's own contractPay.skullScaling.sourced:false. Nothing invented here either.",
+    "skullScalingSourced": false,
+    "source": "bb_all/0441_Contracts.txt (wiki, pulled directly)"
+  },
+  "renown": {
+    "_about": "'the crowns reward increases with your company's Renown. Some contracts, such as the noble houses contracts, are only available with a certain level of Renown.' Renown is CLOUT in our translation (rule 53). No renown-to-pay formula is stated on the page; flagged, not invented.",
+    "payScalesWithClout": true,
+    "someContractsGatedByCloutThreshold": true,
+    "payFormulaSourced": false,
+    "source": "bb_all/0441_Contracts.txt (wiki, pulled directly)"
+  },
+  "haggle": {
+    "_about": "the full negotiation mechanic, pulled from the wiki page's own Haggling section (which itself cites a Steam developer post). Every number here is the wiki's, none felt.",
+    "relationsPenaltyPerAttempt": { "withoutNegotiator": 0.5, "withNegotiatorHalved": true, "note": "each haggle attempt costs relations whether it succeeds or fails, unless the Negotiator follower is hired" },
+    "annoyance": {
+      "gainPerAttemptRange": [3, 6],
+      "withNegotiatorRange": [1.5, 3],
+      "kickedOutAt": 9,
+      "failureChanceFormula": "annoyance * 0.1",
+      "firstAttemptFailureRange": [0.30, 0.60],
+      "firstAttemptAverageFailure": 0.45,
+      "note": "annoyance accumulates whether the attempt succeeds or fails; you collect it BEFORE the roll"
+    },
+    "askTypes": {
+      "moreTotalPay": { "effect": "increases the whole contract's value (completion, advance, per-head) by a random percentage", "percentRange": [0.04, 0.11], "note": "rounding can give slightly less than the rolled percent" },
+      "payInAdvance": { "effect": "subtracts 25% from completion AND per-head pay, adds it to the advance pay", "transferPercent": 0.25, "note": "usually a net loss on rounding; the Negotiator increases how much can be asked in advance" },
+      "payPerHead": { "effect": "subtracts 25% from completion AND advance pay, adds it to the per-head pay", "transferPercent": 0.25, "note": "losing more than the max headcount loses money" }
+    },
+    "canRepeat": true,
+    "source": "bb_all/0441_Contracts.txt, Haggling section (itself citing a Steam developer post)"
+  },
+  "workedExampleWikiCrowns": {
+    "_about": "the wiki page's own four real examples of the SAME contract under each haggle outcome, verbatim.",
+    "nothing":  { "advance": 0,   "afterCompletion": 610, "perHead": 10, "maxHeads": 15, "total": 760 },
+    "total":    { "advance": 0,   "afterCompletion": 640, "perHead": 11, "maxHeads": 15, "total": 805 },
+    "perHead":  { "advance": 0,   "afterCompletion": 410, "perHead": 20, "maxHeads": 15, "total": 710 },
+    "advance":  { "advance": 150, "afterCompletion": 510, "perHead": 5,  "maxHeads": 15, "total": 735 },
+    "source": "bb_all/0441_Contracts.txt, Haggling section table"
+  },
+  "workedExampleBatteries": {
+    "_about": "the same four rows at ten wiki crowns to one battery, floored (GROK_31/33). engine/bohemia_contracts.js derives these; kept here too as a fixed cross-check the gate can assert against without re-deriving the formula.",
+    "nothing":  { "advance": 0,  "afterCompletion": 61, "perHead": 1, "maxHeads": 15, "total": 76 },
+    "total":    { "advance": 0,  "afterCompletion": 64, "perHead": 1, "maxHeads": 15, "total": 80 },
+    "perHead":  { "advance": 0,  "afterCompletion": 41, "perHead": 2, "maxHeads": 15, "total": 71 },
+    "advance":  { "advance": 15, "afterCompletion": 51, "perHead": 1, "maxHeads": 15, "total": 73 },
+    "source": "derived from workedExampleWikiCrowns at ten to one, floored (GROK_31/33); kept as a fixed cross-check, not recomputed"
+  },
+  "relationsCost": {
+    "_about": "every relations change the wiki's own Relations and Factions-and-Relations pages state, not just contract failure. GROK_118 pulled these directly off https://battlebrothers.fandom.com/wiki/Relations.",
+    "betrayContract": -100,
+    "attackThem": -30,
+    "offensiveAction": -20,
+    "failCivilianContract": -20,
+    "cancelContract": -10,
+    "haggleAttemptNoNegotiator": -0.5,
+    "killOneOfTheirUnits": -0.5,
+    "finishedNobleContract": 5,
+    "drinkForThePatrons": 0.1,
+    "note": "the page does not state a bread-theft cost (Paolo's own ask, 'you cannot even steal bread in this game'); not filled in, named as missing rather than guessed",
+    "source": "GROK_118_UNDERBELLY_RELATIONS_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Relations"
+  },
+  "relationBands": {
+    "_about": "for reading what a relation number MEANS, since a failed contract's -20 or -100 needs a scale to land on.",
+    "hostile": [0, 9],
+    "threatening": [10, 19],
+    "neutral": [40, 59],
+    "allied": [90, 100],
+    "startsAt": "neutral",
+    "dawnDriftTowardFifty": 0.25,
+    "hostileZeroToTenDays": 40,
+    "fortifiedSeatsUseHouseScore": true,
+    "reputationBand": { "dreaded": [0, 9], "saintly": [90, 100], "mostOriginsStartAt": 50 },
+    "source": "GROK_118_UNDERBELLY_RELATIONS_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Relations, https://battlebrothers.fandom.com/wiki/Factions_and_Relations"
+  }
+}

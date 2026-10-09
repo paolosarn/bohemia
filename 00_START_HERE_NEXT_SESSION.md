@@ -1387,6 +1387,27 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (c) -- MODE: RUN. [the contract's worth] SHIPPED:
+records/target/bb/contract_terms.json + engine/bohemia_contracts.js, gate 24/0.
+Record: records/BOHEMIA_ECONOMY_DAY_59_THE_CONTRACTS_WORTH_THE_WIKI_TABLE_BEATS_ITS_OWN_RULE_
+10_9_26.md
+WHAT IT DOES: pulled straight off the wiki's own Contracts and Relations pages (no Grok sheet
+covers this at all) -- the haggle mechanic (annoyance, failure chance, the three ask types),
+the real four-row worked pay example in batteries, and the relations-cost table (betray a
+contract -100, fail a civilian one -20, cancel -10, a haggle attempt -0.5) for FACTIONS [beef].
+FINDING: the wiki's own stated haggle rule (a flat 25% transfer) does not reproduce its own
+displayed advance-pay example -- the page itself says why ("due to rounding issues you usually
+lose money"); the gate checks the RULED direction, not a forced match, and names the gap.
+Skull-to-pay and renown-to-pay curves are both explicitly unsourced on the wiki page; left for
+TUNING, nothing invented.
+NEXT OPEN (jump list, rule 74): the older rows ([price of mercy], [what grows], [prices per
+place], [build costs], [the bubble]).
+PENDING Paolo: the shared food/water pile report (last round) still needs his own word.
+ALSO FIXED THIS ROUND, NOT MINE: a second live unresolved git merge, this time in
+records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md, which also had a drifted citation
+(.md pointed at a file that only exists as .txt); both the handoff gate and canon rot gate
+were red for every lane because of it.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (b) -- MODE: RUN. [what the stash is] SHIPPED:
 records/target/bb/stash_rates.json + engine/bohemia_stash.js, gate 25/0.
 Record: records/BOHEMIA_ECONOMY_DAY_58_WHAT_THE_STASH_IS_TERRAIN_DOES_WHAT_MARCHING_NEVER_DID_

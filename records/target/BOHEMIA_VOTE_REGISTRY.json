@@ -5888,7 +5888,20 @@
                                                                                                                                                                                                                                                                                                                                                                                                                 "how": "image",
                                                                                                                                                                                                                                                                                                                                                                                                                 "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
                                                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                                                                                                                                              },
+  {
+   "id": "economy-the-contracts-worth-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A JOB PAYS MORE IF YOU PUSH, AND PUSHING COSTS YOU",
+   "why": "The same job pays 76 batteries taken straight or up to 80 if you push for more pay, straight off Battle Brothers' own haggle math, but every push costs relations whether it works or not. You see it in the records, not drawn yet, feeding the board's contract cards once RUN TWO wires it in.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/contract_terms.json; engine/bohemia_contracts.js; gates/contracts_gate.js 24/0.\n\nSeen in: not drawn yet, feeds the board's contract cards once wired."
+   }
+  }
  ],
  "verdicts": [
   {
