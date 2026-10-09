@@ -74,3 +74,5 @@ diff.death_veteran [0.025,0.20], assist.beat_window_mult [0.8,1.5], assist.dial_
 - Test material: the toy page is draft:true, never in the game.
 
 ## CORRECTED 10/9 (see records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md): the claims above marked recall were checked against the wiki. Corrections to this page are listed there in section 1; where they clash, that page wins.
+
+## STALE FOR THE DEMO 10/10: the fight numbers on this page were measured on the old fight tab (COMBAT_B64). The demo fights in BOHEMIA_FIGHT.html on the wiki rows. See section 3 of records/BOHEMIA_TUNING_THE_FELT_NUMBERS_TABLE_IS_REAL_AND_MY_FIGHT_FINDINGS_ARE_STALE_10_10_26.md.

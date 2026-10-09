@@ -1,3 +1,17 @@
+TUNING (tuning-f59l1w): 10/10 LATEST -- [the felt numbers table] SHIPPED (research, no code touched).
+TAB: VOTE, item EVERY NUMBER THE FIGHT FEELS (85 rows with sources, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_FELT_NUMBERS_TABLE_IS_REAL_AND_MY_FIGHT_FINDINGS_ARE_STALE_10_10_26.md
+INSTRUMENT: tools/bohemia_felt_numbers_audit.js [--write]: 86 static R() keys, 85 resolve, 71 wiki, 10 rulings, 4 other
+sourced, 0 without a verbatim quote, 0 stray numbers in the fight-rules script (COMBAT's own rule holds).
+BIGGEST FINDING (AGAINST MYSELF): the DEMO fights in slices/BOHEMIA_FIGHT.html (rule 63, BB rebuilt, 13 data files through
+R()), NOT the old COMBAT_B64 tab I measured 9/28-10/1. So FIVE POINTS, HOW LONG A FIGHT TAKES, WHO DIES (rates) and
+DIFFICULTY DIALS describe the old fight; appended STALE pointers. Most important: the new fight uses initiative, AP and
+fatigue (BB's sequential turns), so "50 s, one beat" is probably FALSE for the demo and his 15-minute ceiling is unmeasured
+there. EYES [where the minutes go] should time the new fight.
+Gaps: HOLD_MS 450 and MAN_OF_TILE 0.86 outside the table; settlement SELL_CUT 0.5 unsourced; wages/rations/medicine/repair
+absent from the demo.
+MISTAKES FIXED EARLIER: broad sed on rows, now anchored to my section.
+NEXT OPEN: [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
 MODS (mods-59jyd6): 10/9 LATEST -- [the data schema page] SHIPPED. TAB: VOTE, item THE DATA
 FILES ON ONE PAGE: 15 cards (tap one: what it holds, who reads it, every field), plus a worked
 example (make the knife hit harder). Record records/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.md,
