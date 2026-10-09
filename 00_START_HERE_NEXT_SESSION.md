@@ -37249,6 +37249,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 66 [old body] Q19 AGEING IN THE HANDS. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_21_THE_OLD_BODY_10_9_26.md; VOTE line dynasty-old-body-10-9.
+Finding: nobody is ever 40 or 60 in play, so OLD/YNG are the only ageing: a trade (slower healing, head start in perks). Routed CHARACTER/PORTRAIT, PEOPLE (down.js multiplier), TUNING.
+NEXT: Q20 [name outlives], Q21 [who buries], Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 65 [the frame] THREE SHAPES, COSTED. (SCHOOL, no code)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FRAME_THREE_SHAPES_10_9_26.md; VOTE line dynasty-the-frame-10-9.
 Finding: default A as written makes the secret Amalgamation the player's everyday tool from minute one, against the 7/24 ghost lock. Fix: unnamed, recorded-only flip (the ending's gauge). B breaks the family theme and DNA maths, C breaks s2(c).

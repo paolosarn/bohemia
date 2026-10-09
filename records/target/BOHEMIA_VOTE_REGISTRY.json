@@ -6249,6 +6249,19 @@
     "how": "page",
     "src": "BOHEMIA_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.html"
    }
+  },
+  {
+   "id": "dynasty-old-body-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "OLD VERSUS YOUNG IS A TRADE: SLOW HEALING, BUT A HEAD START.",
+   "why": "Nobody ever reaches forty or sixty in play, so the OLD and YNG buttons are the only ageing there is. Read the card in the VOTE tab: old heals slower and tires sooner, young learns faster and has fewer perks.",
+   "show": {
+    "how": "text",
+    "src": "YNG (twenties): heals fast, learns fast, fewer perks to start.\\nOLD (forties to fifties): injuries last about 1.5 times longer, tires sooner, small print needs glasses. But he starts with more of the family's perks and his aim does not drift.\\nNobody dies of old age inside an act, so these are the only ages you will see."
+   }
   }
  ],
  "verdicts": [
