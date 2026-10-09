@@ -392,6 +392,7 @@ def main():
     print('ok: %d boards, %d blocks, %.1f MB in %s' % (len(BOARDS), len(blocks), tot / 1e6, OUT_DIR))
     importlib.import_module('bohemia_combat2_fight_ground_pack_10_2_26').pack()   # round thirteen: ship lossless WebP, never PNG
     importlib.import_module('bohemia_combat2_the_wide_board_cook_10_5_26').main()  # round twenty-one: the apron and the four frames
+    importlib.import_module('bohemia_combat2_boards_by_size_cook_10_9_26').main()  # round twenty-four (rule 79): small, middle and large
 
 
 if __name__ == '__main__':

@@ -5639,6 +5639,84 @@
     "how": "page",
     "src": "vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html"
    }
+  },
+  {
+   "id": "combat2-boards-by-size-street-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE STREET FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_STREET_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-suburb-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE SUBURB FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_SUBURB_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-lot-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE EMPTY LOTS FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_LOT_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-freeway-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_FREEWAY_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-strip-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE STRIP MALL FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_STRIP_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-works-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE WORKS FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_WORKS_10_9.png"
+   }
   }
  ],
  "verdicts": [

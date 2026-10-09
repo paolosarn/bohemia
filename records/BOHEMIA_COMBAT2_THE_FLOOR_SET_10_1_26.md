@@ -337,3 +337,21 @@ Verified in the new fight (390 x 844 at 3x, freeway and suburb, 0 page errors).
 OWED: the I-15 photo for reference/ (this container's network policy refuses Wikimedia, Wikipedia, Flickr and
 Unsplash; the coordinator or a session with web access drops one in). The sheet carries I-15's measured
 section instead. VOTE: combat2-the-freeway-redone-10-9 (slices/vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png).
+
+## ROUND TWENTY-FOUR (10/9): [boards by size], rule 79, SHIPPED
+
+PAOLO 10/9: 'the actual combat map doesn't need to be so big in Battle Brothers unless it's an endgame battle or
+three raiding parties hit you at the same time... on the map I want to see it more zoomed in'.
+tools/bohemia_combat2_boards_by_size_cook_10_9_26.py cuts six kinds (street, suburb, lot, freeway, strip, works)
+at three sizes from the shipped blocks, every one laid by L.solve (rule 77's join rule): small 2x2 blocks
+(10x10 tiles, opening window 9x7), middle 3x2 (15x10, window 14x10), large 4x3 (20x15). Each carries its window
+(the lead kind inside, both start columns open on half their tiles or more, the two lines joined over open
+ground), start_cols five apart, and its terrain, cover and lights composed from the per-block library (the
+same reading as the fight's blockLibrary). fight_ground.json sized[kind][size] + sized_key. The builder runs it
+after the wide board; gate TILES ARE LEGOS LEG 1b: all 18 boards zero broken seams.
+VERIFIED IN COMBAT'S FIGHT (390x844 at 3x, 0 page errors, 12 runs): each small and middle board handed to the
+real fight (manifest board + ours.board_tiles routed to the sized board, a party of 3 / 8): the fight builds a
+10x10 / 15x10 board and opens zoomed in on the lines at the man's 112 px.
+FOR COMBAT (its code, not mine): the fight still deals its own block mixes (dealOnce) without the join rule and
+crops; reading sized[kind][size] when the party is small or middle keeps every seam joined.
+VOTE: combat2-boards-by-size-<kind>-10-9, six sheets.
