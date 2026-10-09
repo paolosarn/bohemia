@@ -82,7 +82,8 @@ const report = { dataFiles: rows, surfaces: [] };
 for (const s of SURFACES) {
   const html = fs.readFileSync(path.join(ROOT, s.file), 'utf8');
   const text = s.blob ? blobText(html, s.blob) : (s.skipBlobs ? stripBlobs(html) : html);
-  const loaded = dataFiles.filter(f => text.includes('bb/' + f));
+  /* a file counts as READ only when its path sits inside a quoted string: a comment that names a file is not a read */
+  const loaded = dataFiles.filter(f => new RegExp('[\'"`][^\'"`\\n]*bb/' + f.replace(/\./g, '\\.') + '[\'"`]').test(text));
   const t = tables(text).map(x => Object.assign(x, { kind: kindOf(x.name) }));
   report.surfaces.push({ name: s.name, lane: s.lane, file: s.file + (s.blob ? ' [' + s.blob + ']' : ''),
     loads: loaded, notLoaded: dataFiles.filter(f => !loaded.includes(f)),
