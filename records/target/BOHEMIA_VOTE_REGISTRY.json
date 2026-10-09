@@ -6264,9 +6264,31 @@
    }
   },
   {
-   "id": "factions-the-bar-on-one-town-10-9", "kind": "tile", "lane": "factions", "sha": "6a6cd408", "made": "10/9",
-   "title": "THE BAR ON ONE TOWN", "why": "Every town keeps a 0 to 100 bar that moves with what you do, using Battle Brothers' own bands and numbers. You see it in the VOTE tab: one town after a job, a stolen loaf and an attack.",
-   "show": {"how": "page", "src": "vote/FACTIONS_THE_BAR_ON_ONE_TOWN_10_9.html"}
+   "id": "factions-the-bar-on-one-town-10-9",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "6a6cd408",
+   "made": "10/9",
+   "title": "THE BAR ON ONE TOWN",
+   "why": "Every town keeps a 0 to 100 bar that moves with what you do, using Battle Brothers' own bands and numbers. You see it in the VOTE tab: one town after a job, a stolen loaf and an attack.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_THE_BAR_ON_ONE_TOWN_10_9.html"
+   }
+  },
+  {
+   "id": "tuning-how-hard-is-a-killer-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "pending",
+   "made": "10/10",
+   "draft": true,
+   "title": "HOW HARD IS A KILLER",
+   "why": "Every recruit hides stars on three stats, and a 7-star killer is 1 in 18. Slide the bar in the VOTE tab and see how many recruits you must meet to find 12 killers, and 36. Three acts at once means 36 is really 12 per act, so it is no harder than Battle Brothers, and heirs carry the rest.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_HOW_HARD_IS_A_KILLER_10_10_26.html"
+   }
   }
  ],
  "verdicts": [

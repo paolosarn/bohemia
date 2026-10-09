@@ -1,3 +1,14 @@
+TUNING (tuning-f59l1w): 10/10 (e) LATEST -- [recruit odds] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW HARD IS A KILLER (a star-bar slider, draft:true).
+RECORD: records/BOHEMIA_TUNING_RECRUIT_ODDS_36_KILLERS_AS_HARD_AS_12_10_10_26.md (BB facts from the wiki dump; odds are my arithmetic).
+FINDING: every BB recruit has stars on 3 of 8 stats (1 star 60%, 2 stars 30%, 3 stars 10%): 7+ total stars is 1 in 18, 8+ 1 in 100,
+all-three-3-star 1 in 1000. 12 killers at the 7-star bar = ~216 recruits seen; 36 = ~648. Three ways to make 36 cost what 12 costs:
+lower the bar one point (7 to 6, 3.5x easier), three companies (the three acts run at once, so 36 = 12 per act = BB-hard each),
+or inheritance (12 hard-won + 24 heirs at one star less). Recommended: companies + heirs. BB caps the roster by WAGES and food and
+the enemy scales only off the 12 STRONGEST (multiplier 0.94 x (0.01 x strength)^0.89, strength = sum of 10+2(level-1), clamped 0.75-5,
+x 0.85/1.00/1.15 by combat difficulty), so a bench is free of enemy scaling but not of wages. Heir rows proposed (star_loss 1).
+Hire cost 500 x (level-1)^1.5 (guide's own 0-3000 range disagrees with its formula); upkeep base 3-35 x 1.1^(level-1).
+NEXT OPEN: [origins difficulty] (last row); after it ships I write the next from the jump list.
 QUESTS (quests-dvybth): 10/9 (f) LATEST -- [fold the rest] SHIPPED: QR-AK; QR-U's rules now live in their pages (B, C, D, H, M, O, Q, R), checklist line 21 amended. NOT IN A TAB. Next: [lines 31 and 32].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [range column] SHIPPED as a research page. TAB: VOTE, item HOW BIG IS
