@@ -60,9 +60,9 @@ His sixth vote was NAH for mods at boot in the demo, and rule 52's target is a s
 
 ## 4. WHAT THIS DESIGN CHANGES FROM MY 9/28 PAGES, AND WHAT IT STILL CANNOT DO
 
-- 9/28 said the folder could be `mods/` at the repo root, with a fallback of `slices/`. That is wrong in one
-  way: Pages publishes only slices/, engine/ and records/target. It is `records/target/mods/`, next to the data
-  it patches.
+- 9/28 said a mods folder had to live under slices/ (or be added to the Pages config and the workflow's copy
+  list together, because only slices/, engine/ and records/target are published). `records/target/` is already
+  published and sits next to the data it patches, so it needs no config change. Simpler, and where the data is.
 - 9/28 had one flat patch format on a page. This one mirrors the data files, so a modder edits what they
   already saw on the schema page, not a second language (the Content Patcher and Minecraft data-pack lesson).
 - **It checks type, not range.** A mod that sets `damage_min` to -5 passes. The data files carry no min and max
