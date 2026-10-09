@@ -71,3 +71,5 @@ fight.seconds_per_round [5,8], fight.ceiling_minutes 15 (his), nerve rows alread
 - EYES [where the minutes go]: measure human minutes per fight on a phone; this page predicts about 50 s routine.
 - COMBAT: a withdraw verb (finding (d)); confirm nothing but the three dials lengthens a fight.
 - Test material: the toy page is draft:true, never in the game.
+
+## CORRECTED 10/9 (see records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md): the claims above marked recall were checked against the wiki. Corrections to this page are listed there in section 1; where they clash, that page wins.

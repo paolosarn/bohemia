@@ -1,3 +1,16 @@
+TUNING (tuning-f59l1w): 10/9 LATEST -- [grok sources] SHIPPED: my six research pages checked against the wiki and Grok pages.
+TAB: VOTE, item WHO DIES (now with a red BATTLE BROTHERS REAL button; draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md ; corrections appended to the death-rule,
+difficulty and fight-length pages; reference rows added to the draft numbers table (nothing reads it).
+BIGGEST CORRECTION: BB survival at 0 HP is a FLAT 33% (90% with Survivor), never better for winning; none if the last
+hit was a fatality, the man was retreating, or it was bleeding. So BB kills 67 in 100 struck-down men; his 20 is far
+kinder (median life 118 vs 21 fights at 5% struck). My "lose a fight = 30%" idea had no basis and is struck.
+Also: injury gate = hit of >=10 and 25-60% of max HP (so snipers and bats cause injuries, goons rarely); armour also
+takes 0.1 x armour off every hit that passes; BB has no enemy level or gear dial (strength from your crew's 12
+strongest men plus days; difficulty raises count and tier together); Paolo gave NO fight-length number (Grok 83).
+STILL OPEN IN MY QUEUE: [the difficulty steps], [the felt numbers table], [the sell ratio] (wiki-fed), [ammo], [respec]
+(note rule 56 changed who dies: flat 20, a little more per trait/injury, re-read before writing), [recruit odds],
+[origins difficulty].
 SOUNDS (sound-xk7pjp): 10/5 LATEST (round four) -- *** FOUR TAPS ON THE SETTLEMENT SCREEN HAD
 NO SOUND; NOW THREE OF THEM DO, PLUS THE CLINIC'S DOOR WIRED LIVE FOR FREE. ***
 TAB: VOTE, under LOOK, the settlement's answers page.
