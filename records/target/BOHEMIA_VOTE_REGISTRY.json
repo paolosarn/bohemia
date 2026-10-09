@@ -6217,7 +6217,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "WHAT THE FLIP IS IN THE STORY: A, B OR C. I PICK A, AND I FIXED A FLAW.",
-   "why": "Three ideas for what the flip is, costed, in the VOTE tab card below. My pick is A (the old machine's model of your family, never named until the ending), and I found its flaw: it would make the secret villain your everyday tool, unless the flip only shows what was recorded.",
+   "why": "Three ideas for what the flip is in the story, and my pick is A, the old machine's model of your family, never named until the ending. You see it in the VOTE tab, in this card's text.",
    "show": {
     "how": "text",
     "src": "A. The machine's model of your family. Free to build. The flip can only show what was recorded, so it is wrong about everything you did off the feed. That is the ending's gauge, already.\\nB. Upload and genes. A grandchild shares 25 percent of your DNA, a whole mind cannot be copied by 2045, and it makes your family the fake one.\\nC. The box twist. If the past is a recording, nothing you do changes the future, which breaks the three-acts rule.\\nPick A, B or C."
@@ -6231,7 +6231,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT A RESPEC COSTS",
-   "why": "Battle Brothers already has a way to reset a man's perks without mods: a Potion of Oblivion that resets everything and takes seven rare monster parts and 5,000 crowns. Your swap-one-mastery idea is a smaller, cheaper version. See the two side by side in the VOTE tab, with a proposed price of 25 to 50 batteries and a few days.",
+   "why": "Battle Brothers resets a man's perks with a Potion of Oblivion for seven rare monster parts and 5,000 crowns, and your swap-one-mastery idea is a smaller version at 25 to 50 batteries and a few days. You see it in the VOTE tab, the two side by side.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_A_RESPEC_COSTS_10_10_26.html"
@@ -6244,7 +6244,7 @@
    "sha": "8c31978",
    "made": "10/10",
    "title": "HOW BIG IS TOO BIG",
-   "why": "For whoever makes mods. A knife that hits for minus 5 used to load without a word. Now it loads with a warning that says no weapon is ever negative. Type any number and see. It warns, it never blocks, so a mod can still be stronger than anything in the game.",
+   "why": "A modded knife that hits for minus 5 used to load silently, and now it loads with a warning that never blocks, so a mod can still beat anything in the game. You see it in the VOTE tab when you type any number into this card.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.html"
@@ -6358,21 +6358,49 @@
     "src": "records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_GROUND_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 61.\n\nSeen in: not drawn yet, feeds TUNING and LIFE+CITY."
    }
   },
-  {"id": "animation-the-shot-kicks-10-9", "kind": "animation", "lane": "animation", "sha": "9a9402a", "made": "10/9", "title": "THE SHOT KICKS", "why": "In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the clip table, NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_SHOT_KICKS.html"}, "said": "re-create Battle Brothers combat", "draft": true},
   {
-    "id": "cook-the-freeway-kit-10-10",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "THE FREEWAY KIT",
-    "why": "The freeway kit: a barrier run, a see-through shoulder fence, a freeway lamp, a sign gantry, a stalled truck and a burned car, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six laid on the asphalt they belong on.",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_THE_FREEWAY_KIT.png"
-    }
+   "id": "animation-the-shot-kicks-10-9",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "9a9402a",
+   "made": "10/9",
+   "title": "THE SHOT KICKS",
+   "why": "In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the clip table, NOT IN A TAB YET).",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_SHOT_KICKS.html"
+   },
+   "said": "re-create Battle Brothers combat",
+   "draft": true
+  },
+  {
+   "id": "cook-the-freeway-kit-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FREEWAY KIT",
+   "why": "The freeway kit: a barrier run, a see-through shoulder fence, a freeway lamp, a sign gantry, a stalled truck and a burned car, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six laid on the asphalt they belong on.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_FREEWAY_KIT.png"
+   }
+  },
+  {
+   "id": "run2-climbing-10-10",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "CLIMBING: A MAN'S CARD BEFORE AND AFTER A FIGHT",
+   "why": "After a won fight each man gets his XP, at 200 he hits level 2, three stats go up in green by his stars, and he picks one of nine first-tier perks that he carries into the next fight. You see it in the VOTE tab under LOOK, before on the left and after on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_CLIMBING_AFTER_10_10.png",
+    "before": "vote/RUN2_CLIMBING_BEFORE_10_10.png"
+   },
+   "draft": true
   }
-
  ],
  "verdicts": [
   {
