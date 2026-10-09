@@ -6119,7 +6119,7 @@
   },
   {
    "id": "cook-the-settlement-pictures-finished-10-10",
-   "kind": "place",
+   "kind": "tile",
    "lane": "cook",
    "sha": "pending",
    "made": "10/10",
