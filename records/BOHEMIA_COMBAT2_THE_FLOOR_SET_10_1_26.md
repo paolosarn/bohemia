@@ -368,3 +368,17 @@ two drum fires a block (circuit 'fire'). Rule 77: casino 0/0 (board and apron), 
 cul-de-sac's apron improved 64 -> 28 on this build and its ratchet is tightened to 28/28.
 Verified in the new fight: FIGHT_OPTS {board:'casino'} day and night, 20 x 15, 21 units, 0 page errors.
 VOTE: combat2-the-casino-floor-10-9.
+
+## ROUND TWENTY-SIX (10/9): [the future boards], SHIPPED
+
+His second votes ('the game starts in the ruin and the future gets better') and 'the future goes both ways':
+tools/bohemia_combat2_the_future_boards_cook_10_9_26.py writes two futures of every shipped block on the same
+plan and tiles: RECLAIMED (solar arrays over the clay roofs, raised garden beds in the yards, cars and trailers
+out of the cover, every lamp live) and RAIDED (80% of roofs charred with a hole, scorch on the ground beside the
+asphalt, rubble pieces, grid lamps dead and only fires live). Overlays stay 0.6 m off every block side and never
+touch asphalt or the lane paint's colours (a first cut broke two seams that way: the panel frames in C[5] read as
+lines, the scorch covered dashes; fixed). fight_ground.json futures[state] = {blocks, boards: {cover, lights}};
+the builder runs it last. Gate TILES ARE LEGOS LEG 1c: every board in both futures no worse than today (green).
+Verified in the new fight: suburb and freeway x today/reclaimed/raided x day/night, 12 runs, 0 errors.
+FOR COMBAT / DYNASTY: the act (or a raid) picks the state; swap blocks[id].src and the board's cover and lights.
+VOTE: combat2-the-future-boards-10-9.

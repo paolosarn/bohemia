@@ -6156,7 +6156,20 @@
    },
    "sha": "63a84d02"
   },
-  {"id": "animation-the-town-is-alive-10-9", "kind": "animation", "lane": "animation", "sha": "235e6d9", "made": "10/9", "title": "THE TOWN IS ALIVE", "why": "The town screen gets its people: keepers at their doors smoke and wait, the stall keeper haggles, a hire leans at the posts, people walk past, and when your finger comes near a building its keeper looks up and waves you in. You see it ten seconds at a time in the VOTE tab, and in the town screen itself once RUN TWO places them (NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_TOWN_IS_ALIVE.html"}, "said": "the settlement screen is one painted place", "draft": true}
+  {"id": "animation-the-town-is-alive-10-9", "kind": "animation", "lane": "animation", "sha": "235e6d9", "made": "10/9", "title": "THE TOWN IS ALIVE", "why": "The town screen gets its people: keepers at their doors smoke and wait, the stall keeper haggles, a hire leans at the posts, people walk past, and when your finger comes near a building its keeper looks up and waves you in. You see it ten seconds at a time in the VOTE tab, and in the town screen itself once RUN TWO places them (NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_TOWN_IS_ALIVE.html"}, "said": "the settlement screen is one painted place", "draft": true},
+  {
+   "id": "combat2-the-future-boards-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE SAME STREETS IN THE FUTURE, GROWN OR FALLEN",
+   "why": "Every fight board now has a reclaimed future (solar roofs, gardens, every lamp lit) and a raided one (burnt roofs, scorch, rubble, lamps dead) on the same streets. Thumbs up and fights in later acts look like this, and you see it in the COMBAT tab once the acts are wired in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FUTURE_BOARDS_10_9.png"
+   }
+  }
  ],
  "verdicts": [
   {
