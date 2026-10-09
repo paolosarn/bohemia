@@ -3125,6 +3125,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
+     'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
+     'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '
+     'a gate is the settlement screen\'s own roll', False),
     ('BUILD A LOT',      ['node', 'gates/build_a_lot_gate.js'],
      'rule 40b (Paolo 9/29): what can be built on a lot in your home base and what it does -- every piece '
      'a real kit piece, one battery and one day each, each houses a family or makes one currency (the wall '

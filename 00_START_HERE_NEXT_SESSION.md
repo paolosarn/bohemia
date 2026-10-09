@@ -4428,6 +4428,16 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/9 LATEST -- *** [the living map] SHIPPED: NOBODY STANDS ON ANYBODY ON THE MAP, PRINTS
+FADE BY THE HOUR, THE GATE FILLS ON MARKET DAY. *** TAB: VOTE (a GIF of the alpha's own map, a day in 20 s).
+Record: records/BOHEMIA_THE_LIVING_MAP_10_9_26.md. Measured 58/90 steps stacked -> 0 in 72 hours. New module
+engine/bohemia_livingmap.js (settle after WORLD's step, towns exempt; transient prints, PRINT_HOURS 24 for TUNING;
+crowdAt = REACH x the trait's stock_mult; the settlement screen's own roll, 18,000/0). Put on the map by
+tools/bohemia_city_livingmap_patch.py (idempotent, five marked edits incl. handing the settlement the traits the map
+shows). Gate THE LIVING MAP 22/0. NEXT (top OPEN): [build on the screen] -- the build list onto RUN TWO's settlement
+screen. NOT MINE, same on clean main: faction_towns + parties_move gates throw on '#daycardIn .dcgo';
+inlined_fresh refuses on bohemia_followers' banner.
+
 LIFE + CITY (city-1eztay): 10/1 LATEST -- *** EVERYTHING YOU CAN BUILD, ALL EIGHT DRAWN; A LOT LIES IN A REAL
 BLOCK ([build a lot] round 3). ***
 TAB: the new picture is in the VOTE tab (alpha). Record: records/BOHEMIA_EVERYTHING_YOU_CAN_BUILD_10_1_26.md
