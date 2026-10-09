@@ -689,6 +689,38 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (bv) LATEST -- *** [a stranger's five minutes judged] SHIPPED,
+BOTH ROUNDS: A NEW PLAYER NEVER SEES A TITLE SCREEN. THE GAME ALREADY HAS THEM MID-GAME IN TWO
+SECONDS. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Walked the real demo with a wiped phone, like someone opening it for the very first time ever.
+Big finding: the title screen and the pick-your-start screen never showed up. Two screenshots
+taken seconds apart, right where they should be, are the exact same picture as the map screen
+right after them -- the game had already skipped ahead into a city with money already spent and
+a town already found, before anything was tapped. That breaks two rules Paolo already locked:
+nothing should happen in the first second, and the first sixty seconds should be a real game.
+Sent to RUN to find why.
+Also confirmed by looking at it: the bag is not its own screen. It's the bottom half of the shop
+screen, shelf on top, your bag below, same as what the market row already said.
+Got real pictures of three screens (map, the Church settlement, and the shop) and scored each one.
+The settlement street scored best, it looks grimy and real. The shop screen scored worst: the
+smith's face is a blank square with two dots, which breaks the rule that everybody gets a real
+face, and the bag's 30 identical empty boxes are the single best match for the "looks AI-made"
+checklist found all round.
+Did not reach the fight, the win screen, or the way back home this round -- the tool's tap never
+found a job to take on the board, named honestly instead of faking those three.
+The tenth picture (freeway next to a real I-15 photo) is still blocked. Checked the lane that
+owns it (COMBAT TWO) and their own commit says the photo is blocked by network rules, not missing
+work.
+Record: records/BOHEMIA_EYES_STRANGERS_FIVE_MINUTES_ROUND_2_THE_CHECK_10_9_26.md. Five real
+screenshots: records/eyes_strangers_five_minutes/.
+NEXT (rule 74, claimed): [the far stop's pixels counted]. Checked first: RUN hasn't shipped the
+"after" picture yet, and the real Battle Brothers photo this row needs still doesn't exist
+anywhere in the repo. Round one next: go learn how real map games count this before building the
+counter.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (bu) LATEST -- *** [a stranger's five minutes judged] ROUND ONE
 SCHOOL DONE: A THIRD REAL CHECKLIST ADDED, AND "VIBE CODED" DOESN'T MEAN WHAT WE'VE BEEN SAYING
 IT MEANS. ***
