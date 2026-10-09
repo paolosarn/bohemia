@@ -38,7 +38,7 @@ function tracked() { return execSync('git ls-files', { cwd: ROOT, maxBuffer: 1 <
 const CANDIDATES = new Set();
 try {
   const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));
-  for (const i of reg.items || []) if (i.show && i.show.src && /\.html$/.test(i.show.src)) CANDIDATES.add('slices/' + i.show.src);
+  for (const i of reg.items || []) if (i.lane === 'mods' && i.show && i.show.src && /\.html$/.test(i.show.src)) CANDIDATES.add('slices/' + i.show.src);
 } catch (e) {}
 function cat(f) { if (CANDIDATES.has(f)) return 'DOC'; return f.startsWith('slices/') || f.startsWith('engine/') || f.startsWith('records/target/') ? 'LIVE' : f.startsWith('gates/') ? 'GATE' : f.startsWith('tools/') ? 'TOOL' : 'DOC'; }
 

@@ -1,0 +1,42 @@
+THE ENEMY TIERS DRESSED -- CHARACTER, 10/9/26, [the enemy tiers dressed], rule 69
+
+COMBAT already wrote which faction each brigand tier wears, as a draft, quoting his own
+words (ours.json, people_looks.band). That pairing is read here, not reinvented:
+  THUG      HOMELESS  (unchanged)
+  POACHER   VOLUNTEERS  (unchanged)
+  MARKSMAN  NETWORK  (unchanged)
+  RAIDER    MOB  + STORM VEST
+  LEADER    CHURCH  (unchanged)
+  MARAUDER  REMNANTS  + CHARCOAL ROAD CAPE + STEEL SPIKED PAULDRON
+
+WHAT THIS ROUND ADDS: enemies.json gives each tier a real body-armour range. The four
+light ones (thug 5-70, poacher 20, marksman 20-70, and the leader at 90-210 -- heavy on
+paper but already read by his own gold mantle) stay their faction's own canon look.
+The raider and the marauder get pieces from this lane's own [attachments] row, picked
+to land on a slot each faction leaves empty today, so nothing collides with a coat
+already worn:
+  RAIDER: enemies.json armor_body "55-110" -- added STORM VEST.
+  MARAUDER: enemies.json armor_body "140-255" -- added CHARCOAL ROAD CAPE + STEEL SPIKED PAULDRON.
+
+A BAD FIRST TRY, CAUGHT BY LOOKING AT THE PICTURE: the leader first wore the same
+QUILTED VEST as the raider, and the two heaviest tiers read as one man in a borrowed
+coat. Dropped the leader's vest (his gold mantle already says command) and re-picked
+the raider's vest to a grey that sits inside Mob's own charcoal palette instead of
+the generator's default. Different cues for a different role, not just 'more cloth'.
+
+ONE MORE THING LEFT HONEST, NOT HIDDEN: the raider still reads mostly mustard and the
+leader still reads mostly gold, because that is each faction's own ruled colour (Mob's
+gold, shipped 9/13; Church's, shipped earlier still) and a vest, being sleeveless, does
+not cover a long-sleeve shirt underneath -- it was never going to fully hide it, and
+recolouring either faction to fight that would be overriding his own colour ruling,
+which is not this lane's to do. What tells the two apart is everything else: Mob's
+shirt-and-vest-and-charcoal-pants against Church's floor-length solid robe, and the
+silhouette number below.
+
+SILHOUETTE CHECK: all six tiers compared pairwise, the same 16-sample profile ruler
+this lane always uses; the closest pair sits 0.0558 apart, clear of the
+0.02 collapse floor. Six different enemies, not one costume worn six ways.
+
+NOT HERE, ON PURPOSE: the lower_* and champion variants, and the other BB factions
+(goblins, orcs, ancient dead...) -- rule 69's own brief named these six; the rest are
+COMBAT's to ask for when their own fight needs them.

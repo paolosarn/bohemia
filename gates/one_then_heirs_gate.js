@@ -306,7 +306,11 @@ A.resetAll();
   const typed = await d.fr.evaluate(() => document.getElementById('actname').value);
   ok('*** A REAL KEYBOARD TYPED INTO THE FIELD (' + typed + ') ***', typed === 'Marisol');
   const sigTyped = await sig(1);
-  const ok2 = await rectOf('#actedit .aeb:not([data-sex])');
+  const oldB = await rectOf('#actedit .aeb[data-age="older"]');
+  ok('the offer row has OLD and YNG buttons (10/2: older or younger)', !!oldB && !!(await rectOf('#actedit .aeb[data-age="younger"]')));
+  if (oldB) { await tap(oldB); }
+  ok('*** A REAL FINGER PICKED OLD ***', await d.fr.evaluate(() => BohemiaActs.visible(String(seed))[1].age === 'older'));
+  const ok2 = await rectOf('#actedit .aeb:not([data-sex]):not([data-age])');
   await tap(ok2);
   const done2 = await strip();
   ok('*** OK KEPT THE TYPED NAME ***', done2.names[1] === 'Marisol');

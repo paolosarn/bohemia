@@ -5348,7 +5348,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "EVERY BATTLE BROTHERS CONTRACT, AS A JOB IN OUR VALLEY",
-   "why": "All 49 Battle Brothers contract kinds are now jobs in Vegas, each with who gives it, what it pays and what can go wrong. The job board in the demo can fill itself from this.",
+   "why": "All 49 Battle Brothers contract kinds are now jobs in Vegas, each with who gives it, what it pays and what can go wrong, so the job board can fill itself from this. You see it only as text in the VOTE tab for now, and in the game on the board in every place.",
    "show": {
     "how": "text",
     "src": "Eight kinds of job: haul, carry, clear, hunt, patrol, hold, recover, find. Each one comes from a town's trouble, and finishing it fixes that trouble."
@@ -5361,7 +5361,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "HOW MUCH OF THE VALLEY WORKS IN EACH ACT.",
-   "why": "Here is how much of the valley works in each act: act one stays at the demo's 12 percent lit, acts two and three start higher and a past where you tore places down lights less than doing nothing. Nothing is drawn yet, so look at the text below in the VOTE tab and thumb it.",
+   "why": "Act one stays at the demo's 12 percent lit, acts two and three start higher, and a past where you tore places down lights less than doing nothing. You see it only as text in the VOTE tab, nothing is drawn yet.",
    "show": {
     "how": "text",
     "src": "ACT ONE: 12% lit, medieval stalls (grain, water, rope, iron tools, lamp oil, salt).\\nACT TWO: 20% lit if you did nothing, more if you built, less if you tore down. Stalls add cells, wire, solar film, medicine.\\nACT THREE: 30% lit by default, techy stalls (cells, chips, solar film, printed parts).\\nA ruin you caused stays a ruin. Not drawn yet."
@@ -5389,7 +5389,7 @@
    "sha": "f7a4987e",
    "made": "10/9",
    "title": "A DAY ON THE MAP IN TWENTY SECONDS",
-   "why": "This is the real game's map, filmed from the game's own camera, one frame every half hour from 6 in the morning to 9:30 at night. The parties walk with a reason (caravans between towns, patrols on their border, crews going to take something) and now nobody ever stands on top of anybody: before this, two or three parties stood on the same spot more than half the time. Each party leaves footprints in its faction's colour that fade over a day. The towns having a market day have a bigger crowd at the gate, and when you walk in, it is the same market. Thumbs up and this is how the map lives. Thumbs down and say what feels wrong.",
+   "why": "A whole day on the real map in twenty seconds: parties walk with a reason, never stand on each other, leave fading footprints in their colour, and market-day towns have a bigger crowd at the gate. You see it in the VOTE tab under LOOK, filmed from the game's own camera.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_A_DAY_ON_THE_MAP_10_9.gif"
@@ -5414,14 +5414,339 @@
    "lane": "world",
    "made": "10/9",
    "title": "HOW FAST, AND WHO",
-   "why": "Same valley twice: left is how fast you cross each kind of ground, right is how tightly one crew owns it, and the bright spine on the right is the Strip at 92% one outfit while the mountains belong to nobody. The two maps only agree on 13% of the valley, which means the quickest way across runs straight through the ground somebody else holds hardest.",
+   "why": "The same valley twice, how fast you cross each ground beside how tightly one crew owns it, and the quickest way across runs straight through the ground held hardest, like the Strip at 92 percent one outfit. You see it in the VOTE tab under LOOK, two maps side by side.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_HOW_FAST_AND_WHO.png"
+   },
+   "sha": "c7491228"
+  },
+  {
+   "id": "cook-the-far-end-painted-10-9",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/9",
+   "not_a_map_picture": "this item shows a contact sheet (before, after, and a 1:1 crop) because the row asks for before and after; the map picture itself is slices/vote/COOK_THE_FAR_END_SHEET.png and the bank, which run 1.05 against DIRECTION's floor of 1.5",
+   "title": "THE FAR END, PAINTED BY HAND",
+   "why": "The whole valley from altitude is painted now instead of noise: real ranges with lit and shadowed faces, the basin they ring, the city grid, the strip's spine, the dead airport, the washes and the lake, all read off the game's own map. You see it in the VOTE tab, before and after side by side.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_FAR_END_PAINTED.png"
    }
   },
   {
-   "id": "factions-four-with-a-face-10-9", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/9",
+   "id": "folklore-beasts-become-machines-10-9",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A BATTLE BROTHERS MONSTER THAT IS NOT AN ANIMAL BECOMES A MACHINE FROM THE ROBOTICS PLANT",
+   "why": "Your beast law says every beast is a lab-made real animal, but nineteen of Battle Brothers' beasts are folklore monsters that never lived, so those become the machines of the robotics plant by the airport (the Unhold a two-legged cargo loader, the Nachzehrer a scavenger bot that eats bodies for parts) while real animals stay lab-made and each keeps its Battle Brothers fight lesson exactly. You see it in the fight when one of them walks onto the board and in its card's one line.",
+   "show": {
+    "how": "text",
+    "src": "Rule 81 (coordinator default). WORDS found the gap (8607f623); COMBAT re-tags six mislabelled rows and adds a kind column (animal, machine, man). His locks stand: a boss is never an animal, no radiation, only what real DNA allows.\n\nSeen in: the fight (a machine on the board), the enemy's card, the recap."
+   },
+   "verdict": "default",
+   "status": "ruled"
+  },
+  {
+   "id": "tuning-what-each-difficulty-changes-10-9",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "337b82c",
+   "made": "10/9",
+   "draft": true,
+   "title": "WHAT EACH DIFFICULTY CHANGES",
+   "why": "Battle Brothers has two difficulty settings, fights and money, plus Ironman, and these three wiki tables show what each one changes while our game has one number for all of it. You see it in the VOTE tab under LOOK, as three tables.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html"
+   }
+  },
+  {
+   "id": "combat-the-board-fits-the-party-10-9",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A SMALL FIGHT GETS A SMALL BOARD, AND IT OPENS ZOOMED IN",
+   "why": "The fight board is now cut to the parties, your line and theirs five houses apart with a house of room round them, so three thugs against your twelve is about 9 by 10 instead of 20 by 15, and it opens on your line with the man at full size. Start any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_BOARD_FITS_THE_PARTY_10_9.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "mods-the-data-files-10-9",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "8f4ddd5",
+   "made": "10/9",
+   "title": "THE DATA FILES ON ONE PAGE",
+   "why": "For modders: all 15 data files on one page, built from the real files, with what each holds, who reads it, and how to make the knife hit harder by changing one row. You see it in the VOTE tab under LOOK; tap a file.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html"
+   }
+  },
+  {
+   "id": "combat2-the-freeway-redone-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY IS THE STREET'S ROAD, WITH NO WALL ON IT",
+   "why": "The freeway now uses the street's own asphalt, paint and curb, with a low concrete barrier down the middle and a see-through fence at the edges instead of the grey wall. Thumbs up and every freeway fight looks like this, and you see it in the COMBAT tab on the freeway board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png"
+   }
+  },
+  {
+   "id": "quests-the-ten-road-events-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "TEN PEOPLE WHO STOP YOU ON THE ROAD",
+   "why": "Ten real Battle Brothers road events, each now a person in Vegas who stops you with two choices and the price on the button, and moving on is always free. You see it only as text in the VOTE tab, and in the game on the map's roads.",
+   "show": {
+    "how": "text",
+    "src": "A trader with a dead trike, a posse with a photo of one of your men, a blind man with a watch, kids who stoned a battery trader, a thief taped to a dead street light, and five more."
+   }
+  },
+  {
+   "id": "animation-the-fights-clips-10-9",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "15db7f8",
+   "made": "10/9",
+   "title": "THE FIGHT'S CLIPS",
+   "why": "In the fight men now breathe while they wait, and a man struck down sinks and crawls while the dead lie flat, so you tell down from dead at a glance. You see it in the VOTE tab under LOOK, before beside now on the beat.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_FIGHTS_CLIPS.html"
+   },
+   "said": "I wanna see all my character art that we worked so hard on live in the game, even if it's new combat",
+   "draft": true
+  },
+  {
+   "id": "direction-the-demo-every-screen-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "f77735be",
+   "made": "10/9",
+   "title": "THE DEMO, EVERY SCREEN, MARKED",
+   "why": "Every screen a stranger meets, shot on a phone, with what is right in gold and what is slop in red, and the biggest hole is not a pixel: tap a place and nothing opens, and the fight ends with nothing saying you won. You see it in the VOTE tab under LOOK, one marked picture per screen.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_DEMO_EVERY_SCREEN.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
+  },
+  {
+   "id": "tuning-every-number-the-fight-feels-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "fb5a859",
+   "made": "10/10",
+   "draft": true,
+   "title": "EVERY NUMBER THE FIGHT FEELS",
+   "why": "The demo's fight now reads every number from one list and each has a source, 71 from the Battle Brothers wiki and the rest your own rulings and words, and the fight script types none of its own. You see it in the VOTE tab under LOOK, all 85, green for the wiki and red for yours.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_EVERY_NUMBER_THE_FIGHT_FEELS_10_10_26.html"
+   }
+  },
+  {
+   "id": "mods-the-mods-folder-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "7f4d2ae",
+   "made": "10/10",
+   "title": "THE MODS FOLDER",
+   "why": "A design, nothing built: a mod is a small folder named like the data file it changes, and eleven checks show an empty folder or a broken mod changes nothing while a good mod changes exactly what it says. You see it in the VOTE tab under LOOK.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_THE_MODS_FOLDER_10_10_26.html"
+   }
+  },
+  {
+   "id": "quests-the-rumour-at-the-bar-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE RUMOUR AT THE BAR",
+   "why": "Buy the bar keeper a drink and he tells you where good gear is, a pin drops on the map and slowly fades, and sometimes he is wrong while strangers lie more. You see it only as text in the VOTE tab, and in the game at the bar in every place.",
+   "show": {
+    "how": "text",
+    "src": "Twelve rumours: a locked arsenal off the Strip, a flooded casino vault, the tunnels under Hoover Dam, the robotics plant, a cold lab vault, and seven more."
+   }
+  },
+  {
+   "id": "run2-the-bar-10-9",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE BAR: A ROUND FOR THE CREW, AND A RUMOUR",
+   "why": "Like Battle Brothers' tavern, a round costs a battery a head, up to four a night, lifts the crew's spirits and the town's opinion of you, and each round the keeper tells you a different rumour that can mark a place on your map. You see it in the VOTE tab under LOOK, and in the demo when you tap the bar in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_BAR_10_9.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "dynasty-heirs-on-entry-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "ABOUT 42% OF YOUR CREW CARRIES ON. YOU PICK OLDER OR YOUNGER.",
+   "why": "When you enter act two or three, about 42 percent of the last crew carries on (the strongest first) and you pick whether your own relative arrives older or younger, in the VOTE tab card below and on the phone's offer row in the RUN tab. Older and younger are saved but do not change a face yet.",
+   "show": {
+    "how": "text",
+    "src": "Four people in the old crew: the two strongest carry on, the two weakest are left behind. One person always carries. The OLD and YNG buttons sit beside M, F and OK on the phone when you enter a new act."
+   }
+  },
+  {
+   "id": "economy-stash-rates-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A DAY ON THE ROAD COSTS DIFFERENT FOOD IN DIFFERENT PLACES",
+   "why": "A six-man company eats 18 points of food a day crossing the desert and heals two injuries' worth of medicine, against 12 food points on flat ground, straight from Battle Brothers' own numbers. You see it in the records, not drawn yet, feeding the road's upkeep once the day clock reads it.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/stash_rates.json; engine/bohemia_stash.js; gates/stash_gate.js 25/0.\n\nSeen in: not drawn yet, feeds the day clock once wired."
+   }
+  },
+  {
+   "id": "character-the-enemy-tiers-dressed-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "f6c76270",
+   "made": "10/9",
+   "title": "THE ENEMY TIERS DRESSED",
+   "why": "Six kinds of enemy in combat's new fight, dressed in the gang clothes combat already picked, light ones unchanged and the two toughest carrying real armor pieces. Thumbs up, and you see it in the VOTE tab and in the fight once combat wires it in.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-street-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE STREET FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_STREET_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-suburb-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE SUBURB FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_SUBURB_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-lot-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE EMPTY LOTS FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_LOT_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-freeway-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_FREEWAY_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-strip-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE STRIP MALL FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_STRIP_10_9.png"
+   }
+  },
+  {
+   "id": "combat2-boards-by-size-works-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE WORKS FIGHT AT THREE SIZES",
+   "why": "A small fight now gets a small board of this place, a bigger fight a middle one, and only the endgame gets the big board, all with the streets joining. Thumbs up and fights are cut to the party like this, and you see it in the COMBAT tab when a fight starts.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_BOARDS_BY_SIZE_WORKS_10_9.png"
+   }
+  },
+  {
+   "id": "world-places-worth-going-to-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "THE PLACES WORTH GOING TO",
+   "why": "The six places with the god gear, each gold ring sized by how many men are guarding it, so the biggest prize is also the widest circle of people standing between you and it. The hollow red ring is the library, which this valley never rolled: ours are not guaranteed like Battle Brothers' are, so a rumour at the bar can send you after a building that does not exist in your world.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_PLACES_WORTH_GOING_TO.png"
+   },
+   "sha": "5fe7031d"
+  },
+  {
+    "id": "cook-the-far-end-as-tiles-10-10",
+    "kind": "map",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE FAR END AS TILES",
+    "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
+    "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
+    }
+  },
+  {
+   "id": "factions-four-with-a-face-10-9", "kind": "tile", "lane": "factions", "sha": "7d565f9", "made": "10/9",
    "title": "FOUR FACTIONS WITH A FACE", "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
    "show": {"how": "page", "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"}
   }

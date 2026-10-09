@@ -72,7 +72,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
-  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,smith,armourer,barber,clinic,lot', keys.join());
+  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, bar, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,bar,smith,armourer,barber,clinic,lot', keys.join());
   /* nothing is written on the picture until a finger is on a building (rule 71a) */
   const quiet = await p.evaluate(() => BohemiaSettlement.state.open === null);
   ok('  and no building names itself until it is touched', quiet);
@@ -193,6 +193,27 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
 
+  /* THE BAR (Battle Brothers' tavern): a round priced by the company's size, morale and the town's
+     opinion up, one rumour from the keeper's mouth that can mark the map, four rounds a night */
+  await p.evaluate(() => { BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], crewSize: 5 });
+    BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 40, 'gate', null, 0); });
+  await p.waitForTimeout(400);
+  const rumours = [], br0 = await bat();
+  for (let i = 0; i < 5; i++) {
+    await tapB('bar'); await p.waitForTimeout(220);
+    const btn = await p.$('#sbody .act:not([disabled])'); if (!btn) break;
+    await btn.click(); await p.waitForTimeout(220);
+    rumours.push(await p.evaluate(() => document.querySelector('#sbody .say p').textContent));
+    if (i === 0) await p.screenshot({ path: SHOT.replace('_10_1', '_BAR_10_9') });
+  }
+  const br1 = await bat(), rounds = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'round').slice(-4));
+  const marks = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'rumour').map(m => m.mark));
+  ok('the bar: a round costs a battery a head and you can buy four a night', rumours.length === 4 && br0 - br1 === 20, rumours.length + ' rounds, ' + (br0 - br1) + ' batteries for 5 men');
+  ok('  each lifts morale a step and the town likes you a tenth more', rounds.length === 4 && rounds.every(r => r.morale === 1 && r.relation === 0.1));
+  ok('  and the keeper tells a different rumour each round, some marked on your map', new Set(rumours).size === 4 && rumours.every(t => t.length > 30), marks.join(', ') || 'no marks');
+  await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
+  await p.waitForTimeout(300);
+
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {
     await tapB('board'); await p.waitForTimeout(200);
@@ -233,7 +254,7 @@ const srv = http.createServer((rq, rs) => {
   for (const t of ['camp', 'fortress']) {
     const o = await p.evaluate(t => { BohemiaSettlement.open({ place: { tier: t, name: 'A ' + t.toUpperCase() } }); return BohemiaSettlement.order().join(); }, t);
     await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
-    const want = t === 'camp' ? 'hall,board,stall,arms,barber,clinic,lot' : 'hall,board,stall,smith,armourer,barber,clinic,lot';
+    const want = t === 'camp' ? 'hall,board,stall,bar,arms,barber,clinic,lot' : 'hall,board,stall,bar,smith,armourer,barber,clinic,lot';
     ok('a ' + t + ' is its own picture, with Battle Brothers\' shops for its size (camp one stall, town and fortress a smith and an armourer)', o === want, o);
     if (t === 'camp') {
       await p.waitForFunction(() => (BohemiaSettlement.state.stock.arms || []).length > 0, null, { timeout: 30000 });

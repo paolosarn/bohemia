@@ -7,6 +7,7 @@ and every lane, centre and curb line that crosses one side crosses the other wit
 
   LEG 1  THE SETS HE NAMED ARE CLEAN: the freeway board and the street (suburb) board have ZERO faults,
          board and apron.
+  LEG 1b EVERY BOARD BY SIZE IS CLEAN (rule 79): the six kinds' small, middle and large boards, zero faults.
   LEG 2  THE REST CAN ONLY GET BETTER: every other board's faults (board, apron) are at or under the
          ratchet in gates/tiles_are_legos_ratchet.json. Lower the ratchet when a board improves.
   LEG 3  THE DATA FILE IS TRUE: records/target/bb/BOHEMIA_GROUND_EDGES.json names every shipped block's four
@@ -34,6 +35,11 @@ for name, b in m['boards'].items():
     if name in CLEAN and (own or ap):
         fails.append('LEG 1: %s must be clean, has %d board faults and %d with its apron: %s' % (name, len(own), len(ap), (own + ap)[:3]))
 print('faults now (board, with apron):', json.dumps(now))
+for kind, sizes in m.get('sized', {}).items():                   # LEG 1b (rule 79): every cut board joins
+    for size, sb in sizes.items():
+        f = L.board_faults(sb['blocks'], edges)
+        if f: fails.append('LEG 1b: sized %s %s has %d broken seams: %s' % (kind, size, len(f), f[:2]))
+if len(m.get('sized', {})) < 6: fails.append('LEG 1b: the six kinds at three sizes are not all in the manifest')
 rat = json.load(open(RATCHET))
 for name, (o, a) in now.items():
     if name in CLEAN: continue

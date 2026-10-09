@@ -724,6 +724,72 @@
    "id": "hit.ceiling",
    "value": 0.95,
    "source": "Grok GROK_21, unverified"
+  },
+  {
+   "id": "combat.hit_roll_shift_beginner",
+   "value": 5,
+   "source": "wiki Hit Chance / Game Mechanics, read 10/9"
+  },
+  {
+   "id": "combat.xp_beginner",
+   "value": 1.1,
+   "source": "wiki Level and Experience"
+  },
+  {
+   "id": "combat.crisis_delay_beginner_days",
+   "value": 5,
+   "source": "wiki Game Mechanics"
+  },
+  {
+   "id": "ironman.crisis_delay_days",
+   "value": 5,
+   "source": "wiki Game Mechanics"
+  },
+  {
+   "id": "econ.contract_pay_step",
+   "value": -0.1,
+   "source": "wiki Game Mechanics (per difficulty level)"
+  },
+  {
+   "id": "econ.sell_mult_expert",
+   "value": 0.9,
+   "source": "wiki Game Mechanics"
+  },
+  {
+   "id": "econ.cap_tools",
+   "value": [
+    200,
+    150,
+    150
+   ],
+   "source": "wiki Tools and Supplies"
+  },
+  {
+   "id": "econ.cap_ammo",
+   "value": [
+    500,
+    300,
+    300
+   ],
+   "source": "wiki Ammunition"
+  },
+  {
+   "id": "econ.cap_medicine",
+   "value": [
+    150,
+    100,
+    100
+   ],
+   "source": "wiki Medical Supplies"
+  },
+  {
+   "id": "start.kit_crowns",
+   "value": [
+    2500,
+    2000,
+    1500
+   ],
+   "source": "wiki Game Mechanics (High/Medium/Low)"
   }
  ],
  "_corrected": "10/9: death.lost_fight_bonus struck; enemy level and gear dials re-pointed to tier mix and days term. See records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md"

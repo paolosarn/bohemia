@@ -372,6 +372,19 @@ var RUMOURS = [
   'Somebody is buying copper by the Strip and paying in real batteries. Too good, if you ask me.'
 ];
 var SLOTS = 2;
+/* the bar's rumours live in a data file QUESTS and WORLD feed (records/target/settlement_rumours.json);
+   the four above are the fallback if it does not load */
+var RUMOR_FILE = null;
+fetch('../records/target/settlement_rumours.json').then(function(r){ return r.json(); }).then(function(j){ RUMOR_FILE = j.rumours; }).catch(function(){});
+function nextRumour(){
+  var list = RUMOR_FILE || RUMOURS.map(function(t, i){ return {id:'r'+i, says:t}; });
+  S.heardIds = S.heardIds || {};
+  var fresh = list.filter(function(r){ return !S.heardIds[r.id]; }); if(!fresh.length) return null;
+  var R3 = rng(seedOf(S.place.name + ':rumour:' + (S.day||0) + ':' + (S.rounds||0))), r = fresh[Math.floor(R3()*fresh.length)];
+  S.heardIds[r.id] = true; return r;
+}
+/* Battle Brothers prices the round by the company's size; ours: a battery a head */
+function roundPrice(){ return Math.max(1, S.crewSize || 3); }
 /* THE STALL. What the shelf holds is ECONOMY's to rule (BohemiaPlace.STOCKS is empty on
    purpose); until then the stall sells the goods the economy already names, ONE battery
    each, and only FOOD is counted by the purse (the six in the bar). */
@@ -425,8 +438,8 @@ var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:
 /* THE MARKET (rule 75d, Paolo 10/5: 'there's no place where you can buy weapons or armor'). Battle
    Brothers' shape: a camp has one stall for both, a town a smith and an armourer, a fortress both
    plus its market. The buildings are ones already standing in COMBAT TWO's pictures, picked by eye. */
-var ARMSBOX = {camp:{arms:[86,130,300,250]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092]},
-               fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470]}};
+var ARMSBOX = {camp:{arms:[86,130,300,250], bar:[1290,120,1420,260]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092], bar:[40,944,490,1092]},
+               fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470], bar:[1880,820,2010,1030]}};
 var LOTBOX = {camp:[1290,680,1570,800], town:[520,900,1050,1092], fortress:[1330,700,1480,830]};
 var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, lit:null, night:false}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
@@ -440,7 +453,7 @@ function pickVariant(){
   for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
-  ORDER = ['hall','board','stall','arms','smith','armourer','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
+  ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
   rollTraits(); restock();
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
@@ -664,13 +677,23 @@ function openB(k, line){
   }
   else if(k==='arms' || k==='smith' || k==='armourer'){ shopSheet(k, body, acts, line); }
   else if(k==='bar'){
-    body.appendChild(speak(k, line || 'A round for the crew is one battery. Drink, and I tell you what I heard.'));
-    acts.appendChild(act('Buy the crew a round', '1 battery', function(){
-      if(bats()<1) return openB('bar','No battery, no round, compa.');
-      P.debit(S.purse,'electricity',1,'bar:round',S.place.name,S.day);
-      var rm = RUMOURS[S.rumour++ % RUMOURS.length];
-      post('round',{rumour:rm}); shelf(); openB('bar', rm);
-    }, bats()<1));
+    /* BATTLE BROTHERS' TAVERN (GROK_20/21): a round for the company, priced by how many you are,
+       up to four a visit; each lifts the company's morale a step and the town's opinion of you by a
+       tenth (GROK_118), and the keeper tells you one thing he heard, out of his own mouth */
+    var price = roundPrice(), roundsLeft = 4 - (S.rounds||0);
+    body.appendChild(speak(k, line || (roundsLeft > 0 ? 'A round for the whole crew, ' + price + ' batter' + (price===1?'y':'ies') + '. Drink, and I tell you what I heard.' : 'That is enough for one night. Come back tomorrow.')));
+    acts.appendChild(act('Buy the crew a round', price + ' batt', function(){
+      if(bats() < price) return openB('bar', 'No batteries, no round, compa.');
+      P.debit(S.purse, 'electricity', price, 'bar:round', S.place.name, S.day);
+      S.rounds = (S.rounds||0) + 1;
+      var rm = nextRumour();
+      post('round', {morale:1, relation:0.1, price:price, rumour:rm});
+      if(rm && rm.mark) post('rumour', {rumour:rm, mark:rm.mark});
+      shelf(); openB('bar', rm ? rm.says : 'Nothing new tonight. Drink anyway.');
+      var sb = document.getElementById('sbody').querySelector('.acts'), tag = document.createElement('div'); tag.className = 'slots';
+      tag.textContent = 'The crew\'s spirits come up a step.  ' + S.place.name + ' likes you a little more.' + (rm && rm.mark ? '  Marked on your map: ' + rm.mark + '.' : '');
+      sb.insertBefore(tag, sb.firstChild);
+    }, roundsLeft <= 0 || bats() < price));
   }
   else if(k==='clinic'){
     var hurt = (S.wounded||[]).length;
@@ -739,6 +762,8 @@ function open(o){
   }
   if(o.contracts) S.held = o.contracts.slice(0,SLOTS);
   if(o.hired) S.hired = o.hired;
+  if(typeof o.crewSize === 'number') S.crewSize = o.crewSize;
+  if(o.place){ S.rounds = 0; S.heardIds = {}; }   /* a new visit, a new night at the bar */
   if(Array.isArray(o.bag)) S.stash = o.bag.slice(0, BAG_SLOTS); else if(!S.bagLoaded){ bagLoad(); }
   S.bagLoaded = true;
   if(o.wounded) S.wounded = o.wounded.slice();

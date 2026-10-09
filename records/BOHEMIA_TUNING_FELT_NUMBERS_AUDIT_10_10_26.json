@@ -1,0 +1,1112 @@
+{
+ "keys": [
+  {
+   "key": "a.b.c",
+   "ok": false,
+   "kind": "MISSING",
+   "quote": false,
+   "value": null
+  },
+  {
+   "key": "morale.states",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": [
+    "Unbreakable",
+    "Confident",
+    "Steady",
+    "Wavering",
+    "Breaking",
+    "Fleeing"
+   ]
+  },
+  {
+   "key": "parsed.hit_roll_die",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 100
+  },
+  {
+   "key": "board.height_levels",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "key": "ap.move_cost.murky_water_swamp",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 4
+  },
+  {
+   "key": "ap.move_cost.rough",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 3
+  },
+  {
+   "key": "ap.move_cost.flat",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 2
+  },
+  {
+   "key": "ap.move_cost.height_change_extra",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "board.vision_default",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 7
+  },
+  {
+   "key": "hit_chance.night.nighttime_status",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "vision": -2,
+    "ranged_skill_pct": -30,
+    "ranged_defense_pct": -30
+   }
+  },
+  {
+   "key": "board.vision_floor",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "ap.strike_cost.one_handed",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 4
+  },
+  {
+   "key": "ap.strike_cost.two_handed",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 6
+  },
+  {
+   "key": "morale.default_state",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": "Steady"
+  },
+  {
+   "key": "ours.weapon_rows",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": {
+    "pipe": "bludgeon",
+    "car_door": "wooden_shield",
+    "pistol": "dagger",
+    "shotgun": "handgonne",
+    "rifle": "light_crossbow",
+    "sledge": "two_handed_mallet",
+    "bottles": "bundle_of_throwing_axes"
+   }
+  },
+  {
+   "key": "parsed.brother_xp",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "base": 100,
+    "per_level": 30
+   }
+  },
+  {
+   "key": "ours.perk_builds",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "pipe": [
+     "colossus",
+     "steel_brow",
+     "rally_the_troops",
+     "shield_expert",
+     "underdog",
+     "battle_forged",
+     "indomitable"
+    ],
+    "sledge": [
+     "colossus",
+     "recover",
+     "taunt",
+     "hammer_mastery",
+     "reach_advantage",
+     "battle_forged",
+     "killing_frenzy"
+    ],
+    "pistol": [
+     "adrenaline",
+     "dodge",
+     "rotation",
+     "dagger_mastery",
+     "footwork",
+     "battle_forged",
+     "duelist"
+    ],
+    "rifle": [
+     "fast_adaptation",
+     "bullseye",
+     "anticipation",
+     "crossbow_mastery",
+     "lone_wolf",
+     "battle_forged",
+     "head_hunter"
+    ],
+    "shotgun": [
+     "adrenaline",
+     "bullseye",
+     "brawny",
+     "crossbow_mastery",
+     "footwork",
+     "battle_forged",
+     "head_hunter"
+    ],
+    "bottles": [
+     "fast_adaptation",
+     "bullseye",
+     "anticipation",
+     "throwing_mastery",
+     "overwhelm",
+     "battle_forged",
+     "duelist"
+    ]
+   }
+  },
+  {
+   "key": "ours.people_looks",
+   "ok": true,
+   "kind": "record",
+   "quote": true,
+   "value": {
+    "crew": [
+     "you",
+     "cast_longcoat",
+     "cast_barearms",
+     "cast_widebrim",
+     "cast_poncho",
+     "cast_shortcoat",
+     "cast_apron",
+     "cast_cape",
+     "cast_pack",
+     "cast_satchel",
+     "cast_skirt",
+     "cast_shorts"
+    ],
+    "band": {
+     "brigand_thug": [
+      "faction_homeless",
+      "faction_anarchists",
+      "faction_reds",
+      "faction_trades",
+      "faction_caravans"
+     ],
+     "lower_brigand_raider": [
+      "faction_mob",
+      "faction_cartel"
+     ],
+     "default": [
+      "faction_remnants",
+      "faction_network",
+      "faction_volunteers"
+     ],
+     "brigand_raider": [
+      "faction_mob",
+      "faction_cartel"
+     ],
+     "brigand_marauder": [
+      "faction_remnants",
+      "faction_blues"
+     ],
+     "brigand_leader": [
+      "faction_church"
+     ],
+     "brigand_marksman": [
+      "faction_network",
+      "faction_colorful"
+     ],
+     "lower_brigand_marksman": [
+      "faction_network",
+      "faction_colorful"
+     ],
+     "brigand_poacher": [
+      "faction_volunteers",
+      "faction_caravans"
+     ]
+    }
+   }
+  },
+  {
+   "key": "ap.per_turn",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 9
+  },
+  {
+   "key": "ours.enemy_tiers",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "phases": [
+     {
+      "name": "early",
+      "from_day": 1
+     },
+     {
+      "name": "middle",
+      "from_day": 20
+     },
+     {
+      "name": "late",
+      "from_day": 60
+     }
+    ],
+    "difficulty_days": [
+     0,
+     0,
+     20,
+     40
+    ],
+    "day_cap": 100,
+    "skill_day": 40,
+    "leader_from_count": 4,
+    "leaders_max": 1,
+    "mix": {
+     "brigands": {
+      "early": {
+       "brigand_thug": 8,
+       "lower_brigand_raider": 2
+      },
+      "middle": {
+       "brigand_thug": 4,
+       "brigand_raider": 3,
+       "brigand_marksman": 2,
+       "brigand_poacher": 1,
+       "brigand_marauder": 1
+      },
+      "late": {
+       "brigand_thug": 1,
+       "brigand_raider": 3,
+       "brigand_marksman": 2,
+       "brigand_marauder": 3,
+       "brigand_leader": 1
+      }
+     }
+    }
+   }
+  },
+  {
+   "key": "ours.first_band",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": [
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "brigand_thug",
+    "lower_brigand_raider"
+   ]
+  },
+  {
+   "key": "ours.board_mix",
+   "ok": true,
+   "kind": "record",
+   "quote": true,
+   "value": {
+    "families": {
+     "city": [
+      "subs",
+      "suburb_stem",
+      "corner",
+      "cornerw",
+      "lots",
+      "culdesac",
+      "strip",
+      "ruin",
+      "freeway",
+      "main",
+      "works"
+     ],
+     "edge": [
+      "scrub",
+      "wash",
+      "landfill",
+      "shore"
+     ]
+    },
+    "weights": {
+     "city": 3,
+     "edge": 1
+    },
+    "kinds_per_board": [
+     2,
+     3
+    ],
+    "aliases": {
+     "suburb": [
+      "subs",
+      "suburb_stem",
+      "corner",
+      "cornerw"
+     ]
+    }
+   }
+  },
+  {
+   "key": "ours.night_lights",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "lit_tile_plays_as_day": true
+   }
+  },
+  {
+   "key": "ours.start_cols",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": [
+    7,
+    12
+   ]
+  },
+  {
+   "key": "ours.board_tiles",
+   "ok": true,
+   "kind": "other",
+   "quote": true,
+   "value": [
+    20,
+    15
+   ]
+  },
+  {
+   "key": "ours.night",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": false
+  },
+  {
+   "key": "ours.crew",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": [
+    {
+     "name": "YOU",
+     "main": true,
+     "background": "sellsword",
+     "jobs": [
+      "pipe",
+      "car_door"
+     ],
+     "body": "padded_surcoat",
+     "head": "open_leather_cap"
+    },
+    {
+     "name": "DESI",
+     "background": "militia",
+     "jobs": [
+      "pipe",
+      "car_door"
+     ],
+     "body": "gambeson",
+     "head": "hood"
+    },
+    {
+     "name": "RAUL",
+     "background": "brawler",
+     "jobs": [
+      "sledge"
+     ],
+     "body": "padded_vest",
+     "head": "leather_headband"
+    },
+    {
+     "name": "TINA",
+     "background": "retired_soldier",
+     "jobs": [
+      "pipe",
+      "car_door"
+     ],
+     "body": "padded_surcoat",
+     "head": "aketon_cap"
+    },
+    {
+     "name": "BOOKIE",
+     "background": "thief",
+     "jobs": [
+      "pistol"
+     ],
+     "body": "leather_tunic",
+     "head": "hood"
+    },
+    {
+     "name": "OSO",
+     "background": "miner",
+     "jobs": [
+      "sledge"
+     ],
+     "body": "thick_tunic",
+     "head": "open_leather_cap"
+    },
+    {
+     "name": "MARISOL",
+     "background": "hunter",
+     "jobs": [
+      "rifle"
+     ],
+     "body": "leather_tunic",
+     "head": "hunter_s_hat"
+    },
+    {
+     "name": "CHEWY",
+     "background": "butcher",
+     "jobs": [
+      "pipe",
+      "car_door"
+     ],
+     "body": "butcher_s_apron",
+     "head": "hood"
+    },
+    {
+     "name": "LUPE",
+     "background": "poacher",
+     "jobs": [
+      "rifle"
+     ],
+     "body": "leather_tunic",
+     "head": "hood"
+    },
+    {
+     "name": "GRIZ",
+     "background": "caravan_hand",
+     "jobs": [
+      "pipe",
+      "car_door"
+     ],
+     "body": "padded_vest",
+     "head": "aketon_cap"
+    },
+    {
+     "name": "DEUCE",
+     "background": "gambler",
+     "jobs": [
+      "bottles"
+     ],
+     "body": "leather_tunic",
+     "head": "feathered_hat"
+    },
+    {
+     "name": "NENA",
+     "background": "daytaler",
+     "jobs": [
+      "shotgun"
+     ],
+     "body": "thick_tunic",
+     "head": "straw_hat"
+    }
+   ]
+  },
+  {
+   "key": "ours.field_size",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": 12
+  },
+  {
+   "key": "ours.board_fit",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "margin": 1,
+    "big_parties": 3
+   }
+  },
+  {
+   "key": "deployment.min_gap_between_lines_hexes",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 5
+  },
+  {
+   "key": "ours.formation",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "slots_per_row": 9
+   }
+  },
+  {
+   "key": "ours.formation_depth_lines",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 2
+  },
+  {
+   "key": "fatigue.recovery_per_turn",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 15
+  },
+  {
+   "key": "initiative_and_turn_order.wait_penalty_next_round",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -0.25
+  },
+  {
+   "key": "initiative_and_turn_order.adrenaline",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 2000
+  },
+  {
+   "key": "initiative_and_turn_order.fleeing_turn_order",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -1000
+  },
+  {
+   "key": "parsed.morale_stop_fleeing",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "per_round": 2
+   }
+  },
+  {
+   "key": "zone_of_control.height_gap_breaks_zoc_levels",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 2
+  },
+  {
+   "key": "zone_of_control.radius_hexes",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "morale.state_multipliers",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "Confident": {
+     "resolve": null,
+     "melee_skill": 1.1,
+     "ranged_skill": 1.1,
+     "melee_defense": 1.1,
+     "ranged_defense": 1.1
+    },
+    "Steady": {},
+    "Wavering": {
+     "resolve": 0.9,
+     "melee_skill": 0.9,
+     "ranged_skill": 0.9,
+     "melee_defense": 0.9,
+     "ranged_defense": 0.9
+    },
+    "Breaking": {
+     "resolve": 0.8,
+     "melee_skill": 0.8,
+     "ranged_skill": 0.8,
+     "melee_defense": 0.8,
+     "ranged_defense": 0.8
+    },
+    "Fleeing": {
+     "resolve": 0.7,
+     "melee_skill": 0.7,
+     "ranged_skill": 0.7,
+     "melee_defense": 0.7,
+     "ranged_defense": 0.7
+    }
+   }
+  },
+  {
+   "key": "hit_chance.defense_soft_cap",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "threshold": 50,
+    "over_threshold_multiplier": 0.5
+   }
+  },
+  {
+   "key": "ours.cover_tile_blocks_line",
+   "ok": true,
+   "kind": "other",
+   "quote": true,
+   "value": false
+  },
+  {
+   "key": "hit_chance.height.melee_max_height_gap",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "hit_chance.height.ranged_range_per_level",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "hit_chance.terrain_swamp",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "melee_skill": 0.75,
+    "melee_defense": 0.75,
+    "ranged_defense": 0.75
+   }
+  },
+  {
+   "key": "hit_chance.surround.backstabber",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 10
+  },
+  {
+   "key": "hit_chance.surround.per_extra_adjacent",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 5
+  },
+  {
+   "key": "hit_chance.night.multiplier",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 0.7
+  },
+  {
+   "key": "hit_chance.ranged.distance.crossbow_shoot_bolt",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "per_hex": -3,
+    "base_bonus": 15,
+    "base_bonus_spiked_impaler": 10
+   }
+  },
+  {
+   "key": "parsed.handgonne",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "per_hex": -10,
+    "base_bonus": 10,
+    "ignores_line_of_fire": true
+   }
+  },
+  {
+   "key": "parsed.throw_axe",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "per_hex": -10,
+    "base_bonus": 20,
+    "free_tiles": 2
+   }
+  },
+  {
+   "key": "hit_chance.ranged.distance.bow_quick_shot",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "per_hex": -4,
+    "base_bonus": 0
+   }
+  },
+  {
+   "key": "hit_chance.ranged.cover_bullseye",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 0.5
+  },
+  {
+   "key": "hit_chance.ranged.cover_line_of_fire_blocked",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -0.75
+  },
+  {
+   "key": "hit_chance.height.higher_attacker_bonus",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 10
+  },
+  {
+   "key": "hit_chance.height.lower_attacker_penalty",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -10
+  },
+  {
+   "key": "hit_chance.cap",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "min": 5,
+    "max": 95
+   }
+  },
+  {
+   "key": "ours.cover_defence",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": {
+    "melee_per_piece": 5,
+    "ranged_per_piece": 10,
+    "max_pieces": 3
+   }
+  },
+  {
+   "key": "head_and_critical.base_head_chance_pct",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 25
+  },
+  {
+   "key": "damage.remaining_armor_reduction",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 0.1
+  },
+  {
+   "key": "head_and_critical.head_damage_multiplier",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1.5
+  },
+  {
+   "key": "fatigue.on_dodge_or_block",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 2
+  },
+  {
+   "key": "fatigue.on_struck_by_mace",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "one_handed_mace": 10,
+    "two_handed_mace": 20
+   }
+  },
+  {
+   "key": "fatigue.on_struck",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 5
+  },
+  {
+   "key": "parsed.morale_struck",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "threshold_hp": 15,
+    "per_missing_hp_fraction": -40
+   }
+  },
+  {
+   "key": "injuries_and_death.temp_injury_min_damage",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 10
+  },
+  {
+   "key": "injuries_and_death.temp_injury_multipliers",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "crippling_strikes_inflict": 0.66,
+    "iron_jaw_receive": 1.25,
+    "head_hit_bonus": 1.25
+   }
+  },
+  {
+   "key": "ours.main_character_dies",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": false
+  },
+  {
+   "key": "ours.struck_down_death_chance",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": 0.2
+  },
+  {
+   "key": "ours.struck_down_laid_up_days",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": [
+    30,
+    40
+   ]
+  },
+  {
+   "key": "experience.kill_split",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "killer": 0.2,
+    "shared_among_party": 0.8
+   }
+  },
+  {
+   "key": "experience.global_modifier",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -0.15
+  },
+  {
+   "key": "experience.level_table_total_xp",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "2": 200,
+    "3": 500,
+    "4": 1000,
+    "5": 2000,
+    "6": 3500,
+    "7": 5000,
+    "8": 7000,
+    "9": 9000,
+    "10": 12000,
+    "11": 15000
+   }
+  },
+  {
+   "key": "morale.distance_tables",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "x^2.4": [
+     1,
+     5.28,
+     13.97,
+     27.86,
+     47.59,
+     73.72,
+     106.72,
+     147.03
+    ],
+    "x^3": [
+     1,
+     8,
+     27,
+     64,
+     125,
+     216,
+     343,
+     512
+    ]
+   }
+  },
+  {
+   "key": "parsed.morale_ally_dies",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "base": 20,
+    "per_xp": -0.035,
+    "distance_table": "x^2.4",
+    "distance_sign": 1
+   }
+  },
+  {
+   "key": "parsed.morale_ally_flees",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "base": 30,
+    "per_xp": -0.035,
+    "distance_table": "x^3",
+    "distance_sign": 1
+   }
+  },
+  {
+   "key": "parsed.morale_enemy_dies",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "base": -30,
+    "per_xp": 0.04,
+    "killer_extra": 15,
+    "distance_table": "x^3",
+    "distance_sign": -1
+   }
+  },
+  {
+   "key": "ours.captain_aura",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "resolve_pct": 15,
+    "range_tiles": 5
+   }
+  },
+  {
+   "key": "morale.check_modifiers.allies_adjacent",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 3
+  },
+  {
+   "key": "morale.check_modifiers.enemies_adjacent",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": -3
+  },
+  {
+   "key": "morale.check.cap",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "max": 95,
+    "min": 0
+   }
+  },
+  {
+   "key": "morale.check.step",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": 1
+  },
+  {
+   "key": "morale.rally.rally_the_troops",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "ap": 5,
+    "fatigue": 25,
+    "radius_tiles": 4,
+    "bonus": "0.4 * user's resolve",
+    "penalty_per_tile_if_not_fleeing": -10,
+    "max_state": "Steady",
+    "fleeing_becomes": "Wavering"
+   }
+  },
+  {
+   "key": "morale.check_triggers.brother_at_map_edge",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": {
+    "type": "negative",
+    "modifier": -1000,
+    "result": "Breaking"
+   }
+  },
+  {
+   "key": "ai.tactics.avoid_surround",
+   "ok": true,
+   "kind": "wiki",
+   "quote": true,
+   "value": true
+  },
+  {
+   "key": "ours.beat_bpm",
+   "ok": true,
+   "kind": "ruling",
+   "quote": true,
+   "value": 120
+  }
+ ],
+ "literals": {},
+ "dynamicReads": 1
+}

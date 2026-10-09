@@ -43,14 +43,15 @@ async function fight(F, first) {
   leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.kinds.indexOf(F.board) >= 0 && (deal.al[F.board] || [F.board]).indexOf(deal.lead) >= 0,
     F.board + ': *** THE BOARD IS DEALT FROM MIXED KINDS (sweep L) ***, led by the kind the loop asked for, no block beside its twin', deal.name);
   const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
-    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
+    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, near: FIGHT_UI.near, man: FIGHT_UI.th * FIGHT_UI.zoom * 0.86, w: FIGHT.S.w, h: FIGHT.S.h,
+    bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
     W: innerWidth, avail: innerHeight - document.getElementById('top').offsetHeight - document.getElementById('bot').offsetHeight,
     gap: Math.min.apply(null, FIGHT.alive('you').map(u => Math.min.apply(null, FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))),
     ini: FIGHT.S.order.map(id => FIGHT.byId(id).turnIni) }));
   if (first) await p.screenshot(Object.assign({ path: shot('OPEN') }, SHOT));
   leg(s0.you === OURS.field_size.value, F.board + ': twelve of yours on the field (rule 63b)', s0.you + ' v ' + s0.them);
-  leg(Math.abs(s0.zoom - s0.far) < 1e-6 && s0.bw <= s0.W + 1 && s0.bh <= s0.avail + 1,
-    F.board + ': *** IT OPENS WITH THE WHOLE BOARD ON THE GLASS (rule 62) ***', Math.round(s0.bw) + 'x' + Math.round(s0.bh) + ' in ' + s0.W + 'x' + s0.avail);
+  leg(Math.abs(s0.zoom - s0.near) < 1e-6 && Math.abs(s0.man - 104) <= 2 && s0.w < 20,
+    F.board + ': *** IT OPENS ON YOUR LINE WITH THE MAN AT 112, ON A BOARD CUT TO THE PARTIES (rule 79) ***', 'man ' + Math.round(s0.man) + ' px, board ' + s0.w + 'x' + s0.h + ' houses');
   leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
   leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
   /* YOUR FORMATION (COMBAT [your formation]): the fight waits for his line; a real finger moves a man inside his two
@@ -58,16 +59,18 @@ async function fight(F, first) {
   const ready = await until(() => FIGHT.S.deploy && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil, 8000);
   await p.waitForTimeout(600);
   const d0 = await ev(() => ({ acted: FIGHT.S.log.filter(e => e.t === 'step' || e.t === 'attack').length, label: document.getElementById('bend').textContent.trim(),
-    fits: FIGHT_UI.board.height * FIGHT_UI.zoom <= innerHeight - TOPH - BOTH + 1 }));
-  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.fits, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, his two columns fit the glass top to bottom',
-    d0.acted + ' moves, the button reads ' + d0.label + (d0.fits ? ', the columns fit' : ', CUT'));
+    man: Math.abs(FIGHT_UI.zoom - FIGHT_UI.near) < 1e-6 }));
+  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.man, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, and he sets it at the man\'s size (rules 21, 79: a drag pans the columns)',
+    d0.acted + ' moves, the button reads ' + d0.label + (d0.man ? ', the man at 112' : ', ZOOMED OUT'));
   if (first) {
     const scr = (x, y) => ev((q) => ({ x: (q[0] - FIGHT_UI.cx) * FIGHT_UI.zoom + innerWidth / 2, y: (q[1] - FIGHT_UI.cy) * FIGHT_UI.zoom + TOPH + (innerHeight - TOPH - BOTH) / 2 }), [x, y]);
     const plan = await ev(() => { const S = FIGHT.S, z = FIGHT._t.zoneCols(), u = FIGHT.alive('you')[0]; let t = null, out = null;
       for (let y = 0; y < S.h && !t; y++) for (const x of z) if (FIGHT._t.passable(x, y) && !S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y)) { t = { x, y }; break; }
       for (let y = 0; y < S.h && !out; y++) { const x = Math.max.apply(null, z) + 2; if (FIGHT._t.passable(x, y) && !S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y)) out = { x, y }; }
       return { id: u.id, from: [u.x, u.y], to: t, out, tw: FIGHT_UI.tw, th: FIGHT_UI.th }; });
-    const tapTile = async (x, y, dy) => { const q = await scr((x + .5) * plan.tw, (y + (dy || .5)) * plan.th); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(250); };
+    /* at the man's size the zone is bigger than the glass (rule 79): pan to the tile first, as his drag would, then tap it */
+    const tapTile = async (x, y, dy) => { await ev(q => { FIGHT_UI.glide = null; FIGHT_UI.cx = (q[0] + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (q[1] + .5) * FIGHT_UI.th; }, [x, y]);
+      await p.waitForTimeout(120); const q = await scr((x + .5) * plan.tw, (y + (dy || .5)) * plan.th); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(250); };
     await tapTile(plan.from[0], plan.from[1], .6); if (plan.out) await tapTile(plan.out.x, plan.out.y);
     const stay = await ev(id => { const u = FIGHT.byId(id); return [u.x, u.y]; }, plan.id);
     await tapTile(plan.to.x, plan.to.y);
@@ -128,29 +131,30 @@ async function fight(F, first) {
       S.terrain = S.terrain.map(r => r.map(() => 'flat')); S.solid = S.solid.map(r => r.map(() => false));
       S.coverCount = S.coverCount.map(r => r.map(() => 0));
       S.units.forEach(u => { if (u !== a && es.indexOf(u) < 0) u.fled = true; });
-      const cx0 = 10; for (let y = 0; y < S.h; y++) if (y !== 7 && y !== 8) S.terrain[y][cx0] = 'blocked';
-      a.x = cx0 - 3; a.y = 7;
-      const goal = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, 7)] !== undefined || f.best[f.key(cx0 + 3, 8)] !== undefined; };
-      es[0].x = cx0; es[0].y = 7; es[1].x = 0; es[1].y = 0;
+      /* the corridor in the middle of whatever board the fight has (rule 79 cuts it to the parties) */
+      const cx0 = Math.floor(S.w / 2), Y = Math.floor(S.h / 2) - 1; for (let y = 0; y < S.h; y++) if (y !== Y && y !== Y + 1) S.terrain[y][cx0] = 'blocked';
+      a.x = cx0 - 3; a.y = Y;
+      const goal = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, Y)] !== undefined || f.best[f.key(cx0 + 3, Y + 1)] !== undefined; };
+      es[0].x = cx0; es[0].y = Y; es[1].x = 0; es[1].y = 0;
       const one = goal();
-      const own = FIGHT.reach(a, 99, true); const ownTile = own.best[own.key(cx0, 7)] === undefined;
-      es[1].x = cx0; es[1].y = 8;
+      const own = FIGHT.reach(a, 99, true); const ownTile = own.best[own.key(cx0, Y)] === undefined;
+      es[1].x = cx0; es[1].y = Y + 1;
       const two = goal();
-      es[1].x = cx0 + 1; es[1].y = 8; es[0].x = cx0; es[0].y = 7;
-      const diag = FIGHT._t.squeezes(cx0, 8, cx0 + 1, 7);
+      es[1].x = cx0 + 1; es[1].y = Y + 1; es[0].x = cx0; es[0].y = Y;
+      const diag = FIGHT._t.squeezes(cx0, Y + 1, cx0 + 1, Y);
       /* PASS ONE OF YOUR OWN, NEVER TWO (rule 70): a one-wide lane two houses long, cut through the block */
       es.forEach(e => { e.x = 0; e.y = 0; e.fled = true; });
-      for (let y = 0; y < S.h; y++) { S.terrain[y][cx0] = y === 7 ? 'flat' : 'blocked'; S.terrain[y][cx0 + 1] = y === 7 ? 'flat' : 'blocked'; }
+      for (let y = 0; y < S.h; y++) { S.terrain[y][cx0] = y === Y ? 'flat' : 'blocked'; S.terrain[y][cx0 + 1] = y === Y ? 'flat' : 'blocked'; }
       const pals = S.units.filter(u => u.side === 'you' && u !== a).slice(0, 2);
-      const far = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, 7)] !== undefined; };
+      const far = () => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0 + 3, Y)] !== undefined; };
       pals.forEach(m => { m.fled = false; m.x = 0; m.y = S.h - 1; });
-      pals[0].x = cx0; pals[0].y = 7; pals[1].x = 1; pals[1].y = S.h - 1;
+      pals[0].x = cx0; pals[0].y = Y; pals[1].x = 1; pals[1].y = S.h - 1;
       const throughOne = far();
-      const standOn = (() => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0, 7)] === undefined; })();
-      pals[1].x = cx0 + 1; pals[1].y = 7;
+      const standOn = (() => { const f = FIGHT.reach(a, 99, true); return f.best[f.key(cx0, Y)] === undefined; })();
+      pals[1].x = cx0 + 1; pals[1].y = Y;
       const throughTwo = far();
       pals.forEach(m => { m.x = 0; m.y = 0; m.fled = true; });
-      es[0].fled = false; es[0].x = cx0; es[0].y = 7;
+      es[0].fled = false; es[0].x = cx0; es[0].y = Y;
       const throughFoe = far();
       S.terrain = keep.terrain; S.solid = keep.solid; S.coverCount = keep.cnt; keep.units.forEach(k => { k[0].x = k[1]; k[0].y = k[2]; k[0].fled = k[3]; });
       return { one, two, ownTile, diag, throughOne, standOn, throughTwo, throughFoe };
@@ -643,7 +647,29 @@ async function enemyParts() {
   leg(sheet.every(x => x[1]) && [thug, mk, rd, L].every(() => true), 'Grok\'s hit sheet (GROK_110) is all in rules.json, each from the wiki', sheet.map(x => x[0] + (x[1] ? '' : ' MISSING')).join('; '));
 }
 
+/* THE BOARD FITS THE PARTY (rule 79, Paolo 10/9: 'the actual combat map doesn't need to be so big... unless it's an
+   endgame battle or three raiding parties... I want to see it more zoomed in'): a day-1 party of three gets a board under
+   ten houses wide, cut from the dealt board, the lines still five apart and joined, the man at 112; three parties or the
+   endgame keep the full 20 by 15. */
+async function boardFits() {
+  const look = async (extra) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:5,speed:1,kind:"suburb"' + extra + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1500);
+    const r = await d.page.evaluate(() => { const S = FIGHT.S; return { w: S.w, h: S.h, crop: !!S.crop, man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * 0.86), near: Math.abs(FIGHT_UI.zoom - FIGHT_UI.near) < 1e-6,
+      gap: Math.min(...FIGHT.alive('you').map(u => Math.min(...FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))), joined: FIGHT._t ? true : false,
+      onBoard: S.units.every(u => u.x >= 0 && u.y >= 0 && u.x < S.w && u.y < S.h), kinds: S.boardDef.kinds, wide: FIGHT_UI.board.width === Math.round(FIGHT_UI.tw * S.w) }; });
+    r.err = d.errs[0]; await d.close(); return r; };
+  const one = await look(',party:{faction:"brigands",count:3,days:1,difficulty:1}');
+  const three = await look(',party:{faction:"brigands",count:10,days:30,difficulty:1,parties:3}');
+  const end = await look(',endgame:true');
+  leg(one.w < 10 && one.crop && one.near && Math.abs(one.man - 104) <= 2 && one.gap >= 5 && one.onBoard && one.wide && !one.err,
+    '*** A DAY-1 PARTY OF THREE OPENS ON A BOARD UNDER TEN WIDE, THE MAN AT 112 *** (rule 79): cut from the dealt board, the lines five apart, everybody on it',
+    one.w + 'x' + one.h + ' houses, man ' + one.man + ' px, gap ' + one.gap + ', ' + one.kinds.join(' + '));
+  leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
+}
+
 (async () => {
+  await boardFits();
   await enemyParts();
   await weaponCards();
   await enemyMath();

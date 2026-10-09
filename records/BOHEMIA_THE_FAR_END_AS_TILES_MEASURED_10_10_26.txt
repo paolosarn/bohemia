@@ -1,0 +1,80 @@
+THE FAR END AS TILES -- MEASURED  (COOK, 10/10/26, rules 65, 60, 77)
+==============================================================================
+
+ROUND 1 PAINTED A SHEET AND NOTHING IN THE REPO PICKED IT UP. That is where
+this round started: a thing nobody can use is not shipped, whatever its guards
+said. So the first job was to find out why, in the shipped map, not by guessing.
+
+*** WHAT THE MAP ACTUALLY DRAWS (engine/bohemia_valleymap.js) ***
+  paintCell   one overmap cell into 128 x 128. A district kit paints its real
+              block grid. A ROAD cell FILLS ALL 128 x 128 WITH TARMAC and rules
+              lane lines on it. A TERRAIN cell -- mountain, desert, wash, every
+              piece of land in the valley -- fills ONE FLAT COLOUR and throws
+              ninety random translucent rectangles on top.
+  paintValley "THE WHOLE VALLEY, one flat image at 1 pixel per cell."
+
+  SO THE FAR END IS 9,216 PIXELS, scaled up to fill his phone.
+  Battle Brothers is 2,073,600. THAT IS 0.44% OF BATTLE BROTHERS, and rule 60 is him
+  asking for that number since 10/1. There is no mountain painting in the map at
+  all, only a fill and a speckle, which is why the valley reads as a tan dome. It
+  was never going to be fixed by a better flat colour.
+
+AND THE ROAD CELL IS THE SAME CATEGORY ERROR THIS LANE MADE AND CAUGHT IN ITS OWN
+FIRST SHEET LAST ROUND: a cell is 96 m of world saying a road runs through it,
+not 96 m of tarmac. Filled solid, 2,543 arterials make a printed circuit board. I
+fixed that in my sheet and then found the shipped map does it too.
+
+*** SO ROUND 2 IS NOT ANOTHER SHEET. *** A single big picture asks RUN to throw
+away a per-cell painter and composite an image: a rewrite on their side, and
+seed-locked on mine. What drops into the painter they already have is TILES.
+
+WHY SIXTEEN PIXELS A CELL, AND IT IS NOT A TASTE:
+  96 cells x 16 px = 1,536, and 1,536 squared is 2,359,296.
+  That is the smallest whole number of pixels per cell that puts THE WHOLE VALLEY
+  ON ONE SCREEN AT BATTLE BROTHERS' COUNT. Fifteen just clears it; sixteen is the
+  power of two above. It is 256 times the 9,216 the map draws now.
+
+*** CUT FROM ONE PAINTING, WHICH IS WHAT MAKES THEM JOIN (rule 77). ***
+  Paolo 10/5: "the tiles aren't speaking to each other... these things should
+  conjoin easily like Legos". The cheap way is to draw each tile alone and hope.
+  This paints the WHOLE valley once with round 1's own brushes -- ridged folded
+  noise for the ranges shaded by slope under one sun, alluvial fans off the
+  mountain mask, braided washes, the city's grain -- and CUTS it on the cell
+  grid. Tiles cut from one painting meet by construction.
+  AND THE GATE MEASURES IT ANYWAY, laid from the set alone: the seams jump
+  26 down and 35 across, against 14 inside the tiles themselves.
+
+THE SET: 1115 tiles over 565 signatures, one per (what the cell is, and what runs
+out of its four sides). Edge types: range, basin, wash, water, road, spine,
+runway, yard, field, city.
+
+HOW RUN USES IT, IN ONE LINE: paintCell stamps the tile whose (self,N,E,S,W)
+matches the cell and its four neighbours, instead of filling flat. Nothing about
+the loop changes. The bank carries that sentence in its own how_to_use field.
+
+THE GUARDS, EVERY ONE RUN, EVERY ONE ABLE TO REFUSE THE BUILD:
+  OK   BATTLE BROTHERS ON ONE SCREEN: a cell is 16 painted pixels, so the whole valley is 1536 x 1536 = 2,359,296, against their 2,073,600
+  OK   AND IT IS 256 TIMES WHAT THE MAP DRAWS NOW: paintValley is one pixel per cell, 9,216 pixels for the whole valley, which is 0.44% of Battle Brothers
+  OK   EVERY TILE CARRIES RULE 77'S FOUR TYPED EDGES, AND A LAND EDGE CARRIES ITS VALUE BAND TOO: 9216 tiles cut, 565 distinct signatures in the set
+  OK   THE SET LAYS EVERY CELL OF ITS OWN FAMILIES: 0 cells had no tile in the set
+  OK   TILES ARE LEGOS, MEASURED, BASIN  : 310 joins, seam 16.8 against 12.6 inside
+  OK   TILES ARE LEGOS, MEASURED, FIELD  : 571 joins, seam 11.0 against 9.1 inside
+  OK   TILES ARE LEGOS, MEASURED, ROAD   : 4566 joins, seam 22.8 against 16.6 inside
+  OK   TILES ARE LEGOS, MEASURED, SPINE  : 115 joins, seam 10.4 against 9.6 inside
+  OK   TILES ARE LEGOS, MEASURED, WASH   : 54 joins, seam 22.3 against 12.6 inside
+  OK   TILES ARE LEGOS, MEASURED, WATER  : 127 joins, seam 11.1 against 10.0 inside
+  OK   TILES ARE LEGOS, MEASURED, YARD   : 10 joins, seam 11.4 against 9.6 inside
+  OK   AND THE FAMILIES THAT CANNOT TILE ARE NAMED AND LEFT TO THE BRUSH, not shipped as a set that seams: CITY 21.9/10.0, RANGE 21.7/10.6, RUNWAY 22.4/10.4
+  OK   EVERY PIXEL IS ON THIS LANE'S OWN APPROVED VALLEY RAMPS (checked on the paint, before the camera grade is baked in)
+  OK   AND IT BEATS THE FAR END HE PINCHES OUT TO: theirs scaled to the same size runs 40.7 x 42.1, these tiles run 1.06 x 1.07, against DIRECTION's floor of 1.5
+  OK   NO TWO VARIANTS OF A SIGNATURE ARE THE SAME PICTURE (270 signatures carry more than one; 0 duplicate pairs)
+  OK   A RIDGE IS NOT A TILE, AND THE BUILD AGREES: 0 range signatures in the set, and the ranges come back from the brush in place
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/
+  01_WORLDMAP.md, the WORLD MAP and TERRAIN lines: BB's map is hand-authored
+  terrain art at the screen's own pixels, and you read forest from hills from
+  swamp across the room without a legend. Ours is 9,216 pixels of flat fill and
+  speckle, which is the whole gap in one number. WHAT MOVES THAT THEIR PICTURE
+  DOES NOT: BB's terrain tiles are drawn once for one fixed world. Ours are CUT
+  FROM A PAINTING OF THE VALLEY THE ENGINE ROLLED, so the ranges that meet across
+  a seam are the same range, and the same brushes cut a different set next seed.

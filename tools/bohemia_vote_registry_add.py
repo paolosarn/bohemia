@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-barber-10-1'
+MINE_ID = 'character-the-enemy-tiers-dressed-10-9'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "outfit", "lane": "character",
-  "sha": "pending", "made": "10/1",
-  "title": "THE BARBER",
-  "why": "You said you want to change your look at the barber and it should cost a battery. The settlement screen and the barber building itself are a different job, not built yet. What I show here is the two pieces that are mine: the cost, tested with real numbers (a visit really takes one battery, being broke really stops it), and the two editors a barber visit is for, really opening from a real tap, not a mockup. Left is before, closed. Then one tap on your own face opens the face editor. Then one tap on the hair shelf opens the haircut bank, twelve cuts on it today. New hairstyles are a separate job, coming next.",
+  "sha": "pending", "made": "10/9",
+  "title": "THE ENEMY TIERS DRESSED",
+  "why": "Six kinds of enemy in combat's new fight, dressed in the gang clothes combat already picked, light ones unchanged and the two toughest carrying real armor pieces. Thumbs up, and you see it in the VOTE tab and in the fight once combat wires it in.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_THE_BARBER.html"
+    "src": "vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
