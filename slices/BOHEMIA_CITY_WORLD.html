@@ -43509,7 +43509,7 @@ function vistaBackdrop(plateTop){
    SO A GLIDE LASTS AS LONG AS THE GAP BETWEEN STEPS, capped at one beat: at 1x that
    is exactly the beat it always was, and at 5x each glide ends as the next begins,
    so fast travel is one constant slide too. The beat stays in the hop. */
-var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0,dur:0,last:-1e9};
+var CITY_GLIDE={fx:null,fy:null,tx:null,ty:null,t0:0,raf:0,dur:0,last:-1e9,n:0};
 function cityGlideAt(G,now){
   const u=Math.max(0,Math.min(1,(now-G.t0)/(G.dur||BEAT)));
   return {x:G.fx+(G.tx-G.fx)*u, y:G.fy+(G.ty-G.fy)*u, u:u};
@@ -43524,6 +43524,7 @@ function cityGlidePos(now){
     G.tx=city.x; G.ty=city.y; G.t0=now;
     /* a far jump is a cut, not a step: it must not set the pace for the step after it */
     G.dur=Math.max(50,Math.min(BEAT,now-G.last)); G.last=far?-1e9:now;
+    G.n=(G.n|0)+(far?0:1);   /* __THE_PARTIES_WALK__: steps taken, so the stride carries across steps */
   }
   const p=cityGlideAt(G,now);
   /* keep drawing until it lands: the city otherwise redraws on the beat, and a
@@ -43532,6 +43533,27 @@ function cityGlidePos(now){
     try{ if(typeof MODE!=='undefined'&&MODE==='city') render(); }catch(_e){} }); }
   return p;
 }
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rule 68: every party on the map is drawn and
+   moving). A party's cell changed on the clock and it was drawn at the new cell on the next frame: the
+   boom boom boom of 9/27 again, for everybody but him. Each party now glides exactly as he does (the gap
+   between its steps, capped at a beat; a far jump is a cut), keyed by its own id, and counts its steps so
+   its stride carries across them. When the clock stops, nobody steps, and they stand and breathe. */
+var PARTY_GLIDE = {};
+function partyGlidePos(key, x, y, now){
+  var G = PARTY_GLIDE[key];
+  if (!G) { G = PARTY_GLIDE[key] = { fx: x, fy: y, tx: x, ty: y, t0: now - BEAT, dur: BEAT, last: -1e9, n: 0 }; }
+  if (x !== G.tx || y !== G.ty) {
+    var cur = cityGlideAt(G, now);
+    /* A PARTY CAN COVER TWO BLOCKS IN ONE TICK (a Mob patrol went 41,29 -> 39,27, measured 10/9), so his own
+       cut line (2.5, one step) snapped it; a party's cut is MORE THAN THREE BLOCKS any way (home, a camp) */
+    var far = Math.max(Math.abs(x - cur.x), Math.abs(y - cur.y)) > 3;
+    G.fx = far ? x : cur.x; G.fy = far ? y : cur.y; G.tx = x; G.ty = y; G.t0 = now;
+    G.dur = Math.max(50, Math.min(BEAT, now - G.last)); G.last = far ? -1e9 : now; G.n += far ? 0 : 1;
+  }
+  var p = cityGlideAt(G, now); p.n = G.n; return p;
+}
+/* the stride: ANIMBEATS.walk is 2, so one walk cycle is two steps; half of it per step, carried across */
+function strideOf(p){ return (p && p.u < 1) ? (((p.n | 0) % 2) * 0.5 + p.u * 0.5) : null; }
 /* ==== __THE_MAP_HAS_ITS_PEOPLE__ (RUN, 9/29/26, VAMILY [bb map] + [map pixels], rule 40f) ====
    PAOLO 9/29, with a screenshot of this screen: "I should def be seeing the player
    character on this screen bro all those little circles should be icons or people and
@@ -43653,6 +43675,7 @@ function mapPartyLook(p){
 }
 /* HIS FACING ON THE MAP, from the last block he crossed (DIRS index -> screen compass). */
 var MAP_FACE_OF = { '1,0':'SE', '0,1':'SW', '1,1':'S', '1,-1':'E', '-1,0':'NW', '0,-1':'NE', '-1,-1':'N', '-1,1':'W' };
+var MAP_VEC_OF = {}; for (var __k in MAP_FACE_OF) MAP_VEC_OF[MAP_FACE_OF[__k]] = __k.split(',').map(Number);   /* __THE_PARTIES_WALK__: the facing, back to a step */
 function mapFaceNow(){
   try { if (typeof ROAD_LASTDIR === 'number' && DIRS[ROAD_LASTDIR]) {
     var d = DIRS[ROAD_LASTDIR]; return MAP_FACE_OF[d[0] + ',' + d[1]] || 'S'; } } catch (_e) {}
@@ -43713,9 +43736,11 @@ function mapFactionColour(faction){
 }
 function mapHash(a, b){ var h = (a * 73856093) ^ (b * 19349663); h = (h ^ (h >>> 13)) >>> 0; return h; }
 /* one of the cast, standing with his feet on the point, breathing on the beat */
-function mapPersonDraw(set, face, beat, sx, footY){
+function mapPersonDraw(set, face, beat, sx, footY, walkPh){
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
+  /* __THE_PARTIES_WALK__: on the move, the stride's own picture (one stride = two steps of the glide) */
+  if (walkPh != null && f.walk && f.walk.length) { fr = f.walk[Math.floor((((walkPh % 1) + 1) % 1) * f.walk.length) % f.walk.length]; if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.walking = (MAP_DREW.art.walking | 0) + 1; }
   var s56 = 56 / Math.max(56, fr.width);   /* a 112 body is drawn at the size a 56 one was: one art pixel to one device pixel on a 3x phone */
   var w = fr.width * s56 * MAP_PERSON_K * MAP_PEOPLE_K, h = fr.height * s56 * MAP_PERSON_K * MAP_PEOPLE_K;
   g.fillStyle = 'rgba(10,8,6,0.45)';
@@ -43754,14 +43779,15 @@ function mapPartyFace(p){
   var dx = Math.sign((t.x | 0) - (at.x | 0)), dy = Math.sign((t.y | 0) - (at.y | 0));
   return MAP_FACE_OF[dx + ',' + dy] || 'S';
 }
-function mapPartyDraw(p, idx, sx, footY, beat){
+function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   if (!mapCastOf(0)) return false;
   var fac = p && p.from && p.from.faction;
   var base = mapHash(String(fac || '').length * 31 + idx, idx * 7 + 3);
   var face = mapPartyFace(p);
   var kp = MAP_PEOPLE_K;
-  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp);
-  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3 * kp, footY + kp);
+  /* the second man is half a stride out of step with the leader: two men never walk as one */
+  mapPersonDraw(mapCastOf(base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp, walkPh == null ? null : walkPh + 0.5);
+  var lead = mapPersonDraw(mapCastOf(base), face, beat, sx - 3 * kp, footY + kp, walkPh);
   mapFlagDraw(sx - 11 * kp, footY + kp, (lead ? lead.h : 30 * kp) + 8 * kp, mapFactionColour(fac), beat, true);
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
@@ -45383,6 +45409,7 @@ function renderCity(){
      alignment) and the BANNER says whose (engine/BOHEMIA_faction_graph.json, via COOK's
      bank). So the trail stays, and at its bright end the party now stands, banner up,
      stepping on its own beat. Volume 01: "parties within sight... you can see their banner." */
+  var __partyMoving = false;
   try {
     var __pp = partiesAll() || [];
     for (var __pi2 = 0; __pi2 < __pp.length; __pi2++) {
@@ -45393,12 +45420,15 @@ function renderCity(){
       if (__q.from && !__q.arrived && Math.max(Math.abs((__q.at.x | 0) - (__q.from.x | 0)), Math.abs((__q.at.y | 0) - (__q.from.y | 0))) < 2) continue;
       /* 10/1: within a block of home they are still IN the town: drawn as people under flags they
          piled onto the base and hid it (photographed). Two blocks out, they are on the road. */
-      var __qp = iso(__q.at.x | 0, __q.at.y | 0, ox, oy);
+      var __gq = partyGlidePos(__q.id != null ? __q.id : ('i' + __pi2), __q.at.x | 0, __q.at.y | 0, performance.now());   /* __THE_PARTIES_WALK__ */
+      if (__gq.u < 1) __partyMoving = true;
+      try { (MAP_DREW.partyAt = MAP_DREW.partyAt || {})[__q.id != null ? __q.id : ('i' + __pi2)] = [__gq.x, __gq.y]; } catch (_e) {}   /* where it was DRAWN, for the gate */
+      var __qp = iso(__gq.x, __gq.y, ox, oy);
       if (__qp.sx < -30 || __qp.sx > CVW + 30 || __qp.sy < -30 || __qp.sy > CVH + 40) continue;
       var __look = mapPartyLook(__q);
       var __qy = __qp.sy + TH / 2;
       /* __THE_ICONS_ARE_THE_GAME'S_OWN_ART__: two of the cast under their flag; COOK's shape until they arrive */
-      if (!mapPartyDraw(__q, __pi2, __qp.sx, __qy + 2, mapArtBeat() + __pi2)) {
+      if (!mapPartyDraw(__q, __pi2, __qp.sx, __qy + 2, mapArtBeat() + __pi2, strideOf(__gq))) {
         g.fillStyle = 'rgba(14,11,8,0.5)';
         g.beginPath(); g.ellipse(__qp.sx, __qy + 1, 11, 3.5, 0, 0, 7); g.fill();
         mapArtDraw(__look.mask, mapArtBeat() + __pi2, __look.banner, __qp.sx, __qy + 2);
@@ -45406,6 +45436,9 @@ function renderCity(){
       MAP_DREW.parties++;
     }
   } catch (_e) {}
+  /* a party mid-glide keeps the map drawing until it lands, the same rule as his own glide */
+  if (__partyMoving && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0;
+    try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} });
   try { loopJobsDraw(ox, oy); } catch (_e) {}   /* __THE_LOOP_ON_THE_MAP__: the JOBs he holds */
   if (!(typeof VISTA!=='undefined' && VISTA)) { try { vbLabels(ox, oy, isNight()); } catch (_e) {} }   /* __THE_VALLEY_HAS_AN_EDGE__: the ranges, the lake and the roads by name, over the walkers, under the place names */
   /* __THE_MAP_IS_HOW_YOU_TRAVEL__ (9/28) -- WHERE HE IS GOING, DRAWN AHEAD OF HIM.
@@ -45470,10 +45503,41 @@ function renderCity(){
       const __face=mapFaceNow();
       const __set=PLAYER_CV&&(PLAYER_CV[__face]||PLAYER_CV.S);
       let __spr=__set&&__set.idle;
+      /* __THE_PARTIES_WALK__: his stride is his glide's (two steps a cycle), so his feet keep pace with the
+         ground at every speed; it was a 125 ms wall clock that ran the same whether he crossed a block a
+         beat or five */
+      const __st=strideOf({u:__G.u,n:CITY_GLIDE.n});
       if(__set&&__moving&&__set.walk&&__set.walk.length)
-        __spr=__set.walk[Math.floor(performance.now()/125)%__set.walk.length];
+        __spr=__set.walk[Math.floor((__st==null?0:__st)*__set.walk.length)%__set.walk.length];
       if(__spr){ __body=spriteAt(__spr,32); __how='rig'; }   /* the 112 box, drawn at half: his 56 on the glass at the rig's own pixels */
     }catch(_e){ __body=null; }
+    /* __THE_PARTIES_WALK__ (rule 65: the party marker is three real dressed people): TWO OF HIS COMPANY walk
+       behind him, a step back along the way he faces and one to each side, out of step with him and with
+       each other, drawn first so he stands in front. They stand and breathe when he stops. */
+    /* (drawn OFF his hop: the hop is his, one per beat; and NEARER than him when he faces away, so then after) */
+    const __company=function(){ try{
+      const __f=mapFaceNow(), __v=MAP_VEC_OF[__f]||[1,1];
+      /* spaced by THE BODY, not the tile: at the opening zoom a tile is a few pixels and a step back by the
+         tile hid them both behind him (looked at, 10/9). The way he faces, on the glass: */
+      let __dx=(__v[0]-__v[1])*TW/2, __dy=(__v[0]+__v[1])*TH/2; const __dl=Math.hypot(__dx,__dy)||1; __dx/=__dl; __dy/=__dl;
+      const __K=Math.max(0.75,MAP_PEOPLE_K), __bx=-__dx*6*__K, __by=-__dy*6*__K;   /* a half step back */
+      const __st2=strideOf({u:__G.u,n:CITY_GLIDE.n});
+      g.translate(0,__lift);
+      [[-1,0.25],[1,0.5]].forEach(function(o,k){
+        const __m=mapCastOf(7+k*3); if(!__m) return;
+        /* and a shoulder to each side, across the way he faces */
+        /* and a shoulder to each side ACROSS THE GLASS, not across his facing: walking down-left, the man at
+           his left shoulder stands exactly behind him from this camera and his body hid him (logged 10/9:
+           (190,376) against his (189,391)). Spread on the screen, all three always read. */
+        const __lx=o[0]*20*__K, __ly=-3*__K;
+        mapPersonDraw(__m,__f,mapArtBeat()+k+1,__gx+__bx+__lx,__gy+__by+__ly,__moving&&__st2!=null?__st2+o[1]:null);
+        MAP_DREW = MAP_DREW || {}; MAP_DREW.company=(MAP_DREW.company|0)+1; (MAP_DREW.companyAt=MAP_DREW.companyAt||[]).push([Math.round(__gx+__bx+__lx),Math.round(__gy+__by+__ly),__f]);
+      });
+      g.translate(0,-__lift);
+      return __by;
+    }catch(_e){ return 0; } };
+    const __companyNear=(function(){ const __v=MAP_VEC_OF[mapFaceNow()]||[1,1]; return (__v[0]+__v[1])<0; })();   /* facing up the glass, the step back is toward you */
+    if(!__companyNear) __company();
     /* THE BANNER FIRST, so his body stands in front of its pole */
     const __flagH = 30;                                   /* the pole, screen px */
     const __px = __gx + 10, __py = __gy;
@@ -45494,6 +45558,7 @@ function renderCity(){
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
     }
+    if(__companyNear) __company();   /* facing away, his company is between him and you */
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}
@@ -67352,6 +67417,26 @@ try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo;
       window.ctActSetName = ctActSetName; window.ctActSetSex = ctActSetSex; } catch (_e) {}
 
 var CAST_CV = null;
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9): the cast's walk, four pictures a facing, sent by
+   the alpha after the boot one look at a time (cityBakeWalkLater). Kept by the look's NAME, never its place in
+   CAST_CV (the __CITY_TRADEFIT__ lesson), and attached to every body wearing that look as it arrives. */
+var CAST_WALK = {};
+function castWalkAttach(){
+  if(!CAST_CV || !CAST_ID) return 0;
+  var n = 0;
+  for(var i = 0; i < CAST_CV.length; i++){
+    var w = CAST_WALK[CAST_ID[i]]; if(!w) continue;
+    for(var d in w) if(CAST_CV[i][d] && !CAST_CV[i][d].walk){ CAST_CV[i][d].walk = w[d]; n++; }
+  }
+  return n;
+}
+window.addEventListener('message', function(ev){
+  var m = ev && ev.data; if(!m || m.type !== 'BOHEMIA_CITY_CAST_WALK' || !m.id || !m.dirs) return;
+  var set = {};
+  for(var d in m.dirs){ var fr = (m.dirs[d] || []).map(decodePlayerFrame).filter(Boolean); if(fr.length) set[d] = fr; }
+  CAST_WALK[m.id] = set;
+  castWalkAttach();
+});
 /* __CITY_TRADEFIT__ -- the NAME of each baked body, parallel to CAST_CV. Null
    until a bake that sends ids lands; an older bake leaves it null and the fit
    picker falls straight back to the hash it used before. */
@@ -67424,6 +67509,7 @@ window.addEventListener('message',function(ev){
       CAST_CV = CAST_CV.concat(out);
       CAST_ID = (CAST_ID || []).concat(ids);
     } else { CAST_CV=out; CAST_ID=ids; }
+    try{ castWalkAttach(); }catch(_e){}   /* __THE_PARTIES_WALK__: a look whose legs came first gets them now */
     if(MODE==='human'||MODE==='city')render();   /* the map's people are the cast too (__THE_ICONS_ARE_THE_GAME'S_OWN_ART__) */
   }
 });

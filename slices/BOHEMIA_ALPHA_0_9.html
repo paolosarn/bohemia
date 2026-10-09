@@ -10903,6 +10903,7 @@ function citySendCast(){
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
   cityBakeRestLater();
+  try{ cityBakeWalkLater(); }catch(_e){}   /* __THE_PARTIES_WALK__ (ANIMATION 10/9): their legs, after the boot */
   return true;
 }
 /* ==== __THE_STREET_IS_SIX_PEOPLE__ -- THE REST OF THE CAST, AFTER THE GAME IS RUNNING.
@@ -10978,6 +10979,52 @@ function cityBakeRestLater(){
   return true;
 }
 if(typeof window!=='undefined') window.cityBakeRestLater=cityBakeRestLater;
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rules 65 and 68: the map's people at 112, the
+   parties roam). The cast came to the map with an idle and a breath and NOTHING ELSE, so every party crossing
+   the valley crossed it standing still and breathing, and his own company was one man. The walk is the rig's
+   own walk clip (ANIMBEATS.walk is 2: one stride a beat), four pictures a facing, baked by the same withLook
+   borrow and bakeCast as the breath, ONE LOOK PER IDLE CALLBACK on the bus cityBakeRestLater proved: measured
+   10/9, a look's eight facings cost ~285 ms (rebuild 40, walk 25 a facing, restore 45), against the 530 ms a
+   rest-of-cast look already costs on the same bus. A look whose walk has not arrived yet keeps breathing:
+   nothing is drawn that was not baked. */
+const CAST_WALK_PHS=[0,0.25,0.5,0.75];
+let CWALK=null;
+function cityBakeWalkLater(){
+  if(CWALK) return false;
+  const all=(window.CITY_CAST_LOOKS||[]).length;
+  if(!all) return false;
+  CWALK={i:0};
+  const idle=(fn)=>(window.requestIdleCallback
+    ? requestIdleCallback(fn,{timeout:4000}) : setTimeout(fn,400));
+  const step=()=>{
+    const fr=document.getElementById('cityFrame');
+    if(!fr||!fr.contentWindow){ CWALK=null; return; }
+    const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
+    if(!src){ CWALK.done=true; return; }
+    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult'}, dirs={};
+    const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
+    const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+    PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+    try{
+      window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+      rebuildFromRig();
+      for(const d of DIRS) dirs[d]=CAST_WALK_PHS.map(ph=>bakeCast(d,'walk',ph,true));
+    }catch(_e){ CWALK=null; return; }
+    finally{
+      /* PUT HIS BODY BACK: the same guarantee citySendCast makes */
+      window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+      for(const s in kE) G.equipped[s]=kE[s];
+      try{ rebuildFromRig(); }catch(_e){}
+      try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+    }
+    try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:L.id,dirs:dirs},'*'); }catch(_e){}
+    CWALK.i++;
+    if(CWALK.i<all) idle(step); else CWALK.done=true;
+  };
+  idle(step);
+  return true;
+}
+if(typeof window!=='undefined') window.cityBakeWalkLater=cityBakeWalkLater;
 /* __CITY_FACTIONBODY__ -- BAKE ONE FACTION LOOK AND POST IT.
    Everything here is citySendCast's own machinery, asked for a single look:
    the same withLook borrow-and-give-back (these are GLOBALS -- leaving one
