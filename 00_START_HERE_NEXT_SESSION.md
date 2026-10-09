@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 (g) LATEST -- [fold the last] SHIPPED: QR-AL, QR-U fully folded into its pages. NOT IN A TAB. Next: [lines 31 and 32].
+
 SOUNDS (sound-xk7pjp): 10/9 LATEST (round eight, [the soundscape] round two) -- ***
 BUYING SOMETHING AT THE SMITH, THE ARMOURER OR THE STALL NOW MAKES A SOUND. ***
 TAB: no new VOTE card; this reuses an already-approved sound, nothing to judge.
