@@ -1862,6 +1862,11 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/9 (b) LATEST -- [glass face] SHIPPED: the family's reshuffle is a drawn arrow on glass under each face, on the demo's map phone.
+MARKS.again (12x12 ring) + mark(k, ink) in bohemia_ui_materials.js; dressPhone puts the reshuffle in a 38x24 strip under the face, the flip keeps 44x56.
+Gate the reshuffle mark 9/0 (ring 13.6/6.4 in the sun; a real finger rerolls without flipping). VOTE ui-the-reshuffle-mark-10-9.
+OPEN: [phone contracts], [landscape], [the roster's look] (UNBLOCKED: RUN TWO's roster screen is on main).
+
 UI (ui-kmqmrf): 10/9 LATEST -- [the phone's look] SHIPPED: the cracked phone on the demo's map, top right.
 dressPhone() in bohemia_ui_materials.js (city file untouched): his crack/chips/island kept, hard edge, CASING hour+handles, ROM posts, brighter ink,
 family faces as cardboard cards (you amber), 44 pt with three unlocked, so the phone is 156 wide (19.5:9 kept). Gate the phone's look 15/0, 6 mutations.

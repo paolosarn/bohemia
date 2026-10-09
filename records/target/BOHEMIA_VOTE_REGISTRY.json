@@ -6169,7 +6169,8 @@
     "how": "image",
     "src": "vote/COMBAT2_THE_FUTURE_BOARDS_10_9.png"
    }
-  }
+  },
+ {"id": "ui-the-reshuffle-mark-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE RESHUFFLE IS AN ARROW", "why": "The little question mark on each family face that gives them a new name is now a drawn try-again arrow on its own glass button under the face, big enough for a thumb, so a tap on the face still switches who you are. You see it on the map, on the phone, under the faces of your family.", "show": {"how": "image", "src": "vote/UI_THE_RESHUFFLE_MARK_10_9.png"}}
  ],
  "verdicts": [
   {

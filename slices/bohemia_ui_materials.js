@@ -81,11 +81,15 @@
     wait: ['000111111000', '001000000100', '010000100010', '100000100001', '100000100001', '100000100001',
            '100000111001', '100000000001', '100000000001', '010000000010', '001000000100', '000111111000'],
     auto: ['000011111000', '000100000110', '001000000111', '010000001111', '010000000000', '100000000000',
-           '000000000001', '000000000010', '111100000010', '111000000100', '011000001000', '000111110000']
+           '000000000001', '000000000010', '111100000010', '111000000100', '011000001000', '000111110000'],
+    /* THE RESHUFFLE (UI [glass face], 10/9): a ring two pixels thick, open at the top right where the arrowhead
+       sits, the turn the name takes when you ask for another. The ROM face has no circular arrow, so it is drawn */
+    again: ['000111100110', '001111111110', '011000011110', '110000011110', '110000000000', '110000000011',
+            '110000000011', '110000000011', '011000000110', '001111111100', '000111111000', '000000000000']
   };
-  function mark(k) {
+  function mark(k, ink) {
     const rows = MARKS[k], c = canvas(36, 36), g = c.getContext('2d');
-    g.fillStyle = '#2a221a';
+    g.fillStyle = ink || '#2a221a';
     rows.forEach(function (r, y) { for (let x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
     return c;
   }
@@ -638,6 +642,14 @@
     + 'html body #actflip .af.now{background:linear-gradient(#f4cf7c,#d9a650);border:0;box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55),0 1px 0 #000}'
     + 'html body #actflip .af.now .afn{color:#120c06} html body #actflip .af.now .afy{color:#3a2208}'
     + 'html body #actflip .af canvas{border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
+    /* THE RESHUFFLE (UI [glass face]): the '?' that stood in for an arrow becomes the drawn ring on a pane of glass, a strip
+       of its own under the face, 24 points tall and the card's width, so it never sits on the face and the flip keeps
+       the whole card above it (44 points and more). The '?' stays in the page for a screen reader, painted at nothing */
+    + 'html body #actflip .af:has(.afr){padding-bottom:31px}'
+    + 'html body #actflip .af .afr{top:auto;left:3px;right:3px;bottom:3px;width:auto;height:24px;box-sizing:border-box;border:1px solid #0d0a07;border-radius:2px;'
+    +   'font-size:0;color:transparent;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.18)}'
+    + 'html body #actflip .af .afr::before{content:"";display:block;width:12px;height:12px;background:var(--bm-mark-again) center/12px 12px no-repeat;image-rendering:pixelated}'
+    + 'html body #actflip .af .afr:active{background:linear-gradient(#f4cf7c,#d9a650)}'
     /* one of you so far: the card reads from the left, the face then the name, never a label centred in a box (71) */
     + 'html body #actflip .af:only-child{display:grid;grid-template-columns:28px auto;grid-template-rows:auto auto;column-gap:8px;row-gap:2px;'
     +   'justify-content:start;justify-items:start;align-content:center;padding:4px 8px}'
@@ -649,7 +661,10 @@
     + 'html body #actedit .aeb.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}';
   function dressPhone() {
     if (!document.getElementById('cityfeed')) return false;
-    rootVars(); style('bm-phone', PHONE_CSS); return true;
+    rootVars();
+    var R = document.documentElement.style;
+    if (!R.getPropertyValue('--bm-mark-again')) R.setProperty('--bm-mark-again', 'url(' + mark('again', '#f2e4c6').toDataURL('image/png') + ')');
+    style('bm-phone', PHONE_CSS); return true;
   }
   function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar(); dressPhone();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
