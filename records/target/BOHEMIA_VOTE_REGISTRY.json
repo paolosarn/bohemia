@@ -5859,6 +5859,21 @@
     "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_CLINIC_10_9.png"
    },
    "draft": true
+  },
+  {
+   "id": "direction-fight-verdict-22-the-freeway-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/9",
+   "title": "FIGHT VERDICT 22: THE FREEWAY AGAINST THE STREET",
+   "why": "The wall across the freeway is gone and it shares the street's road now; what still looks like another game is marked: a flat barrier, loud orange lines, a box trailer, gold rings. The art itself is sharp, but the fight shows it blurry, and that is the next fix.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_FIGHT_VERDICT_22_THE_FREEWAY.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
   }
  ],
  "verdicts": [

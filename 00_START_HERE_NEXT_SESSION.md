@@ -57927,6 +57927,11 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/9b (latest): [the fight verdict] SHIPPED, FIGHT VERDICT 22 on
+the rebuilt fight (freeway + street, live, tools/bohemia_direction_fight_
+verdict_22.js): still wrong 3 of 5 (F2 the art 0.038 shown at 0.002, F3 rings/
+word box/dark band, F5 flat barrier and trailer); freeway wall gone, one kit.
+Analog horror line given per board. Next OPEN: [the map verdict], [flip look].
 ROUND LOG 10/9a (latest): [the demo verdict] SHIPPED. Shot the demo myself
 (BUILD 10/5g, 390x844@3x, tools/bohemia_direction_the_demo_verdict.js): nine
 screens judged in two sentences each with owners; biggest hole: arrival opens
