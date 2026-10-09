@@ -3225,6 +3225,9 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILT ON THE BOARD', ['node', 'gates/built_on_the_board_gate.js'],
+     'rule 40b + 37g: a fight at a place you built on stands on it -- the wall is the board\'s block wall on your '
+     'front, a tank blocks with its own picture, a roof is high ground; the map attaches it and the shell hands it on', False),
     ('BUILT ON THE MAP', ['node', 'gates/built_on_the_map_gate.js'],
      'rule 40b: the map owns the build lots, the morning finishes them into the map\'s century ledger (the '
      'derive\'s) and pays the map\'s purse, the base draws them, and the save carries them', False),

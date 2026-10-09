@@ -61362,6 +61362,20 @@ function cityPlateNow(){
 }
 /* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
 function cityHandOver(msg, skin){
+  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
+  /* a fight near a place where you built carries what stands there, so the board is cut with it */
+  try{
+    if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.built && typeof LOT_BOOK !== 'undefined'){
+      var __at = msg.at || { x: city.x, y: city.y }, __bs = ctBases() || {}, __best = null, __bd = 3;
+      for(var __bn in __bs){ var __bb = __bs[__bn], __lb = LOT_BOOK[__bn]; if(!__bb || !__lb) continue;
+        var __d = Math.max(Math.abs((__bb.x|0) - (__at.x|0)), Math.abs((__bb.y|0) - (__at.y|0)));
+        if(__d < __bd){ __bd = __d; __best = __lb; } }
+      if(__best){ var __out = [];
+        for(var __k in __best.lots){ var __L = __best.lots[__k]; if(__L.done) __out.push({ id: __L.id, fight: BohemiaLotBuild.fightTile(__L.id) }); }
+        if(__out.length) msg.built = __out; }
+    }
+  }catch(_e){}
+  /* __/BUILT_ON_THE_BOARD__ */
   /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
      BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
      purpose. Ours was covered by accident: CITYSAVE.save only fires when the city

@@ -5630,6 +5630,11 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/9d LATEST -- *** [built on the board] SHIPPED: a fight at a place you built on stands on
+it. *** TAB: VOTE. Record: records/BOHEMIA_BUILT_ON_THE_BOARD_10_9_26.md. tools/bohemia_fight_built_patch.py (map door,
+shell nfOpts, COMBAT's fight placeBuilt + two bake lines, all marked). Gate BUILT ON THE BOARD 11/0. NEXT (top OPEN):
+[a raid on your base], with FACTIONS.
+
 LIFE + CITY (city-1eztay): 10/9c LATEST -- *** [built on the map] SHIPPED: the map owns the build lots, the morning
 finishes and pays them into the map's century and purse, the base draws them, the save keeps them. *** TAB: VOTE.
 Record: records/BOHEMIA_BUILT_ON_THE_MAP_10_9_26.md. tools/bohemia_city_built_patch.py (and both city patches now

@@ -11665,6 +11665,10 @@ function nfOpts(d){
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
+  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
+  /* what you built at this place, to the fight (the map attached it at the door) */
+  try{ if(d && Array.isArray(d.built) && d.built.length) o.built = d.built.slice(0, 8); }catch(_e){}
+  /* __/BUILT_ON_THE_BOARD__ */
   return o;
 }
 function nfOpen(d){
