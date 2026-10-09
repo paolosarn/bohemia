@@ -6,7 +6,7 @@ world-the-roads-10-9. Record
 records/BOHEMIA_WORLD_A_ROAD_SLOWER_THAN_THE_DESERT_10_9_26.md.
 
 RULE 12: THE GATE THE ROW ASKS FOR ALREADY PASSES. Over THIRTY rolled valleys, on
-PAVED ROAD ALONE with no dirt allowed, the network runs 3,365-3,564 cells and
+PAVED ROAD ALONE with no dirt allowed, the network runs 3,384-3,559 cells and
 EVERY SETTLEMENT REACHES EVERY OTHER IN EVERY ONE. Zero failures. The valley's
 roads were already whole; nobody had ever checked, so nobody knew. This file does
 not CONNECT the valley, it makes the connection READABLE, and the gate re-proves
@@ -80,6 +80,34 @@ ALSO FIXED TWICE, ONE WORD, ANOTHER LANE'S: CANON ROT was red again because COOK
 line in the better-than-BB list cites a .md where the real file is .txt. I fixed it
 last round and it came back this round, so it is worth COOK knowing rather than me
 fixing a third time.
+
+AND I CLEARED A CARRIED DEFECT OF MY OWN INSTEAD OF WRITING IT DOWN A FOURTH TIME:
+engine/bohemia_scavenge.js listed FIVE find kinds (food, medicine, battery, tape,
+ammo) when rule 47 rules SIX (BATTERIES, FOOD, MEDS, ROUNDS, TAPE, WATER), so A
+SEARCH IN THE MOJAVE COULD NEVER TURN UP WATER -- the one thing a body in a desert
+needs most. Water is a kind now and the gate checks all six BY HIS RULED NAME
+rather than by counting, so a seventh kind is allowed and dropping one of his six
+is not. Rule 47 also settles the hedge that file carried: MEDS is one of the six,
+so medicine is not a pending fourth icon any more. The rename onto his exact words
+(battery -> BATTERIES, ammo -> ROUNDS) is ECONOMY's ledger and MODS' file by rule
+47's own words, and the mapping is written in the module one line each.
+
+AND ONE MORE OF MY OWN NUMBERS WAS WRONG IN THE PROSE: the record and the board
+said the paved-only network spans 3,365 to 3,564 cells. The thirty measurements
+themselves, in the data file, span 3,384 to 3,559. The module and the data file
+were right and only the words I wrote around them were wrong, which is the same
+class of defect as every other one this lane keeps finding: a number copied
+instead of looked up. Corrected before it shipped.
+
+A RULING AIMED AT ME, ON THE BOARD, NOT DONE THIS ROUND: the coordinator's 10/9
+SWEEP AB sits on my SHIPPED [where the god gear is] row and says MAKE THE SIX
+PLACED, NEVER ROLLED, SO A RUMOUR IS NEVER WRONG. That is a change to the
+GENERATOR, which is my OPEN row [the roll], not a change to the god-gear module,
+so I am not touching it as a side effect of a different row. It is the first thing
+[the roll] answers. My read still stands and goes with it: a valley without a
+library is a FEATURE and the one thing Battle Brothers cannot do, but the ruling is
+his and the coordinator's, not mine, and either way the gate re-sweeps and the
+absence stays REPORTED rather than silent.
 
 STILL RED ON CLEAN MAIN AND NOT MINE: FACTION COLOUR, PAGES PUBLISH (299 MB against
 a 260 MB cap, which is what builds his link), and ROADS ARE FAST above.

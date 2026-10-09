@@ -173,6 +173,19 @@ section('E the valve that is his, and no fourth currency', () => {
   ok('the kinds are the nouns his own sentence used',
      SC.KINDS.indexOf('food') >= 0 && SC.KINDS.indexOf('medicine') >= 0
      && SC.KINDS.indexOf('battery') >= 0);
+  /* *** RULE 47 (Paolo 9/29): THE SIX RESOURCES ARE BATTERIES, FOOD, MEDS,
+     ROUNDS, TAPE AND WATER. *** This list shipped 9/29 with FIVE -- no WATER --
+     so a search in the Mojave could never turn up the one thing a body there
+     needs most. Corrected 10/9. Checked by the ruled name, not by counting, so
+     adding a seventh kind is allowed and dropping one of his six is not. */
+  const SIX = { batteries: 'battery', food: 'food', meds: 'medicine',
+                rounds: 'ammo', tape: 'tape', water: 'water' };
+  const absent = Object.keys(SIX).filter(r => SC.KINDS.indexOf(SIX[r]) < 0);
+  ok('*** EVERY ONE OF RULE 47\'S SIX RESOURCES IS A FIND KIND ***'
+     + (absent.length ? ' -- MISSING: ' + absent.join(', ') : ''),
+     absent.length === 0);
+  ok('and a search can really turn each of the six up, not just name it',
+     Object.keys(SIX).every(r => SC.yieldOf(SIX[r]).why === SC.NO_RULING));
   const live = read('engine/bohemia_scavenge.js');
   ok('*** AND NO FOURTH CURRENCY IS CREATED: the module never credits a balance ***',
      !/credit\(|debit\(|balance\(/.test(live.replace(/\/\*[\s\S]*?\*\//g, ' ')));
