@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What Each Difficulty Changes</title>
+<!-- TUNING 10/9 [the difficulty steps], draft:true. Every number is from the Battle Brothers wiki (Game Mechanics, Hit Chance, Level and Experience, Ammunition, Medical Supplies, Tools and Supplies), read from the dump. Record: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md -->
+<style>
+:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--amb:#e8a04a;--ok:#8fe89a;--hot:#e8593a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}h2{font-size:12px;letter-spacing:2px;color:var(--dim);margin:18px 0 6px}p{color:var(--dim);margin:4px 0 10px}
+table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid var(--line);padding:6px 4px;text-align:center}td:first-child,th:first-child{text-align:left}
+th{color:var(--amb);font-weight:normal}.g{color:var(--ok)}.r{color:var(--hot)}
+</style></head><body>
+<h1>WHAT EACH DIFFICULTY CHANGES</h1>
+<p>Battle Brothers has two difficulties, not one: how hard the fights are, and how tight the money is. Ironman is a third switch. Every number is from the game's own wiki. Your game has one number for all of it.</p>
+<h2>FIGHTS</h2>
+<table><tr><th></th><th>BEGINNER</th><th>VETERAN</th><th>EXPERT</th></tr>
+<tr><td>your aim</td><td class="g">5 points better</td><td>normal</td><td>normal</td></tr>
+<tr><td>their aim</td><td class="g">5 points worse</td><td>normal</td><td>normal</td></tr>
+<tr><td>XP</td><td class="g">+10%</td><td>normal</td><td>normal</td></tr>
+<tr><td>late crisis</td><td class="g">5 days later</td><td>normal</td><td>normal</td></tr>
+<tr><td>hard groups arrive</td><td class="g">later</td><td>normal</td><td class="r">SOONER</td></tr></table>
+<h2>MONEY</h2>
+<table><tr><th></th><th>BEGINNER</th><th>VETERAN</th><th>EXPERT</th></tr>
+<tr><td>contract pay</td><td class="g">+10%*</td><td>normal</td><td class="r">10% less</td></tr>
+<tr><td>sell prices</td><td>normal</td><td>normal</td><td class="r">10% less</td></tr>
+<tr><td>tools you can carry</td><td class="g">200</td><td>150</td><td>150</td></tr>
+<tr><td>ammo you can carry</td><td class="g">500</td><td>300</td><td>300</td></tr>
+<tr><td>medicine you can carry</td><td class="g">150</td><td>100</td><td>100</td></tr>
+<tr><td>deserters</td><td>leave</td><td>leave</td><td class="r">take their gear</td></tr></table>
+<p>* The wiki says pay is "10% less per difficulty level". Beginner being 10% more is my reading of that.</p>
+<h2>START (a separate pick)</h2>
+<table><tr><th></th><th>HIGH</th><th>MEDIUM</th><th>LOW</th></tr>
+<tr><td>crowns</td><td>2500</td><td>2000</td><td>1500</td></tr><tr><td>tools</td><td>40</td><td>20</td><td>10</td></tr>
+<tr><td>ammo</td><td>80</td><td>40</td><td>20</td></tr><tr><td>medicine</td><td>30</td><td>20</td><td>10</td></tr></table>
+<h2>NEVER CHANGES</h2><p>Enemy gear and stats. What towns stock. And Ironman does not make death worse. It only turns off manual saves.</p>
+</body></html>

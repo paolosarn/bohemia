@@ -1,3 +1,29 @@
+TUNING (tuning-f59l1w): 10/9 (b) LATEST -- [the difficulty steps] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH DIFFICULTY CHANGES (three tables from the wiki, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md (for the door and COMBAT [the enemy math]).
+FINDING: BB has TWO difficulties (combat, economic) plus a separate Ironman, each Beginner/Veteran/Expert.
+Combat: Beginner = your roll -5, theirs +5, +10% XP, crisis 5 days later; Expert = harder groups sooner.
+Economic: pay -10% per level (Beginner +10% is MY reading), sell -10% on Expert, carry caps tools 200/150/150,
+ammo 500/300/300, medicine 150/100/100, deserters take gear on Expert; start kits High/Medium/Low 2500/2000/1500
+crowns. Ironman = no manual saves, NOT worse death odds (my old pages said otherwise; fixed).
+BB's own accuracy lever is as small as ours, so my 10/1 blame of the five tiers was the wrong lever: BB's difficulty is
+felt in group count/tier/arrival and in money. Recommendation for the manager: split the door's stamp in two + checkbox.
+MISTAKE FIXED: my broad sed claimed the QUESTS and MODS chats' own [grok sources] rows; restored them. Claims now
+anchor to my own section.
+NEXT OPEN: [the felt numbers table], [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
+TUNING (tuning-f59l1w): 10/9 (b) LATEST -- [the difficulty steps] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH DIFFICULTY CHANGES (three tables from the wiki, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md (for the door and COMBAT [the enemy math]).
+FINDING: BB has TWO difficulties (combat, economic) plus a separate Ironman, each Beginner/Veteran/Expert.
+Combat: Beginner = your roll -5, theirs +5, +10% XP, crisis 5 days later; Expert = harder groups sooner.
+Economic: pay -10% per level (Beginner +10% is MY reading), sell -10% on Expert, carry caps tools 200/150/150,
+ammo 500/300/300, medicine 150/100/100, deserters take gear on Expert; start kits High/Medium/Low 2500/2000/1500
+crowns. Ironman = no manual saves, NOT worse death odds (my old pages said otherwise; fixed).
+BB's own accuracy lever is as small as ours, so my 10/1 blame of the five tiers was the wrong lever: BB's difficulty is
+felt in group count/tier/arrival and in money. Recommendation for the manager: split the door's stamp in two + checkbox.
+MISTAKE FIXED: my broad sed claimed the QUESTS and MODS chats' own [grok sources] rows; restored them. Claims now
+anchor to my own section.
+NEXT OPEN: [the felt numbers table], [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
 WORLD (world-9lfjtf): 10/9 LATEST -- *** THE POOL NEVER NEEDED A TABLE, AND THE
 TRAVEL COST THAT SHIPPED IS A TWO-SPEED WORLD WHERE THE MOUNTAINS COST WHAT A
 PARKING LOT COSTS. *** Row [the valley's grounds] SHIPPED. First round since rule
