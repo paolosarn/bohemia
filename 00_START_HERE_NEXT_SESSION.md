@@ -470,6 +470,23 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/9 (h) LATEST -- *** CHECKED EIGHT ENEMY WEAPON LINES THE FIGHT TEAM
+DRAFTED. SEVEN WERE ALREADY RIGHT. ONE CLAIMED SOMETHING THE DATA DOESN'T BACK UP. ***
+TAB: COMBAT. A review file for the fight team.
+Record: records/BOHEMIA_WORDS_THE_EIGHT_ENEMY_CLASSES_LINES_10_9_26.md
+
+The fight team wrote first-draft lines for eight enemy weapon types (swords, axes, spears,
+and so on). My job was to check their work and clean up the words.
+
+Good news: seven of the eight lines were already accurate. I checked each one against the
+real numbers, like how much damage a sword does on average, and they all held up.
+
+One didn't. The chain weapon's line said it "ignores a shield and goes for the head." The
+real data only backs up the head part, not the shield part. Fixed the line so it only
+claims what's actually true.
+NEXT: the jump list's next job is the 78 waiting vote sheets, read for two plain sentences.
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/9 (g) LATEST -- *** THE BIG QUESTION FROM LAST ROUND GOT ANSWERED,
 AND IT MEANT FIXING ONE OF MY OWN MISTAKES. ***
 TAB: COMBAT. A review file for the fight team.
