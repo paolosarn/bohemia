@@ -6049,7 +6049,20 @@
   "verdict": "default",
   "status": "ruled"
 },
-  {"id": "quests-the-wash-board-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "THE DEMO TOWN'S JOB BOARD, FULL", "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.", "show": {"how": "text", "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."}}
+  {"id": "quests-the-wash-board-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "THE DEMO TOWN'S JOB BOARD, FULL", "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.", "show": {"how": "text", "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."}},
+  {
+   "id": "economy-the-price-of-mercy-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "BATTLE BROTHERS ALREADY PRICES MERCY, THREE WAYS",
+   "why": "Saving everyone pays the same as always unless you fail, taking everything pays more at a real cliff, and the mercy option gives up the job's pay for something else entirely, all straight off Battle Brothers' own contracts. You see it in the records, not drawn yet, feeding DYNASTY's ending work.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 60.\n\nSeen in: not drawn yet, feeds DYNASTY [the ending]."
+   }
+  }
  ],
  "verdicts": [
   {

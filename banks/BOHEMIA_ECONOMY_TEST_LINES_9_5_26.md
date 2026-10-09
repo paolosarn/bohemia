@@ -4540,3 +4540,46 @@ SSSSSSSSSSSSSSSS8  a settlement's own butcher, at the scale            draft:tru
   zero of them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## WWWWWWWWWWWWWWWWW. WHAT MERCY COSTS, SAID BY NOBODY WHO WOULD NAME A STANCE (round 60)
+
+SSSSSSSSSSSSSSSSS1  a man who let the escort through whole                 draft:true
+    "Nobody paid me extra for it. They just stopped docking me."
+
+SSSSSSSSSSSSSSSSS2  the one who lost a wagon on the same road               draft:true
+    "Half the money, same handshake. He didn't even ask what happened."
+
+SSSSSSSSSSSSSSSSS3  a fighter counting bodies after                        draft:true
+    "Fifteen and the house doubles what it owes you. Fourteen and it's just the number."
+
+SSSSSSSSSSSSSSSSS4  the one who stopped at fourteen on purpose             draft:true
+    "I know where the line is. I've just never had a reason to stay under it."
+
+SSSSSSSSSSSSSSSSS5  a chained man offering his own freedom as the price    draft:true
+    "Walk away empty and I'll show you where the real money is. Just not from me."
+
+SSSSSSSSSSSSSSSSS6  the one who takes that trade                          draft:true
+    "I got nothing for the job. I got something better than the job."
+
+SSSSSSSSSSSSSSSSS7  a man handed crowns to leave a wagon alone             draft:true
+    "Somebody always wants the thing untouched more than somebody else wants it gone."
+
+SSSSSSSSSSSSSSSSS8  a woman who switched sides mid-contract                draft:true
+    "They offered me a better gun than the people paying me. That's the whole speech."
+
+SSSSSSSSSSSSSSSSS9  the one who stayed on the losing side anyway           draft:true
+    "I kept the worse gun. Nobody's going to tell me that wasn't a choice."
+
+## XXXXXXXXXXXXXXXXX. WHAT IS NOT HERE, ON PURPOSE (round 60)
+
+- No line says Liberate, Respect or Become, batteries, clout, or any resource name. The whole
+  finding is said as a discount, a cliff, a chained man's offer and a switched coat.
+- No line claims which stance any speaker is on. SSSSSSSSSSSSSSSSS4 and 9 are people who could
+  be read either way, on purpose.
+- No line states a digit as final. The 50% cut, the fifteen-point cliff and the zero-pay trade
+  are all real wiki numbers already banked in the record, not reinvented here as dialogue.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 619 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 9 lines. Under the 15% cap.

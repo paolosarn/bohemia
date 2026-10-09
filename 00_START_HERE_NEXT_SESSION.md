@@ -1580,6 +1580,24 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (d) -- [price of mercy] SHIPPED (research, no code
+touched -- the row's own text calls for research, read DYNASTY).
+Record: records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_
+10_9_26.md
+FINDING: Battle Brothers already prices the Liberate/Respect/Become fork, three times, pulled
+direct off the wiki's own contract pages (not Grok's secondhand summary). RESPECT's shape is
+Escort Caravan: full protection pays the SAME as always, a failure to protect cuts pay and
+relations 50% -- matching our own locked law (7/10) that Respect costs more effort, never less
+pay. BECOME's shape is Privateering: a score with a real CLIFF at 15 points for 2x reputation,
+plus a literal change-sides bribe. LIBERATE's shape is Slave Uprising: the leader's freedom
+offer forfeits the contract's own pay entirely, paid instead in a different currency (an item,
+never a battery swap) -- exactly this row's own question, already answered by an existing BB
+mechanic. A six-resource table built from these three sourced shapes; every unquantified cell
+flagged for TUNING, nothing invented. Nine bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [what grows], [prices per place] (FIRST LINE, rule 40),
+[build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from two rounds back still stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (c) -- MODE: RUN. [the contract's worth] SHIPPED:
 records/target/bb/contract_terms.json + engine/bohemia_contracts.js, gate 24/0.
 Record: records/BOHEMIA_ECONOMY_DAY_59_THE_CONTRACTS_WORTH_THE_WIKI_TABLE_BEATS_ITS_OWN_RULE_
