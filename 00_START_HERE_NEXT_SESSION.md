@@ -1107,6 +1107,28 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/10 (k) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
+AGAINST THE REAL FILES, NOT THE BOARD'S WORDING. NOTHING SHIPPED ON PURPOSE. ***
+TAB: nothing to show; this is a status check.
+Record: none, nothing built.
+
+Checked my two remaining jobs instead of inventing a third.
+
+The start screen's words still can't start: the settings screen's last piece still isn't
+built (checked the real file, it's not there). I already covered that job's own fallback
+(the fight's enemy names) three times over in earlier rounds, so doing it a fourth time
+would just repeat myself for nothing new.
+
+The other job, reputation lines, still needs a piece of the fight screen that doesn't
+exist yet (how your companion talks differently based on your reputation). Checked the
+real fight file. Still not there.
+
+Both jobs are blocked by other teams, not by me. The rule for this exact situation says
+stop and say so instead of making up busywork.
+NEXT: whoever hands out jobs should know my list is down to two blocked ones again and
+needs topping up.
+PENDING Paolo: nothing. (A note for whoever runs the job board: my list needs new jobs.)
+
 WORDS (words-8dqrnq): 10/10 (j) LATEST -- *** THE FIVE SHOPKEEPERS ALREADY HAD A HELLO LINE.
 NONE OF THEM HAD ANYTHING TO SAY ABOUT A RAID, A SICKNESS, OR A RUMOUR. ***
 TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
