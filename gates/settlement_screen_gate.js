@@ -230,7 +230,7 @@ const srv = http.createServer((rq, rs) => {
 
   /* the hall hires through a mouth */
   await tapB('hall'); await p.waitForTimeout(200);
-  await p.click('#sbody .act'); await p.waitForTimeout(200);
+  await p.click('#sbody .act:has-text("Take the")'); await p.waitForTimeout(200);
   const hired = await p.evaluate(() => Object.keys(BohemiaSettlement.state.hired));
   ok('the hall hires the one who asked', hired.length === 1, hired.join());
 
@@ -314,6 +314,32 @@ const srv = http.createServer((rq, rs) => {
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'fortress', name: 'THE FORT, HENDERSON' }, night: true }));
   await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT.replace('_10_1', '_FORTRESS_10_1') });
+  /* THE POSTS (Battle Brothers' recruits, PEOPLE's roll): a camp two, a town four, a fortress six,
+     two more on market day; every card shows the man before you pay; hiring puts him on the roster */
+  await p.evaluate(() => { try { localStorage.removeItem('bohemia.hired.v1'); localStorage.removeItem('bohemia.bag.v1'); } catch (e) {} BohemiaSettlement.state.stash.length = 0; });
+  const posts = {};
+  for (const [t, extra] of [['camp', []], ['town', []], ['fortress', []], ['town', ['market_day']]]) {
+    await p.evaluate(({ t, extra }) => BohemiaSettlement.open({ place: { tier: t, name: 'POSTS ' + t.toUpperCase() }, traits: extra, hired: {} }), { t, extra });
+    await p.waitForTimeout(300);
+    await tapB('hall'); await p.waitForTimeout(250);
+    posts[t + (extra.length ? '+market' : '')] = await p.evaluate(() => document.querySelectorAll('#sbody .hire').length);
+  }
+  ok('the posts: a camp two, a town four, a fortress six, two more on market day', posts.camp === 2 && posts.town === 4 && posts.fortress === 6 && posts['town+market'] === 6, JSON.stringify(posts));
+  const card = await p.evaluate(() => { const c = document.querySelector('#sbody .hire'); return { stats: c.querySelectorAll('.hstats span').length, star: c.querySelectorAll('.hstats .star').length, nm: c.querySelector('.nm').textContent, price: c.querySelector('.act em').textContent,
+    face: (() => { const d = c.querySelector('canvas.face').getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
+  ok('  every hire card shows his face, name, background, eight stats with his star, and the price before you pay', card.stats === 8 && card.star === 1 && card.face > 300 && /batt/.test(card.price), card.nm + ' | ' + card.price);
+  await p.screenshot({ path: SHOT.replace('_10_1', '_POSTS_10_10') });
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 500, 'gate', null, 0));
+  const h0 = await bat(), price = await p.evaluate(() => parseInt(document.querySelector('#sbody .hire .act em').textContent, 10));
+  await p.click('#sbody .hire .act'); await p.waitForTimeout(250);
+  const h1 = await bat(), hiredN = await p.evaluate(() => JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]').length), cardsLeft = await p.evaluate(() => document.querySelectorAll('#sbody .hire').length);
+  ok('  hiring takes his price and he leaves the posts for your company', h0 - h1 === price && hiredN === 1 && cardsLeft === 5, (h0 - h1) + ' batteries, ' + cardsLeft + ' left at the posts');
+  const rp = await ctx.newPage(); await rp.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html');
+  await rp.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });
+  const roster = await rp.evaluate(() => { const s = BohemiaRosterScreen.state, m = s.crew[s.crew.length - 1]; return { n: s.crew.length, last: m.name, hired: !!m.hired, onLine: s.front.concat(s.back).indexOf(s.crew.length - 1) >= 0 }; });
+  ok('  and he stands on the roster screen, on the line', roster.hired && roster.onLine, roster.n + ' men, the last ' + roster.last);
+  await rp.close();
+  await p.click('#close'); await p.waitForTimeout(300);
   await p.click('#leave');
   const left = await p.evaluate(() => (window.__settleLog || []).some(m => m.act === 'leave'));
   ok('LEAVE tells the game you left', left);

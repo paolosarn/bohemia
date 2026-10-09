@@ -95,6 +95,13 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
+/* the hire card: face, name, background, eight stats, the starred one gold, the price */
+.hire{display:grid;grid-template-columns:64px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
+.hire .face{width:64px;height:64px;flex:none}
+.hire .nm{color:var(--gold);font-size:11px;letter-spacing:1px}
+.hstats{display:grid;grid-template-columns:repeat(4,auto);gap:1px 8px;font-size:10px;color:var(--dim);margin-top:3px}
+.hstats .star{color:var(--gold)}
+.hire .act{grid-column:1 / -1;margin:0}
 #heard{min-height:20px;padding:0 12px;color:var(--dim);font-size:12px;background:var(--plate2)}
 </style>
 </head>
@@ -113,6 +120,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_followers.js"></script>
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
+<script src="../engine/bohemia_goodbros.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -705,6 +713,63 @@ function sub(k){
   return B[k].short;
 }
 
+/* ---------- THE POSTS: recruits as hire cards (RUN TWO [the posts screen]) ----------
+   PEOPLE owns the roll (engine/bohemia_goodbros.js: six real backgrounds, the wiki's stat ranges and
+   hiring prices, the 60/30/10 star split); this screen shows them and hires them. How many stand at
+   the posts is Battle Brothers' shape by size: a camp two, a town four, a fortress six, two more on
+   market day, none in a raided or sick place. Names are draft:true attempts. Paying puts him on the
+   roster with his stats as rolled and his gear in the bag. */
+var POST_COUNT = {camp:2, town:4, fortress:6};
+var HIRE_NAMES = ['Chuy','Lalo','Neto','Beto','Tavo','Memo','Pancho','Rudy','Lupe','Yesenia','Marisol','Dani','Kiki','Ofelia','Rocco','Nacho']; /* draft:true */
+var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
+           thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
+function recruitsHere(){
+  if(!window.BohemiaGoodBros || traitMult().recruits < 0) return [];
+  var key = S.place.name + ':' + Math.floor((S.day||0)/7);
+  if(S.postKey !== key){
+    S.postKey = key; S.taken = {};
+    var n = (POST_COUNT[S.place.tier] || 4) + ((S.traits||[]).some(function(t){ return t.id === 'market_day'; }) ? 2 : 0);
+    var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
+    S.recruits = six.concat(more).slice(0, n).map(function(r, i){
+      r.id = 'rc' + i; r.name = HIRE_NAMES[seedOf(key + ':name:' + i) % HIRE_NAMES.length]; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12];
+      return r; });
+  }
+  return (S.recruits||[]).filter(function(r){ return !S.taken[r.id]; });
+}
+var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee_skill:'MSK', ranged_skill:'RSK', melee_defense:'MDF', ranged_defense:'RDF'};
+function hireCard(r){
+  var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
+  var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
+  var im = new Image(); im.onload = function(){ var x = f.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); }; im.src = 'fight_people/' + r.look + '.webp';   /* the face sits at the sheet's right edge, however many frames it carries */
+  c.appendChild(f);
+  var t = document.createElement('div'); t.className = 'hiret';
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
+  var st = document.createElement('div'); st.className = 'hstats';
+  BohemiaGoodBros.STAT_KEYS.forEach(function(k){ var e = document.createElement('span'); e.textContent = STAT_SHORT[k] + ' ' + r.stats[k] + (k === r.starredStat ? ' ' + '★'.repeat(r.starCount) : ''); if(k === r.starredStat) e.className = 'star'; st.appendChild(e); });
+  t.appendChild(st); c.appendChild(t);
+  c.appendChild(act('Hire', r.priceBatteries + ' batt', function(){
+    if(bats() < r.priceBatteries) return openB('hall', r.name + ' wants ' + r.priceBatteries + '. You have ' + bats() + '.');
+    P.debit(S.purse, 'electricity', r.priceBatteries, 'hire:' + r.backgroundId, S.place.name, S.day);
+    S.taken[r.id] = true;
+    var kit = KIT[r.backgroundId] || [], def = {name:r.name.toUpperCase(), background:r.backgroundId, jobs:[], stats:r.stats, stars:(function(o){ o[r.starredStat] = r.starCount; return o; })({}), look:r.look, kit:kit};
+    hireIntoCompany(def);
+    post('hireMan', {man:def, price:r.priceBatteries}); shelf(); openB('hall', r.name + ' is yours. ' + (kit.filter(Boolean).length ? 'What they carry is in your bag.' : 'They came with nothing but their hands.'));
+  }, bats() < r.priceBatteries));
+  return c;
+}
+/* the company lives with the roster screen: it reads this list on open (and the game can hand it) */
+function hireIntoCompany(def){
+  try{ var h = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'); h.push(def); localStorage.setItem('bohemia.hired.v1', JSON.stringify(h)); }catch(e){}
+  /* his gear goes in the bag, as items the bag already speaks */
+  (def.kit||[]).forEach(function(id, i){ if(!id) return;
+    var w = BB.weapons && BB.weapons.filter(function(x){ return x.id === id; })[0];
+    if(w){ S.stash.push(weaponItem(w)); return; }
+    var a = BB.armor && BB.armor.body.filter(function(x){ return x.id === id; })[0];
+    if(a) S.stash.push(armourItem('body', a));
+  });
+  bagSave();
+}
+
 /* ---------- A MOUTH WITH A FACE ---------- */
 function face(k){
   var c = document.createElement('canvas'); c.width = 36; c.height = 36; c.className = 'face';
@@ -747,7 +812,11 @@ function openB(k, line){
   if(k==='hall'){
     var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
     if(traitMult().recruits < 0) id = null;   /* raided or sick: nobody signs on */
-    body.appendChild(speak(k, line || (id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    var men = recruitsHere();
+    body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
+    /* THE POSTS (Battle Brothers' recruits, Grok's 'see the hire'): every man's card before you pay */
+    men.forEach(function(r){ acts.appendChild(hireCard(r)); });
+    if(id){ var hs = document.createElement('div'); hs.className = 'gridh'; hs.textContent = 'CAMP STAFF'; acts.appendChild(hs); }
     if(id){
       acts.appendChild(act('Take the '+id+' on', '1 battery a night', function(){
         S.hired[id] = true; post('hire',{role:id}); heard(F.hireLine(id)); shelf(); openB('hall');

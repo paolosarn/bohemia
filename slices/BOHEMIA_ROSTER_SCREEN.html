@@ -119,7 +119,7 @@ function bodyCanvas(m, w, h){
 function faceCanvas(m){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false; var im = sheet(m.look);
-  if(im.complete && im.naturalWidth) x.drawImage(im, C.FACE.x, C.FACE.y, 64, 64, 0, 0, 64, 64);
+  if(im.complete && im.naturalWidth) x.drawImage(im, im.naturalWidth - 64, C.FACE.y, 64, 64, 0, 0, 64, 64);   /* the face is the sheet's right edge */
   return c;
 }
 function draw(){
@@ -231,10 +231,19 @@ function moveMan(fromRow, fromI, toRow, toI){
 function open(o){
   o = o || {};
   if(Array.isArray(o.crew) && o.crew.length) S.crew = o.crew; else if(!S.crew.length) S.crew = C.startingCrew();
+  /* men hired at the posts (the settlement screen keeps them here until the game's save does):
+     same stats and stars as on the card he was hired from */
+  try{ var hired = JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]');
+    hired.forEach(function(def){ if(S.crew.some(function(m){ return m.name === def.name && m.hired; })) return;
+      var m = C.manOf(def, S.crew.length); m.hired = true; if(def.stats) m.stats = def.stats; if(def.stars) m.stars = def.stars; if(def.look) m.look = def.look;
+      m.gear = {main:null, off:null, body:null, head:null}; S.crew.push(m); }); }catch(e){}
   if(Array.isArray(o.bag)) S.bag = o.bag.slice(0, BAG_SLOTS); else { try{ var b = JSON.parse(localStorage.getItem(BAGKEY)||'[]'); if(Array.isArray(b)) S.bag = b; }catch(e){} }
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
   else defaultForm();
+  /* a man who joined since the line was set takes the first empty slot, front first */
+  S.crew.forEach(function(m, i){ if(S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;
+    var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
   S.ready = true; draw();
 }

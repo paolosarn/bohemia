@@ -5882,7 +5882,7 @@
    "sha": "8f060a5",
    "made": "10/9",
    "title": "GOOD BROS AT THE POST",
-   "why": "Six real recruits, rolled fresh from the wiki's own stats and prices, each with a real name from the same system every citizen already uses. You see it in the VOTE tab, item GOOD BROS AT THE POST (there is no settlement screen yet to host the real hire).",
+   "why": "Six real recruits rolled fresh each time from the wiki's own stats and prices, with real names from the same system every person in the game uses. You see it in the VOTE tab under LOOK, and in the game at the hall in every place.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_GOOD_BROS_10_9_26.html"
@@ -5895,7 +5895,7 @@
    "sha": "145f98b2",
    "made": "10/9",
    "title": "BUILD IN A TOWN YOU HOLD",
-   "why": "You can now build in a town you hold: tap BUILD, pick a wall or a water tank for one battery, and the next day it stands on the town picture, while a town the Mob holds says no. You see it in the town screen when you tap a place on the map, three phone shots here.",
+   "why": "Building is a spot you tap on the town picture: in a town someone else holds your own voice says it is not your ground, and in your base the list of eight things costs a battery each and stands there the next day. You see it in the VOTE tab under LOOK, three pictures side by side.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
@@ -6034,22 +6034,34 @@
     "src": "BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html"
    }
   },
-{
-  "id": "what-real-material-means-for-a-sound-10-9",
-  "kind": "verdict",
-  "lane": "coordinator",
-  "sha": "pending",
-  "made": "10/9",
-  "title": "A SOUND IS A RECORDING OF THE REAL OBJECT, OR BUILT FROM ITS REAL PHYSICS, NEVER NOISE",
-  "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat has been building every sound from its object's real physics instead of recording the object, so this sheet asks which you meant: both count as real material, or only a recording of the thing. You hear the difference in the settlement: the smith's hammer and the armourer's rivets are built from physics today.",
-  "show": {
+  {
+   "id": "what-real-material-means-for-a-sound-10-9",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A SOUND IS A RECORDING OF THE REAL OBJECT, OR BUILT FROM ITS REAL PHYSICS, NEVER NOISE",
+   "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat has been building every sound from its object's real physics instead of recording the object, so this sheet asks which you meant: both count as real material, or only a recording of the thing. You hear the difference in the settlement: the smith's hammer and the armourer's rivets are built from physics today.",
+   "show": {
     "how": "text",
     "src": "The second votes (NO SAND, sounds from real material); SOUNDS' better-than line (f4b96771: 'every sound synthesized from its object's real physics, never a sample file'). Thumb up: physics counts. Thumb down: record the real thing.\n\nHeard in: the settlement screen's taps, the fight's shots and hits."
+   },
+   "verdict": "default",
+   "status": "ruled"
   },
-  "verdict": "default",
-  "status": "ruled"
-},
-  {"id": "quests-the-wash-board-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "THE DEMO TOWN'S JOB BOARD, FULL", "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.", "show": {"how": "text", "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."}},
+  {
+   "id": "quests-the-wash-board-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE DEMO TOWN'S JOB BOARD, FULL",
+   "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.",
+   "show": {
+    "how": "text",
+    "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."
+   }
+  },
   {
    "id": "economy-the-price-of-mercy-10-9",
    "kind": "ui",
@@ -6062,6 +6074,20 @@
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 60.\n\nSeen in: not drawn yet, feeds DYNASTY [the ending]."
    }
+  },
+  {
+   "id": "run2-the-posts-10-10",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE POSTS: SEE THE HIRE BEFORE YOU PAY",
+   "why": "At the hall every recruit is a card with their face, background, eight stats with the starred one in gold, and their price, a camp two, a town four, a fortress six and more on market day, and paying puts them on your roster with their gear in your bag. You see it in the VOTE tab under LOOK, and in the demo when you tap the hall in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_POSTS_10_10.png"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
