@@ -5555,7 +5555,7 @@
    "made": "10/10",
    "draft": true,
    "title": "EVERY NUMBER THE FIGHT FEELS",
-   "why": "The demo's fight now reads every number from one list and each has a source, 71 from the Battle Brothers wiki and the rest your own rulings and words, and the fight script types none of its own. You see all 85 in the VOTE tab under LOOK, green for the wiki and red for yours.",
+   "why": "The demo's fight now reads every number from one list and each has a source, 71 from the Battle Brothers wiki and the rest your own rulings and words, and the fight script types none of its own. You see it in the VOTE tab under LOOK, all 85, green for the wiki and red for yours.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_EVERY_NUMBER_THE_FIGHT_FEELS_10_10_26.html"
