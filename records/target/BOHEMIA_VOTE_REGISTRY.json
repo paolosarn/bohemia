@@ -6400,6 +6400,18 @@
     "before": "vote/RUN2_CLIMBING_BEFORE_10_10.png"
    },
    "draft": true
+  },
+  {
+   "id": "world-the-same-fight-10-10",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/10",
+   "title": "THE CELLS THAT ALL OPEN THE SAME FIGHT",
+   "why": "The whole valley coloured by which fight board each cell loads, and the lit ones all load the SAME board: the airfield, the speedway, the stadium, every civic building, and three of the six big gear places. Twenty four of our seventy eight kinds of place fall through to one fallback, which is more than any real board gets, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_SAME_FIGHT.png"
+   }
   }
  ],
  "verdicts": [

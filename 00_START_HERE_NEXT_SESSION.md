@@ -1,3 +1,135 @@
+WORLD (world-9lfjtf): 10/10 (a) LATEST -- *** THE ROW'S PREMISE WAS WRONG AND I
+WROTE THE ROW. THE REAL HOLE IS BIGGER. *** Row [the cells with no board]
+SHIPPED. 3 OPEN rows remain (rule 74) and the top one is new: [the apron, the
+compound and the civic interior], written from this round's measurement. TAB: NOT
+IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-same-fight-10-10. Record
+records/BOHEMIA_WORLD_THE_ROW_WAS_WRONG_AND_THE_REAL_HOLE_IS_BIGGER_10_10_26.md.
+
+RULE 12, AND THIS TIME THE PREMISE WAS MINE. Last round, under rule 74, I wrote
+the next row off my own measurement: 28 of the 78 district names have no kit that
+can draw a block, "so a fight cut from one of those map cells has nothing to build
+a board out of." THE MEASUREMENT IS RIGHT. THE CONCLUSION IS WRONG, and one read
+of the live code says so. THE FIGHT NEVER CUTS A BOARD FROM A DISTRICT KIT: the
+kits draw the walked city and the painted map, while the fight asks
+nfKind(district) for one of NINE BOARD KINDS and COMBAT deals a board out of its
+own block library (records/target/bb/ours.json, board_mix). estate and gated have
+no kit and both land on `culdesac`, a real board, every time. So the row asked for
+a fix to something that is not broken. Three rounds running rule 12 has found the
+premise wrong and this is the first time it was a premise with my own name on it:
+I reasoned past a correct measurement into a mechanism I had never read. Writing
+the next row from your own measurement is what rule 74 asks for, and it is also
+how a lane hands itself a false premise it will not doubt.
+
+*** WHAT IS REALLY WRONG IS NEXT DOOR AND IT IS BIGGER. *** nfKind is a
+hand-written list of district names living in the slice, parallel to the 78 in
+bohemia_boardterrain.js, with nothing binding them together. Push every live
+district through it:
+
+  ruin (the catch-all)  24      <- MORE THAN ANY REAL KIND GETS
+  strip 15, landfill 11, suburb 8, scrub 6, shore 6, culdesac 3, wash 2,
+  freeway 2, suburb_stem 1
+
+`ruin` is a real block of the city family, so the fight WORKS; it just always
+leads with the same block. 154 cells a valley over 20 rolled valleys, 1.67%.
+
+WHO IS IN IT MATTERS MORE THAN HOW MANY: the airport and the airbase, with the
+speedway and the stadium, 122 CELLS A VALLEY, the biggest set-piece terrain in the
+valley. EVERY CIVIC BUILDING: the city hall, the courthouse, the jail, the prison,
+the police station, the fire station, the hospital, the radio station. AND THREE
+OF THE SIX LEGENDARY GEAR PLACES this lane shipped on 10/9 -- THE ARSENAL, THE
+DATA FORTRESS AND THE GRANARY, the places guarded by up to sixty men holding the
+best gear in the game. They all open the same fight. That is RULE 46 (no two
+combat boards are the same) FAILING A LEVEL UP FROM WHERE IT IS CHECKED: the board
+still varies because the other one or two blocks shuffle, but THE THING THE PLACE
+IS always reads as a ruin. And because the two lists are held together only by
+hand, EVERY DISTRICT WORLD ADDS BECOMES A RUIN IN SILENCE; the fight's list
+already knows one name, `beltway`, that no live ground uses.
+
+*** AND I BUILT THE OBVIOUS FIX AND THREW IT AWAY. *** Giving each of the 24 the
+existing board kind nearest in how blocked it is puts the courthouse at 30.6% and
+the jail at 29.8% both on `culdesac`, and nine of the 24 on `strip`. A JAIL THAT
+FIGHTS LIKE A CUL-DE-SAC IS WORSE THAN THE RUIN IT REPLACES BECAUSE IT IS
+CONFIDENTLY WRONG. That is [bb places]' 9/25 defect and the exact mistake this
+lane made on 10/9 with the god-gear ranking and said it would not make again:
+dressing a reading up as a measurement. standInFor() answers NO_RULING and names
+COMBAT. WHAT IS GIVEN INSTEAD IS WHICH BLOCK THE LIBRARY IS MISSING, which is a
+fact about the library rather than a guess about the map:
+
+  INFRASTRUCTURE  7 districts  122.2 cells a valley  wants AN APRON (open paved
+                  ground, one long shed, a perimeter fence)
+  PLANT           9 districts   17.5                 wants A COMPOUND (a wall with
+                  one gate, tanks and sheds inside it)
+  CIVIC           8 districts   14.6                 wants A CIVIC INTERIOR (a
+                  counter, a corridor spine, small rooms either side)
+
+The grouping is a READING and it is stated as mine with tuned:false. A courthouse
+and a jail are the same kind of place to fight in; that is what the real buildings
+are, not what a percentage says.
+
+GATE BOARD KINDS 24/0, registered. THE ONE LEG THAT MATTERS: it PARSES nfKind()
+OUT OF THE LIVE SLICE on every run and pushes all 78 districts through both the
+fight's own function and the mirror, so the two cannot drift; and the fall-through
+count is a RATCHET that may only shrink, which is what stops the next district
+WORLD adds becoming a ruin in silence. Mutation-proved three ways, the first being
+the real test: edit ONE district name inside the live fight and the gate names it
+(courthouse: slice=culdesac mirror=ruin). MY OWN PARSER WAS WRONG TWICE BEFORE IT
+WAS RIGHT AND THE GATE CAUGHT IT BOTH TIMES: it took the first line ending in a
+return and came back with `strip`, the first rule rather than the fall-through;
+then it found nothing at all because the real catch-all line carries a trailing
+comment. A parser that reads the wrong line is the same class of defect as last
+round's legend count read as a board -- twice in two rounds, in two different
+instruments.
+
+COOK: THE CELLS THAT ALL OPEN THE SAME FIGHT, slices/vote/WORLD_THE_SAME_FIGHT.png
+-- the valley with every cell coloured by the board it loads, the nine real kinds
+in three near-black steps and the catch-all lit in three colours, one per family.
+The airfield is the big pale block past the edge of town, the civic core the
+orange cluster, the compounds rust pips. One rolled valley with every refusal
+swept over twenty. AH-01: a map colour-coded by which level loads is the ordinary
+part; THE WRONG THING IS WHAT IS LIT -- the jail, the courthouse, the city hall,
+the police station, the hospital and the armoury are all the same place, every
+building the old world kept order in collapsed into one room.
+
+ROUTED, AND ALL OF THE FIX IS COMBAT'S: COMBAT [board generator] cuts three blocks
+and adds nine names to nfKind. THE APRON FIRST: 122 cells a valley on its own,
+eight times the civic core, and it is the airfield. COMBAT and the coordinator:
+whether the slice should read records/target/BOHEMIA_BOARD_KINDS.json instead of
+keeping its own regexes. `beltway`: the fight's list knows it, no ground uses it,
+one word either way. MODS: the data file. TUNING: nothing felt here, the only
+numbers are counts. [FOR COMBAT]
+
+RED AND NOT MINE: VOTE TAB on cook-the-settlement-pictures-finished-10-10 (no
+`kind`) [FOR COOK], dynasty-the-frame-10-9 (no where you see it) and
+tuning-what-a-respec-costs-10-10 (three sentences against rule 22f's two), plus
+the door-boot flake PLUMBER already owns. Carried from last round and still not
+mine: REFERENCE CHECK on PEOPLE's tools/bohemia_cook_good_bros.js (confirmed on a
+clean tree with my files stashed), FACTION COLOUR, PAGES PUBLISH, ROADS ARE FAST.
+
+AND A GATE STILL ENFORCING A SUPERSEDED RULING, SECOND ROUND OF SAYING SO:
+gates/one_terrain_effect_gate.js holds Paolo's 9/24 "ONE terrain effect, nothing
+else on a tile changes a number", which RULE 59 AMENDS BY NAME, and it is not
+registered in the suite. COMBAT's file, untouched by me. [FOR COMBAT]
+
+GATES BY NAME this round (rule 13a, the pre-push pass): BOARD KINDS 24/0, GROUND
+EFFECTS, VALLEY GROUNDS, BOARD TERRAINS, CANON ROT, HANDOFF. The full suite still
+cannot finish in this container (last attempt stopped at its 30-minute limit at
+gate 73 of 787, browser gates timing out at 30 s each, CASING FACE dying on a
+missing fontTools module). Environment, not tree. [FOR PLUMBER]
+
+[bb boards] BATTLE BROTHERS NEVER HAS THIS PROBLEM AND THE REASON IS THE ONE THING
+WE GAVE UP ON PURPOSE. Its tactical map comes from the world-map tile you fight
+on, and because that world is authored once by hand, every tile type it has is one
+somebody drew a battlefield for: there is no fall-through because there is nothing
+to fall through from. OUR TWIST (rule 39b): our valley is GENERATED, so the
+district list can grow past the board list and nobody notices, which is exactly
+what happened to 24 of 78. The answer is not to hand-author the valley. It is that
+A ROLLED WORLD NEEDS THE TWO LISTS BOLTED TOGETHER BY A MACHINE, so the day
+somebody adds a district the fight says "I have no board for that" out loud
+instead of quietly loading a ruin. BB buys correctness by never changing; we have
+to earn it every run.
+
+
 CHARACTER (character-0lurbs): 10/9 (c) LATEST -- *** THE DOOR'S FIFTEEN STARTING
 CREWS ARE DRESSED NOW, AND THE DATA PICKED THE LOOKS ON ITS OWN. ***
 TAB: VOTE, three crews at real size.
