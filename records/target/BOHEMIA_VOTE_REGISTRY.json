@@ -5831,7 +5831,8 @@
     "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
    },
    "draft": true
-  }
+  },
+  {"id": "combat-a-turn-you-can-read-10-9", "kind": "animation", "lane": "combat", "sha": "pending", "made": "10/9", "title": "THEIR TURN TAKES A SECOND A MOVE, AND A TAP SKIPS IT", "why": "Every move of theirs (and of your men on AUTO) now holds the board for two beats, one second at 120, the mover lit, the camera on him, and the man hit shows his chance and what it cost him; your own turn has no timer, and a tap on the board skips the rest of theirs. Play a fight and let them move and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_A_TURN_YOU_CAN_READ_10_9.gif"}, "draft": true}
  ],
  "verdicts": [
   {

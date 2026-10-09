@@ -668,7 +668,44 @@ async function boardFits() {
   leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
 }
 
+/* A TURN YOU CAN READ (VIA GROK 10/9: 'Paolo said the turns are too short'): one of yours against six thugs on a flat
+   board at the true beat; his own turn waits for his finger; each of their acts holds the board two beats (one second at
+   120), so six men take six seconds or more; the struck man shows his chance and his loss as numbers; a tap on the board
+   skips the rest of their turn. */
+async function turnPace() {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:1,kind:"strip",flat:true,deploy:false,cap:1,party:["brigand_thug","brigand_thug","brigand_thug","brigand_thug","brigand_thug","brigand_thug"]}' });
+  const p = d.page;
+  await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+  await p.evaluate(() => { window.__acts = []; window.__nums = []; const o = FIGHT.aiStep;
+    FIGHT.aiStep = function (u) { const n = FIGHT.S.events.length; const r = o(u);
+      if (u.side === 'them' && FIGHT.S.events.slice(n).some(e => e.t === 'step' || e.t === 'attack')) window.__acts.push({ t: performance.now(), id: u.id }); return r; };
+    new MutationObserver(() => window.__nums.push(document.getElementById('num').textContent)).observe(document.getElementById('num'), { childList: true, characterData: true, subtree: true }); });
+  const mine = () => p.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'you' && !FIGHT_UI.anim.length && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil; });
+  const wait = async (ms) => { const t = Date.now(); while (!(await mine()) && Date.now() - t < ms) await p.waitForTimeout(80); return mine(); };
+  await wait(60000);
+  await p.waitForTimeout(3000);
+  const still = await mine();
+  const end = await p.evaluate(() => { const r = document.getElementById('bend').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+  await p.touchscreen.tap(end[0], end[1]);
+  const tEnd = await p.evaluate(() => performance.now());
+  await p.waitForTimeout(500); await wait(90000);
+  const tBack = await p.evaluate(() => performance.now());
+  const acts = await p.evaluate(e => window.__acts.filter(a => a.t > e), tEnd), gaps = acts.slice(1).map((a, i) => a.t - acts[i].t);
+  const nums = await p.evaluate(() => window.__nums);
+  leg(still, 'his own turn has no timer: three seconds on, it is still his, waiting for his finger');
+  leg(acts.length >= 6 && gaps.every(g => g >= 990) && tBack - tEnd >= 6000, '*** A TURN YOU CAN READ *** (VIA GROK: \'the turns are too short\'): every act of theirs holds the board two beats, six men take six seconds or more',
+    acts.length + ' acts in ' + ((tBack - tEnd) / 1000).toFixed(1) + ' s, the shortest gap ' + Math.round(Math.min(...gaps)) + ' ms');
+  leg(nums.some(t => /^\d+%$/.test(t)) && nums.some(t => /^-\d+$/.test(t)) && !nums.some(t => /[a-z]/i.test(t)), 'the struck man shows the number: his chance to be hit, then what it cost him, numbers only (no word on the ground, rule 46f)', nums.slice(0, 6).join(' '));
+  await p.touchscreen.tap(end[0], end[1]);
+  await p.waitForTimeout(1200);
+  const theirs = await p.evaluate(() => { const u = FIGHT.current(); return u && u.side === 'them'; });
+  const t0 = Date.now(); await p.touchscreen.tap(195, 330); const back = await wait(8000);
+  leg(theirs && back && Date.now() - t0 < 1500 && !d.errs.length, 'a tap on the board while they move skips the rest of their turn, and it is his again', (Date.now() - t0) + ' ms' + (d.errs[0] ? ' ' + d.errs[0] : ''));
+  await d.close();
+}
+
 (async () => {
+  await turnPace();
   await boardFits();
   await enemyParts();
   await weaponCards();
