@@ -31,3 +31,6 @@ Also reported, already his to the coordinator: the one-not-two rule (GROK_101 = 
 22. THE FIRST CRISIS AROUND DAY 100, THE RAMP OVER 50 TO 100 DAYS (GROK_123-125, 10/8): matches the wiki's window. VOTE grok-first-crisis-around-day-100-10-9.
 23. LONE WOLF IS HIS FAVOURITE START, ONE MAN, AVOID BIG GROUPS EARLY (GROK_122, 10/8): the door marks it as his pick and the hard one; the stranger's default stays A New Company. VOTE grok-a-new-company-is-the-default-lone-wolf-is-his-10-9.
 24. YOU SEE STARS BEFORE YOU HIRE (GROK_127): already item 9 (see the hire).
+
+25. 'THE TURNS ARE TOO SHORT' (GROK_131-133, 10/9): the coordinator's reading (the other side's moves resolve too fast to read) in VOTE as grok-the-turns-are-too-short-10-9; COMBAT [a turn you can read]. If he meant the day's turn or the beat, the thumb says so.
+26. GEAR COMES WITH THE HIRE; YOU SEE THE STATS, STARS, TRAITS AND BACKGROUND BEFORE YOU PAY (GROK_128-131): already items 9 and 12.

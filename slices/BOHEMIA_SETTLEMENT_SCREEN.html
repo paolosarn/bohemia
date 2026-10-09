@@ -396,10 +396,19 @@ function heard(t){ document.getElementById('heard').textContent = t; }
 /* THE CLINIC'S DOOR (row [the settlement's sounds], 10/5): door_open and door_shut are
    already approved, frozen bank events (bohemia_sfx.js), so this is wiring, not new
    content -- the same postMessage bridge BOHEMIA_FIGHT.html already uses, reused rather
-   than built twice. */
-function sfx(ev) {
-  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
-  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {}
+   than built twice.
+   THE NIGHT VARIANT QUIETER (10/9): the valley is quieter after dark, same as the
+   ambience trim his sixth votes already asked for elsewhere (-6 dB, half the energy,
+   AMB_TRIM in the alpha). A ratio OVER the approved recipe, never a rewrite of it, and
+   scoped to the CALL rather than the event name: this door is only quieter when it is
+   the settlement's own door at night, never the same door_open walking into a building
+   in daylight anywhere else in the valley. NIGHT_TRIM applies to every building sound
+   this file plays through sfx(), so it reaches the four new building sounds for free
+   once a vote lets this file wire them live -- nothing further to do here then. */
+var NIGHT_TRIM = 0.5;
+function sfx(ev, mul) {
+  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev, mul:mul||null});
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev, mul: mul||null }, '*'); } catch (_e) {}
 }
 
 /* ---------- THE PLACE, DRAWN: ONE PAINTED PICTURE (rule 71a, Paolo 10/4) ----------
@@ -592,7 +601,7 @@ function act(label, right, fn, off){
 
 /* ---------- THE BUILDINGS ---------- */
 function openB(k, line){
-  if(k==='clinic' && S.open!=='clinic') sfx('door_open');
+  if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
   /* a trait is said once per building, first thing, by the one who lives with it */
   if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
@@ -698,7 +707,7 @@ function show(){
   document.getElementById('sheet').classList.add('on');
 
 }
-function hide(){ if(S.open==='clinic') sfx('door_shut'); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;

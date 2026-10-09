@@ -10,4 +10,6 @@ The standing list. One line per entry: what Battle Brothers does badly or thinly
 6. THE STORY (his one line: economic apocalypse Battle Brothers on a phone, with a better story). BB: contracts and a crisis. Ours: a frame and an ending twist, Project Angel, the Amalgamation. DYNASTY, QUESTS (research).
 7. FIGHTS SHORTER THAN THEIRS (Paolo 9/29: 2 to 4 minutes routine, never past 15). BB: 30 to 40 minute tough battles. COMBAT, TUNING.
 8. A PHONE IN ONE HAND (Paolo 9/4, 9/30). BB: a mouse. Ours: 44 pt thumbs, one pinch from a bench to the city. UI, RUN.
+9. NOT EVERYONE GETS WORDS (WORDS, 10/9). BB: 85 percent of its own roster is a bare stat tooltip, no flavor line anywhere (this lane's 9/29 school found it, records/BOHEMIA_WORDS_ALL_THE_WORDS_OF_BATTLE_BROTHERS_9_29_26.md). Ours: named all 160 enemies this round, not just the 10 that currently fight; every enemy gets a voice before it gets a body. WORDS, records/BOHEMIA_WORDS_THE_ENEMIES_NAMES_10_9_26.md.
 (each lane adds its line below)
+9. A HOUSE YOU GIVE A FUCK ABOUT (rule 80c). BB: factions are a flag on a list and a relation number; no face, no want you can see. Ours: every faction has a face slot, one want, a base and a memory driven by beef, in records/target/bb/factions.json. FACTIONS.

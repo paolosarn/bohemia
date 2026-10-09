@@ -11308,6 +11308,210 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 })(typeof window !== 'undefined' ? window
    : (typeof globalThis !== 'undefined' ? globalThis : this));
 /* ==== /engine/bohemia_parties.js ==== */
+/* ==== engine/bohemia_livingmap.js ==== */
+// BOHEMIA LIVING MAP — THE PARTIES WALK WITHOUT STANDING ON EACH OTHER, LEAVE PRINTS THAT FADE BY THE
+// HOUR, AND A TOWN'S GATE FILLS ON MARKET DAY
+// (10/9/26, LIFE + CITY lane. VAMILY row [the living map] / PARTIES-ROAM-CARAVANS-TRAVEL-TRACKS-STAY.)
+//
+// THE ROW: THE OVERWORLD IS BATTLE BROTHERS (9/24) and rule 68 (you see the party and can flee). "the map's
+// parties move with purpose on the clock (a raiding party toward a camp or a town, a caravan between two
+// towns, a patrol along the freeway), leave tracks that fade by the hour, and stop where the clock stops
+// (68a); crowds at a settlement's gate thicken on market day (RUN TWO's traits); a gate: over one in-game
+// day every party moved and no two stand on one cell (NOBODY STANDS ON ANYBODY)."
+//
+// ============================================================================
+// WHAT WAS MEASURED BEFORE A LINE OF THIS WAS WRITTEN (the real valley, overmap 12345)
+// ============================================================================
+//   - WORLD's parties (engine/bohemia_parties.js) already have purpose: 28 out, 14 patrols, 10 caravans,
+//     4 crews, each sent by a seat with an agenda, and ALL 28 MOVE over a day. That half is done.
+//   - *** BUT IN 58 OF THE DAY'S 90 STEPS TWO OR MORE PARTIES STOOD ON ONE CELL, 99 STACKS, UP TO THREE
+//     DEEP. *** A caravan out of A and a caravan out of B walk the same line toward each other; two patrols
+//     of one seat share a border. NOBODY STANDS ON ANYBODY (first votes, 9/21) is broken on the map.
+//   - The tracks ([tracks read], 9/12) are DERIVED from the leg a party is on and never fade: the moment a
+//     party turns round its prints vanish, and while it walks they never age. His row: "fade by the hour".
+//   - Market day is RUN TWO's trait (records/target/settlement_traits.json), rolled per place by name and
+//     week on the settlement screen. The map did not know a market was on.
+//
+// ============================================================================
+// WHAT THIS FILE DOES, AND WHAT IT DOES NOT
+// ============================================================================
+//   WHERE A PARTY GOES and WHY is WORLD's. This file calls BohemiaParties.advance() one step at a time
+//   and only then settles who stands where: a party whose cell is already taken waits where it was, or
+//   steps to the free neighbour that keeps it closest to where it is going. A party that just ARRIVED
+//   keeps the cell it arrived on (it was sent there). TOWNS ARE EXEMPT: a seat and the blocks round it
+//   are the town, and a town holds everybody it sends and everybody who comes to trade.
+//   THE PRINTS are kept here, TRANSIENT and BOUNDED, never saved: each step a party takes off a town
+//   leaves one print with the hour it was made, and a print is gone PRINT_HOURS later. Bounded because
+//   28 parties at about 90 cells a day is about 2,500 prints a day; never saved because footprints after
+//   a reload are a nicety, and a save that grows with every step is the trap [tracks read] avoided.
+//   THE CROWD at a gate reads the SAME roll the settlement screen makes (the same hash, the same
+//   generator, the same file), so the map and the place it opens can never disagree about market day;
+//   and it reads the SAME multiplier that fills the stalls (stock_mult): who is at the gate is what is
+//   on the shelves. The gate holds the two rolls equal by running the settlement screen's own code.
+//
+// THE NUMBERS, AND WHOSE THEY ARE
+//   PRINT_HOURS = 24      MINE, draft, tuned:false -> TUNING. Battle Brothers says prints fade "with time"
+//                         (reference/library/battle_brothers/01_WORLDMAP.md) and gives no number; a day is
+//                         the smallest span in which the map's whole clock turns once, so a print you see
+//                         at dawn is a party that went by since yesterday's dawn.
+//   the crowd's base      BohemiaTowns.REACH by tier (camp 1, town 2, fortress 3): the table that already
+//                         says how much business a place has abroad; the gate is the same business at home.
+//   the market's swell    the trait's own stock_mult (market day 1.5, raided 0.6, sickness 0.8).
+//
+// node: require('./bohemia_livingmap.js')   Gate: gates/the_living_map_gate.js
+(function (root) {
+  'use strict';
+  var HASREQ = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined');
+  function DEP(file, global) {
+    if (HASREQ) { try { return require('./' + file + '.js'); } catch (e) { return null; } }
+    return root[global] || null;
+  }
+  function PARTIES() { return DEP('bohemia_parties', 'BohemiaParties'); }
+  function TOWNS() { return DEP('bohemia_towns', 'BohemiaTowns'); }
+
+  var PRINT_HOURS = 24;
+  var TUNED = false, DRAFT = true;
+  var TOWN_R = 1;                       /* a seat and the blocks round it are the town */
+  var DIRS = [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
+
+  function make() { return { V: 1, prints: [], carry: 0 }; }
+
+  function cheb(ax, ay, bx, by) { return Math.max(Math.abs(ax - bx), Math.abs(ay - by)); }
+  function isTown(seats, x, y) {
+    for (var i = 0; i < (seats || []).length; i++)
+      if (seats[i] && cheb(seats[i].x | 0, seats[i].y | 0, x, y) <= TOWN_R) return true;
+    return false;
+  }
+  function targetOf(p) { return p.arrived ? p.from : p.to; }
+  function key(x, y) { return x + ',' + y; }
+
+  /* WHO STANDS WHERE, AFTER WORLD'S STEP. `before` is where everybody stood a step ago (all distinct off
+     town). Arrivals first (they were sent to that cell), then everybody else in id order, so the same
+     valley settles the same way every load. */
+  function settle(parties, seats, before) {
+    var taken = {}, order = [], i;
+    for (i = 0; i < parties.length; i++) if (parties[i] && parties[i].at) order.push(i);
+    order.sort(function (a, b) {
+      var pa = parties[a], pb = parties[b];
+      var ja = (pa.at.x === targetOf(pa).x && pa.at.y === targetOf(pa).y) ? 0 : 1;
+      var jb = (pb.at.x === targetOf(pb).x && pb.at.y === targetOf(pb).y) ? 0 : 1;
+      if (ja !== jb) return ja - jb;
+      return pa.id < pb.id ? -1 : (pa.id > pb.id ? 1 : 0);
+    });
+    var moved = 0;
+    for (var o = 0; o < order.length; o++) {
+      var p = parties[order[o]], x = p.at.x, y = p.at.y;
+      if (isTown(seats, x, y) || !taken[key(x, y)]) { if (!isTown(seats, x, y)) taken[key(x, y)] = true; continue; }
+      /* TAKEN: wait where it was, or the free neighbour of where it was that keeps it nearest its goal */
+      var b = before[order[o]], t = targetOf(p), best = null, bestD = 1e9;
+      for (var d = 0; d < DIRS.length; d++) {
+        var nx = b.x + DIRS[d][0], ny = b.y + DIRS[d][1];
+        if (!isTown(seats, nx, ny) && taken[key(nx, ny)]) continue;
+        var dd = cheb(nx, ny, t.x, t.y) * 10 + (d === 0 ? 1 : 0);   /* a tie goes to moving, not waiting */
+        if (dd < bestD) { bestD = dd; best = [nx, ny]; }
+      }
+      if (best) { p.at.x = best[0]; p.at.y = best[1]; moved++; }
+      if (!isTown(seats, p.at.x, p.at.y)) taken[key(p.at.x, p.at.y)] = true;
+    }
+    return moved;
+  }
+
+  /* ONE STEP OF THE VALLEY'S BUSINESS, at `hour` (whole hours since the start of the game). */
+  function step(parties, seats, st, hour) {
+    var PP = PARTIES(); if (!PP || !parties) return { settled: 0 };
+    var before = parties.map(function (p) { return p && p.at ? { x: p.at.x, y: p.at.y } : null; });
+    PP.advance(parties, 1, 1);
+    var settled = settle(parties, seats, before);
+    for (var i = 0; i < parties.length; i++) {
+      var p = parties[i], b = before[i];
+      if (!p || !b || (p.at.x === b.x && p.at.y === b.y)) continue;
+      if (isTown(seats, b.x, b.y)) continue;              /* nobody reads prints inside a town */
+      st.prints.push({ x: b.x, y: b.y, f: p.from.faction, a: p.agenda, id: p.id,
+                       dx: p.at.x - b.x, dy: p.at.y - b.y, h: hour });
+    }
+    return { settled: settled };
+  }
+
+  /* THE CLOCK MOVES THE VALLEY, AND ONLY THE CLOCK. `hours` passed at `cellsPerHour`; the fraction is
+     carried, never thrown away (RUN's 9/29 lesson: floored every call, nobody ever left home). With
+     hours 0 -- the clock stopped -- nothing moves and nothing fades (68a). */
+  function advanceHours(parties, seats, st, hours, cellsPerHour, hourNow) {
+    if (!(hours > 0) || !(cellsPerHour > 0)) return { steps: 0 };
+    st.carry += hours * cellsPerHour;
+    var whole = Math.floor(st.carry + 1e-9), start = (hourNow || 0) - hours;
+    st.carry -= whole;
+    for (var s = 0; s < whole; s++) step(parties, seats, st, start + hours * (s + 1) / whole);
+    prune(st, hourNow || 0);
+    return { steps: whole };
+  }
+
+  function prune(st, hourNow) {
+    var keep = [];
+    for (var i = 0; i < st.prints.length; i++) if (hourNow - st.prints[i].h < PRINT_HOURS) keep.push(st.prints[i]);
+    st.prints = keep;
+    return keep.length;
+  }
+  /* HOW STRONG A PRINT STILL READS: 1 the hour it was made, 0 a day later, a straight fade by the hour. */
+  function fadeOf(pr, hourNow) {
+    var age = hourNow - pr.h;
+    if (age < 0) return 1;
+    return Math.max(0, 1 - age / PRINT_HOURS);
+  }
+
+  /* NOBODY STANDS ON ANYBODY, as a count: cells off a town with two or more parties on them. */
+  function stacks(parties, seats) {
+    var c = {}, out = [];
+    for (var i = 0; i < (parties || []).length; i++) {
+      var p = parties[i]; if (!p || !p.at || isTown(seats, p.at.x, p.at.y)) continue;
+      var k = key(p.at.x, p.at.y); (c[k] = c[k] || []).push(p.id);
+    }
+    for (var k2 in c) if (c[k2].length > 1) out.push({ cell: k2, ids: c[k2] });
+    return out;
+  }
+
+  /* ---- THE GATE ON MARKET DAY ------------------------------------------------------------------
+     THE SETTLEMENT SCREEN'S OWN ROLL, line for line (slices/BOHEMIA_SETTLEMENT_SCREEN.html: seedOf,
+     rng, rollTraits). The gate runs that page's functions beside these over hundreds of names and days
+     and refuses if one answer differs. */
+  function seedOf(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(seed) { var x = seed >>> 0 || 1; return function () { x ^= x << 13; x ^= x >>> 17; x ^= x << 5; return ((x >>> 0) % 100000) / 100000; }; }
+  function traitsFor(file, name, day) {
+    if (!file || !file.traits) return [];
+    var per = (file.roll && file.roll.period_days) || 7, R1 = rng(seedOf(name + ':traits:' + Math.floor((day || 0) / per)));
+    var out = [];
+    if (R1() < ((file.roll && file.roll.chance_any) || 0.7)) {
+      var pool = file.traits.slice(), n = 1 + (R1() < 0.3 ? 1 : 0);
+      for (var i = 0; i < n && pool.length; i++) out.push(pool.splice(Math.floor(R1() * pool.length), 1)[0]);
+    }
+    return out;
+  }
+  /* HOW MANY STAND AT THE GATE: the tier's business (REACH), swelled or thinned by the same multiplier
+     that fills or empties the stalls. Market day adds the swell on top of the ordinary crowd. */
+  function crowdAt(file, place, day) {
+    var T = TOWNS(), reach = (T && T.REACH) || { camp: 1, town: 2, fortress: 3 };
+    var base = Object.prototype.hasOwnProperty.call(reach, place.tier) ? reach[place.tier] : reach.camp;
+    var tr = traitsFor(file, place.name, day), c = crowdOf(base, tr);
+    return { count: c.count, base: base, market: c.market, traits: tr.map(function (t) { return t.id; }) };
+  }
+  /* the arithmetic alone: the swell first, then the thinning, so the order the traits were rolled in
+     never changes the count */
+  function crowdOf(base, tr) {
+    var n = base, thin = 1, market = false;
+    for (var i = 0; i < (tr || []).length; i++) {
+      var m = tr[i].stock_mult || 1;
+      if (m > 1) { n += Math.ceil(base * m); market = true; } else thin *= m;
+    }
+    return { count: Math.max(0, Math.round(n * thin)), market: market };
+
+  }
+
+  var API = { PRINT_HOURS: PRINT_HOURS, TUNED: TUNED, draft: DRAFT, TOWN_R: TOWN_R,
+              make: make, step: step, advanceHours: advanceHours, prune: prune, fadeOf: fadeOf,
+              stacks: stacks, isTown: isTown, seedOf: seedOf, rng: rng, traitsFor: traitsFor, crowdAt: crowdAt, crowdOf: crowdOf };
+  if (HASREQ) module.exports = API;
+  root.BohemiaLivingMap = API;
+})(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
+/* ==== /engine/bohemia_livingmap.js ==== */
 /* ==== engine/bohemia_powerbuild.js ==== */
 // BOHEMIA POWER BUILDINGS — THE ONES THAT MAKE BATTERIES (9/11/26, WORLD lane)
 // Board row [batteries mined] / BUILDINGS-MAKE-BATTERIES.
@@ -34152,6 +34356,28 @@ function partiesCellsPerDay(){
    surface before this line was written: 6 to 10 of them a day once the first day
    settles, so this is a card line that actually fires rather than a branch that
    has never executed. */
+/* __THE_LIVING_MAP__ glue (LIFE+CITY 10/9) */
+/* THE LIVING MAP'S STATE ON THIS PAGE. Transient, never saved: prints after a reload start fresh (the
+   module's header says why). The traits file is the settlement screen's own (records/target). */
+var LIVING_MAP = { st: null, traits: null };
+try{ fetch('../records/target/settlement_traits.json').then(function(r){ return r.json(); }).then(function(j){ LIVING_MAP.traits = j; }).catch(function(){}); }catch(_e){}
+function livingMapOn(){ return typeof BohemiaLivingMap !== 'undefined' && !!BohemiaLivingMap; }
+function livingMapHour(){ try{ return (DAY.day|0) * 24 + (DAY.min|0) / 60; }catch(_e){ return 0; } }
+function livingMapState(){ if(!LIVING_MAP.st && livingMapOn()) LIVING_MAP.st = BohemiaLivingMap.make(); return LIVING_MAP.st; }
+/* n whole steps of the valley's business, settled so nobody stands on anybody, printed at this hour */
+function livingMapSteps(ps, n){
+  var st = livingMapState(); if(!st) throw new Error('no living map');
+  var seats = null; try{ seats = turfSeats(); }catch(_e){ seats = null; }
+  var h = livingMapHour();
+  for(var i = 0; i < n; i++) BohemiaLivingMap.step(ps, seats || [], st, h);
+  BohemiaLivingMap.prune(st, h);
+}
+/* the crowd at a place's gate today, and the traits it is showing (null until the file is in) */
+function livingMapCrowd(name, tier){
+  if(!livingMapOn() || !LIVING_MAP.traits) return null;
+  try{ return BohemiaLivingMap.crowdAt(LIVING_MAP.traits, { name: name, tier: tier }, (typeof loopDay === 'function') ? loopDay() : 0); }catch(_e){ return null; }
+}
+/* __/THE_LIVING_MAP__ glue */
 var PARTIES_TODAY=[], PARTIES_LEG={}, PARTIES_CARRY=0;
 function partiesAdvance(mins){
   var ps=partiesAll(); if(!ps||!ps.length) return null;
@@ -34176,7 +34402,8 @@ function partiesAdvance(mins){
   var __whole = Math.floor(PARTIES_CARRY);
   if(__whole > 0){
     PARTIES_CARRY -= __whole;
-    try{ BohemiaParties.advance(ps, 1, __whole); }catch(_e){}
+    /* __THE_LIVING_MAP__: settled so nobody stands on anybody, and printed; WORLD's step if it is missing */
+    try{ livingMapSteps(ps, __whole); }catch(_e){ try{ BohemiaParties.advance(ps, 1, __whole); }catch(_e2){} }
   }
   for(var j=0;j<ps.length;j++){
     var q=ps[j], leg=BohemiaParties.legOf(q);
@@ -42266,10 +42493,10 @@ function cityStepMins(x,y){
   var f = 1;
   try{ var t=om.at(x,y);
        if(t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; }catch(_e){}
-  /* THE DRIVER (VAMILY [followers], 10/1/26): 1 with no driver hired, so this
-     is a no-op by default. The one real, live-wired effect of the four
-     followers; see engine/bohemia_followers.js for why the other three
-     (fixer excepted) are not. */
+  /* THE SCOUT (VAMILY [followers], rebuilt 10/9/26 under rule 56): 1 with no
+     scout hired, so this is a no-op by default. One of two real, live-wired
+     effects of the six real retinue roles; see engine/bohemia_followers.js
+     for why the other four are not. */
   var dm = 1;
   try{ if (typeof BohemiaFollowers!=='undefined' && typeof CT_FOLLOWERS!=='undefined')
        dm = BohemiaFollowers.travelMultiplier(CT_FOLLOWERS); }catch(_e){}
@@ -42506,7 +42733,9 @@ function loopPostOpen(){
   var dist = null; try{ var c = om.at(t.x, t.y); dist = c && c.district; }catch(_e){}
   try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_SETTLEMENT_OPEN',
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
-    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {} }, '*'); }catch(_e){}
+    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},
+    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */
+    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })() }, '*'); }catch(_e){}
 }
 function loopOpenTown(t){
   LOOP.open = t;
@@ -42584,8 +42813,31 @@ function loopArrived(to){
     return;
   }
   var t = loopTownAt(x, y, 1);
-  if(t) setTimeout(function(){ loopOpenTown(t); }, 250);
+  if(t){ MAP_ARRIVAL = { name: String(t.name || ''), at: performance.now(), seq: ++MAP_ARRIVAL_N }; try{ mapStatePost(); }catch(_e){}   /* __THE_MAP_HEARS__ */
+    setTimeout(function(){ loopOpenTown(t); }, 250); }
 }
+/* __THE_MAP_HEARS__ (RUN 10/9, [the map hears]). SOUNDS 10/5 measured the travel screen posts nothing to the parent, so
+   the road and dirt beds and the sight-stop sound (68a) have nothing to play to. NOW the map posts its TRAVEL STATE on
+   the beat (120 BPM, 500 ms) whichever tab is up: moving or not and at what speed pick, the ground under the party (road
+   on the five paved districts that make travel faster, dirt elsewhere), the clock (minute, hour, night) and whether it is
+   stopped, the settlement screen open, the last arrival (a town reached), and a party in sight (null until the map draws
+   roaming parties, [you can flee]; MAP_SIGHT is where that row sets it). The shell keeps it as window.BOH_MAP_STATE and
+   raises 'bohemia-mapstate'; what plays to it is SOUNDS' (the beds are his to judge first). */
+var MAP_ARRIVAL = null, MAP_ARRIVAL_N = 0, MAP_SIGHT = null, MAP_STATE_N = 0;
+function mapState(){
+  var t = null; try{ t = om.at(city.x, city.y); }catch(_e){}
+  var dist = t ? t.district : null, min = (typeof T !== 'undefined' && T) ? (T.min | 0) : 0;
+  var moving = !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length && TRAVEL_SPEED > 0);
+  return { type: 'BOHEMIA_MAP_STATE', from: 'map', seq: ++MAP_STATE_N,
+    moving: moving, speed: TRAVEL_SPEED, surface: dist && CITY_PAVED[dist] ? 'road' : 'dirt', district: dist,
+    day: (typeof T !== 'undefined' && T) ? (T.day | 0) : 0, min: min, hour: Math.floor(min / 60) % 24, night: (function(){ try{ return isNight(); }catch(_e){ return false; } })(),
+    stopped: TRAVEL_SPEED === 0, settlement: !!(LOOP.frame && LOOP.frame.style.display === 'block'),
+    arriving: MAP_ARRIVAL ? { name: MAP_ARRIVAL.name, seq: MAP_ARRIVAL.seq, ago: Math.round(performance.now() - MAP_ARRIVAL.at) } : null,
+    sight: MAP_SIGHT, at: { x: city.x, y: city.y } };
+}
+function mapStatePost(){ if(!(window.parent && window.parent !== window)) return; try{ window.parent.postMessage(mapState(), '*'); }catch(_e){} }
+window.mapState = mapState;
+setInterval(mapStatePost, 500);   /* the beat */
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !LOOP.fighting) return;
   var id = LOOP.fighting; LOOP.fighting = null;
@@ -44707,7 +44959,8 @@ function renderCity(){
          is a RENDERING bound (what fits on a screen without becoming a scribble),
          not a rule about how long footprints last. */
       try {
-        var __pl = partiesAll() || [];
+        /* __THE_LIVING_MAP__: the prints below replace the derived leg; this one stands down */
+        var __pl = (livingMapOn() && LIVING_MAP.st) ? [] : (partiesAll() || []);
         if (__pl.length) {
           g.save();
           g.lineCap = 'round';
@@ -44746,6 +44999,32 @@ function renderCity(){
         }
       } catch(_e3){}
 
+      /* __THE_LIVING_MAP__ prints (LIFE+CITY 10/9) */
+      /* "LEAVE TRACKS THAT FADE BY THE HOUR". Each print is one step a party took off a town, with the
+         hour it was made; it reads full the hour it was made and is gone a day later. The ink is the
+         faction's own (colour is territory), brighter for your own people, as the leg drawing was. */
+      try {
+        if (livingMapOn() && LIVING_MAP.st && LIVING_MAP.st.prints.length) {
+          var __lh = livingMapHour(), __lk = {}, __ln = 0;
+          g.save(); g.lineCap = 'round';
+          for (var __li = 0; __li < LIVING_MAP.st.prints.length; __li++) {
+            var __pr = LIVING_MAP.st.prints[__li], __fd = BohemiaLivingMap.fadeOf(__pr, __lh);
+            if (__fd <= 0) continue;
+            var __la = iso(__pr.x, __pr.y, ox, oy);
+            if (__la.sx < -60 || __la.sx > CVW + 60 || __la.sy < -60 || __la.sy > CVH + 60) continue;
+            var __lb = iso(__pr.x + __pr.dx * 0.8, __pr.y + __pr.dy * 0.8, ox, oy);
+            var __lm = !!(__tm && __tn(__pr.f) === __tn(__tm));
+            g.strokeStyle = __holderInk(__pr.f, __lm);
+            g.globalAlpha = __fd * (__lm ? 0.85 : 0.6);
+            g.lineWidth = Math.max(1, Math.min(TW * 0.06, 2)) * (0.6 + __fd * 0.7);
+            g.beginPath(); g.moveTo(__la.sx, __la.sy + TH / 2); g.lineTo(__lb.sx, __lb.sy + TH / 2); g.stroke();
+            __lk[__pr.f] = g.strokeStyle; __ln++;
+          }
+          g.restore(); g.globalAlpha = 1;
+          try { window.__TRACK_INK = __lk; window.__PRINTS_DRAWN = __ln; } catch(_e4){}
+        }
+      } catch(_e4){}
+      /* __/THE_LIVING_MAP__ prints */
       /* ==== __THE_MAP_HAS_NEVER_DRAWN_THE_LIGHTS__ (9/13, [rent visible]) =====
          "the moment it is cut off, the block goes dark in a way you notice."
 
@@ -44987,6 +45266,24 @@ function renderCity(){
           g.beginPath(); g.ellipse(__p.sx, __cy + 1, 16, 5, 0, 0, 7); g.fill();
           __ps = mapArtDraw(__mk, mapArtBeat() + (__p.sx | 0), null, __p.sx, __cy + 2);
         }
+        /* __THE_LIVING_MAP__ gate crowd (LIFE+CITY 10/9) */
+        /* THE CROWD AT THE GATE: the tier's ordinary business, swelled on market day and thinned by a
+           raid or a sickness, by the same multiplier that fills the stalls; standing in front of the
+           place, each on its own beat, so a market day reads from across the map. */
+        try {
+          var __gc = livingMapCrowd(__n, __tier);
+          if (__gc && __gc.count > 0 && mapCastOf(0)) {
+            var __gh = mapHash(String(__n).length * 17, (__b.x | 0) * 31 + (__b.y | 0));
+            var __gsp = 6 * MAP_PEOPLE_K, __faces = ['S', 'SE', 'SW'];
+            for (var __gi = 0; __gi < __gc.count; __gi++) {
+              var __gx = __p.sx + (__gi - (__gc.count - 1) / 2) * __gsp;
+              var __gy = __cy + 6 + (5 + (__gi % 2) * 3) * MAP_PEOPLE_K;
+              mapPersonDraw(mapCastOf(__gh + __gi * 7), __faces[(__gh + __gi) % 3], mapArtBeat() + __gi, __gx, __gy);
+            }
+            try { MAP_DREW.gateCrowd = MAP_DREW.gateCrowd || {}; MAP_DREW.gateCrowd[__n] = { count: __gc.count, market: __gc.market, traits: __gc.traits }; } catch (_e5) {}
+          }
+        } catch (_e5) {}
+        /* __/THE_LIVING_MAP__ gate crowd */
         __r = Math.max(__r, __ps.height - 4);      /* the name plate sits above the building */
         try { MAP_DREW.places[__tier] = (MAP_DREW.places[__tier] || 0) + 1; } catch (_e) {}
         if(__named || __is || __norm(__n) === __norm(__near)){
@@ -56556,13 +56853,11 @@ function ctRoadBark(now){
 var CT_AMBITION = null;          /* the chosen goal's id, or null */
 var CT_AMBITION_ASKED = {};      /* id -> asked already, so the ask itself is once per goal */
 var CT_AMBITION_PAID = {};       /* id -> reward already paid, so a completed goal never pays twice */
-var CT_FOLLOWERS = {};           /* role id -> true, who is currently hired */
-var CT_FOLLOWER_ASKED = {};      /* role id -> asked already, once ever, same economy as ambitions */
+var CT_FOLLOWERS = {};           /* role id -> true, who is currently hired (bought once, rule 56) */
+var CT_FOLLOWER_ASKED = {};      /* role id -> declined already, once ever, same economy as ambitions */
 var CT_FOLLOWER_OFFER = null;    /* role id of the offer currently waiting on an answer, or null */
 var CT_FOLLOWER_OFFER_AT = 0;    /* performance.now() the offer first appeared */
 var CT_FOLLOWER_OFFER_WITH = null; /* who made the offer, so walking off to somebody else is a free decline */
-var CT_FOLLOWER_LEFT = [];       /* role ids who left unpaid overnight, waiting for a mouth to say so */
-var CT_FOLLOWER_NIGHTS = 0;      /* how many times wages have been collected; the fixer's relief owns this, never the game's own day number */
 function ctAmbitionFacts(){
   var facts = { company: 0, electricity: 0, usefulWith: [] };
   try { facts.company = ctYours().length; } catch (_e) {}
@@ -56631,61 +56926,71 @@ function ctAmbitionBark(now){
   return false;
 }
 
-/* THE RETINUE (VAMILY [followers], rule 48, 10/1/26). Reuses the exact same
-   companion mouth and bark-ladder slot as ctAmbitionBark, for the same reason
-   ambitions did: rule 19/20 killed a card as the surface and a new button is
-   UI's call on a settlement screen that does not exist yet. UNLIKE ambitions,
-   this one DOES build the accept/decline gesture ambitions named as missing:
-   an offer stays live and silent for two beats (120 BPM, 500 ms/beat -- the
-   same "two beats" window [bb company]'s own retired fall-in mechanic used),
-   and walking off to a different companion before then is a free decline,
-   never asked again this session for that role (rule 35c). */
+/* THE RETINUE (VAMILY [followers], rule 48, 10/1/26; CORRECTED 10/9 under rule
+   56, his fifth votes: "THE RETINUE IS BOUGHT ONCE, NO DAILY WAGE... one time
+   purchases." The nightly wage this round deleted was wrong by his own words;
+   see engine/bohemia_followers.js for the real six roles and real prices this
+   round rebuilt it against (Grok's cited retinue page, GROK_121).
+   Reuses the exact same companion mouth and bark-ladder slot as
+   ctAmbitionBark: rule 19/20 killed a card as the surface and a new button is
+   UI's call on a settlement screen that does not exist yet. The accept/decline
+   gesture ambitions named as missing stays: an offer holds silent for two
+   beats (120 BPM, 500 ms/beat) with the same companion, then the hire is
+   ATTEMPTED as a single one-time debit. Walking off before that is a free
+   decline, never asked again this session for that role. Staying but being
+   unable to pay is NOT a decline -- it is not remembered, so the same role
+   can be offered again once the purse can afford it. */
 function ctFollowerBark(now){
   if (typeof BohemiaFollowers === 'undefined') return false;
   if (CT_WALKS_WITH == null) return false;
-  if (CT_FOLLOWER_OFFER && CT_FOLLOWER_OFFER_WITH !== CT_WALKS_WITH) CT_FOLLOWER_OFFER = null;
+  if (CT_FOLLOWER_OFFER && CT_FOLLOWER_OFFER_WITH !== CT_WALKS_WITH) {
+    CT_FOLLOWER_ASKED[CT_FOLLOWER_OFFER] = 1; /* walking off to somebody else IS the decline; remembered here, and only here */
+    CT_FOLLOWER_OFFER = null;
+  }
   var drew = (typeof BARK_DREW !== 'undefined' && BARK_DREW) ? BARK_DREW : [];
   var d = null;
   for (var i = 0; i < drew.length; i++)
     if (drew[i] && drew[i].p && drew[i].p.id === CT_WALKS_WITH) { d = drew[i]; break; }
   if (!d || !d.at) return false;
 
-  /* BREAKING NEWS FIRST: somebody left overnight unpaid. Said once, whenever a
-     mouth is next available, same deferred-announcement shape as every other
-     thing this file waits to say until somebody is actually there to say it. */
-  if (CT_FOLLOWER_LEFT.length) {
-    var leftId = CT_FOLLOWER_LEFT.shift();
-    var leftLine = BohemiaFollowers.unpaidLine(leftId);
-    if (leftLine) {
-      BARK.p = d.p; BARK.at = d.at; BARK.text = leftLine;
-      BARK.until = now + barkHold(leftLine);
-      try { window.__FOLLOWER_LEFT = { id: leftId }; } catch (_e) {}
-      return true;
-    }
-  }
-
   /* AN OFFER IS LIVE: say nothing new until two beats have passed with the
-     same companion still the one you are with, then they fall in. */
+     same companion still the one you are with, then the one-time price is
+     attempted as a single real debit. */
   if (CT_FOLLOWER_OFFER) {
     if (now - CT_FOLLOWER_OFFER_AT >= 1000) {
-      var hired = BohemiaFollowers.hireLine(CT_FOLLOWER_OFFER);
-      if (hired) {
-        CT_FOLLOWERS[CT_FOLLOWER_OFFER] = true;
-        try { window.__FOLLOWER_HIRED = { id: CT_FOLLOWER_OFFER }; } catch (_e) {}
+      var id = CT_FOLLOWER_OFFER;
+      var price = BohemiaFollowers.hirePrice(id, CT_FOLLOWERS);
+      var r = null;
+      try { r = BohemiaPurse.debit(purseGet(), 'electricity', price,
+        'hired: ' + id, 'follower:' + id,
+        (typeof DAY !== 'undefined' && DAY.day) ? DAY.day : 0); } catch (_e) {}
+      CT_FOLLOWER_OFFER = null;
+      if (r && r.applied) {
+        CT_FOLLOWERS[id] = true;
+        var hired = BohemiaFollowers.hireLine(id);
+        try { window.__FOLLOWER_HIRED = { id: id, price: price }; } catch (_e) {}
         BARK.p = d.p; BARK.at = d.at; BARK.text = hired;
         BARK.until = now + barkHold(hired);
-        CT_FOLLOWER_OFFER = null;
         return true;
       }
-      CT_FOLLOWER_OFFER = null;
+      /* CAN'T AFFORD IT: not a decline, nothing remembered, try again once
+         the purse can pay. */
+      var poor = BohemiaFollowers.cantAffordLine(id);
+      if (poor) {
+        BARK.p = d.p; BARK.at = d.at; BARK.text = poor;
+        BARK.until = now + barkHold(poor);
+        try { window.__FOLLOWER_CANT_AFFORD = { id: id, price: price }; } catch (_e) {}
+        return true;
+      }
     }
     return false;
   }
 
-  /* NO OFFER LIVE: the next role neither hired nor already declined. */
+  /* NO OFFER LIVE: the next role neither hired nor already declined. offerFor
+     already excludes a declined role, so asking it again here does NOT mark
+     it declined -- only walking off on a live offer (above) ever does. */
   var offer = BohemiaFollowers.offerFor(CT_FOLLOWERS, CT_FOLLOWER_ASKED);
-  if (offer && !CT_FOLLOWER_ASKED[offer]) {
-    CT_FOLLOWER_ASKED[offer] = 1;
+  if (offer) {
     var ask = BohemiaFollowers.askLine(offer);
     if (ask) {
       CT_FOLLOWER_OFFER = offer; CT_FOLLOWER_OFFER_AT = now; CT_FOLLOWER_OFFER_WITH = CT_WALKS_WITH;
@@ -56696,41 +57001,6 @@ function ctFollowerBark(now){
     }
   }
   return false;
-}
-
-/* THE RETINUE IS PAID, OR IT WALKS (VAMILY [followers], 10/1/26). Called once
-   a night, same cadence and the same place in the order as nightPower() and
-   blockRent() -- after your own debts are collected, because hired help you
-   pay yourself comes after what you owe somebody else. A plain debit per
-   hired follower, skipped on a night the fixer's relief makes not due
-   (wageDueTonight); NEVER posted through the frozen upkeep() verbs -- this is
-   a transfer with its own name, the identical shape block rent already uses
-   (63033: "a fifth is a design change, and design changes are Paolo's").
-   UNPAID LEAVES THAT SAME NIGHT: no invented grace period, the same immediate
-   consequence an unpaid circuit already gets from nightPower(). */
-function followerWagesNight(){
-  if (typeof BohemiaFollowers === 'undefined') return;
-  var ids = Object.keys(CT_FOLLOWERS); if (!ids.length) return;
-  /* THE LEDGER DAY IS THE REAL GAME DAY (for honest history); THE RELIEF TICK
-     IS THIS MECHANISM'S OWN COUNT (for a provable, self-contained parity) --
-     two different numbers on purpose, so the fixer's "every other time" never
-     depends on another lane's day-number semantics. */
-  var realDay = (typeof DAY !== 'undefined' && typeof DAY.day === 'number') ? DAY.day : 0;
-  var tick = CT_FOLLOWER_NIGHTS++;
-  for (var i = 0; i < ids.length; i++) {
-    var id = ids[i];
-    if (!CT_FOLLOWERS[id]) continue;
-    if (!BohemiaFollowers.wageDueTonight(id, CT_FOLLOWERS, tick)) continue;
-    var f = BohemiaFollowers.byId(id);
-    if (!f) continue;
-    var r = null;
-    try { r = BohemiaPurse.debit(purseGet(), 'electricity', f.wage,
-      'follower wage: ' + id, 'follower:' + id, realDay); } catch (_e) {}
-    if (!r || !r.applied) {
-      delete CT_FOLLOWERS[id];
-      CT_FOLLOWER_LEFT.push(id);
-    }
-  }
 }
 
 /* ==== __THE_INJURED__ : A PERSON WHO WENT DOWN TALKS ABOUT IT, AND CARRIES
@@ -63070,15 +63340,6 @@ function onNightfall(){
      ground's owner, because rent on where you stand is collected before a
      handshake is. */
   try{ loanNight(); }catch(_e){}
-  /* __THE_RETINUE_IS_PAID__ (10/1, [followers]) -- AND THEN YOUR OWN HIRED HELP.
-     After your own debts, because the people you pay yourself come after what
-     you owe somebody else; before the valley's own market turns over, because
-     this is still a personal ledger line, not a valley-wide one. A TRANSFER,
-     NOT A FIFTH VERB (same shape as block rent, 63033): the four upkeep verbs
-     stay frozen, this is a plain debit with its own name. A follower who
-     cannot be paid leaves that same night -- no invented grace period, the
-     same immediate consequence an unpaid circuit already gets (nightPower). */
-  try{ followerWagesNight(); }catch(_e){}
   try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
@@ -78452,65 +78713,75 @@ try{ window.ctLadderWalk=ctLadderWalk; window.ctLadderReady=ctLadderReady;
   'use strict';
   var HASREQ = (typeof module !== 'undefined' && module.exports);
 
-  var WAGE = 1; // batteries/night, flat, matching the house style (every upkeep verb debits exactly 1)
-
   var FOLLOWERS = [
-    { id: 'mechanic', bb: 'blacksmith', wage: WAGE, tuned: false,
-      ask: "I used to keep machines running for a living. A mechanic, if you want one. A battery a night.",
-      hireSays: "The mechanic falls in.",
-      unpaidSays: "The mechanic says the batteries dried up, and leaves.",
-      changes: { kind: 'repair', mult: null, tuned: false,
-        note: "not yet live: this game has a flat plate-spent switch (fight:plate), not a repair meter, so there is nothing yet to make cheaper" } },
-    { id: 'medic', bb: 'surgeon', wage: WAGE, tuned: false,
-      ask: "I patched people up for a living. A medic, if you want one. A battery a night.",
-      hireSays: "The medic falls in.",
-      unpaidSays: "The medic says the batteries dried up, and leaves.",
-      changes: { kind: 'healing', mult: null, tuned: false,
-        note: "not yet live: this game has no wound/injury clock to speed up yet (rule 36b, long injury, is a ruling, not code)" } },
-    { id: 'fixer', bb: 'negotiator', wage: WAGE, tuned: false,
-      ask: "I can talk a price down, for a cut. A fixer, if you want one. A battery a night.",
-      hireSays: "The fixer falls in. The rest of the crew gets paid a little less often now.",
-      unpaidSays: "The fixer says the batteries dried up, and leaves.",
-      changes: { kind: 'wageRelief', everyNights: 2, tuned: false,
-        note: "every OTHER hired follower is only charged every second night instead of every night" } },
-    { id: 'driver', bb: 'scout', wage: WAGE, tuned: false,
-      ask: "I used to run routes before the roads got bad. A driver, if you want one. A battery a night.",
-      hireSays: "The driver falls in. The roads go by quicker now.",
-      unpaidSays: "The driver says the batteries dried up, and leaves.",
+    { id: 'cook', bb: 'cook', price: 200, tuned: false,
+      ask: "I can keep food from going bad and nurse a man back up. A cook, for 200 batteries, once.",
+      hireSays: "The cook falls in.",
+      changes: { kind: 'food', mult: null, tuned: false,
+        note: "not yet live: this game has no food-duration or hourly-health clock to speed up yet (wiki: +3 days food, +1 health/hour)" } },
+    { id: 'scout', bb: 'scout', price: 250, tuned: false,
+      ask: "I used to run routes before the roads got bad. A scout, for 250 batteries, once.",
+      hireSays: "The scout falls in. The roads go by quicker now.",
       changes: { kind: 'travel', mult: 0.85, tuned: false,
-        note: "every block crossed on the map costs 15% less time" } }
+        note: "LIVE: every block crossed on the map costs 15% less time (wiki: +15% travel speed)" } },
+    { id: 'lookout', bb: 'lookout', price: 250, tuned: false,
+      ask: "I can spot trouble before it spots you. A lookout, for 250 batteries, once.",
+      hireSays: "The lookout falls in.",
+      changes: { kind: 'sight', mult: null, tuned: false,
+        note: "not yet live: this game has no sight-radius mechanic yet to widen (wiki: +25% sight)" } },
+    { id: 'paymaster', bb: 'paymaster', price: 350, tuned: false,
+      ask: "I know how to talk a price down. A paymaster, for 350 batteries, once.",
+      hireSays: "The paymaster falls in. Every other hire costs a little less now.",
+      changes: { kind: 'hireDiscount', mult: 0.85, tuned: false,
+        note: "LIVE: every OTHER follower's one-time price is 15% cheaper, hired before or after (wiki: -15% wages, re-read as the one-time price now that there is no wage; -50% desertion chance is not modeled, nothing in this game deserts a follower)" } },
+    { id: 'blacksmith', bb: 'blacksmith', price: 300, tuned: false,
+      ask: "I can keep gear from falling apart. A blacksmith, for 300 batteries, once.",
+      hireSays: "The blacksmith falls in.",
+      changes: { kind: 'repair', mult: null, tuned: false,
+        note: "not yet live: this game has a flat plate-spent switch, not a repair meter, to make cheaper or faster yet (wiki: +20% repair speed, -20% tool use)" } },
+    { id: 'surgeon', bb: 'surgeon', price: 350, tuned: false,
+      ask: "I patched people up for a living. A surgeon, for 350 batteries, once.",
+      hireSays: "The surgeon falls in.",
+      changes: { kind: 'healing', mult: null, tuned: false,
+        note: "not yet live: this game has no wound/injury clock to shorten yet (wiki: -1 day injury time, saves a man from a fatal blow if the injury is not permanent -- NEVER applied to the main character, who is downed, never dead, by his own lock)" } }
   ];
 
   function byId(id) { for (var i = 0; i < FOLLOWERS.length; i++) if (FOLLOWERS[i].id === id) return FOLLOWERS[i]; return null; }
 
-  function offerFor(hired, asked) {
-    hired = hired || {}; asked = asked || {};
+  function offerFor(hired, declined) {
+    hired = hired || {}; declined = declined || {};
     for (var i = 0; i < FOLLOWERS.length; i++) {
       var f = FOLLOWERS[i];
-      if (!hired[f.id] && !asked[f.id]) return f.id;
+      if (!hired[f.id] && !declined[f.id]) return f.id;
     }
     return null;
   }
 
   function askLine(id) { var f = byId(id); return f ? f.ask : null; }
   function hireLine(id) { var f = byId(id); return f ? f.hireSays : null; }
-  function unpaidLine(id) { var f = byId(id); return f ? f.unpaidSays : null; }
+  function cantAffordLine(id) {
+    var f = byId(id); if (!f) return null;
+    return "Can't afford a " + f.id + " right now.";
+  }
 
-  function wageDueTonight(id, hired, tick) {
-    hired = hired || {}; tick = tick | 0;
-    if (id === 'fixer' || !hired.fixer) return true;
-    var every = (byId('fixer').changes.everyNights) | 0 || 2;
-    return (tick % every) === 0;
+  function hirePrice(id, hired) {
+    var f = byId(id); if (!f) return 0;
+    hired = hired || {};
+    if (id !== 'paymaster' && hired.paymaster) {
+      var pm = byId('paymaster');
+      return Math.round(f.price * pm.changes.mult);
+    }
+    return f.price;
   }
 
   function travelMultiplier(hired) {
-    if (hired && hired.driver) { var f = byId('driver'); return (f && typeof f.changes.mult === 'number') ? f.changes.mult : 1; }
+    if (hired && hired.scout) { var f = byId('scout'); return (f && typeof f.changes.mult === 'number') ? f.changes.mult : 1; }
     return 1;
   }
 
-  var API = { FOLLOWERS: FOLLOWERS, WAGE: WAGE, byId: byId, offerFor: offerFor,
-    askLine: askLine, hireLine: hireLine, unpaidLine: unpaidLine,
-    wageDueTonight: wageDueTonight, travelMultiplier: travelMultiplier };
+  var API = { FOLLOWERS: FOLLOWERS, byId: byId, offerFor: offerFor,
+    askLine: askLine, hireLine: hireLine, cantAffordLine: cantAffordLine,
+    hirePrice: hirePrice, travelMultiplier: travelMultiplier };
   if (HASREQ) module.exports = API;
   root.BohemiaFollowers = API;
 })(typeof window !== 'undefined' ? window

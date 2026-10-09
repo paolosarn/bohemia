@@ -848,6 +848,24 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
+     'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
+     'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '
+     'off the Battle Brothers wiki in his own row. *** RULE 12 FOUND HALF OF IT BUILT AND THE OTHER '
+     'HALF A GUESS: *** [board terrains] 9/30 already gave every cell a kind, so there is NO second '
+     'list of grounds (a ground IS a terrain kind, and the gate refuses if they stop agreeing) -- '
+     'while the travel cost that shipped is a TWO-SPEED WORLD, PAVED_SPEED.factor = 0.5 on the '
+     'walked surface, where the mountains cost exactly what a parking lot costs. His numbers are a '
+     'five-speed world. Nothing here touches the street; this is the map\'s own table. RULED WHERE '
+     'HE RULED (road 1, dirt 0.75, wash 0.5, the ranges 0.25) AND MEASURED WHERE HE DID NOT, off the '
+     'city\'s own kits, re-measured every run, ON A SCALE ANCHORED TO HIS RULED DIRT SPEED rather '
+     'than a constant somebody picked; every value carries tuned:false because every felt number is '
+     'TUNING\'s. *** AND THE POOL IS NEVER A TABLE: *** who roams a ground is who holds its cells, '
+     'counted off the live turf at read time, so taking ground changes it with nothing to edit -- '
+     'the gate refuses a stored pool or a hard-coded faction name. Three things in his list are not '
+     'grounds and say so: rubble is the RUIN (a CONDITION), the casino floor is an INTERIOR, a RIDGE '
+     'is a feature nothing in the valley marks. And NO FACTION IS GIVEN A COLOUR, because COLOUR IS '
+     'TERRITORY says whose hue is whose is his.', False),
     ('TILE KINDS', ['node', 'gates/tile_kinds_gate.js'],
      'ROW [tile options], its surviving half (coordinator 9/28: "the list of tile KINDS at house '
      'size is yours: every kind the city has, from the block\'s own layout; the board must still '
@@ -2329,6 +2347,14 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE MAP HEARS', ['node', 'gates/the_map_hears_gate.js'],
+     'VAMILY [the map hears] (SOUNDS 10/5: the travel screen posts nothing to the parent, so the road and dirt beds and '
+     'the sight-stop sound have nothing to play to on the MAP). NOW the map posts its travel state on the beat (500 ms): '
+     'moving and the speed pick, road or dirt from the ground under the party (the five paved districts), the clock and '
+     'night, stopped, the settlement open, the last arrival, a party in sight (null until [you can flee]); the shell keeps '
+     'it as window.BOH_MAP_STATE and raises bohemia-mapstate. HOLDS, driven: on the beat; the map\'s own clock; a freeway '
+     'says road, a wash dirt; moving on a journey, still after; pause stops the clock; reaching a town names it; the '
+     'settlement open is said. Mutations: every 2 s; all road; no arrival; the shell drops it.', True),
     ('A FEW, NOT TWELVE', ['node', 'gates/a_few_not_twelve_gate.js'],
      'VAMILY [a few, not twelve], rule 75b (PAOLO 10/5: "12 vs 12 is cool but that can\'t be the flow... a lot of math on '
      'the type of enemies, the difficulty, the equipment as you progress"). MEASURED BEFORE: every fight dealt COMBAT\'s '
@@ -3132,6 +3158,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
+     'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
+     'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '
+     'a gate is the settlement screen\'s own roll', False),
     ('BUILD A LOT',      ['node', 'gates/build_a_lot_gate.js'],
      'rule 40b (Paolo 9/29): what can be built on a lot in your home base and what it does -- every piece '
      'a real kit piece, one battery and one day each, each houses a family or makes one currency (the wall '
