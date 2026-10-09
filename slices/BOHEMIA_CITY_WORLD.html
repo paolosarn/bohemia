@@ -42813,8 +42813,31 @@ function loopArrived(to){
     return;
   }
   var t = loopTownAt(x, y, 1);
-  if(t) setTimeout(function(){ loopOpenTown(t); }, 250);
+  if(t){ MAP_ARRIVAL = { name: String(t.name || ''), at: performance.now(), seq: ++MAP_ARRIVAL_N }; try{ mapStatePost(); }catch(_e){}   /* __THE_MAP_HEARS__ */
+    setTimeout(function(){ loopOpenTown(t); }, 250); }
 }
+/* __THE_MAP_HEARS__ (RUN 10/9, [the map hears]). SOUNDS 10/5 measured the travel screen posts nothing to the parent, so
+   the road and dirt beds and the sight-stop sound (68a) have nothing to play to. NOW the map posts its TRAVEL STATE on
+   the beat (120 BPM, 500 ms) whichever tab is up: moving or not and at what speed pick, the ground under the party (road
+   on the five paved districts that make travel faster, dirt elsewhere), the clock (minute, hour, night) and whether it is
+   stopped, the settlement screen open, the last arrival (a town reached), and a party in sight (null until the map draws
+   roaming parties, [you can flee]; MAP_SIGHT is where that row sets it). The shell keeps it as window.BOH_MAP_STATE and
+   raises 'bohemia-mapstate'; what plays to it is SOUNDS' (the beds are his to judge first). */
+var MAP_ARRIVAL = null, MAP_ARRIVAL_N = 0, MAP_SIGHT = null, MAP_STATE_N = 0;
+function mapState(){
+  var t = null; try{ t = om.at(city.x, city.y); }catch(_e){}
+  var dist = t ? t.district : null, min = (typeof T !== 'undefined' && T) ? (T.min | 0) : 0;
+  var moving = !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length && TRAVEL_SPEED > 0);
+  return { type: 'BOHEMIA_MAP_STATE', from: 'map', seq: ++MAP_STATE_N,
+    moving: moving, speed: TRAVEL_SPEED, surface: dist && CITY_PAVED[dist] ? 'road' : 'dirt', district: dist,
+    day: (typeof T !== 'undefined' && T) ? (T.day | 0) : 0, min: min, hour: Math.floor(min / 60) % 24, night: (function(){ try{ return isNight(); }catch(_e){ return false; } })(),
+    stopped: TRAVEL_SPEED === 0, settlement: !!(LOOP.frame && LOOP.frame.style.display === 'block'),
+    arriving: MAP_ARRIVAL ? { name: MAP_ARRIVAL.name, seq: MAP_ARRIVAL.seq, ago: Math.round(performance.now() - MAP_ARRIVAL.at) } : null,
+    sight: MAP_SIGHT, at: { x: city.x, y: city.y } };
+}
+function mapStatePost(){ if(!(window.parent && window.parent !== window)) return; try{ window.parent.postMessage(mapState(), '*'); }catch(_e){} }
+window.mapState = mapState;
+setInterval(mapStatePost, 500);   /* the beat */
 window.addEventListener('message', function(ev){
   var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !LOOP.fighting) return;
   var id = LOOP.fighting; LOOP.fighting = null;

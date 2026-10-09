@@ -11637,6 +11637,9 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/9b LATEST -- [the map hears] SHIPPED. TAB: none to see (the map's travel state for SOUNDS).
+City __THE_MAP_HEARS__: mapState()/mapStatePost() every 500 ms; MAP_ARRIVAL set in loopArrived; MAP_SIGHT is [you can flee]'s to set. Shell: window.BOH_MAP_STATE + 'bohemia-mapstate'.
+GATE THE MAP HEARS 8/0. NEXT: [you can flee] (68, 68a: draw the roaming parties with their count word from partyMath('roaming'), set MAP_SIGHT, time stops in sight), then [first load], [demo end].
 RUN (run-eak241): 10/5g LATEST -- [a few, not twelve] SHIPPED (rule 75b). TAB: the DEMO's map, any fight.
 City __A_FEW_NOT_TWELVE__: partyMath(kind 'job'|'roaming', ctx) from records/target/bb/party_math.json (loaded at boot; same numbers inline until then); jobs carry job.party, the road sends party; shell nfOpts passes d.party to FIGHT_OPTS.party (COMBAT's partyFor dresses it).
 GATE A FEW, NOT TWELVE 7/0. partyMath('roaming',{x,y}).word is ready for [you can flee] (68a: a sighted party with its count word). Coefficients marked ours wait on Grok ask 22 / TUNING. NEXT: [you can flee] (68), [the start screen]'s last leg (COMBAT's screen override), and RUN TWO's ask: keep the 'bag' in the save.

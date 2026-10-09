@@ -2322,6 +2322,14 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE MAP HEARS', ['node', 'gates/the_map_hears_gate.js'],
+     'VAMILY [the map hears] (SOUNDS 10/5: the travel screen posts nothing to the parent, so the road and dirt beds and '
+     'the sight-stop sound have nothing to play to on the MAP). NOW the map posts its travel state on the beat (500 ms): '
+     'moving and the speed pick, road or dirt from the ground under the party (the five paved districts), the clock and '
+     'night, stopped, the settlement open, the last arrival, a party in sight (null until [you can flee]); the shell keeps '
+     'it as window.BOH_MAP_STATE and raises bohemia-mapstate. HOLDS, driven: on the beat; the map\'s own clock; a freeway '
+     'says road, a wash dirt; moving on a journey, still after; pause stops the clock; reaching a town names it; the '
+     'settlement open is said. Mutations: every 2 s; all road; no arrival; the shell drops it.', True),
     ('A FEW, NOT TWELVE', ['node', 'gates/a_few_not_twelve_gate.js'],
      'VAMILY [a few, not twelve], rule 75b (PAOLO 10/5: "12 vs 12 is cool but that can\'t be the flow... a lot of math on '
      'the type of enemies, the difficulty, the equipment as you progress"). MEASURED BEFORE: every fight dealt COMBAT\'s '
