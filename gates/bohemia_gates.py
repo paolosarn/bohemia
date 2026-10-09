@@ -3174,6 +3174,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILD ON THE SCREEN', ['node', 'gates/build_on_the_screen_gate.js'],
+     'rule 40b + 43 (Paolo 9/29): the build list is a place on the settlement picture; somebody else\'s ground '
+     'refuses in your own words and costs nothing; on yours one battery, one day, standing the next day on its '
+     'lot and kept when the page opens again; four lots; the map says who holds it', False),
     ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
      'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
      'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '

@@ -113,6 +113,13 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_followers.js"></script>
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
+<!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
+<script src="../engine/bohemia_century.js"></script>
+<script src="../engine/bohemia_housing.js"></script>
+<script src="../engine/bohemia_powerbuild.js"></script>
+<script src="../engine/bohemia_homebases.js"></script>
+<script src="../engine/bohemia_lotbuild.js"></script>
+<!-- __/BUILD_ON_THE_SCREEN__ scripts -->
 <script src="bohemia_ui_materials.js"></script>  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
@@ -454,6 +461,98 @@ function sfx(ev, mul) {
    nailed to a pole, scavenge the junk lot. Nothing is written on the picture: a building lights
    under the finger and names itself only when touched. On an upright phone the picture fills the
    height and you drag it sideways; a wide screen sees it whole. */
+/* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9) */
+/* BUILD ON THE SCREEN (rule 40b: "a more deep rich interactable buildable world"; rule 43: you build
+   where you hold). The list, the cost, the day and what each thing does are engine/bohemia_lotbuild.js;
+   this block is only the place on the picture, the mouth, and the drawing of what stands. */
+B.build = {name:'BUILD', short:'1 battery, 1 day'};
+KEEPERS.build = {who:'you', name:'YOU', draft:true};
+var BUILDBOX = {camp:[1600,440,2010,600], town:[420,400,1080,530], fortress:[1640,480,2040,760]};
+var BUILD_LOTS = 4;                                   /* lots on a place's open ground: mine, draft, TUNING */
+var LOTSPR = {};
+['wall','tank','shed','pump','garden','solar','stall','roof'].forEach(function(id){
+  var im = new Image(); im.src = 'settlement/lot/' + id + '.png'; LOTSPR[id] = im; });
+function buildKey(){ return 'bohemia.lots.' + S.place.name; }
+function buildState(){
+  if(S.build && S.build.name === S.place.name) return S.build;
+  var LB = window.BohemiaLotBuild, C = window.BohemiaCentury, st = null;
+  try{ st = JSON.parse(localStorage.getItem(buildKey()) || 'null'); }catch(e){ st = null; }
+  S.build = { name: S.place.name,
+              site: (st && LB && LB.load(JSON.stringify(st.site))) || (LB ? LB.site({base:S.place.name}) : null),
+              century: (C && st && st.century) ? C.load(st.century) : (C ? C.make({act:1}) : null) };
+  return S.build;
+}
+function buildSave(){ var b = S.build; if(!b) return;
+  try{ localStorage.setItem(buildKey(), JSON.stringify({site: JSON.parse(BohemiaLotBuild.save(b.site)),
+                                                        century: BohemiaCentury.save(b.century)})); }catch(e){} }
+/* the ledger FACTIONS keeps, written from the map's answer: one taking, or nothing */
+function buildHold(){
+  var H = window.BohemiaHomeBases; if(!H) return null;
+  var rec = H.make({act:1});
+  if(buildMine()) H.took(rec, {base:S.place.name, to:H.YOU, day:buildDay()});
+  return {rec:rec, act:1};
+}
+/* whose ground: the map always says (held in the open message); the page alone, played on its own purse
+   (its header: 'Standalone it runs on its own purse with 3 batteries so it can be played'), is your place */
+function buildMine(){ return (S.mine === undefined) ? !!S.standalone : !!S.mine; }
+function buildDay(){ return (typeof S.mapDay === 'number') ? S.mapDay : (S.day|0); }
+function buildTick(){
+  var LB = window.BohemiaLotBuild, b = buildState(); if(!LB || !b.site) return null;
+  var r = LB.tick(b.site, S.purse, b.century, buildDay(), buildHold()); buildSave(); return r;
+}
+function buildFreeLot(){ var b = buildState(); for(var i=0;i<BUILD_LOTS;i++) if(!b.site.lots[i+',0']) return {x:i, y:0}; return null; }
+function buildDoes(e){
+  if(e.houses) return 'a family';
+  if(e.makes && e.makes.clout) return 'your name';
+  if(e.six) return '+1 ' + (e.six === 'batteries' ? 'battery' : e.six) + '/day';
+  return e.guards ? 'keeps out ' + e.guards : 'nothing';
+}
+var BUILD_NO = { NOT_HELD:'This is not our ground. We build where we hold. Take it first.', RUIN:'Nothing stands on a ruin this generation.',
+  NO_HOLD:'This is not our ground. We build where we hold. Take it first.', CANNOT_AFFORD:'No battery, nothing goes up.',
+  LOT_TAKEN:'Something is already going up there.', KIND_LOCKED:'We do not know how to build that yet.' };
+function buildSheet(body, acts, line){
+  var LB = window.BohemiaLotBuild, b = buildState(), hold = buildHold();
+  /* the place's gossip is the keepers' to say, and this keeper is YOU: the player does not speak it */
+  if(line && line === traitLine('build')) line = null;
+  if(!LB || !b.site){ body.appendChild(speak('build', 'Nothing to build with.')); body.appendChild(acts); return show(); }
+  buildTick();
+  if(!buildMine()){
+    body.appendChild(speak('build', line || BUILD_NO.NOT_HELD));
+    body.appendChild(acts); return show();
+  }
+  var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
+  body.appendChild(speak('build', line || (free ? 'One battery and a day for any of these. What goes up?' : 'Every lot here has something on it.')));
+  list.forEach(function(e){
+    acts.appendChild(act(e.name, '1 batt  ' + buildDoes(e), function(){
+      var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
+      var r = LB.start(b.site, S.purse, lot, e.id, buildDay(), hold);
+      if(!r.ok) return openB('build', BUILD_NO[r.why] || 'It will not go up.');
+      buildSave(); post('build', {id:e.id, lot:lot, day:buildDay()}); shelf();
+      heard('The ' + e.name.toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.');
+    }, !free || !e.affordable));
+  });
+  var sl = document.createElement('div'); sl.className = 'slots';
+  var up = [], going = [];
+  for(var k in b.site.lots){ var L = b.site.lots[k], nm = (LB.markerOf(L.id) || {}).name || L.id; (L.done ? up : going).push(nm); }
+  sl.textContent = 'Standing: ' + (up.length ? up.join(', ') : 'nothing yet') + (going.length ? '.  Going up: ' + going.join(', ') + '.' : '.')
+                 + '  Lots: ' + Object.keys(b.site.lots).length + ' of ' + BUILD_LOTS + '.';
+  body.appendChild(acts); body.appendChild(sl); return show();
+}
+/* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
+function drawBuilt(s){
+  if(!VAR || !VAR.boxes.build) return;
+  var b = buildState(); if(!b.site) return;
+  var bx = VAR.boxes.build, lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1];
+  for(var k in b.site.lots){
+    var L = b.site.lots[k], im = LOTSPR[L.id]; if(!im || !im.complete || !im.naturalWidth) continue;
+    var k2 = Math.min(2, (lw*0.92)/im.naturalWidth, (lh*0.95)/im.naturalHeight);
+    var w = im.naturalWidth*k2, h = im.naturalHeight*k2;
+    var x = view.ox + (bx[0] + lw*L.x + (lw - w)/2)*s, y = view.oy + (bx[3] - h)*s;
+    cx.save(); cx.imageSmoothingEnabled = false; cx.globalAlpha = L.done ? 1 : 0.35;
+    cx.drawImage(im, Math.round(x), Math.round(y), Math.round(w*s), Math.round(h*s)); cx.restore();
+  }
+}
+/* __/BUILD_ON_THE_SCREEN__ */
 var GROUND = null, PIC = {day:null, night:null}, VAR = null;
 var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:'clinic'};
 /* scavenge has no hotspot in the pictures, so it is the junk/empty lot in each, picked by eye */
@@ -474,8 +573,9 @@ function pickVariant(){
   VAR.boxes = {};
   for(var h in VAR.hotspots){ var k = KMAP[h]; if(k) VAR.boxes[k] = VAR.hotspots[h].box; }
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
+  VAR.boxes.build = BUILDBOX[S.place.tier] || BUILDBOX.town;   /* __BUILD_ON_THE_SCREEN__ */
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
-  ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
+  ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
   rollTraits(); restock();
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
@@ -523,6 +623,7 @@ function draw(){
   cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
   drawTraitLooks(s);
+  try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
   var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
@@ -598,6 +699,7 @@ function shelf(){
 }
 function sub(k){
   if(k==='board') return S.held.length+' of '+SLOTS+' held';
+  if(k==='build') return buildMine() ? '1 battery, 1 day' : 'not your ground';   /* __BUILD_ON_THE_SCREEN__ */
   if(k==='lot'){ var l = left(); return l.left===0 ? 'picked clean' : l.left+' left'; }
   if(k==='hall'){ var o = window.BohemiaFollowers && BohemiaFollowers.offerFor(S.hired,{}); return o ? o+' for hire' : 'nobody'; }
   return B[k].short;
@@ -747,6 +849,7 @@ function openB(k, line){
       post('train',{who:S.veterans[0]}); shelf(); openB('train','Done. Three days on the yard and it sticks.');
     }, !vets || bats()<1));
   }
+  else if(k==='build'){ return buildSheet(body, acts, line); }   /* __BUILD_ON_THE_SCREEN__ */
   else if(k==='lot'){
     var l = left();
     body.appendChild(speak(k, line || (l.left===0 ? 'Nothing left on this lot. You took it all.' : 'Four hours in the lot. It is luck whether I find anything.')));
@@ -803,6 +906,9 @@ function open(o){
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();
   if(typeof o.night === 'boolean') view.night = o.night;
+  S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
+  if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
+  if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
   if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});

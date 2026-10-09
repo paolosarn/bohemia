@@ -1,0 +1,54 @@
+{
+ "_about": "the eight built things, cut out of the approved street by tools/bohemia_lot_sprites_factory.py",
+ "scale": 4,
+ "sprites": {
+  "wall": {
+   "w": 104,
+   "h": 20,
+   "px": 105,
+   "draft": true
+  },
+  "tank": {
+   "w": 56,
+   "h": 56,
+   "px": 136,
+   "draft": true
+  },
+  "shed": {
+   "w": 84,
+   "h": 44,
+   "px": 183,
+   "draft": true
+  },
+  "pump": {
+   "w": 64,
+   "h": 48,
+   "px": 150,
+   "draft": true
+  },
+  "garden": {
+   "w": 108,
+   "h": 48,
+   "px": 324,
+   "draft": true
+  },
+  "solar": {
+   "w": 144,
+   "h": 140,
+   "px": 540,
+   "draft": true
+  },
+  "stall": {
+   "w": 92,
+   "h": 64,
+   "px": 219,
+   "draft": true
+  },
+  "roof": {
+   "w": 88,
+   "h": 124,
+   "px": 682,
+   "draft": true
+  }
+ }
+}

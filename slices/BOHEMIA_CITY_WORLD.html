@@ -42773,7 +42773,11 @@ function loopPostOpen(){
     place: { name: t.name, tier: t.tier, district: dist || 'commercial', block: [t.x, t.y] },
     batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},
     /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */
-    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })() }, '*'); }catch(_e){}
+    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),
+    /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */
+    held: (function(){ try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+             return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),
+    day: loopDay() }, '*'); }catch(_e){}
 }
 function loopOpenTown(t){
   LOOP.open = t;

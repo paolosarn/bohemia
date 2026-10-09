@@ -5096,6 +5096,15 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/9b LATEST -- *** [build on the screen] SHIPPED: you can build in the settlement screen
+of a place you hold. *** TAB: VOTE (three phone shots). Record: records/BOHEMIA_BUILD_ON_THE_SCREEN_10_9_26.md.
+tools/bohemia_settlement_build_patch.py (idempotent, marked) adds BUILD to RUN TWO's page; the map's open
+message now carries held (your outfit's base) and day (tools/bohemia_city_livingmap_patch.py). Sprites
+cut from the approved street by tools/bohemia_lot_sprites_factory.py. Gate BUILD ON THE SCREEN 15/0 (needs
+playwright at /opt/node22). RUN TWO's settlement gate widened by 2 marked lines (49/0). Also added this
+lane's [better than bb] line (13) and cleared committed conflict markers in that list. NEXT (top OPEN):
+[built on the map] -- the map's century ledger hears the build, the base draws it, pay lands in the map's purse.
+
 LIFE + CITY (city-1eztay): 10/9 LATEST -- *** [the living map] SHIPPED: NOBODY STANDS ON ANYBODY ON THE MAP, PRINTS
 FADE BY THE HOUR, THE GATE FILLS ON MARKET DAY. *** TAB: VOTE (a GIF of the alpha's own map, a day in 20 s).
 Record: records/BOHEMIA_THE_LIVING_MAP_10_9_26.md. Measured 58/90 steps stacked -> 0 in 72 hours. New module

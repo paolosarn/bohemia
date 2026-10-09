@@ -72,7 +72,7 @@ const srv = http.createServer((rq, rs) => {
   ok('  at the phone\'s real pixels', art.w >= art.cssw * 3 - 1, art.w + ' for ' + art.cssw + ' css');
 
   const keys = await p.evaluate(() => window.BohemiaSettlement.order());
-  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, bar, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,bar,smith,armourer,barber,clinic,lot', keys.join());
+  ok('the place is ONE painted picture (COMBAT TWO\'s), with the buildings in it: hall, board, stall, bar, smith, armourer, barber, clinic, scavenge', keys.join() === 'hall,board,stall,bar,smith,armourer,barber,clinic,lot,build', keys.join());   /* + BUILD, LIFE+CITY 10/9 [build on the screen] (rule 40b) */
   /* nothing is written on the picture until a finger is on a building (rule 71a) */
   const quiet = await p.evaluate(() => BohemiaSettlement.state.open === null);
   ok('  and no building names itself until it is touched', quiet);
@@ -254,7 +254,7 @@ const srv = http.createServer((rq, rs) => {
   for (const t of ['camp', 'fortress']) {
     const o = await p.evaluate(t => { BohemiaSettlement.open({ place: { tier: t, name: 'A ' + t.toUpperCase() } }); return BohemiaSettlement.order().join(); }, t);
     await p.waitForFunction(() => BohemiaSettlement.ready(), null, { timeout: 30000 });
-    const want = t === 'camp' ? 'hall,board,stall,bar,arms,barber,clinic,lot' : 'hall,board,stall,bar,smith,armourer,barber,clinic,lot';
+    const want = (t === 'camp' ? 'hall,board,stall,bar,arms,barber,clinic,lot' : 'hall,board,stall,bar,smith,armourer,barber,clinic,lot') + ',build';   /* + BUILD, LIFE+CITY 10/9 */
     ok('a ' + t + ' is its own picture, with Battle Brothers\' shops for its size (camp one stall, town and fortress a smith and an armourer)', o === want, o);
     if (t === 'camp') {
       await p.waitForFunction(() => (BohemiaSettlement.state.stock.arms || []).length > 0, null, { timeout: 30000 });
