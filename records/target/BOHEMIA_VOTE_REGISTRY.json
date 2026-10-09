@@ -5979,7 +5979,20 @@
    },
    "sha": "d5dec1ea"
   },
-  {"id": "animation-the-parties-walk-10-9", "kind": "animation", "lane": "animation", "sha": "c5f6a92", "made": "10/9", "title": "THE PARTIES WALK", "why": "On the map you now travel as three people, you and two of your company walking at your shoulders, and every roaming party walks and slides between blocks instead of standing still and jumping. When the clock stops everybody stops and breathes, and you see it before beside now in the VOTE tab and on the MAP while you travel.", "show": {"how": "page", "src": "vote/ANIMATION_THE_PARTIES_WALK.html"}, "said": "every party on the map is drawn and moving", "draft": true}
+  {"id": "animation-the-parties-walk-10-9", "kind": "animation", "lane": "animation", "sha": "c5f6a92", "made": "10/9", "title": "THE PARTIES WALK", "why": "On the map you now travel as three people, you and two of your company walking at your shoulders, and every roaming party walks and slides between blocks instead of standing still and jumping. When the clock stops everybody stops and breathes, and you see it before beside now in the VOTE tab and on the MAP while you travel.", "show": {"how": "page", "src": "vote/ANIMATION_THE_PARTIES_WALK.html"}, "said": "every party on the map is drawn and moving", "draft": true},
+  {
+   "id": "dynasty-grok-lore-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "TWO THINGS FROM GROK, TESTED AGAINST YOUR OWN RULES. TWO HOLES.",
+   "why": "I checked the ground-picks-who-shows-up idea and the crisis clock against what you already ruled, in the VOTE tab card below. The ground idea still counts factions as territory, which you ruled out, and a crisis starting at day 100 would outlast an act of about 130 days.",
+   "show": {
+    "how": "text",
+    "src": "1. THE GROUND PICKS WHO SHOWS UP: holds, but it reads who holds land. You ruled home bases and roaming parties, not territory. Fix: base the pool on the 14 home bases.\\n2. THE CRISIS CLOCK: matches our own 'foretold, not optional' law. But a crisis from day 100 for up to 100 days outlasts a 130-day act. My default: the crisis is the act's ending."
+   }
+  }
  ],
  "verdicts": [
   {

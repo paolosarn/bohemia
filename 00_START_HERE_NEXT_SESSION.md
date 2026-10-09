@@ -36824,6 +36824,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 64 [grok lore] THE LORE TEST ON TWO VIA-GROK RULINGS. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_GROK_LORE_TEST_10_9_26.md; VOTE line dynasty-grok-lore-10-9.
+Hole 1: WORLD's pool reads turf; the 9/28 third votes retired territory for 14 home bases and roaming parties. Hole 2: a day-100 crisis of up to 100 days outlasts a ~130-day act. [PENDING Paolo], not blocking: does a crisis end an act (my default) or sit mid-act?
+Row stays OPEN (standing trigger). NEXT: [the frame] (school). QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 63 [the company inherits] WHAT OF A MAN PASSES. (page plus data)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_COMPANY_INHERITS_10_9_26.md; VOTE line dynasty-company-inherits-10-9; NOT IN A TAB (nothing shows levels yet).
 heirs ROWS: levelShare .5 (compounds), perkShare .5, debtShare .45 (standing's GEN_LOSS), stars, gear (crew slots flattened), house; body never. HEIRS gate 1c.
