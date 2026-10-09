@@ -5626,6 +5626,19 @@
     "how": "text",
     "src": "records/target/bb/stash_rates.json; engine/bohemia_stash.js; gates/stash_gate.js 25/0.\n\nSeen in: not drawn yet, feeds the day clock once wired."
    }
+  },
+  {
+   "id": "character-the-enemy-tiers-dressed-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE ENEMY TIERS DRESSED",
+   "why": "Six kinds of enemy in combat's new fight, dressed in the gang clothes combat already picked, light ones unchanged and the two toughest carrying real armor pieces. Thumbs up, and you see it in the VOTE tab and in the fight once combat wires it in.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html"
+   }
   }
  ],
  "verdicts": [

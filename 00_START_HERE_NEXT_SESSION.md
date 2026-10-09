@@ -1,3 +1,26 @@
+CHARACTER (character-0lurbs): 10/9 LATEST -- *** SIX KINDS OF ENEMY ARE NOW DRESSED,
+NOT JUST ARMED, AND ONE PICTURE CAUGHT A MISTAKE BEFORE IT SHIPPED. ***
+TAB: VOTE, the new enemy tiers page.
+Record: records/BOHEMIA_THE_ENEMY_TIERS_DRESSED_10_9_26.txt, row [the enemy tiers dressed].
+
+Rule 78 lifted every pause, so this lane is running again. Picked up the top open job:
+dress the six brigand ranks (thug up to marauder) in gang clothes, using the pairing
+table combat already wrote (thug through marksman stay light, raider gets a vest,
+marauder gets a cape and a steel shoulder piece, the leader stays bare and lets his
+gold sash do the talking).
+
+First version put the same vest on both the raider and the leader. Looked at the actual
+picture before calling it done and caught it: the two heaviest enemies looked like two
+men sharing one coat. Took the vest off the leader and gave the raider a grey one
+instead, so now six different bodies read as six different ranks.
+
+One honest leftover, not hidden: the raider's faction and the leader's faction both have
+their own separately-approved gold color, ruled long before this round, so they still
+share a warm tone under the vest. That is not a bug this round made and not mine to fix
+by changing either faction's color.
+NEXT: the jump list's other two rows (armor you can see, the origin crews).
+PENDING Paolo: nothing.
+
 QUESTS (quests-dvybth): 10/9 (c) LATEST -- [the rumour at the bar] SHIPPED: QR-AH, BB tavern rumours as our bar, 12 draft rumours, spec for WORLD/PEOPLE/RUN TWO. VOTE: one line. NOT IN A TAB. Next job: [fold the rest].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [the mods folder design] SHIPPED as a design page, nothing built.
@@ -34,6 +57,7 @@ Gaps: HOLD_MS 450 and MAN_OF_TILE 0.86 outside the table; settlement SELL_CUT 0.
 absent from the demo.
 MISTAKES FIXED EARLIER: broad sed on rows, now anchored to my section.
 NEXT OPEN: [the sell ratio], [ammo], [respec], [recruit odds], [origins difficulty].
+
 MODS (mods-59jyd6): 10/9 LATEST -- [the data schema page] SHIPPED. TAB: VOTE, item THE DATA
 FILES ON ONE PAGE: 15 cards (tap one: what it holds, who reads it, every field), plus a worked
 example (make the knife hit harder). Record records/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.md,
