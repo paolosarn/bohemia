@@ -6241,7 +6241,7 @@
    "id": "mods-how-big-is-too-big-10-10",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "8c31978",
    "made": "10/10",
    "title": "HOW BIG IS TOO BIG",
    "why": "For whoever makes mods. A knife that hits for minus 5 used to load without a word. Now it loads with a warning that says no weapon is ever negative. Type any number and see. It warns, it never blocks, so a mod can still be stronger than anything in the game.",
