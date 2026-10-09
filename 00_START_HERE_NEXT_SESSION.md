@@ -58327,6 +58327,11 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/9c (latest): PLUMBER's note fixed (verdict 22's VOTE row names
+where you see it). [the map verdict] SHIPPED: map sharp now (0.078/0.051),
+far end painted; no middle stop (one pinch 1.00 -> 0.21), city on a raised
+slab, ridges stamped, every lot one grit. Next OPEN: [flip look], the last;
+when it ships write the next from the jump list (rule 74).
 ROUND LOG 10/9b (latest): [the fight verdict] SHIPPED, FIGHT VERDICT 22 on
 the rebuilt fight (freeway + street, live, tools/bohemia_direction_fight_
 verdict_22.js): still wrong 3 of 5 (F2 the art 0.038 shown at 0.002, F3 rings/

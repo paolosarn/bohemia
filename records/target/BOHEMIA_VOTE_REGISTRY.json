@@ -6101,6 +6101,21 @@
     "how": "page",
     "src": "vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html"
    }
+  },
+  {
+   "id": "direction-the-map-at-every-stop-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/9",
+   "title": "THE MAP AT EVERY STOP, AGAINST BATTLE BROTHERS",
+   "why": "The map is sharp now and the far end is painted, but one pinch skips the whole middle, the city sits on a raised slab, and every lot is the same grit. You see it on the map, close up and pinched all the way out.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_MAP_AT_EVERY_STOP.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
   }
  ],
  "verdicts": [
