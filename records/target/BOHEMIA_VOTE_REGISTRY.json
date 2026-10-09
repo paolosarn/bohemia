@@ -6041,7 +6041,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "A SOUND IS A RECORDING OF THE REAL OBJECT, OR BUILT FROM ITS REAL PHYSICS, NEVER NOISE",
-   "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat has been building every sound from its object's real physics instead of recording the object, so this sheet asks which you meant: both count as real material, or only a recording of the thing. You hear the difference in the settlement: the smith's hammer and the armourer's rivets are built from physics today.",
+   "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat builds each sound from its object's physics rather than recording it, so this asks whether physics counts or only a recording of the thing. You hear it in the settlement, where the smith's hammer and the armourer's rivets are built from physics today.",
    "show": {
     "how": "text",
     "src": "The second votes (NO SAND, sounds from real material); SOUNDS' better-than line (f4b96771: 'every sound synthesized from its object's real physics, never a sample file'). Thumb up: physics counts. Thumb down: record the real thing.\n\nHeard in: the settlement screen's taps, the fight's shots and hits."
@@ -6056,7 +6056,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "THE DEMO TOWN'S JOB BOARD, FULL",
-   "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.",
+   "why": "Eight small side jobs around the Wash, from a missing kid to running a clinic box, each on the same road as one of the three ending jobs, so the board is never empty in the first 30 minutes. You see it only as text in the VOTE tab, and in the demo on the Wash's board.",
    "show": {
     "how": "text",
     "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."
