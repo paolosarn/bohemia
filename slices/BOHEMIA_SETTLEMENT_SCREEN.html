@@ -372,6 +372,28 @@ var RUMOURS = [
   'Somebody is buying copper by the Strip and paying in real batteries. Too good, if you ask me.'
 ];
 var SLOTS = 2;
+/* THE HURT: the game hands them as {name, injury, days, level, pain}; a bare name (older callers) gets
+   a long injury rolled from injuries.json so the screen is never empty-handed */
+var INJ = null;
+fetch('../records/target/bb/injuries.json').then(function(r){ return r.json(); }).then(function(j){ INJ = j; }).catch(function(){});
+function woundedList(){
+  return (S.wounded||[]).map(function(w, i){
+    if(typeof w === 'string'){ w = {name:w}; S.wounded[i] = w; }
+    if(!w.injuryName){
+      var rows = (INJ && INJ.rows || []).filter(function(r){ return r.kind !== 'temporary' || r.heal_days; });
+      var R4 = rng(seedOf(w.name + ':injury')), r = rows.length ? rows[Math.floor(R4()*rows.length)] : null;
+      if(w.injury && INJ) r = INJ.rows.filter(function(x){ return x.id === w.injury; })[0] || r;
+      w.injuryName = r ? r.name.toLowerCase() : 'a long wound';
+      if(w.days == null) w.days = r && r.heal_days ? r.heal_days[1] : 30;
+    }
+    w.level = w.level || 1;
+    return w;
+  });
+}
+function clinicPrice(w){
+  var crowns = 20 * 1 * traitMult().price * w.days * (1 + (w.level - 1) * 0.2);
+  return Math.max(1, Math.round(crowns / 10));
+}
 /* the bar's rumours live in a data file QUESTS and WORLD feed (records/target/settlement_rumours.json);
    the four above are the fallback if it does not load */
 var RUMOR_FILE = null;
@@ -696,13 +718,25 @@ function openB(k, line){
     }, roundsLeft <= 0 || bats() < price));
   }
   else if(k==='clinic'){
-    var hurt = (S.wounded||[]).length;
-    body.appendChild(speak(k, line || (hurt ? 'Leave them with me. One battery and a long wound heals in half the days.'
+    /* BATTLE BROTHERS' TEMPLE, our clinic (records/target/bb/injuries.json rules): treatment HALVES the
+       healing time, at 20 crowns x the place's price multiplier x the days left x (1 + 0.2 per level
+       past one), ten crowns a battery; a hired medic (BB's surgeon) takes a day more */
+    var hurt = woundedList();
+    body.appendChild(speak(k, line || (hurt.length ? 'Leave them with me. I can halve the days, if you can pay.'
       : 'Nobody in your crew is hurt right now, gracias a Dios. Come back when somebody is.')));
-    acts.appendChild(act('Heal faster', '1 battery', function(){
-      P.debit(S.purse,'electricity',1,'clinic:wound',S.place.name,S.day);
-      post('clinic',{who:S.wounded.shift()}); shelf(); openB('clinic','Half the days. Bring them back in one piece next time.');
-    }, !hurt || bats()<1));
+    hurt.forEach(function(w){
+      var price = clinicPrice(w), cut = Math.ceil(w.days/2) - ((S.hired && S.hired.medic) ? 1 : 0);
+      var row = document.createElement('div'); row.className = 'slots';
+      row.textContent = w.name + ': ' + w.injuryName + ', ' + w.days + ' day' + (w.days===1?'':'s') + ' left' + (w.pain ? '. ' + w.pain : '');
+      acts.appendChild(row);
+      acts.appendChild(act('Treat ' + w.name + ': ' + w.days + ' days to ' + Math.max(1, cut), price + ' batt', function(){
+        if(bats() < price) return openB('clinic', 'That is ' + price + ' batteries for ' + w.name + '. You have ' + bats() + '.');
+        P.debit(S.purse, 'electricity', price, 'clinic:' + w.name, S.place.name, S.day);
+        var before = w.days; w.days = Math.max(1, cut); w.treated = true;
+        post('clinic', {who:w.name, before:before, days:w.days, price:price}); shelf();
+        openB('clinic', w.name + ' stays with me. ' + w.days + ' day' + (w.days===1?'':'s') + ' instead of ' + before + '.');
+      }, w.treated || bats() < price));
+    });
   }
   else if(k==='train'){
     var vets = (S.veterans||[]).length;

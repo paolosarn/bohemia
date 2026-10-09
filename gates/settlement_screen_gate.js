@@ -102,7 +102,7 @@ const srv = http.createServer((rq, rs) => {
                name: (sh.querySelector('.nm') || {}).textContent || '', line: (sh.querySelector('.say p') || {}).textContent || '',
                acts: sh.querySelectorAll('.act, .slot.full').length };
     });
-    ok(k + ' opens with a face, a name and a line', s.on && s.face && s.name && s.line.length > 10 && s.acts > 0, s.name + ': ' + s.line.slice(0, 40));
+    ok(k + ' opens with a face, a name and a line', s.on && s.face && s.name && s.line.length > 10 && (s.acts > 0 || k === 'clinic'), s.name + ': ' + s.line.slice(0, 40));
   }
 
   /* the barber costs one battery */
@@ -268,12 +268,25 @@ const srv = http.createServer((rq, rs) => {
       await p.click('#close'); await p.waitForTimeout(300);
     }
   }
+  /* THE CLINIC (Battle Brothers' temple, injuries.json): every hurt man with his days left; treatment
+     halves the days at 20 crowns x days x (1 + 0.2 a level past one), ten crowns a battery; a medic a day more */
   await tapB('clinic'); await p.waitForTimeout(200);
-  const noHurt = await p.evaluate(() => document.querySelector('#sbody .act').disabled);
-  await p.evaluate(() => BohemiaSettlement.open({ wounded: ['rosa'], veterans: ['jonah'] }));
-  await tapB('clinic'); await p.waitForTimeout(200);
-  const cb = await bat(); await p.click('#sbody .act'); await p.waitForTimeout(150);
-  ok('the clinic refuses with nobody hurt, and takes one battery for a wound', noHurt && cb - (await bat()) === 1);
+  const noHurt = await p.evaluate(() => document.querySelectorAll('#sbody .act').length === 0);
+  await p.evaluate(() => { BohemiaSettlement.open({ traits: [], wounded: [{ name: 'ROSA', days: 30, level: 3 }, { name: 'OSO', days: 4, level: 1 }], hired: {} });
+    BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 200, 'gate', null, 0); });
+  await p.waitForTimeout(300);
+  await tapB('clinic'); await p.waitForTimeout(250);
+  const rows = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .slots')).map(e => e.textContent));
+  await p.screenshot({ path: SHOT.replace('_10_1', '_CLINIC_10_9') });
+  const cb = await bat(); await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  const ca = await bat(), rosa = await p.evaluate(() => BohemiaSettlement.state.wounded[0].days);
+  ok('the clinic: nobody hurt, nothing to buy; hurt men each shown with the injury and the days left', noHurt && rows.length === 2 && /ROSA: .+30 days left/.test(rows[0]), rows.join(' / ').slice(0, 90));
+  ok('  treating halves the days at the wiki\'s temple price (20 x 30 days x 1.4 at level 3 = 84)', cb - ca === 84 && rosa === 15, (cb - ca) + ' batteries, ROSA 30 -> ' + rosa);
+  await p.evaluate(() => BohemiaSettlement.open({ wounded: [{ name: 'GRIZ', days: 10, level: 1 }], hired: { medic: true } }));
+  await p.waitForTimeout(200);
+  await tapB('clinic'); await p.waitForTimeout(200); await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  const griz = await p.evaluate(() => BohemiaSettlement.state.wounded[0].days);
+  ok('  and a hired medic takes a day more', griz === 4, 'GRIZ 10 -> ' + griz);
   await p.click('#close'); await p.waitForTimeout(300);
 
   /* THE NIGHT VARIANT QUIETER (row [the settlement's sounds], 10/9): the clinic's
