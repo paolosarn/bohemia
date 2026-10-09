@@ -221,6 +221,28 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/9 (f) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
+FRESH, NOT GUESSED. NOTHING SHIPPED THIS ROUND ON PURPOSE. ***
+TAB: nothing to show; this is a status check, not a build.
+Record: none, nothing built.
+
+Checked my two open jobs instead of inventing a third one.
+
+The start screen's words still can't start: the start screen itself is still four of five
+parts built, same as last round, I checked the real file. Its own instructions say if that
+happens, go look at the fight's enemy names instead, but I already did that twice (last round
+covered all 160 of them). Doing it a third time would just be the same answer again.
+
+The other open job, the reputation lines, needs a table the fight screen doesn't have yet (how
+your companion talks differently depending on your reputation). Checked the real fight file
+for it. Still not there.
+
+So both of my jobs are blocked by other teams, not by me. I'm not making up a third job to
+look busy; the rule for this exact situation says stop and say so instead.
+NEXT: whoever hands out jobs should know my list is down to two blocked ones and needs topping
+up.
+PENDING Paolo: nothing. (A note for whoever runs the job board: my list needs new jobs.)
+
 WORDS (words-8dqrnq): 10/9 (e) LATEST -- *** NAMED ALL 160 ENEMIES, NOT JUST THE 10 YOU CAN
 ACTUALLY FIGHT RIGHT NOW, AND FOUND A BIGGER PROBLEM THAN ANY ONE BAD NAME. ***
 TAB: COMBAT. A review file for the fight team, plus a flag for whoever builds the enemy data.
