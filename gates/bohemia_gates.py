@@ -2460,6 +2460,14 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('A FRESH PHONE SEES THE DOOR', ['node', 'gates/a_fresh_phone_sees_the_door_gate.js'],
+     'VAMILY [a fresh phone sees the door] (EYES 1bdc7023: a wiped phone read "no title, no picks, a mid-game city in two '
+     'seconds"). MEASURED: real touches never got past the title; a script\'s click on the door\'s BEGIN did, and the '
+     'driver made it on every boot. NOW nothing but the title\'s NEW GAME and CONTINUE gets in while it is up; the demo\'s '
+     'door shows only its dark ground until the title is built; the driver goes through the title like a person. '
+     'HOLDS on a wiped phone: a first-moment watcher (no splash, no save, no play before NEW GAME); the title over the '
+     'glass; a script\'s click refused; 61 thumbs on the picture; NEW GAME is the picks; BEGIN is the game; the driver '
+     'via NEW GAME. Mutations, each red: the guard off; the driver ignoring the title; the cold door shown; the title skipped.', True),
     ('THE ORIGINS ARE DATA', ['node', 'gates/the_origins_are_data_gate.js'],
      'VAMILY [origins fallback], MODS rule 22 (records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md): the door kept '
      'a fixed list of 15 origin ids and skipped any id the file carried beyond it, so a modder\'s origin was dropped. NOW '

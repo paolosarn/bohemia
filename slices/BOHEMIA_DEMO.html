@@ -463,6 +463,12 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
    The single RUN tab stays in the DOM because the splash clicks it. */
 #tabs{display:none !important}
+/* A FRESH PHONE SEES THE DOOR (RUN 10/9): the title is built when the page has finished parsing, about a
+   second in here and longer on a phone; until it is, the door shows nothing of its own (no splash, no
+   picks), only its dark ground, so the first thing a stranger sees is the title. The shell marks the door
+   .titled the moment the title exists (or is skipped); the delayed reveal is the belt if it never does. */
+#front:not(.titled)>*{visibility:hidden;animation:demoColdDoor 0s linear 8s forwards}
+@keyframes demoColdDoor{to{visibility:visible}}
 </style>
 </head><body>
 <script type="text/plain" id="BOHEMIA_MUSIC_REPO">
@@ -12967,8 +12973,13 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
    - SETTINGS: the game's one settings card, raised over the door; its GAME row (save, quit) is hidden here.
    - NOTES: the same notes list the game keeps ('bohemia.notes.v1'), written from here too.
    IT LIVES INSIDE #front, so everything that goes through the door still does: the door's BEGIN is the one
-   way in, a click on #fronttap/#front still enters exactly as before (every driver and gate), and the menu
-   is kept clear of #fronttap so a finger aimed at it never lands on a title button. A tap anywhere else on
+   way in, and the menu is kept clear of #fronttap so a finger aimed at it never lands on a title button.
+   *** A FRESH PHONE SEES THE DOOR (RUN 10/9, EYES 1bdc7023): WHILE THE TITLE IS UP NOTHING BUT ITS OWN NEW GAME
+   AND CONTINUE GETS IN. *** A click on #fronttap/#front used to enter straight past it (written that way so
+   every driver kept working), and the driver did exactly that, so a stranger's walk read 'no title, no picks,
+   a mid-game city in two seconds'. Now any click on the door that is not on the title is dropped while the
+   title is up; the driver walks through the title the way a stranger does (NEW GAME on a wiped phone, CONTINUE
+   over a save). A tap anywhere else on
    the title is held, so a stray thumb never skips it. QUIT (the gear) brings the door back and the title
    with it. */
 (function(){
@@ -13161,7 +13172,20 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     if (k === 'nclose') { t.querySelector('.sheet').classList.remove('on'); return; }
   }
   T.show = show; T.hide = hide; T.act = act; T.saved = saved;
+  T.up = function(){ return !!(T.el && !T.el.classList.contains('gone')); };
+  /* __A_FRESH_PHONE_SEES_THE_DOOR__: the one way past the title is the title. Caught at the window, before any of
+     the door's own listeners (the BEGIN handler, the warm-fetch pause, the first hum), so nothing on the door
+     answers a click that did not come through NEW GAME or CONTINUE; enter() hides the title first, so its own
+     click passes. */
+  T.refused = 0;
+  window.addEventListener('click', function(e){
+    if (!T.up()) return;
+    var f = $('front'), tg = e.target;
+    if (!f || !tg || !tg.nodeType || !(tg === f || f.contains(tg)) || T.el.contains(tg)) return;
+    T.refused++; e.stopImmediatePropagation(); e.preventDefault();
+  }, true);
   function boot(){
+    try{ $('front').classList.add('titled'); }catch(_e){}   /* the demo's cold door shows its own again (the cutter's rule) */
     /* THE DEMO'S DOOR. The workshop (the alpha) opens on VOTE after its loading screen (rule 18 / the vote tab law),
        so the title is the demo's alone; the cutter's flag is set before the page finishes loading */
     if (!window.__BOHEMIA_DEMO_BUILD) { T.skipped = 'workshop'; return; }
