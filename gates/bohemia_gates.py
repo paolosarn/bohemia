@@ -883,6 +883,28 @@ GATES = [
      'CONSTRUCTION and the gate proves the monotonicity. The rank is STATED AS MINE with a '
      'real-world reason rather than dressed up as arithmetic, and WHO GUARDS SHIPS EMPTY because '
      'the row says FACTIONS owns it.', False),
+    ('GROUND EFFECTS', ['node', 'gates/ground_effects_gate.js'],
+     'ROW [ground effects], rule 59 (Paolo 10/1: "every floor tile from Battle Brothers needs a '
+     'proper translation for our game... how it impacts your accuracy or your defence or the '
+     'positioning, how many action points it costs to move through"). WORLD owns the GROUND half. '
+     '*** AND MEASURING IT FOUND THAT A LEGEND COUNT IS NOT A BOARD: *** [the valley\'s grounds] '
+     'measures how open a ground is by counting its kits\' LEGEND, which says what a board CAN '
+     'contain and never how much of a board is that thing. Re-measured here on what the kits really '
+     'DRAW, 13 grounds, 50 kits, five seeds each, 4.1 million cells: the legend says every ground in '
+     'the valley is 43% to 57% blocked, a 1.33x spread; THE BOARD SAYS 1.5% TO 95.8%, A 64x SPREAD. '
+     'Both ends check out against the real world (the mountain kit is bedrock face, ridge crest and '
+     'cliff band, all solid; the desert kit is 97% open ground), so the 50/50 the legend gave both of '
+     'them was the defect. THE SHIPPED TRAVEL SPEEDS ARE NOT WRONG and that was checked first: travel '
+     'uses openness as a RANK re-anchored on his ruled dirt, so the bias cancels and the worst derived '
+     'speed moves 0.15; a fight needs the ABSOLUTE, which is why this file measures its own numbers. '
+     '*** AND ONLY ONE ROW OF BATTLE BROTHERS\' TERRAIN TABLE CAN FIRE ON OUR BOARDS: *** OBSTACLES, '
+     'on all thirteen. THE SWAMP ROW IS DEAD -- not one wet cell on any ground, and the district '
+     'literally named `water` draws dry ground, two drained basins and three blockers. ROUGH GROUND '
+     'has no skin: every standable kind is flat and hard. HEIGHT answers UNREAD, never 0, because a '
+     'zero would read as "this ground is flat" and the mountain is 96% cliff. The gate re-measures '
+     'every carried number off the kits each run, refuses a ground with an effect that traces to '
+     'neither a ruling nor a measurement, refuses the 9/25 [bb places] defect of thirteen grounds '
+     'that are one place, and refuses a hole filled with a zero.', False),
     ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
      'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
      'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '

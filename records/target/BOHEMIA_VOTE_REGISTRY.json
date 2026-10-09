@@ -6118,17 +6118,17 @@
    "draft": true
   },
   {
-    "id": "cook-the-settlement-pictures-finished-10-10",
-    "kind": "place",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "THE SETTLEMENT PICTURES, FINISHED",
-    "why": "The camp, the town and the fortress are painted over now: rain stains down the walls, the ground worn along the paths between the buildings you can actually use, a painted sign over each one, trash where people stand, and at night the open doors spilling light on the dirt. You see it in the VOTE tab, the town before and after, day and night.",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_THE_SETTLEMENT_PICTURES_FINISHED.png"
-    }
+   "id": "cook-the-settlement-pictures-finished-10-10",
+   "kind": "place",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE SETTLEMENT PICTURES, FINISHED",
+   "why": "The camp, the town and the fortress are painted over now: rain stains down the walls, the ground worn along the paths between the buildings you can actually use, a painted sign over each one, trash where people stand, and at night the open doors spilling light on the dirt. You see it in the VOTE tab, the town before and after, day and night.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_SETTLEMENT_PICTURES_FINISHED.png"
+   }
   },
   {
    "id": "lifecity-built-on-the-map-10-9",
@@ -6141,6 +6141,18 @@
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_BUILT_ON_THE_MAP_10_9.png"
+   }
+  },
+  {
+   "id": "world-ground-effects-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "WHAT EACH GROUND DOES TO A FIGHT",
+   "why": "Thirteen fight boards, one for every kind of ground in the valley, each cut from the real city so you can see what a fight on it is actually like: the near empty one is the open desert, the near solid one is the mountain, and the eleven between them are the town. Measuring it caught our own numbers saying every ground in the valley was about half blocked when the real boards run from one and a half per cent to ninety six, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_GROUND_EFFECTS.png"
    }
   }
  ],

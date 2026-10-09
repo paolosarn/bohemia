@@ -1,3 +1,140 @@
+WORLD (world-9lfjtf): 10/9 (d) LATEST -- *** A LEGEND COUNT IS NOT A BOARD, AND
+ONLY ONE ROW OF BATTLE BROTHERS' TERRAIN TABLE CAN FIRE ON OUR BOARDS. ***
+Row [ground effects] SHIPPED. 3 OPEN rows remain as the jump list (rule 74), and
+one of them is new: [the cells with no board], written from this round's own
+measurement. TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE
+tab: world-ground-effects-10-9. Record
+records/BOHEMIA_WORLD_A_LEGEND_COUNT_IS_NOT_A_BOARD_10_9_26.md.
+
+RULE 12, AND IT LANDED ON MY OWN LAST ROUND BUT ONE. [the valley's grounds]
+measures how open a ground is by counting its kits' LEGEND: how many of the
+distinct tile kinds a district DECLARES are open rather than built. That is a
+count of what a board CAN contain. It is not how much of a board IS that thing.
+Re-measured on what the kits really DRAW -- 13 grounds, 50 kits, five seeds each,
+4.1 MILLION CELLS:
+
+  THE LEGEND SAYS EVERY GROUND IN THE VALLEY IS 43% TO 57% BLOCKED, A 1.33x
+  SPREAD. THE BOARD SAYS 1.5% TO 95.8%, A 64x SPREAD.
+
+The desert fight and the mountain fight are the two most different fights in this
+game and the legend called them the same place. BOTH ENDS CHECK OUT AGAINST THE
+REAL WORLD, which is how I know the drawn number is the honest one and not a
+second bug: the mountain kit's own legend is bedrock face, ridge crest and cliff
+band, all solid:true, with ravine floor and talus between them, and the desert kit
+is 97% open ground. Neither of those is a defect. The 50/50 the legend reported
+for both of them was.
+
+*** AND THE TRAVEL SPEEDS I SHIPPED ARE NOT WRONG, WHICH I CHECKED BEFORE WRITING
+A WORD OF THE ABOVE. *** The easy dramatic next sentence was "so last round's
+speeds are broken too" and it is false. Travel uses openness as a RANK, re-
+anchored on his own ruled dirt speed, so the bias very largely cancels: re-
+deriving all nine derived speeds off the drawn shares moves the WORST of them by
+0.15 and most by under 0.05, and his four RULED speeds are untouched by
+construction. A RANK SURVIVES A BIASED COUNT. AN ABSOLUTE DOES NOT, and a fight
+needs the absolute, because "how much of this board is cover" is the whole of
+Battle Brothers' formation game. That is the only honest reason to measure the
+same thing twice, and it is why this file does not reuse the number next door.
+
+ONLY ONE ROW OF THE TERRAIN TABLE FIRES: OBSTACLES, on all thirteen (the door on
+nine of thirteen). THE SWAMP ROW IS DEAD -- not one wet cell on any ground, and
+THE DISTRICT LITERALLY NAMED `water` DRAWS SIX KINDS OF DRY GROUND, TWO DRAINED
+BASINS, A DEAD CAR, A DEAD TREE AND A PROP. The only wet water in the game at all
+is in the landmarks module (the reservoir, the tailrace, Las Vegas Creek), which
+is NOT a district kit, so no fight board can ever be cut from it, and all three
+are marked void anyway, which makes them the CLIFFS row and never the SWAMP row.
+THAT IS RIGHT FOR THE WORLD AND NOT A GAP TO PATCH: the dollar died and the water
+went with it, and the school page's murky-water skins (a flooded underpass, a
+casino fountain, the wash after rain) were written in the hopeful tense. ROUGH
+GROUND has no skin either: every standable kind the valley draws is flat and hard,
+and the mountain's own legend calls its talus "slow going" in a description that
+nothing reads. HEIGHT answers UNREAD, never 0, because a zero would read as "this
+ground is flat" and the mountain is 96% cliff. EVERYTHING COSTS ONE is untouched
+and is NOT the hole: the 2/3/4 AP ladder collapses to one step by his 8/15 ruling,
+and the only gap is that nothing would tell a rubble field from a parking lot if
+he ever wanted the second beat back.
+
+FOUR TILE KINDS THE VALLEY DRAWS HAVE NO RULED ROW, each named with what it is and
+why it has no number: a drained pool (the opposite of murky water -- you climb into
+it, and nothing measures how deep), a solar array and playground equipment (Battle
+Brothers has no half-height obstacle), and OVERHEAD, which on the freeway is 14% of
+the drawn cells so it is not a rounding error. Inventing an effect for any of them
+would be inventing a dial, and every felt number is TUNING's (rule 36).
+
+COOK: WHAT EACH GROUND DOES TO A FIGHT, slices/vote/WORLD_GROUND_EFFECTS.png --
+thirteen real fight boards, one per ground, each cut from a kit that ground is
+really made of, coloured only by what the ground changes: ground you can stand on,
+cover, and the door. *** AND THE COOK ARGUED WITH ITS OWN NUMBERS UNTIL I LOOKED AT
+IT: *** the first cut took the top-left corner of each block, and a corner is not a
+sample -- the suburb panel read 48% solid against the suburb's measured 33%, so the
+sheet disagreed with the measurement it exists to show. Fixed by scaling the whole
+block instead of cropping it, AND THEN THE CHECK THAT WOULD HAVE CAUGHT IT WAS
+ADDED, SELF-CALIBRATING: a panel's cover must fall between the lowest and highest
+of its OWN ground's kits, a measured envelope rather than a tolerance I pick
+(PLUMBER 9/16: a clamp nobody can defend is how a gate gets a number nobody can
+defend). The Strip's panel is a resort at 50% against the Strip's 34% average, and
+that is a true fact about resorts rather than an error, which an envelope allows
+and a mean does not. Run against the old corner-crop that check refuses SIX OF
+THIRTEEN PANELS. AH-01: a contact sheet of terrain samples is the ordinary part;
+THE WRONG THING IS WHICH ONE IS FULL -- the emptiest board in the valley is the
+open desert and the fullest is the mountain, and the ground that is hardest to
+cross is the one nobody ever touched.
+
+GATE GROUND EFFECTS 28/0, registered in the suite, mutation-proved three ways
+(reuse the legend number for the desert -> RED naming the drift; fill the height
+hole with a zero -> RED; claim the swamp row fires on the drained pools -> RED).
+It re-measures every carried number off the kits on every run, so none of them can
+drift from the city.
+
+A GATE ENFORCING A SUPERSEDED RULING, FOR WHOEVER OWNS IT:
+gates/one_terrain_effect_gate.js holds Paolo's 9/24 "ONE terrain effect in the
+whole fight, a small mound, NOTHING ELSE ON A TILE CHANGES A NUMBER". RULE 59
+(10/1) AMENDS THAT BY NAME ("the mound was the first, not the only"), and the gate
+is NOT REGISTERED IN THE SUITE, so it is a gate holding a dead ruling that nobody
+runs. Named, not touched: it is COMBAT's file. [FOR COMBAT AND THE COORDINATOR]
+
+AND 28 OF THE 78 DISTRICT NAMES the thirteen live grounds are made of HAVE NO KIT
+THAT CAN DRAW A BLOCK, among them basin, reservoir, intake and dam -- four of the
+seven districts of wash_and_shore. A fight cut from one of those map cells has
+nothing to build a board out of. That is this lane's, measured this round, and it
+is now the OPEN row [the cells with no board] rather than a line in a handoff.
+
+STILL ON THE BOARD AND NOT DONE: the coordinator's 10/9 SWEEP AB on my SHIPPED
+[where the god gear is] row says MAKE THE SIX PLACED, NEVER ROLLED, so a rumour is
+never wrong. That is a change to the GENERATOR, which is my OPEN row [the roll],
+so it is not being done as a side effect of a different row. It is the first thing
+[the roll] answers.
+
+RED AND NOT MINE, CHECKED ON A CLEAN TREE WITH MY FILES STASHED: REFERENCE CHECK
+is red on tools/bohemia_cook_good_bros.js, which carries no REFERENCE CHECK block
+and grew the frozen baseline from 85 to 86 [FOR PEOPLE]. VOTE TAB is red on four
+other lanes' rows (direction-fight-verdict-22-the-freeway, people-good-bros and
+factions-four-with-a-face say no where you see it; lifecity-build-on-the-screen
+runs seven sentences against rule 22f's two) and on the known door-boot flake
+[FOR THE COORDINATOR AND PLUMBER]. Also still red from last round and not mine:
+FACTION COLOUR, PAGES PUBLISH (299 MB against a 260 MB cap, which is what builds
+his link), ROADS ARE FAST (#daycardIn .dcgo, a deleted card).
+
+AND THE FULL SUITE STILL CANNOT FINISH IN THIS CONTAINER, SAID PLAINLY RATHER THAN
+REPORTED AS A PASS: a full run was stopped at its thirty-minute limit at GATE 73
+OF 787, with the browser gates timing out at 30 s each and CASING FACE dying on a
+missing fontTools module. That is an environment fault, not a tree fault. What was
+run by name this round: GROUND EFFECTS 28/0, CANON ROT, VALLEY GROUNDS, SCAVENGE,
+VOTE TAB and REFERENCE CHECK. Rule 13(a), the pre-push pass. [FOR PLUMBER]
+
+[bb ground] BATTLE BROTHERS' TERRAIN TABLE IS NINE ROWS AND WE CAN FIRE ONE OF
+THEM, AND THE HONEST ANSWER IS TO SAY SO RATHER THAN TO FAKE THE OTHER EIGHT. BB
+earns its swamp, its forest and its hills because it is set in a green temperate
+world where all three are a day's walk apart. OUR TWIST (rule 39b): ours is a dead
+city in a desert, so the entire movement-cost half of that table is empty -- no
+mud, no undergrowth, not one wet cell in the valley -- and what is left is COVER,
+which runs from a board that is 1.5% blocked to one that is 95.8%. BB's terrain
+changes HOW FAST YOU CROSS A TILE; OURS CHANGES WHETHER THERE IS ANYWHERE TO HIDE,
+which is the half that actually decides a formation fight. The temptation was to
+invent a rough-ground skin so the table looked full. A table with eight rows that
+never fire is a table that lies, and a game that only has cover had better make
+cover mean everything.
+
+
 CHARACTER (character-0lurbs): 10/9 (b) LATEST -- *** THE DATA NAMES NO TIER, SO
 THE REAL STAT DOES: A BOUGHT ARMOUR PIECE NOW CHANGES THE MAN. ***
 TAB: VOTE, one man in five armours.
