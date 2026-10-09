@@ -91,8 +91,11 @@ async function contrasts(page, jobs) {
   const jobs = await fr.evaluate(({ ox, oy }) => {
     const scr = document.getElementById('cityfeedscreen').getBoundingClientRect(), list = document.getElementById('cityfeedlist').getBoundingClientRect();
     const out = [];
-    document.querySelectorAll('#cityfeedlist .fp.in').forEach((fp, i) => {
-      const r = fp.getBoundingClientRect(); if (r.bottom > list.bottom - 24 || r.top < list.top) return;   /* only what is fully on the glass, clear of the fade */
+    /* the feed's posts AND the board's (UI [phone contracts], 10/9: the valley's asks are world posts above the feed, and
+       with them on the glass the feed fits fewer whole posts, so both are read) */
+    document.querySelectorAll('#bmboard .fp.job, #cityfeedlist .fp.in').forEach((fp, i) => {
+      const r = fp.getBoundingClientRect(), inList = !!fp.closest('#cityfeedlist');
+      if (inList ? (r.bottom > list.bottom - 24 || r.top < list.top) : (r.top < scr.top || r.bottom > scr.bottom)) return;   /* only what is fully on the glass, clear of the fade */
       const box = [ox + r.left + 4, oy + r.bottom + 1, r.width - 8, 4];
       out.push({ k: 'post ' + i + ' handle', box, ink: getComputedStyle(fp.querySelector('.who')).color, dark: true });
       out.push({ k: 'post ' + i + ' words', box, ink: getComputedStyle(fp.querySelector('.txt')).color, dark: true });

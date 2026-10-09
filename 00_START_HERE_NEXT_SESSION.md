@@ -2202,6 +2202,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/9 (c) LATEST -- [phone contracts] SHIPPED: the two nearest places' jobs at the top of the map's phone, read from the settlement's own board.
+slices/bohemia_phone_board.js (new; one include line in the city file) fetches RUN TWO's OFFERS/TIER_OFFERS as text; skulls drawn (MARKS.skull).
+A tap marks it (window.BOH_PHONE_ROUTE + 'bohemia-phone-route'), never accepts; taken = gone. Gate the phone's board 15/0. VOTE ui-the-phones-board-10-9.
+FOR RUN [PENDING RUN, not Paolo]: draw BOH_PHONE_ROUTE's path on the map while it is set (render draws TRAVEL.path only).
+OPEN: [landscape], [the roster's look] (unblocked), [narrator switch] (new, rule 80b).
+
 UI (ui-kmqmrf): 10/9 (b) LATEST -- [glass face] SHIPPED: the family's reshuffle is a drawn arrow on glass under each face, on the demo's map phone.
 MARKS.again (12x12 ring) + mark(k, ink) in bohemia_ui_materials.js; dressPhone puts the reshuffle in a 38x24 strip under the face, the flip keeps 44x56.
 Gate the reshuffle mark 9/0 (ring 13.6/6.4 in the sun; a real finger rerolls without flipping). VOTE ui-the-reshuffle-mark-10-9.

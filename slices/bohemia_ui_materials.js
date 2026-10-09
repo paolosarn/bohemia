@@ -85,7 +85,11 @@
     /* THE RESHUFFLE (UI [glass face], 10/9): a ring two pixels thick, open at the top right where the arrowhead
        sits, the turn the name takes when you ask for another. The ROM face has no circular arrow, so it is drawn */
     again: ['000111100110', '001111111110', '011000011110', '110000011110', '110000000000', '110000000011',
-            '110000000011', '110000000011', '011000000110', '001111111100', '000111111000', '000000000000']
+            '110000000011', '110000000011', '011000000110', '001111111100', '000111111000', '000000000000'],
+    /* A JOB'S DANGER (UI [phone contracts], 10/9): the skull the settlement's board counts, drawn, because the phone's
+       ROM face has no skull glyph */
+    skull: ['000000000000', '000111111000', '001111111100', '011111111110', '011001100110', '011001100110',
+            '011111111110', '001110011100', '000111111000', '000101101000', '000111111000', '000000000000']
   };
   function mark(k, ink) {
     const rows = MARKS[k], c = canvas(36, 36), g = c.getContext('2d');
@@ -658,12 +662,26 @@
     /* the customize row's buttons are pressed too: 44 points, cardboard, the picked one amber */
     + 'html body #actedit .aeb{height:44px;border:0;border-radius:2px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;color:#f2e4c6;'
     +   'background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/128px 128px;box-shadow:inset 0 1px 0 rgba(255,220,170,.22),0 1px 0 #000}'
-    + 'html body #actedit .aeb.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}';
+    + 'html body #actedit .aeb.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}'
+    /* THE BOARD (UI [phone contracts], bohemia_phone_board.js): the valley's open asks above the feed, each a world post
+       a thumb can press (44 pt), the skulls drawn, the one marked for the map lit amber like the speed you are at */
+    + 'html body #bmboard{flex:0 0 auto;position:relative;z-index:1;padding:4px 5px 3px;border-bottom:1px solid #2e261a}'
+    + 'html body #bmboard .fp.job{margin:0 0 3px;padding:5px 6px 6px;min-height:44px;box-sizing:border-box;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;'
+    +   'border-radius:2px;background:rgba(240,196,126,.07);box-shadow:inset 2px 0 0 #f0c47e}'
+    + 'html body #bmboard .fp.job .txt{margin-top:2px;line-height:1.3}'
+    + 'html body #bmboard .fp.job .meta{display:flex;align-items:center;gap:2px;margin-top:3px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.4px;color:#eadcb4}'
+    + 'html body #bmboard .fp.job .meta span{margin-left:4px}'
+    + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
+    + 'html body #bmboard .fp.job.picked{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
+    + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
+    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}';
   function dressPhone() {
     if (!document.getElementById('cityfeed')) return false;
     rootVars();
     var R = document.documentElement.style;
     if (!R.getPropertyValue('--bm-mark-again')) R.setProperty('--bm-mark-again', 'url(' + mark('again', '#f2e4c6').toDataURL('image/png') + ')');
+    if (!R.getPropertyValue('--bm-mark-skull')) { R.setProperty('--bm-mark-skull', 'url(' + mark('skull', '#eadcb4').toDataURL('image/png') + ')');
+      R.setProperty('--bm-mark-skull-ink', 'url(' + mark('skull', '#120c06').toDataURL('image/png') + ')'); }
     style('bm-phone', PHONE_CSS); return true;
   }
   function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar(); dressPhone();
