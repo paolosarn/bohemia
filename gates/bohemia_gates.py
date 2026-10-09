@@ -841,6 +841,24 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
+     'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
+     'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '
+     'off the Battle Brothers wiki in his own row. *** RULE 12 FOUND HALF OF IT BUILT AND THE OTHER '
+     'HALF A GUESS: *** [board terrains] 9/30 already gave every cell a kind, so there is NO second '
+     'list of grounds (a ground IS a terrain kind, and the gate refuses if they stop agreeing) -- '
+     'while the travel cost that shipped is a TWO-SPEED WORLD, PAVED_SPEED.factor = 0.5 on the '
+     'walked surface, where the mountains cost exactly what a parking lot costs. His numbers are a '
+     'five-speed world. Nothing here touches the street; this is the map\'s own table. RULED WHERE '
+     'HE RULED (road 1, dirt 0.75, wash 0.5, the ranges 0.25) AND MEASURED WHERE HE DID NOT, off the '
+     'city\'s own kits, re-measured every run, ON A SCALE ANCHORED TO HIS RULED DIRT SPEED rather '
+     'than a constant somebody picked; every value carries tuned:false because every felt number is '
+     'TUNING\'s. *** AND THE POOL IS NEVER A TABLE: *** who roams a ground is who holds its cells, '
+     'counted off the live turf at read time, so taking ground changes it with nothing to edit -- '
+     'the gate refuses a stored pool or a hard-coded faction name. Three things in his list are not '
+     'grounds and say so: rubble is the RUIN (a CONDITION), the casino floor is an INTERIOR, a RIDGE '
+     'is a feature nothing in the valley marks. And NO FACTION IS GIVEN A COLOUR, because COLOUR IS '
+     'TERRITORY says whose hue is whose is his.', False),
     ('TILE KINDS', ['node', 'gates/tile_kinds_gate.js'],
      'ROW [tile options], its surviving half (coordinator 9/28: "the list of tile KINDS at house '
      'size is yours: every kind the city has, from the block\'s own layout; the board must still '

@@ -1,3 +1,108 @@
+WORLD (world-9lfjtf): 10/9 LATEST -- *** THE POOL NEVER NEEDED A TABLE, AND THE
+TRAVEL COST THAT SHIPPED IS A TWO-SPEED WORLD WHERE THE MOUNTAINS COST WHAT A
+PARKING LOT COSTS. *** Row [the valley's grounds] SHIPPED. First round since rule
+78 lifted the pause; three OPEN rows remain as the jump list (rule 74).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-how-fast-and-who-10-9. Record
+records/BOHEMIA_WORLD_THE_GROUND_PICKS_WHO_SHOWS_UP_10_9_26.md.
+
+RULE 12 FOUND HALF OF IT BUILT:
+ (a) THE GROUNDS EXIST. [board terrains] 9/30 already gave every cell one of
+     thirteen kinds, 0 unmapped over a hundred rolled valleys. So this wrote NO
+     SECOND LIST -- a ground IS a terrain kind, read off the module that owns
+     them, and the gate refuses if they stop agreeing. Two lists of one thing are
+     two lists that drift, and this lane has measured that three times.
+ (b) *** AND THE TRAVEL COST THAT SHIPPED IS A TWO-SPEED WORLD. *** On the walked
+     surface PAVED={asphalt,concrete} and PAVED_SPEED.factor=0.5, so a paved cell
+     costs half and EVERY OTHER CELL IN LAS VEGAS COSTS THE SAME. The mountains
+     cost exactly what a parking lot costs. His translated numbers are a FIVE
+     speed world and they disagree in BOTH directions: the road's edge over a
+     dirt track is SMALLER (1 against 0.75, not 2 against 1) and the ranges are
+     FOUR times worse than a road, not twice. The shipped number is not wrong, it
+     is COARSE -- it was a STREET rule and this is a MAP rule. NOTHING HERE
+     TOUCHES THE STREET; the surface's own "one number in one place... tuning the
+     street tunes the map" stays true of the street. The conflict is written down,
+     not resolved by me.
+
+RULED WHERE HE RULED, MEASURED WHERE HE DID NOT. Four speeds are his off the wiki
+(freeway 1.00 road, open desert 0.75 dirt, wash 0.50, hills 0.25 the ranges;
+sight 1, hills 1.25). The other nine are MEASURED off the city's own kits: how
+much of a ground is open rather than built or blocked is a fact about the city,
+not an opinion. *** AND THE DERIVED SCALE IS ANCHORED ON A RULED POINT, NOT A
+CONSTANT I PICKED: *** open desert measures 0.50 open and he ruled it 0.75, so the
+scale is openShare x 1.5 and HIS number sets it. Retune the desert and every
+derived ground moves. Breaking the anchor turns the gate red.
+  freeway 1.00 | desert 0.75 | landfill 0.75 | golf 0.72 | solar 0.55 | lot 0.52
+  strip 0.51 | wash 0.50 | suburb 0.49 | industrial 0.46 | trailer 0.41
+  airport 0.38 | hills 0.25
+Every value carries tuned:false and its source; every felt number is TUNING's.
+
+*** THE POOL IS NOT A TABLE. IT IS WHO HOLDS THE GROUND. *** An authored
+faction-per-ground list would be CONTENT, which is his, and it would go stale the
+moment the map moved. It does not need authoring: bohemia_towns.turf already
+answers who holds every cell -- measured 9,216 of 9,216 held, 14 factions, nothing
+unheld -- so a ground's pool is WHICH FACTIONS HOLD CELLS OF IT, counted off the
+live turf at read time. Take a faction's ground and its crews stop showing up
+there WITH NOTHING TO EDIT. The gate refuses a stored pool or a hard-coded faction
+name in the module. AND THE POOLS ARE VIVID, which is the row's own point:
+*** THE STRIP IS 250 CELLS, 7 OUTFITS, AND ONE HOLDS 92% OF IT. THE HILLS ARE 902
+CELLS, 12 OUTFITS, BIGGEST 19%. *** One ground is one outfit's and another belongs
+to nobody, with no table in it.
+
+THREE THINGS IN HIS LIST ARE NOT GROUNDS, named not faked, each keeping its ruled
+number for the day something marks it: RUBBLE (0.65) is the RUIN, a CONDITION (act
+one IS the ruin, so rubble is a state a suburb or strip ground is in); the CASINO
+FLOOR is an INTERIOR; a RIDGE (sight 2) is a FEATURE inside the hills and nothing
+in this valley marks one. Same discipline [board terrains] used for its two.
+
+COOK: HOW FAST, AND WHO, slices/vote/WORLD_HOW_FAST_AND_WHO.png -- the same valley
+twice, one pixel per cell on the grid the game really uses. Left how fast you
+cross it, right how tightly one outfit holds it. *** NOT COLOURED BY FACTION ON
+PURPOSE: *** COLOUR IS TERRITORY (8/26) and its own gate says in its head that
+WHICH FACTION OWNS WHICH HUE IS HIS, so painting fourteen outfits in fourteen
+colours of mine would be this lane deciding content it does not own, in a picture,
+where it is hardest to notice. It paints GRIP instead, which needs no faction
+colour and is the better read anyway: the question before crossing is not "whose
+is this" but "is this ONE outfit's". *** THE FINDING, PROVED NOT CLAIMED: THE FAST
+GROUND AND THE OWNED GROUND ARE NOT THE SAME GROUND. *** The two panels agree on
+12.9% of the valley; the quickest way across runs through the most tightly held
+ground in it, and the slowest ground is the emptiest. The tool refuses if they
+ever agree past three quarters, because then the second panel is the first one
+tinted and the finding is an artefact of my own ramp.
+
+GATE VALLEY GROUNDS 43/0, registered, swept over TEN rolled valleys (92,160 cells,
+every one with a ground and a speed, 0 unheld), mutation-proved three ways: a
+second list of grounds -> RED; break the anchor -> RED; store a pool table -> RED
+naming the hard-coded faction.
+
+VOTE ROWS ARE TWO SENTENCES NOW (rule 53, TWO SENTENCES MAX on every item's why).
+Mine complies. My OWN older rows do not and are long paragraphs -- UI owns the
+rewrite ([two sentences]) and PLUMBER owes the gate leg, so I left them.
+
+ROUTED: RUN -- parties read poolOf({map,turf,ground}), travel reads speedOf, both
+answering for every cell of every rolled valley. TUNING -- thirteen speeds and two
+sight values all tuned:false, AND THE LIVE CONFLICT TO SETTLE: the street says a
+road is 2x off-road, the map now says 1.33x a dirt track and 4x the ranges; both
+are defensible and only one should survive. FACTIONS -- the pool is derived from
+turf, so whatever moves who holds what moves who roams where for free. COMBAT --
+the same ground that picks the pool picks the board ([board terrains]), so the
+party you meet and the floor you fight on come from ONE fact about the cell.
+
+STILL RED ON CLEAN MAIN AND NOT MINE, both verified with my work stashed:
+FACTION COLOUR (7 legs; my cook gives no faction a colour and my own gate proves
+it) and PAGES PUBLISH at 299 MB against a 260 MB cap, which is what builds his
+link. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb grounds] BB'S MAP SPEEDS ARE THE TERRAIN'S AND NOTHING ELSE'S: a road is fast,
+a swamp is slow, and who you meet is a SEPARATE faction-territory layer sitting
+over the top. OUR TWIST (rule 39b): ours are THE SAME FACT. The ground is both the
+cost and the company, because in a dead city the ground IS the economy -- the
+reason the Strip is worth owning is the reason somebody owns it, and the reason
+nobody holds the ranges is the same reason nobody can cross them quickly. BB's
+player asks "how long is this road" and separately "whose land is this". Ours asks
+one question and gets both answers, and the unpleasant one is that THE FASTEST WAY
+ANYWHERE RUNS THROUGH THE GROUND MOST TIGHTLY HELD BY SOMEBODY ELSE.
+
 QUESTS (quests-dvybth): 10/9 LATEST -- [the contract kinds] SHIPPED: questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md, all 49 Battle Brothers contract kinds as our jobs, plus the field list RUN TWO board needs. VOTE: one line. NOT IN A TAB. Next job: [the road events].
 
 MODS (mods-59jyd6): 10/9 LATEST -- [what is data and what is not] SHIPPED (rule 74 top row).
