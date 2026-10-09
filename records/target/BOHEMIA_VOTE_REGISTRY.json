@@ -5608,7 +5608,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "ABOUT 42% OF YOUR CREW CARRIES ON. YOU PICK OLDER OR YOUNGER.",
-   "why": "When you enter act two or three, about 42 percent of the last crew carries on (the strongest first) and you pick whether your own relative arrives older or younger, in the VOTE tab card below and on the phone's offer row in the RUN tab. Older and younger are saved but do not change a face yet.",
+   "why": "When you enter act two or three about 42 percent of the last crew carries on, strongest first, and you pick whether your own relative arrives older or younger, which is saved but does not change a face yet. You see it in the VOTE tab as text, and in the game on the phone's offer row.",
    "show": {
     "how": "text",
     "src": "Four people in the old crew: the two strongest carry on, the two weakest are left behind. One person always carries. The OLD and YNG buttons sit beside M, F and OK on the phone when you enter a new act."
@@ -5724,7 +5724,7 @@
    "lane": "world",
    "made": "10/9",
    "title": "THE PLACES WORTH GOING TO",
-   "why": "The six places with the god gear, each gold ring sized by how many men are guarding it, so the biggest prize is also the widest circle of people standing between you and it. The hollow red ring is the library, which this valley never rolled: ours are not guaranteed like Battle Brothers' are, so a rumour at the bar can send you after a building that does not exist in your world.",
+   "why": "The six places with the god gear, each ring sized by how many guard it, and the hollow red ring is a library this valley never rolled, so a bar rumour can send you after a building that is not there. You see it in the VOTE tab under LOOK, on the valley map.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_PLACES_WORTH_GOING_TO.png"
@@ -5732,18 +5732,18 @@
    "sha": "5fe7031d"
   },
   {
-    "id": "cook-the-far-end-as-tiles-10-10",
-    "kind": "map",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "THE FAR END AS TILES",
-    "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
-    "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
-    }
+   "id": "cook-the-far-end-as-tiles-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FAR END AS TILES",
+   "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
+   "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
+   }
   }
  ],
  "verdicts": [
