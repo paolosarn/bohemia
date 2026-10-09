@@ -48,6 +48,7 @@ function fieldTypes(rows) {
   for (const r of rows) for (const [k, v] of Object.entries(r)) { if (v === null) continue; (t[k] = t[k] || new Set()).add(typeOf(v)); }
   return t;
 }
+let NAMESPACE = false, CURRENT_MOD = null;   /* optional: a NEW row's id should start with '<modid>:' so it can never collide with a base id or another mod */
 let RANGES = null;   /* optional draft ranges (tools/bohemia_mods_ranges_draft.js): out of range is a WARNING, never a block */
 function patchTable(baseTbl, patch, log, where) {
   const byMap = !Array.isArray(baseTbl);
@@ -72,6 +73,7 @@ function patchTable(baseTbl, patch, log, where) {
       const miss = need.filter(k => !(k in next));
       if (miss.length) { log.push(['bad', where + '.' + id + ': a NEW row needs ' + miss.join(', ') + '. Row skipped.']); continue; }
       if (byMap) baseTbl[id] = next; else baseTbl.push(next);
+      if (NAMESPACE && CURRENT_MOD && !id.startsWith(CURRENT_MOD + ':')) log.push(['warn', where + '.' + id + ': a new id should start with "' + CURRENT_MOD + ':" so it cannot collide with the base or another mod. Added anyway.']);
       log.push(['ok', where + '.' + id + ': new row added.']);
     } else {
       if (byMap) baseTbl[id] = next; else baseTbl[baseTbl.indexOf(cur)] = next;
@@ -125,10 +127,12 @@ function order(mods, log) {
 }
 function merge(modsDir, opts) {
   RANGES = (opts && opts.ranges) || null;
+  NAMESPACE = !!(opts && opts.namespace);
   const base = loadBase(), baseHash = hash(base), log = [];
   const r = readMods(modsDir); log.push(...r.log);
   const owner = {};
   for (const m of order(r.mods, log)) {
+    CURRENT_MOD = m.man.id;
     for (const [file, patch] of Object.entries(m.patches)) {
       if (!base[file]) { log.push(['warn', m.man.id + '/' + file + ': no such data file. Ignored.']); continue; }
       const before = log.length;
@@ -144,7 +148,7 @@ if (require.main === module) {
   const dir = process.argv[2];
   if (!dir) { console.error('usage: node tools/bohemia_mods_merge_reference.js <modsDir>'); process.exit(2); }
   const withRanges = process.argv.includes('--ranges');
-  const r = merge(path.resolve(dir), withRanges ? { ranges: require('./bohemia_mods_ranges_draft.js').ranges } : undefined);
+  const r = merge(path.resolve(dir), { ranges: withRanges ? require('./bohemia_mods_ranges_draft.js').ranges : null, namespace: process.argv.includes('--namespace') });
   if (process.argv.includes('--json')) { console.log(JSON.stringify({ hash: r.hash, baseHash: r.baseHash, changed: r.changed, log: r.log }, null, 1)); process.exit(0); }
   console.log('base ' + r.baseHash + '  merged ' + r.hash + '  ' + (r.changed ? 'CHANGED' : 'IDENTICAL') + '  (' + r.mods + ' mods)');
   r.log.forEach(l => console.log('  ' + l[0].toUpperCase().padEnd(4) + ' ' + l[1]));
