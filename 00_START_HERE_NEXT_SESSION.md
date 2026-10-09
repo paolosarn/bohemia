@@ -17313,6 +17313,24 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/9 LATEST -- *** [followers] CORRECTED, ROOT CAUSE: HIS
+"BOUGHT ONCE, NO WAGE" RULING SAT UNFIXED A ROUND; FIXED, AND THE REAL SIX ROLES
+REPLACE FOUR GUESSED ONES NOW THAT GROK ANSWERED. ***
+TAB: CITY, the walked street. Cook and record updated in place (same files, not forked).
+Record: records/BOHEMIA_THE_RETINUE_10_1_26.txt (new CORRECTED 10/9 section at the top).
+
+Deleted the nightly wage debit and everything built to collect it -- his fifth votes
+said it was wrong and it had sat that way since. Swapped the four guessed roles
+(mechanic, medic, fixer, driver) for the real six (cook, scout, lookout, paymaster,
+blacksmith, surgeon; there is no "negotiator") now that Grok's cited wiki page landed.
+Prices are the wiki's own crowns at ten to one. Scout keeps its real travel-time cut;
+paymaster now discounts other hires' one-time price instead of a wage that's gone.
+
+Found a second bug while rebuilding: the "declined" flag was being set at ASK time,
+not at an actual decline, so being unable to afford a role got permanently remembered
+as a no. Fixed; proven in the gate's real-city walk (fund after a can't-afford, same
+role offered again). Gate rebuilt in full, 43/0. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/1 LATEST -- *** [followers] SHIPPED. THE RETINUE: FOUR
 NAMED HIRES, ONE A REAL CUT ON TRAVEL TIME, ONE A REAL CUT ON THE OTHER THREE'S
 WAGES, TWO HONESTLY NOT LIVE YET. ***

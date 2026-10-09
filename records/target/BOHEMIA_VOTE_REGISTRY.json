@@ -3771,10 +3771,10 @@
    "id": "people-the-retinue-10-1",
    "kind": "tile",
    "lane": "people",
-   "sha": "8e69c21",
-   "made": "10/1",
+   "sha": "3e54ff6",
+   "made": "10/9",
    "title": "THE RETINUE",
-   "why": "Camp staff like Battle Brothers: a driver, a medic, a fixer and a mechanic, hired by staying close to whoever offers. You see it in the VOTE tab under LOOK.",
+   "why": "Fixed like you said: one price, no more nightly wage. The real six camp staff now, not four guessed ones.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_THE_RETINUE_10_1_26.html"
