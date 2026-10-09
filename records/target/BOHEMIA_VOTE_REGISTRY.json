@@ -5753,7 +5753,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT A SETTLEMENT PAYS YOU",
-   "why": "Battle Brothers pays you about one seventh of what you paid when you sell gear back. Our shop pays half. Slide a price in the VOTE tab and see Battle Brothers' big town, its small village and our shop side by side. The full table is for the economy chat.",
+   "why": "Battle Brothers pays about one seventh of what you paid when you sell gear back, and slide a price to compare its big town, its small village and our shop side by side. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
@@ -5766,7 +5766,7 @@
    "sha": "efbad7b",
    "made": "10/10",
    "title": "THE WEAPON FILE",
-   "why": "For whoever makes mods. Nothing changed in the game. A weapon can list two skills but the fight plays only the first, so 27 skills never show up, and a sweep or a line is just a sentence nobody reads. Three optional fields would fix that without changing any weapon that exists today.",
+   "why": "For modders, nothing changed in the game: a weapon can list two skills but the fight plays only the first, so 27 skills never show, and three optional fields would fix it without changing any weapon. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html"
@@ -5779,7 +5779,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "WHAT YOUR MAN PASSES TO HIS HEIR: HALF HIS LEVEL, HALF HIS PERKS, ALL HIS GEAR.",
-   "why": "A man's heir starts at half his level and gets the first half of his perks, his gear, his house and his talent stars, but never his body or wounds, so a level earned in act one means something later. It is a text card in the VOTE tab; nothing on the street shows levels yet, so thumb the numbers.",
+   "why": "A man's heir starts at half his level with the first half of his perks, his gear, his house and his stars, never his body or wounds, so a level earned in act one means something later. You see it only as text in the VOTE tab, since nothing shows levels yet.",
    "show": {
     "how": "text",
     "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
@@ -5792,7 +5792,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "HOW THE DEMO ENDS",
-   "why": "Three jobs from one woman at the Wash: haul water, run off the road crew, clear the dog lot, and the lot becomes yours. Then a thanks screen opens NOTES.",
+   "why": "Three jobs from one woman at the Wash, haul water, run off the road crew and clear the dog lot, and the lot becomes yours, then a thanks screen opens NOTES. You see it only as text in the VOTE tab, and in the demo on the Wash's board.",
    "show": {
     "how": "text",
     "src": "The last thing she hands you is the big dog's ear tag. It has a lab number and your company's name on it, and nobody explains why."

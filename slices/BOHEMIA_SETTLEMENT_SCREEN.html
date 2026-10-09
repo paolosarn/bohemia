@@ -228,7 +228,7 @@ var PLAIN = {pistol:'One house away, ignores some armour, spends rounds.', pipe:
   sledge:'Breaks armour and doors.', rifle:'One hard shot, then rack it.', shotgun:'A short loud cone, reload eats the turn.',
   bottles:'Thrown, a few houses.', machete:'Cuts fast, bleeds them.', 'fire axe':'Splits shields.', 'rebar spear':'Keeps them a step off.',
   cleaver:'Opens wounds.', chain:'Goes over a shield.', 'pole hook':'Reaches over your own front row.', 'compound bow':'Quiet, far, rounds-free.'};
-var SELL_CUT = 0.5;  /* TUNING: unsourced, the wiki pages in the repo do not state it */
+var SELL_CUT = 1/7;  /* TUNING 10/10 (tuning-what-a-settlement-pays-you-10-10): Battle Brothers pays back about a seventh of what you paid */
 function priceOf(v){ return Math.max(1, Math.round((v||0)/10)); }
 function qualityWord(rank, n){ var q = rank/(Math.max(1,n-1)); return q < .34 ? 'beat-up' : q < .67 ? 'solid' : 'good'; }
 function armourName(kind, dur){

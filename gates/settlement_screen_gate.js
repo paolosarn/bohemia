@@ -152,7 +152,7 @@ const srv = http.createServer((rq, rs) => {
   await p.click('#baggrid .slot.full'); await p.waitForTimeout(200);
   await p.click('#sbody .act'); await p.waitForTimeout(250);
   const s1 = await bat(), bag3 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
-  ok('  selling takes it out of the bag and pays the cut (half, TUNING\'s to source)', s1 - s0 === Math.max(1, Math.floor(first.price / 2)) && bag3 === 1, s0 + ' -> ' + s1 + ', bag ' + bag3);
+  ok('  selling takes it out of the bag and pays the Battle Brothers cut, a seventh (TUNING)', s1 - s0 === Math.max(1, Math.floor(first.price / 7)) && bag3 === 1, s0 + ' -> ' + s1 + ', bag ' + bag3);
   const posted = await p.evaluate(() => { const b = (window.__settleLog || []).filter(m => m.act === 'bag').pop(); return b ? b.bag.length + '/' + b.slots : 'none'; });
   ok('  the game is told what is in the bag on every change', posted === '1/36', posted);
   await p.evaluate(() => BohemiaPurse.debit(BohemiaSettlement.state.purse, 'electricity', BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') - 3, 'gate', null, 0));
