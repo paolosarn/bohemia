@@ -5464,7 +5464,20 @@
     "src": "BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html"
    }
   },
-  {"id": "combat-the-board-fits-the-party-10-9", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/9", "title": "A SMALL FIGHT GETS A SMALL BOARD, AND IT OPENS ZOOMED IN", "why": "The fight board is now cut to the parties, your line and theirs five houses apart with a house of room round them, so three thugs against your twelve is about 9 by 10 instead of 20 by 15, and it opens on your line with the man at full size. Start any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_BOARD_FITS_THE_PARTY_10_9.jpg"}, "draft": true}
+  {"id": "combat-the-board-fits-the-party-10-9", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/9", "title": "A SMALL FIGHT GETS A SMALL BOARD, AND IT OPENS ZOOMED IN", "why": "The fight board is now cut to the parties, your line and theirs five houses apart with a house of room round them, so three thugs against your twelve is about 9 by 10 instead of 20 by 15, and it opens on your line with the man at full size. Start any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_BOARD_FITS_THE_PARTY_10_9.jpg"}, "draft": true},
+  {
+   "id": "mods-the-data-files-10-9",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE DATA FILES ON ONE PAGE",
+   "why": "For whoever makes mods. All 15 data files on one page, made from the real files so it cannot be wrong: what each holds, who reads it, every field. Tap a file. The bottom shows how to make the knife hit harder: one row, two numbers.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html"
+   }
+  }
  ],
  "verdicts": [
   {
