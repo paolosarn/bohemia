@@ -6088,6 +6088,19 @@
     "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_POSTS_10_10.png"
    },
    "draft": true
+  },
+  {
+   "id": "character-armour-you-can-see-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "ARMOUR YOU CAN SEE",
+   "why": "One man in five armours, nothing bought then padded, leather, mail and plate, each a real piece sorted from the real Battle Brothers gear list by how tough it actually is. Thumbs up, and you see it here first, then on the roster and in the fight once the other chats wire a bought piece to this table.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html"
+   }
   }
  ],
  "verdicts": [

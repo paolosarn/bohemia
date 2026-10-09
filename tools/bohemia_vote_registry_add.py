@@ -7,23 +7,23 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-enemy-tiers-dressed-10-9'
+MINE_ID = 'character-armour-you-can-see-10-9'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "outfit", "lane": "character",
   "sha": "pending", "made": "10/9",
-  "title": "THE ENEMY TIERS DRESSED",
-  "why": "Six kinds of enemy in combat's new fight, dressed in the gang clothes combat already picked, light ones unchanged and the two toughest carrying real armor pieces. Thumbs up, and you see it in the VOTE tab and in the fight once combat wires it in.",
+  "title": "ARMOUR YOU CAN SEE",
+  "why": "One man in five armours, nothing bought then padded, leather, mail and plate, each a real piece sorted from the real Battle Brothers gear list by how tough it actually is. Thumbs up, and you see it here first, then on the roster and in the fight once the other chats wire a bought piece to this table.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html"
+    "src": "vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
-m = re.search(r'\n(\s*)\}\n(\s*)\],\n(\s*)"verdicts"', s)
+m = re.search(r'\n(\s*)\],\n(\s*)"verdicts"', s)
 assert m, 'cannot find the end of items[]'
-out = s[:m.start()] + '\n    },\n' + block + '\n  ],\n' + m.group(3) + '"verdicts"' + s[m.end():]
+out = s[:m.start()] + ',\n' + block + '\n' + m.group(1) + '],\n' + m.group(2) + '"verdicts"' + s[m.end():]
 json.loads(out)
 io.open(P, 'w', encoding='utf-8', newline='').write(out)
 print('spliced; items', len(json.loads(out)['items']))

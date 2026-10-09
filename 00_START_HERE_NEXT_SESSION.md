@@ -1,3 +1,30 @@
+CHARACTER (character-0lurbs): 10/9 (b) LATEST -- *** THE DATA NAMES NO TIER, SO
+THE REAL STAT DOES: A BOUGHT ARMOUR PIECE NOW CHANGES THE MAN. ***
+TAB: VOTE, one man in five armours.
+Record: records/BOHEMIA_ARMOUR_YOU_CAN_SEE_10_9_26.txt, row [armour you can see].
+
+Picked up the new top open job once the last one shipped. Battle Brothers' own armour
+list has no field saying which of the four tiers (padded, leather, mail, plate) a
+piece belongs to, so the real stat every row does carry, how tough it is, decided it:
+split into four even groups. That table is saved so it fixes itself if the source
+list ever changes.
+
+Dressed one man five ways with real wardrobe pieces already in the game: nothing
+bought, then a hoodie, then a jacket over it, then a tactical vest, then the vest
+plus a scrap chest plate, a scrap helmet and a mantle on the shoulders. Nothing new
+was drawn.
+
+Caught two mistakes by looking at the actual picture before calling it done. First,
+the tool meant to check if these were really five different looks said no at first,
+because it was built for a different job (checking outlines) and these pieces
+mostly change colour, not outline. Switched to counting how many pixels actually
+differ, which is the honest check for this kind of gear. Second, the heaviest look
+seemed to show a different skin colour, which would have been a real bug. It was
+the helmet covering the whole head with an eye slit, not skin. Zoomed in on the
+actual pixels both times instead of guessing.
+NEXT: the jump list's other two rows (the origin crews, bb gear).
+PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/9 LATEST (round seven, [the map's sounds] round three) -- ***
 WALKING INTO A TOWN NOW ACTUALLY PLAYS SOMETHING. ALSO: ONE OF THE TWO SOUNDS THIS
 ROW NAMED TURNED OUT TO BE DEAD, AND I ALMOST SHIPPED IT ANYWAY. ***
@@ -49,6 +76,7 @@ start is ONE fight. OURS HAS NO AMMO ECONOMY: no company stock, no refill, no am
 (the fight tracks only per-weapon loads). Copying BB's price would change nothing; copy the stock, cap, refill and start kit.
 Act curve proposal: arrows/bolts act 1, powder (Alchemist) act 2, bullets act 3, as an availability table.
 NEXT OPEN: [respec], [recruit odds], [origins difficulty].
+
 WORLD (world-9lfjtf): 10/9 (c) LATEST -- *** THE ROW'S GATE ALREADY PASSED, AND
 MEASURING IT CAUGHT A LAS VEGAS BOULEVARD RATED SLOWER THAN OPEN DESERT. ***
 Row [the roads] SHIPPED. 3 OPEN rows remain as the jump list (rule 74).
