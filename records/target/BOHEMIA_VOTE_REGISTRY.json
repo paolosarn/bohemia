@@ -6544,7 +6544,22 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_EVERY_ROLL_A_MAN_MAKES_10_10_26.html"
    }
-  }
+  },
+{
+  "id": "grok-a-hire-walks-two-days-after-zero-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: A MISSED PAYDAY MAKES A HIRE LEAVE A COUPLE OF DAYS AFTER THE BATTERIES HIT ZERO, NEVER THE SAME DAY",
+  "why": "Grok reports you said a hire who is not paid walks only a couple of days after your batteries hit zero, not the same day, and his traits stretch or shrink that clock (a greedy man sooner). You see it on the roster screen as a man's mood dropping after the missed noon and his leaving on the second or third morning.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_141 and GROK_143 (the wiki's Mood page: not paid is -1 mood, greedy -2, not eaten -1; angry 0 to 15 percent may desert; mood drifts back when nothing happens). The wiki gives no day count; his 'a couple of days' is the number.\n\nSeen in: the roster screen's mood line; the morning a man is gone."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
