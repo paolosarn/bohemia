@@ -845,6 +845,27 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/10 (j) LATEST -- *** THE FIVE SHOPKEEPERS ALREADY HAD A HELLO LINE.
+NONE OF THEM HAD ANYTHING TO SAY ABOUT A RAID, A SICKNESS, OR A RUMOUR. ***
+TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
+Record: records/BOHEMIA_WORDS_THE_KEEPERS_LINES_10_10_26.md
+
+My job was to write lines for the five shopkeepers at a settlement: the smith, the
+armourer, the barber, the clinic and the board. Checked what they already say first.
+
+Good news: all five already have a line about pricing, and most of those are already right
+(some can't name one flat price because the game genuinely doesn't have one, every weapon
+and every injury prices itself).
+
+What was actually missing: none of them react when something happens to the town, like a
+raid or a sickness going around or a market day. And none of them have a rumour to share,
+even though the bar does. Wrote 20 new lines to fill both gaps. Two of them tie back into
+stuff I found in earlier rounds (the clinic's rumour mentions a chip under someone's skin,
+which is the same undead canon from before; the board's rumour mentions the robotics plant).
+NEXT: both of my other two jobs are still blocked on other teams (the start screen, and a
+reputation-lines system that doesn't exist yet); I'll re-check both next round.
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/9 (i) LATEST -- *** THE NUMBER I WAS GIVEN WAS WRONG TWICE OVER, AND
 TWO OTHER TEAMS FIXED THEIR OWN STUFF FASTER THAN I COULD SHIP MINE. ***
 TAB: VOTE (the tab he reads from). A review file for two teams to apply.
