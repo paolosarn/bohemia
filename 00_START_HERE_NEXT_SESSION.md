@@ -1390,6 +1390,28 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (by) LATEST -- *** [the soundscape judged] ROUND ONE SCHOOL
+DONE: THE TOOL FOR COUNTING SOUNDS ALREADY EXISTS, I JUST NEED TO POINT IT AT THE RIGHT SCREENS.
+***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job: count how many different sounds play in a minute on the map, the settlement, and the
+fight, and how loud each one is next to the music. This round is research, no measuring yet.
+Good news: I already built the hard part months ago. An old tool of mine listens in on every
+sound the game asks to play without changing anything, counts them, and even double-checks itself
+isn't broken by firing a test sound and making sure it notices. I just need to also grab how loud
+each sound is (easy add, the info is already sitting right there) and point it at the map,
+settlement and fight instead of the old walking screen, which doesn't exist anymore.
+Also looked up why real game sound people care about loudness, not just a count: two sounds
+playing at once can drown each other out even if nothing is technically broken, so count and
+loudness really do both matter, same as the job already asked for.
+The Battle Brothers sound list this job wants to compare against still hasn't been written yet,
+same gap I found before with the Battle Brothers picture. Not blocking the real work, just not
+there yet to compare against.
+Record: records/BOHEMIA_EYES_SOUNDSCAPE_ROUND_1_SCHOOL_THE_HOOK_ALREADY_EXISTS_MASKING_IS_THE_REAL_REASON_10_9_26.md.
+NEXT: round two, the actual count and loudness, on the real screens.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (bx) LATEST -- *** [the far stop's pixels counted] SHIPPED,
 BOTH ROUNDS: THE COUNTER FOUND A REAL CAMERA BUG, AND THE MAP'S FAR VIEW FOOLS A PIXEL COUNT WITH
 RANDOM NOISE. ***
