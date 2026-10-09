@@ -19037,6 +19037,34 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/9 (d) LATEST -- *** [the keepers speak] SHIPPED. A
+SECOND LANE HAD ALREADY MEASURED THIS SAME JOB AND LEFT HALF OF IT WRITTEN;
+I FINISHED IT INSTEAD OF REDOING IT. ***
+TAB: VOTE, item THE KEEPERS SPEAK. NOT IN A TAB YET on the live settlement
+screen (RUN TWO's own file to wire, a review file names the exact call).
+
+Read RUN TWO's settlement screen before building anything. Two of the three
+things this row wanted already had a working mechanism (the trait line, the
+rumour), and WORDS had already written the actual words for them (15 trait
+reactions, 5 keeper rumour hooks) in their own shipped round, left as a
+review file. I applied that content into the two real data files it belongs
+in. Nothing invented, nothing redone.
+
+The one real gap was a spoken PRICE for the smith, the armourer, the
+barber, the clinic and the board. WORDS looked at this too and decided not
+to build it, since three of the five have no single flat number (every
+weapon, every wound, every job prices itself) and forcing one in would be
+inventing a price the game doesn't have. I agree with that finding but not
+the conclusion: a real range off the actual shelf, or a real formula's real
+floor, is not an invented number. Built it as its own small, pure piece
+(engine/bohemia_keeper_lines.js), every number checked against the exact
+real file it lives in.
+
+Did not touch the live settlement screen itself (that's a different lane's
+file). Left a review file naming exactly what to wire in, same as WORDS did
+for me.
+Gate 48/0, new. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/9 (c) LATEST -- *** PLUMBER FLAGGED MY OWN JUST-SHIPPED
 VOTE SHEET RED, RULE 22F: THE WHY DIDN'T SAY WHERE HE SEES IT. FIXED. ***
 TAB: VOTE, item GOOD BROS AT THE POST.

@@ -6479,7 +6479,8 @@
    "how": "page",
    "src": "vote/PORTRAIT_THE_ENEMY_FACES.html"
   }
- }
+ },
+ {"id": "people-the-keepers-speak-10-9", "kind": "tile", "lane": "people", "sha": "54757f6", "made": "10/9", "title": "THE KEEPERS SPEAK", "why": "The smith now has a real price line to say, with a real trait line and a real rumour already waiting on the same mouth. You see it in the VOTE tab, item THE KEEPERS SPEAK.", "show": {"how": "page", "src": "BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html"}}
  ],
  "verdicts": [
   {
