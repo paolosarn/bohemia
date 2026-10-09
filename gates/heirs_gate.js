@@ -126,6 +126,25 @@ H.ROWS.carryShare = 1;
   A.resetAll();
 }
 
+/* ---- 1c. WHAT OF A MAN PASSES (row [the company inherits]) ---------------------- */
+{
+  const man = { key: 'P:r:1', name: 'Dolores Vance', look: 3, strength: 9, level: 7, perks: ['a', 'b', 'c', 'd', 'e'], stars: { hp: 2, resolve: 1 },
+    stats: { hp: 62, melee_skill: 55 }, injured: 'leg', age: 52, house: 'the Vance place', debt: 10,
+    gear: { main: { n: 'pipe' }, off: null, body: { n: 'vest' }, head: null } };
+  const l = ledger([man]); const h2 = H.heirs(l, 2).heirs[0];
+  ok('level: half the parent\'s, rounded up (7 -> 4)', h2.level === 4);
+  ok('perks: the first half in the order he took them (5 -> 2: a, b)', J(h2.perks) === J(['a', 'b']));
+  ok('stars carry, the talent runs in the family', J(h2.stars) === J({ hp: 2, resolve: 1 }) && h2.stars !== man.stars);
+  ok('gear stays in the family and a crew man\'s slots are flattened (2 items)', h2.gear.length === 2);
+  ok('the house passes', h2.house === 'the Vance place');
+  ok('a debt crosses at standing\'s own 0.45 (10 -> 4.5)', h2.debt === 4.5);
+  ok('THE BODY NEVER CARRIES: no stats, wound or age of the parent on the heir', h2.stats === undefined && h2.injured === undefined && h2.age >= 15 && h2.age <= 35);
+  const g3 = H.heirs(l, 3).heirs[0];
+  ok('the grandchild compounds it: level 7 -> 4 -> 2 (a quarter), perks 2 -> 1', g3.level === 2 && J(g3.perks) === J(['a']) && g3.debt === 2.03);
+  ok('a level-1 man still has a level-1 heir', H.heirs(ledger([{ key: 'x', name: 'A B', level: 1 }]), 2).heirs[0].level === 1);
+  ok('a man with none of these fields still derives (the old shape holds)', H.heirs(ledger(), 2).heirs.every(h => h.level === 1 && h.perks.length === 0 && h.debt === 0 && h.house === null));
+}
+
 /* ---- 2. THE FIVE RULES OF s12 -------------------------------------------- */
 {
   /* 1. a death in act 1 removes the line from acts 2 and 3 */

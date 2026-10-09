@@ -5771,6 +5771,19 @@
     "how": "page",
     "src": "BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html"
    }
+  },
+  {
+   "id": "dynasty-company-inherits-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "WHAT YOUR MAN PASSES TO HIS HEIR: HALF HIS LEVEL, HALF HIS PERKS, ALL HIS GEAR.",
+   "why": "A man's heir starts at half his level and gets the first half of his perks, his gear, his house and his talent stars, but never his body or wounds, so a level earned in act one means something later. It is a text card in the VOTE tab; nothing on the street shows levels yet, so thumb the numbers.",
+   "show": {
+    "how": "text",
+    "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
+   }
   }
  ],
  "verdicts": [
