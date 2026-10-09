@@ -5613,6 +5613,19 @@
     "how": "text",
     "src": "Four people in the old crew: the two strongest carry on, the two weakest are left behind. One person always carries. The OLD and YNG buttons sit beside M, F and OK on the phone when you enter a new act."
    }
+  },
+  {
+   "id": "economy-stash-rates-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A DAY ON THE ROAD COSTS DIFFERENT FOOD IN DIFFERENT PLACES",
+   "why": "A six-man company eats 18 points of food a day crossing the desert and heals two injuries' worth of medicine, against 12 food points on flat ground, straight from Battle Brothers' own numbers. You see it in the records, not drawn yet, feeding the road's upkeep once the day clock reads it.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/stash_rates.json; engine/bohemia_stash.js; gates/stash_gate.js 25/0.\n\nSeen in: not drawn yet, feeds the day clock once wired."
+   }
   }
  ],
  "verdicts": [

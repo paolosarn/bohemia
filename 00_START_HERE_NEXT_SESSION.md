@@ -1146,6 +1146,24 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (b) -- MODE: RUN. [what the stash is] SHIPPED:
+records/target/bb/stash_rates.json + engine/bohemia_stash.js, gate 25/0.
+Record: records/BOHEMIA_ECONOMY_DAY_58_WHAT_THE_STASH_IS_TERRAIN_DOES_WHAT_MARCHING_NEVER_DID_
+10_9_26.md
+WHAT IT DOES: food scales 1.0x plains to 2.0x mountains by terrain (sourced direct off the
+wiki's own Provisions page); tool repair at 3 durability/hour, doubled at a camp, +33% with a
+blacksmith; medicine 1 point per OPEN injury per day; ammo by weapon class off a 50-point
+bundle. CORRECTS MY OWN DAY 53 (9/27): BB's 2/day provisions really is flat across marching vs
+camping, but terrain is a separate axis that does scale it 1x to 2x -- Day 53 never asked about
+terrain, so it was incomplete, not wrong. ONE REAL DISAGREEMENT FLAGGED, NOT RESOLVED: a Grok
+report says food and water share one pile, contradicting the standing rule 47 and his own 10/2
+sixth votes; left for his own word in VOTE. ALSO FIXED, NOT MINE: a stale unresolved git merge
+sitting live in WORLD's own section of this board, which had the handoff gate red for every
+lane.
+NEXT OPEN (jump list, rule 74): [the contract's worth], then the older rows ([what grows],
+[prices per place], [build costs], [the bubble]).
+PENDING Paolo: the shared food/water pile report needs his own word, not a lane's guess.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST -- MODE: RUN (rule 78). [the price table at ten to
 one] SHIPPED: records/target/bb/price_table.json + engine/bohemia_pricetable.js, gate 19/0.
 Record: records/BOHEMIA_ECONOMY_DAY_57_THE_SETTLEMENT_SCREEN_ROUNDS_WAGES_UP_A_BATTERY_10_9_26.md
