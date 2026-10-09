@@ -5521,10 +5521,10 @@
    "id": "animation-the-fights-clips-10-9",
    "kind": "animation",
    "lane": "animation",
-   "sha": "PENDING",
+   "sha": "15db7f8",
    "made": "10/9",
    "title": "THE FIGHT'S CLIPS",
-   "why": "In the fight, men now breathe while they wait, and a man struck down sinks to the ground and crawls instead of snapping flat, all from the character bank. The dead lie flat, so you can tell down from dead at a glance; before beside now, on the beat.",
+   "why": "In the fight, men now breathe while they wait, and a man struck down sinks to the ground and crawls instead of snapping flat, all from the character bank. The dead lie flat so you can tell down from dead at a glance, and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the table, NOT IN A TAB YET).",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_THE_FIGHTS_CLIPS.html"
