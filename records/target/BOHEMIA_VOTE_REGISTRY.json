@@ -6499,7 +6499,7 @@
    "id": "mods-an-id-is-a-promise-10-10",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "dee5c83",
    "made": "10/10",
    "title": "AN ID IS A PROMISE",
    "why": "For whoever makes mods. Every row has an id, and a mod finds a row by it, so renaming an id breaks every mod that touched it. 725 ids, and 764 places point at them. Four rules keep mods working: never rename, retire instead of delete, a mod names its own rows modname:thing, and keep the plain lowercase style the game already uses.",
