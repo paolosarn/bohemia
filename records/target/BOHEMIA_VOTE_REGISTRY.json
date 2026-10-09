@@ -5763,7 +5763,7 @@
    "id": "mods-the-weapon-file-10-10",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "efbad7b",
    "made": "10/10",
    "title": "THE WEAPON FILE",
    "why": "For whoever makes mods. Nothing changed in the game. A weapon can list two skills but the fight plays only the first, so 27 skills never show up, and a sweep or a line is just a sentence nobody reads. Three optional fields would fix that without changing any weapon that exists today.",
