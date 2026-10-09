@@ -6129,6 +6129,19 @@
       "how": "image",
       "src": "vote/COOK_THE_SETTLEMENT_PICTURES_FINISHED.png"
     }
+  },
+  {
+   "id": "lifecity-built-on-the-map-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "e648cfd9",
+   "made": "10/9",
+   "title": "WHAT YOU BUILT, ON THE MAP",
+   "why": "What you build in a town now stands beside that town on the map the next morning, pays into your own purse, and counts in the future your kids inherit. You see it on the map at your base: the left shot is before, the right is the next morning with a wall and a tank.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_BUILT_ON_THE_MAP_10_9.png"
+   }
   }
  ],
  "verdicts": [
