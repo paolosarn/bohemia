@@ -5490,7 +5490,8 @@
     "how": "image",
     "src": "vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png"
    }
-  }
+  },
+  {"id": "quests-the-ten-road-events-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "TEN PEOPLE WHO STOP YOU ON THE ROAD", "why": "Ten real Battle Brothers road events, each now a person in Vegas with two choices and the price on the button. Moving on is always free.", "show": {"how": "text", "src": "A trader with a dead trike, a posse with a photo of one of your men, a blind man with a watch, kids who stoned a battery trader, a thief taped to a dead street light, and five more."}}
  ],
  "verdicts": [
   {
