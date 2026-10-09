@@ -1,0 +1,422 @@
+{
+ "_about": "CHARACTER [the origin crews], 10/9/26. Every background a starting man can carry is sorted into one of the same five armour states this lane already built (records/target/bb/armor_tiers.json): bare, padded, leather, mail, plate. No field says which; the method is the real stat every background has, daily wage (BB's own proxy for how equipped and experienced a man already is), tie-broken by melee defense then id. 26 backgrounds / 5 states = 6/5/5/5/5.",
+ "_method": "sort by (daily_wage, melee_defense max, id) ascending; split into five equal buckets by count, remainder to the earliest buckets",
+ "background_tier": {
+  "indebted": "BARE",
+  "southern_indebted": "BARE",
+  "monk": "BARE",
+  "cultist": "BARE",
+  "daytaler": "BARE",
+  "minstrel": "BARE",
+  "vagabond": "PADDED",
+  "butcher": "PADDED",
+  "fisherman": "PADDED",
+  "miller": "PADDED",
+  "caravan_hand": "PADDED",
+  "poacher": "LEATHER",
+  "farmhand": "LEATHER",
+  "manhunter": "LEATHER",
+  "militia": "LEATHER",
+  "deserter": "LEATHER",
+  "anatomist": "MAIL",
+  "companion_2hand": "MAIL",
+  "companion_ranged": "MAIL",
+  "companion_1hand": "MAIL",
+  "beast_slayer": "MAIL",
+  "barbarian": "PLATE",
+  "hunter": "PLATE",
+  "oathtaker": "PLATE",
+  "hedge_knight": "PLATE",
+  "gladiator": "PLATE"
+ },
+ "skins": {
+  "PADDED": {
+   "base": "OLIVE HOODIE"
+  },
+  "LEATHER": {
+   "base": "OLIVE HOODIE",
+   "outer": "LEATHER JACKET",
+   "head": "CHARCOAL WATCH CAP"
+  },
+  "MAIL": {
+   "base": "OLIVE HOODIE",
+   "outer": "TACTICAL VEST",
+   "head": "DESERT SHEMAGH"
+  },
+  "PLATE": {
+   "base": "OLIVE HOODIE",
+   "outer": "TACTICAL VEST",
+   "gear": "SCRAP CHEST PLATE",
+   "head": "SCRAP HELM",
+   "back": "SHOULDER MANTLE"
+  },
+  "BARE": {}
+ },
+ "origins": {
+  "rebuild": {
+   "bb": "Rebuilding a Company",
+   "name": "THE CREW THAT IS LEFT",
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_1hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_ranged",
+     "level": null,
+     "tier": "MAIL"
+    }
+   ]
+  },
+  "newcrew": {
+   "bb": "A New Company",
+   "name": "A NEW CREW",
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_1hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_ranged",
+     "level": null,
+     "tier": "MAIL"
+    }
+   ]
+  },
+  "south": {
+   "bb": "Southern Mercenaries",
+   "name": "UP FROM HENDERSON",
+   "men": [
+    {
+     "background": "companion_2hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_1hand",
+     "level": null,
+     "tier": "MAIL"
+    },
+    {
+     "background": "companion_ranged",
+     "level": null,
+     "tier": "MAIL"
+    }
+   ]
+  },
+  "truck": {
+   "bb": "Trading Caravan",
+   "name": "THE WATER TRUCK",
+   "men": [
+    {
+     "background": "caravan_hand",
+     "level": null,
+     "tier": "PADDED"
+    },
+    {
+     "background": "caravan_hand",
+     "level": null,
+     "tier": "PADDED"
+    }
+   ]
+  },
+  "watch": {
+   "bb": "Peasant Militia",
+   "name": "THE BLOCK WATCH",
+   "men": [
+    {
+     "background": "farmhand",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "farmhand",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "poacher",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "daytaler",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "daytaler",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "miller",
+     "level": null,
+     "tier": "PADDED"
+    },
+    {
+     "background": "fisherman",
+     "level": null,
+     "tier": "PADDED"
+    },
+    {
+     "background": "militia",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "militia",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "minstrel",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "vagabond",
+     "level": null,
+     "tier": "PADDED"
+    },
+    {
+     "background": "butcher",
+     "level": null,
+     "tier": "PADDED"
+    }
+   ]
+  },
+  "scav": {
+   "bb": "Band of Poachers",
+   "name": "THE SCAVENGERS",
+   "men": [
+    {
+     "background": "hunter",
+     "level": null,
+     "tier": "PLATE"
+    },
+    {
+     "background": "poacher",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "poacher",
+     "level": null,
+     "tier": "LEATHER"
+    }
+   ]
+  },
+  "promise": {
+   "bb": "Oathtakers",
+   "name": "THE PROMISE KEEPERS",
+   "men": [
+    {
+     "background": "oathtaker",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "oathtaker",
+     "level": 1,
+     "tier": "PLATE"
+    }
+   ]
+  },
+  "desert": {
+   "bb": "Deserters",
+   "name": "THE DESERTERS",
+   "men": [
+    {
+     "background": "deserter",
+     "level": 2,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "deserter",
+     "level": 2,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "deserter",
+     "level": null,
+     "tier": "LEATHER"
+    }
+   ]
+  },
+  "raid": {
+   "bb": "Northern Raiders",
+   "name": "THE RAIDERS",
+   "men": [
+    {
+     "background": "barbarian",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "barbarian",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "barbarian",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "monk",
+     "level": null,
+     "tier": "BARE"
+    }
+   ]
+  },
+  "lab": {
+   "bb": "Anatomists",
+   "name": "THE LAB RATS",
+   "men": [
+    {
+     "background": "anatomist",
+     "level": 1,
+     "tier": "MAIL"
+    },
+    {
+     "background": "anatomist",
+     "level": 1,
+     "tier": "MAIL"
+    },
+    {
+     "background": "anatomist",
+     "level": 1,
+     "tier": "MAIL"
+    }
+   ]
+  },
+  "faith": {
+   "bb": "Davkul Cultists",
+   "name": "THE FAITHFUL",
+   "men": [
+    {
+     "background": "cultist",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "cultist",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "cultist",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "cultist",
+     "level": null,
+     "tier": "BARE"
+    }
+   ]
+  },
+  "debt": {
+   "bb": "Manhunters",
+   "name": "THE DEBT COLLECTORS",
+   "men": [
+    {
+     "background": "manhunter",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "manhunter",
+     "level": null,
+     "tier": "LEATHER"
+    },
+    {
+     "background": "indebted",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "southern_indebted",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "southern_indebted",
+     "level": null,
+     "tier": "BARE"
+    },
+    {
+     "background": "southern_indebted",
+     "level": null,
+     "tier": "BARE"
+    }
+   ]
+  },
+  "hunt": {
+   "bb": "Beast Slayers",
+   "name": "THE HUNTERS",
+   "men": [
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "tier": "MAIL"
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "tier": "MAIL"
+    },
+    {
+     "background": "beast_slayer",
+     "level": 2,
+     "tier": "MAIL"
+    }
+   ]
+  },
+  "pit": {
+   "bb": "Gladiators",
+   "name": "THE FIGHT PIT",
+   "men": [
+    {
+     "background": "gladiator",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "gladiator",
+     "level": 3,
+     "tier": "PLATE"
+    },
+    {
+     "background": "gladiator",
+     "level": 3,
+     "tier": "PLATE"
+    }
+   ]
+  },
+  "wolf": {
+   "bb": "Lone Wolf",
+   "name": "THE LONE WOLF",
+   "men": [
+    {
+     "background": "hedge_knight",
+     "level": 4,
+     "tier": "PLATE"
+    }
+   ]
+  }
+ }
+}

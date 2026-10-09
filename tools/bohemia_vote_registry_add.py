@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-armour-you-can-see-10-9'
+MINE_ID = 'character-the-origin-crews-10-9'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "outfit", "lane": "character",
   "sha": "pending", "made": "10/9",
-  "title": "ARMOUR YOU CAN SEE",
-  "why": "One man in five armours, nothing bought then padded, leather, mail and plate, each a real piece sorted from the real Battle Brothers gear list by how tough it actually is. Thumbs up, and you see it here first, then on the roster and in the fight once the other chats wire a bought piece to this table.",
+  "title": "THE ORIGIN CREWS",
+  "why": "Three starting companies at their real size, the Lone Wolf's one veteran in worn plate, three companions in mail, and the Block Watch's twelve weak men in work clothes, every man's gear sorted from the real Battle Brothers data by how equipped his background actually is. Thumbs up, and you see it here first, then at the door once RUN wires a pick to this table.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html"
+    "src": "vote/CHARACTER_THE_ORIGIN_CREWS.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

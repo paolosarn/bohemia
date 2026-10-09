@@ -1,3 +1,26 @@
+CHARACTER (character-0lurbs): 10/9 (c) LATEST -- *** THE DOOR'S FIFTEEN STARTING
+CREWS ARE DRESSED NOW, AND THE DATA PICKED THE LOOKS ON ITS OWN. ***
+TAB: VOTE, three crews at real size.
+Record: records/BOHEMIA_THE_ORIGIN_CREWS_10_9_26.txt, row [the origin crews].
+
+Picked up the new top open job once the last one shipped. Backgrounds.json, the list
+of jobs a starting crew member can have before the game, has no field for how
+equipped he looks either. Used the same fix as the armour round: every background
+carries a real wage, Battle Brothers' own number for how established a man already
+is, and that number sorted all twenty-six backgrounds this game actually uses into
+the same five looks built last round.
+
+It matched what the job sheet asked for without being told the answer. The Lone
+Wolf's one starting man landed in the heaviest look on his own, because his
+background pays the most in the real data. Every single one of the Block Watch's
+twelve starting men landed in the three lightest looks, none in the two heaviest,
+because that is genuinely where their wages put them.
+
+Proved it at the three real crew sizes the game actually has: one man, three men,
+and twelve men, all three screens in VOTE.
+NEXT: the jump list's other two rows (bb gear, three bodies).
+PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (e) LATEST -- [recruit odds] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW HARD IS A KILLER (a star-bar slider, draft:true).
 RECORD: records/BOHEMIA_TUNING_RECRUIT_ODDS_36_KILLERS_AS_HARD_AS_12_10_10_26.md (BB facts from the wiki dump; odds are my arithmetic).
@@ -33,6 +56,7 @@ one thing late XP buys. Price anchored to 1/10 of the potion: 25-50 batteries (d
 visit, training ground, masteries only. Rule 56: death.base 0.20 + death.per_mark 0.05 (my pick), cap 4 marks = 0.40 max, under BB's 0.67.
 Recall/unverified: what the Legends and respec mods do.
 NEXT OPEN: [recruit odds], [origins difficulty].
+
 WORLD (world-9lfjtf): 10/9 (d) LATEST -- *** A LEGEND COUNT IS NOT A BOARD, AND
 ONLY ONE ROW OF BATTLE BROTHERS' TERRAIN TABLE CAN FIRE ON OUR BOARDS. ***
 Row [ground effects] SHIPPED. 3 OPEN rows remain as the jump list (rule 74), and

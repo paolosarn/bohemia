@@ -6331,6 +6331,19 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "character-the-origin-crews-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE ORIGIN CREWS",
+   "why": "Three starting companies at their real size, the Lone Wolf's one veteran in worn plate, three companions in mail, and the Block Watch's twelve weak men in work clothes, every man's gear sorted from the real Battle Brothers data by how equipped his background actually is. Thumbs up, and you see it here first, then at the door once RUN wires a pick to this table.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_ORIGIN_CREWS.html"
+   }
   }
  ],
  "verdicts": [
