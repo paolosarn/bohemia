@@ -5978,7 +5978,8 @@
     "src": "vote/WORLD_THE_ROADS.png"
    },
    "sha": "d5dec1ea"
-  }
+  },
+  {"id": "animation-the-parties-walk-10-9", "kind": "animation", "lane": "animation", "sha": "PENDING", "made": "10/9", "title": "THE PARTIES WALK", "why": "On the map you now travel as three people, you and two of your company walking at your shoulders, and every roaming party walks and slides between blocks instead of standing still and jumping. When the clock stops everybody stops and breathes, and you see it before beside now in the VOTE tab and on the MAP while you travel.", "show": {"how": "page", "src": "vote/ANIMATION_THE_PARTIES_WALK.html"}, "said": "every party on the map is drawn and moving", "draft": true}
  ],
  "verdicts": [
   {

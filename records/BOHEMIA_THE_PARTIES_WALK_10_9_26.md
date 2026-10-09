@@ -42,7 +42,14 @@ at every speed; TWO OF HIS COMPANY walk at his shoulders, off his hop, drawn aft
     drawn frame 0.094 of a block; his party is three; four walk pictures from his glide; three seconds after the
     last step NOBODY walks and his company stands and breathes; no page errors.
     MUTATIONS: no walk bake (3 fail), parties drawn at the cell (fails at 2.83), no company (3 fail).
-    (regression set: see the commit)
+    REGRESSION, the map and the cast, on this tree: MAP GLIDES 14/0, MAP HAS ITS PEOPLE 19/0, LIVING MAP 22/0,
+    MAP AT THE PHONE'S PIXELS 16/0, MAP HEARS 8/0, MAP IS HOW YOU TRAVEL 17/0, MARKER ON BEAT 12/0, PAD IS TRAVEL
+    SPEED 19/0, MAP MOVES 31/0, CROWD 16/0, CITY CAST SILHOUETTE 6/0. Red here and red identically on the pre-round
+    files: CITY CAST (a timeout), THE COMPANY IS A CAST 63/2, THE FACE ON THE MAP IS HIS A2. ONE RED WAS MINE AND IS
+    FIXED: FACE ON THE MAP A3 reads the source for 'imageSmoothingEnabled=false' within 4,200 characters of his
+    marker's header, and the company code inside that block pushed it out; the company is its own function now
+    (mapCompanyDraw) and A3 is green.
+    VOTE: animation-the-parties-walk-10-9, the same trip before and now off the map's own canvas, playing.
 
 ## [bb marker] THE SCHOOL LINE, AND WHAT WE DO DIFFERENTLY (rule 39b)
 Battle Brothers moves "one marker for the company", which "walks in real time" to the click (the library,

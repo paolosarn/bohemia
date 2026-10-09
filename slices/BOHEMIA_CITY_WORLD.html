@@ -43792,6 +43792,29 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
 }
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rule 65: the party marker is three real dressed people):
+   TWO OF HIS COMPANY walk at his shoulders, half a step back, out of step with him and with each other; they stand
+   and breathe when he stops. Drawn OFF his hop (the hop is his, one per beat). Spaced by THE BODY, not the tile: at
+   the opening zoom a tile is a few pixels and a step back by the tile hid them behind him (looked at, 10/9); and a
+   shoulder to each side ACROSS THE GLASS, not across his facing: walking down-left, the man at his left shoulder
+   stands exactly behind him from this camera (logged (190,376) against his (189,391)). */
+function mapCompanyNear(){ var v = MAP_VEC_OF[mapFaceNow()] || [1, 1]; return (v[0] + v[1]) < 0; }   /* facing up the glass, the step back is toward you */
+function mapCompanyDraw(gx, gy, lift, moving, G){
+  try {
+    var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
+    var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
+    var K = Math.max(0.75, MAP_PEOPLE_K), bx = -dx * 6 * K, by = -dy * 6 * K;   /* a half step back */
+    var st = strideOf({ u: G.u, n: CITY_GLIDE.n });
+    g.translate(0, lift);
+    [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
+      var m = mapCastOf(7 + k * 3); if (!m) return;
+      var lx = o[0] * 20 * K, ly = -3 * K;
+      mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null);
+      MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1;
+    });
+    g.translate(0, -lift);
+  } catch (_e) {}
+}
 /* HOME BASE: its tier's own building, the faction's flag on it; his own sits on a pale plate */
 /* THE BUILDING IS THE SAME ART THE GROUND IS PAINTED WITH, so on the map it melted into
    its own neighbourhood (looked at on the glass, 10/1). Baked ONCE per size: filtered down
@@ -45514,30 +45537,9 @@ function renderCity(){
     /* __THE_PARTIES_WALK__ (rule 65: the party marker is three real dressed people): TWO OF HIS COMPANY walk
        behind him, a step back along the way he faces and one to each side, out of step with him and with
        each other, drawn first so he stands in front. They stand and breathe when he stops. */
-    /* (drawn OFF his hop: the hop is his, one per beat; and NEARER than him when he faces away, so then after) */
-    const __company=function(){ try{
-      const __f=mapFaceNow(), __v=MAP_VEC_OF[__f]||[1,1];
-      /* spaced by THE BODY, not the tile: at the opening zoom a tile is a few pixels and a step back by the
-         tile hid them both behind him (looked at, 10/9). The way he faces, on the glass: */
-      let __dx=(__v[0]-__v[1])*TW/2, __dy=(__v[0]+__v[1])*TH/2; const __dl=Math.hypot(__dx,__dy)||1; __dx/=__dl; __dy/=__dl;
-      const __K=Math.max(0.75,MAP_PEOPLE_K), __bx=-__dx*6*__K, __by=-__dy*6*__K;   /* a half step back */
-      const __st2=strideOf({u:__G.u,n:CITY_GLIDE.n});
-      g.translate(0,__lift);
-      [[-1,0.25],[1,0.5]].forEach(function(o,k){
-        const __m=mapCastOf(7+k*3); if(!__m) return;
-        /* and a shoulder to each side, across the way he faces */
-        /* and a shoulder to each side ACROSS THE GLASS, not across his facing: walking down-left, the man at
-           his left shoulder stands exactly behind him from this camera and his body hid him (logged 10/9:
-           (190,376) against his (189,391)). Spread on the screen, all three always read. */
-        const __lx=o[0]*20*__K, __ly=-3*__K;
-        mapPersonDraw(__m,__f,mapArtBeat()+k+1,__gx+__bx+__lx,__gy+__by+__ly,__moving&&__st2!=null?__st2+o[1]:null);
-        MAP_DREW = MAP_DREW || {}; MAP_DREW.company=(MAP_DREW.company|0)+1; (MAP_DREW.companyAt=MAP_DREW.companyAt||[]).push([Math.round(__gx+__bx+__lx),Math.round(__gy+__by+__ly),__f]);
-      });
-      g.translate(0,-__lift);
-      return __by;
-    }catch(_e){ return 0; } };
-    const __companyNear=(function(){ const __v=MAP_VEC_OF[mapFaceNow()]||[1,1]; return (__v[0]+__v[1])<0; })();   /* facing up the glass, the step back is toward you */
-    if(!__companyNear) __company();
+    /* __THE_PARTIES_WALK__: two of his company at his shoulders (mapCompanyDraw); nearer than him when he faces away */
+    const __companyNear=mapCompanyNear();
+    if(!__companyNear) mapCompanyDraw(__gx,__gy,__lift,__moving,__G);
     /* THE BANNER FIRST, so his body stands in front of its pole */
     const __flagH = 30;                                   /* the pole, screen px */
     const __px = __gx + 10, __py = __gy;
@@ -45558,7 +45560,7 @@ function renderCity(){
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
     }
-    if(__companyNear) __company();   /* facing away, his company is between him and you */
+    if(__companyNear) mapCompanyDraw(__gx,__gy,__lift,__moving,__G);   /* facing away, his company is between him and you */
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}

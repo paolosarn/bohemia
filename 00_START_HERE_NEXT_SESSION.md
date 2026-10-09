@@ -15987,6 +15987,16 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/9 (b) LATEST -- *** THE PARTIES WALK: on the map you travel as three people
+walking, and every roaming party walks and slides between blocks. TAB: MAP, VOTE playing. ***
+
+[the marker walks] SHIPPED. The cast reached the map with no walk (my own 9/5 bake said so); the alpha now bakes
+each look's walk after boot, one look per idle callback, and the map attaches it by name. Parties glide (a two-block
+tick glides, more than three is a cut) and walk while gliding; his stride comes from his glide; two of his company
+walk at his shoulders (mapCompanyDraw). PARTIES WALK 10/0, 3 mutations. records/BOHEMIA_THE_PARTIES_WALK_10_9_26.md.
+FOR RUN: faster on road than dirt is your step timing (one block a beat everywhere); the feet keep pace with any step.
+NEXT: [the settlement's idle people], [the shot kicks], [four legs] (new, rule 42/81).
+
 ANIMATION (animation-lr9y9i): 10/9 (a) LATEST -- *** THE FIGHT'S CLIPS: the fight's sheets now carry a
 breathing idle, a fall and a man struck down who crawls; the dead lie flat. TAB: VOTE playing. ***
 
