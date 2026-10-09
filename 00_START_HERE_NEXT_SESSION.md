@@ -1,3 +1,15 @@
+TUNING (tuning-f59l1w): 10/10 (f) LATEST -- [the roll tables] SHIPPED (research, no code touched).
+TAB: VOTE, item EVERY ROLL A MAN MAKES (stars, per-level gains, XP, with a red box of departures, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_ROLL_TABLES_EVERY_ROLL_A_MAN_MAKES_AND_FIVE_WHERE_THE_DEMO_DEPARTS_10_10_26.md
+Closes a Grok gap: GROK_128 could not print the 60/30/10 labels; the wiki Talents page (read here) does.
+DEPARTURES in engine/bohemia_roster.js (owner RUN TWO [climbing]; I fixed nothing): D1 manOf gives 1-3 starred stats, wiki says EXACTLY 3
+(mean stars 3.0 vs 4.5; 7+ stars 1 in 55 vs 1 in 18; the file's header wrongly says the star rule is not in the repo); D2 star odds typed
+in code (q<.6, q<.9) not read from rules.json experience.talent_star_odds; D3 levelUp raises 3 RANDOM stats, the wiki tip ("each star adds 5
+by level 11" on a stat you always raise) implies the player chooses, so stars are worth ~1.9 not 5 (unverified: page says "can increase");
+D4/D5 dailyWageBatteries and hireCostRange (wiki wage and hire formulas) are BUILT in engine/bohemia_pricetable.js but NOTHING CALLS THEM, so
+wages never climb and hire price ignores level. MATCHES: level table, veteran XP, cap 33, no perk past 11, +1 on three, gain ranges, 20/80 kill split.
+I first wrote D5 as 'no formula'; I read the price-table engine and corrected it before shipping.
+NEXT OPEN: [origins difficulty] (last).
 MODS (mods-59jyd6): 10/10 LATEST -- [ids never change] SHIPPED as a research page. TAB: VOTE, item AN ID IS A
 PROMISE. Record records/BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.md; instrument tools/bohemia_mods_ids_audit.js.
 MEASURED (main, 11 tables): 725 ids; 59 sit in two tables (50 are perks and their translations on purpose, 9 are
