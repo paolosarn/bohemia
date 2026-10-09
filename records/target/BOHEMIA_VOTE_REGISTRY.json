@@ -5291,7 +5291,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "VIA GROK: THE FIRST BIG CRISIS COMES AROUND DAY 100",
-   "why": "Grok reports you said the first endgame crisis lands around day 100 with the difficulty ramping over the fifty days before it, and the wiki agrees (foretold day 50 to 70, starts day 80 to 100), so the valley's first big turn in act one takes that clock. You would see it as rumours at the bar from day 50 and the turn itself around day 100, not in the demo.",
+   "why": "Grok reports you said the first big crisis lands around day 100 with the fifty days before it getting harder, and the wiki agrees, so act one's first big turn takes that clock. You see it only as text in the VOTE tab for now, and in the game as rumours at the bar from day 50 and the turn around day 100.",
    "show": {
     "how": "text",
     "src": "VIA GROK, pages GROK_124-125 (the wiki's Late Game Crises page). The noble war is the suggested first crisis and destroys no settlement.\n\nSeen in: act one after day 50; nowhere in the demo."
@@ -5321,7 +5321,7 @@
    "sha": "ea4b8da",
    "made": "10/9",
    "title": "WHAT IS DATA, WHAT IS NOT",
-   "why": "Nothing changed in the game. The new fight already reads its weapons, enemies and rules from files a modder can edit. The demo's start screen still throws away any new origin, and the old fight is still in the demo with none of that. Two lists: what is in a file, what is still in code.",
+   "why": "Research, nothing changed: the new fight already reads its weapons, enemies and rules from files a modder can edit, but the start screen still drops a new origin and the old fight has none of it. You see it in the VOTE tab under LOOK, two lists of what is in a file and what is still in code.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.html"
