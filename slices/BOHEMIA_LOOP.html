@@ -258,8 +258,10 @@ window.addEventListener('message', function(e){
   if(typeof d.batteries === 'number') G.bats = d.batteries;
   if(d.act === 'contract' && G.held.length < 2){
     var spot = CONTRACT_SPOTS[(G.done + G.held.length) % CONTRACT_SPOTS.length], a = NB[spot.a], b = NB[spot.b];
-    G.held.push({id:d.contract.id, title:d.contract.title, pay:3, target:{x:(a.x+b.x)/2, y:(a.y+b.y)/2, n:3 + (G.done%3)}});
-    say('Contract: '+d.contract.title+'. Pay 3 batteries. The red JOB mark is where.');
+    /* the pay the board showed is the pay the stash gets (WORDS 0e6ccae7: it showed 30, paid 3) */
+    var pay = Math.max(1, (d.contract.pay | 0) || 1);
+    G.held.push({id:d.contract.id, title:d.contract.title, pay:pay, target:{x:(a.x+b.x)/2, y:(a.y+b.y)/2, n:3 + (G.done%3)}});
+    say('Contract: '+d.contract.title+'. Pay '+pay+' batter'+(pay===1?'y':'ies')+'. The red JOB mark is where.');
   }
   if(d.act === 'hire'){
     G.crew.push({id:'h'+G.crew.length, role:d.role, name:NAMES[G.crew.length % NAMES.length], hp:3, max:3, armour:0,

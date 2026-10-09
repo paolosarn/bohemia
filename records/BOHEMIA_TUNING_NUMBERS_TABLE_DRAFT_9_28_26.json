@@ -498,7 +498,7 @@
    "source": "records/BOHEMIA_TUNING_LIFESPANS_HOW_OLD_PEOPLE_LIVE_IS_A_ROLL_9_28_26.md s5A",
    "owner": "tuning",
    "range": [
-    0.00002,
+    2e-05,
     0.0002
    ],
    "slider": false,
@@ -685,5 +685,46 @@
   "feltRowsFound": 21,
   "feltRowsMissing": [],
   "blobLines": 14928
- }
+ },
+ "references": [
+  {
+   "id": "death.survive_bb",
+   "value": 0.33,
+   "source": "wiki Permanent Injuries, read 10/9"
+  },
+  {
+   "id": "death.survive_survivor",
+   "value": 0.9,
+   "source": "wiki Permanent Injuries"
+  },
+  {
+   "id": "injury.gate_min_damage",
+   "value": 10,
+   "source": "Grok GROK_115, unverified"
+  },
+  {
+   "id": "injury.threshold_range",
+   "value": [
+    0.25,
+    0.6
+   ],
+   "source": "Grok GROK_115, unverified"
+  },
+  {
+   "id": "armour.hp_term",
+   "value": 0.1,
+   "source": "wiki Combat Mechanics, read 10/9"
+  },
+  {
+   "id": "hit.floor",
+   "value": 0.05,
+   "source": "Grok GROK_21, unverified"
+  },
+  {
+   "id": "hit.ceiling",
+   "value": 0.95,
+   "source": "Grok GROK_21, unverified"
+  }
+ ],
+ "_corrected": "10/9: death.lost_fight_bonus struck; enemy level and gear dials re-pointed to tier mix and days term. See records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md"
 }

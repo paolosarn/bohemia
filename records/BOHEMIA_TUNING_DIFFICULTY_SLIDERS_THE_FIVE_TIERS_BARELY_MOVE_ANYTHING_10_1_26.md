@@ -72,3 +72,5 @@ diff.death_veteran [0.025,0.20], assist.beat_window_mult [0.8,1.5], assist.dial_
   the V121 note says damage scales but the code scales only the miss.
 - WORLD: first-contract cushion (fewer bodies) and the fight cadence the men-out column assumes.
 - Test material: the toy page is draft:true, never in the game.
+
+## CORRECTED 10/9 (see records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md): the claims above marked recall were checked against the wiki. Corrections to this page are listed there in section 1; where they clash, that page wins.

@@ -79,3 +79,5 @@ injury.marks_max 4, fight.struck_routine 0.05, fight.struck_tough 0.10, death.lo
 - DYNASTY: retirement and the dead man's heir (research row [recruit odds]).
 - COMBAT: the withdraw verb (still absent) is the only other way to lose a fight without dying.
 - Test material: the toy page is draft:true, never in the game.
+
+## CORRECTED 10/9 (see records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md): the claims above marked recall were checked against the wiki. Corrections to this page are listed there in section 1; where they clash, that page wins.

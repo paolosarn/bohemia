@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Your Company</title>
+<!-- ============================================================================
+     THE ROSTER SCREEN  (RUN TWO, row [the roster screen], 10/9/26)
+
+     Paolo, the sixth votes: formation and gear are the depth. Rule 69: every character from the
+     bank. Grok GROK_75: the layout before the fight is the formation. Battle Brothers' own screen:
+     two battle lines of nine (front, back), a man's page with his stats and their stars, his gear
+     slots, the stash under it.
+
+     YOUR MEN IN TWO ROWS you can drag between; tap a man and his card opens: the face and body from
+     the fight's own sheets (slices/fight_people/), name, background, level, wage, the eight stats
+     with stars, his four gear slots, his perks, his one pain line. YOUR BAG (the same 36 slots the
+     market fills) sits under it: drag an item onto a gear slot (or tap it) and he wears it, and what
+     he wore goes back in the bag.
+
+     HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_ROSTER_OPEN', crew?, bag?,
+     formation?}. It posts back {type:'BOHEMIA_ROSTER', act:'formation', formation:{front:[idx|null x9],
+     back:[...]}} (exactly what COMBAT [your formation] reads), act:'equip' {who, slot, item},
+     act:'bag' {bag}, act:'done'. Standalone it runs on the fight's starting crew (ours.json) and the
+     bag this phone kept. Gate: gates/roster_screen_gate.js
+     ============================================================================ -->
+<style>
+:root{--bg:#120e0a;--plate:#2a2119;--plate2:#1c1611;--ink:#e9dcc4;--dim:#a8977c;--gold:#d9a85a;--line:#3a2f24}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,Menlo,Consolas,monospace;-webkit-tap-highlight-color:transparent;user-select:none}
+#bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:max(8px,env(safe-area-inset-top)) 12px 8px;background:var(--plate2);border-bottom:1px solid var(--line)}
+#bar .t{flex:1;font-weight:700;letter-spacing:1px}
+#done{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700}
+.h{margin:12px 12px 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
+#lines{overflow-x:auto;padding:0 12px 4px}
+.line{display:grid;grid-template-columns:repeat(9,48px);gap:4px;margin-bottom:4px;width:max-content}
+.ln{font-size:10px;color:var(--dim);margin:4px 0 2px}
+.cell{width:48px;height:64px;background:#16110c;border:1px solid var(--line);border-radius:3px;position:relative;touch-action:none;box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
+.cell.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
+.cell.sel{border-color:var(--gold)}
+.cell canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+.cell b{position:absolute;left:0;right:0;bottom:1px;font-size:8px;text-align:center;pointer-events:none;color:var(--ink);text-shadow:0 1px 0 #000}
+.cell.over{outline:2px solid var(--gold)}
+#card{margin:8px 12px;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--plate2)}
+.top{display:flex;gap:10px}
+.face{width:72px;height:72px;flex:0 0 72px;border:1px solid var(--line);border-radius:4px;image-rendering:pixelated;background:#0b0907}
+.nm{color:var(--gold);font-weight:700;letter-spacing:1px}
+.sub{color:var(--dim);font-size:11px}
+.pain{margin-top:4px;font-style:italic}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:2px 12px;margin-top:8px;font-size:11px}
+.stats div{display:flex;justify-content:space-between}
+.stars{color:var(--gold);letter-spacing:-1px;margin-left:4px}
+.gear{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:8px}
+.gslot{min-height:58px;border:1px dashed var(--line);border-radius:3px;padding:3px;font-size:9px;text-align:center;touch-action:none;background:#16110c}
+.gslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610)}
+.gslot i{display:block;font-style:normal;color:var(--dim);font-size:9px}
+.gslot.over{outline:2px solid var(--gold)}
+.perks{margin-top:8px;font-size:11px;color:var(--dim)}
+#bag{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:0 12px 24px}
+.slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
+.slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
+.slot i{font-style:normal;font-size:15px;color:var(--gold);line-height:1}
+#ghost{position:fixed;pointer-events:none;z-index:50;opacity:.85;display:none;padding:4px 6px;background:#2e241a;border:1px solid var(--gold);border-radius:3px;font-size:10px}
+#said{margin:0 12px;color:var(--dim);font-size:11px;min-height:16px}
+</style>
+</head>
+<body>
+<div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
+<div class="h">THE LINE. DRAG A MAN TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
+<div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
+<div id="card"></div>
+<div id="said"></div>
+<div class="h" id="bagh">YOUR BAG</div>
+<div id="bag"></div>
+<div id="ghost"></div>
+<script src="../engine/bohemia_roster.js"></script>
+<script src="bohemia_ui_materials.js"></script>
+<script>
+(function(){
+'use strict';
+var C = window.BohemiaRoster, N = C.SLOTS_PER_ROW, BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1', FKEY = 'bohemia.formation.v1';
+var S = {crew:[], bag:[], front:[], back:[], sel:0, standalone:(window.parent===window), sheets:{}};
+var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
+function post(act, o){ var m = {type:'BOHEMIA_ROSTER', act:act}; for(var k in (o||{})) m[k] = o[k];
+  window.__rosterLog = (window.__rosterLog||[]); window.__rosterLog.push(m);
+  if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){} }
+function say(t){ document.getElementById('said').textContent = t; }
+function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
+function formation(){ return {front:S.front.slice(), back:S.back.slice()}; }
+function saveForm(){ try{ localStorage.setItem(FKEY, JSON.stringify(formation())); }catch(e){} post('formation', {formation:formation()}); }
+/* who stands where to start: Battle Brothers puts the shooters behind; a rifle, a bow or bottles go back */
+function defaultForm(){
+  S.front = new Array(N).fill(null); S.back = new Array(N).fill(null);
+  var f = 2, b = 2;
+  S.crew.forEach(function(m, i){
+    var w = m.gear.main && m.gear.main.name || '';
+    if(/rifle|bow|bottles|shotgun/.test(w) && b < N) S.back[b++] = i; else if(f < N) S.front[f++] = i; else if(b < N) S.back[b++] = i;
+  });
+}
+function sheet(look){
+  if(S.sheets[look]) return S.sheets[look];
+  var im = new Image(); im.onload = function(){ draw(); }; im.src = C.sheetSrc(look); return (S.sheets[look] = im);
+}
+/* the body, the fight's own idle frame (SE row, frame 0, the figure's box) */
+function bodyCanvas(m, w, h){
+  var c = document.createElement('canvas'); c.width = w*2; c.height = h*2;
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  var im = sheet(m.look);
+  if(im.complete && im.naturalWidth){ var sc = Math.min(c.width/42, c.height/96); x.drawImage(im, 36, 6, 42, 96, (c.width-42*sc)/2, c.height-96*sc, 42*sc, 96*sc); }
+  return c;
+}
+function faceCanvas(m){
+  var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = false; var im = sheet(m.look);
+  if(im.complete && im.naturalWidth) x.drawImage(im, C.FACE.x, C.FACE.y, 64, 64, 0, 0, 64, 64);
+  return c;
+}
+function draw(){
+  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.length + ' / 20';
+  ['front','back'].forEach(function(row){
+    var el = document.getElementById(row); el.textContent = '';
+    S[row].forEach(function(ix, si){
+      var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
+      d.dataset.drop = row + ':' + si;
+      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.appendChild(bodyCanvas(m, 48, 64));
+        var b = document.createElement('b'); b.textContent = m.name; d.appendChild(b); d.setAttribute('aria-label', m.name); }
+      el.appendChild(d);
+    });
+  });
+  drawCard(); drawBag();
+}
+function stars(n){ return n ? '★'.repeat(n) : ''; }
+function drawCard(){
+  var el = document.getElementById('card'); el.textContent = '';
+  var m = S.crew[S.sel]; if(!m) return;
+  var top = document.createElement('div'); top.className = 'top'; top.appendChild(faceCanvas(m));
+  var t = document.createElement('div');
+  t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
+  t.querySelector('.nm').textContent = m.name;
+  t.querySelector('.sub').textContent = m.background.toUpperCase() + '   LEVEL ' + m.level + '   ' + m.wage + ' BATT A DAY';
+  t.querySelector('.pain').textContent = '“' + m.pain + '”';
+  top.appendChild(t); el.appendChild(top);
+  var st = document.createElement('div'); st.className = 'stats';
+  C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];
+    var v = document.createElement('span'); v.textContent = m.stats[k]; if(m.stars[k]){ var s = document.createElement('span'); s.className = 'stars'; s.textContent = stars(m.stars[k]); v.appendChild(s); }
+    r.appendChild(a); r.appendChild(v); r.dataset.stat = k; st.appendChild(r); });
+  el.appendChild(st);
+  var g = document.createElement('div'); g.className = 'gear';
+  [['main','MAIN HAND'],['off','OFF HAND'],['body','BODY'],['head','HEAD']].forEach(function(p){
+    var it = m.gear[p[0]], d = document.createElement('div'); d.className = 'gslot' + (it ? ' full' : ''); d.dataset.drop = 'gear:' + p[0]; d.dataset.slot = p[0];
+    var lab = document.createElement('i'); lab.textContent = p[1]; d.appendChild(lab);
+    if(it){ var nm = document.createElement('div'); nm.textContent = it.name; d.appendChild(nm); var n2 = document.createElement('i'); n2.textContent = it.nums; d.appendChild(n2); d.dataset.drag = 'gear:' + p[0]; }
+    else { var e = document.createElement('div'); e.textContent = '—'; d.appendChild(e); }
+    d.addEventListener('click', function(){ if(S.dragged) return; if(m.gear[p[0]]) unequip(p[0]); });
+    g.appendChild(d);
+  });
+  el.appendChild(g);
+  var pk = document.createElement('div'); pk.className = 'perks';
+  pk.textContent = m.perks.length ? 'PERKS: ' + m.perks.join(', ') : 'PERKS: none yet. Level 2 picks the first one.';
+  el.appendChild(pk);
+}
+function drawBag(){
+  document.getElementById('bagh').textContent = 'YOUR BAG  ' + S.bag.length + ' / ' + BAG_SLOTS + '   DRAG ONTO A SLOT ABOVE, OR TAP';
+  var el = document.getElementById('bag'); el.textContent = '';
+  for(var i=0;i<BAG_SLOTS;i++){
+    var it = S.bag[i], b = document.createElement('div'); b.className = 'slot' + (it ? ' full' : '');
+    if(it){ var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g);
+      var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
+      b.dataset.drag = 'bag:' + i; b.setAttribute('aria-label', it.name);
+      (function(ix){ b.addEventListener('click', function(){ if(!S.dragged) equip(ix); }); })(i);
+      try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, 26); b.replaceChild(ic, g); } }catch(e){}
+    }
+    el.appendChild(b);
+  }
+}
+/* he wears it; what he wore goes back in the bag */
+function equip(bi, slot){
+  var m = S.crew[S.sel], it = S.bag[bi]; if(!m || !it) return;
+  var s = slot || C.slotFor(it);
+  if(slot && C.slotFor(it) !== slot){ say('That does not go there.'); return; }
+  var old = m.gear[s]; m.gear[s] = it; S.bag.splice(bi, 1); if(old) S.bag.push(old);
+  saveBag(); post('equip', {who:m.idx, name:m.name, slot:s, item:it}); say(m.name + ' takes ' + it.name + '.'); draw();
+}
+function unequip(slot){
+  var m = S.crew[S.sel], it = m && m.gear[slot]; if(!it) return;
+  if(S.bag.length >= BAG_SLOTS){ say('Your bag is full.'); return; }
+  m.gear[slot] = null; S.bag.push(it); saveBag(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); say(m.name + ' puts down ' + it.name + '.'); draw();
+}
+function moveMan(fromRow, fromI, toRow, toI){
+  var a = S[fromRow][fromI], b = S[toRow][toI];
+  S[toRow][toI] = a; S[fromRow][fromI] = b; saveForm(); say(S.crew[a].name + ' moves to the ' + toRow + '.'); draw();
+}
+/* ONE DRAG for everything: a man between the lines, an item from the bag onto a gear slot */
+(function(){
+  var src = null, x0 = 0, y0 = 0, ghost = document.getElementById('ghost'), over = null;
+  document.addEventListener('pointerdown', function(e){
+    var d = e.target.closest('[data-drag]'); S.dragged = false; if(!d) return;
+    src = d.dataset.drag; x0 = e.clientX; y0 = e.clientY;
+  });
+  document.addEventListener('pointermove', function(e){
+    if(!src) return;
+    if(!S.dragged && Math.hypot(e.clientX-x0, e.clientY-y0) > 8){ S.dragged = true; ghost.style.display = 'block';
+      var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
+    if(!S.dragged) return;
+    e.preventDefault();
+    ghost.style.left = (e.clientX + 8) + 'px'; ghost.style.top = (e.clientY + 8) + 'px';
+    var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');
+    if(over && over !== dz) over.classList.remove('over'); over = dz; if(dz) dz.classList.add('over');
+  }, {passive:false});
+  document.addEventListener('pointerup', function(e){
+    if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
+    var p = s.split(':');
+    if(!S.dragged){
+      if(p[0] === 'man'){ S.sel = S[p[1]][+p[2]]; draw(); }
+      return;
+    }
+    var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');
+    setTimeout(function(){ S.dragged = false; }, 0);
+    if(!dz) return; var q = dz.dataset.drop.split(':');
+    if(p[0] === 'man' && (q[0] === 'front' || q[0] === 'back')) moveMan(p[1], +p[2], q[0], +q[1]);
+    else if(p[0] === 'bag' && q[0] === 'gear') equip(+p[1], q[1]);
+  });
+})();
+function open(o){
+  o = o || {};
+  if(Array.isArray(o.crew) && o.crew.length) S.crew = o.crew; else if(!S.crew.length) S.crew = C.startingCrew();
+  if(Array.isArray(o.bag)) S.bag = o.bag.slice(0, BAG_SLOTS); else { try{ var b = JSON.parse(localStorage.getItem(BAGKEY)||'[]'); if(Array.isArray(b)) S.bag = b; }catch(e){} }
+  var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
+  if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
+  else defaultForm();
+  S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
+  S.ready = true; draw();
+}
+window.BohemiaRosterScreen = {open:open, state:S, formation:formation};
+window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); });
+document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation()}); say('Back to it.'); });
+C.load().then(function(){ open({}); }).catch(function(err){ say('The company did not load.'); });
+})();
+</script>
+</body>
+</html>
