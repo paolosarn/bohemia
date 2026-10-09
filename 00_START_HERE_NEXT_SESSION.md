@@ -36264,6 +36264,12 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 62 [heirs made on entry] 42% CARRY, OLDER OR YOUNGER. (BUILD)
+DYNASTY. Claimed first. TAB: RUN (the phone's offer row on entering act 2 or 3: OLD/YNG beside M, F, OK); VOTE line dynasty-heirs-on-entry-10-9.
+RECORD records/BOHEMIA_DYNASTY_HEIRS_MADE_ON_ENTRY_10_9_26.md. carryShare 0.42 in heirs ROWS (strongest first, ceil); setAge in acts, saved.
+Gates HEIRS 97/0, ONE THEN HEIRS 99/0, THE FLIP, THREE NAMES green. Age is stored and shown but changes no face (routed PORTRAIT/CHARACTER).
+NEXT: [the company inherits], [grok lore], [the frame]. The two orphaned QUESTS rows are still claimed under this session (coordinator's).
+
 ROUND 61 [the act's power and ruin] THE THREE ACTS' VALLEY AS ONE TABLE. (BUILD, data only)
 DYNASTY. Claimed and pushed first (rule 5). TAB: NOT IN A TAB YET (nothing drawn); one text line in VOTE (dynasty-act-state-10-9).
 RECORD: records/BOHEMIA_DYNASTY_ACT_STATE_10_9_26.md. engine/bohemia_act_state.js: ROWS per act (era, litFraction, reach, market), draft:true.

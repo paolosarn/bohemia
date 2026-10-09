@@ -53,7 +53,8 @@
     heirAgeMax: 35,
     /* the 35 years between acts is the phone strip's (bohemia_acts.js, +35Y); nothing here reads it */
     traitShare: 0.5,        /* an heir carries roughly half the parent's traits */
-    perAct: 12              /* ~12 men an act, 36 lives a game */
+    perAct: 12,             /* ~12 men an act, 36 lives a game */
+    carryShare: 0.42        /* Paolo 10/2 (rule 67): 'not all of them, maybe like 42%' of the last crew carries */
   };
   var ACTS = [1, 2, 3];
 
@@ -64,7 +65,8 @@
     FAMILY: 'FAMILY',                    /* came with a family in his background */
     TOO_SOON: 'DIED_TOO_SOON',           /* died early and left no one: the line ends */
     MAIN: 'THE_MAIN_LINE',               /* the main character is not an heir, he is the person */
-    CROWDED: 'CROWDED_OUT'               /* more lines than the act has room for */
+    CROWDED: 'CROWDED_OUT',              /* more lines than the act has room for */
+    LEFT: 'LEFT_BEHIND'                  /* had a line but is not in the share that carries */
   };
 
   function arr(x) { return Object.prototype.toString.call(x) === '[object Array]' ? x : []; }
@@ -251,7 +253,7 @@
   function heirs(led, toAct, opts) {
     toAct = +toAct;
     var rows = (opts && opts.rows) || ROWS;
-    var out = { act: toAct, from: toAct - 1, heirs: [], gone: [], crowded: [] };
+    var out = { act: toAct, from: toAct - 1, heirs: [], gone: [], crowded: [], left: [] };
     if (ACTS.indexOf(toAct) < 1) return out;
     var from = roster(led, toAct - 1, opts), cands = [];
     for (var i = 0; i < from.length; i++) {
@@ -265,9 +267,16 @@
       var d = num(b.m.strength, 0) - num(a.m.strength, 0);
       return d || (a.m.key < b.m.key ? -1 : a.m.key > b.m.key ? 1 : 0);
     });
+    /* ONLY ABOUT 42% CARRY (his 10/2 ruling), THE STRONGEST FIRST, so what a man earned
+       is what decides whether his line is the one that goes on. At least one carries
+       whenever anybody qualifies (ceil), or a one-man company would end the dynasty. */
+    var share = num(rows.carryShare, 1);
+    var keepN = Math.ceil(cands.length * share - 1e-9);
     for (var k = 0; k < cands.length; k++) {
-      if (k < rows.perAct) out.heirs.push(heirOf(cands[k].m, toAct, cands[k].why, opts));
-      else out.crowded.push({ key: cands[k].m.key, name: cands[k].m.name || null, why: WHY.CROWDED });
+      var c = cands[k], brief = { key: c.m.key, name: c.m.name || null };
+      if (k >= keepN) { brief.why = WHY.LEFT; out.left.push(brief); }
+      else if (out.heirs.length < rows.perAct) out.heirs.push(heirOf(c.m, toAct, c.why, opts));
+      else { brief.why = WHY.CROWDED; out.crowded.push(brief); }
     }
     return out;
   }

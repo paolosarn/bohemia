@@ -5600,6 +5600,19 @@
     "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_BAR_10_9.png"
    },
    "draft": true
+  },
+  {
+   "id": "dynasty-heirs-on-entry-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "ABOUT 42% OF YOUR CREW CARRIES ON. YOU PICK OLDER OR YOUNGER.",
+   "why": "When you enter act two or three, about 42 percent of the last crew carries on (the strongest first) and you pick whether your own relative arrives older or younger, in the VOTE tab card below and on the phone's offer row in the RUN tab. Older and younger are saved but do not change a face yet.",
+   "show": {
+    "how": "text",
+    "src": "Four people in the old crew: the two strongest carry on, the two weakest are left behind. One person always carries. The OLD and YNG buttons sit beside M, F and OK on the phone when you enter a new act."
+   }
   }
  ],
  "verdicts": [

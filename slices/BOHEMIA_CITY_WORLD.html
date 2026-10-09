@@ -13980,10 +13980,10 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       return {
         act: a.act, era: a.era, of: a.of,
         later: a.later, laterDraft: a.draft,
-        name: nm, sex: sex,
+        name: nm, sex: sex, age: ov.age || 'younger',
         reads: nm ? readsAs(nm) : 'either',
         named: !!nm,
-        custom: !!(ov.name || ov.sex),
+        custom: !!(ov.name || ov.sex || ov.age),
         draft: DRAFT
       };
     });
@@ -14033,6 +14033,20 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     OVERRIDE[act].sex = s;
     if (!OVERRIDE[act].name) delete OVERRIDE[act].name;  /* re-derive, not stale */
     return { ok: true, act: act | 0, sex: s };
+  }
+
+  /* OLDER OR YOUNGER (Paolo 10/2, rule 67: 'you can choose to be older or younger').
+     Its own door, same shape as setSex: only while the window is open, and it never
+     touches a typed name. Nobody dies of old age inside an act, so this is who he is
+     on arrival, not a clock. */
+  function setAge(act, age) {
+    if (!isAct(act)) return { ok: false, why: 'NOT_AN_ACT' };
+    if (!customizable(act)) return { ok: false, why: 'CLOSED' };
+    var a = String(age || '').toLowerCase();
+    if (a !== 'older' && a !== 'younger') return { ok: false, why: 'NOT_AN_AGE' };
+    if (!OVERRIDE[act]) OVERRIDE[act] = {};
+    OVERRIDE[act].age = a;
+    return { ok: true, act: act | 0, age: a };
   }
 
   /* RESET, for a screen that offers "start over" before he leaves it. Testing
@@ -14196,7 +14210,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
         var one = {};
         if (typeof r.name === 'string' && r.name.trim() && r.name.length <= 24) one.name = r.name.trim();
         if (r.sex === 'male' || r.sex === 'female') one.sex = r.sex;
-        if (one.name || one.sex) ov[n] = one;
+        if (r.age === 'older' || r.age === 'younger') one.age = r.age;
+        if (one.name || one.sex || one.age) ov[n] = one;
       }
     UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
     var c = blob.current | 0;
@@ -14229,7 +14244,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   var API = {
     ACTS: ACTS, prepare: prepare, nameFor: nameFor, readsAs: readsAs,
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
-    setName: setName, setSex: setSex, resetRoster: resetRoster,
+    setName: setName, setSex: setSex, setAge: setAge, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
     unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
     unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,
@@ -14297,7 +14312,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     heirAgeMax: 35,
     /* the 35 years between acts is the phone strip's (bohemia_acts.js, +35Y); nothing here reads it */
     traitShare: 0.5,        /* an heir carries roughly half the parent's traits */
-    perAct: 12              /* ~12 men an act, 36 lives a game */
+    perAct: 12,             /* ~12 men an act, 36 lives a game */
+    carryShare: 0.42        /* Paolo 10/2 (rule 67): 'not all of them, maybe like 42%' of the last crew carries */
   };
   var ACTS = [1, 2, 3];
 
@@ -14308,7 +14324,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     FAMILY: 'FAMILY',                    /* came with a family in his background */
     TOO_SOON: 'DIED_TOO_SOON',           /* died early and left no one: the line ends */
     MAIN: 'THE_MAIN_LINE',               /* the main character is not an heir, he is the person */
-    CROWDED: 'CROWDED_OUT'               /* more lines than the act has room for */
+    CROWDED: 'CROWDED_OUT',              /* more lines than the act has room for */
+    LEFT: 'LEFT_BEHIND'                  /* had a line but is not in the share that carries */
   };
 
   function arr(x) { return Object.prototype.toString.call(x) === '[object Array]' ? x : []; }
@@ -14495,7 +14512,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   function heirs(led, toAct, opts) {
     toAct = +toAct;
     var rows = (opts && opts.rows) || ROWS;
-    var out = { act: toAct, from: toAct - 1, heirs: [], gone: [], crowded: [] };
+    var out = { act: toAct, from: toAct - 1, heirs: [], gone: [], crowded: [], left: [] };
     if (ACTS.indexOf(toAct) < 1) return out;
     var from = roster(led, toAct - 1, opts), cands = [];
     for (var i = 0; i < from.length; i++) {
@@ -14509,9 +14526,16 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       var d = num(b.m.strength, 0) - num(a.m.strength, 0);
       return d || (a.m.key < b.m.key ? -1 : a.m.key > b.m.key ? 1 : 0);
     });
+    /* ONLY ABOUT 42% CARRY (his 10/2 ruling), THE STRONGEST FIRST, so what a man earned
+       is what decides whether his line is the one that goes on. At least one carries
+       whenever anybody qualifies (ceil), or a one-man company would end the dynasty. */
+    var share = num(rows.carryShare, 1);
+    var keepN = Math.ceil(cands.length * share - 1e-9);
     for (var k = 0; k < cands.length; k++) {
-      if (k < rows.perAct) out.heirs.push(heirOf(cands[k].m, toAct, cands[k].why, opts));
-      else out.crowded.push({ key: cands[k].m.key, name: cands[k].m.name || null, why: WHY.CROWDED });
+      var c = cands[k], brief = { key: c.m.key, name: c.m.name || null };
+      if (k >= keepN) { brief.why = WHY.LEFT; out.left.push(brief); }
+      else if (out.heirs.length < rows.perAct) out.heirs.push(heirOf(c.m, toAct, c.why, opts));
+      else { brief.why = WHY.CROWDED; out.crowded.push(brief); }
     }
     return out;
   }
@@ -66923,7 +66947,7 @@ function ctActFlipPaint(){
   /* the sig is the roster's own state (act, name, sex and whether the customize
      window is open), not a salt this file no longer holds. */
   var sig = cur + '|' + list.map(function(a){
-    return a.act + ':' + (a.name || '?') + ':' + a.sex + ':' + (a.open ? 1 : 0);
+    return a.act + ':' + (a.name || '?') + ':' + a.sex + ':' + a.age + ':' + (a.open ? 1 : 0);
   }).join(',');
   if (sig !== ACTFLIP_BUILT) {
     box.innerHTML = '';
@@ -67048,6 +67072,16 @@ function ctActEditPaint(list, cur){
     var wrap = document.createElement('div'); wrap.className = 'aef';
     wrap.appendChild(inp);
     box.appendChild(wrap);
+    [['OLD', 'older'], ['YNG', 'younger']].forEach(function (pair) {
+      var b = document.createElement('div');
+      b.className = 'aeb'; b.textContent = pair[0]; b.setAttribute('data-age', pair[1]);
+      b.setAttribute('role', 'button'); b.setAttribute('aria-label', 'arrive ' + pair[1]);
+      b.addEventListener('click', function (ev) {
+        try { ev.stopPropagation(); } catch (_e) {}
+        ctActSetAge(cur, pair[1]);
+      });
+      box.appendChild(b);
+    });
     [['M', 'male'], ['F', 'female']].forEach(function (pair) {
       var b = document.createElement('div');
       b.className = 'aeb'; b.textContent = pair[0]; b.setAttribute('data-sex', pair[1]);
@@ -67075,6 +67109,9 @@ function ctActEditPaint(list, cur){
      change re-derives the prepared name and the field must say so, and what he
      typed himself is never overwritten behind his back. */
   if (field && !field.getAttribute('data-dirty')) field.value = me.name || '';
+  var ages = box.querySelectorAll('.aeb[data-age]');
+  for (var q = 0; q < ages.length; q++)
+    ages[q].className = 'aeb' + (ages[q].getAttribute('data-age') === me.age ? ' on' : '');
   var bs = box.querySelectorAll('.aeb[data-sex]');
   for (var j = 0; j < bs.length; j++)
     bs[j].className = 'aeb' + (bs[j].getAttribute('data-sex') === me.sex ? ' on' : '');
@@ -67113,6 +67150,14 @@ function ctActReshuffle(act){
 function ctActSetName(act, name){
   var r = null;
   try { r = BohemiaActs.setName(act, name); } catch (_e) { return false; }
+  if (!r || !r.ok) return false;
+  ACTFLIP_BUILT = '';
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
+function ctActSetAge(act, age){
+  var r = null;
+  try { r = BohemiaActs.setAge(act, age); } catch (_e) { return false; }
   if (!r || !r.ok) return false;
   ACTFLIP_BUILT = '';
   try { ctActFlipPaint(); } catch (_e) {}
