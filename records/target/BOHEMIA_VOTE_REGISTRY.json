@@ -6155,7 +6155,8 @@
     "src": "vote/WORLD_GROUND_EFFECTS.png"
    },
    "sha": "63a84d02"
-  }
+  },
+  {"id": "animation-the-town-is-alive-10-9", "kind": "animation", "lane": "animation", "sha": "PENDING", "made": "10/9", "title": "THE TOWN IS ALIVE", "why": "The town screen gets its people: keepers at their doors smoke and wait, the stall keeper haggles, a hire leans at the posts, people walk past, and when your finger comes near a building its keeper looks up and waves you in. You see it ten seconds at a time in the VOTE tab, and in the town screen itself once RUN TWO places them (NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_TOWN_IS_ALIVE.html"}, "said": "the settlement screen is one painted place", "draft": true}
  ],
  "verdicts": [
   {

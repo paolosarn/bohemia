@@ -16334,6 +16334,17 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/9 (c) LATEST -- *** THE TOWN IS ALIVE: the town screen's people, baked and
+ready: keepers at their doors, the stall keeper haggling, hires at the posts, a crowd walking. TAB: VOTE playing. ***
+
+[the settlement's idle people] SHIPPED as clips (the row: RUN TWO places them). slices/settlement_people: 25 outfits,
+3 facings, eight pictures of nine bank clips, a clip table with facings, the scale from the picture's ruler (a man
+75 px at 42.9 px a metre). SETTLEMENT PEOPLE 8/0, 4 mutations. records/BOHEMIA_THE_TOWN_IS_ALIVE_10_9_26.md.
+FOR RUN TWO: draw settlement_people at their doors (scale.draw_frame_at picture px, feet on the step); a keeper plays
+wait/smoke, greet when the finger nears his building, beckon while it is on it, trade while his shop is open.
+FOUND: the rig's 112 box cuts a raised hand on tall outfits (hail, 9 of 25): new row [hands in the box].
+NEXT: [the shot kicks], [four legs], [hands in the box].
+
 ANIMATION (animation-lr9y9i): 10/9 (b) LATEST -- *** THE PARTIES WALK: on the map you travel as three people
 walking, and every roaming party walks and slides between blocks. TAB: MAP, VOTE playing. ***
 
