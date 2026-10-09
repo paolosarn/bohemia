@@ -80,8 +80,8 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    first caller that tried to pass one -- my own throttled probe -- got a throw from the
    guard that exists to catch exactly this. The list is the vocabulary; a knob that is not
    in it does not exist. */
-const KNOWN_OPTS = ['profile', 'alpha', 'arm', 'bare', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
-                    'noWorker', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
+const KNOWN_OPTS = ['profile', 'alpha', 'arm', 'bare', 'beforeGoto', 'beforeTap', 'boot', 'door', 'file', 'keepCards',
+                    'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
    became a wait of ONE millisecond: one try, and a pass only when the RUN box happened to
@@ -117,11 +117,29 @@ async function open(opts) {
      this lane and would collide with whoever else is working. One map, opt-in, and the
      server behaves exactly as before when nobody passes it. */
   const serve = opts.serve || {};
+  /* opts.pages (PLUMBER 10/9, [first load]): SERVE LIKE GITHUB PAGES. This little server sends no
+     caching rules, so a browser re-downloads every file it asks for twice, and no compression, so
+     text crosses the wire at full size. The real site (GitHub's documented behaviour; github.io is
+     refused by this box's proxy, so it could not be read live) sends Cache-Control: max-age=600, an
+     ETag, Last-Modified, answers If-None-Match with 304, and gzips text. A byte count taken without
+     those blames the game for the test server. Off unless asked, so no other caller changes. */
+  const zlib = require('zlib');
+  const TEXTY = /\.(html?|js|mjs|json|css|txt|svg|md|webmanifest)$/i;
   const server = http.createServer((req, res) => {
     const u = decodeURIComponent(req.url.split('?')[0]);
     const f = serve[u] || path.join(ROOT, u.replace(/^\//, ''));
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }
-    res.writeHead(200, { 'Content-Type': MIME[path.extname(f)] || 'application/octet-stream' });
+    const head = { 'Content-Type': MIME[path.extname(f)] || 'application/octet-stream' };
+    if (opts.pages) {
+      const st = fs.statSync(f), tag = '"' + st.size.toString(16) + '-' + Math.floor(st.mtimeMs).toString(16) + '"';
+      Object.assign(head, { 'Cache-Control': 'max-age=600', 'ETag': tag, 'Last-Modified': st.mtime.toUTCString(), 'Vary': 'Accept-Encoding' });
+      if (req.headers['if-none-match'] === tag) { res.writeHead(304, head); return res.end(); }
+      if (TEXTY.test(f) && /\bgzip\b/.test(req.headers['accept-encoding'] || '')) {
+        head['Content-Encoding'] = 'gzip'; res.writeHead(200, head);
+        return fs.createReadStream(f).pipe(zlib.createGzip({ level: 6 })).pipe(res);
+      }
+    }
+    res.writeHead(200, head);
     fs.createReadStream(f).pipe(res);
   });
   await new Promise(r => server.listen(0, '127.0.0.1', r));
@@ -190,6 +208,46 @@ async function open(opts) {
   if (opts.throttle && opts.throttle > 1) {
     await cdpEarly.send('Emulation.setCPUThrottlingRate', { rate: opts.throttle });
   }
+  /* EXTENDED 10/9 (PLUMBER, [first load], rule 72 line 12; extend the one driver, never fork it).
+     opts.net: a phone's network, { down: kbit/s, up: kbit/s, rtt: ms }, the same knob DevTools uses,
+     so "how long on cell data" is measured instead of guessed. This box's loopback serves 17 MB in
+     well under a second; a phone on LTE does not.
+     opts.netlog: every response's bytes on the wire and the moment it finished, in ms from the moment
+     the page's own document was requested, from the browser's network events (frames included), so
+     "what had to arrive before the title" is a list with sizes, not a feeling. Both off unless asked. */
+  const netlog = [];
+  if (opts.net || opts.netlog) await cdpEarly.send('Network.enable');
+  if (opts.net) {
+    await cdpEarly.send('Network.emulateNetworkConditions', { offline: false,
+      latency: opts.net.rtt || 0, downloadThroughput: (opts.net.down || 0) * 1000 / 8,
+      uploadThroughput: (opts.net.up || opts.net.down || 0) * 1000 / 8 });
+  }
+  /* opts.beforeGoto(cdp, page) (PLUMBER 10/9, [first load]): a hook with the browser's own debugging
+     session BEFORE the page is requested, for instruments that must see the very first millisecond
+     (a CPU profile of the boot). Off unless asked. */
+  if (typeof opts.beforeGoto === 'function') await opts.beforeGoto(cdpEarly, page);
+  if (opts.netlog) {
+    const sent = {}; let base = null;
+    cdpEarly.on('Network.requestWillBeSent', (e) => {
+      if (base === null && e.type === 'Document') base = e.timestamp;
+      sent[e.requestId] = { url: e.request.url.replace(/^https?:\/\/[^/]+/, '').split('?')[0], type: e.type, at: e.timestamp };
+    });
+    /* a download cut off on purpose (a reader that stops once it has what it needs) never
+       "finishes"; its bytes are the chunks that arrived, so those are counted too */
+    const got = {};
+    cdpEarly.on('Network.dataReceived', (e) => { got[e.requestId] = (got[e.requestId] || 0) + (e.encodedDataLength || 0); });
+    const done = (e, bytes, how) => {
+      const r = sent[e.requestId]; if (!r) return;
+      netlog.push({ url: r.url, type: r.type, bytes, how,
+        startMs: base === null ? null : Math.round((r.at - base) * 1000),
+        endMs: base === null ? null : Math.round((e.timestamp - base) * 1000) });
+    };
+    /* the page's OWN document is reported as 0 bytes in loadingFinished (measured 10/9: a 2.4 MB page
+       read 0 KB), so the chunks that arrived are the fallback; without it a later full re-read of the
+       page had no first copy to be compared with */
+    cdpEarly.on('Network.loadingFinished', (e) => done(e, Math.max(e.encodedDataLength || 0, got[e.requestId] || 0), 'finished'));
+    cdpEarly.on('Network.loadingFailed', (e) => done(e, got[e.requestId] || 0, e.canceled ? 'cancelled' : 'failed'));
+  }
 
   const tGoto = Date.now();
   /* THE DRIVER SAYS WHAT IT OPENED, ONCE, WITHOUT BEING ASKED. The row wanted this
@@ -207,7 +265,7 @@ async function open(opts) {
      arm; the door and the city frame are skipped because there are none, and the caller
      gets the page, the browser and the errors. Off unless asked, so nothing else changes. */
   if (opts.bare) {
-    return { page, ctx, browser, errs, server, openedFile: () => WANT, isAlpha: () => false,
+    return { page, ctx, browser, errs, server, netlog, cdp: cdpEarly, openedFile: () => WANT, isAlpha: () => false,
       says: () => 'measured on ' + WANT + ' (a one-file surface)',
       close: async () => { await browser.close(); server.close(); } };
   }
@@ -508,7 +566,7 @@ async function open(opts) {
   return {
     page, fr, ctx, browser, errs,
     /* what loaded, and where the door was in that list (PLUMBER 9/15) */
-    loads, cdp: cdpEarly,
+    loads, cdp: cdpEarly, netlog,
     firstPaintMs: () => firstPaintAt,
     bootAt: () => t00,          /* the driver's zero, so a caller can share one axis */
     /* WHICH FILE THIS NUMBER IS ABOUT. The row asked for it by name: "PRINT which file

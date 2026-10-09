@@ -4902,6 +4902,16 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('FIRST LOAD', ['node', 'gates/first_load_gate.js'],
+     'THE TITLE IN TWO SECONDS, NEW GAME READY IN EIGHT, NOTHING DOWNLOADED TWICE. 10/9, PLUMBER, row [first load], '
+     'rule 66a and rule 72 line 12; Paolo 10/5: "I feel like I gotta wait 40 seconds." The demo opened fresh (a stranger, '
+     'cold cache) through the one driver with nobody touching the glass, on a 4x phone-shaped CPU, SERVED LIKE GITHUB '
+     'PAGES (cache rules and gzip; without them the first reading blamed the game for the test server and said 69 MB). '
+     'Measured: title 3.4 to 3.6 s, NEW GAME ready 83 to 86 s, 29.7 MB before ready, and the page re-downloads itself '
+     '(2.4 MB) 15 s in and every 2 minutes. A patch for RUN, measured on a copy served in the page place: 9.0 MB, nothing '
+     'twice; the ready time does not move, because the wall is the processor (record has the CPU profile). LANDS RED ON '
+     'PURPOSE on the title, the ready time and the page re-read; NEVER WORSE on the bytes. Three planted self-tests. About 90 s.',
+     600),
     ('GROK FENCE', ['node', 'gates/grok_fence_gate.js'],
      'A GROK COMMIT ON MAIN STAYS IN ITS FOLDER. 10/1, PLUMBER, row [grok fence], rule 49d: Grok writes through its '
      'own GitHub connector, only in reference/library/grok/, only on the branch grok, every message starting GROK:. '
