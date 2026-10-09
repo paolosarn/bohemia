@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 /* BOHEMIA -- COOK: THE WHOLE CROWD MATCHES. PORTRAIT [hairstyles match] round two, 10/9/26.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/9 at the seam): the rulers are
+ * FACE-01 and FACE-02 (the portrait construction), the portrait-wears-the-haircut law and AH-01
+ * rule 6 (the still face). Ids resolve in the reference library index.
+ *
  * Last round fixed the face MAKER (the player's own customization panel). While folding
  * that work back in after a 61-commit gap, re-reading faceFor() (the function that draws
  * EVERY citizen's portrait, not just the player's) found the same shape of bug, bigger:
