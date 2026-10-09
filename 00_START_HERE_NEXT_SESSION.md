@@ -14495,6 +14495,36 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 50. [first load] ROUND 2: THE BOOT BOUND 1,256 BODIES
+AND ONLY 174 WERE DIFFERENT. ***
+Record: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md. Row KEPT CLAIMED (rule 6).
+THE PROCESSOR, MEASURED: the skinner's bind (cohereBind + _rebind) was the boot's biggest cost (4.4 + 1.3 s of 25 s
+at 1x). 1,256 binds before NEW GAME is ready, 174 different (body x direction), the most-repeated one 73 times: the
+street cast, family and outfit builds each call rebuildFromRig, which binds all eight directions from scratch.
+THE PATCH, 4 hunks, BIT FOR BIT THE SAME BINDING: cohereBind counts in typed arrays and walks only painted pixels
+(the for-in key order, integers ascending then negatives in first-met order, is walked by hand: ">" makes order
+break ties); _rebind reads each bone once per part; a bind cache keyed by a hash, with the painted pixels compared in
+full before a hit is used (a collision is a miss). PROOF: fuzz 1,600 grids 0 diffs; a check copy ran old and new on
+all 1,256 real binds 0 diffs, and re-bound all 1,082 cache hits with the OLD code 0 diffs. MEASURED on a copy served
+in the page's place: NEW GAME ready 21.3 -> 16.5 s at 1x, 87.3 -> 66.6 s at 4x (two runs each); page work 13.0 -> 6.8 s.
+HANDED TO RUN AS ONE COMMAND: tools/bohemia_first_load_hunks.py (six hunks: round 1's two [load patch] + these four;
+dry run by default, refuses on drift, idempotent). Row [load hunks] in RUN's section under RUN's own [first load].
+RUN TWO had marked round 1's misplaced row HANDED TO RUN 10/10 (my heading match hit '## RUN TWO' first); left as theirs.
+FIRST LOAD gains H1 (the hunks still fit the alpha; status word only, a hunk's own words can say 'already in').
+Gate run: FIRST LOAD 5/3 red on purpose (T1 3.8 s, T2 87.1 s, D1 the page re-read) as before; R1 29.7 MB under 33.
+ALSO MEASURED, RUN's: COMBAT_B64 (the frozen fight) is 1.31 of the page's 2.50 MB gzipped, half of what the title
+waits for; reachable only via cityEncounterIn's fallback when nfOpen fails, and warmTheFight boots it on the first
+tap of #front. What is left after the patch at 1x: renderHuman 1.5 s (map), buildFrame 1.2, rest-pose skin 1.2 (also
+repeated per body; the same cache shape would take it), realizeCell + chunkCanvas 1.8.
+ALSO: rule 80 line 19 (PLUMBER) in records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md. VOTE plumber-bind-once-10-9
+(a 48 KB picture). Board notes: last round's three rule-22f notes removed (those sheets pass now); one for COOK
+(cook-the-settlement-pictures-finished-10-10 has kind 'place'). REFERENCE CHECK green again on main (881b62f).
+NEXT, [proof shots churn] (coordinator's top OPEN row, 'second, after [first load]'): measured this round, the churn is
+real and cross-lane: f5b94ea (SOUNDS) re-committed RUN TWO's RUN2_THE_ROSTER_10_9.png (255,696 -> 254,666 bytes),
+f318aef (COMBAT TWO) re-committed two older COMBAT2 shots. Then [first load] round 3 when RUN applies the hunks:
+lower CEIL_MB (about 10) and re-baseline T2.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 49. [first load] ROUND 1: THE DEMO MAKES A PHONE
 WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY. ***
 Record: records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md. Row KEPT CLAIMED (rule 6).

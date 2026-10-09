@@ -260,7 +260,7 @@ r'''class Skinner {
 ''',
 r'''/* ONE BODY IS BOUND ONCE (PLUMBER 10/9, row [first load] round 2, a review patch for RUN and
    ANIMATION: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md). Measured on the demo's
-   boot: 1,256 binds, 174 different ones, the player's own body bound 73 times, because the street
+   boot: 1,256 binds, 174 different ones, the most-repeated one bound 73 times, because the street
    cast and the family and outfit builds each call rebuildFromRig and it binds all eight directions
    from scratch. A bind reads only this direction's painted pixels, its rest skeleton and its candidate
    bones, so the same three give back the binding they gave before. The key is a hash for the lookup;

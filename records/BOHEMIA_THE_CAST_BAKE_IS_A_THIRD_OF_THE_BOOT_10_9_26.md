@@ -19,7 +19,7 @@ repeated work:
 | the most-repeated body | bound **73** times |
 
 The street cast, the family builds and the outfit builds each call `rebuildFromRig`, which binds all eight
-directions from scratch, and the player's own body is re-bound between them.
+directions from scratch.
 
 THE PATCH (four hunks, `tools/bohemia_first_load_hunks.py`, row [bind once]):
 1. `cohereBind` counts with two small typed arrays instead of a fresh `{}` per painted pixel, and walks
@@ -72,7 +72,7 @@ they were first met, and its ">" means that order breaks ties. The new code walk
     python3 tools/bohemia_first_load_hunks.py --only "bind once" --write
 
 then re-cut the demo as always. A hunk whose old text is gone refuses the run and writes nothing; a hunk
-already in is skipped. The measured copy was made by the same hunks (identical but for one blank line).
+already in is skipped. The measured copy was made from the same hunks (it differs only by one blank line and the words of one comment).
 FIRST LOAD (in the suite, red on purpose) shows the ready time fall when it lands; this lane lowers its
 ceilings then.
 
