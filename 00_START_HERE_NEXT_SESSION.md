@@ -1,3 +1,25 @@
+TUNING (tuning-f59l1w): 10/10 (b) LATEST -- [the sell ratio] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A SETTLEMENT PAYS YOU (a slider vs BB's big town and village vs our shop, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md
+DATA FOR ECONOMY: records/BOHEMIA_TUNING_SELL_RATIO_TABLE_10_10_26.json (3 brackets by attached locations, Veteran derived
+from Expert x 7.41/6.67 and checked against the wiki's own 18.73-19.61 City Hall range; relations +2pts sell / -0.15 buy;
+32 situation rows). All from the wiki dump, read here.
+FINDING: BB buy/sell ratio is fixed at 6.67 (Veteran) / 7.41 (Expert): you recover 13-20% of worth. Our settlement screen
+sells back at 50% (SELL_CUT, unsourced) = 2.5-3.8x too generous. Second: whole batteries + a floor of 1 make cheap gear
+sell at ~33% (knife: should be 0.45 battery, floors to 1). ECONOMY must pick a rounding rule. Tier map proposal:
+camp->Low, town->Medium, fortress->High.
+NEXT OPEN: [ammo], [respec], [recruit odds], [origins difficulty].
+TUNING (tuning-f59l1w): 10/10 (b) LATEST -- [the sell ratio] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A SETTLEMENT PAYS YOU (a slider vs BB's big town and village vs our shop, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md
+DATA FOR ECONOMY: records/BOHEMIA_TUNING_SELL_RATIO_TABLE_10_10_26.json (3 brackets by attached locations, Veteran derived
+from Expert x 7.41/6.67 and checked against the wiki's own 18.73-19.61 City Hall range; relations +2pts sell / -0.15 buy;
+32 situation rows). All from the wiki dump, read here.
+FINDING: BB buy/sell ratio is fixed at 6.67 (Veteran) / 7.41 (Expert): you recover 13-20% of worth. Our settlement screen
+sells back at 50% (SELL_CUT, unsourced) = 2.5-3.8x too generous. Second: whole batteries + a floor of 1 make cheap gear
+sell at ~33% (knife: should be 0.45 battery, floors to 1). ECONOMY must pick a rounding rule. Tier map proposal:
+camp->Low, town->Medium, fortress->High.
+NEXT OPEN: [ammo], [respec], [recruit odds], [origins difficulty].
 WORLD (world-9lfjtf): 10/9 (b) LATEST -- *** THE SIX LEGENDARY PLACES ARE NOT
 GUARANTEED, AND MY FIRST RANKING MADE FIVE OF THEM THE SAME PLACE. ***
 Row [where the god gear is] SHIPPED. Rule 80 paid (line 11 of the better-than-BB

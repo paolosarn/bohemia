@@ -1,0 +1,234 @@
+{
+ "_readme": "TUNING [the sell ratio] 10/10, draft:true, RESEARCH. Source: wiki page 'Market prices for various items' and the 'Settlement Situation' pages (reference/library/grok/wiki/PAGES_ALL, read here, CC BY-SA 3.0 battlebrothers.fandom.com). Fractions of an item's WORTH, not crowns. Beginner assumed equal to Veteran (the wiki groups them). veteran_derived = expert x 7.41/6.67 (the wiki's two buy/sell ratios); the wiki's own Veteran City Hall range 18.73-19.61 percent checks against it. Not converted to batteries: ECONOMY owns that.",
+ "ratio_buy_to_sell": {
+  "veteran": 6.67,
+  "expert": 7.41
+ },
+ "brackets": [
+  {
+   "bracket": "High",
+   "types": [
+    "City Hall",
+    "Stronghold"
+   ],
+   "attached": [
+    8,
+    7,
+    6,
+    5,
+    4
+   ],
+   "sell_expert": [
+    0.1809,
+    0.1769,
+    0.1727,
+    0.1688,
+    0.1647
+   ],
+   "buy": [
+    1.34,
+    1.31,
+    1.28,
+    1.25,
+    1.22
+   ],
+   "sell_veteran_derived": [
+    0.201,
+    0.1965,
+    0.1919,
+    0.1875,
+    0.183
+   ]
+  },
+  {
+   "bracket": "Medium",
+   "types": [
+    "Town Hall",
+    "Castle"
+   ],
+   "attached": [
+    5,
+    4,
+    3,
+    2
+   ],
+   "sell_expert": [
+    0.1579,
+    0.1539,
+    0.1498,
+    0.1457
+   ],
+   "buy": [
+    1.17,
+    1.14,
+    1.11,
+    1.08
+   ],
+   "sell_veteran_derived": [
+    0.1754,
+    0.171,
+    0.1664,
+    0.1619
+   ]
+  },
+  {
+   "bracket": "Low",
+   "types": [
+    "Village Hall",
+    "Fortified Manor"
+   ],
+   "attached": [
+    4,
+    3,
+    2,
+    1
+   ],
+   "sell_expert": [
+    0.1404,
+    0.1364,
+    0.1323,
+    0.1282
+   ],
+   "buy": [
+    1.04,
+    1.01,
+    0.98,
+    0.95
+   ],
+   "sell_veteran_derived": [
+    0.156,
+    0.1515,
+    0.147,
+    0.1424
+   ]
+  }
+ ],
+ "relations": {
+  "start": 50,
+  "cap": 100,
+  "sell_plus_at_100_pct_of_worth": 0.02,
+  "buy_minus_at_100_pct_of_worth": 0.15,
+  "per_contract": 8,
+  "days_to_reset_to_50": 33
+ },
+ "treasure_sell_multiplier": 6.33,
+ "trade_goods_sell_multiplier": 7.48,
+ "supplies_buy_note": "in some settlements tools/medicine/ammo can cost 1.5x the usual buy price",
+ "situations": {
+  "Abducted Children": {
+   "buy_pct": 25,
+   "sell_pct": -25
+  },
+  "Ambushed Trade Routes": {
+   "buy_pct": 20,
+   "sell_pct": 10
+  },
+  "Besieged": {
+   "buy_pct": 25,
+   "food_price_pct": 100
+  },
+  "Bread and Games": {
+   "food_price_pct": -10
+  },
+  "Collectors": {
+   "sell_pct": 100
+  },
+  "Conquered": {
+   "buy_pct": 10,
+   "sell_pct": -10
+  },
+  "Disappearing Villagers": {
+   "buy_pct": 25,
+   "sell_pct": -25
+  },
+  "Disbanded Troops": {
+   "buy_pct": -10,
+   "sell_pct": -10
+  },
+  "Drought": {
+   "food_price_pct": 100
+  },
+  "Full Nets": {
+   "food_price_pct": -50
+  },
+  "Good Harvest": {
+   "food_price_pct": -50
+  },
+  "High Spirits": {
+   "buy_pct": -5,
+   "sell_pct": 5
+  },
+  "Hunting Season": {
+   "food_price_pct": -50
+  },
+  "Local Holiday": {
+   "buy_pct": -5,
+   "sell_pct": 5,
+   "food_price_pct": -10
+  },
+  "Lost at Sea": {
+   "food_price_pct": 100
+  },
+  "Moving Sands": {
+   "sell_pct": 10
+  },
+  "Mustering Troops": {
+   "buy_pct": 25,
+   "sell_pct": 25
+  },
+  "Preparing Feast": {
+   "food_price_pct": 100
+  },
+  "Public Executions": {
+   "food_price_pct": 15
+  },
+  "Refugees": {
+   "food_price_pct": 25
+  },
+  "Rich Veins": {
+   "buy_pct": 10,
+   "sell_pct": 10
+  },
+  "Safe Roads": {
+   "buy_pct": 10,
+   "sell_pct": 10
+  },
+  "Sand Storm": {
+   "buy_pct": 20,
+   "sell_pct": 10
+  },
+  "Seasonal Fair": {
+   "buy_pct": 25,
+   "sell_pct": 25
+  },
+  "Short on Food": {
+   "food_price_pct": 200
+  },
+  "Sickness": {
+   "food_price_pct": 100
+  },
+  "Snow Storms": {
+   "buy_pct": 20,
+   "sell_pct": 10
+  },
+  "Terrified Villagers": {
+   "buy_pct": 25,
+   "sell_pct": -25
+  },
+  "Unhold Attacks": {
+   "buy_pct": 10,
+   "sell_pct": -10
+  },
+  "Warehouse Burned Down": {
+   "buy_pct": 25,
+   "sell_pct": 5
+  },
+  "Well Supplied": {
+   "buy_pct": -10,
+   "sell_pct": -10
+  },
+  "Witch Burnings": {
+   "food_price_pct": 15
+  }
+ }
+}
