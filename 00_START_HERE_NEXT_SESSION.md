@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 (e) LATEST -- [the wash board] SHIPPED: QR-AJ, the demo town's 8 side offers paired with the chain, rumours and road events in reach, DEMO_BOARD spec for RUN. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
+
 MODS (mods-59jyd6): 10/10 LATEST -- [first hour] SHIPPED (a modder's first hour, every step something
 that exists today; one step marked NOT BUILT: the game does not load a mods folder). TAB: VOTE, item A
 MODDER'S FIRST HOUR. Record records/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.md. RAN END TO END: a local

@@ -6048,7 +6048,8 @@
   },
   "verdict": "default",
   "status": "ruled"
-}
+},
+  {"id": "quests-the-wash-board-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "THE DEMO TOWN'S JOB BOARD, FULL", "why": "Eight small side jobs around the Wash, from finding a missing kid to running a clinic box, each lined up on the same road as one of the three ending jobs. The board is never empty in the first 30 minutes.", "show": {"how": "text", "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."}}
  ],
  "verdicts": [
   {
