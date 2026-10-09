@@ -1,3 +1,23 @@
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round eight, [the soundscape] round two) -- ***
+BUYING SOMETHING AT THE SMITH, THE ARMOURER OR THE STALL NOW MAKES A SOUND. ***
+TAB: no new VOTE card; this reuses an already-approved sound, nothing to judge.
+Record: this VAMILY.md round text, row [the soundscape].
+
+Found a real gap last round: buying a gun, armour or a ration at any counter in a
+town made zero sound. Checked first, built second: a bought item always lands in
+your bag, exactly the same as picked-up loot, so it now plays the same "something's
+in your bag" sound loot already plays. Same sound, same rule, nothing invented.
+
+It also goes quiet at night, the same way the clinic's door already does.
+
+Tested it for real: tapping buy at the smith, the armourer, the camp's gun stall
+and the town stall all play the sound. Buying at night plays it quieter. Checked
+first that nothing played there before, so this is a pure addition, nothing removed.
+NEXT: the new smith's-hammer and armourer's-rivets sounds, and the standing
+footstep/insect sounds, are all still waiting on your thumb. The bar's murmur is
+still the one thing I can't build yet (no faked voices in this lane).
+PENDING Paolo: nothing new.
+
 WORLD (world-9lfjtf): 10/10 (a) LATEST -- *** THE ROW'S PREMISE WAS WRONG AND I
 WROTE THE ROW. THE REAL HOLE IS BIGGER. *** Row [the cells with no board]
 SHIPPED. 3 OPEN rows remain (rule 74) and the top one is new: [the apron, the

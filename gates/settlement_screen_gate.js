@@ -156,6 +156,50 @@ const srv = http.createServer((rq, rs) => {
   const posted = await p.evaluate(() => { const b = (window.__settleLog || []).filter(m => m.act === 'bag').pop(); return b ? b.bag.length + '/' + b.slots : 'none'; });
   ok('  the game is told what is in the bag on every change', posted === '1/36', posted);
   await p.evaluate(() => BohemiaPurse.debit(BohemiaSettlement.state.purse, 'electricity', BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity') - 3, 'gate', null, 0));
+
+  /* THE BUY SOUND AT THE STALL, THE SMITH AND THE ARMOURER (row [the soundscape], 10/9):
+     Paolo named it as a gap ('so many sounds in Battle Brothers... the clinking of
+     someone working in the city') and the list found it concrete: buying anything here
+     posted no sound at all. ZERO NEW CONTENT: an item bought always lands in the bag the
+     same way loot does, so this reuses 'pickup' (already approved, APPROVED.pickup =
+     [0,1,2,3,4], its own live label is 'loot, items, anything into the bag'), through the
+     same sfx() helper the clinic's door already uses, so it inherits the night trim for
+     free. */
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 400, 'gate', null, 0));
+  await p.evaluate(() => { BohemiaSettlement.state.stash.length = 0; window.__settleLog = []; });
+  await tapB('smith'); await p.waitForTimeout(200);
+  await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  const smithSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  ok('buying at the smith plays pickup, the same bag sound as loot', smithSfx.length === 1 && smithSfx[0].ev === 'pickup', JSON.stringify(smithSfx));
+  await p.click('#close'); await p.waitForTimeout(150);
+  await p.evaluate(() => { window.__settleLog = []; });
+  await tapB('armourer'); await p.waitForTimeout(200);
+  await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  const armourerSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  ok('  and the armourer plays the same pickup, not a second invented sound', armourerSfx.length === 1 && armourerSfx[0].ev === 'pickup', JSON.stringify(armourerSfx));
+  await p.click('#close'); await p.waitForTimeout(150);
+  await p.evaluate(() => { window.__settleLog = []; });
+  await tapB('stall'); await p.waitForTimeout(200);
+  await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+  const stallSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+  ok('  and the stall plays it too, so every counter in the settlement sounds like one',
+    stallSfx.length === 1 && stallSfx[0].ev === 'pickup', JSON.stringify(stallSfx));
+  await p.click('#close'); await p.waitForTimeout(150);
+  await p.evaluate(() => { window.__settleLog = []; BohemiaSettlement.open({ night: true }); });
+  await tapB('smith'); await p.waitForTimeout(200);
+  const nightFirst = await p.evaluate(() => BohemiaSettlement.state.stock.smith[0]);
+  if (nightFirst) {
+    await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(150);
+    await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(200);
+    const nightBuySfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx'));
+    ok('  and it is quieter at night, the same trim the clinic door already carries',
+      nightBuySfx.length === 1 && nightBuySfx[0].ev === 'pickup' && nightBuySfx[0].mul === 0.5, JSON.stringify(nightBuySfx));
+  }
+  await p.click('#close'); await p.waitForTimeout(150);
+  await p.evaluate(() => BohemiaSettlement.open({ night: false }));
+
   /* the board reads as work: every contract shows its skulls and its pay */
   await tapB('board'); await p.waitForTimeout(250);
   const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act em')).map(e => e.textContent));

@@ -321,7 +321,7 @@ function shopSheet(k, body, acts, line){
         if(bats() < it.price) return openB(k, 'You are short. ' + it.price + ', and you have ' + bats() + '.');
         P.debit(S.purse, 'electricity', it.price, 'buy:' + it.id, S.place.name, S.day);
         S.stock[k].splice(S.stock[k].indexOf(it), 1); S.stash.push(it); bagSave();
-        post('buyArms', {item:it}); shelf(); openB(k, 'Yours. It is in your bag.');
+        post('buyArms', {item:it}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB(k, 'Yours. It is in your bag.');
       }, full || bats() < it.price));
       sb.appendChild(act('Not this one', '', function(){ openB(k); }));
     }, it.price + 'b'));
@@ -859,7 +859,7 @@ function openB(k, line){
         if(bats()<1) return openB('stall','You are out of batteries. Come back with one.');
         P.debit(S.purse,'electricity',1,'stall:'+g.good,S.place.name,S.day);
         if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
-        post('buy',{good:g.good}); shelf(); openB('stall','There you go. Gracias.');
+        post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
       }, bats()<1));
     });
   }
