@@ -6494,7 +6494,20 @@
     "src": "Measured: seven retold deeds went through two generations and all seven were still there, just fainter.\\nReal memory: the name lasts, the details drift, one story absorbs the rest.\\nProposal: generation three keeps the name, ONE legend line (a little wrong), living grudges, and a place name. The rest is gone."
    }
   },
- {"id": "ui-the-phones-board-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE PHONE SHOWS THE JOBS", "why": "The phone now shows the two nearest places that are hiring and what they pay, with skulls for the danger; it shows them but never takes them, you take a job at the place, and a job you took disappears from the phone. You see it on the map, at the top of the phone.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_BOARD_10_9.png"}}
+ {"id": "ui-the-phones-board-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE PHONE SHOWS THE JOBS", "why": "The phone now shows the two nearest places that are hiring and what they pay, with skulls for the danger; it shows them but never takes them, you take a job at the place, and a job you took disappears from the phone. You see it on the map, at the top of the phone.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_BOARD_10_9.png"}},
+  {
+   "id": "mods-an-id-is-a-promise-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "AN ID IS A PROMISE",
+   "why": "For whoever makes mods. Every row has an id, and a mod finds a row by it, so renaming an id breaks every mod that touched it. 725 ids, and 764 places point at them. Four rules keep mods working: never rename, retire instead of delete, a mod names its own rows modname:thing, and keep the plain lowercase style the game already uses.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.html"
+   }
+  }
  ],
  "verdicts": [
   {

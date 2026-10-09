@@ -1,3 +1,17 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [ids never change] SHIPPED as a research page. TAB: VOTE, item AN ID IS A
+PROMISE. Record records/BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.md; instrument tools/bohemia_mods_ids_audit.js.
+MEASURED (main, 11 tables): 725 ids; 59 sit in two tables (50 are perks and their translations on purpose, 9 are
+an enemy and a background with one id); 83 paths / 764 places where one data file points at another table's id
+(enemy faction 66, start men to background 55, listed_in 54); origins 15/15, perks 50/50, perk_translation 50/50
+are ALL also quoted in code (others are an UPPER bound: common words match by chance); ZERO ids contain a colon;
+ALL 725 are lowercase letters, digits, underscore. Concrete: mace_mastery = perks, perk_translation, the fight, a
+gate; gladiator = five data files. POLICY: never rename; retire not delete (proposed retired/replaced_by fields,
+nothing writes them); a mod's new rows are '<modid>:<name>'; base ids stay [a-z0-9_]. The reference merge takes
+--namespace (warn, never block); proof now 20 of 20 (8a-8e), mutation-checked (8b red 19/20 when disabled).
+FINDING: the data alone cannot keep rule 1 because code spells ids too; a gate listing ids code depends on is the
+missing piece and it is a build. NEXT OPEN: [more worked mods], [base changes], [grok sources]. [read count]
+CLAIMED. PENDING Paolo: nothing.
+
 QUESTS (quests-dvybth): 10/9 (g) LATEST -- [fold the last] SHIPPED: QR-AL, QR-U fully folded into its pages. NOT IN A TAB. Next: [lines 31 and 32].
 
 SOUNDS (sound-xk7pjp): 10/9 LATEST (round eight, [the soundscape] round two) -- ***
