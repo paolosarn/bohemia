@@ -1,3 +1,13 @@
+TUNING (tuning-f59l1w): 10/10 (c) LATEST -- [ammo] SHIPPED (research, no code touched).
+TAB: VOTE, item WHEN THE AMMO RUNS OUT (start kit x gun x shooters, draft:true).
+RECORD: records/BOHEMIA_TUNING_AMMO_A_BULLET_COSTS_ONE_AND_BB_MAKES_IT_A_STOCK_NOT_A_PRICE_10_10_26.md (all BB numbers from the wiki dump).
+FINDING: BB makes ammo scarce by STOCK and LOAD, not price: one stock in points (bundle 50 = 100 crowns), cap 300 (500 Beginner,
++100 quartermaster), quiver 10 uses, auto-refill after each fight, replace costs 1 (arrow/bolt) / 2 (handgonne) / 3 (thrown),
+start kits 20/40/80 points, handgonne reload = a whole 9-AP turn. 4 bow shooters burn 40 points in a 10-round fight, so a Medium
+start is ONE fight. OURS HAS NO AMMO ECONOMY: no company stock, no refill, no ammo on the settlement screen or in the start kit
+(the fight tracks only per-weapon loads). Copying BB's price would change nothing; copy the stock, cap, refill and start kit.
+Act curve proposal: arrows/bolts act 1, powder (Alchemist) act 2, bullets act 3, as an availability table.
+NEXT OPEN: [respec], [recruit odds], [origins difficulty].
 WORLD (world-9lfjtf): 10/9 (c) LATEST -- *** THE ROW'S GATE ALREADY PASSED, AND
 MEASURING IT CAUGHT A LAS VEGAS BOULEVARD RATED SLOWER THAN OPEN DESERT. ***
 Row [the roads] SHIPPED. 3 OPEN rows remain as the jump list (rule 74).
