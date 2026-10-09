@@ -14904,6 +14904,34 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 51. [first load] ROUND 3: THE FROZEN FIGHT LEAVES
+THE DEMO, BY THIS LANE'S OWN CUTTER. ***
+Record: records/BOHEMIA_THE_FROZEN_FIGHT_LEAVES_THE_DEMO_10_9_26.md. Row KEPT CLAIMED (rule 6).
+COMBAT aaf6ee2 ([one fight], ONE FIGHT in the suite) proved the demo never opens the frozen fight and routed
+COMBAT_B64's bytes to this row. tools/bohemia_cut_the_demo.js gains step 6: on the demo `const COMBAT_B64=''`
+(one line; die() if the const is missing or under 100,000 chars; notes.frozenFightBytes; a report line). The
+alpha keeps the whole fight. The deploy cuts the same way, so live and committed stay one file (DEMO BUILD).
+Demo page 6.30 -> 3.63 MB text, 2.51 -> 1.19 MB gzipped. MEASURED at 4x, served like Pages, alternating on one
+box: title 5.4/3.5 -> 2.8/2.7 s (goal 2; the clear win),
+NEW GAME ready 96.8/85.0 -> 85.5/81.6 s (inside the noise; the processor, round 2), before ready 29.7 -> 27.1 MB.
+BUILD SIZE (mine): inventory refreshed (33.7 days stale), demo budgets locked 5.20 -> 3.92 MB raw, 1.87 -> 1.29 gz;
+8 red -> 5, the five pre-existing: alpha raw/gz over (it keeps the fight), reachable-from-nothing 305 MB (excavate
+move), biggest block (the fight, in the alpha), inventory vs PAGES PUBLISH disagree on the site size (to chase).
+The one path that could still reach it: cityEncounterIn's fallback if nfOpen THROWS; it now builds a blank frame
+instead of the frozen fight (both a trap; ONE FIGHT watches the door). Other callers read and listed in the record.
+Gates moved with it: BUILD SIZE twin leg subtracts the blob the cut removes (read off both files each run);
+DEMO STALENESS self-test asks the alpha for the fight font (the demo has no copy); FIRST LOAD CEIL_MB lowered.
+Still handed to RUN, unchanged: tools/bohemia_first_load_hunks.py --write (row [load hunks]; 87 -> 67 s).
+NEXT: [proof shots churn] (top OPEN row; churn measured last round: f5b94ea, f318aef). Found this round, read-only:
+three gates write straight into slices/vote/ on EVERY run: settlement_screen_gate.js (RUN2_THE_SETTLEMENT_SCREEN_10_1.png,
+_BARBER_10_1.png and variants), roster_screen_gate.js (RUN2_THE_ROSTER_10_9.png), one_file_loop_gate.js (RUN2_THE_LOOP_*_10_1.png);
+people, camp_dial and lab already take a PROOF_DIR env. The shape: shoot to os.tmpdir() unless asked, and a leg that
+two runs on one tree leave git clean. [first load] round 4 when RUN
+applies the hunks: re-baseline T2 and lower the ceiling again.
+Board notes this round: COOK's kind fixed (note removed); one each for DYNASTY (dynasty-old-body-10-9) and
+TUNING (tuning-how-hard-is-a-killer-10-10), rule 22f; one for RUN: THE LOOP PLAYS ON THE MAP 3/2 on clean main (L4/L5).
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 50. [first load] ROUND 2: THE BOOT BOUND 1,256 BODIES
 AND ONLY 174 WERE DIFFERENT. ***
 Record: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md. Row KEPT CLAIMED (rule 6).
