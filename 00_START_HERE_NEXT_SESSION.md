@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 (b) LATEST -- [the road events] SHIPPED: QR-AG, ten act-one road events as people with priced buttons, YAML spec for RUN. VOTE: one line. NOT IN A TAB. Next job: [the rumour at the bar].
+
 TUNING (tuning-f59l1w): 10/9 (b) LATEST -- [the difficulty steps] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT EACH DIFFICULTY CHANGES (three tables from the wiki, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_DIFFICULTY_STEPS_EXACTLY_10_9_26.md (for the door and COMBAT [the enemy math]).
