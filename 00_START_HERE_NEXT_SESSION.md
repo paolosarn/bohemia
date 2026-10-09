@@ -2073,6 +2073,70 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (c) LATEST -- *** PLUMBER'S BOUNCE-BACK FIXED FIRST, THEN THE
+FREEWAY KIT. ***
+
+1. PLUMBER'S BOUNCE-BACK, FIXED THE ROUND IT WAS READ (rule 8: his bugs beat the queue).
+VOTE TAB was red on my settlement sheet: its kind was 'place', which the registry does not
+have. It is 'tile' now and the kind leg is green; the one red left on that gate names
+dynasty-the-frame-10-9, tuning-what-a-respec-costs-10-10 and mods-how-big-is-too-big-10-10,
+none of them this lane's.
+*** AND IT WAS THE SECOND TIME THIS LANE INVENTED A KIND. *** The two far-end items went in
+as 'map' and somebody else had already corrected them to 'tile' before I ever saw it. The
+registry's kinds are song, sound, face, haircut, outfit, tile, animation, line, ui, verdict,
+redo. A kind is a closed list, not a label to coin, and this lane coined two.
+
+2. [the settlement pictures finished] CLOSED, with RUN TWO named as the taker.
+
+3. [the board props] CLAIMED and round 1 shipped: THE FREEWAY KIT, which rule 77a puts
+first. tools/bohemia_the_freeway_kit_cook_10_10_26.py,
+banks/BOHEMIA_THE_FREEWAY_KIT_10_10_26.txt,
+records/BOHEMIA_THE_FREEWAY_KIT_MEASURED_10_10_26.txt, VOTE cook-the-freeway-kit-10-10.
+TAKER: COMBAT TWO, and the bank carries its own how_to_use.
+
+*** THE FIRST THING THIS ROUND DID WAS OPEN ITS OWN CUPBOARD, AND FOUR OF THE SIX WERE
+ALREADY IN IT. *** REUSE-FIRST is a law, not a preference:
+  REUSED  the 9/30 jersey barrier, laid as a RUN of four with keyed ends
+  REUSED  the 9/30 chain-link, doubled into a 12 m shoulder fence
+  REUSED  the 9/30 trailer, with a new tractor unit in front of it
+  REUSED  HIS OWN 7/28 wreck_road, BURNED rather than redrawn
+  NEW     the freeway lamp: a 9 m mast with a cantilever arm and a cobra head
+  NEW     the sign gantry: a truss on two legs, panels draft:true (what a sign says is his)
+So three things were drawn, not six, and every reused piece names what it came from.
+
+RULE 77 IS MEASURED, NOT DECLARED. Every piece names what runs out of its four sides, and
+then THE GATE LAYS TWO OF EACH RUN END TO END AND MEASURES THE JOINT against the inside of
+the piece: barrier 0 against 18, fence 84 against 45. A declared edge that does not actually
+meet is a label, not a joint, and a barrier run whose ends do not key is six barriers.
+
+COVER OR BLOCKER IS MEASURED AGAINST A CHEST AT 1.30 m, NOT FILED BY EYE (this lane's 9/30
+round filed two wrong by eye and the tape corrected it): the barrier run is 0.81 and is
+COVER; the fence is 1.83 and is a BLOCKER YOU CAN SEE THROUGH, which is the only reason to
+put one on a board -- you know what is coming and still cannot get to it; the truck is 2.80.
+
+*** FOUR THINGS CAUGHT, TWO BY GUARDS AND TWO BY LOOKING AFTER THE GREEN: ***
+ 1 the lamp head's soft alpha blended against nothing and invented 52 colours that are on
+   nobody's ramp. The mask is hardened to 0 or 255, so every pixel kept is a pixel he drew.
+ 2 THE GANTRY'S EDGES WERE A WRONG LABEL. I typed E and W 'gantry', which claims a gantry
+   RUNS end to end, and the joint measured twelve times the inside. The measurement was
+   right and the label was wrong: a sign gantry is ONE SPAN over the lanes. Naming the edges
+   'air' is not dodging the test, it is the piece telling the truth about itself.
+ 3 THE TRUCK READ AS ONE LONG TAN BOX, because the cab was dressed in the same wall cells as
+   the trailer -- fifteen metres of identical tan is a shipping container, not a truck. A
+   tractor unit is PAINTED METAL on the asphalt ramp, with a windscreen across its nose,
+   stacks either side and A GAP AT THE FIFTH WHEEL where the cab ends and the trailer begins.
+ 4 THE LAMP HEAD WAS A BLOB -- the top third of his street lamp hung on the arm, which from
+   above reads as a bird on a wire. It is a cobra head lying along the arm now, lit on top
+   with a pale lens underneath, which is the bit that says lamp.
+
+AND THE 10/1 CORRECTION IS CARRIED FORWARD: every piece ships its FOOTPRINT (w x l, what it
+covers on the ground) separately from its FACE (the picture), so COMBAT TWO can place it on
+their pitched board without squashing a finished picture -- which would resample every one
+of his pixels, the exact fault the far-end round was about.
+
+NEXT IN THIS LANE: the rest of [the board props] -- the six building types' props (church,
+school, gas station, motel, warehouse, casino back), then [settlement art].
+
 COOK (cook-mce6r5): 10/10 (b) LATEST -- *** THE SETTLEMENT PICTURES, FINISHED. I did not
 draw a settlement; I finished COMBAT TWO's. ***
 Shipped: tools/bohemia_the_settlement_pictures_finished_cook_10_10_26.py,

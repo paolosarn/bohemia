@@ -6358,7 +6358,20 @@
     "src": "records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_GROUND_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 61.\n\nSeen in: not drawn yet, feeds TUNING and LIFE+CITY."
    }
   },
-  {"id": "animation-the-shot-kicks-10-9", "kind": "animation", "lane": "animation", "sha": "9a9402a", "made": "10/9", "title": "THE SHOT KICKS", "why": "In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the clip table, NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_SHOT_KICKS.html"}, "said": "re-create Battle Brothers combat", "draft": true}
+  {"id": "animation-the-shot-kicks-10-9", "kind": "animation", "lane": "animation", "sha": "9a9402a", "made": "10/9", "title": "THE SHOT KICKS", "why": "In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the clip table, NOT IN A TAB YET).", "show": {"how": "page", "src": "vote/ANIMATION_THE_SHOT_KICKS.html"}, "said": "re-create Battle Brothers combat", "draft": true},
+  {
+    "id": "cook-the-freeway-kit-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE FREEWAY KIT",
+    "why": "The freeway kit: a barrier run, a see-through shoulder fence, a freeway lamp, a sign gantry, a stalled truck and a burned car, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six laid on the asphalt they belong on.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FREEWAY_KIT.png"
+    }
+  }
 
  ],
  "verdicts": [
