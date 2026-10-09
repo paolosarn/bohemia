@@ -6440,6 +6440,19 @@
    "how": "page",
    "src": "vote/PORTRAIT_HAIRSTYLES_MATCH.html"
   }
+ },
+ {
+  "id": "portrait-the-whole-crowd-matches-10-9",
+  "kind": "face",
+  "lane": "portrait",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "THE WHOLE CROWD MATCHES",
+  "why": "Every citizen in the valley got a random hair texture on their portrait instead of their real one; 76 of 82 textured citizens disagreed with their own body. Fixed and shipped, not a vote -- you see it in the VOTE tab as proof.",
+  "show": {
+   "how": "page",
+   "src": "vote/PORTRAIT_THE_WHOLE_CROWD_MATCHES.html"
+  }
  }
  ],
  "verdicts": [

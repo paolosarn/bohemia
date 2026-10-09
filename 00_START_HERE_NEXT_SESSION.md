@@ -173,60 +173,61 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
-PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST -- *** [hairstyles match] SHIPPED:
-THE FACE MAKER WAS DROPPING TWO OF SIX HAIR DIALS. His direct word, not a
-queued row: "can I get hairstyles that match the hairstyles we have on the
-characters like what's going on, bro." Record: records/BOHEMIA_HAIRSTYLES_
-MATCH_10_9_26.md. TAB: VOTE (portrait-hairstyles-match-10-9).
+PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST (round two) -- *** [hairstyles match]
+ROUND TWO SHIPPED: THE SAME BUG, AT THE WHOLE CROWD'S SCALE. While folding last
+round's face-maker fix back in (it had sat orphaned 61 commits), re-reading
+faceFor() -- the function that draws EVERY citizen's portrait, not just the
+player's own -- found the identical mistake, much bigger: hair texture was
+rolled at random for every person in the valley, never read from the body.
+Record: records/BOHEMIA_THE_WHOLE_CROWD_MATCHES_10_9_26.md.
+TAB: VOTE (portrait-the-whole-crowd-matches-10-9, already shipped, the card is proof).
 
-MEASURED FIRST: the HAIRCUT picker shows the right 11 names, live off the
-same GARMENTS list the body wears -- but clicking one only ever copied 4 of
-the 6 dials hairDialsFor() returns (side/front/vol/flare, never tex or
-fade). Rendered all 11 on the same crowd face: average pixel-mask overlap
-63%, worst pair 93% identical (TEMPLE TAPER / DRY TAPER).
+MEASURED: 300 crowd citizens, 82 wearing one of the three canon cuts with a real
+texture (ropes, locs), 76 of 82 (93%) showed a portrait texture that disagreed
+with their own body. FIX: one line, reading the SAME hairDialsFor() result the
+braid sentinel two lines below it already computes, instead of rolling fresh.
+AFTER: 82 of 82 match. PROVED SAFE: his own face never runs through this
+function at all; hashed 218 untextured citizens before and after anyway, 0
+differences.
 
-TWO REAL CAUSES: three cuts carry a fade value (how hard the sides taper)
-the portrait never read, so they collapsed to the same cap; DUST WEAVE
-carries tex:'braid' and the portrait's texture dispatch never named it, so
-it silently drew no texture at all.
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
+20/0, portrait_matches_body 11/0, vote_tab 31/1 (pre-existing, three other
+lanes' items, not mine).
 
-THE FIX: the click handler now copies tex and fade too; the texture
-dispatch now matches 'braid' (routed through the existing locs pattern); a
-new fade effect tapers the hair's sides inward proportional to the fade
-value, crown left alone. Guarded on h.fade being a real number, so his own
-approved face (no fade field) computes the identical byte it always has --
-checked on talking_portrait (34/0) and family (17/0), both unmoved.
+ALSO THIS ROUND: landed the orphaned [hairstyles match] round-one work onto
+current main (6+ rebase cycles two rounds ago never won the push race; this
+round's rebase succeeded onto a 61-commit-newer main after two cycles). Did
+the new rule 80 duty (the [better than bb] line, first round running under
+it) in records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md, entry 19.
 
-AFTER: average overlap 63% -> 59%, worst pair 93% -> 89% (now CURTAIN CUT /
-HEAVY FRINGE). GATES: talking_portrait 34/0, portrait_haircut 15/0, family
-17/0, face_maker 16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0,
-craft_law 39/0, alpha_loads 20/0, portrait_matches_body 11/0, vote_tab
-31/1 (pre-existing, a TUNING/Grok item's own missing where-you-see-it line,
-not mine), character_in_the_vote_tab 8/1 (pre-existing, CHARACTER's own
-[barber] item, not mine).
+PUSH-TO-MAIN STATUS: attempted once this round after landing both fixes,
+lost the race (clean non-fast-forward, no 403 -- confirms the push mechanism
+itself works, it is purely a timing race against other lanes' cadence). Did
+not chase it through repeated cycles this round; the session branch is fully
+current and that is what the harness instructions name as this session's
+actual push target. If a future round has spare time, one or two quick
+attempts right after a rebase are worth it, but burning the whole round on
+the race is not -- two rounds ago cost six cycles and still lost.
 
-NOT DONE, NAMED HONESTLY: several pairs (CURTAIN CUT/HEAVY FRINGE, SHAG/
-COIL CROWN, ROPE LOCKS/LAYERED FALL) still overlap heavily -- no fade, no
-distinguishing tex, a side/front/vol spread too narrow for this renderer's
-vocabulary. Closing that needs more texture variety or a real shape
-primitive, named as the honest next line on the row if picked up again.
+NEXT ROUND, FIRST MOVE: [the enemy faces] (top OPEN jump-list row). Scoped
+this round, not built: CHARACTER's [the enemy tiers dressed] already defines
+the six brigand tiers (thug/poacher/marksman/raider/leader/marauder) against
+FACTION_LOOKS, which carries each tier's real worn.hair cut name -- the exact
+same shape of data [matches body] already requires. The gap: faceFor() always
+resolves hair via BOH_PERSONLOOK.lookFor(id,...), keyed to a real NPC id, and
+there is no NPC id for a faction tier (NPC_FACTORY.npcFrom only knows random
+crowd seeds). Clean fix: extend faceFor()'s `over` parameter with a direct
+hair-name override (same pattern over.kin/over.age already use), used only
+when explicitly passed so nothing existing moves. The row also asks for "the
+leader's face the one you remember" -- [three d look]'s existing opts.threeD
+flag (still off by default, still unshipped to the play surface) is sitting
+right there to reuse for exactly that, not a new mechanism. "Chipped bodies'
+faces wrong in the way the lore says" is NOT the six brigand tiers (all
+human) -- likely a later, not-yet-built robotic/ancient_dead category; named
+honestly as out of this row's scope rather than guessed at.
 
-ALSO FOUND, NOT ACTED ON: round G's [blank faces] hair-volume work (the
-opts.threeD hair-shading sweep) never reached main -- pushed to the session
-branch twice, both times orphaned, confirmed by git merge-base. [three d
-look] and [speak along] DID land (1f724384, d47bcd9b are real ancestors of
-main), so direct pushes to main are not a hard block for this session; the
-round-G push likely lost a race against another lane mid-fast-push-cadence
-and was never retried. Tagged the orphaned work (round-g-orphaned-work ->
-ab6ec6a2) before resetting the branch to current main rather than fighting
-a 293-commit-stale rebase; the hair-volume content itself is superseded by
-nothing (nobody else touched PORTRAIT's hair code in the gap) and can be
-re-applied from that tag in a future round if he asks for it. This round's
-ship attempt retries the push-to-main flow properly instead of giving up
-after one 403/race.
-
-PENDING PAOLO: none new this round -- a direct bug report, answered the
-same round, no fork for him to pick.
+PENDING PAOLO: none new this round.
 
 TUNING (tuning-f59l1w): 10/10 (e) LATEST -- [recruit odds] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW HARD IS A KILLER (a star-bar slider, draft:true).

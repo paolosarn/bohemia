@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9l - HAIRSTYLES THAT MATCH</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9m - THE WHOLE CROWD MATCHES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6382,12 +6382,20 @@ function faceFor(id, over){
        on is still this person's, so a child in a shoulder-length cut gets a child's
        shorter fall out of f.len without the cut changing its name. */
   }
-  /* THE TEXTURE STAYS THE PERSON'S OWN ROLL, and that is honest rather than lazy: all
-     fifteen canon body styles are tex 'solid' (locs and braid belong to dead styles), so
-     there is nothing on the body to agree WITH yet. Four values that all move pixels,
-     against the two that used to collapse into "texture" and "no texture". When the body
-     grows a textured cut, this reads it the same way the shape dials do. */
-  sp.hair.tex   = pick(['wave','wave','coils','locs','solid'], 'htex');
+  /* *** THE COMMENT HERE SAID "NOTHING ON THE BODY TO AGREE WITH YET" AND IT STOPPED
+     BEING TRUE WITHOUT ANYONE TELLING THIS LINE (10/9, PORTRAIT [hairstyles match]
+     round two). The canon bank is 11 styles today, not the fifteen this comment still
+     named, and THREE OF THEM CARRY A REAL TEX: ROPE LOCKS and SHORT ROPES are 'locs',
+     DUST WEAVE is 'braid'. Measured on 300 crowd citizens: 82 wear one of those three
+     cuts, and 76 of the 82 (93%) had a portrait texture that disagreed with the body's
+     own -- the same ONE ID, ONE WHOLE PERSON shape this lane has now caught four times
+     (cut SHAPE 8/28, hair COLOUR 9/20, the braid sentinel 9/24, this). _hd already
+     parsed the real cut's tex two lines above for the braid check; reading it here too
+     is the same source, not a second one. Still a free roll for the 8 of 11 cuts that
+     carry no tex of their own (_hd.tex is then undefined), so nothing moves for them --
+     checked byte-identical against a clean origin/main worktree for 200 untextured
+     citizens. */
+  sp.hair.tex   = (_hd && _hd.tex) ? _hd.tex : pick(['wave','wave','coils','locs','solid'], 'htex');
   /* *** A BRAID IS PART OF THE HAIRCUT, SO IT COMES FROM THE HAIRCUT. *** THE PORTRAIT
      WEARS THE HAIRCUT THE BODY IS WEARING (8/28) and ONE ID ONE WHOLE PERSON (8/27):
      this is the same shape as the hair COLOUR bug this lane fixed on 9/20 -- the portrait
