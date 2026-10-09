@@ -1,0 +1,17 @@
+{
+ "_about": "THE BAR'S RUMOURS (RUN TWO [the bar], rule 80c: the bar is where you hear what a faction wants; Battle Brothers' tavern rumours that mark the map). One is told per round bought, never the same twice in a visit. kind: place (a mark on the map, 'mark' names it), faction (what an outfit is about to do), gear (where good gear is, WORLD [where the god gear is]). draft:true words, Spanglish from the keeper's mouth; WORDS owns the voice, QUESTS and WORLD feed this file.",
+ "rumours": [
+  {"id": "pump_runs_at_night", "kind": "place", "mark": "PUMP CAMP", "draft": true,
+   "says": "They say the pump on Lake Mead Boulevard still runs at night. Nobody admits to paying for it."},
+  {"id": "road_crew_corner", "kind": "faction", "faction": "road crew", "draft": true,
+   "says": "Road crew took the corner by the wash again. Six of them, one with a pistol, the rest pipes. They want the whole wash by the end of the month."},
+  {"id": "tagged_dog", "kind": "place", "mark": "THE TOWER", "draft": true,
+   "says": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab, pues."},
+  {"id": "copper_buyer", "kind": "faction", "faction": "the caravans", "draft": true,
+   "says": "Somebody is buying copper by the Strip and paying in real batteries. The caravans are about to make a move on it. Too good, if you ask me."},
+  {"id": "riot_gear_cache", "kind": "gear", "mark": "COPPER SHEDS", "draft": true,
+   "says": "The old riot squad left a locker in the copper sheds. Full plate, if the rats did not get it. Nobody goes because of what lives there."},
+  {"id": "church_wants_water", "kind": "faction", "faction": "the church", "draft": true,
+   "says": "The church wants the water rights at the fort. They are paying anybody who walks a cart for them, and paying worse to anybody who gets in the way."}
+ ]
+}
