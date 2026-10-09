@@ -5874,7 +5874,8 @@
    },
    "asked": "UP or DOWN",
    "draft": true
-  }
+  },
+  {"id": "people-good-bros-10-9", "kind": "tile", "lane": "people", "sha": "8f060a5", "made": "10/9", "title": "GOOD BROS AT THE POST", "why": "Six real recruits, rolled fresh every time from the wiki's own stats and prices, not made up. Real names on them too, from the same system every person in this game already gets one from.", "show": {"how": "page", "src": "BOHEMIA_GOOD_BROS_10_9_26.html"}}
  ],
  "verdicts": [
   {

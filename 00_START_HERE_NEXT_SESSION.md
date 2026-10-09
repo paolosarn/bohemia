@@ -18008,6 +18008,30 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/9 (b) LATEST -- *** [good bros] SHIPPED. SIX REAL
+RECRUITS AT THE POST, REAL WIKI STATS AND PRICES, A SELF-CAUGHT CROWNS-VS-
+BATTERIES BUG FIXED BEFORE IT SHIPPED. ***
+TAB: VOTE, item GOOD BROS AT THE POST (no settlement screen to host it on yet).
+Record: records/BOHEMIA_GOOD_BROS_10_9_26.txt.
+
+Six real Battle Brothers backgrounds (the ones of 77 with a real observed hire-cost
+range, not a formula guess), real stat ranges, Grok's real star mechanic (60/30/10).
+Caught my own bug before shipping: first draft showed the raw crown roll labelled
+"batteries" (a farmhand would have shown 175 instead of the real ~18); fixed to
+convert at the ten-to-one rate, and also caught that the real daily wage was about
+to get charged when the row says "bought once, 0 a day" -- same fix rule 56 already
+made on the retinue, caught this time before it shipped wrong.
+
+Real names on every recruit, from the same name-mix system every citizen already
+uses -- added as PEOPLE's rule-80 "better than Battle Brothers" line: a recruit is
+a person first, a recruit second.
+
+NOT BUILT: traits (no master trait list exists anywhere in this codebase, checked
+not assumed); the actual hire-and-join screen (RUN TWO's, not built yet); a real
+company bond for a hire (bohemia_company.js's membership is computed from bonds and
+witnesses, never a second roster -- naming the right hook is next, not faking one).
+Gate 43/0, new. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/9 LATEST -- *** [followers] CORRECTED, ROOT CAUSE: HIS
 "BOUGHT ONCE, NO WAGE" RULING SAT UNFIXED A ROUND; FIXED, AND THE REAL SIX ROLES
 REPLACE FOUR GUESSED ONES NOW THAT GROK ANSWERED. ***
