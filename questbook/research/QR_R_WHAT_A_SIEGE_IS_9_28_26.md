@@ -1,6 +1,7 @@
 # QR-R: WHAT IS A SIEGE OF ONE OF OUR HOME BASES, AS PLAY?
 
 STATUS: draft:true, research only, nothing built (rule 35). Letter R, row [the siege], round 9/28.
+FOLDED 10/9 (QR-AK): QR-U rule 21 and the sharpens of rules 6, 12 and 13, at the end of THE RULE FOR THE BUILDING LANES, each marked in place.
 Written for RUN, WORLD, FACTIONS, COMBAT, PEOPLE, WORDS, ECONOMY, TUNING and DYNASTY. Every name and identity choice is Paolo's.
 Governing rulings: laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s5 (FOURTEEN HOME BASES AND ROAMING PARTIES, NOT
 TERRITORY: "a home base can be attacked: taken or ruined; the hard ones late in an act; a SIEGE is a research
@@ -333,6 +334,18 @@ place or thing that shows it. For a fall, in the order the player will usually m
     history. (`Q148.W3`, `Q148.P4`, `Q148.X3`)
 20. The Amalgamation does not besiege. Sieges are the Destroyers' (act 1), the factions' and the roaming parties'.
     (`Q085.P7`, canon)
+
+21. HOW YOU HOLD BRANCHES. (folded 10/9 from QR-U) Reform is tested by defence, not peace (`Q197.W1`); the old skills come back
+    (`Q197.W3`); how you win matters (`Q197.W6`); the manner of the defence produces different outcomes (`Q197.P4`);
+    the second chance can be lost or betrayed (`Q197.W9`). Rule 10's HELD gains a second axis: held as themselves, or
+    held hardened (burned the approach, armed the children, took the attackers' stores). Test: the two HELD states
+    write different next situations for the base (`Q197.X3`), and the theme is never bypassed as a firefight
+    (`Q197.X1`). Which acts count as hardened, and whether the fight board shows them, is COMBAT's call.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rules 12 and 13 (a fall is shown; it opens contracts): a fall is written as what the attackers did; the player's
+  failure is never the headline, even when his contract failed (`Q235.W2`).
+- Rule 6 (the WAY OUT post): two known people in lethal danger at once, one save, lives here (`Q226.P1`).
 
 ## WHAT TO AVOID (flaw ids)
 

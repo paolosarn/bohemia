@@ -48,6 +48,7 @@ function fieldTypes(rows) {
   for (const r of rows) for (const [k, v] of Object.entries(r)) { if (v === null) continue; (t[k] = t[k] || new Set()).add(typeOf(v)); }
   return t;
 }
+let RANGES = null;   /* optional draft ranges (tools/bohemia_mods_ranges_draft.js): out of range is a WARNING, never a block */
 function patchTable(baseTbl, patch, log, where) {
   const byMap = !Array.isArray(baseTbl);
   const rows = byMap ? Object.values(baseTbl) : baseTbl;
@@ -61,6 +62,9 @@ function patchTable(baseTbl, patch, log, where) {
       if (!types[k]) { log.push(['warn', where + '.' + id + '.' + k + ': no row in the base has this field. Ignored.']); continue; }
       if (v !== null && !types[k].has(typeOf(v))) { log.push(['bad', where + '.' + id + '.' + k + ': wants ' + [...types[k]].join(' or ') + ', got ' + typeOf(v) + '. The whole row change is skipped.']); ok = false; break; }
       next[k] = v;
+      const rg = RANGES && RANGES[where.split('.')[0] + '.json'] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')][k];
+      if (rg && typeof v === 'number' && (v < rg.min || v > rg.max)) log.push(['warn', where + '.' + id + '.' + k + ': ' + v + ' is outside every base row (' + rg.min + ' to ' + rg.max + '). Applied; check it is meant.']);
+      if (rg && typeof v === 'number' && v < 0 && rg.never_negative_in_the_base) log.push(['warn', where + '.' + id + '.' + k + ': no base row is ever negative.']);
     }
     if (!ok) continue;
     if (!cur) {
@@ -119,7 +123,8 @@ function order(mods, log) {
   mods.forEach(m => visit(m, []));
   return out;
 }
-function merge(modsDir) {
+function merge(modsDir, opts) {
+  RANGES = (opts && opts.ranges) || null;
   const base = loadBase(), baseHash = hash(base), log = [];
   const r = readMods(modsDir); log.push(...r.log);
   const owner = {};
@@ -138,7 +143,8 @@ module.exports = { merge, loadBase, hash };
 if (require.main === module) {
   const dir = process.argv[2];
   if (!dir) { console.error('usage: node tools/bohemia_mods_merge_reference.js <modsDir>'); process.exit(2); }
-  const r = merge(path.resolve(dir));
+  const withRanges = process.argv.includes('--ranges');
+  const r = merge(path.resolve(dir), withRanges ? { ranges: require('./bohemia_mods_ranges_draft.js').ranges } : undefined);
   if (process.argv.includes('--json')) { console.log(JSON.stringify({ hash: r.hash, baseHash: r.baseHash, changed: r.changed, log: r.log }, null, 1)); process.exit(0); }
   console.log('base ' + r.baseHash + '  merged ' + r.hash + '  ' + (r.changed ? 'CHANGED' : 'IDENTICAL') + '  (' + r.mods + ' mods)');
   r.log.forEach(l => console.log('  ' + l[0].toUpperCase().padEnd(4) + ' ' + l[1]));

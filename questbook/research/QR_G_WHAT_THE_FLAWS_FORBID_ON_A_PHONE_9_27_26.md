@@ -4,6 +4,7 @@ QUESTION: row [phone flaws], question (f). Read the FLAWS master (questbook/BOHE
 
 STATUS: draft:true, research only, nothing built (rule 35). Author: QUESTS lane, writer G, round 9/27.
 FOLDED 10/1 (QR-AB): checklist lines 29 and 30 (QR-U, QR-X), THE HOUSE RULE under line 30 (QR-X), a note on line 21, lines 31 and 32 (QR-U, judged well-founded), and OPEN 2 (rule 51). Each edit is marked in place.
+FOLDED 10/9 (QR-AK): line 21 exempts an event's or main beat's ONE stated temptation with its number on the button (QR-X house rule, QR-L P16); five QR-AC bends now pass. Marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -256,7 +257,7 @@ A builder answers every line YES or the item does not ship. Each line cites the 
 18. If it plants something for another act, does the other act show the landing on arrival and have a full read if the plant was never set? (`Q121.X1`, `Q022.X2`, `Q096.X1`)
 19. Is it offered after the first minute, and does it introduce at most one new faction name and one new system? (`Q065.X2`, `Q081.X4`, `Q051.X1`)
 20. Does every choice write a different ledger line, and do at least two choices lead to different next states? (`Q040.X1`, `Q126.X6`, `Q152.X2`)
-21. Does the crueller branch pay the same or less, with no number shown and no batteries lying by a body? (`Q130.X9`, `Q121.X2`, `Q125.X7`) (folded 10/1 from QR-X: "no number shown" binds CONTRACTS; on a road event or a main beat, ONE stated temptation may carry its number on the button, per THE HOUSE RULE under line 30 and QR-L P16.)
+21. Does the crueller branch pay the same or less, with no number shown and no batteries lying by a body? (`Q130.X9`, `Q121.X2`, `Q125.X7`) (folded 10/1 from QR-X: "no number shown" binds CONTRACTS; on a road event or a main beat, ONE stated temptation may carry its number on the button, per THE HOUSE RULE under line 30 and QR-L P16.) (amended 10/9 from QR-U, QR-AK, closing QR-AC OPEN 1:) EXEMPT: an event's or a main beat's ONE stated temptation, with its number on the button and the other side fully built (QR-X's house rule, QR-L P16, `Q166.W4`, `Q204.X3`, `Q148.W8`), PASSES this line; it is no longer a bend. A first-minute silent choice whose price is a thing the player is shown (a dark lamp, a dark house) reads the same way (`Q143.W8`, `Q050.W4`). Contract fee rows stay bound: no number shown, the crueller branch pays the same or less.
 22. When it finishes, does the world show it (a feed post, a line, a changed prop)? (`Q078.X2`, `Q130.X10`, `Q131.X2`, `Q146.X1`)
 23. Is the emotional scene reachable without a mandatory fight, and does a lost fight lead to a result, not a reload? (`Q095.X3`, `Q098.X2`, `Q017.X1`)
 24. Is the kindest ending reachable with no boss verb? (`Q123.X2`, `Q120.X1`)

@@ -46,6 +46,16 @@ fs.writeFileSync(path.join(o, 'knife-harder-still', 'weapons.json'), JSON.string
 const ro = merge(o);
 ok('5a the mod that loads later wins', ro.data['weapons.json'].rows.find(r => r.id === 'knife').damage_min === 25);
 ok('5b the conflict is named', ro.log.some(l => l[1].startsWith('CONFLICT')));
+/* 7 the draft ranges WARN and never block: a knife at minus 5 loads, with a warning; a knife at 20 does not warn */
+const { ranges } = require('./bohemia_mods_ranges_draft.js');
+const neg = tmp(); fs.mkdirSync(path.join(neg, 'neg'));
+fs.writeFileSync(path.join(neg, 'neg', 'manifest.json'), JSON.stringify({ id: 'neg', name: 'Neg', version: '1', schema: 1 }));
+fs.writeFileSync(path.join(neg, 'neg', 'weapons.json'), JSON.stringify({ rows: { knife: { damage_min: -5, damage_max: 999 } } }));
+const rn = merge(neg, { ranges });
+ok('7a a knife at minus 5 and 999 gets warnings', rn.log.filter(l => l[0] === 'warn' && l[1].includes('outside every base row')).length >= 2 && rn.log.some(l => l[1].includes('ever negative')));
+ok('7b ...and still loads (a warning is not a block)', rn.data['weapons.json'].rows.find(r => r.id === 'knife').damage_min === -5);
+ok('7c a knife at 20 to 30 gets no range warning', !merge(g, { ranges }).log.some(l => l[1].includes('outside every base row')));
+ok('7d without ranges there is no range warning at all', !merge(neg).log.some(l => l[1].includes('outside every base row')));
 /* 6 no play surface asks for a mods folder: nothing in the game loads one (his 9/30 NAH) */
 const surfaces = ['slices/BOHEMIA_DEMO.html', 'slices/BOHEMIA_ALPHA_0_9.html', 'slices/BOHEMIA_FIGHT.html', 'slices/BOHEMIA_CITY_WORLD.html'];
 const asks = surfaces.filter(f => /fetch\(\s*['"`][^'"`]*\bmods\//.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));

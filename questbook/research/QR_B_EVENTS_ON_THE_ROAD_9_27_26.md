@@ -1,5 +1,6 @@
 # QR-B: WHAT AN EVENT ON THE ROAD SHOULD BE
 QUESTIONS LANE (chat 19), research only, round 9/27. Row [bb events], question (a). Nothing here is built (rule 35).
+FOLDED 10/9 (QR-AK): QR-U rules 13, 14 and 15 and the sharpens of rules 4, 7, 8 and 11, at the end of THE RULE FOR THE BUILDERS, each marked in place.
 Written for RUN, WORLD, PEOPLE and WORDS, who build events when the map exists. Every id below resolves in
 records/BOHEMIA_QUESTBOOK_LAW_INDEX.json. Teardowns are cited as "teardown #N" from
 laws/BOHEMIA_ADDENDUM_BEST_QUESTS_COLLECTION_7_13_26.md. The Battle Brothers facts are from
@@ -328,6 +329,27 @@ seen once act 3 has unlocked.)
 10. Prices scale with what the company carries, so a full wallet never makes an event free. (`Q065.X1`, `Q044.W4`)
 11. Any batch of ten written events spans at least three tones. (`Q114.N4`, `Q013.W2`)
 12. Each event carries ONE wrong detail (analog horror), said plainly, never explained.
+
+13. A COMIC EVENT CARRIES ONE STRAIGHT BEAT. (folded 10/9 from QR-U) One witness in the farce whose grievance aches (`Q153.W6`), one
+    grievance that sticks (`Q153.P3`); the flaw is the joke swallowing the ache (`Q185.X1`, `Q204.X1`). Test: a comic
+    event has one choice or outcome line whose words are not a joke.
+14. URGENCY IS IN THE SITUATION, NEVER A TIMER ON THE EVENT SCREEN. (folded 10/9 from QR-U) The clock removes deliberation (`Q226.W4`); a
+    clock that is the only thing forcing the choice is a gimmick, the impossibility must be structural (`Q226.X3`); a
+    body-count clock must compel, not crush (`Q206.X2`, `Q206.P3`). Test: no countdown on any event screen; "wait and
+    see" exists and costs what the situation says (the water rises, the party passes).
+15. THE QUIET ENCOUNTER HAS NO REWARD, AND IT VARIES. (folded 10/9 from QR-U) No loot, no plot, the reward is the person (`Q202.W1`);
+    walking away costs nothing mechanical and misses everything human (`Q202.W5`); the unflagged is the point
+    (`Q202.W9`). Lives must be funny, prickly, boring, evasive, not always the lonely sad story (`Q202.X2`); listening
+    that is only clicking can be faked (`Q202.X3`). Test: presence is a CHOICE with a cost in map time (stay the night,
+    share the fire), never a gate on reading; no two quiet encounters in a batch of ten share a mood.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 4 (no dominant choice): the greedy button pays enough to hurt to refuse; a cartoonish price tempts nobody
+  (`Q204.X3`); an obviously wrong bargain is no choice (`Q161.X3`, `Q157.X1`). The number sits on the button (QR-L P16).
+- Rule 7 (a delayed consequence is telegraphed): one thing in the scene says this matters, or it lands as a gotcha
+  (`Q187.X1`).
+- Rule 8 (a lost ambush continues): the loss is written as what THEY did, never the player's failure (`Q235.W2`).
+- Rule 11 (tone range): the comic among the grim relieves and sharpens the dread (`Q153.W10`, `Q163.W9`, `Q185.W8`).
 
 ## WHAT TO AVOID (the flaw ids, in one place)
 `Q044.X1` pure random, `Q041.X1` dice misery, `Q065.X4` unfair luck, `Q061.X4` parties from nowhere, `Q107.X1`

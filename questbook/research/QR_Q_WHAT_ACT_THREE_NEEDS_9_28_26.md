@@ -3,6 +3,7 @@
 QUESTION: row [third shelf]. Bohemia is about 100 hours and its third act (Gen 3, the Angel era, the rocket, the Network crumbling) is the thinnest shelf in the design library. What does the 152-quest library say the late game of a long game needs: escalation, the payoff of early choices, endgame side content, and not running out of reasons to play? Cite by id.
 
 STATUS: draft:true, research only, nothing built (rule 35). Author: QUESTS lane, writer Q, round 9/28.
+FOLDED 10/9 (QR-AK): QR-U rules 13 to 17 and the sharpens of rules 2, 9 and 12, at the end of THE RULE FOR THE BUILDERS, each marked in place.
 
 ## THE ANSWER IN ONE PARAGRAPH
 
@@ -101,6 +102,30 @@ The library's loudest verdict on late games is a complaint, repeated across a do
 10. THE TWIST IS RATIONED IN ACT 3 TOO. At least two of every three act 3 contracts are plain jobs. (`Q148.X3`)
 11. NO COMBAT GAUNTLET CLIMAX. The last hours stay contracts, people and choices; fights are on the fight board as everywhere else, never a corridor of them. (`Q039.X4`, `Q017.P9`)
 12. THE MAIN CHARACTER NEVER DIES; OTHERS DO, LEGIBLY. Company deaths in late set pieces follow rule 36 (20% dead, else 30 to 40 days hurt) and are readable consequences of assignment. (`Q006.P4`)
+
+13. THE ROCKET IS A FAITH NOBODY CAN CHECK. (folded 10/9 from QR-U) The destination is unverifiable (`Q190.W1`); the launch is real, the
+    dream achievable and fatal, not a fizzle (`Q190.W5`); faith aimed at what you cannot verify before you commit
+    (`Q190.W6`); the throttle on a doomed faith (`Q190.P1`); one believer is known (`Q190.P4`). Test: the launch is not
+    the path that simply pays best (`Q190.X1`, QR-G line 30).
+14. THE ONE-WAY TRIP IS A GOODBYE, AND THE GOODBYE IS CORRECT. (folded 10/9 from QR-U) The closeness is the goodbye (`Q188.W1`); leaving
+    is right, not a problem to solve (`Q188.W3`); even the happy path carries the cost (`Q188.W8`, `Q188.P2`); saving
+    your home costs your home (`Q228.W2`), paid in belonging (`Q228.W8`). Test: the exile honours the home's logic in a
+    line, or it reads as cruelty (`Q228.X1`).
+15. THE NETWORK IS A PARADISE WHOSE EXIT IS DEATH. (folded 10/9 from QR-U) The paradise is the prison (`Q212.W1`); liberation and
+    mercy-killing are one act (`Q212.W2`); the residents are neighbours, named (`Q212.W9`, port `Q212.P1`); rewriting a
+    mind keeps the body and kills the self (`Q191.W3`); the consumed testify in their own voices (`Q156.P3`); the
+    archive of the dead bargains (`Q175.W1`). Test: the Network crumbling is these people, never a boss.
+16. MASTERY IS NOT THE REWARD. (folded 10/9 from QR-U) Total accomplishment as its own ending (`Q216.W1`); the master at the end of the
+    player's road reports it hollow (`Q216.W6`); a refusal needs a felt consequence (`Q216.X2`, `Q216.P3`). Test: a late
+    fight the company wins easily is allowed to say something.
+17. THE LATE TREASURE MAY BE THE TRAP. (folded 10/9 from QR-U) The fortune is the thing that kills you (`Q213.W1`); letting go is the only
+    win (`Q213.W2`). Test: survives optimisation, a partial carry is still a choice with a cost (`Q213.X1`).
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 2 (every late step adds a verb or a place): read with rule 16, an easy late win says something.
+- Rule 9 (the rocket lands on screen): read with rule 13.
+- Rule 12 (others die legibly): choose which loss (`Q173.W10`); some late payoffs are unverifiable bets with the
+  world at stake (`Q229.W5`).
 
 ## WHAT TO AVOID
 

@@ -7,7 +7,7 @@ which new studies are the richest for our game?
 
 STATUS: draft:true, research only, nothing built (rule 35). No page is edited by this one; the owning writer of each
 page folds these in, or the coordinator does. (FOLDED 10/1, QR-AB: QR-A C19, QR-G lines 29 to 32, QR-L P16, QR-D rules
-4, 5 and 17, and QR-H rule 18 now live in their pages; the rest of this page's items are still to fold.) Rule numbers below are the page's own numbers (QR-A uses C1..C18,
+4, 5 and 17, and QR-H rule 18 now live in their pages; the rest of this page's items are still to fold.) (FULLY FOLDED 10/9, QR-AK: QR-B rules 13 to 15, QR-C rule 18 and the bank entries, QR-D rules 19 to 23, QR-H rules 17, 19 and 20, QR-M rules 16 and 17, QR-O rules 17 to 19, QR-Q rules 13 to 17, QR-R rule 21, and every SHARPEN on those pages now live in their pages, marked "(folded 10/9 from QR-U)". Every item the [fold the rest] row named is folded. Still outside their pages, because no row has named them yet, and listed in QR-AK OPEN 1: QR-A C20 and C21, QR-E rule 17, QR-J rules 19 and 20, QR-K rule 14, QR-N rules 11 and 12, and the SHARPENs on QR-A, QR-E, QR-F, QR-I, QR-J, QR-K, QR-L, QR-N, QR-P and QR-S.) Rule numbers below are the page's own numbers (QR-A uses C1..C18,
 QR-L uses P1..P15, QR-P uses P1..P13, the rest are plain numbers; QR-G's checklist lines are "line N").
 
 ROUND FIVE READ: the fight is on HOUSE TILES (the fight board is a piece of the city); the one-cell walk is dead; no
