@@ -6183,6 +6183,19 @@
     "how": "image",
     "src": "vote/PLUMBER_BIND_ONCE_10_9.png"
    }
+  },
+  {
+   "id": "dynasty-the-frame-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "WHAT THE FLIP IS IN THE STORY: A, B OR C. I PICK A, AND I FIXED A FLAW.",
+   "why": "Three ideas for what the flip is, costed, in the VOTE tab card below. My pick is A (the old machine's model of your family, never named until the ending), and I found its flaw: it would make the secret villain your everyday tool, unless the flip only shows what was recorded.",
+   "show": {
+    "how": "text",
+    "src": "A. The machine's model of your family. Free to build. The flip can only show what was recorded, so it is wrong about everything you did off the feed. That is the ending's gauge, already.\\nB. Upload and genes. A grandchild shares 25 percent of your DNA, a whole mind cannot be copied by 2045, and it makes your family the fake one.\\nC. The box twist. If the past is a recording, nothing you do changes the future, which breaks the three-acts rule.\\nPick A, B or C."
+   }
   }
  ],
  "verdicts": [
