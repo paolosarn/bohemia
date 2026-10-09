@@ -6344,7 +6344,21 @@
     "how": "page",
     "src": "vote/CHARACTER_THE_ORIGIN_CREWS.html"
    }
+  },
+  {
+   "id": "economy-what-grows-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE WEED THAT DRINKS THE RIVER AND SALTS THE GROUND",
+   "why": "Battle Brothers never lets you plant anything, so this is real desert science: tamarisk drains and salts the ground, cheatgrass turns a once-a-generation fire into a yearly one, and a date palm takes years to feed your grandkids while a hog feeds you once. You see it in the records, not drawn yet, feeding TUNING and LIFE and CITY.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_GROUND_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 61.\n\nSeen in: not drawn yet, feeds TUNING and LIFE+CITY."
+   }
   }
+
  ],
  "verdicts": [
   {

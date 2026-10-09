@@ -4583,3 +4583,45 @@ SSSSSSSSSSSSSSSSS9  the one who stayed on the losing side anyway           draft
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 9 lines. Under the 15% cap.
+
+## YYYYYYYYYYYYYYYYYY. WHAT GROWS, SAID BY NOBODY WHO WOULD NAME THE PLANT (round 61)
+
+SSSSSSSSSSSSSSSSSS1  a man checking the standpipe at the edge lot           draft:true
+    "Pull's weaker every season. Something out there's drinking before it gets to me."
+
+SSSSSSSSSSSSSSSSSS2  the woman who tried to put a garden where the pink flowers grew  draft:true
+    "Nothing took. Ground's gone wrong under it, not just dry."
+
+SSSSSSSSSSSSSSSSSS3  a lookout watching the ridge go gold overnight          draft:true
+    "Used to burn once a generation. Now it burns every time somebody's careless with a match."
+
+SSSSSSSSSSSSSSSSSS4  the one clearing dead brush off the fence line again    draft:true
+    "Didn't plant it, didn't want it, still mine to drag away before it piles up."
+
+SSSSSSSSSSSSSSSSSS5  a kid sent to chase the goats off the yellow bloom      draft:true
+    "They won't touch it and they won't touch anything else while it's there either."
+
+SSSSSSSSSSSSSSSSSS6  a man who planted the tall tree the year his son was born  draft:true
+    "Won't see a thing off it myself. That was never really the point of putting it in."
+
+SSSSSSSSSSSSSSSSSS7  the woman weighing a small sack against a dressed hog   draft:true
+    "This feeds us every season. That feeds us once, real good."
+
+SSSSSSSSSSSSSSSSSS8  an old man showing a kid which pads to cut without the spines  draft:true
+    "Didn't need a drop of water this year. Can't say that about much else we eat."
+
+## ZZZZZZZZZZZZZZZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 61)
+
+- No line names tamarisk, red brome, cheatgrass, Sahara mustard, tumbleweed, a date palm,
+  tepary beans, prickly pear or mesquite. The whole finding is said as a weaker pull, ground
+  that will not take, a ridge that burns too fast, brush dragged off a fence, a yellow bloom
+  the goats avoid, a tree planted for a son, a sack weighed against a hog, and spineless pads.
+- No line states the water-draw, fire-interval, yield-per-acre or years-to-bear numbers as
+  dialogue; those stay in the record's own table, sourced not spoken.
+- No line resolves whether the garden or the hog is the better call. SSSSSSSSSSSSSSSSSS7 states
+  both sides of the comparison without picking one, the finding's own honest shape.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 627 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

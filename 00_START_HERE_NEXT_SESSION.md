@@ -1850,6 +1850,27 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (e) -- [what grows] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING and LIFE+CITY).
+Record: records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_
+GROUND_10_9_26.md
+FINDING: Battle Brothers' farms are flavor scenery, never planted or harvested -- the BB aisle
+is thin, same shape as every prior building question. The real aisle carried the whole page:
+tamarisk drinks groundwater AND salts the soil it stands on (two separate penalties, Colorado
+River basin record); red brome and cheatgrass cut the Great Basin's fire-return interval from
+60-100 years down to 3-5, an order-of-magnitude change, sourced not felt; Sahara mustard only
+hits grazing, not fire or water; tumbleweed is a maintenance cost, never a yield loss. On the
+growing side: the date palm is a real Coachella Valley crop, 4-8 years to bear then 100-200+
+lbs a year, a DYNASTY-scale generational asset; tepary beans are a real dry-farmed Sonoran
+staple at 400-800 lbs/acre; prickly pear and mesquite are near-zero-water kept resources. The
+garden-vs-hog comparison (the row's own ask): a garden is steady and small, a hog kill (50-80
+rations, round 56) is a windfall; neither replaces the other, the same shape round 58 already
+found for ivory vs hide. A six-row ratio table routed to TUNING, none typed as a final digit.
+Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [prices per place] (FIRST LINE, rule 40), [contract pay],
+[build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from two rounds back still stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (d) -- [price of mercy] SHIPPED (research, no code
 touched -- the row's own text calls for research, read DYNASTY).
 Record: records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_
