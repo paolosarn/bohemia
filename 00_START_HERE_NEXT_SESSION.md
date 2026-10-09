@@ -1,3 +1,18 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [first hour] SHIPPED (a modder's first hour, every step something
+that exists today; one step marked NOT BUILT: the game does not load a mods folder). TAB: VOTE, item A
+MODDER'S FIRST HOUR. Record records/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.md. RAN END TO END: a local
+web server on the repo, a real browser, the knife read from the fight's own DB.weapons before (15,25) and
+after editing weapons.json (20,30), no page errors, file restored (clean git diff); step 4's reference merge
+run on a folder written exactly as the page says.
+*** CORRECTION OF MY OWN NUMBER: THE NEW FIGHT READS 11 BB DATA FILES, NOT 12. *** My 10/9 audit counted a
+file as read when its name appeared anywhere in the page text; origins.json is only in a COMMENT in the fight
+(its DATA_FILES list has 11 bb files). tools/bohemia_mods_data_audit.js now counts a file only when its path
+is inside a quoted string; the records, the VOTE page and the VAMILY row are corrected. The finding stands.
+The data folder now holds 18 files (new: contract_terms, factions, stash_rates); the schema page was
+regenerated for all 18 (re-run tools/bohemia_mods_schema_page.js --write after any change).
+READ COUNT (round, e8d1bac): old fight 4 files, new fight 1, background 3, sound 4; unchanged.
+NEXT OPEN: [range column], [ids never change], [grok sources]. PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (c) LATEST -- [ammo] SHIPPED (research, no code touched).
 TAB: VOTE, item WHEN THE AMMO RUNS OUT (start kit x gun x shooters, draft:true).
 RECORD: records/BOHEMIA_TUNING_AMMO_A_BULLET_COSTS_ONE_AND_BB_MAKES_IT_A_STOCK_NOT_A_PRICE_10_10_26.md (all BB numbers from the wiki dump).
