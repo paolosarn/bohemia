@@ -5366,7 +5366,22 @@
     "how": "text",
     "src": "ACT ONE: 12% lit, medieval stalls (grain, water, rope, iron tools, lamp oil, salt).\\nACT TWO: 20% lit if you did nothing, more if you built, less if you tore down. Stalls add cells, wire, solar film, medicine.\\nACT THREE: 30% lit by default, techy stalls (cells, chips, solar film, printed parts).\\nA ruin you caused stays a ruin. Not drawn yet."
    }
-  }
+  },
+{
+  "id": "grok-the-turns-are-too-short-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: THE TURNS ARE TOO SHORT, SO EVERY MOVE YOU DID NOT MAKE TAKES A BEAT YOU CAN SEE",
+  "why": "Grok reports you said the turns are too short, which I read as the enemy's moves and AUTO's resolving too fast to follow, so each move you did not make now plays over at least one second with the mover lit and its number shown, your own turn has no timer, and a tap skips to the end. You see it in the demo's fight on the enemy's turn; thumb down if you meant something else and say what.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_131-133 ('Paolo said the turns are too short'). COMBAT [a turn you can read]. A turn is still a beat (9/22) for your own men; this is about the time the OTHER side's moves take on the glass.\n\nSeen in: the demo's fight, the enemy's turn and AUTO."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
