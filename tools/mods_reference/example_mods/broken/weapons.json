@@ -1,0 +1,1 @@
+{ "rows": { "knife": { "damage_min": "a lot", "damage_max": 30 }, "laser": { "damage_min": 5 }, "sword": { "mystery": 1 } } }

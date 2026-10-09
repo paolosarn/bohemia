@@ -1,3 +1,23 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [the mods folder design] SHIPPED as a design page, nothing built.
+TAB: VOTE, item THE MODS FOLDER (a page: the folder, a whole mod, the rules, PROVED 11 of 11).
+Record records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md. The design is PROVED ON THE REAL
+bb DATA by tools/bohemia_mods_merge_reference.js + tools/bohemia_mods_merge_proof.js (examples in
+tools/mods_reference/example_mods/); neither is loaded by any play surface; run
+`node tools/bohemia_mods_merge_proof.js` (instant). Mutation checked: deleting the 'skip the whole
+row on a wrong type' line turns 2a red (10/11), restored 11/11.
+DESIGN: records/target/mods/ (already published, next to the data) with index.json as the only list
+and on/off (a static host cannot list a folder); a mod = manifest.json + patch files NAMED LIKE the
+data file they patch, rows changed BY ID; base then mods in index order, loadAfter respected, later
+wins and a CONFLICT line names both; wrong values/unknown fields/short new rows/loops/non-JSON are
+skipped by name, never half a row, never a crash. THE DEMO HAS NO CODE PATH (his NAH): the three-leg
+gate for PLUMBER on the day he says build = no play surface fetches mods/ (4 checked), empty folder
+gives the same hash of all 15 files, a wrong-in-every-way mod gives the same hash.
+LIMITS STATED: type is checked, not range (damage_min -5 would load; needs a range column in the
+data files, TUNING's table); no size/count cap; no row deletion. The folder does NOT exist yet.
+CORRECTED MY 9/28 PAGE: it is records/target/mods, not slices/mods.
+NEXT: [one weapon file] (largely answered by weapons.json + the schema page); [grok sources] waits
+on EYES; [read count] CLAIMED (old fight 4 files, new fight 1). PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 LATEST -- [the felt numbers table] SHIPPED (research, no code touched).
 TAB: VOTE, item EVERY NUMBER THE FIGHT FEELS (85 rows with sources, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_FELT_NUMBERS_TABLE_IS_REAL_AND_MY_FIGHT_FINDINGS_ARE_STALE_10_10_26.md
