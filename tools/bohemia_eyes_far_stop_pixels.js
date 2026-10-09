@@ -10,10 +10,12 @@
  * so this is implemented straight, not replaced with the heavier machinery built for smooth
  * (bilinear/bicubic) resampling we do not have.
  *
- * REACH: real touch gestures only, reusing tools/bohemia_drive_the_demo.js's proven toMap()
- * (gets on the map) then its own pinchOut() repeated until CZOOM stops falling -- the exact
- * method [zoom range measured] round three already proved reaches the camera's true floor
- * (0.208), not invented fresh here.
+ * REACH: a real touch gesture only, reusing tools/bohemia_drive_the_demo.js's proven toMap(),
+ * which already lands at czoom 0.208 -- the camera's own documented floor (zmin), confirmed by
+ * [zoom range measured] round three's live reading and by the engine's own clamp. NOTHING
+ * SQUEEZES PAST THAT LANDING: a first draft of this tool did, and it crossed the engine's own
+ * seam guard into a different screen (the sky) while CZOOM's own number stayed frozen, caught
+ * only by looking at the actual screenshot -- see the comment at the reach step below.
  *
  * READ: the canvas's own backing-store pixel buffer (getImageData on #cv, inside the city
  * iframe), which is the exact pixels the renderer drew, not a screenshot recompression of
@@ -53,6 +55,45 @@ const COUNT_FN = function (w, h, data) {
   for (let i = 0; i < w * h * 4; i += 4) uniq.add(data[i] + ',' + data[i + 1] + ',' + data[i + 2]);
   return { distinct, blocks, uniformBlocks, totalPx: blocks * 4, uniqueColours: uniq.size };
 };
+/* THE GLOBAL NUMBER, COMPARABLE TO COOK'S 9,216 AND THE GATE'S OWN 2,073,600 -- the 2x2 method
+   above answers a LOCAL question (is this pixel a copy of its own immediate neighbour) and the
+   99.87% finding on its own first run proved that question alone is not COOK's: COOK's number is
+   how many truly independent source values exist before the WHOLE upscale, which needs the real
+   repeat-block size, not an assumed 2x2. This is round one's second method, "downsample until it
+   stops changing," run for real: try candidate block sizes, and for each one check whether every
+   block really is one flat colour (a true k-times nearest-neighbor upscale would make it so); the
+   smallest k with a near-total match is the real cell size, and distinct source pixels at that k
+   is (w/k)*(h/k) blocks plus the handful of pixels that never fit the grid at all (markers, the
+   phone overlay, real fine detail), counted individually since those ARE genuinely unique. */
+const SWEEP_FN = function (w, h, data) {
+  const candidates = [2, 3, 4, 6, 8, 10, 12, 14, 16, 20, 24, 32, 48, 64];
+  const out = [];
+  for (const k of candidates) {
+    let totalBlocks = 0, uniformBlocks = 0, nonUniformPx = 0;
+    for (let by = 0; by < h; by += k) {
+      const bh = Math.min(k, h - by);
+      for (let bx = 0; bx < w; bx += k) {
+        const bw = Math.min(k, w - bx);
+        const base = (by * w + bx) * 4;
+        const r0 = data[base], g0 = data[base + 1], b0 = data[base + 2], a0 = data[base + 3];
+        let uniform = true, blockPx = 0;
+        for (let yy = 0; yy < bh; yy++) {
+          for (let xx = 0; xx < bw; xx++) {
+            const i = ((by + yy) * w + (bx + xx)) * 4;
+            blockPx++;
+            if (data[i] !== r0 || data[i + 1] !== g0 || data[i + 2] !== b0 || data[i + 3] !== a0) uniform = false;
+          }
+        }
+        totalBlocks++;
+        if (uniform) uniformBlocks++; else nonUniformPx += blockPx;
+      }
+    }
+    const matchPct = +(100 * uniformBlocks / totalBlocks).toFixed(2);
+    const globalDistinct = uniformBlocks + nonUniformPx;
+    out.push({ k, totalBlocks, uniformBlocks, matchPct, nonUniformPx, globalDistinct });
+  }
+  return out;
+};
 
 async function shoot(d, name, clip) {
   const p = path.join(OUTDIR, name + '.png');
@@ -77,38 +118,48 @@ async function shoot(d, name, clip) {
       if (await f.evaluate(() => typeof CZOOM !== 'undefined').catch(() => false)) return f; } return null; })());
     if (!fr) throw new Error('no city frame found after toMap()');
 
-    /* SQUEEZE TO THE TRUE FLOOR, THE PROVEN WAY ([zoom range measured] round three): toMap()
-       only promises czoom < 0.5, not the camera's own minimum; keep pinching out for real
-       until CZOOM stops falling. */
-    let czoom = s0.czoom, steps = 0;
-    for (let i = 0; i < 10; i++) {
-      await d.pinchOut();
-      await p.waitForTimeout(900);
-      const now = await fr.evaluate(() => (typeof CZOOM !== 'undefined' ? +CZOOM.toFixed(4) : null)).catch(() => null);
-      steps++;
-      if (now === null || now >= czoom - 1e-4) break;
-      czoom = now;
-    }
-    report.farStopCzoom = czoom;
-    report.squeezesToFloor = steps;
-    console.log('  [driver] far stop reached: czoom ' + czoom + ' after ' + steps + ' extra squeeze(s)');
+    /* DO NOT SQUEEZE AGAIN. toMap() already lands at czoom 0.208, the camera's own documented
+       floor (zmin) from [zoom range measured] round three's own live reading -- the engine
+       clamps CZOOM at zmin itself (z=Math.max(zmin,Math.min(zmax,z))), so toMap() cannot land
+       short of it. A FIRST ATTEMPT HERE DID SQUEEZE AGAIN AND IT WAS WRONG, CAUGHT BEFORE
+       SHIPPING: asking to zoom out further while already sitting at zmin does not fail quietly,
+       it trips the engine's own seam guard (SEAM_GUARD, skyEnter()) and swaps the canvas to a
+       different screen entirely -- a starfield and a moon, not the valley -- while CZOOM's own
+       number stays frozen at 0.208, so the state read alone could not have caught it; only
+       looking at the actual screenshot did. The fix is to not ask: toMap()'s own landing IS the
+       far stop, and a SKY check below refuses the measurement outright if it ever happens again. */
+    const skyCheck = await fr.evaluate(() => (typeof SKY !== 'undefined' ? !!SKY : null)).catch(() => null);
+    if (skyCheck === true) throw new Error('toMap() landed in SKY mode, not the valley -- refusing '
+      + 'to measure the wrong screen');
+    report.farStopCzoom = s0.czoom;
+    report.skyCheck = skyCheck;
+    console.log('  [driver] far stop reached: czoom ' + s0.czoom + ' (no extra squeeze; SKY=' + skyCheck + ')');
     await p.waitForTimeout(1500);
 
     /* THE CANVAS'S OWN BACKING BUFFER, READ AND COUNTED IN-PAGE -- the exact pixels the
        renderer drew, counted where they sit; only the summary crosses the wire. */
-    const canvasRead = await fr.evaluate((countSrc) => {
+    const canvasRead = await fr.evaluate(({ countSrc, sweepSrc }) => {
       const cv = document.getElementById('cv');
       if (!cv) return null;
       const r = cv.getBoundingClientRect();
       const ctx = cv.getContext('2d');
       const img = ctx.getImageData(0, 0, cv.width, cv.height);
       const countFn = new Function('w', 'h', 'data', 'return (' + countSrc + ')(w, h, data);');
+      const sweepFn = new Function('w', 'h', 'data', 'return (' + sweepSrc + ')(w, h, data);');
       const b2 = countFn(cv.width, cv.height, img.data);
+      const sweep = sweepFn(cv.width, cv.height, img.data);
       return { w: cv.width, h: cv.height,
-        cssRect: { x: r.x, y: r.y, width: r.width, height: r.height }, b2 };
-    }, COUNT_FN.toString());
+        cssRect: { x: r.x, y: r.y, width: r.width, height: r.height }, b2, sweep };
+    }, { countSrc: COUNT_FN.toString(), sweepSrc: SWEEP_FN.toString() });
     if (!canvasRead) throw new Error('no #cv canvas found inside the city frame');
     report.canvas = { w: canvasRead.w, h: canvasRead.h };
+    report.blockSweep = canvasRead.sweep;
+    const bestK = canvasRead.sweep.filter(r => r.matchPct >= 99).sort((a, b) => a.k - b.k)[0]
+      || canvasRead.sweep.sort((a, b) => b.matchPct - a.matchPct)[0];
+    report.bestBlockSize = bestK;
+    console.log('  [block sweep] ' + canvasRead.sweep.map(r => 'k=' + r.k + ':' + r.matchPct + '%').join('  '));
+    console.log('  [best fit] k=' + bestK.k + ' (' + bestK.matchPct + '% of blocks uniform), '
+      + 'global distinct source pixels ~' + bestK.globalDistinct);
     const b2 = canvasRead.b2;
     report.canvasBuffer = { totalPx: canvasRead.w * canvasRead.h,
       distinctPainted2x2: b2.distinct, blocks: b2.blocks, uniformBlocks: b2.uniformBlocks,
@@ -130,8 +181,13 @@ async function shoot(d, name, clip) {
     report.verdict = {
       cookTheoreticalFloor: 9216,
       battleBrothersFloorSourced: 2073600,
-      ours2x2Count: b2.distinct,
-      passesBattleBrothersFloor: b2.distinct >= 2073600
+      localDistinct2x2: b2.distinct,
+      note2x2: 'a LOCAL measure (is each pixel a copy of its own 2x2 neighbour), not the global '
+        + 'source-pixel count COOK\'s 9,216 and the gate\'s 2,073,600 both mean',
+      globalDistinctAtBestFit: bestK.globalDistinct,
+      globalFitBlockSize: bestK.k,
+      globalFitMatchPct: bestK.matchPct,
+      passesBattleBrothersFloor: bestK.globalDistinct >= 2073600
     };
   } catch (e) {
     report.error = e.message;
