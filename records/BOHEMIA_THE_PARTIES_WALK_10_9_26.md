@@ -50,6 +50,9 @@ at every speed; TWO OF HIS COMPANY walk at his shoulders, off his hop, drawn aft
     marker's header, and the company code inside that block pushed it out; the company is its own function now
     (mapCompanyDraw) and A3 is green.
     VOTE: animation-the-parties-walk-10-9, the same trip before and now off the map's own canvas, playing.
+    ONE RED, NOT EXPLAINED AWAY: on the rebased tree, run three browser gates at a time, PARTIES WALK read 9/1 once;
+    alone it read 10/0 twice and with two others alongside 10/0. The claim most sensitive to a loaded machine is the
+    600 ms ceiling on a bake chunk (measured 401-554 ms), so a busy CPU can push it over. Named here, not loosened.
 
 ## [bb marker] THE SCHOOL LINE, AND WHAT WE DO DIFFERENTLY (rule 39b)
 Battle Brothers moves "one marker for the company", which "walks in real time" to the click (the library,
