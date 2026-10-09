@@ -2161,6 +2161,26 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (f) -- [prices per place] SHIPPED (research, no
+code touched -- the row's own text calls for research, read TUNING and the settlement screen).
+Record: records/BOHEMIA_ECONOMY_DAY_62_EVERY_SETTLEMENT_HAS_ITS_OWN_SHELF_NEVER_ITS_OWN_PRICE_
+10_9_26.md
+FINDING: Battle Brothers' own economy page is the fullest aisle this lane has found -- a
+settlement's type picks what it sells, a raid cuts the shelf scarce and dear, being
+well-supplied fills it cheap, an allied house gets a discount, and buying/selling moves the
+local price and recovers over days. Our own locked ruling ([two prices], 9/15) already answers
+the NUMBER half: everything costs one everywhere for everyone who belongs, no exceptions. So
+the real translation is that what moves per settlement is the SHELF, never the price. Three BB
+levers reskin onto systems we already ship with no new mechanic: settlement type picks the
+goods list straight off WORLD's own per-game roll; raided/well-supplied reuses the living
+map's existing crowd-thickening multiplier as a shelf cut or fill; relations reuse the existing
+belonging-rung access gate (refused, barter-only, served) instead of a discount digit. The
+buy/sell-and-recover mechanic maps onto the living map's own fading-prints clock. A five-row
+table routed to TUNING, nothing invented. Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): [contract pay], [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (e) -- [what grows] SHIPPED (research, no code
 touched -- the row's own text calls for research, read TUNING and LIFE+CITY).
 Record: records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_

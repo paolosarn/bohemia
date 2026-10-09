@@ -4625,3 +4625,45 @@ SSSSSSSSSSSSSSSSSS8  an old man showing a kid which pads to cut without the spin
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## AAAAAAAAAAAAAAAAAAA. WHAT EVERY SHELF REMEMBERS (round 62)
+
+SSSSSSSSSSSSSSSSSSS1  a trader counting what's left after the caravan sold through  draft:true
+    "Half the shelf cleared in one morning. Ask me again in a week, not today."
+
+SSSSSSSSSSSSSSSSSSS2  the one restocking the same shelf a week later              draft:true
+    "Same price it always was. Just more of it now that the road's open again."
+
+SSSSSSSSSSSSSSSSSSS3  a shopkeeper in the place that burned last season           draft:true
+    "I'm not charging more. I just don't have it to sell you."
+
+SSSSSSSSSSSSSSSSSSS4  a stranger turned away at the camp gate                     draft:true
+    "Not my battery they want. My face, and I don't have the right one."
+
+SSSSSSSSSSSSSSSSSSS5  the one let through the same gate a season later            draft:true
+    "Same shelf as the day they turned me away from it. I just stopped being nobody."
+
+SSSSSSSSSSSSSSSSSSS6  a man comparing two towns a day's walk apart                draft:true
+    "One sells fish all day. The other's never seen a fish in its life."
+
+SSSSSSSSSSSSSSSSSSS7  a woman who sold her whole haul to one market on purpose    draft:true
+    "Spread it across three and nobody notices. Dump it all in one and watch what happens."
+
+SSSSSSSSSSSSSSSSSSS8  the one who waited for that same market to recover          draft:true
+    "Gave it a week. The shelf filled back up on its own, same as it always does."
+
+## BBBBBBBBBBBBBBBBBBB. WHAT IS NOT HERE, ON PURPOSE (round 62)
+
+- No line states a battery price above one. The whole finding is said as a cleared shelf, a
+  restocked shelf, a burned shop, a closed gate, an opened gate, two different towns and a
+  market that recovers on its own.
+- No line names the settlement screen, the living map, a belonging rung by name, or any
+  mechanism or data file. SSSSSSSSSSSSSSSSSSS3 and 5 could be read either as a raid or a
+  rebuild, on purpose.
+- No line resolves how long a shelf takes to recover or how deep a cut goes. Those stay in the
+  record's own table, flagged for TUNING, not spoken as dialogue.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 635 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

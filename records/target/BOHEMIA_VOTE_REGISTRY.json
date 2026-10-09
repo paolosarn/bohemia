@@ -6564,7 +6564,21 @@
    "id": "factions-a-town-before-and-after-10-9", "kind": "tile", "lane": "factions", "sha": "4b517573", "made": "10/9",
    "title": "A TOWN BEFORE AND AFTER A RAID", "why": "A crew that reaches a town unopposed leaves it raided (half the items, half the recruits), and a caravan leaves it well supplied, using Battle Brothers' own two pages. You see it in the VOTE tab: two towns on one real valley, before and after.",
    "show": {"how": "page", "src": "vote/FACTIONS_A_TOWN_BEFORE_AND_AFTER_10_9.html"}
+  },
+  {
+   "id": "economy-the-shelf-not-the-price-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "EVERY SETTLEMENT HAS ITS OWN SHELF, NEVER ITS OWN PRICE",
+   "why": "Battle Brothers moves a town's price with raids and supply; ours keeps the one-battery price locked and moves the SHELF instead, cut thin after a raid and fuller on market day. You see it in the records, not drawn yet, feeding TUNING and the settlement screen.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_62_EVERY_SETTLEMENT_HAS_ITS_OWN_SHELF_NEVER_ITS_OWN_PRICE_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 62.\n\nSeen in: not drawn yet, feeds TUNING and the settlement screen."
+   }
   }
+
  ],
  "verdicts": [
   {
