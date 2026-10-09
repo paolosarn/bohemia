@@ -470,6 +470,26 @@ function cut(src) {
                     'rel="manifest" href="bohemia-demo.webmanifest"');
   notes.manifest = 'bohemia-demo.webmanifest';
 
+  /* ---- 6. THE FROZEN FIGHT STAYS IN THE WORKSHOP (PLUMBER 10/9, row [first load] round 3) ----
+     PAOLO 10/5: "I feel like I gotta wait 40 seconds for this shit to load."
+     COMBAT_B64 is the frozen Dead Eye Dial (rule 63: the old fight is frozen, the rebuilt one is
+     slices/BOHEMIA_FIGHT.html). It was 2.67 MB of the demo's 6.3 MB of text and 1.31 of its 2.50 MB
+     gzipped: HALF of what a phone downloads for the page, and the title waits until the whole page
+     has been read. COMBAT measured and gated that nothing a stranger can do builds it on the demo
+     (aaf6ee2, ONE FIGHT in the suite: every map door opens the rebuilt fight, the idle warm stands
+     down while NEW_FIGHT_ON, the old RUN slice is never loaded, the cold open has no caller) and the
+     COMBAT tab is cut in step 1; it routed the bytes to this row.
+     So the demo carries the NAME with nothing in it, and the workshop keeps the whole fight for its
+     COMBAT tab. Every reader of the name still finds it: atob('') is '', so a door that somehow built
+     the old frame would get a blank frame instead of a throw, and ONE FIGHT is the gate that says so.
+     REACHABILITY, like everything in this tool: no reachable line does anything different. */
+  const CB = /const COMBAT_B64='([A-Za-z0-9+/=]*)'/;
+  const cbm = src.match(CB);
+  if (!cbm) die('no const COMBAT_B64=\'...\' in the alpha, so this tool cannot tell where the frozen fight went');
+  if (cbm[1].length < 100000) die('COMBAT_B64 is only ' + cbm[1].length + ' characters; the frozen fight changed shape');
+  src = src.replace(CB, "const COMBAT_B64=''");
+  notes.frozenFightBytes = cbm[1].length;
+
   return { src, notes };
 }
 
@@ -553,6 +573,7 @@ console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (n
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));
 console.log('  kept     : ' + notes.keptTabs.join(' ') + ' (never shown; the splash clicks it to open the game)');
 console.log('  hidden   : the tab bar, and the city\'s 🛠 builder drawer');
+console.log('  emptied  : COMBAT_B64, the frozen fight (' + (notes.frozenFightBytes / 1048576).toFixed(2) + ' MB of text the demo never opens; the workshop keeps it)');
 console.log('  wrote    : ' + path.relative(ROOT, DEMO) + '  (' + (src.length / 1048576).toFixed(2) + ' MB)');
 console.log('  manifest : ' + path.relative(ROOT, MANIFEST) + '  (start_url is the DEMO, not the workshop)');
 console.log('  the workshop file was not touched.');

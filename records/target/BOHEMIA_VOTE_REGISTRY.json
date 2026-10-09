@@ -6426,6 +6426,19 @@
     "how": "image",
     "src": "vote/COMBAT2_THE_FREEWAY_ROUND_TWO_10_9.png"
    }
+  },
+  {
+   "id": "plumber-frozen-fight-out-10-9",
+   "kind": "ui",
+   "lane": "plumber",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE TITLE SHOWS UP IN 2.7 SECONDS ON A PHONE, WAS 3.5",
+   "why": "The old fight that the demo never opens was still half of the page a phone downloads, so the demo is now cut without it and the title comes up in 2.7 seconds instead of 3.5 on a phone-speed processor (the goal is 2). You see it on the demo's start screen: the title and its buttons show up sooner after you tap the link.",
+   "show": {
+    "how": "image",
+    "src": "vote/PLUMBER_FROZEN_FIGHT_OUT_10_9.png"
+   }
   }
  ,
  {

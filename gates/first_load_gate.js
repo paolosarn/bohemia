@@ -50,7 +50,7 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const F = require(path.join(ROOT, 'tools/bohemia_first_load.js'));
 
 const TITLE_MS = 2000, READY_MS = 8000;
-const CEIL_MB = 33;          /* 10/9, served like Pages at 4x: 29.7 MB before ready today, +10%. RUN's patch measured 9.0 MB: LOWER THIS when it lands */
+const CEIL_MB = 30;          /* 10/9 round 3: the cut empties the frozen fight on the demo; 27.1 MB before ready at 4x served like Pages, +10%. Was 33 (29.7 before). RUN's hunks measured 9.0 MB: LOWER THIS again when they land */
 
 let pass = 0, fail = 0;
 const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }
