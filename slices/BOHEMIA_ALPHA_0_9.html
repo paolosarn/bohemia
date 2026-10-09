@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9k - THE SHOT KICKS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9l - HAIRSTYLES THAT MATCH</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4558,8 +4558,19 @@ function renderFace(spec,opts){
      Zero flare reproduces the old fixed-width curtain exactly. */
   const _fl=H_flare==null?0:Math.max(0,Math.min(0.5,H_flare));
   const _fA=d=>Math.round(_fl*Math.max(0,d));
-  for(const side of [-1,1]){let outer=cx+side*(cw+3);const _mid=(Y0+jaw)/2|0;
-   poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer+side*_fA(11),Y0+11],[outer+side*_fA(_mid-Y0),_mid],[cx+side*(cw+1),jaw-1],[cx+side*jw,jaw-2],[cx+side*(cw-2),chY+2],[cx+side*(cw-1),chY-3]],hc);}
+  /* FADE TAPERS THE SIDES (10/9, Paolo: "hairstyles that match the hairstyles we have
+     on the characters"). Three canon cuts (TEMPLE TAPER, DRY TAPER, DEEP TAPER) carry
+     a fade value on the body and NOTHING on the portrait ever read it, so all three
+     rendered as the same short cap -- measured 85-93% pixel overlap between pairs that
+     are supposed to be three different haircuts. A fade keeps the crown's volume and
+     pulls the sides in close to the skull instead of following the cheek/jaw width;
+     the higher the number the tighter the taper. Guarded on h.fade being a real
+     number, so every cut without one (PUNK included) draws the exact byte it always
+     has -- _fsc is 1 and every *_fsc term below is the original term, unchanged. */
+  const _fade=(typeof h.fade==='number'&&isFinite(h.fade))?h.fade:0;
+  const _fsc=_fade>0?Math.max(0.45,1-_fade*0.055):1;
+  for(const side of [-1,1]){let outer=cx+side*(cw+3);let outerF=cx+side*(cw*_fsc+3);const _mid=(Y0+jaw)/2|0;
+   poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer+side*_fA(11),Y0+11],[outerF+side*_fA(_mid-Y0),_mid],[cx+side*(cw*_fsc+1),jaw-1],[cx+side*jw*_fsc,jaw-2],[cx+side*(cw*_fsc-2),chY+2],[cx+side*(cw*_fsc-1),chY-3]],hc);}
   for(let sx=cx-fw+1;sx<cx+fw;sx+=3)P(sx,Y0+1+hlY,hc);
   /* ===== THE MARK INSIDE THE MASS =====================================
      `style` used to mean one bit: wavy_mid and curly drew a zig down each side, and the
@@ -4576,10 +4587,15 @@ function renderFace(spec,opts){
   if(_tex==='wave'){
     for(const side of [-1,1]){let outer=cx+side*(cw+3);let k=0;
       for(let yy=Y0+7;yy<jaw;yy+=3){P(outer-side*(k%2?1:2),yy,hs);P(outer-side*2,yy+1,hi);k++;}}
-  } else if(_tex==='locs'||_tex==='coils'){
+  } else if(_tex==='locs'||_tex==='coils'||_tex==='braid'){
+    /* DUST WEAVE carries tex:'braid' on the body and this dispatch never named it, so
+       it silently fell through to no texture at all -- same flat cap as a 'solid' cut
+       with none asked for (10/9 finding). braid routes through the locs pattern below:
+       the closest existing mark to a woven look, and the body's own 'braid' texture
+       is not a separate rendering routine either, so this is reuse, not invention. */
     const _over=(fn)=>{for(let yy=0;yy<N;yy++)for(let xx=0;xx<N;xx++){const i=(yy*N+xx)*4;
       if(buf[i]===hc[0]&&buf[i+1]===hc[1]&&buf[i+2]===hc[2])fn(xx,yy);}};
-    if(_tex==='locs'){
+    if(_tex==='locs'||_tex==='braid'){
       /* ropes running with the fall. NO STRAIGHT LINES (8/1 clause 3, LOCKED): the column
          drifts by one pixel every other row, deterministic off this head, so a rope reads
          as a rope and not as a comb. Same method as the part above and the strand pass in
@@ -19589,6 +19605,14 @@ function faceSliderUI(parent,dev){
       pface.hair.front=d.front!=null?d.front:null;
       pface.hair.vol  =d.vol  !=null?d.vol  :null;
       pface.hair.flare=d.flare!=null?d.flare:null;
+      /* TEX AND FADE WERE NEVER COPIED (10/9, Paolo: "hairstyles that match the
+         hairstyles we have on the characters"). Picking a cut here set four of
+         the six dials the body's own gen() carries and silently dropped the
+         other two, so a face built from ROPE LOCKS never got the locs texture
+         and a face built from a tapered cut never got the taper -- explicitly
+         'solid' now rather than left on whatever the last pick happened to be. */
+      pface.hair.tex  =d.tex!=null?d.tex:'solid';
+      pface.hair.fade =d.fade!=null?d.fade:null;
       refresh();faceRebuild();};
     hr.appendChild(bt);});
   box.appendChild(hr);

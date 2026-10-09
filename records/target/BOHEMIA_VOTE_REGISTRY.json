@@ -6427,6 +6427,20 @@
     "src": "vote/COMBAT2_THE_FREEWAY_ROUND_TWO_10_9.png"
    }
   }
+ ,
+ {
+  "id": "portrait-hairstyles-match-10-9",
+  "kind": "face",
+  "lane": "portrait",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "HAIRSTYLES THAT MATCH",
+  "why": "The hair picker showed the right 11 names but lost two of its six dials every time you clicked one, so three cuts drew the same cap and one lost its texture; both are wired now, worst pair down from 93% identical to 89%. You see it in the VOTE tab.",
+  "show": {
+   "how": "page",
+   "src": "vote/PORTRAIT_HAIRSTYLES_MATCH.html"
+  }
+ }
  ],
  "verdicts": [
   {
