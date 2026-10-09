@@ -6480,7 +6480,20 @@
    "src": "vote/PORTRAIT_THE_ENEMY_FACES.html"
   }
  },
- {"id": "people-the-keepers-speak-10-9", "kind": "tile", "lane": "people", "sha": "54757f6", "made": "10/9", "title": "THE KEEPERS SPEAK", "why": "The smith now has a real price line to say, with a real trait line and a real rumour already waiting on the same mouth. You see it in the VOTE tab, item THE KEEPERS SPEAK.", "show": {"how": "page", "src": "BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html"}}
+ {"id": "people-the-keepers-speak-10-9", "kind": "tile", "lane": "people", "sha": "54757f6", "made": "10/9", "title": "THE KEEPERS SPEAK", "why": "The smith now has a real price line to say, with a real trait line and a real rumour already waiting on the same mouth. You see it in the VOTE tab, item THE KEEPERS SPEAK.", "show": {"how": "page", "src": "BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html"}},
+  {
+   "id": "dynasty-name-outlives-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "BY GENERATION THREE THE VALLEY SHOULD REMEMBER ONE STORY, A LITTLE WRONG.",
+   "why": "Right now a deed fades but is never forgotten, so the valley keeps everything about your grandfather at a fifth of its weight. Read the card in the VOTE tab: the real way people remember is the name, one merged story, and the grudges still alive.",
+   "show": {
+    "how": "text",
+    "src": "Measured: seven retold deeds went through two generations and all seven were still there, just fainter.\\nReal memory: the name lasts, the details drift, one story absorbs the rest.\\nProposal: generation three keeps the name, ONE legend line (a little wrong), living grudges, and a place name. The rest is gone."
+   }
+  }
  ],
  "verdicts": [
   {

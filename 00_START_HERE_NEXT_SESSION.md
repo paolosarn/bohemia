@@ -37702,6 +37702,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 67 [name outlives] Q20 WHAT THE VALLEY STILL KNOWS IN GENERATION THREE. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_22_WHAT_OUTLIVES_A_PERSON_10_9_26.md; VOTE line dynasty-name-outlives-10-9.
+Finding (measured with the real standing.inherit): 7 of 7 retold deeds survive two folds, only faded; no forgetting. Proposal: cap to the loudest 1 per person at the second fold (the legend), keep name, grudges, place name. Routed PEOPLE/WORDS/WORLD/TUNING.
+NEXT: Q21 [who buries], Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 66 [old body] Q19 AGEING IN THE HANDS. (SCHOOL, no code)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_21_THE_OLD_BODY_10_9_26.md; VOTE line dynasty-old-body-10-9.
 Finding: nobody is ever 40 or 60 in play, so OLD/YNG are the only ageing: a trade (slower healing, head start in perks). Routed CHARACTER/PORTRAIT, PEOPLE (down.js multiplier), TUNING.
