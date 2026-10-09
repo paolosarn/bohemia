@@ -37227,6 +37227,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 65 [the frame] THREE SHAPES, COSTED. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FRAME_THREE_SHAPES_10_9_26.md; VOTE line dynasty-the-frame-10-9.
+Finding: default A as written makes the secret Amalgamation the player's everyday tool from minute one, against the 7/24 ghost lock. Fix: unnamed, recorded-only flip (the ending's gauge). B breaks the family theme and DNA maths, C breaks s2(c).
+[PENDING Paolo], not blocking: pick A, B or C. NEXT for DYNASTY: [grok lore] (trigger) then Q19 [old body], Q20 [name outlives]... (school). QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 64 [grok lore] THE LORE TEST ON TWO VIA-GROK RULINGS. (SCHOOL, no code)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_GROK_LORE_TEST_10_9_26.md; VOTE line dynasty-grok-lore-10-9.
 Hole 1: WORLD's pool reads turf; the 9/28 third votes retired territory for 14 home bases and roaming parties. Hole 2: a day-100 crisis of up to 100 days outlasts a ~130-day act. [PENDING Paolo], not blocking: does a crisis end an act (my default) or sit mid-act?
