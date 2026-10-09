@@ -1,0 +1,180 @@
+{
+ "_about": "Relations: one 0 to 100 bar per settlement, from the wiki's Relations page (bb_all/1670_Relations.txt), every row of its table and its nine bands. ECONOMY's contract_terms.json carries a nine-row subset (and four of nine bands); this file is the whole table, and the mechanism reads this one. Rows marked ours are ours (draft): the wiki states no theft cost, no guard rule, so crime sizes are mapped onto the wiki's own offence ladder and guards draw in the hostile band. Prices stay in price_table.json (sellCutByRelationAndSize); this file never prices.",
+ "bands": {
+  "value": [
+   {
+    "id": "hostile",
+    "lo": 0,
+    "hi": 9
+   },
+   {
+    "id": "threatening",
+    "lo": 10,
+    "hi": 19
+   },
+   {
+    "id": "unfriendly",
+    "lo": 20,
+    "hi": 29
+   },
+   {
+    "id": "cold",
+    "lo": 30,
+    "hi": 39
+   },
+   {
+    "id": "neutral",
+    "lo": 40,
+    "hi": 59
+   },
+   {
+    "id": "open",
+    "lo": 60,
+    "hi": 69
+   },
+   {
+    "id": "friendly",
+    "lo": 70,
+    "hi": 79
+   },
+   {
+    "id": "very_friendly",
+    "lo": 80,
+    "hi": 89
+   },
+   {
+    "id": "allied",
+    "lo": 90,
+    "hi": 100
+   }
+  ],
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+  "quote": "Hostile 0 - 9, Threatening 10 - 19, Unfriendly 20 - 29, Cold 30 - 39, Neutral 40 - 59, Open 60 - 69, Friendly 70 - 79, Very Friendly 80 - 89, Allied 90 - 100"
+ },
+ "start": {
+  "value": 50,
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+  "quote": "All settlements start with the bar at Neutral."
+ },
+ "drift": {
+  "value": {
+   "toward": 50,
+   "per_dawn": 0.25
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+  "quote": "Relations trend towards 50 and these minute shifts in Relations take place at dawn of each day. (applies to both decay and gain, so a settlement at Hostile(0) will take roughly 40 days to reach Threatening(10))"
+ },
+ "fortified": {
+  "value": "shares the noble house's bar",
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+  "quote": "Fortified settlements (Fortified Manor/Castle/Stronghold) are fully affiliated with their Noble House and do not have separate Relations bar"
+ },
+ "acts": {
+  "betray_contract": {
+   "value": -100,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Betrayal on Contract||-100"
+  },
+  "attack_them": {
+   "value": -30,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Attacking Them||-30"
+  },
+  "offensive_action": {
+   "value": -20,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Offensive Action||-20"
+  },
+  "fail_civilian_contract": {
+   "value": -20,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Failing a Civilian Contract||-20"
+  },
+  "fail_noble_contract": {
+   "value": -10,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Failing a Noble Contract||-10"
+  },
+  "cancel_contract": {
+   "value": -10,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Canceling a Contract||-10"
+  },
+  "minor_offensive_action": {
+   "value": -10,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Minor Offensive Action||-10"
+  },
+  "negotiation_fail": {
+   "value": -2.5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Contract Negotiation Fail||-2,5"
+  },
+  "kill_one_unit": {
+   "value": -0.5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Killing 1 of Their Units||-0,5"
+  },
+  "drink_for_patrons": {
+   "value": 0.1,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Buying a Drink for the Patrons in the Tavern||+0,1"
+  },
+  "noble_contract_poor": {
+   "value": 2.5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Noble Contract Poorly Completed||+2,5"
+  },
+  "civilian_contract_poor": {
+   "value": 5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Civilian Contract Poorly Completed||+5"
+  },
+  "noble_contract_done": {
+   "value": 5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Noble Contract Completed||+5"
+  },
+  "civilian_contract_done": {
+   "value": 10,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Civilian Contract Completed||+10"
+  },
+  "favor": {
+   "value": 15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
+   "quote": "Doing Them a Favor||+15"
+  }
+ },
+ "crime": {
+  "_about": "OURS, draft. The wiki's page lists no theft. Each crime is MAPPED onto a row of the wiki's own offence ladder so no new number is invented; PAOLO'S 'you cannot even steal bread'.",
+  "steal_bread": {
+   "maps_to": "minor_offensive_action",
+   "ours": true,
+   "draft": true
+  },
+  "steal_battery": {
+   "maps_to": "offensive_action",
+   "ours": true,
+   "draft": true
+  },
+  "steal_car": {
+   "maps_to": "offensive_action",
+   "ours": true,
+   "draft": true
+  },
+  "witnessed_only": {
+   "value": true,
+   "ours": true,
+   "why": "standing travels by witnesses (bohemia_standing.js); an unseen theft writes nothing"
+  }
+ },
+ "guards": {
+  "draw_at_or_below": {
+   "value": 9,
+   "ours": true,
+   "draft": true,
+   "why": "the hostile band's top; the wiki says hostile settlements are not friendly and states no guard rule"
+  }
+ }
+}

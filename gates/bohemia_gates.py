@@ -815,6 +815,10 @@ GATES = [
      'write the taking to the wrong side -> 4; accept any outcome -> 1; leave a closed raid open -> 4; settle early -> 2; settle late -> 4; let a tie fall -> 1; let the '
      'strong fall -> 2; let a missing number fall -> 1; let the world ruin -> 3; settle a moot raid as live -> 1; refuse the table\'s comparison -> 1; drop the raids from '
      'the save -> 1; keep a junk raid on load -> 1; drop the raid from the marker -> 1; put a sentence on it -> 2; lie about the day -> 1.', True),
+    ('RELATIONS', ['node', 'gates/relations_gate.js'],
+     'ROW [beef] RELATIONS-BANDS-FROM-THE-WIKI: the nine bands and all fifteen up-and-down rows of Battle Brothers\' Relations page, read straight out of the wiki tarball by the gate and compared row for row with records/target/bb/relations.json, and checked against ECONOMY\'s partial copy. '
+     'The mechanism: a bar per town from 50, clamps at 0 and 100, drift of a quarter point a dawn that never passes 50 (forty mornings from 0 to 10), a seen theft costs its mapped wiki offence and an unseen one writes nothing, guards draw in the hostile band; crime and the guard line must say they are ours. '
+     'Red thirty-three ways over data and engine.', True),
     ('FACTIONS', ['node', 'gates/factions_gate.js'],
      'ROWS [the parties on the map] and [a house you give a fuck about] (rule 80c): the demo\'s four factions in one data file RUN reads. '
      'Every faction has a face slot (never a person\'s name), a want with a source, a base, a draft voice line, a beef-driven memory, a banner nobody else owns and never purple '
