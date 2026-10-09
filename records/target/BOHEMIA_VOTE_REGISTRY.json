@@ -5565,7 +5565,7 @@
    "id": "mods-the-mods-folder-10-10",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "7f4d2ae",
    "made": "10/10",
    "title": "THE MODS FOLDER",
    "why": "A design, nothing built, and the demo never touches it. A mod is a small folder named like the data file it changes. Eleven checks ran against the real data files: an empty folder changes nothing, a broken mod changes nothing and is named, a good mod changes exactly what it says.",
