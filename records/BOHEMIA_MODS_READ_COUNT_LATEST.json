@@ -1,5 +1,5 @@
 {
- "measuredAt": "7ad4472",
+ "measuredAt": "7226fb0",
  "note": "MODS [read count]. touch = live copies (found + hidden in a blob) + gates that pin the literal. The data line has to beat these numbers; the target is 1.",
  "probes": [
   {
@@ -21,6 +21,22 @@
     "slices/BOHEMIA_DEMO.html [COMBAT_B64]"
    ],
    "touch": 4
+  },
+  {
+   "thing": "one weapon's damage in the NEW fight (the knife row)",
+   "literal": "\"id\": \"knife\",",
+   "found": {
+    "LIVE": 1,
+    "GATE": 0,
+    "TOOL": 1,
+    "DOC": 0
+   },
+   "foundLive": [
+    "records/target/bb/weapons.json"
+   ],
+   "foundGates": [],
+   "hidden": [],
+   "touch": 1
   },
   {
    "thing": "one background (the kitchen hand, a former trade)",

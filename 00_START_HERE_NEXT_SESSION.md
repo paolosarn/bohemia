@@ -1,3 +1,20 @@
+MODS (mods-59jyd6): 10/9 LATEST -- [what is data and what is not] SHIPPED (rule 74 top row).
+TAB: VOTE, item WHAT IS DATA AND WHAT IS NOT: two lists (IN A DATA FILE, STILL IN CODE).
+Record records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md. Instruments
+tools/bohemia_mods_data_audit.js (1 s) and tools/bohemia_mods_read_count.js (about a minute).
+RESULT: the new fight reads 12 of the 14 records/target/bb files, one loose table (SND).
+The demo start screen reads 1 (origins), the map reads 1 (party_math). SIX FINDINGS: the
+start screen DROPS a new origin (hard-coded list of 15 ids, merge skips unknown ids; row on RUN
+[origins fallback]); the sealed OLD fight is still in the demo with 0 data files so a gun has two
+truths (row on COMBAT [one fight]); the map repeats backgrounds, origins and roster in its own
+tables and holds 245 big tables, 775 KB, in no file (WORLD, ECONOMY, WORDS jump list); the shell
+is sound, music and art, not rules. READ COUNT: one weapon's damage = 4 files in the old fight,
+1 in the new (target met). FINDING AGAINST MY OWN 9/28 ADVICE: weapons are now the easiest kind,
+not the hardest; research pages go stale in a week, re-run the audit.
+NEXT: [the data schema page] is the top OPEN row (shape of each bb file, one worked example),
+then [the mods folder design], [one weapon file] (now mostly answered by weapons.json),
+[grok sources]. [read count] stays CLAIMED, reported every round. PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/9 LATEST -- [grok sources] SHIPPED: my six research pages checked against the wiki and Grok pages.
 TAB: VOTE, item WHO DIES (now with a red BATTLE BROTHERS REAL button; draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_WIKI_CHECK_WHAT_I_HAD_WRONG_10_9_26.md ; corrections appended to the death-rule,

@@ -28,6 +28,7 @@ const RECORD = path.join(ROOT, 'records', 'BOHEMIA_MODS_READ_COUNT_LATEST.json')
 
 const PROBES = [
   { thing: 'one weapon\'s damage (the pistol\'s lethal odds)', literal: 'WEAPON_LETHAL' },
+  { thing: 'one weapon\'s damage in the NEW fight (the knife row)', literal: '"id": "knife",' },
   { thing: 'one background (the kitchen hand, a former trade)', literal: 'RAN A KITCHEN' },
   { thing: 'one sound (the gunshot)', literal: 'shot: {' },
 ];
@@ -39,7 +40,7 @@ try {
   const reg = JSON.parse(fs.readFileSync(path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json'), 'utf8'));
   for (const i of reg.items || []) if (i.show && i.show.src && /\.html$/.test(i.show.src)) CANDIDATES.add('slices/' + i.show.src);
 } catch (e) {}
-function cat(f) { if (CANDIDATES.has(f)) return 'DOC'; return f.startsWith('slices/') || f.startsWith('engine/') ? 'LIVE' : f.startsWith('gates/') ? 'GATE' : f.startsWith('tools/') ? 'TOOL' : 'DOC'; }
+function cat(f) { if (CANDIDATES.has(f)) return 'DOC'; return f.startsWith('slices/') || f.startsWith('engine/') || f.startsWith('records/target/') ? 'LIVE' : f.startsWith('gates/') ? 'GATE' : f.startsWith('tools/') ? 'TOOL' : 'DOC'; }
 
 const files = tracked().filter(f => /\.(js|py|html|md|txt|json)$/.test(f));
 const texts = new Map();
