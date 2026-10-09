@@ -5340,6 +5340,19 @@
     "src": "BOHEMIA_ROSTER_SCREEN.html"
    },
    "draft": true
+  },
+  {
+   "id": "quests-the-contract-kinds-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "EVERY BATTLE BROTHERS CONTRACT, AS A JOB IN OUR VALLEY",
+   "why": "All 49 Battle Brothers contract kinds are now jobs in Vegas, each with who gives it, what it pays and what can go wrong. The job board in the demo can fill itself from this.",
+   "show": {
+    "how": "text",
+    "src": "Eight kinds of job: haul, carry, clear, hunt, patrol, hold, recover, find. Each one comes from a town's trouble, and finishing it fixes that trouble."
+   }
   }
  ],
  "verdicts": [

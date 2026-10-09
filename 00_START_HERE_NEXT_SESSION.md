@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 LATEST -- [the contract kinds] SHIPPED: questbook/research/QR_AF_THE_CONTRACT_KINDS_10_9_26.md, all 49 Battle Brothers contract kinds as our jobs, plus the field list RUN TWO board needs. VOTE: one line. NOT IN A TAB. Next job: [the road events].
+
 MODS (mods-59jyd6): 10/9 LATEST -- [what is data and what is not] SHIPPED (rule 74 top row).
 TAB: VOTE, item WHAT IS DATA AND WHAT IS NOT: two lists (IN A DATA FILE, STILL IN CODE).
 Record records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md. Instruments
