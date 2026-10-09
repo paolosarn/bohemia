@@ -5366,6 +5366,11 @@
     "how": "text",
     "src": "ACT ONE: 12% lit, medieval stalls (grain, water, rope, iron tools, lamp oil, salt).\\nACT TWO: 20% lit if you did nothing, more if you built, less if you tore down. Stalls add cells, wire, solar film, medicine.\\nACT THREE: 30% lit by default, techy stalls (cells, chips, solar film, printed parts).\\nA ruin you caused stays a ruin. Not drawn yet."
    }
+  },
+  {
+   "id": "factions-four-with-a-face-10-9", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/9",
+   "title": "FOUR FACTIONS WITH A FACE", "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
+   "show": {"how": "page", "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"}
   }
  ],
  "verdicts": [

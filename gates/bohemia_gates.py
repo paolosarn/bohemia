@@ -815,6 +815,13 @@ GATES = [
      'write the taking to the wrong side -> 4; accept any outcome -> 1; leave a closed raid open -> 4; settle early -> 2; settle late -> 4; let a tie fall -> 1; let the '
      'strong fall -> 2; let a missing number fall -> 1; let the world ruin -> 3; settle a moot raid as live -> 1; refuse the table\'s comparison -> 1; drop the raids from '
      'the save -> 1; keep a junk raid on load -> 1; drop the raid from the marker -> 1; put a sentence on it -> 2; lie about the day -> 1.', True),
+    ('FACTIONS', ['node', 'gates/factions_gate.js'],
+     'ROWS [the parties on the map] and [a house you give a fuck about] (rule 80c): the demo\'s four factions in one data file RUN reads. '
+     'Every faction has a face slot (never a person\'s name), a want with a source, a base, a draft voice line, a beef-driven memory, a banner nobody else owns and never purple '
+     '(CIEDE2000-style distance from every shipped faction colour), a make-up of real enemy ids, and a behaviour that is quoted or marked ours. '
+     'Red twenty-three ways: drop the face, a bad face id, a shared face, no want, an unsourced want, no base, a purple banner, a copied banner, a banner near a shipped colour, '
+     'a made-up enemy, a zero count, a half count, a bad behaviour, an unsourced behaviour, an unsourced make-up, a final voice, no beef, a shared ground, a made-up faction, '
+     'a canon colour on a crew, no gaps list, no portrait slot, a first party bigger than the last.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '

@@ -1,0 +1,256 @@
+{
+ "_about": "The demo's factions as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json), a home ground, a behaviour, and a FACE, a WANT and a BASE. Mixes and behaviours are Battle Brothers' and cite the wiki; banner inks, wants, face slots and voice lines are OURS and marked ours/draft. A face id is a SLOT for PEOPLE and PORTRAIT to fill (portrait:null until they do); nothing here names a person. No purple (PURPLE RESERVATION).",
+ "banner_rule": {
+  "value": "a faction's ink is nobody else's; chosen by CIEDE2000 distance from every shipped faction colour in engine/BOHEMIA_faction_colours.json",
+  "ours": true,
+  "source": "engine/BOHEMIA_faction_colours.json",
+  "quote": "COLOUR IS TERRITORY (8/26)",
+  "why": "free hues are nearly used up; orange, cyan and mint were the three furthest from the rest"
+ },
+ "factions": [
+  {
+   "id": "brigands",
+   "name": "Road crews",
+   "enemy_faction": "brigands",
+   "banner": "#ff6a00",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "brigand_thug": 8,
+     "lower_brigand_raider": 2
+    },
+    "late": {
+     "brigand_thug": 1,
+     "brigand_raider": 3,
+     "brigand_marksman": 2,
+     "brigand_marauder": 3,
+     "brigand_leader": 1
+    }
+   },
+   "ground": [
+    "road",
+    "freeway",
+    "interchange"
+   ],
+   "behaviour": "raid",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0299_Brigands.txt",
+   "behaviour_quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders.",
+   "face": {
+    "id": "face-brigands-boss",
+    "role": "the crew's boss on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Esta carretera es nuestra. Pay the toll or walk.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "hold-the-freeway",
+    "text": "to own the freeway and tax everyone on it",
+    "ours": true,
+    "source": "VAMILY row [a house you give a fuck about]",
+    "quote": "the crew wants the freeway"
+   },
+   "base": {
+    "kind": "camp",
+    "tier": "camp",
+    "note": "a home base on the map (WORLD's BohemiaTowns seat); which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "bands": [
+     "unknown",
+     "wary",
+     "hostile"
+    ],
+    "ours": true
+   },
+   "mix_source": "records/target/bb/ours.json enemy_tiers (bb_all/0299_Brigands.txt)"
+  },
+  {
+   "id": "noble_houses",
+   "name": "The House",
+   "enemy_faction": "noble_houses",
+   "banner": "canon",
+   "banner_ours": false,
+   "mix": {
+    "early": {
+     "footman": 6,
+     "billman": 2,
+     "man_at_arms": 2
+    },
+    "late": {
+     "footman": 3,
+     "billman": 2,
+     "man_at_arms": 2,
+     "arbalester": 2,
+     "knight": 1,
+     "standard_bearer": 1
+    }
+   },
+   "ground": [
+    "depot",
+    "town"
+   ],
+   "behaviour": "caravan",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1430_Noble Houses.txt",
+   "behaviour_quote": "They send Supply Caravans, guarded by their troops.",
+   "face": {
+    "id": "face-house-steward",
+    "role": "the house's man at the board",
+    "portrait": null
+   },
+   "voice": {
+    "text": "The House remembers who kept its roads. Keep them.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "hold-the-depot",
+    "text": "to hold the depot and keep its roads open",
+    "ours": true,
+    "source": "VAMILY row [a house you give a fuck about]",
+    "quote": "the house wants the depot"
+   },
+   "base": {
+    "kind": "fort",
+    "tier": "fortress",
+    "note": "the house's own seat"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "bands": [
+     "unknown",
+     "wary",
+     "friendly"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+  },
+  {
+   "id": "zombies",
+   "name": "The dead and their keeper",
+   "enemy_faction": "zombies",
+   "banner": "#3db8f5",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "wiederganger": 6,
+     "geist": 1
+    },
+    "late": {
+     "wiederganger": 5,
+     "armored_wiederganger": 2,
+     "necromancer": 1
+    }
+   },
+   "ground": [
+    "graveyard",
+    "ruin"
+   ],
+   "behaviour": "raid",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2249_Zombies.txt",
+   "behaviour_quote": "Zombies are one of two Undead factions. (the raid is ours; the wiki gives the faction, not a behaviour)",
+   "face": {
+    "id": "face-dead-keeper",
+    "role": "the keeper who walks them",
+    "portrait": null
+   },
+   "voice": {
+    "text": "They are not hungry. They are unfinished.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "finish-the-work",
+    "text": "to bring back what the dollar's death left unfinished",
+    "ours": true,
+    "source": "VAMILY row [a house you give a fuck about]",
+    "quote": "the dead's keeper"
+   },
+   "base": {
+    "kind": "ruin",
+    "tier": "camp",
+    "note": "a ruin on the map"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "bands": [
+     "unknown",
+     "hostile"
+    ],
+    "ours": true
+   },
+   "behaviour_ours": true,
+   "mix_ours": true,
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+  },
+  {
+   "id": "beasts",
+   "name": "The lab-made beasts",
+   "enemy_faction": "beasts",
+   "banner": "#7affb6",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "direwolf": 4,
+     "hyena": 2
+    },
+    "late": {
+     "direwolf": 3,
+     "frenzied_direwolf": 2,
+     "schrat": 1
+    }
+   },
+   "ground": [
+    "scrub",
+    "wash",
+    "hills"
+   ],
+   "behaviour": "roam",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
+   "behaviour_quote": "Various wild beasts roam the lands.",
+   "face": {
+    "id": "face-beast-ground",
+    "role": "the one that holds the ground (a pack leader, never a person)",
+    "portrait": null
+   },
+   "voice": {
+    "text": "",
+    "draft": true,
+    "ours": true,
+    "note": "a beast has no line; it has a sound (SOUNDS)"
+   },
+   "want": {
+    "id": "keep-the-ground",
+    "text": "to keep its ground and be left alone",
+    "ours": true,
+    "source": "VAMILY row [a house you give a fuck about]",
+    "quote": "one beast's ground"
+   },
+   "base": {
+    "kind": "den",
+    "tier": "camp",
+    "note": "a den on its ground"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "bands": [
+     "unknown",
+     "hostile"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+  }
+ ],
+ "gaps": [
+  "no dead or beast art exists, so the card shows banners and counts only",
+  "face portraits are slots, PEOPLE/PORTRAIT fill them",
+  "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)"
+ ]
+}
