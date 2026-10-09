@@ -16476,6 +16476,14 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/9 (d) LATEST -- *** THE SHOT KICKS: two new firing clips (rifle, pistol) in
+the bank and on the fight's sheets; the gun kicks, he rocks back and settles. TAB: VOTE playing. ***
+
+[the shot kicks] SHIPPED. Correction: deadeye and others DO recoil (weakly); last round's record said otherwise.
+fire-2h / fire-1h, one beat; fight sheets 26 -> 34 columns, table shot / shot_1h / aim. FIGHT CLIPS TABLE 14/0.
+FOR COMBAT (still): frameFor reads DB.people.clips; a ranged man plays shot or shot_1h by his weapon.
+NEXT: [four legs], [hands in the box], [flee runs] (new, rule 68).
+
 ANIMATION (animation-lr9y9i): 10/9 (c) LATEST -- *** THE TOWN IS ALIVE: the town screen's people, baked and
 ready: keepers at their doors, the stall keeper haggling, hires at the posts, a crowd walking. TAB: VOTE playing. ***
 

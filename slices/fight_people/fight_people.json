@@ -41,7 +41,15 @@
   "crawl-dying@0.1042",
   "crawl-dying@0.4167",
   "crawl-dying@0.7083",
-  "crawl-dying@0.9167"
+  "crawl-dying@0.9167",
+  "fire-2h@0.0208",
+  "fire-2h@0.1042",
+  "fire-2h@0.3542",
+  "fire-2h@0.6875",
+  "fire-1h@0.0208",
+  "fire-1h@0.1042",
+  "fire-1h@0.3542",
+  "fire-1h@0.6875"
  ],
  "face": {
   "size": 64,
@@ -79,11 +87,33 @@
   },
   "shot": {
    "cols": [
-    "two-hand@0"
+    "fire-2h@0.0208",
+    "fire-2h@0.1042",
+    "fire-2h@0.3542",
+    "fire-2h@0.6875"
    ],
    "beats": 1,
    "loop": false,
-   "note": "the aim, held: the bank has no recoil clip and none is invented here"
+   "note": "a long gun: the kick into the shoulder, the muzzle climbs, the weight rocks back (fire-2h)"
+  },
+  "shot_1h": {
+   "cols": [
+    "fire-1h@0.0208",
+    "fire-1h@0.1042",
+    "fire-1h@0.3542",
+    "fire-1h@0.6875"
+   ],
+   "beats": 1,
+   "loop": false,
+   "note": "a pistol: it flips higher and the arm takes it (fire-1h)"
+  },
+  "aim": {
+   "cols": [
+    "two-hand@0"
+   ],
+   "beats": 1,
+   "loop": true,
+   "note": "the aim held, before and after the shot"
   },
   "hit": {
    "cols": [

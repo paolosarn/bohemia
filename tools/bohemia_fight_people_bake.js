@@ -30,7 +30,11 @@ const COLS = [['idle', 0], ['walk', 0], ['walk', .25], ['walk', .5], ['walk', .7
      graveyard's 'death' and 'ragdoll' stay dead. */
   ['idle', .1042], ['idle', .3542], ['idle', .7292],
   ['floor-rise', .8125], ['floor-rise', .6458], ['floor-rise', .5208], ['floor-rise', .3125], ['floor-rise', .1042],
-  ['crawl-dying', .1042], ['crawl-dying', .4167], ['crawl-dying', .7083], ['crawl-dying', .9167]];
+  ['crawl-dying', .1042], ['crawl-dying', .4167], ['crawl-dying', .7083], ['crawl-dying', .9167],
+  /* ANIMATION [the shot kicks] (10/9): the bank's new one-beat firing clips, the rifle and the pistol, each at the
+     middle of four drawn poses: the kick rising, its peak, the ease, settled. APPENDED: nothing above moves. */
+  ['fire-2h', .0208], ['fire-2h', .1042], ['fire-2h', .3542], ['fire-2h', .6875],
+  ['fire-1h', .0208], ['fire-1h', .1042], ['fire-1h', .3542], ['fire-1h', .6875]];
 const ROWS = ['SE', 'SW'];
 /* THE CLIP TABLE (ANIMATION's, 10/9): which columns play for which fight event, how many beats they take and
    what follows. The fight reads it (frame = cols[floor(progress * cols.length)]); nothing here is a number a
@@ -39,7 +43,9 @@ const CLIPS = {
   idle:  { cols: ['idle@0', 'idle@0.1042', 'idle@0.3542', 'idle@0.7292'], beats: 4, loop: true },
   step:  { cols: ['walk@0', 'walk@0.25', 'walk@0.5', 'walk@0.75'], beats: 1, loop: true },
   swing: { cols: ['bat-arc@0.2', 'bat-arc@0.5', 'bat-arc@0.68'], beats: 1, loop: false },
-  shot:  { cols: ['two-hand@0'], beats: 1, loop: false, note: 'the aim, held: the bank has no recoil clip and none is invented here' },
+  shot:  { cols: ['fire-2h@0.0208', 'fire-2h@0.1042', 'fire-2h@0.3542', 'fire-2h@0.6875'], beats: 1, loop: false, note: 'a long gun: the kick into the shoulder, the muzzle climbs, the weight rocks back (fire-2h)' },
+  shot_1h: { cols: ['fire-1h@0.0208', 'fire-1h@0.1042', 'fire-1h@0.3542', 'fire-1h@0.6875'], beats: 1, loop: false, note: 'a pistol: it flips higher and the arm takes it (fire-1h)' },
+  aim:   { cols: ['two-hand@0'], beats: 1, loop: true, note: 'the aim held, before and after the shot' },
   hit:   { cols: ['stagger-hit@0.03', 'stagger-hit@0.09', 'stagger-hit@0.16', 'stagger-hit@0.26'], beats: 1, loop: false },
   fall:  { cols: ['floor-rise@0.8125', 'floor-rise@0.6458', 'floor-rise@0.5208', 'floor-rise@0.3125', 'crawl-dying@0.1042'], beats: 2, loop: false, then: 'down',
            note: 'ends ON the down man\'s first picture (his own reaching arm, 2-4 px past floor-rise\'s seated end), so the seam is exact; a man who dies goes from here to dead (he slumps flat)' },

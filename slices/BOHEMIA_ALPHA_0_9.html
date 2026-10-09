@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9j - THE MAN STAYS 112</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9k - THE SHOT KICKS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7398,7 +7398,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -7541,6 +7541,26 @@ const POSE={
    return {ikR:g[0],bendR:'auto',ikL:g[1],bendL:'auto',spine:0.14*lean,head:0.09*lean,
      legCompressL:0.06,legCompressR:0.06,hipOff:[lean*0.8,0.3],
      _gun:['rifle',g[1],g[0],aim],_fire:fire,_dial:[g[0],aim,(ph*8)%1,fire]};},
+ /* THE SHOT KICKS (ANIMATION [the shot kicks], 10/9; rules 63 and 69: half the rebuilt fight's men shoot, and the
+    fight's shot was two-hand@0, the aim HELD). deadeye fires inside a 126-degree sweep with a 2 px pull for a sliver
+    of its bar, so a shot read as a man standing still. These are ONE BEAT: the aim (the two-hand / pistol pose, the
+    same grips), then the KICK snaps in fast (the gun pulled back to the shoulder, the muzzle climbing, the shoulders
+    and the weight rocking back, the flash on the kick) and EASES out over the rest of the beat. Out and back once:
+    nothing reverses between two drawn keys (the envelope rule, 9/24). A rifle kicks into the shoulder and climbs a
+    little; a pistol flips more and the arm takes it. Facing you the climb is the grips rising, since a muzzle that
+    points into the screen cannot be seen to tilt. */
+ 'fire-2h':(d,ph)=>{const t=((ph%1)+1)%1;const k=t<0.1?t/0.1:Math.max(0,1-(t-0.1)/0.65)**2;const ca=Math.cos(FACEANG[d]);
+   const rise=0.30*k, aim=FACEANG[d]-(Math.abs(ca)>0.3?Math.sign(ca):0)*rise;
+   const g=gunTA(d,RF-5*k,RR-3.5*k,aim), up=(Math.abs(ca)<=0.3?3.6*k:1.0*k);
+   const fs=[g[0][0],g[0][1]-up],rs=[g[1][0],g[1][1]-up*0.55];
+   return {ikR:fs,bendR:'auto',ikL:rs,bendL:'auto',spine:-0.16*k*ca,head:-0.12*k*(Math.abs(ca)>0.3?ca:1),
+     hipOff:[-ca*2.0*k,0.4-0.8*k],legCompressL:0.06,legCompressR:0.06,_gun:['rifle',rs,fs,aim],_fire:k>0.55};},
+ 'fire-1h':(d,ph)=>{const t=((ph%1)+1)%1;const k=t<0.1?t/0.1:Math.max(0,1-(t-0.1)/0.6)**2;const ca=Math.cos(FACEANG[d]);
+   const rise=0.5*k, aim=FACEANG[d]-(Math.abs(ca)>0.3?Math.sign(ca):0)*rise;
+   const g=gunTA(d,RF-4*k,RR,aim), up=(Math.abs(ca)<=0.3?4.4*k:1.4*k);
+   const f=[g[0][0],g[0][1]-up];
+   return {ikR:f,bendR:'auto',upL:0.15,foreL:0.25,spine:-0.10*k*ca,head:-0.10*k*(Math.abs(ca)>0.3?ca:1),
+     hipOff:[-ca*1.3*k,-0.5*k],_gun:['pistol',f,aim],_fire:k>0.55};},
  lean:(d,ph)=>({spine:0.22+0.02*Math.sin(ph*2*Math.PI),upL:0.1,upR:-0.1}),
  /* sleep is a special lying path now: see sleepPose (7/2/26 rebuild) */
  headshot:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));

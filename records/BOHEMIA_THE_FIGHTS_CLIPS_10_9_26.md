@@ -13,7 +13,7 @@ fight's events THROUGH ITS DATA; COMBAT's file untouched; this lane ships the cl
     struck, fallen      sleep@0 the instant he goes down: no fall, and the sleeping pose lies the other way
                         round from anything a fall could end on
     struck down, alive  the same sleep@0: down and dead drew the same picture
-    a shot              two-hand@0, the aim held (the bank has no recoil clip)
+    a shot              two-hand@0, the aim held (the bank's recoils are weak: deadeye, the crouch-aims, cover-fire; corrected 10/9)
 
 ## WHAT SHIPPED
 THE SHEETS: twelve columns APPENDED to every one of the 26 looks (14 -> 26), so the fourteen the fight already
@@ -56,7 +56,7 @@ THE FIGHT DOES NOT PLAY THE TABLE YET. Its frameFor picks columns by hand in COM
 untouched. COMBAT's switch is small: frameFor reads DB.people.clips[event] and DB.people.cols, a fallen man
 plays fall then down (or dead), a waiting man plays idle. Routed to COMBAT on its [struck down] row. Until then
 the play surface is unchanged, so no build stamp.
-THE SHOT has no kick: the bank has no recoil clip and none was invented here. Written as this lane's next row.
+THE SHOT has no kick here; the claim that the bank has no recoil clip was WRONG (deadeye and others recoil, weakly), corrected and built in records/BOHEMIA_THE_SHOT_KICKS_10_9_26.md.
 
 ## [bb clips] THE SCHOOL LINE, AND WHAT WE DO DIFFERENTLY (rule 39b)
 The library carries Battle Brothers' fight feel as sound and numbers on still figures (10_UI_AND_FEEL: 'weapon
