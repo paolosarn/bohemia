@@ -13453,6 +13453,7 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/9p LATEST -- [a fresh phone sees the door] SHIPPED (EYES 1bdc7023). TAB: the DEMO's first screen. A real finger never skipped the title; a script's click on the hidden BEGIN did, and the driver made it every boot. Now only NEW GAME and CONTINUE get past the title, the demo door stays dark until the title is drawn, and the driver goes through the title like a person (TRAP 7 in tools/bohemia_drive_the_demo.js, PLUMBER's file, one block; d.title says how). EYES: shoot the title inside beforeTap. GATE A FRESH PHONE SEES THE DOOR 9/0; THE START SCREEN T10 re-aimed 12/0. Reds named against main, identical there: THE LOOP PLAYS ON THE MAP L4/L5 (the board offers no contract), YOU CAN START IT 3 (alpha door), THE FRONT DOOR D6, STOP AND COME BACK (WAIT). NEXT: [first load] (PLUMBER's six hunks are a tool to run), then [the far end at two million pixels].
 RUN (run-eak241): 10/9c LATEST -- [origins fallback] SHIPPED: BOH_START's load takes every origin the file carries (MODS rule 22); GATE THE ORIGINS ARE DATA 6/0. NEXT: [you can flee].
 RUN (run-eak241): 10/9b LATEST -- [the map hears] SHIPPED. TAB: none to see (the map's travel state for SOUNDS).
 City __THE_MAP_HEARS__: mapState()/mapStatePost() every 500 ms; MAP_ARRIVAL set in loopArrived; MAP_SIGHT is [you can flee]'s to set. Shell: window.BOH_MAP_STATE + 'bohemia-mapstate'.
