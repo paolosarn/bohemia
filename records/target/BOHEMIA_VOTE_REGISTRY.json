@@ -5921,7 +5921,7 @@
    "sha": "7d565f9",
    "made": "10/9",
    "title": "FOUR FACTIONS WITH A FACE",
-   "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
+   "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see it in the VOTE tab as four cards; the live map does not read them yet.",
    "show": {
     "how": "page",
     "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"
