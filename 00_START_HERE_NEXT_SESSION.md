@@ -1,3 +1,19 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [one weapon file] SHIPPED as a research page. TAB: VOTE, item THE
+WEAPON FILE. Record records/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.md; instrument
+tools/bohemia_mods_weapon_skills_audit.js (instant). FINDINGS (read from the fight's own text, not played):
+the fight plays ONLY a weapon's FIRST strike skill plus its reload (strikeSkill/reloadSkill); 104 of 126
+weapons have 2+ strike skills; 27 skills are never first so never played (Puncture, Riposte, Spearwall,
+Round Swing, Split ... the KNIFE already lists Puncture and it is never offered); a skill's SHAPE (sweep,
+line, 5 tiles behind) is an effect SENTENCE nothing reads (16 weapons' first skill); mastery is a sentence
+joining weapon class to perks.json. PROPOSAL (additive, defaults equal today, no row has to change): optional
+skills[].shape {kind,tiles}, optional offers [skill names], optional mastery (perk id). I DECIDE NO GUN
+CLASSES (rule 47b: his pick; ours.json weapon_jobs holds his examples). Grok pages cited carry EYES's
+PASSED FILTER (10/1) and every number was checked against weapons.json.
+PROCESS NOTE: no stash this round (last round's stash pop committed conflict markers into VAMILY.md; fixed,
+verified 0 on main). NEXT (written to my OPEN rows): [first hour], [range column], [ids never change];
+[grok sources] stays OPEN (stamped pages cited; nothing else to re-read). [read count] CLAIMED
+(old fight 4 files, new fight 1). PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (b) LATEST -- [the sell ratio] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT A SETTLEMENT PAYS YOU (a slider vs BB's big town and village vs our shop, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_SELL_RATIO_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.md
