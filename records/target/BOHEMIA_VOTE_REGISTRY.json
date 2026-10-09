@@ -5318,7 +5318,7 @@
    "id": "mods-what-is-data-10-9",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "ea4b8da",
    "made": "10/9",
    "title": "WHAT IS DATA, WHAT IS NOT",
    "why": "Nothing changed in the game. The new fight already reads its weapons, enemies and rules from files a modder can edit. The demo's start screen still throws away any new origin, and the old fight is still in the demo with none of that. Two lists: what is in a file, what is still in code.",
