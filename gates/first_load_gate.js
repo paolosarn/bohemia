@@ -19,6 +19,10 @@
    MOVE: the wall is the processor (a CPU profile is in the record), not the download.
    AN EARLIER CUT OF THIS COUNT WAS WRONG: without caching rules the test server made every
    repeat request a full download, and the first reading said "everything twice, 69 MB".
+   ROUND 2 (10/9), THE PROCESSOR: the boot's biggest cost is the skinner binding bodies it has
+   already bound (1,256 binds before ready, 174 different). Four more hunks, bit for bit the same
+   binding, take the page's own boot work from 13.0 s to 6.8 s at full speed; all six hunks are
+   one command for RUN (tools/bohemia_first_load_hunks.py), and H1 below keeps them fitting.
 
    LEGS
      S1-S3  SELF-TEST on a planted page served in the demo's place: a title shown at once
@@ -31,6 +35,9 @@
             a file arrived twice does not.
      R1     NEVER WORSE: the bytes before NEW GAME is ready stay under the ceiling (today's
             worst plus room; LOWER IT when the fixes land, never raise it).
+     H1     THE HANDED-OVER HUNKS STILL FIT (round 2, no browser): tools/bohemia_first_load_hunks.py
+            dry-runs on the alpha and every hunk either applies once or is already in. A hunk
+            whose old text drifted is PLUMBER's to refresh, said here before RUN meets a refusal.
    It lands RED on purpose: T1, T2 and D1 are the gap between his 40 seconds and the
    budget, and green would be the lie. About two minutes.
    ========================================================================== */
@@ -64,6 +71,14 @@ const PLANT = (twice) => `<!doctype html><html><head><meta charset="utf-8"></hea
   console.log('FIRST LOAD: the title in 2 s, NEW GAME ready in 8 s, nothing downloaded twice');
   console.log('='.repeat(74));
 
+  /* ---- H1: the hunks handed to RUN still fit the page they were written for -------- */
+  { const h = require('child_process').spawnSync('python3', [path.join(ROOT, 'tools/bohemia_first_load_hunks.py')], { encoding: 'utf8' });
+    const rows = (h.stdout || '').split('\n').filter(l => /^\s+(applied|already in|REFUSED)/.test(l));
+    /* the status is the first word of the row: a hunk's own words can say "already in" too (the warm-up's does) */
+    ok('H1 the handed-over hunks still fit the alpha (' + rows.filter(l => /^\s+applied\s/.test(l)).length + ' to apply, '
+       + rows.filter(l => /^\s+already in\s/.test(l)).length + ' already in)', h.status === 0 && rows.length >= 6,
+       (h.stdout || '') + (h.stderr || '') + '\n         PLUMBER refreshes the hunk from the page as it is now (records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md).'); }
+
   /* ---- S: planted pages ------------------------------------------------------ */
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'firstload-'));
   try {
@@ -88,10 +103,10 @@ const PLANT = (twice) => `<!doctype html><html><head><meta charset="utf-8"></hea
   ok('T1 the title is on screen within ' + sec(TITLE_MS) + ' of the tap (' + sec(r.title) + ')',
      r.title != null && r.title <= TITLE_MS, 'rule 66a: the title paints within two seconds, the world loads behind it (RUN [first load] owns the order)');
   ok('T2 NEW GAME is ready within ' + sec(READY_MS) + ' (' + sec(r.ready) + ')', r.ready != null && r.ready <= READY_MS,
-     'Paolo 10/5: "I gotta wait 40 seconds." The world must load behind the title, and the bytes it waits for must shrink.');
+     'Paolo 10/5: "I gotta wait 40 seconds." The world must load behind the title, and the bytes it waits for must shrink. [bind once] takes about 20 s of it at this speed: python3 tools/bohemia_first_load_hunks.py --write (records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md)');
   ok('D1 no file is downloaded twice before NEW GAME is ready (' + r.twice.length + ' files twice)', !r.twice.length,
      r.twice.slice(0, 12).map(t => t.url + ' x' + t.times + ' (' + t.mb + ' MB)').join('\n         ')
-     + '\n         The fix is handed to RUN: records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md');
+     + '\n         The fix is handed to RUN as one command: python3 tools/bohemia_first_load_hunks.py --write (records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md)');
   const mbReady = r.bytesBeforeReady == null ? null : r.bytesBeforeReady / 1048576;
   ok('R1 NEVER WORSE: ' + (mbReady == null ? '?' : mbReady.toFixed(1)) + ' MB before NEW GAME is ready, ceiling ' + CEIL_MB + ' MB',
      mbReady != null && mbReady <= CEIL_MB, 'the page got heavier before the player can start. Lower the ceiling when it falls; never raise it.');
