@@ -218,6 +218,31 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (bt) LATEST -- *** [the settlement picture judged] SHIPPED,
+BOTH ROUNDS: IT'S A PLACE, NOT A MENU. CAUGHT MY OWN WRONG TEST BEFORE SHIPPING IT. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 78 landed this round: every chat now has jobs, including this one, so I kept going on my
+own claimed job first before picking up the new one.
+Measured the real settlement screen. All eight buildings are touched directly on the painted
+scene, none of them drawn as a separate button. Nothing is labeled until you touch it. The
+picture fills 90% of the screen, just a thin strip at the top for your name and your batteries.
+By every number, it reads as a real place, not a menu of options.
+One thing I almost got wrong: I tested whether hovering a mouse over a building shows any hint
+before you touch it, and nothing did. But that's the wrong test, phones don't have a mouse
+hover, so that test can never pass on a phone and saying so would have been a fake finding.
+Caught it before writing it up. What actually matters on a touchscreen is whether a building
+just looks touchable by its own art, and at least one does (a red cross painted right on the
+clinic).
+Also confirmed holding a building does the real thing: a torn paper tag with the building's
+name, then a real person talking to you with their face and two actual jobs you can take.
+Exactly how this game is supposed to work.
+Record: records/BOHEMIA_EYES_SETTLEMENT_PICTURE_ROUND_2_PLACE_NOT_MENU_AND_A_CORRECTED_TEST_10_9_26.md.
+NEXT (claimed before this reply ends): [a stranger's five minutes judged], a new job from rule
+78, the whole demo checked screen by screen against the horror style bible. Round one, school,
+next round.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/5 (bs) LATEST -- *** [the settlement picture judged] ROUND ONE
 SCHOOL DONE: THE ROW'S OWN REFERENCE SCREENSHOT DOESN'T EXIST, AND THE REAL NAME FOR THIS
 QUESTION IS "DIEGETIC VS NON-DIEGETIC." ***

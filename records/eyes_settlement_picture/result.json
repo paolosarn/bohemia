@@ -1,0 +1,125 @@
+{
+  "rest": {
+    "texts": [
+      {
+        "tag": "SPAN",
+        "id": "pname",
+        "cls": "name",
+        "text": "THE WASH, NORTH LAS VEGAS",
+        "x": 12,
+        "y": 19.875,
+        "w": 170.65625,
+        "h": 20.25
+      },
+      {
+        "tag": "SPAN",
+        "id": "bat",
+        "cls": "bat",
+        "text": "3 BATTERIES",
+        "x": 192.65625,
+        "y": 19.875,
+        "w": 99.34375,
+        "h": 20.25
+      },
+      {
+        "tag": "BUTTON",
+        "id": "leave",
+        "cls": "",
+        "text": "LEAVE",
+        "x": 302,
+        "y": 8,
+        "w": 76,
+        "h": 44
+      },
+      {
+        "tag": "BUTTON",
+        "id": "close",
+        "cls": "",
+        "text": "×",
+        "x": 338,
+        "y": 833.4000244140625,
+        "w": 44,
+        "h": 44
+      }
+    ],
+    "chrome": [
+      {
+        "tag": "DIV",
+        "id": "app",
+        "cls": "",
+        "x": 0,
+        "y": 0,
+        "w": 390,
+        "h": 844
+      }
+    ],
+    "canvas": {
+      "x": 0,
+      "y": 61,
+      "width": 390,
+      "height": 763,
+      "top": 61,
+      "right": 390,
+      "bottom": 824,
+      "left": 0
+    },
+    "W": 390,
+    "H": 844,
+    "keys": [
+      "hall",
+      "board",
+      "stall",
+      "smith",
+      "armourer",
+      "barber",
+      "clinic",
+      "lot"
+    ]
+  },
+  "affordance": [
+    {
+      "key": "hall",
+      "changedOnHover": false
+    },
+    {
+      "key": "board",
+      "changedOnHover": false
+    },
+    {
+      "key": "stall",
+      "changedOnHover": false
+    },
+    {
+      "key": "smith",
+      "changedOnHover": false
+    },
+    {
+      "key": "armourer",
+      "changedOnHover": false
+    },
+    {
+      "key": "barber",
+      "changedOnHover": false
+    },
+    {
+      "key": "clinic",
+      "changedOnHover": false
+    },
+    {
+      "key": "lot",
+      "changedOnHover": false
+    }
+  ],
+  "held": [
+    {
+      "key": "hall",
+      "textNodesWhileHeld": 5
+    },
+    {
+      "key": "board",
+      "textNodesWhileHeld": 7
+    }
+  ],
+  "restTextCount": 4,
+  "buildingCount": 8
+}
