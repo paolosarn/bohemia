@@ -142,6 +142,21 @@ def cut(s, begin, end):
     return s[:i] + s[k:]
 
 
+def put(s, begin, end, block, insert):
+    """A marked block that already exists is rewritten IN PLACE (so two patches that both anchor near the
+    same line never swap places run after run); a missing one is inserted by `insert`."""
+    i = s.find(begin)
+    if i >= 0:
+        j = s.find(end, i)
+        if j < 0:
+            sys.exit('REFUSING TO WRITE: %r opens and never closes.' % begin)
+        k = j + len(end)
+        if s[k:k + 1] == '\n':
+            k += 1
+        return s[:i] + block + s[k:]
+    return insert(s)
+
+
 def once(s, anchor, label):
     n = s.count(anchor)
     if n != 1:
@@ -151,28 +166,28 @@ def once(s, anchor, label):
 def main():
     s = open(CITY, encoding='utf8').read()
     before = s
-    for b, e in ((BEGIN, END), (GLUE_MARK, GLUE_END), (PRINTS_MARK, PRINTS_END), (CROWD_MARK, CROWD_END)):
-        s = cut(s, b, e)
     body = open(MOD, encoding='utf8').read().rstrip('\n')
     if '</' in body:
         sys.exit('REFUSING TO WRITE: the module would close the script tag.')
-    once(s, AFTER, 'parties module end')
-    s = s.replace(AFTER, AFTER + BEGIN + '\n' + body + '\n' + END + '\n', 1)
-    once(s, GLUE_BEFORE, 'parties state')
-    s = s.replace(GLUE_BEFORE, GLUE + GLUE_BEFORE, 1)
+    def ins_mod(t):
+        once(t, AFTER, 'parties module end'); return t.replace(AFTER, AFTER + BEGIN + '\n' + body + '\n' + END + '\n', 1)
+    s = put(s, BEGIN, END, BEGIN + '\n' + body + '\n' + END + '\n', ins_mod)
+    def ins_glue(t):
+        once(t, GLUE_BEFORE, 'parties state'); return t.replace(GLUE_BEFORE, GLUE + GLUE_BEFORE, 1)
+    s = put(s, GLUE_MARK, GLUE_END, GLUE, ins_glue)
     if STEP_NEW not in s:
         once(s, STEP_OLD, 'party step')
         s = s.replace(STEP_OLD, STEP_NEW, 1)
     if TRK_NEW not in s:
         once(s, TRK_OLD, 'track list')
         s = s.replace(TRK_OLD, TRK_NEW, 1)
-    once(s, PRINTS_BEFORE, 'after the tracks')
-    s = s.replace(PRINTS_BEFORE, PRINTS + PRINTS_BEFORE, 1)
-    once(s, BASE_OLD, 'home base draw')
-    i = s.index(BASE_OLD)
-    # the crowd goes right after the base's fallback block closes: find the '__r = Math.max' line after it
-    j = s.index('        __r = Math.max(__r, __ps.height - 4);', i)
-    s = s[:j] + CROWD + s[j:]
+    def ins_prints(t):
+        once(t, PRINTS_BEFORE, 'after the tracks'); return t.replace(PRINTS_BEFORE, PRINTS + PRINTS_BEFORE, 1)
+    s = put(s, PRINTS_MARK, PRINTS_END, PRINTS, ins_prints)
+    def ins_crowd(t):
+        once(t, BASE_OLD, 'home base draw'); i = t.index(BASE_OLD)
+        j = t.index('        __r = Math.max(__r, __ps.height - 4);', i); return t[:j] + CROWD + t[j:]
+    s = put(s, CROWD_MARK, CROWD_END, CROWD, ins_crowd)
     if OPEN_NEW not in s:
         if s.count(OPEN_PREV) == 1:
             s = s.replace(OPEN_PREV, OPEN_NEW, 1)

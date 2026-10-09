@@ -5452,6 +5452,12 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/9c LATEST -- *** [built on the map] SHIPPED: the map owns the build lots, the morning
+finishes and pays them into the map's century and purse, the base draws them, the save keeps them. *** TAB: VOTE.
+Record: records/BOHEMIA_BUILT_ON_THE_MAP_10_9_26.md. tools/bohemia_city_built_patch.py (and both city patches now
+rewrite blocks in place). Gate BUILT ON THE MAP 12/0 on the alpha. Also cut the build-on-the-screen VOTE line to two
+sentences (PLUMBER's note). NEXT (top OPEN): [built on the board] -- with COMBAT TWO's board generator.
+
 LIFE + CITY (city-1eztay): 10/9b LATEST -- *** [build on the screen] SHIPPED: you can build in the settlement screen
 of a place you hold. *** TAB: VOTE (three phone shots). Record: records/BOHEMIA_BUILD_ON_THE_SCREEN_10_9_26.md.
 tools/bohemia_settlement_build_patch.py (idempotent, marked) adds BUILD to RUN TWO's page; the map's open

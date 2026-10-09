@@ -54,8 +54,14 @@ var LOTSPR = {};
 ['wall','tank','shed','pump','garden','solar','stall','roof'].forEach(function(id){
   var im = new Image(); im.src = 'settlement/lot/' + id + '.png'; LOTSPR[id] = im; });
 function buildKey(){ return 'bohemia.lots.' + S.place.name; }
+/* INSIDE THE GAME THE MAP OWNS THE LOTS ([built on the map], 10/9): the same object, from the parent
+   (same origin), so the map's morning finishes them, pays its own purse and writes its own century, and
+   draws them at the base. The page keeps its own only when it is played on its own. */
+function buildParent(){ try{ var w = window.parent; return (w && w !== window && typeof w.lotBookFor === 'function') ? w : null; }catch(e){ return null; } }
 function buildState(){
   if(S.build && S.build.name === S.place.name) return S.build;
+  var PW = buildParent();
+  if(PW){ S.build = { name: S.place.name, site: PW.lotBookFor(S.place.name), century: null, parent: true }; return S.build; }
   var LB = window.BohemiaLotBuild, C = window.BohemiaCentury, st = null;
   try{ st = JSON.parse(localStorage.getItem(buildKey()) || 'null'); }catch(e){ st = null; }
   S.build = { name: S.place.name,
@@ -63,7 +69,7 @@ function buildState(){
               century: (C && st && st.century) ? C.load(st.century) : (C ? C.make({act:1}) : null) };
   return S.build;
 }
-function buildSave(){ var b = S.build; if(!b) return;
+function buildSave(){ var b = S.build; if(!b || b.parent) return;   /* the map saves its own */
   try{ localStorage.setItem(buildKey(), JSON.stringify({site: JSON.parse(BohemiaLotBuild.save(b.site)),
                                                         century: BohemiaCentury.save(b.century)})); }catch(e){} }
 /* the ledger FACTIONS keeps, written from the map's answer: one taking, or nothing */
@@ -79,6 +85,7 @@ function buildMine(){ return (S.mine === undefined) ? !!S.standalone : !!S.mine;
 function buildDay(){ return (typeof S.mapDay === 'number') ? S.mapDay : (S.day|0); }
 function buildTick(){
   var LB = window.BohemiaLotBuild, b = buildState(); if(!LB || !b.site) return null;
+  if(b.parent) return null;   /* the map's morning ticks it, into the map's purse and century */
   var r = LB.tick(b.site, S.purse, b.century, buildDay(), buildHold()); buildSave(); return r;
 }
 function buildFreeLot(){ var b = buildState(); for(var i=0;i<BUILD_LOTS;i++) if(!b.site.lots[i+',0']) return {x:i, y:0}; return null; }

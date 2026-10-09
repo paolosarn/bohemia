@@ -3199,6 +3199,9 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILT ON THE MAP', ['node', 'gates/built_on_the_map_gate.js'],
+     'rule 40b: the map owns the build lots, the morning finishes them into the map\'s century ledger (the '
+     'derive\'s) and pays the map\'s purse, the base draws them, and the save carries them', False),
     ('BUILD ON THE SCREEN', ['node', 'gates/build_on_the_screen_gate.js'],
      'rule 40b + 43 (Paolo 9/29): the build list is a place on the settlement picture; somebody else\'s ground '
      'refuses in your own words and costs nothing; on yours one battery, one day, standing the next day on its '
