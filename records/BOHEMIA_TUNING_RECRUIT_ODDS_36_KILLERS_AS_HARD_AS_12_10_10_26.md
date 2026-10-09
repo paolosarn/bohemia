@@ -68,3 +68,5 @@ of killers is free. That belongs to COMBAT [the enemy math].
 - COMBAT [the enemy math]: roster strength and its multiplier (section 1), read per act.
 - ECONOMY: hire cost, upkeep formula, wages per company; WORLD: which settlements favour which backgrounds.
 - TUNING [numbers table]: the rows in section 4. Test material: the VOTE page is draft:true.
+
+## ADDED 10/10 (the roll tables): the odds above are the WIKI'S. The demo's roster code gives 1 to 3 starred stats instead of exactly 3, so its killer odds are about 3x worse (7 or more stars: 1 in 55, not 1 in 18). See records/BOHEMIA_TUNING_THE_ROLL_TABLES_EVERY_ROLL_A_MAN_MAKES_AND_FIVE_WHERE_THE_DEMO_DEPARTS_10_10_26.md section 2.

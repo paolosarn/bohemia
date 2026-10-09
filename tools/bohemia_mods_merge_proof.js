@@ -56,6 +56,20 @@ ok('7a a knife at minus 5 and 999 gets warnings', rn.log.filter(l => l[0] === 'w
 ok('7b ...and still loads (a warning is not a block)', rn.data['weapons.json'].rows.find(r => r.id === 'knife').damage_min === -5);
 ok('7c a knife at 20 to 30 gets no range warning', !merge(g, { ranges }).log.some(l => l[1].includes('outside every base row')));
 ok('7d without ranges there is no range warning at all', !merge(neg).log.some(l => l[1].includes('outside every base row')));
+/* 8 the id policy: a new row's id starts with '<modid>:'. Warn, never block; no base id uses the colon */
+const base0 = loadBase();
+const colonIds = []; for (const [f, j] of Object.entries(base0)) for (const v of Object.values(j)) if (Array.isArray(v)) for (const r of v) if (r && typeof r.id === 'string' && r.id.includes(':')) colonIds.push(f + ':' + r.id);
+ok('8a no base id contains a colon, so the colon is free as a namespace (' + colonIds.length + ' found)', colonIds.length === 0);
+const oddIds = []; for (const [f, j] of Object.entries(base0)) for (const v of Object.values(j)) if (Array.isArray(v)) for (const r of v) if (r && typeof r.id === 'string' && !/^[a-z0-9_]+$/.test(r.id)) oddIds.push(f + ':' + r.id);
+ok('8e every base id is lowercase letters, digits and underscore (' + oddIds.length + ' are not)', oddIds.length === 0);
+const nm = tmp(); copyMods(nm, ['new-sword']);
+ok('8b a bare new id warns when the policy is on', merge(nm, { namespace: true }).log.some(l => l[0] === 'warn' && l[1].includes('should start with "new-sword:"')));
+const nm2 = tmp(); copyMods(nm2, ['new-sword']);
+const wpath = path.join(nm2, 'new-sword', 'weapons.json'); const wj = JSON.parse(fs.readFileSync(wpath, 'utf8'));
+wj.rows = { 'new-sword:moon-blade': wj.rows['moon-blade'] }; fs.writeFileSync(wpath, JSON.stringify(wj));
+const rnm = merge(nm2, { namespace: true });
+ok('8c a prefixed id is silent and added', !rnm.log.some(l => l[1].includes('should start with')) && rnm.data['weapons.json'].rows.some(r => r.id === 'new-sword:moon-blade'));
+ok('8d with the policy off there is no id warning, and a bare id still loads', !merge(nm).log.some(l => l[1].includes('should start with')) && merge(nm).data['weapons.json'].rows.some(r => r.id === 'moon-blade'));
 /* 6 no play surface asks for a mods folder: nothing in the game loads one (his 9/30 NAH) */
 const surfaces = ['slices/BOHEMIA_DEMO.html', 'slices/BOHEMIA_ALPHA_0_9.html', 'slices/BOHEMIA_FIGHT.html', 'slices/BOHEMIA_CITY_WORLD.html'];
 const asks = surfaces.filter(f => /fetch\(\s*['"`][^'"`]*\bmods\//.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));
