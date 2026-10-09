@@ -118,22 +118,42 @@ async function shoot(d, name, clip) {
       if (await f.evaluate(() => typeof CZOOM !== 'undefined').catch(() => false)) return f; } return null; })());
     if (!fr) throw new Error('no city frame found after toMap()');
 
-    /* DO NOT SQUEEZE AGAIN. toMap() already lands at czoom 0.208, the camera's own documented
-       floor (zmin) from [zoom range measured] round three's own live reading -- the engine
-       clamps CZOOM at zmin itself (z=Math.max(zmin,Math.min(zmax,z))), so toMap() cannot land
-       short of it. A FIRST ATTEMPT HERE DID SQUEEZE AGAIN AND IT WAS WRONG, CAUGHT BEFORE
-       SHIPPING: asking to zoom out further while already sitting at zmin does not fail quietly,
-       it trips the engine's own seam guard (SEAM_GUARD, skyEnter()) and swaps the canvas to a
-       different screen entirely -- a starfield and a moon, not the valley -- while CZOOM's own
-       number stays frozen at 0.208, so the state read alone could not have caught it; only
-       looking at the actual screenshot did. The fix is to not ask: toMap()'s own landing IS the
-       far stop, and a SKY check below refuses the measurement outright if it ever happens again. */
-    const skyCheck = await fr.evaluate(() => (typeof SKY !== 'undefined' ? !!SKY : null)).catch(() => null);
-    if (skyCheck === true) throw new Error('toMap() landed in SKY mode, not the valley -- refusing '
-      + 'to measure the wrong screen');
-    report.farStopCzoom = s0.czoom;
-    report.skyCheck = skyCheck;
-    console.log('  [driver] far stop reached: czoom ' + s0.czoom + ' (no extra squeeze; SKY=' + skyCheck + ')');
+    /* DO NOT SQUEEZE AGAIN ON PURPOSE. toMap() is SUPPOSED to land at czoom 0.208, the camera's
+       documented floor (zmin, from [zoom range measured] round three's live reading), and the
+       engine clamps CZOOM there itself (z=Math.max(zmin,Math.min(zmax,z))). A FIRST ATTEMPT HERE
+       added an extra squeeze after toMap() and that was wrong, caught before shipping: asking to
+       zoom out further while already sitting at zmin does not fail quietly, it trips the engine's
+       own seam guard (skyEnter()) and swaps the canvas to a different screen -- a starfield and a
+       moon -- while CZOOM's own number stays frozen at 0.208, so state alone could not catch it,
+       only the actual screenshot did.
+       SECOND, INDEPENDENT FINDING, NOT THIS TOOL'S BUG: fixed to never squeeze again, toMap()
+       ITSELF still landed in sky on a second run, same czoom 0.208 reported both times. toMap()'s
+       own internal gesture is one continuous drag covering the whole 1.0 -> 0.208 range in one
+       motion (the law's own 9/24 note: "the seam fires on move 0, and moves 1 to 39 of the SAME
+       finger-drag zoom the city camera"), so a drag whose internal moves run slightly past the
+       floor before the engine's per-move clamp catches up can cross the seam WITHIN that one
+       gesture, nondeterministically -- a real flake in the shared, previously-proven driver, only
+       visible at this exact boundary, not reproduced before because no prior tool needed to land
+       precisely AT zmin rather than merely under 0.5. Routed to RUN/PLUMBER below; worked around
+       here with a real recovery touch (skyExit's own documented door: "one tap back down to the
+       valley", a pinchIn()), retried a few times, failing the measurement honestly if it never
+       recovers rather than measuring the wrong screen. */
+    let sky = await fr.evaluate(() => (typeof SKY !== 'undefined' ? !!SKY : null)).catch(() => null);
+    let skyRecoveries = 0;
+    while (sky === true && skyRecoveries < 4) {
+      skyRecoveries++;
+      await d.pinchIn();
+      await p.waitForTimeout(1200);
+      sky = await fr.evaluate(() => (typeof SKY !== 'undefined' ? !!SKY : null)).catch(() => null);
+    }
+    if (sky === true) throw new Error('toMap() landed in SKY mode and ' + skyRecoveries
+      + ' recovery pinchIn() attempt(s) could not escape it -- refusing to measure the wrong screen');
+    const czoomNow = await fr.evaluate(() => (typeof CZOOM !== 'undefined' ? +CZOOM.toFixed(4) : null)).catch(() => null);
+    report.farStopCzoom = czoomNow;
+    report.skyCheck = sky;
+    report.skyRecoveries = skyRecoveries;
+    console.log('  [driver] far stop reached: czoom ' + czoomNow + ' (SKY=' + sky + ', '
+      + skyRecoveries + ' recovery attempt(s))');
     await p.waitForTimeout(1500);
 
     /* THE CANVAS'S OWN BACKING BUFFER, READ AND COUNTED IN-PAGE -- the exact pixels the
