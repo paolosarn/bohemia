@@ -21552,6 +21552,8 @@ HOW TWENTY-TWO ROUNDS COMPOSE, written once now that Q1-Q22 are all shipped:
 NEXT IN THIS LANE: Q23 [who eats first].
 
 
+FACTIONS (factions-ovkjpf): 10/9 (round 51) LATEST -- *** [the parties on the map] DATA HALF and [a house you give a fuck about] FIRST HALF: records/target/bb/factions.json (four factions: banner, make-up, ground, behaviour, face slot, want, base, memory bands), engine/bohemia_factions.js, gates/factions_gate.js (134/0, red 23 ways, suite entry FACTIONS), VOTE card "FOUR FACTIONS WITH A FACE". Record: records/BOHEMIA_FACTIONS_FOUR_WITH_A_FACE_10_9_26.md. Route: RUN reads the file for the map card; PORTRAIT fills the face slots; COORDINATOR adds a [better than bb] board line for FACTIONS (item 9 is in the standing record). Next: [beef] bands, [raids make traits], seed crews per valley.
+
 FACTIONS (factions-ovkjpf): 10/1 (round 50) LATEST -- *** [home bases] ROUND FIVE: A CREW ARRIVING AT A BASE YOU HOLD IS A RAID,
 AND THE LEDGER HALF OF THE CHAIN IS BUILT. *** The coordinator's 9/30 note on my row: "'nothing happens when they arrive' is the
 next row: a crew arriving at a base you hold is a RAID." PREMISE MEASURED FIRST (rule 12): nothing in the game reads an arrival, and a
