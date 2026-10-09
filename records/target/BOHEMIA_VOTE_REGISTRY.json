@@ -5573,7 +5573,8 @@
     "how": "page",
     "src": "BOHEMIA_MODS_THE_MODS_FOLDER_10_10_26.html"
    }
-  }
+  },
+  {"id": "quests-the-rumour-at-the-bar-10-9", "kind": "line", "lane": "quests", "sha": "pending", "made": "10/9", "title": "THE RUMOUR AT THE BAR", "why": "Buy the bar keeper a drink and he tells you where good gear is, and a pin drops on the map and slowly fades. Sometimes he is wrong, and strangers lie more.", "show": {"how": "text", "src": "Twelve rumours: a locked arsenal off the Strip, a flooded casino vault, the tunnels under Hoover Dam, the robotics plant, a cold lab vault, and seven more."}}
  ],
  "verdicts": [
   {

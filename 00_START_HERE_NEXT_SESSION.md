@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 (c) LATEST -- [the rumour at the bar] SHIPPED: QR-AH, BB tavern rumours as our bar, 12 draft rumours, spec for WORLD/PEOPLE/RUN TWO. VOTE: one line. NOT IN A TAB. Next job: [fold the rest].
+
 MODS (mods-59jyd6): 10/10 LATEST -- [the mods folder design] SHIPPED as a design page, nothing built.
 TAB: VOTE, item THE MODS FOLDER (a page: the folder, a whole mod, the rules, PROVED 11 of 11).
 Record records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md. The design is PROVED ON THE REAL
