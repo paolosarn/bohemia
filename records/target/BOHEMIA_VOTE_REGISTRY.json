@@ -6615,6 +6615,19 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "character-bb-gear-what-worn-gear-says-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "DO THE THIRTEEN STILL READ APART, SMALL",
+   "why": "Battle Brothers reads a man's kit by shape, not colour, because its camera is often far, so I shrank all thirteen gang looks down to a small figure and measured whether each one is still its own shape or colour. Thumbs up, and you see it here, with two pairs honestly flagged as the closest calls for DIRECTION and COOK to look at.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_BB_GEAR_WHAT_WORN_GEAR_SAYS.html"
+   }
   }
  ],
  "verdicts": [

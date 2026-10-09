@@ -1,3 +1,26 @@
+CHARACTER (character-0lurbs): 10/9 (d) LATEST -- *** BATTLE BROTHERS READS A MAN
+BY HIS SHAPE, NOT HIS COLOR, SO I SHRANK OUR THIRTEEN GANGS DOWN SMALL AND
+CHECKED IF THEY STILL READ APART. ***
+TAB: VOTE, the gangs shown small next to full size.
+Record: records/BOHEMIA_BB_GEAR_WHAT_WORN_GEAR_SAYS_10_9_26.txt, row [bb gear].
+
+Picked up the new top open job once the last one shipped. This one was a standing
+research line this lane always carries: how does Battle Brothers let you tell who
+is who at a glance. The real answer, from its own numbers, is shape and bulk, not
+color, because its camera is often far away.
+
+So I tested our own thirteen gang looks the same way. Shrank each one down to a
+small figure and checked two things: does the outline still look different, and
+does the color still look different. At full size all thirteen already looked
+different, which was expected. Small, two pairs got close: one pair by outline,
+a different pair by color.
+
+Said that plainly instead of hiding it or trying to fix it myself. Those two gangs'
+looks were already approved by Paolo, so whether to change them is a call for the
+art director and the production artist, not something I decide alone.
+NEXT: the jump list's other two rows (three bodies, wildlife rig).
+PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (f) LATEST -- [the roll tables] SHIPPED (research, no code touched).
 TAB: VOTE, item EVERY ROLL A MAN MAKES (stars, per-level gains, XP, with a red box of departures, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_ROLL_TABLES_EVERY_ROLL_A_MAN_MAKES_AND_FIVE_WHERE_THE_DEMO_DEPARTS_10_10_26.md
