@@ -57563,6 +57563,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/9a (latest): [the demo verdict] SHIPPED. Shot the demo myself
+(BUILD 10/5g, 390x844@3x, tools/bohemia_direction_the_demo_verdict.js): nine
+screens judged in two sentences each with owners; biggest hole: arrival opens
+nothing (no settlement/market/bag/home) and no fight recap; the brown blob
+cut; boxes over play; tiny men on a huge board; one grit on every lot. The
+tells list is AH-03 in the library. Next OPEN: [the fight verdict] (start
+with the freeway board, 77a), then [the map verdict], then [flip look].
 [PENDING coordinator] PAOLO SPOKE TO THIS CHAT 10/1: "I don't even wanna wall of
 text before they can start entering the world... maybe one screen and then if
 they're an expert they can start maneuvering... multiple runs". Recorded as a
