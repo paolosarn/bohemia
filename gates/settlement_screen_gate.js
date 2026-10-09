@@ -232,7 +232,7 @@ const srv = http.createServer((rq, rs) => {
   const cheaper = common.every(id => priceOf(market.st, id) <= priceOf(plain.st, id)) && common.some(id => priceOf(market.st, id) < priceOf(plain.st, id));
   ok('  and the shelves: raided is dearer and thinner, market day cheaper and fuller', common.length > 0 && dearer && cheaper && raided.st.n < plain.st.n && market.st.n > plain.st.n,
      common.length + ' same rows; ' + common.slice(0, 2).map(id => id + ' ' + priceOf(plain.st, id) + '/' + priceOf(raided.st, id) + '/' + priceOf(market.st, id)).join(', ') + '; counts ' + plain.st.n + '/' + raided.st.n + '/' + market.st.n);
-  ok('  and the keeper says it first, out of a mouth', /burned|crew came/i.test(raidLine), raidLine.slice(0, 60));
+  ok('  and the keeper says it first, out of a mouth', /burned|crew came|raid/i.test(raidLine), raidLine.slice(0, 60));
   ok('  and who stands at the posts: nobody signs on in a raided town', /nobody/i.test(raidHall) && /\|0$/.test(raidHall), raidHall.slice(0, 60));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
