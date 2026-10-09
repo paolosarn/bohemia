@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/9 (d) LATEST -- [the demo's chain] SHIPPED: QR-AI, the three-contract chain that ends the demo (release line 13) and the thanks screen. RUN: DEMO_CHAIN spec in the page. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
+
 MODS (mods-59jyd6): 10/10 LATEST -- [one weapon file] SHIPPED as a research page. TAB: VOTE, item THE
 WEAPON FILE. Record records/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.md; instrument
 tools/bohemia_mods_weapon_skills_audit.js (instant). FINDINGS (read from the fight's own text, not played):
