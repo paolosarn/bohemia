@@ -5608,7 +5608,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "ABOUT 42% OF YOUR CREW CARRIES ON. YOU PICK OLDER OR YOUNGER.",
-   "why": "When you enter act two or three, about 42 percent of the last crew carries on (the strongest first) and you pick whether your own relative arrives older or younger, in the VOTE tab card below and on the phone's offer row in the RUN tab. Older and younger are saved but do not change a face yet.",
+   "why": "When you enter act two or three about 42 percent of the last crew carries on, strongest first, and you pick whether your own relative arrives older or younger, which is saved but does not change a face yet. You see it in the VOTE tab as text, and in the game on the phone's offer row.",
    "show": {
     "how": "text",
     "src": "Four people in the old crew: the two strongest carry on, the two weakest are left behind. One person always carries. The OLD and YNG buttons sit beside M, F and OK on the phone when you enter a new act."
@@ -5724,7 +5724,7 @@
    "lane": "world",
    "made": "10/9",
    "title": "THE PLACES WORTH GOING TO",
-   "why": "The six places with the god gear, each gold ring sized by how many men are guarding it, so the biggest prize is also the widest circle of people standing between you and it. The hollow red ring is the library, which this valley never rolled: ours are not guaranteed like Battle Brothers' are, so a rumour at the bar can send you after a building that does not exist in your world.",
+   "why": "The six places with the god gear, each ring sized by how many guard it, and the hollow red ring is a library this valley never rolled, so a bar rumour can send you after a building that is not there. You see it in the VOTE tab under LOOK, on the valley map.",
    "show": {
     "how": "image",
     "src": "vote/WORLD_PLACES_WORTH_GOING_TO.png"
@@ -5732,18 +5732,175 @@
    "sha": "5fe7031d"
   },
   {
-    "id": "cook-the-far-end-as-tiles-10-10",
-    "kind": "map",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "THE FAR END AS TILES",
-    "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
-    "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
-    }
+   "id": "cook-the-far-end-as-tiles-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FAR END AS TILES",
+   "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
+   "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
+   }
+  },
+  {
+   "id": "tuning-what-a-settlement-pays-you-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "d1d0d46",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT A SETTLEMENT PAYS YOU",
+   "why": "Battle Brothers pays about one seventh of what you paid when you sell gear back, and slide a price to compare its big town, its small village and our shop side by side. You see it in the VOTE tab under LOOK.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
+   }
+  },
+  {
+   "id": "mods-the-weapon-file-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "efbad7b",
+   "made": "10/10",
+   "title": "THE WEAPON FILE",
+   "why": "For modders, nothing changed in the game: a weapon can list two skills but the fight plays only the first, so 27 skills never show, and three optional fields would fix it without changing any weapon. You see it in the VOTE tab under LOOK.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html"
+   }
+  },
+  {
+   "id": "dynasty-company-inherits-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "WHAT YOUR MAN PASSES TO HIS HEIR: HALF HIS LEVEL, HALF HIS PERKS, ALL HIS GEAR.",
+   "why": "A man's heir starts at half his level with the first half of his perks, his gear, his house and his stars, never his body or wounds, so a level earned in act one means something later. You see it only as text in the VOTE tab, since nothing shows levels yet.",
+   "show": {
+    "how": "text",
+    "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
+   }
+  },
+  {
+   "id": "quests-the-demos-chain-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "HOW THE DEMO ENDS",
+   "why": "Three jobs from one woman at the Wash, haul water, run off the road crew and clear the dog lot, and the lot becomes yours, then a thanks screen opens NOTES. You see it only as text in the VOTE tab, and in the demo on the Wash's board.",
+   "show": {
+    "how": "text",
+    "src": "The last thing she hands you is the big dog's ear tag. It has a lab number and your company's name on it, and nobody explains why."
+   }
+  },
+  {
+   "id": "sounds-the-smiths-hammer-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "f5b94ea",
+   "made": "10/9",
+   "title": "THE SMITH'S HAMMER",
+   "why": "The smith's forge was silent, so now a tap plays an anvil's own low, short ring, the mass of the stump bleeding it away fast. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-armourers-rivets-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "f5b94ea",
+   "made": "10/9",
+   "title": "THE ARMOURER'S RIVETS",
+   "why": "The armourer's bench was silent, so now a tap plays four quick, tiny strikes setting a rivet, a gun's own working cadence. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "combat-a-turn-you-can-read-10-9",
+   "kind": "animation",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THEIR TURN TAKES A SECOND A MOVE, AND A TAP SKIPS IT",
+   "why": "Every move of theirs (and of your men on AUTO) now holds the board for two beats, one second at 120, the mover lit, the camera on him, and the man hit shows his chance and what it cost him; your own turn has no timer, and a tap on the board skips the rest of theirs. Play a fight and let them move and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_A_TURN_YOU_CAN_READ_10_9.gif"
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-the-clinic-10-9",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE CLINIC: PAY TO HALVE A WOUND",
+   "why": "Like Battle Brothers' temple, the clinic lists every hurt man with his injury and days left, and paying halves the days at the wiki's own price, 20 crowns a day left and more for a higher level, with a hired medic taking a day more. You see it in the VOTE tab under LOOK, and in the demo when you tap the clinic in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_CLINIC_10_9.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-fight-verdict-22-the-freeway-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "e8a6625e",
+   "made": "10/9",
+   "title": "FIGHT VERDICT 22: THE FREEWAY AGAINST THE STREET",
+   "why": "The wall across the freeway is gone and it shares the street's road now; what still looks like another game is marked: a flat barrier, loud orange lines, a box trailer, gold rings. The art itself is sharp, but the fight shows it blurry, and that is the next fix.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_FIGHT_VERDICT_22_THE_FREEWAY.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
+  },
+  {"id": "people-good-bros-10-9", "kind": "tile", "lane": "people", "sha": "8f060a5", "made": "10/9", "title": "GOOD BROS AT THE POST", "why": "Six real recruits, rolled fresh every time from the wiki's own stats and prices, not made up. Real names on them too, from the same system every person in this game already gets one from.", "show": {"how": "page", "src": "BOHEMIA_GOOD_BROS_10_9_26.html"}},
+                                                                                                                                                                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                                                                                                                                                               "id": "lifecity-build-on-the-screen-10-9",
+                                                                                                                                                                                                                                                                                                                                                                                                               "kind": "tile",
+                                                                                                                                                                                                                                                                                                                                                                                                               "lane": "life+city",
+                                                                                                                                                                                                                                                                                                                                                                                                               "sha": "145f98b2",
+                                                                                                                                                                                                                                                                                                                                                                                                               "made": "10/9",
+                                                                                                                                                                                                                                                                                                                                                                                                               "title": "BUILD IN A TOWN YOU HOLD",
+                                                                                                                                                                                                                                                                                                                                                                                                               "why": "Building is now in the town screen, as a spot on the picture you tap. Left: a town the Mob holds, and your own voice says it is not your ground, and nothing is spent. Middle: your own base, the list of eight things, a wall and a water tank for one battery each. Right: the next day, both are standing on the town picture. Four lots per place for now. Thumbs up and this is how you build. Thumbs down and say what is wrong.",
+                                                                                                                                                                                                                                                                                                                                                                                                               "show": {
+                                                                                                                                                                                                                                                                                                                                                                                                                "how": "image",
+                                                                                                                                                                                                                                                                                                                                                                                                                "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
+                                                                                                                                                                                                                                                                                                                                                                                                               }
+                                                                                                                                                                                                                                                                                                                                                                                                              },
+  {
+   "id": "economy-the-contracts-worth-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A JOB PAYS MORE IF YOU PUSH, AND PUSHING COSTS YOU",
+   "why": "The same job pays 76 batteries taken straight or up to 80 if you push for more pay, straight off Battle Brothers' own haggle math, but every push costs relations whether it works or not. You see it in the records, not drawn yet, feeding the board's contract cards once RUN TWO wires it in.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/contract_terms.json; engine/bohemia_contracts.js; gates/contracts_gate.js 24/0.\n\nSeen in: not drawn yet, feeds the board's contract cards once wired."
+   }
   },
   {
    "id": "factions-four-with-a-face-10-9", "kind": "tile", "lane": "factions", "sha": "7d565f9", "made": "10/9",

@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9c - HEIRS ARE MADE ON ENTRY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9g - GOOD BROS AT THE POST</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12735,9 +12735,13 @@ var BOH_START = (function(){
   /* the file, merged over the fallback by id: names, lines and tiers are its, and so is everything a card promises */
   function load(){
     try{ fetch('../records/target/bb/origins.json').then(function(r){ return r.json(); }).then(function(j){
-      ODATA = j; (j.origins || []).forEach(function(d){ var o = find(ORIGINS, d.id); if(!o || o.id !== d.id) return;
-        o.name = d.name; o.line = d.line; o.d = d.d; o.bb = d.bb; o.men = d.men; o.batteries = d.batteries;
-        o.field_cap = d.field_cap; o.roster_cap = d.roster_cap; o.pay = d.pay; o.crew = 0; });
+      /* [origins fallback] (MODS 10/9, rule 22): THE FILE IS THE LIST. An origin the file carries that the fallback does not
+         know (a modder's) is added, in the file's order; the fixed fifteen above are only what the door shows offline */
+      ODATA = j; (j.origins || []).forEach(function(d){ if(!d || !d.id || !d.men || !d.men.length) return;
+        var o = null; for(var i = 0; i < ORIGINS.length; i++) if(ORIGINS[i].id === d.id) { o = ORIGINS[i]; break; }
+        if(!o){ o = { id: d.id, start: 0, crew: 0, pay: 0 }; ORIGINS.push(o); }
+        o.name = d.name || String(d.id).toUpperCase(); o.line = d.line || ''; o.d = d.d || 2; o.bb = d.bb || ''; o.men = d.men; o.batteries = d.batteries;
+        o.field_cap = d.field_cap || 12; o.roster_cap = d.roster_cap || 20; o.pay = d.pay | 0; o.crew = 0; });
       var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
     }).catch(function(){}); }catch(_e){}
   }

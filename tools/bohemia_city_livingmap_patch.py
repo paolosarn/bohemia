@@ -14,6 +14,8 @@ never stacked; every anchor must resolve exactly once or nothing is written.
      each fading by the hour (gone a day later); in the faction's own ink, exactly as before.
   4. THE GATE: every home base on the map draws the crowd at its gate, its size from the living
      map's crowdAt() -- the settlement screen's own market-day roll on the map's own day.
+  6. (10/9, [build on the screen]) the open message also says whether the place is YOURS (your outfit's
+     own base: BohemiaBetween.mine()) and the map's day, so the settlement's build lot knows both.
   5. THE PLACE IT OPENS: when he taps a town, the settlement screen is handed the traits the map is
      showing (the screen's own `traits` seam, RUN TWO's design), so the crowd he saw at the gate and
      the market he walks into are the same market. Nothing in RUN TWO's page changes.
@@ -115,9 +117,16 @@ CROWD = CROWD_MARK + r'''
 ''' + CROWD_END + '\n'
 
 OPEN_OLD = "    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {} }, '*'); }catch(_e){}"
-OPEN_NEW = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
+OPEN_PREV = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
             "    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */\n"
             "    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })() }, '*'); }catch(_e){}")
+OPEN_NEW = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
+            "    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */\n"
+            "    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),\n"
+            "    /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */\n"
+            "    held: (function(){ try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\\s_]/g,''); };\n"
+            "             return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),\n"
+            "    day: loopDay() }, '*'); }catch(_e){}")
 
 
 def cut(s, begin, end):
@@ -165,8 +174,11 @@ def main():
     j = s.index('        __r = Math.max(__r, __ps.height - 4);', i)
     s = s[:j] + CROWD + s[j:]
     if OPEN_NEW not in s:
-        once(s, OPEN_OLD, 'settlement open')
-        s = s.replace(OPEN_OLD, OPEN_NEW, 1)
+        if s.count(OPEN_PREV) == 1:
+            s = s.replace(OPEN_PREV, OPEN_NEW, 1)
+        else:
+            once(s, OPEN_OLD, 'settlement open')
+            s = s.replace(OPEN_OLD, OPEN_NEW, 1)
     if s == before:
         print('THE LIVING MAP: nothing to do')
         return

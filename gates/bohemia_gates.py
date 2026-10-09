@@ -2364,6 +2364,12 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE ORIGINS ARE DATA', ['node', 'gates/the_origins_are_data_gate.js'],
+     'VAMILY [origins fallback], MODS rule 22 (records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md): the door kept '
+     'a fixed list of 15 origin ids and skipped any id the file carried beyond it, so a modder\'s origin was dropped. NOW '
+     'the file is the list; the fifteen are only the offline fallback. HOLDS, driven with a modder\'s row added to the '
+     'file before the page loads: its card on the door, its company and start when picked, its men in the fight, the '
+     'fifteen still there; offline the fallback fifteen. Mutation: skip unknown ids again (4 red).', True),
     ('THE MAP HEARS', ['node', 'gates/the_map_hears_gate.js'],
      'VAMILY [the map hears] (SOUNDS 10/5: the travel screen posts nothing to the parent, so the road and dirt beds and '
      'the sight-stop sound have nothing to play to on the MAP). NOW the map posts its travel state on the beat (500 ms): '
@@ -3175,6 +3181,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILD ON THE SCREEN', ['node', 'gates/build_on_the_screen_gate.js'],
+     'rule 40b + 43 (Paolo 9/29): the build list is a place on the settlement picture; somebody else\'s ground '
+     'refuses in your own words and costs nothing; on yours one battery, one day, standing the next day on its '
+     'lot and kept when the page opens again; four lots; the map says who holds it', False),
     ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
      'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
      'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '

@@ -54,6 +54,9 @@
     /* the 35 years between acts is the phone strip's (bohemia_acts.js, +35Y); nothing here reads it */
     traitShare: 0.5,        /* an heir carries roughly half the parent's traits */
     perAct: 12,             /* ~12 men an act, 36 lives a game */
+    levelShare: 0.5,        /* an heir starts at half the parent's level, rounded up, at least 1: a child shares half the DNA, a grandchild a quarter (the 9/28 reading), because the share compounds each hop */
+    perkShare: 0.5,         /* and the first half of the parent's perks, in the order he took them */
+    debtShare: 0.45,        /* standing's own GEN_LOSS: what crosses a generation of a debt or a favour (bohemia_standing.js, not a new number) */
     carryShare: 0.42        /* Paolo 10/2 (rule 67): 'not all of them, maybe like 42%' of the last crew carries */
   };
   var ACTS = [1, 2, 3];
@@ -193,6 +196,11 @@
                     .sort(function (a, b) { return a.h - b.h || (a.t < b.t ? -1 : 1); });
     for (var i = 0; i < want && i < ranked.length; i++) kept.push(ranked[i].t);
     var nm = nameOf(m, key, opts);
+    var pk = arr(m.perks), keepPk = pk.slice(0, Math.floor(pk.length * rows.perkShare));
+    var gear = Object.prototype.toString.call(m.gear) === '[object Object]'
+      ? Object.keys(m.gear).map(function (k) { return m.gear[k]; }).filter(Boolean) : arr(m.gear).slice();
+    var stars = {}, sk; if (m.stars && typeof m.stars === 'object')
+      for (sk in m.stars) if (Object.prototype.hasOwnProperty.call(m.stars, sk)) stars[sk] = m.stars[sk];
     /* the parent's look: a man's own seed, or for an heir of an heir the seed the
        parent heir was drawn from, so the third generation descends from the second */
     var look = m.look != null ? m.look : (m.lookSeed != null ? m.lookSeed : hash32(m.key + '|look'));
@@ -208,7 +216,13 @@
       role: m.role || null,
       was: m.was ? { id: m.was.id || null, keeps: null } : null,
       traits: kept,
-      gear: arr(m.gear).slice(),            /* gear stays in the family (37g) */
+      gear: gear,                           /* gear stays in the family (37g), a crew man's slots flattened */
+      level: Math.max(1, Math.ceil(num(m.level, 1) * rows.levelShare - 1e-9)),
+      perks: keepPk,
+      stars: stars,                         /* talent runs in a family: the stars carry */
+      house: m.house != null ? m.house : null,
+      debt: m.debt != null ? Math.round(num(m.debt, 0) * rows.debtShare * 100) / 100 : 0,
+      /* the body never carries: no stats, no hitpoints, no wounds, no age of the parent are copied (the 9/28 reading) */
       lookFrom: look,                       /* PORTRAIT's heredity takes the parent's look from here */
       lookSeed: hash32(look + '|' + toAct),
       strength: num(m.strength, 0) / 2,     /* an heir starts with half of what the parent had earned */

@@ -124,6 +124,8 @@ html[data-screen=phone_landscape] #order{height:44px}
 html[data-screen=tablet] #bot,html[data-screen=computer] #bot{left:50%;right:auto;bottom:12px;width:min(980px,calc(100vw - 24px));transform:translateX(-50%);border-radius:3px}
 html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:auto;top:8px;width:min(980px,calc(100vw - 24px));transform:translateX(-50%);
   border-radius:3px;padding:6px;background:rgba(13,11,9,.78);box-shadow:0 3px 8px rgba(0,0,0,.5)}
+#num{position:fixed;display:none;z-index:3;padding:2px 6px;font-weight:700;font-size:13px;pointer-events:none;
+  background:var(--mat-receipt,#e2dac6) center/cover;filter:drop-shadow(rgba(0,0,0,.6) 0px 1px 0px);transform:rotate(-2deg)}
 #load{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);z-index:7;background:var(--bg);letter-spacing:.2em}
 </style>
 </head>
@@ -144,6 +146,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
   </div>
 </div>
 <div id="drawer"></div>
+<div id="num"></div>
 <div id="over"><div class="box"><h2 id="oh"></h2><div id="ob"></div><button id="oagain">AGAIN</button></div></div>
 <div id="load">LOADING THE GROUND</div>
 
@@ -1629,6 +1632,7 @@ function startAnim(a) {
     (ranged ? SND.shot : SND.swing)();
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
+    numTag(t, e.chance + '%', null, beatMs() * 0.45, e.hit ? '-' + e.hp : '', e.hit ? (e.head ? '#b0301c' : '#7a3d10') : '#6b6258');
     pop(t, '', e.hit ? (e.head ? '#ff8a6a' : '#f0b3a5') : '#8f8678', e.hit && e.head,
       (e.free ? 'Free swing: ' : '') + u.name + (e.hit ? ' hits ' + t.name + (e.head ? ' in the head' : '') + ', -' + e.hp + ' health' + (e.armour ? ', -' + e.armour + ' armour' : '')
         : ' misses ' + t.name) + ' (' + e.chance + '%)');
@@ -1648,6 +1652,21 @@ function startAnim(a) {
   }
   if (a.k === 'over') showOver(e.result);
 }
+/* THE NUMBER SHOWN (a turn you can read): a receipt tag over the struck man, his chance to be hit, then what it cost him;
+   numbers only, never a word on the ground (rule 46f), never who hit whom (rule 67) */
+function numTag(t, first, _c, at, then, col) {
+  const el = document.getElementById('num'); if (!el) return;
+  UI.tag = { id: t.id, until: performance.now() + beatMs() * 1.8 };
+  el.textContent = first; el.style.color = '#2a221a'; el.style.display = 'block';
+  setTimeout(function () { if (then) { el.textContent = then; el.style.color = col; } else el.style.color = col; }, at);
+}
+function placeTag() {
+  const el = document.getElementById('num'); if (!el) return;
+  if (!UI.tag || performance.now() > UI.tag.until) { el.style.display = 'none'; return; }
+  const v = FIGHT.byId(UI.tag.id); if (!v) return;
+  const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - UI.th * UI.zoom * MAN_OF_TILE;
+  el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 6) + 'px';
+}
 function pop(u, text, col, big, line) {
   UI.pops.push({ x: u.x, y: u.y, col: col, big: !!big, t: performance.now() });
   feed(line || u.name + ': ' + text, col);
@@ -1660,6 +1679,9 @@ function feed(text, col) { UI.feedLines = (UI.feedLines || []).concat([{ text: t
 function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing'; }
 function tick(now) {
   if (!UI.board) return;
+  /* the skip tap cuts in at once, even mid-step */
+  if (UI.skip && !FIGHT.S.over && !FIGHT.S.deploy && FIGHT.current() && !crewControlled(FIGHT.current())) { UI.glide = null; skipTurn(); return; }
+  UI.skip = false;
   /* motion first: nothing new happens while something is still moving */
   if (UI.anim.length) {
     const a = UI.anim[0];
@@ -1674,20 +1696,44 @@ function tick(now) {
   if (FIGHT.S.deploy) { if (UI.auto) fightNow(); return; }
   const u = FIGHT.current();
   if (!u) return;
-  if (crewControlled(u)) { follow(u); return; }
+  const sayEl = document.getElementById('say');
+  if (crewControlled(u)) { if (sayEl.textContent === THEIRS_SAY) say(WALK_SAY); follow(u); return; }
+  if (!UI.auto && u.side === 'them' && sayEl.textContent !== THEIRS_SAY) say(THEIRS_SAY);
   if (now < UI.nextAI) return;
-  follow(u);
+  if (follow(u, true)) return;   /* the mover off the glass: the camera goes to him first, then he acts */
+  const before = UI.anim.length;
   FIGHT.aiStep(u);
   take();
-  UI.nextAI = now + beatMs() / 2; UI.beats += 0.5;
+  /* A TURN YOU CAN READ (VIA GROK 10/9: 'the turns are too short'): an act by a man he is not moving (theirs, or his own on
+     AUTO) holds the board for at least two beats, one second at 120; a man who only ends his turn holds half a beat */
+  const acted = UI.anim.slice(before).some(function (a) { return a.k === 'step' || a.k === 'attack' || a.k === 'note'; });
+  const hold = acted ? ACT_BEATS : 1 / (1 + 1);
+  UI.nextAI = now + beatMs() * hold; UI.beats += hold; if (acted) UI.lastAct = now;
 }
-function follow(u) {
-  if (UI.lastFollow === u.id + ':' + FIGHT.S.round) return;
+const ACT_BEATS = 2, THEIRS_SAY = 'Their move. Tap the board to skip it.';
+/* a tap on the board while they move: their turn ends at once, everything they do resolved, no animation; on AUTO it runs
+   to the end of the round. His own turn never ends without his finger. */
+function skipTurn() {
+  UI.skip = false;
+  const S = FIGHT.S, r0 = S.round, all = [];
+  UI.anim.forEach(function (a) { if (a.k === 'step') { const v = FIGHT.byId(a.e.id); v._fx = undefined; } }); UI.anim = [];
+  for (let guard = 0; guard < 2000 && !S.over; guard++) {
+    const u = FIGHT.current(); if (!u || crewControlled(u) || (UI.auto && S.round !== r0)) break;
+    FIGHT.aiStep(u); all.push.apply(all, S.events); S.events = [];
+  }
+  all.forEach(function (e) { if ((e.t === 'dead' || e.t === 'down') && FIGHT.byId(e.id)) FIGHT.byId(e.id).seenFall = true; });
+  const over = all.filter(function (e) { return e.t === 'over'; })[0];
+  if (over) UI.anim.push({ k: 'over', e: over, dur: beatMs() });
+  UI.nextAI = 0; UI.skipped = (UI.skipped || 0) + 1; hud();
+}
+function follow(u, every) {
+  if (!every && UI.lastFollow === u.id + ':' + FIGHT.S.round) return false;
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
   const px = (u.x + .5) * UI.tw, py = (u.y + .5) * UI.th;
   const m = 0.18;
   const inView = sx(px) > W * m && sx(px) < W * (1 - m) && sy(py) > TOPH + 40 && sy(py) < H - BOTH - 40;
-  if (!inView && UI.zoom > UI.far * 1.05) glideTo(px, py, UI.zoom, beatMs());
+  if (!inView && UI.zoom > UI.far * 1.05) { glideTo(px, py, UI.zoom, beatMs()); return true; }
+  return false;
 }
 function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
 function stepGlide(now) {
@@ -2170,6 +2216,7 @@ function fightNow() {
 }
 function tapAt(px, py) {
   if (FIGHT.S.deploy && !UI.auto && !FIGHT.S.over) { deployTap(px, py); return; }
+  if (!FIGHT.S.over && FIGHT.current() && !crewControlled(FIGHT.current())) { UI.skip = true; return; }   /* skip their turn */
   const u = FIGHT.current(); if (!crewControlled(u) || UI.anim.length || FIGHT.S.over) return;
   const p = tileAt(px, py), S = FIGHT.S;
   if (p.x < 0 || p.y < 0 || p.x >= S.w || p.y >= S.h) return;
@@ -2214,7 +2261,7 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
-  try { tick(now); draw(now); if (++hudN % 6 === 0) hud(); }
+  try { tick(now); draw(now); placeTag(); if (++hudN % 6 === 0) hud(); }
   catch (e) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.lastErr = now; setTimeout(function () { throw e; }); } }
 }
 function start() {

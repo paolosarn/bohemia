@@ -64,6 +64,9 @@ MX = importlib.import_module('bohemia_combat2_mixed_blocks_cook_10_2_26')
 BT = importlib.import_module('bohemia_combat2_building_types_cook_10_4_26')   # round fourteen: many more building types
 FL = importlib.import_module('bohemia_combat2_freeway_and_landfill_recut_cook_10_4_26')   # round fifteen: his NO, re-cut   # round eleven: the plan varies, not just the dirt
 L = importlib.import_module('bohemia_combat2_tiles_are_legos_cook_10_5_26')   # round twenty-two (rule 77): tiles are legos
+CF = importlib.import_module('bohemia_combat2_the_casino_floor_cook_10_9_26')   # round twenty-five: the one interior board
+SLOT_GLOW = CF.install()
+CUR = [0]
 os.chdir(REPO)
 
 OUT_DIR = 'slices/fight_ground'
@@ -114,6 +117,7 @@ MAKERS = {
     'shore': lambda: R5.shore(),
     'landfill': lambda: FL.landfill2(1301),
     'scrubroad': lambda: scrub_road(),
+    'casino': lambda: CF.casino(CUR[0]),
 }
 
 
@@ -210,6 +214,7 @@ BOARDS = {k: seeded_layout(k) for k in PALETTES}
 # ROUND SIXTEEN (rule 67): a wash is a line too. It runs the whole depth of its column (periodic in its own
 # depth, so each wash block meets the next), and on the shore it runs down into the lake.
 BOARDS['desert'] = [['scrub.2', 'wash.0', 'scrub.1', 'scrub.0'], ['scrub.0', 'wash.1', 'scrub.2', 'wash.0'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1']]
+BOARDS['casino'] = [['casino.0', 'casino.1', 'casino.0', 'casino.2'], ['casino.2', 'casino.0', 'casino.2', 'casino.1'], ['casino.0', 'casino.2', 'casino.1', 'casino.0']]   # round twenty-five: the dead Strip casino's pit
 BOARDS['shore'] = [['shore.0', 'shore.1', 'shore.0', 'shore.1'], ['scrub.1', 'wash.0', 'scrub.0', 'wash.1'], ['scrub.2', 'wash.1', 'scrub.1', 'wash.0']]
 START_ROWS = (4, 9)
 
@@ -280,7 +285,7 @@ def main():
         F.street_small = street_small
     for bid in need:
         kind, v = bid.split('.')
-        variant(int(v) * 1009)
+        variant(int(v) * 1009); CUR[0] = int(v)
         res = MAKERS[kind]()
         board, pieces, surf, grid = res[:4]
         if kind in L.TOWN_KINDS or kind in L.CROSS_KINDS: board = L.stud(board, kind, CANON[0], CANON[1], (PX, PY), CANON[2])   # round twenty-two: the studs
@@ -302,6 +307,7 @@ def main():
     extra.update(R5.EXTRA)
     extra.update(BT.FURNITURE)                                          # round twenty: the buildings' own pieces
     for k, im in extra.items(): im.save('%s/cover_%s.png' % (OUT_DIR, k))
+    SLOT_GLOW.save('%s/light_slot_glow.png' % OUT_DIR)                   # round twenty-five: a machine that still runs
     for sid in ('lamp_house_side', 'lamp_your_side', 'oil_drum'):          # his 7/28 light sprites
         F.load(F.SPR[sid]).convert('RGBA').save('%s/light_%s.png' % (OUT_DIR, sid))
     man = dict(version='fight-ground-10-2', built='10/2/26', lane='combat 2', for_file='slices/BOHEMIA_FIGHT.html (rule 63)',
@@ -353,6 +359,14 @@ def main():
                             lights.append(dict(kind='lamp', src='light_lamp_house_side.png' if y < 30 else 'light_lamp_your_side.png',
                                                x_m=bc * 60 + x, y_m=br * 60 + y, live=lr.random() < 0.36, radius_m=7.0,
                                                circuit='grid', block=[br, bc]))   # rule 73: the map powers a block on or off
+                if k == 'casino':                                          # round twenty-five: only what still runs gives light
+                    for p in blocks[bid][1]:
+                        if p['piece'] == 'slot_bank' and lr.random() < 0.22:
+                            lights.append(dict(kind='lamp', src='light_slot_glow.png', x_m=round(bc * 60 + p['x_m'] + 1.0, 1), y_m=round(br * 60 + p['y_m'] + 1.7, 1),
+                                               live=True, radius_m=4.0, circuit='grid', block=[br, bc]))
+                    for _ in range(1 + (lr.random() < 0.5)):
+                        lights.append(dict(kind='drum', src='light_oil_drum.png', x_m=round(bc * 60 + 6 + lr.random() * 48, 1), y_m=round(br * 60 + 26 + lr.random() * 8, 1),
+                                           live=True, radius_m=5.0, circuit='fire', block=[br, bc]))
                 if k in ('freeway', 'freewayo'):                           # rule 77a: the freeway's lamps stand on the median, one kit with the street's
                     for x in range(6, 60, 24):
                         if k == 'freewayo' and 20 <= x < 40: continue

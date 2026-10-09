@@ -1,0 +1,125 @@
+BOHEMIA -- GOOD BROS AT THE POST (10/9/26, PEOPLE lane)
+VAMILY [good bros], row RECRUITS-WITH-BACKGROUNDS-STARS-AND-TRAITS-AT-THE-POSTS,
+rule 75d. Paolo 10/9: "finding good bros throughout the settlements."
+
+================================================================================
+THE REAL DATA, NOT A GUESS
+================================================================================
+records/target/bb/backgrounds.json carries 77 real Battle Brothers background
+rows, each sourced to the wiki dump and cross-checked against the Attribute
+Ranges table. Its own header says hiring_cost is null on every row: the wiki
+gives no per-background BASE cost, only the Game Guide's quote ("30 for the
+worst ones up to around 150 for the best... Swordmasters an exception at 400")
+and, where the Game Guide happened to also quote an OBSERVED total hiring
+range for a specific background, that range is kept as
+hiring_cost_game_guide_observed.
+
+Eight of the 77 rows carry that observed range: brawler, butcher, farmhand,
+lumberjack, messenger, militia, thief, wildman. Six were picked for the first
+post -- farmhand, messenger, butcher, brawler, thief, militia -- a civilian
+spread, and every one of them a REAL quoted price range, not a formula
+reconstruction. Lumberjack and wildman wait for the next post; nothing about
+the mechanism below cares how many candidates there are.
+
+THE STAR MECHANIC is Grok's own cited reading of the Talents page
+(reference/library/grok/GROK_128_UNDERBELLY_STARS_2026_10_09.md, PASSED
+FILTER): three chances next to the star marks, 60/30/10 percent, and "one
+star raises the minimum roll by 1, two raise it by 2, three also raises the
+maximum by 1." WHICH of the eight stats gets starred is not in the source
+Grok could read ("I did not open the nut files... I am not filling that
+label"), so this round picks one stat at random per recruit and marks that
+choice tuned:false -- an attempt, not a sourced number, exactly like every
+other gap this lane has named rather than guessed past.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_goodbros.js: a pure module. Six CANDIDATES, each carrying its
+real eight-stat range and real hire-price range verbatim from
+backgrounds.json. generate(backgroundId, key) rolls one full recruit,
+deterministically, from a string key (the same key always rolls the same
+man); sixAtThePost(seed) rolls one recruit per candidate background. Every
+roll is checked by the gate to land inside the real range, including when
+the star mechanic widens it.
+
+tools/bohemia_cook_good_bros.js: the cook. Generates six real recruits and
+gives each a REAL name, drawn from engine/bohemia_people.js's own real
+name-mix generator -- the same system every citizen in this game already
+gets a name from, called standalone, not duplicated.
+
+================================================================================
+A BUG CAUGHT BEFORE IT SHIPPED
+================================================================================
+The first draft rolled the real crown range and displayed the result
+labelled "batteries" without converting it -- the row's own text says
+"priced by background at 10 to 1" and the first draft never did the divide.
+Caught re-reading the row's own words against the draft before running the
+gate a second time: a farmhand would have shown as 175 BATTERIES when the
+real number, converted, is about 18. Fixed: the module now carries both
+priceCrowns (the sourced roll, kept for citation) and priceBatteries
+(priceCrowns / 10, rounded, the number actually charged), and the gate
+checks the two always agree. The same pass also caught that the real daily
+wage field was about to be displayed as a charge, when the row's own text
+says "the bought man pays 0 a day" -- the exact bought-once principle rule
+56 already corrected on the retinue, now kept straight on this row from the
+start instead of needing its own later correction.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+Every one of the six candidates' stat ranges and hire ranges is checked
+against the real backgrounds.json file directly in the gate, not retyped
+from memory and trusted. 3,000 rolls per background (18,000 recruits, over
+150,000 individual stat and price rolls) land inside the real range with
+zero exceptions, including the starred stat's widened range. Over 6,000
+star rolls the count distribution reads within two points of the sourced
+60/30/10 split. Generation is deterministic: the same seed always rolls the
+same recruit, proven, and a different seed always rolls a different one.
+An unknown background id is refused outright, never silently defaulted.
+
+================================================================================
+THE GATE
+================================================================================
+gates/goodbros_gate.js, new (REUSE-FIRST: nothing existed to extend). 25
+legs: every candidate's data checked against the real file; determinism;
+the real-range proof over thousands of rolls; the star distribution
+measured, not asserted; a self-test confirming no trait pool was quietly
+invented, plus a direct grep of the whole engine/ folder confirming no
+master trait list exists anywhere else either; cook + registry.
+
+================================================================================
+THE COOK: GOOD BROS AT THE POST
+================================================================================
+slices/BOHEMIA_GOOD_BROS_10_9_26.html, registered in VOTE. Six real
+recruits, generated the moment the page was built, each with a real rolled
+background, real stats, a real price, the real star, and a real name.
+
+================================================================================
+MEASURED AND NOT FIXED
+================================================================================
+NO TRAITS YET. This codebase has no master list of Battle Brothers' roughly
+fifty character traits anywhere (checked directly by the gate, not assumed).
+Backgrounds.json only carries each background's EXCLUDED traits, never the
+pool they are excluded from, so there is nothing real to roll from yet.
+Inventing trait names from memory would be exactly the mistake rule 63d
+exists to stop. Named for whichever round builds that list.
+
+NO HIRE TRANSACTION YET. The posts screen itself -- the building you tap,
+the pay-and-join flow -- is RUN TWO's settlement surface (rule 75d: "RUN
+TWO's screen hosts it, you own the roll and the data"). This round is the
+real generator that screen will read from, proven in the gate on its own,
+not a mockup waiting on a screen that does not exist yet.
+
+NO COMPANY BOND YET, ON PURPOSE, NOT BY OVERSIGHT. engine/bohemia_company.js
+is explicit: company membership is computed from bonds and witnesses, "THEY
+ARE PEOPLE WITH LEDGERS, NOT A ROSTER." A hired recruit becoming one of
+yours needs a real bond or a real witnessed fact, not a new, second list
+that could disagree with the world -- the exact trap that file was written
+to forbid. Wiring a real hire into that system is the honest next step, left
+named rather than faked with a parallel roster.
+
+ONLY LEVEL 1. Militia's own real starting_level range is [1,2]; this round
+treats every recruit as level 1 for a first build. Named, not hidden.
+
+TAB: VOTE, item GOOD BROS AT THE POST. CITY, once RUN TWO's settlement
+screen exists to host the actual hire.
