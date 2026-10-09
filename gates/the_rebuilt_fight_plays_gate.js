@@ -419,7 +419,24 @@ async function nightLights() {
 async function screens() {
   const res = [];
   for (const pr of ['phone_portrait', 'phone_landscape', 'tablet', 'computer']) {
-    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip"}' });
+    /* the man's size while he sets his line (rule 21; EYES 10/5 f5b8dbec measured him under 45 px on the flipped phone
+       and the computer, the camera forced out to fit the nine-deep line) */
+    const dd = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip"}' });
+    await dd.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await dd.page.waitForTimeout(2500);
+    const setMan = await dd.page.evaluate(() => FIGHT.S.deploy ? Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) : -1);
+    /* what does not fit is reached by a drag, never by shrinking him: a real finger drags the line up the glass */
+    let panned = null;
+    if (pr === 'phone_landscape') {
+      const cdp = await dd.page.context().newCDPSession(dd.page), y0 = await dd.page.evaluate(() => FIGHT_UI.cy);
+      const at = await dd.page.evaluate(() => ({ x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 }));
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: at.x, y: at.y + 60 }] });
+      for (let k = 1; k <= 6; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: at.x, y: at.y + 60 - k * 20 }] }); await dd.page.waitForTimeout(30); }
+      await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await dd.page.waitForTimeout(200);
+      panned = await dd.page.evaluate((y) => ({ dy: Math.round(FIGHT_UI.cy - y), man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) }), y0);
+    }
+    await dd.close();
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",deploy:false}' });
     await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.waitForTimeout(1500);
     const m = await d.page.evaluate(() => {
@@ -429,15 +446,20 @@ async function screens() {
       const inside = [b, t].concat(taps).every(q => q.left >= -1 && q.right <= innerWidth + 1 && q.top >= -1 && q.bottom <= innerHeight + 1);
       return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
         oneRow: b.height <= 90 && Math.abs(r('bend').top - r('skills').top) < 30, barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
-        fits: FIGHT_UI.far * FIGHT_UI.board.width <= innerWidth + 1 && FIGHT_UI.far * FIGHT_UI.board.height <= innerHeight - TOPH - BOTH + 1, inside };
+        fits: FIGHT_UI.far * FIGHT_UI.board.width <= innerWidth + 1 && FIGHT_UI.far * FIGHT_UI.board.height <= innerHeight - TOPH - BOTH + 1, inside,
+        man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) };
     });
-    m.pr = pr; m.err = d.errs[0]; res.push(m); await d.close();
+    m.pr = pr; m.setMan = setMan; m.panned = panned; m.err = d.errs[0]; res.push(m); await d.close();
   }
   const by = k => res.filter(x => x.pr === k)[0], wide = res.filter(x => x.pr !== 'phone_portrait');
   leg(res.every(x => x.cls === x.pr), '*** ONE RULE NAMES THE SCREEN (rule 62) ***: phone upright, phone on its side, tablet, computer, read from the real viewport', res.map(x => x.pr + '=' + x.cls).join(', '));
   leg(res.every(x => x.glass >= 65), '*** THE BOARD KEEPS TWO THIRDS OF THE GLASS ON EVERY SCREEN *** (on its side the HUD took 49% before)', res.map(x => x.pr + ' ' + x.glass + '%').join(', '));
   leg(wide.every(x => x.oneRow), 'wide screens get Battle Brothers\' one-row bar: face and bars, the skill squares, WAIT and END TURN in one row', wide.map(x => x.pr + (x.oneRow ? ' one row' : ' TWO ROWS')).join(', '));
   leg(['tablet', 'computer'].every(k => by(k).centred && by(k).barW <= 980), 'on a tablet and a computer the bar is a centred plate no wider than 980 (it ran 1,300 wide on a monitor)', ['tablet', 'computer'].map(k => k + ' ' + by(k).barW + (by(k).centred ? ' centred' : ' OFF CENTRE')).join(', '));
+  leg(res.every(x => Math.abs(x.man - 104) <= 2 && Math.abs(x.setMan - 104) <= 2), '*** THE MAN STAYS 112 ON EVERY SCREEN *** (rule 21: the ground may zoom, the person may not): setting his line and fighting, upright, flipped, tablet, computer; a drag pans what does not fit (EYES measured under 45 px flipped and on the computer, 10/5)',
+    res.map(x => x.pr + ' ' + x.setMan + '/' + x.man + ' px').join(', '));
+  const fl = res.filter(x => x.pr === 'phone_landscape')[0].panned;
+  leg(fl && fl.dy > 20 && Math.abs(fl.man - 104) <= 2, 'on the flipped phone a real drag pans his line up the glass while he sets it, and he stays 112', fl ? 'the camera moved ' + fl.dy + ' px, the man ' + fl.man + ' px' : 'no drag');
   leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, the whole board fits at the far stop, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
 }
 

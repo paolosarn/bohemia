@@ -6289,7 +6289,8 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_HARD_IS_A_KILLER_10_10_26.html"
    }
-  }
+  },
+  {"id": "combat-the-man-stays-112-flipped-10-9", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/9", "title": "ON A FLIPPED PHONE THE MAN STAYS FULL SIZE", "why": "Setting your line with the phone on its side used to shrink your men to 15 pixels to fit the column; now they stay at their full 112 and a drag pans the rest, the same on the computer and the tablet. Turn your phone sideways before FIGHT and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_MAN_STAYS_112_FLIPPED_10_9.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
