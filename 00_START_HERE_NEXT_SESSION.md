@@ -12242,6 +12242,7 @@ it is player-facing at all is worth deciding before restyling it. The source cou
 now understood as dead-declaration debt and can be swept file-wide in one pass instead of
 being chased surface by surface.
 
+RUN (run-eak241): 10/9c LATEST -- [origins fallback] SHIPPED: BOH_START's load takes every origin the file carries (MODS rule 22); GATE THE ORIGINS ARE DATA 6/0. NEXT: [you can flee].
 RUN (run-eak241): 10/9b LATEST -- [the map hears] SHIPPED. TAB: none to see (the map's travel state for SOUNDS).
 City __THE_MAP_HEARS__: mapState()/mapStatePost() every 500 ms; MAP_ARRIVAL set in loopArrived; MAP_SIGHT is [you can flee]'s to set. Shell: window.BOH_MAP_STATE + 'bohemia-mapstate'.
 GATE THE MAP HEARS 8/0. NEXT: [you can flee] (68, 68a: draw the roaming parties with their count word from partyMath('roaming'), set MAP_SIGHT, time stops in sight), then [first load], [demo end].
