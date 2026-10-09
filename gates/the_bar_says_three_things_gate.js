@@ -67,7 +67,7 @@ const done = () => { console.log('\nTHE BAR SAYS THREE THINGS: ' + pass + ' ok, 
     let truth = {};
     try { truth.batteries = purseBalances().electricity; truth.food = purseBalances().resources; } catch (e) {}
     /* THE SIX (round nine, rule 47a): each store's mark, its count, and whether it is dimmed */
-    const six = RD ? Array.from(RD.querySelectorAll('.sx')).map(e => { const g = e.querySelector('svg').getBoundingClientRect();
+    const six = RD ? Array.from(RD.querySelectorAll('.sx')).map(e => { const g = e.querySelector('img,svg').getBoundingClientRect();
       return { s: e.dataset.s, t: e.querySelector('b').textContent.trim(), none: e.classList.contains('none'), op: +getComputedStyle(e).opacity, mw: g.width, mh: g.height }; }) : [];
     const ledger = typeof BohemiaLedger !== 'undefined';
     const whereEl = RD && RD.querySelector('[data-k="where"]');

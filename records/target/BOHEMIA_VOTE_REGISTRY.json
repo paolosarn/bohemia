@@ -5137,6 +5137,74 @@
    }
   },
   {
+   "id": "sounds-the-barbers-clippers-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "5801eae",
+   "made": "10/5",
+   "title": "THE BARBER'S CLIPPERS",
+   "why": "The barber was silent, so now a tap plays a mains clipper's blade striking its stop, a real 120 Hz buzz. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-a-can-on-the-counter-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "5801eae",
+   "made": "10/5",
+   "title": "A CAN ON THE COUNTER",
+   "why": "The stall was silent, so now a tap plays a tin can's own ring landing on the wood counter, two materials in one contact. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-boards-own-nail-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "5801eae",
+   "made": "10/5",
+   "title": "THE BOARD'S OWN NAIL",
+   "why": "The board was silent, so now a tap plays a tack pinning a card, the same strike the fight's turn-close uses, smaller and higher. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-paper-against-the-post-10-5",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "5801eae",
+   "made": "10/5",
+   "title": "PAPER AGAINST THE POST",
+   "why": "The posts were silent, so now a tap plays many tiny paper creases catching and releasing, broadband. You hear it in the VOTE tab on the settlement's answers page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html"
+   },
+   "draft": true
+  },
+  {
    "id": "ui-every-item-is-an-icon-10-5",
    "kind": "ui",
    "lane": "ui",
@@ -5148,7 +5216,80 @@
     "how": "image",
     "src": "vote/UI_EVERY_ITEM_IS_AN_ICON_10_5.png"
    }
-  }
+  },
+  {
+   "id": "combat-the-enemy-plays-its-part-10-5",
+   "kind": "animation",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "EVERY BRIGAND FIGHTS LIKE HIS BATTLE BROTHERS SELF",
+   "why": "Thugs rush the nearest man, a raider with a pike waits for his line and then hits from two tiles, the marksman shoots the shieldless rookie and backs off, and the leader hangs back keeping his men brave, each from its wiki page. Play this clip or any fight against a mixed band and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_ENEMY_PLAYS_ITS_PART_10_5.gif"
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-settlement-traits-10-5",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "A PLACE HAS TRAITS: THE SAME TOWN RAIDED, AND ON MARKET DAY",
+   "why": "You said settlements have traits from random rolls, so a place now rolls Battle Brothers-style situations: raided burns a house and raises prices with nobody hiring, sickness boards the clinic, market day fills the street and drops prices, and the keeper tells you first. You see it in the VOTE tab under LOOK, the same town rolled two ways side by side, and in the demo whenever you arrive somewhere.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_TRAITS_TWO_ROLLS_10_5.png"
+   },
+   "draft": true
+  },
+{"id": "run-a-few-not-twelve-10-5", "kind": "ui", "lane": "run", "sha": "696bb51", "made": "10/5", "title": "THE FIRST ROAD GIVES A FEW THUGS, NOT NINE", "why": "Every fight used to throw the same nine brigands at you; now a party's size comes from Battle Brothers' math (your crew's strength, the days, the difficulty), so day one gives two thugs and day one hundred gives twelve with a leader. You see it in your first fight on the DEMO's map, before on the left and now on the right.", "show": {"how": "image", "src": "vote/RUN_A_FEW_NOT_TWELVE_10_5.jpg"}},
+  {
+   "id": "combat2-tiles-are-legos-10-5",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/5",
+   "title": "THE FIGHT BOARDS SNAP TOGETHER LIKE LEGOS",
+   "why": "Every fight block now joins only where its edges match, so streets, curbs and lane lines run straight through and the overpass lands on a real street at both ends. Thumbs up and every board is built this way, and you see it in the COMBAT tab on the freeway fight.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_TILES_ARE_LEGOS_10_5.png"
+   }
+  },
+ {"id": "ui-the-maps-bar-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE MAP'S BAR AND THE SIX", "why": "The six supplies are drawn as little objects now (a battery, a tin, a first-aid box, cartridges, tape, a water bottle), and the map's bar and speed buttons wear the same cardboard, receipt and glass as the fight and the settlement, readable in the sun. You see it on the map, across the top and in the bottom right.", "show": {"how": "image", "src": "vote/UI_THE_MAPS_BAR_10_5.png"}},
+{
+  "id": "grok-first-crisis-around-day-100-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: THE FIRST BIG CRISIS COMES AROUND DAY 100",
+  "why": "Grok reports you said the first endgame crisis lands around day 100 with the difficulty ramping over the fifty days before it, and the wiki agrees (foretold day 50 to 70, starts day 80 to 100), so the valley's first big turn in act one takes that clock. You would see it as rumours at the bar from day 50 and the turn itself around day 100, not in the demo.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_124-125 (the wiki's Late Game Crises page). The noble war is the suggested first crisis and destroys no settlement.\n\nSeen in: act one after day 50; nowhere in the demo."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-a-new-company-is-the-default-lone-wolf-is-his-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: A NEW COMPANY IS THE STRANGER'S DEFAULT PICK, LONE WOLF IS MARKED AS YOURS",
+  "why": "Grok reports Lone Wolf is your favourite start (one man, avoid big groups early), so the door marks it as the hard one and your pick while a stranger's default stays the three-man New Company that Battle Brothers itself opens on. You see it on the start screen's origin sheet: Lone Wolf ringed as the hard pick.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_122 (the wiki's Origins page: Lone Wolf one hedge knight at level 4, cap 12; A New Company three men). RUN's origins.json carries both.\n\nSeen in: NEW GAME, the origins sheet."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {

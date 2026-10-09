@@ -1,4 +1,5 @@
 source: Grok, unverified, written 2026-10-08
+PASSED FILTER (coordinator 10/9 sweep W, rule 54a: no game he has not named; every number names its page; the Chinese fandom table and the player posts are marked as such; what it reports as his is in VOTE marked VIA GROK)
 
 # THE UNDERBELLY. AMBITIONS
 

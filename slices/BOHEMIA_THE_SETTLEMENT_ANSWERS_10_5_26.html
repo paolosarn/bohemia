@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE SETTLEMENT ANSWERS</title>
+<!-- SOUNDS lane, 10/5, row [the settlement's sounds], rule 54b/71a.
+     PAOLO: "the settlement screen looking real dogshit, look how Battle Brothers
+     settlements work." Taps on the barber, the stall, the posts and the board had
+     nothing. Four new sounds, every one REUSE-FIRST off a primitive this lane
+     already built: the barber's clippers (harmonicHum, a struck armature at mains
+     double-rate), a can on the counter (objectSetDown + struckMetal, two materials
+     one contact), the board's own nail (struckMetal's same strike endTurnClick
+     uses, smaller and higher), paper against the post (crackleInto, the same
+     mechanism the broadcast's lightning and the night's insects already use).
+     THE CLINIC'S DOOR IS NOT HERE ON PURPOSE: door_open and door_shut are already
+     approved, frozen bank events, so that one needs no vote and is wired live.
+     THE BAR'S MURMUR IS NOT HERE EITHER: this lane's whole palette is struck,
+     resonant and particle material, and it has never faked a voice. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+  .skip{font-size:12px;color:var(--dim);margin:0 0 14px}
+</style></head><body><div class="wrap">
+
+<h1>THE SETTLEMENT ANSWERS</h1>
+<div class="sub">SOUNDS &middot; 10/5 &middot; four taps that had nothing</div>
+
+<div class="loud">The barber, the stall, the board and the posts had no sound when you tapped
+them. Four new ones, each built out of a sound this lane already made, not invented fresh.</div>
+
+<div class="card">
+  <h2>A. THE BARBER'S CLIPPERS</h2>
+  <div class="why">A mains clipper's blade struck against its stop twice every cycle: 120 Hz, a buzzy stack of harmonics, not a clean motor tone.</div>
+  <div class="row"><button data-play="barber">PLAY IT</button></div>
+  <div class="num" id="num-barber"></div>
+</div>
+
+<div class="card">
+  <h2>B. A CAN ON THE COUNTER</h2>
+  <div class="why">A tin can's own thin ring landing on the stall's wood counter: the same contact, two materials at once.</div>
+  <div class="row"><button data-play="can">PLAY IT</button></div>
+  <div class="num" id="num-can"></div>
+</div>
+
+<div class="card">
+  <h2>C. THE BOARD'S OWN NAIL</h2>
+  <div class="why">A tack pinning a card to the board: the same strike the fight's turn-close already uses, smaller and higher.</div>
+  <div class="row"><button data-play="nail">PLAY IT</button></div>
+  <div class="num" id="num-nail"></div>
+</div>
+
+<div class="card">
+  <h2>D. PAPER AGAINST THE POST</h2>
+  <div class="why">Many tiny creases catching and releasing, broadband, the way real paper crinkle actually spreads.</div>
+  <div class="row"><button data-play="paper">PLAY IT</button></div>
+  <div class="num" id="num-paper"></div>
+</div>
+
+<div class="skip">NOT HERE ON PURPOSE: the clinic's door needs no new sound at all, it reuses
+door_open and door_shut, already approved; wired live, not on this page. The bar's murmur is
+still a gap this lane has not solved, same reason as every round before this -- no faked voices.</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF THEM</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script>
+var H = window.BOH_HORROR_SOUNDS;
+var AC = null, live = null;
+function ac(){ if(!AC) AC = new (window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume(); return AC; }
+var cache = {};
+function made(k){
+  if(cache[k]) return cache[k];
+  if(k==='barber') cache[k] = H.barberClippers(ac(), {});
+  if(k==='can')    cache[k] = H.canOnWood(ac(), {});
+  if(k==='nail')   cache[k] = H.boardNail(ac(), {});
+  if(k==='paper')  cache[k] = H.paperRustle(ac(), {});
+  return cache[k];
+}
+function stopAll(){ try{ if(live) live.stop(); }catch(e){} live=null;
+  document.querySelectorAll('button[data-play]').forEach(function(b){ b.classList.remove('on'); }); }
+document.querySelectorAll('button[data-play]').forEach(function(b){
+  b.onclick = function(){
+    var k = b.dataset.play;
+    if(live && live._k===k){ stopAll(); return; }
+    stopAll();
+    var c = ac(), m = made(k);
+    var s = c.createBufferSource(); s.buffer = m.buffer; s.loop = true;
+    var g = c.createGain(); g.gain.value = 0.9;
+    s.connect(g); g.connect(c.destination); s.start();
+    s._k = k; live = s; b.classList.add('on');
+  };
+});
+function head(){
+  var b = made('barber');
+  document.getElementById('num-barber').textContent =
+    b.hz + ' Hz, additive, zero noise generators, ' + b.seconds + ' s';
+  var c = made('can');
+  document.getElementById('num-can').textContent =
+    'wood: ' + c.woodSurface + ', tin ring: ' + c.tinF0 + ' Hz, ' + c.seconds.toFixed(2) + ' s';
+  var n = made('nail');
+  document.getElementById('num-nail').textContent =
+    n.what + ' mode at ' + n.f0 + ' Hz, ' + n.seconds.toFixed(3) + ' s';
+  var p = made('paper');
+  document.getElementById('num-paper').textContent =
+    p.clicks + ' creases, ' + p.lo + '-' + p.hi + ' Hz, ' + p.seconds + ' s';
+}
+head();
+
+var KEY='bohemia_settlement_answers_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE SETTLEMENT ANSWERS (SOUNDS, 10/5). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry ids: sounds-the-barbers-clippers-10-5, sounds-a-can-on-the-counter-10-5, '
+    + 'sounds-the-boards-own-nail-10-5, sounds-paper-against-the-post-10-5\n\n'
+    + (a || '(nothing written yet)'); }
+function say(msg){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_SETTLEMENT_ANSWERS.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

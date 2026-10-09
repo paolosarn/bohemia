@@ -48,6 +48,9 @@ const srv = http.createServer((rq, rs) => {
   p.on('response', r => { if (r.status() >= 400) missing.push(r.url()); });
   await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
   await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+  /* the plain town first: no trait, so every other leg reads the base numbers */
+  await p.waitForTimeout(500);
+  await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(300);
 
   /* a thumb on the building itself (rule 67: the buildings are the buttons); a window that is
@@ -157,6 +160,38 @@ const srv = http.createServer((rq, rs) => {
   await tapB('board'); await p.waitForTimeout(250);
   const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act em')).map(e => e.textContent));
   ok('the board is where work is: each job shows its skulls and its pay', skulls.length > 0 && skulls.every(t => /\u2620/.test(t) && /batt/.test(t)), skulls.join(' / '));
+
+  /* A PLACE HAS TRAITS (rule 71): the same town rolled two ways looks different, prices differently,
+     and the keeper says why first */
+  const roll = async ids => {
+    await p.evaluate(ids => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ids }), ids);
+    await p.waitForFunction(() => (BohemiaSettlement.state.stock.smith || []).length > 0, null, { timeout: 30000 });
+    await p.waitForTimeout(500);
+    const px = await p.evaluate(() => { const c = document.getElementById('cv'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let h = 0; for (let i = 0; i < d.length; i += 400) h = (h * 31 + d[i] + d[i + 1] * 3 + d[i + 2] * 7) >>> 0; return h; });
+    const st = await p.evaluate(() => { const s = BohemiaSettlement.state.stock; return { n: s.smith.length, items: s.smith.map(i => [i.id, i.price]), ids: BohemiaSettlement.traitsNow().join() }; });
+    return { px, st };
+  };
+  const plain = await roll([]), raided = await roll(['raided']);
+  await p.screenshot({ path: SHOT.replace('_10_1', '_RAIDED_10_5') });
+  await tapB('smith'); await p.waitForTimeout(250);
+  const raidLine = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
+  await tapB('hall'); await p.waitForTimeout(250);
+  const raidHall = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + '|' + document.querySelectorAll('#sbody .act').length);
+  await p.click('#close'); await p.waitForTimeout(300);
+  const market = await roll(['market_day']);
+  await p.screenshot({ path: SHOT.replace('_10_1', '_MARKET_DAY_10_5') });
+  ok('a trait changes the picture (the same town, raided and on market day, draws differently)', plain.px !== raided.px && raided.px !== market.px && plain.px !== market.px);
+  /* the same rows on each shelf, priced three ways */
+  const priceOf = (st, id) => (st.items.find(x => x[0] === id) || [0, null])[1];
+  const common = raided.st.items.map(x => x[0]).filter(id => priceOf(plain.st, id) != null && priceOf(market.st, id) != null);
+  const dearer = common.every(id => priceOf(raided.st, id) >= priceOf(plain.st, id)) && common.some(id => priceOf(raided.st, id) > priceOf(plain.st, id));
+  const cheaper = common.every(id => priceOf(market.st, id) <= priceOf(plain.st, id)) && common.some(id => priceOf(market.st, id) < priceOf(plain.st, id));
+  ok('  and the shelves: raided is dearer and thinner, market day cheaper and fuller', common.length > 0 && dearer && cheaper && raided.st.n < plain.st.n && market.st.n > plain.st.n,
+     common.length + ' same rows; ' + common.slice(0, 2).map(id => id + ' ' + priceOf(plain.st, id) + '/' + priceOf(raided.st, id) + '/' + priceOf(market.st, id)).join(', ') + '; counts ' + plain.st.n + '/' + raided.st.n + '/' + market.st.n);
+  ok('  and the keeper says it first, out of a mouth', /burned|crew came/i.test(raidLine), raidLine.slice(0, 60));
+  ok('  and who stands at the posts: nobody signs on in a raided town', /nobody/i.test(raidHall) && /\|0$/.test(raidHall), raidHall.slice(0, 60));
+  await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
+  await p.waitForTimeout(400);
 
   /* the board: two contracts max, each told to the game */
   for (let i = 0; i < 3; i++) {

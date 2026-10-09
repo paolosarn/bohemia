@@ -148,6 +148,71 @@ var TIERS = {
 };
 var ORDER = TIERS.town.slice();
 
+/* ---------- A PLACE HAS TRAITS (rule 71, Paolo 10/4: 'settlements have traits too, depending on
+   random variables'). Battle Brothers' situations, from records/target/settlement_traits.json: rolled
+   per place by its name and the week, so a trait comes and goes; each changes the picture, the
+   shelves' prices and stock, who stands at the posts, and what the keepers say first. ---------- */
+var TRAITS = null;
+fetch('../records/target/settlement_traits.json').then(function(r){ return r.json(); }).then(function(j){ TRAITS = j; rollTraits(); restock(); }).catch(function(){});
+function rollTraits(){
+  S.traits = []; S.traitSaid = {};
+  if(!TRAITS) return;
+  if(Array.isArray(S.forceTraits)){
+    S.traits = TRAITS.traits.filter(function(t){ return S.forceTraits.indexOf(t.id) >= 0; });
+  } else {
+    var per = (TRAITS.roll && TRAITS.roll.period_days) || 7, R1 = rng(seedOf(S.place.name + ':traits:' + Math.floor((S.day||0)/per)));
+    if(R1() < ((TRAITS.roll && TRAITS.roll.chance_any) || .7)){
+      var pool = TRAITS.traits.slice(), n = 1 + (R1() < .3 ? 1 : 0);
+      for(var i=0; i<n && pool.length; i++) S.traits.push(pool.splice(Math.floor(R1()*pool.length), 1)[0]);
+    }
+  }
+}
+function traitMult(){
+  var m = {price:1, stock:1, recruits:0};
+  (S.traits||[]).forEach(function(t){ m.price *= (t.price_mult||1); m.stock *= (t.stock_mult||1); m.recruits += (t.recruits||0); });
+  return m;
+}
+function traitLine(k){
+  for(var i=0;i<(S.traits||[]).length;i++){ var t = S.traits[i]; if(t.says && (t.says[k] || t.says.any)) return t.says[k] || t.says.any; }
+  return null;
+}
+/* THE LOOK, drawn over the painted place until COMBAT TWO's trait pictures exist: a burnt house
+   with smoke still rising, planks across the clinic's windows, a crowd round the stall. Each is
+   placed on a building already in that tier's picture (picked by eye). */
+var LOOKBOX = {burnt:{camp:[180,150,310,225], town:[40,60,490,365], fortress:[1620,560,1980,860]}};
+function drawTraitLooks(s){
+  if(!VAR || !(S.traits||[]).length) return;
+  var now = performance.now(), tier = S.place.tier;
+  function box(b){ return {x:view.ox+b[0]*s, y:view.oy+b[1]*s, w:(b[2]-b[0])*s, h:(b[3]-b[1])*s}; }
+  S.traits.forEach(function(t){
+    if(t.look === 'burnt'){
+      var b = box((LOOKBOX.burnt[tier]||LOOKBOX.burnt.town));
+      cx.save(); cx.globalCompositeOperation = 'multiply'; cx.fillStyle = 'rgb(70,52,40)'; cx.fillRect(b.x, b.y, b.w, b.h); cx.restore();
+      cx.fillStyle = 'rgba(20,14,10,.55)'; for(var i=0;i<14;i++){ var px = b.x + ((i*37)%100)/100*b.w, py = b.y + ((i*61)%100)/100*b.h; cx.fillRect(px, py, b.w*.12, b.h*.08); }
+      /* smoke, still rising: slow puffs on the beat, never a glow */
+      for(var j=0;j<6;j++){ var ph = ((now/1000*.25) + j/6) % 1; cx.fillStyle = 'rgba(60,56,52,' + (0.35*(1-ph)).toFixed(3) + ')';
+        cx.beginPath(); cx.arc(b.x + b.w*.55 + Math.sin(j*2+now/1400)*b.w*.06, b.y - ph*b.h*.9, (6 + ph*22)*s*3, 0, 7); cx.fill(); }
+    }
+    if(t.look === 'boarded' && VAR.boxes.clinic){
+      var c = box(VAR.boxes.clinic), y0 = c.y + c.h*.62;
+      cx.fillStyle = '#6b5236'; cx.strokeStyle = '#3a2a1a'; cx.lineWidth = 1;
+      for(var k2=0;k2<5;k2++){ var px2 = c.x + c.w*(.08 + k2*.18);
+        for(var r=0;r<2;r++){ cx.save(); cx.translate(px2 + c.w*.07, y0 + r*c.h*.12); cx.rotate(r ? -.12 : .1);
+          cx.fillRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.strokeRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.restore(); } }
+    }
+    if(t.look === 'crowd' && VAR.boxes.stall){
+      var st = box(VAR.boxes.stall), R2 = rng(seedOf(S.place.name + ':crowd')), cols = ['#2b2b2b','#5a3d2b','#3d4a3a','#6e2a20','#8a7a62','#1e2a3a'];
+      for(var q=0;q<12;q++){
+        var ang = R2()*Math.PI*2, rad = .55 + R2()*.6, fx = st.x + st.w/2 + Math.cos(ang)*st.w*rad, fy = st.y + st.h*1.05 + Math.sin(ang)*st.h*.5*rad;
+        var bob = Math.sin(now/500*Math.PI + q) * 0.6, u = Math.max(2, 4*s*3);
+        cx.fillStyle = 'rgba(0,0,0,.35)'; cx.fillRect(fx - u, fy + u*2.2, u*2, u*.6);
+        cx.fillStyle = cols[q % cols.length]; cx.fillRect(fx - u*.8, fy - u*.2 + bob, u*1.6, u*2.4);
+        cx.fillStyle = '#b08a6a'; cx.fillRect(fx - u*.5, fy - u*1.2 + bob, u, u);
+      }
+    }
+  });
+}
+
 /* ---------- THE ARMS: the wiki's rows (records/target/bb/, rule 63d), in our names ----------
    A renamed thing keeps its numbers. The job names are COMBAT's (ours.json weapon_jobs); the classes
    COMBAT has not named yet get a plain one here (draft:true). The quality word is the row's rank in
@@ -187,17 +252,21 @@ function armourItem(kind, r){
 function restock(){
   if(!BB.weapons || !BB.armor || !VAR) return;
   var tier = S.place.tier, band = tier==='camp' ? [0,.4] : tier==='town' ? [.15,.75] : [.3,1];
-  var R0 = rng(seedOf(S.place.name + ':stock'));
-  function pick(rows, n){
+  /* each shelf rolls on its own stream, so a trait that takes or adds items never reshuffles the rest */
+  function pick(rows, n, key){
+    var R0 = rng(seedOf(S.place.name + ':stock:' + key));
     var sorted = rows.filter(function(r){ return r.value != null; }).sort(function(a,b){ return a.value-b.value; });
     var lo = Math.floor(sorted.length*band[0]), hi = Math.max(lo+1, Math.floor(sorted.length*band[1])), out = [], seen = {};
     for(var t=0; t<60 && out.length<n; t++){ var r = sorted[lo + Math.floor(R0()*(hi-lo))]; if(r && !seen[r.id]){ seen[r.id]=1; out.push(r); } }
     return out;
   }
-  var W = function(n){ return pick(BB.weapons.filter(function(r){ return CLASSNAME[r['class']]; }), n).map(weaponItem); };
-  var A = function(n){ return pick(BB.armor.body, Math.ceil(n/2)).map(function(r){ return armourItem('body', r); })
-                    .concat(pick(BB.armor.head, Math.floor(n/2)).map(function(r){ return armourItem('head', r); })); };
-  S.stock = {arms: W(4).concat(A(3)), smith: W(7), armourer: A(6).concat(pick(BB.armor.shields, 2).map(function(r){ return armourItem('shields', r); }))};
+  var W = function(n, key){ return pick(BB.weapons.filter(function(r){ return CLASSNAME[r['class']]; }), n, key).map(weaponItem); };
+  var A = function(n, key){ return pick(BB.armor.body, Math.ceil(n/2), key+':b').map(function(r){ return armourItem('body', r); })
+                    .concat(pick(BB.armor.head, Math.floor(n/2), key+':h').map(function(r){ return armourItem('head', r); })); };
+  var tm = traitMult(), sm = function(n){ return Math.max(1, Math.round(n * tm.stock)); };
+  S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
+  /* a trait moves every price on the shelves, never below one battery */
+  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.price = Math.max(1, Math.round(it.price * tm.price)); });
 }
 /* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
    in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
@@ -313,7 +382,7 @@ var STALL = [{good:'food', label:'A ration of food', counts:'resources'},
 
 var S = {
   place:{name:'THE WASH, NORTH LAS VEGAS', tier:'town', district:'commercial'},
-  purse:null, day:0, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
+  purse:null, day:0, traits:[], traitSaid:{}, stock:{}, stash:[], rumour:0, wounded:[], veterans:[], held:[], hired:{}, asked:{}, scav:null, faces:{}, open:null, standalone:(window.parent===window)
 };
 var P = window.BohemiaPurse;
 function bats(){ return P ? P.balance(S.purse,'electricity') : 0; }
@@ -324,6 +393,14 @@ function post(act, o){
   if(!S.standalone) try{ window.parent.postMessage(m,'*'); }catch(e){}
 }
 function heard(t){ document.getElementById('heard').textContent = t; }
+/* THE CLINIC'S DOOR (row [the settlement's sounds], 10/5): door_open and door_shut are
+   already approved, frozen bank events (bohemia_sfx.js), so this is wiring, not new
+   content -- the same postMessage bridge BOHEMIA_FIGHT.html already uses, reused rather
+   than built twice. */
+function sfx(ev) {
+  window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev});
+  try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev }, '*'); } catch (_e) {}
+}
 
 /* ---------- THE PLACE, DRAWN: ONE PAINTED PICTURE (rule 71a, Paolo 10/4) ----------
    'The buildings look like options; it looks like dog shit.' So the place is ONE 45-degree picture,
@@ -355,7 +432,10 @@ function pickVariant(){
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
   ORDER = ['hall','board','stall','arms','smith','armourer','barber','clinic','lot'].filter(function(k){ return VAR.boxes[k]; });
-  restock();
+  rollTraits(); restock();
+  /* you arrive looking at what happened here: a raided place opens on its burnt house */
+  if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
+    var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
   ['day','night'].forEach(function(w){
     var im = new Image(); im.onload = function(){ layout(); }; im.src = 'settlement_ground/' + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
   });
@@ -398,6 +478,7 @@ function draw(){
   cx.drawImage(im, W/2 - (view.cx*sb), (H - picH()*sb)/2, picW()*sb, picH()*sb);
   cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
+  drawTraitLooks(s);
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
   var gb = cx.createLinearGradient(0, view.oy+picH()*s-fe, 0, view.oy+picH()*s); gb.addColorStop(0,'rgba(14,10,7,0)'); gb.addColorStop(1,'rgba(14,10,7,.8)');
@@ -511,11 +592,15 @@ function act(label, right, fn, off){
 
 /* ---------- THE BUILDINGS ---------- */
 function openB(k, line){
+  if(k==='clinic' && S.open!=='clinic') sfx('door_open');
   S.open = k;
+  /* a trait is said once per building, first thing, by the one who lives with it */
+  if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
   var body = document.getElementById('sbody'); body.textContent = '';
   var acts = document.createElement('div'); acts.className = 'acts';
   if(k==='hall'){
     var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
+    if(traitMult().recruits < 0) id = null;   /* raided or sick: nobody signs on */
     body.appendChild(speak(k, line || (id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
     if(id){
       acts.appendChild(act('Take the '+id+' on', '1 battery a night', function(){
@@ -613,7 +698,7 @@ function show(){
   document.getElementById('sheet').classList.add('on');
 
 }
-function hide(){ S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ if(S.open==='clinic') sfx('door_shut'); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
@@ -650,11 +735,12 @@ function open(o){
   if(o.wounded) S.wounded = o.wounded.slice();
   if(o.veterans) S.veterans = o.veterans.slice();
   if(typeof o.night === 'boolean') view.night = o.night;
+  if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

@@ -78,9 +78,17 @@ def _wall_face(board, y_t, h_m, seed):
     K.shade(board, (0, y_t + h - 4, BP, y_t + h + ty(M(1.0))), 0.7)
 
 
-def freeway2(seed, overpass=False):
+def freeway2(seed, overpass=False, north='lot'):
+    """RE-CUT 10/5 (rule 77, TILES ARE LEGOS): the north verge is the town's yard ground (north='lot') so the
+       town above meets yard with yard; the south verge stays the desert's soil for the scrub below; the
+       overpass carries the town's own cross street (the same tile the corner blocks use at column 2), so
+       it lands on a street at both ends instead of on dirt."""
     r = K.R(seed)
+    seed = 1201                                                          # one texture for every freeway block, so their seams agree; the jam is still seeded per block
     plan = B.dress_any([B.DGROUND[1]], BP, BP, seed)
+    if north == 'lot':
+        nv = _mask(); ImageDraw.Draw(nv).rectangle([0, 0, BP, M(8.5)], fill=255)
+        plan.paste(R4.yards(seed + 9), (0, 0), nv)
     lanes = [(10.5 + 3.7 * k) for k in range(1, 4)] + [(38.0 + 3.7 * k) for k in range(1, 4)]
     road = R4.road_band(plan, 8.5, 54.5, seed + 1, lines=[(y, False, C[5]) for y in lanes] +
                         [(9.6, True, C[5]), (31.4, True, T[5]), (37.4, True, T[5]), (53.4, True, C[5])])
@@ -108,20 +116,22 @@ def freeway2(seed, overpass=False):
     if overpass:                                                         # THE OVERPASS, north-south over the lanes
         x0, x1 = 24.0, 36.0
         deck_top = ty(M(2.0))
-        dk = B.quiet_big(K.dress(['concrete_0', 'concrete_1'], BP, BP, seed + 5)).resize((BP, PY * N), Image.NEAREST).crop((M(x0), 0, M(x1), PY * N))
+        dk = Image.new('RGB', (M(x1) - M(x0), PY * N))
+        for rw in range(N): dk.paste(F.street_small(19 + 2 * rw, ns=True).crop((0, 0, M(x1) - M(x0), PY)), (0, rw * PY))   # the town's cross street, carried over
         shadow = _mask().resize((BP, PY * N)); sd = ImageDraw.Draw(shadow)
-        sd.rectangle([M(x1), 0, M(x1 + 3.0), PY * N], fill=255)          # its shadow east of the deck
+        sd.rectangle([M(x1), ty(M(5.0)), M(x1 + 3.0), ty(M(57.2))], fill=255)          # its shadow east of the deck, over the cutting only
         B.shade_mask(board, shadow, 0.62)
         for py_ in (ty(M(15.0)), ty(M(44.0))):                           # the piers, seen in the gaps
             d.rectangle([M(x0 + 2), py_, M(x0 + 3.2), py_ + ty(M(6.0))], fill=C[3])
             d.rectangle([M(x1 - 3.2), py_, M(x1 - 2), py_ + ty(M(6.0))], fill=C[3])
         board.paste(dk, (M(x0), 0))
-        d.rectangle([M(x0), 0, M(x0) + M(0.4), PY * N], fill=C[6]); d.rectangle([M(x1) - M(0.4), 0, M(x1), PY * N], fill=C[4])   # the railings
-        d.line([(M((x0 + x1) / 2), 0), (M((x0 + x1) / 2), PY * N)], fill=T[5], width=3)          # its centre line, faded yellow
+        for y0_, y1_ in ((ty(M(5.0)), ty(M(9.6))), (ty(M(53.4)), ty(M(57.2)))):   # the railings, only where it spans the lanes
+            d.rectangle([M(x0), y0_, M(x0) + M(0.3), y1_], fill=C[6]); d.rectangle([M(x1) - M(0.3), y0_, M(x1), y1_], fill=C[4])
+        d.rectangle([M(x0), ty(M(9.6)), M(x0) + M(0.3), ty(M(53.4))], fill=C[6]); d.rectangle([M(x1) - M(0.3), ty(M(9.6)), M(x1), ty(M(53.4))], fill=C[4])
         for _ in range(60):                                              # oil stains and spalls, nowhere twice
-            sx, sy = M(x0 + 1) + r.i(M(x1 - x0 - 2)), r.i(PY * N)
+            sx, sy = M(x0 + 3) + r.i(M(x1 - x0 - 6)), ty(M(9.6)) + r.i(ty(M(43.8)))
             d.ellipse([sx, sy, sx + M(0.4 + r() * 1.2), sy + ty(M(0.3 + r() * 0.8))], fill=C[2] if r() < 0.6 else A[3])
-        for k in range(1, 9): d.line([(M(x0), k * PY * N // 9 + r.i(20)), (M(x1), k * PY * N // 9 + r.i(20))], fill=C[1], width=2)   # the joints
+        for k in range(2, 8): yj = k * PY * N // 9 + r.i(20); d.line([(M(x0) + M(1.6), yj), (M(x1) - M(1.6), yj)], fill=C[1], width=2)   # the deck's joints, between the kerbs
         for rw in range(N): grid[rw][2] = 'height'
         pieces = [p for p in pieces if not (x0 - 5 < p['x_m'] < x1 + 1)]
     pieces = [p for p in pieces if grid[int(p['y_m'] // 12)][int(p['x_m'] // 12)] not in ('blocked',)]

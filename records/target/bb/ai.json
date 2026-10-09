@@ -7,14 +7,14 @@
    "quote": "In the early game Brigand groups usually consist of [[Brigand Thug|Thugs]] and sometimes [[Brigand Raider|Raiders]]."
   },
   "lower_brigand_raider": {
-   "value": "line",
-   "source": "bb_all/0299_Brigands.txt",
-   "quote": "In the early game Brigand groups usually consist of [[Brigand Thug|Thugs]] and sometimes [[Brigand Raider|Raiders]]."
+   "value": "raider",
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies."
   },
   "brigand_raider": {
-   "value": "line",
-   "source": "bb_all/0299_Brigands.txt",
-   "quote": "Later, Raiders become more common, ranged attackers appear and their numbers increase"
+   "value": "raider",
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies."
   },
   "lower_brigand_marksman": {
    "value": "backline",
@@ -47,10 +47,9 @@
    "quote": "Brigand Marauders start appearing in the middle game, one or more among weaker brigands."
   },
   "brigand_leader": {
-   "value": "backline",
+   "value": "leader",
    "source": "bb_all/0290_Brigand Leader.txt",
-   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle.",
-   "why": "he deploys behind his line; how he rallies and holds is COMBAT [the enemy plays its part]"
+   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle."
   }
  },
  "archetypes": {
@@ -69,10 +68,17 @@
     "advance": false,
     "stand_and_shoot": true,
     "step_out_of_melee": true,
-    "reload": true
+    "reload": true,
+    "prefers_soft": true
    },
    "source": "bb_all/0299_Brigands.txt",
-   "quote": "if they think they have it, they will stand their ground and shoot at you"
+   "quote": "if they think they have it, they will stand their ground and shoot at you",
+   "soft": {
+    "source": "bb_all/0294_Brigand Marksman.txt",
+    "quote": "Being a ranged units, they can target anyone they want and prefer to shoot at shieldless units or rookies",
+    "also": "COMBAT [the enemy plays its part] (coordinator): 'pick the unarmoured head'",
+    "how": "a shot's worth is multiplied by one plus how soft the man is: no car door, a rookie (level 1), a bare head"
+   }
   },
   "walker": {
    "value": {
@@ -138,6 +144,28 @@
      "how": "a man picks only targets his side can see"
     }
    }
+  },
+  "raider": {
+   "value": {
+    "advance": true,
+    "surround": true,
+    "break_formation": true,
+    "long_weapon_waits": true
+   },
+   "source": "bb_all/0297_Brigand Raider.txt",
+   "quote": "If armed with a long weapon like Pike and there are no enemies nearby, they wait to not get ahead of their melee allies.",
+   "why": "a raider flanks like the line (surround: he goes for the man his friends already hold); with a two-tile weapon he never walks out ahead of the one-tile men"
+  },
+  "leader": {
+   "value": {
+    "advance": true,
+    "stays_back": true,
+    "surround": true
+   },
+   "source": "bb_all/0290_Brigand Leader.txt",
+   "quote": "The Leader spawns in the very back and usually does not hurry to enter battle.",
+   "also": "bb_all/0343_Captain.txt: 'Captain is an aura that increases the Resolve of other allies by +15% (range of 5 tiles)' (ours.captain_aura)",
+   "how": "before the lines meet he does not move; after, he never steps ahead of his own front man, so his aura stays over his line"
   }
  },
  "hunt": {
