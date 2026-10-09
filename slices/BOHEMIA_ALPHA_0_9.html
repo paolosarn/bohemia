@@ -23918,10 +23918,46 @@ drawLogoBig();requestAnimationFrame(loop);
         BOH_SFX.render(v,MUS.AC,this.bus,null);
         this.last=ev; SFX_COUNT++;
       }catch(e){}
+    },
+    /* REACHING A TOWN IS THE MOMENT THE ROW NAMED (row [the map's sounds], 10/5:
+       "arriving at a settlement (a dog, a generator...)"), now that RUN's [the map
+       hears] (10/9) posts WHEN it happens instead of leaving it to the tick clock's
+       own random draw.
+       THE DOG IS NOT HERE, AND THAT IS NOT AN OVERSIGHT: checked fresh before
+       writing this, dog_far is DOWN on all five candidates (records/
+       BOHEMIA_SFX_VERDICT_8_12_26.txt, re-confirmed 8/14), graveyarded, and
+       GRAVEYARD IS FINAL. Measured on the glass: dog_far has no entry in this
+       file's own live APPROVED table (window.__sfxPool('dog_far') returns []),
+       so AMB.tick()'s own comment calling it one of "the rare ones" has been
+       describing a dead sound this whole time; that stale comment is not
+       touched here, named instead, since fixing a comment that merely
+       mis-describes already-correct (silent) behaviour is not this round's
+       job. ONLY generator plays here, zero new content: already his, already
+       playing from this same AMB bus every round since 8/12, approved
+       (APPROVED.generator = [0,1,2,3]) -- this only changes WHEN it is heard,
+       the same move [one song and the volumes] already made for the room
+       (the crossing arms the clock instead of waiting on it). */
+    arrivedSeq:null,
+    onArrive:function(seq){
+      if(seq==null || seq===this.arrivedSeq) return;
+      this.arrivedSeq=seq;
+      /* EXPOSED FOR THE GATE, THE SAME REASON __ambHumPlace AND __sfxInSpace ARE:
+         BOH_SFX only exists after his first real gesture unlocks audio, so a
+         checker driving this bridge standalone (no door, no tap through the
+         title) has to see the DECISION made, not only its rendered sound. */
+      window.__ambArriveLog = window.__ambArriveLog || [];
+      window.__ambArriveLog.push({ seq:seq, inside:this.inside });
+      if(this.inside) return;
+      try{
+        placeSound('generator', { dx:(Math.random()*2-1)*7, dist:6+Math.random()*9, inside:false }, this.bus);
+      }catch(e){}
     }
   };
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
+  window.addEventListener('bohemia-mapstate', function(e){
+    var d=e && e.detail; if(d && d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+  });
   /* the parent's own surfaces: every button on the phone is a UI TAP.
      EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
      THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE

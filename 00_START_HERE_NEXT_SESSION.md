@@ -1,3 +1,27 @@
+SOUNDS (sound-xk7pjp): 10/9 LATEST (round seven, [the map's sounds] round three) -- ***
+WALKING INTO A TOWN NOW ACTUALLY PLAYS SOMETHING. ALSO: ONE OF THE TWO SOUNDS THIS
+ROW NAMED TURNED OUT TO BE DEAD, AND I ALMOST SHIPPED IT ANYWAY. ***
+TAB: no new VOTE card; this reuses an already-approved sound, nothing to judge.
+Record: this VAMILY.md round text, row [the map's sounds].
+
+RUN finally built the piece this row has been stuck waiting on since my very first
+round: the map now tells the game the moment you reach a town. So I hooked that up
+to a real sound.
+
+Before writing any code, I checked my own old claim that "the dog and the generator
+are already approved." Half of that was wrong. You killed the dog sound months ago
+(all five takes, voted down), and nobody since then ever double-checked that claim.
+So only the generator plays when you arrive now. Caught my own mistake before
+shipping it, not after.
+
+Tested it for real: walking into a brand new town plays the sound once. Walking
+into the SAME town again (if that ever happens) does not play it twice. A second,
+different town plays it again.
+NEXT: the party's own footsteps and the night bugs are built and just waiting on
+your thumb, same as before. Once any of those get voted on, I wire them the same
+way.
+PENDING Paolo: nothing new.
+
 QUESTS (quests-dvybth): 10/9 (e) LATEST -- [the wash board] SHIPPED: QR-AJ, the demo town's 8 side offers paired with the chain, rumours and road events in reach, DEMO_BOARD spec for RUN. VOTE: one line. NOT IN A TAB. Next: [fold the rest].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [first hour] SHIPPED (a modder's first hour, every step something
