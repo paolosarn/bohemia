@@ -5875,20 +5875,32 @@
    "asked": "UP or DOWN",
    "draft": true
   },
-  {"id": "people-good-bros-10-9", "kind": "tile", "lane": "people", "sha": "8f060a5", "made": "10/9", "title": "GOOD BROS AT THE POST", "why": "Six real recruits, rolled fresh every time from the wiki's own stats and prices, not made up. Real names on them too, from the same system every person in this game already gets one from.", "show": {"how": "page", "src": "BOHEMIA_GOOD_BROS_10_9_26.html"}},
-                                                                                                                                                                                                                                                                                                                                                                                                              {
-                                                                                                                                                                                                                                                                                                                                                                                                               "id": "lifecity-build-on-the-screen-10-9",
-                                                                                                                                                                                                                                                                                                                                                                                                               "kind": "tile",
-                                                                                                                                                                                                                                                                                                                                                                                                               "lane": "life+city",
-                                                                                                                                                                                                                                                                                                                                                                                                               "sha": "145f98b2",
-                                                                                                                                                                                                                                                                                                                                                                                                               "made": "10/9",
-                                                                                                                                                                                                                                                                                                                                                                                                               "title": "BUILD IN A TOWN YOU HOLD",
-                                                                                                                                                                                                                                                                                                                                                                                                               "why": "Building is now in the town screen, as a spot on the picture you tap. Left: a town the Mob holds, and your own voice says it is not your ground, and nothing is spent. Middle: your own base, the list of eight things, a wall and a water tank for one battery each. Right: the next day, both are standing on the town picture. Four lots per place for now. Thumbs up and this is how you build. Thumbs down and say what is wrong.",
-                                                                                                                                                                                                                                                                                                                                                                                                               "show": {
-                                                                                                                                                                                                                                                                                                                                                                                                                "how": "image",
-                                                                                                                                                                                                                                                                                                                                                                                                                "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
-                                                                                                                                                                                                                                                                                                                                                                                                               }
-                                                                                                                                                                                                                                                                                                                                                                                                              },
+  {
+   "id": "people-good-bros-10-9",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "8f060a5",
+   "made": "10/9",
+   "title": "GOOD BROS AT THE POST",
+   "why": "Six real recruits, rolled fresh every time from the wiki's own stats and prices, not made up. Real names on them too, from the same system every person in this game already gets one from.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_GOOD_BROS_10_9_26.html"
+   }
+  },
+  {
+   "id": "lifecity-build-on-the-screen-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "145f98b2",
+   "made": "10/9",
+   "title": "BUILD IN A TOWN YOU HOLD",
+   "why": "Building is now in the town screen, as a spot on the picture you tap. Left: a town the Mob holds, and your own voice says it is not your ground, and nothing is spent. Middle: your own base, the list of eight things, a wall and a water tank for one battery each. Right: the next day, both are standing on the town picture. Four lots per place for now. Thumbs up and this is how you build. Thumbs down and say what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
+   }
+  },
   {
    "id": "economy-the-contracts-worth-10-9",
    "kind": "ui",
@@ -5903,11 +5915,31 @@
    }
   },
   {
-   "id": "factions-four-with-a-face-10-9", "kind": "tile", "lane": "factions", "sha": "7d565f9", "made": "10/9",
-   "title": "FOUR FACTIONS WITH A FACE", "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
-   "show": {"how": "page", "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"}
+   "id": "factions-four-with-a-face-10-9",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "7d565f9",
+   "made": "10/9",
+   "title": "FOUR FACTIONS WITH A FACE",
+   "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"
+   }
   },
- {"id": "plumber-first-load-10-9", "kind": "ui", "lane": "plumber", "sha": "pending", "made": "10/9", "title": "THE DEMO MAKES A PHONE WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY", "why": "On a phone-speed processor NEW GAME is ready only after about 85 seconds with 30 MB downloaded first, and a patch handed to RUN cuts that download to 9 MB, but the wait stays because the processor is the wall (most of it is baking character art the map does not show yet). You see it on the demo's start screen, where the loading bar runs that long before NEW GAME lights.", "show": {"how": "text", "src": "FIRST OPEN OF THE DEMO, PHONE-SPEED PROCESSOR, SERVED LIKE THE REAL SITE\n\nTitle on screen: 3 to 4 seconds (goal 2)\nNEW GAME ready: about 85 seconds (goal 8)\nDownloaded before NEW GAME: 30 MB today, 9 MB with the patch\nThe page re-reading itself: 2.4 MB every 2 minutes today, a few hundred KB with the patch\n\nWhere the time goes at full speed (21 seconds): 11 in the page (4 of them baking the street cast for a map that does not show it), 7 in the map."}},
+  {
+   "id": "plumber-first-load-10-9",
+   "kind": "ui",
+   "lane": "plumber",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE DEMO MAKES A PHONE WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY",
+   "why": "On a phone-speed processor NEW GAME is ready only after about 85 seconds with 30 MB downloaded first, and a patch handed to RUN cuts that download to 9 MB, but the wait stays because the processor is the wall (most of it is baking character art the map does not show yet). You see it on the demo's start screen, where the loading bar runs that long before NEW GAME lights.",
+   "show": {
+    "how": "text",
+    "src": "FIRST OPEN OF THE DEMO, PHONE-SPEED PROCESSOR, SERVED LIKE THE REAL SITE\n\nTitle on screen: 3 to 4 seconds (goal 2)\nNEW GAME ready: about 85 seconds (goal 8)\nDownloaded before NEW GAME: 30 MB today, 9 MB with the patch\nThe page re-reading itself: 2.4 MB every 2 minutes today, a few hundred KB with the patch\n\nWhere the time goes at full speed (21 seconds): 11 in the page (4 of them baking the street cast for a map that does not show it), 7 in the map."
+   }
+  },
   {
    "id": "combat2-the-casino-floor-10-9",
    "kind": "tile",
@@ -5921,7 +5953,31 @@
     "src": "vote/COMBAT2_THE_CASINO_FLOOR_10_9.png"
    }
   },
- {"id": "ui-the-phones-look-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE PHONE IN THE BAR'S HAND", "why": "The cracked phone on the map keeps its crack but now uses the game's own letters and brighter ink, so every post reads in the sun, and the family faces are cardboard cards, the one you are lit amber like the speed button. You see it on the map, the phone in the top right.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_LOOK_10_9.png"}}
+  {
+   "id": "ui-the-phones-look-10-9",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE PHONE IN THE BAR'S HAND",
+   "why": "The cracked phone on the map keeps its crack but now uses the game's own letters and brighter ink, so every post reads in the sun, and the family faces are cardboard cards, the one you are lit amber like the speed button. You see it on the map, the phone in the top right.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_PHONES_LOOK_10_9.png"
+   }
+  },
+  {
+   "id": "world-the-roads-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "THE ROADS",
+   "why": "The valley with every road lit and timed: freeway brightest at full speed, boulevards just under it, then dirt, then the washes, and I checked thirty different valleys to prove every settlement can reach every other on paved road alone. Measuring it caught something stupid we were shipping: a six-lane Las Vegas boulevard was rated slower than driving across open desert, because the road was being averaged in with the shops and flats beside it.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_ROADS.png"
+   }
+  }
  ],
  "verdicts": [
   {

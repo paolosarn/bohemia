@@ -1,3 +1,99 @@
+WORLD (world-9lfjtf): 10/9 (c) LATEST -- *** THE ROW'S GATE ALREADY PASSED, AND
+MEASURING IT CAUGHT A LAS VEGAS BOULEVARD RATED SLOWER THAN OPEN DESERT. ***
+Row [the roads] SHIPPED. 3 OPEN rows remain as the jump list (rule 74).
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-roads-10-9. Record
+records/BOHEMIA_WORLD_A_ROAD_SLOWER_THAN_THE_DESERT_10_9_26.md.
+
+RULE 12: THE GATE THE ROW ASKS FOR ALREADY PASSES. Over THIRTY rolled valleys, on
+PAVED ROAD ALONE with no dirt allowed, the network runs 3,365-3,564 cells and
+EVERY SETTLEMENT REACHES EVERY OTHER IN EVERY ONE. Zero failures. The valley's
+roads were already whole; nobody had ever checked, so nobody knew. This file does
+not CONNECT the valley, it makes the connection READABLE, and the gate re-proves
+it every run so the day a generator change cuts a town off the machine says so
+instead of a player.
+
+*** THE FINDING. *** My own [board terrains] (9/30) folds `arterial` into the
+terrain kind lot_and_bigbox. That is RIGHT for what it is for -- a fight on a
+six-lane arterial is a fight in a wide road with parking lots either side, so the
+board is a lot board -- and WRONG for roads. Measured:
+  the arterial's OWN kit   0.60 open -> speed 0.90
+  commercial               0.25 -> 0.38
+  apartment                0.31 -> 0.46
+  the group lot_and_bigbox 0.35 -> 0.52      (the dirt's RULED speed is 0.75)
+*** SO THE GAME THOUGHT A LAS VEGAS BOULEVARD CROSSED SLOWER THAN DRIVING ACROSS
+OPEN DESERT. *** And anything reading "roads" off that kind was driving 469 cells
+of shops, flats and a mall.
+NOT A NEW DIAL AND NOT MINE TO INVENT: the METHOD is already ruled (open share x
+the anchor, from [the valley's grounds]) and this only corrects WHICH CELLS THE
+MEASUREMENT IS TAKEN OVER. A ruled ground keeps its ruled number untouched; only a
+class whose ground is a mixed bag measures on its own kit, and it says so in
+`from`. Final: freeway 1.00 RULED | boulevards 0.90 measured on their own kit
+(grouped 0.52) | dirt 0.75 RULED | washes 0.50 RULED.
+
+NOT A SECOND LIST: it reads the SAME district vocabulary the terrain module reads,
+so the two cannot drift -- "what does a fight here look like" and "can you drive
+it" are two questions about one cell that must not share an answer. AND NOT A
+SECOND NUMBER: a ruled speed is looked up live, never restated, because a second
+copy of a number is a second number. This lane has now written that sentence three
+times.
+
+*** AND I OVERGENERALISED FROM ONE SEED AGAIN, AND THE GATE CAUGHT IT. *** I wrote
+that the paved network is A SINGLE COMPONENT. True on seed 1337, and true in SIX
+VALLEYS OUT OF TEN. The truth is tighter and better: what sits outside the main
+network is ONE ORPHAN PAVED CELL, in four valleys of ten, and the main network
+carries every settlement and essentially every paved cell, always. That false
+sentence was already in the cook's header and on its way into the record. THIRD
+TIME this lane has been bitten by measuring one roll of a procedural world, and
+the only reason it did not ship is that the gate swept ten.
+
+TWO HOLES NAMED, NOT FAKED. WHICH STRETCHES ARE BLOCKED (his "a dead overpass")
+answers UNREAD: nothing in the valley marks a road cell as impassable, the overmap
+gives a district and nothing else, and a zero would be INDISTINGUISHABLE FROM "no
+road is blocked" -- the one thing a traveller most needs to be true. WHO PATROLS is
+FACTIONS' by the row's own words; PATROLS ships empty and is derivable off the live
+turf the way the roaming pool is.
+
+COOK: THE ROADS, slices/vote/WORLD_THE_ROADS.png -- the valley with its roads lit,
+one pixel per cell: freeway brightest, boulevards just under, then the dirt and the
+washes. 3,453 paved cells, 44.7% of the frame. AH-01: a road map with the fast
+roads brightest is the ordinary part, the thing a petrol station sells; THE WRONG
+THING IS THAT IT IS COMPLETE -- every road in a dead city still joins every other,
+perfectly maintained by nobody, and the only thing missing from it is the traffic.
+
+GATE THE ROAD NETWORK 37/0, registered. NAMED "THE ROAD NETWORK" AND NOT "ROADS"
+because --only "ROADS" collided with the existing ROADS ARE FAST and silently ran
+the wrong gate -- worth knowing before anyone names another one. Mutation-proved
+three ways: arterial back to the group speed -> RED naming 0.52 against 0.75;
+invent a road district -> RED naming it; blocked returns zero instead of UNREAD ->
+RED.
+
+ROUTED: LIFE+CITY -- parties and caravans follow network() and reaches(), both
+answering for every rolled valley. FACTIONS -- who patrols each class. TUNING --
+the boulevard's 0.90 and its grouped 0.52 are both in the data file with their
+sources, and the older conflict still stands (the street says a road is 2x
+off-road, the map says 1.33x a dirt track). WHOEVER OWNS THE DAY CARD -- ROADS ARE
+FAST is RED on main looking for "#daycardIn .dcgo", a card that was deleted; same
+dead-selector root cause as the rice clock, and I touched no slice.
+
+ALSO FIXED TWICE, ONE WORD, ANOTHER LANE'S: CANON ROT was red again because COOK's
+line in the better-than-BB list cites a .md where the real file is .txt. I fixed it
+last round and it came back this round, so it is worth COOK knowing rather than me
+fixing a third time.
+
+STILL RED ON CLEAN MAIN AND NOT MINE: FACTION COLOUR, PAGES PUBLISH (299 MB against
+a 260 MB cap, which is what builds his link), and ROADS ARE FAST above.
+[FOR THE COORDINATOR AND PLUMBER]
+
+[bb roads] BATTLE BROTHERS' ROADS ARE A SPEED BONUS DRAWN ON A FIXED PAINTING: its
+world map is authored once, so its roads are a hand-placed convenience -- you
+follow them because they are faster, and that is the whole of it. OUR TWIST (rule
+39b): ours are GENERATED AND THEN PROVEN. The network is rolled fresh every game
+and a machine checks that every settlement can still reach every other before a
+player ever travels, which BB never has to do because its map CANNOT be wrong. The
+cost of a rolled world is that it CAN be broken; the answer is not to hand-place
+the roads, it is to KNOW.
+
 SOUNDS (sound-xk7pjp): 10/9 LATEST (round six, [the soundscape] round one) -- *** PAOLO ASKED
 FOR SOUNDS EVERYWHERE LIKE BATTLE BROTHERS HAS; BUILT THE FULL LIST AND TWO NEW SOUNDS,
 AND FOUND THE WARDROBE HAS BEEN SILENT FOR WEEKS. ***

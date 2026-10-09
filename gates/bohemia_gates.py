@@ -848,6 +848,24 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('THE ROAD NETWORK', ['node', 'gates/roads_gate.js'],
+     'ROW [the roads]: the map\'s road network as data, each stretch with its travel speed, which '
+     'stretches are blocked and who patrols them. The row\'s own gate is EVERY SETTLEMENT REACHES '
+     'EVERY OTHER, and *** IT ALREADY PASSED BEFORE THE WORK: *** over ten rolled valleys on PAVED '
+     'ROAD ALONE, with no dirt allowed, every settlement reaches every other in every one. The '
+     'valley\'s roads were already whole and nobody had checked, so the point of this gate is not '
+     'to be green today but to go RED the day a generator change cuts a town off. *** AND MEASURING '
+     'IT CAUGHT A ROAD SLOWER THAN OPEN DESERT: *** the arterial sits inside the terrain kind '
+     'lot_and_bigbox -- right for fight boards, wrong for driving -- which averages it with '
+     'commercial 0.25 and apartment 0.31 and gave a six-lane boulevard 0.52, UNDER the dirt\'s '
+     'ruled 0.75; on its own kit it measures 0.60 open -> 0.90. Not a new dial: the method is '
+     'already ruled and only the cells it is taken over changed, and the gate re-measures both '
+     'every run. NO SECOND LIST (the road classes read the same district vocabulary the terrain '
+     'module reads) AND NO SECOND NUMBER (a ruled speed is looked up live, never restated). '
+     'Blocked stretches answer UNREAD because nothing marks a road impassable, and PATROLS ships '
+     'empty because the row says FACTIONS owns it. The one-piece claim was an overgeneralisation '
+     'from seed 1337 that this gate caught at 6 of 10; what is really outside the main network is '
+     'a single orphan paved cell.', False),
     ('GOD GEAR', ['node', 'gates/god_gear_gate.js'],
      'ROW [where the god gear is] (Paolo 10/9: "finding good bros and good equipment throughout the '
      'settlements"). The valley\'s six legendary places, each with a guard sized by the math and a '
