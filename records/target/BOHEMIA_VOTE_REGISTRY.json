@@ -6494,7 +6494,12 @@
     "src": "Measured: seven retold deeds went through two generations and all seven were still there, just fainter.\\nReal memory: the name lasts, the details drift, one story absorbs the rest.\\nProposal: generation three keeps the name, ONE legend line (a little wrong), living grudges, and a place name. The rest is gone."
    }
   },
- {"id": "ui-the-phones-board-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE PHONE SHOWS THE JOBS", "why": "The phone now shows the two nearest places that are hiring and what they pay, with skulls for the danger; it shows them but never takes them, you take a job at the place, and a job you took disappears from the phone. You see it on the map, at the top of the phone.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_BOARD_10_9.png"}}
+ {"id": "ui-the-phones-board-10-9", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/9", "title": "THE PHONE SHOWS THE JOBS", "why": "The phone now shows the two nearest places that are hiring and what they pay, with skulls for the danger; it shows them but never takes them, you take a job at the place, and a job you took disappears from the phone. You see it on the map, at the top of the phone.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_BOARD_10_9.png"}},
+  {
+   "id": "factions-a-town-before-and-after-10-9", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/9",
+   "title": "A TOWN BEFORE AND AFTER A RAID", "why": "A crew that reaches a town unopposed leaves it raided (half the items, half the recruits), and a caravan leaves it well supplied, using Battle Brothers' own two pages. You see it in the VOTE tab: two towns on one real valley, before and after.",
+   "show": {"how": "page", "src": "vote/FACTIONS_A_TOWN_BEFORE_AND_AFTER_10_9.html"}
+  }
  ],
  "verdicts": [
   {

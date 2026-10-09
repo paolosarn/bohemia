@@ -1,0 +1,71 @@
+{
+ "_about": "What an ARRIVING party does to the place it reaches (VAMILY row [raids make traits]). Battle Brothers' two situations are read off their wiki pages (effects, with quotes); WHAT SETS THEM is the one place we differ and it is marked ours: in Battle Brothers a place becomes Raided when YOU fail to protect it or fail the contract, and Well Supplied when you finish an Escort Caravan contract; here the valley has no contract behind its parties, so a crew that reaches a place unopposed sets Raided and a caravan that reaches a place sets Well Supplied, and a party you stopped on the road sets nothing. How long a situation lasts is not on the wiki; the default is one week, RUN TWO's own trait period (settlement_traits.json roll.period_days).",
+ "traits": {
+  "raided": {
+   "effects": {
+    "items_mult": {
+     "value": 0.5,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1626_Raided (Settlement Situation).txt",
+     "quote": "-50% items available"
+    },
+    "recruits_mult": {
+     "value": 0.5,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1626_Raided (Settlement Situation).txt",
+     "quote": "-50% recruits available"
+    }
+   },
+   "set_by": {
+    "value": "crew",
+    "ours": true,
+    "bb": "fail to protect the attached location or fail the contract",
+    "bb_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
+    "bb_quote": "The settlement will get the Raided settlement situation if you fail to protect the attached location or fail the contract."
+   }
+  },
+  "well_supplied": {
+   "effects": {
+    "buy_price_mult": {
+     "value": 0.9,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2199_Well Supplied (Settlement Situation).txt",
+     "quote": "-10% buying prices"
+    },
+    "sell_price_mult": {
+     "value": 0.9,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2199_Well Supplied (Settlement Situation).txt",
+     "quote": "-10% selling prices"
+    },
+    "items_mult": {
+     "value": 1.15,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2199_Well Supplied (Settlement Situation).txt",
+     "quote": "+15% items available"
+    }
+   },
+   "set_by": {
+    "value": "caravan",
+    "ours": true,
+    "bb": "finish an Escort Caravan contract",
+    "bb_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0703_Escort Caravan.txt",
+    "bb_quote": "If you finish this contract, the settlement will become well supplied. If you poorly complete the contract, it won't."
+   }
+  }
+ },
+ "duration_days": {
+  "value": 7,
+  "ours": true,
+  "draft": true,
+  "why": "not on the wiki; RUN TWO's trait period is 7 days (records/target/settlement_traits.json roll.period_days)"
+ },
+ "stacking": {
+  "value": "a second arrival refreshes the end day; it never doubles the effect",
+  "ours": true
+ },
+ "never_for": {
+  "value": [
+   "patrol",
+   "a party you stopped",
+   "the player's own base (the raid chain owns that)",
+   "a party at its own home"
+  ],
+  "ours": true
+ }
+}
