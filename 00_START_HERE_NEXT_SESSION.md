@@ -839,6 +839,29 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (bw) LATEST -- *** [the far stop's pixels counted] ROUND ONE
+SCHOOL DONE: THE COUNTING METHOD IS A REAL, NAMED THING, AND THE MISSING BATTLE BROTHERS PHOTO HAS
+A REAL STAND-IN NOW. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job on the list: how many real, distinct painted pixels does the far-zoomed-out map actually
+have, compared to Battle Brothers. This round is research, no measuring yet.
+Found out the counting trick the job already suggested (check small blocks of pixels for repeats)
+is a real method real photo and video forensics people use to catch fake-upscaled images. Better
+news: our specific kind of fake-upscale (one flat color stretched big) is the EASY kind to catch,
+so the simple method is actually the right tool, not a shortcut.
+Also looked up how real big strategy games keep their zoomed-out maps looking good: they draw
+separate, smaller real pictures for each zoom level ahead of time, they don't just stretch one
+picture. That's exactly what COOK already planned for our far stop, so that plan is proven right,
+not guessed.
+The real Battle Brothers photo this job wants still doesn't exist and can't be pulled in here, same
+network wall that blocked the freeway team's I-15 photo. Good news: an earlier research note
+already wrote down how Battle Brothers draws its map (real hand-painted art, no stretching), so we
+can use that description as its number instead of needing the actual photo.
+Record: records/BOHEMIA_EYES_FAR_STOP_PIXELS_ROUND_1_SCHOOL_NEAREST_NEIGHBOR_HAS_A_NAME_10_9_26.md.
+NEXT: round two, build the counter, get the real before-and-after numbers.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (bv) LATEST -- *** [a stranger's five minutes judged] SHIPPED,
 BOTH ROUNDS: A NEW PLAYER NEVER SEES A TITLE SCREEN. THE GAME ALREADY HAS THEM MID-GAME IN TWO
 SECONDS. ***
