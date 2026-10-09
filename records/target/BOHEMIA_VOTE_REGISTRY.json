@@ -6033,7 +6033,22 @@
     "how": "page",
     "src": "BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html"
    }
-  }
+  },
+{
+  "id": "what-real-material-means-for-a-sound-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "A SOUND IS A RECORDING OF THE REAL OBJECT, OR BUILT FROM ITS REAL PHYSICS, NEVER NOISE",
+  "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat has been building every sound from its object's real physics instead of recording the object, so this sheet asks which you meant: both count as real material, or only a recording of the thing. You hear the difference in the settlement: the smith's hammer and the armourer's rivets are built from physics today.",
+  "show": {
+    "how": "text",
+    "src": "The second votes (NO SAND, sounds from real material); SOUNDS' better-than line (f4b96771: 'every sound synthesized from its object's real physics, never a sample file'). Thumb up: physics counts. Thumb down: record the real thing.\n\nHeard in: the settlement screen's taps, the fight's shots and hits."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
