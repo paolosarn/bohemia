@@ -501,5 +501,14 @@
   "source": "bb_all/0343_Captain.txt",
   "quote": "Captain is an aura that increases the Resolve of other allies by +15% (range of 5 tiles)",
   "why": "the brigand leader carries it (enemies.json: perks and skills 'Captain'); his men within five tiles check their nerve at 115% resolve"
+ },
+ "board_fit": {
+  "value": {
+   "margin": 1,
+   "big_parties": 3
+  },
+  "source": "records/BOHEMIA_PAOLO_GIVE_JOBS_TO_ALL_CHATS_AND_THE_COMBAT_MAP_DOESNT_NEED_TO_BE_SO_BIG_10_9_26.md (rule 79) and bb_all/0424_Combat Mechanics.txt",
+  "quote": "the actual combat map doesn't need to be so big in Battle Brothers unless it's an endgame battle or three raiding parties hit you at the same time, 12 versus 60... on the map I want to see it more zoomed in / (the wiki) A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
+  "why": "COMBAT [the board fits the party]: the board is cut from the dealt board to the parties: across, a tile of room behind each line, the two lines' depths and the wiki's five-tile gap between their fronts; down, the longer line and a tile of room above and below. The full board only for the endgame (FIGHT_OPTS.endgame) or when the handover carries three parties or more (party.parties). TUNING owns the margin."
  }
 }

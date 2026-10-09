@@ -5463,7 +5463,8 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html"
    }
-  }
+  },
+  {"id": "combat-the-board-fits-the-party-10-9", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/9", "title": "A SMALL FIGHT GETS A SMALL BOARD, AND IT OPENS ZOOMED IN", "why": "The fight board is now cut to the parties, your line and theirs five houses apart with a house of room round them, so three thugs against your twelve is about 9 by 10 instead of 20 by 15, and it opens on your line with the man at full size. Start any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_BOARD_FITS_THE_PARTY_10_9.jpg"}, "draft": true}
  ],
  "verdicts": [
   {

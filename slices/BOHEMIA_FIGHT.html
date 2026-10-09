@@ -521,7 +521,7 @@ const FIGHT = (function () {
   }
   /* one field: some tile of your start row walks to some tile of theirs */
   function connected() {
-    const cols = R('ours.start_cols'), seen = {}, q = [];
+    const cols = S.cols || R('ours.start_cols'), seen = {}, q = [];
     for (let y = 0; y < S.h; y++) if (passable(cols[0], y)) { seen[y * S.w + cols[0]] = true; q.push({ x: cols[0], y: y }); }
     while (q.length) {
       const n = q.shift();
@@ -534,7 +534,7 @@ const FIGHT = (function () {
   function setup(opts) {
     opts = opts || {};
     const G = DB.ground;
-    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1];
+    S.w = R('ours.board_tiles')[0]; S.h = R('ours.board_tiles')[1]; S.cols = R('ours.start_cols'); S.crop = null;
     S.night = opts.night === undefined ? R('ours.night') : !!opts.night;
     S.flat = !!opts.flat;   /* a test board: the deal's blocks drawn, every tile open flat ground, no cover, no lamps */
     S.power = opts.power !== false;   /* rule 73: the lamps burn only where the block has power; the map hands it over */
@@ -544,8 +544,7 @@ const FIGHT = (function () {
     } else {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
     }
-    if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
-    S.board = S.boardDef.name;
+    const dealt = S.boardDef;
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
@@ -562,14 +561,67 @@ const FIGHT = (function () {
     const crewUnits = crew.map(crewUnit);
     const band = bandOf(opts);
     const bandUnits = band.map(enemyUnit);
+    /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
+       for the endgame or three parties at once */
+    const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
+    if (!big) cropToParty(dealt, crewUnits, bandUnits, opts);
+    if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
+    S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
-    const cols = R('ours.start_cols');
+    const cols = S.cols;
     deployCrew(crewUnits, cols[0], -1, opts.formation);
     place(bandUnits, cols[1], 1);
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it */
     S.deploy = !opts.auto && opts.deploy !== false;
     newRound();
+  }
+  /* THE CUT (rule 79; ours.board_fit): across = a tile of room, your line's depth, the wiki's five-tile gap between the two
+     fronts, their line's depth, a tile of room; down = the longer line and a tile above and below. The window is slid over
+     the dealt board to where the two lines can reach each other, the kind the loop asked for is in it, the most of both
+     deployment columns is open ground, and two kinds or more show. Nothing is redrawn: the blocks stay where they were dealt. */
+  function cropToParty(B, crewUnits, bandUnits, opts) {
+    const fit = R('ours.board_fit'), m = fit.margin, gap = R('deployment.min_gap_between_lines_hexes');
+    const rows = rowsOf(crewUnits, opts.formation), n = R('ours.formation').slots_per_row;
+    const used = function (r) { const i = r.map(function (u, k) { return u ? k : -1; }).filter(function (k) { return k >= 0; }); return i.length ? i[i.length - 1] - i[0] + 1 : 0; };
+    const behind = function (u) { return isRanged(u.weapon) || u.arche === 'backline'; };
+    const ef = bandUnits.filter(function (u) { return !behind(u); }).length, eb = bandUnits.filter(behind).length;
+    const cDepth = rows.back.some(Boolean) ? 1 + 1 : 1, eDepth = eb ? 1 + 1 : 1;
+    const longest = Math.max(used(rows.front), used(rows.back), ef, eb, 1);
+    const W0 = S.w, H0 = S.h;
+    const h = Math.min(H0, longest + m + m), w = Math.min(W0, m + cDepth + gap + eDepth - 1 + m);
+    if (w >= W0 && h >= H0) return;
+    const cf = m + cDepth - 1, ftc = cf + gap, bt = DB.ground.block_tiles, tm = DB.ground.tile_metres;
+    const T0 = S.terrain, solid0 = S.solid, kindAt = function (x, y) { return kindOf(B.blocks[Math.floor(y / bt)][Math.floor(x / bt)]); };
+    let best = null, bs = -Infinity;
+    for (let oy = 0; oy + h <= H0; oy++) for (let ox = 0; ox + w <= W0; ox++) {
+      const open = function (x, y) { return x >= 0 && y >= 0 && x < w && y < h && T0[oy + y][ox + x] !== 'blocked' && !solid0[oy + y][ox + x]; };
+      /* the two fronts reach each other */
+      const seen = {}, q = [];
+      for (let y = 0; y < h; y++) if (open(cf, y)) { seen[y * w + cf] = true; q.push([cf, y]); }
+      let ok = false;
+      while (q.length && !ok) { const c = q.shift(); if (c[0] === ftc) { ok = true; break; }
+        DIRS.forEach(function (d) { const x = c[0] + d[0], y = c[1] + d[1]; if (open(x, y) && !seen[y * w + x]) { seen[y * w + x] = true; q.push([x, y]); } }); }
+      if (!ok) continue;
+      const kinds = {}; for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) kinds[kindAt(ox + x, oy + y)] = true;
+      const ks = Object.keys(kinds);
+      if (B.lead && ks.indexOf(B.lead) < 0) continue;              /* the place the loop said this is */
+      let room = 0;
+      for (let y = 0; y < h; y++) [cf, cf - 1, ftc, ftc + 1].forEach(function (x) { if (open(x, y)) room++; });
+      const sc = room * (1 + 1) + (ks.length > 1 ? h : 0) - Math.abs(oy + h / (1 + 1) - H0 / (1 + 1));
+      if (sc > bs) { bs = sc; best = { ox: ox, oy: oy, kinds: ks }; }
+    }
+    if (!best) return;                                              /* no window joins the lines: the whole board stays */
+    const ox = best.ox, oy = best.oy, x0 = ox * tm, y0 = oy * tm, x1 = (ox + w) * tm, y1 = (oy + h) * tm;
+    const inside = function (o) { return o.x_m >= x0 && o.x_m < x1 && o.y_m >= y0 && o.y_m < y1; };
+    const shift = function (o) { return Object.assign({}, o, { x_m: o.x_m - x0, y_m: o.y_m - y0 }); };
+    const al = R('ours.board_mix').aliases || {}, call = function (k) { return Object.keys(al).filter(function (nm) { return al[nm].indexOf(k) >= 0; })[0] || k; };
+    const kinds = (B.lead ? [B.lead] : []).concat(best.kinds.filter(function (k) { return k !== B.lead; }));
+    const shown = []; kinds.forEach(function (k) { const c = call(k); if (shown.indexOf(c) < 0) shown.push(c); });
+    if (opts.kind && kinds.indexOf(opts.kind) < 0) kinds.unshift(opts.kind);
+    S.w = w; S.h = h; S.cols = [cf, ftc]; S.crop = { ox: ox, oy: oy, w: w, h: h, from: [W0, H0] };
+    applyBoard(Object.assign({}, B, { terrain: T0.slice(oy, oy + h).map(function (r) { return r.slice(ox, ox + w); }),
+      cover: (B.cover || []).filter(inside).map(shift), lights: (B.lights || []).filter(inside).map(shift), crop: S.crop, kinds: kinds, name: shown.join(' + ') }));
   }
   /* the two lines, melee in front, shooters behind; the lines are the board's start rows,
      which COMBAT TWO set five tiles apart (deployment.min_gap_between_lines_hexes) */
@@ -604,7 +656,7 @@ const FIGHT = (function () {
      over); without one, the shieldwall in front and the shooters behind, in roster order, centred. A slot whose tile is
      a house takes the nearest open tile of the deployment zone. */
   function zoneCols() {
-    const col = R('ours.start_cols')[0], out = [];
+    const col = (S.cols || R('ours.start_cols'))[0], out = [];
     for (let k = 0; k < R('ours.formation_depth_lines'); k++) out.push(col - k);
     return out;
   }
@@ -1353,7 +1405,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -1387,9 +1439,10 @@ function resize() {
 }
 function fitStops() {
   const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
-  UI.far = Math.min(W / bw, ah / bh);           /* the whole board on the glass (rule 62) */
-  /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box) */
-  UI.near = Math.max(UI.far, MAN_IDLE / (MAN_OF_TILE * UI.th));
+  /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box), and
+     the person never grows past it (rule 21): a small board that would fit larger stops at 112 */
+  UI.near = MAN_IDLE / (MAN_OF_TILE * UI.th);
+  UI.far = Math.min(W / bw, ah / bh, UI.near);  /* the pinch's far stop: the whole board, never the man past 112 */
   UI.max = UI.near * 1.6;
 }
 function load(src) {
@@ -1414,9 +1467,11 @@ function bakeBoard() {
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
     .then(function () {
+      /* the cut board (rule 79) draws the dealt blocks shifted by its window; the glass shows only the window */
+      const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
       B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
         const im = UI.imgs['fight_ground/' + G.blocks[n].src];
-        if (im) g.drawImage(im, bx * bt * UI.tw, by * bt * UI.th, bt * UI.tw, bt * UI.th);
+        if (im) g.drawImage(im, (bx * bt - ox) * UI.tw, (by * bt - oy) * UI.th, bt * UI.tw, bt * UI.th);
       }); });
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
       (B.cover || []).forEach(function (cv2) {
@@ -1442,7 +1497,8 @@ function bakeBoard() {
    pulled a third of the way to grey and multiplied by a cool moonlight, which takes its luminance down to about 0.58
    of the day's (the floor says never under half); then every live lamp and burning drum (COMBAT TWO's lights, only
    where the block has power) screens a warm pool onto it, bright enough that a lit tile stands three to one over the
-   dark round it, so what plays lit (ours.night_lights) is lit on the glass. BRIGHTNESS (the settings slider, UI's;
+   dark round it, so what plays lit (ours.night_lights) is lit on the glass: the pool holds its light out to nine tenths
+   of its radius, because a tile is lit when its middle is inside the radius and the lamps stand on the tiles' edges. BRIGHTNESS (the settings slider, UI's;
    localStorage 'bohemia.brightness', 0 to 1) lifts the moonlight toward white and never touches the day. */
 const NIGHT_TINT = [185, 198, 240], NIGHT_GREY = 0.35;
 function brightness() { try { const b = parseFloat(localStorage.getItem('bohemia.brightness')); return isFinite(b) ? Math.max(0, Math.min(1, b)) : 0; } catch (_e) { return 0; } }
@@ -1468,7 +1524,7 @@ function nightPools(g, c, lights, k, pxm, pym) {
   g.save(); g.globalCompositeOperation = 'screen';
   live.forEach(function (l) {
     const warm = l.kind === 'drum' ? '255,150,70' : '255,196,128';
-    pool(g, l, [[0, 'rgba(' + warm + ',.88)'], [.55, 'rgba(' + warm + ',.72)'], [.8, 'rgba(' + warm + ',.34)'], [.93, 'rgba(' + warm + ',.08)'], [1, 'rgba(' + warm + ',0)']]);
+    pool(g, l, [[0, 'rgba(' + warm + ',.9)'], [.6, 'rgba(' + warm + ',.8)'], [.9, 'rgba(' + warm + ',.62)'], [.97, 'rgba(' + warm + ',.25)'], [1, 'rgba(' + warm + ',0)']]);
   });
   g.restore();
   UI.poolsDrawn = live.length;
@@ -2103,7 +2159,7 @@ function deployTap(px, py) {
 }
 const DEPLOY_SAY = 'Set your line: tap a man, then a lit tile. FIGHT when ready.';
 const WALK_SAY = 'Tap a lit tile to walk, a red man to aim. Pinch for the board.';
-function deployZoom() { return Math.max(UI.far, Math.min(UI.near, (H - TOPH - BOTH) / UI.board.height)); }
+function deployZoom() { return UI.near; }   /* rule 79 and rule 21: setting the line is at the man's size; a drag pans the columns */
 /* FIGHT: the line is set; the camera goes in on it the way the open always did */
 function fightNow() {
   if (!FIGHT.startFight()) return;
@@ -2170,16 +2226,12 @@ function start() {
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   return bakeBoard().then(function () {
     resize();
-    /* open on the whole board (62), hold two beats, then glide in on your line */
-    UI.zoom = UI.far; UI.cx = UI.board.width / 2; UI.cy = UI.board.height / 2;
+    /* OPEN ON THE LINES WITH THE MAN AT 112 (rule 79, amending 62's 'opens zoomed out'): the camera starts on your line,
+       looking toward theirs; a pinch shows the rest. Two beats of stillness (nothing happens in the first second). */
     const mine = FIGHT.alive('you');
     const mx = mine.reduce(function (s, v) { return s + v.x; }, 0) / mine.length, my = mine.reduce(function (s, v) { return s + v.y; }, 0) / mine.length;
-    /* setting the line: the glide stops where your two columns fit the glass top to bottom; FIGHT goes in on the line */
-    const dep = FIGHT.S.deploy && !UI.auto, zc = FIGHT._t.zoneCols();
-    UI.hold = setTimeout(function () {
-      if (dep && FIGHT.S.deploy) glideTo((Math.min.apply(null, zc) + zc.length / 2) * UI.tw, UI.board.height / 2, deployZoom(), beatMs() * 2);
-      else glideTo((mx + 1.5) * UI.tw, (my + .5) * UI.th, UI.near, beatMs() * 2);
-    }, beatMs() * 2);
+    const dep = FIGHT.S.deploy && !UI.auto;
+    UI.zoom = UI.near; UI.cx = (mx + 1.5) * UI.tw; UI.cy = (my + .5) * UI.th; clampCam();
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
     say(dep ? DEPLOY_SAY : WALK_SAY); hud();
