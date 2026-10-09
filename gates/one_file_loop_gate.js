@@ -42,6 +42,7 @@ const srv = http.createServer((rq, rs) => {
   /* 2. the board: take a contract */
   const f = fr();
   await p.mouse.click(...Object.values(await f.evaluate(() => { const w = BohemiaSettlement.where('board'); return {x:w.x, y:w.y}; }))); await p.waitForTimeout(300);
+  const boardPay = await f.evaluate(() => { const e = document.querySelector('#sbody .act:not([disabled]) em'); return e ? parseInt((e.textContent.match(/(\d+)\s*batt/) || [])[1], 10) : null; });
   await f.click('#sbody .act:not([disabled])'); await p.waitForTimeout(300);
   await f.click('#sbody .act:not([disabled])'); await p.waitForTimeout(300);
   await p.screenshot({ path: shot('BOARD') });
@@ -69,6 +70,8 @@ const srv = http.createServer((rq, rs) => {
   const res = await G(() => ({ mode: LOOP.G.mode, ev: document.getElementById('evwho').textContent, bats: LOOP.G.bats, held: LOOP.G.held.length, line: document.getElementById('evtx').textContent }));
   ok('the fight ENDS', res.mode === 'map', taps + ' taps');
   ok('  and you won and got PAID', res.ev === 'WON' && res.bats - bats0 >= 1 && res.held === 0, res.line);
+  const paidN = parseInt((res.line.match(/Paid (\d+) batter/) || [])[1], 10);
+  ok('  and the stash got exactly what the board said', boardPay > 0 && paidN === boardPay, 'board ' + boardPay + ', paid ' + paidN);
   await p.screenshot({ path: shot('PAID') });
   await p.click('#ev button');
   /* 5. hire at the hall */
