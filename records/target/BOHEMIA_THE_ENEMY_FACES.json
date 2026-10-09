@@ -1,0 +1,68 @@
+{
+ "when": "2026-10-09T22:51:03.813Z",
+ "matchedBeforeCount": 0,
+ "matchedAfterCount": 6,
+ "worst": 0.36847767616998384,
+ "worstPair": "THUG/RAIDER",
+ "rows": [
+  {
+   "id": "brigand_thug",
+   "label": "THUG",
+   "faction": "HOMELESS",
+   "wantHair": "LAYERED FALL",
+   "afterHair": "LAYERED FALL",
+   "matchedBefore": false,
+   "matchedAfter": true
+  },
+  {
+   "id": "brigand_poacher",
+   "label": "POACHER",
+   "faction": "VOLUNTEERS",
+   "wantHair": "HEAVY FRINGE",
+   "beforeHair": "COIL CROWN",
+   "afterHair": "HEAVY FRINGE",
+   "matchedBefore": false,
+   "matchedAfter": true
+  },
+  {
+   "id": "brigand_marksman",
+   "label": "MARKSMAN",
+   "faction": "NETWORK",
+   "wantHair": "TEMPLE TAPER",
+   "beforeHair": "ROPE LOCKS",
+   "afterHair": "TEMPLE TAPER",
+   "matchedBefore": false,
+   "matchedAfter": true
+  },
+  {
+   "id": "brigand_raider",
+   "label": "RAIDER",
+   "faction": "MOB",
+   "wantHair": "DRY TAPER",
+   "beforeHair": "DUST WEAVE",
+   "afterHair": "DRY TAPER",
+   "matchedBefore": false,
+   "matchedAfter": true
+  },
+  {
+   "id": "brigand_leader",
+   "label": "LEADER",
+   "faction": "CHURCH",
+   "wantHair": "COIL CROWN",
+   "beforeHair": "DUST WEAVE",
+   "afterHair": "COIL CROWN",
+   "matchedBefore": false,
+   "matchedAfter": true
+  },
+  {
+   "id": "brigand_marauder",
+   "label": "MARAUDER",
+   "faction": "REMNANTS",
+   "wantHair": "TEMPLE TAPER",
+   "beforeHair": "HEAVY FRINGE",
+   "afterHair": "TEMPLE TAPER",
+   "matchedBefore": false,
+   "matchedAfter": true
+  }
+ ]
+}

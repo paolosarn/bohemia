@@ -173,61 +173,63 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
-PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST (round two) -- *** [hairstyles match]
-ROUND TWO SHIPPED: THE SAME BUG, AT THE WHOLE CROWD'S SCALE. While folding last
-round's face-maker fix back in (it had sat orphaned 61 commits), re-reading
-faceFor() -- the function that draws EVERY citizen's portrait, not just the
-player's own -- found the identical mistake, much bigger: hair texture was
-rolled at random for every person in the valley, never read from the body.
-Record: records/BOHEMIA_THE_WHOLE_CROWD_MATCHES_10_9_26.md.
-TAB: VOTE (portrait-the-whole-crowd-matches-10-9, already shipped, the card is proof).
+PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST (round three) -- *** [the enemy
+faces] SHIPPED: EVERY BRIGAND TIER'S PORTRAIT HAD NONE OF ITS OWN DRESSED
+BODY'S HAIRCUT. Top OPEN jump-list row (EVERYBODY HAS A FACE, rule 69).
+Record: records/BOHEMIA_THE_ENEMY_FACES_10_9_26.md.
+TAB: VOTE (portrait-the-enemy-faces-10-9, already shipped, the card is proof).
 
-MEASURED: 300 crowd citizens, 82 wearing one of the three canon cuts with a real
-texture (ropes, locs), 76 of 82 (93%) showed a portrait texture that disagreed
-with their own body. FIX: one line, reading the SAME hairDialsFor() result the
-braid sentinel two lines below it already computes, instead of rolling fresh.
-AFTER: 82 of 82 match. PROVED SAFE: his own face never runs through this
-function at all; hashed 218 untextured citizens before and after anyway, 0
-differences.
+CHARACTER's own [the enemy tiers dressed] already dressed the six named
+brigand tiers (thug, poacher, marksman, raider, leader, marauder) from a real
+faction look (ours.json people_looks.band). MEASURED: faceFor(id,over)
+resolves hair through BOH_PERSONLOOK.lookFor(id,pool), which needs a real
+citizen id -- an enemy tier has none, so the portrait rolled a random cut off
+the id string's own hash. 0 of 6 tiers wore the cut their own dressed body
+wears. FIX: faceFor's over now takes over.hairName, same pattern as
+over.kin/over.age two blocks up -- when set it skips lookFor and reads
+hairDialsFor() straight off the name passed in; every id without it (every
+real citizen) is unchanged. The leader's render turns on opts.threeD (the
+9/14 lighting upgrade) so he reads as the one you remember. AFTER: 6 of 6
+match; pairwise distinctness checked with the shared background excluded,
+closest pair 37% foreground overlap. PROVED SAFE: branch only fires on
+over.hairName, nothing existing passes it; hashed 200 regular citizens before
+and after, 0 differences; his own face is a separate buildSpec() path,
+never faceFor().
 
 GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
-16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
-20/0, portrait_matches_body 11/0, vote_tab 31/1 (pre-existing, three other
-lanes' items, not mine).
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, vote_tab 31/1 (pre-existing,
+DYNASTY/TUNING/MODS items' own where-you-see-it gap, not mine).
 
-ALSO THIS ROUND: landed the orphaned [hairstyles match] round-one work onto
-current main (6+ rebase cycles two rounds ago never won the push race; this
-round's rebase succeeded onto a 61-commit-newer main after two cycles). Did
-the new rule 80 duty (the [better than bb] line, first round running under
-it) in records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md, entry 19.
+NOT DONE, NAMED HONESTLY: "the chipped bodies' faces wrong in the way the
+lore says" and "the recap shows who you killed by face" are both out of
+scope -- chipped bodies are the undead (WORDS [the enemies' names], rule 63
+locked), a different DIRECTION/ANIMATION question than a living brigand's
+haircut; the kill recap screen does not exist yet, it is COMBAT's row.
 
-PUSH-TO-MAIN STATUS: attempted once this round after landing both fixes,
-lost the race (clean non-fast-forward, no 403 -- confirms the push mechanism
-itself works, it is purely a timing race against other lanes' cadence). Did
-not chase it through repeated cycles this round; the session branch is fully
-current and that is what the harness instructions name as this session's
-actual push target. If a future round has spare time, one or two quick
-attempts right after a rebase are worth it, but burning the whole round on
-the race is not -- two rounds ago cost six cycles and still lost.
+EARLIER THIS ROUND (rounds one and two, folded back in after 61 then 23
+commits of drift): [hairstyles match] -- the face maker's haircut picker was
+dropping tex and fade, so three tapered cuts drew the same cap (63% -> 59%
+average overlap); then the SAME bug at the whole crowd's scale inside
+faceFor() itself, 76 of 82 textured citizens disagreeing with their own body
+(93% -> 0% mismatch, 82/82 after). Full detail:
+records/BOHEMIA_HAIRSTYLES_MATCH_10_9_26.md,
+records/BOHEMIA_THE_WHOLE_CROWD_MATCHES_10_9_26.md. Also added the rule 80
+[better than bb] line (entry 20, records/BOHEMIA_BETTER_THAN_BATTLE_
+BROTHERS_10_9_26.md).
 
-NEXT ROUND, FIRST MOVE: [the enemy faces] (top OPEN jump-list row). Scoped
-this round, not built: CHARACTER's [the enemy tiers dressed] already defines
-the six brigand tiers (thug/poacher/marksman/raider/leader/marauder) against
-FACTION_LOOKS, which carries each tier's real worn.hair cut name -- the exact
-same shape of data [matches body] already requires. The gap: faceFor() always
-resolves hair via BOH_PERSONLOOK.lookFor(id,...), keyed to a real NPC id, and
-there is no NPC id for a faction tier (NPC_FACTORY.npcFrom only knows random
-crowd seeds). Clean fix: extend faceFor()'s `over` parameter with a direct
-hair-name override (same pattern over.kin/over.age already use), used only
-when explicitly passed so nothing existing moves. The row also asks for "the
-leader's face the one you remember" -- [three d look]'s existing opts.threeD
-flag (still off by default, still unshipped to the play surface) is sitting
-right there to reuse for exactly that, not a new mechanism. "Chipped bodies'
-faces wrong in the way the lore says" is NOT the six brigand tiers (all
-human) -- likely a later, not-yet-built robotic/ancient_dead category; named
-honestly as out of this row's scope rather than guessed at.
+PUSH-TO-MAIN STATUS: one attempt this round after the claim commit, lost the
+race (clean non-fast-forward); not chased further, per this session's
+established policy (confirmed again: the mechanism works, it is a timing
+race against other lanes' ~60-90s push cadence, not a block).
 
-PENDING PAOLO: none new this round.
+NEXT ROUND, FIRST MOVE: [the keepers' faces] (new top OPEN jump-list row --
+the smith, the armourer, the barber, the clinic, the board each need a head
+that speaks along when they say the price, rolled per settlement). Two more
+OPEN rows under it: [the hires' faces].
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
 
 TUNING (tuning-f59l1w): 10/10 (e) LATEST -- [recruit odds] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW HARD IS A KILLER (a star-bar slider, draft:true).

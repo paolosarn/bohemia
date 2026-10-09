@@ -6453,6 +6453,19 @@
    "how": "page",
    "src": "vote/PORTRAIT_THE_WHOLE_CROWD_MATCHES.html"
   }
+ },
+ {
+  "id": "portrait-the-enemy-faces-10-9",
+  "kind": "face",
+  "lane": "portrait",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "THE ENEMY FACES",
+  "why": "Every brigand tier's portrait had none of its own dressed body's haircut, not even by accident; now all six wear the real cut, and the leader's face gets a second light so he reads as the one you remember. You see it in the VOTE tab.",
+  "show": {
+   "how": "page",
+   "src": "vote/PORTRAIT_THE_ENEMY_FACES.html"
+  }
  }
  ],
  "verdicts": [
