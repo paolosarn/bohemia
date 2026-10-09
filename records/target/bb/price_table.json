@@ -1,0 +1,74 @@
+{
+  "_about": "ECONOMY [the price table at ten to one], rule 74 top row. Everything a player sees in batteries, converted from the wiki's own crown numbers at ten to one with a one-battery floor (Paolo, GROK_31/32/33, stamped). This file holds the market-level numbers the wiki's own per-item files (weapons.json, armor.json, backgrounds.json) do not carry: the sell cut by settlement size and relation, the situation multipliers, the daily rates, and the one contract-pay sample. engine/bohemia_pricetable.js is the mechanism that reads this file plus backgrounds.json/weapons.json/armor.json and returns battery numbers; this file never computes anything itself. MECHANISM-MINE/CONTENTS-PAOLO'S: every number here carries its source; nothing is felt or invented.",
+  "conversion": {
+    "crownsPerBattery": 10,
+    "floorBatteries": 1,
+    "rule": "town markup first, then divide by 10, then floor at 1 if the result is under 1",
+    "source": "GROK_31_TEN_TO_ONE_2026_10_01.md, GROK_33_PRICE_FLOOR_2026_10_01.md (his, 2026-10-01)"
+  },
+  "sellCutByRelationAndSize": {
+    "_about": "fraction of an item's worth paid when the PLAYER sells to the settlement. Two measured points per settlement size (the wiki's own numbers on expert difficulty); engine linearly interpolates between them and extrapolates past 100 with the same slope, clamped at 0.",
+    "_source": "GROK_119_UNDERBELLY_PRICES_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Market_prices_for_various_items",
+    "_difficulty": "wiki numbers are EXPERT difficulty; VETERAN's neutral-relation ratio (buy/sell about 6.67) is noted separately below as a cross-check, not blended in",
+    "camp": { "relation50": 0.1091, "relation100": 0.1251, "note": "no wiki figure for a camp-tier stall; scaled down from the village hall's own 0.1364-0.1564 by the same ratio the village hall sits below the city hall (0.1364/0.1769 = 0.771), unsourced scale flagged for TUNING" },
+    "village": { "relation50": 0.1364, "relation100": 0.1564 },
+    "town": { "relation50": 0.1364, "relation100": 0.1564, "note": "no separate town-tier wiki figure; using the village hall's curve until a town-specific one is sourced" },
+    "city": { "relation50": 0.1769, "relation100": 0.1969 }
+  },
+  "buySideDropAtTopOfBar": {
+    "fraction": 0.15,
+    "about": "the buy price can drop by about 15% of worth at the top of the relation bar, independent of the sell-side table above",
+    "source": "GROK_119_UNDERBELLY_PRICES_2026_10_04.md"
+  },
+  "buyToSellRatioAtNeutral": {
+    "ratio": 6.67,
+    "difficulty": "veteran",
+    "exampleCityHallSevenLocations": { "buy": 1.31, "sell": 0.1769 },
+    "about": "cross-check only: a VETERAN-difficulty sample at neutral relation, not blended into the EXPERT sell table above because the two difficulties are not the same curve",
+    "source": "GROK_119_UNDERBELLY_PRICES_2026_10_04.md"
+  },
+  "situationMultipliers": {
+    "_about": "stack on the relation price AFTER it is set, and multiply rather than add on top of each other. Every entry's effect is exactly as reported; there is no full list, and this file does not invent the missing ones.",
+    "_source": "GROK_120_UNDERBELLY_SITUATIONS_2026_10_04.md, https://battlebrothers.fandom.com/wiki/Settlement_situations",
+    "ambushedTradeRoutes": { "sellBonus": 0.10 },
+    "safeRoads": { "sellBonus": 0.09 },
+    "highSpirits": { "sellBonus": 0.05, "buyCut": 0.05 },
+    "wellSupplied": { "buyCut": 0.10 },
+    "abductedChildren": { "buyBonus": 0.25, "sellCut": 0.25, "recruitsCutHalf": true },
+    "siege": { "buyBonus": 0.25, "foodPriceDouble": true, "itemsCut": 0.25, "recruitsCutHalf": true },
+    "conquered": { "buyBonus": 0.10, "sellCut": 0.10 }
+  },
+  "wageAndHire": {
+    "_about": "the mechanism for a background's daily wage and hiring price lives in engine/bohemia_pricetable.js and reads records/target/bb/backgrounds.json directly (the wiki-exact per-background daily_wage and the hiring_and_wage_rules block COMBAT already extracted, rule 63d) rather than re-typing those 77 numbers here. This block is the part the per-background file does NOT carry: the base hiring-cost RANGE (no wiki page gives it per background, only the Game Guide's approximate range) and a cross-check tier table.",
+    "hiringBaseRange": { "min": 30, "maxApprox": 150, "swordmasterException": 400, "source": "backgrounds.json hiring_and_wage_rules, the Game Guide" },
+    "equipmentCostMultiplier": 1.25,
+    "levelCostFormula": "500 * (level - 1) ^ 1.5",
+    "wageBatteryTierCrossCheck": {
+      "_about": "GROK_34's own grouping of the SAME 77-background wiki wage into three battery tiers after the ten-to-one floor, kept as a sanity check against the per-background formula in engine/bohemia_pricetable.js -- if a computed wage ever lands outside the tier its own background sits in here, that is a bug in the formula, not a new ruling",
+      "1": ["beggar","cripple","ratcatcher","refugee","servant","gravedigger","monk","tailor","cultist","daytaler","eunuch","flagellant","gambler","graverobber","killer","messenger","miner","minstrel","peddler","pimp","shepherd","vagabond","butcher","fisherman","houndmaster","juggler","miller","apprentice","bowyer","caravan_hand","historian","mason","poacher","farmhand","manhunter","militia","thief","deserter","anatomist","executioner","wildman","brawler","lumberjack","witchhunter","bastard","companion","beast_slayer","retired_soldier","disowned_noble"],
+      "2": ["barbarian","belly_dancer","hunter","squire","oathtaker","adventurous_noble","assassin","crusader","orc_slayer","lindwurm_slayer","nomad","raider"],
+      "3": ["converted_crusader","kings_guard","gladiator","hedge_knight","sellsword","swordmaster"]
+    },
+    "indebtedWage": { "wikiWageCrowns": 0, "batteryPay": 0, "note": "the floor does not round a 0 wage up to 1; an indebted man's daily pay stays 0 (Paolo already ruled they cost almost nothing a day; GROK_34)" },
+    "lonewolfWage": { "wikiWageCrowns": 0, "batteryPay": 0, "note": "the player character pays no wage (GROK_117, Game Guide)" },
+    "source": "GROK_117_UNDERBELLY_WAGE_2026_10_04.md, GROK_34_WAGE_BATTERIES_2026_10_01.md, records/target/bb/backgrounds.json"
+  },
+  "contractPay": {
+    "_about": "no skull-tiered table exists in any sourced page; the one real pay line on the record is the anchor below. The engine formula scales proportionally with skull count off this one anchor (BB's own rule is simply 'more skulls, more pay'), and the per-skull multiplier itself is UNSOURCED and flagged for TUNING rather than invented as three felt digits.",
+    "sampleWikiCrowns": { "upfront": 0, "afterCompletion": 610, "perHead": 10, "sampleHeadcount": 15, "perHeadTotal": 150, "grandTotal": 760 },
+    "sampleBatteries": { "upfront": 0, "afterCompletion": 61, "perHead": 1, "sampleHeadcount": 15, "perHeadTotal": 15, "grandTotal": 76 },
+    "anotherSampleWikiCrowns": { "upfront": 150 },
+    "skullScaling": { "sourced": false, "note": "BB: pay rises with skull count and with renown/clout; no wiki multiplier table was found. TUNING owns the actual per-skull curve; this file supplies only the one real anchor point above." },
+    "source": "GROK_10_JOBS_PAY_2026_09_30.md, GROK_31_TEN_TO_ONE_2026_10_01.md, https://battlebrothers.fandom.com/wiki/Contracts"
+  },
+  "dailyRates": {
+    "foodPerManPerDay": { "value": 2, "unit": "stacks", "source": "GROK_31_TEN_TO_ONE_2026_10_01.md, https://battlebrothers.fandom.com/wiki/Provisions" },
+    "toolDurabilityRepairedPerTool": { "value": 15, "unit": "durability points per tool point", "source": "GROK_117_UNDERBELLY_WAGE_2026_10_04.md round of research, BOHEMIA_ECONOMY_DAY_55 (1 tool per 15 durability)" },
+    "medicinePerWoundPerDay": { "value": 1, "unit": "dose per injury per day", "source": "GROK_31_TEN_TO_ONE_2026_10_01.md" },
+    "foodStackWikiCrowns": { "groundGrains": 50, "bread": 65, "driedFish": 70, "smokedHam": 95, "wine": 110, "stackSize": 25, "source": "GROK_31_TEN_TO_ONE_2026_10_01.md, https://battlebrothers.fandom.com/wiki/Provisions" },
+    "foodStackBatteries": { "groundGrains": 5, "bread": 6, "driedFish": 7, "smokedHam": 9, "wine": 11 },
+    "foodSpoilDays": { "groundGrains": 7, "bread": 8, "smokedHam": 12, "wine": 14, "source": "GROK_31_TEN_TO_ONE_2026_10_01.md" },
+    "toolsWikiCrowns": { "baseMarketValue": 200, "veteranTownSoldAt": 244, "source": "GROK_31_TEN_TO_ONE_2026_10_01.md, https://battlebrothers.fandom.com/wiki/Market_prices_for_various_items" },
+    "toolsBatteries": { "baseMarketValue": 20, "veteranTownSoldAt": 24 }
+  }
+}

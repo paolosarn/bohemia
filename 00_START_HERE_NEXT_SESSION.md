@@ -891,6 +891,21 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/9 LATEST -- MODE: RUN (rule 78). [the price table at ten to
+one] SHIPPED: records/target/bb/price_table.json + engine/bohemia_pricetable.js, gate 19/0.
+Record: records/BOHEMIA_ECONOMY_DAY_57_THE_SETTLEMENT_SCREEN_ROUNDS_WAGES_UP_A_BATTERY_10_9_26.md
+WHAT IT DOES: converts every wiki crown number to batteries at ten to one, floored at one. Sell
+cut by settlement tier and relation (real two-point curve, was a flat unsourced 0.5), situation
+multipliers, one sourced contract-pay anchor (no invented skull curve), daily wage and hire-price
+formulas reading COMBAT's own backgrounds.json instead of re-typing its 77 rows.
+FINDING, ROUTED TO RUN TWO (not fixed here, their file): slices/BOHEMIA_SETTLEMENT_SCREEN.html's
+priceOf() rounds to nearest; GROK_31 rules round DOWN. Floor matches Grok's own 77-background
+battery-tier grouping with zero mismatches; round-to-nearest overcharges 13 of 74 backgrounds by
+one battery (disowned_noble, hedge_knight, swordmaster, sellsword, gladiator, eight more).
+NEXT OPEN (jump list, rule 74): [what the stash is], [the contract's worth], then the older rows
+([what grows], [prices per place], [build costs], [the bubble]).
+PENDING Paolo: none.
+
 ECONOMY (economy-vamily-knxaeh): 10/1 LATEST -- [what a beast is worth] SHIPPED (research, no code
 touched). Record: records/BOHEMIA_ECONOMY_DAY_56_SIX_BEASTS_ARE_PRICED_IN_A_CURRENCY_BANNED_BEFORE_
 THEY_WERE_WRITTEN_10_1_26.md
@@ -909,8 +924,6 @@ as a kept-animal's daily yield, not a sale. FEATHERS and LIVE CAPTURE are refuse
 outright: feathers read as a belonging-rung gift (the real Victorian plume trade paid more than gold
 by weight for this exact kind of status good); live capture has no in-engine recruit-cost to anchor
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
-NEXT OPEN (board order): [what grows], [prices per place] (FIRST LINE, rule 40), [contract pay],
-[build costs], [the bubble].
 PENDING Paolo: none.
 
 UI (ui-kmqmrf): 10/5 (d) LATEST -- [six icons] + [the map's bar] SHIPPED: the demo's map, top bar and the speed pad bottom right.
