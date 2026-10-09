@@ -5394,7 +5394,20 @@
   "how": "image",
   "src": "vote/LIFECITY_A_DAY_ON_THE_MAP_10_9.gif"
  }
-}
+},
+  {
+   "id": "economy-price-table-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "b223c17",
+   "made": "10/9",
+   "title": "THE SHOP PRICES NOW COME FROM THE WIKI, NOT A GUESS",
+   "why": "Every weapon, hire and job pay in the game now traces back to Battle Brothers' own numbers, turned into batteries at ten to one with nothing ever cheaper than one. You see it in the MARKET tab once it is wired in, where the sell price will move with how much a town likes you instead of sitting at one flat number.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/price_table.json; engine/bohemia_pricetable.js; gates/pricetable_gate.js 19/0.\n\nSeen in: not drawn yet, feeds the MARKET tab once wired."
+   }
+  }
  ],
  "verdicts": [
   {
