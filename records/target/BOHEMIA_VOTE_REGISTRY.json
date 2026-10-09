@@ -5907,7 +5907,20 @@
    "title": "FOUR FACTIONS WITH A FACE", "why": "Four factions (road crews, the house, the dead, the beasts) each get a banner colour, a party size word, one want and one line. You see the four cards in the VOTE tab, on a page; they are NOT IN A TAB YET on the live map.",
    "show": {"how": "page", "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"}
   },
- {"id": "plumber-first-load-10-9", "kind": "ui", "lane": "plumber", "sha": "pending", "made": "10/9", "title": "THE DEMO MAKES A PHONE WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY", "why": "On a phone-speed processor NEW GAME is ready only after about 85 seconds with 30 MB downloaded first, and a patch handed to RUN cuts that download to 9 MB, but the wait stays because the processor is the wall (most of it is baking character art the map does not show yet). You see it on the demo's start screen, where the loading bar runs that long before NEW GAME lights.", "show": {"how": "text", "src": "FIRST OPEN OF THE DEMO, PHONE-SPEED PROCESSOR, SERVED LIKE THE REAL SITE\n\nTitle on screen: 3 to 4 seconds (goal 2)\nNEW GAME ready: about 85 seconds (goal 8)\nDownloaded before NEW GAME: 30 MB today, 9 MB with the patch\nThe page re-reading itself: 2.4 MB every 2 minutes today, a few hundred KB with the patch\n\nWhere the time goes at full speed (21 seconds): 11 in the page (4 of them baking the street cast for a map that does not show it), 7 in the map."}}
+ {"id": "plumber-first-load-10-9", "kind": "ui", "lane": "plumber", "sha": "pending", "made": "10/9", "title": "THE DEMO MAKES A PHONE WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY", "why": "On a phone-speed processor NEW GAME is ready only after about 85 seconds with 30 MB downloaded first, and a patch handed to RUN cuts that download to 9 MB, but the wait stays because the processor is the wall (most of it is baking character art the map does not show yet). You see it on the demo's start screen, where the loading bar runs that long before NEW GAME lights.", "show": {"how": "text", "src": "FIRST OPEN OF THE DEMO, PHONE-SPEED PROCESSOR, SERVED LIKE THE REAL SITE\n\nTitle on screen: 3 to 4 seconds (goal 2)\nNEW GAME ready: about 85 seconds (goal 8)\nDownloaded before NEW GAME: 30 MB today, 9 MB with the patch\nThe page re-reading itself: 2.4 MB every 2 minutes today, a few hundred KB with the patch\n\nWhere the time goes at full speed (21 seconds): 11 in the page (4 of them baking the street cast for a map that does not show it), 7 in the map."}},
+  {
+   "id": "combat2-the-casino-floor-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A FIGHT INSIDE A DEAD CASINO",
+   "why": "A new fight board inside a dead Strip casino: slot machines and card tables are cover, the cashier's cage is the high ground, and at night only a few machines and fires give light. Thumbs up and the Strip's fights happen in here, and you see it in the COMBAT tab on the casino board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_CASINO_FLOOR_10_9.png"
+   }
+  }
  ],
  "verdicts": [
   {

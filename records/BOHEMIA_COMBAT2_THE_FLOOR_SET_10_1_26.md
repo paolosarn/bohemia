@@ -355,3 +355,16 @@ real fight (manifest board + ours.board_tiles routed to the sized board, a party
 FOR COMBAT (its code, not mine): the fight still deals its own block mixes (dealOnce) without the join rule and
 crops; reading sized[kind][size] when the party is small or middle keeps every seam joined.
 VOTE: combat2-boards-by-size-<kind>-10-9, six sheets.
+
+## ROUND TWENTY-FIVE (10/9): [the casino floor], SHIPPED
+
+The one interior board (WORLD 9/30's fifteen grounds): tools/bohemia_combat2_the_casino_floor_cook_10_9_26.py,
+board 'casino' (4 x 3 blocks of casino.0 slot rows / casino.1 the cashier's cage / casino.2 the table pit).
+The carpet in his terracotta ramp with a brass motif, worn per tile, stains kept off the block sides; new pieces
+slot_bank (COVER 1.7 m), table (LOW_COVER 0.9 m, felt from his tiles' greens), pillar (COVER 3.6 m, blocks_move);
+the cage is two HEIGHT tiles with bars on the face; every block's middle row is an open aisle. Lights: about
+one slot bank in five glows on a scavenged battery (light_slot_glow.png, circuit 'grid', radius 4 m) and one or
+two drum fires a block (circuit 'fire'). Rule 77: casino 0/0 (board and apron), ratchet line added; the
+cul-de-sac's apron improved 64 -> 28 on this build and its ratchet is tightened to 28/28.
+Verified in the new fight: FIGHT_OPTS {board:'casino'} day and night, 20 x 15, 21 units, 0 page errors.
+VOTE: combat2-the-casino-floor-10-9.
