@@ -14011,6 +14011,25 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 49. [first load] ROUND 1: THE DEMO MAKES A PHONE
+WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY. ***
+Record: records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md. Row KEPT CLAIMED (rule 6).
+MEASURED (fresh browser, 4x CPU, served like GitHub Pages: max-age=600, ETag, gzip): title 3.4-3.6 s, NEW GAME ready
+83-86 s, 29.7 MB before ready. The first reading said 69 MB "everything twice": that was the driver's test server (no
+cache rules), fixed before reporting. THE PATCH, HANDED TO RUN (their file, a review in the record): (1) the tile warm-up
+returns when #cityFrame is already in the page; (2) the build watcher streams the page and stops at the buildstamp
+instead of re-reading 2.4 MB every 2 minutes. Measured on a copy served in the page's place: 9.0 MB before ready,
+nothing twice. THE READY TIME DID NOT MOVE: the wall is the processor. 21 s at 1x, 11.3 s in the demo page, 6.9 s in
+the city; cohereBind 3.97 s, 2.5 s of it the STREET CAST baked via combatMsgIn > citySendCast > withLook > rebuildFromRig
+for a map that does not draw them (about 5 s of the 21: RUN with CHARACTER).
+BUILT: tools/bohemia_first_load.js (one reading from inside the page + the network log); the driver gained net, netlog,
+pages, beforeGoto (all opt-in); gates/first_load_gate.js = FIRST LOAD (600), 4/3 red on purpose: T1 title 2 s, T2 ready
+8 s, D1 the page re-reading itself; R1 never worse at CEIL_MB 33. VOTE: plumber-first-load-10-9.
+ALSO: EXCAVATE baseline 422 -> 418 (four files the game reaches now). VOTE TAB 31/1 on main: four other lanes' sheets
+break rule 22f (LIFE+CITY, PEOPLE, FACTIONS, DIRECTION); one NOTE line in each section (rule 22g: theirs).
+NEXT: lower CEIL_MB to about 10 when RUN applies the patch; then the title order and the cast bake with RUN.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/1 LATEST -- *** CHAT 18. ROUND 48. [grok fence] AND [grok filter gate] SHIPPED. GROK STAYS IN
 ITS FOLDER, AND NOTHING CITES A GROK PAGE UNTIL IT IS STAMPED. ***
 Record: records/BOHEMIA_THE_FENCE_AND_THE_STAMP_FOR_GROK_10_1_26.md. The two rows sat above [no overlap] in this lane's
