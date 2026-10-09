@@ -815,6 +815,17 @@ GATES = [
      'write the taking to the wrong side -> 4; accept any outcome -> 1; leave a closed raid open -> 4; settle early -> 2; settle late -> 4; let a tie fall -> 1; let the '
      'strong fall -> 2; let a missing number fall -> 1; let the world ruin -> 3; settle a moot raid as live -> 1; refuse the table\'s comparison -> 1; drop the raids from '
      'the save -> 1; keep a junk raid on load -> 1; drop the raid from the marker -> 1; put a sentence on it -> 2; lie about the day -> 1.', True),
+    ('RELATIONS', ['node', 'gates/relations_gate.js'],
+     'ROW [beef] RELATIONS-BANDS-FROM-THE-WIKI: the nine bands and all fifteen up-and-down rows of Battle Brothers\' Relations page, read straight out of the wiki tarball by the gate and compared row for row with records/target/bb/relations.json, and checked against ECONOMY\'s partial copy. '
+     'The mechanism: a bar per town from 50, clamps at 0 and 100, drift of a quarter point a dawn that never passes 50 (forty mornings from 0 to 10), a seen theft costs its mapped wiki offence and an unseen one writes nothing, guards draw in the hostile band; crime and the guard line must say they are ours. '
+     'Red thirty-three ways over data and engine.', True),
+    ('FACTIONS', ['node', 'gates/factions_gate.js'],
+     'ROWS [the parties on the map] and [a house you give a fuck about] (rule 80c): the demo\'s four factions in one data file RUN reads. '
+     'Every faction has a face slot (never a person\'s name), a want with a source, a base, a draft voice line, a beef-driven memory, a banner nobody else owns and never purple '
+     '(CIEDE2000-style distance from every shipped faction colour), a make-up of real enemy ids, and a behaviour that is quoted or marked ours. '
+     'Red twenty-three ways: drop the face, a bad face id, a shared face, no want, an unsourced want, no base, a purple banner, a copied banner, a banner near a shipped colour, '
+     'a made-up enemy, a zero count, a half count, a bad behaviour, an unsourced behaviour, an unsourced make-up, a final voice, no beef, a shared ground, a made-up faction, '
+     'a canon colour on a crew, no gaps list, no portrait slot, a first party bigger than the last.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '
@@ -841,6 +852,24 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('THE ROAD NETWORK', ['node', 'gates/roads_gate.js'],
+     'ROW [the roads]: the map\'s road network as data, each stretch with its travel speed, which '
+     'stretches are blocked and who patrols them. The row\'s own gate is EVERY SETTLEMENT REACHES '
+     'EVERY OTHER, and *** IT ALREADY PASSED BEFORE THE WORK: *** over ten rolled valleys on PAVED '
+     'ROAD ALONE, with no dirt allowed, every settlement reaches every other in every one. The '
+     'valley\'s roads were already whole and nobody had checked, so the point of this gate is not '
+     'to be green today but to go RED the day a generator change cuts a town off. *** AND MEASURING '
+     'IT CAUGHT A ROAD SLOWER THAN OPEN DESERT: *** the arterial sits inside the terrain kind '
+     'lot_and_bigbox -- right for fight boards, wrong for driving -- which averages it with '
+     'commercial 0.25 and apartment 0.31 and gave a six-lane boulevard 0.52, UNDER the dirt\'s '
+     'ruled 0.75; on its own kit it measures 0.60 open -> 0.90. Not a new dial: the method is '
+     'already ruled and only the cells it is taken over changed, and the gate re-measures both '
+     'every run. NO SECOND LIST (the road classes read the same district vocabulary the terrain '
+     'module reads) AND NO SECOND NUMBER (a ruled speed is looked up live, never restated). '
+     'Blocked stretches answer UNREAD because nothing marks a road impassable, and PATROLS ships '
+     'empty because the row says FACTIONS owns it. The one-piece claim was an overgeneralisation '
+     'from seed 1337 that this gate caught at 6 of 10; what is really outside the main network is '
+     'a single orphan paved cell.', False),
     ('GOD GEAR', ['node', 'gates/god_gear_gate.js'],
      'ROW [where the god gear is] (Paolo 10/9: "finding good bros and good equipment throughout the '
      'settlements"). The valley\'s six legendary places, each with a guard sized by the math and a '
@@ -858,6 +887,52 @@ GATES = [
      'CONSTRUCTION and the gate proves the monotonicity. The rank is STATED AS MINE with a '
      'real-world reason rather than dressed up as arithmetic, and WHO GUARDS SHIPS EMPTY because '
      'the row says FACTIONS owns it.', False),
+    ('BOARD KINDS', ['node', 'gates/board_kinds_gate.js'],
+     'ROW [the cells with no board], rule 46 (no two combat boards are the same). '
+     '*** THE ROW\'S PREMISE WAS WRONG AND THIS LANE WROTE THE ROW. *** It said 28 districts have '
+     'no kit that can draw a block, so a fight cut from one of those map cells has nothing to build '
+     'a board out of. THE FIGHT NEVER CUTS A BOARD FROM A DISTRICT KIT: the kits draw the walked '
+     'city and the painted map, while the fight asks nfKind(district) for one of nine BOARD KINDS '
+     'and COMBAT deals from its block library (records/target/bb/ours.json board_mix). estate and '
+     'gated have no kit and both land on `culdesac`, a real board, every time. *** WHAT IS REALLY '
+     'WRONG IS BIGGER: TWENTY-FOUR OF THE SEVENTY-EIGHT DISTRICTS FALL THROUGH TO THE CATCH-ALL '
+     '`ruin` *** -- more than any real kind gets (the strip gets 15) -- and `ruin` is a real block, '
+     'so the fight works and just always leads with the same one. Measured over 20 rolled valleys: '
+     '154 cells a valley, 1.67%. WHO IS IN IT MATTERS MORE THAN HOW MANY: the airport and the '
+     'airbase (99 cells a valley, the biggest set-piece in the valley), EVERY CIVIC BUILDING (city '
+     'hall, courthouse, jail, prison, police, fire, hospital, radio), the speedway, the stadium, '
+     'AND THREE OF THE SIX LEGENDARY GEAR PLACES (the arsenal, the data fortress, the granary), the '
+     'places guarded by up to sixty men with the best gear in the game. Rule 46 failing a level up '
+     'from where it is checked. IT DOES NOT GUESS A STAND-IN: matching a courthouse to a cul-de-sac '
+     'because both are ~30% blocked is the 9/25 [bb places] defect and the god-gear round\'s own '
+     'mistake, so standInFor() answers NO_RULING and names COMBAT; what is given instead is which '
+     'BLOCK the library is missing, in three families stated as WORLD\'s reading with tuned:false. '
+     'THE GATE PARSES nfKind() OUT OF THE LIVE SLICE ON EVERY RUN and pushes all 78 districts '
+     'through both, so the mirror cannot drift from the fight; the fall-through count is a RATCHET '
+     'that may only shrink, which is what stops the next district WORLD adds becoming a ruin in '
+     'silence.', False),
+    ('GROUND EFFECTS', ['node', 'gates/ground_effects_gate.js'],
+     'ROW [ground effects], rule 59 (Paolo 10/1: "every floor tile from Battle Brothers needs a '
+     'proper translation for our game... how it impacts your accuracy or your defence or the '
+     'positioning, how many action points it costs to move through"). WORLD owns the GROUND half. '
+     '*** AND MEASURING IT FOUND THAT A LEGEND COUNT IS NOT A BOARD: *** [the valley\'s grounds] '
+     'measures how open a ground is by counting its kits\' LEGEND, which says what a board CAN '
+     'contain and never how much of a board is that thing. Re-measured here on what the kits really '
+     'DRAW, 13 grounds, 50 kits, five seeds each, 4.1 million cells: the legend says every ground in '
+     'the valley is 43% to 57% blocked, a 1.33x spread; THE BOARD SAYS 1.5% TO 95.8%, A 64x SPREAD. '
+     'Both ends check out against the real world (the mountain kit is bedrock face, ridge crest and '
+     'cliff band, all solid; the desert kit is 97% open ground), so the 50/50 the legend gave both of '
+     'them was the defect. THE SHIPPED TRAVEL SPEEDS ARE NOT WRONG and that was checked first: travel '
+     'uses openness as a RANK re-anchored on his ruled dirt, so the bias cancels and the worst derived '
+     'speed moves 0.15; a fight needs the ABSOLUTE, which is why this file measures its own numbers. '
+     '*** AND ONLY ONE ROW OF BATTLE BROTHERS\' TERRAIN TABLE CAN FIRE ON OUR BOARDS: *** OBSTACLES, '
+     'on all thirteen. THE SWAMP ROW IS DEAD -- not one wet cell on any ground, and the district '
+     'literally named `water` draws dry ground, two drained basins and three blockers. ROUGH GROUND '
+     'has no skin: every standable kind is flat and hard. HEIGHT answers UNREAD, never 0, because a '
+     'zero would read as "this ground is flat" and the mountain is 96% cliff. The gate re-measures '
+     'every carried number off the kits each run, refuses a ground with an effect that traces to '
+     'neither a ruling nor a measurement, refuses the 9/25 [bb places] defect of thirteen grounds '
+     'that are one place, and refuses a hole filled with a zero.', False),
     ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
      'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
      'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '
@@ -2357,6 +2432,12 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE ORIGINS ARE DATA', ['node', 'gates/the_origins_are_data_gate.js'],
+     'VAMILY [origins fallback], MODS rule 22 (records/BOHEMIA_MODS_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.md): the door kept '
+     'a fixed list of 15 origin ids and skipped any id the file carried beyond it, so a modder\'s origin was dropped. NOW '
+     'the file is the list; the fifteen are only the offline fallback. HOLDS, driven with a modder\'s row added to the '
+     'file before the page loads: its card on the door, its company and start when picked, its men in the fight, the '
+     'fifteen still there; offline the fallback fifteen. Mutation: skip unknown ids again (4 red).', True),
     ('THE MAP HEARS', ['node', 'gates/the_map_hears_gate.js'],
      'VAMILY [the map hears] (SOUNDS 10/5: the travel screen posts nothing to the parent, so the road and dirt beds and '
      'the sight-stop sound have nothing to play to on the MAP). NOW the map posts its travel state on the beat (500 ms): '
@@ -3168,6 +3249,16 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('BUILT ON THE BOARD', ['node', 'gates/built_on_the_board_gate.js'],
+     'rule 40b + 37g: a fight at a place you built on stands on it -- the wall is the board\'s block wall on your '
+     'front, a tank blocks with its own picture, a roof is high ground; the map attaches it and the shell hands it on', False),
+    ('BUILT ON THE MAP', ['node', 'gates/built_on_the_map_gate.js'],
+     'rule 40b: the map owns the build lots, the morning finishes them into the map\'s century ledger (the '
+     'derive\'s) and pays the map\'s purse, the base draws them, and the save carries them', False),
+    ('BUILD ON THE SCREEN', ['node', 'gates/build_on_the_screen_gate.js'],
+     'rule 40b + 43 (Paolo 9/29): the build list is a place on the settlement picture; somebody else\'s ground '
+     'refuses in your own words and costs nothing; on yours one battery, one day, standing the next day on its '
+     'lot and kept when the page opens again; four lots; the map says who holds it', False),
     ('THE LIVING MAP',   ['node', 'gates/the_living_map_gate.js'],
      'the overworld is Battle Brothers (9/24) + NOBODY STANDS ON ANYBODY (9/21): every party moves every day '
      'and no hour ends with two on one cell, the clock stops them, prints fade by the hour, and market day at '
@@ -3863,6 +3954,8 @@ GATES = [
      'rule 48 (Paolo 9/29: "the perks need to be translated"): the fifty one for one with our draft names; every perk marked live held to its own wiki number, the same two men with and without it; crew perks obey the row unlocking; enemies carry what their wiki page lists', False),
     ('THE REBUILT FIGHT PLAYS', ['node', 'gates/the_rebuilt_fight_plays_gate.js'],
      'rule 63 (Paolo 10/2: "start combat over... re-create Battle Brothers combat"): two whole fights played start to end on his phone with real taps; whole board on the glass at the open, the pinch, initiative order, the 5-95 cap, head hits, morale, injuries, free swings, YOU never dead, hires dead or laid up 30-40 days, under 15 minutes on the beat', True),
+    ('ONE FIGHT', ['node', 'gates/one_fight_gate.js'],
+     'COMBAT [one fight] (MODS 10/9: two truths for one gun): on the baked demo the sealed old fight is never built (idle, or when the map opens a fight), every fight is slices/BOHEMIA_FIGHT.html, and it reads its guns from records/target/bb/weapons.json', True),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],
      'IT PARSES IS NOT IT RUNS (Paolo 8/2, black screen + one red line): 620 string checks and a node --check were all green while every frame threw ReferenceError, because a temporal dead zone is valid syntax. This boots the real alpha, opens the real combat tab and drives real frames through cover -> AIM -> killshot -> freeze, failing on ANY pageerror or console error', False),
     ('COMBAT ENTRY',  ['node', 'gates/combat_entry_gate.js'],
@@ -4054,6 +4147,10 @@ GATES = [
      'RULE 34, PAOLO 9/27, LOCKED (TWO SCALES ONE GAME): the walked person is ONE CELL, about 28 px, one cell per step; THE STEP IS A HOUSE is dead and the 112 art is the SOURCE, not the product. THE QUESTION THAT HAD TO BE ANSWERED BEFORE ANY OF IT: cut 112 down to 28, is there still an animation in there? Measured at 112, 56 (what ships to the street today) and 28 with the game own nearest-neighbour cut: eight facings stay eight different pictures (0 identical of 28 pairs), the body goes 98 -> 49 -> 24 rows and 2732 -> 680 -> 168 lit pixels, and there are ZERO lonely pixels at 28. THE CUT SURVIVES and nothing had to be redrawn. *** AND IT FOUND A DEFECT THAT WAS THERE AT EVERY SIZE. *** The lateral walk is driven entirely by s = sin(ph*2pi), and sin is ZERO at ph 0 AND at ph 0.5, so those two keys came out BYTE-IDENTICAL on all six side facings: 6 of 48 pairs, THE SAME SIX at 112, at 56 and at 28, so it was never the cut. THE SIDE WALK HAD THREE PICTURES, NOT FOUR, and run had it too. At 112 you might not notice; at 24 rows it reads as a limp. THE FIX IS ANATOMY: a real walk two crossings differ because one leg is passing forward, what tells them apart is the DIRECTION of travel (cos, +1 at ph 0 and -1 at ph 0.5), and the passing foot CLEARS THE GROUND. 6 of 48 -> 0, at 28 AND AT 112, because a fix that only held small would be a fix in the wrong place. Run the same with a bigger clear. AND A HYPOTHESIS MEASURED AND THROWN AWAY THE SAME ROUND: the 28 px sheet read SPECKLED to me, so I wrote an area-average cut with a palette snap. The ruler said ZERO lonely pixels in BOTH; the light marks are his hands and the coat highlights and they are connected. The second cut moved 105 pixels, added a colour and fixed nothing. Deleted. A HYPOTHESIS THAT MEASURES THE SAME IS NOT A FIX. 3 mutations caught (the passing foot removed, the lift driven off abs(cos) so both crossings lift the same, and an EMPTY cut) with a CONTROL that the cut draws a real body and not an empty box, because a cut that drew nothing would score zero duplicates and zero lonely pixels and pass everything by drawing nothing. WHAT IT DOES NOT DO, SAID PLAINLY: the grid is a REBUILD and belongs to the world and the map, not here; CAST_PX is untouched; what this lane owns is that the clips are ready at the new size when it lands', True),
     ('BRACE AND SHADOWBOX', ['node', 'gates/the_brace_and_the_shadowbox_move_gate.js'],
      'Two clips that were dead at full detail: brace was 2 pictures on seven of eight facings and 1 percent of the body facing you, an aiming hold score (one arm flex on a frozen stance, every body term spF, zero on N and S); shadowbox was the arm doing all of it, 30 percent facing you. Both rebuilt from the body. A cost ceiling on EVERYBODY (18 pictures a clip, 8000 for the cast) because a first cost control that watched only the holds let a greedy key-picker mutation through. It PRINTS, and does not claim, the key picker bug found the same round (it throws away the remainder of its arc, so fast clips get fewer keys): three repairs all made the trenchcoat pop over its ceiling facing you, and the third was the stop', True),
+    ('SETTLEMENT PEOPLE', ['python3', 'gates/the_settlement_people_idle_gate.py'],
+     'ANIMATION [the settlement\'s idle people], rule 71a (the settlement screen is one painted place) and 69 (the bank live in the game): the screen drew its picture and NO PEOPLE. This lane ships the clips (slices/settlement_people, baked from the bank by tools/bohemia_settlement_people_bake.js), RUN TWO places them. Asked of the baked pixels of 25 outfits: the table names every moment (wait, smoke, lean, scratch, look, greet, beckon, trade, walk) with the facings it is offered in; nobody is a still, and waiting, trading and walking show four or more pictures; the person is the picture\'s own size (42.9 px a metre, a 1.75 m man 75 px); no clip lifts a hand out of the 112 box (the first bake\'s wave did, on 9 of 25 outfits, and was replaced by the nod his row asked for). 4 mutations caught (no sheet, frozen clips, a wrong scale, a hand in the frame top)', False),
+    ('PARTIES WALK', ['node', 'gates/the_parties_walk_gate.js'],
+     'ANIMATION [the marker walks], rules 65 and 68 (the party marker is three real dressed people; every party drawn and moving), third votes: movement GLIDES. The map\'s cast came from the alpha with an idle and a breath and no walk, so 28 parties crossed the valley standing still and jumped a block whenever the clock moved them; his marker was one man on a 125 ms wall clock. The alpha now bakes every cast look\'s walk after boot, one look per idle callback (~285 ms a look, on the bus that already carries ~530); the map attaches it by name; a party glides like he does and walks while it glides; his stride comes from his glide; two of his company walk at his shoulders. Driven on the real alpha with the map inside, the clock stubbed, an eight-block trip: 12 of 12 walks arrive; walkers on 235 of 277 frames; no party moves over 0.1 block in a drawn frame; three of him; nobody walks once the clock stops. 3 mutations caught (no bake, parties drawn at the cell, no company)', True),
     ('FIGHT CLIPS TABLE', ['python3', 'gates/the_fight_clips_play_from_the_table_gate.py'],
      'ANIMATION [the fight\'s clips in the new fight], rule 69 (Paolo 10/4: all my character art live in the game, the new fight included). The rebuilt fight drew every standing man on ONE idle frame (frozen between beats) and laid the dead in the sleep pose. The baker now APPENDS the breathing idle, the fall (the bank\'s floor-rise played backwards, standing to sitting on the ground) and the man struck down and not dead (crawl-dying), keeping the fourteen columns the fight reads in place, and writes a CLIP TABLE (idle, step, swing, shot, hit, fall, down, dead) into fight_people.json. Asked of the baked pixels of all 26 looks, both ways: the idle has 3+ pictures, the down man 3+, the fall never rises and goes from his feet to the ground, the fall ends ON the down man\'s first picture (no pop), and down and dead read apart by shape (sitting up taller than wide, the dead as wide as tall). 4 mutations caught (no table, a reversed fall, a frozen idle, dead drawn as down) plus a seam mutation', False),
     ('MAP GLIDES', ['node', 'gates/the_map_glides_gate.js'],
@@ -4885,6 +4982,16 @@ GATES = [
      'behind in a repo where ten lanes are pushing.',
      180),
 
+    ('FIRST LOAD', ['node', 'gates/first_load_gate.js'],
+     'THE TITLE IN TWO SECONDS, NEW GAME READY IN EIGHT, NOTHING DOWNLOADED TWICE. 10/9, PLUMBER, row [first load], '
+     'rule 66a and rule 72 line 12; Paolo 10/5: "I feel like I gotta wait 40 seconds." The demo opened fresh (a stranger, '
+     'cold cache) through the one driver with nobody touching the glass, on a 4x phone-shaped CPU, SERVED LIKE GITHUB '
+     'PAGES (cache rules and gzip; without them the first reading blamed the game for the test server and said 69 MB). '
+     'Measured: title 3.4 to 3.6 s, NEW GAME ready 83 to 86 s, 29.7 MB before ready, and the page re-downloads itself '
+     '(2.4 MB) 15 s in and every 2 minutes. A patch for RUN, measured on a copy served in the page place: 9.0 MB, nothing '
+     'twice; the ready time does not move, because the wall is the processor (record has the CPU profile). LANDS RED ON '
+     'PURPOSE on the title, the ready time and the page re-read; NEVER WORSE on the bytes. Three planted self-tests. About 90 s.',
+     600),
     ('GROK FENCE', ['node', 'gates/grok_fence_gate.js'],
      'A GROK COMMIT ON MAIN STAYS IN ITS FOLDER. 10/1, PLUMBER, row [grok fence], rule 49d: Grok writes through its '
      'own GitHub connector, only in reference/library/grok/, only on the branch grok, every message starting GROK:. '

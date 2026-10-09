@@ -1,0 +1,88 @@
+THE FREEWAY KIT -- MEASURED  (COOK [the board props] round 1, 10/10/26, rule 77a)
+==============================================================================
+
+THE ROW, rule 77a: the FREEWAY KIT FIRST -- a Jersey barrier run, a chain-link
+shoulder fence, a freeway lamp, a sign gantry, a stalled truck with its trailer,
+a burned car -- at the house-tile scale, typed edges, in the street kit's own
+asphalt and paint. COMBAT TWO places them.
+
+*** THE FIRST THING THIS ROUND DID WAS OPEN ITS OWN CUPBOARD, AND FOUR OF THE
+*** SIX WERE ALREADY IN IT.
+REUSE-FIRST is a law, not a preference. The 9/30 block war kit this lane built
+already holds a Jersey barrier, a chain-link run and a trailer, all at the same
+42.9 px a metre; his own 7/28 bank holds the wreck. So this round drew THREE new
+things, not six, and every reused piece names what it came from:
+  JERSEY BARRIER RUN          12.0 x  0.8 m  0.81 m  COVER     REUSED: 9/30 JERSEY BARRIER x4
+  CHAIN-LINK SHOULDER FENCE   12.0 x  0.1 m  1.83 m  BLOCKER   REUSED: 9/30 CHAIN-LINK RUN x2
+  FREEWAY LAMP                 3.8 x  0.4 m  9.00 m  DRESSING  REUSED: his 7/28 lamp head; the mast and arm are new
+  SIGN GANTRY                 12.0 x  0.6 m  6.50 m  DRESSING  REUSED: the street kit's own steel and paint; the truss is new
+  STALLED TRUCK AND TRAILER   15.9 x  3.0 m  2.80 m  BLOCKER   REUSED: 9/30 TRAILER + a new tractor unit
+  BURNED CAR                   4.5 x  2.1 m  1.45 m  BLOCKER   REUSED: his own 7/28 wreck_road, burned, not redrawn
+
+RULE 77, AND THE PART THAT IS NOT A LABEL. Paolo 10/5: "the tiles aren't
+speaking to each other... these things should conjoin easily like Legos." Every
+piece declares what runs out of its four sides. THEN THE GATE LAYS TWO OF EACH
+RUN END TO END AND MEASURES THE JOINT against the inside of the piece, because a
+declared edge that does not actually meet is a label and not a joint. A barrier
+run that cannot be laid end to end is six barriers, not a run.
+
+COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE. A man's chest is 1.30 m: over it
+stops a shot, under it does not. This lane's own 9/30 round filed two pieces
+wrong by eye and the tape corrected it, so the tape runs here too. The barrier
+run is 0.81 and is COVER. The fence is 1.83 and is a BLOCKER YOU CAN SEE THROUGH,
+which is the only reason to put one on a board: you know what is coming and you
+still cannot get to it. The truck is 2.80 and stops everything.
+
+AND ONE THING THIS KIT DOES THAT THE 9/30 KIT GOT WRONG. On 10/1 this lane filed
+its own correction: the block war kit was drawn flat, straight on, while COMBAT
+TWO's board is cut for a camera pitched forty-five degrees, so those pieces do
+not sit on it. Every piece here carries its FOOTPRINT (w x l, what it covers on
+the ground) separately from its FACE (the picture), so COMBAT TWO can place it on
+a pitched board without squashing a finished picture -- which would resample
+every one of his pixels, the exact fault the far-end round was about.
+
+THE SIGN'S WORDS SHIP AS AN ATTEMPT TAGGED draft (the 8/11 amendment: tables
+ship empty, player-facing words ship as a real attempt marked draft). What a
+sign in this valley actually says is his.
+
+THE GUARDS, EVERY ONE RUN, EVERY ONE ABLE TO REFUSE THE BUILD:
+  OK   SIX PIECES, WHICH IS THE WHOLE FREEWAY KIT RULE 77a NAMES, AND NO MORE (BB keeps a short blocker vocabulary per terrain on purpose): 6
+  OK   REUSE-FIRST IS A LAW, NOT A PREFERENCE: 6 of the 6 are built from art this lane or he already had, and each says which
+  OK   REAL SIZE AT HIS OWN DENSITY: JERSEY BARRIER RUN         12.00 m wide is 515 px at 42.9 px/m (drawn 516)
+  OK   REAL SIZE AT HIS OWN DENSITY: CHAIN-LINK SHOULDER FENCE  12.00 m wide is 515 px at 42.9 px/m (drawn 514)
+  OK   REAL SIZE AT HIS OWN DENSITY: FREEWAY LAMP               3.80 m wide is 163 px at 42.9 px/m (drawn 163)
+  OK   REAL SIZE AT HIS OWN DENSITY: SIGN GANTRY                12.00 m wide is 515 px at 42.9 px/m (drawn 515)
+  OK   REAL SIZE AT HIS OWN DENSITY: STALLED TRUCK AND TRAILER  15.90 m wide is 682 px at 42.9 px/m (drawn 682)
+  OK   REAL SIZE AT HIS OWN DENSITY: BURNED CAR                 4.48 m wide is 192 px at 42.9 px/m (drawn 192)
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: JERSEY BARRIER RUN         COVER at 0.81 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: CHAIN-LINK SHOULDER FENCE  BLOCKER at 1.83 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: FREEWAY LAMP               DRESSING at 9.00 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: SIGN GANTRY                DRESSING at 6.50 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: STALLED TRUCK AND TRAILER  BLOCKER at 2.80 m against a chest at 1.30
+  OK   COVER OR BLOCKER IS MEASURED, NOT FILED BY EYE: BURNED CAR                 BLOCKER at 1.45 m against a chest at 1.30
+  OK   RULE 77, FOUR TYPED EDGES: JERSEY BARRIER RUN         N asphalt / E barrier / S asphalt / W barrier
+  OK   RULE 77, FOUR TYPED EDGES: CHAIN-LINK SHOULDER FENCE  N shoulder / E fence / S asphalt / W fence
+  OK   RULE 77, FOUR TYPED EDGES: FREEWAY LAMP               N air / E air / S asphalt / W air
+  OK   RULE 77, FOUR TYPED EDGES: SIGN GANTRY                N air / E air / S asphalt / W air
+  OK   RULE 77, FOUR TYPED EDGES: STALLED TRUCK AND TRAILER  N asphalt / E asphalt / S asphalt / W asphalt
+  OK   RULE 77, FOUR TYPED EDGES: BURNED CAR                 N asphalt / E asphalt / S asphalt / W asphalt
+  OK   AND THE RUNS ACTUALLY JOIN, MEASURED: JERSEY BARRIER RUN         laid end to end the joint is 0 against 18 inside it
+  OK   AND THE RUNS ACTUALLY JOIN, MEASURED: CHAIN-LINK SHOULDER FENCE  laid end to end the joint is 84 against 45 inside it
+  OK   EVERY PIXEL IS HIS: JERSEY BARRIER RUN        
+  OK   EVERY PIXEL IS HIS: CHAIN-LINK SHOULDER FENCE 
+  OK   EVERY PIXEL IS HIS: FREEWAY LAMP              
+  OK   EVERY PIXEL IS HIS: SIGN GANTRY               
+  OK   EVERY PIXEL IS HIS: STALLED TRUCK AND TRAILER 
+  OK   EVERY PIXEL IS HIS: BURNED CAR                
+  OK   NOTHING IS STAMPED: no two pieces of the kit are the same picture (0 duplicates)
+  OK   THE WORDS SHIP AS AN ATTEMPT, TAGGED draft (the 8/11 amendment): 1 piece(s) carry player-facing text and every one is marked
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/
+  02_COMBAT_RULES.md, the TERRAIN and BOARD lines: BB scatters three to six
+  blocker kinds per terrain and keeps the vocabulary short on purpose, because a
+  board reads when its vocabulary is short; height is the one bonus. Taken: six
+  pieces, each with its height in metres so the board can rule on it. WHAT MOVES
+  THAT THEIR PICTURE DOES NOT: BB's blockers are nature's, trees and rocks, the
+  same every fight. Every piece here is something people built for a road that no
+  longer carries anyone, and the run of barriers is as long as the fight needs
+  because its ends key.

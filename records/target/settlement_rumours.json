@@ -1,5 +1,5 @@
 {
- "_about": "THE BAR'S RUMOURS (RUN TWO [the bar], rule 80c: the bar is where you hear what a faction wants; Battle Brothers' tavern rumours that mark the map). One is told per round bought, never the same twice in a visit. kind: place (a mark on the map, 'mark' names it), faction (what an outfit is about to do), gear (where good gear is, WORLD [where the god gear is]). draft:true words, Spanglish from the keeper's mouth; WORDS owns the voice, QUESTS and WORLD feed this file.",
+ "_about": "THE BAR'S RUMOURS (RUN TWO [the bar], rule 80c: the bar is where you hear what a faction wants; Battle Brothers' tavern rumours that mark the map). One is told per round bought, never the same twice in a visit. kind: place (a mark on the map, 'mark' names it), faction (what an outfit is about to do), gear (where good gear is, WORLD [where the god gear is]), keeper (one hook tied to a specific settlement keeper by its 'keeper' field -- smith/armourer/barber/clinic/board; PEOPLE [the keepers speak] and WORDS [the keepers' lines]: filter this list by r.keeper===k to give that keeper his own line, rather than drawing from the shared bar pool). draft:true words, Spanglish from the keeper's mouth; WORDS owns the voice, QUESTS and WORLD feed this file.",
  "rumours": [
   {"id": "pump_runs_at_night", "kind": "place", "mark": "PUMP CAMP", "draft": true,
    "says": "They say the pump on Lake Mead Boulevard still runs at night. Nobody admits to paying for it."},
@@ -12,6 +12,16 @@
   {"id": "riot_gear_cache", "kind": "gear", "mark": "COPPER SHEDS", "draft": true,
    "says": "The old riot squad left a locker in the copper sheds. Full plate, if the rats did not get it. Nobody goes because of what lives there."},
   {"id": "church_wants_water", "kind": "faction", "faction": "the church", "draft": true,
-   "says": "The church wants the water rights at the fort. They are paying anybody who walks a cart for them, and paying worse to anybody who gets in the way."}
+   "says": "The church wants the water rights at the fort. They are paying anybody who walks a cart for them, and paying worse to anybody who gets in the way."},
+  {"id": "smith_factory_seal", "kind": "keeper", "keeper": "smith", "draft": true,
+   "says": "A guy came through trying to sell me a gun that still had a factory seal on it. Did not ask where he got it."},
+  {"id": "armourer_car_doors", "kind": "keeper", "keeper": "armourer", "draft": true,
+   "says": "Somebody is selling car doors off a whole lot out past the wash. Real cheap, if you do not ask why."},
+  {"id": "barber_same_haircut", "kind": "keeper", "keeper": "barber", "draft": true,
+   "says": "A woman asked me for the same haircut three different men had, same week. I did not ask why either."},
+  {"id": "clinic_chip_under_skin", "kind": "keeper", "keeper": "clinic", "draft": true,
+   "says": "A man came in talking about a chip under his skin, swore it kept him alive once. I did not look. Gracias a Dios, some things stay closed."},
+  {"id": "board_robotics_plant", "kind": "keeper", "keeper": "board", "draft": true,
+   "says": "There is a contract nobody has posted yet. Something about the old robotics plant by the airport. Not ready to talk about it."}
  ]
 }

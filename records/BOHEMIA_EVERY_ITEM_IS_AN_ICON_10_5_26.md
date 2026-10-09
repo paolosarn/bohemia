@@ -26,5 +26,5 @@ naming mirror drifted from RUN TWO's in two places (no article on 'full riot arm
 beat-up, not solid), and lines with the same name ('beat-up bottles' twice) drew the wrong item's icon until the
 match went by shelf order. Five mutations caught (see the commit).
 
-NOT DONE: the bag itself and a man's slots (RUN TWO [the inventory]); icons for our own items beyond the data files
+NOT DONE: a man's slots (RUN TWO [the inventory]; the bag is done, above); icons for our own items beyond the data files
 (none exist yet); traits (no trait list).

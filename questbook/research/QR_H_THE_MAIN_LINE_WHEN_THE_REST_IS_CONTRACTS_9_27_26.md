@@ -4,6 +4,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Letter H, question (
 Answers blind spot 1 of records/BOHEMIA_THE_BLIND_SPOTS_9_27_26.md ("THE STORY DOES NOT EXIST").
 Written for RUN, WORLD, PEOPLE, WORDS and DYNASTY. Every naming or identity choice below is Paolo's.
 FOLDED 10/1 (QR-AB): rule 18 (QR-U, applied in QR-X), and a note on rule 8 (rule 51). Each edit is marked in place.
+FOLDED 10/9 (QR-AK): QR-U rules 17, 19 and 20 (17 fills the number held since 10/1) and the sharpens of rules 3, 5 and 12, each marked in place.
 
 QUESTION: What do the 152 say a MAIN LINE is when the side content is contracts? How does a main
 quest stay alive and pull the player while they are free to do contracts at their own pace (no
@@ -307,8 +308,12 @@ act 2/act 3 boundary is listed as FLOATED/PENDING in the ACT3 MOONSHOT law; this
 15. ACT 1 NEVER NAMES THE MACHINE, EVEN AFTER A FLIP. (ACT1 GHOST law; DYNASTY rules the flip's
     knowledge.)
 16. REVEALS DRIP. No main beat delivers more than one new truth about the secret. (`Q068.X3`)
-17. (Reserved for QR-U's proposed rule 17, EVERY STEP TOWARD THE SECRET HAS AN OFF-RAMP, `Q154.P3`, `Q154.X2`; not
-    folded by the 10/1 row, which folded rule 18 only. The number is held so designs that cite QR-H rule 18 resolve.)
+17. EVERY STEP TOWARD THE SECRET HAS AN OFF-RAMP. (folded 10/9 from QR-U) The right to stop looking, and the record keeps the choice to
+    not know (`Q154.P3`); a frame that punishes curiosity with no off-ramp removes the agency the theme is about
+    (`Q154.X2`); the hostility rises in readable steps (`Q154.W9`). Proximity is the danger (`Q203.W2`), telling spreads
+    the target (`Q209.W8`), the made people's safety is one revelation from ash (`Q218.W6`), whoever holds the truth
+    holds the match (`Q218.W2`). Test: every main beat that moves toward the secret has a stop button that writes
+    "chose not to know" and is never punished as failure.
 18. THE COUNTERFEIT OFFER IS GENUINELY GOOD. (folded 10/1 from QR-U, applied to the designs in QR-X.) Every offer the
     Amalgamation or its copies make (the dead back on a screen, free power for a face, a grief that stops) must TEMPT:
     not a bad thing dressed as good, but the real wish (`Q174.W7`). "No one is ever lost, the dead are back" is its
@@ -319,6 +324,21 @@ act 2/act 3 boundary is listed as FLOATED/PENDING in the ACT3 MOONSHOT law; this
     sentence from what the game showed; every counterfeit offer shows the offer WORKING for someone the player has met.
     (QR-X checked seven designs and sharpened QD-D05, where the son now says, plainly and correctly, that he is happier
     with it.) (`Q174.W7`, `Q174.W10`, `Q156.P2`, `Q210.W1`, `Q161.X3`)
+
+19. THE WHEN AND THE WHO OF A REVEAL MATTER MORE THAN THE WHAT. (folded 10/9 from QR-U) A fixed truth, all power in its delivery
+    (`Q167.W9`); told by the enemy at the lowest point it is trauma, told safely it is exposition (`Q167.W1`); the
+    collapse is cashed hours later at the final fork (`Q167.W10`). Test: rule 16 holds, and each drip names its mouth
+    and its moment.
+20. THE THESIS MAY COME FROM THE LAST MOUTH YOU WOULD TRUST. (folded 10/9 from QR-U) The deepest answer spoken by a monster or the
+    Amalgamation itself, gated behind engagement (`Q168.P1`); attention is the currency (`Q168.W2`). Test: the gate is
+    reliable for an honest player (`Q168.X1`, QR-G line 29).
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 3 (danger on the spine is opt-in): read with rule 17 (`Q203.W2`, `Q209.W8`, `Q218.W6`, `Q218.W2`).
+- Rule 5 (nobody finishes it for you): being right is not power (`Q182.W3`); a denial on purpose is legibly the
+  system's (`Q182.P2`); an act 1 beat that cannot touch the Amalgamation shows the wall as a wall.
+- Rule 12 (roll calls with receipts): a companion's fate is earned by the whole relationship (`Q165.W1`), the sum of a
+  hundred small moments (`Q165.W7`), and the accrual is legible (`Q165.X1`, QR-M).
 
 ## WHAT TO AVOID (the flaws)
 

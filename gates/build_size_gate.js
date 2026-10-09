@@ -162,8 +162,15 @@ ok('...and both entry points exist and were the ones walked (' +
    The alpha and the demo are near-identical by design, so their sizes track. A
    sudden gap means one got a change the other did not -- the same drift check
    the speed gate makes on boot bytes, made here on the files themselves.      */
-const gap = Math.abs(M.alphaBytes - M.demoBytes);
-console.log('\n    the alpha and the demo are ' + gap + ' bytes apart');
+/* MINUS WHAT THE CUT TAKES OUT ON PURPOSE (PLUMBER 10/9, [first load] round 3): the cut empties
+   COMBAT_B64 on the demo (the frozen fight; the demo never opens it, ONE FIGHT holds that), so the
+   two files are that blob apart by design. The blob is read off the alpha each run, so the drift
+   this leg exists to catch is still everything else. */
+const CUT_AWAY = (() => { try { const m = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8')
+  .match(/const COMBAT_B64='([A-Za-z0-9+\/=]*)'/); const d = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_DEMO.html'), 'utf8')
+  .match(/const COMBAT_B64='([A-Za-z0-9+\/=]*)'/); return (m && d) ? m[1].length - d[1].length : 0; } catch (_e) { return 0; } })();
+const gap = Math.abs(M.alphaBytes - M.demoBytes - CUT_AWAY);
+console.log('\n    the alpha and the demo are ' + gap + ' bytes apart, past the ' + CUT_AWAY + ' the cut takes out on purpose');
 ok('THE ALPHA AND THE DEMO ARE STILL THE SAME GAME (' + gap + ' bytes apart, budget <= ' +
    (B.twinBytes || 262144) + '). They are cut from each other on purpose; a sudden gap ' +
    'means one got a change the other did not, which nobody would catch by eye',

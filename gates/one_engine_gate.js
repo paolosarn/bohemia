@@ -242,6 +242,39 @@ function ok(claim, cond, detail) {
     nightTrimCheck.hasFn && nightTrimCheck.nightGain === 0.5 && nightTrimCheck.dayGain === 1,
     'the per-call night trim is missing or wrong: ' + JSON.stringify(nightTrimCheck));
 
+  /* ---- E9: THE MAP SAYS WHEN A TOWN IS REACHED, AND THE VALLEY ANSWERS ONCE
+     (SOUNDS, row [the map's sounds], round three 10/9). RUN's [the map hears]
+     (10/9) now posts `arriving` on the real BOHEMIA_MAP_STATE bridge; before this
+     round nothing listened, so the row's own "arriving at a settlement" line had
+     never fired on a real arrival, only on AMB.tick()'s random clock. CHECKED FRESH
+     BEFORE WIRING ANYTHING: dog_far is DOWN on all five candidates (records/
+     BOHEMIA_SFX_VERDICT_8_12_26.txt, GRAVEYARD IS FINAL), so only generator plays
+     here -- the row named two sounds, his own vote already killed one of them. */
+  const arriveCheck = await p.evaluate(async () => {
+    const calls = [];
+    let origRender = null;
+    try { origRender = BOH_SFX.render;
+      BOH_SFX.render = function (v) { calls.push(v && v.ev); return origRender.apply(this, arguments); }; } catch (e) {}
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 1, arriving: { name: 'Town A', seq: 42, ago: 10 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 2, arriving: { name: 'Town A', seq: 42, ago: 20 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    const afterRepeat = calls.length;
+    window.postMessage({ type: 'BOHEMIA_MAP_STATE', seq: 3, arriving: { name: 'Town B', seq: 43, ago: 0 } }, '*');
+    await new Promise(r => setTimeout(r, 300));
+    try { BOH_SFX.render = origRender; } catch (e) {}
+    return { calls, afterRepeat, arrivedSeq: window.__AMB && window.__AMB.arrivedSeq,
+      arriveLog: window.__ambArriveLog, dogPool: window.__sfxPool ? window.__sfxPool('dog_far') : null };
+  });
+  console.log('  arrival sting: ' + JSON.stringify(arriveCheck));
+  ok('E9 *** REACHING A NEW TOWN PLAYS THE GENERATOR ONCE, A REPEAT OF THE SAME ARRIVAL PLAYS NOTHING, AND THE DEAD DOG STAYS DEAD. *** '
+    + arriveCheck.calls.length + ' render call(s) across two real arrivals (' + arriveCheck.calls.join(',') + '), '
+    + arriveCheck.afterRepeat + ' call(s) survive a repeated seq, dog_far\'s own pool is ' + JSON.stringify(arriveCheck.dogPool),
+    arriveCheck.calls.length === 2 && arriveCheck.calls.every(c => c === 'generator') && arriveCheck.afterRepeat === 1
+      && arriveCheck.arrivedSeq === 43 && Array.isArray(arriveCheck.arriveLog) && arriveCheck.arriveLog.length === 2
+      && Array.isArray(arriveCheck.dogPool) && arriveCheck.dogPool.length === 0,
+    'the arrival sting is missing, double-fires, or reaches for the graveyarded dog: ' + JSON.stringify(arriveCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

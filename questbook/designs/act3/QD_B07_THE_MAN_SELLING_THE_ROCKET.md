@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: a rebuilt rest stop on the northern highway, solar canopy over the pumps, a trader's truck parked in the shade
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes 29 of 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING); bends 21 on purpose: buying jumps the rocket a stage, so the harder branch pays more in progress. It is the stated temptation of a road event with its number on the button (QR-X reading 3, QR-L P16, `Q148.W8`), and returning it carries clinic standing. Fixed in place: 28 (flags and saves named).
+CHECKLIST: passes all 30 (amended 10/9, QR-AK: QR-G line 21 now exempts an event's or main beat's ONE stated temptation with its number on the button, so the old bend on 21 is a pass) (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING); line 21 was a bend on 10/1 and passes under the amended line: buying jumps the rocket a stage, so the harder branch pays more in progress. It is the stated temptation of a road event with its number on the button (QR-X reading 3, QR-L P16, `Q148.W8`), and returning it carries clinic standing. Fixed in place: 28 (flags and saves named).
 SHAPE: E5, THE TRADER WITH ONE GOOD THING (QR-B)
 
 ## THE SITUATION

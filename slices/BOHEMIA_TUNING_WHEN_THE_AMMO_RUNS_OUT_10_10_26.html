@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>When The Ammo Runs Out</title>
+<!-- TUNING 10/10 [ammo], draft:true. Battle Brothers wiki numbers (Ammunition, Quivers, Handgonne, Game Mechanics start kits); the shots-per-fight model is my arithmetic. Record: records/BOHEMIA_TUNING_AMMO_A_BULLET_COSTS_ONE_AND_BB_MAKES_IT_A_STOCK_NOT_A_PRICE_10_10_26.md -->
+<style>:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--amb:#e8a04a;--ok:#8fe89a;--hot:#e8593a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+.row{border:1px solid var(--line);padding:8px 10px;margin:8px 0}input[type=range]{width:100%}button{background:#1a1510;color:var(--ink);border:1px solid var(--line);padding:9px 11px;font:inherit;margin:2px}button.on{border-color:var(--amb);color:var(--amb)}
+.big{font-size:24px}.g{color:var(--ok)}.a{color:var(--amb)}.r{color:var(--hot)}.bar{height:16px;background:#15110d;margin:4px 0;position:relative}.bar i{position:absolute;left:0;top:0;bottom:0;background:#5a4a30}</style></head><body>
+<h1>WHEN THE AMMO RUNS OUT</h1>
+<p>In Battle Brothers ammo is not expensive, it is limited. Your company has one stock, a quiver holds 10 shots, and it refills from the stock after each fight. Pick your start and your guns and see how many fights you get before you reach for a blade.</p>
+<div>START <span id="st"></span></div><div>GUN <span id="gn"></span></div>
+<div class="row">SHOOTERS <b id="sv"></b><input id="s" type="range" min="1" max="10" value="4"></div>
+<div class="row">ROUNDS IN A FIGHT <b id="rv"></b><input id="r" type="range" min="4" max="20" value="10"></div>
+<div class="row">
+<div>Each shooter uses <span id="u" class="big a"></span> points a fight</div>
+<div>Your start lasts <span id="f" class="big"></span> fights</div><div class="bar"><i id="fb"></i></div>
+<div>A full stock (<span id="cap"></span> points) lasts <span id="ff" class="big g"></span> fights</div>
+<div>Ammo cost per fight: <span id="c" class="big"></span> crowns (price is never the problem)</div></div>
+<script>
+function $(i){return document.getElementById(i)}
+var KITS={LOW:20,MEDIUM:40,HIGH:80},GUNS={bow:{n:'BOW',per:2,pts:1,cap:10},crossbow:{n:'CROSSBOW',per:1,pts:1,cap:10},handgonne:{n:'HANDGONNE',per:0.5,pts:2,cap:10},throwing:{n:'THROWN',per:1,pts:3,cap:15}};
+var kit='MEDIUM',gun='bow';
+function btns(el,obj,cur,key){var h='';for(var k in obj)h+='<button data-k="'+k+'" class="'+(k===cur?'on':'')+'">'+(obj[k].n||k)+'</button>';el.innerHTML=h;}
+function draw(){var sh=+$('s').value,rd=+$('r').value,g=GUNS[gun];$('sv').textContent=sh;$('rv').textContent=rd;
+ var shots=rd*g.per,use=Math.min(shots*g.pts,g.cap),perFight=use*sh,start=KITS[kit],fights=start/perFight,full=300/perFight;
+ $('u').textContent=use.toFixed(0);$('f').textContent=fights<1?'less than one':fights.toFixed(1);$('f').className='big '+(fights<2?'r':fights<5?'a':'g');
+ $('fb').style.width=Math.min(100,fights/10*100)+'%';$('cap').textContent=300;$('ff').textContent=full.toFixed(1);$('c').textContent=(perFight*2).toFixed(0);
+ btns($('st'),{LOW:{n:'LOW 20'},MEDIUM:{n:'MEDIUM 40'},HIGH:{n:'HIGH 80'}},kit);btns($('gn'),GUNS,gun);}
+$('st').onclick=function(e){if(e.target.dataset.k){kit=e.target.dataset.k;draw();}};$('gn').onclick=function(e){if(e.target.dataset.k){gun=e.target.dataset.k;draw();}};
+$('s').oninput=$('r').oninput=draw;draw();
+</script></body></html>

@@ -8,6 +8,7 @@ and every lane, centre and curb line that crosses one side crosses the other wit
   LEG 1  THE SETS HE NAMED ARE CLEAN: the freeway board and the street (suburb) board have ZERO faults,
          board and apron.
   LEG 1b EVERY BOARD BY SIZE IS CLEAN (rule 79): the six kinds' small, middle and large boards, zero faults.
+  LEG 1c THE FUTURES JOIN: every board in its reclaimed and raided pictures has no more broken seams than today.
   LEG 2  THE REST CAN ONLY GET BETTER: every other board's faults (board, apron) are at or under the
          ratchet in gates/tiles_are_legos_ratchet.json. Lower the ratchet when a board improves.
   LEG 3  THE DATA FILE IS TRUE: records/target/bb/BOHEMIA_GROUND_EDGES.json names every shipped block's four
@@ -40,6 +41,14 @@ for kind, sizes in m.get('sized', {}).items():                   # LEG 1b (rule 
         f = L.board_faults(sb['blocks'], edges)
         if f: fails.append('LEG 1b: sized %s %s has %d broken seams: %s' % (kind, size, len(f), f[:2]))
 if len(m.get('sized', {})) < 6: fails.append('LEG 1b: the six kinds at three sizes are not all in the manifest')
+for state, F in m.get('futures', {}).items():                    # LEG 1c: the futures join as the present does
+    m2 = json.loads(json.dumps(m))
+    for bid, src in F['blocks'].items(): m2['blocks'][bid]['src'] = src
+    fe = L.read_all(m2)
+    for name, b in m['boards'].items():
+        f = L.board_faults(b['blocks'], fe)
+        if len(f) > now[name][0]: fails.append('LEG 1c: %s %s has %d broken seams, the present day %d' % (state, name, len(f), now[name][0]))
+if set(m.get('futures', {})) != {'reclaimed', 'raided'}: fails.append('LEG 1c: the two futures are not in the manifest')
 rat = json.load(open(RATCHET))
 for name, (o, a) in now.items():
     if name in CLEAN: continue

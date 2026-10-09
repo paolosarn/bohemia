@@ -308,17 +308,56 @@ def dock(seed):
     return _box45(10.0, 3.0, 1.2, C[4], C[2], seed, ribs=2.0)
 
 
+def _grain(im, region, seed, tones, n):
+    """His texture at the house-tile scale: n specks of the given tones inside region, only on opaque pixels."""
+    r = K.R(seed); d = ImageDraw.Draw(im); x0, y0, x1, y1 = region; px = im.load()
+    for _ in range(n):
+        x, y = x0 + r.i(max(1, x1 - x0)), y0 + r.i(max(1, y1 - y0))
+        if px[x, y][3] == 0: continue
+        w = 1 + r.i(3); d.rectangle([x, y, x + w, y + (1 if r() < 0.6 else 2)], fill=tones[r.i(len(tones))] + (255,))
+
+
 def jersey(seed):
-    """rule 77a: the median's low concrete barrier, one 6 m segment, the top lit and the south face seen."""
-    im = _box45(5.8, 0.6, 0.8, C[5], C[3], seed)
-    d = ImageDraw.Draw(im); dp = ty(m(0.6))
-    for x in (m(0.4), m(2.9), m(5.4)): d.line([(x, dp + 4), (x, dp + ty(m(0.8)) - 2)], fill=C[2] + (255,), width=2)   # the joints and lifting holes
+    """rule 77a, round two (DIRECTION 22: 'a flat three-tan box'): cast concrete, a 6 m segment; the top lit, the
+       sloped south face seen, form lines, chipped corners, tar stains and the lifting holes."""
+    im = BT_box = _box45(5.8, 0.6, 0.8, C[5], C[4], seed)
+    d = ImageDraw.Draw(im); dp, fh, W = ty(m(0.6)), ty(m(0.8)), m(5.8)
+    d.rectangle([0, dp, W, dp + fh // 3], fill=C[4] + (255,)); d.rectangle([0, dp + fh // 3, W, dp + fh], fill=C[3] + (255,))   # the slope then the foot
+    d.line([(0, dp + fh // 3), (W, dp + fh // 3)], fill=C[2] + (255,), width=1)
+    _grain(im, (0, 0, W, dp), seed, [C[4], C[6], ST[3] if len(ST) > 3 else C[6], C[3]], 900)       # the top's aggregate
+    _grain(im, (0, dp, W, dp + fh), seed + 1, [C[2], C[3], C[5], A[3]], 1100)                      # the face's
+    r = K.R(seed + 2)
+    for _ in range(5):                                                    # tar and oil, from the traffic that stopped
+        x = r.i(W - m(0.8)); y = dp + r.i(max(1, fh - 8))
+        d.ellipse([x, y, x + m(0.3 + r() * 0.6), y + 4 + r.i(8)], fill=[A[1], A[2], A[3]][r.i(3)] + (255,))
+    for x in (2, W - 7):                                                  # the chipped corners
+        d.polygon([(x, 0), (x + 6, 0), (x, 6)], fill=A[2] + (255,))
+    for x in (m(0.4), m(2.9), m(5.4)): d.line([(x, dp + 3), (x, dp + fh - 2)], fill=C[1] + (255,), width=2)   # the joints
+    for x in (m(1.4), m(4.4)): d.rectangle([x, dp + fh // 2, x + 6, dp + fh // 2 + 4], fill=A[0] + (255,))  # the lifting holes
     return im
 
 
 def trailer(seed):
-    """rule 77a: a truck's trailer left in the lane, a long high box: cover, and it blocks sight."""
-    return _box45(12.0, 2.5, 3.6, C[6], [C[4], T[2], A[4]][K.R(seed).i(3)], seed, ribs=0.6)
+    """rule 77a, round two (DIRECTION 22: 'a four-colour box'): a truck's van trailer left in the lane: ribbed
+       side panels, the rear doors and their bars, rust streaks from the rivet lines, the chassis and the wheels."""
+    r = K.R(seed)
+    body = [C[6], C[5], T[2]][r.i(3)]
+    im = _box45(12.0, 2.5, 3.0, C[6], body, seed, ribs=0.6)
+    W, dp, fh = m(12.0), ty(m(2.5)), ty(m(3.0))
+    big = Image.new('RGBA', (im.size[0], im.size[1] + ty(m(1.1))), (0, 0, 0, 0)); big.paste(im, (0, 0))
+    d = ImageDraw.Draw(big)
+    d.rectangle([m(0.4), dp + fh, W - m(0.4), dp + fh + ty(m(0.35))], fill=A[1] + (255,))            # the chassis rail
+    for x in (m(1.0), m(2.2), m(8.6), m(9.8)):                                                         # the wheels
+        d.ellipse([x, dp + fh - 4, x + m(1.0), dp + fh + ty(m(1.0))], fill=A[0] + (255,)); d.ellipse([x + m(0.3), dp + fh + 4, x + m(0.7), dp + fh + ty(m(0.6))], fill=A[3] + (255,))
+    d.rectangle([W - m(1.6), dp + 3, W - 2, dp + fh - 2], outline=A[2] + (255,), width=2)               # the rear doors
+    for y in (dp + fh // 4, dp + 3 * fh // 4): d.line([(W - m(1.5), y), (W - 4, y)], fill=A[3] + (255,), width=3)
+    d.line([(W - m(0.8), dp + 3), (W - m(0.8), dp + fh - 2)], fill=A[2] + (255,), width=2)
+    for x in range(0, W - m(1.6), m(0.6)):                                                             # rust from the rivet lines
+        if r() < 0.45: d.line([(x + 2, dp + 6), (x + 2, dp + 6 + r.i(fh - 10))], fill=[T[0], T[1], T[2], A[4]][r.i(4)] + (255,), width=2)
+    _grain(big, (0, 0, W, dp), seed + 3, [C[5], C[4], A[4], C[6]], 1400)                               # the roof's grime
+    _grain(big, (0, dp, W - m(1.6), dp + fh), seed + 4, [C[4], T[1], A[4], body], 1600)
+    d.rectangle([m(2.0), dp + fh // 2 - 6, m(5.5), dp + fh // 2 + 6], fill=A[2] + (255,))             # the old fleet name, painted out
+    return big
 
 
 FURN_MAKERS = {'pump': pump, 'jersey': jersey, 'trailer': trailer, 'dumpster': dumpster, 'fence': fence_run, 'steps': steps, 'dock': dock}

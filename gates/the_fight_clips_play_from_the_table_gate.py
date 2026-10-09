@@ -86,5 +86,28 @@ ok('  and it starts on his feet (over 80 px tall) and ends on the ground (under 
    'standing fails ' + ','.join(fall_stand[:3]) + ' / ground fails ' + ','.join(fall_flat[:3]))
 ok('NO POP from the fall into the man struck down: the last fall picture and the first crawl share their box to 2 px', not seam, ','.join(seam[:4]))
 ok('DOWN AND DEAD READ APART AT A GLANCE: the man struck down sits up (taller than wide), the dead lie (as wide as tall)', not apart, ','.join(apart[:4]))
+# THE SHOT KICKS (ANIMATION [the shot kicks], 10/9): the shot was two-hand@0, the aim held. Asked of the baked pixels:
+# three or more pictures, the kick's peak changes a real share of the body against the settled pose, and the body
+# ROCKS BACK, away from where he aims (facing right on SE, left on SW), at the peak.
+def centroid_x(fr):
+    a = fr.getchannel('A'); w, h = a.size; px = a.load(); n = sx = 0
+    for y in range(h):
+        for x in range(w):
+            if px[x, y]: n += 1; sx += x
+    return sx / max(1, n)
+kick_few, kick_small, kick_fwd = [], [], []
+for ev in ('shot', 'shot_1h'):
+    if ev not in CL: kick_few.append(ev + ' missing'); continue
+    for k, v in looks.items():
+        im = Image.open(os.path.join(D, v['file'])).convert('RGBA')
+        for r in range(len(M['rows'])):
+            fr = frames(im, r, CL[ev]['cols'])
+            if len(set(f.tobytes() for f in fr)) < 3: kick_few.append('%s/%s/%s' % (ev, k, M['rows'][r]))
+            if differs(fr[1], fr[3]) < 0.30: kick_small.append('%s/%s/%s %.2f' % (ev, k, M['rows'][r], differs(fr[1], fr[3])))
+            sign = 1 if M['rows'][r] in ('SE', 'E', 'NE') else -1
+            if (centroid_x(fr[1]) - centroid_x(fr[3])) * sign > -0.5: kick_fwd.append('%s/%s/%s' % (ev, k, M['rows'][r]))
+ok('THE SHOT KICKS: the rifle and the pistol each show three or more pictures, every look, both ways', not kick_few, ','.join(kick_few[:4]))
+ok('  and at the peak of the kick 30% or more of his body has moved against the settled shot', not kick_small, ','.join(kick_small[:4]))
+ok('  and the body ROCKS BACK, away from where he aims, at the peak (half a pixel or more)', not kick_fwd, ','.join(kick_fwd[:4]))
 print('\nTHE FIGHT CLIPS PLAY FROM THE TABLE GATE: %d passed, %d failed' % (ok_n, fail_n))
 sys.exit(1 if fail_n else 0)

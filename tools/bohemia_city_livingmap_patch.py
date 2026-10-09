@@ -14,6 +14,8 @@ never stacked; every anchor must resolve exactly once or nothing is written.
      each fading by the hour (gone a day later); in the faction's own ink, exactly as before.
   4. THE GATE: every home base on the map draws the crowd at its gate, its size from the living
      map's crowdAt() -- the settlement screen's own market-day roll on the map's own day.
+  6. (10/9, [build on the screen]) the open message also says whether the place is YOURS (your outfit's
+     own base: BohemiaBetween.mine()) and the map's day, so the settlement's build lot knows both.
   5. THE PLACE IT OPENS: when he taps a town, the settlement screen is handed the traits the map is
      showing (the screen's own `traits` seam, RUN TWO's design), so the crowd he saw at the gate and
      the market he walks into are the same market. Nothing in RUN TWO's page changes.
@@ -115,9 +117,16 @@ CROWD = CROWD_MARK + r'''
 ''' + CROWD_END + '\n'
 
 OPEN_OLD = "    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {} }, '*'); }catch(_e){}"
-OPEN_NEW = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
+OPEN_PREV = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
             "    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */\n"
             "    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })() }, '*'); }catch(_e){}")
+OPEN_NEW = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {},\n"
+            "    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */\n"
+            "    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),\n"
+            "    /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */\n"
+            "    held: (function(){ try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\\s_]/g,''); };\n"
+            "             return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),\n"
+            "    day: loopDay() }, '*'); }catch(_e){}")
 
 
 def cut(s, begin, end):
@@ -133,6 +142,21 @@ def cut(s, begin, end):
     return s[:i] + s[k:]
 
 
+def put(s, begin, end, block, insert):
+    """A marked block that already exists is rewritten IN PLACE (so two patches that both anchor near the
+    same line never swap places run after run); a missing one is inserted by `insert`."""
+    i = s.find(begin)
+    if i >= 0:
+        j = s.find(end, i)
+        if j < 0:
+            sys.exit('REFUSING TO WRITE: %r opens and never closes.' % begin)
+        k = j + len(end)
+        if s[k:k + 1] == '\n':
+            k += 1
+        return s[:i] + block + s[k:]
+    return insert(s)
+
+
 def once(s, anchor, label):
     n = s.count(anchor)
     if n != 1:
@@ -142,31 +166,34 @@ def once(s, anchor, label):
 def main():
     s = open(CITY, encoding='utf8').read()
     before = s
-    for b, e in ((BEGIN, END), (GLUE_MARK, GLUE_END), (PRINTS_MARK, PRINTS_END), (CROWD_MARK, CROWD_END)):
-        s = cut(s, b, e)
     body = open(MOD, encoding='utf8').read().rstrip('\n')
     if '</' in body:
         sys.exit('REFUSING TO WRITE: the module would close the script tag.')
-    once(s, AFTER, 'parties module end')
-    s = s.replace(AFTER, AFTER + BEGIN + '\n' + body + '\n' + END + '\n', 1)
-    once(s, GLUE_BEFORE, 'parties state')
-    s = s.replace(GLUE_BEFORE, GLUE + GLUE_BEFORE, 1)
+    def ins_mod(t):
+        once(t, AFTER, 'parties module end'); return t.replace(AFTER, AFTER + BEGIN + '\n' + body + '\n' + END + '\n', 1)
+    s = put(s, BEGIN, END, BEGIN + '\n' + body + '\n' + END + '\n', ins_mod)
+    def ins_glue(t):
+        once(t, GLUE_BEFORE, 'parties state'); return t.replace(GLUE_BEFORE, GLUE + GLUE_BEFORE, 1)
+    s = put(s, GLUE_MARK, GLUE_END, GLUE, ins_glue)
     if STEP_NEW not in s:
         once(s, STEP_OLD, 'party step')
         s = s.replace(STEP_OLD, STEP_NEW, 1)
     if TRK_NEW not in s:
         once(s, TRK_OLD, 'track list')
         s = s.replace(TRK_OLD, TRK_NEW, 1)
-    once(s, PRINTS_BEFORE, 'after the tracks')
-    s = s.replace(PRINTS_BEFORE, PRINTS + PRINTS_BEFORE, 1)
-    once(s, BASE_OLD, 'home base draw')
-    i = s.index(BASE_OLD)
-    # the crowd goes right after the base's fallback block closes: find the '__r = Math.max' line after it
-    j = s.index('        __r = Math.max(__r, __ps.height - 4);', i)
-    s = s[:j] + CROWD + s[j:]
+    def ins_prints(t):
+        once(t, PRINTS_BEFORE, 'after the tracks'); return t.replace(PRINTS_BEFORE, PRINTS + PRINTS_BEFORE, 1)
+    s = put(s, PRINTS_MARK, PRINTS_END, PRINTS, ins_prints)
+    def ins_crowd(t):
+        once(t, BASE_OLD, 'home base draw'); i = t.index(BASE_OLD)
+        j = t.index('        __r = Math.max(__r, __ps.height - 4);', i); return t[:j] + CROWD + t[j:]
+    s = put(s, CROWD_MARK, CROWD_END, CROWD, ins_crowd)
     if OPEN_NEW not in s:
-        once(s, OPEN_OLD, 'settlement open')
-        s = s.replace(OPEN_OLD, OPEN_NEW, 1)
+        if s.count(OPEN_PREV) == 1:
+            s = s.replace(OPEN_PREV, OPEN_NEW, 1)
+        else:
+            once(s, OPEN_OLD, 'settlement open')
+            s = s.replace(OPEN_OLD, OPEN_NEW, 1)
     if s == before:
         print('THE LIVING MAP: nothing to do')
         return

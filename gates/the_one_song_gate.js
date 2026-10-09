@@ -127,7 +127,9 @@ const ARM = `(function(){
     await d.page.evaluate(() => { NEW_FIGHT_ON = false; const cf = document.getElementById('combatFrame'); if (cf && cf.contentWindow) cf.contentWindow.postMessage({ bohemiaMusicMute: false }, '*'); });
     await d.fr.evaluate(() => { try { stepOnce(0); stepOnce(4); } catch (_e) {} roadContactFight({ id: 'toll_crew', name: 'the toll crew', seq: 2 }); });
     await d.page.waitForTimeout(3000);
-    const before = samples.length; await hold('old fight', 8000);
+    /* COMBAT 10/9 [one fight]: nothing warms the old frame ahead now, so this door builds 1.95 MB cold and the page is
+       busy for seconds; the watch is longer so it still gathers more than five samples (the floor below is unchanged) */
+    const before = samples.length; await hold('old fight', 14000);
     const old = samples.slice(before);
     const oldPair = old.filter(s => s.playing > 1).length, oldShell = old.filter(s => s.mus && s.fight).length;
     ok('*** S8 THE OLD FIGHT\'S DOOR IS NOT TWO SONGS EITHER *** (the demo\'s walk used it ' + oldUsed + ' times; forced open: ' + oldShell + ' of ' + old.length

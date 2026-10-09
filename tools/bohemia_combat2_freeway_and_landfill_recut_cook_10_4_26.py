@@ -99,12 +99,28 @@ def freeway2(seed, overpass=False, north='lot'):
         plan.paste(R4.yards(seed + 9), (0, 0), nv)
     R4.walk_band(plan, 17.0, 18.0, seed + 3); R4.walk_band(plan, 42.0, 43.0, seed + 4)   # the curb strips, the street's walk dress
     lines = [(24.55, False, C[5]), (35.3, False, C[5]),                  # the lane dashes, the street's own
-             (20.85, True, C[5]), (39.0, True, C[5]),                    # the fog lines at the shoulders
-             (28.25, True, T[5]), (31.6, True, T[5])]                    # the median's edge lines, faded yellow
+             (20.85, True, C[5]), (39.0, True, C[5]),                    # the fog lines at the shoulders, the street's own white
+             (28.25, True, G[5]), (31.6, True, G[5])]                    # the median's edge lines, a faded yellow (round two: never orange)
     road = R4.road_band(plan, 18.0, 42.0, seed + 1, lines=lines)
     d = ImageDraw.Draw(plan)
+    pr = K.R(seed + 77)                                                  # ROUND TWO: the asphalt's repeat broken, cell by cell
+    for cx in range(N):
+        for k in range(3):
+            x0 = M(cx * 12 + 1.0 + pr() * 7.0); w = M(1.5 + pr() * 3.0)
+            lane = [(18.6, 20.4), (21.3, 24.1), (25.0, 27.9), (32.1, 34.9), (35.7, 38.6), (39.4, 41.5)][pr.i(6)]
+            y0 = M(lane[0] + pr() * 0.4); h = min(M(lane[1]) - y0, M(1.0 + pr() * 2.0))
+            d.rectangle([x0, y0, min(x0 + w, BP - M(0.7)), y0 + h], fill=[A[2], A[3], A[4]][pr.i(3)])     # a patch, a different pour
+            for _ in range(int(w * h / 900)): d.point((x0 + pr.i(max(1, w)), y0 + pr.i(max(1, h))), fill=[A[1], A[5]][pr.i(2)])
+        for k in range(4):                                               # cracks, wandering, never across the paint
+            lane = [(18.6, 20.4), (21.3, 24.1), (25.0, 27.9), (32.1, 34.9), (35.7, 38.6), (39.4, 41.5)][pr.i(6)]
+            x, y = M(cx * 12 + 1.0 + pr() * 9.0), M(lane[0] + 0.3 + pr() * (lane[1] - lane[0] - 0.6))
+            pts = [(x, y)]
+            for _ in range(6):
+                x += M(0.3 + pr() * 0.6); y = min(max(y + M((pr() - 0.5) * 0.5), M(lane[0] + 0.2)), M(lane[1] - 0.2))
+                pts.append((min(x, BP - M(0.7)), y))
+            d.line(pts, fill=A[1], width=2)
     d.rectangle([0, M(18.0) - 3, BP, M(18.0)], fill=C[5]); d.rectangle([0, M(42.0), BP, M(42.0) + 3], fill=C[5])   # the curb lines, as the street's
-    d.rectangle([0, M(29.4), BP, M(30.6)], fill=C[3])                    # the barrier's footing, a concrete strip under the segments
+    d.rectangle([0, M(29.7), BP, M(30.3)], fill=C[4])                    # the barrier's footing, narrow and light (round two: no dark band)
     board = plan.resize((BP, PY * N), Image.NEAREST)
     B.faces(board, road.resize((BP, PY * N), Image.NEAREST), C[2], 0.15)
     d = ImageDraw.Draw(board)
@@ -127,12 +143,12 @@ def freeway2(seed, overpass=False, north='lot'):
         for rw in range(N): dk.paste(F.street_small(19 + 2 * rw, ns=True).crop((0, 0, M(x1) - M(x0), PY)), (0, rw * PY))
         shadow = _mask().resize((BP, PY * N)); sd = ImageDraw.Draw(shadow)
         sd.rectangle([M(x1), ty(M(17.0)), M(x1 + 3.0), ty(M(43.0))], fill=255)   # its shadow east, on the lanes only
-        B.shade_mask(board, shadow, 0.62)
+        B.shade_mask(board, shadow, 0.84)                                # round two: a soft shadow, never a dark band down the road
         board.paste(dk, (M(x0), 0))
         d = ImageDraw.Draw(board)
-        for xr, col in ((M(x0), C[6]), (M(x1) - M(0.3), C[4])):          # the railings, over the span only
+        for xr, col in ((M(x0), C[6]), (M(x1) - M(0.3), C[5])):          # the railings, over the span only
             d.rectangle([xr, ty(M(16.0)), xr + M(0.3), ty(M(44.0))], fill=col)
-            for y in range(ty(M(16.0)), ty(M(44.0)), ty(M(2.0))): d.rectangle([xr - 2, y, xr + M(0.3) + 2, y + 4], fill=C[2])
+            for y in range(ty(M(16.0)), ty(M(44.0)), ty(M(2.0))): d.rectangle([xr - 1, y, xr + M(0.3) + 1, y + 3], fill=C[4])
         for _ in range(40):                                              # oil stains and spalls on the span
             sx, sy = M(x0 + 3) + r.i(M(x1 - x0 - 6)), ty(M(18.0)) + r.i(ty(M(24.0)))
             d.ellipse([sx, sy, sx + M(0.4 + r() * 1.2), sy + ty(M(0.3 + r() * 0.8))], fill=C[2] if r() < 0.6 else A[3])

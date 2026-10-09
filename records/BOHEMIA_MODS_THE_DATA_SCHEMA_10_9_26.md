@@ -16,25 +16,28 @@ Paolo 9/30: "the point of the mods chat is to make it easy for people to make mo
 |---|---|---|---|
 | BOHEMIA_GROUND_EDGES.json | 6 values | a build input, not read live | 1 |
 | ai.json | 4 values | BOHEMIA_FIGHT.html | 2 |
-| armor.json | 184 rows | bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html, BOHEMIA_SETTLEMENT_SCREEN.html, bohemia_ui_materials.js | 2 |
-| backgrounds.json | 77 rows and 2 values | bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html | 3 |
-| enemies.json | 160 rows | BOHEMIA_FIGHT.html | 1 |
-| injuries.json | 59 rows and 1 values | BOHEMIA_FIGHT.html | 0 |
-| origins.json | 15 rows and 1 values | BOHEMIA_ALPHA_0_9.html, BOHEMIA_DEMO.html, BOHEMIA_FIGHT.html | 3 |
-| ours.json | 26 values | bohemia_roster.js, BOHEMIA_ALPHA_0_9.html, BOHEMIA_DEMO.html, BOHEMIA_FIGHT.html, BOHEMIA_ROSTER_SCREEN.html, BOHEMIA_SETTLEMENT_SCREEN.html, BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html, BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html | 3 |
-| party_math.json | 7 values | BOHEMIA_CITY_WORLD.html | 2 |
+| armor.json | 184 rows | bohemia_godgear.js, bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html, BOHEMIA_SETTLEMENT_SCREEN.html, bohemia_ui_materials.js | 4 |
+| backgrounds.json | 77 rows and 2 values | bohemia_goodbros.js, bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html | 4 |
+| contract_terms.json | 7 values | bohemia_contracts.js | 1 |
+| enemies.json | 160 rows | BOHEMIA_FIGHT.html, vote/CHARACTER_THE_ENEMY_TIERS_DRESSED.html | 2 |
+| factions.json | 4 rows and 2 values | bohemia_factions.js | 1 |
+| injuries.json | 59 rows and 1 values | BOHEMIA_FIGHT.html, BOHEMIA_SETTLEMENT_SCREEN.html | 1 |
+| origins.json | 15 rows and 1 values | BOHEMIA_ALPHA_0_9.html, BOHEMIA_DEMO.html, BOHEMIA_FIGHT.html | 4 |
+| ours.json | 27 values | bohemia_roster.js, BOHEMIA_ALPHA_0_9.html, BOHEMIA_DEMO.html, BOHEMIA_FIGHT.html, BOHEMIA_ROSTER_SCREEN.html, BOHEMIA_SETTLEMENT_SCREEN.html, BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html, BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html | 4 |
+| party_math.json | 7 values | bohemia_factions.js, BOHEMIA_CITY_WORLD.html | 3 |
 | perk_translation.json | 50 rows and 1 values | BOHEMIA_FIGHT.html | 1 |
 | perks.json | 50 rows and 1 values | BOHEMIA_FIGHT.html | 2 |
-| price_table.json | 8 values | bohemia_pricetable.js | 1 |
+| price_table.json | 8 values | bohemia_contracts.js, bohemia_pricetable.js, bohemia_stash.js | 3 |
 | rules.json | 14 values | BOHEMIA_FIGHT.html | 2 |
+| stash_rates.json | 6 values | bohemia_stash.js | 1 |
 | weapon_lines.json | 15 rows | BOHEMIA_FIGHT.html | 1 |
-| weapons.json | 126 rows | bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html, BOHEMIA_SETTLEMENT_SCREEN.html, bohemia_ui_materials.js | 2 |
+| weapons.json | 126 rows | bohemia_godgear.js, bohemia_pricetable.js, bohemia_roster.js, BOHEMIA_FIGHT.html, BOHEMIA_SETTLEMENT_SCREEN.html, bohemia_ui_materials.js | 4 |
 
 ### BOHEMIA_GROUND_EDGES.json
 
-*55503 bytes.* 
+*53978 bytes.* 
 
-**Values:** `compass` "NORTH is up the screen (the far side of the ...; `types` {"road":"asphalt","walk":"sidewalk, shoulder,...; `join_rule` "road, curb-walk and water runs meet the same...; `px_per_metre` [30.333333333333332,42.916666666666664]; `blocks` {"corner.0":{"N":{"runs":[["lot",0,24.35],["w...; `faults` {"desert":{"board":[],"with_apron":[]},"shore...
+**Values:** `compass` "NORTH is up the screen (the far side of the ...; `types` {"road":"asphalt","walk":"sidewalk, shoulder,...; `join_rule` "road, curb-walk and water runs meet the same...; `px_per_metre` [30.333333333333332,42.916666666666664]; `blocks` {"casino.0":{"N":{"runs":[["lot",0,60]],"line...; `faults` {"desert":{"board":[],"with_apron":[]},"shore...
 
 ### ai.json
 
@@ -125,6 +128,12 @@ Paolo 9/30: "the point of the mods chat is to make it easy for people to make mo
 
 **Values:** `base_stats` {"stats":{"hp":[50,60],"fatigue":[90,100],"re...; `hiring_and_wage_rules` {"hiring_quote":"The background defines a bas...
 
+### contract_terms.json
+
+*6114 bytes.* ECONOMY [the contract's worth], rule 74. Contracts priced by skulls and distance, clout raising the pay, a failed one costing relation, the haggle and its cost. Pulled directly from the wiki's own Contracts and Relations pages (reference/library/grok/wiki/PAGE
+
+**Values:** `difficulty` {"_about":"contract difficulty is measured in...; `renown` {"_about":"'the crowns reward increases with ...; `haggle` {"_about":"the full negotiation mechanic, pul...; `workedExampleWikiCrowns` {"_about":"the wiki page's own four real exam...; `workedExampleBatteries` {"_about":"the same four rows at ten wiki cro...; `relationsCost` {"_about":"every relations change the wiki's ...; `relationBands` {"_about":"for reading what a relation number...
+
 ### enemies.json
 
 *333522 bytes.* Battle Brothers enemy stats copied exactly from the wiki text in the repo (rule 63d); every row cites its page
@@ -164,6 +173,36 @@ Paolo 9/30: "the point of the mods chat is to make it easy for people to make mo
 | listed_in | list | ["beasts"] | 0 of 160 |  |
 | table_sources | list | ["bb_all/0224_Beasts.txt"] | 0 of 160 |  |
 | ... | | 7 more fields | | |
+
+### factions.json
+
+*6965 bytes.* The demo's factions as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json
+
+**factions: 4 rows.** Fields:
+
+| field | type | example | blank | range |
+|---|---|---|---|---|
+| id | string | "brigands" | 0 of 4 |  |
+| name | string | "Road crews" | 0 of 4 |  |
+| enemy_faction | string | "brigands" | 0 of 4 |  |
+| banner | string | "#ff6a00" | 0 of 4 |  |
+| banner_ours | boolean | true | 0 of 4 |  |
+| mix | object | {"early":{"brigand_thug":8,"lower_brigand_rai... | 0 of 4 |  |
+| ground | list | ["road","freeway","interchange"] | 0 of 4 |  |
+| behaviour | string | "raid" | 0 of 4 |  |
+| behaviour_source | string | "reference/library/grok/wiki/PAGES_ALL.tar.gz... | 0 of 4 |  |
+| behaviour_quote | string | "In the early game Brigand groups usually con... | 0 of 4 |  |
+| face | object | {"id":"face-brigands-boss","role":"the crew's... | 0 of 4 |  |
+| voice | object | {"text":"Esta carretera es nuestra. Pay the t... | 0 of 4 |  |
+| want | object | {"id":"hold-the-freeway","text":"to own the f... | 0 of 4 |  |
+| base | object | {"kind":"camp","tier":"camp","note":"a home b... | 0 of 4 |  |
+| memory | object | {"driven_by":"beef","bands":["unknown","wary"... | 0 of 4 |  |
+| mix_source | string | "records/target/bb/ours.json enemy_tiers (bb_... | 0 of 4 |  |
+| mix_ours | boolean | true | 0 of 4 |  |
+| mix_note | string | "draft make-up from enemies.json ids; COMBAT'... | 0 of 4 |  |
+| behaviour_ours | boolean | true | 0 of 4 |  |
+
+**Values:** `banner_rule` "a faction's ink is nobody else's; chosen by ...; `gaps` ["no dead or beast art exists, so the card sh...
 
 ### injuries.json
 
@@ -222,9 +261,9 @@ Paolo 9/30: "the point of the mods chat is to make it easy for people to make mo
 
 ### ours.json
 
-*18348 bytes.* Bohemia's own numbers in the rebuilt fight (rule 63): only what Paolo ruled, each row citing the law or record that holds his words. Everything else the fight feels is Battle Brothers' and lives in the other files of this folder. TUNING owns changing any of th
+*19403 bytes.* Bohemia's own numbers in the rebuilt fight (rule 63): only what Paolo ruled, each row citing the law or record that holds his words. Everything else the fight feels is Battle Brothers' and lives in the other files of this folder. TUNING owns changing any of th
 
-**Values:** `beat_bpm` 120; `field_size` 12; `roster_size` 20; `struck_down_death_chance` 0.2; `struck_down_laid_up_days` [30,40]; `main_character_dies` false; `first_enemy_band` 6; `weapon_jobs` {"pistol":"dagger","shotgun":"handgonne","rif...; `board_tiles` [20,15]; `grid` "square"; `veteran_death_chance` 0.1; `weapon_rows` {"pipe":"bludgeon","car_door":"wooden_shield"...; `crew` [{"name":"YOU","main":true,"background":"sell...; `first_band` ["brigand_thug","brigand_thug","brigand_thug"...; `night` false; `cover_tile_blocks_line` false; `perk_builds` {"pipe":["colossus","steel_brow","rally_the_t...; `board_mix` {"families":{"city":["subs","suburb_stem","co...; `start_cols` [7,12]; `cover_defence` {"melee_per_piece":5,"ranged_per_piece":10,"m...; `people_looks` {"crew":["you","cast_longcoat","cast_barearms...; `formation_depth_lines` 2; `night_lights` {"lit_tile_plays_as_day":true}; `formation` {"slots_per_row":9}; and 2 more
+**Values:** `beat_bpm` 120; `field_size` 12; `roster_size` 20; `struck_down_death_chance` 0.2; `struck_down_laid_up_days` [30,40]; `main_character_dies` false; `first_enemy_band` 6; `weapon_jobs` {"pistol":"dagger","shotgun":"handgonne","rif...; `board_tiles` [20,15]; `grid` "square"; `veteran_death_chance` 0.1; `weapon_rows` {"pipe":"bludgeon","car_door":"wooden_shield"...; `crew` [{"name":"YOU","main":true,"background":"sell...; `first_band` ["brigand_thug","brigand_thug","brigand_thug"...; `night` false; `cover_tile_blocks_line` false; `perk_builds` {"pipe":["colossus","steel_brow","rally_the_t...; `board_mix` {"families":{"city":["subs","suburb_stem","co...; `start_cols` [7,12]; `cover_defence` {"melee_per_piece":5,"ranged_per_piece":10,"m...; `people_looks` {"crew":["you","cast_longcoat","cast_barearms...; `formation_depth_lines` 2; `night_lights` {"lit_tile_plays_as_day":true}; `formation` {"slots_per_row":9}; and 3 more
 
 ### party_math.json
 
@@ -284,6 +323,12 @@ Paolo 9/30: "the point of the mods chat is to make it easy for people to make mo
 *64925 bytes.* {"what":"Battle Brothers combat rules as numbers, every value carrying its wiki page and an exact quote. Reference only: describes Battle Brothers' own hex board; Bohemia's square grid and house tiles are separate locked rulings.","sources":{"bb_all/*":"refere
 
 **Values:** `board` {"grid":{"value":"hex","source":"bb_all/0424_...; `deployment` {"min_gap_between_lines_hexes":{"value":5,"so...; `ap` {"per_turn":{"value":9,"source":"bb_all/0424_...; `fatigue` {"action_needs_fatigue":{"value":"a fully fat...; `initiative_and_turn_order` {"order":{"value":"highest initiative acts fi...; `zone_of_control` {"who_exerts":{"value":"melee units: melee we...; `hit_chance` {"base_melee":{"value":"melee skill - melee d...; `head_and_critical` {"head_roll_is_second_d100":{"value":true,"so...; `damage` {"simplified_formula":{"value":{"armor_damage...; `status_effects` {"bleeding":{"value":{"hp_per_turn":5,"turns"...; `morale` {"states":{"value":["Unbreakable","Confident"...; `injuries_and_death` {"hp_zero":{"value":"killed or struck down","...; `experience` {"level_table_total_xp":{"value":{"2":200,"3"...; `parsed` {"morale_struck":{"value":{"threshold_hp":15,...
+
+### stash_rates.json
+
+*4336 bytes.* ECONOMY [what the stash is], rule 74. What the bar's six counts (batteries, food, meds, rounds/ammo, tape/tools, water) cost PER DAY, from the wiki's own pages, never converted to batteries here -- a day's SPEND is a count consumed, not a price paid. Cross-cit
+
+**Values:** `foodByTerrain` {"_about":"the wiki's own baseline (2 a man a...; `foodSpoilDaysExtended` {"_about":"extends price_table.json dailyRate...; `toolRepair` {"_about":"extends price_table.json dailyRate...; `medicine` {"_about":"one point per injury per day or th...; `ammo` {"_about":"no existing block to extend; this ...; `sharedPileNote` {"_about":"GROK_116 reports Paolo said food a...
 
 ### weapon_lines.json
 
@@ -354,5 +399,8 @@ That is the whole change. These files name `damage_min` and read it live or chec
 - `gates/the_rebuilt_fight_plays_gate.js`
 - `slices/BOHEMIA_FIGHT.html`
 - `slices/BOHEMIA_SETTLEMENT_SCREEN.html`
+- `tools/bohemia_mods_merge_proof.js`
+- `tools/bohemia_mods_merge_reference.js`
+- `tools/bohemia_mods_schema_page.js`
 
 Nothing else needs editing: the fight rolls its damage from the row, the settlement screen and the roster print it from the row, and the fight's gate reads the number from the row instead of pinning a digit. (Checked by reading the code. The gate takes about five minutes and was not re-run with a changed row, so run it yourself before you trust a change.)

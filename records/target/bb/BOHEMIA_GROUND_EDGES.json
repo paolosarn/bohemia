@@ -14,6 +14,144 @@
   42.916666666666664
  ],
  "blocks": {
+  "casino.0": {
+   "N": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "S": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "W": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   },
+   "E": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   }
+  },
+  "casino.1": {
+   "N": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "S": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "W": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   },
+   "E": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   }
+  },
+  "casino.2": {
+   "N": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "S": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 2575
+   },
+   "W": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   },
+   "E": {
+    "runs": [
+     [
+      "lot",
+      0.0,
+      60.0
+     ]
+    ],
+    "lines_m": [],
+    "px": 1820
+   }
+  },
   "corner.0": {
    "N": {
     "runs": [
@@ -904,16 +1042,16 @@
      [
       "road",
       18.13,
-      29.37
+      29.67
      ],
      [
       "walk",
-      29.37,
-      30.63
+      29.67,
+      30.33
      ],
      [
       "road",
-      30.63,
+      30.33,
       42.0
      ],
      [
@@ -930,8 +1068,6 @@
     "lines_m": [
      20.9,
      24.59,
-     28.32,
-     31.65,
      35.34,
      39.03,
      42.02
@@ -953,16 +1089,16 @@
      [
       "road",
       18.13,
-      29.37
+      29.67
      ],
      [
       "walk",
-      29.37,
-      30.63
+      29.67,
+      30.33
      ],
      [
       "road",
-      30.63,
+      30.33,
       42.0
      ],
      [
@@ -979,8 +1115,6 @@
     "lines_m": [
      20.9,
      24.59,
-     28.32,
-     31.65,
      35.34,
      39.03,
      42.02
@@ -1074,16 +1208,16 @@
      [
       "road",
       18.13,
-      29.37
+      29.67
      ],
      [
       "walk",
-      29.37,
-      30.63
+      29.67,
+      30.33
      ],
      [
       "road",
-      30.63,
+      30.33,
       42.0
      ],
      [
@@ -1100,8 +1234,6 @@
     "lines_m": [
      20.9,
      24.59,
-     28.32,
-     31.65,
      35.34,
      39.03,
      42.02
@@ -1123,16 +1255,16 @@
      [
       "road",
       18.13,
-      29.37
+      29.67
      ],
      [
       "walk",
-      29.37,
-      30.63
+      29.67,
+      30.33
      ],
      [
       "road",
-      30.63,
+      30.33,
       42.0
      ],
      [
@@ -1149,8 +1281,6 @@
     "lines_m": [
      20.9,
      24.59,
-     28.32,
-     31.65,
      35.34,
      39.03,
      42.02
@@ -4086,6 +4216,10 @@
     "shore.1|shore.0 E-W: water meets something else over 152 px (from px 59)"
    ]
   },
+  "casino": {
+   "board": [],
+   "with_apron": []
+  },
   "suburb": {
    "board": [],
    "with_apron": []
@@ -4122,37 +4256,6 @@
     "suburb_stem.0/corner.1 N-S: a line at px 1488 starts at the seam"
    ],
    "with_apron": [
-    "culdesac.1/culdesac.0 N-S: road meets something else over 395 px (from px 1090)",
-    "culdesac.1/culdesac.0 N-S: walk meets something else over 105 px (from px 1045)",
-    "culdesac.1/culdesac.0 N-S: a line at px 1087 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1163 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1410 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1486 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: road meets something else over 395 px (from px 1090)",
-    "culdesac.0/culdesac.1 N-S: walk meets something else over 105 px (from px 1045)",
-    "culdesac.0/culdesac.1 N-S: a line at px 1087 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1163 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1410 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1486 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: road meets something else over 395 px (from px 1090)",
-    "culdesac.1/culdesac.0 N-S: walk meets something else over 105 px (from px 1045)",
-    "culdesac.1/culdesac.0 N-S: a line at px 1087 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1163 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1410 stops at the seam",
-    "culdesac.1/culdesac.0 N-S: a line at px 1486 stops at the seam",
-    "culdesac.0|subs.1 E-W: road meets something else over 275 px (from px 774)",
-    "culdesac.0|subs.1 E-W: walk meets something else over 72 px (from px 728)",
-    "culdesac.0|subs.1 E-W: a line at px 912 starts at the seam",
-    "culdesac.0|subs.1 E-W: a line at px 1050 starts at the seam",
-    "culdesac.0/culdesac.1 N-S: road meets something else over 395 px (from px 1090)",
-    "culdesac.0/culdesac.1 N-S: walk meets something else over 105 px (from px 1045)",
-    "culdesac.0/culdesac.1 N-S: a line at px 1087 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1163 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1410 stops at the seam",
-    "culdesac.0/culdesac.1 N-S: a line at px 1486 stops at the seam",
-    "culdesac.0/suburb_stem.1 N-S: a line at px 1163 stops at the seam",
-    "culdesac.0/suburb_stem.1 N-S: a line at px 1410 stops at the seam",
-    "culdesac.0/suburb_stem.1 N-S: a line at px 1287 starts at the seam",
     "culdesac.1/suburb_stem.0 N-S: a line at px 1163 stops at the seam",
     "culdesac.1/suburb_stem.0 N-S: a line at px 1410 stops at the seam",
     "culdesac.1/suburb_stem.0 N-S: a line at px 1287 starts at the seam",
@@ -4166,11 +4269,6 @@
     "culdesac.1/suburb_stem.0 N-S: a line at px 1163 stops at the seam",
     "culdesac.1/suburb_stem.0 N-S: a line at px 1410 stops at the seam",
     "culdesac.1/suburb_stem.0 N-S: a line at px 1287 starts at the seam",
-    "suburb_stem.1/corner.2 N-S: road meets something else over 395 px (from px 1090)",
-    "suburb_stem.1/corner.2 N-S: walk meets something else over 105 px (from px 1045)",
-    "suburb_stem.1/corner.2 N-S: a line at px 1086 starts at the seam",
-    "suburb_stem.1/corner.2 N-S: a line at px 1287 starts at the seam",
-    "suburb_stem.1/corner.2 N-S: a line at px 1488 starts at the seam",
     "suburb_stem.0/corner.1 N-S: road meets something else over 395 px (from px 1090)",
     "suburb_stem.0/corner.1 N-S: walk meets something else over 105 px (from px 1045)",
     "suburb_stem.0/corner.1 N-S: a line at px 1086 starts at the seam",

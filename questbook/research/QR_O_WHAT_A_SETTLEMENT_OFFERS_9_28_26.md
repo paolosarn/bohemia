@@ -1,6 +1,7 @@
 # QR-O: WHAT DOES A SETTLEMENT OFFER, AND HOW DOES THE BOARD READ THE WORLD?
 
 STATUS: draft:true, research only, nothing built (rule 35). Letter O, row [what a settlement offers], round 9/28.
+FOLDED 10/9 (QR-AK): QR-U rules 17 to 19 and the sharpens of rules 10, 11 and 14, at the end of THE RULE FOR THE BUILDING LANES, each marked in place.
 Written for RUN, WORLD, FACTIONS, PEOPLE, WORDS, ECONOMY and DYNASTY. Every name and identity choice is Paolo's.
 Governing rulings: records/BOHEMIA_PAOLO_QUESTS_ARE_THE_SETTLEMENT_CONTRACT_SCREEN_9_28_26.md (contracts are the
 Battle Brothers settlement contract screen), laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md s2 (PLACES ARE
@@ -242,6 +243,23 @@ derive together.
     pays the same or less. (`Q031.W5`, `Q130.X9`)
 16. Across the three acts at once, the same base's board in a later era is derived from the contracts done and the
     raids made there in earlier eras, signed both ways. (`Q049.P3`, `Q089.W4`, `Q046.W7`)
+
+17. A PROSPEROUS BASE MAY SIT ON A LID. (folded 10/9 from QR-U) The order and the silver work on top of a buried conquest (`Q192.W1`);
+    the peace and the crime are one structure (`Q154.W3`); the hostility rises in readable steps when you pull the
+    thread (`Q154.W9`). Test: a boom base's board may carry one offer whose job is the thread, and pulling it changes the
+    base's situation (QR-S rule 9).
+18. A BUILDING THAT ALLOCATES. (folded 10/9 from QR-U) Restore a scarce resource and allocate it at one console, no combat, a switch and
+    its downstream shape (`Q169.P1`); the switch-holder is accountable to the bases he lit or left dark (`Q169.P4`,
+    with `Q169.W1`, `Q169.W2`, `Q169.W8`, `Q169.X3`). Test: a pump house or substation built on a home base's settlement
+    screen holds a share switch whose setting shows on another base's board.
+19. A BASE OF THE REFORMED. (folded 10/9 from QR-U) A community that left a dark past defends the new life with the old skills
+    (`Q197.P1`). Test: at most one of the fourteen home bases is this town, and its sieges read QR-R rule 21.
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 10 (every finished contract moves a price): supplied castles and burned granaries become prices and boards met
+  later (`Q236.W8`).
+- Rule 11 (scavenge always available): it is what keeps the no free (`Q236.X4`, QR-A C19).
+- Rule 14 (renown never locks): `Q236.W9`.
 
 ## WHAT TO AVOID (flaw ids)
 

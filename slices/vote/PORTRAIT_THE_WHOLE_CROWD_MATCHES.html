@@ -1,0 +1,21 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA — The Whole Crowd Matches</title>
+<!-- PORTRAIT [hairstyles match] round two, 10/9/26. This is a shipped fix, not a vote. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  img{max-width:100%;image-rendering:pixelated;border-radius:6px}
+  p{max-width:70ch;color:#a49a86}
+  b{color:#c8bfa8;font-weight:normal}
+</style>
+<p>Last round fixed the hair picker you build your own face with. While getting that fix
+into the game this round, the same mistake turned up in the much bigger place: the
+portrait every citizen in the valley gets. Three haircuts have a real texture (ropes,
+locs); the portrait was picking a random one instead of reading the real one.</p>
+<p>Checked on 300 people: <b>82 of 82</b> now match,
+up from 6 of 82 before. Already shipped, not a vote -- your own approved face never
+goes through this code at all, so it never moved.</p>
+<img src="PORTRAIT_THE_WHOLE_CROWD_MATCHES.png" alt="the whole crowd matches">

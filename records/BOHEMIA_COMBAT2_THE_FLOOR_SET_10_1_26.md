@@ -355,3 +355,43 @@ real fight (manifest board + ours.board_tiles routed to the sized board, a party
 FOR COMBAT (its code, not mine): the fight still deals its own block mixes (dealOnce) without the join rule and
 crops; reading sized[kind][size] when the party is small or middle keeps every seam joined.
 VOTE: combat2-boards-by-size-<kind>-10-9, six sheets.
+
+## ROUND TWENTY-FIVE (10/9): [the casino floor], SHIPPED
+
+The one interior board (WORLD 9/30's fifteen grounds): tools/bohemia_combat2_the_casino_floor_cook_10_9_26.py,
+board 'casino' (4 x 3 blocks of casino.0 slot rows / casino.1 the cashier's cage / casino.2 the table pit).
+The carpet in his terracotta ramp with a brass motif, worn per tile, stains kept off the block sides; new pieces
+slot_bank (COVER 1.7 m), table (LOW_COVER 0.9 m, felt from his tiles' greens), pillar (COVER 3.6 m, blocks_move);
+the cage is two HEIGHT tiles with bars on the face; every block's middle row is an open aisle. Lights: about
+one slot bank in five glows on a scavenged battery (light_slot_glow.png, circuit 'grid', radius 4 m) and one or
+two drum fires a block (circuit 'fire'). Rule 77: casino 0/0 (board and apron), ratchet line added; the
+cul-de-sac's apron improved 64 -> 28 on this build and its ratchet is tightened to 28/28.
+Verified in the new fight: FIGHT_OPTS {board:'casino'} day and night, 20 x 15, 21 units, 0 page errors.
+VOTE: combat2-the-casino-floor-10-9.
+
+## ROUND TWENTY-SIX (10/9): [the future boards], SHIPPED
+
+His second votes ('the game starts in the ruin and the future gets better') and 'the future goes both ways':
+tools/bohemia_combat2_the_future_boards_cook_10_9_26.py writes two futures of every shipped block on the same
+plan and tiles: RECLAIMED (solar arrays over the clay roofs, raised garden beds in the yards, cars and trailers
+out of the cover, every lamp live) and RAIDED (80% of roofs charred with a hole, scorch on the ground beside the
+asphalt, rubble pieces, grid lamps dead and only fires live). Overlays stay 0.6 m off every block side and never
+touch asphalt or the lane paint's colours (a first cut broke two seams that way: the panel frames in C[5] read as
+lines, the scorch covered dashes; fixed). fight_ground.json futures[state] = {blocks, boards: {cover, lights}};
+the builder runs it last. Gate TILES ARE LEGOS LEG 1c: every board in both futures no worse than today (green).
+Verified in the new fight: suburb and freeway x today/reclaimed/raided x day/night, 12 runs, 0 errors.
+FOR COMBAT / DYNASTY: the act (or a raid) picks the state; swap blocks[id].src and the board's cover and lights.
+VOTE: combat2-the-future-boards-10-9.
+
+## ROUND TWENTY-SEVEN (10/9): [the freeway round two], SHIPPED
+
+DIRECTION FIGHT VERDICT 22 (e8a6625e) named five freeway pieces that still read as another game; all five re-cut:
+1 cover_jersey: cast concrete (top lit, slope, foot), aggregate grain from his concrete ramp, tar stains, chipped
+corners, joints and lifting holes (was 3 tans, 0.40 col/kpx). 2 the edge lines: fog lines C[5], the street's own
+white; median lines G[5], a faded yellow (was T[5] #db7e46, the loudest thing on the board). 3 cover_trailer:
+ribbed panels with grime, rear doors and bars, rust streaks from the rivet lines, chassis rail and wheels, the
+fleet name painted out (was 4 colours). 4 the asphalt: per cell three patches of a different pour and four
+wandering cracks, inside the lanes only, never across the paint, 0.7 m off the block sides (the Lego edges hold).
+5 the dark band: the overpass's shadow 0.84 (was 0.62), the railing posts lighter, the barrier footing narrow and
+light. Gate TILES ARE LEGOS green, freeway 0/0 today and in both futures. Verified in the new fight (before /
+after, 0 errors). VOTE: combat2-the-freeway-round-two-10-9; DIRECTION re-judges.

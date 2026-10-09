@@ -1,4 +1,7 @@
-# MODS [what is data and what is not] -- THE AUDIT OF THE DEMO'S CONTENT (10/9/26)
+# MODS [what is data and what is not]
+
+> **CORRECTION 10/10: the new fight reads 11 of the 14 files, not 12.** The audit counted a file as read when its name appeared anywhere in the page's text, and `origins.json` appears in a COMMENT in the fight, not in its list of files to fetch (`DATA_FILES`, 11 bb files). The tool now counts a file only when its path sits inside a quoted string. The finding stands (the new fight is the model; the demo start screen and the map read 1 each); the number was wrong by one, and the original page said 12. Main now holds 18 data files; the fight reads 11 of 18.
+ -- THE AUDIT OF THE DEMO'S CONTENT (10/9/26)
 
 Lane 22 MODS, session mods-59jyd6. Row: AUDIT-THE-DEMO-FOR-HARDCODED-CONTENT (top OPEN row, rule 74).
 Rules: 22 (mod-friendly and readable), 63d (the numbers are data files), 78 (all chats run; MODS stays
@@ -8,7 +11,7 @@ Companion: records/BOHEMIA_MODS_READ_COUNT_LATEST.json (`node tools/bohemia_mods
 
 ## 0. THE ANSWER IN ONE LINE
 
-**The new fight is already the model: it reads 12 of the 14 data files in records/target/bb and has one loose
+**The new fight is already the model: it reads 11 of the 14 data files in records/target/bb and has one loose
 table (its sound table, 930 characters). The demo's start screen reads 1 file and the map reads 1.** And the
 demo still carries a sealed copy of the OLD fight with 0 data files, so a modder who edits the weapons file
 changes only half of what the player can open.
@@ -19,7 +22,7 @@ changes only half of what the player can open.
 
 weapons 126 rows, enemies 160, backgrounds 77, injuries 59, perks 50, perk_translation 50, ours 27, armor 7,
 weapon_lines 15, rules 15, party_math 8, ground_edges 6, ai 5, origins 3 (a file of defaults plus a list of 15).
-Read live by: the new fight (12 of 14: all but party_math and ground_edges), the demo start screen
+Read live by: the new fight (11 of 14 then; see the correction), the demo start screen
 (origins.json only), the map (party_math.json only). BOHEMIA_GROUND_EDGES.json is a cook-time input, read by
 a gate and a tool, never live.
 

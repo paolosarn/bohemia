@@ -1,0 +1,35 @@
+ARMOUR YOU CAN SEE -- CHARACTER, 10/9/26, [armour you can see], rule 76 and his "equipment"
+
+armor.json has 78 body rows and 87 head rows, and neither carries a tier field. The
+method is the real stat every row has: durability, already sorted ascending in the
+wiki table (checked monotonic on both lists). Split into four equal quartiles by
+count: body 20/20/19/19, head 22/22/22/21. records/target/bb/armor_tiers.json holds
+both splits plus every row id in each bucket, so it re-cuts itself if the source data
+ever changes, nothing hand-typed per item.
+
+THE FOUR TIERS, EACH A REAL EXISTING GARMENT, ZERO NEW ART:
+  PADDED   OLIVE HOODIE (a base-layer swap, soft bulk, durability 5-50)
+  LEATHER  + LEATHER JACKET over the hoodie, + CHARCOAL WATCH CAP (durability 55-105)
+  MAIL     TACTICAL VEST swapped in for the jacket, + DESERT SHEMAGH (durability 110-180)
+  PLATE    vest kept, + SCRAP CHEST PLATE on the gear slot, + SHOULDER MANTLE + SCRAP HELM
+           (durability 190-320)
+
+THE SHIP TEST IS "ONE MAN IN FIVE ARMOURS": the fifth is BARE, the same body before he
+has bought anything, so the escalation reads start to finish on one unchanged man.
+
+A FIRST TRY REUSED THE WRONG RULER, CAUGHT BY LOOKING AT THE PICTURE: the enemy-tiers
+row's silhouette-width check (outline only) said the hoodie, the jacket and the vest
+were "the same body," because all three are close-fitted torso garments on this rig
+with nearly the same outline -- a real fact about the wardrobe, not a bug, and true to
+Battle Brothers too, whose own padded/leather/mail sprites do not balloon the outline
+either. The outline only really changes once the shoulder mantle lands on the heaviest
+tier. So the real check here is PIXEL DIFFERENCE, proving all five states are genuinely
+different pictures, not just reading the outline:
+  closest pair differs by 701 of 12,544 pixels (floor: 300). Clear.
+  silhouette width (reported, not a floor here): closest pair 0.0000.
+
+NOT HERE, ON PURPOSE: this tool proves the dressing table works and shows it on one
+body. Wiring a specific bought armor.json row (say, "Coat of Plates") to its own tier
+lookup on the roster screen and in the fight is UI's icons and COMBAT's gear slots;
+this lane's job was the visual mapping, armor.json row -> real tier -> real worn
+piece, and that mapping is now data, not a guess made fresh by whoever reads it next.

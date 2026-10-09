@@ -34,3 +34,5 @@ Also reported, already his to the coordinator: the one-not-two rule (GROK_101 = 
 
 25. 'THE TURNS ARE TOO SHORT' (GROK_131-133, 10/9): the coordinator's reading (the other side's moves resolve too fast to read) in VOTE as grok-the-turns-are-too-short-10-9; COMBAT [a turn you can read]. If he meant the day's turn or the beat, the thumb says so.
 26. GEAR COMES WITH THE HIRE; YOU SEE THE STATS, STARS, TRAITS AND BACKGROUND BEFORE YOU PAY (GROK_128-131): already items 9 and 12.
+
+27. A MISSED PAYDAY MAKES A HIRE LEAVE A COUPLE OF DAYS AFTER ZERO, NEVER THE SAME DAY; TRAITS STRETCH OR SHRINK IT (GROK_141, 143, 10/9): VOTE grok-a-hire-walks-two-days-after-zero-10-9; matches GROK_64's 'zero batteries, then 2 days'.

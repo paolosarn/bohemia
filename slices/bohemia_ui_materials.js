@@ -81,11 +81,19 @@
     wait: ['000111111000', '001000000100', '010000100010', '100000100001', '100000100001', '100000100001',
            '100000111001', '100000000001', '100000000001', '010000000010', '001000000100', '000111111000'],
     auto: ['000011111000', '000100000110', '001000000111', '010000001111', '010000000000', '100000000000',
-           '000000000001', '000000000010', '111100000010', '111000000100', '011000001000', '000111110000']
+           '000000000001', '000000000010', '111100000010', '111000000100', '011000001000', '000111110000'],
+    /* THE RESHUFFLE (UI [glass face], 10/9): a ring two pixels thick, open at the top right where the arrowhead
+       sits, the turn the name takes when you ask for another. The ROM face has no circular arrow, so it is drawn */
+    again: ['000111100110', '001111111110', '011000011110', '110000011110', '110000000000', '110000000011',
+            '110000000011', '110000000011', '011000000110', '001111111100', '000111111000', '000000000000'],
+    /* A JOB'S DANGER (UI [phone contracts], 10/9): the skull the settlement's board counts, drawn, because the phone's
+       ROM face has no skull glyph */
+    skull: ['000000000000', '000111111000', '001111111100', '011111111110', '011001100110', '011001100110',
+            '011111111110', '001110011100', '000111111000', '000101101000', '000111111000', '000000000000']
   };
-  function mark(k) {
+  function mark(k, ink) {
     const rows = MARKS[k], c = canvas(36, 36), g = c.getContext('2d');
-    g.fillStyle = '#2a221a';
+    g.fillStyle = ink || '#2a221a';
     rows.forEach(function (r, y) { for (let x = 0; x < 12; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
     return c;
   }
@@ -609,12 +617,79 @@
     }
     style('bm-mapbar', MAPBAR_CSS); return true;
   }
-  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar();
+  /* THE PHONE'S LOOK (UI [the phone's look], rule 67a, 10/9): the cracked iPhone on the map in the bar's hand.
+     The object is his (9/23 a cracked iPhone, 9/27 one crack, his A) and stays: the rail, the chips, the island,
+     the one fracture, no tape. What changes is what it shares with the bar: the game's faces (CASING stamps the
+     handles and the hour, ROM prints the posts), ink that passes the sun test on every post, a hard contact edge
+     instead of the soft glow (71's drop shadow), and the family faces as cardboard cards from the same board as
+     the bar, the one you are lit in the bar's amber, every one 44 points. 44 points for three faces needs 132 of
+     glass, so the phone is 156 wide (still 19.5 by 9); a skin that sets its own width still wins. */
+  var PHONE_CSS = ''
+    + 'html body #cityfeed{--skin-phonew:156px;box-shadow:0 2px 0 #000,inset 0 1px 0 var(--skin-casetop,rgba(240,232,208,.34)),inset 0 -2px 3px rgba(0,0,0,.55)}'
+    + 'html body #cityfeed.ring{box-shadow:0 0 0 2px rgba(216,180,90,.9),0 3px 0 #000,inset 0 1px 0 var(--skin-casetop,rgba(240,232,208,.34)),inset 0 -2px 3px rgba(0,0,0,.55)}'
+    /* the status row: the hour stamped, the signal and the battery bright enough for the sun */
+    + 'html body #cityfeedbar{color:#e2d3ab;border-bottom-color:#2e261a}'
+    + 'html body #cityfeedclock{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;color:#eadcb4}'
+    + 'html body #cityfeedsig{color:#c4b690}'
+    + 'html body #cityfeedbatt{--skin-batt:#c4b690}'
+    /* the posts: the handle stamped in CASING, the words printed in ROM, every ink 4.5 to 1 in the sun */
+    + 'html body #cityfeed .fp .who{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.5px;color:#ead08e}'
+    + 'html body #cityfeed .fp.mine .who{color:#a8f0e2} html body #cityfeed .fp.world .who{color:#f0c47e}'
+    + 'html body #cityfeed .fp .txt{font-family:"BohemiaROM",ui-monospace,monospace;color:#ddd2b6}'
+    /* the family: cardboard cards, read from the left, the one you are lit amber, 44 points each */
+    + 'html body #actflip{gap:3px;padding:4px 5px 5px}'
+    + 'html body #actflip .af{min-width:44px;min-height:44px;box-sizing:border-box;border:0;border-radius:2px;padding:3px 2px 4px;'
+    +   'background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/128px 128px;'
+    +   'box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 1px 0 #000}'
+    + 'html body #actflip .af .afn{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.3px;line-height:1.1;color:#f2e4c6}'
+    + 'html body #actflip .af .afy{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:7px;letter-spacing:.4px;color:#e0c890;opacity:1}'
+    + 'html body #actflip .af.now{background:linear-gradient(#f4cf7c,#d9a650);border:0;box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55),0 1px 0 #000}'
+    + 'html body #actflip .af.now .afn{color:#120c06} html body #actflip .af.now .afy{color:#3a2208}'
+    + 'html body #actflip .af canvas{border-radius:0;box-shadow:0 0 0 1px #0d0a07}'
+    /* THE RESHUFFLE (UI [glass face]): the '?' that stood in for an arrow becomes the drawn ring on a pane of glass, a strip
+       of its own under the face, 24 points tall and the card's width, so it never sits on the face and the flip keeps
+       the whole card above it (44 points and more). The '?' stays in the page for a screen reader, painted at nothing */
+    + 'html body #actflip .af:has(.afr){padding-bottom:31px}'
+    + 'html body #actflip .af .afr{top:auto;left:3px;right:3px;bottom:3px;width:auto;height:24px;box-sizing:border-box;border:1px solid #0d0a07;border-radius:2px;'
+    +   'font-size:0;color:transparent;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.18)}'
+    + 'html body #actflip .af .afr::before{content:"";display:block;width:12px;height:12px;background:var(--bm-mark-again) center/12px 12px no-repeat;image-rendering:pixelated}'
+    + 'html body #actflip .af .afr:active{background:linear-gradient(#f4cf7c,#d9a650)}'
+    /* one of you so far: the card reads from the left, the face then the name, never a label centred in a box (71) */
+    + 'html body #actflip .af:only-child{display:grid;grid-template-columns:28px auto;grid-template-rows:auto auto;column-gap:8px;row-gap:2px;'
+    +   'justify-content:start;justify-items:start;align-content:center;padding:4px 8px}'
+    + 'html body #actflip .af:only-child canvas{grid-row:1/3;grid-column:1} html body #actflip .af:only-child .afn{font-size:10px;align-self:end}'
+    + 'html body #actflip .af:only-child .afy{font-size:8px;align-self:start}'
+    /* the customize row's buttons are pressed too: 44 points, cardboard, the picked one amber */
+    + 'html body #actedit .aeb{height:44px;border:0;border-radius:2px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;color:#f2e4c6;'
+    +   'background:linear-gradient(rgba(12,8,4,.25),rgba(12,8,4,.25)),#3a2c1e var(--bm-cardboard) 0 0/128px 128px;box-shadow:inset 0 1px 0 rgba(255,220,170,.22),0 1px 0 #000}'
+    + 'html body #actedit .aeb.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650)}'
+    /* THE BOARD (UI [phone contracts], bohemia_phone_board.js): the valley's open asks above the feed, each a world post
+       a thumb can press (44 pt), the skulls drawn, the one marked for the map lit amber like the speed you are at */
+    + 'html body #bmboard{flex:0 0 auto;position:relative;z-index:1;padding:4px 5px 3px;border-bottom:1px solid #2e261a}'
+    + 'html body #bmboard .fp.job{margin:0 0 3px;padding:5px 6px 6px;min-height:44px;box-sizing:border-box;cursor:pointer;pointer-events:auto;-webkit-tap-highlight-color:transparent;'
+    +   'border-radius:2px;background:rgba(240,196,126,.07);box-shadow:inset 2px 0 0 #f0c47e}'
+    + 'html body #bmboard .fp.job .txt{margin-top:2px;line-height:1.3}'
+    + 'html body #bmboard .fp.job .meta{display:flex;align-items:center;gap:2px;margin-top:3px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;letter-spacing:.4px;color:#eadcb4}'
+    + 'html body #bmboard .fp.job .meta span{margin-left:4px}'
+    + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
+    + 'html body #bmboard .fp.job.picked{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
+    + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
+    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}';
+  function dressPhone() {
+    if (!document.getElementById('cityfeed')) return false;
+    rootVars();
+    var R = document.documentElement.style;
+    if (!R.getPropertyValue('--bm-mark-again')) R.setProperty('--bm-mark-again', 'url(' + mark('again', '#f2e4c6').toDataURL('image/png') + ')');
+    if (!R.getPropertyValue('--bm-mark-skull')) { R.setProperty('--bm-mark-skull', 'url(' + mark('skull', '#eadcb4').toDataURL('image/png') + ')');
+      R.setProperty('--bm-mark-skull-ink', 'url(' + mark('skull', '#120c06').toDataURL('image/png') + ')'); }
+    style('bm-phone', PHONE_CSS); return true;
+  }
+  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar(); dressPhone();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar };
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone };
 })();

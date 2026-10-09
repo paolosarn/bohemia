@@ -1,0 +1,444 @@
+{
+ "_readme": "WORLD [ground effects] 10/9: what each of the thirteen grounds does to a fight. Written by tools/bohemia_ground_effects_cook_10_9_26.js from engine/bohemia_groundeffects.js -- do not hand edit. THE NUMBERS ARE MEASURED ON WHAT THE DISTRICT KITS REALLY DRAW, not on their legends: a legend count says what a board CAN contain, never how much of a board is that thing, and the two disagree by up to 50 points. The legend says every ground is 43-57% blocked; the drawn boards run 1.5% to 95.8%. Travel speeds are NOT restated here, they are looked up live from engine/bohemia_valleyground.js. Every value carries tuned:false because every felt number is TUNING's (rule 36).",
+ "version": "BOHEMIA_GROUND_EFFECTS_v1",
+ "built": "2026-10-09",
+ "grounds": [
+  {
+   "ground": "suburb_block",
+   "cover": 0.327,
+   "room": 0.627,
+   "door": 0.003,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.49,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "the_strip",
+   "cover": 0.345,
+   "room": 0.531,
+   "door": 0.0018,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.51,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "industrial",
+   "cover": 0.246,
+   "room": 0.707,
+   "door": 0.0029,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.46,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "open_desert",
+   "cover": 0.015,
+   "room": 0.985,
+   "door": 0,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.75,
+   "travelFrom": "RULED",
+   "tuned": false
+  },
+  {
+   "ground": "wash_and_shore",
+   "cover": 0.297,
+   "room": 0.702,
+   "door": 0.0002,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.5,
+   "travelFrom": "RULED",
+   "tuned": false
+  },
+  {
+   "ground": "hills",
+   "cover": 0.958,
+   "room": 0.042,
+   "door": 0,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.25,
+   "travelFrom": "RULED",
+   "tuned": false
+  },
+  {
+   "ground": "freeway",
+   "cover": 0.166,
+   "room": 0.634,
+   "door": 0.0052,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 1,
+   "travelFrom": "RULED",
+   "tuned": false
+  },
+  {
+   "ground": "lot_and_bigbox",
+   "cover": 0.207,
+   "room": 0.734,
+   "door": 0.0024,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.52,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "trailer_park",
+   "cover": 0.296,
+   "room": 0.659,
+   "door": 0.0003,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.41,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "golf_and_park",
+   "cover": 0.107,
+   "room": 0.876,
+   "door": 0.0005,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.72,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "airport",
+   "cover": 0.245,
+   "room": 0.569,
+   "door": 0.0056,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.38,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "solar_and_pumps",
+   "cover": 0.217,
+   "room": 0.773,
+   "door": 0.0003,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.55,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  },
+  {
+   "ground": "landfill",
+   "cover": 0.15,
+   "room": 0.831,
+   "door": 0.0004,
+   "stepCost": 1,
+   "stepRuling": "EVERYTHING COSTS ONE (Paolo 8/15). Battle Brothers' 2/3/4 AP ladder collapses to one step on our boards by his ruling, and separately no kit draws a rough standable cell, so there is nothing for a second beat to attach to.",
+   "height": {
+    "known": false,
+    "why": "UNREAD",
+    "whose": "COMBAT [board generator], with the HEIGHT row of records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_EVERY_FLOOR_TILE_AND_ITS_TRANSLATION_10_1_26.md, the coordinator's 10/1 school page off the wiki's Combat Mechanics and Hit Chance pages"
+   },
+   "travelSpeed": 0.75,
+   "travelFrom": "MEASURED",
+   "tuned": false
+  }
+ ],
+ "battleBrothersRows": [
+  {
+   "row": "obstacles",
+   "bb": "Obstacles: trees, rocks, fences -- impassable, block movement and line of sight",
+   "ours": [
+    "building",
+    "structure",
+    "prop",
+    "vehicle",
+    "tree-dead",
+    "fence"
+   ],
+   "does": "you cannot stand there, you cannot shoot through it, and you can stand behind it",
+   "canFire": true,
+   "tuned": false
+  },
+  {
+   "row": "door",
+   "bb": "INDOORS (ours, not Battle Brothers'): a house tile is cover and a wall at once, and its door is the one way in",
+   "ours": [
+    "gate",
+    "portal"
+   ],
+   "does": "the one cell that gets you through a wall, so it is where a fight indoors is decided",
+   "canFire": true,
+   "tuned": false
+  },
+  {
+   "row": "flat",
+   "bb": "Plains, grass, road and Dirt, sand -- 2 AP, no effect",
+   "ours": [
+    "ground",
+    "drive",
+    "walk",
+    "court",
+    "turf-dead",
+    "marking"
+   ],
+   "does": "one step, nothing else (EVERYTHING COSTS ONE, Paolo 8/15)",
+   "canFire": true,
+   "tuned": false
+  },
+  {
+   "row": "rough",
+   "bb": "Forest floor 3 AP and Snow 3 AP -- a second beat to cross",
+   "ours": [],
+   "does": "NOTHING HERE: no kit draws a rough standable cell, so this row cannot fire",
+   "canFire": false,
+   "tuned": false
+  },
+  {
+   "row": "swamp",
+   "bb": "Swamp, murky water -- 4 AP and a melee-defence malus",
+   "ours": [],
+   "does": "NOTHING HERE: the valley is dry. Not one wet cell on any ground.",
+   "canFire": false,
+   "tuned": false
+  },
+  {
+   "row": "height",
+   "bb": "Hills, elevation -- +1 AP a level, +10% to hit down, -10% up, +1 range a level",
+   "ours": [],
+   "does": "UNREAD: no kit records a level, so a ground cannot say whether it has one",
+   "canFire": false,
+   "tuned": false
+  },
+  {
+   "row": "night",
+   "bb": "Night -- -2 vision, -30% ranged skill, -30% ranged defence",
+   "ours": [],
+   "does": "not a tile at all: the board carries it, the same on every ground",
+   "canFire": false,
+   "tuned": false
+  }
+ ],
+ "unruledKindsTheValleyDraws": {
+  "water-dead": "a drained pool, a dry fountain, an empty basin. The ruled row is MURKY WATER and this is its opposite: you do not wade it, you climb down into it. Closest to the HEIGHT row read backwards, and nothing measures how deep it is, so it answers UNREAD rather than borrowing a number.",
+  "panel": "a solar array. Waist-high, walk-through or not is undecided; Battle Brothers has no half-height obstacle.",
+  "play": "playground equipment: a climbing frame, a slide, a swing set. Same shape of question as the panel and a worse one, because you can stand ON a climbing frame and under it, and Battle Brothers has no tile that is cover and a floor at the same height.",
+  "overhead": "an awning, a canopy, an overpass deck above you. Battle Brothers has nothing over your head that you are not standing on; on the freeway this is 14% of the drawn cells, so it is not a rounding error."
+ },
+ "theValleyIsDry": {
+  "known": true,
+  "wetCellsOnAnyGround": 0,
+  "ruling": "measured on what the district kits really DRAW: every live ground, every kit that can generate, five seeds each, 4.1 million cells (WORLD 10/9). NOT a legend count -- see the header.",
+  "because": "no district kit of any live ground draws a cell of kind `water`. The district named `water` draws dry ground, two drained basins and three blockers. The only wet water in the game is in the landmarks module (reservoir, tailrace, Las Vegas Creek), which is not a district kit and is marked void, so it is the CLIFFS row and never the SWAMP row.",
+  "killsRow": "swamp",
+  "tuned": false
+ },
+ "measured": {
+  "grounds": 13,
+  "panelsDrawn": 13,
+  "coverSpread": 63.9,
+  "coverPctOfSheet": 29.4,
+  "wetCells": 0,
+  "scalingSlack": 0.0096,
+  "panels": [
+   {
+    "ground": "suburb_block",
+    "kit": "cityhall",
+    "groundCover": 0.327,
+    "panelCover": 0.346,
+    "kitEnvelope": [
+     0.265,
+     0.452
+    ]
+   },
+   {
+    "ground": "the_strip",
+    "kit": "resort",
+    "groundCover": 0.345,
+    "panelCover": 0.505,
+    "kitEnvelope": [
+     0.012,
+     0.55
+    ]
+   },
+   {
+    "ground": "industrial",
+    "kit": "warehouse",
+    "groundCover": 0.246,
+    "panelCover": 0.203,
+    "kitEnvelope": [
+     0.065,
+     0.396
+    ]
+   },
+   {
+    "ground": "open_desert",
+    "kit": "desert",
+    "groundCover": 0.015,
+    "panelCover": 0.013,
+    "kitEnvelope": [
+     0.015,
+     0.015
+    ]
+   },
+   {
+    "ground": "wash_and_shore",
+    "kit": "watertreat",
+    "groundCover": 0.297,
+    "panelCover": 0.272,
+    "kitEnvelope": [
+     0.004,
+     0.62
+    ]
+   },
+   {
+    "ground": "hills",
+    "kit": "mountain",
+    "groundCover": 0.958,
+    "panelCover": 0.958,
+    "kitEnvelope": [
+     0.958,
+     0.958
+    ]
+   },
+   {
+    "ground": "freeway",
+    "kit": "speedway",
+    "groundCover": 0.166,
+    "panelCover": 0.187,
+    "kitEnvelope": [
+     0.145,
+     0.179
+    ]
+   },
+   {
+    "ground": "lot_and_bigbox",
+    "kit": "mall",
+    "groundCover": 0.207,
+    "panelCover": 0.351,
+    "kitEnvelope": [
+     0.006,
+     0.344
+    ]
+   },
+   {
+    "ground": "trailer_park",
+    "kit": "trailer",
+    "groundCover": 0.296,
+    "panelCover": 0.287,
+    "kitEnvelope": [
+     0.296,
+     0.296
+    ]
+   },
+   {
+    "ground": "golf_and_park",
+    "kit": "park",
+    "groundCover": 0.107,
+    "panelCover": 0.05,
+    "kitEnvelope": [
+     0.019,
+     0.204
+    ]
+   },
+   {
+    "ground": "airport",
+    "kit": "terminal",
+    "groundCover": 0.245,
+    "panelCover": 0.254,
+    "kitEnvelope": [
+     0.245,
+     0.245
+    ]
+   },
+   {
+    "ground": "solar_and_pumps",
+    "kit": "substation",
+    "groundCover": 0.217,
+    "panelCover": 0.239,
+    "kitEnvelope": [
+     0.09,
+     0.328
+    ]
+   },
+   {
+    "ground": "landfill",
+    "kit": "landfill",
+    "groundCover": 0.15,
+    "panelCover": 0.154,
+    "kitEnvelope": [
+     0.15,
+     0.15
+    ]
+   }
+  ]
+ }
+}

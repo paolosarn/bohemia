@@ -5753,7 +5753,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT A SETTLEMENT PAYS YOU",
-   "why": "Battle Brothers pays you about one seventh of what you paid when you sell gear back. Our shop pays half. Slide a price in the VOTE tab and see Battle Brothers' big town, its small village and our shop side by side. The full table is for the economy chat.",
+   "why": "Battle Brothers pays about one seventh of what you paid when you sell gear back, and slide a price to compare its big town, its small village and our shop side by side. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
@@ -5766,7 +5766,7 @@
    "sha": "efbad7b",
    "made": "10/10",
    "title": "THE WEAPON FILE",
-   "why": "For whoever makes mods. Nothing changed in the game. A weapon can list two skills but the fight plays only the first, so 27 skills never show up, and a sweep or a line is just a sentence nobody reads. Three optional fields would fix that without changing any weapon that exists today.",
+   "why": "For modders, nothing changed in the game: a weapon can list two skills but the fight plays only the first, so 27 skills never show, and three optional fields would fix it without changing any weapon. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html"
@@ -5779,12 +5779,787 @@
    "sha": "pending",
    "made": "10/9",
    "title": "WHAT YOUR MAN PASSES TO HIS HEIR: HALF HIS LEVEL, HALF HIS PERKS, ALL HIS GEAR.",
-   "why": "A man's heir starts at half his level and gets the first half of his perks, his gear, his house and his talent stars, but never his body or wounds, so a level earned in act one means something later. It is a text card in the VOTE tab; nothing on the street shows levels yet, so thumb the numbers.",
+   "why": "A man's heir starts at half his level with the first half of his perks, his gear, his house and his stars, never his body or wounds, so a level earned in act one means something later. You see it only as text in the VOTE tab, since nothing shows levels yet.",
    "show": {
     "how": "text",
     "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
    }
-  }
+  },
+  {
+   "id": "quests-the-demos-chain-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "HOW THE DEMO ENDS",
+   "why": "Three jobs from one woman at the Wash, haul water, run off the road crew and clear the dog lot, and the lot becomes yours, then a thanks screen opens NOTES. You see it only as text in the VOTE tab, and in the demo on the Wash's board.",
+   "show": {
+    "how": "text",
+    "src": "The last thing she hands you is the big dog's ear tag. It has a lab number and your company's name on it, and nobody explains why."
+   }
+  },
+  {
+   "id": "sounds-the-smiths-hammer-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "f5b94ea",
+   "made": "10/9",
+   "title": "THE SMITH'S HAMMER",
+   "why": "The smith's forge was silent, so now a tap plays an anvil's own low, short ring, the mass of the stump bleeding it away fast. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-the-armourers-rivets-10-9",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "f5b94ea",
+   "made": "10/9",
+   "title": "THE ARMOURER'S RIVETS",
+   "why": "The armourer's bench was silent, so now a tap plays four quick, tiny strikes setting a rivet, a gun's own working cadence. You hear it in the VOTE tab on the soundscape's first two page.",
+   "options": [
+    "A, the sound"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "combat-a-turn-you-can-read-10-9",
+   "kind": "animation",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THEIR TURN TAKES A SECOND A MOVE, AND A TAP SKIPS IT",
+   "why": "Every move of theirs (and of your men on AUTO) now holds the board for two beats, one second at 120, the mover lit, the camera on him, and the man hit shows his chance and what it cost him; your own turn has no timer, and a tap on the board skips the rest of theirs. Play a fight and let them move and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_A_TURN_YOU_CAN_READ_10_9.gif"
+   },
+   "draft": true
+  },
+  {
+   "id": "run2-the-clinic-10-9",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE CLINIC: PAY TO HALVE A WOUND",
+   "why": "Like Battle Brothers' temple, the clinic lists every hurt man with his injury and days left, and paying halves the days at the wiki's own price, 20 crowns a day left and more for a higher level, with a hired medic taking a day more. You see it in the VOTE tab under LOOK, and in the demo when you tap the clinic in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_CLINIC_10_9.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-fight-verdict-22-the-freeway-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "e8a6625e",
+   "made": "10/9",
+   "title": "FIGHT VERDICT 22: THE FREEWAY AGAINST THE STREET",
+   "why": "The wall across the freeway is gone and it shares the street's road now, and what still looks like another game is marked: a flat barrier, loud orange lines, a box trailer, gold rings, and the fight shows the sharp art blurry. You see it in the VOTE tab under LOOK, the marked fight picture.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_FIGHT_VERDICT_22_THE_FREEWAY.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
+  },
+  {
+   "id": "people-good-bros-10-9",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "8f060a5",
+   "made": "10/9",
+   "title": "GOOD BROS AT THE POST",
+   "why": "Six real recruits rolled fresh each time from the wiki's own stats and prices, with real names from the same system every person in the game uses. You see it in the VOTE tab under LOOK, and in the game at the hall in every place.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_GOOD_BROS_10_9_26.html"
+   }
+  },
+  {
+   "id": "lifecity-build-on-the-screen-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "145f98b2",
+   "made": "10/9",
+   "title": "BUILD IN A TOWN YOU HOLD",
+   "why": "Building is a spot you tap on the town picture: in a town someone else holds your own voice says it is not your ground, and in your base the list of eight things costs a battery each and stands there the next day. You see it in the VOTE tab under LOOK, three pictures side by side.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
+   }
+  },
+  {
+   "id": "economy-the-contracts-worth-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A JOB PAYS MORE IF YOU PUSH, AND PUSHING COSTS YOU",
+   "why": "The same job pays 76 batteries taken straight or up to 80 if you push for more pay, straight off Battle Brothers' own haggle math, but every push costs relations whether it works or not. You see it in the records, not drawn yet, feeding the board's contract cards once RUN TWO wires it in.",
+   "show": {
+    "how": "text",
+    "src": "records/target/bb/contract_terms.json; engine/bohemia_contracts.js; gates/contracts_gate.js 24/0.\n\nSeen in: not drawn yet, feeds the board's contract cards once wired."
+   }
+  },
+  {
+   "id": "factions-four-with-a-face-10-9",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "7d565f9",
+   "made": "10/9",
+   "title": "FOUR FACTIONS WITH A FACE",
+   "why": "Four factions, road crews, the house, the dead and the beasts, each get a banner colour, a party size, one want and one line. You see it in the VOTE tab under LOOK, NOT IN A TAB YET on the live map.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_A_HOUSE_YOU_CARE_ABOUT_10_9.html"
+   }
+  },
+  {
+   "id": "plumber-first-load-10-9",
+   "kind": "ui",
+   "lane": "plumber",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE DEMO MAKES A PHONE WAIT ABOUT 85 SECONDS, AND THE DOWNLOAD IS NOT WHY",
+   "why": "On a phone-speed processor NEW GAME is ready only after about 85 seconds with 30 MB downloaded first, and a patch handed to RUN cuts that download to 9 MB, but the wait stays because the processor is the wall (most of it is baking character art the map does not show yet). You see it on the demo's start screen, where the loading bar runs that long before NEW GAME lights.",
+   "show": {
+    "how": "text",
+    "src": "FIRST OPEN OF THE DEMO, PHONE-SPEED PROCESSOR, SERVED LIKE THE REAL SITE\n\nTitle on screen: 3 to 4 seconds (goal 2)\nNEW GAME ready: about 85 seconds (goal 8)\nDownloaded before NEW GAME: 30 MB today, 9 MB with the patch\nThe page re-reading itself: 2.4 MB every 2 minutes today, a few hundred KB with the patch\n\nWhere the time goes at full speed (21 seconds): 11 in the page (4 of them baking the street cast for a map that does not show it), 7 in the map."
+   }
+  },
+  {
+   "id": "combat2-the-casino-floor-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A FIGHT INSIDE A DEAD CASINO",
+   "why": "A new fight board inside a dead Strip casino: slot machines and card tables are cover, the cashier's cage is the high ground, and at night only a few machines and fires give light. Thumbs up and the Strip's fights happen in here, and you see it in the COMBAT tab on the casino board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_CASINO_FLOOR_10_9.png"
+   }
+  },
+  {
+   "id": "ui-the-phones-look-10-9",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE PHONE IN THE BAR'S HAND",
+   "why": "The cracked phone on the map keeps its crack but now uses the game's own letters and brighter ink, so every post reads in the sun, and the family faces are cardboard cards, the one you are lit amber like the speed button. You see it on the map, the phone in the top right.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_PHONES_LOOK_10_9.png"
+   }
+  },
+  {
+   "id": "world-the-roads-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "THE ROADS",
+   "why": "Every road in the valley lit and timed: the freeway brightest at full speed, the boulevards just under it, then the dirt and the washes, and I checked thirty different valleys to prove every settlement can reach every other on paved road alone. Measuring it caught a six-lane Las Vegas boulevard rated slower than driving across open desert, because the road was being averaged in with the shops and flats beside it, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_ROADS.png"
+   },
+   "sha": "d5dec1ea"
+  },
+  {
+   "id": "animation-the-parties-walk-10-9",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "c5f6a92",
+   "made": "10/9",
+   "title": "THE PARTIES WALK",
+   "why": "On the map you now travel as three people, you and two of your company walking at your shoulders, and every roaming party walks and slides between blocks instead of standing still and jumping. When the clock stops everybody stops and breathes, and you see it before beside now in the VOTE tab and on the MAP while you travel.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_PARTIES_WALK.html"
+   },
+   "said": "every party on the map is drawn and moving",
+   "draft": true
+  },
+  {
+   "id": "dynasty-grok-lore-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "TWO THINGS FROM GROK, TESTED AGAINST YOUR OWN RULES. TWO HOLES.",
+   "why": "Two of Grok's ideas checked against your rulings: the ground-picks-who-shows-up idea still counts factions as territory, which you ruled out, and a crisis at day 100 would outlast an act of about 130 days. You see it only as text in the VOTE tab, in the card below.",
+   "show": {
+    "how": "text",
+    "src": "1. THE GROUND PICKS WHO SHOWS UP: holds, but it reads who holds land. You ruled home bases and roaming parties, not territory. Fix: base the pool on the 14 home bases.\\n2. THE CRISIS CLOCK: matches our own 'foretold, not optional' law. But a crisis from day 100 for up to 100 days outlasts a 130-day act. My default: the crisis is the act's ending."
+   }
+  },
+  {
+   "id": "tuning-when-the-ammo-runs-out-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "a3b7ea8",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHEN THE AMMO RUNS OUT",
+   "why": "In Battle Brothers ammo is cheap but limited, one company stock refilling a 10-shot quiver after each fight, and our game has no stock yet so scarcity cannot be felt. You see it in the VOTE tab under LOOK: pick a start and a gun and count the fights before you reach for a blade.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHEN_THE_AMMO_RUNS_OUT_10_10_26.html"
+   }
+  },
+  {
+   "id": "mods-a-modders-first-hour-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "a727ff8",
+   "made": "10/10",
+   "title": "A MODDER'S FIRST HOUR",
+   "why": "For modders, seven steps from nothing to a changed game, each one working today but one, and the knife step was run for real: two numbers changed in one file and the knife hits 20 to 30. You see it in the VOTE tab under LOOK.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html"
+   }
+  },
+  {
+   "id": "what-real-material-means-for-a-sound-10-9",
+   "kind": "verdict",
+   "lane": "coordinator",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A SOUND IS A RECORDING OF THE REAL OBJECT, OR BUILT FROM ITS REAL PHYSICS, NEVER NOISE",
+   "why": "You killed the sand-noise recipe and said sounds come from real material, and the sounds chat builds each sound from its object's physics rather than recording it, so this asks whether physics counts or only a recording of the thing. You hear it in the settlement, where the smith's hammer and the armourer's rivets are built from physics today.",
+   "show": {
+    "how": "text",
+    "src": "The second votes (NO SAND, sounds from real material); SOUNDS' better-than line (f4b96771: 'every sound synthesized from its object's real physics, never a sample file'). Thumb up: physics counts. Thumb down: record the real thing.\n\nHeard in: the settlement screen's taps, the fight's shots and hits."
+   },
+   "verdict": "default",
+   "status": "ruled"
+  },
+  {
+   "id": "quests-the-wash-board-10-9",
+   "kind": "line",
+   "lane": "quests",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE DEMO TOWN'S JOB BOARD, FULL",
+   "why": "Eight small side jobs around the Wash, from a missing kid to running a clinic box, each on the same road as one of the three ending jobs, so the board is never empty in the first 30 minutes. You see it only as text in the VOTE tab, and in the demo on the Wash's board.",
+   "show": {
+    "how": "text",
+    "src": "Dona Ortiz wants her kid found, Ruben the smith wants his wire back, Sarge wants the road walked, and five more at the Wash and the two camps nearby."
+   }
+  },
+  {
+   "id": "economy-the-price-of-mercy-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "BATTLE BROTHERS ALREADY PRICES MERCY, THREE WAYS",
+   "why": "Saving everyone pays the same as always unless you fail, taking everything pays more at a real cliff, and the mercy option gives up the job's pay for something else entirely, all straight off Battle Brothers' own contracts. You see it in the records, not drawn yet, feeding DYNASTY's ending work.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_60_THE_PRICE_OF_MERCY_BATTLE_BROTHERS_ALREADY_CHARGES_IT_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 60.\n\nSeen in: not drawn yet, feeds DYNASTY [the ending]."
+   }
+  },
+  {
+   "id": "run2-the-posts-10-10",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE POSTS: SEE THE HIRE BEFORE YOU PAY",
+   "why": "At the hall every recruit is a card with their face, background, eight stats with the starred one in gold, and their price, a camp two, a town four, a fortress six and more on market day, and paying puts them on your roster with their gear in your bag. You see it in the VOTE tab under LOOK, and in the demo when you tap the hall in any place.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_SETTLEMENT_SCREEN_POSTS_10_10.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "character-armour-you-can-see-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "7dd58935",
+   "made": "10/9",
+   "title": "ARMOUR YOU CAN SEE",
+   "why": "One man in five armours, nothing bought then padded, leather, mail and plate, each a real piece sorted from the real Battle Brothers gear list by how tough it actually is. Thumbs up, and you see it here first, then on the roster and in the fight once the other chats wire a bought piece to this table.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_ARMOUR_YOU_CAN_SEE.html"
+   }
+  },
+  {
+   "id": "direction-the-map-at-every-stop-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "af0287b2",
+   "made": "10/9",
+   "title": "THE MAP AT EVERY STOP, AGAINST BATTLE BROTHERS",
+   "why": "The map is sharp now and the far end is painted, but one pinch skips the whole middle, the city sits on a raised slab, and every lot is the same grit. You see it on the map, close up and pinched all the way out.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_MAP_AT_EVERY_STOP.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
+  },
+  {
+   "id": "cook-the-settlement-pictures-finished-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE SETTLEMENT PICTURES, FINISHED",
+   "why": "The camp, the town and the fortress are painted over now: rain stains down the walls, the ground worn along the paths between the buildings you can actually use, a painted sign over each one, trash where people stand, and at night the open doors spilling light on the dirt. You see it in the VOTE tab, the town before and after, day and night.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_SETTLEMENT_PICTURES_FINISHED.png"
+   }
+  },
+  {
+   "id": "lifecity-built-on-the-map-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "e648cfd9",
+   "made": "10/9",
+   "title": "WHAT YOU BUILT, ON THE MAP",
+   "why": "What you build in a town now stands beside that town on the map the next morning, pays into your own purse, and counts in the future your kids inherit. You see it on the map at your base: the left shot is before, the right is the next morning with a wall and a tank.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_BUILT_ON_THE_MAP_10_9.png"
+   }
+  },
+  {
+   "id": "world-ground-effects-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "WHAT EACH GROUND DOES TO A FIGHT",
+   "why": "Thirteen fight boards, one for every kind of ground in the valley, each cut from the real city so you can see what a fight on it is actually like: the near empty one is the open desert, the near solid one is the mountain, and the eleven between them are the town. Measuring it caught our own numbers saying every ground in the valley was about half blocked when the real boards run from one and a half per cent to ninety six, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_GROUND_EFFECTS.png"
+   },
+   "sha": "63a84d02"
+  },
+  {
+   "id": "animation-the-town-is-alive-10-9",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "235e6d9",
+   "made": "10/9",
+   "title": "THE TOWN IS ALIVE",
+   "why": "The town screen gets its people: keepers at their doors smoke and wait, the stall keeper haggles, a hire leans at the posts, people walk past, and when your finger comes near a building its keeper looks up and waves you in. You see it ten seconds at a time in the VOTE tab, and in the town screen itself once RUN TWO places them (NOT IN A TAB YET).",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_TOWN_IS_ALIVE.html"
+   },
+   "said": "the settlement screen is one painted place",
+   "draft": true
+  },
+  {
+   "id": "combat2-the-future-boards-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE SAME STREETS IN THE FUTURE, GROWN OR FALLEN",
+   "why": "Every fight board now has a reclaimed future (solar roofs, gardens, every lamp lit) and a raided one (burnt roofs, scorch, rubble, lamps dead) on the same streets. Thumbs up and fights in later acts look like this, and you see it in the COMBAT tab once the acts are wired in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FUTURE_BOARDS_10_9.png"
+   }
+  },
+  {
+   "id": "ui-the-reshuffle-mark-10-9",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE RESHUFFLE IS AN ARROW",
+   "why": "The little question mark on each family face that gives them a new name is now a drawn try-again arrow on its own glass button under the face, big enough for a thumb, so a tap on the face still switches who you are. You see it on the map, on the phone, under the faces of your family.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_RESHUFFLE_MARK_10_9.png"
+   }
+  },
+  {
+   "id": "plumber-bind-once-10-9",
+   "kind": "ui",
+   "lane": "plumber",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "NEW GAME READY 20 SECONDS SOONER ON A PHONE, SAME PICTURES",
+   "why": "The game was fitting the same people's bodies to their skeletons 1,256 times while it loaded, and only 174 were different, so a fix that does each one once (and draws every pixel exactly the same) cuts the phone-speed wait for NEW GAME from 87 to 67 seconds. You see it on the demo's start screen once RUN applies it: the loading bar finishes sooner.",
+   "show": {
+    "how": "image",
+    "src": "vote/PLUMBER_BIND_ONCE_10_9.png"
+   }
+  },
+  {
+   "id": "dynasty-the-frame-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "WHAT THE FLIP IS IN THE STORY: A, B OR C. I PICK A, AND I FIXED A FLAW.",
+   "why": "Three ideas for what the flip is in the story, and my pick is A, the old machine's model of your family, never named until the ending. You see it in the VOTE tab, in this card's text.",
+   "show": {
+    "how": "text",
+    "src": "A. The machine's model of your family. Free to build. The flip can only show what was recorded, so it is wrong about everything you did off the feed. That is the ending's gauge, already.\\nB. Upload and genes. A grandchild shares 25 percent of your DNA, a whole mind cannot be copied by 2045, and it makes your family the fake one.\\nC. The box twist. If the past is a recording, nothing you do changes the future, which breaks the three-acts rule.\\nPick A, B or C."
+   }
+  },
+  {
+   "id": "tuning-what-a-respec-costs-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "d3bc299",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT A RESPEC COSTS",
+   "why": "Battle Brothers resets a man's perks with a Potion of Oblivion for seven rare monster parts and 5,000 crowns, and your swap-one-mastery idea is a smaller version at 25 to 50 batteries and a few days. You see it in the VOTE tab, the two side by side.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_A_RESPEC_COSTS_10_10_26.html"
+   }
+  },
+  {
+   "id": "mods-how-big-is-too-big-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "8c31978",
+   "made": "10/10",
+   "title": "HOW BIG IS TOO BIG",
+   "why": "A modded knife that hits for minus 5 used to load silently, and now it loads with a warning that never blocks, so a mod can still beat anything in the game. You see it in the VOTE tab when you type any number into this card.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.html"
+   }
+  },
+  {
+   "id": "dynasty-old-body-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "OLD VERSUS YOUNG IS A TRADE: SLOW HEALING, BUT A HEAD START.",
+   "why": "Nobody ever reaches forty or sixty in play, so the OLD and YNG buttons are the only ageing there is. Read the card in the VOTE tab: old heals slower and tires sooner, young learns faster and has fewer perks.",
+   "show": {
+    "how": "text",
+    "src": "YNG (twenties): heals fast, learns fast, fewer perks to start.\\nOLD (forties to fifties): injuries last about 1.5 times longer, tires sooner, small print needs glasses. But he starts with more of the family's perks and his aim does not drift.\\nNobody dies of old age inside an act, so these are the only ages you will see."
+   }
+  },
+  {
+   "id": "factions-the-bar-on-one-town-10-9",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "6a6cd408",
+   "made": "10/9",
+   "title": "THE BAR ON ONE TOWN",
+   "why": "Every town keeps a 0 to 100 bar that moves with what you do, using Battle Brothers' own bands and numbers. You see it in the VOTE tab: one town after a job, a stolen loaf and an attack.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_THE_BAR_ON_ONE_TOWN_10_9.html"
+   }
+  },
+  {
+   "id": "tuning-how-hard-is-a-killer-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "b6b540a",
+   "made": "10/10",
+   "draft": true,
+   "title": "HOW HARD IS A KILLER",
+   "why": "Every recruit hides stars on three stats, and a 7-star killer is 1 in 18. Slide the bar in the VOTE tab and see how many recruits you must meet to find 12 killers, and 36. Three acts at once means 36 is really 12 per act, so it is no harder than Battle Brothers, and heirs carry the rest.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_HOW_HARD_IS_A_KILLER_10_10_26.html"
+   }
+  },
+  {
+   "id": "combat-the-man-stays-112-flipped-10-9",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "ON A FLIPPED PHONE THE MAN STAYS FULL SIZE",
+   "why": "Setting your line with the phone on its side used to shrink your men to 15 pixels to fit the column; now they stay at their full 112 and a drag pans the rest, the same on the computer and the tablet. Turn your phone sideways before FIGHT and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_MAN_STAYS_112_FLIPPED_10_9.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "lifecity-built-on-the-board-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "9cb46e85",
+   "made": "10/9",
+   "title": "WHAT YOU BUILT, IN THE FIGHT",
+   "why": "A fight at a place you built on now stands on what you built: your wall is cover in front of your line, the water tank blocks, and a roof is high ground for your man. You see it in a fight at your base, the same fight before and after.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_BUILT_ON_THE_BOARD_10_9.png"
+   }
+  },
+  {
+   "id": "direction-the-flip-in-four-beats-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "7bc9c2df",
+   "made": "10/9",
+   "title": "THE FLIP IN FOUR BEATS",
+   "why": "Today flipping to act 3 changes nothing in the world, so here is the real one: the phone's tape tears, the world goes dark, a hard cut to the same spot in the other year, and the first time an act opens the changes rise on the beat. You see it on the map, drawn over the game's own frames in four beats.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_FLIP_IN_FOUR_BEATS.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
+  },
+  {
+   "id": "character-the-origin-crews-10-9",
+   "kind": "outfit",
+   "lane": "character",
+   "sha": "72aa4318",
+   "made": "10/9",
+   "title": "THE ORIGIN CREWS",
+   "why": "Three starting companies at their real size, the Lone Wolf's one veteran in worn plate, three companions in mail, and the Block Watch's twelve weak men in work clothes, every man's gear sorted from the real Battle Brothers data by how equipped his background actually is. Thumbs up, and you see it here first, then at the door once RUN wires a pick to this table.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_ORIGIN_CREWS.html"
+   }
+  },
+  {
+   "id": "economy-what-grows-10-9",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE WEED THAT DRINKS THE RIVER AND SALTS THE GROUND",
+   "why": "Battle Brothers never lets you plant anything, so this is real desert science: tamarisk drains and salts the ground, cheatgrass turns a once-a-generation fire into a yearly one, and a date palm takes years to feed your grandkids while a hog feeds you once. You see it in the records, not drawn yet, feeding TUNING and LIFE and CITY.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_61_WHAT_GROWS_THE_WEED_THAT_DRINKS_THE_RIVER_AND_SALTS_THE_GROUND_10_9_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 61.\n\nSeen in: not drawn yet, feeds TUNING and LIFE+CITY."
+   }
+  },
+  {
+   "id": "animation-the-shot-kicks-10-9",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "9a9402a",
+   "made": "10/9",
+   "title": "THE SHOT KICKS",
+   "why": "In the fight a shot used to be a man standing still with his gun up; now the gun kicks into his shoulder, he rocks back and settles, and a pistol flips higher than a rifle. Three men fire one after another and you see it before beside now in the VOTE tab (in the fight itself once COMBAT reads the clip table, NOT IN A TAB YET).",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_SHOT_KICKS.html"
+   },
+   "said": "re-create Battle Brothers combat",
+   "draft": true
+  },
+  {
+   "id": "cook-the-freeway-kit-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FREEWAY KIT",
+   "why": "The freeway kit: a barrier run, a see-through shoulder fence, a freeway lamp, a sign gantry, a stalled truck and a burned car, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six laid on the asphalt they belong on.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_FREEWAY_KIT.png"
+   }
+  },
+  {
+   "id": "run2-climbing-10-10",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "CLIMBING: A MAN'S CARD BEFORE AND AFTER A FIGHT",
+   "why": "After a won fight each man gets his XP, at 200 he hits level 2, three stats go up in green by his stars, and he picks one of nine first-tier perks that he carries into the next fight. You see it in the VOTE tab under LOOK, before on the left and after on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_CLIMBING_AFTER_10_10.png",
+    "before": "vote/RUN2_CLIMBING_BEFORE_10_10.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "world-the-same-fight-10-10",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/10",
+   "title": "THE CELLS THAT ALL OPEN THE SAME FIGHT",
+   "why": "The whole valley coloured by which fight board each cell loads, and the lit ones all load the SAME board: the airfield, the speedway, the stadium, every civic building, and three of the six big gear places. Twenty four of our seventy eight kinds of place fall through to one fallback, which is more than any real board gets, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_SAME_FIGHT.png"
+   },
+   "sha": "bf86c941"
+  },
+  {
+   "id": "combat2-the-freeway-round-two-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY'S FIVE WRONG PIECES, FIXED",
+   "why": "The barrier is now cast concrete, the lines are the street's white and a faded yellow instead of orange, the trailer is a real rusted box, the asphalt is patched and cracked, and the dark band is gone. Thumbs up and the freeway looks like this in every fight, and you see it in the COMBAT tab on the freeway board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FREEWAY_ROUND_TWO_10_9.png"
+   }
+  },
+  {
+   "id": "plumber-frozen-fight-out-10-9",
+   "kind": "ui",
+   "lane": "plumber",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE TITLE SHOWS UP IN 2.7 SECONDS ON A PHONE, WAS 3.5",
+   "why": "The old fight that the demo never opens was still half of the page a phone downloads, so the demo is now cut without it and the title comes up in 2.7 seconds instead of 3.5 on a phone-speed processor (the goal is 2). You see it on the demo's start screen: the title and its buttons show up sooner after you tap the link.",
+   "show": {
+    "how": "image",
+    "src": "vote/PLUMBER_FROZEN_FIGHT_OUT_10_9.png"
+   }
+  },
+  {
+   "id": "portrait-hairstyles-match-10-9",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "HAIRSTYLES THAT MATCH",
+   "why": "The hair picker showed the right 11 names but lost two of its six dials every time you clicked one, so three cuts drew the same cap and one lost its texture; both are wired now, worst pair down from 93% identical to 89%. You see it in the VOTE tab.",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_HAIRSTYLES_MATCH.html"
+   }
+  },
+  {
+   "id": "portrait-the-whole-crowd-matches-10-9",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE WHOLE CROWD MATCHES",
+   "why": "Every citizen in the valley got a random hair texture on their portrait instead of their real one; 76 of 82 textured citizens disagreed with their own body. Fixed and shipped, not a vote -- you see it in the VOTE tab as proof.",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_THE_WHOLE_CROWD_MATCHES.html"
+   }
+  },
+  {
+   "id": "portrait-the-enemy-faces-10-9",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE ENEMY FACES",
+   "why": "Every brigand tier's portrait had none of its own dressed body's haircut, not even by accident; now all six wear the real cut, and the leader's face gets a second light so he reads as the one you remember. You see it in the VOTE tab.",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_THE_ENEMY_FACES.html"
+   }
+  },
+  {
+   "id": "people-the-keepers-speak-10-9",
+   "kind": "tile",
+   "lane": "people",
+   "sha": "54757f6",
+   "made": "10/9",
+   "title": "THE KEEPERS SPEAK",
+   "why": "The smith now has a real price line to say, with a real trait line and a real rumour already waiting on the same mouth. You see it in the VOTE tab, item THE KEEPERS SPEAK.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html"
+   }
+  },
+  {
+   "id": "dynasty-name-outlives-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "BY GENERATION THREE THE VALLEY SHOULD REMEMBER ONE STORY, A LITTLE WRONG.",
+   "why": "Right now a deed fades but is never forgotten, so the valley keeps everything about your grandfather at a fifth of its weight. Read the card in the VOTE tab: the real way people remember is the name, one merged story, and the grudges still alive.",
+   "show": {
+    "how": "text",
+    "src": "Measured: seven retold deeds went through two generations and all seven were still there, just fainter.\\nReal memory: the name lasts, the details drift, one story absorbs the rest.\\nProposal: generation three keeps the name, ONE legend line (a little wrong), living grudges, and a place name. The rest is gone."
+   }
+  },
+  {
+   "id": "ui-the-phones-board-10-9",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE PHONE SHOWS THE JOBS",
+   "why": "The phone now shows the two nearest places that are hiring and what they pay, with skulls for the danger; it shows them but never takes them, you take a job at the place, and a job you took disappears from the phone. You see it on the map, at the top of the phone.",
+   "show": {
+    "how": "image",
+    "src": "vote/UI_THE_PHONES_BOARD_10_9.png"
+   }
+  },
+  {
+   "id": "mods-an-id-is-a-promise-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "dee5c83",
+   "made": "10/10",
+   "title": "AN ID IS A PROMISE",
+   "why": "For whoever makes mods. Every row has an id, and a mod finds a row by it, so renaming an id breaks every mod that touched it. 725 ids, and 764 places point at them. Four rules keep mods working: never rename, retire instead of delete, a mod names its own rows modname:thing, and keep the plain lowercase style the game already uses.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.html"
+   }
+  },
+  {
+   "id": "tuning-every-roll-a-man-makes-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "ba33957",
+   "made": "10/10",
+   "draft": true,
+   "title": "EVERY ROLL A MAN MAKES",
+   "why": "The stars, level and XP numbers from the Battle Brothers wiki on one page in the VOTE tab, with a red box showing where our demo's code differs: it gives recruits 1 to 3 starred stats instead of exactly 3, so a 7-star killer is 1 in 55 instead of 1 in 18, it picks level-up stats at random, and wages never rise as men level.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_EVERY_ROLL_A_MAN_MAKES_10_10_26.html"
+   }
+  },
+{
+  "id": "grok-a-hire-walks-two-days-after-zero-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: A MISSED PAYDAY MAKES A HIRE LEAVE A COUPLE OF DAYS AFTER THE BATTERIES HIT ZERO, NEVER THE SAME DAY",
+  "why": "Grok reports you said a hire who is not paid walks only a couple of days after your batteries hit zero, not the same day, and his traits stretch or shrink that clock (a greedy man sooner). You see it on the roster screen as a man's mood dropping after the missed noon and his leaving on the second or third morning.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_141 and GROK_143 (the wiki's Mood page: not paid is -1 mood, greedy -2, not eaten -1; angry 0 to 15 percent may desert; mood drifts back when nothing happens). The wiki gives no day count; his 'a couple of days' is the number.\n\nSeen in: the roster screen's mood line; the morning a man is gone."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {

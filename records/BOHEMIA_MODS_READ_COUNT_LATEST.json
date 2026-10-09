@@ -1,5 +1,5 @@
 {
- "measuredAt": "7226fb0",
+ "measuredAt": "e8d1bac",
  "note": "MODS [read count]. touch = live copies (found + hidden in a blob) + gates that pin the literal. The data line has to beat these numbers; the target is 1.",
  "probes": [
   {
@@ -9,7 +9,7 @@
     "LIVE": 0,
     "GATE": 2,
     "TOOL": 4,
-    "DOC": 6
+    "DOC": 7
    },
    "foundLive": [],
    "foundGates": [
@@ -29,7 +29,7 @@
     "LIVE": 1,
     "GATE": 0,
     "TOOL": 1,
-    "DOC": 0
+    "DOC": 2
    },
    "foundLive": [
     "records/target/bb/weapons.json"

@@ -18,6 +18,7 @@ in the first minute. The 7/19 cold open (the father wakes you, the raid is the t
 family, Marco at the fence); what dies is the TIMING (nobody wakes him, nobody knocks in the first minute).
 
 STATUS: research only (rule 35). Nothing here is built. Every design built from this page is draft:true.
+FOLDED 10/9 (QR-AL): QR-U's the sharpens of rules 3, 12 and 14, the reading of the Q235 ports, and the stale flag on rules 2 and 10, at the end of THE RULE FOR THE BUILDERS, each marked "(folded 10/9 from QR-U)" in place.
 
 SWEPT 9/29 (VAMILY rules 38 to 40; questbook/research/QR_W_THE_SHELF_SWEPT_FOR_RULES_38_TO_40_9_29_26.md).
 Rule 34f's "small figure on an honest grid, one cell per press" was the exploration walk, and the walk is
@@ -365,6 +366,21 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person addressi
     generational magic opens after the first generation, `Q067.X4`; see QD-F05 and QD-F06)
 
 ---
+
+SHARPENED (folded 10/9 from QR-U):
+- Rule 12 (one name, one contract in the first three minutes): the first task has purpose tied to the loss
+  (`Q235.W6`), handed over by someone who needs the player (`Q235.P4`); busywork kills it (`Q235.X3`). The first offer
+  on the first settlement screen is about the ruin the player starts in.
+- Rule 3 and the second votes (the game starts in the ruin): the rise starts from absolute zero (`Q235.W7`); grief is
+  walked out of, one task at a time (`Q235.W9`).
+- The Q235 ports, read against our law: the warm dinner and match-cut (`Q235.P2`) and the authored sibling death
+  (`Q235.P3`) predate NOTHING IS FORCED; the study's own flaws agree with us (`Q235.X1` the slog, `Q235.X2` stolen
+  agency). The loss has already happened before the first frame; it is a THING found in the first minute, never a
+  scene played at the player. The loss belongs to the attackers (`Q235.W2`).
+- Rule 14 (the first minute is not the loudest): `Q228.W4` is the opposite design, a deadline in the opening. We keep
+  ours: no clock in the first hour; a clock on the main line is spoken first (QR-H rule 4).
+- STALE flag: rules 2 and 10 describe the dead walk; the first sixty seconds now happen on the map and the first
+  settlement screen (rules re-cut 9/29 above).
 
 ## WHAT TO AVOID (the flaws, by id)
 

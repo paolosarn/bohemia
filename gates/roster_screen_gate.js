@@ -68,6 +68,11 @@ const srv = http.createServer((rq, rs) => {
   await p.click('#card .gslot[data-slot="main"]'); await p.waitForTimeout(250);
   const off = await p.evaluate(() => { const s = BohemiaRosterScreen.state; return { main: s.crew[s.sel].gear.main, bag: s.bag.length }; });
   ok('tap a worn slot and it comes off into the bag', !off.main && off.bag >= 1, 'bag ' + off.bag);
+  /* THE WARDROBE MAKES A SOUND (row [the soundscape], 10/9): 'equip' is already an approved,
+     frozen bank event ("CLOTHES GO ON") that nothing on this screen ever posted. Both the drag-on
+     above and the tap-off just above should each have posted it once, zero new content. */
+  const sfxLog = await p.evaluate(() => (window.__rosterLog || []).filter(x => x.act === 'sfx' && x.ev === 'equip').length);
+  ok('wearing gear and taking it off both play the already-approved equip sound', sfxLog === 2, sfxLog + ' equip sfx posts');
   const sizes = await p.evaluate(() => [].slice.call(document.querySelectorAll('.cell, .gslot, #bag .slot, #done')).map(e => { const r = e.getBoundingClientRect(); return Math.min(r.width, r.height); }).filter(v => v < 44).length);
   ok('every target is 44 on his phone', sizes === 0, sizes + ' small');
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));

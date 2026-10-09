@@ -1,0 +1,635 @@
+{
+ "_readme": "WORLD [the cells with no board] 10/10: which board kind every district in the valley fights on. Written by tools/bohemia_board_kinds_cook_10_10_26.js from engine/bohemia_boardkinds.js -- do not hand edit. THE ROW'S PREMISE WAS WRONG: a district with no kit is NOT a fight with no floor, because the fight never cuts a board from a district kit -- it asks nfKind() for one of nine board kinds and COMBAT deals from its block library. WHAT IS REALLY WRONG: 24 of the 78 districts fall through to the catch-all `ruin`, more than any real kind gets, including the airport, every civic building and three of the six legendary gear places. NO STAND-IN IS GUESSED: matching a courthouse to a cul-de-sac because both are ~30% blocked is the 9/25 [bb places] defect. What is given instead is which BLOCK the library is missing, and the grouping into three families is stated as WORLD's reading with tuned:false.",
+ "version": "BOHEMIA_BOARD_KINDS_v1",
+ "built": "2026-10-10",
+ "catchAll": "ruin",
+ "districts": [
+  {
+   "district": "airbase",
+   "ground": "airport",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "airport",
+   "ground": "airport",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "apartment",
+   "ground": "lot_and_bigbox",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "arsenal",
+   "ground": "industrial",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "arterial",
+   "ground": "lot_and_bigbox",
+   "boardKind": "suburb_stem",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "ballpark",
+   "ground": "golf_and_park",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "basin",
+   "ground": "wash_and_shore",
+   "boardKind": "wash",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "battery",
+   "ground": "solar_and_pumps",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "boneyard",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "campus",
+   "ground": "golf_and_park",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "casino",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "cemetery",
+   "ground": "golf_and_park",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "chapel",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "cityhall",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "commercial",
+   "ground": "lot_and_bigbox",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "convention",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "courthouse",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "dam",
+   "ground": "wash_and_shore",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "datafort",
+   "ground": "industrial",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "desert",
+   "ground": "open_desert",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "downtown",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "drivein",
+   "ground": "lot_and_bigbox",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "estate",
+   "ground": "suburb_block",
+   "boardKind": "culdesac",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "farm",
+   "ground": "golf_and_park",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "firestation",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "fort",
+   "ground": "industrial",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "freeway",
+   "ground": "freeway",
+   "boardKind": "freeway",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "fueldepot",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "gated",
+   "ground": "suburb_block",
+   "boardKind": "culdesac",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "golf",
+   "ground": "golf_and_park",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "granary",
+   "ground": "industrial",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "gypsum",
+   "ground": "open_desert",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "highroller",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "industrial",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "intake",
+   "ground": "wash_and_shore",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "interchange",
+   "ground": "freeway",
+   "boardKind": "freeway",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "jail",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "landfill",
+   "ground": "landfill",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "library",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "luxor",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "mall",
+   "ground": "lot_and_bigbox",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "medical",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "minigp",
+   "ground": "freeway",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "mountain",
+   "ground": "hills",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "park",
+   "ground": "golf_and_park",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "policestation",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "prison",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "pumpstation",
+   "ground": "solar_and_pumps",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "quarry",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "radio",
+   "ground": "suburb_block",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "civic"
+  },
+  {
+   "district": "rail",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "railyard",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "reclaim",
+   "ground": "solar_and_pumps",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "reservoir",
+   "ground": "wash_and_shore",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "resort",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "robofactory",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "school",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "sign",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "solar",
+   "ground": "solar_and_pumps",
+   "boardKind": "scrub",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "speedway",
+   "ground": "freeway",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "sphere",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "springs",
+   "ground": "open_desert",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "stadium",
+   "ground": "golf_and_park",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "storage",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "strat",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "strip",
+   "ground": "the_strip",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "substation",
+   "ground": "solar_and_pumps",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  },
+  {
+   "district": "suburb",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "swapmeet",
+   "ground": "industrial",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "terminal",
+   "ground": "airport",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "infrastructure"
+  },
+  {
+   "district": "town",
+   "ground": "suburb_block",
+   "boardKind": "suburb",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "trailer",
+   "ground": "trailer_park",
+   "boardKind": "culdesac",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "truckstop",
+   "ground": "industrial",
+   "boardKind": "strip",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "warehouse",
+   "ground": "industrial",
+   "boardKind": "landfill",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "wash",
+   "ground": "wash_and_shore",
+   "boardKind": "wash",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "water",
+   "ground": "wash_and_shore",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "waterpark",
+   "ground": "golf_and_park",
+   "boardKind": "shore",
+   "isCatchAll": false,
+   "family": null
+  },
+  {
+   "district": "watertreat",
+   "ground": "wash_and_shore",
+   "boardKind": "ruin",
+   "isCatchAll": true,
+   "family": "plant"
+  }
+ ],
+ "familiesWithNoBlock": [
+  {
+   "family": "civic",
+   "is": "a building the public walks into: a counter at the front, corridors behind it, offices and cells and wards off those. The fight is indoors and the door is the whole problem.",
+   "districts": [
+    "cityhall",
+    "courthouse",
+    "jail",
+    "prison",
+    "policestation",
+    "firestation",
+    "medical",
+    "radio"
+   ],
+   "wantsABlock": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side.",
+   "mine": true,
+   "tuned": false
+  },
+  {
+   "family": "infrastructure",
+   "is": "a big flat paved expanse with one or two enormous sheds on it and a fence round the lot. Nothing to hide behind for a hundred metres and then a wall.",
+   "districts": [
+    "airport",
+    "airbase",
+    "speedway",
+    "minigp",
+    "stadium",
+    "ballpark",
+    "terminal"
+   ],
+   "wantsABlock": "AN APRON: open paved ground, one long shed, a perimeter fence.",
+   "mine": true,
+   "tuned": false
+  },
+  {
+   "family": "plant",
+   "is": "a fenced compound of tanks, sheds and a wall, built to be secured. Every one of these is somewhere somebody is still guarding.",
+   "districts": [
+    "arsenal",
+    "datafort",
+    "granary",
+    "fort",
+    "battery",
+    "substation",
+    "pumpstation",
+    "reclaim",
+    "watertreat"
+   ],
+   "wantsABlock": "A COMPOUND: a wall with one gate, tanks and sheds inside it.",
+   "mine": true,
+   "tuned": false
+  }
+ ],
+ "standInIsNotMine": {
+  "known": false,
+  "why": "NO_RULING",
+  "district": "courthouse",
+  "whose": "COMBAT [board generator]",
+  "family": "civic",
+  "wantsABlock": "A CIVIC INTERIOR: a counter, a corridor spine, small rooms either side.",
+  "because": "picking an existing kind for this by matching how blocked it is gives a courthouse that fights like a cul-de-sac, which is worse than the ruin it would replace because it is confidently wrong. The answer is a new block, named above, and cutting it is COMBAT's."
+ },
+ "namesTheFightKnowsThatNoGroundUses": [
+  "beltway"
+ ],
+ "measured": {
+  "districts": 78,
+  "fallThrough": 24,
+  "seedsSwept": 20,
+  "cellsAValley": 154.2,
+  "pctOfValley": 1.67,
+  "byFamilyAValley": {
+   "civic": 14.6,
+   "infrastructure": 122.2,
+   "plant": 17.5
+  },
+  "litPctOfFrame": 1.65,
+  "ghosts": [
+   "beltway"
+  ]
+ }
+}

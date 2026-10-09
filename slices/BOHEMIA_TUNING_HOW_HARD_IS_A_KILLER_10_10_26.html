@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Hard Is A Killer</title>
+<!-- TUNING 10/10 [recruit odds], draft:true. Battle Brothers wiki Talents: every recruit has stars on three attributes, 1 star 60%, 2 stars 30%, 3 stars 10%. The odds are arithmetic on that. Record: records/BOHEMIA_TUNING_RECRUIT_ODDS_36_KILLERS_AS_HARD_AS_12_10_10_26.md -->
+<style>:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--amb:#e8a04a;--ok:#8fe89a;--hot:#e8593a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+.row{border:1px solid var(--line);padding:8px 10px;margin:8px 0}input[type=range]{width:100%}.big{font-size:24px}.g{color:var(--ok)}.a{color:var(--amb)}.r{color:var(--hot)}</style></head><body>
+<h1>HOW HARD IS A KILLER</h1>
+<p>Every recruit hides stars on three stats. Each star pick is 1 star 60%, 2 stars 30%, 3 stars 10%. Set how many stars in total you call a killer.</p>
+<div class="row">A KILLER HAS AT LEAST <b id="tv"></b> STARS <input id="t" type="range" min="4" max="9" value="7"></div>
+<div class="row"><div>One recruit in <span id="n" class="big a"></span> is one</div>
+<div>To find 12 you look at about <span id="a" class="big"></span> recruits</div>
+<div>To find 36 you look at about <span id="b" class="big r"></span></div>
+<div>Bar that makes 36 as cheap as 12 was: <span id="c" class="big g"></span> stars</div></div>
+<p>Three acts at once means 36 is really 12 in each act, and each act's 12 costs the same as in Battle Brothers. Heirs carry the rest at one star less.</p>
+<script>
+function $(i){return document.getElementById(i)}
+var P={1:.6,2:.3,3:.1},D={};(function(){for(var a=1;a<4;a++)for(var b=1;b<4;b++)for(var c=1;c<4;c++){var s=a+b+c;D[s]=(D[s]||0)+P[a]*P[b]*P[c];}})();
+function tail(t){var x=0;for(var s=t;s<=9;s++)x+=D[s]||0;return x;}
+function draw(){var t=+$('t').value,p=tail(t);$('tv').textContent=t;$('n').textContent=Math.round(1/p).toLocaleString();
+ var a=12/p;$('a').textContent=Math.round(a).toLocaleString();$('b').textContent=Math.round(36/p).toLocaleString();
+ var c=t;for(var k=t;k>=3;k--){if(36/tail(k)<=a*1.15){c=k;break;}c=3;}$('c').textContent=c+' or more';}
+$('t').oninput=draw;draw();
+</script></body></html>

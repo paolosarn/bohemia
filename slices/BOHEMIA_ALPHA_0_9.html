@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9c - HEIRS ARE MADE ON ENTRY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/9o - THE KEEPERS SPEAK</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4558,8 +4558,19 @@ function renderFace(spec,opts){
      Zero flare reproduces the old fixed-width curtain exactly. */
   const _fl=H_flare==null?0:Math.max(0,Math.min(0.5,H_flare));
   const _fA=d=>Math.round(_fl*Math.max(0,d));
-  for(const side of [-1,1]){let outer=cx+side*(cw+3);const _mid=(Y0+jaw)/2|0;
-   poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer+side*_fA(11),Y0+11],[outer+side*_fA(_mid-Y0),_mid],[cx+side*(cw+1),jaw-1],[cx+side*jw,jaw-2],[cx+side*(cw-2),chY+2],[cx+side*(cw-1),chY-3]],hc);}
+  /* FADE TAPERS THE SIDES (10/9, Paolo: "hairstyles that match the hairstyles we have
+     on the characters"). Three canon cuts (TEMPLE TAPER, DRY TAPER, DEEP TAPER) carry
+     a fade value on the body and NOTHING on the portrait ever read it, so all three
+     rendered as the same short cap -- measured 85-93% pixel overlap between pairs that
+     are supposed to be three different haircuts. A fade keeps the crown's volume and
+     pulls the sides in close to the skull instead of following the cheek/jaw width;
+     the higher the number the tighter the taper. Guarded on h.fade being a real
+     number, so every cut without one (PUNK included) draws the exact byte it always
+     has -- _fsc is 1 and every *_fsc term below is the original term, unchanged. */
+  const _fade=(typeof h.fade==='number'&&isFinite(h.fade))?h.fade:0;
+  const _fsc=_fade>0?Math.max(0.45,1-_fade*0.055):1;
+  for(const side of [-1,1]){let outer=cx+side*(cw+3);let outerF=cx+side*(cw*_fsc+3);const _mid=(Y0+jaw)/2|0;
+   poly([[cx+side*fw,Y0+1],[cx+side*(fw+3),Y0+5],[outer+side*_fA(11),Y0+11],[outerF+side*_fA(_mid-Y0),_mid],[cx+side*(cw*_fsc+1),jaw-1],[cx+side*jw*_fsc,jaw-2],[cx+side*(cw*_fsc-2),chY+2],[cx+side*(cw*_fsc-1),chY-3]],hc);}
   for(let sx=cx-fw+1;sx<cx+fw;sx+=3)P(sx,Y0+1+hlY,hc);
   /* ===== THE MARK INSIDE THE MASS =====================================
      `style` used to mean one bit: wavy_mid and curly drew a zig down each side, and the
@@ -4576,10 +4587,15 @@ function renderFace(spec,opts){
   if(_tex==='wave'){
     for(const side of [-1,1]){let outer=cx+side*(cw+3);let k=0;
       for(let yy=Y0+7;yy<jaw;yy+=3){P(outer-side*(k%2?1:2),yy,hs);P(outer-side*2,yy+1,hi);k++;}}
-  } else if(_tex==='locs'||_tex==='coils'){
+  } else if(_tex==='locs'||_tex==='coils'||_tex==='braid'){
+    /* DUST WEAVE carries tex:'braid' on the body and this dispatch never named it, so
+       it silently fell through to no texture at all -- same flat cap as a 'solid' cut
+       with none asked for (10/9 finding). braid routes through the locs pattern below:
+       the closest existing mark to a woven look, and the body's own 'braid' texture
+       is not a separate rendering routine either, so this is reuse, not invention. */
     const _over=(fn)=>{for(let yy=0;yy<N;yy++)for(let xx=0;xx<N;xx++){const i=(yy*N+xx)*4;
       if(buf[i]===hc[0]&&buf[i+1]===hc[1]&&buf[i+2]===hc[2])fn(xx,yy);}};
-    if(_tex==='locs'){
+    if(_tex==='locs'||_tex==='braid'){
       /* ropes running with the fall. NO STRAIGHT LINES (8/1 clause 3, LOCKED): the column
          drifts by one pixel every other row, deterministic off this head, so a rope reads
          as a rope and not as a comb. Same method as the part above and the strand pass in
@@ -6145,7 +6161,16 @@ function faceFor(id, over){
      reads of the same thing at two different times is the shape that drifts. */
   var _bodyHair = '', _hd = null;
   try {
-    if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
+    if (over && over.hairName) {
+      /* [the enemy faces], 10/9: an enemy tier has no real person id for
+         BOH_PERSONLOOK.lookFor to resolve -- it wears a FACTION_LOOKS entry
+         directly, read by id ('enemy:brigand_thug', never a citizen). Same
+         rule as over.kin/over.age two blocks up: an explicit override skips
+         the normal roll instead of fighting it, so every id that does not
+         pass hairName keeps reading through lookFor exactly as before. */
+      _bodyHair = over.hairName;
+      _hd = hairDialsFor(_bodyHair);
+    } else if (typeof BOH_PERSONLOOK !== 'undefined' && typeof GARMENTS !== 'undefined') {
       /* *** AND A NAME THAT READS AS A WOMAN DOES NOT GET A MAN'S HAIRCUT.
          *** (9/24, PEOPLE [bubble face], row THE-FACE-IN-THE-BUBBLE-IS-HER.)
          QUESTS photographed Estella Gaines at his own door with a face that reads
@@ -6366,12 +6391,20 @@ function faceFor(id, over){
        on is still this person's, so a child in a shoulder-length cut gets a child's
        shorter fall out of f.len without the cut changing its name. */
   }
-  /* THE TEXTURE STAYS THE PERSON'S OWN ROLL, and that is honest rather than lazy: all
-     fifteen canon body styles are tex 'solid' (locs and braid belong to dead styles), so
-     there is nothing on the body to agree WITH yet. Four values that all move pixels,
-     against the two that used to collapse into "texture" and "no texture". When the body
-     grows a textured cut, this reads it the same way the shape dials do. */
-  sp.hair.tex   = pick(['wave','wave','coils','locs','solid'], 'htex');
+  /* *** THE COMMENT HERE SAID "NOTHING ON THE BODY TO AGREE WITH YET" AND IT STOPPED
+     BEING TRUE WITHOUT ANYONE TELLING THIS LINE (10/9, PORTRAIT [hairstyles match]
+     round two). The canon bank is 11 styles today, not the fifteen this comment still
+     named, and THREE OF THEM CARRY A REAL TEX: ROPE LOCKS and SHORT ROPES are 'locs',
+     DUST WEAVE is 'braid'. Measured on 300 crowd citizens: 82 wear one of those three
+     cuts, and 76 of the 82 (93%) had a portrait texture that disagreed with the body's
+     own -- the same ONE ID, ONE WHOLE PERSON shape this lane has now caught four times
+     (cut SHAPE 8/28, hair COLOUR 9/20, the braid sentinel 9/24, this). _hd already
+     parsed the real cut's tex two lines above for the braid check; reading it here too
+     is the same source, not a second one. Still a free roll for the 8 of 11 cuts that
+     carry no tex of their own (_hd.tex is then undefined), so nothing moves for them --
+     checked byte-identical against a clean origin/main worktree for 200 untextured
+     citizens. */
+  sp.hair.tex   = (_hd && _hd.tex) ? _hd.tex : pick(['wave','wave','coils','locs','solid'], 'htex');
   /* *** A BRAID IS PART OF THE HAIRCUT, SO IT COMES FROM THE HAIRCUT. *** THE PORTRAIT
      WEARS THE HAIRCUT THE BODY IS WEARING (8/28) and ONE ID ONE WHOLE PERSON (8/27):
      this is the same shape as the hair COLOUR bug this lane fixed on 9/20 -- the portrait
@@ -7398,7 +7431,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -7541,6 +7574,26 @@ const POSE={
    return {ikR:g[0],bendR:'auto',ikL:g[1],bendL:'auto',spine:0.14*lean,head:0.09*lean,
      legCompressL:0.06,legCompressR:0.06,hipOff:[lean*0.8,0.3],
      _gun:['rifle',g[1],g[0],aim],_fire:fire,_dial:[g[0],aim,(ph*8)%1,fire]};},
+ /* THE SHOT KICKS (ANIMATION [the shot kicks], 10/9; rules 63 and 69: half the rebuilt fight's men shoot, and the
+    fight's shot was two-hand@0, the aim HELD). deadeye fires inside a 126-degree sweep with a 2 px pull for a sliver
+    of its bar, so a shot read as a man standing still. These are ONE BEAT: the aim (the two-hand / pistol pose, the
+    same grips), then the KICK snaps in fast (the gun pulled back to the shoulder, the muzzle climbing, the shoulders
+    and the weight rocking back, the flash on the kick) and EASES out over the rest of the beat. Out and back once:
+    nothing reverses between two drawn keys (the envelope rule, 9/24). A rifle kicks into the shoulder and climbs a
+    little; a pistol flips more and the arm takes it. Facing you the climb is the grips rising, since a muzzle that
+    points into the screen cannot be seen to tilt. */
+ 'fire-2h':(d,ph)=>{const t=((ph%1)+1)%1;const k=t<0.1?t/0.1:Math.max(0,1-(t-0.1)/0.65)**2;const ca=Math.cos(FACEANG[d]);
+   const rise=0.30*k, aim=FACEANG[d]-(Math.abs(ca)>0.3?Math.sign(ca):0)*rise;
+   const g=gunTA(d,RF-5*k,RR-3.5*k,aim), up=(Math.abs(ca)<=0.3?3.6*k:1.0*k);
+   const fs=[g[0][0],g[0][1]-up],rs=[g[1][0],g[1][1]-up*0.55];
+   return {ikR:fs,bendR:'auto',ikL:rs,bendL:'auto',spine:-0.16*k*ca,head:-0.12*k*(Math.abs(ca)>0.3?ca:1),
+     hipOff:[-ca*2.0*k,0.4-0.8*k],legCompressL:0.06,legCompressR:0.06,_gun:['rifle',rs,fs,aim],_fire:k>0.55};},
+ 'fire-1h':(d,ph)=>{const t=((ph%1)+1)%1;const k=t<0.1?t/0.1:Math.max(0,1-(t-0.1)/0.6)**2;const ca=Math.cos(FACEANG[d]);
+   const rise=0.5*k, aim=FACEANG[d]-(Math.abs(ca)>0.3?Math.sign(ca):0)*rise;
+   const g=gunTA(d,RF-4*k,RR,aim), up=(Math.abs(ca)<=0.3?4.4*k:1.4*k);
+   const f=[g[0][0],g[0][1]-up];
+   return {ikR:f,bendR:'auto',upL:0.15,foreL:0.25,spine:-0.10*k*ca,head:-0.10*k*(Math.abs(ca)>0.3?ca:1),
+     hipOff:[-ca*1.3*k,-0.5*k],_gun:['pistol',f,aim],_fire:k>0.55};},
  lean:(d,ph)=>({spine:0.22+0.02*Math.sin(ph*2*Math.PI),upL:0.1,upR:-0.1}),
  /* sleep is a special lying path now: see sleepPose (7/2/26 rebuild) */
  headshot:(d,ph)=>{const t=ph;const e=(a,b)=>Math.min(1,Math.max(0,(t-a)/(b-a)));
@@ -10903,6 +10956,7 @@ function citySendCast(){
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
   cityBakeRestLater();
+  try{ cityBakeWalkLater(); }catch(_e){}   /* __THE_PARTIES_WALK__ (ANIMATION 10/9): their legs, after the boot */
   return true;
 }
 /* ==== __THE_STREET_IS_SIX_PEOPLE__ -- THE REST OF THE CAST, AFTER THE GAME IS RUNNING.
@@ -10978,6 +11032,52 @@ function cityBakeRestLater(){
   return true;
 }
 if(typeof window!=='undefined') window.cityBakeRestLater=cityBakeRestLater;
+/* __THE_PARTIES_WALK__ (ANIMATION [the marker walks], 10/9, rules 65 and 68: the map's people at 112, the
+   parties roam). The cast came to the map with an idle and a breath and NOTHING ELSE, so every party crossing
+   the valley crossed it standing still and breathing, and his own company was one man. The walk is the rig's
+   own walk clip (ANIMBEATS.walk is 2: one stride a beat), four pictures a facing, baked by the same withLook
+   borrow and bakeCast as the breath, ONE LOOK PER IDLE CALLBACK on the bus cityBakeRestLater proved: measured
+   10/9, a look's eight facings cost ~285 ms (rebuild 40, walk 25 a facing, restore 45), against the 530 ms a
+   rest-of-cast look already costs on the same bus. A look whose walk has not arrived yet keeps breathing:
+   nothing is drawn that was not baked. */
+const CAST_WALK_PHS=[0,0.25,0.5,0.75];
+let CWALK=null;
+function cityBakeWalkLater(){
+  if(CWALK) return false;
+  const all=(window.CITY_CAST_LOOKS||[]).length;
+  if(!all) return false;
+  CWALK={i:0};
+  const idle=(fn)=>(window.requestIdleCallback
+    ? requestIdleCallback(fn,{timeout:4000}) : setTimeout(fn,400));
+  const step=()=>{
+    const fr=document.getElementById('cityFrame');
+    if(!fr||!fr.contentWindow){ CWALK=null; return; }
+    const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
+    if(!src){ CWALK.done=true; return; }
+    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult'}, dirs={};
+    const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
+    const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+    PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+    try{
+      window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
+      rebuildFromRig();
+      for(const d of DIRS) dirs[d]=CAST_WALK_PHS.map(ph=>bakeCast(d,'walk',ph,true));
+    }catch(_e){ CWALK=null; return; }
+    finally{
+      /* PUT HIS BODY BACK: the same guarantee citySendCast makes */
+      window.G_WORN=kW; G.bodyVar=kD; G.age=kA;
+      for(const s in kE) G.equipped[s]=kE[s];
+      try{ rebuildFromRig(); }catch(_e){}
+      try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
+    }
+    try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:L.id,dirs:dirs},'*'); }catch(_e){}
+    CWALK.i++;
+    if(CWALK.i<all) idle(step); else CWALK.done=true;
+  };
+  idle(step);
+  return true;
+}
+if(typeof window!=='undefined') window.cityBakeWalkLater=cityBakeWalkLater;
 /* __CITY_FACTIONBODY__ -- BAKE ONE FACTION LOOK AND POST IT.
    Everything here is citySendCast's own machinery, asked for a single look:
    the same withLook borrow-and-give-back (these are GLOBALS -- leaving one
@@ -11618,6 +11718,10 @@ function nfOpts(d){
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
+  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
+  /* what you built at this place, to the fight (the map attached it at the door) */
+  try{ if(d && Array.isArray(d.built) && d.built.length) o.built = d.built.slice(0, 8); }catch(_e){}
+  /* __/BUILT_ON_THE_BOARD__ */
   return o;
 }
 function nfOpen(d){
@@ -12211,6 +12315,10 @@ function ensureCombatFrame(){
      Dial demo, full-time. */
   fr=document.createElement('iframe');fr.id='combatFrame';fr.allow='clipboard-write';
   fr.srcdoc=new TextDecoder().decode(Uint8Array.from(atob(COMBAT_B64),c=>c.charCodeAt(0)));
+  /* ONE FIGHT, ONE SONG (COMBAT 10/9): nothing warms this frame ahead any more, so it is built cold at its door, and a
+     cold frame starts its own loop before anybody tells it otherwise. The shell's engine scores every fight (FIGHTMUS,
+     SOUNDS 54b), so the frame is told to be quiet the moment it loads. */
+  fr.addEventListener('load',function(){ try{ if(window.FIGHTMUS&&fr.contentWindow)fr.contentWindow.postMessage({bohemiaMusicMute:true},'*'); }catch(_e){} });
   pc.appendChild(fr);
   setTimeout(musicPushToCombat,1200);   /* CATEGORY POOL: combat gets the faction pools at boot, not only when the music tab plays */
   return fr;
@@ -12735,9 +12843,13 @@ var BOH_START = (function(){
   /* the file, merged over the fallback by id: names, lines and tiers are its, and so is everything a card promises */
   function load(){
     try{ fetch('../records/target/bb/origins.json').then(function(r){ return r.json(); }).then(function(j){
-      ODATA = j; (j.origins || []).forEach(function(d){ var o = find(ORIGINS, d.id); if(!o || o.id !== d.id) return;
-        o.name = d.name; o.line = d.line; o.d = d.d; o.bb = d.bb; o.men = d.men; o.batteries = d.batteries;
-        o.field_cap = d.field_cap; o.roster_cap = d.roster_cap; o.pay = d.pay; o.crew = 0; });
+      /* [origins fallback] (MODS 10/9, rule 22): THE FILE IS THE LIST. An origin the file carries that the fallback does not
+         know (a modder's) is added, in the file's order; the fixed fifteen above are only what the door shows offline */
+      ODATA = j; (j.origins || []).forEach(function(d){ if(!d || !d.id || !d.men || !d.men.length) return;
+        var o = null; for(var i = 0; i < ORIGINS.length; i++) if(ORIGINS[i].id === d.id) { o = ORIGINS[i]; break; }
+        if(!o){ o = { id: d.id, start: 0, crew: 0, pay: 0 }; ORIGINS.push(o); }
+        o.name = d.name || String(d.id).toUpperCase(); o.line = d.line || ''; o.d = d.d || 2; o.bb = d.bb || ''; o.men = d.men; o.batteries = d.batteries;
+        o.field_cap = d.field_cap || 12; o.roster_cap = d.roster_cap || 20; o.pay = d.pay | 0; o.crew = 0; });
       var st = document.getElementById('newcostrip'), sl = st ? st.scrollLeft : 0; build(); st = document.getElementById('newcostrip'); if(st) st.scrollLeft = sl;
     }).catch(function(){}); }catch(_e){}
   }
@@ -13101,6 +13213,11 @@ else {
 (function warmTheFight(){
   let done=false;
   const warm=()=>{ if(done)return; done=true;
+    /* ONE FIGHT (COMBAT 10/9, from MODS [what is data and what is not]): the rebuilt fight is the fight (NEW_FIGHT_ON:
+       every door the demo has opens slices/BOHEMIA_FIGHT.html). Warming the sealed old one built a hidden 1.95 MB copy of
+       the frozen Dead Eye Dial on every phone that idled, a second truth for every gun that nothing could reach. Its doors
+       still build it on demand (the alpha's COMBAT tab, the old RUN slice's handoff); nothing builds it ahead. */
+    if(typeof NEW_FIGHT_ON!=='undefined'&&NEW_FIGHT_ON)return;
     try{ if(!document.getElementById('combatFrame'))ensureCombatFrame(); }catch(_e){} };
   const kick=()=>{ if(typeof requestIdleCallback==='function')requestIdleCallback(warm,{timeout:4000});
                    else setTimeout(warm,1500); };
@@ -19505,6 +19622,14 @@ function faceSliderUI(parent,dev){
       pface.hair.front=d.front!=null?d.front:null;
       pface.hair.vol  =d.vol  !=null?d.vol  :null;
       pface.hair.flare=d.flare!=null?d.flare:null;
+      /* TEX AND FADE WERE NEVER COPIED (10/9, Paolo: "hairstyles that match the
+         hairstyles we have on the characters"). Picking a cut here set four of
+         the six dials the body's own gen() carries and silently dropped the
+         other two, so a face built from ROPE LOCKS never got the locs texture
+         and a face built from a tapered cut never got the taper -- explicitly
+         'solid' now rather than left on whatever the last pick happened to be. */
+      pface.hair.tex  =d.tex!=null?d.tex:'solid';
+      pface.hair.fade =d.fade!=null?d.fade:null;
       refresh();faceRebuild();};
     hr.appendChild(bt);});
   box.appendChild(hr);
@@ -23867,10 +23992,46 @@ drawLogoBig();requestAnimationFrame(loop);
         BOH_SFX.render(v,MUS.AC,this.bus,null);
         this.last=ev; SFX_COUNT++;
       }catch(e){}
+    },
+    /* REACHING A TOWN IS THE MOMENT THE ROW NAMED (row [the map's sounds], 10/5:
+       "arriving at a settlement (a dog, a generator...)"), now that RUN's [the map
+       hears] (10/9) posts WHEN it happens instead of leaving it to the tick clock's
+       own random draw.
+       THE DOG IS NOT HERE, AND THAT IS NOT AN OVERSIGHT: checked fresh before
+       writing this, dog_far is DOWN on all five candidates (records/
+       BOHEMIA_SFX_VERDICT_8_12_26.txt, re-confirmed 8/14), graveyarded, and
+       GRAVEYARD IS FINAL. Measured on the glass: dog_far has no entry in this
+       file's own live APPROVED table (window.__sfxPool('dog_far') returns []),
+       so AMB.tick()'s own comment calling it one of "the rare ones" has been
+       describing a dead sound this whole time; that stale comment is not
+       touched here, named instead, since fixing a comment that merely
+       mis-describes already-correct (silent) behaviour is not this round's
+       job. ONLY generator plays here, zero new content: already his, already
+       playing from this same AMB bus every round since 8/12, approved
+       (APPROVED.generator = [0,1,2,3]) -- this only changes WHEN it is heard,
+       the same move [one song and the volumes] already made for the room
+       (the crossing arms the clock instead of waiting on it). */
+    arrivedSeq:null,
+    onArrive:function(seq){
+      if(seq==null || seq===this.arrivedSeq) return;
+      this.arrivedSeq=seq;
+      /* EXPOSED FOR THE GATE, THE SAME REASON __ambHumPlace AND __sfxInSpace ARE:
+         BOH_SFX only exists after his first real gesture unlocks audio, so a
+         checker driving this bridge standalone (no door, no tap through the
+         title) has to see the DECISION made, not only its rendered sound. */
+      window.__ambArriveLog = window.__ambArriveLog || [];
+      window.__ambArriveLog.push({ seq:seq, inside:this.inside });
+      if(this.inside) return;
+      try{
+        placeSound('generator', { dx:(Math.random()*2-1)*7, dist:6+Math.random()*9, inside:false }, this.bus);
+      }catch(e){}
     }
   };
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
+  window.addEventListener('bohemia-mapstate', function(e){
+    var d=e && e.detail; if(d && d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+  });
   /* the parent's own surfaces: every button on the phone is a UI TAP.
      EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR
      THE SOUNDS IF THE UI THAT PLAYS SOUNDS EVERYTIME I CLICK A BUTTON ALSO MAKE
