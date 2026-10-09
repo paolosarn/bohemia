@@ -5434,7 +5434,22 @@
       "how": "image",
       "src": "vote/COOK_THE_FAR_END_PAINTED.png"
     }
-  }
+  },
+{
+  "id": "folklore-beasts-become-machines-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "A BATTLE BROTHERS MONSTER THAT IS NOT AN ANIMAL BECOMES A MACHINE FROM THE ROBOTICS PLANT",
+  "why": "Your beast law says every beast is a lab-made real animal, but nineteen of Battle Brothers' beasts are folklore monsters that never lived, so those become the machines of the robotics plant by the airport (the Unhold a two-legged cargo loader, the Nachzehrer a scavenger bot that eats bodies for parts) while real animals stay lab-made and each keeps its Battle Brothers fight lesson exactly. You see it in the fight when one of them walks onto the board and in its card's one line.",
+  "show": {
+    "how": "text",
+    "src": "Rule 81 (coordinator default). WORDS found the gap (8607f623); COMBAT re-tags six mislabelled rows and adds a kind column (animal, machine, man). His locks stand: a boss is never an animal, no radiation, only what real DNA allows.\n\nSeen in: the fight (a machine on the board), the enemy's card, the recap."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
