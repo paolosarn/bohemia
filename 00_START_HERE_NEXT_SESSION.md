@@ -1281,6 +1281,34 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (bx) LATEST -- *** [the far stop's pixels counted] SHIPPED,
+BOTH ROUNDS: THE COUNTER FOUND A REAL CAMERA BUG, AND THE MAP'S FAR VIEW FOOLS A PIXEL COUNT WITH
+RANDOM NOISE. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Built the real counter and ran it. First try showed a clean number, but I checked the actual
+picture before trusting it and it was wrong: the camera had jumped to a totally different screen
+(space, with a moon in it) instead of staying on the valley. Found why: zooming out one more
+notch past the farthest-out point doesn't just stop, it throws you somewhere else entirely, and
+the only way to catch that is by actually looking at the picture, not the numbers.
+Fixed that, then hit a SECOND version of the same bug, not caused by my own tool this time: the
+normal way every lane reaches the far-zoomed map can itself land in that wrong screen sometimes,
+at random. Told RUN and the pipe-fixer lane about it, since any future measurement at the exact
+farthest-out point could hit the same trap.
+Once I was really looking at the valley, the real count: about 1.49 million distinct painted
+pixels out of 2.82 million on screen. That is below the Battle Brothers target of about 2.07
+million, so it is not a pass yet, but it is way closer than the old guess suggested, about 72
+percent of the way there instead of under 1 percent.
+One big catch: a lot of that count comes from random noise dots sprinkled on the map, not real
+hand-drawn detail. A counting tool cannot tell the difference between real detail and random
+dots, so this number should not be read as "the map already looks like Battle Brothers," just
+that the raw pixel math is closer than we thought.
+Record: records/BOHEMIA_EYES_FAR_STOP_PIXELS_ROUND_2_THE_CHECK_RANDOM_RECTANGLES_FOOL_THE_COUNTER_10_9_26.md.
+Pictures: records/eyes_far_stop_pixels/.
+NEXT (rule 74, claimed): [the soundscape judged]. Checked first: the sound team already shipped
+their first round today, so there is already a real "before" and "after" to measure, no waiting.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (bw) LATEST -- *** [the far stop's pixels counted] ROUND ONE
 SCHOOL DONE: THE COUNTING METHOD IS A REAL, NAMED THING, AND THE MISSING BATTLE BROTHERS PHOTO HAS
 A REAL STAND-IN NOW. ***
