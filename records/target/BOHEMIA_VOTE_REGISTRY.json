@@ -6600,6 +6600,21 @@
     "before": "vote/RUN2_THE_PEOPLE_TOWN_10_10.png"
    },
    "draft": true
+  },
+  {
+   "id": "direction-the-four-phones-10-9",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/9",
+   "title": "THE FOUR PHONES: CRACKED, REPAIRED, THE SLAB, YELLOWED",
+   "why": "Your phone at each act, rendered live on the game's own phone: cracked in act 1, taped in a rubber bumper in act 2, a clean metal slab if act 3 went well, yellowed and shattered if it went badly. You see it on the map's phone, four versions side by side.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_FOUR_PHONES.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
   }
  ],
  "verdicts": [

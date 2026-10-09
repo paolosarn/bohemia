@@ -1,0 +1,71 @@
+{
+ "_readme": "DIRECTION [four phones] 10/9: the three sibling skins for window.BOHEMIA_SKIN (act one = salvage, unchanged). UI pastes repaired/slab/yellowed as siblings in SKINS; 'shattered' toggles #cityfeedglass.shattered; 'tape' is one strip element on #cityfeed. Card: records/BOHEMIA_THE_FOUR_PHONES_CARD_10_9_26.md",
+ "skins": {
+  "salvage": {
+   "name": "SALVAGE (act one, as shipped)",
+   "vars": {},
+   "shattered": false
+  },
+  "repaired": {
+   "name": "REPAIRED (act two)",
+   "shattered": false,
+   "tape": "right:-6px;top:24px;width:64px;height:13px;transform:rotate(38deg);background:rgba(232,224,200,.20);border-top:1px solid rgba(255,250,235,.28);border-bottom:1px solid rgba(110,100,80,.30)",
+   "vars": {
+    "--skin-case": "linear-gradient(97deg,#2b2925 0%,#4a463f 8%,#23211e 22%,#35322d 50%,#1f1d1a 76%,#3e3a34 93%,#282622 100%)",
+    "--skin-caseedge": "#141311",
+    "--skin-casetop": "rgba(220,210,190,.18)",
+    "--skin-chipraw": "transparent",
+    "--skin-bezel": "5px",
+    "--skin-round": "21px",
+    "--skin-screen": "linear-gradient(#17160f,#0f0e0a 70%,#121109)",
+    "--skin-screenedge": "#0b0a07",
+    "--skin-screenround": "16px",
+    "--skin-glow": "rgba(205,190,140,.12)",
+    "--skin-glowr": "10px",
+    "--skin-crack": "rgba(233,222,190,.13)",
+    "--skin-crack2": "rgba(233,222,190,.06)",
+    "--skin-glassop": "1"
+   }
+  },
+  "slab": {
+   "name": "THE SLAB (act three, rich)",
+   "shattered": false,
+   "vars": {
+    "--skin-case": "linear-gradient(97deg,#8d8a83 0%,#e2ded5 10%,#9a968e 30%,#cfcbc2 52%,#8a867f 75%,#dcd8cf 92%,#9b978f 100%)",
+    "--skin-caseedge": "#57544e",
+    "--skin-casetop": "rgba(255,252,244,.50)",
+    "--skin-chipraw": "transparent",
+    "--skin-bezel": "2px",
+    "--skin-round": "24px",
+    "--skin-screen": "linear-gradient(#0d1012,#07090b 70%,#0a0c0e)",
+    "--skin-screenedge": "#050607",
+    "--skin-screenround": "22px",
+    "--skin-glow": "rgba(190,200,205,.10)",
+    "--skin-glowr": "12px",
+    "--skin-crack": "rgba(0,0,0,0)",
+    "--skin-crack2": "rgba(0,0,0,0)",
+    "--skin-glassop": "1"
+   }
+  },
+  "yellowed": {
+   "name": "YELLOWED (act three, poor)",
+   "shattered": true,
+   "vars": {
+    "--skin-case": "linear-gradient(97deg,#5e5641 0%,#a89c74 9%,#4b4433 24%,#8f8566 51%,#423c2e 74%,#9c9170 92%,#564e3c 100%)",
+    "--skin-caseedge": "#2c281e",
+    "--skin-casetop": "rgba(220,205,160,.22)",
+    "--skin-chipraw": "#c8b98c",
+    "--skin-bezel": "3px",
+    "--skin-round": "19px",
+    "--skin-screen": "linear-gradient(#17150a,#100e06 70%,#131108)",
+    "--skin-screenedge": "#0a0904",
+    "--skin-screenround": "16px",
+    "--skin-glow": "rgba(190,170,90,.06)",
+    "--skin-glowr": "6px",
+    "--skin-crack": "rgba(233,222,170,.42)",
+    "--skin-crack2": "rgba(233,222,170,.24)",
+    "--skin-glassop": "1"
+   }
+  }
+ }
+}

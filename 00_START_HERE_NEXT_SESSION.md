@@ -59181,6 +59181,10 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/9e (latest): [four phones] SHIPPED: three sibling skins as real
+values (records/target/DIRECTION_FOUR_PHONES_SKINS.json) rendered live on the
+alpha's phone (cracked / repaired / slab / yellowed). Next OPEN: [demo verdict
+two] (waits on RUN's next cut), [fight verdict 23] (waits on the next fight).
 ROUND LOG 10/9d (latest): [flip look] SHIPPED. Measured: the flip today
 changes 0.0% of the world (act 3 not derived on the map). Card: every flip 4
 beats (hold, tear in the phone, drain by value, hard cut same camera), first
