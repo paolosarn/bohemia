@@ -841,6 +841,23 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('GOD GEAR', ['node', 'gates/god_gear_gate.js'],
+     'ROW [where the god gear is] (Paolo 10/9: "finding good bros and good equipment throughout the '
+     'settlements"). The valley\'s six legendary places, each with a guard sized by the math and a '
+     'reward off the best rows of weapons.json and armor.json. *** THE FINDING: THEY ARE NOT '
+     'GUARANTEED. *** Battle Brothers puts its legendary locations on every map it generates; ours '
+     'ROLLS them, and the library is on 48 of 60 valleys, so in roughly one in five a rumour at the '
+     'bar would point at a building that is not there -- the module reports every absence BY NAME '
+     'and the gate proves it does on every swept valley. *** AND THE FIRST CUT RANKED THEM BY CELL '
+     'COUNT, WHICH MADE FIVE OF THE SIX IDENTICAL *** (the data fortress is six cells and every '
+     'other one is exactly one): same guard of 10, same three reward rows, which is [bb places]\' '
+     'own 9/25 defect, a shelf that is a function of tier alone. The gate holds that no two places '
+     'share a guard AND that cell count would not have separated them. THE CHAIN IS NOT A TABLE: '
+     'the rank sizes the guard off HIS OWN CEILING ("12 versus 60", rule 79) and the guard slices '
+     'the reward out of the ranked 310-row gear pool, so BETTER GUARDED IS BETTER GEAR BY '
+     'CONSTRUCTION and the gate proves the monotonicity. The rank is STATED AS MINE with a '
+     'real-world reason rather than dressed up as arithmetic, and WHO GUARDS SHIPS EMPTY because '
+     'the row says FACTIONS owns it.', False),
     ('VALLEY GROUNDS', ['node', 'gates/valley_grounds_gate.js'],
      'ROW [the valley\'s grounds], rule 75b (Paolo 10/5 and 10/9, and via Grok: THE GROUND PICKS '
      'WHO SHOWS UP). Every ground carries a travel speed and a faction pool, the speeds translated '

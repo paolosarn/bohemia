@@ -5717,6 +5717,18 @@
     "how": "image",
     "src": "vote/COMBAT2_BOARDS_BY_SIZE_WORKS_10_9.png"
    }
+  },
+  {
+   "id": "world-places-worth-going-to-10-9",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/9",
+   "title": "THE PLACES WORTH GOING TO",
+   "why": "The six places with the god gear, each gold ring sized by how many men are guarding it, so the biggest prize is also the widest circle of people standing between you and it. The hollow red ring is the library, which this valley never rolled: ours are not guaranteed like Battle Brothers' are, so a rumour at the bar can send you after a building that does not exist in your world.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_PLACES_WORTH_GOING_TO.png"
+   }
   }
  ],
  "verdicts": [

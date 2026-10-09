@@ -1,0 +1,140 @@
+{
+ "_readme": "WORLD [where the god gear is] 10/9: the valley's six legendary places, each with the guard that stands on it and the reward it pays. Written by tools/bohemia_god_gear_cook_10_9_26.js from engine/bohemia_godgear.js -- do not hand edit. NOTHING HERE IS A TABLE: a place is ranked, the rank sizes the guard off HIS OWN CEILING (\"12 versus 60\", rule 79), and the guard slices the reward out of the ranked gear pool of 310 rows, so better guarded is better gear by construction. *** THE SIX ARE NOT GUARANTEED: *** over 60 rolled valleys the library is on 48, so a rumour must check the valley it is in. THE RANK IS STATED AS MINE, not measured: the map does not encode which of these is the bigger prize (five of the six are one cell each), so the order is what the building WAS before the money died, and it is one line to change. WHO GUARDS IS FACTIONS'.",
+ "version": "BOHEMIA_GOD_GEAR_PLACES_v1",
+ "built": "2026-10-09",
+ "places": {
+  "arsenal": {
+   "district": "arsenal",
+   "his": "the arsenal one block off the strip"
+  },
+  "fuel_depot": {
+   "district": "fueldepot",
+   "his": "the two dead fuel depots"
+  },
+  "granary": {
+   "district": "granary",
+   "his": "the granary"
+  },
+  "robotics": {
+   "district": "robofactory",
+   "his": "the robotics plant"
+  },
+  "data_fort": {
+   "district": "datafort",
+   "his": "the data fortress"
+  },
+  "library": {
+   "district": "library",
+   "his": "the library"
+  }
+ },
+ "ceiling": {
+  "guard": 60,
+  "against": 12,
+  "ruling": "Paolo 10/9, rule 79: \"12 versus 60\" is the biggest fight Battle Brothers gives you",
+  "tuned": false
+ },
+ "rank": {
+  "data_fort": 6,
+  "arsenal": 5,
+  "robotics": 4,
+  "fuel_depot": 3,
+  "granary": 2,
+  "library": 1
+ },
+ "rankIs": {
+  "ruling": "WORLD 10/9, a stated default and not a measurement: an arsenal and a data fortress were BUILT to be defended, a robotics plant and a fuel depot to be secured, a granary and a library to be walked into. The map does not rank them -- five of the six are one cell each.",
+  "tuned": false,
+  "mine": true
+ },
+ "presentInRolledValleys": {
+  "arsenal": 60,
+  "fuel_depot": 58,
+  "granary": 55,
+  "robotics": 59,
+  "data_fort": 60,
+  "library": 48
+ },
+ "seedsSwept": 60,
+ "onSeed1337": [
+  {
+   "place": "arsenal",
+   "at": [
+    47,
+    34
+   ],
+   "guard": 50,
+   "radius": 8,
+   "defended": 5,
+   "cells": 1,
+   "presentIn": "60/60",
+   "topReward": "Reinforced Mail Hauberk",
+   "topValue": 2000,
+   "rewardFromRank": 51
+  },
+  {
+   "place": "fuel_depot",
+   "at": [
+    49,
+    10
+   ],
+   "guard": 30,
+   "radius": 6,
+   "defended": 3,
+   "cells": 1,
+   "presentIn": "58/60",
+   "topReward": "Reinforced Leather Armor",
+   "topValue": 500,
+   "rewardFromRank": 154
+  },
+  {
+   "place": "granary",
+   "at": [
+    57,
+    11
+   ],
+   "guard": 20,
+   "radius": 5,
+   "defended": 2,
+   "cells": 1,
+   "presentIn": "55/60",
+   "topReward": "Hatchet",
+   "topValue": 210,
+   "rewardFromRank": 205
+  },
+  {
+   "place": "robotics",
+   "at": [
+    73,
+    73
+   ],
+   "guard": 40,
+   "radius": 7,
+   "defended": 4,
+   "cells": 1,
+   "presentIn": "59/60",
+   "topReward": "Gnarly Staff",
+   "topValue": 1000,
+   "rewardFromRank": 102
+  },
+  {
+   "place": "data_fort",
+   "at": [
+    66,
+    77
+   ],
+   "guard": 60,
+   "radius": 9,
+   "defended": 6,
+   "cells": 6,
+   "presentIn": "60/60",
+   "topReward": "Coat of Plates",
+   "topValue": 7000,
+   "rewardFromRank": 0
+  }
+ ],
+ "missingOnSeed1337": [
+  "library"
+ ],
+ "guardedByIsFactions": "GUARDED_BY ships empty; who guards a place is FACTIONS', derivable from the live turf"
+}

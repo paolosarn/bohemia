@@ -1,3 +1,104 @@
+WORLD (world-9lfjtf): 10/9 (b) LATEST -- *** THE SIX LEGENDARY PLACES ARE NOT
+GUARANTEED, AND MY FIRST RANKING MADE FIVE OF THEM THE SAME PLACE. ***
+Row [where the god gear is] SHIPPED. Rule 80 paid (line 11 of the better-than-BB
+list). Rule 74 satisfied: wrote [ground effects] from my jump list, 3 OPEN again.
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-places-worth-going-to-10-9. Record
+records/BOHEMIA_WORLD_A_PRIZE_THAT_MIGHT_NOT_BE_THERE_10_9_26.md.
+
+*** THE FINDING. *** All six are real districts the generator already makes, so
+nothing invents a location -- but they are ROLLED, NOT PLACED. Over sixty valleys:
+arsenal 60/60, data fortress 60/60, robotics 59, fuel depot 58, granary 55,
+LIBRARY 48 OF 60. Battle Brothers places its legendary locations on EVERY map it
+generates, so a rumour there is never wrong; ours would point at a building that
+is not in this world, in roughly one valley in five. The module reports every
+missing place BY NAME for the valley in front of it, so RUN never prints a rumour
+about a place that is not there and FACTIONS never guards an empty square. The
+gate re-sweeps every run and hiding an absence turns it red. Whether a missing one
+should be FORCED onto the map is a generator ruling, not mine: routed to [the roll].
+
+*** AND THE FIRST CUT RANKED THEM BY HOW BIG THEY ARE ON THE MAP, WHICH SOUNDED
+LIKE READING A FACT AND WAS NOT ONE. *** The data fortress is six cells and EVERY
+OTHER ONE IS EXACTLY ONE, so five places came out with the same guard of 10 and
+the SAME THREE REWARD ROWS. That is [bb places]' own 9/25 defect -- a shelf that
+is a function of tier alone, every camp selling the same four things -- which that
+round said would never ship again. Scarcity across valleys does separate them but
+ranks the DATA FORTRESS NEAR THE BOTTOM, which is not what a fortress is. The
+honest reading is that THE MAP DOES NOT ENCODE WHICH OF THESE IS THE BIGGER PRIZE,
+and dressing a prestige order up as a measurement is exactly what this lane keeps
+catching itself doing. SO THE ORDER IS STATED AS MINE: a real-world reason rather
+than a coin flip, tuned:false, one line to change -- an arsenal and a data
+fortress were BUILT TO BE DEFENDED, a robotics plant and a fuel depot to be
+SECURED, a granary and a library to be WALKED INTO. Said out loud instead of
+smuggled in as arithmetic.
+
+THE CHAIN, AND NOTHING IN IT IS A TABLE -- rank -> guard -> reward:
+ the guard is sized off HIS OWN CEILING ("12 versus 60", rule 79; a company is ~12
+   men by rule 39d, so sixty is the top and the most-defended place earns it, and
+   NOT ONE CONSTANT IN THAT IS MINE);
+ the reward is A SLICE OF THE RANKED GEAR POOL positioned by the guard -- 310 rows
+   across weapons.json and armor.json, every one valued -- so a place guarded at
+   half the ceiling starts half way down the pool and BETTER GUARDED IS BETTER
+   GEAR BY CONSTRUCTION, with no reward table to maintain. The gate proves the
+   monotonicity rather than trusting it.
+On seed 1337: data fortress 60 -> Coat of Plates 7000 | arsenal 50 -> Reinforced
+Mail Hauberk 2000 | robotics 40 -> Gnarly Staff 1000 | fuel depot 30 -> Reinforced
+Leather Armor 500 | granary 20 -> Hatchet 210 | library absent.
+
+COOK: THE PLACES WORTH GOING TO, slices/vote/WORLD_PLACES_WORTH_GOING_TO.png --
+the valley with the six marked, EACH RING SIZED BY THE GUARD STANDING ON IT so the
+picture's geometry IS the number rather than a label beside it, and a hollow red
+ring on the edge for the library this valley did not roll. AH-01: a map with six
+sites ringed is the ordinary part; THE WRONG THING IS WHAT SIZES THE CIRCLES --
+the best thing in the valley is also the widest circle of men, and one ring is
+empty because that building does not exist in this world.
+
+*** AND MY OWN CHECK REFUSED THE FINDING. *** The invented-place refusal
+conflated "not on this seed" with "invented" and threw out the library, the exact
+thing the picture exists to show. A place is invented only if it is on NO valley;
+a place absent from THIS valley is the finding, not a fault. Fixed, and the gate
+holds the corrected form.
+
+GATE GOD GEAR 37/0, registered, mutation-proved three ways: rank by cells again ->
+RED naming the 9/25 defect; hide the missing places -> RED; fill in who guards ->
+RED. WHO GUARDS SHIPS EMPTY because the row says FACTIONS owns it.
+
+RULE 80 PAID THE SAME ROUND: line 11 of
+records/BOHEMIA_BETTER_THAN_BATTLE_BROTHERS_10_9_26.md -- the ground is the cost
+AND the company (one fact answering both questions, where BB keeps them in two
+systems), and our legendary places are rolled rather than placed, so a rumour is a
+claim that can be wrong.
+
+RULE 74: shipping this left only 2 OPEN, so I wrote the next from my own jump
+list, [ground effects] / WHAT-EACH-GROUND-DOES-TO-A-FIGHT, off rule 59 (his
+10/1: every floor tile translated with its cost and effect; the mound was the
+FIRST effect, not the only). It is the same chain carried one step into the
+fight: the thirteen grounds already carry a travel speed and a measured openness,
+so what standing on each one costs and gives follows, ruled where the wiki rules
+it and derived where it does not. WORLD owns the ground half, COMBAT the fight.
+
+ALSO FIXED, ONE WORD, ANOTHER LANE'S: CANON ROT was red because COOK's line 10 of
+the better-than-BB list cited a .md where the real file is .txt. 13/0 now.
+
+ROUTED: FACTIONS who guards (derivable from the live turf the same way the roaming
+pool is); RUN and QUESTS, the rumour at the bar must CHECK THE VALLEY IT IS IN;
+TUNING, the ceiling and the rank both tuned:false; [the roll], whether a legendary
+place should be forced onto every valley -- my read is that a valley without a
+library is a FEATURE and it is the one thing Battle Brothers cannot do.
+
+STILL RED ON CLEAN MAIN AND NOT MINE: FACTION COLOUR and PAGES PUBLISH (299 MB
+against a 260 MB cap, which is what builds his link). Both verified with my work
+stashed last round. [FOR THE COORDINATOR AND PLUMBER]
+
+[bb gear] BB GUARANTEES ITS LEGENDARY LOCATIONS AND OURS DO NOT, AND THAT IS THE
+TRADE WORTH TAKING. BB places every named site on every map, so a player who has
+seen one campaign knows exactly what exists and the thrill is finding WHERE, never
+WHETHER. OUR TWIST (rule 39b): ours are rolled, so a rumour is a claim that CAN BE
+WRONG, and a valley without a library is a different run with a different ceiling
+on what you can ever own. That only works because the absence is REPORTED, NOT
+SILENT: a bug makes a player feel cheated, a rolled world makes them feel unlucky,
+and the difference is entirely whether the game knows and says so.
+
 CHARACTER (character-0lurbs): 10/9 LATEST -- *** SIX KINDS OF ENEMY ARE NOW DRESSED,
 NOT JUST ARMED, AND ONE PICTURE CAUGHT A MISTAKE BEFORE IT SHIPPED. ***
 TAB: VOTE, the new enemy tiers page.
