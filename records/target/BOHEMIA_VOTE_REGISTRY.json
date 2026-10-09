@@ -5477,6 +5477,19 @@
     "how": "page",
     "src": "BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html"
    }
+  },
+  {
+   "id": "combat2-the-freeway-redone-10-9",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "THE FREEWAY IS THE STREET'S ROAD, WITH NO WALL ON IT",
+   "why": "The freeway now uses the street's own asphalt, paint and curb, with a low concrete barrier down the middle and a see-through fence at the edges instead of the grey wall. Thumbs up and every freeway fight looks like this, and you see it in the COMBAT tab on the freeway board.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png"
+   }
   }
  ],
  "verdicts": [

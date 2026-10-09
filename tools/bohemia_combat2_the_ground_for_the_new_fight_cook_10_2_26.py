@@ -353,6 +353,11 @@ def main():
                             lights.append(dict(kind='lamp', src='light_lamp_house_side.png' if y < 30 else 'light_lamp_your_side.png',
                                                x_m=bc * 60 + x, y_m=br * 60 + y, live=lr.random() < 0.36, radius_m=7.0,
                                                circuit='grid', block=[br, bc]))   # rule 73: the map powers a block on or off
+                if k in ('freeway', 'freewayo'):                           # rule 77a: the freeway's lamps stand on the median, one kit with the street's
+                    for x in range(6, 60, 24):
+                        if k == 'freewayo' and 20 <= x < 40: continue
+                        lights.append(dict(kind='lamp', src='light_lamp_house_side.png', x_m=bc * 60 + x, y_m=br * 60 + 29.6,
+                                           live=lr.random() < 0.36, radius_m=9.0, circuit='grid', block=[br, bc]))
                 if k in ('subs', 'lots', 'ruin', 'landfill', 'scrub') and lr.random() < 0.5:
                     lights.append(dict(kind='drum', src='light_oil_drum.png', x_m=round(bc * 60 + 6 + lr.random() * 48, 1),
                                        y_m=round(br * 60 + (8 if lr.random() < 0.5 else 52), 1), live=True, radius_m=5.0,

@@ -267,6 +267,17 @@
    "kind": "COVER",
    "burns": true
   },
+  "jersey": {
+   "src": "cover_jersey.webp",
+   "h": 0.8,
+   "kind": "LOW_COVER"
+  },
+  "trailer": {
+   "src": "cover_trailer.webp",
+   "h": 3.6,
+   "kind": "COVER",
+   "blocks_sight": true
+  },
   "dumpster": {
    "src": "cover_dumpster.webp",
    "h": 1.4,
@@ -11100,26 +11111,26 @@
      "flat"
     ],
     [
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "height",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
-     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
      "height",
-     "blocked",
-     "blocked"
+     "flat",
+     "flat"
     ],
     [
      "flat",
@@ -11372,144 +11383,184 @@
      "y_m": 29.6
     },
     {
-     "piece": "car_kerb",
-     "x_m": 47.8,
-     "y_m": 75.8
+     "piece": "jersey",
+     "x_m": 0.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 6.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 12.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 18.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 36.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 42.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 48.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 54.0,
+     "y_m": 89.5
     },
     {
      "piece": "car_lane",
-     "x_m": 52.9,
-     "y_m": 72.0
+     "x_m": 46.0,
+     "y_m": 97.2
     },
     {
      "piece": "car_lane",
-     "x_m": 52.8,
-     "y_m": 107.0
+     "x_m": 50.9,
+     "y_m": 86.4
+    },
+    {
+     "piece": "car_kerb",
+     "x_m": 50.8,
+     "y_m": 86.4
+    },
+    {
+     "piece": "jersey",
+     "x_m": 60.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 66.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 102.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 108.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 114.0,
+     "y_m": 89.5
     },
     {
      "piece": "car_lane",
-     "x_m": 40.7,
-     "y_m": 107.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 37.3,
-     "y_m": 103.2
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 12.9,
-     "y_m": 83.2
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 15.8,
-     "y_m": 75.8
+     "x_m": 68.4,
+     "y_m": 97.2
     },
     {
      "piece": "car_lane",
-     "x_m": 29.7,
-     "y_m": 83.2
+     "x_m": 65.5,
+     "y_m": 82.7
     },
     {
-     "piece": "car_kerb",
-     "x_m": 40.3,
-     "y_m": 75.8
+     "piece": "jersey",
+     "x_m": 120.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_kerb",
-     "x_m": 68.6,
-     "y_m": 79.5
+     "piece": "jersey",
+     "x_m": 126.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 65.6,
-     "y_m": 79.5
+     "piece": "jersey",
+     "x_m": 132.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 75.5,
-     "y_m": 75.8
+     "piece": "jersey",
+     "x_m": 138.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 70.4,
-     "y_m": 107.0
+     "piece": "jersey",
+     "x_m": 156.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_kerb",
-     "x_m": 103.3,
-     "y_m": 99.5
+     "piece": "jersey",
+     "x_m": 162.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_kerb",
-     "x_m": 167.8,
-     "y_m": 75.8
+     "piece": "jersey",
+     "x_m": 168.0,
+     "y_m": 89.5
     },
     {
-     "piece": "car_lane",
-     "x_m": 172.9,
-     "y_m": 72.0
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 172.8,
-     "y_m": 107.0
+     "piece": "jersey",
+     "x_m": 174.0,
+     "y_m": 89.5
     },
     {
      "piece": "car_lane",
-     "x_m": 160.7,
-     "y_m": 107.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 157.3,
-     "y_m": 103.2
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 132.9,
-     "y_m": 83.2
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 135.8,
-     "y_m": 75.8
+     "x_m": 166.0,
+     "y_m": 97.2
     },
     {
      "piece": "car_lane",
-     "x_m": 149.7,
-     "y_m": 83.2
+     "x_m": 170.9,
+     "y_m": 86.4
     },
     {
      "piece": "car_kerb",
-     "x_m": 160.3,
-     "y_m": 75.8
+     "x_m": 170.8,
+     "y_m": 86.4
     },
     {
-     "piece": "car_kerb",
-     "x_m": 188.6,
-     "y_m": 79.5
+     "piece": "jersey",
+     "x_m": 180.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 186.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 222.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 228.0,
+     "y_m": 89.5
+    },
+    {
+     "piece": "jersey",
+     "x_m": 234.0,
+     "y_m": 89.5
     },
     {
      "piece": "car_lane",
-     "x_m": 185.6,
-     "y_m": 79.5
+     "x_m": 188.4,
+     "y_m": 97.2
     },
     {
      "piece": "car_lane",
-     "x_m": 195.5,
-     "y_m": 75.8
-    },
-    {
-     "piece": "car_lane",
-     "x_m": 190.4,
-     "y_m": 107.0
-    },
-    {
-     "piece": "car_kerb",
-     "x_m": 223.3,
-     "y_m": 99.5
+     "x_m": 185.5,
+     "y_m": 82.7
     },
     {
      "piece": "rock_0",
@@ -12177,6 +12228,136 @@
      "circuit": "grid",
      "block": [
       0,
+      3
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 6,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      0
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 30,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      0
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 54,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      0
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 66,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      1
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 114,
+     "y_m": 89.6,
+     "live": true,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      1
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 126,
+     "y_m": 89.6,
+     "live": true,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      2
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 150,
+     "y_m": 89.6,
+     "live": true,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      2
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 174,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      2
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 186,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
+      3
+     ]
+    },
+    {
+     "kind": "lamp",
+     "src": "light_lamp_house_side.webp",
+     "x_m": 234,
+     "y_m": 89.6,
+     "live": false,
+     "radius_m": 9.0,
+     "circuit": "grid",
+     "block": [
+      1,
       3
      ]
     }

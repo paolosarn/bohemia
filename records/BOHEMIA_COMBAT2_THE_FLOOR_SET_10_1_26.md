@@ -316,3 +316,24 @@ KNOWN, NOT HIDDEN: the culdesac board found no matching layout (the stem's stree
 disagree), the landfill and shore keep their seams; a ring stud is 12 px (0.28 m) wide, a thin property line
 where a yard meets a yard; the reader cannot see a wash as different from scrub.
 VOTE: combat2-tiles-are-legos-10-5 (slices/vote/COMBAT2_TILES_ARE_LEGOS_10_5.png).
+
+## ROUND TWENTY-THREE (10/9): [the freeway redone], rule 77a, SHIPPED
+
+PAOLO 10/9: 'the freeways and the streets look like dog shit, not the same direction, not working together like
+they shared assets... an ugly ass gate wall on top of the freeway'.
+WHAT HE SAW: FL.freeway2 drew a 4 m concrete sound wall's face across the whole width at the north shoulder
+(a grey band with posts every 6 m: the 'gate wall'), its own concrete deck and rumble strips, six lanes at a
+different paint rhythm from the street, a desert verge abutting the town.
+THE RE-CUT (FL.freeway2, one function, every freeway block): the street's own asphalt (R4.road_band, his road
+tiles), lane paint (C[5], 3 m dash every 12 m, the street's rhythm), curb (R4.walk_band strip + the C[5] curb
+line + the same face shading as MX._street); at the freeway's width: 3 m shoulder, 2 x 3.7 m lanes, 1.2 m inner
+shoulder, a 0.8 m Jersey barrier (new piece 'jersey', LOW_COVER, 6 m segments, a crossover gap), the same the
+other way; fog lines C[5], median lines T[5]. NOTHING ACROSS THE ROAD: the sound wall is gone; a low chain-link
+at each shoulder's edge (see-through); cover = the barrier, stalled cars, a truck's trailer (new piece 'trailer',
+COVER, blocks sight). Lamps on the median (lights list, circuit 'grid'). The overpass stays only where a town
+street crosses: the town's cross street on a bridge, railings with posts over the span, its shadow on the lanes.
+Rule 77 still holds: freeway 0/0 (board/apron), every other board unchanged; gate TILES ARE LEGOS green.
+Verified in the new fight (390 x 844 at 3x, freeway and suburb, 0 page errors).
+OWED: the I-15 photo for reference/ (this container's network policy refuses Wikimedia, Wikipedia, Flickr and
+Unsplash; the coordinator or a session with web access drops one in). The sheet carries I-15's measured
+section instead. VOTE: combat2-the-freeway-redone-10-9 (slices/vote/COMBAT2_THE_FREEWAY_REDONE_10_9.png).
