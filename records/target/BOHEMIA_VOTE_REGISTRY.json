@@ -6015,7 +6015,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHEN THE AMMO RUNS OUT",
-   "why": "In Battle Brothers ammo is cheap but limited: one company stock, a quiver holds 10 shots, and it refills after each fight from the stock. Pick a start (Low, Medium, High) and a gun in the VOTE tab and see how many fights you get before you reach for a blade. Our game has no ammo stock at all yet, so scarcity can't be felt.",
+   "why": "In Battle Brothers ammo is cheap but limited, one company stock refilling a 10-shot quiver after each fight, and our game has no stock yet so scarcity cannot be felt. You see it in the VOTE tab under LOOK: pick a start and a gun and count the fights before you reach for a blade.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHEN_THE_AMMO_RUNS_OUT_10_10_26.html"
@@ -6028,7 +6028,7 @@
    "sha": "a727ff8",
    "made": "10/10",
    "title": "A MODDER'S FIRST HOUR",
-   "why": "For whoever makes mods. Seven steps from nothing to a changed game, every one something that works today, and one marked as not built yet. The knife step was run for real: change two numbers in one file, reload the fight, and the knife hits 20 to 30.",
+   "why": "For modders, seven steps from nothing to a changed game, each one working today but one, and the knife step was run for real: two numbers changed in one file and the knife hits 20 to 30. You see it in the VOTE tab under LOOK.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html"
