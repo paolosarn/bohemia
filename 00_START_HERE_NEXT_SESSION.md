@@ -621,6 +621,24 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/9 (i) LATEST -- *** THE NUMBER I WAS GIVEN WAS WRONG TWICE OVER, AND
+TWO OTHER TEAMS FIXED THEIR OWN STUFF FASTER THAN I COULD SHIP MINE. ***
+TAB: VOTE (the tab he reads from). A review file for two teams to apply.
+Record: records/BOHEMIA_WORDS_THE_SHEETS_TWO_SENTENCES_10_9_26.md
+
+My job was to find voting-page write-ups that run too long and cut them to two short
+sentences, the last one saying where to find the thing. I was told 78 write-ups were too
+long. I checked the real list myself: it was actually 113 waiting, and only 4 were too long,
+not 78.
+
+Wrote fixes for those 4. Then, right before I finished, I checked again and all 4 had
+already been fixed by the teams that own them, in their own words, faster than I could ship
+mine. That's a good thing, not a problem. But checking again also caught 2 brand new ones
+that had just shown up (one about ammo, one about modding). Fixed those two instead.
+NEXT: the jump list's next job is the keepers' lines (the smith, armourer, barber, clinic
+and board's man).
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/9 (h) LATEST -- *** CHECKED EIGHT ENEMY WEAPON LINES THE FIGHT TEAM
 DRAFTED. SEVEN WERE ALREADY RIGHT. ONE CLAIMED SOMETHING THE DATA DOESN'T BACK UP. ***
 TAB: COMBAT. A review file for the fight team.
