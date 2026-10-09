@@ -1,3 +1,13 @@
+TUNING (tuning-f59l1w): 10/10 (d) LATEST -- [respec] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A RESPEC COSTS (BB potion vs ours vs XP past 11, draft:true).
+RECORD: records/BOHEMIA_TUNING_RESPEC_BB_ALREADY_HAS_A_RESET_AND_IT_COSTS_SEVEN_RARE_PARTS_10_10_26.md (BB facts from the wiki dump).
+FINDING: his premise is half wrong: vanilla BB HAS a respec, the Potion of Oblivion (worth 2500, resets ALL perks, crafted only,
+7 rare monster parts + 5000 crowns). What players lack is a PARTIAL, AFFORDABLE one, which is his rule. Past level 11 a level costs
+4000+1000 per level above 11 (12: 19,000 total; 13: 24,000; 14: 30,000), gives NO perk point, stats capped +1 x3, so a swap is the
+one thing late XP buys. Price anchored to 1/10 of the potion: 25-50 batteries (default 40 is MY pick), a few days, one mastery per
+visit, training ground, masteries only. Rule 56: death.base 0.20 + death.per_mark 0.05 (my pick), cap 4 marks = 0.40 max, under BB's 0.67.
+Recall/unverified: what the Legends and respec mods do.
+NEXT OPEN: [recruit odds], [origins difficulty].
 WORLD (world-9lfjtf): 10/9 (d) LATEST -- *** A LEGEND COUNT IS NOT A BOARD, AND
 ONLY ONE ROW OF BATTLE BROTHERS' TERRAIN TABLE CAN FIRE ON OUR BOARDS. ***
 Row [ground effects] SHIPPED. 3 OPEN rows remain as the jump list (rule 74), and
