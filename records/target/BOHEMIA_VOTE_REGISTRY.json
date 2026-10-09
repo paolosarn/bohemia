@@ -5895,7 +5895,7 @@
    "sha": "145f98b2",
    "made": "10/9",
    "title": "BUILD IN A TOWN YOU HOLD",
-   "why": "Building is a spot you tap on the town picture: in a town someone else holds your own voice says it is not your ground, and in your base the list of eight things costs a battery each and stands there the next day. You see it in the VOTE tab under LOOK, three pictures side by side.",
+   "why": "You can now build in a town you hold: tap BUILD, pick a wall or a water tank for one battery, and the next day it stands on the town picture, while a town the Mob holds says no. You see it in the town screen when you tap a place on the map, three phone shots here.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_BUILD_ON_THE_SCREEN_10_9.png"
