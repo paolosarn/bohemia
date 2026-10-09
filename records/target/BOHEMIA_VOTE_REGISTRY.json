@@ -5730,6 +5730,20 @@
     "src": "vote/WORLD_PLACES_WORTH_GOING_TO.png"
    },
    "sha": "5fe7031d"
+  },
+  {
+    "id": "cook-the-far-end-as-tiles-10-10",
+    "kind": "map",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE FAR END AS TILES",
+    "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
+    "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
+    }
   }
  ],
  "verdicts": [

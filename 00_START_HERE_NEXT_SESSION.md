@@ -1424,6 +1424,71 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 LATEST -- *** THE FAR END AS TILES, AND THE NUMBER HE HAS BEEN
+ASKING FOR SINCE 10/1: THE MAP'S FAR END IS 9,216 PIXELS, 0.44% OF BATTLE BROTHERS. ***
+Shipped: tools/bohemia_the_far_end_as_tiles_cook_10_10_26.py,
+banks/BOHEMIA_THE_FAR_END_TILES_10_10_26.txt,
+records/BOHEMIA_THE_FAR_END_AS_TILES_MEASURED_10_10_26.txt, VOTE
+cook-the-far-end-as-tiles-10-10, the laid valley at slices/vote/COOK_THE_FAR_END_TILED.png.
+
+*** ROUND 1'S SHEET WAS NEVER PICKED UP BY ANYTHING, AND THAT IS WHERE THIS ROUND STARTED. ***
+A thing nobody can use is not shipped, whatever its guards said. So the first job was to
+measure WHY, in the shipped map, instead of guessing. engine/bohemia_valleymap.js:
+  paintCell    one cell into 128x128. A district kit paints its real block grid. A ROAD cell
+               FILLS ALL 128x128 WITH TARMAC and rules lane lines on it. A TERRAIN cell --
+               mountain, desert, wash, every piece of land in the valley -- fills ONE FLAT
+               COLOUR and throws ninety random translucent rectangles on top.
+  paintValley  "THE WHOLE VALLEY, one flat image at 1 pixel per cell."
+SO THE FAR END IS 96x96 = 9,216 PIXELS scaled up to fill his phone, against Battle Brothers'
+2,073,600. That is 0.44%, and rule 60 is him asking for exactly that number since 10/1.
+THERE IS NO MOUNTAIN PAINTING IN THE MAP AT ALL, only a fill and a speckle, which is why the
+valley reads as a tan dome and why no better flat colour was ever going to fix it.
+AND THE ROAD CELL IS THE SAME CATEGORY ERROR THIS LANE MADE AND CAUGHT IN ITS OWN FIRST SHEET
+LAST ROUND: a cell is 96 m of world saying a road runs through it, not 96 m of tarmac.
+
+SO ROUND 2 IS NOT ANOTHER SHEET. One big picture asks RUN to throw away a per-cell painter
+and composite an image: a rewrite on their side and seed-locked on mine. What drops into the
+painter they already have is TILES, 16 px a cell. WHY SIXTEEN IS NOT A TASTE: 96 x 16 =
+1,536, and 1,536 squared is 2,359,296, the smallest whole number of pixels per cell that puts
+THE WHOLE VALLEY ON ONE SCREEN AT BATTLE BROTHERS' COUNT. It is 1.14x BB and 256x what the
+map draws now. The brushes are round 1's own tool, imported, not rewritten.
+
+*** AND THE FINDING THAT DECIDED WHAT SHIPS, WHICH KILLED A CLAIM IN MY OWN HEADER: ***
+          A CELL TILE CAN CARRY A MATERIAL. IT CANNOT CARRY A STRUCTURE BIGGER THAN A CELL.
+I wrote that tiles cut from one painting "meet by construction". THE GATE PROVED THAT WRONG:
+two cells can both be (range,range,range,range,range) and be cut from different places, one
+off a crest and one off a shadowed flank, so swapping them shows a 34-value jump. I then
+added the edge's VALUE band to rule 77's four TYPES, and quadrupling the bands from 4 to 16
+moved the seam from 30 to 29. Rule 77's typed edges are enough for a DISCRETE thing -- road
+meets road, kerb meets kerb -- and cannot pin a continuous quantity.
+MEASURED FAMILY BY FAMILY, the split is a rule and not noise:
+  TILES         basin 16.8/12.6   field 11.0/9.1   road 22.8/16.6   spine 10.4/9.6
+                wash 22.3/12.6    water 11.1/10.0  yard 11.4/9.6
+  DOES NOT      CITY 21.9/10.0    RANGE 21.7/10.6  RUNWAY 22.4/10.4
+All three failures are one reason in three costumes: a ridge, a city's block mosaic and a
+runway are STRUCTURES THAT SPAN MANY CELLS, so cutting them into cells and reusing the pieces
+breaks the thing that was spanning. So the set is not chosen by taste: the tool lays the
+valley, measures each family's seams against its own insides, and ONLY the families that pass
+go in the set. The other three stay computed by the brush, in place, per valley.
+565 signatures, 1,115 tiles, zero duplicate pairs, run 1.06 against DIRECTION's floor of 1.5,
+every pixel on this lane's own approved 9/27 ramps (checked on the paint, before the camera).
+AND THE CAMERA GRADE SPLIT TOO: the grain, the scan and the channel offset are MATERIAL and
+are baked in before the cut so they stay continuous across seams; THE VIGNETTE IS NOT -- a
+lens darkens the corners of a FRAME and a tile has no corners of the frame, so baking it
+would stamp dark patches into whichever tiles were cut from the painting's edge and scatter
+them across the valley. The frame's falloff is RUN's, at draw time.
+A guard that ASSERTED THE RANGES WOULD TILE was rewritten once the measurement came in; it
+had been asking the build to ship the exact thing the round found broken.
+
+FOR RUN, IN ONE LINE (and it is in the bank's own how_to_use field): paintCell stamps the
+tile whose (self,N,E,S,W) matches the cell and its four neighbours instead of filling flat.
+Nothing about the loop changes. The three structural families keep their current path until
+somebody computes them; the brush that paints them is this tool.
+
+NEXT IN THIS LANE, the jump list under the top row: [the settlement pictures finished]
+(camp, town, fortress at paint quality, two variants a tier with their nights), then
+[the board props] (the six new building types' props at the fight's scale, under rule 77).
+
 COOK (cook-mce6r5): 10/9 LATEST -- *** THE FAR END, PAINTED BY HAND. THIS LANE IS BACK ON
 (rule 78) AND THE TOP OPEN ROW WAS THE JOB (rule 74). ***
 Shipped: tools/bohemia_the_far_end_painted_by_hand_cook_10_9_26.py,
