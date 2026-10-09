@@ -1,0 +1,126 @@
+THE SETTLEMENT PICTURES, FINISHED -- MEASURED  (COOK, 10/10/26, rule 71a)
+==============================================================================
+
+THE ROW: COMBAT TWO cut the camp, the town and the fortress, two variants a
+tier with their nights, and RUN TWO's settlement screen draws them. "Paint over
+the cut: weather on the walls, the ground worn where people walk, the signs, the
+trash, the light leaking from the lit buildings at night; the hotspots
+unchanged; RUN TWO swaps the sheet."
+
+SO THIS ROUND DOES NOT DRAW A SETTLEMENT, IT FINISHES THEIRS. Twelve sheets at
+2060 x 1092 in, twelve out, same size and the same hotspot boxes to the pixel.
+
+WHAT WAS MISSING, LOOKING AT THEIR SHEET BESIDE THE REAL THING:
+  THE WALLS ARE CLEAN. Nothing here has been washed since the dollar died. A
+  wall under a roof edge carries what the rain brought down it: darkest at the
+  top of the run, fading out, heavier off the corners, never even.
+  NOBODY HAS WALKED ANYWHERE. The ground is one even surface between buildings
+  people use all day. A worn path is the record of where feet go, so THE PATHS
+  HERE ARE DERIVED FROM THE HOTSPOTS: the picture already says which buildings
+  you can use, so the ground is worn between those and down to the bottom edge,
+  which is where you arrive. A settlement with a clinic wears differently from
+  one without.
+  NOTHING SAYS WHAT IT IS. A clinic, a barber, a stall and a notice board look
+  alike from across the screen (CGRD-01). Each gets a hand-painted board ABOVE
+  its hotspot, never over it: a sign that covers the thing you tap is worse than
+  no sign.
+  NOBODY HAS DROPPED ANYTHING. Trash gathers where people stand, not evenly.
+  AND AT NIGHT THE LIT BUILDINGS ARE DARK. Their lamps throw clean pools and the
+  open buildings leak nothing. That is what makes a night picture read as a map
+  with lamps on it instead of a place.
+
+*** EVERY COLOUR THIS WRITES WAS ALREADY IN THE PICTURE IT PAINTS OVER. ***
+Their sheets carry thousands of colours (a lossless WebP of an antialiased
+render), so a palette ramp is the wrong instrument. The rule that IS right, and
+that the gate measures: the finished picture's colour set is a SUBSET of the one
+that came in. Every stain, path and sign is made by picking a colour the picture
+already had, which is why it reads as their picture weathered rather than mine
+painted on top of theirs.
+
+AND THE GROUND IS KNOWN EXACTLY, NOT GUESSED. Their own tool is imported and its
+ground() layer rendered at full size, so "is this pixel ground" is a comparison:
+a pixel is ground where the sheet still equals the ground layer, meaning nothing
+was drawn over it. Wear can only land where people could actually walk, and the
+build refuses if the ground layer does not line up with the sheet.
+
+ONE LIGHT (rule 70a): the night leak is the same warm the sheet's own lamps are,
+sampled off their brightest pixels, so the doorway and the lamp cannot drift.
+
+WHAT EACH SHEET GOT:
+  camp_0.webp                8443 wall runs    41430 worn px   2267 trash  5 signs
+  camp_0_night.webp          8380 wall runs    41131 worn px   2236 trash  5 signs   74871 px lit from doorways
+  camp_1.webp                8281 wall runs    38373 worn px   1296 trash  5 signs
+  camp_1_night.webp          8456 wall runs    38275 worn px   1290 trash  5 signs   44604 px lit from doorways
+  town_0.webp                10242 wall runs    43733 worn px   2134 trash  5 signs
+  town_0_night.webp          10496 wall runs    43757 worn px   2171 trash  5 signs  255481 px lit from doorways
+  town_1.webp                10336 wall runs    33741 worn px   2097 trash  5 signs
+  town_1_night.webp          10211 wall runs    33704 worn px   2139 trash  5 signs  192688 px lit from doorways
+  fortress_0.webp            5426 wall runs    10750 worn px    396 trash  5 signs
+  fortress_0_night.webp      5427 wall runs    10538 worn px    467 trash  5 signs   50160 px lit from doorways
+  fortress_1.webp            5315 wall runs    10347 worn px    352 trash  5 signs
+  fortress_1_night.webp      5044 wall runs    10298 worn px    333 trash  5 signs   44564 px lit from doorways
+
+THE GUARDS, EVERY ONE RUN, EVERY ONE ABLE TO REFUSE THE BUILD:
+  OK   THE HOTSPOTS ARE UNCHANGED, which is the row's own condition: the manifest's boxes are identical to the pixel
+  OK   SAME PICTURE, SAME SIZE: camp_0.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: camp_0_night.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: camp_1.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: camp_1_night.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: town_0.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: town_0_night.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: town_1.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: town_1_night.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: fortress_0.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: fortress_0_night.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: fortress_1.webp is 2060x1092 in and out
+  OK   SAME PICTURE, SAME SIZE: fortress_1_night.webp is 2060x1092 in and out
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: camp_0.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: camp_0_night.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: camp_1.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: camp_1_night.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: town_0.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: town_0_night.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: town_1.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: town_1_night.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: fortress_0.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: fortress_0_night.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: fortress_1.webp wrote 0 colours that were not
+  OK   EVERY COLOUR IS ALREADY IN THEIR PICTURE: fortress_1_night.webp wrote 0 colours that were not
+  OK   camp_0.webp: 5.5% of the picture is painted, and 23% of the wear lands on ground
+  OK   camp_0_night.webp: 8.0% of the picture is painted, and 46% of the wear lands on ground
+  OK   camp_1.webp: 5.5% of the picture is painted, and 21% of the wear lands on ground
+  OK   camp_1_night.webp: 6.9% of the picture is painted, and 35% of the wear lands on ground
+  OK   town_0.webp: 5.6% of the picture is painted, and 23% of the wear lands on ground
+  OK   town_0_night.webp: 11.4% of the picture is painted, and 62% of the wear lands on ground
+  OK   town_1.webp: 7.5% of the picture is painted, and 13% of the wear lands on ground
+  OK   town_1_night.webp: 11.9% of the picture is painted, and 45% of the wear lands on ground
+  OK   fortress_0.webp: 4.4% of the picture is painted, and 7% of the wear lands on ground
+  OK   fortress_0_night.webp: 5.9% of the picture is painted, and 31% of the wear lands on ground
+  OK   fortress_1.webp: 4.3% of the picture is painted, and 6% of the wear lands on ground
+  OK   fortress_1_night.webp: 5.6% of the picture is painted, and 27% of the wear lands on ground
+  OK   camp_0.webp got all five signs, the weather and the trash: 5 sign(s), 8443 wall runs, 2267 trash marks
+  OK   camp_0_night.webp got all five signs, the weather and the trash: 5 sign(s), 8380 wall runs, 2236 trash marks
+  OK   camp_1.webp got all five signs, the weather and the trash: 5 sign(s), 8281 wall runs, 1296 trash marks
+  OK   camp_1_night.webp got all five signs, the weather and the trash: 5 sign(s), 8456 wall runs, 1290 trash marks
+  OK   town_0.webp got all five signs, the weather and the trash: 5 sign(s), 10242 wall runs, 2134 trash marks
+  OK   town_0_night.webp got all five signs, the weather and the trash: 5 sign(s), 10496 wall runs, 2171 trash marks
+  OK   town_1.webp got all five signs, the weather and the trash: 5 sign(s), 10336 wall runs, 2097 trash marks
+  OK   town_1_night.webp got all five signs, the weather and the trash: 5 sign(s), 10211 wall runs, 2139 trash marks
+  OK   fortress_0.webp got all five signs, the weather and the trash: 5 sign(s), 5426 wall runs, 396 trash marks
+  OK   fortress_0_night.webp got all five signs, the weather and the trash: 5 sign(s), 5427 wall runs, 467 trash marks
+  OK   fortress_1.webp got all five signs, the weather and the trash: 5 sign(s), 5315 wall runs, 352 trash marks
+  OK   fortress_1_night.webp got all five signs, the weather and the trash: 5 sign(s), 5044 wall runs, 333 trash marks
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: camp_0_night.webp lit 74871 px of ground from its doorways and lifted each of them 45.5
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: camp_1_night.webp lit 44604 px of ground from its doorways and lifted each of them 46.5
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: town_0_night.webp lit 255481 px of ground from its doorways and lifted each of them 22.0
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: town_1_night.webp lit 192688 px of ground from its doorways and lifted each of them 24.4
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: fortress_0_night.webp lit 50160 px of ground from its doorways and lifted each of them 24.4
+  OK   AND AT NIGHT THE OPEN DOORS LEAK ON TO THE DIRT: fortress_1_night.webp lit 44564 px of ground from its doorways and lifted each of them 25.0
+
+[bb the overworld is battle brothers] reference/library/battle_brothers/
+  01_WORLDMAP.md, the SETTLEMENT line: a BB town is a fixed illustration with
+  clickable buildings, and it reads because each building is a silhouette you
+  learn once and the ground under them is quiet. Taken. WHAT MOVES THAT THEIR
+  PICTURE DOES NOT: a BB settlement looks the same on day one and day four
+  hundred. Ours carries what has happened to it, and the paths are worn where
+  the buildings you can actually use are.

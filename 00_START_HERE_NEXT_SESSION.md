@@ -1829,6 +1829,72 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (b) LATEST -- *** THE SETTLEMENT PICTURES, FINISHED. I did not
+draw a settlement; I finished COMBAT TWO's. ***
+Shipped: tools/bohemia_the_settlement_pictures_finished_cook_10_10_26.py,
+records/BOHEMIA_THE_SETTLEMENT_PICTURES_FINISHED_10_10_26.txt, VOTE
+cook-the-settlement-pictures-finished-10-10, and the twelve sheets in
+slices/settlement_ground/ painted over IN PLACE. TAKER: RUN TWO (rule 65a's lesson --
+a row with no named taker does not get picked up; this one names it).
+Twelve sheets in, twelve out: same names, same 2060x1092, SAME HOTSPOT BOXES TO THE PIXEL,
+so RUN TWO swaps a file and changes nothing else. 55 guards green.
+
+WHAT WAS MISSING, LOOKING AT THEIR SHEET BESIDE THE REAL THING:
+  the walls were clean, and nothing here has been washed since the dollar died;
+  nobody had walked anywhere, on ground people use all day;
+  nothing said what it was -- a clinic, a barber, a stall and a board looked alike;
+  nobody had dropped anything;
+  and at night the lit buildings were DARK: their lamps threw clean pools and the open
+  buildings leaked nothing, which is what makes a night picture read as a map with lamps on
+  it instead of a place.
+All five are in now. The signs sit ABOVE each hotspot and never over it: a sign that covers
+the thing you tap is worse than no sign.
+
+*** THE PATHS ARE DERIVED, NOT DECORATED. *** The picture already says which buildings you
+can use, so the ground is worn between those and down to the bottom edge, which is where you
+arrive. A settlement with a clinic wears differently from one without.
+
+*** TWO RULES THIS ROUND HELD ITSELF TO, AND BOTH ARE MEASURED: ***
+  EVERY COLOUR WRITTEN WAS ALREADY IN THEIR PICTURE. Their sheets carry thousands of colours
+  (lossless WebP of an antialiased render), so a palette ramp is the wrong instrument; the
+  right rule is a SUBSET, measured at 0 new colours a sheet. That is why it reads as their
+  picture weathered rather than mine painted on top of theirs.
+  AND THE GROUND IS KNOWN BY COMPARISON, NOT GUESSED. Their own tool is imported and its
+  ground() layer rendered at full size, so a pixel is ground exactly where the sheet still
+  equals the ground layer, meaning nothing was drawn over it.
+
+*** FOUR THINGS CAUGHT, TWO BY GUARDS AND TWO BY LOOKING AT 1:1 AFTER THE GREEN: ***
+ 1 THE NIGHT SHEETS ARE GRADED, so the raw ground layer does not match them and THE BUILD
+   REFUSED -- correctly. The mask is taken off the DAY sheet, where the comparison is exact,
+   and reused for its night (same geometry, different light). Loosening the comparison until
+   night passed would have been the cheat: it would have let wear land on walls.
+ 2 MY NIGHT GUARD MEASURED NET GROUND LUMINANCE and the night sheets came back DARKER,
+   because the wear and the trash darken the same ground the doorways light. The net hid
+   both. The leak records exactly which pixels it touched and how far it moved them now.
+ 3 THE SIGN TEXT WAS ANTIALIASED and invented about 140 colours a sheet that were never in
+   their picture. The glyphs go through a thresholded mask, so every letter pixel is the ink
+   colour and nothing in between exists.
+ 4 AND AT 1:1, WITH EVERY GUARD GREEN: the streaks were landing on the ROOF PLANES, because
+   a terracotta roof is full of horizontal edges and every one got a run down it, turning
+   the roofs into a smear. Seen from above a roof does not carry rain streaks; the WALL
+   does, and in a 45-degree view a wall is the thin band between the roof's bottom edge and
+   the dirt. A run only starts where ground is reached within a wall's height below it now.
+   The paths also read as one pale dune: wide soft blobs overlapping. A path is narrow and
+   nearly flat across its width, with the edge doing the reading.
+
+A HAZARD WORTH KNOWING FOR ANY LANE THAT PAINTS OVER SOMEBODY'S SHEET: this tool writes IN
+PLACE, so a second run paints on top of its own work and compounds. The originals go back
+with one git checkout of slices/settlement_ground/ before any re-run, and I did that between
+every pass this round.
+
+NOTE FOR PEOPLE: reference_check is red on tools/bohemia_cook_good_bros.js (401680f) -- not
+this lane's file, red on main, two legs (the missing REFERENCE CHECK block and the frozen
+baseline growing 85 -> 86 because of it).
+
+NEXT IN THIS LANE, the jump list: [the board props] (the six new building types' props at
+the fight's scale, under rule 77's Lego edges), then [settlement art] (the place drawn
+alive, buildings tappable).
+
 COOK (cook-mce6r5): 10/10 LATEST -- *** THE FAR END AS TILES, AND THE NUMBER HE HAS BEEN
 ASKING FOR SINCE 10/1: THE MAP'S FAR END IS 9,216 PIXELS, 0.44% OF BATTLE BROTHERS. ***
 Shipped: tools/bohemia_the_far_end_as_tiles_cook_10_10_26.py,
