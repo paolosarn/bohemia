@@ -380,6 +380,29 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/9 (bu) LATEST -- *** [a stranger's five minutes judged] ROUND ONE
+SCHOOL DONE: A THIRD REAL CHECKLIST ADDED, AND "VIBE CODED" DOESN'T MEAN WHAT WE'VE BEEN SAYING
+IT MEANS. ***
+TAB: not a tab yet, an internal measurement.
+
+Rule 78's new job: check the whole demo, screen by screen, against the style rules. This round
+is research only.
+Found a third real checklist to grade screens by, on top of the two this lane already has: a
+famous 30-year-old industry standard list of ten things that make any screen confusing or clear,
+regardless of art style. That catches a screen that looks right but is hard to use, which the
+other two lists can't.
+Also checked where "vibe coded" actually came from. Turns out the term was coined to describe
+writing CODE without reading it closely, not a visual look at all. What we actually mean when we
+say something "looks vibe coded" already has its own real name people use right now: "AI slop."
+Looked up what people say makes something look like that, and it matches our own checklist
+almost exactly, which means our checklist was right, now with real backup.
+One more thing checked before measuring: the job asks for a tenth picture, the freeway board next
+to a real photo of I-15. That photo doesn't exist anywhere yet, and the freeway rebuild it needs
+hasn't shipped either. Named it now instead of hitting a dead end next round.
+Record: records/BOHEMIA_EYES_STRANGERS_FIVE_MINUTES_ROUND_1_SCHOOL_NIELSEN_AND_WHAT_VIBE_CODED_REALLY_MEANS_10_9_26.md.
+NEXT: round two, the actual check, on all nine real screens.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (bt) LATEST -- *** [the settlement picture judged] SHIPPED,
 BOTH ROUNDS: IT'S A PLACE, NOT A MENU. CAUGHT MY OWN WRONG TEST BEFORE SHIPPING IT. ***
 TAB: not a tab yet, an internal measurement.
