@@ -107,18 +107,38 @@ MAKERS = {
     'main': lambda: BT.main_street(911)[:4],
     'works': lambda: BT.the_works(933)[:4],
     'suburb_stem': lambda: stem_through(H7.suburb45()),
-    'culdesac': lambda: S8.culdesac45(),
+    'culdesac': lambda: culdesac_stem(S8.culdesac45()),
     'strip': lambda: S8.strip45(),
     'ruin': lambda: S8.ruin45(),
     'scrub': lambda: R4.scrub(),
     'wash': lambda: (lambda b: (b[0], b[1], b[2], wash_terrain(b)))(B.wash()),
     'freeway': lambda: FL.freeway2(1201),
     'freewayo': lambda: FL.freeway2(1213, overpass=True),
-    'shore': lambda: R5.shore(),
+    'shore': lambda: shore_one_line(),
     'landfill': lambda: FL.landfill2(1301),
     'scrubroad': lambda: scrub_road(),
     'casino': lambda: CF.casino(CUR[0]),
 }
+
+
+def culdesac_stem(block):
+    """ROUND TWENTY-EIGHT (rule 77): the cul-de-sac's stem leaves its block as the town's own cross street (the
+       one cached tile, column 2, rows 3 and 4), so the stem below meets it lane for lane."""
+    board, pieces, surf, grid = block[:4]
+    for r in (3, 4):
+        board.paste(F.street_small(19 + 2 * r, ns=True), (2 * PX, r * PY)); grid[r][2] = 'flat'
+    pieces = [p for p in pieces if not (24 <= p['x_m'] < 36 and p['y_m'] >= 36)]
+    return (board, pieces, surf, grid) + tuple(block[4:])
+
+
+def shore_one_line():
+    """ROUND TWENTY-EIGHT (rule 77): every shore block draws the same waterline (the plan's random numbers
+       unshifted), only its dress varies, so shore.0 and shore.1 meet water to water."""
+    saved = [(mod, mod.R) for mod in MODS if hasattr(mod, 'R')]
+    for mod, _ in saved: mod.R = _R0
+    try: return R5.shore()
+    finally:
+        for mod, r in saved: mod.R = r
 
 
 def scrub_road():
@@ -223,8 +243,7 @@ START_ROWS = (4, 9)
 SCRUBS = ['scrub.0', 'scrub.1', 'scrub.2']
 LEGO = {
     'suburb':   dict(pal=[HOUSES, HOUSES + ['main.0', 'works.0'], HOUSES]),
-    'culdesac': dict(pal=[[['culdesac.0', 'culdesac.1']] * 4, HOUSES + ['suburb_stem.0', 'suburb_stem.1'], HOUSES + ['main.1']],
-                     cells={(0, 1): HOUSES[:4] + ['culdesac.0', 'culdesac.1'], (0, 3): HOUSES[:4] + ['culdesac.0', 'culdesac.1']}),
+    'culdesac': dict(pal=[[['culdesac.0', 'culdesac.1']] * 4, ['suburb_stem.0', 'suburb_stem.1'], HOUSES + ['main.1']]),   # round twenty-eight: closed sides meet closed sides
     'strip':    dict(pal=[['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN]),
     'ruin':     dict(pal=[['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']]),
     'freeway':  dict(pal=[HOUSES, ['freeway.0'], SCRUBS + ['scrubroad.0', 'scrubroad.1']],
@@ -272,6 +291,7 @@ def main():
     cplan = R4.yards(424242); croad = MX._street(cplan, 424243)          # THE CANONICAL TOWN BLOCK: the studs are cut from it
     cboard = cplan.resize((B.BP, PY * N), Image.NEAREST); B.faces(cboard, croad.resize((B.BP, PY * N), Image.NEAREST), B.C[2], 0.15)
     CANON[:] = [cboard, F.street_small(13, ns=True), R4.scrub()[0]]   # and the canonical desert (round twenty-two)
+    L._CANON['shore_img'] = shore_one_line()[0]                         # round twenty-eight: the canonical shore
     # ONE CROSS STREET (round twenty-two, rule 77): every cross-street tile is made once, here, outside the
     # variants, so a cross street's worn dashes are the same in every block it runs through and its centre
     # line never stops at a block's edge (rows 0 to 4 use seeds 19 to 27, each of which keeps its dash).

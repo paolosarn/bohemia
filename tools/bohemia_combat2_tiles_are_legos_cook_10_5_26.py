@@ -106,8 +106,11 @@ def lines_in(st, runs, stroke_px=50):
     for k in (1, 2, 3):                                 # close the wear specks inside a dash (gaps up to 3 px)
         paint[:, k:] |= paint[:, :-k] & np.roll(paint, -k, 1)[:, k:]
     best = np.zeros(paint.shape[0], int); cur = np.zeros(paint.shape[0], int)
+    near = paint.shape[1] // LINE_REACH                 # a line that crosses the side starts within one tile of it
     for j in range(paint.shape[1]):                     # the longest painted stroke running inward at each position
-        cur = (cur + 1) * paint[:, j]; np.maximum(best, cur, out=best)
+        cur = (cur + 1) * paint[:, j]
+        ok = (j - cur + 1) < near
+        np.maximum(best, np.where(ok, cur, 0), out=best)
     share = (best >= stroke_px).astype(float)           # a stroke 1.2 m long running in from the side is a line crossing it;
     for ty_, a, b in runs:                              # a texture pixel that happens to be paint-coloured is never 1.2 m long
         if ty_ != 'road' or b - a < 2 * stroke_px / 1.2: continue      # a lane line lives in a road at least 2 m wide
@@ -219,7 +222,7 @@ def fits(edges, lay, r, c, bid):
 STUD_W, STUD_N = 12, 10
 _CANON = {}
 TOWN_KINDS = ('subs', 'corner', 'cornerw', 'lots', 'suburb_stem', 'main', 'works', 'ruin', 'strip', 'culdesac')
-CROSS_KINDS = ('freeway', 'freewayo', 'scrubroad', 'scrub')
+CROSS_KINDS = ('freeway', 'freewayo', 'scrubroad', 'scrub', 'landfill', 'shore')
 
 
 def desert_bands(desert, tile):
@@ -254,10 +257,13 @@ def stud(board, kind, canon, cross, tile, desert=None):
         crossing[top] = [c for c in range(5) if (classify(np.median(row[:, c * PX:(c + 1) * PX], 0)) == 'road').mean() > 0.45]
     flipx = lambda im: im.transpose(Image.FLIP_LEFT_RIGHT)
     flipy = lambda im: im.transpose(Image.FLIP_TOP_BOTTOM)
-    if kind in ('scrub', 'scrubroad'):                                   # the desert: one canonical strip each way
+    if kind in ('scrub', 'scrubroad', 'landfill'):                       # the desert (and the landfill on it): one canonical strip each way
         col, row = desert_bands(desert, tile)
         board.paste(col, (0, 0)); board.paste(flipx(col), (W - STUD_W, 0))
         board.paste(row, (0, 0)); board.paste(flipy(row), (0, H - STUD_N))
+    elif kind == 'shore' and 'shore_img' in _CANON:                      # the shore: every block draws one waterline; one band cut from it
+        band = _CANON['shore_img'].crop((int(ppm * 4.0), 0, int(ppm * 4.0) + STUD_W, H))
+        board.paste(band, (0, 0)); board.paste(flipx(band), (W - STUD_W, 0))
     elif kind in ('freeway', 'freewayo'):                                # the freeway runs on: its own lanes, one band;
         band = board.crop((int(ppm * 4.0), 0, int(ppm * 4.0) + STUD_W, H))   # its north verge is town yard, its south desert
         board.paste(band, (0, 0)); board.paste(flipx(band), (W - STUD_W, 0))
