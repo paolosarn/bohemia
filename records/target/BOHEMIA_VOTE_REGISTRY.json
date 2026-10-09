@@ -5259,7 +5259,37 @@
     "src": "vote/COMBAT2_TILES_ARE_LEGOS_10_5.png"
    }
   },
- {"id": "ui-the-maps-bar-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE MAP'S BAR AND THE SIX", "why": "The six supplies are drawn as little objects now (a battery, a tin, a first-aid box, cartridges, tape, a water bottle), and the map's bar and speed buttons wear the same cardboard, receipt and glass as the fight and the settlement, readable in the sun. You see it on the map, across the top and in the bottom right.", "show": {"how": "image", "src": "vote/UI_THE_MAPS_BAR_10_5.png"}}
+ {"id": "ui-the-maps-bar-10-5", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/5", "title": "THE MAP'S BAR AND THE SIX", "why": "The six supplies are drawn as little objects now (a battery, a tin, a first-aid box, cartridges, tape, a water bottle), and the map's bar and speed buttons wear the same cardboard, receipt and glass as the fight and the settlement, readable in the sun. You see it on the map, across the top and in the bottom right.", "show": {"how": "image", "src": "vote/UI_THE_MAPS_BAR_10_5.png"}},
+{
+  "id": "grok-first-crisis-around-day-100-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: THE FIRST BIG CRISIS COMES AROUND DAY 100",
+  "why": "Grok reports you said the first endgame crisis lands around day 100 with the difficulty ramping over the fifty days before it, and the wiki agrees (foretold day 50 to 70, starts day 80 to 100), so the valley's first big turn in act one takes that clock. You would see it as rumours at the bar from day 50 and the turn itself around day 100, not in the demo.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, pages GROK_124-125 (the wiki's Late Game Crises page). The noble war is the suggested first crisis and destroys no settlement.\n\nSeen in: act one after day 50; nowhere in the demo."
+  },
+  "verdict": "default",
+  "status": "ruled"
+},
+{
+  "id": "grok-a-new-company-is-the-default-lone-wolf-is-his-10-9",
+  "kind": "verdict",
+  "lane": "coordinator",
+  "sha": "pending",
+  "made": "10/9",
+  "title": "VIA GROK: A NEW COMPANY IS THE STRANGER'S DEFAULT PICK, LONE WOLF IS MARKED AS YOURS",
+  "why": "Grok reports Lone Wolf is your favourite start (one man, avoid big groups early), so the door marks it as the hard one and your pick while a stranger's default stays the three-man New Company that Battle Brothers itself opens on. You see it on the start screen's origin sheet: Lone Wolf ringed as the hard pick.",
+  "show": {
+    "how": "text",
+    "src": "VIA GROK, page GROK_122 (the wiki's Origins page: Lone Wolf one hedge knight at level 4, cap 12; A New Company three men). RUN's origins.json carries both.\n\nSeen in: NEW GAME, the origins sheet."
+  },
+  "verdict": "default",
+  "status": "ruled"
+}
  ],
  "verdicts": [
   {
