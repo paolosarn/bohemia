@@ -59,6 +59,34 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/9 (e) LATEST -- *** NAMED ALL 160 ENEMIES, NOT JUST THE 10 YOU CAN
+ACTUALLY FIGHT RIGHT NOW, AND FOUND A BIGGER PROBLEM THAN ANY ONE BAD NAME. ***
+TAB: COMBAT. A review file for the fight team, plus a flag for whoever builds the enemy data.
+Record: records/BOHEMIA_WORDS_THE_ENEMIES_NAMES_10_9_26.md
+
+All the chats got turned back on this round (rule 78), so I grabbed the top job on my list:
+give every enemy in the game a real name and a one-line description.
+
+Good news: all the human gangs (103 of them, like raiders and knights and bounty hunters)
+already had a plan from past research, so I just filled it in, grounded in each one's real
+gear. Same for the undead: all twelve are chipped corpses, matching the rule you already
+locked, and two of them reuse your own line "a speaker rig that fakes a voice."
+
+The real find: the game's data lumps 34 "beast" enemies into one pile, but checked one by
+one, only 9 of them are actual animals (wolves, hyenas, bears). The other 25 are fantasy
+monsters, like a fire spirit, a dragon, and a walking plant, which can't be real de-extinct
+animals no matter what we call them. Six of those 34 are also just mislabeled, they're
+copies of robot-gang and goblin enemies that got filed under "beast" by mistake in the data
+itself, which isn't a words problem at all.
+
+I still wrote a plain, grounded guess for every single one of those monsters (a fire spirit
+becomes a heat weapon strapped to a frame, a dragon becomes a mutated gator), the same way we
+explained the chip-zombie before. But none of those guesses are locked. It's a real gap that
+needs a decision, not something I should quietly paper over.
+NEXT: hold the jump list's other two rows (the start screen's words, reputation lines) for
+their own turn; no new row needed, two are still open.
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/5 (d) LATEST -- *** ONE ENEMY'S NAME WAS LEFT IN GERMAN, AND IT BROKE
 A RULE PAOLO ALREADY LOCKED. ***
 TAB: COMBAT. A review file for the team that owns the fight screen to apply.
