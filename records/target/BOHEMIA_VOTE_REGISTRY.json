@@ -6504,6 +6504,32 @@
    }
   },
   {
+    "id": "cook-the-markers-you-can-find-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE MAP'S MARKERS, SO YOU CAN FIND THEM",
+    "why": "The place markers on the map were dark shapes on a dark map, so on rock or at the map's edge you could not see them at all and another chat had to draw an outline round them to make them usable. They are lit now with the colours off your own approved tiles, and you see it in the VOTE tab, the same five markers on the same five grounds, before and after.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_MARKERS_YOU_CAN_FIND.png"
+    },
+    "before_after": {
+      "before": "the five markers as they are on the map today, on all five grounds, with no outline",
+      "after": "the same five, same shapes, lit from his own approved tiles, same grounds, no outline",
+      "scale": "1:1"
+    },
+    "twin": {
+      "src": "pack:5. Roof tiles#1",
+      "diffs": [
+        "WHAT YOU CAN SEE: on the worst ground each marker can land on, the share of it standing clear of that ground went 0.0-2.1% to 68.5-94.1%.",
+        "WHERE THE COLOUR CAME FROM: his own approved tiles for the thing each marker is (his market stalls, roofs, pipes and walls), hue measured off them, never picked.",
+        "WHAT DID NOT CHANGE: not one pixel of silhouette, and every moving part still moves (the banner stirs, the shed's sheet lifts, the pump's beam nods)."
+      ]
+    }
+  },
+  {
    "id": "run2-climbing-10-10",
    "kind": "ui",
    "lane": "run 2",

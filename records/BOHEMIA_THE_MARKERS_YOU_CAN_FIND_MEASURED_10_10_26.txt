@@ -1,0 +1,60 @@
+THE MAP'S MARKERS, SO YOU CAN FIND THEM -- MEASURED (COOK [bb map art] round 2, 10/10/26)
+==============================================================================
+
+*** ANOTHER LANE HAD TO PUT AN OUTLINE ROUND THIS LANE'S ART TO MAKE IT USABLE. ***
+RUN's own comment, in the page, beside the rim they wrote: "COOK built every marker as
+a dark body with one bright accent, and judged it on the MAP tab's FLAT GROUNDS. This
+screen's ground is the rendered valley -- dark roofs and darker streets -- and measured
+on the demo, thirteen crowds at 2x read as BLACK SMUDGES." They were right.
+
+THE RULER THIS LANE SET ON 9/24, POINTED AT THE DARK GROUNDS INSTEAD OF THE PALE ONES.
+The share of a marker that stands at least 40 of 255 clear of what is behind it, body
+only, with the rim OFF, because the question is whether the art carries itself:
+
+  MARKER         void                fabric              desert              mountain            town              
+  YOU               1.5% ->   94.1%    98.5% ->   98.5%    98.5% ->   98.5%     1.5% ->   94.1%   100.0% ->  100.0%
+  THE SHOP         20.4% ->   88.9%    79.6% ->   79.6%   100.0% ->  100.0%     0.0% ->   68.5%    79.6% ->   79.6%
+  THE SHED         16.8% ->   87.4%    85.3% ->  100.0%   100.0% ->  100.0%     2.1% ->   87.4%    85.3% ->  100.0%
+  THE PUMP          0.0% ->   73.0%   100.0% ->  100.0%   100.0% ->  100.0%     0.0% ->   73.0%   100.0% ->  100.0%
+  THE FORTRESS     18.6% ->   88.4%    81.4% ->   81.4%   100.0% ->  100.0%     0.0% ->   69.8%    81.4% ->   81.4%
+
+  worst marker on the worst ground   0.0%  ->  68.5%
+
+WHAT CHANGED AND WHAT DID NOT. The silhouettes stay, pixel for pixel: 9/24 proved no two
+share more than 62% of a shape, and at fourteen pixels the shape is what reads. The
+moving parts stay: the banner stirs while you travel and hangs dead when you stop, the
+shed's loose sheet lifts, the pump's beam nods. WHAT MOVED IS THE VALUE, and the values
+are measured off HIS OWN APPROVED TILE FOR THE THING EACH MARKER IS:
+  YOU            none: the packs hold no people (rule 82); this lane's own hue, same spread
+  THE SHOP       pack:8. Market Stalls (14 approved tiles read)
+  THE SHED       pack:5. Roof tiles (14 approved tiles read)
+  THE PUMP       pack:18. Pipes and cables (14 approved tiles read)
+  THE FORTRESS   pack:3. Broken wall tiles (14 approved tiles read)
+
+A ladder is taken off every approved tile in that pack at once: all their pixels sorted
+by light and cut at even steps, so the rungs are his tile's own shadow, midtones and
+light. A colour picked by eye out of a photograph is how a lane invents a colour and
+calls it his.
+
+AND NOT ONE LINE OF ANOTHER LANE'S CODE HAS TO CHANGE. RUN's page looks a character up
+in ONE shared palette, so this round ADDS letters to that palette instead of giving each
+marker its own. Every old key still points at exactly the colour it did; the new letters
+resolve on their own. 7 keys before, 20 after.
+
+THE ONE THING THAT MAKES A FOURTEEN-PIXEL SHAPE READ AS AN OBJECT: the top row of every
+solid run is lifted one rung, so the sun lands north-west the way the bible says and the
+marker has a lit edge instead of being a sticker. That is why the rim was doing the
+work before: nothing inside the art was.
+
+MEASURED THIS RUN:
+  OK   THE SILHOUETTES DID NOT MOVE: 9/24 proved no two share more than 62% of a shape, and a shape is what reads at fourteen pixels (5 markers checked)
+  OK   ON THE WORST GROUND IT CAN LAND ON: YOU              1.5% ->  94.1% clear
+  OK   ON THE WORST GROUND IT CAN LAND ON: THE SHOP         0.0% ->  68.5% clear
+  OK   ON THE WORST GROUND IT CAN LAND ON: THE SHED         2.1% ->  87.4% clear
+  OK   ON THE WORST GROUND IT CAN LAND ON: THE PUMP         0.0% ->  73.0% clear
+  OK   ON THE WORST GROUND IT CAN LAND ON: THE FORTRESS     0.0% ->  69.8% clear
+  OK   AND THE WORST MARKER ON THE WORST GROUND, WHICH IS THE ONLY NUMBER THAT MATTERS: 0.0% -> 68.5%
+  OK   EVERY NEW COLOUR IS MEASURED OFF HIS OWN APPROVED TILES, never picked: YOU <- none: the packs hold no people (rule 82); this lane's own hue, same spread; THE SHOP <- pack:8. Market Stalls (14 approved tiles read); THE SHED <- pack:5. Roof tiles (14 approved tiles read); THE PUMP <- pack:18. Pipes and cables (14 approved tiles read); THE FORTRESS <- pack:3. Broken wall tiles (14 approved tiles read)
+  OK   NOT ONE KEY OF THE OLD PALETTE CHANGED, so another lane's page reads exactly as it did and only gains letters: 7 keys before, 20 after
+  OK   THE MOVING PARTS SURVIVED: 5 markers still carry their frames and their one moving piece
+  OK   EVERY CHARACTER IN EVERY MASK RESOLVES IN THE PALETTE (0 unresolved)

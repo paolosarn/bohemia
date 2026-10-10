@@ -3754,6 +3754,78 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (h) LATEST -- *** THE MAP'S MARKERS, SO YOU CAN FIND THEM.
+Another lane had to draw an outline round this lane's art to make it usable, and they were
+right. ***
+
+0. THE BOARD TURNED FIVE OF THIS LANE'S STALE ROWS OPEN (rule 95) AND FOUR OF THEM ARE NOT
+COMING BACK HERE. Each has its two-line post-mortem on the board. [board assets], [car
+recook], [streets fixed] and [tile options] are all the fight ground, the cars, the streets
+and the places, which rule 87 gave to COOK TWO and COOK FOUR, and rule 82a makes their twin a
+pack tile. Three of them were waiting on a judgement of OUR paint that he answered a different
+way on 10/10: "the cars is an asset we downloaded... a lot of the original street tiles and
+sidewalks we downloaded, look again." Every round spent painting a better street was a round
+spent on the wrong answer. [bb map art] is the map, which rule 87 leaves here, so that one was
+re-claimed and is this round's work.
+
+1. I STARTED BY READING RUN'S COMMENT ABOUT MY OWN ART, IN THE PAGE, BESIDE THE RIM THEY HAD
+TO ADD: "COOK built every marker as a dark body with one bright accent, and judged it on the
+MAP tab's FLAT GROUNDS. This screen's ground is the rendered valley -- dark roofs and darker
+streets -- and measured on the demo, thirteen crowds at 2x read as BLACK SMUDGES." Pointing
+this lane's own 9/24 ruler at the DARK grounds instead of the pale ones says the same thing:
+on a mountain every marker was 0.0 to 2.1 per cent clear; on the void, 0.0 to 20.4. I had
+checked them against the light grounds only.
+
+   worst ground, each marker      before   after
+   YOU                              1.5%    94.1%
+   THE SHOP                         0.0%    68.5%
+   THE SHED                         2.1%    87.4%
+   THE PUMP                         0.0%    73.0%
+   THE FORTRESS                     0.0%    69.8%
+The rim is OFF on BOTH halves of the sheet, because the question is whether the art carries
+itself. Tool tools/bohemia_the_markers_you_can_find_cook_10_10_26.py, bank
+banks/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_10_10_26.txt, record
+records/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_MEASURED_10_10_26.txt, VOTE
+cook-the-markers-you-can-find-10-10.
+
+2. *** FOUR CUTS, EVERY ONE KILLED BY THE TAPE, AND THE SAME LESSON EVERY TIME: I KEPT TRYING
+TO FIX A DRAWING PROBLEM BY MOVING COLOURS AROUND. ***
+   (a) The ladder taken straight off his tiles barely moved it, 0.0 to 1.5 per cent. His
+   roofs, walls and pipes are DARK, so every rung landed near the mountain's own value.
+   (b) Spreading the rungs by pixel mass made THE SHED WORSE, 25.3 down to 12.6.
+   (c) The reason, which I should have seen at the start: THESE MARKERS HAVE TWO OR THREE INKS
+   EACH. You cannot spread three flat values over five rungs. No remapping was ever going to
+   do it, so the form had to be DRAWN: lit north-west, inside a silhouette that does not move
+   by one pixel.
+   (d) Even drawn it stalled at 16 to 41 per cent, and the arithmetic says why, and it is not
+   an opinion. Clear of the void at 20 needs a value over 60. Clear of the mountain at 54
+   needs over 94. Clear of the desert at 124 needs over 164. THERE IS NO DARK VALUE CLEAR OF
+   ALL FIVE GROUNDS. A dark marker on a dark map is a contradiction, and I spent three cuts
+   trying to shade my way out of one. The body is LIGHT now; the dark is interior detail.
+
+3. AND THE LAST FAULT WAS A FACT ABOUT COLOUR, NOT ABOUT THIS GAME. The shed stayed at 12.6
+while the other four sat between 79 and 94. His roof tile is a saturated terracotta, and A
+SATURATED HUE CANNOT BE MADE LIGHT BY SCALING: the red channel hits its ceiling and the top
+two rungs come out identical. To go lighter than the hue allows you TINT -- you add white.
+Shade by scaling, tint by adding white. The shed went to 87.4. COOK TWO, COOK THREE and COOK
+FOUR will hit this the first time they try to lift one of his saturated tiles.
+
+4. WHAT DID NOT CHANGE, ON PURPOSE: not one pixel of any silhouette (9/24 proved no two share
+more than 62 per cent of a shape, and at fourteen pixels the shape is what reads); every
+moving part still moves, which is this row's rule 33g half; and the one warm accent that says
+a place is LIT keeps his own gold, because the first light cut washed it into the body and the
+markers came back legible and featureless.
+
+5. NOT ONE LINE OF ANOTHER LANE'S CODE HAS TO CHANGE. RUN's page looks a character up in ONE
+shared palette, so this round ADDS letters to it (7 keys before, 20 after) and every old key
+still points at exactly the colour it did. The two gates that bind the embed to the bank read
+the 9/24 bank BY NAME, so nothing of theirs goes red. The swap is RUN's one-line change and
+the bank's for_run field says what to paste. UNTIL THEY SWAP IT, THE NEW MARKERS ARE IN THE
+VOTE TAB AND NOT ON THE MAP, and this handoff says so rather than letting anyone assume.
+
+NEXT: the other half of this row's name, the map's TILES.
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 10/10 (g) LATEST -- *** THE FAR END'S GROUND IS HIS NOW, AND THE ROW
 [the pack is the twin] IS CLOSED FOR THIS LANE. ***
 
