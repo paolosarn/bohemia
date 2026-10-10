@@ -1851,6 +1851,35 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (bz) LATEST -- *** [the soundscape judged] SHIPPED, BOTH
+ROUNDS: SITTING STILL FOR A MINUTE ON TWO REAL SCREENS IS BASICALLY SILENT. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Built the sound counter and ran it. Hit three real bugs before trusting any number, caught each
+one with a direct check instead of guessing:
+First try, everything read zero, and even my own test sound (fired by hand) didn't move the
+counter. That means the listening tool itself was broken, not that the game was silent. Found it:
+my test used a sound name that might not even be real. Fixed it to a sound I know for a fact
+plays.
+Second try, the counter worked, but I couldn't get into the settlement at all. Checked directly
+and found why: zooming all the way out to the far map view doesn't leave you somewhere you can
+still tap a town from, it drops you straight at the very edge. Fixed by visiting the settlement
+and the fight first, then checking the far map view last, since nothing needs to happen after
+that one.
+Third try worked clean. The real numbers: standing still in the settlement for a full minute, zero
+sounds. Standing still on the map for a full minute, one sound played, and it was four times
+quieter than the music playing under it. The fight wasn't reached this run, a reach problem
+already known from an earlier job.
+The real finding: just standing still for a minute on two different screens is nearly dead silent.
+That's not this tool being broken, I proved the listening works. It means almost nothing plays
+automatically just from being somewhere, the sounds mostly need an action like walking or tapping
+something, which this tool deliberately doesn't do yet.
+Record: records/BOHEMIA_EYES_SOUNDSCAPE_ROUND_2_THE_CHECK_SIXTY_IDLE_SECONDS_IS_NEARLY_SILENT_10_10_26.md.
+NEXT (rule 74, claimed): [a fresh phone judged again]. Checked first: RUN already shipped the fix
+for the wiped-phone title bug I found earlier, so this is now a real after-measurement, not a
+before.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/9 (by) LATEST -- *** [the soundscape judged] ROUND ONE SCHOOL
 DONE: THE TOOL FOR COUNTING SOUNDS ALREADY EXISTS, I JUST NEED TO POINT IT AT THE RIGHT SCREENS.
 ***
