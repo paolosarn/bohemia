@@ -16475,6 +16475,25 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 56. [the reply leg] SHIPPED 4dfc12e: THE LAST FIVE
+LINES ARE THE REPLY (rule 90, school round 10). ***
+Record: records/BOHEMIA_THE_LAST_FIVE_LINES_ARE_THE_REPLY_10_10_26.md. VOTE plumber-the-reply-leg-10-10 (last round's
+381-word PLUMBER reply beside the same news in 74 words).
+BUILT: tools/bohemia_reply_check.js (module + CLI: a draft file or '-' for stdin; prints words, a Flesch-Kincaid
+reading, the five slots; exit 1 'DO NOT SEND'). WORDS <= 150, proof line and links not counted. LAST FIVE from the
+bottom: two-sentence bottom line; WHAT I NEED FROM YOU + numbered lines or "Nothing, I'm good"; the red (RED: / No red,
+CAUSE/FIX under it); the change = one or two lines starting with a tab and a colon (tabs read live from the alpha's tab
+bar + DEMO + the 7/28 list; NOT IN A TAB YET counts) with a digit on them or on one line between them and the red.
+REPLY CONTRACT grows R1-R5 (22/0, <1 s): R1 the school's template read live from its record (placeholders stand in only
+there); R2 a filled reply passes; R3 padded to 399 words red on WORDS alone; R4 five wrong shapes red on LAST FIVE; R5
+the proof line and the links do not count. MEASURED: PLUMBER's own last reply refused on both legs (381 words, no red).
+The grade is printed, not a leg (about two grades low on long sentences).
+[FOR THE COORDINATOR] a gate cannot read your chat: run each draft through `node tools/bohemia_reply_check.js -`
+before it sends; DO NOT SEND means cut to the five lines and move the detail to the round record.
+SUITE at the end of this round: did not finish: 74 of 807 gates in 25 min (stopped at the time limit; FIGHT MUSIC alone 157 s), the reds it reached are old and not this lane's (BUNDLE, DISTRICT FILL, REPO BUDGET, STREET SOURCE, THE THUMB...); the gates that read this round's files ran instead: REPLY CONTRACT, VOTE TAB, HANDOFF, EVERY RUNNING LANE HAS A JOB, COOK EVERY ROUND. The wall is [suite runs] / [pre-push pass], both OPEN here.
+NEXT: the top OPEN row is [the gate goes red] (rule 90 round 7); then [the owner file]; [one engine boot].
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 55. [the picture leg] SHIPPED e8cff0e: WHAT HE CANNOT
 SEE DID NOT SHIP (rule 89). AND THIS LANE'S HALF OF [first load] SHIPPED. ***
 Record: records/BOHEMIA_WHAT_HE_CANNOT_SEE_DID_NOT_SHIP_10_10_26.md. VOTE plumber-the-picture-leg-10-10 (one real fight
