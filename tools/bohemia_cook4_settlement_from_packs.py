@@ -117,11 +117,7 @@ def house(box, roof, wall, door, wins, rng):
     wt = scaled(wt, ws)
     for x in range(0, w, wt.width):
         b.alpha_composite(wt, (x, roof_h))
-    rt = roof.crop((2, 2, roof.width - 2, roof.height - 8))
-    rt = rt.resize((rt.width * roof_h // rt.height, roof_h), Image.NEAREST)
-    x = 0
-    while x < w:
-        b.alpha_composite(rt, (x, 0)); x += rt.width - 2
+    b.alpha_composite(roof_piece(w, roof_h, roof), (0, 0))
     d = fit(door, w, wall_h * .82)
     dx = rng.randint(int(w * .2), int(w * .8) - d.width)
     b.alpha_composite(d, (dx, h - d.height))
@@ -160,14 +156,10 @@ def skin_house(box, rng, roof=None, door_at=None):
     wall = rng.choice([8, 9, 10, 11]); door_col = door_at if door_at is not None else rng.randint(1, max(1, cols - 2))
     top = h - (wall_rows + roof_rows) * C
     # the roof: the pack's clay or slate rows (5. Roof tiles), the skin's density was flat beside the props
-    rt = tile('5. Roof tiles', {21: 26, 22: 26, 23: 29, 24: 29, 25: 27, 26: 27}[roof])
-    rt = rt.crop((2, 2, rt.width - 2, rt.height - 8)); rh = h - wall_rows * C - top
-    rt = scaled(rt, 2); x = 0
-    while x < w:
-        y = top
-        while y < top + rh:
-            b.alpha_composite(rt, (x, y)); y += rt.height - 24
-        x += rt.width - 4
+    # clay or slate only: this is Las Vegas, no thatch, no wood shingle (DIRECTION note 3)
+    rt = tile('5. Roof tiles', {21: 26, 22: 26, 23: 26, 24: 27, 25: 27, 26: 27}[roof])
+    rh = h - wall_rows * C - top
+    b.alpha_composite(roof_piece(w, rh, rt), (0, top))
     eave = Image.new('RGBA', (w, 10), (30, 20, 14, 90)); b.alpha_composite(eave, (0, h - wall_rows * C))
     door = None
     for r in range(wall_rows):
@@ -186,6 +178,41 @@ def skin_house(box, rng, roof=None, door_at=None):
         dr.rectangle([0, h - 14 + i, w, h - 13 + i], fill=(40, 28, 18, 6 * i))
     return _over(b, fo), door
 
+def roof_piece(w, rh, rt):
+    """ONE roof per building (DIRECTION round 1 note 1): the pack's roof tile laid inside a hipped
+    outline, its two hip ends in shade and in light, a ridge along the top; never a band of stripes"""
+    rt = scaled(rt.crop((2, 2, rt.width - 2, rt.height - 8)), 2)
+    px = sorted(p[:3] for p in (rt.get_flattened_data() if hasattr(rt, 'get_flattened_data') else rt.getdata()) if p[3] > 200); base = px[len(px) // 3] if px else (60, 50, 45)
+    fill = Image.new('RGBA', (w, rh), tuple(base) + (255,)); x = 0   # the roof's own dark under its tiles: no holes
+    while x < w:
+        y = 0
+        while y < rh:
+            fill.alpha_composite(rt, (x, y)); y += rt.height - 30
+        x += rt.width - 6
+    ins = int(min(w * .2, rh * .7)); ry = max(8, int(rh * .16))
+    m = Image.new('L', (w, rh), 0); md = ImageDraw.Draw(m)
+    md.polygon([(ins, ry), (w - ins, ry), (w - 1, rh - 1), (0, rh - 1)], fill=255)
+    out = Image.new('RGBA', (w, rh)); out.paste(fill, (0, 0), m)
+    sh = Image.new('RGBA', (w, rh)); sd = ImageDraw.Draw(sh)
+    sd.polygon([(0, rh - 1), (ins, ry), (ins + 4, rh - 1)], fill=(20, 14, 10, 105))           # the west hip in shade
+    sd.polygon([(w - 1, rh - 1), (w - ins, ry), (w - ins - 4, rh - 1)], fill=(255, 230, 190, 45))  # the east hip in light
+    sd.line([(ins, ry), (w - ins, ry)], fill=(255, 236, 200, 150), width=3)                    # the ridge
+    sd.line([(ins, ry + 3), (w - ins, ry + 3)], fill=(30, 20, 14, 120), width=2)
+    sd.line([(0, rh - 2), (ins, ry), (w - ins, ry), (w - 1, rh - 2)], fill=(24, 16, 12, 200), width=2)
+    return _over(out, sh)
+
+def wear_path(c, rng, x0, y0, x1, y1):
+    """the ground worn where people walk, stamped from his dirt-path tiles (2. Dirt path tiles), soft-edged"""
+    import math
+    n = max(2, int(math.hypot(x1 - x0, y1 - y0) / 40))
+    mask = Image.new('L', (64, 64), 0); ImageDraw.Draw(mask).ellipse([4, 4, 60, 60], fill=150)
+    mask = mask.filter(ImageFilter.GaussianBlur(7))
+    for i in range(n + 1):
+        t = i / n; x = x0 + (x1 - x0) * t + rng.randint(-10, 10); y = y0 + (y1 - y0) * t + rng.randint(-6, 6)
+        src = tile('2. Dirt path tiles', rng.choice([1, 2, 3, 4]))
+        patch = src.crop((16, 16, 80, 80)).convert('RGBA'); patch.putalpha(mask)
+        c.alpha_composite(patch, (int(x - 32), int(y - 20)))
+
 def in_any(x, y, rects, pad=30):
     return any(r[0] - pad < x < r[2] + pad and r[1] - pad < y < r[3] + pad for r in rects)
 
@@ -194,7 +221,7 @@ def build(tier, var, hs, rng):
     S_DIRT, S_SOIL, S_ST, S_CON = '2. Dirt path tiles', '2. Soil and dirt tiles', '1. Cracked street tiles', '1. Cracked contrete tiles'
     lights, doors_lit, blocks = [], [], [h['box'] for h in hs.values()]
     if tier == 'camp':
-        g = ground(rng, S_DIRT, [1, 2, 3, 4, 33, 34, 35, 36])
+        g = ground(rng, S_SOIL, ups(S_SOIL)[:2])
         road = None
     elif tier == 'town':
         g = ground(rng, S_SOIL, [x for x in ups(S_SOIL)[:8]])
@@ -212,7 +239,7 @@ def build(tier, var, hs, rng):
             if tier == 'town':
                 b, door = skin_house(bx, rng, roof=21 if name == 'barber' else 25)
             else:
-                roof = tile('5. Roof tiles', {'camp': 28, 'fortress': 27}[tier])
+                roof = tile('5. Roof tiles', 27)
                 b, door = house(bx, roof, tile('Wall tiles (1)', 5), rng.choice(DOOR), WIN, rng)
             shadow(c, bx[0], by, bw, 26, 120); c.alpha_composite(b, (bx[0], bx[1]))
             doors_lit.append(door)
@@ -246,7 +273,7 @@ def build(tier, var, hs, rng):
                 c.alpha_composite(b, (bx[0], bx[1]))
             blocks.append(bx)
         for x in range(120, W, 520):
-            for y in (378, 640):
+            for y in (378,):
                 if not in_any(x, y, blocks, 10):
                     place(c, fit(tile('18. Light sources and fire barrels', 1), 999, 170), x, y); lights.append((x, y - 150, 190))
         cars = ups('9. Abandoned cards')
@@ -254,9 +281,10 @@ def build(tier, var, hs, rng):
             place(c, scaled(tile('9. Abandoned cards', rng.choice(cars)), 2.2), x, rng.choice([520, 580]))
     if tier == 'camp':
         fire = tile('14. Camp and tents', 15)
-        place(c, scaled(fire, 1.9), 900, 640); lights.append((900, 590, 260))
-        for _ in range(5):
-            x, y = rng.randint(80, W - 80), rng.randint(200, 1060)
+        place(c, scaled(fire, 1.9), 900, 640); lights.append((900, 590, 260)); blocks.append((780, 520, 1020, 700))  # the tents stand round the fire, never on it
+        for _ in range(40):
+            if sum(1 for b in blocks if b[2] - b[0] == 260) >= 3: break
+            x, y = 900 + rng.randint(-420, 420), 640 + rng.randint(-260, 300)
             if not in_any(x, y, blocks, 60):
                 place(c, fit(tile('14. Camp and tents', rng.choice([2, 3])), 260, 210), x, y); blocks.append((x - 130, y - 210, x + 130, y))
     if tier == 'fortress':
@@ -272,22 +300,37 @@ def build(tier, var, hs, rng):
                 place(c, scaled(tile('12. Ruined building parts', rng.choice(ruins)), 2.2), x, y); blocks.append((x - 100, y - 200, x + 100, y))
         gate = fit(tile('11. Industrial doors and gates', 0), 999, 200)
         place(c, gate, 1900, 1092)
-    # scatter: barrels, crates, trash, dead trees, fire barrels (the pack's own)
-    SC = [('11. Crates and barrels', 1.6), ('16. Dead trees and plants', 2.0), ('14. Trash and junk props', 1.6),
-          ('7. Trash and debris', 1.6), ('3. Barricades and blockades', 1.6), ('11. Survival props', 1.2)]
-    fires = [i for i in ups('18. Light sources and fire barrels') if 16 <= i <= 31]
-    n = {'camp': 26, 'town': 12, 'fortress': 34}[tier]
-    tries = 0
-    while n and tries < 900:
-        tries += 1
-        x, y = rng.randint(30, W - 30), rng.randint(140, H - 10)
-        if in_any(x, y, blocks, 40) or (road and road[0] - 10 < y < road[1] + 130):
-            continue
-        if rng.random() < .16:
-            place(c, scaled(tile('18. Light sources and fire barrels', rng.choice(fires)), 1.7), x, y); lights.append((x, y - 60, 170))
-        else:
-            p, s = rng.choice(SC); place(c, scaled(tile(p, rng.choice(ups(p))), s), x, y)
-        blocks.append((x - 40, y - 60, x + 40, y)); n -= 1
+    # LIFE GATHERS AT THE DOORS (DIRECTION note 2): props cluster round the places people use,
+    # a path is worn between them, the bare ground stays bare, and ONE fire is lit per scene
+    SC = [('11. Crates and barrels', 1.6), ('14. Trash and junk props', 1.6), ('7. Trash and debris', 1.6),
+          ('11. Survival props', 1.2), ('3. Barricades and blockades', 1.6)]
+    anchors = [((d[0] + d[2]) / 2, d[3]) for d in doors_lit if d]
+    for nm, h in hs.items():
+        if nm in ('stall', 'board'):
+            anchors.append(((h['box'][0] + h['box'][2]) / 2, h['box'][3]))
+    hot = [h['box'] for h in hs.values()]
+    sink = {'camp': (900, 660), 'town': (None, road[1] if road else H), 'fortress': (1900, 1080)}[tier]
+    for ax, ay in anchors:
+        tx, ty = (sink[0] if sink[0] is not None else ax), sink[1]
+        wear_path(c, rng, ax, ay, tx, ty)
+    lit = tier != 'camp'           # the camp's one fire is its campfire
+    for ax, ay in anchors:
+        k = 0
+        for _ in range(30):
+            if k >= rng.randint(2, 4): break
+            x, y = ax + rng.randint(-170, 170), ay + rng.randint(15, 120)
+            if not (20 < x < W - 20 and 140 < y < H - 5) or in_any(x, y, hot, 20) or in_any(x, y, blocks[len(hot):], 0) \
+                    or (road and road[0] - 10 < y < road[1] + 40):
+                continue
+            if lit:
+                place(c, scaled(tile('18. Light sources and fire barrels', 24), 1.7), x, y); lights.append((x, y - 60, 200)); lit = False
+            else:
+                p, sc = rng.choice(SC); place(c, scaled(tile(p, rng.choice(ups(p))), sc), x, y)
+            blocks.append((x - 40, y - 60, x + 40, y)); k += 1
+    for _ in range(3):                 # a few things left lying where nobody goes
+        x, y = rng.randint(40, W - 40), rng.randint(200, H - 10)
+        if not in_any(x, y, blocks, 60) and not (road and road[0] - 10 < y < road[1] + 40):
+            place(c, scaled(tile('16. Dead trees and plants', rng.choice(ups('16. Dead trees and plants'))), 2.0), x, y)
     return c, lights, doors_lit
 
 def grade(day):

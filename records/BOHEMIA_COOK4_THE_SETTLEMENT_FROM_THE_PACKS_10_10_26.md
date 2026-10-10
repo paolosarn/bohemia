@@ -33,3 +33,9 @@ Three differences still owed (my own read against the pack):
 - REFERENCE CHECK block added to the tool (PLUMBER's note): the gate is 0 red.
 - The new 'home' tier (his block, COOK b46a874) is COOK's own place and is skipped.
 Still owed: the camp's ground reads as a grid of dirt squares; the fortress has no wall on its sides.
+
+## Round 3 (10/10, cook4): DIRECTION's three (records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md)
+1. One roof per building: roof_piece() lays the pack roof inside a hipped outline, shaded west hip, lit east hip, a ridge; no bands.
+2. Life at the doors: props cluster at the usable doors, the stall and the board; a worn path (his dirt-path tiles) runs from each to the road / the fire / the gate; bare ground stays bare; ONE lit fire per scene (the camp's campfire, one burning barrel in town and fortress); town lamps only on the door side.
+3. Las Vegas: clay tile and slate only (thatch #28 and wood shingle #29 out); the camp ground from the soil pool, no crop rows; the palisade stays for the fortress only.
+Registered in VOTE: cook4-the-settlement-from-the-packs-10-10 (twin: pack:5. Roof tiles#26, three differences).

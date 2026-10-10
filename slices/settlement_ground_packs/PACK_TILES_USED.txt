@@ -1,4 +1,4 @@
-172 distinct approved pack tiles, every one UP in the 7/13 confirmed set
+121 distinct approved pack tiles, every one UP in the 7/13 confirmed set
 1. Cracked contrete tiles#0
 1. Cracked contrete tiles#1
 1. Cracked contrete tiles#19
@@ -19,34 +19,26 @@
 1. Cracked street tiles#8
 1. Cracked street tiles#9
 11. Crates and barrels#1
-11. Crates and barrels#11
+11. Crates and barrels#10
 11. Crates and barrels#13
-11. Crates and barrels#16
-11. Crates and barrels#19
-11. Crates and barrels#2
-11. Crates and barrels#20
-11. Crates and barrels#21
-11. Crates and barrels#23
-11. Crates and barrels#28
-11. Crates and barrels#29
-11. Crates and barrels#3
+11. Crates and barrels#27
 11. Crates and barrels#33
-11. Crates and barrels#8
-11. Crates and barrels#9
+11. Crates and barrels#4
+11. Crates and barrels#6
+11. Crates and barrels#7
 11. Industrial doors and gates#0
-11. Survival props#15
+11. Survival props#19
+11. Survival props#2
 11. Survival props#21
-11. Survival props#22
+11. Survival props#23
+11. Survival props#26
 11. Survival props#27
 11. Survival props#28
 11. Survival props#3
 11. Survival props#33
 11. Survival props#34
-11. Survival props#37
-11. Survival props#39
-11. Survival props#42
-11. Survival props#46
-11. Survival props#7
+11. Survival props#35
+11. Survival props#47
 12. Ruined building parts#10
 12. Ruined building parts#13
 12. Ruined building parts#17
@@ -59,52 +51,20 @@
 14. Camp and tents#15
 14. Camp and tents#2
 14. Camp and tents#3
-14. Trash and junk props#10
-14. Trash and junk props#12
-14. Trash and junk props#13
-14. Trash and junk props#15
+14. Trash and junk props#11
+14. Trash and junk props#14
 14. Trash and junk props#2
 14. Trash and junk props#4
-14. Trash and junk props#5
 14. Trash and junk props#8
 14. Trash and junk props#9
-16. Dead trees and plants#0
-16. Dead trees and plants#15
+16. Dead trees and plants#1
 16. Dead trees and plants#16
-16. Dead trees and plants#17
-16. Dead trees and plants#18
-16. Dead trees and plants#20
-16. Dead trees and plants#23
-16. Dead trees and plants#24
-16. Dead trees and plants#29
-16. Dead trees and plants#3
-16. Dead trees and plants#30
-16. Dead trees and plants#31
-16. Dead trees and plants#32
-16. Dead trees and plants#38
-16. Dead trees and plants#6
-16. Dead trees and plants#7
-16. Dead trees and plants#8
-16. Dead trees and plants#9
+16. Dead trees and plants#36
 18. Light sources and fire barrels#1
-18. Light sources and fire barrels#16
-18. Light sources and fire barrels#17
-18. Light sources and fire barrels#19
-18. Light sources and fire barrels#21
-18. Light sources and fire barrels#23
 18. Light sources and fire barrels#24
-18. Light sources and fire barrels#25
-18. Light sources and fire barrels#26
-18. Light sources and fire barrels#28
-18. Light sources and fire barrels#29
-18. Light sources and fire barrels#31
 2. Dirt path tiles#1
 2. Dirt path tiles#2
 2. Dirt path tiles#3
-2. Dirt path tiles#33
-2. Dirt path tiles#34
-2. Dirt path tiles#35
-2. Dirt path tiles#36
 2. Dirt path tiles#4
 2. Soil and dirt tiles#0
 2. Soil and dirt tiles#1
@@ -115,22 +75,22 @@
 2. Soil and dirt tiles#6
 2. Soil and dirt tiles#7
 3. Barricades and blockades#0
-3. Barricades and blockades#12
+3. Barricades and blockades#1
+3. Barricades and blockades#10
+3. Barricades and blockades#14
 3. Barricades and blockades#15
-3. Barricades and blockades#19
+3. Barricades and blockades#16
+3. Barricades and blockades#18
 3. Barricades and blockades#2
-3. Barricades and blockades#4
+3. Barricades and blockades#20
+3. Barricades and blockades#3
 3. Barricades and blockades#6
-3. Barricades and blockades#7
-3. Barricades and blockades#8
-3. Barricades and blockades#9
 4. Doors and entrances#2
 4. Doors and entrances#3
 4. Doors and entrances#6
 4. Doors and entrances#7
 5. Roof tiles#26
 5. Roof tiles#27
-5. Roof tiles#29
 5. Windows and broken glass#0
 5. Windows and broken glass#1
 5. Windows and broken glass#2
@@ -143,23 +103,12 @@
 7. Fences and palisades#6
 7. Trash and debris#0
 7. Trash and debris#1
-7. Trash and debris#12
+7. Trash and debris#10
 7. Trash and debris#13
-7. Trash and debris#14
-7. Trash and debris#15
-7. Trash and debris#16
-7. Trash and debris#18
-7. Trash and debris#19
-7. Trash and debris#2
-7. Trash and debris#3
-7. Trash and debris#4
-7. Trash and debris#6
+7. Trash and debris#17
+7. Trash and debris#5
 7. Trash and debris#7
-7. Trash and debris#8
-7. Trash and debris#9
 8. Market Stalls#2
-8. Market Stalls#4
-8. Market Stalls#5
 8. Market Stalls#6
 8. Market Stalls#7
 9. Abandoned cards#11
