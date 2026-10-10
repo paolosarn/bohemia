@@ -1,0 +1,48 @@
+{
+ "before_border_px": 14363,
+ "before_pct": 67.7,
+ "after_border_px": 906,
+ "after_pct": 4.9,
+ "inside_pct": 9.0,
+ "threshold_lum": 87.0,
+ "sidewalk": [
+  "1. Cracked contrete tiles",
+  [
+   0,
+   1,
+   2,
+   6,
+   7,
+   15
+  ]
+ ],
+ "road": [
+  "1. Cracked street tiles",
+  [
+   0,
+   1,
+   7,
+   8,
+   2,
+   9
+  ]
+ ],
+ "cut": {
+  "1. Cracked contrete tiles": [
+   6,
+   7,
+   5,
+   5
+  ],
+  "1. Cracked street tiles": [
+   5,
+   5,
+   5,
+   5
+  ]
+ },
+ "tile": [
+  82,
+  81
+ ]
+}

@@ -27,8 +27,8 @@ SW, RD = '1. Cracked contrete tiles', '1. Cracked street tiles'
 # the baked border, MEASURED per side (first round cut 3 px everywhere and the grid showed: seam step 207):
 # his slab tiles carry 4 px of dark ring on top, left and right and 7 on the bottom (the slab's south face seen
 # at 45 degrees, rows at lum 0-160 against an inside of ~330); his road 5 top and bottom, 4 at the sides.
-CUT = {'1. Cracked contrete tiles': (5, 7, 4, 4), '1. Cracked street tiles': (5, 5, 4, 4)}   # top, bottom, left, right
-TW, TH = 84, 81     # every tile cut to one size, centred on its own joint, so the joints line up
+CUT = {'1. Cracked contrete tiles': (6, 7, 5, 5), '1. Cracked street tiles': (5, 5, 5, 5)}   # round two: one more px where his lit edge row survived the cut   # top, bottom, left, right
+TW, TH = 82, 81     # every tile cut to one size, centred on its own joint, so the joints line up
 
 def tile(pack, i):
     assert (pack, i) in UP
