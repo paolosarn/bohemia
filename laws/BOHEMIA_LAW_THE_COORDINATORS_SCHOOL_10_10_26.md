@@ -71,3 +71,11 @@ RULE: THE ROW SAYS WHY AND WHAT HE SEES; THE LANE SAYS HOW, OUT LOUD, THEN GOES.
 ## ROUND NINE: THE PASS (the expediter, fire times, the line check, the operating-room turnover crew, the pit crew; records/BOHEMIA_COORDINATOR_SCHOOL_NINTH_ROUND_THE_PASS_10_10_26.md)
 
 RULE: NOTHING LEAVES THE WINDOW UNTIL THE PLATE IS WHOLE, AND ONE VOICE CALLS IT. Applied as front-page rule 98 (the plate ticket, the pass, fire slowest first, hold, check, hands, all day, the line check, in the weeds) and fired the same hour: tickets/PLATE_FIGHT_BLOCK.md, the first plate, which is also round two's one screen; the all-day count on the handoff's first line; CUE 8 in the calling script; four rows named to the plate.
+
+## ROUND TEN: WRITE FOR THE PLAYER (Ellington, Miles, Blakey, the blind audition; records/BOHEMIA_COORDINATOR_SCHOOL_TENTH_ROUND_WRITE_FOR_THE_PLAYER_10_10_26.md)
+
+RULE: WRITE FOR THE MAN, NOT THE INSTRUMENT. Applied as front-page rule 99 and on every one of the 26 lane sections the same hour: a SOUND line under MODE (what the lane has shipped well, its proof, what it has not yet proven), sketches inside the sound and charts outside it, one move made ([first load]'s measurement half to PLUMBER), two declined with reasons, one sketch handed to SOUNDS, and the blind audition owed to EYES.
+
+## THE SCHOOL, CLOSED (10/10)
+
+Ten rounds. Round one, ten studios at once, which he rightly called one round. Then nine from life, one at a time, each applied before the next began: READBACK (91), TRIAGE (92), CALLING THE SHOW (93), THE STOP CORD (94), THE TURNAROUND TABLE (95), THE TRAIL EVAPORATES (96), THE ROW IS INTENT (97), THE PASS (98), WRITE FOR THE MAN (99). What they add up to, in one line: the coordinator hears back, sorts before it treats, calls the show, stops the line, turns around on time, lets the board forget, says why not how, serves whole plates, and writes for the player it has. The research agents could search but not open pages; every page says so. The school is standing (rule 90): the next mistake made twice is a round, never a fourth attempt.
