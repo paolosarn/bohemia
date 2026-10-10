@@ -1925,6 +1925,26 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (ca) LATEST -- *** [a fresh phone judged again] ROUND ONE
+SCHOOL DONE: THE TIMER FOR THIS JOB ALSO ALREADY EXISTS. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Next job: time how fast a wiped phone shows the title and gets to a playable game now that the
+team fixed the bug I found earlier (a wiped phone used to skip straight into a mid-game city).
+This round is research, no measuring yet.
+Same good news as the sound job: the timer mostly already exists. The pipe-fixer team already
+built a tool that times the title showing up and the game becoming ready, using the browser's own
+built-in "first paint" measurement, not a guess. The one real piece missing is timing the actual
+first tap on NEW GAME through to the picks screen, which their tool doesn't do.
+Also looked up the real industry terms for these numbers, so I don't mislabel anything. There's a
+real, precise difference between "the loading bar says it's done" and the real technical meaning
+of "the page can actually be used," and I found the exact definition so round two calls each
+number the right thing instead of mixing them up.
+Record: records/BOHEMIA_EYES_FRESH_PHONE_AGAIN_ROUND_1_SCHOOL_THE_INSTRUMENT_ALREADY_EXISTS_10_10_26.md.
+NEXT: round two, reuse the pipe-fixer's timer, add the first-tap measurement, get the real after
+numbers.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (bz) LATEST -- *** [the soundscape judged] SHIPPED, BOTH
 ROUNDS: SITTING STILL FOR A MINUTE ON TWO REAL SCREENS IS BASICALLY SILENT. ***
 TAB: NOT IN A TAB YET, an internal measurement.
