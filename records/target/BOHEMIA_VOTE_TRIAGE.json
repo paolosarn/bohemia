@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -99,12 +99,12 @@
    "why": "he ruled it 10/4: playable in the sun"
   },
   "ui-the-fights-bar-10-4": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "sounds-the-ambience-comes-down-10-4": {
-   "tag": "yellow",
-   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "combat-night-you-can-read-10-4": {
    "tag": "gray",
@@ -315,8 +315,8 @@
    "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
   },
   "animation-the-fights-clips-10-9": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "direction-the-demo-every-screen-10-9": {
    "tag": "gray",
@@ -335,8 +335,8 @@
    "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
   },
   "run2-the-bar-10-9": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "dynasty-heirs-on-entry-10-9": {
    "tag": "gray",
@@ -375,8 +375,8 @@
    "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
   },
   "world-places-worth-going-to-10-9": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "cook-the-far-end-as-tiles-10-10": {
    "tag": "gray",
@@ -431,8 +431,8 @@
    "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
   },
   "factions-four-with-a-face-10-9": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "plumber-first-load-10-9": {
    "tag": "gray",
@@ -479,8 +479,8 @@
    "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
   },
   "cook-the-building-props-10-10": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted from yellow, oldest first, one per lane, after the eighth votes emptied the reds (rule 92); COMBAT and COMBAT TWO held yellow by his word until both teams are on one screen"
   },
   "cook-his-block-as-a-place-10-10": {
    "tag": "yellow",

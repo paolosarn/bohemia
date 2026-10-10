@@ -14,8 +14,10 @@ The pass: the coordinator (cooks nothing). DIRECTION tastes every part at the li
 | SOUNDS | the 120 BPM bed under the block and the hit that lands on the beat, real material, 'the best sounds of all time' | 5 | 5-out (unpaused by him 10/10; the first swing is CUE 7) | fired |
 | DIRECTION | the line check: every part above tasted against its twin on one phone, the numbers on the card (pixel density, palette, light, outline, the HUD's material) | at 0-out of each part | standing | fired |
 
-HANDS: COMBAT tab. "I tap a fight on the map and I am on a Vegas block that looks like Vegas, with the same buttons I had on the map, and the hits land on the beat."
+HANDS: COMBAT tab. "I tap a fight on the map and I am on a Vegas block that looks like Vegas, both teams on my screen from the first second with no swipe, with the same buttons I had on the map, and the hits land on the beat." (rule 104a added 10/10)
 
 The words, and nothing else, on this ticket: FIRE, HOLD, N-OUT, HEARD, IN THE WEEDS, REFIRE, 86, DEAD, HANDS, ALL DAY. A station that slips writes 'IN THE WEEDS, <was>-out is now <is>-out' the round it knows; the pass answers within the round with help (one named lane, one named sub-part, written here) or a kill. A part that lands before the plate is whole is HELD (merged behind a flag or off the demo), never served alone. A third round in the weeds on one part is a kill.
 
 SWEEP AH (10/10): COOK FOUR 0-out and at the line check; COOK TWO 1-out; COOK THREE 3-out; COMBAT TWO 3-out, its houses now a row ([the houses on the board]); UI and SOUNDS unchanged. ALL DAY: 1 plate.
+
+EIGHTH VOTES (10/10): COMBAT joins the plate with [both teams on one screen], fire now, 4-out; his NO on every combat card stands until it lands. COOK TWO: [no borders] and [the corners] are the sheet's last step. COOK FOUR: [no roof tops] before the second pass.
