@@ -2,6 +2,10 @@
 """COOK TWO [the street kit from the packs] (rule 87, Paolo 10/10: 'the original street tiles and sidewalks
 we downloaded, look again'; rule 82a: the approved packs are the source).
 
+REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the twin is his approved pack
+(reference/art_bank/road and ground, rule 82a) and the ground twin sheet (records/BOHEMIA_THE_REFERENCE_TWIN_THE_GROUND_10_10_26.md:
+an outline with a lit edge, >= 30 colours per 1000 px, wear per piece); AH-01 and AH-03.
+
 Every pixel of this kit is cut from his approved street pools (banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt:
 'street' asphalt, 'side' sidewalk, 'cross' the zebra) stamped at 2x nearest (pixel art, no blur) onto the
 house tile (515 x 364 px = 12 m, depth x cos45, the 45 DEGREE ART LAW). Nothing new is drawn except the paint

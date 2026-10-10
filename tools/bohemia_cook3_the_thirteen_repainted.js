@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /* COOK THREE [the thirteen repainted] (rule 87, Paolo 9/21 + 9/23 + 10/10).
+   REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the rulers are the runway
+   twin (reference/art_bank/character, the runway looks OWED from him or Grok), the wardrobe and face laws, AH-01
+   and AH-03; the ground twin sheet's bar (an outline with a lit edge, wear per piece) holds for cloth too.
    THE PAINT LAYER, NOT THE RIG. CHARACTER keeps FACTION_LOOKS, the slots and the
    silhouettes; this tool never edits the alpha. It renders each of the thirteen on
    the real 112 rig (buildFrame), then repaints ONLY the cloth pixels:
