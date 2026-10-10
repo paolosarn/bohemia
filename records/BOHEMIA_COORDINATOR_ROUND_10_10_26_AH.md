@@ -10,7 +10,9 @@ The STOP block (rule 94) stands: no cause written under it yet, no restart; the 
 
 ## THE FIVE MINUTES (the chalk circle; tools/bohemia_five_minutes.js --throttle 4 on the committed demo, build 10/10l, box 1.05x of baseline)
 - the door at 53.1 s after 39 files; 24 controls at the door;
-- the rest of the run (the four numbers, what loads after the door, the second-by-second rate) was still in progress at this commit and lands in the next one, under this line.
+- the four numbers over 325 s of play: 2 page errors; 23 stalls over one beat (worst 2.5 s); 0 dead taps of the 5 that reached a control (15 covered, 4 moved the screen and vanished, so the honest count is 0 to 4); 49.0 fps over the walk (44.7 last sweep), 648 whole frames dropped (682);
+- what loads after the door: the same 25 files, 66.6 MB, the last at 377 s; the tile files 02 to 09 still download twice (17 tile fetches for 9 files); BOHEMIA_DEMO.html still fetched three times during play. Nothing changed on the loader since sweep AG, and the numbers say so: the STOP block stands;
+- the door: 53.1 s against 46.5 s last sweep on the same box at the same speed; the spread is the demo's own, which is one more reason the one stopwatch (PLUMBER) reads several runs, not one.
 
 ## READBACKS HEARD (rule 91b, before any other commit was read)
 8 claims since sweep AG; 5 carried the line and all 5 are CORRECT: RUN [ten seconds to play], COMBAT TWO [the district seeds the board], COMBAT [the lit tiles look lit], UI [the triage filter] (shipped inside the round; correct by the ship), QUESTS [eighth shelf]. 3 carried no line (RUN TWO [the sideways band], TUNING origin renown, TUNING origin gear value); all three shipped inside the round, so the hearback is moot and the next claim carries it. Negatives: 0.
