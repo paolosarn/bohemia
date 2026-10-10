@@ -7141,7 +7141,8 @@
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_65_WHAT_A_LOT_COSTS_TO_BUILD_THE_WELL_IS_THE_ONE_THAT_TAKES_LONGER_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 65.\n\nSeen in: not drawn yet, feeds TUNING."
    }
-  }
+  },
+  {"id": "plumber-the-picture-leg-10-10", "kind": "ui", "lane": "plumber", "sha": "pending", "made": "10/10", "title": "A NEW LOOK CARD NOW HAS TO SHOW BEFORE AND AFTER, OR IT IS REFUSED", "why": "Any new art card (a tile, a face, an outfit, a screen) now has to carry one picture with the same spot before and after, side by side at true size, and the checker refuses one that shows only the after or a number; it refused your three NOs and four new cards (three COOK, one COMBAT TWO). You see it here, a real fight tile shown both ways: the left card is refused, the right one passes.", "show": {"how": "image", "src": "vote/PLUMBER_THE_PICTURE_LEG_10_10.png"}}
  ],
  "verdicts": [
   {
