@@ -1,0 +1,218 @@
+{
+ "_readme": "WORLD [the valley has no inside] 10/10: the valley's insides as one table. Written by tools/bohemia_the_insides_cook_10_10_26.js from engine/bohemia_insides.js -- do not hand edit. THE ROW WAS WRONG AND THIS LANE WROTE IT: the valley has had an inside since 7/26 (engine/bohemia_floorplan.js, the INTERIOR-MATCHES-EXTERIOR LAW, a 62-district room-grammar table). What is wrong is that THE TABLE EXISTS TWICE -- DISTGEN in the engine and IN_ZONE in the CITY app -- and the copies disagree on six districts, every disagreement collapsing a specific grammar into the generic `institutional`, so a POLICE STATION IS GENERATED WITH TWO HOSPITAL WARDS IN IT. No second copy of the table is made here: the rows below are read from the live DISTGEN by the gate.",
+ "version": "BOHEMIA_THE_INSIDES_v1",
+ "built": "2026-10-10",
+ "theTableExistsTwice": {
+  "missingFromTheApp": [
+   "sign"
+  ],
+  "disagree": {
+   "campus": {
+    "engine": "school",
+    "app": "institutional"
+   },
+   "firestation": {
+    "engine": "firehouse",
+    "app": "institutional"
+   },
+   "policestation": {
+    "engine": "civic",
+    "app": "institutional"
+   },
+   "school": {
+    "engine": "school",
+    "app": "institutional"
+   },
+   "terminal": {
+    "engine": "transit",
+    "app": "institutional"
+   }
+  },
+  "allOneWay": "every disagreement collapses a specific grammar into the generic `institutional`, so the app is holding the OLD table",
+  "costsOnTheGlass": "a police station, a fire station, a school and a bus terminal are each generated with two hospital wards in them, and the firehouse (a garage and an office) and transit (a concourse and a counter) grammars exist and are never used",
+  "ruling": "DISTGEN in engine/bohemia_world.js, the one district -> room-grammar table this lane owns. Read live by the gate, never copied here.",
+  "tuned": false
+ },
+ "districtsWithNoGrammarYet": {
+  "correctlyNone": {
+   "districts": [
+    "desert",
+    "mountain",
+    "springs",
+    "water",
+    "freeway",
+    "interchange",
+    "arterial"
+   ],
+   "why": "not a building. A road, a wash, a mountain and a spring have no inside to generate, and a grammar for one would be a room nobody built.",
+   "mine": true,
+   "tuned": false
+  },
+  "owesOne": {
+   "districts": [
+    "airport",
+    "airbase",
+    "highroller",
+    "luxor",
+    "sphere",
+    "strat",
+    "rail",
+    "robofactory",
+    "strip"
+   ],
+   "why": "every one of these is a building people went inside. FOUR OF THEM ARE THE STRIP'S OWN CASINOS -- the Luxor, the Sphere, the Stratosphere, the High Roller -- in a game whose one hand-made interior board is a casino floor.",
+   "blocked": [
+    "airport",
+    "airbase",
+    "highroller",
+    "luxor",
+    "sphere",
+    "strat",
+    "robofactory"
+   ],
+   "blockedBecause": "a DISTGEN row needs a kit module and a footprint function, and these seven have no kit module at all. That is the open row [the cells with no board]'s own list, so it is one job and not two.",
+   "aOneLineAdd": [
+    "rail",
+    "strip"
+   ],
+   "mine": true,
+   "tuned": false
+  }
+ },
+ "whatAnInsideIs": {
+  "from": "engine/bohemia_floorplan.js, the interior generator (7/26), under the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED)",
+  "aCityHallFootprint": {
+   "known": true,
+   "zone": "civic",
+   "w": 44,
+   "h": 28,
+   "floor": 882,
+   "wall": 325,
+   "door": 25,
+   "rooms": [
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "reception",
+    "hall",
+    "office",
+    "office",
+    "records",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "bath",
+    "office"
+   ],
+   "ruling": "engine/bohemia_floorplan.js, the interior generator (7/26), under the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED)"
+  },
+  "whatAPoliceStationGetsToday": {
+   "known": true,
+   "zone": "institutional",
+   "w": 44,
+   "h": 28,
+   "floor": 882,
+   "wall": 325,
+   "door": 25,
+   "rooms": [
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "office",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "service",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "bath",
+    "ward"
+   ],
+   "ruling": "engine/bohemia_floorplan.js, the interior generator (7/26), under the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED)"
+  }
+ },
+ "measured": {
+  "footprint": [
+   44,
+   28
+  ],
+  "seed": 1337,
+  "engineSays": {
+   "zone": "civic",
+   "rooms": [
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "reception",
+    "hall",
+    "office",
+    "office",
+    "records",
+    "office",
+    "office",
+    "office",
+    "office",
+    "office",
+    "bath",
+    "office"
+   ],
+   "floor": 882,
+   "wall": 325,
+   "door": 25
+  },
+  "theGameBuilds": {
+   "zone": "institutional",
+   "rooms": [
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "office",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "service",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "ward",
+    "bath",
+    "ward"
+   ],
+   "floor": 882,
+   "wall": 325,
+   "door": 25
+  },
+  "wardCellsOnTheSheet": 757,
+  "drift": [
+   "campus",
+   "firestation",
+   "policestation",
+   "school",
+   "sign",
+   "terminal"
+  ],
+  "noGrammarYet": 9
+ }
+}

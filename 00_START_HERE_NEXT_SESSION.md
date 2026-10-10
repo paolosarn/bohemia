@@ -1,3 +1,129 @@
+WORLD (world-9lfjtf): 10/10 (c) LATEST -- *** THE POLICE STATION IN THIS VALLEY
+HAS FIFTEEN HOSPITAL WARDS IN IT. *** Row [the valley has no inside] SHIPPED. 3
+OPEN rows remain (rule 74) and the top one is new: [one table for the rooms].
+TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE tab:
+world-the-insides-10-10. Record
+records/BOHEMIA_WORLD_A_POLICE_STATION_FULL_OF_HOSPITAL_WARDS_10_10_26.md.
+
+RULE 12, AND THE ROW WAS WRONG AND I WROTE IT. The row said that across all 50
+district kits, of 813 named pieces 256 are standable and ZERO are the floor of a
+room. That measurement is right AND IT IS ABOUT ONE LAYER: the district kits are
+the OUTDOOR tilesets, where a building is a footprint, and an inside was never
+going to be in them. THE INSIDE LIVES IN engine/bohemia_floorplan.js AND HAS
+SINCE 7/26, green in the suite (FLOORPLAN, INTERIOR GROUND). Asked for a city
+hall footprint it returns 204 FLOOR CELLS, 97 OF WALL AND 7 DOORS, as a hall, a
+reception, an office, a records room and a bath. There is a 62-DISTRICT ROOM-
+GRAMMAR TABLE (DISTGEN, in engine/bohemia_world.js, THIS LANE'S OWN FILE) across
+eleven zones, under the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED).
+
+THAT IS THREE ROUNDS RUNNING WHERE RULE 12 FOUND THE PREMISE WRONG, AND TWICE NOW
+THE PREMISE WAS ONE I WROTE MYSELF UNDER RULE 74. Rule 74 has this lane write its
+own next row from its own measurement, and A PREMISE WITH MY OWN NAME ON IT IS
+THE ONE I DO NOT GO BACK AND CHECK. Both times the measurement was right and the
+sentence I built on it reached past the layer I had measured. It is in the record
+rather than only here, because it is the third one.
+[FOR THE COORDINATOR]
+
+*** WHAT IS REALLY WRONG: THE TABLE EXISTS TWICE AND THE COPIES DISAGREE ON SIX
+DISTRICTS. *** DISTGEN (the engine) and IN_ZONE (the CITY app) are two hand-kept
+copies of one table:
+
+  sign           in the engine, NOT IN THE APP AT ALL
+  campus         engine says school      app says institutional
+  firestation    engine says firehouse   app says institutional
+  policestation  engine says civic       app says institutional
+  school         engine says school      app says institutional
+  terminal       engine says transit     app says institutional
+
+EVERY DISAGREEMENT COLLAPSES A SPECIFIC GRAMMAR INTO THE GENERIC `institutional`,
+so the drift is one-way and THE APP IS HOLDING THE OLD TABLE: WORLD added five
+specific room grammars and the thing that builds the rooms never learned them.
+
+ON THE GLASS, run at the same 44x28 footprint on the same seed: the engine says a
+police station is a hall, a reception, records, a bath and fifteen offices. THE
+GAME BUILDS A BATH, A SERVICE ROOM, ONE OFFICE AND FIFTEEN HOSPITAL WARDS. Same
+walls, same doors, same plan, and one of them is a hospital. And the firehouse
+grammar (a garage and an office) and the transit grammar (a concourse and a
+counter) EXIST AND NOTHING REACHES THEM -- the same disease as last round's
+unreachable casino block, in a second system, in consecutive rounds.
+
+AND SIXTEEN LIVE DISTRICTS HAVE NO GRAMMAR, WHICH IS TWO THINGS. SEVEN CORRECTLY
+HAVE NONE because they are not buildings (desert, mountain, springs, water,
+freeway, interchange, arterial). NINE OWE ONE: airport, airbase, highroller,
+luxor, sphere, strat, rail, robofactory, strip -- AND FOUR OF THOSE ARE THE
+STRIP'S OWN CASINOS, in a game whose single hand-made interior board is a casino
+floor that nothing can reach. Seven of the nine cannot simply be given a zone: a
+DISTGEN row needs a kit module and a footprint function and they have no kit at
+all, which is [the cells with no board]'s own list, so it is one job and not two.
+Only `rail` and `strip` are a one-line add, and I did NOT make it: adding rows
+while the app cannot follow widens a red that is not mine. The seven/nine split
+is a READING, stated as mine with tuned:false.
+
+GATE THE INSIDES 23/0, registered. It PARSES BOTH TABLES LIVE -- DISTGEN out of
+the engine, IN_ZONE out of the CITY app -- names every disagreement and holds the
+count as a RATCHET THAT MAY ONLY SHRINK. It RUNS every zone either table names
+through the generator, so "the valley has an inside" is a measurement in the file
+and never a claim, because the row it corrects was a claim. It refuses a second
+copy of the table inside this lane's own module, holds the sixteen as a ratchet,
+refuses the seven/nine split being passed off as a measurement, and proves every
+district called blocked really has no kit module. Mutation-proved three ways
+(drift one more district in the engine -> RED naming it; keep a district-to-zone
+map in my own module -> RED quoting it; mark the split as a measurement -> RED).
+
+AND ONE MUTATION DID NOT LAND THE FIRST TIME AND I DID NOT COUNT IT: removing
+`ward` from the institutional roles left bulk:'ward' in place, so the generator
+kept making wards and the cook kept passing. That was my TEST being incomplete,
+not the check being weak; changing the bulk role too, both the gate and the cook
+go red. A mutation that does not change the behaviour proves nothing, and
+counting it would have been the same mistake as a check that measures nothing.
+
+COOK: A POLICE STATION FULL OF HOSPITAL WARDS, slices/vote/WORLD_THE_INSIDES.png
+-- two real floorplans side by side, both from the game's own interior generator
+at the same footprint and the same seed. Identical walls, identical doors,
+identical rooms, and fifteen of the nineteen on the right lit as wards. The cook
+refuses if the two tables ever agree about the police station, if the
+institutional grammar stops making wards, if the civic one starts, or if the two
+plans come back different sizes. AH-01: two floorplans side by side is the
+ordinary part; THE WRONG THING IS THAT THEY ARE THE SAME BUILDING -- it has had
+those wards for as long as anybody could walk inside, and nobody noticed because
+the rooms are generated and nobody reads the labels.
+
+ROUTED: WHOEVER OWNS THE CITY APP -- ONE EDIT ENDS THE WHOLE CLASS. The app
+should READ DISTGEN instead of keeping its own IN_ZONE; it already inlines
+bohemia_floorplan.js byte-identical, so the pattern exists. Until then INTERIORS
+is red on three legs (confirmed by running it) and a police station stays a
+hospital. [the cells with no board] owns the seven blocked districts. COMBAT:
+last round's casino block is still unreachable and the Strip's four casinos still
+have no inside, which is the same hole from both ends. [FOR THE CITY APP'S OWNER
+AND COMBAT]
+
+RED AND NOT MINE: INTERIORS 39/3 (the drift above, and the fix is the app's).
+VOTE TAB on mods-an-id-is-a-promise-10-10 (four sentences),
+tuning-every-roll-a-man-makes-10-10 and dynasty-who-buries-10-9 (no where you see
+it), sounds-the-bars-glass-10-10 (three sentences), plus the door-boot flake
+PLUMBER owns. Carried and still not mine: REFERENCE CHECK on PEOPLE's
+tools/bohemia_cook_good_bros.js, FACTION COLOUR, PAGES PUBLISH, ROADS ARE FAST.
+FOURTH ROUND OF SAYING SO: gates/one_terrain_effect_gate.js still holds a ruling
+rule 59 amends by name and is not registered in the suite. COMBAT's file.
+
+GATES BY NAME this round (rule 13a, the pre-push pass): THE INSIDES 23/0, THREE
+BLOCKS, BOARD KINDS, GROUND EFFECTS, FLOORPLAN, INTERIOR GROUND, WORLD MODEL,
+CANON ROT, HANDOFF. The full suite still cannot finish in this container.
+[FOR PLUMBER]
+
+[bb insides] BATTLE BROTHERS HAS NO INSIDES AT ALL, AND THAT IS THE ONE PLACE WE
+ARE ALREADY AHEAD AND DID NOT KNOW IT. Its towns are a menu over a painting and
+its fights are always in a field: in six hundred hours you never once stand in a
+room. Ours has had a working interior generator for months, matching the exterior
+footprint exactly, with a room grammar per district -- a jail with a cell block, a
+firehouse with an apparatus bay, a terminal with a concourse. OUR TWIST (rule
+39b): THE FIGHT SHOULD GO INDOORS, because a corridor with one door is a
+formation puzzle Battle Brothers cannot pose -- no flanking, no line, and the man
+at the front is the only man fighting. The lesson of this round is the cost of
+that lead: A SYSTEM NOBODY IS CURRENTLY PLAYING ROTS QUIETLY, and ours rotted into
+a police station full of hospital beds.
+
+
 TUNING (tuning-f59l1w): 10/10 (h) LATEST -- [the price ratios] SHIPPED (research, no code touched).
 TAB: VOTE, item THE MARKET AGAINST THE WIKI (an AUDIT block added to the sell-ratio page).
 RECORD: records/BOHEMIA_TUNING_THE_PRICE_RATIOS_AUDIT_WHERE_THE_MARKET_DEPARTS_FROM_THE_WIKI_10_10_26.md
