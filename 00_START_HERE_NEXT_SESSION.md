@@ -3021,6 +3021,74 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (e) LATEST -- *** HIS BLOCK, AS A PLACE YOU ARRIVE AT. The
+fourth settlement picture, and the first one that is anywhere. ***
+
+1. I OPENED THE SCREEN BEFORE I DREW ANYTHING, AND MOST OF THE ROW WAS ALREADY BUILT.
+   the picture      COMBAT TWO 10/4: camp, town, fortress, two variants each, hotspots.
+                    This lane painted them over on 10/10.
+   people moving    ANIMATION 10/9: slices/settlement_people, the 112 rig in the runway
+                    clothes, 25 looks, nine clips on the 120 beat, three facings.
+   placing them     RUN TWO 10/10: a keeper at each door on his building's clip, a crowd by
+                    the stall sized by the place's traits, depth-sorted, thinned at night.
+   the taps         RUN TWO: lights under the finger, names itself only when touched.
+So there was no point cooking a crowd. One exists, by the lane that owns rigs, at this exact
+scale, and cooking a second would have been this lane drawing what was already in the
+cupboard, which is the mistake it made twice last round.
+
+2. WHAT NOBODY HAD TOUCHED IS THE ROW'S FIRST FOUR WORDS: ONE REAL PLACE FIRST (HIS BLOCK).
+Camp, town and fortress are SIZES, not places. None of them is anywhere. His block is
+somewhere: it is the one he wakes on, it is the home base of the third votes, and it is the
+only address in this game that is his. So this round made the fourth place, and it is a place
+and not a size. slices/settlement_ground/home_0.webp and home_0_night.webp, tool
+tools/bohemia_his_block_as_a_place_cook_10_10_26.py, record
+records/BOHEMIA_HIS_BLOCK_AS_A_PLACE_MEASURED_10_10_26.txt, VOTE
+cook-his-block-as-a-place-10-10. The manifest was SPLICED, not rewritten: three places before,
+four after, and every tier of theirs parsed back and compared.
+
+3. FOUR TAPS, AND THEY ARE THE CAMP TIER'S OWN LIST ON PURPOSE (hall, board, stall, lot), so
+RUN TWO wires a new place by NAMING it and nothing else:
+   hall    YOUR HOUSE: the door you wake behind, your step under it, the couch out front
+   lot     THE DRIVEWAY: his own 7/28 wreck, still on it. That is SCAVENGE (third votes).
+   stall   NEXT DOOR: his table at the kerb, his gate shut behind it
+   board   THE KERB: the block's paper, three layers deep
+Built from THEIR machinery, imported and called, never copied: their ground, their house45,
+their stall, their night_sun and sun_measure; this lane's own 10/10 finish for the rain, the
+wear and the trash. FOUR THINGS ARE NEW: your step, your drive, the gate, the couch.
+
+4. *** FIVE THINGS THE PICTURE CORRECTED, AND TWO GUARDS THAT WERE THEMSELVES WRONG. ***
+   (a) MY PHONE BAR WAS MINE AND IT WAS WRONG. I assumed the whole picture is shown across a
+   390 px phone and failed three taps. RUN TWO's own line is
+   view.s = min(max(W/(picW*0.6), H*0.5/picH), H/picH), so it opens at 0.386 and you PAN.
+   The bar comes from their formula now, not my assumption.
+   (b) THEIR BOARD CANNOT BE HIT. board_on_pole is 86 picture px = 33 px on his phone against
+   a 44 px thumb. This place carries a new 2.75 m ply board (45 px). THEIR THREE PLACES HAVE
+   THE SAME PROBLEM and it is in the record for them.
+   (c) I BOXED NEXT DOOR'S ROOF as the stall tap, and the finish takes a building's door from
+   its box centre, so long pale worn rays went out of a ROOFTOP across the yards and the road
+   and the picture looked scratched. You tap the table, not the roof.
+   (d) A ROOF TINTED UP COST THE NIGHT ITS CONTRAST (rule 73 at 2.7 against a bar of 3.0).
+   Roofs are a sixth of this picture; terracotta in a dead valley weathers DARKER, never
+   brighter. Every tint goes down now and the ratio is 3.4.
+   (e) THE CHAIR WAS EIGHT PIXELS on his phone and read as an aerial. Nothing reads at eight
+   pixels, so it is a couch (32 px), which is the truer object out front of a house here.
+   AND THE TWO GUARDS: the no-text guard GREPPED THIS FILE for the word ImageFont and its own
+   sentence contains that word, so it failed on itself; it is a COUNT at the library's draw
+   call now and reads 0. The lamp guard printed "1092 of 4 lamps burning" because it was
+   handed night_sun's pixel mask instead of the lamp list.
+
+5. NO TEXT ON THIS PICTURE AND NO FONT LOADED, counted at the draw. *** AND THE LABEL DEFECT
+ON THEIR TWELVE SHEETS IS THIS LANE'S OWN AND IS THE NEXT ROUND'S FIRST JOB. *** COMBAT TWO's
+manifest says "no text on the picture; name it only when touched" and their tool's own law
+says each building must say what it is with one object from across the screen, "NEVER A
+LABEL". On 10/10 this lane painted CUTS, CLINIC, ROOMS, TRADE and NOTICES onto their six day
+and six night sheets as floating word boxes. That is text on the picture, a SECOND name on top
+of the one the screen already gives on touch, and rule 19 (no player-facing prose without a
+mouth and a portrait). It gets its own round rather than being smuggled in under a new place.
+
+NEXT: the labels off their twelve sheets, then [map floor], the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 10/10 (d) LATEST -- *** THE SIX BUILDINGS' PROPS, WHICH CLOSES
 [the board props]. ***
 

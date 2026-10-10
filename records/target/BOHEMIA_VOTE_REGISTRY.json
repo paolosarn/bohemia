@@ -6400,6 +6400,19 @@
    }
   },
   {
+    "id": "cook-his-block-as-a-place-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "HIS BLOCK, AS A PLACE YOU ARRIVE AT",
+    "why": "The three settlement screens are sizes, not places: camp, town and fortress are how big a town is, and none of them is anywhere. This is the fourth one and it is your own block, with your door and your step, your drive with the wreck still on it, next door's gate shut and his table out, and the board at the kerb, and you see it in the VOTE tab by day and at night.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_HIS_BLOCK.png"
+    }
+  },
+  {
    "id": "run2-climbing-10-10",
    "kind": "ui",
    "lane": "run 2",
