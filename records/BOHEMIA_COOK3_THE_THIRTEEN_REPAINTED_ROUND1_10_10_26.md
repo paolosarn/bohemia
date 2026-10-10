@@ -19,3 +19,8 @@ Defect 1 closed: the waist line is gone. Each candidate garment (outer, back, ba
 FINDING: the first try ('take the coat off and diff') went blind on Blues 18%, Church 6%, Remnants 20%, because the shirt under the coat is the SAME ramp. The solo draw fixed it: Blues 57%, Church 45%, Remnants 62%.
 Measured after (sat, % accent): Caravans .248 62 | Colorful .366 100 | Anarchists .347 70 | Blues .298 57 | Homeless .259 0 | Church .287 45 | Reds .377 71 | Cartel .051 0 | Trades .334 63 | Mob .419 45 | Network .306 65 | Volunteers .048 0 | Remnants .141 62
 OPEN for round 3: Remnants .141 is under faction_colour_gate's .28 floor (olive drab is dark, the stretch pulls it down); Mob rose .388->.419 (mustard over charcoal stays loud); Homeless rises on the oxblood stop. Then DIRECTION, then VOTE.
+
+# ROUND 3 (10/10, cook3-vamily): THE THREE OUTLIERS, per-faction rules in the paint file
+Mob vibranceDown 0.55: .419 -> .354 (no longer louder than before). Homeless cool neutrals: .259 -> .058 (drab on purpose again). Remnants no pull, cool: .141 -> .206.
+HONEST: .206 is the cloth AVERAGE including the neutral legs; faction_colour_gate measures the faction's colour on the live frame, and this layer is not wired, so the gate has not been run on it. When the draw reads the paint file, that gate is the test.
+STATE: the sheet is complete for DIRECTION (rule 87). Row stays CLAIMED until DIRECTION passes it, VOTE, and the draw reads engine/bohemia_cook3_runway_paint.json (CHARACTER's hook, one read, on DIRECTION's pass).

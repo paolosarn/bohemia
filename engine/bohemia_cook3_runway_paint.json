@@ -77,7 +77,8 @@
       "five": true
     },
     "Homeless": {
-      "warm": true
+      "warm": false,
+      "why": "the oxblood stop added colour to a faction drab on purpose (.148->.259)"
     },
     "Cartel": {
       "warm": false
@@ -92,7 +93,13 @@
       "warm": false
     },
     "Remnants": {
-      "warm": false
+      "warm": false,
+      "vibranceDown": 0.0,
+      "why": "olive drab is already dark; any pull sinks it under the .28 colour floor"
+    },
+    "Mob": {
+      "vibranceDown": 0.55,
+      "why": "mustard over charcoal stayed loud (.388->.419); the Strip's gold is quieter money"
     }
   },
   "card": [

@@ -87,9 +87,9 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
           cloth++;
           const mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]), s = mx ? (mx - mn) / mx : 0;
           satB += s; const l = lum(q); let c;
-          if (rule.five) { c = lerp(q, [l * 255, l * 255, l * 255], PAINT.vibranceDown); kept++; }
+          if (rule.five) { c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
           else if (acc != null && carrier[i] && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
-            c = lerp(q, [l * 255, l * 255, l * 255], PAINT.vibranceDown); kept++; }
+            c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
           else c = neutral(l, rule.warm !== false);
           c = lerp(c, PAINT.ambient, PAINT.ambientPull);
           after[i] = [c[0] | 0, c[1] | 0, c[2] | 0, q[3] == null ? 255 : q[3]];
