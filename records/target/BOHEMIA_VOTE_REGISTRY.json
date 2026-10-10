@@ -6739,6 +6739,19 @@
     "how": "text",
     "src": "FIXED: a dead man's debt does not pass to his heir (you rule: you inherit the person, not the bill). Assets, level, perks and gear still do.\\nPROPOSED FIRST DAY OF AN HEIR: 1. carry him to the wall (you build, not dig, in this ground). 2. a creditor at the door: forgive, pay half, or take the house. 3. who is still in the house. 4. the name, said once."
    }
+  },
+  {
+   "id": "mods-mods-to-copy-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "MODS TO COPY",
+   "why": "For whoever makes mods. Seven whole example mods: add an enemy, change where an origin starts, a wage, a perk number, add a helmet. Tap one to see the patch, the one lesson it teaches, and what the checker said. All were run through the real checks. The game does not load a mods folder yet.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_MODS_TO_COPY_10_10_26.html"
+   }
   }
  ],
  "verdicts": [

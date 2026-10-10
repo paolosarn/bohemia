@@ -1,3 +1,14 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [more worked mods] SHIPPED. TAB: VOTE, item MODS TO COPY (7 cards: tap one for
+the patch, the lesson and what the checker said). Record records/BOHEMIA_MODS_MODS_A_STRANGER_CAN_COPY_10_10_26.md;
+folders in tools/mods_reference/example_mods/ (+README, eight mods). Five new, each built from a REAL row: enemy-pack
+(copy of the brigand poacher), poorer-start (origin batteries.full 250->200), fair-wages (a wage), sharper-mastery
+(a perk number), new-helm (a head armour piece, table key 'head'). All load with no fault and no warning; proof now 27
+of 27 (9a-9g). REAL FIX THIS NEEDED: a patch to a row's `numbers` object ERASED the other keys; the reference merge now
+merges an object inside a row ONE LEVEL; mutation-checked (9c, 9e red 25/27 when it overwrites). NOT COVERED, STATED:
+a patch inside a LIST (skills, men) replaces the list whole; no row deletion; nothing seen in the fight because the
+game loads no mods folder. NEXT OPEN: [base changes], [grok sources]; I must write a third from the jump list.
+[read count] CLAIMED. PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/10 LATEST (round nine, [the soundscape] round three) -- ***
 THE BAR HAS A GLASS SOUND NOW, AND I CAUGHT MY OWN WRONG GUESS BEFORE IT SHIPPED. ***
 TAB: VOTE, one item, THE BAR'S GLASS.
