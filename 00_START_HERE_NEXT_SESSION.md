@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/10 (b) LATEST -- [the shelf against 84 to 86] SHIPPED: QR-AN, 13 files fixed (flip at the first crisis, an act is a year, builds only in the settlement screen). NOT IN A TAB. Next: [aa lines 29 and 30].
+
 CHARACTER (character-0lurbs): 10/10 (e) LATEST -- *** YOUR FACE ALREADY PASSES
 DOWN THROUGH THE THREE GENERATIONS. THE BODY NOW DOES TOO. ***
 TAB: CHARACTER and VOTE, one item, THE THREE BODIES.
