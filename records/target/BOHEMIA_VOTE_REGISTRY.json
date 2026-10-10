@@ -7329,7 +7329,12 @@
    }
   },
   {"id": "combat-the-head-under-the-strip-10-10", "kind": "ui", "lane": "combat", "sha": "c0d85bf", "made": "10/10", "title": "THE CAMERA KEEPS THE WHOLE MAN", "why": "In a fight the camera now keeps the whole man in view when he walks or swings, where before it often stopped with his head under the top strip or his feet under the bar, or let him walk right off the screen (a quarter of all moves on a phone held sideways). Watch any fight with AUTO on and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_HEAD_UNDER_THE_STRIP_10_10.jpg"}, "draft": true},
-{"id": "run-the-far-end-at-the-phones-pixels-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "ZOOMED ALL THE WAY OUT: THE MOUNTAINS AT YOUR PHONE'S PIXELS, AND NO MORE PLATE", "why": "The land around the city was painted at one dot for every five or six of your phone's pixels, so the ranges were blocky stairs and the city sat on a raised plate; now the land is painted pixel for pixel when you stop moving, and the ground in front of the city lies flat. You see it on the DEMO's map, pinched all the way out: before on the left, now on the right, and the Pocket City 2 twin underneath.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_AT_THE_PHONES_PIXELS_10_10.png"}}
+{"id": "run-the-far-end-at-the-phones-pixels-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "ZOOMED ALL THE WAY OUT: THE MOUNTAINS AT YOUR PHONE'S PIXELS, AND NO MORE PLATE", "why": "The land around the city was painted at one dot for every five or six of your phone's pixels, so the ranges were blocky stairs and the city sat on a raised plate; now the land is painted pixel for pixel when you stop moving, and the ground in front of the city lies flat. You see it on the DEMO's map, pinched all the way out: before on the left, now on the right, and the Pocket City 2 twin underneath.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_AT_THE_PHONES_PIXELS_10_10.png"}},
+  {
+   "id": "factions-a-face-that-remembers-10-10", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/10",
+   "title": "A FACE THAT REMEMBERS", "why": "Each faction has one face, one want and one line that changes with how you treated them, ready to speak the day a portrait lands. You see it in the VOTE tab: four factions, each saying three different things for three ways you could have treated them.",
+   "show": {"how": "page", "src": "vote/FACTIONS_A_FACE_THAT_REMEMBERS_10_10.html"}
+  }
  ],
  "verdicts": [
   {

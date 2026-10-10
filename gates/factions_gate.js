@@ -36,7 +36,7 @@ for (const f of D.factions) {
   ok(n + ': WANT has an id, text and a source', f.want && f.want.id && f.want.text && hasQuote(f.want));
   ok(n + ': BASE has a kind, a tier and a note', f.base && f.base.kind && f.base.tier && f.base.note);
   ok(n + ': VOICE is a draft attempt', f.voice && f.voice.draft === true && typeof f.voice.text === 'string');
-  ok(n + ': MEMORY is driven by beef and names bands', f.memory && f.memory.driven_by === 'beef' && f.memory.bands.length >= 2);
+  ok(n + ': MEMORY is driven by beef and names tones', f.memory && f.memory.driven_by === 'beef' && Array.isArray(f.memory.tones) && f.memory.tones.every(t => ['cold', 'neutral', 'warm'].indexOf(t) >= 0));
   ok(n + ': enemy_faction exists in the Battle Brothers data', efac.has(f.enemy_faction));
   ok(n + ': ground kinds named', Array.isArray(f.ground) && f.ground.length >= 1);
   ok(n + ': every ground is a real board terrain kind', f.ground.every(g => BT.KINDS.indexOf(g) >= 0), f.ground.filter(g => BT.KINDS.indexOf(g) < 0).join(','));
@@ -66,8 +66,42 @@ for (let i = 0; i < banners.length; i++) for (let j = i + 1; j < banners.length;
   ok(banners[i][0] + '/' + banners[j][0] + ' banners differ', dE(banners[i][1], banners[j][1]) >= 25);
 ok('byGround finds a faction for each ground and none for a made-up one', D.factions.every(f => F.byGround(f.ground[0]).id === f.id && F.byGround(f.ground[f.ground.length - 1]).id === f.id) && F.byGround('nowhere') === null);
 ok('a ground belongs to one faction', (() => { const s = {}; let bad = false; D.factions.forEach(f => f.ground.forEach(g => { if (s[g]) bad = true; s[g] = 1; })); return !bad; })());
-ok('the memory line is null outside a faction\'s bands', F.memoryLine('brigands', 'friendly') === null && F.memoryLine('brigands', 'wary') !== null);
+ok('the memory line follows the relations band through its tone', F.memoryLine('brigands', 'hostile') === D.factions[0].lines.value.cold && F.memoryLine('brigands', 'neutral') === D.factions[0].lines.value.neutral && F.memoryLine('brigands', 'allied') === D.factions[0].lines.value.warm && F.memoryLine('brigands', 'nonsense') === null && F.memoryLine('beasts', 'neutral') === null);
 ok('the gaps are written down honestly', D.gaps && D.gaps.length >= 2);
+/* ---- FACES MEET AGAIN (row [faces meet again]): the join, ready for the day a portrait id lands ---- */
+{ const RD2 = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/relations.json'), 'utf8')).bands.value.map(b => b.id);
+  const tones = D.tones.value, all = [].concat(tones.cold, tones.neutral, tones.warm);
+  ok('the three tones cover every relations band exactly once', all.length === RD2.length && RD2.every(b => all.filter(x => x === b).length === 1), all.join());
+  ok('tones are marked ours', D.tones.ours === true);
+  const ES = /\b(esta|para|te|vete|vecino|amigo|flaco|pero|no|le|digas|nadie|vimos|camino|carretera|es|nuestra|mijo)\b/i;
+  for (const f of D.factions) {
+    if (f.lines.value) {
+      ok(f.id + ': a line for every tone it can say', ['cold', 'neutral', 'warm'].every(t => typeof f.lines.value[t] === 'string' && f.lines.value[t].length > 8));
+      ok(f.id + ': the lines are drafts and ours', f.lines.draft === true && f.lines.ours === true);
+      ok(f.id + ': the voice is its neutral line', f.voice.text === f.lines.value.neutral);
+      ok(f.id + ': memory tones match the lines it has', f.memory.tones.length === 3);
+      if (f.lines.spanglish) ok(f.id + ': it speaks Spanglish (the language law)', Object.values(f.lines.value).every(t => ES.test(t)));
+      else ok(f.id + ': a non-Spanglish speaker says so', f.lines.spanglish === false);
+      ok(f.id + ': no em dash in a line', Object.values(f.lines.value).every(t => t.indexOf('\u2014') < 0));
+    } else {
+      ok(f.id + ': a faction with no words names its sound and has no tones', typeof f.lines.sound === 'string' && f.memory.tones.length === 0 && f.voice.text === '');
+    }
+    for (const band of RD2) {
+      const sc = F.scene(f.id, band);
+      ok(f.id + '/' + band + ': a scene is known', sc.known === true && sc.who === f.face.id && sc.want === f.want.text);
+      ok(f.id + '/' + band + ': WITHOUT A PORTRAIT NOTHING IS SAID', f.face.portrait ? true : (sc.speaks === false && sc.say === null));
+      if (f.lines.value) ok(f.id + '/' + band + ': the unspoken line is the band\'s tone line', sc.unspoken === f.lines.value[F.toneOf(band)] && sc.why === 'PORTRAIT_OWED');
+      else ok(f.id + '/' + band + ': no words, a sound, and nothing to say', sc.why === 'NO_WORDS_A_SOUND' && sc.unspoken === null && sc.say === null);
+    }
+  }
+  /* the day a portrait lands: the same scene speaks */
+  { const keep = D.factions[0].face.portrait; D.factions[0].face.portrait = 'portrait-stand-in';
+    const warm = F.scene('brigands', 'allied'), cold = F.scene('brigands', 'hostile');
+    ok('the day a portrait id is in the slot it speaks the band\'s line', warm.speaks === true && warm.say === D.factions[0].lines.value.warm && cold.say === D.factions[0].lines.value.cold && warm.say !== cold.say);
+    ok('and a beast still has nothing to say', (() => { const b = D.factions.find(x => x.id === 'beasts'); const k = b.face.portrait; b.face.portrait = 'x'; const r = F.scene('beasts', 'neutral'); b.face.portrait = k; return r.speaks === false && r.say === null; })());
+    D.factions[0].face.portrait = keep; }
+  ok('an unknown faction and an unknown band are refused by name', F.scene('nobody', 'hostile').why === 'NOT_A_FACTION' && F.scene('brigands', 'furious').why === 'NOT_A_BAND');
+}
 /* ---- WHO GUARDS (row [who guards]): the holder of the ground guards, with its own units, sized to the guard ---- */
 { const GG = require(path.join(ROOT, 'engine/bohemia_godgear.js')), OM = require(path.join(ROOT, 'engine/bohemia_overmap.js'));
   const top = Math.max(...Object.values(GG.DEFENDED));

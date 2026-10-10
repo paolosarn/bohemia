@@ -6,6 +6,8 @@
 //   countWord(n)      Battle Brothers' count words from party_math.json
 //   mixFor(id, phase) the draft make-up (COMBAT's enemy_tiers owns the real one)
 //   memoryLine(id, band) which of the faction's voice states fits a relation band
+//   scene(id, band)           a face meeting you again: {speaks, say, ...}; it SPEAKS only once a portrait id is in the slot (text comes
+//                             from a mouth with a portrait); before that it answers PORTRAIT_OWED and keeps the line unspoken
 //   guardFor(kind, total, phase) who guards a place on that ground and with what: the holder's own make-up scaled to `total` men,
 //                             or NO_FACTION_HOLDS_THIS_GROUND (an honest gap, never a guess)
 'use strict';
@@ -31,9 +33,21 @@
     return { id: f.id, name: f.name, banner: f.banner, count: count, word: countWord(count),
              want: f.want.text, face: f.face.id, base: f.base.kind, behaviour: f.behaviour };
   }
+  function toneOf(band) { var t = DATA.tones.value; for (var k in t) if (t[k].indexOf(band) >= 0) return k; return null; }
   function memoryLine(id, band) {
-    var f = get(id); if (!f || f.memory.bands.indexOf(band) < 0) return null;
-    return f.voice.text || null;
+    var f = get(id); if (!f || !f.lines || !f.lines.value) return null;
+    var t = toneOf(band); return t ? (f.lines.value[t] || null) : null;
+  }
+  function scene(id, band) {
+    var f = get(id); if (!f) return { known: false, why: 'NOT_A_FACTION', id: id };
+    var tone = toneOf(band); if (!tone) return { known: false, why: 'NOT_A_BAND', band: band };
+    var line = memoryLine(id, band), has = !!(f.face.portrait);
+    var out = { known: true, faction: f.id, who: f.face.id, role: f.face.role, tone: tone, band: band, want: f.want.text,
+                portrait: f.face.portrait || null, speaks: false, say: null, unspoken: null,
+                sound: (f.lines && f.lines.sound) || null };
+    if (!line) { out.why = f.lines && f.lines.sound ? 'NO_WORDS_A_SOUND' : 'NO_LINE'; return out; }
+    if (!has) { out.why = 'PORTRAIT_OWED'; out.unspoken = line; return out; }
+    out.speaks = true; out.say = line; return out;
   }
   function scale(mix, total, leaders) {
     var out = {}, rest = {}, used = 0, k;
@@ -54,7 +68,7 @@
     return { known: true, faction: f.id, name: f.name, banner: f.banner, kind: kind, total: total, party: scale(m, total, f.leaders ? f.leaders.value : []) };
   }
   var api = { load: load, set: set, all: all, get: get, byGround: byGround, countWord: countWord,
-              mixFor: mixFor, size: size, card: card, memoryLine: memoryLine, guardFor: guardFor };
+              mixFor: mixFor, size: size, card: card, memoryLine: memoryLine, toneOf: toneOf, scene: scene, guardFor: guardFor };
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; load(require('fs'), require('path')); }
   else root.BohemiaFactions = api;
 })(typeof window !== 'undefined' ? window : this);

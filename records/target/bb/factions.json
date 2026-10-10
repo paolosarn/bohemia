@@ -58,10 +58,10 @@
    },
    "memory": {
     "driven_by": "beef",
-    "bands": [
-     "unknown",
-     "wary",
-     "hostile"
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
     ],
     "ours": true
    },
@@ -78,6 +78,16 @@
     ],
     "ours": true,
     "why": "a leader stays at its authored count whatever the party size: Battle Brothers' leaders come one to a band ('It's rare to see simultaneously more than one', bb_all/0290_Brigand Leader.txt)"
+   },
+   "lines": {
+    "value": {
+     "cold": "Te vimos en el camino, flaco. Next time you pay in blood.",
+     "neutral": "Esta carretera es nuestra. Pay the toll or walk.",
+     "warm": "Para ti, amigo, no toll. Pero no le digas a nadie."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
    }
   },
   {
@@ -116,7 +126,7 @@
     "portrait": null
    },
    "voice": {
-    "text": "The House remembers who kept its roads. Keep them.",
+    "text": "The House needs the depot kept. Do you work for hire?",
     "draft": true,
     "ours": true
    },
@@ -134,10 +144,10 @@
    },
    "memory": {
     "driven_by": "beef",
-    "bands": [
-     "unknown",
-     "wary",
-     "friendly"
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
     ],
     "ours": true
    },
@@ -156,6 +166,16 @@
     ],
     "ours": true,
     "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   },
+   "lines": {
+    "value": {
+     "cold": "The House remembers what you did. The depot is closed to you.",
+     "neutral": "The House needs the depot kept. Do you work for hire?",
+     "warm": "The House remembers who kept its roads. There is a place at the board for you."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": false
    }
   },
   {
@@ -188,7 +208,7 @@
     "portrait": null
    },
    "voice": {
-    "text": "They are not hungry. They are unfinished.",
+    "text": "They are not hungry, vecino. They are only unfinished.",
     "draft": true,
     "ours": true
    },
@@ -206,9 +226,10 @@
    },
    "memory": {
     "driven_by": "beef",
-    "bands": [
-     "unknown",
-     "hostile"
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
     ],
     "ours": true
    },
@@ -223,6 +244,16 @@
     ],
     "ours": true,
     "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   },
+   "lines": {
+    "value": {
+     "cold": "You hurt what is already hurt. Vete.",
+     "neutral": "They are not hungry, vecino. They are only unfinished.",
+     "warm": "You left them be, vecino. I will remember it."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
    }
   },
   {
@@ -274,10 +305,7 @@
    },
    "memory": {
     "driven_by": "beef",
-    "bands": [
-     "unknown",
-     "hostile"
-    ],
+    "tones": [],
     "ours": true
    },
    "mix_ours": true,
@@ -292,6 +320,12 @@
     "value": [],
     "ours": true,
     "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   },
+   "lines": {
+    "value": null,
+    "draft": true,
+    "ours": true,
+    "sound": "a growl, owed to SOUNDS; a beast has no words"
    }
   }
  ],
@@ -301,5 +335,27 @@
   "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)",
   "grounds no faction holds: the_strip, trailer_park, airport, casino_floor, solar_and_pumps (an honest gap, a guarded place there answers NO_FACTION_HOLDS_THIS_GROUND)",
   "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note"
- ]
+ ],
+ "tones": {
+  "value": {
+   "cold": [
+    "hostile",
+    "threatening",
+    "unfriendly",
+    "cold"
+   ],
+   "neutral": [
+    "neutral"
+   ],
+   "warm": [
+    "open",
+    "friendly",
+    "very_friendly",
+    "allied"
+   ]
+  },
+  "ours": true,
+  "draft": true,
+  "why": "the nine relations bands (relations.json, the wiki's) grouped into three things a face can say: cold 0 to 39, neutral 40 to 59, warm 60 to 100. My first version of this file named its own bands (unknown, wary, friendly), which were not the game's; fixed."
+ }
 }
