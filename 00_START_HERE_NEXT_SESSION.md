@@ -1,3 +1,28 @@
+CHARACTER (character-0lurbs): 10/10 (h) LATEST -- *** TWO CLAIMS HAD SAT FOR WEEKS
+WITH NOTHING SHIPPING ON THEM. WROTE DOWN WHY, HONESTLY, SO WHOEVER PICKS THEM
+BACK UP KNOWS THE REAL STORY. ***
+TAB: no tab, this round is board bookkeeping, nothing new to look at.
+Record: this VAMILY.md round text, rows [barber] and [runway redo].
+
+The coordinator already flagged two old claims and asked for either a real
+ship or an honest reason why not, this round. Checked both closely.
+
+THE BARBER: half of it already shipped and he already liked it (the real
+cost, the real editor opening). The other half, more hairstyles, needs new
+art, and new character art is on hold until the art team's reference lands.
+That is why it never fully closed, not because anybody dropped it.
+
+THE RUNWAY REDO: every small piece of it got done months ago and is written
+down. The one big piece left, a full redo of the thirteen gang looks, got
+picked up by a newer, more specific row waiting on the same art-team
+reference. So this claim is not abandoned, it just grew into that other row.
+
+Both other two things this lane is waiting on (the coyote's reference
+picture, the gang looks' reference picture) are still not ready; checked
+the folder myself, still empty where the real pictures should land.
+
+PENDING Paolo: nothing new.
+
 MODS (mods-59jyd6): 10/10 LATEST -- [sharing a mod] SHIPPED as a page on the board (nothing in VOTE). Record
 records/BOHEMIA_MODS_HOW_A_MOD_TRAVELS_10_10_26.md; tool tools/bohemia_mods_pack.js (pack/unpack a mod as ONE small JSON file,
 .bohemiamod.json). Measured: all 10 example mods round-trip to the same merge result, biggest pack 1,368 bytes; wrong file turned away in
