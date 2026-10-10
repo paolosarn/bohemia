@@ -7328,8 +7328,54 @@
     "src": "vote/COMBAT2_THE_STREET_FROM_THE_PACKS_10_10.png"
    }
   },
-  {"id": "combat-the-head-under-the-strip-10-10", "kind": "ui", "lane": "combat", "sha": "c0d85bf", "made": "10/10", "title": "THE CAMERA KEEPS THE WHOLE MAN", "why": "In a fight the camera now keeps the whole man in view when he walks or swings, where before it often stopped with his head under the top strip or his feet under the bar, or let him walk right off the screen (a quarter of all moves on a phone held sideways). Watch any fight with AUTO on and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_HEAD_UNDER_THE_STRIP_10_10.jpg"}, "draft": true},
-{"id": "run-the-far-end-at-the-phones-pixels-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "ZOOMED ALL THE WAY OUT: THE MOUNTAINS AT YOUR PHONE'S PIXELS, AND NO MORE PLATE", "why": "The land around the city was painted at one dot for every five or six of your phone's pixels, so the ranges were blocky stairs and the city sat on a raised plate; now the land is painted pixel for pixel when you stop moving, and the ground in front of the city lies flat. You see it on the DEMO's map, pinched all the way out: before on the left, now on the right, and the Pocket City 2 twin underneath.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_AT_THE_PHONES_PIXELS_10_10.png"}}
+  {
+   "id": "combat-the-head-under-the-strip-10-10",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "c0d85bf",
+   "made": "10/10",
+   "title": "THE CAMERA KEEPS THE WHOLE MAN",
+   "why": "In a fight the camera now keeps the whole man in view when he walks or swings, where before it often stopped with his head under the top strip or his feet under the bar, or let him walk right off the screen (a quarter of all moves on a phone held sideways). Watch any fight with AUTO on and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_HEAD_UNDER_THE_STRIP_10_10.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "run-the-far-end-at-the-phones-pixels-10-10",
+   "kind": "tile",
+   "lane": "run",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "ZOOMED ALL THE WAY OUT: THE MOUNTAINS AT YOUR PHONE'S PIXELS, AND NO MORE PLATE",
+   "why": "The land around the city was painted at one dot for every five or six of your phone's pixels, so the ranges were blocky stairs and the city sat on a raised plate; now the land is painted pixel for pixel when you stop moving, and the ground in front of the city lies flat. You see it on the DEMO's map, pinched all the way out: before on the left, now on the right, and the Pocket City 2 twin underneath.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_FAR_END_AT_THE_PHONES_PIXELS_10_10.png"
+   }
+  },
+  {
+   "id": "cook4-the-settlement-from-the-packs-10-10",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE CAMP, THE TOWN AND THE FORTRESS, FROM YOUR OWN TILES",
+   "why": "The three places you walk into are rebuilt out of the tiles you bought and approved, with your stucco house skins making the town a Vegas street, one roof per house, and life gathered at the doors around one lit fire. You see it in the VOTE tab, what is in the game now on the left and the rebuilt one on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK4_THE_SETTLEMENT_FROM_THE_PACKS_TWIN.webp"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#26",
+    "diffs": [
+     "ROOFS: his pack draws one roof per house with its hips and ridge; round 1 laid roof tiles as long bands, now each house has one hipped roof.",
+     "PROPS: his packs are things where people are; round 1 sprinkled props evenly and lit eight fires, now they cluster at doors and stalls on worn paths with one fire lit.",
+     "MATERIAL: his pack has thatch and wood shingle; this is Las Vegas, so only clay tile, slate, stucco, tin and tarp are used."
+    ]
+   }
+  }
  ],
  "verdicts": [
   {
