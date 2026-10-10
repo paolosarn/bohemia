@@ -2809,7 +2809,7 @@ UI (ui-kmqmrf): 10/10 LATEST -- [landscape] SHIPPED: the map's HUD when the phon
 One media rule in bohemia_ui_materials.js: the bar on top, the speed pad bottom right, the phone (with the faces) on the LEFT, 150x325, faces 44 pt.
 Before: the phone ran 17 pt off the glass under the speed pad. Gate when the phone turns 14/0 on both profiles, 4 mutations. VOTE ui-the-phone-turns-10-10.
 FOR RUN [PENDING RUN, not Paolo]: on its side the map is a 640-wide column with dark bands; edge to edge is [screen fit] (rule 62).
-OPEN: [the roster's look] (unblocked), [narrator switch], [honest number].
+OPEN: [the roster and the posts look] (the coordinator's new FIRST, his 10/10 'THIS UI IS ASS'), [the roster's look], [narrator switch], [honest number].
 
 UI (ui-kmqmrf): 10/9 (c) LATEST -- [phone contracts] SHIPPED: the two nearest places' jobs at the top of the map's phone, read from the settlement's own board.
 slices/bohemia_phone_board.js (new; one include line in the city file) fetches RUN TWO's OFFERS/TIER_OFFERS as text; skulls drawn (MARKS.skull).
