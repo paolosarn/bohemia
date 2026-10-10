@@ -1,3 +1,13 @@
+TUNING (tuning-f59l1w): 10/10 (i) LATEST -- [the gun reach table] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW FAR EACH WEAPON REACHES (reach cells chart, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_GUN_REACH_TABLE_BOWS_AND_CROSSBOWS_FIRE_AT_ONE_EXACT_DISTANCE_10_10_26.md
+FINDING (a real bug, found by lifting inRange/rangeMax/rangeMin/isRanged/RANGED out of BOHEMIA_FIGHT.html unchanged and running them on weapons.json):
+all 8 bows have range_min = range_max (6 or 7) and all 4 crossbows 6..6, and the fight requires d >= range_min, so a bow shoots ONLY at exactly 7 tiles
+and the demo's RIFLE (light crossbow) ONLY at exactly 6 on level ground. The wiki gives bows/crossbows a single tilerange (7, 6) and no minimum; the data copied
+max into min. Rule 83 (min 2) is then a DATA fix: bows 2..7, crossbows 2..6. All melee (100 rows) meet 'reach 1'; handgonne 2..2 and throwing 2..4/2..6 are the wiki's own.
+PISTOL = DAGGER (1..1) breaks 'every gun starts at 2' (his 9/22 law said pistol one tile; 10/10 rule 83 is newer) and needs a row or a ruled override.
+'throwable_item' (7 rows, 3..3) is missing from RANGED so they act as melee reaching 3.
+NEXT OPEN: [the board sizes' numbers], [origins difficulty].
 QUESTS (quests-dvybth): 10/10 (b) LATEST -- [the shelf against 84 to 86] SHIPPED: QR-AN, 13 files fixed (flip at the first crisis, an act is a year, builds only in the settlement screen). NOT IN A TAB. Next: [aa lines 29 and 30].
 
 CHARACTER (character-0lurbs): 10/10 (e) LATEST -- *** YOUR FACE ALREADY PASSES
