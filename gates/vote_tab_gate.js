@@ -166,6 +166,51 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('every waiting why is two sentences at most and names where you see it',
      longWhy.length === 0, longWhy.slice(0, 4).join(', '));
 
+  /* AN ART SHEET COMES WITH ITS REFERENCE TWIN (PLUMBER 10/10, row [the pack gate]; rule 82, Paolo 10/10, the
+     seventh votes: "all the art we made looks nothing like the assets we downloaded"). "NO ART SHEET GOES TO VOTE
+     WITHOUT ITS REFERENCE TWIN beside it (the real thing or the downloaded asset of the same kind at the same
+     size) and the three biggest differences named ... vote_tab_gate refuses an art item without one (PLUMBER
+     leg)." The 9/4 compare law said the same and its gate never bit, because nothing in a VOTE row said what
+     the art was compared against. So the row says it now:
+       twin: { src: "<the reference: a file under slices/ or the repo, or pack:<pack>#<idx>, a pack tile he
+                     judged UP>", diffs: ["<difference 1>", "<2>", "<3>"] }
+     AN ART SHEET is a face, a haircut or an outfit, or a picture or page an art lane registers (COOK and its
+     numbered twins, COMBAT TWO, CHARACTER, PORTRAIT). The kind alone cannot say it: TUNING files its number
+     tables as "tile". Held from the rule's day (made 10/10 on); older waiting art is counted, not failed,
+     because DIRECTION's twin pass decides which of it comes back (rule 82, rule 87). */
+  const ART_LANE = /^(cook( ?(2|3|4|two|three|four))?|combat ?(2|two)|character|portrait)$/i;
+  const isArt = it => ['face', 'haircut', 'outfit'].includes(it.kind)
+    || (ART_LANE.test(String(it.lane || '').trim()) && !!it.show && /^(image|page|clip)$/.test(it.show.how || ''));
+  const madeOn = it => { const m = /^(\d+)\/(\d+)/.exec(String(it.made || '')); return m ? (+m[1]) * 100 + (+m[2]) : 0; };
+  const UP = (() => { try { const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt'), 'utf8'));
+    return new Set(d.verdicts.filter(v => v.v === 'UP').map(v => v.pack + '#' + v.idx)); } catch (e) { return new Set(); } })();
+  const twinWhy = it => {
+    const t = it.twin; if (!t || typeof t !== 'object') return 'no twin';
+    const src = String(t.src || ''); if (!src) return 'its twin names no reference';
+    if (/^pack:/.test(src)) { if (!UP.has(src.slice(5))) return src + ' is not a pack tile he judged UP'; }
+    else if (!fs.existsSync(path.join(ROOT, 'slices', src)) && !fs.existsSync(path.join(ROOT, src))) return 'its twin ' + src + ' is not on disk';
+    if (!Array.isArray(t.diffs) || t.diffs.length !== 3 || t.diffs.some(d => !String(d || '').trim()))
+      return 'it names ' + (Array.isArray(t.diffs) ? t.diffs.length : 0) + ' differences, not three';
+    return null; };
+  { const P = [
+      [{ id: 'p1', kind: 'tile', lane: 'cook', made: '10/10', show: { how: 'image' } }, true, 'no twin'],
+      [{ id: 'p2', kind: 'tile', lane: 'tuning', made: '10/10', show: { how: 'page' } }, false, null],
+      [{ id: 'p3', kind: 'face', lane: 'portrait', made: '10/10', show: { how: 'page' }, twin: { src: 'pack:1. Cobblestone floor tiles#0', diffs: ['a', 'b', 'c'] } }, true, null],
+      [{ id: 'p4', kind: 'outfit', lane: 'character', made: '10/10', show: { how: 'page' }, twin: { src: 'vote/__no_such_twin.png', diffs: ['a', 'b', 'c'] } }, true, 'not on disk'],
+      [{ id: 'p5', kind: 'tile', lane: 'cook 2', made: '10/11', show: { how: 'image' }, twin: { src: 'pack:1. Cobblestone floor tiles#0', diffs: ['a', 'b'] } }, true, 'not three']];
+    const wrong = P.filter(([it, art, why]) => isArt(it) !== art || (art && (why === null ? twinWhy(it) !== null : !String(twinWhy(it)).includes(why))));
+    ok('the twin test reads planted rows both ways (' + P.length + ': a cook sheet with no twin, a tuning table that is not art, a face with a pack twin, a twin not on disk, two differences)',
+       !wrong.length, wrong.length ? 'misread: ' + wrong.map(w => w[0].id).join(', ') : ''); }
+  const noTwin = [], oldNoTwin = [];
+  (reg.items || []).forEach(it => {
+    if (!it || !it.id || judgedIds.has(it.id) || !isArt(it)) return;
+    const w = twinWhy(it); if (!w) return;
+    (madeOn(it) >= 1010 ? noTwin : oldNoTwin).push(it.id + ' (' + w + ')'); });
+  ok('every art sheet registered since rule 82 carries its reference twin and three differences (' + noTwin.length + ' without)',
+     noTwin.length === 0, noTwin.slice(0, 6).join(', ')
+     + '\n         add twin: { src: "<the reference: a file, or pack:<pack>#<idx>>", diffs: ["...", "...", "..."] } to the row (rule 82)');
+  if (oldNoTwin.length) console.log('    note: ' + oldNoTwin.length + ' waiting art sheets from before rule 82 carry no twin; DIRECTION\'s twin pass decides which of them come back (rules 82, 87)');
+
   /* A ROW HE TAPS AND NOTHING HAPPENS IS WORSE THAN NO ROW. Lanes register a path by
      hand, so a typo or a renamed file lands here as a dead LOOK AT IT button and he has
      no way to tell that from a thing that is simply broken. Paths are relative to

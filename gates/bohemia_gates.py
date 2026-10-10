@@ -5070,6 +5070,16 @@ GATES = [
      'twice; the ready time does not move, because the wall is the processor (record has the CPU profile). LANDS RED ON '
      'PURPOSE on the title, the ready time and the page re-read; NEVER WORSE on the bytes. Three planted self-tests. About 90 s.',
      600),
+    ('THE PACKS ARE THE BAR', ['node', 'gates/pack_gate.js'],
+     'A FIGHT BOARD AND A SETTLEMENT PICTURE ARE CUT FROM HIS APPROVED PACKS. 10/10, PLUMBER, row [the pack gate], '
+     'rule 82a (Paolo 10/10: "the cars is an asset we downloaded; a lot of the original street tiles and sidewalks '
+     'we downloaded"). The corpus is tools/bohemia_pack_corpus.js (the 7/27 index table plus rule 82a, 21 banks). '
+     'Proof is a manifest beside the picture listing the approved tiles it was cut from (COOK TWO kit_street.json '
+     'shape), every key resolving. Legs: six planted cases; C1 the banks are on disk; K1 no NEW ground cook tool '
+     'skips the corpus; M1 every manifest key names an approved tile; P1 no NEW ground picture without a manifest. '
+     'Debt from before the law in gates/pack_gate_baseline.txt (8 tools, 185 of 201 pictures), only shrinks. '
+     'Mutations caught: a new board, a new cook tool, a broken key. No browser, about a second.',
+     False),
     ('EVERY RUNNING LANE HAS A JOB', ['node', 'gates/open_row_gate.js'],
      'THE OPEN ROWS ON THE BOARD. 10/10, PLUMBER, row [open row gate], rule 74 (Paolo 10/4: "they don\'t have jobs, '
      'what the fuck is wrong with you"). Reads VAMILY.md as a chat does: a lane is a section with a MODE line (SHARED '
