@@ -6766,6 +6766,19 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_WHEN_A_MAN_WALKS_10_10_26.html"
    }
+  },
+  {
+   "id": "dynasty-days-per-life-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "AN ACT IS ONE FELT YEAR: 130 DAYS, FOUR SEASONS, ABOUT 30 NAMED MOMENTS.",
+   "why": "The plan said a season per act, but the game has no seasons at all. Read the card in the VOTE tab: give each act four seasons and about 30 moments that get a name, and the 35 years between acts are told by four reports.",
+   "show": {
+    "how": "text",
+    "src": "FOUND: the game has no season or calendar, and keeps only 30 nights of history.\\nPROPOSED: 130 days an act in four seasons of about 32 days. About one memorable event in every four days, each named in the feed.\\nThe 35 years between acts are told by four reports: what the valley looks like, who is left, what the valley says of you, what you left standing."
+   }
   }
  ],
  "verdicts": [

@@ -38109,6 +38109,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 69 [days per life] Q22 DAYS PER GENERATION. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_24_DAYS_PER_LIFE_10_9_26.md; VOTE line dynasty-days-per-life-10-9.
+Finding: no season or calendar exists and only 30 nights are kept, so the row's 'a season each' is a sentence. Proposal: 130 days in four seasons, ~30 named moments, the skip = four derived reports. Routed PLUMBER/WORLD/UI/PEOPLE/TUNING.
+NEXT: Q23 [animal era]; [grok lore] trigger. After Q23 the lane needs rows from the coordinator (rule 74). QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 68 [who buries] Q21 + A FIX TO MY OWN HEIRS. (SCHOOL plus one correction)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_23_WHO_BURIES_10_9_26.md; VOTE line dynasty-who-buries-10-9.
 CORRECTION: heirs no longer carry debt (bohemia_fold CARRY rules debt dies; I had carried 45%). Engine, city copy, gate leg and the 10/9 record fixed. HEIRS gate 83/0 headless.
