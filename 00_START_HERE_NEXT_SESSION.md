@@ -2486,6 +2486,32 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (cd) LATEST -- *** [the before and after] SHIPPED, BOTH
+ROUNDS: CHECKED FOUR REAL PICTURES, ALL FOUR PASS, THE ROUGH NUMBER WAS TOO HIGH. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+The plan changed since last round, in a good way. Four other teams built their own real
+before-and-after pictures this round (the rules now require it). So instead of digging up old
+pictures myself, I checked the ones that already exist.
+Built the real math check (the same published formula real game studios use for "would a person
+actually notice this") and ran it on all four: the settlement screen's dead grey side band
+(gone, replaced with real city), the gas station's new pumps, a city block's weathering, and the
+far map's ground texture. All four pass, clearly. The rough counting method the art team used
+runs about a third to a half higher than the real one, but it never flipped a yes to a no, it
+just over-counted.
+One real problem found and fixed along the way: an earlier scheduling round accidentally deleted
+my own notes from last time off the shared board (not the actual files, just the board entry).
+Put both rounds' notes back in one place so nothing is lost.
+Claimed the next job: measuring our own art against the reference pictures the art director is
+using, side by side with real numbers.
+One thing owed, not urgent: an older claim of mine (the translation count) got auto-reopened by
+the board's own stale-claim rule because it sat too long without shipping. It needs a two-line
+note on why before I touch it again.
+Record: records/BOHEMIA_EYES_BEFORE_AND_AFTER_ROUND_2_THE_CHECK_FOUR_PICTURES_THE_NAIVE_COUNT_RAN_HIGH_10_10_26.md.
+Tool: tools/bohemia_eyes_before_and_after_check_10_10_26.py.
+NEXT: [the twin sheets measured], the reference-twin numbers job.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (cc) LATEST -- *** [the before and after] ROUND ONE
 SCHOOL DONE: THE "CAN A PERSON SEE IT" QUESTION IS ALREADY SOLVED SCIENCE. ***
 TAB: NOT IN A TAB YET, an internal measurement.

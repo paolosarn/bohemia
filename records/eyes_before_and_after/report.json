@@ -1,0 +1,542 @@
+{
+  "the sideways band": {
+    "picture": "RUN2_THE_SIDEWAYS_BAND_10_10.png",
+    "windows": 1,
+    "per_window": [
+      {
+        "index": 0,
+        "size": [
+          844,
+          390
+        ],
+        "real_visible_pct": 65.4,
+        "naive_pct": 76.91
+      }
+    ],
+    "windows_clearing_1pct": 1,
+    "mean_real_visible_pct": 65.4,
+    "worst_window_pct": 65.4
+  },
+  "the props": {
+    "picture": "COOK_THE_PROPS_BEFORE_AND_AFTER.png",
+    "windows": 1,
+    "per_window": [
+      {
+        "index": 0,
+        "size": [
+          294,
+          301
+        ],
+        "real_visible_pct": 5.72,
+        "naive_pct": 9.0
+      }
+    ],
+    "windows_clearing_1pct": 1,
+    "mean_real_visible_pct": 5.72,
+    "worst_window_pct": 5.72
+  },
+  "his block": {
+    "picture": "COOK_HIS_BLOCK_BEFORE_AND_AFTER.png",
+    "windows": 6,
+    "per_window": [
+      {
+        "index": 0,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 14.34,
+        "naive_pct": 29.86
+      },
+      {
+        "index": 1,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 8.95,
+        "naive_pct": 21.9
+      },
+      {
+        "index": 2,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 13.98,
+        "naive_pct": 22.17
+      },
+      {
+        "index": 3,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 14.0,
+        "naive_pct": 23.05
+      },
+      {
+        "index": 4,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 8.98,
+        "naive_pct": 24.1
+      },
+      {
+        "index": 5,
+        "size": [
+          96,
+          96
+        ],
+        "real_visible_pct": 11.59,
+        "naive_pct": 19.11
+      }
+    ],
+    "windows_clearing_1pct": 6,
+    "mean_real_visible_pct": 11.97,
+    "worst_window_pct": 8.95
+  },
+  "the far end's ground": {
+    "picture": "COOK_THE_FAR_END_FROM_HIS_PICKS.png",
+    "windows": 48,
+    "per_window": [
+      {
+        "index": 0,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 82.42,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 1,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 81.64,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 2,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 79.69,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 3,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.52,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 4,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.91,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 5,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.0,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 6,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 72.66,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 7,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.39,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 8,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 9,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.73,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 10,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 80.08,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 11,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.12,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 12,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 79.3,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 13,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.39,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 14,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.34,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 15,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.73,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 16,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.17,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 17,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 71.88,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 18,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.22,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 19,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.78,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 20,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.22,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 21,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 22,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.95,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 23,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.12,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 24,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 25,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.22,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 26,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.12,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 27,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.22,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 28,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.0,
+        "naive_pct": 99.61
+      },
+      {
+        "index": 29,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.61,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 30,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.78,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 31,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 99.61
+      },
+      {
+        "index": 32,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.34,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 33,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.78,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 34,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 74.22,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 35,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.52,
+        "naive_pct": 99.61
+      },
+      {
+        "index": 36,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 72.66,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 37,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.34,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 38,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.95,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 39,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.78,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 40,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.52,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 41,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.52,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 42,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 43,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.39,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 44,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 75.39,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 45,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 77.34,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 46,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 76.56,
+        "naive_pct": 100.0
+      },
+      {
+        "index": 47,
+        "size": [
+          16,
+          16
+        ],
+        "real_visible_pct": 78.52,
+        "naive_pct": 100.0
+      }
+    ],
+    "windows_clearing_1pct": 48,
+    "mean_real_visible_pct": 76.68,
+    "worst_window_pct": 71.88
+  }
+}
