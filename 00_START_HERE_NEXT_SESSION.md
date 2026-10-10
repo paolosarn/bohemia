@@ -20182,6 +20182,9 @@ above 0.40, which is the maximum legal lateral hip; and legCompress does the
 OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
+=== COOK FOUR: ONE HOUSE THE PACK'S WAY (10/10, cook4)
+MODE is COOK ONLY (rule 100). [how the pack did it] SHIPPED (records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md). [no roof tops] round 1 in VOTE: cook4-one-house-the-packs-way-10-10, one front-gable Vegas house from his pieces beside his pack house #30 (sheet records/target/COOK4_ONE_HOUSE_THE_PACKS_WAY.png, tool tools/bohemia_cook4_one_house.py). The map heroes (slices/cook4_map_houses) are PLACEHOLDERS, stopped under rules 100/101/105. NEXT: his word on the house; then [one at a time] with the next asset the pass names.
+
 === COOK FOUR: THE HOUSE SKINS ON THE MAP, round 1 (10/10, cook4)
 [the settlement from the packs] SHIPPED 0f659c5 (in VOTE, RUN TWO swaps slices/settlement_ground_packs/ in on his UP). [the house skins back on the map] CLAIMED, round 1 in: the suburb and town heroes rebuilt from the thirty skins by tools/bohemia_cook4_map_houses.py into slices/cook4_map_houses/ (drop-in, same canvas, anchors unchanged), at DIRECTION with slices/vote/COOK4_THE_HOUSE_SKINS_ON_THE_MAP_TWIN.png; TAKER RUN. NEXT: props (cars, carports, palms), an open lot in the town, the trailer hero. ROUND 2 IN: props, the open lot and the trailer hero done; three heroes ready for RUN on DIRECTION's pass. NEXT: on the pass, VOTE; then [the place sits in the map].
 
