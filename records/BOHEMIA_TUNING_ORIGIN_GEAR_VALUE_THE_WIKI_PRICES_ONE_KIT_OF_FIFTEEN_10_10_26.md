@@ -14,7 +14,7 @@ Start power for the Deserters becomes purse 100 + men 109-145 + kit 457 = 666 to
 A. A start-power number cannot be whole from the wiki. Only one origin states a kit; the rest would need our own ruling. That is a creative/numbers fork, not a research gap: PEOPLE decides each origin's kit, TUNING prices it.
 B. The Deserters' kit is "first to act" plus injuries on every man ("each brother is heavily or lightly injured, damaged equipment", page line 58), which is a cost that offsets the money. Not priced (the wiki gives no number).
 C. Draft proposal: if the kit is ruled for the other origins, price it with the same table (value x 1.25 per the price table's equipment multiplier for a hire price, plain value for start power).
-D. Already checked and correct in origins.json: roster 25 and field 16 for the Peasant Militia and Manhunters, 12/12 for Gladiators and Lone Wolf, 18 for Oathtakers? (origins.json promise = 18, matches the Oathtakers page line 60).
+D. Already checked and correct in origins.json: roster 25 and field 16 for the Peasant Militia and Manhunters, 12 roster for Gladiators and Lone Wolf, 18 for the Oathtakers (origins.json promise = 18, matches page line 60).
 
 ## ROUTED
 - PEOPLE [origins]: rule each origin's starting kit if wanted; the wiki gives only the Deserters'.
