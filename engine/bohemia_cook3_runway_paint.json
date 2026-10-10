@@ -1,0 +1,125 @@
+{
+  "draft": true,
+  "owner": "COOK THREE (rule 87). The paint layer over the thirteen; CHARACTER owns the slots.",
+  "ruling": "Paolo 9/21 'Rick Owens meets Balenciaga meets Bottega Veneta', 9/23 'vibrance turned down', 10/10 'like a seventh grader is making my game'",
+  "accentWindow": 28,
+  "vibranceDown": 0.35,
+  "lumStretch": 1.25,
+  "ambient": [
+    67,
+    61,
+    56
+  ],
+  "ambientPull": 0.08,
+  "outline": [
+    18,
+    16,
+    16
+  ],
+  "neutrals": {
+    "warm": [
+      [
+        20,
+        18,
+        18
+      ],
+      [
+        52,
+        30,
+        28
+      ],
+      [
+        96,
+        90,
+        82
+      ],
+      [
+        150,
+        142,
+        128
+      ],
+      [
+        206,
+        198,
+        180
+      ]
+    ],
+    "cool": [
+      [
+        18,
+        18,
+        20
+      ],
+      [
+        44,
+        44,
+        48
+      ],
+      [
+        92,
+        92,
+        94
+      ],
+      [
+        148,
+        146,
+        140
+      ],
+      [
+        204,
+        200,
+        190
+      ]
+    ]
+  },
+  "factions": {
+    "Colorful": {
+      "five": true
+    },
+    "Homeless": {
+      "warm": true
+    },
+    "Cartel": {
+      "warm": false
+    },
+    "Volunteers": {
+      "warm": false
+    },
+    "Network": {
+      "warm": false
+    },
+    "Blues": {
+      "warm": false
+    },
+    "Remnants": {
+      "warm": false
+    }
+  },
+  "card": [
+    {
+      "name": "OWENS BLACK",
+      "hex": "#141212"
+    },
+    {
+      "name": "OXBLOOD",
+      "hex": "#4a2420"
+    },
+    {
+      "name": "CONCRETE",
+      "hex": "#5c5a58"
+    },
+    {
+      "name": "DUST",
+      "hex": "#8e8678"
+    },
+    {
+      "name": "BONE",
+      "hex": "#cec6b4"
+    },
+    {
+      "name": "BOTTEGA ACCENT",
+      "hex": "#3f6b3a"
+    }
+  ],
+  "accentAbove": 0.52
+}
