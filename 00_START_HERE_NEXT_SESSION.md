@@ -2805,6 +2805,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/10 LATEST -- [landscape] SHIPPED: the map's HUD when the phone turns sideways (844x390).
+One media rule in bohemia_ui_materials.js: the bar on top, the speed pad bottom right, the phone (with the faces) on the LEFT, 150x325, faces 44 pt.
+Before: the phone ran 17 pt off the glass under the speed pad. Gate when the phone turns 14/0 on both profiles, 4 mutations. VOTE ui-the-phone-turns-10-10.
+FOR RUN [PENDING RUN, not Paolo]: on its side the map is a 640-wide column with dark bands; edge to edge is [screen fit] (rule 62).
+OPEN: [the roster's look] (unblocked), [narrator switch], [honest number].
+
 UI (ui-kmqmrf): 10/9 (c) LATEST -- [phone contracts] SHIPPED: the two nearest places' jobs at the top of the map's phone, read from the settlement's own board.
 slices/bohemia_phone_board.js (new; one include line in the city file) fetches RUN TWO's OFFERS/TIER_OFFERS as text; skulls drawn (MARKS.skull).
 A tap marks it (window.BOH_PHONE_ROUTE + 'bohemia-phone-route'), never accepts; taken = gone. Gate the phone's board 15/0. VOTE ui-the-phones-board-10-9.

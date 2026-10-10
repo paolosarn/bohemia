@@ -674,7 +674,16 @@
     + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
     + 'html body #bmboard .fp.job.picked{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
     + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
-    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}';
+    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}'
+    /* WHEN THE PHONE TURNS (UI [landscape], rule 50b, his Pocket City 2 shot 06): the same buttons re-laid to the corners.
+       The bar stays across the top, the speed pad keeps the bottom right (the big action's corner), and the phone, which
+       carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
+       glass. 390 points of height hold a phone 150 wide at 19.5 by 9 (325 tall); the face row tightens so three faces
+       stay 44 points. One class of screen (a phone on its side: landscape, under 500 tall); portrait is untouched. */
+    + '@media (orientation:landscape) and (max-height:500px){'
+    +   'html body #cityfeed{--skin-phonew:150px;left:7px!important;right:auto!important;top:4px!important}'
+    +   'html body #actflip{gap:2px;padding:4px 2px 5px}'
+    + '}';
   function dressPhone() {
     if (!document.getElementById('cityfeed')) return false;
     rootVars();

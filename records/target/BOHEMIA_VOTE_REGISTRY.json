@@ -6931,7 +6931,8 @@
     "how": "page",
     "src": "vote/CHARACTER_THE_THREE_BODIES.html"
    }
-  }
+  },
+ {"id": "ui-the-phone-turns-10-10", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/10", "title": "WHEN THE PHONE TURNS", "why": "When you turn your phone sideways, the in-game phone used to run off the bottom of the screen under the speed buttons; now it moves to the left side and fits, the speed buttons keep the bottom right, and nothing covers anything. You see it on the map when you hold your phone sideways.", "show": {"how": "image", "src": "vote/UI_THE_PHONE_TURNS_10_10.png"}}
  ],
  "verdicts": [
   {
