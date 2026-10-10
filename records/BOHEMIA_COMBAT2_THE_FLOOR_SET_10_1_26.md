@@ -423,3 +423,15 @@ aprons culdesac 38->0, strip 12->4, shore 6. Gate LEG 5: every town block on a b
 every kit tile names its pack keys. Sheet: one block (corner.1) before and after at one art pixel to one pixel, with
 his street, side and cross pool tiles as the twin and three named differences (82, 89). Known: a thin old curb line
 survives across the top of the junction tile. VOTE combat2-the-street-from-the-packs-10-10.
+
+## ROUND THIRTY (10/10): [the district seeds the board], SHIPPED
+
+WORLD bf86c941: 24 of 78 districts open the same fight (the handover carries only the kind). tools/bohemia_combat2_the_
+district_seeds_the_board_cook_10_10_26.py gives every district of records/target/BOHEMIA_BOARD_KINDS.json its own board
+inside its kind: L.solve over the kind's palette of shipped blocks, seeded 'district-<name>-<k>', re-seeded until no other
+district has the same layout; the desert kinds keep their washes as whole columns. fight_ground.json districts[name] =
+{kind, blocks}; the fight's blockLibrary composes terrain/cover/lights from the blocks. 78 districts, 78 distinct boards,
+0 broken seams (gate TILES ARE LEGOS LEG 6). The builder runs it last. Verified by handing the courthouse, the jail and the
+arsenal to the new fight (0 errors). FOR COMBAT: open districts[handover district]. HONEST (rule 89): the ruin districts
+differ block by block but read alike from far, because the library has no civic, airport or plant block (WORLD's
+familiesWithNoBlock); that is the fix that will make the difference visible. VOTE combat2-the-district-seeds-the-board-10-10.

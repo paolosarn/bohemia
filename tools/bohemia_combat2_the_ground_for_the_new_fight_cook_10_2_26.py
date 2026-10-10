@@ -482,6 +482,7 @@ def main():
     importlib.import_module('bohemia_combat2_the_wide_board_cook_10_5_26').main()  # round twenty-one: the apron and the four frames
     importlib.import_module('bohemia_combat2_boards_by_size_cook_10_9_26').main()  # round twenty-four (rule 79): small, middle and large
     importlib.import_module('bohemia_combat2_the_future_boards_cook_10_9_26').main()  # round twenty-six: reclaimed and raided
+    importlib.import_module('bohemia_combat2_the_district_seeds_the_board_cook_10_10_26').main()  # round thirty: every district its own board
 
 
 if __name__ == '__main__':

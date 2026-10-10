@@ -62800,5 +62800,1806 @@
   "states": "reclaimed (act two/three grown) | raided (the future fallen)",
   "terrain": "the present day's: the same plan",
   "use": "swap blocks[id].src for futures[state].blocks[id] and the board's cover and lights for futures[state].boards[name]"
+ },
+ "districts": {
+  "airbase": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.0",
+     "lots.0",
+     "ruin.0",
+     "lots.0"
+    ],
+    [
+     "subs.2",
+     "subs.1",
+     "subs.2",
+     "ruin.1"
+    ],
+    [
+     "ruin.0",
+     "subs.2",
+     "subs.0",
+     "subs.2"
+    ]
+   ]
+  },
+  "airport": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.0",
+     "subs.0",
+     "subs.2",
+     "ruin.1"
+    ],
+    [
+     "subs.2",
+     "ruin.0",
+     "subs.1",
+     "subs.2"
+    ],
+    [
+     "ruin.0",
+     "subs.2",
+     "ruin.0",
+     "lots.0"
+    ]
+   ]
+  },
+  "apartment": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.3",
+     "corner.2",
+     "subs.2",
+     "subs.0"
+    ],
+    [
+     "subs.0",
+     "corner.1",
+     "lots.0",
+     "subs.2"
+    ],
+    [
+     "subs.1",
+     "corner.2",
+     "subs.2",
+     "subs.3"
+    ]
+   ]
+  },
+  "arsenal": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.3",
+     "lots.0",
+     "subs.2",
+     "ruin.0"
+    ],
+    [
+     "subs.0",
+     "ruin.1",
+     "subs.1",
+     "subs.3"
+    ],
+    [
+     "ruin.1",
+     "subs.2",
+     "ruin.1",
+     "subs.2"
+    ]
+   ]
+  },
+  "arterial": {
+   "kind": "suburb_stem",
+   "blocks": [
+    [
+     "culdesac.0",
+     "culdesac.1",
+     "culdesac.0",
+     "culdesac.1"
+    ],
+    [
+     "suburb_stem.0",
+     "suburb_stem.1",
+     "suburb_stem.0",
+     "suburb_stem.1"
+    ],
+    [
+     "subs.1",
+     "subs.0",
+     "lots.0",
+     "subs.3"
+    ]
+   ]
+  },
+  "ballpark": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.0",
+     "subs.1",
+     "ruin.0",
+     "subs.3"
+    ],
+    [
+     "subs.0",
+     "ruin.1",
+     "subs.0",
+     "subs.2"
+    ],
+    [
+     "lots.0",
+     "subs.3",
+     "ruin.0",
+     "subs.3"
+    ]
+   ]
+  },
+  "basin": {
+   "kind": "wash",
+   "blocks": [
+    [
+     "wash.0",
+     "wash.1",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "wash.1",
+     "wash.0",
+     "scrub.1",
+     "scrub.2"
+    ],
+    [
+     "wash.0",
+     "wash.1",
+     "scrub.2",
+     "scrub.0"
+    ]
+   ]
+  },
+  "battery": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.3",
+     "ruin.1",
+     "subs.0",
+     "subs.1"
+    ],
+    [
+     "subs.2",
+     "ruin.0",
+     "subs.3",
+     "ruin.0"
+    ],
+    [
+     "subs.1",
+     "ruin.1",
+     "subs.1",
+     "subs.3"
+    ]
+   ]
+  },
+  "boneyard": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.0",
+     "landfill.1",
+     "landfill.0",
+     "scrub.0"
+    ],
+    [
+     "scrub.1",
+     "scrub.2",
+     "landfill.1",
+     "landfill.0"
+    ]
+   ]
+  },
+  "campus": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "corner.0",
+     "subs.1",
+     "corner.0",
+     "corner.2"
+    ],
+    [
+     "corner.2",
+     "subs.0",
+     "corner.2",
+     "corner.1"
+    ],
+    [
+     "corner.1",
+     "subs.3",
+     "corner.1",
+     "corner.0"
+    ]
+   ]
+  },
+  "casino": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "lots.0",
+     "main.0",
+     "subs.3",
+     "subs.1"
+    ],
+    [
+     "main.1",
+     "subs.2",
+     "works.0",
+     "main.0"
+    ]
+   ]
+  },
+  "cemetery": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.1",
+     "subs.0",
+     "corner.0",
+     "corner.2"
+    ],
+    [
+     "subs.2",
+     "subs.1",
+     "corner.1",
+     "corner.0"
+    ],
+    [
+     "subs.3",
+     "subs.2",
+     "corner.0",
+     "corner.1"
+    ]
+   ]
+  },
+  "chapel": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "lots.0",
+     "corner.0",
+     "corner.2",
+     "subs.3"
+    ],
+    [
+     "subs.1",
+     "corner.2",
+     "corner.1",
+     "subs.2"
+    ],
+    [
+     "subs.2",
+     "corner.0",
+     "corner.2",
+     "subs.0"
+    ]
+   ]
+  },
+  "cityhall": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.0",
+     "subs.3",
+     "subs.2",
+     "subs.3"
+    ],
+    [
+     "ruin.1",
+     "subs.2",
+     "ruin.0",
+     "subs.1"
+    ],
+    [
+     "subs.1",
+     "subs.0",
+     "ruin.1",
+     "lots.0"
+    ]
+   ]
+  },
+  "commercial": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "subs.3",
+     "works.0",
+     "subs.0",
+     "subs.1"
+    ],
+    [
+     "main.0",
+     "subs.3",
+     "main.0",
+     "subs.3"
+    ]
+   ]
+  },
+  "convention": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "subs.3",
+     "subs.1",
+     "subs.0",
+     "subs.3"
+    ],
+    [
+     "lots.0",
+     "works.0",
+     "subs.2",
+     "main.1"
+    ]
+   ]
+  },
+  "courthouse": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "lots.0",
+     "ruin.1",
+     "lots.0",
+     "subs.1"
+    ],
+    [
+     "ruin.0",
+     "subs.3",
+     "ruin.1",
+     "subs.3"
+    ],
+    [
+     "ruin.1",
+     "subs.0",
+     "ruin.0",
+     "subs.0"
+    ]
+   ]
+  },
+  "dam": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.1",
+     "shore.0",
+     "shore.1",
+     "shore.0"
+    ],
+    [
+     "wash.1",
+     "scrub.1",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "wash.0",
+     "scrub.0",
+     "scrub.1",
+     "scrub.0"
+    ]
+   ]
+  },
+  "datafort": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.2",
+     "lots.0",
+     "ruin.1",
+     "ruin.0"
+    ],
+    [
+     "ruin.0",
+     "ruin.1",
+     "subs.0",
+     "subs.3"
+    ],
+    [
+     "subs.1",
+     "subs.0",
+     "subs.3",
+     "subs.1"
+    ]
+   ]
+  },
+  "desert": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "scrub.2",
+     "wash.1",
+     "scrub.0",
+     "scrub.1"
+    ],
+    [
+     "scrub.0",
+     "wash.0",
+     "scrub.1",
+     "scrub.0"
+    ],
+    [
+     "scrub.2",
+     "wash.1",
+     "scrub.2",
+     "scrub.1"
+    ]
+   ]
+  },
+  "downtown": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "lots.0",
+     "subs.0",
+     "subs.2",
+     "subs.0"
+    ],
+    [
+     "subs.0",
+     "lots.0",
+     "subs.3",
+     "main.0"
+    ]
+   ]
+  },
+  "drivein": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "main.1",
+     "subs.0",
+     "works.0",
+     "subs.2"
+    ],
+    [
+     "subs.3",
+     "works.0",
+     "subs.3",
+     "works.0"
+    ]
+   ]
+  },
+  "estate": {
+   "kind": "culdesac",
+   "blocks": [
+    [
+     "culdesac.0",
+     "culdesac.1",
+     "culdesac.0",
+     "culdesac.1"
+    ],
+    [
+     "suburb_stem.1",
+     "suburb_stem.0",
+     "suburb_stem.1",
+     "suburb_stem.0"
+    ],
+    [
+     "main.0",
+     "subs.3",
+     "subs.2",
+     "subs.1"
+    ]
+   ]
+  },
+  "farm": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "scrub.1",
+     "scrub.0",
+     "scrub.2",
+     "wash.1"
+    ],
+    [
+     "scrub.0",
+     "scrub.2",
+     "scrub.0",
+     "wash.0"
+    ],
+    [
+     "scrub.2",
+     "scrub.1",
+     "scrub.2",
+     "wash.1"
+    ]
+   ]
+  },
+  "firestation": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.0",
+     "lots.0",
+     "subs.0",
+     "lots.0"
+    ],
+    [
+     "subs.2",
+     "subs.3",
+     "subs.1",
+     "subs.2"
+    ],
+    [
+     "lots.0",
+     "subs.1",
+     "subs.3",
+     "lots.0"
+    ]
+   ]
+  },
+  "fort": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.2",
+     "subs.0",
+     "subs.2",
+     "subs.3"
+    ],
+    [
+     "subs.0",
+     "subs.2",
+     "subs.3",
+     "ruin.0"
+    ],
+    [
+     "ruin.0",
+     "lots.0",
+     "subs.1",
+     "subs.2"
+    ]
+   ]
+  },
+  "freeway": {
+   "kind": "freeway",
+   "blocks": [
+    [
+     "subs.3",
+     "corner.0",
+     "subs.1",
+     "corner.1"
+    ],
+    [
+     "freeway.0",
+     "freewayo.0",
+     "freeway.0",
+     "freewayo.0"
+    ],
+    [
+     "scrub.1",
+     "scrubroad.1",
+     "scrub.1",
+     "scrubroad.1"
+    ]
+   ]
+  },
+  "fueldepot": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.2",
+     "scrub.0",
+     "scrub.2",
+     "scrub.0"
+    ],
+    [
+     "scrub.0",
+     "landfill.0",
+     "scrub.0",
+     "landfill.0"
+    ]
+   ]
+  },
+  "gated": {
+   "kind": "culdesac",
+   "blocks": [
+    [
+     "culdesac.1",
+     "culdesac.0",
+     "culdesac.1",
+     "culdesac.0"
+    ],
+    [
+     "suburb_stem.1",
+     "suburb_stem.0",
+     "suburb_stem.1",
+     "suburb_stem.0"
+    ],
+    [
+     "subs.1",
+     "main.0",
+     "subs.0",
+     "main.1"
+    ]
+   ]
+  },
+  "golf": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "wash.0",
+     "scrub.1",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "wash.1",
+     "scrub.2",
+     "scrub.1",
+     "scrub.0"
+    ],
+    [
+     "wash.0",
+     "scrub.0",
+     "scrub.2",
+     "scrub.1"
+    ]
+   ]
+  },
+  "granary": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.1",
+     "subs.3",
+     "ruin.1",
+     "subs.1"
+    ],
+    [
+     "ruin.0",
+     "subs.2",
+     "subs.0",
+     "subs.2"
+    ],
+    [
+     "ruin.1",
+     "subs.3",
+     "ruin.0",
+     "subs.1"
+    ]
+   ]
+  },
+  "gypsum": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.0",
+     "landfill.1",
+     "landfill.0",
+     "landfill.1"
+    ],
+    [
+     "landfill.1",
+     "landfill.0",
+     "scrub.0",
+     "scrub.1"
+    ],
+    [
+     "scrub.1",
+     "landfill.1",
+     "scrub.1",
+     "landfill.0"
+    ]
+   ]
+  },
+  "highroller": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "main.1",
+     "main.0",
+     "subs.3",
+     "subs.1"
+    ],
+    [
+     "subs.1",
+     "subs.2",
+     "lots.0",
+     "subs.0"
+    ]
+   ]
+  },
+  "industrial": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "landfill.0",
+     "scrub.0",
+     "scrub.2",
+     "landfill.1"
+    ],
+    [
+     "scrub.2",
+     "scrub.1",
+     "scrub.0",
+     "scrub.1"
+    ]
+   ]
+  },
+  "intake": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.1",
+     "shore.0",
+     "shore.1",
+     "shore.0"
+    ],
+    [
+     "wash.1",
+     "scrub.2",
+     "wash.1",
+     "scrub.2"
+    ],
+    [
+     "wash.0",
+     "scrub.1",
+     "wash.0",
+     "scrub.0"
+    ]
+   ]
+  },
+  "interchange": {
+   "kind": "freeway",
+   "blocks": [
+    [
+     "subs.2",
+     "corner.2",
+     "subs.0",
+     "corner.0"
+    ],
+    [
+     "freeway.0",
+     "freewayo.0",
+     "freeway.0",
+     "freewayo.0"
+    ],
+    [
+     "scrub.1",
+     "scrubroad.1",
+     "scrub.1",
+     "scrubroad.1"
+    ]
+   ]
+  },
+  "jail": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.0",
+     "subs.3",
+     "ruin.1",
+     "subs.0"
+    ],
+    [
+     "subs.3",
+     "subs.1",
+     "ruin.0",
+     "ruin.1"
+    ],
+    [
+     "ruin.0",
+     "ruin.1",
+     "subs.3",
+     "subs.2"
+    ]
+   ]
+  },
+  "landfill": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.1",
+     "landfill.1",
+     "scrub.1",
+     "scrub.2"
+    ],
+    [
+     "landfill.0",
+     "scrub.0",
+     "scrub.2",
+     "landfill.1"
+    ]
+   ]
+  },
+  "library": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.3",
+     "corner.1",
+     "corner.0",
+     "corner.1"
+    ],
+    [
+     "subs.1",
+     "corner.2",
+     "corner.1",
+     "corner.2"
+    ],
+    [
+     "subs.0",
+     "corner.1",
+     "corner.2",
+     "corner.1"
+    ]
+   ]
+  },
+  "luxor": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "lots.0",
+     "subs.1",
+     "subs.2",
+     "lots.0"
+    ],
+    [
+     "main.0",
+     "works.0",
+     "subs.1",
+     "works.0"
+    ]
+   ]
+  },
+  "mall": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "lots.0",
+     "subs.0",
+     "subs.1",
+     "main.1"
+    ],
+    [
+     "subs.1",
+     "subs.3",
+     "main.0",
+     "subs.2"
+    ]
+   ]
+  },
+  "medical": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.2",
+     "subs.0",
+     "subs.1",
+     "lots.0"
+    ],
+    [
+     "subs.0",
+     "ruin.0",
+     "subs.3",
+     "subs.1"
+    ],
+    [
+     "ruin.0",
+     "subs.3",
+     "subs.1",
+     "subs.2"
+    ]
+   ]
+  },
+  "minigp": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.1",
+     "subs.3",
+     "lots.0",
+     "ruin.1"
+    ],
+    [
+     "subs.2",
+     "subs.1",
+     "subs.2",
+     "subs.0"
+    ],
+    [
+     "subs.0",
+     "lots.0",
+     "ruin.1",
+     "ruin.0"
+    ]
+   ]
+  },
+  "mountain": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "scrub.2",
+     "wash.1",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "scrub.0",
+     "wash.0",
+     "scrub.0",
+     "scrub.2"
+    ],
+    [
+     "scrub.2",
+     "wash.1",
+     "scrub.2",
+     "scrub.1"
+    ]
+   ]
+  },
+  "park": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "scrub.2",
+     "scrub.0",
+     "wash.0",
+     "scrub.2"
+    ],
+    [
+     "scrub.1",
+     "scrub.2",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "scrub.2",
+     "scrub.1",
+     "wash.0",
+     "scrub.0"
+    ]
+   ]
+  },
+  "policestation": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.3",
+     "subs.1",
+     "ruin.0",
+     "subs.3"
+    ],
+    [
+     "ruin.1",
+     "ruin.0",
+     "subs.1",
+     "subs.0"
+    ],
+    [
+     "subs.0",
+     "subs.3",
+     "ruin.0",
+     "subs.2"
+    ]
+   ]
+  },
+  "prison": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.3",
+     "subs.1",
+     "subs.0",
+     "ruin.1"
+    ],
+    [
+     "subs.0",
+     "ruin.1",
+     "subs.2",
+     "ruin.0"
+    ],
+    [
+     "subs.1",
+     "lots.0",
+     "subs.1",
+     "ruin.1"
+    ]
+   ]
+  },
+  "pumpstation": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.1",
+     "subs.2",
+     "subs.1",
+     "subs.0"
+    ],
+    [
+     "ruin.0",
+     "subs.3",
+     "ruin.0",
+     "ruin.1"
+    ],
+    [
+     "subs.1",
+     "ruin.1",
+     "subs.0",
+     "ruin.0"
+    ]
+   ]
+  },
+  "quarry": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.0",
+     "landfill.1",
+     "landfill.0",
+     "landfill.1"
+    ],
+    [
+     "landfill.1",
+     "scrub.2",
+     "landfill.1",
+     "scrub.2"
+    ],
+    [
+     "scrub.0",
+     "scrub.1",
+     "scrub.0",
+     "landfill.0"
+    ]
+   ]
+  },
+  "radio": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.2",
+     "subs.1",
+     "subs.0",
+     "ruin.0"
+    ],
+    [
+     "subs.3",
+     "subs.0",
+     "ruin.1",
+     "subs.0"
+    ],
+    [
+     "subs.2",
+     "subs.3",
+     "subs.2",
+     "lots.0"
+    ]
+   ]
+  },
+  "rail": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "landfill.0",
+     "scrub.0",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "scrub.1",
+     "landfill.0",
+     "scrub.1",
+     "landfill.1"
+    ]
+   ]
+  },
+  "railyard": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.0",
+     "scrub.1",
+     "scrub.2",
+     "scrub.0"
+    ],
+    [
+     "scrub.2",
+     "landfill.1",
+     "landfill.0",
+     "landfill.1"
+    ]
+   ]
+  },
+  "reclaim": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "ruin.0",
+     "lots.0",
+     "ruin.0",
+     "ruin.1"
+    ],
+    [
+     "subs.1",
+     "ruin.1",
+     "subs.3",
+     "subs.2"
+    ],
+    [
+     "lots.0",
+     "subs.3",
+     "subs.1",
+     "lots.0"
+    ]
+   ]
+  },
+  "reservoir": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.0",
+     "shore.1",
+     "shore.0",
+     "shore.1"
+    ],
+    [
+     "wash.1",
+     "scrub.1",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "wash.0",
+     "scrub.2",
+     "wash.0",
+     "scrub.2"
+    ]
+   ]
+  },
+  "resort": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "works.0",
+     "subs.3",
+     "subs.1",
+     "main.0"
+    ],
+    [
+     "main.1",
+     "subs.0",
+     "subs.2",
+     "works.0"
+    ]
+   ]
+  },
+  "robofactory": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "landfill.0",
+     "scrub.0",
+     "scrub.1",
+     "landfill.1"
+    ],
+    [
+     "scrub.2",
+     "landfill.1",
+     "scrub.0",
+     "scrub.1"
+    ]
+   ]
+  },
+  "school": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.0",
+     "subs.3",
+     "lots.0",
+     "corner.0"
+    ],
+    [
+     "subs.1",
+     "subs.0",
+     "subs.3",
+     "corner.2"
+    ],
+    [
+     "lots.0",
+     "subs.3",
+     "subs.1",
+     "corner.0"
+    ]
+   ]
+  },
+  "sign": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "works.0",
+     "subs.3",
+     "main.1",
+     "main.0"
+    ],
+    [
+     "subs.2",
+     "subs.0",
+     "subs.3",
+     "works.0"
+    ]
+   ]
+  },
+  "solar": {
+   "kind": "scrub",
+   "blocks": [
+    [
+     "scrub.2",
+     "wash.1",
+     "wash.0",
+     "scrub.2"
+    ],
+    [
+     "scrub.0",
+     "wash.0",
+     "wash.1",
+     "scrub.0"
+    ],
+    [
+     "scrub.1",
+     "wash.1",
+     "wash.0",
+     "scrub.1"
+    ]
+   ]
+  },
+  "speedway": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "lots.0",
+     "subs.2",
+     "subs.1",
+     "subs.0"
+    ],
+    [
+     "subs.1",
+     "subs.3",
+     "subs.0",
+     "subs.3"
+    ],
+    [
+     "ruin.1",
+     "subs.1",
+     "subs.3",
+     "ruin.1"
+    ]
+   ]
+  },
+  "sphere": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "subs.0",
+     "works.0",
+     "lots.0",
+     "subs.0"
+    ],
+    [
+     "main.0",
+     "subs.3",
+     "subs.1",
+     "main.1"
+    ]
+   ]
+  },
+  "springs": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.1",
+     "shore.0",
+     "shore.1",
+     "shore.0"
+    ],
+    [
+     "wash.1",
+     "scrub.1",
+     "wash.1",
+     "scrub.1"
+    ],
+    [
+     "wash.0",
+     "scrub.2",
+     "wash.0",
+     "scrub.2"
+    ]
+   ]
+  },
+  "stadium": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.0",
+     "subs.2",
+     "subs.0",
+     "subs.1"
+    ],
+    [
+     "subs.2",
+     "subs.0",
+     "ruin.0",
+     "subs.2"
+    ],
+    [
+     "subs.0",
+     "subs.1",
+     "lots.0",
+     "subs.0"
+    ]
+   ]
+  },
+  "storage": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.0",
+     "landfill.1",
+     "landfill.0",
+     "landfill.1"
+    ],
+    [
+     "scrub.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.2",
+     "landfill.1",
+     "scrub.0",
+     "scrub.2"
+    ]
+   ]
+  },
+  "strat": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "main.1",
+     "subs.1",
+     "subs.2",
+     "subs.1"
+    ],
+    [
+     "subs.2",
+     "works.0",
+     "subs.1",
+     "subs.3"
+    ]
+   ]
+  },
+  "strip": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "subs.0",
+     "subs.2",
+     "subs.1",
+     "subs.0"
+    ],
+    [
+     "main.1",
+     "works.0",
+     "subs.3",
+     "lots.0"
+    ]
+   ]
+  },
+  "substation": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.0",
+     "subs.2",
+     "subs.0",
+     "subs.2"
+    ],
+    [
+     "ruin.1",
+     "ruin.0",
+     "subs.2",
+     "subs.0"
+    ],
+    [
+     "ruin.0",
+     "subs.2",
+     "lots.0",
+     "subs.2"
+    ]
+   ]
+  },
+  "suburb": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.2",
+     "subs.0",
+     "corner.0",
+     "subs.0"
+    ],
+    [
+     "subs.1",
+     "subs.2",
+     "corner.2",
+     "subs.1"
+    ],
+    [
+     "subs.3",
+     "lots.0",
+     "corner.0",
+     "subs.2"
+    ]
+   ]
+  },
+  "swapmeet": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.0",
+     "strip.1",
+     "strip.0",
+     "strip.1"
+    ],
+    [
+     "subs.2",
+     "subs.0",
+     "works.0",
+     "subs.3"
+    ],
+    [
+     "subs.3",
+     "main.1",
+     "subs.1",
+     "works.0"
+    ]
+   ]
+  },
+  "terminal": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.1",
+     "lots.0",
+     "subs.0",
+     "subs.3"
+    ],
+    [
+     "ruin.0",
+     "subs.2",
+     "ruin.0",
+     "subs.2"
+    ],
+    [
+     "subs.2",
+     "ruin.0",
+     "subs.3",
+     "ruin.0"
+    ]
+   ]
+  },
+  "town": {
+   "kind": "suburb",
+   "blocks": [
+    [
+     "subs.1",
+     "lots.0",
+     "corner.0",
+     "subs.2"
+    ],
+    [
+     "lots.0",
+     "subs.0",
+     "corner.1",
+     "subs.1"
+    ],
+    [
+     "subs.1",
+     "subs.3",
+     "corner.2",
+     "subs.2"
+    ]
+   ]
+  },
+  "trailer": {
+   "kind": "culdesac",
+   "blocks": [
+    [
+     "culdesac.0",
+     "culdesac.1",
+     "culdesac.0",
+     "culdesac.1"
+    ],
+    [
+     "suburb_stem.0",
+     "suburb_stem.1",
+     "suburb_stem.0",
+     "suburb_stem.1"
+    ],
+    [
+     "subs.1",
+     "subs.2",
+     "subs.3",
+     "subs.0"
+    ]
+   ]
+  },
+  "truckstop": {
+   "kind": "strip",
+   "blocks": [
+    [
+     "strip.1",
+     "strip.0",
+     "strip.1",
+     "strip.0"
+    ],
+    [
+     "main.0",
+     "main.1",
+     "main.0",
+     "subs.0"
+    ],
+    [
+     "subs.0",
+     "lots.0",
+     "subs.3",
+     "lots.0"
+    ]
+   ]
+  },
+  "warehouse": {
+   "kind": "landfill",
+   "blocks": [
+    [
+     "landfill.1",
+     "landfill.0",
+     "landfill.1",
+     "landfill.0"
+    ],
+    [
+     "scrub.0",
+     "scrub.1",
+     "scrub.2",
+     "scrub.0"
+    ],
+    [
+     "landfill.0",
+     "scrub.2",
+     "landfill.0",
+     "scrub.1"
+    ]
+   ]
+  },
+  "wash": {
+   "kind": "wash",
+   "blocks": [
+    [
+     "scrub.1",
+     "wash.1",
+     "scrub.1",
+     "wash.1"
+    ],
+    [
+     "scrub.0",
+     "wash.0",
+     "scrub.0",
+     "wash.0"
+    ],
+    [
+     "scrub.1",
+     "wash.1",
+     "scrub.1",
+     "wash.1"
+    ]
+   ]
+  },
+  "water": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.0",
+     "shore.1",
+     "shore.0",
+     "shore.1"
+    ],
+    [
+     "wash.1",
+     "wash.0",
+     "scrub.1",
+     "scrub.0"
+    ],
+    [
+     "wash.0",
+     "wash.1",
+     "scrub.0",
+     "scrub.1"
+    ]
+   ]
+  },
+  "waterpark": {
+   "kind": "shore",
+   "blocks": [
+    [
+     "shore.1",
+     "shore.0",
+     "shore.1",
+     "shore.0"
+    ],
+    [
+     "wash.1",
+     "wash.0",
+     "scrub.2",
+     "scrub.1"
+    ],
+    [
+     "wash.0",
+     "wash.1",
+     "scrub.0",
+     "scrub.2"
+    ]
+   ]
+  },
+  "watertreat": {
+   "kind": "ruin",
+   "blocks": [
+    [
+     "subs.3",
+     "subs.0",
+     "subs.3",
+     "subs.1"
+    ],
+    [
+     "subs.2",
+     "ruin.0",
+     "subs.2",
+     "ruin.0"
+    ],
+    [
+     "subs.1",
+     "ruin.1",
+     "subs.1",
+     "subs.3"
+    ]
+   ]
+  }
+ },
+ "districts_key": {
+  "use": "the fight opens districts[the handover's district].blocks instead of dealing from the kind's pool",
+  "seed": "the district name; re-seeded until no other district has the same layout",
+  "source": "records/target/BOHEMIA_BOARD_KINDS.json"
  }
 }

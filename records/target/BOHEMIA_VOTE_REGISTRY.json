@@ -7478,7 +7478,20 @@
     "src": "records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 66.\n\nSeen in: not drawn yet, feeds WORLD and FACTIONS."
    }
   },
-  {"id": "plumber-the-reply-leg-10-10", "kind": "ui", "lane": "plumber", "sha": "4dfc12e", "made": "10/10", "title": "EVERY REPLY TO YOU NOW HAS A CHECKER: 150 WORDS, AND THE LAST FIVE LINES CARRY IT", "why": "Replies to you now get checked before they send: at most 150 words, and the last five lines are what changed, its number, what broke, what I need from you, and the two-sentence bottom line, and my own last reply (381 words) failed it. You see it here: that reply on the left, the same news in 74 words on the right.", "show": {"how": "image", "src": "vote/PLUMBER_THE_REPLY_LEG_10_10.png"}}
+  {"id": "plumber-the-reply-leg-10-10", "kind": "ui", "lane": "plumber", "sha": "4dfc12e", "made": "10/10", "title": "EVERY REPLY TO YOU NOW HAS A CHECKER: 150 WORDS, AND THE LAST FIVE LINES CARRY IT", "why": "Replies to you now get checked before they send: at most 150 words, and the last five lines are what changed, its number, what broke, what I need from you, and the two-sentence bottom line, and my own last reply (381 words) failed it. You see it here: that reply on the left, the same news in 74 words on the right.", "show": {"how": "image", "src": "vote/PLUMBER_THE_REPLY_LEG_10_10.png"}},
+  {
+   "id": "combat2-the-district-seeds-the-board-10-10",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "EVERY DISTRICT OPENS ITS OWN FIGHT",
+   "why": "The courthouse, the jail and the arsenal used to open the exact same board; now each of the 78 districts has a board of its own, with every edge joined. Thumbs up and fights stop repeating by place, and you see it in the COMBAT tab once the fight reads the district it starts in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_DISTRICT_SEEDS_THE_BOARD_10_10.png"
+   }
+  }
  ],
  "verdicts": [
   {
