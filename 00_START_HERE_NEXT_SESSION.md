@@ -16713,6 +16713,30 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 57. [the trail file] ROUND 1 SHIPPED 0e61a30: THE MACHINE
+AND ITS DRY RUN (rule 96). NOTHING MOVED. ***
+Record: records/BOHEMIA_THE_TRAIL_FILE_ROUND_ONE_10_10_26.md (the dry run printed in full at its foot). VOTE
+plumber-the-trail-file-10-10. Row kept CLAIMED (rule 6): the moves are round 2.
+BUILT: tools/bohemia_trail_sweep.js. History from a slim copy of main in the temp folder (blob-less, 45 days, 5 MB,
+refreshed each run; the working clone is shallow). Clock = lettered sweep commits 'VAMILY m/d X:' (30, B..AH; same
+letter twice is one sweep). Coordinator = sessions that wrote a sweep, COORDINATOR or PAOLO commit (2). Cite = a lane
+commit's message (rule numbers incl. 'rules 82 and 82a', 'rule-89'; [labels]; file names) or a record/law it touched;
+a rule is also cited through the law/record files its text points to. Births and open-since from the last 15 sweeps'
+boards. Records: 30 days or reachable from roots (rg over live files, not the canon index, not moving blocks).
+Handoff split: heads 'LANE (slug): date', '## LANE (', '=== LANE: ... (date'; aliases SOUND/MUSIC/SFX->SOUNDS,
+CITY->LIFE + CITY, ART->DIRECTION; hazard = a line naming a lane with a date of the last 3 days in a moving block.
+Writes records/target/BOHEMIA_TRAIL.json (one mark a line, empty fields dropped, 927 KB, sealed). Gate THE TRAIL FILE
+(gates/trail_gate.js) 5/0, mutation-proved (lane order, blocks kept).
+DRY RUN: handoff 135,428 -> 9,467 lines; 33 rules leave + 9 fold; 156 OPEN rows out + 4 STALE; 390 records leave, 0 laws.
+[FOR THE COORDINATOR, HEARBACK] (1) 18 sweeps in 7 days: 14 sweeps = 5.4 days, so rules 0, 1, 4 and 30 more would
+leave the page; exempt the manual (0-13) or count in days? (2) 156 OPEN rows out, many in lanes rule 88 holds. (3) The
+split is refused while a hazard exists (1 today, a false alarm); COMBAT, DIRECTION and DYNASTY write their newest
+state inside 1,100- to 2,300-line standing blocks, which is most of the 9,467 kept lines. CORRECT, or NEGATIVE with the
+one thing, and round 2 makes the moves (the handoff gate reads handoffs/ in the same commit).
+Gates this round: THE TRAIL FILE 5/0; HANDOFF 10/0. Red elsewhere, not this lane's files: ENGINE CENSUS, FENCE ORPHAN,
+NO ORPHAN SCRIPT, PAGES PUBLISH (533 MB, tickets/ not in the workflow).
+NEXT: [the trail file] round 2 on CORRECT; else the top OPEN row, [the turn leg].
+
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 56. [the reply leg] SHIPPED 4dfc12e: THE LAST FIVE
 LINES ARE THE REPLY (rule 90, school round 10). ***
 Record: records/BOHEMIA_THE_LAST_FIVE_LINES_ARE_THE_REPLY_10_10_26.md. VOTE plumber-the-reply-leg-10-10 (last round's

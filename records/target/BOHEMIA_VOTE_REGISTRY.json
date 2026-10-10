@@ -7557,7 +7557,8 @@
    },
    "asked": "UP or DOWN",
    "draft": true
-  }
+  },
+  {"id": "plumber-the-trail-file-10-10", "kind": "ui", "lane": "plumber", "sha": "0e61a30", "made": "10/10", "title": "THE BOARD CAN FORGET: OLD ORDERS NOBODY USES WOULD LEAVE", "why": "A machine now finds every rule, job and handoff note that no team has used lately, and if the coordinator says yes the handoff file drops from 135,428 lines to 9,467 and 156 dead jobs leave the board. You see it here as before and after bars; nothing has moved yet.", "show": {"how": "image", "src": "vote/PLUMBER_THE_TRAIL_FILE_10_10.png"}}
  ],
  "verdicts": [
   {
