@@ -2498,6 +2498,14 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE FAR END AT THE PHONE\'S PIXELS', ['node', 'gates/the_far_end_at_the_phones_pixels_gate.js'],
+     'VAMILY [the far end at two million pixels] (Paolo 10/1-10/4: "how many pixels is the Battle Brothers map"). MEASURED: at the '
+     'far stop the city is painted at 0.93 phone px a texel but the land around it, most of the glass, at 5.6 (two texels a '
+     'block): stair-stepped ranges; and the city stood on a plate because the land in front rose at 0.38 a block, squeezed by '
+     'the camera into a wall. NOW the worker paints the land on the glass one sample a phone pixel from the bake\'s own heights '
+     'when the camera is still, and the front rises at 0.14. HOLDS: the land\'s painted unit 3.18 -> 1.2 px (floor 1.5); 2.69 '
+     'million phone px painted at their own pixels (floor 2,073,600); the ranges where the bake put them (r 0.98); no slab '
+     '(band 0.73 of its run, was 0.24); off the page; the bake covers while moving. Mutations, three, each red.', True),
     ('THE DEMO BOOTS LIGHT', ['node', 'gates/the_demo_boots_light_gate.js'],
      'VAMILY [first load] + [load hunks] (Paolo 10/5: "I gotta wait 40 seconds"). MEASURED by a CPU profile from the link to '
      'BEGIN ready: the demo seated him on a street it never shows and drew it (4.5 s), built the CHARACTER tab\'s boards it has '
