@@ -1,3 +1,121 @@
+WORLD (world-9lfjtf): 10/10 (b) LATEST -- *** THE ONLY ROOM IN THE VALLEY IS A
+ROOM WITH SLOT MACHINES IN IT, AND NOTHING CAN REACH IT. *** Row [the apron, the
+compound and the civic interior] SHIPPED. 3 OPEN rows remain (rule 74) and the
+top one is new: [the valley has no inside], written from this round's
+measurement. TAB: NOT IN A TAB YET on a play surface (rule 18). It IS in the VOTE
+tab: world-the-three-blocks-10-10. Record
+records/BOHEMIA_WORLD_THE_ONLY_ROOM_IN_THE_VALLEY_10_10_26.md.
+
+RULE 12: THIRTEEN OF THE TWENTY-FOUR DISTRICTS ALREADY HAVE A KIT THAT DRAWS, so
+two of the three families were READ, not invented. The row said three blocks are
+missing; the count is right and the sentence is half right.
+
+  AN APRON    off speedway, stadium, ballpark, terminal: 72.8% floor, 18.5%
+              cover, 0.56% door. Its own legend's pieces: grandstand, catch
+              fence, pit road, garage row, light tower, tunnel mouth, racing
+              surface, infield, scoreboard, dead race car, facade.
+  A COMPOUND  off battery, substation, watertreat: 71.3% floor, 27.6% cover, and
+              A DOOR SHARE OF 0.031% -- ABOUT ONE CELL IN THREE THOUSAND. A wall
+              with one gate, exactly as the row said, with transformers,
+              switchgear, busbars, a cable trench, clarifier walls, an aeration
+              basin, a pipe gallery and a gravel yard inside it.
+
+Both are the row's own words handed back, counted rather than asserted.
+
+*** AND THE CIVIC INTERIOR BREAKS, AND NOT BECAUSE THE KITS ARE THIN. *** The six
+civic kits draw at 61.2% floor. EVERY CELL OF IT IS OUTSIDE. Measured across all
+fifty kits that draw: OF 813 NAMED PIECES, 256 ARE THINGS YOU CAN STAND ON, AND
+NOT ONE OF THEM IS THE FLOOR OF A ROOM. The closest the valley has is the covered
+loop under a stadium's stands, twice. The city hall is `city hall [building]`, a
+solid block. The jail is `building (cell block/admin) [building]` with a `cell
+detail [structure]` stuck on its face, both impassable. What the civic kits
+actually draw is the plaza, the forecourt, the curtain wall glazing, the podium,
+the entry pier, the roof edge and the council chamber roof. THERE IS A DOORWAY AND
+NOTHING BEHIND IT. That matters past this row: A COMBAT TILE IS A HOUSE (Paolo
+9/4) and the INTERIOR-MATCHES-EXTERIOR LAW both assume an inside the city has
+never drawn, and bohemia_boardterrain.js already files casino_floor as an INTERIOR
+that is off the map.
+
+*** AND THEN THE FINDING THAT MAKES THE ROUND: AN INTERIOR ALREADY EXISTS AND
+NOTHING CAN ASK FOR IT. *** The fight deals from a block library built out of
+slices/fight_ground/fight_ground.json. Build it the way the fight builds it and
+cross it against the board_mix families and nfKind: 18 block kinds in the library,
+15 named by a family, 12 reachable from nfKind.
+
+  IN NO FAMILY AND UNREACHABLE, so they can never appear in any fight, ever:
+     casino, freewayo, scrubroad
+  IN A FAMILY BUT NO DISTRICT LEADS WITH THEM, so they only ever turn up as the
+  shuffled second or third block:
+     lots, main, works
+
+`casino` IS 294 FLAT CELLS, 6 OF HEIGHT AND 201 COVER PIECES -- PILLARS, SLOT
+BANKS AND TABLES. IT IS THE ONLY INTERIOR IN THE GAME. COMBAT TWO cut it and the
+sweep recorded it shipping; the map cannot ask for it and the mix will never roll
+it, so it has never once been dealt into a fight. So the row corrects to: TWO
+blocks are missing and the valley has the material for both, and THE THIRD IS ONE
+WIRE AWAY FROM THE THING SOMEBODY ALREADY DREW.
+
+GATE THREE BLOCKS 22/0, registered. Every share is re-counted off the family's own
+kits each run (worst drift 0.0004); every piece quoted must be a real legend entry
+of that family's kits; the whole-city interior count is remade from all 50 kits;
+the unreachable list is REBUILT FROM THE LIBRARY and held as a RATCHET THAT MAY
+ONLY SHRINK, so the day somebody wires the casino in the gate goes red and the
+record is stale rather than the code being quietly right; the casino is described
+from the library, never from memory; and a WORLD file may not contain a faction
+name at all, because who holds a compound is handed to valleyground.poolOf.
+Mutation-proved three ways (give the civic interior material -> RED; quote a piece
+the valley does not draw, `control tower` -> RED naming it; hide the casino from
+the unreachable list -> RED).
+
+COOK: THE THREE BLOCKS THE VALLEY NEEDS, slices/vote/WORLD_THE_THREE_BLOCKS.png --
+four panels. The first three are real blocks the kits drew, picked by seed and not
+by eye: the stadium bowl (the apron, 20.2% solid), the water treatment plant with
+its clarifiers (the compound, 26.3%), and the hospital (the civic one, 42.1% and a
+slab). The fourth is the casino floor, drawn from the fight's own library with its
+201 slot banks where COMBAT TWO put them. The cook REFUSES to draw a civic panel
+that is not more solid than the apron, because the point of that panel is that the
+building is a wall. AH-01: four terrain samples in a row is the ordinary part; THE
+WRONG THING IS WHICH ONE IS FULL -- the courthouse, the jail and the city hall are
+solid to the touch, and the only room anybody ever built in this valley is a room
+with slot machines in it, and nothing can reach it.
+
+ROUTED, AND THE FIX IS NOW THREE SMALL THINGS RATHER THAN THREE BLOCKS. COMBAT
+[board generator]: WIRE THE CASINO IN -- it is built, it is an interior, and it is
+the civic answer. Cut the apron and the compound from the piece lists above, which
+are the valley's own material. Decide lots, main and works (in a family, never the
+lead) and freewayo and scrubroad (reaching nothing at all). COMBAT TWO: if the
+casino was meant to be reachable, nothing says so; it shipped into a library with
+no wire to the map. The interior question is a KIT question before it is a board
+question, and it is this lane's next row. [FOR COMBAT AND COMBAT TWO]
+
+RED AND NOT MINE: VOTE TAB on dynasty-old-body-10-9 and dynasty-name-outlives-10-9
+(no where you see it) and tuning-how-hard-is-a-killer-10-10 (three sentences
+against rule 22f's two), plus the door-boot flake PLUMBER owns. Carried and still
+not mine: REFERENCE CHECK on PEOPLE's tools/bohemia_cook_good_bros.js, FACTION
+COLOUR, PAGES PUBLISH, ROADS ARE FAST. AND THIRD ROUND OF SAYING SO:
+gates/one_terrain_effect_gate.js still enforces Paolo's 9/24 one-terrain-effect
+ruling, which RULE 59 AMENDS BY NAME, and it is not registered in the suite.
+COMBAT's file, untouched by me.
+
+GATES BY NAME this round (rule 13a, the pre-push pass): THREE BLOCKS 22/0, BOARD
+KINDS, GROUND EFFECTS, VALLEY GROUNDS, CANON ROT, HANDOFF. The full suite still
+cannot finish in this container (stopped at its 30-minute limit at gate 73 of 787;
+browser gates timing out at 30 s each, CASING FACE dying on a missing fontTools
+module). Environment, not tree. [FOR PLUMBER]
+
+[bb blocks] BATTLE BROTHERS NEVER SHIPS A BATTLEFIELD ITS OWN WORLD CANNOT ASK
+FOR, AND THE REASON IS THAT IT HAS NO LIBRARY TO GET OUT OF STEP WITH. Its
+tactical maps are generated per fight straight from the world tile you stand on,
+so there is no shelf of boards sitting beside the map and nothing can be built and
+left unreachable. OUR TWIST (rule 39b): we KEEP the shelf, because a hand-authored
+board like the casino floor -- 201 slot machines in rows -- is a better fight than
+anything a generator will produce from a tileset, and BB's own fights are the
+flattest thing about it. The price is that A SHELF NEEDS AN INVENTORY, and we did
+not have one until this round: three blocks on it have never been dealt, and one
+of them is the only indoor fight in the game. Keep the hand-made boards, and make
+the machine count the shelf every run.
+
+
 CHARACTER (character-0lurbs): 10/9 (d) LATEST -- *** BATTLE BROTHERS READS A MAN
 BY HIS SHAPE, NOT HIS COLOR, SO I SHRANK OUR THIRTEEN GANGS DOWN SMALL AND
 CHECKED IF THEY STILL READ APART. ***

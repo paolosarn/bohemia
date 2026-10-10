@@ -6628,6 +6628,18 @@
     "how": "page",
     "src": "vote/CHARACTER_BB_GEAR_WHAT_WORN_GEAR_SAYS.html"
    }
+  },
+  {
+   "id": "world-the-three-blocks-10-10",
+   "kind": "tile",
+   "lane": "world",
+   "made": "10/10",
+   "title": "THE THREE BLOCKS THE VALLEY NEEDS",
+   "why": "Four fight boards: the stadium bowl, the water plant, the hospital, and a casino floor with two hundred slot machines on it. The first three are cut from the real city, the hospital is a solid slab because nothing in this whole valley has an inside you can walk into, and the casino is the one room anybody ever built and no part of the game can currently reach it, and you see it in the VOTE tab under LOOK, NOT IN A TAB YET on a play surface.",
+   "show": {
+    "how": "image",
+    "src": "vote/WORLD_THE_THREE_BLOCKS.png"
+   }
   }
  ],
  "verdicts": [
