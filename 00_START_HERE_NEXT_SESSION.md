@@ -1,3 +1,9 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [read count] SHIPPED (rule 95 turned it; two-line post-mortem written in the record: it sat CLAIMED
+with the number only in my handoff and no record, so it looked stalled). Record
+records/BOHEMIA_MODS_READ_COUNT_ROUND_THREE_AND_POST_MORTEM_10_10_26.md. READ COUNT at 21eedd45: old fight 3 (was 4), new fight 1,
+background 3, sound 4; target 1 each. Next measurement is a new row line, not an open claim. NEXT OPEN: [sharing a mod], [example for every
+kind], [grok sources]. PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (m) LATEST -- [origin gear value] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT THE STARTING KIT COSTS (draft:true).
 RECORD: records/BOHEMIA_TUNING_ORIGIN_GEAR_VALUE_THE_WIKI_PRICES_ONE_KIT_OF_FIFTEEN_10_10_26.md
