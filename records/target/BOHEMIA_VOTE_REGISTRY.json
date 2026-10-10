@@ -7758,7 +7758,34 @@
   },
   "draft": true
  },
-  {"id": "direction-the-card-of-numbers-10-10", "kind": "verdict", "lane": "direction", "sha": "0de2a7d8", "made": "10/10", "title": "THE CARD OF NUMBERS: YOUR PACK IS THE FLOOR", "why": "Every tile you bought holds 3,000 to 4,500 colours at 96 pixels, lit from above, with no outline on the ground, and every cook now measures a drawing against those numbers before you ever see it (our fight barrier has 10 colours and fails). You see it in the VOTE tab, each family of your tiles beside its numbers.", "show": {"how": "image", "src": "../records/target/DIRECTION_THE_CARD_OF_NUMBERS.png"}, "asked": "UP or DOWN", "draft": true}
+  {"id": "direction-the-card-of-numbers-10-10", "kind": "verdict", "lane": "direction", "sha": "0de2a7d8", "made": "10/10", "title": "THE CARD OF NUMBERS: YOUR PACK IS THE FLOOR", "why": "Every tile you bought holds 3,000 to 4,500 colours at 96 pixels, lit from above, with no outline on the ground, and every cook now measures a drawing against those numbers before you ever see it (our fight barrier has 10 colours and fails). You see it in the VOTE tab, each family of your tiles beside its numbers.", "show": {"how": "image", "src": "../records/target/DIRECTION_THE_CARD_OF_NUMBERS.png"}, "asked": "UP or DOWN", "draft": true},
+  {
+   "id": "cook-the-party-marker-at-full-pixels-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "FINAL? YOUR CREW'S MARKER, AT REAL PIXELS THIS TIME",
+   "why": "You said the markers being five pixels by five pixels was disappointing, and the party marker, the one thing on the map every second, really was a nine by twenty stick figure with four colours in it; this one is ninety six by ninety six with 2,768 painted pixels and 2,121 colours, and not one pixel on it is cooked, because it IS one of the road signs you bought, whole, with your crew's mark painted over the word in that sign's own paint. You see it in the VOTE tab, the old one beside the new one on all five map grounds, plus what the map draws at a sixteen pixel cell.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_ONE_AT_A_TIME_THE_PARTY_MARKER.png"
+   },
+   "twin": {
+    "src": "pack:17. Warning Signs and road props#0",
+    "diffs": [
+     "WHAT IS HIS: the whole sign. Plate, post, flange, rust, contour, light, placed in a 96 cell without resampling one pixel. Zero colours on it that are not in that tile.",
+     "WHAT CHANGED FROM HIS: the word. His STOP is worn off with the plate's own metal from the same column, and the crew's battery is laid in its place out of that sign's own 364 letter pixels, each one moved sideways along its own row and never up or down.",
+     "WHAT IT BUYS: 2,768 painted pixels against 68, 2,121 colours against 4, 15 of 16 value steps in the body against 3, and the dark contour 100% of his objects carry and the old marker did not have."
+    ]
+   },
+   "before_after": {
+    "before": "the party marker in the game today: 9 x 20 characters, 68 painted pixels, 4 colours, shown at its own size and again at four times so it can be seen at all",
+    "after": "the same marker remade at the pack's own 96, on the same five map grounds, plus the 16 pixel cell the map actually draws",
+    "scale": "1:1"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

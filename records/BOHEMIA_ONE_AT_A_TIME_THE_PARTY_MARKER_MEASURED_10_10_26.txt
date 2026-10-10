@@ -1,0 +1,67 @@
+ONE AT A TIME: THE PARTY MARKER -- MEASURED  (COOK, 10/10/26)
+==============================================================================
+
+HIS NO, WHICH IS THE WHOLE ROUND (10/10, voting cook-the-markers-you-can-find-10-10 down):
+  "Bro again I don't know who told you that all the assets that you make they don't have
+   to be five pixels by five pixels. It's so disappointing."
+
+He is right and the number is not close. The party marker -- YOU and your crew, the one
+thing on the map every single second (rule 102b) -- was a NINE BY TWENTY character grid,
+68 painted pixels, 4 colours. A single prop of his gets 4940 painted pixels and 3728
+colours. Rule 105's floor for a map marker is 40 by 40 and nobody was near it.
+
+*** AND LAST ROUND THIS LANE MADE THE SAME MARKERS MORE LEGIBLE AND HE STILL SAID NO. ***
+That is the part worth keeping. The 9/24 ruler said the fixed markers stood 68.5%% to
+94.1%% clear of their worst grounds, better than his own props score, and it was measuring
+the wrong thing. CONTRAST IS NOT DETAIL. A marker can be perfectly readable and still be a
+crest of five pixels, and that is what he keeps seeing.
+
+THE STUDY CAME FIRST (rule 100c): records/BOHEMIA_HOW_THE_PACK_DID_IT_PROP_10_10_26.md,
+his 784 approved props measured, because the packs hold no map markers and the nearest
+thing he bought is the PROP. Three numbers decided this asset:
+  THE CONTOUR  edge minus inside -49.9, and 100% OF HIS OBJECTS HAVE A DARK RING. The road
+               page (10/10) said the opposite, +15 LIGHTER and only 26%, and it was right
+               -- about SURFACES. This lane read the no-outline law off the wrong family,
+               shipped markers with no contour, and another lane had to draw a rim round
+               them to make them usable. A law is true of the family it was measured on.
+  THE SIZE     93 x 91 median, 4940 painted pixels, and 11 of 784 under 40 on a side.
+  THE BODY     his body sits at 50 of 255 with ALL SIXTEEN value steps inside it.
+
+THE ASSET, AND NOTHING ON IT IS COOKED. A crew in this valley marks itself with what it
+took off a street corner, which is both the most Bohemia answer and the one that needs no
+invention. The marker IS his road sign, whole: his plate, his post, his flange, his rust,
+his contour, his light, placed in a 96 cell without resampling one pixel. The only thing
+changed is WHAT IS PAINTED ON THE PLATE, and even that is made out of the sign's own
+letter pixels, lifted and re-laid. The mark is a BATTERY, because batteries are the money
+(9/4). His word STOP is taken off with the plate's own metal from beside it.
+
+MINE AGAINST THE OLD ONE AND AGAINST HIS PROPS, ONE RULER, ALL THREE:
+                                          TODAY       MINE    HIS PROPS
+  painted pixels                             68       2768         4940
+  colours                                     4       2121         3728
+  edge minus inside                       -10.2      -69.1        -49.9
+  the body's own value                       24         56           50
+  value steps of 16                           3         15           16
+  light: top minus bottom                   9.6       39.5         12.2
+
+AND IT DID NOT LOSE WHAT THE OLD ONE WON (the 9/24 ruler, body only, no rim):
+  void       today   1.5%   mine  38.7%   his own sign  40.3%
+  fabric     today  98.5%   mine  75.7%   his own sign  71.9%
+  desert     today  98.5%   mine  90.2%   his own sign  87.1%
+  mountain   today   1.5%   mine  32.0%   his own sign  32.3%
+  town       today 100.0%   mine  58.6%   his own sign  55.5%
+
+THE ONE QUESTION: your crew is the one thing on the map every second. What is it, when
+somebody sees it coming? A a STOLEN STREET SIGN, as drawn. B a HAND-MADE BANNER on a pole.
+C YOUR ACTUAL CREW drawn small, no standard at all.
+
+MEASURED THIS RUN:
+  OK   NOT ONE PIXEL ON IT IS COOKED: every one of the 2768 painted pixels is a colour out of his own sign (0 strays)
+  OK   IT IS 96 BY 96, NOT NINE BY TWENTY (rule 105's floor for a marker is 40 by 40): 2768 painted pixels against 68, which is 41 times the art
+  OK   AND IT CARRIES HIS DETAIL, NOT A LADDER: 2121 colours against 4, and 15 of 16 value steps in the body against 3
+  OK   IT HAS THE DARK CONTOUR 100% OF HIS OBJECTS HAVE, WHICH THE OLD ONE DID NOT: edge minus inside -69.1, his -49.9, the old one -10.2
+  OK   NOTHING WAS RESAMPLED: his 54 by 96 sign was PLACED in the 96 cell, centred and sat on the floor, and the mark was laid at whole pixels only
+  OK   IT IS AS READABLE AS THE TILE IT WAS CUT FROM, WHICH IS THE BAR: on its worst ground it stands 32.0% clear, his own sign 32.3%, the old marker 1.5%
+  OK   THE MAP CAN STILL SEE IT AT A 16 PX CELL: 95 of 256 cells carry the marker and its mark survives the shrink
+  OK   THE MARK IS MADE OF HIS OWN PAINT: 364 pixels of the crew's battery, every one of them a letter pixel off his plate
+  OK   IT IS ONE ASSET, NOT A BATCH (rule 101d): one marker, one sheet, one question

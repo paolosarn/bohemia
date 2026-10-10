@@ -3842,6 +3842,87 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (j) LATEST -- *** HE SAID THE MARKERS BEING FIVE PIXELS BY FIVE
+PIXELS WAS DISAPPOINTING. HE WAS RIGHT AND THE NUMBER WAS NOT CLOSE. ***
+
+0. HIS NO, WORD FOR WORD, VOTING cook-the-markers-you-can-find-10-10 DOWN: "Bro again I don't
+know who told you that all the assets that you make they don't have to be five pixels by five
+pixels. It's so disappointing." The coordinator turned that into the top row of this section,
+[the markers at full pixels], and that is what this round did. He voted the map road tile UP in
+the same sitting: "Good direction not final good job."
+
+1. THE PARTY MARKER IS THE ONE THING ON THE MAP EVERY SINGLE SECOND (rule 102b keeps it when
+rule 102a kills settlement icons), AND IT WAS A NINE BY TWENTY CHARACTER GRID. 68 painted
+pixels. FOUR colours. Three of sixteen value steps. On the sheet it is drawn at its own size
+and again at four times, because at its own size you cannot find it on the page, and that is
+the argument.
+
+2. THE STUDY CAME FIRST (rule 100c) AND IT REVERSED A LAW THIS LANE HAD BEEN APPLYING WRONG.
+The packs hold no map markers, so the nearest thing he bought is the PROP: 784 approved
+standalone objects, every one solving the marker's exact problem. The number that matters:
+EDGE MINUS INSIDE -49.9, AND 100 PER CENT OF HIS OBJECTS CARRY A DARK CONTOUR. The road page
+(the round before) measured his SURFACES and found the opposite, +15 LIGHTER and only 26 per
+cent, and it was right about surfaces. This lane read the no-outline law off the wrong family,
+shipped five markers with no contour, and another lane had to draw a rim round them to make
+them usable on the demo. A LAW IS TRUE OF THE FAMILY IT WAS MEASURED ON. Also measured: 93 by
+91 median, 4,940 painted pixels in one object, 11 of 784 under 40 on a side, 3,728 colours, and
+all sixteen value steps inside the body.
+
+3. AND THE HONEST PART, WHICH IS THE PART WORTH KEEPING. Last round this lane made those same
+markers MORE LEGIBLE: 68.5 to 94.1 per cent clear of their worst grounds, better than his own
+props score, every guard green. HE SAID NO ANYWAY. The ruler was never measuring what he is
+asking for. CONTRAST IS NOT DETAIL. A marker can be perfectly readable and still be a crest of
+five pixels, and that is what he keeps seeing. The study page says this out loud so no lane
+reaches for brightness again when the complaint is density.
+
+4. THE ASSET: 96 BY 96, 2,768 PAINTED PIXELS, 2,121 COLOURS, AND NOT ONE PIXEL ON IT IS COOKED.
+A crew in this valley marks itself with what it took off a street corner, which is both the
+most Bohemia answer and the one that needs no invention. The marker IS his road sign, whole:
+his plate, his post, his flange, his rust, his contour, his light, placed in the 96 cell
+without resampling one pixel. The only thing changed is what is painted on the plate, and even
+that is made out of that sign's OWN letter pixels, moved sideways along their own rows and
+never up or down. The mark is a BATTERY, because batteries are the money. His word STOP is not
+painted over, it is WORN OFF with the plate's own metal from the same column.
+
+5. FOUR FAULTS THIS ROUND, ALL CAUGHT, TWO OF THEM ONLY BY LOOKING:
+  (a) The mark was filled from his paint pool IN RASTER ORDER, so his pixels arrived shuffled
+      and the battery came out as STATIC. Green guards, and it looked like a smudge. Fixed by
+      the map road tile's own move: each pixel taken from the nearest paint pixel in its own
+      row, so his paint's light arrives intact.
+  (b) The word's box was taken as the paint's BOUNDING box, and a handful of specular pixels on
+      the post are bright and grey too, so the mark was centred in the middle of the post and
+      wrote NOTHING. A guard counting the mark's pixels caught it.
+  (c) His letters have a HALO of half-lit pixels the paint mask does not call paint, so the
+      first wear pass filled from them and the mark sat in a smear of ghost S, T, O and P.
+  (d) A smaller battery passed everything but one guard: it put back 220 painted pixels where
+      his word had 309, so the marker stood 26.6 per cent clear of the mountain against his own
+      sign's 32.3. Taking paint off a sign makes it harder to see. The mark now carries 364 and
+      the marker reads 32.0 against his 32.3.
+
+6. AND ONE GUARD WAS WRONG, NOT THE ART. It compared the marker against the MEDIAN of all 784
+props and went red. A family's median answers whether a tile is an average object, which is not
+the question. THE TWIN IS THE BAR: the tile it was cut from. Rewritten that way it reads 32.0
+against his own sign's 32.3, measured both ways.
+
+7. RULE 108 LANDED MID-ROUND and it does not bite this one: "a tile drawn rectangle by rectangle
+in a Python or JavaScript tool is no longer a candidate." Nothing here was drawn. Zero colours
+on the marker are not in his tile. The new top row [generate against the pack] is the NEXT
+round's job and it is a different thing: generating new art with a model against his packs.
+
+8. WHERE IT IS: the VOTE tab, as cook-the-party-marker-at-full-pixels-10-10, a FINAL? card.
+NOTHING WENT INTO THE GAME (rule 100a): records/, records/target/, banks/, tools/ and the
+registry only. The study page is records/BOHEMIA_HOW_THE_PACK_DID_IT_PROP_10_10_26.md, the
+sheet is records/target/COOK_ONE_AT_A_TIME_THE_PARTY_MARKER.png, the marker itself is
+banks/BOHEMIA_THE_PARTY_MARKER_CANDIDATE_10_10_26.txt.
+
+9. ROWS: [the markers at full pixels] SHIPPED. [one at a time] CLAIMED and standing, one asset
+every round. NEXT, and it is the new top OPEN row: [generate against the pack] (rule 108a).
+Still CLAIMED behind: [bb map art]. Still OPEN: [map floor]. HELD: [beasts], [horror grime].
+
+10. THE ONE QUESTION ON THE SHEET IS HIS, NOT THE ART'S: your crew is the one thing on the map
+every second, so what is it when somebody sees it coming? A a STOLEN STREET SIGN as drawn, B a
+HAND-MADE BANNER on a pole, C YOUR ACTUAL CREW drawn small with no standard at all.
+
 COOK (cook-mce6r5): 10/10 (i) LATEST -- *** EIGHT MEASUREMENTS WENT GREEN AND THE PICTURE
 WAS WRONG. LOOKING IS WHAT CAUGHT IT, AND IT CAUGHT A CLAIM ABOUT HIS PACKS THAT WAS FALSE. ***
 

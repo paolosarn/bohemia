@@ -1,0 +1,49 @@
+{
+ "density": {
+  "n": 784,
+  "w_median": 93.5,
+  "h_median": 91.0,
+  "w_min": 29,
+  "h_min": 36,
+  "ink_median": 4940.5,
+  "ink_min": 1068,
+  "fill_median": 74.29005456349206,
+  "under_40": 11
+ },
+ "palette": {
+  "colours_median": 3728.0,
+  "colours_min": 765,
+  "colours_max": 6406,
+  "top8_median": 7.272494526372137
+ },
+ "contour": {
+  "n": 784,
+  "edge_minus_inside_median": -49.87099838256836,
+  "darker_at_edge_share": 100.0
+ },
+ "read_band": {
+  "body_median_value": 50.09175109863281,
+  "body_value_steps_median": 16.0,
+  "contour_share_of_object": 5.7034386043430105
+ },
+ "clear": {
+  "per_ground": {
+   "void": 39.5005041164255,
+   "fabric": 70.24958904984068,
+   "desert": 79.4200903307202,
+   "mountain": 43.845966916284155,
+   "town": 64.88897798997363
+  },
+  "worst_ground_median": 39.5005041164255,
+  "worst_ground": "void"
+ },
+ "light": {
+  "left_minus_right_median": 6.370067596435547,
+  "top_minus_bottom_median": 12.172771453857422,
+  "top_lit_share": 86.4795918367347
+ },
+ "cluster": {
+  "run_median": 1.871671146953405,
+  "steps": 16
+ }
+}
