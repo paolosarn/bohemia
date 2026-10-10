@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 """COOK FOUR [the settlement from the packs] -- rule 82a, rule 87 (Paolo 10/10).
-REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the twin is his approved pack
-(reference/art_bank/settlement and prop, rule 82a) and Pocket City 2's block stop in its zoom department; AH-01 (R4
-one light per scene, R7 lights trace to who is there) and AH-03; the revamp pass (records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md).
 
 The camp, the town and the fortress rebuilt OUT OF HIS APPROVED PACK TILES
 (banks/BOHEMIA_HD_TILE_REPO_part1-4 keyed by banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26:
