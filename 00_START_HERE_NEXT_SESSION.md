@@ -1,3 +1,9 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [mod checklist] SHIPPED as a page on the board (nothing in VOTE, rules 78, 88). Record
+records/BOHEMIA_MODS_A_MODDERS_SELF_CHECK_10_10_26.md; tool tools/bohemia_mods_check.js: one command, plain words, code + meaning + fix per
+skipped part, never refuses. The reference merge now tags each warn/bad with its code M01-M20 (a third value), so no guessing from words;
+the error-message tool checks the tag. Proof 27 of 27. MODDING.md points at the new command. NEXT OPEN: [sharing a mod], [grok sources]; a
+third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
 CHARACTER (character-0lurbs): 10/10 (g) LATEST -- *** MY OWN CHECKER FOR KEEPING A
 PERSON ONE SIZE WHILE HE WALKS WAS BROKEN, AND IT WAS NOT THE BODY. IT WAS ASKING
 ABOUT A STREET NOBODY WAS STANDING ON. ***
