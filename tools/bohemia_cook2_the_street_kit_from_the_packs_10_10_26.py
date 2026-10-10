@@ -33,6 +33,12 @@ def dec(b): return Image.open(io.BytesIO(base64.b64decode(b.split(',')[-1]))).co
 P = {k: [dec(b) for b in pools[k]] for k in ('street', 'side', 'cross', 'lane_div')}
 marks = json.load(open(os.path.join(R, 'banks/BOHEMIA_MARKING_BANK_7_17_26.txt')))['classes']
 MK = {k: [dec(b) for b in marks[k]] for k in ('arrow_thru_h', 'arrow_thru_v')}
+# DIRECTION 10/10 (rule 87 pass, round 2): 'weeds in the seams only, thin and few'. His sidewalk pool has a weed
+# in 20 of 36 tiles (green px >= 7, measured); a weedy tile is now picked one time in twenty
+def _green(im):
+    a = np.asarray(im).astype(int); return int(((a[..., 1] >= a[..., 0]) & (a[..., 1] > a[..., 2] + 25)).sum())
+SIDE_CLEAN = [i for i, t in enumerate(P['side']) if _green(t) < 7]
+SIDE_WEED = [i for i, t in enumerate(P['side']) if _green(t) >= 7]
 FLIPS = [None, Image.FLIP_LEFT_RIGHT, Image.FLIP_TOP_BOTTOM, Image.ROTATE_180]
 
 def stamp_field(pool, seed, w=TW, h=TH):
@@ -44,7 +50,9 @@ def stamp_field(pool, seed, w=TW, h=TH):
     # finds no column to follow
     for r, y in enumerate(range(0, h, sh)):
         for x in range(-(sw // 2) * (r % 2), w, sw):
-            i = rng.randrange(len(P[pool])); f = rng.choice(FLIPS)
+            if pool == 'side': i = rng.choice(SIDE_WEED if rng.random() < 0.05 else SIDE_CLEAN)
+            else: i = rng.randrange(len(P[pool]))
+            f = rng.choice(FLIPS)
             used.append([pool, i])
             t = P[pool][i] if f is None else P[pool][i].transpose(f)
             img.paste(t.resize((sw, sh), Image.NEAREST), (x, y))
@@ -57,6 +65,7 @@ PAINT = paint_colour()
 side_px = np.asarray(P['side'][0]).reshape(-1, 3)
 KERB = tuple(side_px[side_px.sum(1).argsort()[-len(side_px) // 10:]].mean(0).astype(int))
 SHADE = tuple(int(c * 0.45) for c in KERB)
+LIT = tuple(min(255, int(c * 1.22)) for c in KERB)     # DIRECTION: 'the kerb, a lit edge and a 1-2 px shadow'
 
 def washed(img, box, col, a=0.55):
     x0, y0, x1, y1 = [int(v) for v in box]
@@ -82,11 +91,28 @@ def walk_band(img, side, seed, keys):
     box = tuple(int(v) for v in box)
     img.paste(band.crop(box), box[:2])
     x0, y0, x1, y1 = box
-    # the kerb lip: a lit edge where the walk meets the road and, south faces seen, the kerb's face below it
-    if side == 'N': img.paste(KERB, (0, y1 - 3, TW, y1)); img.paste(SHADE, (0, y1, TW, y1 + 4))
-    if side == 'S': img.paste(KERB, (0, y0, TW, y0 + 3))
-    if side == 'W': img.paste(KERB, (x1 - 3, 0, x1, TH)); img.paste(SHADE, (x1, 0, x1 + 3, TH))
-    if side == 'E': img.paste(KERB, (x0, 0, x0 + 3, TH)); img.paste(SHADE, (x0 - 3, 0, x0, TH))
+    # the kerb (DIRECTION's pass): a 1 px lit edge on the walk's lip, 2 px of kerb, and where the kerb's face is
+    # seen (the 45 degree view sees south faces) a 2 px shadow on the road
+    if side == 'N': img.paste(LIT, (0, y1 - 3, TW, y1 - 2)); img.paste(KERB, (0, y1 - 2, TW, y1)); img.paste(SHADE, (0, y1, TW, y1 + 2))
+    if side == 'S': img.paste(LIT, (0, y0, TW, y0 + 1)); img.paste(KERB, (0, y0 + 1, TW, y0 + 3))
+    if side == 'W': img.paste(LIT, (x1 - 3, 0, x1 - 2, TH)); img.paste(KERB, (x1 - 2, 0, x1, TH)); img.paste(SHADE, (x1, 0, x1 + 2, TH))
+    if side == 'E': img.paste(LIT, (x0 + 2, 0, x0 + 3, TH)); img.paste(KERB, (x0, 0, x0 + 2, TH)); img.paste(SHADE, (x0 - 2, 0, x0, TH))
+
+def corner_squares(img, seed, keys):
+    """the four-way with walks (COMBAT TWO asked: 'a four-way piece with walks'): a 1.5 m walk square in each
+       corner, the lit edge and shadow on its two road faces"""
+    band, used = stamp_field('side', seed); keys += used
+    wx, wy = int(WALK * PXM_X), int(WALK * PXM_Y)
+    for x0, y0 in ((0, 0), (TW - wx, 0), (0, TH - wy), (TW - wx, TH - wy)):
+        img.paste(band.crop((x0, y0, x0 + wx, y0 + wy)), (x0, y0))
+        top = y0 == 0; left = x0 == 0
+        ex = x0 + wx if left else x0                                   # the face toward the road, across
+        ey = y0 + wy if top else y0
+        if top: img.paste(LIT, (x0, ey - 3, x0 + wx, ey - 2)); img.paste(KERB, (x0, ey - 2, x0 + wx, ey)); img.paste(SHADE, (x0, ey, x0 + wx, ey + 2))
+        else: img.paste(LIT, (x0, ey, x0 + wx, ey + 1)); img.paste(KERB, (x0, ey + 1, x0 + wx, ey + 3))
+        ya, yb = (y0, ey) if top else (ey, y0 + wy)
+        if left: img.paste(KERB, (ex - 2, ya, ex, yb)); img.paste(SHADE, (ex, ya, ex + 2, yb))
+        else: img.paste(KERB, (ex, ya, ex + 2, yb)); img.paste(SHADE, (ex - 2, ya, ex, yb))
 
 def edges(walks, lines):
     e = {}
@@ -107,7 +133,7 @@ PIECES = {
   'road_ew_walk_n': ('N', 'ew', False), 'road_ew_walk_s': ('S', 'ew', False),
   'road_ns_walk_w': ('W', 'ns', False), 'road_ns_walk_e': ('E', 'ns', False),
   'road_ew_both': ('NS', 'ew', False), 'road_ns_both': ('WE', 'ns', False),
-  'junction': ('', None, False), 'crossing_ew': ('NS', None, 'ew'), 'crossing_ns': ('WE', None, 'ns'),
+  'junction': ('', None, False), 'junction_walks': ('', None, False), 'crossing_ew': ('NS', None, 'ew'), 'crossing_ns': ('WE', None, 'ns'),
   'corner_nw': ('NW', None, False), 'corner_ne': ('NE', None, False),
   'corner_sw': ('SW', None, False), 'corner_se': ('SE', None, False),
   'walk': ('NSEW', None, False),
@@ -157,13 +183,16 @@ def main():
             dashes(img, axis, M / 2); lines.append({'axis': axis, 'at_m': M / 2, 'kind': 'centre dash 3 m in 6 m'})
         if n != 'walk':
             for s in walks: walk_band(img, s, seed + ord(s), keys)
+        if n == 'junction_walks': corner_squares(img, seed + 99, keys)
         e = edges(walks if n != 'walk' else 'NSEW', lines)
+        if n == 'junction_walks':
+            e['edges'] = {sd: [['walk', 0, WALK], ['road', WALK, M - WALK], ['walk', M - WALK, M]] for sd in 'NSEW'}
         img.save(os.path.join(OUT, n + '.webp'), lossless=True)
         man['pieces'][n] = dict(src=n + '.webp', **e, keys=sorted({tuple(k) for k in keys}))
     json.dump(man, open(os.path.join(OUT, 'kit_street.json'), 'w'), indent=1, default=list)
     # a sample board, 4 x 3 house tiles: a street running east-west with a cross street and a crossing
     lay = [['walk', 'road_ns_arrow', 'walk', 'walk'],
-           ['road_ew_both', 'junction', 'crossing_ew', 'road_ew_arrow'],
+           ['road_ew_both', 'junction_walks', 'crossing_ew', 'road_ew_arrow'],
            ['walk', 'crossing_ns', 'walk', 'walk']]
     board = Image.new('RGB', (TW * 4, TH * 3))
     for r, row in enumerate(lay):

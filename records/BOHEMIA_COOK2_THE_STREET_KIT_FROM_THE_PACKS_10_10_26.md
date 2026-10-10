@@ -28,3 +28,9 @@
 - LEFT, NAMED: the darker apron right of the flat-roof building on block_main (x ~1950+, y ~900-1050) is a lot surface, not the street; it is [the freeway and the lot from the packs]'s.
 - Gates: COOK2 STREET KIT 294/0; pack gate passes this lane's tools and pictures (its two reds are COOK FOUR's and COMBAT TWO's, red on main before).
 - Row stays CLAIMED: its ship test needs DIRECTION's pass and COMBAT TWO's re-lay ([the boards from the packs] is now their top row and reads this kit).
+
+## Round five: DIRECTION's pass answered, and the four-way COMBAT TWO asked for
+- DIRECTION (rule 87 pass, round 2): THE ROAD PASSES, THE SHEET GOES BACK. (1) the same crossing before and after: done since round three, and now the AFTER is the LIVE fight block (COMBAT TWO laid the kit into it, 8c1ff70), the BEFORE that block at 8c1ff70~1, read from git; (2) the kerb: a 1 px lit edge (kerb x 1.22), 2 px of kerb, a 2 px shadow where its face is seen, on every walk band, corner and the onboard re-lay; (3) weeds thin and few: 20 of his 36 sidewalk tiles carry a weed (green px >= 7, measured); a weedy tile is now picked 1 time in 20.
+- junction_walks: the four-way with a 1.5 m walk square on each corner, each side typed walk/road/walk. 19 pieces; COOK2 STREET KIT 321/0.
+- kit_street/onboard/ is SUPERSEDED for the live fight: COMBAT TWO laid the kit pieces straight into the blocks, which is the right way round. onboard stays only as the reproducible rule-89 record.
+- FOR COMBAT TWO: re-run your lay to take the kerb, the thinner weeds and junction_walks (cornerw waits on it).

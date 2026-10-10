@@ -32,8 +32,14 @@ def roadish(a):
     w = a[..., 0] - a[..., 2]; l = a.sum(2)
     return (w <= 14) & (l > 20) & (l < 300)
 
+BEFORE_SHA = '8c1ff70~1'   # the last cut before COMBAT TWO laid the kit into the live blocks (8c1ff70)
+def old(name):
+    import subprocess, io
+    b = subprocess.run(['git', 'show', f'{BEFORE_SHA}:slices/fight_ground/{name}.webp'], cwd=R, capture_output=True, check=True).stdout
+    return Image.open(io.BytesIO(b)).convert('RGB')
+
 def recut(name):
-    im = Image.open(os.path.join(G, name + '.webp')).convert('RGB')
+    im = old(name)
     a = np.asarray(im).astype(int); H, W = a.shape[:2]
     rd = roadish(a)
     asph, k1 = K['stamp_field']('street', 7001, W, H)
@@ -59,7 +65,7 @@ def recut(name):
     for x in xs:
         out[T:B, x] = A[T:B, x]; n += B - T
         if oldwalk[x]: out[T - WALK_PX:T - 4, x] = Wk[T - WALK_PX:T - 4, x]
-        out[T - 4:T - 1, x] = K['KERB']; out[T - 1:T + 3, x] = K['SHADE']
+        out[T - 4:T - 3, x] = K['LIT']; out[T - 3:T - 1, x] = K['KERB']; out[T - 1:T + 1, x] = K['SHADE']
         if (x // dash) % 2 == 0:                                            # 3 m painted, 3 m worn
             out[c - 3:c + 3, x] = (out[c - 3:c + 3, x] * 0.3 + np.array(K['PAINT']) * 0.7).astype(np.uint8)
     # round four: the street is not only the band. Where it widens (the apron beside the flat roof, the cross
@@ -95,17 +101,18 @@ def main():
         if name == 'block_main_1':
             box = (1300, 560, 1885, 1100)                                  # 585 x 540: one art px = one phone px
             sheet = Image.new('RGB', (1170 + 10, 540 + 40), (14, 14, 14))
-            sheet.paste(before.crop(box), (0, 40)); sheet.paste(after.crop(box), (595, 40))
+            live = Image.open(os.path.join(G, name + '.webp')).convert('RGB')    # COMBAT TWO's live block, laid from this kit
+            sheet.paste(before.crop(box), (0, 40)); sheet.paste(live.crop(box), (595, 40))
             d = ImageDraw.Draw(sheet)
             d.text((8, 12), 'BEFORE  the fight street now', fill=(235, 235, 235))
-            d.text((603, 12), 'AFTER  the same street, his tiles', fill=(235, 235, 235))
+            d.text((603, 12), 'AFTER  the same street in the fight now, his tiles', fill=(235, 235, 235))
         # THE FUTURES (round four): raided and reclaimed are the same street with things laid on it. Every pixel
         # a future changed from the present stays the future's (its rubble, its soot, its new paint); every
         # pixel it left alone takes the re-laid present. So the futures wear his street under their own story.
         b0 = np.asarray(before).astype(int); a1 = np.asarray(after)
         for fut in ('raided', 'reclaimed'):
             fn = name + '_' + fut
-            f = np.asarray(Image.open(os.path.join(G, fn + '.webp')).convert('RGB'))
+            f = np.asarray(old(fn))
             same = (np.abs(f.astype(int) - b0).sum(2) <= 6)
             o = np.where(same[..., None], a1, f).astype(np.uint8)
             Image.fromarray(o).save(os.path.join(OUT, fn + '.webp'), lossless=True)

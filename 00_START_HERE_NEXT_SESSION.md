@@ -135158,7 +135158,7 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 
 
 ## COOK TWO (cook 2, the ground) -- 10/10 cook2-b27d
-[the street kit from the packs] CLAIMED, four rounds: 18 kit pieces (kit_street/, gate COOK2 STREET KIT 294/0); his street laid into all six main blocks incl. raided and reclaimed (kit_street/onboard/, onboard.json); rule-89 picture slices/vote/COOK2_THE_STREET_BEFORE_AFTER.png. Waiting on DIRECTION's pass and COMBAT TWO's [the boards from the packs] re-lay to mark SHIPPED. Next round if still waiting: [the cars and the props from the packs] (jump list). Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
+[the street kit from the packs] CLAIMED, five rounds. DIRECTION passed the road and sent the sheet back with three fixes; all three done (same street before/after = old block vs COMBAT TWO's LIVE block; kerb lit edge + 2 px shadow; weeds 1 in 20). junction_walks added for COMBAT TWO's cornerw. 19 pieces, gate 321/0. Waiting: COMBAT TWO re-lays, DIRECTION re-looks, then VOTE and SHIPPED. Next round: [the cars and the props from the packs]. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
 ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; ROUND 2 DONE (thug padded 606 px, raider mail shirt 1194 px, leader gold plate). NEXT round 3: the five armour states on the marauder; the sheet's white backdrop.
