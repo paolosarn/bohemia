@@ -4296,7 +4296,7 @@ GATES = [
     ('TALLER BREAKS',  ['node', 'gates/only_taller_breaks_gate.js'],
      'belly and arms stay lossless whole-row translations; the tall-body invention count stays pinned and recorded', False),
     ('REPLY CONTRACT', ['node', 'gates/reply_contract_gate.js'],
-     'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order', False),
+     'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order; the reply checker holds 150 words and the last five lines (rule 90), proved both ways', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
      'the limb separation line runs ON TOP of the clothing (under it the clothing erases it), legs included, and never invents a colour', False),
     ('RIG NO-DRIFT', ['python3', 'gates/rig_no_drift_gate.py'],
