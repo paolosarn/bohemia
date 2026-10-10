@@ -7081,6 +7081,19 @@
     "how": "text",
     "src": "records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt; a screenshot sits at slices/vote/CHARACTER_WILDLIFE_RIG.png and the page that frames it at slices/vote/CHARACTER_WILDLIFE_RIG.html, neither is an art sheet under rule 82 (zero new pixels, the coyote bank is untouched) and wildlife is not one of rule 82's named families, so no reference twin was invented.\n\nSeen in: the record and the two files above; no tab yet, this is a rendering mechanism, not a look."
    }
+  },
+  {
+   "id": "lifecity-take-the-next-part-10-10",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "880be93a",
+   "made": "10/10",
+   "title": "TAKE THE NEXT PART",
+   "why": "At a place you do not hold, BUILD now offers Take it: one fight at their gate, and if you win the place is yours and you can build there. You see it in the place's own screen, then the fight, then the build list.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_TAKE_THE_NEXT_PART_10_10.png"
+   }
   }
  ],
  "verdicts": [
