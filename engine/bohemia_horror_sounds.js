@@ -1848,6 +1848,40 @@
     };
   }
 
+  /* ==== 13b5. THE BLOCK (row [not sand], the keep/redo list's own last eight) ===========
+     records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b: block is one of the 21 hard-contact
+     ids measured with no real top end (0.289% of its energy above 4 kHz against the row's
+     own 1% bar -- "a boot on concrete, brass on a floor... the contact is a step change in
+     air pressure, and a step change is broadband by definition"). A BLOCK IS TWO HARD
+     THINGS TOUCHING, THE SAME DEFINITION THE ROW ALREADY WROTE: a blade's edge glancing off
+     a shield's rim or a haft, which is wood (the shield's core, or a spear's shaft) AND
+     metal (the rim binding or the blade) in the same contact, at once -- canOnWood's own
+     construction, a third time: objectSetDown (REUSED whole, zero new ground math) summed
+     with struckMetal's existing 'pipe' mode (REUSED whole, zero new table entry; this is
+     the only one of the three sounds built this way that needed no new material at all).
+     SHORTER THAN A HELD STRIKE ON PURPOSE: a glancing parry does not pin the blade the way
+     a smith's hammer pins an anvil, so most of the energy carries on into the follow-through
+     rather than ringing in place -- the same real cause smithHammer already argues for an
+     anvil's own stump, run the other way. */
+  function weaponBlock(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var edge = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 1700 : opts.f0,
+      secs: opts.edgeSecs == null ? 0.15 : opts.edgeSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), ed = edge.buffer.getChannelData(0);
+    var n = Math.max(wd.length, ed.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.6 + (i < ed.length ? ed[i] : 0) * 0.65;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, edgeF0: edge.f0,
+      why: 'a blade\'s edge glancing off a shield\'s wood-and-metal rim: the same contact '
+        + 'canOnWood already sums two ways at once, a wood landing (objectSetDown on boards) '
+        + 'with the blade\'s own pipe mode, held for a fraction of boardNail\'s already-brief tack'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2482,6 +2516,7 @@
     smithHammer: smithHammer,
     armourerRivets: armourerRivets,
     barGlassDown: barGlassDown,
+    weaponBlock: weaponBlock,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2668,7 +2703,11 @@
            "the bar's murmur and glass" stays the standing no-faked-voice gap; the glass
            half has no voice in it and builds. */
         { id: 'sounds-the-bars-glass-10-10', make: 'barGlassDown',
-          title: "THE BAR'S GLASS" }
+          title: "THE BAR'S GLASS" },
+        /* THE BLOCK (row [not sand], the keep/redo list's last eight): a parry is two
+           hard things touching, which the redo list's own definition already covers. */
+        { id: 'sounds-a-block-is-two-things-touching-10-10', make: 'weaponBlock',
+          title: "A BLOCK IS TWO THINGS TOUCHING" }
       ];
     }
   };

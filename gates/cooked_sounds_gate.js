@@ -866,6 +866,17 @@ const MEASURE = `
     } catch (e) { out.barGlassDownErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE BLOCK (row [not sand], the keep/redo list's last eight, 10/10). canOnWood's own
+     construction a third time: a parry is two hard things touching, the same definition
+     the redo list's own criterion already names. */
+  (function () {
+    try {
+      const wb = H.weaponBlock(ctx, {});
+      out.weaponBlock = { woodSurface: wb.woodSurface, edgeF0: wb.edgeF0, seconds: wb.seconds,
+        machineIsEar: !!wb.machine && wb.machine.hi === null };
+    } catch (e) { out.weaponBlockErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1322,6 +1333,9 @@ const MEASURE = `
            struckMetal both by closure. */
         H.barGlassDown = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
           woodSurface: 'mutated', glassF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND THE BLOCK (10/10): the same trap a fourth time. */
+        H.weaponBlock = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', edgeF0: 0, seconds: 0, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -2154,6 +2168,24 @@ const MEASURE = `
         + BG.glassF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
         + 'second real material');
     } else { claim('The bar\'s glass was measured', false, d.barGlassDownErr || 'no reading'); }
+    if (d.weaponBlock) {
+      const WB = d.weaponBlock;
+      claim('A BLOCK IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE BLADE\'S OWN PIPE MODE',
+        WB.woodSurface === 'boards' && WB.edgeF0 === 1700 && WB.machineIsEar && WB.seconds > 0,
+        'objectSetDown on ' + WB.woodSurface + ' summed with struckMetal\'s pipe mode at '
+        + WB.edgeF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'third time, and the only one of the three that needed no new table entry at all');
+      /* THE REDO LIST'S OWN BAR, READ OFF THE SAME GENERIC ROW EVERY OTHER COOKED SOUND
+         GETS (the for-of loop over H.list() above, which calls measure() on every recipe):
+         1% of its energy above 4 kHz, the criterion records/BOHEMIA_THE_KEEP_REDO_LIST_
+         9_24_26.md 3 sets for "two hard things touching," grounded two orders of magnitude
+         over the shelf's 0.273% median and clear of the frozen block id's own 0.289%. */
+      const BR = d.rows && d.rows['sounds-a-block-is-two-things-touching-10-10'];
+      claim('AND THE BLOCK CLEARS THE REDO LIST\'S OWN BAR, WHICH THE FROZEN ID NEVER DID',
+        !!BR && BR.above4k > 0.01,
+        BR ? (100*BR.above4k).toFixed(2) + '% of its energy sits above 4 kHz, against the '
+          + 'redo list\'s own 1% bar and the frozen block id\'s measured 0.289%' : 'no row');
+    } else { claim('The block was measured', false, d.weaponBlockErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

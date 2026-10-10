@@ -1,3 +1,19 @@
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round ten, [not sand] round eight) -- ***
+A SWORD BLOCKING A HIT NOW SOUNDS LIKE SOMETHING REAL, NOT A DULL THUD. ***
+TAB: VOTE, one item, A BLOCK IS TWO THINGS TOUCHING.
+Record: records/BOHEMIA_A_BLOCK_IS_TWO_THINGS_TOUCHING_10_10_26.md.
+
+Found one more sound on my own old "needs real material" list and fixed it: blocking
+a hit used to sound flat and dull, missing the bright crack a real parry has. Built
+it from a blade's edge glancing off a shield's wood-and-metal rim, real wood and real
+metal sounds I already had, just put together a new way.
+
+Checked it against the exact rule that flagged it broken: it needed at least 1% of
+its sound to be bright, high-pitched content. The new one measures 28%, way past that
+bar.
+NEXT: seven more sounds on this same old list still need real material (a weapon
+landing on a person, a gunshot's extra layer, a door, and others). Everything already
+
 QUESTS (quests-dvybth): 10/10 LATEST -- [lines 31 and 32] SHIPPED: QR-AM, 200/210 pass as written, 10 fixed; all designs now checked against 32 lines. NOT IN A TAB. Next: [eighth shelf].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [base changes] SHIPPED as a research page. TAB: VOTE, item WHEN THE DATA CHANGES (a
