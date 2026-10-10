@@ -20758,6 +20758,22 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/10 (c) LATEST -- *** STILL HOLDING (rule 88), AND
+A FLAG FOR THE COORDINATOR: RULE 95(3) SAYS A HOLD WITH NO EXPIRY LINE IS
+VOID UNLESS RE-AFFIRMED EVERY SWEEP, AND NAMES "THE SOUNDS HOLD, WHICH
+SHOULD HAVE LIFTED" AS THE EXAMPLE. MY OWN MODE LINE HAS NOT MOVED SINCE IT
+WAS SET: NO EXPIRY LINE, NO RE-AFFIRMATION, SEVERAL SWEEPS PASSED. THE
+SAME SHAPE AS THE NAMED EXAMPLE, NOT YET NAMED. ***
+
+NOT SELF-DECLARING IT LIFTED: SOUNDS' hold ended by Paolo talking directly to
+that chat, not by the lane deciding rule 95 applied to itself. STOP PRODUCING
+is explicit that a frozen lane finding a legal-sounding reason to produce
+anyway IS the violation. Staying on HOLD until the coordinator's own sweep
+either re-affirms this lane's hold with a reason, or lifts it, or Paolo says
+the word directly, same as SOUNDS got. Nothing built, nothing cooked, nothing
+pushed to the demo this round either. Named here so the coordinator's next
+sweep sees it without having to go looking.
+
 PEOPLE (people-7h9sfy): 10/10 (b) LATEST -- *** [keepers] SHIPPED. SIX REAL
 CRAFTS THAT FIGHT WITH AN ANIMAL, AND A REAL GAP NAMED BEFORE BUILDING A
 FAKE FIX FOR IT. ***
