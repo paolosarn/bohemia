@@ -575,7 +575,7 @@ var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:
 var ARMSBOX = {camp:{arms:[86,130,300,250], bar:[1290,120,1420,260]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092], bar:[40,944,490,1092]},
                fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470], bar:[1880,820,2010,1030]}};
 var LOTBOX = {camp:[1290,680,1570,800], town:[520,900,1050,1092], fortress:[1330,700,1480,830]};
-var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, lit:null, night:false}, t0 = performance.now();
+var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, cy:null, lit:null, night:false}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
 fetch('settlement_ground/settlement_ground.json').then(function(r){ return r.json(); }).then(function(j){ GROUND = j; pickVariant(); }).catch(function(){});
 function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
@@ -612,14 +612,23 @@ function layout(){
   /* you see the PLACE, not one roof: an upright phone shows about 60 percent of the picture's
      width at once and drags for the rest; a wide screen fits all of it */
   view.s = Math.min(Math.max(W/(picW()*0.6), H*0.5/picH()), H/picH());
-  if(W/picW() > view.s) view.s = Math.min(W/picW(), H/picH());
-  view.oy = Math.round((H - picH()*view.s)/2);
+  /* RUN TWO [the sideways band], 10/10 (UI's review, his NO on 'the brown-grey sides'): a glass wider than the
+     picture FILLS THE WIDTH and crops top and bottom (Battle Brothers' town screen fills its glass at any width);
+     a drag then also moves up and down, so no building is ever out of reach */
+  if(W/picW() > view.s) view.s = W/picW();
+  panY(view.cy == null ? picH()/2 : view.cy);
   pan(view.cx == null ? picW()/2 : view.cx);
 }
 function pan(cxPic){
   var half = view.W/2/view.s;
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
   view.cx = cxPic; view.ox = Math.round(view.W/2 - cxPic*view.s);
+}
+function panY(cyPic){
+  if(picH()*view.s <= view.H){ view.cy = picH()/2; view.oy = Math.round((view.H - picH()*view.s)/2); return; }
+  var half = view.H/2/view.s;
+  cyPic = Math.max(half, Math.min(picH() - half, cyPic));
+  view.cy = cyPic; view.oy = Math.round(view.H/2 - cyPic*view.s);
 }
 /* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10): ANIMATION's idle people
    (slices/settlement_people, the 112 rig in the runway clothes, nine clips on the 120 beat) stand in
@@ -733,21 +742,21 @@ function hitAt(x, y){
 /* where a building can be tapped: it pans the picture to it and gives its middle (the driver uses it) */
 function where(k){
   if(!VAR || !VAR.boxes[k] || ORDER.indexOf(k) < 0) return null;
-  var b = tapBox(k); pan((b[0]+b[2])/2);
+  var b = tapBox(k); pan((b[0]+b[2])/2); panY((b[1]+b[3])/2);
   var r = document.getElementById('scene').getBoundingClientRect();
   var x = view.ox + (b[0]+b[2])/2*view.s, y = view.oy + (b[1]+b[3])/2*view.s;
   return {x: r.left + x, y: r.top + y, px: Math.round((b[2]-b[0])*view.s*(b[3]-b[1])*view.s)};
 }
 (function(){
-  var x0 = null, c0 = 0, moved = false;
+  var x0 = null, c0 = 0, y0 = 0, cy0 = 0, moved = false;
   cv.addEventListener('pointerdown', function(e){
-    x0 = e.clientX; c0 = view.cx; moved = false;
+    x0 = e.clientX; c0 = view.cx; y0 = e.clientY; cy0 = view.cy; moved = false;
     var r = cv.getBoundingClientRect(); view.lit = hitAt(e.clientX - r.left, e.clientY - r.top);
   });
   window.addEventListener('pointermove', function(e){
-    if(x0 === null) return; var d = e.clientX - x0;
-    if(Math.abs(d) > 8){ moved = true; view.lit = null; }
-    if(moved) pan(c0 - d/view.s);
+    if(x0 === null) return; var d = e.clientX - x0, dy = e.clientY - y0;
+    if(Math.abs(d) > 8 || Math.abs(dy) > 8){ moved = true; view.lit = null; }
+    if(moved){ pan(c0 - d/view.s); panY(cy0 - dy/view.s); }
   });
   window.addEventListener('pointerup', function(e){
     if(x0 === null) return; x0 = null; view.lit = null;
@@ -1038,7 +1047,7 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {_view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

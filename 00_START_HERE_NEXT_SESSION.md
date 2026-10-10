@@ -1,3 +1,76 @@
+CHARACTER (character-0lurbs): 10/10 (h) LATEST -- *** TWO CLAIMS HAD SAT FOR WEEKS
+WITH NOTHING SHIPPING ON THEM. WROTE DOWN WHY, HONESTLY, SO WHOEVER PICKS THEM
+BACK UP KNOWS THE REAL STORY. ***
+TAB: no tab, this round is board bookkeeping, nothing new to look at.
+Record: this VAMILY.md round text, rows [barber] and [runway redo].
+
+The coordinator already flagged two old claims and asked for either a real
+ship or an honest reason why not, this round. Checked both closely.
+
+THE BARBER: half of it already shipped and he already liked it (the real
+cost, the real editor opening). The other half, more hairstyles, needs new
+art, and new character art is on hold until the art team's reference lands.
+That is why it never fully closed, not because anybody dropped it.
+
+THE RUNWAY REDO: every small piece of it got done months ago and is written
+down. The one big piece left, a full redo of the thirteen gang looks, got
+picked up by a newer, more specific row waiting on the same art-team
+reference. So this claim is not abandoned, it just grew into that other row.
+
+Both other two things this lane is waiting on (the coyote's reference
+picture, the gang looks' reference picture) are still not ready; checked
+the folder myself, still empty where the real pictures should land.
+
+PENDING Paolo: nothing new.
+
+MODS (mods-59jyd6): 10/10 LATEST -- [sharing a mod] SHIPPED as a page on the board (nothing in VOTE). Record
+records/BOHEMIA_MODS_HOW_A_MOD_TRAVELS_10_10_26.md; tool tools/bohemia_mods_pack.js (pack/unpack a mod as ONE small JSON file,
+.bohemiamod.json). Measured: all 10 example mods round-trip to the same merge result, biggest pack 1,368 bytes; wrong file turned away in
+one plain sentence; a non-JSON patch file is left out and named. BB/other-game facts are from general knowledge, said so in the record. NEXT
+OPEN: [example for every kind], [read count four], [grok sources]. PENDING Paolo: nothing.
+
+WORLD (world-9lfjtf): 10/10 (g) LATEST -- *** STILL ON HOLD, FOURTH VAMILY WITH
+NO ROUND, AND THIS ROUND FOUND A RULE CONFLICT THAT DELETES THIS LANE'S ROWS
+WHILE IT IS FORBIDDEN TO STOP IT. *** Four rows still OPEN, nothing claimed.
+
+[FOR THE COORDINATOR, AND IT IS THE ONLY THING IN THIS BLOCK THAT MATTERS]
+RULE 88 FORBIDS A HELD LANE FROM CLAIMING. RULE 96 DELETES A ROW FOR BEING
+UNCLAIMED. Rule 96's own words: "a ROW open and unclaimed for 10 sweeps is
+marked STALE, 14 and it moves to records/BOHEMIA_EVAPORATED_ROWS.md as one line
+(a CLAIMED row keeps rule 95's turn)". Claiming is the only thing that stops that
+clock, and claiming is exactly what rule 88 took away from SOUNDS, WORDS, PEOPLE,
+FACTIONS, ECONOMY, DYNASTY, WORLD, LIFE+CITY, ANIMATION and COMBAT's mechanics.
+So ten held lanes' rows are walking to deletion and none of those lanes is
+allowed to touch them.
+
+AND A CITE DOES NOT SAVE A ROW. Rule 96 defines a cite as a lane's commit naming
+the mark, and that renews a RULE; the ROW clause is written on claimed-ness, not
+on cites. So these hold commits, which name all four labels, renew nothing on a
+literal reading. If cites were meant to hold rows open too, the clause needs to
+say so.
+
+MEASURED, NOT ASSERTED: the board's newest named sweep is AF. [the roll] has been
+OPEN and unclaimed since 9/29 (442a4ebe) and [the three sizes of place] since
+10/9 (07129f8d). The exact sweep count is the coordinator's ledger to read, not
+mine; the point is the structure, not the number.
+
+IT IS NOT MINE TO FIX. Rule 10: only the coordinator changes a row, and rule 96
+is the coordinator's rule. Flagged, not touched.
+
+THE REST IS UNCHANGED. Rule 88 still names WORLD on the ON HOLD list: no round,
+no VOTE sheet, nothing into the demo, the only exception a first-minute bug or a
+crash. Rules 90 to 99 are the coordinator's school; 91, 97 and 98 bind a lane AT
+THE MOMENT IT CLAIMS, so the first thing this lane owes when the hold lifts is a
+READBACK line in its own words, thirty words or fewer, in the claim commit.
+Nothing of mine is loaded by the alpha or the demo (re-checked 10/10 (f) after
+RUN's re-cut), so the exception still does not apply.
+
+The four rows and the standing findings are in the 10/10 (f), (e) and (d) blocks
+below, unedited.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
 TUNING (tuning-f59l1w): 10/10 (n) LATEST -- [origin renown and relations] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT EACH ORIGIN STARTS KNOWN FOR (draft:true).
 RECORD: records/BOHEMIA_TUNING_ORIGIN_RENOWN_AND_RELATIONS_ORIGINS_JSON_HAS_NONE_OF_THEM_10_10_26.md (+ table JSON, all 15 cited to their pages)
@@ -19848,6 +19921,9 @@ building this. Vertical breath in hipOff lifts the feet; lateral weight moves th
 above 0.40, which is the maximum legal lateral hip; and legCompress does the
 OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
+
+=== COOK FOUR: THE HOUSE SKINS ON THE MAP, round 1 (10/10, cook4)
+[the settlement from the packs] SHIPPED 0f659c5 (in VOTE, RUN TWO swaps slices/settlement_ground_packs/ in on his UP). [the house skins back on the map] CLAIMED, round 1 in: the suburb and town heroes rebuilt from the thirty skins by tools/bohemia_cook4_map_houses.py into slices/cook4_map_houses/ (drop-in, same canvas, anchors unchanged), at DIRECTION with slices/vote/COOK4_THE_HOUSE_SKINS_ON_THE_MAP_TWIN.png; TAKER RUN. NEXT: props (cars, carports, palms), an open lot in the town, the trailer hero. ROUND 2 IN: props, the open lot and the trailer hero done; three heroes ready for RUN on DIRECTION's pass. NEXT: on the pass, VOTE; then [the place sits in the map].
 
 === COOK FOUR: THE SETTLEMENT FROM THE PACKS, round 1 (10/10, cook4)
 [the settlement from the packs] CLAIMED, round 1 in, NOT LIVE. The twelve settlement sheets (camp, town, fortress x2, day+night) rebuilt from 167 of his approved pack tiles by tools/bohemia_cook4_settlement_from_packs.py (refuses any tile not UP in the 7/13 confirmed set); hotspots copied to the pixel; output slices/settlement_ground_packs/. AT DIRECTION (rule 87) with slices/vote/COOK4_THE_SETTLEMENT_FROM_THE_PACKS_TWIN.webp; not in VOTE until passed. NEXT ROUND: the whole-cottage roof tiles and the thirty house skins instead of flat facade strips, gaps and a broken house in the town row, lamp cones that fall forward. Record records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md. TAKER when passed: RUN TWO (swap the folder). ROUND 2 IN: Vegas stucco town from the house skins + pack roofs/doors/windows, alleys, a fallen house, forward lamp light, REFERENCE CHECK closed. NEXT: the camp ground grid, the fortress side walls. ROUND 3 IN: DIRECTION's three notes done, registered in VOTE (cook4-the-settlement-from-the-packs-10-10). NEXT: on his UP, RUN TWO swaps the folder in; then [the place sits in the map]. Pages gate's 260 MB cap is red at 492 MB before this round (+7.6 MB here): PLUMBER's.
@@ -135371,7 +135447,8 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 [the street kit from the packs] CLAIMED, six rounds. DIRECTION: rounds 3-5 PASS to VOTE (COMBAT TWO's item carries it). Its three notes answered: weeds grey-green and halved; road_ew_median (his median) for the flat tan bar; walk_wallfoot for the flat slab under houses. FOR COMBAT TWO: re-lay to pick up the kerb, weeds, junction_walks, and place road_ew_median and walk_wallfoot. 21 pieces, gate 379/0. Next: [the cars and the props from the packs]. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
-ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; ROUND 2 DONE (thug padded 606 px, raider mail shirt 1194 px, leader gold plate). ROUND 3 answered DIRECTION's BACK (marksman teal, leader seams and belly, mail rows); back with DIRECTION. THIRTEEN round 4 answered DIRECTION's BACK (one accent: Colorful and Network; folds not speckle). NEXT: the five armour states; the sheet's white backdrop.
+ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; ROUND 2 DONE (thug padded 606 px, raider mail shirt 1194 px, leader gold plate). ROUND 3 answered DIRECTION's BACK (marksman teal, leader seams and belly, mail rows); back with DIRECTION. THIRTEEN round 4 answered DIRECTION's BACK (one accent: Colorful and Network; folds not speckle). ROUND 4 of the tiers: the five armour states painted (bare, padded, leather, mail, plate) on one man. NEXT: mail vs plate value at 28 px; DIRECTION's verdict on both rows; the sheet's white backdrop. Plate ticket OUT written.
 CLAIMED [the thirteen repainted]. Round 1 done, NOT shipped: a before/after sheet of the thirteen with a runway paint layer (engine/bohemia_cook3_runway_paint.json, tools/bohemia_cook3_the_thirteen_repainted.js, records/cook3/thirteen_repainted.png, record records/BOHEMIA_COOK3_THE_THIRTEEN_REPAINTED_ROUND1_10_10_26.md). Alpha untouched. ROUND 2 DONE: the accent follows the real garment (solo draw mask), no waist split, no CHARACTER change needed. ROUND 3 DONE: Mob .354, Homeless .058, Remnants .206 (per-faction rules in the paint file). WAITING: DIRECTION judges records/cook3/thirteen_repainted.png against the runway twin; on pass, CHARACTER hooks the draw to the paint file and faction_colour_gate runs live; DIRECTION judges, then VOTE. Not in a tab yet.
 - RUN TWO 10/10 [the roster shows the hurt] SHIPPED: laid-up men leave the line with their days, mark and clinic price; the roster heals on BOHEMIA_DAY. RUN: post BOHEMIA_DAY from the clock. Next: [the arrival] ([the twin on the settlement] waits on DIRECTION's twin sheet). TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) is my next fix.
 - RUN TWO 10/10: ON HOLD under rule 88 (LOOKS FIRST, FEATURES HOLD; RUN TWO is not on the running list). Nothing built this round. [the twin on the settlement] is the one row that fits the look program and it waits on DIRECTION's twin sheet; I pick it up the round that sheet lands. TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) waits with the hold.
+- RUN TWO 10/10 [the sideways band] SHIPPED: the settlement fills the glass on its side (no brown-grey bands). Before/after for DIRECTION/EYES: slices/vote/RUN2_THE_SIDEWAYS_BAND_10_10.png (not registered, rules 88-89). Next: [one painted place] from COOK FOUR's pack settlement.

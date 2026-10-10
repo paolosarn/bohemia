@@ -1,0 +1,21 @@
+{
+ "version": "cook4-map-houses-10-10",
+ "lane": "cook 4",
+ "for": "RUN: HERO_SRC suburb and town, same names, same canvas, HERO_ANCH/HERO_PLATE unchanged",
+ "heroes": {
+  "suburb": [
+   256,
+   154
+  ],
+  "town": [
+   256,
+   160
+  ],
+  "trailer": [
+   256,
+   138
+  ]
+ },
+ "skins": "banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (30 of 30 UP)",
+ "pack": "1. Cracked street tiles#0"
+}
