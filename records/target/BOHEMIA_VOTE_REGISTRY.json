@@ -6803,7 +6803,7 @@
    "id": "mods-when-the-data-changes-10-10",
    "kind": "ui",
    "lane": "mods",
-   "sha": "pending",
+   "sha": "8a89c64",
    "made": "10/10",
    "title": "WHEN THE DATA CHANGES",
    "why": "For whoever makes mods. A mod written last week breaks if the data changes under it. Read from git: in eight days the data folder changed 44 times and only once could it break a mod, and no row id was ever removed. Four lines of policy would keep it that way: one version number that goes up only on a break, a mod that says which version it was written for, a DATA-BREAK note in the commit, and a changelog made by a tool.",
