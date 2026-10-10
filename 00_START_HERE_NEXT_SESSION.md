@@ -1,3 +1,8 @@
+TUNING (tuning-f59l1w): 10/10 (k) LATEST -- [origins difficulty] SHIPPED (research, no code touched).
+TAB: VOTE, item DOES THE MONEY MATCH THE LABEL (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGINS_DIFFICULTY_THE_LABELS_ARE_THE_WIKIS_THE_MONEY_DOES_NOT_FOLLOW_THEM_10_10_26.md
+FINDING: Easy/Medium/Hard is the wiki's own label (no formula). Crowns per man overlaps across labels; hard origins are hard by RULE (wolf, pit, debt), which a dial cannot scale. Next row added: [start power].
+
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
 MODS (mods-59jyd6): 10/10 LATEST -- [modding readme] SHIPPED as a page on the board (rules 78, 88: nothing in VOTE). MODDING.md at the repo

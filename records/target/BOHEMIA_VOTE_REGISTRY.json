@@ -6987,6 +6987,20 @@
    }
   },
   {
+   "id": "tuning-does-the-money-match-the-label-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "1ad11c09",
+   "made": "10/10",
+   "draft": true,
+   "title": "DOES THE MONEY MATCH THE LABEL",
+   "why": "Each of the fifteen starting stories is labelled Easy, Medium or Hard. In the VOTE tab you see the starting money per man for each one. The hard ones are not the poor ones; they are hard because of a rule, like losing if one man dies.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_DOES_THE_MONEY_MATCH_THE_LABEL_10_10_26.html"
+   }
+  },
+  {
    "id": "mods-patch-inside-a-list-10-10",
    "kind": "ui",
    "lane": "mods",
