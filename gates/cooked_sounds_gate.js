@@ -314,6 +314,7 @@ const MEASURE = `
         bell: look(H.struckMetal(ctx, { what: 'bell' })),
         cracked: look(H.struckMetal(ctx, { what: 'cracked' })),
         pipe: look(H.struckMetal(ctx, { what: 'pipe' })),
+        glass: look(H.struckMetal(ctx, { what: 'glass' })),
         noiseInSource: H.struckMetal.toString().indexOf('noiseInto') >= 0
       };
     } catch (e) { out.strikeErr = String(e && e.message).slice(0,120); }
@@ -854,6 +855,17 @@ const MEASURE = `
     } catch (e) { out.armourerRivetsErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE BAR'S GLASS (row [the soundscape], 10/10). canOnWood's own construction, a
+     contact landing summed with a material's own ring, done a second time for a glass
+     set down on the bar's counter instead of a can on the stall's. */
+  (function () {
+    try {
+      const bg = H.barGlassDown(ctx, {});
+      out.barGlassDown = { woodSurface: bg.woodSurface, glassF0: bg.glassF0, seconds: bg.seconds,
+        machineIsEar: !!bg.machine && bg.machine.hi === null };
+    } catch (e) { out.barGlassDownErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1306,6 +1318,10 @@ const MEASURE = `
           what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
         H.armourerRivets = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
           what: 'mutated', f0: 0, strikes: 0, seconds: 1, machine: { hi: 5000 } });
+        /* AND THE BAR'S GLASS (10/10): the same trap a third time, objectSetDown and
+           struckMetal both by closure. */
+        H.barGlassDown = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', glassF0: 0, seconds: 0, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -1579,10 +1595,10 @@ const MEASURE = `
 
     /* ---- WHAT THIS VALLEY STRIKES ON THE HOUR (9/24) ------------------------ */
     if (d.strike) {
-      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe;
-      claim('THERE IS NO NOISE IN ANY OF THE THREE STRIKES, read off the shipped function',
+      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe, G = d.strike.glass;
+      claim('THERE IS NO NOISE IN ANY OF THE FOUR STRIKES, read off the shipped function',
         d.strike.noiseInSource === false
-          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0,
+          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0 && G.noiseSources === 0,
         'rule 32e: new sounds from real material. A struck metal object is a set of MODES, '
         + 'so there is nothing here for a noise generator to do, and the check is on the '
         + 'code rather than on a spectrum because that is a fact about how it was built');
@@ -1635,9 +1651,37 @@ const MEASURE = `
         + B.stepP999.toFixed(4) + ', ' + C.stepP999.toFixed(4) + ', ' + P.stepP999.toFixed(4)
         + '. The first cut chopped the bell mid-ring with 0.21 rms still going');
       claim('AND NONE OF THEM CLIPS (school rule 8)',
-        B.peak <= 1 && C.peak <= 1 && P.peak <= 1,
+        B.peak <= 1 && C.peak <= 1 && P.peak <= 1 && G.peak <= 1,
         'peaks ' + B.peak.toFixed(4) + ', ' + C.peak.toFixed(4) + ', ' + P.peak.toFixed(4)
-        + ', through a tanh rather than a ceiling');
+        + ', ' + G.peak.toFixed(4) + ', through a tanh rather than a ceiling');
+      /* THE BAR'S GLASS (10/10): a drinking glass's own real character, against the same
+         test that caught the bare-sine false positive on this table once already (a claim
+         that only asks "loud enough" cannot tell a chord from a tone, so the count itself
+         is the claim, exactly as it is for the bell and the pipe above). */
+      claim('AND THE GLASS IS THE ONE ENTRY WITH A SINGLE PARTIAL, which is its own real character',
+        G.ratios.length === 1 && G.partialsDb.length === 1 && G.partialsDb[0] > -3
+          && B.ratios.length > 1 && P.ratios.length > 1,
+        'the bell carries ' + B.ratios.length + ' modes and the pipe ' + P.ratios.length
+        + '; the glass carries ' + G.ratios.length + ', reading ' + G.partialsDb[0]
+        + ' dB under its own loudest bin, which IS its loudest bin -- a struck tumbler\'s '
+        + 'well-known "one clear pitch" against the bell\'s chord and the pipe\'s clangy stack');
+      /* THE FIRST CUT OF THIS CLAIM ASSUMED LOWER DAMPING MEANS A LONGER RING, AND IT IS
+         WRONG: tail = 1/(pi f damp), so PITCH MATTERS AS MUCH AS LOSS. The pipe's own
+         196 Hz fundamental outrings the glass's 650 Hz one even though the glass loses
+         less energy per cycle, because the glass pays that advantage back in cycles per
+         second. A real bar tumbler's clink really is brief, and this is the honest reason
+         why: not fast energy loss, a high pitch. */
+      claim('AND THE GLASS RINGS SHORTER THAN THE PIPE DESPITE LOSING LESS PER CYCLE, because pitch outweighs loss here',
+        G.longestTail < P.longestTail && G.f0 > P.f0,
+        'the glass rings ' + G.longestTail + ' s against the pipe\'s ' + P.longestTail
+        + ' s, even though its damping (0.05%) is below the pipe\'s own 0.08%: tail time is '
+        + '1/(pi f damp), and the glass\'s 650 Hz against the pipe\'s 196 Hz decides it. A '
+        + 'glass really does clink and go quiet fast, and the real reason is its pitch, not '
+        + 'a hidden loss this table never gave it');
+      claim('AND THE GLASS STILL LANDS ON THE BEAT AND NEITHER CLIPS NOR CHOPS',
+        G.peakAtMs < 55 && G.lastSample <= G.stepP999 * 0.05,
+        'loudest instant ' + G.peakAtMs.toFixed(1) + ' ms; last sample ' + G.lastSample.toFixed(6)
+        + ' against its own 99.9th-percentile step of ' + G.stepP999.toFixed(4));
     } else { claim('WHAT THIS VALLEY STRIKES was measured', false, d.strikeErr || 'no reading'); }
 
     /* ---- THE DECK, AND THE FLIP AS A TAPE CHANGING (9/27) -------------------- */
@@ -2102,6 +2146,14 @@ const MEASURE = `
         AR.strikes + ' strikes at ' + AR.f0 + ' Hz, ' + AR.seconds.toFixed(3) + ' s total -- a '
         + 'pneumatic riveter\'s own working cadence, read off the actual render\'s length');
     } else { claim('The armourer\'s rivets were measured', false, d.armourerRivetsErr || 'no reading'); }
+    if (d.barGlassDown) {
+      const BG = d.barGlassDown;
+      claim('THE BAR\'S GLASS IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE GLASS\'S OWN RING',
+        BG.woodSurface === 'boards' && BG.glassF0 === 650 && BG.machineIsEar && BG.seconds > 0,
+        'objectSetDown on ' + BG.woodSurface + ' summed with struckMetal\'s new glass mode at '
+        + BG.glassF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'second real material');
+    } else { claim('The bar\'s glass was measured', false, d.barGlassDownErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

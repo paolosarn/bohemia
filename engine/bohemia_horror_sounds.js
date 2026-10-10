@@ -1249,6 +1249,27 @@
       levels: [1.00, 0.92, 0.78, 0.60, 0.42],
       f0: 196, damp: 0.08, secs: 5.0, hit: 0.0007,
       why: 'a length of steel pipe, struck: the free-free bar series, which is not a chord'
+    },
+    /* GLASS IS NOT METAL, BUT THIS FUNCTION NEVER CARED: it is a generic struck-resonator
+       engine (a half-sine force pulse, a bank of decaying modes, saturate, fade), and a
+       drinking glass is just another material with its own real numbers. A GLASS IS THE
+       ONE ENTRY IN THIS TABLE WITH ONE PARTIAL, AND THAT IS ITS OWN REAL CHARACTER: a
+       struck tumbler's well-known "singing" quality is one clear pitch, not a chord --
+       unlike the bell's tuned stack or the pipe's clangy inharmonic series. Glass also
+       loses far less energy than bronze or steel per cycle (it is why a glass harmonica
+       works at all), so the damping here is set BELOW the pipe's own 0.08%, the lowest
+       figure already in this table. ENGINEERING ESTIMATES, STATED AS SUCH: f0 (a bar
+       tumbler's struck tone commonly falls in the few-hundred-Hz range; 650 is the middle
+       of that range, not a measured glass) and damp (lower than pipe's because glass is
+       the lower-loss material, but far above an isolated suspended crystal's figure,
+       because this glass sits on a counter and is held by a hand, the same contact-
+       damping reasoning the pipe entry already uses). hit is shorter than the pipe's
+       because glass is the stiffer contact of the two. */
+    glass: {
+      ratios: [1.0],
+      levels: [1.00],
+      f0: 650, damp: 0.05, secs: 1.2, hit: 0.0004,
+      why: 'a drinking glass, struck: one clear pitch, which is the real character a bell\'s chord and a pipe\'s clangy stack do not have'
     }
   };
   function struckMetal(ctx, opts) {
@@ -1796,6 +1817,34 @@
       why: 'the same tiny, stiff pipe mode boardNail uses for a tack, raised higher still, struck '
         + 'four times at a rivet gun\'s own working cadence -- a rivet is set in several quick '
         + 'blows, never one'
+    };
+  }
+
+  /* ==== 13b4. THE BAR'S GLASS (row [the soundscape], 10/10) ========================
+     Rule 80a's own list names "the bar's murmur and glass"; the murmur is a crowd of
+     voices and this lane's whole palette is struck, resonant and particle material,
+     never a faked voice, so that half stays the standing gap every bar row in this
+     lane has named. The glass half has no voice in it at all, so it builds. THE SAME
+     CONSTRUCTION canOnWood ALREADY USES: a contact landing on the counter (objectSetDown,
+     REUSED whole, zero new ground math) summed with a material's own ring (struckMetal,
+     REUSED whole, one new table entry: glass). A bar counter is wood the same way the
+     stall's counter is (REUSE-FIRST: no new surface either). */
+  function barGlassDown(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var glass = struckMetal(ctx, { what: 'glass', f0: opts.f0 == null ? 650 : opts.f0,
+      secs: opts.glassSecs == null ? 1.2 : opts.glassSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), gd = glass.buffer.getChannelData(0);
+    var n = Math.max(wd.length, gd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.65 + (i < gd.length ? gd[i] : 0) * 0.6;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, glassF0: glass.f0,
+      why: 'a glass\'s own single clear pitch (struckMetal\'s new glass mode) landing on the '
+        + 'bar\'s wood counter (objectSetDown on boards) -- the same contact two ways at once '
+        + 'canOnWood already uses for the tin can'
     };
   }
 
@@ -2432,6 +2481,7 @@
     paperRustle: paperRustle,
     smithHammer: smithHammer,
     armourerRivets: armourerRivets,
+    barGlassDown: barGlassDown,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2613,7 +2663,12 @@
         { id: 'sounds-the-smiths-hammer-10-9', make: 'smithHammer',
           title: "THE SMITH'S HAMMER" },
         { id: 'sounds-the-armourers-rivets-10-9', make: 'armourerRivets',
-          title: "THE ARMOURER'S RIVETS" }
+          title: "THE ARMOURER'S RIVETS" },
+        /* THE BAR'S GLASS (row [the soundscape], 10/10): the murmur half of his own
+           "the bar's murmur and glass" stays the standing no-faked-voice gap; the glass
+           half has no voice in it and builds. */
+        { id: 'sounds-the-bars-glass-10-10', make: 'barGlassDown',
+          title: "THE BAR'S GLASS" }
       ];
     }
   };

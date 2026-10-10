@@ -1,3 +1,19 @@
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round nine, [the soundscape] round three) -- ***
+THE BAR HAS A GLASS SOUND NOW, AND I CAUGHT MY OWN WRONG GUESS BEFORE IT SHIPPED. ***
+TAB: VOTE, one item, THE BAR'S GLASS.
+Record: this VAMILY.md round text, row [the soundscape].
+
+Built a new sound: a glass set down on the bar's counter. It plays like a real glass
+does, one clear ring, not a whole chord like a bell.
+
+I guessed a glass would ring LONGER than a steel pipe because glass loses less energy
+per cycle. The checker proved that guess wrong: the glass actually rings SHORTER,
+because it rings at a much higher pitch, and pitch matters more than how slowly it
+fades. Fixed the claim to say the true thing instead of the thing that sounded right.
+NEXT: the posts' crowd sound is the same kind of gap as the bar's murmur (both need a
+voice this lane can't fake yet). Everything already built is waiting on your thumb.
+PENDING Paolo: nothing new.
+
 WORLD (world-9lfjtf): 10/10 (b) LATEST -- *** THE ONLY ROOM IN THE VALLEY IS A
 ROOM WITH SLOT MACHINES IN IT, AND NOTHING CAN REACH IT. *** Row [the apron, the
 compound and the civic interior] SHIPPED. 3 OPEN rows remain (rule 74) and the
