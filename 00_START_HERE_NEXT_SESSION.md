@@ -15260,7 +15260,7 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
-PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 53. [open row gate] SHIPPED f405aaa: EVERY RUNNING
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 53. [open row gate] SHIPPED 624b95e: EVERY RUNNING
 LANE HAS A JOB, AND THE BOARD SAYS SO OR NAMES THE LANE. ***
 Record: records/BOHEMIA_EVERY_RUNNING_LANE_HAS_A_JOB_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks]
 (RUN claimed it 10/10, run-eak241; the six hunks still dry-run clean on the alpha).
