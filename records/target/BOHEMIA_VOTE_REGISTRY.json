@@ -6860,6 +6860,19 @@
     "how": "page",
     "src": "vote/PORTRAIT_THE_KEEPERS_FACES.html"
    }
+  },
+  {
+   "id": "lifecity-a-raid-on-your-base-10-9",
+   "kind": "tile",
+   "lane": "life+city",
+   "sha": "b2fe5f1b",
+   "made": "10/9",
+   "title": "A RAID ON YOUR BASE",
+   "why": "Once you build at your base, a crew comes for it: your phone tells you it is coming, if you are home you fight it at your gate on what you built, and if you stay away for four days they take the base. You see it on the map and the phone, then in the fight at your gate.",
+   "show": {
+    "how": "image",
+    "src": "vote/LIFECITY_A_RAID_ON_YOUR_BASE_10_9.png"
+   }
   }
  ],
  "verdicts": [
