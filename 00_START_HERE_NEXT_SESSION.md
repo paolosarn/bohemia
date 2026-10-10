@@ -1,3 +1,16 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [base changes] SHIPPED as a research page. TAB: VOTE, item WHEN THE DATA CHANGES (a
+per-day bar chart, the one break, four lines of policy). Record
+records/BOHEMIA_MODS_HOW_A_MODDER_LEARNS_THE_DATA_CHANGED_10_10_26.md; generated changelog
+records/BOHEMIA_MODS_THE_DATA_CHANGELOG_10_10_26.md (58 lines); instrument tools/bohemia_mods_changes_audit.js (1 s;
+--changelog, --json). MEASURED from git (clone is shallow; the folder was born 10/2 = its whole life): 33 commits, 44
+file changes: 22 NEW FILE (9 on day one), 14 ADDS, 7 VALUES, 1 BREAKS (ai.json lost the field `why` from its kinds, 10/5);
+ZERO row ids removed; ours.json is 14 of the 22 non-new changes (a daily key grower). POLICY (none built): one schema number
+for the folder bumped ONLY on a break (it would be 2 today; the reference merge's GAME_SCHEMA is 1, already one behind);
+a mod pins its schema, older = warn never refuse; whoever removes/renames writes `DATA-BREAK:` in the commit; the
+changelog is generated, breaks first. FINDING: eight additive days is a young folder, not a stable one; breaks come when
+lanes tidy; cheap now, expensive to retrofit. NEXT OPEN: [lists in rows], [error messages], [grok sources].
+[read count] CLAIMED. PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (g) LATEST -- [mood and desertion] SHIPPED (research, no code touched); also CORRECTED my 10/9 difficulty page.
 TAB: VOTE, item WHEN A MAN WALKS (band + trait slider, draft:true); the difficulty page tile is fixed.
 RECORD: records/BOHEMIA_TUNING_MOOD_AND_DESERTION_THE_BANDS_THE_DRIFT_AND_A_CLOCK_THE_WIKI_DOES_NOT_GIVE_10_10_26.md
