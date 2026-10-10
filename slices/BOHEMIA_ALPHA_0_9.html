@@ -9675,11 +9675,67 @@ const NECK_TONE = { on: true, part: 3, mul: 0.93, throatRows: 1,
 /* _noOutline: compose everything EXCEPT the black border, for callers that are
    going to upscale first and draw the border at final size (see applyCharOutline).
    Default false, so every existing caller behaves exactly as it did. */
+/* __HANDS_IN_THE_BOX__ A RAISED HAND IS NEVER CUT BY THE FRAME (ANIMATION [hands in the box], 10/10).
+   The body is drawn inside the 112 box with its feet on the ground line, its head top 12 px down (9 on the tall
+   bodies), and an arm 32 px long. A hand thrown straight up therefore put its joint at 0 to 4 px, -4 on the tall
+   ones, and the hand's own pixels reach 4 px above its joint: measured over every outfit x clip x facing x drawn
+   key (26 x 107 x 8 x 12), 945 of the 1,209 cut pictures were a raised hand (cheer, hands-up, stretch,
+   jumping-jacks, hail, heave, flee-sprint), on every outfit, the player's own included.
+   THE RULE, ONE PLACE, EVERY CLIP AND EVERY OUTFIT: no hand joint above HANDBOX.ceil. When a pose would put one
+   there, the arm swings OUT about the shoulder (the elbow first, if it is over too), then the forearm about the
+   elbow, just far enough; bone lengths kept, the side the hand was already on kept. A pose that fits is returned
+   untouched (the same object), so every frame that was never cut is the same picture it was. Continuous in the
+   pose, so it cannot make a joint jump between two drawn keys. The cheer stays a cheer: the hands still go up past
+   the head, in a V instead of a straight line.
+   AND THE CEILING IS READ OFF THE PICTURE, NOT GUESSED: a hand's own pixels reach 4 to 8 px past its joint by
+   facing (measured: 5 on SE, 7 and more on S, E and W, 8 side-on), so any fixed joint ceiling either cut some
+   hands or lowered others for nothing (two tried, 10/10). buildFrame builds with NO ceiling, which is the old
+   picture to the byte; ONLY if an ARM part (5, 6, 7, 8 in the part grid, the upper arms and the forearms with the
+   hands) is in the top row does it put the ceiling 1 px under that hand and build again, 1 px more a try, at most
+   ten. A hat or a jump at the top is not an arm and is never rebuilt (not this rule's). */
+const HANDBOX={on:true,ceil:-1e9,tries:10,hand:99,ARM:{5:1,6:1,7:1,8:1}};
+function handsInBox(P){
+  if(!HANDBOX.on||!P)return P;
+  HANDBOX.hand=Math.min(P.handL?P.handL[1]:99,P.handR?P.handR[1]:99);
+  const C=HANDBOX.ceil;let O=null;
+  for(const ch of [['shL','elL','handL'],['shR','elR','handR']]){
+    const S=P[ch[0]],E0=P[ch[1]],H0=P[ch[2]];
+    if(!S||!E0||!H0||(E0[1]>=C&&H0[1]>=C))continue;
+    if(!O){O={};for(const k in P)O[k]=Array.isArray(P[k])?P[k].slice():P[k];}
+    let E=E0.slice(),H=H0.slice();
+    const side=(v,w)=>(Math.abs(v)>0.01?Math.sign(v):(Math.sign(w)||1));
+    if(E[1]<C){   /* the upper arm swings out about the shoulder; the forearm goes with it, rigid */
+      const lu=Math.hypot(E[0]-S[0],E[1]-S[1]),sx=side(E[0]-S[0],H[0]-S[0]);
+      const a0=Math.atan2(E[1]-S[1],E[0]-S[0]),dy=Math.max(-1,Math.min(1,(C-S[1])/lu));
+      const a1=Math.atan2(dy,sx*Math.sqrt(1-dy*dy)),da=a1-a0,cs=Math.cos(da),sn=Math.sin(da);
+      E=[S[0]+Math.cos(a1)*lu,S[1]+Math.sin(a1)*lu];
+      const hx=H0[0]-S[0],hy=H0[1]-S[1];H=[S[0]+hx*cs-hy*sn,S[1]+hx*sn+hy*cs];
+    }
+    if(H[1]<C){   /* the forearm swings out about the elbow */
+      const lf=Math.hypot(H[0]-E[0],H[1]-E[1]),sx=side(H[0]-E[0],H[0]-S[0]);
+      const dy=Math.max(-1,Math.min(1,(C-E[1])/lf));
+      H=[E[0]+sx*Math.sqrt(1-dy*dy)*lf,E[1]+dy*lf];
+    }
+    O[ch[1]]=E;O[ch[2]]=H;
+  }
+  return O||P;
+}
 function buildFrame(d,clip,ph,_noOutline){
+  if(!HANDBOX.on)return buildFrameCore(d,clip,ph,_noOutline);
+  const c0=HANDBOX.ceil;
+  try{
+    let f=buildFrameCore(d,clip,ph,_noOutline);
+    const armTop=(f)=>{if(!f||!f.grid)return false;for(let x=0;x<f.CW;x++)if(HANDBOX.ARM[f.grid[x]])return true;return false;};
+    let c=Math.max(2,Math.floor(HANDBOX.hand));   /* a hand above the box starts its tries at the box, not out in the air */
+    for(let t=0;t<HANDBOX.tries&&armTop(f);t++){c+=1;HANDBOX.ceil=c;f=buildFrameCore(d,clip,ph,_noOutline);}
+    return f;
+  }finally{HANDBOX.ceil=c0;}
+}
+function buildFrameCore(d,clip,ph,_noOutline){
   if(typeof window!=='undefined')window.RG_HEADROT=(clip==='headshot-2')?1:0;
   const _hp=poseHoldAt(d,clip,ph);
   const _ps=_hp||posedSkel(d,clip,ph);
-  const P=_hp?_hp.sk:armHoldApply(d,clip,ph,_ps.sk);const PRES=_ps.present||{};   /* FROZEN POSE: within a hold there is nothing to recompute, so there is nothing to morph */   /* THE ARMS HOLD THEIR POSE: a 3px strip cannot be resampled through continuous rotation without churning */
+  const P=handsInBox(_hp?_hp.sk:armHoldApply(d,clip,ph,_ps.sk));const PRES=_ps.present||{};   /* __HANDS_IN_THE_BOX__ */   /* FROZEN POSE: within a hold there is nothing to recompute, so there is nothing to morph */   /* THE ARMS HOLD THEIR POSE: a 3px strip cannot be resampled through continuous rotation without churning */
   if((clip==='headshot'||clip==='headshot-2')&&HS.renderD)d=HS.renderD;   /* FACE LAW: sprites follow the render direction */
   /* SEATED LAW (Paolo 7/2/26, LOCKED): on all south-facing directions the legs
      render NEARER than the torso (in front, layer-wise). Order fix below. */
