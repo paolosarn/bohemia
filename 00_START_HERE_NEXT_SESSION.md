@@ -1,3 +1,9 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [sharing a mod] SHIPPED as a page on the board (nothing in VOTE). Record
+records/BOHEMIA_MODS_HOW_A_MOD_TRAVELS_10_10_26.md; tool tools/bohemia_mods_pack.js (pack/unpack a mod as ONE small JSON file,
+.bohemiamod.json). Measured: all 10 example mods round-trip to the same merge result, biggest pack 1,368 bytes; wrong file turned away in
+one plain sentence; a non-JSON patch file is left out and named. BB/other-game facts are from general knowledge, said so in the record. NEXT
+OPEN: [example for every kind], [read count four], [grok sources]. PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/10 (g) LATEST -- *** STILL ON HOLD, FOURTH VAMILY WITH
 NO ROUND, AND THIS ROUND FOUND A RULE CONFLICT THAT DELETES THIS LANE'S ROWS
 WHILE IT IS FORBIDDEN TO STOP IT. *** Four rows still OPEN, nothing claimed.
