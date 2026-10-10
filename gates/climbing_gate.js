@@ -10,6 +10,8 @@
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
 const ROOT = path.dirname(__dirname), PORT = 8863;
+/* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp', '.ogg': 'audio/ogg', '.wav': 'audio/wav', '.mp3': 'audio/mpeg' };
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
@@ -54,7 +56,7 @@ const srv = http.createServer((rq, rs) => {
   const before = await p.evaluate(n => { const m = BohemiaRosterScreen.state.crew.find(x => x.name === n); return { lv: m.level, xp: m.xp, st: Object.assign({}, m.stats), stars: m.stars }; }, top.name);
   await p.evaluate(() => BohemiaRosterScreen.open({})); await p.waitForTimeout(200);
   await p.evaluate(n => { const s = BohemiaRosterScreen.state; s.sel = s.crew.findIndex(m => m.name === n); BohemiaRosterScreen.open({}); }, top.name);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_CLIMBING_BEFORE_10_10.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_CLIMBING_BEFORE_10_10.png')) });
   const rows = over.crew.map(c => c.name === top.name ? Object.assign({}, c, { xpGained: c.xpGained + pad }) : c);
   await p.evaluate(r => window.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', crew: r }, '*'), rows);
   await p.waitForTimeout(400);
@@ -77,7 +79,7 @@ const srv = http.createServer((rq, rs) => {
     post: (window.__rosterLog || []).filter(x => x.act === 'perk').length, small: [].filter.call(document.querySelectorAll('#card button'), e => { const r = e.getBoundingClientRect(); return r.width > 0 && Math.min(r.width, r.height) < 44; }).length }; }, top.name);
   ok('tap a perk and he has it, the point spent, the game told', took.perks[0] === want && took.pts === 0 && took.post === 1, took.txt);
   ok('  every button on the card is 44 on his phone', took.small === 0, took.small + ' small');
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_CLIMBING_AFTER_10_10.png') });
+  await p.screenshot({ path: proofShot(path.join(ROOT, 'slices/vote/RUN2_CLIMBING_AFTER_10_10.png')) });
   /* it keeps: a fresh open still has him at level 2 with the perk */
   const p2 = await ctx.newPage(); await p2.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html');
   await p2.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });

@@ -5030,6 +5030,16 @@ GATES = [
      'twice; the ready time does not move, because the wall is the processor (record has the CPU profile). LANDS RED ON '
      'PURPOSE on the title, the ready time and the page re-read; NEVER WORSE on the bytes. Three planted self-tests. About 90 s.',
      600),
+    ('PROOF SHOTS STAY PUT', ['node', 'gates/proof_shots_gate.js'],
+     'A GATE RUN CHANGES NOTHING GIT TRACKS. 10/9, PLUMBER, row [proof shots churn] (the coordinator: five commits in '
+     'seven minutes re-committed RUN TWO settlement proof shots because the gate re-shoots on every run). MEASURED: the '
+     'barber shot re-committed 13 times in five days, the smith 12; five gates wrote into slices/vote/ every run, and two '
+     'runs of one gate on one tree write two different files. tools/bohemia_proof_shot.js: proofShot() is a scratch file '
+     'unless --shoot or BOHEMIA_SHOOT=1 (the owning lane refreshing its VOTE picture on purpose). Legs: six planted '
+     'detector cases both ways; every gate swept for a screenshot or image write into slices/, records/ or engine/ outside '
+     'proofShot or a scratch default (main before this row: 21 caught); a real roster-screen run leaves git as it was; '
+     'BOHEMIA_SHOOT=1 hands back the tracked path. About 5 s.',
+     False),
     ('GROK FENCE', ['node', 'gates/grok_fence_gate.js'],
      'A GROK COMMIT ON MAIN STAYS IN ITS FOLDER. 10/1, PLUMBER, row [grok fence], rule 49d: Grok writes through its '
      'own GitHub connector, only in reference/library/grok/, only on the branch grok, every message starting GROK:. '
