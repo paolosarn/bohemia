@@ -11,14 +11,21 @@
    land on the glass one sample per phone pixel from the bake's own heights, lake and roads, with relief under a block;
    the bake's picture shows while the camera moves; the land in front of the city rises at 0.14 a block.
 
+   RE-AIMED 10/10 ([the far end back], rule 104f, PAOLO in the eighth votes on exactly this: "before, it looked way
+   better, this is the wrong direction"): the far end he liked is the DEFAULT again (VB_SHARP false, the bake's land,
+   the old 0.38 front), measured byte for byte (the bake's picture hashes the same as before the cut). The phone-pixel
+   land lives on only behind the switch, for the side-by-side; every leg below that measured it now measures it WITH
+   the switch on, and D0 holds the default.
+
    LEGS, on the demo at the far stop, phone portrait:
-     P1 *** THE LAND IS PAINTED AT THE PHONE'S PIXELS *** (the mean run of identical pixels on the land, the
-        same crop with and without: DIRECTION's 3a reading, floor 1.5)
+     D0 *** THE FAR END HE LIKED IS THE DEFAULT *** (the switch off, the old front, nothing sharp asked for or drawn
+        in three seconds at the far stop, the land's painted unit the bake's own)
+     P1 *** WITH THE SWITCH ON, THE LAND IS PAINTED AT THE PHONE'S PIXELS *** (the mean run of identical pixels on
+        the land, the same crop with and without: DIRECTION's 3a reading, floor 1.5)
      P2 *** THE MAP AT THE FAR STOP IS PAINTED AT ITS OWN PIXELS OVER AT LEAST 2,073,600 PHONE PIXELS ***
         (Battle Brothers' 1920 x 1080: the land painted 1:1 plus the city's painting, inside the glass)
      P3 the ranges stand where the bake put them (the two pictures agree at a block's scale)
-     P4 *** NO SLAB *** the land in front of the city rises gently enough to read as ground (the ramp's band on
-        the glass is at least 0.6 of its run; it was 0.24)
+     P4 the old front is the default again (the ramp's band on the glass is the old 0.24 to 0.3 of its run)
      P5 it is painted off the page (the worker) and laid in quickly (the page's part under 150 ms)
      P6 while the camera moves the bake still covers the land (no hole at the glass's corners)
      P7 nothing threw
@@ -41,6 +48,17 @@ const r2 = v => Math.round(v * 100) / 100;
   try {
     for (let i = 0; i < 90; i++) { if (await fr.evaluate(() => !!(window.VB && VB.day && VB.seed === om.seed))) break; await d.page.waitForTimeout(500); }
     await fr.evaluate(() => { SKY = false; setZoomAt(zoomBounds()[0]); MAP_GROUND.key = ''; render(); });
+    /* D0: the default, three seconds still at the far stop */
+    await d.page.waitForTimeout(3000);
+    const D0 = await fr.evaluate(() => { MAP_GROUND.key = ''; render();
+      const c = MAP_GROUND.cv, x = c.getContext('2d'), R = CV_DPR, M = MAP_GROUND.M, n = 256, X0 = Math.round((CVW * 0.08 + M) * R), Y0 = Math.round((CVH * 0.18 + M) * R);
+      const px = x.getImageData(X0, Y0, n, n).data; let runs = 0, seg = 0;
+      for (let y = 0; y < n; y++) { let run = 1; for (let i = 1; i < n; i++) { const a = (y * n + i) * 4, b = a - 4; if (px[a] === px[b] && px[a + 1] === px[b + 1] && px[a + 2] === px[b + 2]) run++; else { runs += run; seg++; run = 1; } } runs += run; seg++; }
+      return { sharp: VB_SHARP, front: VB_FRONT, asks: VBV.asks, draws: VBV.draws, run: runs / seg }; });
+    ok('*** D0 THE FAR END HE LIKED IS THE DEFAULT *** (switch ' + D0.sharp + ', front ' + D0.front + ', sharp asked ' + D0.asks + ' drawn ' + D0.draws + ' in 3 s at the far stop, the land\'s painted unit ' + r2(D0.run) + ' px)',
+      D0.sharp === false && D0.front === 0.38 && D0.asks === 0 && D0.draws === 0 && D0.run >= 2.5);
+    /* the rest measure the switch, for the side-by-side */
+    await fr.evaluate(() => { VB_SHARP = true; MAP_GROUND.key = ''; render(); });
     let landed = false;
     for (let i = 0; i < 80 && !landed; i++) { landed = await fr.evaluate(() => !!(VBC.day && VBC.seed === om.seed) && VBV.lands > 0 && VBV.key === vbViewKey()); if (!landed) await d.page.waitForTimeout(500); }
     /* the land picture, with the sharp layer and without it: the same crop of the ground picture */
@@ -87,7 +105,7 @@ const r2 = v => Math.round(v * 100) / 100;
       return { worst, front: VB_FRONT, TH, TW };
     });
     const band = (0.5 - ramp.worst) / 0.5;
-    ok('*** P4 NO SLAB *** (the land in front of the city rises at most ' + r2(ramp.worst) + ' a block; on the glass its band is ' + r2(band) + ' of its run; the old 0.38 made it 0.24)', band >= 0.6);
+    ok('P4 the old front is the default again (the land in front of the city rises up to ' + r2(ramp.worst) + ' a block; on the glass its band is ' + r2(band) + ' of its run, the old 0.24 to 0.3)', band >= 0.2 && band <= 0.3);
     const t = await fr.evaluate(() => { const t0 = performance.now(); const im = new ImageData(new Uint8ClampedArray(VBV.cv.width * VBV.cv.height * 4), VBV.cv.width, VBV.cv.height); VBV.x.putImageData(im, 0, 0); const ms = performance.now() - t0; return { ms, where: VB.where, paint: VBV.ms, samples: VBV.samples }; });
     await fr.evaluate(() => { VBV.key = ''; });   /* the test put a blank in it: ask again */
     ok('P5 painted off the page (' + t.where + ', ' + t.paint + ' ms there, ' + t.samples.toLocaleString() + ' samples) and laid in quickly (' + Math.round(t.ms) + ' ms on the page)', t.where === 'worker' && t.ms < 150);

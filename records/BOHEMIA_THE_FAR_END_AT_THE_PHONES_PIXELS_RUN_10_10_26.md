@@ -1,5 +1,9 @@
 # THE FAR END AT THE PHONE'S PIXELS (RUN, 10/10/26, [the far end at two million pixels], rules 60, 65, 88, 89)
 
+> **REVERTED TO OFF BY DEFAULT 10/10 ([the far end back], rule 104f):** he voted it down ('before, it looked way better').
+> The old far end is the default again, byte for byte; this one is kept only behind VB_SHARP for the side-by-side.
+> records/BOHEMIA_THE_FAR_END_BACK_RUN_10_10_26.md
+
 > **PLACEHOLDER (rule 100e, Paolo 10/10: 'art cooks until I say final'):** the land painted at the phone's pixels and the
 > flattened front shipped before rule 100; they stay in the demo as a placeholder and nothing is added to them until he
 > votes FINAL on the map family. The row's second half (COOK's paintings, the one road kit) waits on that FINAL.

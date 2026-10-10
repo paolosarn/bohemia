@@ -44918,7 +44918,12 @@ function mapGroundEnd(st){
    behind the city; the near side is held under the line where it would cover a block of the
    map, so the foothills in front rise away from you and never sit on a street.
    THE FAR END HAZES INTO THE OLD FILL, so the picture has no edge either. */
-var VB_FRONT = 0.14;   /* __NO_SLAB__: how steeply the land in front of the city may rise toward the camera, blocks a block */
+/* __THE_FAR_END_BACK__ (RUN 10/10, rule 104f, PAOLO in the eighth votes on the 10/10l far end: "before, it looked way
+   better, this is the wrong direction"). The far stop is the one he liked again BY DEFAULT: the land from the bake at
+   two texels a block and its old front (0.38). The phone-pixel land and the 0.14 front are kept only behind this one
+   switch, for the side-by-side he asked for; they are not a look anybody may turn on in the game. */
+var VB_SHARP = false;
+var VB_FRONT = VB_SHARP ? 0.14 : 0.38;   /* __NO_SLAB__ (when switched): how steeply the land in front of the city may rise toward the camera, blocks a block */
 var VB_S = 2, VB_K = 200, VB_FAR_HAZE = 0.5;   /* the far land's haze: the picture fades into it, and it runs to any screen's edge */                 /* texels a block; blocks of land past each edge */
 var VB = { seed: null, day: null, night: null, ms: 0, draws: 0, labels: [], peak: 0, roads: [], lake: null };
 window.VB = VB;
@@ -45558,6 +45563,7 @@ function vbViewLand(r){
 }
 /* drawn into the ground picture right after the bake's land, in the glass's own pixels (1:1, unsmoothed) */
 function vbViewDraw(ox, oy){
+  if (!VB_SHARP) return false;   /* __THE_FAR_END_BACK__: off by default */
   if (typeof MAP_GROUND === 'undefined' || g !== MAP_GROUND.x) return false;
   var M = Math.min(220, Math.max(64, Math.ceil(TW * 4)));   /* the ground picture's own margin (mapGroundBegin) */
   var ok = !!VBV.cv && VBV.key === vbViewKey();
