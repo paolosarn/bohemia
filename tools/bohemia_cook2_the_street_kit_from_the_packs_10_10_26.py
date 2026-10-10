@@ -27,17 +27,23 @@ SC = 2  # stamp scale
 pools = json.load(open(os.path.join(R, 'banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt')))['pools']
 def dec(b): return Image.open(io.BytesIO(base64.b64decode(b.split(',')[-1]))).convert('RGB')
 P = {k: [dec(b) for b in pools[k]] for k in ('street', 'side', 'cross', 'lane_div')}
+marks = json.load(open(os.path.join(R, 'banks/BOHEMIA_MARKING_BANK_7_17_26.txt')))['classes']
+MK = {k: [dec(b) for b in marks[k]] for k in ('arrow_thru_h', 'arrow_thru_v')}
+FLIPS = [None, Image.FLIP_LEFT_RIGHT, Image.FLIP_TOP_BOTTOM, Image.ROTATE_180]
 
 def stamp_field(pool, seed, w=TW, h=TH):
     rng = random.Random(seed); used = []
     img = Image.new('RGB', (w, h))
     sw, sh = 44 * SC, round(44 * SC * 0.7071)
-    for y in range(0, h, sh):
-        for x in range(0, w, sw):
-            i = rng.randrange(len(P[pool]))
-            # 88% clean parents first in the pool, weathered rare (weather_rarity_law)
+    # round two: the 2 m repeat was a grid of stamps lined up in rows; rows now run like brick (half a
+    # stamp offset) and each stamp is flipped one of four ways (asphalt and slab have no up), so the eye
+    # finds no column to follow
+    for r, y in enumerate(range(0, h, sh)):
+        for x in range(-(sw // 2) * (r % 2), w, sw):
+            i = rng.randrange(len(P[pool])); f = rng.choice(FLIPS)
             used.append([pool, i])
-            img.paste(P[pool][i].resize((sw, sh), Image.NEAREST), (x, y))
+            t = P[pool][i] if f is None else P[pool][i].transpose(f)
+            img.paste(t.resize((sw, sh), Image.NEAREST), (x, y))
     return img, used
 
 def paint_colour():
@@ -101,6 +107,7 @@ PIECES = {
   'corner_nw': ('NW', None, False), 'corner_ne': ('NE', None, False),
   'corner_sw': ('SW', None, False), 'corner_se': ('SE', None, False),
   'walk': ('NSEW', None, False),
+  'road_ew_arrow': ('NS', 'ew', False), 'road_ns_arrow': ('WE', 'ns', False),
 }
 
 def main():
@@ -117,11 +124,30 @@ def main():
                 z = P['cross'][k % 3]
                 if xing == 'ns':  # a zebra's bars run WITH the traffic: on a N-S road they stand N-S
                     x = int((1.0 + k * 1.8) * PXM_X); w = int(0.9 * PXM_X)
-                    washed(img, (x, 0, x + w, TH), PAINT, 0.6)
+                    washed(img, (x, int(4 * PXM_Y), x + w, int(8 * PXM_Y)), PAINT, 0.6)   # a zebra is 4 m along the traffic, centred
                 else:
                     y = int((1.0 + k * 1.8) * PXM_Y); hh = int(0.9 * PXM_Y)
-                    washed(img, (0, y, TW, y + hh), PAINT, 0.6)
+                    washed(img, (int(4 * PXM_X), y, int(8 * PXM_X), y + hh), PAINT, 0.6)
             keys.append(['cross', 'paint colour'])
+        if n.endswith('_arrow'):
+            # his approved worn through-arrow (marking bank), one per lane, 2x nearest, washed into the asphalt
+            k = 'arrow_thru_h' if '_ew_' in n else 'arrow_thru_v'
+            # only the PAINT is lifted off his tile (pixels clearly brighter than its own asphalt), scaled to
+            # a real through-arrow (~5 m along the lane), then washed in so the crack shows through it
+            a = np.asarray(MK[k][0]).astype(int); lum = a.sum(2)
+            mask = lum > np.percentile(lum, 50) + 120
+            ys, xs = np.nonzero(mask); a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+            mask = mask[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+            L = 5.0 * (PXM_X if k.endswith('h') else PXM_Y)
+            f = L / (a.shape[1] if k.endswith('h') else a.shape[0])
+            sz = (max(1, round(a.shape[1] * f)), max(1, round(a.shape[0] * f)))
+            ai = Image.fromarray(a.astype(np.uint8)).resize(sz, Image.NEAREST)
+            mi = Image.fromarray((mask * 165).astype(np.uint8)).resize(sz, Image.NEAREST)
+            for lane in (0.3, 0.7):
+                if k.endswith('h'): xy = (int(TW * 0.5 - sz[0] / 2), int(TH * lane - sz[1] / 2))
+                else: xy = (int(TW * lane - sz[0] / 2), int(TH * 0.5 - sz[1] / 2))
+                img.paste(ai, xy, mi)
+            keys.append([k, 0])
         lines = []
         if axis:
             dashes(img, axis, M / 2); lines.append({'axis': axis, 'at_m': M / 2, 'kind': 'centre dash 3 m in 6 m'})
@@ -132,8 +158,8 @@ def main():
         man['pieces'][n] = dict(src=n + '.webp', **e, keys=sorted({tuple(k) for k in keys}))
     json.dump(man, open(os.path.join(OUT, 'kit_street.json'), 'w'), indent=1, default=list)
     # a sample board, 4 x 3 house tiles: a street running east-west with a cross street and a crossing
-    lay = [['walk', 'road_ns_both', 'walk', 'walk'],
-           ['road_ew_both', 'junction', 'crossing_ew', 'road_ew_both'],
+    lay = [['walk', 'road_ns_arrow', 'walk', 'walk'],
+           ['road_ew_both', 'junction', 'crossing_ew', 'road_ew_arrow'],
            ['walk', 'crossing_ns', 'walk', 'walk']]
     board = Image.new('RGB', (TW * 4, TH * 3))
     for r, row in enumerate(lay):
