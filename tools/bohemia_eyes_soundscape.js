@@ -73,13 +73,19 @@ async function readHook(page) {
 }
 
 /* THE POSITIVE CONTROL: fire one sound by hand after all three screens, and refuse to trust
-   any zero above if the counters never moved for it. */
+   any zero above if the counters never moved for it. Uses stepSfx('asphalt'), the exact event
+   E4's own control proved fires (it is 'step_' + surface, built at call time, which is why a
+   grep alone never finds it) -- never a guessed event name that might not resolve. */
 async function control(page) {
   return page.evaluate(async () => {
     const before = window.__SS_RENDERS || 0;
-    try { if (typeof playSFX === 'function') playSFX('door_open'); } catch (e) {}
+    let how = 'none available';
+    try {
+      if (typeof stepSfx === 'function') { stepSfx('asphalt'); how = "stepSfx('asphalt')"; }
+      else if (typeof playSFX === 'function') { playSFX('step_asphalt'); how = "playSFX('step_asphalt')"; }
+    } catch (e) { how = 'threw: ' + e.message; }
     await new Promise(r => setTimeout(r, 500));
-    return { before, after: window.__SS_RENDERS || 0, moved: (window.__SS_RENDERS || 0) > before };
+    return { before, after: window.__SS_RENDERS || 0, moved: (window.__SS_RENDERS || 0) > before, how };
   });
 }
 
@@ -97,10 +103,21 @@ async function control(page) {
     report.hookInfo = hookInfo;
     console.log('  [hook] playSFX wrapped: ' + hookInfo.sfxWrapped + ', BOH_SFX.render wrapped: ' + hookInfo.renderWrapped);
 
+    /* THE DIAGNOSTIC E4 ALREADY PROVED MATTERS (tools/bohemia_eyes_ears_live.js): three
+       different silences look identical from the counters alone (nobody asked; the bank was
+       empty; the audio engine never started), so MUS.AC.state is read directly, by its bare
+       name (a top-level const is a global binding, not a window property -- the same trap E4's
+       own comment names), at every stage. */
+    const acState = () => p.evaluate(() => { try { return (typeof MUS !== 'undefined' && MUS.AC) ? MUS.AC.state : 'no AudioContext'; } catch (e) { return 'MUS threw'; } });
+    report.audioContext = { afterTitle: await acState() };
+    console.log('  [audio] MUS.AC.state after the title: ' + report.audioContext.afterTitle);
+
     // 1. MAP
     const s0 = await d.toMap();
     console.log('  [driver] the map is up: czoom ' + s0.czoom);
     await p.waitForTimeout(1000);
+    report.audioContext.afterToMap = await acState();
+    console.log('  [audio] MUS.AC.state after toMap(): ' + report.audioContext.afterToMap);
     await resetHook(p);
     const mapT0 = Date.now();
     await p.waitForTimeout(SECONDS * 1000);
@@ -109,7 +126,9 @@ async function control(page) {
     console.log('  [map] ' + Object.keys(mapRead.asked).length + ' distinct sounds, ' + mapRead.renders + ' rendered');
 
     // 2. SETTLEMENT: tap the nearest town, the loop gate's own proven pattern
-    const fr = d.fr;
+    const fr = d.fr || (await (async () => { for (const f of p.frames()) {
+      if (await f.evaluate(() => typeof CZOOM !== 'undefined').catch(() => false)) return f; } return null; })());
+    if (!fr) throw new Error('no city frame found after toMap()');
     const touchCell = async (x, y) => { const q = await fr.evaluate(([x, y]) => { const r = document.getElementById('cv').getBoundingClientRect(); const i = __CITY.isoAt(x, y); return { x: r.left + i.sx, y: r.top + i.sy + TH / 2 }; }, [x, y]); await p.touchscreen.tap(q.x, q.y).catch(() => p.mouse.click(q.x, q.y)); };
     const waitFor = async (fn, ms) => { const t = Date.now(); while (Date.now() - t < ms) { if (await fn()) return true; await p.waitForTimeout(300); } return false; };
     const town = await fr.evaluate(() => { const bs = ctBases() || {}; let best = null; for (const n in bs) { const b = bs[n], dd = Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)); if (dd >= 2 && (!best || dd < best.d)) best = { n, x: b.x, y: b.y, d: dd }; } return best; });
@@ -120,6 +139,8 @@ async function control(page) {
       await p.waitForTimeout(1500);
     }
     console.log('  [driver] settlement opened: ' + settlementOpened + ' (' + (town ? town.n : 'no town found') + ')');
+    report.audioContext.afterSettlementReach = await acState();
+    console.log('  [audio] MUS.AC.state after the settlement reach: ' + report.audioContext.afterSettlementReach);
     if (settlementOpened) {
       await resetHook(p);
       const setT0 = Date.now();
