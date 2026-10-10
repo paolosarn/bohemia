@@ -17997,6 +17997,14 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/10 (a) LATEST -- *** ON HOLD (rule 88, Paolo 10/10: 'prioritize how it looks'). ***
+[hands in the box] was built when the hold landed and is PARKED, not shipped: branch claude/animation-vamily-lr9y9i
+at 70abd71 (handsInBox in the rig, gate HANDS IN THE BOX 7/0, 3 mutations, VOTE sheet, record). Not on main, no
+VOTE row, nothing in the alpha. Row back to OPEN with the note. When he lifts the hold: rebase 70abd71, re-run the
+gate (6 min), take the next stamp letter, ship. Also waiting from rule 86 for this lane: THE SHOT KICKS IN EVERY
+DIRECTION, NOBODY WALKS ON A WALL OR A ROOF. FOR CHARACTER (whenever their look round reaches it): the church's
+flat cap touches the top of the 112 box while he only stands, every facing (head top row 9, cap 9 px).
+
 ANIMATION (animation-lr9y9i): 10/9 (e) LATEST -- *** FOUR LEGS: the first beast moves. A lab dire wolf walks,
 lopes, bites and falls, three pictures a beat like the men. TAB: VOTE playing (the fight NOT IN A TAB YET). ***
 
