@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: an unlit service road under the new maglev line, between two pylons where no camera reaches
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the floor when act 1 holds no shoulder), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 5 and 18 (the floor when act 1 holds no shoulder), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHAPE: E8, THE ONE WHO KNOWS YOU, crossed with E9, THE BILL COMES DUE (QR-B)
 
 ## THE SITUATION

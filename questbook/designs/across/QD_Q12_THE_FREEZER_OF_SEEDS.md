@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust (act 1) -> boom (act 3)
 PLACE: act 1, a dead supermarket's walk-in freezer on a brownout block, kept cold by one stolen battery; act 3, a hydroponic tower farm
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met in act 1 by choice C.
+CHECKLIST: passes all 32. Line 12 met in act 1 by choice C. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Food is the weak leg. In act 1 a retired botanist keeps a freezer of seeds alive on one battery, and a crew wants the battery. She posts a contract in the block's hall to guard it through a brownout week. In act 3, the hydroponic towers grow what that freezer held, or they do not.

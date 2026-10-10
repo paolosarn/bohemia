@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the co-op blocks (settlement screen: the hall is the ration office); the find runs through the block's stairwells and roofs, the fight board cut from the co-op's courtyard block if it comes to that
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE07 (the collector's ride, from the Strip). THE ROAD THEY SHARE: Flamingo east, the Strip to the co-op.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust. Somebody takes one ration a night from the line's back table. Always one. The line has started to turn on itself.

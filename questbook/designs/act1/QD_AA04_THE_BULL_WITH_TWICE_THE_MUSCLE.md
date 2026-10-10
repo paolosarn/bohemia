@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the east-side dairy home base (settlement screen: the hall is the milking shed office); the job is a cattle stampede through the dairy's own lots, the fight board cut from that block, fences and silos as tiles
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: feral cattle herd led by a muscle-doubled bull (the seventeen, no. 7; round three s1, myostatin-edited stock). BB lesson: the unhold's charge and knockdown; do not stand in front, turn it. Routine to tough, 4 to 9 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The dairy lost its herd to the desert in the first years. It came back. Forty head, and in front of them a bull the size of a pickup, built like two bulls, from a ranch that edited its stock. Every week the herd runs through the dairy's fences at dawn to get at the water trough, and every week something breaks.

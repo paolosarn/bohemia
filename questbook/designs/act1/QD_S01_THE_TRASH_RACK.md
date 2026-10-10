@@ -7,7 +7,7 @@ PLACE: the dam and turbine hall home base (fortress tier, three offers on the ha
 SITUATION: a flash flood packed the intake trash rack and a hungry crew is stripping the rack's steel as fast as the divers clear it -> turbine two turns again, the dam's board goes from rationed shifts back to guard work, and the hour-of-power price falls one at the dam and its two nearest bases
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A week ago the wash above the lake ran and packed the intake's trash rack with half the desert. Turbine two is choking, so the dam rations shifts and sells fewer hours. The divers clear the rack at night. By morning a crew of eight or ten has pulled the loose steel bars and the copper banding off the deck to sell. They are not raiders. They are hungry, and they are taking the dam apart one bar at a time.

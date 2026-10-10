@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the marina home base at Lake Mead (settlement screen: the hall is the harbour master's office); the herd grazes the shore flats and a dead golf course above them, the fight board cut from the shore, two tiles for the old bull
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the Columbian mammoth herd, one herd, a landmark (the seventeen, no. 12; the Ijirok's slot). BB lesson: the boss picks the fight; and the Lindwurm's two bodies, some things you do not melee. Tough, 12 to 15 minutes, only if you start it.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, cyberpunk healing. The rocket needs money. A buyer in the marina wants IVORY: one tusk pays for a ship's worth of panels. The mammoths came down the Colorado from a reserve upriver in act 2; twelve now, one old bull with a broken tusk, who is dying. Whether there are twelve depends on the ledgers: if the company's line hunted the herd in act 2, there are four.

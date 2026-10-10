@@ -7,7 +7,7 @@ PLACE: the data centre home base (fortress tier); the job is two tanker runs bet
 SITUATION: a heat wave broke a cooling pump and the Network is buying water by the truck at any price -> the racks cool, the block beside the data centre gets two more brownout hours a night (its power goes to chillers), and the water price at the source the family chose rises one
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Nine days over 45 degrees. The data centre's cooling tower lost a pump and the building is running hot. The Network does not raise its voice. It raises its price. This is the board that pays too well: one tanker run for more than a fortnight of guard work anywhere else. The water it wants belongs to somebody.

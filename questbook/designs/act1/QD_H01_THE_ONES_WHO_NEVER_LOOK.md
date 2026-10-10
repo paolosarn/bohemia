@@ -6,7 +6,7 @@ CRISIS: none (the ghost; the secret strand's first step)
 ECONOMY: either
 PLACE: a storm-tunnel mouth in the wash, where a tunnel camp lives above the dry dark
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 11 (she spoke when he stood still, a walk-era trigger; now when tapped), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 11 (she spoke when he stood still, a walk-era trigger; now when tapped), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the ACT1 AMALGAMATION IS A GHOST law: the tunnel people live directly above the thing

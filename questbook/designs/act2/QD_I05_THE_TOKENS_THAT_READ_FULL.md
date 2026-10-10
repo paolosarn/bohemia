@@ -44,4 +44,4 @@ On Abel's scale every hollow token weighs exactly one gram more than a good one.
 ## FLAWS IT AVOIDS
 `Q130.X9` (the payment curve rewards the cruel path: no finder's cut), `Q121.X2` (a score settles the question: no standing number rises on C), `Q084.X5` (the punished no), `Q081.X4` (too many names: one client, one forger).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment; line 18's landing and its "act not played" default are named above).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment; line 18's landing and its "act not played" default are named above). (QR-AM 10/10: lines 31 and 32 run, pass as written)

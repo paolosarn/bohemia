@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the golf-course home base in the south-west (the pond feeds a hydroponic farm) (settlement screen: the hall is the pro shop); the lair is the seventeenth hole's pond and its reeds, the fight board cut from that block, the water as a tile nobody stands on
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the sabre-tooth, Smilodon (the seventeen, no. 10). BB lesson: the Alp, the night has rules; ambush and vanish; it cannot chase. Tough, 8 to 12 minutes at night, 4 to 6 by day.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The golf course grows food now, on the fairways, watered from the pond. The pump man goes down to the pond at dusk to change the filter. Two pump men have not come back. The third refuses. The farm will be dry in six days.

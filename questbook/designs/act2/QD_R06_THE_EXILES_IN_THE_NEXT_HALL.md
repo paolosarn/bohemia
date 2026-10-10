@@ -5,7 +5,7 @@ CRISIS: the earth-side nuke
 ECONOMY: bust
 PLACE: offered at the chapel town home base (town, draft seat the Church), where the co-op's people sleep in the pews; the job is the co-op blocks home base on Sahara, TAKEN two weeks ago by a roaming party that wanted its basement cold store as a shelter
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice B; line 24 met by choice C (no boss verb).
+CHECKLIST: passes all 32. Line 12 met by choice B; line 24 met by choice C (no boss verb). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE RETAKE CONTRACT, inside the same act. QD-Q13 retakes a base a generation later; this one retakes it while the grief is fresh and the occupiers are still settling in. The nuke scare has people buying shelters, and a roaming party (the one with painted-out faces, now named on two boards) took the co-op for its cold store. Half of them are hauling the co-op's goods to their home base; the other half hold the blocks. The co-op's people who were not carried off sleep at the chapel. The one who counts them posts the job.

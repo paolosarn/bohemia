@@ -7,7 +7,7 @@ PLACE: the farm tower home base (a town by act 3); the job is one haul of two to
 SITUATION: a glut: new grow lights doubled the crop, two tonnes ripened in one week, market prices halved, and it rots in five days -> the surplus moves to the rocket yard canteen, the wash camp, or the co-op's drying racks, and each writes a different price or a different board
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, the valley healing. The farm tower put in the new lights and they worked too well. Two tonnes of tomatoes came ripe in the same week. Every market in the valley is full of tomatoes. In five days it is sauce on the floor. This is what a boom problem looks like: too much of a good thing, in the wrong place, on a clock.

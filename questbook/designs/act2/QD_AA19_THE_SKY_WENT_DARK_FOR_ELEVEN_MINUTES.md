@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: on the map, any road near a settlement with open water tanks (default: the dam road); the event screen is the sky over the company, and the tanks below
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the passenger pigeon, in the millions (round zero's sky event; a lab a state or two over released them, the law's s3). No BB beast; the swarm's lesson: what you cannot kill is not a fight.
-CHECKLIST: passes all 28 (never in the first minute; fires once per act at most)
+CHECKLIST: passes all 32 (never in the first minute; fires once per act at most) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2. The company is on the road. The light goes brown, then grey. It is birds: one flock, so wide it has no edges, so loud the company cannot hear each other. It lasts eleven minutes. The event screen is the sky, a face in the company looking up, and the settlement's open water tanks ahead.

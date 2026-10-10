@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a home base the company HOLDS (default: its first; the settlement screen is its own, the hall is the company's own board) and the US-95 desert south of it, where a feral Camelops herd grazes the creosote flats; the fight board, if there is one, is cut from the flats
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: Camelops, the American camel (the seventeen, no. 5). BB lesson: none of the monsters; a mount, not a monster, and the bull in rut is the one danger. Routine if any fight, 2 to 4 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2. The dam road needs hauling: panels and pump parts, too heavy for men. Camelops came up the US-95 from the lab years ago and breed on the flats. A string of camels would carry what the company cannot. The water board at the dam posts the contract; the company's own home base is where the corral would go.

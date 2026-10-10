@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: a block the company HOLDS in act 1, on the lot where it built a coop (rule 40b); the event screen is the coop at night; the fight, if any, is on the fight board cut from that block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: tegu and monitor lizards from the pet trade (the seventeen, no. 16). BB lesson: the Webknecht's hold, and the Nachzehrer's small many: a rooted man is a dead man; they come for eggs. Routine, 2 to 3 minutes.
-CHECKLIST: passes all 28 (fires only after a coop exists on a held lot, never in the first minute)
+CHECKLIST: passes all 32 (fires only after a coop exists on a held lot, never in the first minute) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The company built a coop on its held lot, the first thing it built. It works: eggs every day, FOOD in the ledger. Then the eggs stop. The event screen: the coop at night, the door open, shells on the ground, and in the torchlight, a tail.

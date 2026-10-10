@@ -7,7 +7,7 @@ PLACE: the rail and truck depot home base (fortress tier); the job is one medici
 SITUATION: the drivers struck because the depot pays in scrip the Strip market discounts by a third, and no truck has left in six days -> the medicine reaches the chapel, and the strike ends one of three ways (scrip honoured, strike broken, or half the drivers back), each showing on the depot's next board and in the scrip's price at the market
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The depot pays its drivers in its own paper. In a boom the paper was as good as batteries. In this bust the Strip takes it at two thirds. The drivers sat down six days ago. They are right about the pay. The medicine for the chapel clinic is on the dock, and the cold box's battery is half gone.

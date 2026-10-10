@@ -7,7 +7,7 @@ PLACE: the first home base, the family house (QD-T11), read under rule 43 as the
 SITUATION: THE FIRST FLIP. The second generation unlocked at the first base (rule 39c); the flip is a big transition unlocked mid-act (third votes). The first time the player uses it, the game must prove in one screen that the future is DERIVED from the past: what the first person built stands, what they lost is a ruin, and the first face met is somebody's heir
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (the arrival is silent for its first 60 seconds)
+CHECKLIST: passes all 32 (the arrival is silent for its first 60 seconds) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 In act 1 the player taps the house and chooses to go forward. The transition is long and plain: the settlement screen of the base ages in place, lot by lot. Then act 2. The same base, the same house. Whatever the first person built on the lots is there, weathered. Whatever was raided is a black shell. The heir stands at the window of the house, and the player sees him from the settlement screen: a tiny figure in a lit square.

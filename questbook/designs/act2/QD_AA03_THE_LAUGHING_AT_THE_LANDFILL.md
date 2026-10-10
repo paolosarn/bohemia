@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the recyclers' home base at the edge of the Apex landfill, north-east of the city (settlement screen: the hall is the weigh station); the lair is the landfill's working face, the fight board cut from that block, trash ridges as cover
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: hyena clan with a matriarch (the seventeen, no. 3; arrived up the Colorado late in act 1, owns act 2). BB lesson: the hyena, armour is not safety; they flee hurt and come back. Tough, 8 to 12 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The recyclers mine the landfill for copper and glass. The hyenas mine it for everything else. Two pickers were taken this month, and what came back of them was bone cracked open lengthwise, which no dog can do.

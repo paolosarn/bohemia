@@ -7,7 +7,7 @@ PLACE: the map, a dry lot beside the old interstate; the event screen stops the 
 SITUATION: a brownout night on the road: the party camped by a still, and woke up with three batteries missing, a new tattoo on one company member, and a goat. Nobody remembers. The road knows
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (never in the first minute; the comedy has one thing in it that is not funny)
+CHECKLIST: passes all 32 (never in the first minute; the comedy has one thing in it that is not funny) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Dawn. The fire is out. The goat is tied to the truck. Paco has "LUPITA" on his forearm, still red. The batteries are three short. A man is standing at the edge of the lot with his hat in his hands, waiting for someone to wake up.

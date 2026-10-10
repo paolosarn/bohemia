@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: the dam home base (fortress tier), the turbine hall on the Nevada side
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (all three roads were the access-road fight) and is fixed in place by choice 4, the second crew hired)
 
 ## THE SITUATION
 Act 3, a boom. The rocket yards draw power at night and the dam is running a turbine that was dead for twenty
@@ -27,6 +27,8 @@ crisis client (the rocket stage adds one): this is the crisis client.
 2. Cut the road lights and let them come to the hall, where the roof is high ground: safer, but the market loses a
    night's power (prices up one step for a map day). 8 batteries.
 3. "I won't shoot the second crew, they're kids": finish with a stated price, Marisol pays 6 and posts a guard.
+
+4. Talk to the second crew (QR-AM, line 31; `Q216.X1`, `Q199.X3`, `Q087.X4`). The second crew are kids from the wash camp after the hall's spare cells. Meet them at the first light pole at dusk with Marisol's offer of night work carrying cells for the hall; they take it, and the first crew, alone, does not come. No fight; 8 batteries, the same as choices 1 and 2 (QR-G line 30); the hall's roster shows three kids on it next visit.
 
 ## WHAT THE LEDGERS REMEMBER
 Declining leaves nothing. Done: the dam's derive gets one "held" line; the rocket stage's launch-power note reads it.

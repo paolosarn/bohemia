@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the tower offices, now part hospital (settlement screen: the hall is the ninth-floor pharmacy window); the carry runs a loop of three clinics in one map day, the fight board cut from the parking ramp block at the second clinic
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: MEDS IN THE BOX (QR-Z no. 7: a reserve of meds kept untouched for 20 days)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, the valley healing. Floor nine of the tower made its first batch of antibiotics that did not come from before the crash. Three clinics are waiting. Everyone in the valley knows what is in the case.

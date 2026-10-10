@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the chapel town and clinic (settlement screen: the hall is the clinic's front desk); the find runs into the dry wash east of town, the fight board cut from the wash's culvert block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE03 (the paper backups from the data centre). THE ROAD THEY SHARE: the old boulevard south into the chapel town.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. Old Anselmo Ruiz had his memory propped up by the Network for twenty years: it reminded him of his street, his wife, his son. Last week its voice stopped. Last night he walked out of bed four to find the house it used to tell him was his.

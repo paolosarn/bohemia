@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the map, the frontage road under the 95 between the wash and the chapel town home base (town, draft seat the Church); the party is stopped on the road, never in the first minute
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 11 met: walking on writes nothing; line 27: a plain event, not a twist.
+CHECKLIST: passes all 32. Line 11 met: walking on writes nothing; line 27: a plain event, not a twist. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE ROAD WARNING OF A BUILD-UP. A siege is coming to the chapel town in six map days. The map already shows it for a player who looks (tracks converging on a camp in the wash). This event is the warning with a face. It fires once, on the road, when the party passes within two stops of the camp.

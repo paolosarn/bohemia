@@ -46,4 +46,4 @@ The initials burned in the handles are Teo's, not his father's, and Teo has neve
 ## FLAWS IT AVOIDS
 `Q131.X7` inverted on purpose (the no stays invisible, as rule 35 wants), `Q043.X2` (Teo never nags), `Q130.X9` (the crueller branch pays no more than the kind one once the lost goods are counted), `Q076.X3` (no approval to optimize).
 
-CHECKLIST: passes all 30.
+CHECKLIST: passes all 32. (QR-AM 10/10: lines 31 and 32 run, pass as written)

@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the Strip, the one walked place (rule 38b): the Mob's casino home base (settlement screen: the hall is the cage, the old cashier's window); the job is walked on foot through the back of house of a dead magic show (loading dock, laundry, the animal wing), and fought on the fight board cut from that block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the Strip's show tigers, two, exotic escapees, not lab animals (the law's s3 list). BB lesson: a pair, one feints and one strikes; watch both. Routine to tough, 4 to 8 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1. The Mob runs the Strip's working casinos on batteries and bets. One of their back-of-house wings, the old magic show's animal wing, is where the laundry is. The laundry has stopped, because the show's two white tigers never left. They live in the wing, eat what the kitchen throws out, and lately they have started eating the laundry staff.

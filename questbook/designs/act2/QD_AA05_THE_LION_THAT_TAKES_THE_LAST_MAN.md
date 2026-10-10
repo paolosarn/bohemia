@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the horse-ranch home base on the Red Rock road, west of the city (settlement screen: the hall is the tack room); the hunt AREA is the road into the canyon; the lair is a ridge above it, the fight board cut from that block, boulders as cover and one mound (the only terrain effect)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the American lion, one animal (the seventeen, no. 8). BB lesson: the Lindwurm-class boss, some things you do not melee; one tile, one hit, the dial shot. Tough, 8 to 12 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2. The ranch moves horses up the Red Rock road in strings. Every string that goes up comes back one horse short, and it is always the LAST horse. Twice now it was the last rider.

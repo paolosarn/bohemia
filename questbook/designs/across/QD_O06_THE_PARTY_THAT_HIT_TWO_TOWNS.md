@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the rail and truck depot home base (fortress tier), the dispatch office
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A roaming party has hit two bases this season (generated; its tracks are on the map). By rule 8 of QR-O it becomes

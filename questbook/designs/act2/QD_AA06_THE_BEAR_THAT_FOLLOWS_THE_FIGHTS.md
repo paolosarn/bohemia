@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the medics' home base at a dead hospital on the east side (settlement screen: the hall is the triage desk); the lair is the company's OWN last battlefield, the fight board cut from that block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the short-faced bear (the seventeen, no. 9; a Utah lab animal up the Colorado). BB lesson: the unhold, it regenerates, it throws men; burst it in one turn. It smells the dead you leave. Tough, 10 to 15 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Wherever the company fights, a bear comes after. The medics noticed first: their gravediggers go out to bury the dead of every skirmish on the east side and find the graves already open. The bear is 900 kilos and has a nose that reads a battlefield from miles away. Lately it has been reading the company's.

@@ -7,7 +7,7 @@ PLACE: the chapel town and clinic home base (town tier, two offers); the job is 
 SITUATION: a fever came in with a caravan that is camped ten metres from the town's only well -> the caravan moves (or leaves), the well is kept clean (or not), the clinic's board turns from triage back to medicine runs, and the chapel market's water price falls back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Forty travellers came in on a salt caravan, and some of them brought a fever. They camped in the chapel's lower lot beside the well because it is flat and there is water. Three chapel children are sick. The nurse does not want them gone. She wants them uphill of the water, not beside it.

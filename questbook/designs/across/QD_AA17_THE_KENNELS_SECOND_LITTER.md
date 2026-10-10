@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust (act 1) -> either (act 2)
 PLACE: act 1, any home base the company holds, where it keeps a dog (from QD-AA01 road C, QD-AA10 road B, or a dog bought at a kennel); act 2, the kennel building on the same held block, and the fight board of the heir's first hunt
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (bends line 5 on purpose: act 2's landing reads an act 1 dog; the default read, "no dog kept", is below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: act 2's landing reads an act 1 dog; the default read, "no dog kept", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Rule 39: the company inherits. Dogs live twelve years; the acts are a generation apart. The dog the first captain kept does not reach the heir. Its line does. In act 1 the company may keep a dog and, if it holds a block, build a KENNEL on a lot (5 batteries, 1 day). A kennel breeds: the dog's pups are raised on the block.

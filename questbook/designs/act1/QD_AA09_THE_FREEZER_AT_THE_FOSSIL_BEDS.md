@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the clinic home base in North Las Vegas (settlement screen: the hall is the waiting room); the job is at THE LAB, north of the city at the Tule Springs fossil beds: a low tan building with a visitor sign and a parking lot, the fight board cut from its block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: whatever is still in the lab's yard: a dire wolf pair and one young lion that never left. Routine, 3 to 4 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The clinic runs its vaccine fridge on a battery bank that is dying. Its doctor has heard that the lab at the fossil beds had a freezer on its own solar, cold for ten years. She wants the freezer. She does not ask what is in it.

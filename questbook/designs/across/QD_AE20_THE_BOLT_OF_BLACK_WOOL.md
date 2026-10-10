@@ -6,7 +6,7 @@ ECONOMY: bust (act 1) -> boom (act 3)
 PLACE: the colourful market (settlement screen: the hall is a tailor's stall under a parachute); act 1's guard runs one leg from the depot to the market, the fight board cut from the underpass block; act 3's offer is at the same stall, rebuilt
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE COAT THAT OUTLIVES US (QR-Z no. 26: a named coat made, never sold, worn by the heir)
-CHECKLIST: passes all 30 (bends line 5 on purpose: act 3 reads act 1; the default read, "the bolt never came", is below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: act 3 reads act 1; the default read, "the bolt never came", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1. A tailor at the colourful market bought the last bolt of real black wool in the valley, off a truck at the depot. Wool, not plastic. She needs it carried across the underpass, where people get robbed for less.

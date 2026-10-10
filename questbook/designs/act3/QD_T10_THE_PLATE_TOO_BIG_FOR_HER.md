@@ -7,7 +7,7 @@ PLACE: the tower offices home base (town tier) in act 3; a showroom on the top f
 SITUATION: a glut of money (QR-S situation 8, the boom half): the towers collect crash-era things for a runway archive. A collector posts a job to borrow the family's act-1 plate armour, the heirloom, for a show -> the plate comes home, or is sold, or is cut down to fit the heir who is too small for it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: minority (1 in 5): the collector does not return it on the agreed night
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never played): the plate is the default act-1 lead's, dented where the default fights put the dents.
 
 ## THE SITUATION

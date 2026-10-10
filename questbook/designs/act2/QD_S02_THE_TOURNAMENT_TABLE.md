@@ -7,7 +7,7 @@ PLACE: the Strip casino block home base (fortress tier); the job is the road fro
 SITUATION: the Strip hosts its first card tournament since the crash, and four bases are bringing their stakes in by road -> the tournament runs, the Strip's board posts no collection jobs for one refresh (debts are paid from winnings), the Strip market's charge price falls one and its drink price rises one
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, the world clawing back. The house has money again and wants to show it: a card table with a seat for four bases. Money on the road draws parties the way light draws moths. The co-op's treasurer is driving the co-op's stake in, and the house wants her and the stake to arrive in one piece, because a table with an empty seat is a table nobody trusts.

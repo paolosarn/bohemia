@@ -35,8 +35,8 @@
 ### ACT1 (59)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
-- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 7 ids
-- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 9 ids
+- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
+- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 12 ids
 - [QD-AA04 THE BULL WITH TWICE THE MUSCLE](act1/QD_AA04_THE_BULL_WITH_TWICE_THE_MUSCLE.md)  contract | none | bust | 8 ids
 - [QD-AA09 THE FREEZER AT THE FOSSIL BEDS](act1/QD_AA09_THE_FREEZER_AT_THE_FOSSIL_BEDS.md)  contract | none | bust | 9 ids
 - [QD-AA10 THE LIGHT IN ROOM FOUR](act1/QD_AA10_THE_LIGHT_IN_ROOM_FOUR.md)  event | none | bust | 7 ids
@@ -70,7 +70,7 @@
 - [QD-K10 THE MOVIE ON THE CASINO WALL](act1/QD_K10_THE_MOVIE_ON_THE_CASINO_WALL.md)  event | none | bust | 9 ids
 - [QD-L01 UNIT FOUR](act1/QD_L01_UNIT_FOUR.md)  contract | none | bust | 9 ids
 - [QD-L02 THE TESTER](act1/QD_L02_THE_TESTER.md)  contract | none | boom | 9 ids
-- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 8 ids
+- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 11 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
 - [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 10 ids
@@ -112,7 +112,7 @@
 - [QD-B05 THE PUMP HOUSE IN THE BROWNOUT](act2/QD_B05_THE_PUMP_HOUSE_IN_THE_BROWNOUT.md)  event | the whisper broadcast | bust | 12 ids
 - [QD-B06 THE FAMILIES WALKING OUT](act2/QD_B06_THE_FAMILIES_WALKING_OUT.md)  event | the earth-side nuke | either | 15 ids
 - [QD-C03 TWO CREWS, ONE PUMP](act2/QD_C03_TWO_CREWS_ONE_PUMP.md)  contract | none | boom | 15 ids
-- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 11 ids
+- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 15 ids
 - [QD-E03 THE ONE DARK WINDOW](act2/QD_E03_THE_ONE_DARK_WINDOW.md)  contract | the whisper broadcast | boom | 16 ids
 - [QD-E04 NUMBER NINE](act2/QD_E04_NUMBER_NINE.md)  contract | none | boom | 16 ids
 - [QD-F05 THE SAME KITCHEN, TWENTY YEARS ON](act2/QD_F05_THE_SAME_KITCHEN_TWENTY_YEARS_ON.md)  main-beat | none | either | 10 ids
@@ -153,10 +153,10 @@
 - [QD-S14 THE DYE CART FOR THE FESTIVAL](act2/QD_S14_THE_DYE_CART_FOR_THE_FESTIVAL.md)  contract | none | boom | 7 ids
 - [QD-S19 THE PRIEST WHO WANTED TO GO HOME](act2/QD_S19_THE_PRIEST_WHO_WANTED_TO_GO_HOME.md)  contract | none | either | 6 ids
 - [QD-T03 THE CHARGE SHED THAT DREW THE TRUCKS](act2/QD_T03_THE_CHARGE_SHED_THAT_DREW_THE_TRUCKS.md)  contract | none | boom | 10 ids
-- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 12 ids
+- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 15 ids
 - [QD-T08 THE APPRENTICE'S MOTHER](act2/QD_T08_THE_APPRENTICES_MOTHER.md)  contract | none | bust | 9 ids
 - [QD-T09 THE WIDOW WITH THE WAGE CHIT](act2/QD_T09_THE_WIDOW_WITH_THE_WAGE_CHIT.md)  event | none | either | 9 ids
-- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 9 ids
+- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 12 ids
 - [QD-T18 THE CLERK NOBODY WILL LOOK FOR](act2/QD_T18_THE_CLERK_NOBODY_WILL_LOOK_FOR.md)  contract | none | bust | 10 ids
 ### ACT3 (60)
 - [QD-A05 THE GLASS FARM NIGHT SHIFT](act3/QD_A05_THE_GLASS_FARM_NIGHT_SHIFT.md)  contract | none | boom | 15 ids
@@ -170,8 +170,8 @@
 - [QD-AE05 THE SEED TRUCK UP THE TOWER ROAD](act3/QD_AE05_THE_SEED_TRUCK_UP_THE_TOWER_ROAD.md)  contract | none | boom | 8 ids
 - [QD-AE06 THE CAMELOPS IN THE GLASS ROWS](act3/QD_AE06_THE_CAMELOPS_IN_THE_GLASS_ROWS.md)  contract | none | boom | 7 ids
 - [QD-AE11 THE FIRST BATCH FROM FLOOR NINE](act3/QD_AE11_THE_FIRST_BATCH_FROM_FLOOR_NINE.md)  contract | none | boom | 7 ids
-- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 7 ids
-- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 7 ids
+- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 13 ids
+- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 10 ids
 - [QD-AE14 THE KILN FIRING](act3/QD_AE14_THE_KILN_FIRING.md)  contract | the rocket | boom | 7 ids
 - [QD-AE15 THE GROUND TRACK NORTH](act3/QD_AE15_THE_GROUND_TRACK_NORTH.md)  contract | the rocket | boom | 7 ids
 - [QD-B07 THE MAN SELLING THE ROCKET](act3/QD_B07_THE_MAN_SELLING_THE_ROCKET.md)  event | the rocket | boom | 11 ids
@@ -192,9 +192,9 @@
 - [QD-K07 THE ONES COMING BACK](act3/QD_K07_THE_ONES_COMING_BACK.md)  event | the Network crumbling | boom | 8 ids
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
 - [QD-L09 THE GLASS FOR THE YARD](act3/QD_L09_THE_GLASS_FOR_THE_YARD.md)  contract | the rocket | bust | 9 ids
-- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 9 ids
+- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
 - [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
-- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 6 ids
+- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-O02 THE SEED ON FLOOR SIX](act3/QD_O02_THE_SEED_ON_FLOOR_SIX.md)  contract | none | bust | 6 ids
 - [QD-O04 THE PATIENT IN BED ELEVEN](act3/QD_O04_THE_PATIENT_IN_BED_ELEVEN.md)  contract | the Network crumbling | either | 6 ids
 - [QD-O07 THE DRIVES THAT ARE STILL WARM](act3/QD_O07_THE_DRIVES_THAT_ARE_STILL_WARM.md)  contract | the Network crumbling | boom | 6 ids
@@ -244,8 +244,8 @@
 ### contract (132)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
-- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 7 ids
-- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 9 ids
+- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
+- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 12 ids
 - [QD-AA04 THE BULL WITH TWICE THE MUSCLE](act1/QD_AA04_THE_BULL_WITH_TWICE_THE_MUSCLE.md)  contract | none | bust | 8 ids
 - [QD-AA09 THE FREEZER AT THE FOSSIL BEDS](act1/QD_AA09_THE_FREEZER_AT_THE_FOSSIL_BEDS.md)  contract | none | bust | 9 ids
 - [QD-AA15 THE TIGERS BEHIND THE SHOW DOOR](act1/QD_AA15_THE_TIGERS_BEHIND_THE_SHOW_DOOR.md)  contract | none | bust | 8 ids
@@ -265,7 +265,7 @@
 - [QD-J07 THE CARTEL PAYS FOR THE DOCTOR](act1/QD_J07_THE_CARTEL_PAYS_FOR_THE_DOCTOR.md)  contract | the Destroyers | bust | 9 ids
 - [QD-L01 UNIT FOUR](act1/QD_L01_UNIT_FOUR.md)  contract | none | bust | 9 ids
 - [QD-L02 THE TESTER](act1/QD_L02_THE_TESTER.md)  contract | none | boom | 9 ids
-- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 8 ids
+- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-O08 THE BARBER'S CHAIR ON THE STRIP](act1/QD_O08_THE_BARBERS_CHAIR_ON_THE_STRIP.md)  contract | the Destroyers | bust | 6 ids
 - [QD-R01 THE FARM TOWER HOLDS ONE NIGHT](act1/QD_R01_THE_FARM_TOWER_HOLDS_ONE_NIGHT.md)  contract | the Destroyers | bust | 9 ids
 - [QD-S01 THE TRASH RACK](act1/QD_S01_THE_TRASH_RACK.md)  contract | none | bust | 7 ids
@@ -295,7 +295,7 @@
 - [QD-AE17 FOUR DRIVERS AT MILE NINETY](act2/QD_AE17_FOUR_DRIVERS_AT_MILE_NINETY.md)  contract | none | bust | 7 ids
 - [QD-AE18 ONE NIGHT AT THE PUMP HOUSE](act2/QD_AE18_ONE_NIGHT_AT_THE_PUMP_HOUSE.md)  contract | none | bust | 7 ids
 - [QD-C03 TWO CREWS, ONE PUMP](act2/QD_C03_TWO_CREWS_ONE_PUMP.md)  contract | none | boom | 15 ids
-- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 11 ids
+- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 15 ids
 - [QD-E03 THE ONE DARK WINDOW](act2/QD_E03_THE_ONE_DARK_WINDOW.md)  contract | the whisper broadcast | boom | 16 ids
 - [QD-E04 NUMBER NINE](act2/QD_E04_NUMBER_NINE.md)  contract | none | boom | 16 ids
 - [QD-I05 THE TOKENS THAT READ FULL](act2/QD_I05_THE_TOKENS_THAT_READ_FULL.md)  contract | none | boom | 9 ids
@@ -321,9 +321,9 @@
 - [QD-S14 THE DYE CART FOR THE FESTIVAL](act2/QD_S14_THE_DYE_CART_FOR_THE_FESTIVAL.md)  contract | none | boom | 7 ids
 - [QD-S19 THE PRIEST WHO WANTED TO GO HOME](act2/QD_S19_THE_PRIEST_WHO_WANTED_TO_GO_HOME.md)  contract | none | either | 6 ids
 - [QD-T03 THE CHARGE SHED THAT DREW THE TRUCKS](act2/QD_T03_THE_CHARGE_SHED_THAT_DREW_THE_TRUCKS.md)  contract | none | boom | 10 ids
-- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 12 ids
+- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 15 ids
 - [QD-T08 THE APPRENTICE'S MOTHER](act2/QD_T08_THE_APPRENTICES_MOTHER.md)  contract | none | bust | 9 ids
-- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 9 ids
+- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 12 ids
 - [QD-T18 THE CLERK NOBODY WILL LOOK FOR](act2/QD_T18_THE_CLERK_NOBODY_WILL_LOOK_FOR.md)  contract | none | bust | 10 ids
 - [QD-A05 THE GLASS FARM NIGHT SHIFT](act3/QD_A05_THE_GLASS_FARM_NIGHT_SHIFT.md)  contract | none | boom | 15 ids
 - [QD-A06 THE BOLTS FROM THE DRY WASH](act3/QD_A06_THE_BOLTS_FROM_THE_DRY_WASH.md)  contract | the rocket | bust | 14 ids
@@ -336,8 +336,8 @@
 - [QD-AE05 THE SEED TRUCK UP THE TOWER ROAD](act3/QD_AE05_THE_SEED_TRUCK_UP_THE_TOWER_ROAD.md)  contract | none | boom | 8 ids
 - [QD-AE06 THE CAMELOPS IN THE GLASS ROWS](act3/QD_AE06_THE_CAMELOPS_IN_THE_GLASS_ROWS.md)  contract | none | boom | 7 ids
 - [QD-AE11 THE FIRST BATCH FROM FLOOR NINE](act3/QD_AE11_THE_FIRST_BATCH_FROM_FLOOR_NINE.md)  contract | none | boom | 7 ids
-- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 7 ids
-- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 7 ids
+- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 13 ids
+- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 10 ids
 - [QD-AE14 THE KILN FIRING](act3/QD_AE14_THE_KILN_FIRING.md)  contract | the rocket | boom | 7 ids
 - [QD-AE15 THE GROUND TRACK NORTH](act3/QD_AE15_THE_GROUND_TRACK_NORTH.md)  contract | the rocket | boom | 7 ids
 - [QD-C05 WHAT THE NEIGHBOURS ARE](act3/QD_C05_WHAT_THE_NEIGHBOURS_ARE.md)  contract | the Network crumbling | boom | 12 ids
@@ -348,8 +348,8 @@
 - [QD-J11 THE HOARD COMES OUT](act3/QD_J11_THE_HOARD_COMES_OUT.md)  contract | the Network crumbling | boom | 10 ids
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
 - [QD-L09 THE GLASS FOR THE YARD](act3/QD_L09_THE_GLASS_FOR_THE_YARD.md)  contract | the rocket | bust | 9 ids
-- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 9 ids
-- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 6 ids
+- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
+- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-O02 THE SEED ON FLOOR SIX](act3/QD_O02_THE_SEED_ON_FLOOR_SIX.md)  contract | none | bust | 6 ids
 - [QD-O04 THE PATIENT IN BED ELEVEN](act3/QD_O04_THE_PATIENT_IN_BED_ELEVEN.md)  contract | the Network crumbling | either | 6 ids
 - [QD-O07 THE DRIVES THAT ARE STILL WARM](act3/QD_O07_THE_DRIVES_THAT_ARE_STILL_WARM.md)  contract | the Network crumbling | boom | 6 ids
@@ -440,8 +440,8 @@
 ### none (132)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
-- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 7 ids
-- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 9 ids
+- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
+- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 12 ids
 - [QD-AA04 THE BULL WITH TWICE THE MUSCLE](act1/QD_AA04_THE_BULL_WITH_TWICE_THE_MUSCLE.md)  contract | none | bust | 8 ids
 - [QD-AA09 THE FREEZER AT THE FOSSIL BEDS](act1/QD_AA09_THE_FREEZER_AT_THE_FOSSIL_BEDS.md)  contract | none | bust | 9 ids
 - [QD-AA10 THE LIGHT IN ROOM FOUR](act1/QD_AA10_THE_LIGHT_IN_ROOM_FOUR.md)  event | none | bust | 7 ids
@@ -469,7 +469,7 @@
 - [QD-K10 THE MOVIE ON THE CASINO WALL](act1/QD_K10_THE_MOVIE_ON_THE_CASINO_WALL.md)  event | none | bust | 9 ids
 - [QD-L01 UNIT FOUR](act1/QD_L01_UNIT_FOUR.md)  contract | none | bust | 9 ids
 - [QD-L02 THE TESTER](act1/QD_L02_THE_TESTER.md)  contract | none | boom | 9 ids
-- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 8 ids
+- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 11 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
 - [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 10 ids
@@ -503,7 +503,7 @@
 - [QD-AE18 ONE NIGHT AT THE PUMP HOUSE](act2/QD_AE18_ONE_NIGHT_AT_THE_PUMP_HOUSE.md)  contract | none | bust | 7 ids
 - [QD-B04 THE TOLL WITH A RECEIPT](act2/QD_B04_THE_TOLL_WITH_A_RECEIPT.md)  event | none | boom | 12 ids
 - [QD-C03 TWO CREWS, ONE PUMP](act2/QD_C03_TWO_CREWS_ONE_PUMP.md)  contract | none | boom | 15 ids
-- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 11 ids
+- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 15 ids
 - [QD-E04 NUMBER NINE](act2/QD_E04_NUMBER_NINE.md)  contract | none | boom | 16 ids
 - [QD-F05 THE SAME KITCHEN, TWENTY YEARS ON](act2/QD_F05_THE_SAME_KITCHEN_TWENTY_YEARS_ON.md)  main-beat | none | either | 10 ids
 - [QD-G02 THE CLINIC LAMP](act2/QD_G02_THE_CLINIC_LAMP.md)  event | none | either | 14 ids
@@ -530,18 +530,18 @@
 - [QD-S14 THE DYE CART FOR THE FESTIVAL](act2/QD_S14_THE_DYE_CART_FOR_THE_FESTIVAL.md)  contract | none | boom | 7 ids
 - [QD-S19 THE PRIEST WHO WANTED TO GO HOME](act2/QD_S19_THE_PRIEST_WHO_WANTED_TO_GO_HOME.md)  contract | none | either | 6 ids
 - [QD-T03 THE CHARGE SHED THAT DREW THE TRUCKS](act2/QD_T03_THE_CHARGE_SHED_THAT_DREW_THE_TRUCKS.md)  contract | none | boom | 10 ids
-- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 12 ids
+- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 15 ids
 - [QD-T08 THE APPRENTICE'S MOTHER](act2/QD_T08_THE_APPRENTICES_MOTHER.md)  contract | none | bust | 9 ids
 - [QD-T09 THE WIDOW WITH THE WAGE CHIT](act2/QD_T09_THE_WIDOW_WITH_THE_WAGE_CHIT.md)  event | none | either | 9 ids
-- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 9 ids
+- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 12 ids
 - [QD-T18 THE CLERK NOBODY WILL LOOK FOR](act2/QD_T18_THE_CLERK_NOBODY_WILL_LOOK_FOR.md)  contract | none | bust | 10 ids
 - [QD-A05 THE GLASS FARM NIGHT SHIFT](act3/QD_A05_THE_GLASS_FARM_NIGHT_SHIFT.md)  contract | none | boom | 15 ids
 - [QD-AE05 THE SEED TRUCK UP THE TOWER ROAD](act3/QD_AE05_THE_SEED_TRUCK_UP_THE_TOWER_ROAD.md)  contract | none | boom | 8 ids
 - [QD-AE06 THE CAMELOPS IN THE GLASS ROWS](act3/QD_AE06_THE_CAMELOPS_IN_THE_GLASS_ROWS.md)  contract | none | boom | 7 ids
 - [QD-AE11 THE FIRST BATCH FROM FLOOR NINE](act3/QD_AE11_THE_FIRST_BATCH_FROM_FLOOR_NINE.md)  contract | none | boom | 7 ids
-- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 7 ids
+- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 13 ids
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
-- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 9 ids
+- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
 - [QD-O02 THE SEED ON FLOOR SIX](act3/QD_O02_THE_SEED_ON_FLOOR_SIX.md)  contract | none | bust | 6 ids
 - [QD-Q02 THE FIRST CARAVAN WEST](act3/QD_Q02_THE_FIRST_CARAVAN_WEST.md)  contract | none | boom | 7 ids
 - [QD-Q03 THE BOY IN HIS GRANDFATHER'S MASK](act3/QD_Q03_THE_BOY_IN_HIS_GRANDFATHERS_MASK.md)  event | none | boom | 7 ids
@@ -602,7 +602,7 @@
 - [QD-AA18 THE RESERVE WANTS THEM ALIVE](act3/QD_AA18_THE_RESERVE_WANTS_THEM_ALIVE.md)  contract | the Network crumbling | boom | 8 ids
 - [QD-AE03 THE PAPER BACKUPS](act3/QD_AE03_THE_PAPER_BACKUPS.md)  contract | the Network crumbling | either | 8 ids
 - [QD-AE04 THE MAN WHO WALKED OUT OF BED FOUR](act3/QD_AE04_THE_MAN_WHO_WALKED_OUT_OF_BED_FOUR.md)  contract | the Network crumbling | either | 8 ids
-- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 7 ids
+- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 10 ids
 - [QD-B08 THE WOMAN WHO KNEW YOUR GRANDFATHER](act3/QD_B08_THE_WOMAN_WHO_KNEW_YOUR_GRANDFATHER.md)  event | the Network crumbling | boom | 14 ids
 - [QD-C05 WHAT THE NEIGHBOURS ARE](act3/QD_C05_WHAT_THE_NEIGHBOURS_ARE.md)  contract | the Network crumbling | boom | 12 ids
 - [QD-E05 THE CHAIR PULLED OUT](act3/QD_E05_THE_CHAIR_PULLED_OUT.md)  contract | the Network crumbling | boom | 19 ids
@@ -636,7 +636,7 @@
 - [QD-K03 THE TYRE MARKS INTO THE DRY WASH](act3/QD_K03_THE_TYRE_MARKS_INTO_THE_DRY_WASH.md)  event | the rocket | boom | 10 ids
 - [QD-K06 THE NIGHT SCHOOL ON THE SOLAR ROAD](act3/QD_K06_THE_NIGHT_SCHOOL_ON_THE_SOLAR_ROAD.md)  event | the rocket | boom | 8 ids
 - [QD-L09 THE GLASS FOR THE YARD](act3/QD_L09_THE_GLASS_FOR_THE_YARD.md)  contract | the rocket | bust | 9 ids
-- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 6 ids
+- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-Q07 THE RECRUITS AT THE OLD BASE](act3/QD_Q07_THE_RECRUITS_AT_THE_OLD_BASE.md)  contract | the rocket | boom | 7 ids
 - [QD-Q08 THE CEMETERY UNDER THE SOLAR FIELD](act3/QD_Q08_THE_CEMETERY_UNDER_THE_SOLAR_FIELD.md)  contract | the rocket | boom | 7 ids
 - [QD-Q18 THE FIRST BOLT](act3/QD_Q18_THE_FIRST_BOLT.md)  main-beat | the rocket | boom | 7 ids
@@ -697,7 +697,7 @@
 - [QD-AE05 THE SEED TRUCK UP THE TOWER ROAD](act3/QD_AE05_THE_SEED_TRUCK_UP_THE_TOWER_ROAD.md)  contract | none | boom | 8 ids
 - [QD-AE06 THE CAMELOPS IN THE GLASS ROWS](act3/QD_AE06_THE_CAMELOPS_IN_THE_GLASS_ROWS.md)  contract | none | boom | 7 ids
 - [QD-AE11 THE FIRST BATCH FROM FLOOR NINE](act3/QD_AE11_THE_FIRST_BATCH_FROM_FLOOR_NINE.md)  contract | none | boom | 7 ids
-- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 7 ids
+- [QD-AE12 THE TRAM LINE OVER THE WASH](act3/QD_AE12_THE_TRAM_LINE_OVER_THE_WASH.md)  contract | none | boom | 13 ids
 - [QD-AE14 THE KILN FIRING](act3/QD_AE14_THE_KILN_FIRING.md)  contract | the rocket | boom | 7 ids
 - [QD-AE15 THE GROUND TRACK NORTH](act3/QD_AE15_THE_GROUND_TRACK_NORTH.md)  contract | the rocket | boom | 7 ids
 - [QD-B07 THE MAN SELLING THE ROCKET](act3/QD_B07_THE_MAN_SELLING_THE_ROCKET.md)  event | the rocket | boom | 11 ids
@@ -713,9 +713,9 @@
 - [QD-K06 THE NIGHT SCHOOL ON THE SOLAR ROAD](act3/QD_K06_THE_NIGHT_SCHOOL_ON_THE_SOLAR_ROAD.md)  event | the rocket | boom | 8 ids
 - [QD-K07 THE ONES COMING BACK](act3/QD_K07_THE_ONES_COMING_BACK.md)  event | the Network crumbling | boom | 8 ids
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
-- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 9 ids
+- [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
 - [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
-- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 6 ids
+- [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-O07 THE DRIVES THAT ARE STILL WARM](act3/QD_O07_THE_DRIVES_THAT_ARE_STILL_WARM.md)  contract | the Network crumbling | boom | 6 ids
 - [QD-Q01 THE RACKS THAT STILL HUM](act3/QD_Q01_THE_RACKS_THAT_STILL_HUM.md)  contract | the Network crumbling | boom | 9 ids
 - [QD-Q02 THE FIRST CARAVAN WEST](act3/QD_Q02_THE_FIRST_CARAVAN_WEST.md)  contract | none | boom | 7 ids
@@ -741,8 +741,8 @@
 - [QD-T07 THE RIFLE WITH A NOTCH IN IT](across/QD_T07_THE_RIFLE_WITH_A_NOTCH_IN_IT.md)  contract | none | boom | 11 ids
 ### bust (91)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
-- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 7 ids
-- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 9 ids
+- [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
+- [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 12 ids
 - [QD-AA04 THE BULL WITH TWICE THE MUSCLE](act1/QD_AA04_THE_BULL_WITH_TWICE_THE_MUSCLE.md)  contract | none | bust | 8 ids
 - [QD-AA09 THE FREEZER AT THE FOSSIL BEDS](act1/QD_AA09_THE_FREEZER_AT_THE_FOSSIL_BEDS.md)  contract | none | bust | 9 ids
 - [QD-AA10 THE LIGHT IN ROOM FOUR](act1/QD_AA10_THE_LIGHT_IN_ROOM_FOUR.md)  event | none | bust | 7 ids
@@ -771,7 +771,7 @@
 - [QD-K05 THE HORSE PILLS](act1/QD_K05_THE_HORSE_PILLS.md)  event | none | bust | 9 ids
 - [QD-K10 THE MOVIE ON THE CASINO WALL](act1/QD_K10_THE_MOVIE_ON_THE_CASINO_WALL.md)  event | none | bust | 9 ids
 - [QD-L01 UNIT FOUR](act1/QD_L01_UNIT_FOUR.md)  contract | none | bust | 9 ids
-- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 8 ids
+- [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 11 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
 - [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 10 ids
@@ -842,7 +842,7 @@
 - [QD-AA06 THE BEAR THAT FOLLOWS THE FIGHTS](act2/QD_AA06_THE_BEAR_THAT_FOLLOWS_THE_FIGHTS.md)  contract | none | either | 9 ids
 - [QD-AA19 THE SKY WENT DARK FOR ELEVEN MINUTES](act2/QD_AA19_THE_SKY_WENT_DARK_FOR_ELEVEN_MINUTES.md)  event | none | either | 8 ids
 - [QD-B06 THE FAMILIES WALKING OUT](act2/QD_B06_THE_FAMILIES_WALKING_OUT.md)  event | the earth-side nuke | either | 15 ids
-- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 11 ids
+- [QD-C04 THE DOOR ON ORCHARD STREET](act2/QD_C04_THE_DOOR_ON_ORCHARD_STREET.md)  contract | none | either | 15 ids
 - [QD-F05 THE SAME KITCHEN, TWENTY YEARS ON](act2/QD_F05_THE_SAME_KITCHEN_TWENTY_YEARS_ON.md)  main-beat | none | either | 10 ids
 - [QD-G02 THE CLINIC LAMP](act2/QD_G02_THE_CLINIC_LAMP.md)  event | none | either | 14 ids
 - [QD-H04 WHO CARRIES IT](act2/QD_H04_WHO_CARRIES_IT.md)  main-beat | the whisper broadcast, and the earth-side nuke behind it | either | 13 ids
@@ -852,12 +852,12 @@
 - [QD-Q16 THE COUNT IN THE TUNNEL](act2/QD_Q16_THE_COUNT_IN_THE_TUNNEL.md)  main-beat | the whisper broadcast | either | 8 ids
 - [QD-Q17 THE FIRST MORNING WITHOUT THE REACH](act2/QD_Q17_THE_FIRST_MORNING_WITHOUT_THE_REACH.md)  main-beat | the Network crumbling (its first morning) | either | 7 ids
 - [QD-S19 THE PRIEST WHO WANTED TO GO HOME](act2/QD_S19_THE_PRIEST_WHO_WANTED_TO_GO_HOME.md)  contract | none | either | 6 ids
-- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 12 ids
+- [QD-T04 THE TRANSFORMER ON THE CORNER LOT](act2/QD_T04_THE_TRANSFORMER_ON_THE_CORNER_LOT.md)  contract | none | either | 15 ids
 - [QD-T09 THE WIDOW WITH THE WAGE CHIT](act2/QD_T09_THE_WIDOW_WITH_THE_WAGE_CHIT.md)  event | none | either | 9 ids
-- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 9 ids
+- [QD-T13 THE OTHER HALF OF YOUR MOTHER'S JOB](act2/QD_T13_THE_OTHER_HALF_OF_YOUR_MOTHERS_JOB.md)  contract | none | either | 12 ids
 - [QD-AE03 THE PAPER BACKUPS](act3/QD_AE03_THE_PAPER_BACKUPS.md)  contract | the Network crumbling | either | 8 ids
 - [QD-AE04 THE MAN WHO WALKED OUT OF BED FOUR](act3/QD_AE04_THE_MAN_WHO_WALKED_OUT_OF_BED_FOUR.md)  contract | the Network crumbling | either | 8 ids
-- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 7 ids
+- [QD-AE13 THE DOOR THEY SAID TO SEAL](act3/QD_AE13_THE_DOOR_THEY_SAID_TO_SEAL.md)  contract | the Network crumbling | either | 10 ids
 - [QD-E06 LINE FORTY OF THE MANIFEST](act3/QD_E06_LINE_FORTY_OF_THE_MANIFEST.md)  contract | the rocket | either | 17 ids
 - [QD-H06 THE SAME ROCK](act3/QD_H06_THE_SAME_ROCK.md)  main-beat | the rocket | either | 11 ids
 - [QD-J12 THE HUSBAND WHO STOPPED TALKING](act3/QD_J12_THE_HUSBAND_WHO_STOPPED_TALKING.md)  event | the Network crumbling | either | 9 ids

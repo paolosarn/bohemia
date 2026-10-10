@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the co-op home base in the south-east (settlement screen: the hall is a church hall); the job is the old farm block next to it, with a cemetery lot, the fight board cut from that block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: a feral hog sounder of ORGAN PIGS (round three s1: pigs edited with human genes for transplants). BB lesson: the Nachzehrer, it grows on the dead; leave no dead on the field. Routine to tough, 5 to 9 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2. A pharmaceutical farm's pigs went feral. They took the co-op's farm block and the cemetery beside it. Nobody will eat them: every one carries a human gene, and the co-op's preacher says what that means. The co-op cannot pay much. It can pay with the block.

@@ -47,4 +47,4 @@ Every roof the crew strips is already missing one panel, the same one, top left.
 ## FLAWS IT AVOIDS
 `Q084.X5` and `Q131.X7` (a no that is punished or empty: here a no is silent by law, and the refusal inside the job is a path), `Q042.W10`'s risk made legible (`Q137.X1`: the rule was said aloud first), `Q126.X5` (Coco is one voice; the rest of the company says nothing).
 
-CHECKLIST: passes all 30. Line 20 is met by A, B and C writing three different lines and two different next states (Coco present or gone).
+CHECKLIST: passes all 32. Line 20 is met by A, B and C writing three different lines and two different next states (Coco present or gone). (QR-AM 10/10: lines 31 and 32 run, pass as written)

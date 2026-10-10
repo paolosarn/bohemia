@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: boom
 PLACE: a solar co-op home base on the south flats; the job is at a crash-years cemetery on the land the co-op needs, one map stop out
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice C.
+CHECKLIST: passes all 32. Line 12 met by choice C. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The rocket needs more power, and the power needs a new solar field, and the only flat land is a cemetery from the crash years: rough graves, handmade markers. The co-op wants the graves moved to a proper yard before the panels go in. Some of the people buried there were raided, killed or buried by the family's acts 1 and 2, and the ledgers know who.

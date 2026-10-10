@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a dirt road off the highway, east of the valley, beside a burned-out bus shelter; tracks of a small party end fifty metres back
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 15 (the bottle that rolls with the glance), 23 (the lost bait fight has a result), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING). Fixed in place: 15 (the bottle that rolls with the glance), 23 (the lost bait fight has a result), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B)
 
 ## THE SITUATION

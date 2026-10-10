@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: on the map, the road past THE LAB at the Tule Springs fossil beds, at night; the event screen is the lab's front, one window lit
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (never in the first minute; fires only after the company has seen the lab on the map once)
+CHECKLIST: passes all 32 (never in the first minute; fires only after the company has seen the lab on the map once) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The company passes the lab at night. One window is lit, room four. Somebody is inside. The event screen: a face at the lit window, a woman in faded scrubs, and a clipboard.

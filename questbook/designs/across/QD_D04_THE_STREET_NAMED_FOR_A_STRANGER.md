@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a flood-control wash and the underpass it runs through, act 1; the street built over it, act 3
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways up the wash), 10 and 23 (a lost fight has a result), 12 (the culvert exit), 13 (the offer screen it lacked), 30 (front and behind now raise builder standing the same; QR-X had missed the tilt), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways up the wash), 10 and 23 (a lost fight has a result), 12 (the culvert exit), 13 (the offer screen it lacked), 30 (front and behind now raise builder standing the same; QR-X had missed the tilt), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 This is the design for the player who looks ahead first: act 1 is always played first and act 3 opens only once it unlocks (rule 39c), but this act 1 offer can still be untaken when it does. In act 3, on a reclaimed street over an old wash, the sign reads CALLE TEODORA RUIZ. Nobody in the family knows the name. A woman at the corner says Teodora walked eleven children out through the flooded underpass in the anarchy decade, "and somebody paid her way, nobody knows who." This street exists in the derive even for a do-nothing family: it is what the world did without him.

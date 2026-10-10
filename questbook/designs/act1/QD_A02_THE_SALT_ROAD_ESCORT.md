@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a truck stop on the old interstate at the valley's north edge; the escort runs on the map to a salt flat camp
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways past the gun truck), 10 and 23 (a lost fight pays half and rolls on), 12 (the halfway well), 15 (headlights with the horn), 22 and 26 (the feed post, the salted fish), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways past the gun truck), 10 and 23 (a lost fight pays half and rolls on), 12 (the halfway well), 15 (headlights with the horn), 22 and 26 (the feed post, the salted fish), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: the "TOO STRONG FOR YOU" no, made safe by an honest offer; and a spoken, audible window (C3, C7, C11, C13)
 
 ## THE SITUATION

@@ -44,4 +44,4 @@ On the board, tonight's shift is written in, LUPE - 4B, in her handwriting, and 
 ## FLAWS IT AVOIDS
 `Q043.X1` (the bench that cries: B is flat), `Q125.X9` (no points for kindness), `Q084.X6` (the unlocked lines join the cooldown pool), `Q067.X2` (a member with no inner life).
 
-CHECKLIST: passes all 30. Line 12 (the priced refusal inside a taken contract) reads as choice B and C here, since an event is not a contract; line 18 is not triggered (it plants nothing for another act).
+CHECKLIST: passes all 32. Line 12 (the priced refusal inside a taken contract) reads as choice B and C here, since an event is not a contract; line 18 is not triggered (it plants nothing for another act). (QR-AM 10/10: lines 31 and 32 run, pass as written)

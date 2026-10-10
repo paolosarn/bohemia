@@ -7,7 +7,7 @@ PLACE: the chapel town home base (town tier); the yard behind the chapel; the jo
 SITUATION: the rocket is the talk of the valley (act 3's crisis), and a congregation of old casino workers has built their own tin rocket in the chapel yard. It will not reach the Moon. It might not reach the power lines. They need fuel -> they launch and die, or launch and fall short and live, or stand down with their dream broken
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The family is building the real rocket. Everybody knows. The Deacon's people, forty old dealers and cocktail waitresses thrown out when the Strip shrank, built theirs out of water heaters and a billboard. The fins are painted by a nine-year-old, Yesi, the Deacon's granddaughter, who is not going. They need eight drums of hydrazine from the depot. They have saved for two years.

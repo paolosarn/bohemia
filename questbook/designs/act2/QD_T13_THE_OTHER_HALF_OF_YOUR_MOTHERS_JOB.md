@@ -7,7 +7,7 @@ PLACE: the first home base's neighbour, the co-op blocks (town tier); the hall; 
 SITUATION: the second generation's first hall (the offer the flip lands on, QD-T12 A): Chayo Beltrán, who hired the first person in act 1 to move a strongbox halfway, posts the other half -> the box arrives, and the heir learns what the first person promised and what it cost
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (every road ran through the dam road fight) and is fixed in place by two roads round it)
 DEFAULT READ (act 1 had no such job): Chayo's box was carried halfway by "a woman in a long coat who said she'd be back"; the heir is told that was his mother, and the ledger does not argue.
 
 ## THE SITUATION
@@ -29,6 +29,8 @@ A. HER PRICE. Carry it for 8. A routine fight on the dam road, 2 to 4 minutes on
 B. TODAY'S PRICE. Haggle to 14 and carry it. Chayo pays, and the line she says at the hand-in is about money.
 C. "I'M NOT HER." Take the job but tell Chayo the heir owes her nothing; carry it anyway. Same 8. Her hand-in line is about the heir, not the mother.
 The job on the map is the same on every road.
+
+THE DAM ROAD WITHOUT A FIGHT (QR-AM, line 31; `Q216.X1`, `Q197.X1`, `Q095.X3`): the box can go by the canal path (a map day slower, no thieves) or ride the dam's water truck for 1 battery of the company's own. A, B and C are the conversation with Chayo and none of them waits on winning the road; a lost fight costs the box one night with the thieves, Chayo buys it back herself, and her hand-in line still lands.
 
 ## WHAT THE LEDGERS REMEMBER
 Delivered: the box opens at the dam: pump seals, twenty years old and still good; the dam's water price falls one. Chayo becomes a client. A: her next line calls the family "people who finish things". B: "people who count". C: she calls the heir by name. Declining leaves nothing.

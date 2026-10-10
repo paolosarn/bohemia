@@ -42,4 +42,4 @@ He is still breathing hard two hours after the fight, and nobody else is.
 ## FLAWS IT AVOIDS
 `Q131.X4` (a follower who cannot fear: he breathes hard), `Q086.X5` and `Q101.X3` (stupid or random companion AI: the override is rare, readable and in character), `Q121.X2` (no meter decides the choice), `Q137.X1` (the rule is shown in the fight, not hidden).
 
-CHECKLIST: passes all 30. Line 12 is not applicable to an event; line 23 is met because the scene follows a fight but needs none.
+CHECKLIST: passes all 32. Line 12 is not applicable to an event; line 23 is met because the scene follows a fight but needs none. (QR-AM 10/10: lines 31 and 32 run, pass as written)

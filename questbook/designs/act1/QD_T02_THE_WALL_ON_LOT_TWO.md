@@ -7,7 +7,7 @@ PLACE: the farm tower camp, the first part of the city the family holds (rule 43
 SITUATION: a raid expected (QR-S situation 15): the Salt Boys, a roaming party of seven, hit the co-op's store and their tracks bend toward the tower; they come on the fourth night -> the harvest holds or burns, and a wall on lot two either exists or does not, for good
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 BUILD: this contract can be ANSWERED BY BUILDING. Lot two takes a block wall: 12 batteries, 3 map days.
 
 ## THE SITUATION

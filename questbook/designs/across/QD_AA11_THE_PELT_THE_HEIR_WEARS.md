@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust (act 1) -> either (act 2)
 PLACE: act 1, wherever the company killed its first NAMED beast (default: the I-15 alpha, QD-AA02); act 2, the trophy buyer's building in any settlement and a road event on the same freeway
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (bends line 5 on purpose: the act 2 landing needs an act 1 named trophy; its default read, "no named trophy", is written below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: the act 2 landing needs an act 1 named trophy; its default read, "no named trophy", is written below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Rule 39: the company inherits, gear stays in the family. Battle Brothers' taxidermist turns a beast's parts into gear (recall): a wolf's pelt becomes a mantle. In act 1 the company kills a named beast and the trophy buyer offers two things: sell the pelt (batteries now) or have it made into a MANTLE (an armour attachment: a small bonus against that kind of beast, and it is visible on the body).

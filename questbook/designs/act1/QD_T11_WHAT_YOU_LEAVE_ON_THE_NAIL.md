@@ -7,7 +7,7 @@ PLACE: the first home base the family takes, the first part of the city it holds
 SITUATION: THE FIRST UNLOCK (rule 39c): the game starts with ONE person and no flip. Taking the first home base unlocks the second generation (default). The next person is generated FROM this one. This beat is how the unlock is met: a place, a thing, a choice about what crosses
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (line on first-minute silence: the house says nothing for its first 60 seconds on screen)
+CHECKLIST: passes all 32 (line on first-minute silence: the house says nothing for its first 60 seconds on screen) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The base is the family's. On its settlement screen a building nobody built appears: a small house with the door open, a nail by the door. Nothing happens when it appears. Nothing speaks. It waits for a tap. Inside, the first person's things are laid out on a table, and the phone in the corner shows a second face frame, dark, with the first person's jaw already in it.
