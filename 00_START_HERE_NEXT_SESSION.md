@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/10 LATEST -- [lines 31 and 32] SHIPPED: QR-AM, 200/210 pass as written, 10 fixed; all designs now checked against 32 lines. NOT IN A TAB. Next: [eighth shelf].
+
 MODS (mods-59jyd6): 10/10 LATEST -- [base changes] SHIPPED as a research page. TAB: VOTE, item WHEN THE DATA CHANGES (a
 per-day bar chart, the one break, four lines of policy). Record
 records/BOHEMIA_MODS_HOW_A_MODDER_LEARNS_THE_DATA_CHANGED_10_10_26.md; generated changelog
