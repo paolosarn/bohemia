@@ -2219,6 +2219,28 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (cb) LATEST -- *** [a fresh phone judged again] SHIPPED, BOTH
+ROUNDS: THE WIPED-PHONE BUG IS FIXED, CONFIRMED FOR REAL. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Timed a truly wiped phone from the start. Good news: the bug I found earlier is fixed for real.
+The phone now shows the real title screen with the game's name and the start menu, not a
+mid-game city. Tapping NEW GAME takes you to a real picks screen with difficulty choices and a
+name field, same as it should.
+The numbers: the title shows at about 3.4 seconds, the start menu at about 5.2 seconds, and the
+game is fully ready to play at about 48 seconds (on a slowed-down test phone). Once ready, tapping
+NEW GAME gets an answer in 2 milliseconds, basically instant.
+One thing worth a look: my 48 second number is quite a bit faster than the 67 seconds the
+pipe-fixer team quoted last, even though their own notes say the speed-up work isn't finished yet.
+Not sure why, named it honestly rather than guessing.
+Record: records/BOHEMIA_EYES_FRESH_PHONE_AGAIN_ROUND_2_THE_CHECK_TITLE_WORKS_READY_FASTER_THAN_QUOTED_10_10_26.md.
+Pictures: records/eyes_fresh_phone_again/.
+NEXT (rule 74, claimed): [the before and after]. A new standing job: build a real side-by-side
+picture, old vs new, pixel for pixel, for any art change before it goes up for a vote, and say in
+one line whether a person could actually see the difference. Starting with three items he already
+said no to because he couldn't tell them apart.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (ca) LATEST -- *** [a fresh phone judged again] ROUND ONE
 SCHOOL DONE: THE TIMER FOR THIS JOB ALSO ALREADY EXISTS. ***
 TAB: NOT IN A TAB YET, an internal measurement.
