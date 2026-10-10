@@ -1,4 +1,8 @@
 /* COOK: THE LONG INJURY (10/9/26, PEOPLE lane, VAMILY [the long injury]).
+ *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the rulers are
+ * AH-01 (R5 the institution's calm type, R6 the still face) and AH-03 (the vibe-coded tells: no
+ * box of words without a face, no stock UI shapes). Ids resolve in the reference library index.
  * Shows a struck-down man's real card: his one pain line, his days left,
  * what he cannot do, all real, all sourced.
  *
