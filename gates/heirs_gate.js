@@ -137,10 +137,10 @@ H.ROWS.carryShare = 1;
   ok('stars carry, the talent runs in the family', J(h2.stars) === J({ hp: 2, resolve: 1 }) && h2.stars !== man.stars);
   ok('gear stays in the family and a crew man\'s slots are flattened (2 items)', h2.gear.length === 2);
   ok('the house passes', h2.house === 'the Vance place');
-  ok('a debt crosses at standing\'s own 0.45 (10 -> 4.5)', h2.debt === 4.5);
+  ok('A DEBT DOES NOT CROSS: bohemia_fold rules debt dies (10 -> 0), you inherit the person not the bill', h2.debt === 0 && H.ROWS.debtShare === undefined);
   ok('THE BODY NEVER CARRIES: no stats, wound or age of the parent on the heir', h2.stats === undefined && h2.injured === undefined && h2.age >= 15 && h2.age <= 35);
   const g3 = H.heirs(l, 3).heirs[0];
-  ok('the grandchild compounds it: level 7 -> 4 -> 2 (a quarter), perks 2 -> 1', g3.level === 2 && J(g3.perks) === J(['a']) && g3.debt === 2.03);
+  ok('the grandchild compounds it: level 7 -> 4 -> 2 (a quarter), perks 2 -> 1', g3.level === 2 && J(g3.perks) === J(['a']) && g3.debt === 0);
   ok('a level-1 man still has a level-1 heir', H.heirs(ledger([{ key: 'x', name: 'A B', level: 1 }]), 2).heirs[0].level === 1);
   ok('a man with none of these fields still derives (the old shape holds)', H.heirs(ledger(), 2).heirs.every(h => h.level === 1 && h.perks.length === 0 && h.debt === 0 && h.house === null));
 }

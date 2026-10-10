@@ -5782,7 +5782,7 @@
    "why": "A man's heir starts at half his level with the first half of his perks, his gear, his house and his stars, never his body or wounds, so a level earned in act one means something later. You see it only as text in the VOTE tab, since nothing shows levels yet.",
    "show": {
     "how": "text",
-    "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: 45% crosses.\\nBody, wounds, age: never."
+    "src": "Level 7 man: heir level 4, grandchild level 2.\\nPerks: the first half he took.\\nGear and house: kept.\\nDebt: never crosses (corrected).\\nBody, wounds, age: never."
    }
   },
   {
@@ -6726,6 +6726,19 @@
     "src": "BOHEMIA_THE_BARS_GLASS_10_10_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "dynasty-who-buries-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A DEATH SHOULD COST THE LIVING WORK. AND I FIXED A BUG OF MINE.",
+   "why": "Nobody buries anybody in the game today, and I found I had made debt pass to heirs against your own ruling that debts die. Read the card in the VOTE tab: debts no longer cross, and the heir's first day could be carrying the body, facing the creditor, the house, and the name.",
+   "show": {
+    "how": "text",
+    "src": "FIXED: a dead man's debt does not pass to his heir (you rule: you inherit the person, not the bill). Assets, level, perks and gear still do.\\nPROPOSED FIRST DAY OF AN HEIR: 1. carry him to the wall (you build, not dig, in this ground). 2. a creditor at the door: forgive, pay half, or take the house. 3. who is still in the house. 4. the name, said once."
+   }
   }
  ],
  "verdicts": [

@@ -38087,6 +38087,12 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 68 [who buries] Q21 + A FIX TO MY OWN HEIRS. (SCHOOL plus one correction)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_23_WHO_BURIES_10_9_26.md; VOTE line dynasty-who-buries-10-9.
+CORRECTION: heirs no longer carry debt (bohemia_fold CARRY rules debt dies; I had carried 45%). Engine, city copy, gate leg and the 10/9 record fixed. HEIRS gate 83/0 headless.
+Finding: nobody buries anybody (family.js removed bury()). Proposal: heir's first day = body, creditor, house, name. Routed PEOPLE/QUESTS/WORLD/TUNING.
+NEXT: Q22 [days per life], Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 67 [name outlives] Q20 WHAT THE VALLEY STILL KNOWS IN GENERATION THREE. (SCHOOL, no code)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_22_WHAT_OUTLIVES_A_PERSON_10_9_26.md; VOTE line dynasty-name-outlives-10-9.
 Finding (measured with the real standing.inherit): 7 of 7 retold deeds survive two folds, only faded; no forgetting. Proposal: cap to the loudest 1 per person at the second fold (the legend), keep name, grudges, place name. Routed PEOPLE/WORDS/WORLD/TUNING.
