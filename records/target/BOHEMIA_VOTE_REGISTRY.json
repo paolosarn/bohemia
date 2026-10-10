@@ -7094,7 +7094,8 @@
     "how": "image",
     "src": "vote/LIFECITY_TAKE_THE_NEXT_PART_10_10.png"
    }
-  }
+  },
+{"id": "run-the-demo-boots-light-10-10", "kind": "ui", "lane": "run", "sha": "pending", "made": "10/10", "title": "THE DEMO LOADS IN 22 SECONDS ON A PHONE, NOT 75", "why": "The demo was drawing a street, three workshop boards and the whole page twice before you could press BEGIN; now it skips them, so on a phone the start screen shows in about a second and BEGIN lights at about 22 s instead of 75. You see it when the DEMO first opens: the bar on top is before, the one below is now.", "show": {"how": "image", "src": "vote/RUN_THE_DEMO_BOOTS_LIGHT_10_10.png"}}
  ],
  "verdicts": [
   {
