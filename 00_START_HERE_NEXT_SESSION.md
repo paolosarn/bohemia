@@ -2370,6 +2370,33 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (cc) LATEST -- *** [the before and after] ROUND ONE
+SCHOOL DONE: THE "CAN A PERSON SEE IT" QUESTION IS ALREADY SOLVED SCIENCE. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+New job: before any art change goes up for a vote, build one real picture showing old vs new,
+pixel for pixel, and say plainly if a person could actually see the difference. This round is just
+research, no building yet.
+Checked the claim that Battle Brothers shows its changes as two pictures, before and after. Looked
+hard: the real patch notes site, a forum, the fan wiki, gaming news. Every single patch note found
+was just words, no pictures anywhere. So that claim does not hold up. Not proven wrong, just not
+found anywhere I could check.
+Good news: the real question here, "can a person actually see this pixel change," is already
+solved by real science and used across the games industry. There is a real, published math formula
+that tells you if a color change would actually look different to a human eye, plus a second check
+that ignores the soft blurry edges around shapes so those don't get wrongly counted as changes.
+Also found a warning already sitting in this game's own code from earlier work: two pictures of
+"the same" scene can still look different just because the game randomly changes a citizen's
+outfit every time it loads. So round two has to freeze everything the same way, same camera, same
+lighting, same random seed, before comparing pictures, or the test will cry wolf.
+The three items this job starts with (the sideways sides, the three bodies, the fight ground) are
+all live right now, so the "after" picture is ready. The "before" picture is not; it has to be dug
+up from the old code right before each one shipped.
+Record: records/BOHEMIA_EYES_BEFORE_AND_AFTER_ROUND_1_SCHOOL_THE_REAL_FORMULA_HAS_A_NAME_10_10_26.md.
+NEXT: round two, dig up the before picture for each of the three items, build the real math check
+in code, and say plainly for each one if a person could see the difference.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (cb) LATEST -- *** [a fresh phone judged again] SHIPPED, BOTH
 ROUNDS: THE WIPED-PHONE BUG IS FIXED, CONFIRMED FOR REAL. ***
 TAB: NOT IN A TAB YET, an internal measurement.
