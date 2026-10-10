@@ -6890,6 +6890,20 @@
     "src": "BOHEMIA_A_BLOCK_IS_TWO_THINGS_TOUCHING_10_10_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "tuning-the-price-ratios-audit-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "pending",
+   "made": "10/10",
+   "draft": true,
+   "title": "THE MARKET AGAINST THE WIKI",
+   "why": "The shop now sells back at one seventh, as in Battle Brothers, thanks to the last pass. What it still ignores is town size, your standing with a place, and 32 situations like a siege or a fair. The audit sits at the bottom of the same page in the VOTE tab.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html"
+   }
   }
  ],
  "verdicts": [

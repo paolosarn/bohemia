@@ -1,3 +1,13 @@
+TUNING (tuning-f59l1w): 10/10 (h) LATEST -- [the price ratios] SHIPPED (research, no code touched).
+TAB: VOTE, item THE MARKET AGAINST THE WIKI (an AUDIT block added to the sell-ratio page).
+RECORD: records/BOHEMIA_TUNING_THE_PRICE_RATIOS_AUDIT_WHERE_THE_MARKET_DEPARTS_FROM_THE_WIKI_10_10_26.md
+CREDIT: RUN TWO already moved SELL_CUT 0.5 -> 1/7 citing my page; ECONOMY built price_table.json. Audit vs the wiki: village and city MATCH; TOWN has
+no figure in ECONOMY's table (uses village) but the wiki has Medium .1457-.1579 (Expert); camp .1091 is unsourced and below every wiki settlement
+(lowest .1282); the table is Expert-only but the default player is Veteran-equivalent (x1.11: city .1965); situations 9 of 32 and some one-sided
+(Safe Roads sell+buy 10); buy side has no 0.95-1.34 modifier. The SCREEN does not read the table at all: flat 1/7, never calls sellFraction, so size and
+relation are ignored. One-battery floor: 34 of 309 items (11%) sell for 1 instead of < 1 (17-50% return, median 25%). Three tier names (screen camp/town/fortress,
+table camp/village/town/city, mine) need one map; proposal in the record.
+NEXT OPEN: [the board sizes' numbers], [origins difficulty].
 SOUNDS (sound-xk7pjp): 10/10 LATEST (round ten, [not sand] round eight) -- ***
 A SWORD BLOCKING A HIT NOW SOUNDS LIKE SOMETHING REAL, NOT A DULL THUD. ***
 TAB: VOTE, one item, A BLOCK IS TWO THINGS TOUCHING.
