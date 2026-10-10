@@ -1,0 +1,599 @@
+{
+ "version": "settlement-ground-packs-10-10",
+ "built": "10/10/26",
+ "lane": "cook 4",
+ "for_screen": "RUN TWO, the settlement screen (rule 71a)",
+ "note": "the picture is one place; light the building under the finger, name it only when touched; no text on the picture; variants[] pick one per settlement by seed; night_src at night; COOK FOUR: rebuilt from his approved pack tiles (rule 82a), hotspots copied to the pixel; NOT LIVE until DIRECTION passes it (rule 87)",
+ "px_per_metre": 42.9,
+ "perspective": "45 DEGREE ART LAW",
+ "tiers": {
+  "camp": {
+   "src": "camp_0.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      601,
+      61,
+      858,
+      258
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      1115,
+      515,
+      1304,
+      679
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      257,
+      546,
+      428,
+      685
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      86,
+      898,
+      601,
+      971
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      1716,
+      788,
+      1802,
+      879
+     ],
+     "kind": "board"
+    }
+   },
+   "variants": [
+    {
+     "src": "camp_0.webp",
+     "night_src": "camp_0_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "clinic": {
+       "box": [
+        601,
+        61,
+        858,
+        258
+       ],
+       "kind": "clinic"
+      },
+      "barber": {
+       "box": [
+        1115,
+        515,
+        1304,
+        679
+       ],
+       "kind": "barber"
+      },
+      "stall": {
+       "box": [
+        257,
+        546,
+        428,
+        685
+       ],
+       "kind": "stall"
+      },
+      "posts": {
+       "box": [
+        86,
+        898,
+        601,
+        971
+       ],
+       "kind": "posts"
+      },
+      "board": {
+       "box": [
+        1716,
+        788,
+        1802,
+        879
+       ],
+       "kind": "board"
+      }
+     },
+     "lights": 2,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.215,
+       "unlit_median": 0.215,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.13
+      },
+      "sun": {
+       "ground_median": 0.348,
+       "unlit_median": 0.348,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.21
+      }
+     }
+    },
+    {
+     "src": "camp_1.webp",
+     "night_src": "camp_1_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "clinic": {
+       "box": [
+        601,
+        61,
+        858,
+        258
+       ],
+       "kind": "clinic"
+      },
+      "barber": {
+       "box": [
+        1115,
+        515,
+        1304,
+        679
+       ],
+       "kind": "barber"
+      },
+      "stall": {
+       "box": [
+        257,
+        546,
+        428,
+        685
+       ],
+       "kind": "stall"
+      },
+      "posts": {
+       "box": [
+        86,
+        898,
+        601,
+        971
+       ],
+       "kind": "posts"
+      },
+      "board": {
+       "box": [
+        1716,
+        788,
+        1802,
+        879
+       ],
+       "kind": "board"
+      }
+     },
+     "lights": 2,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.219,
+       "unlit_median": 0.219,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.352,
+       "unlit_median": 0.352,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.19
+      }
+     }
+    }
+   ]
+  },
+  "town": {
+   "src": "town_0.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "barber": {
+     "box": [
+      515,
+      0,
+      1030,
+      364
+     ],
+     "kind": "barber"
+    },
+    "clinic": {
+     "box": [
+      1030,
+      0,
+      1545,
+      364
+     ],
+     "kind": "clinic"
+    },
+    "stall": {
+     "box": [
+      1116,
+      444,
+      1287,
+      583
+     ],
+     "kind": "stall"
+    },
+    "posts": {
+     "box": [
+      64,
+      425,
+      347,
+      502
+     ],
+     "kind": "posts"
+    },
+    "board": {
+     "box": [
+      729,
+      813,
+      815,
+      904
+     ],
+     "kind": "board"
+    }
+   },
+   "variants": [
+    {
+     "src": "town_0.webp",
+     "night_src": "town_0_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "barber": {
+       "box": [
+        515,
+        0,
+        1030,
+        364
+       ],
+       "kind": "barber"
+      },
+      "clinic": {
+       "box": [
+        1030,
+        0,
+        1545,
+        364
+       ],
+       "kind": "clinic"
+      },
+      "stall": {
+       "box": [
+        1116,
+        444,
+        1287,
+        583
+       ],
+       "kind": "stall"
+      },
+      "posts": {
+       "box": [
+        64,
+        425,
+        347,
+        502
+       ],
+       "kind": "posts"
+      },
+      "board": {
+       "box": [
+        729,
+        813,
+        815,
+        904
+       ],
+       "kind": "board"
+      }
+     },
+     "lights": 3,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.256,
+       "unlit_median": 0.185,
+       "lit_median": 0.675,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.387,
+       "unlit_median": 0.319,
+       "lit_median": 0.748,
+       "lit_vs_unlit": 2.16
+      }
+     }
+    },
+    {
+     "src": "town_1.webp",
+     "night_src": "town_1_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "barber": {
+       "box": [
+        515,
+        0,
+        1030,
+        364
+       ],
+       "kind": "barber"
+      },
+      "clinic": {
+       "box": [
+        1030,
+        0,
+        1545,
+        364
+       ],
+       "kind": "clinic"
+      },
+      "stall": {
+       "box": [
+        1116,
+        444,
+        1287,
+        583
+       ],
+       "kind": "stall"
+      },
+      "posts": {
+       "box": [
+        64,
+        425,
+        347,
+        502
+       ],
+       "kind": "posts"
+      },
+      "board": {
+       "box": [
+        729,
+        813,
+        815,
+        904
+       ],
+       "kind": "board"
+      }
+     },
+     "lights": 3,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.256,
+       "unlit_median": 0.185,
+       "lit_median": 0.675,
+       "lit_vs_unlit": 3.08
+      },
+      "sun": {
+       "ground_median": 0.387,
+       "unlit_median": 0.319,
+       "lit_median": 0.748,
+       "lit_vs_unlit": 2.16
+      }
+     }
+    }
+   ]
+  },
+  "fortress": {
+   "src": "fortress_0.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "clinic": {
+     "box": [
+      1116,
+      122,
+      1631,
+      486
+     ],
+     "kind": "clinic"
+    },
+    "barber": {
+     "box": [
+      43,
+      486,
+      558,
+      850
+     ],
+     "kind": "barber"
+    },
+    "stall": {
+     "box": [
+      687,
+      607,
+      1029,
+      746
+     ],
+     "kind": "stall"
+    },
+    "board": {
+     "box": [
+      1202,
+      637,
+      1288,
+      728
+     ],
+     "kind": "board"
+    },
+    "posts": {
+     "box": [
+      1330,
+      970,
+      1613,
+      1047
+     ],
+     "kind": "posts"
+    }
+   },
+   "variants": [
+    {
+     "src": "fortress_0.webp",
+     "night_src": "fortress_0_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "clinic": {
+       "box": [
+        1116,
+        122,
+        1631,
+        486
+       ],
+       "kind": "clinic"
+      },
+      "barber": {
+       "box": [
+        43,
+        486,
+        558,
+        850
+       ],
+       "kind": "barber"
+      },
+      "stall": {
+       "box": [
+        687,
+        607,
+        1029,
+        746
+       ],
+       "kind": "stall"
+      },
+      "board": {
+       "box": [
+        1202,
+        637,
+        1288,
+        728
+       ],
+       "kind": "board"
+      },
+      "posts": {
+       "box": [
+        1330,
+        970,
+        1613,
+        1047
+       ],
+       "kind": "posts"
+      }
+     },
+     "lights": 5,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.247,
+       "unlit_median": 0.187,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.49
+      },
+      "sun": {
+       "ground_median": 0.38,
+       "unlit_median": 0.321,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.37
+      }
+     }
+    },
+    {
+     "src": "fortress_1.webp",
+     "night_src": "fortress_1_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "clinic": {
+       "box": [
+        1116,
+        122,
+        1631,
+        486
+       ],
+       "kind": "clinic"
+      },
+      "barber": {
+       "box": [
+        43,
+        486,
+        558,
+        850
+       ],
+       "kind": "barber"
+      },
+      "stall": {
+       "box": [
+        687,
+        607,
+        1029,
+        746
+       ],
+       "kind": "stall"
+      },
+      "board": {
+       "box": [
+        1202,
+        637,
+        1288,
+        728
+       ],
+       "kind": "board"
+      },
+      "posts": {
+       "box": [
+        1330,
+        970,
+        1613,
+        1047
+       ],
+       "kind": "posts"
+      }
+     },
+     "lights": 5,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.245,
+       "unlit_median": 0.182,
+       "lit_median": 0.778,
+       "lit_vs_unlit": 3.57
+      },
+      "sun": {
+       "ground_median": 0.378,
+       "unlit_median": 0.315,
+       "lit_median": 0.829,
+       "lit_vs_unlit": 2.41
+      }
+     }
+    }
+   ]
+  }
+ }
+}
