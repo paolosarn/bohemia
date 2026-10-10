@@ -997,6 +997,66 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round five) -- *** BOARD
+HOUSEKEEPING, NOT NEW WORK: THE QUEUE IS GENUINELY BLOCKED THIS ROUND. ***
+
+WHAT CHANGED SINCE LAST ROUND: a huge coordinator-school package landed (rules
+90-99, air traffic readback, triage, the turnaround table, the trail evaporates,
+intent-shaped rows, the pass, write-for-the-man). Re-read all ten fresh before
+touching anything. Rule 95 (TURNAROUND TABLE) had mechanically turned four of
+this lane's old CLAIMED rows back to OPEN ([customizations first], [bb faces],
+[faces first], [horror face]), each owing a two-line post-mortem before
+re-claiming.
+
+CHECKED EACH ONE AGAINST ITS OWN TEXT BEFORE TOUCHING IT, rather than assuming
+the TURN meant abandoned work: two of the four ([customizations first] 9/24,
+[bb faces] 9/27) were ALREADY fully shipped in substance -- real gates, real
+VOTE items, real records -- and the status word had simply never been flipped
+from CLAIMED. Relabeled both to SHIPPED with a short note explaining the gap;
+nothing re-built. The other two ([faces first], [horror face]) are genuinely
+half-done (a blocker gone moot with no coordinator re-point; a measured fail
+explicitly routed elsewhere and never closed) -- wrote the real two-line
+post-mortem on each, left them OPEN, honestly.
+
+THE TWO REAL BLOCKERS, RE-CHECKED, STILL BLOCKED: [the twin on the portraits]
+waits on DIRECTION passing COOK THREE's own [the portraits repainted] -- that
+row is still OPEN and UNCLAIMED by COOK THREE, confirmed by reading its section
+fresh, not assumed. [the keepers' and hires' bodies] waits on CHARACTER or RUN
+TWO assigning a real dressed look to a keeper kind or a hire's background --
+grepped both sections, nothing found.
+
+[front page] NOT TOUCHED, NAMED HONESTLY: it is in this lane's jump list, but
+its own text says "Nobody else touches the front page" and the front page has
+grown from the 0-34 it was scoped against to 0-99 since it was written --
+folding it is now a much bigger, higher-conflict job than when it was handed
+down, and parallel sessions read specific rule numbers off that exact page
+live. Flagging it rather than guessing at a job this big that explicitly reads
+as reserved.
+
+NO NEW DIRECT FEEDBACK: checked the registry's verdicts (still 27, the same
+list as last round) -- nothing new to answer under rule 8.
+
+GATES: open_row_gate went from 7/2 to 9/0 fleet-wide this sweep (other lanes'
+own fixes, not this round's); PORTRAIT still carries 5 OPEN rows, well clear of
+rule 74's floor of three. handoff 10/0. talking_portrait 34/0, hair_match_
+regression 13/0, alpha_loads 20/0 (unchanged, no code touched this round).
+
+NOT COOKED THIS ROUND, NAMED HONESTLY: board housekeeping is not "a real thing
+he can hear or see" under rule 22; nothing new went to VOTE. The honest finding
+this round is that the jump list is genuinely exhausted of buildable work until
+DIRECTION, CHARACTER, RUN TWO or the coordinator unblock it.
+
+NEXT ROUND, FIRST MOVE: [the twin on the portraits] if DIRECTION has passed
+COOK THREE's portrait sheet by then; otherwise [the keepers' and hires' bodies]
+if a body assignment has landed; otherwise ask the coordinator (not guess)
+whether [front page] is really this lane's to fold now that it has grown this
+much, since "nobody else touches it" reads as a real reservation, not a
+formality.
+
+PENDING PAOLO: none new -- the queue's two real blockers are already named and
+owned by other lanes, and [front page]'s scope question is for the coordinator,
+never him (CLAUDE.md: never ask him a technical/prioritisation question).
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round four) -- *** [hair match
 regression gate] SHIPPED: THE FIVE BUGS THIS LANE HAS ALREADY FIXED SHOULD NEVER
 COME BACK. Record: records/BOHEMIA_THE_HAIR_MATCH_REGRESSION_GATE_10_10_26.md.
