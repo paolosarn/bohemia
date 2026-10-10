@@ -6768,7 +6768,7 @@
    }
   },
   {
-   "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/10",
+   "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "2306ee7c", "made": "10/10",
    "title": "WHEN A SETTLEMENT COMES FOR YOU", "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
    "show": {"how": "page", "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"}
   }
