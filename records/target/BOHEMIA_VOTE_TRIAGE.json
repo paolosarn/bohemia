@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -131,8 +131,8 @@
    "why": "superseded by COOK FOUR's pack settlement"
   },
   "sounds-the-road-is-faster-10-5": {
-   "tag": "yellow",
-   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+   "tag": "red",
+   "why": "promoted after the tenth votes (rule 92)"
   },
   "sounds-dirt-is-slower-10-5": {
    "tag": "yellow",
@@ -183,8 +183,8 @@
    "why": "he ruled it 10/5: 'the new opening screen is awesome'; the load is a number on the release line"
   },
   "ui-the-settlements-labels-10-5": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted after the tenth votes (rule 92)"
   },
   "combat-the-enemy-math-10-5": {
    "tag": "gray",
@@ -491,8 +491,8 @@
    "why": "the bar he bought beside what we made: his 'look again' answered"
   },
   "cook-the-far-end-from-his-picks-10-10": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "promoted after the tenth votes (rule 92)"
   },
   "mods-an-id-is-a-promise-10-10": {
    "tag": "gray",
@@ -729,6 +729,54 @@
   "art-cooks-until-he-says-final-10-10": {
    "tag": "gray",
    "why": "his own ruling, filed; no thumb needed"
+  },
+  "portrait-the-real-clothes-reach-the-portrait-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook4-one-house-the-packs-way-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook4-house-two-the-ranch-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook4-the-ranch-true-size-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "ui-the-phones-text-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook3-the-enemy-tiers-repainted-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "direction-the-card-of-numbers-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook-the-party-marker-at-full-pixels-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook2-one-at-a-time-the-corner-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "cook2-one-at-a-time-no-borders-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "run-the-far-end-back-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
+  },
+  "combat-both-teams-on-one-screen-10-10": {
+   "tag": "yellow",
+   "why": "new since the last sort; sorted at the next sweep"
   }
  }
 }
