@@ -74,7 +74,9 @@
   },
   "factions": {
     "Colorful": {
-      "five": true
+      "five": true,
+      "capWaist": true,
+      "why": "DIRECTION round one: the trousers go to concrete or black"
     },
     "Homeless": {
       "warm": false,
@@ -87,7 +89,9 @@
       "warm": false
     },
     "Network": {
-      "warm": false
+      "warm": false,
+      "capWaist": true,
+      "why": "DIRECTION round one: teal head to toe shouts"
     },
     "Blues": {
       "warm": false
@@ -128,5 +132,10 @@
       "hex": "#3f6b3a"
     }
   ],
-  "accentAbove": 0.52
+  "accentAbove": 0.52,
+  "folds": [
+    0.3,
+    0.52,
+    0.74
+  ]
 }

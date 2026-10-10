@@ -96,7 +96,8 @@
     },
     "MARKSMAN": {
       "material": "leather",
-      "strap": true
+      "strap": true,
+      "keepHue": 180
     },
     "RAIDER": {
       "material": "mail",
@@ -107,13 +108,16 @@
       "material": "plate",
       "trim": "gold",
       "chest": true,
-      "goldWash": 0.55
+      "goldWash": 0.55,
+      "lames": 6,
+      "belly": 0.35
     },
     "MARAUDER": {
       "material": "plate",
       "lames": 5,
       "spikes": true,
-      "chest": true
+      "chest": true,
+      "belly": 0.25
     }
   }
 }

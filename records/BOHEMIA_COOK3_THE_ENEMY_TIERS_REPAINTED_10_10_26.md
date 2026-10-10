@@ -18,3 +18,9 @@ DIRECTION first, then VOTE. Not in a tab yet.
 Thug: chest padded too, 136 -> 606 px, quilt lines read. Raider: mail runs down the arms as a shirt (every clothed pixel above the hip), 561 -> 1194 px; the Mob mustard no longer wins the read. Leader: plate gold-washed 55%, he stays the gold one at 28 px.
 Ladder at 28 px now: grey-brown padding, brown leather, brown leather, grey mail, gold plate, banded steel. Light to heavy reads by colour family alone.
 Still open: the white box behind each figure in the SHEET (not the game); the frame's backdrop is not the first pixel, needs the naked-frame diff. Round 3: the five armour states (CHARACTER [armour you can see]) on the marauder.
+
+# ROUND 3 (10/10, cook3-vamily): DIRECTION's BACK (records/BOHEMIA_THE_REVAMP_PASS_ROUND_TWO_10_10_26.md) answered
+1. Poacher and marksman one man at 28 px: the marksman keeps his teal above the waist (keepHue 180), leather below. Two different men now.
+2. Leader same at 28 px: the gold is now under the plate's lames (every 6 rows a dark seam and a lit row), lit top edges, and a darker belly (35% toward the hem).
+3. Mail as checkerboard: now ROWS, a light row and a dark row, lit at the shoulder and darker to the hem, a faint link every other pixel on the light rows.
+Back to DIRECTION. The five armour states are the next round.
