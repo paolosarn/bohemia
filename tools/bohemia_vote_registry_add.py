@@ -11,13 +11,13 @@ MINE_ID = 'character-wildlife-rig-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
-  "id": MINE_ID, "kind": "tile", "lane": "character",
+  "id": MINE_ID, "kind": "line", "lane": "character",
   "sha": "pending", "made": "10/10",
   "title": "A COYOTE IS NOT A PHOTOGRAPH OF ITSELF ANYMORE",
-  "why": "A coyote on the street used to be its own smaller, blurrier size and never moved a leg; now it draws in the exact same box every person does, mirrors to show which way it is headed, and breathes between two real poses. You see it here, three coyotes forced on screen so you do not have to go find one.",
+  "why": "A coyote on the street used to be its own smaller, blurrier size and never moved a leg; this is a rig fix, not a new look, so no pixel changed and no reference twin exists for an animal nobody has downloaded art of. You see it here, three coyotes forced on screen so you do not have to go find one.",
   "show": {
-    "how": "page",
-    "src": "vote/CHARACTER_WILDLIFE_RIG.html"
+    "how": "text",
+    "src": "records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt; a screenshot sits at slices/vote/CHARACTER_WILDLIFE_RIG.png and the page that frames it at slices/vote/CHARACTER_WILDLIFE_RIG.html, neither is an art sheet under rule 82 (zero new pixels, the coyote bank is untouched) and wildlife is not one of rule 82's named families, so no reference twin was invented.\n\nSeen in: the record and the two files above; no tab yet, this is a rendering mechanism, not a look."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
