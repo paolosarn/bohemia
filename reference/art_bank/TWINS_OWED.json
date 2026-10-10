@@ -1,0 +1,74 @@
+[
+ {
+  "item": "cook-the-far-end-as-tiles-10-10",
+  "what": "the map's far-end terrain tiles",
+  "src": "pack:3. Grass and ground tiles#1",
+  "diffs": [
+   "COLOURS PER TEN THOUSAND PIXELS: his 8104.3, ours 2799.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+   "COLOURS TO COVER HALF THE PICTURE: his 2801, ours 17. He bought a surface; we drew a palette.",
+   "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 2.8%, ours 9.3%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+  ],
+  "measured": {
+   "density": [
+    8104.314420803781,
+    2799.4791666666665
+   ],
+   "half": [
+    2801.3333333333335,
+    17.333333333333332
+   ],
+   "run": [
+    2.7902763946978317,
+    9.283459490174579
+   ]
+  }
+ },
+ {
+  "item": "cook-the-building-props-10-10",
+  "what": "the six buildings' props",
+  "src": "pack:15. Street props#0",
+  "diffs": [
+   "COLOURS PER TEN THOUSAND PIXELS: his 4819.0, ours 9.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+   "COLOURS TO COVER HALF THE PICTURE: his 267, ours 2. He bought a surface; we drew a palette.",
+   "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 1.2%, ours 7.8%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+  ],
+  "measured": {
+   "density": [
+    4819.006169182105,
+    9.482702058485264
+   ],
+   "half": [
+    266.8333333333333,
+    1.5
+   ],
+   "run": [
+    1.229598562532961,
+    7.790871853264434
+   ]
+  }
+ },
+ {
+  "item": "cook-his-block-as-a-place-10-10",
+  "what": "his block as a settlement picture",
+  "src": "pack:5. Roof tiles#1",
+  "diffs": [
+   "COLOURS PER TEN THOUSAND PIXELS: his 6090.1, ours 113.8. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+   "COLOURS TO COVER HALF THE PICTURE: his 964, ours 4. He bought a surface; we drew a palette.",
+   "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 4.1%, ours 4.0%. The marks run about the same length. The difference is in the two numbers above it, not in this one."
+  ],
+  "measured": {
+   "density": [
+    6090.056741382727,
+    113.75144675925925
+   ],
+   "half": [
+    964.1666666666666,
+    3.6666666666666665
+   ],
+   "run": [
+    4.066788886441874,
+    4.0270920687869864
+   ]
+  }
+ }
+]

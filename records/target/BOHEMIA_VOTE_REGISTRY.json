@@ -5743,7 +5743,15 @@
    "show": {
     "how": "image",
     "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
-   }
+   },
+    "twin": {
+    "src": "pack:3. Grass and ground tiles#1",
+    "diffs": [
+    "COLOURS PER TEN THOUSAND PIXELS: his 8104.3, ours 2799.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+    "COLOURS TO COVER HALF THE PICTURE: his 2801, ours 17. He bought a surface; we drew a palette.",
+    "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 2.8%, ours 9.3%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+    ]
+    }
   },
   {
    "id": "tuning-what-a-settlement-pays-you-10-10",
@@ -6397,7 +6405,15 @@
    "show": {
     "how": "image",
     "src": "vote/COOK_THE_BUILDING_PROPS.png"
-   }
+   },
+    "twin": {
+    "src": "pack:15. Street props#0",
+    "diffs": [
+    "COLOURS PER TEN THOUSAND PIXELS: his 4819.0, ours 9.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+    "COLOURS TO COVER HALF THE PICTURE: his 267, ours 2. He bought a surface; we drew a palette.",
+    "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 1.2%, ours 7.8%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+    ]
+    }
   },
   {
    "id": "cook-his-block-as-a-place-10-10",
@@ -6410,7 +6426,36 @@
    "show": {
     "how": "image",
     "src": "vote/COOK_HIS_BLOCK.png"
-   }
+   },
+    "twin": {
+    "src": "pack:5. Roof tiles#1",
+    "diffs": [
+    "COLOURS PER TEN THOUSAND PIXELS: his 6090.1, ours 113.8. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+    "COLOURS TO COVER HALF THE PICTURE: his 964, ours 4. He bought a surface; we drew a palette.",
+    "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 4.1%, ours 4.0%. The marks run about the same length. The difference is in the two numbers above it, not in this one."
+    ]
+    }
+  },
+  {
+    "id": "cook-the-pack-is-the-twin-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE BAR, AND WHAT WE MADE",
+    "why": "You said the art looks nothing like the assets we downloaded, and you were right: all 1,927 tiles you bought and approved back in July were sitting in a bank file as code, so nobody was looking at them, and they are real files now, sorted into seven families with a sheet of each. You see it in the VOTE tab, your own street tiles on top and ours underneath at the same size, with the three measured differences under them.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_PACK_IS_THE_TWIN.png"
+    },
+    "twin": {
+      "src": "pack:1. Cracked street tiles#0",
+      "diffs": [
+        "COLOURS PER TEN THOUSAND PIXELS: his 4613, ours 7. Ours is a six-step ramp per material, so ours bands where his reads as a surface.",
+        "COLOURS TO COVER HALF THE TILE: his dozens, ours two or three. That is what 'AI slop' is actually describing.",
+        "PIXELS ON THE SAME PATCH: his 96 square, ours 44 square. He bought grain and we drew pattern."
+      ]
+    }
   },
   {
    "id": "run2-climbing-10-10",

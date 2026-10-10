@@ -3382,6 +3382,79 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (f) LATEST -- *** THE WHOLE APPROVED CORPUS IS OUT AS FILES.
+1,927 tiles he bought and judged UP, sorted into seven families, with a sheet of each. ***
+
+1. RULE 87 SPLIT THIS LANE AND THIS IS THE JOB IT LEFT. COOK keeps the reference bank, the
+twin sheets with DIRECTION, and the map's far end; the ground went to COOK TWO, the people to
+COOK THREE, the places to COOK FOUR. The row's own words: "extract the corpus first, it is
+what the three new chats build from." So that is what this round did, and nothing else.
+
+2. HE WAS RIGHT AND THE ASSETS WERE ALWAYS HERE. "The cars is an asset we downloaded; a lot
+of the original street tiles and sidewalks we downloaded; look again." They are the purchased
+HD packs taken in 7/7 and judged by him in the 7/13 sweep: 2,604 tiles looked at one by one,
+1,927 marked UP. They have been sitting in four bank files AS BASE64 the whole time, which is
+exactly why nobody was looking at them. They are files now:
+   road        290   streets, sidewalks, kerbs and the floors you walk on
+   marking      67   what is painted or spilled ON the ground
+   settlement  318   roofs, walls, windows, fences, stalls, ruins
+   door         30   doors, gates and arches
+   lamp         47   lamps, fire barrels and what still burns
+   ground      391   terrain and desert: dirt, grass, water, rock, dead trees
+   prop        784   props and the cars
+31.7 MB, and reference/ is excluded in _config.yml so it costs the published page nothing.
+Each tile is named by the key HE judged it under, so a twin cites pack:<pack>#<idx> and the
+vote gate checks that key against his own sweep. Map: reference/art_bank/CORPUS.json. One
+contact sheet a family, sectioned by pack, at the tiles' own pixels and never scaled, because
+a resampled reference is not the reference. Tool
+tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py, record
+records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt, VOTE cook-the-pack-is-the-twin-10-10.
+
+3. NOT ONE TILE DIRECTION ALREADY PLACED WAS MOVED. Their 10/10 round sampled twenty packs
+into road, ground, prop and settlement and said in its own docstring that COOK owns extracting
+the whole corpus. Those twenty keep the family they gave them even where I would have filed
+one elsewhere (their warning signs sit in prop; I would have said markings). Two tools
+disagreeing about where a tile lives is worse than either answer. The other sixty-four packs
+are assigned here and the build refuses if one of the 84 is unassigned.
+
+4. PLUMBER'S BOUNCE-BACK, ANSWERED THE SAME ROUND (rule 8). The three sheets this lane
+registered with no reference twin now carry one each, measured against a pack tile of its own
+kind. VOTE TAB's twin leg is clean of this lane; the one left is COMBAT TWO's.
+
+5. *** THE MEASUREMENT WAS WRONG FIRST AND I NEARLY SHIPPED IT. *** It used raw counts, so a
+96 px pack tile beside a whole VOTE contact sheet reported "his 5,120 pixels, ours 2,405,520"
+and "his damage runs 0.76 px, ours 0.00". Both numbers true, both meaningless: a sheet is not
+a tile. A measurement that compares the wrong two things is worse than no measurement because
+it LOOKS like evidence. All three are ratios now and ours is taken as real tiles or 96 px
+crops, never a sheet:
+   COLOURS PER TEN THOUSAND PIXELS
+   COLOURS IT TAKES TO COVER HALF THE PICTURE
+   HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH
+His street tiles against our own 7/28 starter cells: 4,613 colours against 7. The second
+number is the one that explains him: it takes two or three colours to cover half of one of
+our tiles and hundreds to cover half of one of his. That is what "AI slop" is describing.
+AND THE SENTENCE UNDER THE THIRD NUMBER CONTRADICTED THE NUMBER on two of the three twins
+until I made the reading derive from it. Our marks run LONGER than his, and that is not
+better: with so few colours a dark mark comes out as one long flat smear.
+
+6. *** THE FINDING COOK TWO, COOK THREE AND COOK FOUR NEED BEFORE THEY DRAW ANYTHING. *** The
+87 packs were drawn by MANY HANDS. Battle Brothers reads as one world because every tile in a
+biome came from one hand and one palette, so a road tile and a forest tile belong to each
+other before either is placed. Ours will not do that by itself: laying pack tiles straight
+down gives a board that is sharper than what we cook AND STILL INCOHERENT. The coherence has
+to come from a weather, wear and light pass of our own ON TOP, which is exactly what rule 82a
+already says: "placed, flipped, weathered, recoloured INSIDE the pack's palette." That pass is
+your first problem, not an afterthought.
+
+7. THE ROW IS NOT CLOSED. Part (1) is done. Part (2), re-cutting the freeway kit and the
+settlement pictures from pack tiles, moved to COOK TWO and COOK FOUR with rule 87. Part (3),
+the far end's 16 px tiles cut from the terrain picks, stays with this lane and is next.
+The pack gate's ground-picture leg is red at 184 and was red at 184 before this round: this
+round adds no ground picture and is the shelf those 184 re-cuts need.
+
+NEXT: part (3), the far end's 16 px tiles from the terrain picks.
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 10/10 (e) LATEST -- *** HIS BLOCK, AS A PLACE YOU ARRIVE AT. The
 fourth settlement picture, and the first one that is anywhere. ***
 
