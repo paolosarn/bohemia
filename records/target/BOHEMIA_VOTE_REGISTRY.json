@@ -6400,17 +6400,17 @@
    }
   },
   {
-    "id": "cook-his-block-as-a-place-10-10",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "HIS BLOCK, AS A PLACE YOU ARRIVE AT",
-    "why": "The three settlement screens are sizes, not places: camp, town and fortress are how big a town is, and none of them is anywhere. This is the fourth one and it is your own block, with your door and your step, your drive with the wreck still on it, next door's gate shut and his table out, and the board at the kerb, and you see it in the VOTE tab by day and at night.",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_HIS_BLOCK.png"
-    }
+   "id": "cook-his-block-as-a-place-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "HIS BLOCK, AS A PLACE YOU ARRIVE AT",
+   "why": "The three settlement screens are sizes, not places: camp, town and fortress are how big a town is, and none of them is anywhere. This is the fourth one and it is your own block, with your door and your step, your drive with the wreck still on it, next door's gate shut and his table out, and the board at the kerb, and you see it in the VOTE tab by day and at night.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_HIS_BLOCK.png"
+   }
   },
   {
    "id": "run2-climbing-10-10",
@@ -7024,6 +7024,21 @@
     "src": "vote/RUN2_THE_HURT_AFTER_10_10.png",
     "before": "vote/RUN2_THE_HURT_BEFORE_10_10.png"
    },
+   "draft": true
+  },
+  {
+   "id": "direction-the-twin-the-ground-10-10",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/10",
+   "title": "THE TWIN: OUR GROUND AGAINST THE PACK YOU BOUGHT",
+   "why": "You were right: our road, props and fight board beside your approved pack tiles at the same size, and the pack has 100 times the colour, real cracks, dark outlines and painted objects where ours has flat stamps. You see it in the fight's ground, ours on the left, your pack on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_TWIN_THE_GROUND.png"
+   },
+   "asked": "UP or DOWN",
    "draft": true
   }
  ],
