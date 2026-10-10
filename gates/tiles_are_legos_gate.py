@@ -9,6 +9,8 @@ and every lane, centre and curb line that crosses one side crosses the other wit
          board and apron.
   LEG 1b EVERY BOARD BY SIZE IS CLEAN (rule 79): the six kinds' small, middle and large boards, zero faults.
   LEG 1c THE FUTURES JOIN: every board in its reclaimed and raided pictures has no more broken seams than today.
+  LEG 5  THE STREET IS HIS PACK'S (rule 82a): every town block on a board lays its street from COOK TWO's kit, every
+         kit tile names its (pool, index) keys; the houses and yards are the named exception (COOK FOUR re-cuts them).
   LEG 2  THE REST CAN ONLY GET BETTER: every other board's faults (board, apron) are at or under the
          ratchet in gates/tiles_are_legos_ratchet.json. Lower the ratchet when a board improves.
   LEG 3  THE DATA FILE IS TRUE: records/target/bb/BOHEMIA_GROUND_EDGES.json names every shipped block's four
@@ -49,6 +51,15 @@ for state, F in m.get('futures', {}).items():                    # LEG 1c: the f
         f = L.board_faults(b['blocks'], fe)
         if len(f) > now[name][0]: fails.append('LEG 1c: %s %s has %d broken seams, the present day %d' % (state, name, len(f), now[name][0]))
 if set(m.get('futures', {})) != {'reclaimed', 'raided'}: fails.append('LEG 1c: the two futures are not in the manifest')
+KIT = json.load(open(L.KIT_JSON))['pieces'] if os.path.exists(L.KIT_JSON) else {}   # LEG 5 (rule 82a): the street is his pack's
+TOWN = ('subs', 'corner', 'lots', 'suburb_stem', 'main', 'works', 'strip', 'ruin')
+used_blocks = {x for b in m['boards'].values() for row in b['blocks'] for x in row}
+for bid in sorted(used_blocks):
+    if bid.split('.')[0] not in TOWN: continue
+    plan = m['blocks'][bid].get('kit_plan')
+    if not plan: fails.append('LEG 5: %s lays its street without the kit' % bid); continue
+    for rc, piece in plan.items():
+        if piece not in KIT or not KIT[piece].get('keys'): fails.append('LEG 5: %s tile %s is %s, which names no pack key' % (bid, rc, piece))
 rat = json.load(open(RATCHET))
 for name, (o, a) in now.items():
     if name in CLEAN: continue

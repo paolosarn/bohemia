@@ -7300,6 +7300,19 @@
     "how": "text",
     "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
    }
+  },
+  {
+   "id": "combat2-the-street-from-the-packs-10-10",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FIGHT'S STREETS FROM YOUR DOWNLOADED TILES",
+   "why": "Every street, crossing and sidewalk on the fight boards is now laid from the street tiles you downloaded, shown here as the same block before and after with your tiles beside it. Thumbs up and the rest of the ground follows this way, and you see it in the COMBAT tab on any town fight.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_STREET_FROM_THE_PACKS_10_10.png"
+   }
   }
  ],
  "verdicts": [
