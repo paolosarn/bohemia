@@ -1,6 +1,13 @@
 /* COOK: THE LONG INJURY (10/9/26, PEOPLE lane, VAMILY [the long injury]).
  * Shows a struck-down man's real card: his one pain line, his days left,
- * what he cannot do, all real, all sourced. node tools/bohemia_cook_long_injury.js */
+ * what he cannot do, all real, all sourced.
+ *
+ * REFERENCE CHECK (the 9/4 standing duty): the rulers are AH-01 (grime baked,
+ * never shaded: the dark card's own edges and labels, no glow or gradient
+ * added on top) and AH-03 (the vibe-coded tells: T1 words in a box with no
+ * speaker checked here -- a real name sits on every card, not a bare label).
+ * Ids resolve in the reference library index.
+ * node tools/bohemia_cook_long_injury.js */
 'use strict';
 var fs = require('fs');
 var path = require('path');

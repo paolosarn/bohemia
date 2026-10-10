@@ -19429,6 +19429,19 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/10 LATEST -- *** PLUMBER FLAGGED TWO REDS FROM MY
+LAST SHIP. FIXED BOTH. ***
+TAB: VOTE, item THE LONG INJURY and THE KEEPERS SPEAK.
+
+One flag was already fixed by another lane before I even got to it. The
+real one left was my own newest cook tool, which never got the standing
+reference-check note every cook page needs. Added it.
+
+The other: I bumped the title screen's build number without re-cutting the
+demo file, so the demo and the real build drifted four bytes apart.
+Re-cut it. Checked it matches exactly now.
+Gates clean. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/9 (e) LATEST -- *** [the long injury] SHIPPED.
 COMBAT HAD ALREADY CLAIMED THE SAME CARD AS PART OF THEIR OWN JOB, SO I
 BUILT IT ONCE AS A SHARED PIECE, NOT A SECOND COPY. ***
