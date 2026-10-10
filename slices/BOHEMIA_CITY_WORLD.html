@@ -59246,13 +59246,37 @@ function wildPass(ox, oy, C) {
     var gk = s.at[0] + ',' + s.at[1] + ',' + hour;
     if (s.state === 'gone') { WILD_GONE[gk] = 1; continue; }
     if (WILD_GONE[gk]) continue;
-    var frame = s.state === 'alert' ? 'look' : 'rest';
+    /* THE THIRD FRAME NOBODY EVER ASKED FOR (CHARACTER [wildlife rig], 10/10):
+       the bank ships rest/look/go for all eight animals and, until this round,
+       the draw loop only ever chose rest or look -- go sat baked and
+       unreachable since the bank was built (records/BOHEMIA_THE_COYOTE_EXISTS_AND_CANNOT_TURN_9_6_26.md).
+       A sighting that is not alert and not gone now breathes, alternating
+       rest/go on the shared BEAT, the same clock a walking hostile already
+       uses, so standing wildlife is not a photograph of itself. */
+    var frame = s.state === 'alert' ? 'look'
+      : ((Math.floor(performance.now() / BEAT) & 1) ? 'go' : 'rest');
     var spr = wildCanvas(s.species, frame); if (!spr) continue;
     var sx = ox + s.at[0] * C, sy = oy + s.at[1] * C;
     if (sx < -C * 3 || sy < -C * 4 || sx > CVW + C * 3 || sy > CVH + C * 3) continue;
-    /* THE SIZE LADDER, the same one the player and the residents use: never a
-       fractional scale, so nothing in this world is ever resampled. */
-    var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    /* THE PLAYER'S OWN BOX, NOT A SECOND ONE (CHARACTER [wildlife rig], 10/10;
+       REUSE-FIRST, zero new numbers). This used to be a ladder wildlife kept
+       for itself (8/16/32/64, a raw browser stretch into each rung) and its
+       own comment claimed it was "the same one the player and the residents
+       use" -- measured, it was not: bodyLadder's real rungs are 28/56/112/224,
+       the exact two numbers (56, 112) this row names. Asking bodyLadder for
+       the box means a coyote crossing the street occupies the same real
+       footprint a person would at that zoom, never a second ladder that can
+       silently drift from the first. */
+    var lad = bodyLadder(C);
+    /* THE SAME CRISP UPSCALE, AS FAR AS THE SOURCE GOES: spriteAt's
+       edge-preserving doubling (the player's and every resident's) tops out
+       at 4x (epx2 twice), so the bank's 16px source reaches 64 real pixels
+       and no further -- a measured source-resolution ceiling, not a bug in
+       the helper and not something this lane repaints (COOK THREE's call,
+       frozen). Past 64 the crisp canvas fills the rest of the box in one
+       resize, a cleaner stretch than the old code's raw 16px blown straight
+       up by the browser, never a claim that 112 painted pixels are native. */
+    var hi = spriteAt(spr, bodySpriteC(C));
     var onGlass = false;
     for (var k = 0; k < s.count; k++) {
       /* a flock is spread deterministically, so the same three ravens sit in
@@ -59260,7 +59284,20 @@ function wildPass(ox, oy, C) {
       var jx = (BohemiaWildlife.hash(seed, s.at[0], s.at[1], k) * 2 - 1) * C * 0.8;
       var jy = (BohemiaWildlife.hash(seed, s.at[1], s.at[0], k + 9) * 2 - 1) * C * 0.5;
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
-      g.drawImage(spr, dx0, dy0, lad, lad);
+      /* WHICH WAY IT IS GOING, FINALLY DRAWN (CHARACTER [wildlife rig], 10/10).
+         BohemiaWildlife.near already hands back a facing (toward you once
+         alert, its own way while settled, bearing8) and nothing has ever read
+         it, so every sighting faced the same way regardless. Mirrored about
+         its own centre line, the same technique the street's hero art already
+         uses for a flip (HERO_WIRE, line ~44335), so a coyote crossing left
+         reads apart from one crossing right. */
+      if (typeof s.facing === 'number' && s.facing >= 3 && s.facing <= 5) {
+        g.save(); g.translate((dx0 + lad / 2) * 2, 0); g.scale(-1, 1);
+        g.drawImage(hi, dx0, dy0, lad, lad);
+        g.restore();
+      } else {
+        g.drawImage(hi, dx0, dy0, lad, lad);
+      }
       drawn++;
       /* *** RECORD ONLY WHAT LANDED ON THE GLASS. *** The cull above allows a
          three-tile margin so nothing pops into existence at the edge, which is

@@ -1,3 +1,44 @@
+CHARACTER (character-0lurbs): 10/10 (f) LATEST -- *** A COYOTE ON THE STREET USED
+TO BE ITS OWN SMALLER, BLURRIER COPY OF ITSELF. NOW IT IS THE SAME SIZE AS
+EVERYBODY ELSE, AND IT MOVES. ***
+TAB: CHARACTER and VOTE, one item, A COYOTE IS NOT A PHOTOGRAPH OF ITSELF ANYMORE.
+Record: records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt, this VAMILY.md round text,
+row [wildlife rig].
+
+Row [wildlife rig] SHIPPED. Found three real gaps by looking at the actual
+code, not guessing: a coyote on the street used its own separate, smaller
+size than every person and resident, its third walking pose was built and
+never once used, and the game already knows which way it should be facing
+and never drew it that way.
+
+FIXED, REUSING WHAT ALREADY EXISTS: the coyote now draws in the exact same
+box every person uses, the game's own crisp zoom-in tool instead of a blurry
+stretch, its walking pose now alternates in with its standing one on the
+beat, and it now mirrors to face the way it is actually headed.
+
+PROVEN: three coyotes forced on screen, one facing each way and one alert,
+and I looked at the real picture twice. The first picture had game menus
+sitting on top of it by accident, fixed. The first caption described the
+picture wrong, fixed to match what is actually there.
+
+LEFT HONEST: the old row asked for two sizes, but the newer rule that one
+walked body is always one size means only one of those two still applies to
+anybody on foot, not just the coyote; said plainly rather than faked.
+
+THIS LANE STAYS RUNNING UNDER RULE 88 (LOOKS FIRST, FEATURES HOLD, Paolo
+10/10): rule 87 names CHARACTER as COOK THREE's hands, keeping the rigs,
+dials and gates while COOK THREE paints. This round drew zero new pixels
+(the coyote bank is untouched) and fixed only the rendering mechanism, so
+it is not one of rule 82's named families and not inside COOK THREE's
+remit.
+
+2 OPEN rows remain in the jump list (rule 74): [the twin on the thirteen]
+(blocked on DIRECTION's reference work landing), [look verdict]. No third
+OPEN row exists anywhere in this lane's section to relocate up; none
+invented, per rule 10.
+
+PENDING Paolo: nothing new.
+
 SOUNDS (sound-xk7pjp): 10/10 LATEST -- *** YOU PUT THIS LANE ON HOLD. CAUGHT IT
 BEFORE SHIPPING, NOT AFTER. ***
 TAB: nothing to show; this lane is paused.

@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-three-bodies-10-10'
+MINE_ID = 'character-wildlife-rig-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
-  "id": MINE_ID, "kind": "outfit", "lane": "character",
+  "id": MINE_ID, "kind": "tile", "lane": "character",
   "sha": "pending", "made": "10/10",
-  "title": "THE THREE BODIES",
-  "why": "Your face already runs in the family through the three generations, so I built the same thing for the body, one ancestor's shape pulling at his son and grandson by the same pull your face uses. You see it here, three men in the same clothes with three different builds, not three strangers.",
+  "title": "A COYOTE IS NOT A PHOTOGRAPH OF ITSELF ANYMORE",
+  "why": "A coyote on the street used to be its own smaller, blurrier size and never moved a leg; now it draws in the exact same box every person does, mirrors to show which way it is headed, and breathes between two real poses. You see it here, three coyotes forced on screen so you do not have to go find one.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_THE_THREE_BODIES.html"
+    "src": "vote/CHARACTER_WILDLIFE_RIG.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
