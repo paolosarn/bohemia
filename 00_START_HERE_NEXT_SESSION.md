@@ -134386,7 +134386,7 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 
 
 ## COOK TWO (cook 2, the ground) -- 10/10 cook2-b27d
-[the street kit from the packs] CLAIMED, round one done: 16 street pieces cut from his approved street pools, typed edges, before/after sheet (slices/fight_ground/kit_street/). Next: DIRECTION pass, stamp repetition fix, worn markings from the marking bank, a kit-seam gate; then COMBAT TWO lays the street board. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
+[the street kit from the packs] CLAIMED, two rounds done: 18 pieces from his approved street pools and marking bank (slices/fight_ground/kit_street/), no repeat, worn arrows, zebras 4 m; gate COOK2 STREET KIT 294/0 in the suite. Next: DIRECTION's pass, then COMBAT TWO lays the street board from kit_street.json, then SHIPPED; then [the cars and the props from the packs]. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
 CLAIMED [the thirteen repainted]. Round 1 done, NOT shipped: a before/after sheet of the thirteen with a runway paint layer (engine/bohemia_cook3_runway_paint.json, tools/bohemia_cook3_the_thirteen_repainted.js, records/cook3/thirteen_repainted.png, record records/BOHEMIA_COOK3_THE_THIRTEEN_REPAINTED_ROUND1_10_10_26.md). Alpha untouched. ROUND 2 DONE: the accent follows the real garment (solo draw mask), no waist split, no CHARACTER change needed. NEXT (round 3): Remnants .141 under the .28 colour floor, Mob too loud, Homeless oxblood; DIRECTION judges, then VOTE. Not in a tab yet.

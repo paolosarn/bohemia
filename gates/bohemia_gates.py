@@ -856,6 +856,11 @@ GATES = [
      'the module when a cut note naming it is exactly right. Rule 22/29/32(f): the cook is '
      'DRAWN at game scale, slices/vote/WORLD_THE_ONLY_PUMP.png. '
      'records/BOHEMIA_WORLD_A_PLACE_IS_A_BLOCK_9_27_26.md', True),
+    ('COOK2 STREET KIT', ['python3', 'gates/cook2_street_kit_gate.py'],
+     'COOK TWO [the street kit from the packs], rule 77/82a: every kit piece keys his approved pools, '
+     'its written edges agree with its pixels (warmth: tan walk, grey road), and pieces written alike meet. '
+     'Mutation-proved: a wrong written edge and a painted-over kerb both go red. '
+     'records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md', True),
     ('THE ROAD NETWORK', ['node', 'gates/roads_gate.js'],
      'ROW [the roads]: the map\'s road network as data, each stretch with its travel speed, which '
      'stretches are blocked and who patrols them. The row\'s own gate is EVERY SETTLEMENT REACHES '
