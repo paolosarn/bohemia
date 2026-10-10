@@ -55,6 +55,10 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .gslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610)}
 .gslot i{display:block;font-style:normal;color:var(--dim);font-size:9px}
 .gslot.over{outline:2px solid var(--gold)}
+.hurtbox{margin-top:8px;padding:6px 8px;border:1px solid #6e2a20;border-radius:4px;background:#22130f;font-size:11px}
+.hurtbox b{color:#e07a5f;letter-spacing:1px}
+.hurtbox i{display:block;font-style:normal;color:var(--dim)}
+.cell.laid{filter:grayscale(.8) brightness(.7);border-color:#6e2a20}
 .perks{margin-top:8px;font-size:11px;color:var(--dim)}
 .xpbar{height:6px;margin-top:4px;background:#16110c;border:1px solid var(--line);border-radius:3px;overflow:hidden}
 .xpbar i{display:block;height:100%;background:var(--gold)}
@@ -75,12 +79,15 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 <div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
 <div class="h">THE LINE. DRAG A MAN TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
+<div class="ln" id="hurth" style="margin:0 12px;display:none">LAID UP. HE HEALS ON THE ROAD; HE CANNOT STAND IN THE LINE.</div>
+<div class="line" id="hurt" style="margin:0 12px 6px"></div>
 <div id="card"></div>
 <div id="said"></div>
 <div class="h" id="bagh">YOUR BAG</div>
 <div id="bag"></div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
+<script src="../engine/bohemia_long_injury.js"></script>
 <script src="bohemia_ui_materials.js"></script>
 <script>
 (function(){
@@ -102,20 +109,43 @@ function say(t){ document.getElementById('said').textContent = t; }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
-function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats}; });
+function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, hurt:m.hurt||null, mark:m.mark||null, dead:!!m.dead}; });
   try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} }
 function loadClimb(){ var o = {}; try{ o = JSON.parse(localStorage.getItem(CKEY)||'{}') || {}; }catch(e){}
-  S.crew.forEach(function(m){ var c = o[m.name]; if(!c) return; m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; }); }
+  S.crew.forEach(function(m){ var c = o[m.name]; if(!c) return; m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; m.hurt = c.hurt || null; m.mark = c.mark || null; m.dead = !!c.dead; }); }
 /* the fight's recap hands each man his XP (COMBAT counts it the Battle Brothers way); he climbs here */
 function afterFight(rows){
   var ups = [];
-  (rows||[]).forEach(function(r){ var m = S.crew.filter(function(x){ return x.name === r.name; })[0]; if(!m || r.dead) return;
+  var hurt = [];
+  (rows||[]).forEach(function(r){ var m = S.crew.filter(function(x){ return x.name === r.name; })[0]; if(!m) return;
+    if(r.dead && !m.main){ m.dead = true; hurt.push(m.name + ' is dead'); return; }
+    /* STRUCK DOWN AND LIVED (COMBAT [struck down]): laid up the fight's days, and the wiki's permanent mark for good */
+    if(r.down && !r.main && r.injury){ m.hurt = {days:r.laidUpDays || r.injury.days || 0, of:r.laidUpDays || r.injury.days || 0};
+      m.mark = {id:r.injury.id, name:r.injury.name, line:r.injury.line}; hurt.push(m.name + ' is laid up ' + m.hurt.days + ' days'); }
     var g = C.grant(m, r.xpGained); m.gained = {}; g.gains.forEach(function(x){ for(var k in x) m.gained[k] = (m.gained[k]||0) + x[k]; });
     if(g.to > g.from) ups.push(m.name + ' is level ' + g.to); });
-  saveClimb(); var first = S.crew.findIndex(function(m){ return m.points > 0; }); if(first >= 0) S.sel = first;
-  say(ups.length ? ups.join('. ') + '. Pick his perk.' : 'Nobody climbed this time.'); draw(); return ups;
+  benchHurt(); saveClimb(); saveForm(); var first = S.crew.findIndex(function(m){ return m.points > 0 && !m.dead; }); if(first >= 0) S.sel = first;
+  var lh = S.crew.findIndex(function(m){ return m.hurt && m.hurt.days > 0; }); if(first < 0 && lh >= 0) S.sel = lh;
+  say((hurt.length ? hurt.join('. ') + '. ' : '') + (ups.length ? ups.join('. ') + '. Pick his perk.' : 'Nobody climbed this time.')); draw(); return ups;
 }
-function company(){ return C.company(S.crew); }
+/* a laid-up or dead man leaves the line; a healed one takes the first empty slot, front first */
+function laid(m){ return m && m.hurt && m.hurt.days > 0; }
+function benchHurt(){
+  ['front','back'].forEach(function(row){ S[row] = S[row].map(function(ix){ return ix != null && (laid(S.crew[ix]) || S.crew[ix].dead) ? null : ix; }); });
+  S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;
+    var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
+}
+/* a day on the road: each laid-up man one day closer (PEOPLE's healDay); the mark never clears */
+function dayPassed(n){
+  n = n || 1; var back = [];
+  S.crew.forEach(function(m){ if(!laid(m)) return; for(var k=0;k<n;k++){ var f = window.BohemiaLongInjury ? BohemiaLongInjury.healDay({days:m.hurt.days}) : {days:m.hurt.days-1}; m.hurt.days = f.days; }
+    if(m.hurt.days === 0) back.push(m.name); });
+  benchHurt(); saveClimb(); saveForm(); if(back.length) say(back.join(', ') + ' can stand in the line again.'); draw(); return back;
+}
+/* what the clinic would charge to halve his days (the settlement's [the clinic] rule, no town's trait here) */
+function clinicPrice(m){ return Math.max(1, Math.round(20 * m.hurt.days * (1 + (m.level - 1) * 0.2) / 10));
+}
+function company(){ return C.company(S.crew.filter(function(m){ return !m.dead && !laid(m); })); }
 function formation(){ return {front:S.front.slice(), back:S.back.slice()}; }
 function saveForm(){ try{ localStorage.setItem(FKEY, JSON.stringify(formation())); }catch(e){} post('formation', {formation:formation()}); }
 /* who stands where to start: Battle Brothers puts the shooters behind; a rifle, a bow or bottles go back */
@@ -146,7 +176,7 @@ function faceCanvas(m){
   return c;
 }
 function draw(){
-  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.length + ' / 20';
+  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / 20';
   ['front','back'].forEach(function(row){
     var el = document.getElementById(row); el.textContent = '';
     S[row].forEach(function(ix, si){
@@ -157,6 +187,11 @@ function draw(){
       el.appendChild(d);
     });
   });
+  var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
+  S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
+    var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i;
+    d.appendChild(bodyCanvas(m, 48, 64)); var b = document.createElement('b'); b.textContent = m.hurt.days + 'd'; d.appendChild(b); hu.appendChild(d); });
+  document.getElementById('hurth').style.display = any ? 'block' : 'none';
   drawCard(); drawBag();
 }
 function stars(n){ return n ? '★'.repeat(n) : ''; }
@@ -171,7 +206,8 @@ function drawCard(){
   var a0 = C.xpFor(m.level), a1 = C.xpFor(m.level + 1), xb = document.createElement('div'); xb.className = 'xpbar'; xb.title = m.xp + ' / ' + a1 + ' XP';
   var xi = document.createElement('i'); xi.style.width = Math.max(0, Math.min(100, (m.xp - a0) / Math.max(1, a1 - a0) * 100)) + '%'; xb.appendChild(xi);
   t.querySelector('.sub').appendChild(xb);
-  t.querySelector('.pain').textContent = '“' + m.pain + '”';
+  var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
+  t.querySelector('.pain').textContent = '“' + (pl || m.pain) + '”';
   top.appendChild(t); el.appendChild(top);
   var st = document.createElement('div'); st.className = 'stats';
   C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];
@@ -189,6 +225,11 @@ function drawCard(){
     g.appendChild(d);
   });
   el.appendChild(g);
+  if(m.mark){ var hb = document.createElement('div'); hb.className = 'hurtbox';
+    var h1 = document.createElement('b'); h1.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + ' OF ' + m.hurt.of + ' DAYS' : 'HEALED, BUT MARKED'; hb.appendChild(h1);
+    var h2 = document.createElement('i'); h2.className = 'mark'; h2.textContent = 'FOR GOOD: ' + m.mark.name.toUpperCase() + (m.mark.line ? ', ' + m.mark.line : ''); hb.appendChild(h2);
+    if(laid(m)){ var h3 = document.createElement('i'); h3.className = 'clinic'; h3.textContent = 'The clinic halves it for ' + clinicPrice(m) + ' batteries.'; hb.appendChild(h3); }
+    el.appendChild(hb); }
   var pk = document.createElement('div'); pk.className = 'perks';
   pk.textContent = m.perks.length ? 'PERKS: ' + m.perks.map(C.perkName).join(', ') : 'PERKS: none yet. Level 2 picks the first one.';
   el.appendChild(pk);
@@ -232,6 +273,7 @@ function unequip(slot){
   m.gear[slot] = null; S.bag.push(it); saveBag(); post('equip', {who:m.idx, name:m.name, slot:slot, item:null}); sfx('equip'); say(m.name + ' puts down ' + it.name + '.'); draw();
 }
 function moveMan(fromRow, fromI, toRow, toI){
+  if(fromRow === 'hurt'){ var hm = S.crew[fromI]; say(hm.name + ' is laid up ' + hm.hurt.days + ' more days. He cannot stand in the line.'); post('refused', {who:hm.name}); return; }
   var a = S[fromRow][fromI], b = S[toRow][toI];
   S[toRow][toI] = a; S[fromRow][fromI] = b; saveForm(); say(S.crew[a].name + ' moves to the ' + toRow + '.'); draw();
 }
@@ -245,7 +287,7 @@ function moveMan(fromRow, fromI, toRow, toI){
   document.addEventListener('pointermove', function(e){
     if(!src) return;
     if(!S.dragged && Math.hypot(e.clientX-x0, e.clientY-y0) > 8){ S.dragged = true; ghost.style.display = 'block';
-      var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
+      var p = src.split(':'); ghost.textContent = p[0]==='man' ? S.crew[p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]].name : p[0]==='bag' ? S.bag[+p[1]].name : S.crew[S.sel].gear[p[1]].name; }
     if(!S.dragged) return;
     e.preventDefault();
     ghost.style.left = (e.clientX + 8) + 'px'; ghost.style.top = (e.clientY + 8) + 'px';
@@ -256,7 +298,7 @@ function moveMan(fromRow, fromI, toRow, toI){
     if(!src) return; var s = src; src = null; ghost.style.display = 'none'; if(over) over.classList.remove('over');
     var p = s.split(':');
     if(!S.dragged){
-      if(p[0] === 'man'){ S.sel = S[p[1]][+p[2]]; draw(); }
+      if(p[0] === 'man'){ S.sel = p[1] === 'hurt' ? +p[2] : S[p[1]][+p[2]]; draw(); }
       return;
     }
     var t = document.elementFromPoint(e.clientX, e.clientY), dz = t && t.closest('[data-drop]');
@@ -279,7 +321,7 @@ function open(o){
   var f = o.formation; if(!f){ try{ f = JSON.parse(localStorage.getItem(FKEY)||'null'); }catch(e){} }
   if(f && f.front && f.front.length === N && f.back && f.back.length === N && [].concat(f.front, f.back).every(function(i){ return i == null || S.crew[i]; })){ S.front = f.front.slice(); S.back = f.back.slice(); }
   else defaultForm();
-  loadClimb();
+  loadClimb(); benchHurt();
   /* a man who joined since the line was set takes the first empty slot, front first */
   S.crew.forEach(function(m, i){ if(S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
@@ -287,8 +329,8 @@ function open(o){
   S.ready = true; draw();
   if(Array.isArray(o.fight)) afterFight(o.fight);
 }
-window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company};
-window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); });
+window.BohemiaRosterScreen = {open:open, state:S, formation:formation, afterFight:afterFight, company:company, dayPassed:dayPassed};
+window.addEventListener('message', function(e){ var d = e.data||{}; if(d.type === 'BOHEMIA_ROSTER_OPEN') open(d); if(d.type === 'BOHEMIA_FIGHT_OVER' && Array.isArray(d.crew)) afterFight(d.crew); if(d.type === 'BOHEMIA_DAY') dayPassed(d.days || 1); });
 document.getElementById('done').addEventListener('click', function(){ post('done', {formation:formation(), company:company()}); say('Back to it.'); });
 C.load().then(function(){ open({}); }).catch(function(err){ say('The company did not load.'); });
 })();
