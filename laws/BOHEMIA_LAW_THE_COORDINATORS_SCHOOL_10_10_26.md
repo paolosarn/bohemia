@@ -35,3 +35,11 @@ It names no new reference game and changes no pillar. Production practice from o
 ## GATES
 
 Rule 4: PLUMBER [the owner file] and a one-claim leg. Rule 6: RUN's load gate reads TIME TO PLAY against ten seconds. Rule 7: PLUMBER [the gate goes red]. Rule 8: PLUMBER [the pack gate] compares numbers. Rule 10: PLUMBER [the reply leg]. Rules 1, 3, 9 are on the coordinator's own round record and the handoff gate: a round record without THE THREE RISKS and THE FIVE MINUTES at the top, or a front-page rule added without a fold or a retirement named, is the coordinator failing its own school, and EYES may say so in its notes.
+
+## HIS CORRECTION (10/10): THAT WAS ROUND ONE. NINE MORE, ONE AT A TIME, FROM LIFE.
+
+Paolo: 'that was one out of 10... find unique angles in life, none of that confirming the research shit' (records/BOHEMIA_PAOLO_THAT_WAS_ROUND_ONE_FIND_UNIQUE_ANGLES_IN_LIFE_10_10_26.md). The ten rules above are ROUND ONE. Rounds two to ten follow, each from a world outside games, each finding something the coordinator does not do, each applied the same round.
+
+## ROUND TWO: READBACK (air traffic control, the operating room, the Army back-brief; records/BOHEMIA_COORDINATOR_SCHOOL_SECOND_ROUND_READBACK_10_10_26.md)
+
+RULE: NOTHING IS HEARD UNTIL IT IS SAID BACK AND THE SENDER SAYS CORRECT. Applied as front-page rule 91: the lane's READBACK on every claim, the coordinator's CORRECT or NEGATIVE on every readback at the top of every sweep, and WHAT I HEARD to Paolo on every ruling. The sounds misread was a hearback failure; this is its fix. Gate: PLUMBER [the readback leg].
