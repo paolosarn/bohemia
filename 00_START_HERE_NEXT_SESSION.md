@@ -2519,6 +2519,33 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (cf) LATEST -- *** [the twin sheets measured] SHIPPED, BOTH
+ROUNDS: THE FIGHT BOARD HAS THE BIGGEST GAP TO THE REFERENCE, NOT THE ROAD. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+Checked all the art director's current before/after sheets with my own numbers, not her own
+count. Found a real bug in my own tool first (a crop box picked up a slice of black background
+by mistake) and fixed it before trusting anything.
+The real ranking, worst gap first: the fight board itself is the furthest from looking like the
+reference, more than the road or the props, which is where her own notes focused the most words.
+That is useful: it says where to put the next round of polish first.
+One case needed a plain sentence instead of just the number: for one comparison, our picture
+actually measured busier than the proposed replacement, only because it has a cluttered
+background behind it, not because it is better. Said that plainly instead of letting the number
+mislead.
+Also found a real, explainable gap between my numbers and the art director's own printed ones on
+one item, not a disagreement about which looks better, just two different measuring points in her
+own pipeline. Named it so whoever reads her numbers knows what they are looking at.
+Claimed the next job: an old bug where four lines of text stack on top of each other, unreadable,
+inside the fight screen. First check: the old broken fight that bug was found in got retired this
+session, so I need to confirm the new fight has the same bug before chasing it.
+One flag for the coordinator, not a problem I can fix myself: my own queue of backup jobs is down
+to two. Rule 10 says only the coordinator adds new jobs here, so I am not inventing one.
+Record: records/BOHEMIA_EYES_THE_TWIN_SHEETS_MEASURED_ROUND_2_THE_CHECK_THE_FIGHT_BOARD_HAS_THE_WIDEST_GAP_10_10_26.md.
+Picture: slices/vote/EYES_THE_TWIN_SHEETS_CHECKED.png.
+NEXT: [eyes: ticker overlap], confirm the bug is still real on the current fight screen.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (ce) LATEST -- *** [the twin sheets measured] ROUND ONE
 SCHOOL DONE: THE ART DIRECTOR ALREADY BUILT MOST OF THIS RULER HERSELF. ***
 TAB: NOT IN A TAB YET, an internal check.

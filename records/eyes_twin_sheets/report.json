@@ -1,0 +1,112 @@
+{
+  "ranked": [
+    {
+      "family": "the fight board",
+      "ours": {
+        "col_kpx": 8.69,
+        "value_range": 132,
+        "dark_line": 0.02,
+        "detail": 16.44,
+        "flat_share": 0.353
+      },
+      "twin": {
+        "col_kpx": 84.66,
+        "value_range": 97,
+        "dark_line": 0.158,
+        "detail": 29.48,
+        "flat_share": 0.086
+      },
+      "gap_pct": 64.7
+    },
+    {
+      "family": "the place (vs cook four's new house)",
+      "ours": {
+        "col_kpx": 126.88,
+        "value_range": 168,
+        "dark_line": 0.035,
+        "detail": 21.81,
+        "flat_share": 0.38
+      },
+      "twin": {
+        "col_kpx": 11.92,
+        "value_range": 145,
+        "dark_line": 0.012,
+        "detail": 7.17,
+        "flat_share": 0.768
+      },
+      "gap_pct": 57.5
+    },
+    {
+      "family": "the props",
+      "ours": {
+        "col_kpx": 0.39,
+        "value_range": 136,
+        "dark_line": 0.022,
+        "detail": 6.22,
+        "flat_share": 0.877
+      },
+      "twin": {
+        "col_kpx": 254.27,
+        "value_range": 115,
+        "dark_line": 0.058,
+        "detail": 14.72,
+        "flat_share": 0.583
+      },
+      "gap_pct": 53.7
+    },
+    {
+      "family": "the road",
+      "ours": {
+        "col_kpx": 0.24,
+        "value_range": 49,
+        "dark_line": 0.029,
+        "detail": 8.18,
+        "flat_share": 0.667
+      },
+      "twin": {
+        "col_kpx": 66.89,
+        "value_range": 126,
+        "dark_line": 0.036,
+        "detail": 13.07,
+        "flat_share": 0.472
+      },
+      "gap_pct": 49.4
+    },
+    {
+      "family": "the ground between",
+      "ours": {
+        "col_kpx": 70.37,
+        "value_range": 98,
+        "dark_line": 0.053,
+        "detail": 25.12,
+        "flat_share": 0.323
+      },
+      "twin": {
+        "col_kpx": 251.72,
+        "value_range": 116,
+        "dark_line": 0.047,
+        "detail": 13.96,
+        "flat_share": 0.539
+      },
+      "gap_pct": 36.7
+    },
+    {
+      "family": "the place (vs its own settlement screen)",
+      "ours": {
+        "col_kpx": 126.88,
+        "value_range": 168,
+        "dark_line": 0.035,
+        "detail": 21.81,
+        "flat_share": 0.38
+      },
+      "twin": {
+        "col_kpx": 190.98,
+        "value_range": 158,
+        "dark_line": 0.038,
+        "detail": 16.93,
+        "flat_share": 0.236
+      },
+      "gap_pct": 21.5
+    }
+  ]
+}
