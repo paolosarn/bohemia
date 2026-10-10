@@ -20184,6 +20184,7 @@ OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. 
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
 === COOK FOUR: ONE HOUSE THE PACK'S WAY (10/10, cook4)
+HIS CORRECTION: buildings at the character's true size (57 px a metre, the body measured). Houses one and two were one tile big: WRONG. The ranch redone at true size in VOTE (cook4-the-ranch-true-size-10-10), the character at the door. NEXT: the two-storey town shop at true size, the character on the sheet.
 HIS WORD on house one: 'good direction good job keep going'. [one at a time] CLAIMED: asset two, the ranch with a garage, in VOTE (cook4-house-two-the-ranch-10-10). NEXT asset: a Vegas two-storey stucco block (the town's shop) the same way.
 MODE is COOK ONLY (rule 100). [how the pack did it] SHIPPED (records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md). [no roof tops] round 1 in VOTE: cook4-one-house-the-packs-way-10-10, one front-gable Vegas house from his pieces beside his pack house #30 (sheet records/target/COOK4_ONE_HOUSE_THE_PACKS_WAY.png, tool tools/bohemia_cook4_one_house.py). The map heroes (slices/cook4_map_houses) are PLACEHOLDERS, stopped under rules 100/101/105. NEXT: his word on the house; then [one at a time] with the next asset the pass names.
 
