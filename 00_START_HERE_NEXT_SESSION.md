@@ -1299,6 +1299,27 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/10 (l) LATEST -- *** WROTE THE WORDS FOR A SCREEN THAT DOESN'T EXIST
+YET, AND GAVE NINE REPUTATION LEVELS THEIR FIRST PLAIN SENTENCE. ***
+TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
+Record: records/BOHEMIA_WORDS_THE_ARRIVALS_LINES_10_10_26.md
+
+My job was to write the words for the screen you'll see when you first arrive at a town: a
+quick banner naming the place, its size, and anything unusual about it.
+
+Checked first: that arrival banner doesn't exist in the game yet, so I wrote the words ahead
+of the screen that will show them, same as I've done before when a mechanism isn't built.
+
+Wrote 12 short lines (small camp, mid-size town, or big fortress, crossed with being
+recently raided, sick, or having a market day). Also found that the game already tracks
+nine levels of how a town feels about you (from hating you to being allied with you), but
+none of those nine had ever been put into words a player would actually read. Wrote one
+plain sentence for each. Caught my own mistake while doing it: my first version said the
+second-worst level would draw a weapon on you, but checking the real numbers showed only the
+worst level actually does that. Fixed before it shipped.
+NEXT: the jump list's next job is the start screen's words.
+PENDING Paolo: nothing.
+
 WORDS (words-8dqrnq): 10/10 (k) LATEST -- *** BOTH MY OPEN JOBS ARE STILL STUCK. CHECKED BOTH
 AGAINST THE REAL FILES, NOT THE BOARD'S WORDING. NOTHING SHIPPED ON PURPOSE. ***
 TAB: nothing to show; this is a status check.
