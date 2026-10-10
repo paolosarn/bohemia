@@ -782,6 +782,70 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round four) -- *** [hair match
+regression gate] SHIPPED: THE FIVE BUGS THIS LANE HAS ALREADY FIXED SHOULD NEVER
+COME BACK. Record: records/BOHEMIA_THE_HAIR_MATCH_REGRESSION_GATE_10_10_26.md.
+
+THE RULE THIS ROUND RAN UNDER: rule 88 (LOOKS FIRST, FEATURES HOLD), new since
+the last round's handoff. PORTRAIT is listed RUNNING, but only "as COOK THREE's
+hands" -- dials, rigs, gates, not new independent face features. No new direct
+feedback from Paolo this round (checked the registry's verdicts: still the same
+three from 10/9, already answered). So the top of this lane's own jump list was
+the right call: [hair match regression gate], pure gate work, nobody else's to
+build first, and exactly the kind of "hands" work rule 88 asks for.
+
+THE ROW ITSELF: five times this session a portrait silently drifted from the
+body it is supposed to agree with (cut SHAPE 8/28, hair COLOUR 9/20, the braid
+sentinel 9/24, the face-maker's dropped dials 10/9, the whole crowd's random
+texture 10/9). Built gates/hair_match_regression_gate.js: for 189 of 200
+synthetic citizens, all six shipped enemy tiers and all twelve CITY_CAST_LOOKS,
+a second, INDEPENDENT read of the real worn hair (BOH_PERSONLOOK.lookFor for
+citizens; ours.json's band + the live FACTION_LOOKS table for the tiers, never
+a cached copy of that cook tool; the live CITY_CAST_LOOKS table for hires) is
+compared against faceFor()'s own hair.name/hair.tex/braid/shape dials.
+
+KEEPERS NAMED HONESTLY: no lane has given any keeper kind a real dressed body
+yet ([the keepers' and hires' bodies], still OPEN) -- nothing to match a keeper
+against, so the gate checks the one true thing today (same place+kind always
+renders the same face) and upgrades to a real match the day a body lands.
+
+MUTATION-PROVED, NOT ASSUMED: the comparator itself is unit-tested against four
+planted fault shapes first (4/4 correct). THEN proved live, on the real
+renderer, not just the comparator: reintroduced bug 5 (hair.tex always random)
+-- gate went 13/0 to 12/1, citizens 141 of 189. Reintroduced the braid sentinel
+(braid always set) -- gate went 13/0 to 10/3, caught in citizens (19/189), all
+six enemy tiers (0/6) and all twelve cast looks (0/12) at once. Both reverted;
+`git diff --stat` on the alpha empty afterward, confirmed before writing this.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
+20/0, portrait_matches_body 11/0, hair_match_regression (new) 13/0.
+
+COOKED (rule 22): portrait-hair-match-regression-gate-10-10, a text item
+(kind:"line", zero new pixels, same shape as CHARACTER's own [wildlife rig]
+this round) -- not an art sheet, so rule 82/87's embargo does not hold it back.
+Ran vote_tab_gate.js on it before pushing (rule 22g): clean, not in either
+failure list (the twin-check and the two-sentence check).
+
+OPEN ROW COUNT: still exactly three after this ship ([the twin on the
+portraits], [the keepers' and hires' bodies], [front page]) -- rule 74's floor,
+checked with open_row_gate.js before writing this, PORTRAIT not named in either
+of its two failure lines.
+
+PUSH-TO-MAIN STATUS: pending at handoff-write time; the ship flow below is
+what actually attempts it.
+
+NEXT ROUND, FIRST MOVE: [the twin on the portraits] if DIRECTION has passed a
+portrait twin sheet by then (checked DIRECTION's own row this round: still
+"places, map, people when their twins arrive" -- not yet); otherwise
+[the keepers' and hires' bodies] if CHARACTER or RUN TWO has assigned a real
+dressed look to a keeper kind or a hire's background by then; otherwise
+[front page], the coordinator's own fold-the-rules-page row, real buildable
+work that needs nobody else.
+
+PENDING PAOLO: none new this round -- a structural rule (88) already answers
+itself, and this lane's job under it was plain.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round three) -- *** [the
 hires' faces] SHIPPED, AND A BUG REPORT CHECKED FIRST. Top OPEN jump-list
 row. Records: records/BOHEMIA_THE_HIRES_FACES_10_10_26.md,

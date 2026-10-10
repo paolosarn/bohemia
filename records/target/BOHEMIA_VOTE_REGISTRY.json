@@ -7246,6 +7246,19 @@
    }
   },
   {
+   "id": "portrait-hair-match-regression-gate-10-10",
+   "kind": "line",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "A PORTRAIT CAN NO LONGER QUIETLY STOP MATCHING THE BODY",
+   "why": "This lane's own faces have drifted off the body they are supposed to match five separate times this session; now a gate checks every citizen, the six enemy tiers and the twelve hire looks against their real worn hair every round, proved by planting two of those five old bugs back in and watching it catch both. NOT IN A TAB YET: this is a checker, not a look, so there is nothing new to see on screen; it runs every round from now on.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_THE_HAIR_MATCH_REGRESSION_GATE_10_10_26.md; the gate itself is gates/hair_match_regression_gate.js, 13 passed 0 failed, and neither is an art sheet under rule 82 (zero new pixels, nothing drawn) so no reference twin was invented.\n\nSeen in: the record above; no tab yet, this is a machine checker, not a look."
+   }
+  },
+  {
    "id": "lifecity-take-the-next-part-10-10",
    "kind": "tile",
    "lane": "life+city",
