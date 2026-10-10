@@ -1,3 +1,9 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [modding readme] SHIPPED as a page on the board (rules 78, 88: nothing in VOTE). MODDING.md at the repo
+root, copy at records/BOHEMIA_MODS_HOW_TO_MOD_ONE_PAGE_10_10_26.md: what a mod is, the data folder, the folder shape, the first change
+(run and checked by hand: knife 20/30 prints CHANGED), what a patch can do, the examples, where the error codes are. Help only. Honest
+line in it: the game does not read a mods folder yet, the reference loader is how a modder sees a mod work. NEXT OPEN: [sharing a mod],
+[grok sources]. Only 2 OPEN left, so a third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/10 (e) LATEST -- *** STILL ON HOLD. SECOND VAMILY WITH
 NO ROUND. *** Rule 88 is unchanged and still names WORLD on hold: no round, no
 VOTE sheet, nothing into the demo, the rows stay OPEN, and the only exception is
