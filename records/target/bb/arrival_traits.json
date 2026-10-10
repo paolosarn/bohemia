@@ -47,6 +47,37 @@
     "bb_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0703_Escort Caravan.txt",
     "bb_quote": "If you finish this contract, the settlement will become well supplied. If you poorly complete the contract, it won't."
    }
+  },
+  "conquered": {
+   "effects": {
+    "buy_price_mult": {
+     "value": 1.1,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0437_Conquered (Settlement Situation).txt",
+     "quote": "+10% buying prices"
+    },
+    "sell_price_mult": {
+     "value": 0.9,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0437_Conquered (Settlement Situation).txt",
+     "quote": "-10% selling prices"
+    },
+    "food_mult": {
+     "value": 0.9,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0437_Conquered (Settlement Situation).txt",
+     "quote": "-10% food"
+    },
+    "items_mult": {
+     "value": 0.6,
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0437_Conquered (Settlement Situation).txt",
+     "quote": "-40% items available"
+    }
+   },
+   "set_by": {
+    "value": "base_taken",
+    "ours": true,
+    "bb": "the Noble War: houses take over rival settlements without destroying them",
+    "bb_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+    "bb_quote": "They begin to take over rival settlements reducing those settlements supply/wealth levels without destroying them."
+   }
   }
  },
  "duration_days": {

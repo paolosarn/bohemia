@@ -33,17 +33,26 @@
     }
     return out;
   }
+  /* THE WORLD TOOK A BASE (homebases.settle said 'taken'): the place is Conquered, not burned. Refreshes like any other mark. */
+  function markTaken(rec, place, by, day) {
+    if (!rec || !place || typeof day !== 'number' || !D.traits.conquered) return null;
+    if (!rec.marks) rec.marks = [];
+    var until = day + D.duration_days.value;
+    for (var k = 0; k < rec.marks.length; k++) if (rec.marks[k].place === place && rec.marks[k].trait === 'conquered') { rec.marks[k].until = Math.max(rec.marks[k].until, until); return null; }
+    var m = { place: place, trait: 'conquered', by: by || null, party: null, from: day, until: until };
+    rec.marks.push(m); return m;
+  }
   function active(rec, place, day) {
     var ids = [], ms = (rec && rec.marks) || [];
     for (var i = 0; i < ms.length; i++) if (ms[i].place === place && day >= ms[i].from && day < ms[i].until && ids.indexOf(ms[i].trait) < 0) ids.push(ms[i].trait);
     return ids;
   }
   function effects(rec, place, day) {
-    var out = { items_mult: 1, recruits_mult: 1, buy_price_mult: 1, sell_price_mult: 1 }, ids = active(rec, place, day);
+    var out = { items_mult: 1, recruits_mult: 1, buy_price_mult: 1, sell_price_mult: 1, food_mult: 1 }, ids = active(rec, place, day);
     for (var i = 0; i < ids.length; i++) { var f = D.traits[ids[i]].effects; for (var k in f) out[k] = out[k] * f[k].value; }
     return out;
   }
-  var api = { load: load, set: set, make: make, traitsFrom: traitsFrom, active: active, effects: effects };
+  var api = { load: load, set: set, make: make, traitsFrom: traitsFrom, markTaken: markTaken, active: active, effects: effects };
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; load(require('fs'), require('path')); }
   else root.BohemiaArrivalTraits = api;
 })(typeof window !== 'undefined' ? window : this);

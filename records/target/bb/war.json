@@ -1,0 +1,42 @@
+{
+ "_about": "The houses are hostile to each other (VAMILY row [houses at war]). WHO is at war with whom is NOT stored here: it is read from bohemia_between.js (the canon graph's own edges, war flag and sign). This file holds only Battle Brothers' rules for what a war DOES, each quoted, and our mapping of them, each marked ours. Measured before building: the between table already exists and parties are already SENT at their hostiles; what never happened is two parties of different factions MEETING, and on the real valley they do, a few times a day (6 seeds, 4 waking days: 4 to 16 war meetings, 2 to 13 hostile ones).",
+ "war_takes_settlements": {
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+  "quote": "The Noble Houses declare war on each other. They begin to take over rival settlements reducing those settlements supply/wealth levels without destroying them.",
+  "reading": "a base the world takes in a war is Conquered, not burned",
+  "reading_ours": true
+ },
+ "side_makes_enemy_hostile": {
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+  "quote": "taking one side makes the enemy side hostile which, while opening up opportunity to kill and pillage, locks you out of a significant portion of the map.",
+  "to_bar": 9,
+  "to_bar_ours": true,
+  "why": "the wiki says hostile; the Hostile band's top (9) is the bar that makes hostility, read from relations.json by name, never lower than it already is"
+ },
+ "holy_war": {
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1146_Late Game Crises.txt",
+  "quote": "Noble houses hostile to southern City States during the Holy War",
+  "note": "a second war kind; not built here, named so it is not forgotten",
+  "built": false
+ },
+ "meeting": {
+  "radius_cells": 1,
+  "once_per_pair_per_day": true,
+  "ours": true,
+  "why": "a meeting is two parties of different factions within one cell; counted once a day per pair so a standoff is one event, not hundreds"
+ },
+ "outcomes": {
+  "war": {
+   "stronger_breaks_weaker": true,
+   "tie": "standoff",
+   "ours": true,
+   "why": "strength is the act power column the parties module already carries; no new number"
+  },
+  "hostile_not_war": {
+   "stronger_taxes": true,
+   "nobody_breaks": true,
+   "ours": true,
+   "why": "the graph says prey-tax and not war ('war would be expensive, and this pays'): a tax is an event, a party is not destroyed"
+  }
+ }
+}
