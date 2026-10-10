@@ -330,3 +330,5 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 
 ## THE FAMILIES, BY NAME
 the street and sidewalk tiles; the freeway; the house skins and roofs; the settlement screens (camp, town, fortress); the fight boards; the thirteen gang looks; the enemy tiers; the three bodies; every portrait; the HUD, the bar, the phone, the roster and posts screens, the icons; the map's far end and near end; the parties on the map; the title screen. All placeholders. Final art for each comes one sheet at a time (rule 101d).
+
+## UNDER THE FLOOR (rule 105, 10/10): the stash and bar icons (5 by 5 against a 32 floor), the map markers (8 by 8 against 40), the far end's one pixel per cell, the near end's 32-pixel cells (dead). Placeholders all; each comes back as a one-at-a-time sheet at or above its floor.
