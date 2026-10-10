@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 """COOK TWO [the street kit from the packs], round three: HIS STREET ON THE FIGHT'S OWN BLOCK, so the before
+
+REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the twin is his approved pack
+(reference/art_bank/road and ground, rule 82a) and the ground twin sheet's bar (an outline with a lit edge, the kerb,
+weeds in seams only: records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md); AH-01 and AH-03.
 and the after are the SAME place (rule 89, Paolo 10/10: 'Can't tell difference. Looks like dogshit' -> a look
 item is a before and after of the same thing, side by side, one art pixel to one phone pixel).
 

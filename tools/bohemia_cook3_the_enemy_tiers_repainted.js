@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /* COOK THREE [the enemy tiers repainted] (rule 87; CHARACTER [the enemy tiers dressed] and
+   REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/10 at the seam): the runway twin (reference/art_bank/
+   character, photographs OWED), the revamp pass's people notes (one accent above the waist, folds not speckle:
+   records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md), the wardrobe laws, AH-01 and AH-03.
    [armour you can see], his NO 'good idea, terrible implementation').
    PAINT ONLY. The six tiers are CHARACTER's table (same band pool, same added pieces, read
    from tools/bohemia_cook_the_enemy_tiers_dressed.js's rule, not reinvented). Each tier's
