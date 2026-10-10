@@ -1,3 +1,65 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [lists in rows] SHIPPED as a research page, and [range column] RETIRED by his DOWN
+(10/9 verdict on how-big-is-too-big: "the only point is to help people mod the game"). TAB: VOTE, item PATCH INSIDE A
+LIST. Record records/BOHEMIA_MODS_PATCHING_INSIDE_A_LIST_10_10_26.md; instrument tools/bohemia_mods_lists_audit.js: 32 list
+fields in the data, 3 hold objects, 29 hold words. The reference merge (tools/bohemia_mods_merge_reference.js, still NOT
+loaded by any play surface) now patches a list by name, id or position, or with add/remove for word lists; an array still
+replaces the whole list. Proof 27 of 27 (10a-10e new); with the list branch off, 23 of 27 (mutation-checked). Two worked
+mods added: quicker-stab, armed-brigand (nine cards on the copy page). TAKEN OUT: the range tool and its warning, to
+graveyard/ with graveyard/POSTMORTEM_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.txt. LESSON FROM HIS VERDICTS: a page ships only if it
+makes modding possible or easier; anything that tells a modder what they may do dies. RISK: the id-policy and schema-number
+pages have no verdict yet and read a little like laws; written as advice, nothing enforces them; if either goes DOWN it
+follows the ranges to graveyard/. NOT MINE: canon_rot_gate C3 (66 vs 62) comes from records/lab/ teardown cited by another
+lane. [read count] CLAIMED: old fight 4 files, new fight 1, background 3, sound 4. NEXT OPEN: [modding readme], [sharing a
+mod], [error messages] (plain words only), [grok sources]. PENDING Paolo: nothing.
+
+WORLD (world-9lfjtf): 10/10 (d) LATEST -- *** ON HOLD. NO ROUND THIS VAMILY. ***
+Rule 88 (Paolo 10/10, 'we need to prioritize how it looks, bro, for real') puts
+WORLD on HOLD: no round, no VOTE sheet, nothing into the demo, the rows stay
+OPEN, and the only exception is a first-minute bug or a crash. I read the board,
+found the hold already on my MODE line, and stopped.
+
+WHAT I DID AND THEN UNDID: I claimed the new top row [the map's roads as one kit]
+before reading far enough, hit the hold in the rebase, and took upstream's
+version, which un-claimed it. The row is OPEN again and nothing of mine is on the
+board as claimed. STOP PRODUCING (7/26) is explicit that finding a legal way to
+ship anyway IS the violation, so there is no half-round here and no sheet.
+
+I OWN NO EXCEPTION. Checked before stopping: everything this lane has shipped is
+engine/, gates/, tools/, records/ and pictures in slices/vote/. Not one of my
+commits has ever touched a play surface (rule 18 held all the way through), so
+there is no first-minute bug and no crash of mine to work under the exception.
+
+FOUR OPEN ROWS WAITING FOR HIM TO LIFT IT, newest first:
+  [the map's roads as one kit]   the coordinator's, from Paolo 10/10 'BRO ON THE
+     MAP NOT ON THE COMBAT'. NOTE FOR WHOEVER PICKS IT UP: rule 82 names THE
+     FREEWAY KIT as a family he called dogshit this round, and says such a family
+     does not come back to VOTE until DIRECTION has judged its twin sheet --
+     cook, do not show. The row's own 'In VOTE' line and rule 82 have to be read
+     together when the hold lifts; the row wants a real I-15 aerial beside it,
+     which IS the twin rule 82 asks for, but DIRECTION judges it first.
+  [one table for the rooms]      mine, 10/10: DISTGEN and the CITY app's IN_ZONE
+     are two copies of one table disagreeing on six districts.
+  [the three sizes of place]     the coordinator's.
+  [the roll]                     the coordinator's; the 10/9 SWEEP AB ruling
+     (make the six god-gear places placed, never rolled) is the first thing it
+     answers.
+
+STATE, SO THE NEXT ROUND DOES NOT RE-MEASURE IT: shipped this session are [the
+roads], [where the god gear is], [ground effects], [the cells with no board],
+[the apron, the compound and the civic interior] and [the valley has no inside],
+with gates THE ROAD NETWORK, GOD GEAR, GROUND EFFECTS, BOARD KINDS, THREE BLOCKS
+and THE INSIDES, all green and all registered. The standing findings another lane
+owns the fix for: the CITY app holds an old copy of the room-grammar table so a
+police station is built with fifteen hospital wards (one edit, the app reads
+DISTGEN); the casino block is the only interior in the game and nothing can reach
+it; 24 of 78 districts open the same fallback board; and
+gates/one_terrain_effect_gate.js still enforces a ruling rule 59 amends by name
+and is not registered in the suite. All four are in the records and the handoffs.
+
+NOT RUN THIS ROUND: no gates beyond reading the board, because there is no diff.
+Nothing was built, so there is nothing to prove.
+
+
 TUNING (tuning-f59l1w): 10/10 (i) LATEST -- [the gun reach table] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW FAR EACH WEAPON REACHES (reach cells chart, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_GUN_REACH_TABLE_BOWS_AND_CROSSBOWS_FIRE_AT_ONE_EXACT_DISTANCE_10_10_26.md
@@ -18880,6 +18942,9 @@ building this. Vertical breath in hipOff lifts the feet; lateral weight moves th
 above 0.40, which is the maximum legal lateral hip; and legCompress does the
 OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
+
+=== COOK FOUR: THE SETTLEMENT FROM THE PACKS, round 1 (10/10, cook4)
+[the settlement from the packs] CLAIMED, round 1 in, NOT LIVE. The twelve settlement sheets (camp, town, fortress x2, day+night) rebuilt from 167 of his approved pack tiles by tools/bohemia_cook4_settlement_from_packs.py (refuses any tile not UP in the 7/13 confirmed set); hotspots copied to the pixel; output slices/settlement_ground_packs/. AT DIRECTION (rule 87) with slices/vote/COOK4_THE_SETTLEMENT_FROM_THE_PACKS_TWIN.webp; not in VOTE until passed. NEXT ROUND: the whole-cottage roof tiles and the thirty house skins instead of flat facade strips, gaps and a broken house in the town row, lamp cones that fall forward. Record records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md. TAKER when passed: RUN TWO (swap the folder). Pages gate's 260 MB cap is red at 492 MB before this round (+7.6 MB here): PLUMBER's.
 
 === COOK TWO: HOW A STEP IS DRAWN, and the defect under it
 Row [tape skip] is CLAIMED. Before building any of it:

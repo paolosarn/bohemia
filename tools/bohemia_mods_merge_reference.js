@@ -49,7 +49,37 @@ function fieldTypes(rows) {
   return t;
 }
 let NAMESPACE = false, CURRENT_MOD = null;   /* optional: a NEW row's id should start with '<modid>:' so it can never collide with a base id or another mod */
-let RANGES = null;   /* optional draft ranges (tools/bohemia_mods_ranges_draft.js): out of range is a WARNING, never a block */
+/* A LIST inside a row (a weapon's skills, an enemy's perks, an origin's men) can be patched three ways:
+   - the whole list as an array: it replaces the list (as before);
+   - a list of OBJECTS as an object: each key is the element's name or id (or its position, "0"); the fields named
+     change, and a name the list lacks is added as a new element;
+   - a list of plain WORDS as {"add": [...], "remove": [...]}. */
+function patchList(list, v, log, where) {
+  if (list.every(x => typeof x === 'string')) {
+    if (!('add' in v) && !('remove' in v)) { log.push(['bad', where + ': a list of words takes {"add": [...], "remove": [...]} or a whole array. Skipped.']); return null; }
+    const rm = new Set(Array.isArray(v.remove) ? v.remove : []);
+    const out = list.filter(x => !rm.has(x));
+    for (const a of (Array.isArray(v.add) ? v.add : [])) if (!out.includes(a)) out.push(a);
+    return out;
+  }
+  const out = clone(list);
+  for (const [key, change] of Object.entries(v)) {
+    if (!isRow(change)) { log.push(['bad', where + '.' + key + ': a list element change must be an object. Skipped.']); return null; }
+    let i = out.findIndex(e => isRow(e) && (e.name === key || e.id === key));
+    if (i < 0 && /^\d+$/.test(key)) i = +key < out.length ? +key : -1;
+    if (i < 0) {
+      if (/^\d+$/.test(key)) { log.push(['bad', where + '.' + key + ': the list has only ' + out.length + ' elements. Skipped.']); return null; }
+      out.push(Object.assign({ name: key }, clone(change)));
+      continue;
+    }
+    for (const [f, x] of Object.entries(change)) {
+      const was = out[i][f];
+      if (was !== undefined && was !== null && x !== null && typeOf(x) !== typeOf(was)) { log.push(['bad', where + '.' + key + '.' + f + ': wants ' + typeOf(was) + ', got ' + typeOf(x) + '. Skipped.']); return null; }
+      out[i][f] = x;
+    }
+  }
+  return out;
+}
 function patchTable(baseTbl, patch, log, where) {
   const byMap = !Array.isArray(baseTbl);
   const rows = byMap ? Object.values(baseTbl) : baseTbl;
@@ -60,6 +90,7 @@ function patchTable(baseTbl, patch, log, where) {
     const cur = find(id), next = clone(cur || {});
     let ok = true;
     for (const [k, v] of Object.entries(change)) {
+      if (isRow(v) && Array.isArray(next[k])) { const nl = patchList(next[k], v, log, where + '.' + id + '.' + k); if (!nl) { ok = false; break; } next[k] = nl; continue; }
       if (!types[k]) { log.push(['warn', where + '.' + id + '.' + k + ': no row in the base has this field. Ignored.']); continue; }
       if (v !== null && !types[k].has(typeOf(v))) { log.push(['bad', where + '.' + id + '.' + k + ': wants ' + [...types[k]].join(' or ') + ', got ' + typeOf(v) + '. The whole row change is skipped.']); ok = false; break; }
       if (isRow(v) && isRow(next[k])) {   /* an object inside a row is merged one level, so changing one number of a perk does not erase the others */
@@ -70,9 +101,6 @@ function patchTable(baseTbl, patch, log, where) {
         continue;
       }
       next[k] = v;
-      const rg = RANGES && RANGES[where.split('.')[0] + '.json'] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')][k];
-      if (rg && typeof v === 'number' && (v < rg.min || v > rg.max)) log.push(['warn', where + '.' + id + '.' + k + ': ' + v + ' is outside every base row (' + rg.min + ' to ' + rg.max + '). Applied; check it is meant.']);
-      if (rg && typeof v === 'number' && v < 0 && rg.never_negative_in_the_base) log.push(['warn', where + '.' + id + '.' + k + ': no base row is ever negative.']);
     }
     if (!ok) continue;
     if (!cur) {
@@ -133,7 +161,6 @@ function order(mods, log) {
   return out;
 }
 function merge(modsDir, opts) {
-  RANGES = (opts && opts.ranges) || null;
   NAMESPACE = !!(opts && opts.namespace);
   const base = loadBase(), baseHash = hash(base), log = [];
   const r = readMods(modsDir); log.push(...r.log);
@@ -154,8 +181,7 @@ module.exports = { merge, loadBase, hash };
 if (require.main === module) {
   const dir = process.argv[2];
   if (!dir) { console.error('usage: node tools/bohemia_mods_merge_reference.js <modsDir>'); process.exit(2); }
-  const withRanges = process.argv.includes('--ranges');
-  const r = merge(path.resolve(dir), { ranges: withRanges ? require('./bohemia_mods_ranges_draft.js').ranges : null, namespace: process.argv.includes('--namespace') });
+  const r = merge(path.resolve(dir), { namespace: process.argv.includes('--namespace') });
   if (process.argv.includes('--json')) { console.log(JSON.stringify({ hash: r.hash, baseHash: r.baseHash, changed: r.changed, log: r.log }, null, 1)); process.exit(0); }
   console.log('base ' + r.baseHash + '  merged ' + r.hash + '  ' + (r.changed ? 'CHANGED' : 'IDENTICAL') + '  (' + r.mods + ' mods)');
   r.log.forEach(l => console.log('  ' + l[0].toUpperCase().padEnd(4) + ' ' + l[1]));

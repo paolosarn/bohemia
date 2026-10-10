@@ -1,5 +1,8 @@
 # MODS [range column] -- HOW BIG IS TOO BIG: A DRAFT RANGE FOR EVERY NUMBER (10/10/26)
 
+> **RETIRED 10/10: voted DOWN ("the only point is to help people mod the game... not even have laws").** The tool and draft are in graveyard/; the --ranges flag is out of the reference merge. Post-mortem: graveyard/POSTMORTEM_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.txt. Kept for the record only.
+
+
 Lane 22 MODS, session mods-59jyd6. Row: WHAT-A-SANE-NUMBER-IS-FOR-EVERY-FIELD. Rule 22; follows records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md
 section 4 ("it checks type, not range"). MODE: research. Nothing in the game changed. The draft is banks/BOHEMIA_MODS_RANGES_DRAFT_10_10_26.json
 (`draft: true`, generated, not loaded by anything) by `node tools/bohemia_mods_ranges_draft.js --write`.

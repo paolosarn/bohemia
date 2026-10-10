@@ -6973,6 +6973,19 @@
    }
   },
   {
+   "id": "mods-patch-inside-a-list-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "PATCH INSIDE A LIST",
+   "why": "For whoever makes mods. A weapon has lists inside it, like skills. A mod can now change one entry by name or position, or add and remove words, without copying the whole list. Two new example mods show it. Also: the range tool you voted down is gone.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_PATCH_INSIDE_A_LIST_10_10_26.html"
+   }
+  },
+  {
    "id": "factions-who-guards-the-six-places-10-10", "kind": "tile", "lane": "factions", "sha": "438db606", "made": "10/10",
    "title": "WHO GUARDS THE SIX PLACES", "why": "Each of the six legendary places is guarded by whoever holds its ground, sized by how hard the place is. You see it in the VOTE tab: six cards with the guard and what it is made of.",
    "show": {"how": "page", "src": "vote/FACTIONS_WHO_GUARDS_THE_SIX_PLACES_10_10.html"}
