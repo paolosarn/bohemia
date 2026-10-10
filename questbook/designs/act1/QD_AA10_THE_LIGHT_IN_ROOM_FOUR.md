@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: on the map, the road past THE LAB at the Tule Springs fossil beds, at night; the event screen is the lab's front, one window lit
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 32 (never in the first minute; fires only after the company has seen the lab on the map once) (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32 (never in the first minute; fires only after the company has seen the lab on the map once) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (two roads paid, neither on its button), fixed in place; 32 of 32)
 
 ## THE SITUATION
 The company passes the lab at night. One window is lit, room four. Somebody is inside. The event screen: a face at the lit window, a woman in faded scrubs, and a clipboard.
@@ -18,8 +18,8 @@ Nell, the last keeper, a lab tech who stayed when the money died. She speaks the
 
 ## THE CHOICES
 A. LEAVE HER. Ride on. She waves the clipboard. Nothing is lost; she is at the window every night the company passes, a little thinner.
-B. TAKE HER WITH YOU. She comes only if the company takes one animal too: the youngest dire wolf, on a leash she has kept for ten years. The company gains a HANDLER follower (reads beast tracks a day faster, knows each lab beast's rule by its number) and a wolf that eats 1 FOOD a day.
-C. TAKE HER KEYS. She hands them over without a fight ("They're not mine, they're the company's"). The lab's inner doors open for QD-AA09 and QD-AA20 without a fight; she stays, and the feeder stops the next week, because only she was loading it. The yard's animals go hungry and go out onto the roads.
+B. TAKE HER WITH YOU. She comes only if the company takes one animal too: the youngest dire wolf, on a leash she has kept for ten years. The company gains Nell, who does not fight and reads no tracks faster (QR-AO, line 30: the kind road is not a power), and a wolf that eats 1 FOOD a day.
+C. TAKE HER KEYS (the button reads: "the lab's inner doors open, no fight"; the event's one stated temptation, QR-AO line 30). She hands them over without a fight ("They're not mine, they're the company's"). The lab's inner doors open for QD-AA09 and QD-AA20 without a fight; she stays, and the feeder stops the next week, because only she was loading it. The yard's animals go hungry and go out onto the roads.
 
 ## WHAT THE LEDGERS REMEMBER
 A: nothing changes. B: Nell is a company member (rule 36 applies to her); she knows every beast's number, and her notes are an heirloom the act 2 heir can read (knowledge crosses). C: more lab beasts on the northern roads for the rest of act 1, and a mouth at the truck stop (QD-AA02) blames "whoever stopped the feeding".

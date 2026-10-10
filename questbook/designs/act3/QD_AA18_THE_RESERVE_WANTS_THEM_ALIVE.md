@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: act 3, a RESERVE built on blocks the company holds at the northern edge (the old fossil beds' land, rule 43: bosses and contracts handed the family these parts); the settlement screen is the family's own, the hall posts the ask; the hunt AREA is the northern ranges where the valley's last dire wolves run
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the valley's last dire wolf pack, derived from the ledgers (rule 42 s3: act 3 is what the player's line let breed or hunted out). BB lesson: the direwolf again, but the verb is capture: nets and a line, no kill. Tough, 8 to 12 minutes.
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: pass as written; 32 of 32)
 
 ## THE SITUATION
 Act 3, cyberpunk healing. The valley is coming back; the family holds half of the north. A scientist the family funds wants to build a reserve on its held blocks: fences, water, the fossil beds' land given back to the animals that lived on it. The dire wolves are the problem: after two acts of the family's hunts, there are few. How few is the ledger's answer: if the act 1 and act 2 companies killed every pack they met, there are five; if they spared dens (QD-AA02 road C, QD-AA11 road B), there are fourteen.

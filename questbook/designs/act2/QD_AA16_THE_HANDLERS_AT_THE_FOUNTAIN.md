@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the Strip, the one walked place (rule 38b): the dry fountain in front of a casino, where the keepers show their animals; the settlement screen is the casino home base (the hall is the concierge desk); the walk is the fountain plaza and the keepers' camp in a parking structure
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: chained hyenas as guards and a performing dire wolf (round three s2: the keepers, the Battle Brothers beastmaster made real). BB lesson: the beastmaster, kill the man and the beasts stop; the handler is the necromancer's lesson in fur. Tough if fought, 8 to 12 minutes.
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: pass as written; 32 of 32)
 
 ## THE SITUATION
 Act 2. The keepers came up the Colorado with the hyenas: people who walk with beasts and sell their shows. They set up at the dry fountain on the Strip. The casino likes the crowds. The casino does not like that the keepers' hyenas took a guest's child's arm last week. The concierge wants the keepers gone. The keepers want something else.

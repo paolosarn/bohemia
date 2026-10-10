@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the marina home base at Lake Mead (settlement screen: the hall is the harbour master's office); the herd grazes the shore flats and a dead golf course above them, the fight board cut from the shore, two tiles for the old bull
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the Columbian mammoth herd, one herd, a landmark (the seventeen, no. 12; the Ijirok's slot). BB lesson: the boss picks the fight; and the Lindwurm's two bodies, some things you do not melee. Tough, 12 to 15 minutes, only if you start it.
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (second tusk on top; the waiting road paid 40), fixed in place; 32 of 32)
 
 ## THE SITUATION
 Act 3, cyberpunk healing. The rocket needs money. A buyer in the marina wants IVORY: one tusk pays for a ship's worth of panels. The mammoths came down the Colorado from a reserve upriver in act 2; twelve now, one old bull with a broken tusk, who is dying. Whether there are twelve depends on the ledgers: if the company's line hunted the herd in act 2, there are four.
@@ -23,8 +23,8 @@ Act 3, cyberpunk healing. The rocket needs money. A buyer in the marina wants IV
 Idris, on the offer screen: "You're the family with the rocket. I read about you."
 
 ## THE CHOICES
-A. KILL THE OLD BULL. Walk up to the herd: it does nothing until you strike. Then the herd closes (the tell: every head turns at once), the bull takes two tiles and his trunk sweeps a row; blades do little, reach and the dial shot do the work. Pay, plus the second tusk (the trophy buyer pays 30).
-B. WAIT FOR HIM TO DIE. Camp on the shore 6 to 10 map days; food is eaten. He lies down; the herd stands over him a day; then they leave, and the tusks are there. No fight. Idris pays 40 ("You took your time.").
+A. KILL THE OLD BULL. Walk up to the herd: it does nothing until you strike. Then the herd closes (the tell: every head turns at once), the bull takes two tiles and his trunk sweeps a row; blades do little, reach and the dial shot do the work. Pay. Idris takes both tusks ("One for the panels. One so nobody else has one."); nothing on top for the kill (QR-AO, line 30).
+B. WAIT FOR HIM TO DIE. Camp on the shore 6 to 10 map days; food is eaten. He lies down; the herd stands over him a day; then they leave, and the tusks are there. No fight. Idris pays the same 60 ("You took your time. The tusk didn't mind."); the days and the food eaten are the company's own price (QR-AO, line 30; the house rule's reading a).
 C. TELL THE HERD'S KEEPER. A woman from the reserve walks with the herd (round three s2, the keepers). Tell her; she moves the herd across the water. No tusk, no pay from Idris; she pays 12 WATER and the shore stays the herd's.
 
 ## WHAT THE LEDGERS REMEMBER
@@ -36,7 +36,7 @@ The old bull has a number painted on his flank, fresh, and the paint is the same
 ## CITED FROM
 - `Q039.W10`: the non-hostile herd only fights if you start it.
 - `Q138.W5`: the misread (reach for the gun) is priced, never scolded; waiting is the lullaby.
-- `Q148.W8`: the tusk is temptation with a real number on it.
+- `Q148.W8`: the tusk's number is real, and the same on every road that brings it (QR-AO).
 - `Q144.W9`: the herd's size proves what the act 2 line did.
 - `Q085.W1`: the herd came down the river whether anyone hunted or not.
 
