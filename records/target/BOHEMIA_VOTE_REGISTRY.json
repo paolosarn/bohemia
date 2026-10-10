@@ -300,7 +300,7 @@
     "src": "vote/ANIMATION_THE_IDLE_REDO.html"
    },
    "redoOf": "idle",
-   "said": "a lot of them are good, a lot of them aren’t good... IF I KILLED IT I DON’T WANT IT GONE. I just think it could be done better. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... IF I KILLED IT I DON\u2019T WANT IT GONE. I just think it could be done better. Make a new one."
   },
   {
    "id": "factions-the-sign-still-lights-9-21",
@@ -465,7 +465,7 @@
    "sha": "534d87a",
    "made": "9/21",
    "title": "HOW A STEP IS DRAWN (I PICKED ONE FOR YOU)",
-   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody’s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
+   "why": "One press moves him a whole house, 275 pixels, in half a second, and his legs can only show one pace of it. What shipped was nobody\u2019s choice: an old number in the code made the whole street jump at once. I put in the tape skip: he stands still, the picture skips twice, he is there. Thumbs up keeps it. Thumbs down and say GRID (the street jumps at once) or SLIDE (the street slides the whole time) and I will switch it.",
    "show": {
     "how": "page",
     "src": "vote/ANIMATION_HOW_A_STEP_IS_DRAWN.html"
@@ -699,7 +699,7 @@
    "sha": "228818a1",
    "made": "9/21",
    "title": "THE BATTERY SHED, THE FIRST BUILDING THAT MAKES MONEY",
-   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard’s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
+   "why": "You build this on your own lot and a battery comes in. It is the small one, about the size of half a garage, not the big fenced battery yard the game already has. I drew it in that yard\u2019s own colours so they are the same world. One thing in the picture is on purpose and it is the whole idea: THE LITTLE AMBER LIGHT IS LIT. Nothing else on the lot has power, the meter needle is stuck, the door is chained, and this box is still working. Thumbs up and I put it in the game so you can place one. Thumbs down and tell me if it is the shape, the colour, or the light.",
    "show": {
     "how": "image",
     "src": "vote/LIFECITY_THE_BATTERY_SHED_9_21.png"
@@ -907,7 +907,7 @@
    "sha": "PENDING",
    "made": "9/22",
    "title": "FOUR WAYS THE GAME LOADS",
-   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat’s words wired to real stages. A is built and handed to the play chat.",
+   "why": "The screen that covers everything before you can touch anything, with a bar that cannot lie and the writing chat\u2019s words wired to real stages. A is built and handed to the play chat.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html"
@@ -1030,7 +1030,7 @@
     "src": "vote/ANIMATION_THE_HAND_REACHES_THE_FACE.html"
    },
    "redoOf": "eat, drink, smoke, cough and whistle",
-   "said": "a lot of them are good, a lot of them aren’t good... some of the DIRECTIONS look like dog shit: when it’s facing north-east the hand was behind the head even though it’s supposed to be in front. IF I KILLED IT I DON’T WANT IT GONE. Make a new one."
+   "said": "a lot of them are good, a lot of them aren\u2019t good... some of the DIRECTIONS look like dog shit: when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front. IF I KILLED IT I DON\u2019T WANT IT GONE. Make a new one."
   },
   {
    "id": "people-what-people-repeat-about-you-9-22",
@@ -1483,7 +1483,7 @@
     "src": "vote/ANIMATION_THE_HAND_IN_FRONT_PLAYS.html"
    },
    "redoOf": "animation-the-hand-at-the-face-plays-9-22",
-   "said": "when it’s facing north-east the hand was behind the head even though it’s supposed to be in front"
+   "said": "when it\u2019s facing north-east the hand was behind the head even though it\u2019s supposed to be in front"
   },
   {
    "id": "world-the-same-corner-9-23",
@@ -1679,7 +1679,7 @@
     "how": "page",
     "src": "vote/ANIMATION_FACING_YOU_HE_DID_NOTHING.html"
    },
-   "said": "a lot of them are good, a lot of them aren’t good"
+   "said": "a lot of them are good, a lot of them aren\u2019t good"
   },
   {
    "id": "sounds-a-footstep-that-is-not-sand-9-24",
@@ -6538,7 +6538,7 @@
    "sha": "dee5c83",
    "made": "10/10",
    "title": "AN ID IS A PROMISE",
-   "why": "For whoever makes mods. Every row has an id, and a mod finds a row by it, so renaming an id breaks every mod that touched it. 725 ids, and 764 places point at them. Four rules keep mods working: never rename, retire instead of delete, a mod names its own rows modname:thing, and keep the plain lowercase style the game already uses.",
+   "why": "A mod finds every row by its id, so renaming one of the 725 ids breaks the 764 places that point at them. You see it in the VOTE tab, with the four rules that keep mods working.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.html"
@@ -6552,7 +6552,7 @@
    "made": "10/10",
    "draft": true,
    "title": "EVERY ROLL A MAN MAKES",
-   "why": "The stars, level and XP numbers from the Battle Brothers wiki on one page in the VOTE tab, with a red box showing where our demo's code differs: it gives recruits 1 to 3 starred stats instead of exactly 3, so a 7-star killer is 1 in 55 instead of 1 in 18, it picks level-up stats at random, and wages never rise as men level.",
+   "why": "The wiki's stars, level and XP numbers on one page, with a red box where the demo differs: 1 to 3 starred stats instead of exactly 3, random level-up stats, and wages that never rise. You see it in the VOTE tab, on its own page.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_EVERY_ROLL_A_MAN_MAKES_10_10_26.html"
@@ -6717,7 +6717,7 @@
    "sha": "b1b29a4",
    "made": "10/10",
    "title": "THE BAR'S GLASS",
-   "why": "A glass set down on the bar counter had no sound. Now it rings once, clear and short, like real glass does. You hear it in the VOTE tab on its own page.",
+   "why": "A glass set down on the bar counter had no sound, and now it rings once, clear and short, like real glass. You hear it in the VOTE tab on its own page.",
    "options": [
     "A, the sound"
    ],
@@ -6768,11 +6768,6 @@
    }
   },
   {
-<<<<<<< HEAD
-   "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "2306ee7c", "made": "10/10",
-   "title": "WHEN A SETTLEMENT COMES FOR YOU", "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
-   "show": {"how": "page", "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"}
-=======
    "id": "dynasty-days-per-life-10-9",
    "kind": "line",
    "lane": "dynasty",
@@ -6784,7 +6779,25 @@
     "how": "text",
     "src": "FOUND: the game has no season or calendar, and keeps only 30 nights of history.\\nPROPOSED: 130 days an act in four seasons of about 32 days. About one memorable event in every four days, each named in the feed.\\nThe 35 years between acts are told by four reports: what the valley looks like, who is left, what the valley says of you, what you left standing."
    }
->>>>>>> origin/main
+  },
+  {
+   "id": "run2-the-stash-10-10",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE STASH: SIX SUPPLIES AND HOW MANY DAYS EACH LASTS",
+   "why": "Each of the six shows its count and what it buys you, so 50 food for four men on desert is 4 days, 2 hurt men burn 2 meds a day, and 30 rounds are 15 shots, with the wage due at noon and what the next town sells. You see it in the VOTE tab under LOOK; in the demo it opens when you tap the six in the top bar, once RUN wires it.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_STASH_10_10.png"
+   },
+   "draft": true
+  },
+  {
+   "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "2306ee7c", "made": "10/10",
+   "title": "WHEN A SETTLEMENT COMES FOR YOU", "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
+   "show": {"how": "page", "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"}
   }
  ],
  "verdicts": [
@@ -6959,7 +6972,7 @@
   {
    "id": "world-the-rules-run-with-the-dirt-9-21",
    "vote": "down",
-   "said": "Mfs charge batteries bro 🤣🤣🤣 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
+   "said": "Mfs charge batteries bro \ud83e\udd23\ud83e\udd23\ud83e\udd23 i knkw buildings can help in our game but jesus christ mfs can charge batteries",
    "when": "9/21",
    "at": "2026-09-22"
   },
@@ -7736,7 +7749,7 @@
   {
    "id": "dynasty-three-on-the-phone-9-24",
    "vote": "up",
-   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn 🛹 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
+   "said": "I like that yeah I mean but keep in mind you know flipping between ax is a big deal asking out of it like all of the UI has to change. There has to be like a filter cut Syn \ud83d\udef9 thing that impacts everything. The phones gonna look different. The world's gonna look different and we need to find a great way to do that to make that jump, but I mean, just clicking it and then it just cause I clicked it once already the alpha mean obviously you did implement so much a bit but bro, it's a big deal like visually there has to be audio. There's a lot that needs to pull this off. You know we can't just do this cheap shit and then I still haven't decided at what point like you unlock this mechanic in each of the action and shit so it's not like right off the beginning of the game that's for sure.",
    "when": "9/27",
    "at": "2026-09-28"
   },
@@ -8051,7 +8064,7 @@
   {
    "id": "animation-fast-travel-glides-9-30",
    "vote": "down",
-   "said": "Why can't it look exactly like the combat dial, bro we already had that in the game already like the portrait with the directions around it but instead of it could just be you know not all UI or the text has to be like exactly perfect perfectly 90° bro like what the fuck is wrong with you",
+   "said": "Why can't it look exactly like the combat dial, bro we already had that in the game already like the portrait with the directions around it but instead of it could just be you know not all UI or the text has to be like exactly perfect perfectly 90\u00b0 bro like what the fuck is wrong with you",
    "when": "9/30",
    "at": "2026-10-01"
   },
@@ -8170,7 +8183,7 @@
   {
    "id": "combat2-the-floor-set-10-1",
    "vote": "up",
-   "said": "That's looking a lot better keep in mind. It's still kind of dog shit and it's not a eagle Birdseye view 90°. I'll either remember everything we do is 45° when it comes to the land underneath.",
+   "said": "That's looking a lot better keep in mind. It's still kind of dog shit and it's not a eagle Birdseye view 90\u00b0. I'll either remember everything we do is 45\u00b0 when it comes to the land underneath.",
    "when": "9/30",
    "at": "2026-10-01"
   },
