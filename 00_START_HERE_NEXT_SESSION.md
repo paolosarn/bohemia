@@ -15808,7 +15808,7 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
-PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 54. [the pack gate] SHIPPED 5dfafbe: THE PACKS ARE THE
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 54. [the pack gate] SHIPPED ba767b6: THE PACKS ARE THE
 BAR, AND AN ART SHEET COMES WITH ITS TWIN (rules 82, 82a). ***
 Record: records/BOHEMIA_THE_PACKS_ARE_THE_BAR_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks] (RUN
 claimed it 10/10; the six hunks still dry-run clean).
