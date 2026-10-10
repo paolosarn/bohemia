@@ -45,15 +45,15 @@ async function fight(F, first) {
   leg(deal.kinds.length >= 2 && deal.twin === 0 && deal.kinds.indexOf(F.board) >= 0 && (deal.al[F.board] || [F.board]).indexOf(deal.lead) >= 0,
     F.board + ': *** THE BOARD IS DEALT FROM MIXED KINDS (sweep L) ***, led by the kind the loop asked for, no block beside its twin', deal.name);
   const s0 = await ev(() => ({ you: FIGHT.alive('you').length, them: FIGHT.alive('them').length,
-    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, near: FIGHT_UI.near, man: FIGHT_UI.th * FIGHT_UI.zoom * 0.86, w: FIGHT.S.w, h: FIGHT.S.h,
+    zoom: FIGHT_UI.zoom, far: FIGHT_UI.far, near: FIGHT_UI.near, man: manH(), fitted: allFramed(), w: FIGHT.S.w, h: FIGHT.S.h,
     bw: FIGHT_UI.board.width * FIGHT_UI.zoom, bh: FIGHT_UI.board.height * FIGHT_UI.zoom,
     W: innerWidth, avail: innerHeight - document.getElementById('top').offsetHeight - document.getElementById('bot').offsetHeight,
     gap: Math.min.apply(null, FIGHT.alive('you').map(u => Math.min.apply(null, FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))),
     ini: FIGHT.S.order.map(id => FIGHT.byId(id).turnIni) }));
   if (first) await p.screenshot(Object.assign({ path: shot('OPEN') }, SHOT));
   leg(s0.you === OURS.field_size.value, F.board + ': twelve of yours on the field (rule 63b)', s0.you + ' v ' + s0.them);
-  leg(Math.abs(s0.zoom - s0.near) < 1e-6 && Math.abs(s0.man - 104) <= 2 && s0.w < 20,
-    F.board + ': *** IT OPENS ON YOUR LINE WITH THE MAN AT 112, ON A BOARD CUT TO THE PARTIES (rule 79) ***', 'man ' + Math.round(s0.man) + ' px, board ' + s0.w + 'x' + s0.h + ' houses');
+  leg(s0.fitted && Math.abs(s0.man - 104) <= 2 && s0.w < 20,
+    F.board + ': *** IT OPENS WITH BOTH TEAMS ON THE GLASS, NO SWIPE, THE MAN AT 112, ON A BOARD CUT TO THE PARTIES (rule 104a) ***', 'man ' + Math.round(s0.man) + ' px, every man on the glass ' + s0.fitted + ', board ' + s0.w + 'x' + s0.h + ' houses');
   leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
   leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
   /* YOUR FORMATION (COMBAT [your formation]): the fight waits for his line; a real finger moves a man inside his two
@@ -61,9 +61,9 @@ async function fight(F, first) {
   const ready = await until(() => FIGHT.S.deploy && !FIGHT_UI.glide && performance.now() > FIGHT_UI.openUntil, 8000);
   await p.waitForTimeout(600);
   const d0 = await ev(() => ({ acted: FIGHT.S.log.filter(e => e.t === 'step' || e.t === 'attack').length, label: document.getElementById('bend').textContent.trim(),
-    man: Math.abs(FIGHT_UI.zoom - FIGHT_UI.near) < 1e-6 }));
-  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.man, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, and he sets it at the man\'s size (rules 21, 79: a drag pans the columns)',
-    d0.acted + ' moves, the button reads ' + d0.label + (d0.man ? ', the man at 112' : ', ZOOMED OUT'));
+    man: allFramed() && manH() >= 100 }));
+  leg(ready && d0.acted === 0 && d0.label === 'FIGHT' && d0.man, F.board + ': *** THE FIGHT WAITS FOR HIS LINE ***: nothing moves before FIGHT, and he sets it seeing both lines, the man at 112 (rules 21, 104a)',
+    d0.acted + ' moves, the button reads ' + d0.label + (d0.man ? ', both lines on the glass, the man at 112' : ', A MAN OFF THE GLASS OR SHRUNK'));
   if (first) {
     const scr = (x, y) => ev((q) => ({ x: (q[0] - FIGHT_UI.cx) * FIGHT_UI.zoom + innerWidth / 2, y: (q[1] - FIGHT_UI.cy) * FIGHT_UI.zoom + TOPH + (innerHeight - TOPH - BOTH) / 2 }), [x, y]);
     const plan = await ev(() => { const S = FIGHT.S, z = FIGHT._t.zoneCols(), u = FIGHT.alive('you')[0]; let t = null, out = null;
@@ -84,8 +84,8 @@ async function fight(F, first) {
   const fb = await ev(() => { const r = document.getElementById('bend').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
   await p.touchscreen.tap(fb.x, fb.y);
   leg(await until(() => !FIGHT.S.deploy, 3000), F.board + ': a finger on FIGHT starts it, and the button reads END TURN again', await ev(() => document.getElementById('bend').textContent.trim()));
-  const glided = await until(() => FIGHT_UI.zoom >= FIGHT_UI.near * 0.95 && !FIGHT_UI.glide, 8000);
-  leg(glided, F.board + ': then it glides in on your line on the beat', await ev(() => FIGHT_UI.zoom.toFixed(3) + ' near ' + FIGHT_UI.near.toFixed(3)));
+  const glided = await until(() => !FIGHT_UI.glide && allFramed(), 8000);
+  leg(glided, F.board + ': and both teams stay on the glass as it starts (rule 104a)', await ev(() => 'zoom ' + FIGHT_UI.zoom.toFixed(3) + ', every man on the glass ' + allFramed()));
 
   /* THE BAR AT PHONE SIZES (rule 67a): every tapped thing at least 44 points; the bar about 120; the
      turn strip's faces 36 to 44; bars over a man only while he acts or is picked, three points tall */
@@ -123,7 +123,7 @@ async function fight(F, first) {
     bank.looks + ' looks on the board, from ' + bank.src.split(':')[0]);
   leg(blits >= bank.visible, F.board + ': the board blits the bank\'s frames for every man it shows', blits + ' bank frames in ~18 frames for ' + bank.visible + ' men');
   leg(bank.faceFromBank, F.board + ': the turn strip and the bar carry his face from the bank (renderFace with his key)');
-  const man = await ev(() => Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE));
+  const man = await ev(() => Math.round(manH()));
   leg(man >= 96 && man <= 120, F.board + ': *** THE MAN READS AS A MAN (rule 66): at the idle stop he stands near his 112 box ***', man + ' css px tall (was 17 before round three)');
   if (F.taps) {
     /* ONE MAN IS NOT A WALL, TWO ARE (rule 66), on a corridor cut through a column of houses */
@@ -426,7 +426,7 @@ async function screens() {
     const dd = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip"}' });
     await dd.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await dd.page.waitForTimeout(2500);
-    const setMan = await dd.page.evaluate(() => FIGHT.S.deploy ? Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) : -1);
+    const setMan = await dd.page.evaluate(() => FIGHT.S.deploy ? Math.round(manH()) : -1), setAll = await dd.page.evaluate(() => allFramed());
     /* what does not fit is reached by a drag, never by shrinking him: a real finger drags the line up the glass */
     let panned = null;
     if (pr === 'phone_landscape') {
@@ -435,7 +435,7 @@ async function screens() {
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: at.x, y: at.y + 60 }] });
       for (let k = 1; k <= 6; k++) { await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: at.x, y: at.y + 60 - k * 20 }] }); await dd.page.waitForTimeout(30); }
       await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await dd.page.waitForTimeout(200);
-      panned = await dd.page.evaluate((y) => ({ dy: Math.round(FIGHT_UI.cy - y), man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) }), y0);
+      panned = await dd.page.evaluate((y) => ({ dy: Math.round(FIGHT_UI.cy - y), man: Math.round(manH()) }), y0);
     }
     await dd.close();
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile: pr, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",deploy:false}' });
@@ -449,19 +449,19 @@ async function screens() {
       return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
         oneRow: b.height <= 90 && Math.abs(r('bend').top - r('skills').top) < 30, barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
         fits: FIGHT_UI.far * FIGHT_UI.board.width <= innerWidth + 1 && FIGHT_UI.far * FIGHT_UI.board.height <= innerHeight - TOPH - BOTH + 1, inside,
-        man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * MAN_OF_TILE) };
+        man: Math.round(manH()), all: allFramed() };
     });
-    m.pr = pr; m.setMan = setMan; m.panned = panned; m.err = d.errs[0]; res.push(m); await d.close();
+    m.pr = pr; m.setMan = setMan; m.setAll = setAll; m.panned = panned; m.err = d.errs[0]; res.push(m); await d.close();
   }
   const by = k => res.filter(x => x.pr === k)[0], wide = res.filter(x => x.pr !== 'phone_portrait');
   leg(res.every(x => x.cls === x.pr), '*** ONE RULE NAMES THE SCREEN (rule 62) ***: phone upright, phone on its side, tablet, computer, read from the real viewport', res.map(x => x.pr + '=' + x.cls).join(', '));
   leg(res.every(x => x.glass >= 65), '*** THE BOARD KEEPS TWO THIRDS OF THE GLASS ON EVERY SCREEN *** (on its side the HUD took 49% before)', res.map(x => x.pr + ' ' + x.glass + '%').join(', '));
   leg(wide.every(x => x.oneRow), 'wide screens get Battle Brothers\' one-row bar: face and bars, the skill squares, WAIT and END TURN in one row', wide.map(x => x.pr + (x.oneRow ? ' one row' : ' TWO ROWS')).join(', '));
   leg(['tablet', 'computer'].every(k => by(k).centred && by(k).barW <= 980), 'on a tablet and a computer the bar is a centred plate no wider than 980 (it ran 1,300 wide on a monitor)', ['tablet', 'computer'].map(k => k + ' ' + by(k).barW + (by(k).centred ? ' centred' : ' OFF CENTRE')).join(', '));
-  leg(res.every(x => Math.abs(x.man - 104) <= 2 && Math.abs(x.setMan - 104) <= 2), '*** THE MAN STAYS 112 ON EVERY SCREEN *** (rule 21: the ground may zoom, the person may not): setting his line and fighting, upright, flipped, tablet, computer; a drag pans what does not fit (EYES measured under 45 px flipped and on the computer, 10/5)',
-    res.map(x => x.pr + ' ' + x.setMan + '/' + x.man + ' px').join(', '));
-  const fl = res.filter(x => x.pr === 'phone_landscape')[0].panned;
-  leg(fl && fl.dy > 20 && Math.abs(fl.man - 104) <= 2, 'on the flipped phone a real drag pans his line up the glass while he sets it, and he stays 112', fl ? 'the camera moved ' + fl.dy + ' px, the man ' + fl.man + ' px' : 'no drag');
+  const big = res.filter(x => x.pr !== 'phone_landscape'), fl2 = by('phone_landscape');
+  leg(res.every(x => x.all && x.setAll) && big.every(x => Math.abs(x.man - 104) <= 2 && Math.abs(x.setMan - 104) <= 2) && fl2.man >= 52,
+    '*** BOTH TEAMS ON EVERY SCREEN, NO SWIPE (rule 104a), THE MAN AT 112 (rule 21) ***: setting his line and fighting, every man of both teams on the glass; upright, tablet and computer at 104; the flipped phone, 262 points between the bars against a nine-deep line, the one place the man gives: never under half his height, 52 (at 104 he stood on 16-px rows, six rows tall)',
+    res.map(x => x.pr + ' ' + x.setMan + '/' + x.man + ' px' + (x.all && x.setAll ? '' : ' A MAN OFF THE GLASS')).join(', '));
   leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, the whole board fits at the far stop, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
 }
 
@@ -489,7 +489,7 @@ const SUN = function (glare) {
   const at = (X, Y) => Yof(cd, (Math.floor(Y * D) * c.width + Math.floor(X * D)) * 4);
   const z = FIGHT_UI.zoom, sx = w => (w - FIGHT_UI.cx) * z + innerWidth / 2, sy = w => (w - FIGHT_UI.cy) * z + TOPH + (innerHeight - TOPH - BOTH) / 2;
   const men = [];
-  S.units.forEach(u => { if (!FIGHT.onField(u)) return; const X = sx((u.x + .5) * FIGHT_UI.tw), feet = sy((u.y + .9) * FIGHT_UI.th), h = FIGHT_UI.th * z * .86;
+  S.units.forEach(u => { if (!FIGHT.onField(u)) return; const X = sx((u.x + .5) * FIGHT_UI.tw), feet = sy((u.y + .9) * FIGHT_UI.th), h = manH();
     if (X < 0 || X > innerWidth || feet - h < TOPH || feet > innerHeight - BOTH) return;
     const gr = med([[.08, .2], [.92, .2], [.08, .6], [.92, .6]].map(o => at(sx((u.x + o[0]) * FIGHT_UI.tw), sy((u.y + o[1]) * FIGHT_UI.th))));
     const px = []; for (let i = 0; i < 9; i++) for (let j = 0; j < 18; j++) { const v = at(X - h * .12 + h * .24 * i / 8, feet - h * .95 + h * .85 * j / 17); if (cr(v, gr) > 1.15) px.push(v); }
@@ -608,7 +608,7 @@ async function weaponCards() {
   await p.touchscreen.tap(200, 300); await p.waitForTimeout(300);
   const gone = !(await card()).shown;
   const e = await p.evaluate(() => { const t = FIGHT.alive('them').filter(v => FIGHT.sideSees('you', v))[0]; FIGHT_UI.glide = null; FIGHT_UI.cx = (t.x + .5) * FIGHT_UI.tw; FIGHT_UI.cy = (t.y + .5) * FIGHT_UI.th;
-    return { id: t.id, w: t.weapon, x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 + (.1 * FIGHT_UI.th - .3 * FIGHT_UI.th) * FIGHT_UI.zoom }; });
+    return { id: t.id, w: t.weapon, x: innerWidth / 2, y: TOPH + (innerHeight - TOPH - BOTH) / 2 }; });   /* his own tile: the man on it answers first (rule 104a) */
   await p.waitForTimeout(300);
   await hold(e.x, e.y, 700);
   const c2 = await card(), L2 = WL[e.w.class];
@@ -679,7 +679,7 @@ async function boardFits() {
   const look = async (extra) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:5,speed:1,kind:"suburb"' + extra + '}' });
     await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
     await d.page.waitForTimeout(1500);
-    const r = await d.page.evaluate(() => { const S = FIGHT.S; return { w: S.w, h: S.h, crop: !!S.crop, man: Math.round(FIGHT_UI.th * FIGHT_UI.zoom * 0.86), near: Math.abs(FIGHT_UI.zoom - FIGHT_UI.near) < 1e-6,
+    const r = await d.page.evaluate(() => { const S = FIGHT.S; return { w: S.w, h: S.h, crop: !!S.crop, man: Math.round(manH()), near: allFramed(),
       gap: Math.min(...FIGHT.alive('you').map(u => Math.min(...FIGHT.alive('them').map(e => Math.max(Math.abs(u.x - e.x), Math.abs(u.y - e.y)))))), joined: FIGHT._t ? true : false,
       onBoard: S.units.every(u => u.x >= 0 && u.y >= 0 && u.x < S.w && u.y < S.h), kinds: S.boardDef.kinds, wide: FIGHT_UI.board.width === Math.round(FIGHT_UI.tw * S.w) }; });
     r.err = d.errs[0]; await d.close(); return r; };
@@ -687,7 +687,7 @@ async function boardFits() {
   const three = await look(',party:{faction:"brigands",count:10,days:30,difficulty:1,parties:3}');
   const end = await look(',endgame:true');
   leg(one.w < 10 && one.crop && one.near && Math.abs(one.man - 104) <= 2 && one.gap >= 5 && one.onBoard && one.wide && !one.err,
-    '*** A DAY-1 PARTY OF THREE OPENS ON A BOARD UNDER TEN WIDE, THE MAN AT 112 *** (rule 79): cut from the dealt board, the lines five apart, everybody on it',
+    '*** A DAY-1 PARTY OF THREE OPENS ON A BOARD UNDER TEN WIDE, THE MAN AT 112 *** (rule 79): cut from the dealt board, the lines five apart, everybody on it and on the glass (104a)',
     one.w + 'x' + one.h + ' houses, man ' + one.man + ' px, gap ' + one.gap + ', ' + one.kinds.join(' + '));
   leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
 }
@@ -772,16 +772,18 @@ async function actFramed() {
     await d.page.evaluate(() => { FIGHT_UI.auto = true; let cur = null;
       const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
         const tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near, feet = sy((y0 + .9) * FIGHT_UI.th), head = feet - tall, x = sx((x0 + .5) * FIGHT_UI.tw);
-        window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2 }); };
+        window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2, all: allFramed() }); };
       const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { look(cur); cur = null; } if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
       requestAnimationFrame(loop); });
     await d.page.waitForTimeout(30000);
-    const r = await d.page.evaluate(() => ({ n: __hd.length, bad: __hd.filter(h => h.off || h.cut).length }));
+    const r = await d.page.evaluate(() => ({ n: __hd.length, bad: __hd.filter(h => h.off || h.cut).length, lost: __hd.filter(h => !h.all).length }));
     r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
   }
   leg(rows.every(r => r.n >= 40 && r.bad === 0 && !r.err),
     '*** THE HEAD UNDER THE STRIP (rule 88) ***: every step and swing ends with the whole man on the glass, never under the strip or the bar, and the fight never stalls behind the camera (the computer froze; the flipped phone cut 26 of 56 acts)',
     rows.map(r => r.profile + ' ' + r.bad + ' of ' + r.n).join(', '));
+  leg(rows.every(r => r.lost === 0), '  and as they close, both teams stay on the glass: at the end of every step and swing every man of both is on it (rule 104a; the camera takes them all again, never one man alone)',
+    rows.map(r => r.profile + ' ' + r.lost + ' of ' + r.n + ' with a man off').join(', '));
 }
 
 /* THE FLIPPED PHONE'S LOOK (rule 88): nothing of the bar lies on the men. On a wide glass the hint sits in the strip beside

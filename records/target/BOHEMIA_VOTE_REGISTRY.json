@@ -7866,7 +7866,8 @@
     ]
    }
   },
-{"id": "run-the-far-end-back-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "THE FAR END YOU LIKED IS BACK", "why": "You said the sharper zoomed-out land looked worse than before, so the old one is back exactly as it was and the sharp one is switched off. You see it on the DEMO's map pinched all the way out: left is yours, right is the one you voted down.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_BACK_10_10.png"}}
+{"id": "run-the-far-end-back-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "THE FAR END YOU LIKED IS BACK", "why": "You said the sharper zoomed-out land looked worse than before, so the old one is back exactly as it was and the sharp one is switched off. You see it on the DEMO's map pinched all the way out: left is yours, right is the one you voted down.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_BACK_10_10.png"}},
+  {"id": "combat-both-teams-on-one-screen-10-10", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/10", "title": "BOTH TEAMS ON ONE SCREEN", "why": "Every fight now opens with every man of both teams on the screen, no swipe, and the camera keeps them all there as the lines close, on an upright phone, sideways and on a computer; the men stay their full size except on a sideways phone, where they are a bit over half so nine of them fit in a line. Open any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_BOTH_TEAMS_ON_ONE_SCREEN_10_10.jpg"}, "draft": true}
  ],
  "verdicts": [
   {

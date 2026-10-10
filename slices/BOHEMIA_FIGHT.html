@@ -1436,6 +1436,10 @@ const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: nu
   anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0 };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
 const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
+/* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
+   tall at every zoom; only the ground scales under him */
+function manH() { return Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }
+const MAN_ROWS = 2.8;
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
 /* what the HUD covers from the top and from the bottom of the glass, the floating plates' margins included */
@@ -1675,8 +1679,11 @@ function wy(py) { return (py - TOPH - (H - TOPH - BOTH) / 2) / UI.zoom + UI.cy; 
 function clampCam() {
   const bw = UI.board.width, bh = UI.board.height;
   const hw = W / 2 / UI.zoom, hh = (H - TOPH - BOTH) / 2 / UI.zoom;
-  UI.cx = bw / 2 * 2 <= hw * 2 ? bw / 2 : Math.max(hw, Math.min(bw - hw, UI.cx));
-  UI.cy = bh <= hh * 2 ? bh / 2 : Math.max(hh, Math.min(bh - hh, UI.cy));
+  /* the camera may look past the board's edge by a man's height at the top and half his figure at the sides, so a man on
+     the first row is never cut by the strip (rule 104a: every man's whole box on the glass) */
+  const up = manH() / UI.zoom, side = manH() * FIG_HALF / UI.zoom;
+  UI.cx = bw + side * (1 + 1) <= hw * (1 + 1) ? bw / (1 + 1) : Math.max(hw - side, Math.min(bw + side - hw, UI.cx));
+  UI.cy = bh + up <= hh * (1 + 1) ? (bh - up) / (1 + 1) : Math.max(hh - up, Math.min(bh - hh, UI.cy));
 }
 
 /* ---------------- sound: low, dry, on the beat ---------------- */
@@ -1738,12 +1745,13 @@ function say(s) { const e = document.getElementById('say'); e.textContent = s; e
 function startAnim(a) {
   const e = a.e;
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
-    if (!framed(e.x, e.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur); } }
+    const span = [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }];   /* the step's two ends, so the walk itself stays on the glass */
+    if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = FIGHT.isRanged(u.weapon);
     /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
-    if (e.free && !framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
+    if (!(gest && gest.moved) && (UI.pinched ? e.free && !framed(u.x, u.y) : !allFramed()) && !keepAll(a.dur / (1 + 1)) && UI.zoom > UI.far * 1.05) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     (ranged ? SND.shot : SND.swing)();
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
@@ -1779,7 +1787,7 @@ function placeTag() {
   const el = document.getElementById('num'); if (!el) return;
   if (!UI.tag || performance.now() > UI.tag.until) { el.style.display = 'none'; return; }
   const v = FIGHT.byId(UI.tag.id); if (!v) return;
-  const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - UI.th * UI.zoom * MAN_OF_TILE;
+  const X = sx((dx(v) + .5) * UI.tw), top = sy((dy(v) + .9) * UI.th) - manH();
   el.style.left = Math.round(X - el.offsetWidth / 2) + 'px'; el.style.top = Math.round(top - el.offsetHeight - 6) + 'px';
 }
 function pop(u, text, col, big, line) {
@@ -1809,6 +1817,10 @@ function tick(now) {
   /* YOUR FORMATION: nothing moves before FIGHT (the second votes: nothing is forced, nothing happens in the first second);
      AUTO means he does not want to set it, so it starts */
   if (FIGHT.S.deploy) { if (UI.auto) fightNow(); return; }
+  /* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a) */
+  if (UI.fitRound !== FIGHT.S.round) { UI.fitRound = FIGHT.S.round; const f = fitBoth();
+    /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
+    if (!UI.pinched && !(gest && gest.moved) && (!allFramed() || f.z > UI.zoom * FIT_CLOSER)) { glideTo(f.cx, f.cy, f.z, beatMs()); return; } }
   const u = FIGHT.current();
   if (!u) return;
   const sayEl = document.getElementById('say');
@@ -1846,16 +1858,19 @@ function follow(u, every) {
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
   const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
   /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
-  if (!framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && UI.framedAt !== at) { UI.framedAt = at; glideTo(aim[0], aim[1], UI.zoom, beatMs()); return true; }
+  if (!framed(u.x, u.y) && UI.framedAt !== at) { UI.framedAt = at; if (keepAll(beatMs())) return true; if (UI.zoom > UI.far * 1.05) { glideTo(aim[0], aim[1], UI.zoom, beatMs()); return true; } }
   return false;
 }
+/* rule 104a: the camera holds both teams; when a man would leave the glass it takes them all again, never one man alone.
+   A finger that pinched (or a wheel) takes the camera, and then it follows the man as before */
+function keepAll(ms, more) { if (UI.pinched) return false; const f = fitBoth(more); glideTo(f.cx, f.cy, f.z, ms); return true; }
 /* THE HEAD UNDER THE STRIP (rule 88): a man is on the glass only when his whole box, head to feet, stands between the turn
    strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
    or his feet under the bar); the camera aims at his box's middle, and walks with him when his step would leave the glass */
 const FOLLOW_M = 0.18, FRAME_PAD = 6;
-function manBox(x, y) { const tall = MAN_IDLE * UI.zoom / UI.near, feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
+function manBox(x, y) { const tall = manH(), feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
 function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x < W * (1 - FOLLOW_M) && b.head > TOPH + FRAME_PAD && b.feet < H - BOTH - FRAME_PAD; }
-function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - MAN_IDLE / UI.near / (1 + 1)]; }
+function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - manH() / UI.zoom / (1 + 1)]; }
 function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
 function stepGlide(now) {
   const g = UI.glide; if (!g) return;
@@ -1965,7 +1980,7 @@ function blitMan(v, X, feet, h, face, now, fallen) {
   cx.drawImage(img, c * F, row * F, F, F, X - size / 2, feet - (bb[1] + bb[3]) * k, size, size);
 }
 function drawBody(v, tw, th) {
-  const X = sx((v.x + .5) * UI.tw), feet = sy((v.y + .9) * UI.th), h = Math.max(7, th * MAN_OF_TILE);
+  const X = sx((v.x + .5) * UI.tw), feet = sy((v.y + .9) * UI.th), h = manH();
   if (v.dead) { cx.fillStyle = 'rgba(105,18,12,.55)'; cx.beginPath(); cx.ellipse(X, feet - h * .06, h * .3, h * .07, 0, 0, Math.PI * 2); cx.fill(); }
   blitMan(v, X, feet, h, v.side === 'you' ? 1 : -1, performance.now(), true);
 }
@@ -1976,7 +1991,7 @@ function skinOf(v) { return '#8c6a52'; }
 function drawMan(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
   const lvl = FIGHT.level(v.x, v.y) ? th * .14 : 0;
-  const h = Math.max(7, th * MAN_OF_TILE), you = v.side === 'you';
+  const h = manH(), you = v.side === 'you';
   const Y = feet - lvl, now = performance.now();
   const foe = FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== v.side; })
     .sort(function (a, b) { return Math.abs(a.x - v.x) + Math.abs(a.y - v.y) - Math.abs(b.x - v.x) - Math.abs(b.y - v.y); })[0];
@@ -2225,12 +2240,12 @@ function weaponCard(v) {
 }
 /* who stands under a finger on the board (the man drawn there, or the tile's man) */
 function manAt(px, py) {
-  const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = th * MAN_OF_TILE;
-  return S.units.filter(function (v) {
+  const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = manH();
+  return S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && (v.side === 'you' || FIGHT.sideSees('you', v)); })[0] || S.units.filter(function (v) {
     if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
     const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
-  }).sort(function (a, b) { return b.y - a.y; })[0] || S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && (v.side === 'you' || FIGHT.sideSees('you', v)); })[0] || null;
+  }).sort(function (a, b) { return b.y - a.y; })[0] || null;   /* the man on the tile first (rule 104a), then a body */
 }
 (function () {
   const bs = document.getElementById('bstrike'); let t = null;
@@ -2297,7 +2312,7 @@ cv.addEventListener('pointermove', function (e) {
   if (gest.pinch && ids.length >= 2) {
     const a = touches[ids[0]], b = touches[ids[1]];
     const z = Math.max(UI.far, Math.min(UI.max, gest.z0 * Math.hypot(a.x - b.x, a.y - b.y) / Math.max(1, gest.d0)));
-    UI.zoom = z; const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+    UI.zoom = z; UI.pinched = true; const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
     UI.cx = gest.wx - (mx - W / 2) / z; UI.cy = gest.wy - (my - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
   } else if (!gest.pinch) {
     if (Math.hypot(t.x - t.x0, t.y - t.y0) > 8) gest.moved = true;
@@ -2315,7 +2330,7 @@ function up(e) {
 }
 cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
 cv.addEventListener('wheel', function (e) {
-  e.preventDefault(); const z = Math.max(UI.far, Math.min(UI.max, UI.zoom * Math.pow(1.0015, -e.deltaY)));
+  e.preventDefault(); UI.pinched = true; const z = Math.max(UI.far, Math.min(UI.max, UI.zoom * Math.pow(1.0015, -e.deltaY)));
   const X = wx(e.clientX), Y = wy(e.clientY); UI.zoom = z;
   UI.cx = X - (e.clientX - W / 2) / z; UI.cy = Y - (e.clientY - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
 }, { passive: false });
@@ -2331,27 +2346,50 @@ function skillTap(id) {
 function tileAt(px, py) { return { x: Math.floor(wx(px) / UI.tw), y: Math.floor(wy(py) / UI.th) }; }
 /* before turn one: tap one of your men, then a tile of your two columns; tap him again to let go */
 function deployTap(px, py) {
-  const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = th * MAN_OF_TILE;
+  const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = manH();
   const who = S.units.filter(function (v) {
     if (!FIGHT.onField(v) || v.side !== 'you') return false;
     const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
-  }).sort(function (a, b) { return b.y - a.y; })[0] || S.units.filter(function (v) { return FIGHT.onField(v) && v.side === 'you' && v.x === p.x && v.y === p.y; })[0];
-  if (UI.dsel && (!who || who !== UI.dsel) && FIGHT.inZone(p.x, p.y)) {
+  }).sort(function (a, b) { return b.y - a.y; })[0];
+  /* the man standing ON the tapped tile comes first (rule 104a: zoomed out to both teams, a man is taller than three rows and
+     his body covers the tiles behind him); a body answers only where no man stands */
+  const onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.side === 'you' && v.x === p.x && v.y === p.y; })[0];
+  const pick = onTile || (FIGHT.inZone(p.x, p.y) && UI.dsel && FIGHT._t.passable(p.x, p.y) ? null : who);
+  if (UI.dsel && (!pick || pick !== UI.dsel) && FIGHT.inZone(p.x, p.y)) {
     if (FIGHT.deployMove(UI.dsel, p.x, p.y)) { UI.dsel = null; say(DEPLOY_SAY); hud(); return; }
   }
-  if (who) { UI.dsel = UI.dsel === who ? null : who; say(UI.dsel ? who.name + ': tap a lit tile of your two columns.' : DEPLOY_SAY); hud(); return; }
+  if (pick) { UI.dsel = UI.dsel === pick ? null : pick; say(UI.dsel ? pick.name + ': tap a lit tile of your two columns.' : DEPLOY_SAY); hud(); return; }
   if (UI.dsel) say('Only inside your two lit columns.');
 }
 const DEPLOY_SAY = 'Set your line: tap a man, then a lit tile. FIGHT when ready.';
 const WALK_SAY = 'Tap a lit tile to walk, a red man to aim. Pinch for the board.';
-function deployZoom() { return UI.near; }   /* rule 79 and rule 21: setting the line is at the man's size; a drag pans the columns */
+function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line sees both lines; the man still 112 (rule 21) */
+/* BOTH TEAMS ON ONE SCREEN (rule 104a, his eighth votes: 'I should see the two teams finding each other at the same time
+   without touching anything; I don't want to swipe'): the zoom and centre that hold every man of both teams on the glass,
+   his whole box (feet to head, his figure's width) inside the strip and the bar, never closer than the man's stop. The ground
+   zooms; the man does not (rule 21). */
+const FIT_PAD = 8, FIG_HALF = 0.3, FIT_CLOSER = 1.15;
+function fitBoth(more) {
+  const on = FIGHT.S.units.filter(FIGHT.onField).map(function (v) { return { x: v.x, y: v.y }; }).concat(more || []);
+  if (!on.length) return { z: UI.near, cx: UI.cx, cy: UI.cy };
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  on.forEach(function (v) { x0 = Math.min(x0, v.x + .5); x1 = Math.max(x1, v.x + .5); y0 = Math.min(y0, v.y + .9); y1 = Math.max(y1, v.y + .9); });
+  const ah = H - TOPH - BOTH, side = FIT_PAD + manH() * FIG_HALF;
+  const span = Math.max((y1 - y0) * UI.th, 1), room = ah - FIT_PAD * (1 + 1);
+  let zh = (room - MAN_IDLE) / span; if (zh * UI.th * MAN_ROWS < MAN_IDLE) zh = room / (span + MAN_ROWS * UI.th);
+  const z = Math.min(UI.near, (W - (FIT_PAD + MAN_IDLE * FIG_HALF) * (1 + 1)) / Math.max((x1 - x0) * UI.tw, 1), zh);
+  if (z < UI.far) UI.far = z;   /* the pinch's far stop never sits closer than both teams */
+  const m = Math.min(MAN_IDLE, MAN_ROWS * UI.th * z);
+  return { z: z, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: (y0 + y1) / (1 + 1) * UI.th - m / z / (1 + 1) };
+}
+function allFramed(more) { return FIGHT.S.units.filter(FIGHT.onField).concat(more || []).every(function (v) { const b = manBox(v.x, v.y); return b.x - manH() * FIG_HALF >= 0 && b.x + manH() * FIG_HALF <= W && b.head >= TOPH && b.feet <= H - BOTH; }); }
+function fitNow(ms) { const f = fitBoth(); if (ms) glideTo(f.cx, f.cy, f.z, ms); else { UI.zoom = f.z; UI.cx = f.cx; UI.cy = f.cy; clampCam(); } }
 /* FIGHT: the line is set; the camera goes in on it the way the open always did */
 function fightNow() {
   if (!FIGHT.startFight()) return;
   UI.dsel = null; say(UI.auto ? '' : WALK_SAY);
-  const mine = FIGHT.alive('you'), mx = mine.reduce(function (s, v) { return s + v.x; }, 0) / mine.length, my = mine.reduce(function (s, v) { return s + v.y; }, 0) / mine.length;
-  glideTo((mx + 1.5) * UI.tw, (my + .5) * UI.th, UI.near, beatMs() * 2);
+  fitNow(beatMs() * (1 + 1));   /* both teams stay on the glass (rule 104a) */
   hud();
 }
 function tapAt(px, py) {
@@ -2366,12 +2404,15 @@ function tapAt(px, py) {
     if (!FIGHT.useSkill(u, id, p)) say('Not there.'); else take();
     return;
   }
-  const th = UI.th * UI.zoom, hgt = th * MAN_OF_TILE;
-  const who = S.units.filter(function (v) {
+  const th = UI.th * UI.zoom, hgt = manH();
+  const body = S.units.filter(function (v) {
     if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
     const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
-  }).sort(function (a, b) { return b.y - a.y; })[0] || S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
+  }).sort(function (a, b) { return b.y - a.y; })[0], onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y; })[0];
+  /* the man ON the tile first; a body over an empty tile answers only if it is theirs (aim), never one of yours (rule 104a:
+     zoomed out to both teams, your own men's bodies cover the tiles behind them, and those tiles must still be walkable) */
+  const who = onTile || (body && body.side === 'them' ? body : null);
   if (who && who.side === 'them' && FIGHT.sideSees('you', who)) {
     if (!FIGHT.canStrike(u, who)) { say(who.name + ' is out of reach.'); UI.pend = null; return; }
     if (UI.pend && UI.pend.target === who) { UI.pend = null; FIGHT.strike(u, who); take(); return; }
@@ -2413,12 +2454,10 @@ function start() {
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = [];
   return bakeBoard().then(function () {
     resize();
-    /* OPEN ON THE LINES WITH THE MAN AT 112 (rule 79, amending 62's 'opens zoomed out'): the camera starts on your line,
-       looking toward theirs; a pinch shows the rest. Two beats of stillness (nothing happens in the first second). */
-    const mine = FIGHT.alive('you');
-    const mx = mine.reduce(function (s, v) { return s + v.x; }, 0) / mine.length, my = mine.reduce(function (s, v) { return s + v.y; }, 0) / mine.length;
+    /* THE OPEN (rule 104a, amending 79's 'on your line, a pinch shows the rest'): both teams on the glass, the man at 112.
+       Two beats of stillness (nothing happens in the first second). */
     const dep = FIGHT.S.deploy && !UI.auto;
-    UI.zoom = UI.near; UI.cx = (mx + 1.5) * UI.tw; UI.cy = (my + .5) * UI.th; clampCam();
+    fitNow();   /* BOTH TEAMS ON ONE SCREEN (rule 104a): the open holds every man of both teams, no swipe; the man still 112 */
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
     say(dep ? DEPLOY_SAY : WALK_SAY); hud();
