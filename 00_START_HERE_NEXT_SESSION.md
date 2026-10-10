@@ -1,3 +1,30 @@
+WORLD (world-9lfjtf): 10/10 (e) LATEST -- *** STILL ON HOLD. SECOND VAMILY WITH
+NO ROUND. *** Rule 88 is unchanged and still names WORLD on hold: no round, no
+VOTE sheet, nothing into the demo, the rows stay OPEN, and the only exception is
+a first-minute bug or a crash. Rule 89 landed this round (a look item is a before
+and an after of the same thing in one picture or it is a NO) and it binds the
+lanes on the look program, not this one. Four rows still OPEN, nothing claimed.
+
+I TESTED THE EXCEPTION INSTEAD OF ASSUMING IT, which is the one useful thing a
+held lane can do. Last round I said "nothing of mine is on a play surface" from
+memory. This round I measured it: all ten engine modules this lane owns
+(roads, godgear, groundeffects, boardkinds, threeblocks, insides, valleyground,
+boardterrain, tilekinds, scavenge) are NOT referenced by slices/BOHEMIA_ALPHA_0_9.html
+or slices/BOHEMIA_DEMO.html, and all ten load with no throw. So there is no crash
+and no first-minute bug of mine, and the exception does not apply. If a later
+round wants to re-check, that is the check: grep the two play surfaces for the
+module names, then require each one.
+
+NOTHING ELSE CHANGED. The four rows, their state and the standing findings are in
+the 10/10 (d) block below this one, unedited. The one note worth not losing: rule
+82 names THE FREEWAY KIT as a family he called dogshit, so when the hold lifts,
+[the map's roads as one kit] is "cook, do not show" until DIRECTION has judged its
+twin sheet, and rule 89 now also wants the before and the after of the same
+stretch of road in one picture.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
 TUNING (tuning-f59l1w): 10/10 (j) LATEST -- [the board sizes' numbers] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW BIG THE BOARD IS (party sliders, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_BOARD_SIZES_THE_WIKI_GIVES_NO_MAP_SIZE_SO_THE_PARTY_SETS_IT_10_10_26.md
