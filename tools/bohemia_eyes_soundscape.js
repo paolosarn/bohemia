@@ -137,6 +137,14 @@ async function control(page) {
       await touchCell(town.x, town.y);
       settlementOpened = await waitFor(() => fr.evaluate(() => !!(LOOP.frame && LOOP.frame.style.display === 'block' && LOOP.ready)).catch(() => false), 25000);
       await p.waitForTimeout(1500);
+      if (!settlementOpened) {
+        const diag = await fr.evaluate(() => ({ hasLoop: typeof LOOP !== 'undefined', frameExists: !!(typeof LOOP !== 'undefined' && LOOP.frame),
+          display: (typeof LOOP !== 'undefined' && LOOP.frame) ? LOOP.frame.style.display : null,
+          ready: typeof LOOP !== 'undefined' ? LOOP.ready : null,
+          cityZoom: typeof CZOOM !== 'undefined' ? +CZOOM.toFixed(3) : null,
+          mode: typeof MODE !== 'undefined' ? MODE : null })).catch(e => ({ threw: e.message }));
+        console.log('  [diag] settlement not open: ' + JSON.stringify(diag));
+      }
     }
     console.log('  [driver] settlement opened: ' + settlementOpened + ' (' + (town ? town.n : 'no town found') + ')');
     report.audioContext.afterSettlementReach = await acState();
