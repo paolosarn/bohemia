@@ -44,4 +44,12 @@ for a in man['pieces']:
                 ga, gb = side(imgs[a], s), side(imgs[b], o)
                 d = (ga != gb).sum()   # weeds and cracks differ; a misplaced kerb is a run of 30+ px
                 check(d <= 0.12 * len(ga), f'{a}.{s} | {b}.{o}: written alike, {d} px differ')
+# THE COVER KIT (round seven, [the cars and the props from the packs]): every piece is a sprite he judged UP
+CV = os.path.join(R, 'slices/fight_ground/kit_cover')
+if os.path.exists(os.path.join(CV, 'kit_cover.json')):
+    up = {(v['pack'], v['idx']) for v in json.load(open(os.path.join(R, 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt')))['verdicts'] if v['v'] == 'UP'}
+    cv = json.load(open(os.path.join(CV, 'kit_cover.json')))
+    for n, p in cv['pieces'].items():
+        check(os.path.exists(os.path.join(CV, p['src'])), f'cover {n}: {p["src"]} missing')
+        for k in p['keys']: check((k['pack'], k['idx']) in up, f'cover {n}: {k} is not UP in his confirmed set')
 print(f'COOK2 STREET KIT {ok}/{fail}'); sys.exit(1 if fail else 0)
