@@ -6979,7 +6979,7 @@
    "sha": "pending",
    "made": "10/10",
    "title": "PATCH INSIDE A LIST",
-   "why": "For whoever makes mods. A weapon has lists inside it, like skills. A mod can now change one entry by name or position, or add and remove words, without copying the whole list. Two new example mods show it. Also: the range tool you voted down is gone.",
+   "why": "For whoever makes mods: a mod can now change one entry in a list by name or position, or add and remove words, without copying the whole list. You see it in the VOTE tab on this item's page, with two example mods.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_PATCH_INSIDE_A_LIST_10_10_26.html"
