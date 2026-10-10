@@ -7081,7 +7081,7 @@
     "src": "Before the first crisis: one face on the phone, no flip.\\nThe first crisis starts (day 80 to 100): act 2 opens and the game says which day.\\nTaking a base no longer opens act 2. A base taken in act 2 opens act 3.\\nThe crisis clock and the opening card are not built yet, so today the flip stays dark."
    }
   },
-  {"id": "combat-the-flipped-phones-look-10-10", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/10", "title": "THE FLIPPED PHONE: NOTHING ON YOUR MEN", "why": "With the phone on its side, the tip no longer sits over your men's legs, it moves up into the empty strip beside the faces, and the tape behind the faces now ends at the last face instead of smearing across the whole street. Turn your phone sideways in any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_FLIPPED_PHONES_LOOK_10_10.jpg"}, "draft": true}
+  {"id": "combat-the-flipped-phones-look-10-10", "kind": "ui", "lane": "combat", "sha": "f17df35", "made": "10/10", "title": "THE FLIPPED PHONE: NOTHING ON YOUR MEN", "why": "With the phone on its side, the tip no longer sits over your men's legs, it moves up into the empty strip beside the faces, and the tape behind the faces now ends at the last face instead of smearing across the whole street. Turn your phone sideways in any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_FLIPPED_PHONES_LOOK_10_10.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
