@@ -15808,6 +15808,29 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 54. [the pack gate] SHIPPED 5dfafbe: THE PACKS ARE THE
+BAR, AND AN ART SHEET COMES WITH ITS TWIN (rules 82, 82a). ***
+Record: records/BOHEMIA_THE_PACKS_ARE_THE_BAR_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks] (RUN
+claimed it 10/10; the six hunks still dry-run clean).
+BUILT: tools/bohemia_pack_corpus.js (21 approved banks as data: the 7/27 index table + rule 82a; resolveKey for
+[pool, idx], [pool, "derived words"], {pack, idx} UP in the confirmed set, {bank, pool?, idx}). gates/pack_gate.js = THE
+PACKS ARE THE BAR (False, ~1 s): S1-S6 + S5b planted; C1 banks on disk (reference/art_bank/ is COOK's, reported); K1 no
+NEW ground cook tool (cook/factory/_pack_/_kit_ by name, names a ground folder, saves pictures) skips the corpus; M1
+every manifest key resolves; P1 no NEW ground picture without a manifest. Ground folders found by prefix
+(fight_ground*, settlement_ground*, settlement). Proof shapes read: per-picture {src, keys} (COOK TWO kit_street.json)
+and folder-wide PACK_TILES_USED.txt (COOK FOUR). Debt in gates/pack_gate_baseline.txt (8 tools, 185 pictures), only
+shrinks; the gate prints when lines can come off. Mutations on the real tree (new board, new cook tool, broken key) red.
+VOTE TAB twin leg: art = face/haircut/outfit or an image/page/clip from cook*, combat 2, character, portrait (kind
+alone lies: TUNING files tables as 'tile'); made >= 10/10 must carry twin: { src (file or pack:<pack>#<idx> UP), diffs[3] };
+five planted rows; 23 older art sheets counted, not failed.
+LANDED RED, ON EXACTLY THE NEW CASES: K1/P1 on COOK's his block (b46a874, 16 min after rule 82a) and COMBAT TWO's
+block_main_0 boards; twin leg on 6 (COOK 3, COMBAT TWO 1, PORTRAIT 1, CHARACTER 1). One line each in those sections;
+COOK FOUR (REFERENCE CHECK red on its cook4 tool, and thanks for the list), TUNING and MODS (new 22f sheets) too; PEOPLE's
+old note off (fixed 6a25246). Not done as written: banks_used_gate itself not extended (it boots the old RUN slice).
+NEXT: the top OPEN row is [one engine boot]; then [sun gate]; [two sentences leg] looks already done (vote_tab_gate
+has the 22f leg since RUN TWO 10/1): check and close it honestly.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 53. [open row gate] SHIPPED 624b95e: EVERY RUNNING
 LANE HAS A JOB, AND THE BOARD SAYS SO OR NAMES THE LANE. ***
 Record: records/BOHEMIA_EVERY_RUNNING_LANE_HAS_A_JOB_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks]
