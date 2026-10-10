@@ -6973,6 +6973,20 @@
    }
   },
   {
+   "id": "tuning-how-big-the-board-is-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "pending",
+   "made": "10/10",
+   "draft": true,
+   "title": "HOW BIG THE BOARD IS",
+   "why": "Battle Brothers never says how big its map is, so every size we use is ours. Slide your party and theirs in the VOTE tab and see the board the fight cuts: a 2 against 2 fight is a 32 tile board, and the middle size is never picked at all.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_HOW_BIG_THE_BOARD_IS_10_10_26.html"
+   }
+  },
+  {
    "id": "mods-patch-inside-a-list-10-10",
    "kind": "ui",
    "lane": "mods",

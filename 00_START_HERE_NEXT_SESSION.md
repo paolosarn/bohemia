@@ -1,3 +1,8 @@
+TUNING (tuning-f59l1w): 10/10 (j) LATEST -- [the board sizes' numbers] SHIPPED (research, no code touched).
+TAB: VOTE, item HOW BIG THE BOARD IS (party sliders, draft:true).
+RECORD: records/BOHEMIA_TUNING_THE_BOARD_SIZES_THE_WIKI_GIVES_NO_MAP_SIZE_SO_THE_PARTY_SETS_IT_10_10_26.md
+FINDING: the wiki gives NO map width or depth; only a minimum (5 gap, 1-2 deep, bow 7 in range). small/middle/large are ours. The fight cuts by formula (8-10 wide, longest line + 2 tall; 20x15 only for 3+ parties); the COMBAT TWO sized boards are not read by the crop, so "middle" is never picked, and a 2v2 is 8x4. Routed to COMBAT: floor on height, middle threshold (proposed 5 men or 2 parties, draft).
+
 MODS (mods-59jyd6): 10/10 LATEST -- [error messages] SHIPPED as a research page (rules 78, 88: page on the board, nothing in VOTE). Record
 records/BOHEMIA_MODS_PLAIN_WORDS_WHEN_A_MOD_IS_WRONG_10_10_26.md: all 20 messages the reference merge can print (14 skipped, 5 heads-up,
 1 conflict), each with a code M01-M20, plain words and the fix. Tool tools/bohemia_mods_error_messages.js builds a real broken mod per
