@@ -295,7 +295,7 @@ SCRUBS = ['scrub.0', 'scrub.1', 'scrub.2']
 LEGO = {
     'suburb':   dict(pal=[HOUSES, HOUSES + ['main.0', 'works.0'], HOUSES]),
     'culdesac': dict(pal=[[['culdesac.0', 'culdesac.1']] * 4, ['suburb_stem.0', 'suburb_stem.1'], HOUSES + ['main.1']]),   # round twenty-eight: closed sides meet closed sides
-    'strip':    dict(pal=[['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN]),
+    'strip':    dict(pal=[['strip.0', 'strip.1', 'main.0', 'works.0'], TOWN, TOWN], cells={(2, 1): ['works.0']}),   # the works always stands on the strip board (the sizes cut from it)
     'ruin':     dict(pal=[['ruin.0', 'ruin.1', 'lots.0', 'subs.2'], ['ruin.0', 'ruin.1', 'subs.3', 'corner.1'], ['ruin.1', 'ruin.0', 'lots.0', 'subs.0']]),
     'freeway':  dict(pal=[HOUSES, ['freeway.0'], SCRUBS + ['scrubroad.0', 'scrubroad.1']],
                      fixed={(1, 0): 'freeway.0', (1, 1): 'freewayo.0', (1, 2): 'freeway.0', (1, 3): 'freewayo.0'}),
