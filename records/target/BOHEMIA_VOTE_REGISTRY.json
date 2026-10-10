@@ -6862,19 +6862,6 @@
    "draft": true
   },
   {
-   "id": "portrait-the-keepers-faces-10-10",
-   "kind": "face",
-   "lane": "portrait",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "THE KEEPERS' FACES",
-   "why": "Every keeper's spot in the settlement screen showed a dim placeholder head forever, because nothing ever answered its own request for a real one. Now the smith, the armourer, the barber, the clinic and the board each get a real face that differs town to town and speaks along his price -- you see it in the VOTE tab.",
-   "show": {
-    "how": "page",
-    "src": "vote/PORTRAIT_THE_KEEPERS_FACES.html"
-   }
-  },
-  {
    "id": "lifecity-a-raid-on-your-base-10-9",
    "kind": "tile",
    "lane": "life+city",
@@ -7093,19 +7080,6 @@
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt; a screenshot sits at slices/vote/CHARACTER_WILDLIFE_RIG.png and the page that frames it at slices/vote/CHARACTER_WILDLIFE_RIG.html, neither is an art sheet under rule 82 (zero new pixels, the coyote bank is untouched) and wildlife is not one of rule 82's named families, so no reference twin was invented.\n\nSeen in: the record and the two files above; no tab yet, this is a rendering mechanism, not a look."
-   }
-  },
-  {
-   "id": "portrait-the-chipped-bodies-faces-10-10",
-   "kind": "face",
-   "lane": "portrait",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "THE CHIPPED BODIES' FACES",
-   "why": "The dead used to have no face of their own at all; now six chipped bodies each show a person with one eye lit, a slack jaw and grey skin where the chip sits, never a bare skull. You see it in the VOTE tab.",
-   "show": {
-    "how": "page",
-    "src": "vote/PORTRAIT_THE_CHIPPED_BODIES_FACES.html"
    }
   }
  ],

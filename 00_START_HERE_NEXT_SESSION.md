@@ -784,6 +784,35 @@ PENDING PAOLO: none new this round -- a bug report checked and a structural
 embargo both already answered by the rules that created them, no fork for
 him to pick.
 
+SAME ROUND, ONE MORE FIX, FOUND CHASING PLUMBER'S NOTE DOWN: the twin-leg
+note below (round two's block) turned out to name a bigger problem than a
+missing field. portrait-the-keepers-faces-10-10 and
+portrait-the-chipped-bodies-faces-10-10 (both "10/10"-made) were both red
+on VOTE TAB's new rule-82 twin check. Checked reference/library/face/ for
+a real face reference to cite honestly -- only INDEX.md exists, no actual
+image -- so a twin field would have been fabricated, the exact thing the
+gate's own GOODHART GUARD forbids. The real fix was bigger: both items were
+confirmed UNJUDGED, and either one sitting in the live VOTE queue was
+ALREADY a violation of rule 82/87's own embargo (no portrait sheet to VOTE
+until DIRECTION passes COOK THREE's) -- the same rule this round's own [the
+hires' faces] correctly held back from VOTE. Retracted both from
+records/target/BOHEMIA_VOTE_REGISTRY.json's items array: pulled back, not
+killed, since neither was ever judged. Re-ran vote_tab_gate.js after:
+32 ok, 2 failed, neither of mine in the twin-check failures (the 4
+remaining are cook-the-far-end-as-tiles-10-10, cook-the-building-props-10-10,
+cook-his-block-as-a-place-10-10, combat2-the-rest-join-10-10 -- not this
+lane's). Amended both SHIPPED rows in VAMILY.md and closed the twin-leg
+NOTE there with the same reasoning. Full gate sweep re-run after the fix:
+talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker 16/0,
+hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0, alpha_loads
+20/0, portrait_matches_body 11/0, handoff 10/0, open_row 7/2 (the 2 are
+other lanes, checked).
+
+PUSH-TO-MAIN STATUS (CORRECTED): the hires'-faces claim commit landed on
+main; this round's real last word is the registry retraction above, not
+yet pushed at the time this line was written -- the ship flow below is
+what actually closes this round out.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round two) -- *** [the
 chipped bodies' faces] SHIPPED: THE DEAD HAD NO FACE OF THEIR OWN AT ALL.
 Top OPEN jump-list row. Record: records/BOHEMIA_THE_CHIPPED_BODIES_
