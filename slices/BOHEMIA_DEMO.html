@@ -1562,7 +1562,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10l - THE FAR END AT THE PHONE'S PIXELS</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10m - NOTHING COMES TWICE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13606,6 +13606,11 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
       .catch(function(){}); }catch(e){ return Promise.resolve(); } };
     var step=function(){
       if(running || paused || at>=QUEUE.length) return;
+      /* NOT ONCE THERE IS A WORLD (RUN 10/10, [ten seconds to play], the STOP block): the city frame loads these same
+         files itself; measured with the browser's own network log served like Pages, every one of them came back a
+         second time here, 0 bytes on the wire but a whole re-read of 25 MB from the cache on a phone's processor, and
+         every instrument that counts responses counted it as a second download */
+      if(document.getElementById('cityFrame')){ at=QUEUE.length; return; }
       running=true;
       var done=function(){ running=false; step(); };
       pull(QUEUE[at++]).then(done, done);
@@ -23593,6 +23598,123 @@ drawLogoBig();requestAnimationFrame(loop);
     try { if (ROOM.src) { ROOM.src.stop(); ROOM.src = null; } } catch (_e) {}
     ROOM.ducked = false;
   };
+
+  /* === THE VALLEY STILL BROADCASTS, WIRED LIVE (row [one song and the volumes],
+     round three, SOUNDS, 10/10, Paolo's own SKETCH: 'he already said everything a
+     sketch needs'). theBroadcast (engine/bohemia_horror_sounds.js, round [not
+     sand] 9/27) has been a built, measured, APPROVED candidate
+     (sounds-the-valley-still-broadcasts-9-27, voted UP 10/2: "good progress...
+     QUIETER PLEASE ITS LOUD") with NO LIVE INSTANCE since the round that first
+     named the gap (10/4, [one song and the volumes] round one: "there is no live
+     instance of it for him to be hearing; nothing here claims otherwise"). This
+     closes it.
+
+     WRITTEN TWICE ON PURPOSE, THE SAME SHAPE ROOM ALREADY IS, FOR THE SAME REASON:
+     the module renders offline for judge pages and measurement; the game plays a
+     live buffer through live filter nodes, because an OfflineAudioContext render
+     cannot be heard. A comment promising the two match is not a check (ROOM's own
+     9/24 lesson, when its duplicate's FILTER silently diverged from its CONSTANTS
+     for rounds): gates/cooked_sounds_gate.js reads this object's own source text
+     and H.BROADCAST_CONST's data side by side, constant for constant AND order
+     for order.
+
+     DELIBERATELY A SMALLER RECIPE THAN THE JUDGE PAGE'S CANDIDATE: the carrier
+     (the transmitter's own mains ripple, reused from the identical three-partial
+     60 Hz family ROOM already hums with) and the sferics (crackleInto's own
+     half-sine impulse algorithm, duplicated here rather than imported, the same
+     way ROOM duplicates its filter rather than loading a second engine). The
+     attention tone and the worn drop-outs stay the richer candidate's own
+     identity, for a future round once this one is heard and judged. */
+  var BROADCAST = {
+    TONE_BEATS: 16, AIR_BEATS: 4, BEAT: 0.5,       /* 10 s at 120 BPM, theBroadcast's own default */
+    LO: 100, HI: 5000,                             /* the same AM band ROOM already uses */
+    CRACKLE_RATE: 220, CRACKLE_AMP: 0.34,          /* theBroadcast's own wear:1 (worn) defaults */
+    HUM_LEVEL: 0.62, CARRIER_LEVEL: 0.30, PRE: 0.05,
+    REL: 0.5,                                      /* -6 dB, half the energy: the trim this row
+                                                       already named for the sign, the block
+                                                       lights and the generator (round one) */
+    buf: null, bandOrder: null,
+    render: function (AC) {
+      var sr = AC.sampleRate;
+      var n = Math.round(sr * (this.TONE_BEATS + this.AIR_BEATS) * this.BEAT);
+      var pre = Math.max(1, Math.round(this.PRE * sr));
+      var work = new Float32Array(n + pre);
+      var parts = [[1, 1.00], [2, 0.42], [3, 0.18]];   /* ROOM's own hum family, 60 Hz mains */
+      var i, t, h, k;
+      for (i = 0; i < work.length; i++) {
+        t = i / sr; h = 0;
+        for (k = 0; k < parts.length; k++) h += Math.sin(2 * Math.PI * 60 * parts[k][0] * t) * parts[k][1];
+        work[i] = h * this.HUM_LEVEL;
+      }
+      /* THE SFERICS: distant lightning as discrete broadband clicks, crackleInto's
+         own algorithm (engine/bohemia_horror_sounds.js), not a hiss bed. */
+      var count = Math.round(this.CRACKLE_RATE * (work.length / sr));
+      var seed = 51413, j, q;
+      for (q = 0; q < count; q++) {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff; var fracT = seed / 0x7fffffff;
+        var t0 = Math.round(fracT * work.length);
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff; var fracA = seed / 0x7fffffff;
+        var w = Math.max(2, Math.round((0.0006 + fracA * 0.0012) * sr));
+        var lvl = this.CRACKLE_AMP * (0.3 + 0.7 * fracA);
+        var prev = 0;
+        for (j = 0; j < w && t0 + j < work.length; j++) {
+          var f = Math.sin(Math.PI * j / w);
+          work[t0 + j] += (f - prev) * lvl; prev = f;
+        }
+      }
+      var buf = AC.createBuffer(1, n, sr), d = buf.getChannelData(0);
+      for (i = 0; i < n; i++) d[i] = work[pre + i] * this.CARRIER_LEVEL;
+      return buf;
+    },
+    /* ONE SHOT, NEVER A LOOP: a caught transmission ends, the valley is dead air
+       again -- same reasoning [the map's sounds] already used for the arrival cue,
+       never a bed of its own ("ride the ambience clock instead of getting one").
+       THE SAME FILTER ROOM'S OWN 9/24 FIX USES, duplicated rather than shared,
+       because this is a different voice in the same mix and ROOM's own bus is not
+       this one's to borrow. */
+    play: function (bus, AC) {
+      try {
+        if (!this.buf) this.buf = this.render(AC);
+        var hp = AC.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = this.LO; hp.Q.value = 0.7;
+        var QS = [0.5098, 0.6013, 0.9000, 2.5629];
+        var head = null, tail = null, qi;
+        for (qi = 0; qi < QS.length; qi++) {
+          var lp = AC.createBiquadFilter();
+          lp.type = 'lowpass'; lp.frequency.value = this.HI; lp.Q.value = QS[qi];
+          if (tail) tail.connect(lp); else head = lp;
+          tail = lp;
+        }
+        this.bandOrder = 2 * QS.length;    /* what the checker compares */
+        var g = AC.createGain(); g.gain.value = this.REL;
+        hp.connect(head); tail.connect(g); g.connect(bus);
+        var s = AC.createBufferSource();
+        s.buffer = this.buf; s.loop = false;
+        s.connect(hp); s.start();
+        this.lastPlayedAt = AC.currentTime;
+        return s;
+      } catch (_e) { return null; }
+    }
+  };
+  window.__BROADCAST = BROADCAST;
+  /* EVERYTHING A CHECKER NEEDS, THE SAME SHAPE __ROOM_PROBE ALREADY IS. THE GAME
+     NEVER CALLS THIS. */
+  window.__BROADCAST_PROBE = function (AC) {
+    try {
+      AC = AC || MUS.AC;
+      return { buf: BROADCAST.render(AC), toneBeats: BROADCAST.TONE_BEATS,
+        airBeats: BROADCAST.AIR_BEATS, beat: BROADCAST.BEAT, lo: BROADCAST.LO,
+        hi: BROADCAST.HI, crackleRate: BROADCAST.CRACKLE_RATE,
+        crackleAmp: BROADCAST.CRACKLE_AMP, humLevel: BROADCAST.HUM_LEVEL,
+        carrierLevel: BROADCAST.CARRIER_LEVEL, rel: BROADCAST.REL };
+    } catch (_e) { return null; }
+  };
+  window.__broadcastPlayCount = 0;
+  window.__broadcastPlay = function (bus, AC) {
+    window.__broadcastPlayCount++;
+    return BROADCAST.play(bus, AC);
+  };
+
   window.__pulseStart    = function () { PULSE.start(); };
   window.__pulseNextBeat = function () { return PULSE.nextBeat(); };
   window.__pulseHandOff  = function (t) { PULSE.handOff(t); };
@@ -24177,6 +24299,14 @@ drawLogoBig();requestAnimationFrame(loop);
       if(this.inside) return this.kind;
       var A=(window.__SFX_APPROVED||{});
       var r=Math.random();
+      /* THE VALLEY STILL BROADCASTS (row [one song and the volumes], round three,
+         10/10): a radio signal travels, so this is checked FIRST and valley-wide,
+         never gated by this block's own power the way generator/sign_alive are --
+         the whole point of his own phrase is that SOMEWHERE still works even when
+         here does not. Rare on purpose, rarer than the generator (0.125): a caught
+         transmission is a ten-second event, not a texture, and he is still rarer
+         than the weather. */
+      if(r<0.04) return 'valley_broadcast';
       /* __THE_BED_IS_THE_PLACE__ -- THE PLACE ANSWERS FIRST. Same three
          approved names the list below already draws from, same guard (an
          unapproved name is skipped and the air plays), different odds by where
@@ -24300,6 +24430,15 @@ drawLogoBig();requestAnimationFrame(loop);
            of a building has to give you the outside AIR, or the crossing reads
            as a coincidence instead of as the room changing. */
         var ev = this.forceBed ? (this.forceBed=false, this.kind) : this.pick();
+        /* THE VALLEY STILL BROADCASTS (10/10): not an SFX-bank event, so it never
+           goes through placeSound/APPROVED -- a caught transmission is a receiver
+           picking something up, not a thing standing at a distance in the valley,
+           so it plays dead-centre on this same ambience bus, same as ROOM plays
+           dead-centre on its own. */
+        if(ev==='valley_broadcast'){
+          try{ window.__broadcastPlay(this.bus, MUS.AC); }catch(_e){}
+          this.last=ev; return;
+        }
         /* THE RARE ONES HAPPEN SOMEWHERE (8/14). His own briefs say it: a
            generator is "somewhere", a dog is "far off", a gust comes "through".
            All three arrived dead centre at full level, which is the one thing
@@ -38259,8 +38398,14 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     b.textContent='NEW BUILD READY: '+nb+' -- TAP TO RELOAD';
     b.onclick=function(){location.reload();};
     document.body.appendChild(b); }
-  setInterval(check,120000);
-  document.addEventListener('visibilitychange',function(){ if(!document.hidden)check(); });
+  /* THE DEMO READS ITS STAMP FILE, NEVER ITSELF (RUN 10/10, [ten seconds to play], the STOP block): the cut writes
+     BOHEMIA_DEMO_STAMP.txt beside the demo, one line; reading the page to its stamp was a cancelled re-read of the
+     whole document every two minutes, counted as a reload by every instrument. The workshop still reads itself. */
+  function look(){ if(!window.__BOHEMIA_DEMO_BUILD) return check();
+    fetch('BOHEMIA_DEMO_STAMP.txt',{cache:'no-store'}).then(function(r){ return r.ok ? r.text() : ''; })
+      .then(function(t){ t=(t||'').trim(); if(t && cur && t!==cur.trim()) show(t); }).catch(function(){}); }
+  setInterval(look,120000);
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden)look(); });
   /* NO CHECK 15 s IN (RUN 10/10, [first load]): a page that just loaded IS the newest build, and on a phone 15 s is
      the middle of the boot; measured, that check pulled the whole demo page a second time (4.6 MB) before BEGIN was
      ready. The two-minute check and the return to the tab still catch a new deploy. */

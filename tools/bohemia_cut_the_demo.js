@@ -503,6 +503,12 @@ function cut(src) {
    game -- but its own start_url and its own id, which is what makes it its own
    installable app rather than a second door onto the bench. */
 const MANIFEST = path.join(path.dirname(DEMO), 'bohemia-demo.webmanifest');
+/* THE DEMO'S STAMP, ON ITS OWN (RUN 10/10, [ten seconds to play], the STOP block): the open demo asks every two
+   minutes whether a new build is up. It used to read the demo page itself until the stamp (a cancelled read, 32 to
+   151 KB on the wire each time, and a whole page in every instrument that counts responses: "the page reloads itself
+   at 76, 196 and 316 s"). Now it reads this one line, written beside the demo by every cut. */
+const STAMP_FILE = path.join(path.dirname(DEMO), 'BOHEMIA_DEMO_STAMP.txt');
+function demoStamp(html) { const m = html.match(/<div id="buildstamp"[^>]*>([^<]*)<\/div>/); return (m ? m[1].trim() : '') + '\n'; }
 const DEMO_MANIFEST = JSON.stringify({
   name: 'BOHEMIA',
   short_name: 'BOHEMIA',
@@ -560,6 +566,13 @@ if (process.argv.includes('--check')) {
       + 'Run: node tools/bohemia_cut_the_demo.js');
     process.exit(1);
   }
+  let haveStamp = null;
+  try { haveStamp = fs.readFileSync(STAMP_FILE, 'utf8'); } catch (_e) { }
+  if (haveStamp !== demoStamp(src)) {
+    console.error('THE DEMO STAMP FILE IS NOT THE DEMO\'S STAMP. The open demo reads it to know a new build is up '
+      + '(it never re-reads the page mid-play). Run: node tools/bohemia_cut_the_demo.js');
+    process.exit(1);
+  }
   let haveMan = null;
   try { haveMan = fs.readFileSync(MANIFEST, 'utf8'); } catch (_e) { }
   if (haveMan !== DEMO_MANIFEST) {
@@ -574,6 +587,7 @@ if (process.argv.includes('--check')) {
 
 fs.writeFileSync(DEMO, src);
 fs.writeFileSync(MANIFEST, DEMO_MANIFEST);
+fs.writeFileSync(STAMP_FILE, demoStamp(src));
 console.log('=== CUT THE DEMO ===');
 console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (notes.removedTabs.length + notes.keptTabs.length) + ' tabs');
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));

@@ -2498,6 +2498,13 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('NOTHING COMES TWICE', ['node', 'gates/nothing_comes_twice_gate.js'],
+     'VAMILY [ten seconds to play], rule 94 (the STOP block: "every city tile file downloaded twice ... the demo page reloading '
+     'itself at 76, 196 and 316 s"). MEASURED with the browser\'s own network log served like Pages: each tile crossed the wire '
+     'once; the second was the shell\'s warm-up re-reading it from the cache after the city frame had it (25 MB of processor); '
+     'the "reloads" were the build watcher reading the page to its stamp. NOW the warm-up stops once there is a city frame and '
+     'the demo reads BOHEMIA_DEMO_STAMP.txt. HOLDS over 135 s: no script re-fetch of a loaded file, nothing twice on the wire, '
+     'the page requested once, the stamp file the demo\'s own. Mutations, two, each red.', True),
     ('THE FAR END AT THE PHONE\'S PIXELS', ['node', 'gates/the_far_end_at_the_phones_pixels_gate.js'],
      'VAMILY [the far end at two million pixels] (Paolo 10/1-10/4: "how many pixels is the Battle Brothers map"). MEASURED: at the '
      'far stop the city is painted at 0.93 phone px a texel but the land around it, most of the glass, at 5.6 (two texels a '
