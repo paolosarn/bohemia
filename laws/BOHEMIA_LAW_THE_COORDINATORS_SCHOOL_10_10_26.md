@@ -63,3 +63,7 @@ RULE: THE TURN IS WRITTEN BEFORE THE CLIMB, AND THE FIRST TANK TO HIT THIRDS TUR
 ## ROUND SEVEN: THE TRAIL EVAPORATES (ant trails, the ant mill, Dorigo's evaporation rate, the bees' decaying dance, auto-close bots; records/BOHEMIA_COORDINATOR_SCHOOL_SEVENTH_ROUND_THE_TRAIL_EVAPORATES_10_10_26.md)
 
 RULE: EVERY MARK HAS A HALF-LIFE, AND ONLY A LANE'S COMMIT RENEWS IT. Applied as front-page rule 96 (the rates, the quorum, the stop signal, the trail file) and by hand the same hour: the suite and cut lines keep the newest sweep, the break list keeps his October plays, rules 53, 58 and 60 fold to one line, the removed text verbatim in records/BOHEMIA_EVAPORATED_10_10_26.md. The machine (the trail file, the handoff split with its gate) is PLUMBER [the trail file], dry run first. The ant mill named: the sweep lines reinforcing themselves while his thumb, the food, is exhausted.
+
+## ROUND EIGHT: I INTEND TO (the USS Santa Fe, mission command, Nelson's memorandum, the Ritz's two thousand dollars; records/BOHEMIA_COORDINATOR_SCHOOL_EIGHTH_ROUND_I_INTEND_TO_10_10_26.md)
+
+RULE: THE ROW SAYS WHY AND WHAT HE SEES; THE LANE SAYS HOW, OUT LOUD, THEN GOES. Applied as front-page rule 97 (purpose, end state, constraint; the thumb test; the one-breath claim that folds rule 91's readback; deliberate action on every push) and to the board the same hour: the five rows the coordinator wrote this round that were orders in a row's clothes are rewritten as intent (the one stopwatch, the trail file, ten seconds to play, the triage filter, the calling script).
