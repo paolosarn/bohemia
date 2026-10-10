@@ -6734,7 +6734,7 @@
    "sha": "pending",
    "made": "10/9",
    "title": "A DEATH SHOULD COST THE LIVING WORK. AND I FIXED A BUG OF MINE.",
-   "why": "Nobody buries anybody in the game today, and I found I had made debt pass to heirs against your own ruling that debts die. Read the card in the VOTE tab: debts no longer cross, and the heir's first day could be carrying the body, facing the creditor, the house, and the name.",
+   "why": "Nobody buries anybody in the game yet, and debts no longer pass to heirs, matching your ruling that debts die. You see it in the VOTE tab, where the heir's first day carries the body, the creditor, the house and the name.",
    "show": {
     "how": "text",
     "src": "FIXED: a dead man's debt does not pass to his heir (you rule: you inherit the person, not the bill). Assets, level, perks and gear still do.\\nPROPOSED FIRST DAY OF AN HEIR: 1. carry him to the wall (you build, not dig, in this ground). 2. a creditor at the door: forgive, pay half, or take the house. 3. who is still in the house. 4. the name, said once."
@@ -6747,7 +6747,7 @@
    "sha": "53270ff",
    "made": "10/10",
    "title": "MODS TO COPY",
-   "why": "For whoever makes mods. Seven whole example mods: add an enemy, change where an origin starts, a wage, a perk number, add a helmet. Tap one to see the patch, the one lesson it teaches, and what the checker said. All were run through the real checks. The game does not load a mods folder yet.",
+   "why": "Seven whole example mods, from adding an enemy to changing a wage or a helmet, each with its patch, its one lesson and what the checker said. You see it in the VOTE tab when you tap one; the game does not load a mods folder yet.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_MODS_TO_COPY_10_10_26.html"
@@ -6761,7 +6761,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHEN A MAN WALKS",
-   "why": "Battle Brothers has seven moods, and only an angry man deserts. Each unpaid day drops a man one step, so a content hire is angry on day 3, which is your 'a couple of days'. Slide the days unpaid in the VOTE tab, and change his start and his nature (greedy, loyal, disloyal). Our demo has no company mood yet.",
+   "why": "In Battle Brothers each unpaid day drops a man one mood step and only an angry man deserts, so a content hire walks on day 3, your 'couple of days'. You see it in the VOTE tab when you slide the days unpaid and change his nature.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHEN_A_MAN_WALKS_10_10_26.html"
