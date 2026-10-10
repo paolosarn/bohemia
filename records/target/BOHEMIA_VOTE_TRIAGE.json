@@ -1,0 +1,722 @@
+{
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation.",
+ "cap": 12,
+ "tags": {
+  "run-clouds-and-the-near-stop-10-2": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "run-the-far-stop-keeps-the-land-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "run2-settlement-like-battle-brothers-10-4": {
+   "tag": "gray",
+   "why": "superseded by COOK FOUR's pack settlement (the only PASS)"
+  },
+  "combat2-building-types-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-buildings-in-the-fight-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat-the-fifty-perk-names-10-4": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "combat-the-bar-in-our-materials-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-freeway-and-landfill-recut-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-lines-run-through-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat-your-characters-in-the-fight-10-4": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat-auto-plays-like-battle-brothers-10-4": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run-the-near-end-is-the-block-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-settlement-pictures-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat-the-night-is-lit-by-the-street-10-4": {
+   "tag": "gray",
+   "why": "he said it 10/4: 'I love seeing the street lights light up the block' (NOTES ARE RULINGS)"
+  },
+  "grok-one-pain-line-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-the-ground-picks-the-pool-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-no-tile-names-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-gas-is-ammo-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-the-beat-and-the-dial-wait-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-formation-is-the-layout-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-spaghettioh-10-4": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "combat2-settlement-pictures-night-10-4": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat-the-fight-on-every-screen-10-4": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "night-you-can-read-in-the-sun-10-4": {
+   "tag": "gray",
+   "why": "he ruled it 10/4: playable in the sun"
+  },
+  "ui-the-fights-bar-10-4": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "sounds-the-ambience-comes-down-10-4": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "combat-night-you-can-read-10-4": {
+   "tag": "gray",
+   "why": "he ruled it 10/4: playable in the sun"
+  },
+  "sounds-the-turn-closes-10-4": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "run-one-song-10-4": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat2-night-in-the-sun-10-4": {
+   "tag": "gray",
+   "why": "he ruled it 10/4: playable in the sun"
+  },
+  "ui-settings-in-our-materials-10-4": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "run2-one-painted-place-10-5": {
+   "tag": "gray",
+   "why": "superseded by COOK FOUR's pack settlement"
+  },
+  "sounds-the-road-is-faster-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-dirt-is-slower-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-the-night-has-insects-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "ui-the-start-screens-look-10-5": {
+   "tag": "gray",
+   "why": "he said it 10/5: 'the new opening screen is awesome'"
+  },
+  "a-few-not-twelve-10-5": {
+   "tag": "gray",
+   "why": "he ruled it 10/5: a few thugs, not twelve"
+  },
+  "combat2-buildings-gas-and-motel-10-5": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-buildings-church-and-school-10-5": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-buildings-warehouse-and-casino-10-5": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat-your-formation-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run-the-start-screen-10-4": {
+   "tag": "gray",
+   "why": "he said it 10/5: 'the new opening screen is awesome'"
+  },
+  "combat2-the-wide-board-10-5": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "run2-the-market-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "the-title-in-two-seconds-10-5": {
+   "tag": "gray",
+   "why": "he ruled it 10/5: 'the new opening screen is awesome'; the load is a number on the release line"
+  },
+  "ui-the-settlements-labels-10-5": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "combat-the-enemy-math-10-5": {
+   "tag": "gray",
+   "why": "he ruled it 10/5: enemy math by day and difficulty"
+  },
+  "run-the-origin-sets-the-company-10-5": {
+   "tag": "gray",
+   "why": "he ruled it 10/5: the origin sets the company"
+  },
+  "run2-the-bag-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat-weapons-say-what-they-do-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "sounds-the-title-is-detuned-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-the-barbers-clippers-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-a-can-on-the-counter-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-the-boards-own-nail-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-paper-against-the-post-10-5": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "ui-every-item-is-an-icon-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat-the-enemy-plays-its-part-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run2-settlement-traits-10-5": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run-a-few-not-twelve-10-5": {
+   "tag": "gray",
+   "why": "he ruled it 10/5: a few thugs, not twelve"
+  },
+  "combat2-tiles-are-legos-10-5": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "ui-the-maps-bar-10-5": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "grok-first-crisis-around-day-100-10-9": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "grok-a-new-company-is-the-default-lone-wolf-is-his-10-9": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "mods-what-is-data-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "run2-the-roster-10-9": {
+   "tag": "gray",
+   "why": "his NO on the posts and climbing covers the roster's look; UI redoes it first"
+  },
+  "quests-the-contract-kinds-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "dynasty-act-state-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "grok-the-turns-are-too-short-10-9": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "lifecity-a-day-on-the-map-10-9": {
+   "tag": "gray",
+   "why": "lane on hold (rule 88); the map is for looks (rule 86)"
+  },
+  "economy-price-table-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "world-how-fast-and-who-10-9": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "cook-the-far-end-painted-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "folklore-beasts-become-machines-10-9": {
+   "tag": "gray",
+   "why": "his law 9/29: a boss is never an animal; lab-made beasts"
+  },
+  "tuning-what-each-difficulty-changes-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "combat-the-board-fits-the-party-10-9": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "mods-the-data-files-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "combat2-the-freeway-redone-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "quests-the-ten-road-events-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "animation-the-fights-clips-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "direction-the-demo-every-screen-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "tuning-every-number-the-fight-feels-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "mods-the-mods-folder-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "quests-the-rumour-at-the-bar-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "run2-the-bar-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "dynasty-heirs-on-entry-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "economy-stash-rates-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "character-the-enemy-tiers-dressed-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-street-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-suburb-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-lot-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-freeway-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-strip-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "combat2-boards-by-size-works-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "world-places-worth-going-to-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "cook-the-far-end-as-tiles-10-10": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "tuning-what-a-settlement-pays-you-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "mods-the-weapon-file-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "dynasty-company-inherits-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "quests-the-demos-chain-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "sounds-the-smiths-hammer-10-9": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "sounds-the-armourers-rivets-10-9": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "combat-a-turn-you-can-read-10-9": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run2-the-clinic-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "direction-fight-verdict-22-the-freeway-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "people-good-bros-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "lifecity-build-on-the-screen-10-9": {
+   "tag": "gray",
+   "why": "his two DOWN votes on building, rows retired"
+  },
+  "economy-the-contracts-worth-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "factions-four-with-a-face-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "plumber-first-load-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "combat2-the-casino-floor-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "ui-the-phones-look-10-9": {
+   "tag": "red",
+   "why": "the phone's look, after 'the UI is dogshit'"
+  },
+  "world-the-roads-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "animation-the-parties-walk-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "dynasty-grok-lore-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-when-the-ammo-runs-out-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "mods-a-modders-first-hour-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "what-real-material-means-for-a-sound-10-9": {
+   "tag": "red",
+   "why": "a real fork with no defensible default: what counts as real material for a sound"
+  },
+  "quests-the-wash-board-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "economy-the-price-of-mercy-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "cook-the-building-props-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "cook-his-block-as-a-place-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "cook-the-pack-is-the-twin-10-10": {
+   "tag": "red",
+   "why": "the bar he bought beside what we made: his 'look again' answered"
+  },
+  "cook-the-far-end-from-his-picks-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "mods-an-id-is-a-promise-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-every-roll-a-man-makes-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "grok-a-hire-walks-two-days-after-zero-10-9": {
+   "tag": "green",
+   "why": "a VIA GROK default: built as the default, he corrects by playing"
+  },
+  "factions-a-town-before-and-after-10-9": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "economy-the-shelf-not-the-price-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "run2-the-people-of-the-place-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "direction-the-four-phones-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "character-bb-gear-what-worn-gear-says-10-9": {
+   "tag": "gray",
+   "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
+  },
+  "world-the-three-blocks-10-10": {
+   "tag": "red",
+   "why": "the map is for looks (rule 86); the three blocks it needs"
+  },
+  "run-a-fresh-phone-sees-the-door-10-9": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat-struck-down-10-10": {
+   "tag": "gray",
+   "why": "he ruled it 9/27: 20% dead, else a long injury"
+  },
+  "animation-four-legs-10-9": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "people-the-long-injury-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "sounds-the-bars-glass-10-10": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "dynasty-who-buries-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "mods-mods-to-copy-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-when-a-man-walks-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "dynasty-days-per-life-10-9": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "run2-the-stash-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "factions-when-a-settlement-comes-for-you-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "mods-when-the-data-changes-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "economy-the-road-itself-charges-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "direction-the-demo-verdict-two-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "lifecity-a-raid-on-your-base-10-9": {
+   "tag": "gray",
+   "why": "lane on hold (rule 88); mechanics wait"
+  },
+  "sounds-a-block-is-two-things-touching-10-10": {
+   "tag": "yellow",
+   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+  },
+  "tuning-how-far-each-weapon-reaches-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-how-big-the-board-is-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-what-a-starting-company-is-worth-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-does-the-money-match-the-label-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "mods-patch-inside-a-list-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "factions-who-guards-the-six-places-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "run2-the-roster-shows-the-hurt-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "direction-the-twin-the-ground-10-10": {
+   "tag": "red",
+   "why": "the reference twin he asked for: our ground beside the pack he bought"
+  },
+  "economy-what-the-keeper-sees-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "combat2-the-rest-join-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "people-the-keepers-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "dynasty-flip-at-crisis-10-9": {
+   "tag": "gray",
+   "why": "his rule 85: the flip unlocks at the first crisis"
+  },
+  "combat-the-flipped-phones-look-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "character-wildlife-rig-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "run-the-demo-boots-light-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "dynasty-animal-era-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "factions-the-houses-at-war-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "economy-the-well-takes-longer-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "plumber-the-picture-leg-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "portrait-hair-match-regression-gate-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "lifecity-take-the-next-part-10-10": {
+   "tag": "gray",
+   "why": "switched off in the game under the hold; the lane retracted it"
+  },
+  "sounds-something-here-still-works-10-10": {
+   "tag": "red",
+   "why": "the sounds chat he unpaused himself; the first swing"
+  },
+  "character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "combat2-the-street-from-the-packs-10-10": {
+   "tag": "red",
+   "why": "the first fight ground made of his purchased tiles"
+  },
+  "combat-the-head-under-the-strip-10-10": {
+   "tag": "red",
+   "why": "the fight camera keeps the whole man; a look he can see in one tap"
+  },
+  "run-the-far-end-at-the-phones-pixels-10-10": {
+   "tag": "red",
+   "why": "the map at Battle Brothers' pixel count, his zoom pillar"
+  },
+  "cook4-the-settlement-from-the-packs-10-10": {
+   "tag": "red",
+   "why": "the only piece the art director has PASSED"
+  },
+  "factions-a-face-that-remembers-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "direction-fight-verdict-23-the-pack-boards-10-10": {
+   "tag": "yellow",
+   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+  },
+  "economy-what-a-crash-leaves-standing-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "plumber-the-reply-leg-10-10": {
+   "tag": "green",
+   "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  }
+ }
+}

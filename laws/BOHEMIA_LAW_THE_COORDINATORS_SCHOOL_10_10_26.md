@@ -43,3 +43,7 @@ Paolo: 'that was one out of 10... find unique angles in life, none of that confi
 ## ROUND TWO: READBACK (air traffic control, the operating room, the Army back-brief; records/BOHEMIA_COORDINATOR_SCHOOL_SECOND_ROUND_READBACK_10_10_26.md)
 
 RULE: NOTHING IS HEARD UNTIL IT IS SAID BACK AND THE SENDER SAYS CORRECT. Applied as front-page rule 91: the lane's READBACK on every claim, the coordinator's CORRECT or NEGATIVE on every readback at the top of every sweep, and WHAT I HEARD to Paolo on every ruling. The sounds misread was a hearback failure; this is its fix. Gate: PLUMBER [the readback leg].
+
+## ROUND THREE: TRIAGE (Larrey, START, the emergency room, bug triage; records/BOHEMIA_COORDINATOR_SCHOOL_THIRD_ROUND_TRIAGE_10_10_26.md)
+
+RULE: THE SORTER DOES NOT TREAT, AND THE WALKING LEAVE THE TENT. Applied as front-page rule 92 and as a real sort the same hour: 179 waiting items tagged (10 red, 38 yellow, 37 green, 94 gray) in records/target/BOHEMIA_VOTE_TRIAGE.json; twelve reds at most, one per lane per sweep; the sweep sorts lanes STILL / WAVE / WALK before reading a diff and writes eight notes or fewer. UI [the triage filter] makes the tab show it.
