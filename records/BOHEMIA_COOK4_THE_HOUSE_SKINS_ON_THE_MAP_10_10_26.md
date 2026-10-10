@@ -16,3 +16,10 @@ Three differences I see myself:
 1. One skin cell is 16 px on the map, so a window is a dark square; the pack-level detail is not there at this scale.
 2. The town is crowded; it wants one open lot or a parking apron on the street.
 3. No props yet (a car in a driveway, a carport, a palm): the heroes read empty at the near stop.
+
+## Round 2 (10/10, cook4)
+- Props from his packs (UP-only): wrecked cars on the street and in driveways (9. Abandoned cards), dead trees
+  (16. Dead trees and plants), one burn barrel per block; each with a small shadow.
+- The town gets an open lot where a house was, with two parked cars and the burn barrel.
+- The TRAILER hero (256x138) rebuilt: single-wides in rows from the wall skins with gravel roofs, a dirt lane, cars.
+- Twin sheet redrawn with all three (live left, skin-built right, 2x). Still at DIRECTION; TAKER RUN.

@@ -10,6 +10,10 @@
   "town": [
    256,
    160
+  ],
+  "trailer": [
+   256,
+   138
   ]
  },
  "skins": "banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (30 of 30 UP)",

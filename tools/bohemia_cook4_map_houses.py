@@ -36,6 +36,26 @@ def skin(i, n=CELL):
     t = SK[_ids[i]]
     return Image.open(io.BytesIO(base64.b64decode(t['b64']))).convert('RGBA').resize((n, n), Image.BOX)
 
+_PK = {}
+def pack(name, idx):
+    """a pack tile, UP-only (the 7/13 confirmed set), cached"""
+    if not _PK:
+        for i in range(1, 5):
+            d = json.load(open(os.path.join(ROOT, f'banks/BOHEMIA_HD_TILE_REPO_part{i}.txt')))
+            for k, v in d['packs'].items(): _PK.setdefault(k, v)
+        c = json.load(open(os.path.join(ROOT, 'banks/BOHEMIA_ACT1_CONFIRMED_SET_7_13_26.txt')))
+        _PK['__up__'] = {(x['pack'], x['idx']) for x in c['verdicts'] if x['v'] == 'UP'}
+    if (name, idx) not in _PK['__up__']:
+        raise SystemExit(f'REFUSED: {name}#{idx} is not in his approved set')
+    return Image.open(io.BytesIO(base64.b64decode(_PK[name][idx]['b64']))).convert('RGBA')
+
+def prop(canvas, iso, im, u, v, h):
+    """a pack prop standing on the plate at (u, v), scaled to h px tall, its foot on the ground"""
+    s = h / im.height; im = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.BOX)
+    x, y = iso.P(u, v)
+    sh = Image.new('RGBA', canvas.size); ImageDraw.Draw(sh).ellipse([x - im.width * .45 + 2, y - 2, x + im.width * .45 + 3, y + 2], fill=(30, 22, 16, 80))
+    canvas.alpha_composite(sh); canvas.alpha_composite(im, (int(x - im.width / 2), int(y - im.height)))
+
 def pack_street():
     for i in range(1, 5):
         d = json.load(open(os.path.join(ROOT, f'banks/BOHEMIA_HD_TILE_REPO_part{i}.txt')))
@@ -154,7 +174,7 @@ def shadow(canvas, iso, u0, v0, du, dv):
     d.polygon([iso.P(u0 + du, v0), iso.P(u0 + du + k, v0 + k * .4), iso.P(u0 + du + k, v0 + dv + k), iso.P(u0 + k * .4, v0 + dv + k), iso.P(u0, v0 + dv)], fill=(30, 22, 16, 90))
     canvas.alpha_composite(sh)
 
-def build(name, H, rng, lots, yard, st):
+def build(name, H, rng, lots, yard, st, props=()):
     c = Image.new('RGBA', (256, H)); iso = Iso(H)
     plate(c, iso, yard, rng)
     street(c, iso, .46, .56, st)
@@ -162,6 +182,8 @@ def build(name, H, rng, lots, yard, st):
         shadow(c, iso, L[0], L[1], L[2], L[3])
     for L in sorted(lots, key=lambda l: (l[0] + l[2] / 2) + (l[1] + l[3] / 2)):
         house(c, iso, rng, *L[:4], **(L[4] if len(L) > 4 else {}))
+    for (pk, ix, u, v, h) in sorted(props, key=lambda q: q[2] + q[3]):
+        prop(c, iso, pack(pk, ix), u, v, h)
     return c
 
 def main():
@@ -170,16 +192,27 @@ def main():
     # the suburb: two rows of single-storey tract houses either side of the street, clay roofs
     sub = [(u, v, .15, .15) for u in (.06, .28, .50, .72) for v in (.12,)] + \
           [(u, v, .15, .15) for u in (.08, .30, .52, .74) for v in (.66,)] + [(.08, .30, .13, .11)]
-    S = build('suburb', 154, rng, sub, 27, st)
+    CARS = '9. Abandoned cards'; TREE = '16. Dead trees and plants'
+    sub_props = [(CARS, 0, .25, .3, 9), (CARS, 3, .69, .31, 9), (CARS, 5, .27, .62, 9), (TREE, 3, .03, .2, 16),
+                 (TREE, 7, .92, .78, 16), (TREE, 3, .47, .86, 14), (CARS, 8, .58, .50, 9)]
+    S = build('suburb', 154, rng, sub, 27, st, sub_props)
     # the town: two-storey stucco shops with gravel flat roofs on the street, houses behind
     town = [(.04, .25, .22, .17, dict(storeys=2, flat=True)), (.30, .25, .2, .17, dict(storeys=2, flat=True)),
             (.54, .27, .18, .15, dict(storeys=1, flat=True)), (.76, .25, .19, .17, dict(storeys=2, flat=True)),
-            (.06, .62, .2, .17, dict(storeys=2, flat=True)), (.32, .62, .16, .15), (.54, .62, .2, .17, dict(storeys=2, flat=True)),
+            (.06, .62, .2, .17, dict(storeys=2, flat=True)), (.54, .62, .2, .17, dict(storeys=2, flat=True)),
             (.78, .64, .14, .14), (.08, .04, .15, .14), (.62, .04, .15, .14)]
-    T = build('town', 160, rng, town, 28, st)
-    S.save(os.path.join(OUT, 'suburb.png')); T.save(os.path.join(OUT, 'town.png'))
+    # the open lot where a house was: a parked car and a burn barrel on the bare ground
+    town_props = [(CARS, 10, .36, .68, 9), (CARS, 2, .44, .72, 9), ('18. Light sources and fire barrels', 24, .40, .80, 9),
+                  (CARS, 12, .2, .51, 9), (TREE, 9, .95, .1, 15)]
+    T = build('town', 160, rng, town, 28, st, town_props)
+    # the trailer park: long single-wides in rows on gravel, a car at each, no street through (a dirt lane)
+    trl = [(u, v, .26, .07, dict(flat=True, roof=7, wall=rng.choice([8, 10]))) for u in (.06, .38, .70) for v in (.1, .3, .66, .86)]
+    trl = [t for t in trl if not (t[0] == .70 and t[1] == .86)]
+    tr_props = [(CARS, 14, .8, .9, 9), (CARS, 4, .2, .5, 9), (TREE, 12, .9, .4, 15), ('18. Light sources and fire barrels', 24, .55, .5, 9)]
+    R_ = build('trailer', 138, rng, trl, 27, st, tr_props)
+    S.save(os.path.join(OUT, 'suburb.png')); T.save(os.path.join(OUT, 'town.png')); R_.save(os.path.join(OUT, 'trailer.png'))
     json.dump({'version': 'cook4-map-houses-10-10', 'lane': 'cook 4', 'for': 'RUN: HERO_SRC suburb and town, same names, same canvas, HERO_ANCH/HERO_PLATE unchanged',
-               'heroes': {'suburb': [256, 154], 'town': [256, 160]}, 'skins': 'banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (30 of 30 UP)',
+               'heroes': {'suburb': [256, 154], 'town': [256, 160], 'trailer': [256, 138]}, 'skins': 'banks/BOHEMIA_HOUSE_SKIN_CANDIDATES_7_21_26.txt (30 of 30 UP)',
                'pack': '1. Cracked street tiles#0'}, open(os.path.join(OUT, 'map_houses.json'), 'w'), indent=1)
     print('suburb', S.size, 'town', T.size)
 
