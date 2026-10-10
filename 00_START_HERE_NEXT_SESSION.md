@@ -18881,6 +18881,9 @@ above 0.40, which is the maximum legal lateral hip; and legCompress does the
 OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. So
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
+=== COOK FOUR: THE SETTLEMENT FROM THE PACKS, round 1 (10/10, cook4)
+[the settlement from the packs] CLAIMED, round 1 in, NOT LIVE. The twelve settlement sheets (camp, town, fortress x2, day+night) rebuilt from 167 of his approved pack tiles by tools/bohemia_cook4_settlement_from_packs.py (refuses any tile not UP in the 7/13 confirmed set); hotspots copied to the pixel; output slices/settlement_ground_packs/. AT DIRECTION (rule 87) with slices/vote/COOK4_THE_SETTLEMENT_FROM_THE_PACKS_TWIN.webp; not in VOTE until passed. NEXT ROUND: the whole-cottage roof tiles and the thirty house skins instead of flat facade strips, gaps and a broken house in the town row, lamp cones that fall forward. Record records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md. TAKER when passed: RUN TWO (swap the folder). Pages gate's 260 MB cap is red at 492 MB before this round (+7.6 MB here): PLUMBER's.
+
 === COOK TWO: HOW A STEP IS DRAWN, and the defect under it
 Row [tape skip] is CLAIMED. Before building any of it:
 
