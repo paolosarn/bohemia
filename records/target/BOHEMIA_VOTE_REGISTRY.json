@@ -7066,7 +7066,8 @@
     "how": "image",
     "src": "vote/COMBAT2_THE_REST_JOIN_10_10.png"
    }
-  }
+  },
+ {"id": "people-the-keepers-10-10", "kind": "tile", "lane": "people", "sha": "3131d9c0", "made": "10/10", "title": "THE KEEPERS", "why": "Six real crafts that fight with an animal, war dogs to camel cavalry, and the shape a company would need to carry one as a companion. You see it in the VOTE tab, item THE KEEPERS.", "show": {"how": "page", "src": "BOHEMIA_KEEPERS_10_10_26.html"}}
  ],
  "verdicts": [
   {

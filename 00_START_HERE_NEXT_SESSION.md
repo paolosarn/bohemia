@@ -19979,6 +19979,24 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/10 (b) LATEST -- *** [keepers] SHIPPED. SIX REAL
+CRAFTS THAT FIGHT WITH AN ANIMAL, AND A REAL GAP NAMED BEFORE BUILDING A
+FAKE FIX FOR IT. ***
+TAB: VOTE, item THE KEEPERS.
+
+Six real ways people have used animals as weapons through history, war
+dogs to camel cavalry to a Nevada falconer's eagle. Each one real, sourced
+to actual research, nothing made up.
+
+Before building the hire part, I checked whether this game can even let
+you walk around with an animal instead of a person. It can't, not yet.
+Wrote down exactly what that would take and left it for the lane that owns
+that piece, instead of forcing a half-working version in.
+
+Also closed an old duplicate row that asked for something I'd already
+built two rounds ago.
+Gate 26/0. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/10 LATEST -- *** PLUMBER FLAGGED TWO REDS FROM MY
 LAST SHIP. FIXED BOTH. ***
 TAB: VOTE, item THE LONG INJURY and THE KEEPERS SPEAK.

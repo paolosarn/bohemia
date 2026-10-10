@@ -1557,7 +1557,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10d - SHARP GROUND</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10e - THE KEEPERS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5009,6 +5009,77 @@ function descendantSpec(actNum, ancestor, opts){
   return sp;
 }
 window.descendantSpec = descendantSpec;
+
+/* ===== THE DESCENDANTS' BODIES ================================================
+   CHARACTER [three bodies], 10/10/26, with PORTRAIT's descendantSpec directly
+   above it (laws/BOHEMIA_LAW_THE_THREE_ACTS_AT_ONCE_9_23_26.md s5: "PORTRAIT
+   and CHARACTER derive the three faces and bodies from his own by the
+   heredity the family law already runs"). The face half shipped 9/27; this is
+   the body half. REUSE-FIRST, not a second mechanism: the SAME heritability
+   weights (DESCENDANT_H, DESCENDANT_LOOK_H), the SAME "roll an ordinary adult
+   first, then blend toward the ancestor" shape, the SAME "a whole bundle
+   moves together, never averaged" rule descendantSpec already proved on hair,
+   applied here to a whole outfit.
+
+   THE ORDINARY ADULT ROLL, FOR A BODY: faceFor() is a general roller for a
+   fresh face; there is no equivalent for a body. Every body dial set in this
+   game is hand-authored (FACTION_LOOKS, CITY_CAST_LOOKS), never randomly
+   rolled, so "an ordinary adult" body is a deterministic pick from that same
+   already-judged pool -- never an invented shape.
+
+   THE DIALS: five numbers (height, belly, arms, shoulders, hips), each in
+   [-1,1] by the rig's own law (BOH_BODYVAR's AMP comment: "0 is canon"; the
+   clamp here is the engine's real range, not a guess), blended toward the
+   ancestor's actual dials by the SAME DESCENDANT_H weight the face uses.
+
+   THE OUTFIT: the loudest channel (DESCENDANT_LOOK_H, 0.90, the same weight
+   hair and skin already carry) decides whole, never piece by piece: either
+   the descendant wears his ancestor's exact outfit (the worn bundle copied
+   whole, same rule as a haircut), or he does not inherit it and draws his
+   OWN independent look -- from the SAME pool either way, so a descendant is
+   always dressed in something already canon and already judged, which is
+   what "the runway names" means here: never a one-off invented for him. */
+function descendantBodyPool(){
+  var pool = [];
+  if (typeof FACTION_LOOKS !== 'undefined') FACTION_LOOKS.forEach(function(f){
+    pool.push({ dials: f.dials, worn: f.worn });
+  });
+  if (typeof CITY_CAST_LOOKS !== 'undefined') CITY_CAST_LOOKS.forEach(function(c){
+    pool.push({ dials: c.dials, worn: c.worn });
+  });
+  return pool;
+}
+window.descendantBodyPool = descendantBodyPool;
+function descendantBodySpec(actNum, ancestorDials, ancestorWorn, opts){
+  opts = opts || {};
+  var id = 'act' + actNum + 'body' + (opts.variant > 0 ? '~' + (opts.variant | 0) : '');
+  var hopN = opts.hopAs || actNum;
+  var h = DESCENDANT_H[hopN] || 0;
+  var pool = descendantBodyPool();
+  if (!pool.length) return { dials: {}, worn: {} };
+  var baseIdx = Math.floor(faceRollHash(id, 'descBodyBase') * pool.length) % pool.length;
+  var base = pool[baseIdx];
+  var dials = Object.assign({}, base.dials || {});
+  var aDials = ancestorDials || {};
+  if (h && ancestorDials) {
+    ['height', 'belly', 'arms', 'shoulders', 'hips'].forEach(function (k) {
+      var own = typeof dials[k] === 'number' ? dials[k] : 0;
+      var anc = typeof aDials[k] === 'number' ? aDials[k] : own;
+      var blended = own + (anc - own) * h;
+      dials[k] = Math.max(-1, Math.min(1, blended));
+    });
+  }
+  var lookH = DESCENDANT_LOOK_H[hopN] || h;
+  var worn;
+  if (ancestorWorn && faceRollHash(id, 'descOutfit') < lookH) {
+    worn = Object.assign({}, ancestorWorn);
+  } else {
+    var wIdx = Math.floor(faceRollHash(id, 'descBodyWorn') * pool.length) % pool.length;
+    worn = Object.assign({}, pool[wIdx].worn || {});
+  }
+  return { dials: dials, worn: worn, baseIdx: baseIdx };
+}
+window.descendantBodySpec = descendantBodySpec;
 
 /* ===== THE THIRTEEN OUTFITS ==================================================
    Paolo 7/19 STRUCTURE-NOT-COLOR, amended 8/15 to govern IDENTITY: a faction is
