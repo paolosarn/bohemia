@@ -30,3 +30,14 @@ in are the next row, [taken by a deal].
 
 ## Analog horror line
 The words are a man's voice at a gate, no fanfare; the fight opens in the clouds like every fight.
+
+## HELD (10/10, rule 88, the round after)
+Rule 88 (LOOKS FIRST, FEATURES HOLD, 7fb539be, 01:03) put LIFE+CITY on hold 43 minutes before this shipped
+(b88a6c36, 01:46). The lane read the front page at the start of its round only. Undone the round it was caught:
+- Take it is OFF in the game: `window.BUILD_TAKE_ON = false` in the settlement screen (tools/bohemia_settlement_build_patch.py);
+  a place you do not hold says only "This is not our ground. We build where we hold.", as before.
+- The VOTE item lifecity-take-the-next-part-10-10 is RETRACTED, unjudged (tools/bohemia_vote_registry_round14.py).
+- The map's raid machinery and the gate stay; the gate switches the flag on for itself (10/0) and asserts it is off
+  in the game. One flag lifts it when he lifts the hold.
+- The retry fix (a refused handover no longer closes the raid it reused) stays: it only matters once Take it is on.
+Lesson: re-read the front page before the push, not only before the claim.

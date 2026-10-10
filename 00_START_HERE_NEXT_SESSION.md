@@ -7202,7 +7202,12 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
-LIFE + CITY (city-1eztay): 10/10 LATEST -- *** [built on the map] and [built on the board] RETIRED (rule 86, his two DOWN
+LIFE + CITY (city-1eztay): 10/10b LATEST -- *** ON HOLD (rule 88, looks first). [take the next part] had shipped 43 min after the
+hold landed; undone: Take it is OFF in the game (window.BUILD_TAKE_ON = false), its VOTE item retracted unjudged, the machinery and
+its gate kept (TAKE THE NEXT PART 10/0, switches the flag on for itself). No new round until he lifts the hold; the three OPEN rows
+wait: [the powered blocks], [the feed], [taken by a deal]. Lifting it = flip one flag. *** TAB: none (nothing new to see).
+
+LIFE + CITY (city-1eztay): 10/10 -- *** [built on the map] and [built on the board] RETIRED (rule 86, his two DOWN
 votes; graveyard/built_on_the_map_and_board_10_10_26). [take the next part] SHIPPED: at a place you do not hold, BUILD offers
 Take it; one fight at their gate; a win makes it yours and its build list opens; a loss is a reload. *** TAB: VOTE.
 Record: records/BOHEMIA_TAKE_THE_NEXT_PART_10_10_26.md. Gate TAKE THE NEXT PART 9/0 (two alpha sessions, ~4 min).

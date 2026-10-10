@@ -10,7 +10,7 @@
 'use strict';
 const path = require('path');
 const D = require(path.join(__dirname, '..', 'tools', 'bohemia_drive_the_demo.js'));
-let pass = 0, fail = 0;
+let pass = 0, fail = 0, ON_HOLD = null;
 const ok = (n, c, d) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (d ? '  [' + d + ']' : '')); };
 async function openPlace(d, pick) {
   const name = await d.fr.evaluate((pick) => { const bs = ctBases();
@@ -23,6 +23,8 @@ async function openPlace(d, pick) {
       const bb = ww && await (await fr.frameElement()).boundingBox();
       if (ww && bb && bb.width > 0) { f = fr; w = ww; box = bb; break; } } }
   if (!w) throw new Error('the settlement screen never showed BUILD for ' + name);
+  const held = await f.evaluate(() => window.BUILD_TAKE_ON);
+  if (!pick) { ON_HOLD = held === false; await f.evaluate(() => { window.BUILD_TAKE_ON = true; }); }   /* rule 88: off in the game, on for the gate */
   await d.page.touchscreen.tap(box.x + w.x, box.y + w.y); await d.page.waitForTimeout(800);
   const sheet = await f.evaluate(() => ({ say: (document.querySelector('#sbody .say p') || {}).textContent || '', acts: [...document.querySelectorAll('#sbody .act')].map(a => a.querySelector('span').textContent) }));
   return { name, f, sheet };
@@ -36,6 +38,7 @@ async function fightReady(d) { let sh = {}; for (let k = 0; k < 60; k++) { await
     try {
       await d.toMap();
       const p = await openPlace(d);
+      if (win) ok('HOLD while rule 88 stands, Take it is off in the game (the gate switches it on)', ON_HOLD === true);
       if (win) ok('A at a place you do not hold, BUILD offers one thing: Take it', /not our ground/i.test(p.sheet.say) && p.sheet.acts.join() === 'Take it', p.name + ': ' + p.sheet.acts.join());
       await pressTake(d, p.f);
       const sh = await fightReady(d);
