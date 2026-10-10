@@ -28,6 +28,21 @@
  * MEASURED ON THE REAL SURFACE, in the running city, never on the source text alone --
  * except check 4, which is a source check by nature and says so.
  *
+ * RE-GROUNDED 10/10/26 (CHARACTER [wildlife rig] round): this gate had been red for
+ * reasons that were never the body. (a) A static check's regex still read the camera
+ * global by its pre-refactor name (cv.width) and had silently stopped matching since;
+ * fixed to read the current global and, since the predicate it checked is deliberately
+ * dead code (rule 18 retired it), re-aimed to confirm it stays unwired rather than
+ * assert its old, superseded behaviour. (b) The demo's own default boot state changed
+ * under this gate: since rule 38 (9/28, "the demo opens on the map"), a fresh boot lands
+ * in MODE city, not MODE human, so peoplePass never ran and every leg below measured a
+ * frame with nobody drawn on it -- 0 of every number, every run, since the map-first
+ * revamp landed, and nobody had looked. The gate now sets MODE human itself before
+ * measuring (the same direct assignment it already used for its own city-mode check),
+ * landing the game in the state rule 21 is actually about. The walked street itself was
+ * never broken; pinching in from the map still reaches it and the body still draws fixed
+ * at 112 the moment it does.
+ *
  *   python3 -m http.server 8231 &
  *   node gates/body_scale_gate.js
  */
@@ -80,9 +95,22 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      real camera and cannot make a giant on a tight one. */
   ok('RUN\'s constant is READ by its real name, never copied into a second table here',
      /typeof STEP_CELLS === 'number'/.test(SRC) && !/window\.BOHEMIA_STEP_FINE\s*\|/.test(SRC));
-  ok('and the body grows off THE CAMERA, not off the step -- a step of 5 must not put a '
-     + 'person taller than a doorway on a tight zoom',
-     /lotFitsOnScreen/.test(SRC) && /cv\.width \* 0\.9/.test(SRC));
+  /* RE-AIMED (CHARACTER [wildlife rig] round, 10/10), SAME CLASS OF DRIFT THE GATE'S OWN
+     LATER CHECKS WERE ALREADY FIXED FOR (see "RE-AIMED 9/20" below): this leg asked
+     whether the body grows off a camera that fits a lot on screen, which was the 9/15
+     law (THE STEP IS A HOUSE). Rule 18 (9/20/9/21, "ONE FIXED SIZE WHILE HE WALKS")
+     superseded it and the code says so in its own comment: lotFitsOnScreen is kept for
+     a future lane to ask the question, "NOT WIRED TO ANYTHING and must not be re-wired
+     to the body." Confirmed by reading bodyLadder's own body: it returns BODY_FIXED or
+     the city ladder and never calls lotFitsOnScreen at all. The regex that used to check
+     this leg (/cv\.width \* 0\.9/) had also silently stopped matching the source (the
+     camera global is CVW now), so this leg was failing on BOTH counts and nobody had
+     looked since 9/15. The newest ruling wins: the predicate exists for later, but
+     bodyLadder must never call it. */
+  const bodyLadderFn = (SRC.match(/function bodyLadder\(C\)\{[\s\S]*?\n\}/) || [''])[0];
+  ok('lotFitsOnScreen is KEPT for a later lane but bodyLadder never calls it -- rule 18 '
+     + '(ONE FIXED SIZE WHILE HE WALKS) retired the camera-driven growth rule 16 built',
+     /lotFitsOnScreen/.test(SRC) && !!bodyLadderFn && !/lotFitsOnScreen/.test(bodyLadderFn));
   ok('and it only grows him on a STREET -- a lot fits the screen at city zoom too, and a '
      + 'giant standing over a whole city is the one place a person should be a speck',
      /MODE !== 'human'\) return false/.test(SRC));
@@ -102,6 +130,19 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
   if (!fr) { ok('the walked city is reachable from the demo at all', false); await b.close(); done(); }
 
   const R = await fr.evaluate(() => {
+    /* THE DEMO NO LONGER BOOTS ONTO THE STREET (CHARACTER [wildlife rig] round, 10/10;
+       rule 38, 9/28: "THE DEMO OPENS ON THE MAP AND A TAP IS HOW YOU TRAVEL"). This gate
+       was written 9/15 to 9/21, when a fresh boot landed in MODE human with feet on a
+       street; measured on this round's main, a fresh boot now lands in MODE city, and
+       peoplePass (the thing that fills BARK_DREW, the only body this gate can measure)
+       never runs there -- so the gate asked for a body on a frame that was never going to
+       draw one, every run since the map-first revamp, 0 of every leg below meaningless by
+       construction. THE GAME IS NOT BROKEN: pinching in still reaches MODE human (the
+       walked street still exists, in a fight and in special places) and a person still
+       draws fixed at 112 the moment it does, confirmed by hand. This is the same direct
+       assignment the gate's own later CITY-mode check already uses on the same variable,
+       just landing the game in the state rule 21 is actually about before measuring it. */
+    MODE = 'human';
     render();
     /* THE ZOOMS THE WALK ACTUALLY USES. HZOOM is 44 and the transition animates up to 48,
        so these are the cells a person is ever drawn on WITH HIS FEET ON A STREET. The small
@@ -189,16 +230,22 @@ const done = () => { console.log('\n=== BODY SCALE GATE: ' + pass + ' passed, ' 
      when [one camera] lands, the body must already be the size it is now, with no further
      work in this lane. Under the old wire it would have been 28 px there. */
   const t = R.todayBody, L = R.atLotCamera;
+  /* GUARDED (CHARACTER [wildlife rig] round, 10/10): a null t used to throw a bare
+     TypeError here instead of a readable FAIL, which is exactly what happened when the
+     mode-boot bug above left t null on every run -- the checklist never printed past this
+     line and the real cause (no body drawn) was buried under a stack trace. A crash is a
+     worse report than a red leg. */
   ok('*** AND THE CAMERA WHERE A HOUSE FITS GETS THE SAME PERSON *** -- so RUN [one camera] '
      + 'can land without this lane touching anything (' + (L ? L.painted : '?') + ' px there '
-     + 'against ' + t.painted + ' px now)',
-     !!L && Math.abs(L.painted - t.painted) < 1);
+     + 'against ' + (t ? t.painted : '?') + ' px now)',
+     !!t && !!L && Math.abs(L.painted - t.painted) < 1);
   ok('and the old wire would have drawn him at a quarter of that, which is the failure this '
      + 'gate was opened for (old rung would be 28)', !!L && L.box > 28);
 
   if (errs.length) console.log('  note: page errors -- ' + errs.slice(0, 2).join(' | '));
-  console.log('\n  today: body ' + t.painted + ' px in a ' + t.box + ' box at HC ' + R.HC
+  if (t) console.log('\n  today: body ' + t.painted + ' px in a ' + t.box + ' box at HC ' + R.HC
     + '; a lot is ' + R.lot + ' fine cells (' + (R.lot * 0.75).toFixed(1)
     + ' m, derived from the fine cell this lane measured at 0.75 m)');
+  else console.log('\n  today: no body was drawn to measure (see the first FAIL above)');
   done();
 })();

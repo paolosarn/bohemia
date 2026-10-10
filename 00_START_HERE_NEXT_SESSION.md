@@ -1,3 +1,34 @@
+CHARACTER (character-0lurbs): 10/10 (g) LATEST -- *** MY OWN CHECKER FOR KEEPING A
+PERSON ONE SIZE WHILE HE WALKS WAS BROKEN, AND IT WAS NOT THE BODY. IT WAS ASKING
+ABOUT A STREET NOBODY WAS STANDING ON. ***
+TAB: no tab, this is a gate fix, nothing for you to look at.
+Record: records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt.
+
+BOTH OF THIS LANE'S OPEN ROWS ARE STILL GENUINELY BLOCKED, CHECKED FRESH THIS
+ROUND: [the twin on the thirteen] needs DIRECTION's reference twin for the
+character family, and I checked reference/art_bank/ myself, it is still not
+there (DIRECTION's own row says people and the runway are next, not landed
+yet). [look verdict] needs DIRECTION's judgment, not mine. Neither is
+something I can force, so I did not try.
+
+WHAT I DID INSTEAD: rule 87 keeps this lane on the rigs, dials and gates
+while COOK THREE paints, so I ran my own gate that keeps people one size
+while they walk. It crashed. Looked into why instead of ignoring it.
+
+TWO REAL BUGS, BOTH IN THE CHECKER, NEVER IN THE GAME: one line of the
+checker was looking for an old name a number used to have, and that number
+stopped mattering months ago anyway. The bigger one: the demo used to open
+with you standing on a street, and now it opens on the map instead, which
+is right and already shipped by another lane weeks ago. My checker never
+got the memo, so every time it ran, it was looking at a screen with no one
+standing on it and crashing confused. Fixed both. Ran it twice after, clean
+both times, person still one size, 102 pixels, same as always.
+
+Nobody needs to worry that a person on the street actually changed size.
+Checked that by hand too; it never did.
+
+PENDING Paolo: nothing new.
+
 SOUNDS (sound-xk7pjp): 10/10 LATEST (round twelve, UNPAUSED BY YOU DIRECTLY) -- ***
 YOU TOLD ME TO STOP MAKING MID SOUNDS AND MAKE A GREAT ONE. HERE IT IS. ***
 TAB: VOTE, one item, SOMETHING HERE STILL WORKS.

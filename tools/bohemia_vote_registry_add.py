@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-wildlife-rig-10-10'
+MINE_ID = 'character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "line", "lane": "character",
   "sha": "pending", "made": "10/10",
-  "title": "A COYOTE IS NOT A PHOTOGRAPH OF ITSELF ANYMORE",
-  "why": "A coyote on the street used to be its own smaller, blurrier size and never moved a leg; this is a rig fix, not a new look, so no pixel changed and no reference twin exists for an animal nobody has downloaded art of. You see it here, three coyotes forced on screen so you do not have to go find one.",
+  "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
+  "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
   "show": {
     "how": "text",
-    "src": "records/BOHEMIA_THE_WILDLIFE_RIG_10_10_26.txt; a screenshot sits at slices/vote/CHARACTER_WILDLIFE_RIG.png and the page that frames it at slices/vote/CHARACTER_WILDLIFE_RIG.html, neither is an art sheet under rule 82 (zero new pixels, the coyote bank is untouched) and wildlife is not one of rule 82's named families, so no reference twin was invented.\n\nSeen in: the record and the two files above; no tab yet, this is a rendering mechanism, not a look."
+    "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
