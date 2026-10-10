@@ -736,6 +736,30 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* THE FLIPPED PHONE'S LOOK (rule 88): nothing of the bar lies on the men. On a wide glass the hint sits in the strip beside
+   the faces, never over a man's box; on every screen the strip's tape ends at its last face (it was stretched over the
+   whole width, a smear over the shop fronts) */
+async function flippedLook() {
+  const rows = [];
+  for (const profile of ['phone_landscape', 'tablet', 'computer', 'phone_portrait']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && document.getElementById('say').textContent, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1500);
+    const r = await d.page.evaluate(() => { const e = document.getElementById('say').getBoundingClientRect(), o = document.getElementById('order').getBoundingClientRect();
+      const faces = Array.from(document.querySelectorAll('#order canvas')).map(c => c.getBoundingClientRect().right), tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near;
+      const over = FIGHT.S.units.filter(FIGHT.onField).filter(u => { const x = sx((u.x + .5) * FIGHT_UI.tw), y = sy((u.y + .9) * FIGHT_UI.th);
+        return x + tall / 4 > e.left && x - tall / 4 < e.right && y > e.top && y - tall < e.bottom && y > TOPH && y - tall < H - BOTH; }).length;
+      return { over, inStrip: document.getElementById('say').classList.contains('instrip'), sayBottom: e.bottom, top: TOPH, tape: o.right - Math.max(...faces) }; });
+    r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  const wide = rows.filter(r => r.profile !== 'phone_portrait');
+  leg(wide.every(r => r.inStrip && r.sayBottom <= r.top + 2 && r.over === 0 && !r.err),
+    '*** THE FLIPPED PHONE\'S LOOK (rule 88) ***: on a wide glass the hint sits in the strip beside the faces and never on a man',
+    wide.map(r => r.profile + ' ' + (r.inStrip ? 'in the strip' : 'on the board') + ', ' + r.over + ' men under it').join('; '));
+  leg(rows.every(r => r.tape <= 8), '  the strip\'s tape ends at its last face on every screen (it was stretched over the whole glass)',
+    rows.map(r => r.profile + ' ' + Math.round(r.tape) + ' pt past the last face').join(', '));
+}
+
 async function artPixels() {
   const at = async (profile, night) => {
     const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false,night:' + night + '}' });
@@ -815,6 +839,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await flippedLook();
   await artPixels();
   await struckDown();
   await turnPace();
