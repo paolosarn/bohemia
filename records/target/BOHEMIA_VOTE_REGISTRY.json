@@ -6387,6 +6387,19 @@
    }
   },
   {
+    "id": "cook-the-building-props-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE SIX BUILDINGS' PROPS",
+    "why": "The six new buildings had nothing in them, so here is one prop each: pumps for the gas station, pews spilling out of the church, a school fence with a gate in it, the motel ice machine, warehouse pallets and slot machines dumped in the casino's back lot, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six with their sizes on them.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_BUILDING_PROPS.png"
+    }
+  },
+  {
    "id": "run2-climbing-10-10",
    "kind": "ui",
    "lane": "run 2",

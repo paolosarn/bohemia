@@ -2567,6 +2567,71 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (d) LATEST -- *** THE SIX BUILDINGS' PROPS, WHICH CLOSES
+[the board props]. ***
+
+1. THE ROW'S PREMISE, CHECKED BEFORE I DREW ANYTHING. COMBAT TWO's seven buildings are in
+their bank at the same 42.9 px a metre we both use. Their GAS STATION IS A CANOPY ON POSTS
+OVER AN EMPTY FORECOURT: the pump islands are painted out and there is not a pump on them. A
+fight on that board is a fight in a car park with a roof. The row is right that the props are
+missing, and that is where I started.
+
+2. SHIPPED, ONE PROP PER BUILDING, each with its real size, its height, cover or blocker
+measured against a chest at 1.30 m, and rule 77's four typed edges:
+   FUEL PUMPS ON THEIR ISLAND   gas_station  5.0 x 1.2 m  1.90  BLOCKER (kerb 0.15 proud)
+   PEW ROW THROUGH THE WALL     church       6.0 x 1.6    0.92  COVER you can see over
+   SCHOOL FENCE WITH ITS GATE   school      12.0 x 0.1    1.83  BLOCKER you see through
+   MOTEL ICE MACHINE            motel        0.95 x 0.80  1.70  BLOCKER, the word draft:true
+   PALLET STACKS                warehouse    2.4 x 1.0    1.05  COVER
+   SLOT MACHINES, BACK LOT      casino_back  4.8 x 3.0    1.55  BLOCKER, 0.62 where fallen
+The back lot is the one that gives a board BOTH heights in one piece. Tool
+tools/bohemia_the_building_props_cook_10_10_26.py, bank
+banks/BOHEMIA_THE_BUILDING_PROPS_10_10_26.txt, record
+records/BOHEMIA_THE_BUILDING_PROPS_MEASURED_10_10_26.txt, VOTE cook-the-building-props-10-10
+(kind 'tile'). TAKER: COMBAT TWO, and the bank's how_to_use says place the FOOTPRINT and
+never scale the FACE.
+
+3. *** FIVE FAULTS, AND FOUR OF THEM WERE ONLY FOUND BY LOOKING AFTER EVERY GUARD WAS
+GREEN. *** This keeps happening and it is the lesson of the round: measure AND look.
+   (a) THE BACK LOT RAN OFF ITS OWN PLATE. I laid 5.4 m of machines and rubble inside a 4.0 m
+   plate; the far machine was cropped by the canvas and the footprint I was filing was a lie.
+   Every guard stayed green BECAUSE THEY ALL READ THE PLATE AND NOT THE PAINT. Fixed to 4.8 m
+   AND a new guard paints every prop again on a plate with a 40 px margin and reads the
+   margin. Proved it bites: on the old layout it reports 763 px out past the plate.
+   (b) THE TWO STANDING SLOT MACHINES WERE THE SAME PICTURE TWICE, six pixels apart. NOTHING
+   IS STAMPED cannot see that: it compares one prop with another, never a prop with itself.
+   One has its belly glass put through now.
+   (c) The pews read as a long trestle table until they got the SOLID END STANDARD, and the
+   joint measurement then made me move it: a standard inside the unit left one edge solid
+   wood and the other open air (34 against 11 inside). It STRADDLES the join now, which is
+   also how a real pew row is built, one standard shared between two pews. 0 against 11.
+   (d) The pump island was his concrete CELLS, which are a 44 px floor texture with cracks;
+   at a 13 px kerb that is pure noise and it read as gravel.
+   (e) The ice machine's bottom had three grille lines, a rust curtain and the feet all
+   fighting for eleven pixels, and the ICE sign was dark-on-light when a sign reads the other
+   way round.
+
+4. *** AND A QUOTA I INVENTED MADE ME DO SOMETHING STUPID, TWICE. *** I wrote myself a guard
+saying at least TWO of the six had to be a WHOLE piece out of the cupboard. To hit that number
+I put his yard rubble at the foot of the slot machines (painted for bright open ground at a
+finer grain than this kit; in a dark service yard it read as boulders and owned the picture)
+and HIS OIL DRUM on the fuel island -- and his oil drum is a BURNING BARREL with a lit fire
+coming out of the top, which next to fuel pumps is wrong twice over. Both came back out.
+REUSE-FIRST SAYS LOOK FIRST. It does not say force it in, and a number I made up is not the
+law. The quota is gone and a LEDGER replaces it, which the build checks: every whole piece
+taken off the shelf is written down with what happened to it and why, and each name has to be
+a real thing in the cupboard. One whole piece earned its place -- the school fence IS this
+lane's own 9/30 chain-link run, twice, with the gate cut in it, because a school fence IS a
+chain-link run with one way through, and the gate is the whole point on a board: a wall is
+geometry, a wall with one door in it is a decision.
+
+5. SWEEP AE ANSWERED (rule 22g): the registry kinds are a closed list, this round registered
+kind 'tile', and the splice asserts zero invented kinds and nobody lost (472 -> 473 before the
+rebase, 487 after other lanes' items came in).
+
+NEXT: [settlement art] THE-PLACE-DRAWN-ALIVE, the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 10/10 (c) LATEST -- *** PLUMBER'S BOUNCE-BACK FIXED FIRST, THEN THE
 FREEWAY KIT. ***
 
