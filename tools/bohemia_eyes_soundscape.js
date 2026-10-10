@@ -112,23 +112,21 @@ async function control(page) {
     report.audioContext = { afterTitle: await acState() };
     console.log('  [audio] MUS.AC.state after the title: ' + report.audioContext.afterTitle);
 
-    // 1. MAP
-    const s0 = await d.toMap();
-    console.log('  [driver] the map is up: czoom ' + s0.czoom);
-    await p.waitForTimeout(1000);
-    report.audioContext.afterToMap = await acState();
-    console.log('  [audio] MUS.AC.state after toMap(): ' + report.audioContext.afterToMap);
-    await resetHook(p);
-    const mapT0 = Date.now();
-    await p.waitForTimeout(SECONDS * 1000);
-    const mapRead = await readHook(p);
-    report.screens.map = { seconds: +((Date.now() - mapT0) / 1000).toFixed(1), ...mapRead };
-    console.log('  [map] ' + Object.keys(mapRead.asked).length + ' distinct sounds, ' + mapRead.renders + ' rendered');
-
-    // 2. SETTLEMENT: tap the nearest town, the loop gate's own proven pattern
+    /* ORDER MATTERS, FOUND THIS ROUND: toMap() does not land at a normal browsing zoom, it
+       lands at the camera's own far FLOOR in one continuous squeeze (0.208, the exact number
+       [the far stop's pixels counted] measured this same session) -- there is no intermediate
+       "look around the map" stop on this camera. A first draft measured the map FIRST, then
+       tried to reach the settlement from that extreme zoom, and the tap on the town never
+       opened it (LOOP.frame never even got created -- a real reach bug, confirmed with a direct
+       state read, not assumed). FIXED: reach the settlement and the fight first, from the
+       game's own natural starting state (exactly the order [a stranger's five minutes judged]
+       already proved works), and measure the map LAST, since nothing needs to be reached after
+       it. */
     const fr = d.fr || (await (async () => { for (const f of p.frames()) {
       if (await f.evaluate(() => typeof CZOOM !== 'undefined').catch(() => false)) return f; } return null; })());
-    if (!fr) throw new Error('no city frame found after toMap()');
+    if (!fr) throw new Error('no city frame found after boot');
+
+    // 1. SETTLEMENT: tap the nearest town, the loop gate's own proven pattern
     const touchCell = async (x, y) => { const q = await fr.evaluate(([x, y]) => { const r = document.getElementById('cv').getBoundingClientRect(); const i = __CITY.isoAt(x, y); return { x: r.left + i.sx, y: r.top + i.sy + TH / 2 }; }, [x, y]); await p.touchscreen.tap(q.x, q.y).catch(() => p.mouse.click(q.x, q.y)); };
     const waitFor = async (fn, ms) => { const t = Date.now(); while (Date.now() - t < ms) { if (await fn()) return true; await p.waitForTimeout(300); } return false; };
     const town = await fr.evaluate(() => { const bs = ctBases() || {}; let best = null; for (const n in bs) { const b = bs[n], dd = Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)); if (dd >= 2 && (!best || dd < best.d)) best = { n, x: b.x, y: b.y, d: dd }; } return best; });
@@ -160,7 +158,7 @@ async function control(page) {
       report.screens.settlement = { error: 'settlement not reached this run' };
     }
 
-    // 3. FIGHT: take the board contract, go to the job, same reach as [a stranger's five minutes judged]
+    // 2. FIGHT: take the board contract, go to the job, same reach as [a stranger's five minutes judged]
     const fh = await p.$('#settleFrame') || (fr ? await fr.$('#settleFrame') : null);
     const sf = fh ? await fh.contentFrame() : null;
     const fb = fh ? await fh.boundingBox() : null;
@@ -204,6 +202,20 @@ async function control(page) {
           + report.screens.fight.seconds + 's (cap ' + SECONDS + 's)');
       } else report.screens.fight = { error: 'fight iframe not confirmed this run' };
     } else report.screens.fight = { error: 'fight not reached this run' };
+
+    // 3. MAP: last, since the camera's own squeeze lands at the far floor (0.208) and nothing
+    // needs reaching after it (found this round, see the note above where fr is first read)
+    const s0 = await d.toMap();
+    console.log('  [driver] the map is up: czoom ' + s0.czoom);
+    await p.waitForTimeout(1000);
+    report.audioContext.afterToMap = await acState();
+    console.log('  [audio] MUS.AC.state after toMap(): ' + report.audioContext.afterToMap);
+    await resetHook(p);
+    const mapT0 = Date.now();
+    await p.waitForTimeout(SECONDS * 1000);
+    const mapRead = await readHook(p);
+    report.screens.map = { seconds: +((Date.now() - mapT0) / 1000).toFixed(1), ...mapRead };
+    console.log('  [map] ' + Object.keys(mapRead.asked).length + ' distinct sounds, ' + mapRead.renders + ' rendered');
 
     report.control = await control(p);
     console.log('  [control] firing one sound by hand moved the render counter: ' + report.control.moved);
