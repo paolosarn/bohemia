@@ -877,6 +877,29 @@ const MEASURE = `
     } catch (e) { out.weaponBlockErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'the best sounds of all time... impress
+     me'). struckMetal's bell and powerOnHum are both already proven sounds; what is NEW here
+     is a real sidechain duck, so the claim has to prove the duck actually happens over time,
+     not just that two layers are present. TWO RENDERS AT THE DUCK'S OWN EXTREMES (0 and 0.9)
+     are compared in two windows: right after the strike, where the bell's envelope is near
+     its peak and a duck should make a real difference, and two seconds later, where the
+     bell has mostly decayed and a duck has almost nothing left to grab. */
+  (function () {
+    try {
+      const lf = H.legendaryFind(ctx, {});
+      const bellAlone = H.struckMetal(ctx, { what: 'bell' });
+      const d0 = H.legendaryFind(ctx, { duckAmount: 0 }).buffer.getChannelData(0);
+      const d9 = H.legendaryFind(ctx, { duckAmount: 0.9 }).buffer.getChannelData(0);
+      const rmsDiff = (a1, a2, lo, hi) => { let s = 0, c = 0; for (let i = lo; i < hi && i < a1.length && i < a2.length; i++) { const x = a1[i] - a2[i]; s += x * x; c++; } return c ? Math.sqrt(s / c) : 0; };
+      const earlyLo = 0, earlyHi = Math.round(SR * 0.05);
+      const lateLo = Math.round(SR * 2.0), lateHi = Math.round(SR * 2.2);
+      out.legendaryFind = { bellF0: lf.bellF0, duckAmount: lf.duckAmount, seconds: lf.seconds,
+        machineIsEar: !!lf.machine && lf.machine.hi === null,
+        bellRatiosCount: bellAlone.ratios.length,
+        earlyDiff: rmsDiff(d0, d9, earlyLo, earlyHi), lateDiff: rmsDiff(d0, d9, lateLo, lateHi) };
+    } catch (e) { out.legendaryFindErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1336,6 +1359,10 @@ const MEASURE = `
         /* AND THE BLOCK (10/10): the same trap a fourth time. */
         H.weaponBlock = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
           woodSurface: 'mutated', edgeF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND SOMETHING HERE STILL WORKS (10/10): struckMetal and powerOnHum both by
+           closure, and the duck itself only exists inside this wrapper. */
+        H.legendaryFind = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          bellF0: 0, duckAmount: 0, seconds: 0, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -2186,6 +2213,30 @@ const MEASURE = `
         BR ? (100*BR.above4k).toFixed(2) + '% of its energy sits above 4 kHz, against the '
           + 'redo list\'s own 1% bar and the frozen block id\'s measured 0.289%' : 'no row');
     } else { claim('The block was measured', false, d.weaponBlockErr || 'no reading'); }
+    if (d.legendaryFind) {
+      const LF = d.legendaryFind;
+      claim('SOMETHING HERE STILL WORKS IS BOTH ALREADY-SHIPPED MATERIALS, NEITHER ONE NEW',
+        LF.bellF0 === 220 && LF.bellRatiosCount === 8 && LF.machineIsEar && LF.seconds > 0,
+        'struckMetal\'s bell at ' + LF.bellF0 + ' Hz, its full 8-partial founder-tuned series '
+        + '-- the same table entry [bb ambience]\'s hourly chime already uses, no new row '
+        + 'added for this -- summed with powerOnHum, also already shipped');
+      /* THE REAL CLAIM: a sidechain duck is a construction nobody in this file has done
+         before, so its own PRESENCE has to be measured, not assumed from reading the
+         code. Two renders at the duck's own extremes (0 and 0.9) are compared in two
+         windows: right at the strike, where ducking should matter, and two seconds later,
+         where the bell has mostly decayed and there is almost nothing left to duck. */
+      claim('AND THE DUCK IS REAL: the two duck settings sound measurably different right at the strike',
+        LF.earlyDiff > 0.02,
+        'two renders at duckAmount 0 and 0.9 differ by ' + LF.earlyDiff.toFixed(4) + ' rms '
+        + 'in the first 50 ms, where the bell\'s own envelope is near its peak and a real '
+        + 'duck has the most hum to pull back');
+      claim('AND THE DUCK LETS GO: the same two settings converge once the bell has decayed',
+        LF.lateDiff < LF.earlyDiff * 0.5,
+        'the same two renders differ by only ' + LF.lateDiff.toFixed(4) + ' rms two seconds '
+        + 'in, ' + (LF.earlyDiff / Math.max(LF.lateDiff, 1e-9)).toFixed(1) + 'x less than at '
+        + 'the strike -- a real envelope follower releases as the thing driving it quiets '
+        + 'down, it does not hold a fixed cut the whole buffer');
+    } else { claim('Something here still works was measured', false, d.legendaryFindErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

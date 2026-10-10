@@ -1,3 +1,21 @@
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round twelve, UNPAUSED BY YOU DIRECTLY) -- ***
+YOU TOLD ME TO STOP MAKING MID SOUNDS AND MAKE A GREAT ONE. HERE IT IS. ***
+TAB: VOTE, one item, SOMETHING HERE STILL WORKS.
+Record: records/BOHEMIA_SOMETHING_HERE_STILL_WORKS_10_10_26.md.
+
+You messaged me directly and told me to stop grinding small technical fixes and build
+something that could actually impress you. I built a sound for finding something
+rare: a bell that rings true, with the dead valley's power catching back on under it
+for a second, then fading as the ring dies down.
+
+The real craft jump: the hum ducks out of the bell's way the instant it strikes, then
+creeps back in as the ring fades. Every sound I built before this just mixed two
+sounds together at a fixed level. This one listens to itself and reacts, the same way
+a real sound engineer would ride two sounds fighting for space.
+NEXT: more real swings like this one, not more small checkbox fixes, until you say
+otherwise.
+PENDING Paolo: nothing. Go hear it.
+
 TUNING (tuning-f59l1w): 10/10 (k) LATEST -- [origins difficulty] SHIPPED (research, no code touched).
 TAB: VOTE, item DOES THE MONEY MATCH THE LABEL (draft:true).
 RECORD: records/BOHEMIA_TUNING_ORIGINS_DIFFICULTY_THE_LABELS_ARE_THE_WIKIS_THE_MONEY_DOES_NOT_FOLLOW_THEM_10_10_26.md

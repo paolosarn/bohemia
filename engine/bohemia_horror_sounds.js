@@ -1882,6 +1882,70 @@
     };
   }
 
+  /* ==== 13b7. SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'create more of the best
+     sounds of all time instead of implementing mid sounds... impress me'). HIS RULING,
+     NOT A REDO-LIST ITEM: build an ambitious, memorable moment, not another checkbox.
+
+     WHAT THE MOMENT IS: finding something genuinely rare in a dead valley where almost
+     nothing works any more. THE CONSTRUCTION IS REUSE-FIRST ALL THE WAY DOWN -- both
+     layers are sounds this engine already shipped, zero new material, zero new table
+     entries -- but the TECHNIQUE is new to this file: a real sidechain duck, the
+     transient's own envelope pulling the sustained layer back while it is loudest, the
+     way a mixer manages two real sources competing for the same air. Every composite
+     sound this lane has built before this (canOnWood, barGlassDown, weaponBlock,
+     partsPass) is a FLAT sum at a fixed ratio; this is the first one where one layer
+     reacts to the other over time.
+
+     THE BELL is struckMetal's own founder-tuned minor third (STRIKE.bell), the same
+     material [bb ambience]'s hourly chime already uses -- reused for a second diegetic
+     moment, not a second bell. A found object that still works, ringing true, is the
+     "voice" of the moment: bright, immediate, the transient.
+
+     THE HUM is powerOnHum, already shipped (a transformer's core pulling in, 40 to 120 Hz
+     over 0.6 s) -- the valley itself catching up to the object, the sustained body under
+     the ring. Two real electrical/acoustic causes, nothing invented, the sum timed so the
+     hum's own rise lands under the bell's decay rather than racing it. */
+  function legendaryFind(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 220 : opts.f0;
+    var bellSecs = opts.bellSecs == null ? 2.5 : opts.bellSecs;
+    var humSecs = opts.humSecs == null ? 2.2 : opts.humSecs;
+    var duckAmount = opts.duckAmount == null ? 0.6 : opts.duckAmount;
+    var bell = struckMetal(ctx, { what: 'bell', f0: f0, secs: bellSecs });
+    var hum = powerOnHum(ctx, { secs: humSecs, riseSec: 0.6 });
+    var sr = ctx.sampleRate;
+    var bd = bell.buffer.getChannelData(0), hd = hum.buffer.getChannelData(0);
+    var n = Math.max(bd.length, hd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var env = new Float64Array(n);
+    /* THE SIDECHAIN FOLLOWER: a fast attack (2 ms), a slower release (120 ms), the
+       standard shape a real compressor's detector uses so a duck snaps in on the hit
+       and eases back out rather than chattering on every sample. Normalised to the
+       bell's own loudest instant so duckAmount is a fraction of THIS strike, not an
+       absolute level that would duck differently at a different f0 or gain. */
+    var atk = Math.exp(-1 / (sr * 0.002)), rel = Math.exp(-1 / (sr * 0.12));
+    var peak = 0, i;
+    for (i = 0; i < n; i++) { var a = i < bd.length ? Math.abs(bd[i]) : 0;
+      env[i] = a > (i ? env[i - 1] : 0) ? atk * (i ? env[i - 1] : 0) + (1 - atk) * a
+                                        : rel * (i ? env[i - 1] : 0) + (1 - rel) * a;
+      if (env[i] > peak) peak = env[i]; }
+    for (i = 0; i < n; i++) {
+      var duck = peak > 0 ? 1 - duckAmount * (env[i] / peak) : 1;
+      d[i] = (i < bd.length ? bd[i] : 0) * 0.85 + (i < hd.length ? hd[i] * duck : 0) * 0.5;
+    }
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: bell.machine, seconds: n / sr, bellF0: f0, duckAmount: duckAmount,
+      /* the ratio the gate proves the duck really happened by: how loud the hum's own
+         band reads inside the bell's loudest 50 ms against how loud it reads once the
+         bell's transient has passed, when nothing is ducking it any more */
+      why: 'struckMetal\'s own founder-tuned bell (the hourly chime\'s material, a second '
+        + 'moment for it) ringing over powerOnHum\'s transformer catching in, the hum '
+        + 'sidechain-ducked by the bell\'s own envelope -- the first sound in this file '
+        + 'where one real layer reacts to another instead of a flat sum'
+    };
+  }
+
   /* ==== 13c. THE GROUND TAKES IT, AND BOOTS GOING SOMEWHERE (10/1) ===============
      Continuing the keep/redo list (records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b):
      dirt_take ("the shot that missed arrives somewhere... built out of HIS instruments,
@@ -2517,6 +2581,7 @@
     armourerRivets: armourerRivets,
     barGlassDown: barGlassDown,
     weaponBlock: weaponBlock,
+    legendaryFind: legendaryFind,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2707,7 +2772,10 @@
         /* THE BLOCK (row [not sand], the keep/redo list's last eight): a parry is two
            hard things touching, which the redo list's own definition already covers. */
         { id: 'sounds-a-block-is-two-things-touching-10-10', make: 'weaponBlock',
-          title: "A BLOCK IS TWO THINGS TOUCHING" }
+          title: "A BLOCK IS TWO THINGS TOUCHING" },
+        /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: build the best, not the mid). */
+        { id: 'sounds-something-here-still-works-10-10', make: 'legendaryFind',
+          title: "SOMETHING HERE STILL WORKS" }
       ];
     }
   };
