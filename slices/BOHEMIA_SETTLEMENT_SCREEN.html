@@ -653,6 +653,11 @@ var FOLK = null, FOLK_IM = {};
 fetch('settlement_people/settlement_people.json').then(function(r){ return r.json(); }).then(function(j){ FOLK = j;
   Object.keys(j.looks).forEach(function(k){ var im = new Image(); im.src = 'settlement_people/' + j.looks[k].file; FOLK_IM[k] = im; }); }).catch(function(){});
 var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch'};
+/* A PERSON IS A DOOR TALL (RUN TWO [a person is a door tall], 10/10, his NO: 'look at the door and look at the
+   person; someone should be the size of a door'): the doors in COOK FOUR's pack pictures, measured by eye at 1:1
+   (town_0 224..362, town_1 952..1090, fortress_0 350..480), so a person's figure (figure_bbox height) is drawn that tall */
+var DOOR_PX = {camp:134, town:138, fortress:130, home:136};
+function folkFrame(){ var fh = FOLK.figure_bbox[3]; return (DOOR_PX[S.place.tier] || 136) * FOLK.frame / fh; }
 var CROWD_BASE = {camp:2, town:5, fortress:4};
 var CROWD_CLIPS = ['wait','look','smoke','greet','scratch','lean'];
 function crowdCount(){
@@ -675,13 +680,13 @@ function folkList(){
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
     out.push({crowd:true, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
-      x:(st[0]+st[2])/2 + Math.cos(ang)*(st[2]-st[0])*rad*.8, y:Math.min(picH()-4, st[3] + 6 + Math.abs(Math.sin(ang))*22*rad), ph:R()}); }
+      x:(st[0]+st[2])/2 + Math.cos(ang)*Math.max(st[2]-st[0], 260)*rad, y:Math.min(picH()-4, st[3] + 10 + Math.abs(Math.sin(ang))*60*rad), ph:R()}); }
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
 }
 function drawPeople(s){
   var L = folkList(); if(!L.length) return;
-  var F = FOLK.frame, at = FOLK.scale.draw_frame_at, now = performance.now(), d = at*s;
+  var F = FOLK.frame, at = folkFrame(), now = performance.now(), d = at*s;
   L.forEach(function(p){
     var im = FOLK_IM[p.look], c = FOLK.clips[p.clip] || FOLK.clips.wait; if(!im || !im.complete || !im.naturalWidth) return;
     var prog = ((now/(c.beats*500)) + p.ph) % 1, col = FOLK.cols.indexOf(c.cols[Math.floor(prog*c.cols.length)]), row = FOLK.rows.indexOf(p.face);
@@ -1061,7 +1066,7 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {_view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

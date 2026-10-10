@@ -59,6 +59,24 @@ const srv = http.createServer((rq, rs) => {
     if (ids[0] === 'market_day' || !ids.length) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_THE_PEOPLE_' + (ids[0] ? 'MARKET_DAY' : 'TOWN') + '_10_10.png') });
   }
   ok('market day fills the street, raided and sick empty it', tr.market_day > tr.plain && tr.raided <= 1 && tr.sickness <= 1, JSON.stringify(tr));
+  /* A PERSON IS A DOOR TALL: measured on the screen, not in the code. Shoot the town with its people and with them
+     hidden, and the tallest changed run of pixels at a keeper is his height; the door is DOOR_PX at the screen's scale */
+  for (const tier of ['camp', 'town', 'fortress']) {
+    await p.evaluate(t => BohemiaSettlement.open({ place: { tier: t, name: 'DOOR ' + t }, traits: [], night: false }), tier); await p.waitForTimeout(700);
+    const m = await p.evaluate(async () => {
+      const L = BohemiaSettlement.folk(), k = L.find(x => x.keeper && x.k === 'hall') || L.find(x => x.keeper);
+      BohemiaSettlement.where(k.k); await new Promise(r => setTimeout(r, 200));
+      const c = document.querySelector('canvas'), dpr = c.width / c.clientWidth, sc = BohemiaSettlement.scale();
+      const grab = () => { const g = document.createElement('canvas'); g.width = c.width; g.height = c.height; g.getContext('2d').drawImage(c, 0, 0); return g.getContext('2d').getImageData(0, 0, c.width, c.height).data; };
+      const keep = L.slice(); const A = grab(); L.length = 0; L.push(k); await new Promise(r => setTimeout(r, 120)); const B0 = grab(); L.length = 0; await new Promise(r => setTimeout(r, 120)); const Z = grab(); keep.forEach(x => L.push(x));
+      const v = BohemiaSettlement._view(), cx = Math.round((v.ox + k.x * v.s) * dpr), fy = Math.round((v.oy + k.y * v.s) * dpr), hw = Math.round(30 * dpr);
+      let top = null, bot = null;
+      for (let y = Math.max(0, fy - Math.round(200 * dpr)); y < Math.min(c.height, fy + Math.round(6 * dpr)); y++) for (let x = Math.max(0, cx - hw); x < Math.min(c.width, cx + hw); x++) {
+        const i = (y * c.width + x) * 4; if (Math.abs(B0[i] - Z[i]) + Math.abs(B0[i + 1] - Z[i + 1]) + Math.abs(B0[i + 2] - Z[i + 2]) > 30) { if (top === null) top = y; bot = y; } }
+      return { person: top === null ? 0 : (bot - top + 1) / dpr / v.s, door: sc.door };
+    });
+    ok(tier + ': a person is a door tall (measured on the screen)', m.person > 0 && Math.abs(m.person / m.door - 1) <= 0.12, 'person ' + m.person.toFixed(0) + ' / door ' + m.door + ' = ' + (m.person / m.door).toFixed(2));
+  }
   /* every building's tap still lands on COOK's finished picture */
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], night: false }));
   await p.waitForTimeout(400);
