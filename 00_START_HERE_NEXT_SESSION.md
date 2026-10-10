@@ -1,3 +1,5 @@
+QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 designs whose reward is a picture change, each with ASSET NEEDED for COOK/DIRECTION. Pages only (rule 88). NOT IN A TAB. Next: [eighth shelf].
+
 WORLD (world-9lfjtf): 10/10 (f) LATEST -- *** STILL ON HOLD. THIRD VAMILY WITH NO
 ROUND. *** Rule 88 is unchanged and still names WORLD on the ON HOLD list: no
 round, no VOTE sheet, nothing into the demo, the rows stay OPEN, and the only
