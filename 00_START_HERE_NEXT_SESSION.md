@@ -3333,6 +3333,24 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (k) -- [the dollar's last month] SHIPPED
+(research only, page without a sheet -- rule 88's hold, no code touched, no VOTE sheet).
+Record: records/BOHEMIA_ECONOMY_DAY_67_THE_DOLLARS_LAST_MONTH_10_10_26.md
+FINDING: four real currency deaths (Weimar 1923, Zimbabwe 2008, Venezuela 2016-2019, Argentina
+2001) share one week-by-week shape: week 1 prices lag and scarcity shows up before any sticker
+does; week 2 shops reprice often and dual pricing appears; week 3 a parallel currency or
+barter medium shows up; week 4 the old money is refused outright or replaced. Rent is the
+slowest price to move every single time (Weimar's renters briefly paid almost nothing in real
+terms), which is the historically honest reason a held lot should read cheap against food at
+the opening. And the batteries-as-money premise is not a fun substitution, it is the real
+pattern: Argentina's scrip and barter and Zimbabwe's informal dollarization are both the same
+fallback, a durable divisible physical good standing in once the currency fails. Eight bank
+lines, draft:true.
+NEXT OPEN (jump list, rule 74): [what a raid costs the raided], [the 32 situations] -- both
+also pages without sheets under rule 88's hold.
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (j) -- [the bubble] SHIPPED (research/school, no
 code touched -- the row's own text calls for a school). THE JUMP LIST IS NOW EMPTY: every OPEN
 row in this lane's section has shipped; next round pulls whatever the coordinator adds next.

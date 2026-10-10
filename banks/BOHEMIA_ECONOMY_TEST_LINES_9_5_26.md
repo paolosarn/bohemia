@@ -4828,3 +4828,44 @@ SSSSSSSSSSSSSSSSSSSSSSS8  the one who fought three others for that same room    
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## KKKKKKKKKKKKKKKKKKKKKKKK. THE MONEY'S LAST MONTH (round 67)
+
+SSSSSSSSSSSSSSSSSSSSSSSS1  a man paid twice in one day, both times running       draft:true
+    "Morning money buys breakfast. By lunch it's not worth the walk to spend it."
+
+SSSSSSSSSSSSSSSSSSSSSSSS2  a shopkeeper rewriting the same chalkboard twice      draft:true
+    "I priced it at dawn. I'm pricing it again before noon."
+
+SSSSSSSSSSSSSSSSSSSSSSSS3  the one still paying last month's rent, on paper      draft:true
+    "Same number it's always been. Nobody's bothered to notice it's nothing now."
+
+SSSSSSSSSSSSSSSSSSSSSSSS4  a landlord finally doing the math on that rent        draft:true
+    "I could've asked for anything these last weeks. I was too slow to see it."
+
+SSSSSSSSSSSSSSSSSSSSSSSS5  a woman trading a bar of soap for a sack of flour     draft:true
+    "Nobody's counting the old money anymore. Everybody still trusts a bar of soap."
+
+SSSSSSSSSSSSSSSSSSSSSSSS6  the one who started keeping two prices on everything draft:true
+    "One number for the old paper, one for anything that still holds its worth."
+
+SSSSSSSSSSSSSSSSSSSSSSSS7  a man who stood in line for cash that wasn't there    draft:true
+    "The number in my account's a joke. The problem is there's none of it to hold."
+
+SSSSSSSSSSSSSSSSSSSSSSSS8  the one who started paying in batteries instead       draft:true
+    "Nobody argues what a battery's worth. Everybody wants one. That's the whole trick."
+
+## LLLLLLLLLLLLLLLLLLLLLLLL. WHAT IS NOT HERE, ON PURPOSE (round 67)
+
+- No line names Weimar, Zimbabwe, Venezuela, Argentina, a mark, a bolivar or a peso. The whole
+  finding is said as money paid twice a day, a chalkboard rewritten, slow rent, a traded bar
+  of soap, two prices on one shelf, and a line for cash that was not there.
+- No line resolves a week-by-week percentage. Those stay in the record's own table, sourced
+  not spoken.
+- No line claims the batteries habit started on one single day. SSSSSSSSSSSSSSSSSSSSSSSS8 is
+  one person's own account, not a rule stated as fact.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 675 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
