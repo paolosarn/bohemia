@@ -27,6 +27,13 @@ const TIERS = [
   { id: 'brigand_leader', label: 'LEADER', add: {} },
   { id: 'brigand_marauder', label: 'MARAUDER', add: { back: 'CHARCOAL ROAD CAPE', gear: 'STEEL SPIKED PAULDRON' } }
 ].map(t => Object.assign(t, { faction: band[t.id][0].replace('faction_', '') }));
+/* THE FIVE ARMOUR STATES (CHARACTER [armour you can see], his NO 'good idea, terrible
+   implementation'): one plain man, bare to plate, CHARACTER's skins from armor_tiers.json
+   read not changed; the paint makes each state a MATERIAL instead of an olive hoodie. */
+const SKINS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armor_tiers.json'), 'utf8')).skins;
+const BASE_PERSON = { hair: 'DRY TAPER', base: 'FADED BLACK LONGSLEEVE', legs: 'BLACK DENIM', feet: 'TALL MOTO BOOTS' };
+for (const k of ['BARE', 'PADDED', 'LEATHER', 'MAIL', 'PLATE'])
+  TIERS.push({ id: 'state_' + k, label: k, add: Object.assign({}, SKINS[k] || {}), person: BASE_PERSON });
 const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
 
 (async () => {
@@ -46,7 +53,7 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
     const out = [];
     try {
       for (const t of TIERS) {
-        const f = FACTION_LOOKS.find(x => x.faction.toLowerCase() === t.faction.toLowerCase());
+        const f = t.person ? { faction: 'one man', worn: t.person, dials: {}, age: 'adult' } : FACTION_LOOKS.find(x => x.faction.toLowerCase() === t.faction.toLowerCase());
         const worn = Object.assign({}, f.worn, t.add);
         const fr = frameWith(worn, f), naked = frameWith({}, f), W = fr.CW, H = fr.CH;
         const slots = Object.keys(t.add).length ? Object.keys(t.add) : ['outer', 'back'].filter(k => worn[k]).concat(worn.outer || worn.back ? [] : ['base']);
@@ -54,6 +61,7 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
         for (const k of slots) { const solo = frameWith({ [k]: worn[k] }, f);
           armour = armour.map((v, i) => v || (!!fr.px[i] && !!solo.px[i] && !same(solo.px[i], naked.px[i]) && same(solo.px[i], fr.px[i]))); }
         const R = PAINT.tiers[t.label];
+        if (R.none) armour = armour.map(() => false);
         /* HEAVY TIERS: the armour is the whole chest (rig parts 3,4), cloth only, plus the added pieces;
            round 1 painted only the pieces and they were 188 to 445 pixels, invisible. */
         if (R.chest) armour = armour.map((v, i) => v || (!!fr.px[i] && (fr.grid[i] === 3 || fr.grid[i] === 4)));

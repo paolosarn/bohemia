@@ -24,3 +24,9 @@ Still open: the white box behind each figure in the SHEET (not the game); the fr
 2. Leader same at 28 px: the gold is now under the plate's lames (every 6 rows a dark seam and a lit row), lit top edges, and a darker belly (35% toward the hem).
 3. Mail as checkerboard: now ROWS, a light row and a dark row, lit at the shoulder and darker to the hem, a faint link every other pixel on the light rows.
 Back to DIRECTION. The five armour states are the next round.
+
+# ROUND 4 (10/10, cook3-vamily): THE FIVE ARMOUR STATES
+One plain man (CHARACTER's BASE_PERSON), bare to plate, CHARACTER's skins from records/target/bb/armor_tiers.json read not changed; the same sheet, five more columns, before and after 1:1 and at 28 px.
+BARE untouched | PADDED quilted chest 1287 px (was an olive hoodie) | LEATHER brown 1467 | MAIL rows down the arms 1607 | PLATE seamed steel, belly dark, 1703.
+His NO was 'good idea, terrible implementation': the before row is an olive hoodie, an olive hoodie with a jacket, an olive hoodie with a vest. The after row is five materials.
+Open: at 28 px MAIL and PLATE are both grey; plate needs a value step (lighter lit edges, or darker overall) to separate. Next round, with DIRECTION's verdict.

@@ -118,6 +118,31 @@
       "spikes": true,
       "chest": true,
       "belly": 0.25
+    },
+    "BARE": {
+      "material": "padded",
+      "none": true,
+      "quilt": 4
+    },
+    "PADDED": {
+      "material": "padded",
+      "quilt": 3,
+      "chest": true
+    },
+    "LEATHER": {
+      "material": "leather",
+      "chest": true
+    },
+    "MAIL": {
+      "material": "mail",
+      "chest": true,
+      "arms": true
+    },
+    "PLATE": {
+      "material": "plate",
+      "lames": 5,
+      "chest": true,
+      "belly": 0.25
     }
   }
 }
