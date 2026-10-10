@@ -24,6 +24,13 @@ CUE 9.5 | COMBAT | both teams on the glass at the open and as they close, no swi
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
 
+10/10 BUILD 10/10o, written by RUN within ten minutes of its pages run:
+1. STAMP and RUN TIME: BUILD 10/10o - THE FAR END BACK, live at a4ebf434 (pages run 3035 SUCCESS).
+2. CUES CALLED and LANDED: none; this is his own ruling 104f carried out (the far end he liked as the default), riding nothing else.
+3. WHO WENT ON: nobody replaced; no scrub.
+4. WHAT WENT WRONG: nothing new; the far stop's land hashes as it did before the phone-pixel cut. The time to play is still over ten seconds (owner RUN [ten seconds to play]).
+5. INJURIES (what reached his phone wrong): none new.
+
 10/10 BUILD 10/10m, written by RUN within ten minutes of its pages run:
 1. STAMP and RUN TIME: BUILD 10/10m - NOTHING COMES TWICE, live at acbd6d89 (pages run 3016 SUCCESS, 21:16:55Z).
 2. CUES CALLED and LANDED: CUE 6 landed (it is the STOP block's own fix; every push to main is cut at deploy). No other cue rode it.
