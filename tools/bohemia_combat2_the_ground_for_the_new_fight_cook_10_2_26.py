@@ -121,6 +121,57 @@ MAKERS = {
 }
 
 
+# ROUND TWENTY-NINE (rule 82a, 87: THE BOARDS FROM THE PACKS): every town street is re-laid from COOK TWO's street
+# kit (slices/fight_ground/kit_street, his approved pools, keyed): the two-walk road along row 2, the two-walk road down
+# every cross-street column, the junction where they meet with its zebras beside it, one worn arrow a block. Only the
+# street's own pixels are replaced (asphalt and walk, read by the edge reader's classifier); buildings, yards and
+# shadows stay until COOK FOUR re-cuts them. COMBAT TWO lays; COOK TWO owns the pixels.
+KIT_DIR = os.path.join(OUT_DIR, 'kit_street')
+EW_KINDS = ('subs', 'corner', 'cornerw', 'lots', 'suburb_stem', 'main', 'works', 'strip', 'ruin')
+NS_COLS = {'corner': {2: range(5)}, 'cornerw': {0: range(5)}, 'suburb_stem': {2: range(3)}, 'culdesac': {2: (3, 4)},
+           'freewayo': {2: range(5)}, 'scrubroad': {2: range(5)}}   # the overpass and the desert road carry the same kit street
+_KIT = {}
+KIT_TILES = [set()]
+KIT_PLAN = [{}]
+KIT_PLANS = {}
+
+
+def kit(name):
+    if name not in _KIT:
+        _KIT[name] = Image.open(os.path.join(KIT_DIR, name + '.webp')).convert('RGB'); B.OK |= K.colours(_KIT[name])   # his pools' colours are allowed colours
+    return _KIT[name]
+
+
+def from_the_kit(board, kind, seed):
+    """Re-lay this block's street tiles from the kit; returns the board and the kit keys it used."""
+    if not os.path.exists(os.path.join(KIT_DIR, 'kit_street.json')): return board, []
+    a = np.asarray(board.convert('RGB')).copy()
+    plan = {}
+    if kind in EW_KINDS:
+        for c in range(N): plan[(2, c)] = 'road_ew_both'
+    for c, rows in NS_COLS.get(kind, {}).items():
+        for r in rows: plan[(r, c)] = 'junction' if (r, c) in plan else 'road_ns_both'
+    for (r, c), piece in list(plan.items()):
+        if piece != 'junction': continue
+        for dc in (-1, 1):
+            if plan.get((r, c + dc)) == 'road_ew_both': plan[(r, c + dc)] = 'crossing_ew'
+        for dr in (-1, 1):
+            if plan.get((r + dr, c)) == 'road_ns_both': plan[(r + dr, c)] = 'crossing_ns'
+    plain = [k for k, v in plan.items() if v == 'road_ew_both']
+    if plain: plan[plain[seed % len(plain)]] = 'road_ew_arrow'
+    for (r, c), piece in plan.items():
+        y0, x0 = r * PY, c * PX
+        old = a[y0:y0 + PY, x0:x0 + PX]
+        med = old.astype(int)
+        mx = med.max(2); warm = med[..., 0] - med[..., 2]
+        street = (mx < 112) | ((warm < 56) & (mx >= 112))                # the edge reader's road and walk: asphalt, shadow, concrete
+        new = np.asarray(kit(piece))[:PY, :PX]                          # never mirrored: the kit's own edges are what join (COOK TWO's gate)
+        old[street] = new[street]
+    KIT_TILES[0] = set(plan)
+    KIT_PLAN[0] = {'%d,%d' % rc: pc for rc, pc in plan.items()}
+    return Image.fromarray(a), sorted(set(plan.values()))
+
+
 def culdesac_stem(block):
     """ROUND TWENTY-EIGHT (rule 77): the cul-de-sac's stem leaves its block as the town's own cross street (the
        one cached tile, column 2, rows 3 and 4), so the stem below meets it lane for lane."""
@@ -164,7 +215,7 @@ def wash_terrain(b):
 import random
 # ROUND ELEVEN (sweep L): every board is SEEDED from a palette of blocks per row, so the plan changes
 # across the width and down the board; no block sits beside or above its own twin.
-HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'corner.2', 'cornerw.0', 'cornerw.1', 'lots.0']
+HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'corner.2', 'lots.0']   # round twenty-nine: cornerw waits on COOK TWO's four-way piece (its junction would sit on the block's side)
 TOWN = HOUSES + ['main.0', 'main.1', 'works.0']            # round fourteen: main street and the works mix into town boards
 PALETTES = {
     'suburb':   [HOUSES, HOUSES + ['main.0'], HOUSES],
@@ -273,6 +324,7 @@ def lego_layouts(edges):
 
 
 CANON = []
+KIT_USED = {}
 
 
 def main():
@@ -309,11 +361,13 @@ def main():
         res = MAKERS[kind]()
         board, pieces, surf, grid = res[:4]
         if kind in L.TOWN_KINDS or kind in L.CROSS_KINDS: board = L.stud(board, kind, CANON[0], CANON[1], (PX, PY), CANON[2])   # round twenty-two: the studs
-        B.guard({bid: (board, pieces, surf)}, cover)
+        board, KIT_USED[bid] = from_the_kit(board, kind, int(v) * 7 + len(kind))   # round twenty-nine: the street from his packs
+        KIT_PLANS[bid] = KIT_PLAN[0]; KIT_PLAN[0] = {}
+        B.guard({bid: (board, pieces, surf)}, cover, {bid: KIT_TILES[0]}); KIT_TILES[0] = set()
         blocks[bid] = (board, pieces, grid)
         print('  block', bid)
     variant(0)
-    edges = {bid: L.edges_of_img(b[0], (PX, PY)) for bid, b in blocks.items()}
+    edges = {bid: L.kit_override(L.edges_of_img(b[0], (PX, PY)), KIT_PLANS.get(bid)) for bid, b in blocks.items()}
     BOARDS = lego_layouts(edges)
     used = sorted({b for lay in BOARDS.values() for row in lay for b in row})
     for f in os.listdir(OUT_DIR):
@@ -339,7 +393,7 @@ def main():
                             'blocked': 'impassable, blocks sight'},
                cover={k: dict(src='cover_%s.png' % k, **{kk: vv for kk, vv in meta.items()}) for k, (im, meta) in cover.items()},
                cover_extra={k: dict(src='cover_%s.png' % k, **(BT.FURN_META[k] if k in BT.FURN_META else dict(h=(2.5 if k == 'outcrop' else 1.4), kind=('MOUND' if k == 'outcrop' else 'COVER')))) for k in extra},
-               blocks={bid: dict(src='block_%s.png' % bid.replace('.', '_')) for bid in blocks},
+               blocks={bid: dict(src='block_%s.png' % bid.replace('.', '_'), **({'kit_street': KIT_USED[bid], 'kit_plan': KIT_PLANS[bid]} if KIT_USED.get(bid) else {})) for bid in blocks},
                lights_key={'lamp': 'a street lamp; live ones light a pool radius_m around their base (night: a lit tile plays as day)',
                            'drum': 'an oil drum with a fire in it, always live', 'anchor': 'x_m, y_m = the sprite base; draw it bottom-centred',
                            'circuit': "'grid' lamps burn only where the map says this block has power (rule 73); 'fire' always burns", 'block': '[block row, block column]: the unit the map powers'},

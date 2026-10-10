@@ -309,13 +309,15 @@ def piece_img(pid, cover):
     return cover[pid][0]
 
 
-def guard(kinds, cover):
+def guard(kinds, cover, kit_tiles=None):
+    """kit_tiles: {name: {(r, c), ...}} tiles laid from an approved kit (rule 82a), which repeat by design."""
     for name, (board, pieces, surf) in kinds.items():
         tiles = cut(board)
         seen = set()
-        for row in tiles:
-            for t in row:
+        for r_, row in enumerate(tiles):
+            for c_, t in enumerate(row):
                 if t.size != (PX, PY): die('%s tile is %s, not %dx%d' % (name, t.size, PX, PY))
+                if (kit_tiles or {}).get(name) and (r_, c_) in kit_tiles[name]: continue
                 if t.tobytes() in seen: die('%s has a stamped tile' % name)
                 seen.add(t.tobytes())
         bad = K.colours(board) - OK

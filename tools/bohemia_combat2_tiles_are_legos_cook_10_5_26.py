@@ -334,8 +334,46 @@ def solve(palettes, edges, rng, fixed=None, twins=True, tries=4000, cols=4):
     return lay if go(0) else None
 
 
+KIT_JSON = os.path.join(DIR, 'kit_street', 'kit_street.json')
+
+
+def kit_override(e, plan, tile=(515, 364)):
+    """rule 82a: a tile laid from COOK TWO's kit carries the edges the kit declares (its own gate, COOK2 STREET KIT,
+       proves the pixels agree), so the block's side over that tile reads the declared runs and lines."""
+    if not plan or not os.path.exists(KIT_JSON): return e
+    kit = json.load(open(KIT_JSON))['pieces']
+    PX, PY = tile
+    for key, piece in plan.items():
+        r, c = map(int, key.split(','))
+        k = kit[piece]
+        for side, hit in (('W', c == 0), ('E', c == 4), ('N', r == 0), ('S', r == 4)):
+            if not hit: continue
+            span_px = PY if side in 'WE' else PX
+            off = (r if side in 'WE' else c) * span_px
+            lo, hi = off, off + span_px
+            runs = [[t, a, b] for t, a, b in e[side]['runs'] if b <= lo or a >= hi]
+            for t, a, b in e[side]['runs']:                             # keep the parts of runs outside the tile
+                if a < lo < b: runs.append([t, a, lo])
+                if a < hi < b: runs.append([t, hi, b])
+            for t, a, b in k['edges'][side]:
+                tt = t if t in ('road', 'water') else ('walk' if t == 'walk' else 'other')
+                runs.append([tt, off + int(round(a * span_px / 12.0)), off + int(round(b * span_px / 12.0))])
+            runs.sort(key=lambda q: q[1])
+            merged = []
+            for t, a, b in runs:
+                if merged and merged[-1][0] == t and merged[-1][2] >= a: merged[-1][2] = max(merged[-1][2], b)
+                else: merged.append([t, a, b])
+            e[side]['runs'] = curb_only(merged, span_px / 12.0)
+            lines = [x for x in e[side]['lines'] if not (lo <= x < hi)]
+            for ln in k.get('lines', []):
+                crosses = (ln['axis'] == 'ew') == (side in 'WE')
+                if crosses: lines.append(off + ln['at_m'] * span_px / 12.0)
+            e[side]['lines'] = sorted(lines)
+    return e
+
+
 def read_all(manifest, folder=DIR):
-    return {bid: edges_of(os.path.join(folder, b['src'])) for bid, b in manifest['blocks'].items()}
+    return {bid: kit_override(edges_of(os.path.join(folder, b['src'])), b.get('kit_plan')) for bid, b in manifest['blocks'].items()}
 
 
 def write(edges, ppm, faults):
