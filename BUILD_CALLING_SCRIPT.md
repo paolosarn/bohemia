@@ -12,9 +12,8 @@ The holds: T-9, before a G-O the caller opens the live link and reads the splash
 ## CUES
 
 CUE 1 | RUN | the demo re-cut with the light boot and the far end at the phone's pixels | FIRES ON: BUILD 10/10l | NEEDS: none | STATE: LANDED 0f659c57
-CUE 2 | COMBAT TWO | every fight street from COOK TWO's pack kit, round two (houses from COOK FOUR's kit) | FIRES ON: the next RUN cut | NEEDS: CUE 2.5 | COMBAT TWO | every one of the 78 districts opens its own board inside its kind (fight_ground.json districts), no two alike | FIRES ON: the next RUN cut | NEEDS: none | STATE: STANDBY (data shipped; the fight reads it when COMBAT wires the handover's district)
-CUE 3 | STATE: WARNING
-CUE 3 | COOK FOUR | the settlement from the packs, round three (roofs as houses, props at doors, one fire per scene) | FIRES ON: the next RUN cut | NEEDS: none | STATE: WARNING
+CUE 2 | COMBAT TWO | every fight street from COOK TWO's pack kit, round two (houses from COOK FOUR's kit) | FIRES ON: the next RUN cut | NEEDS: CUE 2.5 | COMBAT TWO | every one of the 78 districts opens its own board inside its kind (fight_ground.json districts), no two alike | FIRES ON: the next RUN cut | NEEDS: none | STATE: WARNING
+CUE 3 | COOK FOUR | the settlement from the packs, round three (roofs as houses, props at doors, one fire per scene) | FIRES ON: the next RUN cut | NEEDS: none | STATE: STANDBY 8299966a (round three shipped to the alpha; the demo cut is held by the STOP block, rule 94)
 CUE 4 | UI | the triage filter on the VOTE tab (red first and alone, yellow under MORE) | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack settlement | FIRES ON: the RUN cut after CUE 3 lands | NEEDS: CUE 3 | STATE: WARNING
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: its own cut | NEEDS: none | STATE: WARNING

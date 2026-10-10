@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -717,6 +717,14 @@
   "plumber-the-reply-leg-10-10": {
    "tag": "green",
    "why": "the lane's pick stands; he corrects by playing (EVERYTHING IS A THUMB)"
+  },
+  "tuning-what-each-origin-starts-known-for-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
+  },
+  "tuning-what-the-starting-kit-costs-10-10": {
+   "tag": "gray",
+   "why": "a research page or a text item: read by the lanes, not voted (THE FIRST VOTES 9/21: text items are boring; the pages live in the records)"
   }
  }
 }
