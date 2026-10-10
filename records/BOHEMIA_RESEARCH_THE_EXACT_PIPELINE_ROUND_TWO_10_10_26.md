@@ -1,0 +1,95 @@
+# THE EXACT PIPELINE: FROM HIS PACKS TO NEW TILES, PEOPLE IN EIGHT DIRECTIONS AND REAL SOUND (research round two, 10/10/26)
+
+## HIS WORDS ("Do one more round of research, please", after round one)
+
+Round one mapped the tools. This round is the exact pipeline: fields, commands, libraries, and what people who already do this say. Every claim carries a URL. Pages this machine could not reach (pixellab.ai, sonniss.com, aseprite.org, freesound.org, echothief.com) are cited from search snippets or mirrors and marked.
+
+## THE SHORT ANSWER (five sentences, eighth grade)
+
+Retro Diffusion has a real API with a palette field, a seamless-tile switch, an image-to-image field and a "make a variation of this tile" style, so one call can take one of his road tiles and hand back a new one in his colors. PixelLab has a real API that turns one front-facing drawing into eight directions and animates it from a skeleton, but it tops out at 128 to 256 pixels and its own docs say to expect rough fixes by hand. Nobody ships raw generator output: every source agrees on a locked palette, a style reference and a human cleanup pass in Aseprite, and the stores (Steam and itch.io) require a disclosure tag when AI art or audio is in the shipped game. For sound, the chain is a free Sonniss recording (no attribution needed), run in Python through Pedalboard with a tape plugin, a room impulse response, a high-pass and a limiter, and the analog horror recipe people describe is band-limiting to about 8 to 10 kHz, slow pitch wobble, hiss, a mains hum and dropouts. Day one is one road tile and one door sound, each put beside what we have now at 1:1, pass or fail written in advance.
+
+## A. MATCHING HIS PACKS (the API fields, the training route, the seamlessness methods, the post-processing commands)
+
+**Retro Diffusion API, confirmed from the official examples repo** (https://github.com/Retro-Diffusion/api-examples): `POST https://api.retrodiffusion.ai/v2/inferences`, header `X-RD-Token`, then poll `GET /v2/inferences/tasks/{task_id}`. Fields: `prompt` (may be empty for image-driven styles), `prompt_style`, `width` and `height` (12 to 512 overall, tighter per style), `num_images` (up to 16), `seed`, `input_image` (raw base64 RGB, img2img), `strength` (0 to 1, default 0.75), `reference_images` (RD Pro only, up to 9), `input_palette` (base64 palette image, constrains output colors; add `return_pre_palette` for the unquantized one), `remove_bg`, `tile_x` and `tile_y` (seamless per axis), `upscale_output_factor` (default 1), `bypass_prompt_expansion`, `check_cost` (free dry run). The tile styles are `rd_tile__tileset` (16 to 32 px tiles), `rd_tile__single_tile` (16 to 64 px), `rd_tile__tile_variation` (16 to 128 px, input image required), `rd_tile__tile_object` (16 to 96 px), `rd_tile__scene_object` (64 to 384 px). RD Pro styles include `rd_pro__topdown` and `rd_pro__horror` at 12 to 256 px. Costs: tiles 0.06 credits per image, RD Pro 0.18, RD Fast 0.03; `check_cost` is authoritative. RD_FLUX and RD_FAST from round one are not real identifiers; the real families are lowercase `rd_fast__`, `rd_plus__`, `rd_pro__`, `rd_tile__`, and custom `user__<name>_<id>` built from a reference image (https://mcpservers.org/servers/retro-diffusion/retro-diffusion-mcp).
+
+**PixelLab API** (index at https://api.pixellab.ai/v2/docs; unreachable here, details from search snippets and https://www.pixellab.ai/pixellab-api): `POST /create-character-v3` makes eight directional views stored under a character id; `POST /rotate` takes an image up to 128 by 128, supports init images, forced palettes, inpainting and camera view and direction options; `POST /animate-with-skeleton` up to 128 by 128, and `animate-with-skeleton-v3` up to 256 by 256 with 3 to 15 frames; `POST /create-tileset` builds Wang tiles whose edges line up, exportable as Wang, dual-grid 15-tile or 3 by 3 (https://www.pixellab.ai/docs/tools/create-tileset). The Pro tile tool lists sizes 16, 32, 48, 64, 96 and 128 with optional style reference tiles (https://www.pixellab.ai/docs/tools/create-tiles-pro). Run user artwork through `POST /unzoom` first; upscaled pixel art confuses the models. The JS wrapper (https://github.com/pixellab-code/pixellab-js) shows `styleImage` with `styleStrength: 50.0`, and `outline: "single color black outline"`, `shading`, `detail`.
+
+**Training on his 1,927 tiles.** Scenario's style LoRA guide asks for at least 1024 px images and a consistent palette, 5 to 15 images for one style (https://help.scenario.com/en/articles/training-a-style-lora). fal.ai's FLUX LoRA trainer is $2 per run, the turbo trainer $2.40 per 1000 steps (https://fal.ai/models/fal-ai/flux-lora-fast-training, https://fal.ai/models/fal-ai/turbo-flux-trainer); typical sets are 20 to 80 images, 1000 to 2000 steps (https://fluxpro.art/posts/training-flux-lora). Nobody trains at 96 px native. Pixel Art XL's route is the standard: generate large, then "downscale 8 times to get pixel perfect images (use Nearest Neighbors)" (https://huggingface.co/nerijs/pixel-art-xl); a 2026 FLUX pixel LoRA trained at 512 (https://huggingface.co/Limbicnation/pixel-art-lora). Mush is avoided by nearest-neighbor downscale plus a grid snap, never bilinear.
+
+**Seamlessness.** The 47-tile blob set is the standard: once corners count, only 47 shapes exist, and Godot, Tiled and RPG Maker use the bitmask lookup (https://www.redblobgames.com/articles/autotile/claude/, CC0 templates at https://opengameart.org/content/tileset-templates). Tools that emit autotile sets directly: PixelLab `create-tileset` (Wang, dual-grid 15, 3 by 3) and Retro Diffusion `rd_tile__tileset`. A single tile: `tile_x`/`tile_y`, then the plane test in E.
+
+**Post-processing, each with its tool.** Grid snap: Retro Diffusion's MIT Pixel Art Fixer, `python -m pixelfixer.cli input.png --extract out.png`, batch with `folder/ --json results.json` (https://github.com/Retro-Diffusion/pixel-art-fixer). Palette lock: `magick in.png -dither None -remap pack_palette.png out.png` (https://github.com/ImageMagick/ImageMagick/discussions/6054); build the palette with `magick pack_sheet.png +dither -unique-colors pack_palette.png`. Aseprite route: `aseprite -b in.png --palette pack.gpl --color-mode indexed --dithering-algorithm none --save-as out.png`, where `--palette` applies to the last given sprite (https://www.aseprite.org/cli/). pixelize (Go) does block sampling and `--colors N` but only named palettes, so it is not the lock (https://github.com/chris-roerig/pixelize). Luminance range: `magick out.png -colorspace Gray -format "%[fx:minima] %[fx:maxima]" info:` against the pack tile. Outline rule: no tool found; it is the hand pass.
+
+## B. PEOPLE IN EIGHT DIRECTIONS (what works today, what breaks, how the good teams fix it)
+
+What works: PixelLab's Rotate tool is "primarily trained to take an image of a character and generate 8 rotational views" from a south-facing reference, max 128 by 128 per frame, and the Pro 8-direction tool caps at 168 by 168 (https://www.pixellab.ai/docs/tools/rotate, https://www.pixellab.ai/docs/tools/create-8-rotations-pro). Retro Diffusion has `rd_animation__8_dir_rotation` (0.25 credits) and `rd_advanced_animation__rotate` (input 32 to 256 px, multiples of 8). So a 100 to 112 px figure fits inside both limits.
+
+What breaks: PixelLab's own advice is to "generate a few rotations and pick the easiest to fix, then do very rough manual fixes and regenerate with inpainting," the vendor admitting hands and held weapons drift between views. A 2026 test on one armored knight called the eight views consistent but tested no weapon (https://techsy.io/en/blog/meshy-vs-higgsfield-vs-pixellab). No independent postmortem on weapon drift was found.
+
+How the good teams fix it: Dead Cells drew a rough 2D model sheet, built mesh and skeleton in 3DS Max, rendered at about 50 px with no antialiasing, keyframed like 2D with in-betweens added after, and exported a normal map per frame for a toon shader (https://www.gamedeveloper.com/production/art-design-deep-dive-using-a-3d-pipeline-for-2d-animation-in-i-dead-cells-i-). Blender copies: filter width about 0.01, rescale in the compositor (https://blenderartists.org/t/mimicking-dead-cells-workflow-from-3d-animation-to-2d-pixel-animation/1124638); an open repo does reference to mesh to rig to low-res toon render to sheet (https://github.com/craigrusselltiu/pseudo-pixel). For us: generate the south view, rotate to eight, fix in Aseprite, animate with the skeleton endpoint; a 3D rig is the fallback if hands and guns refuse to hold.
+
+## C. SOUND, THE EXACT CHAIN (libraries, search terms, the code shape, the impulse responses, the analog horror recipe, the bible)
+
+**Libraries.** All Sonniss GDC bundles are royalty-free, no attribution (https://sonniss.com/gameaudiogdc/). Confirmed library names that fit a dead city (mirror listings at gamesounds.xyz): GDC 2020 has Ivo Vicic "Wind", "Wind turbine", "Rain in urban and natural environment", Coll Anderson "Urban Landscape" and "Wind Storm", Articulated Sounds "Rare Winds", 344 Audio "Practical Doors" (https://gamesounds.xyz/?dir=Sonniss.com+-+GDC+2020+-+Game+Audio+Bundle). GDC 2017 has Hzandbits "Urban Winds II" and The Sound Keeper "Normal Doors". GDC 2021 to 2023 has Justsoundeffects "Urban Ambiences" and "Doors", Eneas Mentzel "Debris & Rubble", BluezoneCorp "Steampunk Mechanical Sounds" (https://gamesounds.xyz/?dir=Sonniss.com+-+GDC+2021-2023+-+Game+Audio+Bundle). GDC 2015 has "The Metal Shelf" and "Battle Crowd". GDC 2024 is 27.5 GB, 600 plus WAVs with ambience, tools and footsteps, library names not published (https://bedroomproducersblog.com/2024/06/27/sonniss-gdc-2024/). Generators, glass and asphalt footsteps: not confirmed by name.
+
+**Freesound.** Filter syntax is Solr style, `filter=license:"Creative Commons 0" duration:[0 TO 10]`, with the CC0 string confirmed in working code (https://freesound.org/docs/api/resources_apiv2.html, https://opensource.creativecommons.org/blog/entries/freesound-intro/). Search terms: "door creak", "footsteps gravel", "footsteps asphalt", "generator diesel idle", "wind whistle building", "glass debris", "crowd murmur distant".
+
+**Code shape** (from https://github.com/spotify/pedalboard):
+```python
+from pedalboard import Pedalboard, Convolution, HighpassFilter, Limiter, load_plugin
+from pedalboard.io import AudioFile
+tape = load_plugin("./vst3/CHOWTapeModel.vst3")   # Linux build, see below
+board = Pedalboard([HighpassFilter(cutoff_frequency_hz=120), tape,
+                    Convolution("./ir/stairwell.wav", 0.4), Limiter()])
+for src in wavs:
+    with AudioFile(src) as f, AudioFile(out, "w", f.samplerate, f.num_channels) as o:
+        while f.tell() < f.frames:
+            o.write(board(f.read(f.samplerate), f.samplerate, reset=False))
+```
+Parameters set as attributes (`effect.ratio = 15` in the README). Pedalboard hosts VST3 on Linux; a Windows VST3 will not scan (https://github.com/spotify/pedalboard/issues/376). CHOW Tape is GPLv3 in VST3, LV2 and CLAP; the README points Linux users to Open Build Service builds (https://github.com/jatinchowdhury18/AnalogTapeModel), the manual still says compile it yourself. It has no CLI mode; Pedalboard is the headless host. No-VST fallback: Pedalboard's own `Distortion`, `Bitcrush`, `Resample`, `LowpassFilter`, `GSMFullRateCompressor`.
+
+**Impulse responses.** OpenAIR is down: both domains return "This Account has been suspended" as of a GitHub issue this month (https://github.com/Graphi07/room-impulse-responses/issues/22). EchoThief is alive (copyright 2013 to 2026) and its licence says you are welcome to use it to create derivative work such as convolution reverb, anything else "let's talk" (https://www.echothief.com/, licence copy https://www.cs.bu.edu/faculty/snyder/cs583/Homeworks/ImpulseResponses/EchoThiefImpulseResponseLibrary/EchoThief%20License.pdf). Mixed-licence mirror: https://impulses.prasadt.com/.
+
+**The analog horror recipe, as creators describe it.** Three parts: tape saturation, wow and flutter, noise and artifacts. High-pass 100 to 120 Hz, low-pass 8 to 10 kHz with gentle slopes; wow and flutter as two LFOs at 0.5 to 2 Hz, subtle; dropouts as random brief interruptions; hiss plus a 50 or 60 Hz mains hum (https://babyaud.io/blog/vhs-audio, https://www.melodigging.com/genre/analog-horror). Voices band-limited to 1 to 4 kHz, compressed hard, AM-radio distortion. Video tutorial: https://www.youtube.com/watch?v=nOphejpIVvU. The minus 40 dB hum level was not confirmed anywhere; it is our starting number.
+
+**The bible.** A sound list is a spreadsheet: one row per sound, columns for category (ambience, footsteps and movement, UI, combat), loop or one-shot, variations ("a single footstep sound becomes repetitive quickly"), the driving parameter (material, velocity), status (http://www.strongholdaudio.com/blog/2018/3/23/the-asset-list, https://thiagoschiefer.com/home/documentation-and-organization-in-game-audio-with-templates/). Ours adds a hit, a miss, and the 120 BPM beat as rows.
+
+## D. WHO ALREADY DOES THIS AND WHAT THEY SAY (8 to 12 bullets with URLs)
+
+- Retro Diffusion's own Aseprite extension page warns the site and the extension "use different models! DO NOT buy the extension if you are trying to get the same results as the website" (https://astropulse.itch.io/retrodiffusion).
+- Its item model devlog says it "is best used around 70% strength, with short descriptive prompts" (https://astropulse.itch.io/retrodiffusion/devlog/613397).
+- Its June devlog added palette input during generation and a Palettize menu with a custom palette from a URL (https://astropulse.itch.io/retrodiffusion/devlog/754477/retro-diffusion-update-for-june-palette-control-qol).
+- A practitioner writes that even with a fixed grid, most "pixels" "bleed over, blur at the edges, or just float slightly off" (https://dev.to/jenissimo/how-to-tame-your-ai-pixel-art-3pk5).
+- A pixel tutorial site: "tilesets, sprite sheets, anything that snaps to a grid, AI will betray you. The pixel drift is subtle but fatal" (https://www.qwe.edu.pl/tutorial/create-pixel-art-with-ai-tools/).
+- The Great Rebellion (99 percent positive, pixel art) disclosed backgrounds "based on AI images, then heavily edited by hand to fit the game's pixel art style" (https://www.totallyhuman.io/blog/the-surprising-number-of-steam-games-that-use-genai).
+- Every 2026 comparison says neither tool ships finished assets without an editor pass (https://gamedevaihub.com/retro-diffusion-vs-pixellab/).
+- One pipeline guide: AI "supplies options and you supply rules"; effect palettes stay a subset of the global palette (https://gamineai.com/blog/how-to-make-pixel-art-with-ai-for-games).
+- itch.io since November 2024: a Generative AI disclosure field; untagged AI asset pages lose browse indexing and may be delisted (https://gamingonlinux.com/2024/11/itchio-store-now-requires-ai-generated-content-disclosures-for-assets).
+- Steam: the content survey splits pre-generated and live-generated; the January 16, 2026 rewrite exempts dev tools but still requires disclosure for AI art, audio or narrative in the shipped game (https://partner.steamgames.com/doc/gettingstarted/contentsurvey, https://gigazine.net/gsc_news/en/20260120-steam-updates-ai-disclosure-guidelines).
+- The one practice all agree on: locked palette, a style reference image, a human cleanup pass.
+
+## E. THE DAY ONE PLAN (numbered steps with the exact calls and commands as far as the sources allow, pass and fail written out)
+
+1. Pick nine approved road tiles from one pack (a 3 by 3 that already tiles). Build the pack palette: `magick road_*.png -append +dither -unique-colors pack_palette.png`.
+2. Dry run the cost: POST `/v2/inferences` with `{"prompt_style":"rd_tile__tile_variation","input_image":"<base64 of the center tile>","width":96,"height":96,"num_images":4,"strength":0.5,"tile_x":true,"tile_y":true,"input_palette":"<base64 pack_palette.png>","check_cost":true}`. Then the same without `check_cost`, header `X-RD-Token`, poll `/v2/inferences/tasks/{id}` until `succeeded`, decode `base64_images`. If `tile_variation` rejects 96, use `rd_pro__topdown` with `reference_images` holding the nine tiles.
+3. Snap and lock: `python -m pixelfixer.cli gen.png --extract gen_snapped.png`, then `magick gen_snapped.png -dither None -remap pack_palette.png gen_locked.png`. Check `identify -format "%k" gen_locked.png` is no higher than the pack tile's color count.
+4. Seam test: `magick -size 288x288 tile:gen_locked.png plane.png` (the tile repeated 3 by 3), and a second sheet with the new tile in the center of his eight neighbours.
+5. The 1:1 sheet: pack tile left, new tile right, at 1x and 4x nearest-neighbor, one caption. PASS: no line where tiles meet, same color count, same shadow side, same outline thickness, and a stranger cannot say which is which. FAIL: any seam, a color outside the palette, a pixel off the grid, softer edges, or a different light direction. A fail repeats step 2 at lower strength once; a second fail means train a user style on the pack instead.
+6. Sound: pick one door from "Practical Doors" (GDC 2020) or "Doors" (GDC 2021 to 2023). Run the code shape in section C with CHOW Tape, a stairwell or underpass IR from EchoThief at 0.4 wet, high-pass 120 Hz, low-pass 9 kHz, limiter.
+7. A/B against our synthesised door in one page with two play buttons. PASS: the processed recording sounds like a real door in a real room on a bad tape, with no click at the start or end and the peak under minus 1 dB. FAIL: it still sounds like noise shaped into a door, or the tape plugin failed to scan on Linux (then use Pedalboard's built-in Distortion, Bitcrush and LowpassFilter and note it).
+
+## WHAT I COULD NOT CONFIRM (honest list)
+
+- Whether `rd_tile__tile_variation` takes 96 by 96 with `tile_x`; one `check_cost` call settles it.
+- PixelLab `create-character-v3` size limit and `create-tileset` tile sizes; the docs host was unreachable.
+- Any Sonniss library for generators, glass or asphalt footsteps by name; GDC 2024's library list.
+- Freesound licence strings other than "Creative Commons 0".
+- That CHOW Tape's Linux VST3 scans under Pedalboard.
+- EchoThief attribution rule and category names; the licence copy was a course mirror.
+- A first-hand postmortem of a shipped game built on PixelLab or Retro Diffusion; only one secondhand quote exists.
+- The minus 40 dB hum level and an exact 8 kHz cut; sources give 8 to 10 kHz and no level.
+- Scenario's training price and time.
+
+## FOR PAOLO, IN PLAIN WORDS (4 short sentences, eighth grade, no file names, no em dashes)
+
+We now know the exact buttons to push to make a new road tile from your packs, in your colors, with no seams. We also know how to turn one front drawing of a person into eight directions, and that we will still fix hands and guns by hand. Real door and wind recordings are free, and the tape sound is a known recipe. Day one is one tile and one door sound next to what we have now, pass or fail, before we spend on anything bigger.
