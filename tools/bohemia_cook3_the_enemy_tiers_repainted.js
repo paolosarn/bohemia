@@ -73,6 +73,10 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
         let bot = -1; for (let i = 0; i < armour.length; i++) if (armour[i]) bot = Math.max(bot, (i / W) | 0);
         const hueOf = q => { const mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]); if (mx === mn) return -999;
           const h = mx === q[0] ? 60 * (((q[1] - q[2]) / (mx - mn)) % 6) : mx === q[1] ? 60 * ((q[2] - q[0]) / (mx - mn) + 2) : 60 * ((q[0] - q[1]) / (mx - mn) + 4); return (h + 360) % 360; };
+        /* MAIL AND PLATE READ BY ROWS (DIRECTION, third ask): the light comes from the ROW's mean,
+           so the garment's own pixel noise cannot print a checker through the metal */
+        const rowL = new Array(H).fill(0); for (let y = 0; y < H; y++) { let s0 = 0, c0 = 0;
+          for (let x = 0; x < W; x++) if (armour[y * W + x] && fr.px[y * W + x][3] !== 0) { s0 += lum(fr.px[y * W + x]); c0++; } rowL[y] = c0 ? s0 / c0 : 0; }
         let n = 0;
         for (let i = 0; i < fr.px.length; i++) { if (!armour[i] || fr.px[i][3] === 0) continue; n++;
           const q = fr.px[i], l = lum(q), x = i % W, y = (i / W) | 0; let c;
@@ -80,8 +84,8 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
           if (R.keepHue != null && Math.abs(hueOf(q) - R.keepHue) < 30 && v < 0.5) { const g = l * 255; after[i] = lerp(q, [g, g, g], 0.3).map(z => z | 0); n++; continue; }
           if (R.material === 'padded') { c = ramp(PAINT.padded, l); if ((y - top) % R.quilt === 0) c = lerp(c, [0, 0, 0], 0.3); }
           else if (R.material === 'leather') { c = ramp(PAINT.leather, l); if (R.strap && Math.abs((x - y) % 9) === 0) c = PAINT.leather[0]; }
-          else if (R.material === 'mail') { c = ramp(PAINT.steel, l * ((y - top) % 2 ? 0.72 : 1.2) * (1.15 - 0.35 * v)); if ((y - top) % 2 === 0 && x % 2) c = lerp(c, [0, 0, 0], 0.15); }
-          else { c = ramp(PAINT.steel, l + 0.08); if (R.goldWash) c = lerp(c, ramp(PAINT.gold, l + 0.1), R.goldWash);
+          else if (R.material === 'mail') { c = ramp(PAINT.steel, rowL[y] * ((y - top) % 2 ? 0.7 : 1.25) * (1.2 - 0.45 * v)); }
+          else { c = ramp(PAINT.steel, rowL[y] + 0.08); if (R.goldWash) c = lerp(c, ramp(PAINT.gold, l + 0.1), R.goldWash);
             if (R.lames && (y - top) % R.lames === 0) c = lerp(c, [0, 0, 0], 0.35);
             if (R.lames && (y - top) % R.lames === 1) c = lerp(c, [230, 230, 228], 0.3); }
           if (R.belly) c = lerp(c, [0, 0, 0], R.belly * Math.max(0, v - 0.35) / 0.65);

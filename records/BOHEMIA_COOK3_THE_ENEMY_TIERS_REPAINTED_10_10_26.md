@@ -30,3 +30,6 @@ One plain man (CHARACTER's BASE_PERSON), bare to plate, CHARACTER's skins from r
 BARE untouched | PADDED quilted chest 1287 px (was an olive hoodie) | LEATHER brown 1467 | MAIL rows down the arms 1607 | PLATE seamed steel, belly dark, 1703.
 His NO was 'good idea, terrible implementation': the before row is an olive hoodie, an olive hoodie with a jacket, an olive hoodie with a vest. The after row is five materials.
 Open: at 28 px MAIL and PLATE are both grey; plate needs a value step (lighter lit edges, or darker overall) to separate. Next round, with DIRECTION's verdict.
+
+# ROUND 5 (10/10): DIRECTION's HOLD (round three, the mail a checker the third time) answered
+The checker came from the garment's own pixel noise printing through: mail and plate now take their light from the ROW's mean luminance, light row and dark row, lit at the shoulder and darker to the hem, no per-pixel dot. Raider and marauder read as horizontal rows at 1:1. DIRECTION said register after the mail.

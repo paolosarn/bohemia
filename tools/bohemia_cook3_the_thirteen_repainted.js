@@ -90,7 +90,12 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
           satB += s; const l = lum(q); let c;
           if (rule.five && (!capWaist || ((i / W) | 0) <= waist)) { c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
           else if (acc != null && carrier[i] && (!capWaist || ((i / W) | 0) <= waist) && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
-            c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
+            let src = q;
+            /* HIS COLOUR (DIRECTION round three, note 1): four factions read as one brown, so the
+               accent is re-dyed to HIS territory colour (MFACTIONS acc) at the pixel's own light */
+            if (rule.accentHex) { const h = rule.accentHex, hc = [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)];
+              const k = Math.min(2.2, l / (lum(hc) || 0.01)); src = [hc[0] * k, hc[1] * k, hc[2] * k]; }
+            c = lerp(src, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
           else c = neutral(l, rule.warm !== false);
           c = lerp(c, PAINT.ambient, PAINT.ambientPull);
           after[i] = [c[0] | 0, c[1] | 0, c[2] | 0, q[3] == null ? 255 : q[3]];
@@ -113,10 +118,16 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
           let k = lumA[i] > 0.01 ? med / lumA[i] : 1; k = Math.max(0.6, Math.min(1.6, k));
           let c = [q[0] * k, q[1] * k, q[2] * k];
           const u = (xx - fx0) / Math.max(1, fx1 - fx0), vv = (yy - top) / Math.max(1, bot - top);
-          for (const f0 of PAINT.folds) { const fxp = f0 + 0.06 * (vv - 0.5);
+          /* FOLDS AT THE HIP AND THE KNEE ONLY (DIRECTION round three, note 2): round four's long
+             creases read as rain on a lens. A fold is a short lit edge over a dark side. */
+          for (const f0 of PAINT.folds) for (const band of PAINT.foldBands) {
+            if (vv < band[0] || vv > band[1]) continue;
+            const t = (vv - band[0]) / (band[1] - band[0]), fxp = f0 + 0.05 * (t - 0.5);
             const d = (u - fxp) * (fx1 - fx0);
-            if (Math.abs(d) < 0.6 && vv > 0.25) c = lerp(c, [0, 0, 0], 0.32);
-            else if (d > -2.2 && d < -0.6 && vv > 0.25) c = lerp(c, [255, 250, 240], 0.10); }
+            if (d >= -0.5 && d < 0.5) c = lerp(c, [0, 0, 0], 0.30);
+            else if (d >= -1.5 && d < -0.5) c = lerp(c, [255, 250, 240], 0.14); }
+          /* AUTHORED WEAR (DIRECTION note 3, AH-01 R10): mud on the boots of the ones who walk */
+          if (rule.mud && vv > 0.9) { const ragged = ((xx * 7 + 3) % 5) / 20; if (vv > 0.9 + ragged * 0.5) c = lerp(c, PAINT.mud, 0.45); }
           folded[i] = [Math.min(255, c[0]) | 0, Math.min(255, c[1]) | 0, Math.min(255, c[2]) | 0, q[3]]; }
         for (let i = 0; i < after.length; i++) after[i] = folded[i];
         /* ONE ACCENT: the carrier garment holds the territory, everything else goes to the runway neutrals */

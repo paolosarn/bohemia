@@ -30,3 +30,9 @@ STATE: the sheet is complete for DIRECTION (rule 87). Row stays CLAIMED until DI
 2. FOLDS NOT SPECKLE: every cloth pixel re-lit from the median luminance of its 5x5 cloth neighbours (the dot stamp goes, the garment's own shading stays), then three creases down the body below the chest, dark in the crease and lit on the left, one light side.
 3. Silhouette (drape, length, volume) is CHARACTER's per DIRECTION; not touched here.
 Back to DIRECTION for the pass, then VOTE.
+
+# ROUND 5 (10/10, cook3-vamily): DIRECTION's round-three BACK (records/BOHEMIA_THE_REVAMP_PASS_ROUND_THREE_10_10_26.md) answered
+1. FOUR BROWNS: the accent is re-dyed to HIS territory colour (MFACTIONS acc, the faction picker's own hex) at the pixel's own light: Reds #c0392b, Trades #d07a2a, Caravans #caa05a, Anarchists #c026a0 (magenta: the Anarchists were never brown in his table). Vibrance kept under the before: Anarchists .508 -> .422, Reds .558 -> .419, Trades .409 -> .371, Caravans .388 -> .320.
+2. RAIN ON A LENS: the long creases are gone; folds only in two short bands, the hip (50-58% of height) and the knee (74-81%), a 1px dark crease under a 1px lit edge.
+3. A KNEE-DOWN FILTER: the one authored wear is mud on the boots of the walkers (Homeless, Volunteers, Trades), a ragged band in the bottom 10%, nothing on the others.
+HONEST: a first pass of fix 1 did not land (the edit missed its line and the sheet showed no change); caught by reading the numbers, fixed, re-run.

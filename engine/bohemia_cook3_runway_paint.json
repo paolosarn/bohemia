@@ -80,13 +80,15 @@
     },
     "Homeless": {
       "warm": false,
-      "why": "the oxblood stop added colour to a faction drab on purpose (.148->.259)"
+      "why": "the oxblood stop added colour to a faction drab on purpose (.148->.259)",
+      "mud": true
     },
     "Cartel": {
       "warm": false
     },
     "Volunteers": {
-      "warm": false
+      "warm": false,
+      "mud": true
     },
     "Network": {
       "warm": false,
@@ -104,6 +106,22 @@
     "Mob": {
       "vibranceDown": 0.55,
       "why": "mustard over charcoal stayed loud (.388->.419); the Strip's gold is quieter money"
+    },
+    "Reds": {
+      "accentHex": "#c0392b",
+      "vibranceDown": 0.55
+    },
+    "Trades": {
+      "accentHex": "#d07a2a",
+      "mud": true,
+      "vibranceDown": 0.55
+    },
+    "Caravans": {
+      "accentHex": "#caa05a"
+    },
+    "Anarchists": {
+      "accentHex": "#c026a0",
+      "vibranceDown": 0.55
     }
   },
   "card": [
@@ -137,5 +155,20 @@
     0.3,
     0.52,
     0.74
+  ],
+  "foldBands": [
+    [
+      0.5,
+      0.58
+    ],
+    [
+      0.74,
+      0.81
+    ]
+  ],
+  "mud": [
+    86,
+    68,
+    46
   ]
 }
