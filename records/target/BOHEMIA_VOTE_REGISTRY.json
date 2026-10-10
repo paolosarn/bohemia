@@ -7313,7 +7313,8 @@
     "how": "image",
     "src": "vote/COMBAT2_THE_STREET_FROM_THE_PACKS_10_10.png"
    }
-  }
+  },
+  {"id": "combat-the-head-under-the-strip-10-10", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/10", "title": "THE CAMERA KEEPS THE WHOLE MAN", "why": "In a fight the camera now keeps the whole man in view when he walks or swings, where before it often stopped with his head under the top strip or his feet under the bar, or let him walk right off the screen (a quarter of all moves on a phone held sideways). Watch any fight with AUTO on and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_HEAD_UNDER_THE_STRIP_10_10.jpg"}, "draft": true}
  ],
  "verdicts": [
   {

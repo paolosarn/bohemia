@@ -1715,10 +1715,13 @@ function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
 function say(s) { const e = document.getElementById('say'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
 function startAnim(a) {
   const e = a.e;
-  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step(); }
+  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
+    if (!framed(e.x, e.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = FIGHT.isRanged(u.weapon);
+    /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
+    if (e.free && !framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     (ranged ? SND.shot : SND.swing)();
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
@@ -1819,12 +1822,18 @@ function skipTurn() {
 function follow(u, every) {
   if (!every && UI.lastFollow === u.id + ':' + FIGHT.S.round) return false;
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
-  const px = (u.x + .5) * UI.tw, py = (u.y + .5) * UI.th;
-  const m = 0.18;
-  const inView = sx(px) > W * m && sx(px) < W * (1 - m) && sy(py) > TOPH + 40 && sy(py) < H - BOTH - 40;
-  if (!inView && UI.zoom > UI.far * 1.05) { glideTo(px, py, UI.zoom, beatMs()); return true; }
+  const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
+  /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
+  if (!framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && UI.framedAt !== at) { UI.framedAt = at; glideTo(aim[0], aim[1], UI.zoom, beatMs()); return true; }
   return false;
 }
+/* THE HEAD UNDER THE STRIP (rule 88): a man is on the glass only when his whole box, head to feet, stands between the turn
+   strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
+   or his feet under the bar); the camera aims at his box's middle, and walks with him when his step would leave the glass */
+const FOLLOW_M = 0.18, FRAME_PAD = 6;
+function manBox(x, y) { const tall = MAN_IDLE * UI.zoom / UI.near, feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
+function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x < W * (1 - FOLLOW_M) && b.head > TOPH + FRAME_PAD && b.feet < H - BOTH - FRAME_PAD; }
+function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - MAN_IDLE / UI.near / (1 + 1)]; }
 function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
 function stepGlide(now) {
   const g = UI.glide; if (!g) return;

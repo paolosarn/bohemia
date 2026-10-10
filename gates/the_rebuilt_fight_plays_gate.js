@@ -736,6 +736,30 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* THE HEAD UNDER THE STRIP (rule 88): every step and swing a man makes ends with his whole box, head to feet, on the glass
+   between the turn strip and the bar, on four screens, AUTO driving a whole fight on the beat; and the fight never stalls
+   behind a camera that cannot frame a man (the computer froze in round one: the follow glided at a man the clamp could not
+   centre, forever) */
+async function actFramed() {
+  const rows = [];
+  for (const profile of ['phone_portrait', 'phone_landscape', 'tablet', 'computer']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:11,speed:4,kind:"strip",deploy:false};window.__hd=[];' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.evaluate(() => { FIGHT_UI.auto = true; let cur = null;
+      const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
+        const tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near, feet = sy((y0 + .9) * FIGHT_UI.th), head = feet - tall, x = sx((x0 + .5) * FIGHT_UI.tw);
+        window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2 }); };
+      const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { look(cur); cur = null; } if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
+      requestAnimationFrame(loop); });
+    await d.page.waitForTimeout(30000);
+    const r = await d.page.evaluate(() => ({ n: __hd.length, bad: __hd.filter(h => h.off || h.cut).length }));
+    r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  leg(rows.every(r => r.n >= 40 && r.bad === 0 && !r.err),
+    '*** THE HEAD UNDER THE STRIP (rule 88) ***: every step and swing ends with the whole man on the glass, never under the strip or the bar, and the fight never stalls behind the camera (the computer froze; the flipped phone cut 26 of 56 acts)',
+    rows.map(r => r.profile + ' ' + r.bad + ' of ' + r.n).join(', '));
+}
+
 /* THE FLIPPED PHONE'S LOOK (rule 88): nothing of the bar lies on the men. On a wide glass the hint sits in the strip beside
    the faces, never over a man's box; on every screen the strip's tape ends at its last face (it was stretched over the
    whole width, a smear over the shop fronts) */
@@ -839,6 +863,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await actFramed();
   await flippedLook();
   await artPixels();
   await struckDown();
