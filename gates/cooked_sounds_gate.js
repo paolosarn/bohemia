@@ -127,7 +127,7 @@ const MEASURE = `
   /* THE ROOM'S CONSTANTS, HANDED BACK SO THE GATE CAN HOLD THEM AGAINST THE ALPHA'S.
      A duplication a machine checks is a fact; one a comment promises is rot waiting. */
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
-    room: H.ROOM, broadcastConst: H.BROADCAST_CONST,
+    room: H.ROOM, broadcastConst: H.BROADCAST_CONST, barglassConst: H.BARGLASS_CONST,
     /* THE CADENCE, MEASURED BY FINDING THE HITS, not by reading back the list the recipe
        was handed. A recipe that says "I put a footfall at 0.25 s" and did not is exactly
        the class of claim this gate refuses. */
@@ -2412,6 +2412,37 @@ const MEASURE = `
     /* THE WIRING ITSELF -- does a picked broadcast really play through the real
        ambience path -- is proved on the live alpha in one_engine_gate.js (E10),
        not here: this gate renders offline and has no running page to drive. */
+
+    /* ---- THE BAR'S GLASS, NOW LIVE (row [the soundscape], 10/10). SIMPLER THAN
+       ROOM/BROADCAST ON PURPOSE: barGlassDown has no filter node anywhere in it,
+       so there is no chain length to compare -- only the material constants, read
+       off the alpha's own source text the same way. */
+    const bgAt = alphaAll.indexOf('var BARGLASS = {');
+    claim('THE ALPHA HAS A LIVE BARGLASS OBJECT TO COMPARE AGAINST',
+      bgAt >= 0, bgAt < 0 ? 'no `var BARGLASS = {` in the alpha' : 'found at char ' + bgAt);
+    const bgSlice = bgAt < 0 ? '' : alphaAll.slice(bgAt, bgAt + 6000);
+    const ggrab = (re) => { const m = bgSlice.match(re); return m ? parseFloat(m[1]) : null; };
+    const liveBg = {
+      woodE: ggrab(/\bWOOD_E:\s*([0-9.e+]+)/), woodRho: ggrab(/\bWOOD_RHO:\s*([0-9.]+)/),
+      woodV: ggrab(/\bWOOD_V:\s*([0-9.]+)/), woodLoss: ggrab(/\bWOOD_LOSS:\s*([0-9.]+)/),
+      woodH: ggrab(/\bWOOD_H:\s*([0-9.]+)/), woodA: ggrab(/\bWOOD_A:\s*([0-9.]+)/),
+      woodTau: ggrab(/\bWOOD_TAU:\s*([0-9.]+)/), woodGrains: ggrab(/\bWOOD_GRAINS:\s*([0-9.]+)/),
+      glassF0: ggrab(/\bGLASS_F0:\s*([0-9.]+)/), glassDamp: ggrab(/\bGLASS_DAMP:\s*([0-9.]+)/),
+      glassSecs: ggrab(/\bGLASS_SECS:\s*([0-9.]+)/), glassHit: ggrab(/\bGLASS_HIT:\s*([0-9.]+)/),
+      woodMix: ggrab(/\bWOOD_MIX:\s*([0-9.]+)/), glassMix: ggrab(/\bGLASS_MIX:\s*([0-9.]+)/),
+    };
+    const mbg = d.barglassConst || {};
+    const bgDiffers = Object.keys(liveBg).filter(k =>
+      liveBg[k] === null || Math.abs(liveBg[k] - mbg[k]) > 1e-9);
+    claim('THE LIVE BARGLASS MATCHES THE MODULE, CONSTANT FOR CONSTANT',
+      bgDiffers.length === 0,
+      bgDiffers.length
+        ? 'these do NOT match: ' + bgDiffers.map(k => k + ' alpha=' + liveBg[k] + ' module=' + mbg[k]).join(', ')
+        : Object.keys(liveBg).map(k => k + '=' + liveBg[k]).join(', '));
+    /* THE WIRING ITSELF -- does buying a round in the bar really post bar_glass,
+       and does playSFX really reach the live object -- is proved on the real
+       surface in settlement_screen_gate.js (the posting side) and
+       one_engine_gate.js (E11, the dispatch side), not here. */
 
     /* ---- THE FLIP: A RECEIVER CROSSING YEARS ---------------------------------
        Row [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he flips

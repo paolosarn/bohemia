@@ -325,6 +325,28 @@ function ok(claim, cond, detail) {
     bcCheck.after === bcCheck.before + 1 && bcCheck.bandOrder === 8 && bcCheck.hasBuf === true,
     'the dispatch from AMB.tick() to the real play function is missing or wrong: ' + JSON.stringify(bcCheck));
 
+  /* ---- E11: THE BAR'S GLASS REALLY PLAYS THROUGH window.playSFX (SOUNDS,
+     row [the soundscape], 10/10). settlement_screen_gate.js proves the bar's
+     "Buy the crew a round" button posts {type:'BOHEMIA_SFX', ev:'bar_glass'}
+     across the iframe boundary; cooked_sounds_gate.js proves the alpha's own
+     BARGLASS object matches the module's constants. Neither proves the one
+     thing that connects them: that window.playSFX('bar_glass'), the single
+     entry point the postMessage bridge calls into (line ~23830), actually
+     reaches the live object rather than falling through to the sample bank
+     and returning nothing. Called directly, the same shape every other
+     SFX-bank event already reaches playSFX through. */
+  const bgCheck = await p.evaluate(() => {
+    const before = window.__barGlassPlayCount || 0;
+    try { window.playSFX('bar_glass'); } catch (e) {}
+    return { before, after: window.__barGlassPlayCount || 0,
+      hasBuf: !!(window.__BARGLASS && window.__BARGLASS.WOOD_E) };
+  });
+  console.log('  bar glass dispatch: ' + JSON.stringify(bgCheck));
+  ok('E11 *** THE BAR\'S GLASS REALLY PLAYS, THROUGH window.playSFX, ON THE REAL PAGE. *** '
+    + (bgCheck.after - bgCheck.before) + ' play call(s) from one direct dispatch',
+    bgCheck.after === bgCheck.before + 1 && bgCheck.hasBuf === true,
+    'playSFX(\'bar_glass\') did not reach the live object: ' + JSON.stringify(bgCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

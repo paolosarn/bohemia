@@ -2580,6 +2580,18 @@
     BROADCAST_CONST: { toneBeats: 16, airBeats: 4, beat: 0.5, lo: MACHINE.AM.lo,
             hi: MACHINE.AM.hi, crackleRate: 220, crackleAmp: 0.34, humLevel: 0.62,
             carrierLevel: 0.30, bandOrder: ROOM_BAND_ORDER },
+    /* THE BAR'S GLASS, LIVE (10/10): sounds-the-bars-glass-10-10 is APPROVED and never
+       wired. barGlassDown is pure buffer math (objectSetDown/footstepModelled and
+       struckMetal, no filter node anywhere in either), so the alpha's own BARGLASS
+       object duplicates the same math directly rather than a filter chain -- simpler
+       than ROOM/BROADCAST because there is no filter to keep in sync, but the same
+       discipline: the gate reads these constants against the alpha's own source text
+       so the two copies cannot quietly diverge. */
+    BARGLASS_CONST: { woodE: GROUND.boards.E, woodRho: GROUND.boards.rho, woodV: GROUND.boards.v,
+            woodLoss: GROUND.boards.loss, woodH: GROUND.boards.h, woodA: GROUND.boards.a,
+            woodTau: GROUND.boards.tau, woodGrains: GROUND.boards.grains,
+            glassF0: STRIKE.glass.f0, glassDamp: STRIKE.glass.damp, glassSecs: STRIKE.glass.secs,
+            glassHit: STRIKE.glass.hit, woodMix: 0.65, glassMix: 0.6 },
     songOnTape: songOnTape,
     titleTheme: titleTheme,
     barberClippers: barberClippers,

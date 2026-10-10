@@ -963,7 +963,11 @@ function openB(k, line){
       P.debit(S.purse, 'electricity', price, 'bar:round', S.place.name, S.day);
       S.rounds = (S.rounds||0) + 1;
       var rm = nextRumour();
+      /* THE GLASS, APPROVED 10/10 and never heard: sounds-the-bars-glass-10-10,
+         a struck tumbler landing on the bar's own wood. Zero new content, no new
+         vote -- same precedent as the stall's pickup and the clinic's door. */
       post('round', {morale:1, relation:0.1, price:price, rumour:rm});
+      sfx('bar_glass', view.night ? NIGHT_TRIM : null);
       if(rm && rm.mark) post('rumour', {rumour:rm, mark:rm.mark});
       shelf(); openB('bar', rm ? rm.says : 'Nothing new tonight. Drink anyway.');
       var sb = document.getElementById('sbody').querySelector('.acts'), tag = document.createElement('div'); tag.className = 'slots';

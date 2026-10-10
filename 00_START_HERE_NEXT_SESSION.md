@@ -29,24 +29,31 @@ exists is how you get a fourth bad version, so I did not draw one.
 
 PENDING Paolo: nothing.
 
-SOUNDS (sound-xk7pjp): 10/10 LATEST (round thirteen, [one song and the volumes]
-round three) -- *** THE DEAD RADIO FINALLY PLAYS, FOR REAL, IN THE ACTUAL GAME. ***
-TAB: no new VOTE card; this wires an already-approved sound nobody ever heard live.
-Record: records/BOHEMIA_THE_VALLEY_STILL_BROADCASTS_WIRED_LIVE_10_10_26.md.
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round fourteen, [the soundscape] round four) --
+*** THE GRAVEYARD DONE RIGHT, AND THE BAR FINALLY CLINKS WHEN YOU BUY A ROUND. ***
+TAB: no new VOTE card; this writes a post-mortem for a killed sound and wires an
+already-approved sound nobody ever heard live.
+Records: records/BOHEMIA_A_BLOCK_IS_TWO_THINGS_TOUCHING_POST_MORTEM_10_10_26.md,
+records/BOHEMIA_THE_BARS_GLASS_WIRED_LIVE_10_10_26.md.
 
-You approved a dead-radio sound for the valley back on 10/2 and said "quieter please."
-Nobody ever actually wired it into the game, so you have never once heard it while
-playing. Found that gap and fixed it for real this round.
+Your eighth votes came back: you liked "something here still works" and "the bar's
+glass," and killed "the block" with "this wood glass bottle sound effect shit has got
+to stop." Checked carefully: you are not sick of wood-and-metal sounds in general (the
+bar's glass is that same family and you liked it). You are sick of hearing the exact
+same two-layer sound three times in three rounds wearing different names. Wrote that
+down plainly so it never happens again.
 
-It is not a simple fix because the sound was built in a way that only works for
-preview pages, not for live gameplay. Had to rebuild the real playback version the
-same careful way the room's background hum was built, with the same filter, checked
-by a machine so the two copies cannot quietly drift apart again (that already
-happened once with the room hum and took rounds to notice).
+Then wired the bar's glass into the real game. Buying a round for your crew at the bar
+now actually plays a glass clinking on the counter, same as you approved. It never
+played before this because nobody had hooked it up. Same kind of fix as the dead radio
+last round: had to rebuild the sound so it plays live, not just on a preview page, then
+had a machine check the two copies actually match.
 
-It plays rarely while you are out in the world, roughly one chance in 25 each time the
-valley makes a sound, quieter than before, and it stops on its own after about ten
-seconds, same as a real radio catching a signal and losing it again.
+Did NOT wire the other approved sound ("something here still works," the ambitious one
+with the bell and the hum). The honest reason: it is supposed to play when you find
+something genuinely rare, and the game does not have a "rare" tier anywhere yet.
+Scavenging just finds a thing or finds nothing, no rare/common split. Playing your best
+new sound on every ordinary find would cheapen it. Waiting on that tier existing.
 NEXT: more real swings. [the narrator] (the machine voice reading text aloud) is the
 next big one on this lane's own list.
 PENDING Paolo: nothing. Go hear it.

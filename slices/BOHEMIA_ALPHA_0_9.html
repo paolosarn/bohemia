@@ -23161,6 +23161,13 @@ drawLogoBig();requestAnimationFrame(loop);
   window.__sfxMul = sfxMul;
   window.playSFX=function(ev,when,mul){
     try{
+      /* THE BAR'S GLASS (10/10): a synthesized live object, not a sample-bank entry,
+         same special case AMB.tick() already uses for 'valley_broadcast' -- one
+         dispatcher, no second entry point for the settlement screen to learn. */
+      if(ev==='bar_glass'){
+        try{ MUS.audio(); var _bgAC=MUS.AC; window.__barGlassPlay(sfxBus()||MUS.OUT||MUS.MAST||_bgAC.destination, _bgAC); }catch(_e){}
+        return null;
+      }
       if(typeof BOH_SFX==='undefined')return null;
       if(!voiceOK(ev))return null;
       var c=pick(ev); if(c==null)return null;
@@ -23701,6 +23708,126 @@ drawLogoBig();requestAnimationFrame(loop);
   window.__broadcastPlay = function (bus, AC) {
     window.__broadcastPlayCount++;
     return BROADCAST.play(bus, AC);
+  };
+
+  /* === THE BAR'S GLASS, WIRED LIVE (SOUNDS, 10/10, row [the soundscape]). =========
+     sounds-the-bars-glass-10-10 has been APPROVED since the eighth votes and never
+     once played: the settlement screen's bar flow (slices/BOHEMIA_SETTLEMENT_SCREEN.html,
+     k==='bar') buys a round, posts morale and a rumour, and calls sfx() NEVER. Same
+     precedent as the clinic's door, the roster's equip and the valley's own broadcast:
+     an already-judged candidate with no live caller, zero new content, no new vote.
+
+     SIMPLER THAN ROOM/BROADCAST ON PURPOSE: barGlassDown (engine/bohemia_horror_sounds.js)
+     is pure buffer math -- objectSetDown (a boards contact, the slab's own modes, grit)
+     summed with struckMetal's single-partial 'glass' mode -- and NEITHER calls a Web
+     Audio filter node anywhere. So this live copy duplicates the SAME MATH, not a filter
+     chain: there is no filter to keep in sync, which is the one part of ROOM's own 9/24
+     lesson that does not apply here. What does apply: a comment promising the two match
+     is not a check, so gates/cooked_sounds_gate.js reads this object's own source text
+     against H.BARGLASS_CONST, constant for constant, same technique as ROOM and BROADCAST. */
+  var BARGLASS = {
+    /* GROUND.boards, duplicated: 25 mm floorboards on joists, which really do ring */
+    WOOD_E: 13e9, WOOD_RHO: 500, WOOD_V: 0.30, WOOD_LOSS: 0.04, WOOD_H: 0.025, WOOD_A: 0.9,
+    WOOD_TAU: 0.00055, WOOD_GRAINS: 5, WOOD_SPREAD: 0.006, WOOD_GRIT: 0.30, BEAT: 0.5,
+    /* STRIKE.glass, duplicated: one clear pitch, the lowest loss in the table */
+    GLASS_F0: 650, GLASS_DAMP: 0.05, GLASS_SECS: 1.2, GLASS_HIT: 0.0004,
+    WOOD_MIX: 0.65, GLASS_MIX: 0.6,
+    renderWood: function (AC) {
+      var sr = AC.sampleRate, n = Math.round(sr * this.BEAT);
+      var d = new Float32Array(n), i, m, mm, k;
+      /* the slab's own modes, the plate formula, nothing chosen */
+      var D = this.WOOD_E * Math.pow(this.WOOD_H, 3) / (12 * (1 - this.WOOD_V * this.WOOD_V));
+      var c = (Math.PI / 2) * Math.sqrt(D / (this.WOOD_RHO * this.WOOD_H)) / (this.WOOD_A * this.WOOD_A);
+      var modes = [];
+      for (m = 1; m <= 4; m++) for (mm = 1; mm <= 4; mm++) modes.push(c * (m * m + mm * mm));
+      modes.sort(function (a, b) { return a - b; }); modes = modes.slice(0, 10);
+      var tau = this.WOOD_TAU, w = Math.max(2, Math.round(tau * sr)), prev = 0;
+      for (i = 0; i < w && i < n; i++) {
+        var f = Math.sin(Math.PI * i / w);
+        d[i] += (f - prev) * sr * tau * 0.55 * 1.0 * 1.0; prev = f;
+      }
+      for (k = 0; k < modes.length; k++) {
+        var hz = modes[k]; if (hz >= sr / 2) continue;
+        var tail = 1 / (Math.PI * hz * this.WOOD_LOSS);
+        var amp = 0.55 / (1 + Math.pow(hz * tau, 2)) / (1 + k * 0.35);
+        for (i = 0; i < n; i++) {
+          var t = i / sr, env = Math.exp(-t / tail);
+          if (env < 1e-4) break;
+          d[i] += Math.sin(2 * Math.PI * hz * t) * amp * env;
+        }
+      }
+      /* grit: a fixed integer sequence of tiny impacts, never a noise generator */
+      var seed = 20260924, q, j;
+      for (q = 0; q < this.WOOD_GRAINS; q++) {
+        seed = (seed * 1103515245 + 12345) & 0x7fffffff; var frac = seed / 0x7fffffff;
+        var t0 = Math.round(frac * this.WOOD_SPREAD * sr);
+        var gw = Math.max(2, Math.round(0.00015 * sr)), gp = 0, lvl = this.WOOD_GRIT * (0.35 + 0.65 * (1 - frac));
+        for (j = 0; j < gw && t0 + j < n; j++) {
+          var gf = Math.sin(Math.PI * j / gw);
+          d[t0 + j] += (gf - gp) * lvl; gp = gf;
+        }
+      }
+      for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 1.2) * 0.92;
+      var buf = AC.createBuffer(1, n, sr); buf.getChannelData(0).set(d);
+      return buf;
+    },
+    renderGlass: function (AC) {
+      var sr = AC.sampleRate, n = Math.round(sr * this.GLASS_SECS);
+      var d = new Float32Array(n), i;
+      var hit = this.GLASS_HIT, w = Math.max(2, Math.round(hit * sr)), prev = 0;
+      for (i = 0; i < w && i < n; i++) { var f = Math.sin(Math.PI * i / w); d[i] += (f - prev) * 0.42; prev = f; }
+      var tail = 1 / (Math.PI * this.GLASS_F0 * (this.GLASS_DAMP / 100));
+      for (i = 0; i < n; i++) {
+        var t = i / sr, env = Math.exp(-t / tail);
+        if (env < 1e-4) break;
+        d[i] += Math.sin(2 * Math.PI * this.GLASS_F0 * t) * 1.0 * env;
+      }
+      for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 0.9) * 0.94;
+      var fade = Math.min(n, Math.round(0.20 * sr));
+      for (i = 0; i < fade; i++) { var u = i / fade; d[n - fade + i] *= 0.5 * (1 + Math.cos(Math.PI * u)); }
+      var buf = AC.createBuffer(1, n, sr); buf.getChannelData(0).set(d);
+      return buf;
+    },
+    render: function (AC) {
+      var wood = this.renderWood(AC), glass = this.renderGlass(AC);
+      var wd = wood.getChannelData(0), gd = glass.getChannelData(0);
+      var n = Math.max(wd.length, gd.length), sr = AC.sampleRate;
+      var buf = AC.createBuffer(1, n, sr), d = buf.getChannelData(0), i, pk = 0;
+      for (i = 0; i < n; i++) {
+        d[i] = (i < wd.length ? wd[i] : 0) * this.WOOD_MIX + (i < gd.length ? gd[i] : 0) * this.GLASS_MIX;
+        if (Math.abs(d[i]) > pk) pk = Math.abs(d[i]);
+      }
+      if (pk > 0) for (i = 0; i < n; i++) d[i] = d[i] / pk * 0.85;
+      return buf;
+    },
+    /* ONE SHOT: a clink and done, never a bed -- the same reasoning the arrival cue
+       and the broadcast already use. No filter node: the module's own barGlassDown
+       has none either, so a plain buffer source is the honest live copy. */
+    play: function (bus, AC) {
+      try {
+        var buf = this.render(AC);
+        var s = AC.createBufferSource(); s.buffer = buf; s.loop = false;
+        var g = AC.createGain(); g.gain.value = 1.0;
+        s.connect(g); g.connect(bus); s.start();
+        return s;
+      } catch (_e) { return null; }
+    }
+  };
+  window.__BARGLASS = BARGLASS;
+  window.__BARGLASS_PROBE = function (AC) {
+    try {
+      AC = AC || MUS.AC;
+      return { buf: BARGLASS.render(AC), woodE: BARGLASS.WOOD_E, woodRho: BARGLASS.WOOD_RHO,
+        woodV: BARGLASS.WOOD_V, woodLoss: BARGLASS.WOOD_LOSS, woodH: BARGLASS.WOOD_H,
+        woodA: BARGLASS.WOOD_A, woodTau: BARGLASS.WOOD_TAU, woodGrains: BARGLASS.WOOD_GRAINS,
+        glassF0: BARGLASS.GLASS_F0, glassDamp: BARGLASS.GLASS_DAMP, glassSecs: BARGLASS.GLASS_SECS,
+        glassHit: BARGLASS.GLASS_HIT, woodMix: BARGLASS.WOOD_MIX, glassMix: BARGLASS.GLASS_MIX };
+    } catch (_e) { return null; }
+  };
+  window.__barGlassPlayCount = 0;
+  window.__barGlassPlay = function (bus, AC) {
+    window.__barGlassPlayCount++;
+    return BARGLASS.play(bus, AC);
   };
 
   window.__pulseStart    = function () { PULSE.start(); };

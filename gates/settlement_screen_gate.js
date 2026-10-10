@@ -254,9 +254,14 @@ const srv = http.createServer((rq, rs) => {
   }
   const br1 = await bat(), rounds = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'round').slice(-4));
   const marks = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'rumour').map(m => m.mark));
+  const barSfx = await p.evaluate(() => (window.__settleLog || []).filter(m => m.act === 'sfx').slice(-4));
   ok('the bar: a round costs a battery a head and you can buy four a night', rumours.length === 4 && br0 - br1 === 20, rumours.length + ' rounds, ' + (br0 - br1) + ' batteries for 5 men');
   ok('  each lifts morale a step and the town likes you a tenth more', rounds.length === 4 && rounds.every(r => r.morale === 1 && r.relation === 0.1));
   ok('  and the keeper tells a different rumour each round, some marked on your map', new Set(rumours).size === 4 && rumours.every(t => t.length > 30), marks.join(', ') || 'no marks');
+  /* sounds-the-bars-glass-10-10 (APPROVED, 10/10): the glass plays every round, day,
+     never the APPROVED sample bank's own event -- wiring it is proved here, hearing
+     it live is one_engine_gate.js's E11 */
+  ok('  and each round posts the bar\'s own glass, not a sample-bank event', barSfx.length === 4 && barSfx.every(m => m.ev === 'bar_glass' && m.mul === null), JSON.stringify(barSfx));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(300);
 
