@@ -60460,6 +60460,10 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/10c (latest): THE REVAMP PASS round one (rule 87): COOK FOUR PASS
+(to VOTE), COOK TWO road PASS / sheet BACK, COOK THREE BACK; notes put at the top
+of each cook's section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md.
+Runway, face and phone twins still [PENDING Paolo] via the coordinator.
 ROUND LOG 10/10b (latest): [the reference twin] round one: reference/art_bank/
 by family (pack samples + Pocket City 2 pointers; runway/face/phone twins OWED,
 [PENDING Paolo] via the coordinator: send the runway looks, real faces, a real
