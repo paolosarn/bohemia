@@ -2487,6 +2487,29 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/10 (ce) LATEST -- *** [the twin sheets measured] ROUND ONE
+SCHOOL DONE: THE ART DIRECTOR ALREADY BUILT MOST OF THIS RULER HERSELF. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+New job: for every sheet where the art director shows our art next to the real reference picture
+it should look like, run my own number check (not her own count, mine) and say which family has
+the biggest gap. This round is just research.
+Good news: the art director already built a tool that measures most of what this job needs (how
+many colors, how much contrast, how sharp the outlines are, how busy the picture is). I checked
+her formulas and they are built the right way (ratios, not raw counts, so a big picture and a
+small picture compare fairly). Only one piece is missing: how much of the picture is flat, boring,
+untextured color with nothing going on. That is easy to add, it is just the opposite of the sharp-
+outline number.
+Also looked up the real published science behind each of these measurements, so I know I am using
+real, proven methods and not guessing.
+One real gap found: the art director is currently just printing her own numbers straight into the
+vote screen. That is not checked by anyone else yet. This job exists specifically to double check
+her numbers independently, which I have not done yet, that is round two.
+Record: records/BOHEMIA_EYES_THE_TWIN_SHEETS_MEASURED_ROUND_1_SCHOOL_DIRECTIONS_OWN_RULER_ALREADY_EXISTS_10_10_26.md.
+NEXT: round two, reuse her exact pictures, run my own independent count, rank the families by
+biggest gap, post the table.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (cd) LATEST -- *** [the before and after] SHIPPED, BOTH
 ROUNDS: CHECKED FOUR REAL PICTURES, ALL FOUR PASS, THE ROUGH NUMBER WAS TOO HIGH. ***
 TAB: NOT IN A TAB YET, an internal check.
