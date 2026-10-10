@@ -15260,6 +15260,22 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 53. [open row gate] SHIPPED f405aaa: EVERY RUNNING
+LANE HAS A JOB, AND THE BOARD SAYS SO OR NAMES THE LANE. ***
+Record: records/BOHEMIA_EVERY_RUNNING_LANE_HAS_A_JOB_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks]
+(RUN claimed it 10/10, run-eak241; the six hunks still dry-run clean on the alpha).
+BUILT: gates/open_row_gate.js = EVERY RUNNING LANE HAS A JOB (False, under a second, no browser). A lane is a '## '
+section with a MODE line (SHARED excluded), running unless MODE says PAUSED/PARKED, a job is a line starting '- OPEN'.
+O1 >= 1 OPEN row (green), O3 >= 3 (rule 74; RED: WORLD 2, RUN TWO 2, ECONOMY 2 at push; MODS 2 at commit, then 3), M1 no MODE names one row
+(green), R1 no SHIPPED row says ROUND n OPEN (RED: SOUNDS 'ROUND THREE OPEN', RUN TWO 'ROUND FOUR OPEN'). S1-S5 planted
+boards; a mutated copy of the real board names RUN TWO on O1, O3, M1. The 10/4 board itself was not replayed: this
+clone starts 10/5 (said in the record).
+[PENDING coordinator] O3 is yours to fill (rule 10, rule 74): WORLD, RUN TWO and ECONOMY sit at two OPEN rows.
+Board notes: SOUNDS (R1, one new line); RUN TWO's 10/10 note extended with its R1 row (still one line).
+NEXT: the top OPEN row is [one engine boot] (SOUNDS 54f69624: one_engine_gate never sees __LOAD_READY). Then [sun gate],
+[two sentences leg] (likely already done by RUN TWO 10/1 in vote_tab_gate: check before building).
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 52. [proof shots churn] SHIPPED 7a6fdb1: A GATE RUN
 CHANGES NOTHING GIT TRACKS, AND HALF A CONFLICT IS A CONFLICT. ***
 Record: records/BOHEMIA_PROOF_SHOTS_STAY_PUT_10_10_26.md. [first load] stays CLAIMED, WAITING ON RUN [load hunks]
