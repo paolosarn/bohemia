@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10f - FLIPPED PHONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10g - THE CHIPPED BODIES' FACES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -4159,6 +4159,13 @@ function renderFace(spec,opts){
  const ramp=opts.ramp||SKR[spec.skin]; const L=ramp[0],Mn=ramp[1],Sh=ramp[2],Ln=ramp[3];
  const f=spec.face,cx=32;
  const P=(x,y,c)=>{x|=0;y|=0;if(x<0||x>=N||y<0||y>=N)return;const i=(y*N+x)*4;buf[i]=c[0];buf[i+1]=c[1];buf[i+2]=c[2];buf[i+3]=255;};
+ /* READS BEFORE IT WRITES, UNLIKE P. Used only by the chipped-body overlay
+    (near the return, [the chipped bodies' faces] 10/10) to discolour skin
+    that is already drawn rather than paint a flat sticker over it -- a mark
+    ON a face, not a shape floating past its edge. Never called on the
+    default path (nothing passes opts.chipped today but that one new block). */
+ const tint=(x,y,target,t)=>{x|=0;y|=0;if(x<0||x>=N||y<0||y>=N)return;const i=(y*N+x)*4;if(buf[i+3]===0)return;
+   buf[i]=Math.round(buf[i]+(target[0]-buf[i])*t);buf[i+1]=Math.round(buf[i+1]+(target[1]-buf[i+1])*t);buf[i+2]=Math.round(buf[i+2]+(target[2]-buf[i+2])*t);};
  const rect=(x0,y0,x1,y1,c)=>{for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)P(x,y,c);};
  const line=(x0,y0,x1,y1,c)=>{x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);let dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1,e=dx+dy;for(;;){P(x0,y0,c);if(x0===x1&&y0===y1)break;let e2=2*e;if(e2>=dy){e+=dy;x0+=sx;}if(e2<=dx){e+=dx;y0+=sy;}}};
  const poly=(pts,c)=>{let ys=pts.map(p=>p[1]);let y0=Math.floor(Math.min(...ys)),y1=Math.ceil(Math.max(...ys));for(let y=y0;y<=y1;y++){let xs=[];for(let i=0;i<pts.length;i++){let a=pts[i],b=pts[(i+1)%pts.length];let ay=a[1],by=b[1];if((ay<=y&&by>y)||(by<=y&&ay>y)){xs.push(a[0]+(y-ay)/(by-ay)*(b[0]-a[0]));}}xs.sort((p,q)=>p-q);for(let k=0;k+1<xs.length;k+=2)for(let x=Math.round(xs[k]);x<=Math.round(xs[k+1]);x++)P(x,y,c);}};
@@ -4659,6 +4666,37 @@ function renderFace(spec,opts){
      for(var _gk=1;_gk<=3;_gk++){P(_glx-_gk,_gy0+2,_gF);P(_grx+_gk,_gy0+2,_gF);}
    }
  }catch(_ge){} }
+ /* *** THE CHIP'S TELL (PORTRAIT, 10/10, [the chipped bodies' faces]) ***
+    VIA GROK (the dead are chipped bodies, never magic), WORDS' [the enemies'
+    names] (the twelve zombie rows renamed), this lane's own [the enemy
+    faces] (named this row's whole premise out of scope then, honestly, not
+    built there). "A person's face with the chip's tell... never a skull."
+    So nothing below REPLACES a feature -- it marks one, the same way
+    spec.glasses and spec.hat just did two blocks up, gated the same way:
+    opts.chipped is undefined for every citizen and every enemy this game
+    has ever rendered before today, so this block has never run once.
+    ONE SIDE, TWO MARKS, ONE CAUSE: the chip sits at a temple, so that eye
+    is wired to it (lit, fixed, never blinks -- drawn last, overriding
+    whatever the blink loop above already painted there) and the skin
+    beside it is tinted toward grey with tint() (reads the pixel already
+    there first, so it discolours real skin instead of floating a sticker
+    over the edge of the face -- the same test that kept the fade effect
+    and the 3D shading honest on earlier rounds). THE JAW NEEDS NO NEW CODE
+    AT ALL: "slack" is PERF.mouth === 'open', the resting mouth state this
+    function has drawn since 8/27 -- a cook tool asking for a chipped face
+    passes mouth:'open' the same way it would for any other spoken line,
+    reuse down to the opcode. */
+ if(opts.chipped){
+   var _cs=(opts.chipped.side<0)?-1:1, _cex=cx+_cs*e.gap, _cey=f.eyeY;
+   var _LIT=[150,232,238], _LITCORE=[255,255,255];
+   rect(_cex-(e.w>>1),_cey,_cex+(e.w>>1),_cey+e.h-1,_LIT);
+   P(_cex,_cey+(e.h>>1),_LITCORE);P(_cex+_cs,_cey+(e.h>>1),_LIT);
+   var _tgx=cx+_cs*(fw-1), _tgy=Math.round((Y0+f.eyeY)/2), _GREY=[118,116,110];
+   for(var _ty=-2;_ty<=2;_ty++)for(var _tx=-2;_tx<=2;_tx++){
+     if(_tx*_tx+_ty*_ty>5) continue;
+     tint(_tgx+_tx,_tgy+_ty,_GREY,0.55-0.08*(_tx*_tx+_ty*_ty));
+   }
+ }
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
 }

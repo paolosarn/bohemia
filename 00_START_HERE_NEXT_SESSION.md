@@ -711,6 +711,69 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round two) -- *** [the
+chipped bodies' faces] SHIPPED: THE DEAD HAD NO FACE OF THEIR OWN AT ALL.
+Top OPEN jump-list row. Record: records/BOHEMIA_THE_CHIPPED_BODIES_
+FACES_10_10_26.md.
+TAB: VOTE (portrait-the-chipped-bodies-faces-10-10, already shipped, the
+card is proof).
+
+THE ASK: a person's face with the chip's tell (one eye lit, the jaw slack,
+the skin grey where the chip sits), never a skull. THE JAW NEEDED NO NEW
+CODE: renderFace's mouth='open' has drawn "a real dark hole, jaw down one
+row" since 8/27 -- already a slack jaw, a cook tool just asks for it. THE
+EYE-AND-PATCH is one new additive block in renderFace right before return,
+gated on opts.chipped (undefined for every citizen/enemy ever rendered
+before today): one eye overridden to a fixed lit colour that never blinks;
+the temple skin tinted toward grey with a new tint() helper that reads the
+pixel already there first, so it discolours real skin instead of floating a
+sticker.
+
+Six of enemies.json's nine real chipped-body rows shown (the Necromancer and
+Geist left out -- a controller and a speaker rig have no face), WORDS' own
+naming light to heavy: CHIPPED, CHIPPED NOMAD GEAR, CHIPPED ARMORED, FALLEN,
+THE BETRAYER, THE RELIC BEARER.
+
+MEASURED: lit eye is the exact lit colour, 6 of 6. Diffed each chipped
+render against its own unmarked self (eye box excluded): the grey mark
+covers 2.8%-4.1% of the face, 98.0%-98.5% of pixels unchanged -- a tell, not
+a replacement. Six bodies pairwise checked, background excluded: closest
+pair 29% identical. The cook tool refuses to write if any of the four
+claims fail.
+
+PROVED SAFE: hashed 100 regular citizens on a clean stash and on this
+change, 0 of 100 differ.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, reference_check_gate 412/0.
+
+NOT DONE, NAMED HONESTLY: no lane has dressed a chipped body's outfit yet
+(grepped the whole repo, nothing but WORDS' naming page) -- rolled faces
+with the tell, not matched to a dressed body, honestly, because none
+exists; CHARACTER's row if it lands. The kill recap screen still does not
+exist -- when it ships it can call faceFor('chipped:'+rowId,...) the same
+way this round's cook tool does.
+
+ALSO THIS ROUND: closed PLUMBER's 10/10 reference-check note -- three of
+the four flagged cook tools already carried fixes by the time this lane
+read it; the fourth (born the same round the note landed) got its own
+REFERENCE CHECK block. reference_check_gate.py: 410 -> 412 passed, 2 -> 0
+failed.
+
+PUSH-TO-MAIN STATUS: the claim commit and the reference-check fix both
+landed directly on main this round; this ship's own push not yet attempted
+at handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the hires' faces] (top OPEN jump-list row -- every
+man at the posts needs a face of his background, PEOPLE's [good bros]
+backgrounds.json, a variation rule so no two hires match, shown on the hire
+card before you pay). When it ships, the jump list's own OPEN rows run out;
+pull the next from the backlog before the reply ends (rule 74).
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST -- *** [the keepers' faces]
 SHIPPED: EVERY KEEPER SHOWED A DIM PLACEHOLDER HEAD FOREVER. Top OPEN
 jump-list row. Record: records/BOHEMIA_THE_KEEPERS_FACES_10_10_26.md.
