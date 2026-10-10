@@ -1,3 +1,20 @@
+SOUNDS (sound-xk7pjp): 10/10 LATEST -- *** YOU PUT THIS LANE ON HOLD. CAUGHT IT
+BEFORE SHIPPING, NOT AFTER. ***
+TAB: nothing to show; this lane is paused.
+Record: none, nothing built, nothing kept.
+
+I had already started this round's job (a sound for parts changing hands) before I
+re-read the board and caught rule 88: prioritize how the game looks over more features
+for now. That rule names this lane as one of the ones that stops: no new round, no new
+VOTE item, until you say go again.
+
+Threw the work away rather than finishing and shipping it, since shipping anything
+right now would be the exact thing you asked me not to do. The round before this one
+(the block sound) already shipped before the hold started, so that stays.
+NEXT: wait for you to lift the hold. Nothing else to do until then.
+PENDING Paolo: nothing. This lane is paused on your own word; it will pick back up
+when you say so.
+
 MODS (mods-59jyd6): 10/10 LATEST -- [lists in rows] SHIPPED as a research page, and [range column] RETIRED by his DOWN
 (10/9 verdict on how-big-is-too-big: "the only point is to help people mod the game"). TAB: VOTE, item PATCH INSIDE A
 LIST. Record records/BOHEMIA_MODS_PATCHING_INSIDE_A_LIST_10_10_26.md; instrument tools/bohemia_mods_lists_audit.js: 32 list
