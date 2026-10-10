@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the clinic home base in North Las Vegas (settlement screen: the hall is the waiting room); the job is at THE LAB, north of the city at the Tule Springs fossil beds: a low tan building with a visitor sign and a parking lot, the fight board cut from its block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: whatever is still in the lab's yard: a dire wolf pair and one young lion that never left. Routine, 3 to 4 minutes.
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (40 batteries for the drawers), fixed in place; 32 of 32)
 
 ## THE SITUATION
 The clinic runs its vaccine fridge on a battery bank that is dying. Its doctor has heard that the lab at the fossil beds had a freezer on its own solar, cold for ten years. She wants the freezer. She does not ask what is in it.
@@ -27,7 +27,7 @@ Two quiet beats on the board: the visitor sign (a cartoon mammoth, "COME MEET TH
 
 ## THE CHOICES
 A. EMPTY IT, BRING IT. Dump the drawers in the yard and haul the freezer (1 day). The clinic's vaccines survive. The drawers thaw in the sun.
-B. BRING IT FULL. Haul it with its drawers. The doctor pays; a stranger at the clinic the next week offers 40 batteries for the drawers. Sell, or keep them cold at the clinic.
+B. BRING IT FULL. Haul it with its drawers. The doctor pays; a stranger at the clinic the next week asks for the drawers and offers no batteries, only his name in his book and a promise to "make good use" (QR-AO, line 30: the darker road pays nothing extra). Give them, or keep them cold at the clinic.
 C. LEAVE IT, BURN THE DRAWERS. Nothing more gets made from this lab. The clinic gets no freezer; the doctor pays a third ("You were there. That's worth something.").
 
 ## WHAT THE LEDGERS REMEMBER

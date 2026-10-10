@@ -1,3 +1,16 @@
+TUNING (tuning-f59l1w): 10/10 (k) LATEST -- [origins difficulty] SHIPPED (research, no code touched).
+TAB: VOTE, item DOES THE MONEY MATCH THE LABEL (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGINS_DIFFICULTY_THE_LABELS_ARE_THE_WIKIS_THE_MONEY_DOES_NOT_FOLLOW_THEM_10_10_26.md
+FINDING: Easy/Medium/Hard is the wiki's own label (no formula). Crowns per man overlaps across labels; hard origins are hard by RULE (wolf, pit, debt), which a dial cannot scale. Next row added: [start power].
+
+QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
+
+MODS (mods-59jyd6): 10/10 LATEST -- [modding readme] SHIPPED as a page on the board (rules 78, 88: nothing in VOTE). MODDING.md at the repo
+root, copy at records/BOHEMIA_MODS_HOW_TO_MOD_ONE_PAGE_10_10_26.md: what a mod is, the data folder, the folder shape, the first change
+(run and checked by hand: knife 20/30 prints CHANGED), what a patch can do, the examples, where the error codes are. Help only. Honest
+line in it: the game does not read a mods folder yet, the reference loader is how a modder sees a mod work. NEXT OPEN: [sharing a mod],
+[grok sources]. Only 2 OPEN left, so a third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/10 (e) LATEST -- *** STILL ON HOLD. SECOND VAMILY WITH
 NO ROUND. *** Rule 88 is unchanged and still names WORLD on hold: no round, no
 VOTE sheet, nothing into the demo, the rows stay OPEN, and the only exception is
@@ -2205,6 +2218,28 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 ('grid'/'fire') and block [r, c] for the map's power. FOR COMBAT [night you can read]: use NB.night_sun's
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
+
+EYES AND EARS (eyes-5vql33): 10/10 (cb) LATEST -- *** [a fresh phone judged again] SHIPPED, BOTH
+ROUNDS: THE WIPED-PHONE BUG IS FIXED, CONFIRMED FOR REAL. ***
+TAB: NOT IN A TAB YET, an internal measurement.
+
+Timed a truly wiped phone from the start. Good news: the bug I found earlier is fixed for real.
+The phone now shows the real title screen with the game's name and the start menu, not a
+mid-game city. Tapping NEW GAME takes you to a real picks screen with difficulty choices and a
+name field, same as it should.
+The numbers: the title shows at about 3.4 seconds, the start menu at about 5.2 seconds, and the
+game is fully ready to play at about 48 seconds (on a slowed-down test phone). Once ready, tapping
+NEW GAME gets an answer in 2 milliseconds, basically instant.
+One thing worth a look: my 48 second number is quite a bit faster than the 67 seconds the
+pipe-fixer team quoted last, even though their own notes say the speed-up work isn't finished yet.
+Not sure why, named it honestly rather than guessing.
+Record: records/BOHEMIA_EYES_FRESH_PHONE_AGAIN_ROUND_2_THE_CHECK_TITLE_WORKS_READY_FASTER_THAN_QUOTED_10_10_26.md.
+Pictures: records/eyes_fresh_phone_again/.
+NEXT (rule 74, claimed): [the before and after]. A new standing job: build a real side-by-side
+picture, old vs new, pixel for pixel, for any art change before it goes up for a vote, and say in
+one line whether a person could actually see the difference. Starting with three items he already
+said no to because he couldn't tell them apart.
+PENDING Paolo: none.
 
 EYES AND EARS (eyes-5vql33): 10/10 (ca) LATEST -- *** [a fresh phone judged again] ROUND ONE
 SCHOOL DONE: THE TIMER FOR THIS JOB ALSO ALREADY EXISTS. ***
@@ -60427,6 +60462,10 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/10c (latest): THE REVAMP PASS round one (rule 87): COOK FOUR PASS
+(to VOTE), COOK TWO road PASS / sheet BACK, COOK THREE BACK; notes put at the top
+of each cook's section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md.
+Runway, face and phone twins still [PENDING Paolo] via the coordinator.
 ROUND LOG 10/10b (latest): [the reference twin] round one: reference/art_bank/
 by family (pack samples + Pocket City 2 pointers; runway/face/phone twins OWED,
 [PENDING Paolo] via the coordinator: send the runway looks, real faces, a real
@@ -134865,6 +134904,7 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 [the street kit from the packs] CLAIMED, three rounds: 18 kit pieces (slices/fight_ground/kit_street/, gate COOK2 STREET KIT 294/0) AND his street laid into COMBAT TWO's own main blocks (kit_street/onboard/, manifest onboard.json), rule-89 picture slices/vote/COOK2_THE_STREET_BEFORE_AFTER.png (same street, 1:1). Waiting: DIRECTION's pass, then VOTE; COMBAT TWO points main.0/main.1 at onboard/. Next round: the raided and reclaimed futures of the same street, then SHIPPED; then [the cars and the props from the packs]. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
+ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; NEXT thug chest padded, raider mail wider, leader's gold at 28 px.
 CLAIMED [the thirteen repainted]. Round 1 done, NOT shipped: a before/after sheet of the thirteen with a runway paint layer (engine/bohemia_cook3_runway_paint.json, tools/bohemia_cook3_the_thirteen_repainted.js, records/cook3/thirteen_repainted.png, record records/BOHEMIA_COOK3_THE_THIRTEEN_REPAINTED_ROUND1_10_10_26.md). Alpha untouched. ROUND 2 DONE: the accent follows the real garment (solo draw mask), no waist split, no CHARACTER change needed. ROUND 3 DONE: Mob .354, Homeless .058, Remnants .206 (per-faction rules in the paint file). WAITING: DIRECTION judges records/cook3/thirteen_repainted.png against the runway twin; on pass, CHARACTER hooks the draw to the paint file and faction_colour_gate runs live; DIRECTION judges, then VOTE. Not in a tab yet.
 - RUN TWO 10/10 [the roster shows the hurt] SHIPPED: laid-up men leave the line with their days, mark and clinic price; the roster heals on BOHEMIA_DAY. RUN: post BOHEMIA_DAY from the clock. Next: [the arrival] ([the twin on the settlement] waits on DIRECTION's twin sheet). TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) is my next fix.
 - RUN TWO 10/10: ON HOLD under rule 88 (LOOKS FIRST, FEATURES HOLD; RUN TWO is not on the running list). Nothing built this round. [the twin on the settlement] is the one row that fits the look program and it waits on DIRECTION's twin sheet; I pick it up the round that sheet lands. TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) waits with the hold.
