@@ -18,8 +18,8 @@ Name each patch file like the data file it changes. Add `"loadAfter": ["other-mo
 
 ## Your first change
 Make the knife hit harder: copy the two files above, put the folder next to the examples, and run the check:
-`node tools/bohemia_mods_merge_reference.js path/to/folder-of-mods`
-It prints what changed and anything it skipped. Today this check runs the reference loader; the game does not read a mods folder yet, so the check is how you see your mod work. The design for the folder in the game is `records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md`.
+`node tools/bohemia_mods_check.js path/to/folder-of-mods`
+It says what changed and, for anything it skipped, what that means and how to fix it, in plain words. Today this check runs the reference loader; the game does not read a mods folder yet, so the check is how you see your mod work. The design for the folder in the game is `records/BOHEMIA_MODS_THE_MODS_FOLDER_DESIGN_10_10_26.md`.
 
 ## What a patch can do
 - Change a row: name its id and the fields. Rows are found by id.
