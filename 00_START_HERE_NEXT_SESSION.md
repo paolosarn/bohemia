@@ -3546,6 +3546,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/10 (d) LATEST -- [the triage filter] SHIPPED: the VOTE tab shows the red items first and alone, the rest behind MORE.
+BOHEMIA_VOTE_TAB.html reads records/target/BOHEMIA_VOTE_TRIAGE.json: 10 red in front (cap 12), 38 behind one MORE fold, green/gray never; no file = everything.
+Vote tab gate 35/2 (queue legs re-aimed at the sort; 4 mutations). The 2 reds: TUNING's whys and two COMBAT TWO sheets without twins (their rows).
+FOR EYES + DIRECTION [PENDING, not Paolo]: slices/vote/UI_THE_TRIAGE_FILTER_10_10.png before VOTE (rules 88, 89).
+OPEN (look only): [the line on a ground], [the icons against the packs], [the screens past the phone].
+
 UI (ui-kmqmrf): 10/10 (c) LATEST -- [the sideways sides] SHIPPED: no brown-grey bands on the map, sideways or upright; the map runs edge to edge.
 bohemia_ui_materials.js lifts the city column's 640 cap and padding at every width, asks a resize, moves the phone right of the gear on its side.
 Before: 102-pt flat bands each side. Gate the sideways sides 10/0, 5 mutations. Picture slices/vote/UI_THE_SIDEWAYS_SIDES_10_10.png.
