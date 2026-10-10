@@ -15160,6 +15160,34 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 52. [proof shots churn] SHIPPED 7a6fdb1: A GATE RUN
+CHANGES NOTHING GIT TRACKS, AND HALF A CONFLICT IS A CONFLICT. ***
+Record: records/BOHEMIA_PROOF_SHOTS_STAY_PUT_10_10_26.md. [first load] stays CLAIMED, WAITING ON RUN [load hunks]
+(nothing else in the demo page is both big and provably unreached: RIG_B64 35 KB gz, PREFAB_B64 6 KB, two
+text/plain records ~130 KB raw; the next moves are RUN's six hunks and the title's order).
+MEASURED: in five days the barber's settlement shot was re-committed 13 times, the smith's 12, raided and market
+day 9 each, the loop's four shots 4 each, the roster 3 (once by SOUNDS f5b94ea, who only ran the gate). Five gates
+wrote into slices/vote/ every run: settlement_screen (9 pictures), one_file_loop (4), climbing (2), roster_screen
+(1), the_rebuilt_fight_plays (5). Byte-stable is not on offer: one gate, one tree, two runs, two files.
+BUILT: tools/bohemia_proof_shot.js, proofShot(trackedPath): os.tmpdir()/bohemia_proof_shots/<name> unless --shoot
+or BOHEMIA_SHOOT=1. The five gates route through it (none reads its picture back). gates/proof_shots_gate.js =
+PROOF SHOTS STAY PUT (False, about 5 s, 9/0): S1-S6 planted detector both ways; P1 sweep of every gate .js/.py
+(840 read, 15 put pictures somewhere, 0 into git; main before: 21); P2 a real roster run leaves every tracked
+picture's git status unchanged and lands in scratch (filtered to pictures so the parallel pack cannot flake it);
+P3 BOHEMIA_SHOOT=1 returns the tracked path. Mutation: main's roster gate put back -> P1 and P2 red, and it really
+rewrote the committed PNG (restored). 4 picture paths are unresolvable statically (caller-built): fight_pixels,
+phone_perf opts.shotPath, run_gate rep.shot, sfx_render shot; printed as a note.
+HANDOFF GATE: any two of the three markers in order is a conflict (acc8757 10/5 had middle + end, start deleted;
+replayed: old rule clean, new rule conflicted); five planted cases; 10/0.
+After the change: roster 13/0, climbing 15/0, rebuilt fight 118/0, settlement 58/1, one-file loop 12/1; the two reds
+identical on main's own versions (RUN TWO, one line). No VOTE item: nothing he sees or hears changed (rule 29).
+Board notes: DYNASTY's and TUNING's old sheets fixed (notes off); new: TUNING (tuning-every-roll-a-man-makes-10-10),
+MODS (mods-an-id-is-a-promise-10-10), RUN TWO (two gates red on main + the --shoot habit), LIFE+CITY (ONE DRIVER:
+built_on_the_board_gate.js has its own browser), PORTRAIT (REFERENCE CHECK: three cook tools), PEOPLE (REFERENCE CHECK
+keepers_speak + DEMO BUILD 4 bytes behind after 060269d's stamp). RUN's loop note stays (still 3/2 on main).
+NEXT: the top OPEN row is [open row gate]. [first load] round 4 when RUN applies the hunks.
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/9 LATEST -- *** CHAT 18. ROUND 51. [first load] ROUND 3: THE FROZEN FIGHT LEAVES
 THE DEMO, BY THIS LANE'S OWN CUTTER. ***
 Record: records/BOHEMIA_THE_FROZEN_FIGHT_LEAVES_THE_DEMO_10_9_26.md. Row KEPT CLAIMED (rule 6).
