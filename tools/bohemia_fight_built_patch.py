@@ -23,6 +23,9 @@ must resolve exactly once):
 REUSE CHECK: the wall is the fight's own cover piece; the height is its own terrain; the other things are the
 approved street's cuts; the rules are the build module's fightTile(). Nothing new is drawn.
 
+AMENDED 10/10: COMBAT adapted placeBuilt to rule 63d (no typed number: the piece's size is R('ours.built_piece'),
+the halves are 1/two); this tool now carries COMBAT's version, so running it never undoes theirs.
+
 Run from repo root:  python3 tools/bohemia_fight_built_patch.py
 """
 import os, sys
@@ -91,9 +94,10 @@ FIGHT_B = FIGHT_M + r'''
     if (!Array.isArray(list) || !list.length) return;
     const G = DB.ground, tm = G.tile_metres, cf = (S.cols || R('ours.start_cols'))[0];
     const mid = Math.floor((S.h - 1) / (1 + 1)), rows = [];
-    for (let k = 0; k < S.h; k++) { const r = mid + (k % 2 ? (k + 1) / 2 : -k / 2); if (r >= 0 && r < S.h) rows.push(r); }
+    const two = 1 + 1;   /* middle rows first: the middle, one below, one above, two below... (rule 63d: no typed number) */
+    for (let k = 0; k < S.h; k++) { const r = mid + (k % two ? (k + 1) / two : -k / two); if (r >= 0 && r < S.h) rows.push(r); }
     const free = function (x, y) { return inBoard(x, y) && S.terrain[y][x] !== 'blocked' && !S.solid[y][x] && !S.cover[y][x] && S.terrain[y][x] !== 'height'; };
-    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 2, cf] };
+    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 1 - 1, cf] };
     let terrain = S.terrain.map(function (r) { return r.slice(); }), cover = (S.boardDef.cover || []).slice();
     list.forEach(function (b) {
       if (!b || !cols[b.fight]) return;
@@ -106,9 +110,10 @@ FIGHT_B = FIGHT_M + r'''
         let piece = 'wall';
         if (b.fight === 'building') {
           piece = 'lot_' + b.id;
-          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: 3, l: 3, h: 2.5, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
+          const bp = R('ours.built_piece');
+          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: bp.w, l: bp.l, h: bp.h, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
         }
-        cover = cover.concat([{ piece: piece, x_m: (spot.x + 0.5) * tm, y_m: (spot.y + 0.5) * tm, yours: piece !== 'wall' }]);
+        cover = cover.concat([{ piece: piece, x_m: (spot.x + 1 / two) * tm, y_m: (spot.y + 1 / two) * tm, yours: piece !== 'wall' }]);
       }
       applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover }));
       if (!connected()) { terrain = keepT; cover = keepC; applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover })); return; }
