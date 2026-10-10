@@ -194,7 +194,7 @@ function traitLine(k){
 /* THE LOOK, drawn over the painted place until COMBAT TWO's trait pictures exist: a burnt house
    with smoke still rising, planks across the clinic's windows, a crowd round the stall. Each is
    placed on a building already in that tier's picture (picked by eye). */
-var LOOKBOX = {burnt:{camp:[180,150,310,225], town:[40,60,490,365], fortress:[1620,560,1980,860]}};
+var LOOKBOX = {burnt:{camp:[840,220,1000,420], town:[1600,0,2060,370], fortress:[1116,122,1631,486]}};
 function drawTraitLooks(s){
   if(!VAR || !(S.traits||[]).length) return;
   var now = performance.now(), tier = S.place.tier;
@@ -572,12 +572,25 @@ var KMAP = {posts:'hall', board:'board', stall:'stall', barber:'barber', clinic:
 /* THE MARKET (rule 75d, Paolo 10/5: 'there's no place where you can buy weapons or armor'). Battle
    Brothers' shape: a camp has one stall for both, a town a smith and an armourer, a fortress both
    plus its market. The buildings are ones already standing in COMBAT TWO's pictures, picked by eye. */
-var ARMSBOX = {camp:{arms:[86,130,300,250], bar:[1290,120,1420,260]}, town:{smith:[1060,944,1490,1092], armourer:[1590,944,2040,1092], bar:[40,944,490,1092]},
-               fortress:{smith:[90,30,560,470], armourer:[560,30,1110,470], bar:[1880,820,2010,1030]}};
-var LOTBOX = {camp:[1290,680,1570,800], town:[520,900,1050,1092], fortress:[1330,700,1480,830]};
+/* re-placed on COOK FOUR's pack pictures (RUN TWO [one painted place], 10/10): every box sits on a real building or thing
+   in the picture, by eye, never on bare ground */
+var ARMSBOX = {camp:{arms:[600,390,770,580], bar:[1100,220,1260,410]}, town:{smith:[1060,720,1480,1092], armourer:[1830,720,2060,1092], bar:[0,0,440,370]},
+               fortress:{smith:[120,860,470,960], armourer:[1360,470,1610,560], bar:[1800,880,2010,1030]}};
+var BOXBYPIC = {'camp_1.webp':{arms:[570,530,760,790], bar:[830,690,1000,860]}, 'town_1.webp':{lot:[0,960,410,1092]}};
+var LOTBOX = {camp:[1290,680,1570,800], town:[470,880,760,1092], fortress:[1330,700,1480,830]};
 var view = {s:1, ox:0, oy:0, W:0, H:0, cx:null, cy:null, lit:null, night:false}, t0 = performance.now();
 var cv = document.getElementById('cv'), cx = cv.getContext('2d');
-fetch('settlement_ground/settlement_ground.json').then(function(r){ return r.json(); }).then(function(j){ GROUND = j; pickVariant(); }).catch(function(){});
+/* RUN TWO [one painted place], 10/10: the place is COOK FOUR's pack settlement (slices/settlement_ground_packs/,
+   rebuilt from his approved pack tiles, DIRECTION's PASS, rule 87) and nothing else; a tier the packs do not
+   carry (COOK's home block) keeps its own picture from settlement_ground/ */
+var GROUND_DIR = {};
+Promise.all([fetch('settlement_ground_packs/settlement_ground.json').then(function(r){ return r.json(); }).catch(function(){ return null; }),
+             fetch('settlement_ground/settlement_ground.json').then(function(r){ return r.json(); }).catch(function(){ return null; })])
+  .then(function(a){ var packs = a[0], old = a[1]; GROUND = packs || old; if(!GROUND) return;
+    GROUND = JSON.parse(JSON.stringify(GROUND));
+    Object.keys(GROUND.tiers).forEach(function(t){ GROUND_DIR[t] = packs ? 'settlement_ground_packs/' : 'settlement_ground/'; });
+    if(packs && old) Object.keys(old.tiers).forEach(function(t){ if(t === 'home' || !GROUND.tiers[t]){ GROUND.tiers[t] = old.tiers[t]; GROUND_DIR[t] = 'settlement_ground/'; } });
+    pickVariant(); });
 function seedOf(str){ var h = 2166136261; for(var i=0;i<str.length;i++){ h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
 function pickVariant(){
   if(!GROUND) return;
@@ -588,13 +601,14 @@ function pickVariant(){
   VAR.boxes.lot = LOTBOX[S.place.tier] || LOTBOX.town;
   VAR.boxes.build = BUILDBOX[S.place.tier] || BUILDBOX.town;   /* __BUILD_ON_THE_SCREEN__ */
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
+  var vb = BOXBYPIC[VAR.src] || {}; for(var vk in vb) VAR.boxes[vk] = vb[vk];   /* the second picture of a tier lays out differently */
   ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
   rollTraits(); restock();
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
     var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
   ['day','night'].forEach(function(w){
-    var im = new Image(); im.onload = function(){ layout(); }; im.src = 'settlement_ground/' + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
+    var im = new Image(); im.onload = function(){ layout(); }; im.src = (GROUND_DIR[GROUND.tiers[S.place.tier] ? S.place.tier : 'town'] || 'settlement_ground/') + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;
   });
   shelf(); layout();
 }
