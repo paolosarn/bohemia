@@ -7844,7 +7844,8 @@
      "NOTHING DRAWN: every pixel is your tile; only the frame is removed, 5-7 px a side as measured, and slabs are mirrored left-right only so your top light holds."
     ]
    }
-  }
+  },
+{"id": "run-the-far-end-back-10-10", "kind": "tile", "lane": "run", "sha": "pending", "made": "10/10", "title": "THE FAR END YOU LIKED IS BACK", "why": "You said the sharper zoomed-out land looked worse than before, so the old one is back exactly as it was and the sharp one is switched off. You see it on the DEMO's map pinched all the way out: left is yours, right is the one you voted down.", "show": {"how": "image", "src": "vote/RUN_THE_FAR_END_BACK_10_10.png"}}
  ],
  "verdicts": [
   {
