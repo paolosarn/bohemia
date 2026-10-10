@@ -186,13 +186,18 @@ def ruin():
     R4.drives(plan, north, 24.0, 112); R4.drives(plan, south, 36.0, 113)
     R4.walk_band(plan, 24.0, 24.0 + side, 114); R4.walk_band(plan, 36.0 - side, 36.0, 115)
     road = R4.road_band(plan, 24.0 + side, 36.0 - side, 116, lines=[(30.0, False, C[5])])
+    _cd = ImageDraw.Draw(plan)                                          # rule 77: the curb lines every town street carries
+    _cd.rectangle([0, M(24.0 + side) - 3, BP, M(24.0 + side)], fill=C[5]); _cd.rectangle([0, M(36.0 - side), BP, M(36.0 - side) + 3], fill=C[5])
     deb = noise(117, 12, 140)                                         # the debris field over the yards
     yard = np.array(deb) > 127
     yard[M(24.0):M(36.0), :] = False
     deb = Image.fromarray(yard.astype('uint8') * 255)
     plan.paste(B.dress_any([B.DGROUND[4]], BP, BP, 118), (0, 0), deb)
     scorch = noise(119, 10, 150)
+    _pa = np.asarray(plan.convert('RGB')).astype(int)
+    _paint = (np.abs(_pa - np.array(C[5])).max(2) <= 4) | (np.abs(_pa - np.array(T[5])).max(2) <= 4)
     B.shade_mask(plan, scorch, 0.6)                                  # soot over everything
+    _pb = np.asarray(plan.convert('RGB')).copy(); _pb[_paint] = _pa[_paint]; plan.paste(Image.fromarray(_pb.astype('uint8')))   # rule 77: the lane paint stays paint under the soot, so the lines still meet
     board = plan.resize((BP, PY * N), Image.NEAREST)
     B.faces(board, road.resize((BP, PY * N), Image.NEAREST), C[2], 0.15)
     for i, (c, r) in enumerate(north + south):
