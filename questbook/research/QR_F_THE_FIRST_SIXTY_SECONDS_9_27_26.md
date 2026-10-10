@@ -27,7 +27,7 @@ on the FIGHT BOARD, house-sized tiles cut from the city. QR-P (9/28) already re-
 the settlement screen; this sweep writes that re-cut into the page itself. The library findings below are
 unchanged; every FOR US line, the budget and the rules now read for THE MAP, THEN THE SETTLEMENT SCREEN. Also:
 there is no three-names screen and no flip at the start (rule 39c): the game opens on ONE person, customized
-before the clock; the next generation unlocks later (default: the first home base).
+before the clock; the next generation unlocks later (rule 85: when the act's first endgame crisis starts, around day 80 to 100).
 
 ---
 
@@ -359,7 +359,7 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person addressi
 14. THE FIRST MINUTE IS NOT THE LOUDEST. No fight, cutscene or set piece plays in the first 60 s unless
     the player tapped into it. (`Q134.X3`, `Q134.X9`)
 15. AFTER THE FIRST HOP, AND AFTER EVERY FLIP, THE CLOCK RESTARTS. The next act unlocks mid-act (rule 39c,
-    default the first home base); the first hop is a big transition where he customizes the new person,
+    rule 85: when the first endgame crisis starts, around day 80 to 100); the first hop is a big transition where he customizes the new person,
     generated from the one before, with the heirs of the last act's company (rule 39d). Arriving on the
     other act's settlement screen starts a fresh 60 s silence (rules 1 to 14 apply again), and the first
     discovery there is a thing the earlier act left. (second life proves the first happened `Q144.W9`; the

@@ -10,7 +10,7 @@ QUESTION: What do the 152 say a MAIN LINE is when the side content is contracts?
 quest stay alive and pull the player while they are free to do contracts at their own pace (no
 timers that punish, no nagging)? How do the best main lines use the side content, how often does a
 main beat land, how is the line carried by people and places and not a journal, and how is the
-ending earned? Then: THE SHAPE of Bohemia's main line across the three acts that are open at once (swept 9/29, rule 39c: open together once unlocked; act 1 is played first with one person and the next generation unlocks later, default the first home base).
+ending earned? Then: THE SHAPE of Bohemia's main line across the three acts that are open at once (swept 9/29, rule 39c: open together once unlocked; act 1 is played first with one person and the next generation unlocks when the act's first endgame crisis starts, rule 85, around day 80 to 100).
 
 ## THE ANSWER IN ONE PARAGRAPH
 

@@ -4,7 +4,7 @@ KIND: main-beat
 CRISIS: none
 ECONOMY: either
 PLACE: the first home base the family takes, the first part of the city it holds (rule 43; whichever it is, in this draft the farm tower camp), its settlement screen, a new building that appears the day it is yours: THE HOUSE
-SITUATION: THE FIRST UNLOCK (rule 39c): the game starts with ONE person and no flip. Taking the first home base unlocks the second generation (default). The next person is generated FROM this one. This beat is how the unlock is met: a place, a thing, a choice about what crosses
+SITUATION: THE FIRST UNLOCK (rule 39c): the game starts with ONE person and no flip. Taking the first home base no longer unlocks anything (rule 85): the second generation unlocks when act 1's first endgame crisis starts, around day 80 to 100. The house is where the family keeps what crosses, so the nail is ready when the crisis opens the flip. The next person is generated FROM this one. This beat is how the unlock is met: a place, a thing, a choice about what crosses
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
 CHECKLIST: passes all 32 (line on first-minute silence: the house says nothing for its first 60 seconds on screen) (QR-AM 10/10: lines 31 and 32 run, pass as written)
@@ -30,7 +30,7 @@ The second face frame on the phone is warm to the touch before anyone has been b
 
 ## CITED FROM
 - `Q235.W10`: the whole founding machine in one morning; the house is that morning.
-- `Q235.W7`: the rise starts from zero; the unlock is earned by the first base, not given.
+- `Q235.W7`: the rise starts from zero; the rise starts from zero; the unlock is earned by surviving into the first crisis, not given (rule 85).
 - `Q183.W3`: the heir will earn on purpose what others inherited.
 - `Q223.W6`: design is a question, not an answer; the generated face is a start, never a verdict.
 - `Q049.W4`: the handoff choice, pick what crosses.
@@ -39,4 +39,4 @@ The second face frame on the phone is warm to the touch before anyone has been b
 - `Q069.W1`: you play a whole life, not an adventure.
 
 ## FLAWS IT AVOIDS
-`Q049.X1` (the heir is generated from a person the player made, then customized: no lottery), `Q067.X4` (the unlock comes at the first base, not after a long first act), `Q046.X5` (nothing about the heir starts against him without a reason).
+`Q049.X1` (the heir is generated from a person the player made, then customized: no lottery), `Q067.X4` (the unlock comes at the first crisis, around day 80 to 100, not after a long first act), `Q046.X5` (nothing about the heir starts against him without a reason).

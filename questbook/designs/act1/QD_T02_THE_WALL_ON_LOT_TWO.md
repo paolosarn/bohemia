@@ -31,7 +31,7 @@ C. BUILD AND HOLD. The wall stands, they try the gap anyway: a routine fight, 2 
 Same pay on every road. The wall is the family's money and stays the family's wall.
 
 ## WHAT THE LEDGERS REMEMBER
-The wall is on the settlement screen, on the map, and on every fight board cut from this block, in every later act (the derived future). A or C won: the Salt Boys lose men; beaten twice, they get a name. B: their tracks go to the nearest camp within two stops, and THAT board posts a guard offer (the chain, QR-S rule 10). A lost: the racks burn; the tower's board goes thin and pays in seed (FOOD). Declining leaves nothing but the world's own result.
+The wall is built and lives on the settlement screen of the base, and nowhere else (rule 86), in every later act (the derived future). A or C won: the Salt Boys lose men; beaten twice, they get a name. B: their tracks go to the nearest camp within two stops, and THAT board posts a guard offer (the chain, QR-S rule 10). A lost: the racks burn; the tower's board goes thin and pays in seed (FOOD). Declining leaves nothing but the world's own result.
 
 ## THE ONE WRONG DETAIL
 The mason's string on lot two is still tied to the stake on the fifth morning, and nobody remembers tying it.

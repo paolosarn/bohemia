@@ -19,7 +19,7 @@ The chief engineer at the pad, a woman in a flight suit cut like a Rick Owens co
 3. RETAKE FIRST. Before any part, go to the fallen bases. Slower start; more bases give later.
 
 ## WHAT THE LEDGERS REMEMBER
-The choice sets which halls get rocket contracts first; every rocket contract (QD-Q01, QD-A06, QD-L09 and more) writes its part to the build. The build's progress is a picture: the rocket on the pad grows on the map. DEFAULT (acts 1 and 2 not played): the generator sets the fourteen bases' states and the engineer says "Some of them fell. I don't know why." The puzzle never becomes a management screen: each part is a person in a hall.
+The choice sets which halls get rocket contracts first; every rocket contract (QD-Q01, QD-A06, QD-L09 and more) writes its part to the build. The build's progress is a picture: the rocket on the pad grows on the base's settlement screen (rule 86: what you build lives there and nowhere else). DEFAULT (acts 1 and 2 not played): the generator sets the fourteen bases' states and the engineer says "Some of them fell. I don't know why." The puzzle never becomes a management screen: each part is a person in a hall.
 
 ## THE ONE WRONG DETAIL
 The first bolt she hands the player is warm, like someone was holding it a long time before her.
@@ -31,4 +31,4 @@ The first bolt she hands the player is warm, like someone was holding it a long 
 - `Q061.P9`: layer authored narrative on the sandbox; taken as every part being a person.
 
 ## FLAWS IT AVOIDS
-`Q061.X3` (the ruling chore: no management screen), `Q079.X2` (the rocket offscreen: it grows on the map), `Q065.X1` (the solved economy: parts are scarce even in a boom).
+`Q061.X3` (the ruling chore: no management screen), `Q079.X2` (the rocket offscreen: it grows on the settlement screen), `Q065.X1` (the solved economy: parts are scarce even in a boom).
