@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-bb-gear-what-worn-gear-says-10-9'
+MINE_ID = 'character-the-three-bodies-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "outfit", "lane": "character",
-  "sha": "pending", "made": "10/9",
-  "title": "DO THE THIRTEEN STILL READ APART, SMALL",
-  "why": "Battle Brothers reads a man's kit by shape, not colour, because its camera is often far, so I shrank all thirteen gang looks down to a small figure and measured whether each one is still its own shape or colour. Thumbs up, and you see it here, with two pairs honestly flagged as the closest calls for DIRECTION and COOK to look at.",
+  "sha": "pending", "made": "10/10",
+  "title": "THE THREE BODIES",
+  "why": "Your face already runs in the family through the three generations, so I built the same thing for the body, one ancestor's shape pulling at his son and grandson by the same pull your face uses. You see it here, three men in the same clothes with three different builds, not three strangers.",
   "show": {
     "how": "page",
-    "src": "vote/CHARACTER_BB_GEAR_WHAT_WORN_GEAR_SAYS.html"
+    "src": "vote/CHARACTER_THE_THREE_BODIES.html"
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

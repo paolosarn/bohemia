@@ -1,0 +1,35 @@
+THE THREE BODIES -- CHARACTER, 10/10/26, [three bodies], rule 31, law s5
+
+PORTRAIT's descendantSpec (9/27) already blends the three descendants' FACES
+toward the ancestor by heredity; this is the BODY half, with no new weight and
+no new rule. New function, descendantBodySpec(actNum, ancestorDials,
+ancestorWorn, opts): the five body dials (height, belly, arms, shoulders, hips)
+blend toward the ancestor's real numbers by the SAME DESCENDANT_H (0.62, then
+0.62 squared for the third generation); the outfit is copied whole or rolled
+independently by the SAME DESCENDANT_LOOK_H (0.90), never averaged piece by
+piece, the same rule the face mechanism already proved on a haircut.
+
+THE BASE ROLL: no general body-dial roller exists for a fresh adult the way
+faceFor() is one for a face, so "an ordinary adult" body is a deterministic
+pick from the 25 already-judged looks this lane has built (13 FACTION_LOOKS +
+12 CITY_CAST_LOOKS), then blended toward the ancestor -- never an invented
+shape, and "the runway names" the row asks for holds on both branches of the
+outfit roll, inherited or independent.
+
+THIS PROOF'S ANCESTOR STAND-IN: Church, one of the runway thirteen (the live
+player's own hand-built face and body are not reachable from a headless tool;
+this proves the mechanism against a real ancestor's real dials and worn bundle,
+not a claim about whose face it will actually run on in the game).
+
+ACT 1 (Church (the ancestor)): height 0.750, belly -0.250, arms 0.100, shoulders 0.250, hips -0.100
+ACT 2 (h = 0.62): height 0.332, belly 0.035, arms 0.176, shoulders 0.383, hips -0.024 -- outfit INHERITED whole from the ancestor
+ACT 3 (h = 0.3844): height 0.177, belly 0.427, arms 0.315, shoulders 0.589, hips 0.146 -- outfit INHERITED whole from the ancestor
+
+SILHOUETTE/COLOUR CHECK, PIXEL DIFFERENCE (the honest ruler for this kind of
+change, same lesson as [armour you can see]'s first mistake): act1 vs act2 1056, act1 vs act3 1311, act2 vs act3 607 (floor: 300). All three clear.
+
+NOT HERE, ON PURPOSE: this proves the mechanism renders and blends correctly.
+Wiring it to the live player's actual ancestor dials/worn bundle at the flip
+and to act 3's own visual era (ruin to recovered, DIRECTION's bible) is DYNASTY
+and RUN's door; this lane's job was the body-heredity mechanism itself, and it
+is now a function, not a guess made fresh by whoever wires it in next.

@@ -1,3 +1,35 @@
+CHARACTER (character-0lurbs): 10/10 (e) LATEST -- *** YOUR FACE ALREADY PASSES
+DOWN THROUGH THE THREE GENERATIONS. THE BODY NOW DOES TOO. ***
+TAB: CHARACTER and VOTE, one item, THE THREE BODIES.
+Record: records/BOHEMIA_THE_THREE_BODIES_10_10_26.txt, this VAMILY.md round text,
+row [three bodies].
+
+Row [three bodies] SHIPPED. PORTRAIT already built the mechanism that blends a
+son's and a grandson's FACE toward the man they came from. I built the same
+thing for the BODY, reusing PORTRAIT's exact pull strength, no new numbers
+invented. One ancestor's shape now pulls at his son and grandson by the same
+amount their face already does.
+
+HOW IT WORKS: there is no "roll a random adult body" tool the way there is one
+for faces, so I pick a starting body from the 25 shapes this lane already built
+and judged, then pull it toward the ancestor. The outfit is either copied whole
+from the ancestor or rolled fresh, never half-and-half, the same rule the face
+already uses for a haircut.
+
+PROVEN: one ancestor and two descendants, side by side in the same clothes,
+three visibly different builds. I looked at the actual picture before trusting
+the numbers, same as every round this lane has shipped. No mistake found.
+
+NOT DONE: this proves the mechanism works, using a stand-in ancestor, because
+the real player's own body is not something a background tool can reach.
+Hooking it up to the real ancestor at the flip is DYNASTY and RUN's door.
+
+2 OPEN rows remain in the jump list (rule 74): [wildlife rig], [look verdict].
+No third OPEN row exists anywhere in this lane's section to relocate up; none
+invented, per rule 10.
+
+PENDING Paolo: nothing new.
+
 WORLD (world-9lfjtf): 10/10 (c) LATEST -- *** THE POLICE STATION IN THIS VALLEY
 HAS FIFTEEN HOSPITAL WARDS IN IT. *** Row [the valley has no inside] SHIPPED. 3
 OPEN rows remain (rule 74) and the top one is new: [one table for the rooms].
@@ -123,7 +155,6 @@ at the front is the only man fighting. The lesson of this round is the cost of
 that lead: A SYSTEM NOBODY IS CURRENTLY PLAYING ROTS QUIETLY, and ours rotted into
 a police station full of hospital beds.
 
-
 TUNING (tuning-f59l1w): 10/10 (h) LATEST -- [the price ratios] SHIPPED (research, no code touched).
 TAB: VOTE, item THE MARKET AGAINST THE WIKI (an AUDIT block added to the sell-ratio page).
 RECORD: records/BOHEMIA_TUNING_THE_PRICE_RATIOS_AUDIT_WHERE_THE_MARKET_DEPARTS_FROM_THE_WIKI_10_10_26.md
@@ -134,6 +165,7 @@ no figure in ECONOMY's table (uses village) but the wiki has Medium .1457-.1579 
 relation are ignored. One-battery floor: 34 of 309 items (11%) sell for 1 instead of < 1 (17-50% return, median 25%). Three tier names (screen camp/town/fortress,
 table camp/village/town/city, mine) need one map; proposal in the record.
 NEXT OPEN: [the board sizes' numbers], [origins difficulty].
+
 SOUNDS (sound-xk7pjp): 10/10 LATEST (round ten, [not sand] round eight) -- ***
 A SWORD BLOCKING A HIT NOW SOUNDS LIKE SOMETHING REAL, NOT A DULL THUD. ***
 TAB: VOTE, one item, A BLOCK IS TWO THINGS TOUCHING.
