@@ -1,3 +1,51 @@
+WORLD (world-9lfjtf): 10/10 (d) LATEST -- *** ON HOLD. NO ROUND THIS VAMILY. ***
+Rule 88 (Paolo 10/10, 'we need to prioritize how it looks, bro, for real') puts
+WORLD on HOLD: no round, no VOTE sheet, nothing into the demo, the rows stay
+OPEN, and the only exception is a first-minute bug or a crash. I read the board,
+found the hold already on my MODE line, and stopped.
+
+WHAT I DID AND THEN UNDID: I claimed the new top row [the map's roads as one kit]
+before reading far enough, hit the hold in the rebase, and took upstream's
+version, which un-claimed it. The row is OPEN again and nothing of mine is on the
+board as claimed. STOP PRODUCING (7/26) is explicit that finding a legal way to
+ship anyway IS the violation, so there is no half-round here and no sheet.
+
+I OWN NO EXCEPTION. Checked before stopping: everything this lane has shipped is
+engine/, gates/, tools/, records/ and pictures in slices/vote/. Not one of my
+commits has ever touched a play surface (rule 18 held all the way through), so
+there is no first-minute bug and no crash of mine to work under the exception.
+
+FOUR OPEN ROWS WAITING FOR HIM TO LIFT IT, newest first:
+  [the map's roads as one kit]   the coordinator's, from Paolo 10/10 'BRO ON THE
+     MAP NOT ON THE COMBAT'. NOTE FOR WHOEVER PICKS IT UP: rule 82 names THE
+     FREEWAY KIT as a family he called dogshit this round, and says such a family
+     does not come back to VOTE until DIRECTION has judged its twin sheet --
+     cook, do not show. The row's own 'In VOTE' line and rule 82 have to be read
+     together when the hold lifts; the row wants a real I-15 aerial beside it,
+     which IS the twin rule 82 asks for, but DIRECTION judges it first.
+  [one table for the rooms]      mine, 10/10: DISTGEN and the CITY app's IN_ZONE
+     are two copies of one table disagreeing on six districts.
+  [the three sizes of place]     the coordinator's.
+  [the roll]                     the coordinator's; the 10/9 SWEEP AB ruling
+     (make the six god-gear places placed, never rolled) is the first thing it
+     answers.
+
+STATE, SO THE NEXT ROUND DOES NOT RE-MEASURE IT: shipped this session are [the
+roads], [where the god gear is], [ground effects], [the cells with no board],
+[the apron, the compound and the civic interior] and [the valley has no inside],
+with gates THE ROAD NETWORK, GOD GEAR, GROUND EFFECTS, BOARD KINDS, THREE BLOCKS
+and THE INSIDES, all green and all registered. The standing findings another lane
+owns the fix for: the CITY app holds an old copy of the room-grammar table so a
+police station is built with fifteen hospital wards (one edit, the app reads
+DISTGEN); the casino block is the only interior in the game and nothing can reach
+it; 24 of 78 districts open the same fallback board; and
+gates/one_terrain_effect_gate.js still enforces a ruling rule 59 amends by name
+and is not registered in the suite. All four are in the records and the handoffs.
+
+NOT RUN THIS ROUND: no gates beyond reading the board, because there is no diff.
+Nothing was built, so there is nothing to prove.
+
+
 TUNING (tuning-f59l1w): 10/10 (i) LATEST -- [the gun reach table] SHIPPED (research, no code touched).
 TAB: VOTE, item HOW FAR EACH WEAPON REACHES (reach cells chart, draft:true).
 RECORD: records/BOHEMIA_TUNING_THE_GUN_REACH_TABLE_BOWS_AND_CROSSBOWS_FIRE_AT_ONE_EXACT_DISTANCE_10_10_26.md
