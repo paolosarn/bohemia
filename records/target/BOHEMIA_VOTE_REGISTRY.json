@@ -7403,6 +7403,19 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "economy-what-a-crash-leaves-standing-10-10",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "WHAT A CRASH LEAVES STANDING",
+   "why": "Four real crashes, railway mania, the 2000 telecom bust, dot-com, and 2008 in Las Vegas itself, all do the same thing: the money dies and whoever still has cash buys the real buildings and cable for pennies. You see it in the records, not drawn yet, feeding WORLD and FACTIONS.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 66.\n\nSeen in: not drawn yet, feeds WORLD and FACTIONS."
+   }
   }
  ],
  "verdicts": [

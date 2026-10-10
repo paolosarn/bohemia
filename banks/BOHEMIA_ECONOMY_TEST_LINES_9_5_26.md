@@ -4786,3 +4786,45 @@ SSSSSSSSSSSSSSSSSSSSSS8  the one who finally struck water on the fourth try     
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## IIIIIIIIIIIIIIIIIIIIIII. WHAT A CRASH LEAVES STANDING (round 66)
+
+SSSSSSSSSSSSSSSSSSSSSSS1  a man counting the cable spools nobody ever lit up    draft:true
+    "They paid to bury all of it. Then there was nothing left to run through it."
+
+SSSSSSSSSSSSSSSSSSSSSSS2  the one who bought the whole line for scrap price      draft:true
+    "Everybody who built it is gone. The wire's still good, though."
+
+SSSSSSSSSSSSSSSSSSSSSSS3  a woman standing in a tower that never got its windows draft:true
+    "Somebody's money ran out forty floors up. The concrete didn't notice."
+
+SSSSSSSSSSSSSSSSSSSSSSS4  the one who moved her whole family into that tower     draft:true
+    "Nobody finished it. Nobody's stopping us from living in it either."
+
+SSSSSSSSSSSSSSSSSSSSSSS5  a man walking a street that was platted and never built draft:true
+    "Curbs, a stop sign, lots with nothing on them. They graded a city that never came."
+
+SSSSSSSSSSSSSSSSSSSSSSS6  the one claiming three of those empty lots as his      draft:true
+    "Paper said somebody owned this. Paper's not worth much anymore."
+
+SSSSSSSSSSSSSSSSSSSSSSS7  a woman who inherited a server room with no company left draft:true
+    "I don't know what half of it did. I know it still runs."
+
+SSSSSSSSSSSSSSSSSSSSSSS8  the one who fought three others for that same room     draft:true
+    "Whatever it was built for doesn't matter now. It's the only room with power."
+
+## JJJJJJJJJJJJJJJJJJJJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 66)
+
+- No line names railway mania, the telecom bubble, dot-com or 2008 by name, or any company,
+  bank or finance term. The whole finding is said as buried cable nobody lit, an unfinished
+  tower, a graded street with nothing built on it, and a server room nobody remembers the
+  purpose of.
+- No line prices anything in batteries. Every speaker treats the leftover as already real and
+  already contested, never as a number on a table.
+- No line resolves who legally owns anything. SSSSSSSSSSSSSSSSSSSSSSS4 and 6 both claim a
+  thing on no real authority, the finding's own point: the finance died, the claim did not.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 667 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

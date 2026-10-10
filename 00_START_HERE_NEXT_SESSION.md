@@ -3239,6 +3239,27 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (j) -- [the bubble] SHIPPED (research/school, no
+code touched -- the row's own text calls for a school). THE JUMP LIST IS NOW EMPTY: every OPEN
+row in this lane's section has shipped; next round pulls whatever the coordinator adds next.
+Record: records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md
+FINDING: Battle Brothers has no bubble mechanic, so this is all real history. Four real
+crashes share one pattern: speculative finance builds something physical faster than the
+economy can use it, the finance collapses, and whoever still has cash buys the physical thing
+for pennies. Railway mania's abandoned track got consolidated into Britain's real network; the
+2000 telecom bust's unlit fiber got bought out of bankruptcy for a fraction of its cost; the
+dot-com crash's excess server capacity got inherited by whoever survived; and 2008 happened
+right here in Las Vegas, half-built towers and empty platted subdivisions bought in bulk by
+institutional cash, no translation needed. Mapped onto WORLD's own six legendary places: the
+data fortress is the dot-com/telecom leftover, the fuel depots and robotics plant are the
+railway-mania leftover, and a half-built tower or empty subdivision (this valley's own 2008)
+is flagged as a possible seventh category, not yet confirmed rolled. No new price: WORLD's
+existing rank-guard-reward chain already prices the six; this round supplied the history.
+Eight bank lines, draft:true.
+NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted.
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (i) -- [build costs] SHIPPED (research, no code
 touched -- the row's own text calls for research, read TUNING).
 Record: records/BOHEMIA_ECONOMY_DAY_65_WHAT_A_LOT_COSTS_TO_BUILD_THE_WELL_IS_THE_ONE_THAT_
