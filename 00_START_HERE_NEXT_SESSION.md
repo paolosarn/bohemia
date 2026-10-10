@@ -134300,3 +134300,7 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 - RUN TWO 10/10 [climbing] SHIPPED: men level from the fight's XP and pick perks on the roster screen; the next fight reads them via opts.company. RUN: forward BOHEMIA_FIGHT_OVER's crew rows to the roster and pass the roster's DONE company into the next fight. COMBAT: two small lines in the fight (crew rows on FIGHT_OVER; c.perks wins over the build), gated by climbing_gate.js.
 - RUN TWO 10/10 [the finished pictures in] SHIPPED: COOK's finished settlement pictures carry ANIMATION's people (keepers at doors, a crowd by the stall sized by traits). Next: [the stash screen].
 - RUN TWO 10/10 [the stash screen] SHIPPED: slices/BOHEMIA_STASH_SCREEN.html (BOHEMIA_STASH_OPEN in, BOHEMIA_STASH out). RUN: open it from the bar's six. ECONOMY: water has no daily rate. Next: [the arrival].
+
+
+## COOK TWO (cook 2, the ground) -- 10/10 cook2-b27d
+[the street kit from the packs] CLAIMED, round one done: 16 street pieces cut from his approved street pools, typed edges, before/after sheet (slices/fight_ground/kit_street/). Next: DIRECTION pass, stamp repetition fix, worn markings from the marking bank, a kit-seam gate; then COMBAT TWO lays the street board. Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
