@@ -1,4 +1,4 @@
-167 distinct approved pack tiles, every one UP in the 7/13 confirmed set
+172 distinct approved pack tiles, every one UP in the 7/13 confirmed set
 1. Cracked contrete tiles#0
 1. Cracked contrete tiles#1
 1. Cracked contrete tiles#19
@@ -20,12 +20,13 @@
 1. Cracked street tiles#9
 11. Crates and barrels#1
 11. Crates and barrels#11
+11. Crates and barrels#13
 11. Crates and barrels#16
 11. Crates and barrels#19
 11. Crates and barrels#2
 11. Crates and barrels#20
 11. Crates and barrels#21
-11. Crates and barrels#27
+11. Crates and barrels#23
 11. Crates and barrels#28
 11. Crates and barrels#29
 11. Crates and barrels#3
@@ -33,8 +34,6 @@
 11. Crates and barrels#8
 11. Crates and barrels#9
 11. Industrial doors and gates#0
-11. Survival props#11
-11. Survival props#13
 11. Survival props#15
 11. Survival props#21
 11. Survival props#22
@@ -49,6 +48,11 @@
 11. Survival props#46
 11. Survival props#7
 12. Ruined building parts#10
+12. Ruined building parts#13
+12. Ruined building parts#17
+12. Ruined building parts#18
+12. Ruined building parts#19
+12. Ruined building parts#6
 12. Ruined building parts#7
 12. Ruined building parts#8
 13. Port market#30
@@ -59,12 +63,12 @@
 14. Trash and junk props#12
 14. Trash and junk props#13
 14. Trash and junk props#15
+14. Trash and junk props#2
 14. Trash and junk props#4
 14. Trash and junk props#5
 14. Trash and junk props#8
 14. Trash and junk props#9
 16. Dead trees and plants#0
-16. Dead trees and plants#13
 16. Dead trees and plants#15
 16. Dead trees and plants#16
 16. Dead trees and plants#17
@@ -78,9 +82,9 @@
 16. Dead trees and plants#31
 16. Dead trees and plants#32
 16. Dead trees and plants#38
-16. Dead trees and plants#4
 16. Dead trees and plants#6
 16. Dead trees and plants#7
+16. Dead trees and plants#8
 16. Dead trees and plants#9
 18. Light sources and fire barrels#1
 18. Light sources and fire barrels#16
@@ -111,12 +115,11 @@
 2. Soil and dirt tiles#6
 2. Soil and dirt tiles#7
 3. Barricades and blockades#0
+3. Barricades and blockades#12
 3. Barricades and blockades#15
 3. Barricades and blockades#19
 3. Barricades and blockades#2
-3. Barricades and blockades#3
 3. Barricades and blockades#4
-3. Barricades and blockades#5
 3. Barricades and blockades#6
 3. Barricades and blockades#7
 3. Barricades and blockades#8
@@ -154,15 +157,17 @@
 7. Trash and debris#7
 7. Trash and debris#8
 7. Trash and debris#9
-8. Market Stalls#1
 8. Market Stalls#2
 8. Market Stalls#4
 8. Market Stalls#5
 8. Market Stalls#6
-9. Abandoned cards#25
-9. Abandoned cards#28
-9. Abandoned cards#8
-Wall tiles (1)#0
-Wall tiles (1)#1
+8. Market Stalls#7
+9. Abandoned cards#11
+9. Abandoned cards#27
+9. Abandoned cards#32
+9. Abandoned cards#5
 Wall tiles (1)#5
-Wall tiles (1)#7
+house skin#wall_plain_10
+house skin#wall_plain_11
+house skin#wall_plain_8
+house skin#wall_plain_9

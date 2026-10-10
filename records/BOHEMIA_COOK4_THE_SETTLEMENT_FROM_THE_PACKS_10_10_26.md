@@ -23,3 +23,13 @@ Three differences still owed (my own read against the pack):
 1. The pack is 3/4 top-down RPG; our houses are a flat facade strip, the pack's own whole-cottage roof tiles read better and are not used yet.
 2. The town's houses are a wall of repeats; it needs gaps, alleys, a broken one.
 3. Night pools are round blobs; the lamp cone should fall forward onto the ground, not centred on the lamp.
+
+## Round 2 (10/10, cook4)
+- The town is a Vegas block now: walls from his house skins (stucco, 44 px drawn at 2x = the pack's own pixel size),
+  roofs, doors and windows from the pack (the skins' own roofs read flat beside the pack props, tried and dropped).
+- Alleys between the houses; one lot is a house fallen in (12. Ruined building parts).
+- The night light falls forward on to the ground in front of each lamp, a bright head and a pool, not a disc.
+- Town clutter halved and kept off the road and its kerb.
+- REFERENCE CHECK block added to the tool (PLUMBER's note): the gate is 0 red.
+- The new 'home' tier (his block, COOK b46a874) is COOK's own place and is skipped.
+Still owed: the camp's ground reads as a grid of dirt squares; the fortress has no wall on its sides.

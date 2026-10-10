@@ -7,6 +7,116 @@
  "px_per_metre": 42.9,
  "perspective": "45 DEGREE ART LAW",
  "tiers": {
+  "home": {
+   "src": "home_0.webp",
+   "px": [
+    2060,
+    1092
+   ],
+   "hotspots": {
+    "board": {
+     "box": [
+      352,
+      494,
+      470,
+      583
+     ],
+     "kind": "board"
+    },
+    "hall": {
+     "box": [
+      532,
+      225,
+      790,
+      412
+     ],
+     "kind": "hall"
+    },
+    "lot": {
+     "box": [
+      862,
+      368,
+      1184,
+      583
+     ],
+     "kind": "lot"
+    },
+    "stall": {
+     "box": [
+      86,
+      444,
+      257,
+      583
+     ],
+     "kind": "stall"
+    }
+   },
+   "variants": [
+    {
+     "src": "home_0.webp",
+     "night_src": "home_0_night.webp",
+     "px": [
+      2060,
+      1092
+     ],
+     "hotspots": {
+      "board": {
+       "box": [
+        352,
+        494,
+        470,
+        583
+       ],
+       "kind": "board"
+      },
+      "hall": {
+       "box": [
+        532,
+        225,
+        790,
+        412
+       ],
+       "kind": "hall"
+      },
+      "lot": {
+       "box": [
+        862,
+        368,
+        1184,
+        583
+       ],
+       "kind": "lot"
+      },
+      "stall": {
+       "box": [
+        86,
+        444,
+        257,
+        583
+       ],
+       "kind": "stall"
+      }
+     },
+     "lights": 2,
+     "night_measured": {
+      "plain": {
+       "ground_median": 0.261,
+       "unlit_median": 0.173,
+       "lit_median": 0.717,
+       "lit_vs_unlit": 3.44
+      },
+      "sun": {
+       "ground_median": 0.387,
+       "unlit_median": 0.299,
+       "lit_median": 0.781,
+       "lit_vs_unlit": 2.38
+      }
+     }
+    }
+   ],
+   "place": true,
+   "note": "HIS BLOCK: one named place, not a size. The home base of the third votes. Four taps and they are the camp tier's own list (hall, board, stall, lot), so the screen wires it by naming it. hall is YOUR door with your step under it, lot is the driveway with his wreck on it, which is SCAVENGE."
+  },
   "camp": {
    "src": "camp_0.webp",
    "px": [
