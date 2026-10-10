@@ -7758,7 +7758,7 @@
   },
   "draft": true
  },
-  {"id": "direction-the-card-of-numbers-10-10", "kind": "verdict", "lane": "direction", "sha": "PENDINGSHA", "made": "10/10", "title": "THE CARD OF NUMBERS: YOUR PACK IS THE FLOOR", "why": "Every tile you bought holds 3,000 to 4,500 colours at 96 pixels, lit from above, with no outline on the ground, and every cook now measures a drawing against those numbers before you ever see it (our fight barrier has 10 colours and fails). You see it in the VOTE tab, each family of your tiles beside its numbers.", "show": {"how": "image", "src": "../records/target/DIRECTION_THE_CARD_OF_NUMBERS.png"}, "asked": "UP or DOWN", "draft": true}
+  {"id": "direction-the-card-of-numbers-10-10", "kind": "verdict", "lane": "direction", "sha": "0de2a7d8", "made": "10/10", "title": "THE CARD OF NUMBERS: YOUR PACK IS THE FLOOR", "why": "Every tile you bought holds 3,000 to 4,500 colours at 96 pixels, lit from above, with no outline on the ground, and every cook now measures a drawing against those numbers before you ever see it (our fight barrier has 10 colours and fails). You see it in the VOTE tab, each family of your tiles beside its numbers.", "show": {"how": "image", "src": "../records/target/DIRECTION_THE_CARD_OF_NUMBERS.png"}, "asked": "UP or DOWN", "draft": true}
  ],
  "verdicts": [
   {
