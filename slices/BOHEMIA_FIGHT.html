@@ -573,7 +573,6 @@ const FIGHT = (function () {
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
     if (!big) cropToParty(dealt, crewUnits, bandUnits, opts);
     if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
-    try { placeBuilt(opts.built); } catch (_e) {}   /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
     S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
     const cols = S.cols;
@@ -584,42 +583,6 @@ const FIGHT = (function () {
     S.deploy = !opts.auto && opts.deploy !== false;
     newRound();
   }
-  /* __BUILT_ON_THE_BOARD__ fn (LIFE+CITY 10/9) */
-  /* WHAT YOU BUILT AT THIS PLACE, ON YOUR SIDE OF THE BOARD (rule 40b; 37g high ground is a roof). Wall: the board's
-     own BLOCK WALL on your front column; high: the tile turns to height; building: a piece that blocks, drawn with its
-     own picture; open: nothing. Middle rows first; a piece that would cut the lines apart is taken back. */
-  function placeBuilt(list) {
-    S.built = [];
-    if (!Array.isArray(list) || !list.length) return;
-    const G = DB.ground, tm = G.tile_metres, cf = (S.cols || R('ours.start_cols'))[0];
-    const mid = Math.floor((S.h - 1) / (1 + 1)), rows = [];
-    const two = 1 + 1;   /* middle rows first: the middle, one below, one above, two below... (rule 63d: no typed number) */
-    for (let k = 0; k < S.h; k++) { const r = mid + (k % two ? (k + 1) / two : -k / two); if (r >= 0 && r < S.h) rows.push(r); }
-    const free = function (x, y) { return inBoard(x, y) && S.terrain[y][x] !== 'blocked' && !S.solid[y][x] && !S.cover[y][x] && S.terrain[y][x] !== 'height'; };
-    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 1 - 1, cf] };
-    let terrain = S.terrain.map(function (r) { return r.slice(); }), cover = (S.boardDef.cover || []).slice();
-    list.forEach(function (b) {
-      if (!b || !cols[b.fight]) return;
-      let spot = null;
-      cols[b.fight].some(function (x) { return rows.some(function (y) { if (free(x, y)) { spot = { x: x, y: y }; return true; } return false; }); });
-      if (!spot) return;
-      const keepT = terrain, keepC = cover;
-      if (b.fight === 'high') { terrain = terrain.map(function (r) { return r.slice(); }); terrain[spot.y][spot.x] = 'height'; }
-      else {
-        let piece = 'wall';
-        if (b.fight === 'building') {
-          piece = 'lot_' + b.id;
-          const bp = R('ours.built_piece');
-          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: bp.w, l: bp.l, h: bp.h, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
-        }
-        cover = cover.concat([{ piece: piece, x_m: (spot.x + 1 / two) * tm, y_m: (spot.y + 1 / two) * tm, yours: piece !== 'wall' }]);
-      }
-      applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover }));
-      if (!connected()) { terrain = keepT; cover = keepC; applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover })); return; }
-      S.built.push({ id: b.id, fight: b.fight, x: spot.x, y: spot.y });
-    });
-  }
-  /* __/BUILT_ON_THE_BOARD__ fn */
   /* THE CUT (rule 79; ours.board_fit): across = a tile of room, your line's depth, the wiki's five-tile gap between the two
      fronts, their line's depth, a tile of room; down = the longer line and a tile above and below. The window is slid over
      the dealt board to where the two lines can reach each other, the kind the loop asked for is in it, the most of both
@@ -1518,7 +1481,6 @@ function bakeBoard() {
   const covers = (B.cover || []).map(function (k) { return k.piece; });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
-  (FIGHT.S.built || []).forEach(function (q) { const s2 = 'fight_ground/../settlement/lot/' + q.id + '.png'; if (all.indexOf(s2) < 0) all.push(s2); });   /* __BUILT_ON_THE_BOARD__ */
   /* the people: every look a fighter wears, baked from the character bank (rule 69) */
   Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
@@ -1534,15 +1496,8 @@ function bakeBoard() {
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
       (B.cover || []).forEach(function (cv2) {
         const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece]).src];
-        if (im && !cv2.yours) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);   /* yours: drawn below */
+        if (im) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);
       });
-      /* __BUILT_ON_THE_BOARD__ draw (LIFE+CITY 10/9): what you built stands on its tile, its own picture fitted to the house,
-         its foot on the tile's floor; the wall is the board's own piece above, and a roof is drawn here because
-         the board draws no height of its own */
-      (FIGHT.S.built || []).forEach(function (q) { if (q.fight === 'wall') return;
-        const im = UI.imgs['fight_ground/../settlement/lot/' + q.id + '.png']; if (!im) return;
-        const s = Math.min(UI.tw * 0.9 / im.width, UI.th * 0.9 / im.height);
-        g.drawImage(im, (q.x + 0.5) * UI.tw - im.width * s / 2, (q.y + 0.95) * UI.th - im.height * s, im.width * s, im.height * s); });
       /* the grid, faint: what is two tiles away is always obvious (37f) */
       g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 1;
       for (let x = 0; x <= FIGHT.S.w; x++) { g.beginPath(); g.moveTo(x * UI.tw + .5, 0); g.lineTo(x * UI.tw + .5, c.height); g.stroke(); }

@@ -7,7 +7,7 @@
  *   C  AWAY: it reaches the gate, the raid opens with its days, and on the due morning the world settles it
  *      (FACTIONS' settle): the stronger crew takes the base; what you built stands and pays them.
  *   D  THERE: standing at your base when the crew reaches it starts the fight at the gate through the one door,
- *      with what you built on the board; a win holds the base; a loss is a reload (Paolo 7/26: death is a reload,
+ *      (a plain board: rule 86 retired what you built on the board); a win holds the base; a loss is a reload (Paolo 7/26: death is a reload,
  *      not a reset), so it writes nothing and the raid is still at the gate in the save he goes back to.
  *   E  ONE CREW AN ACT: a held base draws no second crew the same act.
  * Run:  node gates/a_raid_on_your_base_gate.js
@@ -69,7 +69,7 @@ const SETUP = `(async function(goHome){
           return { open: !!NF.frame, built: (NF.opts && NF.opts.built) || [], ready: !!(l && l.style.display === 'none'), load: l ? l.textContent : '' }; } catch (e) { return { open: false, built: [] }; } });
         if (sh.ready || /DID NOT LOAD/.test(sh.load || '')) break; }
       ok('D *** there when they arrive: the fight opens at the gate *** (' + (win ? 'win' : 'loss') + ' run)', f && sh.open, 'fighting at ' + f);
-      ok('D with what you built on the board (' + (win ? 'win' : 'loss') + ' run)', sh.built.map(b => b.id).join() === 'wall,tank', sh.built.map(b => b.id).join());
+      ok('D the board carries nothing you built (rule 86) (' + (win ? 'win' : 'loss') + ' run)', sh.built.length === 0, sh.built.map(b => b.id).join() || 'none');
       ok('D *** and the fight actually builds its ground *** (' + (win ? 'win' : 'loss') + ' run)', sh.ready, sh.ready ? 'ready' : sh.load);
       const e = await d.fr.evaluate((win) => new Promise(r => {
         window.postMessage({ type: 'BOHEMIA_CITY_COMBAT_END', outcome: win ? { victory: true, result: 'win', alive: 0 } : { victory: false, result: 'loss', alive: 3 }, at: null }, '*');

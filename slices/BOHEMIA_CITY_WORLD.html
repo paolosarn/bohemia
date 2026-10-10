@@ -46319,28 +46319,6 @@ function renderCity(){
           g.beginPath(); g.ellipse(__p.sx, __cy + 1, 16, 5, 0, 0, 7); g.fill();
           __ps = mapArtDraw(__mk, mapArtBeat() + (__p.sx | 0), null, __p.sx, __cy + 2);
         }
-        /* __BUILT_ON_THE_MAP__ at the base (LIFE+CITY 10/9) */
-        /* WHAT YOU BUILT, AT YOUR BASE: what stands on its lots, on its west side, nearest first, at
-           the map people's scale; going up is faint, as on the screen. */
-        try { MAP_DREW.baseAt = MAP_DREW.baseAt || {}; MAP_DREW.baseAt[__n] = { sx: __p.sx, cy: __cy }; } catch (_e8) {}   /* where a base sits on the glass, for a probe to point at */
-        try {
-          var __lb = LOT_BOOK && LOT_BOOK[__n], __lk = 0;
-          if (__lb) {
-            /* on the base's west side, nearest first, so the party's own flag on the east is never covered */
-            var __lx0 = __p.sx - 16 * MAP_PEOPLE_K, __lfy = __cy + 6 + 2 * MAP_PEOPLE_K;
-            for (var __lkey in __lb.lots) {
-              var __lot = __lb.lots[__lkey], __im = lotSprite(__lot.id); if (!__im) continue;
-              var __lh = 16 * MAP_PEOPLE_K, __lw = __im.naturalWidth * (__lh / __im.naturalHeight);
-              if (__lw > 24 * MAP_PEOPLE_K) { __lw = 24 * MAP_PEOPLE_K; __lh = __im.naturalHeight * (__lw / __im.naturalWidth); }
-              __lx0 -= __lw;
-              g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = __lot.done ? 1 : 0.4;
-              g.drawImage(__im, mapSnap(__lx0), mapSnap(__lfy - __lh), __lw, __lh); g.restore();
-              __lx0 -= 3 * MAP_PEOPLE_K; __lk++;
-            }
-            try { MAP_DREW.built = MAP_DREW.built || {}; MAP_DREW.built[__n] = __lk; } catch (_e7) {}
-          }
-        } catch (_e7) {}
-        /* __/BUILT_ON_THE_MAP__ at the base */
         /* __THE_LIVING_MAP__ gate crowd (LIFE+CITY 10/9) */
         /* THE CROWD AT THE GATE: the tier's ordinary business, swelled on market day and thinned by a
            raid or a sickness, by the same multiplier that fills the stalls; standing in front of the
@@ -61425,20 +61403,6 @@ function cityPlateNow(){
 }
 /* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
 function cityHandOver(msg, skin){
-  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
-  /* a fight near a place where you built carries what stands there, so the board is cut with it */
-  try{
-    if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.built && typeof LOT_BOOK !== 'undefined'){
-      var __at = msg.at || { x: city.x, y: city.y }, __bs = ctBases() || {}, __best = null, __bd = 3;
-      for(var __bn in __bs){ var __bb = __bs[__bn], __lb = LOT_BOOK[__bn]; if(!__bb || !__lb) continue;
-        var __d = Math.max(Math.abs((__bb.x|0) - (__at.x|0)), Math.abs((__bb.y|0) - (__at.y|0)));
-        if(__d < __bd){ __bd = __d; __best = __lb; } }
-      if(__best){ var __out = [];
-        for(var __k in __best.lots){ var __L = __best.lots[__k]; if(__L.done) __out.push({ id: __L.id, fight: BohemiaLotBuild.fightTile(__L.id) }); }
-        if(__out.length) msg.built = __out; }
-    }
-  }catch(_e){}
-  /* __/BUILT_ON_THE_BOARD__ */
   /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
      BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
      purpose. Ours was covered by accident: CITYSAVE.save only fires when the city

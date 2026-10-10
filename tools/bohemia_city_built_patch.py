@@ -271,9 +271,9 @@ def main():
     if ARRIVE_NEW not in s:
         once(s, ARRIVE_OLD, 'loopArrived')
         s = s.replace(ARRIVE_OLD, ARRIVE_NEW, 1)
-    def ins_draw(t):
-        once(t, DRAW_BEFORE, 'the base plate'); return t.replace(DRAW_BEFORE, DRAW + DRAW_BEFORE, 1)
-    s = put(s, DRAW_MARK, DRAW_END, DRAW, ins_draw)
+    # RETIRED 10/10 (rule 86, the seventh votes: 'the map is mainly for looks'): what you build is not drawn on the
+    # map. The drawing block is never inserted again, and one left in a page is taken out here.
+    s = cut(s, DRAW_MARK, DRAW_END)
     if s == before:
         print('BUILT ON THE MAP: nothing to do')
         return

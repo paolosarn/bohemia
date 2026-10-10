@@ -3325,12 +3325,10 @@ GATES = [
      'rule 37c + 43 + 68: your base is yours in FACTIONS\' ledger from day one; what you build draws a crew you see '
      'coming; away, the world settles the raid; home, the fight opens at your gate on what you built and builds its '
      'ground; a win holds it; a loss is a reload (Paolo 7/26)', False),
-    ('BUILT ON THE BOARD', ['node', 'gates/built_on_the_board_gate.js'],
-     'rule 40b + 37g: a fight at a place you built on stands on it -- the wall is the board\'s block wall on your '
-     'front, a tank blocks with its own picture, a roof is high ground; the map attaches it and the shell hands it on', False),
-    ('BUILT ON THE MAP', ['node', 'gates/built_on_the_map_gate.js'],
-     'rule 40b: the map owns the build lots, the morning finishes them into the map\'s century ledger (the '
-     'derive\'s) and pays the map\'s purse, the base draws them, and the save carries them', False),
+    ('THE LOTS ARE KEPT', ['node', 'gates/built_on_the_map_gate.js'],
+     'rule 40b + 86: the build lots live with the game (the settlement screen is handed them), the morning finishes '
+     'them into the century ledger the derive reads and pays the purse, the save carries them; and NOTHING of them is '
+     'drawn on the map (rule 86: the map is for looks)', False),
     ('BUILD ON THE SCREEN', ['node', 'gates/build_on_the_screen_gate.js'],
      'rule 40b + 43 (Paolo 9/29): the build list is a place on the settlement picture; somebody else\'s ground '
      'refuses in your own words and costs nothing; on yours one battery, one day, standing the next day on its '
