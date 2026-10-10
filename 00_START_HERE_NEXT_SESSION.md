@@ -997,6 +997,95 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round six) -- *** HIS BUGS BEAT
+THE QUEUE. PAOLO MESSAGED DIRECT, NOT VAMILY: "customizable face features...
+top clothing pieces and headwear and eyewear would be impacted by the
+portrait... a bunch of different hairstyles... face shapes, nose shapes,
+mouth shapes... you've been failing me so bad." ***
+
+CHECKED FIRST, NOT ASSUMED: the board claimed headwear and eyewear already
+reached the portrait (shipped 9/22, 9/27, both voted UP). Re-measured anyway
+instead of trusting the claim. FOUND A REAL BUG, THE SIXTH OF ITS EXACT SHAPE
+THIS SESSION: faceFor() reads spec.hat/spec.glasses off NPC_FACTORY.npcFrom
+(id).equipped, a separate, older system from the one that actually dresses
+the walked crowd (BOH_PERSONLOOK.lookFor/window.GARMENTS) -- the same
+two-systems-drifted shape already caught for hair on 8/28, never checked for
+hat/glasses when THOSE shipped.
+
+MEASURED, 200 citizens: body wears a real hat (21 real styles) 58 times; the
+portrait's old source claims a hat from a catalogue of exactly 1 style
+(always the same durag) 68 times; they agree on presence alone only 118/200
+(59%, barely a coin flip), and even a "both have a hat" case is usually two
+different hats. Face accessories (14 real styles): body 20, old source 58,
+agree 136/200.
+
+TOP CLOTHING: measured as never built at all (not a bug, an honest absence
+already named on the board, rule 37i, 9/27: "say the cost" of reading the
+real garment -- it is cheap now).
+
+THE FIX, PROVED AS A CANDIDATE, NOT SHIPPED: PORTRAIT's mode is COOK ONLY
+UNTIL HIS FINAL (rule 100, new this round, Paolo 10/10: "it cannot be
+implementing shit, it just has to keep cooking up"). Nothing this round
+touches slices/, engine/ or the demo. Built and ran
+tools/bohemia_cook_the_real_clothes_reach_the_portrait.js: calls the real,
+unmodified faceFor()/renderFace() for the head, then draws a small additive
+overlay IN THE COOK TOOL ONLY (never in the shipped file) at the exact
+geometry renderFace's own existing off-by-default hat/glasses/bust blocks
+already use, recoloured with the real garment's own authored ramp (read
+straight out of window.GARMENTS' gen() closure source as text, never
+evaluated as code, never invented).
+
+CAUGHT MID-BUILD, NOT SHIPPED WRONG: the first draft read worn.base only for
+the shoulder colour. Rendering gate:crowd:2's ACTUAL walked body (drawChar(),
+unmodified, to check) showed he wears an OLIVE CAR COAT over an ARC SHOULDER
+TEE -- the coat is what is actually visible, the tee is hidden under it.
+Fixed to prefer worn.outer, fall back to worn.base only when none is worn.
+
+THE HONEST TWIN: no downloaded reference photo exists for faces (checked
+reference/art_bank/portrait/ and reference/library/face/ again, still only a
+README/INDEX). But a real, correct target DOES exist for this one candidate:
+the game's own already-approved rendering of the same citizen's body. Added
+a third column to the sheet, the same citizen through the real drawChar() --
+the fixed candidate's colours are checked against it directly and match (the
+grey knit cap, the olive coat, the blue mask). Registered to VOTE with this
+as the twin field (a real file that exists, not fabricated) -- passed
+vote_tab_gate's twin-leg check cleanly, unlike two earlier items this
+session that had to be retracted for lacking one.
+
+WHAT HE ASKED FOR THAT ALREADY EXISTS, NAMED HONESTLY: the face maker (TAB:
+CHARACTER, tap your own face) already has 32 real sliders covering every
+numeric field the face spec carries, including NOSE WIDTH, MOUTH WIDTH and
+LOWER LIP -- shipped 9/24. Checked the spec before claiming this is enough:
+nose carries exactly one shape field (w), mouth carries two (w, fullLower) --
+width/fullness really is the limit of today's anatomy model, not a missing
+slider. Named [a nose and mouth shape] as the honest next row for a real
+second shape primitive, not guessed at this round.
+
+HAIRSTYLE VARIETY: measured, not built. 11 canon cuts, only 3 visually
+distinct (locs x2, braid x1); the other 8 read nearly identical at portrait
+size. Named [hairstyle variety] as the honest next row -- widening the
+existing dials is this lane's; new named styles are COOK THREE's/CHARACTER's
+paint-layer bank under rule 87's split.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, hair_match_regression 13/0
+(unchanged, nothing real touched), reference_check_gate 438/0, vote_tab_gate
+35/2 (the 2 are TUNING's and COMBAT TWO's, checked, not mine), open_row_gate
+9/0 (PORTRAIT now 7 OPEN rows), handoff_gate 10/0.
+
+COOKED (rule 22): portrait-the-real-clothes-reach-the-portrait-10-10, with
+its own honest twin. Record:
+records/BOHEMIA_THE_REAL_CLOTHES_REACH_THE_PORTRAIT_10_10_26.md.
+
+NEXT ROUND, FIRST MOVE: [a nose and mouth shape] or [hairstyle variety],
+either is real buildable mechanism work that needs nobody else; if DIRECTION
+has passed COOK THREE's portrait twin by then, [the twin on the portraits]
+jumps the queue instead.
+
+PENDING PAOLO: none new -- his message was answered this same round, not
+deferred.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round five) -- *** BOARD
 HOUSEKEEPING, NOT NEW WORK: THE QUEUE IS GENUINELY BLOCKED THIS ROUND. ***
 

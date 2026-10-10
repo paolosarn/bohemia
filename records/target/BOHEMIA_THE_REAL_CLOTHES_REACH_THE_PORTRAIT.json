@@ -1,0 +1,38 @@
+{
+  "measured": {
+    "N": 200,
+    "bodyHat": 58,
+    "factoryHat": 68,
+    "hatAgree": 118,
+    "bodyFace": 20,
+    "factoryFace": 58,
+    "faceAgree": 136
+  },
+  "examples": [
+    {
+      "id": "gate:crowd:2",
+      "hat": "STORM KNIT CAP",
+      "face": "",
+      "top": "OLIVE CAR COAT",
+      "topLayer": "outer"
+    },
+    {
+      "id": "gate:crowd:0",
+      "hat": "",
+      "face": "OUTLAW BANDANA",
+      "top": "SAND COCOON COAT",
+      "topLayer": "outer"
+    },
+    {
+      "id": "gate:crowd:71",
+      "hat": "STORM SLOUCH BEANIE",
+      "face": "ASH SHIELD",
+      "top": "SLATE SHORT-SLEEVE",
+      "topLayer": "base"
+    }
+  ],
+  "provedSafe": {
+    "citizensChecked": 100,
+    "diffs": 0
+  }
+}

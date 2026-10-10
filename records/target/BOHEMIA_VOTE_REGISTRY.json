@@ -7373,6 +7373,27 @@
    }
   },
   {
+   "id": "portrait-the-real-clothes-reach-the-portrait-10-10",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "HEADWEAR AND EYEWEAR SHIPPED TWICE AND STILL DID NOT MATCH THE BODY",
+   "why": "Your headwear and eyewear only ever matched the body by coincidence, agreeing just 59% and 68% of the time, and the top of his clothes was never read at all; this candidate shows the real colours instead. You see it here, checked against the same citizen's real walked body in the third column -- a candidate for your thumb, not live in the demo yet (rule 100).",
+   "twin": {
+    "src": "vote/PORTRAIT_THE_REAL_CLOTHES_REACH_THE_PORTRAIT.png",
+    "diffs": [
+      "today's hat is always the same black durag no matter what the real body wears; the real body's own hat colour (checked against the third column) is a completely different, real colour every time",
+      "today draws nothing at all on the shoulders; the fixed candidate shows the real colour of whatever coat or shirt the body is actually wearing, read straight off the same approved garment data",
+      "today's face accessory, on the rare citizen it shows at all, is an independent random roll that usually does not match what the body's own third column shows, in either presence or colour"
+    ]
+   },
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_THE_REAL_CLOTHES_REACH_THE_PORTRAIT.html"
+   }
+  },
+  {
    "id": "lifecity-take-the-next-part-10-10",
    "kind": "tile",
    "lane": "life+city",
