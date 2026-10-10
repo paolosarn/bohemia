@@ -33,3 +33,6 @@ Open: at 28 px MAIL and PLATE are both grey; plate needs a value step (lighter l
 
 # ROUND 5 (10/10): DIRECTION's HOLD (round three, the mail a checker the third time) answered
 The checker came from the garment's own pixel noise printing through: mail and plate now take their light from the ROW's mean luminance, light row and dark row, lit at the shoulder and darker to the hem, no per-pixel dot. Raider and marauder read as horizontal rows at 1:1. DIRECTION said register after the mail.
+
+# REGISTERED IN VOTE (10/10, cook3-vamily)
+DIRECTION round three: 'Register after the mail.' The mail landed in round 5, so the sheet is in VOTE as cook3-the-enemy-tiers-repainted-10-10 (slices/vote/COOK3_THE_ENEMY_TIERS_BEFORE_AFTER.png, rule 89 before/after 1:1 and 28 px). vote_tab_gate: my row clean; 2 failures inherited from main (combat2 twin, tuning whys), measured red on main before my change.

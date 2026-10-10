@@ -7730,7 +7730,34 @@
    },
    "draft": true
   },
- {"id": "ui-the-phones-text-10-10", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/10", "title": "FINAL? THE PHONE'S TEXT, SMALLER", "why": "Your note was 'can all the font be tinier so more fits': this is the only smaller size that stays sharp, and the feed goes from one cut-off post to three whole ones while every word still reads in the sun. You see it on the map's phone, left as it is now, right the candidate.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_TEXT_10_10.png"}, "twin": {"src": "vote/UI_THE_PHONES_TEXT_NOW_10_10.png", "diffs": ["each dot is 2 phone pixels, not 3, so the type is two thirds the size", "one cut-off post under the jobs becomes three whole ones", "the AGAIN and the names on the faces shrink with it; the cards stay 44 points"]}, "candidate": true, "question": "FINAL on the smaller phone text?"}
+ {"id": "ui-the-phones-text-10-10", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/10", "title": "FINAL? THE PHONE'S TEXT, SMALLER", "why": "Your note was 'can all the font be tinier so more fits': this is the only smaller size that stays sharp, and the feed goes from one cut-off post to three whole ones while every word still reads in the sun. You see it on the map's phone, left as it is now, right the candidate.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_TEXT_10_10.png"}, "twin": {"src": "vote/UI_THE_PHONES_TEXT_NOW_10_10.png", "diffs": ["each dot is 2 phone pixels, not 3, so the type is two thirds the size", "one cut-off post under the jobs becomes three whole ones", "the AGAIN and the names on the faces shrink with it; the cards stay 44 points"]}, "candidate": true, "question": "FINAL on the smaller phone text?"},
+ {
+  "id": "cook3-the-enemy-tiers-repainted-10-10",
+  "kind": "outfit",
+  "lane": "cook 3",
+  "sha": "pending",
+  "made": "10/10",
+  "title": "THUG TO MARAUDER, TOLD APART BY WHAT THEIR ARMOUR IS MADE OF",
+  "why": "The six enemy ranks and one man in five armours, top row before and bottom row after, now told apart by padding, leather, chainmail and plate instead of olive hoodies. You see it in the VOTE tab, and the tiny row is how big they are in a fight.",
+  "show": {
+   "how": "image",
+   "src": "vote/COOK3_THE_ENEMY_TIERS_BEFORE_AFTER.png"
+  },
+  "twin": {
+   "src": "records/BOHEMIA_THE_REVAMP_PASS_ROUND_THREE_10_10_26.md",
+   "diffs": [
+    "MATERIAL: padded, leather, mail and plate each read as their own surface at one to one.",
+    "SIZE: at 28 px the six go light to heavy by colour family alone.",
+    "HONEST: the twin is DIRECTION's judged pass, not a photograph; the photographs of worn plate, mail and padding are still owed, and mail and plate are both grey at 28 px."
+   ]
+  },
+  "before_after": {
+   "before": "the six ranks and five armour states as they are now",
+   "after": "the same, armour painted as material",
+   "scale": "1:1"
+  },
+  "draft": true
+ }
  ],
  "verdicts": [
   {
