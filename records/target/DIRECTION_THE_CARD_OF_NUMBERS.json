@@ -1,0 +1,428 @@
+{
+ "card": "THE CARD OF NUMBERS",
+ "lane": "direction",
+ "date": "10/10/26",
+ "source": "reference/art_bank/CORPUS.json (1,927 tiles, his 7/13 UP set)",
+ "families": {
+  "road": {
+   "n": 290,
+   "w_median": 95.0,
+   "h_median": 96.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    66,
+    69
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.94,
+   "colours_median": 4520.5,
+   "colours_p10": 2324.9,
+   "top8_share_median": 4.9,
+   "value_span_median": 118.2,
+   "mean_value_median": 70.5,
+   "saturation_median": 0.239,
+   "warm_share_median": 0.93,
+   "top_minus_bottom": 4.1,
+   "left_minus_right": 0.3,
+   "top_lit_share": 89.3,
+   "edge_minus_inside": -5.6,
+   "darker_edge_share": 52.8,
+   "run_px_median": 1.85,
+   "lone_pixel_share": 65.8,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     2324.9,
+     6635.6
+    ],
+    "top8": [
+     0.545,
+     11.146
+    ],
+    "span": [
+     82.934,
+     155.707
+    ],
+    "sat": [
+     0.064,
+     0.425
+    ],
+    "tb": [
+     -0.014,
+     10.406
+    ],
+    "step": [
+     -31.469,
+     4.944
+    ],
+    "run": [
+     1.404,
+     2.948
+    ]
+   }
+  },
+  "ground": {
+   "n": 391,
+   "w_median": 95.0,
+   "h_median": 88.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 90.0,
+   "smallest": [
+    40,
+    38
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.65,
+   "colours_median": 3719.0,
+   "colours_p10": 2573.0,
+   "top8_share_median": 4.0,
+   "value_span_median": 127.6,
+   "mean_value_median": 71.6,
+   "saturation_median": 0.529,
+   "warm_share_median": 0.91,
+   "top_minus_bottom": 6.5,
+   "left_minus_right": 4.3,
+   "top_lit_share": 72.1,
+   "edge_minus_inside": 0.1,
+   "darker_edge_share": 38.4,
+   "run_px_median": 1.59,
+   "lone_pixel_share": 69.9,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     2573.0,
+     6562.0
+    ],
+    "top8": [
+     0.568,
+     8.177
+    ],
+    "span": [
+     98.319,
+     182.036
+    ],
+    "sat": [
+     0.2,
+     0.972
+    ],
+    "tb": [
+     -4.111,
+     29.623
+    ],
+    "step": [
+     -20.5,
+     13.869
+    ],
+    "run": [
+     1.321,
+     2.387
+    ]
+   }
+  },
+  "marking": {
+   "n": 67,
+   "w_median": 96.0,
+   "h_median": 82.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    80,
+    44
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.57,
+   "colours_median": 2971.0,
+   "colours_p10": 2179.8,
+   "top8_share_median": 8.7,
+   "value_span_median": 150.9,
+   "mean_value_median": 54.1,
+   "saturation_median": 0.911,
+   "warm_share_median": 0.91,
+   "top_minus_bottom": 3.6,
+   "left_minus_right": 1.4,
+   "top_lit_share": 70.1,
+   "edge_minus_inside": -1.1,
+   "darker_edge_share": 34.3,
+   "run_px_median": 1.96,
+   "lone_pixel_share": 66.6,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     2179.8,
+     3594.0
+    ],
+    "top8": [
+     1.653,
+     12.429
+    ],
+    "span": [
+     60.453,
+     199.872
+    ],
+    "sat": [
+     0.496,
+     0.992
+    ],
+    "tb": [
+     -5.669,
+     32.404
+    ],
+    "step": [
+     -14.047,
+     9.162
+    ],
+    "run": [
+     1.674,
+     2.514
+    ]
+   }
+  },
+  "settlement": {
+   "n": 318,
+   "w_median": 92.0,
+   "h_median": 92.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    27,
+    40
+   ],
+   "full_tile_share": 1.6,
+   "opaque_median": 0.76,
+   "colours_median": 3597.0,
+   "colours_p10": 2126.2000000000003,
+   "top8_share_median": 5.8,
+   "value_span_median": 146.5,
+   "mean_value_median": 59.3,
+   "saturation_median": 0.307,
+   "warm_share_median": 0.9,
+   "top_minus_bottom": 8.8,
+   "left_minus_right": 1.9,
+   "top_lit_share": 87.1,
+   "edge_minus_inside": -26.3,
+   "darker_edge_share": 83.6,
+   "run_px_median": 1.56,
+   "lone_pixel_share": 73.5,
+   "joint_over_inside_x": 0.44,
+   "joint_over_inside_y": 0.71,
+   "meet_share": 100.0,
+   "band": {
+    "colours": [
+     2126.2,
+     5456.1
+    ],
+    "top8": [
+     2.53,
+     13.561
+    ],
+    "span": [
+     106.365,
+     195.791
+    ],
+    "sat": [
+     0.124,
+     0.845
+    ],
+    "tb": [
+     -2.139,
+     30.435
+    ],
+    "step": [
+     -47.551,
+     1.339
+    ],
+    "run": [
+     1.312,
+     2.309
+    ]
+   }
+  },
+  "door": {
+   "n": 30,
+   "w_median": 96.0,
+   "h_median": 89.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    54,
+    75
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.94,
+   "colours_median": 4415.0,
+   "colours_p10": 3084.2,
+   "top8_share_median": 6.8,
+   "value_span_median": 120.5,
+   "mean_value_median": 50.9,
+   "saturation_median": 0.152,
+   "warm_share_median": 0.83,
+   "top_minus_bottom": 12.0,
+   "left_minus_right": 0.1,
+   "top_lit_share": 100.0,
+   "edge_minus_inside": -45.0,
+   "darker_edge_share": 96.7,
+   "run_px_median": 1.68,
+   "lone_pixel_share": 69.5,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     3084.2,
+     5220.0
+    ],
+    "top8": [
+     3.967,
+     9.513
+    ],
+    "span": [
+     106.36,
+     131.052
+    ],
+    "sat": [
+     0.113,
+     0.723
+    ],
+    "tb": [
+     5.634,
+     16.917
+    ],
+    "step": [
+     -60.245,
+     -18.073
+    ],
+    "run": [
+     1.507,
+     1.899
+    ]
+   }
+  },
+  "lamp": {
+   "n": 47,
+   "w_median": 58.0,
+   "h_median": 96.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    40,
+    74
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.7,
+   "colours_median": 3298.0,
+   "colours_p10": 1913.6,
+   "top8_share_median": 3.9,
+   "value_span_median": 184.6,
+   "mean_value_median": 62.2,
+   "saturation_median": 0.482,
+   "warm_share_median": 0.88,
+   "top_minus_bottom": 25.2,
+   "left_minus_right": 11.0,
+   "top_lit_share": 74.5,
+   "edge_minus_inside": -5.8,
+   "darker_edge_share": 55.3,
+   "run_px_median": 1.58,
+   "lone_pixel_share": 69.4,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     1913.6,
+     4415.2
+    ],
+    "top8": [
+     1.075,
+     7.78
+    ],
+    "span": [
+     127.944,
+     212.152
+    ],
+    "sat": [
+     0.195,
+     0.748
+    ],
+    "tb": [
+     -23.996,
+     41.276
+    ],
+    "step": [
+     -22.928,
+     5.975
+    ],
+    "run": [
+     1.319,
+     1.96
+    ]
+   }
+  },
+  "prop": {
+   "n": 784,
+   "w_median": 93.5,
+   "h_median": 91.0,
+   "long_side_median": 96.0,
+   "long_side_p10": 96.0,
+   "smallest": [
+    29,
+    36
+   ],
+   "full_tile_share": 0.0,
+   "opaque_median": 0.74,
+   "colours_median": 3730.0,
+   "colours_p10": 2330.0,
+   "top8_share_median": 7.3,
+   "value_span_median": 158.6,
+   "mean_value_median": 57.8,
+   "saturation_median": 0.466,
+   "warm_share_median": 0.88,
+   "top_minus_bottom": 12.6,
+   "left_minus_right": 6.5,
+   "top_lit_share": 86.9,
+   "edge_minus_inside": -5.2,
+   "darker_edge_share": 53.1,
+   "run_px_median": 1.74,
+   "lone_pixel_share": 67.5,
+   "joint_over_inside_x": null,
+   "joint_over_inside_y": null,
+   "meet_share": null,
+   "band": {
+    "colours": [
+     2330.0,
+     5193.6
+    ],
+    "top8": [
+     3.485,
+     10.912
+    ],
+    "span": [
+     117.993,
+     207.456
+    ],
+    "sat": [
+     0.167,
+     0.806
+    ],
+    "tb": [
+     -2.495,
+     32.47
+    ],
+    "step": [
+     -35.459,
+     7.159
+    ],
+    "run": [
+     1.448,
+     2.22
+    ]
+   }
+  }
+ }
+}

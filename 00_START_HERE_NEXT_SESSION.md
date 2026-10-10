@@ -61303,7 +61303,13 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/10e (latest): [the reference twin] round two, THE PLACES, in VOTE:
+ROUND LOG 10/10f (latest): [the floor on the card] SHIPPED: THE CARD OF NUMBERS
+from all 1,927 bank tiles by family (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md),
+nine rules + a judge (--judge <png> <family>, three of eight out = BACK; 9% of
+his own tiles come back, the fight barrier fails). Rules 100/101: this lane cooks
+and judges only, VOTE pictures live in records/target. Next: [fight verdict 24]
+when a board lands; [the reference twin] next sheet the map far.
+ROUND LOG 10/10e: [the reference twin] round two, THE PLACES, in VOTE:
 the place on the map is a plate of flat boxes beside the settlement screen from
 his pack; the lots are grey grit noise (25.4/98) beside his ground (12.6/117).
 Revamp pass round three: COOK TWO r6 PASS on pieces, COOK THREE enemy tiers PASS
