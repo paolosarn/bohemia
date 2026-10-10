@@ -7650,6 +7650,33 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "cook4-house-two-the-ranch-10-10",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "FINAL? HOUSE TWO, A VEGAS RANCH WITH ITS GARAGE",
+   "why": "You said good direction on the first house, so this is the next one the same way: the house with its clay roof and a garage added on later under a cheaper slate roof with your roll-up door, front gables only and every piece yours at its own pixels. You see it in the VOTE tab next to your pack's houses and the first house, the same size and then three times bigger.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_HOUSE_TWO_THE_RANCH.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#31",
+    "diffs": [
+     "SHAPE: his houses are one gable; a Vegas ranch is two, the house and a lower garage set back beside it.",
+     "MATERIAL: his walls are timber; ours are his cracked tan plaster, and the garage door is his roll-up shutter.",
+     "SIZE: his house is 82 by 96, ours 200 by 126, every piece at its own pixels, nothing scaled up."
+    ]
+   },
+   "before_after": {
+    "before": "house one, a single gable (he said good direction)",
+    "after": "house two, the ranch with a garage",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
