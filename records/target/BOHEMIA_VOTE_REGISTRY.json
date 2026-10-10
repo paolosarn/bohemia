@@ -7124,7 +7124,7 @@
    }
   },
   {
-   "id": "factions-the-houses-at-war-10-10", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/10",
+   "id": "factions-the-houses-at-war-10-10", "kind": "tile", "lane": "factions", "sha": "7d9d4068", "made": "10/10",
    "title": "THE HOUSES AT WAR", "why": "The factions are at war with each other, not only with you: enemies who meet on a road clash, and a base the world takes is Conquered, not burned, using the game's own canon and Battle Brothers' own numbers. You see it in the VOTE tab: who hates whom and one real day of them meeting.",
    "show": {"how": "page", "src": "vote/FACTIONS_THE_HOUSES_AT_WAR_10_10.html"}
   }
