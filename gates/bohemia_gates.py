@@ -829,7 +829,8 @@ GATES = [
      '(CIEDE2000-style distance from every shipped faction colour), a make-up of real enemy ids, and a behaviour that is quoted or marked ours. '
      'Red twenty-three ways: drop the face, a bad face id, a shared face, no want, an unsourced want, no base, a purple banner, a copied banner, a banner near a shipped colour, '
      'a made-up enemy, a zero count, a half count, a bad behaviour, an unsourced behaviour, an unsourced make-up, a final voice, no beef, a shared ground, a made-up faction, '
-     'a canon colour on a crew, no gaps list, no portrait slot, a first party bigger than the last.', True),
+     'a canon colour on a crew, no gaps list, no portrait slot, a first party bigger than the last. '
+     'GROUNDS (10/10): every ground a faction holds must be a real board terrain kind, every wiki quote (behaviour and ground) is re-read from the tarball, and guardFor() (row [who guards]) answers for the six legendary places: held by the faction whose ground it is, the party summing exactly to the guard, one leader to a band, an unheld ground answered by name. Red thirty-three ways over data and engine.', True),
     ('PLACES ARE BLOCKS', ['node', 'gates/places_are_blocks_gate.js'],
      'RULE 33h, the REVAMP LIST\'s rebuild line: "PLACES (WORLD, LIFE+CITY): a place is a '
      'block with its buildings as services; the shop, the shed, the pump, the fortress are the '

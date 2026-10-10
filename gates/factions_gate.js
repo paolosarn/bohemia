@@ -8,6 +8,7 @@ const ROOT = path.join(__dirname, '..');
 const F = require(path.join(ROOT, 'engine/bohemia_factions.js'));
 const D = JSON.parse(fs.readFileSync(process.env.FACTIONS_FILE || path.join(ROOT, 'records/target/bb/factions.json'), 'utf8'));
 const EN = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/enemies.json'), 'utf8')).rows;
+const BT = require(path.join(ROOT, 'engine/bohemia_boardterrain.js'));
 const COL = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/BOHEMIA_faction_colours.json'), 'utf8')).factions;
 let pass = 0, fail = 0;
 const ok = (n, c, note) => { c ? pass++ : (fail++, console.log('  > FAIL ' + n + (note ? '  [' + note + ']' : ''))); };
@@ -19,6 +20,9 @@ const lab = h => { let c = [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16) / 255
 const dE = (a, b) => { const x = lab(a), y = lab(b); return Math.hypot(x[0] - y[0], x[1] - y[1], x[2] - y[2]); };
 const hue = h => { const r = [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16) / 255), mx = Math.max(...r), mn = Math.min(...r), d = mx - mn; if (!d) return -1;
   let H = mx === r[0] ? ((r[1] - r[2]) / d) % 6 : mx === r[1] ? (r[2] - r[0]) / d + 2 : (r[0] - r[1]) / d + 4; return (H * 60 + 360) % 360; };
+const cp = require('child_process');
+const flat = t => t.replace(/\[https?:\/\/\S+ ([^\]]*)\]/g, '$1').replace(/\[\[(?:[^|\]]*\|)?([^\]]*)\]\]/g, '$1').replace(/\s+/g, ' ');
+const wikiHas = (src, q) => { try { const n = (src.split('bb_all/')[1] || ''); return flat(cp.execSync('tar -xzOf ' + path.join(ROOT, 'reference/library/grok/wiki/PAGES_ALL.tar.gz') + ' "bb_all/' + n + '"', { encoding: 'utf8', maxBuffer: 1 << 24 })).includes(flat(q)); } catch (e) { return false; } };
 const hasQuote = o => o && typeof o.source === 'string' && o.source && typeof o.quote === 'string' && o.quote.length > 8;
 const NAMEY = /^face-[a-z]+(-[a-z]+)+$/;
 
@@ -35,7 +39,12 @@ for (const f of D.factions) {
   ok(n + ': MEMORY is driven by beef and names bands', f.memory && f.memory.driven_by === 'beef' && f.memory.bands.length >= 2);
   ok(n + ': enemy_faction exists in the Battle Brothers data', efac.has(f.enemy_faction));
   ok(n + ': ground kinds named', Array.isArray(f.ground) && f.ground.length >= 1);
+  ok(n + ': every ground is a real board terrain kind', f.ground.every(g => BT.KINDS.indexOf(g) >= 0), f.ground.filter(g => BT.KINDS.indexOf(g) < 0).join(','));
+  ok(n + ': grounds are marked ours and noted', f.ground_ours === true && typeof f.ground_note === 'string' && f.ground_note.length > 10);
   ok(n + ': behaviour is raid, patrol, caravan or roam', ['raid', 'patrol', 'caravan', 'roam'].includes(f.behaviour));
+  if (f.behaviour_quote) ok(n + ': the behaviour quote is really on its wiki page', wikiHas(f.behaviour_source, f.behaviour_quote.replace(/\s*\(.*$/, '')), f.behaviour_source);
+  if (f.ground_quote) ok(n + ': the ground quote is really on its wiki page', wikiHas(f.ground_quote.source, f.ground_quote.quote), f.ground_quote.source);
+  ok(n + ': a faction whose ground has a quote cites a page; the dead (no wiki line) says ours', f.ground_quote ? true : f.ground_ours === true);
   ok(n + ': behaviour is sourced or marked ours', f.behaviour_ours === true || hasQuote({ source: f.behaviour_source, quote: f.behaviour_quote }));
   for (const ph in f.mix) {
     const ks = Object.keys(f.mix[ph]);
@@ -55,9 +64,36 @@ for (const f of D.factions) {
 }
 for (let i = 0; i < banners.length; i++) for (let j = i + 1; j < banners.length; j++)
   ok(banners[i][0] + '/' + banners[j][0] + ' banners differ', dE(banners[i][1], banners[j][1]) >= 25);
-ok('byGround finds a faction for each ground and none for a made-up one', D.factions.every(f => F.byGround(f.ground[0]).id === f.id) && F.byGround('nowhere') === null);
+ok('byGround finds a faction for each ground and none for a made-up one', D.factions.every(f => F.byGround(f.ground[0]).id === f.id && F.byGround(f.ground[f.ground.length - 1]).id === f.id) && F.byGround('nowhere') === null);
 ok('a ground belongs to one faction', (() => { const s = {}; let bad = false; D.factions.forEach(f => f.ground.forEach(g => { if (s[g]) bad = true; s[g] = 1; })); return !bad; })());
 ok('the memory line is null outside a faction\'s bands', F.memoryLine('brigands', 'friendly') === null && F.memoryLine('brigands', 'wary') !== null);
 ok('the gaps are written down honestly', D.gaps && D.gaps.length >= 2);
+/* ---- WHO GUARDS (row [who guards]): the holder of the ground guards, with its own units, sized to the guard ---- */
+{ const GG = require(path.join(ROOT, 'engine/bohemia_godgear.js')), OM = require(path.join(ROOT, 'engine/bohemia_overmap.js'));
+  const top = Math.max(...Object.values(GG.DEFENDED));
+  for (const pl of GG.names()) {
+    const kind = BT.kindOf(GG.PLACES[pl].district), guard = Math.round(GG.CEILING.guard * (GG.DEFENDED[pl] / top)), g = F.guardFor(kind, guard);
+    ok(pl + ': its district maps to a real terrain kind', !!kind && BT.KINDS.indexOf(kind) >= 0);
+    if (g.known) {
+      const holder = D.factions.find(f => f.ground.indexOf(kind) >= 0);
+      ok(pl + ': guarded by the faction that holds ' + kind, g.faction === holder.id);
+      ok(pl + ': the party is exactly ' + guard + ' men', F.size(g.party) === guard, F.size(g.party));
+      ok(pl + ': every unit is in that faction\'s own make-up', Object.keys(g.party).every(u => ['early', 'late'].some(ph => u in holder.mix[ph])));
+      ok(pl + ': a leader never comes twice', holder.leaders.value.every(l => (g.party[l] || 0) <= 1));
+    } else ok(pl + ': an unheld ground answers by name', g.why === 'NO_FACTION_HOLDS_THIS_GROUND');
+  }
+  ok('any place on an unheld ground has that ground named in the gaps', GG.names().every(pl => { const k = BT.kindOf(GG.PLACES[pl].district); return D.factions.some(f => f.ground.indexOf(k) >= 0) || D.gaps.some(x => x.indexOf(k) >= 0); }));
+  ok('the default guard is the late make-up and the early one differs', (() => { const l = F.guardFor('freeway', 20), e = F.guardFor('freeway', 20, 'early'); return JSON.stringify(l.party) !== JSON.stringify(e.party) && e.party.brigand_thug > l.party.brigand_thug; })());
+  { const save = D.factions; const real = F.all().slice();
+    F.set({ factions: [{ id: 'q', ground: ['k'], mix: { late: { a: 2, b: 1, c: 1 } }, leaders: { value: [] }, banner: '#000000', name: 'Q' }] }, JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_math.json'), 'utf8')));
+    const two = F.guardFor('k', 3).party;
+    ok('largest remainder: 2,1,1 into three men gives one each (b and c outrank a)', JSON.stringify(two) === JSON.stringify({ a: 1, b: 1, c: 1 }), JSON.stringify(two));
+    F.set(D, JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_math.json'), 'utf8'))); }
+  ok('no faction holds the strip: it answers by name, never a guess', F.guardFor('the_strip', 10).why === 'NO_FACTION_HOLDS_THIS_GROUND');
+  ok('a zero or half guard is refused', F.guardFor('industrial', 0).why === 'NO_GUARD' && F.guardFor('industrial', 2.5).why === 'NO_GUARD');
+  for (const t of [1, 2, 3, 7, 12, 60]) for (const f of D.factions) { const k = f.ground[0]; ok(f.id + ' at ' + t + ' men sums exactly', F.size(F.guardFor(k, t).party) === t); }
+  ok('the same ask gives the same party', JSON.stringify(F.guardFor('freeway', 33)) === JSON.stringify(F.guardFor('freeway', 33)));
+  ok('leaders are in the make-up and ours', D.factions.every(f => f.leaders && f.leaders.ours === true && f.leaders.value.every(l => (f.mix.late[l] || f.mix.early[l]))));
+}
 console.log('FACTIONS GATE ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

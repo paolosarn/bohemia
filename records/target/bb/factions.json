@@ -28,9 +28,8 @@
     }
    },
    "ground": [
-    "road",
     "freeway",
-    "interchange"
+    "hills"
    ],
    "behaviour": "raid",
    "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0299_Brigands.txt",
@@ -66,7 +65,20 @@
     ],
     "ours": true
    },
-   "mix_source": "records/target/bb/ours.json enemy_tiers (bb_all/0299_Brigands.txt)"
+   "mix_source": "records/target/bb/ours.json enemy_tiers (bb_all/0299_Brigands.txt)",
+   "ground_ours": true,
+   "ground_note": "the freeway is the crew's want (VAMILY row); the hills are the wiki's wilderness line (ground_quote)",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+    "quote": "Brigands live in the woods, hills, and wilderness around the human settlements"
+   },
+   "leaders": {
+    "value": [
+     "brigand_leader"
+    ],
+    "ours": true,
+    "why": "a leader stays at its authored count whatever the party size: Battle Brothers' leaders come one to a band ('It's rare to see simultaneously more than one', bb_all/0290_Brigand Leader.txt)"
+   }
   },
   {
    "id": "noble_houses",
@@ -90,8 +102,10 @@
     }
    },
    "ground": [
-    "depot",
-    "town"
+    "industrial",
+    "suburb_block",
+    "lot_and_bigbox",
+    "golf_and_park"
    ],
    "behaviour": "caravan",
    "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1430_Noble Houses.txt",
@@ -128,7 +142,21 @@
     "ours": true
    },
    "mix_ours": true,
-   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
+   "ground_ours": true,
+   "ground_note": "settled ground, and industrial because 'the house wants the depot' (VAMILY row); the streets line is ground_quote",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+    "quote": "These settlements will spawn patrols, which secure the streets between the settlements of their house."
+   },
+   "leaders": {
+    "value": [
+     "knight",
+     "standard_bearer"
+    ],
+    "ours": true,
+    "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   }
   },
   {
    "id": "zombies",
@@ -148,8 +176,8 @@
     }
    },
    "ground": [
-    "graveyard",
-    "ruin"
+    "ruin",
+    "landfill"
    ],
    "behaviour": "raid",
    "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2249_Zombies.txt",
@@ -186,7 +214,16 @@
    },
    "behaviour_ours": true,
    "mix_ours": true,
-   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
+   "ground_ours": true,
+   "ground_note": "ruins and the dump: where the dead are left; ours, no wiki line",
+   "leaders": {
+    "value": [
+     "necromancer"
+    ],
+    "ours": true,
+    "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   }
   },
   {
    "id": "beasts",
@@ -206,9 +243,8 @@
     }
    },
    "ground": [
-    "scrub",
-    "wash",
-    "hills"
+    "open_desert",
+    "wash_and_shore"
    ],
    "behaviour": "roam",
    "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
@@ -245,12 +281,25 @@
     "ours": true
    },
    "mix_ours": true,
-   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix"
+   "mix_note": "draft make-up from enemies.json ids; COMBAT's enemy_tiers owns the real mix",
+   "ground_ours": true,
+   "ground_note": "wilderness: the open desert and the washes (ground_quote)",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
+    "quote": "Various wild beasts roam the lands."
+   },
+   "leaders": {
+    "value": [],
+    "ours": true,
+    "why": "a leader stays at its authored count whatever the party size; ours, draft"
+   }
   }
  ],
  "gaps": [
   "no dead or beast art exists, so the card shows banners and counts only",
   "face portraits are slots, PEOPLE/PORTRAIT fill them",
-  "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)"
+  "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)",
+  "grounds no faction holds: the_strip, trailer_park, airport, casino_floor, solar_and_pumps (an honest gap, a guarded place there answers NO_FACTION_HOLDS_THIS_GROUND)",
+  "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note"
  ]
 }

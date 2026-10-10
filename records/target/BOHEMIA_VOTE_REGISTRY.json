@@ -6971,6 +6971,11 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_FAR_EACH_WEAPON_REACHES_10_10_26.html"
    }
+  },
+  {
+   "id": "factions-who-guards-the-six-places-10-10", "kind": "tile", "lane": "factions", "sha": "PENDING", "made": "10/10",
+   "title": "WHO GUARDS THE SIX PLACES", "why": "Each of the six legendary places is guarded by whoever holds its ground, sized by how hard the place is. You see it in the VOTE tab: six cards with the guard and what it is made of.",
+   "show": {"how": "page", "src": "vote/FACTIONS_WHO_GUARDS_THE_SIX_PLACES_10_10.html"}
   }
  ],
  "verdicts": [
