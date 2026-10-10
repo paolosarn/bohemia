@@ -57,6 +57,9 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
         /* HEAVY TIERS: the armour is the whole chest (rig parts 3,4), cloth only, plus the added pieces;
            round 1 painted only the pieces and they were 188 to 445 pixels, invisible. */
         if (R.chest) armour = armour.map((v, i) => v || (!!fr.px[i] && (fr.grid[i] === 3 || fr.grid[i] === 4)));
+        /* RAIDER round 2: the mail is a shirt, so it runs down the arms too: every clothed pixel above the hip */
+        if (R.arms) { let t0 = 1e9, b0 = -1; fr.px.forEach((q, i) => { if (q && q[3] !== 0) { const y = (i / W) | 0; t0 = Math.min(t0, y); b0 = Math.max(b0, y); } });
+          const hip = t0 + (b0 - t0) * 0.55; armour = armour.map((v, i) => v || (!!fr.px[i] && fr.px[i][3] !== 0 && fr.grid[i] !== 1 && fr.grid[i] !== 2 && fr.grid[i] !== 0 && ((i / W) | 0) < hip)); }
         const after = fr.px.map(q => q && q.slice());
         let top = 1e9; for (let i = 0; i < armour.length; i++) if (armour[i]) top = Math.min(top, (i / W) | 0);
         let n = 0;
@@ -68,6 +71,7 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
           else { c = ramp(PAINT.steel, l + 0.08);
             if (R.lames && (y - top) % R.lames === 0) c = lerp(c, [0, 0, 0], 0.35);
             if (R.lames && (y - top) % R.lames === 1) c = lerp(c, [230, 230, 228], 0.3); }
+          if (R.goldWash) c = lerp(c, ramp(PAINT.gold, l + 0.1), R.goldWash);
           const edge = !armour[i - W] || !armour[i - 1] || !armour[i + 1] || !armour[i + W];
           if (edge && R.trim === 'gold') c = ramp(PAINT.gold, l + 0.2);
           else if (edge && (R.material === 'plate' || R.material === 'mail') && !armour[i - W]) c = lerp(c, [240, 238, 232], 0.45);
@@ -86,7 +90,9 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
     const cw = Math.max(...out.map(o => o.W)), ch = Math.max(...out.map(o => o.H)), pad = 12;
     const cv = document.createElement('canvas'); cv.width = out.length * (cw + pad) + pad; cv.height = 2 * (ch + 30) + 2 * 60 + 40;
     const x = cv.getContext('2d'); x.fillStyle = '#2b2824'; x.fillRect(0, 0, cv.width, cv.height);
-    const put = (px, W, H, ox, oy) => { const im = x.createImageData(W, H); px.forEach((q, i) => { if (q && !(q[0] > 250 && q[1] > 250 && q[2] > 250)) { im.data.set([q[0], q[1], q[2], 255], 4 * i); } }); x.putImageData(im, ox, oy); };
+    const bg = out[0].before[0];
+    const isBg = q => bg && q && q[0] === bg[0] && q[1] === bg[1] && q[2] === bg[2];
+    const put = (px, W, H, ox, oy) => { const im = x.createImageData(W, H); px.forEach((q, i) => { if (q && !isBg(q)) { im.data.set([q[0], q[1], q[2], 255], 4 * i); } }); x.putImageData(im, ox, oy); };
     x.font = 'bold 11px monospace'; x.fillStyle = '#d8d0c0';
     x.fillText('BEFORE, 1:1', pad, 12); x.fillText('AFTER, 1:1 (armour painted as material)', pad, ch + 42);
     out.forEach((o, k) => { const ox = pad + k * (cw + pad);

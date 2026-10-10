@@ -88,7 +88,8 @@
   "tiers": {
     "THUG": {
       "material": "padded",
-      "quilt": 4
+      "quilt": 4,
+      "chest": true
     },
     "POACHER": {
       "material": "leather"
@@ -99,12 +100,14 @@
     },
     "RAIDER": {
       "material": "mail",
-      "chest": true
+      "chest": true,
+      "arms": true
     },
     "LEADER": {
       "material": "plate",
       "trim": "gold",
-      "chest": true
+      "chest": true,
+      "goldWash": 0.55
     },
     "MARAUDER": {
       "material": "plate",

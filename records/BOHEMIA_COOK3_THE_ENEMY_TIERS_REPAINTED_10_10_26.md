@@ -13,3 +13,8 @@ THUG 136 | POACHER 1310 | MARKSMAN 1606 | RAIDER 561 | LEADER 754 | MARAUDER 112
 3. At 28 px the leader's steel chest greys his gold: the leader is supposed to be the one you remember. Trim must be wider, or the plate gold-washed.
 4. The frame backdrop shows white in the sheet; cosmetic, sheet only.
 DIRECTION first, then VOTE. Not in a tab yet.
+
+# ROUND 2 (10/10, cook3-vamily)
+Thug: chest padded too, 136 -> 606 px, quilt lines read. Raider: mail runs down the arms as a shirt (every clothed pixel above the hip), 561 -> 1194 px; the Mob mustard no longer wins the read. Leader: plate gold-washed 55%, he stays the gold one at 28 px.
+Ladder at 28 px now: grey-brown padding, brown leather, brown leather, grey mail, gold plate, banded steel. Light to heavy reads by colour family alone.
+Still open: the white box behind each figure in the SHEET (not the game); the frame's backdrop is not the first pixel, needs the naked-frame diff. Round 3: the five armour states (CHARACTER [armour you can see]) on the marauder.

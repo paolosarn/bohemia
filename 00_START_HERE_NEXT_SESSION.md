@@ -1,3 +1,9 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [mod checklist] SHIPPED as a page on the board (nothing in VOTE, rules 78, 88). Record
+records/BOHEMIA_MODS_A_MODDERS_SELF_CHECK_10_10_26.md; tool tools/bohemia_mods_check.js: one command, plain words, code + meaning + fix per
+skipped part, never refuses. The reference merge now tags each warn/bad with its code M01-M20 (a third value), so no guessing from words;
+the error-message tool checks the tag. Proof 27 of 27. MODDING.md points at the new command. NEXT OPEN: [sharing a mod], [grok sources]; a
+third is added. [read count] CLAIMED. PENDING Paolo: nothing.
+
 CHARACTER (character-0lurbs): 10/10 (g) LATEST -- *** MY OWN CHECKER FOR KEEPING A
 PERSON ONE SIZE WHILE HE WALKS WAS BROKEN, AND IT WAS NOT THE BODY. IT WAS ASKING
 ABOUT A STREET NOBODY WAS STANDING ON. ***
@@ -135150,7 +135156,7 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 [the street kit from the packs] CLAIMED, four rounds: 18 kit pieces (kit_street/, gate COOK2 STREET KIT 294/0); his street laid into all six main blocks incl. raided and reclaimed (kit_street/onboard/, onboard.json); rule-89 picture slices/vote/COOK2_THE_STREET_BEFORE_AFTER.png. Waiting on DIRECTION's pass and COMBAT TWO's [the boards from the packs] re-lay to mark SHIPPED. Next round if still waiting: [the cars and the props from the packs] (jump list). Record: records/BOHEMIA_COOK2_THE_STREET_KIT_FROM_THE_PACKS_10_10_26.md
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
-ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; NEXT thug chest padded, raider mail wider, leader's gold at 28 px.
+ALSO CLAIMED [the enemy tiers repainted]: round 1 sheet records/cook3/enemy_tiers_repainted.png, record records/BOHEMIA_COOK3_THE_ENEMY_TIERS_REPAINTED_10_10_26.md; marauder and leader read as plate; ROUND 2 DONE (thug padded 606 px, raider mail shirt 1194 px, leader gold plate). NEXT round 3: the five armour states on the marauder; the sheet's white backdrop.
 CLAIMED [the thirteen repainted]. Round 1 done, NOT shipped: a before/after sheet of the thirteen with a runway paint layer (engine/bohemia_cook3_runway_paint.json, tools/bohemia_cook3_the_thirteen_repainted.js, records/cook3/thirteen_repainted.png, record records/BOHEMIA_COOK3_THE_THIRTEEN_REPAINTED_ROUND1_10_10_26.md). Alpha untouched. ROUND 2 DONE: the accent follows the real garment (solo draw mask), no waist split, no CHARACTER change needed. ROUND 3 DONE: Mob .354, Homeless .058, Remnants .206 (per-faction rules in the paint file). WAITING: DIRECTION judges records/cook3/thirteen_repainted.png against the runway twin; on pass, CHARACTER hooks the draw to the paint file and faction_colour_gate runs live; DIRECTION judges, then VOTE. Not in a tab yet.
 - RUN TWO 10/10 [the roster shows the hurt] SHIPPED: laid-up men leave the line with their days, mark and clinic price; the roster heals on BOHEMIA_DAY. RUN: post BOHEMIA_DAY from the clock. Next: [the arrival] ([the twin on the settlement] waits on DIRECTION's twin sheet). TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) is my next fix.
 - RUN TWO 10/10: ON HOLD under rule 88 (LOOKS FIRST, FEATURES HOLD; RUN TWO is not on the running list). Nothing built this round. [the twin on the settlement] is the one row that fits the look program and it waits on DIRECTION's twin sheet; I pick it up the round that sheet lands. TUNING's roll audit (exactly 3 talents, level-up picks, wages by level) waits with the hold.

@@ -30,7 +30,7 @@ const C = [
  ['M04', "f + ': wants '", 'A field inside a list entry has the wrong kind of value (a word where a number goes, or the reverse).', 'Look at the value in the base file and use the same kind. Numbers have no quote marks.', W({ rows: { knife: { skills: { Stab: { ap: 'three' } } } } }), /skills\.Stab\.ap: wants/],
  ['M05', 'a row change must be an object', 'You named a row but gave it something that is not a { } block.', 'Write the row as {"knife": {"damage_min": 20}}.', W({ rows: { knife: 5 } }), /a row change must be an object/],
  ['M06', 'no row in the base has this field', 'No row in this file has a field with that name, so it was ignored.', 'Check the spelling against the schema page. Copy a field name from a base row.', W({ rows: { knife: { colour: 'red' } } }), /no row in the base has this field/],
- ['M07', "The whole row change is skipped.']); ok = false", 'A field has the wrong kind of value, so none of this row change was applied.', 'Use the same kind of value the base row has. Numbers have no quote marks.', W({ rows: { knife: { damage_min: 'a lot' } } }), /knife\.damage_min: wants number/],
+ ['M07', "got ' + typeOf(v) + '. The whole row change is skipped.", 'A field has the wrong kind of value, so none of this row change was applied.', 'Use the same kind of value the base row has. Numbers have no quote marks.', W({ rows: { knife: { damage_min: 'a lot' } } }), /knife\.damage_min: wants number/],
  ['M08', "'.' + kk + ': wants ' + typeOf(next", 'A value inside a small { } block on a row has the wrong kind, so none of this row change was applied.', 'Open the row in the base file, find the block, and match the kind of each value.', objRow && { [objRow.f]: JSON.stringify({ rows: { [objRow.id]: { [objRow.k]: { [objRow.kk]: typeof objRow.vv === 'number' ? 'x' : 5 } } } }) }, objRow && new RegExp(objRow.k + '\\.' + objRow.kk + ': wants')],
  ['M09', 'a NEW row needs', 'You added a new row but left out fields that almost every row has.', 'Copy a whole base row, change the id and the numbers. The message names the missing fields.', W({ rows: { laser: { damage_min: 5 } } }), /a NEW row needs/],
  ['M10', 'so it cannot collide', 'Your new id could collide with a base id or another mod (only shown if you ask for this check).', 'Start new ids with your mod id and a colon, like moon:blade. Optional.', { 'weapons.json': newSword }, /new id should start with/, { namespace: true }],
@@ -64,6 +64,7 @@ function run() {
     const r = merge(dir, e[6] || {});
     const hit = r.log.find(l => e[5].test(l[1]) && l[0] !== 'ok');
     if (!hit) problems.push(e[0] + ': the broken mod did not print the message. Log: ' + JSON.stringify(r.log));
+    if (hit && hit[2] !== e[0]) problems.push(e[0] + ': the merge tagged it ' + hit[2] + ' instead');
     out.push({ code: e[0], kind: hit ? hit[0] : '?', said: hit ? hit[1] : '', plain: e[2], fix: e[3] });
     fs.rmSync(dir, { recursive: true, force: true });
   }
