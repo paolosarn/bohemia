@@ -7729,7 +7729,8 @@
     "scale": "1:1"
    },
    "draft": true
-  }
+  },
+ {"id": "ui-the-phones-text-10-10", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/10", "title": "FINAL? THE PHONE'S TEXT, SMALLER", "why": "Your note was 'can all the font be tinier so more fits': this is the only smaller size that stays sharp, and the feed goes from one cut-off post to three whole ones while every word still reads in the sun. You see it on the map's phone, left as it is now, right the candidate.", "show": {"how": "image", "src": "vote/UI_THE_PHONES_TEXT_10_10.png"}, "twin": {"src": "vote/UI_THE_PHONES_TEXT_NOW_10_10.png", "diffs": ["each dot is 2 phone pixels, not 3, so the type is two thirds the size", "one cut-off post under the jobs becomes three whole ones", "the AGAIN and the names on the faces shrink with it; the cards stay 44 points"]}, "candidate": true, "question": "FINAL on the smaller phone text?"}
  ],
  "verdicts": [
   {

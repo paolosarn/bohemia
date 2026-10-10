@@ -3638,6 +3638,11 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/10 (e) LATEST -- [the phone's font] CANDIDATE in VOTE (rule 100, cook only): the phone's text at 2 pixels a dot.
+Study: both faces are 10 dots per em, the one smaller sharp size is 6.667 pt. Candidate fits 3 posts where 1 is cut off now; 6.6 to 1 in the sun.
+Card ui-the-phones-text-10-10 'FINAL? THE PHONE'S TEXT, SMALLER', sheet slices/vote/UI_THE_PHONES_TEXT_10_10.png with its twin. NOTHING in the game until his FINAL.
+NEXT: [icons at full pixels] (the six supplies, one sheet, beside the pack prop at 1:1).
+
 UI (ui-kmqmrf): 10/10 (d) LATEST -- [the triage filter] SHIPPED: the VOTE tab shows the red items first and alone, the rest behind MORE.
 BOHEMIA_VOTE_TAB.html reads records/target/BOHEMIA_VOTE_TRIAGE.json: 10 red in front (cap 12), 38 behind one MORE fold, green/gray never; no file = everything.
 Vote tab gate 35/2 (queue legs re-aimed at the sort; 4 mutations). The 2 reds: TUNING's whys and two COMBAT TWO sheets without twins (their rows).
