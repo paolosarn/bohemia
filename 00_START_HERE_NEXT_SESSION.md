@@ -2955,6 +2955,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/10 (b) LATEST -- [the roster and the posts look] SHIPPED: RUN TWO's company screen and the hall's hire cards in the materials; the reshuffle says AGAIN.
+dressRoster/dressPosts/drawStars in bohemia_ui_materials.js (RUN TWO's files untouched): taped cardboard card, stats on a receipt, drawn stars, gear/bag icons, amber level-up pick.
+Before: gear labels 3.2 and the pick 3.2 in the sun. Gate the roster and the posts look 28/0 on four screen classes, 5 mutations; reshuffle gate re-aimed at AGAIN 9/0.
+FOR DIRECTION [PENDING DIRECTION, not Paolo]: judge slices/vote/UI_THE_ROSTER_AND_THE_POSTS_10_10.png against its twin (his opening screen) before VOTE, rule 88; NOT registered in VOTE by UI.
+OPEN (look only): [the sideways sides] FIRST (his NO on [landscape]: 'what's up with the brown-grey sides'), [the line on a ground], [the icons against the packs], [the screens past the phone]. HELD by rule 88: [narrator switch], [honest number].
+
 UI (ui-kmqmrf): 10/10 LATEST -- [landscape] SHIPPED: the map's HUD when the phone turns sideways (844x390).
 One media rule in bohemia_ui_materials.js: the bar on top, the speed pad bottom right, the phone (with the faces) on the LEFT, 150x325, faces 44 pt.
 Before: the phone ran 17 pt off the glass under the speed pad. Gate when the phone turns 14/0 on both profiles, 4 mutations. VOTE ui-the-phone-turns-10-10.
