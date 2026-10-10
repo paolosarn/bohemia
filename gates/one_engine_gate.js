@@ -275,6 +275,56 @@ function ok(claim, cond, detail) {
       && Array.isArray(arriveCheck.dogPool) && arriveCheck.dogPool.length === 0,
     'the arrival sting is missing, double-fires, or reaches for the graveyarded dog: ' + JSON.stringify(arriveCheck));
 
+  /* ---- E10: A PICKED BROADCAST REALLY PLAYS THROUGH THE REAL AMBIENCE PATH
+     (SOUNDS, row [one song and the volumes], round three, 10/10). The constants
+     and the filter order are checked against the module in cooked_sounds_gate.js;
+     this is the half that gate cannot reach, because it renders offline and has
+     no running page: does AMB.tick(), when pick() really returns
+     'valley_broadcast', really call the real play function on the real page,
+     through the real ambience bus. AMB.pick is swapped for the span of one tick
+     only and restored immediately after, the same shape E9's postMessage probe
+     already uses to drive a real decision without waiting on real chance.
+     THE AMBIENCE OBJECT IS window.__AMB, NEVER THE BARE AMB (found standalone,
+     not this gate's own fault): a second, unrelated `var AMB=[67,61,56]`
+     further down the same file shadows the ambience object's own `var AMB={...}`
+     by the time the page finishes loading, so the bare identifier is a palette
+     array by the time any test can reach it. __AMB is the reference captured at
+     the object's own construction, before the later var can shadow it, the
+     exact reason onArrive's own E9 claim above already reads __AMB and not AMB.
+     Named here as a bounce-back, not touched: a rename risks another lane's
+     own array and is not this row's job. */
+  const bcCheck = await p.evaluate(async () => {
+    try { MUS.audio(); } catch (e) {}
+    /* satisfy tick()'s own two gates without walking the title screen: a kind
+       must be set (where() does this for real play) and some tab[data-p=run|map]
+       must carry class 'on', the same state tick() itself reads off the DOM. */
+    window.__AMB.where({ inside: false, night: false, district: null });
+    let fakeTab = document.querySelector('.tab[data-p="run"]');
+    let addedTab = false;
+    if (!fakeTab) {
+      fakeTab = document.createElement('div');
+      fakeTab.className = 'tab on'; fakeTab.setAttribute('data-p', 'run');
+      document.body.appendChild(fakeTab); addedTab = true;
+    } else fakeTab.classList.add('on');
+    const before = window.__broadcastPlayCount || 0;
+    const origPick = window.__AMB.pick, origNext = window.__AMB.next, origSeen = window.__AMB.seen;
+    window.__AMB.pick = function () { return 'valley_broadcast'; };
+    window.__AMB.seen = Date.now();
+    window.__AMB.next = 1;  /* truthy and in the past: the next tick fires at once */
+    try { window.__AMB.tick(); } catch (e) {}
+    await new Promise(r => setTimeout(r, 80));
+    window.__AMB.pick = origPick; window.__AMB.next = origNext; window.__AMB.seen = origSeen;
+    if (addedTab) fakeTab.remove();
+    return { before, after: window.__broadcastPlayCount || 0,
+      bandOrder: window.__BROADCAST && window.__BROADCAST.bandOrder,
+      hasBuf: !!(window.__BROADCAST && window.__BROADCAST.buf) };
+  });
+  console.log('  broadcast dispatch: ' + JSON.stringify(bcCheck));
+  ok('E10 *** A PICKED BROADCAST REALLY PLAYS, THROUGH THE REAL AMBIENCE PATH, ON THE REAL PAGE. *** '
+    + (bcCheck.after - bcCheck.before) + ' play call(s) from one forced tick, filter order ' + bcCheck.bandOrder,
+    bcCheck.after === bcCheck.before + 1 && bcCheck.bandOrder === 8 && bcCheck.hasBuf === true,
+    'the dispatch from AMB.tick() to the real play function is missing or wrong: ' + JSON.stringify(bcCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);

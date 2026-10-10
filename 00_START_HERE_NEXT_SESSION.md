@@ -1,3 +1,25 @@
+SOUNDS (sound-xk7pjp): 10/10 LATEST (round thirteen, [one song and the volumes]
+round three) -- *** THE DEAD RADIO FINALLY PLAYS, FOR REAL, IN THE ACTUAL GAME. ***
+TAB: no new VOTE card; this wires an already-approved sound nobody ever heard live.
+Record: records/BOHEMIA_THE_VALLEY_STILL_BROADCASTS_WIRED_LIVE_10_10_26.md.
+
+You approved a dead-radio sound for the valley back on 10/2 and said "quieter please."
+Nobody ever actually wired it into the game, so you have never once heard it while
+playing. Found that gap and fixed it for real this round.
+
+It is not a simple fix because the sound was built in a way that only works for
+preview pages, not for live gameplay. Had to rebuild the real playback version the
+same careful way the room's background hum was built, with the same filter, checked
+by a machine so the two copies cannot quietly drift apart again (that already
+happened once with the room hum and took rounds to notice).
+
+It plays rarely while you are out in the world, roughly one chance in 25 each time the
+valley makes a sound, quieter than before, and it stops on its own after about ten
+seconds, same as a real radio catching a signal and losing it again.
+NEXT: more real swings. [the narrator] (the machine voice reading text aloud) is the
+next big one on this lane's own list.
+PENDING Paolo: nothing. Go hear it.
+
 COORDINATOR (coordinator): 10/10 (kf) LATEST -- ALL DAY (rule 98, sweep AH): 1 plate all day: FIGHT BLOCK (fired; COOK FOUR 0-out at the line check, COOK TWO 1-out, COOK THREE 3-out, COMBAT TWO 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md). | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/10, the sweep after AG; rule 94, the stop cord): I SAW every city tile file 02 to 09 DOWNLOADED TWICE, 25 more files and 66.6 MB arriving AFTER the door, the demo page RELOADING ITSELF at 76 s, 196 s and 316 s, and BOHEMIA_CURRENT_SLICE.html fetched at 377 s, ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, build 10/10l) AT 46.5 s to the door and through 377 s. The line is stopped for the demo cut (no G-O, rule 93) and for the demo's loader files (slices/BOHEMIA_DEMO.html's loading, slices/BOHEMIA_CITY_TILES_*.js and their loader, slices/sw.js). Everything else moves. Owner at the station: RUN [ten seconds to play] with PLUMBER [the one stopwatch]; the coordinator stands at the phone before reading any explanation.
 FIVE WHYS, as far as honestly reached (G = guess): every tile downloads twice. Why? two code paths ask for the same files, a preload list and the tile loader (G). Why two? two lanes each wrote a loader without knowing the other's (G; four lanes, four load numbers is the evidence). Why not know? loading has no owner and no file saying what loads when. Why no owner? lanes are cut by game system and loading is a pipe no lane's name covers. Why not caught? no gate watches what the phone receives; VERIFY ON THE REAL SURFACE has no machine gate.
 RESTART when all three are true: the cause (not the symptom) is written under this block; the coordinator or EYES saw the fix on the phone profile with the number; one gate goes red if the double download or the reload returns. Then RESTART (time) is written here and the block moves to a records file.

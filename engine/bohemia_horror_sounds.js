@@ -2571,6 +2571,15 @@
                numbers. The two rooms matched on every constant for rounds while running
                different filters at different corners. */
             bandOrder: ROOM_BAND_ORDER },
+    /* THE VALLEY'S LIVE AMBIENT INSTANCE (10/10), THE SAME SHAPE ROOM ALREADY IS:
+       this module's theBroadcast renders offline for judge pages; the alpha's
+       BROADCAST object (same name, duplicated, never shared) plays a live
+       buffer through live filter nodes. These are the constants the gate reads
+       the alpha's own source text against, so the two cannot quietly diverge
+       the way ROOM's filter once did while its numbers kept matching. */
+    BROADCAST_CONST: { toneBeats: 16, airBeats: 4, beat: 0.5, lo: MACHINE.AM.lo,
+            hi: MACHINE.AM.hi, crackleRate: 220, crackleAmp: 0.34, humLevel: 0.62,
+            carrierLevel: 0.30, bandOrder: ROOM_BAND_ORDER },
     songOnTape: songOnTape,
     titleTheme: titleTheme,
     barberClippers: barberClippers,

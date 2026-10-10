@@ -127,7 +127,7 @@ const MEASURE = `
   /* THE ROOM'S CONSTANTS, HANDED BACK SO THE GATE CAN HOLD THEM AGAINST THE ALPHA'S.
      A duplication a machine checks is a fact; one a comment promises is rot waiting. */
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
-    room: H.ROOM,
+    room: H.ROOM, broadcastConst: H.BROADCAST_CONST,
     /* THE CADENCE, MEASURED BY FINDING THE HITS, not by reading back the list the recipe
        was handed. A recipe that says "I put a footfall at 0.25 s" and did not is exactly
        the class of claim this gate refuses. */
@@ -2375,6 +2375,43 @@ const MEASURE = `
       + 'That crosses the line this lane wrote itself -- under about -30 dB a bed on a '
       + 'handset starts losing to the room he is really sitting in -- and HE HEARD BOTH '
       + 'AND PICKED THE QUIETER ONE, so the trade is his and it is made.');
+
+    /* ---- THE VALLEY STILL BROADCASTS, NOW LIVE, THE SAME DUPLICATION ROOM
+       ALREADY TEACHES THE LESSON FOR (row [one song and the volumes], round
+       three, 10/10). The alpha's own BROADCAST object is read by its source
+       text, exactly like ROOM's, so a round that moves one side without the
+       other goes red and names which. */
+    const bcAt = alphaAll.indexOf('var BROADCAST = {');
+    claim('THE ALPHA HAS A LIVE BROADCAST OBJECT TO COMPARE AGAINST',
+      bcAt >= 0, bcAt < 0 ? 'no `var BROADCAST = {` in the alpha' : 'found at char ' + bcAt);
+    const bcSlice = bcAt < 0 ? '' : alphaAll.slice(bcAt, bcAt + 6000);
+    const bgrab = (re) => { const m = bcSlice.match(re); return m ? parseFloat(m[1]) : null; };
+    const liveBc = {
+      toneBeats: bgrab(/\bTONE_BEATS:\s*([0-9.]+)/), airBeats: bgrab(/\bAIR_BEATS:\s*([0-9.]+)/),
+      beat: bgrab(/\bBEAT:\s*([0-9.]+)/), lo: bgrab(/\bLO:\s*([0-9.]+),\s*HI:/),
+      hi: bgrab(/\bLO:\s*[0-9.]+,\s*HI:\s*([0-9.]+)/),
+      crackleRate: bgrab(/\bCRACKLE_RATE:\s*([0-9.]+)/), crackleAmp: bgrab(/\bCRACKLE_AMP:\s*([0-9.]+)/),
+      humLevel: bgrab(/\bHUM_LEVEL:\s*([0-9.]+)/), carrierLevel: bgrab(/\bCARRIER_LEVEL:\s*([0-9.]+)/),
+    };
+    const bcQs = (bcSlice.match(/var QS = \[([^\]]+)\]/) || [null, ''])[1];
+    const liveBcOrder = bcQs ? 2 * bcQs.split(',').length : null;
+    const mbc = d.broadcastConst || {};
+    const bcDiffers = Object.keys(liveBc).filter(k =>
+      liveBc[k] === null || Math.abs(liveBc[k] - mbc[k]) > 1e-9);
+    claim('THE LIVE BROADCAST MATCHES THE MODULE, CONSTANT FOR CONSTANT',
+      bcDiffers.length === 0,
+      bcDiffers.length
+        ? 'these do NOT match: ' + bcDiffers.map(k => k + ' alpha=' + liveBc[k] + ' module=' + mbc[k]).join(', ')
+        : Object.keys(liveBc).map(k => k + '=' + liveBc[k]).join(', '));
+    claim('AND THE SAME FILTER, THE EXACT LESSON ROOM\'S OWN BUG ALREADY TAUGHT THIS LANE',
+      liveBcOrder === (mbc.bandOrder || null) && liveBcOrder >= 6,
+      'the alpha applies a Butterworth of order ' + liveBcOrder + ' and the module declares '
+      + 'order ' + (mbc.bandOrder || '?') + ' -- the numbers matching is not enough on its '
+      + 'own, ROOM already proved that once, so this reads the chain length out of the '
+      + 'alpha\'s own source the same way');
+    /* THE WIRING ITSELF -- does a picked broadcast really play through the real
+       ambience path -- is proved on the live alpha in one_engine_gate.js (E10),
+       not here: this gate renders offline and has no running page to drive. */
 
     /* ---- THE FLIP: A RECEIVER CROSSING YEARS ---------------------------------
        Row [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he flips
