@@ -2762,6 +2762,27 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (h) -- [the price of bread and theft] SHIPPED
+(research, no code touched -- the row's own text calls for research, read TUNING and the
+stall interaction). This row came straight from Paolo this round ('you can't even steal
+bread, wtf'), not from the jump list.
+Record: records/BOHEMIA_ECONOMY_DAY_64_THE_PRICE_OF_BREAD_AND_THEFT_10_10_26.md
+FINDING: FACTIONS [beef] already built the relation-cost half (bread maps to the wiki's minor
+offensive action, -10; a battery or car to the full offensive action, -20); reused as-is, not
+re-derived. The stolen good's value was already priced too: a loaf's own stack price rounds
+to the one-battery floor, so stealing it just skips paying that floor price, no new digit. The
+one real gap was detection, and the commonly cited shoplifting number (about 1 in 48 caught)
+is the wrong comparison class -- that is a big-box-store statistic, and a market stall is one
+vendor three feet from the goods; small open-air retail's real literature says detection
+should default HIGH, the opposite of the big-box number, matching the house rule that nothing
+should surprise the player (getting caught three feet from the vendor is the honest outcome).
+One shared check proposed for the price table: seen or not (biased high) against the good's
+existing price, feeding FACTIONS' existing relation cost only if seen. Eight bank lines,
+draft:true.
+NEXT OPEN (jump list, rule 74): [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (g) -- [contract pay] SHIPPED (research, no code
 touched -- the row's own text calls for research, read TUNING and the settlement screen).
 Record: records/BOHEMIA_ECONOMY_DAY_63_WHAT_A_CONTRACT_PAYS_DISTANCE_THE_TWIST_AND_THE_PAIR_

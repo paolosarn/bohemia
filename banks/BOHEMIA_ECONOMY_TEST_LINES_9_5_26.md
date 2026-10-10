@@ -4706,3 +4706,44 @@ SSSSSSSSSSSSSSSSSSSS8  the one who waited a season for a cheaper, slower job    
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## EEEEEEEEEEEEEEEEEEEEE. WHAT THE KEEPER SEES (round 64)
+
+SSSSSSSSSSSSSSSSSSSSS1  a kid palming a loaf off the front of the stall           draft:true
+    "Didn't even make it to my pocket. He was already looking."
+
+SSSSSSSSSSSSSSSSSSSSS2  the keeper watching the same kid walk off clean           draft:true
+    "I saw him take it. Some mornings a loaf isn't worth the shouting."
+
+SSSSSSSSSSSSSSSSSSSSS3  a man who lifted a battery off a crowded table           draft:true
+    "Three feet away and she never looked up once. That's the whole trick, if there is one."
+
+SSSSSSSSSSSSSSSSSSSSS4  the one who tried the same table on a slow afternoon      draft:true
+    "Nobody to hide behind. She caught my hand before it was even closed."
+
+SSSSSSSSSSSSSSSSSSSSS5  a vendor explaining why she never looks away              draft:true
+    "Everything on this table is mine. I don't get to blink."
+
+SSSSSSSSSSSSSSSSSSSSS6  the one who got caught and paid for it later             draft:true
+    "Word travels faster than I walk. Every door in this block knew by noon."
+
+SSSSSSSSSSSSSSSSSSSSS7  a woman who stole from a crowd, not a stall               draft:true
+    "Ten hands reaching at once. Nobody watches one of them close enough."
+
+SSSSSSSSSSSSSSSSSSSSS8  the keeper who stopped restocking bread at the front      draft:true
+    "Moved it to where I can see it without turning my head. Cheaper than losing it."
+
+## FFFFFFFFFFFFFFFFFFFFF. WHAT IS NOT HERE, ON PURPOSE (round 64)
+
+- No line states a percentage, a relation number or a battery price. The whole finding is said
+  as a loaf palmed in plain sight, a slow afternoon with no crowd to hide in, a vendor who
+  never blinks, and word of a theft traveling faster than the thief can walk.
+- No line claims theft is easy. SSSSSSSSSSSSSSSSSSSSS1, 4 and 5 all end in getting caught,
+  the finding's own honest shape: a stall-keeper usually sees it.
+- No line resolves the exact chance or what a crowd is worth against it. Those stay in the
+  record's own table, flagged for TUNING, not spoken as dialogue.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 651 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

@@ -7040,6 +7040,19 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "economy-what-the-keeper-sees-10-10",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "WHAT THE KEEPER SEES",
+   "why": "A loaf already costs one battery at the floor, so stealing one just skips paying it; the real question was getting caught, and a market stall is not a supermarket, so the keeper should usually see you. You see it in the records, not drawn yet, feeding TUNING and the stall interaction.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_64_THE_PRICE_OF_BREAD_AND_THEFT_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 64.\n\nSeen in: not drawn yet, feeds TUNING and the stall interaction."
+   }
   }
  ],
  "verdicts": [
