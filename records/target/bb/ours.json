@@ -510,5 +510,24 @@
   "source": "records/BOHEMIA_PAOLO_GIVE_JOBS_TO_ALL_CHATS_AND_THE_COMBAT_MAP_DOESNT_NEED_TO_BE_SO_BIG_10_9_26.md (rule 79) and bb_all/0424_Combat Mechanics.txt",
   "quote": "the actual combat map doesn't need to be so big in Battle Brothers unless it's an endgame battle or three raiding parties hit you at the same time, 12 versus 60... on the map I want to see it more zoomed in / (the wiki) A typical battle starts with both parties in a line formation (1-2 lines deep for your forces, may be deeper for the enemy), with at least 5 hexes between parties.",
   "why": "COMBAT [the board fits the party]: the board is cut from the dealt board to the parties: across, a tile of room behind each line, the two lines' depths and the wiki's five-tile gap between their fronts; down, the longer line and a tile of room above and below. The full board only for the endgame (FIGHT_OPTS.endgame) or when the handover carries three parties or more (party.parties). TUNING owns the margin."
+ },
+ "struck_down_injury": {
+  "value": {
+   "from_kind": "permanent",
+   "lasts": "laid_up_days"
+  },
+  "source": "bb_all/1540_Permanent Injuries.txt and VAMILY.md 04 COMBAT [struck down] (Paolo's fifth votes)",
+  "quote": "Permanent injuries are incurable disabilities received after having been struck down in battle... The part hit does not matter in selecting the injury. / (Paolo) a veteran struck down dies 20 percent of the time, else a long injury from injuries.json",
+  "why": "a man struck down who lives carries one of the wiki's permanent injuries (all equally likely, the body part not mattering, as the wiki says), and ours lasts the days he is laid up (ours.struck_down_laid_up_days), Paolo's 'debilitating injury 30 to 40 days'; the roster reads it as one pain line"
+ },
+ "built_piece": {
+  "value": {
+   "w": 3,
+   "l": 3,
+   "h": 2.5
+  },
+  "source": "LIFE+CITY [built on the board] 9cb46e85 (tools/bohemia_fight_built_patch.py)",
+  "quote": "building: a piece that blocks, drawn with its own picture",
+  "why": "the footprint in metres of a building you put up at a place, as it stands on the fight's board (LIFE+CITY's numbers, moved here by COMBAT 10/10 so the fight's rules type no number, rule 63d); its own picture is ../settlement/lot/<id>.png"
  }
 }

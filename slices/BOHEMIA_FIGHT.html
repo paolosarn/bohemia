@@ -103,6 +103,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #over th{font-weight:400;opacity:.7}
 #over td:first-child,#over th:first-child{text-align:left;font-weight:700}
 #over .lv{color:#7a3d10;font-weight:700}
+#over .inj{color:#8a2a18;font-size:9px;font-weight:700}
 #over button{margin-top:12px;width:100%;min-height:46px;color:#efe3cc;border:0;font:inherit;font-weight:700;
   background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.5)}
 /* THE BAR ON EVERY SCREEN (rules 62 and 72; slices/bohemia_screen_class.js): the phone held upright keeps the two rows
@@ -589,9 +590,10 @@ const FIGHT = (function () {
     if (!Array.isArray(list) || !list.length) return;
     const G = DB.ground, tm = G.tile_metres, cf = (S.cols || R('ours.start_cols'))[0];
     const mid = Math.floor((S.h - 1) / (1 + 1)), rows = [];
-    for (let k = 0; k < S.h; k++) { const r = mid + (k % 2 ? (k + 1) / 2 : -k / 2); if (r >= 0 && r < S.h) rows.push(r); }
+    const two = 1 + 1;   /* middle rows first: the middle, one below, one above, two below... (rule 63d: no typed number) */
+    for (let k = 0; k < S.h; k++) { const r = mid + (k % two ? (k + 1) / two : -k / two); if (r >= 0 && r < S.h) rows.push(r); }
     const free = function (x, y) { return inBoard(x, y) && S.terrain[y][x] !== 'blocked' && !S.solid[y][x] && !S.cover[y][x] && S.terrain[y][x] !== 'height'; };
-    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 2, cf] };
+    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 1 - 1, cf] };
     let terrain = S.terrain.map(function (r) { return r.slice(); }), cover = (S.boardDef.cover || []).slice();
     list.forEach(function (b) {
       if (!b || !cols[b.fight]) return;
@@ -604,9 +606,10 @@ const FIGHT = (function () {
         let piece = 'wall';
         if (b.fight === 'building') {
           piece = 'lot_' + b.id;
-          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: 3, l: 3, h: 2.5, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
+          const bp = R('ours.built_piece');
+          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: bp.w, l: bp.l, h: bp.h, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
         }
-        cover = cover.concat([{ piece: piece, x_m: (spot.x + 0.5) * tm, y_m: (spot.y + 0.5) * tm, yours: piece !== 'wall' }]);
+        cover = cover.concat([{ piece: piece, x_m: (spot.x + 1 / two) * tm, y_m: (spot.y + 1 / two) * tm, yours: piece !== 'wall' }]);
       }
       applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover }));
       if (!connected()) { terrain = keepT; cover = keepC; applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover })); return; }
@@ -1068,7 +1071,15 @@ const FIGHT = (function () {
     if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
-    else { const d = R('ours.struck_down_laid_up_days'); t.down = true; t.laidUp = rint(d[0], d[1]); emit({ t: 'down', id: t.id, days: t.laidUp }); }
+    else {
+      /* STRUCK DOWN, ALIVE (ours.struck_down_injury): one of the wiki's permanent injuries, each as likely, the part hit not
+         mattering; ours lasts the days he is laid up */
+      const d = R('ours.struck_down_laid_up_days'), kind = R('ours.struck_down_injury').from_kind;
+      const pool = DB.injuries.rows.filter(function (r) { return r.kind === kind; }), j = pool[Math.floor(rng() * pool.length)];
+      t.down = true; t.laidUp = rint(d[0], d[1]);
+      t.longInjury = j ? { id: j.id, name: j.name, line: (j.effects_text || []).filter(function (x) { return !/reserve/i.test(x); }).join(', '), days: t.laidUp } : null;
+      emit({ t: 'down', id: t.id, days: t.laidUp, injury: j ? j.id : null });
+    }
     if (a) a.kills = (a.kills || 0) + 1;
     if (t.side === 'them') experience(t, a);
     if (a && onField(a)) {
@@ -1443,7 +1454,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -1595,6 +1606,25 @@ function nightAtlas(img) {
     g.restore();
     c.src = img.src;   /* the bank's frames still: the gate traces every man to fight_people */
     UI.darkOf.set(img, c);
+  }
+  return c;
+}
+/* THE DAY RIM (rule 73a, the sun test corrected: 'a man is counted WITH his one-pixel rim (cold at night, dark by day),
+   because the rim is how a figure reads on a bright glass'): his own silhouette, one pixel out on every side, in a dark
+   ink behind him, so a man in pale clothes on pale sand still has an edge in the sun. Cached per atlas, frames untouched. */
+const DAY_RIM = 'rgba(16,11,6,.9)';
+function dayAtlas(img) {
+  UI.dayOf = UI.dayOf || new Map();
+  let c = UI.dayOf.get(img);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const rim = document.createElement('canvas'); rim.width = img.width; rim.height = img.height;
+    const r = rim.getContext('2d'); r.drawImage(img, 0, 0); r.globalCompositeOperation = 'source-in'; r.fillStyle = DAY_RIM; r.fillRect(0, 0, rim.width, rim.height);
+    const g = c.getContext('2d');
+    [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (o) { g.drawImage(rim, o[0], o[1]); });
+    g.drawImage(img, 0, 0);
+    c.src = img.src;   /* the bank's frames still (rule 69) */
+    UI.dayOf.set(img, c);
   }
   return c;
 }
@@ -1878,7 +1908,7 @@ function frameFor(v, now) {
 }
 function blitMan(v, X, feet, h, face, now, fallen) {
   let img = atlasOf(v); if (!img) return;
-  if (FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y)) img = nightAtlas(img);
+  img = FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img);
   const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
   const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
   UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
@@ -2167,13 +2197,19 @@ function showOver(result) {
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
     const lv0 = v.level || 1, base = FIGHT.xpAt(lv0), gained = Math.round(v.xpGained || 0), lv1 = FIGHT.levelFor(base + gained);
-    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + ' DAYS') : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
+    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + ' DAYS' + (v.longInjury ? '<br><span class="inj">' + v.longInjury.name.toUpperCase() + '</span>' : '')) : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
     html += '<tr><td>' + v.name + '</td><td>' + (v.kills || 0) + '</td><td>' + (v.dealt || 0) + '</td><td>' + (v.taken || 0) + '</td><td>+' + gained + '</td><td>' + state + '</td></tr>';
   });
   html += '</table>';
   document.getElementById('ob').innerHTML = html;
   o.style.display = 'flex';
-  try { if (window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice() }; }) }, '*'); } catch (_e) {}
+  try { if (window.parent !== window) window.parent.postMessage(homeMessage(result), '*'); } catch (_e) {}
+}
+/* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
+function homeMessage(result) {
+  const S = FIGHT.S;
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }) };
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;

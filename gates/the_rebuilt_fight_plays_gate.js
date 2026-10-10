@@ -726,7 +726,52 @@ async function turnPace() {
   await d.close();
 }
 
+/* STRUCK DOWN (Paolo's fifth votes, flat 20%; third votes, the main character never dies; the wiki's Permanent Injuries):
+   a thousand struck-down rolls on a hire land 17 to 23 percent dead; a thousand on the main character, never; every man who
+   lives carries one of the wiki's permanent injuries for the days he is laid up; the recap says so and so does the fight's
+   message home; GROK_115's injury sheet is in injuries.json. And rule 73a's day rim: by day every man is drawn with a dark
+   one-pixel edge round his silhouette. */
+async function struckDown() {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
+  await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+  await d.page.waitForTimeout(1500);
+  const r = await d.page.evaluate(() => {
+    const S = FIGHT.S, T = FIGHT._t, hire = S.units.find(u => u.side === 'you' && !u.main), main = S.units.find(u => u.main);
+    const keep = S.units.map(u => [u, u.morale, u.dead, u.down, u.hp]);
+    const roll = (u) => { u.dead = false; u.down = false; u.hp = 1; u.longInjury = null; u.laidUp = 0; S.events = []; T.fall(u, null); return { dead: u.dead, down: u.down, inj: u.longInjury, days: u.laidUp }; };
+    let dead = 0, mainDead = 0, injured = 0, days = [], ids = {};
+    for (let i = 0; i < 1000; i++) { const o = roll(hire); if (o.dead) dead++; else if (o.inj) { injured++; days.push(o.days); ids[o.inj.id] = 1; } }
+    for (let i = 0; i < 1000; i++) { const o = roll(main); if (o.dead) mainDead++; }
+    const perm = DB.injuries.rows.filter(j => j.kind === 'permanent').map(j => j.id);
+    roll(hire); let tries = 0; while (hire.dead && tries++ < 50) roll(hire);
+    keep.forEach(k => { if (k[0] !== hire) { k[0].morale = k[1]; k[0].dead = k[2]; k[0].down = k[3]; k[0].hp = k[4]; } });
+    /* the recap and the message home */
+    S.over = true; S.result = 'lost'; showOver('lost'); const sent = homeMessage('lost');
+    const recap = document.getElementById('over').innerText;
+    /* the day rim: pixels outside his silhouette that the rim fills, and how dark they are */
+    const img = atlasOf(hire), day = dayAtlas(img), w = 112, h = 112;
+    const a = document.createElement('canvas'); a.width = w; a.height = h; const ag = a.getContext('2d'); ag.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+    const b = document.createElement('canvas'); b.width = w; b.height = h; const bg = b.getContext('2d'); bg.drawImage(day, 0, 0, w, h, 0, 0, w, h);
+    const A = ag.getImageData(0, 0, w, h).data, B = bg.getImageData(0, 0, w, h).data; let rim = 0, darkRim = 0;
+    for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim++; if (.3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1] < 40) darkRim++; }
+    return { dead, mainDead, injured, perm, ids: Object.keys(ids), dMin: Math.min(...days), dMax: Math.max(...days), range: R('ours.struck_down_laid_up_days'),
+      hire: { name: hire.name, inj: hire.longInjury && hire.longInjury.name, days: hire.laidUp }, recap, sent: sent && sent.crew && sent.crew.find(c => c.name === hire.name), rim, darkRim };
+  });
+  leg(r.dead >= 170 && r.dead <= 230 && r.mainDead === 0, '*** STRUCK DOWN: A THOUSAND ROLLS, 17 TO 23 PERCENT DEAD; THE MAIN CHARACTER NEVER *** (his fifth votes and his third)', r.dead / 10 + '% of a hire, ' + r.mainDead + ' of a thousand for the main character');
+  leg(r.injured === 1000 - r.dead && r.ids.every(x => r.perm.indexOf(x) >= 0) && r.ids.length >= 8 && r.dMin >= r.range[0] && r.dMax <= r.range[1],
+    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), laid up 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
+  leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('LAID UP ' + r.hire.days + ' DAYS') >= 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,
+    'the recap names his injury and his days, and the message home carries them for the roster\'s pain line', r.hire.name + ': ' + r.hire.inj + ', ' + r.hire.days + ' days' + (r.sent && r.sent.injury ? ' (' + r.sent.injury.line + ')' : ''));
+  const INJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/injuries.json'), 'utf8')), mul = INJ.rules.temporary_threshold_formula.multipliers;
+  const temp = INJ.rows.filter(j => j.kind === 'temporary'), withT = temp.filter(j => j.threshold_pct_of_max_hp !== null).length;
+  leg(mul.inflict_injury_threshold_multiplier_crippling_strikes.value === 0.66 && mul.receive_injury_threshold_multiplier_iron_jaw.value === 1.25 && mul.bonus_head_hit.value === 1.25 && INJ.rules.temporary_base_conditions.min_damage_hitpoints === 10 && withT >= temp.length - 2,
+    'Grok\'s injury sheet (GROK_115) is in injuries.json: 10 health at least, the threshold per injury, Crippling Strikes 0.66, Iron Jaw 1.25, a head hit 1.25', withT + ' of ' + temp.length + ' temporary injuries carry a threshold (the other two come only from events)');
+  leg(r.rim > 40 && r.darkRim / r.rim > 0.9 && !d.errs.length, '*** THE DAY RIM (rule 73a) ***: by day a man is drawn with a dark one-pixel edge round his silhouette, the way a figure reads on a bright glass', r.rim + ' rim pixels in his idle frame, ' + Math.round(100 * r.darkRim / Math.max(1, r.rim)) + '% dark');
+  await d.close();
+}
+
 (async () => {
+  await struckDown();
   await turnPace();
   await boardFits();
   await enemyParts();
