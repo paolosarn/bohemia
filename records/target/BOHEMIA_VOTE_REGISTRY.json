@@ -7451,19 +7451,6 @@
    }
   },
   {
-   "id": "factions-a-face-that-remembers-10-10",
-   "kind": "tile",
-   "lane": "factions",
-   "sha": "2ab7dba6",
-   "made": "10/10",
-   "title": "A FACE THAT REMEMBERS",
-   "why": "Each faction has one face, one want and one line that changes with how you treated them, ready to speak the day a portrait lands. You see it in the VOTE tab: four factions, each saying three different things for three ways you could have treated them.",
-   "show": {
-    "how": "page",
-    "src": "vote/FACTIONS_A_FACE_THAT_REMEMBERS_10_10.html"
-   }
-  },
-  {
    "id": "direction-fight-verdict-23-the-pack-boards-10-10",
    "kind": "verdict",
    "lane": "direction",
