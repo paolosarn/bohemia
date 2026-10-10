@@ -7067,7 +7067,20 @@
     "src": "vote/COMBAT2_THE_REST_JOIN_10_10.png"
    }
   },
- {"id": "people-the-keepers-10-10", "kind": "tile", "lane": "people", "sha": "3131d9c0", "made": "10/10", "title": "THE KEEPERS", "why": "Six real crafts that fight with an animal, war dogs to camel cavalry, and the shape a company would need to carry one as a companion. You see it in the VOTE tab, item THE KEEPERS.", "show": {"how": "page", "src": "BOHEMIA_KEEPERS_10_10_26.html"}}
+ {"id": "people-the-keepers-10-10", "kind": "tile", "lane": "people", "sha": "3131d9c0", "made": "10/10", "title": "THE KEEPERS", "why": "Six real crafts that fight with an animal, war dogs to camel cavalry, and the shape a company would need to carry one as a companion. You see it in the VOTE tab, item THE KEEPERS.", "show": {"how": "page", "src": "BOHEMIA_KEEPERS_10_10_26.html"}},
+  {
+   "id": "dynasty-flip-at-crisis-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE FLIP NOW OPENS AT THE FIRST CRISIS, NOT BEFORE.",
+   "why": "As you ruled, nothing flips until the first crisis starts, around day 80 to 100. Read the card in the VOTE tab: a fresh game has no flip until the crisis clock calls it, and taking a base no longer opens act 2.",
+   "show": {
+    "how": "text",
+    "src": "Before the first crisis: one face on the phone, no flip.\\nThe first crisis starts (day 80 to 100): act 2 opens and the game says which day.\\nTaking a base no longer opens act 2. A base taken in act 2 opens act 3.\\nThe crisis clock and the opening card are not built yet, so today the flip stays dark."
+   }
+  }
  ],
  "verdicts": [
   {

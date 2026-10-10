@@ -124,32 +124,32 @@ ok('a bad name, a bad sex and a bad salt in a save are dropped, not trusted',
    A.visible(SEED).length === 2 && A.visible(SEED)[1].custom === false && A.current() === 1);
 A.resetAll();
 
-/* THE DEFAULT TRIGGER, AGAINST THE REAL LEDGER: "the first home base is yours" */
+/* THE FLIP OPENS AT THE FIRST CRISIS (Paolo 10/10, rule 85), NOT AT A BASE. Bases only open act 3,
+   and only after the crisis. Proved against the REAL home-base ledger. */
 {
   const rec = H.make();
-  ok('with an empty ledger nothing unlocks', A.unlockFromBases(rec.entries).length === 0 && A.unlocked().join() === '1');
-  H.took(rec, { base: 'base:cartel', to: 'the mob' });
-  ok('a base that went to somebody else unlocks nothing', A.unlockFromBases(rec.entries).length === 0);
-  H.ruined(rec, { base: 'base:church' });
-  ok('a base that fell unlocks nothing', A.unlockFromBases(rec.entries).length === 0);
   H.took(rec, { base: 'base:homeless', to: H.YOU });
-  const got = A.unlockFromBases(rec.entries);
-  ok('*** A BASE THE PLAYER TOOK IN ACT 1 UNLOCKS ACT 2 ***', got.join() === '2' && A.unlocked().join() === '1,2');
-  ok('and running it again unlocks nothing new', A.unlockFromBases(rec.entries).length === 0);
+  ok('*** A BASE THE PLAYER TOOK UNLOCKS NOTHING BEFORE THE CRISIS (rule 85) ***',
+     A.unlockFromBases(rec.entries).length === 0 && A.unlocked().join() === '1' && A.crisisStarted() === false);
+  ok('and the flip is refused before the crisis', A.flip(2).moved === false && A.flip(2).why === 'LOCKED');
+  const c = A.crisis(95);
+  ok('*** THE FIRST CRISIS OPENS ACT 2 AND SAYS WHICH DAY ***', c.ok === true && c.day === 95 && c.first === true && A.unlocked().join() === '1,2' && A.crisisStarted() === true);
+  ok('the crisis happens once: a second is answered ALREADY and keeps the first day', A.crisis(120).ok === false && A.crisis(120).day === 95);
+  ok('a flip works after it', A.flip(2).moved === true);
   H.setAct(rec, 2);
-  ok('a base taken in act 2 is the trigger for act 3, not act 2 again',
-     A.unlockFromBases(rec.entries).length === 0);
+  ok('a base taken in act 1 no longer opens anything by itself after the crisis (act 2 is already open)', A.unlockFromBases(rec.entries).length === 0);
   H.took(rec, { base: 'base:mob', to: H.YOU });
-  ok('and it does unlock act 3', A.unlockFromBases(rec.entries).join() === '3' && A.unlocked().join() === '1,2,3');
+  ok('a base taken in act 2, after the crisis, opens act 3', A.unlockFromBases(rec.entries).join() === '3' && A.unlocked().join() === '1,2,3');
+  const blob = A.save(); A.resetAll();
+  ok('(control) a reset is a game with no crisis again', A.crisisStarted() === false && A.unlocked().join() === '1');
+  A.load(blob);
+  ok('the crisis day survives the save and load', A.crisisStarted() === true && A.save().crisis.day === 95);
+  const bad = A.save(); bad.unlocked = [1]; A.resetAll(); A.load(bad);
+  ok('a hand-edited save with a crisis but no act 2 drops the crisis', A.crisisStarted() === false);
   A.resetAll();
-  ok('a ledger with BOTH bases replays in order and opens both doors, one after the other',
-     A.unlockFromBases(rec.entries).join() === '2,3' && A.unlocked().join() === '1,2,3');
+  ok('a bad day is clamped to 0, never NaN', A.crisis('x').day === 0);
   A.resetAll();
-  const only2 = H.make({ act: 2 });
-  H.took(only2, { base: 'base:mob', to: H.YOU });
-  ok('with act 2 still locked, a base taken in act 2 cannot unlock act 3 by itself',
-     A.unlockFromBases(only2.entries).length === 0 && A.unlocked().join() === '1');
-  ok('a non-array is answered with nothing', A.unlockFromBases(null).length === 0);
+  ok('a ledger of a base alone replays to nothing without a crisis, however many bases', A.unlockFromBases(H.make().entries).length === 0 && A.unlocked().join() === '1');
   A.resetAll();
 }
 
@@ -230,6 +230,11 @@ A.resetAll();
   ok('a locked act cannot be flipped to from the page either',
      (await d.fr.evaluate(() => ctActFlipTo(3))) === false && (await strip()).cur === 1);
 
+  /* RULE 85 ON THE GLASS: the crisis is the door */
+  ok('before the crisis the phone has ONE face and no flip, from the page', (await strip()).tiles === 1 && (await d.fr.evaluate(() => ctActFlipTo(2))) === false && (await d.fr.evaluate(() => BohemiaActs.crisisStarted())) === false);
+  ok('*** THE FIRST CRISIS GROWS THE SECOND FACE ***', (await d.fr.evaluate(() => ctActCrisis(95))) === true && (await strip()).tiles === 2);
+  ok('the page remembers which day (95) and a second crisis is refused', (await d.fr.evaluate(() => window.__ACT_CRISIS.day === 95 && ctActCrisis(120) === false)));
+  await d.fr.evaluate(() => { BohemiaActs.resetAll(); ACTFLIP_BUILT = ''; ctActFlipPaint(); });
   /* THE DOOR OPENS: the game's own hook */
   await d.fr.evaluate(() => ctActUnlock(2));
   await pg.waitForTimeout(500);

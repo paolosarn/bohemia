@@ -314,8 +314,25 @@
      took a home base in act n (bohemia_homebases entries: {act, how:'taken',
      to:'you'}). Takes the entries, not the module, so it works on a save blob as
      well as a live record. Returns the acts it just unlocked, in order. */
+  /* *** THE FLIP OPENS AT THE FIRST CRISIS, AND NOWHERE ELSE (Paolo 10/10, rule 85: 'you can't
+     even flip until it's unlocked in the first endgame crisis'). *** crisis(day) is the one door
+     for act 2: the crisis's start (around day 80 to 100, VIA GROK) sets the flag, unlocks act 2
+     and says which day. Before it the phone shows one face and a flip is refused. A base taken
+     is no longer a key to act 2; it only opens act 3 AFTER the crisis, so a game with no crisis
+     has no flip at all. Nothing in the walked game calls crisis() yet (WORLD's crisis clock). */
+  var CRISIS = null;
+  function crisisStarted() { return !!CRISIS; }
+  function crisis(day) {
+    if (CRISIS) return { ok: false, why: 'ALREADY', day: CRISIS.day };
+    var d = +day; if (!(d >= 0) || !isFinite(d)) d = 0;
+    CRISIS = { day: Math.floor(d) };
+    var r = unlock(2);
+    return { ok: true, day: CRISIS.day, unlocked: unlocked(), first: !!(r && r.ok) };
+  }
+
   function unlockFromBases(entries, holder) {
     var who = holder == null ? 'you' : holder, out = [];
+    if (!CRISIS) return out;                 /* nothing opens before the first crisis (rule 85) */
     if (Object.prototype.toString.call(entries) !== '[object Array]') return out;
     for (var n = 1; n <= 2; n++) {
       if (UNLOCKED[n + 1] || !UNLOCKED[n]) continue;
@@ -404,6 +421,7 @@
     return {
       V: 1,
       current: CURRENT,
+      crisis: CRISIS ? { day: CRISIS.day } : null,
       unlocked: unlocked(),
       met: [1, 2, 3].filter(function (n) { return !!MET[n]; }),
       open: [2, 3].filter(function (n) { return !!OPEN[n]; }),
@@ -435,6 +453,7 @@
         if (one.name || one.sex || one.age) ov[n] = one;
       }
     UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
+    CRISIS = (blob.crisis && typeof blob.crisis === 'object' && u[2] && isFinite(+blob.crisis.day) && +blob.crisis.day >= 0) ? { day: Math.floor(+blob.crisis.day) } : null;
     var c = blob.current | 0;
     CURRENT = (isAct(c) && u[c]) ? c : 1;
     return { ok: true, unlocked: unlocked(), current: CURRENT };
@@ -444,7 +463,7 @@
      to "start over". resetRoster() alone clears salts and overrides and leaves
      the unlocks, which is what a name screen wants and a new game does not. */
   function resetAll() {
-    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1;
+    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1; CRISIS = null;
     resetRoster();
   }
 
@@ -467,7 +486,7 @@
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
     setName: setName, setSex: setSex, setAge: setAge, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
-    unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
+    unlock: unlock, crisis: crisis, crisisStarted: crisisStarted, unlocked: unlocked, isUnlocked: isUnlocked,
     unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,
     visible: visible, faceKey: faceKey, save: save, load: load, resetAll: resetAll,
     yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT

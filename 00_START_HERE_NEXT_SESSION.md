@@ -38747,6 +38747,12 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 70 [the flip unlocks at the crisis] RULE 85. (BUILD)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FLIP_UNLOCKS_AT_THE_CRISIS_10_10_26.md; VOTE line dynasty-flip-at-crisis-10-9. TAB: RUN (the phone has one face and no flip until the crisis).
+acts.crisis(day) is the one door for act 2; bases open only act 3 after it; saved. City: ctActCrisis(day) for WORLD's clock. Gates ONE THEN HEIRS rewritten, HEIRS 83/0, THE FLIP, THREE NAMES green.
+RED NOT MINE: ONE THEN HEIRS glass, 13 legs after the glyph tap, identical on unmodified main (stash test); glyph is now 61x24 at the tap point. Routed PLUMBER/UI.
+NEXT: Q23 [animal era]; [grok lore] trigger. QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 69 [days per life] Q22 DAYS PER GENERATION. (SCHOOL, no code)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_24_DAYS_PER_LIFE_10_9_26.md; VOTE line dynasty-days-per-life-10-9.
 Finding: no season or calendar exists and only 30 nights are kept, so the row's 'a season each' is a sentence. Proposal: 130 days in four seasons, ~30 named moments, the skip = four derived reports. Routed PLUMBER/WORLD/UI/PEOPLE/TUNING.
