@@ -7571,7 +7571,34 @@
   "why": "You said it 10/10: no art chat puts anything into the game until you have said of that asset, this is final; until then they study the packs you bought and cook batch after batch. You see it in the VOTE tab, where every art card is now a candidate beside its pack twin, and in the game, where nothing art changes until a FINAL card is yours.",
   "when": "10/10"
 },
-  {"id": "combat-the-lit-tiles-look-lit-10-10", "kind": "tile", "lane": "combat", "sha": "2fe7da9", "made": "10/10", "title": "THE LAMP SHOWS THE STREET", "why": "At night a street lamp now shows the street under it, its cracks, lines and colours warmed and bright, where before it was a flat orange blob that left most of the lit squares dark. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_LIT_TILES_LOOK_LIT_10_10.jpg"}, "draft": true}
+  {"id": "combat-the-lit-tiles-look-lit-10-10", "kind": "tile", "lane": "combat", "sha": "2fe7da9", "made": "10/10", "title": "THE LAMP SHOWS THE STREET", "why": "At night a street lamp now shows the street under it, its cracks, lines and colours warmed and bright, where before it was a flat orange blob that left most of the lit squares dark. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_LIT_TILES_LOOK_LIT_10_10.jpg"}, "draft": true},
+  {
+   "id": "cook-one-at-a-time-the-map-road-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "FINAL? THE MAP'S ROAD, MADE OUT OF YOUR OWN TILES",
+   "why": "This is one road tile for the map at the best I can do it, and not one pixel on it is cooked: the road is your own cracked street tile and the lane line is the worn orange paint lifted off another one of yours, moved sideways and never recoloured. You see it in the VOTE tab, your two tiles beside the one made from them, all laid 2x2 at the same size, with what the map sees at a 16 pixel cell next to the numbers.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_ONE_AT_A_TIME_THE_MAP_ROAD.png"
+   },
+   "twin": {
+    "src": "pack:1. Cracked street tiles#0",
+    "diffs": [
+     "WHAT IS HIS: 8,779 of the 9,216 pixels are his road untouched, and the other 437 are his own paint. Zero colours on the tile that are not in his two tiles.",
+     "WHAT CHANGED FROM HIS: it MEETS ITSELF, which only 22% of his road family does; joint over inside 0.73 across and 1.40 down against his 0.79 and 1.43, so it can tile a map.",
+     "THE WEAR IS HIS, NOT A PATTERN: 6 of 96 rows are bare because 6 of his are, and the line is only ever as wide as his paint survived."
+    ]
+   },
+   "before_after": {
+    "before": "the first cut of this same tile: a white lane line cooked by this lane, which went green on eight measurements and reads as a scuff at 1:1",
+    "after": "the same tile with his own worn orange road paint on it instead, which is 16.01 times the road beside it at a 16 pixel map cell",
+    "scale": "1:1"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

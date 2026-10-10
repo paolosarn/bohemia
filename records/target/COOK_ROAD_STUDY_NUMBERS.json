@@ -1,0 +1,197 @@
+{
+ "density": {
+  "n": 290,
+  "w_median": 95.0,
+  "h_median": 96.0,
+  "w_min": 66,
+  "w_max": 96,
+  "h_min": 69,
+  "h_max": 96,
+  "px_median": 9024.0
+ },
+ "palette": {
+  "colours_median": 4821.5,
+  "colours_min": 1741,
+  "colours_max": 8442,
+  "top8_share_median": 7.6392193915640165,
+  "value_span_median": 255.0
+ },
+ "light": {
+  "left_minus_right": 0.7895000915433208,
+  "top_minus_bottom": 5.4252023324175624,
+  "left_lit_share": 62.758620689655174,
+  "top_lit_share": 90.0
+ },
+ "outline": {
+  "edge_minus_inside_median": 15.115339100524245,
+  "darker_at_edge_share": 26.20689655172414
+ },
+ "cluster": {
+  "run_median": 1.9041992829319638,
+  "lone_pixel_share": 66.21150386385085,
+  "steps": 16
+ },
+ "meets": {
+  "joint_over_inside_x_median": 2.0009313068323564,
+  "joint_over_inside_y_median": 3.080166006948258,
+  "tiles_that_meet_share": 21.72413793103448,
+  "best": [
+   "pack:1. Floor tiles (1)#16",
+   "pack:2. Rusted metal floor tiles#20",
+   "pack:1. Cobblestone floor tiles#46"
+  ],
+  "worst": [
+   "pack:Floor tiles#10",
+   "pack:Floor tiles!#10",
+   "pack:Floor tiles!#46"
+  ]
+ },
+ "painted": {
+  "n": 13,
+  "tiles": [
+   [
+    26.13031914893617,
+    84,
+    94,
+    "pack:1. Cracked contrete tiles#17",
+    [
+     165,
+     121,
+     53
+    ]
+   ],
+   [
+    25.38785460992908,
+    85,
+    94,
+    "pack:1. Cracked contrete tiles#8",
+    [
+     173,
+     126,
+     57
+    ]
+   ],
+   [
+    11.30152329749104,
+    89,
+    96,
+    "pack:1. Cracked street tiles#23",
+    [
+     170,
+     109,
+     34
+    ]
+   ],
+   [
+    7.38031914893617,
+    81,
+    96,
+    "pack:2. Rusted metal floor tiles#19",
+    [
+     160,
+     96,
+     40
+    ]
+   ],
+   [
+    6.331928838951311,
+    76,
+    89,
+    "pack:1. Cracked contrete tiles#36",
+    [
+     186,
+     133,
+     49
+    ]
+   ],
+   [
+    5.656362007168458,
+    22,
+    96,
+    "pack:1. Cracked street tiles#20",
+    [
+     174,
+     112,
+     35
+    ]
+   ],
+   [
+    5.629432624113475,
+    22,
+    96,
+    "pack:1. Cracked street tiles#18",
+    [
+     171,
+     110,
+     33
+    ]
+   ],
+   [
+    5.387544802867383,
+    32,
+    96,
+    "pack:1. Cracked street tiles#22",
+    [
+     173,
+     111,
+     33
+    ]
+   ],
+   [
+    5.372191011235955,
+    75,
+    89,
+    "pack:1. Cracked contrete tiles#37",
+    [
+     189,
+     135,
+     51
+    ]
+   ],
+   [
+    4.323476702508961,
+    22,
+    96,
+    "pack:1. Cracked street tiles#19",
+    [
+     171,
+     111,
+     36
+    ]
+   ],
+   [
+    4.288563829787234,
+    17,
+    96,
+    "pack:1. Cracked street tiles#21",
+    [
+     176,
+     114,
+     33
+    ]
+   ],
+   [
+    3.6125886524822697,
+    65,
+    96,
+    "pack:2. Rusted metal floor tiles#22",
+    [
+     157,
+     102,
+     49
+    ]
+   ],
+   [
+    3.532608695652174,
+    63,
+    96,
+    "pack:2. Rusted metal floor tiles#23",
+    [
+     158,
+     103,
+     50
+    ]
+   ]
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+ONE AT A TIME: THE MAP'S ROAD -- MEASURED  (COOK [one at a time], 10/10/26)
+==============================================================================
+
+PAOLO 10/10: "the real way we get to a final graphic asset is doing a HIGH-QUALITY ONE
+AT A TIME, a sheet, and asking for my feedback every time."
+
+ONE ASSET: a 96 x 96 map road tile, the master the map samples at every stop. A
+CANDIDATE. It is in nothing and goes into nothing until he votes FINAL on its sheet.
+
+THE STUDY CAME FIRST (rule 100c) and three of its seven numbers decided this asset
+before a pixel was drawn:
+  COLOURS   4,821 in one of his tiles, top eight carry 8%. His ground is a SURFACE, not
+            a ramp, and ours carry seven colours. So the carriageway IS his tile.
+  THE EDGE  only 22% of his road family tiles cleanly; they are slabs laid in a grid. A
+            map road must repeat, so the base is the one of his that MEETS, measured.
+  OUTLINE   no dark ring anywhere: his edge runs +15 LIGHTER than his inside.
+
+*** AND THEN THE PICTURE CORRECTED THE NUMBERS. THIS IS THE PART WORTH KEEPING.
+
+The first cut of this tile read his MARKING family, found warning signs, blood and
+bones, and wrote the headline THE PACKS HOLD NO ROAD PAINT. On that headline it cooked
+a lane line: a white lifted off his road grit and mixed down the middle. Eight
+measurements went green. Then it was looked at, at one art pixel to one phone pixel,
+and the line read as a SCUFF. Not as paint. A player would see a smear.
+
+So his own road family went on a contact sheet, and there it was:
+  1. Cracked street tiles#23   HIS dark street, with WORN ORANGE ROAD PAINT on it.
+                               11% of the tile. 90 of its 96 rows carry paint.
+  and five more of his street tiles carry it: #18, #19, #20, #21, #22.
+THE PACKS HOLD ROAD PAINT. Nobody had looked. The measurement was asking the marking
+family, and his road paint lives in the ROAD family, on the road.
+
+SO NOTHING ON THIS TILE IS COOKED, which is the strongest version of it there is:
+  THE CARRIAGEWAY  his #0, whole and untouched, the street tile of his that MEETS.
+  THE LINE         his #23 own paint pixels. For every row, the longest unbroken run
+                   of his paint in that row is moved SIDEWAYS to the middle. Nothing
+                   is rotated, scaled, blended or recoloured.
+  THE COLOUR       his worn orange, because it is literally his pixels.
+  THE WEAR         his. Where his paint wore through, the line thins or stops. 6 rows
+                   are bare because 6 of his are.
+
+AND THE RULER THE FIRST CUT NEVER HAD: the tile is box averaged down to a 16 px land
+cell, the size the map actually draws it, and the painted column is measured against
+the carriageway beside it. It reads 16.01 times as strong. A road you cannot follow at a
+glance is not a map road, and no amount of grain at 96 px fixes that.
+
+MINE AGAINST HIS, ONE RULER, BOTH WAYS:
+                                      HIS       MINE
+  colours in the tile                2455       2814
+  the top eight carry %               8.7        8.6
+  value span of 255                   187        188
+  light: top minus bottom             2.7        2.4
+  edge minus inside                   1.2        1.6
+  a value holds, 16 steps            2.18       2.12
+  joint over inside across           0.79       0.73
+  joint over inside down             1.43        1.4
+
+THE ONE QUESTION, AND IT IS ABOUT THE WORLD AND NOT THE ART: nobody has repainted a line
+in this valley since the dollar died, so how much paint is left on a road is a reading
+of how long ago that was. A WORN, as drawn. B GONE, bare carriageway. C FRESH, which
+would say somebody is still in charge.
+
+THE LESSON, AND IT IS THIS LANE'S OLDEST ONE: MEASURE AND LOOK. Green guards over a
+worse picture is the most dangerous state there is, because it reads as finished. The
+fault was not in any of the eight numbers. It was in the question they were asked.
+
+MEASURED THIS RUN:
+  OK   NOT ONE PIXEL ON THIS TILE IS COOKED: 8779 of 9216 are his carriageway untouched and the other 437 are his own paint, lifted whole
+  OK   AND EVERY COLOUR ON IT IS ONE OF HIS: 0 colours that are not in his two tiles (0 strays)
+  OK   NOTHING WAS RESAMPLED: his 96x94 master became 96x96 by taking two rows from its own other end, never by a resize, and the paint moved sideways only
+  OK   THE MAP CAN SEE IT: drawn down to a 16 px land cell the painted column still reads 16.01 times the carriageway (54.7 against 3.4)
+  OK   THE WEAR IS HIS AND NOT A PATTERN I MADE UP: 6 of 96 rows are bare because 6 of his are, and the line is as wide as his paint survived, never wider
+  OK   IT MEETS ITSELF, WHICH HIS FAMILY MOSTLY DOES NOT (22% of it tiles cleanly): joint over inside 0.73 across and 1.40 down, his own 0.79 and 1.43
+  OK   AND THE PAINT DID NOT BREAK THE JOIN: mine against his, 0.73 vs 0.79 across, 1.40 vs 1.43 down
+  OK   IT IS STILL A SURFACE AND NOT A RAMP: 2814 colours and the top eight carry 9%, against his 2455 and 9%
+  OK   NO DARK RING, because his family has none (his edge runs +1 LIGHTER than his inside): mine +1.6
+  OK   THE GRAIN SURVIVED THE PAINT: a value holds 2.12 px at sixteen steps, his 2.18
+  OK   IT IS ONE ASSET, NOT A BATCH (rule 101d): one tile, one sheet, one question

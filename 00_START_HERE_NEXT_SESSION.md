@@ -3778,6 +3778,72 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (i) LATEST -- *** EIGHT MEASUREMENTS WENT GREEN AND THE PICTURE
+WAS WRONG. LOOKING IS WHAT CAUGHT IT, AND IT CAUGHT A CLAIM ABOUT HIS PACKS THAT WAS FALSE. ***
+
+0. THE ROUND IS RULE 101d's FIRST: ONE ASSET, THE BEST I CAN MAKE IT, ON ONE SHEET BESIDE ITS
+PACK TWIN AT 1:1, WITH ONE QUESTION. The family is the map's road, picked by this lane and said
+out loud because the pass (rule 98) has one plate, PLATE_FIGHT_BLOCK, and COOK is not a station
+on it. The study page came first (rule 100c) and is its own row, now SHIPPED.
+
+1. THE STUDY: 290 of his road tiles measured, in records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md.
+4,821 colours in one tile and the top eight carry 8 per cent, so his ground is a SURFACE where
+ours are seven-colour ramps. Only 21.7 per cent of the family tiles cleanly: they are slabs laid
+in a grid, not a seamless field, so a map road has to be cut from the one that MEETS. No dark
+ring anywhere, his edge runs +15 LIGHTER than his inside. Grain holds 1.90 px at sixteen steps,
+which is grain and not a per-pixel dither (the first cluster metric measured exact-colour runs,
+said 98.5 per cent lone pixels, and was about to make this page claim his tiles are dithered;
+quantising to 16 luminance steps fixed the question, not the answer).
+
+2. THEN THE FAULT, AND IT IS THE ONE WORTH READING. The first cut of the tile asked his MARKING
+family whether the packs hold road paint. That family is warning signs, blood and bones, so the
+answer came back NO, and on that answer the lane line was COOKED: a white lifted off his road
+grit and mixed down the middle. Eight guards went green. Then it was looked at, at one art pixel
+to one phone pixel, and the line read as a SCUFF. Not paint. A player would see a smear. The
+dash phase was scrambled by arithmetic so the breaks landed as noise, and a sine wobble made it
+read as a crack.
+
+3. HIS ROAD PAINT IS IN THE ROAD FAMILY, PAINTED ON THE ROAD, WHICH IS WHERE ROAD PAINT ACTUALLY
+IS. A contact sheet of his own road family turned it up in one look: Cracked street tiles#18 to
+#23 carry WORN ORANGE LANE PAINT on dark asphalt (#23 is 11 per cent paint across 90 of its 96
+rows), and Cracked concrete#8, #17, #36 and #37 carry yellow hazard stripes. Thirteen of the 290
+carry marks. Nobody had looked. The study page now carries that sweep as its EIGHTH NUMBER, with
+the one false positive named (a rusted metal plate: warm, saturated, a minority on grey, and the
+number cannot tell rust from paint where looking can), so no lane has to find this twice.
+
+4. SO NOTHING ON THE SHIPPED TILE IS COOKED, which is the strongest version of it there is. The
+carriageway is his #0 whole and untouched, the street tile of his that MEETS. The line is his
+#23's own paint pixels: for every row, the longest unbroken run of his paint in THAT row, moved
+SIDEWAYS ONLY to the middle. Nothing rotated, scaled, blended, tinted or recoloured. His colour,
+his wear, his ragged ends. Six of 96 rows are bare because six of his are. Measured: 8,779 of
+9,216 pixels are his road untouched and the other 437 are his paint, and ZERO colours on the
+tile are not in his two tiles.
+
+5. AND A RULER NOBODY HAD, WHICH IS THE REAL LESSON MADE INTO A MACHINE. The first cut measured
+eight ways and never once asked whether the thing reads AT THE SIZE THE MAP DRAWS IT. The tile is
+now box-averaged down to a 16 px land cell and the painted column is measured against the
+carriageway beside it: 16.01 times. A road you cannot follow at a glance is not a map road, and
+no amount of grain at 96 px fixes that. [bb] their map road is read by its LINE, not its texture.
+
+6. THE ONE QUESTION ON THE SHEET IS ABOUT THE WORLD, NOT THE ART: nobody has repainted a line in
+this valley since the dollar died, so how much paint is left on a road is a reading of how long
+ago that was. A WORN as drawn, B GONE, C FRESH (which says somebody is still in charge).
+
+7. WHERE IT IS: the VOTE tab, as cook-one-at-a-time-the-map-road-10-10, a FINAL? card. NOTHING
+WENT INTO THE GAME (rule 100a): this lane wrote only to records/, records/target/, banks/,
+tools/ and the registry. The sheet is records/target/COOK_ONE_AT_A_TIME_THE_MAP_ROAD.png, the
+working record is records/BOHEMIA_ONE_AT_A_TIME_THE_MAP_ROAD_MEASURED_10_10_26.txt, the tile
+itself is banks/BOHEMIA_THE_MAP_ROAD_CANDIDATE_10_10_26.txt.
+
+8. ROWS: [how the pack did it] SHIPPED. [one at a time] CLAIMED and standing, one asset every
+round. Still CLAIMED behind it: [bb map art], the map's TILES, which this round's road tile is
+the first of. Still OPEN: [map floor], [judge the old]. HELD: [beasts], [horror grime].
+
+9. THE STANDING LESSON, SAID AGAIN BECAUSE IT KEEPS BEING RIGHT: MEASURE AND LOOK. Green guards
+over a worse picture is the most dangerous state there is, because it reads as finished. The
+fault was not in any of the eight numbers. It was in the question they were asked. Four of the
+last five rounds had a fault that only a look at 1:1 caught after everything was green.
+
 COOK (cook-mce6r5): 10/10 (h) LATEST -- *** THE MAP'S MARKERS, SO YOU CAN FIND THEM.
 Another lane had to draw an outline round this lane's art to make it usable, and they were
 right. ***
