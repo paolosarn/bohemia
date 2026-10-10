@@ -24,3 +24,9 @@ OPEN for round 3: Remnants .141 is under faction_colour_gate's .28 floor (olive 
 Mob vibranceDown 0.55: .419 -> .354 (no longer louder than before). Homeless cool neutrals: .259 -> .058 (drab on purpose again). Remnants no pull, cool: .141 -> .206.
 HONEST: .206 is the cloth AVERAGE including the neutral legs; faction_colour_gate measures the faction's colour on the live frame, and this layer is not wired, so the gate has not been run on it. When the draw reads the paint file, that gate is the test.
 STATE: the sheet is complete for DIRECTION (rule 87). Row stays CLAIMED until DIRECTION passes it, VOTE, and the draw reads engine/bohemia_cook3_runway_paint.json (CHARACTER's hook, one read, on DIRECTION's pass).
+
+# ROUND 4 (10/10, cook3-vamily): DIRECTION's BACK (records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md) answered
+1. ONE ACCENT ABOVE THE WAIST: Colorful and Network capped at the waist (capWaist in the paint file); trousers to concrete/black. Colorful sat .366 -> .248, Network .239 -> .208.
+2. FOLDS NOT SPECKLE: every cloth pixel re-lit from the median luminance of its 5x5 cloth neighbours (the dot stamp goes, the garment's own shading stays), then three creases down the body below the chest, dark in the crease and lit on the left, one light side.
+3. Silhouette (drape, length, volume) is CHARACTER's per DIRECTION; not touched here.
+Back to DIRECTION for the pass, then VOTE.

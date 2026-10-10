@@ -79,6 +79,7 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
         let cloth = 0, kept = 0, satB = 0, satA = 0;
         let top = 1e9, bot = -1; for (let i = 0; i < fr.px.length; i++) if (fr.px[i]) { const y = (i / W) | 0; if (y < top) top = y; if (y > bot) bot = y; }
         const waist = top + Math.round((bot - top) * PAINT.accentAbove);
+        const capWaist = rule.capWaist;
         let headBot = -1; for (let i = 0; i < fr.grid.length; i++) if (fr.grid[i] === 1 || fr.grid[i] === 2) headBot = Math.max(headBot, (i / W) | 0);
         for (let i = 0; i < fr.px.length; i++) {
           const q = fr.px[i]; if (!q) continue; const g = fr.grid[i];
@@ -87,14 +88,37 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
           cloth++;
           const mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]), s = mx ? (mx - mn) / mx : 0;
           satB += s; const l = lum(q); let c;
-          if (rule.five) { c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
-          else if (acc != null && carrier[i] && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
+          if (rule.five && (!capWaist || ((i / W) | 0) <= waist)) { c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
+          else if (acc != null && carrier[i] && (!capWaist || ((i / W) | 0) <= waist) && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
             c = lerp(q, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
           else c = neutral(l, rule.warm !== false);
           c = lerp(c, PAINT.ambient, PAINT.ambientPull);
           after[i] = [c[0] | 0, c[1] | 0, c[2] | 0, q[3] == null ? 255 : q[3]];
           const m2 = Math.max(...after[i].slice(0, 3)), n2 = Math.min(...after[i].slice(0, 3)); satA += m2 ? (m2 - n2) / m2 : 0;
         }
+        /* FOLDS, NOT SPECKLE (DIRECTION round one, note 2): the source garments carry a dot noise
+           over every coat, the recipe his second votes killed. Each cloth pixel is re-lit from the
+           MEDIAN luminance of its 5x5 cloth neighbours (the speckle goes, the garment's own shading
+           stays), then three creases are cut down the body: dark in the crease, lit on its left
+           side, the light from one side like the pack's sacks and tarps. */
+        const isCloth = i => { const q = after[i]; if (!q || q[3] === 0) return false; const g = fr.grid[i];
+          return !(g === 1 || g === 2 || (!g && ((i / W) | 0) <= headBot)); };
+        const lumA = after.map(q => q ? lum(q) : 0), folded = after.map(q => q && q.slice());
+        let fx0 = 1e9, fx1 = -1; for (let i = 0; i < after.length; i++) if (isCloth(i)) { const xx = i % W; fx0 = Math.min(fx0, xx); fx1 = Math.max(fx1, xx); }
+        for (let i = 0; i < after.length; i++) { if (!isCloth(i)) continue;
+          const xx = i % W, yy = (i / W) | 0, ls = [];
+          for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const j = (yy + dy) * W + xx + dx;
+            if (xx + dx >= 0 && xx + dx < W && yy + dy >= 0 && yy + dy < H && isCloth(j)) ls.push(lumA[j]); }
+          ls.sort((a, c) => a - c); const med = ls[ls.length >> 1], q = after[i];
+          let k = lumA[i] > 0.01 ? med / lumA[i] : 1; k = Math.max(0.6, Math.min(1.6, k));
+          let c = [q[0] * k, q[1] * k, q[2] * k];
+          const u = (xx - fx0) / Math.max(1, fx1 - fx0), vv = (yy - top) / Math.max(1, bot - top);
+          for (const f0 of PAINT.folds) { const fxp = f0 + 0.06 * (vv - 0.5);
+            const d = (u - fxp) * (fx1 - fx0);
+            if (Math.abs(d) < 0.6 && vv > 0.25) c = lerp(c, [0, 0, 0], 0.32);
+            else if (d > -2.2 && d < -0.6 && vv > 0.25) c = lerp(c, [255, 250, 240], 0.10); }
+          folded[i] = [Math.min(255, c[0]) | 0, Math.min(255, c[1]) | 0, Math.min(255, c[2]) | 0, q[3]]; }
+        for (let i = 0; i < after.length; i++) after[i] = folded[i];
         /* ONE ACCENT: the carrier garment holds the territory, everything else goes to the runway neutrals */
         /* the one-pixel outline: an opaque cloth pixel touching empty goes near-black */
         const ol = after.map(q => q);

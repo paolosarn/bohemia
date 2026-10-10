@@ -7078,6 +7078,34 @@
    }
   },
   {
+   "id": "tuning-what-each-origin-starts-known-for-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "310e6b24",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT EACH ORIGIN STARTS KNOWN FOR",
+   "why": "Every starting story begins with some fame, a good or bad name, and a standing with the nearest powers. The VOTE tab lists all fifteen. Three begin hated, and our data has none of it yet.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_EACH_ORIGIN_STARTS_KNOWN_FOR_10_10_26.html"
+   }
+  },
+  {
+   "id": "tuning-what-the-starting-kit-costs-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "1f49b76e",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT THE STARTING KIT COSTS",
+   "why": "Only one of the fifteen starting stories lists its gear. The VOTE tab shows that kit priced in batteries: it makes the Deserters the richest start of all, though they are only labelled Medium.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_THE_STARTING_KIT_COSTS_10_10_26.html"
+   }
+  },
+  {
    "id": "tuning-what-a-starting-company-is-worth-10-10",
    "kind": "tile",
    "lane": "tuning",
@@ -7423,19 +7451,6 @@
    }
   },
   {
-   "id": "factions-a-face-that-remembers-10-10",
-   "kind": "tile",
-   "lane": "factions",
-   "sha": "2ab7dba6",
-   "made": "10/10",
-   "title": "A FACE THAT REMEMBERS",
-   "why": "Each faction has one face, one want and one line that changes with how you treated them, ready to speak the day a portrait lands. You see it in the VOTE tab: four factions, each saying three different things for three ways you could have treated them.",
-   "show": {
-    "how": "page",
-    "src": "vote/FACTIONS_A_FACE_THAT_REMEMBERS_10_10.html"
-   }
-  },
-  {
    "id": "direction-fight-verdict-23-the-pack-boards-10-10",
    "kind": "verdict",
    "lane": "direction",
@@ -7461,6 +7476,20 @@
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_66_WHAT_A_BUBBLE_LEAVES_STANDING_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 66.\n\nSeen in: not drawn yet, feeds WORLD and FACTIONS."
+   }
+  },
+  {"id": "plumber-the-reply-leg-10-10", "kind": "ui", "lane": "plumber", "sha": "4dfc12e", "made": "10/10", "title": "EVERY REPLY TO YOU NOW HAS A CHECKER: 150 WORDS, AND THE LAST FIVE LINES CARRY IT", "why": "Replies to you now get checked before they send: at most 150 words, and the last five lines are what changed, its number, what broke, what I need from you, and the two-sentence bottom line, and my own last reply (381 words) failed it. You see it here: that reply on the left, the same news in 74 words on the right.", "show": {"how": "image", "src": "vote/PLUMBER_THE_REPLY_LEG_10_10.png"}},
+  {
+   "id": "combat2-the-district-seeds-the-board-10-10",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "EVERY DISTRICT OPENS ITS OWN FIGHT",
+   "why": "The courthouse, the jail and the arsenal used to open the exact same board; now each of the 78 districts has a board of its own, with every edge joined. Thumbs up and fights stop repeating by place, and you see it in the COMBAT tab once the fight reads the district it starts in.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_DISTRICT_SEEDS_THE_BOARD_10_10.png"
    }
   }
  ],

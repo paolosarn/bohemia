@@ -1,0 +1,121 @@
+{
+ "draft": true,
+ "source": "Resources table of each origin page, bb_all/ (Category:Origins), read 10/10",
+ "columns": [
+  "id",
+  "page",
+  "renown",
+  "reputation",
+  "relations"
+ ],
+ "rows": [
+  [
+   "rebuild",
+   "Rebuilding a Company",
+   100,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "newcrew",
+   "A New Company",
+   0,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "south",
+   "Southern Mercenaries",
+   0,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "truck",
+   "Trading Caravan",
+   0,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "watch",
+   "Peasant Militia",
+   -100,
+   "Neutral",
+   "+40 in the starting village"
+  ],
+  [
+   "scav",
+   "Band of Poachers",
+   100,
+   "Neutral",
+   "-20 towards the closest noble house"
+  ],
+  [
+   "promise",
+   "Oathtakers",
+   0,
+   "60",
+   "Neutral"
+  ],
+  [
+   "desert",
+   "Deserters",
+   150,
+   "Neutral",
+   "-100 towards the closest noble house"
+  ],
+  [
+   "raid",
+   "Northern Raiders",
+   -50,
+   "-30",
+   "-100 towards the two closest noble houses"
+  ],
+  [
+   "lab",
+   "Anatomists",
+   0,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "faith",
+   "Davkul Cultists",
+   0,
+   "-10",
+   "Neutral"
+  ],
+  [
+   "debt",
+   "Manhunters",
+   100,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "hunt",
+   "Beast Slayers",
+   200,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "pit",
+   "Gladiators",
+   100,
+   "Neutral",
+   "Neutral"
+  ],
+  [
+   "wolf",
+   "Lone Wolf",
+   200,
+   "Neutral",
+   "Neutral"
+  ]
+ ],
+ "extra": {
+  "truck": "gains -34% renown from all sources (page line 58)"
+ }
+}

@@ -64,10 +64,12 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    registry is that it lives OUTSIDE slices/ where every lane can append to it. This
    mirrors production: _site carries slices/ and records/target/ side by side. */
 let plant = null;   /* when set, this body is served as the registry */
+let noSort = false;  /* when set, the sort file (rule 92) answers 404, as a deploy that lost it would */
 function serve() {
   return new Promise(res => {
     const s = http.createServer((rq, rs) => {
       const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, '');
+      if (noSort && rel === 'records/target/BOHEMIA_VOTE_TRIAGE.json') { rs.statusCode = 404; return rs.end('no'); }
       if (plant && rel === REGREL) {
         rs.setHeader('content-type', 'application/json');
         return rs.end(plant);
@@ -260,15 +262,40 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')));
 
   let rows = await live();
+  /* THE SORT (UI [the triage filter], rule 92, 10/10): records/target/BOHEMIA_VOTE_TRIAGE.json, the coordinator's.
+     RED first and alone (at most the cap), the rest he has to see (yellow, a red past the cap, untagged) behind one
+     fold that says MORE with its count, GREEN and GRAY never. The queue is what is on the page once the fold is open. */
+  let TRI = null; try { TRI = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_TRIAGE.json'), 'utf8')); } catch (e) { TRI = null; }
+  const tagOf = id => { const t = TRI && TRI.tags && TRI.tags[id]; return t && t.tag ? String(t.tag).toLowerCase() : null; };
+  const kept = id => !TRI || !/^(green|gray|grey)$/.test(tagOf(id) || '');
+  const queue = async (pg) => { pg = pg || p;
+    await pg.evaluate(() => { const f = document.getElementById('fold'); if (f && !f.hidden && document.getElementById('more').hidden) f.click(); });
+    await pg.waitForTimeout(80);
+    return pg.evaluate(() => Array.from(document.querySelectorAll('#list .row, #more .row')).map(r => r.getAttribute('data-id'))); };
   const want = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id))
-                                .map(i => i.id);
-  ok('every unjudged candidate is in the queue',
-     rows.length === want.length && want.every(id => rows.indexOf(id) >= 0),
-     rows.length + ' drawn, ' + want.length + ' waiting');
+                                .map(i => i.id).filter(kept);
+  const cap = (TRI && TRI.cap) || 12;
+  const redsWanted = want.slice().reverse().filter(id => tagOf(id) === 'red').slice(0, cap);
+  ok('in front of him: the red ones, newest first, at most ' + cap + ', and nothing else',
+     TRI ? (rows.length === redsWanted.length && rows.every((id, i) => id === redsWanted[i])) : rows.length === want.length,
+     rows.length + ' in front, ' + redsWanted.length + ' red');
+  const foldN = await p.evaluate(() => { const f = document.getElementById('fold'); return f && !f.hidden ? +document.getElementById('foldn').textContent : 0; });
+  ok('  the rest wait behind one fold that says MORE with its count', !TRI || foldN === want.length - redsWanted.length, foldN + ' behind MORE, ' + (want.length - redsWanted.length) + ' wanted');
+  const all = await queue();
+  ok('every unjudged candidate the sort keeps is in the queue, and no green or gray one is',
+     all.length === want.length && want.every(id => all.indexOf(id) >= 0),
+     all.length + ' drawn, ' + want.length + ' waiting' + (TRI ? ' (' + ((reg.items || []).length - want.length) + ' judged, green or gray)' : ''));
   /* NEWEST FIRST. The registry is appended to, so the LAST item in the file is the
-     newest thing anybody made, and it has to be the first thing he sees. */
-  ok('the newest thing is at the top', rows[0] === want[want.length - 1],
+     newest thing anybody made, and it has to be the first thing he sees (the newest red, once sorted). */
+  ok('the newest thing is at the top', rows[0] === (TRI && redsWanted.length ? redsWanted[0] : want[want.length - 1]),
      'top is ' + rows[0]);
+  /* AND WITHOUT THE SORT FILE THE TAB SHOWS EVERYTHING, NEVER NOTHING (the row's done-test) */
+  noSort = true; await open();
+  const bare = await p.evaluate(() => ({ n: document.querySelectorAll('#list .row').length, fold: !document.getElementById('fold').hidden }));
+  const unsorted = (reg.items || []).filter(i => !(reg.verdicts || []).some(v => v.id === i.id)).length;
+  ok('  and with the sort file missing, every waiting thing shows, no fold', bare.n === unsorted && !bare.fold, bare.n + ' shown of ' + unsorted + (bare.fold ? ', a fold' : ''));
+  noSort = false;
+  await open(); rows = await live();
 
   /* ---- 3. THE THUMB: every control on a row is 44 -------------------------- */
   const small = await p.evaluate((MIN) => {
@@ -355,7 +382,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* Plant a verdict on a candidate this phone has never seen. A cleared cache must
      not resurrect it. This is the exact complaint: "it needs to stop presenting
      itself like I didn't just vote on it." */
-  const victim = want[0];
+  const victim = rows[0];   /* one he can see without opening anything */
   const planted = JSON.parse(JSON.stringify(reg));
   planted.verdicts.push({ id: victim, vote: 'down', said: 'planted by the gate', when: '9/15' });
   plant = JSON.stringify(planted);
@@ -366,8 +393,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   await p2.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
   await p2.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
   await p2.waitForTimeout(120);
-  const rows2 = await p2.evaluate(() =>
-    Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')));
+  const rows2 = await queue(p2);
   ok('a candidate with a verdict in the registry never renders again, even on a clean phone',
      rows2.indexOf(victim) < 0, 'planted ' + victim);
   ok('and the rest of the queue is untouched by that',
@@ -387,8 +413,9 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   const p3 = await fr2.newPage();
   await p3.goto(url('slices/BOHEMIA_VOTE_TAB.html'), { waitUntil: 'load', timeout: 60000 });
   await p3.waitForFunction('window.__voteReady === true', null, { timeout: 20000 });
+  await queue(p3);   /* a redo nobody has sorted yet waits behind the fold */
   const quoted = await p3.evaluate(() => {
-    const r = document.querySelector('#list .row[data-id="gate-redo-probe"]');
+    const r = document.querySelector('#list .row[data-id="gate-redo-probe"], #more .row[data-id="gate-redo-probe"]');
     const q = r && r.querySelector('.quote');
     return q ? q.textContent : '';
   });

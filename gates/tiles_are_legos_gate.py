@@ -11,6 +11,8 @@ and every lane, centre and curb line that crosses one side crosses the other wit
   LEG 1c THE FUTURES JOIN: every board in its reclaimed and raided pictures has no more broken seams than today.
   LEG 5  THE STREET IS HIS PACK'S (rule 82a): every town block on a board lays its street from COOK TWO's kit, every
          kit tile names its (pool, index) keys; the houses and yards are the named exception (COOK FOUR re-cuts them).
+  LEG 6  NO TWO DISTRICTS OPEN THE SAME FIGHT (rule 46): every district of BOHEMIA_BOARD_KINDS.json has its own joined
+         board in fight_ground.json districts, no two with the same blocks in the same places.
   LEG 2  THE REST CAN ONLY GET BETTER: every other board's faults (board, apron) are at or under the
          ratchet in gates/tiles_are_legos_ratchet.json. Lower the ratchet when a board improves.
   LEG 3  THE DATA FILE IS TRUE: records/target/bb/BOHEMIA_GROUND_EDGES.json names every shipped block's four
@@ -60,6 +62,16 @@ for bid in sorted(used_blocks):
     if not plan: fails.append('LEG 5: %s lays its street without the kit' % bid); continue
     for rc, piece in plan.items():
         if piece not in KIT or not KIT[piece].get('keys'): fails.append('LEG 5: %s tile %s is %s, which names no pack key' % (bid, rc, piece))
+KD = json.load(open(os.path.join(REPO, 'records/target/BOHEMIA_BOARD_KINDS.json')))['districts']   # LEG 6: every district its own board
+DS = m.get('districts', {}); hashes = set()
+for d in KD:
+    b = DS.get(d['district'])
+    if not b: fails.append('LEG 6: %s has no board of its own' % d['district']); continue
+    f = L.board_faults(b['blocks'], edges)
+    if f: fails.append('LEG 6: %s has %d broken seams' % (d['district'], len(f)))
+    h = tuple(x for row in b['blocks'] for x in row)
+    if h in hashes: fails.append('LEG 6: %s opens the same board as another district' % d['district'])
+    hashes.add(h)
 rat = json.load(open(RATCHET))
 for name, (o, a) in now.items():
     if name in CLEAN: continue

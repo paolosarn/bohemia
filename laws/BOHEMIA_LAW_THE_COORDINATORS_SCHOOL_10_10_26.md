@@ -35,3 +35,47 @@ It names no new reference game and changes no pillar. Production practice from o
 ## GATES
 
 Rule 4: PLUMBER [the owner file] and a one-claim leg. Rule 6: RUN's load gate reads TIME TO PLAY against ten seconds. Rule 7: PLUMBER [the gate goes red]. Rule 8: PLUMBER [the pack gate] compares numbers. Rule 10: PLUMBER [the reply leg]. Rules 1, 3, 9 are on the coordinator's own round record and the handoff gate: a round record without THE THREE RISKS and THE FIVE MINUTES at the top, or a front-page rule added without a fold or a retirement named, is the coordinator failing its own school, and EYES may say so in its notes.
+
+## HIS CORRECTION (10/10): THAT WAS ROUND ONE. NINE MORE, ONE AT A TIME, FROM LIFE.
+
+Paolo: 'that was one out of 10... find unique angles in life, none of that confirming the research shit' (records/BOHEMIA_PAOLO_THAT_WAS_ROUND_ONE_FIND_UNIQUE_ANGLES_IN_LIFE_10_10_26.md). The ten rules above are ROUND ONE. Rounds two to ten follow, each from a world outside games, each finding something the coordinator does not do, each applied the same round.
+
+## ROUND TWO: READBACK (air traffic control, the operating room, the Army back-brief; records/BOHEMIA_COORDINATOR_SCHOOL_SECOND_ROUND_READBACK_10_10_26.md)
+
+RULE: NOTHING IS HEARD UNTIL IT IS SAID BACK AND THE SENDER SAYS CORRECT. Applied as front-page rule 91: the lane's READBACK on every claim, the coordinator's CORRECT or NEGATIVE on every readback at the top of every sweep, and WHAT I HEARD to Paolo on every ruling. The sounds misread was a hearback failure; this is its fix. Gate: PLUMBER [the readback leg].
+
+## ROUND THREE: TRIAGE (Larrey, START, the emergency room, bug triage; records/BOHEMIA_COORDINATOR_SCHOOL_THIRD_ROUND_TRIAGE_10_10_26.md)
+
+RULE: THE SORTER DOES NOT TREAT, AND THE WALKING LEAVE THE TENT. Applied as front-page rule 92 and as a real sort the same hour: 179 waiting items tagged (10 red, 38 yellow, 37 green, 94 gray) in records/target/BOHEMIA_VOTE_TRIAGE.json; twelve reds at most, one per lane per sweep; the sweep sorts lanes STILL / WAVE / WALK before reading a diff and writes eight notes or fewer. UI [the triage filter] makes the tab show it.
+
+## ROUND FOUR: CALLING THE SHOW (the stage manager, live television, the pit lane, the launch count; records/BOHEMIA_COORDINATOR_SCHOOL_FOURTH_ROUND_CALLING_THE_SHOW_10_10_26.md)
+
+RULE: NOTHING GOES LIVE WITHOUT A CALLED GO, AND NOBODY BUT THE COORDINATOR SAYS IT. Applied as front-page rule 93 and BUILD_CALLING_SCRIPT.md at the root (the prompt book, seven cues seeded, the first report written), cut to fit the fleet: the G-O guards the demo cut, not every alpha push, because the lanes work while the coordinator sleeps and a count that waits on one caller would freeze them; the holds (T-9, PLACES), the SCRUB (revert, never fix forward) and the five-line report are taken whole. RUN [the calling script].
+
+## ROUND FIVE: THE STOP CORD (the Toyota floor, NUMMI, jidoka, the five whys, the chalk circle; records/BOHEMIA_COORDINATOR_SCHOOL_FIFTH_ROUND_THE_STOP_CORD_10_10_26.md)
+
+RULE: THE LINE STOPS WHERE THE DEFECT IS SEEN, NEVER WHERE IT IS REPORTED. Applied as front-page rule 94 and as the first pull, the same hour: a STOP block at the top of the handoff on the double tile download and the three mid-play reloads the coordinator saw on the throttled phone, with the five whys as far as honestly reached; the demo cut and the loader files stopped, everything else moving (the school's whole-folder stop cut to the defect's files); the chalk circle folded into the coordinator's five minutes; the one stopwatch owed to PLUMBER. The fleet's biggest waste by the evidence is DEFECTS FOUND BY THE CUSTOMER, which is Paolo finding the load.
+
+## ROUND SIX: THE TURNAROUND TIME (Everest 1996, the go-around, the rule of thirds, the air alarm, stopping rules; records/BOHEMIA_COORDINATOR_SCHOOL_SIXTH_ROUND_THE_TURNAROUND_TIME_10_10_26.md)
+
+RULE: THE TURN IS WRITTEN BEFORE THE CLIMB, AND THE FIRST TANK TO HIT THIRDS TURNS EVERYONE. Applied as front-page rule 95, the turnaround table (a claim: three sweeps; an attempt: two versions; a hold: one round unless re-affirmed with a reason; a sweep: ten files or twenty minutes and five notes; a research round: one agent, one file, a burst is one round; his attention: one question, three things), and applied to the board the same hour: every CLAIMED row dated before 10/4 TURNED back to OPEN with a post-mortem owed. Rule 92's eight notes folded to five. PLUMBER [the turn leg].
+
+## ROUND SEVEN: THE TRAIL EVAPORATES (ant trails, the ant mill, Dorigo's evaporation rate, the bees' decaying dance, auto-close bots; records/BOHEMIA_COORDINATOR_SCHOOL_SEVENTH_ROUND_THE_TRAIL_EVAPORATES_10_10_26.md)
+
+RULE: EVERY MARK HAS A HALF-LIFE, AND ONLY A LANE'S COMMIT RENEWS IT. Applied as front-page rule 96 (the rates, the quorum, the stop signal, the trail file) and by hand the same hour: the suite and cut lines keep the newest sweep, the break list keeps his October plays, rules 53, 58 and 60 fold to one line, the removed text verbatim in records/BOHEMIA_EVAPORATED_10_10_26.md. The machine (the trail file, the handoff split with its gate) is PLUMBER [the trail file], dry run first. The ant mill named: the sweep lines reinforcing themselves while his thumb, the food, is exhausted.
+
+## ROUND EIGHT: I INTEND TO (the USS Santa Fe, mission command, Nelson's memorandum, the Ritz's two thousand dollars; records/BOHEMIA_COORDINATOR_SCHOOL_EIGHTH_ROUND_I_INTEND_TO_10_10_26.md)
+
+RULE: THE ROW SAYS WHY AND WHAT HE SEES; THE LANE SAYS HOW, OUT LOUD, THEN GOES. Applied as front-page rule 97 (purpose, end state, constraint; the thumb test; the one-breath claim that folds rule 91's readback; deliberate action on every push) and to the board the same hour: the five rows the coordinator wrote this round that were orders in a row's clothes are rewritten as intent (the one stopwatch, the trail file, ten seconds to play, the triage filter, the calling script).
+
+## ROUND NINE: THE PASS (the expediter, fire times, the line check, the operating-room turnover crew, the pit crew; records/BOHEMIA_COORDINATOR_SCHOOL_NINTH_ROUND_THE_PASS_10_10_26.md)
+
+RULE: NOTHING LEAVES THE WINDOW UNTIL THE PLATE IS WHOLE, AND ONE VOICE CALLS IT. Applied as front-page rule 98 (the plate ticket, the pass, fire slowest first, hold, check, hands, all day, the line check, in the weeds) and fired the same hour: tickets/PLATE_FIGHT_BLOCK.md, the first plate, which is also round two's one screen; the all-day count on the handoff's first line; CUE 8 in the calling script; four rows named to the plate.
+
+## ROUND TEN: WRITE FOR THE PLAYER (Ellington, Miles, Blakey, the blind audition; records/BOHEMIA_COORDINATOR_SCHOOL_TENTH_ROUND_WRITE_FOR_THE_PLAYER_10_10_26.md)
+
+RULE: WRITE FOR THE MAN, NOT THE INSTRUMENT. Applied as front-page rule 99 and on every one of the 26 lane sections the same hour: a SOUND line under MODE (what the lane has shipped well, its proof, what it has not yet proven), sketches inside the sound and charts outside it, one move made ([first load]'s measurement half to PLUMBER), two declined with reasons, one sketch handed to SOUNDS, and the blind audition owed to EYES.
+
+## THE SCHOOL, CLOSED (10/10)
+
+Ten rounds. Round one, ten studios at once, which he rightly called one round. Then nine from life, one at a time, each applied before the next began: READBACK (91), TRIAGE (92), CALLING THE SHOW (93), THE STOP CORD (94), THE TURNAROUND TABLE (95), THE TRAIL EVAPORATES (96), THE ROW IS INTENT (97), THE PASS (98), WRITE FOR THE MAN (99). What they add up to, in one line: the coordinator hears back, sorts before it treats, calls the show, stops the line, turns around on time, lets the board forget, says why not how, serves whole plates, and writes for the player it has. The research agents could search but not open pages; every page says so. The school is standing (rule 90): the next mistake made twice is a round, never a fourth attempt.

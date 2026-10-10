@@ -27,6 +27,13 @@ const TIERS = [
   { id: 'brigand_leader', label: 'LEADER', add: {} },
   { id: 'brigand_marauder', label: 'MARAUDER', add: { back: 'CHARCOAL ROAD CAPE', gear: 'STEEL SPIKED PAULDRON' } }
 ].map(t => Object.assign(t, { faction: band[t.id][0].replace('faction_', '') }));
+/* THE FIVE ARMOUR STATES (CHARACTER [armour you can see], his NO 'good idea, terrible
+   implementation'): one plain man, bare to plate, CHARACTER's skins from armor_tiers.json
+   read not changed; the paint makes each state a MATERIAL instead of an olive hoodie. */
+const SKINS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armor_tiers.json'), 'utf8')).skins;
+const BASE_PERSON = { hair: 'DRY TAPER', base: 'FADED BLACK LONGSLEEVE', legs: 'BLACK DENIM', feet: 'TALL MOTO BOOTS' };
+for (const k of ['BARE', 'PADDED', 'LEATHER', 'MAIL', 'PLATE'])
+  TIERS.push({ id: 'state_' + k, label: k, add: Object.assign({}, SKINS[k] || {}), person: BASE_PERSON });
 const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
 
 (async () => {
@@ -46,7 +53,7 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
     const out = [];
     try {
       for (const t of TIERS) {
-        const f = FACTION_LOOKS.find(x => x.faction.toLowerCase() === t.faction.toLowerCase());
+        const f = t.person ? { faction: 'one man', worn: t.person, dials: {}, age: 'adult' } : FACTION_LOOKS.find(x => x.faction.toLowerCase() === t.faction.toLowerCase());
         const worn = Object.assign({}, f.worn, t.add);
         const fr = frameWith(worn, f), naked = frameWith({}, f), W = fr.CW, H = fr.CH;
         const slots = Object.keys(t.add).length ? Object.keys(t.add) : ['outer', 'back'].filter(k => worn[k]).concat(worn.outer || worn.back ? [] : ['base']);
@@ -54,6 +61,7 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
         for (const k of slots) { const solo = frameWith({ [k]: worn[k] }, f);
           armour = armour.map((v, i) => v || (!!fr.px[i] && !!solo.px[i] && !same(solo.px[i], naked.px[i]) && same(solo.px[i], fr.px[i]))); }
         const R = PAINT.tiers[t.label];
+        if (R.none) armour = armour.map(() => false);
         /* HEAVY TIERS: the armour is the whole chest (rig parts 3,4), cloth only, plus the added pieces;
            round 1 painted only the pieces and they were 188 to 445 pixels, invisible. */
         if (R.chest) armour = armour.map((v, i) => v || (!!fr.px[i] && (fr.grid[i] === 3 || fr.grid[i] === 4)));
@@ -62,16 +70,21 @@ const OUT = path.join(ROOT, 'records/cook3/enemy_tiers_repainted.png');
           const hip = t0 + (b0 - t0) * 0.55; armour = armour.map((v, i) => v || (!!fr.px[i] && fr.px[i][3] !== 0 && fr.grid[i] !== 1 && fr.grid[i] !== 2 && fr.grid[i] !== 0 && ((i / W) | 0) < hip)); }
         const after = fr.px.map(q => q && q.slice());
         let top = 1e9; for (let i = 0; i < armour.length; i++) if (armour[i]) top = Math.min(top, (i / W) | 0);
+        let bot = -1; for (let i = 0; i < armour.length; i++) if (armour[i]) bot = Math.max(bot, (i / W) | 0);
+        const hueOf = q => { const mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]); if (mx === mn) return -999;
+          const h = mx === q[0] ? 60 * (((q[1] - q[2]) / (mx - mn)) % 6) : mx === q[1] ? 60 * ((q[2] - q[0]) / (mx - mn) + 2) : 60 * ((q[0] - q[1]) / (mx - mn) + 4); return (h + 360) % 360; };
         let n = 0;
         for (let i = 0; i < fr.px.length; i++) { if (!armour[i] || fr.px[i][3] === 0) continue; n++;
           const q = fr.px[i], l = lum(q), x = i % W, y = (i / W) | 0; let c;
+          const v = (y - top) / Math.max(1, bot - top);   /* 0 at the shoulder, 1 at the hem */
+          if (R.keepHue != null && Math.abs(hueOf(q) - R.keepHue) < 30 && v < 0.5) { const g = l * 255; after[i] = lerp(q, [g, g, g], 0.3).map(z => z | 0); n++; continue; }
           if (R.material === 'padded') { c = ramp(PAINT.padded, l); if ((y - top) % R.quilt === 0) c = lerp(c, [0, 0, 0], 0.3); }
           else if (R.material === 'leather') { c = ramp(PAINT.leather, l); if (R.strap && Math.abs((x - y) % 9) === 0) c = PAINT.leather[0]; }
-          else if (R.material === 'mail') { c = ramp(PAINT.steel, l * ((x + y) % 2 ? 1.18 : 0.78)); }
-          else { c = ramp(PAINT.steel, l + 0.08);
+          else if (R.material === 'mail') { c = ramp(PAINT.steel, l * ((y - top) % 2 ? 0.72 : 1.2) * (1.15 - 0.35 * v)); if ((y - top) % 2 === 0 && x % 2) c = lerp(c, [0, 0, 0], 0.15); }
+          else { c = ramp(PAINT.steel, l + 0.08); if (R.goldWash) c = lerp(c, ramp(PAINT.gold, l + 0.1), R.goldWash);
             if (R.lames && (y - top) % R.lames === 0) c = lerp(c, [0, 0, 0], 0.35);
             if (R.lames && (y - top) % R.lames === 1) c = lerp(c, [230, 230, 228], 0.3); }
-          if (R.goldWash) c = lerp(c, ramp(PAINT.gold, l + 0.1), R.goldWash);
+          if (R.belly) c = lerp(c, [0, 0, 0], R.belly * Math.max(0, v - 0.35) / 0.65);
           const edge = !armour[i - W] || !armour[i - 1] || !armour[i + 1] || !armour[i + W];
           if (edge && R.trim === 'gold') c = ramp(PAINT.gold, l + 0.2);
           else if (edge && (R.material === 'plate' || R.material === 'mail') && !armour[i - W]) c = lerp(c, [240, 238, 232], 0.45);

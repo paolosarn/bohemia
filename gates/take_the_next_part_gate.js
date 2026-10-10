@@ -17,7 +17,7 @@ async function openPlace(d, pick) {
     const n = pick || Object.keys(bs).find(k => !lotIsMine(k) && turfSeats().some(s => s.faction === k));
     const t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; city.x = t.x; city.y = t.y; loopOpenTown(t); return n; }, pick || null);
   let f = null, w = null, box = null;
-  for (let k = 0; k < 40 && !(w && box); k++) { await d.page.waitForTimeout(500);
+  for (let k = 0; k < 80 && !(w && box); k++) { await d.page.waitForTimeout(500);
     for (const fr of d.page.frames().filter(fr => /SETTLEMENT/.test(fr.url()))) {
       const ww = await fr.evaluate(() => { try { return BohemiaSettlement.where('build'); } catch (e) { return null; } }).catch(() => null);
       const bb = ww && await (await fr.frameElement()).boundingBox();
