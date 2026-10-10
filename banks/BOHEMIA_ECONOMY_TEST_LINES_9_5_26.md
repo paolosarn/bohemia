@@ -4747,3 +4747,42 @@ SSSSSSSSSSSSSSSSSSSSS8  the keeper who stopped restocking bread at the front    
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## GGGGGGGGGGGGGGGGGGGGGG. WHAT TAKES A DAY AND WHAT TAKES LONGER (round 65)
+
+SSSSSSSSSSSSSSSSSSSSSS1  a man done with the fence before the sun was overhead    draft:true
+    "That part's easy. A post, a rail, done by noon."
+
+SSSSSSSSSSSSSSSSSSSSSS2  the one still digging on the third morning              draft:true
+    "The tank went up in an afternoon. The ground underneath it is a different fight."
+
+SSSSSSSSSSSSSSSSSSSSSS3  a woman who hooked a tank to the truck's delivery        draft:true
+    "Somebody else already found the water. I just gave it somewhere to sit."
+
+SSSSSSSSSSSSSSSSSSSSSS4  the man who hit dry rock twice before he hit water      draft:true
+    "Third hole's the one that mattered. The first two were just time, gone."
+
+SSSSSSSSSSSSSSSSSSSSSS5  a kid who put the garden bed together in an hour        draft:true
+    "Boards and dirt. The waiting is the actual job, not the building."
+
+SSSSSSSSSSSSSSSSSSSSSS6  the one who nailed the stall boards up before dusk       draft:true
+    "Table, a sign, a roof over it. Nobody's buying from me tonight anyway."
+
+SSSSSSSSSSSSSSSSSSSSSS7  a man comparing his roof job to his neighbor's well      draft:true
+    "Mine took two days and a ladder. His took a week and a shovel."
+
+SSSSSSSSSSSSSSSSSSSSSS8  the one who finally struck water on the fourth try       draft:true
+    "Everyone watching thought I'd quit after the second hole. I almost did."
+
+## HHHHHHHHHHHHHHHHHHHHHH. WHAT IS NOT HERE, ON PURPOSE (round 65)
+
+- No line states a battery price, a day count, or any felt number. The whole finding is said
+  as a fence finished by noon, a tank hooked up in an afternoon, a well dug across several
+  mornings, and dry holes before the water comes in.
+- No line claims the battery price changes. Every speaker treats the cost as settled; only
+  the TIME each job takes varies, the finding's own honest shape.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 659 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

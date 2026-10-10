@@ -7141,6 +7141,19 @@
    "id": "factions-the-houses-at-war-10-10", "kind": "tile", "lane": "factions", "sha": "7d9d4068", "made": "10/10",
    "title": "THE HOUSES AT WAR", "why": "The factions are at war with each other, not only with you: enemies who meet on a road clash, and a base the world takes is Conquered, not burned, using the game's own canon and Battle Brothers' own numbers. You see it in the VOTE tab: who hates whom and one real day of them meeting.",
    "show": {"how": "page", "src": "vote/FACTIONS_THE_HOUSES_AT_WAR_10_10.html"}
+  },
+  {
+   "id": "economy-the-well-takes-longer-10-10",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE WELL IS THE ONE THAT TAKES LONGER",
+   "why": "Every lot already costs one battery and never pays itself back on purpose; what was still flat was the days to build, and a dug well is a real multi-day job next to a water tank's one. You see it in the records, not drawn yet, feeding TUNING.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_65_WHAT_A_LOT_COSTS_TO_BUILD_THE_WELL_IS_THE_ONE_THAT_TAKES_LONGER_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 65.\n\nSeen in: not drawn yet, feeds TUNING."
+   }
   }
  ],
  "verdicts": [

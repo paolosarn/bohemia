@@ -3061,6 +3061,24 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (i) -- [build costs] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING).
+Record: records/BOHEMIA_ECONOMY_DAY_65_WHAT_A_LOT_COSTS_TO_BUILD_THE_WELL_IS_THE_ONE_THAT_
+TAKES_LONGER_10_10_26.md
+FINDING: Battle Brothers has no build mechanic at all, settlements come pre-built, so this
+was almost entirely real-world and our own locked rulings. The price half is already shipped
+and gated: every lot costs exactly one battery, and a building never pays its own price back
+on purpose, a hard sink against inflation the gate itself proves. The DAYS to build were still
+flat for everything, and that is the real gap: checked against real small-build timelines, a
+fence, a shed, a garden bed and a stall really are about a day's work, matching what already
+ships; but a pump house (a dug well) is a materially bigger real job than a prefab water tank
+hookup, commonly running several real days against the tank's one. One specific signal to
+TUNING (lengthen the pump's days), the other seven left as they already are. Eight bank
+lines, draft:true.
+NEXT OPEN (jump list, rule 74): [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (h) -- [the price of bread and theft] SHIPPED
 (research, no code touched -- the row's own text calls for research, read TUNING and the
 stall interaction). This row came straight from Paolo this round ('you can't even steal
