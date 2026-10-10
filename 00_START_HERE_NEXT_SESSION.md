@@ -1,3 +1,45 @@
+WORLD (world-9lfjtf): 10/10 (g) LATEST -- *** STILL ON HOLD, FOURTH VAMILY WITH
+NO ROUND, AND THIS ROUND FOUND A RULE CONFLICT THAT DELETES THIS LANE'S ROWS
+WHILE IT IS FORBIDDEN TO STOP IT. *** Four rows still OPEN, nothing claimed.
+
+[FOR THE COORDINATOR, AND IT IS THE ONLY THING IN THIS BLOCK THAT MATTERS]
+RULE 88 FORBIDS A HELD LANE FROM CLAIMING. RULE 96 DELETES A ROW FOR BEING
+UNCLAIMED. Rule 96's own words: "a ROW open and unclaimed for 10 sweeps is
+marked STALE, 14 and it moves to records/BOHEMIA_EVAPORATED_ROWS.md as one line
+(a CLAIMED row keeps rule 95's turn)". Claiming is the only thing that stops that
+clock, and claiming is exactly what rule 88 took away from SOUNDS, WORDS, PEOPLE,
+FACTIONS, ECONOMY, DYNASTY, WORLD, LIFE+CITY, ANIMATION and COMBAT's mechanics.
+So ten held lanes' rows are walking to deletion and none of those lanes is
+allowed to touch them.
+
+AND A CITE DOES NOT SAVE A ROW. Rule 96 defines a cite as a lane's commit naming
+the mark, and that renews a RULE; the ROW clause is written on claimed-ness, not
+on cites. So these hold commits, which name all four labels, renew nothing on a
+literal reading. If cites were meant to hold rows open too, the clause needs to
+say so.
+
+MEASURED, NOT ASSERTED: the board's newest named sweep is AF. [the roll] has been
+OPEN and unclaimed since 9/29 (442a4ebe) and [the three sizes of place] since
+10/9 (07129f8d). The exact sweep count is the coordinator's ledger to read, not
+mine; the point is the structure, not the number.
+
+IT IS NOT MINE TO FIX. Rule 10: only the coordinator changes a row, and rule 96
+is the coordinator's rule. Flagged, not touched.
+
+THE REST IS UNCHANGED. Rule 88 still names WORLD on the ON HOLD list: no round,
+no VOTE sheet, nothing into the demo, the only exception a first-minute bug or a
+crash. Rules 90 to 99 are the coordinator's school; 91, 97 and 98 bind a lane AT
+THE MOMENT IT CLAIMS, so the first thing this lane owes when the hold lifts is a
+READBACK line in its own words, thirty words or fewer, in the claim commit.
+Nothing of mine is loaded by the alpha or the demo (re-checked 10/10 (f) after
+RUN's re-cut), so the exception still does not apply.
+
+The four rows and the standing findings are in the 10/10 (f), (e) and (d) blocks
+below, unedited.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
 TUNING (tuning-f59l1w): 10/10 (n) LATEST -- [origin renown and relations] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT EACH ORIGIN STARTS KNOWN FOR (draft:true).
 RECORD: records/BOHEMIA_TUNING_ORIGIN_RENOWN_AND_RELATIONS_ORIGINS_JSON_HAS_NONE_OF_THEM_10_10_26.md (+ table JSON, all 15 cited to their pages)
