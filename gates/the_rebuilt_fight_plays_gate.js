@@ -733,6 +733,48 @@ async function turnPace() {
    lives carries one of the wiki's permanent injuries for the days he is laid up; the recap says so and so does the fight's
    message home; GROK_115's injury sheet is in injuries.json. And rule 73a's day rim: by day every man is drawn with a dark
    one-pixel edge round his silhouette. */
+/* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
+   the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
+   pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+async function artPixels() {
+  const at = async (profile, night) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false,night:' + night + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(2500);
+    const run = () => new Promise(res => { const U = FIGHT_UI, G = DB.ground, B = FIGHT.S.boardDef, bt = G.block_tiles, tp = G.tile_px;
+      U.glide = null; U.openUntil = 1e12; U.zoom = U.near; U.groundOnly = true;
+      const edges = (px, w, h) => { let n = 0, e = 0; const L = i => .3 * px[i] + .59 * px[i + 1] + .11 * px[i + 2];
+        for (let y = 0; y < h; y++) for (let x = 0; x + 1 < w; x++) { const i = (y * w + x) * 4; n++; if (Math.abs(L(i) - L(i + 4)) > 24) e++; } return e / n; };
+      const measure = () => { const tx = Math.floor(wx(W / 2) / U.tw), ty = Math.floor(wy(TOPH + (H - TOPH - BOTH) / 2) / U.th),
+          ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0, bx = Math.floor((tx + ox) / bt), by = Math.floor((ty + oy) / bt),
+          im = U.imgs['fight_ground/' + G.blocks[B.blocks[by][bx]].src], pad = 6,
+          gx = Math.round(sx(tx * U.tw) * DPR) + pad, gy = Math.round(sy(ty * U.th) * DPR) + pad,
+          gw = Math.round(U.tw * U.zoom * DPR) - pad * 2, gh = Math.round(U.th * U.zoom * DPR) - pad * 2;
+        const glass = cx.getImageData(gx, gy, gw, gh).data;
+        const c = document.createElement('canvas'); c.width = tp[0] - pad * 2; c.height = tp[1] - pad * 2;
+        c.getContext('2d').drawImage(im, -(((tx + ox) % bt) * tp[0] + pad), -(((ty + oy) % bt) * tp[1] + pad));
+        const file = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+        return { glass: edges(glass, gw, gh), file: edges(file, c.width, c.height), mode: U.groundMode, artPerGlass: U.tw * U.zoom * DPR / tp[0] }; };
+      requestAnimationFrame(() => requestAnimationFrame(() => { const now = measure(); U.bakedOnly = true;
+        requestAnimationFrame(() => requestAnimationFrame(() => { const was = measure(); U.bakedOnly = false; U.groundOnly = false; U.fps = 0;
+          const t0 = performance.now(); let n = 0; U.groundOnly = false;
+          const f = () => { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(f); else res({ now, was, fps: n / 1.5, draws: U.gdraws }); }; requestAnimationFrame(f); })); })); });
+    const r = await d.page.evaluate(run); r.err = d.errs[0]; await d.close(); return r;
+  };
+  const day = await at('phone_portrait', false), night = await at('phone_portrait', true), wide = await at('computer', false);
+  const ratio = r => r.now.glass / r.now.file, f = v => v.toFixed(3);
+  leg(day.now.mode === 'one to one' && Math.abs(day.now.artPerGlass - 1) < .005,
+    '*** THE ART AT ITS OWN PIXELS ***: on a phone (three device pixels a point) at the man\'s stop, one art pixel lands on one device pixel',
+    day.now.mode + ', ' + day.now.artPerGlass.toFixed(3) + ' art px per device px');
+  leg(ratio(day) >= .8 && ratio(day) <= 1.2, '  a tile\'s edges on the glass are within a fifth of its edges in the file (FIGHT VERDICT 22 measured 0.002 against 0.038)',
+    'glass ' + f(day.now.glass) + ' vs file ' + f(day.now.file) + ' = ' + Math.round(100 * ratio(day)) + '% (the baked board gave ' + f(day.was.glass) + ' = ' + Math.round(100 * day.was.glass / day.was.file) + '%)');
+  leg(ratio(night) >= .5 && night.fps >= 50 && day.fps >= 50 && !day.err && !night.err,
+    '  by night too (the night\'s colour costs it some edges, never the art), and the phone holds 60 frames: the ground is drawn once per camera move, not every frame',
+    'night ' + Math.round(100 * ratio(night)) + '%, ' + Math.round(day.fps) + ' fps day, ' + Math.round(night.fps) + ' fps night, ' + night.draws + ' ground draws');
+  leg(wide.now.mode !== 'baked' && wide.now.glass >= .95 * wide.was.glass && !wide.err, '  on a computer the ground is drawn from the art too, never softer than the bake',
+    wide.now.mode + ', glass ' + f(wide.now.glass) + ' vs baked ' + f(wide.was.glass));
+}
+
 async function struckDown() {
   const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
   await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
@@ -773,6 +815,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await artPixels();
   await struckDown();
   await turnPace();
   await boardFits();

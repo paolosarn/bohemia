@@ -1480,17 +1480,22 @@ function hudEdges() {
 }
 function resize() {
   try { BohemiaScreen.apply(); } catch (_e) {}
-  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  DPR = Math.min(window.devicePixelRatio || 1, 3);   /* the phone's real pixels ([the art at its own pixels]; his iPhone is 3) */
   W = window.innerWidth; H = window.innerHeight;
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
   hudEdges();
   if (UI.board) fitStops();
 }
+const ART_SNAP = 0.06;
 function fitStops() {
   const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
   /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box), and
      the person never grows past it (rule 21): a small board that would fit larger stops at 112 */
   UI.near = MAN_IDLE / (MAN_OF_TILE * UI.th);
+  /* THE ART AT ITS OWN PIXELS (DIRECTION's FIGHT VERDICT 22): where the man's stop lands within a few percent of one art
+     pixel to one device pixel (his 3x phone: 1.003), it snaps to exactly one, so the authored tile is shown, not resampled */
+  const art = DB.ground.tile_px[0], dev = UI.tw * UI.near * DPR / art;
+  if (Math.abs(dev - 1) < ART_SNAP) UI.near = art / (UI.tw * DPR);
   UI.far = Math.min(W / bw, ah / bh, UI.near);  /* the pinch's far stop: the whole board, never the man past 112 */
   UI.max = UI.near * 1.6;
 }
@@ -1568,10 +1573,12 @@ function nightPass(g, w, h, keep, lift) {
   if (keep) { g.globalCompositeOperation = 'destination-in'; g.drawImage(keep, 0, 0); }
   g.restore();
 }
-function nightPools(g, c, lights, k, pxm, pym) {
+function nightPools(g, c, lights, k, pxm, pym, onGlass) {
   nightPass(g, c.width, c.height);
+  /* onGlass: the same pools drawn straight on the screen (the sharp ground, [the art at its own pixels]) */
   const pool = function (ctx, l, stops) {
-    const X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
+    let X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
+    if (onGlass) { X = sx(X); Y = sy(Y); r *= UI.zoom; }
     ctx.save(); ctx.translate(X, Y); ctx.scale(1, pym / pxm);
     const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
     stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); });
@@ -1627,6 +1634,58 @@ function dayAtlas(img) {
     UI.dayOf.set(img, c);
   }
   return c;
+}
+/* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22: every board tile reads 0.038 edge density at its own pixels and
+   0.002 on the glass; the art is sharp and the fight showed it soft). The baked board holds a tile at 160 px when the art
+   is 515, and the glass at the man's stop wants about 513 device px: baked, the art was shrunk to a third and blown back up.
+   Close in, the ground is drawn straight from COMBAT TWO's blocks and cover onto the device's pixels, only what is on the
+   glass, in the bake's order (blocks, cover, the faint grid, the lamps, the night); at one art pixel to one device pixel it
+   lands on whole pixels with no resampling at all. Zoomed out the baked board still serves (it is sharp there). */
+function drawGround() {
+  /* the ground does not move between camera moves: drawn once to a glass-sized sheet and blitted until the camera, the night
+     or a lamp changes (a phone at three device pixels a point holds 60 by night too) */
+  const S0 = FIGHT.S, key = [UI.cx, UI.cy, UI.zoom, W, H, DPR, !!S0.night, !!S0.power, (S0.boardDef.lights || []).map(function (l) { return l.live ? 1 : 0; }).join(''), UI.board].join('|');
+  if (!UI.gsheet || UI.gkey !== key || UI.gboard !== UI.board) {
+    const c = UI.gsheet || document.createElement('canvas');
+    if (c.width !== Math.round(W * DPR) || c.height !== Math.round(H * DPR)) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+    const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+    groundOn(g);
+    UI.gsheet = c; UI.gkey = key; UI.gboard = UI.board; UI.gdraws = (UI.gdraws || 0) + 1;
+  }
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
+}
+function groundOn(cx) {
+  const G = DB.ground, S = FIGHT.S, B = S.boardDef, bt = G.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
+  const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres, z = UI.zoom;
+  const one = Math.abs(UI.tw * z * DPR / G.tile_px[0] - 1) < 0.005;   /* one art pixel to one device pixel */
+  const snap = function (v) { return Math.round(v * DPR) / DPR; };
+  const x0 = sx(0), y0 = sy(0), bw = S.w * UI.tw * z, bh = S.h * UI.th * z;
+  const on = function (x, y, w, h) { return x + w > 0 && y + h > 0 && x < W && y < H; };
+  cx.save();
+  cx.beginPath(); cx.rect(x0, y0, bw, bh); cx.clip();
+  cx.fillStyle = '#2a2219'; cx.fillRect(x0, y0, bw, bh);
+  cx.imageSmoothingEnabled = !one; cx.imageSmoothingQuality = 'high';
+  B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
+    const im = UI.imgs['fight_ground/' + G.blocks[n].src]; if (!im) return;
+    const x = snap(sx((bx * bt - ox) * UI.tw)), y = snap(sy((by * bt - oy) * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
+  }); });
+  (B.cover || []).forEach(function (cv2) {
+    const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece] || {}).src]; if (!im) return;
+    const x = snap(sx(cv2.x_m * pxm * k)), y = snap(sy(cv2.y_m * pym * k)), w = im.width * k * z, h = im.height * k * z;
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+  });
+  cx.strokeStyle = 'rgba(0,0,0,.28)'; cx.lineWidth = 1 / DPR;
+  for (let x = 0; x <= S.w; x++) { const X = snap(sx(x * UI.tw)) + .5 / DPR; if (X < 0 || X > W) continue; cx.beginPath(); cx.moveTo(X, Math.max(y0, 0)); cx.lineTo(X, Math.min(y0 + bh, H)); cx.stroke(); }
+  for (let y = 0; y <= S.h; y++) { const Y = snap(sy(y * UI.th)) + .5 / DPR; if (Y < 0 || Y > H) continue; cx.beginPath(); cx.moveTo(Math.max(x0, 0), Y); cx.lineTo(Math.min(x0 + bw, W), Y); cx.stroke(); }
+  (B.lights || []).forEach(function (l) {
+    const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
+    const w = im.width * k * z, h = im.height * k * z, x = snap(sx(l.x_m * pxm * k) - w / (1 + 1)), y = snap(sy(l.y_m * pym * k) - h);
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+  });
+  if (S.night) nightPools(cx, { width: W, height: H }, B.lights || [], k, pxm, pym, true);
+  cx.restore();
+  UI.groundMode = one ? 'one to one' : 'drawn';
 }
 /* world <-> screen */
 function sx(wx) { return (wx - UI.cx) * UI.zoom + W / 2; }
@@ -1822,8 +1881,9 @@ function draw(now) {
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
   if (!UI.board) return;
-  cx.imageSmoothingEnabled = UI.zoom < 1;
-  cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom);
+  if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* the baked board would be blown up: draw the art itself */
+  else { cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked'; }
+  if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
   /* YOUR FORMATION: your two columns lit, the man you picked ringed */
