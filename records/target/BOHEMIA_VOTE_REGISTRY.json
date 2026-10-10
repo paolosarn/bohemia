@@ -6811,7 +6811,21 @@
     "how": "page",
     "src": "BOHEMIA_MODS_WHEN_THE_DATA_CHANGES_10_10_26.html"
    }
+  },
+  {
+   "id": "economy-the-road-itself-charges-10-10",
+   "kind": "ui",
+   "lane": "economy",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE ROAD ITSELF CHARGES, THE TWIST HAS ONE REAL PRICE",
+   "why": "Battle Brothers never prices distance, it just rolls more trouble on a longer road; one job states its own twist price in writing (lose some mules, lose half the pay). You see it in the records, not drawn yet, feeding TUNING and the settlement screen.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_ECONOMY_DAY_63_WHAT_A_CONTRACT_PAYS_DISTANCE_THE_TWIST_AND_THE_PAIR_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 63.\n\nSeen in: not drawn yet, feeds TUNING and the settlement screen."
+   }
   }
+
  ],
  "verdicts": [
   {

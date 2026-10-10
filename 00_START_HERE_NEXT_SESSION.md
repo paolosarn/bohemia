@@ -2376,6 +2376,27 @@ work; Q26 still needs a built settlement screen. Neither has moved.
 NEXT: watch for [reputation lines]/Q26 clearing; watch for a new coordinator row.
 PENDING Paolo: nothing.
 
+ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (g) -- [contract pay] SHIPPED (research, no code
+touched -- the row's own text calls for research, read TUNING and the settlement screen).
+Record: records/BOHEMIA_ECONOMY_DAY_63_WHAT_A_CONTRACT_PAYS_DISTANCE_THE_TWIST_AND_THE_PAIR_
+10_10_26.md
+FINDING: round 59 already shipped the core contract-pay mechanism and named three gaps; this
+round closed them. Distance is not its own BB pay lever at all -- a longer escort is harder
+because you meet more parties (sourced straight off the wiki's own Game Mechanics page via
+GROK_139), so distance is encounter frequency wearing a skull's clothes, no new price field
+needed, just more rolls of the travel encounter table WORLD already owns. The twist has
+exactly ONE sourced price in the whole contract list: Escort Caravan's own page states losing
+some but not all escorted donkeys costs 50% of the crowns and 50% of the relations gain with
+renown untouched, and losing all of them fails the job outright for zero pay; every other
+contract type's twist cost lives unpulled in its own event page, flagged rather than guessed.
+Rule 51's PAIR (two contracts on one road) has no BB precedent to translate at all, so real
+freight and courier pricing supplies the direction instead: a hard-deadline job should price
+higher than a soft-deadline one at the same difficulty, no digit invented. Eight bank lines,
+draft:true.
+NEXT OPEN (jump list, rule 74): [build costs], [the bubble].
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/9 LATEST (f) -- [prices per place] SHIPPED (research, no
 code touched -- the row's own text calls for research, read TUNING and the settlement screen).
 Record: records/BOHEMIA_ECONOMY_DAY_62_EVERY_SETTLEMENT_HAS_ITS_OWN_SHELF_NEVER_ITS_OWN_PRICE_

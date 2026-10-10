@@ -4667,3 +4667,42 @@ SSSSSSSSSSSSSSSSSSS8  the one who waited for that same market to recover        
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## CCCCCCCCCCCCCCCCCCCC. WHAT THE ROAD ITSELF CHARGES (round 63)
+
+SSSSSSSSSSSSSSSSSSSS1  a guard counting how many times they were stopped this trip  draft:true
+    "Same job, longer road. Nobody tells you the price went up, it just takes longer to find out."
+
+SSSSSSSSSSSSSSSSSSSS2  the one who lost half the mules but not all of them         draft:true
+    "I still get paid. Just not what I was told, and not the trust that came with it."
+
+SSSSSSSSSSSSSSSSSSSS3  a man who lost every mule on the same road                  draft:true
+    "Nothing. Not a battery, not a word of thanks. That's the whole arrangement."
+
+SSSSSSSSSSSSSSSSSSSS4  a woman comparing two jobs posted the same morning          draft:true
+    "One's got a date on it. The other just wants it done eventually. Guess which pays better."
+
+SSSSSSSSSSSSSSSSSSSS5  the one who took the job with no deadline                   draft:true
+    "Nobody's rushing me. Nobody's paying me like they are, either."
+
+SSSSSSSSSSSSSSSSSSSS6  a trader explaining why the far job always costs more        draft:true
+    "Not the walking. The walking's free. It's everything that happens along the way."
+
+SSSSSSSSSSSSSSSSSSSS7  a fighter who tried to run two jobs on one road             draft:true
+    "Picked the one with the clock on it. The other one can wait for somebody slower."
+
+SSSSSSSSSSSSSSSSSSSS8  the one who waited a season for a cheaper, slower job        draft:true
+    "No clock, no rush, no extra pay. I've got nowhere else to be, so it works out."
+
+## DDDDDDDDDDDDDDDDDDDD. WHAT IS NOT HERE, ON PURPOSE (round 63)
+
+- No line states a battery number, a percentage or a skull count. The whole finding is said
+  as a longer road, a half-lost mule train, an empty-handed return, a dated job against an
+  open one, and a trader's own words about what the walking costs versus what happens on it.
+- No line resolves which job pays more in a fixed number. SSSSSSSSSSSSSSSSSSSS4 and 7 state
+  the direction (the dated job pays better) without a digit, the finding's own honest shape.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 643 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
