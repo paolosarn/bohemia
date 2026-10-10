@@ -17,6 +17,7 @@ CUE 3 | COOK FOUR | the settlement from the packs, round three (roofs as houses,
 CUE 4 | UI | the triage filter on the VOTE tab (red first and alone, yellow under MORE) | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack settlement | FIRES ON: the RUN cut after CUE 3 lands | NEEDS: CUE 3 | STATE: WARNING
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: its own cut | NEEDS: none | STATE: WARNING
+CUE 8 | THE PASS (RUN carries) | PLATE_FIGHT_BLOCK, the whole plate: one fight on one Vegas block with its HUD, called HANDS | FIRES ON: the RUN cut after every station reads 0-out | NEEDS: CUE 2, CUE 3, CUE 7 | STATE: WARNING
 CUE 7 | SOUNDS | the first swing he can hear: one moment, one tab | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)

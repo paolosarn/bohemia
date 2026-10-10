@@ -67,3 +67,7 @@ RULE: EVERY MARK HAS A HALF-LIFE, AND ONLY A LANE'S COMMIT RENEWS IT. Applied as
 ## ROUND EIGHT: I INTEND TO (the USS Santa Fe, mission command, Nelson's memorandum, the Ritz's two thousand dollars; records/BOHEMIA_COORDINATOR_SCHOOL_EIGHTH_ROUND_I_INTEND_TO_10_10_26.md)
 
 RULE: THE ROW SAYS WHY AND WHAT HE SEES; THE LANE SAYS HOW, OUT LOUD, THEN GOES. Applied as front-page rule 97 (purpose, end state, constraint; the thumb test; the one-breath claim that folds rule 91's readback; deliberate action on every push) and to the board the same hour: the five rows the coordinator wrote this round that were orders in a row's clothes are rewritten as intent (the one stopwatch, the trail file, ten seconds to play, the triage filter, the calling script).
+
+## ROUND NINE: THE PASS (the expediter, fire times, the line check, the operating-room turnover crew, the pit crew; records/BOHEMIA_COORDINATOR_SCHOOL_NINTH_ROUND_THE_PASS_10_10_26.md)
+
+RULE: NOTHING LEAVES THE WINDOW UNTIL THE PLATE IS WHOLE, AND ONE VOICE CALLS IT. Applied as front-page rule 98 (the plate ticket, the pass, fire slowest first, hold, check, hands, all day, the line check, in the weeds) and fired the same hour: tickets/PLATE_FIGHT_BLOCK.md, the first plate, which is also round two's one screen; the all-day count on the handoff's first line; CUE 8 in the calling script; four rows named to the plate.
