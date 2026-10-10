@@ -3321,6 +3321,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('TAKE THE NEXT PART', ['node', 'gates/take_the_next_part_gate.js'],
+     'rule 43: at a place you do not hold, BUILD offers Take it; it opens the fight at their gate and the fight builds '
+     'its ground; a win flips the base to you in FACTIONS\' ledger and you can build there; a loss is a reload and '
+     'Take it goes back to the same raid', False),
     ('A RAID ON YOUR BASE', ['node', 'gates/a_raid_on_your_base_gate.js'],
      'rule 37c + 43 + 68: your base is yours in FACTIONS\' ledger from day one; what you build draws a crew you see '
      'coming; away, the world settles the raid; home, the fight opens at your gate on what you built and builds its '

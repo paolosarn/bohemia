@@ -66786,9 +66786,46 @@ function raidDefend(){
 /* A LOSS IS NOT A TAKING. DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): going down sends him back to the save made at
    the bell, and that save has the raid still open at the gate. So a loss writes nothing here; the reload is the
    answer, and the raid's own days still run (stay away and the world settles it). A win closes it: the base held. */
+/* TAKE THE NEXT PART ([take the next part], rule 43): the same raid, the other way. From a place's settlement screen he
+   says 'Take it': the raid opens with YOU as the crew at their gate (FACTIONS' ledger; one a base an act), the screen
+   closes and the fight is at their gate. A win closes it TAKEN: the place is yours (its build lots open, the next
+   settlement screen says so). A loss is a reload, like any other. */
+var RAID_TAKING = null;
+function raidTake(name){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  if(RAID_FIGHTING || lotIsMine(name)) return { applied: false, reason: RAID_FIGHTING ? 'BUSY' : 'YOURS' };
+  var seat = seats.filter(function(s){ return s.faction === name; })[0];
+  if(!seat) return { applied: false, reason: 'NO_SEAT' };
+  /* a try that ended in a reload left our raid open at their gate: go again, it is the same raid */
+  var mineOpen = H.raidsOpen(rec).filter(function(x){ return x.base === name && x.by === H.YOU; })[0];
+  var o = mineOpen ? { applied: true, raid: mineOpen } : H.openRaid(rec, { base: name, by: H.YOU, day: DAY.day });
+  if(!o.applied){ raidSay(o.reason === 'ALREADY_RAIDED' ? (name + ' already held against us this year. Not again.') : ('Not now.')); return o; }
+  var party = null; try{ party = partyMath('roaming', { x: seat.x, y: seat.y }); }catch(_e){ party = null; }
+  var roster = []; for(var k = 0; k < ((party && party.count) || 3); k++) roster.push({ arch: 'human' });
+  try{ loopClose(); }catch(_e){}
+  RAID_FIGHTING = name; RAID_TAKING = name;
+  var ok = false;
+  try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'Taking ' + name, faction: name, draft: true,
+    roster: roster, party: party, street: true, why: 'take:' + name, at: { x: seat.x, y: seat.y, gx: seat.x, gy: seat.y } }); }catch(_e){ ok = false; }
+  if(!ok){ RAID_FIGHTING = null; RAID_TAKING = null; if(!mineOpen) H.closeRaid(rec, { base: name, outcome: 'held', day: DAY.day, how: 'moot' }); return { applied: false, reason: 'NO_FIGHT' }; }
+  raidSay('We are at the gate of ' + name + '. Take it.');
+  return { applied: true };
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_SETTLEMENT' || d.act !== 'take') return;
+  try{ raidTake(d.place); }catch(_e){}
+});
+window.raidTake = raidTake;
 function raidFought(o){
   var base = RAID_FIGHTING; RAID_FIGHTING = null; if(!base) return null;
   var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+  if(RAID_TAKING === base){
+    RAID_TAKING = null;
+    if(!won) return { applied: false, reason: 'RELOAD' };
+    var tk = BohemiaHomeBases.closeRaid(hbRec(), { base: base, outcome: 'taken', day: DAY.day, how: 'fought' });
+    if(tk.applied) raidSay(base + ' is ours now. We can build there.');
+    return tk;
+  }
   if(!won) return { applied: false, reason: 'RELOAD' };
   var res = BohemiaHomeBases.closeRaid(hbRec(), { base: base, outcome: 'held', day: DAY.day, how: 'fought' });
   if(res.applied) raidSay(base + ' held. You stood at the gate and they broke.');

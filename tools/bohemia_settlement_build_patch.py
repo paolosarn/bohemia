@@ -105,7 +105,12 @@ function buildSheet(body, acts, line){
   if(!LB || !b.site){ body.appendChild(speak('build', 'Nothing to build with.')); body.appendChild(acts); return show(); }
   buildTick();
   if(!buildMine()){
-    body.appendChild(speak('build', line || BUILD_NO.NOT_HELD));
+    /* TAKE THE NEXT PART ([take the next part], rule 43: what you hold grows by taking). Inside the game, one act:
+       go to their gate. The map runs it (one fight there; win and the place is yours, lose and it is a reload). */
+    body.appendChild(speak('build', line || 'This is not our ground. We build where we hold.'));
+    if(buildParent()) acts.appendChild(act('Take it', 'a fight at their gate', function(){
+      post('take', {}); heard('You go to their gate.');
+    }));
     body.appendChild(acts); return show();
   }
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);

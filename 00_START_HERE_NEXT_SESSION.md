@@ -7109,6 +7109,12 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/10 LATEST -- *** [built on the map] and [built on the board] RETIRED (rule 86, his two DOWN
+votes; graveyard/built_on_the_map_and_board_10_10_26). [take the next part] SHIPPED: at a place you do not hold, BUILD offers
+Take it; one fight at their gate; a win makes it yours and its build list opens; a loss is a reload. *** TAB: VOTE.
+Record: records/BOHEMIA_TAKE_THE_NEXT_PART_10_10_26.md. Gate TAKE THE NEXT PART 9/0 (two alpha sessions, ~4 min).
+NEXT (top OPEN): [the powered blocks], then [the feed], then [taken by a deal].
+
 LIFE + CITY (city-1eztay): 10/9e LATEST -- *** [a raid on your base] SHIPPED: FACTIONS' raid ledger is live on the map;
 what you build draws a crew; away they take it, home you fight at your gate; a loss is a reload. *** TAB: VOTE.
 Record: records/BOHEMIA_A_RAID_ON_YOUR_BASE_10_9_26.md. Gate A RAID ON YOUR BASE 18/0 (three alpha sessions, ~6 min).
