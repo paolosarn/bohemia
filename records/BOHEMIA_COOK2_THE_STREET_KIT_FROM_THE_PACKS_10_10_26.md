@@ -21,3 +21,10 @@
 - First try streaked: the walk and kerb were decided column by column; one street now takes one T and B (the mode of the per-column runs).
 - Pack gate: my tool and pictures pass (K1, M1). Its two reds are not mine and were red on main before this commit: K1 tools/bohemia_his_block_as_a_place_cook_10_10_26.py (COOK FOUR's), P1 block_main_0* and settlement home_0* without manifests (COMBAT TWO's cut and COOK FOUR's).
 - NOT in VOTE: rule 87 sends it to DIRECTION first. FOR COMBAT TWO: swap blocks['main.0'/'main.1'].src to kit_street/onboard/ when it re-lays (fight_ground.json is theirs). The raided and reclaimed futures are not re-laid yet.
+
+## Round four: the futures, and the street where it widens
+- Raided and reclaimed main blocks re-laid: every pixel a future changed from the present stays the future's (raided: 433,061 / 347,728 px of soot, scorched roofs and shadows kept; reclaimed: 391,911 / 298,425 px of solar panels kept); every pixel it left alone takes the re-laid present. kit_street/onboard/ now holds all six main blocks, onboard.json covers them.
+- The street's connected old road beyond the band (8 px cells, flooded from the band) takes the asphalt too. FIRST TRY LEAKED into the building shadows (the same grey, but flat: std 0 against the road's 22-55); flat pixels are now excluded. Widening the road filter to warmth 20 bled the column runs down through a roof; reverted to 14.
+- LEFT, NAMED: the darker apron right of the flat-roof building on block_main (x ~1950+, y ~900-1050) is a lot surface, not the street; it is [the freeway and the lot from the packs]'s.
+- Gates: COOK2 STREET KIT 294/0; pack gate passes this lane's tools and pictures (its two reds are COOK FOUR's and COMBAT TWO's, red on main before).
+- Row stays CLAIMED: its ship test needs DIRECTION's pass and COMBAT TWO's re-lay ([the boards from the packs] is now their top row and reads this kit).

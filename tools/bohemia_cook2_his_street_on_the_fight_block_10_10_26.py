@@ -58,6 +58,23 @@ def recut(name):
         out[T - 4:T - 1, x] = K['KERB']; out[T - 1:T + 3, x] = K['SHADE']
         if (x // dash) % 2 == 0:                                            # 3 m painted, 3 m worn
             out[c - 3:c + 3, x] = (out[c - 3:c + 3, x] * 0.3 + np.array(K['PAINT']) * 0.7).astype(np.uint8)
+    # round four: the street is not only the band. Where it widens (the apron beside the flat roof, the cross
+    # street's mouth) the old road runs on: every 8 px cell that is mostly old road and CONNECTED to the band
+    # takes the asphalt too (a flood from the band's centre row; no scipy in the box)
+    C = 8; gh, gw = H // C, W // C
+    L = a.sum(2); flat = np.zeros_like(rd)
+    flat[1:-1, 1:-1] = (L[1:-1, 1:-1] == L[:-2, 1:-1]) & (L[1:-1, 1:-1] == L[2:, 1:-1]) & (L[1:-1, 1:-1] == L[1:-1, :-2]) & (L[1:-1, 1:-1] == L[1:-1, 2:]) & (np.abs(a[1:-1, 1:-1] - np.array([56, 54, 50])).sum(2) < 4)
+    lum = a.sum(2)[:gh * C, :gw * C].reshape(gh, gw, C, C).transpose(0, 1, 2, 3).reshape(gh, gw, -1)
+    # a shadow is the old road's grey but FLAT (std 0 measured); the road is grainy (std 22-55)
+    cell = (rd[:gh * C, :gw * C].reshape(gh, gw, C, C).mean((2, 3)) > 0.5) & (lum.std(2) > 8)
+    seen = np.zeros_like(cell); st = [(c // C, x // C) for x in xs[::C]]
+    while st:
+        y, x = st.pop()
+        if not (0 <= y < gh and 0 <= x < gw) or seen[y, x] or not cell[y, x]: continue
+        seen[y, x] = True; st += [(y + 1, x), (y - 1, x), (y, x + 1), (y, x - 1)]
+    conn = np.zeros_like(rd); conn[:gh * C, :gw * C] = np.kron(seen, np.ones((C, C), bool)).astype(bool)
+    conn &= rd & ~flat; conn[T - WALK_PX:B] = False                                 # the band is already laid
+    out[conn] = A[conn]; n += int(conn.sum())
     os.makedirs(OUT, exist_ok=True)
     Image.fromarray(out).save(os.path.join(OUT, name + '.webp'), lossless=True)
     keys = sorted({tuple(k) for k in k1 + k2})
@@ -78,6 +95,20 @@ def main():
             d = ImageDraw.Draw(sheet)
             d.text((8, 12), 'BEFORE  the fight street now', fill=(235, 235, 235))
             d.text((603, 12), 'AFTER  the same street, his tiles', fill=(235, 235, 235))
+        # THE FUTURES (round four): raided and reclaimed are the same street with things laid on it. Every pixel
+        # a future changed from the present stays the future's (its rubble, its soot, its new paint); every
+        # pixel it left alone takes the re-laid present. So the futures wear his street under their own story.
+        b0 = np.asarray(before).astype(int); a1 = np.asarray(after)
+        for fut in ('raided', 'reclaimed'):
+            fn = name + '_' + fut
+            f = np.asarray(Image.open(os.path.join(G, fn + '.webp')).convert('RGB'))
+            same = (np.abs(f.astype(int) - b0).sum(2) <= 6)
+            o = np.where(same[..., None], a1, f).astype(np.uint8)
+            Image.fromarray(o).save(os.path.join(OUT, fn + '.webp'), lossless=True)
+            man['pieces'][fn] = dict(src=fn + '.webp', keys=[list(k) for k in keys],
+                                     exception='the future\'s own changes and the buildings are the old cut, unchanged',
+                                     future_px_kept=int((~same).sum()))
+            print(fn, 'future pixels kept', int((~same).sum()))
     json.dump(man, open(os.path.join(OUT, 'onboard.json'), 'w'), indent=1)
     os.makedirs(os.path.join(R, 'slices/vote'), exist_ok=True)
     sheet.save(os.path.join(R, 'slices/vote/COOK2_THE_STREET_BEFORE_AFTER.png'))
