@@ -16125,6 +16125,31 @@ full suite unmeasured since 7efb22cf. Rule 14(a): demo untouched, RUN cuts it.
 
 Record: records/BOHEMIA_ONE_DOOR_9_14_26.md
 
+PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 55. [the picture leg] SHIPPED e8cff0e: WHAT HE CANNOT
+SEE DID NOT SHIP (rule 89). AND THIS LANE'S HALF OF [first load] SHIPPED. ***
+Record: records/BOHEMIA_WHAT_HE_CANNOT_SEE_DID_NOT_SHIP_10_10_26.md. VOTE plumber-the-picture-leg-10-10 (one real fight
+tile, refused shown by its number alone, passing shown before | after at 1:1).
+BUILT: a rule-89 leg in gates/cook_every_round_gate.js. A look item = a tile/face/haircut/outfit/animation or a UI
+screen from a look-program lane (cook, cook 2/3/4, combat 2, ui, character, portrait), or a tile..animation from
+combat/run/eyes; never a verdict, a line, a sound, or a TUNING table filed as 'tile'. It must carry show { how:
+image|clip, src on disk } and before_after { before, after, scale: '1:1' }, else 'no before-and-after picture'. Proved:
+his three NOs of this round each refused; the row's pair (number alone red, two crops side by side green, only the after
+red). Hard leg on items made >= 10/10: RED ON 4 (cook-the-far-end-as-tiles, cook-the-building-props,
+cook-his-block-as-a-place, combat2-the-rest-join); 38 older counted. Notes appended to COOK's and COMBAT TWO's 10/10
+PLUMBER lines.
+FIXED WITH IT, two of my checkers that contradicted rule 88: COOK EVERY ROUND reads each lane's MODE and skips HOLD /
+PAUSED / PARKED / RESEARCH ONLY / PAGES WITHOUT SHEETS (reds 4 lanes -> 1, PORTRAIT); EVERY RUNNING LANE HAS A JOB
+treats HOLD as not running.
+[first load] SHIPPED for PLUMBER's half (bytes and budget): RUN ran the six hunks (a85baf6; H1 6 already in), ceiling
+10 MB. This box, demo cold at 4x served like Pages: title 3.0 s, NEW GAME ready 31.3 s, 3.2 MB before ready (was 29.7),
+D1 green. RUN's box 1.3 s / ~22 s. T1/T2 red on purpose: the title's order and the processor are RUN [first load].
+[two sentences leg] closed: RUN built it (vote_tab_gate, since 548ba9e); it bites, red on TUNING 3 and DYNASTY 1.
+[PENDING coordinator] O3 short of three OPEN rows: RUN TWO 2, CHARACTER 2, COOK THREE 2, ECONOMY 1, TUNING 1 (CHARACTER,
+ECONOMY and TUNING may be on HOLD by intent; their MODE lines do not say HOLD). R1: SOUNDS and RUN TWO carry 'ROUND n
+OPEN' inside a SHIPPED row.
+NEXT: the top OPEN row is [one engine boot]; then [sun gate]; [flaky gate].
+Still waiting on Paolo: the 145-file move (excavate part 3) and the two Battle Brothers hosts (network setting).
+
 PLUMBER (plumber-ont6t5): 10/10 LATEST -- *** CHAT 18. ROUND 54. [the pack gate] SHIPPED ba767b6: THE PACKS ARE THE
 BAR, AND AN ART SHEET COMES WITH ITS TWIN (rules 82, 82a). ***
 Record: records/BOHEMIA_THE_PACKS_ARE_THE_BAR_10_10_26.md. [first load] stays CLAIMED, waiting on RUN [load hunks] (RUN
