@@ -395,6 +395,68 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST -- *** [the keepers' faces]
+SHIPPED: EVERY KEEPER SHOWED A DIM PLACEHOLDER HEAD FOREVER. Top OPEN
+jump-list row. Record: records/BOHEMIA_THE_KEEPERS_FACES_10_10_26.md.
+TAB: VOTE (portrait-the-keepers-faces-10-10, already shipped, the card is proof).
+
+MEASURED FIRST: slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's own file,
+untouched here) already posts {type:'needFace',who} the first time it draws a
+keeper with no face, and already reads one back as
+{type:'BOHEMIA_SETTLEMENT_FACE',who,src}. Grepped the alpha and
+BOHEMIA_CITY_WORLD.html (its immediate iframe parent): zero hits for either
+message type, anywhere. Nothing has ever answered the request.
+
+THE FIX: two small additive functions in the alpha, keeperFaceId(place,kind)
+and keeperFaceSrc(place,kind,opts), built from parts already approved --
+faceFor(id) already rolls a face off any string id, facePerform(id,tMs,line)
+already drives the same mouth/blink/brow a live speakingPortrait uses. THE
+ONE REAL GAP: a keeper's who ('settle-smith') is the same string in every
+town, so faceFor(who) alone gives every smith one face; keeperFaceId folds in
+the place's own name, the same string the settlement screen's own file
+already seeds everything per-place with (rollTraits, restock, nextRumour all
+key off S.place.name the same way).
+
+MEASURED AFTER: two example towns, all five real kinds (PEOPLE's real price
+lines, engine/bohemia_keeper_lines.js) -- deterministic (same town+kind
+twice, byte-identical); rolled per settlement (same kind, different town, 5
+of 5 differ); five keepers not one face five times (all 10 same-town pairs
+differ); speaks along (sampled each face at four points across its real
+line, at least 2 of 4 frames differ on all 10 renders). The cook tool refuses
+to write if any of the four checks fail.
+
+PROVED SAFE: both functions are purely additive; nothing inside
+faceFor/facePerform/renderFace/speakingPortrait moved. Hashed 100 regular
+citizens on a clean stash and on this change -- 0 of 100 differ.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, keeper_lines_gate 48/0
+(PEOPLE's own gate, re-confirmed untouched). settlement_screen_gate could not
+run in this environment (its own require('playwright') bypasses the absolute
+path every other gate uses; confirmed broken on a clean worktree too, not
+caused here).
+
+NOT DONE, NAMED HONESTLY: no keeper has a dressed body yet for the face to
+match hair to -- unlike [the enemy faces]'s FACTION_LOOKS pairing, no lane
+has assigned a specific body look to a specific keeper kind, so this is a
+rolled face, not a matched one; the same over.hairName mechanism already
+built can wire the two together later if that assignment lands. Who answers
+needFace and how often is RUN TWO's placing, the row's own words -- not
+touched here.
+
+PUSH-TO-MAIN STATUS: [the keepers' faces]'s own claim commit landed directly
+on main this round (no race lost); this ship's push not yet attempted at
+handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the hires' faces] (now the top OPEN jump-list row --
+every man at the posts needs a face of his background, from PEOPLE's [good
+bros] backgrounds.json, a variation rule so no two hires match, shown on the
+hire card before you pay).
+
+PENDING PAOLO: none new this round -- rule 74's own jump list, no fork for
+him to pick.
+
 PORTRAIT (portrait-vamily-yke55s): 10/9 LATEST (round three) -- *** [the enemy
 faces] SHIPPED: EVERY BRIGAND TIER'S PORTRAIT HAD NONE OF ITS OWN DRESSED
 BODY'S HAIRCUT. Top OPEN jump-list row (EVERYBODY HAS A FACE, rule 69).

@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10b - THE LONG INJURY</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10c - THE KEEPERS' FACES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6548,6 +6548,62 @@ function speakingPortrait(canvas, opts){
   };
 }
 if (typeof window !== 'undefined') window.speakingPortrait = speakingPortrait;
+
+/* ===== A KEEPER'S FACE (PORTRAIT, 10/9, [the keepers' faces]) ===============
+   Rule 71a, RUN TWO's own note: "the keepers' face request unanswered in the
+   demo." slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's file, a standalone
+   page reached through an iframe chain, never edited here -- ONE SYSTEM, ONE
+   SESSION) already has the door built and waiting: its face(k) function posts
+   {type:'needFace', who} the first time it draws a keeper with no face yet,
+   and reads one back as {type:'BOHEMIA_SETTLEMENT_FACE', who, src(dataURL)}.
+   Nothing on this side of that door has ever answered it -- grepped, zero
+   hits, in this file and in slices/BOHEMIA_CITY_WORLD.html, which is the
+   immediate parent that message actually reaches first.
+
+   THIS IS THE MECHANISM THAT ANSWERS IT, built from parts that already exist
+   and are already approved, nothing reinvented:
+     - faceFor(id) already accepts any string id and rolls a face deterministic
+       off its hash (facePerform/faceRollHash, above) -- no new override needed.
+     - THE ONLY REAL GAP: a keeper's `who` (e.g. 'settle-smith') is the SAME
+       string in every town, so faceFor(who) alone would give every smith in
+       the valley an identical face -- the opposite of the row's own ask,
+       "rolled per settlement so two towns' smiths differ." THE SETTLEMENT
+       SCREEN'S OWN FILE answers "what makes two towns different" already,
+       everywhere it seeds anything per-place (rollTraits, restock, nextRumour):
+       S.place.name, read line for line out of that file. keeperFaceId below
+       folds that same place name into the id, so the smith's face is a
+       function of (place, kind) the same way the shelf's stock already is --
+       one convention, not a second source of truth for "what a place is."
+     - speakingPortrait (just above) already drives a LIVE canvas off
+       facePerform(id, tMs, line); the cross-iframe protocol can only carry
+       ONE static image per message, so keeperFaceSrc below renders ONE FRAME
+       of that same performance (a given id, a given line, a given millisecond)
+       to a dataURL -- the live version and the snapshot version share the
+       exact same facePerform() call, so a keeper who "speaks along" by
+       repeated calls at VISEME_MS apart looks exactly like one who speaks
+       live, because it is driven by the identical deterministic function.
+
+   WHO PLACES IT: the row says so and this does not second-guess it -- "RUN TWO
+   places them" is the wiring (which file answers needFace, how often it is
+   re-posted while a line is being said, where in BOHEMIA_CITY_WORLD.html or
+   the settlement screen's own parent chain the handler lives). What ships
+   here is the mechanism RUN TWO calls, proved correct in isolation. */
+function keeperFaceId(place, kind){ return 'keeper:' + String(place == null ? '' : place) + ':' + String(kind == null ? '' : kind); }
+function keeperFaceSrc(place, kind, opts){
+  opts = opts || {};
+  var id = keeperFaceId(place, kind);
+  var spec = faceFor(id);
+  var ramp = faceRampFor(spec);
+  var tMs = (typeof opts.tMs === 'number') ? opts.tMs : 0;
+  var line = opts.line || null;
+  var perf;
+  try { perf = facePerform(id, tMs, line, {}); } catch(_e){ perf = { blink: 0, mouth: 'closed', brow: 0 }; }
+  var buf = renderFace(spec, { ramp: ramp, mouth: perf.mouth, blink: perf.blink, brow: perf.brow });
+  var cv = document.createElement('canvas'); cv.width = 64; cv.height = 64;
+  var cx2 = cv.getContext('2d'); var idd2 = cx2.createImageData(64, 64); idd2.data.set(buf); cx2.putImageData(idd2, 0, 0);
+  return cv.toDataURL('image/png');
+}
+if (typeof window !== 'undefined') { window.keeperFaceId = keeperFaceId; window.keeperFaceSrc = keeperFaceSrc; }
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();

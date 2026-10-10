@@ -6847,6 +6847,19 @@
    },
    "asked": "UP or DOWN",
    "draft": true
+  },
+  {
+   "id": "portrait-the-keepers-faces-10-10",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE KEEPERS' FACES",
+   "why": "Every keeper's spot in the settlement screen showed a dim placeholder head forever, because nothing ever answered its own request for a real one. Now the smith, the armourer, the barber, the clinic and the board each get a real face that differs town to town and speaks along his price -- you see it in the VOTE tab.",
+   "show": {
+    "how": "page",
+    "src": "vote/PORTRAIT_THE_KEEPERS_FACES.html"
+   }
   }
  ],
  "verdicts": [
