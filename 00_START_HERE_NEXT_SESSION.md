@@ -38987,6 +38987,11 @@ since 9/6, it also holds 19 QUESTS (BUILD). The front page's chat-19 line says a
 chat with an empty queue takes QUESTS, and DYNASTY's queue went empty at Q16. The
 lane and its first row were claimed and pushed BEFORE any work started. ***
 
+ROUND 71 [animal era] Q23 THE ERA LEAVES A HABIT. (SCHOOL, no code)
+DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_DAY_25_THE_ANIMAL_ERA_LEAVES_A_HABIT_10_10_26.md; VOTE line dynasty-animal-era-10-10.
+Finding: heir traits come only from the parent; the era leaves no mark. Proposal: three habits (hoards, sleeps light, trusts no paper). The research Q-list (Q19 to Q23) is now DONE.
+LANE QUEUE: only [grok lore] (a trigger) and the stale [heirs made on entry] pointer row remain OPEN; rule 74 needs the coordinator to write DYNASTY rows. QUESTS orphan rows still claimed (coordinator's).
+
 ROUND 70 [the flip unlocks at the crisis] RULE 85. (BUILD)
 DYNASTY. Claimed first. Record records/BOHEMIA_DYNASTY_THE_FLIP_UNLOCKS_AT_THE_CRISIS_10_10_26.md; VOTE line dynasty-flip-at-crisis-10-9. TAB: RUN (the phone has one face and no flip until the crisis).
 acts.crisis(day) is the one door for act 2; bases open only act 3 after it; saved. City: ctActCrisis(day) for WORLD's clock. Gates ONE THEN HEIRS rewritten, HEIRS 83/0, THE FLIP, THREE NAMES green.
