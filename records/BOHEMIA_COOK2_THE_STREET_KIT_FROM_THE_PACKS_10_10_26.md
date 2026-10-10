@@ -34,3 +34,10 @@
 - junction_walks: the four-way with a 1.5 m walk square on each corner, each side typed walk/road/walk. 19 pieces; COOK2 STREET KIT 321/0.
 - kit_street/onboard/ is SUPERSEDED for the live fight: COMBAT TWO laid the kit pieces straight into the blocks, which is the right way round. onboard stays only as the reproducible rule-89 record.
 - FOR COMBAT TWO: re-run your lay to take the kerb, the thinner weeds and junction_walks (cornerw waits on it).
+
+## Round six: DIRECTION's second pass (rounds 3-5 PASS, to VOTE) and its three notes
+- VOTE: COMBAT TWO already registered this street (combat2-the-street-from-the-packs-10-10, the same block before and after); a second item would ask him the same thing twice, so this lane registers none.
+- (1) 'the weeds are lime-yellow stars, the pack's are grey-green and half the size': the weed mask was green-only and missed yellow (18 of 36 sidewalk tiles carry one, measured with g-b > 30); every weed pixel is now pulled to grey-green (102,102,82, keeping the slab's warmth) and its outer ring (fewer than three weed neighbours) goes back to the slab, about half the star.
+- (2) 'the tan bar between the carriageways is one flat colour': road_ew_median, his median pool (the faded double yellow) stamped along the centre; median tile 1 skipped, it carries a baked black frame line (43 px).
+- (3) 'the dark band under the houses is a flat slab': walk_wallfoot, the walk to the wall with a grime foot on its north edge. BOTH ARE COMBAT TWO's to place (the bar and the slab are in their layout).
+- 21 pieces. Gate 379/0; the walk-run share went 0.85 -> 0.80 because a 7 px crack in his slab along a 45 px corner square read as road (the planted breaks read 40% and lower).

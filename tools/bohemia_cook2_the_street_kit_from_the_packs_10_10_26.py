@@ -36,9 +36,31 @@ MK = {k: [dec(b) for b in marks[k]] for k in ('arrow_thru_h', 'arrow_thru_v')}
 # DIRECTION 10/10 (rule 87 pass, round 2): 'weeds in the seams only, thin and few'. His sidewalk pool has a weed
 # in 20 of 36 tiles (green px >= 7, measured); a weedy tile is now picked one time in twenty
 def _green(im):
-    a = np.asarray(im).astype(int); return int(((a[..., 1] >= a[..., 0]) & (a[..., 1] > a[..., 2] + 25)).sum())
+    return int(_weedmask(np.asarray(im).astype(int)).sum())
+def _weedmask(a):
+    # a weed is yellow-green: green well over blue (the tan slab's g-b is ~15, a weed's 30+), red not far over green
+    return (a[..., 1] > a[..., 2] + 30) & (a[..., 0] < a[..., 1] + 30)
+# DIRECTION 10/10 (pass, round two): 'the weeds are lime-yellow stars, the pack's are grey-green and half the
+# size'. Every weed pixel in the sidewalk stamps is pulled to grey-green, and its outer ring (a weed pixel with
+# fewer than three weed neighbours) goes back to the slab under it, which roughly halves the star
+WEEDGREY = np.array([102, 102, 82])   # grey-green that keeps the slab's warmth (r-b 20): a weed is in the walk, not a hole in it
+def _tame(im):
+    a = np.asarray(im).astype(int).copy()
+    g = _weedmask(a)
+    if not g.any(): return im
+    nb = np.zeros(g.shape, int)
+    nb[1:] += g[:-1]; nb[:-1] += g[1:]; nb[:, 1:] += g[:, :-1]; nb[:, :-1] += g[:, 1:]
+    slab = np.median(a[~g].reshape(-1, 3), 0)
+    ring = g & (nb < 3); core = g & ~ring
+    a[ring] = slab
+    lum = a[core].sum(1, keepdims=True) / 3
+    a[core] = (WEEDGREY * (lum / WEEDGREY.mean()) * 0.6 + a[core] * 0.4).clip(0, 255)
+    return Image.fromarray(a.astype(np.uint8))
 SIDE_CLEAN = [i for i, t in enumerate(P['side']) if _green(t) < 7]
 SIDE_WEED = [i for i, t in enumerate(P['side']) if _green(t) >= 7]
+P['side'] = [_tame(t) for t in P['side']]
+P['median'] = [dec(b) for b in pools['median']]
+MEDIAN_CLEAN = [i for i, t in enumerate(P['median']) if (np.asarray(t).astype(int).sum(2) < 40).sum() == 0]   # median 1 carries a baked black frame line (43 px)
 FLIPS = [None, Image.FLIP_LEFT_RIGHT, Image.FLIP_TOP_BOTTOM, Image.ROTATE_180]
 
 def stamp_field(pool, seed, w=TW, h=TH):
@@ -137,6 +159,7 @@ PIECES = {
   'corner_nw': ('NW', None, False), 'corner_ne': ('NE', None, False),
   'corner_sw': ('SW', None, False), 'corner_se': ('SE', None, False),
   'walk': ('NSEW', None, False),
+  'road_ew_median': ('', None, False), 'walk_wallfoot': ('NSEW', None, False),
   'road_ew_arrow': ('NS', 'ew', False), 'road_ns_arrow': ('WE', 'ns', False),
 }
 
@@ -148,7 +171,7 @@ def main():
            'compass': 'NORTH up the screen, SOUTH near, EAST right', 'pieces': {}}
     for n, (walks, axis, xing) in PIECES.items():
         seed = sum(map(ord, n))
-        img, keys = stamp_field('street' if n != 'walk' else 'side', seed)
+        img, keys = stamp_field('side' if n.startswith('walk') else 'street', seed)
         if xing:
             for k in range(6):
                 z = P['cross'][k % 3]
@@ -181,10 +204,20 @@ def main():
         lines = []
         if axis:
             dashes(img, axis, M / 2); lines.append({'axis': axis, 'at_m': M / 2, 'kind': 'centre dash 3 m in 6 m'})
-        if n != 'walk':
+        if not n.startswith('walk'):
             for s in walks: walk_band(img, s, seed + ord(s), keys)
         if n == 'junction_walks': corner_squares(img, seed + 99, keys)
-        e = edges(walks if n != 'walk' else 'NSEW', lines)
+        if n == 'road_ew_median':
+            # DIRECTION: 'the tan bar between the carriageways is one flat colour, make it the pack's kerb or a
+            # worn median': his median pool (the faded double yellow) stamped along the centre, 2x nearest
+            sw, sh = 88, 62; y = int(TH / 2 - sh / 2); r2 = random.Random(seed)
+            for x in range(0, TW, sw):
+                i = r2.choice(MEDIAN_CLEAN); img.paste(P['median'][i].resize((sw, sh), Image.NEAREST), (x, y)); keys.append(['median', i])
+        if n == 'walk_wallfoot':
+            # DIRECTION: 'the dark band under the houses is a flat slab: a sidewalk or wall foot from the pack':
+            # the walk to the wall, with 3 px of grime where the wall stands on it (north edge)
+            img.paste(SHADE, (0, 0, TW, 2)); img.paste(tuple(int(c * 0.7) for c in KERB), (0, 2, TW, 4))
+        e = edges(walks if not n.startswith('walk') else 'NSEW', lines)
         if n == 'junction_walks':
             e['edges'] = {sd: [['walk', 0, WALK], ['road', WALK, M - WALK], ['walk', M - WALK, M]] for sd in 'NSEW'}
         img.save(os.path.join(OUT, n + '.webp'), lossless=True)
