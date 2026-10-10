@@ -13,3 +13,9 @@ Round 0 kept 70-97% of every outfit as 'accent': the thirteen are each ONE colou
 3. Twin is a palette card, not photographs: DIRECTION files the runway photos.
 ## ROUTED
 DIRECTION: judge the sheet against the twin (rule 87). CHARACTER: an outer-layer mask from buildFrame. Not in a tab yet; VOTE after DIRECTION.
+
+# ROUND 2 (10/10, cook3-vamily): THE ACCENT FOLLOWS THE GARMENT
+Defect 1 closed: the waist line is gone. Each candidate garment (outer, back, base) is drawn ALONE on the bare body; its mask is where that differs from naked and agrees with the full frame. Every garment holding at least half the best garment's territory pixels carries the accent. Read-only; no CHARACTER change was needed (rule 12: the named blocker was not the blocker).
+FINDING: the first try ('take the coat off and diff') went blind on Blues 18%, Church 6%, Remnants 20%, because the shirt under the coat is the SAME ramp. The solo draw fixed it: Blues 57%, Church 45%, Remnants 62%.
+Measured after (sat, % accent): Caravans .248 62 | Colorful .366 100 | Anarchists .347 70 | Blues .298 57 | Homeless .259 0 | Church .287 45 | Reds .377 71 | Cartel .051 0 | Trades .334 63 | Mob .419 45 | Network .306 65 | Volunteers .048 0 | Remnants .141 62
+OPEN for round 3: Remnants .141 is under faction_colour_gate's .28 floor (olive drab is dark, the stretch pulls it down); Mob rose .388->.419 (mustard over charcoal stays loud); Homeless rises on the oxblood stop. Then DIRECTION, then VOTE.

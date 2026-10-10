@@ -45,6 +45,31 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
         window.G_WORN = f.worn; G.bodyVar = f.dials; G.age = f.age || 'adult';
         rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
         const fr = buildFrame('S', 'idle', 0.25, true);
+        /* THE CARRIER MASK (round 2): the accent rides ONE GARMENT, found by drawing the
+           body again without it and keeping the pixels that changed. Outer coat first,
+           then the back piece, then the shirt. Read-only: the alpha is never edited. */
+        const rule0 = PAINT.factions[f.faction] || {};
+        const acc0 = rule0.accentHue != null ? rule0.accentHue : (worn[f.faction] && worn[f.faction].coloured >= 0.35 ? worn[f.faction].hue : null);
+        /* A GARMENT'S MASK: draw it ALONE on the bare body; its pixels are where that frame
+           differs from the naked one, and it shows in the full frame where the full frame agrees.
+           (Round 2 first tried 'take it off and diff' and it went blind wherever a coat sits
+           over a shirt of the same colour: Blues, Church, Remnants.) */
+        const frameWith = w => { window.G_WORN = w; rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
+          return buildFrame('S', 'idle', 0.25, true); };
+        const same = (a, c) => a && c && a[0] === c[0] && a[1] === c[1] && a[2] === c[2];
+        const naked = frameWith({});
+        const maskOf = k => { const solo = frameWith({ [k]: f.worn[k] });
+          return fr.px.map((q, i) => !!q && !!solo.px[i] && !same(solo.px[i], naked.px[i]) && same(solo.px[i], q)); };
+        /* the carrier is the over-garment that WEARS the territory hue most, not the first one listed */
+        let carrier = fr.px.map(() => false), best = -1; const cands = [];
+        for (const k of ['outer', 'back', 'base']) { if (!f.worn[k] || acc0 == null) continue;
+          const m = maskOf(k); let n = 0;
+          for (let i = 0; i < m.length; i++) if (m[i]) { const q = fr.px[i], mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]);
+            if (mx && (mx - mn) / mx >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc0) <= PAINT.accentWindow) n++; }
+          cands.push({ m, n }); if (n > best) best = n; }
+        /* every garment holding at least half the best garment's territory pixels joins the carrier */
+        for (const c of cands) if (best > 0 && c.n >= best * 0.5) carrier = carrier.map((v, i) => v || c.m[i]);
+        window.G_WORN = f.worn; rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
         const W = fr.CW, H = fr.CH, rule = PAINT.factions[f.faction] || {};
         const acc = rule.accentHue != null ? rule.accentHue : (worn[f.faction] && worn[f.faction].coloured >= 0.35 ? worn[f.faction].hue : null);
         const after = fr.px.map(q => q && q.slice());
@@ -60,14 +85,14 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
           const mx = Math.max(q[0], q[1], q[2]), mn = Math.min(q[0], q[1], q[2]), s = mx ? (mx - mn) / mx : 0;
           satB += s; const l = lum(q); let c;
           if (rule.five) { c = lerp(q, [l * 255, l * 255, l * 255], PAINT.vibranceDown); kept++; }
-          else if (acc != null && ((i / W) | 0) <= waist && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
+          else if (acc != null && carrier[i] && s >= 0.2 && gap(hueOf(q[0], q[1], q[2]), acc) <= PAINT.accentWindow) {
             c = lerp(q, [l * 255, l * 255, l * 255], PAINT.vibranceDown); kept++; }
           else c = neutral(l, rule.warm !== false);
           c = lerp(c, PAINT.ambient, PAINT.ambientPull);
           after[i] = [c[0] | 0, c[1] | 0, c[2] | 0, q[3] == null ? 255 : q[3]];
           const m2 = Math.max(...after[i].slice(0, 3)), n2 = Math.min(...after[i].slice(0, 3)); satA += m2 ? (m2 - n2) / m2 : 0;
         }
-        /* ONE ACCENT: the upper garment carries the territory, legs and boots go to the runway neutrals */
+        /* ONE ACCENT: the carrier garment holds the territory, everything else goes to the runway neutrals */
         /* the one-pixel outline: an opaque cloth pixel touching empty goes near-black */
         const ol = after.map(q => q);
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = y * W + x, q = after[i]; if (!q) continue;
