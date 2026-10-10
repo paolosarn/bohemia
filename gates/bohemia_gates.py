@@ -4295,6 +4295,8 @@ GATES = [
      'the body the game draws IS the body in the rig tool, byte for byte, and no second copy exists anywhere', False),
     ('TALLER BREAKS',  ['node', 'gates/only_taller_breaks_gate.js'],
      'belly and arms stay lossless whole-row translations; the tall-body invention count stays pinned and recorded', False),
+    ('THE TRAIL FILE', ['node', 'gates/trail_gate.js'],
+     'rule 96: the trail file is sealed as tools/bohemia_trail_sweep.js wrote it (no field by hand), and its lane, cite, silence and handoff-split counting holds on planted cases', False),
     ('REPLY CONTRACT', ['node', 'gates/reply_contract_gate.js'],
      'the ask and the TLDR are the last two things on his screen, and CLAUDE.md and the doctrine agree on that order; the reply checker holds 150 words and the last five lines (rule 90), proved both ways', False),
     ('LIMB SEPARATION',['node', 'gates/limb_separation_gate.js'],
