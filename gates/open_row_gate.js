@@ -47,7 +47,7 @@ function lanes(text) {
     if (!mode) return;                                         /* not a lane: the front page, the list, history */
     const name = L[h].slice(3).split('  (')[0].trim();
     if (/^SHARED\b/.test(name)) return;                        /* a pool any chat draws from, not a lane */
-    out.push({ name, mode, running: !/^MODE:\s*(PAUSED|PARKED)\b/i.test(mode),
+    out.push({ name, mode, running: !/^MODE:\s*(PAUSED|PARKED|HOLD)\b/i.test(mode),   /* HOLD: rule 88, 10/10 */
       open: body.filter(l => /^- OPEN\b/.test(l)),
       shipped: body.filter(l => /^- SHIPPED\b/.test(l)) });
   });
