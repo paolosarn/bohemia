@@ -1,0 +1,24 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>When The Data Changes</title>
+<style>:root{--bg:#0b0d0c;--ink:#cfd6cc;--dim:#6f7a70;--red:#d8352a;--amber:#d9a441;--ok:#7fb069;--line:#1d2320}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.4 ui-monospace,Menlo,Consolas,monospace;overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}
+.wrap{max-width:560px;margin:0 auto;padding:14px 16px 40px}h1{font-size:20px;letter-spacing:.08em;margin:6px 0 2px;text-transform:uppercase}
+.sub{color:var(--dim);font-size:12px;margin-bottom:12px}h2{font-size:12px;letter-spacing:.1em;color:var(--dim);margin:18px 0 6px}
+.n{display:flex;gap:6px}.n div{flex:1;border:1px solid var(--line);padding:8px 4px;background:#0e1110;text-align:center}.n b{display:block;font-size:26px;line-height:1;color:var(--ok)}.n b.r{color:var(--red)}.n span{font-size:10px;color:var(--dim)}
+.day{display:flex;align-items:center;gap:6px;margin:4px 0;font-size:12px}.day i{display:inline-block;height:12px}.n1{background:#4a5a4d}.a1{background:var(--ok)}.v1{background:var(--amber)}.b1{background:var(--red)}
+.card{border:1px solid var(--red);padding:10px;margin:8px 0;background:#120e0d;font-size:12px}.rule{border-left:3px solid var(--amber);padding:6px 10px;margin:6px 0;font-size:13px}.rule b{color:var(--ok)}.note{color:var(--dim);font-size:12px;margin-top:10px}</style></head><body><div class="wrap">
+<h1>When the data changes</h1><div class="sub">MODS. Eight days of the data folder, read from git. Nothing here is built.</div>
+<div class="n"><div><b>22</b><span>new files</span></div><div><b>14</b><span>added</span></div><div><b>7</b><span>numbers only</span></div><div><b class="r">1</b><span>could break a mod</span></div></div>
+<h2>EACH DAY (green added, grey new file, amber numbers, red break)</h2><div id="d"></div>
+<h2>THE ONE BREAK</h2><div id="b"></div>
+<h2>FOUR LINES OF POLICY</h2>
+<div class="rule"><b>1</b> One schema number for the folder. It goes up only on a break.</div>
+<div class="rule"><b>2</b> A mod says which number it was written for. Older: a warning, never a refusal.</div>
+<div class="rule"><b>3</b> Whoever removes or renames something writes DATA-BREAK in the commit.</div>
+<div class="rule"><b>4</b> The changelog is made by a tool, breaks first. These eight days: 58 lines.</div>
+<div class="note">No row id was ever removed. This is a young folder, being filled one lane at a time, so one break in 44 is the building phase, not the long run.</div></div>
+<script>var D=[["2026-10-02",{"n":10,"a":3,"v":4,"b":0}],["2026-10-04",{"n":0,"a":4,"v":1,"b":0}],["2026-10-05",{"n":4,"a":4,"v":0,"b":1}],["2026-10-09",{"n":8,"a":2,"v":2,"b":0}],["2026-10-10",{"n":0,"a":1,"v":0,"b":0}]];var B=[["ai.json","2026-10-05","kinds: field(s) gone: why","COMBAT [the enemy plays its part] (rule 63b): every brigand fights like his Battle Brother"]];
+function e(t,c,x){var q=document.createElement(t);if(c)q.className=c;if(x!==undefined)q.textContent=x;return q;}
+var d=document.getElementById('d');D.forEach(function(r){var x=e('div','day');x.appendChild(e('span','',r[0].slice(5)));[['n','n1'],['a','a1'],['v','v1'],['b','b1']].forEach(function(k){var v=r[1][k[0]];if(v){var i=e('i',k[1]);i.style.width=(v*10)+'px';x.appendChild(i);}});x.appendChild(e('span','',String(r[1].n+r[1].a+r[1].v+r[1].b)));d.appendChild(x);});
+var b=document.getElementById('b');B.forEach(function(r){var c=e('div','card');c.appendChild(e('div','',r[0]+'  '+r[1]));c.appendChild(e('div','',r[2]));c.appendChild(e('div','note',r[3]));b.appendChild(c);});
+</script></body></html>
