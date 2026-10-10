@@ -1,3 +1,34 @@
+CHARACTER (character-0lurbs): 10/10 (i) LATEST -- *** YOU SAID THE CHARACTERS LOOK
+LIKE DOG SHIT. THAT NO ALREADY LANDED, AND THE RIGHT TEAM IS ALREADY FIXING IT. ***
+TAB: no tab, this round found no new work to do, just checked the board is honest.
+Record: this VAMILY.md round text, checked against COOK THREE and DIRECTION's rows.
+
+Checked what is actually happening right now before touching anything. You already
+said this, almost word for word, about the last body this lane showed you: "looks
+like dogshit." That is on the board already, and the fix moved to the painters the
+same round, not to me.
+
+Here is who does what now. This lane builds the skeleton: the shape, the sizes,
+the slots clothes snap onto. A different team, the painters, color it in: the
+cloth, the skin, the materials. Your "dogshit" complaint is almost always about
+the paint, not the skeleton, and the skeleton already passed its own check (the
+six enemy ranks still look different from each other at a distance, which was
+the one thing the skeleton had to prove).
+
+The painters are already on it, with real back-and-forth, not just one try. The
+art director sent their gang-look redraw back twice already with specific notes
+(the colors, how cloth folds get drawn, how worn gear should look beat up). That
+is the normal way this gets better: try, get told exactly what is wrong, try
+again. It is round 4 right now on that one piece.
+
+Nothing on my own list moved this round because every item on it is waiting on
+the same thing: real reference pictures of how you want people to look, which
+the art director is working through family by family (ground finished, places
+finished, people's turn is coming). Drawing a new body before that picture
+exists is how you get a fourth bad version, so I did not draw one.
+
+PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/10 LATEST (round thirteen, [one song and the volumes]
 round three) -- *** THE DEAD RADIO FINALLY PLAYS, FOR REAL, IN THE ACTUAL GAME. ***
 TAB: no new VOTE card; this wires an already-approved sound nobody ever heard live.
