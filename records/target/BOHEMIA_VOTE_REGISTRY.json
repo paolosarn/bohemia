@@ -6639,9 +6639,22 @@
    "show": {
     "how": "image",
     "src": "vote/WORLD_THE_THREE_BLOCKS.png"
-   }
+   },
+   "sha": "daefd510"
   },
-{"id": "run-a-fresh-phone-sees-the-door-10-9", "kind": "ui", "lane": "run", "sha": "pending", "made": "10/9", "title": "A NEW PHONE OPENS ON THE START SCREEN, NOT IN THE CITY", "why": "A test walk skipped the start screen by clicking the hidden BEGIN behind it, so the game looked like it dropped strangers mid-game; now nothing but NEW GAME or CONTINUE gets you in, and the screen stays dark until the start screen is drawn. You see it when the DEMO first opens: before on the left, the start screen and the crew picks on the right.", "show": {"how": "image", "src": "vote/RUN_A_FRESH_PHONE_SEES_THE_DOOR_10_9.jpg"}}
+  {
+   "id": "run-a-fresh-phone-sees-the-door-10-9",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "A NEW PHONE OPENS ON THE START SCREEN, NOT IN THE CITY",
+   "why": "A test walk skipped the start screen by clicking the hidden BEGIN behind it, so the game looked like it dropped strangers mid-game; now nothing but NEW GAME or CONTINUE gets you in, and the screen stays dark until the start screen is drawn. You see it when the DEMO first opens: before on the left, the start screen and the crew picks on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_A_FRESH_PHONE_SEES_THE_DOOR_10_9.jpg"
+   }
+  }
  ],
  "verdicts": [
   {
