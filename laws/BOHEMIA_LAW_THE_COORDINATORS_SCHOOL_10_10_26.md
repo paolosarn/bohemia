@@ -47,3 +47,7 @@ RULE: NOTHING IS HEARD UNTIL IT IS SAID BACK AND THE SENDER SAYS CORRECT. Applie
 ## ROUND THREE: TRIAGE (Larrey, START, the emergency room, bug triage; records/BOHEMIA_COORDINATOR_SCHOOL_THIRD_ROUND_TRIAGE_10_10_26.md)
 
 RULE: THE SORTER DOES NOT TREAT, AND THE WALKING LEAVE THE TENT. Applied as front-page rule 92 and as a real sort the same hour: 179 waiting items tagged (10 red, 38 yellow, 37 green, 94 gray) in records/target/BOHEMIA_VOTE_TRIAGE.json; twelve reds at most, one per lane per sweep; the sweep sorts lanes STILL / WAVE / WALK before reading a diff and writes eight notes or fewer. UI [the triage filter] makes the tab show it.
+
+## ROUND FOUR: CALLING THE SHOW (the stage manager, live television, the pit lane, the launch count; records/BOHEMIA_COORDINATOR_SCHOOL_FOURTH_ROUND_CALLING_THE_SHOW_10_10_26.md)
+
+RULE: NOTHING GOES LIVE WITHOUT A CALLED GO, AND NOBODY BUT THE COORDINATOR SAYS IT. Applied as front-page rule 93 and BUILD_CALLING_SCRIPT.md at the root (the prompt book, seven cues seeded, the first report written), cut to fit the fleet: the G-O guards the demo cut, not every alpha push, because the lanes work while the coordinator sleeps and a count that waits on one caller would freeze them; the holds (T-9, PLACES), the SCRUB (revert, never fix forward) and the five-line report are taken whole. RUN [the calling script].
