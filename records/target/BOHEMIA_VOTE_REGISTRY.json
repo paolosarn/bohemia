@@ -7377,9 +7377,32 @@
    }
   },
   {
-   "id": "factions-a-face-that-remembers-10-10", "kind": "tile", "lane": "factions", "sha": "2ab7dba6", "made": "10/10",
-   "title": "A FACE THAT REMEMBERS", "why": "Each faction has one face, one want and one line that changes with how you treated them, ready to speak the day a portrait lands. You see it in the VOTE tab: four factions, each saying three different things for three ways you could have treated them.",
-   "show": {"how": "page", "src": "vote/FACTIONS_A_FACE_THAT_REMEMBERS_10_10.html"}
+   "id": "factions-a-face-that-remembers-10-10",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "2ab7dba6",
+   "made": "10/10",
+   "title": "A FACE THAT REMEMBERS",
+   "why": "Each faction has one face, one want and one line that changes with how you treated them, ready to speak the day a portrait lands. You see it in the VOTE tab: four factions, each saying three different things for three ways you could have treated them.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_A_FACE_THAT_REMEMBERS_10_10.html"
+   }
+  },
+  {
+   "id": "direction-fight-verdict-23-the-pack-boards-10-10",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/10",
+   "title": "FIGHT VERDICT 23: THE BOARDS FROM YOUR TILES",
+   "why": "The fight streets are your cracked asphalt now and the board reads sharp on the phone for the first time, twelve times the detail of last check, while the freeway, the camouflage sand, the gold rings and the word box are marked as still wrong. You see it in the VOTE tab under LOOK, three boards side by side.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_FIGHT_VERDICT_23_THE_PACK_BOARDS.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
   }
  ],
  "verdicts": [

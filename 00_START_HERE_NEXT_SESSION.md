@@ -60747,7 +60747,14 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/10c (latest): THE REVAMP PASS round one (rule 87): COOK FOUR PASS
+ROUND LOG 10/10d (latest): [fight verdict 23] SHIPPED: F1 PASS (1.0) and F2 PASS
+(0.025/0.024/0.021 on the glass, 12x verdict 22) for the first time; F3-F5 not
+yet (camouflage sand, a pale line down the board, freeway still the old road,
+flat barrier); 4 of 22's 7 still wrong. Revamp pass round two: COOK TWO PASS,
+COMBAT TWO street PASS / board BACK, COOK THREE BACK; notes at the top of each
+section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_TWO_10_10_26.md. Next OPEN:
+[fight verdict 24]. [the reference twin] stays CLAIMED (places, map, people).
+ROUND LOG 10/10c: THE REVAMP PASS round one (rule 87): COOK FOUR PASS
 (to VOTE), COOK TWO road PASS / sheet BACK, COOK THREE BACK; notes put at the top
 of each cook's section; records/BOHEMIA_THE_REVAMP_PASS_ROUND_ONE_10_10_26.md.
 Runway, face and phone twins still [PENDING Paolo] via the coordinator.
