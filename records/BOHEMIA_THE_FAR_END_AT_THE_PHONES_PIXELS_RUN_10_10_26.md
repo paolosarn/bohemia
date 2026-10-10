@@ -1,5 +1,9 @@
 # THE FAR END AT THE PHONE'S PIXELS (RUN, 10/10/26, [the far end at two million pixels], rules 60, 65, 88, 89)
 
+> **PLACEHOLDER (rule 100e, Paolo 10/10: 'art cooks until I say final'):** the land painted at the phone's pixels and the
+> flattened front shipped before rule 100; they stay in the demo as a placeholder and nothing is added to them until he
+> votes FINAL on the map family. The row's second half (COOK's paintings, the one road kit) waits on that FINAL.
+
 > **PAOLO (10/1, 10/2 twice, 10/4):** *"how many pixels is the Battle Brothers map, we haven't made any progress."*
 
 ## MEASURED FIRST (the far stop, his phone's profile, 390 x 844 at 3x)
