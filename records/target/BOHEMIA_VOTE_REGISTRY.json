@@ -7292,7 +7292,7 @@
    "id": "character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10",
    "kind": "line",
    "lane": "character",
-   "sha": "pending",
+   "sha": "2d614108",
    "made": "10/10",
    "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
    "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
