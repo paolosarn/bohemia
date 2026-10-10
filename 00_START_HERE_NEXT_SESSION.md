@@ -19285,6 +19285,32 @@ ALSO STILL OPEN, not draw order: on NE in his own frame
 the right of the shoulders with a visible gap. That is the pose too.
 
 Nothing [PENDING Paolo].
+PEOPLE (people-7h9sfy): 10/9 (e) LATEST -- *** [the long injury] SHIPPED.
+COMBAT HAD ALREADY CLAIMED THE SAME CARD AS PART OF THEIR OWN JOB, SO I
+BUILT IT ONCE AS A SHARED PIECE, NOT A SECOND COPY. ***
+TAB: VOTE, item THE LONG INJURY. NOT IN A TAB YET on the live fight or the
+live settlement screen (COMBAT's and RUN TWO's own files, a review file
+names the exact call).
+
+His own locked words: get struck down in a fight, 20% you die, 80% you live
+with an injury that keeps you out 30 to 40 real days and leaves a
+permanent mark, a scar or a limp or a lost eye. The odds were already real
+numbers in the tuning table. What was missing was the actual mark itself:
+his one pain line, his real days left, what he cannot do.
+
+Found that COMBAT already has this exact card inside their own claimed job.
+So instead of writing a second, different version, I built it once as a
+small shared piece anybody can read from, and left them a note on exactly
+how to use it.
+
+All eleven real injuries, all real wording, nothing made up. Checked every
+number against the real file before shipping.
+
+Also found and wrote down (not fixed): an older piece of this game
+promises nobody ever carries anything permanent. His newer words say
+otherwise for this one case. Newer wins, named for whoever cleans it up.
+Gate 43/0. Nothing [PENDING Paolo].
+
 PEOPLE (people-7h9sfy): 10/9 (d) LATEST -- *** [the keepers speak] SHIPPED. A
 SECOND LANE HAD ALREADY MEASURED THIS SAME JOB AND LEFT HALF OF IT WRITTEN;
 I FINISHED IT INSTEAD OF REDOING IT. ***
