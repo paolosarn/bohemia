@@ -1,0 +1,68 @@
+{
+ "rows": {
+  "enemy-pack:swamp_thug": {
+   "name": "Swamp Thug",
+   "faction": "brigands",
+   "variant": "base",
+   "hp": 65,
+   "fatigue": 95,
+   "resolve": 40,
+   "initiative": 95,
+   "melee_skill": 50,
+   "ranged_skill": 50,
+   "melee_defense": 0,
+   "ranged_defense": 5,
+   "ap": 9,
+   "armor_head": "0-20",
+   "armor_body": 20,
+   "fatigue_recovery": 15,
+   "champion_chance": null,
+   "gear": [
+    "Short Bow",
+    "Staff Sling",
+    "Wooden Stick",
+    "Knife",
+    "Leather Wraps",
+    "Headscarf",
+    "Mouthpiece"
+   ],
+   "gear_detail": [
+    "- A Short Bow or Staff Sling.",
+    "- A Wooden Stick or Knife.",
+    "- Leather Wraps (20).",
+    "- 50% chance of a Headscarf (20) or Mouthpiece (10)."
+   ],
+   "perks": [
+    "Recover",
+    "Rotation"
+   ],
+   "skills": [
+    "Hand-To-Hand Attack"
+   ],
+   "traits": [],
+   "stat_modifiers": [],
+   "immune": [],
+   "not_immune": [
+    "Stun",
+    "Disarm",
+    "Nighttime",
+    "Nets",
+    "Forced movement",
+    "Injuries",
+    "Bleeding",
+    "Poison",
+    "Morale",
+    "Fatigue"
+   ],
+   "xp": 175,
+   "notes": "Brigand Poacher is the weak ranged enemy from the Brigands faction.",
+   "source": "bb_all/0295_Brigand Poacher.txt",
+   "listed_in": [
+    "brigands"
+   ],
+   "table_sources": [
+    "bb_all/0299_Brigands.txt"
+   ]
+  }
+ }
+}

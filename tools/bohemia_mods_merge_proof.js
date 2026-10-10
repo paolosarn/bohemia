@@ -70,6 +70,24 @@ wj.rows = { 'new-sword:moon-blade': wj.rows['moon-blade'] }; fs.writeFileSync(wp
 const rnm = merge(nm2, { namespace: true });
 ok('8c a prefixed id is silent and added', !rnm.log.some(l => l[1].includes('should start with')) && rnm.data['weapons.json'].rows.some(r => r.id === 'new-sword:moon-blade'));
 ok('8d with the policy off there is no id warning, and a bare id still loads', !merge(nm).log.some(l => l[1].includes('should start with')) && merge(nm).data['weapons.json'].rows.some(r => r.id === 'moon-blade'));
+/* 9 the five worked mods a stranger can copy each do exactly what the README says, with no fault and no warning */
+const each = ['enemy-pack', 'poorer-start', 'fair-wages', 'sharper-mastery', 'new-helm'];
+const run1 = n => { const d = tmp(); copyMods(d, [n]); return merge(d, { ranges, namespace: true }); };
+const clean = r => !r.log.some(l => l[0] === 'bad' || l[0] === 'warn');
+const b9 = loadBase();
+const r1 = run1('enemy-pack'), r2 = run1('poorer-start'), r3 = run1('fair-wages'), r4 = run1('sharper-mastery'), r5 = run1('new-helm');
+ok('9a all five example mods load with no fault and no warning', [r1, r2, r3, r4, r5].every(clean), [r1, r2, r3, r4, r5].map(r => r.log.filter(l => l[0] !== 'ok').map(l => l[1]).join(' / ')).join(' | '));
+const sw = r1.data['enemies.json'].rows.find(r => r.id === 'enemy-pack:swamp_thug');
+ok('9b enemy-pack adds one enemy, ten hit points tougher than the poacher it copies', !!sw && sw.hp === b9['enemies.json'].rows.find(r => r.id === 'brigand_poacher').hp + 10 && r1.data['enemies.json'].rows.length === b9['enemies.json'].rows.length + 1);
+const o2 = r2.data['origins.json'].origins.find(r => r.id === 'rebuild'), o0 = b9['origins.json'].origins.find(r => r.id === 'rebuild');
+ok('9c poorer-start changes only batteries.full', o2.batteries.full === 200 && o2.batteries.thin === o0.batteries.thin && o2.batteries.bare === o0.batteries.bare);
+ok('9d fair-wages changes one wage and nothing else', r3.data['backgrounds.json'].rows.find(r => r.id === 'adventurous_noble').daily_wage === 20 && JSON.stringify(r3.data['backgrounds.json'].rows.filter(r => r.id !== 'adventurous_noble')) === JSON.stringify(b9['backgrounds.json'].rows.filter(r => r.id !== 'adventurous_noble')));
+const p4 = r4.data['perks.json'].rows.find(r => r.id === 'mace_mastery').numbers, p0 = b9['perks.json'].rows.find(r => r.id === 'mace_mastery').numbers;
+ok('9e sharper-mastery changes one perk number and keeps the others', p4.fatigue_reduction_pct === 30 && p4.stun_chance_pct === p0.stun_chance_pct && p4.stun_chance_increase_pct === p0.stun_chance_increase_pct);
+ok('9f new-helm adds one head piece to the head table', r5.data['armor.json'].head.length === b9['armor.json'].head.length + 1 && r5.data['armor.json'].head.some(r => r.id === 'new-helm:salvage_helm'));
+const wage99 = tmp(); fs.cpSync(path.join(EX, 'fair-wages'), path.join(wage99, 'fair-wages'), { recursive: true });
+fs.writeFileSync(path.join(wage99, 'fair-wages', 'backgrounds.json'), JSON.stringify({ rows: { adventurous_noble: { daily_wage: 99 } } }));
+ok('9g a wage of 99 warns (outside 0 to 35) and still loads', merge(wage99, { ranges }).log.some(l => l[0] === 'warn' && l[1].includes('outside every base row')) && merge(wage99, { ranges }).data['backgrounds.json'].rows.find(r => r.id === 'adventurous_noble').daily_wage === 99);
 /* 6 no play surface asks for a mods folder: nothing in the game loads one (his 9/30 NAH) */
 const surfaces = ['slices/BOHEMIA_DEMO.html', 'slices/BOHEMIA_ALPHA_0_9.html', 'slices/BOHEMIA_FIGHT.html', 'slices/BOHEMIA_CITY_WORLD.html'];
 const asks = surfaces.filter(f => /fetch\(\s*['"`][^'"`]*\bmods\//.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));

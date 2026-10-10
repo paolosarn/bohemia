@@ -62,6 +62,13 @@ function patchTable(baseTbl, patch, log, where) {
     for (const [k, v] of Object.entries(change)) {
       if (!types[k]) { log.push(['warn', where + '.' + id + '.' + k + ': no row in the base has this field. Ignored.']); continue; }
       if (v !== null && !types[k].has(typeOf(v))) { log.push(['bad', where + '.' + id + '.' + k + ': wants ' + [...types[k]].join(' or ') + ', got ' + typeOf(v) + '. The whole row change is skipped.']); ok = false; break; }
+      if (isRow(v) && isRow(next[k])) {   /* an object inside a row is merged one level, so changing one number of a perk does not erase the others */
+        let objOk = true;
+        for (const [kk, vv] of Object.entries(v)) if (kk in next[k] && next[k][kk] !== null && vv !== null && typeOf(vv) !== typeOf(next[k][kk])) { log.push(['bad', where + '.' + id + '.' + k + '.' + kk + ': wants ' + typeOf(next[k][kk]) + ', got ' + typeOf(vv) + '. The whole row change is skipped.']); objOk = false; break; }
+        if (!objOk) { ok = false; break; }
+        next[k] = Object.assign({}, next[k], v);
+        continue;
+      }
       next[k] = v;
       const rg = RANGES && RANGES[where.split('.')[0] + '.json'] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')] && RANGES[where.split('.')[0] + '.json'][where.split('.').slice(1).join('.').replace(/ .*/, '')][k];
       if (rg && typeof v === 'number' && (v < rg.min || v > rg.max)) log.push(['warn', where + '.' + id + '.' + k + ': ' + v + ' is outside every base row (' + rg.min + ' to ' + rg.max + '). Applied; check it is meant.']);
