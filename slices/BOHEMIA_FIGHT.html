@@ -1532,24 +1532,46 @@ function nightPass(g, w, h, keep, lift) {
   g.restore();
 }
 function nightPools(g, c, lights, k, pxm, pym, onGlass) {
+  /* THE LIT TILES LOOK LIT (rule 73, rule 88): a lamp shows the ground's own colours, warmed; it does not paint over them. The
+     day's ground is kept before the night's colour goes down, and under every lamp's pool AND every tile the rules light (a
+     pool is 7 m, a tile 12 m, the lamps on tile edges: a lit tile showed a lit sliver on a dark tile, 1.1 to 1.7 to 1 on five
+     boards in six, the floor is 3) the day comes back, lifted warm, through one soft mask: the pools' gradients at half (their spill) and the lit
+     ground at four cells a tile blown up smooth, a quarter tile soft, one pool and never a grid. No rule moves: the set is S.lit.
+     onGlass: the same, straight on the screen (the sharp ground, [the art at its own pixels]). */
+  const cv = g.canvas, T = g.getTransform(), day = document.createElement('canvas');
+  day.width = cv.width; day.height = cv.height; day.getContext('2d').drawImage(cv, 0, 0);
   nightPass(g, c.width, c.height);
-  /* onGlass: the same pools drawn straight on the screen (the sharp ground, [the art at its own pixels]) */
-  const pool = function (ctx, l, stops) {
+  const live = FIGHT.S.power ? lights.filter(function (l) { return l.live; }) : [];
+  UI.poolsDrawn = live.length;
+  if (!live.length) return;
+  const mk = document.createElement('canvas'); mk.width = cv.width; mk.height = cv.height;
+  const m = mk.getContext('2d'); m.setTransform(T);
+  live.forEach(function (l) {
     let X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
     if (onGlass) { X = sx(X); Y = sy(Y); r *= UI.zoom; }
-    ctx.save(); ctx.translate(X, Y); ctx.scale(1, pym / pxm);
-    const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
-    stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); });
-    ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.restore();
-  };
-  const live = FIGHT.S.power ? lights.filter(function (l) { return l.live; }) : [];
-  g.save(); g.globalCompositeOperation = 'screen';
-  live.forEach(function (l) {
-    const warm = l.kind === 'drum' ? '255,150,70' : '255,196,128';
-    pool(g, l, [[0, 'rgba(' + warm + ',.9)'], [.6, 'rgba(' + warm + ',.8)'], [.9, 'rgba(' + warm + ',.62)'], [.97, 'rgba(' + warm + ',.25)'], [1, 'rgba(' + warm + ',0)']]);
+    m.save(); m.translate(X, Y); m.scale(1, pym / pxm);
+    const gr = m.createRadialGradient(0, 0, 0, 0, 0, r);
+    POOL_STOPS.forEach(function (st) { gr.addColorStop(st[0], 'rgba(0,0,0,' + st[1] + ')'); });
+    m.fillStyle = gr; m.beginPath(); m.arc(0, 0, r, 0, Math.PI * 2); m.fill(); m.restore();
   });
-  g.restore();
-  UI.poolsDrawn = live.length;
+  litMask(m, onGlass);
+  const lay = day.getContext('2d');
+  lay.globalCompositeOperation = 'lighter'; lay.drawImage(day, 0, 0);   /* the lamp doubles the ground's own light: its detail kept, not painted flat */
+  lay.globalCompositeOperation = 'screen'; lay.fillStyle = LAMP_LIFT; lay.fillRect(0, 0, day.width, day.height);
+  lay.globalCompositeOperation = 'destination-in'; lay.drawImage(mk, 0, 0);
+  g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(day, 0, 0); g.restore();
+}
+const POOL_STOPS = [[0, .5], [.6, .45], [.9, .3], [.97, .12], [1, 0]], LAMP_LIFT = 'rgba(255,176,104,.38)', WASH_CELLS = 4;
+function litMask(m, onGlass) {
+  const S = FIGHT.S; if (!S.lit) return;
+  const w = document.createElement('canvas'); w.width = S.w * WASH_CELLS; w.height = S.h * WASH_CELLS;
+  const wc = w.getContext('2d'); wc.fillStyle = '#000'; let n = 0;
+  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.lit[y][x] && FIGHT._t.passable(x, y)) { wc.fillRect(x * WASH_CELLS, y * WASH_CELLS, WASH_CELLS, WASH_CELLS); n++; }   /* the street, never the roof: a roof under a lamp blew out white */
+  UI.washed = n; if (!n) return;
+  m.save(); m.imageSmoothingEnabled = true; m.imageSmoothingQuality = 'high';
+  if (onGlass) m.drawImage(w, sx(0), sy(0), S.w * UI.tw * UI.zoom, S.h * UI.th * UI.zoom);
+  else m.drawImage(w, 0, 0, S.w * UI.tw, S.h * UI.th);
+  m.restore();
 }
 /* a man standing in the dark is drawn from the same bank frames in the night's colour (cached per atlas), the moonlight
    lifted halfway to white on him (a figure catches the light his ground swallows), so he stands off the night's ground

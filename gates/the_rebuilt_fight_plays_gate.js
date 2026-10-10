@@ -736,6 +736,30 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* THE LIT TILES LOOK LIT (rule 73, rule 88): a lamp's pool is 7 m and a tile 12 m, the lamps on tile edges, so a tile the rules
+   call lit showed a lit sliver on a dark tile. Measured as the lamp's own work: every walkable lit tile against ITSELF with the
+   block's power off (the same ground, the same night), on three boards; the board-wide median (sunTest) compares asphalt
+   against sand and stays where it is */
+async function litLooksLit() {
+  const grab = async (seed, power) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:' + seed + ',speed:1,night:true' + (power ? '' : ',power:false') + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1200);
+    const r = await d.page.evaluate(() => { const S = FIGHT.S, T = FIGHT._t, B = FIGHT_UI.board, bd = B.getContext('2d').getImageData(0, 0, B.width, B.height).data, tw = B.width / S.w, th = B.height / S.h;
+      const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }, Y = i => .2126 * lin(bd[i]) + .7152 * lin(bd[i + 1]) + .0722 * lin(bd[i + 2]);
+      const t = {}; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const v = []; for (let i = 1; i < 6; i++) for (let j = 1; j < 6; j++) v.push(Y((Math.floor((y + j / 6) * th) * B.width + Math.floor((x + i / 6) * tw)) * 4)); v.sort((a, b) => a - b); t[x + ',' + y] = v[12]; }
+      const lit = []; if (S.lit) for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.lit[y][x] && T.passable(x, y)) lit.push(x + ',' + y);
+      return { t, lit }; });
+    r.err = d.errs[0]; await d.close(); return r;
+  };
+  const rows = [];
+  for (const seed of [31, 3, 7]) { const on = await grab(seed, true), off = await grab(seed, false);
+    const rs = on.lit.map(k => (on.t[k] + .05) / (off.t[k] + .05)).sort((a, b) => a - b);
+    rows.push({ seed, n: rs.length, min: rs[0] || 0, under: rs.filter(r => r < 3).length, err: on.err || off.err }); }
+  leg(rows.every(r => r.n > 0 && r.under === 0 && !r.err), '*** THE LIT TILES LOOK LIT (rule 73) ***: every walkable tile the rules light stands at least three to one over itself with the power off, on three boards (37 of 84 were under, some at 1.06)',
+    rows.map(r => 'seed ' + r.seed + ': ' + r.n + ' lit, the dimmest ' + r.min.toFixed(2) + ' to 1').join('; '));
+}
+
 /* THE HEAD UNDER THE STRIP (rule 88): every step and swing a man makes ends with his whole box, head to feet, on the glass
    between the turn strip and the bar, on four screens, AUTO driving a whole fight on the beat; and the fight never stalls
    behind a camera that cannot frame a man (the computer froze in round one: the follow glided at a man the clamp could not
@@ -802,7 +826,8 @@ async function artPixels() {
         const c = document.createElement('canvas'); c.width = tp[0] - pad * 2; c.height = tp[1] - pad * 2;
         c.getContext('2d').drawImage(im, -(((tx + ox) % bt) * tp[0] + pad), -(((ty + oy) % bt) * tp[1] + pad));
         const file = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
-        return { glass: edges(glass, gw, gh), file: edges(file, c.width, c.height), mode: U.groundMode, artPerGlass: U.tw * U.zoom * DPR / tp[0] }; };
+        const ay = Math.round(TOPH * DPR), ah = Math.round((H - TOPH - BOTH) * DPR), aw = Math.round(W * DPR);
+        return { glass: edges(glass, gw, gh), file: edges(file, c.width, c.height), all: edges(cx.getImageData(0, ay, aw, ah).data, aw, ah), mode: U.groundMode, artPerGlass: U.tw * U.zoom * DPR / tp[0] }; };
       requestAnimationFrame(() => requestAnimationFrame(() => { const now = measure(); U.bakedOnly = true;
         requestAnimationFrame(() => requestAnimationFrame(() => { const was = measure(); U.bakedOnly = false; U.groundOnly = false; U.fps = 0;
           const t0 = performance.now(); let n = 0; U.groundOnly = false;
@@ -819,8 +844,8 @@ async function artPixels() {
   leg(ratio(night) >= .5 && night.fps >= 50 && day.fps >= 50 && !day.err && !night.err,
     '  by night too (the night\'s colour costs it some edges, never the art), and the phone holds 60 frames: the ground is drawn once per camera move, not every frame',
     'night ' + Math.round(100 * ratio(night)) + '%, ' + Math.round(day.fps) + ' fps day, ' + Math.round(night.fps) + ' fps night, ' + night.draws + ' ground draws');
-  leg(wide.now.mode !== 'baked' && wide.now.glass >= .95 * wide.was.glass && !wide.err, '  on a computer the ground is drawn from the art too, never softer than the bake',
-    wide.now.mode + ', glass ' + f(wide.now.glass) + ' vs baked ' + f(wide.was.glass));
+  leg(wide.now.mode !== 'baked' && wide.now.all >= .95 * wide.was.all && !wide.err, '  on a computer the ground is drawn from the art too, never softer than the bake (every visible tile, not one: one tile moved with the camera)',
+    wide.now.mode + ', the glass ' + f(wide.now.all) + ' vs baked ' + f(wide.was.all));
 }
 
 async function struckDown() {
@@ -863,6 +888,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await litLooksLit();
   await actFramed();
   await flippedLook();
   await artPixels();
