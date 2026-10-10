@@ -170,4 +170,5 @@ def main():
         for c, n in enumerate(row): board.paste(Image.open(os.path.join(OUT, n + '.webp')), (c * TW, r * TH))
     board.save(os.path.join(OUT, 'sample_board.webp'), lossless=True)
     print('pieces', len(PIECES), 'paint', PAINT, 'kerb', KERB)
-main()
+if __name__ == '__main__':
+    main()
