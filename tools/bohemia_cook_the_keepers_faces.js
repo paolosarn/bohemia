@@ -1,6 +1,15 @@
 #!/usr/bin/env node
 /* BOHEMIA -- COOK: THE KEEPERS' FACES. PORTRAIT, 10/9/26, [the keepers' faces].
  *
+ * REFERENCE CHECK (the 9/4 standing duty): no new pixel is drawn here -- every
+ * keeper's face is the SAME faceFor()/facePerform()/renderFace() pipeline this
+ * lane's own shipped portrait work already carries, rulers FACE-01, FACE-02
+ * and FACE-03 (identity at small sizes is spacing, not detail; the vertical
+ * thirds; EVERYBODY HAS A FACE, laws/BOHEMIA_LAW_EVERYBODY_HAS_A_FACE_8_27_26.md).
+ * The only new idea this tool proves is the id convention (place + kind); it
+ * reads PEOPLE's own real price lines from engine/bohemia_keeper_lines.js,
+ * never invented. Ids resolve in the reference library index.
+ *
  * Rule 71a (one painted place), RUN TWO's own note: "the keepers' face request
  * unanswered in the demo." slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's
  * file, untouched here) already has the door built: its face(k) posts
