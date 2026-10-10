@@ -5032,6 +5032,14 @@ GATES = [
      'twice; the ready time does not move, because the wall is the processor (record has the CPU profile). LANDS RED ON '
      'PURPOSE on the title, the ready time and the page re-read; NEVER WORSE on the bytes. Three planted self-tests. About 90 s.',
      600),
+    ('EVERY RUNNING LANE HAS A JOB', ['node', 'gates/open_row_gate.js'],
+     'THE OPEN ROWS ON THE BOARD. 10/10, PLUMBER, row [open row gate], rule 74 (Paolo 10/4: "they don\'t have jobs, '
+     'what the fuck is wrong with you"). Reads VAMILY.md as a chat does: a lane is a section with a MODE line (SHARED '
+     'is a pool), running unless PAUSED or PARKED, a job is a line starting "- OPEN". O1 every running lane has one; '
+     'O3 three (rule 74); M1 no MODE line names one row; R1 no SHIPPED row says ROUND <n> OPEN. Red names the lane. '
+     'Five planted boards; a mutated copy of the real one names RUN TWO on three legs. Landed red on purpose: O3 '
+     '(WORLD, RUN TWO, ECONOMY, MODS at two) and R1 (SOUNDS, RUN TWO). No browser, under a second.',
+     False),
     ('PROOF SHOTS STAY PUT', ['node', 'gates/proof_shots_gate.js'],
      'A GATE RUN CHANGES NOTHING GIT TRACKS. 10/9, PLUMBER, row [proof shots churn] (the coordinator: five commits in '
      'seven minutes re-committed RUN TWO settlement proof shots because the gate re-shoots on every run). MEASURED: the '
