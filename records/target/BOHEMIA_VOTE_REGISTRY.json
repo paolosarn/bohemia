@@ -7078,6 +7078,20 @@
    }
   },
   {
+   "id": "tuning-what-each-origin-starts-known-for-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "pending",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT EACH ORIGIN STARTS KNOWN FOR",
+   "why": "Every starting story begins with some fame, a good or bad name, and a standing with the nearest powers. The VOTE tab lists all fifteen. Three begin hated, and our data has none of it yet.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_EACH_ORIGIN_STARTS_KNOWN_FOR_10_10_26.html"
+   }
+  },
+  {
    "id": "tuning-what-the-starting-kit-costs-10-10",
    "kind": "tile",
    "lane": "tuning",

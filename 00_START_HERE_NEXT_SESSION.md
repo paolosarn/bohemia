@@ -1,3 +1,8 @@
+TUNING (tuning-f59l1w): 10/10 (n) LATEST -- [origin renown and relations] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT EACH ORIGIN STARTS KNOWN FOR (draft:true).
+RECORD: records/BOHEMIA_TUNING_ORIGIN_RENOWN_AND_RELATIONS_ORIGINS_JSON_HAS_NONE_OF_THEM_10_10_26.md (+ table JSON, all 15 cited to their pages)
+FINDING: every wiki origin has renown/reputation/relations; origins.json has none. Raiders, Deserters, Militia start in debt of standing. Routed to PEOPLE/FACTIONS. Next row [origin food and goods] added.
+
 MODS (mods-59jyd6): 10/10 LATEST -- [read count] SHIPPED (rule 95 turned it; two-line post-mortem written in the record: it sat CLAIMED
 with the number only in my handoff and no record, so it looked stalled). Record
 records/BOHEMIA_MODS_READ_COUNT_ROUND_THREE_AND_POST_MORTEM_10_10_26.md. READ COUNT at 21eedd45: old fight 3 (was 4), new fight 1,
