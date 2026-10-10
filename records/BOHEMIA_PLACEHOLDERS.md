@@ -127,6 +127,8 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - combat2-the-rest-join-10-10
 - combat2-the-street-from-the-packs-10-10
 - combat2-the-district-seeds-the-board-10-10
+  (COMBAT TWO, rule 101a, the files: every combat2 card above lives in slices/fight_ground/ (block_*.webp, cover_*.webp, light_*.webp, fight_ground.json: boards, sized, futures, districts) and slices/settlement_ground/; made by tools/bohemia_combat2_*. All placeholders; not edited from 10/10 (rule 101c). The street pixels inside the town blocks are COOK TWO's kit.)
+
 
 ## COOK (28 placeholder cards)
 - cook-the-ground-you-fight-on-9-21
