@@ -6387,17 +6387,17 @@
    }
   },
   {
-    "id": "cook-the-building-props-10-10",
-    "kind": "tile",
-    "lane": "cook",
-    "sha": "pending",
-    "made": "10/10",
-    "title": "THE SIX BUILDINGS' PROPS",
-    "why": "The six new buildings had nothing in them, so here is one prop each: pumps for the gas station, pews spilling out of the church, a school fence with a gate in it, the motel ice machine, warehouse pallets and slot machines dumped in the casino's back lot, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six with their sizes on them.",
-    "show": {
-      "how": "image",
-      "src": "vote/COOK_THE_BUILDING_PROPS.png"
-    }
+   "id": "cook-the-building-props-10-10",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "THE SIX BUILDINGS' PROPS",
+   "why": "The six new buildings had nothing in them, so here is one prop each: pumps for the gas station, pews spilling out of the church, a school fence with a gate in it, the motel ice machine, warehouse pallets and slot machines dumped in the casino's back lot, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six with their sizes on them.",
+   "show": {
+    "how": "image",
+    "src": "vote/COOK_THE_BUILDING_PROPS.png"
+   }
   },
   {
    "id": "run2-climbing-10-10",
@@ -6751,6 +6751,20 @@
    "show": {
     "how": "page",
     "src": "BOHEMIA_MODS_MODS_TO_COPY_10_10_26.html"
+   }
+  },
+  {
+   "id": "tuning-when-a-man-walks-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "pending",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHEN A MAN WALKS",
+   "why": "Battle Brothers has seven moods, and only an angry man deserts. Each unpaid day drops a man one step, so a content hire is angry on day 3, which is your 'a couple of days'. Slide the days unpaid in the VOTE tab, and change his start and his nature (greedy, loyal, disloyal). Our demo has no company mood yet.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHEN_A_MAN_WALKS_10_10_26.html"
    }
   }
  ],

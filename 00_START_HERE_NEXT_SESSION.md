@@ -1,3 +1,14 @@
+TUNING (tuning-f59l1w): 10/10 (g) LATEST -- [mood and desertion] SHIPPED (research, no code touched); also CORRECTED my 10/9 difficulty page.
+TAB: VOTE, item WHEN A MAN WALKS (band + trait slider, draft:true); the difficulty page tile is fixed.
+RECORD: records/BOHEMIA_TUNING_MOOD_AND_DESERTION_THE_BANDS_THE_DRIFT_AND_A_CLOCK_THE_WIKI_DOES_NOT_GIVE_10_10_26.md
+Mood page (read here): 7 bands (Euphoric 86-100 ... Angry 0-15), starting-confident 75/50/25 for Euphoric/Eager/Good Spirits, Dissatisfied->steady or
+worse, Disgruntled->wavering or worse, Angry->breaking or worse, daily drift toward 50. Traits (read here): Loyal 50% less likely to desert,
+Disloyal 100% more, Pessimist +33% negative, Optimist +33% positive. The -1/-2 daily deltas are GROK's (the wiki's template tables are not in the
+dump). The wiki gives NO day count. If -1 = one band step, a Content hire is Angry on day 3 (= his 'a couple of days'); greedy day 1.5. That reading is
+unverified. THE DEMO HAS NO COMPANY MOOD OR DESERTION (its only 'mood' is facial brow/speech tone), so unpaid wages cost nothing.
+CORRECTION: Game Guide table: contract rewards and selling prices are 100/100/90 percent Beginner/Veteran/Expert; Beginner is NOT +10. Fixed in the
+difficulty record, its VOTE page and the draft table (econ.contract_pay_mult).
+NEXT OPEN: [origins difficulty] (origins.json already carries a difficulty and d per origin; read it first).
 MODS (mods-59jyd6): 10/10 LATEST -- [more worked mods] SHIPPED. TAB: VOTE, item MODS TO COPY (7 cards: tap one for
 the patch, the lesson and what the checker said). Record records/BOHEMIA_MODS_MODS_A_STRANGER_CAN_COPY_10_10_26.md;
 folders in tools/mods_reference/example_mods/ (+README, eight mods). Five new, each built from a REAL row: enemy-pack

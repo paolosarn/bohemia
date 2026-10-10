@@ -24,14 +24,13 @@ stats ("enemies carry the same equipment with the same stats on all difficulty l
 
 ## 3. ECONOMIC DIFFICULTY (what the same three names change in the money)
 | | Beginner | Veteran | Expert |
-| contract pay | 10% more than Veteran (MY READING of the wiki's '10% less per level') | normal | 10% less per level (the wiki's words) |
+| contract pay | normal (100%) | normal (100%) | 90% (the Game Guide's table; the Mechanics page's '10% less per level' means Expert only) |
 | carry cap: tools and supplies | 200 | 150 | 150 |
 | carry cap: ammunition | 500 | 300 | 300 |
 | carry cap: medical supplies | 150 | 100 | 100 |
 | selling prices at settlements | normal | normal | 10% LOWER |
 | deserters | leave | leave | TAKE THEIR EQUIPMENT WITH THEM |
-(The wiki states pay as "10% less per difficulty level", so Beginner to Veteran is a step and Veteran to Expert is a
-step. The quartermaster follower adds +100 ammo and +50 tools and medicine on top of every column.)
+(CORRECTED 10/10: the Game Guide table gives contract rewards and selling prices as 100/100/90 percent, so only Expert is lower and Beginner equals Veteran; my earlier +10 percent for Beginner was wrong. The quartermaster follower adds +100 ammo and +50 tools and medicine on top of every column.)
 Starting funds are a separate triple in the current build, named High / Medium / Low (older builds: Beginner /
 Veteran / Expert):
 | | crowns | provisions | tools | ammo | medicine |
@@ -71,3 +70,5 @@ independent and the old ONE-number weld is exactly the assist-versus-pressure pr
 - ECONOMY: section 3 as percentages and caps to convert to batteries.
 - TUNING [numbers table]: the draft file gains these as `references`.
 - Test material: the VOTE page is draft:true, never in the game.
+
+## CORRECTED 10/10: contract pay is 100 / 100 / 90 percent for Beginner / Veteran / Expert (Game Guide, 'Economic difficulty and other effects'). Beginner is NOT +10 percent. The row in section 3 and the VOTE page are fixed; the references row econ.contract_pay_step in the draft table should read econ.contract_pay_mult [1.0, 1.0, 0.9].
