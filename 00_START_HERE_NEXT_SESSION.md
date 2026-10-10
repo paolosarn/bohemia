@@ -17047,6 +17047,14 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/9 (e) LATEST -- *** FOUR LEGS: the first beast moves. A lab dire wolf walks,
+lopes, bites and falls, three pictures a beat like the men. TAB: VOTE playing (the fight NOT IN A TAB YET). ***
+
+[four legs] SHIPPED. engine/bohemia_quadruped.js (pure) + tools/bohemia_fight_beasts_bake.js -> slices/fight_beasts
+(dire_wolf.webp, fight_beasts.json in fight_people's shape: idle, step, run, bite, fall, dead). FOUR LEGS 22/0,
+11 mutations. FOR COMBAT: read fight_beasts.json beside fight_people.json; frame = cols[floor(progress * n)].
+NEXT: [hands in the box], [flee runs], [the bestiary walks] (new: the rest of rule 42's beasts on the same engine).
+
 ANIMATION (animation-lr9y9i): 10/9 (d) LATEST -- *** THE SHOT KICKS: two new firing clips (rifle, pistol) in
 the bank and on the fight's sheets; the gun kicks, he rocks back and settles. TAB: VOTE playing. ***
 
