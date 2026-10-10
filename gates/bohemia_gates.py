@@ -2496,6 +2496,13 @@ GATES = [
      '1.5 s of ready; three animations running while it builds; quarter-res and pixelated; up at the moment he is '
      'home and parted after; pointer-events none. Mutations: none at the door; parting before the fight is built; '
      'none on the way home.', True),
+    ('THE DEMO BOOTS LIGHT', ['node', 'gates/the_demo_boots_light_gate.js'],
+     'VAMILY [first load] + [load hunks] (Paolo 10/5: "I gotta wait 40 seconds"). MEASURED by a CPU profile from the link to '
+     'BEGIN ready: the demo seated him on a street it never shows and drew it (4.5 s), built the CHARACTER tab\'s boards it has '
+     'no tab for (1.1 s), put the map\'s six people on 96 times (1.0 s), and pulled the whole page again twice (a first-visit '
+     'reload, a build check 15 s in). NOW 16.3 -> 5.2 s at full speed; at 4x BEGIN ready 75 -> about 22 s, 27.1 -> 3.2 MB. HOLDS: '
+     'the street drawn 0 ms and its lines 0 ms before BEGIN; the boards 0 ms; at most two rebuilds a person; the still is the '
+     'breath\'s frame; seated on the map; the page fetched once in its first 20 s; the workshop unchanged. Mutations, six, each red.', True),
     ('A FRESH PHONE SEES THE DOOR', ['node', 'gates/a_fresh_phone_sees_the_door_gate.js'],
      'VAMILY [a fresh phone sees the door] (EYES 1bdc7023: a wiped phone read "no title, no picks, a mid-game city in two '
      'seconds"). MEASURED: real touches never got past the title; a script\'s click on the door\'s BEGIN did, and the '

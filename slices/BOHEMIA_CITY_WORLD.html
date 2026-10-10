@@ -61066,7 +61066,7 @@ function updHud(){
   var _note = MODE==='city'
     ? 'move on the streets. time moves when you move.'
     : 'walking your own block.';
-  if(MODE!=='city'){ try{ var _h=pplHeardLine(); if(_h) _note=_h; }catch(_e){} }
+  if(MODE!=='city' && !(typeof SEATING!=='undefined' && SEATING)){ try{ var _h=pplHeardLine(); if(_h) _note=_h; }catch(_e){} }   /* not while the demo is only being seated */
   document.getElementById('note').textContent=_note;
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
   try{ buildBtnSync(); }catch(_e){}  /* __BUILDER_WHERE_HE_WALKS__ */
@@ -67871,9 +67871,19 @@ updHud(); fit();
    A SAVED POSITION STILL WINS: applyRestore arrives by message after boot.
    The city view is one tap away on the mode button, and the zoom seam still
    crosses into it by pinching out. This only picks the side we OPEN on. */
+/* __THE_DEMO_IS_SEATED_ON_THE_MAP__ (RUN 10/10, [first load]): the demo still seats him from his feet (the swap writes
+   LANDED, his house, his block), but it never draws the street it is about to leave: measured at full speed, this swap
+   cost 3.0 s of the boot (2.8 s of it the HUD working out what the street's people say) and the street then drew itself
+   again as its tiles arrived (1.7 s), all before the demo's look-out to the map, behind the loading screen. The shell's
+   demo flag is read across the frame (same origin, set before this frame is made); the workshop is unchanged. */
+var SEATING = false;
 (function(){ try{
   if(typeof MODE!=='undefined' && MODE==='city' && typeof swapMode==='function'){
-    swapMode(); HC=HZOOM; render();
+    var demo = false; try{ demo = !!(window.parent && window.parent !== window && window.parent.__BOHEMIA_DEMO_BUILD); }catch(_e){}
+    if(demo){
+      SEATING = true; try{ swapMode(); HC=HZOOM; } finally { SEATING = false; }
+      CT_IS_DEMO = true; demoOpensOnMap(0);
+    } else { swapMode(); HC=HZOOM; render(); }
   }
 }catch(_hs){} })();
 

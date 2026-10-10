@@ -50,7 +50,7 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const F = require(path.join(ROOT, 'tools/bohemia_first_load.js'));
 
 const TITLE_MS = 2000, READY_MS = 8000;
-const CEIL_MB = 30;          /* 10/9 round 3: the cut empties the frozen fight on the demo; 27.1 MB before ready at 4x served like Pages, +10%. Was 33 (29.7 before). RUN's hunks measured 9.0 MB: LOWER THIS again when they land */
+const CEIL_MB = 4;           /* 10/10 RUN [first load]: the hunks, the demo seated on the map, no 15 s build check and no first-visit reload: 3.2 MB before ready at 4x, +10% and rounded up. Was 30. 10/9 round 3: the cut empties the frozen fight on the demo; 27.1 MB before ready at 4x served like Pages, +10%. Was 33 (29.7 before). RUN's hunks measured 9.0 MB: LOWER THIS again when they land */
 
 let pass = 0, fail = 0;
 const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }

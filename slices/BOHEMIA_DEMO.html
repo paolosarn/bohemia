@@ -51,10 +51,15 @@
     }).catch(function(){ window.__BOH_DURABLE={api:true,error:true}; });
   } else { window.__BOH_DURABLE={api:false}; }
 }catch(_bd){ window.__BOH_DURABLE={api:false,error:true}; } })();
-if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(reg){
+if('serviceWorker' in navigator){ var __swHad=!!navigator.serviceWorker.controller; navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(function(reg){
   reg.update();                                              /* always re-check the worker on load */
   var reloaded=false;
   navigator.serviceWorker.addEventListener('controllerchange',function(){   /* new worker took over -> one reload gets the fresh doc, then it's network-first forever */
+    /* NOT ON A FIRST VISIT (RUN 10/10, [first load]): with no worker before this one, the page was just fetched from
+       the network and IS the fresh doc; measured, the reload made every stranger download the whole page twice before
+       the title and start the boot again. Only a worker REPLACING an older one (which may have served a stale copy)
+       earns the reload. */
+    if(!__swHad)return;
     if(reloaded)return; reloaded=true; location.reload();
   });
 }).catch(function(){}); }</script>
@@ -1557,7 +1562,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10f - FLIPPED PHONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/10i - THE DEMO BOOTS LIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -3438,44 +3443,80 @@ function seg(cx, cy, a0, b0, a1, b1) {
    pinholes at bone seams while posed. Per-pixel guard: a spur only drops
    if its REST SOURCE pixel sits inside a solid blob (>=3 painted rest
    neighbors), so thin intentional art is NEVER eaten. Regions untouched. */
+/* SAME BINDING, NO OBJECT PER PIXEL (PLUMBER 10/9, row [first load] round 2, a review patch for RUN
+   and ANIMATION: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md). The boot profile put
+   this function first: 4.4 of 25 s at full speed, because it built a fresh {} and walked it with for-in
+   for every painted pixel of every part of every direction of every body the street cast bakes. The
+   counts now live in two small typed arrays. THE RESULT IS BIT FOR BIT THE SAME: a for-in walks integer
+   keys ascending and then the negative ones in the order they were met, and the ">" in the vote lets
+   that order break ties, so the same order is walked here by hand (checked against the old function
+   on every body the demo bakes: records/ above). */
+const _COHERE = { kv: new Int32Array(256), kc: new Int32Array(256), nb: null, seen: null, st: null, comp: null, pix: null };
 function cohereBind(L, bo) {
+  const N = CW*CH, kv = _COHERE.kv, kc = _COHERE.kc;
+  if (!_COHERE.nb || _COHERE.nb.length !== N) {
+    _COHERE.nb = new Int8Array(N); _COHERE.seen = new Uint8Array(N);
+    _COHERE.st = new Int32Array(N); _COHERE.comp = new Int32Array(N); _COHERE.pix = new Int32Array(N);
+  }
+  const nb = _COHERE.nb, pix = _COHERE.pix;
+  let np = 0; for (let i = 0; i < N; i++) if (L[i]) pix[np++] = i;   /* the painted pixels, in scan order */
   for (let pass = 0; pass < 2; pass++) {
-    const nb = Int8Array.from(bo);
-    for (let i = 0; i < CW*CH; i++) {
-      if (!L[i]) continue;
+    nb.set(bo);
+    for (let q = 0; q < np; q++) {
+      const i = pix[q];
       const x = i % CW, y = (i / CW) | 0;
-      const cnt = {}; let cur = bo[i], curN = 0;
+      const cur = bo[i]; let curN = 0, nk = 0;
       for (let dy=-1; dy<=1; dy++) for (let dx=-1; dx<=1; dx++) {
         if (!dx && !dy) continue;
         const nx=x+dx, ny=y+dy;
         if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
         const jj = ny*CW+nx; if (!L[jj]) continue;
-        const b = bo[jj]; cnt[b]=(cnt[b]||0)+1; if (b===cur) curN++;
+        const b = bo[jj]; let t = 0; while (t < nk && kv[t] !== b) t++;
+        if (t === nk) { kv[nk] = b; kc[nk] = 0; nk++; }
+        kc[t]++; if (b===cur) curN++;
       }
       let bb=cur, bn=curN;
-      for (const k in cnt) { if (cnt[k] > bn+1) { bn=cnt[k]; bb=+k; } }
+      for (let last = -1;;) {
+        let m = -1, mt = -1;
+        for (let t = 0; t < nk; t++) { const v = kv[t]; if (v > last && (mt < 0 || v < m)) { m = v; mt = t; } }
+        if (mt < 0) break;
+        if (kc[mt] > bn+1) { bn=kc[mt]; bb=m; }
+        last = m;
+      }
+      for (let t = 0; t < nk; t++) if (kv[t] < 0 && kc[t] > bn+1) { bn=kc[t]; bb=kv[t]; }
       if (bb!==cur && bn>=3) nb[i]=bb;
     }
     bo.set(nb);
   }
-  const seen = new Uint8Array(CW*CH);
-  for (let i = 0; i < CW*CH; i++) {
-    if (!L[i] || seen[i]) continue;
-    const b0 = bo[i]; const comp=[]; const st=[i]; seen[i]=1; const adj={};
-    while (st.length) {
-      const c = st.pop(); comp.push(c);
+  const seen = _COHERE.seen, st = _COHERE.st, comp = _COHERE.comp;
+  seen.fill(0);
+  for (let r = 0; r < np; r++) {
+    const i = pix[r]; if (seen[i]) continue;
+    const b0 = bo[i]; let sp = 0, cn = 0, nk = 0;
+    st[sp++] = i; seen[i]=1;
+    while (sp) {
+      const c = st[--sp]; comp[cn++] = c;
       const cx=c%CW, cy=(c/CW)|0;
-      for (const [nx,ny] of [[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1]]) {
+      for (let q = 0; q < 4; q++) {
+        const nx = q===0 ? cx-1 : q===1 ? cx+1 : cx, ny = q===2 ? cy-1 : q===3 ? cy+1 : cy;
         if (nx<0||nx>=CW||ny<0||ny>=CH) continue;
         const jj=ny*CW+nx; if (!L[jj]) continue;
-        if (bo[jj]===b0) { if (!seen[jj]) { seen[jj]=1; st.push(jj); } }
-        else adj[bo[jj]]=(adj[bo[jj]]||0)+1;
+        const b = bo[jj];
+        if (b===b0) { if (!seen[jj]) { seen[jj]=1; st[sp++]=jj; } }
+        else { let t = 0; while (t < nk && kv[t] !== b) t++; if (t === nk) { kv[nk] = b; kc[nk] = 0; nk++; } kc[t]++; }
       }
     }
-    if (comp.length < 4) {
+    if (cn < 4) {
       let bb=-2, bn=0;
-      for (const k in adj) { if (adj[k]>bn) { bn=adj[k]; bb=+k; } }
-      if (bb>-2) for (const c of comp) bo[c]=bb;
+      for (let last = -1;;) {
+        let m = -1, mt = -1;
+        for (let t = 0; t < nk; t++) { const v = kv[t]; if (v > last && (mt < 0 || v < m)) { m = v; mt = t; } }
+        if (mt < 0) break;
+        if (kc[mt] > bn) { bn=kc[mt]; bb=m; }
+        last = m;
+      }
+      for (let t = 0; t < nk; t++) if (kv[t] < 0 && kc[t] > bn) { bn=kc[t]; bb=kv[t]; }
+      if (bb>-2) for (let q = 0; q < cn; q++) bo[comp[q]]=bb;
     }
   }
 }
@@ -3547,6 +3588,46 @@ function refineSkin(mask, src, L, x0, y0, x1, y1, claim) {
     for (const i of add) { mask[i]=1; if (src) src[i]=-1; } REFINE_STATS.adds+=add.length;
   }
 }
+/* ONE BODY IS BOUND ONCE (PLUMBER 10/9, row [first load] round 2, a review patch for RUN and
+   ANIMATION: records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md). Measured on the demo's
+   boot: 1,256 binds, 174 different ones, the most-repeated one bound 73 times, because the street
+   cast and the family and outfit builds each call rebuildFromRig and it binds all eight directions
+   from scratch. A bind reads only this direction's painted pixels, its rest skeleton and its candidate
+   bones, so the same three give back the binding they gave before. The key is a hash for the lookup;
+   the painted pixels are kept and compared in full before a hit is used, so a hash collision is a
+   miss, never a wrong body. Holds at most 256 bodies (about 4 MB at the measured sizes). */
+const _BIND_CACHE = new Map();
+function _bindKey(sk) {
+  let h1 = 0x811c9dc5, h2 = 0x9747b28c, n = 0;
+  const cs = [];
+  for (let p = 1; p <= NP; p++) {
+    const px = sk.pixList[p];
+    h1 = Math.imul(h1 ^ (p + 0x100), 0x01000193); h2 = Math.imul(h2 ^ (p + 0x100), 0x5bd1e995); h2 ^= h2 >>> 15;
+    for (let q = 0; q < px.length; q++) { const v = px[q]; h1 = Math.imul(h1 ^ v, 0x01000193); h2 = Math.imul(h2 ^ v, 0x5bd1e995); h2 ^= h2 >>> 15; }
+    n += px.length; cs.push(sk.candFor(p).join(','));
+  }
+  return sk.dir + '|' + JSON.stringify(sk.rest) + '|' + cs.join(';') + '|' + n + '|' + (h1 >>> 0).toString(36) + '.' + (h2 >>> 0).toString(36);
+}
+function _bindFromCache(sk) {
+  const key = _bindKey(sk), hit = _BIND_CACHE.get(key);
+  if (hit) {
+    let same = true;
+    for (let p = 1; p <= NP && same; p++) { const px = sk.pixList[p], w = hit.pix[p]; if (px.length !== w.length) same = false; else for (let q = 0; q < px.length; q++) if (px[q] !== w[q]) { same = false; break; } }
+    if (same) {
+      for (let p = 1; p <= NP; p++) { const bo = sk.bone[p], px = sk.pixList[p], v = hit.bone[p]; for (let q = 0; q < px.length; q++) bo[px[q]] = v[q]; }
+      const bb = {}; for (const k in hit.bbox) bb[k] = hit.bbox[k].slice(); sk.bbox = bb;
+      return true;
+    }
+  }
+  sk._rebind();
+  const bone = [null], pix = [null];
+  for (let p = 1; p <= NP; p++) { const bo = sk.bone[p], px = sk.pixList[p], v = new Int8Array(px.length); for (let q = 0; q < px.length; q++) v[q] = bo[px[q]]; bone.push(v); pix.push(Int32Array.from(px)); }
+  const bb = {}; for (const k in sk.bbox) bb[k] = sk.bbox[k].slice();
+  _BIND_CACHE.delete(key);
+  if (_BIND_CACHE.size >= 256) _BIND_CACHE.delete(_BIND_CACHE.keys().next().value);
+  _BIND_CACHE.set(key, { bone, pix, bbox: bb });
+  return false;
+}
 class Skinner {
   constructor(exp, dir) {
     this.dir = dir;
@@ -3574,7 +3655,7 @@ class Skinner {
     this.bone = [];       // per-part Int8Array of bone index per pixel
     this.bbox = {};       // "part:boneIdx" -> [minX,minY,maxX,maxY]
     for (let p = 0; p <= NP; p++) this.bone[p] = new Int8Array(CW*CH).fill(-1);
-    if (this.rest) this._rebind();
+    if (this.rest) _bindFromCache(this);
   }
 
   candFor(p) {
@@ -3597,31 +3678,53 @@ class Skinner {
   /* bind each painted pixel to its nearest candidate bone (in REST space) and
      record per-(part,bone) bounding boxes — verbatim from rig rebind() */
   _rebind() {
+    /* SAME BINDING, LESS WORK PER PIXEL (PLUMBER 10/9, [first load] round 2, review patch): each
+       candidate bone's segment and key index are read ONCE per part, on its first painted pixel,
+       instead of once per pixel per bone; the distance is segd's own arithmetic in segd's own order,
+       so every pixel picks the same bone. The boxes are kept per bone and written in the order the
+       bones are first met, which is the order the old string keys went in. */
     const R = this.rest;
     const bb = {};
     for (let p = 1; p <= NP; p++) {
       const L = this.layers[p], bo = this.bone[p], cs = this.candFor(p);
+      let nc = -1, sx = null, sy = null, sdx = null, sdy = null, sl2 = null, sk = null;
       for (let i = 0; i < CW*CH; i++) {
         if (!L[i]) { bo[i] = -1; continue; }
-        const x = i % CW, y = (i / CW) | 0;
+        if (nc < 0) {
+          nc = cs.length; sx = new Float64Array(nc); sy = new Float64Array(nc); sdx = new Float64Array(nc);
+          sdy = new Float64Array(nc); sl2 = new Float64Array(nc); sk = new Int32Array(nc);
+          for (let k = 0; k < nc; k++) {
+            const bn = cs[k], a = R[BONES[bn][0]], b = R[BONES[bn][1]];
+            const ax=a[0]+.5, ay=a[1]+.5, bx=b[0]+.5, by=b[1]+.5;
+            const dx=bx-ax, dy=by-ay;
+            sx[k]=ax; sy[k]=ay; sdx[k]=dx; sdy[k]=dy; sl2[k]=dx*dx+dy*dy; sk[k]=BKEYS.indexOf(bn);
+          }
+        }
+        const x = i % CW, y = (i / CW) | 0, px = x+.5, py = y+.5;
         let best = -1, bd = 1e9;
-        for (let k = 0; k < cs.length; k++) {
-          const bn = cs[k], a = R[BONES[bn][0]], b = R[BONES[bn][1]];
-          const d = segd(x+.5, y+.5, a, b);
-          if (d < bd) { bd = d; best = BKEYS.indexOf(bn); }
+        for (let k = 0; k < nc; k++) {
+          const ax = sx[k], ay = sy[k], dx = sdx[k], dy = sdy[k], L2 = sl2[k];
+          let t = L2 ? ((px-ax)*dx+(py-ay)*dy)/L2 : 0;
+          t = t<0?0:t>1?1:t;
+          const cx=ax+t*dx, cy=ay+t*dy;
+          const d = (px-cx)**2 + (py-cy)**2;
+          if (d < bd) { bd = d; best = sk[k]; }
         }
         bo[i] = best;
       }
       cohereBind(L, bo);
+      const box = new Int32Array(1024), met = new Uint8Array(256), order = [];
       for (let i = 0; i < CW*CH; i++) {
         if (!L[i]) continue;
         const x = i % CW, y = (i / CW) | 0, best = bo[i];
         if (best >= 0) {
-          const key = p+':'+best, e = bb[key];
-          if (!e) bb[key] = [x,y,x,y];
-          else { if(x<e[0])e[0]=x; if(y<e[1])e[1]=y; if(x>e[2])e[2]=x; if(y>e[3])e[3]=y; }
+          const o = best*4;
+          if (!met[best]) {
+            met[best] = 1; order.push(best); box[o]=x; box[o+1]=y; box[o+2]=x; box[o+3]=y;
+          } else { if(x<box[o])box[o]=x; if(y<box[o+1])box[o+1]=y; if(x>box[o+2])box[o+2]=x; if(y>box[o+3])box[o+3]=y; }
         }
       }
+      for (const best of order) { const o = best*4; bb[p+':'+best] = [box[o],box[o+1],box[o+2],box[o+3]]; }
     }
     this.bbox = bb;
   }
@@ -4171,6 +4274,13 @@ function renderFace(spec,opts){
  const ramp=opts.ramp||SKR[spec.skin]; const L=ramp[0],Mn=ramp[1],Sh=ramp[2],Ln=ramp[3];
  const f=spec.face,cx=32;
  const P=(x,y,c)=>{x|=0;y|=0;if(x<0||x>=N||y<0||y>=N)return;const i=(y*N+x)*4;buf[i]=c[0];buf[i+1]=c[1];buf[i+2]=c[2];buf[i+3]=255;};
+ /* READS BEFORE IT WRITES, UNLIKE P. Used only by the chipped-body overlay
+    (near the return, [the chipped bodies' faces] 10/10) to discolour skin
+    that is already drawn rather than paint a flat sticker over it -- a mark
+    ON a face, not a shape floating past its edge. Never called on the
+    default path (nothing passes opts.chipped today but that one new block). */
+ const tint=(x,y,target,t)=>{x|=0;y|=0;if(x<0||x>=N||y<0||y>=N)return;const i=(y*N+x)*4;if(buf[i+3]===0)return;
+   buf[i]=Math.round(buf[i]+(target[0]-buf[i])*t);buf[i+1]=Math.round(buf[i+1]+(target[1]-buf[i+1])*t);buf[i+2]=Math.round(buf[i+2]+(target[2]-buf[i+2])*t);};
  const rect=(x0,y0,x1,y1,c)=>{for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)P(x,y,c);};
  const line=(x0,y0,x1,y1,c)=>{x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);let dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1,e=dx+dy;for(;;){P(x0,y0,c);if(x0===x1&&y0===y1)break;let e2=2*e;if(e2>=dy){e+=dy;x0+=sx;}if(e2<=dx){e+=dx;y0+=sy;}}};
  const poly=(pts,c)=>{let ys=pts.map(p=>p[1]);let y0=Math.floor(Math.min(...ys)),y1=Math.ceil(Math.max(...ys));for(let y=y0;y<=y1;y++){let xs=[];for(let i=0;i<pts.length;i++){let a=pts[i],b=pts[(i+1)%pts.length];let ay=a[1],by=b[1];if((ay<=y&&by>y)||(by<=y&&ay>y)){xs.push(a[0]+(y-ay)/(by-ay)*(b[0]-a[0]));}}xs.sort((p,q)=>p-q);for(let k=0;k+1<xs.length;k+=2)for(let x=Math.round(xs[k]);x<=Math.round(xs[k+1]);x++)P(x,y,c);}};
@@ -4671,6 +4781,37 @@ function renderFace(spec,opts){
      for(var _gk=1;_gk<=3;_gk++){P(_glx-_gk,_gy0+2,_gF);P(_grx+_gk,_gy0+2,_gF);}
    }
  }catch(_ge){} }
+ /* *** THE CHIP'S TELL (PORTRAIT, 10/10, [the chipped bodies' faces]) ***
+    VIA GROK (the dead are chipped bodies, never magic), WORDS' [the enemies'
+    names] (the twelve zombie rows renamed), this lane's own [the enemy
+    faces] (named this row's whole premise out of scope then, honestly, not
+    built there). "A person's face with the chip's tell... never a skull."
+    So nothing below REPLACES a feature -- it marks one, the same way
+    spec.glasses and spec.hat just did two blocks up, gated the same way:
+    opts.chipped is undefined for every citizen and every enemy this game
+    has ever rendered before today, so this block has never run once.
+    ONE SIDE, TWO MARKS, ONE CAUSE: the chip sits at a temple, so that eye
+    is wired to it (lit, fixed, never blinks -- drawn last, overriding
+    whatever the blink loop above already painted there) and the skin
+    beside it is tinted toward grey with tint() (reads the pixel already
+    there first, so it discolours real skin instead of floating a sticker
+    over the edge of the face -- the same test that kept the fade effect
+    and the 3D shading honest on earlier rounds). THE JAW NEEDS NO NEW CODE
+    AT ALL: "slack" is PERF.mouth === 'open', the resting mouth state this
+    function has drawn since 8/27 -- a cook tool asking for a chipped face
+    passes mouth:'open' the same way it would for any other spoken line,
+    reuse down to the opcode. */
+ if(opts.chipped){
+   var _cs=(opts.chipped.side<0)?-1:1, _cex=cx+_cs*e.gap, _cey=f.eyeY;
+   var _LIT=[150,232,238], _LITCORE=[255,255,255];
+   rect(_cex-(e.w>>1),_cey,_cex+(e.w>>1),_cey+e.h-1,_LIT);
+   P(_cex,_cey+(e.h>>1),_LITCORE);P(_cex+_cs,_cey+(e.h>>1),_LIT);
+   var _tgx=cx+_cs*(fw-1), _tgy=Math.round((Y0+f.eyeY)/2), _GREY=[118,116,110];
+   for(var _ty=-2;_ty<=2;_ty++)for(var _tx=-2;_tx<=2;_tx++){
+     if(_tx*_tx+_ty*_ty>5) continue;
+     tint(_tgx+_tx,_tgy+_ty,_GREY,0.55-0.08*(_tx*_tx+_ty*_ty));
+   }
+ }
  if(cig){let cyx=cx+(m.w>>1),cyy=my+1;for(let i=0;i<7;i++)P(cyx+i,cyy+(i/3|0),[236,232,222]);P(cyx+7,cyy+2,[214,150,70]);P(cyx+8,cyy+2,[214,150,70]);P(cyx,cyy-1,[120,120,120]);P(cyx+1,cyy-2,[150,150,150]);}
  return buf;
 }
@@ -6687,6 +6828,42 @@ function keeperFaceSrc(place, kind, opts){
   return cv.toDataURL('image/png');
 }
 if (typeof window !== 'undefined') { window.keeperFaceId = keeperFaceId; window.keeperFaceSrc = keeperFaceSrc; }
+
+/* ===== A HIRE'S FACE (PORTRAIT, 10/10, [the hires' faces]) ==================
+   PEOPLE's [good bros] rolls six recruits at a post, one per real background
+   (engine/bohemia_goodbros.js), and the settlement screen's own recruitsHere()
+   already dresses each one with a real body look: `r.look = 'cast_' +
+   [...][seedOf(key+':look:'+i) % 12]`, one of the twelve CITY_CAST_LOOKS, each
+   with its own real worn.hair -- the same shape of data FACTION_LOOKS gave
+   [the enemy faces]. hireCard() (BOHEMIA_SETTLEMENT_SCREEN.html, untouched
+   here) currently draws a recruit's "face" as a crop of his body SPRITE SHEET
+   (`fight_people/' + r.look + '.webp'`), never a portrait -- no HD face has
+   ever existed for a hire.
+
+   NOTHING NEW NEEDED IN faceFor: over.hairName, the override [the enemy
+   faces] built, already does the whole job -- a recruit's look names a real
+   cut the same way a faction does. THE ONLY NEW IDEA is the id, because a
+   recruit's slot number alone ('rc0'..'rc5') is the SAME string at every post
+   in the game forever, which would give every farmhand who ever lands in
+   slot 0 the identical face -- "no two hires match" needs the instance, not
+   the slot. hireFaceId folds in the exact key recruitsHere() already rolls
+   everything else from (settlement name + the week), so a face is a function
+   of WHICH recruit this is, not just which chair he is sitting in. */
+function hireFaceId(postKey, slot){ return 'hire:' + String(postKey == null ? '' : postKey) + ':' + String(slot == null ? 0 : slot); }
+function hireFaceSrc(postKey, slot, lookId, opts){
+  opts = opts || {};
+  var id = hireFaceId(postKey, slot);
+  var bare = String(lookId || '').replace(/^cast_/, '');
+  var look = (typeof CITY_CAST_LOOKS !== 'undefined') ? CITY_CAST_LOOKS.filter(function (l) { return l.id === bare; })[0] : null;
+  var over = (look && look.worn && look.worn.hair) ? { hairName: look.worn.hair } : {};
+  var spec = faceFor(id, over);
+  var ramp = faceRampFor(spec);
+  var buf = renderFace(spec, { ramp: ramp });
+  var cv = document.createElement('canvas'); cv.width = 64; cv.height = 64;
+  var cx3 = cv.getContext('2d'); var idd3 = cx3.createImageData(64, 64); idd3.data.set(buf); cx3.putImageData(idd3, 0, 0);
+  return cv.toDataURL('image/png');
+}
+if (typeof window !== 'undefined') { window.hireFaceId = hireFaceId; window.hireFaceSrc = hireFaceSrc; }
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();
@@ -11078,7 +11255,10 @@ function citySendCast(){
     }
   };
   try{
-    plan.forEach(L=>{ for(const d of DIRS) withLook(L,()=>{
+    /* __ONE_BODY_ONE_REBUILD__ (RUN 10/10, [first load]): the look is put on ONCE for all eight facings (it was put
+       on and taken off per facing: 96 rig rebuilds for six people, 1.0 s of the boot at full speed), and the still is
+       the breath's own 0.25 frame instead of a second bake of it. The message is byte for byte what it was (hashed). */
+    plan.forEach(L=>withLook(L,()=>{ for(const d of DIRS){
       /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): the cast used to be ONE still of a
          clip that moves. idle peaks at 6.9% of the body on S, and every resident
          in the valley was frozen at phase 0.25 of it -- not because the clip is
@@ -11088,9 +11268,10 @@ function citySendCast(){
          the same clock as his footsteps (120 BPM LAW). Not walk frames: pplAt()
          returns one of three fixed spots and people TELEPORT between them, so a
          walk cycle on a standing body is moonwalking in place. */
-      L.dirs[d]={idle:bakeCast(d,'idle',0.25,true),                     /* borderless: the city borders after scaling */
-                 breathe:CAST_PHS.map(ph=>bakeCast(d,'idle',ph,true))};
-    }); });
+      const br=CAST_PHS.map(ph=>bakeCast(d,'idle',ph,true)), at=CAST_PHS.indexOf(0.25);
+      L.dirs[d]={idle:at>=0?br[at]:bakeCast(d,'idle',0.25,true),        /* borderless: the city borders after scaling */
+                 breathe:br};
+    } }));
     fr.contentWindow.postMessage(out,'*');
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
@@ -11857,10 +12038,6 @@ function nfOpts(d){
   try{ var p = window.BOH_START && BOH_START.picks(); if(p && p.company){ o.company = p.company; o.cap = p.cap; } }catch(_e){}
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
   try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' }; }catch(_e){}
-  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
-  /* what you built at this place, to the fight (the map attached it at the door) */
-  try{ if(d && Array.isArray(d.built) && d.built.length) o.built = d.built.slice(0, 8); }catch(_e){}
-  /* __/BUILT_ON_THE_BOARD__ */
   return o;
 }
 function nfOpen(d){
@@ -13433,7 +13610,7 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
       var done=function(){ running=false; step(); };
       pull(QUEUE[at++]).then(done, done);
     };
-    var begin=function(){ if(started)return; started=true; step(); };
+    var begin=function(){ if(started)return; started=true; if(document.getElementById('cityFrame'))return; step(); };
     var arm=function(){ setTimeout(begin, GRACE); };
     if(document.readyState==='complete') arm();
     else addEventListener('load', arm);
@@ -20647,12 +20824,16 @@ function buildUI(){
       var ta2 = document.getElementById('hairNotes'); if (ta2) ta2.value = '';
       try { window.hairJudgeBuild(); } catch(e){}
     };
-    setTimeout(function(){ try { window.hairJudgeBuild(); } catch(e){} }, 1200);
-    setTimeout(function(){ try { window.famBuild(); } catch(e){} }, 1300);
+    /* __THE_DEMO_SKIPS_THE_WORKSHOP_BOARDS__ (RUN 10/10, [first load]): the hair, family and faction boards live in
+       the CHARACTER tab, which the demo does not have; measured, they cost 1.1 s of the boot at full speed (outfitBuild
+       0.97 s of it) while the stranger waits for BEGIN. The flag is read when the timer fires, after the cut set it. */
+    var WS = function(){ return !window.__BOHEMIA_DEMO_BUILD; };
+    setTimeout(function(){ if (!WS()) return; try { window.hairJudgeBuild(); } catch(e){} }, 1200);
+    setTimeout(function(){ if (!WS()) return; try { window.famBuild(); } catch(e){} }, 1300);
     /* OFF THE BOOT PATH (8/19). requestIdleCallback runs it once startup has gone
        quiet; the timeout is the guarantee it happens at all on a browser that never
        idles. See the note above outfitBuild for why it cannot run during boot. */
-    (function(){ var go=function(){ try { window.outfitBuild(); } catch(e){} };
+    (function(){ var go=function(){ if (!WS()) return; try { window.outfitBuild(); } catch(e){} };
       if (window.requestIdleCallback) requestIdleCallback(go, {timeout:2400});
       else setTimeout(go, 2400); })();
     setTimeout(function(){
@@ -38059,9 +38240,19 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
    phone tab can never go silently stale again. file:// probes skip it. */
 (function(){ if(location.protocol==='file:')return;
   var cur=(document.getElementById('buildstamp')||{}).textContent||'';
-  function check(){ fetch(location.href,{cache:'no-store'}).then(function(r){return r.text();}).then(function(t){
-      var m=t.match(/id="buildstamp"[^>]*>([^<]+)</); if(!m)return;
-      if(cur&&m[1]!==cur)show(m[1]); }).catch(function(){}); }
+  function found(t){ var m=t.match(/id="buildstamp"[^>]*>([^<]+)</); if(!m)return; if(cur&&m[1]!==cur)show(m[1]); }
+  /* READ UNTIL THE STAMP AND STOP (PLUMBER 10/9, [load patch]): the stamp sits 290 KB into a 6.3 MB
+     page, and reading the whole page cost 2.4 MB on cell data 15 s in and every 2 minutes after. */
+  function check(){ fetch(location.href,{cache:'no-store'}).then(function(r){
+      if(!r.body||!r.body.getReader) return r.text().then(found);
+      var rd=r.body.getReader(), dec=new TextDecoder(), buf='';
+      var pump=function(){ return rd.read().then(function(x){
+        if(x.done) return found(buf);
+        buf+=dec.decode(x.value,{stream:true});
+        if(/id="buildstamp"[^>]*>[^<]+</.test(buf)){ try{rd.cancel();}catch(_e){} return found(buf); }
+        if(buf.length>2000000){ try{rd.cancel();}catch(_e){} return; }
+        return pump(); }); };
+      return pump(); }).catch(function(){}); }
   function show(nb){ if(document.getElementById('bwbanner'))return;
     var b=document.createElement('div'); b.id='bwbanner';
     b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:9999;background:#1d3a22;color:#8fe89a;border-bottom:1px solid #5fbf6a;font:12px ui-monospace,monospace;letter-spacing:1px;padding:12px;text-align:center';
@@ -38070,7 +38261,9 @@ var st=t.querySelector(".tab[data-p=slice]");if(st)st.addEventListener("click",f
     document.body.appendChild(b); }
   setInterval(check,120000);
   document.addEventListener('visibilitychange',function(){ if(!document.hidden)check(); });
-  setTimeout(check,15000);
+  /* NO CHECK 15 s IN (RUN 10/10, [first load]): a page that just loaded IS the newest build, and on a phone 15 s is
+     the middle of the boot; measured, that check pulled the whole demo page a second time (4.6 MB) before BEGIN was
+     ready. The two-minute check and the return to the tab still catch a new deploy. */
 })();
 </script><script>
 /* ============================================================================
