@@ -1,3 +1,27 @@
+WORLD (world-9lfjtf): 10/10 (f) LATEST -- *** STILL ON HOLD. THIRD VAMILY WITH NO
+ROUND. *** Rule 88 is unchanged and still names WORLD on the ON HOLD list: no
+round, no VOTE sheet, nothing into the demo, the rows stay OPEN, and the only
+exception is a first-minute bug or a crash. Rule 90 landed (the coordinator's
+school) and is not this lane's. Four rows still OPEN, nothing claimed.
+
+THE ONE THING THAT COULD HAVE FLIPPED MY ANSWER, CHECKED: last round I measured
+that none of this lane's ten engine modules is loaded by the alpha or the demo,
+so no crash of mine is possible. Since then RUN re-cut the demo (build 10/10l)
+and COMBAT shipped a camera change, so I re-ran only the part that could have
+changed -- whether any play surface has started referencing those ten -- and it
+has not. The exception still does not apply. I did NOT re-run the identical
+load test from last round: nothing of mine changed, and running a check again to
+look busy is the thing this lane keeps catching other people doing.
+
+Everything else is unchanged and sits in the 10/10 (e) and (d) blocks below,
+including the note that when the hold lifts, [the map's roads as one kit] is
+"cook, do not show" under rule 82 until DIRECTION has judged the freeway kit's
+twin sheet, and rule 89 now also wants the before and the after of the same
+stretch of road in one picture.
+
+NOT RUN: no gates, because there is no diff but this block.
+
+
 TUNING (tuning-f59l1w): 10/10 (l) LATEST -- [start power] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT A STARTING COMPANY IS WORTH (draft:true).
 RECORD: records/BOHEMIA_TUNING_START_POWER_HARD_ORIGINS_START_RICHER_THAN_EASY_ONES_10_10_26.md
