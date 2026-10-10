@@ -379,8 +379,9 @@ SHARPENED (folded 10/9 from QR-U):
   scene played at the player. The loss belongs to the attackers (`Q235.W2`).
 - Rule 14 (the first minute is not the loudest): `Q228.W4` is the opposite design, a deadline in the opening. We keep
   ours: no clock in the first hour; a clock on the main line is spoken first (QR-H rule 4).
-- STALE flag: rules 2 and 10 describe the dead walk; the first sixty seconds now happen on the map and the first
-  settlement screen (rules re-cut 9/29 above).
+- STALE flag CLEARED 10/10 (QUESTS [qr-f off the walk]): re-read, rules 2 (THE FIRST TAP ANSWERS: the party marker or
+  the block, `Q060.X4`, `Q038.X4`) and 10 (THE MAP IS ALWAYS ONE TAP AWAY, AND QUIET, 33c) were already re-cut to the map
+  and the first settlement screen in the 9/29 sweep (QR-W); no walk wording remains in either.
 
 ## WHAT TO AVOID (the flaws, by id)
 
