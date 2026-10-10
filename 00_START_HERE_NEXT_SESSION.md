@@ -6460,6 +6460,11 @@ AND THE LESSON THAT STILL BINDS: NO TEXT-ONLY ITEM IN VOTE, and now a second one
 beside it -- A PICTURE IN THE VOTE TAB THAT SHOWS A SENTENCE THE GAME NO LONGER
 SAYS IS A LIE TO HIM. Re-shoot the frames in the same round the words change.
 
+LIFE + CITY (city-1eztay): 10/9e LATEST -- *** [a raid on your base] SHIPPED: FACTIONS' raid ledger is live on the map;
+what you build draws a crew; away they take it, home you fight at your gate; a loss is a reload. *** TAB: VOTE.
+Record: records/BOHEMIA_A_RAID_ON_YOUR_BASE_10_9_26.md. Gate A RAID ON YOUR BASE 18/0 (three alpha sessions, ~6 min).
+HB_REC on the map is now the one hold ledger (lots, settlement held, raids). NEXT (top OPEN): [take the next part].
+
 LIFE + CITY (city-1eztay): 10/9d LATEST -- *** [built on the board] SHIPPED: a fight at a place you built on stands on
 it. *** TAB: VOTE. Record: records/BOHEMIA_BUILT_ON_THE_BOARD_10_9_26.md. tools/bohemia_fight_built_patch.py (map door,
 shell nfOpts, COMBAT's fight placeBuilt + two bake lines, all marked). Gate BUILT ON THE BOARD 11/0. NEXT (top OPEN):

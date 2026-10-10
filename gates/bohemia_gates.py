@@ -3287,6 +3287,10 @@ GATES = [
      "proof pictures, which is what a temp dir is for", False),
     ('LANDLOCKED',      ['node', 'gates/landlocked_gate.js'],
      'an interior district with no real street is suburb/apt and relays a road out through a same-family neighbor', False),
+    ('A RAID ON YOUR BASE', ['node', 'gates/a_raid_on_your_base_gate.js'],
+     'rule 37c + 43 + 68: your base is yours in FACTIONS\' ledger from day one; what you build draws a crew you see '
+     'coming; away, the world settles the raid; home, the fight opens at your gate on what you built and builds its '
+     'ground; a win holds it; a loss is a reload (Paolo 7/26)', False),
     ('BUILT ON THE BOARD', ['node', 'gates/built_on_the_board_gate.js'],
      'rule 40b + 37g: a fight at a place you built on stands on it -- the wall is the board\'s block wall on your '
      'front, a tank blocks with its own picture, a roof is high ground; the map attaches it and the shell hands it on', False),

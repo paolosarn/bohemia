@@ -38,29 +38,126 @@ GLUE = GLUE_MARK + r'''
    (lotBookFor), so what he builds there IS the map's. var-hoisted on purpose: the save's restore may run
    before this line, and must not have its lots wiped by it. */
 var LOT_BOOK = LOT_BOOK || {};
+/* WHO HOLDS WHAT IS ONE LEDGER ON THE MAP: FACTIONS' (engine/bohemia_homebases.js), made once, saved, restored. Your
+   outfit's own base is yours from the first day (one taking, 'deal': nobody fought for it); every other base is its
+   own people's until somebody takes it. The build lots and the raids read this one ledger, never a copy. */
+var HB_REC = HB_REC || null;
+function hbRec(){
+  if(HB_REC) return HB_REC;
+  var H = BohemiaHomeBases; HB_REC = H.make({ act: 1 });
+  try{ var m = BohemiaBetween.mine(), bs = ctBases() || {}, n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+       for(var k in bs) if(m && n(k) === n(m)) H.took(HB_REC, { base: k, to: H.YOU, day: 0, by: 'deal', why: "your outfit's own base" }); }catch(_e){}
+  return HB_REC;
+}
 function lotIsMine(name){
-  try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
-       return !!m && n(m) === n(name); }catch(_e){ return false; }
+  try{ var H = BohemiaHomeBases, r = hbRec(); return !H.isRuin(r, name, r.act) && H.heldBy(r, name, r.act) === H.YOU; }catch(_e){ return false; }
 }
-function lotHoldFor(name){
-  var H = BohemiaHomeBases, rec = H.make({ act: 1 });
-  if(lotIsMine(name)) H.took(rec, { base: name, to: H.YOU });
-  return { rec: rec, act: 1 };
-}
+function lotHoldFor(name){ var r = hbRec(); return { rec: r, act: r.act }; }
 function lotBookFor(name){
   if(!LOT_BOOK[name]) LOT_BOOK[name] = BohemiaLotBuild.site({ base: name });
   return LOT_BOOK[name];
 }
-/* THE MORNING: what was started stands, what stands pays, into the map's purse and the map's century */
+/* THE MORNING: what was started stands, what stands pays, into the map's purse and the map's century; a raid that
+   is due and that nobody answered is settled the world's way (FACTIONS' settle: the base holds if it is as strong as
+   the crew, else the crew takes it); and a base worth taking draws a crew. */
 function lotWake(){
   var done = 0;
+  try{ raidSettle(); }catch(_e){}
   for(var n in LOT_BOOK){
     try{ var r = BohemiaLotBuild.tick(LOT_BOOK[n], purseGet(), centuryGet(), DAY.day, lotHoldFor(n));
          done += (r && r.finished) ? r.finished.length : 0; }catch(_e){}
   }
   window.__LOTS_FINISHED = (window.__LOTS_FINISHED || 0) + done;
+  try{ raidDraw(); }catch(_e){}
   return done;
 }
+/* ---- A RAID ON YOUR BASE ([a raid on your base], LIFE+CITY 10/9; the ledger is FACTIONS') ---- */
+function raidSay(txt){
+  try{ travelSay(txt); }catch(_e){}
+  try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thegate', txt: txt, kind: 'world', draft: true }); }catch(_e){}
+  window.__RAID_SAID = (window.__RAID_SAID || []).concat([txt]).slice(-12);
+}
+/* a crew arrived somewhere: if it is a base you hold, the raid opens and its clock starts */
+function raidArrivals(arr){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  var raids = H.raidsFrom(arr, seats, rec, H.YOU);
+  raids.forEach(function(r){
+    var o = H.openRaid(rec, { base: r.base, by: r.by, party: r.party, power: r.power, day: DAY.day });
+    if(o.applied) raidSay('A crew from ' + r.by + ' is at the gate of ' + r.base + '. ' + (o.raid.due - DAY.day) + ' days, or it is theirs.');
+  });
+  if(raids.length){ try{ raidDefend(); }catch(_e){} }
+  return raids;
+}
+function raidSettle(){
+  var H = BohemiaHomeBases, out = H.settle(hbRec(), turfSeats() || [], DAY.day);
+  out.forEach(function(r){
+    if(r.how === 'moot') return;
+    raidSay(r.outcome === 'taken' ? (r.by + ' took ' + r.base + '. What we built there stands. It pays them now.')
+                                  : (r.base + ' held. The crew from ' + r.by + ' went home.'));
+  });
+  return out;
+}
+/* a base you hold with things standing on it draws ONE crew, once an act, when none is open or already walking */
+function raidDraw(){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [], ps = partiesAll() || [];
+  for(var n in LOT_BOOK){
+    if(!lotIsMine(n)) continue;
+    var up = 0; for(var k in LOT_BOOK[n].lots) if(LOT_BOOK[n].lots[k].done) up++;
+    if(up < BohemiaLivingMap.WORTH_RAIDING || H.raidsOpen(rec).some(function(x){ return x.base === n; }) || H.raidsOn(rec, n, rec.act) >= 1) continue;
+    var seat = seats.filter(function(s){ return s.faction === n; })[0]; if(!seat) continue;
+    if(ps.some(function(p){ return p && p.raid && p.to && p.to.x === seat.x && p.to.y === seat.y && !p.arrived; })) continue;
+    var crew = BohemiaLivingMap.crewAt(seats, seat, {
+      friend: function(f){ try{ var e = BohemiaBetween.between(f, BohemiaBetween.mine(), null); return !!e && e.init > 0; }catch(_e){ return false; } },
+      holds: function(f){ return H.heldBy(rec, f, rec.act) === f; } });
+    if(!crew) continue;
+    ps.push(crew);
+    raidSay('A crew from ' + crew.from.faction + ' left home, walking at ' + n + '. You can see them coming.');
+  }
+}
+/* YOU CAN BE THERE (rule 68: you see them coming; [built on the board]: you fight on what you built). Standing at a base
+   you hold while its raid is open starts the fight at the gate, through the one door every fight goes through (so
+   what stands there is on the board); the crew is sized by the map's own party math. A win (the crew gone, nobody
+   left standing) closes the raid: the base held. A loss is a reload (below). */
+var RAID_FIGHTING = null;
+function raidDefend(){
+  if(RAID_FIGHTING) return false;
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  var open = H.raidsOpen(rec);
+  for(var i = 0; i < open.length; i++){
+    var r = open[i]; if(!lotIsMine(r.base)) continue;
+    var seat = seats.filter(function(s){ return s.faction === r.base; })[0]; if(!seat) continue;
+    if(Math.max(Math.abs(city.x - seat.x), Math.abs(city.y - seat.y)) > 1) continue;
+    /* the crew is sized by the map's own party math and dressed by COMBAT's enemy table (its own enemy kinds: the
+       raider's faction NAME is not one, and handing it over left the fight unable to build its ground) */
+    var party = null; try{ party = partyMath('roaming', { x: seat.x, y: seat.y }); }catch(_e){ party = null; }
+    var roster = []; for(var k = 0; k < ((party && party.count) || 3); k++) roster.push({ arch: 'human' });
+    RAID_FIGHTING = r.base;
+    var ok = false;
+    try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'The raid on ' + r.base, faction: r.by, draft: true,
+      roster: roster, party: party, street: true, why: 'raid:' + r.base, at: { x: seat.x, y: seat.y, gx: seat.x, gy: seat.y } }); }catch(_e){ ok = false; }
+    if(!ok){ RAID_FIGHTING = null; continue; }
+    raidSay('The crew from ' + r.by + ' is at the gate. You are here. Fight.');
+    return true;
+  }
+  return false;
+}
+/* A LOSS IS NOT A TAKING. DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): going down sends him back to the save made at
+   the bell, and that save has the raid still open at the gate. So a loss writes nothing here; the reload is the
+   answer, and the raid's own days still run (stay away and the world settles it). A win closes it: the base held. */
+function raidFought(o){
+  var base = RAID_FIGHTING; RAID_FIGHTING = null; if(!base) return null;
+  var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+  if(!won) return { applied: false, reason: 'RELOAD' };
+  var res = BohemiaHomeBases.closeRaid(hbRec(), { base: base, outcome: 'held', day: DAY.day, how: 'fought' });
+  if(res.applied) raidSay(base + ' held. You stood at the gate and they broke.');
+  return res;
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !RAID_FIGHTING) return;
+  try{ raidFought(d.outcome || null); }catch(_e){}
+});
+window.raidArrivals = raidArrivals; window.raidSettle = raidSettle; window.raidDraw = raidDraw; window.hbRec = hbRec;
+window.raidDefend = raidDefend; window.raidFought = raidFought;
 DAY.on('wake', function(){ try{ lotWake(); }catch(_e){} });
 window.lotBookFor = lotBookFor; window.lotWake = lotWake; window.lotIsMine = lotIsMine;
 /* the built things' pictures, the same cuts the settlement screen stands on its lots */
@@ -74,10 +171,12 @@ GLUE_BEFORE = '/* THE WAKE BEAT ITSELF. DAY.on(\'wake\') is the day loop\'s own 
 
 SAVE_OLD = "    century:(function(){ try{ return BohemiaCentury.save(centuryGet()); }catch(_e){ return null; } })(),\n"
 SAVE_NEW = SAVE_OLD + ("    /* __BUILT_ON_THE_MAP__: the build lots ride with the century they write into */\n"
-                       "    lots:(function(){ try{ var o = {}; for(var n in LOT_BOOK) o[n] = JSON.parse(BohemiaLotBuild.save(LOT_BOOK[n])); return o; }catch(_e){ return null; } })(),\n")
+                       "    lots:(function(){ try{ var o = {}; for(var n in LOT_BOOK) o[n] = JSON.parse(BohemiaLotBuild.save(LOT_BOOK[n])); return o; }catch(_e){ return null; } })(),\n"
+                       "    homebases:(function(){ try{ return HB_REC ? BohemiaHomeBases.toJSON(HB_REC) : null; }catch(_e){ return null; } })(),\n")
 LOAD_OLD = "  if(st.century){ try{ CENTURY=BohemiaCentury.load(st.century); }catch(_e){} }\n"
 LOAD_NEW = LOAD_OLD + ("  /* __BUILT_ON_THE_MAP__ */\n"
-                       "  if(st.lots){ try{ for(var __ln in st.lots){ var __ls = BohemiaLotBuild.load(JSON.stringify(st.lots[__ln])); if(__ls) LOT_BOOK[__ln] = __ls; } }catch(_e){} }\n")
+                       "  if(st.lots){ try{ for(var __ln in st.lots){ var __ls = BohemiaLotBuild.load(JSON.stringify(st.lots[__ln])); if(__ls) LOT_BOOK[__ln] = __ls; } }catch(_e){} }\n"
+                       "  if(st.homebases){ try{ HB_REC = BohemiaHomeBases.load(st.homebases); }catch(_e){} }\n")
 
 DRAW_MARK, DRAW_END = '        /* __BUILT_ON_THE_MAP__ at the base (LIFE+CITY 10/9) */', '        /* __/BUILT_ON_THE_MAP__ at the base */'
 DRAW = DRAW_MARK + r'''
@@ -138,6 +237,10 @@ def once(s, a, label):
         sys.exit('REFUSING TO WRITE: the %s anchor resolves %d times.' % (label, s.count(a)))
 
 
+ARRIVE_OLD = "function loopArrived(to){\n  var x = city.x, y = city.y;\n"
+ARRIVE_NEW = ARRIVE_OLD + "  try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */\n"
+
+
 def main():
     s = open(CITY, encoding='utf8').read()
     before = s
@@ -153,12 +256,21 @@ def main():
     def ins_glue(t):
         once(t, GLUE_BEFORE, 'the wake beat'); return t.replace(GLUE_BEFORE, GLUE + GLUE_BEFORE, 1)
     s = put(s, GLUE_MARK, GLUE_END, GLUE, ins_glue)
-    if SAVE_NEW not in s:
-        once(s, SAVE_OLD, 'the save')
-        s = s.replace(SAVE_OLD, SAVE_NEW, 1)
-    if LOAD_NEW not in s:
-        once(s, LOAD_OLD, 'the restore')
-        s = s.replace(LOAD_OLD, LOAD_NEW, 1)
+    SAVE_PREV = SAVE_OLD + ("    /* __BUILT_ON_THE_MAP__: the build lots ride with the century they write into */\n"
+                            "    lots:(function(){ try{ var o = {}; for(var n in LOT_BOOK) o[n] = JSON.parse(BohemiaLotBuild.save(LOT_BOOK[n])); return o; }catch(_e){ return null; } })(),\n")
+    LOAD_PREV = LOAD_OLD + ("  /* __BUILT_ON_THE_MAP__ */\n"
+                            "  if(st.lots){ try{ for(var __ln in st.lots){ var __ls = BohemiaLotBuild.load(JSON.stringify(st.lots[__ln])); if(__ls) LOT_BOOK[__ln] = __ls; } }catch(_e){} }\n")
+    for new_, prev, old_, label in ((SAVE_NEW, SAVE_PREV, SAVE_OLD, 'the save'), (LOAD_NEW, LOAD_PREV, LOAD_OLD, 'the restore')):
+        if new_ in s:
+            continue
+        if s.count(prev) == 1:
+            s = s.replace(prev, new_, 1)
+        else:
+            once(s, old_, label)
+            s = s.replace(old_, new_, 1)
+    if ARRIVE_NEW not in s:
+        once(s, ARRIVE_OLD, 'loopArrived')
+        s = s.replace(ARRIVE_OLD, ARRIVE_NEW, 1)
     def ins_draw(t):
         once(t, DRAW_BEFORE, 'the base plate'); return t.replace(DRAW_BEFORE, DRAW + DRAW_BEFORE, 1)
     s = put(s, DRAW_MARK, DRAW_END, DRAW, ins_draw)

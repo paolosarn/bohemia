@@ -46,8 +46,11 @@ function livingMapSteps(ps, n){
   var st = livingMapState(); if(!st) throw new Error('no living map');
   var seats = null; try{ seats = turfSeats(); }catch(_e){ seats = null; }
   var h = livingMapHour();
-  for(var i = 0; i < n; i++) BohemiaLivingMap.step(ps, seats || [], st, h);
+  var arr = [];
+  for(var i = 0; i < n; i++){ var r = BohemiaLivingMap.step(ps, seats || [], st, h); if(r && r.arrived) arr = arr.concat(r.arrived); }
   BohemiaLivingMap.prune(st, h);
+  /* who got where: a crew at a base you hold opens a raid ([a raid on your base], LIFE+CITY 10/9) */
+  if(arr.length && typeof raidArrivals === 'function'){ try{ raidArrivals(arr); }catch(_e){} }
 }
 /* the crowd at a place's gate today, and the traits it is showing (null until the file is in) */
 function livingMapCrowd(name, tier){
@@ -124,7 +127,7 @@ OPEN_NEW = ("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ re
             "    /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */\n"
             "    traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),\n"
             "    /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */\n"
-            "    held: (function(){ try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\\s_]/g,''); };\n"
+            "    held: (function(){ try{ if(typeof lotIsMine === 'function') return lotIsMine(t.name); var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\\s_]/g,''); };\n"
             "             return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),\n"
             "    day: loopDay() }, '*'); }catch(_e){}")
 
@@ -189,11 +192,12 @@ def main():
         j = t.index('        __r = Math.max(__r, __ps.height - 4);', i); return t[:j] + CROWD + t[j:]
     s = put(s, CROWD_MARK, CROWD_END, CROWD, ins_crowd)
     if OPEN_NEW not in s:
-        if s.count(OPEN_PREV) == 1:
-            s = s.replace(OPEN_PREV, OPEN_NEW, 1)
-        else:
-            once(s, OPEN_OLD, 'settlement open')
-            s = s.replace(OPEN_OLD, OPEN_NEW, 1)
+        # the open message's tail is ours from its batteries line to its close: rewrite that span, whatever version is there
+        a = s.find("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {}")
+        if a < 0 or s.count("    batteries: loopBats(), contracts: LOOP.held.map(function(c){ return c.id; }), hired: {}") != 1:
+            sys.exit('REFUSING TO WRITE: the settlement open anchor resolves %d times, not 1.' % s.count("    batteries: loopBats(), contracts: LOOP.held.map"))
+        b = s.index("}, '*'); }catch(_e){}", a) + len("}, '*'); }catch(_e){}")
+        s = s[:a] + OPEN_NEW + s[b:]
     if s == before:
         print('THE LIVING MAP: nothing to do')
         return

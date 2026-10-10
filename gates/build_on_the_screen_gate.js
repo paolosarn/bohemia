@@ -88,8 +88,8 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'applica
   } finally { await b.close(); srv.close(); }
   /* ---- E ---- */
   const city = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
-  ok('E the map hands the screen whether the place is yours (its own outfit\'s base) and its day',
-     /held: \(function\(\)\{ try\{ var m = BohemiaBetween\.mine\(\)/.test(city) && /day: loopDay\(\) \}, '\*'\)/.test(city));
+  ok('E the map hands the screen whether the place is yours (FACTIONS\' ledger on the map, your outfit\'s base from day one) and its day',
+     /held: \(function\(\)\{ try\{ if\(typeof lotIsMine === 'function'\) return lotIsMine\(t\.name\)/.test(city) && /day: loopDay\(\) \}, '\*'\)/.test(city));
   console.log('\nBUILD ON THE SCREEN GATE: ' + pass + ' ok, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });
