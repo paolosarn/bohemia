@@ -7053,6 +7053,19 @@
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_64_THE_PRICE_OF_BREAD_AND_THEFT_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 64.\n\nSeen in: not drawn yet, feeds TUNING and the stall interaction."
    }
+  },
+  {
+   "id": "combat2-the-rest-join-10-10",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "EVERY FIGHT BOARD'S EDGES NOW JOIN",
+   "why": "The cul-de-sac, the landfill and the lake shore were the last boards whose blocks did not line up; now all nine fight boards join with zero broken edges. Thumbs up and this is how every board is laid, and you see it in the COMBAT tab on those three boards.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT2_THE_REST_JOIN_10_10.png"
+   }
   }
  ],
  "verdicts": [

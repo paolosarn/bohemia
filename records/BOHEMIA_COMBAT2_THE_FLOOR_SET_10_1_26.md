@@ -395,3 +395,15 @@ wandering cracks, inside the lanes only, never across the paint, 0.7 m off the b
 5 the dark band: the overpass's shadow 0.84 (was 0.62), the railing posts lighter, the barrier footing narrow and
 light. Gate TILES ARE LEGOS green, freeway 0/0 today and in both futures. Verified in the new fight (before /
 after, 0 errors). VOTE: combat2-the-freeway-round-two-10-9; DIRECTION re-judges.
+
+## ROUND TWENTY-EIGHT (10/10): [the rest join], SHIPPED
+
+All nine fight boards now read 0 broken seams on the board itself (rule 77). culdesac 28->0: culdesac_stem() puts the
+town's cached cross-street tile at column 2 rows 3-4 so the stem meets suburb_stem lane for lane, and its palette
+lays only cul-de-sacs beside cul-de-sacs (closed sides). landfill 7->0: the desert's canonical strip on its sides.
+shore 3->0: shore_one_line() draws every shore block's waterline from the unshifted plan, and a canonical shore
+strip rings its sides. Two reader/paint changes: a line counts as crossing a side only if its stroke starts within
+one tile of it, and R4.road_band never wears the first or last dash of a block. The stricter reader first broke the
+ruin (19) and the freeway (3); fixed at the source: the ruin's street got its curb lines and its paint is kept under
+the soot. APRONS, honestly: shore 16->6, but culdesac 28->38 and strip 0->12 got worse on this build (the apron
+solver found no clean ring); ratchet set to the measured numbers. Gate TILES ARE LEGOS green. VOTE combat2-the-rest-join-10-10.
