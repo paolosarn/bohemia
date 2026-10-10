@@ -3368,6 +3368,13 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/10 (c) LATEST -- [the sideways sides] SHIPPED: no brown-grey bands on the map, sideways or upright; the map runs edge to edge.
+bohemia_ui_materials.js lifts the city column's 640 cap and padding at every width, asks a resize, moves the phone right of the gear on its side.
+Before: 102-pt flat bands each side. Gate the sideways sides 10/0, 5 mutations. Picture slices/vote/UI_THE_SIDEWAYS_SIDES_10_10.png.
+FOR EYES + DIRECTION [PENDING, not Paolo]: check and judge that picture before VOTE (rules 88, 89); UI did not register it.
+FOR RUN TWO [PENDING RUN TWO, not Paolo]: the settlement's own sideways band, cause and one-line fix in records/BOHEMIA_UI_REVIEW_FOR_RUN_TWO_THE_SETTLEMENT_BAND_SIDEWAYS_10_10_26.md.
+OPEN (look only): [the line on a ground], [the icons against the packs], [the screens past the phone].
+
 UI (ui-kmqmrf): 10/10 (b) LATEST -- [the roster and the posts look] SHIPPED: RUN TWO's company screen and the hall's hire cards in the materials; the reshuffle says AGAIN.
 dressRoster/dressPosts/drawStars in bohemia_ui_materials.js (RUN TWO's files untouched): taped cardboard card, stats on a receipt, drawn stars, gear/bag icons, amber level-up pick.
 Before: gear labels 3.2 and the pick 3.2 in the sun. Gate the roster and the posts look 28/0 on four screen classes, 5 mutations; reshuffle gate re-aimed at AGAIN 9/0.

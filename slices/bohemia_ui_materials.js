@@ -680,8 +680,17 @@
        carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
        glass. 390 points of height hold a phone 150 wide at 19.5 by 9 (325 tall); the face row tightens so three faces
        stay 44 points. One class of screen (a phone on its side: landscape, under 500 tall); portrait is untouched. */
+    /* NO BANDS AT ANY WIDTH (UI [the sideways sides]): the column's 640 cap and its 6 points of padding made a flat strip of
+       the page's brown-grey down each side, 6 points upright, 102 on its side, more on a tablet. The map goes to the glass
+       at every width, the way Battle Brothers' map fills the screen; the bar runs the whole width with it. */
+    + 'html body .wrap:has(#stage){max-width:none;padding:0}'
+    + 'html body .wrap:has(#stage) #menubar{margin:0}'   /* it pulled itself out over the 6 points of padding that is gone */
     + '@media (orientation:landscape) and (max-height:500px){'
-    +   'html body #cityfeed{--skin-phonew:150px;left:7px!important;right:auto!important;top:4px!important}'
+    /* AND NO BANDS (UI [the sideways sides], Paolo 10/10 on the sideways map: 'what's up with the brown-grey sides, man'):
+       the city's column was capped at 640 with 6 points of padding, so on a phone on its side two flat bands of the
+       page's brown-grey framed the map. The map goes to the glass, edge to edge, the way Battle Brothers' map fills the
+       screen at any width; the bar runs the whole width with it. The phone moves right of the shell's gear (8..52). */
+    +   'html body #cityfeed{--skin-phonew:150px;left:58px!important;right:auto!important;top:4px!important}'
     +   'html body #actflip{gap:2px;padding:4px 2px 5px}'
     + '}';
   /* THE ROSTER AND THE POSTS (UI [the roster and the posts look], 10/10; Paolo 10/10: 'THIS UI IS ASS', 'the UI is so dog
@@ -819,7 +828,11 @@
     var R = document.documentElement.style;
     if (!R.getPropertyValue('--bm-mark-skull')) { R.setProperty('--bm-mark-skull', 'url(' + mark('skull', '#eadcb4').toDataURL('image/png') + ')');
       R.setProperty('--bm-mark-skull-ink', 'url(' + mark('skull', '#120c06').toDataURL('image/png') + ')'); }
-    style('bm-phone', PHONE_CSS); return true;
+    style('bm-phone', PHONE_CSS);
+    /* the city sizes its map from its column when it boots, which can be before this sheet lands: a phone on its side
+       then drew the old 628 and left a black band where the column grew (UI [the sideways sides]); ask it to measure again */
+    try { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 0); setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 1500); } catch (e) {}
+    return true;
   }
   function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) { iconTheMarket(); dressPosts(); } dressMapBar(); dressPhone(); dressRoster();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
