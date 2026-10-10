@@ -61023,7 +61023,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/10d (latest): [fight verdict 23] SHIPPED: F1 PASS (1.0) and F2 PASS
+ROUND LOG 10/10e (latest): [the reference twin] round two, THE PLACES, in VOTE:
+the place on the map is a plate of flat boxes beside the settlement screen from
+his pack; the lots are grey grit noise (25.4/98) beside his ground (12.6/117).
+Revamp pass round three: COOK TWO r6 PASS on pieces, COOK THREE enemy tiers PASS
+with the mail HOLD, the thirteen r4 BACK (four factions one brown), COOK FOUR map
+houses PASS / plate BACK. Note: the alpha's toMap failed this round (the map
+never came up after 8 squeezes); the demo's map opened fine. Next twin: the map
+far. [fight verdict 24] waits on COMBAT TWO's or COOK TWO's next board.
+ROUND LOG 10/10d: [fight verdict 23] SHIPPED: F1 PASS (1.0) and F2 PASS
 (0.025/0.024/0.021 on the glass, 12x verdict 22) for the first time; F3-F5 not
 yet (camouflage sand, a pale line down the board, freeway still the old road,
 flat barrier); 4 of 22's 7 still wrong. Revamp pass round two: COOK TWO PASS,
