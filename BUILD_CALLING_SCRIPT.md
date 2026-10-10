@@ -19,7 +19,7 @@ CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: BUILD 10/10m | NEEDS: none | STATE: LANDED acbd6d89 (pages run 3016; the STOP block's RESTART is the coordinator's or EYES' once seen on the phone)
 CUE 8 | THE PASS (RUN carries) | PLATE_FIGHT_BLOCK, the whole plate: one fight on one Vegas block with its HUD, called HANDS | FIRES ON: the RUN cut after every station reads 0-out | NEEDS: CUE 2, CUE 3, CUE 7 | STATE: WARNING
 CUE 7 | SOUNDS | the first swing he can hear: one moment, one tab | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
-CUE 9 | COMBAT | the fight's night: every tile the rules call lit looks lit (the lamp's light covers it), and the computer's sharpness leg measured over every visible tile | FIRES ON: the alpha's next stamp (NOTE: the demo's fights load slices/BOHEMIA_FIGHT.html live, so a fight push reaches the demo without a cut; FOR RUN and the pass) | NEEDS: none | STATE: WARNING
+CUE 9 | COMBAT | the fight's night: every tile the rules call lit looks lit (the lamp's light covers it), and the computer's sharpness leg measured over every visible tile | FIRES ON: the alpha's next stamp (NOTE: the demo's fights load slices/BOHEMIA_FIGHT.html live, so a fight push reaches the demo without a cut; FOR RUN and the pass) | NEEDS: none | STATE: STANDBY 2fe7da9
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
 

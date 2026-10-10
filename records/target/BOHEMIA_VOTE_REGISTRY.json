@@ -7571,7 +7571,7 @@
   "why": "You said it 10/10: no art chat puts anything into the game until you have said of that asset, this is final; until then they study the packs you bought and cook batch after batch. You see it in the VOTE tab, where every art card is now a candidate beside its pack twin, and in the game, where nothing art changes until a FINAL card is yours.",
   "when": "10/10"
 },
-  {"id": "combat-the-lit-tiles-look-lit-10-10", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/10", "title": "THE LAMP SHOWS THE STREET", "why": "At night a street lamp now shows the street under it, its cracks, lines and colours warmed and bright, where before it was a flat orange blob that left most of the lit squares dark. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_LIT_TILES_LOOK_LIT_10_10.jpg"}, "draft": true}
+  {"id": "combat-the-lit-tiles-look-lit-10-10", "kind": "tile", "lane": "combat", "sha": "2fe7da9", "made": "10/10", "title": "THE LAMP SHOWS THE STREET", "why": "At night a street lamp now shows the street under it, its cracks, lines and colours warmed and bright, where before it was a flat orange blob that left most of the lit squares dark. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_LIT_TILES_LOOK_LIT_10_10.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
