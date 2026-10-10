@@ -1,0 +1,100 @@
+BOHEMIA -- THE LONG INJURY (10/9/26, PEOPLE lane)
+VAMILY [the long injury], row THIRTY-TO-FORTY-DAYS-LAID-UP, the fifth votes
+(struck down: 20 percent dead, else a long injury). "The injured man's
+card: his one pain line, the days left, what he cannot do (the body part's
+penalty), the clinic shortening it; he heals on the road."
+
+================================================================================
+THE REAL WORDS, FOUND BEFORE BUILDING ANYTHING
+================================================================================
+laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md, his own
+words: "Only a 20% chance your character can die, but if they get struck
+down, a debilitating injury. When a person is STRUCK DOWN in a fight: 20%
+they die... 80% they live with a DEBILITATING INJURY that takes them out of
+fights for 30 to 40 game days and leaves a permanent mark (a scar, a limp,
+a lost eye, a stat that never comes back)."
+
+THE ODDS ARE ALREADY REAL, ALREADY SOURCED: records/target/bb/ours.json
+carries struck_down_death_chance (0.2), veteran_death_chance (0.1, THE
+THIRD VOTES), struck_down_laid_up_days ([30, 40]) and main_character_dies
+(false), each cited to the real law. Nothing to add there; the row's own
+text already named this as TUNING's rows, and TUNING already filled them.
+
+A SECOND LANE HAD ALREADY CLAIMED OVERLAPPING GROUND: COMBAT's own [struck
+down] row (combat-nfnki9, claimed, VAMILY.md) names "the roster shows the
+injury as one pain line... one label, the penalty by body part" as part of
+ITS OWN scope -- the exact same card this row asks for. Rather than two
+lanes writing two versions of the same content, this round built it once,
+as a shared, pure, gated module, with a review file telling COMBAT (the
+roll) and RUN TWO (the clinic's own card) exactly what to read from it.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_long_injury.js: a pure module. injuryFact(key) returns a
+real, deterministic fact for a struck-down man who lived:
+  - days: 30 to 40, the real range, read off ours.json
+  - markId/markName: one of the ELEVEN real permanent injury rows in
+    records/target/bb/injuries.json (Brain Damage, Broken Elbow Joint,
+    Broken Knee, Partly Collapsed Lung, Maimed Foot, Missing Ear, Missing
+    Eye, Missing Finger, Missing Nose, Traumatized, Weakened Heart) --
+    his own "a scar, a limp, a lost eye, a stat that never comes back",
+    word for word
+  - painLine: that mark's own real flavor text, first sentence
+  - bodyPartPenalty: that mark's own real effects_text, joined
+healDay(fact) steps one real day off the laid-up clock, floors at zero, and
+NEVER clears the mark itself -- "laid up" ends, "marked" does not, the exact
+shape his own words describe ("a stat that never comes back").
+
+================================================================================
+A CANON NOTE, NAMED NOT HIDDEN
+================================================================================
+engine/bohemia_down.js (9/12, this lane's own earlier round) promises
+"nothing on a person you keep is forever," built off the 9/11 law before the
+9/27 law existed. The 9/27 law is NEWER and explicitly locks a permanent
+mark for a man struck down in a fight specifically; NEWEST DATE WINS (the
+Truth Hierarchy) makes this round's module the correct read for that exact
+case. bohemia_down.js is untouched -- it may still be right for an injury
+that is not from a fight, and retiring or folding it is a bigger call than
+this row asked for, named for whoever takes that up.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+gates/long_injury_gate.js reads ours.json and injuries.json DIRECTLY and
+checks every number and every word in the module against them, byte for
+byte. 4,000 rolled day counts, zero outside 30-40. All eleven real marks
+proven reachable in a large sample; zero temporary injuries (the short,
+1-to-9-day kind) reachable from this module at all. Every pain line and
+every body-part penalty checked against the real file's own flavor and
+effects_text, not reworded. healDay() walked a full man's clock down to
+zero, one real day at a time, and the mark was still there at the end.
+
+================================================================================
+THE GATE
+================================================================================
+gates/long_injury_gate.js, new (REUSE-FIRST: nothing existed to extend).
+38 legs: the real day-range proof, the real-marks proof (reachability and
+no-temporary-leak), the determinism proof, the real-words proof (pain line
+and penalty), the heal-to-zero proof, cook + registry.
+
+================================================================================
+THE COOK: THE LONG INJURY
+================================================================================
+slices/BOHEMIA_THE_LONG_INJURY_10_9_26.html, registered in VOTE. Three real
+cards, generated fresh, each with a real name (the same name-mix generator
+every citizen already uses), a real mark, a real pain line, real days left
+and a real penalty.
+
+================================================================================
+WHAT THIS LANE DID NOT TOUCH, ON PURPOSE
+================================================================================
+Neither slices/BOHEMIA_SETTLEMENT_SCREEN.html (RUN TWO's own file) nor the
+fight's own code (COMBAT's own file) was touched. ONE SYSTEM, ONE SESSION:
+this round built the shared fact as a pure, gated module and left a review
+file (records/BOHEMIA_THE_LONG_INJURY_REVIEW_FOR_COMBAT_10_9_26.md) naming
+exactly what COMBAT's roll and RUN TWO's clinic card should read from it.
+
+TAB: VOTE, item THE LONG INJURY. NOT IN A TAB YET on the live fight or the
+live settlement screen (COMBAT's and RUN TWO's own files to wire, named
+above).

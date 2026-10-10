@@ -11421,7 +11421,17 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   function step(parties, seats, st, hour) {
     var PP = PARTIES(); if (!PP || !parties) return { settled: 0 };
     var before = parties.map(function (p) { return p && p.at ? { x: p.at.x, y: p.at.y } : null; });
+    var was = parties.map(function (p) { return !!(p && p.arrived); });
     PP.advance(parties, 1, 1);
+    /* WHO GOT WHERE THIS STEP (10/9, [a raid on your base]): FACTIONS' raidsFrom() reads arrivals in this shape
+       (homebases.advanceWatching's), so a crew reaching a base you hold opens a raid. */
+    var arrived = [];
+    for (var ai = 0; ai < parties.length; ai++) {
+      var ap = parties[ai];
+      if (ap && !was[ai] && ap.arrived && ap.from && ap.to)
+        arrived.push({ id: ap.id, agenda: ap.agenda, faction: ap.from.faction,
+                       power: (typeof ap.from.power === 'number') ? ap.from.power : null, to: { x: ap.to.x, y: ap.to.y }, hour: hour });
+    }
     var settled = settle(parties, seats, before);
     for (var i = 0; i < parties.length; i++) {
       var p = parties[i], b = before[i];
@@ -11430,7 +11440,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       st.prints.push({ x: b.x, y: b.y, f: p.from.faction, a: p.agenda, id: p.id,
                        dx: p.at.x - b.x, dy: p.at.y - b.y, h: hour });
     }
-    return { settled: settled };
+    return { settled: settled, arrived: arrived };
   }
 
   /* THE CLOCK MOVES THE VALLEY, AND ONLY THE CLOCK. `hours` passed at `cellsPerHour`; the fraction is
@@ -11506,9 +11516,38 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
 
   }
 
+  /* ---- WHAT YOU BUILD DRAWS A CREW (10/9, [a raid on your base]) -----------------------------------------------
+     Rule 37c (the future goes both ways) and 43 (losing a part takes it back). The valley's crews are sent by WORLD's
+     parties at seats their people are at blood with, and your outfit starts at blood with nobody (its relations are
+     empty), so nothing ever came for you. A base with things standing on it is worth taking: when yours has at least
+     WORTH_RAIDING standing (mine, TUNING), the nearest seat that is not your friend and still holds its own base sends
+     ONE crew at your gate, in WORLD's own party shape (agenda 'crew', from its seat, to yours), so it walks, prints,
+     is seen coming (rule 68) and arrives like any other. Whether it may (one raid a base an act, none open, none
+     already walking) is FACTIONS' ledger, asked by the caller. Who it is and when are FACTIONS' to correct. */
+  var WORTH_RAIDING = 2;
+  function crewAt(seats, yourSeat, opts) {
+    opts = opts || {};
+    var PP = PARTIES(), friend = opts.friend || function () { return false; }, holds = opts.holds || function () { return true; };
+    if (!yourSeat) return null;
+    var best = null, bd = 1e9;
+    for (var i = 0; i < (seats || []).length; i++) {
+      var s = seats[i];
+      if (!s || s.faction === yourSeat.faction || friend(s.faction) || !holds(s.faction)) continue;
+      var d = cheb(s.x | 0, s.y | 0, yourSeat.x | 0, yourSeat.y | 0);
+      if (d < bd || (d === bd && best && s.faction < best.faction)) { bd = d; best = s; }
+    }
+    if (!best) return null;
+    var ag = (PP && PP.AGENDAS && PP.AGENDAS.crew) || { about: 'going to take something', draft: true };
+    return { id: best.faction + ':crew:' + yourSeat.x + ',' + yourSeat.y + ':raid',
+             from: { faction: best.faction, tier: best.tier, power: best.power, x: best.x, y: best.y },
+             agenda: 'crew', about: ag.about, draft: ag.draft, toward: yourSeat.faction,
+             to: { x: yourSeat.x, y: yourSeat.y }, at: { x: best.x, y: best.y }, arrived: false, left: false, raid: true };
+  }
+
   var API = { PRINT_HOURS: PRINT_HOURS, TUNED: TUNED, draft: DRAFT, TOWN_R: TOWN_R,
               make: make, step: step, advanceHours: advanceHours, prune: prune, fadeOf: fadeOf,
-              stacks: stacks, isTown: isTown, seedOf: seedOf, rng: rng, traitsFor: traitsFor, crowdAt: crowdAt, crowdOf: crowdOf };
+              stacks: stacks, isTown: isTown, seedOf: seedOf, rng: rng, traitsFor: traitsFor, crowdAt: crowdAt, crowdOf: crowdOf,
+              WORTH_RAIDING: WORTH_RAIDING, crewAt: crewAt };
   if (HASREQ) module.exports = API;
   root.BohemiaLivingMap = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));
@@ -14993,8 +15032,25 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      took a home base in act n (bohemia_homebases entries: {act, how:'taken',
      to:'you'}). Takes the entries, not the module, so it works on a save blob as
      well as a live record. Returns the acts it just unlocked, in order. */
+  /* *** THE FLIP OPENS AT THE FIRST CRISIS, AND NOWHERE ELSE (Paolo 10/10, rule 85: 'you can't
+     even flip until it's unlocked in the first endgame crisis'). *** crisis(day) is the one door
+     for act 2: the crisis's start (around day 80 to 100, VIA GROK) sets the flag, unlocks act 2
+     and says which day. Before it the phone shows one face and a flip is refused. A base taken
+     is no longer a key to act 2; it only opens act 3 AFTER the crisis, so a game with no crisis
+     has no flip at all. Nothing in the walked game calls crisis() yet (WORLD's crisis clock). */
+  var CRISIS = null;
+  function crisisStarted() { return !!CRISIS; }
+  function crisis(day) {
+    if (CRISIS) return { ok: false, why: 'ALREADY', day: CRISIS.day };
+    var d = +day; if (!(d >= 0) || !isFinite(d)) d = 0;
+    CRISIS = { day: Math.floor(d) };
+    var r = unlock(2);
+    return { ok: true, day: CRISIS.day, unlocked: unlocked(), first: !!(r && r.ok) };
+  }
+
   function unlockFromBases(entries, holder) {
     var who = holder == null ? 'you' : holder, out = [];
+    if (!CRISIS) return out;                 /* nothing opens before the first crisis (rule 85) */
     if (Object.prototype.toString.call(entries) !== '[object Array]') return out;
     for (var n = 1; n <= 2; n++) {
       if (UNLOCKED[n + 1] || !UNLOCKED[n]) continue;
@@ -15083,6 +15139,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return {
       V: 1,
       current: CURRENT,
+      crisis: CRISIS ? { day: CRISIS.day } : null,
       unlocked: unlocked(),
       met: [1, 2, 3].filter(function (n) { return !!MET[n]; }),
       open: [2, 3].filter(function (n) { return !!OPEN[n]; }),
@@ -15114,6 +15171,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
         if (one.name || one.sex || one.age) ov[n] = one;
       }
     UNLOCKED = u; MET = m; OPEN = o; SLOT_SALT = salt; OVERRIDE = ov;
+    CRISIS = (blob.crisis && typeof blob.crisis === 'object' && u[2] && isFinite(+blob.crisis.day) && +blob.crisis.day >= 0) ? { day: Math.floor(+blob.crisis.day) } : null;
     var c = blob.current | 0;
     CURRENT = (isAct(c) && u[c]) ? c : 1;
     return { ok: true, unlocked: unlocked(), current: CURRENT };
@@ -15123,7 +15181,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
      to "start over". resetRoster() alone clears salts and overrides and leaves
      the unlocks, which is what a name screen wants and a new game does not. */
   function resetAll() {
-    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1;
+    UNLOCKED = { 1: true }; MET = { 1: true }; OPEN = {}; CURRENT = 1; CRISIS = null;
     resetRoster();
   }
 
@@ -15146,7 +15204,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     sexFor: sexFor, roster: roster, reshuffle: reshuffle,
     setName: setName, setSex: setSex, setAge: setAge, resetRoster: resetRoster,
     current: current, setCurrent: setCurrent, flip: flip, isAct: isAct,
-    unlock: unlock, unlocked: unlocked, isUnlocked: isUnlocked,
+    unlock: unlock, crisis: crisis, crisisStarted: crisisStarted, unlocked: unlocked, isUnlocked: isUnlocked,
     unlockFromBases: unlockFromBases, customizable: customizable, confirm: confirm,
     visible: visible, faceKey: faceKey, save: save, load: load, resetAll: resetAll,
     yearsBetween: yearsBetween, groundDiffers: groundDiffers, draft: DRAFT
@@ -15215,7 +15273,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     perAct: 12,             /* ~12 men an act, 36 lives a game */
     levelShare: 0.5,        /* an heir starts at half the parent's level, rounded up, at least 1: a child shares half the DNA, a grandchild a quarter (the 9/28 reading), because the share compounds each hop */
     perkShare: 0.5,         /* and the first half of the parent's perks, in the order he took them */
-    debtShare: 0.45,        /* standing's own GEN_LOSS: what crosses a generation of a debt or a favour (bohemia_standing.js, not a new number) */
+    /* NO debtShare ON PURPOSE: bohemia_fold.js CARRY rules debt 'dies' (ruled:true; a child is not liable for a parent's unsecured debts, you inherit the PERSON: standing.inherit carries who still holds a grudge). The first cut here carried 45% of a debt and contradicted that. */
     carryShare: 0.42        /* Paolo 10/2 (rule 67): 'not all of them, maybe like 42%' of the last crew carries */
   };
   var ACTS = [1, 2, 3];
@@ -15380,7 +15438,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       perks: keepPk,
       stars: stars,                         /* talent runs in a family: the stars carry */
       house: m.house != null ? m.house : null,
-      debt: m.debt != null ? Math.round(num(m.debt, 0) * rows.debtShare * 100) / 100 : 0,
+      debt: 0,                              /* a debt dies with the parent (bohemia_fold CARRY, ruled); the grudge is standing's */
       /* the body never carries: no stats, no hitpoints, no wounds, no age of the parent are copied (the 9/28 reading) */
       lookFrom: look,                       /* PORTRAIT's heredity takes the parent's look from here */
       lookSeed: hash32(look + '|' + toAct),
@@ -35307,8 +35365,11 @@ function livingMapSteps(ps, n){
   var st = livingMapState(); if(!st) throw new Error('no living map');
   var seats = null; try{ seats = turfSeats(); }catch(_e){ seats = null; }
   var h = livingMapHour();
-  for(var i = 0; i < n; i++) BohemiaLivingMap.step(ps, seats || [], st, h);
+  var arr = [];
+  for(var i = 0; i < n; i++){ var r = BohemiaLivingMap.step(ps, seats || [], st, h); if(r && r.arrived) arr = arr.concat(r.arrived); }
   BohemiaLivingMap.prune(st, h);
+  /* who got where: a crew at a base you hold opens a raid ([a raid on your base], LIFE+CITY 10/9) */
+  if(arr.length && typeof raidArrivals === 'function'){ try{ raidArrivals(arr); }catch(_e){} }
 }
 /* the crowd at a place's gate today, and the traits it is showing (null until the file is in) */
 function livingMapCrowd(name, tier){
@@ -43675,7 +43736,7 @@ function loopPostOpen(){
     /* __THE_LIVING_MAP__: the traits the map is showing at this gate, so the market he saw is the market he walks into */
     traits: (function(){ var c = livingMapCrowd(t.name, t.tier); return c ? c.traits : undefined; })(),
     /* __BUILD_ON_THE_SCREEN__ (LIFE+CITY 10/9): whether this place is yours (your outfit's own base, rule 43), and the map's day */
-    held: (function(){ try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+    held: (function(){ try{ if(typeof lotIsMine === 'function') return lotIsMine(t.name); var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
              return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),
     day: loopDay() }, '*'); }catch(_e){}
 }
@@ -43741,6 +43802,7 @@ function loopJobAt(x, y){
 }
 function loopArrived(to){
   var x = city.x, y = city.y;
+  try{ if(typeof raidDefend === 'function' && raidDefend()) return; }catch(_e){}   /* __BUILT_ON_THE_MAP__ a raid at your gate (LIFE+CITY 10/9) */
   var job = loopJobAt(x, y);
   if(job){
     LOOP.fighting = job.id;
@@ -44856,6 +44918,7 @@ function mapGroundEnd(st){
    behind the city; the near side is held under the line where it would cover a block of the
    map, so the foothills in front rise away from you and never sit on a street.
    THE FAR END HAZES INTO THE OLD FILL, so the picture has no edge either. */
+var VB_FRONT = 0.14;   /* __NO_SLAB__: how steeply the land in front of the city may rise toward the camera, blocks a block */
 var VB_S = 2, VB_K = 200, VB_FAR_HAZE = 0.5;   /* the far land's haze: the picture fades into it, and it runs to any screen's edge */                 /* texels a block; blocks of land past each edge */
 var VB = { seed: null, day: null, night: null, ms: 0, draws: 0, labels: [], peak: 0, roads: [], lake: null };
 window.VB = VB;
@@ -44940,7 +45003,7 @@ function vbCore(inp){
     if (snN) lake = { x: sxN / snN, y: syN / snN };   /* named where it meets the valley, not out in the haze */
   }
   /* THE ROADS OUT: every freeway that reaches the map's edge keeps going */
-  var roads = [], RM = new Uint8Array(P * P);
+  var roads = [], RM = new Uint8Array(P * P), RD = new Float32Array(D * D).fill(99), RW = new Float32Array(D * D);   /* RD/RW: the nearest road out and its half width, a block at a time, for the sharp view */
   ['x0', 'x1', 'y0', 'y1'].forEach(function (en) {
     var run = [];
     function flush(){ if (!run.length) return; var a = run[0], b = run[run.length - 1];
@@ -44966,7 +45029,7 @@ function vbCore(inp){
       var rr = r.w + 6, i0 = Math.floor(p[0] - rr + K), i1 = Math.ceil(p[0] + rr + K), j0 = Math.floor(p[1] - rr + K), j1 = Math.ceil(p[1] + rr + K);
       for (var jj = Math.max(0, j0); jj < Math.min(D, j1); jj++) for (var ii = Math.max(0, i0); ii < Math.min(D, i1); ii++) {
         var dd = Math.hypot(ii - K + 0.5 - p[0], jj - K + 0.5 - p[1]);
-        var kk = jj * D + ii; CARVE[kk] = Math.min(CARVE[kk], vbSm(r.w + 0.5, r.w + 6, dd)); }
+        var kk = jj * D + ii; CARVE[kk] = Math.min(CARVE[kk], vbSm(r.w + 0.5, r.w + 6, dd)); if (dd < RD[kk]) { RD[kk] = dd; RW[kk] = r.w; } }
       var rs = r.w * S, cu = (p[0] + K) * S, cv = (p[1] + K) * S;
       for (var v = Math.max(0, Math.floor(cv - rs - 1)); v < Math.min(P, Math.ceil(cv + rs + 1)); v++)
         for (var u = Math.max(0, Math.floor(cu - rs - 1)); u < Math.min(P, Math.ceil(cu + rs + 1)); u++) {
@@ -44975,6 +45038,7 @@ function vbCore(inp){
     });
   }
   for (var k3 = 0; k3 < D * D; k3++) H[k3] *= CARVE[k3];
+  try { VB_LAST = { seed: inp.seed, H: H, KIND: KIND, RD: RD, RW: RW, D: D, K: K, N: N, sd: sd, peak: 0 }; } catch (_e) {}   /* __THE_FAR_END_AT_THE_PHONES_PIXELS__ paints from these */
   /* the heights at the texels, in texels of lift, held under the line where they would cover the map */
   var HS = new Float32Array(P * P), peak = 0;
   for (var v2 = 0; v2 < P; v2++) for (var u2 = 0; u2 < P; u2++) {
@@ -44984,11 +45048,12 @@ function vbCore(inp){
     var qx = (u2 + 0.5) / S - K, qy = (v2 + 0.5) / S - K;
     if (qx > 0 && qx < N && qy > 0 && qy < N) continue;
     var lo = Math.max(qx - N, qy - N, 0), hi = Math.min(qx, qy);
-    if (lo < hi) hh = Math.min(hh, 0.38 * lo - 0.2);   /* shallower than the camera: a slope at the camera's own angle is seen edge-on, as a wall */
+    if (lo < hi) hh = Math.min(hh, VB_FRONT * lo - 0.2);   /* shallower than the camera: a slope at the camera's own angle is seen edge-on, as a wall. __NO_SLAB__ (RUN 10/10): 0.38 was still close enough to the camera's 0.5 that the ramp in front of the city was squeezed into a band four times thinner than its run, and that band WAS the slab's wall (measured: no land, no wall; the land alone, the wall); 0.14 reads as ground */
     if (KIND[Math.min(D - 1, Math.floor(qy + K)) * D + Math.min(D - 1, Math.floor(qx + K))] === 1) hh = 0;
     HS[v2 * P + u2] = Math.max(0, hh) * S;
     if (hh > peak) peak = hh;
   }
+  try { if (VB_LAST && VB_LAST.seed === inp.seed) VB_LAST.peak = peak; } catch (_e) {}
   /* the picture: along each diagonal, near to far, the nearest column that rises over a texel owns it */
   var px8 = new Uint8ClampedArray(P * P * 4), dq = new Int32Array(P), C2 = VB_COL, HZ = new Float32Array(K + 2);
   var AL = new Uint8Array(K + 2);
@@ -45081,6 +45146,90 @@ function vbCore(inp){
   roads.forEach(function (r) { if (r.name) { var p = r.pts[Math.min(r.pts.length - 1, 36)]; labels.push({ txt: r.name, x: p[0], y: p[1], kind: 'road' }); } });
   return { seed: inp.seed, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
     roads: roads.map(function (r) { return { edge: r.edge, name: r.name || null, c: r.c }; }), ms: Math.round(performance.now() - t0) };
+}
+/* ==== __THE_FAR_END_AT_THE_PHONES_PIXELS__ (RUN 10/10, [the far end at two million pixels], rules 60, 65, 88) ====
+   PAOLO (10/1, 10/2 twice, 10/4): "how many pixels is the Battle Brothers map, we haven't made any progress."
+   MEASURED ON HIS PHONE'S PROFILE at the far stop: the city in the middle is painted at twelve texels a block
+   (0.93 phone pixels a texel), but everything around it, most of the glass, is the land baked at TWO texels a
+   block: 5.6 phone pixels a texel, so the ranges are stair-stepped smears and the floor is coarse grit. Baking the
+   land at the phone's own pixels for all 200 blocks around the valley would be hundreds of MB.
+   SO THE LAND IS PAINTED AT THE SCREEN, NOT AT THE MAP: when the camera is still, the worker paints exactly what the
+   glass shows, one sample per phone pixel, from the SAME heights the bake made (with its carving, its lake, its roads
+   out and its hold-down in front of the city), with relief under a block added to the ranges, lit by the same sun
+   (north-west, banded the way the map is lit), hazed the same way into the far fill. A ridge is marched column by
+   column the way the iso camera sees it (near to far, a nearer rise hides what is behind it), so the ranges stand up
+   exactly as the bake's do. While a pinch or a pan is moving, the bake's picture shows as before; the sharp one is
+   laid over it the moment the camera settles. The workshop and every zoom get it; the city's own painting is
+   untouched. */
+var VB_LAST = null;
+function vbView(inp){
+  var t0 = performance.now(), L = VB_LAST;
+  if (!L || L.seed !== inp.seed) return { kind: 'view', id: inp.id, key: inp.key, seed: inp.seed, miss: true };
+  var Hb = L.H, KIND = L.KIND, RD = L.RD, RW = L.RW, D = L.D, K = L.K, N = L.N, sd = L.sd, C2 = VB_COL;
+  var R = inp.R, W = inp.W, HH = inp.H, M = inp.M, ox = inp.ox, oy = inp.oy, TW = inp.TW, TH = inp.TH;
+  var px = new Uint8ClampedArray(W * HH * 4);
+  var HZ = new Float32Array(K + 2), AL = new Uint8Array(K + 2);
+  for (var i = 0; i < K + 2; i++) { HZ[i] = VB_FAR_HAZE * vbSm(K * 0.3, K * 0.82, i); AL[i] = Math.round(255 * (1 - vbSm(K * 0.8, K * 0.97, i))); }
+  function bil(A, gu, gv){ var cx = gu + K - 0.5, cy = gv + K - 0.5, ci = Math.max(0, Math.min(D - 2, Math.floor(cx))), cj = Math.max(0, Math.min(D - 2, Math.floor(cy)));
+    var fx = Math.max(0, Math.min(1, cx - ci)), fy = Math.max(0, Math.min(1, cy - cj));
+    return (A[cj * D + ci] * (1 - fx) + A[cj * D + ci + 1] * fx) * (1 - fy) + (A[(cj + 1) * D + ci] * (1 - fx) + A[(cj + 1) * D + ci + 1] * fx) * fy; }
+  function kindAt(gu, gv){ return KIND[Math.min(D - 1, Math.max(0, Math.floor(gv + K))) * D + Math.min(D - 1, Math.max(0, Math.floor(gu + K)))]; }
+  /* the bake's height at any point, and the relief under a block the bake cannot hold */
+  function ht(gu, gv){
+    if (gu > 0 && gu < N && gv > 0 && gv < N) return 0;
+    var h = bil(Hb, gu, gv);
+    if (h > 0.6) h += Math.min(1, (h - 0.6) / 2.4) * (0.6 * (vbFbm(gu * 0.9, gv * 0.9, sd + 501) - 0.5) + 0.24 * (vbNoise(gu * 2.7, gv * 2.7, sd + 503) - 0.5));
+    var lo = Math.max(gu - N, gv - N, 0), hi = Math.min(gu, gv);
+    if (lo < hi) h = Math.min(h, VB_FRONT * lo - 0.2);   /* the bake's own hold-down in front of the city */
+    if (kindAt(gu, gv) === 1) h = 0;
+    return h > 0 ? h : 0;
+  }
+  var yBot = HH / R - M, lift = ((L.peak || 16) + 2) * TH;
+  var s0 = (yBot - oy + lift) * 2 / TH, s1 = (-M - oy) * 2 / TH, ds = 2 / (TH * R);
+  var E = 0.18, col = [0, 0, 0], samples = 0;
+  for (var cx = 0; cx < W; cx++) {
+    var xc = (cx + 0.5) / R - M, d = 2 * (xc - ox) / TW, ymin = HH;
+    for (var s = s0; s >= s1 && ymin > 0; s -= ds) {
+      var gu = (s + d) / 2, gv = (s - d) / 2, dOut = Math.max(-gu, gu - N, -gv, gv - N);
+      var city = dOut < 0, out = dOut > K + 1;
+      var h = (city || out) ? 0 : ht(gu, gv);
+      var yi = Math.ceil((oy + s * TH / 2 - h * TH + M) * R - 0.5);
+      if (yi >= ymin) continue;
+      if (yi < 0) yi = 0;
+      if (city || out) { ymin = yi; continue; }   /* the map's own blocks and past the picture: clear, as the bake leaves them */
+      samples++;
+      var dI = Math.min(K + 1, dOut | 0), hz = HZ[dI], al = AL[dI], top = 2, sh = 1, base, side = 1;
+      if (kindAt(gu, gv) === 1) {
+        base = (kindAt(gu - 0.45, gv) !== 1 || kindAt(gu, gv - 0.45) !== 1) ? C2.shore : C2.water;
+        if (vbHash(Math.floor(gu * 3), Math.floor(gv * 3), sd + 3) > 0.97) sh = 1.25;
+      } else {
+        var rd = bil(RD, gu, gv), rw = RW[Math.min(D - 1, Math.max(0, Math.round(gv + K - 0.5))) * D + Math.min(D - 1, Math.max(0, Math.round(gu + K - 0.5)))];
+        if (rw > 0 && rd <= rw && h < 0.4) base = rd > rw - 0.3 ? C2.shoulder : C2.road;
+        else {
+          var hu = ht(gu + E, gv), hv = ht(gu, gv + E), sl = (hu - h) / E, sv = (hv - h) / E;
+          base = h < 0.25 ? C2.floor : h < 1.2 ? C2.fan : h < 3 ? C2.low : h < 6.5 ? C2.rock : C2.high;
+          sh = 1 + 0.42 * Math.max(-1, Math.min(1, sl * 0.9)) - 0.12 * Math.max(-1, Math.min(1, sv * 0.5));
+          if (h > 3 && sl > 0.6 && vbNoise(gu * 3, gv * 3, sd + 3) > 0.5) base = C2.crest;
+          side = (sl < sv) ? 0.56 : 0.76;
+          sh = Math.round(sh * 5) / 5;
+          if (h < 1.2) {
+            var cu = Math.floor(gu * 3.6), cv = Math.floor(gv * 3.6), r8 = vbHash(cu, cv, sd + 3);   /* scrub and stones a clump at a time, not a speck a pixel */
+            if (r8 < 0.07) base = C2.brush; else if (r8 > 0.965) base = C2.pebble;
+            if (base === C2.floor && vbNoise(gu / 5, gv / 5, sd + 41) > 0.88) base = C2.fan;
+            sh *= 0.9 + 0.14 * vbNoise(gu / 2.5, gv / 2.5, sd + 43) + 0.08 * (vbHash(Math.floor(gu * 5.5), Math.floor(gv * 5.5), sd + 47) - 0.5);   /* grit about two phone pixels a grain at the far stop */
+          } else sh *= 0.94 + 0.12 * vbHash(Math.floor(gu * 5.5), Math.floor(gv * 5.5), sd + 3);
+        }
+      }
+      for (var y = yi; y < ymin; y++) {
+        var f = (y - yi) < top ? sh : side;   /* the top a sample opens is lit by its slope; a rise taller than that is the face of the slope, the bake's two shades */
+        var o = (y * W + cx) * 4;
+        px[o] = Math.round(base[0] * f * (1 - hz) + C2.haze[0] * hz); px[o + 1] = Math.round(base[1] * f * (1 - hz) + C2.haze[1] * hz);
+        px[o + 2] = Math.round(base[2] * f * (1 - hz) + C2.haze[2] * hz); px[o + 3] = al;
+      }
+      ymin = yi;
+    }
+  }
+  return { kind: 'view', id: inp.id, key: inp.key, seed: inp.seed, W: W, H: HH, M: M, ox: ox, oy: oy, px: px, samples: samples, ms: Math.round(performance.now() - t0) };
 }
 /* ---- THE CITY, PAINTED (rule 65, Paolo 10/2: "I want the map graphics to be bigger and better and
    especially when you zoom out of the city for a fat minute, bro please"; the fourth time) ----
@@ -45271,13 +45420,15 @@ function vbAsk(){
 }
 /* ONE WORKER BAKES BOTH PICTURES: the land past the map, and the city painted for the far end */
 function vbWorker(){
-      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore].map(String).join('\n')
+      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore, vbView].map(String).join('\n')
         + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
-        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';'
-        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
+        + '\nvar VB_FRONT=' + VB_FRONT + ';'
+        + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_LAST=null;'
+        + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
+        + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer]); return; }'
         + ' var r=vbCore(e.data); postMessage(r,[r.day.buffer,r.night.buffer,r.tile.buffer,r.tileNight.buffer,r.seam.buffer,r.seamNight.buffer]); };';
       var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
-      w.onmessage = function (e) { if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
+      w.onmessage = function (e) { if (e.data && e.data.kind === 'view') vbViewLand(e.data); else if (e.data && e.data.kind === 'city') vbCityLand(e.data); else vbLand(e.data); };
       w.onerror = function (e) { VB.err = 'worker: ' + (e && e.message); VB.worker = null; };
       return w;
 }
@@ -45373,7 +45524,55 @@ function vbDraw(ox, oy, night, noPattern){
   var cu1 = Math.min(P, Math.ceil(Math.max.apply(null, us || [P])) + 1), cv1 = Math.min(P, Math.ceil(Math.max.apply(null, vs || [P])) + 1);
   if (cu1 > cu0 && cv1 > cv0) g.drawImage(img, cu0, cv0, cu1 - cu0, cv1 - cv0, cu0, cv0, cu1 - cu0, cv1 - cv0); g.restore(); g.imageSmoothingEnabled = sm;
   VB.draws++;
+  if (!noPattern) { try { vbViewDraw(ox, oy); } catch (_e) { VBV.err = String(_e && _e.message || _e); } }
 }
+/* __THE_FAR_END_AT_THE_PHONES_PIXELS__, the page's half: ask when the camera settles, lay it over the bake */
+var VBV = { key: '', cv: null, x: null, W: 0, H: 0, ox: 0, oy: 0, M: 0, busy: false, want: null, timer: 0, id: 0, asks: 0, lands: 0, draws: 0, misses: 0, ms: 0, samples: 0 };
+window.VBV = VBV;
+function vbViewKey(){ return om.seed + '|' + TW + '|' + TH + '|' + CVW + '|' + CVH + '|' + CV_DPR; }
+function vbViewWant(ox, oy, M){
+  var k = vbViewKey(), w = VBV.want;
+  if (!w || w.key !== k || w.ox !== ox || w.oy !== oy) VBV.want = { key: k, ox: ox, oy: oy, M: M, at: performance.now() };
+  if (!VBV.timer) VBV.timer = setTimeout(vbViewTick, VB_VIEW_SETTLE_MS);
+}
+function vbViewTick(){
+  VBV.timer = 0;
+  var w = VBV.want; if (!w) return;
+  if (VBV.busy || performance.now() - w.at < VB_VIEW_SETTLE_MS) { VBV.timer = setTimeout(vbViewTick, VB_VIEW_SETTLE_MS); return; }
+  if (w.key !== vbViewKey() || !VB.worker || VB.where !== 'worker' || VB.seed !== om.seed) return;   /* no worker, no sharp land: never on the main thread */
+  VBV.want = null; VBV.busy = true; VBV.asks++; VBV.id++;
+  VB.worker.postMessage({ kind: 'view', id: VBV.id, key: w.key, seed: om.seed, R: CV_DPR, M: w.M, ox: w.ox, oy: w.oy, TW: TW, TH: TH,
+    W: Math.round((CVW + 2 * w.M) * CV_DPR), H: Math.round((CVH + 2 * w.M) * CV_DPR) });
+}
+function vbViewLand(r){
+  VBV.busy = false;
+  if (!r || r.miss) { VBV.misses++; return; }
+  if (r.key !== vbViewKey()) { if (VBV.want) vbViewTick(); return; }   /* the camera moved while it was painted */
+  if (!VBV.cv) VBV.cv = document.createElement('canvas');
+  var lay = VBV.cv;   /* the sharp layer's own canvas, not #cv: sized here once per size, and the size kept, never read back */
+  if (VBV.W !== r.W || VBV.H !== r.H) { lay.width = r.W; lay.height = r.H; VBV.W = r.W; VBV.H = r.H; VBV.x = null; }
+  if (!VBV.x) VBV.x = VBV.cv.getContext('2d');
+  VBV.x.putImageData(new ImageData(r.px, r.W, r.H), 0, 0);
+  VBV.key = r.key; VBV.ox = r.ox; VBV.oy = r.oy; VBV.M = r.M; VBV.ms = r.ms; VBV.samples = r.samples; VBV.lands++;
+  try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; render(); } } catch (_e) {}
+}
+/* drawn into the ground picture right after the bake's land, in the glass's own pixels (1:1, unsmoothed) */
+function vbViewDraw(ox, oy){
+  if (typeof MAP_GROUND === 'undefined' || g !== MAP_GROUND.x) return false;
+  var M = Math.min(220, Math.max(64, Math.ceil(TW * 4)));   /* the ground picture's own margin (mapGroundBegin) */
+  var ok = !!VBV.cv && VBV.key === vbViewKey();
+  /* only when the land is on the glass: a corner of the glass (with the picture's margin) past the map's edge */
+  var N = om.n, land = [[-M, -M], [CVW + M, -M], [-M, CVH + M], [CVW + M, CVH + M]].some(function (c) {
+    var a = (c[0] - ox) / (TW / 2), b = (c[1] - oy) / (TH / 2), gu = (a + b) / 2, gv = (b - a) / 2; return gu < 0 || gv < 0 || gu > N || gv > N; });
+  if (!land) return false;
+  if (!ok || ox !== VBV.ox || oy !== VBV.oy) vbViewWant(ox, oy, M);
+  if (!ok) return false;
+  var sm = g.imageSmoothingEnabled; g.imageSmoothingEnabled = false;
+  g.drawImage(VBV.cv, ox - VBV.ox - VBV.M, oy - VBV.oy - VBV.M, VBV.W / CV_DPR, VBV.H / CV_DPR);
+  g.imageSmoothingEnabled = sm; VBV.draws++;
+  return true;
+}
+var VB_VIEW_SETTLE_MS = 220;   /* a still camera for a beat's half, then the sharp land is asked for */
 function vbSeam(ox, oy, night){
   if (!VB.seam || VB.seed !== om.seed) return;
   var S = VB_S, sm = g.imageSmoothingEnabled;
@@ -46257,28 +46456,6 @@ function renderCity(){
           g.beginPath(); g.ellipse(__p.sx, __cy + 1, 16, 5, 0, 0, 7); g.fill();
           __ps = mapArtDraw(__mk, mapArtBeat() + (__p.sx | 0), null, __p.sx, __cy + 2);
         }
-        /* __BUILT_ON_THE_MAP__ at the base (LIFE+CITY 10/9) */
-        /* WHAT YOU BUILT, AT YOUR BASE: what stands on its lots, on its west side, nearest first, at
-           the map people's scale; going up is faint, as on the screen. */
-        try { MAP_DREW.baseAt = MAP_DREW.baseAt || {}; MAP_DREW.baseAt[__n] = { sx: __p.sx, cy: __cy }; } catch (_e8) {}   /* where a base sits on the glass, for a probe to point at */
-        try {
-          var __lb = LOT_BOOK && LOT_BOOK[__n], __lk = 0;
-          if (__lb) {
-            /* on the base's west side, nearest first, so the party's own flag on the east is never covered */
-            var __lx0 = __p.sx - 16 * MAP_PEOPLE_K, __lfy = __cy + 6 + 2 * MAP_PEOPLE_K;
-            for (var __lkey in __lb.lots) {
-              var __lot = __lb.lots[__lkey], __im = lotSprite(__lot.id); if (!__im) continue;
-              var __lh = 16 * MAP_PEOPLE_K, __lw = __im.naturalWidth * (__lh / __im.naturalHeight);
-              if (__lw > 24 * MAP_PEOPLE_K) { __lw = 24 * MAP_PEOPLE_K; __lh = __im.naturalHeight * (__lw / __im.naturalWidth); }
-              __lx0 -= __lw;
-              g.save(); g.imageSmoothingEnabled = false; g.globalAlpha = __lot.done ? 1 : 0.4;
-              g.drawImage(__im, mapSnap(__lx0), mapSnap(__lfy - __lh), __lw, __lh); g.restore();
-              __lx0 -= 3 * MAP_PEOPLE_K; __lk++;
-            }
-            try { MAP_DREW.built = MAP_DREW.built || {}; MAP_DREW.built[__n] = __lk; } catch (_e7) {}
-          }
-        } catch (_e7) {}
-        /* __/BUILT_ON_THE_MAP__ at the base */
         /* __THE_LIVING_MAP__ gate crowd (LIFE+CITY 10/9) */
         /* THE CROWD AT THE GATE: the tier's ordinary business, swelled on market day and thinned by a
            raid or a sickness, by the same multiplier that fills the stalls; standing in front of the
@@ -59206,13 +59383,37 @@ function wildPass(ox, oy, C) {
     var gk = s.at[0] + ',' + s.at[1] + ',' + hour;
     if (s.state === 'gone') { WILD_GONE[gk] = 1; continue; }
     if (WILD_GONE[gk]) continue;
-    var frame = s.state === 'alert' ? 'look' : 'rest';
+    /* THE THIRD FRAME NOBODY EVER ASKED FOR (CHARACTER [wildlife rig], 10/10):
+       the bank ships rest/look/go for all eight animals and, until this round,
+       the draw loop only ever chose rest or look -- go sat baked and
+       unreachable since the bank was built (records/BOHEMIA_THE_COYOTE_EXISTS_AND_CANNOT_TURN_9_6_26.md).
+       A sighting that is not alert and not gone now breathes, alternating
+       rest/go on the shared BEAT, the same clock a walking hostile already
+       uses, so standing wildlife is not a photograph of itself. */
+    var frame = s.state === 'alert' ? 'look'
+      : ((Math.floor(performance.now() / BEAT) & 1) ? 'go' : 'rest');
     var spr = wildCanvas(s.species, frame); if (!spr) continue;
     var sx = ox + s.at[0] * C, sy = oy + s.at[1] * C;
     if (sx < -C * 3 || sy < -C * 4 || sx > CVW + C * 3 || sy > CVH + C * 3) continue;
-    /* THE SIZE LADDER, the same one the player and the residents use: never a
-       fractional scale, so nothing in this world is ever resampled. */
-    var lad = C >= 64 ? 64 : (C >= 32 ? 32 : (C < 17 ? 8 : 16));
+    /* THE PLAYER'S OWN BOX, NOT A SECOND ONE (CHARACTER [wildlife rig], 10/10;
+       REUSE-FIRST, zero new numbers). This used to be a ladder wildlife kept
+       for itself (8/16/32/64, a raw browser stretch into each rung) and its
+       own comment claimed it was "the same one the player and the residents
+       use" -- measured, it was not: bodyLadder's real rungs are 28/56/112/224,
+       the exact two numbers (56, 112) this row names. Asking bodyLadder for
+       the box means a coyote crossing the street occupies the same real
+       footprint a person would at that zoom, never a second ladder that can
+       silently drift from the first. */
+    var lad = bodyLadder(C);
+    /* THE SAME CRISP UPSCALE, AS FAR AS THE SOURCE GOES: spriteAt's
+       edge-preserving doubling (the player's and every resident's) tops out
+       at 4x (epx2 twice), so the bank's 16px source reaches 64 real pixels
+       and no further -- a measured source-resolution ceiling, not a bug in
+       the helper and not something this lane repaints (COOK THREE's call,
+       frozen). Past 64 the crisp canvas fills the rest of the box in one
+       resize, a cleaner stretch than the old code's raw 16px blown straight
+       up by the browser, never a claim that 112 painted pixels are native. */
+    var hi = spriteAt(spr, bodySpriteC(C));
     var onGlass = false;
     for (var k = 0; k < s.count; k++) {
       /* a flock is spread deterministically, so the same three ravens sit in
@@ -59220,7 +59421,20 @@ function wildPass(ox, oy, C) {
       var jx = (BohemiaWildlife.hash(seed, s.at[0], s.at[1], k) * 2 - 1) * C * 0.8;
       var jy = (BohemiaWildlife.hash(seed, s.at[1], s.at[0], k + 9) * 2 - 1) * C * 0.5;
       var dx0 = Math.round(sx + C / 2 - lad / 2 + jx), dy0 = Math.round(sy + C - lad + jy);
-      g.drawImage(spr, dx0, dy0, lad, lad);
+      /* WHICH WAY IT IS GOING, FINALLY DRAWN (CHARACTER [wildlife rig], 10/10).
+         BohemiaWildlife.near already hands back a facing (toward you once
+         alert, its own way while settled, bearing8) and nothing has ever read
+         it, so every sighting faced the same way regardless. Mirrored about
+         its own centre line, the same technique the street's hero art already
+         uses for a flip (HERO_WIRE, line ~44335), so a coyote crossing left
+         reads apart from one crossing right. */
+      if (typeof s.facing === 'number' && s.facing >= 3 && s.facing <= 5) {
+        g.save(); g.translate((dx0 + lad / 2) * 2, 0); g.scale(-1, 1);
+        g.drawImage(hi, dx0, dy0, lad, lad);
+        g.restore();
+      } else {
+        g.drawImage(hi, dx0, dy0, lad, lad);
+      }
       drawn++;
       /* *** RECORD ONLY WHAT LANDED ON THE GLASS. *** The cull above allows a
          three-tile margin so nothing pops into existence at the edge, which is
@@ -60989,7 +61203,7 @@ function updHud(){
   var _note = MODE==='city'
     ? 'move on the streets. time moves when you move.'
     : 'walking your own block.';
-  if(MODE!=='city'){ try{ var _h=pplHeardLine(); if(_h) _note=_h; }catch(_e){} }
+  if(MODE!=='city' && !(typeof SEATING!=='undefined' && SEATING)){ try{ var _h=pplHeardLine(); if(_h) _note=_h; }catch(_e){} }   /* not while the demo is only being seated */
   document.getElementById('note').textContent=_note;
   try{ mktBtnSync(); }catch(_e){}   /* __THE_TRADING_HUB__ */
   try{ buildBtnSync(); }catch(_e){}  /* __BUILDER_WHERE_HE_WALKS__ */
@@ -61363,20 +61577,6 @@ function cityPlateNow(){
 }
 /* ===== /V211 __PLATE_COSTS_TAPE__ ===== */
 function cityHandOver(msg, skin){
-  /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
-  /* a fight near a place where you built carries what stands there, so the board is cut with it */
-  try{
-    if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER' && !msg.built && typeof LOT_BOOK !== 'undefined'){
-      var __at = msg.at || { x: city.x, y: city.y }, __bs = ctBases() || {}, __best = null, __bd = 3;
-      for(var __bn in __bs){ var __bb = __bs[__bn], __lb = LOT_BOOK[__bn]; if(!__bb || !__lb) continue;
-        var __d = Math.max(Math.abs((__bb.x|0) - (__at.x|0)), Math.abs((__bb.y|0) - (__at.y|0)));
-        if(__d < __bd){ __bd = __d; __best = __lb; } }
-      if(__best){ var __out = [];
-        for(var __k in __best.lots){ var __L = __best.lots[__k]; if(__L.done) __out.push({ id: __L.id, fight: BohemiaLotBuild.fightTile(__L.id) }); }
-        if(__out.length) msg.built = __out; }
-    }
-  }catch(_e){}
-  /* __/BUILT_ON_THE_BOARD__ */
   /* ===== V215 __SAVE_BEFORE_THE_BELL__ -- A SAVE EXISTS AT THE BELL ==========
      BB-SAVE-BEFORE-THE-BELL. The game he named autosaves before EVERY battle, on
      purpose. Ours was covered by accident: CITYSAVE.save only fires when the city
@@ -62130,6 +62330,7 @@ function citySnapshot(){
     century:(function(){ try{ return BohemiaCentury.save(centuryGet()); }catch(_e){ return null; } })(),
     /* __BUILT_ON_THE_MAP__: the build lots ride with the century they write into */
     lots:(function(){ try{ var o = {}; for(var n in LOT_BOOK) o[n] = JSON.parse(BohemiaLotBuild.save(LOT_BOOK[n])); return o; }catch(_e){ return null; } })(),
+    homebases:(function(){ try{ return HB_REC ? BohemiaHomeBases.toJSON(HB_REC) : null; }catch(_e){ return null; } })(),
     market:MKT_LEDGER?{ledger:MKT_LEDGER,bought:MKT_BOUGHT}:null,   /* __THE_TRADING_HUB__ */
     /* __THE_PEOPLE_RIDE_THE_SAVE__ -- THE WORLD WAS INSIDE THE HARDENED SAVE AND THE PEOPLE
        WERE OUTSIDE IT. Five keys -- minds, known, met, belong, deedweight -- wrote
@@ -66616,29 +66817,163 @@ function centuryNote(kind,type,x,y,w,h){
    (lotBookFor), so what he builds there IS the map's. var-hoisted on purpose: the save's restore may run
    before this line, and must not have its lots wiped by it. */
 var LOT_BOOK = LOT_BOOK || {};
+/* WHO HOLDS WHAT IS ONE LEDGER ON THE MAP: FACTIONS' (engine/bohemia_homebases.js), made once, saved, restored. Your
+   outfit's own base is yours from the first day (one taking, 'deal': nobody fought for it); every other base is its
+   own people's until somebody takes it. The build lots and the raids read this one ledger, never a copy. */
+var HB_REC = HB_REC || null;
+function hbRec(){
+  if(HB_REC) return HB_REC;
+  var H = BohemiaHomeBases; HB_REC = H.make({ act: 1 });
+  try{ var m = BohemiaBetween.mine(), bs = ctBases() || {}, n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
+       for(var k in bs) if(m && n(k) === n(m)) H.took(HB_REC, { base: k, to: H.YOU, day: 0, by: 'deal', why: "your outfit's own base" }); }catch(_e){}
+  return HB_REC;
+}
 function lotIsMine(name){
-  try{ var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
-       return !!m && n(m) === n(name); }catch(_e){ return false; }
+  try{ var H = BohemiaHomeBases, r = hbRec(); return !H.isRuin(r, name, r.act) && H.heldBy(r, name, r.act) === H.YOU; }catch(_e){ return false; }
 }
-function lotHoldFor(name){
-  var H = BohemiaHomeBases, rec = H.make({ act: 1 });
-  if(lotIsMine(name)) H.took(rec, { base: name, to: H.YOU });
-  return { rec: rec, act: 1 };
-}
+function lotHoldFor(name){ var r = hbRec(); return { rec: r, act: r.act }; }
 function lotBookFor(name){
   if(!LOT_BOOK[name]) LOT_BOOK[name] = BohemiaLotBuild.site({ base: name });
   return LOT_BOOK[name];
 }
-/* THE MORNING: what was started stands, what stands pays, into the map's purse and the map's century */
+/* THE MORNING: what was started stands, what stands pays, into the map's purse and the map's century; a raid that
+   is due and that nobody answered is settled the world's way (FACTIONS' settle: the base holds if it is as strong as
+   the crew, else the crew takes it); and a base worth taking draws a crew. */
 function lotWake(){
   var done = 0;
+  try{ raidSettle(); }catch(_e){}
   for(var n in LOT_BOOK){
     try{ var r = BohemiaLotBuild.tick(LOT_BOOK[n], purseGet(), centuryGet(), DAY.day, lotHoldFor(n));
          done += (r && r.finished) ? r.finished.length : 0; }catch(_e){}
   }
   window.__LOTS_FINISHED = (window.__LOTS_FINISHED || 0) + done;
+  try{ raidDraw(); }catch(_e){}
   return done;
 }
+/* ---- A RAID ON YOUR BASE ([a raid on your base], LIFE+CITY 10/9; the ledger is FACTIONS') ---- */
+function raidSay(txt){
+  try{ travelSay(txt); }catch(_e){}
+  try{ if(window.BOHEMIA_FEED) window.BOHEMIA_FEED.push({ who: '@thegate', txt: txt, kind: 'world', draft: true }); }catch(_e){}
+  window.__RAID_SAID = (window.__RAID_SAID || []).concat([txt]).slice(-12);
+}
+/* a crew arrived somewhere: if it is a base you hold, the raid opens and its clock starts */
+function raidArrivals(arr){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  var raids = H.raidsFrom(arr, seats, rec, H.YOU);
+  raids.forEach(function(r){
+    var o = H.openRaid(rec, { base: r.base, by: r.by, party: r.party, power: r.power, day: DAY.day });
+    if(o.applied) raidSay('A crew from ' + r.by + ' is at the gate of ' + r.base + '. ' + (o.raid.due - DAY.day) + ' days, or it is theirs.');
+  });
+  if(raids.length){ try{ raidDefend(); }catch(_e){} }
+  return raids;
+}
+function raidSettle(){
+  var H = BohemiaHomeBases, out = H.settle(hbRec(), turfSeats() || [], DAY.day);
+  out.forEach(function(r){
+    if(r.how === 'moot') return;
+    raidSay(r.outcome === 'taken' ? (r.by + ' took ' + r.base + '. What we built there stands. It pays them now.')
+                                  : (r.base + ' held. The crew from ' + r.by + ' went home.'));
+  });
+  return out;
+}
+/* a base you hold with things standing on it draws ONE crew, once an act, when none is open or already walking */
+function raidDraw(){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [], ps = partiesAll() || [];
+  for(var n in LOT_BOOK){
+    if(!lotIsMine(n)) continue;
+    var up = 0; for(var k in LOT_BOOK[n].lots) if(LOT_BOOK[n].lots[k].done) up++;
+    if(up < BohemiaLivingMap.WORTH_RAIDING || H.raidsOpen(rec).some(function(x){ return x.base === n; }) || H.raidsOn(rec, n, rec.act) >= 1) continue;
+    var seat = seats.filter(function(s){ return s.faction === n; })[0]; if(!seat) continue;
+    if(ps.some(function(p){ return p && p.raid && p.to && p.to.x === seat.x && p.to.y === seat.y && !p.arrived; })) continue;
+    var crew = BohemiaLivingMap.crewAt(seats, seat, {
+      friend: function(f){ try{ var e = BohemiaBetween.between(f, BohemiaBetween.mine(), null); return !!e && e.init > 0; }catch(_e){ return false; } },
+      holds: function(f){ return H.heldBy(rec, f, rec.act) === f; } });
+    if(!crew) continue;
+    ps.push(crew);
+    raidSay('A crew from ' + crew.from.faction + ' left home, walking at ' + n + '. You can see them coming.');
+  }
+}
+/* YOU CAN BE THERE (rule 68: you see them coming; [built on the board]: you fight on what you built). Standing at a base
+   you hold while its raid is open starts the fight at the gate, through the one door every fight goes through (so
+   what stands there is on the board); the crew is sized by the map's own party math. A win (the crew gone, nobody
+   left standing) closes the raid: the base held. A loss is a reload (below). */
+var RAID_FIGHTING = null;
+function raidDefend(){
+  if(RAID_FIGHTING) return false;
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  var open = H.raidsOpen(rec);
+  for(var i = 0; i < open.length; i++){
+    var r = open[i]; if(!lotIsMine(r.base)) continue;
+    var seat = seats.filter(function(s){ return s.faction === r.base; })[0]; if(!seat) continue;
+    if(Math.max(Math.abs(city.x - seat.x), Math.abs(city.y - seat.y)) > 1) continue;
+    /* the crew is sized by the map's own party math and dressed by COMBAT's enemy table (its own enemy kinds: the
+       raider's faction NAME is not one, and handing it over left the fight unable to build its ground) */
+    var party = null; try{ party = partyMath('roaming', { x: seat.x, y: seat.y }); }catch(_e){ party = null; }
+    var roster = []; for(var k = 0; k < ((party && party.count) || 3); k++) roster.push({ arch: 'human' });
+    RAID_FIGHTING = r.base;
+    var ok = false;
+    try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'The raid on ' + r.base, faction: r.by, draft: true,
+      roster: roster, party: party, street: true, why: 'raid:' + r.base, at: { x: seat.x, y: seat.y, gx: seat.x, gy: seat.y } }); }catch(_e){ ok = false; }
+    if(!ok){ RAID_FIGHTING = null; continue; }
+    raidSay('The crew from ' + r.by + ' is at the gate. You are here. Fight.');
+    return true;
+  }
+  return false;
+}
+/* A LOSS IS NOT A TAKING. DEATH IS A RELOAD, NOT A RESET (Paolo 7/26): going down sends him back to the save made at
+   the bell, and that save has the raid still open at the gate. So a loss writes nothing here; the reload is the
+   answer, and the raid's own days still run (stay away and the world settles it). A win closes it: the base held. */
+/* TAKE THE NEXT PART ([take the next part], rule 43): the same raid, the other way. From a place's settlement screen he
+   says 'Take it': the raid opens with YOU as the crew at their gate (FACTIONS' ledger; one a base an act), the screen
+   closes and the fight is at their gate. A win closes it TAKEN: the place is yours (its build lots open, the next
+   settlement screen says so). A loss is a reload, like any other. */
+var RAID_TAKING = null;
+function raidTake(name){
+  var H = BohemiaHomeBases, rec = hbRec(), seats = turfSeats() || [];
+  if(RAID_FIGHTING || lotIsMine(name)) return { applied: false, reason: RAID_FIGHTING ? 'BUSY' : 'YOURS' };
+  var seat = seats.filter(function(s){ return s.faction === name; })[0];
+  if(!seat) return { applied: false, reason: 'NO_SEAT' };
+  /* a try that ended in a reload left our raid open at their gate: go again, it is the same raid */
+  var mineOpen = H.raidsOpen(rec).filter(function(x){ return x.base === name && x.by === H.YOU; })[0];
+  var o = mineOpen ? { applied: true, raid: mineOpen } : H.openRaid(rec, { base: name, by: H.YOU, day: DAY.day });
+  if(!o.applied){ raidSay(o.reason === 'ALREADY_RAIDED' ? (name + ' already held against us this year. Not again.') : ('Not now.')); return o; }
+  var party = null; try{ party = partyMath('roaming', { x: seat.x, y: seat.y }); }catch(_e){ party = null; }
+  var roster = []; for(var k = 0; k < ((party && party.count) || 3); k++) roster.push({ arch: 'human' });
+  try{ loopClose(); }catch(_e){}
+  RAID_FIGHTING = name; RAID_TAKING = name;
+  var ok = false;
+  try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: 'Taking ' + name, faction: name, draft: true,
+    roster: roster, party: party, street: true, why: 'take:' + name, at: { x: seat.x, y: seat.y, gx: seat.x, gy: seat.y } }); }catch(_e){ ok = false; }
+  if(!ok){ RAID_FIGHTING = null; RAID_TAKING = null; if(!mineOpen) H.closeRaid(rec, { base: name, outcome: 'held', day: DAY.day, how: 'moot' }); return { applied: false, reason: 'NO_FIGHT' }; }
+  raidSay('We are at the gate of ' + name + '. Take it.');
+  return { applied: true };
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_SETTLEMENT' || d.act !== 'take') return;
+  try{ raidTake(d.place); }catch(_e){}
+});
+window.raidTake = raidTake;
+function raidFought(o){
+  var base = RAID_FIGHTING; RAID_FIGHTING = null; if(!base) return null;
+  var won = !!(o && (o.victory || o.result === 'win')) && !((o && o.alive) | 0);
+  if(RAID_TAKING === base){
+    RAID_TAKING = null;
+    if(!won) return { applied: false, reason: 'RELOAD' };
+    var tk = BohemiaHomeBases.closeRaid(hbRec(), { base: base, outcome: 'taken', day: DAY.day, how: 'fought' });
+    if(tk.applied) raidSay(base + ' is ours now. We can build there.');
+    return tk;
+  }
+  if(!won) return { applied: false, reason: 'RELOAD' };
+  var res = BohemiaHomeBases.closeRaid(hbRec(), { base: base, outcome: 'held', day: DAY.day, how: 'fought' });
+  if(res.applied) raidSay(base + ' held. You stood at the gate and they broke.');
+  return res;
+}
+window.addEventListener('message', function(ev){
+  var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END' || !RAID_FIGHTING) return;
+  try{ raidFought(d.outcome || null); }catch(_e){}
+});
+window.raidArrivals = raidArrivals; window.raidSettle = raidSettle; window.raidDraw = raidDraw; window.hbRec = hbRec;
+window.raidDefend = raidDefend; window.raidFought = raidFought;
 DAY.on('wake', function(){ try{ lotWake(); }catch(_e){} });
 window.lotBookFor = lotBookFor; window.lotWake = lotWake; window.lotIsMine = lotIsMine;
 /* the built things' pictures, the same cuts the settlement screen stands on its lots */
@@ -67326,6 +67661,7 @@ function applyRestore(st){
   if(st.century){ try{ CENTURY=BohemiaCentury.load(st.century); }catch(_e){} }
   /* __BUILT_ON_THE_MAP__ */
   if(st.lots){ try{ for(var __ln in st.lots){ var __ls = BohemiaLotBuild.load(JSON.stringify(st.lots[__ln])); if(__ls) LOT_BOOK[__ln] = __ls; } }catch(_e){} }
+  if(st.homebases){ try{ HB_REC = BohemiaHomeBases.load(st.homebases); }catch(_e){} }
   /* __THE_TRADING_HUB__ -- the valley's stocks are the price, so a market that forgets
      them resets every price to base on every reload. */
   if(st.market){ try{ MKT_LEDGER=st.market.ledger||null; MKT_BOUGHT=st.market.bought||null; }catch(_e){} }
@@ -67672,9 +68008,19 @@ updHud(); fit();
    A SAVED POSITION STILL WINS: applyRestore arrives by message after boot.
    The city view is one tap away on the mode button, and the zoom seam still
    crosses into it by pinching out. This only picks the side we OPEN on. */
+/* __THE_DEMO_IS_SEATED_ON_THE_MAP__ (RUN 10/10, [first load]): the demo still seats him from his feet (the swap writes
+   LANDED, his house, his block), but it never draws the street it is about to leave: measured at full speed, this swap
+   cost 3.0 s of the boot (2.8 s of it the HUD working out what the street's people say) and the street then drew itself
+   again as its tiles arrived (1.7 s), all before the demo's look-out to the map, behind the loading screen. The shell's
+   demo flag is read across the frame (same origin, set before this frame is made); the workshop is unchanged. */
+var SEATING = false;
 (function(){ try{
   if(typeof MODE!=='undefined' && MODE==='city' && typeof swapMode==='function'){
-    swapMode(); HC=HZOOM; render();
+    var demo = false; try{ demo = !!(window.parent && window.parent !== window && window.parent.__BOHEMIA_DEMO_BUILD); }catch(_e){}
+    if(demo){
+      SEATING = true; try{ swapMode(); HC=HZOOM; } finally { SEATING = false; }
+      CT_IS_DEMO = true; demoOpensOnMap(0);
+    } else { swapMode(); HC=HZOOM; render(); }
   }
 }catch(_hs){} })();
 
@@ -68236,6 +68582,17 @@ function ctActSetSex(act, sex){
 /* THE DOOR OPENING. The one call FACTIONS or RUN makes the moment the player holds a
    home base (rule 39c's default trigger); BohemiaActs decides whether it is the next
    act and this only redraws. A face is born on the phone. */
+/* THE ONE REAL DOOR (rule 85): the first crisis starts. WORLD's crisis clock calls this with the
+   game day; nothing flips before it. Returns false when it already happened. */
+function ctActCrisis(day){
+  var r = null;
+  try { r = BohemiaActs.crisis(day); } catch (_e) { return false; }
+  if (!r || !r.ok) return false;
+  ACTFLIP_BUILT = '';
+  try { window.__ACT_CRISIS = { day: r.day, at: performance.now() }; } catch (_e) {}
+  try { ctActFlipPaint(); } catch (_e) {}
+  return true;
+}
 function ctActUnlock(n){
   var r = null;
   try { r = BohemiaActs.unlock(n); } catch (_e) { return false; }
@@ -68387,7 +68744,7 @@ function ctActHeirsPaint(cur){
   box.className = 'on';
   ACTHEIRS_BUILT = sig;
 }
-try { window.ctHeirs = ctHeirs; window.ctHeirRoster = ctHeirRoster; window.ctHeirDied = ctHeirDied;
+try { window.ctActCrisis = ctActCrisis; window.ctHeirs = ctHeirs; window.ctHeirRoster = ctHeirRoster; window.ctHeirDied = ctHeirDied;
       window.ctHeirLedger = ctHeirLedger; window.ctHeirMembers = ctHeirMembers; } catch (_e) {}
 
 try { window.ctActFlipPaint = ctActFlipPaint; window.ctActFlipTo = ctActFlipTo;

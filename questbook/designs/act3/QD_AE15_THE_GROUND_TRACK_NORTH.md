@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the launch yard on the dry lake (settlement screen: the hall is the site office); the escort runs north across the valley floor to the Tule Springs fossil beds, the fight board cut from the spring-mound block if a fight comes
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE MAMMOTH (QR-Z no. 22, heirs only: find the one mammoth and choose)
-CHECKLIST: passes all 30 (bends line 5 on purpose: the heir-only line reads an act 1 sighting; the default read, "no one in the family saw it", is below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: the heir-only line reads an act 1 sighting; the default read, "no one in the family saw it", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. If the rocket fails on the way up, it falls along its ground track. The track runs north over the Tule Springs beds, where the lab's one mammoth walks. The surveyor has to walk the track and mark where nobody should live.

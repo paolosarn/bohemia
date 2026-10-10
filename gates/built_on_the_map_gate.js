@@ -1,4 +1,4 @@
-/* BUILT ON THE MAP — the gate for [built on the map] (10/9/26, LIFE + CITY)
+/* THE LOTS ARE KEPT — was the gate for [built on the map] (10/9/26, LIFE + CITY); RETIRED AND RE-AIMED 10/10 by rule 86
  *
  * Rule 40b: what is built shows on the map and in the derived future. On THE ALPHA, reached by the pinch:
  *   A  the map owns the lots: lotBookFor(place) hands the settlement screen the SAME object.
@@ -6,7 +6,8 @@
  *      a place you do not hold refuses by name.
  *   C  THE MORNING (the game's own SLEEP, then its wake): both stand, the map's century ledger (the one the
  *      derive reads) counts two more builds, and the tank pays its water into the map's purse.
- *   D  THE MAP DRAWS THEM at the base.
+ *   D  AND THE MAP DRAWS NOTHING OF THEM (rule 86, the seventh votes: 'the map is mainly for looks'; Paolo DOWN on the
+ *      picture of them at the base). What you build lives in the settlement screen and nowhere else.
  *   E  THE SAVE CARRIES THEM: citySnapshot() holds the lots; applyRestore() of a fresh book brings them back.
  *   F  MUTATION: a morning with no lots in the book finishes nothing.
  * Run:  node gates/built_on_the_map_gate.js
@@ -51,7 +52,7 @@ const ok = (n, c, d) => { if (c) pass++; else fail++; console.log((c ? '  ok   '
     ok('C *** THE MORNING: both stand ***', c.standing === 'wall,tank', c.standing);
     ok('C *** the map\'s century ledger (the derive\'s) counts two more ***', c.c1 === g.c0 + 2, g.c0 + ' -> ' + c.c1);
     ok('C the tank pays its water into the map\'s purse', c.r1 === g.r0 + 1, g.r0 + ' -> ' + c.r1);
-    ok('D the map draws them at your base', c.drawn === 2, c.drawn + ' drawn');
+    ok('D *** the map draws nothing of them (rule 86) ***', c.drawn === 0, c.drawn + ' drawn');
     const e = await d.fr.evaluate(() => {
       const snap = citySnapshot(), lots = snap && snap.lots && snap.lots[window.__g.mine];
       const keep = LOT_BOOK; LOT_BOOK = {}; applyRestore(JSON.parse(JSON.stringify(snap)));
@@ -64,6 +65,6 @@ const ok = (n, c, d) => { if (c) pass++; else fail++; console.log((c ? '  ok   '
     ok('F MUTATION: a morning with an empty book finishes nothing', f === 0);
     ok('nothing threw', d.errs.length === 0, d.errs.join(' | ').slice(0, 200));
   } finally { await d.close(); }
-  console.log('\nBUILT ON THE MAP GATE: ' + pass + ' ok, ' + fail + ' failed');
+  console.log('\nTHE LOTS ARE KEPT GATE: ' + pass + ' ok, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(1); });

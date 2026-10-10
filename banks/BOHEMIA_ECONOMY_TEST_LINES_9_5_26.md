@@ -4625,3 +4625,206 @@ SSSSSSSSSSSSSSSSSS8  an old man showing a kid which pads to cut without the spin
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## AAAAAAAAAAAAAAAAAAA. WHAT EVERY SHELF REMEMBERS (round 62)
+
+SSSSSSSSSSSSSSSSSSS1  a trader counting what's left after the caravan sold through  draft:true
+    "Half the shelf cleared in one morning. Ask me again in a week, not today."
+
+SSSSSSSSSSSSSSSSSSS2  the one restocking the same shelf a week later              draft:true
+    "Same price it always was. Just more of it now that the road's open again."
+
+SSSSSSSSSSSSSSSSSSS3  a shopkeeper in the place that burned last season           draft:true
+    "I'm not charging more. I just don't have it to sell you."
+
+SSSSSSSSSSSSSSSSSSS4  a stranger turned away at the camp gate                     draft:true
+    "Not my battery they want. My face, and I don't have the right one."
+
+SSSSSSSSSSSSSSSSSSS5  the one let through the same gate a season later            draft:true
+    "Same shelf as the day they turned me away from it. I just stopped being nobody."
+
+SSSSSSSSSSSSSSSSSSS6  a man comparing two towns a day's walk apart                draft:true
+    "One sells fish all day. The other's never seen a fish in its life."
+
+SSSSSSSSSSSSSSSSSSS7  a woman who sold her whole haul to one market on purpose    draft:true
+    "Spread it across three and nobody notices. Dump it all in one and watch what happens."
+
+SSSSSSSSSSSSSSSSSSS8  the one who waited for that same market to recover          draft:true
+    "Gave it a week. The shelf filled back up on its own, same as it always does."
+
+## BBBBBBBBBBBBBBBBBBB. WHAT IS NOT HERE, ON PURPOSE (round 62)
+
+- No line states a battery price above one. The whole finding is said as a cleared shelf, a
+  restocked shelf, a burned shop, a closed gate, an opened gate, two different towns and a
+  market that recovers on its own.
+- No line names the settlement screen, the living map, a belonging rung by name, or any
+  mechanism or data file. SSSSSSSSSSSSSSSSSSS3 and 5 could be read either as a raid or a
+  rebuild, on purpose.
+- No line resolves how long a shelf takes to recover or how deep a cut goes. Those stay in the
+  record's own table, flagged for TUNING, not spoken as dialogue.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 635 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## CCCCCCCCCCCCCCCCCCCC. WHAT THE ROAD ITSELF CHARGES (round 63)
+
+SSSSSSSSSSSSSSSSSSSS1  a guard counting how many times they were stopped this trip  draft:true
+    "Same job, longer road. Nobody tells you the price went up, it just takes longer to find out."
+
+SSSSSSSSSSSSSSSSSSSS2  the one who lost half the mules but not all of them         draft:true
+    "I still get paid. Just not what I was told, and not the trust that came with it."
+
+SSSSSSSSSSSSSSSSSSSS3  a man who lost every mule on the same road                  draft:true
+    "Nothing. Not a battery, not a word of thanks. That's the whole arrangement."
+
+SSSSSSSSSSSSSSSSSSSS4  a woman comparing two jobs posted the same morning          draft:true
+    "One's got a date on it. The other just wants it done eventually. Guess which pays better."
+
+SSSSSSSSSSSSSSSSSSSS5  the one who took the job with no deadline                   draft:true
+    "Nobody's rushing me. Nobody's paying me like they are, either."
+
+SSSSSSSSSSSSSSSSSSSS6  a trader explaining why the far job always costs more        draft:true
+    "Not the walking. The walking's free. It's everything that happens along the way."
+
+SSSSSSSSSSSSSSSSSSSS7  a fighter who tried to run two jobs on one road             draft:true
+    "Picked the one with the clock on it. The other one can wait for somebody slower."
+
+SSSSSSSSSSSSSSSSSSSS8  the one who waited a season for a cheaper, slower job        draft:true
+    "No clock, no rush, no extra pay. I've got nowhere else to be, so it works out."
+
+## DDDDDDDDDDDDDDDDDDDD. WHAT IS NOT HERE, ON PURPOSE (round 63)
+
+- No line states a battery number, a percentage or a skull count. The whole finding is said
+  as a longer road, a half-lost mule train, an empty-handed return, a dated job against an
+  open one, and a trader's own words about what the walking costs versus what happens on it.
+- No line resolves which job pays more in a fixed number. SSSSSSSSSSSSSSSSSSSS4 and 7 state
+  the direction (the dated job pays better) without a digit, the finding's own honest shape.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 643 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## EEEEEEEEEEEEEEEEEEEEE. WHAT THE KEEPER SEES (round 64)
+
+SSSSSSSSSSSSSSSSSSSSS1  a kid palming a loaf off the front of the stall           draft:true
+    "Didn't even make it to my pocket. He was already looking."
+
+SSSSSSSSSSSSSSSSSSSSS2  the keeper watching the same kid walk off clean           draft:true
+    "I saw him take it. Some mornings a loaf isn't worth the shouting."
+
+SSSSSSSSSSSSSSSSSSSSS3  a man who lifted a battery off a crowded table           draft:true
+    "Three feet away and she never looked up once. That's the whole trick, if there is one."
+
+SSSSSSSSSSSSSSSSSSSSS4  the one who tried the same table on a slow afternoon      draft:true
+    "Nobody to hide behind. She caught my hand before it was even closed."
+
+SSSSSSSSSSSSSSSSSSSSS5  a vendor explaining why she never looks away              draft:true
+    "Everything on this table is mine. I don't get to blink."
+
+SSSSSSSSSSSSSSSSSSSSS6  the one who got caught and paid for it later             draft:true
+    "Word travels faster than I walk. Every door in this block knew by noon."
+
+SSSSSSSSSSSSSSSSSSSSS7  a woman who stole from a crowd, not a stall               draft:true
+    "Ten hands reaching at once. Nobody watches one of them close enough."
+
+SSSSSSSSSSSSSSSSSSSSS8  the keeper who stopped restocking bread at the front      draft:true
+    "Moved it to where I can see it without turning my head. Cheaper than losing it."
+
+## FFFFFFFFFFFFFFFFFFFFF. WHAT IS NOT HERE, ON PURPOSE (round 64)
+
+- No line states a percentage, a relation number or a battery price. The whole finding is said
+  as a loaf palmed in plain sight, a slow afternoon with no crowd to hide in, a vendor who
+  never blinks, and word of a theft traveling faster than the thief can walk.
+- No line claims theft is easy. SSSSSSSSSSSSSSSSSSSSS1, 4 and 5 all end in getting caught,
+  the finding's own honest shape: a stall-keeper usually sees it.
+- No line resolves the exact chance or what a crowd is worth against it. Those stay in the
+  record's own table, flagged for TUNING, not spoken as dialogue.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 651 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## GGGGGGGGGGGGGGGGGGGGGG. WHAT TAKES A DAY AND WHAT TAKES LONGER (round 65)
+
+SSSSSSSSSSSSSSSSSSSSSS1  a man done with the fence before the sun was overhead    draft:true
+    "That part's easy. A post, a rail, done by noon."
+
+SSSSSSSSSSSSSSSSSSSSSS2  the one still digging on the third morning              draft:true
+    "The tank went up in an afternoon. The ground underneath it is a different fight."
+
+SSSSSSSSSSSSSSSSSSSSSS3  a woman who hooked a tank to the truck's delivery        draft:true
+    "Somebody else already found the water. I just gave it somewhere to sit."
+
+SSSSSSSSSSSSSSSSSSSSSS4  the man who hit dry rock twice before he hit water      draft:true
+    "Third hole's the one that mattered. The first two were just time, gone."
+
+SSSSSSSSSSSSSSSSSSSSSS5  a kid who put the garden bed together in an hour        draft:true
+    "Boards and dirt. The waiting is the actual job, not the building."
+
+SSSSSSSSSSSSSSSSSSSSSS6  the one who nailed the stall boards up before dusk       draft:true
+    "Table, a sign, a roof over it. Nobody's buying from me tonight anyway."
+
+SSSSSSSSSSSSSSSSSSSSSS7  a man comparing his roof job to his neighbor's well      draft:true
+    "Mine took two days and a ladder. His took a week and a shovel."
+
+SSSSSSSSSSSSSSSSSSSSSS8  the one who finally struck water on the fourth try       draft:true
+    "Everyone watching thought I'd quit after the second hole. I almost did."
+
+## HHHHHHHHHHHHHHHHHHHHHH. WHAT IS NOT HERE, ON PURPOSE (round 65)
+
+- No line states a battery price, a day count, or any felt number. The whole finding is said
+  as a fence finished by noon, a tank hooked up in an afternoon, a well dug across several
+  mornings, and dry holes before the water comes in.
+- No line claims the battery price changes. Every speaker treats the cost as settled; only
+  the TIME each job takes varies, the finding's own honest shape.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 659 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## IIIIIIIIIIIIIIIIIIIIIII. WHAT A CRASH LEAVES STANDING (round 66)
+
+SSSSSSSSSSSSSSSSSSSSSSS1  a man counting the cable spools nobody ever lit up    draft:true
+    "They paid to bury all of it. Then there was nothing left to run through it."
+
+SSSSSSSSSSSSSSSSSSSSSSS2  the one who bought the whole line for scrap price      draft:true
+    "Everybody who built it is gone. The wire's still good, though."
+
+SSSSSSSSSSSSSSSSSSSSSSS3  a woman standing in a tower that never got its windows draft:true
+    "Somebody's money ran out forty floors up. The concrete didn't notice."
+
+SSSSSSSSSSSSSSSSSSSSSSS4  the one who moved her whole family into that tower     draft:true
+    "Nobody finished it. Nobody's stopping us from living in it either."
+
+SSSSSSSSSSSSSSSSSSSSSSS5  a man walking a street that was platted and never built draft:true
+    "Curbs, a stop sign, lots with nothing on them. They graded a city that never came."
+
+SSSSSSSSSSSSSSSSSSSSSSS6  the one claiming three of those empty lots as his      draft:true
+    "Paper said somebody owned this. Paper's not worth much anymore."
+
+SSSSSSSSSSSSSSSSSSSSSSS7  a woman who inherited a server room with no company left draft:true
+    "I don't know what half of it did. I know it still runs."
+
+SSSSSSSSSSSSSSSSSSSSSSS8  the one who fought three others for that same room     draft:true
+    "Whatever it was built for doesn't matter now. It's the only room with power."
+
+## JJJJJJJJJJJJJJJJJJJJJJJ. WHAT IS NOT HERE, ON PURPOSE (round 66)
+
+- No line names railway mania, the telecom bubble, dot-com or 2008 by name, or any company,
+  bank or finance term. The whole finding is said as buried cable nobody lit, an unfinished
+  tower, a graded street with nothing built on it, and a server room nobody remembers the
+  purpose of.
+- No line prices anything in batteries. Every speaker treats the leftover as already real and
+  already contested, never as a number on a table.
+- No line resolves who legally owns anything. SSSSSSSSSSSSSSSSSSSSSSS4 and 6 both claim a
+  thing on no real authority, the finding's own point: the finance died, the claim did not.
+- No line names a town, a street or a faction. MAP LAW.
+- No line has the player speaking. Rule 27: 667 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

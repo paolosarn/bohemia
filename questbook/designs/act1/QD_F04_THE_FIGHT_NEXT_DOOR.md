@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: two neighbouring lots on a ruined block of the family's settlement: his yard (walled, one gate) and the next lot, an empty slab where a house burned, with a dead car and a mound; on the fight board the two lots and the street between them are house-sized tiles, the mound is one of them (the one terrain effect)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the act 2 landing for the kept battery, and its floor), 23 (a fight gone badly still ends in a result), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; 3, 9 and 12 read as not applicable to a main beat). Fixed in place: 5 and 18 (the act 2 landing for the kept battery, and its floor), 23 (a fight gone badly still ends in a result), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 (Swept 9/29 for VAMILY rules 38 to 40: the walked yard, one cell per press, is dead. The block is a settlement screen; the next lot is a building-slot he can tap, and tapping it into reach opens the fight board cut from these two lots. See QR-W.)

@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: under a freeway overpass on a dirt service road, in a dust storm, where the radio is dead and no camera reaches
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E8 THE ONE WHO KNOWS YOU (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 or act 2 history on the ledgers, this event does not fire)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 or act 2 history on the ledgers, this event does not fire) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B08 (act 3, a woman who knows what the ancestor did in the PAST). This man knows the company's FUTURE on the map: where the player tapped to go, which nobody was told.
 
 ## THE SITUATION

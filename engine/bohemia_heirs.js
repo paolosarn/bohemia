@@ -56,7 +56,7 @@
     perAct: 12,             /* ~12 men an act, 36 lives a game */
     levelShare: 0.5,        /* an heir starts at half the parent's level, rounded up, at least 1: a child shares half the DNA, a grandchild a quarter (the 9/28 reading), because the share compounds each hop */
     perkShare: 0.5,         /* and the first half of the parent's perks, in the order he took them */
-    debtShare: 0.45,        /* standing's own GEN_LOSS: what crosses a generation of a debt or a favour (bohemia_standing.js, not a new number) */
+    /* NO debtShare ON PURPOSE: bohemia_fold.js CARRY rules debt 'dies' (ruled:true; a child is not liable for a parent's unsecured debts, you inherit the PERSON: standing.inherit carries who still holds a grudge). The first cut here carried 45% of a debt and contradicted that. */
     carryShare: 0.42        /* Paolo 10/2 (rule 67): 'not all of them, maybe like 42%' of the last crew carries */
   };
   var ACTS = [1, 2, 3];
@@ -221,7 +221,7 @@
       perks: keepPk,
       stars: stars,                         /* talent runs in a family: the stars carry */
       house: m.house != null ? m.house : null,
-      debt: m.debt != null ? Math.round(num(m.debt, 0) * rows.debtShare * 100) / 100 : 0,
+      debt: 0,                              /* a debt dies with the parent (bohemia_fold CARRY, ruled); the grudge is standing's */
       /* the body never carries: no stats, no hitpoints, no wounds, no age of the parent are copied (the 9/28 reading) */
       lookFrom: look,                       /* PORTRAIT's heredity takes the parent's look from here */
       lookSeed: hash32(look + '|' + toAct),

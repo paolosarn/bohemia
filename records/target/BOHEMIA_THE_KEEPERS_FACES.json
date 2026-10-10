@@ -1,0 +1,148 @@
+{
+ "when": "2026-10-09T23:59:41.079Z",
+ "determinism": [
+  true,
+  true,
+  true,
+  true,
+  true
+ ],
+ "crossTown": [
+  {
+   "kind": "smith",
+   "differ": true
+  },
+  {
+   "kind": "armourer",
+   "differ": true
+  },
+  {
+   "kind": "barber",
+   "differ": true
+  },
+  {
+   "kind": "clinic",
+   "differ": true
+  },
+  {
+   "kind": "board",
+   "differ": true
+  }
+ ],
+ "sameTownPairs": [
+  {
+   "a": "smith",
+   "b": "armourer",
+   "differ": true
+  },
+  {
+   "a": "smith",
+   "b": "barber",
+   "differ": true
+  },
+  {
+   "a": "smith",
+   "b": "clinic",
+   "differ": true
+  },
+  {
+   "a": "smith",
+   "b": "board",
+   "differ": true
+  },
+  {
+   "a": "armourer",
+   "b": "barber",
+   "differ": true
+  },
+  {
+   "a": "armourer",
+   "b": "clinic",
+   "differ": true
+  },
+  {
+   "a": "armourer",
+   "b": "board",
+   "differ": true
+  },
+  {
+   "a": "barber",
+   "b": "clinic",
+   "differ": true
+  },
+  {
+   "a": "barber",
+   "b": "board",
+   "differ": true
+  },
+  {
+   "a": "clinic",
+   "b": "board",
+   "differ": true
+  }
+ ],
+ "rows": [
+  {
+   "town": "THE WASH, NORTH LAS VEGAS",
+   "kind": "smith",
+   "line": "Everything on my wall runs 2 batteries to 35 batteries. Fixed, sharpened, loaded, no haggling, mijo.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "THE WASH, NORTH LAS VEGAS",
+   "kind": "armourer",
+   "line": "My shelf runs 3 batteries to 60 batteries, pues. If it stops a pipe, it is on the wall and it is priced plain.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "THE WASH, NORTH LAS VEGAS",
+   "kind": "barber",
+   "line": "Bueno, one battery, every time, no more no less. Sit down and tell me who you want to be.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "THE WASH, NORTH LAS VEGAS",
+   "kind": "clinic",
+   "line": "Twenty crowns a day of hurt, 2 batteries at his floor. A higher rank man costs more to mend, gracias a Dios he is still breathing.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "THE WASH, NORTH LAS VEGAS",
+   "kind": "board",
+   "line": "One skull pays 30, two 60, three 90 batteries, mijo. Fair, and it does not change.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "RED ROCK, SUMMERLIN",
+   "kind": "smith",
+   "line": "Everything on my wall runs 2 batteries to 35 batteries. Fixed, sharpened, loaded, no haggling, mijo.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "RED ROCK, SUMMERLIN",
+   "kind": "armourer",
+   "line": "My shelf runs 3 batteries to 60 batteries, pues. If it stops a pipe, it is on the wall and it is priced plain.",
+   "distinctFrames": 2
+  },
+  {
+   "town": "RED ROCK, SUMMERLIN",
+   "kind": "barber",
+   "line": "Bueno, one battery, every time, no more no less. Sit down and tell me who you want to be.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "RED ROCK, SUMMERLIN",
+   "kind": "clinic",
+   "line": "Twenty crowns a day of hurt, 2 batteries at his floor. A higher rank man costs more to mend, gracias a Dios he is still breathing.",
+   "distinctFrames": 3
+  },
+  {
+   "town": "RED ROCK, SUMMERLIN",
+   "kind": "board",
+   "line": "One skull pays 30, two 60, three 90 batteries, mijo. Fair, and it does not change.",
+   "distinctFrames": 3
+  }
+ ],
+ "citizenHashesChecked": 100,
+ "citizenDiffs": 0
+}

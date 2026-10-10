@@ -46,12 +46,12 @@ L = importlib.import_module('bohemia_combat2_tiles_are_legos_cook_10_5_26')
 MAN = 'slices/fight_ground/fight_ground.json'
 SIZES = {'small': (2, 2, 9, 7), 'middle': (3, 2, 14, 10), 'large': (4, 3, 20, 15)}
 GAP = 5
-HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'corner.2', 'cornerw.0', 'cornerw.1', 'lots.0']
+HOUSES = ['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'corner.2', 'lots.0']
 TOWN = HOUSES + ['main.1', 'works.0']
 # kind: (lead kinds that must stand in the window, palette rows by block row, fixed cells by size)
 KINDS = {
-    'street':  (('corner', 'cornerw'), lambda R: [HOUSES] * R, {}),
-    'suburb':  (('subs',), lambda R: [['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1', 'cornerw.0']] * R, {}),
+    'street':  (('corner',), lambda R: [HOUSES] * R, {}),
+    'suburb':  (('subs',), lambda R: [['subs.0', 'subs.1', 'subs.2', 'subs.3', 'corner.0', 'corner.1']] * R, {}),
     'lot':     (('lots',), lambda R: [HOUSES] * R, {}),
     'freeway': (('freeway', 'freewayo'), lambda R: [HOUSES, ['freeway.0', 'freewayo.0'], ['scrub.0', 'scrub.1', 'scrub.2', 'scrubroad.0', 'scrubroad.1']][-R:] if R == 3 else [HOUSES, ['freeway.0', 'freewayo.0']], {}),
     'strip':   (('strip',), lambda R: [['strip.0', 'strip.1'], TOWN, TOWN][:R], {}),

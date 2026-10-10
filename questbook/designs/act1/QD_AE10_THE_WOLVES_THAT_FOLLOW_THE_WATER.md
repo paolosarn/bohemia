@@ -7,7 +7,7 @@ PLACE: the wash camp under the overpass (settlement screen: the hall is a tarp s
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE09 (the water carts from the pump house). THE ROAD THEY SHARE: the wash road.
 BEAST: dire wolves, lab-made (rule 42), a pack of seven. BB lesson: the direwolf pack, fast flankers; hold the line or be surrounded. Tough, 8 to 12 minutes.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1. The dire wolves learned that the carts mean water and that the people at the end of the road are weak. They have taken two of the camp's dogs and a boy's shoe. Not yet the boy.

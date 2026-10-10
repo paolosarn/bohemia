@@ -1,0 +1,198 @@
+{
+ "_readme": "WORLD [the apron, the compound and the civic interior] 10/10: what each of the three missing fight blocks is made of in this valley. Written by tools/bohemia_three_blocks_cook_10_10_26.js from engine/bohemia_threeblocks.js -- do not hand edit. EVERY SHARE AND EVERY PIECE IS MEASURED OFF THE DISTRICT KITS OF THAT FAMILY THAT REALLY DRAW, five seeds each. THE ROW SAID THREE BLOCKS ARE MISSING: two are, and the valley has the material for both; THE THIRD IS BUILT AND WIRED TO NOTHING -- `casino`, the only interior in the game, is in no board family and unreachable from the map. And of 256 things you can stand on in the whole valley, not one is the floor of a room.",
+ "version": "BOHEMIA_THREE_BLOCKS_v1",
+ "built": "2026-10-10",
+ "families": [
+  {
+   "family": "civic",
+   "block": "A CIVIC INTERIOR",
+   "hasMaterial": false,
+   "why": "NO_MATERIAL",
+   "kits": [
+    "cityhall",
+    "courthouse",
+    "jail",
+    "policestation",
+    "firestation",
+    "medical"
+   ],
+   "floor": 0.612,
+   "cover": 0.333,
+   "door": 0.00385,
+   "reads": "EVERY ONE OF THOSE CELLS IS OUTSIDE. The plaza, the forecourt, the glazing, the roof. The city hall is one solid block and the jail is another with a cell detail stuck on the face of it. There is a doorway and nothing behind it.",
+   "whose": "COMBAT [board generator]: one wire, not a new block.",
+   "tuned": false
+  },
+  {
+   "family": "infrastructure",
+   "block": "AN APRON",
+   "hasMaterial": true,
+   "kits": [
+    "speedway",
+    "stadium",
+    "ballpark",
+    "terminal"
+   ],
+   "floor": 0.728,
+   "cover": 0.185,
+   "door": 0.0056,
+   "topKinds": [
+    "drive",
+    "ground",
+    "building",
+    "structure",
+    "marking"
+   ],
+   "pieces": [
+    "grandstand",
+    "catch fence",
+    "pit road",
+    "garage row",
+    "light tower",
+    "tunnel mouth",
+    "racing surface",
+    "track marking",
+    "infield (dead turf)",
+    "scoreboard / jumbotron",
+    "dead race car",
+    "concourse (loop under the stands)",
+    "facade (outer stadium wall)",
+    "gate / entrance"
+   ],
+   "reads": "open paved ground you can cross at a run, one long shed down a side, a fence round the whole lot and a tunnel mouth into the stands. The widest board in the valley: nothing to hide behind for a hundred metres.",
+   "tuned": false
+  },
+  {
+   "family": "plant",
+   "block": "A COMPOUND",
+   "hasMaterial": true,
+   "kits": [
+    "battery",
+    "substation",
+    "watertreat"
+   ],
+   "floor": 0.713,
+   "cover": 0.276,
+   "door": 0.00031,
+   "topKinds": [
+    "ground",
+    "structure",
+    "building",
+    "drive",
+    "overhead"
+   ],
+   "pieces": [
+    "perimeter fence",
+    "gate",
+    "transformer",
+    "switchgear structure",
+    "busbar / conductor",
+    "cable trench",
+    "clarifier wall / core",
+    "aeration / filter basin",
+    "pipe gallery / catwalk",
+    "pole light",
+    "control building",
+    "battery container",
+    "hazard marking",
+    "gravel yard"
+   ],
+   "reads": "a wall with ONE gate and a gravel yard inside it, full of waist-high steel that stops a bullet and not a man. The door share is 0.031% of cells, about one in three thousand: there is one way in and everybody inside knows where it is.",
+   "tuned": false
+  }
+ ],
+ "theValleyHasNoInside": {
+  "namedPieces": 813,
+  "standable": 256,
+  "insideRooms": 0,
+  "closest": [
+   "ballpark: concourse",
+   "stadium: concourse (loop under the stands)"
+  ],
+  "ruling": "every legend of all 50 district kits that draw (WORLD 10/10)",
+  "because": "of 256 things you can stand on in the whole valley, not one is the floor of a room. The nearest is the covered loop under a stadium's stands, twice. A COMBAT TILE IS A HOUSE (Paolo 9/4) and the INTERIOR-MATCHES-EXTERIOR LAW both assume an inside the city has never drawn."
+ },
+ "blocksThatExistAndCannotBeReached": {
+  "neverAtAll": [
+   "casino",
+   "freewayo",
+   "scrubroad"
+  ],
+  "neverTheLead": [
+   "lots",
+   "main",
+   "works"
+  ],
+  "ruling": "slices/fight_ground/fight_ground.json, the block library the fight deals from, read the way the fight reads it (kind = the name before the dot)",
+  "casino": {
+   "flatCells": 294,
+   "heightCells": 6,
+   "coverPieces": 201,
+   "coverKinds": [
+    "pillar",
+    "slot_bank",
+    "table"
+   ],
+   "is": "THE ONLY INTERIOR IN THE GAME. COMBAT TWO cut it, the map cannot ask for it and the mix will never roll it, so it has never appeared in a fight."
+  }
+ },
+ "whoHoldsItIsNotHere": {
+  "known": false,
+  "why": "NO_MAP",
+  "family": "plant",
+  "whose": "bohemia_valleyground.poolOf, handed the map and the live turf"
+ },
+ "measured": {
+  "panels": [
+   {
+    "family": "infrastructure",
+    "kit": "stadium",
+    "cover": 0.202,
+    "door": 0,
+    "hasMaterial": true
+   },
+   {
+    "family": "plant",
+    "kit": "watertreat",
+    "cover": 0.263,
+    "door": 0,
+    "hasMaterial": true
+   },
+   {
+    "family": "civic",
+    "kit": "medical",
+    "cover": 0.421,
+    "door": 0,
+    "hasMaterial": false
+   },
+   {
+    "family": "casino",
+    "kit": "the fight's own library",
+    "cover": null,
+    "door": null,
+    "hasMaterial": true
+   }
+  ],
+  "noInside": {
+   "namedPieces": 813,
+   "standable": 256,
+   "insideRooms": 0,
+   "closest": [
+    "ballpark: concourse",
+    "stadium: concourse (loop under the stands)"
+   ],
+   "ruling": "every legend of all 50 district kits that draw (WORLD 10/10)",
+   "because": "of 256 things you can stand on in the whole valley, not one is the floor of a room. The nearest is the covered loop under a stadium's stands, twice. A COMBAT TILE IS A HOUSE (Paolo 9/4) and the INTERIOR-MATCHES-EXTERIOR LAW both assume an inside the city has never drawn."
+  },
+  "unreachable": [
+   "casino",
+   "freewayo",
+   "scrubroad"
+  ],
+  "neverTheLead": [
+   "lots",
+   "main",
+   "works"
+  ]
+ }
+}

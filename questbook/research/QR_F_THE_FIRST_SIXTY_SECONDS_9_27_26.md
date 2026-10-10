@@ -27,7 +27,7 @@ on the FIGHT BOARD, house-sized tiles cut from the city. QR-P (9/28) already re-
 the settlement screen; this sweep writes that re-cut into the page itself. The library findings below are
 unchanged; every FOR US line, the budget and the rules now read for THE MAP, THEN THE SETTLEMENT SCREEN. Also:
 there is no three-names screen and no flip at the start (rule 39c): the game opens on ONE person, customized
-before the clock; the next generation unlocks later (default: the first home base).
+before the clock; the next generation unlocks later (rule 85: when the act's first endgame crisis starts, around day 80 to 100).
 
 ---
 
@@ -359,7 +359,7 @@ choice meant (it surfaces later as a thing, `Q128.X2`); a second person addressi
 14. THE FIRST MINUTE IS NOT THE LOUDEST. No fight, cutscene or set piece plays in the first 60 s unless
     the player tapped into it. (`Q134.X3`, `Q134.X9`)
 15. AFTER THE FIRST HOP, AND AFTER EVERY FLIP, THE CLOCK RESTARTS. The next act unlocks mid-act (rule 39c,
-    default the first home base); the first hop is a big transition where he customizes the new person,
+    rule 85: when the first endgame crisis starts, around day 80 to 100); the first hop is a big transition where he customizes the new person,
     generated from the one before, with the heirs of the last act's company (rule 39d). Arriving on the
     other act's settlement screen starts a fresh 60 s silence (rules 1 to 14 apply again), and the first
     discovery there is a thing the earlier act left. (second life proves the first happened `Q144.W9`; the
@@ -379,8 +379,9 @@ SHARPENED (folded 10/9 from QR-U):
   scene played at the player. The loss belongs to the attackers (`Q235.W2`).
 - Rule 14 (the first minute is not the loudest): `Q228.W4` is the opposite design, a deadline in the opening. We keep
   ours: no clock in the first hour; a clock on the main line is spoken first (QR-H rule 4).
-- STALE flag: rules 2 and 10 describe the dead walk; the first sixty seconds now happen on the map and the first
-  settlement screen (rules re-cut 9/29 above).
+- STALE flag CLEARED 10/10 (QUESTS [qr-f off the walk]): re-read, rules 2 (THE FIRST TAP ANSWERS: the party marker or
+  the block, `Q060.X4`, `Q038.X4`) and 10 (THE MAP IS ALWAYS ONE TAP AWAY, AND QUIET, 33c) were already re-cut to the map
+  and the first settlement screen in the 9/29 sweep (QR-W); no walk wording remains in either.
 
 ## WHAT TO AVOID (the flaws, by id)
 

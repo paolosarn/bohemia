@@ -7,7 +7,7 @@ PLACE: the wash camp home base (camp tier, one offer); the job runs on the map t
 SITUATION: an elder dying (QR-S situation 25): Tere Olmos, 81, ran a city water crew before the crash and is the only person alive who knows where the valley's old valves are; her kidneys are failing -> the knowledge passes to someone (her grandson, the dam, or a man in the company), or it goes into the ground with her
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The wash camp has no hall. It has a fire barrel under the overpass, and the one offer lives there. Tere lies on a cot under a blue tarp, in a runway coat somebody traded her for water. The camp digs for water every summer because nobody remembers where the city's buried valves are. Tere does. She has about four days, and she wants two things: her grandson Nico home, and one more look at the pump station she ran.

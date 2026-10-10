@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a truck-stop town on the northern interstate at the valley's edge; the job is one motel block (the fight board if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: THE RUNGS (QR-J): the canon ladder's out-of-state strangers, seen only by a player whose heat is already up
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Late act 2, the valley clawing back, money moving again. The truck stop at the north edge is doing well: rooms

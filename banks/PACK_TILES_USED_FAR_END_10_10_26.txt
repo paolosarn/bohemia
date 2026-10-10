@@ -1,0 +1,7 @@
+THE FAR END'S GROUND, AND THE TILE OF HIS EVERY CELL CAME FROM (rule 82a)
+==========================================================================
+pack:1. Ground Tiles#28                                   146 cells
+pack:1. Ground Tiles#4                                     37 cells
+pack:2. Soil and dirt tiles#3                             408 cells
+pack:3. Stone paths#3                                      39 cells
+LEFT ALONE (his terrain picks hold none of these): road, spine, water

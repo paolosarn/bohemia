@@ -1,0 +1,20 @@
+{
+ "suburb": {
+  "unit": 1.0,
+  "band": 0.0251,
+  "road_band": 0.0637,
+  "errors": 0
+ },
+ "strip": {
+  "unit": 1.0,
+  "band": 0.0239,
+  "road_band": 0.0711,
+  "errors": 0
+ },
+ "freeway": {
+  "unit": 1.0,
+  "band": 0.0209,
+  "road_band": 0.0388,
+  "errors": 0
+ }
+}

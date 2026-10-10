@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: the Strip casino block home base (fortress tier), the barber and the hall
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (line 25 bent lightly: the rumour comes from the barber, the want from the client)
+CHECKLIST: passes all 32 (line 25 bent lightly: the rumour comes from the barber, the want from the client) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The barber offers no contracts. But the barber's one rumour line ("the chair hears things") is what makes the hall

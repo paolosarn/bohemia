@@ -37,4 +37,4 @@ Between her words, very faintly, a second voice on the band reads the same bulle
 ## FLAWS IT AVOIDS
 `Q104.X3` and `Q125.X5` (the thesis in optional content: it is now on the main road), `Q131.X7` (the refusal nobody registers: not climbing is a named default, not a FAIL), `Q133.X2` (a giver with no interiority: she wants one thing), `Q095.X1` (the unsignposted clock: the finder party is visible on the map).
 
-CHECKLIST: passes all 30 (line 11 read for a main beat: it can be walked past and it waits; line 12 read for a main beat: there is no contract to refuse).
+CHECKLIST: passes all 32 (line 11 read for a main beat: it can be walked past and it waits; line 12 read for a main beat: there is no contract to refuse). (QR-AM 10/10: lines 31 and 32 run, pass as written)

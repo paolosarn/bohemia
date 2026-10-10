@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How Big The Board Is</title>
+<!-- TUNING 10/10 [board sizes], draft:true. Toy. The wiki gives no map size; this uses the fight's own cut formula:
+     width = 1 + yourDepth + 5 + theirDepth - 1 + 1 ; height = longest line + 2. 9 slots a row. Never in the game. -->
+<style>
+:root{--bg:#0d0b09;--ink:#d8cdb4;--dim:#7d715c;--hot:#e8593a;--ok:#8fe89a;--amb:#e8a04a;--line:#2a241c}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.4 ui-monospace,Menlo,monospace;padding:16px}
+h1{font-size:18px;letter-spacing:2px;margin:0 0 4px}p{color:var(--dim);margin:4px 0 12px}
+input[type=range]{width:100%}.g{display:grid;gap:1px;background:var(--line);margin:10px 0}
+.c{aspect-ratio:1;background:#15110d}.y{background:#3f6b46}.e{background:#8a3a2a}.f{background:#2a241c}
+</style></head><body>
+<h1>HOW BIG THE BOARD IS</h1>
+<p>Green is you, red is them, dark is the five-tile gap. The wiki gives no map size, so this is our formula. Slide the two parties.</p>
+<div>YOU <b id="av"></b><input id="a" type="range" min="1" max="12" value="4"></div>
+<div>THEM <b id="bv"></b><input id="b" type="range" min="1" max="20" value="4"></div>
+<div class="g" id="g"></div>
+<p id="s"></p>
+<script>
+function draw(){var A=+a.value,B=+b.value,N=9;av.textContent=A;bv.textContent=B;
+ var cD=A>N?2:1,eD=B>N?2:1,w=1+cD+5+eD-1+1,h=Math.max(Math.min(A,N),Math.min(B,N),1)+2;
+ g.style.gridTemplateColumns='repeat('+w+',1fr)';g.style.maxWidth=(w*28)+'px';var s='';
+ for(var y=0;y<h;y++)for(var x=0;x<w;x++){var k='c';
+  if(x>=1&&x<1+cD&&y>=1&&y<=Math.min(A,N)+(A>N?0:0))k='c y';
+  if(x>=w-1-eD&&x<w-1&&y>=1&&y<=Math.min(B,N))k='c e';
+  if(x>=1+cD&&x<w-1-eD)k='c f';
+  s+='<div class="'+k+'"></div>';}
+ g.innerHTML=s;
+ document.getElementById('s').textContent=w+' wide by '+h+' tall = '+(w*h)+' tiles. '+(w<=8?'Bow reach 7 is longer than the gap: an archer hits from turn one.':'')+(h<6?' Very short board.':'');}
+a.oninput=b.oninput=draw;draw();
+</script></body></html>

@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 /* BOHEMIA -- COOK: HAIRSTYLES THAT MATCH. PORTRAIT, 10/9/26.
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/9 at the seam): the rulers are
+ * FACE-01 and FACE-02 (the portrait construction) and the haircut laws (a haircut reads from
+ * every angle; the portrait wears the haircut the body is wearing), with AH-01 rule 6 (the still
+ * face). Ids resolve in the reference library index.
+ *
  * Paolo 10/9, direct: "can I get hairstyles that match the hairstyles we have
  * on the characters like what's going on, bro." Follows his 10/2 vote on
  * CHARACTER's barber card ("wayyyy more portrait assets... with PORTRAIT when

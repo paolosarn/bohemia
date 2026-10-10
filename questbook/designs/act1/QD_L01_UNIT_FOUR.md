@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL08
 FIRST-LINE: FL03
 TWIST: T01 THE HAUNTING IS THE ECONOMY (costs nothing)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling: the offer screen is the contract's one sanctioned screen, and no other popup carries its news; lines 17 and 18 do not apply: no thesis, no plant)
+CHECKLIST: passes all 32 (line 2 read under the 9/28 ruling: the offer screen is the contract's one sanctioned screen, and no other popup carries its news; lines 17 and 18 do not apply: no thesis, no plant) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade, bust. The strip's owner rents five units for batteries. Four businesses have opened in unit four since the crash and all four closed inside a month. The current tenant hears knocking at night and has not paid. The owner thinks squatters are working the back wall, or something worse, and wants it cleared before the fifth tenant runs.

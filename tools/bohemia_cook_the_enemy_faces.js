@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 /* BOHEMIA -- COOK: THE ENEMY FACES. PORTRAIT, 10/9/26, [the enemy faces].
  *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/9 at the seam): the rulers are
+ * FACE-01 and FACE-02 (the portrait construction), the portrait-wears-the-haircut law and AH-01
+ * rule 6 (the still face); the tier look is read from ours.json, never invented. Ids resolve in
+ * the reference library index.
+ *
  * Rule 69 (all character art live in the game), rule 68a (the party's card on the
  * map), COMBAT's recap. The jump list's top row: "a head per enemy kind in
  * enemies.json matched to CHARACTER's dressed tier." CHARACTER already dressed the

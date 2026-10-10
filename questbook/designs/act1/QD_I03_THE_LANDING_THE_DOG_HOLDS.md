@@ -44,4 +44,4 @@ The handler's radio on the landing still clicks every hour on the hour, and the 
 ## FLAWS IT AVOIDS
 `Q148.X3` (the monster-is-somebody twist as the default shape: it is this contract's only twist, tagged), `Q084.X5` (the punished no), `Q126.X10` (no way out without the fight: A and B need none), `Q131.X2` (nobody finds out: each ending changes a thing in the building).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment; line 27 uses the contract's one twist and is tagged for the shelf count).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment; line 27 uses the contract's one twist and is tagged for the shelf count). (QR-AM 10/10: lines 31 and 32 run, pass as written)

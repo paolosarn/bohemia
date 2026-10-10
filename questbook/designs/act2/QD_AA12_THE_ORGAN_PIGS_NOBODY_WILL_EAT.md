@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the co-op home base in the south-east (settlement screen: the hall is a church hall); the job is the old farm block next to it, with a cemetery lot, the fight board cut from that block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: a feral hog sounder of ORGAN PIGS (round three s1: pigs edited with human genes for transplants). BB lesson: the Nachzehrer, it grows on the dead; leave no dead on the field. Routine to tough, 5 to 9 minutes.
-CHECKLIST: passes all 28
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (MEDS for organs on the pen road), fixed in place; 32 of 32)
 
 ## THE SITUATION
 Act 2. A pharmaceutical farm's pigs went feral. They took the co-op's farm block and the cemetery beside it. Nobody will eat them: every one carries a human gene, and the co-op's preacher says what that means. The co-op cannot pay much. It can pay with the block.
@@ -28,7 +28,7 @@ Rooted-up ground on the map, a line of it from the farm to the cemetery. The lai
 ## THE CHOICES
 A. CLEAR IT, CARRY YOUR DOWNED OUT. Drag every struck-down man off the board first; the pigs stay small. The block is yours: build on it (a pen, a greenhouse, a smokehouse).
 B. CLEAR IT FAST. Ignore the downed; the pigs grow; a large one is a brute. The block is yours; the downed roll the 20%, some worse for being under a pig.
-C. PEN THEM. Build a pen on the block (6 batteries, 2 days) and drive the sounder in. The block is yours and holds live pigs: no one will buy the meat, but a clinic pays 3 MEDS a pig for "research" (organs).
+C. PEN THEM. Build a pen on the block (6 batteries, 2 days) and drive the sounder in. The block is yours and holds live pigs: no one will buy the meat, and a clinic asks for them for "research" (organs); the deacon will not let them go for pay, so the ask is a mouth, not a price (QR-AO, line 30).
 
 ## WHAT THE LEDGERS REMEMBER
 A or B: the company holds the farm block (a base is every block you hold). C: the pen draws the lion in act 2 (QD-AA05's kind), and the co-op's preacher names the family in a sermon. Declining leaves nothing.

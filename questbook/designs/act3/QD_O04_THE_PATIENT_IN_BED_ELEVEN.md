@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: the chapel town and clinic home base (town tier), the clinic ward
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The Network is failing. Implants that talked to it go quiet. The clinic holds the player's own struck-down man for

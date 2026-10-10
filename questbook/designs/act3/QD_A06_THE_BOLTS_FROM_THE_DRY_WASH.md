@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: bust
 PLACE: a machinist's yard at the edge of the rocket works; the job runs on the map across a dry wash to a dead data centre
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, split, or noon), 10 and 23 (a lost fight still meets the void), 12 (hand the two back), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, split, or noon), 10 and 23 (a lost fight still meets the void), 12 (hand the two back), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: a contract the WORLD VOIDS, closing clean with no deed (C14); and a decline whose job still gets done by strangers (C8)
 
 ## THE SITUATION

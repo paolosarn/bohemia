@@ -7,7 +7,7 @@ PLACE: a public charge post at a dirt crossroads, below a relay mast visible fro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E1, THE ONE ON THE SHOULDER (QR-B), at a place the map already shows
 STAGE: QUIET (QR-J): the feed deletes one post; nobody notices but her
-CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING)
+CHECKLIST: passes all 32 (lines 11 and 12 are read as the event's free KEEP MOVING) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust stretch. The party stops to charge at a crossroads post. A girl of fifteen sits on the post's

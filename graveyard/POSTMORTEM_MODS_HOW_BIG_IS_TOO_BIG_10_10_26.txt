@@ -1,0 +1,24 @@
+POST-MORTEM: MODS [range column] / "HOW BIG IS TOO BIG" (voted DOWN 10/9 in the VOTE tab; written 10/10)
+
+HIS WORDS: "This is not the point of the mod chat, bro literally the only point is to help people mod the game if
+they want like not even like have laws about that shit like are you fucking insane?"
+
+WHAT I BUILT: a draft min and max for every numeric field (computed from the base rows) and a warning in the reference
+merge when a mod's number was outside it ("a knife at minus 5 gets a warning"), plus four proof legs.
+
+WHY IT WAS WRONG: it was a RULE about what a mod may be, wearing a friendly name ("a warning, not a block"). He did not
+ask for a mod that is checked; he asked for mods to be possible and easy. A modder who wants a 150-damage hammer should
+get a 150-damage hammer and no comment. My own page said so ("observed range punishes exactly the mod a modder most
+wants") and I shipped it anyway, which is the tell: when my own finding section argues against the feature, the
+feature is wrong.
+
+THE PATTERN, WHICH IS THE REAL LESSON: this is the third time. 9/30 "the march stops" (a game feature, down), 10/1
+"mods at boot" (NAH), now ranges (a law). Each time I drifted from "make it easy to mod" to "decide how mods behave".
+THE TEST FROM NOW: does this page make something POSSIBLE or EASIER for a modder, or does it tell a modder what they
+may do? Only the first ships. No limits, no warnings that guard, no policies written as rules.
+
+WHAT WAS DONE: the ranges tool and the generated draft moved here (graveyard/MODS_ranges_*). The --ranges flag and the
+four proof legs that used it were removed from the reference merge and proof (22 of 22 pass without them).
+STILL STANDING AND AT RISK OF THE SAME VERDICT, awaiting his word, not decided by me: the id policy page and the
+`--namespace` warning (an id is a promise), and the schema-number policy (when the data changes). Both are written as
+recommendations and carry no enforcement; if either goes down they follow this one into the graveyard.

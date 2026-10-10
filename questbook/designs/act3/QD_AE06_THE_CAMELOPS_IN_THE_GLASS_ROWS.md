@@ -7,7 +7,7 @@ PLACE: the farm tower, a town by act 3 (settlement screen: the hall is the packi
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE05 (the seed truck up the tower road). THE ROAD THEY SHARE: the tower road.
 BEAST: Camelops, lab-made, a herd of four (rule 42: a mount, not a monster). BB lesson: not every beast contract is a kill; the herd can be moved.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The farm tower put glass rows on the ground floor. Four Camelops from the lab's old herd smell the water and break the glass at night. Nothing in them is cruel. They are tall, thirsty camels that the money set loose.

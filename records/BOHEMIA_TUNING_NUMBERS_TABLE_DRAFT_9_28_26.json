@@ -746,9 +746,13 @@
    "source": "wiki Game Mechanics"
   },
   {
-   "id": "econ.contract_pay_step",
-   "value": -0.1,
-   "source": "wiki Game Mechanics (per difficulty level)"
+   "id": "econ.contract_pay_mult",
+   "value": [
+    1.0,
+    1.0,
+    0.9
+   ],
+   "source": "wiki Game Guide, Economic difficulty and other effects (corrected 10/10)"
   },
   {
    "id": "econ.sell_mult_expert",

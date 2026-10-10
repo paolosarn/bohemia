@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: a pump house on the dam road (settlement screen: the hall is the pump room's door); the carry runs one leg down the wash road to the wash camp under the overpass, the fight board cut from the dry crossing block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE10 (the wolves that follow the water, at the wash camp). THE ROAD THEY SHARE: the wash road, pump house to overpass, one map day on dirt. Paolo's own shape: a haul to a place, a kill near that place.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade, a bust. The pump house holds its share of the lake and sells it. The wash camp cannot pay the price and cannot walk the distance. Once a week the pump foreman sends two mule carts down as the share agreement says. The drivers have stopped going.

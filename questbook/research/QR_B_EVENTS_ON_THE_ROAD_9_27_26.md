@@ -290,7 +290,7 @@ builder can test, all draft:
 ## HOW EVENTS DIFFER BY ACT
 The acts are eras of one family, and the future is derived from the past acts' ledgers. (Swept 9/29, rule 39c:
 they are not all open at the start. Act 1 is played first with one person; the next generation unlocks later,
-default the first home base, and after that the flip is his. An act 3 road feature written by an act 1 event is
+when the act's first endgame crisis starts (rule 85, around day 80 to 100), and after that the flip is his. An act 3 road feature written by an act 1 event is
 seen once act 3 has unlocked.)
 - ACT 1, THE RUIN (Animal). Events are about the body and the stranger. The stranger is a threat until proven
   otherwise (`Q093.W3`), you start as nobody (`Q055.W3`), and most events price medicine, batteries and the lives

@@ -6,10 +6,12 @@
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
 const ROOT = path.dirname(__dirname), PORT = 8841;
+/* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const TYPE = { '.html':'text/html', '.js':'text/javascript', '.png':'image/png', '.json':'application/json' };
 let pass = 0, fail = 0;
 const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
-const shot = n => path.join(ROOT, 'slices/vote/RUN2_THE_LOOP_' + n + '_10_1.png');
+const shot = n => proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_LOOP_' + n + '_10_1.png'));
 const srv = http.createServer((rq, rs) => {
   const f = path.join(ROOT, decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''));
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }

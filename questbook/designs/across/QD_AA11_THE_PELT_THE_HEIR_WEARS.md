@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust (act 1) -> either (act 2)
 PLACE: act 1, wherever the company killed its first NAMED beast (default: the I-15 alpha, QD-AA02); act 2, the trophy buyer's building in any settlement and a road event on the same freeway
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 28 (bends line 5 on purpose: the act 2 landing needs an act 1 named trophy; its default read, "no named trophy", is written below)
+CHECKLIST: passes all 32 (bends line 5 on purpose: the act 2 landing needs an act 1 named trophy; its default read, "no named trophy", is written below) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (the fight road paid a mantle unstated), fixed in place; 32 of 32)
 
 ## THE SITUATION
 Rule 39: the company inherits, gear stays in the family. Battle Brothers' taxidermist turns a beast's parts into gear (recall): a wolf's pelt becomes a mantle. In act 1 the company kills a named beast and the trophy buyer offers two things: sell the pelt (batteries now) or have it made into a MANTLE (an armour attachment: a small bonus against that kind of beast, and it is visible on the body).
@@ -26,7 +26,7 @@ If B: the act 2 heir starts wearing the mantle (the heirs are prepared from the 
 ## THE CHOICES (act 2 event)
 A. KEEP WALKING. They follow a day, then peel off. Nothing is lost; the pack is on the map near the truck stop.
 B. TAKE THE MANTLE OFF AND LEAVE IT ON THE ROAD. They stop at the coat and stay with it. The heir loses the attachment; the pack never troubles the company's caravans for the act.
-C. TURN AND FIGHT. They are the old alpha's line; the fight is routine, and the heir's mantle gives its bonus. The pelts are a set: a second mantle for the heir's second.
+C. TURN AND FIGHT (the button reads: "+1 mantle for the heir's second"; the event's one stated temptation, QR-AO line 30). They are the old alpha's line; the fight is routine, and the heir's mantle gives its bonus. The pelts are a set: a second mantle for the heir's second.
 
 ## WHAT THE LEDGERS REMEMBER
 A: the pack stays wary of the family. B: the truck stop's mouths tell of a coat on the shoulder that nobody will touch. C: the family is known as the wolf family on the freeway for the act. If act 1 chose SELL or had no named trophy, the default read: the act 2 heir hears the story from Alma ("Your family sold me a wolf once. I still have the teeth.") and nothing follows.

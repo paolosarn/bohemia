@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the Strip casino block (settlement screen: the hall is the cashier's cage); the job is one night at a private card table on the third floor, the fight board cut from the casino floor block if it comes to that
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE NAME AT THE GATE (QR-Z no. 14: the guards at the Strip know the name before you say it)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a boom on the Strip. The house runs a private table for the families who hold the dam's share. Tonight the table is worth more than the house can afford to lose, and the house's own guards have cousins at it.

@@ -7,7 +7,7 @@ PLACE: the rail and truck depot home base (fortress tier); the job is the south 
 SITUATION: the depot's salt and medicine caravan is four days overdue, so the depot's board runs fewer runs and more ambush fears -> the caravan is found, the depot's board and the salt and medicine prices at its market change by what was left of the load, and the dry town it stopped at rises or falls
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: yes (rationed): no ambush; the drivers stopped at a starving town and unloaded half the medicine there
-CHECKLIST: passes all 30 (line 27: the rationed twist, drawn from the depot's own route)
+CHECKLIST: passes all 32 (line 27: the rationed twist, drawn from the depot's own route) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The depot runs one salt and medicine caravan up from the south each moon. This one is four days overdue. In a bust, four days late means ambush. The depot's board already shows it: two runs cancelled, one guard job for the yard. The caravan master wants it found. He wants it found more than he wants the load.

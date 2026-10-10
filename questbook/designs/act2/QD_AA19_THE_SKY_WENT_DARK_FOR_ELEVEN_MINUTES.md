@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: on the map, any road near a settlement with open water tanks (default: the dam road); the event screen is the sky over the company, and the tanks below
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 BEAST: the passenger pigeon, in the millions (round zero's sky event; a lab a state or two over released them, the law's s3). No BB beast; the swarm's lesson: what you cannot kill is not a fight.
-CHECKLIST: passes all 28 (never in the first minute; fires once per act at most)
+CHECKLIST: passes all 32 (never in the first minute; fires once per act at most) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AO 10/10: lines 29 and 30 run strictly: 30 failed (two roads paid; the kind one in a hidden price step), fixed in place; 32 of 32)
 
 ## THE SITUATION
 Act 2. The company is on the road. The light goes brown, then grey. It is birds: one flock, so wide it has no edges, so loud the company cannot hear each other. It lasts eleven minutes. The event screen is the sky, a face in the company looking up, and the settlement's open water tanks ahead.
@@ -18,8 +18,8 @@ Act 2. The company is on the road. The light goes brown, then grey. It is birds:
 The company's cook, looking up, in the squiggle; subtitle: "My grandmother said these were gone. She said it like a sad thing."
 
 ## THE CHOICES
-A. SHOOT INTO IT. 3 ROUNDS bring down 12 FOOD. Every shot is heard for a mile; a roaming party on the map turns toward the company.
-B. COVER THE TANKS. Ride hard to the settlement and help pull the tarps over its open WATER tanks before the flock passes over. The settlement's water stays clean; its hall's next offer to the company is one step better paid. The company loses half a day.
+A. SHOOT INTO IT (the button reads: "+12 FOOD"; the event's one stated temptation). 3 ROUNDS bring down 12 FOOD. Every shot is heard for a mile; a roaming party on the map turns toward the company.
+B. COVER THE TANKS. Ride hard to the settlement and help pull the tarps over its open WATER tanks before the flock passes over. The settlement's water stays clean; nothing is paid for it (QR-AO, line 30: the kind road earns a memory, not a price). The company loses half a day.
 C. WAIT IT OUT. Nothing is spent. The settlement's tanks are fouled; its WATER price rises two steps for 10 map days, and its mouths say so when the company arrives.
 
 ## WHAT THE LEDGERS REMEMBER

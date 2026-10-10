@@ -7,7 +7,7 @@ PLACE: the launch yard on the dry lakebed south of the valley (settlement screen
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE01 (the chilled tankers from the depot). THE ROAD THEY SHARE: the south highway, depot to dry lake.
 BEAST: lab-made hyenas (rule 42), a pack of five. BB lesson: the pack that circles and takes the one who stands alone; formation is the defence.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. Hyenas from the lab's old pens dig under the launch yard fence at night and chew cable. Two runs of ignition cable are already gone. The pad crew sleeps in the trucks.

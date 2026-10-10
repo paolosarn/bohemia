@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a reclaimed office tower turned hydroponic farm, floors six to nine; the pump room is on six
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (Thursday and Tuesday became map nights), 9 (three ways to keep six), 12 (the two-night exit), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (Thursday and Tuesday became map nights), 9 (three ways to keep six), 12 (the two-night exit), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: a contract WITH A WINDOW done right, and FAILED WHILE TRYING as an honest end, not a drop (C11, C12)
 
 ## THE SITUATION

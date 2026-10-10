@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: either
 PLACE: the family's home base (rule 43: a base is the parts of the city the family holds) in the valley, after the launch; the radio in the kitchen (the same kitchen as QD-F01 and QD-F05, derived forward)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 26: one warm beat, the kitchen table.
+CHECKLIST: passes all 32. Line 26: one warm beat, the kitchen table. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master: the Angel heir goes and does not return; the dynasty ends looking down at the planet; LIBERATE, RESPECT or BECOME resolves at the Moon. What the Moon IS stays Paolo's. This beat is the ground side, so the rocket never lands offscreen. The family and the company who stayed (QD-Q19) sit in the kitchen. The radio carries the heir's voice from above. The player plays the people at the table, listening.

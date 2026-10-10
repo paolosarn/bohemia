@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the rail and truck depot on the south highway (settlement screen: the hall is the dispatch window); the haul runs one leg south to the launch yard on the dry lakebed, the fight board cut from the overpass block halfway
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE02 (the hyena hunt at the launch yard). THE ROAD THEY SHARE: the south highway, depot to dry lake, one map day on pavement.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The rocket's first test fire is set at the launch yard on the dry lake. A pad needs a flood of water under it when the engine lights, or the sound shakes the pad apart. The depot has three tanker trucks of chilled water and one driver who has done the road.

@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a truck stop settlement on the old interstate at the valley's southwest edge; the job runs three map days out along the road toward the coast and back
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST (30 lines; 29 and 30 pass, QR-X 9/30): bends line 8 (three map days, not one leg) on purpose: it is the one long road job in act 3, split into three stops each with its own end, so a sitting still ends clean. Line 12 met by choice C.
+CHECKLIST (32 lines; 29 to 32 pass, QR-X 9/30 and QR-AM 10/10): bends line 8 (three map days, not one leg) on purpose: it is the one long road job in act 3, split into three stops each with its own end, so a sitting still ends clean. Line 12 met by choice C.
 
 ## THE SITUATION
 Act 3, the valley is healing and trade outward is starting again for the first time since the crash. A merchant family wants to run the first caravan west in thirty years. The road is not a level-up of act 1 roads: it is new places (the map extends past the valley edge for the first time), new parties that do not know the family's name, and the verb the escalation hands out is distance, not bigger enemies (`Q075.P7`).

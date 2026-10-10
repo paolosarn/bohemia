@@ -5,7 +5,7 @@ CRISIS: the Destroyers (plant); the Network crumbling (landing)
 ECONOMY: bust (act 1) -> either (act 3)
 PLACE: a home base in a strip mall on Boulder Highway: act 1 the family helps found it; act 3 it stands or it is a ruin, depending on act 2
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 18 met by the three written reads.
+CHECKLIST: passes all 32. Line 18 met by the three written reads. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 THE FUTURE GOES BOTH WAYS, as one place. In act 1 the family takes a contract to wall a strip mall into a home base (plant); walled with the family, its block becomes a part of the city the family holds beside Rita's people (rule 43: a contract can hand a part), its lots on the family's build screen. In act 2 the base can be raided if the family is not there when a roaming party comes (the procedural raid, the base's own state). In act 3 the base is either a thriving market or a ruin with squatters. Both landings are a contract in the same hall.

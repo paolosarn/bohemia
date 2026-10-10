@@ -7,7 +7,7 @@ PLACE: the cartel yards home base (fortress tier); the job is a haul of eighty t
 SITUATION: a glut: one convoy brought four hundred tyres, the yards hold two hundred, and the rest will crack in the sun or walk off at night -> eighty tyres reach the co-op, the co-op market sells tyres cheap for a season, the depot's board posts one more run (trucks roll again), and the yards' board swaps one gunman job for a haul job
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1 has pockets of boom, and this is one. A cartel convoy came up from the south with four hundred truck tyres in one run. The valley's tyre price fell by half in a week. The yards are full, a rival crew is already sniffing at the fence, and in the sun a tyre is garbage in a month. The co-op blocks want eighty and will pay in grain. The yards want batteries. The family is how grain becomes batteries.

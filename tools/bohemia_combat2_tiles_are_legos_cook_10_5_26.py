@@ -106,8 +106,11 @@ def lines_in(st, runs, stroke_px=50):
     for k in (1, 2, 3):                                 # close the wear specks inside a dash (gaps up to 3 px)
         paint[:, k:] |= paint[:, :-k] & np.roll(paint, -k, 1)[:, k:]
     best = np.zeros(paint.shape[0], int); cur = np.zeros(paint.shape[0], int)
+    near = paint.shape[1] // LINE_REACH                 # a line that crosses the side starts within one tile of it
     for j in range(paint.shape[1]):                     # the longest painted stroke running inward at each position
-        cur = (cur + 1) * paint[:, j]; np.maximum(best, cur, out=best)
+        cur = (cur + 1) * paint[:, j]
+        ok = (j - cur + 1) < near
+        np.maximum(best, np.where(ok, cur, 0), out=best)
     share = (best >= stroke_px).astype(float)           # a stroke 1.2 m long running in from the side is a line crossing it;
     for ty_, a, b in runs:                              # a texture pixel that happens to be paint-coloured is never 1.2 m long
         if ty_ != 'road' or b - a < 2 * stroke_px / 1.2: continue      # a lane line lives in a road at least 2 m wide
@@ -219,7 +222,7 @@ def fits(edges, lay, r, c, bid):
 STUD_W, STUD_N = 12, 10
 _CANON = {}
 TOWN_KINDS = ('subs', 'corner', 'cornerw', 'lots', 'suburb_stem', 'main', 'works', 'ruin', 'strip', 'culdesac')
-CROSS_KINDS = ('freeway', 'freewayo', 'scrubroad', 'scrub')
+CROSS_KINDS = ('freeway', 'freewayo', 'scrubroad', 'scrub', 'landfill', 'shore')
 
 
 def desert_bands(desert, tile):
@@ -254,10 +257,13 @@ def stud(board, kind, canon, cross, tile, desert=None):
         crossing[top] = [c for c in range(5) if (classify(np.median(row[:, c * PX:(c + 1) * PX], 0)) == 'road').mean() > 0.45]
     flipx = lambda im: im.transpose(Image.FLIP_LEFT_RIGHT)
     flipy = lambda im: im.transpose(Image.FLIP_TOP_BOTTOM)
-    if kind in ('scrub', 'scrubroad'):                                   # the desert: one canonical strip each way
+    if kind in ('scrub', 'scrubroad', 'landfill'):                       # the desert (and the landfill on it): one canonical strip each way
         col, row = desert_bands(desert, tile)
         board.paste(col, (0, 0)); board.paste(flipx(col), (W - STUD_W, 0))
         board.paste(row, (0, 0)); board.paste(flipy(row), (0, H - STUD_N))
+    elif kind == 'shore' and 'shore_img' in _CANON:                      # the shore: every block draws one waterline; one band cut from it
+        band = _CANON['shore_img'].crop((int(ppm * 4.0), 0, int(ppm * 4.0) + STUD_W, H))
+        board.paste(band, (0, 0)); board.paste(flipx(band), (W - STUD_W, 0))
     elif kind in ('freeway', 'freewayo'):                                # the freeway runs on: its own lanes, one band;
         band = board.crop((int(ppm * 4.0), 0, int(ppm * 4.0) + STUD_W, H))   # its north verge is town yard, its south desert
         board.paste(band, (0, 0)); board.paste(flipx(band), (W - STUD_W, 0))
@@ -328,8 +334,46 @@ def solve(palettes, edges, rng, fixed=None, twins=True, tries=4000, cols=4):
     return lay if go(0) else None
 
 
+KIT_JSON = os.path.join(DIR, 'kit_street', 'kit_street.json')
+
+
+def kit_override(e, plan, tile=(515, 364)):
+    """rule 82a: a tile laid from COOK TWO's kit carries the edges the kit declares (its own gate, COOK2 STREET KIT,
+       proves the pixels agree), so the block's side over that tile reads the declared runs and lines."""
+    if not plan or not os.path.exists(KIT_JSON): return e
+    kit = json.load(open(KIT_JSON))['pieces']
+    PX, PY = tile
+    for key, piece in plan.items():
+        r, c = map(int, key.split(','))
+        k = kit[piece]
+        for side, hit in (('W', c == 0), ('E', c == 4), ('N', r == 0), ('S', r == 4)):
+            if not hit: continue
+            span_px = PY if side in 'WE' else PX
+            off = (r if side in 'WE' else c) * span_px
+            lo, hi = off, off + span_px
+            runs = [[t, a, b] for t, a, b in e[side]['runs'] if b <= lo or a >= hi]
+            for t, a, b in e[side]['runs']:                             # keep the parts of runs outside the tile
+                if a < lo < b: runs.append([t, a, lo])
+                if a < hi < b: runs.append([t, hi, b])
+            for t, a, b in k['edges'][side]:
+                tt = t if t in ('road', 'water') else ('walk' if t == 'walk' else 'other')
+                runs.append([tt, off + int(round(a * span_px / 12.0)), off + int(round(b * span_px / 12.0))])
+            runs.sort(key=lambda q: q[1])
+            merged = []
+            for t, a, b in runs:
+                if merged and merged[-1][0] == t and merged[-1][2] >= a: merged[-1][2] = max(merged[-1][2], b)
+                else: merged.append([t, a, b])
+            e[side]['runs'] = curb_only(merged, span_px / 12.0)
+            lines = [x for x in e[side]['lines'] if not (lo <= x < hi)]
+            for ln in k.get('lines', []):
+                crosses = (ln['axis'] == 'ew') == (side in 'WE')
+                if crosses: lines.append(off + ln['at_m'] * span_px / 12.0)
+            e[side]['lines'] = sorted(lines)
+    return e
+
+
 def read_all(manifest, folder=DIR):
-    return {bid: edges_of(os.path.join(folder, b['src'])) for bid, b in manifest['blocks'].items()}
+    return {bid: kit_override(edges_of(os.path.join(folder, b['src'])), b.get('kit_plan')) for bid, b in manifest['blocks'].items()}
 
 
 def write(edges, ppm, faults):

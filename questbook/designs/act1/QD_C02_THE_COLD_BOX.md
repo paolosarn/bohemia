@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a clinic run out of a tyre shop on a paved road, and a squatted apartment block three streets away (the job's place; one house tile if it comes to a fight)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the act 2 landing and its floor), 10 and 23 (a lost fight at the squat), 15 (the compressor hum), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the act 2 landing and its floor), 10 and 23 (a lost fight at the squat), 15 (the compressor hum), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 TWIST: T23 THE THING YOU WERE SENT FOR IS A PERSON (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs A PERSON. Lands MID-JOB.
 
 ## THE SITUATION

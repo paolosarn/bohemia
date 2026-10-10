@@ -5,7 +5,7 @@ CRISIS: the Destroyers
 ECONOMY: bust
 PLACE: a standpipe and pump shed on a residential block below the dam road; a queue of people with jugs (PL03, THE QUEUE, and PL05, THE DRY TAP)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, half-share, or night), 10 and 23 (a lost fight has a result), 12 (name who is on the wheel), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (fight, half-share, or night), 10 and 23 (a lost fight has a result), 12 (name who is on the wheel), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1. The water share holds at the dam, but this block's valve, three blocks up the wash, has been

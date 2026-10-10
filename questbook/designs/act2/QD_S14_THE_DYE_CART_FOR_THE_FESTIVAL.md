@@ -7,7 +7,7 @@ PLACE: the colourful market home base (camp tier, one offer); the job is the sou
 SITUATION: the market's tenth anniversary festival is in three days and the dye cart with the season's colours is two days late -> the festival happens (full, half, or with a wedding in it), the barber sells the new colour to anyone, and the market moves one step toward town tier
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: yes (rationed, funny): the cart was not stolen; the dyer's driver took it to the Strip to sell the colours and elope
-CHECKLIST: passes all 30 (line 27: the rationed twist; line 26: this is the warm beat)
+CHECKLIST: passes all 32 (line 27: the rationed twist; line 26: this is the warm beat) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, and the colourful market has lasted ten years, which in this valley is a miracle. It wants a festival. A festival needs colour, and the season's dyes come up the south road on one cart driven by Paco, who is never late. Paco is two days late.

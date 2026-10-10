@@ -7,7 +7,7 @@ PLACE: offered at the co-op blocks' hall (town tier, act 3); the man is at the w
 SITUATION: a law changed (QR-S situation 30): act 3's co-op council opened the old books on the crash years. Güero Mata burned the co-op's grain store in act 1 as one of the Destroyers; eleven people died. For twenty years he has fixed water filters at the wash camp for nothing -> he is brought in, or his confession is, or the council goes to see him; the verdict is theirs, never the player's
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 DEFAULT READ (act 1 never played, or the store never burned): the ledger's default act 1 has the fire; if the player's act 1 SAW it, the offer's second line names the night the player saw.
 
 ## THE SITUATION

@@ -1,0 +1,119 @@
+{
+  "draft": true,
+  "owner": "COOK THREE (rule 87). The armour paint over the six brigand tiers; CHARACTER owns the tier table and the slots.",
+  "ruling": "CHARACTER [armour you can see], his NO: 'good idea, terrible implementation'; rule 87; tell them apart at 28 pixels",
+  "steel": [
+    [
+      30,
+      32,
+      36
+    ],
+    [
+      62,
+      66,
+      72
+    ],
+    [
+      110,
+      114,
+      120
+    ],
+    [
+      176,
+      178,
+      180
+    ]
+  ],
+  "leather": [
+    [
+      38,
+      26,
+      18
+    ],
+    [
+      74,
+      50,
+      32
+    ],
+    [
+      112,
+      80,
+      54
+    ],
+    [
+      150,
+      116,
+      84
+    ]
+  ],
+  "padded": [
+    [
+      40,
+      38,
+      34
+    ],
+    [
+      72,
+      68,
+      60
+    ],
+    [
+      110,
+      104,
+      92
+    ],
+    [
+      150,
+      142,
+      126
+    ]
+  ],
+  "gold": [
+    [
+      96,
+      70,
+      24
+    ],
+    [
+      168,
+      128,
+      48
+    ],
+    [
+      220,
+      182,
+      92
+    ]
+  ],
+  "tiers": {
+    "THUG": {
+      "material": "padded",
+      "quilt": 4,
+      "chest": true
+    },
+    "POACHER": {
+      "material": "leather"
+    },
+    "MARKSMAN": {
+      "material": "leather",
+      "strap": true
+    },
+    "RAIDER": {
+      "material": "mail",
+      "chest": true,
+      "arms": true
+    },
+    "LEADER": {
+      "material": "plate",
+      "trim": "gold",
+      "chest": true,
+      "goldWash": 0.55
+    },
+    "MARAUDER": {
+      "material": "plate",
+      "lames": 5,
+      "spikes": true,
+      "chest": true
+    }
+  }
+}

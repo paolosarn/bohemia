@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 PLACE-THAT-ASKS: PL13
 FIRST-LINE: FL05
 TWIST: none (the crew in the cars is exactly who the screen says)
-CHECKLIST: passes all 30 (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (every road went through the siding fight) and is fixed in place by choice 4, the strippers hired) (line 2 read under the 9/28 ruling; lines 17 and 18 do not apply)
 
 ## THE SITUATION
 Act 3, a boom. The valley is laying a tram line north, and the survey runs straight through a siding of dead freight cars where a crew of copper strippers has lived for years, cutting the new line's wire as fast as it goes up. The tram authority has money, a schedule, and no one who fights. This is the clear-the-camp contract, played straight.
@@ -32,6 +32,8 @@ The siding on the fight board (house-sized tiles): ten cars in a row, doors as t
 2. **Take the water tower first.** The mound gives the rifleman the accuracy; the crew breaks sooner. DONE; the same fee, fewer brothers struck down (rule 36 rolls for any who are).
 3. **Cut their power.** They run lights off a tap on the new line. Pull the tap (a thing on the siding's screen) at dusk; half the crew leaves in the dark before the fight. DONE; the same fee.
 The "I won't do this part" choice: clear the cars but refuse to burn them, which the authority wanted; she pays the fee less one day, as the screen's "we pay the day" line said the day was part of the price. Not a drop.
+
+4. **Hire the strippers** (QR-AM, line 31; `Q216.X1`, `Q197.X1`, `Q139.P2`). The strippers are linemen the authority laid off when the new line went up. Carry her offer to the fence before dusk: a month of paid stripping on the OLD line, the copper sold to the authority. Half take it at the fence; the rest walk with the tap pulled. No fight; a day of talk; DONE, the same fee less the day, as the screen's "we pay the day" line says.
 
 ## WHAT THE LEDGERS REMEMBER
 - Declined: nothing.

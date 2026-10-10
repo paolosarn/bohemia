@@ -7,8 +7,8 @@ PLACE: the farm tower camp, a part of the city the family holds (rule 43); the t
 SITUATION: a named party in the region (QR-S situation 16), SEEN BECAUSE OF A BUILD: the family put a lookout on the tower roof (8 batteries, 2 map days); from it, a watcher saw the party that burned the co-op's store -> the hall now posts a hunt it could not post before, and the roof is a high tile on every fight board cut from this block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
-BUILD: this contract was WRITTEN BY A BUILD. The lookout shows parties' tracks two stops further on the map, and the hall reads what it sees.
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+BUILD: this contract was WRITTEN BY A BUILD. The lookout is built on the base's settlement screen (rule 86); its watcher comes down and tells the hall, by mouth, what she saw two stops out, and the hall posts it. The map draws nothing new: no extra range, no hidden stat.
 
 ## THE SITUATION
 Before the lookout, parties came out of the dark. Now a kid sits up there with a pair of broken binoculars and a whistle. Chuy, fourteen, saw a fire party camp in the dry wash, the same boots that burned the co-op, where his aunt died. The co-op wants the leader's boots as proof.

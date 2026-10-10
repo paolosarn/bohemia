@@ -5,7 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: bust
 PLACE: the wash camp home base (camp tier), a tarp city in a flood channel
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A camp board shows one offer. The whisper broadcast is being prepared face to face, unrecorded, and the wash is

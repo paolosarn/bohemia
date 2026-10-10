@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pressure-set shed on a buried water main below a cul-de-sac in the east valley, with a grow tent behind a cinder-block wall
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the floor with no row), 12 (refuse to their face), 13 (the offer screen it lacked), 24 (a kind ending with no boss verb: pay for her water), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 1 (the lie has a tell), 5 and 18 (the floor with no row), 12 (refuse to their face), 13 (the offer screen it lacked), 24 (a kind ending with no boss verb: pay for her water), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 1, the anarchy decade. The crew that holds this main by share (their pumps, their pipe) has lost pressure uphill. They know why: somebody downhill has cut a tap into the line and runs it into a hydroponic tent. They offer a contract at their pump yard: cap the tap, 12 batteries. Declining is free and leaves nothing. If taken, the shed is a short walk off the dirt road, and the woman who cut the tap is inside it, rinsing lettuce for about twenty people on her block. Uphill, a half-built clinic needs that pressure for its sterilizer.

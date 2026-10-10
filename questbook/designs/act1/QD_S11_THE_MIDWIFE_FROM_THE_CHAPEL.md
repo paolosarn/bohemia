@@ -7,7 +7,7 @@ PLACE: the custom settlement home base (the family's own, camp tier, one offer; 
 SITUATION: the first birth at the family's own base, due in two weeks, and nobody there has delivered a baby -> a midwife comes for three weeks, the base grows by one, the barber gets a new rumour line, and the base's next board has a second offer (a camp that grows)
 STATUS: draft:true, research only, nothing built (rule 35). Names, the base's kind and the family in it are Paolo's.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The custom settlement is whatever the player built it for, and people have come to live in it. One of them is having a baby. It is the first birth at the base. It is also a camp: one offer on the board, and today the offer is from its own people, which is how a camp that is becoming a town reads.

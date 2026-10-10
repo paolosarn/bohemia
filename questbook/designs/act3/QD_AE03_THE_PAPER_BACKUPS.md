@@ -6,7 +6,7 @@ ECONOMY: either
 PLACE: the data centre, now falling from fortress to town (settlement screen: the hall is the loading dock's guard booth); the carry runs one leg down the old boulevard to the chapel town clinic, the fight board cut from the boulevard's bus depot block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 PAIRS WITH: QD-AE04 (the man who walked out of bed four, at the chapel town clinic). THE ROAD THEY SHARE: the old boulevard south, data centre to chapel town, one map day.
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The racks are going dark one row a week. For forty years who-is-whose-family lived on them. A clerk printed what she could: births, marriages, who buried whom. Twelve boxes of paper. The chapel town clinic has a dry cellar.

@@ -395,3 +395,31 @@ wandering cracks, inside the lanes only, never across the paint, 0.7 m off the b
 5 the dark band: the overpass's shadow 0.84 (was 0.62), the railing posts lighter, the barrier footing narrow and
 light. Gate TILES ARE LEGOS green, freeway 0/0 today and in both futures. Verified in the new fight (before /
 after, 0 errors). VOTE: combat2-the-freeway-round-two-10-9; DIRECTION re-judges.
+
+## ROUND TWENTY-EIGHT (10/10): [the rest join], SHIPPED
+
+All nine fight boards now read 0 broken seams on the board itself (rule 77). culdesac 28->0: culdesac_stem() puts the
+town's cached cross-street tile at column 2 rows 3-4 so the stem meets suburb_stem lane for lane, and its palette
+lays only cul-de-sacs beside cul-de-sacs (closed sides). landfill 7->0: the desert's canonical strip on its sides.
+shore 3->0: shore_one_line() draws every shore block's waterline from the unshifted plan, and a canonical shore
+strip rings its sides. Two reader/paint changes: a line counts as crossing a side only if its stroke starts within
+one tile of it, and R4.road_band never wears the first or last dash of a block. The stricter reader first broke the
+ruin (19) and the freeway (3); fixed at the source: the ruin's street got its curb lines and its paint is kept under
+the soot. APRONS, honestly: shore 16->6, but culdesac 28->38 and strip 0->12 got worse on this build (the apron
+solver found no clean ring); ratchet set to the measured numbers. Gate TILES ARE LEGOS green. VOTE combat2-the-rest-join-10-10.
+
+## ROUND TWENTY-NINE (10/10): [the boards from the packs], round one SHIPPED
+
+Rules 82a, 87, 89. COOK TWO's street kit (slices/fight_ground/kit_street, 18 pieces cut from his approved street
+pools, each keyed (pool, index), typed edges, its own gate COOK2 STREET KIT) is now the street on every board:
+from_the_kit() in the builder lays road_ew_both along row 2 of every town block, road_ns_both down every cross-street
+column (corner col 2, suburb_stem, the cul-de-sac's stem, the overpass deck, the desert road), the junction where they
+cross with crossing_ew/ns beside it, one road_ew_arrow a block; only pixels the edge reader calls asphalt or walk are
+replaced, so buildings, yards and shadows stay until COOK FOUR. The reader takes a kit tile's declared edges
+(kit_override: COOK TWO's gate proves the pixels agree; the kit's darker walk read as asphalt by colour). Kit tiles may
+repeat (guard's kit_tiles exemption; mirroring broke seams, dropped). cornerw is off the boards: its junction would sit
+on the block's side and the kit has no four-way with walks; asked of COOK TWO. Result: nine boards 0 broken seams,
+aprons culdesac 38->0, strip 12->4, shore 6. Gate LEG 5: every town block on a board lays its street from the kit and
+every kit tile names its pack keys. Sheet: one block (corner.1) before and after at one art pixel to one pixel, with
+his street, side and cross pool tiles as the twin and three named differences (82, 89). Known: a thin old curb line
+survives across the top of the junction tile. VOTE combat2-the-street-from-the-packs-10-10.

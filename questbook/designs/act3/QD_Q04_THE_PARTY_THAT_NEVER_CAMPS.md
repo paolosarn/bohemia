@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: either
 PLACE: a walled home base on the north edge (a reclaimed outlet mall); the target is a roaming party on the map that moves at night and leaves no camp tracks
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 met by choice C.
+CHECKLIST: passes all 32. Line 12 met by choice C. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. A roaming party has been hitting caravans for a season. It never camps: on the map its tracks go on through the night. It is Network loyalists, people without implants who lost their jobs when the halls went dark, and it is the hardest group fight the offer board holds this act. The offer screen says so plainly. Declining because it is too strong for you is free (the contract law).

@@ -8,8 +8,7 @@ Measured first: the repo now has a real crew entry (RUN TWO's roster: level, xp,
 - STARS: carry whole. Talent runs in a family.
 - GEAR: all of it, a crew man's slots flattened (37g, gear stays in the family).
 - HOUSE: passes.
-- DEBT: crosses at 0.45 (debtShare), which is bohemia_standing's own GEN_LOSS, reused so there is one number for what crosses a generation.
-- NAME: the surname, only if the name was earned (earlier round).
+- DEBT: DOES NOT CROSS (corrected 10/9 in the [who buries] round: bohemia_fold.js CARRY rules debt 'dies', ruled:true; my first cut carried 45% and contradicted it). You inherit the person, not the bill; a grudge is standing's.
 - THE BODY NEVER CARRIES: no stats, wounds or age are copied. Gate leg proves a parent's injury and stats do not appear on the heir.
 A man with none of these fields still derives exactly as before.
 

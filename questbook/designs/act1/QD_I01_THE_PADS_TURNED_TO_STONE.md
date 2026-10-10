@@ -44,4 +44,4 @@ The spare pads in the back room are sealed in a box addressed to this room, and 
 ## FLAWS IT AVOIDS
 `Q081.X4` (too many names at once: one client), `Q095.X1` (the silent hard fail: the deadline is on the screen in days), `Q084.X5` (the punished no: the decline writes nothing), `Q123.X1` (untested state: every ending names its reader).
 
-CHECKLIST: passes all 30 (line 2 read with the 9/28 amendment: the offer screen is the contract's front door and nothing else pops up).
+CHECKLIST: passes all 32 (line 2 read with the 9/28 amendment: the offer screen is the contract's front door and nothing else pops up). (QR-AM 10/10: lines 31 and 32 run, pass as written)

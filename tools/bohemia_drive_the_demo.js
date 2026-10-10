@@ -334,6 +334,25 @@ async function open(opts) {
       opts.boot || 15000);
   }
   if (typeof opts.beforeTap === 'function') await opts.beforeTap(page);
+  /* *** TRAP 7: THE DOOR HAS A TITLE IN FRONT OF IT, AND A STRANGER GOES THROUGH IT. (RUN 10/9, [a fresh phone
+     sees the door], EYES 1bdc7023.) *** The knock below clicks #front from a script, which entered straight past
+     the demo's title (NEW GAME / CONTINUE / SETTINGS), so a walk "as a stranger" read no title and no picks.
+     The shell now drops every click on the door while the title is up, so the driver does what a person does:
+     NEW GAME with a real touch on a wiped phone, CONTINUE over a save. A caller that already went through it
+     in beforeTap (throughTheTitle) finds no title here and nothing changes. d.title says what happened. */
+  let titleWas = { seen: false, via: null };
+  try {
+    const T = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+    const up = () => page.evaluate(() => !!(window.BOH_TITLE && BOH_TITLE.up && BOH_TITLE.up())).catch(() => false);
+    if (await up()) {
+      titleWas.seen = true;
+      const hasSave = await page.evaluate(() => { try { return !!BOH_TITLE.saved(); } catch (_e) { return false; } }).catch(() => false);
+      if (hasSave) {
+        const tEnd = Date.now() + (opts.door || 90000);
+        while (Date.now() < tEnd && await up()) { if (await T.continueThroughTitle(page)) titleWas.via = 'continue'; await page.waitForTimeout(400); }
+      } else if (await T.throughTheTitle(page, opts.door || 90000)) titleWas.via = 'new';
+    }
+  } catch (_e) { /* no helper, no title: the knock is the whole door */ }
   /* TRAP 5, AND IT IS TRAP 3 WEARING A HAT: THERE ARE TWO FRONT DOORS AND ONLY ONE OF
      THEM OPENS. The alpha carries BOTH #fronttap and #front. This picked #fronttap with
      an || and clicked it, and on the alpha that is the wrong element: measured, the
@@ -603,6 +622,8 @@ async function open(opts) {
     /* how long the door held after the first knock, so a caller can say whether it
        waited or walked straight in rather than guessing */
     doorMs: () => doorMs,
+    /* TRAP 7: whether the demo's title stood in front of the door, and how the driver went through it ('new' or 'continue') */
+    title: titleWas,
     pinchOut: () => pinch(150, 25),          /* toward the city */
     /* *** GET TO THE MAP AND PROVE YOU ARE ON IT (9/24, PLUMBER, row [bb budget]). ***
        A squeeze is a touch gesture at fixed coordinates, and whether it lands is not

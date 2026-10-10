@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the rail and truck depot (settlement screen: the hall is the dispatch window); the rescue runs two map days north on the old highway to a broken truck at mile ninety, the fight board cut from the rest stop block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: SIXTEEN AND A SERGEANT (QR-Z no. 2: sixteen in the company, one with the rally skill)
-CHECKLIST: passes all 30 (bends line 8 on purpose: two map days out, but one stop and one board; the return is a road event, not a second leg)
+CHECKLIST: passes all 32 (bends line 8 on purpose: two map days out, but one stop and one board; the return is a road event, not a second leg) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust. A depot truck broke an axle at mile ninety with four drivers and no radio. The depot cannot send another truck; it can send people. The rest stop at mile ninety has been a raiders' stop since the crash.

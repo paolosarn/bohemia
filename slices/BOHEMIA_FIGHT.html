@@ -50,10 +50,10 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   background:linear-gradient(rgba(13,11,9,.92),rgba(13,11,9,.55))}
 #round{flex:0 0 auto;padding:3px 6px;font-weight:700;font-size:11px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;
   transform:rotate(-2deg);box-shadow:0 2px 3px rgba(0,0,0,.5)}
-#order{flex:1;display:flex;gap:4px;align-items:center;overflow:hidden;height:46px;padding:0 4px;background:var(--mat-tape) center/100% 100%}
+#order{flex:0 1 auto;min-width:0;display:flex;gap:4px;align-items:center;overflow:hidden;height:46px;padding:0 4px;background:var(--mat-tape) center/100% 100%}
 #order canvas{flex:0 0 auto;border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.6)}
 #order canvas.now{outline:2px solid #f0d296}
-#bauto{flex:0 0 auto;width:48px;height:44px;font:inherit;font-size:10px;font-weight:700;color:var(--paper-ink);border:0;
+#bauto{flex:0 0 auto;margin-left:auto;width:48px;height:44px;font:inherit;font-size:10px;font-weight:700;color:var(--paper-ink);border:0;
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 3px rgba(0,0,0,.5);transform:rotate(1.5deg)}
 #bauto.on{outline:2px solid var(--gold);color:#6b3a14}
 #bot{position:fixed;left:0;right:0;bottom:0;padding:10px 8px max(8px,env(safe-area-inset-bottom));z-index:4;
@@ -89,6 +89,9 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #bend:disabled,#bwait:disabled{opacity:.45}
 #say{position:fixed;left:50%;transform:translateX(-50%) rotate(-.6deg);z-index:4;display:none;max-width:92vw;padding:4px 10px;
   font-size:11px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.55);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* THE FLIPPED PHONE'S LOOK (rule 88): the tape ends at the last face (it was stretched across the whole glass, a smear
+   over the shop fronts); on a wide glass the hint sits in the strip's own empty space beside the faces, never on the men */
+#say.instrip,html[data-materials] #say.instrip{right:auto;margin:0;transform:translateY(-50%) rotate(-.6deg);white-space:normal;max-width:none;line-height:1.3;max-height:calc(2.6em + 13px);overflow:hidden}
 #drawer{position:fixed;left:10px;right:10px;display:none;z-index:5;color:var(--paper-ink);
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
 #drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(42,34,26,.3)}
@@ -103,6 +106,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 #over th{font-weight:400;opacity:.7}
 #over td:first-child,#over th:first-child{text-align:left;font-weight:700}
 #over .lv{color:#7a3d10;font-weight:700}
+#over .inj{color:#8a2a18;font-size:9px;font-weight:700}
 #over button{margin-top:12px;width:100%;min-height:46px;color:#efe3cc;border:0;font:inherit;font-weight:700;
   background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.5)}
 /* THE BAR ON EVERY SCREEN (rules 62 and 72; slices/bohemia_screen_class.js): the phone held upright keeps the two rows
@@ -569,7 +573,6 @@ const FIGHT = (function () {
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
     if (!big) cropToParty(dealt, crewUnits, bandUnits, opts);
     if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
-    try { placeBuilt(opts.built); } catch (_e) {}   /* __BUILT_ON_THE_BOARD__ (LIFE+CITY 10/9) */
     S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
     const cols = S.cols;
@@ -580,40 +583,6 @@ const FIGHT = (function () {
     S.deploy = !opts.auto && opts.deploy !== false;
     newRound();
   }
-  /* __BUILT_ON_THE_BOARD__ fn (LIFE+CITY 10/9) */
-  /* WHAT YOU BUILT AT THIS PLACE, ON YOUR SIDE OF THE BOARD (rule 40b; 37g high ground is a roof). Wall: the board's
-     own BLOCK WALL on your front column; high: the tile turns to height; building: a piece that blocks, drawn with its
-     own picture; open: nothing. Middle rows first; a piece that would cut the lines apart is taken back. */
-  function placeBuilt(list) {
-    S.built = [];
-    if (!Array.isArray(list) || !list.length) return;
-    const G = DB.ground, tm = G.tile_metres, cf = (S.cols || R('ours.start_cols'))[0];
-    const mid = Math.floor((S.h - 1) / (1 + 1)), rows = [];
-    for (let k = 0; k < S.h; k++) { const r = mid + (k % 2 ? (k + 1) / 2 : -k / 2); if (r >= 0 && r < S.h) rows.push(r); }
-    const free = function (x, y) { return inBoard(x, y) && S.terrain[y][x] !== 'blocked' && !S.solid[y][x] && !S.cover[y][x] && S.terrain[y][x] !== 'height'; };
-    const cols = { wall: [cf + 1, cf], high: [cf, cf - 1], building: [cf - 1, cf - 2, cf] };
-    let terrain = S.terrain.map(function (r) { return r.slice(); }), cover = (S.boardDef.cover || []).slice();
-    list.forEach(function (b) {
-      if (!b || !cols[b.fight]) return;
-      let spot = null;
-      cols[b.fight].some(function (x) { return rows.some(function (y) { if (free(x, y)) { spot = { x: x, y: y }; return true; } return false; }); });
-      if (!spot) return;
-      const keepT = terrain, keepC = cover;
-      if (b.fight === 'high') { terrain = terrain.map(function (r) { return r.slice(); }); terrain[spot.y][spot.x] = 'height'; }
-      else {
-        let piece = 'wall';
-        if (b.fight === 'building') {
-          piece = 'lot_' + b.id;
-          if (!G.cover_extra[piece]) G.cover_extra[piece] = { src: '../settlement/lot/' + b.id + '.png', w: 3, l: 3, h: 2.5, kind: 'COVER', blocks_move: true, name: String(b.id).toUpperCase() + ', YOURS', draft: true };
-        }
-        cover = cover.concat([{ piece: piece, x_m: (spot.x + 0.5) * tm, y_m: (spot.y + 0.5) * tm, yours: piece !== 'wall' }]);
-      }
-      applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover }));
-      if (!connected()) { terrain = keepT; cover = keepC; applyBoard(Object.assign({}, S.boardDef, { terrain: terrain, cover: cover })); return; }
-      S.built.push({ id: b.id, fight: b.fight, x: spot.x, y: spot.y });
-    });
-  }
-  /* __/BUILT_ON_THE_BOARD__ fn */
   /* THE CUT (rule 79; ours.board_fit): across = a tile of room, your line's depth, the wiki's five-tile gap between the two
      fronts, their line's depth, a tile of room; down = the longer line and a tile above and below. The window is slid over
      the dealt board to where the two lines can reach each other, the kind the loop asked for is in it, the most of both
@@ -1068,7 +1037,15 @@ const FIGHT = (function () {
     if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < R('ours.struck_down_death_chance')) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
-    else { const d = R('ours.struck_down_laid_up_days'); t.down = true; t.laidUp = rint(d[0], d[1]); emit({ t: 'down', id: t.id, days: t.laidUp }); }
+    else {
+      /* STRUCK DOWN, ALIVE (ours.struck_down_injury): one of the wiki's permanent injuries, each as likely, the part hit not
+         mattering; ours lasts the days he is laid up */
+      const d = R('ours.struck_down_laid_up_days'), kind = R('ours.struck_down_injury').from_kind;
+      const pool = DB.injuries.rows.filter(function (r) { return r.kind === kind; }), j = pool[Math.floor(rng() * pool.length)];
+      t.down = true; t.laidUp = rint(d[0], d[1]);
+      t.longInjury = j ? { id: j.id, name: j.name, line: (j.effects_text || []).filter(function (x) { return !/reserve/i.test(x); }).join(', '), days: t.laidUp } : null;
+      emit({ t: 'down', id: t.id, days: t.laidUp, injury: j ? j.id : null });
+    }
     if (a) a.kills = (a.kills || 0) + 1;
     if (t.side === 'them') experience(t, a);
     if (a && onField(a)) {
@@ -1443,7 +1420,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -1469,17 +1446,22 @@ function hudEdges() {
 }
 function resize() {
   try { BohemiaScreen.apply(); } catch (_e) {}
-  DPR = Math.min(window.devicePixelRatio || 1, 2);
+  DPR = Math.min(window.devicePixelRatio || 1, 3);   /* the phone's real pixels ([the art at its own pixels]; his iPhone is 3) */
   W = window.innerWidth; H = window.innerHeight;
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
   hudEdges();
   if (UI.board) fitStops();
 }
+const ART_SNAP = 0.06;
 function fitStops() {
   const bw = UI.board.width, bh = UI.board.height, ah = H - TOPH - BOTH;
   /* THE MAN READS AS A MAN (rule 66): the idle stop is where he stands about 104 css px tall (21, 34: the 112 box), and
      the person never grows past it (rule 21): a small board that would fit larger stops at 112 */
   UI.near = MAN_IDLE / (MAN_OF_TILE * UI.th);
+  /* THE ART AT ITS OWN PIXELS (DIRECTION's FIGHT VERDICT 22): where the man's stop lands within a few percent of one art
+     pixel to one device pixel (his 3x phone: 1.003), it snaps to exactly one, so the authored tile is shown, not resampled */
+  const art = DB.ground.tile_px[0], dev = UI.tw * UI.near * DPR / art;
+  if (Math.abs(dev - 1) < ART_SNAP) UI.near = art / (UI.tw * DPR);
   UI.far = Math.min(W / bw, ah / bh, UI.near);  /* the pinch's far stop: the whole board, never the man past 112 */
   UI.max = UI.near * 1.6;
 }
@@ -1499,7 +1481,6 @@ function bakeBoard() {
   const covers = (B.cover || []).map(function (k) { return k.piece; });
   const all = names.map(function (n) { return 'fight_ground/' + G.blocks[n].src; })
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
-  (FIGHT.S.built || []).forEach(function (q) { const s2 = 'fight_ground/../settlement/lot/' + q.id + '.png'; if (all.indexOf(s2) < 0) all.push(s2); });   /* __BUILT_ON_THE_BOARD__ */
   /* the people: every look a fighter wears, baked from the character bank (rule 69) */
   Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
@@ -1515,15 +1496,8 @@ function bakeBoard() {
       const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres;
       (B.cover || []).forEach(function (cv2) {
         const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece]).src];
-        if (im && !cv2.yours) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);   /* yours: drawn below */
+        if (im) g.drawImage(im, cv2.x_m * pxm * k, cv2.y_m * pym * k, im.width * k, im.height * k);
       });
-      /* __BUILT_ON_THE_BOARD__ draw (LIFE+CITY 10/9): what you built stands on its tile, its own picture fitted to the house,
-         its foot on the tile's floor; the wall is the board's own piece above, and a roof is drawn here because
-         the board draws no height of its own */
-      (FIGHT.S.built || []).forEach(function (q) { if (q.fight === 'wall') return;
-        const im = UI.imgs['fight_ground/../settlement/lot/' + q.id + '.png']; if (!im) return;
-        const s = Math.min(UI.tw * 0.9 / im.width, UI.th * 0.9 / im.height);
-        g.drawImage(im, (q.x + 0.5) * UI.tw - im.width * s / 2, (q.y + 0.95) * UI.th - im.height * s, im.width * s, im.height * s); });
       /* the grid, faint: what is two tiles away is always obvious (37f) */
       g.strokeStyle = 'rgba(0,0,0,.28)'; g.lineWidth = 1;
       for (let x = 0; x <= FIGHT.S.w; x++) { g.beginPath(); g.moveTo(x * UI.tw + .5, 0); g.lineTo(x * UI.tw + .5, c.height); g.stroke(); }
@@ -1557,10 +1531,12 @@ function nightPass(g, w, h, keep, lift) {
   if (keep) { g.globalCompositeOperation = 'destination-in'; g.drawImage(keep, 0, 0); }
   g.restore();
 }
-function nightPools(g, c, lights, k, pxm, pym) {
+function nightPools(g, c, lights, k, pxm, pym, onGlass) {
   nightPass(g, c.width, c.height);
+  /* onGlass: the same pools drawn straight on the screen (the sharp ground, [the art at its own pixels]) */
   const pool = function (ctx, l, stops) {
-    const X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
+    let X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
+    if (onGlass) { X = sx(X); Y = sy(Y); r *= UI.zoom; }
     ctx.save(); ctx.translate(X, Y); ctx.scale(1, pym / pxm);
     const gr = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
     stops.forEach(function (st) { gr.addColorStop(st[0], st[1]); });
@@ -1597,6 +1573,77 @@ function nightAtlas(img) {
     UI.darkOf.set(img, c);
   }
   return c;
+}
+/* THE DAY RIM (rule 73a, the sun test corrected: 'a man is counted WITH his one-pixel rim (cold at night, dark by day),
+   because the rim is how a figure reads on a bright glass'): his own silhouette, one pixel out on every side, in a dark
+   ink behind him, so a man in pale clothes on pale sand still has an edge in the sun. Cached per atlas, frames untouched. */
+const DAY_RIM = 'rgba(16,11,6,.9)';
+function dayAtlas(img) {
+  UI.dayOf = UI.dayOf || new Map();
+  let c = UI.dayOf.get(img);
+  if (!c) {
+    c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+    const rim = document.createElement('canvas'); rim.width = img.width; rim.height = img.height;
+    const r = rim.getContext('2d'); r.drawImage(img, 0, 0); r.globalCompositeOperation = 'source-in'; r.fillStyle = DAY_RIM; r.fillRect(0, 0, rim.width, rim.height);
+    const g = c.getContext('2d');
+    [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(function (o) { g.drawImage(rim, o[0], o[1]); });
+    g.drawImage(img, 0, 0);
+    c.src = img.src;   /* the bank's frames still (rule 69) */
+    UI.dayOf.set(img, c);
+  }
+  return c;
+}
+/* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22: every board tile reads 0.038 edge density at its own pixels and
+   0.002 on the glass; the art is sharp and the fight showed it soft). The baked board holds a tile at 160 px when the art
+   is 515, and the glass at the man's stop wants about 513 device px: baked, the art was shrunk to a third and blown back up.
+   Close in, the ground is drawn straight from COMBAT TWO's blocks and cover onto the device's pixels, only what is on the
+   glass, in the bake's order (blocks, cover, the faint grid, the lamps, the night); at one art pixel to one device pixel it
+   lands on whole pixels with no resampling at all. Zoomed out the baked board still serves (it is sharp there). */
+function drawGround() {
+  /* the ground does not move between camera moves: drawn once to a glass-sized sheet and blitted until the camera, the night
+     or a lamp changes (a phone at three device pixels a point holds 60 by night too) */
+  const S0 = FIGHT.S, key = [UI.cx, UI.cy, UI.zoom, W, H, DPR, !!S0.night, !!S0.power, (S0.boardDef.lights || []).map(function (l) { return l.live ? 1 : 0; }).join(''), UI.board].join('|');
+  if (!UI.gsheet || UI.gkey !== key || UI.gboard !== UI.board) {
+    const c = UI.gsheet || document.createElement('canvas');
+    if (c.width !== Math.round(W * DPR) || c.height !== Math.round(H * DPR)) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
+    const g = c.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, c.width, c.height); g.setTransform(DPR, 0, 0, DPR, 0, 0);
+    groundOn(g);
+    UI.gsheet = c; UI.gkey = key; UI.gboard = UI.board; UI.gdraws = (UI.gdraws || 0) + 1;
+  }
+  cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
+}
+function groundOn(cx) {
+  const G = DB.ground, S = FIGHT.S, B = S.boardDef, bt = G.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
+  const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres, z = UI.zoom;
+  const one = Math.abs(UI.tw * z * DPR / G.tile_px[0] - 1) < 0.005;   /* one art pixel to one device pixel */
+  const snap = function (v) { return Math.round(v * DPR) / DPR; };
+  const x0 = sx(0), y0 = sy(0), bw = S.w * UI.tw * z, bh = S.h * UI.th * z;
+  const on = function (x, y, w, h) { return x + w > 0 && y + h > 0 && x < W && y < H; };
+  cx.save();
+  cx.beginPath(); cx.rect(x0, y0, bw, bh); cx.clip();
+  cx.fillStyle = '#2a2219'; cx.fillRect(x0, y0, bw, bh);
+  cx.imageSmoothingEnabled = !one; cx.imageSmoothingQuality = 'high';
+  B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
+    const im = UI.imgs['fight_ground/' + G.blocks[n].src]; if (!im) return;
+    const x = snap(sx((bx * bt - ox) * UI.tw)), y = snap(sy((by * bt - oy) * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
+  }); });
+  (B.cover || []).forEach(function (cv2) {
+    const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece] || {}).src]; if (!im) return;
+    const x = snap(sx(cv2.x_m * pxm * k)), y = snap(sy(cv2.y_m * pym * k)), w = im.width * k * z, h = im.height * k * z;
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+  });
+  cx.strokeStyle = 'rgba(0,0,0,.28)'; cx.lineWidth = 1 / DPR;
+  for (let x = 0; x <= S.w; x++) { const X = snap(sx(x * UI.tw)) + .5 / DPR; if (X < 0 || X > W) continue; cx.beginPath(); cx.moveTo(X, Math.max(y0, 0)); cx.lineTo(X, Math.min(y0 + bh, H)); cx.stroke(); }
+  for (let y = 0; y <= S.h; y++) { const Y = snap(sy(y * UI.th)) + .5 / DPR; if (Y < 0 || Y > H) continue; cx.beginPath(); cx.moveTo(Math.max(x0, 0), Y); cx.lineTo(Math.min(x0 + bw, W), Y); cx.stroke(); }
+  (B.lights || []).forEach(function (l) {
+    const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
+    const w = im.width * k * z, h = im.height * k * z, x = snap(sx(l.x_m * pxm * k) - w / (1 + 1)), y = snap(sy(l.y_m * pym * k) - h);
+    if (on(x, y, w, h)) cx.drawImage(im, x, y, w, h);
+  });
+  if (S.night) nightPools(cx, { width: W, height: H }, B.lights || [], k, pxm, pym, true);
+  cx.restore();
+  UI.groundMode = one ? 'one to one' : 'drawn';
 }
 /* world <-> screen */
 function sx(wx) { return (wx - UI.cx) * UI.zoom + W / 2; }
@@ -1668,10 +1715,13 @@ function nameOf(id) { const u = FIGHT.byId(id); return u ? u.name : '?'; }
 function say(s) { const e = document.getElementById('say'); e.textContent = s; e.style.display = s ? 'block' : 'none'; }
 function startAnim(a) {
   const e = a.e;
-  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step(); }
+  if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
+    if (!framed(e.x, e.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = FIGHT.isRanged(u.weapon);
+    /* a free swing is thrown by the man beside the mover (who is still on the next tile): the camera takes the swinger */
+    if (e.free && !framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && !(gest && gest.moved)) { const q = aimAt(u.x, u.y); glideTo(q[0], q[1], UI.zoom, a.dur / (1 + 1)); }
     (ranged ? SND.shot : SND.swing)();
     setTimeout(function () { e.hit ? SND.resolve(ranged, !!e.head, t.side === 'you') : SND.miss(); }, beatMs() * 0.45);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = performance.now() + beatMs() * 1.5; }
@@ -1772,12 +1822,18 @@ function skipTurn() {
 function follow(u, every) {
   if (!every && UI.lastFollow === u.id + ':' + FIGHT.S.round) return false;
   UI.lastFollow = u.id + ':' + FIGHT.S.round;
-  const px = (u.x + .5) * UI.tw, py = (u.y + .5) * UI.th;
-  const m = 0.18;
-  const inView = sx(px) > W * m && sx(px) < W * (1 - m) && sy(py) > TOPH + 40 && sy(py) < H - BOTH - 40;
-  if (!inView && UI.zoom > UI.far * 1.05) { glideTo(px, py, UI.zoom, beatMs()); return true; }
+  const aim = aimAt(u.x, u.y), at = u.id + ':' + u.x + ':' + u.y;
+  /* once per spot: at the board's edge the camera may not be able to frame him whole, and he acts anyway */
+  if (!framed(u.x, u.y) && UI.zoom > UI.far * 1.05 && UI.framedAt !== at) { UI.framedAt = at; glideTo(aim[0], aim[1], UI.zoom, beatMs()); return true; }
   return false;
 }
+/* THE HEAD UNDER THE STRIP (rule 88): a man is on the glass only when his whole box, head to feet, stands between the turn
+   strip and the bar (the old test read his tile's middle, 40 pt in, and let the camera stop with his head under the strip
+   or his feet under the bar); the camera aims at his box's middle, and walks with him when his step would leave the glass */
+const FOLLOW_M = 0.18, FRAME_PAD = 6;
+function manBox(x, y) { const tall = MAN_IDLE * UI.zoom / UI.near, feet = sy((y + .9) * UI.th); return { x: sx((x + .5) * UI.tw), head: feet - tall, feet: feet }; }
+function framed(x, y) { const b = manBox(x, y); return b.x > W * FOLLOW_M && b.x < W * (1 - FOLLOW_M) && b.head > TOPH + FRAME_PAD && b.feet < H - BOTH - FRAME_PAD; }
+function aimAt(x, y) { return [(x + .5) * UI.tw, (y + .9) * UI.th - MAN_IDLE / UI.near / (1 + 1)]; }
 function glideTo(x, y, z, ms) { UI.glide = { fx: UI.cx, fy: UI.cy, fz: UI.zoom, tx: x, ty: y, tz: z, t0: performance.now(), ms: ms }; }
 function stepGlide(now) {
   const g = UI.glide; if (!g) return;
@@ -1792,8 +1848,9 @@ function draw(now) {
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
   if (!UI.board) return;
-  cx.imageSmoothingEnabled = UI.zoom < 1;
-  cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom);
+  if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* the baked board would be blown up: draw the art itself */
+  else { cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked'; }
+  if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
   /* YOUR FORMATION: your two columns lit, the man you picked ringed */
@@ -1878,7 +1935,7 @@ function frameFor(v, now) {
 }
 function blitMan(v, X, feet, h, face, now, fallen) {
   let img = atlasOf(v); if (!img) return;
-  if (FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y)) img = nightAtlas(img);
+  img = FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img);
   const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
   const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
   UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
@@ -2088,13 +2145,25 @@ function hud() {
   }
   if (window.innerWidth !== W || window.innerHeight !== H) resize();   /* a phone's viewport can settle a frame late: re-measure, never keep a stale stop */
   else if (hudEdges() && UI.board) fitStops();
-  const say = document.getElementById('say'); say.style.bottom = (BOTH + 8) + 'px'; say.style.display = say.textContent ? 'block' : 'none';
+  const say = document.getElementById('say'); placeSay(say); say.style.display = say.textContent ? 'block' : 'none';
   const dep = FIGHT.S.deploy && !UI.auto, be = document.getElementById('bend');
   const label = dep ? 'FIGHT' : 'END TURN', tn = Array.from(be.childNodes).filter(function (n) { return n.nodeType === 3; })[0];
   if (tn && tn.textContent !== label) tn.textContent = label;
   document.getElementById('bwait').disabled = dep || !mine || u.waited;
   be.disabled = dep ? false : !mine;
   document.getElementById('bauto').classList.toggle('on', UI.auto);
+}
+/* the hint's place: above the bar on the phone held upright; on a wide glass in the strip beside the faces when the strip
+   has room for it (two lines of the receipt), else above the bar as before */
+const SAY_GAP = 10, SAY_ROOM = 180;
+function placeSay(say) {
+  const wide = (document.documentElement.dataset.screen || 'phone_portrait') !== 'phone_portrait';
+  say.classList.remove('instrip'); say.style.top = say.style.left = say.style.width = ''; say.style.bottom = (BOTH + 8) + 'px';
+  if (!wide) return;
+  const o = document.getElementById('order').getBoundingClientRect(), a = document.getElementById('bauto').getBoundingClientRect(), room = a.left - o.right - SAY_GAP * 2;
+  if (room < SAY_ROOM) return;
+  say.classList.add('instrip'); say.style.bottom = 'auto'; say.style.top = (o.top + o.height / 2) + 'px';
+  say.style.left = (o.right + SAY_GAP) + 'px'; say.style.width = room + 'px';
 }
 /* THE NUMBERS IN THE BACKGROUND (rule 67): a tap on his name opens them, a tap anywhere closes them */
 function drawer(v) {
@@ -2167,13 +2236,19 @@ function showOver(result) {
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {
     const lv0 = v.level || 1, base = FIGHT.xpAt(lv0), gained = Math.round(v.xpGained || 0), lv1 = FIGHT.levelFor(base + gained);
-    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + ' DAYS') : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
+    const state = v.dead ? 'DEAD' : v.down ? (v.main ? 'DOWN, UP AFTER' : 'LAID UP ' + v.laidUp + ' DAYS' + (v.longInjury ? '<br><span class="inj">' + v.longInjury.name.toUpperCase() + '</span>' : '')) : (lv1 > lv0 ? '<span class="lv">LEVEL ' + lv1 + '</span>' : '');
     html += '<tr><td>' + v.name + '</td><td>' + (v.kills || 0) + '</td><td>' + (v.dealt || 0) + '</td><td>' + (v.taken || 0) + '</td><td>+' + gained + '</td><td>' + state + '</td></tr>';
   });
   html += '</table>';
   document.getElementById('ob').innerHTML = html;
   o.style.display = 'flex';
-  try { if (window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice() }; }) }, '*'); } catch (_e) {}
+  try { if (window.parent !== window) window.parent.postMessage(homeMessage(result), '*'); } catch (_e) {}
+}
+/* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
+function homeMessage(result) {
+  const S = FIGHT.S;
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+      main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null }; }) };
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;

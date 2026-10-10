@@ -1,0 +1,467 @@
+{
+ "portrait": {
+  "files": [],
+  "owed": "real-face references at portrait crop: not in the repo; he sends them or Grok fetches them"
+ },
+ "settlement": {
+  "files": [
+   {
+    "file": "pack_5_roof_tiles_001.png",
+    "pack": "5. Roof tiles",
+    "idx": 1,
+    "w": 81,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_5_roof_tiles_002.png",
+    "pack": "5. Roof tiles",
+    "idx": 2,
+    "w": 85,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_5_roof_tiles_003.png",
+    "pack": "5. Roof tiles",
+    "idx": 3,
+    "w": 78,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_broken_building_walls_000.png",
+    "pack": "2. Broken building walls",
+    "idx": 0,
+    "w": 96,
+    "h": 73,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_broken_building_walls_001.png",
+    "pack": "2. Broken building walls",
+    "idx": 1,
+    "w": 96,
+    "h": 72,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_broken_building_walls_002.png",
+    "pack": "2. Broken building walls",
+    "idx": 2,
+    "w": 48,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_6_chain_link_fences_000.png",
+    "pack": "6. Chain link fences",
+    "idx": 0,
+    "w": 96,
+    "h": 73,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_6_chain_link_fences_001.png",
+    "pack": "6. Chain link fences",
+    "idx": 1,
+    "w": 96,
+    "h": 67,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_6_chain_link_fences_002.png",
+    "pack": "6. Chain link fences",
+    "idx": 2,
+    "w": 96,
+    "h": 41,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "../../../reference/pocket_city_2/03_a_block_and_a_landmark.png",
+    "source": "reference/pocket_city_2/03_a_block_and_a_landmark.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   }
+  ],
+  "owed": null
+ },
+ "road": {
+  "files": [
+   {
+    "file": "pack_1_cracked_street_tiles_000.png",
+    "pack": "1. Cracked street tiles",
+    "idx": 0,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_street_tiles_001.png",
+    "pack": "1. Cracked street tiles",
+    "idx": 1,
+    "w": 92,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_street_tiles_002.png",
+    "pack": "1. Cracked street tiles",
+    "idx": 2,
+    "w": 93,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_street_tiles_003.png",
+    "pack": "1. Cracked street tiles",
+    "idx": 3,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_street_tiles_004.png",
+    "pack": "1. Cracked street tiles",
+    "idx": 4,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_contrete_tiles_000.png",
+    "pack": "1. Cracked contrete tiles",
+    "idx": 0,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_contrete_tiles_001.png",
+    "pack": "1. Cracked contrete tiles",
+    "idx": 1,
+    "w": 96,
+    "h": 95,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_contrete_tiles_002.png",
+    "pack": "1. Cracked contrete tiles",
+    "idx": 2,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_contrete_tiles_003.png",
+    "pack": "1. Cracked contrete tiles",
+    "idx": 3,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_1_cracked_contrete_tiles_004.png",
+    "pack": "1. Cracked contrete tiles",
+    "idx": 4,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   }
+  ],
+  "owed": null
+ },
+ "map_tile": {
+  "files": [
+   {
+    "file": "../../../reference/pocket_city_2/04_the_district_from_above.png",
+    "source": "reference/pocket_city_2/04_the_district_from_above.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   },
+   {
+    "file": "../../../reference/pocket_city_2/05_the_whole_city_landscape.png",
+    "source": "reference/pocket_city_2/05_the_whole_city_landscape.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   }
+  ],
+  "owed": null
+ },
+ "ground": {
+  "files": [
+   {
+    "file": "pack_7_burnt_ground_tiles_000.png",
+    "pack": "7. Burnt ground tiles",
+    "idx": 0,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_7_burnt_ground_tiles_001.png",
+    "pack": "7. Burnt ground tiles",
+    "idx": 1,
+    "w": 96,
+    "h": 94,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_7_burnt_ground_tiles_002.png",
+    "pack": "7. Burnt ground tiles",
+    "idx": 2,
+    "w": 96,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_8_burned_ground_and_fire_marks_000.png",
+    "pack": "8. Burned Ground and fire marks",
+    "idx": 0,
+    "w": 96,
+    "h": 80,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_8_burned_ground_and_fire_marks_001.png",
+    "pack": "8. Burned Ground and fire marks",
+    "idx": 1,
+    "w": 96,
+    "h": 84,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_8_burned_ground_and_fire_marks_002.png",
+    "pack": "8. Burned Ground and fire marks",
+    "idx": 2,
+    "w": 96,
+    "h": 78,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_dirt_path_tiles_001.png",
+    "pack": "2. Dirt path tiles",
+    "idx": 1,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_dirt_path_tiles_002.png",
+    "pack": "2. Dirt path tiles",
+    "idx": 2,
+    "w": 95,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_2_dirt_path_tiles_003.png",
+    "pack": "2. Dirt path tiles",
+    "idx": 3,
+    "w": 95,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_grass_and_ground_tiles_001.png",
+    "pack": "3. Grass and ground tiles",
+    "idx": 1,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_grass_and_ground_tiles_002.png",
+    "pack": "3. Grass and ground tiles",
+    "idx": 2,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_grass_and_ground_tiles_003.png",
+    "pack": "3. Grass and ground tiles",
+    "idx": 3,
+    "w": 94,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   }
+  ],
+  "owed": null
+ },
+ "fight_board": {
+  "files": [
+   {
+    "file": "../../../reference/pocket_city_2/02_a_bus_stop_and_a_speech_bubble.png",
+    "source": "reference/pocket_city_2/02_a_bus_stop_and_a_speech_bubble.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   }
+  ],
+  "owed": null
+ },
+ "character": {
+  "files": [
+   {
+    "file": "../../../reference/pocket_city_2/01_closest_one_person_on_a_bench.png",
+    "source": "reference/pocket_city_2/01_closest_one_person_on_a_bench.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   },
+   {
+    "file": "../../../reference/pocket_city_2/06_closest_landscape_a_man_walking.png",
+    "source": "reference/pocket_city_2/06_closest_landscape_a_man_walking.png",
+    "department": "Pocket City 2: the zoom range (scale and density at that stop), never a style source"
+   }
+  ],
+  "owed": "the runway twin (Rick Owens, Balenciaga, Bottega Veneta looks, his 9/21 names) as images: not in the repo, the hosts are blocked here; he sends them or Grok fetches them"
+ },
+ "phone": {
+  "files": [],
+  "owed": "a real cracked iPhone photographed: not in the repo; he sends one"
+ },
+ "prop": {
+  "files": [
+   {
+    "file": "pack_9_abandoned_cards_000.png",
+    "pack": "9. Abandoned cards",
+    "idx": 0,
+    "w": 96,
+    "h": 56,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_9_abandoned_cards_001.png",
+    "pack": "9. Abandoned cards",
+    "idx": 1,
+    "w": 96,
+    "h": 58,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_9_abandoned_cards_002.png",
+    "pack": "9. Abandoned cards",
+    "idx": 2,
+    "w": 96,
+    "h": 58,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_10_abandoned_cars_000.png",
+    "pack": "10. Abandoned cars",
+    "idx": 0,
+    "w": 47,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_10_abandoned_cars_001.png",
+    "pack": "10. Abandoned cars",
+    "idx": 1,
+    "w": 46,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_10_abandoned_cars_002.png",
+    "pack": "10. Abandoned cars",
+    "idx": 2,
+    "w": 46,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_15_street_props_000.png",
+    "pack": "15. Street props",
+    "idx": 0,
+    "w": 49,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_15_street_props_001.png",
+    "pack": "15. Street props",
+    "idx": 1,
+    "w": 34,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_15_street_props_002.png",
+    "pack": "15. Street props",
+    "idx": 2,
+    "w": 32,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_14_trash_and_junk_props_000.png",
+    "pack": "14. Trash and junk props",
+    "idx": 0,
+    "w": 76,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_14_trash_and_junk_props_001.png",
+    "pack": "14. Trash and junk props",
+    "idx": 1,
+    "w": 75,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_14_trash_and_junk_props_002.png",
+    "pack": "14. Trash and junk props",
+    "idx": 2,
+    "w": 73,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_barricades_and_blockades_000.png",
+    "pack": "3. Barricades and blockades",
+    "idx": 0,
+    "w": 96,
+    "h": 90,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_barricades_and_blockades_001.png",
+    "pack": "3. Barricades and blockades",
+    "idx": 1,
+    "w": 96,
+    "h": 92,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_3_barricades_and_blockades_002.png",
+    "pack": "3. Barricades and blockades",
+    "idx": 2,
+    "w": 96,
+    "h": 86,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_17_warning_signs_and_road_props_000.png",
+    "pack": "17. Warning Signs and road props",
+    "idx": 0,
+    "w": 54,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_17_warning_signs_and_road_props_001.png",
+    "pack": "17. Warning Signs and road props",
+    "idx": 1,
+    "w": 52,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   },
+   {
+    "file": "pack_17_warning_signs_and_road_props_002.png",
+    "pack": "17. Warning Signs and road props",
+    "idx": 2,
+    "w": 56,
+    "h": 96,
+    "approved": "UP (7/13 sweep)"
+   }
+  ],
+  "owed": null
+ }
+}

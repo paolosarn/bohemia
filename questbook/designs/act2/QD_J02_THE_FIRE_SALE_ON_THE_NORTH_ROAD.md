@@ -7,7 +7,7 @@ PLACE: the paved northern highway, a wide shoulder where three loaded trucks hav
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHAPE: E5, THE TRADER WITH ONE GOOD THING, crossed with E7, THE PEOPLE WALKING THE OTHER WAY (QR-B)
 STAGE: THE RUNGS (QR-J)
-CHECKLIST: passes all 30 (lines 11 and 12 are read as the event's free KEEP MOVING)
+CHECKLIST: passes all 32 (lines 11 and 12 are read as the event's free KEEP MOVING) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Late act 2, a boom. On the northern highway a well-off household has pulled three trucks onto the shoulder and is

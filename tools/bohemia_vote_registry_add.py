@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-origin-crews-10-9'
+MINE_ID = 'character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
-  "id": MINE_ID, "kind": "outfit", "lane": "character",
-  "sha": "pending", "made": "10/9",
-  "title": "THE ORIGIN CREWS",
-  "why": "Three starting companies at their real size, the Lone Wolf's one veteran in worn plate, three companions in mail, and the Block Watch's twelve weak men in work clothes, every man's gear sorted from the real Battle Brothers data by how equipped his background actually is. Thumbs up, and you see it here first, then at the door once RUN wires a pick to this table.",
+  "id": MINE_ID, "kind": "line", "lane": "character",
+  "sha": "pending", "made": "10/10",
+  "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
+  "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
   "show": {
-    "how": "page",
-    "src": "vote/CHARACTER_THE_ORIGIN_CREWS.html"
+    "how": "text",
+    "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

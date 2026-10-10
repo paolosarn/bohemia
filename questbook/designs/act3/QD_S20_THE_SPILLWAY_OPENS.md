@@ -7,7 +7,7 @@ PLACE: the dam and turbine hall home base (fortress tier); the job is the river 
 SITUATION: a wet winter filled the lake to the top and the dam opens the spillway for the first time in forty years, while camps sleep on the river's old dry banks -> the camps are warned and come up to the dam's town, the dam's board grows boat and fishing jobs, and a camp that is not told is gone from the map
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The lake is full, the first time since the operators' grandmothers. The dam must open the spillway in four days or risk the structure. Below it, five camps live on the river's old banks, where the river has been low their whole lives. They think the riverbed is a road.

@@ -23,7 +23,8 @@
      T8b the start is paid once per GAME: the picks arriving again never pay a paid crew twice
      T9 *** NEW GAME OVER A SAVE ***: it asks first; asked twice it starts over -- the picks, no title, a
         new game with nothing in the purse until BEGIN pays its start, and the notes kept
-     T10 the door's own way in still works with the title up (a click on BEGIN enters, for every driver)
+     T10 RE-AIMED 10/9 ([a fresh phone sees the door], EYES 1bdc7023): with the title up, a click on the door's
+        BEGIN does NOT get in (it was the hole a stranger's walk fell through); the title's own way does
      T11 nothing threw
    node gates/the_start_screen_gate.js
    ========================================================================== */
@@ -148,11 +149,18 @@ const hits = (a, b) => !!a && !!b && a.left < b.right && b.left < a.right && a.t
     ok('*** T9 NEW GAME OVER A SAVE *** (first tap: "' + ask.new.b + ' / ' + ask.new.sub + '"; second: the picks ' + (s9b && s9b.picks) + ', title ' + (s9b && s9b.title) + '; the purse ' + b9a + ' before BEGIN, ' + (b9b && b9b.bats) + ' after for a start of ' + (b9b && b9b.start) + '; notes ' + (s9b && s9b.notes) + ')',
       ask.up && /START OVER\?|TAP AGAIN/.test(ask.new.b) && /ends day \d+/i.test(ask.new.sub) && !!s9b && !s9b.title && s9b.picks >= 6 && b9a === 0 && !!b9b && b9b.start > 0 && b9b.bats === b9b.start && s9b.notes >= pre.t6.n);
 
-    /* T10: with the title up, the door's own BEGIN is still the way in (every driver and gate goes this way) */
+    /* T10: with the title up, the door's own BEGIN is NOT a way in; the title's own CONTINUE is */
     const s10 = await back();
-    await page.evaluate(() => document.getElementById('fronttap').click()); await page.waitForTimeout(1200);
-    const in10 = await page.evaluate(() => ({ began: !!window.__PLAY_BEGAN, front: getComputedStyle(document.getElementById('front')).display !== 'none' }));
-    ok('T10 the door\'s own way in still works with the title up (title up ' + (s10 && s10.up) + '; a click on BEGIN: the game began ' + in10.began + ', the door gone ' + !in10.front + ')', !!s10 && s10.up && in10.began && !in10.front);
+    await page.evaluate(() => { document.getElementById('fronttap').click(); document.getElementById('front').click(); }); await page.waitForTimeout(1200);
+    const in10 = await page.evaluate(() => ({ began: !!window.__PLAY_BEGAN, front: getComputedStyle(document.getElementById('front')).display !== 'none', up: !document.getElementById('title').classList.contains('gone') }));
+    const c10 = await page.evaluate(titleState);
+    /* the title's own way in: CONTINUE over a save, else NEW GAME and the door's BEGIN by a real touch */
+    const via10 = c10.cont && !c10.cont.off ? 'CONTINUE' : 'NEW GAME + BEGIN';
+    if (via10 === 'CONTINUE') await page.touchscreen.tap(c10.cont.x, c10.cont.y);
+    else { await page.touchscreen.tap(c10.new.x, c10.new.y); await page.waitForTimeout(700); const ft = await page.evaluate(titleState); if (ft.tap) await page.touchscreen.tap(ft.tap.x, ft.tap.y); }
+    let in10b = null; for (let i = 0; i < 30; i++) { await page.waitForTimeout(200); in10b = await page.evaluate(() => ({ began: !!window.__PLAY_BEGAN, front: getComputedStyle(document.getElementById('front')).display !== 'none' })); if (in10b.began && !in10b.front) break; }
+    ok('T10 with the title up a click on BEGIN does not get in, the title\'s own way does (title up ' + (s10 && s10.up) + '; BEGIN clicked: began ' + in10.began + ', title still up ' + in10.up + '; ' + via10 + ': began ' + (in10b && in10b.began) + ', the door gone ' + (in10b && !in10b.front) + ')',
+      !!s10 && s10.up && !in10.began && in10.up && in10.front && !!in10b && in10b.began && !in10b.front);
     ok('T11 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 120) : '') + ')', d.errs.length === 0);
   } catch (e) {
     ok('the gate ran without throwing [' + String(e.message).slice(0, 200) + ']', false);

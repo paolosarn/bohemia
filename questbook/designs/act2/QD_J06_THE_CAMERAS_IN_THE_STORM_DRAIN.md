@@ -7,7 +7,7 @@ PLACE: a tunnel camp in the storm drains under the Strip (the settlement); the j
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 STAGE: GATHERING (QR-J)
 LANDS THREE WAYS: yes (see UNDER LIBERATE, RESPECT, BECOME)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, a bust stretch. The storm drains under the Strip are where the Homeless live, and the tunnels are the

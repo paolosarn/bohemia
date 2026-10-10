@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a pump house on the dam road, the last one before the road turns to dirt; a rooftop cistern behind it
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways through night two), 12 (the priced one-night exit), 22 (the glass on the wall), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (three ways through night two), 12 (the priced one-night exit), 22 (the glass on the wall), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 SHOWS: the TAP-PAST (the old walk-past, moved to the settlement screen) and the PLAIN NO, both leaving nothing (QR-A rules C2, C6, C7, C8)
 
 ## THE SITUATION

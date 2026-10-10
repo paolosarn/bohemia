@@ -5,6 +5,11 @@
  * read straight out of the real files RUN TWO and WORLD already built; the
  * price line comes from engine/bohemia_keeper_lines.js, proven against its
  * own real sources in gates/keeper_lines_gate.js.
+ *
+ * REFERENCE CHECK (the 9/4 standing duty; added by DIRECTION 10/9 at the seam): the rulers are
+ * AH-01 (rule 5, the institution's calm type; rule 6, the still face) and AH-03 (the vibe-coded
+ * tells: text from a mouth with a portrait, never a box with no face). Ids resolve in the
+ * reference library index.
  * node tools/bohemia_cook_keepers_speak.js */
 'use strict';
 var fs = require('fs');

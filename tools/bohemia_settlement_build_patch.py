@@ -95,6 +95,9 @@ function buildDoes(e){
   if(e.six) return '+1 ' + (e.six === 'batteries' ? 'battery' : e.six) + '/day';
   return e.guards ? 'keeps out ' + e.guards : 'nothing';
 }
+/* HELD (rule 88, Paolo 10/10: looks first, features hold): Take it shipped 43 minutes after the hold and is switched off
+   in the game until he lifts it; the machinery stays and its gate switches it on to keep it honest. */
+window.BUILD_TAKE_ON = false;
 var BUILD_NO = { NOT_HELD:'This is not our ground. We build where we hold. Take it first.', RUIN:'Nothing stands on a ruin this generation.',
   NO_HOLD:'This is not our ground. We build where we hold. Take it first.', CANNOT_AFFORD:'No battery, nothing goes up.',
   LOT_TAKEN:'Something is already going up there.', KIND_LOCKED:'We do not know how to build that yet.' };
@@ -105,7 +108,12 @@ function buildSheet(body, acts, line){
   if(!LB || !b.site){ body.appendChild(speak('build', 'Nothing to build with.')); body.appendChild(acts); return show(); }
   buildTick();
   if(!buildMine()){
-    body.appendChild(speak('build', line || BUILD_NO.NOT_HELD));
+    /* TAKE THE NEXT PART ([take the next part], rule 43: what you hold grows by taking). Inside the game, one act:
+       go to their gate. The map runs it (one fight there; win and the place is yours, lose and it is a reload). */
+    body.appendChild(speak('build', line || 'This is not our ground. We build where we hold.'));
+    if(window.BUILD_TAKE_ON && buildParent()) acts.appendChild(act('Take it', 'a fight at their gate', function(){
+      post('take', {}); heard('You go to their gate.');
+    }));
     body.appendChild(acts); return show();
   }
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);

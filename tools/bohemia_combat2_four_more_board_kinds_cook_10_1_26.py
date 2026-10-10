@@ -100,7 +100,8 @@ def road_band(plan, y0_m, y1_m, seed, lines=()):
     for y_m, solid, col in lines:
         x = 0
         while x < BP:
-            if solid or r() > 0.15:
+            worn = r() <= 0.15
+            if solid or not worn or x == 0 or x + M(12.0) >= BP:     # rule 77: the dashes at a block's sides never wear away, so a line always meets its neighbour's
                 d.rectangle([x, M(y_m), min(BP, x + (BP if solid else M(3.0))), M(y_m) + M(0.15)], fill=col)
             x += BP if solid else M(12.0)
     return mk

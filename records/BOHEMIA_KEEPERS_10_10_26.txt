@@ -1,0 +1,91 @@
+BOHEMIA -- THE KEEPERS (10/10/26, PEOPLE lane)
+VAMILY [keepers], row THE-MAN-WHO-WALKS-WITH-A-BEAST, rule 42 round three.
+"People use animals as weapons and tools, and a faction that does is a
+faction others fear." A handler background, a beast slot in the company,
+the automated companion may be an animal.
+
+================================================================================
+THE SPLIT, READ FIRST
+================================================================================
+The row's own text already names the boundary: "the beast-keeper as a
+background and a faction... With FACTIONS (the keeper faction's roster)
+and COMBAT (the beast slot on the board)." This round built only this
+lane's own piece: the six real crafts, and the shape a company's companion
+slot would need to carry an animal.
+
+================================================================================
+WHAT WAS BUILT
+================================================================================
+engine/bohemia_keepers.js: a pure module. Six real beast-keeper crafts
+(rule 42 round three, section 2), never invented: war dogs (police and
+military dog lines), hunting birds (falconry, a living Nevada craft),
+camel cavalry (real for two thousand years), horse raiders (Nevada's
+mustangers), the hyena men (Nigeria's real hyena handlers), bee-keepers as
+siege (a real medieval tactic). companionSlot(craftId) returns the real
+slot shape for the five crafts with a living animal, and REFUSES
+bee-keepers honestly: a thrown hive is a weapon, not a beast that walks
+beside you, and this module does not force it into a shape that would lie
+about what it is.
+
+================================================================================
+A REAL GAP, MEASURED NOT GUESSED
+================================================================================
+Before building anything, read slices/BOHEMIA_CITY_WORLD.html's own
+companion state. CT_WALKS_WITH is set in exactly the places you'd expect
+(`CT_WALKS_WITH = hit.id;` or null), and every one of them is a person's
+id. There is no shape anywhere in this codebase for a companion that is
+not a person. "The automated companion may be an animal" is therefore a
+real, measured gap, not an assumed one -- and this module proposes the
+real shape that case needs (kind, species, craft) rather than silently
+wiring something half-built into a system that has never supported it.
+
+================================================================================
+NO PRICE, ON PURPOSE
+================================================================================
+The research round's own economic note for this exact system is
+qualitative, not a number: "a live capture -- a handler's dog or camel --
+is worth a season's pay." Rule 63d forbids inventing a number no source
+gives, so a hire price for a handler stays honestly unbuilt until TUNING's
+table or a direct Grok ask gives a real one.
+
+================================================================================
+PROVEN, NOT ASSERTED
+================================================================================
+gates/keepers_gate.js reads the real research record and the real city
+file DIRECTLY. Every one of the six citations is checked against the
+actual round-three text, byte for byte (normalized for the file's own line
+wrap, never reworded). companionSlot() is proven to answer only for the
+five crafts with a real animal and refuse the sixth. The companion-slot
+gap claim is proven against the live file's own source, not asserted: six
+real CT_WALKS_WITH assignments found, every one a person's id or null,
+zero already handling an animal shape.
+
+================================================================================
+THE GATE
+================================================================================
+gates/keepers_gate.js, new (REUSE-FIRST: nothing existed to extend).
+21 legs: the real-citation proof, the real-animal/refused-weapon proof, the
+refused-unknown proof, the real-gap proof against the live city file,
+cook + registry.
+
+================================================================================
+THE COOK: THE KEEPERS
+================================================================================
+slices/BOHEMIA_KEEPERS_10_10_26.html, registered in VOTE. All six crafts,
+their real citation, and their real companion-slot shape or honest
+refusal.
+
+================================================================================
+WHAT THIS LANE DID NOT TOUCH, ON PURPOSE
+================================================================================
+slices/BOHEMIA_CITY_WORLD.html was read, never written: wiring an animal
+into the live companion state is a real structural change (every place
+that reads CT_WALKS_WITH expecting a person's id would need to handle the
+new shape), bigger than the one-line additions this lane's last two rounds
+left as review-file wiring, and is RUN's own file to carry. FACTIONS' own
+roster and COMBAT's own board rules were not touched either; a review file
+(records/BOHEMIA_KEEPERS_REVIEW_FOR_FACTIONS_COMBAT_RUN_10_10_26.md) names
+exactly what each owns from here.
+
+TAB: VOTE, item THE KEEPERS. NOT IN A TAB YET on the live city or the live
+fight (FACTIONS', COMBAT's and RUN's own files, named above).

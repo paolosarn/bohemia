@@ -1,0 +1,36 @@
+# COOK TWO round one: [the street kit from the packs] (rule 87, 82a, 77; Paolo 10/10)
+- 16 house-tile pieces (515x364, 12 m, depth x cos45) in slices/fight_ground/kit_street/: road E-W / N-S, with one walk, both walks, junction, two zebra crossings, four inside corners, plain walk.
+- Every pixel is stamped from banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt (street asphalt, side sidewalk) at 2x nearest; paint colour = the zebra pool tile's brightest tenth, kerb = the sidewalk's brightest tenth. Each piece keys its (pool, index) list in kit_street.json.
+- Rule 77: four typed edges in metres per piece (road/walk), centre lines in metres. Walk 1.5 m = an eighth of the 12 m road.
+- Proof: kit_street/before_after.webp (the current block_main_1 street beside a 4x3 sample board).
+- NOT DONE: DIRECTION's pass against the pack contact sheet (rule 87, before VOTE); COMBAT TWO laying boards from it; no gate yet that every kit seam matches (the legos gate reads blocks, not the kit). Row stays CLAIMED.
+- Known look debt: the asphalt stamp repeats at 2 m, visible at full zoom; next round: larger stamp grid with rotation, oil stains and the marking bank's worn arrows.
+- Analog horror: cracked pool asphalt, paint washed to 60-70%, weeds in the walk; nothing new.
+- [bb street tiles] BB builds battle ground from edge-matched stamps, never one painted plate; so does this.
+
+## Round two
+- The 2 m repeat killed: stamps run in brick rows (half offset) and each is flipped one of four ways. Asphalt and slab have no up.
+- Two arrow pieces (road_ew_arrow, road_ns_arrow): only the PAINT is lifted off his marking-bank through-arrow (pixels 120 over the tile's median), scaled to 5 m, washed in at 65% so the cracks show. 18 pieces now.
+- Zebras cut to 4 m along the traffic, centred. FOUND BY THE GATE: full-length bars reached the tile edge and read as sidewalk, a seam break waiting for COMBAT TWO.
+- gates/cook2_street_kit_gate.py, in the suite as COOK2 STREET KIT, 294/0. Its first reader used brightness and failed 60 times on his weeds; warmth separates his tan walk (red-blue 24) from his grey asphalt (3) cleanly. Mutation-proved twice (wrong written edge; kerb painted over), both red, restored green.
+- Still owed: DIRECTION's pass before VOTE; COMBAT TWO laying the street board.
+
+## Round three: rule 89, the same street before and after
+- Rule 89 landed (Paolo 10/10, 'Can't tell difference'): my round-one sheet compared two different streets at half size, so it was not a rule-89 picture. Now: tools/bohemia_cook2_his_street_on_the_fight_block_10_10_26.py lays the kit's stamps into the street pixels of COMBAT TWO's own main-street blocks (found on the pixels: road rows 775-895, 1,993 and 2,087 street columns), buildings untouched pixel for pixel. Out: slices/fight_ground/kit_street/onboard/block_main_{0,1}.webp + onboard.json (pack manifest, exception names the unchanged buildings as COOK FOUR's).
+- The picture: slices/vote/COOK2_THE_STREET_BEFORE_AFTER.png, two 585 px crops of block_main_1 at one art pixel to one phone pixel (1170 = his upright phone at 3x). The difference reads: the old checkered dark band vs his cracked asphalt, weeds in the walk, a kerb, a faded centre dash.
+- First try streaked: the walk and kerb were decided column by column; one street now takes one T and B (the mode of the per-column runs).
+- Pack gate: my tool and pictures pass (K1, M1). Its two reds are not mine and were red on main before this commit: K1 tools/bohemia_his_block_as_a_place_cook_10_10_26.py (COOK FOUR's), P1 block_main_0* and settlement home_0* without manifests (COMBAT TWO's cut and COOK FOUR's).
+- NOT in VOTE: rule 87 sends it to DIRECTION first. FOR COMBAT TWO: swap blocks['main.0'/'main.1'].src to kit_street/onboard/ when it re-lays (fight_ground.json is theirs). The raided and reclaimed futures are not re-laid yet.
+
+## Round four: the futures, and the street where it widens
+- Raided and reclaimed main blocks re-laid: every pixel a future changed from the present stays the future's (raided: 433,061 / 347,728 px of soot, scorched roofs and shadows kept; reclaimed: 391,911 / 298,425 px of solar panels kept); every pixel it left alone takes the re-laid present. kit_street/onboard/ now holds all six main blocks, onboard.json covers them.
+- The street's connected old road beyond the band (8 px cells, flooded from the band) takes the asphalt too. FIRST TRY LEAKED into the building shadows (the same grey, but flat: std 0 against the road's 22-55); flat pixels are now excluded. Widening the road filter to warmth 20 bled the column runs down through a roof; reverted to 14.
+- LEFT, NAMED: the darker apron right of the flat-roof building on block_main (x ~1950+, y ~900-1050) is a lot surface, not the street; it is [the freeway and the lot from the packs]'s.
+- Gates: COOK2 STREET KIT 294/0; pack gate passes this lane's tools and pictures (its two reds are COOK FOUR's and COMBAT TWO's, red on main before).
+- Row stays CLAIMED: its ship test needs DIRECTION's pass and COMBAT TWO's re-lay ([the boards from the packs] is now their top row and reads this kit).
+
+## Round five: DIRECTION's pass answered, and the four-way COMBAT TWO asked for
+- DIRECTION (rule 87 pass, round 2): THE ROAD PASSES, THE SHEET GOES BACK. (1) the same crossing before and after: done since round three, and now the AFTER is the LIVE fight block (COMBAT TWO laid the kit into it, 8c1ff70), the BEFORE that block at 8c1ff70~1, read from git; (2) the kerb: a 1 px lit edge (kerb x 1.22), 2 px of kerb, a 2 px shadow where its face is seen, on every walk band, corner and the onboard re-lay; (3) weeds thin and few: 20 of his 36 sidewalk tiles carry a weed (green px >= 7, measured); a weedy tile is now picked 1 time in 20.
+- junction_walks: the four-way with a 1.5 m walk square on each corner, each side typed walk/road/walk. 19 pieces; COOK2 STREET KIT 321/0.
+- kit_street/onboard/ is SUPERSEDED for the live fight: COMBAT TWO laid the kit pieces straight into the blocks, which is the right way round. onboard stays only as the reproducible rule-89 record.
+- FOR COMBAT TWO: re-run your lay to take the kerb, the thinner weeds and junction_walks (cornerw waits on it).

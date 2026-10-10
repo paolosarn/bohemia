@@ -5,7 +5,7 @@ CRISIS: the Destroyers (plant); the whisper broadcast (landing)
 ECONOMY: bust (act 1) -> boom (act 2)
 PLACE: act 1, any hall where the family took an advance and then dropped the contract; act 2, the lender's shop, now a bank in a reclaimed casino cage
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 11 honoured: only a TAKEN and DROPPED contract with an advance can plant this, never a decline.
+CHECKLIST: passes all 32. Line 11 honoured: only a TAKEN and DROPPED contract with an advance can plant this, never a decline. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The contract law says a contract taken and dropped is a deed. This design is what that deed looks like a generation on. In act 1, a family that took an advance and dropped the job kept the batteries. In act 2 the lender's daughter runs the valley's first bank, and the debt is on her books.

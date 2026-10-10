@@ -109,7 +109,17 @@
   function step(parties, seats, st, hour) {
     var PP = PARTIES(); if (!PP || !parties) return { settled: 0 };
     var before = parties.map(function (p) { return p && p.at ? { x: p.at.x, y: p.at.y } : null; });
+    var was = parties.map(function (p) { return !!(p && p.arrived); });
     PP.advance(parties, 1, 1);
+    /* WHO GOT WHERE THIS STEP (10/9, [a raid on your base]): FACTIONS' raidsFrom() reads arrivals in this shape
+       (homebases.advanceWatching's), so a crew reaching a base you hold opens a raid. */
+    var arrived = [];
+    for (var ai = 0; ai < parties.length; ai++) {
+      var ap = parties[ai];
+      if (ap && !was[ai] && ap.arrived && ap.from && ap.to)
+        arrived.push({ id: ap.id, agenda: ap.agenda, faction: ap.from.faction,
+                       power: (typeof ap.from.power === 'number') ? ap.from.power : null, to: { x: ap.to.x, y: ap.to.y }, hour: hour });
+    }
     var settled = settle(parties, seats, before);
     for (var i = 0; i < parties.length; i++) {
       var p = parties[i], b = before[i];
@@ -118,7 +128,7 @@
       st.prints.push({ x: b.x, y: b.y, f: p.from.faction, a: p.agenda, id: p.id,
                        dx: p.at.x - b.x, dy: p.at.y - b.y, h: hour });
     }
-    return { settled: settled };
+    return { settled: settled, arrived: arrived };
   }
 
   /* THE CLOCK MOVES THE VALLEY, AND ONLY THE CLOCK. `hours` passed at `cellsPerHour`; the fraction is
@@ -194,9 +204,38 @@
 
   }
 
+  /* ---- WHAT YOU BUILD DRAWS A CREW (10/9, [a raid on your base]) -----------------------------------------------
+     Rule 37c (the future goes both ways) and 43 (losing a part takes it back). The valley's crews are sent by WORLD's
+     parties at seats their people are at blood with, and your outfit starts at blood with nobody (its relations are
+     empty), so nothing ever came for you. A base with things standing on it is worth taking: when yours has at least
+     WORTH_RAIDING standing (mine, TUNING), the nearest seat that is not your friend and still holds its own base sends
+     ONE crew at your gate, in WORLD's own party shape (agenda 'crew', from its seat, to yours), so it walks, prints,
+     is seen coming (rule 68) and arrives like any other. Whether it may (one raid a base an act, none open, none
+     already walking) is FACTIONS' ledger, asked by the caller. Who it is and when are FACTIONS' to correct. */
+  var WORTH_RAIDING = 2;
+  function crewAt(seats, yourSeat, opts) {
+    opts = opts || {};
+    var PP = PARTIES(), friend = opts.friend || function () { return false; }, holds = opts.holds || function () { return true; };
+    if (!yourSeat) return null;
+    var best = null, bd = 1e9;
+    for (var i = 0; i < (seats || []).length; i++) {
+      var s = seats[i];
+      if (!s || s.faction === yourSeat.faction || friend(s.faction) || !holds(s.faction)) continue;
+      var d = cheb(s.x | 0, s.y | 0, yourSeat.x | 0, yourSeat.y | 0);
+      if (d < bd || (d === bd && best && s.faction < best.faction)) { bd = d; best = s; }
+    }
+    if (!best) return null;
+    var ag = (PP && PP.AGENDAS && PP.AGENDAS.crew) || { about: 'going to take something', draft: true };
+    return { id: best.faction + ':crew:' + yourSeat.x + ',' + yourSeat.y + ':raid',
+             from: { faction: best.faction, tier: best.tier, power: best.power, x: best.x, y: best.y },
+             agenda: 'crew', about: ag.about, draft: ag.draft, toward: yourSeat.faction,
+             to: { x: yourSeat.x, y: yourSeat.y }, at: { x: best.x, y: best.y }, arrived: false, left: false, raid: true };
+  }
+
   var API = { PRINT_HOURS: PRINT_HOURS, TUNED: TUNED, draft: DRAFT, TOWN_R: TOWN_R,
               make: make, step: step, advanceHours: advanceHours, prune: prune, fadeOf: fadeOf,
-              stacks: stacks, isTown: isTown, seedOf: seedOf, rng: rng, traitsFor: traitsFor, crowdAt: crowdAt, crowdOf: crowdOf };
+              stacks: stacks, isTown: isTown, seedOf: seedOf, rng: rng, traitsFor: traitsFor, crowdAt: crowdAt, crowdOf: crowdOf,
+              WORTH_RAIDING: WORTH_RAIDING, crewAt: crewAt };
   if (HASREQ) module.exports = API;
   root.BohemiaLivingMap = API;
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

@@ -1249,6 +1249,27 @@
       levels: [1.00, 0.92, 0.78, 0.60, 0.42],
       f0: 196, damp: 0.08, secs: 5.0, hit: 0.0007,
       why: 'a length of steel pipe, struck: the free-free bar series, which is not a chord'
+    },
+    /* GLASS IS NOT METAL, BUT THIS FUNCTION NEVER CARED: it is a generic struck-resonator
+       engine (a half-sine force pulse, a bank of decaying modes, saturate, fade), and a
+       drinking glass is just another material with its own real numbers. A GLASS IS THE
+       ONE ENTRY IN THIS TABLE WITH ONE PARTIAL, AND THAT IS ITS OWN REAL CHARACTER: a
+       struck tumbler's well-known "singing" quality is one clear pitch, not a chord --
+       unlike the bell's tuned stack or the pipe's clangy inharmonic series. Glass also
+       loses far less energy than bronze or steel per cycle (it is why a glass harmonica
+       works at all), so the damping here is set BELOW the pipe's own 0.08%, the lowest
+       figure already in this table. ENGINEERING ESTIMATES, STATED AS SUCH: f0 (a bar
+       tumbler's struck tone commonly falls in the few-hundred-Hz range; 650 is the middle
+       of that range, not a measured glass) and damp (lower than pipe's because glass is
+       the lower-loss material, but far above an isolated suspended crystal's figure,
+       because this glass sits on a counter and is held by a hand, the same contact-
+       damping reasoning the pipe entry already uses). hit is shorter than the pipe's
+       because glass is the stiffer contact of the two. */
+    glass: {
+      ratios: [1.0],
+      levels: [1.00],
+      f0: 650, damp: 0.05, secs: 1.2, hit: 0.0004,
+      why: 'a drinking glass, struck: one clear pitch, which is the real character a bell\'s chord and a pipe\'s clangy stack do not have'
     }
   };
   function struckMetal(ctx, opts) {
@@ -1796,6 +1817,132 @@
       why: 'the same tiny, stiff pipe mode boardNail uses for a tack, raised higher still, struck '
         + 'four times at a rivet gun\'s own working cadence -- a rivet is set in several quick '
         + 'blows, never one'
+    };
+  }
+
+  /* ==== 13b4. THE BAR'S GLASS (row [the soundscape], 10/10) ========================
+     Rule 80a's own list names "the bar's murmur and glass"; the murmur is a crowd of
+     voices and this lane's whole palette is struck, resonant and particle material,
+     never a faked voice, so that half stays the standing gap every bar row in this
+     lane has named. The glass half has no voice in it at all, so it builds. THE SAME
+     CONSTRUCTION canOnWood ALREADY USES: a contact landing on the counter (objectSetDown,
+     REUSED whole, zero new ground math) summed with a material's own ring (struckMetal,
+     REUSED whole, one new table entry: glass). A bar counter is wood the same way the
+     stall's counter is (REUSE-FIRST: no new surface either). */
+  function barGlassDown(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var glass = struckMetal(ctx, { what: 'glass', f0: opts.f0 == null ? 650 : opts.f0,
+      secs: opts.glassSecs == null ? 1.2 : opts.glassSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), gd = glass.buffer.getChannelData(0);
+    var n = Math.max(wd.length, gd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.65 + (i < gd.length ? gd[i] : 0) * 0.6;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, glassF0: glass.f0,
+      why: 'a glass\'s own single clear pitch (struckMetal\'s new glass mode) landing on the '
+        + 'bar\'s wood counter (objectSetDown on boards) -- the same contact two ways at once '
+        + 'canOnWood already uses for the tin can'
+    };
+  }
+
+  /* ==== 13b5. THE BLOCK (row [not sand], the keep/redo list's own last eight) ===========
+     records/BOHEMIA_THE_KEEP_REDO_LIST_9_24_26.md 3b: block is one of the 21 hard-contact
+     ids measured with no real top end (0.289% of its energy above 4 kHz against the row's
+     own 1% bar -- "a boot on concrete, brass on a floor... the contact is a step change in
+     air pressure, and a step change is broadband by definition"). A BLOCK IS TWO HARD
+     THINGS TOUCHING, THE SAME DEFINITION THE ROW ALREADY WROTE: a blade's edge glancing off
+     a shield's rim or a haft, which is wood (the shield's core, or a spear's shaft) AND
+     metal (the rim binding or the blade) in the same contact, at once -- canOnWood's own
+     construction, a third time: objectSetDown (REUSED whole, zero new ground math) summed
+     with struckMetal's existing 'pipe' mode (REUSED whole, zero new table entry; this is
+     the only one of the three sounds built this way that needed no new material at all).
+     SHORTER THAN A HELD STRIKE ON PURPOSE: a glancing parry does not pin the blade the way
+     a smith's hammer pins an anvil, so most of the energy carries on into the follow-through
+     rather than ringing in place -- the same real cause smithHammer already argues for an
+     anvil's own stump, run the other way. */
+  function weaponBlock(ctx, opts) {
+    opts = opts || {};
+    var wood = objectSetDown(ctx, { surface: 'boards', variant: opts.variant });
+    var edge = struckMetal(ctx, { what: 'pipe', f0: opts.f0 == null ? 1700 : opts.f0,
+      secs: opts.edgeSecs == null ? 0.15 : opts.edgeSecs });
+    var sr = ctx.sampleRate;
+    var wd = wood.buffer.getChannelData(0), ed = edge.buffer.getChannelData(0);
+    var n = Math.max(wd.length, ed.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = (i < wd.length ? wd[i] : 0) * 0.6 + (i < ed.length ? ed[i] : 0) * 0.65;
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: wood.machine, seconds: n / sr, woodSurface: wood.surface, edgeF0: edge.f0,
+      why: 'a blade\'s edge glancing off a shield\'s wood-and-metal rim: the same contact '
+        + 'canOnWood already sums two ways at once, a wood landing (objectSetDown on boards) '
+        + 'with the blade\'s own pipe mode, held for a fraction of boardNail\'s already-brief tack'
+    };
+  }
+
+  /* ==== 13b7. SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'create more of the best
+     sounds of all time instead of implementing mid sounds... impress me'). HIS RULING,
+     NOT A REDO-LIST ITEM: build an ambitious, memorable moment, not another checkbox.
+
+     WHAT THE MOMENT IS: finding something genuinely rare in a dead valley where almost
+     nothing works any more. THE CONSTRUCTION IS REUSE-FIRST ALL THE WAY DOWN -- both
+     layers are sounds this engine already shipped, zero new material, zero new table
+     entries -- but the TECHNIQUE is new to this file: a real sidechain duck, the
+     transient's own envelope pulling the sustained layer back while it is loudest, the
+     way a mixer manages two real sources competing for the same air. Every composite
+     sound this lane has built before this (canOnWood, barGlassDown, weaponBlock,
+     partsPass) is a FLAT sum at a fixed ratio; this is the first one where one layer
+     reacts to the other over time.
+
+     THE BELL is struckMetal's own founder-tuned minor third (STRIKE.bell), the same
+     material [bb ambience]'s hourly chime already uses -- reused for a second diegetic
+     moment, not a second bell. A found object that still works, ringing true, is the
+     "voice" of the moment: bright, immediate, the transient.
+
+     THE HUM is powerOnHum, already shipped (a transformer's core pulling in, 40 to 120 Hz
+     over 0.6 s) -- the valley itself catching up to the object, the sustained body under
+     the ring. Two real electrical/acoustic causes, nothing invented, the sum timed so the
+     hum's own rise lands under the bell's decay rather than racing it. */
+  function legendaryFind(ctx, opts) {
+    opts = opts || {};
+    var f0 = opts.f0 == null ? 220 : opts.f0;
+    var bellSecs = opts.bellSecs == null ? 2.5 : opts.bellSecs;
+    var humSecs = opts.humSecs == null ? 2.2 : opts.humSecs;
+    var duckAmount = opts.duckAmount == null ? 0.6 : opts.duckAmount;
+    var bell = struckMetal(ctx, { what: 'bell', f0: f0, secs: bellSecs });
+    var hum = powerOnHum(ctx, { secs: humSecs, riseSec: 0.6 });
+    var sr = ctx.sampleRate;
+    var bd = bell.buffer.getChannelData(0), hd = hum.buffer.getChannelData(0);
+    var n = Math.max(bd.length, hd.length);
+    var buf = ctx.createBuffer(1, n, sr), d = buf.getChannelData(0);
+    var env = new Float64Array(n);
+    /* THE SIDECHAIN FOLLOWER: a fast attack (2 ms), a slower release (120 ms), the
+       standard shape a real compressor's detector uses so a duck snaps in on the hit
+       and eases back out rather than chattering on every sample. Normalised to the
+       bell's own loudest instant so duckAmount is a fraction of THIS strike, not an
+       absolute level that would duck differently at a different f0 or gain. */
+    var atk = Math.exp(-1 / (sr * 0.002)), rel = Math.exp(-1 / (sr * 0.12));
+    var peak = 0, i;
+    for (i = 0; i < n; i++) { var a = i < bd.length ? Math.abs(bd[i]) : 0;
+      env[i] = a > (i ? env[i - 1] : 0) ? atk * (i ? env[i - 1] : 0) + (1 - atk) * a
+                                        : rel * (i ? env[i - 1] : 0) + (1 - rel) * a;
+      if (env[i] > peak) peak = env[i]; }
+    for (i = 0; i < n; i++) {
+      var duck = peak > 0 ? 1 - duckAmount * (env[i] / peak) : 1;
+      d[i] = (i < bd.length ? bd[i] : 0) * 0.85 + (i < hd.length ? hd[i] * duck : 0) * 0.5;
+    }
+    normalise(d, n, 0.85);
+    return {
+      buffer: buf, machine: bell.machine, seconds: n / sr, bellF0: f0, duckAmount: duckAmount,
+      /* the ratio the gate proves the duck really happened by: how loud the hum's own
+         band reads inside the bell's loudest 50 ms against how loud it reads once the
+         bell's transient has passed, when nothing is ducking it any more */
+      why: 'struckMetal\'s own founder-tuned bell (the hourly chime\'s material, a second '
+        + 'moment for it) ringing over powerOnHum\'s transformer catching in, the hum '
+        + 'sidechain-ducked by the bell\'s own envelope -- the first sound in this file '
+        + 'where one real layer reacts to another instead of a flat sum'
     };
   }
 
@@ -2432,6 +2579,9 @@
     paperRustle: paperRustle,
     smithHammer: smithHammer,
     armourerRivets: armourerRivets,
+    barGlassDown: barGlassDown,
+    weaponBlock: weaponBlock,
+    legendaryFind: legendaryFind,
     wowFlutter: wowFlutter,
     wowProbe: wowProbe,
     theFold: theFold,
@@ -2613,7 +2763,19 @@
         { id: 'sounds-the-smiths-hammer-10-9', make: 'smithHammer',
           title: "THE SMITH'S HAMMER" },
         { id: 'sounds-the-armourers-rivets-10-9', make: 'armourerRivets',
-          title: "THE ARMOURER'S RIVETS" }
+          title: "THE ARMOURER'S RIVETS" },
+        /* THE BAR'S GLASS (row [the soundscape], 10/10): the murmur half of his own
+           "the bar's murmur and glass" stays the standing no-faked-voice gap; the glass
+           half has no voice in it and builds. */
+        { id: 'sounds-the-bars-glass-10-10', make: 'barGlassDown',
+          title: "THE BAR'S GLASS" },
+        /* THE BLOCK (row [not sand], the keep/redo list's last eight): a parry is two
+           hard things touching, which the redo list's own definition already covers. */
+        { id: 'sounds-a-block-is-two-things-touching-10-10', make: 'weaponBlock',
+          title: "A BLOCK IS TWO THINGS TOUCHING" },
+        /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: build the best, not the mid). */
+        { id: 'sounds-something-here-still-works-10-10', make: 'legendaryFind',
+          title: "SOMETHING HERE STILL WORKS" }
       ];
     }
   };

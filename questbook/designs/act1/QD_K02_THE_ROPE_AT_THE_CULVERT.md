@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: the one dry crossing over a flood wash on the east side, a concrete culvert under a dead highway; a family's camp on the embankment
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E2 THE TOLL (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B04 (act 2, boom, a faction booth that prints receipts). This is the crude act 1 toll QR-B names: whoever has a rope and a rifle, and the price is partly labour.
 
 ## THE SITUATION

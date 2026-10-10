@@ -6,7 +6,7 @@ ECONOMY: bust
 PLACE: a pump house on the dam road (settlement screen: the hall is the pump room door); the job is a HOLD, one named night, the fight board cut from the pump house block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: PAY THE LOAN OFF (QR-Z no. 10: clear a standing debt)
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2. The company owes the pump people for water drawn on credit through a dry season. A roaming party has told the pump house it will come on the night of the new moon. The pump people would rather have the company on the roof than the batteries in the drawer.

@@ -7,7 +7,7 @@ PLACE: the cartel yards home base (by act 3 a licensed freight house, town tier)
 SITUATION: the yards went legitimate under a new boss, the old gunmen will not leave the back lot, and council inspectors arrive in six days -> the back lot is clear, the yards pass inspection, and the yards' board changes for good from gunman jobs to haul jobs
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30 (line 5: if act 1 was never played at the yards, the old crew simply do not know the family's truck)
+CHECKLIST: passes all 32 (line 5: if act 1 was never played at the yards, the old crew simply do not know the family's truck) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3. The cartel yards became a freight house with a council licence and a new boss, Lupe Salas, the old boss's daughter. Her father's crew of seven old gunmen still sit in the back lot where the product used to be kept, with the guns, and they think it is 2060. The inspectors come in six days. If they find the guns, the yards are a cartel again.

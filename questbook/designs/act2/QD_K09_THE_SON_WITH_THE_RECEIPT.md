@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: a paved market road in act 2, at a family's roadside stall that the map marks with the client's family name
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E9 THE BILL COMES DUE (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 contract taken and dropped, this event does not fire; line 18: the landing is the stall on the map)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event; line 5's default read: with no act 1 contract taken and dropped, this event does not fire; line 18: the landing is the stall on the map) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: no E9 exists on the first shelf. The across-acts designs plant and pay through places and contracts; this is the road-event form of a delayed bill.
 
 ## THE SITUATION

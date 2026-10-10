@@ -6,7 +6,7 @@ CRISIS: none
 ECONOMY: either
 PLACE: the map road below the dam, at the turn to the dam clinic (a lit point on the map); the event stops the party on the road.
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1; lines 9 and 12 read as not applicable to a road event; 11 is the free KEEP GOING). Fixed in place: 28 (flags and saves named); rule 51 applied (both held contracts' lamps shown).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1; lines 9 and 12 read as not applicable to a road event; 11 is the free KEEP GOING). Fixed in place: 28 (flags and saves named); rule 51 applied (both held contracts' lamps shown). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 REBUILT FROM: the silent appointment. `Q106.X5` (a missed 7pm appointment permanently kills the best content, no warning), `Q128.X2` (players lose the chain without learning they lost it), `Q129.X5` (the massacre fires on a hidden clock), `Q119.X3` (a timer so generous it is invisible). The phone version is the same schedule, shown on the map, counted in map days, and stopped when the app is closed.
 

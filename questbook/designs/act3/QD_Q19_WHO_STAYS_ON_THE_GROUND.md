@@ -5,7 +5,7 @@ CRISIS: the rocket
 ECONOMY: either
 PLACE: the family's home base (rule 43: a base is the parts of the city the family holds), the night the launch date is set, and the five posts around the pad on the map
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 23: the assignment scene is talk; the launch-day fights come later and a lost one is a result, not a reload.
+CHECKLIST: passes all 32. Line 23: the assignment scene is talk; the launch-day fights come later and a lost one is a result, not a reload. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Shaped from the story master: the launch is one-way "with the player's chosen companions (the ones who agree to go)". QD-H06 is the eve on the rock. This beat is before it and on the ground: somebody has to stay. The pad needs guarding, the families near the blast zone need moving, the Network's last loyalists may come. The heir assigns the company, one person per post. It is the roll call as work.

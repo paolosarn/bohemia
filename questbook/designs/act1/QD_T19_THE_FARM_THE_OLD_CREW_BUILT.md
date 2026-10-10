@@ -7,7 +7,7 @@ PLACE: a small farm on the edge of the farm tower's ground, offered at the farm 
 SITUATION: a raid expected (QR-S situation 15), from the inside out: the farm is eleven ex-raiders who put their guns down two years ago and grow chiles. Their old crew, the Viboras, are coming to take them back or burn them out -> the farm holds or falls, and HOW it holds decides what the farm is afterwards
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 The chile farm is the best harvest in the valley this year, which is how the Viboras heard of it. Nacho, who runs it, rode with them for six years. His people buried their rifles under the pepper beds. They can dig them up. That is the question.

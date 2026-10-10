@@ -6,7 +6,7 @@ ECONOMY: boom
 PLACE: the paved dam road between two charge posts, the stretch with no house in sight; a raiding party's tracks have followed the paved road for two map days
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E1 THE ONE ON THE SHOULDER (QR-B)
-CHECKLIST: passes all 30 (lines 3, 9 and 12 are contract lines and read as not applicable to a road event; its three choices stand in for line 9)
+CHECKLIST: passes all 32 (lines 3, 9 and 12 are contract lines and read as not applicable to a road event; its three choices stand in for line 9) (QR-AM 10/10: lines 31 and 32 run, pass as written)
 NOT A REPEAT OF: QD-B01 (act 1, bust, a wounded man on dirt). Here the lure is CARGO in a boom, not a wound, and the road is paved.
 
 ## THE SITUATION

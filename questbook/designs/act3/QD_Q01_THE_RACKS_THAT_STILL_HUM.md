@@ -5,7 +5,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: a dead Network data hall in a business park on the west side, now a salvage yard settlement; the job is two map stops out at a second hall nobody has stripped yet
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 12 is met by choice C.
+CHECKLIST: passes all 32. Line 12 is met by choice C. (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 3, the Network is crumbling and its local halls are going dark one by one. The salvage yard buys the racks for the rocket: good copper, good cooling pumps, good glass. A second hall out past the wash still has power, and the salvagers will not go in because "it is still running". The job: strip it. It pays in parts, which is the late scarcity (QR-Q rule 1). The Amalgamation's threat follows proximity to the secret (`Q085.P7`), so this is a plain job unless the player reads what is on the screens.

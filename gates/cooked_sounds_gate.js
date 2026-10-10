@@ -314,6 +314,7 @@ const MEASURE = `
         bell: look(H.struckMetal(ctx, { what: 'bell' })),
         cracked: look(H.struckMetal(ctx, { what: 'cracked' })),
         pipe: look(H.struckMetal(ctx, { what: 'pipe' })),
+        glass: look(H.struckMetal(ctx, { what: 'glass' })),
         noiseInSource: H.struckMetal.toString().indexOf('noiseInto') >= 0
       };
     } catch (e) { out.strikeErr = String(e && e.message).slice(0,120); }
@@ -854,6 +855,51 @@ const MEASURE = `
     } catch (e) { out.armourerRivetsErr = String(e && e.message).slice(0,160); }
   })();
 
+  /* THE BAR'S GLASS (row [the soundscape], 10/10). canOnWood's own construction, a
+     contact landing summed with a material's own ring, done a second time for a glass
+     set down on the bar's counter instead of a can on the stall's. */
+  (function () {
+    try {
+      const bg = H.barGlassDown(ctx, {});
+      out.barGlassDown = { woodSurface: bg.woodSurface, glassF0: bg.glassF0, seconds: bg.seconds,
+        machineIsEar: !!bg.machine && bg.machine.hi === null };
+    } catch (e) { out.barGlassDownErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* THE BLOCK (row [not sand], the keep/redo list's last eight, 10/10). canOnWood's own
+     construction a third time: a parry is two hard things touching, the same definition
+     the redo list's own criterion already names. */
+  (function () {
+    try {
+      const wb = H.weaponBlock(ctx, {});
+      out.weaponBlock = { woodSurface: wb.woodSurface, edgeF0: wb.edgeF0, seconds: wb.seconds,
+        machineIsEar: !!wb.machine && wb.machine.hi === null };
+    } catch (e) { out.weaponBlockErr = String(e && e.message).slice(0,160); }
+  })();
+
+  /* SOMETHING HERE STILL WORKS (Paolo, direct, 10/10: 'the best sounds of all time... impress
+     me'). struckMetal's bell and powerOnHum are both already proven sounds; what is NEW here
+     is a real sidechain duck, so the claim has to prove the duck actually happens over time,
+     not just that two layers are present. TWO RENDERS AT THE DUCK'S OWN EXTREMES (0 and 0.9)
+     are compared in two windows: right after the strike, where the bell's envelope is near
+     its peak and a duck should make a real difference, and two seconds later, where the
+     bell has mostly decayed and a duck has almost nothing left to grab. */
+  (function () {
+    try {
+      const lf = H.legendaryFind(ctx, {});
+      const bellAlone = H.struckMetal(ctx, { what: 'bell' });
+      const d0 = H.legendaryFind(ctx, { duckAmount: 0 }).buffer.getChannelData(0);
+      const d9 = H.legendaryFind(ctx, { duckAmount: 0.9 }).buffer.getChannelData(0);
+      const rmsDiff = (a1, a2, lo, hi) => { let s = 0, c = 0; for (let i = lo; i < hi && i < a1.length && i < a2.length; i++) { const x = a1[i] - a2[i]; s += x * x; c++; } return c ? Math.sqrt(s / c) : 0; };
+      const earlyLo = 0, earlyHi = Math.round(SR * 0.05);
+      const lateLo = Math.round(SR * 2.0), lateHi = Math.round(SR * 2.2);
+      out.legendaryFind = { bellF0: lf.bellF0, duckAmount: lf.duckAmount, seconds: lf.seconds,
+        machineIsEar: !!lf.machine && lf.machine.hi === null,
+        bellRatiosCount: bellAlone.ratios.length,
+        earlyDiff: rmsDiff(d0, d9, earlyLo, earlyHi), lateDiff: rmsDiff(d0, d9, lateLo, lateHi) };
+    } catch (e) { out.legendaryFindErr = String(e && e.message).slice(0,160); }
+  })();
+
   /* THE BROADCAST (9/24). Three renders, because the questions are about DIFFERENCES:
      a working transmitter, a transmitter nobody has touched in ten years, and the worn
      one with a head that holds speed perfectly. The last is the control for the wobble
@@ -1306,6 +1352,17 @@ const MEASURE = `
           what: 'mutated', f0: 0, seconds: 1, machine: { hi: 5000 } });
         H.armourerRivets = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
           what: 'mutated', f0: 0, strikes: 0, seconds: 1, machine: { hi: 5000 } });
+        /* AND THE BAR'S GLASS (10/10): the same trap a third time, objectSetDown and
+           struckMetal both by closure. */
+        H.barGlassDown = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', glassF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND THE BLOCK (10/10): the same trap a fourth time. */
+        H.weaponBlock = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          woodSurface: 'mutated', edgeF0: 0, seconds: 0, machine: { hi: 5000 } });
+        /* AND SOMETHING HERE STILL WORKS (10/10): struckMetal and powerOnHum both by
+           closure, and the duck itself only exists inside this wrapper. */
+        H.legendaryFind = (ctx, o) => ({ buffer: ctx.createBuffer(1, 1, ctx.sampleRate),
+          bellF0: 0, duckAmount: 0, seconds: 0, machine: { hi: 5000 } });
       });
     }
     d = await p.evaluate(MEASURE);
@@ -1579,10 +1636,10 @@ const MEASURE = `
 
     /* ---- WHAT THIS VALLEY STRIKES ON THE HOUR (9/24) ------------------------ */
     if (d.strike) {
-      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe;
-      claim('THERE IS NO NOISE IN ANY OF THE THREE STRIKES, read off the shipped function',
+      const B = d.strike.bell, C = d.strike.cracked, P = d.strike.pipe, G = d.strike.glass;
+      claim('THERE IS NO NOISE IN ANY OF THE FOUR STRIKES, read off the shipped function',
         d.strike.noiseInSource === false
-          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0,
+          && B.noiseSources === 0 && C.noiseSources === 0 && P.noiseSources === 0 && G.noiseSources === 0,
         'rule 32e: new sounds from real material. A struck metal object is a set of MODES, '
         + 'so there is nothing here for a noise generator to do, and the check is on the '
         + 'code rather than on a spectrum because that is a fact about how it was built');
@@ -1635,9 +1692,37 @@ const MEASURE = `
         + B.stepP999.toFixed(4) + ', ' + C.stepP999.toFixed(4) + ', ' + P.stepP999.toFixed(4)
         + '. The first cut chopped the bell mid-ring with 0.21 rms still going');
       claim('AND NONE OF THEM CLIPS (school rule 8)',
-        B.peak <= 1 && C.peak <= 1 && P.peak <= 1,
+        B.peak <= 1 && C.peak <= 1 && P.peak <= 1 && G.peak <= 1,
         'peaks ' + B.peak.toFixed(4) + ', ' + C.peak.toFixed(4) + ', ' + P.peak.toFixed(4)
-        + ', through a tanh rather than a ceiling');
+        + ', ' + G.peak.toFixed(4) + ', through a tanh rather than a ceiling');
+      /* THE BAR'S GLASS (10/10): a drinking glass's own real character, against the same
+         test that caught the bare-sine false positive on this table once already (a claim
+         that only asks "loud enough" cannot tell a chord from a tone, so the count itself
+         is the claim, exactly as it is for the bell and the pipe above). */
+      claim('AND THE GLASS IS THE ONE ENTRY WITH A SINGLE PARTIAL, which is its own real character',
+        G.ratios.length === 1 && G.partialsDb.length === 1 && G.partialsDb[0] > -3
+          && B.ratios.length > 1 && P.ratios.length > 1,
+        'the bell carries ' + B.ratios.length + ' modes and the pipe ' + P.ratios.length
+        + '; the glass carries ' + G.ratios.length + ', reading ' + G.partialsDb[0]
+        + ' dB under its own loudest bin, which IS its loudest bin -- a struck tumbler\'s '
+        + 'well-known "one clear pitch" against the bell\'s chord and the pipe\'s clangy stack');
+      /* THE FIRST CUT OF THIS CLAIM ASSUMED LOWER DAMPING MEANS A LONGER RING, AND IT IS
+         WRONG: tail = 1/(pi f damp), so PITCH MATTERS AS MUCH AS LOSS. The pipe's own
+         196 Hz fundamental outrings the glass's 650 Hz one even though the glass loses
+         less energy per cycle, because the glass pays that advantage back in cycles per
+         second. A real bar tumbler's clink really is brief, and this is the honest reason
+         why: not fast energy loss, a high pitch. */
+      claim('AND THE GLASS RINGS SHORTER THAN THE PIPE DESPITE LOSING LESS PER CYCLE, because pitch outweighs loss here',
+        G.longestTail < P.longestTail && G.f0 > P.f0,
+        'the glass rings ' + G.longestTail + ' s against the pipe\'s ' + P.longestTail
+        + ' s, even though its damping (0.05%) is below the pipe\'s own 0.08%: tail time is '
+        + '1/(pi f damp), and the glass\'s 650 Hz against the pipe\'s 196 Hz decides it. A '
+        + 'glass really does clink and go quiet fast, and the real reason is its pitch, not '
+        + 'a hidden loss this table never gave it');
+      claim('AND THE GLASS STILL LANDS ON THE BEAT AND NEITHER CLIPS NOR CHOPS',
+        G.peakAtMs < 55 && G.lastSample <= G.stepP999 * 0.05,
+        'loudest instant ' + G.peakAtMs.toFixed(1) + ' ms; last sample ' + G.lastSample.toFixed(6)
+        + ' against its own 99.9th-percentile step of ' + G.stepP999.toFixed(4));
     } else { claim('WHAT THIS VALLEY STRIKES was measured', false, d.strikeErr || 'no reading'); }
 
     /* ---- THE DECK, AND THE FLIP AS A TAPE CHANGING (9/27) -------------------- */
@@ -2102,6 +2187,56 @@ const MEASURE = `
         AR.strikes + ' strikes at ' + AR.f0 + ' Hz, ' + AR.seconds.toFixed(3) + ' s total -- a '
         + 'pneumatic riveter\'s own working cadence, read off the actual render\'s length');
     } else { claim('The armourer\'s rivets were measured', false, d.armourerRivetsErr || 'no reading'); }
+    if (d.barGlassDown) {
+      const BG = d.barGlassDown;
+      claim('THE BAR\'S GLASS IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE GLASS\'S OWN RING',
+        BG.woodSurface === 'boards' && BG.glassF0 === 650 && BG.machineIsEar && BG.seconds > 0,
+        'objectSetDown on ' + BG.woodSurface + ' summed with struckMetal\'s new glass mode at '
+        + BG.glassF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'second real material');
+    } else { claim('The bar\'s glass was measured', false, d.barGlassDownErr || 'no reading'); }
+    if (d.weaponBlock) {
+      const WB = d.weaponBlock;
+      claim('A BLOCK IS TWO MATERIALS TOO, THE WOOD CONTACT AND THE BLADE\'S OWN PIPE MODE',
+        WB.woodSurface === 'boards' && WB.edgeF0 === 1700 && WB.machineIsEar && WB.seconds > 0,
+        'objectSetDown on ' + WB.woodSurface + ' summed with struckMetal\'s pipe mode at '
+        + WB.edgeF0 + ' Hz, read off the actual render -- canOnWood\'s own construction, a '
+        + 'third time, and the only one of the three that needed no new table entry at all');
+      /* THE REDO LIST'S OWN BAR, READ OFF THE SAME GENERIC ROW EVERY OTHER COOKED SOUND
+         GETS (the for-of loop over H.list() above, which calls measure() on every recipe):
+         1% of its energy above 4 kHz, the criterion records/BOHEMIA_THE_KEEP_REDO_LIST_
+         9_24_26.md 3 sets for "two hard things touching," grounded two orders of magnitude
+         over the shelf's 0.273% median and clear of the frozen block id's own 0.289%. */
+      const BR = d.rows && d.rows['sounds-a-block-is-two-things-touching-10-10'];
+      claim('AND THE BLOCK CLEARS THE REDO LIST\'S OWN BAR, WHICH THE FROZEN ID NEVER DID',
+        !!BR && BR.above4k > 0.01,
+        BR ? (100*BR.above4k).toFixed(2) + '% of its energy sits above 4 kHz, against the '
+          + 'redo list\'s own 1% bar and the frozen block id\'s measured 0.289%' : 'no row');
+    } else { claim('The block was measured', false, d.weaponBlockErr || 'no reading'); }
+    if (d.legendaryFind) {
+      const LF = d.legendaryFind;
+      claim('SOMETHING HERE STILL WORKS IS BOTH ALREADY-SHIPPED MATERIALS, NEITHER ONE NEW',
+        LF.bellF0 === 220 && LF.bellRatiosCount === 8 && LF.machineIsEar && LF.seconds > 0,
+        'struckMetal\'s bell at ' + LF.bellF0 + ' Hz, its full 8-partial founder-tuned series '
+        + '-- the same table entry [bb ambience]\'s hourly chime already uses, no new row '
+        + 'added for this -- summed with powerOnHum, also already shipped');
+      /* THE REAL CLAIM: a sidechain duck is a construction nobody in this file has done
+         before, so its own PRESENCE has to be measured, not assumed from reading the
+         code. Two renders at the duck's own extremes (0 and 0.9) are compared in two
+         windows: right at the strike, where ducking should matter, and two seconds later,
+         where the bell has mostly decayed and there is almost nothing left to duck. */
+      claim('AND THE DUCK IS REAL: the two duck settings sound measurably different right at the strike',
+        LF.earlyDiff > 0.02,
+        'two renders at duckAmount 0 and 0.9 differ by ' + LF.earlyDiff.toFixed(4) + ' rms '
+        + 'in the first 50 ms, where the bell\'s own envelope is near its peak and a real '
+        + 'duck has the most hum to pull back');
+      claim('AND THE DUCK LETS GO: the same two settings converge once the bell has decayed',
+        LF.lateDiff < LF.earlyDiff * 0.5,
+        'the same two renders differ by only ' + LF.lateDiff.toFixed(4) + ' rms two seconds '
+        + 'in, ' + (LF.earlyDiff / Math.max(LF.lateDiff, 1e-9)).toFixed(1) + 'x less than at '
+        + 'the strike -- a real envelope follower releases as the thing driving it quiets '
+        + 'down, it does not hold a fixed cut the whole buffer');
+    } else { claim('Something here still works was measured', false, d.legendaryFindErr || 'no reading'); }
 
     /* ---- THE VALLEY STILL BROADCASTS (9/24) ---------------------------------
        DIRECTION's bible rule 9: "THE MACHINES KEEP TALKING... the content never

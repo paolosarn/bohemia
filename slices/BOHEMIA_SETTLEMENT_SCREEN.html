@@ -215,16 +215,6 @@ function drawTraitLooks(s){
         for(var r=0;r<2;r++){ cx.save(); cx.translate(px2 + c.w*.07, y0 + r*c.h*.12); cx.rotate(r ? -.12 : .1);
           cx.fillRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.strokeRect(-c.w*.08, -2.5*s*3, c.w*.16, 5*s*3); cx.restore(); } }
     }
-    if(t.look === 'crowd' && VAR.boxes.stall){
-      var st = box(VAR.boxes.stall), R2 = rng(seedOf(S.place.name + ':crowd')), cols = ['#2b2b2b','#5a3d2b','#3d4a3a','#6e2a20','#8a7a62','#1e2a3a'];
-      for(var q=0;q<12;q++){
-        var ang = R2()*Math.PI*2, rad = .55 + R2()*.6, fx = st.x + st.w/2 + Math.cos(ang)*st.w*rad, fy = st.y + st.h*1.05 + Math.sin(ang)*st.h*.5*rad;
-        var bob = Math.sin(now/500*Math.PI + q) * 0.6, u = Math.max(2, 4*s*3);
-        cx.fillStyle = 'rgba(0,0,0,.35)'; cx.fillRect(fx - u, fy + u*2.2, u*2, u*.6);
-        cx.fillStyle = cols[q % cols.length]; cx.fillRect(fx - u*.8, fy - u*.2 + bob, u*1.6, u*2.4);
-        cx.fillStyle = '#b08a6a'; cx.fillRect(fx - u*.5, fy - u*1.2 + bob, u, u);
-      }
-    }
   });
 }
 
@@ -522,6 +512,9 @@ function buildDoes(e){
   if(e.six) return '+1 ' + (e.six === 'batteries' ? 'battery' : e.six) + '/day';
   return e.guards ? 'keeps out ' + e.guards : 'nothing';
 }
+/* HELD (rule 88, Paolo 10/10: looks first, features hold): Take it shipped 43 minutes after the hold and is switched off
+   in the game until he lifts it; the machinery stays and its gate switches it on to keep it honest. */
+window.BUILD_TAKE_ON = false;
 var BUILD_NO = { NOT_HELD:'This is not our ground. We build where we hold. Take it first.', RUIN:'Nothing stands on a ruin this generation.',
   NO_HOLD:'This is not our ground. We build where we hold. Take it first.', CANNOT_AFFORD:'No battery, nothing goes up.',
   LOT_TAKEN:'Something is already going up there.', KIND_LOCKED:'We do not know how to build that yet.' };
@@ -532,7 +525,12 @@ function buildSheet(body, acts, line){
   if(!LB || !b.site){ body.appendChild(speak('build', 'Nothing to build with.')); body.appendChild(acts); return show(); }
   buildTick();
   if(!buildMine()){
-    body.appendChild(speak('build', line || BUILD_NO.NOT_HELD));
+    /* TAKE THE NEXT PART ([take the next part], rule 43: what you hold grows by taking). Inside the game, one act:
+       go to their gate. The map runs it (one fight there; win and the place is yours, lose and it is a reload). */
+    body.appendChild(speak('build', line || 'This is not our ground. We build where we hold.'));
+    if(window.BUILD_TAKE_ON && buildParent()) acts.appendChild(act('Take it', 'a fight at their gate', function(){
+      post('take', {}); heard('You go to their gate.');
+    }));
     body.appendChild(acts); return show();
   }
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
@@ -623,6 +621,54 @@ function pan(cxPic){
   cxPic = Math.max(half, Math.min(picW() - half, cxPic));
   view.cx = cxPic; view.ox = Math.round(view.W/2 - cxPic*view.s);
 }
+/* THE PEOPLE OF THE PLACE (RUN TWO [the finished pictures in], 10/10): ANIMATION's idle people
+   (slices/settlement_people, the 112 rig in the runway clothes, nine clips on the 120 beat) stand in
+   the painted picture at its own scale (settlement_people.json scale.draw_frame_at): a keeper at each
+   building's door step doing his building's clip, and a crowd by the stall whose size the place's
+   traits set (market day fills it, raided or sick empties it, night thins it). */
+var FOLK = null, FOLK_IM = {};
+fetch('settlement_people/settlement_people.json').then(function(r){ return r.json(); }).then(function(j){ FOLK = j;
+  Object.keys(j.looks).forEach(function(k){ var im = new Image(); im.src = 'settlement_people/' + j.looks[k].file; FOLK_IM[k] = im; }); }).catch(function(){});
+var KEEPER_CLIP = {hall:'beckon', board:'look', stall:'trade', bar:'lean', arms:'trade', smith:'trade', armourer:'wait', barber:'smoke', clinic:'wait', lot:'scratch'};
+var CROWD_BASE = {camp:2, town:5, fortress:4};
+var CROWD_CLIPS = ['wait','look','smoke','greet','scratch','lean'];
+function crowdCount(){
+  var n = CROWD_BASE[S.place.tier] || 3, tr = (S.traits||[]).map(function(t){ return t.id; });
+  if(tr.indexOf('market_day') >= 0) n += 6;
+  if(tr.indexOf('raided') >= 0) n = Math.min(n, 1);
+  if(tr.indexOf('sickness') >= 0) n = Math.min(n, 1);
+  if(view.night) n = Math.ceil(n/2);
+  return n;
+}
+function folkList(){
+  if(!FOLK || !VAR) return [];
+  var key = S.place.name + ':' + S.place.tier + ':' + view.night + ':' + (S.traits||[]).map(function(t){ return t.id; }).join(',');
+  if(VAR.folkKey === key) return VAR.folk;
+  var R = rng(seedOf(S.place.name + ':folk')), looks = Object.keys(FOLK.looks), out = [];
+  var cast = looks.filter(function(l){ return FOLK.looks[l].kind === 'cast'; }); if(!cast.length) cast = looks;
+  ORDER.forEach(function(k, i){ var b = VAR.boxes[k]; if(!b || k === 'lot' || k === 'build') return;
+    out.push({k:k, keeper:true, look:cast[Math.floor(R()*cast.length)], clip:KEEPER_CLIP[k] || 'wait', face:FOLK.rows[i % 3],
+      x:(b[0]+b[2])/2 + (R()-.5)*(b[2]-b[0])*.3, y:b[3] - 2, ph:R()}); });
+  var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
+  for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
+    out.push({crowd:true, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
+      x:(st[0]+st[2])/2 + Math.cos(ang)*(st[2]-st[0])*rad*.8, y:Math.min(picH()-4, st[3] + 6 + Math.abs(Math.sin(ang))*22*rad), ph:R()}); }
+  out.sort(function(a, c){ return a.y - c.y; });
+  VAR.folkKey = key; VAR.folk = out; return out;
+}
+function drawPeople(s){
+  var L = folkList(); if(!L.length) return;
+  var F = FOLK.frame, at = FOLK.scale.draw_frame_at, now = performance.now(), d = at*s;
+  L.forEach(function(p){
+    var im = FOLK_IM[p.look], c = FOLK.clips[p.clip] || FOLK.clips.wait; if(!im || !im.complete || !im.naturalWidth) return;
+    var prog = ((now/(c.beats*500)) + p.ph) % 1, col = FOLK.cols.indexOf(c.cols[Math.floor(prog*c.cols.length)]), row = FOLK.rows.indexOf(p.face);
+    if(col < 0 || row < 0) return;
+    var x = view.ox + p.x*s - d/2, y = view.oy + p.y*s - d*(FOLK.figure_bbox[1]+FOLK.figure_bbox[3])/F;
+    cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(view.ox + p.x*s, view.oy + p.y*s, d*.16, d*.05, 0, 0, 7); cx.fill();
+    cx.drawImage(im, col*F, row*F, F, F, Math.round(x), Math.round(y), Math.round(d), Math.round(d));
+  });
+}
+
 function draw(){
   var dpr = window.devicePixelRatio||1, W = view.W, H = view.H;
   if(W < 40 || H < 40) return;
@@ -638,6 +684,8 @@ function draw(){
   cx.fillStyle = 'rgba(14,10,7,.78)'; cx.fillRect(0,0,W,H);
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
   drawTraitLooks(s);
+  try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
+  try{ drawPeople(s); }catch(e){}
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
   cx.fillStyle = gt; cx.fillRect(0, view.oy, W, fe);
@@ -990,7 +1038,7 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

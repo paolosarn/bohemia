@@ -5,7 +5,7 @@ CRISIS: none (act 1); the whisper broadcast (act 2); the rocket (act 3)
 ECONOMY: either
 PLACE: act 1, a street market under an overpass; act 2, a pump house on the dam road; act 3, the rocket yards' loudspeakers
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 30. Line 15 is the point: the landing is sound AND a picture (the singer's face on a mural).
+CHECKLIST: passes all 32. Line 15 is the point: the landing is sound AND a picture (the singer's face on a mural). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 A song passed across three acts. In act 1 a road event: a street singer at the overpass market is being robbed of her speaker by a crew. In act 2 her song is the pump crews' work song (or it is not). In act 3 it is what the rocket yards play at shift change (or something else is). Cheap to build: one tune, three reads.

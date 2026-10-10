@@ -7,7 +7,7 @@ PLACE: offered at the chapel town's clinic; the job runs to the tower offices; t
 SITUATION: a cure hoarded: the tower offices hold the pattern file for a printed kidney and sell it to the towers only -> the family's base gets a print room, and the room writes its own board (a queue, then an escort job, then a raid)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 30
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
 BUILD: the HAND-IN BUILDS. The nurse's people build the print room on the family's lot; the room is the pay.
 
 ## THE SITUATION

@@ -5,7 +5,7 @@ CRISIS: the whisper broadcast
 ECONOMY: boom
 PLACE: a reclaimed row of stucco townhouses in Paradise, every window lit but one (PL02, THE DARK WINDOW)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (breaker, the share board, or the knock), 12 (the look through the window), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 9 (breaker, the share board, or the knock), 12 (the look through the window), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 
 ## THE SITUATION
 Act 2, the world clawing back: brownouts, not darkness, and most blocks buy their breaker share. The

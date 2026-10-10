@@ -123,6 +123,12 @@ function cut(src) {
     + '   #stage{flex:1}, so hiding the bar hands the game the whole screen.\n'
     + '   The single RUN tab stays in the DOM because the splash clicks it. */\n'
     + '#tabs{display:none !important}\n'
+    + '/* A FRESH PHONE SEES THE DOOR (RUN 10/9): the title is built when the page has finished parsing, about a\n'
+    + '   second in here and longer on a phone; until it is, the door shows nothing of its own (no splash, no\n'
+    + '   picks), only its dark ground, so the first thing a stranger sees is the title. The shell marks the door\n'
+    + '   .titled the moment the title exists (or is skipped); the delayed reveal is the belt if it never does. */\n'
+    + '#front:not(.titled)>*{visibility:hidden;animation:demoColdDoor 0s linear 8s forwards}\n'
+    + '@keyframes demoColdDoor{to{visibility:visible}}\n'
     + '</style>\n';
   src = src.replace(HEAD, style + HEAD);
 

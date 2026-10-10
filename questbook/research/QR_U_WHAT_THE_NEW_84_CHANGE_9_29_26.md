@@ -493,7 +493,7 @@ person. `Q236.N1` says no hidden jobs; these are not jobs. The quiet person is a
 on a job's ground, never an offer screen that opens itself.
 
 SHARPEN P12 (the first silent choice). `Q235.P1` describes the first errand as a neighbour's small grounded task in
-the family's first place. Under round five (the next generation unlocks at the first home base) that neighbour's
+the family's first place. Under round five (the next generation unlocked at the first home base; since rule 85 it unlocks when the first endgame crisis starts, around day 80 to 100) that neighbour's
 offer is the first offer screen in the family home base, and it is about the ruin (QR-F).
 
 ### QR-Q: WHAT ACT THREE NEEDS

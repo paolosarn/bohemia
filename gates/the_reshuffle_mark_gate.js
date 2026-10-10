@@ -1,4 +1,4 @@
-/* THE RESHUFFLE MARK  (UI lane 11, [glass face], 10/9/26)
+/* THE RESHUFFLE MARK  (UI lane 11, [glass face], 10/9/26; THE ARROW DIED 10/10, it says AGAIN)
 
    RUN 9/28 left it in a code comment: 'Whoever wants a real reroll arrow adds it to the ROM face; UI [glass face]'.
    The reshuffle on each family face (rule 32d, [three names]) became a '?', because the phone's ROM face has no
@@ -39,7 +39,7 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
     if (a) {
       const q = a.getBoundingClientRect(), cs = getComputedStyle(a), be = getComputedStyle(a, '::before');
       out.afr = { x: ox + q.left, y: oy + q.top, w: q.width, h: q.height, top: q.top, inCard: q.left >= r.left && q.right <= r.right && q.bottom <= r.bottom,
-        underFace: q.top >= cv.bottom, img: be.content !== 'none' && /url\(/.test(be.backgroundImage) && parseFloat(be.width) >= 10, fontPx: parseFloat(cs.fontSize), ink: cs.color };
+        underFace: q.top >= cv.bottom, img: be.content === '"AGAIN"' && !/url\(/.test(be.backgroundImage), word: be.content, wordFam: be.fontFamily.split(',')[0].replace(/["']/g, ''), fontPx: parseFloat(cs.fontSize), ink: cs.color };
       /* the flip's own part of the card: from the card's top down to the reshuffle */
       out.flip = { w: r.width, h: q.top - r.top };
     }
@@ -48,7 +48,8 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
   const tiles = await read();
   const rs = tiles.filter(t => t.afr);
   ok('THE FAMILY IS ON THE PHONE WITH ITS RESHUFFLES', tiles.length === 3 && rs.length >= 1, tiles.map(t => t.name + (t.afr ? ' +reshuffle' : '')).join(', '));
-  ok('EVERY RESHUFFLE WEARS THE DRAWN RING, NOT A LETTER', rs.length > 0 && rs.every(t => t.afr.img), rs.map(t => t.name + ' ' + t.afr.img).join(', '));
+  /* THE ARROW DIED (Paolo 10/10, the seventh votes: 'hell no'): the strip says AGAIN, stamped, and draws no arrow */
+  ok('EVERY RESHUFFLE SAYS AGAIN, STAMPED, AND DRAWS NO ARROW', rs.length > 0 && rs.every(t => t.afr.img && t.afr.wordFam === 'BohemiaCasing'), rs.map(t => t.name + ' ' + t.afr.word + ' ' + t.afr.wordFam).join(', '));
   ok('  and no \'?\' is painted (the letter stays for a screen reader at no size, see-through)', rs.every(t => t.afr.fontPx === 0 || /, 0\)$|transparent/.test(t.afr.ink)),
      rs.map(t => t.afr.fontPx + 'px ' + t.afr.ink).join(', '));
 
@@ -62,7 +63,7 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
     const CR = (x, y) => (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05), SUN = q => q.map(v => v + (255 - v) * 0.25);
     return boxes.map(b => {
       const cx = b.x + b.w / 2, cy = b.y + b.h / 2;
-      const d = g.getImageData(Math.round((cx - 6) * sc), Math.round((cy - 6) * sc), Math.round(12 * sc), Math.round(12 * sc)).data;
+      const d = g.getImageData(Math.round((cx - 15) * sc), Math.round((cy - 5) * sc), Math.round(30 * sc), Math.round(10 * sc)).data;   /* the word's own box */
       const S = []; for (let i = 0; i < d.length; i += 4) S.push([d[i], d[i + 1], d[i + 2]]);
       S.sort((p, q) => LUM(...p) - LUM(...q));
       const ink = S[Math.floor(S.length * 0.95)], bg = S[Math.floor(S.length * 0.3)];
@@ -70,7 +71,7 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
       return { plain: +CR(LUM(...ink), LUM(...bg)).toFixed(2), sun: +CR(LUM(...SUN(ink)), LUM(...SUN(bg))).toFixed(2), lit: +lit.toFixed(2) };
     });
   }, { png, boxes: rs.map(t => t.afr) });
-  ok('THE RING IS PAINTED, LIGHT ON THE GLASS, 4.5 TO 1 PLAIN AND IN THE SUN', cr.length > 0 && cr.every(c => c.lit > 0.15 && c.plain >= 4.5 && c.sun >= 4.5),
+  ok('THE WORD IS PAINTED, LIGHT ON THE GLASS, 4.5 TO 1 PLAIN AND IN THE SUN', cr.length > 0 && cr.every(c => c.lit > 0.08 && c.plain >= 4.5 && c.sun >= 4.5),
      cr.map(c => c.plain + '/' + c.sun + ' lit ' + c.lit).join(', '));
   ok('THE RESHUFFLE IS 24 POINTS AT LEAST, INSIDE ITS CARD, UNDER THE FACE', rs.every(t => t.afr.h >= 24 && t.afr.w >= 24 && t.afr.inCard && t.afr.underFace),
      rs.map(t => Math.round(t.afr.w) + 'x' + Math.round(t.afr.h) + (t.afr.underFace ? '' : ' ON THE FACE')).join(', '));

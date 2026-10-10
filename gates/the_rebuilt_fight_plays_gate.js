@@ -15,11 +15,13 @@ const fs = require('fs');
 const path = require('path');
 const { open } = require('../tools/bohemia_drive_the_demo.js');
 const ROOT = path.resolve(__dirname, '..');
+/* PROOF SHOTS GO TO A SCRATCH FOLDER UNLESS ASKED (PLUMBER 10/9, [proof shots churn]): `--shoot` or BOHEMIA_SHOOT=1 writes the VOTE picture */
+const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js'));
 const BB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/rules.json'), 'utf8'));
 const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8'));
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
-const shot = n => path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + '_10_2.jpg');
+const shot = n => proofShot(path.join(ROOT, 'slices/vote/COMBAT_THE_FIGHT_REBUILT_' + n + '_10_2.jpg'));
 /* phone-size jpegs: the published site is already over its cap, so a gate's pictures stay small */
 const SHOT = { scale: 'css', type: 'jpeg', quality: 72 };
 const FIGHTS = [{ board: 'suburb', seed: 5, taps: true }, { board: 'scrub', seed: 9, taps: false }];
@@ -726,7 +728,145 @@ async function turnPace() {
   await d.close();
 }
 
+/* STRUCK DOWN (Paolo's fifth votes, flat 20%; third votes, the main character never dies; the wiki's Permanent Injuries):
+   a thousand struck-down rolls on a hire land 17 to 23 percent dead; a thousand on the main character, never; every man who
+   lives carries one of the wiki's permanent injuries for the days he is laid up; the recap says so and so does the fight's
+   message home; GROK_115's injury sheet is in injuries.json. And rule 73a's day rim: by day every man is drawn with a dark
+   one-pixel edge round his silhouette. */
+/* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
+   the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
+   pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* THE HEAD UNDER THE STRIP (rule 88): every step and swing a man makes ends with his whole box, head to feet, on the glass
+   between the turn strip and the bar, on four screens, AUTO driving a whole fight on the beat; and the fight never stalls
+   behind a camera that cannot frame a man (the computer froze in round one: the follow glided at a man the clamp could not
+   centre, forever) */
+async function actFramed() {
+  const rows = [];
+  for (const profile of ['phone_portrait', 'phone_landscape', 'tablet', 'computer']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:11,speed:4,kind:"strip",deploy:false};window.__hd=[];' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.evaluate(() => { FIGHT_UI.auto = true; let cur = null;
+      const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
+        const tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near, feet = sy((y0 + .9) * FIGHT_UI.th), head = feet - tall, x = sx((x0 + .5) * FIGHT_UI.tw);
+        window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2 }); };
+      const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { look(cur); cur = null; } if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
+      requestAnimationFrame(loop); });
+    await d.page.waitForTimeout(30000);
+    const r = await d.page.evaluate(() => ({ n: __hd.length, bad: __hd.filter(h => h.off || h.cut).length }));
+    r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  leg(rows.every(r => r.n >= 40 && r.bad === 0 && !r.err),
+    '*** THE HEAD UNDER THE STRIP (rule 88) ***: every step and swing ends with the whole man on the glass, never under the strip or the bar, and the fight never stalls behind the camera (the computer froze; the flipped phone cut 26 of 56 acts)',
+    rows.map(r => r.profile + ' ' + r.bad + ' of ' + r.n).join(', '));
+}
+
+/* THE FLIPPED PHONE'S LOOK (rule 88): nothing of the bar lies on the men. On a wide glass the hint sits in the strip beside
+   the faces, never over a man's box; on every screen the strip's tape ends at its last face (it was stretched over the
+   whole width, a smear over the shop fronts) */
+async function flippedLook() {
+  const rows = [];
+  for (const profile of ['phone_landscape', 'tablet', 'computer', 'phone_portrait']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round && document.getElementById('say').textContent, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1500);
+    const r = await d.page.evaluate(() => { const e = document.getElementById('say').getBoundingClientRect(), o = document.getElementById('order').getBoundingClientRect();
+      const faces = Array.from(document.querySelectorAll('#order canvas')).map(c => c.getBoundingClientRect().right), tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near;
+      const over = FIGHT.S.units.filter(FIGHT.onField).filter(u => { const x = sx((u.x + .5) * FIGHT_UI.tw), y = sy((u.y + .9) * FIGHT_UI.th);
+        return x + tall / 4 > e.left && x - tall / 4 < e.right && y > e.top && y - tall < e.bottom && y > TOPH && y - tall < H - BOTH; }).length;
+      return { over, inStrip: document.getElementById('say').classList.contains('instrip'), sayBottom: e.bottom, top: TOPH, tape: o.right - Math.max(...faces) }; });
+    r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  const wide = rows.filter(r => r.profile !== 'phone_portrait');
+  leg(wide.every(r => r.inStrip && r.sayBottom <= r.top + 2 && r.over === 0 && !r.err),
+    '*** THE FLIPPED PHONE\'S LOOK (rule 88) ***: on a wide glass the hint sits in the strip beside the faces and never on a man',
+    wide.map(r => r.profile + ' ' + (r.inStrip ? 'in the strip' : 'on the board') + ', ' + r.over + ' men under it').join('; '));
+  leg(rows.every(r => r.tape <= 8), '  the strip\'s tape ends at its last face on every screen (it was stretched over the whole glass)',
+    rows.map(r => r.profile + ' ' + Math.round(r.tape) + ' pt past the last face').join(', '));
+}
+
+async function artPixels() {
+  const at = async (profile, night) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false,night:' + night + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(2500);
+    const run = () => new Promise(res => { const U = FIGHT_UI, G = DB.ground, B = FIGHT.S.boardDef, bt = G.block_tiles, tp = G.tile_px;
+      U.glide = null; U.openUntil = 1e12; U.zoom = U.near; U.groundOnly = true;
+      const edges = (px, w, h) => { let n = 0, e = 0; const L = i => .3 * px[i] + .59 * px[i + 1] + .11 * px[i + 2];
+        for (let y = 0; y < h; y++) for (let x = 0; x + 1 < w; x++) { const i = (y * w + x) * 4; n++; if (Math.abs(L(i) - L(i + 4)) > 24) e++; } return e / n; };
+      const measure = () => { const tx = Math.floor(wx(W / 2) / U.tw), ty = Math.floor(wy(TOPH + (H - TOPH - BOTH) / 2) / U.th),
+          ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0, bx = Math.floor((tx + ox) / bt), by = Math.floor((ty + oy) / bt),
+          im = U.imgs['fight_ground/' + G.blocks[B.blocks[by][bx]].src], pad = 6,
+          gx = Math.round(sx(tx * U.tw) * DPR) + pad, gy = Math.round(sy(ty * U.th) * DPR) + pad,
+          gw = Math.round(U.tw * U.zoom * DPR) - pad * 2, gh = Math.round(U.th * U.zoom * DPR) - pad * 2;
+        const glass = cx.getImageData(gx, gy, gw, gh).data;
+        const c = document.createElement('canvas'); c.width = tp[0] - pad * 2; c.height = tp[1] - pad * 2;
+        c.getContext('2d').drawImage(im, -(((tx + ox) % bt) * tp[0] + pad), -(((ty + oy) % bt) * tp[1] + pad));
+        const file = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
+        return { glass: edges(glass, gw, gh), file: edges(file, c.width, c.height), mode: U.groundMode, artPerGlass: U.tw * U.zoom * DPR / tp[0] }; };
+      requestAnimationFrame(() => requestAnimationFrame(() => { const now = measure(); U.bakedOnly = true;
+        requestAnimationFrame(() => requestAnimationFrame(() => { const was = measure(); U.bakedOnly = false; U.groundOnly = false; U.fps = 0;
+          const t0 = performance.now(); let n = 0; U.groundOnly = false;
+          const f = () => { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(f); else res({ now, was, fps: n / 1.5, draws: U.gdraws }); }; requestAnimationFrame(f); })); })); });
+    const r = await d.page.evaluate(run); r.err = d.errs[0]; await d.close(); return r;
+  };
+  const day = await at('phone_portrait', false), night = await at('phone_portrait', true), wide = await at('computer', false);
+  const ratio = r => r.now.glass / r.now.file, f = v => v.toFixed(3);
+  leg(day.now.mode === 'one to one' && Math.abs(day.now.artPerGlass - 1) < .005,
+    '*** THE ART AT ITS OWN PIXELS ***: on a phone (three device pixels a point) at the man\'s stop, one art pixel lands on one device pixel',
+    day.now.mode + ', ' + day.now.artPerGlass.toFixed(3) + ' art px per device px');
+  leg(ratio(day) >= .8 && ratio(day) <= 1.2, '  a tile\'s edges on the glass are within a fifth of its edges in the file (FIGHT VERDICT 22 measured 0.002 against 0.038)',
+    'glass ' + f(day.now.glass) + ' vs file ' + f(day.now.file) + ' = ' + Math.round(100 * ratio(day)) + '% (the baked board gave ' + f(day.was.glass) + ' = ' + Math.round(100 * day.was.glass / day.was.file) + '%)');
+  leg(ratio(night) >= .5 && night.fps >= 50 && day.fps >= 50 && !day.err && !night.err,
+    '  by night too (the night\'s colour costs it some edges, never the art), and the phone holds 60 frames: the ground is drawn once per camera move, not every frame',
+    'night ' + Math.round(100 * ratio(night)) + '%, ' + Math.round(day.fps) + ' fps day, ' + Math.round(night.fps) + ' fps night, ' + night.draws + ' ground draws');
+  leg(wide.now.mode !== 'baked' && wide.now.glass >= .95 * wide.was.glass && !wide.err, '  on a computer the ground is drawn from the art too, never softer than the bake',
+    wide.now.mode + ', glass ' + f(wide.now.glass) + ' vs baked ' + f(wide.was.glass));
+}
+
+async function struckDown() {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",deploy:false}' });
+  await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+  await d.page.waitForTimeout(1500);
+  const r = await d.page.evaluate(() => {
+    const S = FIGHT.S, T = FIGHT._t, hire = S.units.find(u => u.side === 'you' && !u.main), main = S.units.find(u => u.main);
+    const keep = S.units.map(u => [u, u.morale, u.dead, u.down, u.hp]);
+    const roll = (u) => { u.dead = false; u.down = false; u.hp = 1; u.longInjury = null; u.laidUp = 0; S.events = []; T.fall(u, null); return { dead: u.dead, down: u.down, inj: u.longInjury, days: u.laidUp }; };
+    let dead = 0, mainDead = 0, injured = 0, days = [], ids = {};
+    for (let i = 0; i < 1000; i++) { const o = roll(hire); if (o.dead) dead++; else if (o.inj) { injured++; days.push(o.days); ids[o.inj.id] = 1; } }
+    for (let i = 0; i < 1000; i++) { const o = roll(main); if (o.dead) mainDead++; }
+    const perm = DB.injuries.rows.filter(j => j.kind === 'permanent').map(j => j.id);
+    roll(hire); let tries = 0; while (hire.dead && tries++ < 50) roll(hire);
+    keep.forEach(k => { if (k[0] !== hire) { k[0].morale = k[1]; k[0].dead = k[2]; k[0].down = k[3]; k[0].hp = k[4]; } });
+    /* the recap and the message home */
+    S.over = true; S.result = 'lost'; showOver('lost'); const sent = homeMessage('lost');
+    const recap = document.getElementById('over').innerText;
+    /* the day rim: pixels outside his silhouette that the rim fills, and how dark they are */
+    const img = atlasOf(hire), day = dayAtlas(img), w = 112, h = 112;
+    const a = document.createElement('canvas'); a.width = w; a.height = h; const ag = a.getContext('2d'); ag.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+    const b = document.createElement('canvas'); b.width = w; b.height = h; const bg = b.getContext('2d'); bg.drawImage(day, 0, 0, w, h, 0, 0, w, h);
+    const A = ag.getImageData(0, 0, w, h).data, B = bg.getImageData(0, 0, w, h).data; let rim = 0, darkRim = 0;
+    for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim++; if (.3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1] < 40) darkRim++; }
+    return { dead, mainDead, injured, perm, ids: Object.keys(ids), dMin: Math.min(...days), dMax: Math.max(...days), range: R('ours.struck_down_laid_up_days'),
+      hire: { name: hire.name, inj: hire.longInjury && hire.longInjury.name, days: hire.laidUp }, recap, sent: sent && sent.crew && sent.crew.find(c => c.name === hire.name), rim, darkRim };
+  });
+  leg(r.dead >= 170 && r.dead <= 230 && r.mainDead === 0, '*** STRUCK DOWN: A THOUSAND ROLLS, 17 TO 23 PERCENT DEAD; THE MAIN CHARACTER NEVER *** (his fifth votes and his third)', r.dead / 10 + '% of a hire, ' + r.mainDead + ' of a thousand for the main character');
+  leg(r.injured === 1000 - r.dead && r.ids.every(x => r.perm.indexOf(x) >= 0) && r.ids.length >= 8 && r.dMin >= r.range[0] && r.dMax <= r.range[1],
+    'every man who lives carries one of the wiki\'s permanent injuries (each as likely), laid up 30 to 40 days', r.ids.length + ' of the ' + r.perm.length + ' drawn, ' + r.dMin + ' to ' + r.dMax + ' days');
+  leg(r.hire.inj && r.recap.toUpperCase().indexOf(r.hire.inj.toUpperCase()) >= 0 && r.recap.indexOf('LAID UP ' + r.hire.days + ' DAYS') >= 0 && r.sent && r.sent.injury && r.sent.injury.name === r.hire.inj && r.sent.laidUpDays === r.hire.days,
+    'the recap names his injury and his days, and the message home carries them for the roster\'s pain line', r.hire.name + ': ' + r.hire.inj + ', ' + r.hire.days + ' days' + (r.sent && r.sent.injury ? ' (' + r.sent.injury.line + ')' : ''));
+  const INJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/injuries.json'), 'utf8')), mul = INJ.rules.temporary_threshold_formula.multipliers;
+  const temp = INJ.rows.filter(j => j.kind === 'temporary'), withT = temp.filter(j => j.threshold_pct_of_max_hp !== null).length;
+  leg(mul.inflict_injury_threshold_multiplier_crippling_strikes.value === 0.66 && mul.receive_injury_threshold_multiplier_iron_jaw.value === 1.25 && mul.bonus_head_hit.value === 1.25 && INJ.rules.temporary_base_conditions.min_damage_hitpoints === 10 && withT >= temp.length - 2,
+    'Grok\'s injury sheet (GROK_115) is in injuries.json: 10 health at least, the threshold per injury, Crippling Strikes 0.66, Iron Jaw 1.25, a head hit 1.25', withT + ' of ' + temp.length + ' temporary injuries carry a threshold (the other two come only from events)');
+  leg(r.rim > 40 && r.darkRim / r.rim > 0.9 && !d.errs.length, '*** THE DAY RIM (rule 73a) ***: by day a man is drawn with a dark one-pixel edge round his silhouette, the way a figure reads on a bright glass', r.rim + ' rim pixels in his idle frame, ' + Math.round(100 * r.darkRim / Math.max(1, r.rim)) + '% dark');
+  await d.close();
+}
+
 (async () => {
+  await actFramed();
+  await flippedLook();
+  await artPixels();
+  await struckDown();
   await turnPace();
   await boardFits();
   await enemyParts();

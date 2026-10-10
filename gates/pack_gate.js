@@ -1,406 +1,193 @@
-/* BOHEMIA PACK GATE (8/30/26, PEOPLE lane) -- ALIVE-2, tier 2.
- *
- * *** THE PACK DOES NOT WANT TO FIGHT YOU. IT WANTS THE THING. *** Every claim
- * below is that sentence checked from a different side, and every number in it
- * came out of a study rather than out of a difficulty setting.
- *
- * THE BACKLOG ROW SAID "pack AI that flanks and breaks off", WHICH IS A WOLF.
- * A city dog forages singly most of the time, forms "random uncorrelated
- * groups", cooperates LESS than a wild canid, holds ranges that "overlap
- * substantially" with other packs, and fights that "rarely result in lethal
- * aggression". So this gate checks that the dogs are dogs and not wolves.
- *
- * THE NUMBER THAT INVERTS THE CONVENTION, Edmonton, 1,598 patrols: coyotes
- * "retreated immediately from 22 (96%) of the hazing events". ONE IN
- * TWENTY-THREE DID NOT BACK DOWN. That is the encounter, and section C measures
- * it over thousands of groups rather than asserting it.
- *
- * PROVES:
- *   A  two kinds, and their SOCIALITY is opposite in code, not in a comment:
- *      dogs common and close together, coyotes rare and far apart
- *   B  three states that are actually different, not one state with a bigger
- *      number on it
- *   C  the assert: about 96 in 100 back down, and AT A DEN NOT ONE DOES
- *   D  THE ALLEY: a pack will not follow you into a narrow place, and it will
- *      not be found living in one either
- *   E  the den is a PLACE that gets looked for, not a leftover of a search for
- *      something else (the first cut of this returned zero dens over 60 seeds)
- *   F  determinism: the pack you met yesterday is the pack you meet today
- *   G  NO DAMAGE BEFORE THE DIAL: not one health, damage or armour number, and
- *      the den's contents ship EMPTY because who died is his
- *   H  the coats are WEIGHTED, because a list is not a distribution
- *   I  ON THE REAL SURFACE: it is in the city, it draws, and nothing throws
- *   J  and it prints what this tier cannot do
- *
- *   node gates/pack_gate.js
- */
+/* ============================================================================
+   THE PACKS ARE THE BAR -- A FIGHT BOARD AND A SETTLEMENT PICTURE ARE CUT FROM HIS APPROVED PACKS
+   (PLUMBER 10/10/26, row [the pack gate]; rule 82a)
+
+   PAOLO 10/10: "the cars is an asset we downloaded; a lot of the original street tiles and sidewalks we
+   downloaded; look again." Rule 82a: every tile, prop, car, street, sidewalk, kerb, marking, lamp and
+   house skin on a fight board and a settlement picture comes FROM the approved corpus (the purchased HD
+   packs he judged in July, and the pools and banks cut from them), never cooked fresh; the 7/27 shopping
+   law (records/BOHEMIA_APPROVED_ASSET_INDEX_7_27_26.md) "was never read for the fight: measured 10/10, no
+   COMBAT TWO tool reads the repo, the set, the tiles or the props."
+   The corpus is tools/bohemia_pack_corpus.js (the index's table plus rule 82a's list, as data).
+
+   WHAT COUNTS AS PROOF. A picture is FROM THE PACKS when a manifest beside it names it and lists the
+   approved tiles it was cut from, every one resolving in the corpus: the shape COOK TWO's first kit
+   already writes (slices/fight_ground/kit_street/kit_street.json: pieces[name] = { src, keys: [[pool,
+   index], ...] }). Keys may also be {pack, idx} (UP in the confirmed set) or {bank, pool?, idx}; a piece
+   that is drawn by hand on purpose says so in "exception" with its reason. A manifest is any .json in the
+   picture's own folder.
+
+   LEGS
+     S1-S6  planted: a manifest whose keys resolve covers its pictures; a key past the end of its pool, a
+            pool no bank has and a pack tile he judged DOWN are caught; an "exception" with a reason covers;
+            a ground cook tool that names no bank is caught, and one that reads the street pools is not.
+     C1     the corpus is on disk: every bank in tools/bohemia_pack_corpus.js exists (the art bank folder
+            is COOK's to make and is reported until it does).
+     K1     no NEW cook tool writes into slices/fight_ground/, slices/settlement_ground/ or slices/settlement/
+            without naming the corpus. Tools from before the law are DEBT in gates/pack_gate_baseline.txt,
+            which may only shrink.
+     M1     every manifest key resolves to an approved tile (a wrong key is never debt).
+     P1     no NEW picture in those folders ships without a manifest covering it. Pictures from before the
+            law are DEBT in the same baseline, which may only shrink as COOK TWO and COOK FOUR re-cut them.
+   MEASURED 10/10 (at landing): see the record, records/BOHEMIA_THE_PACKS_ARE_THE_BAR_10_10_26.md.
+   node gates/pack_gate.js            node gates/pack_gate.js --baseline   (writes the debt list; PLUMBER only)
+   ========================================================================== */
 'use strict';
-var fs = require('fs');
-var path = require('path');
-var ROOT = path.dirname(__dirname);
-process.chdir(ROOT);
+const fs = require('fs');
+const path = require('path');
+const ROOT = path.join(__dirname, '..');
+const { CORPUS, corpusNames, resolveKey } = require(path.join(ROOT, 'tools/bohemia_pack_corpus.js'));
 
-var pass = 0, fail = 0;
-function ok(name, cond, detail) {
-  if (typeof cond === 'string') throw new Error('GATE BUG: ok() got a STRING as its condition.');
-  if (cond) { pass++; console.log('  ok   ' + name + (detail ? '   ' + detail : '')); }
-  else { fail++; console.log('  FAIL ' + name + (detail ? '   ' + detail : '')); }
+/* the ground folders, found rather than listed: COOK FOUR's first re-cut landed in a new folder,
+   slices/settlement_ground_packs/, the round this gate was written. The people folders are not ground. */
+const DIRS = (() => { try { return fs.readdirSync(path.join(ROOT, 'slices'), { withFileTypes: true })
+  .filter(e => e.isDirectory() && (/^(fight_ground|settlement_ground)/.test(e.name) || e.name === 'settlement'))
+  .map(e => 'slices/' + e.name); } catch (e) { return ['slices/fight_ground', 'slices/settlement_ground', 'slices/settlement']; } })();
+const PIC = /\.(png|jpe?g|webp|gif)$/i;
+const BASELINE = path.join(ROOT, 'gates/pack_gate_baseline.txt');
+
+let pass = 0, fail = 0;
+const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }
+  else { fail++; console.log('  FAIL ' + n + (why ? '\n         ' + why : '')); } };
+
+/* ---- the measures, as functions so the planted cases run the same code ---------------- */
+function walk(dir) {
+  const out = []; let ents = [];
+  try { ents = fs.readdirSync(dir, { withFileTypes: true }); } catch (e) { return out; }
+  for (const e of ents) { const p = path.join(dir, e.name); if (e.isDirectory()) out.push(...walk(p)); else out.push(p); }
+  return out;
 }
-function head(s) { console.log('\n' + s); }
-
-var P = require(path.join(ROOT, 'engine/bohemia_packs.js'));
-var SRC = fs.readFileSync(path.join(ROOT, 'engine/bohemia_packs.js'), 'utf8');
-
-/* THE GROUND THE CLAIMS ARE MEASURED ON. A spread of openness rather than two
- * values, because the first harness for this used a probe with exactly two
- * openness numbers in it and could not have detected a den if one existed.
- * A HARNESS THAT CANNOT PRODUCE THE THING IT IS LOOKING FOR IS NOT A HARNESS. */
-function city(opts) {
-  opts = opts || {};
-  var alleyAt = opts.alleyAt == null ? 30 : opts.alleyAt;
-  return function (x, y) {
-    if (x < 0 || y < 0 || x > 6000 || y > 6000) return null;
-    var alley = (x % 97 >= alleyAt && x % 97 <= alleyAt + 2);
-    var o = alley ? 6 : 10 + ((x * 7 + y * 13) % 15);      /* 10..24 */
-    return { walk: true, open: o, edge: ((x + y) % 5 === 0), food: ((x * 13 + y * 7) % 11 === 0) };
-  };
-}
-var probe = city();
-function sweep(seeds, fn) {
-  for (var s = 1; s <= seeds; s++) {
-    P.near({ seed: s, at: [2000, 2000], radius: 60, probe: probe }).forEach(fn);
+/* every manifest piece in a folder tree: { pic (absolute), keys, exception, manifest } */
+function pieces(files) {
+  const out = [];
+  /* A FOLDER-WIDE LIST (COOK FOUR's PACK_TILES_USED.txt): a first line that says what it is, then one pack tile a
+     line as "<pack>#<idx>". It covers every picture in its own folder when every tile on it is UP. Coarser than a
+     manifest per picture, and honest: it names the tiles and the gate checks each one. */
+  for (const f of files.filter(x => /PACK_TILES_USED\.txt$/.test(x))) {
+    const keys = fs.readFileSync(f, 'utf8').split('\n').slice(1).map(l => l.trim()).filter(Boolean)
+      .map(l => { const m = /^(.*)#(\d+)$/.exec(l); return m ? { pack: m[1], idx: +m[2] } : { line: l }; });
+    for (const pic of files.filter(x => PIC.test(x) && path.dirname(x) === path.dirname(f)))
+      out.push({ pic, keys, exception: null, manifest: f });
   }
-}
-
-head('A. TWO ANIMALS, AND THEIR SOCIALITY IS THE OPPOSITE OF EACH OTHER');
-var dogs = P.kindFor('dogs'), coys = P.kindFor('coyotes');
-ok('there are exactly two kinds and they are the two canids', P.KINDS.length === 2 && !!dogs && !!coys);
-/* "territories overlap substantially" against "very little overlap" */
-ok('*** COYOTES ARE SPACED FAR FURTHER APART THAN DOGS ***',
-  coys.spacing >= dogs.spacing * 4,
-  'dogs every ' + dogs.spacing + ' cells, coyotes every ' + coys.spacing);
-var nD = 0, nC = 0, nDen = 0, nDenC = 0;
-sweep(300, function (p) {
-  if (p.kind === 'dogs') nD++; else nC++;
-  if (p.den) { nDen++; if (p.kind === 'coyotes') nDenC++; }
-});
-ok('*** AND SO YOU MEET DOGS OFTEN AND COYOTES SELDOM, WITHOUT A RARITY DIAL ***',
-  nD > nC * 8 && nC > 0, nD + ' dog groups against ' + nC + ' coyote groups over 300 seeds');
-/* a group of 2 to 6 adults, which is the low end of the 2-15 that was observed
- * and the five-to-six an urban coyote group actually runs */
-var sizesOk = true;
-sweep(60, function (p) { if (p.count < 2 || p.count > 6) sizesOk = false; });
-ok('every group is between two and six adults', sizesOk);
-
-head('B. THREE STATES, AND THEY ARE ACTUALLY DIFFERENT');
-var one = null;
-sweep(40, function (p) { if (!one && p.kind === 'dogs') one = p; });
-ok('there is a group to look at', !!one);
-var far = P.stateOf(one, [one.at[0] + one.noticeAt + 5, one.at[1]]);
-var mid = P.stateOf(one, [one.at[0] + one.warnAt + 2, one.at[1]]);
-var close = P.stateOf(one, [one.at[0] + 1, one.at[1]]);
-ok('*** FAR: SETTLED. NEARER: IT HAS SEEN YOU. CLOSE: IT IS WARNING YOU ***',
-  far === 'settled' && mid === 'notice' && close === 'warn',
-  far + ' -> ' + mid + ' -> ' + close);
-ok('the three are three different words, not one word with a number on it',
-  new Set([far, mid, close]).size === 3);
-/* the coyote sees you a long way off, because it is in the open and it is the
- * animal that would rather be somewhere you are not */
-ok('the coyote notices you far further out than a dog does', coys.notice > dogs.notice * 2,
-  'coyote ' + coys.notice + ' cells, dog ' + dogs.notice);
-
-head('C. YOU PUSH AND IT DECIDES, AND ONE IN TWENTY-THREE DOES NOT BACK DOWN');
-var back = 0, hold = 0, denBack = 0, denHold = 0;
-for (var s = 1; s <= 4000; s++) {
-  P.near({ seed: s, at: [2000, 2000], radius: 60, probe: probe }).forEach(function (p) {
-    var r = P.assert(p);
-    if (p.den) { if (r === 'holds') denHold++; else denBack++; }
-    else if (r === 'backs-off') back++; else hold++;
-  });
-}
-var rate = back / (back + hold);
-ok('*** ABOUT 96 IN 100 BACK DOWN, WHICH IS THE MEASURED 22 OF 23 ***',
-  rate > 0.93 && rate < 0.98, (rate * 100).toFixed(1) + '% over ' + (back + hold) + ' groups');
-ok('*** AND SOME OF THEM DO NOT, SO PUSHING IS A REAL DECISION ***', hold > 0,
-  hold + ' groups held their ground');
-ok('*** AT A DEN, NOT ONE BACKS DOWN ***', denHold > 0 && denBack === 0,
-  denHold + ' den groups, ' + denBack + ' of them backed down');
-
-head('D. THE ALLEY, WHICH IS THE WHOLE TACTICAL LAYER');
-var ringOpen = P.ring(one, [2000, 2000], probe);
-var ax = 2000 - (2000 % 97) + 31;                    /* a cell inside the alley */
-var ringAlley = P.ring(one, [ax, 2000], probe);
-ok('in the open, the pack has cells to take around you', ringOpen.length > 0,
-  ringOpen.length + ' cells');
-ok('*** AND IT WILL NOT FOLLOW YOU INTO A NARROW PLACE ***', ringAlley.length === 0,
-  'the ring is ' + ringAlley.length + ' cells wide in the alley');
-ok('the ring never puts more animals down than there are in the group',
-  ringOpen.length <= one.count);
-var inAlley = false;
-sweep(120, function (p) { var g = probe(p.at[0], p.at[1]); if (g && g.open < P.CORRIDOR) inAlley = true; });
-ok('and no pack LIVES in one either, so the rule is one number both ways', !inAlley);
-
-head('E. A DEN IS LOOKED FOR, NOT LEFT OVER');
-/* THE FIRST CUT OF THIS RETURNED ZERO DENS OVER SIXTY SEEDS. It searched for
- * any legal spot and then asked whether that spot happened to be den ground,
- * and ordinary open ground won every search. A FEATURE THAT ONLY HAPPENS WHEN A
- * SEARCH FOR SOMETHING ELSE LANDS ON IT BY ACCIDENT IS NOT A FEATURE. */
-ok('*** DENS EXIST AT ALL ***', nDen > 0, nDen + ' den groups over 300 seeds');
-ok('and they are a minority, not the normal case', nDen < (nD + nC) * 0.4,
-  (100 * nDen / (nD + nC)).toFixed(1) + '% of groups');
-/* "human disturbance did not affect the choice of den sites in free-ranging
- * dogs", and coyotes avoid us: one flag, two behaviours */
-ok('a coyote will not den on our rubbish and a dog will not care',
-  P.denGround({ walk: true, open: 12, edge: true, food: true }, dogs) === true &&
-  P.denGround({ walk: true, open: 12, edge: true, food: true }, coys) === false);
-ok('a den is under something, never out in the open',
-  P.denGround({ walk: true, open: 24, edge: true, food: false }, dogs) === false);
-ok('and it needs something solid to be under',
-  P.denGround({ walk: true, open: 12, edge: false, food: false }, dogs) === false);
-
-head('F. THE SAME PLACE IS THE SAME PACK');
-var a = JSON.stringify(P.near({ seed: 9, at: [2000, 2000], radius: 60, probe: probe }));
-var b = JSON.stringify(P.near({ seed: 9, at: [2000, 2000], radius: 60, probe: probe }));
-ok('two reads of the same corner give the same groups', a === b && a.length > 2);
-var c1 = JSON.stringify(P.near({ seed: 10, at: [2000, 2000], radius: 60, probe: probe }));
-ok('and a different valley gives different ones', a !== c1);
-/* a pack that blinks in and out on the hour is a spawner, not a resident */
-var h1 = P.near({ seed: 9, at: [2000, 2000], radius: 60, probe: probe, minute: 2 * 60 });
-var h2 = P.near({ seed: 9, at: [2000, 2000], radius: 60, probe: probe, minute: 14 * 60 });
-ok('*** AND IT LIVES THERE: IT DOES NOT BLINK IN AND OUT ON THE HOUR ***',
-  JSON.stringify(h1) === JSON.stringify(h2));
-
-head('G. NO DAMAGE BEFORE THE DIAL, AND THE DEN IS EMPTY');
-/* THE RULER BROKE FIRST AND IT BROKE FLATTERINGLY. Its first cut skipped a
- * line only when THAT LINE started with a comment mark, so every line in the
- * middle of the module's own header block -- the one that says "there is not
- * one health, damage or armour number on this page" -- counted as code, and the
- * gate went red over its own sentence. A COMMENT IS A BLOCK, NOT A LINE.
- * So the comments are stripped before anything is grepped, which is the only
- * way to ask this question of the code rather than of the prose. */
-/* AND THEN IT BROKE A SECOND TIME, THE SAME WAY ONE LEVEL DOWN: with the
- * comments gone it flagged the module's own CANNOT string, the sentence that
- * says out loud "nothing here does damage and nothing here has health". Both
- * cuts were asking "does the word appear", and the claim is "IS THERE A DAMAGE
- * NUMBER". A word is not a number. So the strings go too, and what is grepped
- * for is a FIELD OR AN ASSIGNMENT -- hp:, damage =, armour: -- which is the
- * only shape a damage dial can actually take. */
-var CODE = SRC.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '')
-              .replace(/'[^'\n]*'/g, "''").replace(/"[^"\n]*"/g, '""');
-var banned = /\b(hp|health|damage|dmg|armou?r|attackPower|hitPoints)\s*[:=]/i;
-var offending = CODE.split('\n').filter(function (L) { return banned.test(L); });
-ok('*** NOT ONE DAMAGE OR HEALTH NUMBER IN THE MODULE ***', offending.length === 0,
-  offending.slice(0, 2).join(' | '));
-ok('assert can only answer backs-off or holds, never attacks',
-  ['backs-off', 'holds'].indexOf(P.assert(one)) >= 0);
-/* MECHANISM MINE, CONTENTS HIS: who died and what was in their pockets is canon */
-ok('*** WHAT A DEN HOLDS SHIPS EMPTY, BECAUSE WHO DIED IS HIS ***',
-  Array.isArray(P.DEN_HOLDS) && P.DEN_HOLDS.length === 0);
-
-head('H. THE COATS ARE WEIGHTED, BECAUSE A LIST IS NOT A DISTRIBUTION');
-var cnt = {};
-for (var x = 0; x < 500; x++) for (var i = 0; i < 4; i++) {
-  var id = P.coatFor({ kind: 'dogs', at: [x, x * 3] }, i);
-  cnt[id] = (cnt[id] || 0) + 1;
-}
-var tot = Object.keys(cnt).reduce(function (a, k) { return a + cnt[k]; }, 0);
-var shares = Object.keys(cnt).sort().map(function (k) {
-  return k + ' ' + (100 * cnt[k] / tot).toFixed(0) + '%'; });
-ok('three street dogs and all three turn up', Object.keys(cnt).length === 3, shares.join(', '));
-/* uniform over three would be 33% each: this must NOT be that */
-ok('*** AND THEY ARE NOT UNIFORM: THE COMMON DOG IS COMMON ***',
-  cnt.dogsandy / tot > 0.45 && cnt.dogpale / tot < 0.25);
-/* REUSE-FIRST: tier 1 already cooked a coyote and this tier uses that one */
-ok('*** THE COYOTE REUSES THE SPRITE TIER 1 ALREADY COOKED ***',
-  P.COATS.coyotes.length === 1 && P.COATS.coyotes[0].id === 'coyote' &&
-  /coyote/.test(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_WILDLIFE_SPRITES.js'), 'utf8')));
-var bank = fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_WILDLIFE_SPRITES.js'), 'utf8');
-ok('and the three dogs were actually cooked into the bank',
-  /dogsandy/.test(bank) && /dogblack/.test(bank) && /dogpale/.test(bank));
-
-head('K. NOTHING HERE IS AN ORGAN NOTHING CALLS');
-/* *** ORGAN REACH CAUGHT THIS FEATURE WITH ITS HEADLINE DEAD. *** packAssert()
-   was defined and never called, so the player could not push a pack and the
-   22-in-23 finding the whole tier is built on had no way to happen; and
-   BohemiaPacks.ring was never called, so the alley rule ran nowhere. THE
-   MECHANISM EXISTED AND NOTHING COULD REACH IT -- the invisible-hats shape, in
-   the same turn as a record about the invisible-hats shape. So this tier now
-   asks the question of itself, close to the code, instead of waiting for a
-   whole-repo sweep to notice. */
-var CITY = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8');
-var exported = ['near', 'stateOf', 'assert', 'ring', 'coatFor', 'lineFor', 'hash'];
-var unreached = exported.filter(function (fn) {
-  return CITY.indexOf('BohemiaPacks.' + fn) < 0;
-});
-ok('*** EVERY FUNCTION THIS MODULE EXPORTS IS CALLED BY THE GAME ***',
-  unreached.length === 0,
-  unreached.length ? 'NOBODY CALLS: ' + unreached.join(', ') : exported.join(', '));
-/* and the two the city defines for itself */
-['packPass', 'packAssert', 'packButton'].forEach(function (fn) {
-  var calls = CITY.split(fn + '(').length - 1;   /* one is the definition */
-  ok(fn + ' is called, not just defined', calls >= 2, calls + ' occurrences');
-});
-
-head('J. WHAT THIS TIER CANNOT DO, SAID OUT LOUD');
-ok('it prints its own limits rather than implying them', P.CANNOT.length >= 3);
-P.CANNOT.forEach(function (c) { console.log('       - ' + c); });
-
-/* ---------------------------------------------------------------------------
-   I. ON THE REAL SURFACE. A side-door probe is a lie (7/18).
-   --------------------------------------------------------------------------- */
-function requirePlaywright() {
-  for (var i = 0, g = ['/opt/node22/lib/node_modules', '/usr/lib/node_modules', '/usr/local/lib/node_modules']; i < g.length; i++) {
-    try { return require(path.join(g[i], 'playwright')); } catch (_e) {}
+  for (const f of files.filter(x => /\.json$/i.test(x))) {
+    let d; try { d = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { continue; }
+    const seen = [];
+    (function visit(o, depth) {
+      if (!o || typeof o !== 'object' || depth > 6) return;
+      if (typeof o.src === 'string' && PIC.test(o.src) && (Array.isArray(o.keys) || typeof o.exception === 'string')) {
+        seen.push({ pic: path.resolve(path.dirname(f), o.src), keys: Array.isArray(o.keys) ? o.keys : [], exception: o.exception || null, manifest: f });
+        return; }
+      for (const k in o) visit(o[k], depth + 1);
+    })(d, 0);
+    out.push(...seen);
   }
-  return require('playwright');
+  return out;
 }
-var SETTLE = require(__dirname + '/bohemia_settle.js').settle;
-var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+/* a tool that writes ground pictures: it names one of the folders and writes a file */
+const WRITES = /\.save\(|writeFileSync|imwrite|toFile\(|open\([^)]*['"]wb?['"]/;
+/* the folders by their own names, never the bare word: "settlement" is in half the city's patch tools */
+const GROUND = /fight_ground|settlement_ground|slices\/settlement\/|['"]slices['"]\s*,\s*['"]settlement['"]/;
+/* A GROUND COOK TOOL: the row's words, "a cook tool under tools/ that writes a street, sidewalk, kerb, car or
+   prop". By its name (cook, factory, a pack or kit maker), it names a ground folder, and it saves pictures.
+   A line-by-line "where does the output go" test was tried first and missed 17 of the board cooks, which
+   build their paths from a shared constant; the verdict and glare tools that only READ the boards carry no
+   cook name. */
+const COOKNAME = /cook|factory|_pack_|_kit_/i;
+const IMAGE_SAVE = /\.save\(|toBuffer\(|imwrite|writeFileSync\([^)]*(png|webp|jpe?g)/i;
+function groundTool(src, file) { return COOKNAME.test(path.basename(file || '')) && GROUND.test(src) && IMAGE_SAVE.test(src); }
+const NAMES = corpusNames();
+function readsCorpus(src) { return NAMES.some(n => src.includes(n)); }
 
-(async function () {
-  var browser = null;
-  try {
-    browser = await requirePlaywright().chromium.launch({ args: ['--no-sandbox'] });
-    var page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    var errs = [];
-    page.on('pageerror', function (e) { errs.push(String(e.message).slice(0, 140)); });
-    await page.goto('file://' + path.join(ROOT, 'slices/BOHEMIA_DEMO.html'));
-    await SETTLE(page, 15000);
-    await page.evaluate(function () {
-      var f = document.getElementById('fronttap') || document.getElementById('front');
-      if (f) f.click(); });
-    await SETTLE(page, 12000);
-    await wait(3000);
-    var fr = page.frames().filter(function (x) { return /BOHEMIA_CITY_WORLD/.test(x.url()); })[0];
-
-    head('I. ON THE GLASS, WALKED');
-    ok('the demo opens and the city is in it', !!fr);
-    if (!fr) throw new Error('no city frame');
-
-    var m = await fr.evaluate(function () {
-      var o = { hasMod: typeof BohemiaPacks !== 'undefined',
-                hasPass: typeof packPass === 'function' };
-      for (var q = 0; q < 6; q++) {
-        var gb = document.querySelector('#daycardIn .dcgo'); if (gb) gb.click(); }
-      try { cardHide(); } catch (e) {}
-      T.min = 10 * 60; try { DAY.min = 10 * 60; } catch (e) {}
-      o.steps = null;
-      for (var st = 1; st <= 600; st++) {
-        hx += 1; if (st % 20 === 19) hy += 1;
-        try { render(); } catch (e) { o.threw = String(e.message).slice(0, 90); break; }
-        if (typeof PACK_DREW !== 'undefined' && PACK_DREW && PACK_DREW.length) {
-          o.steps = st; o.saw = PACK_DREW[0].kind; o.count = PACK_DREW[0].count;
-          o.spot = PACK_DREW[0].at.slice(); break;
-        }
-      }
-      if (o.spot) {
-        function stateFrom(dx, dy) {
-          hx = o.spot[0] + dx; hy = o.spot[1] + dy;
-          try { render(); } catch (e) {}
-          var w0 = (PACK_DREW || []).filter(function (w) {
-            return w.at[0] === o.spot[0] && w.at[1] === o.spot[1]; })[0];
-          return w0 ? w0.state : 'offscreen';
-        }
-        /* *** DISTANCES THE CAMERA CAN ACTUALLY CONTAIN. *** The first cut read
-           20 and 10 cells, which on a 378x785 canvas at 44 pixel tiles is off
-           the top of the screen, so it came back 'offscreen' twice and the
-           claim PASSED anyway because 'offscreen' is not equal to 'warn'.
-           A CLAIM THAT PASSES ON A FAILED MEASUREMENT IS NOT A CLAIM -- the
-           same broken shape tier 1 had two days ago, in a gate I wrote after
-           fixing it there. So it walks the whole ladder and records every
-           state, and 'offscreen' is now a FAILURE rather than an answer. */
-        o.ladder = [];
-        for (var d = 9; d >= 1; d--) o.ladder.push(d + ':' + stateFrom(0, d));
-        o.far = stateFrom(0, 8);
-        o.mid = stateFrom(0, 5);
-        o.near = stateFrom(0, 2);
-        /* THE BUTTON. It must be ABSENT when nothing is warning you and PRESENT
-           when something is, because a control that is always there is another
-           bullshit button and a control that is never there is a dead organ. */
-        function disp(id) {
-          var e = document.getElementById(id);
-          return e ? getComputedStyle(e).display : 'NO ELEMENT';
-        }
-        stateFrom(0, 8);  o.btnFar = disp('packbtn');
-        stateFrom(0, 2);  o.btnNear = disp('packbtn');
-        o.warnLine = (document.getElementById('packline') || {}).textContent || '';
-        /* NINE POINTS, INSET BY THE CORNER RADIUS, plus a box-overlap test.
-           A CONTROL IS REACHABLE WHEN EVERY PART OF IT IS, NOT WHEN ITS MIDDLE
-           HAPPENS TO BE -- the first placement passed on its middle row while
-           its top row sat under the caption and its bottom row under STANDING.
-           The exact corners of a rounded button are outside the shape ON
-           PURPOSE, so sampling them measures border-radius, not reach. */
-        o.reach = (function () {
-          var e = document.getElementById('packbtn');
-          if (!e) return 'NO ELEMENT';
-          var r = e.getBoundingClientRect();
-          if (!r.width) return 'ZERO SIZE';
-          var pad = (parseFloat(getComputedStyle(e).borderRadius) || 0) + 1, bad = [];
-          for (var iy = 0; iy < 3; iy++) for (var ix = 0; ix < 3; ix++) {
-            var x = r.left + pad + (r.width - 2 * pad) * ix / 2;
-            var y = r.top + pad + (r.height - 2 * pad) * iy / 2;
-            var t = document.elementFromPoint(x, y);
-            if (!t || !(t === e || e.contains(t))) bad.push(ix + ',' + iy);
-          }
-          var hits = [];
-          ['note', 'sleepbtn', 'rungbtn', 'mktbtn', 'bikebtn', 'fitbtn', 'footing', 'packline']
-            .forEach(function (id) {
-              var o2 = document.getElementById(id);
-              if (!o2 || o2 === e || getComputedStyle(o2).display === 'none') return;
-              var q = o2.getBoundingClientRect();
-              if (r.left < q.right && q.left < r.right && r.top < q.bottom && q.top < r.bottom) hits.push(id);
-            });
-          var pd = document.querySelector('#pad,#dpad,.pad');
-          if (pd) { var q2 = pd.getBoundingClientRect();
-            if (r.left < q2.right && q2.left < r.right && r.top < q2.bottom && q2.top < r.bottom) hits.push('dpad'); }
-          return (bad.length ? 'BLOCKED ' + bad.join(' ') : 'ok9')
-               + (hits.length ? ' OVERLAPS ' + hits.join(',') : '');
-        })();
-        /* AND PRESSING IT DOES THE THING. */
-        var bt = document.getElementById('packbtn');
-        if (bt) bt.click();
-        try { render(); } catch (e) {}
-        o.afterLine = (document.getElementById('packline') || {}).textContent || '';
-        o.left = (typeof PACK_LEFT !== 'undefined') ? Object.keys(PACK_LEFT).length : -1;
-        o.btnAfter = disp('packbtn');
-      }
-      return o;
-    });
-
-    ok('the pack module is in the city', m.hasMod && m.hasPass);
-    ok('nothing threw while walking', !m.threw, m.threw || '');
-    ok('*** A PACK TURNS UP ON A WALK ***', m.steps !== null,
-      m.steps + ' steps to ' + m.count + ' ' + m.saw);
-    /* THE STATES ON THE GLASS, not in a unit test: it has to change as you
-       approach or the whole feature is a static sprite. And every reading has
-       to be a STATE -- an 'offscreen' anywhere in the ladder means the gate did
-       not see the thing it is making a claim about. */
-    ok('the pack is on the glass at every step of the walk in',
-      !!m.ladder && m.ladder.filter(function (r) { return /offscreen/.test(r); }).length === 0,
-      (m.ladder || []).join('  '));
-    ok('*** SETTLED FAR OFF, HEADS UP CLOSER, POSTURING WHEN YOU ARE ON THEM ***',
-      m.far === 'settled' && m.mid === 'notice' && m.near === 'warn',
-      '8 cells: ' + m.far + '  |  5: ' + m.mid + '  |  2: ' + m.near);
-    ok('*** THE BUTTON IS NOT THERE UNTIL SOMETHING IS WARNING YOU ***',
-      m.btnFar === 'none' && m.btnNear === 'block',
-      '8 cells: ' + m.btnFar + '  |  2 cells: ' + m.btnNear);
-    ok('*** AND EVERY PART OF IT IS REACHABLE, NOT JUST ITS MIDDLE ***',
-      m.reach === 'ok9', String(m.reach));
-    ok('it says what is in front of you before you press it', !!m.warnLine, m.warnLine);
-    ok('*** PRESSING IT RESOLVES THE STANDOFF ON THE REAL SURFACE ***',
-      !!m.afterLine && m.afterLine !== m.warnLine, m.warnLine + '  ->  ' + m.afterLine);
-    ok('and a pack that backed off is remembered as gone',
-      m.left >= 0, m.left + ' group(s) left');
-    ok('nothing threw on the page', errs.length === 0, errs.slice(0, 2).join(' | '));
-    await page.close();
-  } catch (e) {
-    fail++;
-    console.log('  FAIL the real surface threw   ' + String(e && e.message).slice(0, 200));
-  } finally {
-    if (browser) try { await browser.close(); } catch (_e) {}
+function judge(rootDir, toolsDir) {
+  const dirs = (() => { try { return fs.readdirSync(path.join(rootDir, 'slices'), { withFileTypes: true })
+    .filter(e => e.isDirectory() && (/^(fight_ground|settlement_ground)/.test(e.name) || e.name === 'settlement'))
+    .map(e => 'slices/' + e.name); } catch (e) { return DIRS; } })();
+  const files = [].concat(...dirs.map(d => walk(path.join(rootDir, d))));
+  const pics = files.filter(f => PIC.test(f));
+  const P = pieces(files);
+  const cover = new Map(), badKeys = [];
+  for (const p of P) {
+    const bad = p.keys.map(k => [k, resolveKey(k)]).filter(([, r]) => !r.ok);
+    for (const [k, r] of bad) badKeys.push(path.relative(rootDir, p.manifest) + ': ' + JSON.stringify(k) + ' (' + r.why + ')');
+    if (!bad.length && (p.keys.length || p.exception)) cover.set(p.pic, p);
   }
+  const uncovered = pics.filter(f => !cover.has(f)).map(f => path.relative(rootDir, f));
+  const tools = [];
+  for (const f of walk(toolsDir).filter(x => /\.(py|js)$/.test(x))) {
+    const src = fs.readFileSync(f, 'utf8');
+    if (groundTool(src, f) && !readsCorpus(src)) tools.push(path.relative(rootDir, f));
+  }
+  return { pics, covered: pics.length - uncovered.length, uncovered, badKeys, tools, exceptions: P.filter(p => p.exception).length };
+}
 
-  console.log('\n' + (fail ? 'PACK GATE: ' + fail + ' FAILED, ' + pass + ' ok'
-    : 'PACK GATE: ' + pass + ' ok, 0 failed'));
-  process.exit(fail ? 1 : 0);
-})();
+/* ---- --baseline: the debt the day the law landed ----------------------------------------- */
+const J = judge(ROOT, path.join(ROOT, 'tools'));
+if (process.argv.includes('--baseline')) {
+  fs.writeFileSync(BASELINE, ['# THE PACK GATE\'S DEBT (PLUMBER, row [the pack gate], rule 82a, written ' + new Date().toISOString().slice(0, 10) + ').',
+    '# Ground pictures with no pack manifest, and ground cook tools that never read the corpus, from before the law.',
+    '# It may only SHRINK: a line comes off when COOK TWO or COOK FOUR re-cut the picture from the packs with a manifest,',
+    '# or the tool reads the corpus, or either is deleted. A new line is a red in gates/pack_gate.js, never an edit here.',
+    ...J.tools.map(t => 'tool ' + t), ...J.uncovered.map(p => 'picture ' + p)].join('\n') + '\n');
+  console.log('wrote ' + path.relative(ROOT, BASELINE) + ': ' + J.tools.length + ' tools, ' + J.uncovered.length + ' pictures');
+  process.exit(0);
+}
+
+console.log('='.repeat(74));
+console.log('THE PACKS ARE THE BAR: fight boards and settlement pictures cut from his approved packs (rule 82a)');
+console.log('='.repeat(74));
+
+/* ---- S: planted ---------------------------------------------------------------------- */
+const os = require('os');
+const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'packgate-'));
+try {
+  const put = (rel, s) => { const p = path.join(tmp, rel); fs.mkdirSync(path.dirname(p), { recursive: true }); fs.writeFileSync(p, s); };
+  put('slices/fight_ground/kit/a.webp', 'x'); put('slices/fight_ground/kit/b.webp', 'x'); put('slices/fight_ground/kit/c.webp', 'x');
+  put('slices/fight_ground/kit/d.webp', 'x'); put('slices/fight_ground/kit/e.webp', 'x'); put('slices/fight_ground/loose.webp', 'x');
+  put('slices/fight_ground/kit/kit.json', JSON.stringify({ pieces: {
+    a: { src: 'a.webp', keys: [['street', 0], ['side', 3]] },
+    b: { src: 'b.webp', keys: [['street', 999]] },
+    c: { src: 'c.webp', keys: [['moonrock', 1]] },
+    d: { src: 'd.webp', keys: [{ pack: '1. Cobblestone floor tiles', idx: 999999 }] },
+    e: { src: 'e.webp', exception: 'the paint line, drawn from the pool tile\'s own measured colour' } } }));
+  put('slices/settlement_ground_x/p.webp', 'x'); put('slices/settlement_ground_x/q.webp', 'x');
+  put('slices/settlement_ground_x/PACK_TILES_USED.txt', '2 distinct approved pack tiles\n1. Cobblestone floor tiles#0\n1. Cobblestone floor tiles#1\n');
+  put('tools/cook_bad.py', "img.save(os.path.join(R, 'slices/fight_ground/x.webp'))\n");
+  put('tools/verdict_reader.py', "a = Image.open(os.path.join(ROOT, 'slices/fight_ground', n + '.webp'))\nsheet.save('slices/vote/V.png')\n");
+  put('tools/cook_good.py', "pools = json.load(open('banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt'))\nimg.save(os.path.join(R, 'slices/fight_ground/y.webp'))\n");
+  const T = judge(tmp, path.join(tmp, 'tools'));
+  const un = new Set(T.uncovered.map(p => path.basename(p)));
+  ok('S1 a manifest whose keys resolve covers its picture (a.webp)', !un.has('a.webp'), JSON.stringify(T));
+  ok('S2 a key past the end of its pool is caught (b.webp)', un.has('b.webp') && T.badKeys.some(b => /street#999/.test(b)));
+  ok('S3 a pool no approved bank has is caught (c.webp)', un.has('c.webp') && T.badKeys.some(b => /moonrock/.test(b)));
+  ok('S4 a pack tile he did not judge UP is caught (d.webp)', un.has('d.webp') && T.badKeys.some(b => /not UP/.test(b)));
+  ok('S5 a hand-drawn piece that says why is covered (e.webp), and a picture with no manifest is not (loose.webp)', !un.has('e.webp') && un.has('loose.webp'));
+  ok('S5b a folder-wide list of UP pack tiles (COOK FOUR\'s shape) covers its folder\'s pictures (p.webp, q.webp)', !un.has('p.webp') && !un.has('q.webp'));
+  ok('S6 a ground cook tool that names no bank is caught; one that reads the street pools, and one that only reads the boards, are not (' + T.tools.join(', ') + ')',
+     T.tools.length === 1 && /cook_bad\.py$/.test(T.tools[0]));
+} finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+
+/* ---- C1: the corpus is on disk --------------------------------------------------------- */
+const missing = CORPUS.filter(c => !fs.existsSync(path.join(ROOT, c.file)));
+ok('C1 every approved bank the corpus names is on disk (' + (CORPUS.length - missing.length) + ' of ' + CORPUS.length + ')',
+   missing.every(c => c.dir), missing.filter(c => !c.dir).map(c => c.file).join(', '));
+if (missing.some(c => c.dir)) console.log('  note: ' + missing.filter(c => c.dir).map(c => c.file).join(', ') + ' is not made yet (COOK [the pack is the twin] extracts the corpus to PNG by family there)');
+
+/* ---- the debt ------------------------------------------------------------------------- */
+let base = [];
+try { base = fs.readFileSync(BASELINE, 'utf8').split('\n').filter(l => l && !l.startsWith('#')); } catch (e) {}
+const baseTools = new Set(base.filter(l => l.startsWith('tool ')).map(l => l.slice(5)));
+const basePics = new Set(base.filter(l => l.startsWith('picture ')).map(l => l.slice(8)));
+const newTools = J.tools.filter(t => !baseTools.has(t)), newPics = J.uncovered.filter(p => !basePics.has(p));
+console.log('  ' + J.pics.length + ' ground pictures: ' + J.covered + ' cut from the packs with a manifest (' + J.exceptions + ' hand-drawn pieces with a reason), '
+  + J.uncovered.length + ' without; ' + J.tools.length + ' ground cook tools that name no bank');
+
+ok('K1 no NEW ground cook tool skips the corpus (' + J.tools.length + ' skip it today, ' + baseTools.size + ' on the debt list from before the law)', !newTools.length,
+   newTools.join(', ') + '\n         read the corpus: tools/bohemia_pack_corpus.js lists every approved bank (rule 82a; the 7/27 shopping law).');
+ok('M1 every manifest key names an approved tile (' + J.badKeys.length + ' wrong)', !J.badKeys.length, J.badKeys.slice(0, 10).join('\n         '));
+ok('P1 no NEW ground picture ships without a pack manifest (' + J.uncovered.length + ' without one today, ' + basePics.size + ' on the debt list from before the law)', !newPics.length,
+   newPics.slice(0, 12).join(', ') + '\n         cut it from the packs and write a manifest beside it: { src, keys: [[pool, index], ...] } (COOK TWO\'s kit_street.json is the shape).');
+const paid = [...basePics].filter(p => !J.uncovered.includes(p)).length + [...baseTools].filter(t => !J.tools.includes(t)).length;
+if (paid) console.log('  NOTE: ' + paid + ' debt line(s) are paid (re-cut from the packs, or gone). Take them off gates/pack_gate_baseline.txt to lock the win in.');
+
+console.log('\n=== THE PACKS ARE THE BAR: ' + pass + ' passed, ' + fail + ' failed ===');
+process.exit(fail ? 1 : 0);

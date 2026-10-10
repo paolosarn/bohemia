@@ -82,12 +82,11 @@
            '100000111001', '100000000001', '100000000001', '010000000010', '001000000100', '000111111000'],
     auto: ['000011111000', '000100000110', '001000000111', '010000001111', '010000000000', '100000000000',
            '000000000001', '000000000010', '111100000010', '111000000100', '011000001000', '000111110000'],
-    /* THE RESHUFFLE (UI [glass face], 10/9): a ring two pixels thick, open at the top right where the arrowhead
-       sits, the turn the name takes when you ask for another. The ROM face has no circular arrow, so it is drawn */
-    again: ['000111100110', '001111111110', '011000011110', '110000011110', '110000000000', '110000000011',
-            '110000000011', '110000000011', '011000000110', '001111111100', '000111111000', '000000000000'],
-    /* A JOB'S DANGER (UI [phone contracts], 10/9): the skull the settlement's board counts, drawn, because the phone's
-       ROM face has no skull glyph */
+    /* (the reshuffle's ring arrow, 10/9, is deleted: Paolo 10/10 'hell no'; the strip says AGAIN) */
+    /* A TALENT STAR (UI [the roster and the posts look], 10/10): Battle Brothers' stars beside a stat, drawn, because
+       the game's faces have no star and the glyph fell through to a system font */
+    star: ['000001100000', '000001100000', '000011110000', '000011110000', '111111111111', '011111111110',
+           '001111111100', '000111111000', '001111111100', '001110011100', '011100001110', '011000000110'],
     skull: ['000000000000', '000111111000', '001111111100', '011111111110', '011001100110', '011001100110',
             '011111111110', '001110011100', '000111111000', '000101101000', '000111111000', '000000000000']
   };
@@ -652,7 +651,8 @@
     + 'html body #actflip .af:has(.afr){padding-bottom:31px}'
     + 'html body #actflip .af .afr{top:auto;left:3px;right:3px;bottom:3px;width:auto;height:24px;box-sizing:border-box;border:1px solid #0d0a07;border-radius:2px;'
     +   'font-size:0;color:transparent;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.18)}'
-    + 'html body #actflip .af .afr::before{content:"";display:block;width:12px;height:12px;background:var(--bm-mark-again) center/12px 12px no-repeat;image-rendering:pixelated}'
+    /* THE ARROW DIED (Paolo 10/10, the seventh votes: 'hell no'): the strip says the word, stamped, AGAIN */
+    + 'html body #actflip .af .afr::before{content:"AGAIN";display:block;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:9px;letter-spacing:.8px;line-height:1;color:#f2e4c6}'
     + 'html body #actflip .af .afr:active{background:linear-gradient(#f4cf7c,#d9a650)}'
     /* one of you so far: the card reads from the left, the face then the name, never a label centred in a box (71) */
     + 'html body #actflip .af:only-child{display:grid;grid-template-columns:28px auto;grid-template-rows:auto auto;column-gap:8px;row-gap:2px;'
@@ -674,22 +674,172 @@
     + 'html body #bmboard .fp.job .sk{display:block;width:10px;height:10px;background:var(--bm-mark-skull) center/10px 10px no-repeat;image-rendering:pixelated}'
     + 'html body #bmboard .fp.job.picked{background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
     + 'html body #bmboard .fp.job.picked .who,html body #bmboard .fp.job.picked .txt,html body #bmboard .fp.job.picked .meta{color:#120c06}'
-    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}';
+    + 'html body #bmboard .fp.job.picked .sk{background-image:var(--bm-mark-skull-ink)}'
+    /* WHEN THE PHONE TURNS (UI [landscape], rule 50b, his Pocket City 2 shot 06): the same buttons re-laid to the corners.
+       The bar stays across the top, the speed pad keeps the bottom right (the big action's corner), and the phone, which
+       carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
+       glass. 390 points of height hold a phone 150 wide at 19.5 by 9 (325 tall); the face row tightens so three faces
+       stay 44 points. One class of screen (a phone on its side: landscape, under 500 tall); portrait is untouched. */
+    /* NO BANDS AT ANY WIDTH (UI [the sideways sides]): the column's 640 cap and its 6 points of padding made a flat strip of
+       the page's brown-grey down each side, 6 points upright, 102 on its side, more on a tablet. The map goes to the glass
+       at every width, the way Battle Brothers' map fills the screen; the bar runs the whole width with it. */
+    + 'html body .wrap:has(#stage){max-width:none;padding:0}'
+    + 'html body .wrap:has(#stage) #menubar{margin:0}'   /* it pulled itself out over the 6 points of padding that is gone */
+    + '@media (orientation:landscape) and (max-height:500px){'
+    /* AND NO BANDS (UI [the sideways sides], Paolo 10/10 on the sideways map: 'what's up with the brown-grey sides, man'):
+       the city's column was capped at 640 with 6 points of padding, so on a phone on its side two flat bands of the
+       page's brown-grey framed the map. The map goes to the glass, edge to edge, the way Battle Brothers' map fills the
+       screen at any width; the bar runs the whole width with it. The phone moves right of the shell's gear (8..52). */
+    +   'html body #cityfeed{--skin-phonew:150px;left:58px!important;right:auto!important;top:4px!important}'
+    +   'html body #actflip{gap:2px;padding:4px 2px 5px}'
+    + '}';
+  /* THE ROSTER AND THE POSTS (UI [the roster and the posts look], 10/10; Paolo 10/10: 'THIS UI IS ASS', 'the UI is so dog
+     shit I can't even judge this'). RUN TWO's company screen (BOHEMIA_ROSTER_SCREEN.html) and the settlement's hire cards in
+     the materials, their files untouched: the bar a strip of the cut cardboard, DONE a receipt tag; the line's cells cracked
+     glass, a man stood on a cardboard backing with his name on a receipt tab; HIS PAGE a taped cardboard card (Battle
+     Brothers' man page: the portrait, the story, the stats with stars, the gear, the perks), the stats printed on a receipt
+     with the stars drawn; the gear and the bag as glass and cardboard pockets wearing the item icons; the level-up pick lit
+     amber like the speed you are at, the perks as receipt tags; the hire cards the same card. The game's two faces, every
+     word left-read, every pressed thing 44 points. */
+  var CARD_BG = 'linear-gradient(rgba(12,8,4,.32),rgba(12,8,4,.32)),#3a2c1e var(--bm-cardboard) 0 0/192px 192px';
+  var ROSTER_CSS = FACES
+    + 'html[data-bm-roster] body{font-family:"BohemiaROM",ui-monospace,monospace;background:#120e0a}'
+    + 'html[data-bm-roster] #bar{background:var(--bm-cardedge-up) bottom left/252px 10px repeat-x,' + CARD_BG + ';border-bottom:0;box-shadow:0 1px 0 #000;padding-bottom:14px}'
+    + 'html[data-bm-roster] #bar .t{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;font-size:15px;color:#f2e4c6}'
+    + 'html[data-bm-roster] #done{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));'
+    +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;text-align:left;padding:0 12px}'
+    + 'html[data-bm-roster] .h,html[data-bm-roster] .ln{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.6px;color:#e2d3ab}'
+    + 'html[data-bm-roster] .cell{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12)}'
+    + 'html[data-bm-roster] .cell.full{background:' + CARD_BG + ';border-color:#0d0a07;box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 1px 0 #000}'
+    + 'html[data-bm-roster] .cell.sel{border-color:#0d0a07;outline:2px solid #f4cf7c;outline-offset:-1px}'
+    + 'html[data-bm-roster] .cell.over{outline:2px dashed #f4cf7c}'
+    + 'html[data-bm-roster] .cell b{left:2px;right:2px;bottom:2px;padding:1px 2px;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;font-size:8px;letter-spacing:.3px;'
+    +   'text-align:left;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;text-shadow:none;white-space:nowrap;overflow:hidden}'
+    /* his page */
+    + 'html[data-bm-roster] #card{position:relative;border:0;border-radius:2px;padding:14px 12px 12px;background:' + CARD_BG + ';box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 2px 0 #000}'
+    + 'html[data-bm-roster] #card::before{content:"";position:absolute;top:-6px;left:50%;width:64px;height:14px;margin-left:-32px;background:var(--bm-tape) center/100% 100%;transform:rotate(-2deg);pointer-events:none}'
+    + 'html[data-bm-roster] .face{border:1px solid #0d0a07;border-radius:0;box-shadow:0 0 0 2px #16130f,0 2px 0 2px #000;background:#0b0907}'
+    + 'html[data-bm-roster] .nm{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;font-size:15px;color:#f4cf7c}'
+    + 'html[data-bm-roster] .sub{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.5px;color:#eadcb4}'
+    + 'html[data-bm-roster] .pain{font-style:normal;color:#f0e4c8;font-family:"BohemiaROM",ui-monospace,monospace}'
+    + 'html[data-bm-roster] .xpbar{height:8px;border:1px solid #0d0a07;border-radius:0;background:#16130f var(--bm-glass) center/cover}'
+    + 'html[data-bm-roster] .xpbar i{background:linear-gradient(#f4cf7c,#d9a650)}'
+    + 'html[data-bm-roster] .stats{padding:9px 10px 14px;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));gap:3px 14px}'
+    + 'html[data-bm-roster] .stats div{border-bottom:1px dotted rgba(42,34,26,.35);align-items:center}'
+    + 'html[data-bm-roster] .stats div>span:first-child{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.4px}'
+    + 'html[data-bm-roster] .stats .stars,html[data-bm-roster] .stats .bmstars{display:inline-flex;gap:1px;margin-left:4px;vertical-align:-1px}'
+    + 'html[data-bm-roster] .gain{color:#1d5a12;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
+    + 'html[data-bm-roster] .gslot{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12);color:#f2e4c6;text-align:left;padding:4px;min-height:64px}'
+    + 'html[data-bm-roster] .gslot.full{background:linear-gradient(rgba(12,8,4,.45),rgba(12,8,4,.45)),#16130f var(--bm-glass) center/cover}'
+    + 'html[data-bm-roster] .gslot i{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;color:#e2d3ab;letter-spacing:.4px}'
+    + 'html[data-bm-roster] .gslot .bm-icon{display:block;margin:2px 0}'
+    + 'html[data-bm-roster] .gslot.over,html[data-bm-roster] .slot.over{outline:2px dashed #f4cf7c}'
+    + 'html[data-bm-roster] .perks{font-family:"BohemiaROM",ui-monospace,monospace;color:#eadcb4}'
+    /* climbing: the pick lit amber, the perks receipt tags */
+    + 'html[data-bm-roster] .pick{border:0;border-radius:2px;color:#120c06;background:linear-gradient(#f4cf7c,#d9a650);box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55),0 1px 0 #000;'
+    +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;text-align:left;padding:0 12px}'
+    + 'html[data-bm-roster] .plist button{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));'
+    +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.4px;padding:6px 8px 8px}'
+    + 'html[data-bm-roster] .plist button i{font-family:"BohemiaROM",ui-monospace,monospace;color:#3e1608;letter-spacing:0}'
+    + 'html[data-bm-roster] #said{font-family:"BohemiaROM",ui-monospace,monospace;color:#eadcb4}'
+    + 'html[data-bm-roster] #bag .slot{border:1px solid #0d0a07;border-radius:2px;background:#16130f var(--bm-glass) center/cover;box-shadow:inset 0 1px 0 rgba(255,236,200,.12);color:#f0e2c4;font-family:"BohemiaROM",ui-monospace,monospace}'
+    + 'html[data-bm-roster] #bag .slot.full{background:' + CARD_BG + '}'
+    + 'html[data-bm-roster] #ghost{border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;font-family:"BohemiaCasing",ui-sans-serif,sans-serif}'
+    + 'html[data-bm-roster] #done:active,html[data-bm-roster] .plist button:active{filter:none;transform:translateY(1px)}'
+    /* the drawn stars, wherever a star was typed */
+    + '.bmstar{display:inline-block;width:10px;height:10px;background:var(--bm-mark-star) center/10px 10px no-repeat;image-rendering:pixelated;vertical-align:-1px}'
+    + 'html[data-bm-roster] .stats .bmstar,#sheet .hstats .bmstar{background-image:var(--bm-mark-star-ink)}';
+  /* the hire cards at the settlement's hall (RUN TWO's .hire): the same card as a man's page */
+  var HIRE_CSS = ''
+    + 'html body #sheet .hire{position:relative;border:0;border-radius:2px;padding:12px 8px 8px;margin-top:12px;background:' + CARD_BG + ';box-shadow:inset 0 1px 0 rgba(255,220,170,.22),inset 0 -2px 0 rgba(0,0,0,.45),0 2px 0 #000}'
+    + 'html body #sheet .hire::before{content:"";position:absolute;top:-6px;left:50%;width:56px;height:14px;margin-left:-28px;background:var(--bm-tape) center/100% 100%;transform:rotate(2deg);pointer-events:none}'
+    + 'html body #sheet .hire .face{border:1px solid #0d0a07;border-radius:0;box-shadow:0 0 0 2px #16130f,0 2px 0 2px #000}'
+    + 'html body #sheet .hire .nm{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-weight:400;letter-spacing:.8px;font-size:12px;color:#f4cf7c}'
+    + 'html body #sheet .hire .hstats{margin-top:6px;padding:6px 8px 10px;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));'
+    +   'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:.4px}'   /* the stamped face: the dot face thins to grey at 10 points */
+    + 'html body #sheet .hire .hstats span{color:#1f1710;display:inline-flex;align-items:center;gap:1px;white-space:nowrap}'
+    + '.bmstar{display:inline-block;width:10px;height:10px;background:var(--bm-mark-star) center/10px 10px no-repeat;image-rendering:pixelated;vertical-align:-1px}'
+    + 'html body #sheet .hire .hstats .bmstar{background-image:var(--bm-mark-star-ink)}';
+  /* every typed star becomes a drawn one: the text node is split, the star count kept for a screen reader */
+  function drawStars(root) {
+    if (!root) return;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), hits = [], n;
+    while ((n = w.nextNode())) if (n.nodeValue.indexOf('★') >= 0) hits.push(n);
+    hits.forEach(function (t) {
+      var par = t.parentNode, txt = t.nodeValue, k = (txt.match(/★/g) || []).length;
+      if (par && par.setAttribute && !par.getAttribute('aria-label')) par.setAttribute('aria-label', (par.textContent || '').replace(/★/g, '').trim() + (k ? ', ' + k + ' star' + (k > 1 ? 's' : '') : ''));
+      var frag = document.createDocumentFragment(), parts = txt.split('★');
+      parts.forEach(function (p, i) { if (p) frag.appendChild(document.createTextNode(p)); if (i < parts.length - 1) { var s = document.createElement('i'); s.className = 'bmstar'; s.setAttribute('aria-hidden', 'true'); frag.appendChild(s); } });
+      par.replaceChild(frag, t);
+    });
+  }
+  function starVars() {
+    var R = document.documentElement.style;
+    if (!R.getPropertyValue('--bm-mark-star')) { R.setProperty('--bm-mark-star', 'url(' + mark('star', '#f4cf7c').toDataURL('image/png') + ')');
+      R.setProperty('--bm-mark-star-ink', 'url(' + mark('star', '#3e1608').toDataURL('image/png') + ')'); }
+  }
+  function dressRoster() {
+    if (!document.getElementById('lines') || !document.getElementById('card') || !document.getElementById('bag')) return false;
+    rootVars(); starVars();
+    if (!document.documentElement.style.getPropertyValue('--bm-cardedge-up')) {
+      var e = cardedge(), f = document.createElement('canvas'); f.width = e.width; f.height = e.height; var fg = f.getContext('2d');
+      fg.translate(0, e.height); fg.scale(1, -1); fg.drawImage(e, 0, 0);
+      document.documentElement.style.setProperty('--bm-cardedge-up', 'url(' + f.toDataURL('image/png') + ')');
+    }
+    document.documentElement.setAttribute('data-bm-roster', '');
+    style('bm-roster', ROSTER_CSS);
+    var busy = false, paint = function () {
+      if (busy) return; busy = true;
+      try {
+        drawStars(document.getElementById('card'));
+        var RS = window.BohemiaRosterScreen && BohemiaRosterScreen.state, m = RS && RS.crew && RS.crew[RS.sel];
+        /* his gear wears its icons, the bag its icons, by the screen's own state (slot and position) */
+        if (m) Array.prototype.forEach.call(document.querySelectorAll('#card .gslot'), function (g) {
+          var it = m.gear && m.gear[g.dataset.slot], old = g.querySelector('.bm-icon');
+          if (!it) { if (old) old.remove(); return; }
+          if (old && old.dataset.id === it.id) return; if (old) old.remove();
+          var ic = itemIcon(it, 30); ic.dataset.id = it.id; var lab = g.querySelector('i'); g.insertBefore(ic, lab ? lab.nextSibling : g.firstChild);
+        });
+        if (RS) Array.prototype.forEach.call(document.querySelectorAll('#bag .slot'), function (b, i) {
+          var it = RS.bag && RS.bag[i], old = b.querySelector('.bm-icon');
+          if (!it) { if (old) old.remove(); return; }
+          if (old && old.dataset.id === it.id) return; if (old) old.remove();
+          var gi = b.querySelector('i'); if (gi) gi.style.display = 'none';
+          var ic = itemIcon(it, 30); ic.dataset.id = it.id; b.insertBefore(ic, b.firstChild);
+        });
+      } catch (e) {}
+      busy = false;
+    };
+    try { new MutationObserver(paint).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
+    paint();
+    try { document.fonts.load('15px "BohemiaCasing"'); document.fonts.load('11px "BohemiaROM"'); } catch (e) {}
+    return true;
+  }
+  function dressPosts() {
+    var body = document.getElementById('sbody'); if (!body) return false;
+    rootVars(); starVars(); style('bm-hire', HIRE_CSS);
+    var busy = false, paint = function () { if (busy) return; busy = true; try { drawStars(body); } catch (e) {} busy = false; };
+    try { new MutationObserver(paint).observe(body, { childList: true, subtree: true }); } catch (e) {}
+    paint(); return true;
+  }
   function dressPhone() {
     if (!document.getElementById('cityfeed')) return false;
     rootVars();
     var R = document.documentElement.style;
-    if (!R.getPropertyValue('--bm-mark-again')) R.setProperty('--bm-mark-again', 'url(' + mark('again', '#f2e4c6').toDataURL('image/png') + ')');
     if (!R.getPropertyValue('--bm-mark-skull')) { R.setProperty('--bm-mark-skull', 'url(' + mark('skull', '#eadcb4').toDataURL('image/png') + ')');
       R.setProperty('--bm-mark-skull-ink', 'url(' + mark('skull', '#120c06').toDataURL('image/png') + ')'); }
-    style('bm-phone', PHONE_CSS); return true;
+    style('bm-phone', PHONE_CSS);
+    /* the city sizes its map from its column when it boots, which can be before this sheet lands: a phone on its side
+       then drew the old 628 and left a black band where the column grew (UI [the sideways sides]); ask it to measure again */
+    try { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 0); setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 1500); } catch (e) {}
+    return true;
   }
-  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) iconTheMarket(); dressMapBar(); dressPhone();
+  function dressAll() { dressFrontDoor(); dressSettlement(); if (document.getElementById('sbody')) { iconTheMarket(); dressPosts(); } dressMapBar(); dressPhone(); dressRoster();
     /* the bar and the pad are built after load by the city's own modules: try again until they exist */
     if (!document.getElementById('bm-mapbar')) { var tries = 0, iv = setInterval(function () { if (dressMapBar() || ++tries > 40) clearInterval(iv); }, 500); } }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', dressAll); else dressAll();
 
   window.BohemiaMaterials = { apply: apply, cardboard: cardboard, tape: tape, receipt: receipt, glass: glass, cardedge: cardedge, mark: mark, SKIN: SKIN,
     startScreen: startScreen, dressFrontDoor: dressFrontDoor, settleTag: settleTag, dressSettlement: dressSettlement,
-    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone };
+    itemIcon: itemIcon, itemFromRow: itemFromRow, OBJECTS: OBJECTS, supplyIcon: supplyIcon, dressMapBar: dressMapBar, dressPhone: dressPhone, dressRoster: dressRoster, dressPosts: dressPosts, drawStars: drawStars };
 })();

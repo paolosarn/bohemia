@@ -5,7 +5,7 @@ CRISIS: none
 ECONOMY: boom
 PLACE: a pump house on the dam road, fenced, with a paved approach (fast travel) and a dirt back track (slow)
 STATUS: draft:true, research only, nothing built (rule 35)
-CHECKLIST: passes all 30 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (three map days, said and chalked), 10 and 23 (a lost fight with Cano), 28 (flags and saves named).
+CHECKLIST: passes all 32 (QR-AC line-by-line run, 10/1). Fixed in place: 3 (three map days, said and chalked), 10 and 23 (a lost fight with Cano), 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written)
 TWIST: T18 A THIRD PARTY SHOWS UP (bank: questbook/research/QR_C_THE_TWIST_BANK_9_27_26.md). Costs STANDING. Lands MID-JOB.
 
 ## THE SITUATION

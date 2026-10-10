@@ -50,7 +50,7 @@ const { open } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const F = require(path.join(ROOT, 'tools/bohemia_first_load.js'));
 
 const TITLE_MS = 2000, READY_MS = 8000;
-const CEIL_MB = 30;          /* 10/9 round 3: the cut empties the frozen fight on the demo; 27.1 MB before ready at 4x served like Pages, +10%. Was 33 (29.7 before). RUN's hunks measured 9.0 MB: LOWER THIS again when they land */
+const CEIL_MB = 10;          /* 10/10 RUN [first load]: the hunks, the demo seated on the map, no 15 s build check and no first-visit reload: 3.2, 3.2 and 8.8 MB before ready at 4x over three runs (what lazy fetches land before ready swings), the worst +10%. Was 30. 10/9 round 3: the cut empties the frozen fight on the demo; 27.1 MB before ready at 4x served like Pages, +10%. Was 33 (29.7 before). RUN's hunks measured 9.0 MB: LOWER THIS again when they land */
 
 let pass = 0, fail = 0;
 const ok = (n, c, why) => { if (c) { pass++; console.log('  ok   ' + n); }
@@ -103,7 +103,7 @@ const PLANT = (twice) => `<!doctype html><html><head><meta charset="utf-8"></hea
   ok('T1 the title is on screen within ' + sec(TITLE_MS) + ' of the tap (' + sec(r.title) + ')',
      r.title != null && r.title <= TITLE_MS, 'rule 66a: the title paints within two seconds, the world loads behind it (RUN [first load] owns the order)');
   ok('T2 NEW GAME is ready within ' + sec(READY_MS) + ' (' + sec(r.ready) + ')', r.ready != null && r.ready <= READY_MS,
-     'Paolo 10/5: "I gotta wait 40 seconds." The world must load behind the title, and the bytes it waits for must shrink. [bind once] takes about 20 s of it at this speed: python3 tools/bohemia_first_load_hunks.py --write (records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md)');
+     'Paolo 10/5: "I gotta wait 40 seconds." The bytes are cut (29.7 -> 3.2 MB, nothing twice) and the six hunks are in (RUN a85baf6, H1 above); what is left is the processor between the title and BEGIN, RUN [first load] (records/BOHEMIA_THE_CAST_BAKE_IS_A_THIRD_OF_THE_BOOT_10_9_26.md has the profile).');
   ok('D1 no file is downloaded twice before NEW GAME is ready (' + r.twice.length + ' files twice)', !r.twice.length,
      r.twice.slice(0, 12).map(t => t.url + ' x' + t.times + ' (' + t.mb + ' MB)').join('\n         ')
      + '\n         The fix is handed to RUN as one command: python3 tools/bohemia_first_load_hunks.py --write (records/BOHEMIA_WHY_THE_DEMO_MAKES_A_PHONE_WAIT_10_9_26.md)');

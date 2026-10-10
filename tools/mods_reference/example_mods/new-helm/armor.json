@@ -1,0 +1,17 @@
+{
+ "head": {
+  "new-helm:salvage_helm": {
+   "name": "Salvage Helm",
+   "durability": 15,
+   "fatigue": null,
+   "vision": null,
+   "value": 15,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0958_Headgear.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1324_Mouthpiece.txt",
+   "notes": "Worn by Miners",
+   "missing": [
+    "fatigue (Max. Fatigue cell blank on the list table and item page)",
+    "vision (not listed)"
+   ]
+  }
+ }
+}
