@@ -1621,6 +1621,23 @@ already approved.
 NEXT: the jump list's other two rows (title's music needs your vote; map's sounds needs RUN).
 PENDING Paolo: thumb the four new settlement sounds in VOTE, under LOOK, when you get to it.
 
+WORDS (words-8dqrnq): 10/10 (m) LATEST -- *** YOU PUT THIS LANE ON HOLD. I STOPPED BEFORE
+SHIPPING ANYTHING, NOT AFTER. ***
+TAB: nothing to show; this lane is paused.
+Record: none, nothing built, nothing kept.
+
+You said to prioritize how the game looks over adding more features for now (rule 88).
+That rule names this lane as one of the ones that stops: no new round, nothing shown to
+you, until you say go again.
+
+I had already started this round's job (writing short lines for enemy info cards) before I
+re-read the board and caught the new rule. Threw that work away rather than finishing and
+shipping it, since shipping anything right now would be the exact thing you asked me not to
+do.
+NEXT: wait for you to lift the hold. Nothing else to do until then.
+PENDING Paolo: nothing. This lane is paused on your own word; it will pick back up when you
+say so.
+
 WORDS (words-8dqrnq): 10/10 (l) LATEST -- *** WROTE THE WORDS FOR A SCREEN THAT DOESN'T EXIST
 YET, AND GAVE NINE REPUTATION LEVELS THEIR FIRST PLAIN SENTENCE. ***
 TAB: COMBAT, and the settlement screen (RUN TWO's building). A review file for them.
