@@ -38,7 +38,11 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const { CORPUS, corpusNames, resolveKey } = require(path.join(ROOT, 'tools/bohemia_pack_corpus.js'));
 
-const DIRS = ['slices/fight_ground', 'slices/settlement_ground', 'slices/settlement'];
+/* the ground folders, found rather than listed: COOK FOUR's first re-cut landed in a new folder,
+   slices/settlement_ground_packs/, the round this gate was written. The people folders are not ground. */
+const DIRS = (() => { try { return fs.readdirSync(path.join(ROOT, 'slices'), { withFileTypes: true })
+  .filter(e => e.isDirectory() && (/^(fight_ground|settlement_ground)/.test(e.name) || e.name === 'settlement'))
+  .map(e => 'slices/' + e.name); } catch (e) { return ['slices/fight_ground', 'slices/settlement_ground', 'slices/settlement']; } })();
 const PIC = /\.(png|jpe?g|webp|gif)$/i;
 const BASELINE = path.join(ROOT, 'gates/pack_gate_baseline.txt');
 
@@ -56,6 +60,15 @@ function walk(dir) {
 /* every manifest piece in a folder tree: { pic (absolute), keys, exception, manifest } */
 function pieces(files) {
   const out = [];
+  /* A FOLDER-WIDE LIST (COOK FOUR's PACK_TILES_USED.txt): a first line that says what it is, then one pack tile a
+     line as "<pack>#<idx>". It covers every picture in its own folder when every tile on it is UP. Coarser than a
+     manifest per picture, and honest: it names the tiles and the gate checks each one. */
+  for (const f of files.filter(x => /PACK_TILES_USED\.txt$/.test(x))) {
+    const keys = fs.readFileSync(f, 'utf8').split('\n').slice(1).map(l => l.trim()).filter(Boolean)
+      .map(l => { const m = /^(.*)#(\d+)$/.exec(l); return m ? { pack: m[1], idx: +m[2] } : { line: l }; });
+    for (const pic of files.filter(x => PIC.test(x) && path.dirname(x) === path.dirname(f)))
+      out.push({ pic, keys, exception: null, manifest: f });
+  }
   for (const f of files.filter(x => /\.json$/i.test(x))) {
     let d; try { d = JSON.parse(fs.readFileSync(f, 'utf8')); } catch (e) { continue; }
     const seen = [];
@@ -86,7 +99,10 @@ const NAMES = corpusNames();
 function readsCorpus(src) { return NAMES.some(n => src.includes(n)); }
 
 function judge(rootDir, toolsDir) {
-  const files = [].concat(...DIRS.map(d => walk(path.join(rootDir, d))));
+  const dirs = (() => { try { return fs.readdirSync(path.join(rootDir, 'slices'), { withFileTypes: true })
+    .filter(e => e.isDirectory() && (/^(fight_ground|settlement_ground)/.test(e.name) || e.name === 'settlement'))
+    .map(e => 'slices/' + e.name); } catch (e) { return DIRS; } })();
+  const files = [].concat(...dirs.map(d => walk(path.join(rootDir, d))));
   const pics = files.filter(f => PIC.test(f));
   const P = pieces(files);
   const cover = new Map(), badKeys = [];
@@ -133,6 +149,8 @@ try {
     c: { src: 'c.webp', keys: [['moonrock', 1]] },
     d: { src: 'd.webp', keys: [{ pack: '1. Cobblestone floor tiles', idx: 999999 }] },
     e: { src: 'e.webp', exception: 'the paint line, drawn from the pool tile\'s own measured colour' } } }));
+  put('slices/settlement_ground_x/p.webp', 'x'); put('slices/settlement_ground_x/q.webp', 'x');
+  put('slices/settlement_ground_x/PACK_TILES_USED.txt', '2 distinct approved pack tiles\n1. Cobblestone floor tiles#0\n1. Cobblestone floor tiles#1\n');
   put('tools/cook_bad.py', "img.save(os.path.join(R, 'slices/fight_ground/x.webp'))\n");
   put('tools/verdict_reader.py', "a = Image.open(os.path.join(ROOT, 'slices/fight_ground', n + '.webp'))\nsheet.save('slices/vote/V.png')\n");
   put('tools/cook_good.py', "pools = json.load(open('banks/BOHEMIA_STREET_POOLS_HARMONIZED_7_14_26.txt'))\nimg.save(os.path.join(R, 'slices/fight_ground/y.webp'))\n");
@@ -143,6 +161,7 @@ try {
   ok('S3 a pool no approved bank has is caught (c.webp)', un.has('c.webp') && T.badKeys.some(b => /moonrock/.test(b)));
   ok('S4 a pack tile he did not judge UP is caught (d.webp)', un.has('d.webp') && T.badKeys.some(b => /not UP/.test(b)));
   ok('S5 a hand-drawn piece that says why is covered (e.webp), and a picture with no manifest is not (loose.webp)', !un.has('e.webp') && un.has('loose.webp'));
+  ok('S5b a folder-wide list of UP pack tiles (COOK FOUR\'s shape) covers its folder\'s pictures (p.webp, q.webp)', !un.has('p.webp') && !un.has('q.webp'));
   ok('S6 a ground cook tool that names no bank is caught; one that reads the street pools, and one that only reads the boards, are not (' + T.tools.join(', ') + ')',
      T.tools.length === 1 && /cook_bad\.py$/.test(T.tools[0]));
 } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
