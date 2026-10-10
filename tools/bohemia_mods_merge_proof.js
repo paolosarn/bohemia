@@ -46,16 +46,6 @@ fs.writeFileSync(path.join(o, 'knife-harder-still', 'weapons.json'), JSON.string
 const ro = merge(o);
 ok('5a the mod that loads later wins', ro.data['weapons.json'].rows.find(r => r.id === 'knife').damage_min === 25);
 ok('5b the conflict is named', ro.log.some(l => l[1].startsWith('CONFLICT')));
-/* 7 the draft ranges WARN and never block: a knife at minus 5 loads, with a warning; a knife at 20 does not warn */
-const { ranges } = require('./bohemia_mods_ranges_draft.js');
-const neg = tmp(); fs.mkdirSync(path.join(neg, 'neg'));
-fs.writeFileSync(path.join(neg, 'neg', 'manifest.json'), JSON.stringify({ id: 'neg', name: 'Neg', version: '1', schema: 1 }));
-fs.writeFileSync(path.join(neg, 'neg', 'weapons.json'), JSON.stringify({ rows: { knife: { damage_min: -5, damage_max: 999 } } }));
-const rn = merge(neg, { ranges });
-ok('7a a knife at minus 5 and 999 gets warnings', rn.log.filter(l => l[0] === 'warn' && l[1].includes('outside every base row')).length >= 2 && rn.log.some(l => l[1].includes('ever negative')));
-ok('7b ...and still loads (a warning is not a block)', rn.data['weapons.json'].rows.find(r => r.id === 'knife').damage_min === -5);
-ok('7c a knife at 20 to 30 gets no range warning', !merge(g, { ranges }).log.some(l => l[1].includes('outside every base row')));
-ok('7d without ranges there is no range warning at all', !merge(neg).log.some(l => l[1].includes('outside every base row')));
 /* 8 the id policy: a new row's id starts with '<modid>:'. Warn, never block; no base id uses the colon */
 const base0 = loadBase();
 const colonIds = []; for (const [f, j] of Object.entries(base0)) for (const v of Object.values(j)) if (Array.isArray(v)) for (const r of v) if (r && typeof r.id === 'string' && r.id.includes(':')) colonIds.push(f + ':' + r.id);
@@ -72,7 +62,7 @@ ok('8c a prefixed id is silent and added', !rnm.log.some(l => l[1].includes('sho
 ok('8d with the policy off there is no id warning, and a bare id still loads', !merge(nm).log.some(l => l[1].includes('should start with')) && merge(nm).data['weapons.json'].rows.some(r => r.id === 'moon-blade'));
 /* 9 the five worked mods a stranger can copy each do exactly what the README says, with no fault and no warning */
 const each = ['enemy-pack', 'poorer-start', 'fair-wages', 'sharper-mastery', 'new-helm'];
-const run1 = n => { const d = tmp(); copyMods(d, [n]); return merge(d, { ranges, namespace: true }); };
+const run1 = n => { const d = tmp(); copyMods(d, [n]); return merge(d, { namespace: true }); };
 const clean = r => !r.log.some(l => l[0] === 'bad' || l[0] === 'warn');
 const b9 = loadBase();
 const r1 = run1('enemy-pack'), r2 = run1('poorer-start'), r3 = run1('fair-wages'), r4 = run1('sharper-mastery'), r5 = run1('new-helm');
@@ -85,9 +75,24 @@ ok('9d fair-wages changes one wage and nothing else', r3.data['backgrounds.json'
 const p4 = r4.data['perks.json'].rows.find(r => r.id === 'mace_mastery').numbers, p0 = b9['perks.json'].rows.find(r => r.id === 'mace_mastery').numbers;
 ok('9e sharper-mastery changes one perk number and keeps the others', p4.fatigue_reduction_pct === 30 && p4.stun_chance_pct === p0.stun_chance_pct && p4.stun_chance_increase_pct === p0.stun_chance_increase_pct);
 ok('9f new-helm adds one head piece to the head table', r5.data['armor.json'].head.length === b9['armor.json'].head.length + 1 && r5.data['armor.json'].head.some(r => r.id === 'new-helm:salvage_helm'));
-const wage99 = tmp(); fs.cpSync(path.join(EX, 'fair-wages'), path.join(wage99, 'fair-wages'), { recursive: true });
-fs.writeFileSync(path.join(wage99, 'fair-wages', 'backgrounds.json'), JSON.stringify({ rows: { adventurous_noble: { daily_wage: 99 } } }));
-ok('9g a wage of 99 warns (outside 0 to 35) and still loads', merge(wage99, { ranges }).log.some(l => l[0] === 'warn' && l[1].includes('outside every base row')) && merge(wage99, { ranges }).data['backgrounds.json'].rows.find(r => r.id === 'adventurous_noble').daily_wage === 99);
+/* 10 a list inside a row can be patched one element at a time (the skills of a weapon, the perks of an enemy), or replaced whole */
+const bq = loadBase();
+const q1 = run1('quicker-stab'), q2 = run1('armed-brigand');
+const k0 = bq['weapons.json'].rows.find(r => r.id === 'knife'), k1 = q1.data['weapons.json'].rows.find(r => r.id === 'knife');
+ok('10a one skill of the knife changes by name, the other skill and the count stay', k1.skills.length === k0.skills.length && k1.skills.find(s => s.name === 'Stab').ap === 3 && JSON.stringify(k1.skills.filter(s => s.name !== 'Stab')) === JSON.stringify(k0.skills.filter(s => s.name !== 'Stab')) && k1.skills.find(s => s.name === 'Stab').fatigue === k0.skills.find(s => s.name === 'Stab').fatigue);
+const pe0 = bq['enemies.json'].rows.find(r => r.id === 'brigand_poacher').perks, pe1 = q2.data['enemies.json'].rows.find(r => r.id === 'brigand_poacher').perks;
+ok('10b a list of words takes add and remove', pe1.includes('Nimble') && !pe1.includes('Rotation') && pe1.includes('Recover') && pe1.length === pe0.length);
+const lw = tmp(); fs.mkdirSync(path.join(lw, 'lw')); fs.writeFileSync(path.join(lw, 'lw', 'manifest.json'), JSON.stringify({ id: 'lw', name: 'LW', version: '1', schema: 1 }));
+fs.writeFileSync(path.join(lw, 'lw', 'weapons.json'), JSON.stringify({ rows: { knife: { skills: [{ name: 'Only', ap: 1, fatigue: 1, effect: 'x' }] } } }));
+ok('10c a whole array still replaces the whole list', merge(lw).data['weapons.json'].rows.find(r => r.id === 'knife').skills.length === 1);
+const lb = tmp(); fs.mkdirSync(path.join(lb, 'lb')); fs.writeFileSync(path.join(lb, 'lb', 'manifest.json'), JSON.stringify({ id: 'lb', name: 'LB', version: '1', schema: 1 }));
+fs.writeFileSync(path.join(lb, 'lb', 'weapons.json'), JSON.stringify({ rows: { knife: { skills: { Stab: { ap: 'fast' } } } } }));
+const rlb = merge(lb);
+ok('10d a wrong type inside a list element skips the whole row change and says so', !rlb.changed && rlb.log.some(l => l[0] === 'bad' && l[1].includes('wants number')));
+const lo = tmp(); fs.mkdirSync(path.join(lo, 'lo')); fs.writeFileSync(path.join(lo, 'lo', 'manifest.json'), JSON.stringify({ id: 'lo', name: 'LO', version: '1', schema: 1 }));
+fs.writeFileSync(path.join(lo, 'lo', 'origins.json'), JSON.stringify({ origins: { rebuild: { men: { '0': { level: 3 } } } } }));
+const rlo = merge(lo), mn = rlo.data['origins.json'].origins.find(r => r.id === 'rebuild').men;
+ok('10e an unkeyed list (an origin\'s men) is patched by position', mn[0].level === 3 && mn.length === bq['origins.json'].origins.find(r => r.id === 'rebuild').men.length && mn[1].background === bq['origins.json'].origins.find(r => r.id === 'rebuild').men[1].background);
 /* 6 no play surface asks for a mods folder: nothing in the game loads one (his 9/30 NAH) */
 const surfaces = ['slices/BOHEMIA_DEMO.html', 'slices/BOHEMIA_ALPHA_0_9.html', 'slices/BOHEMIA_FIGHT.html', 'slices/BOHEMIA_CITY_WORLD.html'];
 const asks = surfaces.filter(f => /fetch\(\s*['"`][^'"`]*\bmods\//.test(fs.readFileSync(path.join(ROOT, f), 'utf8')));

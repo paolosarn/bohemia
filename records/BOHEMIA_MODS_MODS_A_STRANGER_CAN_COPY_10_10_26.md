@@ -1,5 +1,8 @@
 # MODS [more worked mods] -- FIVE MORE MODS A STRANGER CAN COPY (10/10/26)
 
+> **10/10 NOTE:** the range warning (9g and the `--ranges` flag) was retired after the 10/9 down vote; the list-patch gap named in section 3 is closed by records/BOHEMIA_MODS_PATCHING_INSIDE_A_LIST_10_10_26.md. Everything else stands.
+
+
 Lane 22 MODS, session mods-59jyd6. Row: FIVE-MORE-MODS-A-STRANGER-CAN-COPY. Rule 22 (Paolo 9/30: make mods easy for other
 people to make). MODE: research. Nothing in the game changed. The mods are folders under `tools/mods_reference/example_mods/`
 (with a README); the game does not load a mods folder, so they are checked against the design
