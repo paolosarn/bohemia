@@ -3588,6 +3588,76 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/10 (g) LATEST -- *** THE FAR END'S GROUND IS HIS NOW, AND THE ROW
+[the pack is the twin] IS CLOSED FOR THIS LANE. ***
+
+1. PART (3): THE FAR END'S 16 PX TILES, CUT FROM THE TERRAIN TILES HE PICKED. 630 land cells
+re-cut. Road, spine and water LEFT ALONE and named: his terrain picks hold none of those, and
+cooking a substitute for an asset that is not in the index is the 7/27 shopping law in
+reverse. NOT ONE KEY MOVED, so the map stamps exactly as it did and nothing downstream
+changes; only the pixels became his. Measured on the same 48 cells:
+   the spread of light inside a tile     4.93  ->  21.63
+   the jump from one pixel to the next   3.42  ->  22.27
+   colours in one 16 px tile               74  ->   242
+Tool tools/bohemia_the_far_end_from_his_picks_cook_10_10_26.py, bank
+banks/BOHEMIA_THE_FAR_END_TILES_FROM_HIS_PICKS_10_10_26.txt, the tile list beside it
+banks/PACK_TILES_USED_FAR_END_10_10_26.txt, record
+records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt, VOTE
+cook-the-far-end-from-his-picks-10-10.
+
+2. THE ONE DECISION, AND IT IS ONE LINE OF CODE. A 96 px master into a 16 px cell: resize it
+the ordinary way and THE MEAN THROWS THE GRAIN AWAY, which hands back exactly the flat tan
+square we already had. Every one of the 256 pixels is point-sampled out of his tile, nearest
+neighbour, no filter. That is the difference between his ground and our paper, and COOK TWO
+and COOK FOUR will hit the same wall the moment they put a 96 px pack tile into a smaller box.
+
+3. *** THE PICTURE CORRECTED ME FOUR TIMES THIS ROUND, EVERY TIME BEFORE A NUMBER DID. ***
+   (a) MY FIRST GUARD WAS STRICTER THAN HIS OWN VERDICT. I demanded every terrain pick also be
+   UP in the 7/13 sweep. Seven of his thirteen failed and the valley came out standing on ONE
+   TILE REPEATED 630 TIMES. Six of the seven were never judged on 7/13 at all (their packs are
+   not in that sweep) and the seventh was DOWN on 7/13 and PICKED BY HIM ON 7/14. The picks
+   file says it in its own law line: "pool membership is a Paolo verdict." The later ruling
+   wins, and the reversal is named in the bank rather than quietly resolved.
+   (b) STRIDING HIS WHOLE MASTER GAVE GRAPH PAPER. His tiles are a slab with a dark edge round
+   it, so every cell caught that edge and the far end read as a drawn grid. The stride walks
+   the inner 80% now.
+   (c) CYCLING HIS NINE DESERT PICKS CELL BY CELL GAVE A CHESSBOARD. They run from near-black
+   burnt rock to pale sand, so neighbours flipped light-dark-light. One tile of his per ground
+   kind now, chosen by two numbers off his own tiles (green minus red, which is what a grass
+   tuft is, and how light it is), and the difference between neighbours lives in WHERE IN HIS
+   TILE the cell was taken from, which is rule 82a's own "placed, flipped".
+   (d) HIS FAVOURITE IS IN THE POOL TWICE because it carries a weight, so basin and wash landed
+   on the same tile until the choosing de-duplicated.
+   AND ONE OF MY OWN GUARDS WAS REWRITTEN, NOT LOOSENED: "eight or more distinct tiles of his"
+   was the right test against fault (a) and the WRONG test against the fix for fault (c), where
+   four is correct and eight is the chessboard coming back. It measures the two real properties
+   now: every ground kind has its own tile, and no two cells are the same picture (630 of 630).
+
+4. WHAT THE RE-CUT COSTS, SAID OUT LOUD: the yard's painted marks went with it. His corpus has
+a marking family of 67 tiles and putting them back is the weather-and-wear pass rule 82a names
+as the thing that has to go on top. It is not free and nobody should find it later.
+
+5. PLUMBER'S SECOND BOUNCE-BACK, ANSWERED THE SAME ROUND (rule 8, rule 89). The cook gate
+refused three of this lane's sheets for having no before-and-after picture. All three have one
+now, each the SAME THING TWICE at one art pixel to one phone pixel:
+   the far end   its own re-cut sheet, 24 by 8 cells of the valley before and after
+   the props     their gas station forecourt as it shipped (canopy, NOT A PUMP ON IT) against
+                 the same crop with the pumps on it. 9.0% of the crop changed.
+   his block     the six 96 px windows WHERE THE FINISH CHANGED THE MOST, found by differencing
+                 the two pictures rather than picked by eye. 23.4% changed.
+A crop chosen where nothing happened is how a lane shows a difference it did not make, so the
+windows are measured. Tool tools/bohemia_the_before_and_after_cook_10_10_26.py, record
+records/BOHEMIA_THE_BEFORE_AND_AFTER_MEASURED_10_10_26.txt. COOK EVERY ROUND and VOTE TAB are
+both clean of this lane; what is left on each belongs to COMBAT TWO and RUN.
+
+6. THE PACK GATE READS IDENTICALLY BEFORE AND AFTER THIS ROUND: 8 passed, 3 failed, K1 at 9
+and P1 at 196 both ways. Its one named file of mine is the his-block cook, whose picture moved
+to COOK FOUR with rule 87. Re-cutting it from the packs is their row. This lane is not doing
+another lane's job to clear its own name on a gate, and says so rather than leaving it unsaid.
+
+NEXT: [map floor], the next OPEN row (rule 74).
+[PENDING Paolo]: none.
+
 COOK (cook-mce6r5): 10/10 (f) LATEST -- *** THE WHOLE APPROVED CORPUS IS OUT AS FILES.
 1,927 tiles he bought and judged UP, sorted into seven families, with a sheet of each. ***
 

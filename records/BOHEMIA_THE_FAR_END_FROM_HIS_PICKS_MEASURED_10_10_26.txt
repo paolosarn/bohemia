@@ -1,0 +1,78 @@
+THE FAR END'S GROUND, RE-CUT FROM HIS OWN TERRAIN PICKS -- MEASURED
+(COOK [the pack is the twin] part 3, 10/10/26; rules 82a, 87, 89)
+==============================================================================
+
+THE ROW, part (3): "the far end's 16 px tiles from the terrain picks where they exist."
+
+*** AND THE PICTURE SAID IT BEFORE ANY NUMBER DID. *** His approved terrain is gravel
+with stones in it, dirt with grit, grass tufts, cracked rock. The far-end basin tile
+this lane shipped is A FLAT TAN SQUARE: fifty near-identical tans over 256 pixels, a
+smooth wash with no grain at all. Laid across a 96 by 96 valley, that is what makes the
+map read as paper.
+
+THE ONE DECISION OF THIS ROUND, AND IT IS ONE LINE OF CODE. A far-end cell is 16 px and
+his master is 96. Shrink his tile the ordinary way and the MEAN THROWS THE GRAIN AWAY --
+averaging gravel gives you back exactly the flat tan square we already had. So every one
+of the 256 pixels is TAKEN from his tile, nearest neighbour, no filter, at a stride that
+walks the whole master. His palette and his speckle arrive at map size intact.
+
+MEASURED, ON THE SAME 48 CELLS BEFORE AND AFTER:
+  the spread of light inside a tile      4.93  ->   21.63
+  the jump from one pixel to the next    3.42  ->   22.27
+  colours in one 16 px tile                74  ->     242
+
+NOT ONE KEY MOVED. A far-end tile is stamped by its self and its four edge types, and
+those are this lane's own layout. Only the pixels changed, so the map needs no change at
+all to show his ground instead of ours.
+
+WHAT WAS LEFT ALONE, AND WHY IT IS NAMED INSTEAD OF FAKED: road, spine and water. His
+terrain picks hold no road tile and no water tile, so there is nothing of his to cut them
+from. Cooking a substitute for an asset that is not in the index is the 7/27 shopping
+law's own violation; inventing one and calling it his would be worse. They stay this
+lane's paint and the bank says so on every one of them.
+
+ONE TILE OF HIS PER GROUND KIND, CHOSEN BY TWO NUMBERS OFF HIS OWN TILES (how much more
+green than red, which is what a grass tuft is, and how light it is) so nobody has to
+trust my eye:
+  basin  pack:2. Soil and dirt tiles#3                  green -52.4  light 166.8
+  field  pack:1. Ground Tiles#28                        green -21.5  light 105.6
+  wash   pack:3. Stone paths#3                          green -25.9  light 153.5
+  yard   pack:1. Ground Tiles#4                         green -27.0  light  83.9
+
+*** AND THE CUT BEFORE THIS ONE CAME OUT A CHESSBOARD. *** It walked his whole desert
+pool cell by cell, and his nine picks run from near-black burnt rock to pale open sand,
+so neighbours flipped light-dark-light and the far end read as a checked tablecloth. A
+basin cell should look like a basin cell; the difference between neighbours belongs in
+WHERE IN HIS TILE the cell was taken from, which is rule 82a's own word, "placed,
+flipped", and not in which tile it came from.
+
+THE TILES OF HIS THAT THE VALLEY NOW STANDS ON:
+  pack:1. Ground Tiles#28                                   146 cells
+  pack:1. Ground Tiles#4                                     37 cells
+  pack:2. Soil and dirt tiles#3                             408 cells
+  pack:3. Stone paths#3                                      39 cells
+
+*** AND THE FIRST CUT OF THIS RAN A GUARD STRICTER THAN HIS OWN VERDICT. *** I demanded
+every pick also be UP in the 7/13 sweep. Seven of his thirteen failed it and the whole
+far end came out standing on ONE TILE REPEATED 630 TIMES. Then I looked at why: six of
+the seven were NEVER JUDGED ON 7/13 AT ALL, because their packs are not in that sweep,
+and the seventh was judged DOWN on 7/13 and then PICKED BY HIM ON 7/14. The picks file
+says it in its own law line: "pool membership is a Paolo verdict." The later ruling wins.
+  7. Burnt ground tiles#17 was DOWN in the 7/13 sweep and he PICKED it on 7/14; the later ruling wins and it is in
+
+RULE 89 IS THE SHIP TEST HERE, NOT A FOOTNOTE. The sheet is the same 24 by 8 cells of
+the valley before and after, side by side, at one art pixel to one phone pixel, nothing
+scaled, and the numbers sit UNDER it as the proof line. If he cannot see it in that
+picture it did not ship, whatever the numbers say.
+
+MEASURED THIS RUN:
+  OK   EVERY LAND TILE OF THE FAR END IS NOW HIS: 630 of 1115 tiles re-cut from his own terrain picks, 485 left alone because his picks hold no road, spine or water
+  OK   AND THE ONES LEFT ALONE SAY SO INSTEAD OF PRETENDING: road, spine, water
+  OK   EVERY TILE USED IS ONE HE PICKED ON 7/14: 4 tiles of his over 630 cells
+  OK   EVERY GROUND KIND HAS ITS OWN TILE OF HIS AND NO TWO KINDS SHARE ONE, so a basin cell looks like a basin cell: basin=2. Soil and dirt tiles, field=1. Ground Tiles, wash=3. Stone paths, yard=1. Ground Tiles
+  OK   AND NO TWO CELLS ARE THE SAME PICTURE, because the difference between neighbours is WHERE IN HIS TILE they were taken from: 630 land cells, 630 distinct pictures, the most repeated appears 1 time(s)
+  OK   A PICK THAT REVERSES AN EARLIER VERDICT IS NAMED, NOT QUIETLY RESOLVED: 7. Burnt ground tiles#17 was DOWN in the 7/13 sweep and he PICKED it on 7/14; the later ruling wins and it is in
+  OK   NOT ONE KEY MOVED, so the map stamps exactly as it did and nothing downstream changes: 1115 keys, 1115 the same
+  OK   THE GRAIN ARRIVED, WHICH IS THE WHOLE POINT: the spread of light inside a land tile went 4.93 -> 21.63 and the jump from one pixel to the next went 3.42 -> 22.27
+  OK   AND THE COLOURS CAME WITH IT: 74 in a land tile before, 242 after
+  OK   NOTHING WAS RESIZED: every re-cut cell is 16 x 16, point-sampled, never filtered

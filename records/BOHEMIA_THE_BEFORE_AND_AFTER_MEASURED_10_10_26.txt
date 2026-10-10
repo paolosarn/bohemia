@@ -1,0 +1,30 @@
+THE TWO BEFORE-AND-AFTERS PLUMBER'S NOTE OWED -- MEASURED (COOK 10/10/26, rule 89)
+==============================================================================
+
+PAOLO 10/10, on a tile measured sharper that he voted NO on: "Can't tell difference.
+Looks like dogshit." Rule 89: a look item is a BEFORE AND AN AFTER OF THE SAME THING,
+side by side, at one art pixel to one phone pixel; a number is the proof line, never the
+show. The cook gate refuses a look item without one, and it was refusing three of this
+lane's sheets. The far end's picture is made by its own re-cut tool; these are the
+other two.
+
+  THE PROPS    their gas station forecourt as it shipped, a canopy over an EMPTY island,
+               and the same crop with the pumps on it. 9.0% of the crop changed.
+  HIS BLOCK    the block built, and the same six windows finished. 23.4% changed.
+
+*** AND A CROP IS CHOSEN BY MEASUREMENT, NOT BY EYE. *** A before-and-after cropped
+where nothing happened is how a lane shows a difference it did not make. The block's six
+windows are the 96 px patches WHERE THE FINISH CHANGED THE MOST, found by differencing
+the two pictures, none of them overlapping:
+  at  576, 384   mean change 24.0
+  at  672, 384   mean change 17.4
+  at  864, 960   mean change 16.2
+  at  960, 960   mean change 15.1
+  at  384, 576   mean change 13.9
+  at  480, 480   mean change 13.0
+
+MEASURED THIS RUN:
+  OK   THE PROPS SHEET IS THE SAME CROP TWICE AND THE PICTURE REALLY MOVED: 9.0% of its pixels changed between the two halves
+  OK   THE BLOCK SHEET IS THE SAME SIX CROPS TWICE AND THE PICTURE REALLY MOVED: 23.4% of its pixels changed
+  OK   AND THE BLOCK'S WINDOWS WERE FOUND BY DIFFERENCING THE TWO PICTURES, NOT PICKED BY EYE: the six busiest 96 px patches, none overlapping (576,384, 672,384, 864,960, 960,960, 384,576, 480,480)
+  OK   NOTHING IS SCALED IN EITHER SHEET: every crop is pasted at one art pixel to one phone pixel

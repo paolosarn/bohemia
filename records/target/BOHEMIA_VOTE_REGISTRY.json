@@ -5732,26 +5732,31 @@
    "sha": "5fe7031d"
   },
   {
-   "id": "cook-the-far-end-as-tiles-10-10",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "THE FAR END AS TILES",
-   "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
-   "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_FAR_END_AS_TILES.png"
-   },
-   "twin": {
-    "src": "pack:3. Grass and ground tiles#1",
-    "diffs": [
-     "COLOURS PER TEN THOUSAND PIXELS: his 8104.3, ours 2799.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
-     "COLOURS TO COVER HALF THE PICTURE: his 2801, ours 17. He bought a surface; we drew a palette.",
-     "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 2.8%, ours 9.3%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
-    ]
-   }
+    "id": "cook-the-far-end-as-tiles-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE FAR END AS TILES",
+    "why": "The map draws your whole valley at one pixel per cell, 9,216 pixels against Battle Brothers' two million, which is why it looks like a tan dome: there is no mountain painting in it at all, only a flat colour and a speckle. These are sixteen painted pixels a cell instead, so you see it in the VOTE tab with the old map beside it.",
+    "not_a_map_picture": "this item shows a contact sheet; the map pictures are slices/vote/COOK_THE_FAR_END_TILED.png and the tile bank",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FAR_END_FROM_HIS_PICKS.png"
+    },
+    "twin": {
+      "src": "pack:3. Grass and ground tiles#1",
+      "diffs": [
+        "COLOURS PER TEN THOUSAND PIXELS: his 8104.3, ours 2799.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+        "COLOURS TO COVER HALF THE PICTURE: his 2801, ours 17. He bought a surface; we drew a palette.",
+        "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 2.8%, ours 9.3%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+      ]
+    },
+    "before_after": {
+      "before": "the far end's ground painted by this lane, 24 by 8 cells of the valley",
+      "after": "the same 24 by 8 cells cut from the terrain tiles he picked and approved",
+      "scale": "1:1"
+    }
   },
   {
    "id": "tuning-what-a-settlement-pays-you-10-10",
@@ -6395,67 +6400,108 @@
    }
   },
   {
-   "id": "cook-the-building-props-10-10",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "THE SIX BUILDINGS' PROPS",
-   "why": "The six new buildings had nothing in them, so here is one prop each: pumps for the gas station, pews spilling out of the church, a school fence with a gate in it, the motel ice machine, warehouse pallets and slot machines dumped in the casino's back lot, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six with their sizes on them.",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_BUILDING_PROPS.png"
-   },
-   "twin": {
-    "src": "pack:15. Street props#0",
-    "diffs": [
-     "COLOURS PER TEN THOUSAND PIXELS: his 4819.0, ours 9.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
-     "COLOURS TO COVER HALF THE PICTURE: his 267, ours 2. He bought a surface; we drew a palette.",
-     "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 1.2%, ours 7.8%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
-    ]
-   }
+    "id": "cook-the-building-props-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE SIX BUILDINGS' PROPS",
+    "why": "The six new buildings had nothing in them, so here is one prop each: pumps for the gas station, pews spilling out of the church, a school fence with a gate in it, the motel ice machine, warehouse pallets and slot machines dumped in the casino's back lot, every one at its real size with its height named so the board knows what stops a shot. You see it in the VOTE tab, all six with their sizes on them.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_PROPS_BEFORE_AND_AFTER.png"
+    },
+    "twin": {
+      "src": "pack:15. Street props#0",
+      "diffs": [
+        "COLOURS PER TEN THOUSAND PIXELS: his 4819.0, ours 9.5. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+        "COLOURS TO COVER HALF THE PICTURE: his 267, ours 2. He bought a surface; we drew a palette.",
+        "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 1.2%, ours 7.8%. OURS runs further, and that is not better: with so few colours a dark mark comes out as one long flat smear, while his is many fine marks at many values. Long and flat is the tell."
+      ]
+    },
+    "before_after": {
+      "before": "their gas station forecourt as it shipped: the canopy and not a pump on it",
+      "after": "the same crop with this lane's pumps standing on the island",
+      "scale": "1:1"
+    }
   },
   {
-   "id": "cook-his-block-as-a-place-10-10",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "HIS BLOCK, AS A PLACE YOU ARRIVE AT",
-   "why": "The three settlement screens are sizes, not places: camp, town and fortress are how big a town is, and none of them is anywhere. This is the fourth one and it is your own block, with your door and your step, your drive with the wreck still on it, next door's gate shut and his table out, and the board at the kerb, and you see it in the VOTE tab by day and at night.",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_HIS_BLOCK.png"
-   },
-   "twin": {
-    "src": "pack:5. Roof tiles#1",
-    "diffs": [
-     "COLOURS PER TEN THOUSAND PIXELS: his 6090.1, ours 113.8. Ours is built from six-step ramps, so it bands where his reads as a surface.",
-     "COLOURS TO COVER HALF THE PICTURE: his 964, ours 4. He bought a surface; we drew a palette.",
-     "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 4.1%, ours 4.0%. The marks run about the same length. The difference is in the two numbers above it, not in this one."
-    ]
-   }
+    "id": "cook-his-block-as-a-place-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "HIS BLOCK, AS A PLACE YOU ARRIVE AT",
+    "why": "The three settlement screens are sizes, not places: camp, town and fortress are how big a town is, and none of them is anywhere. This is the fourth one and it is your own block, with your door and your step, your drive with the wreck still on it, next door's gate shut and his table out, and the board at the kerb, and you see it in the VOTE tab by day and at night.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_HIS_BLOCK_BEFORE_AND_AFTER.png"
+    },
+    "twin": {
+      "src": "pack:5. Roof tiles#1",
+      "diffs": [
+        "COLOURS PER TEN THOUSAND PIXELS: his 6090.1, ours 113.8. Ours is built from six-step ramps, so it bands where his reads as a surface.",
+        "COLOURS TO COVER HALF THE PICTURE: his 964, ours 4. He bought a surface; we drew a palette.",
+        "HOW FAR A DARK MARK RUNS, AS A SHARE OF THE WIDTH: his 4.1%, ours 4.0%. The marks run about the same length. The difference is in the two numbers above it, not in this one."
+      ]
+    },
+    "before_after": {
+      "before": "his block as it is built, six 96 px windows of it",
+      "after": "the same six windows after the finish: rain down the walls, the ground worn, the trash",
+      "scale": "1:1"
+    }
   },
   {
-   "id": "cook-the-pack-is-the-twin-10-10",
-   "kind": "tile",
-   "lane": "cook",
-   "sha": "pending",
-   "made": "10/10",
-   "title": "THE BAR, AND WHAT WE MADE",
-   "why": "You said the art looks nothing like the assets we downloaded, and you were right: all 1,927 tiles you bought and approved back in July were sitting in a bank file as code, so nobody was looking at them, and they are real files now, sorted into seven families with a sheet of each. You see it in the VOTE tab, your own street tiles on top and ours underneath at the same size, with the three measured differences under them.",
-   "show": {
-    "how": "image",
-    "src": "vote/COOK_THE_PACK_IS_THE_TWIN.png"
-   },
-   "twin": {
-    "src": "pack:1. Cracked street tiles#0",
-    "diffs": [
-     "COLOURS PER TEN THOUSAND PIXELS: his 4613, ours 7. Ours is a six-step ramp per material, so ours bands where his reads as a surface.",
-     "COLOURS TO COVER HALF THE TILE: his dozens, ours two or three. That is what 'AI slop' is actually describing.",
-     "PIXELS ON THE SAME PATCH: his 96 square, ours 44 square. He bought grain and we drew pattern."
-    ]
-   }
+    "id": "cook-the-pack-is-the-twin-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE BAR, AND WHAT WE MADE",
+    "why": "You said the art looks nothing like the assets we downloaded, and you were right: all 1,927 tiles you bought and approved back in July were sitting in a bank file as code, so nobody was looking at them, and they are real files now, sorted into seven families with a sheet of each. You see it in the VOTE tab, your own street tiles on top and ours underneath at the same size, with the three measured differences under them.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_PACK_IS_THE_TWIN.png"
+    },
+    "twin": {
+      "src": "pack:1. Cracked street tiles#0",
+      "diffs": [
+        "COLOURS PER TEN THOUSAND PIXELS: his 4613, ours 7. Ours is a six-step ramp per material, so ours bands where his reads as a surface.",
+        "COLOURS TO COVER HALF THE TILE: his dozens, ours two or three. That is what 'AI slop' is actually describing.",
+        "PIXELS ON THE SAME PATCH: his 96 square, ours 44 square. He bought grain and we drew pattern."
+      ]
+    },
+    "before_after": {
+      "before": "our own street cells as they ship today, at their own pixels",
+      "after": "the tiles of his we cut from instead from now, the same size, nothing scaled",
+      "scale": "1:1"
+    }
+  },
+  {
+    "id": "cook-the-far-end-from-his-picks-10-10",
+    "kind": "tile",
+    "lane": "cook",
+    "sha": "pending",
+    "made": "10/10",
+    "title": "THE FAR END'S GROUND, CUT FROM HIS OWN TILES",
+    "why": "The map's ground was a flat tan square of fifty near-identical tans, which is why the far end read like paper, so every land cell is now cut from the terrain tiles you picked and approved back in July. You see it in the VOTE tab, the same patch of valley before and after at the same size.",
+    "show": {
+      "how": "image",
+      "src": "vote/COOK_THE_FAR_END_FROM_HIS_PICKS.png"
+    },
+    "before_after": {
+      "before": "the far end's ground painted by this lane, 24 by 8 cells of the valley",
+      "after": "the same 24 by 8 cells cut from the terrain tiles he picked and approved",
+      "scale": "1:1"
+    },
+    "twin": {
+      "src": "pack:2. Soil and dirt tiles#3",
+      "diffs": [
+        "THE GRAIN ARRIVED: the spread of light inside a tile went 4.93 to 21.63, and the jump from one pixel to the next went 3.42 to 22.27.",
+        "COLOURS IN ONE 16 PX TILE: 74 before, 242 after, because the cell is point-sampled out of his master instead of painted from a ramp.",
+        "WHAT IS STILL OURS: road, spine and water, because his terrain picks hold none of those, and the yard's painted marks were lost in the re-cut."
+      ]
+    }
   },
   {
    "id": "run2-climbing-10-10",
