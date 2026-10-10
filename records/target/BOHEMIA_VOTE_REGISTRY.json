@@ -6768,9 +6768,23 @@
    }
   },
   {
+<<<<<<< HEAD
    "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "2306ee7c", "made": "10/10",
    "title": "WHEN A SETTLEMENT COMES FOR YOU", "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
    "show": {"how": "page", "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"}
+=======
+   "id": "dynasty-days-per-life-10-9",
+   "kind": "line",
+   "lane": "dynasty",
+   "sha": "pending",
+   "made": "10/9",
+   "title": "AN ACT IS ONE FELT YEAR: 130 DAYS, FOUR SEASONS, ABOUT 30 NAMED MOMENTS.",
+   "why": "The plan said a season per act, but the game has no seasons at all. Read the card in the VOTE tab: give each act four seasons and about 30 moments that get a name, and the 35 years between acts are told by four reports.",
+   "show": {
+    "how": "text",
+    "src": "FOUND: the game has no season or calendar, and keeps only 30 nights of history.\\nPROPOSED: 130 days an act in four seasons of about 32 days. About one memorable event in every four days, each named in the feed.\\nThe 35 years between acts are told by four reports: what the valley looks like, who is left, what the valley says of you, what you left standing."
+   }
+>>>>>>> origin/main
   }
  ],
  "verdicts": [
