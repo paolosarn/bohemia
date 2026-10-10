@@ -1545,7 +1545,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10g - THE CHIPPED BODIES' FACES</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/10h - THE HIRES' FACES</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -6713,6 +6713,42 @@ function keeperFaceSrc(place, kind, opts){
   return cv.toDataURL('image/png');
 }
 if (typeof window !== 'undefined') { window.keeperFaceId = keeperFaceId; window.keeperFaceSrc = keeperFaceSrc; }
+
+/* ===== A HIRE'S FACE (PORTRAIT, 10/10, [the hires' faces]) ==================
+   PEOPLE's [good bros] rolls six recruits at a post, one per real background
+   (engine/bohemia_goodbros.js), and the settlement screen's own recruitsHere()
+   already dresses each one with a real body look: `r.look = 'cast_' +
+   [...][seedOf(key+':look:'+i) % 12]`, one of the twelve CITY_CAST_LOOKS, each
+   with its own real worn.hair -- the same shape of data FACTION_LOOKS gave
+   [the enemy faces]. hireCard() (BOHEMIA_SETTLEMENT_SCREEN.html, untouched
+   here) currently draws a recruit's "face" as a crop of his body SPRITE SHEET
+   (`fight_people/' + r.look + '.webp'`), never a portrait -- no HD face has
+   ever existed for a hire.
+
+   NOTHING NEW NEEDED IN faceFor: over.hairName, the override [the enemy
+   faces] built, already does the whole job -- a recruit's look names a real
+   cut the same way a faction does. THE ONLY NEW IDEA is the id, because a
+   recruit's slot number alone ('rc0'..'rc5') is the SAME string at every post
+   in the game forever, which would give every farmhand who ever lands in
+   slot 0 the identical face -- "no two hires match" needs the instance, not
+   the slot. hireFaceId folds in the exact key recruitsHere() already rolls
+   everything else from (settlement name + the week), so a face is a function
+   of WHICH recruit this is, not just which chair he is sitting in. */
+function hireFaceId(postKey, slot){ return 'hire:' + String(postKey == null ? '' : postKey) + ':' + String(slot == null ? 0 : slot); }
+function hireFaceSrc(postKey, slot, lookId, opts){
+  opts = opts || {};
+  var id = hireFaceId(postKey, slot);
+  var bare = String(lookId || '').replace(/^cast_/, '');
+  var look = (typeof CITY_CAST_LOOKS !== 'undefined') ? CITY_CAST_LOOKS.filter(function (l) { return l.id === bare; })[0] : null;
+  var over = (look && look.worn && look.worn.hair) ? { hairName: look.worn.hair } : {};
+  var spec = faceFor(id, over);
+  var ramp = faceRampFor(spec);
+  var buf = renderFace(spec, { ramp: ramp });
+  var cv = document.createElement('canvas'); cv.width = 64; cv.height = 64;
+  var cx3 = cv.getContext('2d'); var idd3 = cx3.createImageData(64, 64); idd3.data.set(buf); cx3.putImageData(idd3, 0, 0);
+  return cv.toDataURL('image/png');
+}
+if (typeof window !== 'undefined') { window.hireFaceId = hireFaceId; window.hireFaceSrc = hireFaceSrc; }
 
 function paintPortrait(canvas){const buf=renderFace(buildSpec(),{ramp:portraitRamp(),blood:pface._blood,cig:pface._cig});const cc=document.createElement('canvas');cc.width=64;cc.height=64;const c2=cc.getContext('2d');const idd=c2.createImageData(64,64);idd.data.set(buf);c2.putImageData(idd,0,0);
   const x=canvas.getContext('2d');x.imageSmoothingEnabled=false;x.clearRect(0,0,canvas.width,canvas.height);x.save();x.beginPath();x.arc(canvas.width/2,canvas.height/2,canvas.width/2,0,7);x.clip();

@@ -1,0 +1,137 @@
+{
+ "when": "2026-10-10T01:16:14.075Z",
+ "worst": 0.29716655148583276,
+ "worstPair": "farmhand/messenger",
+ "crossPost": [
+  {
+   "background": "farmhand",
+   "differ": true
+  },
+  {
+   "background": "messenger",
+   "differ": true
+  },
+  {
+   "background": "butcher",
+   "differ": true
+  },
+  {
+   "background": "brawler",
+   "differ": true
+  },
+  {
+   "background": "thief",
+   "differ": true
+  },
+  {
+   "background": "militia",
+   "differ": true
+  }
+ ],
+ "determinism": [
+  true,
+  true,
+  true
+ ],
+ "rows": [
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "farmhand",
+   "lookId": "cast_shorts",
+   "wantHair": "COIL CROWN",
+   "gotHair": "COIL CROWN",
+   "matched": true
+  },
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "messenger",
+   "lookId": "cast_satchel",
+   "wantHair": "DRY TAPER",
+   "gotHair": "DRY TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "butcher",
+   "lookId": "cast_shortcoat",
+   "wantHair": "LAYERED FALL",
+   "gotHair": "LAYERED FALL",
+   "matched": true
+  },
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "brawler",
+   "lookId": "cast_longcoat",
+   "wantHair": "TEMPLE TAPER",
+   "gotHair": "TEMPLE TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "thief",
+   "lookId": "cast_barearms",
+   "wantHair": "COIL CROWN",
+   "gotHair": "COIL CROWN",
+   "matched": true
+  },
+  {
+   "postKey": "THE WASH, NORTH LAS VEGAS:0",
+   "background": "militia",
+   "lookId": "cast_pack",
+   "wantHair": "DRY TAPER",
+   "gotHair": "DRY TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "farmhand",
+   "lookId": "cast_longcoat",
+   "wantHair": "TEMPLE TAPER",
+   "gotHair": "TEMPLE TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "messenger",
+   "lookId": "cast_shortcoat",
+   "wantHair": "LAYERED FALL",
+   "gotHair": "LAYERED FALL",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "butcher",
+   "lookId": "cast_satchel",
+   "wantHair": "DRY TAPER",
+   "gotHair": "DRY TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "brawler",
+   "lookId": "cast_shorts",
+   "wantHair": "COIL CROWN",
+   "gotHair": "COIL CROWN",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "thief",
+   "lookId": "cast_bedroll",
+   "wantHair": "TEMPLE TAPER",
+   "gotHair": "TEMPLE TAPER",
+   "matched": true
+  },
+  {
+   "postKey": "RED ROCK, SUMMERLIN:0",
+   "background": "militia",
+   "lookId": "cast_poncho",
+   "wantHair": "CURTAIN CUT",
+   "gotHair": "CURTAIN CUT",
+   "matched": true
+  }
+ ],
+ "citizenHashesChecked": 100,
+ "citizenDiffs": 0,
+ "note": "rule 82/87: cooked, not registered to VOTE -- no portrait sheet shows until DIRECTION passes COOK THREE's"
+}

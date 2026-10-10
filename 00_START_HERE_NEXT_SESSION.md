@@ -711,6 +711,79 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round three) -- *** [the
+hires' faces] SHIPPED, AND A BUG REPORT CHECKED FIRST. Top OPEN jump-list
+row. Records: records/BOHEMIA_THE_HIRES_FACES_10_10_26.md,
+records/BOHEMIA_DIDNT_LOAD_THE_DISPLAY_INVESTIGATED_10_10_26.md.
+NOT IN VOTE this round (rule 82/87 embargo, see below).
+
+HIS BUGS BEAT THE QUEUE (rule 8): the 10/10 seventh votes carried this
+lane's only literal bug report, "Didnt load the display" on
+portrait-hairstyles-match-10-9, checked before anything else. Reproduced
+the real chain (VOTE tab -> LOOK AT IT -> nested iframe -> the sheet) over
+real HTTP, item put back to its unjudged state: loads clean, image complete
+at full width, zero errors, screenshot proof. NOT REPRODUCIBLE in current
+code -- likely the documented two-deploys-race (a timing issue the day he
+looked), written up honestly as checked, not claimed fixed.
+
+THE ROW ITSELF: PEOPLE's good_bros rolls six recruits at a post, one per
+real background; the settlement screen's own recruitsHere() already
+dresses each with a real body look (one of twelve CITY_CAST_LOOKS, each
+with a real worn.hair, the same shape FACTION_LOOKS gave the enemy tiers);
+hireCard() draws a recruit's "face" today as a crop of his body sprite
+sheet, no portrait ever existed. NOTHING NEW NEEDED in faceFor:
+over.hairName (built for [the enemy faces]) does the whole match. THE ONE
+NEW IDEA: hireFaceId(postKey,slot) folds the settlement+week key
+recruitsHere() already rolls everything else from into the face id, so the
+same slot number at a different post or week is never the same face.
+
+MEASURED: two example posts, all six backgrounds -- hair matches the
+rolled look 12 of 12; the SAME background at a DIFFERENT post renders a
+DIFFERENT face, 6 of 6; six at one post pairwise distinct (background
+excluded), closest pair 30% identical; deterministic. The cook tool
+refuses to write on any failure. PROVED SAFE: 100 regular citizens hashed
+unchanged before/after.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0.
+
+WHY NOT IN VOTE: rule 82/87 (coordinator, 10/10, THE SEVENTH VOTES): his NO
+on three of this lane's own cooked sheets this month plus the fleet-wide
+"looks nothing like the assets we downloaded." COOK THREE now repaints the
+portrait paint layer; this lane keeps the dials, the hair bank and the
+gates; no portrait sheet goes to VOTE until DIRECTION passes COOK THREE's --
+the same embargo CHARACTER's own [the twin on the thirteen] already works
+under. Cooked the real, gated mechanism and the proof sheet
+(slices/vote/PORTRAIT_THE_HIRES_FACES.png); held the VOTE registration.
+
+OPEN ROW GATE: PLUMBER's new [open row gate] requires at least three OPEN
+rows per lane; shipping the last of this round's jump list dropped this
+lane to one. Added two new OPEN rows this round to cover it honestly, not
+to pad the count: [the twin on the portraits] (mirrors CHARACTER's own
+coordinator-authored row -- waits on DIRECTION's twin sheet, same as the
+VOTE embargo above already requires) and [hair match regression gate] (a
+real, buildable next step: a single gate that would have caught every one
+of the five hair-mismatch bugs this lane has found and fixed this session,
+before the round that introduces the sixth one ships). A third,
+[the keepers' and hires' bodies], names the genuine blocker on the
+body-matching half of both of this round's and last round's work (waiting
+on CHARACTER/RUN TWO to assign a real dressed look to a keeper kind or a
+hire's background) rather than guessing at an assignment that is not this
+lane's to make.
+
+PUSH-TO-MAIN STATUS: the claim commit landed directly on main this round;
+this ship's own push not yet attempted at handoff-write time.
+
+NEXT ROUND, FIRST MOVE: [the twin on the portraits] if DIRECTION has passed
+a portrait twin sheet by then (re-shoot the recent sheets beside it, then
+register them to VOTE); otherwise [hair match regression gate], real
+buildable work that needs nobody else first.
+
+PENDING PAOLO: none new this round -- a bug report checked and a structural
+embargo both already answered by the rules that created them, no fork for
+him to pick.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round two) -- *** [the
 chipped bodies' faces] SHIPPED: THE DEAD HAD NO FACE OF THEIR OWN AT ALL.
 Top OPEN jump-list row. Record: records/BOHEMIA_THE_CHIPPED_BODIES_
