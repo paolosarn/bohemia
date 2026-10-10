@@ -7032,6 +7032,20 @@
    }
   },
   {
+   "id": "tuning-what-a-starting-company-is-worth-10-10",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "700e8090",
+   "made": "10/10",
+   "draft": true,
+   "title": "WHAT A STARTING COMPANY IS WORTH",
+   "why": "The VOTE tab ranks the fifteen starting stories by money plus what their men cost to hire. The hard ones start richer than the easy ones, so their difficulty is a rule, like losing when one man dies, and no money dial can change it.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_WHAT_A_STARTING_COMPANY_IS_WORTH_10_10_26.html"
+   }
+  },
+  {
    "id": "tuning-does-the-money-match-the-label-10-10",
    "kind": "tile",
    "lane": "tuning",

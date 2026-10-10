@@ -1,3 +1,8 @@
+TUNING (tuning-f59l1w): 10/10 (l) LATEST -- [start power] SHIPPED (research, no code touched).
+TAB: VOTE, item WHAT A STARTING COMPANY IS WORTH (draft:true).
+RECORD: records/BOHEMIA_TUNING_START_POWER_HARD_ORIGINS_START_RICHER_THAN_EASY_ONES_10_10_26.md
+FINDING: start_power = purse + hire prices (pricetable hireCostRange); Hard origins (pit, wolf, hunt) start richer than all Easy ones, so their hardness is a rule the death roll carries, not money. Gear not counted; next row [origin gear value] added.
+
 MODS (mods-59jyd6): 10/10 LATEST -- [mod checklist] SHIPPED as a page on the board (nothing in VOTE, rules 78, 88). Record
 records/BOHEMIA_MODS_A_MODDERS_SELF_CHECK_10_10_26.md; tool tools/bohemia_mods_check.js: one command, plain words, code + meaning + fix per
 skipped part, never refuses. The reference merge now tags each warn/bad with its code M01-M20 (a third value), so no guessing from words;
