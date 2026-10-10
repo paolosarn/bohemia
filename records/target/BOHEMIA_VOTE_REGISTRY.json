@@ -6971,6 +6971,19 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_FAR_EACH_WEAPON_REACHES_10_10_26.html"
    }
+  },
+  {
+   "id": "mods-patch-inside-a-list-10-10",
+   "kind": "ui",
+   "lane": "mods",
+   "sha": "pending",
+   "made": "10/10",
+   "title": "PATCH INSIDE A LIST",
+   "why": "For whoever makes mods. A weapon has lists inside it, like skills. A mod can now change one entry by name or position, or add and remove words, without copying the whole list. Two new example mods show it. Also: the range tool you voted down is gone.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MODS_PATCH_INSIDE_A_LIST_10_10_26.html"
+   }
   }
  ],
  "verdicts": [

@@ -1,3 +1,17 @@
+MODS (mods-59jyd6): 10/10 LATEST -- [lists in rows] SHIPPED as a research page, and [range column] RETIRED by his DOWN
+(10/9 verdict on how-big-is-too-big: "the only point is to help people mod the game"). TAB: VOTE, item PATCH INSIDE A
+LIST. Record records/BOHEMIA_MODS_PATCHING_INSIDE_A_LIST_10_10_26.md; instrument tools/bohemia_mods_lists_audit.js: 32 list
+fields in the data, 3 hold objects, 29 hold words. The reference merge (tools/bohemia_mods_merge_reference.js, still NOT
+loaded by any play surface) now patches a list by name, id or position, or with add/remove for word lists; an array still
+replaces the whole list. Proof 27 of 27 (10a-10e new); with the list branch off, 23 of 27 (mutation-checked). Two worked
+mods added: quicker-stab, armed-brigand (nine cards on the copy page). TAKEN OUT: the range tool and its warning, to
+graveyard/ with graveyard/POSTMORTEM_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.txt. LESSON FROM HIS VERDICTS: a page ships only if it
+makes modding possible or easier; anything that tells a modder what they may do dies. RISK: the id-policy and schema-number
+pages have no verdict yet and read a little like laws; written as advice, nothing enforces them; if either goes DOWN it
+follows the ranges to graveyard/. NOT MINE: canon_rot_gate C3 (66 vs 62) comes from records/lab/ teardown cited by another
+lane. [read count] CLAIMED: old fight 4 files, new fight 1, background 3, sound 4. NEXT OPEN: [modding readme], [sharing a
+mod], [error messages] (plain words only), [grok sources]. PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/10 (d) LATEST -- *** ON HOLD. NO ROUND THIS VAMILY. ***
 Rule 88 (Paolo 10/10, 'we need to prioritize how it looks, bro, for real') puts
 WORLD on HOLD: no round, no VOTE sheet, nothing into the demo, the rows stay
