@@ -6918,7 +6918,7 @@
    },
    "sha": "8f618d5d"
   },
-  {"id": "combat-the-art-at-its-own-pixels-10-10", "kind": "tile", "lane": "combat", "sha": "pending", "made": "10/10", "title": "THE FIGHT'S GROUND, SHARP", "why": "Close in, the fight's ground is now drawn straight from the original art, one art pixel on one screen pixel of the phone, where before it was shrunk to a third and blown back up; a tile keeps all its edges (106 percent of the file, it kept 32), and it still runs at 60 frames by day and by night. Open any fight and you see it in the asphalt, the cars and the lamps, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ART_AT_ITS_OWN_PIXELS_10_10.jpg"}, "draft": true}
+  {"id": "combat-the-art-at-its-own-pixels-10-10", "kind": "tile", "lane": "combat", "sha": "c0c6829", "made": "10/10", "title": "THE FIGHT'S GROUND, SHARP", "why": "Close in, the fight's ground is now drawn straight from the original art, one art pixel on one screen pixel of the phone, where before it was shrunk to a third and blown back up; a tile keeps all its edges (106 percent of the file, it kept 32), and it still runs at 60 frames by day and by night. Open any fight and you see it in the asphalt, the cars and the lamps, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_THE_ART_AT_ITS_OWN_PIXELS_10_10.jpg"}, "draft": true}
  ],
  "verdicts": [
   {
