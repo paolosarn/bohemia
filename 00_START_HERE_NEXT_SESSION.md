@@ -59591,6 +59591,10 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
+ROUND LOG 10/10a (latest): [demo verdict two] SHIPPED: 2 fixed (men full size,
+men on the glass), 18 still wrong, contracts on the phone new; AH-03 14 tells.
+Next OPEN: [fight verdict 23] (COMBAT [struck down] 69e5176 and COMBAT TWO [the
+rest join] are landing).
 ROUND LOG 10/9e (latest): [four phones] SHIPPED: three sibling skins as real
 values (records/target/DIRECTION_FOUR_PHONES_SKINS.json) rendered live on the
 alpha's phone (cracked / repaired / slab / yellowed). Next OPEN: [demo verdict

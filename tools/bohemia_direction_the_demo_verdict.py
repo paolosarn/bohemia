@@ -5,7 +5,7 @@ two short lines, numbered to records/BOHEMIA_THE_DEMO_VERDICT_EVERY_SCREEN_10_9_
 REFERENCE CHECK (the 9/4 standing duty): AH-01 (the bible and its AI-slop strand), AH-03 (the vibe-coded
 tells), the style card, the floor pass bar. No reference game.
 
-usage: python3 tools/bohemia_direction_the_demo_verdict.py <shots dir> <out.png>
+usage: python3 tools/bohemia_direction_the_demo_verdict.py <shots dir> <out.png> [captions.json]
 """
 import sys, os, glob
 import numpy as np
@@ -32,6 +32,9 @@ SCREENS = [  # file, title, right, slop
     ('7_fight_close', '7 FIGHT, ON AUTO', 'roofs, kerb and road read', 'not one man on the glass'),
     ('8_after', '8 AFTER', 'back on the map, paused', 'no "you won"; a box, no face'),
 ]
+if len(sys.argv) > 3:  # a later round's reading of the same screens: [[file, title, right, slop], ...]
+    import json as _j
+    SCREENS = [tuple(x) for x in _j.load(open(sys.argv[3]))]
 F_T, F_L, F_H = ImageFont.truetype(ROM, 22), ImageFont.truetype(ROM, 15), ImageFont.truetype(ROM, 30)
 S = 0.25
 TW, TH = int(1170 * S), int(2532 * S)

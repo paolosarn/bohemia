@@ -6795,9 +6795,17 @@
    "draft": true
   },
   {
-   "id": "factions-when-a-settlement-comes-for-you-10-10", "kind": "tile", "lane": "factions", "sha": "2306ee7c", "made": "10/10",
-   "title": "WHEN A SETTLEMENT COMES FOR YOU", "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
-   "show": {"how": "page", "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"}
+   "id": "factions-when-a-settlement-comes-for-you-10-10",
+   "kind": "tile",
+   "lane": "factions",
+   "sha": "2306ee7c",
+   "made": "10/10",
+   "title": "WHEN A SETTLEMENT COMES FOR YOU",
+   "why": "Wrong a faction twice and its patrols hunt you and its caravans open to raiding, then it cools off by itself, using the two thresholds Battle Brothers states. You see it in the VOTE tab: one faction through two bad contracts and then the quiet mornings after.",
+   "show": {
+    "how": "page",
+    "src": "vote/FACTIONS_WHEN_A_SETTLEMENT_COMES_FOR_YOU_10_10.html"
+   }
   },
   {
    "id": "mods-when-the-data-changes-10-10",
@@ -6824,8 +6832,22 @@
     "how": "text",
     "src": "records/BOHEMIA_ECONOMY_DAY_63_WHAT_A_CONTRACT_PAYS_DISTANCE_THE_TWIST_AND_THE_PAIR_10_10_26.md; banks/BOHEMIA_ECONOMY_TEST_LINES_9_5_26.md round 63.\n\nSeen in: not drawn yet, feeds TUNING and the settlement screen."
    }
+  },
+  {
+   "id": "direction-the-demo-verdict-two-10-10",
+   "kind": "verdict",
+   "lane": "direction",
+   "sha": "PENDINGSHA",
+   "made": "10/10",
+   "title": "THE DEMO AGAIN: 2 FIXED, 18 STILL WRONG",
+   "why": "Since the last check your men open at full size and stay on screen, and contracts show on the phone; places still never open and the fight still never says if you won. You see it in the demo, last round beside this round, screen by screen.",
+   "show": {
+    "how": "image",
+    "src": "vote/DIRECTION_THE_DEMO_VERDICT_TWO.png"
+   },
+   "asked": "UP or DOWN",
+   "draft": true
   }
-
  ],
  "verdicts": [
   {
