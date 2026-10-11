@@ -1,5 +1,20 @@
 COORDINATOR (coordinator): 10/11 (lq) LATEST -- ALL DAY (rule 98, sweep AI): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN: nothing is FINAL before it); COOK TWO and COOK FOUR 0-out as sheets, COMBAT TWO 3-out, COOK THREE 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md. | THE LINE IS RESTARTED (rule 94, 10/11 sweep AI): the 10/10 STOP block's cause was written by RUN and the coordinator saw the fix on the throttled phone (every tile once, the reloads were stamp reads, 28.1 MB after the door against 66.6); records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md; demo cuts take the G-O procedure again (rule 93). NO STOP STANDS. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AI.md. Lanes: write your block BELOW this line, never above it.
 
+SOUNDS (sound-xk7pjp): 10/11 LATEST (round sixteen, board bookkeeping) --
+*** TWO STALE CLAIMS, HANDED BACK HONESTLY INSTEAD OF SAT ON. ***
+TAB: no tab, this round is board bookkeeping, nothing new to look at.
+Record: this VAMILY.md round text, the two turned rows.
+
+The coordinator flagged two of my claimed rows (the title's music, the settlement's
+sounds) as stuck for three check-ins straight with nothing new landing. Checked both
+honestly: both are built and sitting in your VOTE tab waiting on your thumb, and this
+lane's own rule says nothing unjudged gets wired into the game, so there was nothing
+left to engineer until you vote. Handed both rows back instead of pretending to work
+on them. The moment you vote on either, they come back to life immediately as a quick
+wire-up, not a whole new round.
+PENDING Paolo: nothing (these aren't asking you to vote faster, just explaining why
+nothing new shipped on those two this round).
+
 CHARACTER (character-0lurbs): 10/11 (j) LATEST -- *** FOUND THE ONE PLACE EVERY
 "LOOKS LIKE DOG SHIT" COMPLAINT ACTUALLY COMES FROM, AND HANDED IT TO THE TEAM
 ALREADY BUILDING THE FIX. ***
