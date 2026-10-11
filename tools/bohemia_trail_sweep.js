@@ -33,8 +33,12 @@
    A mark born after the oldest sweep is counted only from the sweep it was born in. STOP <mark> <sha> <why>
    in a lane commit is listed (rule 96's stop signal).
 
-   THIS FIRST VERSION ONLY READS. The moves (the handoff split with the handoff gate's archive leg in the same
-   commit, the folds, the archive moves) wait for the coordinator's CORRECT on the dry run.
+   THE MOVES (round 2) run only with the coordinator's CORRECT named:
+     node tools/bohemia_trail_sweep.js --apply handoff|rules|rows|records|all --correct <sweep or sha> [--root <copy>]
+   They move what the sealed trail file says (the handoff split is computed fresh: it needs no cites), skip a
+   row claimed since, refuse the split while a hazard exists, and write every removed line somewhere verbatim:
+   handoffs/<LANE>_ARCHIVE.md, records/BOHEMIA_EVAPORATED_<date>.md, records/BOHEMIA_EVAPORATED_ROWS.md, archive/
+   with its line in gates/bohemia_superseded.txt.
 
    require('tools/bohemia_trail_sweep.js').{laneOf, citesIn, silentAfter, splitHandoff, seal}
    ================================================================================ */
@@ -64,7 +68,7 @@ const LANES = [
   ['RUN', 'RUN'], ['SFX', 'SOUNDS'], ['UI', 'UI'],
 ];
 /* handoff head names that are a lane under another name, and names that are no lane any more */
-const HEAD_ALIAS = { SOUND: 'SOUNDS', MUSIC: 'SOUNDS', SFX: 'SOUNDS', CITY: 'LIFE + CITY', ART: 'DIRECTION', COORDINATOR: 'COORDINATOR' };   /* ART (art-f3eu53) is the art director's old name */
+const HEAD_ALIAS = { SOUND: 'SOUNDS', MUSIC: 'SOUNDS', SFX: 'SOUNDS', CITY: 'LIFE + CITY', ART: 'DIRECTION', COORDINATOR: 'COORDINATOR', LAB: 'LAB' };   /* LAB: retired 9/4, every block of it is history */   /* ART (art-f3eu53) is the art director's old name */
 
 function laneOf(subject) {
   const s = String(subject).replace(/^VAMILY(?: \d+\/\d+[a-z]?)?:\s*/, '').trim();
@@ -149,7 +153,7 @@ function splitHandoff(text, laneNames) {
      lane and a date of the last three days is a hazard; the split is not applied while any exists. */
   const recent = [0, 1, 2].map(d => { const x = new Date(Date.now() - d * 86400e3); return (x.getMonth() + 1) + '/' + x.getDate(); });
   const dateRe = new RegExp('(^|[^0-9/])(' + recent.map(r => r.replace('/', '\\/')).join('|') + ')(?![0-9])');
-  const nameRe = new RegExp('^(?:=+ |- |\\*+ |#+ |ROUND LOG )?(' + [...known].sort((a, b) => b.length - a.length).map(n => n.replace(/[+]/g, '\\+')).join('|') + ')\\b');
+  const nameRe = new RegExp('^(?:=+ |- |\\*+ |#+ |ROUND LOG )?(' + [...known].sort((a, b) => b.length - a.length).map(n => n.replace(/[+]/g, '\\+')).join('|') + ')(?=\\s*(?:\\(|:|--|- |\\d{1,2}\\/\\d{1,2}))');   /* head-shaped: 'RUN TWO had marked' is prose */
   for (const b of blocks) {
     if (b.keep) continue;
     b.hazards = [];
@@ -220,7 +224,7 @@ function sweep({ write = true, log = console.log } = {}) {
   }
   const N = sweeps.length;
   const silentOf = (e, born) => {
-    const fromBirth = born === undefined ? N : N - born;           /* not on any sweep's board yet: born after the last */
+    const fromBirth = born === undefined ? 0 : N - born;           /* on no sweep's board yet: born after the last sweep, silent for none */
     return Math.min(fromBirth, e && e.last ? silentAfter(sweeps, e.last.t) : N);
   };
   const strength = (s) => +Math.pow(0.5, s).toFixed(4);
@@ -294,7 +298,7 @@ function sweep({ write = true, log = console.log } = {}) {
   for (const f of files) {
     const e = fileCite.get(path.basename(f));
     const cited = !candidates.has(f), reached = alive.has(f);
-    const s = silentOf(e, undefined);
+    const s = silentOf(e, 0);                                      /* a file's age is not read: counted from the window's start */
     marks.push({ kind: f.startsWith('laws/') ? 'law' : 'record', id: f, silent: s, strength: strength(s), last_cite: lastOf(e), lanes: e ? [...e.lanes].sort() : [],
       days: e && e.last ? Math.floor((now - e.last.t) / 86400) : null, reached: cited ? null : reached, action: cited || reached ? '' : 'LEAVES THE CANON INDEX FOR archive/' });
   }
@@ -335,7 +339,8 @@ function report(r) {
   const hz = blocks.filter(m => m.hazards);
   const hzLanes = {}; for (const m of hz) for (const h of m.hazards) hzLanes[h.split(' ').slice(1).join(' ')] = (hzLanes[h.split(' ').slice(1).join(' ')] || 0) + 1;
   say('  HANDOFF: ' + blocks.length + ' blocks, ' + all + ' lines; ' + moving.length + ' blocks (' + lines + ' lines) move to handoffs/<LANE>_ARCHIVE.md; the START file keeps ' + (all - lines) + ' lines, two blocks a lane');
-  say('    NOT SAFE TO SPLIT YET: ' + hz.length + ' moving blocks hold ' + Object.values(hzLanes).reduce((a, b) => a + b, 0) + ' lane lines dated in the last three days ('
+  if (!hz.length) say('    SAFE TO SPLIT: no moving block holds a lane\'s head-shaped line of the last three days.');
+  else say('    NOT SAFE TO SPLIT YET: ' + hz.length + ' moving blocks hold ' + Object.values(hzLanes).reduce((a, b) => a + b, 0) + ' lane lines dated in the last three days ('
     + Object.entries(hzLanes).sort((a, b) => b[1] - a[1]).map(([l, n]) => l + ' ' + n).join(', ') + '): those lanes write heads the split cannot see, so their newest state would leave the START file, some of it under another lane\'s archive.');
   const recs = r.marks.filter(m => m.kind === 'record' || m.kind === 'law'), out2 = recs.filter(m => m.action);
   say('  RECORDS AND LAWS: ' + recs.length + '; ' + recs.filter(m => m.reached === null).length + ' named by a lane in 30 days, ' + recs.filter(m => m.reached === true).length
@@ -345,9 +350,143 @@ function report(r) {
   return out.join('\n');
 }
 
-module.exports = { laneOf, citesIn, silentAfter, splitHandoff, seal, sweep, report, RATES, OUT };
+/* ---- THE MOVES (round 2). Pure functions, text in and text out, so the gate proves them on planted copies;
+   the command line runs them only with the coordinator's CORRECT named (--correct <sweep letter or sha>). ---- */
+const archiveName = (lane) => 'handoffs/' + lane.replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '') + '_ARCHIVE.md';
+
+/* the START file keeps each lane's two newest blocks; the rest go, newest first, to the lane's archive, in front
+   of whatever an earlier move already put there. Refused while a hazard exists. */
+function applyHandoff(text, laneNames, existing = {}, date = '') {
+  const h = splitHandoff(text, laneNames);
+  const hazards = h.blocks.filter(b => b.hazards && b.hazards.length);
+  if (hazards.length) return { refused: hazards.length + ' moving block(s) hold a lane\'s line of the last three days: ' + hazards.map(b => b.lane + ' #' + b.rank + ' line ' + b.hazards[0].line).join(', ') };
+  const keep = [], moved = {};
+  for (const b of h.blocks) {
+    const body = h.lines.slice(b.start, b.end + 1).join('\n');
+    if (b.keep) keep.push(body); else (moved[archiveName(b.lane)] = moved[archiveName(b.lane)] || []).push(body);
+  }
+  const archives = {};
+  for (const [f, bodies] of Object.entries(moved)) {
+    const head = '# ' + path.basename(f, '.md').replace(/_/g, ' ') + ' (rule 96: the blocks older than the lane\'s two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)\n\n';
+    const old = existing[f] ? existing[f].replace(/^# [^\n]*\n\n/, '') : '';
+    archives[f] = head + (date ? '<!-- moved ' + date + ' -->\n' : '') + bodies.join('\n') + (old ? '\n' + old : '\n');
+  }
+  return { start: keep.join('\n') + (text.endsWith('\n') ? '\n' : ''), archives, kept: keep.length, moved: Object.values(moved).reduce((a, x) => a + x.length, 0) };
+}
+
+/* a rule's lines: its "N. " line and the indented lines under it */
+function ruleSpan(lines, n) {
+  const i = lines.findIndex(l => l.startsWith(n + '. '));
+  if (i < 0) return null;
+  let j = i + 1; while (j < lines.length && /^\s+\S/.test(lines[j])) j++;
+  return [i, j];
+}
+/* FOLDS: the rule becomes one line with its pointer; LEAVES: the rule leaves the page. Its full text goes to the
+   evaporated record either way, verbatim; a leaving rule that quotes Paolo gets its registry line. */
+function applyRules(board, actions, date, evaporated) {
+  const lines = board.split('\n'), out = [], registry = [];
+  const done = [];
+  for (const a of actions.slice().sort((x, y) => y.n - x.n)) {
+    const sp = ruleSpan(lines, a.n); if (!sp) continue;
+    const full = lines.slice(sp[0], sp[1]).join('\n');
+    if (/folded to one line/i.test(full) && a.fold) continue;
+    const body = full.replace(/^\d+\.\s+/, '').replace(/\s*\n\s+/g, ' ');
+    const title = body.split(/ \(|: |\. /)[0].slice(0, 90);
+    const files = [...new Set([...full.matchAll(/(?:laws|records)\/[A-Za-z0-9_.\-]+\.(?:md|txt)/g)].map(m => m[0]))];
+    const pointer = (files.length ? files.join(' and ') + ', and ' : '') + evaporated;
+    out.push('### rule ' + a.n + (a.fold ? ' (folded ' : ' (left the page ') + date + ', rule 96: no lane named it for ' + a.silent + ' sweeps)\n' + full + '\n');
+    if (a.fold) lines.splice(sp[0], sp[1] - sp[0], a.n + '. ' + title + ' (folded to one line ' + date + ' by rule 96: no lane named it for ' + a.silent + ' sweeps; the full text is ' + pointer + ').');
+    else {
+      lines.splice(sp[0], sp[1] - sp[0]);
+      if (a.paolo) for (const f of files.filter(f => f.startsWith('laws/'))) registry.push(path.basename(f) + ' | rule ' + a.n + ' left the front page ' + date + ' (rule 96: no lane named it for ' + a.silent + ' sweeps); the law file stays in laws/, its board text is in ' + evaporated);
+    }
+    done.push(a.n);
+  }
+  return { board: lines.join('\n'), evaporatedText: out.reverse().join('\n'), registry, done };
+}
+
+/* OPEN rows: STALE gets the word; a row past the second rate leaves the board as one line */
+function applyRows(board, actions, date) {
+  const lines = board.split('\n'), gone = [], done = [];
+  for (const a of actions) {
+    const i = lines.findIndex(l => /^- OPEN\b/.test(l) && l.toLowerCase().includes('  [' + a.label + ']'));
+    if (i < 0) continue;                                   /* claimed or rewritten since the trail was written: not touched */
+    if (a.stale) { if (!/\(STALE /.test(lines[i])) { lines[i] = lines[i].replace(/^- OPEN\s+/, '- OPEN  (STALE ' + date + ' by rule 96: no lane named it for ' + a.silent + ' sweeps)  '); done.push(a.label); } }
+    else { gone.push('- ' + date + ' rule 96, silent ' + a.silent + ' sweeps, ' + a.lane + ': ' + lines[i].replace(/^- /, '')); lines.splice(i, 1); done.push(a.label); }
+  }
+  return { board: lines.join('\n'), gone, done };
+}
+
+/* records that leave the canon: the move list and their registry lines (the command line runs git mv) */
+function planRecords(actions, date) {
+  return actions.map(a => ({ from: a.id, to: 'archive/' + path.basename(a.id),
+    registry: path.basename(a.id) + ' | archive/, ' + date + ' by rule 96: no lane named it for 30 days and no live file reaches it (last cite ' + (a.last_cite || 'none in 45 days') + ')' }));
+}
+
+/* the trail file as written, checked against its seal: the moves are what the coordinator read */
+function readTrail(file = OUT) {
+  const text = fs.readFileSync(file, 'utf8');
+  const lines = text.split('\n'), a = lines.indexOf(' "marks": ['), z = lines.lastIndexOf(' ]');
+  const rows = lines.slice(a + 1, z).map(l => l.trim().replace(/,$/, ''));
+  const stored = (text.match(/"seal": "([0-9a-f]+)"/) || [])[1];
+  if (stored !== seal(rows)) throw new Error('the trail file\'s seal does not match its marks: re-run the sweep, never edit it');
+  return { marks: rows.map(r => JSON.parse(r)), head: (text.match(/"head": "([0-9a-f]+)"/) || [])[1] };
+}
+
+function applyAll(kind, correct, { root = ROOT } = {}) {
+  if (!correct) throw new Error('THE COORDINATOR\'S CORRECT IS THE PREMISE: the row says the first run is a dry run the coordinator reads. Name it: --correct <sweep letter or sha>.');
+  const d = new Date(), date = (d.getMonth() + 1) + '/' + d.getDate(), stamp = (d.getMonth() + 1) + '_' + d.getDate() + '_' + String(d.getFullYear()).slice(2);
+  const R = (f) => path.join(root, f), read = (f) => fs.existsSync(R(f)) ? fs.readFileSync(R(f), 'utf8') : null;
+  const board = read('VAMILY.md');
+  const laneNames = new Set([...board.matchAll(/^## ([A-Z][A-Z +&]*?)\s{2}\(/gm)].map(m => m[1].trim()).concat(['COORDINATOR']));
+  const said = [];
+  if (kind === 'handoff' || kind === 'all') {
+    const start = read('00_START_HERE_NEXT_SESSION.md'), existing = {};
+    if (fs.existsSync(R('handoffs'))) for (const f of fs.readdirSync(R('handoffs'))) existing['handoffs/' + f] = read('handoffs/' + f);
+    const r = applyHandoff(start, laneNames, existing, date + ' (CORRECT: ' + correct + ')');
+    if (r.refused) throw new Error('THE SPLIT IS REFUSED: ' + r.refused);
+    fs.mkdirSync(R('handoffs'), { recursive: true });
+    for (const [f, t] of Object.entries(r.archives)) fs.writeFileSync(R(f), t);
+    fs.writeFileSync(R('00_START_HERE_NEXT_SESSION.md'), r.start);
+    said.push('handoff: ' + r.kept + ' blocks kept, ' + r.moved + ' moved to ' + Object.keys(r.archives).length + ' archives');
+  }
+  const t = readTrail(R('records/target/BOHEMIA_TRAIL.json'));
+  const evaporated = 'records/BOHEMIA_EVAPORATED_' + stamp + '.md';
+  let b = read('VAMILY.md');
+  if (kind === 'rules' || kind === 'all') {
+    const acts = t.marks.filter(m => m.kind === 'rule' && m.action).map(m => ({ n: +m.id.split(' ')[1], fold: /FOLDS/.test(m.action), silent: m.silent, paolo: !!m.quotes_paolo }));
+    const r = applyRules(b, acts, date, evaporated); b = r.board;
+    const ev = read(evaporated) || '# EVAPORATED ' + date + ' (rule 96): the text that left the front page, verbatim\n\n';
+    fs.writeFileSync(R(evaporated), ev + r.evaporatedText + '\n');
+    if (r.registry.length) fs.appendFileSync(R('gates/bohemia_superseded.txt'), r.registry.join('\n') + '\n');
+    said.push('rules: ' + r.done.length + ' folded or left (' + r.done.sort((x, y) => x - y).join(', ') + ')');
+  }
+  if (kind === 'rows' || kind === 'all') {
+    const acts = t.marks.filter(m => m.kind === 'row' && m.status === 'OPEN' && m.action).map(m => ({ label: m.id.slice(1, -1), lane: m.lane, silent: m.silent, stale: m.action === 'STALE' }));
+    const r = applyRows(b, acts, date); b = r.board;
+    const f = 'records/BOHEMIA_EVAPORATED_ROWS.md', old = read(f) || '# EVAPORATED ROWS (rule 96): OPEN rows no lane named for 14 sweeps, one line each, verbatim\n\n';
+    fs.writeFileSync(R(f), old + r.gone.join('\n') + (r.gone.length ? '\n' : ''));
+    said.push('rows: ' + r.gone.length + ' left the board, ' + (r.done.length - r.gone.length) + ' marked STALE');
+  }
+  if (b !== read('VAMILY.md')) fs.writeFileSync(R('VAMILY.md'), b);
+  if (kind === 'records' || kind === 'all') {
+    const plan = planRecords(t.marks.filter(m => (m.kind === 'record' || m.kind === 'law') && m.action), date).filter(p => fs.existsSync(R(p.from)));
+    for (const p of plan) execFileSync('git', ['mv', p.from, p.to], { cwd: root });
+    if (plan.length) fs.appendFileSync(R('gates/bohemia_superseded.txt'), plan.map(p => p.registry).join('\n') + '\n');
+    said.push('records: ' + plan.length + ' moved to archive/ with their registry lines (regenerate the canon index: python3 gates/bohemia_canon_index.py)');
+  }
+  return said;
+}
+
+module.exports = { laneOf, citesIn, silentAfter, splitHandoff, seal, sweep, report, RATES, OUT, applyHandoff, applyRules, applyRows, planRecords, readTrail, ruleSpan, applyAll, archiveName };
 
 if (require.main === module) {
-  const r = sweep({ write: !process.argv.includes('--no-write') });
-  console.log(report(r));
+  const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };
+  if (arg('--apply')) {
+    try { for (const l of applyAll(arg('--apply'), arg('--correct'), { root: arg('--root') || ROOT })) console.log('  ' + l); }
+    catch (e) { console.log('  REFUSED: ' + e.message); process.exit(1); }
+  } else {
+    const r = sweep({ write: !process.argv.includes('--no-write') });
+    console.log(report(r));
+  }
 }

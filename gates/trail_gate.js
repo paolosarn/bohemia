@@ -17,8 +17,14 @@
      T5  the handoff split keeps a lane's two newest blocks, moves the third and the July document, reads
          COOK FOUR's "=== LANE: ... (date" head, and names a lane's line dated in the last three days
          inside a moving block as a hazard.
+     T6  THE MOVES, round 2: the split is refused while a hazard exists; without it, two blocks a lane stay,
+         the rest go newest first to handoffs/<LANE>_ARCHIVE.md, and no line is lost.
+     T7  a rule leaving the page takes its indented lines and leaves a registry line when it quotes Paolo; a
+         folded rule is one line with its pointer; both texts are kept verbatim.
+     T8  an OPEN row past 14 sweeps leaves as one line, past 10 it is STALE, a row claimed since is untouched.
+     T9  no move without the coordinator's CORRECT named; no move from a trail file edited by hand.
    RED CASE: T1 on a copy of the trail file with one mark's "silent" changed by hand; T5's hazard on a
-   planted handoff (the split is refused while it is there).
+   planted handoff (the split is refused while it is there, T6); T9 on a hand-edited copy.
    ========================================================================== */
 'use strict';
 const fs = require('fs');
@@ -83,6 +89,49 @@ const keep = h.blocks.filter(b => b.keep).map(b => b.lane + b.rank).join(' '), m
 const hz = h.blocks.filter(b => b.hazards && b.hazards.length);
 ok('T5 the split keeps ' + keep + ', moves ' + move + '; the hazard: ' + hz.map(b => b.lane + b.rank + ' holds ' + b.hazards.map(x => x.lane).join(',')).join('; '),
    keep === 'ALPHA1 BETA1 ALPHA2 GAMMA1' && move === 'ALPHA3 ALPHA4 LEGACY1' && hz.length === 1 && hz[0].lane === 'ALPHA' && hz[0].rank === 4 && hz[0].hazards[0].lane === 'BETA');
+
+/* T6-T9 THE MOVES (round 2), on planted text: what the command line does only with the coordinator's CORRECT */
+{
+  const refused = T.applyHandoff(HO, new Set(['ALPHA', 'BETA', 'GAMMA']));
+  const clean = HO.replace(/\n- BETA [^\n]*/, '');
+  const r = T.applyHandoff(clean, new Set(['ALPHA', 'BETA', 'GAMMA']));
+  const after = (r.start || '').split('\n').concat(...Object.values(r.archives || {}).map(t => t.split('\n')));
+  const lost = clean.split('\n').filter(l => !after.includes(l));
+  ok('T6 the split is refused while a hazard exists (' + (refused.refused ? 'refused' : 'NOT refused') + '); without it: ' + r.kept + ' kept, ' + r.moved + ' moved to '
+     + Object.keys(r.archives || {}).join(', ') + ', ' + lost.length + ' lines lost',
+     !!refused.refused && r.kept === 4 && r.moved === 3 && !!r.archives['handoffs/ALPHA_ARCHIVE.md'] && !!r.archives['handoffs/LEGACY_ARCHIVE.md'] && !lost.length
+     && r.archives['handoffs/ALPHA_ARCHIVE.md'].indexOf('third, old') < r.archives['handoffs/ALPHA_ARCHIVE.md'].indexOf('fourth, old'));
+}
+{
+  const B = ['## READ THIS FRONT PAGE', '1. ONE RULE (PAOLO 9/1, LOCKED; laws/BOHEMIA_ONE.md): the first', '   line two of it', '2. TWO RULE (coordinator 9/2): the second',
+    '3. THREE RULE (PAOLO 9/3): kept', '', '## THE TWENTY CHATS'].join('\n');
+  const r = T.applyRules(B, [{ n: 1, fold: false, silent: 20, paolo: true }, { n: 2, fold: true, silent: 8, paolo: false }], '10/11', 'records/BOHEMIA_EVAPORATED_X.md');
+  ok('T7 a rule leaving the page goes with its indented lines and keeps a registry line; a folded rule is one line with its pointer; both texts are kept verbatim',
+     !/^1\. /m.test(r.board) && !/line two of it/.test(r.board) && /^2\. TWO RULE \(folded to one line 10\/11 by rule 96: no lane named it for 8 sweeps; the full text is records\/BOHEMIA_EVAPORATED_X\.md\)\.$/m.test(r.board)
+     && /^3\. THREE RULE/m.test(r.board) && r.evaporatedText.includes('   line two of it') && r.evaporatedText.includes('2. TWO RULE (coordinator 9/2): the second')
+     && r.registry.length === 1 && /^BOHEMIA_ONE\.md \| rule 1 left the front page/.test(r.registry[0]), r.board);
+}
+{
+  const B = ['## ALPHA  (the lane)', '- OPEN  [old job]  OLD-JOB -- nobody named it', '- OPEN  [quiet job]  QUIET-JOB -- ten sweeps', '- CLAIMED 10/11 alpha-x  [taken job]  TAKEN -- claimed since'].join('\n');
+  const r = T.applyRows(B, [{ label: 'old job', lane: 'ALPHA', silent: 20 }, { label: 'quiet job', lane: 'ALPHA', silent: 11, stale: true }, { label: 'taken job', lane: 'ALPHA', silent: 30 }], '10/11');
+  ok('T8 an OPEN row past 14 leaves as one line, a row past 10 gets STALE, a row claimed since is not touched',
+     !/old job/.test(r.board) && r.gone.length === 1 && /ALPHA: OPEN  \[old job\]/.test(r.gone[0]) && /- OPEN  \(STALE 10\/11 by rule 96: no lane named it for 11 sweeps\)  \[quiet job\]/.test(r.board)
+     && /- CLAIMED 10\/11 alpha-x  \[taken job\]/.test(r.board), r.board);
+}
+{
+  let noCorrect = '', badSeal = '';
+  try { T.applyAll('rows', null); } catch (e) { noCorrect = e.message; }
+  const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'trail-'));
+  try {
+    if (fs.existsSync(T.OUT)) {
+      const edited = fs.readFileSync(T.OUT, 'utf8').replace(/("kind":"row","id":"[^"]*","lane":"[^"]*","status":"OPEN","silent":)(\d+)/, (m, a, n) => a + (+n + 9));
+      fs.writeFileSync(path.join(tmp, 't.json'), edited);
+      try { T.readTrail(path.join(tmp, 't.json')); } catch (e) { badSeal = e.message; }
+    }
+  } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
+  ok('T9 no move without the coordinator\'s CORRECT named, and no move from a trail file edited by hand',
+     /CORRECT IS THE PREMISE/.test(noCorrect) && /seal does not match/.test(badSeal), noCorrect + ' | ' + badSeal);
+}
 
 console.log('\n=== THE TRAIL FILE GATE: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

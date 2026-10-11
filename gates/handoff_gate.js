@@ -79,7 +79,8 @@ const text = fs.existsSync(HANDOFF) ? fs.readFileSync(HANDOFF, 'utf8') : '';
 
 /* THERE IS ONLY EVER ONE. A second copy is how a session ends up reading a stale
    one; the law says git history is the archive, not a sibling file. */
-const rootFiles = fs.readdirSync(ROOT).filter(f => /START_HERE|HANDOFF/i.test(f));
+/* handoffs/ is the per-lane archive folder of the 9/13 split (rule 96), not a second door: files only */
+const rootFiles = fs.readdirSync(ROOT).filter(f => /START_HERE|HANDOFF/i.test(f) && fs.statSync(path.join(ROOT, f)).isFile());
 ok('there is exactly ONE handoff at the root (' + rootFiles.join(', ') + ')', rootFiles.length === 1);
 
 /* THE LANE-NAME CHARACTER CLASS, WIDENED 9/23, AND IT WAS NOT A COSMETIC BUG.
@@ -119,7 +120,18 @@ const lanes = (s) => {
   let m; while ((m = re.exec(s))) out.add(m[1]);
   return out;
 };
+/* THE ARCHIVES (rule 96, PLUMBER [the trail file] round 2): the split moves every block older than a lane's
+   two newest into handoffs/<LANE>_ARCHIVE.md. A move is never a deletion, so every leg below that asks "is it
+   still here" also looks there, and the bulk leg counts the bytes the archives gained. archive/handoffs/ is the
+   9/4 and 9/13 archive, read the same way. */
+const ARCH_DIRS = ['archive/handoffs', 'handoffs'];
+const archiveNow = () => { let t = ''; for (const d of ARCH_DIRS) { try { for (const f of fs.readdirSync(path.join(ROOT, d))) t += fs.readFileSync(path.join(ROOT, d, f), 'utf8'); } catch (e) { /* not there yet */ } } return t; };
+const archiveAtHead = () => { let n = 0; try { const ls = execFileSync('git', ['ls-tree', '-r', '--name-only', 'HEAD', 'handoffs/'], { cwd: ROOT, encoding: 'utf8' }).split('\n').filter(Boolean);
+  for (const f of ls) n += execFileSync('git', ['show', 'HEAD:' + f], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }).length; } catch (e) { /* none at HEAD */ } return n; };
+const archived = archiveNow();
+const handoffsBytesNow = (() => { let n = 0; try { for (const f of fs.readdirSync(path.join(ROOT, 'handoffs'))) n += fs.readFileSync(path.join(ROOT, 'handoffs', f), 'utf8').length; } catch (e) { /* none */ } return n; })();
 const now = lanes(text);
+const nowWithArchive = new Set([...now, ...lanes(archived)]);
 let head = null;
 try {
   head = lanes(execFileSync('git', ['show', 'HEAD:' + NAME],
@@ -127,8 +139,8 @@ try {
 } catch (e) { /* first commit, or not a checkout: nothing to compare against */ }
 
 if (head) {
-  const gone = [...head].filter(l => !now.has(l));
-  ok('THE WHOLE FLEET IS STILL IN THE HANDOFF: ' + now.size + ' lane(s), and none '
+  const gone = [...head].filter(l => !nowWithArchive.has(l));
+  ok('THE WHOLE FLEET IS STILL IN THE HANDOFF OR ITS ARCHIVES: ' + now.size + ' lane(s) here, and none '
     + 'of HEAD\'s ' + head.size + ' has vanished' + (gone.length ? ' -- LOST: ' + gone.join(', ') : ''),
     gone.length === 0);
   /* ---- AND THE CASE BETWEEN THOSE TWO, WHICH IS THE ONE THAT KEEPS HAPPENING.
@@ -200,15 +212,9 @@ if (head) {
       { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }));
   } catch (e) { /* nothing to compare against */ }
 
-  let archived = '';
-  try {
-    const dir = path.join(ROOT, 'archive', 'handoffs');
-    for (const f of fs.readdirSync(dir)) archived += fs.readFileSync(path.join(dir, f), 'utf8');
-  } catch (e) { /* no archive yet, which is the state today */ }
-
   const droppedHeads = [...headWas].filter(x => !headNow.has(x) && !archived.includes(x));
   ok('NO LANE LOST ITS NEWEST BLOCK: all ' + headWas.size + ' block head(s) HEAD carries are '
-    + 'still here (or are in archive/handoffs/). One commit written from a stale read deleted '
+    + 'still here (or are in archive/handoffs/ or handoffs/). One commit written from a stale read deleted '
     + 'THREE lanes\' current state on 9/13 and neither check above could see it, because no lane '
     + 'vanished and the loss was 0.26% of the bytes',
     droppedHeads.length === 0,
@@ -218,9 +224,11 @@ if (head) {
      rest of its history is gone. 8/27's truncation was 99.9% of the bytes. */
   const wasBytes = execFileSync('git', ['show', 'HEAD:' + NAME],
     { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 }).length;
-  const keptPct = wasBytes ? Math.round(text.length / wasBytes * 100) : 100;
+  /* the bytes that left for handoffs/ in this commit count as kept: a split is a move, a truncation is not */
+  const movedBytes = Math.max(0, handoffsBytesNow - archiveAtHead());
+  const keptPct = wasBytes ? Math.round((text.length + movedBytes) / wasBytes * 100) : 100;
   ok('and it did not lose the bulk of itself in one write (' + keptPct + '% of HEAD\'s '
-    + wasBytes + ' bytes; this file only ever grows)', keptPct >= 80);
+    + wasBytes + ' bytes' + (movedBytes ? ', ' + movedBytes + ' of them moved to handoffs/ in this commit' : '') + '; this file only ever grows, or moves)', keptPct >= 80);
 } else {
   ok('no HEAD copy to compare the fleet against (first commit, or not a checkout) '
     + '-- ' + now.size + ' lane(s) present', now.size > 0);
