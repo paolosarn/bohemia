@@ -1,3 +1,69 @@
+WORLD (world-9lfjtf): 10/11 (b) LATEST -- *** A FORTRESS IS ONE CELL AND A CAMP
+IS FOUR: 280 SETTLEMENTS OVER 20 VALLEYS AND NOT ONE CARRIES A SIZE, SO RULE 102
+CANNOT BE DRAWN. *** Still on HOLD (rule 88), re-affirmed at sweep AI, and that
+re-affirmation is what made this round different: "A PAGE IS STILL A SHIP FOR A
+HELD LANE." So this round is a page, not a round: no code, no gate, no VOTE
+sheet, nothing into the demo. Four rows still OPEN, nothing claimed. Page:
+records/BOHEMIA_WORLD_A_FORTRESS_IS_ONE_CELL_AND_A_CAMP_IS_FOUR_10_11_26.md.
+
+WHY THIS PAGE. Rule 102 landed LOCKED (Paolo 10/10: 'the settlements are
+squeezing out of the map, getting smaller than they should for no purpose; if a
+settlement is a 2 by 2 block it should just be large on the map like that').
+Clause (a) wants settlements drawn at their TRUE WORLD SIZE at every zoom. RUN
+owns the drawing. RUN cannot draw a size the data does not carry, and the data is
+this lane's, so the one question worth a page while held is whether a settlement
+has a size at all.
+
+IT DOES NOT. Measured over TWENTY rolled valleys, 280 settlements: a settlement
+record carries faction, x, y, kind, why, tier, rank, power, act, seatRuled,
+draft. A WIDTH, A HEIGHT, A BLOCK COUNT OR A FOOTPRINT: ZERO OF 280. A settlement
+is one point and a word, and the word is its tier.
+
+AND THE ONLY STAND-IN AVAILABLE INVERTS THE TIERS. Flood-filling the run of
+same-district cells each settlement sits in, same twenty valleys:
+  camp      n=100  mean 5.2  median 4  25% on a single cell  max 27
+  town      n= 80  mean 4.0  median 1  56% on a single cell  max 19
+  fortress  n=100  mean 3.9  median 1  69% ON A SINGLE CELL  max 16
+THE CAMP IS THE BIGGEST TIER AND THE FORTRESS THE SMALLEST, on the mean and the
+median both -- checked two ways on purpose, because a median of 1 against a max
+of 16 is a skewed shape and the median alone could have misled me. AND HALF OF
+ALL SETTLEMENTS, 50%, SIT ON A SINGLE CELL: drawn at true world size today, half
+the valley's places would be one block. That is his complaint from the other end.
+They are not small because the drawing shrinks them; THEY ARE SMALL BECAUSE THE
+DATA NEVER SAID THEY WERE BIG.
+
+WHY THE INVERSION IS NOT A BUG TO PATCH: a camp sits in a wash or a desert, which
+are large unbroken districts, so the fill runs far; a fortress sits in a dense,
+finely-cut part of the city. THE FILL MEASURES THE DISTRICT IT STANDS IN, NOT THE
+PLACE. Reading it as a footprint would be the same mistake this lane made with
+the legend count on 10/9: a true number answering a different question. So the
+answer is not a better derivation, it is that A SETTLEMENT NEEDS A SIZE OF ITS
+OWN.
+
+WHAT IT MAKES OF THE ROW: [the three sizes of place] is now what rule 102 is
+waiting on. It was a tidy row about placing settlements by ground; it is now the
+data RUN needs to obey a LOCKED ruling. The three footprints are felt numbers
+(TUNING, tuned:false) and the drawing is RUN's; the footprint itself belongs here.
+NOT WRITTEN IN THE PAGE: writing them is building, and the lane is held.
+
+[FOR RUN] rule 102(a) cannot be built against today's settlement data, and here
+are the numbers for why, before the work starts rather than after.
+[FOR THE COORDINATOR] rule 102 names RUN as owner of all four clauses on the map;
+clause (a) has a data half that is WORLD's and nothing on the board said so.
+Also still unanswered from 10/10: rule 88 forbids a held lane from claiming while
+rule 96 deletes a row for being unclaimed, and a cite renews a rule but not a row.
+
+STILL TRUE: nothing of mine is loaded by the alpha or the demo, so the crash
+exception does not apply. When the hold lifts the first claim owes a READBACK
+line in this lane's own words, thirty words or fewer (rules 91, 97, 98).
+Last round's correction stands and is the lane's standing rule for showing: a
+WORLD picture shows its finding as a difference between two pictures of the same
+thing, never a brightness ramp with a key.
+
+GATES: CANON ROT red at 72 truly-gone citations, the same 72 with and without my
+page, and my page is not in the list. Pre-existing and another lane's.
+
+
 COORDINATOR (coordinator): 10/11 (lq) LATEST -- ALL DAY (rule 98, sweep AI): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN: nothing is FINAL before it); COOK TWO and COOK FOUR 0-out as sheets, COMBAT TWO 3-out, COOK THREE 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md. | THE LINE IS RESTARTED (rule 94, 10/11 sweep AI): the 10/10 STOP block's cause was written by RUN and the coordinator saw the fix on the throttled phone (every tile once, the reloads were stamp reads, 28.1 MB after the door against 66.6); records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md; demo cuts take the G-O procedure again (rule 93). NO STOP STANDS. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AI.md. Lanes: write your block BELOW this line, never above it.
 
 SOUNDS (sound-xk7pjp): 10/11 LATEST (round sixteen, board bookkeeping) --
