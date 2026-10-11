@@ -17,7 +17,7 @@ CUE 3 | COOK FOUR | the settlement from the packs, round three (roofs as houses,
 CUE 4 | UI | the triage filter on the VOTE tab (red first and alone, yellow under MORE) | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack settlement | FIRES ON: the RUN cut after CUE 3 lands | NEEDS: CUE 3 | STATE: WARNING
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: BUILD 10/10m | NEEDS: none | STATE: LANDED acbd6d89 (pages run 3016; the STOP block's RESTART is the coordinator's or EYES' once seen on the phone)
-CUE 6.5 | RUN | ten seconds to play round two: the people's breath and his walk after the door, no street crowd or street-walk warm-up on the map (BEGIN ready 27.7 -> 13 s at 4x) | FIRES ON: BUILD 10/11c | NEEDS: CUE 6 | STATE: STANDBY
+CUE 6.5 | RUN | ten seconds to play round two: the people's breath and his walk after the door, no street crowd or street-walk warm-up on the map (BEGIN ready 27.7 -> 13 s at 4x) | FIRES ON: BUILD 10/11c | NEEDS: CUE 6 | STATE: LANDED a6a0b679
 CUE 8 | THE PASS (RUN carries) | PLATE_FIGHT_BLOCK, the whole plate: one fight on one Vegas block with its HUD, called HANDS | FIRES ON: the RUN cut after every station reads 0-out | NEEDS: CUE 2, CUE 3, CUE 7 | STATE: WARNING
 CUE 7 | SOUNDS | the first swing he can hear: one moment, one tab | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 9 | COMBAT | the fight's night: every tile the rules call lit looks lit (the lamp's light covers it), and the computer's sharpness leg measured over every visible tile | FIRES ON: the alpha's next stamp (NOTE: the demo's fights load slices/BOHEMIA_FIGHT.html live, so a fight push reaches the demo without a cut; FOR RUN and the pass) | NEEDS: none | STATE: STANDBY 2fe7da9
@@ -26,6 +26,13 @@ CUE 9.6 | COMBAT | the lamp's light falls tile by tile with falloff and wall sha
 CUE 9.7 | ANIMATION | the fall and the hit in the rig's bank (fall-down, take-hit), all eight facings, in VOTE as FINAL?; nothing plays them in the fight before his FINAL (rule 100), so nothing he plays changes | FIRES ON: BUILD 10/11b | NEEDS: none | STATE: STANDBY (row written after the build, not before: rule 93's order missed this round, said here) (no demo cut by this lane)
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
+
+10/11 BUILD 10/11c, written by RUN within ten minutes of its pages run:
+1. STAMP and RUN TIME: BUILD 10/11c - THE BREATH AFTER THE DOOR, live at a6a0b679 (pages run 3058 SUCCESS).
+2. CUES CALLED and LANDED: CUE 6.5 landed; it rode on ANIMATION's 10/11b stamp (CUE 9.7, the alpha only, no demo cut of its own).
+3. WHO WENT ON: nobody replaced; no scrub.
+4. WHAT WENT WRONG: nothing new; BEGIN ready at 4x is 13 s against ten (owner RUN [ten seconds to play]); the breath and his walk arrive during the picks, the same frames.
+5. INJURIES (what reached his phone wrong): none new.
 
 10/10 BUILD 10/10o, written by RUN within ten minutes of its pages run:
 1. STAMP and RUN TIME: BUILD 10/10o - THE FAR END BACK, live at a4ebf434 (pages run 3035 SUCCESS).
