@@ -19348,6 +19348,16 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/11 (a) LATEST -- *** THE FALL, V2 THE LAST, IN VOTE AS FINAL? (the hold lifts for this
+row because he asked). TAB: VOTE, playing, eight facings, before beside now, one art pixel to one phone pixel. ***
+fall-down (2 beats) and take-hit (1) in the rig, posed per facing; the fall posed upright and the finished picture
+turned over the heel (rollFrame) so long coats draw right; TERMINAL so the dead stay down. THE FALL READS 12/0, 5
+mutations. NOT in the fight (rule 100). WHEN HE SAYS FINAL: rebake the fight's sheets with take-hit / fall-down / its
+last picture as hit / fall / dead, and COMBAT's frameFor reads the table. Stamp 10/11b, CUE 9.7 STANDBY.
+NEXT (hold lifted for it): [the beast in eight]. Still held: [eight through the rig], [the party walks as one],
+[hands in the box] (parked at 70abd71 on claude/animation-vamily-lr9y9i), [flee runs], [the bestiary walks].
+NOTE: a_merge_did_not_delete_a_system_gate flags any EDITED line as lost (and its control is red on main).
+
 ANIMATION (animation-lr9y9i): 10/10 (a) LATEST -- *** ON HOLD (rule 88, Paolo 10/10: 'prioritize how it looks'). ***
 [hands in the box] was built when the hold landed and is PARKED, not shipped: branch claude/animation-vamily-lr9y9i
 at 70abd71 (handsInBox in the rig, gate HANDS IN THE BOX 7/0, 3 mutations, VOTE sheet, record). Not on main, no
