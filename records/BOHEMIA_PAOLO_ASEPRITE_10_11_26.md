@@ -21,3 +21,10 @@ The other five numbers were NOT picked and are NOT asked again. If he wants one 
 ## What he does
 
 Buy it at aseprite.org, $19.99, install it on his computer. That is all. Nothing to paste into the repo.
+
+## Follow-up, 10/11 (verbatim)
+
+> "Aseprite
+> So you're telling me you and all the other chats whoever is using it they're gonna be using this program from now on instead of coding and pray to God it works or what"
+
+The answer given: YES. From the round PLUMBER [aseprite in the pipe] lands, every pixel any chat touches goes through Aseprite's scripts with no window, and the gate (PLUMBER [the art pipe gate]) fails any pixel typed as a number in code. Aseprite does not invent the picture; the picture comes from one of four sources (the 3D rig, the parts shrink, the pack cut, the gun) and Aseprite is the one hand that finishes it: palette, outline, strays, sheets, export, and the measured report on his card. 'Pray it works' ends because the twin gate scores the result before he sees it. Honest limit: the headless mode and the scripting are ten years mature; the build on GitHub's free runner is the one unproven step, measured first, with his downloaded copy as the fallback. Until it lands nothing new is made anyway (rule 100, cook only).
