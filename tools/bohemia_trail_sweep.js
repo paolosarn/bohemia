@@ -168,6 +168,30 @@ function splitHandoff(text, laneNames) {
 
 function seal(rows) { return crypto.createHash('sha256').update('bohemia_trail_sweep\n' + rows.join('\n')).digest('hex').slice(0, 16); }
 
+/* a lane on HOLD, PAUSED or PARKED is not running: its rows' clock stops (rule 96 as amended at sweep AH). The modes
+   rule 88 and rule 100 narrow count too (a capital HOLD anywhere in the live mode, LOOK ROWS ONLY, COOK ONLY, LOOKS
+   FIRST): such a lane may not work most of its rows, so they cannot be read as forgotten. '(was: MODE: HOLD ...)' is
+   the mode a lane left, not the one it is in. */
+function heldOf(b) {
+  const o = new Set(); let sec = null;
+  for (const l of b.split('\n')) {
+    const h = l.match(/^## ([A-Z][A-Z +&]*?)\s+\(/) || l.match(/^## ([A-Z][A-Z +&]*?)\s*$/); if (h) { sec = h[1].trim(); continue; }
+    if (sec && /^MODE:/.test(l)) { const live = l.split('(was:')[0];
+      if (/^MODE:\s*(PAUSED|PARKED|HOLD)\b/i.test(live) || /\bHOLD\b|LOOK ROWS ONLY|COOK ONLY|LOOKS FIRST/.test(live)) o.add(sec); sec = null; }
+  }
+  return o;
+}
+/* HEARBACK, sweep AI (NEGATIVE): the manual (rules 0 to 13) and every rule that carries his words never leave the page;
+   at 14 silent sweeps they fold to one line and stop there. Only a coordinator rule with no quote of his leaves. Read
+   conservatively: a protected rule waits for 14 before it folds at all. */
+function ruleAction(n, text, silent) {
+  const folded = /folded to one line/i.test(text), paolo = /\bPaolo\b|\bPAOLO\b|his words/.test(text);
+  const kept = n <= 13 || paolo;
+  const action = kept ? (silent >= RATES.ruleLeave && !folded ? 'FOLDS TO ONE LINE (the manual or his words: never leaves)' : '')
+    : silent >= RATES.ruleLeave ? 'LEAVES THE PAGE (lives in its record)' : silent >= RATES.ruleFold && !folded ? 'FOLDS TO ONE LINE' : '';
+  return { action, folded, paolo };
+}
+
 /* ---- the sweep --------------------------------------------------------------------------------- */
 function sweep({ write = true, log = console.log } = {}) {
   const H = history(log);
@@ -194,17 +218,18 @@ function sweep({ write = true, log = console.log } = {}) {
   const rowsOf = (b) => { const o = new Map(); let sec = null;
     for (const l of b.split('\n')) { const h = l.match(/^## ([A-Z][A-Z +&]*?)\s+\(/) || l.match(/^## ([A-Z][A-Z +&]*?)\s*$/); if (h) sec = h[1].trim();
       const m = l.match(ROW_RE); if (m && sec) { const k = m[2].toLowerCase().trim(); if (!o.has(k)) o.set(k, { status: m[1], lane: sec, line: l }); } } return o; };
-  const rules = rulesOf(board), rows = rowsOf(board);
+  const rules = rulesOf(board), rows = rowsOf(board), heldNow = heldOf(board);
   const laneNames = new Set([...board.matchAll(/^## ([A-Z][A-Z +&]*?)\s{2}\(/gm)].map(m => m[1].trim()).concat(['COORDINATOR']));
   /* births and status history from the boards of the last fifteen sweeps: a mark already on the oldest of
      them is older than every threshold (14), so older boards change nothing. Read from the working clone when
      it holds the commit (no network), else from the slim copy. */
-  const bornRule = new Map(), bornRow = new Map(), openSince = new Map();
+  const bornRule = new Map(), bornRow = new Map(), openSince = new Map(), heldAt = [];
   const K0 = Math.max(0, sweeps.length - 15);
   const showBoard = (sha) => { try { return git(['show', sha + ':VAMILY.md']); } catch (e) { try { return git([...H.G, 'show', sha + ':VAMILY.md']); } catch (e2) { return null; } } };
   for (let k = K0; k < sweeps.length; k++) {
     const b = showBoard(sweeps[k].full); if (b == null) continue;
     const born = k === K0 ? 0 : k;                       /* on the oldest board read: born at or before the window */
+    heldAt[k] = heldOf(b);
     for (const n of rulesOf(b).keys()) if (!bornRule.has(n)) bornRule.set(n, born);
     const R = rowsOf(b);
     for (const [r, v] of R) { if (!bornRow.has(r)) bornRow.set(r, born);
@@ -240,9 +265,7 @@ function sweep({ write = true, log = console.log } = {}) {
       e = e ? { last: fe.last.t > e.last.t ? fe.last : e.last, lanes: new Set([...e.lanes, ...fe.lanes]) } : fe;
     }
     const s = silentOf(e, bornRule.get(n));
-    const folded = /folded to one line/i.test(text), paolo = /\bPaolo\b|\bPAOLO\b|his words/.test(text);
-    const action = s >= RATES.ruleLeave ? (paolo ? 'LEAVES THE PAGE (keeps its law file; registry line)' : 'LEAVES THE PAGE (lives in its record)')
-      : s >= RATES.ruleFold && !folded ? 'FOLDS TO ONE LINE' : '';
+    const { action, folded, paolo } = ruleAction(n, text, s);
     marks.push({ kind: 'rule', id: 'rule ' + n, title: text.replace(/\s+/g, ' ').slice(0, 70), silent: s, strength: strength(s), last_cite: lastOf(e), lanes: e ? [...e.lanes].sort() : [], folded, quotes_paolo: paolo, action });
   }
   /* ROWS */
@@ -250,9 +273,14 @@ function sweep({ write = true, log = console.log } = {}) {
     const e = rowCite.get(k), s = silentOf(e, bornRow.get(k));
     let action = '';
     const so = r.status === 'OPEN' ? (openSince.has(k) ? N - openSince.get(k) : 0) : null;   /* sweeps it has sat OPEN */
-    const sOpen = so === null ? s : Math.min(s, so);
-    if (r.status === 'OPEN') action = sOpen >= RATES.rowGone ? 'MOVES TO records/BOHEMIA_EVAPORATED_ROWS.md' : sOpen >= RATES.rowStale ? 'STALE' : '';
-    marks.push({ kind: 'row', id: '[' + k + ']', lane: r.lane, status: r.status, silent: s, open_sweeps: so, strength: strength(s), last_cite: lastOf(e), lanes: e ? [...e.lanes].sort() : [], action });
+    /* the row's clock: sweeps after its last cite, since it was born and since it last went OPEN, in which its lane
+       was running (rule 96 as amended at AH: the hold pauses the clock, and a held lane's rows never evaporate) */
+    const startIdx = Math.max(bornRow.has(k) ? bornRow.get(k) : N, openSince.has(k) ? openSince.get(k) : (r.status === 'OPEN' ? N : 0));
+    const citeT = e && e.last ? e.last.t : -Infinity;
+    const sOpen = sweeps.filter((sw, i) => i >= startIdx && sw.t > citeT && !(heldAt[i] && heldAt[i].has(r.lane))).length;
+    const held = heldNow.has(r.lane);
+    if (r.status === 'OPEN' && !held) action = sOpen >= RATES.rowGone ? 'MOVES TO records/BOHEMIA_EVAPORATED_ROWS.md' : sOpen >= RATES.rowStale ? 'STALE' : '';
+    marks.push({ kind: 'row', id: '[' + k + ']', lane: r.lane, status: r.status, silent: s, open_sweeps: so, running_silent: r.status === 'OPEN' ? sOpen : null, held, strength: strength(s), last_cite: lastOf(e), lanes: e ? [...e.lanes].sort() : [], action });
   }
   /* NOTES */
   for (const name of ['THE SUITE LINE', 'THE CUT LINE', 'THE BREAK LIST', 'THE COOK LINE']) {
@@ -462,7 +490,7 @@ function applyAll(kind, correct, { root = ROOT } = {}) {
     said.push('rules: ' + r.done.length + ' folded or left (' + r.done.sort((x, y) => x - y).join(', ') + ')');
   }
   if (kind === 'rows' || kind === 'all') {
-    const acts = t.marks.filter(m => m.kind === 'row' && m.status === 'OPEN' && m.action).map(m => ({ label: m.id.slice(1, -1), lane: m.lane, silent: m.silent, stale: m.action === 'STALE' }));
+    const acts = t.marks.filter(m => m.kind === 'row' && m.status === 'OPEN' && m.action).map(m => ({ label: m.id.slice(1, -1), lane: m.lane, silent: m.running_silent != null ? m.running_silent : m.silent, stale: m.action === 'STALE' }));
     const r = applyRows(b, acts, date); b = r.board;
     const f = 'records/BOHEMIA_EVAPORATED_ROWS.md', old = read(f) || '# EVAPORATED ROWS (rule 96): OPEN rows no lane named for 14 sweeps, one line each, verbatim\n\n';
     fs.writeFileSync(R(f), old + r.gone.join('\n') + (r.gone.length ? '\n' : ''));
@@ -478,7 +506,7 @@ function applyAll(kind, correct, { root = ROOT } = {}) {
   return said;
 }
 
-module.exports = { laneOf, citesIn, silentAfter, splitHandoff, seal, sweep, report, RATES, OUT, applyHandoff, applyRules, applyRows, planRecords, readTrail, ruleSpan, applyAll, archiveName };
+module.exports = { heldOf, ruleAction, laneOf, citesIn, silentAfter, splitHandoff, seal, sweep, report, RATES, OUT, applyHandoff, applyRules, applyRows, planRecords, readTrail, ruleSpan, applyAll, archiveName };
 
 if (require.main === module) {
   const arg = (k) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : null; };

@@ -5,6 +5,13 @@ built the machine and printed the dry run for the coordinator. No CORRECT or NEG
 were his new rulings (rules 100 to 108). The row says the first run is read first, so nothing on the board or in the
 handoff has moved. This round makes the moves one command, proven on copies.
 
+## HIS VERDICT ON ROUND 1'S CARD
+
+plumber-the-trail-file-10-10, 10/10: UP, and in his words: "This is so miscellaneous to me I have no fucking clue what's
+going on." Read as a ruling (NOTES ARE RULINGS): the card he judged stays as he saw it (this round's redraw was
+reverted before landing), and PLUMBER registers a VOTE card only for what he feels in the game: the load, the frames,
+something on his screen. Plumbing he cannot see goes in the record and the handoff.
+
 ## THE ANSWER FIRST
 
 **When the coordinator answers CORRECT, the whole of rule 96 runs as:**

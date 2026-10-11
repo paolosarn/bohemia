@@ -23,6 +23,10 @@
          folded rule is one line with its pointer; both texts are kept verbatim.
      T8  an OPEN row past 14 sweeps leaves as one line, past 10 it is STALE, a row claimed since is untouched.
      T9  no move without the coordinator's CORRECT named; no move from a trail file edited by hand.
+     T10 THE HEARBACK (sweep AI): the manual (rules 0-13) and every rule with his words fold at 14 silent
+         sweeps and never leave; a coordinator rule folds at 7 and leaves at 14.
+     T11 a held lane (HOLD, PAUSED, PARKED, or a mode rule 88 or 100 narrows) is read from its live mode; its rows
+         do not evaporate.
    RED CASE: T1 on a copy of the trail file with one mark's "silent" changed by hand; T5's hazard on a
    planted handoff (the split is refused while it is there, T6); T9 on a hand-edited copy.
    ========================================================================== */
@@ -131,6 +135,26 @@ ok('T5 the split keeps ' + keep + ', moves ' + move + '; the hazard: ' + hz.map(
   } finally { fs.rmSync(tmp, { recursive: true, force: true }); }
   ok('T9 no move without the coordinator\'s CORRECT named, and no move from a trail file edited by hand',
      /CORRECT IS THE PREMISE/.test(noCorrect) && /seal does not match/.test(badSeal), noCorrect + ' | ' + badSeal);
+}
+
+/* T10-T11 THE HEARBACK (sweep AI, NEGATIVE): the manual and his words never leave; a held lane's rows keep their clock */
+{
+  const A = (n, text, silent) => T.ruleAction(n, text, silent).action;
+  const cases = [
+    [A(0, 'VAMILY is a keyword.', 30), /^FOLDS/], [A(1, 'Paolo talks ONLY to the coordinator', 13), /^$/],
+    [A(40, 'THE HOURS GO TO THE WORLD (PAOLO 9/29: ...)', 30), /^FOLDS.*never leaves/], [A(40, 'THE HOURS (PAOLO 9/29)', 9), /^$/],
+    [A(81, 'WHAT A MONSTER BECOMES (coordinator 10/9)', 14), /^LEAVES/], [A(81, 'WHAT A MONSTER BECOMES (coordinator 10/9)', 8), /^FOLDS TO ONE LINE$/],
+    [A(53, 'THE FOURTH VOTES (Paolo, LOCKED; folded to one line 10/10 ...)', 30), /^$/]];
+  const bad = cases.filter(([a, re]) => !re.test(a));
+  ok('T10 the manual (0-13) and a rule with his words fold at 14 and never leave; a coordinator rule folds at 7 and leaves at 14; a folded rule is not folded twice (' + (cases.length - bad.length) + ' of ' + cases.length + ')',
+     !bad.length, bad.map(b => JSON.stringify(b[0])).join('; '));
+}
+{
+  const B = ['## ALPHA  (a)', "MODE: HOLD (rule 88, Paolo 10/10: 'prioritize how it looks')", '## BETA  (b)', 'MODE: RUN (rule 78)',
+    '## GAMMA  (c)', 'MODE: THE BEST SOUNDS (lifting the hold) (was: MODE: HOLD (rule 88))', '## DELTA  (d)', 'MODE: LOOK ROWS ONLY (rule 88)',
+    '## EPSILON  (e)', 'MODE: COOK ONLY FOR THE LOOK ROWS, HOLD FOR MECHANICS', '## ZETA  (z)', 'MODE: RESEARCH ONLY, RUNNING'].join('\n');
+  const h = [...T.heldOf(B)].sort().join(' ');
+  ok('T11 held lanes read from the live mode: ' + h + ' (a lane that left HOLD, a running lane and a research lane are running)', h === 'ALPHA DELTA EPSILON');
 }
 
 console.log('\n=== THE TRAIL FILE GATE: ' + pass + ' passed, ' + fail + ' failed ===');
