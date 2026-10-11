@@ -11,6 +11,11 @@ cook tools import. records/ only (rule 100).
   seven(a)                   -> the pack-rule sheet's seven numbers for one piece
   family_sheet(...)          -> the seven numbers' range across a family
   python3 tools/bohemia_cook2_stretch_the_pack.py   (writes the families' seven numbers)
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers and skills/bohemia-pixel-art (load it first), AH-01 and AH-03. The source is his own tiles.
+No reference game.
 """
 import json, base64, io, os, colorsys
 import numpy as np

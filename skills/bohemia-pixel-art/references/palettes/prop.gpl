@@ -1,0 +1,68 @@
+GIMP Palette
+Name: Bohemia prop (his pack, 784 tiles, 64 by median cut)
+Columns: 8
+# measured by DIRECTION 10/11 from reference/art_bank/prop; dark to light; the share is how much of the family each colour stands for
+  0   0   0	prop 6.9%
+  4   1   0	prop 1.2%
+  3   2   3	prop 2.2%
+  6   4   3	prop 1.2%
+  7   4   1	prop 0.8%
+  6   5   7	prop 1.3%
+  9   6   4	prop 1.3%
+  8   8  11	prop 1.0%
+ 10   9   7	prop 1.3%
+  5   8  34	prop 0.5%
+ 13  10   4	prop 1.2%
+ 14  12   8	prop 1.3%
+ 25   9   4	prop 1.2%
+ 15  15  12	prop 2.8%
+ 26  16   8	prop 1.3%
+ 27  18  11	prop 0.7%
+ 28  20  12	prop 0.8%
+ 12  23  39	prop 0.7%
+ 26  23  19	prop 2.1%
+ 26  23  28	prop 1.1%
+ 43  20   7	prop 1.7%
+ 30  26  13	prop 1.2%
+ 32  31  25	prop 2.2%
+ 45  30  13	prop 2.1%
+ 31  35  38	prop 1.5%
+ 57  28   8	prop 1.7%
+ 43  33  29	prop 1.3%
+ 44  40  35	prop 1.6%
+ 57  36  23	prop 1.8%
+ 69  34  15	prop 1.5%
+ 48  45  35	prop 1.4%
+ 83  31  19	prop 0.8%
+ 49  51  50	prop 2.2%
+ 69  46  24	prop 1.8%
+ 51  54  32	prop 0.9%
+ 37  60  83	prop 1.2%
+ 86  50  15	prop 1.8%
+128  28  29	prop 0.6%
+ 69  58  34	prop 1.2%
+ 66  61  51	prop 2.3%
+ 85  56  32	prop 1.6%
+103  59  18	prop 2.0%
+ 69  70  69	prop 1.5%
+ 87  69  42	prop 1.4%
+103  72  44	prop 1.7%
+ 85  77  68	prop 1.9%
+118  70  30	prop 1.8%
+ 62  94  94	prop 0.9%
+148  70  30	prop 1.5%
+ 94  93  78	prop 1.5%
+108  92  70	prop 1.4%
+131  93  48	prop 1.7%
+111 108  92	prop 1.6%
+149 103  52	prop 1.6%
+128 111  89	prop 1.8%
+177 107  42	prop 1.5%
+113 132 120	prop 1.1%
+150 137 114	prop 2.0%
+193 135  56	prop 1.7%
+178 146 112	prop 1.9%
+141 178 160	prop 1.0%
+196 180 149	prop 2.1%
+224 186 127	prop 1.2%
+239 230 204	prop 1.9%

@@ -62012,13 +62012,19 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/11a (latest): [the moodboard and the taste session] part B BUILT AND PARKED
+=== DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
+ROUND LOG 10/11b (latest): [the pixel tutor] SHIPPED: skills/bohemia-pixel-art/ (SKILL.md,
+references, seven family palettes, scripts/check.py calibrated 6% of his own tiles back).
+FINDING: the 7/27 craft gate fails his packs; rule restated at 8 value steps; PLUMBER
+noted. Sweep AI order next: (2) [see while you draw], (3) [the master rig], (4) the
+pack-rule sheet with COOK TWO, (5) the taste session (parked, on his folder).
+ROUND LOG 10/11a: [the moodboard and the taste session] part B BUILT AND PARKED
 (sweep AI: it waits on his folder): twenty one-variable A/B pairs from his own tiles
 in records/target/taste/ + key + records/BOHEMIA_THE_TASTE_SESSION_10_11_26.md, NOT in
 VOTE; registers the round his moodboard lands. The coordinator's order for this lane
 now: (1) the skill file, bank page first; (2) [see while you draw]; (3) [the master
 rig]; (4) the pack-rule sheet with COOK TWO; (5) the taste session, on his folder.
-REFERENCE CHECK blocks added at the seam to three COOK TWO tools (corner, no borders,
+REFERENCE CHECK blocks added at the seam to five COOK TWO tools (corner, no borders, stretch x2,
 curb height).
 ROUND LOG 10/10f: [the floor on the card] SHIPPED: THE CARD OF NUMBERS
 from all 1,927 bank tiles by family (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md),
