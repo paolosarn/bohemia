@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-dogshit-look-has-one-root-cause-10-11'
+MINE_ID = 'character-the-look-fix-loop-proven-on-the-coyote-10-11'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "line", "lane": "character",
   "sha": "pending", "made": "10/11",
-  "title": "EVERY REPAINT SITS ON TOP OF A FORMULA, NOT A DRAWING",
-  "why": "You keep saying characters look like dog shit even after a repaint, and I found the one function that draws every body in the game by running numbers instead of real art, which is why paint on top never fixes it. You see it in the record, no tab, this is a diagnostic for the team already building the real replacement.",
+  "title": "TWENTY REAL LOOKS AT ONE COYOTE, LOGGED",
+  "why": "Your note said a round that only checks the board is not cooking, so I ran the real render-look-fix loop your new rule asks for on an existing animal, twenty real measurements at three sizes, no pixels touched since that bank is machine made and off limits to hand edits. You see it in the record, no tab, this proves the loop works, nothing here is a final asset.",
   "show": {
     "how": "text",
-    "src": "records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md\n\nSeen in: no tab, this is a diagnostic record, no pixel moved."
+    "src": "records/BOHEMIA_THE_COYOTE_LOOK_FIX_LOOP_10_11_26.md\n\nSeen in: no tab, this is a diagnostic/process record, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

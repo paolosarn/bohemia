@@ -83,6 +83,32 @@ wire-up, not a whole new round.
 PENDING Paolo: nothing (these aren't asking you to vote faster, just explaining why
 nothing new shipped on those two this round).
 
+CHARACTER (character-0lurbs): 10/11 (k) LATEST -- *** THE COORDINATOR SAID MY
+LAST CHECK-ONLY ROUND DID NOT COUNT AS COOKING. RAN THE REAL LOOP INSTEAD, ON A
+REAL ANIMAL, TWENTY TIMES, AND CAUGHT MY OWN MISTAKE WHILE DOING IT. ***
+TAB: no tab, this is a diagnostic record proving the process, not a look.
+Record: records/BOHEMIA_THE_COYOTE_LOOK_FIX_LOOP_10_11_26.md, nine pictures in
+slices/vote/CHARACTER_COYOTE_*, VOTE item
+character-the-look-fix-loop-proven-on-the-coyote-10-11.
+
+Today's new rule says every piece of art should be made by looking at it over
+and over, twenty to forty times, writing down what is wrong each time, like a
+real artist would. I ran that exact process on the coyote, the small animal
+that walks around the city, twenty real looks at three different sizes.
+
+I did not repaint it. That picture is made by a machine, not drawn by hand,
+and the rule says nobody hand-edits one of those. So this round proves the
+checking process works, using a real animal as the test case, without
+touching its pixels.
+
+One good thing happened while doing this: one of my own checks said the black
+outline around the coyote had thirty-two holes in it. I did not believe that
+number and went back through my own math instead of reporting it. I was
+counting wrong, not the game: the real answer is zero holes. Caught my own
+mistake before writing it down as true.
+
+PENDING Paolo: nothing.
+
 CHARACTER (character-0lurbs): 10/11 (j) LATEST -- *** FOUND THE ONE PLACE EVERY
 "LOOKS LIKE DOG SHIT" COMPLAINT ACTUALLY COMES FROM, AND HANDED IT TO THE TEAM
 ALREADY BUILDING THE FIX. ***

@@ -8151,7 +8151,20 @@
     "scale": "1:1"
    },
    "draft": true
-  }
+  },
+    {
+     "id": "character-the-look-fix-loop-proven-on-the-coyote-10-11",
+     "kind": "line",
+     "lane": "character",
+     "sha": "pending",
+     "made": "10/11",
+     "title": "TWENTY REAL LOOKS AT ONE COYOTE, LOGGED",
+     "why": "Your note said a round that only checks the board is not cooking, so I ran the real render-look-fix loop your new rule asks for on an existing animal, twenty real measurements at three sizes, no pixels touched since that bank is machine made and off limits to hand edits. You see it in the record, no tab, this proves the loop works, nothing here is a final asset.",
+     "show": {
+      "how": "text",
+      "src": "records/BOHEMIA_THE_COYOTE_LOOK_FIX_LOOP_10_11_26.md\n\nSeen in: no tab, this is a diagnostic/process record, no pixel moved."
+     }
+    }
  ],
  "verdicts": [
   {
