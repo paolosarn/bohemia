@@ -13,3 +13,7 @@ No cent is spent on an asset he has not approved first. The chats may not genera
 5. THE FREE CREDITS FIRST. Retro Diffusion gives free credits on a new account; the first request cards use those, so the first sheets cost nothing while he judges whether the tool is worth the $30.
 
 Two taps per asset instead of one, and no cent before his word. His $30, or $100, can only be spent in the amounts he approved, card by card.
+
+## HIS FOLLOW-UP (10/11): "the website says it's all free until you say I'm downloading this... can you show me what it makes before a single cent?"
+
+Checked against the site's own pages and the API's documentation the same hour: there is NO free-until-download on Retro Diffusion. Its words: generations are paid from a prepaid balance, from $0.03 an image; the exact price is always shown before you commit; failed generations are refunded; 50 free credits for creating a free account, no card needed; credits never expire; no subscription. No free preview and no watermark model exists on the official pages (one third-party listing claimed one and is contradicted). The free things are the 50 signup credits, the free cost check (makes nothing, tells the price) and the Pixel Art Fixer (converts an existing image, free, no signup). The chats' only automated path is the API, which charges per call from the balance. So the only way to see what it makes before paying is the 50 free credits: the first sheets, then his decision whether to buy any credits at all.
