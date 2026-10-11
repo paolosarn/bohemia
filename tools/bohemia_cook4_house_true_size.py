@@ -54,6 +54,9 @@ def shade_top(im, n=18, a=120):
 def roof(w, h, field, inset):
     """the front slope of a hipped roof: his roof field laid in rows, a trapezoid, his eave strip at the foot"""
     body = lay(field, w, h, crop=(4, 4, field.width - 4, field.height - 22), dy=6)
+    px = sorted(sum(p[:3]) for p in field.getdata() if p[3] > 200); dark = [p for p in field.getdata() if p[3] > 200 and sum(p[:3]) <= px[len(px) // 4]]
+    base = Image.new('RGBA', (w, h), tuple(int(sum(c[i] for c in dark) / len(dark)) for i in range(3)) + (255,))
+    base.alpha_composite(body); body = base          # his roof's own shadow colour under the tiles: no gaps
     m = Image.new('L', (w, h), 0); ImageDraw.Draw(m).polygon([(inset, 0), (w - inset, 0), (w - 1, h - 1), (0, h - 1)], fill=255)
     out = Image.new('RGBA', (w, h)); out.paste(body, (0, 0), m)
     eave = lay(A('settlement/pack_5_roof_tiles_014.png'), w, 30, crop=(0, 8, 96, 38))
@@ -63,6 +66,52 @@ def roof(w, h, field, inset):
     ImageDraw.Draw(sh).polygon([(w - 1, h - 1), (w - inset, 0), (w - inset - 18, 0), (w - 18, h - 1)], fill=(20, 14, 10, 60))
     ImageDraw.Draw(sh).line([(inset, 1), (w - inset, 1)], fill=(255, 232, 196, 150), width=2)   # the ridge catching light
     return outline(_over(out, sh))
+
+def _period(strip):
+    """the slat period of his shutter, read by autocorrelation down its middle column"""
+    import statistics as st
+    col = [sum(strip.getpixel((strip.width // 2, y))[:3]) for y in range(strip.height)]
+    m = st.mean(col); best, bp = None, 5
+    for p in range(3, 12):
+        v = sum((col[y] - m) * (col[y + p] - m) for y in range(len(col) - p))
+        if best is None or v > best: best, bp = v, p
+    return bp
+
+def one_roller_door(shutter, w, h):
+    """ONE roll-up door, the width of the opening (his 10/10: 'you put a garage in one garage... terrible').
+    His shutter (11. Industrial doors and gates #1) cut nine ways: the corner blocks stay as they are,
+    the header and the two posts are laid along their length, and the slats run the full width as one
+    curtain: a slice from the middle of his slats laid end to end, whole slat periods down, so there is
+    one frame, one curtain, one bottom bar, never a grid of small doors."""
+    S = shutter
+    TL, TR = S.crop((0, 0, 20, 20)), S.crop((76, 0, 96, 20))
+    top = S.crop((24, 0, 72, 20))
+    pl, pr = S.crop((0, 22, 18, 70)), S.crop((78, 22, 96, 70))
+    bl, br = S.crop((0, 72, 18, 89)), S.crop((78, 72, 96, 89))
+    slats = S.crop((30, 24, 66, 84))
+    per = _period(slats); slats = slats.crop((0, 0, slats.width, (slats.height // per) * per))
+    out = Image.new('RGBA', (w, h))
+    cw, ch = w - 36, h - 20
+    cur = Image.new('RGBA', (cw, ch)); y = 0
+    while y < ch:
+        x = 0
+        while x < cw:
+            cur.alpha_composite(slats, (x, y)); x += slats.width
+        y += slats.height
+    # the curtain darkens into the opening at the top and catches light at its foot (light from above)
+    sh = Image.new('RGBA', cur.size); sd = ImageDraw.Draw(sh)
+    for i in range(16): sd.rectangle([0, i, cw, i], fill=(10, 8, 6, 140 - i * 8))
+    sd.rectangle([0, ch - 6, cw, ch - 1], fill=(90, 84, 76, 255))       # the one bottom bar
+    sd.line([(0, ch - 6), (cw, ch - 6)], fill=(170, 160, 146, 255))
+    cur = _over(cur, sh)
+    out.alpha_composite(cur, (18, 20))
+    x = 20
+    while x < w - 20: out.alpha_composite(top, (x, 0)); x += top.width
+    y = 20
+    while y < h - 17: out.alpha_composite(pl, (0, y)); out.alpha_composite(pr, (w - 18, y)); y += pl.height
+    out.alpha_composite(TL, (0, 0)); out.alpha_composite(TR, (w - 20, 0))
+    out.alpha_composite(bl, (0, h - 17)); out.alpha_composite(br, (w - 18, h - 17))
+    return outline(out)
 
 def ranch():
     plaster = A('settlement/pack_wall_tiles_1_000.png')
@@ -82,9 +131,7 @@ def ranch():
         house.alpha_composite(wins[k % 2], (wx, M(0.75)))
     house = outline(shade_top(house))
     garage = lay(plaster, W_G, H_G, crop=(7, 10, 70, 86))
-    sl = shutter.crop((12, 12, shutter.width - 12, shutter.height - 4))
-    gd = lay(sl, M(4.8), M(2.25), dy=0)
-    frame = Image.new('RGBA', (gd.width + 8, gd.height + 4), (70, 62, 56, 255)); frame.alpha_composite(gd, (4, 4))
+    frame = one_roller_door(shutter, M(4.8), M(2.3))
     garage.alpha_composite(frame, ((W_G - frame.width) // 2, H_G - frame.height))
     garage = outline(shade_top(garage))
 
