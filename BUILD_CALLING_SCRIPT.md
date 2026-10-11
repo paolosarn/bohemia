@@ -18,7 +18,7 @@ CUE 4 | UI | the triage filter on the VOTE tab (red first and alone, yellow unde
 CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack settlement | FIRES ON: the RUN cut after CUE 3 lands | NEEDS: CUE 3 | STATE: WARNING
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: BUILD 10/10m | NEEDS: none | STATE: LANDED acbd6d89 (pages run 3016; the STOP block's RESTART is the coordinator's or EYES' once seen on the phone)
 CUE 6.5 | RUN | ten seconds to play round two: the people's breath and his walk after the door, no street crowd or street-walk warm-up on the map (BEGIN ready 27.7 -> 13 s at 4x) | FIRES ON: BUILD 10/11c | NEEDS: CUE 6 | STATE: LANDED a6a0b679
-CUE 6.6 | RUN | ten seconds to play round three: the map answers after BEGIN (the act faces skip the street, the morning ring a block a task, the sprites in handfuls, the crowd a facing a task and never while he travels, the late load no second boot; the longest freeze after BEGIN 4.2 -> 1.9 s, his first block from the link 33 -> about 20 s at 4x) | FIRES ON: BUILD 10/11f | NEEDS: CUE 6.5 | STATE: STANDBY (sha in the commit)
+CUE 6.6 | RUN | ten seconds to play round three: the map answers after BEGIN (the act faces skip the street, the morning ring a block a task, the sprites in handfuls, the crowd a facing a task and never while he travels, the late load no second boot; the longest freeze after BEGIN 4.2 -> 1.9 s, his first block from the link 33 -> about 20 s at 4x) | FIRES ON: BUILD 10/11f | NEEDS: CUE 6.5 | STATE: LANDED c3e66aef
 CUE 8 | THE PASS (RUN carries) | PLATE_FIGHT_BLOCK, the whole plate: one fight on one Vegas block with its HUD, called HANDS | FIRES ON: the RUN cut after every station reads 0-out | NEEDS: CUE 2, CUE 3, CUE 7 | STATE: WARNING
 CUE 7 | SOUNDS | the first swing he can hear: one moment, one tab | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 9 | COMBAT | the fight's night: every tile the rules call lit looks lit (the lamp's light covers it), and the computer's sharpness leg measured over every visible tile | FIRES ON: the alpha's next stamp (NOTE: the demo's fights load slices/BOHEMIA_FIGHT.html live, so a fight push reaches the demo without a cut; FOR RUN and the pass) | NEEDS: none | STATE: STANDBY 2fe7da9
@@ -28,6 +28,13 @@ CUE 9.7 | ANIMATION | the fall and the hit in the rig's bank (fall-down, take-hi
 CUE 9.8 | ANIMATION | the party walks as one on the map: a candidate behind MAP_PARTY_AS_ONE, OFF in the file, so nothing he plays changes until his FINAL flips it (rule 100) | FIRES ON: BUILD 10/11d | NEEDS: none | STATE: STANDBY (no demo cut by this lane)
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
+
+10/11 BUILD 10/11f, written by RUN within ten minutes of its pages run:
+1. STAMP and RUN TIME: BUILD 10/11f - THE MAP ANSWERS AFTER BEGIN, live at c3e66aef (pages run 3074 SUCCESS, 07:11:57Z).
+2. CUES CALLED and LANDED: CUE 6.6 landed. Riding the same cut: COMBAT's 10/11e (CUE 9.5, the fight loads live anyway) and ANIMATION's 10/11d (CUE 9.8, OFF in the file); nothing of theirs changes in the demo's first minute.
+3. WHO WENT ON: nobody replaced; no scrub.
+4. WHAT WENT WRONG: nothing new; his first block from the link is about 20 s at 4x against ten (owner RUN [ten seconds to play]): BEGIN lights at about 12.5 s, the biggest piece left.
+5. INJURIES (what reached his phone wrong): none new; the wait is shorter, not gone.
 
 10/11 BUILD 10/11c, written by RUN within ten minutes of its pages run:
 1. STAMP and RUN TIME: BUILD 10/11c - THE BREATH AFTER THE DOOR, live at a6a0b679 (pages run 3058 SUCCESS).
