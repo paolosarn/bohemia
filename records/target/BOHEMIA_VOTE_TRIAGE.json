@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red. Eleventh votes 10/10: 12 verdicts; reds: sounds-dirt-is-slower-10-5, ui-the-maps-bar-10-5, cook4-house-two-the-ranch-10-10, cook2-one-at-a-time-the-corner-10-10.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red. Eleventh votes 10/10: 12 verdicts; reds: sounds-dirt-is-slower-10-5, ui-the-maps-bar-10-5, cook4-house-two-the-ranch-10-10, cook2-one-at-a-time-the-corner-10-10. Sweep AI 10/11: the garage-door redo is his ask and goes red; the two older ranch cards gray as superseded. Reds sit at 4, UNDER SIX BY DESIGN: rule 108 ROUND THIRTEEN (10/11, 'until I do this everything is a placeholder, keep cooking') puts no FINAL? art card in front of him before his moodboard lands, so the yellow art items are not promoted this sweep; his own asks and non-art forks still go red at once.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -739,12 +739,12 @@
    "why": "a thing he asked to see this round (rules 104, 105, 107), one per lane"
   },
   "cook4-house-two-the-ranch-10-10": {
-   "tag": "red",
-   "why": "after the eleventh votes: the newest answers to his rulings first, one per lane (rule 92)"
+   "tag": "gray",
+   "why": "superseded picture: the ranch redone twice on his words, the newest card (one garage door, 10/11) is the one he sees"
   },
   "cook4-the-ranch-true-size-10-10": {
-   "tag": "yellow",
-   "why": "his ask too; waits behind its lane's one red (one red per lane per sweep)"
+   "tag": "gray",
+   "why": "superseded picture: the ranch redone twice on his words, the newest card (one garage door, 10/11) is the one he sees"
   },
   "ui-the-phones-text-10-10": {
    "tag": "red",
@@ -777,6 +777,10 @@
   "combat-both-teams-on-one-screen-10-10": {
    "tag": "red",
    "why": "a thing he asked to see this round (rules 104, 105, 107), one per lane"
+  },
+  "cook4-the-ranch-one-garage-door-10-11": {
+   "tag": "red",
+   "why": "his own ask ('a garage in one garage', 10/11) answered; he sees it now; it replaces the two older ranch cards"
   }
  }
 }

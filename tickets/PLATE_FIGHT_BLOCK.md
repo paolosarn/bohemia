@@ -21,3 +21,6 @@ The words, and nothing else, on this ticket: FIRE, HOLD, N-OUT, HEARD, IN THE WE
 SWEEP AH (10/10): COOK FOUR 0-out and at the line check; COOK TWO 1-out; COOK THREE 3-out; COMBAT TWO 3-out, its houses now a row ([the houses on the board]); UI and SOUNDS unchanged. ALL DAY: 1 plate.
 
 EIGHTH VOTES (10/10): COMBAT joins the plate with [both teams on one screen], fire now, 4-out; his NO on every combat card stands until it lands. COOK TWO: [no borders] and [the corners] are the sheet's last step. COOK FOUR: [no roof tops] before the second pass.
+
+
+SWEEP AI (10/11): COMBAT [both teams on one screen] landed on the alpha (c192ad1, STANDBY; the eleventh votes' four-tile margin is the re-check before its G-O). COOK TWO: the corner and the no-borders sheets are in VOTE (0-out at the line check, as sheets). COOK FOUR: the ranch redone twice on his words (true size, one garage door), 0-out as a sheet. COMBAT TWO 3-out (houses wait on COOK FOUR's FINAL). COOK THREE 3-out. UI 3-out. SOUNDS 5-out. THE PASS HOLDS THE PLATE: rule 108 ROUND THIRTEEN (10/11), nothing is FINAL before his moodboard, so HANDS cannot be called this sweep whatever the outs say; the stations keep cooking through the new pipe (Aseprite, the rig, the loop) and the plate is served the sweep after his pictures land. ALL DAY: 1 plate, held at the pass.
