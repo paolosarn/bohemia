@@ -44760,19 +44760,67 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
    the opening zoom a tile is a few pixels and a step back by the tile hid them behind him (looked at, 10/9); and a
    shoulder to each side ACROSS THE GLASS, not across his facing: walking down-left, the man at his left shoulder
    stands exactly behind him from this camera (logged (190,376) against his (189,391)). */
+/* his banner (COOK's, cook-the-map-has-markers-9-24) and his company's two passes, out of the marker's own block so it
+   stays short (FACE ON THE MAP A3 reads a window of it) */
+function mapYouBanner(__gx,__gy,__moving){
+    const __flagH = 30;                                   /* the pole, screen px */
+    const __px = __gx + 10, __py = __gy;
+    if(!MAP_PARTY_AS_ONE.on){   /* __THE_PARTY_WALKS_AS_ONE__: as one, no pole behind his back and no cloth beside him */
+    try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.banner = (MAP_DREW.banner|0) + 1; }catch(_e){}
+    g.fillStyle = MAP_ART.pal.k; g.fillRect(__px - 1, __py - __flagH, 2, __flagH);
+    g.fillStyle = MAP_ART.pal.s; g.fillRect(__px - 2, __py - 1, 4, 2);
+    { const __fr = __moving ? (mapArtBeat() % 4) : 0;
+      const __cloth = MAP_ART.mk.YOU.part[__fr][0][2];
+      g.fillStyle = MAP_ART.pal.a;
+      for(let __y=0; __y<__cloth.length; __y++) for(let __x=0; __x<__cloth[__y].length; __x++)
+        if(__cloth[__y][__x] !== '.') g.fillRect(__px + 1 + __x*MAP_ART_X, __py - __flagH + __y*MAP_ART_X, MAP_ART_X, MAP_ART_X); }
+    }
+}
+function mapCompanyPass(gx,gy,lift,moving,G,near,front){
+  if(MAP_PARTY_AS_ONE.on) mapCompanyDraw(gx,gy,lift,moving,G,front?'front':'back');
+  else if(!!near===!!front) mapCompanyDraw(gx,gy,lift,moving,G);
+}
 function mapCompanyNear(){ var v = MAP_VEC_OF[mapFaceNow()] || [1, 1]; return (v[0] + v[1]) < 0; }   /* facing up the glass, the step back is toward you */
-function mapCompanyDraw(gx, gy, lift, moving, G){
+/* __THE_PARTY_WALKS_AS_ONE__ (ANIMATION [the party walks as one], 10/11; his tenth votes, YES with fixes: 'make them
+   closer to me, more behind me, a cohesive unit; behind the main character there's like a shadow line, very ugly;
+   I'm so confused what the arrow is for'). LOOKED AT on the VOTE page he judged: the 'shadow line' is the banner's dark
+   POLE standing right behind his back, and the 'arrow' is the banner's yellow CLOTH beside him (COOK's marker,
+   cook-the-map-has-markers-9-24); the company walked LEVEL with his shoulders, 20 px out across the glass.
+   ON: no pole and no cloth ride with him, and the two walk a step BEHIND him, one off each shoulder, close, along the
+   way he faces: one unit. OFF BY DEFAULT: rule 100 (nothing into the game before his FINAL; the four look rows are
+   cook rounds, candidates in VOTE). His FINAL flips it. COOK's new marker (cook-the-party-marker-at-full-pixels-10-10)
+   is where a banner comes back, if he wants one. */
+var MAP_PARTY_AS_ONE = { on: false, back: 8, side: 15 };   /* 13 back and 8 out hid one of the two wholly behind his body on every frame (filmed 10/11) */
+function mapCompanyDraw(gx, gy, lift, moving, G, pass){
   try {
     var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
     var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
-    var K = Math.max(0.75, MAP_PEOPLE_K), bx = -dx * 6 * K, by = -dy * 6 * K;   /* a half step back */
+    var K = Math.max(0.75, MAP_PEOPLE_K), ONE = MAP_PARTY_AS_ONE.on;
+    var bx = -dx * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K, by = -dy * (ONE ? MAP_PARTY_AS_ONE.back : 6) * K;   /* a half step back; as one, a whole step */
     var st = strideOf({ u: G.u, n: CITY_GLIDE.n });
     g.translate(0, lift);
+    /* AS ONE, ON THE GLASS: the camera decides what 'behind' can mean and still be seen. Walking across the screen,
+       both trail on the side he comes from, staggered (13 and 22 px back, one a little up, one a little down); walking
+       up or down it, one each side of him a step back. Whoever stands lower on the glass is nearer the camera and is
+       drawn in front of him, the other behind (pass 'front' / 'back'). A ground-true formation hid one of the two
+       behind his body on every cross-screen walk, and pushing it clear put it AHEAD of him (both measured 10/11). */
+    var spot = function(k){ var o2 = k ? 1 : -1;
+      if (Math.abs(dx) > 0.3) { var sg = Math.sign(dx); return [-sg * (k ? 22 : 13) * K, (k ? -4 : 5) * K - dy * (k ? 6 : 3) * K]; }
+      return [o2 * 13 * K, -dy * 10 * K]; };
     [[-1, 0.25], [1, 0.5]].forEach(function(o, k){
       var m = mapCastOf(7 + k * 3); if (!m) return;
-      var lx = o[0] * 20 * K, ly = -3 * K;
+      if (ONE && pass) { var sp = spot(k); if ((pass === 'front') !== (sp[1] > 0)) return;
+        mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + sp[0], gy + sp[1], moving && st != null ? st + o[1] : null);
+        MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + sp[0]), Math.round(gy + sp[1]), f]);
+        return; }
+      /* level across the glass at his shoulders, or, as one, off each shoulder ACROSS HIS WAY (the perpendicular to his facing) */
+      var px_ = (-v[1] - v[0]) * TW / 2, py_ = (-v[1] + v[0]) * TH / 2, pl = Math.hypot(px_, py_) || 1;   /* across his way ON THE GROUND, then on the glass */
+      var lx = ONE ? o[0] * px_ / pl * MAP_PARTY_AS_ONE.side * K : o[0] * 20 * K, ly = ONE ? o[0] * py_ / pl * MAP_PARTY_AS_ONE.side * K : -3 * K;
+      /* and the CAMERA wins: walking across the glass, 'beside him on the ground' points up the screen, straight behind his
+         head, and one of the two vanished behind his body (filmed 10/11); so each keeps at least 12 px to its own side */
+      if (ONE) { var sgn = (lx === 0 ? o[0] : Math.sign(lx)), tx = bx + lx; if (Math.abs(tx) < 12 * K || Math.sign(tx) !== sgn) { lx = sgn * 12 * K - bx; ly *= 0.35; } }   /* where it LANDS, the step back included: on the side alone it sat 6 px right and 10 up, behind his head (logged 10/11) */
       mapPersonDraw(m, f, mapArtBeat() + k + 1, gx + bx + lx, gy + by + ly, moving && st != null ? st + o[1] : null);
-      MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1;
+      MAP_DREW = MAP_DREW || {}; MAP_DREW.company = (MAP_DREW.company | 0) + 1; (MAP_DREW.companyAt = MAP_DREW.companyAt || []).push([Math.round(gx + bx + lx), Math.round(gy + by + ly), f]);
     });
     g.translate(0, -lift);
   } catch (_e) {}
@@ -46644,17 +46692,8 @@ function renderCity(){
        each other, drawn first so he stands in front. They stand and breathe when he stops. */
     /* __THE_PARTIES_WALK__: two of his company at his shoulders (mapCompanyDraw); nearer than him when he faces away */
     const __companyNear=mapCompanyNear();
-    if(!__companyNear) mapCompanyDraw(__gx,__gy,__lift,__moving,__G);
-    /* THE BANNER FIRST, so his body stands in front of its pole */
-    const __flagH = 30;                                   /* the pole, screen px */
-    const __px = __gx + 10, __py = __gy;
-    g.fillStyle = MAP_ART.pal.k; g.fillRect(__px - 1, __py - __flagH, 2, __flagH);
-    g.fillStyle = MAP_ART.pal.s; g.fillRect(__px - 2, __py - 1, 4, 2);
-    { const __fr = __moving ? (mapArtBeat() % 4) : 0;
-      const __cloth = MAP_ART.mk.YOU.part[__fr][0][2];
-      g.fillStyle = MAP_ART.pal.a;
-      for(let __y=0; __y<__cloth.length; __y++) for(let __x=0; __x<__cloth[__y].length; __x++)
-        if(__cloth[__y][__x] !== '.') g.fillRect(__px + 1 + __x*MAP_ART_X, __py - __flagH + __y*MAP_ART_X, MAP_ART_X, MAP_ART_X); }
+    mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,0);
+    mapYouBanner(__gx,__gy,__moving);   /* THE BANNER FIRST, so his body stands in front of its pole */
     let __bw=0, __bh=0;
     if(__body){
       g.imageSmoothingEnabled=false;
@@ -46665,7 +46704,7 @@ function renderCity(){
       const __s=mapArtDraw(MAP_ART.mk.YOU, __moving?(mapArtBeat()%4):0, null, __gx, __gy);
       __bw=__s.width; __bh=__s.height;
     }
-    if(__companyNear) mapCompanyDraw(__gx,__gy,__lift,__moving,__G);   /* facing away, his company is between him and you */
+    mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
     g.restore();
     try{ MAP_DREW = MAP_DREW || {}; MAP_DREW.youCount = (MAP_DREW.youCount|0) + 1; MAP_DREW.you = { how: __how, x: Math.round(__gx), y: Math.round(__gy), w: __bw, h: __bh,
                                                    moving: __moving, face: mapFaceNow() }; }catch(_e){}

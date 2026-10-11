@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The Party Walks As One</title>
+<!-- ANIMATION [the party walks as one], 10/11, from his tenth votes on the parties walking (YES with fixes). Filmed off
+     the REAL map in the alpha, the clock driven, the same two trips twice: MAP_PARTY_AS_ONE off (BEFORE: the game today)
+     and on (NOW: the candidate). Two lossless sheets (every pixel checked), 12 x 4 frames of 160 x 110 screen points at his phone's 3 pixels a point;
+     each canvas is drawn at those phone pixels, so one map pixel is one phone pixel (rule 89). Played live. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 12px;color:#b3a890;max-width:60ch}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .lab{font-size:10px;letter-spacing:2px;margin-bottom:4px}.old{color:#9a6b6b}.new{color:#7fa06b}
+  canvas{display:block;image-rendering:pixelated;border-radius:3px;background:#101319}
+</style>
+<h1>FINAL? YOUR PARTY WALKS AS ONE</h1>
+<p>On the map your two now walk close behind you as one group, and the pole that stood at your back and the yellow flag you took for an arrow are gone. You see it in the VOTE tab, the real map before beside now at the game's own size; nothing is in the game until you say final.</p>
+<div class="row">
+  <div><div class="lab old">BEFORE</div><canvas id="a"></canvas></div>
+  <div><div class="lab new">NOW</div><canvas id="b"></canvas></div>
+</div>
+<script>
+(function(){
+  var W=160, H=110, Q=3, N=48, FR=50, dpr=window.devicePixelRatio||1;
+  var cv=[document.getElementById('a'),document.getElementById('b')], ims=[new Image(),new Image()], ready=0;
+  cv.forEach(function(c){ c.width=W*Q; c.height=H*Q; c.style.width=(W*Q/dpr)+'px'; c.style.height=(H*Q/dpr)+'px'; });   /* one map pixel to one phone pixel */
+  function go(){ var t0=performance.now();
+    (function tick(){ var k=Math.floor((performance.now()-t0)/FR)%N;
+      cv.forEach(function(c,i){ var g=c.getContext('2d'); g.imageSmoothingEnabled=false;
+        g.drawImage(ims[i],(k%12)*W*Q,Math.floor(k/12)*H*Q,W*Q,H*Q,0,0,W*Q,H*Q); });
+      requestAnimationFrame(tick); })(); }
+  ims.forEach(function(im,i){ im.onload=function(){ if(++ready===2) go(); }; im.src='ANIMATION_THE_PARTY_WALKS_AS_ONE_'+(i?'NOW':'BEFORE')+'.webp'; });
+})();
+</script>

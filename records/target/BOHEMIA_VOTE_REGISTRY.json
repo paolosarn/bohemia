@@ -8164,7 +8164,8 @@
       "how": "text",
       "src": "records/BOHEMIA_THE_COYOTE_LOOK_FIX_LOOP_10_11_26.md\n\nSeen in: no tab, this is a diagnostic/process record, no pixel moved."
      }
-    }
+    },
+  {"id": "animation-the-party-walks-as-one-10-11", "kind": "animation", "lane": "animation", "sha": "pending", "made": "10/11", "title": "FINAL? YOUR PARTY WALKS AS ONE", "redoOf": "animation-the-parties-walk-10-9", "said": "you can make them like closer to me like more behind me too like just more as a cohesive unit ... it was like a shadow line behind him ... I'm just so confused with the arrow is for", "why": "On the map your two now walk close behind you as one group, and the pole that stood at your back and the yellow flag you took for an arrow are gone. You see it in the VOTE tab, the real map before beside now at the game's own size, and nothing is in the game until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_THE_PARTY_WALKS_AS_ONE.html"}, "draft": true}
  ],
  "verdicts": [
   {
