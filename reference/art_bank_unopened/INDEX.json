@@ -1,0 +1,2325 @@
+{
+ "note": "EVERY PACK HE BOUGHT THAT NOBODY HAS EVER OPENED. The approved bank (reference/art_bank) holds the 1,927 he judged UP on 7/13; these are the rest. One contact sheet per pack so a lane can SEE what is in it before it cooks anything (rule 108: find the pack piece and use it).",
+ "date": "10/11/26",
+ "lane": "cook",
+ "row": "[the pack card]",
+ "packs_owned": 294,
+ "tiles_owned": 8674,
+ "tiles_opened": 1927,
+ "packs_never_opened": 210,
+ "tiles_never_opened": 6146,
+ "tiles_left_in_partly_opened_packs": 601,
+ "packs": {
+  "1. Grass tiles": {
+   "tiles": 14,
+   "sheet": "sheets/1__Grass_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "95x96"
+   ]
+  },
+  "1. Ground Tiles": {
+   "tiles": 39,
+   "sheet": "sheets/1__Ground_Tiles.jpg",
+   "sizes": [
+    "49x96",
+    "95x96",
+    "96x44",
+    "96x95"
+   ]
+  },
+  "1. Marble floor tiles": {
+   "tiles": 1,
+   "sheet": "sheets/1__Marble_floor_tiles.jpg",
+   "sizes": [
+    "92x92"
+   ]
+  },
+  "1. Tower floor tiles": {
+   "tiles": 50,
+   "sheet": "sheets/1__Tower_floor_tiles.jpg",
+   "sizes": [
+    "96x90",
+    "96x92",
+    "96x93"
+   ]
+  },
+  "10. Altars and offering": {
+   "tiles": 11,
+   "sheet": "sheets/10__Altars_and_offering.jpg",
+   "sizes": [
+    "62x96",
+    "70x96",
+    "82x96",
+    "85x96",
+    "87x96",
+    "96x91"
+   ]
+  },
+  "10. Bridges and wooden walkways": {
+   "tiles": 13,
+   "sheet": "sheets/10__Bridges_and_wooden_walkways.jpg",
+   "sizes": [
+    "96x36",
+    "96x37",
+    "96x49",
+    "96x52",
+    "96x55",
+    "96x59"
+   ]
+  },
+  "10. Furnaces and smelters": {
+   "tiles": 29,
+   "sheet": "sheets/10__Furnaces_and_smelters.jpg",
+   "sizes": [
+    "55x87",
+    "55x89",
+    "63x77",
+    "96x44",
+    "96x73",
+    "96x76"
+   ]
+  },
+  "10. Market and stalls": {
+   "tiles": 29,
+   "sheet": "sheets/10__Market_and_stalls.jpg",
+   "sizes": [
+    "95x96",
+    "96x41",
+    "96x44",
+    "96x88",
+    "96x92",
+    "96x93"
+   ]
+  },
+  "10. Petals and ground details": {
+   "tiles": 16,
+   "sheet": "sheets/10__Petals_and_ground_details.jpg",
+   "sizes": [
+    "72x55",
+    "74x58",
+    "75x53",
+    "77x54",
+    "77x55",
+    "95x58"
+   ]
+  },
+  "10. Port decorations": {
+   "tiles": 29,
+   "sheet": "sheets/10__Port_decorations.jpg",
+   "sizes": [
+    "54x96",
+    "57x96",
+    "58x96",
+    "59x96",
+    "67x96"
+   ]
+  },
+  "10. Ruins pillars and columns": {
+   "tiles": 41,
+   "sheet": "sheets/10__Ruins_pillars_and_columns.jpg",
+   "sizes": [
+    "34x96",
+    "36x96",
+    "40x96",
+    "43x96"
+   ]
+  },
+  "10. Spikes and harzards": {
+   "tiles": 40,
+   "sheet": "sheets/10__Spikes_and_harzards.jpg",
+   "sizes": [
+    "46x96",
+    "51x96",
+    "88x96",
+    "92x96",
+    "94x96",
+    "96x95"
+   ]
+  },
+  "10. Storage and containers": {
+   "tiles": 36,
+   "sheet": "sheets/10__Storage_and_containers.jpg",
+   "sizes": [
+    "64x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "74x96",
+    "81x96"
+   ]
+  },
+  "10. Telescope and astronomy tools": {
+   "tiles": 34,
+   "sheet": "sheets/10__Telescope_and_astronomy_tools.jpg",
+   "sizes": [
+    "70x96",
+    "74x96",
+    "75x96",
+    "80x96",
+    "92x96",
+    "96x90"
+   ]
+  },
+  "10. Wooden fences and gates": {
+   "tiles": 27,
+   "sheet": "sheets/10__Wooden_fences_and_gates.jpg",
+   "sizes": [
+    "79x80",
+    "94x96",
+    "96x69",
+    "96x73",
+    "96x82"
+   ]
+  },
+  "11. Amphoras and pottery": {
+   "tiles": 14,
+   "sheet": "sheets/11__Amphoras_and_pottery.jpg",
+   "sizes": [
+    "62x96",
+    "64x96",
+    "68x96"
+   ]
+  },
+  "11. Barrels, Crates and sacks": {
+   "tiles": 24,
+   "sheet": "sheets/11__Barrels__Crates_and_sacks.jpg",
+   "sizes": [
+    "70x96",
+    "71x96",
+    "73x96",
+    "76x96",
+    "94x92"
+   ]
+  },
+  "11. Chains and hooks": {
+   "tiles": 21,
+   "sheet": "sheets/11__Chains_and_hooks.jpg",
+   "sizes": [
+    "17x96",
+    "19x96",
+    "20x96",
+    "30x96",
+    "32x96"
+   ]
+  },
+  "11. Fences and gates": {
+   "tiles": 21,
+   "sheet": "sheets/11__Fences_and_gates.jpg",
+   "sizes": [
+    "96x40",
+    "96x41",
+    "96x44",
+    "96x52",
+    "96x57",
+    "96x67"
+   ]
+  },
+  "11. Sci-fi furniture": {
+   "tiles": 12,
+   "sheet": "sheets/11__Sci_fi_furniture.jpg",
+   "sizes": [
+    "50x96",
+    "53x96",
+    "62x96",
+    "64x96",
+    "90x96",
+    "96x49"
+   ]
+  },
+  "11. Village furniture and props": {
+   "tiles": 17,
+   "sheet": "sheets/11__Village_furniture_and_props.jpg",
+   "sizes": [
+    "46x96",
+    "50x96",
+    "85x96",
+    "95x96",
+    "96x72",
+    "96x74"
+   ]
+  },
+  "12. Bridges and boardwalks": {
+   "tiles": 29,
+   "sheet": "sheets/12__Bridges_and_boardwalks.jpg",
+   "sizes": [
+    "96x40",
+    "96x41",
+    "96x43",
+    "96x45",
+    "96x49"
+   ]
+  },
+  "12. Cave Entrances": {
+   "tiles": 12,
+   "sheet": "sheets/12__Cave_Entrances.jpg",
+   "sizes": [
+    "96x58",
+    "96x61",
+    "96x72"
+   ]
+  },
+  "12. Doors and hatches": {
+   "tiles": 41,
+   "sheet": "sheets/12__Doors_and_hatches.jpg",
+   "sizes": [
+    "60x88",
+    "65x79",
+    "67x88",
+    "67x89",
+    "70x89"
+   ]
+  },
+  "12. Furniture and study Tables": {
+   "tiles": 19,
+   "sheet": "sheets/12__Furniture_and_study_Tables.jpg",
+   "sizes": [
+    "92x96",
+    "96x71",
+    "96x82",
+    "96x90",
+    "96x92",
+    "96x94"
+   ]
+  },
+  "12. Iron Gates and doors": {
+   "tiles": 31,
+   "sheet": "sheets/12__Iron_Gates_and_doors.jpg",
+   "sizes": [
+    "85x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "94x96",
+    "96x92"
+   ]
+  },
+  "12. Laboratory equipment": {
+   "tiles": 28,
+   "sheet": "sheets/12__Laboratory_equipment.jpg",
+   "sizes": [
+    "44x96",
+    "47x96",
+    "49x96",
+    "85x96",
+    "96x59",
+    "96x62"
+   ]
+  },
+  "12. Market props and crates": {
+   "tiles": 21,
+   "sheet": "sheets/12__Market_props_and_crates.jpg",
+   "sizes": [
+    "92x96",
+    "95x96",
+    "96x92",
+    "96x95",
+    "96x96"
+   ]
+  },
+  "12. Street Props": {
+   "tiles": 8,
+   "sheet": "sheets/12__Street_Props.jpg",
+   "sizes": [
+    "38x96",
+    "62x96",
+    "64x96",
+    "68x96",
+    "73x96",
+    "96x96"
+   ]
+  },
+  "12. Treasure and loot": {
+   "tiles": 23,
+   "sheet": "sheets/12__Treasure_and_loot.jpg",
+   "sizes": [
+    "84x96",
+    "88x96",
+    "96x90",
+    "96x92",
+    "96x93"
+   ]
+  },
+  "12. Weapons and armory": {
+   "tiles": 41,
+   "sheet": "sheets/12__Weapons_and_armory.jpg",
+   "sizes": [
+    "28x96",
+    "38x96",
+    "39x96",
+    "96x40",
+    "96x41",
+    "96x80"
+   ]
+  },
+  "13. Banners and flags": {
+   "tiles": 32,
+   "sheet": "sheets/13__Banners_and_flags.jpg",
+   "sizes": [
+    "58x96",
+    "59x96",
+    "96x40",
+    "96x42"
+   ]
+  },
+  "13. Bridges and platforms": {
+   "tiles": 25,
+   "sheet": "sheets/13__Bridges_and_platforms.jpg",
+   "sizes": [
+    "96x47",
+    "96x54",
+    "96x58",
+    "96x64",
+    "96x69",
+    "96x76"
+   ]
+  },
+  "13. Chairs and seating": {
+   "tiles": 26,
+   "sheet": "sheets/13__Chairs_and_seating.jpg",
+   "sizes": [
+    "52x96",
+    "61x96",
+    "62x96",
+    "65x96",
+    "96x71",
+    "96x73"
+   ]
+  },
+  "13. Decorations": {
+   "tiles": 36,
+   "sheet": "sheets/13__Decorations.jpg",
+   "sizes": [
+    "41x96",
+    "51x96",
+    "59x96",
+    "61x96",
+    "69x96"
+   ]
+  },
+  "13. Furniture and seating": {
+   "tiles": 19,
+   "sheet": "sheets/13__Furniture_and_seating.jpg",
+   "sizes": [
+    "76x96",
+    "88x96",
+    "96x64",
+    "96x65",
+    "96x84"
+   ]
+  },
+  "13. Garden beds": {
+   "tiles": 54,
+   "sheet": "sheets/13__Garden_beds.jpg",
+   "sizes": [
+    "77x69",
+    "79x76",
+    "96x39",
+    "96x43",
+    "96x47",
+    "96x48"
+   ]
+  },
+  "13. Lamps and torches": {
+   "tiles": 12,
+   "sheet": "sheets/13__Lamps_and_torches.jpg",
+   "sizes": [
+    "30x96",
+    "33x96",
+    "35x96",
+    "64x96",
+    "96x94"
+   ]
+  },
+  "13. Lanterns and warmlights": {
+   "tiles": 18,
+   "sheet": "sheets/13__Lanterns_and_warmlights.jpg",
+   "sizes": [
+    "46x96",
+    "48x96",
+    "50x96",
+    "56x96"
+   ]
+  },
+  "14. Banners and flags": {
+   "tiles": 11,
+   "sheet": "sheets/14__Banners_and_flags.jpg",
+   "sizes": [
+    "47x96",
+    "48x96",
+    "49x96",
+    "50x96",
+    "52x96"
+   ]
+  },
+  "14. Garden furniture": {
+   "tiles": 42,
+   "sheet": "sheets/14__Garden_furniture.jpg",
+   "sizes": [
+    "67x96",
+    "76x96",
+    "81x88",
+    "84x92",
+    "96x37",
+    "96x79"
+   ]
+  },
+  "14. Lamps and lights": {
+   "tiles": 20,
+   "sheet": "sheets/14__Lamps_and_lights.jpg",
+   "sizes": [
+    "26x96",
+    "29x96",
+    "33x96",
+    "34x96",
+    "48x96"
+   ]
+  },
+  "14. Lights and neon elements": {
+   "tiles": 19,
+   "sheet": "sheets/14__Lights_and_neon_elements.jpg",
+   "sizes": [
+    "32x96",
+    "33x96",
+    "34x96",
+    "76x96",
+    "80x96",
+    "96x79"
+   ]
+  },
+  "14. Market and outdoor props": {
+   "tiles": 23,
+   "sheet": "sheets/14__Market_and_outdoor_props.jpg",
+   "sizes": [
+    "86x96",
+    "87x96",
+    "93x96",
+    "96x68",
+    "96x76",
+    "96x77"
+   ]
+  },
+  "14. Shells and small details": {
+   "tiles": 13,
+   "sheet": "sheets/14__Shells_and_small_details.jpg",
+   "sizes": [
+    "78x96",
+    "80x96",
+    "96x80",
+    "96x85",
+    "96x87",
+    "96x89"
+   ]
+  },
+  "14. Town square decorations": {
+   "tiles": 13,
+   "sheet": "sheets/14__Town_square_decorations.jpg",
+   "sizes": [
+    "66x96",
+    "67x96",
+    "94x93",
+    "96x75",
+    "96x82",
+    "96x85"
+   ]
+  },
+  "15. Benches and seating": {
+   "tiles": 27,
+   "sheet": "sheets/15__Benches_and_seating.jpg",
+   "sizes": [
+    "96x37",
+    "96x50",
+    "96x55",
+    "96x58"
+   ]
+  },
+  "15. Cracked floor details": {
+   "tiles": 16,
+   "sheet": "sheets/15__Cracked_floor_details.jpg",
+   "sizes": [
+    "96x56",
+    "96x72",
+    "96x74",
+    "96x80",
+    "96x82"
+   ]
+  },
+  "15. Mythological Symbols": {
+   "tiles": 14,
+   "sheet": "sheets/15__Mythological_Symbols.jpg",
+   "sizes": [
+    "57x96",
+    "69x96",
+    "80x96",
+    "88x96",
+    "94x96",
+    "96x90"
+   ]
+  },
+  "15. Robots and drones": {
+   "tiles": 2,
+   "sheet": "sheets/15__Robots_and_drones.jpg",
+   "sizes": [
+    "96x84",
+    "96x94"
+   ]
+  },
+  "15. Statues and ancient relics": {
+   "tiles": 8,
+   "sheet": "sheets/15__Statues_and_ancient_relics.jpg",
+   "sizes": [
+    "40x96",
+    "58x96",
+    "61x96",
+    "67x96",
+    "75x96"
+   ]
+  },
+  "15. Trees and nature": {
+   "tiles": 15,
+   "sheet": "sheets/15__Trees_and_nature.jpg",
+   "sizes": [
+    "50x96",
+    "58x96",
+    "82x81",
+    "91x96",
+    "96x82"
+   ]
+  },
+  "15. winter decorations": {
+   "tiles": 16,
+   "sheet": "sheets/15__winter_decorations.jpg",
+   "sizes": [
+    "61x96",
+    "69x96",
+    "91x96",
+    "96x53",
+    "96x84",
+    "96x96"
+   ]
+  },
+  "16. Crates and cargo props": {
+   "tiles": 28,
+   "sheet": "sheets/16__Crates_and_cargo_props.jpg",
+   "sizes": [
+    "95x96",
+    "96x84",
+    "96x86",
+    "96x88",
+    "96x92",
+    "96x93"
+   ]
+  },
+  "16. Interior cabin props": {
+   "tiles": 35,
+   "sheet": "sheets/16__Interior_cabin_props.jpg",
+   "sizes": [
+    "53x96",
+    "62x96",
+    "64x96",
+    "76x96",
+    "82x96",
+    "88x96"
+   ]
+  },
+  "16. Lab equipment": {
+   "tiles": 32,
+   "sheet": "sheets/16__Lab_equipment.jpg",
+   "sizes": [
+    "60x96",
+    "61x96",
+    "63x96",
+    "67x96",
+    "73x96",
+    "89x96"
+   ]
+  },
+  "16. Lamps and lights": {
+   "tiles": 3,
+   "sheet": "sheets/16__Lamps_and_lights.jpg",
+   "sizes": [
+    "55x79",
+    "69x89",
+    "71x67"
+   ]
+  },
+  "16. Lanterns and glow lights": {
+   "tiles": 12,
+   "sheet": "sheets/16__Lanterns_and_glow_lights.jpg",
+   "sizes": [
+    "32x96",
+    "34x96",
+    "44x96",
+    "47x96",
+    "95x96"
+   ]
+  },
+  "16. Staircases and elevation": {
+   "tiles": 12,
+   "sheet": "sheets/16__Staircases_and_elevation.jpg",
+   "sizes": [
+    "76x96",
+    "78x96",
+    "82x96",
+    "88x96",
+    "96x64",
+    "96x80"
+   ]
+  },
+  "16. Trees and nature": {
+   "tiles": 23,
+   "sheet": "sheets/16__Trees_and_nature.jpg",
+   "sizes": [
+    "52x96",
+    "55x96",
+    "56x96",
+    "96x40"
+   ]
+  },
+  "16. Weapons and shields": {
+   "tiles": 16,
+   "sheet": "sheets/16__Weapons_and_shields.jpg",
+   "sizes": [
+    "24x96",
+    "31x96",
+    "38x96",
+    "43x96",
+    "47x96",
+    "66x96"
+   ]
+  },
+  "17. Bridges and walkways": {
+   "tiles": 35,
+   "sheet": "sheets/17__Bridges_and_walkways.jpg",
+   "sizes": [
+    "94x96",
+    "96x92",
+    "96x96"
+   ]
+  },
+  "17. Cannons and weapons": {
+   "tiles": 16,
+   "sheet": "sheets/17__Cannons_and_weapons.jpg",
+   "sizes": [
+    "62x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "88x96"
+   ]
+  },
+  "17. Mailboxes and birdhouses": {
+   "tiles": 53,
+   "sheet": "sheets/17__Mailboxes_and_birdhouses.jpg",
+   "sizes": [
+    "52x96",
+    "53x96"
+   ]
+  },
+  "17. Ruins and debris": {
+   "tiles": 3,
+   "sheet": "sheets/17__Ruins_and_debris.jpg",
+   "sizes": [
+    "96x63",
+    "96x88",
+    "96x91"
+   ]
+  },
+  "17. Safehouse furniture": {
+   "tiles": 15,
+   "sheet": "sheets/17__Safehouse_furniture.jpg",
+   "sizes": [
+    "62x96",
+    "68x96",
+    "82x96",
+    "92x96",
+    "96x62"
+   ]
+  },
+  "18. Blacksmith props": {
+   "tiles": 13,
+   "sheet": "sheets/18__Blacksmith_props.jpg",
+   "sizes": [
+    "74x96",
+    "90x96",
+    "92x96",
+    "96x70",
+    "96x78",
+    "96x94"
+   ]
+  },
+  "18. Crystals and bioluminescense": {
+   "tiles": 11,
+   "sheet": "sheets/18__Crystals_and_bioluminescense.jpg",
+   "sizes": [
+    "71x96",
+    "74x96",
+    "75x96",
+    "80x96",
+    "81x96",
+    "92x96"
+   ]
+  },
+  "18. Misc objects": {
+   "tiles": 29,
+   "sheet": "sheets/18__Misc_objects.jpg",
+   "sizes": [
+    "96x44",
+    "96x76",
+    "96x78",
+    "96x92"
+   ]
+  },
+  "18. Nature and plants": {
+   "tiles": 24,
+   "sheet": "sheets/18__Nature_and_plants.jpg",
+   "sizes": [
+    "96x82",
+    "96x89",
+    "96x92",
+    "96x96"
+   ]
+  },
+  "18. Pots and planters": {
+   "tiles": 68,
+   "sheet": "sheets/18__Pots_and_planters.jpg",
+   "sizes": [
+    "71x62",
+    "73x96",
+    "78x96",
+    "82x96",
+    "83x85"
+   ]
+  },
+  "18. Space station props": {
+   "tiles": 15,
+   "sheet": "sheets/18__Space_station_props.jpg",
+   "sizes": [
+    "57x96",
+    "64x96",
+    "89x96",
+    "96x68",
+    "96x69",
+    "96x74"
+   ]
+  },
+  "18. Stairs and lifts": {
+   "tiles": 13,
+   "sheet": "sheets/18__Stairs_and_lifts.jpg",
+   "sizes": [
+    "28x96",
+    "64x96",
+    "74x96",
+    "81x96",
+    "82x96",
+    "90x96"
+   ]
+  },
+  "19. Alien tech elements": {
+   "tiles": 18,
+   "sheet": "sheets/19__Alien_tech_elements.jpg",
+   "sizes": [
+    "58x96",
+    "64x96",
+    "80x96",
+    "89x96",
+    "96x86"
+   ]
+  },
+  "19. Animals and creatures": {
+   "tiles": 13,
+   "sheet": "sheets/19__Animals_and_creatures.jpg",
+   "sizes": [
+    "40x96",
+    "48x96",
+    "50x96",
+    "56x96",
+    "75x96",
+    "76x96"
+   ]
+  },
+  "19. Decor and homey items": {
+   "tiles": 36,
+   "sheet": "sheets/19__Decor_and_homey_items.jpg",
+   "sizes": [
+    "64x80",
+    "70x75",
+    "75x69",
+    "76x69",
+    "81x62",
+    "84x85"
+   ]
+  },
+  "19. Decorations": {
+   "tiles": 19,
+   "sheet": "sheets/19__Decorations.jpg",
+   "sizes": [
+    "29x96",
+    "43x96",
+    "44x96",
+    "53x96",
+    "70x96",
+    "71x96"
+   ]
+  },
+  "19. Deep sea props": {
+   "tiles": 11,
+   "sheet": "sheets/19__Deep_sea_props.jpg",
+   "sizes": [
+    "59x96",
+    "64x96",
+    "76x96",
+    "77x96",
+    "82x96",
+    "95x96"
+   ]
+  },
+  "19. Miscellaneous": {
+   "tiles": 45,
+   "sheet": "sheets/19__Miscellaneous.jpg",
+   "sizes": [
+    "41x96",
+    "96x65",
+    "96x69",
+    "96x74",
+    "96x81"
+   ]
+  },
+  "19. Signs and village boards": {
+   "tiles": 33,
+   "sheet": "sheets/19__Signs_and_village_boards.jpg",
+   "sizes": [
+    "57x96",
+    "58x96",
+    "63x96",
+    "67x96",
+    "68x96"
+   ]
+  },
+  "19. Torches and braziers": {
+   "tiles": 21,
+   "sheet": "sheets/19__Torches_and_braziers.jpg",
+   "sizes": [
+    "32x96",
+    "39x96",
+    "45x96",
+    "57x96",
+    "64x96"
+   ]
+  },
+  "19. Toxic and infection growths": {
+   "tiles": 24,
+   "sheet": "sheets/19__Toxic_and_infection_growths.jpg",
+   "sizes": [
+    "96x65",
+    "96x68",
+    "96x71",
+    "96x87",
+    "96x89"
+   ]
+  },
+  "19. Toxic crystals and mutations": {
+   "tiles": 19,
+   "sheet": "sheets/19__Toxic_crystals_and_mutations.jpg",
+   "sizes": [
+    "80x96",
+    "84x96",
+    "85x96",
+    "91x96",
+    "95x96",
+    "96x85"
+   ]
+  },
+  "2. Cliffs and ledges": {
+   "tiles": 4,
+   "sheet": "sheets/2__Cliffs_and_ledges.jpg",
+   "sizes": [
+    "78x96",
+    "92x96",
+    "96x40"
+   ]
+  },
+  "2. Dock planks": {
+   "tiles": 42,
+   "sheet": "sheets/2__Dock_planks.jpg",
+   "sizes": [
+    "91x96",
+    "92x96",
+    "93x96"
+   ]
+  },
+  "2. Sci-fi wall tiles": {
+   "tiles": 23,
+   "sheet": "sheets/2__Sci_fi_wall_tiles.jpg",
+   "sizes": [
+    "89x96",
+    "92x96",
+    "96x76",
+    "96x80",
+    "96x88",
+    "96x89"
+   ]
+  },
+  "2. Wall tiles (1)": {
+   "tiles": 44,
+   "sheet": "sheets/2__Wall_tiles__1.jpg",
+   "sizes": [
+    "67x96",
+    "72x96",
+    "83x96",
+    "96x75"
+   ]
+  },
+  "2. wall tiles": {
+   "tiles": 22,
+   "sheet": "sheets/2__wall_tiles.jpg",
+   "sizes": [
+    "96x88",
+    "96x89",
+    "96x90",
+    "96x92"
+   ]
+  },
+  "20. Decorative village details": {
+   "tiles": 17,
+   "sheet": "sheets/20__Decorative_village_details.jpg",
+   "sizes": [
+    "79x82",
+    "92x96",
+    "95x96",
+    "96x46",
+    "96x59",
+    "96x89"
+   ]
+  },
+  "20. Environment Details": {
+   "tiles": 42,
+   "sheet": "sheets/20__Environment_Details.jpg",
+   "sizes": [
+    "57x96",
+    "67x96",
+    "70x96",
+    "75x96",
+    "86x96",
+    "88x96"
+   ]
+  },
+  "20. Environment set pieces": {
+   "tiles": 21,
+   "sheet": "sheets/20__Environment_set_pieces.jpg",
+   "sizes": [
+    "50x96",
+    "54x96",
+    "68x96",
+    "96x40",
+    "96x41",
+    "96x86"
+   ]
+  },
+  "20. Extra cozy details": {
+   "tiles": 45,
+   "sheet": "sheets/20__Extra_cozy_details.jpg",
+   "sizes": [
+    "96x48",
+    "96x51",
+    "96x52",
+    "96x57",
+    "96x60",
+    "96x64"
+   ]
+  },
+  "20. Nature and environment": {
+   "tiles": 18,
+   "sheet": "sheets/20__Nature_and_environment.jpg",
+   "sizes": [
+    "77x96",
+    "79x96",
+    "92x96",
+    "96x70",
+    "96x81",
+    "96x84"
+   ]
+  },
+  "20. Special Hazard Tiles": {
+   "tiles": 15,
+   "sheet": "sheets/20__Special_Hazard_Tiles.jpg",
+   "sizes": [
+    "96x92",
+    "96x93"
+   ]
+  },
+  "20. Special Sci-fi tiles": {
+   "tiles": 34,
+   "sheet": "sheets/20__Special_Sci_fi_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "96x88",
+    "96x92",
+    "96x94"
+   ]
+  },
+  "20. Special hazard tiles (1)": {
+   "tiles": 30,
+   "sheet": "sheets/20__Special_hazard_tiles__1.jpg",
+   "sizes": [
+    "96x85",
+    "96x90",
+    "96x91",
+    "96x92"
+   ]
+  },
+  "3. Bookshelves and bookcases": {
+   "tiles": 42,
+   "sheet": "sheets/3__Bookshelves_and_bookcases.jpg",
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "65x96",
+    "90x96",
+    "93x96"
+   ]
+  },
+  "3. Dock objects": {
+   "tiles": 27,
+   "sheet": "sheets/3__Dock_objects.jpg",
+   "sizes": [
+    "68x96",
+    "71x96",
+    "76x96",
+    "77x96",
+    "81x96"
+   ]
+  },
+  "3. Pipe tiles": {
+   "tiles": 42,
+   "sheet": "sheets/3__Pipe_tiles.jpg",
+   "sizes": [
+    "47x96",
+    "65x96",
+    "68x96",
+    "74x96",
+    "76x96"
+   ]
+  },
+  "3. Wall panels and details": {
+   "tiles": 32,
+   "sheet": "sheets/3__Wall_panels_and_details.jpg",
+   "sizes": [
+    "88x96",
+    "89x96",
+    "90x96",
+    "94x96",
+    "95x96"
+   ]
+  },
+  "3. Wooden bridges and platforms": {
+   "tiles": 21,
+   "sheet": "sheets/3__Wooden_bridges_and_platforms.jpg",
+   "sizes": [
+    "58x96",
+    "74x96",
+    "88x96",
+    "96x36",
+    "96x38",
+    "96x94"
+   ]
+  },
+  "4. Cabins and house parts": {
+   "tiles": 13,
+   "sheet": "sheets/4__Cabins_and_house_parts.jpg",
+   "sizes": [
+    "59x90",
+    "62x92",
+    "62x94",
+    "63x96",
+    "96x68",
+    "96x70"
+   ]
+  },
+  "4. Doors and airlocks": {
+   "tiles": 26,
+   "sheet": "sheets/4__Doors_and_airlocks.jpg",
+   "sizes": [
+    "76x96",
+    "77x96"
+   ]
+  },
+  "4. Flower paths": {
+   "tiles": 21,
+   "sheet": "sheets/4__Flower_paths.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x88",
+    "96x92",
+    "96x95",
+    "96x96"
+   ]
+  },
+  "4. House wall tiles": {
+   "tiles": 34,
+   "sheet": "sheets/4__House_wall_tiles.jpg",
+   "sizes": [
+    "76x96",
+    "77x78",
+    "77x96",
+    "78x96"
+   ]
+  },
+  "4. Spell books and scrolls": {
+   "tiles": 32,
+   "sheet": "sheets/4__Spell_books_and_scrolls.jpg",
+   "sizes": [
+    "73x96",
+    "74x96",
+    "75x96",
+    "82x96",
+    "87x96"
+   ]
+  },
+  "4. Vent and steam": {
+   "tiles": 31,
+   "sheet": "sheets/4__Vent_and_steam.jpg",
+   "sizes": [
+    "60x96",
+    "65x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "80x96"
+   ]
+  },
+  "5. Doors and arches": {
+   "tiles": 23,
+   "sheet": "sheets/5__Doors_and_arches.jpg",
+   "sizes": [
+    "70x96",
+    "71x96",
+    "73x96",
+    "76x96"
+   ]
+  },
+  "5. Platforms": {
+   "tiles": 36,
+   "sheet": "sheets/5__Platforms.jpg",
+   "sizes": [
+    "65x96",
+    "69x96",
+    "73x96",
+    "76x96",
+    "81x96"
+   ]
+  },
+  "5. Potion bottles and ingredients": {
+   "tiles": 56,
+   "sheet": "sheets/5__Potion_bottles_and_ingredients.jpg",
+   "sizes": [
+    "68x96",
+    "70x96",
+    "91x96",
+    "96x86"
+   ]
+  },
+  "5. Rock Formations": {
+   "tiles": 26,
+   "sheet": "sheets/5__Rock_Formations.jpg",
+   "sizes": [
+    "83x96",
+    "86x96",
+    "96x78",
+    "96x79",
+    "96x84",
+    "96x92"
+   ]
+  },
+  "5. Water and ponds": {
+   "tiles": 30,
+   "sheet": "sheets/5__Water_and_ponds.jpg",
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96"
+   ]
+  },
+  "5. Windows and observation panels": {
+   "tiles": 33,
+   "sheet": "sheets/5__Windows_and_observation_panels.jpg",
+   "sizes": [
+    "94x96",
+    "96x69",
+    "96x70",
+    "96x84",
+    "96x94"
+   ]
+  },
+  "6. Bridges and walways": {
+   "tiles": 30,
+   "sheet": "sheets/6__Bridges_and_walways.jpg",
+   "sizes": [
+    "53x91",
+    "55x91",
+    "57x92",
+    "58x92",
+    "61x92",
+    "66x91"
+   ]
+  },
+  "6. Cauldrons and brewing stations": {
+   "tiles": 21,
+   "sheet": "sheets/6__Cauldrons_and_brewing_stations.jpg",
+   "sizes": [
+    "85x96",
+    "89x96",
+    "91x96",
+    "95x96",
+    "96x88"
+   ]
+  },
+  "6. Control panels and consoles": {
+   "tiles": 20,
+   "sheet": "sheets/6__Control_panels_and_consoles.jpg",
+   "sizes": [
+    "92x96",
+    "96x86",
+    "96x90",
+    "96x92",
+    "96x94"
+   ]
+  },
+  "6. Doors and entrances": {
+   "tiles": 45,
+   "sheet": "sheets/6__Doors_and_entrances.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "81x82"
+   ]
+  },
+  "6. Frozen trees and pines": {
+   "tiles": 2,
+   "sheet": "sheets/6__Frozen_trees_and_pines.jpg",
+   "sizes": [
+    "82x96",
+    "84x96"
+   ]
+  },
+  "6. Rock obsidian tiles": {
+   "tiles": 36,
+   "sheet": "sheets/6__Rock_obsidian_tiles.jpg",
+   "sizes": [
+    "80x96",
+    "82x96",
+    "89x96",
+    "90x96",
+    "92x96"
+   ]
+  },
+  "6. Ship details": {
+   "tiles": 29,
+   "sheet": "sheets/6__Ship_details.jpg",
+   "sizes": [
+    "50x96",
+    "57x96",
+    "61x96",
+    "74x96",
+    "96x88"
+   ]
+  },
+  "6. Stone paths and roads": {
+   "tiles": 13,
+   "sheet": "sheets/6__Stone_paths_and_roads.jpg",
+   "sizes": [
+    "28x96",
+    "53x96",
+    "96x48",
+    "96x56",
+    "96x94"
+   ]
+  },
+  "6. building details": {
+   "tiles": 18,
+   "sheet": "sheets/6__building_details.jpg",
+   "sizes": [
+    "65x96",
+    "66x96",
+    "67x96",
+    "74x96",
+    "87x96",
+    "96x69"
+   ]
+  },
+  "7. Bushes and shrubs": {
+   "tiles": 23,
+   "sheet": "sheets/7__Bushes_and_shrubs.jpg",
+   "sizes": [
+    "91x96",
+    "92x96",
+    "96x92"
+   ]
+  },
+  "7. Candles and floating Lights": {
+   "tiles": 5,
+   "sheet": "sheets/7__Candles_and_floating_Lights.jpg",
+   "sizes": [
+    "86x96",
+    "91x96",
+    "92x96",
+    "96x87"
+   ]
+  },
+  "7. Gears and cogs": {
+   "tiles": 36,
+   "sheet": "sheets/7__Gears_and_cogs.jpg",
+   "sizes": [
+    "62x96",
+    "70x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "79x96"
+   ]
+  },
+  "7. Rock Formations": {
+   "tiles": 24,
+   "sheet": "sheets/7__Rock_Formations.jpg",
+   "sizes": [
+    "68x96",
+    "69x96",
+    "70x96",
+    "74x96",
+    "79x96",
+    "80x96"
+   ]
+  },
+  "7. Water fountains and pools": {
+   "tiles": 3,
+   "sheet": "sheets/7__Water_fountains_and_pools.jpg",
+   "sizes": [
+    "96x69",
+    "96x77",
+    "96x87"
+   ]
+  },
+  "7. Windows and flower boxes": {
+   "tiles": 25,
+   "sheet": "sheets/7__Windows_and_flower_boxes.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "73x96",
+    "76x96",
+    "86x86"
+   ]
+  },
+  "8. Machinery parts": {
+   "tiles": 52,
+   "sheet": "sheets/8__Machinery_parts.jpg",
+   "sizes": [
+    "67x96",
+    "75x94",
+    "80x94",
+    "81x94",
+    "96x86"
+   ]
+  },
+  "8. Pipes and ventilation": {
+   "tiles": 29,
+   "sheet": "sheets/8__Pipes_and_ventilation.jpg",
+   "sizes": [
+    "36x96",
+    "50x96",
+    "55x96",
+    "57x96",
+    "81x96",
+    "96x86"
+   ]
+  },
+  "8. Rocks and frozen cliffs": {
+   "tiles": 5,
+   "sheet": "sheets/8__Rocks_and_frozen_cliffs.jpg",
+   "sizes": [
+    "61x96",
+    "62x96",
+    "71x96",
+    "83x96"
+   ]
+  },
+  "8. Toxic waste and barrels": {
+   "tiles": 41,
+   "sheet": "sheets/8__Toxic_waste_and_barrels.jpg",
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "67x96",
+    "68x96"
+   ]
+  },
+  "8. Treasure and loot": {
+   "tiles": 23,
+   "sheet": "sheets/8__Treasure_and_loot.jpg",
+   "sizes": [
+    "86x96",
+    "87x96",
+    "88x96",
+    "90x96",
+    "92x96",
+    "95x96"
+   ]
+  },
+  "8. Trees (spring)": {
+   "tiles": 2,
+   "sheet": "sheets/8__Trees__spring.jpg",
+   "sizes": [
+    "83x96",
+    "86x96"
+   ]
+  },
+  "8. Volcanic pillars": {
+   "tiles": 36,
+   "sheet": "sheets/8__Volcanic_pillars.jpg",
+   "sizes": [
+    "45x96",
+    "50x96",
+    "51x96",
+    "54x96",
+    "55x96"
+   ]
+  },
+  "8. Watch towers": {
+   "tiles": 26,
+   "sheet": "sheets/8__Watch_towers.jpg",
+   "sizes": [
+    "44x96",
+    "46x96",
+    "47x96",
+    "96x40",
+    "96x44"
+   ]
+  },
+  "9. Boilers and tanks": {
+   "tiles": 35,
+   "sheet": "sheets/9__Boilers_and_tanks.jpg",
+   "sizes": [
+    "61x96",
+    "62x96",
+    "65x96",
+    "68x96",
+    "72x96"
+   ]
+  },
+  "9. Cables and wiring": {
+   "tiles": 16,
+   "sheet": "sheets/9__Cables_and_wiring.jpg",
+   "sizes": [
+    "96x58",
+    "96x64",
+    "96x71",
+    "96x74",
+    "96x76"
+   ]
+  },
+  "9. Fire Traps": {
+   "tiles": 25,
+   "sheet": "sheets/9__Fire_Traps.jpg",
+   "sizes": [
+    "52x96",
+    "57x96",
+    "60x96",
+    "67x96"
+   ]
+  },
+  "9. Flowers and plants": {
+   "tiles": 44,
+   "sheet": "sheets/9__Flowers_and_plants.jpg",
+   "sizes": [
+    "67x96",
+    "68x96",
+    "69x96",
+    "77x89",
+    "85x96",
+    "87x85"
+   ]
+  },
+  "9. Port buildings": {
+   "tiles": 35,
+   "sheet": "sheets/9__Port_buildings.jpg",
+   "sizes": [
+    "62x96",
+    "63x96"
+   ]
+  },
+  "9. Wells and water structures": {
+   "tiles": 22,
+   "sheet": "sheets/9__Wells_and_water_structures.jpg",
+   "sizes": [
+    "37x96",
+    "40x96",
+    "76x96",
+    "78x96",
+    "82x96"
+   ]
+  },
+  "Banners and posters": {
+   "tiles": 52,
+   "sheet": "sheets/Banners_and_posters.jpg",
+   "sizes": [
+    "39x96",
+    "40x96"
+   ]
+  },
+  "Barrels, crates and sacks": {
+   "tiles": 37,
+   "sheet": "sheets/Barrels__crates_and_sacks.jpg",
+   "sizes": [
+    "64x96",
+    "68x96",
+    "69x96",
+    "70x96",
+    "73x96"
+   ]
+  },
+  "Bridges and railings": {
+   "tiles": 48,
+   "sheet": "sheets/Bridges_and_railings.jpg",
+   "sizes": [
+    "96x58",
+    "96x60",
+    "96x64",
+    "96x65",
+    "96x75",
+    "96x80"
+   ]
+  },
+  "Coffe machines, brewing tools, mugs and drink props": {
+   "tiles": 23,
+   "sheet": "sheets/Coffe_machines__brewing_tools__mugs_and_drink_props.jpg",
+   "sizes": [
+    "44x96",
+    "47x96",
+    "62x96",
+    "96x87"
+   ]
+  },
+  "Containers and items": {
+   "tiles": 84,
+   "sheet": "sheets/Containers_and_items.jpg",
+   "sizes": [
+    "77x77",
+    "78x77",
+    "82x75",
+    "82x76",
+    "82x77",
+    "83x76"
+   ]
+  },
+  "Decor and details": {
+   "tiles": 26,
+   "sheet": "sheets/Decor_and_details.jpg",
+   "sizes": [
+    "20x96",
+    "23x96",
+    "26x96",
+    "30x96"
+   ]
+  },
+  "Decorative framed garden tiles": {
+   "tiles": 26,
+   "sheet": "sheets/Decorative_framed_garden_tiles.jpg",
+   "sizes": [
+    "96x89",
+    "96x91",
+    "96x92",
+    "96x93",
+    "96x94"
+   ]
+  },
+  "Doors and arches (1)": {
+   "tiles": 24,
+   "sheet": "sheets/Doors_and_arches__1.jpg",
+   "sizes": [
+    "86x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "94x96"
+   ]
+  },
+  "Exterior Cafe Props (awnings, windows, potted plants and more)": {
+   "tiles": 35,
+   "sheet": "sheets/Exterior_Cafe_Props__awnings__windows__potted_plants_and_mor.jpg",
+   "sizes": [
+    "67x96",
+    "74x96",
+    "78x96",
+    "80x96",
+    "85x96"
+   ]
+  },
+  "Floor tiles (2)": {
+   "tiles": 30,
+   "sheet": "sheets/Floor_tiles__2.jpg",
+   "sizes": [
+    "86x96",
+    "89x96",
+    "90x96",
+    "92x96",
+    "94x96"
+   ]
+  },
+  "Flowers and ground cover": {
+   "tiles": 50,
+   "sheet": "sheets/Flowers_and_ground_cover.jpg",
+   "sizes": [
+    "71x89",
+    "75x89",
+    "78x89",
+    "79x91",
+    "80x93",
+    "83x96"
+   ]
+  },
+  "Furniture and seating": {
+   "tiles": 47,
+   "sheet": "sheets/Furniture_and_seating.jpg",
+   "sizes": [
+    "64x71",
+    "66x71",
+    "96x61",
+    "96x73",
+    "96x74",
+    "96x77"
+   ]
+  },
+  "Furtniure and fixtures": {
+   "tiles": 37,
+   "sheet": "sheets/Furtniure_and_fixtures.jpg",
+   "sizes": [
+    "76x96",
+    "86x96",
+    "89x96",
+    "96x53",
+    "96x61",
+    "96x94"
+   ]
+  },
+  "Interior rooms": {
+   "tiles": 53,
+   "sheet": "sheets/Interior_rooms.jpg",
+   "sizes": [
+    "96x63",
+    "96x67",
+    "96x70",
+    "96x72",
+    "96x76",
+    "96x78"
+   ]
+  },
+  "Jars, pots and urns": {
+   "tiles": 39,
+   "sheet": "sheets/Jars__pots_and_urns.jpg",
+   "sizes": [
+    "68x96",
+    "69x96",
+    "70x96",
+    "73x96",
+    "74x96"
+   ]
+  },
+  "Lanterns and lights": {
+   "tiles": 44,
+   "sheet": "sheets/Lanterns_and_lights.jpg",
+   "sizes": [
+    "58x96",
+    "77x96",
+    "78x96",
+    "79x96"
+   ]
+  },
+  "Lightning and fx": {
+   "tiles": 18,
+   "sheet": "sheets/Lightning_and_fx.jpg",
+   "sizes": [
+    "38x96",
+    "43x96",
+    "51x96",
+    "58x96",
+    "64x96",
+    "70x96"
+   ]
+  },
+  "Lightning and fx (1)": {
+   "tiles": 3,
+   "sheet": "sheets/Lightning_and_fx__1.jpg",
+   "sizes": [
+    "34x96",
+    "52x96",
+    "62x96"
+   ]
+  },
+  "Machines and tech": {
+   "tiles": 40,
+   "sheet": "sheets/Machines_and_tech.jpg",
+   "sizes": [
+    "52x96",
+    "57x96",
+    "74x96",
+    "77x96",
+    "86x96",
+    "96x92"
+   ]
+  },
+  "Micro tiles": {
+   "tiles": 1,
+   "sheet": "sheets/Micro_tiles.jpg",
+   "sizes": [
+    "67x60"
+   ]
+  },
+  "Miscellaneous props (1)": {
+   "tiles": 40,
+   "sheet": "sheets/Miscellaneous_props__1.jpg",
+   "sizes": [
+    "68x64",
+    "83x96",
+    "88x96",
+    "94x95",
+    "96x76",
+    "96x94"
+   ]
+  },
+  "Occult and horror elements": {
+   "tiles": 26,
+   "sheet": "sheets/Occult_and_horror_elements.jpg",
+   "sizes": [
+    "74x96",
+    "76x96",
+    "77x96",
+    "80x96"
+   ]
+  },
+  "Pastries, desserts, plates and cafe food": {
+   "tiles": 44,
+   "sheet": "sheets/Pastries__desserts__plates_and_cafe_food.jpg",
+   "sizes": [
+    "86x96",
+    "90x96",
+    "96x74",
+    "96x83",
+    "96x87",
+    "96x88"
+   ]
+  },
+  "Patch 1 (1)": {
+   "tiles": 40,
+   "sheet": "sheets/Patch_1__1.jpg",
+   "sizes": [
+    "88x96",
+    "89x96",
+    "92x96",
+    "94x96",
+    "96x94",
+    "96x96"
+   ]
+  },
+  "Pillars and columns": {
+   "tiles": 1,
+   "sheet": "sheets/Pillars_and_columns.jpg",
+   "sizes": [
+    "96x64"
+   ]
+  },
+  "Pipes, cables and vents": {
+   "tiles": 55,
+   "sheet": "sheets/Pipes__cables_and_vents.jpg",
+   "sizes": [
+    "73x62",
+    "74x62",
+    "74x63",
+    "75x62",
+    "79x70",
+    "79x72"
+   ]
+  },
+  "Plants and bushes": {
+   "tiles": 52,
+   "sheet": "sheets/Plants_and_bushes.jpg",
+   "sizes": [
+    "86x96",
+    "94x96",
+    "95x96",
+    "96x95"
+   ]
+  },
+  "Plants and greenery": {
+   "tiles": 63,
+   "sheet": "sheets/Plants_and_greenery.jpg",
+   "sizes": [
+    "47x96",
+    "53x96",
+    "56x96",
+    "65x96",
+    "66x96",
+    "70x96"
+   ]
+  },
+  "Plants, decor, jars, boxes and small interior props": {
+   "tiles": 38,
+   "sheet": "sheets/Plants__decor__jars__boxes_and_small_interior_props.jpg",
+   "sizes": [
+    "50x96",
+    "69x96",
+    "74x96",
+    "75x96",
+    "90x96"
+   ]
+  },
+  "Psychological elements": {
+   "tiles": 15,
+   "sheet": "sheets/Psychological_elements.jpg",
+   "sizes": [
+    "57x96",
+    "67x96",
+    "73x96",
+    "78x96",
+    "88x96",
+    "96x86"
+   ]
+  },
+  "Roof tiles": {
+   "tiles": 14,
+   "sheet": "sheets/Roof_tiles.jpg",
+   "sizes": [
+    "50x96",
+    "62x96",
+    "71x96",
+    "86x96",
+    "96x42",
+    "96x88"
+   ]
+  },
+  "Rooftop and building tops": {
+   "tiles": 72,
+   "sheet": "sheets/Rooftop_and_building_tops.jpg",
+   "sizes": [
+    "84x96",
+    "86x96",
+    "89x96",
+    "93x96",
+    "96x90",
+    "96x91"
+   ]
+  },
+  "Signage, menus and cafe accessories": {
+   "tiles": 25,
+   "sheet": "sheets/Signage__menus_and_cafe_accessories.jpg",
+   "sizes": [
+    "72x96",
+    "80x96",
+    "87x96",
+    "94x96"
+   ]
+  },
+  "Signs and holograms": {
+   "tiles": 36,
+   "sheet": "sheets/Signs_and_holograms.jpg",
+   "sizes": [
+    "41x96",
+    "43x96",
+    "46x96",
+    "48x96"
+   ]
+  },
+  "Signs and misc": {
+   "tiles": 71,
+   "sheet": "sheets/Signs_and_misc.jpg",
+   "sizes": [
+    "64x96",
+    "65x96",
+    "68x96",
+    "71x96",
+    "74x96",
+    "96x60"
+   ]
+  },
+  "Special Tiles (1)": {
+   "tiles": 50,
+   "sheet": "sheets/Special_Tiles__1.jpg",
+   "sizes": [
+    "92x96",
+    "96x89",
+    "96x92",
+    "96x93"
+   ]
+  },
+  "Special effects": {
+   "tiles": 50,
+   "sheet": "sheets/Special_effects.jpg",
+   "sizes": [
+    "53x95",
+    "60x72",
+    "67x81",
+    "70x81"
+   ]
+  },
+  "Special tiles (2)": {
+   "tiles": 20,
+   "sheet": "sheets/Special_tiles__2.jpg",
+   "sizes": [
+    "91x96",
+    "94x96",
+    "95x96"
+   ]
+  },
+  "Stairs, ladders and Railings": {
+   "tiles": 58,
+   "sheet": "sheets/Stairs__ladders_and_Railings.jpg",
+   "sizes": [
+    "49x96",
+    "52x96",
+    "53x96",
+    "54x96",
+    "55x96"
+   ]
+  },
+  "Statues and figures": {
+   "tiles": 18,
+   "sheet": "sheets/Statues_and_figures.jpg",
+   "sizes": [
+    "36x96",
+    "39x96",
+    "40x96",
+    "43x96",
+    "44x96"
+   ]
+  },
+  "Statues and monuments": {
+   "tiles": 46,
+   "sheet": "sheets/Statues_and_monuments.jpg",
+   "sizes": [
+    "56x96",
+    "59x96",
+    "63x96",
+    "83x96",
+    "96x78"
+   ]
+  },
+  "Stone patchs and walkways": {
+   "tiles": 21,
+   "sheet": "sheets/Stone_patchs_and_walkways.jpg",
+   "sizes": [
+    "77x87",
+    "96x38",
+    "96x62",
+    "96x63",
+    "96x76",
+    "96x78"
+   ]
+  },
+  "Stone planers and raised beds": {
+   "tiles": 21,
+   "sheet": "sheets/Stone_planers_and_raised_beds.jpg",
+   "sizes": [
+    "84x96",
+    "88x96",
+    "91x96",
+    "96x64",
+    "96x74",
+    "96x94"
+   ]
+  },
+  "Streets props and urban": {
+   "tiles": 54,
+   "sheet": "sheets/Streets_props_and_urban.jpg",
+   "sizes": [
+    "32x96",
+    "35x96",
+    "43x96",
+    "45x96",
+    "50x96",
+    "75x96"
+   ]
+  },
+  "Structures and columns": {
+   "tiles": 16,
+   "sheet": "sheets/Structures_and_columns.jpg",
+   "sizes": [
+    "27x96",
+    "29x96",
+    "39x96",
+    "54x96",
+    "66x96",
+    "67x96"
+   ]
+  },
+  "Tables, chairs and sitting": {
+   "tiles": 41,
+   "sheet": "sheets/Tables__chairs_and_sitting.jpg",
+   "sizes": [
+    "85x96",
+    "89x96",
+    "91x96",
+    "96x62",
+    "96x73"
+   ]
+  },
+  "Traps and mechanism": {
+   "tiles": 29,
+   "sheet": "sheets/Traps_and_mechanism.jpg",
+   "sizes": [
+    "59x96",
+    "82x96",
+    "89x96",
+    "96x91",
+    "96x93",
+    "96x96"
+   ]
+  },
+  "Traps and mechanism (1)": {
+   "tiles": 24,
+   "sheet": "sheets/Traps_and_mechanism__1.jpg",
+   "sizes": [
+    "74x96",
+    "83x96",
+    "84x96",
+    "90x96",
+    "93x96",
+    "94x96"
+   ]
+  },
+  "Wall and floor details": {
+   "tiles": 69,
+   "sheet": "sheets/Wall_and_floor_details.jpg",
+   "sizes": [
+    "66x96",
+    "71x95",
+    "81x96",
+    "83x96",
+    "88x96",
+    "93x96"
+   ]
+  },
+  "Wall and floor details (2)": {
+   "tiles": 29,
+   "sheet": "sheets/Wall_and_floor_details__2.jpg",
+   "sizes": [
+    "77x96",
+    "86x96",
+    "93x96",
+    "94x96",
+    "96x89",
+    "96x94"
+   ]
+  },
+  "Wall and floor details (3)": {
+   "tiles": 33,
+   "sheet": "sheets/Wall_and_floor_details__3.jpg",
+   "sizes": [
+    "60x96",
+    "70x96",
+    "88x96",
+    "90x96",
+    "95x96",
+    "96x96"
+   ]
+  },
+  "Wall tiles and edges": {
+   "tiles": 15,
+   "sheet": "sheets/Wall_tiles_and_edges.jpg",
+   "sizes": [
+    "47x96",
+    "55x96",
+    "96x74",
+    "96x82",
+    "96x83",
+    "96x94"
+   ]
+  },
+  "Wall tiles and edges (1)": {
+   "tiles": 28,
+   "sheet": "sheets/Wall_tiles_and_edges__1.jpg",
+   "sizes": [
+    "34x96",
+    "74x96",
+    "91x96",
+    "96x68",
+    "96x83",
+    "96x93"
+   ]
+  },
+  "Water and liquids": {
+   "tiles": 69,
+   "sheet": "sheets/Water_and_liquids.jpg",
+   "sizes": [
+    "86x96",
+    "89x96",
+    "93x96",
+    "94x96",
+    "95x96"
+   ]
+  },
+  "Water and ponds": {
+   "tiles": 32,
+   "sheet": "sheets/Water_and_ponds.jpg",
+   "sizes": [
+    "96x41",
+    "96x46",
+    "96x53",
+    "96x76",
+    "96x94"
+   ]
+  },
+  "bridges and walkways": {
+   "tiles": 57,
+   "sheet": "sheets/bridges_and_walkways.jpg",
+   "sizes": [
+    "62x96",
+    "68x96",
+    "75x81",
+    "75x96",
+    "86x96"
+   ]
+  },
+  "doors and arches": {
+   "tiles": 24,
+   "sheet": "sheets/doors_and_arches.jpg",
+   "sizes": [
+    "87x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "95x96",
+    "96x87"
+   ]
+  },
+  "doors and structures": {
+   "tiles": 61,
+   "sheet": "sheets/doors_and_structures.jpg",
+   "sizes": [
+    "74x96",
+    "76x96",
+    "77x96",
+    "78x96",
+    "80x96",
+    "83x96"
+   ]
+  },
+  "furniture and interior": {
+   "tiles": 82,
+   "sheet": "sheets/furniture_and_interior.jpg",
+   "sizes": [
+    "71x96",
+    "74x96",
+    "76x96",
+    "96x90",
+    "96x92"
+   ]
+  },
+  "lightning fx": {
+   "tiles": 23,
+   "sheet": "sheets/lightning_fx.jpg",
+   "sizes": [
+    "33x96",
+    "37x96",
+    "47x96",
+    "53x96",
+    "56x96",
+    "57x96"
+   ]
+  },
+  "miscellaneous props": {
+   "tiles": 24,
+   "sheet": "sheets/miscellaneous_props.jpg",
+   "sizes": [
+    "28x96",
+    "40x96",
+    "81x96",
+    "90x96",
+    "96x85"
+   ]
+  },
+  "plants and flowers": {
+   "tiles": 43,
+   "sheet": "sheets/plants_and_flowers.jpg",
+   "sizes": [
+    "53x96",
+    "64x96",
+    "69x96",
+    "72x96",
+    "96x91",
+    "96x93"
+   ]
+  },
+  "special tiles": {
+   "tiles": 31,
+   "sheet": "sheets/special_tiles.jpg",
+   "sizes": [
+    "89x96",
+    "90x96",
+    "91x96",
+    "96x95"
+   ]
+  },
+  "statues and gargoyles": {
+   "tiles": 11,
+   "sheet": "sheets/statues_and_gargoyles.jpg",
+   "sizes": [
+    "56x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "80x96",
+    "82x96"
+   ]
+  },
+  "trees and vegetation": {
+   "tiles": 51,
+   "sheet": "sheets/trees_and_vegetation.jpg",
+   "sizes": [
+    "60x96",
+    "62x96",
+    "67x96",
+    "75x96",
+    "76x96",
+    "79x96"
+   ]
+  },
+  "wall and floor details (1)": {
+   "tiles": 63,
+   "sheet": "sheets/wall_and_floor_details__1.jpg",
+   "sizes": [
+    "66x96",
+    "82x96",
+    "87x96",
+    "90x96",
+    "96x82",
+    "96x90"
+   ]
+  },
+  "wall tiles": {
+   "tiles": 56,
+   "sheet": "sheets/wall_tiles.jpg",
+   "sizes": [
+    "65x96",
+    "66x96",
+    "67x96",
+    "68x96"
+   ]
+  },
+  "wall tiles and cliffs": {
+   "tiles": 58,
+   "sheet": "sheets/wall_tiles_and_cliffs.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "89x96",
+    "96x52",
+    "96x59",
+    "96x78"
+   ]
+  }
+ }
+}

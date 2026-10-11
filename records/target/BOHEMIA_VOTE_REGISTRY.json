@@ -7973,6 +7973,33 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "cook-the-four-holes-checked-10-11",
+   "kind": "verdict",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/11",
+   "title": "TWO OF THE FOUR THINGS YOU WERE ABOUT TO BUY, YOU ALREADY OWN",
+   "why": "I was told to post links for four holes in the art, so I checked them against every pack you have ever bought first, and two of them are not holes: you own 35 burnt-out wrecked cars at the right angle and a full set of guns, all at 96 pixels, sitting in the bank since July, while this chat spent eight rounds repainting cars. You see it in the VOTE tab, your own cars and guns on the card, with the two holes that are real and the one number that matters: 210 of your 294 packs have never been opened by anybody.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_PACK_CARD.png"
+   },
+   "twin": {
+    "src": "pack:9. Abandoned cards#1",
+    "diffs": [
+     "WHAT IS HIS: everything on this card. 294 packs and 8,674 tiles read straight out of the repo file; not one pixel on the card was drawn by this lane.",
+     "WHAT THE CHECK FOUND: wrecked vehicles at 45 degrees and hand-held guns at the 96 floor are ALREADY BOUGHT and already in the approved bank; head-only faces and people in eight directions are 0 of 8,674 and are the only real holes.",
+     "WHAT NOBODY HAD COUNTED: 210 packs and 6,146 tiles have never been opened, plus 601 more inside packs opened only in part. Every one now has a contact sheet in the bank."
+    ]
+   },
+   "before_after": {
+    "before": "the shopping list's item 3: four holes to buy packs for, at $10 to $60 each",
+    "after": "two holes closed with his own tiles shown at 1:1, two holes confirmed real, and 6,747 tiles he paid for opened for the first time",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -4094,6 +4094,86 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/11 LATEST -- *** TWO OF THE FOUR THINGS HE WAS ABOUT TO BE ASKED TO
+BUY, HE ALREADY OWNS. AND 210 OF HIS 294 PACKS HAVE NEVER BEEN OPENED BY ANYBODY. ***
+
+0. THE ROW WAS [the pack card]: post the links for the four holes as ONE card, "each checked
+against the bank's pixel floor and 45-degree tilt before it is listed". So the CHECK came
+first, against ALL 294 packs and ALL 8,674 tiles he has ever bought, not against the 1,927 the
+bank holds. A hole measured against the bank is not a hole measured against what he owns.
+
+1. WRECKED VEHICLES AT 45 DEGREES IS NOT A HOLE. Pack "9. Abandoned cards" (his seller's typo
+for cars): THIRTY-FIVE burnt-out wrecks at 45 degrees, 96 pixels, rusted and gutted, police
+cars, vans, pickups, hatchbacks. They are in the APPROVED bank, not some unopened corner. They
+have been in the repo file since July. This lane carried a standing row called [car recook]
+through EIGHT rounds of repainting cars because he said they looked like dogshit, with 35
+finished wrecks sitting in the same repo the whole time.
+
+2. HAND-HELD GUNS AT THE 96 FLOOR IS NOT A HOLE EITHER. Pack "12. Weapons and supplies": a
+shotgun, an SMG, four pistols, a revolver, a knife, two baseball bats, a crowbar, a lead pipe,
+a grenade, a molotov. 96 pixels. Approved. Also in the bank.
+
+3. THE TWO THAT ARE REAL: HEAD-ONLY PORTRAITS, 0 of 8,674. PEOPLE IN EIGHT DIRECTIONS, 0 of
+8,674. Not one person in 294 packs, which is what COOK THREE went HELD on this round, and the
+measurement now backs them. The nearest is "19. Animals and creatures": a GREY WOLF, a boar,
+two bears, a moose, a deer, at 96 px, all facing ONE way. The beast law says a dire wolf is a
+heavier grey wolf, so the animals are half bought and rule 107's eight directions are the hole.
+
+4. AND THE NUMBER THAT IS WORTH MORE THAN ANY PURCHASE ON THE CARD. He owns 294 PACKS and
+8,674 TILES. The bank holds 1,927. TWO HUNDRED AND TEN PACKS HAVE NEVER BEEN OPENED BY
+ANYBODY: 6,146 tiles, plus 601 more inside packs opened only in part. 6,747 unseen. Rule 106
+already named the cause ("the packs sat invisible as base64"); [the pack is the twin] got the
+approved 1,927 out and stopped there, because the 7/13 sweep is what the bar is measured
+against, and nobody asked what the rest were.
+
+5. WHAT IS IN THEM, BY NAME, AND WHO IT UNBLOCKS TODAY:
+  "Rooftop and building tops" 72  -> COOK FOUR [no roof tops], which is his exact 10/10 words
+                                     about not seeing the tops of the houses in his assets.
+  "Signs and misc" 71, "doors and structures" 61, "Streets props and urban" 54,
+  "Interior rooms" 53                -> COOK TWO's ground and street, COOK FOUR's places.
+  "13."+"14. Banners and flags" 43, "Banners and posters" 52
+                                     -> THIS LANE'S OWN OPEN QUESTION. The party marker sheet
+                                        asks whether the crew carries a stolen street sign or a
+                                        hand-made banner on a pole. HE ALREADY OWNS 43 BANNERS
+                                        ON POLES AT 96 PX. Option B is bought.
+Every one of the 210 now has a contact sheet in reference/art_bank_unopened/sheets/ with an
+INDEX.json. 14 MB, and reference/ is not published, so the live site is unchanged (measured:
+560 MB with and without this commit).
+
+6. WHY THERE ARE NO LINKS ON THE CARD, AND IT IS A REAL BLOCKER, MEASURED. Every asset store
+the card would link to is denied by this environment's network policy: itch.io, craftpix,
+fab, opengameart, gamedevmarket, the Unity store and gumroad all answer 403 on the connection.
+Search finds listings; it cannot read a licence or measure a tile. The row's own constraint is
+"no pack under the floor", most cheap pixel packs are 16 or 32 pixels and would fail rule 105,
+and his own packs are an unusually high 96. A list of unchecked links is the exact thing that
+costs him money for nothing, so the links stay off until they can be checked.
+[PENDING] for the coordinator: the stores added to the environment's Allowed domains, or a lane
+that can reach them does the price, licence, pixel-size and tilt check. The search leads so far
+are UNCHECKED and nothing should be bought on them.
+
+7. ONE FAULT, CAUGHT BY LOOKING, AS USUAL. The guns row on the card took tiles[:9] of the
+weapons pack and came out as two baseball bats, a crowbar, a pipe and a knife under a heading
+that reads HAND-HELD GUNS. The claim was true and the picture did not show it, which is the one
+thing a card like this cannot do. The picks are named by index now, read off the pack's own
+contact sheet by eye.
+
+8. WHERE IT IS: the VOTE tab, as cook-the-four-holes-checked-10-11. The record is
+records/BOHEMIA_THE_FOUR_HOLES_CHECKED_10_11_26.md, the card is
+records/target/COOK_THE_PACK_CARD.png, the shelf is reference/art_bank_unopened/.
+NOTHING WENT INTO THE GAME (rule 100a).
+
+9. ROWS: [the pack card] SHIPPED. [one at a time] CLAIMED and standing. NEXT, the top OPEN row:
+[the parts grammar], then [the hero brief], then [generate against the pack]. Still CLAIMED
+behind: [bb map art]. HELD: [beasts], [horror grime].
+
+10. THE ONE QUESTION ON THE CARD: people and faces are the only two real holes, so how does he
+want them filled? A OPEN THE 210 FIRST and nobody spends anything until he has seen what he
+owns. B BUY PACKS once the links can be checked. C ONE ARTIST, PAID ONCE, for the hero set.
+
+11. FOR EVERY ART LANE, THE ONE LINE WORTH TAKING FROM THIS ROUND: before you cook, look in
+reference/art_bank_unopened/sheets/. Rule 108 says find the pack piece and use it. There are
+6,747 pieces nobody has ever looked at.
+
 COOK (cook-mce6r5): 10/10 (j) LATEST -- *** HE SAID THE MARKERS BEING FIVE PIXELS BY FIVE
 PIXELS WAS DISAPPOINTING. HE WAS RIGHT AND THE NUMBER WAS NOT CLOSE. ***
 
