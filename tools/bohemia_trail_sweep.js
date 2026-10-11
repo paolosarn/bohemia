@@ -119,6 +119,17 @@ function history(log) {
     const f = rec.split('\x1f');
     commits.push({ sha: f[0], t: +f[1], session: f[2].trim(), msg: f[3], subject: f[3].split('\n')[0], files: (f[4] || '').split('\n').filter(Boolean) });
   }
+  /* the commits this clone has that main does not yet (a lane's own round, not pushed): a record written in them is
+     cited by them. Without this the moves archived the record of the very round that runs them. */
+  if (dir) {
+    try {
+      const mine = git(['log', 'origin/main..HEAD', '--no-merges', '--name-only', '--no-renames',
+        '--format=%x1e%H%x1f%ct%x1f%(trailers:key=Claude-Session,valueonly,separator=)%x1f%B%x1f']);
+      const have = new Set(commits.map(c => c.sha));
+      for (const rec of mine.split('\x1e')) { if (!rec.trim()) continue; const f = rec.split('\x1f');
+        if (!have.has(f[0])) commits.push({ sha: f[0], t: +f[1], session: f[2].trim(), msg: f[3], subject: f[3].split('\n')[0], files: (f[4] || '').split('\n').filter(Boolean) }); }
+    } catch (e) { /* no origin/main in this clone */ }
+  }
   commits.sort((a, b) => a.t - b.t);
   if (log && note) log(note);
   return { commits, G, ref, oldest: commits.length ? commits[0].t : 0, note };
