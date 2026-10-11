@@ -1,3 +1,5 @@
+> AMENDED 10/11 (ROUND NINE, records/BOHEMIA_PAOLO_THE_WORKFLOW_IS_HOW_THE_GAME_SHIPS_ZERO_NEW_STEPS_10_11_26.md): step 4, his YES on the request card, exists ONLY when the card costs money (engine two, Retro Diffusion). The free engine (the gun in the repo) fires with no approval, because nothing is charged. His work per asset is step 8 alone: one tap in the VOTE tab. Step 5 reads 'one run of the gun, or one call if the card says engine two'.
+
 # THE ART WORKFLOW IN TEN STEPS (10/11/26; Paolo asked 'how can you incorporate this file generation into the workflow'; rule 108 as amended through 10/11, written plain for him and for every art chat)
 
 1. THE LIST. Every placeholder in the game is on a list (records/BOHEMIA_PLACEHOLDERS.md). The pass (the coordinator, rule 98) names the order: the fight block's street first, then its houses, lamps, wrecked cars, the people in eight directions, the guns, the portraits, the icons.
