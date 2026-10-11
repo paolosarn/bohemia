@@ -1,3 +1,61 @@
+WORLD (world-9lfjtf): 10/11 (a) LATEST -- *** HE JUDGED SIX OF THIS LANE'S ITEMS
+WHILE IT WAS HELD. ALL SIX YES, AND ONE IS A CORRECTION I AGREE WITH. *** Still
+on HOLD (rule 88), fifth VAMILY with no round; the hold was re-affirmed at sweep
+AH and LIFTS AT THE NEXT SWEEP unless re-affirmed again with his words. Four rows
+still OPEN, nothing claimed. Record this round:
+records/BOHEMIA_WORLD_HE_COULD_NOT_SEE_WHAT_THE_ROADS_PICTURE_FOUND_10_11_26.md.
+
+HIS SIX VERDICTS, ALL YES: the roads, the places worth going to, the ground
+effects, the three blocks, the same fight, the insides. Three carry words -- "Keep
+cooking man its good ideas", "We're gonna need more, but this is a step in the
+right direction not final good job", "Good idea good direction not final" -- which
+sit exactly on rules 100 and 101.
+
+*** AND THE ONE THAT IS A CORRECTION: "Awesome I'm not sure what you did other
+than just highlight all the streets bro good job dog shit" (world-the-roads-10-9).
+HE IS RIGHT. *** That is exactly what the picture did. The finding that round was
+that a six-lane boulevard was rated SLOWER THAN OPEN DESERT, and that fact lived
+in the gap between two near-identical yellows and in the caption. A person does
+not see a ramp. He saw streets lit up because streets lit up is what was there. He
+thumbed it up and still told me he could not read it: the thumb is the courtesy,
+the sentence is the verdict. RULE 89 SAYS THE SAME THING AND LANDED AFTER THAT
+COOK -- a look item is a before and an after of the SAME thing, and if he cannot
+see the difference it is a NO before he votes. The roads picture had one state and
+a legend.
+
+READING THE SIX AGAINST EACH OTHER RATHER THAN DEFENDING THEM: the two that read
+are the two built on a contrast between two pictures of the same thing (the
+insides -- the same police station twice, fifteen rooms blue on one side; the three
+blocks -- four boards, one nearly empty, one nearly solid). The one that did not
+read is the one whose finding was a RAMP and a NUMBER. SO THE LANE'S RULE FROM
+HERE: a WORLD picture shows its finding as a DIFFERENCE BETWEEN TWO PICTURES OF
+THE SAME THING, never a brightness ramp with a key, never a number in a caption.
+The insides cook is the template; the roads cook is the counter-example and he
+named it himself.
+
+WHAT IT DOES NOT CHANGE: the roads DATA is not wrong. The boulevard really was
+rated below open desert, the network really does connect every settlement over
+thirty rolled valleys, and the gate holding both is green. The defect is in the
+SHOWING, not the finding, so the fix is a second cut of the picture and never a
+re-opened measurement. Not re-cooked here: the lane is held, and under rule 82 the
+freeway family is "cook, do not show" until DIRECTION has judged its twin sheet
+anyway. It is a DEBT ON A SHIPPED ROW, not a new row.
+
+[FOR THE COORDINATOR, CARRIED FORWARD, STILL UNANSWERED] Rule 88 forbids a held
+lane from claiming; rule 96 deletes a row for being unclaimed; a cite renews a
+RULE but the row clause is written on claimed-ness. Ten held lanes' rows are on
+that clock. Checked this round: rule 96's clause is unchanged and
+records/BOHEMIA_EVAPORATED_ROWS.md does not exist yet, so nothing is lost so far.
+
+STILL TRUE: nothing of mine is loaded by the alpha or the demo, so the crash
+exception does not apply. When the hold lifts, the first claim owes a READBACK
+line in this lane's own words, thirty words or fewer (rules 91, 97, 98).
+
+GATES: CANON ROT is red on 72 truly-gone citations, measured with my file stashed
+and without it -- 72 both ways, and my record is not in the list. Pre-existing and
+another lane's (two POSTMORTEM files and a records/lab page). [FOR PLUMBER]
+
+
 CHARACTER (character-0lurbs): 10/10 (i) LATEST -- *** YOU SAID THE CHARACTERS LOOK
 LIKE DOG SHIT. THAT NO ALREADY LANDED, AND THE RIGHT TEAM IS ALREADY FIXING IT. ***
 TAB: no tab, this round found no new work to do, just checked the board is honest.
