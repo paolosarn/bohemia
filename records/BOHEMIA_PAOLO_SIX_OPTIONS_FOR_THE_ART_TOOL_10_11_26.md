@@ -1,0 +1,18 @@
+# PAOLO 10/11: GIVE ME SIX OPTIONS FOR THE GRAPHICS ASSET TILE MAKER, THE BEST ART TOOL, IMMEDIATELY (verbatim, voice-to-text)
+
+> "Also, yeah, give me six options for the graphics asset tile maker. I'm looking for because honestly, it's been really disappointing trying to go back-and-forth with you. I need the best art tool and I needed immediately all none of the art that you've been making is consistent showing respect for what is really going on understanding physics sizing of things it's just all been dog shit we've all been really bad man so I need help."
+
+## WHAT I HEARD (rule 91c; correct me with one word)
+Six real tools, named, priced, with the catch on each, now. He will pick. The chats' own art failed on consistency, physics and sizing, and a tool with a built-in sense of those is what he wants.
+
+## THE SIX (from the three research rounds; prices as found, with their URLs in the research pages)
+
+1. ASEPRITE. $19.99 once. The pixel-art editor every pixel artist uses; runs on any computer, no graphics card; scriptable, so the chats drive it (sheets, palettes, eight-direction exports, seam checks). Best at: cleanup, consistency, sizing against a ruler. Catch: it draws what it is told; it does not invent a tile. Fits every rule he gave. https://dacap.itch.io/aseprite
+2. TILESETTER. $12.99 once. Give it a few source tiles and it builds the whole seamless autotile set (corners, edges, curbs) deterministically; no graphics card. Best at: the borderless street and sidewalk sets from his packs. Catch: a desktop app with a window, so he or a script on his machine runs it, and it extends tiles rather than inventing new art. Fits every rule. https://led.itch.io/tilesetter
+3. RETRO DIFFUSION, THE ASEPRITE EXTENSION. $65 once. The best pixel-art model, running locally inside Aseprite, unlimited, no credits; takes his tiles as the reference and the palette locked. Best at: new tiles, props and house skins that match his packs. Catch: it needs a graphics card in the computer it runs on, and he has ruled that out; if he ever has one, this is the pick. https://astropulse.itch.io/retrodiffusion
+4. RETRO DIFFUSION, THE ONLINE API. No monthly; a prepaid balance, about $0.03 to $0.18 an image, nine reference tiles and a palette lock per call, an MCP the chats drive alone. Best at: the same as 3, with no graphics card. Catch: it is outside credits per image, which he ruled out; a one-time top-up of about $30 would make the first hundred tiles. https://retrodiffusion.ai
+5. PIXELLAB. About $12 a month, or pennies per call on its API; turns one front-facing drawing into eight directions and animates walk and attack from a skeleton; Wang tilesets; an MCP the chats drive. Best at: people and beasts in eight directions, the thing nothing else here does. Catch: a subscription, which he ruled out, and it tops out at 128 to 256 px with hand fixes expected. https://www.pixellab.ai
+6. A PIXEL ARTIST, ONCE. $800 to $2,500 for the hero set (one character in eight directions with walk and attack, one ground and wall tileset, one prop set, one portrait), delivered as Aseprite files the chats extend by rule. Best at: the one thing no tool has, taste: consistency, physics, sizing. Catch: a human's time; the brief (COOK [the hero brief]) is ready to send.
+
+## THE COORDINATOR'S PICK, SAID ONCE
+Options 1 and 2 today ($32.98 once, no graphics card, no credits): they make the chats' work consistent and seamless at once and give every sheet a ruler. Option 6 for the hero set when he is ready. Options 3 to 5 only if he bends a rule: 3 if a graphics card appears, 4 if he will allow one prepaid top-up, 5 if he will allow one subscription for the eight-direction people.
