@@ -1109,6 +1109,80 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/11 LATEST (round seven) -- *** RULE 108
+LANDED IN FULL (13 rounds): NO CHAT DRAWS A PIXEL OR A CURVE IN CODE, EVER
+AGAIN. LAST ROUND'S FIX METHOD IS RETIRED; THE BUG IT FOUND IS NOT. ***
+
+HIS VERDICT ON LAST ROUND'S CANDIDATE, READ FIRST: portrait-the-real-clothes-
+reach-the-portrait-10-10 went UP: "That's good. It's just looking like dog
+shit the direction. I appreciate it." Read as: the mechanism/bug-finding is
+approved; the pixel ART STYLE is still bad, which is the whole reason rule
+108's pipe exists and is not this lane's to re-paint by hand.
+
+RULE 108, THE SHORT VERSION: thirteen rounds of research landed this round
+(VAMILY.md rule 243, huge). The part that binds this lane: "a tile drawn
+rectangle by rectangle in a Python or JavaScript tool is no longer a
+candidate" (108a) and, more plainly, "NO CHAT DRAWS A PIXEL OR A CURVE IN
+CODE" (round eight). Real art now comes from Aseprite scripts, a 3D rig
+(DIRECTION's), a pack cut, or a trained model ("the gun"), never hand-coded
+JS. COOK THREE (the people/portrait paint lane) went HELD this round too --
+the packs hold 0 real people, so it cannot paint anything right now.
+
+WHAT THIS RETIRES FROM LAST ROUND, NAMED HONESTLY: [the real clothes reach
+the portrait] built its candidate by hand-drawing a hat/glasses/shoulder
+overlay in JavaScript (poly()/P()/line(), copied from renderFace). That is
+now exactly the forbidden shape. THE BUG FINDING ITSELF STANDS UNCHANGED:
+headwear agreed with the real body only 59% of the time, eyewear 68%, top
+clothing was never read at all -- that measurement is not reversed by rule
+108, only the hand-coded fix method is retired.
+
+ALSO CORRECTED ON THE BOARD: [a nose and mouth shape] and [hairstyle
+variety], both rows this lane wrote last round, were scoped as new
+hand-coded dial work -- exactly what rule 108a now forbids. Re-scoped in
+place (not deleted, not silently abandoned) rather than left to mislead a
+future round into building something now disallowed.
+
+THIS ROUND, NOT A FIX, A CONTRACT: built tools/bohemia_cook_the_portrait_
+generation_contract.js. For the same three citizens as last round (gate:
+crowd:2, gate:crowd:0, gate:crowd:71), renders their real walked body from
+four real facings (S, E, N, W) through drawChar() -- completely unmodified,
+zero new code touches a pixel -- and writes down the exact GARMENTS piece
+worn in every slot that should steer a generated portrait: hat, face
+accessory, top (outer preferred over a covered base), hair. This is the
+reference sheet COOK's own [generate against the pack] row will need the
+day it reaches portraits (COOK is not there yet: its row is still aimed at
+one road tile first) -- written down now instead of invented under time
+pressure in that future round.
+
+WHY THIS LANE, NOT COOK'S: rule 87's hard split stands, unretracted by rule
+108 -- PORTRAIT keeps the rigs, the dials, the mechanism that reads what a
+citizen really wears; handing that data forward as a clean contract is the
+same job proven last round, not a new one. Nothing here paints anything --
+every pixel in the sheet is a citizen's own already-approved walked body.
+
+GATES: talking_portrait 34/0, portrait_haircut 15/0, family 17/0, face_maker
+16/0, hair 39/0, hairline 12/0, hair_graveyard 13/0, craft_law 39/0,
+alpha_loads 20/0, portrait_matches_body 11/0, hair_match_regression 13/0
+(unchanged), reference_check_gate 437/2 (the 2 are COOK TWO's tools, not
+mine), vote_tab_gate 35/2 (2 pre-existing, TUNING's and COMBAT TWO's),
+open_row_gate 9/0 (PORTRAIT 7 OPEN rows), handoff_gate 10/0.
+
+COOKED (rule 22): portrait-the-portrait-generation-contract-10-11, reference
+material, registered as text (not an art sheet -- zero new pixels, no twin
+needed, same shape as [hair match regression gate] two rounds ago). Record:
+records/BOHEMIA_THE_PORTRAIT_GENERATION_CONTRACT_10_11_26.md.
+
+NEXT ROUND, FIRST MOVE: check COOK's [generate against the pack] row -- if
+it has reached portraits by then, hand this contract over directly; if
+DIRECTION has passed a portrait twin by then (still unlikely, nothing in
+reference/art_bank/portrait/ beyond a README as of this round), [the twin
+on the portraits]; otherwise keep measuring for more "two systems drifted"
+bugs (the full surface for hat/glasses is covered; skin tone and hair
+colour were already confirmed correct sources, not drift, back on 9/20).
+
+PENDING PAOLO: none new -- his verdict on last round was read and answered
+by this round's own work, not deferred.
+
 PORTRAIT (portrait-vamily-yke55s): 10/10 LATEST (round six) -- *** HIS BUGS BEAT
 THE QUEUE. PAOLO MESSAGED DIRECT, NOT VAMILY: "customizable face features...
 top clothing pieces and headwear and eyewear would be impacted by the

@@ -1,0 +1,38 @@
+{
+  "citizens": [
+    {
+      "id": "gate:crowd:2",
+      "worn": {
+        "base": "ARC SHOULDER TEE",
+        "feet": "COBALT STACK BOOT",
+        "hair": "DEEP TAPER",
+        "head": "STORM KNIT CAP",
+        "legs": "COBALT WORK PANTS",
+        "outer": "OLIVE CAR COAT"
+      }
+    },
+    {
+      "id": "gate:crowd:0",
+      "worn": {
+        "base": "BONE HENLEY",
+        "face": "OUTLAW BANDANA",
+        "feet": "BONE SNEAKERS",
+        "hair": "CURTAIN CUT",
+        "legs": "TEAL STACK PANT",
+        "outer": "SAND COCOON COAT"
+      }
+    },
+    {
+      "id": "gate:crowd:71",
+      "worn": {
+        "back": "CHARCOAL ROAD CAPE",
+        "base": "SLATE SHORT-SLEEVE",
+        "face": "ASH SHIELD",
+        "feet": "WRAPPED BOOTS",
+        "hair": "SHAG",
+        "head": "STORM SLOUCH BEANIE",
+        "legs": "SAGE TROUSERS"
+      }
+    }
+  ]
+}

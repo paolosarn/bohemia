@@ -7373,6 +7373,19 @@
    }
   },
   {
+   "id": "portrait-the-portrait-generation-contract-10-11",
+   "kind": "line",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/11",
+   "title": "THE DATA SHEET COOK'S OWN PORTRAIT CALL WILL NEED",
+   "why": "Rule 108 landed this round and retires last round's fix method (hand-coded pixels); the bug it found still stands, so this writes down the real reference data a future generator call needs instead of drawing anything. NOT A LOOK: zero new pixels, every image is a real citizen's own already-approved walked body.",
+   "show": {
+    "how": "text",
+    "src": "vote/PORTRAIT_THE_PORTRAIT_GENERATION_CONTRACT.html (the page, with the real four-facing renders and the worn-garment table); records/BOHEMIA_THE_PORTRAIT_GENERATION_CONTRACT_10_11_26.md.\n\nSeen in: the record and the page above; no tab yet, this is reference material for a call COOK owns, not a look for a thumb."
+   }
+  },
+  {
    "id": "portrait-the-real-clothes-reach-the-portrait-10-10",
    "kind": "face",
    "lane": "portrait",
