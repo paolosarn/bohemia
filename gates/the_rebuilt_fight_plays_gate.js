@@ -736,6 +736,45 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* LIGHT THAT INTERACTS (rule 104g, his NO: 'a bright oval overlay on top of everything, that's not what lighting is'): the
+   lamp's light falls tile by tile. Measured as the lamp's own work (each tile against itself with the power off): inside a
+   tile the light is even (no oval crossing it); the tiles the rules light are brightest, the ring past them less, the next
+   less again; a tile in a lamp's reach that a blocked tile hides from it takes nothing (the wall's shadow); and a man in
+   the light throws a shadow */
+async function lightTileByTile() {
+  const grab = async (seed, power) => {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:' + seed + ',speed:1,night:true' + (power ? '' : ',power:false') + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1200);
+    const r = await d.page.evaluate(() => { const S = FIGHT.S, T = FIGHT._t, B = FIGHT_UI.board, bd = B.getContext('2d').getImageData(0, 0, B.width, B.height).data, tw = B.width / S.w, th = B.height / S.h;
+      const lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }, Y = i => .2126 * lin(bd[i]) + .7152 * lin(bd[i + 1]) + .0722 * lin(bd[i + 2]);
+      const t = {}; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const v = []; for (let i = 1; i < 6; i++) for (let j = 1; j < 6; j++) v.push(Y((Math.floor((y + j / 6) * th) * B.width + Math.floor((x + i / 6) * tw)) * 4)); t[x + ',' + y] = v; }
+      const tm = DB.ground.tile_metres, live = (S.boardDef.lights || []).filter(l => l.live && S.power), hid = [];
+      const L = FIGHT_UI.lightLevels;
+      if (L) for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (!(L[y][x] > 0) && T.passable(x, y) && live.some(l => { const lx = Math.min(S.w - 1, Math.floor(l.x_m / tm)), ly = Math.min(S.h - 1, Math.floor(l.y_m / tm)), d = Math.hypot((x + .5) * tm - l.x_m, (y + .5) * tm - l.y_m), ring = Math.ceil((d - l.radius_m) / tm); return ring > 0 && ring < 3 && !T.sees({ x: lx, y: ly }, { x, y }); })) hid.push(x + ',' + y);
+      const shade = typeof lampShadow === 'function';
+      const walk = S.terrain.map((row, y) => row.map((_, x) => T.passable(x, y)));
+      return { t, L, hid, shade, walk, fall: typeof LIGHT_FALL !== 'undefined' ? LIGHT_FALL : null, oval: typeof POOL_STOPS !== 'undefined' }; });
+    r.err = d.errs[0]; await d.close(); return r;
+  };
+  const rows = [];
+  for (const seed of [3, 7]) { const on = await grab(seed, true), off = await grab(seed, false);
+    const gain = k => on.t[k].map((v, i) => (v + .05) / (off.t[k][i] + .05)).sort((a, b) => a - b), med = a => a.length ? a.slice().sort((p, q) => p - q)[a.length >> 1] : 0;
+    const spread = [], lit = [], r1 = [], r2 = [];
+    const F = on.fall || [];
+    (on.L || []).forEach((row, y) => row.forEach((lv, x) => { if (!(lv > 0)) return; const g = gain(x + ',' + y); spread.push(g[g.length - 2] / g[1]);
+      if (!on.walk[y][x]) return;   /* a roof or a wall takes a part of whatever reaches it: not a ring */
+      if (lv === F[0]) lit.push(g[12]); else if (lv === F[1]) r1.push(g[12]); else if (lv === F[2]) r2.push(g[12]); }));
+    rows.push({ seed, levels: !!on.L, spread: med(spread), lit: med(lit), r1: med(r1), r2: med(r2), hid: on.hid.length, hidGain: med(on.hid.map(k => gain(k)[12])), shade: on.shade, oval: on.oval, err: on.err || off.err }); }
+  const f = v => v.toFixed(2);
+  leg(rows.every(r => r.levels && !r.oval && r.spread < 1.25 && !r.err), '*** LIGHT THAT INTERACTS (rule 104g) ***: no oval: every tile takes one light level and the light is even across it',
+    rows.map(r => 'seed ' + r.seed + ': in-tile spread ' + f(r.spread)).join('; '));
+  leg(rows.every(r => r.lit > r.r1 && r.r1 > r.r2 && r.r2 > 1.05), '  a lit tile reads lit and the next one less so: the rules\' lit tiles brightest, the ring past them less, the next less again',
+    rows.map(r => 'seed ' + r.seed + ': ' + f(r.lit) + ' > ' + f(r.r1) + ' > ' + f(r.r2) + ' over itself unlit').join('; '));
+  leg(rows.some(r => r.hid > 0) && rows.every(r => !r.hid || r.hidGain < 1.1) && rows.every(r => r.shade), '  a wall casts a shadow: a tile in a lamp\'s reach hidden behind a blocked tile takes no light; and a man in the light throws his shadow away from the lamp',
+    rows.map(r => 'seed ' + r.seed + ': ' + r.hid + ' tiles in shadow at ' + f(r.hidGain || 1)).join('; '));
+}
+
 /* THE LIT TILES LOOK LIT (rule 73, rule 88): a lamp's pool is 7 m and a tile 12 m, the lamps on tile edges, so a tile the rules
    call lit showed a lit sliver on a dark tile. Measured as the lamp's own work: every walkable lit tile against ITSELF with the
    block's power off (the same ground, the same night), on three boards; the board-wide median (sunTest) compares asphalt
@@ -890,6 +929,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await lightTileByTile();
   await litLooksLit();
   await actFramed();
   await flippedLook();

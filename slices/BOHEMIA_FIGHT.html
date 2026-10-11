@@ -1420,7 +1420,7 @@ const FIGHT = (function () {
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
-    _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
+    _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
 })();
@@ -1539,8 +1539,8 @@ function nightPools(g, c, lights, k, pxm, pym, onGlass) {
   /* THE LIT TILES LOOK LIT (rule 73, rule 88): a lamp shows the ground's own colours, warmed; it does not paint over them. The
      day's ground is kept before the night's colour goes down, and under every lamp's pool AND every tile the rules light (a
      pool is 7 m, a tile 12 m, the lamps on tile edges: a lit tile showed a lit sliver on a dark tile, 1.1 to 1.7 to 1 on five
-     boards in six, the floor is 3) the day comes back, lifted warm, through one soft mask: the pools' gradients at half (their spill) and the lit
-     ground at four cells a tile blown up smooth, a quarter tile soft, one pool and never a grid. No rule moves: the set is S.lit.
+     boards in six, the floor is 3) the day comes back, lifted warm, through one soft mask of the tiles' light levels
+     (lightLevels: [light that interacts]). No rule moves: the set is S.lit.
      onGlass: the same, straight on the screen (the sharp ground, [the art at its own pixels]). */
   const cv = g.canvas, T = g.getTransform(), day = document.createElement('canvas');
   day.width = cv.width; day.height = cv.height; day.getContext('2d').drawImage(cv, 0, 0);
@@ -1550,28 +1550,67 @@ function nightPools(g, c, lights, k, pxm, pym, onGlass) {
   if (!live.length) return;
   const mk = document.createElement('canvas'); mk.width = cv.width; mk.height = cv.height;
   const m = mk.getContext('2d'); m.setTransform(T);
-  live.forEach(function (l) {
-    let X = l.x_m * pxm * k, Y = l.y_m * pym * k, r = l.radius_m * pxm * k;
-    if (onGlass) { X = sx(X); Y = sy(Y); r *= UI.zoom; }
-    m.save(); m.translate(X, Y); m.scale(1, pym / pxm);
-    const gr = m.createRadialGradient(0, 0, 0, 0, 0, r);
-    POOL_STOPS.forEach(function (st) { gr.addColorStop(st[0], 'rgba(0,0,0,' + st[1] + ')'); });
-    m.fillStyle = gr; m.beginPath(); m.arc(0, 0, r, 0, Math.PI * 2); m.fill(); m.restore();
-  });
-  litMask(m, onGlass);
+  lightMask(m, live, onGlass);
   const lay = day.getContext('2d');
   lay.globalCompositeOperation = 'lighter'; lay.drawImage(day, 0, 0);   /* the lamp doubles the ground's own light: its detail kept, not painted flat */
   lay.globalCompositeOperation = 'screen'; lay.fillStyle = LAMP_LIFT; lay.fillRect(0, 0, day.width, day.height);
   lay.globalCompositeOperation = 'destination-in'; lay.drawImage(mk, 0, 0);
   g.save(); g.setTransform(1, 0, 0, 1, 0, 0); g.drawImage(day, 0, 0); g.restore();
+  /* the bulb: the light comes from somewhere, a small hot glow at the head of each live lamp (the fire at a drum's mouth) */
+  g.save(); g.globalCompositeOperation = 'screen';
+  live.forEach(function (l) {
+    const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
+    let X = l.x_m * pxm * k, Y = l.y_m * pym * k - im.height * k * BULB_AT, r = im.height * k * BULB_R;
+    if (onGlass) { X = sx(X); Y = sy(Y); r *= UI.zoom; }
+    const gr = g.createRadialGradient(X, Y, 0, X, Y, r);
+    gr.addColorStop(0, 'rgba(255,226,170,.95)'); gr.addColorStop(.35, 'rgba(255,190,110,.5)'); gr.addColorStop(1, 'rgba(255,160,80,0)');
+    g.fillStyle = gr; g.beginPath(); g.arc(X, Y, r, 0, Math.PI * (1 + 1)); g.fill();
+  });
+  g.restore();
 }
-const POOL_STOPS = [[0, .5], [.6, .45], [.9, .3], [.97, .12], [1, 0]], LAMP_LIFT = 'rgba(255,176,104,.38)', WASH_CELLS = 4;
-function litMask(m, onGlass) {
-  const S = FIGHT.S; if (!S.lit) return;
+const BULB_AT = .86, BULB_R = .32;
+/* a man in a lamp's light throws his shadow on the ground, away from the lamp, as dark as the light on him is strong */
+const SHADOW_LEN = .55, SHADOW_W = .13, SHADOW_A = .5;
+function lampShadow(v, X, Y, h) {
+  const S = FIGHT.S, L = UI.lightLevels; if (!S.night || !S.power || !L || !L[v.y] || !(L[v.y][v.x] > 0)) return;
+  const live = (S.boardDef.lights || []).filter(function (l) { return l.live; }); if (!live.length) return;
+  const k = UI.tw / DB.ground.tile_px[0], pxm = DB.ground.px_per_metre, pym = DB.ground.tile_px[1] / DB.ground.tile_metres;
+  let best = null, bd = Infinity;
+  live.forEach(function (l) { const lx = sx(l.x_m * pxm * k), ly = sy(l.y_m * pym * k), d = Math.hypot(X - lx, Y - ly); if (d < bd) { bd = d; best = [lx, ly]; } });
+  const a = Math.atan2(Y - best[1], X - best[0]), len = h * SHADOW_LEN;
+  cx.save(); cx.translate(X + Math.cos(a) * len / (1 + 1), Y + Math.sin(a) * len / (1 + 1) * .5); cx.rotate(Math.atan2(Math.sin(a) * .5, Math.cos(a)));
+  cx.fillStyle = 'rgba(8,6,10,' + (SHADOW_A * L[v.y][v.x]).toFixed(3) + ')';
+  cx.beginPath(); cx.ellipse(0, 0, len / (1 + 1), h * SHADOW_W, 0, 0, Math.PI * (1 + 1)); cx.fill(); cx.restore();
+}
+/* LIGHT THAT INTERACTS (rule 104g, his NO: 'a bright oval overlay on top of everything, that's not what lighting is'): the
+   light falls tile by tile, the way a roguelike board is lit. Every tile takes one level from the live lamps: the tiles the
+   rules light (S.lit) take it whole, the ring past them less, the next ring less again; a tile the lamp cannot see (the
+   fight's own sight line, a blocked tile between) takes nothing, so a wall throws its shadow; a roof or a wall takes a part.
+   No oval: the map is the tiles' levels at four cells a tile, blown up smooth, a quarter tile soft at each edge. */
+const LIGHT_FALL = [1, .2, .08], ROOF_TAKES = .4, LAMP_LIFT = 'rgba(255,176,104,.38)', WASH_CELLS = 4;
+function lightLevels(live) {
+  const S = FIGHT.S, T = FIGHT._t, tm = DB.ground.tile_metres, L = [];
+  for (let y = 0; y < S.h; y++) { L.push([]); for (let x = 0; x < S.w; x++) {
+    let v = S.lit && S.lit[y][x] ? LIGHT_FALL[0] : 0;
+    live.forEach(function (l) {
+      const lx = Math.min(S.w - 1, Math.max(0, Math.floor(l.x_m / tm))), ly = Math.min(S.h - 1, Math.max(0, Math.floor(l.y_m / tm)));
+      const d = Math.hypot((x + 1 / (1 + 1)) * tm - l.x_m, (y + 1 / (1 + 1)) * tm - l.y_m), ring = Math.max(0, Math.ceil((d - l.radius_m) / tm));
+      if (ring >= LIGHT_FALL.length) return;
+      if (ring > 0 && !T.sees({ x: lx, y: ly }, { x: x, y: y })) return;   /* the wall's shadow */
+      v = Math.max(v, LIGHT_FALL[ring]);
+    });
+    if (!T.passable(x, y)) v *= ROOF_TAKES;
+    L[y].push(v);
+  } }
+  return L;
+}
+function lightMask(m, live, onGlass) {
+  const S = FIGHT.S, L = lightLevels(live);
   const w = document.createElement('canvas'); w.width = S.w * WASH_CELLS; w.height = S.h * WASH_CELLS;
-  const wc = w.getContext('2d'); wc.fillStyle = '#000'; let n = 0;
-  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.lit[y][x] && FIGHT._t.passable(x, y)) { wc.fillRect(x * WASH_CELLS, y * WASH_CELLS, WASH_CELLS, WASH_CELLS); n++; }   /* the street, never the roof: a roof under a lamp blew out white */
-  UI.washed = n; if (!n) return;
+  const wc = w.getContext('2d'); let n = 0;
+  for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (L[y][x] > 0) {
+    wc.fillStyle = 'rgba(0,0,0,' + L[y][x] + ')'; wc.fillRect(x * WASH_CELLS, y * WASH_CELLS, WASH_CELLS, WASH_CELLS); n++; }
+  UI.washed = n; UI.lightLevels = L; if (!n) return;
   m.save(); m.imageSmoothingEnabled = true; m.imageSmoothingQuality = 'high';
   if (onGlass) m.drawImage(w, sx(0), sy(0), S.w * UI.tw * UI.zoom, S.h * UI.th * UI.zoom);
   else m.drawImage(w, 0, 0, S.w * UI.tw, S.h * UI.th);
@@ -1997,6 +2036,7 @@ function drawMan(v, tw, th) {
     .sort(function (a, b) { return Math.abs(a.x - v.x) + Math.abs(a.y - v.y) - Math.abs(b.x - v.x) - Math.abs(b.y - v.y); })[0];
   const face = v.morale === 'Fleeing' ? (you ? -1 : 1) : foe ? (foe.x >= v.x ? 1 : -1) : (you ? 1 : -1);
   /* the ring he stands in: his side's colour, under the bank's figure */
+  lampShadow(v, X, Y, h);
   const trim = you ? '#d9a85a' : '#c4553f', base = Math.max(4, Math.min(tw * .4, h * .36));
   cx.fillStyle = 'rgba(0,0,0,.42)'; cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.fill();
   cx.strokeStyle = trim; cx.lineWidth = Math.max(1.5, h * .022); cx.beginPath(); cx.ellipse(X, Y, base, base * .36, 0, 0, Math.PI * 2); cx.stroke();
