@@ -1,0 +1,14 @@
+# THE ART WORKFLOW IN TEN STEPS (10/11/26; Paolo asked 'how can you incorporate this file generation into the workflow'; rule 108 as amended through 10/11, written plain for him and for every art chat)
+
+1. THE LIST. Every placeholder in the game is on a list (records/BOHEMIA_PLACEHOLDERS.md). The pass (the coordinator, rule 98) names the order: the fight block's street first, then its houses, lamps, wrecked cars, the people in eight directions, the guns, the portraits, the icons.
+2. THE STUDY. Before a chat asks for anything, it reads the rulebook (DIRECTION's pixel tutor skill: his packs' measured numbers, the 96 floor, light from the top-left, outline weight, the 45 degree ratio, no visible seams) and picks the nine pack tiles the new asset must match.
+3. THE REQUEST CARD, FREE. The chat puts a card in the VOTE tab: one sentence of what it will make, the nine reference tiles shown, the palette, the size, the exact cost from the tool's free cost check, the tab and a marked box of where it goes in the game. Nothing is made yet.
+4. HIS YES. He votes YES on the request. A NO kills it for free. (One red card per chat per sweep, twelve at most, rule 92.)
+5. THE CALL. His YES lands in the registry through his export, as every vote does. A GitHub Action in the repo reads approved request cards and calls Retro Diffusion once per card, with his key from the repo's secret store, the nine references, the palette locked, for the cost the card said. The 50 free credits go first; the Action refuses to spend past the balance.
+6. THE CLEAN. The result is snapped to the pack palette, checked for seams against its eight neighbours, measured against the floor (96) and the man (112), and the tells gate (orphan pixels, mixed outlines, pillow shading, a colour off the ramp) passes or fails it. A fail here never reaches him; the chat re-requests with the gate's note.
+7. THE RESULT CARD. The sheet lands in the VOTE tab: the pack tile left, the new asset right, true size, one question. For a person or beast: all eight directions on the sheet or it does not register.
+8. HIS WORD. YES means good direction, not final: the chat may do one more version. NO means failed generation: graveyard with his note, one re-request with his note, then another road. FINAL means it is the final art.
+9. INTO THE GAME, ONLY ON FINAL. The fence (PLUMBER [the art fence]) lets an art file into the game only when the registry holds his FINAL on it. The placeholder it replaces comes off the list. Until then nothing in the game changes.
+10. THE REPORT. Every sweep the coordinator writes which cards were made, which passed, which failed, what the balance is, and the next six in the order. He sees the one number and the one red in the last five lines.
+
+What he does: step 4 and step 8, taps in the VOTE tab. What he never does: open the tool, approve a charge, send a screenshot, keep a window open.
