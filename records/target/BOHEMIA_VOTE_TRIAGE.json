@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red. Eleventh votes 10/10: 12 verdicts; reds: sounds-dirt-is-slower-10-5, ui-the-maps-bar-10-5, cook4-house-two-the-ranch-10-10, cook2-one-at-a-time-the-corner-10-10.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -135,8 +135,8 @@
    "why": "promoted after the tenth votes (rule 92)"
   },
   "sounds-dirt-is-slower-10-5": {
-   "tag": "yellow",
-   "why": "a sound he can hear; one red per lane per sweep, the newest swing holds the slot"
+   "tag": "red",
+   "why": "after the eleventh votes: the newest answers to his rulings first, one per lane (rule 92)"
   },
   "sounds-the-night-has-insects-10-5": {
    "tag": "yellow",
@@ -243,8 +243,8 @@
    "why": "superseded by the pack revamp (rules 82, 87): the thing it shows has been redrawn from his purchased tiles; the new item replaces it"
   },
   "ui-the-maps-bar-10-5": {
-   "tag": "yellow",
-   "why": "a real fork, no lane stopped by it; promoted when the red count drops under six, oldest first"
+   "tag": "red",
+   "why": "after the eleventh votes: the newest answers to his rulings first, one per lane (rule 92)"
   },
   "grok-first-crisis-around-day-100-10-9": {
    "tag": "green",
@@ -739,8 +739,8 @@
    "why": "a thing he asked to see this round (rules 104, 105, 107), one per lane"
   },
   "cook4-house-two-the-ranch-10-10": {
-   "tag": "yellow",
-   "why": "his ask too; waits behind its lane's one red (one red per lane per sweep)"
+   "tag": "red",
+   "why": "after the eleventh votes: the newest answers to his rulings first, one per lane (rule 92)"
   },
   "cook4-the-ranch-true-size-10-10": {
    "tag": "yellow",
@@ -763,8 +763,8 @@
    "why": "a thing he asked to see this round (rules 104, 105, 107), one per lane"
   },
   "cook2-one-at-a-time-the-corner-10-10": {
-   "tag": "yellow",
-   "why": "his ask too; waits behind its lane's one red (one red per lane per sweep)"
+   "tag": "red",
+   "why": "after the eleventh votes: the newest answers to his rulings first, one per lane (rule 92)"
   },
   "cook2-one-at-a-time-no-borders-10-10": {
    "tag": "red",
