@@ -542,6 +542,7 @@
         if (!grid || !list) return;
         Array.prototype.forEach.call(grid.children, function (b, i) {
           var it = list[i]; if (!it) return;
+          if (b.querySelector('img.pk')) return;   /* RUN TWO [the market in the pack's art] 10/11: his pack's own tile wins over the drawn icon */
           var old = b.querySelector('.bm-icon'); if (old && old.dataset.id === it.id) return; if (old) old.remove();
           var g = b.querySelector('i'); if (g) g.style.display = 'none';
           var ic = itemIcon(it, 30); ic.dataset.id = it.id; b.insertBefore(ic, b.firstChild);   /* 30 so the short name and the price still fit the slot */

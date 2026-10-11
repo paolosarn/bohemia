@@ -1,0 +1,20 @@
+RUN TWO [the market in the pack's art] 10/11: each icon is a pack tile copied as-is from reference/art_bank/prop (no pixel changed).
+The packs hold no armour or helmets: body, head and shield keep the drawn glyph until a cook makes them.
+w_pistol <- pack_12_weapons_and_supplies_006.png
+w_pipe <- pack_12_weapons_and_supplies_002.png
+w_sledge <- pack_15_workbenches_and_tools_020.png
+w_rifle <- pack_12_weapons_and_supplies_010.png
+w_shotgun <- pack_12_weapons_and_supplies_007.png
+w_bottles <- pack_12_weapons_and_supplies_024.png
+w_machete <- pack_12_weapons_and_supplies_004.png
+w_axe <- pack_15_workbenches_and_tools_022.png
+w_spear <- pack_12_weapons_and_supplies_003.png
+w_cleaver <- pack_15_workbenches_and_tools_021.png
+w_chain <- pack_12_weapons_and_supplies_001.png
+w_pole <- pack_15_workbenches_and_tools_024.png
+s_food <- pack_11_survival_props_042.png
+s_water <- pack_16_loot_and_survival_props_032.png
+s_meds <- pack_12_weapons_and_supplies_030.png
+s_rounds <- pack_12_weapons_and_supplies_018.png
+b_smith <- pack_15_workbenches_and_tools_004.png
+b_armourer <- pack_15_workbenches_and_tools_012.png

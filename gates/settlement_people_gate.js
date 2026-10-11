@@ -95,6 +95,7 @@ const srv = http.createServer((rq, rs) => {
         return { face: f.dataset.face, px: n, cols: cols.size, line: say ? say.textContent : '', open: BohemiaSettlement.state.open }; });
       if (r.face && r.line) spoke++;
       if (r.face && r.face !== 'none' && r.px > 1800 && r.cols > 5) faced++; else blank.push((pt.keeper ? pt.k : 'crowd') + ':' + pt.look + ':' + (r.face || 'no sheet') + ':' + (r.cols || 0) + ':' + r.open);
+      if (!pt.keeper && r.open !== 'person') console.log('     crowd tap opened ' + r.open + ' at ' + JSON.stringify(pt));
       if (!pt.keeper && r.open === 'person' && r.line.length > 10) { crowdSaid++; if (crowdSaid === 1) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_PORTRAITS_WHEN_THEY_TALK_10_11.png') }); }
     }
     const crowd = await p.evaluate(() => BohemiaSettlement.folk().filter(x => x.crowd).length);

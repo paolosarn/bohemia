@@ -93,6 +93,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   box-shadow:inset 0 2px 3px rgba(0,0,0,.6)}
 .slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c;box-shadow:inset 0 1px 0 rgba(255,235,200,.1),0 1px 0 #000}
 .slot i{font-style:normal;font-size:16px;color:var(--gold);line-height:1}
+.slot img.pk{width:auto;height:46%;max-width:80%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
+.act img.pk{width:34px;height:34px;object-fit:contain;image-rendering:pixelated;margin-right:8px;vertical-align:middle;flex:none}
 .slot span{white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .slot em{font-style:normal;color:var(--dim);font-size:9px}
 /* the hire card: face, name, background, eight stats, the starred one gold, the price */
@@ -245,7 +247,7 @@ function rng(seed){ var x = seed>>>0 || 1; return function(){ x ^= x<<13; x ^= x
 function weaponItem(r){
   var c = CLASSNAME[r['class']] || r['class'], same = BB.weapons.filter(function(x){ return x['class'] === r['class']; }).sort(function(a,b){ return a.value-b.value; });
   var nm = qualityWord(same.indexOf(r), same.length) + ' ' + c;
-  return {id:r.id, kind:'weapon', name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'',
+  return {id:r.id, kind:'weapon', cls:r['class'], name:nm, was:r.name, price:priceOf(r.value), line:PLAIN[c]||'',
           nums:'dmg '+r.damage_min+'-'+r.damage_max+(r.armor_damage_pct!=null?'  vs armour '+r.armor_damage_pct+'%':'')+(r.range_max?'  reach '+r.range_max:'')};
 }
 function armourItem(kind, r){
@@ -284,10 +286,17 @@ var BAG_SLOTS = 36, BAGKEY = 'bohemia.bag.v1';
 function bagSave(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.stash)); }catch(e){} post('bag', {bag:S.stash.slice(), slots:BAG_SLOTS}); }
 function bagLoad(){ try{ var b = JSON.parse(localStorage.getItem(BAGKEY) || '[]'); if(Array.isArray(b)) S.stash = b; }catch(e){} }
 var GLYPH = {weapon:'⚔', body:'⛨', head:'∩', shield:'▣'};
+/* THE MARKET IN THE PACK'S ART (RUN TWO, 10/11): every weapon on a shelf and every good at the stall is a tile from his
+   packs (slices/market_icons/, copied as-is, SOURCES.txt names each); the packs hold no armour, so armour keeps its glyph */
+var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
+  sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole',
+  food:'s_food', water:'s_water', meds:'s_meds', rounds:'s_rounds'};
+function packIcon(key){ var f = PACK_ICON[key]; if(!f) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
 function iconTile(it, onTap, sub){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
-    var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g);
+    var pk = it.kind === 'weapon' ? packIcon(it.cls) : null;
+    if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
     var n = document.createElement('span'); n.textContent = it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; b.appendChild(n);
     if(sub){ var c = document.createElement('em'); c.textContent = sub; b.appendChild(c); }
     b.setAttribute('aria-label', it.name);
@@ -680,9 +689,17 @@ function folkList(){
   var st = VAR.boxes.stall || VAR.boxes.hall, n = crowdCount();
   for(var q=0; q<n && st; q++){ var ang = R()*Math.PI*2, rad = .5 + R()*.7;
     out.push({crowd:true, look:looks[Math.floor(R()*looks.length)], clip:CROWD_CLIPS[q % CROWD_CLIPS.length], face:FOLK.rows[Math.floor(R()*3)],
-      x:(st[0]+st[2])/2 + Math.cos(ang)*Math.max(st[2]-st[0], 260)*rad, y:Math.min(picH()-4, st[3] + 10 + Math.abs(Math.sin(ang))*60*rad), ph:R()}); }
+      x:(st[0]+st[2])/2 + (q - (n-1)/2) * 46 + (R()-.5)*14, y:Math.min(picH()-4, st[3] + folkFrame()*FOLK.figure_bbox[3]/FOLK.frame*.94 + R()*8), ph:R()}); }   /* in front of the stall, a body below it, so a tap on the stall is the stall */
   out.sort(function(a, c){ return a.y - c.y; });
   VAR.folkKey = key; VAR.folk = out; return out;
+}
+var BENCH_IM = {};
+['smith','armourer'].forEach(function(k){ var im = new Image(); im.src = 'market_icons/b_' + k + '.png'; BENCH_IM[k] = im; });
+function drawBenches(s){
+  if(!VAR) return;
+  ['smith','armourer'].forEach(function(k){ var b = VAR.boxes[k], im = BENCH_IM[k]; if(!b || !im.complete || !im.naturalWidth) return;
+    var w = im.naturalWidth * 1.4, h = im.naturalHeight * 1.4, x = (b[0]+b[2])/2 + (b[2]-b[0])*.22 - w/2, y = b[3] - h + 6;
+    cx.drawImage(im, Math.round(view.ox + x*s), Math.round(view.oy + y*s), Math.round(w*s), Math.round(h*s)); });
 }
 function drawPeople(s){
   var L = folkList(); if(!L.length) return;
@@ -713,6 +730,7 @@ function draw(){
   cx.drawImage(im, view.ox, view.oy, picW()*s, picH()*s);
   drawTraitLooks(s);
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
+  try{ drawBenches(s); }catch(e){}
   try{ drawPeople(s); }catch(e){}
   try{ drawBuilt(s); }catch(e){}   /* __BUILD_ON_THE_SCREEN__ */
   var fe = 18; var gt = cx.createLinearGradient(0, view.oy, 0, view.oy+fe); gt.addColorStop(0,'rgba(14,10,7,.8)'); gt.addColorStop(1,'rgba(14,10,7,0)');
@@ -808,8 +826,9 @@ function where(k){
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
     var r = cv.getBoundingClientRect(), pe = personAt(e.clientX - r.left, e.clientY - r.top);
-    if(pe){ openPerson(pe); return; }
     var k = hitAt(e.clientX - r.left, e.clientY - r.top);
+    /* a building's own tap spot beats the crowd standing in front of it; a keeper opens his building anyway */
+    if(pe && !(k && pe.crowd)){ openPerson(pe); return; }
     if(k) openB(k); else if(S.open) hide();
   });
 })();
@@ -972,12 +991,13 @@ function openB(k, line){
   else if(k==='stall'){
     body.appendChild(speak(k, line || 'Everything is one battery, mijo. No haggling at this stall.'));
     STALL.forEach(function(g){
-      acts.appendChild(act(g.label, '1 battery', function(){
+      var ab = act(g.label, '1 battery', function(){
         if(bats()<1) return openB('stall','You are out of batteries. Come back with one.');
         P.debit(S.purse,'electricity',1,'stall:'+g.good,S.place.name,S.day);
         if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
         post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
-      }, bats()<1));
+      }, bats()<1);
+      var gi = packIcon(g.good); if(gi) ab.insertBefore(gi, ab.firstChild); acts.appendChild(ab);
     });
   }
   else if(k==='barber'){
