@@ -1,6 +1,6 @@
 # UNLOCK THE LIMITS 06: WHAT GOES IN THE REPO, SKILLS AND TOOL SERVERS (research, 10/11/26)
 
-Angle: what can be installed in a public repo, once or free, that makes a coding agent a better pixel artist. Rulings carried in: one-time or free, no monthly, no outside credits, no graphics card (rule 108). Container note: most vendor and GitHub pages could not be opened from here; every fact below rests on search-result text unless a repo record already verified it. Real URLs only.
+Angle: what a public repo can carry, once or free, that makes a coding agent a better pixel artist. Rule 108 carried in: no monthly, no outside credits, no graphics card. Most pages could not be opened from this container; facts rest on search-result text unless a repo record verified them. Real URLs only.
 
 ## 1. THE FINDING
 
@@ -14,8 +14,8 @@ Three free things go in the repo: an MCP server that lets a chat drive the Asepr
 | willibrandon/pixel-mcp | Aseprite through CLI and Lua; indexed palettes, dithering, shading, animation, spritesheet export; ships a CLAUDE.md. | ~150 stars, v0.5.0 Oct 2025; Go 1.23+, Aseprite 1.3.0+ | MIT (pkg.go.dev) | https://github.com/willibrandon/pixel-mcp |
 | Vollkorn-Games/aseprite-mcp | Node server, spawns `aseprite -b` with Lua; `render_sprite` returns an upscaled PNG so a vision model checks its own art. | Small, single author | Not confirmed | https://github.com/Vollkorn-Games/aseprite-mcp |
 | diivi/aseprite-mcp | Python, 104 tools in 17 categories: frame diffs, colour stats, palette presets, ramps, quantization. | ~70 stars | MIT | https://github.com/diivi/aseprite-mcp |
-| rexxkelley/pixelart-mcp | Headless Aseprite plus pixel-art computer vision plus git-like checkpoints; create, inspect, analyse with no GUI. | New | Not confirmed | https://github.com/rexxkelley/pixelart-mcp |
-| jmorais1988/pixelworks-mcp | 169 tools: headless Aseprite workbench, a Krita bridge, and Retro Diffusion (local model or API), each gated separately. Only the Aseprite part fits rule 108; the local model needs a GPU, the API is credits. | New, broad | Not confirmed | https://github.com/jmorais1988/pixelworks-mcp |
+| rexxkelley/pixelart-mcp | Headless Aseprite plus pixel-art computer vision plus git-like checkpoints. | New | Not confirmed | https://github.com/rexxkelley/pixelart-mcp |
+| jmorais1988/pixelworks-mcp | 169 tools: headless Aseprite, a Krita bridge, Retro Diffusion (local needs a GPU, API is credits). Only the Aseprite part fits rule 108. | New | Not confirmed | https://github.com/jmorais1988/pixelworks-mcp |
 | ahujasid/blender-mcp | Drives Blender: scenes, materials, renders. Useful for a 45 degree reference render of a block to trace proportions from, not for pixels. | ~29k stars (Star History, Sept 2026) | MIT | https://github.com/ahujasid/blender-mcp |
 | Krita (raiinman/krita-mcp, edithatogo/krita-cli) and GIMP (Shriinivas/gimpmcp, martinduartemore/mcp-gimp) | Paint through a plugin in the running app; krita-cli has 50+ tools. All need the editor window open, so a desktop, not a runner. | Community, GIMP ones work in progress | Not confirmed | https://github.com/raiinman/krita-mcp |
 | abidoo22/Pixelorama-MCP | Free, open editor; layers and pixels from text. Pixelorama's headless export fails silently (its issue 1625), so GUI only. | New | Not confirmed | https://github.com/abidoo22/Pixelorama-MCP |
@@ -59,7 +59,7 @@ Does not fix: taste, proportion sense, the feel of a hand. No free, no-GPU tool 
 
 ## 6. ONE RULE
 
-NO CHAT DRAWS A PIXEL OUTSIDE THE SKILL AND THE SERVER: every piece of art is made through the Aseprite server (or its Lua scripts), by a chat that has loaded `skills/bohemia-pixel-art`, and passes the audit numbers and the nine-neighbour picture before it is registered in the VOTE tab. A pixel written as a number in JavaScript is a gate failure. Gate: PLUMBER [the art pipe gate] reads the registry for the server's export JSON next to every new asset.
+NO CHAT DRAWS A PIXEL OUTSIDE THE SKILL AND THE SERVER: every asset is made through the Aseprite server (or its Lua scripts) by a chat that loaded `skills/bohemia-pixel-art`, and passes the audit numbers and the nine-neighbour picture before the VOTE tab. A pixel written as a number in JavaScript is a gate failure. Gate: PLUMBER [the art pipe gate] requires the server's export JSON beside every new asset.
 
 ## 7. SOURCES (search-result text; pages not opened from this container unless a repo record says so)
 
