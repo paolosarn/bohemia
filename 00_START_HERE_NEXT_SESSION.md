@@ -19701,6 +19701,15 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/11 (b) LATEST -- *** THE PARTY WALKS AS ONE, IN VOTE AS FINAL? (a look row, a cook
+round under rule 100). TAB: VOTE, the real map before beside now at his phone's pixels. ***
+MAP_PARTY_AS_ONE in slices/BOHEMIA_CITY_WORLD.html, OFF in the file: on, no banner (pole + cloth: his 'shadow line'
+and 'arrow') and the two trail close behind on the glass, depth-ordered. PARTY AS ONE 7/0, 4 mutations. WHEN HE SAYS
+FINAL: set on:true, re-run PARTY AS ONE and THE PARTIES WALK, stamp. The banner is COOK's; it comes back on COOK's new
+marker if he wants it. Stamp 10/11d, CUE 9.8 STANDBY.
+[eight through the rig] waits on DIRECTION's master rig (no tools/3d scene, no Blender on this box): not started.
+NEXT: [the beast in eight] (hold lifted for it).
+
 ANIMATION (animation-lr9y9i): 10/11 (a) LATEST -- *** THE FALL, V2 THE LAST, IN VOTE AS FINAL? (the hold lifts for this
 row because he asked). TAB: VOTE, playing, eight facings, before beside now, one art pixel to one phone pixel. ***
 fall-down (2 beats) and take-hit (1) in the rig, posed per facing; the fall posed upright and the finished picture
