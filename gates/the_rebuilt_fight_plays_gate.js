@@ -52,8 +52,8 @@ async function fight(F, first) {
     ini: FIGHT.S.order.map(id => FIGHT.byId(id).turnIni) }));
   if (first) await p.screenshot(Object.assign({ path: shot('OPEN') }, SHOT));
   leg(s0.you === OURS.field_size.value, F.board + ': twelve of yours on the field (rule 63b)', s0.you + ' v ' + s0.them);
-  leg(s0.fitted && Math.abs(s0.man - 104) <= 2 && s0.w < 20,
-    F.board + ': *** IT OPENS WITH BOTH TEAMS ON THE GLASS, NO SWIPE, THE MAN AT 112, ON A BOARD CUT TO THE PARTIES (rule 104a) ***', 'man ' + Math.round(s0.man) + ' px, every man on the glass ' + s0.fitted + ', board ' + s0.w + 'x' + s0.h + ' houses');
+  leg(s0.fitted && Math.abs(s0.man - 104) <= 2 && s0.w === 20 && s0.h === 15,
+    F.board + ': *** IT OPENS WITH BOTH TEAMS ON THE GLASS, NO SWIPE, THE MAN AT 112, ON THE WHOLE BOARD (rule 104a; his eleventh votes: never cut) ***', 'man ' + Math.round(s0.man) + ' px, every man on the glass ' + s0.fitted + ', board ' + s0.w + 'x' + s0.h + ' houses');
   leg(s0.gap >= BB.deployment.min_gap_between_lines_hexes.value, F.board + ': the lines start at least five tiles apart (wiki: "at least 5 hexes between parties")', 'nearest ' + s0.gap);
   leg(s0.ini.every((v, i) => i === 0 || s0.ini[i - 1] >= v), F.board + ': the round goes by initiative, highest first', s0.ini.slice(0, 5).map(Math.round).join(' > '));
   /* YOUR FORMATION (COMBAT [your formation]): the fight waits for his line; a real finger moves a man inside his two
@@ -397,10 +397,10 @@ async function nightLights() {
     for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const v = lum(x, y); if (T.litAt(x, y)) { litL += v; litN++; } else { darkL += v; darkN++; } }
     /* the rules at the table: one of your shooters, one of theirs, the four ways the light can fall, and the day */
     const a = FIGHT.alive('you').filter(u => FIGHT.isRanged(u.weapon))[0], t = FIGHT.alive('them')[0];
-    const sk = FIGHT.strikeSkill(a.weapon), was = S.lit;
+    const sk = FIGHT.strikeSkill(a.weapon), was = S.lit, t0 = { x: t.x, y: t.y }; t.x = Math.min(S.w - 1, a.x + 3); t.y = a.y;   /* three tiles apart: inside the crossbow's reach, off the 5% floor (the whole board put them six apart) */
     const at = (la, lt) => { S.lit = S.lit.map(row => row.slice()); S.lit[a.y][a.x] = la; S.lit[t.y][t.x] = lt; const c = FIGHT.hitChance(a, t, sk).chance; S.lit = was; return c; };
     const LL = at(true, true), DD = at(false, false), DL = at(false, true), LD = at(true, false);
-    S.night = false; const day = FIGHT.hitChance(a, t, sk).chance; S.night = true;
+    S.night = false; const day = FIGHT.hitChance(a, t, sk).chance; S.night = true; t.x = t0.x; t.y = t0.y;
     const far = { x: t.x, y: t.y }; S.lit = S.lit.map(row => row.slice()); S.lit[far.y][far.x] = true; const vLit = T.vision(a, far); S.lit[far.y][far.x] = false; const vDark = T.vision(a, far); S.lit = was;
     return { live, pools: FIGHT_UI.poolsDrawn, litN, litL: litN ? litL / litN : 0, darkL: darkN ? darkL / darkN : 0, LL, DD, DL, LD, day, vLit, vDark,
       lamps: window.__lamps, darkmen: window.__darkmen, litmen: window.__litmen };
@@ -448,7 +448,7 @@ async function screens() {
       const inside = [b, t].concat(taps).every(q => q.left >= -1 && q.right <= innerWidth + 1 && q.top >= -1 && q.bottom <= innerHeight + 1);
       return { cls, W: innerWidth, H: innerHeight, glass: Math.round(100 * (innerHeight - TOPH - BOTH) / innerHeight), minTap: Math.round(Math.min.apply(null, taps.map(q => Math.min(q.width, q.height)))),
         oneRow: b.height <= 90 && Math.abs(r('bend').top - r('skills').top) < 30, barW: Math.round(b.width), centred: Math.abs(b.left - (innerWidth - b.right)) <= 2,
-        fits: FIGHT_UI.far * FIGHT_UI.board.width <= innerWidth + 1 && FIGHT_UI.far * FIGHT_UI.board.height <= innerHeight - TOPH - BOTH + 1, inside,
+        fits: FIGHT_UI.far <= FIGHT_UI.near, inside,
         man: Math.round(manH()), all: allFramed() };
     });
     m.pr = pr; m.setMan = setMan; m.setAll = setAll; m.panned = panned; m.err = d.errs[0]; res.push(m); await d.close();
@@ -462,7 +462,7 @@ async function screens() {
   leg(res.every(x => x.all && x.setAll) && big.every(x => Math.abs(x.man - 104) <= 2 && Math.abs(x.setMan - 104) <= 2) && fl2.man >= 52,
     '*** BOTH TEAMS ON EVERY SCREEN, NO SWIPE (rule 104a), THE MAN AT 112 (rule 21) ***: setting his line and fighting, every man of both teams on the glass; upright, tablet and computer at 104; the flipped phone, 262 points between the bars against a nine-deep line, the one place the man gives: never under half his height, 52 (at 104 he stood on 16-px rows, six rows tall)',
     res.map(x => x.pr + ' ' + x.setMan + '/' + x.man + ' px' + (x.all && x.setAll ? '' : ' A MAN OFF THE GLASS')).join(', '));
-  leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, the whole board fits at the far stop, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
+  leg(res.every(x => x.minTap >= 44 && x.inside && x.fits && !x.err), 'every screen: every tap at least 44 points, nothing off the glass, a far stop to pinch out to, no page error', res.map(x => x.pr + ' ' + x.minTap + 'pt' + (x.inside ? '' : ' OFF') + (x.fits ? '' : ' NOFIT') + (x.err ? ' ' + x.err.slice(0, 50) : '')).join(', '));
 }
 
 /* NIGHT YOU CAN READ (rule 73, Paolo 10/4: 'even at its darkest it's really hard to see... full brightness and outside,
@@ -686,8 +686,8 @@ async function boardFits() {
   const one = await look(',party:{faction:"brigands",count:3,days:1,difficulty:1}');
   const three = await look(',party:{faction:"brigands",count:10,days:30,difficulty:1,parties:3}');
   const end = await look(',endgame:true');
-  leg(one.w < 10 && one.crop && one.near && Math.abs(one.man - 104) <= 2 && one.gap >= 5 && one.onBoard && one.wide && !one.err,
-    '*** A DAY-1 PARTY OF THREE OPENS ON A BOARD UNDER TEN WIDE, THE MAN AT 112 *** (rule 79): cut from the dealt board, the lines five apart, everybody on it and on the glass (104a)',
+  leg(one.w === 20 && one.h === 15 && !one.crop && one.near && Math.abs(one.man - 104) <= 2 && one.gap >= 5 && one.onBoard && one.wide && !one.err,
+    '*** A DAY-1 PARTY OF THREE GETS THE WHOLE BOARD, THE CAMERA ZOOMED TO PURPOSE *** (his eleventh votes: \'the map has to be big but then it\'s just zoomed into our purposes\'; rule 79\'s cut stands down): the lines five apart, everybody on the glass, the man at 112',
     one.w + 'x' + one.h + ' houses, man ' + one.man + ' px, gap ' + one.gap + ', ' + one.kinds.join(' + '));
   leg(three.w === 20 && three.h === 15 && end.w === 20 && end.h === 15 && !three.err && !end.err, 'three parties at once, or the endgame, keep the full 20 by 15 (\'12 versus 60\')', three.w + 'x' + three.h + ', ' + end.w + 'x' + end.h);
 }
@@ -736,6 +736,32 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* HIS ELEVENTH VOTES on both teams (rule 104a re-spec: 'four tiles south of the bottom person, four tiles north of the top
+   person... I don't want to see any black... the map has to be big but then it's just zoomed into our purposes'): upright,
+   four tiles of map past the top man and the bottom man; on every screen not one black pixel, at the open and pinched all
+   the way out; the board is never cut to the party */
+async function elevenVotes() {
+  const rows = [];
+  for (const profile of ['phone_portrait', 'phone_landscape', 'computer']) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:9,speed:1,kind:"strip",party:{faction:"brigands",count:3,days:1,difficulty:1}}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(2000);
+    const black = () => d.page.evaluate(() => { const c = document.getElementById('cv'), D = c.width / innerWidth, a = c.getContext('2d').getImageData(0, Math.round(TOPH * D), c.width, Math.round((H - TOPH - BOTH) * D)).data;
+      let b = 0, n = 0; for (let i = 0; i < a.length; i += 4 * 5) { n++; if (a[i] === 13 && a[i + 1] === 11 && a[i + 2] === 9) b++; } return b / n; });
+    const r = await d.page.evaluate(() => { const on = FIGHT.S.units.filter(FIGHT.onField), ty0 = Math.min(...on.map(v => v.y)), ty1 = Math.max(...on.map(v => v.y)), t = FIGHT_UI.th * FIGHT_UI.zoom;
+      return { above: (sy(ty0 * FIGHT_UI.th) - TOPH) / t, below: (H - BOTH - sy((ty1 + 1) * FIGHT_UI.th)) / t, board: FIGHT.S.w + 'x' + FIGHT.S.h, full: !FIGHT.S.crop, all: allFramed(), man: manH() }; });
+    r.black = await black();
+    await d.page.evaluate(() => { FIGHT_UI.glide = null; FIGHT_UI.openUntil = 1e12; FIGHT_UI.pinched = true; FIGHT_UI.zoom = FIGHT_UI.far; clampCam(); });
+    await d.page.waitForTimeout(300);
+    r.blackFar = await black(); r.profile = profile; r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  const up = rows[0], f = v => v.toFixed(1), pc = v => (100 * v).toFixed(2) + '%';
+  leg(up.above >= 3.9 && up.below >= 3.9 && Math.abs(up.man - 104) <= 2 && up.all, '*** FOUR TILES NORTH AND SOUTH (his eleventh votes) ***: upright, four tiles of map above the top man and below the bottom man, the man at 112, everybody on the glass',
+    f(up.above) + ' tiles above, ' + f(up.below) + ' below, man ' + Math.round(up.man) + ' px');
+  leg(rows.every(r => r.black < .001 && r.blackFar < .001 && r.full && !r.err), '*** NO BLACK, ONLY MORE MAP *** (his eleventh votes): on every screen, at the open and pinched all the way out, the black behind the board is gone (under a thousandth of the glass, the darkest pixels of the art itself; it was 37 to 74 percent); the board is never cut to the party (a day-1 party of three gets the whole board)',
+    rows.map(r => r.profile + ' ' + pc(r.black) + ' / ' + pc(r.blackFar) + ', board ' + r.board + (r.full ? '' : ' CUT') + (r.err ? ' ERR ' + r.err : '')).join('; '));
+}
+
 /* LIGHT THAT INTERACTS (rule 104g, his NO: 'a bright oval overlay on top of everything, that's not what lighting is'): the
    lamp's light falls tile by tile. Measured as the lamp's own work (each tile against itself with the power off): inside a
    tile the light is even (no oval crossing it); the tiles the rules light are brightest, the ring past them less, the next
@@ -929,6 +955,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await elevenVotes();
   await lightTileByTile();
   await litLooksLit();
   await actFramed();

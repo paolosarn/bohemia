@@ -571,7 +571,9 @@ const FIGHT = (function () {
     /* THE BOARD FITS THE PARTY (rule 79): a few against a few get a small board cut from the dealt one; the full board only
        for the endgame or three parties at once */
     const big = opts.board || opts.endgame || ((opts.party && opts.party.parties) || opts.parties || 1) >= R('ours.board_fit').big_parties;
-    if (!big) cropToParty(dealt, crewUnits, bandUnits, opts);
+    /* HIS ELEVENTH VOTES (rule 104a re-spec): 'the map has to be big but then it's just zoomed into our purposes': the board
+       is no longer cut to the party (rule 79's cut stands down; cropToParty is kept for a test that asks for it) */
+    if (!big && opts.cut) cropToParty(dealt, crewUnits, bandUnits, opts);
     if (S.flat) applyBoard(Object.assign({}, S.boardDef, { terrain: S.terrain.map(function (r) { return r.map(function () { return 'flat'; }); }), cover: [], lights: [] }));
     S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
@@ -1438,7 +1440,7 @@ let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
 const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
 /* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
    tall at every zoom; only the ground scales under him */
-function manH() { return Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }
+function manH() { return H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * UI.zoom); }   /* upright he is always 104 (rule 21); only a glass wider than tall caps him at MAN_ROWS rows */
 const MAN_ROWS = 2.8;
 
 function beatMs() { return 60000 / R('ours.beat_bpm') / UI.speed; }
@@ -1467,6 +1469,9 @@ function fitStops() {
   const art = DB.ground.tile_px[0], dev = UI.tw * UI.near * DPR / art;
   if (Math.abs(dev - 1) < ART_SNAP) UI.near = art / (UI.tw * DPR);
   UI.far = Math.min(W / bw, ah / bh, UI.near);  /* the pinch's far stop: the whole board, never the man past 112 */
+  { const bt = DB.ground.block_tiles, R = SURROUND_BLOCKS * bt * (1 + 1);   /* and never so far out the ring runs out (no black) */
+    UI.coverFar = Math.max(W / ((Math.ceil(FIGHT.S.w / bt) * bt + R) * UI.tw), ah / ((Math.ceil(FIGHT.S.h / bt) * bt + R) * UI.th));
+    UI.far = Math.max(UI.far * .85, UI.coverFar); }   /* a little past the whole board, so a man on its edge row is whole, never past the ring */
   UI.max = UI.near * 1.6;
 }
 function load(src) {
@@ -1668,6 +1673,9 @@ function drawGround() {
   /* the ground does not move between camera moves: drawn once to a glass-sized sheet and blitted until the camera, the night
      or a lamp changes (a phone at three device pixels a point holds 60 by night too) */
   const S0 = FIGHT.S, key = [UI.cx, UI.cy, UI.zoom, W, H, DPR, !!S0.night, !!S0.power, (S0.boardDef.lights || []).map(function (l) { return l.live ? 1 : 0; }).join(''), UI.board].join('|');
+  /* while the camera moves the ground is drawn straight on the glass (one pass, not a sheet and a blit); the sheet is for a
+     camera that holds still */
+  if (key !== UI.gprev) { UI.gprev = key; groundOn(cx); UI.gdraws = (UI.gdraws || 0) + 1; return; }
   if (!UI.gsheet || UI.gkey !== key || UI.gboard !== UI.board) {
     const c = UI.gsheet || document.createElement('canvas');
     if (c.width !== Math.round(W * DPR) || c.height !== Math.round(H * DPR)) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }
@@ -1677,6 +1685,44 @@ function drawGround() {
   }
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
 }
+const SURROUND_BLOCKS = 2, SURROUND_DIM = 'rgba(8,6,4,.22)', MIP = 4, RING_K = .5;
+/* the ring baked once at half size (it is the map you look at, not the board you fight on), the night's colour on it */
+function ringCanvas() {
+  const S = FIGHT.S, G = DB.ground, bt = G.block_tiles, R = SURROUND_BLOCKS, key = UI.ringKey + ':' + !!S.night + ':' + UI.board;
+  if (UI.ringC && UI.ringCKey === key) return UI.ringC;
+  const ring = surround(), nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt);
+  const c = document.createElement('canvas'); c.width = Math.round((nx + R * (1 + 1)) * bt * UI.tw * RING_K); c.height = Math.round((ny + R * (1 + 1)) * bt * UI.th * RING_K);
+  const g = c.getContext('2d'), w = bt * UI.tw * RING_K, h = bt * UI.th * RING_K; g.imageSmoothingQuality = 'high';
+  ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) return;
+    const x = (q.bx + R) * w, y = (q.by + R) * h; g.drawImage(mipFor(im, w / DPR), x, y, w, h); g.fillStyle = SURROUND_DIM; g.fillRect(x, y, w, h); });
+  if (S.night) nightPass(g, c.width, c.height);
+  UI.ringC = c; UI.ringCKey = UI.ringKey + ':' + !!S.night + ':' + UI.board; return c;
+}
+/* the ring: SURROUND_BLOCKS blocks on every side, each a block of the board's own kinds, picked by a hash of the fight's seed
+   and its place (its own hash, so the fight's dice are never touched) */
+function surround() {
+  const S = FIGHT.S, B = S.boardDef, G = DB.ground, bt = G.block_tiles;
+  const key = S.w + 'x' + S.h + ':' + (B.name || '');
+  if (UI.ring && UI.ringKey === key) return UI.ring;
+  const names = Object.keys(G.blocks), kinds = (B.kinds || []).map(function (k) { return k.split('.')[0]; });
+  let pool = names.filter(function (n) { return kinds.indexOf(n.split('.')[0]) >= 0; }); if (!pool.length) pool = names;
+  const nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt), R = SURROUND_BLOCKS, seed = (window.FIGHT_OPTS && window.FIGHT_OPTS.seed) || 1, out = [];
+  for (let by = -R; by < ny + R; by++) for (let bx = -R; bx < nx + R; bx++) {
+    if (bx >= 0 && by >= 0 && bx < nx && by < ny) continue;
+    const h = Math.abs(Math.sin((bx * 374761 + by * 668265 + seed * 2654435) * 1e-3) * 1e4) % 1;
+    out.push({ bx: bx, by: by, n: pool[Math.floor(h * pool.length)] });
+  }
+  UI.ring = out; UI.ringKey = key; return out;
+}
+/* a quarter-size copy of a block, drawn whenever the block is small on the glass: zoomed out to both teams, a phone draws
+   a dozen blocks a frame, never the 2575-px originals */
+function mipFor(im, w) {
+  if (w * DPR > im.width / MIP) return im;   /* only ever shrunk, never blown up */
+  UI.mips = UI.mips || new Map(); let c = UI.mips.get(im);
+  if (!c) { c = document.createElement('canvas'); c.width = Math.ceil(im.width / MIP); c.height = Math.ceil(im.height / MIP);
+    const g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(im, 0, 0, c.width, c.height); UI.mips.set(im, c); }
+  return c;
+}
 function groundOn(cx) {
   const G = DB.ground, S = FIGHT.S, B = S.boardDef, bt = G.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
   const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres, z = UI.zoom;
@@ -1685,13 +1731,20 @@ function groundOn(cx) {
   const x0 = sx(0), y0 = sy(0), bw = S.w * UI.tw * z, bh = S.h * UI.th * z;
   const on = function (x, y, w, h) { return x + w > 0 && y + h > 0 && x < W && y < H; };
   cx.save();
+  cx.imageSmoothingEnabled = !one; cx.imageSmoothingQuality = 'high';
+  /* THE MAP AROUND THE BOARD (his eleventh votes: 'I don't want to see any black... only more of the map'): the same
+     district's blocks dealt in a ring past the board's edge, drawn a shade darker, seen and never walked */
+  surround().forEach(function (q) {
+    const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) return;
+    const x = snap(sx(q.bx * bt * UI.tw)), y = snap(sy(q.by * bt * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
+    if (on(x, y, w, h)) { cx.drawImage(mipFor(im, w), x, y, w, h); cx.fillStyle = SURROUND_DIM; cx.fillRect(x, y, w, h); }
+  });
   cx.beginPath(); cx.rect(x0, y0, bw, bh); cx.clip();
   cx.fillStyle = '#2a2219'; cx.fillRect(x0, y0, bw, bh);
-  cx.imageSmoothingEnabled = !one; cx.imageSmoothingQuality = 'high';
   B.blocks.forEach(function (row, by) { row.forEach(function (n, bx) {
     const im = UI.imgs['fight_ground/' + G.blocks[n].src]; if (!im) return;
     const x = snap(sx((bx * bt - ox) * UI.tw)), y = snap(sy((by * bt - oy) * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
-    if (on(x, y, w, h)) cx.drawImage(im, x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
+    if (on(x, y, w, h)) cx.drawImage(one ? im : mipFor(im, w), x, y, one ? im.width / DPR : w, one ? im.height / DPR : h);
   }); });
   (B.cover || []).forEach(function (cv2) {
     const im = UI.imgs['fight_ground/' + (G.cover[cv2.piece] || G.cover_extra[cv2.piece] || {}).src]; if (!im) return;
@@ -1720,9 +1773,11 @@ function clampCam() {
   const hw = W / 2 / UI.zoom, hh = (H - TOPH - BOTH) / 2 / UI.zoom;
   /* the camera may look past the board's edge by a man's height at the top and half his figure at the sides, so a man on
      the first row is never cut by the strip (rule 104a: every man's whole box on the glass) */
-  const up = manH() / UI.zoom, side = manH() * FIG_HALF / UI.zoom;
-  UI.cx = bw + side * (1 + 1) <= hw * (1 + 1) ? bw / (1 + 1) : Math.max(hw - side, Math.min(bw + side - hw, UI.cx));
-  UI.cy = bh + up <= hh * (1 + 1) ? (bh - up) / (1 + 1) : Math.max(hh - up, Math.min(bh - hh, UI.cy));
+  /* and never past the map around it (his eleventh votes: no black): the ring is SURROUND_BLOCKS blocks on every side */
+  const bt = DB.ground.block_tiles, rx = SURROUND_BLOCKS * bt * UI.tw, ry = SURROUND_BLOCKS * bt * UI.th;
+  const lx = -rx, ux = Math.ceil(FIGHT.S.w / bt) * bt * UI.tw + rx, ly = -ry, uy = Math.ceil(FIGHT.S.h / bt) * bt * UI.th + ry;
+  UI.cx = ux - lx <= hw * (1 + 1) ? (lx + ux) / (1 + 1) : Math.max(lx + hw, Math.min(ux - hw, UI.cx));
+  UI.cy = uy - ly <= hh * (1 + 1) ? (ly + uy) / (1 + 1) : Math.max(ly + hh, Math.min(uy - hh, UI.cy));
 }
 
 /* ---------------- sound: low, dry, on the beat ---------------- */
@@ -1924,8 +1979,12 @@ function draw(now) {
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
   if (!UI.board) return;
-  if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* the baked board would be blown up: draw the art itself */
-  else { cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked'; }
+  if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* close in: the art itself, and the ring's blocks around it */
+  else {   /* zoomed out: the map's ring (baked once, half size, never black) and the baked board, two blits a frame */
+    const rk = ringCanvas(), bt = DB.ground.block_tiles, R = SURROUND_BLOCKS;
+    if (rk) { cx.imageSmoothingEnabled = true; cx.drawImage(rk, sx(-R * bt * UI.tw), sy(-R * bt * UI.th), rk.width / RING_K * UI.zoom, rk.height / RING_K * UI.zoom); }
+    cx.imageSmoothingEnabled = UI.zoom < 1; cx.drawImage(UI.board, sx(0), sy(0), UI.board.width * UI.zoom, UI.board.height * UI.zoom); UI.groundMode = 'baked';
+  }
   if (UI.groundOnly) return;
   const S = FIGHT.S, u = FIGHT.current(), tw = UI.tw * UI.zoom, th = UI.th * UI.zoom;
   const busy = UI.anim.length > 0;
@@ -2409,7 +2468,7 @@ function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line s
    without touching anything; I don't want to swipe'): the zoom and centre that hold every man of both teams on the glass,
    his whole box (feet to head, his figure's width) inside the strip and the bar, never closer than the man's stop. The ground
    zooms; the man does not (rule 21). */
-const FIT_PAD = 8, FIG_HALF = 0.3, FIT_CLOSER = 1.15;
+const FIT_PAD = 8, FIG_HALF = 0.3, FIT_CLOSER = 1.15, FOUR_ROOM = 4;
 function fitBoth(more) {
   const on = FIGHT.S.units.filter(FIGHT.onField).map(function (v) { return { x: v.x, y: v.y }; }).concat(more || []);
   if (!on.length) return { z: UI.near, cx: UI.cx, cy: UI.cy };
@@ -2418,9 +2477,17 @@ function fitBoth(more) {
   const ah = H - TOPH - BOTH, side = FIT_PAD + manH() * FIG_HALF;
   const span = Math.max((y1 - y0) * UI.th, 1), room = ah - FIT_PAD * (1 + 1);
   let zh = (room - MAN_IDLE) / span; if (zh * UI.th * MAN_ROWS < MAN_IDLE) zh = room / (span + MAN_ROWS * UI.th);
-  const z = Math.min(UI.near, (W - (FIT_PAD + MAN_IDLE * FIG_HALF) * (1 + 1)) / Math.max((x1 - x0) * UI.tw, 1), zh);
-  if (z < UI.far) UI.far = z;   /* the pinch's far stop never sits closer than both teams */
-  const m = Math.min(MAN_IDLE, MAN_ROWS * UI.th * z);
+  /* UPRIGHT (his eleventh votes: 'whatever the biggest troop size is, four tiles south of the bottom person, four tiles north
+     of the top person'): the frame holds the longest line the formation has (slots_per_row) and FOUR_ROOM tiles past it */
+  if (H > W) {
+    const ty0 = Math.min.apply(null, on.map(function (v) { return v.y; })), ty1 = Math.max.apply(null, on.map(function (v) { return v.y; }));
+    const rows = Math.max(ty1 - ty0 + 1, R('ours.formation').slots_per_row) + FOUR_ROOM * (1 + 1);
+    const zu = Math.max(UI.coverFar || UI.far, Math.min(UI.near, (W - (FIT_PAD + MAN_IDLE * FIG_HALF) * (1 + 1)) / Math.max((x1 - x0) * UI.tw, 1), ah / (rows * UI.th)));
+    return { z: zu, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: (ty0 + ty1 + 1) / (1 + 1) * UI.th };
+  }
+  const z = Math.max(UI.coverFar || UI.far, Math.min(UI.near, (W - (FIT_PAD + MAN_IDLE * FIG_HALF) * (1 + 1)) / Math.max((x1 - x0) * UI.tw, 1), zh));
+  if (z < UI.far) UI.far = z;   /* the pinch's far stop never closer than both teams */
+  const m = H > W ? MAN_IDLE : Math.min(MAN_IDLE, MAN_ROWS * UI.th * z);
   return { z: z, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: (y0 + y1) / (1 + 1) * UI.th - m / z / (1 + 1) };
 }
 function allFramed(more) { return FIGHT.S.units.filter(FIGHT.onField).concat(more || []).every(function (v) { const b = manBox(v.x, v.y); return b.x - manH() * FIG_HALF >= 0 && b.x + manH() * FIG_HALF <= W && b.head >= TOPH && b.feet <= H - BOTH; }); }
