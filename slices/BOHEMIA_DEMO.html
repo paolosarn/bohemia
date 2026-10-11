@@ -1563,7 +1563,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/11c - THE BREATH AFTER THE DOOR</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/11f - THE MAP ANSWERS AFTER BEGIN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11343,7 +11343,8 @@ function cityBreathLater(plan){
 function cityBreathTick(){
   if(CAST_BREATH.busy||!CAST_BREATH.queue.length) return;
   CAST_BREATH.busy=true;
-  const go=()=>{ CAST_BREATH.busy=false; cityBreathStep(); };
+  /* and in the demo not while his party is on the road (__THE_CROWD_WAITS_ITS_TURN__): the six stand in their stills */
+  const go=()=>{ CAST_BREATH.busy=false; if(window.__PLAY_BEGAN && CAST_SPLIT() && MAP_MOVING()){ cityBreathTick(); return; } cityBreathStep(); };
   /* not before the world is ready (the same main thread loads it); before BEGIN as fast as it can, the door is still;
      after BEGIN only when the page is idle, a facing at a time, never a long freeze on the beat */
   if(!window.__LOAD_READY){ setTimeout(()=>{ CAST_BREATH.busy=false; cityBreathTick(); },250); return; }
@@ -11351,6 +11352,7 @@ function cityBreathTick(){
 }
 function cityBreathStep(){
   const job=CAST_BREATH.queue.shift(); if(!job) return;
+  if(window.__PLAY_BEGAN && CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.breath++;   /* a receipt: must stay 0 */
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow){ CAST_BREATH.queue.unshift(job); setTimeout(cityBreathTick,500); return; }
   const L=job.L, PD=['shirt','jacket','pants','shoes','hat','glasses','hair'], kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
@@ -11472,6 +11474,23 @@ function citySendCast(){
    bake, which proved this bus works without a visible stall.
    NO NEW MECHANISM: same withLook borrow-and-give-back, same bakeCast, the same CAST_PX frames, the
    same four breath phases on the 120 BPM clock, the same message the first cast uses. */
+/* __THE_CROWD_WAITS_ITS_TURN__ (RUN 10/11, [ten seconds to play]). MEASURED, the demo at 4x served like Pages: the
+   twenty seconds after BEGIN were 93% frozen, and after the map's own two (the act faces, the morning ring) the rest
+   was this file: six more people (a whole person a task, 530 ms at full speed) and twelve people's walks (285 ms a
+   task), on top of his walk and the six's breath, all in the first half minute and all under his first taps.
+   In the demo the crowd's two passes now (1) wait for HIS walk and the six's breath to land first, (2) wait while
+   his party is moving on the map (the marker needs the frames; the crowd keeps breathing, nothing is drawn that was
+   not baked), and (3) bake ONE FACING A TASK, posting a person only when all eight facings are done, the same
+   message as before. The frames are the same calls in the same order; only when they run changes. */
+function MAP_MOVING(){ const s=window.BOH_MAP_STATE; return !!(s && s.moving); }
+/* A RECEIPT, counted where the work runs and not where the hold is: a step that ran while the map said moving */
+const ROAD_RECEIPT={breath:0,crowd:0,walk:0}; window.ROAD_RECEIPT=ROAD_RECEIPT;
+function CROWD_HOLD(){
+  if(!CAST_SPLIT()) return false;
+  if(PWALK.open || CAST_BREATH.busy || CAST_BREATH.queue.length) return true;
+  return MAP_MOVING();
+}
+window.CROWD_HOLD=CROWD_HOLD;
 let CREST=null;                                   /* the lazy pass, once per session */
 function cityBakeRestLater(){
   if(CREST) return false;
@@ -11483,18 +11502,23 @@ function cityBakeRestLater(){
   const step=()=>{
     const fr=document.getElementById('cityFrame');
     if(!fr||!fr.contentWindow){ CREST=null; return; }   /* city closed: stop, do not spin */
+    if(CROWD_HOLD()){ idle(step); return; }
+    if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.crowd++;
     const src=(window.CITY_CAST_LOOKS||[])[CREST.i];
     if(!src){ CREST.done=true; return; }
-    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
+    /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
+    if(!CREST.L||CREST.L.id!==src.id) CREST.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
+    const L=CREST.L, todo=CAST_SPLIT()?DIRS.filter(d=>!L.dirs[d]).slice(0,1):DIRS.filter(d=>!L.dirs[d]);
     const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
     const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
     PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
     try{
       window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
       rebuildFromRig();
-      for(const d of DIRS){
-        L.dirs[d]={idle:bakeCast(d,'idle',0.25,true),
-                   breathe:CAST_PHS.map(ph=>bakeCast(d,'idle',ph,true))};
+      for(const d of todo){
+        /* the still IS the breath's 0.25 picture (the same call), as the boot six's are */
+        const br=CAST_PHS.map(ph=>bakeCast(d,'idle',ph,true)), at=CAST_PHS.indexOf(0.25);
+        L.dirs[d]={idle:at>=0?br[at]:bakeCast(d,'idle',0.25,true), breathe:br};
       }
     }catch(_e){ CREST=null; return; }
     finally{
@@ -11505,10 +11529,11 @@ function cityBakeRestLater(){
       try{ rebuildFromRig(); }catch(_e){}
       try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
     }
+    if(DIRS.some(d=>!L.dirs[d])){ idle(step); return; }
     try{ fr.contentWindow.postMessage(
       {type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,
        looks:[{id:L.id,dirs:L.dirs}]},'*'); }catch(_e){}
-    CREST.i++;
+    CREST.L=null; CREST.i++;
     if(CREST.i<all) idle(step); else CREST.done=true;
   };
   idle(step);
@@ -11535,16 +11560,20 @@ function cityBakeWalkLater(){
   const step=()=>{
     const fr=document.getElementById('cityFrame');
     if(!fr||!fr.contentWindow){ CWALK=null; return; }
+    if(CROWD_HOLD()){ idle(step); return; }
+    if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.walk++;
     const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
     if(!src){ CWALK.done=true; return; }
-    const L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult'}, dirs={};
+    /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
+    if(!CWALK.L||CWALK.L.id!==src.id) CWALK.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
+    const L=CWALK.L, dirs=L.dirs, todo=CAST_SPLIT()?DIRS.filter(d=>!dirs[d]).slice(0,1):DIRS.filter(d=>!dirs[d]);
     const PD=['shirt','jacket','pants','shoes','hat','glasses','hair'];
     const kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
     PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
     try{
       window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age;
       rebuildFromRig();
-      for(const d of DIRS) dirs[d]=CAST_WALK_PHS.map(ph=>bakeCast(d,'walk',ph,true));
+      for(const d of todo) dirs[d]=CAST_WALK_PHS.map(ph=>bakeCast(d,'walk',ph,true));
     }catch(_e){ CWALK=null; return; }
     finally{
       /* PUT HIS BODY BACK: the same guarantee citySendCast makes */
@@ -11553,8 +11582,9 @@ function cityBakeWalkLater(){
       try{ rebuildFromRig(); }catch(_e){}
       try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){}
     }
+    if(DIRS.some(d=>!dirs[d])){ idle(step); return; }
     try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:L.id,dirs:dirs},'*'); }catch(_e){}
-    CWALK.i++;
+    CWALK.L=null; CWALK.i++;
     if(CWALK.i<all) idle(step); else CWALK.done=true;
   };
   idle(step);
@@ -12592,6 +12622,7 @@ function combatMsgIn(d){
     return true;
   }
   if(d.type==='BOHEMIA_CITY_NEED_PLAYER'){
+    try{ const cf=document.getElementById('cityFrame'); if(cf) cf.__askedPlayer=true; }catch(_e){}   /* __THE_LATE_LOAD_IS_NOT_A_SECOND_BOOT__ */
     citySendPlayer();
     return true;
   }
@@ -12626,6 +12657,7 @@ function combatMsgIn(d){
        have to guess about. */
     const cf=document.getElementById('cityFrame');
     const sv=CITYSAVE.load();
+    if(cf) cf.__askedRestore=true;   /* __THE_LATE_LOAD_IS_NOT_A_SECOND_BOOT__ */
     if(cf&&cf.contentWindow)try{
       cf.contentWindow.postMessage((sv&&sv.data)?{bohemiaCityRestore:sv.data}
                                                :{bohemiaCityRestoreNone:1},'*');
@@ -13821,8 +13853,14 @@ const PREFAB_B64='PCFET0NUWVBFIGh0bWw+PGh0bWw+PGhlYWQ+PG1ldGEgY2hhcnNldD0idXRmLT
        view (tap a plot: DEMOLISH / BUILD / BUILD BIG), not a separate flat map. */
     fr.src=CITY_SRC;
     document.getElementById('p-city').appendChild(fr);
-    fr.addEventListener('load',()=>{setTimeout(citySendPlayer,120);setTimeout(cityGoToRunCell,300);setTimeout(()=>{ if(G._prefabApproved)try{fr.contentWindow.postMessage({bohemiaPrefabApproved:G._prefabApproved},'*');}catch(e){} },200);
-      setTimeout(()=>{ const sv=CITYSAVE.load(); if(sv&&sv.data){ try{fr.contentWindow.postMessage({bohemiaCityRestore:sv.data},'*');}catch(e){} if(sv.prefabs&&!G._prefabApproved){G._prefabApproved=sv.prefabs;try{fr.contentWindow.postMessage({bohemiaPrefabApproved:sv.prefabs},'*');}catch(e){}} } },320);});}
+    /* __THE_LATE_LOAD_IS_NOT_A_SECOND_BOOT__ (RUN 10/11, [ten seconds to play]): the frame's load event waits for every
+       script the page adds, and the map adds its 26 MB of street sprites after it draws, so on the demo at 4x this fired
+       about 12 s after BEGIN, after his first trip: it sent his body again (his walk baked over), and put the save back
+       (2.3 s frozen, and a save a beat behind would put him back where he was). In the demo, what the map already ASKED
+       for and got (his body, its save) is not sent again here; anything it never asked for still is. */
+    const LATE=n=>!!(window.__BOHEMIA_DEMO_BUILD && fr['__asked'+n]);
+    fr.addEventListener('load',()=>{setTimeout(()=>{ if(!LATE('Player')) citySendPlayer(); },120);setTimeout(cityGoToRunCell,300);setTimeout(()=>{ if(G._prefabApproved)try{fr.contentWindow.postMessage({bohemiaPrefabApproved:G._prefabApproved},'*');}catch(e){} },200);
+      setTimeout(()=>{ const sv=CITYSAVE.load(); if(sv&&sv.data){ if(!LATE('Restore')) try{fr.contentWindow.postMessage({bohemiaCityRestore:sv.data},'*');}catch(e){} if(sv.prefabs&&!G._prefabApproved){G._prefabApproved=sv.prefabs;try{fr.contentWindow.postMessage({bohemiaPrefabApproved:sv.prefabs},'*');}catch(e){}} } },320);});}
   else if(PANEL==='city'&&!window.CITY_HOME_FROM_FIGHT){ citySendPlayer(); try{citySendCast();}catch(_e){} }   /* CITY CAST; not on the way home from a fight: __THE_WAY_HOME_IS_INSTANT__ */
   if(t.dataset.p==='prefab'&&!document.getElementById('prefabFrame')){
     const fr=document.createElement('iframe');fr.id='prefabFrame';fr.allow='clipboard-write';

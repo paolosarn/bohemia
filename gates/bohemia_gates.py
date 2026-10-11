@@ -2520,6 +2520,14 @@ GATES = [
      'reload, a build check 15 s in). NOW 16.3 -> 5.2 s at full speed; at 4x BEGIN ready 75 -> about 22 s, 27.1 -> 3.2 MB. HOLDS: '
      'the street drawn 0 ms and its lines 0 ms before BEGIN; the boards 0 ms; at most two rebuilds a person; the still is the '
      'breath\'s frame; seated on the map; the page fetched once in its first 20 s; the workshop unchanged. Mutations, six, each red.', True),
+    ('THE MAP ANSWERS AFTER BEGIN', ['node', 'gates/the_map_answers_after_begin_gate.js'],
+     'VAMILY [ten seconds to play] round three (Paolo 10/5: "I gotta wait 40 seconds"). MEASURED at 4x served like Pages: the 20 s '
+     'after BEGIN were 93% frozen, the longest 3.9 to 5.7 s: the act faces built nine street blocks to find nobody, the morning '
+     'ring built six in one task, every street sprite was made a picture in one task, the crowd baked a whole person a task, and '
+     'the late load put the save back. NOW the act faces skip the street, the ring builds a block a task, the sprites go in 6 ms '
+     'handfuls, the crowd a facing a task and never while he travels, the late load sends nothing already asked for. HOLDS: the '
+     'first tap moves the party (the link to his first block, printed); no freeze over 2.5 s after BEGIN; no bake step while '
+     'moving; the crowd\'s frames the same as the whole-person bake; no save put back after BEGIN. Mutations, six, each red.', True),
     ('A FRESH PHONE SEES THE DOOR', ['node', 'gates/a_fresh_phone_sees_the_door_gate.js'],
      'VAMILY [a fresh phone sees the door] (EYES 1bdc7023: a wiped phone read "no title, no picks, a mid-game city in two '
      'seconds"). MEASURED: real touches never got past the title; a script\'s click on the door\'s BEGIN did, and the '

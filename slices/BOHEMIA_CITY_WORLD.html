@@ -68312,6 +68312,11 @@ function ctFaceReads(who){
   try {
     var id = String(who);
     if (id === 'you') return 'either';
+    /* __THE_ACTS_ARE_NOT_ON_THE_STREET__ (RUN 10/11, [ten seconds to play]): the flip strip's three ids
+       ('act1', 'act2~s0~he'...) are never a street person, and ctPersonName looked for them in ctEveryone(),
+       which built the street's nine blocks of people (3 s frozen at 4x, right after BEGIN on the map) to find
+       nobody and answer 'either'. The same answer, without the search. */
+    if (/^act[123]/.test(id)) return 'either';
     var nm = ctPersonName(id);
     if (!nm) return 'either';
     return BohemiaPeople.readsAs(nm) || 'either';
@@ -71026,25 +71031,44 @@ FACADE_DOOR_BANK=IN_DOOR_IMG;   /* ONE DOOR, INSIDE AND OUT: the facade pass and
 function __tilesArrived(){
   try{
     var left=0, armed=false, flushed=false, ticks=0;
-    function done(){ if(--left<=0) armed=true; }
+    var queued = false;
+    function done(){ if(--left<=0 && !queued) armed=true; }   /* not before the last handful is made */
     function mk(src){ left++; var im=new Image(); im.onload=done; im.onerror=done; im.src=src; return im; }
 
-    for(var hk in HERO_SRC){ if(!HERO_IMG[hk]) HERO_IMG[hk]=mk(HERO_SRC[hk]); }
-    for(var tk in TP_TILES){ if(!TP_IMG[tk]) TP_IMG[tk]=TP_TILES[tk].map(function(b){
-      return mk('data:image/png;base64,'+b); }); }
+    /* __THE_SPRITES_IN_SMALL_HANDFULS__ (RUN 10/11, [ten seconds to play]). Every sprite of the 26 MB bank was made a
+       picture in ONE task here, and a picture made from a data: address is decoded on the page's own thread:
+       measured, 1.1 s frozen at full speed, 4.9 s at 4x, a few seconds after BEGIN on the demo's map. The same
+       pictures in the same order, but made in handfuls of about 6 ms each and the page let breathe between them.
+       The countdown below is armed only when the last handful is in, as before. */
+    var Q = [];
+    for(var hk in HERO_SRC){ if(!HERO_IMG[hk]) (function(k){ Q.push(function(){ HERO_IMG[k]=mk(HERO_SRC[k]); }); })(hk); }
+    /* a family is handed over whole, after its last picture is made: nothing reads a half-made family */
+    for(var tk in TP_TILES){ if(!TP_IMG[tk]) (function(k){ var arr=[];
+      TP_TILES[k].forEach(function(b, i){ Q.push(function(){ arr[i]=mk('data:image/png;base64,'+b); }); });
+      Q.push(function(){ TP_IMG[k]=arr; }); })(tk); }
     if(TP_CATS.length!==Object.keys(TP_TILES).length){
       TP_CATS.length=0; for(var ck in TP_TILES) TP_CATS.push(ck);
       if(!TP.cat) TP.cat=TP_CATS[0];      /* TP.cat was read off an empty TP_CATS at parse time */
     }
     if(!DOOR_ANIM_IMG.length && DOOR_ANIM.length){
-      DOOR_ANIM.forEach(function(cl){ DOOR_ANIM_IMG.push(cl.map(function(b){
-        return mk('data:image/png;base64,'+b); })); });
+      DOOR_ANIM.forEach(function(cl){ var arr=[];
+        cl.forEach(function(b, i){ Q.push(function(){ arr[i]=mk('data:image/png;base64,'+b); }); });
+        Q.push(function(){ DOOR_ANIM_IMG.push(arr); }); });
     }
-    if(left===0) armed=true;               /* nothing to wait for: the banks were already full */
+    queued = true;
+    (function pump(){
+      var t0 = performance.now();
+      while(Q.length && performance.now() - t0 < 6) Q.shift()();
+      if(Q.length){ setTimeout(pump, 0); return; }
+      queued = false;
+      if(left===0) armed=true;             /* nothing to wait for: the banks were already full */
+      /* A BACKSTOP ON THE DECODE (below), counted from the last handful */
+      setTimeout(function(){ armed=true; }, 8000);
+    })();
+    window.__TILES_PUMP = function(){ return { left: Q.length, queued: queued }; };
     /* A BACKSTOP ON THE DECODE. If one sprite never fires onload the countdown never reaches
        zero and the world stays flat forever -- a silent, permanent failure. Eight seconds is
        far longer than a decode and far shorter than a player's patience. */
-    setTimeout(function(){ armed=true; }, 8000);
 
     /* A RECEIPT, because every silent failure this feature has had looked exactly like
        success from the outside. The gate reads it; so does anybody debugging a flat world. */
@@ -83733,7 +83757,43 @@ document.getElementById('sleepbtn').addEventListener('click',function(){
 var RESTORE_ANSWERED=false;
 function bootWake(){
   if(window.__BOOTED_WAKE)return; window.__BOOTED_WAKE=true;
-  if(!DAY_RESTORED) showWake(); else updQline();
+  if(!DAY_RESTORED){ if(CT_IS_DEMO) wakeWarm(showWake); else showWake(); } else updQline();
+}
+/* __THE_RING_WAITS_FOR_ITS_STREET__ (RUN 10/11, [ten seconds to play]). The morning's offer says how far the job's
+   people are (offerRing -> castAddresses), and finding them builds the street's people block by block: on the
+   demo's map six blocks in ONE task, 3.9 s frozen at 4x a second after BEGIN, under his first tap. Here the same
+   search is run dry first (a block not built yet answers "nobody"), the first block it would have opened is built,
+   ONE A TASK on the page's idle time, and again until the search opens nothing new; then the ring. The search is
+   pure and visits blocks in a fixed order, so it builds exactly the blocks the real ring would, and the ring that
+   follows is the same ring, just a block's work at a time instead of all at once, and none while his party is on
+   the road. The demo only. */
+var WAKE_WARM = { built: 0, done: false, onRoad: 0 };
+function wakeWarm(then){
+  var Q = null;
+  try { var spec = DQ.specForDay(DAY.day); Q = spec ? BQ.parse(DEMO_BQ[spec.file]) : null; } catch(_e){ Q = null; }
+  if(!Q || !(Q.roles || []).length || typeof PPL_PEOPLE === 'undefined'){ WAKE_WARM.done = true; return then(); }
+  var later = function(fn){ return window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 60); };
+  var step = function(){
+    /* and not while his party is on the road: the marker gets the page */
+    var onRoad = false; try { onRoad = !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length && TRAVEL_SPEED > 0); } catch(_e){}
+    if(onRoad){ later(step); return; }
+    try { if(TRAVEL && TRAVEL.path) WAKE_WARM.onRoad++; } catch(_e){}   /* a receipt, where the work runs: must stay 0 */
+    var miss = null;
+    try {
+      var fresh = PPL_RULES_V === BohemiaPopulation.rulesVersion();
+      BohemiaPeople.castAddresses(Q.roles, {
+        peopleAt: function(bx, by){
+          if(fresh && PPL_PEOPLE.has(bx + ',' + by)) return ctPeopleAt(bx, by);
+          if(!miss) miss = [bx, by];
+          return [];
+        },
+        originFor: ctOriginFor, radius: CT_DAYCAST_R, questId: Q.id || '',
+        factionOf: function(w){ return ctFactionOf(w.__p); } });
+    } catch(_e){ miss = null; }
+    if(miss && WAKE_WARM.built < 60){ ctPeopleAt(miss[0], miss[1]); WAKE_WARM.built++; later(step); return; }
+    WAKE_WARM.done = true; then();
+  };
+  later(step);
 }
 try{ if(window.parent&&window.parent!==window)
   window.parent.postMessage({bohemiaCityNeedRestore:1},'*'); }catch(_e){}
