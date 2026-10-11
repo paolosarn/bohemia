@@ -9,6 +9,11 @@ cut and recoloured pack parts beside the pack original'). records/ only. Every p
   * decals: darken-only, his broken road tiles' darkest cracks (street pack 29-33), seeded, a few per board.
 Then the seven numbers of every output cell are checked against the family's range (the recipes' family_sheet).
   python3 tools/bohemia_cook2_stretch_the_pack_crossing_10_11_26.py
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers and skills/bohemia-pixel-art (load it first), AH-01 and AH-03. The source is his own tiles.
+No reference game.
 """
 import json, os, sys
 import numpy as np
