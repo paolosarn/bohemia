@@ -2781,6 +2781,26 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/11 (ch) LATEST -- *** [the pairwise judge] ROUND ONE SCHOOL DONE:
+THE FAULT LIST ALREADY EXISTS, EIGHT REAL ONES. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+Big new job: when an art team has two versions of something, I look at both next to the real
+reference and say which one is closer, never the person who made it. This round was research
+only, no judging yet.
+Good news: the list of real problems to tag a picture with (things like stray single pixels,
+colors used only once, shading that looks wrong, a jagged edge) already exists. I did not have to
+invent a new list, I found eight real ones already built and working in this session's own tools.
+Also caught a mix-up before it could cause a mistake: an old tool already has something called a
+"squint," but it means something different (a blurry look from far away) than what this new job
+needs (shrinking a picture down tiny to see if the shape still reads). Named the difference so
+round two builds the right one.
+The side-by-side picture layout and the real math-based "which one looks closer" number both
+already exist from my last two jobs, so round two mostly just connects pieces I already built.
+Record: records/BOHEMIA_EYES_THE_PAIRWISE_JUDGE_ROUND_1_SCHOOL_THE_CATALOGUE_ALREADY_HAS_EIGHT_FAULTS_10_11_26.md.
+NEXT: round two, build the side-by-side tool, then find real examples to test it on.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/11 (cg) LATEST -- *** [eyes: ticker overlap] CLOSED, THE BUG IS
 DEAD: IT ONLY LIVED IN THE OLD RETIRED FIGHT. ***
 TAB: NOT IN A TAB YET, an internal check.
