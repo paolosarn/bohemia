@@ -20700,6 +20700,7 @@ OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. 
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
 === COOK FOUR: ONE HOUSE THE PACK'S WAY (10/10, cook4)
+[one at a time] asset: THE CORNER SHOP in VOTE (cook4-the-corner-shop-10-11). Waiting on his word for the house (cook4-a-house-a-man-can-live-in-10-11) and the shop. NEXT: a third kind (the motel or the gas station) at true size, or his correction first.
 [a house a man can live in] CLAIMED, round 1 in VOTE (cook4-a-house-a-man-can-live-in-10-11): roof top AND front at 45 degrees, true size, character beside the door. HIS VOTES READ: settlement UP ('very far from final'), house one UP ('good direction, not final, a house for an elf'). NEXT: his word; the moodboard (rule 108 round thirteen) gates any FINAL.
 HIS NOTE: 'a garage in one garage': fixed, one roll-up door (cook4-the-ranch-one-garage-door-10-11). RULE OF THIS LANE: a part that exists once (door, window, sign) is drawn once at its size; only surfaces (wall, roof, ground) are laid.
 HIS CORRECTION: buildings at the character's true size (57 px a metre, the body measured). Houses one and two were one tile big: WRONG. The ranch redone at true size in VOTE (cook4-the-ranch-true-size-10-10), the character at the door. NEXT: the two-storey town shop at true size, the character on the sheet.

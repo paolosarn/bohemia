@@ -8000,23 +8000,72 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "character-the-dogshit-look-has-one-root-cause-10-11",
+   "kind": "line",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/11",
+   "title": "EVERY REPAINT SITS ON TOP OF A FORMULA, NOT A DRAWING",
+   "why": "You keep saying characters look like dog shit even after a repaint, and I found the one function that draws every body in the game by running numbers instead of real art, which is why paint on top never fixes it. You see it in the record, no tab, this is a diagnostic for the team already building the real replacement.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md\n\nSeen in: no tab, this is a diagnostic record, no pixel moved."
+   }
+  },
+  {
+   "id": "combat-light-that-interacts-10-11",
+   "kind": "tile",
+   "lane": "combat",
+   "sha": "09b7308",
+   "made": "10/11",
+   "title": "THE LIGHT FALLS SQUARE BY SQUARE",
+   "why": "At night a lamp now lights the squares around it one by one, the nearest brightest and the next ones dimmer, walls leave the squares behind them dark, and a man standing in the light throws a shadow away from the lamp, where before the light was an oval laid over everything. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_LIGHT_THAT_INTERACTS_10_11.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "animation-the-fall-10-11",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "fc8bc79e",
+   "made": "10/11",
+   "title": "FINAL? THE FALL: HE GOES OVER AND LIES FLAT",
+   "redoOf": "animation-the-fights-clips-10-9",
+   "said": "The Animation of People, ragged Daling, and falling down is so broken. It's so dog shit.",
+   "why": "A man struck down now takes the hit, goes over like a body and lies flat on the floor with his head on the ground, in all eight directions; before, he sank upright into a knot and the dead were drawn upside down with their feet in the air. You see it in the VOTE tab playing at the game's own size, before beside now, and nothing is in the fight until you say final.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_FALL.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "cook4-the-corner-shop-10-11",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/11",
+   "title": "FINAL? THE CORNER SHOP, TWO STOREYS, ITS FLAT ROOF SEEN FROM ABOVE",
+   "why": "You said I fell in love with roofs, so this one is a different kind of building: a two-storey Vegas corner shop at real size with a storefront, a striped awning, a roll-down shutter and the flat upstairs, its flat roof top seen from above at 45 degrees, all built from your tiles. You see it in the VOTE tab with the man at its door and your pack house and stall beside it, all at 1:1.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_CORNER_SHOP.png"
+   },
+   "twin": {
+    "src": "pack:8. Market Stalls#2",
+    "diffs": [
+     "KIND: his pack has no shop building; ours is the first flat-roofed one, made from his plaster, concrete, windows, door, shutter and his stall's own striped awning.",
+     "TOP: like his house, the top reads about as tall as one storey from above; here it is his cracked concrete behind a lit parapet lip, not a roof of tiles.",
+     "SIZE: 9 metres by two storeys against a 1.75 metre man, the door 2.1 metres, every piece at its own pixels."
+    ]
+   },
+   "draft": true
   }
-,
-    {
-     "id": "character-the-dogshit-look-has-one-root-cause-10-11",
-     "kind": "line",
-     "lane": "character",
-     "sha": "pending",
-     "made": "10/11",
-     "title": "EVERY REPAINT SITS ON TOP OF A FORMULA, NOT A DRAWING",
-     "why": "You keep saying characters look like dog shit even after a repaint, and I found the one function that draws every body in the game by running numbers instead of real art, which is why paint on top never fixes it. You see it in the record, no tab, this is a diagnostic for the team already building the real replacement.",
-     "show": {
-      "how": "text",
-      "src": "records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md\n\nSeen in: no tab, this is a diagnostic record, no pixel moved."
-     }
-    },
-  {"id": "combat-light-that-interacts-10-11", "kind": "tile", "lane": "combat", "sha": "09b7308", "made": "10/11", "title": "THE LIGHT FALLS SQUARE BY SQUARE", "why": "At night a lamp now lights the squares around it one by one, the nearest brightest and the next ones dimmer, walls leave the squares behind them dark, and a man standing in the light throws a shadow away from the lamp, where before the light was an oval laid over everything. Start a night fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_LIGHT_THAT_INTERACTS_10_11.jpg"}, "draft": true},
-  {"id": "animation-the-fall-10-11", "kind": "animation", "lane": "animation", "sha": "fc8bc79e", "made": "10/11", "title": "FINAL? THE FALL: HE GOES OVER AND LIES FLAT", "redoOf": "animation-the-fights-clips-10-9", "said": "The Animation of People, ragged Daling, and falling down is so broken. It's so dog shit.", "why": "A man struck down now takes the hit, goes over like a body and lies flat on the floor with his head on the ground, in all eight directions; before, he sank upright into a knot and the dead were drawn upside down with their feet in the air. You see it in the VOTE tab playing at the game's own size, before beside now, and nothing is in the fight until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_THE_FALL.html"}, "draft": true}
  ],
  "verdicts": [
   {
