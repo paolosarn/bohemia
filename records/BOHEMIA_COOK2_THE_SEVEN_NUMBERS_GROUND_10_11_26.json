@@ -1,0 +1,120 @@
+{
+ "1. Cracked contrete tiles": {
+  "family": "1. Cracked contrete tiles",
+  "n": 42,
+  "outline_px": [
+   0,
+   4
+  ],
+  "light_clock": [
+   1,
+   2,
+   10,
+   11,
+   12
+  ],
+  "sat_median": [
+   0.18,
+   0.46
+  ],
+  "cluster_run": [
+   1.01,
+   1.06
+  ],
+  "palette": [
+   4249,
+   7433
+  ],
+  "ramp_steps": [
+   19,
+   30
+  ],
+  "footprints": [
+   [
+    96,
+    79
+   ],
+   [
+    96,
+    80
+   ],
+   [
+    96,
+    81
+   ],
+   [
+    96,
+    82
+   ],
+   [
+    96,
+    87
+   ],
+   [
+    96,
+    88
+   ],
+   [
+    96,
+    89
+   ],
+   [
+    96,
+    94
+   ],
+   [
+    96,
+    95
+   ]
+  ]
+ },
+ "1. Cracked street tiles": {
+  "family": "1. Cracked street tiles",
+  "n": 34,
+  "outline_px": [
+   0,
+   4
+  ],
+  "light_clock": [
+   1,
+   2,
+   10,
+   11,
+   12
+  ],
+  "sat_median": [
+   0.06,
+   0.12
+  ],
+  "cluster_run": [
+   1.01,
+   1.05
+  ],
+  "palette": [
+   2422,
+   4612
+  ],
+  "ramp_steps": [
+   14,
+   26
+  ],
+  "footprints": [
+   [
+    92,
+    96
+   ],
+   [
+    93,
+    96
+   ],
+   [
+    94,
+    96
+   ],
+   [
+    95,
+    96
+   ]
+  ]
+ }
+}
