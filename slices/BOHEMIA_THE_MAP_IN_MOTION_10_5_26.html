@@ -8,14 +8,22 @@
      real-material pieces the row names: the party's steps on asphalt and on dirt (two
      beds, the road faster -- footstepWalk's own perBeat read as the game's own travel-
      speed ratio), the night's insects (a dense click train, the same real mechanism as
-     the broadcast's lightning, band-limited to a cricket's own range), and the valley's
-     EXISTING approved weather (wind_gust, generator, dog_far) laid over the bed the way
-     it already plays for anyone standing still.
+     the broadcast's lightning, band-limited to a cricket's own range, kept as its own
+     standalone candidate), and the valley's wind_gust laid over the bed.
      TWO NAMED ITEMS ARE NOT HERE, SAID PLAINLY: "voices low" at a settlement and "the
      crew's shout" at a fight's approach are both vocal-sounding moments, and this
      lane's whole palette is struck/resonant/particle material, never a faked voice --
      building either one honestly needs a different technique than this page has, and a
      weak fake is worse than naming the gap.
+     CORRECTED 10/11 (his eleventh votes on this exact page, UP with three complaints):
+     "the travel clip at night is terrible so just use the day one for the night one
+     too" -- night and day now play the identical clip, the insects dropped out of it
+     entirely; "you don't have to fall in love with this fucked up generator humming
+     noises everywhere... the music is already there" -- the generator cue is cut from
+     the clip; "the dog sound effect has nothing to do with the dog" -- dog_far is cut
+     from the clip and off this page entirely: it is graveyarded (DOWN on all five of
+     its own candidates, GRAVEYARD IS FINAL), has no approved render, and never belonged
+     on a page that plays like it is live.
      NOT WIRED LIVE: unjudged = silent, same as every new sound this lane has shipped. -->
 <style>
   :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
@@ -46,14 +54,19 @@
 <h1>THE MAP IN MOTION</h1>
 <div class="sub">SOUNDS &middot; 10/5 &middot; travel has no sound at all right now</div>
 
-<div class="loud"><b>THE TRAVEL CLIP.</b> One button plays the whole thing in order: the road
-bed starts, the valley speaks over it (a gust, a generator, a dog, the way it already does
-standing still), the insects come up if it's night, then the bed thins as you arrive.</div>
+<div class="loud"><b>THE TRAVEL CLIP (CORRECTED, HIS ELEVENTH VOTES).</b> One button plays the
+whole thing in order: the road or dirt bed starts, a gust answers over it, then the bed
+thins as you arrive. Night plays the SAME clip as day now -- his words: "the travel clip
+at night is terrible so just use the day one for the night one too." No dog any more:
+"the dog sound effect has nothing to do with the dog, bro." No generator either: "you
+don't have to fall in love with this fucked up generator humming noises everywhere... the
+music is already there." The insects stay a standalone candidate below (section TWO),
+unjudged, never auto-added to this clip again.</div>
 
 <div class="card">
   <div class="row">
-    <button class="hero" id="clipRoad">PLAY THE TRAVEL CLIP -- ROAD, NIGHT</button>
-    <button class="hero" id="clipDirt">PLAY THE TRAVEL CLIP -- DIRT, DAY</button>
+    <button class="hero" id="clipRoad">PLAY THE TRAVEL CLIP -- ROAD</button>
+    <button class="hero" id="clipDirt">PLAY THE TRAVEL CLIP -- DIRT</button>
     <button id="clipStop">STOP</button>
   </div>
   <div class="num" id="clipNum"></div>
@@ -81,14 +94,12 @@ standing still), the insects come up if it's night, then the bed thins as you ar
   <div class="num" id="num-insects"></div>
 </div>
 
-<div class="part">THREE &middot; THE VALLEY ALREADY SPEAKS (approved, replayed here)</div>
+<div class="part">THREE &middot; THE VALLEY (approved, replayed here -- reference only, not the clip)</div>
 <div class="card">
-  <h2>A GUST, A GENERATOR, A DOG</h2>
-  <div class="why">All three are already his, already in the game standing still. This just proves they are the right volume to sit under a travel bed, not new content.</div>
+  <h2>JUST THE GUST</h2>
+  <div class="why">His eleventh votes took the generator and the dog out of the travel clip (the generator reads as this lane "falling in love with it", and the dog never sounded like one -- it was the graveyarded dog_far candidate, which has no approved render and does not belong on a page that plays like it is live). The gust alone is what the clip above now uses.</div>
   <div class="row">
     <button data-play="wind_gust">WIND</button>
-    <button data-play="generator">GENERATOR</button>
-    <button data-play="dog_far">DOG</button>
   </div>
   <div class="num" id="num-approved"></div>
 </div>
@@ -148,24 +159,24 @@ document.querySelectorAll('button[data-play]').forEach(function(b){
     b.classList.add('on');
   };
 });
-function playClip(surface, night, btn){
+/* CORRECTED (his eleventh votes): day and night now play the SAME clip -- no insects
+   added for night ("just use the day one for the night one too"), no generator ("you
+   don't have to fall in love with this... the music is already there"), no dog ("the
+   dog sound effect has nothing to do with the dog"). One gust, the bed, the thin-out:
+   the three things that are honestly travel, nothing bolted on. */
+function playClip(surface, btn){
   stopAll();
   made();
   var bedM = surface==='road' ? roadM : dirtM;
   var bed = playBuf(bedM.buffer, 0.55, true);
   btn.classList.add('on');
-  if(night){
-    var ins = playBuf(insM.buffer, 0.35, true);
-  }
-  // the valley speaks: a gust at 2s, a generator at 5s (closer -> arrival), a dog at 7s
+  // the valley speaks once: a gust at 2s
   clipTimers.push(setTimeout(function(){ playRecipe('wind_gust', 0.5); }, 2000));
-  clipTimers.push(setTimeout(function(){ playRecipe('generator', 0.5); }, 5000));
-  clipTimers.push(setTimeout(function(){ playRecipe('dog_far', 0.45); }, 7000));
   // thins at 9s: the bed stops, signalling arrival
   clipTimers.push(setTimeout(function(){ stopAll(); }, 10000));
 }
-document.getElementById('clipRoad').onclick = function(){ playClip('road', true, this); };
-document.getElementById('clipDirt').onclick = function(){ playClip('dirt', false, this); };
+document.getElementById('clipRoad').onclick = function(){ playClip('road', this); };
+document.getElementById('clipDirt').onclick = function(){ playClip('dirt', this); };
 document.getElementById('clipStop').onclick = stopAll;
 function head(){
   made();
@@ -176,9 +187,9 @@ function head(){
   document.getElementById('num-insects').textContent =
     insM.clicks + ' clicks, band ' + insM.lo + '-' + insM.hi + ' Hz';
   document.getElementById('num-approved').textContent =
-    'these three play from the same approved candidates the game already uses standing still';
+    'wind_gust plays from the same approved candidate the game already uses standing still';
   document.getElementById('clipNum').textContent =
-    'the clip runs 10 s: bed in, a gust at 2 s, a generator at 5 s, a dog at 7 s, the bed thins at 10 s';
+    'the clip runs 10 s: bed in, a gust at 2 s, the bed thins at 10 s -- same for road or dirt, day or night';
 }
 head();
 

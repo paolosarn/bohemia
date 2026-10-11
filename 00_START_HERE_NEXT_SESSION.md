@@ -1,3 +1,20 @@
+SOUNDS (sound-xk7pjp): 10/11 LATEST (round fifteen, [the map's sounds]) --
+*** HIS THREE-IN-ONE COMPLAINT ON THE TRAVEL CLIP, ALL THREE FIXED. ***
+TAB: no new VOTE card; this fixes a judge page's demo clip, the material under it was
+already approved.
+Record: records/BOHEMIA_THE_TRAVEL_CLIP_CORRECTED_10_11_26.md.
+
+You voted up the travel footsteps but in the same breath said three things were wrong
+with the demo clip playing around them: the night version was worse than the day
+version, there was a generator sound that didn't need to be there since the music is
+already playing, and a dog sound that doesn't sound like a dog at all.
+
+Checked all three and you were right about everything. The dog sound was actually a
+sound you killed months ago that never got cleaned out of this one demo page. Fixed
+all three: night and day now sound the same, the generator is gone, the dog is gone
+for good. The footsteps themselves, which you liked, are untouched.
+PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/11 (a) LATEST -- *** HE JUDGED SIX OF THIS LANE'S ITEMS
 WHILE IT WAS HELD. ALL SIX YES, AND ONE IS A CORRECTION I AGREE WITH. *** Still
 on HOLD (rule 88), fifth VAMILY with no round; the hold was re-affirmed at sweep
