@@ -1,0 +1,620 @@
+{
+ "version": "BOHEMIA_PARTS_GRAMMAR_v1",
+ "made": "10/11/26",
+ "lane": "cook",
+ "row": "[the parts grammar]",
+ "law": "rule 108 ROUND EIGHT (a): no chat draws a pixel or a curve in code. Parts are rectangles, straight lines and straight-segment polygons. A curve in this file is a bug.",
+ "units": "every number is in FINAL pixels on the 96 floor; the composer multiplies by 4 before it writes the SVG, and shrinks by exactly 4 after",
+ "floor": 96,
+ "parts": {
+  "pole": {
+   "box": [
+    6,
+    70
+   ],
+   "shapes": [
+    {
+     "rect": [
+      2,
+      0,
+      2,
+      70
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      1,
+      0,
+      1,
+      70
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      4,
+      0,
+      1,
+      70
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "pole_foot": {
+   "box": [
+    12,
+    7
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      4,
+      12,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      2,
+      1,
+      8,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      2,
+      1,
+      8,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      6,
+      12,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "arm_step": {
+   "box": [
+    18,
+    12
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      8,
+      6,
+      2
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      5,
+      5,
+      6,
+      2
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      10,
+      2,
+      6,
+      2
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      14,
+      0,
+      4,
+      2
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      8,
+      6,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      5,
+      5,
+      6,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      10,
+      2,
+      6,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      14,
+      0,
+      4,
+      1
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "lamp_head": {
+   "box": [
+    16,
+    20
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       2,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       11,
+       0
+      ],
+      [
+       5,
+       0
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      5,
+      0,
+      6,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      1,
+      6,
+      14,
+      2
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      3,
+      8,
+      10,
+      9
+     ],
+     "ink": "glass"
+    },
+    {
+     "rect": [
+      5,
+      10,
+      6,
+      5
+     ],
+     "ink": "glow"
+    },
+    {
+     "rect": [
+      3,
+      17,
+      10,
+      2
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      3,
+      19,
+      10,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "wreck_body": {
+   "box": [
+    64,
+    22
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       10
+      ],
+      [
+       6,
+       4
+      ],
+      [
+       20,
+       2
+      ],
+      [
+       44,
+       2
+      ],
+      [
+       58,
+       5
+      ],
+      [
+       64,
+       11
+      ],
+      [
+       64,
+       20
+      ],
+      [
+       0,
+       20
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "poly": [
+      [
+       6,
+       4
+      ],
+      [
+       20,
+       2
+      ],
+      [
+       44,
+       2
+      ],
+      [
+       52,
+       5
+      ]
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      18,
+      64,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "wreck_cabin": {
+   "box": [
+    34,
+    14
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       4,
+       14
+      ],
+      [
+       8,
+       1
+      ],
+      [
+       26,
+       1
+      ],
+      [
+       31,
+       14
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "poly": [
+      [
+       9,
+       12
+      ],
+      [
+       12,
+       3
+      ],
+      [
+       22,
+       3
+      ],
+      [
+       25,
+       12
+      ]
+     ],
+     "ink": "glass"
+    },
+    {
+     "rect": [
+      8,
+      1,
+      18,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "poly": [
+      [
+       13,
+       5
+      ],
+      [
+       16,
+       5
+      ],
+      [
+       15,
+       11
+      ],
+      [
+       12,
+       11
+      ]
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "wheel": {
+   "box": [
+    14,
+    14
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       3,
+       0
+      ],
+      [
+       11,
+       0
+      ],
+      [
+       14,
+       3
+      ],
+      [
+       14,
+       11
+      ],
+      [
+       11,
+       14
+      ],
+      [
+       3,
+       14
+      ],
+      [
+       0,
+       11
+      ],
+      [
+       0,
+       3
+      ]
+     ],
+     "ink": "dark"
+    },
+    {
+     "poly": [
+      [
+       5,
+       3
+      ],
+      [
+       9,
+       3
+      ],
+      [
+       11,
+       5
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       5,
+       11
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       3,
+       5
+      ]
+     ],
+     "ink": "mid"
+    }
+   ]
+  },
+  "rust_patch": {
+   "box": [
+    10,
+    6
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      7,
+      2
+     ],
+     "ink": "rust"
+    },
+    {
+     "rect": [
+      3,
+      2,
+      7,
+      2
+     ],
+     "ink": "rust"
+    },
+    {
+     "rect": [
+      1,
+      4,
+      5,
+      2
+     ],
+     "ink": "rust"
+    }
+   ]
+  }
+ },
+ "inks": {
+  "lamp": {
+   "dark": "#000000",
+   "mid": "#3e311f",
+   "lit": "#803f11",
+   "shade": "#2d1e10",
+   "glass": "#352718",
+   "glow": "#fbf5c2",
+   "rust": "#a46526"
+  },
+  "wreck": {
+   "dark": "#000000",
+   "mid": "#37311e",
+   "lit": "#52482f",
+   "shade": "#242013",
+   "glass": "#3f2410",
+   "glow": "#b3b19b",
+   "rust": "#6d4522"
+  }
+ },
+ "compositions": {
+  "street_lamp": {
+   "canvas": [
+    56,
+    96
+   ],
+   "inks": "lamp",
+   "place": [
+    [
+     "pole",
+     20,
+     20
+    ],
+    [
+     "pole_foot",
+     17,
+     89
+    ],
+    [
+     "arm_step",
+     23,
+     8
+    ],
+    [
+     "lamp_head",
+     36,
+     17
+    ]
+   ]
+  },
+  "wrecked_car": {
+   "canvas": [
+    96,
+    58
+   ],
+   "inks": "wreck",
+   "place": [
+    [
+     "wheel",
+     10,
+     42
+    ],
+    [
+     "wheel",
+     70,
+     42
+    ],
+    [
+     "wreck_body",
+     16,
+     32
+    ],
+    [
+     "wreck_cabin",
+     30,
+     20
+    ],
+    [
+     "rust_patch",
+     24,
+     38
+    ],
+    [
+     "rust_patch",
+     58,
+     36
+    ],
+    [
+     "rust_patch",
+     44,
+     50
+    ]
+   ]
+  }
+ }
+}

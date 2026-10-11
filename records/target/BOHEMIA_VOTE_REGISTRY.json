@@ -8124,7 +8124,34 @@
    },
    "draft": true
   },
- {"id": "ui-the-flip-off-the-face-10-11", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/11", "title": "THE SWITCH IS IN THE PHONE'S MENU NOW", "why": "The family cards are off the phone's face for good; after the first crisis you tap the phone, then SWITCH TIMELINE, and your family is there to switch to. You see it on the map: the clean phone, and the opened phone after the crisis.", "show": {"how": "image", "src": "vote/UI_THE_FLIP_OFF_THE_FACE_10_11.png"}}
+ {"id": "ui-the-flip-off-the-face-10-11", "kind": "ui", "lane": "ui", "sha": "pending", "made": "10/11", "title": "THE SWITCH IS IN THE PHONE'S MENU NOW", "why": "The family cards are off the phone's face for good; after the first crisis you tap the phone, then SWITCH TIMELINE, and your family is there to switch to. You see it on the map: the clean phone, and the opened phone after the crisis.", "show": {"how": "image", "src": "vote/UI_THE_FLIP_OFF_THE_FACE_10_11.png"}},
+  {
+   "id": "cook-the-parts-grammar-10-11",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/11",
+   "title": "THE NO-DRAWING ROAD, RUN FOR REAL, AND WHAT IT ACTUALLY GETS YOU",
+   "why": "You said our graphics feel coded by a seventh grader, and the reason is that the chats were placing pixels one at a time as numbers in code, so this round built the road that stops that: parts in a file, composed as flat shapes, drawn by a real renderer, shrunk by exactly four and snapped to your own palette, with no pixel written anywhere. You see it in the VOTE tab, every stage of the road next to your own lamp and your own wrecked car at the same size, and the number that decides it: the top eight colours carry 9 percent of your tile and 100 percent of mine.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_PARTS_GRAMMAR.png"
+   },
+   "twin": {
+    "src": "pack:18. Light sources and fire barrels#0",
+    "diffs": [
+     "WHAT IT FIXES: nothing is drawn. 34 shapes in an editable grammar file go through resvg 0.44.0, a box shrink of exactly 4 and a palette read off the twin itself. The contour lands at -64.3 and -44.3 against his -52.6 and -49.0, so the shape and the edge are right.",
+     "WHAT IT DOES NOT FIX, AND THIS IS THE ANSWER: his lamp carries 1,521 colours and mine carries 5; his top eight carry 9% and mine carry 100%. That is the exact AI-slop measurement, and the parts road scores the worst it can score.",
+     "WHAT IT CANNOT DO AT ALL: a curve. His lamp arm sweeps and the law forbids drawing one, so mine is a staircase. The only way this road gets grain is by composing grain as shapes, which is drawing pixels again."
+    ]
+   },
+   "before_after": {
+    "before": "the way the chats made art until now: coloured rectangles placed one at a time as numbers in code",
+    "after": "the same two objects through the parts road, every stage shown, beside his own tiles at 1:1",
+    "scale": "1:1"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

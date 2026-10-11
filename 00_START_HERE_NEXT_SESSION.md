@@ -4364,6 +4364,90 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/11 (b) LATEST -- *** THE NO-DRAWING ROAD IS BUILT AND RUN FOR REAL,
+AND ITS HONEST SCORE IS THE WORST ONE THERE IS ON THE MEASUREMENT WE HAVE BEEN USING. ***
+
+0. THE ROW WAS [the parts grammar], rule 108 ROUND EIGHT (a): no chat draws a pixel or a curve
+in code. His words behind it, 10/11: "the limit of your graphics feels coded by a seventh
+grader." The research (UNLOCK THE LIMITS 02) said why: a language model is bad at placing
+pixels and bad at fine curves, and reliably good at laying simple shapes. So build the road
+that lets it only lay shapes.
+
+1. THE ROAD IS BUILT AND IT RUNS, END TO END, ON THIS MACHINE. resvg 0.44.0 installed this
+round (the real renderer the research names). The pipe:
+  a GRAMMAR, data, at banks/BOHEMIA_PARTS_GRAMMAR_10_11_26.json: 9 named parts, 34 shapes,
+    every size in the floor's pixels, a modder edits it
+  -> composed as SVG at FOUR TIMES, rect and straight polygon only; the composer REFUSES its
+     own output if it carries a path, a circle, an ellipse, a gradient or a filter
+  -> rasterized by resvg
+  -> shrunk by EXACTLY FOUR with a BOX filter (never bilinear, never a fraction)
+  -> snapped to a palette read off the TWIN ITSELF, no dither
+  -> one pixel of contour, to the prop study's measured -49.9
+NOT ONE PIXEL IS WRITTEN AS A NUMBER ANYWHERE IN THE TOOL. That is the law's whole point.
+
+2. PROVEN ON THE TWO THINGS THE ROW ASKS FOR, each beside its pack twin at 1:1: the first LAMP
+and the first WRECKED CAR. Both are things he ALREADY OWNS, deliberately, because a road you
+cannot score is not proven and his own tile is the only honest score.
+  contour      mine -64.3 and -44.3, his -52.6 and -49.0          GOOD
+  the floor    lamp 56x96, wreck 96x58                            GOOD
+  body value   mine 51 and 49, his 49 and 51                      GOOD
+
+3. *** AND THE ANSWER IS THE GAP, NOT THE PIPE. ***
+  HIS LAMP CARRIES 1,521 COLOURS. MINE CARRIES 5.
+  HIS TOP EIGHT CARRY 9 PER CENT. MINE CARRY 100 PER CENT.
+That second number is the exact measurement this programme has used for "AI slop" since the
+twin round, and the parts road scores the worst it is possible to score. A flat-shape
+composition snapped to a palette has NOWHERE to get grain from. His tile is a surface; mine is
+a five-colour ramp, which is what NO ATARI (rule 104c) names and what he keeps rejecting. The
+only way this road gets grain is by composing grain as shapes, which is drawing pixels again
+wearing a hat. And it can never draw a curve: his lamp arm sweeps, the law forbids one, so mine
+is a staircase.
+THE RESEARCH PAGE PREDICTED THIS ROAD WOULD "fix the rectangle look on buildings, street
+furniture, vehicles, icons". Measured, it does not. It fixes the SHAPE and the EDGE and it
+cannot touch the SURFACE, and the surface is what he has been complaining about all along.
+
+4. FOUR FAULTS THIS ROUND, AND THEY ARE THE SAME FAMILY AS EVERY OTHER ROUND'S:
+  (a) THE PALETTE WAS BUILT BY FREQUENCY and came back four near-blacks. His lamp has 1,521
+      colours in 1,766 painted pixels, so almost nothing repeats and "most common" returns only
+      the flat black of his contour. Median cut over the opaque pixels is the right question.
+  (b) "DARK" WAS TAKEN AS THE LAST PALETTE ENTRY, which is a mid grey, so the contour read
+      +4.9 LIGHTER where his runs -52.6. A guard caught it. A palette is not sorted by darkness.
+  (c) THE INKS WERE TAKEN BY POSITION, and median cut returns its groups in no useful order, so
+      the lamp's whole pole came out painted in #fbf5c2, the bright cream of its own glow. The
+      inks are picked by ROLE now, anchored to the twin's own measured body value.
+  (d) shape-rendering="crispEdges" WITH WHOLE-PIXEL COORDINATES made every shape edge land
+      exactly on a 4-pixel boundary, so the box shrink averaged uniform blocks and produced no
+      intermediate tone at all. The road was a 1:1 pixel drawing in fancy dress, which is the
+      exact thing the law is trying to escape. Letting resvg anti-alias is what makes the shrink
+      do any work.
+
+5. WHAT THIS ROUND DOES NOT CLAIM. Aseprite is not on this machine and was NOT run. Step 6 of
+the research pipeline (indexed mode, orphan strip, the eight-facing sheet) is PLUMBER [aseprite
+in the pipe]'s row and is OWED. The contour here is the pipe's own and the card says so.
+
+6. WHERE IT IS: the VOTE tab, as cook-the-parts-grammar-10-11, with every stage of the road
+beside his own tiles. The record is records/BOHEMIA_THE_PARTS_GRAMMAR_MEASURED_10_11_26.md, the
+card is records/target/COOK_THE_PARTS_GRAMMAR.png, the grammar and the pipe's output are in
+banks/. NOTHING WENT INTO THE GAME (rule 100a).
+
+7. ROUTED, and this matters more than the lamp:
+  - PLUMBER [the art pipe gate]: this tool is the first thing the gate can point at; the
+    banned-token check on the composed SVG lives in to_svg() and stops the build.
+  - PLUMBER [aseprite in the pipe]: step 6 is waiting, handed a palette-locked PNG at the floor.
+  - COOK TWO, COOK FOUR: the grammar is DATA. Add a part, fill a composition, run the pipe.
+  - THE COORDINATOR: rule 108e ("stretch the packs first") is the right order and this round
+    backs it with a number. Cut his piece if it exists; compose only when it does not. The pack
+    card (10/11) found 210 of his packs never opened, so "it does not exist" is rarely true yet.
+
+8. ROWS: [the parts grammar] SHIPPED. [one at a time] CLAIMED and standing. NEXT, the top OPEN
+row: [the hero brief], then [generate against the pack]. Still CLAIMED behind: [bb map art].
+HELD: [beasts], [horror grime].
+
+9. THE ONE QUESTION ON THE CARD: how far does this road go, knowing it can never draw a curve
+and lands a flat five colours? A ONLY THE PLAINEST THINGS (signs, crates, kerbs, boxes, UI
+chrome). B BUILD IT OUT anyway and live with flat. C DROP IT and buy or commission everything.
+The numbers on the card point at A, and the card says so out loud.
+
 COOK (cook-mce6r5): 10/11 LATEST -- *** TWO OF THE FOUR THINGS HE WAS ABOUT TO BE ASKED TO
 BUY, HE ALREADY OWNS. AND 210 OF HIS 294 PACKS HAVE NEVER BEEN OPENED BY ANYBODY. ***
 
