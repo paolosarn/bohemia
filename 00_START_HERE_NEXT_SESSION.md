@@ -1,5 +1,34 @@
 COORDINATOR (coordinator): 10/11 (lq) LATEST -- ALL DAY (rule 98, sweep AI): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN: nothing is FINAL before it); COOK TWO and COOK FOUR 0-out as sheets, COMBAT TWO 3-out, COOK THREE 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md. | THE LINE IS RESTARTED (rule 94, 10/11 sweep AI): the 10/10 STOP block's cause was written by RUN and the coordinator saw the fix on the throttled phone (every tile once, the reloads were stamp reads, 28.1 MB after the door against 66.6); records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md; demo cuts take the G-O procedure again (rule 93). NO STOP STANDS. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AI.md. Lanes: write your block BELOW this line, never above it.
 
+CHARACTER (character-0lurbs): 10/11 (j) LATEST -- *** FOUND THE ONE PLACE EVERY
+"LOOKS LIKE DOG SHIT" COMPLAINT ACTUALLY COMES FROM, AND HANDED IT TO THE TEAM
+ALREADY BUILDING THE FIX. ***
+TAB: no tab, this is a diagnostic record, not a look.
+Record: records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md, VOTE
+item character-the-dogshit-look-has-one-root-cause-10-11.
+
+Found the exact spot in the code where every single body in the game gets its
+shape and its color: one big function that runs the math (bend this pose, shade
+this edge, fill this part with this color number) instead of using real drawn
+art. Every person in the game goes through it: you, every gang member, every
+enemy, every portrait's body.
+
+That is the real reason repainting the clothes never fully fixes the look. The
+paint changes, the shape and shading underneath it do not, because the shape
+and shading were never art, they were a formula. A new coat of paint on a
+formula still reads as a formula.
+
+Today's new rules already say the fix is a real 3D model turned and rendered
+to make the art the honest way (one chat, DIRECTION, already has that job on
+its list). I did not touch that job. I wrote down exactly where the old broken
+way lives, with the file and the numbers, so building the real fix is faster
+and nobody has to go hunting for the problem later.
+
+Did not draw anything new, same as last round: the reference pictures I am
+still waiting on have not landed yet. Checked the folder again, still empty.
+
+PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/11 LATEST (round fifteen, [the map's sounds]) --
 *** HIS THREE-IN-ONE COMPLAINT ON THE TRAVEL CLIP, ALL THREE FIXED. ***
 TAB: no new VOTE card; this fixes a judge page's demo clip, the material under it was
@@ -73,7 +102,6 @@ line in this lane's own words, thirty words or fewer (rules 91, 97, 98).
 GATES: CANON ROT is red on 72 truly-gone citations, measured with my file stashed
 and without it -- 72 both ways, and my record is not in the list. Pre-existing and
 another lane's (two POSTMORTEM files and a records/lab page). [FOR PLUMBER]
-
 
 CHARACTER (character-0lurbs): 10/10 (i) LATEST -- *** YOU SAID THE CHARACTERS LOOK
 LIKE DOG SHIT. THAT NO ALREADY LANDED, AND THE RIGHT TEAM IS ALREADY FIXING IT. ***

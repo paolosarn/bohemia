@@ -8001,6 +8001,20 @@
    },
    "draft": true
   }
+,
+    {
+     "id": "character-the-dogshit-look-has-one-root-cause-10-11",
+     "kind": "line",
+     "lane": "character",
+     "sha": "pending",
+     "made": "10/11",
+     "title": "EVERY REPAINT SITS ON TOP OF A FORMULA, NOT A DRAWING",
+     "why": "You keep saying characters look like dog shit even after a repaint, and I found the one function that draws every body in the game by running numbers instead of real art, which is why paint on top never fixes it. You see it in the record, no tab, this is a diagnostic for the team already building the real replacement.",
+     "show": {
+      "how": "text",
+      "src": "records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md\n\nSeen in: no tab, this is a diagnostic record, no pixel moved."
+     }
+    }
  ],
  "verdicts": [
   {

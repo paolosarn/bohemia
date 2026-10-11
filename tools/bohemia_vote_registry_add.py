@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-body-scale-gate-was-red-for-the-wrong-reason-10-10'
+MINE_ID = 'character-the-dogshit-look-has-one-root-cause-10-11'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "line", "lane": "character",
-  "sha": "pending", "made": "10/10",
-  "title": "THE BODY SCALE GATE WAS RED FOR THE WRONG REASON",
-  "why": "My own checker for keeping a person one size while he walks was crashing, and it was not the body: the demo now opens on the map by default, so the checker asked for a street nobody was standing on. Fixed the checker, not the game. You see it here, the full story in the record.",
+  "sha": "pending", "made": "10/11",
+  "title": "EVERY REPAINT SITS ON TOP OF A FORMULA, NOT A DRAWING",
+  "why": "You keep saying characters look like dog shit even after a repaint, and I found the one function that draws every body in the game by running numbers instead of real art, which is why paint on top never fixes it. You see it in the record, no tab, this is a diagnostic for the team already building the real replacement.",
   "show": {
     "how": "text",
-    "src": "records/BOHEMIA_THE_BODY_SCALE_GATE_WAS_MEASURING_NOBODY_10_10_26.txt\n\nSeen in: no tab, this is a gate fix, no pixel moved."
+    "src": "records/BOHEMIA_THE_DOGSHIT_LOOK_HAS_ONE_ROOT_CAUSE_10_11_26.md\n\nSeen in: no tab, this is a diagnostic record, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
