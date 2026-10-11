@@ -47068,8 +47068,14 @@ function texKindFor(col,isStruct){
    because 'broken and on the floor' is what he asked for by name. */
 /* SIG_TILES lives in BOHEMIA_CITY_TILES.js (8/6, repo budget: this page is rewritten daily and was carrying 27 MB of art it never edits) */
 const SIG_IMG={};
+/* ONE PAINT FOR A BURST OF ARRIVALS (RUN 10/10, [ten seconds to play]): every signal picture painted the whole map again
+   the moment it decoded, dozens in a row during the boot; measured, 1.37 s of the boot at full speed before BEGIN. A
+   picture that arrives asks for ONE paint on the next frame, however many arrive together. */
+var _artPaintQ = false;
+function paintForArt(){ if(_artPaintQ) return; _artPaintQ = true;
+  requestAnimationFrame(function(){ _artPaintQ = false; try{ render(); }catch(_e){} }); }
 for(const k in SIG_TILES){ const im=new Image();
-  im.onload=()=>{ try{ render(); }catch(_e){} };
+  im.onload=()=>{ paintForArt(); };
   im.src='data:image/png;base64,'+SIG_TILES[k].b64; SIG_IMG[k]=im; }
 /* ARM LAW (his, from the bank): lanes -> reach. Read the lanes the street
    actually has rather than assuming, so a 1-lane residential corner never
@@ -68812,6 +68818,15 @@ window.addEventListener('message',function(ev){
     if(br.length) set[d].breathe=br;
   }
   if(Object.keys(set).length){ CAST_FID[m.faction]=set; if(MODE==='human')render(); }
+});
+/* __THE_BREATH_AFTER_THE_DOOR__ (RUN 10/10): the boot cast's breathing frames arrive after the world is ready, one
+   person at a time, and join the stills already standing there (by the person's place in the boot cast and its id,
+   so a later cast added on the end is never touched). */
+window.addEventListener('message',function(ev){
+  var m=ev&&ev.data; if(!m||m.type!=='BOHEMIA_CITY_CAST_BREATH'||!m.dirs) return;
+  var i=m.at|0, set=CAST_CV&&CAST_CV[i]; if(!set||(CAST_ID&&CAST_ID[i]!==m.id)) return;
+  for(var d in m.dirs){ if(!set[d]) continue; var br=(m.dirs[d].breathe||[]).map(decodePlayerFrame).filter(Boolean); if(br.length) set[d].breathe=br; }
+  window.CAST_BREATHS=(window.CAST_BREATHS|0)+1;
 });
 window.addEventListener('message',function(ev){
   var m=ev&&ev.data; if(!m||m.type!=='BOHEMIA_CITY_CAST'||!m.looks) return;

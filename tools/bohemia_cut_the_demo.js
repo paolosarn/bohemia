@@ -130,7 +130,11 @@ function cut(src) {
     + '#front:not(.titled)>*{visibility:hidden;animation:demoColdDoor 0s linear 8s forwards}\n'
     + '@keyframes demoColdDoor{to{visibility:visible}}\n'
     + '</style>\n';
-  src = src.replace(HEAD, style + HEAD);
+  /* AND THE PAGE KNOWS IT IS THE DEMO FROM ITS FIRST LINE (RUN 10/11, [ten seconds to play]): the epilogue below sets the
+     same flag at the end of the body, but the parser yields while it reads a 3.6 MB page and the game's animation loop
+     runs between the chunks, so anything that asks "am I the demo?" mid-load was told no (measured: the street walk's
+     warm-up baked 98 ms of frames the demo never draws before the epilogue arrived). */
+  src = src.replace(HEAD, '<script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>\n' + style + HEAD);
 
   /* ---- 2b. AND NO FALLBACK ONTO THE BENCH -------------------------------- */
   /* FOUND BY MUTATING THE GATE, not by reading the file. With the RUN tab

@@ -1550,7 +1550,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/11b - THE FALL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/11c - THE BREATH AFTER THE DOOR</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11184,21 +11184,46 @@ function cityGoToRunCell(){
   try{ fr.contentWindow.postMessage({type:'BOHEMIA_GOTO_CELL',
     x:G._runCell[0], y:G._runCell[1]},'*'); return true; }catch(e){ return false; }
 }
+/* __HIS_WALK_AFTER_THE_DOOR__: his walk, a facing at a time once the world is ready; the whole set (his stills, the
+   walk, the portrait) goes to the map when the eighth facing is done. A new look restarts it. */
+const PWALK={gen:0,steps:0,sent:0,open:0,lastSteps:0};
+window.PWALK=PWALK;
+function cityWalkLater(dirs,portrait,PHS){
+  const gen=++PWALK.gen, todo=DIRS.slice(); let mine=0; PWALK.open=gen;
+  const tick=()=>{
+    if(gen!==PWALK.gen) return;
+    if(!window.__LOAD_READY){ setTimeout(tick,250); return; }
+    const go=()=>{ if(gen!==PWALK.gen) return; const d=todo.shift(); if(!d) return;
+      try{ dirs[d].walk=PHS.map(p=>bakeCast(d,'walk',p,true)); }catch(_e){}
+      PWALK.steps++; mine++;
+      if(!todo.length){ const fr=document.getElementById('cityFrame');
+        if(fr&&fr.contentWindow){ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_PLAYER',w:CAST_PX,h:CAST_PX,packed:true,dirs:dirs,portrait:portrait},'*'); PWALK.sent++; PWALK.lastSteps=mine; }
+        if(PWALK.open===gen) PWALK.open=0; return; }
+      tick(); };
+    if(window.__PLAY_BEGAN && window.requestIdleCallback) requestIdleCallback(go,{timeout:1000}); else setTimeout(go,0);
+  };
+  tick();
+}
 function citySendPlayer(){
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow)return false;
   try{
     const dirs={};
     const PHS=[0.0,0.25,0.5,0.75];   /* 4 frames per beat-cycle, quantized quarters */
+    /* __HIS_WALK_AFTER_THE_DOOR__ (RUN 10/10, [ten seconds to play]): NO RUN FRAMES: the map decodes them and draws
+       none (every PLAYER_CV reader takes idle or walk), so they were 32 bakes for nothing. And in the demo his WALK is
+       baked after the world is ready, a facing at a time, while he picks his crew: before BEGIN he only stands, and
+       the map draws his still while he glides until the walk lands. Measured, 0.9 s of the boot at full speed. */
+    const later=!!window.__BOHEMIA_DEMO_BUILD && !window.__BOH_CAST_WHOLE;   /* the checker's switch, as for the cast */
     for(const d of DIRS){
-      dirs[d]={idle:bakeCast(d,'idle',0.25,true),
-        walk:PHS.map(p=>bakeCast(d,'walk',p,true)),
-        run:PHS.map(p=>bakeCast(d,'run',p,true))};
+      dirs[d]={idle:bakeCast(d,'idle',0.25,true)};
+      if(!later) dirs[d].walk=PHS.map(p=>bakeCast(d,'walk',p,true));
     }
     /* PORTRAIT: the EXACT combat mechanism, same face, same ramp, same 64x64 */
     let portrait=null;
     try{portrait=packIdx(renderFace(buildSpec(),{ramp:portraitRamp()}),64,64);}catch(_e){}
     fr.contentWindow.postMessage({type:'BOHEMIA_CITY_PLAYER',w:CAST_PX,h:CAST_PX,packed:true,dirs:dirs,portrait:portrait},'*');
+    if(later) cityWalkLater(dirs,portrait,PHS);
   }catch(_e){return false;}
   return true;
 }
@@ -11293,6 +11318,42 @@ const CITY_CAST_LOOKS = [
           head:'OXBLOOD SLOUCH BEANIE',legs:'BLACK DENIM',feet:'BONE SNEAKERS'} }
 ];
 window.CITY_CAST_LOOKS = CITY_CAST_LOOKS;
+/* __THE_BREATH_AFTER_THE_DOOR__: the breathing frames of the boot cast, baked after the world is ready */
+const CAST_BREATH={got:{},queue:[],busy:false,sent:0,steps:0};
+window.CAST_BREATH=CAST_BREATH;
+function CAST_SPLIT(){ return !!window.__BOHEMIA_DEMO_BUILD && !window.__BOH_CAST_WHOLE; }   /* __BOH_CAST_WHOLE: a checker's switch, the old one-piece bake, for the comparison */
+function cityBreathLater(plan){
+  plan.forEach((L,at)=>{ if(CAST_BREATH.got[L.id]&&DIRS.every(d=>CAST_BREATH.got[L.id][d])) return;
+    DIRS.forEach(d=>CAST_BREATH.queue.push({at,L,d})); });
+  cityBreathTick();
+}
+function cityBreathTick(){
+  if(CAST_BREATH.busy||!CAST_BREATH.queue.length) return;
+  CAST_BREATH.busy=true;
+  const go=()=>{ CAST_BREATH.busy=false; cityBreathStep(); };
+  /* not before the world is ready (the same main thread loads it); before BEGIN as fast as it can, the door is still;
+     after BEGIN only when the page is idle, a facing at a time, never a long freeze on the beat */
+  if(!window.__LOAD_READY){ setTimeout(()=>{ CAST_BREATH.busy=false; cityBreathTick(); },250); return; }
+  if(window.__PLAY_BEGAN && window.requestIdleCallback) requestIdleCallback(go,{timeout:1000}); else setTimeout(go,0);
+}
+function cityBreathStep(){
+  const job=CAST_BREATH.queue.shift(); if(!job) return;
+  const fr=document.getElementById('cityFrame');
+  if(!fr||!fr.contentWindow){ CAST_BREATH.queue.unshift(job); setTimeout(cityBreathTick,500); return; }
+  const L=job.L, PD=['shirt','jacket','pants','shoes','hat','glasses','hair'], kW=window.G_WORN, kD=G.bodyVar, kA=G.age, kE={};
+  PD.forEach(s=>{ if(s in G.equipped){ kE[s]=G.equipped[s]; G.equipped[s]=''; } });
+  let br=null;
+  try{ window.G_WORN=L.worn; G.bodyVar=L.dials; G.age=L.age; rebuildFromRig();
+    br=CAST_PHS.map(ph=>bakeCast(job.d,'idle',ph,true)); }
+  catch(_e){ br=null; }
+  finally{ window.G_WORN=kW; G.bodyVar=kD; G.age=kA; for(const s in kE) G.equipped[s]=kE[s];
+    try{ rebuildFromRig(); }catch(_e){} try{ HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); }catch(_e){} }
+  CAST_BREATH.steps++;
+  if(br){ const got=CAST_BREATH.got[L.id]=CAST_BREATH.got[L.id]||{}; got[job.d]=br;
+    if(DIRS.every(d=>got[d])){ const dirs={}; DIRS.forEach(d=>{ dirs[d]={breathe:got[d]}; });
+      fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_BREATH',w:CAST_PX,h:CAST_PX,packed:true,at:job.at,id:L.id,dirs},'*'); CAST_BREATH.sent++; } }
+  cityBreathTick();
+}
 function citySendCast(){
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow)return false;
@@ -11337,7 +11398,16 @@ function citySendCast(){
     /* __ONE_BODY_ONE_REBUILD__ (RUN 10/10, [first load]): the look is put on ONCE for all eight facings (it was put
        on and taken off per facing: 96 rig rebuilds for six people, 1.0 s of the boot at full speed), and the still is
        the breath's own 0.25 frame instead of a second bake of it. The message is byte for byte what it was (hashed). */
+    const split=CAST_SPLIT();
     plan.forEach(L=>withLook(L,()=>{ for(const d of DIRS){
+      /* __THE_BREATH_AFTER_THE_DOOR__ (RUN 10/10, [ten seconds to play]): in the demo the boot bakes each person's
+         STILL only (the breath's own 0.25 frame) and the four breathing frames are baked after the world is ready, a
+         facing at a time, while he reads the title and picks his crew; measured, the breath was 1.8 of the cast's
+         2.4 s before BEGIN. The frames he ends up with are the same frames (hashed), and a breath already baked is
+         sent with the still from then on. */
+      if(split){ const kept=CAST_BREATH.got[L.id]&&CAST_BREATH.got[L.id][d];
+        if(kept){ L.dirs[d]={idle:kept[CAST_PHS.indexOf(0.25)],breathe:kept}; continue; }
+        L.dirs[d]={idle:bakeCast(d,'idle',0.25,true)}; continue; }
       /* __THE_VALLEY_KEEPS_BREATHING__ (9/5): the cast used to be ONE still of a
          clip that moves. idle peaks at 6.9% of the body on S, and every resident
          in the valley was frozen at phase 0.25 of it -- not because the clip is
@@ -11352,6 +11422,7 @@ function citySendCast(){
                  breathe:br};
     } }));
     fr.contentWindow.postMessage(out,'*');
+    if(split) cityBreathLater(plan);
   }catch(_e){ CCAST=null; return false; }
   CCAST=null;
   cityBakeRestLater();
@@ -18755,7 +18826,11 @@ window.INTENSITY=KILLMUS;
         var card = w.document.getElementById('ctcard');
         talking = !!(card && w.getComputedStyle(card).display !== 'none');
       }catch(_e){}
-      try{
+      /* NOT ON THE DEMO'S MAP (RUN 10/10, [ten seconds to play]): a crowd is three people within five tiles of him on
+         the STREET; the demo has no street (rule 38), and asking everyone() for it built the street's whole near field,
+         measured 2.9 s of the boot at full speed. On the map there is no crowd around him, so it reads false. */
+      if(w.DEMO_ON_MAP === true) crowd = false;
+      else try{
         var all = w.__CT.everyone() || [];
         var n = 0;
         for(var i=0;i<all.length;i++){
@@ -21277,7 +21352,10 @@ PERSIST.mode=PERSIST_MODE;PERSIST.restore();   /* boot: bring back the last look
 const WARM={queue:[],on:true};
 {const dirs=[G.dir].concat(DIRS.filter(d=>d!==G.dir));
  for(const d of dirs)for(const c of ['idle','walk','run'])for(let q=0;q<FRAME_CACHE.buckets;q++)WARM.queue.push([d,c,(q+0.5)/FRAME_CACHE.buckets]);}
-function warmTick(){if(!WARM.on||!WARM.queue.length)return;
+/* NOT IN THE DEMO (RUN 10/10, [ten seconds to play]): these are his walk and run frames for the walked street, which the
+   demo does not have (rule 38, the walk is dead); measured, 0.68 s of the boot at full speed before BEGIN, for frames
+   nothing in the demo asks for. The flag is read at the tick, after the cut set it. */
+function warmTick(){if(!WARM.on||!WARM.queue.length||window.__BOHEMIA_DEMO_BUILD)return;
  for(let k=0;k<2&&WARM.queue.length;k++){const [d,c,ph]=WARM.queue.shift();
    /* WARM THE FRAME drawChar WILL ACTUALLY ASK FOR. Since the border moved to
       display size the cache distinguishes bordered from borderless frames, and
