@@ -7735,7 +7735,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -9197,6 +9197,96 @@ const NS_CLAMP_EXEMPT={sleep:1,headshot:1,'headshot-2':1};   /* lying + terminal
    the ground, knees bent, arms tucked, head pillowed slightly high. Bone
    lengths re-normalized to rest (rigid, no stretch), breathing on the 120
    grid: the chest visibly rises and falls. Lies TOWARD the facing. */
+/* __THE_FALL__ A MAN STRUCK DOWN FALLS, AND A MAN HIT TAKES IT (ANIMATION [the fall], 10/11; V2, THE LAST, rule 95).
+   PAOLO 10/10, NO on the fight's clips: 'the animation of people ragdolling and falling down is so broken, so dogshit'.
+   LOOKED AT FIRST: the fall he saw was floor-rise played backwards (the man sinks UPRIGHT into a knot and never
+   tips) and the dead were sleep@0, which lays the body along the FACING at full length, so facing you it is drawn
+   upright and UPSIDE DOWN, the feet in the air and the head at the bottom. The physics crumple (headshot-2) runs on
+   the wall clock, off the beat, and he called that kind 'tweaking, jumping around' on 7/17; it is not the base.
+   THIS: authored, on the twelve-key grid, bones rigid by construction (every bone is its rest vector turned, never
+   stretched), every facing posed from its own rest skeleton (rule 107, never a mirror).
+     fall-down, 2 beats: the hit snaps him back, the knees give, the feet go out from under him, the hips drop, the
+       back lands ACROSS THE FLOOR with the head down on the ground on the far side, one small bounce, still. The
+       arms fly up as he goes and land out from the body. Facing east he falls to the west and the other way about;
+       facing you he goes to his right, facing away to his left, so every corpse lies along the floor, never on end.
+     take-hit, 1 beat: the torso and head snap back away from the blow, the arms flick, the hips give a little,
+       and he comes back to stand.
+   The lowest point of the body sits on the ground line on every picture, so nothing sinks into the floor. */
+const FALL_BONES=[['waC','neck','u'],['neck','headTop','h'],['neck','shL','u'],['neck','shR','u'],['shL','elL','aL'],['shR','elR','aR'],
+  ['elL','handL','fL'],['elR','handR','fR'],['waC','waA','p'],['waC','waB','p'],['waA','knA','t'],['waB','knB','t'],['knA','footA','s'],['knB','footB','s']];
+function fallSide(d){ const c=Math.cos(FACEANG[d]); return Math.abs(c)>0.3?(c>0?-1:1):(Math.sin(FACEANG[d])>0?-1:1); }
+function fallFK(R,A){ const sk={waC:[0,0]};
+  for(const [a,b,k] of FALL_BONES){ const vx=R[b][0]-R[a][0], vy=R[b][1]-R[a][1], th=A[k]||0, c=Math.cos(th), s2=Math.sin(th);
+    sk[b]=[sk[a][0]+vx*c-vy*s2, sk[a][1]+vx*s2+vy*c]; }
+  return sk; }
+function fallPlace(sk,R,lieK,cx){   /* the lowest joint on the ground (less the body's half-thickness as it lies), x centred */
+  const gy=Math.max(R.footA[1],R.footB[1]); let my=-1e9; for(const j in sk)my=Math.max(my,sk[j][1]);
+  const dy=gy-7*lieK-my; const o={}; for(const j in sk)o[j]=[sk[j][0]+cx,sk[j][1]+dy]; return o; }
+function fallAngles(h,t){
+  const cl=(v)=>Math.max(0,Math.min(1,v)), sm=(v)=>{v=cl(v);return v*v*(3-2*v);};
+  const snap=sm(t/0.08);                                              /* the blow lands and the lean it throws him into is carried down with him (letting it go first bobbed the body UP on the second picture, measured 10/11) */
+  const g=Math.pow(cl((t-0.06)/0.60),1.7);                           /* the body goes over, faster as it goes */
+  const body=Math.min(1,g);                                           /* it lands and stays: an overshoot past flat popped the body back up 2.6 px on the next picture, a hiccup at this frame rate */
+  const legs=Math.min(1,g);                                          /* ONE PLANK: the legs go over at the body's own angle. The skirt of a coat is painted on the standing body and bound to the hips, so any angle between legs and torso drew it as an upright box under him, and a deep knee buckle stood the boots up as prongs (looked at 10/11, three outfits): dead weight goes over straight */
+  const bend=0.06*Math.sin(Math.PI*cl((t-0.10)/0.62));
+  const FL=1.15;   /* the arms fly OUT, not overhead: at 1.6 the hands went over the head and the top of the frame cut them on the first pictures (measured 10/11) */
+  const fling=FL*Math.sin(Math.PI*cl((t-0.06)/0.72))*(t<0.42?1:0)+(t>=0.42?(FL*Math.sin(Math.PI*cl((0.42-0.06)/0.72))*(1-sm((t-0.42)/0.34))+0.55*sm((t-0.42)/0.34)):0);
+  const T=h*Math.PI/2;
+  return {roll:T*body, u:T*body+h*0.18*snap*(1-body), h:T*body+h*0.32*snap*(1-body*0.6), p:T*body,
+          t:T*legs, s:T*legs-h*bend, aL:T*body-h*fling, aR:T*body-h*fling*0.8, fL:T*body-h*fling*1.15, fR:T*body-h*fling*0.9,
+          lie:Math.abs(Math.sin(T*body))}; }
+function fallPose(d,ph){
+  /* POSED UPRIGHT, TURNED AS A PICTURE. Every garment in the wardrobe is drawn row by row down the screen on the
+     posed body (genCoat's skirt spans rows from the waist to the hem), so any tilted body drew a long coat's
+     skirt as an upright box under him, straight legs or not (looked at 10/11 on three outfits). So the body is
+     posed upright with every RELATIVE angle the fall has (the arms flying, the head snapping, the knees giving),
+     the frame is built, and the finished picture is turned by the body's angle (rollFrame), then set on the
+     ground and centred. At the end it is an exact quarter turn: lossless. */
+  const R=RIG[d], h=fallSide(d), t=Math.max(0,Math.min(1,ph));
+  const A=fallAngles(h,t), roll=A.roll, rel={};
+  for(const k in A)if(k!=='lie'&&k!=='roll')rel[k]=A[k]-roll;
+  const sk=fallPlace(fallFK(R,rel),R,0,R.waC[0]);
+  for(const j in sk)sk[j]=[Math.round(sk[j][0]),Math.round(sk[j][1])];
+  const sm=(v)=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);};
+  return {sk:sk,present:{_gun:null,_fire:false,_dial:null,_roll:roll,_rollCentre:sm((t-0.10)/0.60)}};
+}
+/* the fall's picture turned about the feet by the body's angle (nearest, inverse-mapped so no hole opens), then its
+   lowest pixel set back on the ground line and the body slid to the middle of the box as it goes over; the part
+   grid turns with it so every tool that reads the grid sees the same body */
+function rollFrame(px,grid,CW,CH,PRES){
+  const th=PRES._roll; if(!th||Math.abs(th)<0.01)return;
+  const q=Math.round(th/(Math.PI/2)), exact=Math.abs(th-q*Math.PI/2)<1e-6;
+  let mnx=CW,mxx=-1,mxy=-1;
+  for(let i=0;i<px.length;i++)if(px[i]){const x=i%CW,y=(i/CW)|0;if(x<mnx)mnx=x;if(x>mxx)mxx=x;if(y>mxy)mxy=y;}
+  if(mxx<0)return;
+  let fmn=CW,fmx=-1; for(let y=Math.max(0,mxy-5);y<=mxy;y++)for(let x=0;x<CW;x++)if(px[y*CW+x]){if(x<fmn)fmn=x;if(x>fmx)fmx=x;}
+  const pvx=th<0?fmn:fmx+1, pvy=mxy+1, c=Math.cos(th), s=Math.sin(th);   /* he goes over the HEEL on the side he falls to, read off the bottom six rows: turned about the middle of the picture the far heel dipped under the floor, and about the picture's edge it swung on his flung hand; both lifted the body 1 to 2 px (measured 10/11) */
+  /* where every painted pixel lands, first, unclipped: the slide comes from that, so the head never leaves the
+     buffer before the body is moved back into the box (the first cut clipped the shoulders off, looked at 10/11) */
+  let rmnx=1e9,rmxx=-1e9,rmxy=-1e9;
+  for(let i=0;i<px.length;i++)if(px[i]){const x=i%CW+0.5-pvx,y=((i/CW)|0)+0.5-pvy;const X=x*c-y*s+pvx,Y=x*s+y*c+pvy;
+    if(X<rmnx)rmnx=X;if(X>rmxx)rmxx=X;if(Y>rmxy)rmxy=Y;}
+  let ox=(PRES._rollCentre||0)*(CW/2-(rmnx+rmxx)/2); const oy=(mxy+0.5)-rmxy;
+  if(rmxx-rmnx<CW-6)ox=Math.max(3-rmnx,Math.min(CW-3-rmxx,ox));   /* three, because the one-pixel border is drawn after the turn */   /* and never past the box's edge: a flung arm was cut mid-fall (looked at 10/11) */
+  ox=Math.round(ox);
+  const src=px.slice(), sg=grid?Array.from(grid):null, G3=new Array(CW*CH).fill(0);
+  for(let y=0;y<CH;y++)for(let x=0;x<CW;x++){
+    const dx=x+0.5-ox-pvx, dy=y+0.5-oy-pvy;
+    let sx=dx*c+dy*s+pvx, sy=-dx*s+dy*c+pvy;
+    if(exact){sx=Math.round(sx*2)/2;sy=Math.round(sy*2)/2;}
+    const ix=Math.floor(sx), iy=Math.floor(sy), o=y*CW+x;
+    if(ix<0||iy<0||ix>=CW||iy>=CH){px[o]=null;continue;}
+    px[o]=src[iy*CW+ix]; if(sg&&px[o])G3[o]=sg[iy*CW+ix]; }
+  PRES._rollGrid=G3;   /* the skinner's grid is shared and read-only: the turned one rides out beside it */
+}
+function hitPose(d,ph){
+  const R=RIG[d], h=fallSide(d), t=((ph%1)+1)%1;
+  const k=t<0.2?t/0.2:Math.pow(1-(t-0.2)/0.8,1.3);                     /* the blow lands on the first picture (0.83), eases out (0.54, 0.13) */
+  const A={u:h*0.46*k, h:h*0.78*k, p:h*0.18*k, t:-h*0.10*k, s:h*0.08*k, aL:h*0.46*k-h*0.95*k, aR:h*0.46*k-h*0.70*k, fL:h*0.46*k-h*1.30*k, fR:h*0.46*k-h*1.0*k};
+  const sk=fallPlace(fallFK(R,A),R,0,R.waC[0]-h*6*k);
+  for(const j in sk)sk[j]=[Math.round(sk[j][0]),Math.round(sk[j][1])];
+  return {sk:sk,present:{_gun:null,_fire:false,_dial:null}};
+}
 function sleepPose(d,ph){
   const R=RIG[d];const th=FACEANG[d];const K=[Math.cos(th),Math.sin(th)];
   /* plain axis, no FALL_YC: the authored layout only sets DIRECTIONS, the
@@ -9537,7 +9627,7 @@ function rgPose(d){
   }
   return {sk:sk, present:{_gun:null,_fire:false,_dial:null}};
 }
-function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
+function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);if(clip==='fall-down')return fallPose(d,ph);if(clip==='take-hit')return hitPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
   const raw=POSE[clip]?POSE[clip](d,ph):{};const r=RT.applyPose(d,raw,RIG[d],{FACEANG,DEPTH});
   if(headOn(d)&&!NS_CLAMP_EXEMPT[clip])r.sk=RT.nsArmClamp(r.sk,RIG[d]);   /* N/S ARM WIDTH LAW: engine-enforced, every clip, forever */
   if(SEATED[clip]&&headOn(d)){
@@ -10736,13 +10826,14 @@ function buildFrame(d,clip,ph,_noOutline){
      The body GRID is untouched -- colour only -- so occupancy, hit-testing and
      every measurement tool still see the true silhouette.
      ========================================================================= */
+  if(PRES._roll)rollFrame(px,grid,CW,CH,PRES);   /* __THE_FALL__: the picture turns before its border is drawn */
   if(CHAR_OUTLINE.on && !_noOutline) applyCharOutline(px,CW,CH);
   /* `grid` rides along read-only (8/20): the deformed PART-ID grid is what every
      garment generator actually consumes, and nothing outside this function could
      see it -- so a picture of the wardrobe had to be drawn on a mannequin instead
      of on him. VERIFY ON THE REAL SURFACE (7/18) needs the real surface to be
      reachable. Additive: no caller reads this key, and nothing here mutates. */
-  return {px,CW,CH,grid};
+  return {px,CW,CH,grid:(PRES._rollGrid||grid)};
 }
 /* THE BORDER, AS A PASS THAT CAN RUN AT THE SIZE HE ACTUALLY SEES (Paolo 8/14:
    "the black border has to be thinner, like half as thin").
@@ -10874,7 +10965,7 @@ function frameLookHash(d){
   return h.toString(36);
 }
 const SEATED={'sit-chair':1,'sit-ground':1};   /* SEATED LAW clips */
-const TERMINAL={headshot:1,'headshot-2':1};   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
+const TERMINAL={headshot:1,'headshot-2':1,'fall-down':1};   /* the fall is not a loop: the frozen-pose resolver read it as one and stood the dead back up on its last picture (6 of 8 facings, looked at 10/11); it is posed straight from its phase, which callers keep on the twelve-key grid */   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
 /* ===== POSE EDIT (Paolo 7/2/26): rig-for-the-animation. POSE EDIT freezes the
    phase and turns the preview into a rig: drag any joint, its down-chain rides
    along, the delta applies to EVERY frame of that clip+facing, autosaves to
