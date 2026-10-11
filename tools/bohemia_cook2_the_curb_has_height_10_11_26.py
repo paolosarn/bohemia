@@ -9,6 +9,11 @@ south round the corner); a west-facing edge shows only its lit lip, as the pack'
 The shadow is his road's own darkest twentieth, 3 px, cast south (his light is from the top).
 The corner and the borderless cut are the corner tool's (reused, not copied).
   python3 tools/bohemia_cook2_the_curb_has_height_10_11_26.py
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md: light from the top, a shadow cast south),
+AH-01 and AH-03. The twin is his slab's own south face. No reference game.
 """
 import json, base64, io, os
 import numpy as np

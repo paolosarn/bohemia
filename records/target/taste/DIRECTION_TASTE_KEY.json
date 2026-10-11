@@ -1,0 +1,341 @@
+{
+ "session": "THE TASTE SESSION",
+ "lane": "direction",
+ "date": "10/11/26",
+ "rule": "108 ROUND TWELVE (5)",
+ "read": "thumbs up = the left picture, thumbs down = the right; one variable changes per pair",
+ "pairs": [
+  {
+   "n": 1,
+   "scene": "street",
+   "question": "A LINE ROUND THINGS?",
+   "up": {
+    "label": "no line, the pack as bought",
+    "set": {}
+   },
+   "down": {
+    "label": "a 1-pixel dark line round every object",
+    "set": {
+     "outline": 1
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_01.webp"
+  },
+  {
+   "n": 2,
+   "scene": "yard",
+   "question": "HOW THICK A LINE?",
+   "up": {
+    "label": "a 1-pixel line",
+    "set": {
+     "outline": 1
+    }
+   },
+   "down": {
+    "label": "a 2-pixel line",
+    "set": {
+     "outline": 2
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_02.webp"
+  },
+  {
+   "n": 3,
+   "scene": "ruin",
+   "question": "A LINE ROUND THE RUIN?",
+   "up": {
+    "label": "no line",
+    "set": {}
+   },
+   "down": {
+    "label": "a 1-pixel dark line",
+    "set": {
+     "outline": 1
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_03.webp"
+  },
+  {
+   "n": 4,
+   "scene": "street",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "every colour the pack has",
+    "set": {}
+   },
+   "down": {
+    "label": "cut to 24 colours",
+    "set": {
+     "colours": 24
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_04.webp"
+  },
+  {
+   "n": 5,
+   "scene": "yard",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "every colour",
+    "set": {}
+   },
+   "down": {
+    "label": "cut to 64 colours",
+    "set": {
+     "colours": 64
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_05.webp"
+  },
+  {
+   "n": 6,
+   "scene": "ruin",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "16 colours",
+    "set": {
+     "colours": 16
+    }
+   },
+   "down": {
+    "label": "64 colours",
+    "set": {
+     "colours": 64
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_06.webp"
+  },
+  {
+   "n": 7,
+   "scene": "street",
+   "question": "SOFT OR HARD SHADOWS?",
+   "up": {
+    "label": "hard shadows",
+    "set": {
+     "shadow": "hard"
+    }
+   },
+   "down": {
+    "label": "soft shadows",
+    "set": {}
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_07.webp"
+  },
+  {
+   "n": 8,
+   "scene": "yard",
+   "question": "SHADOWS OR NONE?",
+   "up": {
+    "label": "hard shadows",
+    "set": {
+     "shadow": "hard"
+    }
+   },
+   "down": {
+    "label": "no shadows",
+    "set": {
+     "shadow": "none"
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_08.webp"
+  },
+  {
+   "n": 9,
+   "scene": "ruin",
+   "question": "SOFT OR HARD SHADOWS?",
+   "up": {
+    "label": "soft shadows",
+    "set": {}
+   },
+   "down": {
+    "label": "hard shadows",
+    "set": {
+     "shadow": "hard"
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_09.webp"
+  },
+  {
+   "n": 10,
+   "scene": "street",
+   "question": "HOW DIRTY?",
+   "up": {
+    "label": "grime baked into the ground",
+    "set": {
+     "grit": 0.6
+    }
+   },
+   "down": {
+    "label": "clean, as bought",
+    "set": {}
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_10.webp"
+  },
+  {
+   "n": 11,
+   "scene": "yard",
+   "question": "HOW DIRTY?",
+   "up": {
+    "label": "heavy grime",
+    "set": {
+     "grit": 0.8
+    }
+   },
+   "down": {
+    "label": "a little grime",
+    "set": {
+     "grit": 0.3
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_11.webp"
+  },
+  {
+   "n": 12,
+   "scene": "ruin",
+   "question": "HOW DIRTY?",
+   "up": {
+    "label": "heavy grime",
+    "set": {
+     "grit": 0.8
+    }
+   },
+   "down": {
+    "label": "clean",
+    "set": {}
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_12.webp"
+  },
+  {
+   "n": 13,
+   "scene": "street",
+   "question": "HOW BROKEN?",
+   "up": {
+    "label": "a street still in use",
+    "set": {}
+   },
+   "down": {
+    "label": "wrecked: rubble, trash, a burnt car",
+    "set": {
+     "broken": true
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_13.webp"
+  },
+  {
+   "n": 14,
+   "scene": "yard",
+   "question": "HOW BROKEN?",
+   "up": {
+    "label": "a yard kept tidy",
+    "set": {}
+   },
+   "down": {
+    "label": "a yard falling apart",
+    "set": {
+     "broken": true
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_14.webp"
+  },
+  {
+   "n": 15,
+   "scene": "street",
+   "question": "HOW STRONG THE COLOUR?",
+   "up": {
+    "label": "the pack's colour",
+    "set": {}
+   },
+   "down": {
+    "label": "the colour at 55%",
+    "set": {
+     "sat": 0.55
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_15.webp"
+  },
+  {
+   "n": 16,
+   "scene": "yard",
+   "question": "HOW STRONG THE COLOUR?",
+   "up": {
+    "label": "the colour at 60%",
+    "set": {
+     "sat": 0.6
+    }
+   },
+   "down": {
+    "label": "the pack's colour",
+    "set": {}
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_16.webp"
+  },
+  {
+   "n": 17,
+   "scene": "ruin",
+   "question": "HOW STRONG THE COLOUR?",
+   "up": {
+    "label": "the colour at 80%",
+    "set": {
+     "sat": 0.8
+    }
+   },
+   "down": {
+    "label": "the colour at 45%",
+    "set": {
+     "sat": 0.45
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_17.webp"
+  },
+  {
+   "n": 18,
+   "scene": "street",
+   "question": "HOW DARK?",
+   "up": {
+    "label": "as bright as the pack",
+    "set": {}
+   },
+   "down": {
+    "label": "70% as bright",
+    "set": {
+     "value": 0.7
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_18.webp"
+  },
+  {
+   "n": 19,
+   "scene": "yard",
+   "question": "HOW DARK?",
+   "up": {
+    "label": "60% as bright",
+    "set": {
+     "value": 0.6
+    }
+   },
+   "down": {
+    "label": "as bright as the pack",
+    "set": {}
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_19.webp"
+  },
+  {
+   "n": 20,
+   "scene": "ruin",
+   "question": "WARM OR COLD LIGHT?",
+   "up": {
+    "label": "cold, a grey dawn",
+    "set": {
+     "warm": -0.08
+    }
+   },
+   "down": {
+    "label": "warm, a desert afternoon",
+    "set": {
+     "warm": 0.08
+    }
+   },
+   "file": "records/target/taste/DIRECTION_TASTE_20.webp"
+  }
+ ]
+}

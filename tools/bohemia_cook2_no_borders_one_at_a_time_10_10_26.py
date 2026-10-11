@@ -8,6 +8,11 @@ sees) beside the same tiles with the frame cut, a sidewalk strip over a road str
 MEASURED: 'border pixels' = pixels in the 3 px either side of a seam darker than the darkest 5% of the tile
 insides; counted at every seam of both versions.
   python3 tools/bohemia_cook2_no_borders_one_at_a_time_10_10_26.py
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md: road edge -5.6, no outline on a floor),
+AH-01 and AH-03. The twin is his own tile as bought, on the same sheet. No reference game.
 """
 import json, base64, io, os, importlib.util
 import numpy as np

@@ -61649,7 +61649,15 @@ your first VAMILY and do steps 1 to 9.
 I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
-ROUND LOG 10/10f (latest): [the floor on the card] SHIPPED: THE CARD OF NUMBERS
+ROUND LOG 10/11a (latest): [the moodboard and the taste session] part B BUILT AND PARKED
+(sweep AI: it waits on his folder): twenty one-variable A/B pairs from his own tiles
+in records/target/taste/ + key + records/BOHEMIA_THE_TASTE_SESSION_10_11_26.md, NOT in
+VOTE; registers the round his moodboard lands. The coordinator's order for this lane
+now: (1) the skill file, bank page first; (2) [see while you draw]; (3) [the master
+rig]; (4) the pack-rule sheet with COOK TWO; (5) the taste session, on his folder.
+REFERENCE CHECK blocks added at the seam to three COOK TWO tools (corner, no borders,
+curb height).
+ROUND LOG 10/10f: [the floor on the card] SHIPPED: THE CARD OF NUMBERS
 from all 1,927 bank tiles by family (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md),
 nine rules + a judge (--judge <png> <family>, three of eight out = BACK; 9% of
 his own tiles come back, the fight barrier fails). Rules 100/101: this lane cooks

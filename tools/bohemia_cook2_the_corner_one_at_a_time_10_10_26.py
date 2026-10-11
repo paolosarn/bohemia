@@ -15,6 +15,11 @@ kerb tile exists in any of his packs. So the corner is BUILT, from his pixels on
   * the kerb is HIS slab's brightest row as the lit lip and his road's darkest as the 2 px shadow under it,
     following the corner on a 1.5-tile radius (a real kerb return is 3 to 9 m; here 4.5 m at his 30 px a metre).
   python3 tools/bohemia_cook2_the_corner_one_at_a_time_10_10_26.py
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md: light from the top, no floor outline),
+AH-01 and AH-03. The twin is his raw slab beside the corner at 1:1. No reference game.
 """
 import json, base64, io, os
 import numpy as np
