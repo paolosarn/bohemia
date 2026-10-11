@@ -80,7 +80,7 @@ const srv = http.createServer((rq, rs) => {
   const back = await p.evaluate(i => { const s = BohemiaRosterScreen.state; s.sel = i; BohemiaRosterScreen.open({}); return { inLine: s.front.concat(s.back).indexOf(i) >= 0, head: (document.querySelector('#card .hurtbox b') || {}).textContent, mark: (document.querySelector('#card .hurtbox .mark') || {}).textContent || '' }; }, r.i);
   ok('at zero he stands in the line again, and the mark never clears', back.inLine && back.head === 'HEALED, BUT MARKED' && back.mark.indexOf(hurt.injury.name.toUpperCase()) >= 0, back.head);
   /* a dead man leaves */
-  const dead = await p.evaluate(() => { const s = BohemiaRosterScreen.state, m = s.crew.find(x => !x.main && !x.mark); BohemiaRosterScreen.afterFight([{ name: m.name, dead: true, xpGained: 0 }]);
+  const dead = await p.evaluate(() => { const s = BohemiaRosterScreen.state, m = s.crew.find(x => !x.main && !x.mark && !x.dead) || s.crew.find(x => !x.main && !x.dead); BohemiaRosterScreen.afterFight([{ name: m.name, dead: true, xpGained: 0 }]);
     const i = s.crew.indexOf(m); return { inLine: s.front.concat(s.back).indexOf(i) >= 0, inCo: BohemiaRosterScreen.company().some(x => x.name === m.name), name: m.name }; });
   ok('a man killed in the fight leaves the line and the company', !dead.inLine && !dead.inCo, dead.name);
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));

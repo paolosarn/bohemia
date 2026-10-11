@@ -39,6 +39,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .cell.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
 .cell.sel{border-color:var(--gold)}
 .cell canvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;pointer-events:none}
+.cell canvas.head{inset:auto;top:1px;left:1px;width:calc(100% - 2px);height:auto;aspect-ratio:1;border-radius:2px}
 .cell b{position:absolute;left:0;right:0;bottom:1px;font-size:8px;text-align:center;pointer-events:none;color:var(--ink);text-shadow:0 1px 0 #000}
 .cell.over{outline:2px solid var(--gold)}
 #card{margin:8px 12px;padding:10px;border:1px solid var(--line);border-radius:6px;background:var(--plate2)}
@@ -162,6 +163,10 @@ function sheet(look){
   var im = new Image(); im.onload = function(){ draw(); }; im.src = C.sheetSrc(look); return (S.sheets[look] = im);
 }
 /* the body, the fight's own idle frame (SE row, frame 0, the figure's box) */
+/* RUN TWO [portraits on the roster], 10/11 (his YES with a note: 'display the portraits all the time, not the full body;
+   it looks so tiny'): a man on the line is his face (the 64 face on his own sheet, PORTRAIT's placeholder until his FINAL),
+   never the full-body sprite */
+function headCanvas(m){ var c = faceCanvas(m); c.className = 'head'; return c; }
 function bodyCanvas(m, w, h){
   var c = document.createElement('canvas'); c.width = w*2; c.height = h*2;
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
@@ -182,7 +187,7 @@ function draw(){
     S[row].forEach(function(ix, si){
       var d = document.createElement('div'); d.className = 'cell' + (ix != null ? ' full' : '') + (ix === S.sel ? ' sel' : '');
       d.dataset.drop = row + ':' + si;
-      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.appendChild(bodyCanvas(m, 48, 64));
+      if(ix != null){ var m = S.crew[ix]; d.dataset.drag = 'man:' + row + ':' + si; d.appendChild(headCanvas(m));
         var b = document.createElement('b'); b.textContent = m.name; d.appendChild(b); d.setAttribute('aria-label', m.name); }
       el.appendChild(d);
     });
@@ -190,7 +195,7 @@ function draw(){
   var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
   S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
     var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i;
-    d.appendChild(bodyCanvas(m, 48, 64)); var b = document.createElement('b'); b.textContent = m.hurt.days + 'd'; d.appendChild(b); hu.appendChild(d); });
+    d.appendChild(headCanvas(m)); var b = document.createElement('b'); b.textContent = m.hurt.days + 'd'; d.appendChild(b); hu.appendChild(d); });
   document.getElementById('hurth').style.display = any ? 'block' : 'none';
   drawCard(); drawBag();
 }

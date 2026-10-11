@@ -42,6 +42,10 @@ const srv = http.createServer((rq, rs) => {
   ok('  every man of the starting crew is on the line', st.full === st.n && st.n >= 3, st.n + ' men: ' + st.names);
   const drawn = await p.evaluate(() => [].slice.call(document.querySelectorAll('.cell.full canvas')).every(c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n > 200; }));
   ok('  each is drawn from the fight\'s own people sheets, not a box', drawn);
+  /* PORTRAITS ON THE ROSTER (his YES with a note, 104h): the line shows faces, never the tiny full body */
+  const heads = await p.evaluate(() => { const cs = [].slice.call(document.querySelectorAll('.cell.full canvas')); return { n: cs.length, head: cs.filter(c => c.classList.contains('head') && c.width === 64 && c.height === 64).length,
+    big: cs.every(c => c.getBoundingClientRect().width >= 44) }; });
+  ok('  every man on the line is his face, not his full body, the face the width of his slot', heads.n > 0 && heads.head === heads.n && heads.big, heads.head + ' of ' + heads.n + ' faces');
   const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gslot').length,
     pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
   ok('a man\'s card: his face, background, level, wage, eight stats, stars, four gear slots, one pain line',
