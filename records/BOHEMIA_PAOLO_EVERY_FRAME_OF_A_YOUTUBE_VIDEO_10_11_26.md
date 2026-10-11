@@ -25,3 +25,9 @@ Context: the moodboard intake (records/BOHEMIA_PAOLO_I_MIGHT_GIVE_YOU_20000_PICT
 ## What this does on the board
 
 DIRECTION [the moodboard and the taste session] intake amended: videos accepted in the folder; the coordinator's runner does the frame pull; frames join the clusters. The box page (records/BOHEMIA_RESEARCH_UNLOCK_THE_LIMITS_05_*) gains one more reason for the box: a home connection can pull YouTube, the cloud cannot.
+
+## Follow-up, 10/11 (verbatim)
+
+> "OK, maybe not every frame but every one second I don't know two frames every second I don't know. I don't need every frame."
+
+Ruled: TWO FRAMES A SECOND plus one at every scene change, duplicates removed. That is the setting on the runner. If a site is used instead, every 15th frame.
