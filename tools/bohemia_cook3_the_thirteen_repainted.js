@@ -20,7 +20,8 @@ const { chromium } = require('playwright');
 const ROOT = path.join(__dirname, '..');
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
 const PAINT = JSON.parse(fs.readFileSync(path.join(ROOT, 'engine/bohemia_cook3_runway_paint.json'), 'utf8'));
-const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
+const OUT = process.env.OUT || path.join(ROOT, 'records/cook3/thirteen_repainted.png');
+const ONLY = process.env.ONLY || '';
 
 (async () => {
   const b = await chromium.launch({ args: ['--no-sandbox'] });
@@ -28,7 +29,7 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
   await p.goto('file://' + ALPHA, { waitUntil: 'load' });
   await p.waitForFunction(() => typeof buildFrame === 'function' && window.FACTION_LOOKS
     && typeof rebuildFromRig === 'function' && typeof facWornColours === 'function', { timeout: 90000 });
-  const res = await p.evaluate((PAINT) => {
+  const res = await p.evaluate(({ PAINT, ONLY, LOOP }) => {
     const hueOf = (r, g, b) => { const mx = Math.max(r, g, b), mn = Math.min(r, g, b); if (mx === mn) return 0;
       let h = mx === r ? 60 * (((g - b) / (mx - mn)) % 6) : mx === g ? 60 * ((b - r) / (mx - mn) + 2) : 60 * ((r - g) / (mx - mn) + 4);
       return (h + 360) % 360; };
@@ -44,7 +45,7 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
     for (const s in G.equipped) { keepE[s] = G.equipped[s]; G.equipped[s] = ''; }
     const out = [];
     try {
-      for (const f of FACTION_LOOKS) {
+      for (const f of FACTION_LOOKS.filter(x => !ONLY || x.faction === ONLY)) {
         window.G_WORN = f.worn; G.bodyVar = f.dials; G.age = f.age || 'adult';
         rebuildFromRig(); try { HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
         const fr = buildFrame('S', 'idle', 0.25, true);
@@ -96,6 +97,7 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
             if (rule.accentHex) { const h = rule.accentHex, hc = [parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)];
               const k = Math.min(2.2, l / (lum(hc) || 0.01)); src = [hc[0] * k, hc[1] * k, hc[2] * k]; }
             c = lerp(src, [l * 255, l * 255, l * 255], (rule.vibranceDown != null ? rule.vibranceDown : PAINT.vibranceDown)); kept++; }
+          else if (rule.innerBlack && ((i / W) | 0) <= waist) c = lerp(PAINT.neutrals.cool[0], PAINT.neutrals.cool[1], Math.min(1, l * 2));
           else c = neutral(l, rule.warm !== false);
           c = lerp(c, PAINT.ambient, PAINT.ambientPull);
           after[i] = [c[0] | 0, c[1] | 0, c[2] | 0, q[3] == null ? 255 : q[3]];
@@ -112,22 +114,30 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
         let fx0 = 1e9, fx1 = -1; for (let i = 0; i < after.length; i++) if (isCloth(i)) { const xx = i % W; fx0 = Math.min(fx0, xx); fx1 = Math.max(fx1, xx); }
         for (let i = 0; i < after.length; i++) { if (!isCloth(i)) continue;
           const xx = i % W, yy = (i / W) | 0, ls = [];
-          for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const j = (yy + dy) * W + xx + dx;
-            if (xx + dx >= 0 && xx + dx < W && yy + dy >= 0 && yy + dy < H && isCloth(j)) ls.push(lumA[j]); }
+          const RAD = PAINT.medianRadius || 2; for (let dy = -RAD; dy <= RAD; dy++) for (let dx = -RAD; dx <= RAD; dx++) { const j = (yy + dy) * W + xx + dx;
+            if (xx + dx >= 0 && xx + dx < W && yy + dy >= 0 && yy + dy < H && isCloth(j) && (!PAINT.samePart || fr.grid[j] === fr.grid[i])) ls.push(lumA[j]); }
           ls.sort((a, c) => a - c); const med = ls[ls.length >> 1], q = after[i];
-          let k = lumA[i] > 0.01 ? med / lumA[i] : 1; k = Math.max(0.6, Math.min(1.6, k));
+          let k = lumA[i] > 0.01 ? med / lumA[i] : 1; k = Math.max(PAINT.medianClamp ? PAINT.medianClamp[0] : 0.6, Math.min(PAINT.medianClamp ? PAINT.medianClamp[1] : 1.6, k));
           let c = [q[0] * k, q[1] * k, q[2] * k];
           const u = (xx - fx0) / Math.max(1, fx1 - fx0), vv = (yy - top) / Math.max(1, bot - top);
           /* FOLDS AT THE HIP AND THE KNEE ONLY (DIRECTION round three, note 2): round four's long
              creases read as rain on a lens. A fold is a short lit edge over a dark side. */
           for (const f0 of PAINT.folds) for (const band of PAINT.foldBands) {
             if (vv < band[0] || vv > band[1]) continue;
-            const t = (vv - band[0]) / (band[1] - band[0]), fxp = f0 + 0.05 * (t - 0.5);
+            const t = (vv - band[0]) / (band[1] - band[0]), fxp = f0 + (PAINT.foldSlant || 0.05) * (t - 0.5) * (f0 < 0.5 ? -1 : 1);
             const d = (u - fxp) * (fx1 - fx0);
-            if (d >= -0.5 && d < 0.5) c = lerp(c, [0, 0, 0], 0.30);
-            else if (d >= -1.5 && d < -0.5) c = lerp(c, [255, 250, 240], 0.14); }
+            if (d >= -(PAINT.foldWidth || 0.5) && d < (PAINT.foldWidth || 0.5)) c = lerp(c, [0, 0, 0], 0.30);
+            else if (d >= -(PAINT.foldWidth || 0.5) - 1 && d < -(PAINT.foldWidth || 0.5)) c = lerp(c, [255, 250, 240], 0.14); }
+          /* ONE LIGHT (loop look 1): lit from the upper left, the far side and the hem fall off */
+          if (PAINT.light) { const L = PAINT.light; const f2 = 1 + L.side * (0.5 - u) + L.top * (0.5 - vv);
+            /* look 7: light is lit TOWARD bone (the light's colour), shade is multiplied down: a lit red goes dusty, never pink */
+            c = f2 > 1 ? lerp(c, PAINT.neutrals.warm[3], (f2 - 1) * (L.toward || 0.8)) : [c[0] * f2, c[1] * f2, c[2] * f2]; }
           /* AUTHORED WEAR (DIRECTION note 3, AH-01 R10): mud on the boots of the ones who walk */
           if (rule.mud && vv > 0.9) { const ragged = ((xx * 7 + 3) % 5) / 20; if (vv > 0.9 + ragged * 0.5) c = lerp(c, PAINT.mud, 0.45); }
+          /* CRISP BANDS (loop look 4): the light snapped to a few steps, like a pixel artist's ramp */
+          if (PAINT.steps) { const L0 = lum(c), Lq = Math.round(L0 * PAINT.steps) / PAINT.steps, kk = L0 > 0.01 ? Lq / L0 : 1; c = [c[0] * kk, c[1] * kk, c[2] * kk]; }
+          /* NO HOT HIGHLIGHT (loop look 5): a lit pixel loses colour as it rises, it never turns pink */
+          if (PAINT.hiDesat) { const L1 = lum(c); if (L1 > PAINT.hiDesat) { const g = L1 * 255; c = lerp(c, [g, g, g], Math.min(1, (L1 - PAINT.hiDesat) * 3)); } }
           folded[i] = [Math.min(255, c[0]) | 0, Math.min(255, c[1]) | 0, Math.min(255, c[2]) | 0, q[3]]; }
         for (let i = 0; i < after.length; i++) after[i] = folded[i];
         /* ONE ACCENT: the carrier garment holds the territory, everything else goes to the runway neutrals */
@@ -145,6 +155,19 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
       window.G_WORN = keepW; G.bodyVar = keepD; G.age = keepA; for (const s in keepE) G.equipped[s] = keepE[s];
       try { rebuildFromRig(); HD_CACHE.map.clear(); FRAME_CACHE.map.clear(); } catch (e) {}
     }
+    if (LOOP && out.length === 1) { const o = out[0];
+      let t = 1e9, b2 = -1, l2 = 1e9, r2 = -1; o.after.forEach((q, i) => { if (q) { const y = (i / o.W) | 0, xx = i % o.W; t = Math.min(t, y); b2 = Math.max(b2, y); l2 = Math.min(l2, xx); r2 = Math.max(r2, xx); } });
+      const bw = r2 - l2 + 1, bh = b2 - t + 1, Z = 6;
+      const cv = document.createElement('canvas'); cv.width = bw * 2 + bw * Z + 120; cv.height = bh * Z + 20;
+      const x = cv.getContext('2d'); x.fillStyle = '#3a362f'; x.fillRect(0, 0, cv.width, cv.height);
+      const dot = (px, ox, oy, z) => { for (let y = t; y <= b2; y++) for (let xx = l2; xx <= r2; xx++) { const q = px[y * o.W + xx]; if (!q) continue; x.fillStyle = 'rgb(' + q[0] + ',' + q[1] + ',' + q[2] + ')'; x.fillRect(ox + (xx - l2) * z, oy + (y - t) * z, z, z); } };
+      dot(o.before, 4, 4, 1); dot(o.after, bw + 8, 4, 1); dot(o.after, 2 * bw + 16, 4, Z);
+      /* 16 px tall thumbnail, box average, drawn at 4x */
+      const h16 = 16, sc = bh / h16, w16 = Math.max(1, Math.round(bw / sc));
+      for (let y = 0; y < h16; y++) for (let xx = 0; xx < w16; xx++) { let R = 0, G = 0, B = 0, c = 0, a = 0;
+        for (let yy = Math.floor(t + y * sc); yy < Math.floor(t + (y + 1) * sc); yy++) for (let x2 = Math.floor(l2 + xx * sc); x2 < Math.floor(l2 + (xx + 1) * sc); x2++) { a++; const q = o.after[yy * o.W + x2]; if (q) { R += q[0]; G += q[1]; B += q[2]; c++; } }
+        if (c > a / 2) { x.fillStyle = 'rgb(' + (R / c | 0) + ',' + (G / c | 0) + ',' + (B / c | 0) + ')'; x.fillRect(4 + xx * 4, bh + 12 + y * 4, 4, 4); } }
+      return { png: cv.toDataURL('image/png'), rows: [] }; }
     /* THE SHEET: two rows of thirteen (before, after), 2x, plus the runway palette card */
     const S = 2, pad = 10, cw = Math.max(...out.map(o => o.W)) * S, ch = Math.max(...out.map(o => o.H)) * S;
     const cv = document.createElement('canvas'); cv.width = out.length * (cw + pad) + pad; cv.height = 2 * (ch + 34) + 120;
@@ -167,7 +190,7 @@ const OUT = path.join(ROOT, 'records/cook3/thirteen_repainted.png');
     PAINT.card.forEach((c, k) => { x.fillStyle = c.hex; x.fillRect(pad + k * 120, cy + 10, 110, 50);
       x.fillStyle = '#d8d0c0'; x.font = '10px monospace'; x.fillText(c.name, pad + k * 120, cy + 74); });
     return { png: cv.toDataURL('image/png'), rows: out.map(o => ({ f: o.f, accent: o.accent, cloth: o.cloth, keptPct: o.keptPct, satBefore: o.satBefore, satAfter: o.satAfter })) };
-  }, PAINT);
+  }, { PAINT, ONLY, LOOP: !!process.env.LOOP });
   fs.writeFileSync(OUT, Buffer.from(res.png.split(',')[1], 'base64'));
   console.log(JSON.stringify(res.rows, null, 0).replace(/\},/g, '},\n'));
   await b.close();
