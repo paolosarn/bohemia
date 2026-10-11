@@ -751,6 +751,33 @@ function tapBox(k){
   var dx = Math.max(0, (m-w)/2), dy = Math.max(0, (m-h)/2);
   return [b[0]-dx, b[1]-dy, b[2]+dx, b[3]+dy];
 }
+/* a person under the finger: his figure, a door tall, standing on his feet point; the nearest the eye wins */
+function personAt(x, y){
+  if(!FOLK || !VAR) return null;
+  var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, d = folkFrame(), h = d*FOLK.figure_bbox[3]/FOLK.frame, w = Math.max(d*.22, 22/view.s), best = null;
+  folkList().forEach(function(p, i){ if(px >= p.x - w && px <= p.x + w && py >= p.y - h && py <= p.y + 4){ if(!best || p.y > best.y) best = p; } });
+  return best;
+}
+var STREET_LINES = ["Órale, you're new here. Don't drink from the wash, it'll eat you up.",
+  "Batteries or nothing, carnal. Nobody takes paper since the dollar died.",
+  "My cousin went out past the fence last week. Haven't seen him since, so.",
+  "You with a crew? Then keep them close. Things walk at night out here.",
+  "The stall had meds yesterday. Gone by noon, ni modo.",
+  "Mira, if you see a man with a chip behind his ear, walk the other way."];
+function openPerson(p){
+  if(p.keeper){ openB(p.k); return; }
+  S.open = 'person'; var i = folkList().indexOf(p);
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var R = rng(seedOf(S.place.name + ':said:' + i + ':' + (S.day||0))), r = R() < .35 ? nextRumour() : null;
+  var line = r ? r.says : STREET_LINES[Math.floor(R()*STREET_LINES.length)];
+  var who = 'settle-crowd:' + S.place.name + ':' + i;
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(face(null, who, p.look));
+  var sy = document.createElement('div'); sy.className = 'say';
+  var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'SOMEBODY ON THE STREET'; sy.appendChild(n);   /* draft:true */
+  var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
+  document.getElementById('sheet').classList.add('on');
+  post('talk', {who:who, look:p.look, line:line, rumour:r ? r.id : null});
+}
 function hitAt(x, y){
   if(!VAR) return null;
   var px = (x - view.ox)/view.s, py = (y - view.oy)/view.s, best = null, area = Infinity;
@@ -780,7 +807,9 @@ function where(k){
   window.addEventListener('pointerup', function(e){
     if(x0 === null) return; x0 = null; view.lit = null;
     if(moved) return;
-    var r = cv.getBoundingClientRect(), k = hitAt(e.clientX - r.left, e.clientY - r.top);
+    var r = cv.getBoundingClientRect(), pe = personAt(e.clientX - r.left, e.clientY - r.top);
+    if(pe){ openPerson(pe); return; }
+    var k = hitAt(e.clientX - r.left, e.clientY - r.top);
     if(k) openB(k); else if(S.open) hide();
   });
 })();
@@ -854,18 +883,30 @@ function hireIntoCompany(def){
 }
 
 /* ---------- A MOUTH WITH A FACE ---------- */
-function face(k){
-  var c = document.createElement('canvas'); c.width = 36; c.height = 36; c.className = 'face';
-  var kp = KEEPERS[k], f = S.faces[kp.who];
+/* RUN TWO [portraits when they talk], 10/11 (his ninth and tenth votes: 'can these people start getting portraits
+   when you click and talk to them'): nobody speaks with a blank head. The game's portrait (PORTRAIT's keeperFaceSrc,
+   handed back as BOHEMIA_SETTLEMENT_FACE) wins; until it comes, the face is the one on the speaker's own body sheet
+   (slices/fight_people, the 64 face at the sheet's right edge, the same look he wears in the picture) */
+function sheetFace(x, look){
+  var im = new Image(); im.onload = function(){ x.clearRect(0,0,64,64); x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); };
+  im.onerror = function(){ if(look !== 'you') sheetFace(x, 'you'); };
+  im.src = 'fight_people/' + look + '.webp';
+}
+function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : null; }
+function face(k, who, look){
+  var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
+  var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,36,36); }; im.src = f; }
+  if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
+  else if((look = look || lookOf(k))){ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
   else {
     /* no face handed over yet: ask the game for it (the same road the city uses) and
        hold a dim head shape meanwhile, never a blank box */
     post('needFace',{who:kp.who});
-    x.fillStyle='#1a1410'; x.fillRect(0,0,36,36);
+    x.fillStyle='#1a1410'; x.fillRect(0,0,64,64);
     x.fillStyle='#3b3026'; x.fillRect(11,7,14,16); x.fillRect(7,26,22,10);
     x.fillStyle='#120e0a'; x.fillRect(14,13,2,2); x.fillRect(20,13,2,2);
+    c.dataset.face = 'none';
   }
   return c;
 }
@@ -1070,7 +1111,7 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
-window.BohemiaSettlement = {scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
+window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){
   var d = e.data || {};

@@ -77,6 +77,35 @@ const srv = http.createServer((rq, rs) => {
     });
     ok(tier + ': a person is a door tall (measured on the screen)', m.person > 0 && Math.abs(m.person / m.door - 1) <= 0.12, 'person ' + m.person.toFixed(0) + ' / door ' + m.door + ' = ' + (m.person / m.door).toFixed(2));
   }
+  /* PORTRAITS WHEN THEY TALK: tap every person in the picture, keeper or crowd, and a face speaks; a tap with no face is red */
+  {
+    await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: ['market_day'], night: false })); await p.waitForTimeout(800);
+    const n = await p.evaluate(() => BohemiaSettlement.folk().length);
+    let spoke = 0, faced = 0, crowdSaid = 0, blank = [];
+    for (let i = 0; i < n; i++) {
+      await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); }); await p.waitForTimeout(100);
+      const pt = await p.evaluate(i => { const L = BohemiaSettlement.folk(), q = L[i], v = BohemiaSettlement._view();
+        const s0 = BohemiaSettlement.scale(); BohemiaSettlement.where(q.keeper ? q.k : 'stall'); const v2 = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
+        return { x: r.left + v2.ox + q.x * v2.s, y: r.top + v2.oy + (q.y - s0.person * 0.45) * v2.s, keeper: !!q.keeper, k: q.k, look: q.look }; }, i);
+      await p.waitForTimeout(150);
+      await p.mouse.click(pt.x, pt.y); await p.waitForTimeout(900);
+      const r = await p.evaluate(() => { const f = document.querySelector('#sbody .who canvas.face'), say = document.querySelector('#sbody .who .say p');
+        if (!f) return { face: null };
+        const d = f.getContext('2d').getImageData(0, 0, f.width, f.height).data; let n = 0, cols = new Set(); for (let i = 0; i < d.length; i += 4) if (d[i + 3] > 0) { n++; cols.add(d[i] >> 4 << 8 | d[i + 1] >> 4 << 4 | d[i + 2] >> 4); }
+        return { face: f.dataset.face, px: n, cols: cols.size, line: say ? say.textContent : '', open: BohemiaSettlement.state.open }; });
+      if (r.face && r.line) spoke++;
+      if (r.face && r.face !== 'none' && r.px > 1800 && r.cols > 5) faced++; else blank.push((pt.keeper ? pt.k : 'crowd') + ':' + pt.look + ':' + (r.face || 'no sheet') + ':' + (r.cols || 0) + ':' + r.open);
+      if (!pt.keeper && r.open === 'person' && r.line.length > 10) { crowdSaid++; if (crowdSaid === 1) await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_PORTRAITS_WHEN_THEY_TALK_10_11.png') }); }
+    }
+    const crowd = await p.evaluate(() => BohemiaSettlement.folk().filter(x => x.crowd).length);
+    ok('tap any person in the picture and they speak', spoke === n, spoke + ' of ' + n);
+    ok('  every one speaks under a face, never a blank head (a tap with no face is red)', faced === n, faced + ' of ' + n + (blank.length ? ' | ' + blank.slice(0, 3).join(' ') : ''));
+    ok('  the crowd talks too: a street line or a rumour, from the person you tapped', crowdSaid === crowd && crowd > 0, crowdSaid + ' of ' + crowd);
+    await p.evaluate(() => { const c = document.getElementById('close'); if (c && c.offsetParent) c.click(); });
+    const ptb = await p.evaluate(() => BohemiaSettlement.where('bar')); await p.mouse.click(ptb.x, ptb.y + 40); await p.waitForTimeout(400);
+    const bar = await p.evaluate(() => { const f = document.querySelector('#sbody .who canvas.face'); return f ? f.dataset.face : null; });
+    ok('  the bar\'s keeper speaks under a face too', bar && bar !== 'none', bar);
+  }
   /* every building's tap still lands on COOK's finished picture */
   await p.evaluate(() => BohemiaSettlement.open({ place: { tier: 'town', name: 'THE WASH, NORTH LAS VEGAS' }, traits: [], night: false }));
   await p.waitForTimeout(400);
