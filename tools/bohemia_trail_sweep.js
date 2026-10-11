@@ -282,6 +282,16 @@ function sweep({ write = true, log = console.log } = {}) {
     if (r.status === 'OPEN' && !held) action = sOpen >= RATES.rowGone ? 'MOVES TO records/BOHEMIA_EVAPORATED_ROWS.md' : sOpen >= RATES.rowStale ? 'STALE' : '';
     marks.push({ kind: 'row', id: '[' + k + ']', lane: r.lane, status: r.status, silent: s, open_sweeps: so, running_silent: r.status === 'OPEN' ? sOpen : null, held, strength: strength(s), last_cite: lastOf(e), lanes: e ? [...e.lanes].sort() : [], action });
   }
+  /* THE FLOOR (rule 74, Paolo 10/4: 'they don't have jobs'): a running lane keeps at least three OPEN rows, so a row
+     whose move would leave its lane under three stays, the least silent first. Rule 96 does not ask the board to break
+     rule 74; this keeps both. */
+  const openBy = {};
+  for (const m of marks) if (m.kind === 'row' && m.status === 'OPEN') (openBy[m.lane] = openBy[m.lane] || []).push(m);
+  for (const [, ms] of Object.entries(openBy)) {
+    const moving = ms.filter(m => /MOVES/.test(m.action)).sort((x, y) => x.running_silent - y.running_silent);
+    let room = ms.length - moving.length - 3;                     /* OPEN rows that stay, against the floor of three */
+    for (const m of moving) { if (room >= 0) break; m.action = ''; m.floor = 'kept: its lane\'s third OPEN row (rule 74)'; room++; }
+  }
   /* NOTES */
   for (const name of ['THE SUITE LINE', 'THE CUT LINE', 'THE BREAK LIST', 'THE COOK LINE']) {
     const i = board.indexOf('\n' + name); if (i < 0) continue;

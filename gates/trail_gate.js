@@ -27,6 +27,7 @@
          sweeps and never leave; a coordinator rule folds at 7 and leaves at 14.
      T11 a held lane (HOLD, PAUSED, PARKED, or a mode rule 88 or 100 narrows) is read from its live mode; its rows
          do not evaporate.
+     T12 on the real trail file: the moves leave every running lane three OPEN rows (rule 74 kept with rule 96).
    RED CASE: T1 on a copy of the trail file with one mark's "silent" changed by hand; T5's hazard on a
    planted handoff (the split is refused while it is there, T6); T9 on a hand-edited copy.
    ========================================================================== */
@@ -155,6 +156,15 @@ ok('T5 the split keeps ' + keep + ', moves ' + move + '; the hazard: ' + hz.map(
     '## EPSILON  (e)', 'MODE: COOK ONLY FOR THE LOOK ROWS, HOLD FOR MECHANICS', '## ZETA  (z)', 'MODE: RESEARCH ONLY, RUNNING'].join('\n');
   const h = [...T.heldOf(B)].sort().join(' ');
   ok('T11 held lanes read from the live mode: ' + h + ' (a lane that left HOLD, a running lane and a research lane are running)', h === 'ALPHA DELTA EPSILON');
+}
+
+/* T12 THE FLOOR, on the real trail file: no running lane is left under three OPEN rows by the moves (rule 74) */
+if (fs.existsSync(T.OUT)) {
+  const marks = T.readTrail().marks.filter(m => m.kind === 'row' && m.status === 'OPEN' && !m.held);
+  const by = {}; for (const m of marks) (by[m.lane] = by[m.lane] || []).push(m);
+  const short = Object.entries(by).filter(([, ms]) => ms.filter(m => !/MOVES/.test(m.action || '')).length < Math.min(3, ms.length)).map(([l]) => l);
+  ok('T12 the moves leave every running lane at three OPEN rows or more (' + Object.keys(by).length + ' lanes; ' + marks.filter(m => m.floor).length + ' rows kept by the floor)',
+     !short.length, 'under three after the moves: ' + short.join(', '));
 }
 
 console.log('\n=== THE TRAIL FILE GATE: ' + pass + ' passed, ' + fail + ' failed ===');
