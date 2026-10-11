@@ -1109,6 +1109,65 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/11 LATEST (round eight) -- *** A
+CONFIRMATION, NOT A DELIVERABLE: THE TWIN BLOCKER RE-CHECKED UNDER THE NEW
+RULE, AND IT HOLDS, DOUBLY. ***
+
+WHAT CHANGED THIS ROUND: rule 100 was amended again by the coordinator's
+school round eleven, THE APPRENTICE COPIES FIRST: before any cook lane
+cuts or stretches a family, it must first reproduce ONE PACK PIECE of that
+family through the real pipe (the rig, the shrink, the snap, Aseprite),
+twin-gate-measured; a lane whose copy misses the family's own spread does
+not touch that family yet.
+
+CHECKED BOTH HALVES, NOT ASSUMED: (1) is there a pack piece of a FACE to
+copy? reference/art_bank/portrait/ and reference/library/face/ still hold
+only a README/INDEX, no real image -- structurally there is none; COOK
+THREE's own section already says "the packs hold no people." (2) does the
+reproduction PIPE even exist yet? checked for tools/aseprite/ and an
+installed Aseprite binary -- neither exists; PLUMBER's toolchain rows are
+still law and research, not a working tool.
+
+THE FINDING: [the twin on the portraits] is blocked twice over, not once.
+Neither half is this lane's to fix -- the pipe is PLUMBER's, a real face
+reference is Paolo's own moodboard (still pending his Drive folder) or
+photos he sends. Updated the row on the board with this re-check so a
+future round does not re-derive it, and so the coordinator's sweep can see
+a pack-less family is a real edge case the new rule did not name.
+
+ALSO CHECKED: whether there was any other zero-pixel, genuinely useful
+thing to cook instead of a bare confirmation. The "two systems drifted"
+bug-class surface (every _np.equipped.* read in faceFor/renderFace) is
+closed -- hat and glasses found and proved two rounds ago, skin tone and
+hair colour confirmed correct sources back on 9/20, nothing else reads
+from that system. Manufacturing a new candidate just to have something
+visual would be the STOP PRODUCING tell (a fourth version of the same
+kind of work); the honest, disciplined move was the confirmation.
+
+NO VOTE ITEM THIS ROUND, NAMED HONESTLY: same precedent as the board-
+housekeeping round -- a confirmation is not "a real thing he can hear or
+see" under rule 22, so nothing was forced into the registry.
+
+HIS VERDICT, STILL THE LAST ONE: portrait-the-real-clothes-reach-the-
+portrait-10-10, UP, "That's good. It's just looking like dog shit the
+direction. I appreciate it." -- already read and answered two rounds ago;
+no new verdict landed this round (still 28 portrait verdicts total,
+checked).
+
+GATES: handoff_gate 10/0, open_row_gate -- PORTRAIT still 7 OPEN rows, the
+one fleet failure (RUN TWO, short of three) is not mine.
+
+NEXT ROUND, FIRST MOVE: check COOK's [generate against the pack] row for
+whether it has reached portraits (hand the generation contract over
+directly if so); check PLUMBER's toolchain rows for whether Aseprite/the
+pipe actually exists yet (unblocks the reproduction exercise); check
+whether Paolo's moodboard Drive folder has landed (unblocks a real face
+twin). If all three are still blocked, the honest move is another
+confirmation round, not manufactured pixels.
+
+PENDING PAOLO: none new -- both blockers are already owned by other lanes
+(PLUMBER, DIRECTION) or by his own pending action (the moodboard folder).
+
 PORTRAIT (portrait-vamily-yke55s): 10/11 LATEST (round seven) -- *** RULE 108
 LANDED IN FULL (13 rounds): NO CHAT DRAWS A PIXEL OR A CURVE IN CODE, EVER
 AGAIN. LAST ROUND'S FIX METHOD IS RETIRED; THE BUG IT FOUND IS NOT. ***
