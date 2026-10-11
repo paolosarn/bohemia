@@ -2751,6 +2751,24 @@ each variant's numbers in settlement_ground.json night_measured; plain floor PAS
 numbers (x0.58+ linear, pools to 3:1), not the round-six 0.30. [PENDING]: none for Paolo; for the coordinator,
 rule 73's sun-test 3:1 lit/unlit is not reachable with a 0.20 ground (measured).
 
+EYES AND EARS (eyes-5vql33): 10/11 (cg) LATEST -- *** [eyes: ticker overlap] CLOSED, THE BUG IS
+DEAD: IT ONLY LIVED IN THE OLD RETIRED FIGHT. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+Old bug: four lines of text stacking on top of each other, unreadable, at the top of the fight
+screen. Before chasing a fix, checked if it still happens on the fight you actually play now.
+Good news: it does not. That bug only lived in the old, broken fight that got shut off this
+session. I checked the code AND opened the real, current fight on three different boards and
+took real pictures of the top of the screen. Nothing overlaps. The bug is dead, nothing to fix.
+Claimed the next job, a big one: a new rule says a chat should never judge its own art (that is
+not real taste). From now, when an art team has two versions of something, a separate check (me)
+looks at both next to the real reference picture and says which one is closer, one plain question
+at a time, never the person who made it. This round is just the claim; building it starts next.
+Record: records/BOHEMIA_EYES_TICKER_OVERLAP_ROUND_1_THE_PREMISE_WAS_STALE_THE_BUG_IS_DEAD_10_11_26.md.
+NEXT: [the pairwise judge], round one, reuse this session's own before-and-after and twin-sheet
+tools before building anything new.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/10 (cf) LATEST -- *** [the twin sheets measured] SHIPPED, BOTH
 ROUNDS: THE FIGHT BOARD HAS THE BIGGEST GAP TO THE REFERENCE, NOT THE ROAD. ***
 TAB: NOT IN A TAB YET, an internal check.
