@@ -114,9 +114,22 @@ async function contrasts(page, jobs) {
   ok('  and so do the hour and the signal', bar.every(c => c.plain >= 4.5 && c.sun >= 4.5), bar.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
 
   /* THE FAMILY, as cards. Measured with the faces there are, then with all three unlocked by the game's own hook. */
+  /* THE FAMILY LIVES IN THE OPENED PHONE NOW (UI [the flip off the face], his eleventh votes: 'it will never be on the UI
+     display of the phone itself'): the crisis opens the switch (rule 85), a real finger opens the phone and its SWITCH
+     TIMELINE entry, and the cards are read there; 'inside the glass' is inside that panel */
+  const openFamily = async () => {
+    await fr.evaluate(() => { try { if (!BohemiaActs.crisisStarted()) BohemiaActs.crisis(90); } catch (e) {} });
+    await p.waitForTimeout(900);
+    if (!(await fr.evaluate(() => document.getElementById('phonewrap').classList.contains('on')))) {
+      const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedlist').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + 20 }; });
+      await p.touchscreen.tap(fb.x + l.x, fb.y + l.y); await p.waitForTimeout(900); }
+    if (!(await fr.evaluate(() => { const q = document.getElementById('bmtimespanel'); return !!(q && q.classList.contains('on')); }))) {
+      const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+      if (e) { await p.touchscreen.tap(fb.x + e.x, fb.y + e.y); await p.waitForTimeout(900); } }
+  };
   async function tiles() {
     return fr.evaluate(({ ox, oy }) => {
-      const scr = document.getElementById('cityfeedscreen').getBoundingClientRect();
+      const scr = (document.getElementById('bmtimespanel') || document.getElementById('cityfeedscreen')).getBoundingClientRect();
       return [...document.querySelectorAll('#actflip .af')].map(t => { const r = t.getBoundingClientRect(), cs = getComputedStyle(t), n = t.querySelector('.afn'), nr = n.getBoundingClientRect();
         return { now: t.classList.contains('now'), w: r.width, h: r.height, inGlass: r.left >= scr.left - 0.5 && r.right <= scr.right + 0.5 && r.bottom <= scr.bottom + 0.5,
           bg: cs.backgroundImage.slice(0, 140), fam: getComputedStyle(n).fontFamily.split(',')[0].replace(/["']/g, ''), ink: getComputedStyle(n).color, name: n.textContent,
@@ -124,6 +137,7 @@ async function contrasts(page, jobs) {
           box: [ox + r.left + 3, oy + r.bottom - 6, r.width - 6, 3], x: ox + r.left + r.width / 2, y: oy + r.top + r.height / 2 }; });
     }, { ox: fb.x, oy: fb.y });
   }
+  await openFamily();
   const one = await tiles();
   const cardOk = t => t.now ? /linear-gradient\(rgb\(244, 207, 124\)/.test(t.bg) : /url\(/.test(t.bg);
   ok('THE FAMILY FACE IS A CARD (the bar\'s cardboard, or its amber when it is you), its name stamped', one.length >= 1 && one.every(t => cardOk(t) && t.fam === 'BohemiaCasing'),
@@ -133,7 +147,7 @@ async function contrasts(page, jobs) {
   ok('44 POINTS WHERE IT IS PRESSED: the phone and the face', base.w >= 44 && one.every(t => t.w >= 44 && t.h >= 44 && t.inGlass),
      'phone ' + Math.round(base.w) + 'x' + Math.round(base.h) + '; ' + one.map(t => Math.round(t.w) + 'x' + Math.round(t.h)).join(', '));
 
-  await fr.evaluate(() => { try { BohemiaActs.resetAll(); ctActUnlock(2); ctActUnlock(3); } catch (e) {} });
+  await fr.evaluate(() => { try { ctActUnlock(3); ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(900);
   const three = await tiles();
   ok('  and with all three of the family unlocked, every face is 44 points and inside the glass', three.length === 3 && three.every(t => t.w >= 44 && t.h >= 44 && t.inGlass && cardOk(t)),
@@ -142,7 +156,7 @@ async function contrasts(page, jobs) {
   ok('  and all three names pass 4.5 to 1 plain and in the sun', c3.length === 3 && c3.every(c => c.plain >= 4.5 && c.sun >= 4.5), c3.map(c => c.k + ' ' + c.plain + '/' + c.sun).join(', '));
   if (three.length === 3) {
     const before = await fr.evaluate(() => BohemiaActs.current());
-    await p.touchscreen.tap(three[2].x, three[2].y); await p.waitForTimeout(1500);
+    await p.touchscreen.tap(three[2].x, three[2].y - three[2].h / 2 + 14); await p.waitForTimeout(1500);   /* on the face, clear of AGAIN under it */
     const after = await fr.evaluate(() => ({ cur: BohemiaActs.current(), lit: [...document.querySelectorAll('#actflip .af')].map(t => t.classList.contains('now')) }));
     ok('A REAL FINGER ON THE THIRD FACE MAKES IT THE ONE YOU ARE', after.cur !== before && after.lit[2] === true, before + ' -> ' + after.cur);
   } else ok('A REAL FINGER ON THE THIRD FACE MAKES IT THE ONE YOU ARE', false, 'no three faces');

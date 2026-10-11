@@ -12,7 +12,7 @@
      - THE SAME BUTTONS both ways: the same readouts, the same five speeds, NOTES, the gear, the phone, the faces
      - the phone stays a phone, 19.5 by 9
      - on its side, the corners: the bar across the top, the phone on the left (the face's side), the speed pad in the
-       bottom right; and with all three of the family unlocked every face is still 44 points inside the glass
+       bottom right; and with all three of the family unlocked no family card is on the phone's face (they live in the opened phone)
      - no page error
 
    node gates/the_phone_turns_gate.js */
@@ -77,8 +77,9 @@ async function measure(profile) {
     ok('  every pressed thing is 44 points', small.length === 0, small.map(([k, r]) => k + ' ' + (r ? Math.round(r.w) + 'x' + Math.round(r.h) : 'none')).join(', '));
     ok('  the phone stays a phone, 19.5 by 9', !!M.phone && Math.abs(M.phone.h / M.phone.w - 2.167) < 0.12, M.phone && Math.round(M.phone.w) + 'x' + Math.round(M.phone.h));
     const g = M.three.glass, f3 = M.three.faces;
-    ok('  with all three of the family unlocked, every face is 44 points inside the glass', f3.length === 3 && f3.every(f => f.w >= 44 && f.h >= 44 && f.x >= g.x - .5 && f.x + f.w <= g.x + g.w + .5 && f.y + f.h <= g.y + g.h + .5),
-       f3.map(f => Math.round(f.w) + 'x' + Math.round(f.h)).join(', '));
+    /* RE-AIMED 10/11 by his eleventh votes ('it will never be on the UI display of the phone itself', UI [the flip off the
+       face]): with all three unlocked the family is NOT on the phone's face either way up; it lives in the opened phone */
+    ok('  with all three of the family unlocked, no family card is on the phone\'s face', f3.length === 0, f3.length + ' on the face')
     ok('  no page error', !M.errs.length, M.errs.slice(0, 2).join(' | '));
   }
   const A = P.phone_portrait, B = P.phone_landscape;

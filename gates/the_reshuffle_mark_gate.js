@@ -29,9 +29,15 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
   if (!d.doorIsBehindUs()) { ok('the driver got past the door', false); await d.close(); done(); }
   const p = d.page, fr = d.fr;
   const t0 = Date.now(); while (Date.now() - t0 < 20000) { if (await fr.evaluate(() => { const f = document.getElementById('cityfeed'); return !!(f && f.classList.contains('on')); })) break; await p.waitForTimeout(300); }
-  await fr.evaluate(() => { try { BohemiaActs.resetAll(); ctActUnlock(2); ctActUnlock(3); } catch (e) {} });
+  await fr.evaluate(() => { try { BohemiaActs.resetAll(); BohemiaActs.crisis(90); ctActUnlock(3); ctActFlipPaint(); } catch (e) {} });
   await p.waitForTimeout(1200);
   const fb = await (await fr.frameElement()).boundingBox();
+  /* THE FAMILY LIVES IN THE OPENED PHONE NOW (UI [the flip off the face]): after the crisis a real finger opens the phone and
+     its SWITCH TIMELINE entry, and the reshuffle is read on the cards there */
+  { const l = await fr.evaluate(() => { const r = document.getElementById('cityfeedlist').getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + 20 }; });
+    await p.touchscreen.tap(fb.x + l.x, fb.y + l.y); await p.waitForTimeout(900);
+    const e = await fr.evaluate(() => { const b = document.getElementById('bmtimes'); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (e) { await p.touchscreen.tap(fb.x + e.x, fb.y + e.y); await p.waitForTimeout(900); } }
 
   const read = () => fr.evaluate(({ ox, oy }) => [...document.querySelectorAll('#actflip .af')].map(t => {
     const r = t.getBoundingClientRect(), a = t.querySelector('.afr'), cv = t.querySelector('canvas').getBoundingClientRect();
@@ -73,7 +79,7 @@ const done = () => { console.log('\nTHE RESHUFFLE MARK: ' + pass + ' ok, ' + fai
   }, { png, boxes: rs.map(t => t.afr) });
   ok('THE WORD IS PAINTED, LIGHT ON THE GLASS, 4.5 TO 1 PLAIN AND IN THE SUN', cr.length > 0 && cr.every(c => c.lit > 0.08 && c.plain >= 4.5 && c.sun >= 4.5),
      cr.map(c => c.plain + '/' + c.sun + ' lit ' + c.lit).join(', '));
-  ok('THE RESHUFFLE IS 24 POINTS AT LEAST, INSIDE ITS CARD, UNDER THE FACE', rs.every(t => t.afr.h >= 24 && t.afr.w >= 24 && t.afr.inCard && t.afr.underFace),
+  ok('THE RESHUFFLE IS 24 POINTS AT LEAST (44 in the opened phone), INSIDE ITS CARD, UNDER THE FACE', rs.every(t => t.afr.h >= 24 && t.afr.w >= 24 && t.afr.inCard && t.afr.underFace),
      rs.map(t => Math.round(t.afr.w) + 'x' + Math.round(t.afr.h) + (t.afr.underFace ? '' : ' ON THE FACE')).join(', '));
   ok('  and the flip keeps 44 by 44 of the card above it', rs.every(t => t.flip.w >= 44 && t.flip.h >= 44), rs.map(t => Math.round(t.flip.w) + 'x' + Math.round(t.flip.h)).join(', '));
 

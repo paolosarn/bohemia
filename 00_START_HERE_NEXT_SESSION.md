@@ -4210,6 +4210,12 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/11 LATEST -- [the flip off the face] SHIPPED: the act switch is off the phone's face; after the crisis it is SWITCH TIMELINE in the opened phone.
+bohemia_ui_materials.js (flipOffTheFace): DYNASTY's strip hidden on the face, moved into a panel under the opened phone's bar once BohemiaActs.crisisStarted().
+Gate the flip off the face 10/0, 4 mutations; UI's phone look / reshuffle / phone turns gates re-aimed, green. VOTE ui-the-flip-off-the-face-10-11.
+FOR DYNASTY + THE COORDINATOR [PENDING, not Paolo]: the_flip, three_names, one_then_heirs, heirs fail BY DESIGN (they tap the face); the 3-step re-aim is in records/BOHEMIA_UI_REVIEW_FOR_DYNASTY_THE_FLIP_LIVES_IN_THE_OPENED_PHONE_10_11_26.md.
+NEXT: [icons at full pixels] (the noose-like fabric icon deleted first, then the six supplies on one sheet beside the pack prop).
+
 UI (ui-kmqmrf): 10/10 (e) LATEST -- [the phone's font] CANDIDATE in VOTE (rule 100, cook only): the phone's text at 2 pixels a dot.
 Study: both faces are 10 dots per em, the one smaller sharp size is 6.667 pt. Candidate fits 3 posts where 1 is cut off now; 6.6 to 1 in the sun.
 Card ui-the-phones-text-10-10 'FINAL? THE PHONE'S TEXT, SMALLER', sheet slices/vote/UI_THE_PHONES_TEXT_10_10.png with its twin. NOTHING in the game until his FINAL.

@@ -680,6 +680,21 @@
        carries the family's faces, goes to the LEFT, where Pocket City keeps its face: from under the bar (its box starts at the bar's foot) to the foot of the
        glass. 390 points of height hold a phone 150 wide at 19.5 by 9 (325 tall); the face row tightens so three faces
        stay 44 points. One class of screen (a phone on its side: landscape, under 500 tall); portrait is untouched. */
+    /* THE FLIP OFF THE FACE (UI [the flip off the face], Paolo's eleventh votes: 'you click the phone and it's in the
+       menu; it will never be on the UI display of the phone itself'): the family's strip never shows on the phone's face;
+       after the first crisis (rule 85) the opened phone's bar carries one entry, SWITCH TIMELINE, and the same strip opens
+       under it; before the crisis the entry does not exist. DYNASTY's strip and its flip are used as they are. */
+    + 'html body #cityfeedscreen > #actflip{display:none!important}'
+    + 'html body #bmtimes{min-height:44px;margin:0 8px 0 auto;padding:0 12px;border:0;border-radius:0;color:#1f1710;background:#e2dac6 var(--bm-receipt) center/100% 100%;'
+    +   'filter:drop-shadow(0 1px 0 rgba(0,0,0,.85));font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:11px;letter-spacing:.8px;text-align:left;cursor:pointer}'
+    + 'html body #bmtimes.on{color:#120c06;background:linear-gradient(#f4cf7c,#d9a650);filter:none;box-shadow:inset 0 1px 0 rgba(255,240,200,.6),inset 0 -2px 0 rgba(70,40,10,.55)}'
+    + 'html body #bmtimespanel{flex:0 0 auto;display:none;padding:10px 10px 12px;background:linear-gradient(rgba(12,8,4,.32),rgba(12,8,4,.32)),#3a2c1e var(--bm-cardboard) 0 0/192px 192px;box-shadow:0 2px 0 #000}'
+    + 'html body #bmtimespanel.on{display:block}'
+    + 'html body #bmtimespanel .bmth{font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:11px;letter-spacing:.8px;color:#eadcb4;margin:0 0 8px}'
+    + 'html body #bmtimespanel #actflip{display:flex!important;justify-content:flex-start;align-items:flex-start;gap:6px;border:0;padding:0}'
+    + 'html body #bmtimespanel #actflip .af{flex:0 0 96px;width:96px;max-width:96px}'   /* the cards keep a card's width, not the glass's */
+    + 'html body #bmtimespanel #actflip .af:has(.afr){padding-bottom:51px}'   /* the opened phone makes every press 44 tall, AGAIN too: the card makes room under the name */
+    + 'html body #phonebar{padding-left:60px}'   /* the shell's gear sits over the bar's left end (8..52) */
     /* NO BANDS AT ANY WIDTH (UI [the sideways sides]): the column's 640 cap and its 6 points of padding made a flat strip of
        the page's brown-grey down each side, 6 points upright, 102 on its side, more on a tablet. The map goes to the glass
        at every width, the way Battle Brothers' map fills the screen; the bar runs the whole width with it. */
@@ -822,6 +837,35 @@
     try { new MutationObserver(paint).observe(body, { childList: true, subtree: true }); } catch (e) {}
     paint(); return true;
   }
+  /* the entry exists only after the first crisis; the strip moves into its panel the first time it is opened */
+  function flipOffTheFace() {
+    var bar = document.getElementById('phonebar'), wrap = document.getElementById('phonewrap'), box = document.getElementById('actflip');
+    var face = document.getElementById('cityfeedscreen'), btn = document.getElementById('bmtimes'), panel = document.getElementById('bmtimespanel');
+    if (!bar || !wrap) return;
+    var open = false; try { open = !!(window.BohemiaActs && BohemiaActs.crisisStarted()); } catch (e) {}
+    if (!open) {
+      if (btn) btn.remove();
+      if (panel) { if (box && box.parentNode === panel && face) face.insertBefore(box, document.getElementById('cityfeedfade')); panel.remove(); }
+      return;
+    }
+    if (!panel) {
+      panel = document.createElement('div'); panel.id = 'bmtimespanel'; panel.setAttribute('role', 'group'); panel.setAttribute('aria-label', 'switch timeline');
+      var h = document.createElement('div'); h.className = 'bmth'; h.textContent = 'WHO YOU ARE, AND WHEN';   /* draft:true */
+      panel.appendChild(h); bar.parentNode.insertBefore(panel, bar.nextSibling);
+    }
+    if (!btn) {
+      btn = document.createElement('button'); btn.id = 'bmtimes'; btn.type = 'button'; btn.textContent = 'SWITCH TIMELINE';   /* draft:true */
+      var close = document.getElementById('phoneclose'); bar.insertBefore(btn, close || null);
+      btn.addEventListener('click', function (ev) {
+        try { ev.stopPropagation(); } catch (e) {}
+        var on = !panel.classList.contains('on'), bx = document.getElementById('actflip');
+        if (on && bx && bx.parentNode !== panel) panel.appendChild(bx);
+        panel.classList.toggle('on', on); btn.classList.toggle('on', on);
+        try { if (on && typeof ctActFlipPaint === 'function') ctActFlipPaint(); } catch (e) {}
+      });
+    }
+    if (!wrap.classList.contains('on') && panel.classList.contains('on')) { panel.classList.remove('on'); btn.classList.remove('on'); }   /* the phone closed */
+  }
   function dressPhone() {
     if (!document.getElementById('cityfeed')) return false;
     rootVars();
@@ -829,6 +873,7 @@
     if (!R.getPropertyValue('--bm-mark-skull')) { R.setProperty('--bm-mark-skull', 'url(' + mark('skull', '#eadcb4').toDataURL('image/png') + ')');
       R.setProperty('--bm-mark-skull-ink', 'url(' + mark('skull', '#120c06').toDataURL('image/png') + ')'); }
     style('bm-phone', PHONE_CSS);
+    if (!window.__bmFlipOff) { window.__bmFlipOff = setInterval(flipOffTheFace, 600); flipOffTheFace(); }
     /* the city sizes its map from its column when it boots, which can be before this sheet lands: a phone on its side
        then drew the old 628 and left a black band where the column grew (UI [the sideways sides]); ask it to measure again */
     try { setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 0); setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 1500); } catch (e) {}
