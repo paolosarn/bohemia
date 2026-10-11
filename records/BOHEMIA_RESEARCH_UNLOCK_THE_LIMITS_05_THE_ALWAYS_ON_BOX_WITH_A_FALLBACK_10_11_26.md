@@ -4,33 +4,33 @@ Research only. Nothing here is built. Paolo's words: "I might even be able to se
 
 ## 1. THE FINDING
 
-A home computer can register itself as a self-hosted GitHub Actions runner, and our workflows can send the art jobs to it with one label. GitHub has NO built-in fallback: if the box is off, a job that names it just sits in the queue until a runner appears, and GitHub cancels it after 24 hours (docs say up to 48). So the fallback has to be our own first job, which asks the GitHub API "is the box online?" and hands the answer to the next job's `runs-on`. GitHub itself says do not put a self-hosted runner on a public repo, because a fork's pull request can run code on the box; the fix is to never let a pull request reach the box, make the runner single-use, and ideally give the art job its own private repo. For the hardware, a used RTX 3060 12 GB (about $290 to $400 for the card) makes a 512 px SD 1.5 picture in roughly 3 seconds, a $599 Mac mini M4 does it in roughly 8 to 15 seconds at 4 watts idle, and the free GitHub runner (CPU only) needs minutes per picture.
+A home computer can register itself as a self-hosted GitHub Actions runner, and our workflows send the art jobs to it with one label. GitHub has NO built-in fallback: if the box is off, a job that names it sits in the queue until GitHub cancels it after 24 hours (docs say up to 48). So the fallback is our own first job, which asks the API "is the box online?" and hands the answer to the next job's `runs-on`. GitHub says do not put a self-hosted runner on a public repo, because a fork's pull request can run code on the box; the fix is to never let a pull request reach the box, make the runner single-use, and give the art job its own private repo. A used RTX 3060 12 GB (about $290 to $400 for the card) makes a 512 px SD 1.5 picture in roughly 3 seconds, a $599 Mac mini M4 in roughly 8 to 15 seconds at 4 watts idle, and the free GitHub runner (CPU only) needs minutes per picture.
 
 ## 2. THE SECURITY RULE FOR A PUBLIC REPO
 
 GitHub's own words, from the "add runners" page as returned by search: "We recommend that you do not use self-hosted runners with public repositories. Forks of your public repository can potentially run dangerous code on your self-hosted runner machine by creating a pull request that executes the code in a workflow." A second docs page adds that even with the fork-approval setting on, "potentially malicious user-controlled workflow code will execute automatically if the user is allowed to bypass approval... or if the pull request is approved." And `pull_request_target` workflows always run, with no approval at all.
 
-The mitigations on the table, and what each is worth:
+The mitigations, and what each is worth:
 
-- **Never trigger a self-hosted job from a pull request.** Only `push` to `main`, `schedule`, and `workflow_dispatch`. A fork cannot push to our `main`. This is the one that actually closes the hole; everything else is belt and braces.
-- **Ephemeral runner (`--ephemeral` at config time).** The runner takes one job, then de-registers itself; a service wrapper re-registers a clean one. A bad job cannot leave anything behind for the next.
-- **Fork approval setting.** Settings, Actions, General, "Approval for running fork pull request workflows from contributors." Set it to require approval for ALL outside contributors, not only first-timers. Sources disagree on the exact label; read it in the UI.
-- **Runner groups with "Allow public repositories" off** are an ORGANIZATION feature; the search found nothing equivalent for a personal account, so it does not help us as the repo stands.
+- **Never trigger a self-hosted job from a pull request.** Only `push` to `main`, `schedule`, and `workflow_dispatch`. A fork cannot push to our `main`. This is the one that closes the hole.
+- **Ephemeral runner (`--ephemeral` at config time).** One job, then it de-registers and a clean one comes back. Nothing carries over.
+- **Fork approval setting.** Settings, Actions, General, "Approval for running fork pull request workflows from contributors": require approval for ALL outside contributors, not only first-timers. Sources disagree on the exact label; read it in the UI.
+- **Runner groups with "Allow public repositories" off** are an ORGANIZATION feature; nothing equivalent surfaced for a personal account.
 - **Actions Runner Controller** is Kubernetes. Overkill for one box.
-- **A private mirror repo for the art jobs.** The runner is registered to a PRIVATE twin repo (bohemia-art). Its workflow checks out the public repo read-only, cooks, and pushes the pictures back with a deploy key. Forks of the public repo cannot even see the box.
+- **A private mirror repo for the art jobs.** The runner is registered to a PRIVATE twin repo (bohemia-art) whose workflow checks out the public repo read-only, cooks, and pushes pictures back with a deploy key. Forks cannot even see the box.
 
-THE MITIGATION THIS REPO SHOULD USE: the private twin repo, ephemeral runner, triggers limited to the default branch and the clock. Plus two habits: the runner runs as its own low-rights user with nothing personal on that machine, and the fork-approval setting on the public repo goes to "all outside contributors" anyway.
+THE MITIGATION THIS REPO SHOULD USE: the private twin repo, an ephemeral runner, triggers limited to the default branch and the clock, the runner as its own low-rights user on a machine with nothing personal on it, and the public repo's fork-approval setting on "all outside contributors" anyway.
 
 ## 3. THE FALLBACK PATTERN (home box when on, free runner when off)
 
-1. **Register the box** as a self-hosted runner on the private twin repo with labels `self-hosted, bohemia-art, gpu`. Install it as a service (`svc.sh install` on Linux; the Windows service is offered at config time) with `--ephemeral`, so it survives reboots and never carries state between jobs.
-2. **Job one, `pick`, runs on `ubuntu-latest`.** It calls `GET /repos/{owner}/{repo}/actions/runners` and checks whether a runner with our label is `online` AND idle. The built-in `GITHUB_TOKEN` cannot list runners; store a fine-grained token with runner read rights as a secret. The marketplace actions `mikehardy/runner-fallback-action` (the maintained fork of `jimmygchen/runner-fallback-action`) and "Check Runner Availability" do exactly this and output a JSON `runs-on` value.
-3. **Job two, `cook`, uses `runs-on: ${{ fromJson(needs.pick.outputs.runs_on) }}`.** On the box it gets `[self-hosted, bohemia-art]`; otherwise `ubuntu-latest`.
-4. **Two recipes in one job, chosen by a step `if`.** On the GPU: the full pixel-art diffusion pass. On the free runner (4 vCPU, 16 GB, CPU only, unlimited minutes for public repos): the fast half only, meaning the palette, the gates, the cutting and the registry, and either a few CPU pictures or none, with the diffusion backlog written to a queue file.
-5. **Catch-up on wake.** A `schedule` run every hour does nothing unless the box is online and the queue file is not empty; then it drains it. So a night with the box off costs delay, not lost work.
-6. **Fall back only when OFFLINE, not when busy.** A documented issue on a busy pool shows jobs falling back and running three times slower (55.9 min versus about 20). Our picker treats "busy" as "wait."
-7. **Set `timeout-minutes`** on `cook`, and remember it starts counting when the job starts, not while queued; the 24-hour queue cap is why step 2 exists.
-8. **Guardrails:** the twin repo's workflow has no `pull_request` trigger of any kind, and the public repo's art workflow never names the self-hosted label.
+1. **Register the box** on the private twin repo with labels `self-hosted, bohemia-art, gpu`. Install it as a service (`svc.sh install` on Linux; Windows offers the service at config time) with `--ephemeral`, so it survives reboots and carries nothing between jobs.
+2. **Job one, `pick`, runs on `ubuntu-latest`.** It calls `GET /repos/{owner}/{repo}/actions/runners` and checks for a runner with our label that is `online` AND idle. The built-in `GITHUB_TOKEN` cannot list runners; store a fine-grained token as a secret. `mikehardy/runner-fallback-action` (maintained fork of `jimmygchen/runner-fallback-action`) and "Check Runner Availability" do this and output a JSON `runs-on` value.
+3. **Job two, `cook`, uses `runs-on: ${{ fromJson(needs.pick.outputs.runs_on) }}`.** On the box: `[self-hosted, bohemia-art]`; otherwise `ubuntu-latest`.
+4. **Two recipes in one job, chosen by a step `if`.** GPU: the full pixel-art diffusion pass. Free runner (4 vCPU, 16 GB, CPU only, unlimited minutes on public repos): the fast half only, the palette, gates, cutting and registry, with the diffusion backlog written to a queue file.
+5. **Catch-up on wake.** An hourly `schedule` run drains the queue file only when the box is online. A night with the box off costs delay, not work.
+6. **Fall back only when OFFLINE, not when busy.** A documented busy-pool fallback ran three times slower (55.9 min versus about 20). "Busy" means "wait."
+7. **Set `timeout-minutes`** on `cook`; it counts from job start, not from queueing, which is why step 2 exists.
+8. **Guardrails:** the twin repo's workflow has no `pull_request` trigger, and the public repo's workflows never name the self-hosted label.
 
 ## 4. THE HARDWARE
 
@@ -50,7 +50,7 @@ Electricity, my arithmetic at the EIA 2026 forecast of about 18.2 cents per kWh:
 
 FIXES: the per-picture cost goes to zero after one purchase; the pipeline keeps running when the box is off, just slower and shorter; the box's absence never loses work, only delays it; nothing of his daily machine is exposed if the twin-repo rule holds.
 
-DOES NOT FIX: a fork's pull request is still dangerous the day anyone puts a self-hosted label into the public repo's workflow; the free runner cannot do the GPU art at a useful pace, so a week with the box off is a week with no new diffusion pictures; the 3060 price is a card, not a computer, and an 8 GB card limits us to SD 1.5-class models; the base Mac mini M4 number is inferred, not measured, and the M4 may already have a successor on Apple's store; Windows forces update restarts past a deadline even with Active Hours set, so Linux as a service is the safer always-on choice, with BIOS "Restore on AC Power Loss: Power On" and Wake-on-LAN tested with a real power cut, and the Deep Sleep setting checked, since one Dell rebooted itself a second after every shutdown with WOL on.
+DOES NOT FIX: a fork's pull request is dangerous the day anyone puts a self-hosted label into the public repo's workflow; the free runner cannot do GPU art at a useful pace, so a week with the box off is a week with no new diffusion pictures; the 3060 price is a card, not a computer, and 8 GB cards stop at SD 1.5-class models; the base Mac mini M4 number is inferred, and the M4 may already have a successor on Apple's store. Always-on pitfalls: Windows forces update restarts past a deadline even with Active Hours set, so Linux running the runner as a service is the safer choice; set BIOS "Restore on AC Power Loss" to Power On, enable Wake-on-LAN and test both with a real power cut; check the Deep Sleep setting, since one Dell rebooted itself a second after every shutdown with WOL on.
 
 ## 6. ONE RULE
 
