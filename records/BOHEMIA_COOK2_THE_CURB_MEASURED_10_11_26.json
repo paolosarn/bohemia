@@ -1,0 +1,17 @@
+{
+ "face_rows": 7,
+ "face_from": [
+  "1. Cracked contrete tiles",
+  [
+   0,
+   1,
+   2,
+   6,
+   7
+  ]
+ ],
+ "shadow_px": 3,
+ "face_px": 1702,
+ "lip_px": 871,
+ "shadow_count": 864
+}

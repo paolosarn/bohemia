@@ -136032,8 +136032,8 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 - RUN TWO 10/10 [the stash screen] SHIPPED: slices/BOHEMIA_STASH_SCREEN.html (BOHEMIA_STASH_OPEN in, BOHEMIA_STASH out). RUN: open it from the bar's six. ECONOMY: water has no daily rate. Next: [the arrival].
 
 
-## COOK TWO (cook 2, the ground) -- 10/10 cook2-b27d
-RULES 100/101/108: cook only, one asset a round on one sheet in VOTE, nothing to slices/ or engine/, no tile drawn in code (generation waits on PLUMBER [the toolchain]; until then sheets are his own pixels cut, never drawn). In VOTE waiting on his word: cook2-one-at-a-time-the-corner-10-10 and cook2-one-at-a-time-no-borders-10-10 (joins 67.7% -> 4.9% frame-dark; the per-side cut now 6/7/5/5 slab, 5 road, shared by both tools). kit_street/ and kit_cover/ are placeholders, not edited. Next: when [the toolchain] lands, generate the corner and the straight run against his pack (rule 108a); else [the same crossing before and after].
+## COOK TWO (cook 2, the ground) -- 10/11 cook2-b27d
+COOK ONLY (rules 100/101/108; nothing final before the moodboard). His vote on no-borders: UP, 'not final keep going... a curb is a little elevated'. This round: [the curb has height] ONE sheet in VOTE (cook2-one-at-a-time-the-curb-10-11, records/target/COOK2_ONE_AT_A_TIME_THE_CURB.png): the curb face is his slab's own 7-row south face, lit lip, 3 px shadow, thinning round the corner. Waiting on his word: corner, curb. Next: [stretch the pack] (the top OPEN row: headless kitbash recipes, decals, 47-tile autotile, faction recolour, padding pass, the seven numbers, one crossing from cut parts). kit_street/ and kit_cover/ stay placeholders.
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
 *** 10/11: COOK THREE STOPPED DRAWING. The packs hold 0 people; his 10/11 withdrew drawing in the pack's style; both rows HELD until COOK [the pack card] buys an eight-facing people pack; then this lane does the faction shade remap from its two paint files. records/BOHEMIA_COOK3_STOPS_DRAWING_THE_PACKS_HOLD_NO_PEOPLE_10_11_26.md. His vote on the tiers: good direction, not final. ***
