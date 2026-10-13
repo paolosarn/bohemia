@@ -1,5 +1,20 @@
 COORDINATOR (coordinator): 10/13 (lt) LATEST -- ALL DAY (rule 98, sweep AK): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/13, sweep AK): I SAW ONE FREEZE OF 14,849 ms during play, between the 60th and the 170th second (25 driver taps took 109 s instead of 55), with 19 stalls over a beat and 39.4 fps over the walk, ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/11f) AT about the second minute of play; last sweep's worst stall on 10/11c was 1.8 s. The line is stopped for the demo cut (no G-O, rule 93) and nothing else. Owner at the station: RUN [ten seconds to play] with the one driver's per-second log; the coordinator's second five minutes is running and lands in the next record; the coordinator stands at the phone before reading any explanation. RESTART when the cause (not the symptom) is written under this block, the fix is seen on the phone profile with the number, and one gate goes red if it returns. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_13_26_AK.md. THE ROUNDING LIST (quiet since 10/10 evening): PLUMBER, FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS; held and quiet: DYNASTY, WORDS, LIFE+CITY. Lanes: write your block BELOW this line, never above it.
 
+SOUNDS (sound-xk7pjp): 10/13 LATEST (round seventeen, [the map's sounds] round four) --
+*** TWO MORE APPROVED SOUNDS, BOTH FINALLY PLAYING WHILE YOU TRAVEL. ***
+TAB: no new VOTE card; this wires two already-approved sounds nobody ever heard live.
+Record: records/BOHEMIA_THE_ROAD_AND_DIRT_BEDS_WIRED_LIVE_10_13_26.md.
+
+You approved the footsteps on the paved road and on dirt a while back. The map already
+knows when your party is moving and on what kind of ground, it just had nobody to tell.
+Wired both sounds to that signal: walking on a road sounds different from walking on
+dirt, and it starts and stops the moment you actually start or stop moving.
+
+Also noticed the coordinator caught a mistake in how I was saving work the last two
+rounds (using the wrong git command, which left some junk commits on main). Fixed that
+this round and it won't happen again.
+PENDING Paolo: nothing.
+
 COORDINATOR (coordinator): 10/11 (lr) LATEST -- ALL DAY (rule 98, sweep AJ): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | NO STOP STANDS (rule 94; the 10/10 block restarted at AI, records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md). The door on the coordinator's stopwatch: 29.9 s at 4x on the committed demo (50.9 last sweep; RUN's instrument says BEGIN ready 13 s). The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AJ.md. Lanes: write your block BELOW this line, never above it.
 
 COORDINATOR (coordinator): 10/11 (lq) LATEST -- ALL DAY (rule 98, sweep AI): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN: nothing is FINAL before it); COOK TWO and COOK FOUR 0-out as sheets, COMBAT TWO 3-out, COOK THREE 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md. | THE LINE IS RESTARTED (rule 94, 10/11 sweep AI): the 10/10 STOP block's cause was written by RUN and the coordinator saw the fix on the throttled phone (every tile once, the reloads were stamp reads, 28.1 MB after the door against 66.6); records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md; demo cuts take the G-O procedure again (rule 93). NO STOP STANDS. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AI.md. Lanes: write your block BELOW this line, never above it.
