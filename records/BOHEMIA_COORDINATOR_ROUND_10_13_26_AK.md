@@ -35,3 +35,8 @@ DEPLOY: runs through 3074 SUCCESS; the demo is BUILD 10/11f (c3e66aef). COOK: 57
 
 ## ONE SHIPPED THING HE NEVER OPENED
 The fight opens with both teams and four squares of map above and below, no black, on the phone upright, sideways and on a computer (COMBAT; TAB: the fight, in the demo and the alpha).
+
+## THE SECOND FIVE MINUTES (the station's reproduction, same build 10/11f, same profile, run right after the first)
+- the door at 20.0 s after 17 files (31.7 s in the first run, same build, same box: the door's own spread on this instrument is twelve seconds, which is why one stopwatch reads several runs);
+- 18 stalls over a beat, WORST 3,883 ms (14,849 in the first run); 50.2 fps (39.4); 507 whole frames dropped (351); 2 page errors (the driver's clipboard); 0 dead taps of 6.
+- THE FREEZE DID NOT REPRODUCE. Rule 94: NOT SEEN at the station restarts the line. The cord was pulled on one sighting and the station's second look did not see it, so the stop is lifted the same sweep; the sighting is not forgotten: RUN [the long freeze] (an intermittent 14.8 s freeze in the second minute, one run in two, hunted with the per-second log over several runs) is on RUN's board as OPEN, and the one stopwatch reads several runs, never one. The 3.9 s worst stall is itself over the line (a beat is 500 ms) and belongs to the same row.
