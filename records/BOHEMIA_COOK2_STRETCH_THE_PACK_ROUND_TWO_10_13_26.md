@@ -1,0 +1,6 @@
+# COOK TWO [stretch the pack], round two: the 47 (10/13)
+- His word since round one: the corner UP 'Not final'; no-borders UP 'Not final keep going' + the curb (answered by [the curb has height]).
+- tools/bohemia_cook2_stretch_the_pack_47_10_13_26.py: the blob rule (a corner counts only if both its sides are set) collapses the 256 neighbour cases to 47 (asserted). Each case is rendered from a 3x3 mask over HIS slab and road fields (frame cut, the recipes), rounded by a 6 px blur-and-threshold (convex and concave corners soften alike), the curb face his slab's own 7-row south face where the walk is straight north, 3 px shadow under it, the lit lip on every walk edge.
+- CAUGHT ON THE PICTURE: the first cut built only the 47 SIDEWALK cells, and the curb face and shadow, which fall on the ROAD cell south of the walk, were cropped away: a lip with no height. The road cells now have their own 47 by the same rule: 94 tiles.
+- Proof: records/target/COOK2_STRETCH_THE_PACK_47.png, a random sidewalk plan (plazas, a street, a one-cell island, notches) as hard squares beside the same plan tiled from the 94; the 47 sidewalk cases on the sheet. Cases on the record: records/BOHEMIA_COOK2_THE_47_10_13_26.json.
+- NOT YET: the faction recolour (round three): shade-to-shade remap on quantised markings and props, not asphalt (road saturation 0.06).
