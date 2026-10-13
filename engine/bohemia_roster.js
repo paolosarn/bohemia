@@ -141,7 +141,9 @@
   }
   function perkName(id) { var r = (D.perkRows || []).filter(function (x) { return x.id === id; })[0]; return r ? r.name : id; }
   /* what the fight reads: opts.company = [{background, level, perks}] in crew order */
-  function company(crew) { return crew.map(function (m) { return { name: m.name, background: m.bgId, level: m.level, perks: (m.perks || []).slice() }; }); }
+  function company(crew) { return crew.map(function (m) { var g = m.gear || {}, id = function (it) { return it ? it.id : null; };
+    return { name: m.name, background: m.bgId, level: m.level, perks: (m.perks || []).slice(),
+             gear: { main: id(g.main), off: id(g.off), body: id(g.body), head: id(g.head) } }; }); }
   var API = { load: load, xpFor: xpFor, levelOf: levelOf, grant: grant, perkChoices: perkChoices, takePerk: takePerk, perkName: perkName, company: company, data: D, STATS: STATS, STAT_NAME: STAT_NAME, manOf: manOf, startingCrew: startingCrew, itemOf: itemOf,
     slotFor: slotFor, sheetSrc: sheetSrc, FRAME: 112, FACE: { x: 1568, y: 0, s: 64 }, SLOTS_PER_ROW: 9 };
   root.BohemiaRoster = API;

@@ -52,6 +52,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
   background:var(--plate2);border-bottom:1px solid var(--line)}
 #bar .name{font-weight:700;letter-spacing:1px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #bar .bat{color:var(--gold)}
+#crew{min-width:64px;min-height:44px;margin-right:6px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-weight:700}
 #leave{min-width:76px;min-height:44px;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;font-weight:700}
 #scene{position:relative;flex:1;min-height:0;overflow:hidden;background:#0b0907}
@@ -110,7 +111,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <body>
 <div id="app">
   <div id="bar"><span class="name" id="pname">THE PLACE</span><span class="bat" id="bat">0 BATTERIES</span>
-    <button id="leave">LEAVE</button></div>
+    <button id="crew" aria-label="your company">CREW</button><button id="leave">LEAVE</button></div>
   <div id="scene"><canvas id="cv"></canvas>
     <div id="sheet" aria-live="polite"><button id="close" aria-label="close">&times;</button><div id="sbody"></div></div>
   </div>
@@ -122,7 +123,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_followers.js"></script>
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
-<script src="../engine/bohemia_goodbros.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="../engine/bohemia_goodbros.js"></script>
+<script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -1131,6 +1133,10 @@ function open(o){
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
 }
+/* THE CREW BUTTON (RUN TWO [equip from the stash]): the company screen over the place, the stash as its bag; closing it
+   re-reads the bag the roster changed */
+document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
+  BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
 window.BohemiaSettlement = {personAt:function(x,y){ return personAt(x,y); }, scale:function(){ return {door:DOOR_PX[S.place.tier] || 136, person:FOLK ? folkFrame()*FOLK.figure_bbox[3]/FOLK.frame : null, s:view.s}; }, _view:function(){ return {ox:view.ox, oy:view.oy, s:view.s, W:view.W, H:view.H, pw:picW(), ph:picH()}; }, folk:function(){ return folkList(); }, crowdCount:function(){ return crowdCount(); }, traitsNow:function(){ return (S.traits||[]).map(function(t){ return t.id; }); }, bagSlots:BAG_SLOTS, where:where, ready:function(){ return !!(VAR && PIC.day && PIC.day.complete); }, open:open, state:S, buildings:B, tiers:TIERS, offers:OFFERS, order:function(){ return ORDER.slice(); }};
 
 window.addEventListener('message', function(e){

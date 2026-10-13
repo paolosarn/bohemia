@@ -371,9 +371,12 @@ const FIGHT = (function () {
     const st = bg.stats, roll = function (k) { return rint(st[k][0], st[k][st[k].length - 1]); };
     const rows = R('ours.weapon_rows');
     const job = c.jobs.filter(function (j) { return j !== 'car_door'; })[0];
-    const w = weaponRow(rows[job]);
-    const sh = c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null;
-    const body = armourRow('body', c.body), head = armourRow('head', c.head);
+    /* what he wears on the roster is what he fights with (RUN TWO [equip from the stash]): the company's gear ids win,
+       an empty slot is empty, a man with no gear handed keeps his place's kit */
+    const G = c.gear || null;
+    const w = (G && G.main && weaponRow(G.main)) || weaponRow(rows[job]);
+    const sh = G ? (G.off ? shieldRow(G.off) || null : null) : (c.jobs.indexOf('car_door') >= 0 ? shieldRow(rows.car_door) : null);
+    const body = G ? (G.body ? armourRow('body', G.body) : null) : armourRow('body', c.body), head = G ? (G.head ? armourRow('head', G.head) : null) : armourRow('head', c.head);
     const xp = R('parsed.brother_xp');
     const lv = c.level || rint(bg.starting_level[0], bg.starting_level[bg.starting_level.length - 1]);   /* an origin's stated level (rule 75a) */
     const perks = Array.isArray(c.perks) ? c.perks.slice() : pickPerks(R('ours.perk_builds')[job], (lv - 1) * DB.perks.rules.perk_point_per_level);   /* the roster's picks (RUN TWO [climbing]) */
@@ -562,7 +565,7 @@ const FIGHT = (function () {
     const roster = (Array.isArray(opts.company) && opts.company.length
       ? opts.company.map(function (m, i) { const t = Object.assign({}, base[i % base.length]);
           if (i >= base.length) { t.main = false; t.name = t.name + ' II'; }
-          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.name && i > 0) t.name = m.name; return t; })
+          if (m.background) t.background = m.background; if (m.level) t.level = m.level; if (Array.isArray(m.perks)) t.perks = m.perks; if (m.gear) t.gear = m.gear; if (m.name && i > 0) t.name = m.name; return t; })
       : base);
     const crew = roster.slice(0, Math.max(1, Math.min(opts.cap || R('ours.field_size'), roster.length)));
     const crewUnits = crew.map(crewUnit);

@@ -90,8 +90,8 @@ const srv = http.createServer((rq, rs) => {
   }
   ok('every building is a button: tap its own pixels and it opens', onPic.length === keys.length, onPic.join());
   ok('  and every building is bigger than a thumb', small.length === 0, small.join(' ') || 'all over 44x44');
-  const extra = await p.evaluate(() => [].slice.call(document.querySelectorAll('button')).filter(b => b.offsetParent && !b.closest('#sheet') && b.id !== 'leave').length);
-  ok('  and there are no extra buttons (Battle Brothers: the buildings are the buttons)', extra === 0, extra + ' extra');
+  const extra = await p.evaluate(() => [].slice.call(document.querySelectorAll('button')).filter(b => b.offsetParent && !b.closest('#sheet') && b.id !== 'leave' && b.id !== 'crew').length);
+  ok('  and there are no extra buttons (Battle Brothers: the buildings are the buttons; LEAVE and the one-HUD CREW door, rule 24, are the bar)', extra === 0, extra + ' extra');
   await p.click('#close'); await p.waitForTimeout(300);
 
   /* every building through a mouth */

@@ -110,10 +110,10 @@ function say(t){ document.getElementById('said').textContent = t; }
 function saveBag(){ try{ localStorage.setItem(BAGKEY, JSON.stringify(S.bag)); }catch(e){} post('bag', {bag:S.bag.slice()}); }
 /* CLIMBING: what each man has earned, kept by name until the game's save holds it */
 var CKEY = 'bohemia.climb.v1';
-function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, hurt:m.hurt||null, mark:m.mark||null, dead:!!m.dead}; });
+function saveClimb(){ var o = {}; S.crew.forEach(function(m){ o[m.name] = {xp:m.xp, level:m.level, points:m.points||0, perks:m.perks.slice(), stats:m.stats, gear:m.gear, hurt:m.hurt||null, mark:m.mark||null, dead:!!m.dead}; });
   try{ localStorage.setItem(CKEY, JSON.stringify(o)); }catch(e){} }
 function loadClimb(){ var o = {}; try{ o = JSON.parse(localStorage.getItem(CKEY)||'{}') || {}; }catch(e){}
-  S.crew.forEach(function(m){ var c = o[m.name]; if(!c) return; m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; m.hurt = c.hurt || null; m.mark = c.mark || null; m.dead = !!c.dead; }); }
+  S.crew.forEach(function(m){ var c = o[m.name]; if(!c) return; m.xp = c.xp; m.level = c.level; m.points = c.points; m.perks = c.perks || []; if(c.stats) m.stats = c.stats; if(c.gear) m.gear = c.gear; m.hurt = c.hurt || null; m.mark = c.mark || null; m.dead = !!c.dead; }); }
 /* the fight's recap hands each man his XP (COMBAT counts it the Battle Brothers way); he climbs here */
 function afterFight(rows){
   var ups = [];

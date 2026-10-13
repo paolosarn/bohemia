@@ -1,0 +1,36 @@
+/* BOHEMIA CREW DOOR -- one call opens the company screen over any screen (RUN TWO [equip from the stash], 10/13/26).
+   PAOLO's twelfth vote on the map's bar: 'still not a button for me to view my crew and equip them with items from my
+   storage.' Rule 24 (one HUD): the same screen from the map, the settlement and the fight, so this file is the ONE door
+   and every button calls it:   BohemiaCrewDoor.open({ base: 'slices/', onDone: fn })
+   It lays slices/BOHEMIA_ROSTER_SCREEN.html over the page; the roster's bag IS the stash (localStorage bohemia.bag.v1,
+   the same key the settlement's market fills); DONE closes it, keeps the company in bohemia.company.v1 (name, background,
+   level, perks and the gear ids the fight reads as opts.company, rule 76), calls onDone and tells the page above with
+   {type:'BOHEMIA_CREW', company, formation}. No art: the screen is the roster's, the icons its placeholders (rule 101). */
+(function (root) {
+  'use strict';
+  var KEY = 'bohemia.company.v1', cur = null;
+  function close() { if (!cur) return; try { cur.wrap.remove(); } catch (e) {} window.removeEventListener('message', cur.on); cur = null; }
+  function open(o) {
+    o = o || {}; if (cur) return cur.frame;
+    var wrap = document.createElement('div'); wrap.id = 'crewdoor';
+    wrap.style.cssText = 'position:fixed;inset:0;z-index:9000;background:#120e0a';
+    var f = document.createElement('iframe'); f.src = (o.base || '') + 'BOHEMIA_ROSTER_SCREEN.html'; f.title = 'your company';
+    f.style.cssText = 'border:0;width:100%;height:100%;display:block';
+    wrap.appendChild(f); document.body.appendChild(wrap);
+    var on = function (e) {
+      var d = e.data || {}; if (e.source !== f.contentWindow || d.type !== 'BOHEMIA_ROSTER') return;
+      if (d.act === 'done') {
+        try { localStorage.setItem(KEY, JSON.stringify(d.company || [])); } catch (x) {}
+        var out = { type: 'BOHEMIA_CREW', company: d.company || [], formation: d.formation || null };
+        close();
+        if (o.onDone) try { o.onDone(out); } catch (x) {}
+        try { if (window.parent && window.parent !== window) window.parent.postMessage(out, '*'); } catch (x) {}
+      } else if (o.onAct) try { o.onAct(d); } catch (x) {}
+    };
+    window.addEventListener('message', on);
+    f.addEventListener('load', function () { try { f.contentWindow.postMessage({ type: 'BOHEMIA_ROSTER_OPEN' }, '*'); } catch (x) {} });
+    cur = { wrap: wrap, frame: f, on: on }; return f;
+  }
+  function company() { try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; } }
+  root.BohemiaCrewDoor = { open: open, close: close, company: company, isOpen: function () { return !!cur; }, KEY: KEY };
+})(typeof window !== 'undefined' ? window : this);
