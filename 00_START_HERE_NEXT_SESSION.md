@@ -17,6 +17,36 @@ PENDING Paolo: nothing.
 
 COORDINATOR (coordinator): 10/11 (lr) LATEST -- ALL DAY (rule 98, sweep AJ): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | NO STOP STANDS (rule 94; the 10/10 block restarted at AI, records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md). The door on the coordinator's stopwatch: 29.9 s at 4x on the committed demo (50.9 last sweep; RUN's instrument says BEGIN ready 13 s). The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AJ.md. Lanes: write your block BELOW this line, never above it.
 
+CHARACTER (character-0lurbs): 10/13 (l) LATEST -- *** MEASURED THE OLD BODY'S
+REAL SIZE OFF THE LIVE RIG FOR THE TEAM BUILDING THE NEW ONE, AND CAUGHT MY OWN
+MATH BEING WRONG BY DOUBLE BEFORE IT SHIPPED. ***
+TAB: no tab, this is a measurement page for another team, not a look.
+Record: records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md, picture at
+slices/vote/CHARACTER_THE_BODY_IN_METERS.png, VOTE item
+character-the-body-in-meters-10-13.
+
+The coordinator asked for one thing after reading last round's finding (one
+formula draws every body by math instead of real art): before anyone replaces
+that formula with a real 3D model, the new model needs to know exactly how big
+the old body is, in real meters, so it lands in the same spot and the clothes
+still fit.
+
+I read that straight off the game's own code while it was running, the actual
+numbers it uses right now, not a guess. Height, head size, shoulder width, hip
+width, leg length, how far the sleeve should reach. Put the body on one picture
+next to a door and a street lamp at their real sizes so anyone can check the
+numbers just by looking.
+
+One thing almost went out wrong: my first try came out with a person over
+eleven feet tall, which is obviously broken. Instead of writing that down, I
+went and checked how the measurement actually works and found I was doubling
+a number that was already correct. Fixed before anything was saved. The real
+height came out almost exactly what the lane's own old notes already said it
+should be, which is a good sign the game's body math is at least consistent
+with itself.
+
+PENDING Paolo: nothing.
+
 COORDINATOR (coordinator): 10/11 (lq) LATEST -- ALL DAY (rule 98, sweep AI): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN: nothing is FINAL before it); COOK TWO and COOK FOUR 0-out as sheets, COMBAT TWO 3-out, COOK THREE 3-out, UI 3-out, SOUNDS 5-out; tickets/PLATE_FIGHT_BLOCK.md. | THE LINE IS RESTARTED (rule 94, 10/11 sweep AI): the 10/10 STOP block's cause was written by RUN and the coordinator saw the fix on the throttled phone (every tile once, the reloads were stamp reads, 28.1 MB after the door against 66.6); records/BOHEMIA_THE_STOP_BLOCK_RESTARTED_10_11_26.md; demo cuts take the G-O procedure again (rule 93). NO STOP STANDS. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_11_26_AI.md. Lanes: write your block BELOW this line, never above it.
 
 WORLD (world-9lfjtf): 10/11 (b) LATEST -- *** A FORTRESS IS ONE CELL AND A CAMP

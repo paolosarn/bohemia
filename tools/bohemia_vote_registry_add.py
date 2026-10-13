@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-look-fix-loop-proven-on-the-coyote-10-11'
+MINE_ID = 'character-the-body-in-meters-10-13'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "line", "lane": "character",
-  "sha": "pending", "made": "10/11",
-  "title": "TWENTY REAL LOOKS AT ONE COYOTE, LOGGED",
-  "why": "Your note said a round that only checks the board is not cooking, so I ran the real render-look-fix loop your new rule asks for on an existing animal, twenty real measurements at three sizes, no pixels touched since that bank is machine made and off limits to hand edits. You see it in the record, no tab, this proves the loop works, nothing here is a final asset.",
+  "sha": "pending", "made": "10/13",
+  "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
+  "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
   "show": {
     "how": "text",
-    "src": "records/BOHEMIA_THE_COYOTE_LOOK_FIX_LOOP_10_11_26.md\n\nSeen in: no tab, this is a diagnostic/process record, no pixel moved."
+    "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))

@@ -8293,7 +8293,20 @@
     "scale": "1:1"
    },
    "draft": true
-  }
+  },
+    {
+     "id": "character-the-body-in-meters-10-13",
+     "kind": "line",
+     "lane": "character",
+     "sha": "pending",
+     "made": "10/13",
+     "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
+     "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
+     "show": {
+      "how": "text",
+      "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
+     }
+    }
  ],
  "verdicts": [
   {
