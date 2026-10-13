@@ -27,3 +27,6 @@ SWEEP AI (10/11): COMBAT [both teams on one screen] landed on the alpha (c192ad1
 
 
 SWEEP AJ (10/11): COMBAT [light that interacts] landed on the alpha (09b7308, STANDBY with 9.5 behind the four-tile measure). ANIMATION [the fall] V2 in VOTE (the fight's clips, his ask; CUE 9.7). RUN's door: BEGIN ready 13 s at 4x (CUE 6.5 LANDED). COOK's check: the wrecks and the guns for the board are already bought (82a amended); COOK TWO's cover pieces come from them, never recooked. The plate stays HELD AT THE PASS until his moodboard (ROUND THIRTEEN). ALL DAY: 1 plate, held.
+
+
+SWEEP AK (10/13): COMBAT's both-teams camera REFIRED and landed with his numbers (rule 104a met; CUE 9.5 and 9.6 LANDED, live in the demo's fight). COOK TWO's first stretched crossing from his tiles is in VOTE (yellow until the moodboard). COOK FOUR served three buildings in two rounds; the pass says one per round (rule 101d), the ranch's roof next. PLUMBER quiet two days; the pipe's gates wait on it. The plate stays HELD AT THE PASS until his moodboard. ALL DAY: 1 plate, held.
