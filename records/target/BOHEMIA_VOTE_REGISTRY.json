@@ -8340,7 +8340,7 @@
     },
     "draft": true
    },
-{"id": "run-the-map-people-come-baked-10-13", "kind": "ui", "lane": "run", "sha": "pending", "made": "10/13", "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33", "why": "The demo used to draw the map's people from scratch every time it opened; now it brings them already drawn, so BEGIN lights sooner and your party moves about 16 seconds after the link on a slow phone, down from 20 last build and 33 the build before. You see it on the DEMO: open the link, press BEGIN, tap the map.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_PEOPLE_COME_BAKED_10_13.png"}}
+{"id": "run-the-map-people-come-baked-10-13", "kind": "ui", "lane": "run", "sha": "fbe21f23", "made": "10/13", "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33", "why": "The demo used to draw the map's people from scratch every time it opened; now it brings them already drawn, so BEGIN lights sooner and your party moves about 16 seconds after the link on a slow phone, down from 20 last build and 33 the build before. You see it on the DEMO: open the link, press BEGIN, tap the map.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_PEOPLE_COME_BAKED_10_13.png"}}
  ],
  "verdicts": [
   {

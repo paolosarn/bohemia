@@ -19,7 +19,7 @@ CUE 5 | RUN TWO | one painted place: the settlement screen from COOK FOUR's pack
 CUE 6 | RUN | ten seconds to play: the double tile downloads and the three mid-play reloads gone | FIRES ON: BUILD 10/10m | NEEDS: none | STATE: LANDED acbd6d89 (pages run 3016; the STOP block's RESTART is the coordinator's or EYES' once seen on the phone)
 CUE 6.5 | RUN | ten seconds to play round two: the people's breath and his walk after the door, no street crowd or street-walk warm-up on the map (BEGIN ready 27.7 -> 13 s at 4x) | FIRES ON: BUILD 10/11c | NEEDS: CUE 6 | STATE: LANDED a6a0b679
 CUE 6.6 | RUN | ten seconds to play round three: the map answers after BEGIN (the act faces skip the street, the morning ring a block a task, the sprites in handfuls, the crowd a facing a task and never while he travels, the late load no second boot; the longest freeze after BEGIN 4.2 -> 1.9 s, his first block from the link 33 -> about 20 s at 4x) | FIRES ON: BUILD 10/11f | NEEDS: CUE 6.5 | STATE: LANDED c3e66aef
-CUE 6.7 | RUN | ten seconds to play round four: the map's people come baked by the cut (the six's stills and breath, the crowd and their walks, keyed to the cut; the deploy gets a browser to re-bake); BEGIN at 4x about 15 -> 11.5 s, his first block from the link about 20 -> 16 s | FIRES ON: BUILD 10/13b | NEEDS: CUE 6.6 | STATE: STANDBY (sha in the commit)
+CUE 6.7 | RUN | ten seconds to play round four: the map's people come baked by the cut (the six's stills and breath, the crowd and their walks, keyed to the cut; the deploy gets a browser to re-bake); BEGIN at 4x about 15 -> 11.5 s, his first block from the link about 20 -> 16 s | FIRES ON: BUILD 10/13b | NEEDS: CUE 6.6 | STATE: LANDED fbe21f23
 CUE 8 | THE PASS (RUN carries) | PLATE_FIGHT_BLOCK, the whole plate: one fight on one Vegas block with its HUD, called HANDS | FIRES ON: the RUN cut after every station reads 0-out | NEEDS: CUE 2, CUE 3, CUE 7 | STATE: WARNING
 CUE 7 | SOUNDS | the first swing he can hear: one moment, one tab | FIRES ON: the alpha's next stamp | NEEDS: none | STATE: WARNING
 CUE 9 | COMBAT | the fight's night: every tile the rules call lit looks lit (the lamp's light covers it), and the computer's sharpness leg measured over every visible tile | FIRES ON: the alpha's next stamp (NOTE: the demo's fights load slices/BOHEMIA_FIGHT.html live, so a fight push reaches the demo without a cut; FOR RUN and the pass) | NEEDS: none | STATE: STANDBY 2fe7da9
@@ -31,6 +31,13 @@ CUE 9.8 | ANIMATION | the party walks as one on the map: a candidate behind MAP_
 CUE 9.9 | ANIMATION | the ragdoll in the rig's bank (a struck man falls by physics, eight facings), in VOTE as FINAL?; nothing plays it in the fight before his FINAL (rule 100), so nothing he plays changes | FIRES ON: BUILD 10/13a | NEEDS: none | STATE: STANDBY (no demo cut by this lane)
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
+
+10/13 BUILD 10/13b, written by RUN within ten minutes of its pages run:
+1. STAMP and RUN TIME: BUILD 10/13b - THE MAP PEOPLE COME BAKED, live at fbe21f23 (pages run 3088 SUCCESS, 04:17:02Z; every step green, the new browser step included).
+2. CUES CALLED and LANDED: CUE 6.7 landed. Riding the same cut: ANIMATION's 10/13a (CUE 9.9, ragdoll, no demo cut of its own), UI's icons and crew button, RUN TWO's equip from the stash.
+3. WHO WENT ON: nobody replaced; no scrub.
+4. WHAT WENT WRONG: nothing new seen; his first block is about 16 s from the link at 4x against ten (owner RUN [ten seconds to play]). NOT YET SEEN: the deploy re-baking the map people after another lane's push (the job log is not readable from RUN's box): on the live demo `window.__DEMO_CAST.state` reads 'ready' when it did, 'stale' when the demo baked live (correct, slower). The 14.8 s freeze (AK) is RUN [the long freeze], open.
+5. INJURIES (what reached his phone wrong): none new.
 
 10/11 BUILD 10/11f, written by RUN within ten minutes of its pages run:
 1. STAMP and RUN TIME: BUILD 10/11f - THE MAP ANSWERS AFTER BEGIN, live at c3e66aef (pages run 3074 SUCCESS, 07:11:57Z).
