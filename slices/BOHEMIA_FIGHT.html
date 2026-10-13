@@ -322,6 +322,9 @@ const FIGHT = (function () {
   function shieldByName(n) { return DB.armor.shields.filter(function (r) { return r.name === n; })[0]; }
   function armourRow(part, id) { return DB.armor[part].filter(function (r) { return r.id === id; })[0]; }
   function isRanged(w) { return RANGED.indexOf(w.class) >= 0; }
+  /* ZONE OF CONTROL IS MELEE ONLY (rule 103): our PISTOL, SHOTGUN and RIFLE are guns whatever Battle Brothers' row they ride on */
+  function isGun(w) { return R('ours.gun_classes').indexOf(w.class) >= 0; }
+  function holdsRing(f) { return !(f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)); }
   function strikeSkill(w) { return w.skills.filter(function (s) { return !/^Reload/.test(s.name); })[0]; }
   function reloadSkill(w) { return w.skills.filter(function (s) { return /^Reload/.test(s.name); })[0] || null; }
   function skillAP(w, s, u) {
@@ -785,7 +788,7 @@ const FIGHT = (function () {
   /* ---------------- MOVING ---------------- */
   function zocOn(u, x, y) {
     return foes(u).filter(function (f) {
-      if (f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon)) return false;
+      if (f.morale === 'Fleeing' || f.stunned || isRanged(f.weapon) || isGun(f.weapon)) return false;   /* rule 103: a gun in his hands holds no ring */
       if (Math.abs(level(f.x, f.y) - level(x, y)) >= R('zone_of_control.height_gap_breaks_zoc_levels')) return false;
       return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= R('zone_of_control.radius_hexes');
     });
@@ -1423,7 +1426,7 @@ const FIGHT = (function () {
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
-    canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
+    canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone,
     _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
@@ -1843,7 +1846,7 @@ function startAnim(a) {
   const e = a.e;
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
     const span = [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }];   /* the step's two ends, so the walk itself stays on the glass */
-    if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur); } }
+    if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
     const u = FIGHT.byId(e.id), t = FIGHT.byId(e.to);
     const ranged = FIGHT.isRanged(u.weapon);
@@ -2005,6 +2008,14 @@ function draw(now) {
   }
   /* reach lit: where the active man can step, and who he can hit */
   if (u && crewControlled(u) && !busy && !S.over && !S.deploy) {
+    /* RULE 103, ON THE BOARD: a melee man's ring (the eight tiles round him) is lit as his, a gunman's neighbours are not */
+    S.units.forEach(function (t) {
+      if (t.side === u.side || !FIGHT.onField(t) || !FIGHT.sideSees('you', t) || !FIGHT.holdsRing(t)) return;
+      cx.fillStyle = RING_FILL;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { if (!dx && !dy) continue; cx.fillRect(sx((t.x + dx) * UI.tw) + 1, sy((t.y + dy) * UI.th) + 1, tw - 2, th - 2); }
+      cx.strokeStyle = RING_EDGE; cx.lineWidth = 2.5; cx.setLineDash([7, 5]);
+      cx.strokeRect(sx((t.x - 1) * UI.tw) + 1, sy((t.y - 1) * UI.th) + 1, tw * 3 - 2, th * 3 - 2); cx.setLineDash([]);
+    });
     const f = FIGHT.reach(u, null, true);
     Object.keys(f.best).forEach(function (k) {
       k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
@@ -2466,12 +2477,13 @@ function deployTap(px, py) {
 }
 const DEPLOY_SAY = 'Set your line: tap a man, then a lit tile. FIGHT when ready.';
 const WALK_SAY = 'Tap a lit tile to walk, a red man to aim. Pinch for the board.';
+const RING_FILL = 'rgba(196,85,63,.2)', RING_EDGE = 'rgba(232,104,76,.95)';
 function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line sees both lines; the man still 112 (rule 21) */
 /* BOTH TEAMS ON ONE SCREEN (rule 104a, his eighth votes: 'I should see the two teams finding each other at the same time
    without touching anything; I don't want to swipe'): the zoom and centre that hold every man of both teams on the glass,
    his whole box (feet to head, his figure's width) inside the strip and the bar, never closer than the man's stop. The ground
    zooms; the man does not (rule 21). */
-const FIT_PAD = 8, FIG_HALF = 0.3, FIT_CLOSER = 1.15, FOUR_ROOM = 4;
+const FIT_PAD = 8, FIG_HALF = 0.3, FIT_CLOSER = 1.15, FOUR_ROOM = 4, GLIDE_AHEAD = 0.8;   /* the camera lands before the step does */
 function fitBoth(more) {
   const on = FIGHT.S.units.filter(FIGHT.onField).map(function (v) { return { x: v.x, y: v.y }; }).concat(more || []);
   if (!on.length) return { z: UI.near, cx: UI.cx, cy: UI.cy };

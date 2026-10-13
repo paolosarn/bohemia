@@ -529,5 +529,16 @@
   "source": "LIFE+CITY [built on the board] 9cb46e85 (tools/bohemia_fight_built_patch.py)",
   "quote": "building: a piece that blocks, drawn with its own picture",
   "why": "the footprint in metres of a building you put up at a place, as it stands on the fight's board (LIFE+CITY's numbers, moved here by COMBAT 10/10 so the fight's rules type no number, rule 63d); its own picture is ../settlement/lot/<id>.png"
+ },
+ "gun_classes": {
+  "value": [
+   "dagger",
+   "firearm",
+   "crossbow"
+  ],
+  "source": "records/BOHEMIA_PAOLO_ZONE_OF_CONTROL_IS_MELEE_ONLY_10_10_26.md (rule 103) and records/target/bb/weapon_lines.json (our skins: dagger = PISTOL, firearm = SHOTGUN, crossbow = RIFLE)",
+  "quote": "if any person does not have a melee weapon currently equipped, they don't get a zone of control; zone of control is only for melee, one tile next to them; anyone using a ranged weapon has no zone of control and you can just walk left, up, right, down, across their tiles",
+  "why": "Battle Brothers' dagger carries our PISTOL, so by Battle Brothers' rule it still held a zone of control; a gun in his hands is a gun whatever its row underneath, and holds none (bows and bottles are already ranged)",
+  "tuned": false
  }
 }

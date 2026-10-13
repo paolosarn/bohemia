@@ -736,6 +736,38 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* ZONE OF CONTROL IS MELEE ONLY (rule 103, Paolo 10/10: 'anyone using a ranged weapon has no zone of control and you can
+   just walk left, up, right, down, across their tiles'): our PISTOL (Battle Brothers' dagger underneath), SHOTGUN and RIFLE
+   hold no ring; a melee man's eight tiles stop you and cost his free swing; the ring follows the weapon in his hands; on
+   your turn a melee man's ring is lit as his, a gunman's neighbours are not */
+async function zocMelee() {
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:1,kind:"strip",flat:true,deploy:false,cap:1,party:["brigand_thug","brigand_thug"]}' });
+  await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+  await d.page.waitForFunction(() => { const u = FIGHT.current(); return u && u.side === 'you' && !FIGHT_UI.anim.length; }, null, { timeout: 60000 });
+  const r = await d.page.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(), [a, b] = FIGHT.alive('them'), W = DB.weapons.rows, cls = c => W.find(w => w.class === c);
+    window.tick = function () {}; FIGHT_UI.glide = null;
+    const place = () => { u.x = 6; u.y = 7; a.x = 8; a.y = 6; b.x = 8; b.y = 9; a.hp = a.hpMax; b.hp = b.hpMax; u.hp = u.hpMax; u.ap = u.apTurn; a.morale = b.morale = 'Steady'; };
+    const ring = (f, c) => { f.weapon = cls(c); return FIGHT.zocOn(u, f.x - 1, f.y).indexOf(f) >= 0; };
+    place(); const guns = ['dagger', 'firearm', 'crossbow'].map(c => ({ c, ring: ring(a, c) })), melee = ['mace', 'sword', 'axe'].map(c => ({ c, ring: ring(b, c) }));
+    /* a walk past each: the free swings it draws */
+    const walk = (f, to) => { place(); a.weapon = cls('dagger'); b.weapon = cls('mace'); u.x = f.x - 1; u.y = f.y; const n0 = S.log.length; FIGHT.moveTo(u, to.x, to.y, true); return S.log.slice(n0).filter(e => e.t === 'attack' && e.free && e.id === f.id).length; };
+    const pastGun = walk(a, { x: 7, y: 4 }), pastPipe = walk(b, { x: 7, y: 11 });
+    /* the ring follows the weapon: the pistol man takes up a pipe */
+    place(); a.weapon = cls('mace'); const swapped = FIGHT.zocOn(u, 7, 6).indexOf(a) >= 0; a.weapon = cls('dagger');
+    /* the board says it: on your turn the ring is drawn round the melee man and not round the gunman */
+    place(); b.weapon = cls('mace'); FIGHT_UI.anim = []; const P = CanvasRenderingContext2D.prototype, sr = P.strokeRect, rects = [];
+    P.strokeRect = function (x, y, w, h) { if (this.strokeStyle && /232, ?104, ?76|e8684c/i.test(this.strokeStyle)) rects.push([x, y]); return sr.apply(this, arguments); };
+    draw(performance.now()); P.strokeRect = sr;
+    const at = f => [sx((f.x - 1) * FIGHT_UI.tw) + 1, sy((f.y - 1) * FIGHT_UI.th) + 1], near = (p, q) => Math.abs(p[0] - q[0]) < 2 && Math.abs(p[1] - q[1]) < 2;
+    return { guns, melee, pastGun, pastPipe, swapped, ringPipe: rects.some(p => near(p, at(b))), ringGun: rects.some(p => near(p, at(a))) }; });
+  r.err = d.errs[0]; await d.close();
+  leg(r.guns.every(g => !g.ring) && r.melee.every(m => m.ring) && !r.err, '*** ZONE OF CONTROL IS MELEE ONLY (rule 103) ***: the pistol, the shotgun and the rifle hold no ring; a pipe, a blade, an axe do',
+    r.guns.map(g => g.c + (g.ring ? ' RING' : ' none')).join(', ') + '; ' + r.melee.map(m => m.c + (m.ring ? ' ring' : ' NONE')).join(', '));
+  leg(r.pastGun === 0 && r.pastPipe > 0, '  you walk across a gunman\'s tiles with no free swing; walking out of a melee man\'s ring costs his', 'past the pistol ' + r.pastGun + ' free swings, past the pipe ' + r.pastPipe);
+  leg(r.swapped, '  the ring follows the weapon in his hands: the pistol man takes up a pipe and his ring is there');
+  leg(r.ringPipe && !r.ringGun, '  the board says it: on your turn the melee man\'s ring is lit as his, the gunman\'s neighbours are not', (r.ringPipe ? 'ring round the pipe' : 'NO RING round the pipe') + ', ' + (r.ringGun ? 'A RING round the pistol' : 'none round the pistol'));
+}
+
 /* HIS ELEVENTH VOTES on both teams (rule 104a re-spec: 'four tiles south of the bottom person, four tiles north of the top
    person... I don't want to see any black... the map has to be big but then it's just zoomed into our purposes'): upright,
    four tiles of map past the top man and the bottom man; on every screen not one black pixel, at the open and pinched all
@@ -955,6 +987,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await zocMelee();
   await elevenVotes();
   await lightTileByTile();
   await litLooksLit();
