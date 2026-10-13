@@ -83,4 +83,24 @@ the foot centre. A sheet goes to records/ or the cook folder only.
 The card of numbers: records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md. The craft laws: laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md.
 The floor: records/BOHEMIA_PAOLO_THE_PIXEL_FLOOR_IS_THE_PACKS_10_10_26.md. The studies: records/BOHEMIA_HOW_THE_PACK_DID_IT_*.md
 and records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md. The analog horror bible: records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md.
-His taste, when the moodboard and the taste session land: a new section 8 here, one rule per axis.
+His taste, when the moodboard and the taste session land: a new section 9 here, one rule per axis.
+
+## 8. THE LOOP: LOOK WHILE YOU MAKE (every asset, every cycle)
+```
+python3 skills/bohemia-pixel-art/scripts/look.py <cand.png> <family> --twin <his tile.png> --ground <his ground.png> --sheet-only
+#   -> OPEN <cand>.look.png (1x, 4x, 8x busiest corner, 16x16, seated on his ground, silhouette, values, his twin)
+python3 skills/bohemia-pixel-art/scripts/look.py <cand.png> <family> --twin ... --ground ... --log <asset>.loop.jsonl \
+        --saw "<what you see, in words>" --fix "<the one knob you change next>"
+python3 skills/bohemia-pixel-art/scripts/look.py --summary <asset>.loop.jsonl     # the table for the sheet
+```
+It names the FIRST failing stage (silhouette, shapes and light, ramps, detail, edge); work on that one only. A row his
+own twin also misses is the family's spread, not a fault. Change ONE knob a cycle. Twenty cycles or more, the last
+passing all five, then DIRECTION's eye. The proof run: records/target/loop_proof/ (a burnt car from his parts,
+20 cycles, records/BOHEMIA_SEE_WHILE_YOU_DRAW_10_13_26.md).
+
+LESSONS (each one cost a cycle; the before and after are in references/lessons/LESSONS_01_03.png, on his car):
+1. **Never turn a hue round the wheel.** Teal pulled toward rust by hue goes through green (camouflage). Blend in RGB
+   toward a colour taken from his own pixels.
+2. **Never pick a source pixel at random.** A random pick per pixel is noise by construction. Take his pixels in place.
+3. **Zoom or shape a mask, never his pixels, and soften the mask.** A whole-number zoom of a mask shows its grid as
+   square steps. Soften the mask; his pixels stay as they are.

@@ -62160,7 +62160,11 @@ I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
 === DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
-ROUND LOG 10/11b (latest): [the pixel tutor] SHIPPED: skills/bohemia-pixel-art/ (SKILL.md,
+ROUND LOG 10/13a (latest): [see while you draw] SHIPPED: skills/bohemia-pixel-art/scripts/look.py
+(look sheet + five stages + log + summary), proven on a burnt car from his parts in 20 cycles
+(records/target/loop_proof/), three lessons in SKILL.md section 8. Next (sweep AI order):
+(3) [the master rig], (4) the pack-rule sheet with COOK TWO, (5) the taste session on his folder.
+ROUND LOG 10/11b: [the pixel tutor] SHIPPED: skills/bohemia-pixel-art/ (SKILL.md,
 references, seven family palettes, scripts/check.py calibrated 6% of his own tiles back).
 FINDING: the 7/27 craft gate fails his packs; rule restated at 8 value steps; PLUMBER
 noted. Sweep AI order next: (2) [see while you draw], (3) [the master rig], (4) the

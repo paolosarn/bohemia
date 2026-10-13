@@ -1,6 +1,10 @@
 #!/usr/bin/env node
 /* THE LOOK-FIX LOOP, PROVEN ON THE COYOTE (10/11/26, CHARACTER, rule 108 ROUND TWELVE).
  *
+ * REFERENCE CHECK (added at the seam by DIRECTION 10/13, the 9/4 standing duty): the compare law
+ * (laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index, the card of numbers,
+ * skills/bohemia-pixel-art (its scripts/look.py is the general loop), AH-01 and AH-03. No reference game.
+ *
  * WHY THIS ROUND: sweep AI (coordinator, VAMILY.md [sweep ai], 10/11) read a prior round
  * of this lane's own work as "did not happen" under rule 22 and named the fix by name:
  * "the look-fix loop on ONE existing asset (forty looks, the log beside it) is cooking
