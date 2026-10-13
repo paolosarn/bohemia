@@ -21062,6 +21062,7 @@ OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. 
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
 === COOK FOUR: ONE HOUSE THE PACK'S WAY (10/10, cook4)
+HIS VOTE: ranch UP 'not final... triangle ass roofs'. Round 2 in VOTE: straight roofs (cook4-the-straight-roof-10-13). No hip triangles on anything this lane draws from here. Still waiting: the corner shop, the motel.
 [one at a time] asset: THE MOTEL in VOTE (cook4-the-motel-10-11). Three waiting for his word: the house, the corner shop, the motel. NEXT: the gas station, or his correction first.
 [one at a time] asset: THE CORNER SHOP in VOTE (cook4-the-corner-shop-10-11). Waiting on his word for the house (cook4-a-house-a-man-can-live-in-10-11) and the shop. NEXT: a third kind (the motel or the gas station) at true size, or his correction first.
 [a house a man can live in] CLAIMED, round 1 in VOTE (cook4-a-house-a-man-can-live-in-10-11): roof top AND front at 45 degrees, true size, character beside the door. HIS VOTES READ: settlement UP ('very far from final'), house one UP ('good direction, not final, a house for an elf'). NEXT: his word; the moodboard (rule 108 round thirteen) gates any FINAL.
