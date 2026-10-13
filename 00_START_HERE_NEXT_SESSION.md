@@ -1265,6 +1265,53 @@ and twelve men, all three screens in VOTE.
 NEXT: the jump list's other two rows (bb gear, three bodies).
 PENDING Paolo: nothing.
 
+PORTRAIT (portrait-vamily-yke55s): 10/13 LATEST (round nine) -- *** STILL
+BLOCKED, BUT NOW WITH ITS OWN NUMBER: THE QUARTERMASTER'S COUNT, BUILT FRESH
+FOR THE FACE FAMILY, NOT JUST CITED. ***
+
+WHAT CHANGED THIS ROUND: two more coordinator's-school amendments landed on
+rule 100(c) since round eight (THE APPRENTICE COPIES FIRST, already known) --
+round twelve, THE QUARTERMASTER'S COUNT: every STUDY FIRST round must open
+with one machine line over all 294 packs, "we own N pieces of this family in
+M packs, K never opened," before any study or reproduction; a hole exists
+only when the count says zero. Rule 82a was also amended to say, flatly, "the
+two real holes are portraits and eight-direction people and beasts" -- COOK's
+own finding, independently confirming this lane's round-eight conclusion.
+
+CHECKED, NOT ASSUMED: PLUMBER's [the quartermaster's count] and COOK's [the
+whole bank] -- the two rows that build the GENERAL tool, every family, every
+lane -- are both still OPEN this round. Rather than keep citing rule 82a
+secondhand, built a small, honest, single-family stopgap:
+tools/bohemia_portrait_counts_the_bank_for_faces.py. It reads the same raw
+source those general tools will eventually read (banks/BOHEMIA_HD_TILE_REPO_
+part1-4.txt, the four chunks, 294 packs, 8,674 tiles), re-derives those two
+known totals before trusting its own answer (they matched exactly), then
+checks every one of the 294 pack NAMES against face/portrait/person
+keywords.
+
+THE LINE: we own 0 pieces of the face/portrait family in 0 packs, 294 never
+opened. Six near-miss pack names (statues, skeletons, zombie bodies,
+gargoyles) were checked and explicitly rejected, not silently skipped -- a
+carved statue or a bone pile is not a face reference, named so a future
+round does not re-ask. This is a second, independent confirmation of rule
+82a's number, not a repeat of it by citation.
+
+NOT A FIX: still blocked exactly the same two ways as round eight (no pack
+piece of a face anywhere to copy; no pipe -- Aseprite, the rig, the gun --
+built yet to copy one through even if it existed). This round adds a real,
+re-runnable number this lane's own future study pages can open with, not an
+unblock.
+
+TAB: NOT IN VOTE -- this is a data count, not a look; no VOTE item needed or
+registered, same discipline as the last two confirmation-only rounds.
+Record: records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md. Board row
+updated in place: [the twin on the portraits].
+NEXT: check whether COOK's [the whole bank] or PLUMBER's [the quartermaster's
+count] have shipped before this lane's next round opens another study page;
+check whether his moodboard Drive folder has landed. If both are still open,
+another honest confirmation round is right, not manufactured pixels.
+PENDING Paolo: nothing.
+
 PORTRAIT (portrait-vamily-yke55s): 10/11 LATEST (round eight) -- *** A
 CONFIRMATION, NOT A DELIVERABLE: THE TWIN BLOCKER RE-CHECKED UNDER THE NEW
 RULE, AND IT HOLDS, DOUBLY. ***

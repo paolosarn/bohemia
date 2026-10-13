@@ -1,0 +1,61 @@
+{
+  "family": "face/portrait",
+  "source": "banks/BOHEMIA_HD_TILE_REPO_part1-4.txt (the 294-pack, 8674-tile raw bank)",
+  "total_packs_scanned": 294,
+  "total_tiles_scanned": 8674,
+  "cross_check_against_rule_82a": {
+    "expected_packs": 294,
+    "expected_tiles": 8674
+  },
+  "cross_check_ok": true,
+  "keywords": [
+    "face",
+    "portrait",
+    "head",
+    "person",
+    "people",
+    "human",
+    "character",
+    "npc",
+    "villager",
+    "citizen",
+    "avatar",
+    "bust"
+  ],
+  "hits": [],
+  "near_miss_keywords_checked_and_rejected": [
+    "statue",
+    "skeleton",
+    "zombie bod",
+    "skull",
+    "gargoyle"
+  ],
+  "near_misses_not_counted": [
+    {
+      "pack": "10. Zombie bodies and bones",
+      "tiles": 34
+    },
+    {
+      "pack": "Statues and figures",
+      "tiles": 18
+    },
+    {
+      "pack": "Statues and monuments",
+      "tiles": 46
+    },
+    {
+      "pack": "skeletons and bones",
+      "tiles": 39
+    },
+    {
+      "pack": "15. Statues and ancient relics",
+      "tiles": 8
+    },
+    {
+      "pack": "statues and gargoyles",
+      "tiles": 11
+    }
+  ],
+  "quartermasters_line": "we own 0 pieces of the face/portrait family in 0 packs, 294 never opened",
+  "hole_confirmed": true
+}
