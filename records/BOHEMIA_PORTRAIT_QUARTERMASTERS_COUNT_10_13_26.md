@@ -4,11 +4,12 @@
 Rule 100(c) (the coordinator's school, round twelve, THE QUARTERMASTER'S COUNT):
 every STUDY FIRST round must open with one machine line over all 294 packs,
 "we own N pieces of this family in M packs, K never opened," before any study
-or reproduction. PLUMBER's own row for this (`[the quartermaster's count]`) and
-COOK's index it will read (`[the whole bank]`) are both still open, not yet
-built (checked VAMILY.md fresh this round). Until either lands, this is PORTRAIT's
-own small, honest, single-family version of that line, so this lane's own future
-study-page headers have a real number to cite instead of waiting.
+or reproduction. This tool was built and run before COOK's `[the whole bank]`
+landed this same round (checked VAMILY.md fresh at the start; it was still
+OPEN). COOK's index shipped moments later (577d7fd9, pulled in by this round's
+rebase) -- so this is no longer the only count, it is now the THIRD one, and
+all three agree (see below). PLUMBER's own general tool, `[the quartermaster's
+count]` (every family, every lane, reading COOK's index), is still open.
 
 ## THE MACHINE, THE SOURCE, THE CHECK
 `tools/bohemia_portrait_counts_the_bank_for_faces.py` reads the same raw source
@@ -42,14 +43,21 @@ lamps, pipes, signage). None of the 294 names anything a reasonable reader would
 call a person, a face or a portrait.
 
 ## WHAT THIS CONFIRMS, AND WHAT IT DOESN'T
-This confirms, a second way, what rule 82a and the twin-blocker re-check
-(records/BOHEMIA_THE_TWIN_BLOCKER_RECHECKED_10_11_26.md) already found: faces
-are a genuine, structural zero across the whole 294-pack library, not a gap
-from a chat never looking. It does NOT replace PLUMBER's general tool (every
-family, every lane) or COOK's full index (`[the whole bank]`) -- those are the
-rows that own the complete picture across all families, not just this one.
-This is scoped to exactly the one question PORTRAIT needed answered honestly
-before it can write another study-page header.
+Three independent sources now agree on the same zero: rule 82a's own cited
+number (from COOK's earlier ab6da98f check), this script's fresh read of the
+raw bank, and COOK's just-shipped full index (`reference/art_bank_index/
+INDEX.json`, records/BOHEMIA_THE_WHOLE_BANK_10_13_26.md). COOK's index sorts
+all 294 packs into exactly NINE families -- road (18), ground (53), prop
+(115), settlement (67), door (14), marking (8), weapon (3), lamp (15), animal
+(1) -- summing to 294 with no tenth category. There is no face/portrait/
+person family at all, not even as a zero-count row: the bank does not contain
+the concept, not merely a count of zero inside it. This does NOT replace
+PLUMBER's general tool (`[the quartermaster's count]`, every family, every
+lane, reading COOK's index) -- that row still owns the complete, standing
+machine check across every family, not just this one. This script answered
+exactly the one question PORTRAIT needed before COOK's index existed, and
+now stands as a second confirmation of it, built independently rather than
+by trusting one source.
 
 ## PROVED SAFE
 Read-only. No pixel drawn, no file in slices/, engine/ or the demo touched.

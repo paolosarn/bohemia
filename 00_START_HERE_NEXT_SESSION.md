@@ -1278,23 +1278,29 @@ only when the count says zero. Rule 82a was also amended to say, flatly, "the
 two real holes are portraits and eight-direction people and beasts" -- COOK's
 own finding, independently confirming this lane's round-eight conclusion.
 
-CHECKED, NOT ASSUMED: PLUMBER's [the quartermaster's count] and COOK's [the
-whole bank] -- the two rows that build the GENERAL tool, every family, every
-lane -- are both still OPEN this round. Rather than keep citing rule 82a
-secondhand, built a small, honest, single-family stopgap:
-tools/bohemia_portrait_counts_the_bank_for_faces.py. It reads the same raw
-source those general tools will eventually read (banks/BOHEMIA_HD_TILE_REPO_
-part1-4.txt, the four chunks, 294 packs, 8,674 tiles), re-derives those two
-known totals before trusting its own answer (they matched exactly), then
-checks every one of the 294 pack NAMES against face/portrait/person
-keywords.
+CHECKED, NOT ASSUMED: at the start of this round, PLUMBER's [the
+quartermaster's count] and COOK's [the whole bank] -- the two rows that
+build the GENERAL tool, every family, every lane -- were both still OPEN.
+Rather than keep citing rule 82a secondhand, built a small, honest,
+single-family stopgap: tools/bohemia_portrait_counts_the_bank_for_faces.py.
+It reads the same raw source those general tools will eventually read
+(banks/BOHEMIA_HD_TILE_REPO_part1-4.txt, the four chunks, 294 packs, 8,674
+tiles), re-derives those two known totals before trusting its own answer
+(they matched exactly), then checks every one of the 294 pack NAMES against
+face/portrait/person keywords.
 
 THE LINE: we own 0 pieces of the face/portrait family in 0 packs, 294 never
 opened. Six near-miss pack names (statues, skeletons, zombie bodies,
 gargoyles) were checked and explicitly rejected, not silently skipped -- a
 carved statue or a bone pile is not a face reference, named so a future
-round does not re-ask. This is a second, independent confirmation of rule
-82a's number, not a repeat of it by citation.
+round does not re-ask.
+
+THEN COOK'S [THE WHOLE BANK] SHIPPED THE SAME ROUND (577d7fd9), pulled in on
+this round's own rebase, making it THREE agreeing sources, not two: rule
+82a's own cited number, this script's fresh read, and COOK's shipped index
+(reference/art_bank_index/INDEX.json), which sorts all 294 packs into
+exactly nine families (road, ground, prop, settlement, door, marking,
+weapon, lamp, animal) with no tenth, face-shaped category at all.
 
 NOT A FIX: still blocked exactly the same two ways as round eight (no pack
 piece of a face anywhere to copy; no pipe -- Aseprite, the rig, the gun --

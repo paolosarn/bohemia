@@ -7,10 +7,14 @@ COUNT): every STUDY FIRST round opens with one machine line over ALL 294 packs,
 reproduction -- a hole is declared only when the count says zero.
 
 PLUMBER's own row ([the quartermaster's count]) is the GENERAL tool: every family,
-every lane, reading COOK's [the whole bank] index once it ships. Neither exists yet
-(checked VAMILY.md this round; both rows are still OPEN/CLAIMED). This script does
-NOT replace that row -- it is scoped to the one family PORTRAIT needs an honest
-answer for before it can open a study page again: faces/portraits/people.
+every lane, reading COOK's [the whole bank] index. Built and first run before COOK's
+index landed this same round (577d7fd9, pulled in on rebase); PLUMBER's row is still
+open. This script does NOT replace that row -- it is scoped to the one family
+PORTRAIT needs an honest answer for before it can open a study page again:
+faces/portraits/people. (COOK's shipped index, read after the fact, sorts all 294
+packs into exactly nine families -- road, ground, prop, settlement, door, marking,
+weapon, lamp, animal -- with no tenth, face-shaped category at all: a third,
+independent agreement with this script's own zero.)
 
 It reads the same primitive source PLUMBER's tool will eventually read (the four HD
 repo chunks, banks/BOHEMIA_HD_TILE_REPO_part1-4.txt -- 294 packs, 8,674 tiles, the
