@@ -8266,6 +8266,33 @@
      "NOTHING DRAWN: your slabs, your road, your slab's own raised edge; only cut, masked and layered."
     ]
    }
+  },
+  {
+   "id": "cook-the-whole-bank-10-13",
+   "kind": "verdict",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/13",
+   "title": "EVERYTHING YOU OWN, IN ONE SCROLL, FOR THE FIRST TIME",
+   "why": "A chat can only use what it can see, and two rounds ago a shopping card was about to ask you to buy wrecked cars and guns you already owned because they sat in a file nobody had opened, so every pack you have ever bought is now indexed: 294 packs, 8,674 tiles, sorted into nine families, each with a picture and a count, and the 1,927 you approved marked inside it instead of standing in for the whole thing. You see it in the VOTE tab, one tile out of each family at full size with the count beside it, and the number that should decide the next few rounds: 6,747 of your tiles have never been judged by anybody.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_WHOLE_BANK.png"
+   },
+   "twin": {
+    "src": "pack:9. Abandoned cards#1",
+    "diffs": [
+     "WHAT IS HIS: all of it. 294 packs and 8,674 tiles read straight out of the repo chunks, 294 contact pictures, nothing redrawn and not one pixel cooked.",
+     "WHAT CHANGED: the seven families the approved bank already decided are COPIED exactly for its 84 packs, never re-decided, so the index cannot contradict the bar; three more families the packs plainly hold are named for the first time (weapon 73 tiles, animal 13, and the cars stay under prop because July put them there).",
+     "WHAT IS STILL MISSING AND WAS NOT INVENTED: no licence, seller or receipt is recorded anywhere in the repo for any of the 294 packs. Every entry says 'not recorded' instead of carrying one this lane made up."
+    ]
+   },
+   "before_after": {
+    "before": "the bank as it stood: 1,927 approved tiles out as files, and 6,747 more sitting unseen in four base64 blobs",
+    "after": "all 294 packs indexed by family with a picture and a count each, the approved part marked inside it",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -4392,6 +4392,83 @@ NEXT: claimed [translation count] (rule 48, the only OPEN row left), starting ro
 this round.
 [PENDING Paolo]: none.
 
+COOK (cook-mce6r5): 10/13 LATEST -- *** EVERY PACK HE EVER BOUGHT IS INDEXED. 294 PACKS,
+8,674 TILES, NINE FAMILIES, AND 6,747 TILES NOBODY HAS EVER JUDGED. ***
+
+0. THE ROW WAS [the whole bank], and I SKIPPED THE ROW ABOVE IT AND SAID WHY IN THE CLAIM
+COMMIT. [the two holes] needs store pages read for price, licence, pixel size and tilt, and its
+own CONSTRAINT is "real links only... each checked against the floor and the tilt". Re-measured
+this round, not assumed: itch.io, craftpix.net, www.fab.com and opengameart.org ALL still answer
+403 through the environment's network policy. Nothing on that row can be checked from here, so
+it stays OPEN with the measurement attached and this round took the next row, which needs
+nothing outside the repo and is the direct product of the pack card.
+
+1. WHAT SHIPPED: ONE index over ALL 294 packs and ALL 8,674 tiles, at
+reference/art_bank_index/ (INDEX.json plus 294 contact pictures, one per pack), with the page
+at records/BOHEMIA_THE_WHOLE_BANK_10_13_26.md.
+  prop        115 packs  3,507 tiles    784 approved
+  settlement   67         1,936          318
+  ground       53         1,698          391
+  road         18           600          290
+  door         14           394           30
+  lamp         15           265           47
+  marking       8           188           67
+  WEAPON        3            73        ZERO approved
+  ANIMAL        1            13        ZERO approved
+  ALL         294         8,674        1,927 approved, 6,747 NEVER JUDGED BY ANYBODY
+
+2. THE INDEX CANNOT ARGUE WITH THE BAR, BY CONSTRUCTION. The approved bank already sorts 84
+packs into seven families, and all 84 of those assignments are COPIED EXACTLY, never
+re-decided. That is why the 55 wrecked and abandoned cars sit under PROP and not under a
+VEHICLE family of their own: July put them there, and an index that overrules his own judged
+set is worse than no index. The card says that out loud so nobody reads the missing family as
+missing art.
+
+3. THREE PACKS THE NAME RULES COULD NOT PLACE WERE LOOKED AT, NOT GUESSED, because this lane
+has been burned twice by names that lie ("12. Weapons and armory" is viking axes and shields,
+"Statues and figures" is stone and skeletons, "9. Abandoned cards" is 35 wrecked CARS). Each
+one now carries what is actually in it, in the tool, so nobody re-guesses it later:
+  3. Dock objects (27)              barrels, crates, mooring posts, bollards, rope, chain -> prop
+  Furtniure and fixtures (37)       neon sofas, desks, beds, a toilet, a vending machine -> prop,
+                                    AND THEY ARE PURPLE: a PURPLE RESERVATION warning is on the
+                                    entry, because that law holds and nobody should use them blind
+  Stone planers and raised beds (21) "planers" is a typo for planters; stone-framed beds -> prop,
+                                    objects you place, not a surface you walk on
+
+4. *** THE LICENCE LINE THE ROW ASKS FOR DOES NOT EXIST ANYWHERE IN THIS REPO. *** The four HD
+repo chunks carry a tile's pixels, its footprint and its size, and nothing else: no store, no
+seller, no licence, no receipt, for ANY of the 294 packs. Every entry reads "not recorded in the
+repo" instead of carrying one this lane made up.
+[PENDING Paolo], carried by the coordinator: either the store pages or the licence files get
+dropped somewhere a machine can read, or he names the seller. Nothing ships on art whose licence
+nobody wrote down, and that is the one question on the card.
+
+5. TWO FAULTS, BOTH CAUGHT BY GUARDS, ONE BY A PICTURE:
+  (a) THE FILE NAMES COLLIDED. "Floor tiles" and "Floor tiles!" both became Floor_tiles, so one
+      silently overwrote the other and the bank came out with 293 pictures for 294 packs. The
+      guard that counts the sheets caught it; slugs disambiguate now.
+  (b) THE CARD CARRIED 134 PX OF EMPTY BLACK between the family row and the table, because the
+      layout advanced its y inside the wrap AND again after the loop. Only looking at it finds
+      that. The row count is worked out now instead of guessed.
+
+6. HOUSEKEEPING: reference/art_bank_unopened/ is REPLACED and deleted. It was a strict subset
+(the 210 unopened) and two indexes is worse than one; the 10/11 page that named it now carries a
+redirect so no lane follows a dead path. The published surface measures 583 MB with and without
+this round, byte for byte, because reference/ is not published.
+
+7. ROUTED: every art lane looks in reference/art_bank_index/sheets/ BEFORE cooking (rule 108
+ROUND ELEVEN: find the pack piece and USE it). The family table is the shopping list in reverse:
+a family with a big "never judged" number is where the next cook looks before anybody draws or
+buys. WEAPON (73) and ANIMAL (13) have never had a single tile judged.
+
+8. ROWS: [the whole bank] SHIPPED. [the two holes] still OPEN and still blocked at the network,
+measured again this round. [one at a time] CLAIMED and standing. Still CLAIMED behind: [bb map
+art]. HELD: [beasts], [horror grime].
+
+9. THE ONE QUESTION ON THE CARD IS HIS AND IT IS NOT ABOUT ART: nothing can be sold or shipped
+on art whose licence nobody has written down. A DROP THE RECEIPTS IN somewhere a machine reads
+them. B NAME THE STORE and the chats take it from there. C LEAVE IT until release.
+
 COOK (cook-mce6r5): 10/11 (b) LATEST -- *** THE NO-DRAWING ROAD IS BUILT AND RUN FOR REAL,
 AND ITS HONEST SCORE IS THE WORST ONE THERE IS ON THE MEASUREMENT WE HAVE BEEN USING. ***
 

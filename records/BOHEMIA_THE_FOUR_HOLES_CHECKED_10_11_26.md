@@ -1,5 +1,11 @@
 # THE FOUR HOLES, CHECKED
 
+> **MOVED 10/13.** The shelf this page names, `reference/art_bank_unopened/`, was a strict
+> subset: the 210 packs nobody had opened. It is replaced by `reference/art_bank_index/`, which
+> covers **all 294 packs and all 8,674 tiles**, sorted into families, with the approved 1,927
+> marked inside it. Page: `records/BOHEMIA_THE_WHOLE_BANK_10_13_26.md`. Everything measured on
+> this page still stands; only the path changed.
+
 COOK [the pack card], 10/11/26. The row said to post the links for the four holes as ONE
 card, "each checked against the bank's pixel floor and 45-degree tilt before it is
 listed". The check came first, and the check is the card.

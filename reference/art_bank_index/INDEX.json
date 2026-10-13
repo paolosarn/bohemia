@@ -1,0 +1,5200 @@
+{
+ "note": "EVERY PACK HE HAS EVER BOUGHT, indexed by family, with how much of each one the 7/13 sweep approved. The approved subset lives as PNGs in reference/art_bank; this index covers ALL of it. Rule 108 ROUND ELEVEN: find the pack piece and USE it, so look here before cooking anything.",
+ "date": "10/13/26",
+ "lane": "cook",
+ "row": "[the whole bank]",
+ "licence_note": "NO licence, seller or receipt is recorded anywhere in the repo for any pack. Every entry says so. This is a [PENDING] for Paolo, not a hole a lane can fill.",
+ "packs": 294,
+ "tiles": 8674,
+ "approved": 1927,
+ "never_judged": 6747,
+ "families": {
+  "road": {
+   "packs": 18,
+   "tiles": 600,
+   "approved": 290,
+   "names": [
+    "1. Cobblestone floor tiles",
+    "1. Cracked contrete tiles",
+    "1. Cracked street tiles",
+    "1. Floor tiles",
+    "1. Floor tiles (1)",
+    "1. Marble floor tiles",
+    "1. Metal floor tiles",
+    "1. Tower floor tiles",
+    "2. Dock planks",
+    "2. Rusted metal floor tiles",
+    "2. Soil and dirt tiles",
+    "3. Pipe tiles",
+    "3. Stone paths",
+    "6. Stone paths and roads",
+    "Floor tiles",
+    "Floor tiles (1)",
+    "Floor tiles (2)",
+    "Floor tiles!"
+   ]
+  },
+  "ground": {
+   "packs": 53,
+   "tiles": 1698,
+   "approved": 391,
+   "names": [
+    "1. Grass tiles",
+    "1. Ground Tiles",
+    "1. Water Tiles",
+    "10. Petals and ground details",
+    "12. Street Props",
+    "13. Garden beds",
+    "14. Garden furniture",
+    "15. Dead Trees and dry plants",
+    "15. Trees and nature",
+    "16. Dead trees and plants",
+    "16. Gardens and crops",
+    "16. Trees and nature",
+    "18. Crystals and bioluminescense",
+    "18. Nature and plants",
+    "18. Pots and planters",
+    "19. Toxic crystals and mutations",
+    "2. Cliffs and ledges",
+    "2. Dirt path tiles",
+    "20. Nature and environment",
+    "3. Grass and ground tiles",
+    "4. Flower paths",
+    "4. Water details and foam",
+    "5. Rock Formations",
+    "5. Water and ponds",
+    "6. Frozen trees and pines",
+    "6. Rock obsidian tiles",
+    "7. Burnt ground tiles",
+    "7. Bushes and shrubs",
+    "7. Rock Formations",
+    "7. Water fountains and pools",
+    "7. Windows and flower boxes",
+    "8. Burned Ground and fire marks",
+    "8. Rocks and frozen cliffs",
+    "8. Toxic waste and barrels",
+    "8. Trees (spring)",
+    "8. Volcanic pillars",
+    "9. Flowers and plants",
+    "9. Wells and water structures",
+    "Decorative framed garden tiles",
+    "Exterior Cafe Props (awnings, windows, potted plants and more)",
+    "Flowers and ground cover",
+    "Plants and bushes",
+    "Plants and greenery",
+    "Plants, decor, jars, boxes and small interior props",
+    "Rocks and stones",
+    "Rocks and stones (1)",
+    "Streets props and urban",
+    "Water and liquids",
+    "Water and ponds",
+    "plants and flowers",
+    "trees and vegetation",
+    "wall tiles and cliffs",
+    "wooden and nature props"
+   ]
+  },
+  "prop": {
+   "packs": 115,
+   "tiles": 3507,
+   "approved": 784,
+   "names": [
+    "10. Abandoned cars",
+    "10. Furnaces and smelters",
+    "10. Storage and containers",
+    "10. Telescope and astronomy tools",
+    "11. Amphoras and pottery",
+    "11. Barrels, Crates and sacks",
+    "11. Chains and hooks",
+    "11. Crates and barrels",
+    "11. Crates, barrels and supplies",
+    "11. Gauges and meters",
+    "11. Sci-fi furniture",
+    "11. Survival props",
+    "11. Village furniture and props",
+    "12. Crates, barrels and storage",
+    "12. Furniture and study Tables",
+    "12. Laboratory equipment",
+    "12. Treasure and loot",
+    "12. Weapons and supplies",
+    "13. Banners and flags",
+    "13. Chairs and seating",
+    "13. Decorations",
+    "13. Furniture and seating",
+    "13. Pipes and wiring",
+    "13. crates and barrels",
+    "14. Banners and flags",
+    "14. Shells and small details",
+    "14. Town square decorations",
+    "14. Trash and junk props",
+    "15. Benches and seating",
+    "15. Cracked floor details",
+    "15. Mythological Symbols",
+    "15. Robots and drones",
+    "15. Street props",
+    "15. Workbenches and tools",
+    "15. winter decorations",
+    "16. Crates and cargo props",
+    "16. Lab equipment",
+    "16. Loot and survival props",
+    "17. Benches and seating",
+    "17. Warning Signs and road props",
+    "18. Blacksmith props",
+    "18. Misc objects",
+    "18. Pipes and cables",
+    "18. Space station props",
+    "18. Winter food and drinks",
+    "19. Alien tech elements",
+    "19. Decor and homey items",
+    "19. Decorations",
+    "19. Deep sea props",
+    "19. Miscellaneous",
+    "19. Miscellaneous (1)",
+    "19. Signs and village boards",
+    "20. Decorative village details",
+    "20. Environment Details",
+    "20. Environment set pieces",
+    "20. Extra cozy details",
+    "20. Special Sci-fi tiles",
+    "3. Barricades and blockades",
+    "3. Bookshelves and bookcases",
+    "3. Dock objects",
+    "4. Spell books and scrolls",
+    "4. Vent and steam",
+    "5. Barricades and defenses",
+    "5. Potion bottles and ingredients",
+    "6. Cauldrons and brewing stations",
+    "6. Control panels and consoles",
+    "6. Ship details",
+    "7. Computers and screens",
+    "7. Gears and cogs",
+    "7. Trash and debris",
+    "8. Machinery parts",
+    "8. Pipes and ventilation",
+    "8. Treasure and loot",
+    "9. Abandoned cards",
+    "9. Boilers and tanks",
+    "9. Cables and wiring",
+    "9. Fire Traps",
+    "Banners and posters",
+    "Barrels, crates and objects",
+    "Barrels, crates and sacks",
+    "Cargo, crates and containers",
+    "Coffe machines, brewing tools, mugs and drink props",
+    "Containers and items",
+    "Decor and details",
+    "Food, drink and cafe props",
+    "Furniture and fixtures",
+    "Furniture and fixtures (1)",
+    "Furniture and seating",
+    "Furtniure and fixtures",
+    "Jars, bottles and items",
+    "Jars, pots and items",
+    "Jars, pots and urns",
+    "Machines and tech",
+    "Micro tiles",
+    "Miscellaneous",
+    "Miscellaneous props (1)",
+    "Occult and horror elements",
+    "Pastries, desserts, plates and cafe food",
+    "Patch 1 (1)",
+    "Pipes, cables and vents",
+    "Psychological elements",
+    "Signage, menus and cafe accessories",
+    "Signs and holograms",
+    "Signs and misc",
+    "Special Tiles (1)",
+    "Special effects",
+    "Special tiles (2)",
+    "Stone planers and raised beds",
+    "Tables, chairs and sitting",
+    "Traps and mechanism",
+    "Traps and mechanism (1)",
+    "furniture and interior",
+    "miscellaneous props",
+    "skeletons and bones",
+    "special tiles"
+   ]
+  },
+  "settlement": {
+   "packs": 67,
+   "tiles": 1936,
+   "approved": 318,
+   "names": [
+    "10. Altars and offering",
+    "10. Bridges and wooden walkways",
+    "10. Market and stalls",
+    "10. Port decorations",
+    "10. Ruins pillars and columns",
+    "10. Spikes and harzards",
+    "12. Bridges and boardwalks",
+    "12. Cave Entrances",
+    "12. Market props and crates",
+    "12. Ruined building parts",
+    "13. Bridges and platforms",
+    "13. Fences and wire",
+    "13. Port market",
+    "14. Camp and tents",
+    "15. Statues and ancient relics",
+    "16. Interior cabin props",
+    "16. Staircases and elevation",
+    "17. Bridges and walkways",
+    "17. Mailboxes and birdhouses",
+    "17. Ruins and debris",
+    "17. Safehouse furniture",
+    "18. Stairs and lifts",
+    "2. Broken building walls",
+    "2. Sci-fi wall tiles",
+    "2. Wall tiles (1)",
+    "2. wall tiles",
+    "20. Airchip dock props",
+    "3. Broken wall tiles",
+    "3. Wall panels and details",
+    "3. Wooden bridges and platforms",
+    "4. Cabins and house parts",
+    "4. House wall tiles",
+    "4. Scrap wall and panels",
+    "5. Platforms",
+    "5. Roof tiles",
+    "5. Windows and broken glass",
+    "5. Windows and observation panels",
+    "6. Bridges and walways",
+    "6. Chain link fences",
+    "6. building details",
+    "7. Fences and palisades",
+    "8. Market Stalls",
+    "8. Watch towers",
+    "9. Port buildings",
+    "9. Rubble and debris",
+    "Bridges and railings",
+    "Floor tiles and wall tiles",
+    "Floor, walls",
+    "Interior rooms",
+    "Pillars and columns",
+    "Roof tiles",
+    "Rooftop and building tops",
+    "Stairs, ladders and Railings",
+    "Statues and figures",
+    "Statues and monuments",
+    "Stone patchs and walkways",
+    "Structures and columns",
+    "Wall and floor details",
+    "Wall and floor details (2)",
+    "Wall and floor details (3)",
+    "Wall tiles (1)",
+    "Wall tiles and edges",
+    "Wall tiles and edges (1)",
+    "bridges and walkways",
+    "statues and gargoyles",
+    "wall and floor details (1)",
+    "wall tiles"
+   ]
+  },
+  "door": {
+   "packs": 14,
+   "tiles": 394,
+   "approved": 30,
+   "names": [
+    "10. Wooden fences and gates",
+    "11. Fences and gates",
+    "11. Industrial doors and gates",
+    "12. Doors and hatches",
+    "12. Iron Gates and doors",
+    "14. Market and outdoor props",
+    "4. Doors and airlocks",
+    "4. Doors and entrances",
+    "5. Doors and arches",
+    "6. Doors and entrances",
+    "Doors and Arches!",
+    "Doors and arches (1)",
+    "doors and arches",
+    "doors and structures"
+   ]
+  },
+  "marking": {
+   "packs": 8,
+   "tiles": 188,
+   "approved": 67,
+   "names": [
+    "10. Zombie bodies and bones",
+    "14. Warning Signs",
+    "17. Hazard and warning tiles",
+    "19. Toxic and infection growths",
+    "20. Special Hazard Tiles",
+    "20. Special hazard tiles (1)",
+    "6. Blood and infection tiles",
+    "BLOOD AND GORE"
+   ]
+  },
+  "weapon": {
+   "packs": 3,
+   "tiles": 73,
+   "approved": 0,
+   "names": [
+    "12. Weapons and armory",
+    "16. Weapons and shields",
+    "17. Cannons and weapons"
+   ]
+  },
+  "lamp": {
+   "packs": 15,
+   "tiles": 265,
+   "approved": 47,
+   "names": [
+    "13. Lamps and torches",
+    "13. Lanterns and warmlights",
+    "14. Embers and particles",
+    "14. Lamps and lights",
+    "14. Lights and neon elements",
+    "16. Lamps and lights",
+    "16. Lanterns and glow lights",
+    "18. Light sources and fire barrels",
+    "18. Lights and emergency props",
+    "19. Torches and braziers",
+    "7. Candles and floating Lights",
+    "Lanterns and lights",
+    "Lightning and fx",
+    "Lightning and fx (1)",
+    "lightning fx"
+   ]
+  },
+  "animal": {
+   "packs": 1,
+   "tiles": 13,
+   "approved": 0,
+   "names": [
+    "19. Animals and creatures"
+   ]
+  }
+ },
+ "review": [],
+ "entries": {
+  "1. Cobblestone floor tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 50,
+   "approved": 35,
+   "sheet": "sheets/1__Cobblestone_floor_tiles.jpg",
+   "sizes": [
+    "66x94",
+    "86x94",
+    "93x95",
+    "94x95",
+    "94x96",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Cracked contrete tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 45,
+   "approved": 42,
+   "sheet": "sheets/1__Cracked_contrete_tiles.jpg",
+   "sizes": [
+    "96x94",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Cracked street tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 36,
+   "approved": 34,
+   "sheet": "sheets/1__Cracked_street_tiles.jpg",
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Floor tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 24,
+   "approved": 17,
+   "sheet": "sheets/1__Floor_tiles.jpg",
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Floor tiles (1)": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 49,
+   "approved": 14,
+   "sheet": "sheets/1__Floor_tiles__1.jpg",
+   "sizes": [
+    "60x96",
+    "61x96",
+    "62x96",
+    "65x96",
+    "66x96",
+    "72x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Grass tiles": {
+   "family": "ground",
+   "why": "name rule \"grass\"",
+   "tiles": 14,
+   "approved": 0,
+   "sheet": "sheets/1__Grass_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "95x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Ground Tiles": {
+   "family": "ground",
+   "why": "name rule \"ground tile\"",
+   "tiles": 39,
+   "approved": 0,
+   "sheet": "sheets/1__Ground_Tiles.jpg",
+   "sizes": [
+    "49x96",
+    "95x96",
+    "96x44",
+    "96x95",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Marble floor tiles": {
+   "family": "road",
+   "why": "name rule \"floor tile\"",
+   "tiles": 1,
+   "approved": 0,
+   "sheet": "sheets/1__Marble_floor_tiles.jpg",
+   "sizes": [
+    "92x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Metal floor tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 36,
+   "approved": 36,
+   "sheet": "sheets/1__Metal_floor_tiles.jpg",
+   "sizes": [
+    "95x96",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Tower floor tiles": {
+   "family": "road",
+   "why": "name rule \"floor tile\"",
+   "tiles": 50,
+   "approved": 0,
+   "sheet": "sheets/1__Tower_floor_tiles.jpg",
+   "sizes": [
+    "96x90",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "1. Water Tiles": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 38,
+   "approved": 36,
+   "sheet": "sheets/1__Water_Tiles.jpg",
+   "sizes": [
+    "96x83",
+    "96x86",
+    "96x87",
+    "96x88",
+    "96x89",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Abandoned cars": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 20,
+   "approved": 20,
+   "sheet": "sheets/10__Abandoned_cars.jpg",
+   "sizes": [
+    "44x96",
+    "46x96",
+    "47x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Altars and offering": {
+   "family": "settlement",
+   "why": "name rule \"altar\"",
+   "tiles": 11,
+   "approved": 0,
+   "sheet": "sheets/10__Altars_and_offering.jpg",
+   "sizes": [
+    "62x96",
+    "70x96",
+    "82x96",
+    "85x96",
+    "87x96",
+    "96x91",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Bridges and wooden walkways": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/10__Bridges_and_wooden_walkways.jpg",
+   "sizes": [
+    "96x36",
+    "96x37",
+    "96x49",
+    "96x52",
+    "96x54",
+    "96x55",
+    "96x59",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Furnaces and smelters": {
+   "family": "prop",
+   "why": "name rule \"urn\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/10__Furnaces_and_smelters.jpg",
+   "sizes": [
+    "55x87",
+    "55x89",
+    "63x77",
+    "71x96",
+    "96x44",
+    "96x73",
+    "96x76"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Market and stalls": {
+   "family": "settlement",
+   "why": "name rule \"market\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/10__Market_and_stalls.jpg",
+   "sizes": [
+    "95x96",
+    "96x41",
+    "96x44",
+    "96x67",
+    "96x88",
+    "96x89",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Petals and ground details": {
+   "family": "ground",
+   "why": "name rule \"petal\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/10__Petals_and_ground_details.jpg",
+   "sizes": [
+    "72x55",
+    "74x58",
+    "75x53",
+    "77x54",
+    "77x55",
+    "90x60",
+    "95x58",
+    "96x64"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Port decorations": {
+   "family": "settlement",
+   "why": "name rule \"port\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/10__Port_decorations.jpg",
+   "sizes": [
+    "41x96",
+    "52x96",
+    "54x96",
+    "57x96",
+    "58x96",
+    "59x96",
+    "67x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Ruins pillars and columns": {
+   "family": "settlement",
+   "why": "name rule \"ruin\"",
+   "tiles": 41,
+   "approved": 0,
+   "sheet": "sheets/10__Ruins_pillars_and_columns.jpg",
+   "sizes": [
+    "34x96",
+    "36x96",
+    "40x96",
+    "43x96",
+    "44x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Spikes and harzards": {
+   "family": "settlement",
+   "why": "name rule \"spike\"",
+   "tiles": 40,
+   "approved": 0,
+   "sheet": "sheets/10__Spikes_and_harzards.jpg",
+   "sizes": [
+    "46x96",
+    "50x96",
+    "51x96",
+    "54x96",
+    "88x96",
+    "92x96",
+    "94x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Storage and containers": {
+   "family": "prop",
+   "why": "name rule \"container\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/10__Storage_and_containers.jpg",
+   "sizes": [
+    "64x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "74x96",
+    "76x96",
+    "81x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Telescope and astronomy tools": {
+   "family": "prop",
+   "why": "name rule \"tool\"",
+   "tiles": 34,
+   "approved": 0,
+   "sheet": "sheets/10__Telescope_and_astronomy_tools.jpg",
+   "sizes": [
+    "70x96",
+    "74x96",
+    "75x96",
+    "76x96",
+    "80x96",
+    "83x96",
+    "92x96",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Wooden fences and gates": {
+   "family": "door",
+   "why": "name rule \"gate\"",
+   "tiles": 27,
+   "approved": 0,
+   "sheet": "sheets/10__Wooden_fences_and_gates.jpg",
+   "sizes": [
+    "79x80",
+    "94x96",
+    "96x69",
+    "96x73",
+    "96x82",
+    "96x86",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "10. Zombie bodies and bones": {
+   "family": "marking",
+   "why": "copied from the approved bank",
+   "tiles": 34,
+   "approved": 23,
+   "sheet": "sheets/10__Zombie_bodies_and_bones.jpg",
+   "sizes": [
+    "55x96",
+    "58x96",
+    "60x96",
+    "64x96",
+    "68x96",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Amphoras and pottery": {
+   "family": "prop",
+   "why": "name rule \"pot\"",
+   "tiles": 14,
+   "approved": 0,
+   "sheet": "sheets/11__Amphoras_and_pottery.jpg",
+   "sizes": [
+    "62x96",
+    "64x96",
+    "68x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Barrels, Crates and sacks": {
+   "family": "prop",
+   "why": "name rule \"crate\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/11__Barrels__Crates_and_sacks.jpg",
+   "sizes": [
+    "70x96",
+    "71x96",
+    "73x96",
+    "76x96",
+    "78x96",
+    "81x96",
+    "94x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Chains and hooks": {
+   "family": "prop",
+   "why": "name rule \"chain\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/11__Chains_and_hooks.jpg",
+   "sizes": [
+    "17x96",
+    "19x96",
+    "20x96",
+    "30x96",
+    "32x96",
+    "35x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Crates and barrels": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 34,
+   "approved": 34,
+   "sheet": "sheets/11__Crates_and_barrels.jpg",
+   "sizes": [
+    "67x96",
+    "69x96",
+    "75x96",
+    "76x96",
+    "77x96",
+    "85x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Crates, barrels and supplies": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 49,
+   "approved": 44,
+   "sheet": "sheets/11__Crates__barrels_and_supplies.jpg",
+   "sizes": [
+    "68x96",
+    "69x96",
+    "72x96",
+    "78x96",
+    "80x96",
+    "82x96",
+    "96x36"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Fences and gates": {
+   "family": "door",
+   "why": "name rule \"gate\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/11__Fences_and_gates.jpg",
+   "sizes": [
+    "96x40",
+    "96x41",
+    "96x44",
+    "96x46",
+    "96x52",
+    "96x57",
+    "96x67",
+    "96x68"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Gauges and meters": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 10,
+   "approved": 6,
+   "sheet": "sheets/11__Gauges_and_meters.jpg",
+   "sizes": [
+    "65x96",
+    "74x96",
+    "75x96",
+    "77x96",
+    "82x96",
+    "91x96",
+    "95x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Industrial doors and gates": {
+   "family": "door",
+   "why": "copied from the approved bank",
+   "tiles": 18,
+   "approved": 17,
+   "sheet": "sheets/11__Industrial_doors_and_gates.jpg",
+   "sizes": [
+    "96x86",
+    "96x88",
+    "96x89",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Sci-fi furniture": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 12,
+   "approved": 0,
+   "sheet": "sheets/11__Sci_fi_furniture.jpg",
+   "sizes": [
+    "50x96",
+    "53x96",
+    "62x96",
+    "64x96",
+    "70x96",
+    "90x96",
+    "96x49",
+    "96x87"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Survival props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 49,
+   "approved": 49,
+   "sheet": "sheets/11__Survival_props.jpg",
+   "sizes": [
+    "44x96",
+    "46x96",
+    "86x96",
+    "87x96",
+    "90x96",
+    "96x80",
+    "96x83",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "11. Village furniture and props": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 17,
+   "approved": 0,
+   "sheet": "sheets/11__Village_furniture_and_props.jpg",
+   "sizes": [
+    "46x96",
+    "50x96",
+    "83x96",
+    "85x96",
+    "95x96",
+    "96x72",
+    "96x74"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Bridges and boardwalks": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/12__Bridges_and_boardwalks.jpg",
+   "sizes": [
+    "96x39",
+    "96x40",
+    "96x41",
+    "96x42",
+    "96x43",
+    "96x45",
+    "96x49"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Cave Entrances": {
+   "family": "settlement",
+   "why": "name rule \"cave entrance\"",
+   "tiles": 12,
+   "approved": 0,
+   "sheet": "sheets/12__Cave_Entrances.jpg",
+   "sizes": [
+    "96x47",
+    "96x54",
+    "96x58",
+    "96x61",
+    "96x72"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Crates, barrels and storage": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 33,
+   "approved": 1,
+   "sheet": "sheets/12__Crates__barrels_and_storage.jpg",
+   "sizes": [
+    "70x96",
+    "73x96",
+    "74x96",
+    "76x96",
+    "79x96",
+    "80x96",
+    "82x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Doors and hatches": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 41,
+   "approved": 0,
+   "sheet": "sheets/12__Doors_and_hatches.jpg",
+   "sizes": [
+    "60x88",
+    "65x79",
+    "67x88",
+    "67x89",
+    "69x88",
+    "70x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Furniture and study Tables": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 19,
+   "approved": 0,
+   "sheet": "sheets/12__Furniture_and_study_Tables.jpg",
+   "sizes": [
+    "92x96",
+    "96x71",
+    "96x80",
+    "96x82",
+    "96x90",
+    "96x92",
+    "96x94",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Iron Gates and doors": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 31,
+   "approved": 0,
+   "sheet": "sheets/12__Iron_Gates_and_doors.jpg",
+   "sizes": [
+    "84x96",
+    "85x96",
+    "86x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "94x96",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Laboratory equipment": {
+   "family": "prop",
+   "why": "name rule \"lab\"",
+   "tiles": 28,
+   "approved": 0,
+   "sheet": "sheets/12__Laboratory_equipment.jpg",
+   "sizes": [
+    "44x96",
+    "47x96",
+    "49x96",
+    "70x96",
+    "85x96",
+    "96x59",
+    "96x60",
+    "96x62"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Market props and crates": {
+   "family": "settlement",
+   "why": "name rule \"market\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/12__Market_props_and_crates.jpg",
+   "sizes": [
+    "92x96",
+    "95x96",
+    "96x91",
+    "96x92",
+    "96x94",
+    "96x95",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Ruined building parts": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 20,
+   "approved": 20,
+   "sheet": "sheets/12__Ruined_building_parts.jpg",
+   "sizes": [
+    "50x96",
+    "86x96",
+    "92x96",
+    "96x65",
+    "96x70",
+    "96x72",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Street Props": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 8,
+   "approved": 0,
+   "sheet": "sheets/12__Street_Props.jpg",
+   "sizes": [
+    "38x96",
+    "58x96",
+    "62x96",
+    "64x96",
+    "68x96",
+    "73x96",
+    "91x96",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Treasure and loot": {
+   "family": "prop",
+   "why": "name rule \"loot\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/12__Treasure_and_loot.jpg",
+   "sizes": [
+    "84x96",
+    "88x96",
+    "94x96",
+    "96x90",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Weapons and armory": {
+   "family": "weapon",
+   "why": "name rule \"weapons and\"",
+   "tiles": 41,
+   "approved": 0,
+   "sheet": "sheets/12__Weapons_and_armory.jpg",
+   "sizes": [
+    "28x96",
+    "38x96",
+    "39x96",
+    "51x96",
+    "52x96",
+    "96x40",
+    "96x41",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "12. Weapons and supplies": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 40,
+   "approved": 37,
+   "sheet": "sheets/12__Weapons_and_supplies.jpg",
+   "sizes": [
+    "73x96",
+    "74x96",
+    "75x96",
+    "76x96",
+    "96x54",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Banners and flags": {
+   "family": "prop",
+   "why": "name rule \"banner\"",
+   "tiles": 32,
+   "approved": 0,
+   "sheet": "sheets/13__Banners_and_flags.jpg",
+   "sizes": [
+    "58x96",
+    "59x96",
+    "96x40",
+    "96x42"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Bridges and platforms": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 25,
+   "approved": 0,
+   "sheet": "sheets/13__Bridges_and_platforms.jpg",
+   "sizes": [
+    "96x47",
+    "96x54",
+    "96x58",
+    "96x64",
+    "96x69",
+    "96x76",
+    "96x80",
+    "96x83"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Chairs and seating": {
+   "family": "prop",
+   "why": "name rule \"seating\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/13__Chairs_and_seating.jpg",
+   "sizes": [
+    "52x96",
+    "58x96",
+    "61x96",
+    "62x96",
+    "65x96",
+    "72x96",
+    "96x71",
+    "96x73"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Decorations": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/13__Decorations.jpg",
+   "sizes": [
+    "41x96",
+    "51x96",
+    "59x96",
+    "61x96",
+    "69x96",
+    "76x96",
+    "87x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Fences and wire": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 19,
+   "approved": 19,
+   "sheet": "sheets/13__Fences_and_wire.jpg",
+   "sizes": [
+    "78x72",
+    "96x70",
+    "96x75",
+    "96x80",
+    "96x81",
+    "96x86",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Furniture and seating": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 19,
+   "approved": 0,
+   "sheet": "sheets/13__Furniture_and_seating.jpg",
+   "sizes": [
+    "64x96",
+    "68x96",
+    "76x96",
+    "88x96",
+    "96x64",
+    "96x65",
+    "96x84"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Garden beds": {
+   "family": "ground",
+   "why": "name rule \"garden\"",
+   "tiles": 54,
+   "approved": 0,
+   "sheet": "sheets/13__Garden_beds.jpg",
+   "sizes": [
+    "77x69",
+    "79x76",
+    "96x36",
+    "96x39",
+    "96x43",
+    "96x46",
+    "96x47",
+    "96x48"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Lamps and torches": {
+   "family": "lamp",
+   "why": "name rule \"lamp\"",
+   "tiles": 12,
+   "approved": 0,
+   "sheet": "sheets/13__Lamps_and_torches.jpg",
+   "sizes": [
+    "30x96",
+    "33x96",
+    "34x96",
+    "35x96",
+    "44x96",
+    "64x96",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Lanterns and warmlights": {
+   "family": "lamp",
+   "why": "name rule \"lantern\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/13__Lanterns_and_warmlights.jpg",
+   "sizes": [
+    "46x96",
+    "48x96",
+    "50x96",
+    "56x96",
+    "62x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Pipes and wiring": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 9,
+   "approved": 8,
+   "sheet": "sheets/13__Pipes_and_wiring.jpg",
+   "sizes": [
+    "90x96",
+    "96x42",
+    "96x47",
+    "96x50",
+    "96x51",
+    "96x55",
+    "96x58",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. Port market": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 35,
+   "approved": 29,
+   "sheet": "sheets/13__Port_market.jpg",
+   "sizes": [
+    "75x96",
+    "76x96",
+    "77x96",
+    "78x96",
+    "80x96",
+    "96x80",
+    "96x82"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "13. crates and barrels": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 34,
+   "approved": 8,
+   "sheet": "sheets/13__crates_and_barrels.jpg",
+   "sizes": [
+    "77x96",
+    "82x96",
+    "90x96",
+    "92x96",
+    "96x90",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Banners and flags": {
+   "family": "prop",
+   "why": "name rule \"banner\"",
+   "tiles": 11,
+   "approved": 0,
+   "sheet": "sheets/14__Banners_and_flags.jpg",
+   "sizes": [
+    "47x96",
+    "48x96",
+    "49x96",
+    "50x96",
+    "51x96",
+    "52x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Camp and tents": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 35,
+   "approved": 18,
+   "sheet": "sheets/14__Camp_and_tents.jpg",
+   "sizes": [
+    "36x96",
+    "80x96",
+    "88x96",
+    "94x96",
+    "96x39",
+    "96x40",
+    "96x74"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Embers and particles": {
+   "family": "lamp",
+   "why": "copied from the approved bank",
+   "tiles": 7,
+   "approved": 7,
+   "sheet": "sheets/14__Embers_and_particles.jpg",
+   "sizes": [
+    "61x96",
+    "64x96",
+    "65x92",
+    "71x96",
+    "77x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Garden furniture": {
+   "family": "ground",
+   "why": "name rule \"garden\"",
+   "tiles": 42,
+   "approved": 0,
+   "sheet": "sheets/14__Garden_furniture.jpg",
+   "sizes": [
+    "67x96",
+    "76x96",
+    "81x88",
+    "84x92",
+    "96x37",
+    "96x55",
+    "96x69",
+    "96x79"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Lamps and lights": {
+   "family": "lamp",
+   "why": "name rule \"lamp\"",
+   "tiles": 20,
+   "approved": 0,
+   "sheet": "sheets/14__Lamps_and_lights.jpg",
+   "sizes": [
+    "26x96",
+    "29x96",
+    "33x96",
+    "34x96",
+    "48x96",
+    "50x96",
+    "52x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Lights and neon elements": {
+   "family": "lamp",
+   "why": "name rule \"light\"",
+   "tiles": 19,
+   "approved": 0,
+   "sheet": "sheets/14__Lights_and_neon_elements.jpg",
+   "sizes": [
+    "32x96",
+    "33x96",
+    "34x96",
+    "76x96",
+    "80x96",
+    "96x79",
+    "96x90",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Market and outdoor props": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/14__Market_and_outdoor_props.jpg",
+   "sizes": [
+    "83x96",
+    "86x96",
+    "87x96",
+    "88x96",
+    "93x96",
+    "96x68",
+    "96x76",
+    "96x77"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Shells and small details": {
+   "family": "prop",
+   "why": "name rule \"detail\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/14__Shells_and_small_details.jpg",
+   "sizes": [
+    "78x96",
+    "80x96",
+    "81x96",
+    "96x80",
+    "96x82",
+    "96x85",
+    "96x87",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Town square decorations": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/14__Town_square_decorations.jpg",
+   "sizes": [
+    "66x96",
+    "67x96",
+    "94x93",
+    "94x96",
+    "96x57",
+    "96x75",
+    "96x82",
+    "96x85"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Trash and junk props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 16,
+   "approved": 14,
+   "sheet": "sheets/14__Trash_and_junk_props.jpg",
+   "sizes": [
+    "73x96",
+    "75x96",
+    "76x96",
+    "80x96",
+    "88x96",
+    "96x49",
+    "96x84",
+    "96x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "14. Warning Signs": {
+   "family": "marking",
+   "why": "copied from the approved bank",
+   "tiles": 35,
+   "approved": 14,
+   "sheet": "sheets/14__Warning_Signs.jpg",
+   "sizes": [
+    "95x96",
+    "96x76",
+    "96x82",
+    "96x83",
+    "96x87",
+    "96x88",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Benches and seating": {
+   "family": "prop",
+   "why": "name rule \"seating\"",
+   "tiles": 27,
+   "approved": 0,
+   "sheet": "sheets/15__Benches_and_seating.jpg",
+   "sizes": [
+    "96x37",
+    "96x42",
+    "96x50",
+    "96x55",
+    "96x58",
+    "96x60"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Cracked floor details": {
+   "family": "prop",
+   "why": "name rule \"detail\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/15__Cracked_floor_details.jpg",
+   "sizes": [
+    "96x56",
+    "96x57",
+    "96x58",
+    "96x72",
+    "96x74",
+    "96x80",
+    "96x82"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Dead Trees and dry plants": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 8,
+   "approved": 8,
+   "sheet": "sheets/15__Dead_Trees_and_dry_plants.jpg",
+   "sizes": [
+    "50x96",
+    "53x96",
+    "61x96",
+    "66x96",
+    "80x96",
+    "88x96",
+    "96x70",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Mythological Symbols": {
+   "family": "prop",
+   "why": "name rule \"symbol\"",
+   "tiles": 14,
+   "approved": 0,
+   "sheet": "sheets/15__Mythological_Symbols.jpg",
+   "sizes": [
+    "47x96",
+    "57x96",
+    "69x96",
+    "80x96",
+    "88x96",
+    "94x96",
+    "96x74",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Robots and drones": {
+   "family": "prop",
+   "why": "name rule \"robot\"",
+   "tiles": 2,
+   "approved": 0,
+   "sheet": "sheets/15__Robots_and_drones.jpg",
+   "sizes": [
+    "96x84",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Statues and ancient relics": {
+   "family": "settlement",
+   "why": "name rule \"statue\"",
+   "tiles": 8,
+   "approved": 0,
+   "sheet": "sheets/15__Statues_and_ancient_relics.jpg",
+   "sizes": [
+    "40x96",
+    "58x96",
+    "61x96",
+    "64x96",
+    "65x96",
+    "67x96",
+    "75x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Street props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 44,
+   "approved": 39,
+   "sheet": "sheets/15__Street_props.jpg",
+   "sizes": [
+    "32x96",
+    "34x96",
+    "48x96",
+    "49x96",
+    "51x96",
+    "55x96",
+    "62x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Trees and nature": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/15__Trees_and_nature.jpg",
+   "sizes": [
+    "50x96",
+    "58x96",
+    "82x81",
+    "91x96",
+    "96x80",
+    "96x82"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. Workbenches and tools": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 27,
+   "approved": 23,
+   "sheet": "sheets/15__Workbenches_and_tools.jpg",
+   "sizes": [
+    "96x75",
+    "96x77",
+    "96x78",
+    "96x80",
+    "96x82",
+    "96x84",
+    "96x91"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "15. winter decorations": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/15__winter_decorations.jpg",
+   "sizes": [
+    "56x96",
+    "61x96",
+    "65x96",
+    "69x96",
+    "91x96",
+    "96x53",
+    "96x84",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Crates and cargo props": {
+   "family": "prop",
+   "why": "name rule \"crate\"",
+   "tiles": 28,
+   "approved": 0,
+   "sheet": "sheets/16__Crates_and_cargo_props.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x84",
+    "96x86",
+    "96x88",
+    "96x92",
+    "96x93",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Dead trees and plants": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 40,
+   "approved": 39,
+   "sheet": "sheets/16__Dead_trees_and_plants.jpg",
+   "sizes": [
+    "43x96",
+    "52x96",
+    "57x96",
+    "69x96",
+    "75x96",
+    "82x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Gardens and crops": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 8,
+   "approved": 7,
+   "sheet": "sheets/16__Gardens_and_crops.jpg",
+   "sizes": [
+    "40x96",
+    "82x96",
+    "93x92",
+    "96x62",
+    "96x67",
+    "96x68",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Interior cabin props": {
+   "family": "settlement",
+   "why": "name rule \"cabin\"",
+   "tiles": 35,
+   "approved": 0,
+   "sheet": "sheets/16__Interior_cabin_props.jpg",
+   "sizes": [
+    "53x96",
+    "62x96",
+    "64x96",
+    "76x96",
+    "82x96",
+    "88x96",
+    "96x55",
+    "96x74"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Lab equipment": {
+   "family": "prop",
+   "why": "name rule \"lab\"",
+   "tiles": 32,
+   "approved": 0,
+   "sheet": "sheets/16__Lab_equipment.jpg",
+   "sizes": [
+    "58x96",
+    "60x96",
+    "61x96",
+    "63x96",
+    "65x96",
+    "67x96",
+    "73x96",
+    "89x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Lamps and lights": {
+   "family": "lamp",
+   "why": "name rule \"lamp\"",
+   "tiles": 3,
+   "approved": 0,
+   "sheet": "sheets/16__Lamps_and_lights.jpg",
+   "sizes": [
+    "55x79",
+    "69x89",
+    "71x67"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Lanterns and glow lights": {
+   "family": "lamp",
+   "why": "name rule \"lantern\"",
+   "tiles": 12,
+   "approved": 0,
+   "sheet": "sheets/16__Lanterns_and_glow_lights.jpg",
+   "sizes": [
+    "32x96",
+    "34x96",
+    "44x96",
+    "47x96",
+    "65x96",
+    "68x96",
+    "95x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Loot and survival props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 34,
+   "approved": 33,
+   "sheet": "sheets/16__Loot_and_survival_props.jpg",
+   "sizes": [
+    "96x82",
+    "96x83",
+    "96x84",
+    "96x85",
+    "96x86",
+    "96x87",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Staircases and elevation": {
+   "family": "settlement",
+   "why": "name rule \"stair\"",
+   "tiles": 12,
+   "approved": 0,
+   "sheet": "sheets/16__Staircases_and_elevation.jpg",
+   "sizes": [
+    "73x96",
+    "76x96",
+    "78x96",
+    "82x96",
+    "88x96",
+    "89x96",
+    "96x64",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Trees and nature": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/16__Trees_and_nature.jpg",
+   "sizes": [
+    "39x96",
+    "52x96",
+    "55x96",
+    "56x96",
+    "96x40",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "16. Weapons and shields": {
+   "family": "weapon",
+   "why": "name rule \"weapons and\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/16__Weapons_and_shields.jpg",
+   "sizes": [
+    "24x96",
+    "31x96",
+    "38x96",
+    "43x96",
+    "47x96",
+    "51x96",
+    "66x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Benches and seating": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 8,
+   "approved": 5,
+   "sheet": "sheets/17__Benches_and_seating.jpg",
+   "sizes": [
+    "80x96",
+    "88x87",
+    "96x36",
+    "96x40",
+    "96x45",
+    "96x52",
+    "96x81",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Bridges and walkways": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 35,
+   "approved": 0,
+   "sheet": "sheets/17__Bridges_and_walkways.jpg",
+   "sizes": [
+    "94x96",
+    "96x92",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Cannons and weapons": {
+   "family": "weapon",
+   "why": "name rule \"cannons and weapons\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/17__Cannons_and_weapons.jpg",
+   "sizes": [
+    "62x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "88x96",
+    "96x80",
+    "96x83"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Hazard and warning tiles": {
+   "family": "marking",
+   "why": "copied from the approved bank",
+   "tiles": 23,
+   "approved": 10,
+   "sheet": "sheets/17__Hazard_and_warning_tiles.jpg",
+   "sizes": [
+    "92x96",
+    "96x43",
+    "96x58",
+    "96x88",
+    "96x89",
+    "96x90",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Mailboxes and birdhouses": {
+   "family": "settlement",
+   "why": "name rule \"house\"",
+   "tiles": 53,
+   "approved": 0,
+   "sheet": "sheets/17__Mailboxes_and_birdhouses.jpg",
+   "sizes": [
+    "45x96",
+    "48x96",
+    "52x96",
+    "53x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Ruins and debris": {
+   "family": "settlement",
+   "why": "name rule \"ruin\"",
+   "tiles": 3,
+   "approved": 0,
+   "sheet": "sheets/17__Ruins_and_debris.jpg",
+   "sizes": [
+    "96x63",
+    "96x88",
+    "96x91"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Safehouse furniture": {
+   "family": "settlement",
+   "why": "name rule \"house\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/17__Safehouse_furniture.jpg",
+   "sizes": [
+    "62x96",
+    "68x96",
+    "82x96",
+    "92x96",
+    "96x50",
+    "96x62"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "17. Warning Signs and road props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 24,
+   "approved": 18,
+   "sheet": "sheets/17__Warning_Signs_and_road_props.jpg",
+   "sizes": [
+    "52x96",
+    "53x96",
+    "54x96",
+    "55x96",
+    "56x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Blacksmith props": {
+   "family": "prop",
+   "why": "name rule \"prop\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/18__Blacksmith_props.jpg",
+   "sizes": [
+    "43x96",
+    "45x96",
+    "74x96",
+    "90x96",
+    "92x96",
+    "96x70",
+    "96x78",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Crystals and bioluminescense": {
+   "family": "ground",
+   "why": "name rule \"crystal\"",
+   "tiles": 11,
+   "approved": 0,
+   "sheet": "sheets/18__Crystals_and_bioluminescense.jpg",
+   "sizes": [
+    "71x96",
+    "74x96",
+    "75x96",
+    "80x96",
+    "81x96",
+    "82x96",
+    "92x96",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Light sources and fire barrels": {
+   "family": "lamp",
+   "why": "copied from the approved bank",
+   "tiles": 48,
+   "approved": 34,
+   "sheet": "sheets/18__Light_sources_and_fire_barrels.jpg",
+   "sizes": [
+    "41x96",
+    "49x96",
+    "51x96",
+    "55x96",
+    "56x96",
+    "57x96",
+    "66x96",
+    "76x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Lights and emergency props": {
+   "family": "lamp",
+   "why": "copied from the approved bank",
+   "tiles": 12,
+   "approved": 6,
+   "sheet": "sheets/18__Lights_and_emergency_props.jpg",
+   "sizes": [
+    "58x96",
+    "64x96",
+    "72x96",
+    "82x96",
+    "83x96",
+    "96x91",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Misc objects": {
+   "family": "prop",
+   "why": "name rule \"misc\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/18__Misc_objects.jpg",
+   "sizes": [
+    "51x96",
+    "96x44",
+    "96x73",
+    "96x76",
+    "96x78",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Nature and plants": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/18__Nature_and_plants.jpg",
+   "sizes": [
+    "92x96",
+    "96x82",
+    "96x89",
+    "96x92",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Pipes and cables": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 23,
+   "approved": 19,
+   "sheet": "sheets/18__Pipes_and_cables.jpg",
+   "sizes": [
+    "41x96",
+    "80x96",
+    "96x63",
+    "96x74",
+    "96x92",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Pots and planters": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 68,
+   "approved": 0,
+   "sheet": "sheets/18__Pots_and_planters.jpg",
+   "sizes": [
+    "68x96",
+    "71x62",
+    "73x96",
+    "78x96",
+    "82x96",
+    "83x85",
+    "83x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Space station props": {
+   "family": "prop",
+   "why": "name rule \"prop\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/18__Space_station_props.jpg",
+   "sizes": [
+    "57x96",
+    "64x96",
+    "82x96",
+    "89x96",
+    "96x51",
+    "96x68",
+    "96x69",
+    "96x74"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Stairs and lifts": {
+   "family": "settlement",
+   "why": "name rule \"stair\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/18__Stairs_and_lifts.jpg",
+   "sizes": [
+    "28x96",
+    "64x96",
+    "74x96",
+    "75x96",
+    "81x96",
+    "82x96",
+    "90x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "18. Winter food and drinks": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 28,
+   "approved": 27,
+   "sheet": "sheets/18__Winter_food_and_drinks.jpg",
+   "sizes": [
+    "96x73",
+    "96x77",
+    "96x78",
+    "96x79",
+    "96x80",
+    "96x85",
+    "96x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Alien tech elements": {
+   "family": "prop",
+   "why": "name rule \"alien\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/19__Alien_tech_elements.jpg",
+   "sizes": [
+    "56x96",
+    "58x96",
+    "64x96",
+    "76x96",
+    "80x96",
+    "89x96",
+    "96x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Animals and creatures": {
+   "family": "animal",
+   "why": "name rule \"animals and creatures\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/19__Animals_and_creatures.jpg",
+   "sizes": [
+    "40x96",
+    "48x96",
+    "50x96",
+    "52x96",
+    "56x96",
+    "75x96",
+    "76x96",
+    "92x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Decor and homey items": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/19__Decor_and_homey_items.jpg",
+   "sizes": [
+    "64x80",
+    "70x75",
+    "75x69",
+    "76x69",
+    "77x96",
+    "81x62",
+    "84x85",
+    "96x75"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Decorations": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 19,
+   "approved": 0,
+   "sheet": "sheets/19__Decorations.jpg",
+   "sizes": [
+    "28x96",
+    "29x96",
+    "43x96",
+    "44x96",
+    "53x96",
+    "67x96",
+    "70x96",
+    "71x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Deep sea props": {
+   "family": "prop",
+   "why": "name rule \"prop\"",
+   "tiles": 11,
+   "approved": 0,
+   "sheet": "sheets/19__Deep_sea_props.jpg",
+   "sizes": [
+    "59x96",
+    "64x96",
+    "76x96",
+    "77x96",
+    "82x96",
+    "84x96",
+    "95x96",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Miscellaneous": {
+   "family": "prop",
+   "why": "name rule \"misc\"",
+   "tiles": 45,
+   "approved": 0,
+   "sheet": "sheets/19__Miscellaneous.jpg",
+   "sizes": [
+    "41x96",
+    "48x96",
+    "64x96",
+    "96x65",
+    "96x69",
+    "96x74",
+    "96x81"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Miscellaneous (1)": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 65,
+   "approved": 32,
+   "sheet": "sheets/19__Miscellaneous__1.jpg",
+   "sizes": [
+    "78x92",
+    "87x87",
+    "92x86",
+    "92x87",
+    "96x82",
+    "96x84",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Signs and village boards": {
+   "family": "prop",
+   "why": "name rule \"sign\"",
+   "tiles": 33,
+   "approved": 0,
+   "sheet": "sheets/19__Signs_and_village_boards.jpg",
+   "sizes": [
+    "57x96",
+    "58x96",
+    "63x96",
+    "67x96",
+    "68x96",
+    "81x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Torches and braziers": {
+   "family": "lamp",
+   "why": "name rule \"torch\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/19__Torches_and_braziers.jpg",
+   "sizes": [
+    "32x96",
+    "33x96",
+    "39x96",
+    "45x96",
+    "52x96",
+    "57x96",
+    "64x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Toxic and infection growths": {
+   "family": "marking",
+   "why": "name rule \"infection\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/19__Toxic_and_infection_growths.jpg",
+   "sizes": [
+    "96x65",
+    "96x68",
+    "96x71",
+    "96x86",
+    "96x87",
+    "96x89",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "19. Toxic crystals and mutations": {
+   "family": "ground",
+   "why": "name rule \"crystal\"",
+   "tiles": 19,
+   "approved": 0,
+   "sheet": "sheets/19__Toxic_crystals_and_mutations.jpg",
+   "sizes": [
+    "80x96",
+    "84x96",
+    "85x96",
+    "91x96",
+    "95x96",
+    "96x85",
+    "96x89",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Broken building walls": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 12,
+   "approved": 12,
+   "sheet": "sheets/2__Broken_building_walls.jpg",
+   "sizes": [
+    "41x96",
+    "48x96",
+    "65x96",
+    "74x96",
+    "77x96",
+    "96x62",
+    "96x72",
+    "96x73"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Cliffs and ledges": {
+   "family": "ground",
+   "why": "name rule \"cliff\"",
+   "tiles": 4,
+   "approved": 0,
+   "sheet": "sheets/2__Cliffs_and_ledges.jpg",
+   "sizes": [
+    "78x96",
+    "92x96",
+    "96x40"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Dirt path tiles": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 48,
+   "approved": 46,
+   "sheet": "sheets/2__Dirt_path_tiles.jpg",
+   "sizes": [
+    "77x77",
+    "81x96",
+    "85x96",
+    "94x96",
+    "95x96",
+    "96x91"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Dock planks": {
+   "family": "road",
+   "why": "name rule \"dock plank\"",
+   "tiles": 42,
+   "approved": 0,
+   "sheet": "sheets/2__Dock_planks.jpg",
+   "sizes": [
+    "81x96",
+    "91x96",
+    "92x96",
+    "93x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Rusted metal floor tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 32,
+   "approved": 10,
+   "sheet": "sheets/2__Rusted_metal_floor_tiles.jpg",
+   "sizes": [
+    "90x96",
+    "91x96",
+    "92x96",
+    "93x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Sci-fi wall tiles": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/2__Sci_fi_wall_tiles.jpg",
+   "sizes": [
+    "89x96",
+    "92x96",
+    "96x37",
+    "96x76",
+    "96x80",
+    "96x88",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Soil and dirt tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 24,
+   "approved": 24,
+   "sheet": "sheets/2__Soil_and_dirt_tiles.jpg",
+   "sizes": [
+    "92x96",
+    "94x96",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. Wall tiles (1)": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 44,
+   "approved": 0,
+   "sheet": "sheets/2__Wall_tiles__1.jpg",
+   "sizes": [
+    "62x96",
+    "67x96",
+    "72x96",
+    "83x96",
+    "96x75"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "2. wall tiles": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 22,
+   "approved": 0,
+   "sheet": "sheets/2__wall_tiles.jpg",
+   "sizes": [
+    "93x96",
+    "96x88",
+    "96x89",
+    "96x90",
+    "96x92",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Airchip dock props": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 28,
+   "approved": 4,
+   "sheet": "sheets/20__Airchip_dock_props.jpg",
+   "sizes": [
+    "66x96",
+    "68x96",
+    "74x96",
+    "76x96",
+    "82x96",
+    "83x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Decorative village details": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 17,
+   "approved": 0,
+   "sheet": "sheets/20__Decorative_village_details.jpg",
+   "sizes": [
+    "79x82",
+    "92x96",
+    "95x96",
+    "96x46",
+    "96x59",
+    "96x67",
+    "96x89",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Environment Details": {
+   "family": "prop",
+   "why": "name rule \"detail\"",
+   "tiles": 42,
+   "approved": 0,
+   "sheet": "sheets/20__Environment_Details.jpg",
+   "sizes": [
+    "57x96",
+    "67x96",
+    "70x96",
+    "75x96",
+    "86x96",
+    "88x96",
+    "96x74",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Environment set pieces": {
+   "family": "prop",
+   "why": "name rule \"environment\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/20__Environment_set_pieces.jpg",
+   "sizes": [
+    "50x96",
+    "54x96",
+    "68x96",
+    "91x96",
+    "96x40",
+    "96x41",
+    "96x86",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Extra cozy details": {
+   "family": "prop",
+   "why": "name rule \"detail\"",
+   "tiles": 45,
+   "approved": 0,
+   "sheet": "sheets/20__Extra_cozy_details.jpg",
+   "sizes": [
+    "79x65",
+    "96x48",
+    "96x51",
+    "96x52",
+    "96x57",
+    "96x60",
+    "96x64",
+    "96x74"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Nature and environment": {
+   "family": "ground",
+   "why": "name rule \"nature\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/20__Nature_and_environment.jpg",
+   "sizes": [
+    "77x96",
+    "79x96",
+    "92x96",
+    "96x70",
+    "96x81",
+    "96x84",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Special Hazard Tiles": {
+   "family": "marking",
+   "why": "name rule \"hazard\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/20__Special_Hazard_Tiles.jpg",
+   "sizes": [
+    "96x91",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Special Sci-fi tiles": {
+   "family": "prop",
+   "why": "name rule \"sci-fi\"",
+   "tiles": 34,
+   "approved": 0,
+   "sheet": "sheets/20__Special_Sci_fi_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "96x88",
+    "96x92",
+    "96x94",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "20. Special hazard tiles (1)": {
+   "family": "marking",
+   "why": "name rule \"hazard\"",
+   "tiles": 30,
+   "approved": 0,
+   "sheet": "sheets/20__Special_hazard_tiles__1.jpg",
+   "sizes": [
+    "96x83",
+    "96x85",
+    "96x90",
+    "96x91",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Barricades and blockades": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 24,
+   "approved": 20,
+   "sheet": "sheets/3__Barricades_and_blockades.jpg",
+   "sizes": [
+    "96x72",
+    "96x77",
+    "96x84",
+    "96x85",
+    "96x86",
+    "96x90",
+    "96x92",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Bookshelves and bookcases": {
+   "family": "prop",
+   "why": "name rule \"bookcase\"",
+   "tiles": 42,
+   "approved": 0,
+   "sheet": "sheets/3__Bookshelves_and_bookcases.jpg",
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "65x96",
+    "90x96",
+    "93x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Broken wall tiles": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 18,
+   "approved": 18,
+   "sheet": "sheets/3__Broken_wall_tiles.jpg",
+   "sizes": [
+    "75x96",
+    "76x96",
+    "96x72",
+    "96x76",
+    "96x77",
+    "96x87",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Dock objects": {
+   "family": "prop",
+   "why": "PLACED BY LOOKING: looked: barrels, crates, mooring posts, bollards, rope coils, chain and a lantern on a post. Objects you place, not a surface.",
+   "tiles": 27,
+   "approved": 0,
+   "sheet": "sheets/3__Dock_objects.jpg",
+   "sizes": [
+    "68x96",
+    "71x96",
+    "76x96",
+    "77x96",
+    "81x96",
+    "82x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Grass and ground tiles": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 48,
+   "approved": 47,
+   "sheet": "sheets/3__Grass_and_ground_tiles.jpg",
+   "sizes": [
+    "84x86",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Pipe tiles": {
+   "family": "road",
+   "why": "name rule \"pipe tiles\"",
+   "tiles": 42,
+   "approved": 0,
+   "sheet": "sheets/3__Pipe_tiles.jpg",
+   "sizes": [
+    "39x96",
+    "47x96",
+    "60x96",
+    "65x96",
+    "68x96",
+    "74x96",
+    "76x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Stone paths": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 24,
+   "approved": 24,
+   "sheet": "sheets/3__Stone_paths.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x95",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Wall panels and details": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 32,
+   "approved": 0,
+   "sheet": "sheets/3__Wall_panels_and_details.jpg",
+   "sizes": [
+    "88x96",
+    "89x96",
+    "90x96",
+    "94x96",
+    "95x96",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "3. Wooden bridges and platforms": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/3__Wooden_bridges_and_platforms.jpg",
+   "sizes": [
+    "58x96",
+    "74x96",
+    "88x96",
+    "92x96",
+    "96x36",
+    "96x38",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Cabins and house parts": {
+   "family": "settlement",
+   "why": "name rule \"cabin\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/4__Cabins_and_house_parts.jpg",
+   "sizes": [
+    "59x90",
+    "62x92",
+    "62x94",
+    "63x96",
+    "67x95",
+    "69x90",
+    "96x68",
+    "96x70"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Doors and airlocks": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/4__Doors_and_airlocks.jpg",
+   "sizes": [
+    "67x96",
+    "76x96",
+    "77x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Doors and entrances": {
+   "family": "door",
+   "why": "copied from the approved bank",
+   "tiles": 10,
+   "approved": 10,
+   "sheet": "sheets/4__Doors_and_entrances.jpg",
+   "sizes": [
+    "54x96",
+    "57x96",
+    "62x96",
+    "63x96",
+    "64x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Flower paths": {
+   "family": "ground",
+   "why": "name rule \"flower\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/4__Flower_paths.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x86",
+    "96x88",
+    "96x92",
+    "96x95",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. House wall tiles": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 34,
+   "approved": 0,
+   "sheet": "sheets/4__House_wall_tiles.jpg",
+   "sizes": [
+    "76x96",
+    "77x78",
+    "77x96",
+    "78x96",
+    "79x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Scrap wall and panels": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 17,
+   "approved": 12,
+   "sheet": "sheets/4__Scrap_wall_and_panels.jpg",
+   "sizes": [
+    "96x72",
+    "96x78",
+    "96x80",
+    "96x87",
+    "96x88",
+    "96x90"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Spell books and scrolls": {
+   "family": "prop",
+   "why": "name rule \"book\"",
+   "tiles": 32,
+   "approved": 0,
+   "sheet": "sheets/4__Spell_books_and_scrolls.jpg",
+   "sizes": [
+    "73x96",
+    "74x96",
+    "75x96",
+    "82x96",
+    "87x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Vent and steam": {
+   "family": "prop",
+   "why": "name rule \"vent\"",
+   "tiles": 31,
+   "approved": 0,
+   "sheet": "sheets/4__Vent_and_steam.jpg",
+   "sizes": [
+    "60x96",
+    "65x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "4. Water details and foam": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 7,
+   "approved": 7,
+   "sheet": "sheets/4__Water_details_and_foam.jpg",
+   "sizes": [
+    "82x55",
+    "92x62",
+    "96x68",
+    "96x69",
+    "96x70"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Barricades and defenses": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 17,
+   "approved": 16,
+   "sheet": "sheets/5__Barricades_and_defenses.jpg",
+   "sizes": [
+    "88x96",
+    "90x96",
+    "93x96",
+    "96x51",
+    "96x62",
+    "96x67",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Doors and arches": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/5__Doors_and_arches.jpg",
+   "sizes": [
+    "70x96",
+    "71x96",
+    "73x96",
+    "76x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Platforms": {
+   "family": "settlement",
+   "why": "name rule \"platform\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/5__Platforms.jpg",
+   "sizes": [
+    "63x96",
+    "65x96",
+    "69x96",
+    "73x96",
+    "76x96",
+    "81x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Potion bottles and ingredients": {
+   "family": "prop",
+   "why": "name rule \"pot\"",
+   "tiles": 56,
+   "approved": 0,
+   "sheet": "sheets/5__Potion_bottles_and_ingredients.jpg",
+   "sizes": [
+    "67x96",
+    "68x96",
+    "70x96",
+    "91x96",
+    "96x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Rock Formations": {
+   "family": "ground",
+   "why": "name rule \"rock\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/5__Rock_Formations.jpg",
+   "sizes": [
+    "56x96",
+    "73x96",
+    "83x96",
+    "86x96",
+    "96x78",
+    "96x79",
+    "96x84",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Roof tiles": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 37,
+   "approved": 36,
+   "sheet": "sheets/5__Roof_tiles.jpg",
+   "sizes": [
+    "78x96",
+    "81x96",
+    "84x96",
+    "85x96",
+    "88x88",
+    "94x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Water and ponds": {
+   "family": "ground",
+   "why": "name rule \"water\"",
+   "tiles": 30,
+   "approved": 0,
+   "sheet": "sheets/5__Water_and_ponds.jpg",
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Windows and broken glass": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 23,
+   "approved": 22,
+   "sheet": "sheets/5__Windows_and_broken_glass.jpg",
+   "sizes": [
+    "66x96",
+    "68x96",
+    "70x96",
+    "71x96",
+    "72x96",
+    "73x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "5. Windows and observation panels": {
+   "family": "settlement",
+   "why": "name rule \"window\"",
+   "tiles": 33,
+   "approved": 0,
+   "sheet": "sheets/5__Windows_and_observation_panels.jpg",
+   "sizes": [
+    "73x96",
+    "94x96",
+    "96x69",
+    "96x70",
+    "96x75",
+    "96x84",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Blood and infection tiles": {
+   "family": "marking",
+   "why": "copied from the approved bank",
+   "tiles": 18,
+   "approved": 12,
+   "sheet": "sheets/6__Blood_and_infection_tiles.jpg",
+   "sizes": [
+    "80x96",
+    "82x96",
+    "87x96",
+    "88x96",
+    "93x96",
+    "96x64",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Bridges and walways": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 30,
+   "approved": 0,
+   "sheet": "sheets/6__Bridges_and_walways.jpg",
+   "sizes": [
+    "53x91",
+    "55x91",
+    "57x92",
+    "58x92",
+    "61x92",
+    "64x91",
+    "66x91",
+    "96x38"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Cauldrons and brewing stations": {
+   "family": "prop",
+   "why": "name rule \"cauldron\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/6__Cauldrons_and_brewing_stations.jpg",
+   "sizes": [
+    "85x96",
+    "86x96",
+    "87x96",
+    "89x96",
+    "91x96",
+    "95x96",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Chain link fences": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 11,
+   "approved": 10,
+   "sheet": "sheets/6__Chain_link_fences.jpg",
+   "sizes": [
+    "96x41",
+    "96x47",
+    "96x50",
+    "96x67",
+    "96x69",
+    "96x72",
+    "96x73"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Control panels and consoles": {
+   "family": "prop",
+   "why": "name rule \"console\"",
+   "tiles": 20,
+   "approved": 0,
+   "sheet": "sheets/6__Control_panels_and_consoles.jpg",
+   "sizes": [
+    "92x96",
+    "96x63",
+    "96x70",
+    "96x86",
+    "96x90",
+    "96x92",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Doors and entrances": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 45,
+   "approved": 0,
+   "sheet": "sheets/6__Doors_and_entrances.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "81x82"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Frozen trees and pines": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 2,
+   "approved": 0,
+   "sheet": "sheets/6__Frozen_trees_and_pines.jpg",
+   "sizes": [
+    "82x96",
+    "84x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Rock obsidian tiles": {
+   "family": "ground",
+   "why": "name rule \"rock\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/6__Rock_obsidian_tiles.jpg",
+   "sizes": [
+    "78x96",
+    "80x96",
+    "82x96",
+    "89x96",
+    "90x96",
+    "92x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Ship details": {
+   "family": "prop",
+   "why": "name rule \"detail\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/6__Ship_details.jpg",
+   "sizes": [
+    "50x96",
+    "57x96",
+    "61x96",
+    "65x95",
+    "74x96",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. Stone paths and roads": {
+   "family": "road",
+   "why": "name rule \"stone path\"",
+   "tiles": 13,
+   "approved": 0,
+   "sheet": "sheets/6__Stone_paths_and_roads.jpg",
+   "sizes": [
+    "28x96",
+    "53x96",
+    "80x96",
+    "96x48",
+    "96x56",
+    "96x92",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "6. building details": {
+   "family": "settlement",
+   "why": "name rule \"building\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/6__building_details.jpg",
+   "sizes": [
+    "65x96",
+    "66x96",
+    "67x96",
+    "73x96",
+    "74x96",
+    "87x96",
+    "96x37",
+    "96x69"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Burnt ground tiles": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 28,
+   "approved": 8,
+   "sheet": "sheets/7__Burnt_ground_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Bushes and shrubs": {
+   "family": "ground",
+   "why": "name rule \"bush\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/7__Bushes_and_shrubs.jpg",
+   "sizes": [
+    "91x96",
+    "92x96",
+    "96x92",
+    "96x94",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Candles and floating Lights": {
+   "family": "lamp",
+   "why": "name rule \"light\"",
+   "tiles": 5,
+   "approved": 0,
+   "sheet": "sheets/7__Candles_and_floating_Lights.jpg",
+   "sizes": [
+    "86x96",
+    "91x96",
+    "92x96",
+    "96x87"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Computers and screens": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 29,
+   "approved": 21,
+   "sheet": "sheets/7__Computers_and_screens.jpg",
+   "sizes": [
+    "94x96",
+    "96x76",
+    "96x81",
+    "96x84",
+    "96x86",
+    "96x87",
+    "96x91"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Fences and palisades": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 41,
+   "approved": 16,
+   "sheet": "sheets/7__Fences_and_palisades.jpg",
+   "sizes": [
+    "85x96",
+    "96x41",
+    "96x63",
+    "96x74",
+    "96x77",
+    "96x89"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Gears and cogs": {
+   "family": "prop",
+   "why": "name rule \"gear\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/7__Gears_and_cogs.jpg",
+   "sizes": [
+    "62x96",
+    "65x96",
+    "69x96",
+    "70x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "79x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Rock Formations": {
+   "family": "ground",
+   "why": "name rule \"rock\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/7__Rock_Formations.jpg",
+   "sizes": [
+    "68x96",
+    "69x96",
+    "70x96",
+    "74x96",
+    "76x96",
+    "79x96",
+    "80x96",
+    "96x91"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Trash and debris": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 20,
+   "approved": 20,
+   "sheet": "sheets/7__Trash_and_debris.jpg",
+   "sizes": [
+    "89x74",
+    "96x65",
+    "96x68",
+    "96x70",
+    "96x76",
+    "96x80",
+    "96x84"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Water fountains and pools": {
+   "family": "ground",
+   "why": "name rule \"water\"",
+   "tiles": 3,
+   "approved": 0,
+   "sheet": "sheets/7__Water_fountains_and_pools.jpg",
+   "sizes": [
+    "96x69",
+    "96x77",
+    "96x87"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "7. Windows and flower boxes": {
+   "family": "ground",
+   "why": "name rule \"flower\"",
+   "tiles": 25,
+   "approved": 0,
+   "sheet": "sheets/7__Windows_and_flower_boxes.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "76x96",
+    "86x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Burned Ground and fire marks": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 40,
+   "approved": 36,
+   "sheet": "sheets/8__Burned_Ground_and_fire_marks.jpg",
+   "sizes": [
+    "96x73",
+    "96x75",
+    "96x78",
+    "96x79",
+    "96x80",
+    "96x84"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Machinery parts": {
+   "family": "prop",
+   "why": "name rule \"machine\"",
+   "tiles": 52,
+   "approved": 0,
+   "sheet": "sheets/8__Machinery_parts.jpg",
+   "sizes": [
+    "67x96",
+    "69x94",
+    "75x94",
+    "80x94",
+    "81x94",
+    "96x86"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Market Stalls": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 22,
+   "approved": 19,
+   "sheet": "sheets/8__Market_Stalls.jpg",
+   "sizes": [
+    "85x85",
+    "90x96",
+    "96x82",
+    "96x85",
+    "96x86",
+    "96x95",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Pipes and ventilation": {
+   "family": "prop",
+   "why": "name rule \"pipe\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/8__Pipes_and_ventilation.jpg",
+   "sizes": [
+    "36x96",
+    "50x96",
+    "55x96",
+    "57x96",
+    "81x96",
+    "96x56",
+    "96x86",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Rocks and frozen cliffs": {
+   "family": "ground",
+   "why": "name rule \"rock\"",
+   "tiles": 5,
+   "approved": 0,
+   "sheet": "sheets/8__Rocks_and_frozen_cliffs.jpg",
+   "sizes": [
+    "61x96",
+    "62x96",
+    "71x96",
+    "83x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Toxic waste and barrels": {
+   "family": "ground",
+   "why": "name rule \"toxic\"",
+   "tiles": 41,
+   "approved": 0,
+   "sheet": "sheets/8__Toxic_waste_and_barrels.jpg",
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "65x96",
+    "67x96",
+    "68x96",
+    "70x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Treasure and loot": {
+   "family": "prop",
+   "why": "name rule \"loot\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/8__Treasure_and_loot.jpg",
+   "sizes": [
+    "86x96",
+    "87x96",
+    "88x96",
+    "90x96",
+    "92x96",
+    "95x96",
+    "96x64",
+    "96x68"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Trees (spring)": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 2,
+   "approved": 0,
+   "sheet": "sheets/8__Trees__spring.jpg",
+   "sizes": [
+    "83x96",
+    "86x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Volcanic pillars": {
+   "family": "ground",
+   "why": "name rule \"volcanic\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/8__Volcanic_pillars.jpg",
+   "sizes": [
+    "45x96",
+    "50x96",
+    "51x96",
+    "54x96",
+    "55x96",
+    "57x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "8. Watch towers": {
+   "family": "settlement",
+   "why": "name rule \"tower\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/8__Watch_towers.jpg",
+   "sizes": [
+    "42x96",
+    "44x96",
+    "46x96",
+    "47x96",
+    "96x40",
+    "96x44"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Abandoned cards": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 35,
+   "approved": 35,
+   "sheet": "sheets/9__Abandoned_cards.jpg",
+   "sizes": [
+    "96x56",
+    "96x57",
+    "96x58",
+    "96x61",
+    "96x62",
+    "96x64",
+    "96x69"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Boilers and tanks": {
+   "family": "prop",
+   "why": "name rule \"boiler\"",
+   "tiles": 35,
+   "approved": 0,
+   "sheet": "sheets/9__Boilers_and_tanks.jpg",
+   "sizes": [
+    "61x96",
+    "62x96",
+    "65x96",
+    "68x84",
+    "68x96",
+    "69x96",
+    "72x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Cables and wiring": {
+   "family": "prop",
+   "why": "name rule \"cable\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/9__Cables_and_wiring.jpg",
+   "sizes": [
+    "96x58",
+    "96x64",
+    "96x71",
+    "96x72",
+    "96x74",
+    "96x76"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Fire Traps": {
+   "family": "prop",
+   "why": "name rule \"trap\"",
+   "tiles": 25,
+   "approved": 0,
+   "sheet": "sheets/9__Fire_Traps.jpg",
+   "sizes": [
+    "52x96",
+    "57x96",
+    "60x96",
+    "67x96",
+    "68x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Flowers and plants": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 44,
+   "approved": 0,
+   "sheet": "sheets/9__Flowers_and_plants.jpg",
+   "sizes": [
+    "67x96",
+    "68x96",
+    "69x96",
+    "75x96",
+    "77x89",
+    "85x96",
+    "87x85",
+    "88x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Port buildings": {
+   "family": "settlement",
+   "why": "name rule \"building\"",
+   "tiles": 35,
+   "approved": 0,
+   "sheet": "sheets/9__Port_buildings.jpg",
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Rubble and debris": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 18,
+   "approved": 18,
+   "sheet": "sheets/9__Rubble_and_debris.jpg",
+   "sizes": [
+    "96x69",
+    "96x70",
+    "96x72",
+    "96x74",
+    "96x75",
+    "96x76",
+    "96x77"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "9. Wells and water structures": {
+   "family": "ground",
+   "why": "name rule \"water\"",
+   "tiles": 22,
+   "approved": 0,
+   "sheet": "sheets/9__Wells_and_water_structures.jpg",
+   "sizes": [
+    "37x96",
+    "40x96",
+    "44x96",
+    "76x96",
+    "78x96",
+    "82x96",
+    "96x68"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "BLOOD AND GORE": {
+   "family": "marking",
+   "why": "copied from the approved bank",
+   "tiles": 9,
+   "approved": 8,
+   "sheet": "sheets/BLOOD_AND_GORE.jpg",
+   "sizes": [
+    "77x96",
+    "86x96",
+    "92x96",
+    "93x96",
+    "96x59",
+    "96x64",
+    "96x68",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Banners and posters": {
+   "family": "prop",
+   "why": "name rule \"banner\"",
+   "tiles": 52,
+   "approved": 0,
+   "sheet": "sheets/Banners_and_posters.jpg",
+   "sizes": [
+    "39x96",
+    "40x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Barrels, crates and objects": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 29,
+   "approved": 27,
+   "sheet": "sheets/Barrels__crates_and_objects.jpg",
+   "sizes": [
+    "68x96",
+    "72x96",
+    "74x96",
+    "77x96",
+    "80x96",
+    "84x96",
+    "86x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Barrels, crates and sacks": {
+   "family": "prop",
+   "why": "name rule \"crate\"",
+   "tiles": 37,
+   "approved": 0,
+   "sheet": "sheets/Barrels__crates_and_sacks.jpg",
+   "sizes": [
+    "64x96",
+    "68x96",
+    "69x96",
+    "70x96",
+    "73x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Bridges and railings": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 48,
+   "approved": 0,
+   "sheet": "sheets/Bridges_and_railings.jpg",
+   "sizes": [
+    "96x51",
+    "96x57",
+    "96x58",
+    "96x60",
+    "96x64",
+    "96x65",
+    "96x75",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Cargo, crates and containers": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 40,
+   "approved": 25,
+   "sheet": "sheets/Cargo__crates_and_containers.jpg",
+   "sizes": [
+    "88x96",
+    "91x96",
+    "93x96",
+    "94x96",
+    "96x86",
+    "96x87",
+    "96x93",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Coffe machines, brewing tools, mugs and drink props": {
+   "family": "prop",
+   "why": "name rule \"drink\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/Coffe_machines__brewing_tools__mugs_and_drink_props.jpg",
+   "sizes": [
+    "44x96",
+    "47x96",
+    "62x96",
+    "96x87",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Containers and items": {
+   "family": "prop",
+   "why": "name rule \"container\"",
+   "tiles": 84,
+   "approved": 0,
+   "sheet": "sheets/Containers_and_items.jpg",
+   "sizes": [
+    "77x77",
+    "78x77",
+    "81x81",
+    "82x75",
+    "82x76",
+    "82x77",
+    "83x76",
+    "86x83"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Decor and details": {
+   "family": "prop",
+   "why": "name rule \"decor\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/Decor_and_details.jpg",
+   "sizes": [
+    "19x96",
+    "20x96",
+    "23x96",
+    "26x96",
+    "30x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Decorative framed garden tiles": {
+   "family": "ground",
+   "why": "name rule \"garden\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/Decorative_framed_garden_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "96x37",
+    "96x89",
+    "96x91",
+    "96x92",
+    "96x93",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Doors and Arches!": {
+   "family": "door",
+   "why": "copied from the approved bank",
+   "tiles": 20,
+   "approved": 3,
+   "sheet": "sheets/Doors_and_Arches.jpg",
+   "sizes": [
+    "65x96",
+    "67x96",
+    "69x96",
+    "70x96",
+    "73x96",
+    "76x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Doors and arches (1)": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/Doors_and_arches__1.jpg",
+   "sizes": [
+    "85x96",
+    "86x96",
+    "87x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Exterior Cafe Props (awnings, windows, potted plants and more)": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 35,
+   "approved": 0,
+   "sheet": "sheets/Exterior_Cafe_Props__awnings__windows__potted_plants_and_mor.jpg",
+   "sizes": [
+    "67x96",
+    "74x96",
+    "78x96",
+    "80x96",
+    "85x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor tiles": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 40,
+   "approved": 12,
+   "sheet": "sheets/Floor_tiles.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor tiles (1)": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 8,
+   "approved": 6,
+   "sheet": "sheets/Floor_tiles__1.jpg",
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor tiles (2)": {
+   "family": "road",
+   "why": "name rule \"floor tile\"",
+   "tiles": 30,
+   "approved": 0,
+   "sheet": "sheets/Floor_tiles__2.jpg",
+   "sizes": [
+    "86x96",
+    "89x96",
+    "90x96",
+    "91x96",
+    "92x96",
+    "94x96",
+    "95x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor tiles and wall tiles": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 31,
+   "approved": 20,
+   "sheet": "sheets/Floor_tiles_and_wall_tiles.jpg",
+   "sizes": [
+    "77x96",
+    "84x96",
+    "85x96",
+    "86x96",
+    "87x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor tiles!": {
+   "family": "road",
+   "why": "copied from the approved bank",
+   "tiles": 54,
+   "approved": 36,
+   "sheet": "sheets/Floor_tiles_2.jpg",
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x92",
+    "96x94",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Floor, walls": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 50,
+   "approved": 25,
+   "sheet": "sheets/Floor__walls.jpg",
+   "sizes": [
+    "86x96",
+    "88x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Flowers and ground cover": {
+   "family": "ground",
+   "why": "name rule \"flower\"",
+   "tiles": 50,
+   "approved": 0,
+   "sheet": "sheets/Flowers_and_ground_cover.jpg",
+   "sizes": [
+    "71x89",
+    "75x89",
+    "75x93",
+    "78x89",
+    "78x93",
+    "79x91",
+    "80x93",
+    "83x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Food, drink and cafe props": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 41,
+   "approved": 41,
+   "sheet": "sheets/Food__drink_and_cafe_props.jpg",
+   "sizes": [
+    "74x96",
+    "79x79",
+    "87x96",
+    "96x66",
+    "96x71",
+    "96x74",
+    "96x78",
+    "96x80"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Furniture and fixtures": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 17,
+   "approved": 9,
+   "sheet": "sheets/Furniture_and_fixtures.jpg",
+   "sizes": [
+    "50x96",
+    "53x96",
+    "60x96",
+    "66x96",
+    "82x96",
+    "94x96",
+    "96x83"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Furniture and fixtures (1)": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 23,
+   "approved": 17,
+   "sheet": "sheets/Furniture_and_fixtures__1.jpg",
+   "sizes": [
+    "58x96",
+    "60x96",
+    "63x96",
+    "65x96",
+    "66x96",
+    "68x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Furniture and seating": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 47,
+   "approved": 0,
+   "sheet": "sheets/Furniture_and_seating.jpg",
+   "sizes": [
+    "64x71",
+    "66x71",
+    "96x60",
+    "96x61",
+    "96x64",
+    "96x73",
+    "96x74",
+    "96x77"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Furtniure and fixtures": {
+   "family": "prop",
+   "why": "PLACED BY LOOKING: looked: sofas, armchairs, stools, desks, beds, a toilet, a sink and a vending machine, in NEON PURPLE AND CYAN. The approved bank already files \"Furniture and fixtures\" as prop. WARNING for every lane: these are PURPLE, which the PURPLE RESERVATION law holds, so check that law before any of them is used.",
+   "tiles": 37,
+   "approved": 0,
+   "sheet": "sheets/Furtniure_and_fixtures.jpg",
+   "sizes": [
+    "70x96",
+    "76x96",
+    "86x96",
+    "89x96",
+    "96x53",
+    "96x61",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Interior rooms": {
+   "family": "settlement",
+   "why": "name rule \"interior room\"",
+   "tiles": 53,
+   "approved": 0,
+   "sheet": "sheets/Interior_rooms.jpg",
+   "sizes": [
+    "96x63",
+    "96x64",
+    "96x67",
+    "96x70",
+    "96x72",
+    "96x76",
+    "96x77",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Jars, bottles and items": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 55,
+   "approved": 47,
+   "sheet": "sheets/Jars__bottles_and_items.jpg",
+   "sizes": [
+    "55x96",
+    "58x96",
+    "59x96",
+    "60x96",
+    "62x96",
+    "67x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Jars, pots and items": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 41,
+   "approved": 30,
+   "sheet": "sheets/Jars__pots_and_items.jpg",
+   "sizes": [
+    "36x96",
+    "49x96",
+    "50x96",
+    "52x96",
+    "57x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Jars, pots and urns": {
+   "family": "prop",
+   "why": "name rule \"jar\"",
+   "tiles": 39,
+   "approved": 0,
+   "sheet": "sheets/Jars__pots_and_urns.jpg",
+   "sizes": [
+    "68x96",
+    "69x96",
+    "70x96",
+    "73x96",
+    "74x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Lanterns and lights": {
+   "family": "lamp",
+   "why": "name rule \"lantern\"",
+   "tiles": 44,
+   "approved": 0,
+   "sheet": "sheets/Lanterns_and_lights.jpg",
+   "sizes": [
+    "58x96",
+    "59x96",
+    "77x96",
+    "78x96",
+    "79x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Lightning and fx": {
+   "family": "lamp",
+   "why": "name rule \"light\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/Lightning_and_fx.jpg",
+   "sizes": [
+    "38x96",
+    "43x96",
+    "44x96",
+    "51x96",
+    "58x96",
+    "64x96",
+    "70x96",
+    "90x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Lightning and fx (1)": {
+   "family": "lamp",
+   "why": "name rule \"light\"",
+   "tiles": 3,
+   "approved": 0,
+   "sheet": "sheets/Lightning_and_fx__1.jpg",
+   "sizes": [
+    "34x96",
+    "52x96",
+    "62x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Machines and tech": {
+   "family": "prop",
+   "why": "name rule \"machine\"",
+   "tiles": 40,
+   "approved": 0,
+   "sheet": "sheets/Machines_and_tech.jpg",
+   "sizes": [
+    "52x96",
+    "57x96",
+    "74x96",
+    "77x96",
+    "82x96",
+    "86x96",
+    "89x96",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Micro tiles": {
+   "family": "prop",
+   "why": "name rule \"micro\"",
+   "tiles": 1,
+   "approved": 0,
+   "sheet": "sheets/Micro_tiles.jpg",
+   "sizes": [
+    "67x60"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Miscellaneous": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 46,
+   "approved": 20,
+   "sheet": "sheets/Miscellaneous.jpg",
+   "sizes": [
+    "55x68",
+    "56x64",
+    "66x65",
+    "67x66",
+    "71x65",
+    "76x64",
+    "77x72",
+    "81x62"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Miscellaneous props (1)": {
+   "family": "prop",
+   "why": "name rule \"misc\"",
+   "tiles": 40,
+   "approved": 0,
+   "sheet": "sheets/Miscellaneous_props__1.jpg",
+   "sizes": [
+    "68x64",
+    "78x91",
+    "83x96",
+    "88x96",
+    "94x95",
+    "96x65",
+    "96x76",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Occult and horror elements": {
+   "family": "prop",
+   "why": "name rule \"occult\"",
+   "tiles": 26,
+   "approved": 0,
+   "sheet": "sheets/Occult_and_horror_elements.jpg",
+   "sizes": [
+    "35x96",
+    "71x96",
+    "74x96",
+    "76x96",
+    "77x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Pastries, desserts, plates and cafe food": {
+   "family": "prop",
+   "why": "name rule \"food\"",
+   "tiles": 44,
+   "approved": 0,
+   "sheet": "sheets/Pastries__desserts__plates_and_cafe_food.jpg",
+   "sizes": [
+    "86x96",
+    "90x96",
+    "94x96",
+    "96x74",
+    "96x83",
+    "96x87",
+    "96x88",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Patch 1 (1)": {
+   "family": "prop",
+   "why": "name rule \"patch\"",
+   "tiles": 40,
+   "approved": 0,
+   "sheet": "sheets/Patch_1__1.jpg",
+   "sizes": [
+    "88x96",
+    "89x96",
+    "92x96",
+    "93x96",
+    "94x96",
+    "96x94",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Pillars and columns": {
+   "family": "settlement",
+   "why": "name rule \"pillar\"",
+   "tiles": 1,
+   "approved": 0,
+   "sheet": "sheets/Pillars_and_columns.jpg",
+   "sizes": [
+    "96x64"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Pipes, cables and vents": {
+   "family": "prop",
+   "why": "name rule \"pipe\"",
+   "tiles": 55,
+   "approved": 0,
+   "sheet": "sheets/Pipes__cables_and_vents.jpg",
+   "sizes": [
+    "73x62",
+    "74x62",
+    "74x63",
+    "75x60",
+    "75x62",
+    "79x70",
+    "79x72",
+    "85x72"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Plants and bushes": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 52,
+   "approved": 0,
+   "sheet": "sheets/Plants_and_bushes.jpg",
+   "sizes": [
+    "79x96",
+    "86x96",
+    "93x96",
+    "94x96",
+    "95x96",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Plants and greenery": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 63,
+   "approved": 0,
+   "sheet": "sheets/Plants_and_greenery.jpg",
+   "sizes": [
+    "47x96",
+    "53x96",
+    "56x96",
+    "65x96",
+    "66x96",
+    "70x96",
+    "76x96",
+    "96x62"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Plants, decor, jars, boxes and small interior props": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 38,
+   "approved": 0,
+   "sheet": "sheets/Plants__decor__jars__boxes_and_small_interior_props.jpg",
+   "sizes": [
+    "50x96",
+    "65x96",
+    "69x96",
+    "70x96",
+    "74x96",
+    "75x96",
+    "90x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Psychological elements": {
+   "family": "prop",
+   "why": "name rule \"psycholog\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/Psychological_elements.jpg",
+   "sizes": [
+    "57x96",
+    "67x96",
+    "73x96",
+    "78x96",
+    "88x96",
+    "93x96",
+    "96x86",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Rocks and stones": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 74,
+   "approved": 74,
+   "sheet": "sheets/Rocks_and_stones.jpg",
+   "sizes": [
+    "64x96",
+    "69x86",
+    "89x67",
+    "96x74",
+    "96x75",
+    "96x77",
+    "96x88",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Rocks and stones (1)": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 26,
+   "approved": 26,
+   "sheet": "sheets/Rocks_and_stones__1.jpg",
+   "sizes": [
+    "77x78",
+    "81x78",
+    "89x96",
+    "91x88",
+    "92x96",
+    "95x96",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Roof tiles": {
+   "family": "settlement",
+   "why": "name rule \"roof\"",
+   "tiles": 14,
+   "approved": 0,
+   "sheet": "sheets/Roof_tiles.jpg",
+   "sizes": [
+    "50x96",
+    "62x96",
+    "70x96",
+    "71x96",
+    "76x96",
+    "86x96",
+    "96x42",
+    "96x88"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Rooftop and building tops": {
+   "family": "settlement",
+   "why": "name rule \"roof\"",
+   "tiles": 72,
+   "approved": 0,
+   "sheet": "sheets/Rooftop_and_building_tops.jpg",
+   "sizes": [
+    "84x96",
+    "86x96",
+    "89x96",
+    "93x96",
+    "94x96",
+    "96x90",
+    "96x91",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Signage, menus and cafe accessories": {
+   "family": "prop",
+   "why": "name rule \"cafe\"",
+   "tiles": 25,
+   "approved": 0,
+   "sheet": "sheets/Signage__menus_and_cafe_accessories.jpg",
+   "sizes": [
+    "72x96",
+    "80x96",
+    "87x96",
+    "89x96",
+    "94x96",
+    "96x73"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Signs and holograms": {
+   "family": "prop",
+   "why": "name rule \"sign\"",
+   "tiles": 36,
+   "approved": 0,
+   "sheet": "sheets/Signs_and_holograms.jpg",
+   "sizes": [
+    "41x96",
+    "43x96",
+    "46x96",
+    "48x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Signs and misc": {
+   "family": "prop",
+   "why": "name rule \"sign\"",
+   "tiles": 71,
+   "approved": 0,
+   "sheet": "sheets/Signs_and_misc.jpg",
+   "sizes": [
+    "64x96",
+    "65x96",
+    "68x96",
+    "71x96",
+    "73x79",
+    "74x84",
+    "74x96",
+    "96x60"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Special Tiles (1)": {
+   "family": "prop",
+   "why": "name rule \"special\"",
+   "tiles": 50,
+   "approved": 0,
+   "sheet": "sheets/Special_Tiles__1.jpg",
+   "sizes": [
+    "92x96",
+    "95x96",
+    "96x89",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Special effects": {
+   "family": "prop",
+   "why": "name rule \"effect\"",
+   "tiles": 50,
+   "approved": 0,
+   "sheet": "sheets/Special_effects.jpg",
+   "sizes": [
+    "53x95",
+    "60x72",
+    "67x81",
+    "70x81",
+    "72x95",
+    "96x55"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Special tiles (2)": {
+   "family": "prop",
+   "why": "name rule \"special\"",
+   "tiles": 20,
+   "approved": 0,
+   "sheet": "sheets/Special_tiles__2.jpg",
+   "sizes": [
+    "91x96",
+    "94x96",
+    "95x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Stairs, ladders and Railings": {
+   "family": "settlement",
+   "why": "name rule \"stair\"",
+   "tiles": 58,
+   "approved": 0,
+   "sheet": "sheets/Stairs__ladders_and_Railings.jpg",
+   "sizes": [
+    "49x96",
+    "52x96",
+    "53x96",
+    "54x96",
+    "55x96",
+    "60x96",
+    "63x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Statues and figures": {
+   "family": "settlement",
+   "why": "name rule \"statue\"",
+   "tiles": 18,
+   "approved": 0,
+   "sheet": "sheets/Statues_and_figures.jpg",
+   "sizes": [
+    "32x96",
+    "35x96",
+    "36x96",
+    "39x96",
+    "40x96",
+    "43x96",
+    "44x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Statues and monuments": {
+   "family": "settlement",
+   "why": "name rule \"statue\"",
+   "tiles": 46,
+   "approved": 0,
+   "sheet": "sheets/Statues_and_monuments.jpg",
+   "sizes": [
+    "56x96",
+    "58x96",
+    "59x96",
+    "63x96",
+    "83x96",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Stone patchs and walkways": {
+   "family": "settlement",
+   "why": "name rule \"walkway\"",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/Stone_patchs_and_walkways.jpg",
+   "sizes": [
+    "77x87",
+    "96x35",
+    "96x38",
+    "96x49",
+    "96x62",
+    "96x63",
+    "96x76",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Stone planers and raised beds": {
+   "family": "prop",
+   "why": "PLACED BY LOOKING: looked: \"planers\" is a typo for planters. Stone-framed raised beds with flowers and soil. Discrete objects you put on a street, not a surface you walk on, so prop and not ground, even though the approved bank files \"16. Gardens and crops\" as ground.",
+   "tiles": 21,
+   "approved": 0,
+   "sheet": "sheets/Stone_planers_and_raised_beds.jpg",
+   "sizes": [
+    "84x96",
+    "88x96",
+    "91x96",
+    "96x64",
+    "96x74",
+    "96x75",
+    "96x76",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Streets props and urban": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 54,
+   "approved": 0,
+   "sheet": "sheets/Streets_props_and_urban.jpg",
+   "sizes": [
+    "32x96",
+    "35x96",
+    "36x96",
+    "43x96",
+    "45x96",
+    "50x96",
+    "51x96",
+    "75x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Structures and columns": {
+   "family": "settlement",
+   "why": "name rule \"column\"",
+   "tiles": 16,
+   "approved": 0,
+   "sheet": "sheets/Structures_and_columns.jpg",
+   "sizes": [
+    "27x96",
+    "29x96",
+    "39x96",
+    "54x96",
+    "64x96",
+    "66x96",
+    "67x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Tables, chairs and sitting": {
+   "family": "prop",
+   "why": "name rule \"chair\"",
+   "tiles": 41,
+   "approved": 0,
+   "sheet": "sheets/Tables__chairs_and_sitting.jpg",
+   "sizes": [
+    "79x96",
+    "85x96",
+    "86x96",
+    "89x96",
+    "91x96",
+    "96x62",
+    "96x73"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Traps and mechanism": {
+   "family": "prop",
+   "why": "name rule \"trap\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/Traps_and_mechanism.jpg",
+   "sizes": [
+    "44x96",
+    "59x96",
+    "82x96",
+    "89x96",
+    "95x96",
+    "96x91",
+    "96x93",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Traps and mechanism (1)": {
+   "family": "prop",
+   "why": "name rule \"trap\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/Traps_and_mechanism__1.jpg",
+   "sizes": [
+    "74x96",
+    "81x96",
+    "83x96",
+    "84x96",
+    "86x96",
+    "90x96",
+    "93x96",
+    "94x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall and floor details": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 69,
+   "approved": 0,
+   "sheet": "sheets/Wall_and_floor_details.jpg",
+   "sizes": [
+    "66x96",
+    "69x96",
+    "71x95",
+    "78x96",
+    "81x96",
+    "83x96",
+    "88x96",
+    "93x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall and floor details (2)": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 29,
+   "approved": 0,
+   "sheet": "sheets/Wall_and_floor_details__2.jpg",
+   "sizes": [
+    "77x96",
+    "86x96",
+    "87x96",
+    "93x96",
+    "94x96",
+    "96x89",
+    "96x90",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall and floor details (3)": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 33,
+   "approved": 0,
+   "sheet": "sheets/Wall_and_floor_details__3.jpg",
+   "sizes": [
+    "50x96",
+    "51x96",
+    "60x96",
+    "70x96",
+    "88x96",
+    "90x96",
+    "95x96",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall tiles (1)": {
+   "family": "settlement",
+   "why": "copied from the approved bank",
+   "tiles": 20,
+   "approved": 20,
+   "sheet": "sheets/Wall_tiles__1.jpg",
+   "sizes": [
+    "74x96",
+    "76x96",
+    "77x96",
+    "79x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall tiles and edges": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 15,
+   "approved": 0,
+   "sheet": "sheets/Wall_tiles_and_edges.jpg",
+   "sizes": [
+    "47x96",
+    "55x96",
+    "74x96",
+    "80x96",
+    "96x74",
+    "96x82",
+    "96x83",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Wall tiles and edges (1)": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 28,
+   "approved": 0,
+   "sheet": "sheets/Wall_tiles_and_edges__1.jpg",
+   "sizes": [
+    "34x96",
+    "74x96",
+    "91x96",
+    "96x68",
+    "96x74",
+    "96x80",
+    "96x83",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Water and liquids": {
+   "family": "ground",
+   "why": "name rule \"water\"",
+   "tiles": 69,
+   "approved": 0,
+   "sheet": "sheets/Water_and_liquids.jpg",
+   "sizes": [
+    "66x96",
+    "80x96",
+    "86x96",
+    "89x96",
+    "93x96",
+    "94x96",
+    "95x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "Water and ponds": {
+   "family": "ground",
+   "why": "name rule \"water\"",
+   "tiles": 32,
+   "approved": 0,
+   "sheet": "sheets/Water_and_ponds.jpg",
+   "sizes": [
+    "96x41",
+    "96x45",
+    "96x46",
+    "96x53",
+    "96x76",
+    "96x79",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "bridges and walkways": {
+   "family": "settlement",
+   "why": "name rule \"bridge\"",
+   "tiles": 57,
+   "approved": 0,
+   "sheet": "sheets/bridges_and_walkways.jpg",
+   "sizes": [
+    "62x96",
+    "67x96",
+    "68x96",
+    "75x81",
+    "75x96",
+    "86x96",
+    "96x39"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "doors and arches": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/doors_and_arches.jpg",
+   "sizes": [
+    "87x96",
+    "88x96",
+    "89x96",
+    "91x96",
+    "93x96",
+    "95x96",
+    "96x87",
+    "96x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "doors and structures": {
+   "family": "door",
+   "why": "name rule \"door\"",
+   "tiles": 61,
+   "approved": 0,
+   "sheet": "sheets/doors_and_structures.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "74x96",
+    "76x96",
+    "77x96",
+    "78x96",
+    "80x96",
+    "83x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "furniture and interior": {
+   "family": "prop",
+   "why": "name rule \"furniture\"",
+   "tiles": 82,
+   "approved": 0,
+   "sheet": "sheets/furniture_and_interior.jpg",
+   "sizes": [
+    "63x96",
+    "66x96",
+    "71x96",
+    "74x96",
+    "76x96",
+    "96x90",
+    "96x92"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "lightning fx": {
+   "family": "lamp",
+   "why": "name rule \"light\"",
+   "tiles": 23,
+   "approved": 0,
+   "sheet": "sheets/lightning_fx.jpg",
+   "sizes": [
+    "33x96",
+    "37x96",
+    "47x96",
+    "53x96",
+    "56x96",
+    "57x96",
+    "59x96",
+    "64x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "miscellaneous props": {
+   "family": "prop",
+   "why": "name rule \"misc\"",
+   "tiles": 24,
+   "approved": 0,
+   "sheet": "sheets/miscellaneous_props.jpg",
+   "sizes": [
+    "28x96",
+    "40x96",
+    "42x96",
+    "45x96",
+    "81x96",
+    "90x96",
+    "96x85"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "plants and flowers": {
+   "family": "ground",
+   "why": "name rule \"plant\"",
+   "tiles": 43,
+   "approved": 0,
+   "sheet": "sheets/plants_and_flowers.jpg",
+   "sizes": [
+    "53x96",
+    "64x96",
+    "69x96",
+    "72x96",
+    "80x70",
+    "96x91",
+    "96x93",
+    "96x94"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "skeletons and bones": {
+   "family": "prop",
+   "why": "copied from the approved bank",
+   "tiles": 39,
+   "approved": 39,
+   "sheet": "sheets/skeletons_and_bones.jpg",
+   "sizes": [
+    "45x96",
+    "53x96",
+    "56x96",
+    "70x96",
+    "96x78",
+    "96x92",
+    "96x93"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "special tiles": {
+   "family": "prop",
+   "why": "name rule \"special\"",
+   "tiles": 31,
+   "approved": 0,
+   "sheet": "sheets/special_tiles.jpg",
+   "sizes": [
+    "56x96",
+    "89x96",
+    "90x96",
+    "91x96",
+    "96x93",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "statues and gargoyles": {
+   "family": "settlement",
+   "why": "name rule \"statue\"",
+   "tiles": 11,
+   "approved": 0,
+   "sheet": "sheets/statues_and_gargoyles.jpg",
+   "sizes": [
+    "56x96",
+    "57x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "80x96",
+    "82x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "trees and vegetation": {
+   "family": "ground",
+   "why": "name rule \"tree\"",
+   "tiles": 51,
+   "approved": 0,
+   "sheet": "sheets/trees_and_vegetation.jpg",
+   "sizes": [
+    "60x96",
+    "62x96",
+    "67x96",
+    "71x96",
+    "75x96",
+    "76x96",
+    "79x96",
+    "80x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "wall and floor details (1)": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 63,
+   "approved": 0,
+   "sheet": "sheets/wall_and_floor_details__1.jpg",
+   "sizes": [
+    "66x96",
+    "82x96",
+    "87x96",
+    "90x96",
+    "96x82",
+    "96x88",
+    "96x90",
+    "96x95"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "wall tiles": {
+   "family": "settlement",
+   "why": "name rule \"wall\"",
+   "tiles": 56,
+   "approved": 0,
+   "sheet": "sheets/wall_tiles.jpg",
+   "sizes": [
+    "65x96",
+    "66x96",
+    "67x96",
+    "68x96",
+    "70x96"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "wall tiles and cliffs": {
+   "family": "ground",
+   "why": "name rule \"cliff\"",
+   "tiles": 58,
+   "approved": 0,
+   "sheet": "sheets/wall_tiles_and_cliffs.jpg",
+   "sizes": [
+    "71x96",
+    "72x96",
+    "75x96",
+    "88x96",
+    "89x96",
+    "96x52",
+    "96x59",
+    "96x78"
+   ],
+   "licence": "not recorded in the repo"
+  },
+  "wooden and nature props": {
+   "family": "ground",
+   "why": "copied from the approved bank",
+   "tiles": 67,
+   "approved": 57,
+   "sheet": "sheets/wooden_and_nature_props.jpg",
+   "sizes": [
+    "53x93",
+    "63x91",
+    "71x89",
+    "72x83",
+    "74x77",
+    "83x96",
+    "90x96",
+    "92x96"
+   ],
+   "licence": "not recorded in the repo"
+  }
+ }
+}
