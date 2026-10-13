@@ -24037,6 +24037,162 @@ drawLogoBig();requestAnimationFrame(loop);
     return BARGLASS.play(bus, AC);
   };
 
+  /* === THE ROAD AND DIRT BEDS, WIRED LIVE (SOUNDS, 10/13, row [the map's sounds]). ====
+     sounds-the-road-is-faster-10-5 and sounds-dirt-is-slower-10-5 are BOTH APPROVED.
+     This row has named the gap since round one (10/5): the travel screen posted
+     nothing to the parent, so there was no live state to hang a footstep bed on.
+     RUN's [the map hears] (10/9) fixed that -- BOHEMIA_CITY_WORLD.html's mapState()
+     now posts { moving, speed, surface: 'road'|'dirt', ... } on the beat (500 ms),
+     with its own comment saying outright "what plays to it is SOUNDS' (the beds are
+     his to judge first)." His judge is in on both. This closes it.
+
+     SAME DISCIPLINE AS BARGLASS: footstepModelled/footstepWalk are pure buffer math
+     (no filter node, checked directly), so this duplicates the SAME MATH rather than
+     a filter chain. gates/cooked_sounds_gate.js reads TRAVELBED's own source text
+     against H.TRAVELBED_CONST, constant for constant.
+
+     ONE THING THE MODULE'S OWN FUNCTION DOES THAT MATTERS HERE: footstepWalk renders
+     each footstepModelled call with beat:BEAT/perBeat, not the full BEAT -- a paved
+     road's perBeat 2 (running cadence, the game's own road-is-faster ratio) halves
+     each footstep's own render window to 0.25 s, dirt's perBeat 1 keeps the full
+     0.5 s. Dropping that and reusing one window for both would be a different sound
+     from the one he approved, not a simplification of it. */
+  var TRAVELBED = {
+    BEAT: 0.5, HEEL_TOE: 0.090,
+    GROUND: {
+      asphalt: { E: 3e9, RHO: 2300, V: 0.35, LOSS: 0.60, H: 0.10, A: 1.2, TAU: 0.00110,
+                 GRAINS: 34, SPREAD: 0.016, GRIT: 0.40, PERBEAT: 2 },
+      dirt:    { E: 80e6, RHO: 1700, V: 0.35, LOSS: 2.00, H: 0.10, A: 1.2, TAU: 0.00130,
+                 GRAINS: 26, SPREAD: 0.012, GRIT: 0.50, PERBEAT: 1 }
+    },
+    SEG_BEATS: 16, REL: 0.5,
+    playing: false, surface: null, src: null, endAt: 0, stepN: 0,
+    modesFor: function (g) {
+      var D = g.E * Math.pow(g.H, 3) / (12 * (1 - g.V * g.V));
+      var c = (Math.PI / 2) * Math.sqrt(D / (g.RHO * g.H)) / (g.A * g.A);
+      var out = [], m, n;
+      for (m = 1; m <= 4; m++) for (n = 1; n <= 4; n++) out.push(c * (m * m + n * n));
+      out.sort(function (p, q) { return p - q; });
+      return out.slice(0, 10);
+    },
+    renderStep: function (AC, g, modes, variant, winSec) {
+      var sr = AC.sampleRate, n = Math.round(sr * winSec);
+      var d = new Float32Array(n), i, k;
+      var vseed = 20260930 + variant * 7919;
+      var vrand = function () { vseed = (vseed * 1103515245 + 12345) & 0x7fffffff; return vseed / 0x7fffffff; };
+      var jitTau = 1, jitGain = 1, gritSeedOffset = 0, heelToe = this.HEEL_TOE;
+      if (variant !== 0) {
+        jitTau = 1 + (vrand() * 2 - 1) * 0.08;
+        jitGain = 1 + (vrand() * 2 - 1) * 0.10;
+        gritSeedOffset = Math.round(vrand() * 1e6);
+        heelToe += (vrand() * 2 - 1) * 0.015;
+      }
+      function contact(at, tau, gain, bright) {
+        var t0 = Math.round(at * sr), w = Math.max(2, Math.round(tau * sr)), prev = 0, j;
+        for (j = 0; j < w && t0 + j < n; j++) {
+          var f = Math.sin(Math.PI * j / w);
+          d[t0 + j] += (f - prev) * sr * tau * 0.55 * gain * bright; prev = f;
+        }
+        for (k = 0; k < modes.length; k++) {
+          var hz = modes[k]; if (hz >= sr / 2) continue;
+          var tail = 1 / (Math.PI * hz * g.LOSS);
+          var amp = 0.55 * gain / (1 + Math.pow(hz * tau, 2)) / (1 + k * 0.35);
+          for (j = 0; t0 + j < n; j++) {
+            var t = j / sr, env = Math.exp(-t / tail);
+            if (env < 1e-4) break;
+            d[t0 + j] += Math.sin(2 * Math.PI * hz * t) * amp * env;
+          }
+        }
+      }
+      function grit(at, count, spread, amp) {
+        var seed = 20260924 + gritSeedOffset, q, j2;
+        for (q = 0; q < count; q++) {
+          seed = (seed * 1103515245 + 12345) & 0x7fffffff; var frac = seed / 0x7fffffff;
+          var t0 = Math.round((at + frac * spread) * sr);
+          var w = Math.max(2, Math.round(0.00015 * sr)), prev = 0, lvl = amp * (0.35 + 0.65 * (1 - frac)), j3;
+          for (j3 = 0; j3 < w && t0 + j3 < n; j3++) {
+            var f = Math.sin(Math.PI * j3 / w);
+            d[t0 + j3] += (f - prev) * lvl; prev = f;
+          }
+        }
+      }
+      contact(0.002, g.TAU * jitTau, 1.0 * jitGain, 1.0);
+      grit(0.002, g.GRAINS, g.SPREAD, g.GRIT);
+      if (heelToe > 0) {
+        contact(0.002 + heelToe, g.TAU * 2.2 * jitTau, 0.45 * jitGain, 0.6);
+        grit(0.002 + heelToe, Math.round(g.GRAINS * 0.6), g.SPREAD, g.GRIT * 0.5);
+      }
+      for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 1.2) * 0.92;
+      var buf = AC.createBuffer(1, n, sr); buf.getChannelData(0).set(d);
+      return buf;
+    },
+    renderWalk: function (AC, surface, beats, stepOffsetStart) {
+      var g = this.GROUND[surface] || this.GROUND.dirt, perBeat = g.PERBEAT, winSec = this.BEAT / perBeat;
+      var sr = AC.sampleRate, n = Math.round(sr * beats * this.BEAT);
+      var buf = AC.createBuffer(1, n, sr), d = buf.getChannelData(0);
+      var modes = this.modesFor(g), step = stepOffsetStart || 0, i;
+      for (var b = 0; b < beats; b++) {
+        for (var k = 0; k < perBeat; k++) {
+          step++;
+          var t = (b + k / perBeat) * this.BEAT;
+          var one = this.renderStep(AC, g, modes, step, winSec);
+          var src = one.getChannelData(0);
+          var off = Math.round(t * sr);
+          for (i = 0; i < src.length && off + i < n; i++) d[off + i] += src[i];
+        }
+      }
+      var pk = 0; for (i = 0; i < n; i++) { var v = Math.abs(d[i]); if (v > pk) pk = v; }
+      if (pk > 0) for (i = 0; i < n; i++) d[i] = d[i] / pk * 0.85;
+      return { buffer: buf, lastStep: step };
+    },
+    /* STARTED AND RENEWED BY THE TRAVEL CLOCK, NEVER A FIXED LOOP: a looped buffer
+       would repeat the exact same footfalls forever, the one thing footstepModelled's
+       own variant seed exists to prevent. Each segment is 16 beats (8 s); the next
+       segment's own step count picks up where the last one left off, so a long walk
+       never repeats a footfall, matching footstepWalk's own guarantee. */
+    ensure: function (bus, AC, surface) {
+      var now = AC.currentTime;
+      if (this.playing && this.surface === surface && now < this.endAt - 0.05) return;
+      try { if (this.src) this.src.stop(); } catch (_e) {}
+      var r = this.renderWalk(AC, surface, this.SEG_BEATS, this.stepN);
+      this.stepN = r.lastStep;
+      var s = AC.createBufferSource(); s.buffer = r.buffer; s.loop = false;
+      var g = AC.createGain(); g.gain.value = this.REL;
+      s.connect(g); g.connect(bus); s.start();
+      this.src = s; this.surface = surface; this.playing = true;
+      this.endAt = now + this.SEG_BEATS * this.BEAT;
+    },
+    stopBed: function () {
+      if (!this.playing) return;
+      try { if (this.src) this.src.stop(); } catch (_e) {}
+      this.src = null; this.playing = false; this.surface = null;
+    }
+  };
+  window.__TRAVELBED = TRAVELBED;
+  window.__TRAVELBED_PROBE = function (AC) {
+    try {
+      AC = AC || MUS.AC;
+      return { beat: TRAVELBED.BEAT, heelToe: TRAVELBED.HEEL_TOE,
+        asphaltE: TRAVELBED.GROUND.asphalt.E, asphaltRho: TRAVELBED.GROUND.asphalt.RHO,
+        asphaltV: TRAVELBED.GROUND.asphalt.V, asphaltLoss: TRAVELBED.GROUND.asphalt.LOSS,
+        asphaltH: TRAVELBED.GROUND.asphalt.H, asphaltA: TRAVELBED.GROUND.asphalt.A,
+        asphaltTau: TRAVELBED.GROUND.asphalt.TAU, asphaltGrains: TRAVELBED.GROUND.asphalt.GRAINS,
+        asphaltSpread: TRAVELBED.GROUND.asphalt.SPREAD, asphaltGrit: TRAVELBED.GROUND.asphalt.GRIT,
+        asphaltPerBeat: TRAVELBED.GROUND.asphalt.PERBEAT,
+        dirtE: TRAVELBED.GROUND.dirt.E, dirtRho: TRAVELBED.GROUND.dirt.RHO,
+        dirtV: TRAVELBED.GROUND.dirt.V, dirtLoss: TRAVELBED.GROUND.dirt.LOSS,
+        dirtH: TRAVELBED.GROUND.dirt.H, dirtA: TRAVELBED.GROUND.dirt.A,
+        dirtTau: TRAVELBED.GROUND.dirt.TAU, dirtGrains: TRAVELBED.GROUND.dirt.GRAINS,
+        dirtSpread: TRAVELBED.GROUND.dirt.SPREAD, dirtGrit: TRAVELBED.GROUND.dirt.GRIT,
+        dirtPerBeat: TRAVELBED.GROUND.dirt.PERBEAT };
+    } catch (_e) { return null; }
+  };
+  window.__travelBedEnsureCount = 0;
+  window.__travelBedEnsure = function (bus, AC, surface) {
+    window.__travelBedEnsureCount++;
+    return TRAVELBED.ensure(bus, AC, surface);
+  };
+
   window.__pulseStart    = function () { PULSE.start(); };
   window.__pulseNextBeat = function () { return PULSE.nextBeat(); };
   window.__pulseHandOff  = function (t) { PULSE.handOff(t); };
@@ -24829,7 +24985,21 @@ drawLogoBig();requestAnimationFrame(loop);
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
   window.addEventListener('bohemia-mapstate', function(e){
-    var d=e && e.detail; if(d && d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    var d=e && e.detail; if(!d) return;
+    if(d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    /* THE ROAD AND DIRT BEDS (10/13): the mapstate's own `moving`/`surface` fields
+       are the exact signal this row has waited on since round one. inside and the
+       settlement screen both stop the bed the same way they stop every other
+       ambience -- travel is the one surface it belongs to. */
+    try{
+      if(d.moving && !d.settlement){
+        MUS.audio();
+        var bus = sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination;
+        window.__travelBedEnsure(bus, MUS.AC, d.surface==='road' ? 'asphalt' : 'dirt');
+      } else {
+        TRAVELBED.stopBed();
+      }
+    }catch(_e){}
   });
   /* the parent's own surfaces: every button on the phone is a UI TAP.
      EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR

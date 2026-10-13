@@ -2592,6 +2592,23 @@
             woodTau: GROUND.boards.tau, woodGrains: GROUND.boards.grains,
             glassF0: STRIKE.glass.f0, glassDamp: STRIKE.glass.damp, glassSecs: STRIKE.glass.secs,
             glassHit: STRIKE.glass.hit, woodMix: 0.65, glassMix: 0.6 },
+    /* THE ROAD AND DIRT BEDS, LIVE (row [the map's sounds], 10/13): sounds-the-road-
+       is-faster-10-5 and sounds-dirt-is-slower-10-5 are BOTH APPROVED (his ninth
+       sweep's own read of them) and the row has waited since round one for RUN's
+       [the map hears] to post a live travel signal -- it landed 10/9 and this closes
+       the gap. footstepWalk/footstepModelled are pure buffer math (no filter node,
+       confirmed the same way barGlassDown was), so the alpha's own TRAVELBED object
+       duplicates the SAME MATH, not a filter chain. The constants the gate reads the
+       alpha's own source text against. */
+    TRAVELBED_CONST: { beat: BEAT, heelToe: 0.090,
+            asphaltE: GROUND.asphalt.E, asphaltRho: GROUND.asphalt.rho, asphaltV: GROUND.asphalt.v,
+            asphaltLoss: GROUND.asphalt.loss, asphaltH: GROUND.asphalt.h, asphaltA: GROUND.asphalt.a,
+            asphaltTau: GROUND.asphalt.tau, asphaltGrains: GROUND.asphalt.grains,
+            asphaltSpread: GROUND.asphalt.spread, asphaltGrit: GROUND.asphalt.grit, asphaltPerBeat: 2,
+            dirtE: GROUND.dirt.E, dirtRho: GROUND.dirt.rho, dirtV: GROUND.dirt.v,
+            dirtLoss: GROUND.dirt.loss, dirtH: GROUND.dirt.h, dirtA: GROUND.dirt.a,
+            dirtTau: GROUND.dirt.tau, dirtGrains: GROUND.dirt.grains,
+            dirtSpread: GROUND.dirt.spread, dirtGrit: GROUND.dirt.grit, dirtPerBeat: 1 },
     songOnTape: songOnTape,
     titleTheme: titleTheme,
     barberClippers: barberClippers,

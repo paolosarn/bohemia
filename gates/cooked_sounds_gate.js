@@ -128,6 +128,7 @@ const MEASURE = `
      A duplication a machine checks is a fact; one a comment promises is rot waiting. */
   const out = { list: H.list(), rows: {}, tapeAt: H.TAPE_AT, dropoutAt: H.DROPOUT_AT,
     room: H.ROOM, broadcastConst: H.BROADCAST_CONST, barglassConst: H.BARGLASS_CONST,
+    travelbedConst: H.TRAVELBED_CONST,
     /* THE CADENCE, MEASURED BY FINDING THE HITS, not by reading back the list the recipe
        was handed. A recipe that says "I put a footfall at 0.25 s" and did not is exactly
        the class of claim this gate refuses. */
@@ -2443,6 +2444,42 @@ const MEASURE = `
        and does playSFX really reach the live object -- is proved on the real
        surface in settlement_screen_gate.js (the posting side) and
        one_engine_gate.js (E11, the dispatch side), not here. */
+
+    /* ---- THE ROAD AND DIRT BEDS, NOW LIVE (row [the map's sounds], 10/13). Same
+       discipline as BARGLASS: no filter chain to keep in sync, only the material
+       constants read off the alpha's own source text. */
+    const tbAt = alphaAll.indexOf('var TRAVELBED = {');
+    claim('THE ALPHA HAS A LIVE TRAVELBED OBJECT TO COMPARE AGAINST',
+      tbAt >= 0, tbAt < 0 ? 'no `var TRAVELBED = {` in the alpha' : 'found at char ' + tbAt);
+    const tbSlice = tbAt < 0 ? '' : alphaAll.slice(tbAt, tbAt + 6000);
+    const tgrab = (re) => { const m = tbSlice.match(re); return m ? parseFloat(m[1]) : null; };
+    const liveTb = {
+      beat: tgrab(/\bBEAT:\s*([0-9.]+)/), heelToe: tgrab(/\bHEEL_TOE:\s*([0-9.]+)/),
+      asphaltE: tgrab(/asphalt:\s*\{\s*E:\s*([0-9.e+]+)/), asphaltRho: tgrab(/asphalt:[^}]*?\bRHO:\s*([0-9.]+)/s),
+      asphaltV: tgrab(/asphalt:[^}]*?\bV:\s*([0-9.]+)/s), asphaltLoss: tgrab(/asphalt:[^}]*?\bLOSS:\s*([0-9.]+)/s),
+      asphaltH: tgrab(/asphalt:[^}]*?\bH:\s*([0-9.]+)/s), asphaltA: tgrab(/asphalt:[^}]*?\bA:\s*([0-9.]+)/s),
+      asphaltTau: tgrab(/asphalt:[^}]*?\bTAU:\s*([0-9.]+)/s), asphaltGrains: tgrab(/asphalt:[^}]*?\bGRAINS:\s*([0-9.]+)/s),
+      asphaltSpread: tgrab(/asphalt:[^}]*?\bSPREAD:\s*([0-9.]+)/s), asphaltGrit: tgrab(/asphalt:[^}]*?\bGRIT:\s*([0-9.]+)/s),
+      asphaltPerBeat: tgrab(/asphalt:[^}]*?\bPERBEAT:\s*([0-9.]+)/s),
+      dirtE: tgrab(/dirt:\s*\{\s*E:\s*([0-9.e+]+)/), dirtRho: tgrab(/dirt:[^}]*?\bRHO:\s*([0-9.]+)/s),
+      dirtV: tgrab(/dirt:[^}]*?\bV:\s*([0-9.]+)/s), dirtLoss: tgrab(/dirt:[^}]*?\bLOSS:\s*([0-9.]+)/s),
+      dirtH: tgrab(/dirt:[^}]*?\bH:\s*([0-9.]+)/s), dirtA: tgrab(/dirt:[^}]*?\bA:\s*([0-9.]+)/s),
+      dirtTau: tgrab(/dirt:[^}]*?\bTAU:\s*([0-9.]+)/s), dirtGrains: tgrab(/dirt:[^}]*?\bGRAINS:\s*([0-9.]+)/s),
+      dirtSpread: tgrab(/dirt:[^}]*?\bSPREAD:\s*([0-9.]+)/s), dirtGrit: tgrab(/dirt:[^}]*?\bGRIT:\s*([0-9.]+)/s),
+      dirtPerBeat: tgrab(/dirt:[^}]*?\bPERBEAT:\s*([0-9.]+)/s),
+    };
+    const mtb = d.travelbedConst || {};
+    const tbDiffers = Object.keys(liveTb).filter(k =>
+      liveTb[k] === null || Math.abs(liveTb[k] - mtb[k]) > 1e-9);
+    claim('THE LIVE TRAVELBED MATCHES THE MODULE, CONSTANT FOR CONSTANT',
+      tbDiffers.length === 0,
+      tbDiffers.length
+        ? 'these do NOT match: ' + tbDiffers.map(k => k + ' alpha=' + liveTb[k] + ' module=' + mtb[k]).join(', ')
+        : Object.keys(liveTb).map(k => k + '=' + liveTb[k]).join(', '));
+    /* THE WIRING ITSELF -- does the map's own moving/surface state really start and
+       stop a real footstep bed -- is proved on the real page in
+       one_engine_gate.js (E12), not here: this gate renders offline and has no
+       running page to drive. */
 
     /* ---- THE FLIP: A RECEIVER CROSSING YEARS ---------------------------------
        Row [flip sound], rule 31 (Paolo 9/23): the three acts are open at once and he flips

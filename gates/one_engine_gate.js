@@ -347,6 +347,39 @@ function ok(claim, cond, detail) {
     bgCheck.after === bgCheck.before + 1 && bgCheck.hasBuf === true,
     'playSFX(\'bar_glass\') did not reach the live object: ' + JSON.stringify(bgCheck));
 
+  /* ---- E12: THE ROAD AND DIRT BEDS REALLY START AND STOP WITH THE MAP'S OWN
+     TRAVEL STATE (SOUNDS, row [the map's sounds], 10/13). cooked_sounds_gate.js
+     proves TRAVELBED's constants match the module; this proves the dispatch side
+     a 'bohemia-mapstate' CustomEvent (the exact shape RUN's mapState() dispatches)
+     really starts a bed on 'road', really switches material on 'dirt', and really
+     stops it the instant the map says it is not moving (arrival, or the
+     settlement screen opening) -- never left playing under a static picture. */
+  const tbCheck = await p.evaluate(async () => {
+    const before = window.__travelBedEnsureCount || 0;
+    let threw = null;
+    try {
+      window.dispatchEvent(new CustomEvent('bohemia-mapstate',
+        { detail: { moving: true, surface: 'road', settlement: false, arriving: null } }));
+    } catch (e) { threw = String(e); }
+    const afterRoad = window.__travelBedEnsureCount || 0;
+    const playingRoad = window.__TRAVELBED && window.__TRAVELBED.playing;
+    const surfaceRoad = window.__TRAVELBED && window.__TRAVELBED.surface;
+    window.dispatchEvent(new CustomEvent('bohemia-mapstate',
+      { detail: { moving: true, surface: 'dirt', settlement: false, arriving: null } }));
+    const surfaceDirt = window.__TRAVELBED && window.__TRAVELBED.surface;
+    window.dispatchEvent(new CustomEvent('bohemia-mapstate',
+      { detail: { moving: false, surface: 'dirt', settlement: true, arriving: null } }));
+    const playingAfterStop = window.__TRAVELBED && window.__TRAVELBED.playing;
+    return { before, afterRoad, playingRoad, surfaceRoad, surfaceDirt, playingAfterStop, threw };
+  });
+  console.log('  travel bed dispatch: ' + JSON.stringify(tbCheck));
+  ok('E12 *** THE ROAD AND DIRT BEDS REALLY START, SWITCH AND STOP WITH THE MAP\'S OWN STATE, ON THE REAL PAGE. *** '
+    + (tbCheck.afterRoad - tbCheck.before) + ' ensure call(s) from one moving tick',
+    tbCheck.afterRoad === tbCheck.before + 1 && tbCheck.playingRoad === true
+    && tbCheck.surfaceRoad === 'asphalt' && tbCheck.surfaceDirt === 'dirt'
+    && tbCheck.playingAfterStop === false && tbCheck.threw === null,
+    'the dispatch from bohemia-mapstate to the real travel bed is missing or wrong: ' + JSON.stringify(tbCheck));
+
   console.log('\nONE ENGINE GATE: ' + pass + ' passed, ' + fail + ' failed');
   await b.close();
   process.exit(fail ? 1 : 0);
