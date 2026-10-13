@@ -27,6 +27,7 @@ CUE 9.6 | COMBAT | the lamp's light falls tile by tile with falloff and wall sha
 CUE 9.65 | COMBAT | zone of control is melee only: the pistol, shotgun and rifle hold no ring; a melee man's ring lit as his on your turn | FIRES ON: the alpha's next stamp (the demo's fights load slices/BOHEMIA_FIGHT.html live: FOR RUN and the pass) | NEEDS: none | STATE: WARNING
 CUE 9.7 | ANIMATION | the fall and the hit in the rig's bank (fall-down, take-hit), all eight facings, in VOTE as FINAL?; nothing plays them in the fight before his FINAL (rule 100), so nothing he plays changes | FIRES ON: BUILD 10/11b | NEEDS: none | STATE: STANDBY (row written after the build, not before: rule 93's order missed this round, said here) (no demo cut by this lane)
 CUE 9.8 | ANIMATION | the party walks as one on the map: a candidate behind MAP_PARTY_AS_ONE, OFF in the file, so nothing he plays changes until his FINAL flips it (rule 100) | FIRES ON: BUILD 10/11d | NEEDS: none | STATE: STANDBY (no demo cut by this lane)
+CUE 9.9 | ANIMATION | the ragdoll in the rig's bank (a struck man falls by physics, eight facings), in VOTE as FINAL?; nothing plays it in the fight before his FINAL (rule 100), so nothing he plays changes | FIRES ON: BUILD 10/13a | NEEDS: none | STATE: STANDBY (no demo cut by this lane)
 
 ## REPORTS (five lines after each demo cut's pages SUCCESS, by RUN, read by the coordinator at the top of the sweep and by every lane at the top of its round)
 

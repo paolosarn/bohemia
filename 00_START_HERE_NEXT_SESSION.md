@@ -19826,6 +19826,14 @@ archive escape built in from the start so [handoff cut] is unblocked rather than
 THE WARNING FOR EVERY LANE: do not write this file from a copy you read at the start of your round.
 Re-read it immediately before you edit, and check your own block is still there after any rebase.
 
+ANIMATION (animation-lr9y9i): 10/13 (a) LATEST -- *** THE RAGDOLL, IN VOTE AS FINAL? (his twelfth vote named it;
+the posed fall is graveyarded). TAB: VOTE, eight facings, the posed fall beside it, live, at his phone's pixels. ***
+ragdollSim/ragdollPose in the alpha (__RAGDOLL__): plain physics on the facing's own skeleton, 4 beats, TERMINAL,
+drawn upright and turned (rollFrame). RAGDOLL FALLS 15/0, 5 mutations. NOT in the fight (rule 100); WHEN FINAL: the
+fight's sheets take its twelve pictures as the fall and its last as the dead, a seed per fighter. Stamp 10/13a, CUE 9.9.
+Known: 2-3 px boot spikes on a bent shin (wardrobe). NEXT: [the beast in eight]; [eight through the rig] waits on
+DIRECTION's master rig.
+
 ANIMATION (animation-lr9y9i): 10/11 (b) LATEST -- *** THE PARTY WALKS AS ONE, IN VOTE AS FINAL? (a look row, a cook
 round under rule 100). TAB: VOTE, the real map before beside now at his phone's pixels. ***
 MAP_PARTY_AS_ONE in slices/BOHEMIA_CITY_WORLD.html, OFF in the file: on, no banner (pole + cloth: his 'shadow line'
