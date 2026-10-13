@@ -4338,6 +4338,13 @@ by weight for this exact kind of status good); live capture has no in-engine rec
 against, routed to PEOPLE/FACTIONS [keepers] unpriced rather than invented.
 PENDING Paolo: none.
 
+UI (ui-kmqmrf): 10/13 LATEST -- [icons at full pixels] + [the crew button] CANDIDATE in VOTE (cook only, rules 100/108).
+The noose (tape ring) DELETED from the game, graveyarded. Study: records/BOHEMIA_UI_HOW_THE_PACK_DID_IT_THE_SIX_10_13_26.md (all six supplies exist as his survival-pack props).
+Sheet records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png: before / now / A / B at 1:1, the six cut whole at 96 px on a glass strip under the bar, CREW left of NOTES.
+Gate the six at pack pixels 7/0, 5 mutations; map's bar 7/0, bar says three things 23/0, stash 12/0; vote tab 35/2 (its planted-verdict leg fixed: 26 of 25 on main before).
+VOTE ui-the-six-at-pack-pixels-10-13 (A / B / NO). CREW's wiring is RUN TWO's after his pick. Record records/BOHEMIA_THE_SIX_AT_PACK_PIXELS_10_13_26.md.
+NEXT: [the line on a ground] (the roster and hall on a ground from the packs).
+
 UI (ui-kmqmrf): 10/11 LATEST -- [the flip off the face] SHIPPED: the act switch is off the phone's face; after the crisis it is SWITCH TIMELINE in the opened phone.
 bohemia_ui_materials.js (flipOffTheFace): DYNASTY's strip hidden on the face, moved into a panel under the opened phone's bar once BohemiaActs.crisisStarted().
 Gate the flip off the face 10/0, 4 mutations; UI's phone look / reshuffle / phone turns gates re-aimed, green. VOTE ui-the-flip-off-the-face-10-11.

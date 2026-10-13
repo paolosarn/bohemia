@@ -577,7 +577,10 @@
       case 'food': rect(2, 1, 6, 8, 'tin'); rect(2, 3, 6, 3, 'label'); rect(2, 1, 6, 1, 'cap'); break;
       case 'meds': rect(1, 2, 8, 7, 'paper'); rect(4, 3, 2, 5, 'red'); rect(2, 4, 6, 2, 'red'); break;
       case 'rounds': for (var k = 0; k < 3; k++) { rect(1 + k * 3, 4, 2, 5, 'brass'); rect(1 + k * 3, 2, 2, 2, 'tip'); } break;
-      case 'tape': rect(2, 2, 6, 6, 'tape'); put(2, 2, null); put(7, 2, null); put(2, 7, null); put(7, 7, null); rect(4, 4, 2, 2, null); put(8, 6, 'tape'); put(9, 7, 'tape'); break;
+      /* THE TAPE RING IS DEAD (Paolo, his eleventh votes: 'it looks like someone is getting hung by a noose'; UI [icons at full
+         pixels], 10/13): the slot keeps its place and its count and draws nothing until he votes FINAL on the pack's own tape roll
+         (records/BOHEMIA_GRAVEYARD_UI_THE_TAPE_RING_10_13_26.md) */
+      case 'tape': break;
       case 'water': rect(3, 3, 4, 6, 'blue'); rect(4, 1, 2, 2, 'cap'); rect(3, 5, 4, 1, 'paper'); break;
     }
     var get = function (x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? null : G[y * N + x]; };

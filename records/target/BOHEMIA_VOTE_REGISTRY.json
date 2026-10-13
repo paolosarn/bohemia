@@ -8307,7 +8307,39 @@
       "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
      }
     },
-  {"id": "animation-ragdoll-10-13", "kind": "animation", "lane": "animation", "sha": "05f1bee0", "made": "10/13", "title": "FINAL? THE RAGDOLL", "redoOf": "animation-the-fall-10-11", "said": "Why did so hard to get ragdoll physics, bro?", "why": "A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size with the posed fall you voted down beside it, and nothing is in the fight until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_RAGDOLL.html"}, "draft": true}
+  {"id": "animation-ragdoll-10-13", "kind": "animation", "lane": "animation", "sha": "05f1bee0", "made": "10/13", "title": "FINAL? THE RAGDOLL", "redoOf": "animation-the-fall-10-11", "said": "Why did so hard to get ragdoll physics, bro?", "why": "A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size with the posed fall you voted down beside it, and nothing is in the fight until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_RAGDOLL.html"}, "draft": true},
+   {
+    "id": "ui-the-six-at-pack-pixels-10-13",
+    "kind": "ui",
+    "lane": "ui",
+    "sha": "pending",
+    "made": "10/13",
+    "title": "FINAL? THE SIX SUPPLIES CUT FROM YOUR PACKS, AND A CREW BUTTON",
+    "why": "The six icons on the map's bar were 10 by 10 drawings and the tape one looked like a noose, so the noose is deleted and the six are now your own survival-pack props, whole, at their 96 pixels, with a CREW button that opens your company. You see it on the map's top bar; pick A or B, or kill it.",
+    "show": {
+     "how": "image",
+     "src": "../records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png"
+    },
+    "options": [
+     "A",
+     "B",
+     "NO"
+    ],
+    "twin": {
+     "src": "pack:11. Survival props (045 042 039 004), 12. Weapons and supplies (030 018); B: 044 035 007 031, 12/027, 16/032",
+     "diffs": [
+      "WHAT IS HIS: every one of the twelve pictures, pasted whole at one art pixel to one phone pixel; zero pixels drawn, the sheet proves it pixel for pixel.",
+      "WHAT CHANGED: the stash moves to its own strip of glass under the bar, 40 points tall, because six 96-pixel props do not fit in the bar's 24-point pane.",
+      "WHAT IT COSTS: 40 points of map; the CREW button sits where the empty cardboard was, 52 by 44, left of NOTES."
+     ]
+    },
+    "before_after": {
+     "before": "the bar today: six 10 x 10 drawings at 10 points, the tape ring among them",
+     "after": "the six cut from his packs at 32 points (96 phone pixels, their own size) on a glass strip, plus CREW",
+     "scale": "1:1"
+    },
+    "draft": true
+   }
  ],
  "verdicts": [
   {

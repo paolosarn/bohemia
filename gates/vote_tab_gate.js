@@ -382,7 +382,9 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   /* Plant a verdict on a candidate this phone has never seen. A cleared cache must
      not resurrect it. This is the exact complaint: "it needs to stop presenting
      itself like I didn't just vote on it." */
-  const victim = rows[0];   /* one he can see without opening anything */
+  /* one he can see, AND one the queue counts (10/13: rows[0] could be a card the triage keeps out of the count, so the plant
+     landed on nothing and the leg below read one short) */
+  const victim = rows.find(x => want.indexOf(x) >= 0) || want[0];
   const planted = JSON.parse(JSON.stringify(reg));
   planted.verdicts.push({ id: victim, vote: 'down', said: 'planted by the gate', when: '9/15' });
   plant = JSON.stringify(planted);
@@ -397,7 +399,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('a candidate with a verdict in the registry never renders again, even on a clean phone',
      rows2.indexOf(victim) < 0, 'planted ' + victim);
   ok('and the rest of the queue is untouched by that',
-     rows2.length === want.length - 1, rows2.length + ' of ' + (want.length - 1));
+     rows2.length === want.length - 1, rows2.length + ' of ' + (want.length - 1) + ' ' + JSON.stringify({ victim: victim, rows0: rows[0], extra: rows2.filter(x => want.indexOf(x) < 0), missing: want.filter(x => x !== victim && rows2.indexOf(x) < 0) }));
   await fresh.close();
   plant = null;
 

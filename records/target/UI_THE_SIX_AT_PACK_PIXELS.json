@@ -1,0 +1,145 @@
+{
+ "sheet": "records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png",
+ "bg": [
+  28,
+  24,
+  20,
+  255
+ ],
+ "cuts": [
+  {
+   "set": "A",
+   "supply": "batteries",
+   "src": "reference/art_bank/prop/pack_11_survival_props_045.png",
+   "x": 56,
+   "y": 2038,
+   "w": 96,
+   "h": 76
+  },
+  {
+   "set": "A",
+   "supply": "food",
+   "src": "reference/art_bank/prop/pack_11_survival_props_042.png",
+   "x": 246,
+   "y": 2018,
+   "w": 85,
+   "h": 96
+  },
+  {
+   "set": "A",
+   "supply": "meds",
+   "src": "reference/art_bank/prop/pack_12_weapons_and_supplies_030.png",
+   "x": 436,
+   "y": 2020,
+   "w": 96,
+   "h": 94
+  },
+  {
+   "set": "A",
+   "supply": "rounds",
+   "src": "reference/art_bank/prop/pack_12_weapons_and_supplies_018.png",
+   "x": 626,
+   "y": 2018,
+   "w": 50,
+   "h": 96
+  },
+  {
+   "set": "A",
+   "supply": "tape",
+   "src": "reference/art_bank/prop/pack_11_survival_props_039.png",
+   "x": 816,
+   "y": 2028,
+   "w": 96,
+   "h": 86
+  },
+  {
+   "set": "A",
+   "supply": "water",
+   "src": "reference/art_bank/prop/pack_11_survival_props_004.png",
+   "x": 1006,
+   "y": 2018,
+   "w": 46,
+   "h": 96
+  },
+  {
+   "set": "B",
+   "supply": "batteries",
+   "src": "reference/art_bank/prop/pack_11_survival_props_044.png",
+   "x": 56,
+   "y": 2178,
+   "w": 90,
+   "h": 96
+  },
+  {
+   "set": "B",
+   "supply": "food",
+   "src": "reference/art_bank/prop/pack_11_survival_props_035.png",
+   "x": 246,
+   "y": 2178,
+   "w": 59,
+   "h": 96
+  },
+  {
+   "set": "B",
+   "supply": "meds",
+   "src": "reference/art_bank/prop/pack_11_survival_props_007.png",
+   "x": 436,
+   "y": 2178,
+   "w": 90,
+   "h": 96
+  },
+  {
+   "set": "B",
+   "supply": "rounds",
+   "src": "reference/art_bank/prop/pack_11_survival_props_031.png",
+   "x": 626,
+   "y": 2180,
+   "w": 96,
+   "h": 94
+  },
+  {
+   "set": "B",
+   "supply": "tape",
+   "src": "reference/art_bank/prop/pack_12_weapons_and_supplies_027.png",
+   "x": 816,
+   "y": 2186,
+   "w": 96,
+   "h": 88
+  },
+  {
+   "set": "B",
+   "supply": "water",
+   "src": "reference/art_bank/prop/pack_16_loot_and_survival_props_032.png",
+   "x": 1006,
+   "y": 2178,
+   "w": 40,
+   "h": 96
+  }
+ ],
+ "shots": {
+  "before": {
+   "y": 86,
+   "h": 420
+  },
+  "now": {
+   "y": 568,
+   "h": 420
+  },
+  "A": {
+   "y": 1050,
+   "h": 420
+  },
+  "B": {
+   "y": 1532,
+   "h": 420
+  }
+ },
+ "crew_pt": [
+  281,
+  3,
+  52,
+  44
+ ],
+ "dpr": 3,
+ "icon_box_pt": 32
+}
