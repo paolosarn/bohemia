@@ -8306,7 +8306,8 @@
       "how": "text",
       "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
      }
-    }
+    },
+  {"id": "animation-ragdoll-10-13", "kind": "animation", "lane": "animation", "sha": "pending", "made": "10/13", "title": "FINAL? THE RAGDOLL", "redoOf": "animation-the-fall-10-11", "said": "Why did so hard to get ragdoll physics, bro?", "why": "A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size with the posed fall you voted down beside it, and nothing is in the fight until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_RAGDOLL.html"}, "draft": true}
  ],
  "verdicts": [
   {

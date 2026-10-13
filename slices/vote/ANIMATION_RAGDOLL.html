@@ -1,0 +1,49 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · Ragdoll</title>
+<!-- ANIMATION [ragdoll], 10/13, his twelfth vote on the posed fall ('why is it so hard to get ragdoll physics, bro?').
+     Played LIVE from the rig's own frames baked into ANIMATION_RAGDOLL.webp (lossless): for each look, 8 facings, a
+     BEFORE row (the posed fall-down he voted down: six pictures and its last) and a NOW row (ragdoll: twelve pictures
+     of the simulation on the beat grid). Rule 89: before beside now, ONE ART PIXEL TO ONE PHONE PIXEL. Two sentences. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .bar{display:flex;gap:8px;margin:0 0 10px;flex-wrap:wrap}
+  button{font:inherit;font-size:11px;letter-spacing:1px;background:#22212b;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:6px 10px}
+  button.on{border-color:var(--gold);color:var(--gold)}
+  .grid{display:grid;grid-template-columns:repeat(2,max-content);gap:6px 14px;align-items:end}
+  .lab{font-size:10px;letter-spacing:2px}.old{color:#9a6b6b}.new{color:#7fa06b}
+  .cell{display:flex;gap:4px;align-items:end}
+  canvas{display:block;image-rendering:pixelated;background:#2a2219;border-radius:2px}
+  .dir{font-size:9px;color:#6d6656;width:20px}
+</style>
+<h1>FINAL? THE RAGDOLL</h1>
+<p>A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size, the posed fall you voted down beside it; nothing is in the fight until you say final.</p>
+<div class="bar"><button id="b0" class="on">YOU</button><button id="b1">THE REDS (LONG COAT)</button></div>
+<div class="grid" id="g"><div class="lab old">BEFORE</div><div class="lab new">NOW</div></div>
+<script>
+(function(){
+  var F=112, BEAT=500, DIRS=['S','SE','E','NE','N','NW','W','SW'], look=0, im=new Image(), cv=[];
+  var dpr=window.devicePixelRatio||1, css=F/dpr;   /* one art pixel to one phone pixel */
+  var gEl=document.getElementById('g');
+  DIRS.forEach(function(d,i){ [0,1].forEach(function(b){ var w=document.createElement('div'); w.className='cell';
+    var t=document.createElement('div'); t.className='dir'; t.textContent=b?'':d; w.appendChild(t);
+    var c=document.createElement('canvas'); c.width=F; c.height=F; c.style.width=css+'px'; c.style.height=css+'px'; w.appendChild(c); gEl.appendChild(w); cv.push(c); }); });
+    /* the timeline, in beats: BEFORE the posed fall over 2 beats then lying; NOW the ragdoll over its 4 beats; then again */
+  function col(row, t){
+    if(row===0){ if(t<2) return Math.min(5,Math.floor(t/2*6)); return 6; }
+    if(t<4) return Math.min(11,Math.floor(t/4*12)); return 11; }
+  function pick(n){ look=n; document.getElementById('b0').className=n?'':'on'; document.getElementById('b1').className=n?'on':''; }
+  document.getElementById('b0').onclick=function(){pick(0);}; document.getElementById('b1').onclick=function(){pick(1);};
+  im.onload=function(){ var t0=performance.now();
+    (function tick(){ var t=((performance.now()-t0)/BEAT)%6;
+      DIRS.forEach(function(d,di){ [0,1].forEach(function(b){ var g=cv[di*2+b].getContext('2d'); g.imageSmoothingEnabled=false;
+        g.clearRect(0,0,F,F); g.fillStyle='#2a2219'; g.fillRect(0,0,F,F); g.fillStyle='#3a3024'; g.fillRect(0,104,F,8);
+        g.drawImage(im, col(b,t)*F, (look*16+di*2+b)*F, F, F, 0, 0, F, F); }); });
+      requestAnimationFrame(tick); })(); };
+  im.src='ANIMATION_RAGDOLL.webp';
+})();
+</script>

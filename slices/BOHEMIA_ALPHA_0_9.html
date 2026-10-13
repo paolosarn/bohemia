@@ -7735,7 +7735,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,ragdoll:4,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -9235,6 +9235,77 @@ function fallAngles(h,t){
   return {roll:T*body, u:T*body+h*0.18*snap*(1-body), h:T*body+h*0.32*snap*(1-body*0.6), p:T*body,
           t:T*legs, s:T*legs-h*bend, aL:T*body-h*fling, aR:T*body-h*fling*0.8, fL:T*body-h*fling*1.15, fR:T*body-h*fling*0.9,
           lie:Math.abs(Math.sin(T*body))}; }
+/* __RAGDOLL__ A STRUCK MAN FALLS BY PHYSICS, NOT BY A POSE (ANIMATION [ragdoll], 10/13). PAOLO 10/10, NO on the posed
+   fall: 'why is it so hard to get ragdoll physics, bro?'. The 7/17 Verlet ragdoll died of 'a dozen constraint laws
+   fighting each other every frame' (17-20 px single-frame pops), so this one keeps the physics PLAIN and CONSISTENT:
+     the joints of this facing's own rest skeleton are particles; every bone is a RIGID link; the torso and the head
+     are one rigid block (cross links); the knees, the elbows and the hips have ONE limit each, a minimum distance, so
+     they cannot fold past a real joint's range and nothing else argues; a floor with friction; gravity at the body's
+     own scale (a 1.75 m man is ~100 px, so 9.8 m/s/s is ~560 px/s/s); a fixed 1/240 s step with 16 passes.
+   The blow is a SEEDED push on the upper body, away from the way he faces (the same side the posed fall used), so
+   the same hit falls the same way every time and another seed falls another way. The fall is simulated ONCE per
+   body and facing and sampled on the twelve-key grid: 4 beats, twelve drawn pictures, the clip on the 120 beat.
+   DRAWN as the posed fall was (rollFrame): the body is turned upright about the pelvis by the torso's angle, the
+   frame is built (every garment draws right), and the picture is turned back, so a long coat stays a coat. */
+const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,cache:new WeakMap()};   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
+function ragdollSim(R,h,seed){
+  const J=['waC','neck','headTop','shL','shR','elL','elR','handL','handR','waA','waB','knA','knB','footA','footB'];
+  const D=(a,b)=>Math.hypot(R[a][0]-R[b][0],R[a][1]-R[b][1]);
+  let rs=(seed*2654435761)>>>0; const rnd=()=>{rs=(rs*1664525+1013904223)>>>0;return rs/4294967296;};
+  const P={},Q={}; J.forEach(j=>{P[j]=[R[j][0],R[j][1]];Q[j]=[R[j][0],R[j][1]];});
+  const feetY=Math.max(R.footA[1],R.footB[1]), gy=feetY+4, top=R.headTop[1];   /* the floor sits under the soles by the feet's own thickness, so standing is not already inside it (a 4 px kick at the first step threw him over, 10/13) */
+  /* how far each part sits off the floor when it lies there: its own thickness. Feet at 0 and the back at 6 propped every corpse at a tilt and rocked it (looked at 10/13) */
+  const RAD={footA:4,footB:4,knA:5,knB:5,handL:3,handR:3,elL:4,elR:4,shL:2,shR:2,neck:5,headTop:5};   /* the shoulders sit low: in this picture-plane fall a man lies on his side with his wide shoulders stacked, and at 6 they propped his head end up 25 degrees (looked at 10/13); the picture is set on the ground by its lowest pixel, so nothing shows through */
+  const rigid=[['waC','neck'],['neck','headTop'],['neck','shL'],['neck','shR'],['shL','elL'],['shR','elR'],['elL','handL'],['elR','handR'],
+    ['waC','waA'],['waC','waB'],['waA','knA'],['waB','knB'],['knA','footA'],['knB','footB'],
+    ['shL','shR'],['shL','waC'],['shR','waC'],['shL','waA'],['shR','waB'],['neck','waA'],['neck','waB'],['waA','waB'],['headTop','shL'],['headTop','shR']]
+    .map(([a,b])=>[a,b,D(a,b)]);
+  const limits=[['waA','footA',0.85*(D('waA','knA')+D('knA','footA'))],['waB','footB',0.85*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
+    ['shL','handL',0.55*(D('shL','elL')+D('elL','handL'))],['shR','handR',0.55*(D('shR','elR')+D('elR','handR'))],
+    ['neck','knA',0.86*D('neck','knA')],['neck','knB',0.86*D('neck','knB')]];
+  /* the blow: the upper body moves away from his facing, more the higher it is, varied by the seed */
+  const H=80+40*rnd(), U=5+10*rnd(), tw=0.5+1.0*rnd(), ha=[(rnd()-0.5)*40,(rnd()-0.5)*30], hb=[(rnd()-0.5)*40,(rnd()-0.5)*30];   /* a wilder throw put a hand 40 px outside the box */   /* the blow and how each arm is thrown vary with the seed: a narrower range left 23 of 40 seeds resting the same (measured 10/13) */
+  J.forEach(j=>{ const k=Math.max(0,Math.min(1,(feetY-R[j][1])/(feetY-top))); const tws=(j==='shL'||j==='elL'||j==='handL')?tw:(j==='shR'||j==='elR'||j==='handR')?2-tw:1;
+    const hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
+    Q[j]=[P[j][0]-(h*H*k*k*tws+hv[0])*RAGDOLL.dt, P[j][1]+(U*k-hv[1])*RAGDOLL.dt]; });
+  const frames=[], steps=Math.round(RAGDOLL.secs/RAGDOLL.dt), g=RAGDOLL.g*RAGDOLL.dt*RAGDOLL.dt; let sleepT=0, asleep=false, damp=0.998;
+  const snap=()=>{const o={};J.forEach(j=>o[j]=[P[j][0],P[j][1]]);return o;};
+  frames.push(snap());
+  for(let s=1;s<=steps;s++){
+    const tang=Math.abs(Math.atan2(P.neck[0]-P.waC[0],-(P.neck[1]-P.waC[1])));   /* the torso's lean from upright */
+    if(asleep){ if(s%2===0)frames.push(snap()); continue; }   /* asleep, the body still keeps its place on the clock */
+    damp=(tang>1.22&&P.waC[1]>=gy-24)?0.95:0.998;   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
+    J.forEach(j=>{ const p=P[j],q=Q[j], vx=(p[0]-q[0])*damp, vy=(p[1]-q[1])*damp; Q[j]=[p[0],p[1]]; P[j]=[p[0]+vx,p[1]+vy+g]; });
+    for(let it=0;it<RAGDOLL.iters;it++){
+      for(const [a,b,L] of rigid){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6,c=(l-L)/l*0.5;
+        pa[0]+=dx*c;pa[1]+=dy*c;pb[0]-=dx*c;pb[1]-=dy*c; }
+      for(const [a,b,M] of limits){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6; if(l>=M)continue; const c=(l-M)/l*0.5;
+        pa[0]+=dx*c;pa[1]+=dy*c;pb[0]-=dx*c;pb[1]-=dy*c; }
+      J.forEach(j=>{ const p=P[j], r=(RAD[j]!==undefined?RAD[j]:6), fl=gy-r; if(p[1]>fl){ p[1]=fl; const q=Q[j]; q[0]=p[0]-(p[0]-q[0])*0.55; if(q[1]>fl)q[1]=fl; } });
+    }
+    /* SLEEP, as a physics engine sleeps a body at rest: lying, and every joint slower than 12 px/s for a quarter of a
+       second, it stops; the floor and the rigid torso otherwise nudge each other for ever (8-30 px/s, measured 10/13) */
+    if(damp<0.99){ let mv=0; J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
+      sleepT=mv<12?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;
+    if(asleep){ J.forEach(j=>{Q[j]=[P[j][0],P[j][1]];}); }
+    if(s%2===0)frames.push(snap());   /* every 1/120 s */
+  }
+  return frames;
+}
+function ragdollPose(d,ph){
+  const R=RIG[d], h=fallSide(d);
+  let byRig=RAGDOLL.cache.get(R); if(!byRig){byRig={};RAGDOLL.cache.set(R,byRig);}
+  const key=d+'|'+RAGDOLL.seed; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed);
+  const F=byRig[key], t=Math.max(0,Math.min(1,ph)), sk0=F[Math.min(F.length-1,Math.round(t*(F.length-1)))];
+  /* the torso's turn from standing: the picture is drawn upright and turned back (rollFrame) */
+  const ang=(a,b)=>Math.atan2(b[1]-a[1],b[0]-a[0]);
+  const th=ang(sk0.waC,sk0.neck)-ang(R.waC,R.neck), c=Math.cos(-th), s2=Math.sin(-th), o=sk0.waC, sk={};
+  for(const j in sk0){ const dx=sk0[j][0]-o[0], dy=sk0[j][1]-o[1]; sk[j]=[R.waC[0]+dx*c-dy*s2, R.waC[1]+dx*s2+dy*c]; }
+  const placed=fallPlace(sk,R,0,0);
+  for(const j in placed)placed[j]=[Math.round(placed[j][0]),Math.round(placed[j][1])];
+  const sm=(v)=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);};
+  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2))}};
+}
 function fallPose(d,ph){
   /* POSED UPRIGHT, TURNED AS A PICTURE. Every garment in the wardrobe is drawn row by row down the screen on the
      posed body (genCoat's skirt spans rows from the waist to the hem), so any tilted body drew a long coat's
@@ -9627,7 +9698,7 @@ function rgPose(d){
   }
   return {sk:sk, present:{_gun:null,_fire:false,_dial:null}};
 }
-function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);if(clip==='fall-down')return fallPose(d,ph);if(clip==='take-hit')return hitPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
+function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);if(clip==='fall-down')return fallPose(d,ph);if(clip==='ragdoll')return ragdollPose(d,ph);if(clip==='take-hit')return hitPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
   const raw=POSE[clip]?POSE[clip](d,ph):{};const r=RT.applyPose(d,raw,RIG[d],{FACEANG,DEPTH});
   if(headOn(d)&&!NS_CLAMP_EXEMPT[clip])r.sk=RT.nsArmClamp(r.sk,RIG[d]);   /* N/S ARM WIDTH LAW: engine-enforced, every clip, forever */
   if(SEATED[clip]&&headOn(d)){
@@ -10965,7 +11036,7 @@ function frameLookHash(d){
   return h.toString(36);
 }
 const SEATED={'sit-chair':1,'sit-ground':1};   /* SEATED LAW clips */
-const TERMINAL={headshot:1,'headshot-2':1,'fall-down':1};   /* the fall is not a loop: the frozen-pose resolver read it as one and stood the dead back up on its last picture (6 of 8 facings, looked at 10/11); it is posed straight from its phase, which callers keep on the twelve-key grid */   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
+const TERMINAL={headshot:1,'headshot-2':1,'fall-down':1,ragdoll:1};   /* the fall is not a loop: the frozen-pose resolver read it as one and stood the dead back up on its last picture (6 of 8 facings, looked at 10/11); it is posed straight from its phase, which callers keep on the twelve-key grid */   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
 /* ===== POSE EDIT (Paolo 7/2/26): rig-for-the-animation. POSE EDIT freezes the
    phase and turns the preview into a rig: drag any joint, its down-chain rides
    along, the delta applies to EVERY frame of that clip+facing, autosaves to
