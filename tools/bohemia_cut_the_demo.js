@@ -71,6 +71,7 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT = path.dirname(__dirname);
 const ALPHA = path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html');
@@ -134,7 +135,19 @@ function cut(src) {
      same flag at the end of the body, but the parser yields while it reads a 3.6 MB page and the game's animation loop
      runs between the chunks, so anything that asks "am I the demo?" mid-load was told no (measured: the street walk's
      warm-up baked 98 ms of frames the demo never draws before the epilogue arrived). */
-  src = src.replace(HEAD, '<script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>\n' + style + HEAD);
+  /* AND THE SIX PEOPLE ON THE MAP COME BAKED (RUN 10/13, [ten seconds to play] round four): their stills were 1.0 s
+     of the boot at full speed (48 frames, the same every boot, hashed) and their breath another 1.2 s after it. The cut
+     bakes them once (tools/bohemia_bake_the_demo_cast.js writes BOHEMIA_DEMO_CAST.json beside the demo) and the
+     demo asks for that file in its first line. THE KEY is a fingerprint of the workshop this demo was cut from, so a
+     file baked from any other workshop is refused and the demo bakes live exactly as before. */
+  const castKey = crypto.createHash('sha1').update(src).digest('hex').slice(0, 16);
+  notes.castKey = castKey;
+  const castEarly = '<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"' + castKey + '",raw:null,wait:[],at:0};'
+    + 'function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}'
+    + 'D.end=end;setTimeout(function(){end("late");},6000);'
+    + 'try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}'
+    + '})();</script>\n';
+  src = src.replace(HEAD, '<script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>\n' + castEarly + style + HEAD);
 
   /* ---- 2b. AND NO FALLBACK ONTO THE BENCH -------------------------------- */
   /* FOUND BY MUTATING THE GATE, not by reading the file. With the RUN tab
@@ -512,6 +525,8 @@ const MANIFEST = path.join(path.dirname(DEMO), 'bohemia-demo.webmanifest');
    151 KB on the wire each time, and a whole page in every instrument that counts responses: "the page reloads itself
    at 76, 196 and 316 s"). Now it reads this one line, written beside the demo by every cut. */
 const STAMP_FILE = path.join(path.dirname(DEMO), 'BOHEMIA_DEMO_STAMP.txt');
+const CAST_FILE = path.join(path.dirname(DEMO), 'BOHEMIA_DEMO_CAST.json');
+const CROWD_FILE = path.join(path.dirname(DEMO), 'BOHEMIA_DEMO_CROWD.json');
 function demoStamp(html) { const m = html.match(/<div id="buildstamp"[^>]*>([^<]*)<\/div>/); return (m ? m[1].trim() : '') + '\n'; }
 const DEMO_MANIFEST = JSON.stringify({
   name: 'BOHEMIA',
@@ -577,6 +592,16 @@ if (process.argv.includes('--check')) {
       + '(it never re-reads the page mid-play). Run: node tools/bohemia_cut_the_demo.js');
     process.exit(1);
   }
+  /* the six people's frames: a file baked from this cut, or none (the demo then bakes them live, as before) */
+  let castKeyHave = null, crowdKeyHave = null;
+  try { castKeyHave = JSON.parse(fs.readFileSync(CAST_FILE, 'utf8')).key; } catch (_e) { }
+  try { crowdKeyHave = JSON.parse(fs.readFileSync(CROWD_FILE, 'utf8')).key; } catch (_e) { }
+  if (crowdKeyHave !== null && crowdKeyHave !== notes.castKey) castKeyHave = crowdKeyHave;
+  if (castKeyHave !== null && castKeyHave !== notes.castKey) {
+    console.error('THE MAP PEOPLE\'S FRAMES WERE BAKED FROM ANOTHER CUT (key ' + castKeyHave + ', this cut ' + notes.castKey
+      + '). The demo refuses them and bakes live (slower, never wrong). Run: node tools/bohemia_cut_the_demo.js');
+    process.exit(1);
+  }
   let haveMan = null;
   try { haveMan = fs.readFileSync(MANIFEST, 'utf8'); } catch (_e) { }
   if (haveMan !== DEMO_MANIFEST) {
@@ -592,6 +617,19 @@ if (process.argv.includes('--check')) {
 fs.writeFileSync(DEMO, src);
 fs.writeFileSync(MANIFEST, DEMO_MANIFEST);
 fs.writeFileSync(STAMP_FILE, demoStamp(src));
+/* bake the map's six people from the demo just written (a browser, about 20 s); --no-bake leaves the file out and the
+   demo bakes them live. A bake that fails removes the file rather than leave a stale one. */
+let castNote = 'not baked (--no-bake): the demo bakes its six map people live';
+let castHave = null, crowdHave = null; try { castHave = JSON.parse(fs.readFileSync(CAST_FILE, 'utf8')).key; } catch (_e) { }
+try { crowdHave = JSON.parse(fs.readFileSync(CROWD_FILE, 'utf8')).key; } catch (_e) { }
+if (castHave === notes.castKey && crowdHave === notes.castKey && !process.argv.includes('--rebake')) {
+  castNote = 'already baked for this cut (key ' + castHave + '); --rebake bakes again';
+} else if (!process.argv.includes('--no-bake')) {
+  const r = require('child_process').spawnSync('node', [path.join(ROOT, 'tools/bohemia_bake_the_demo_cast.js')], { cwd: ROOT, encoding: 'utf8', timeout: 300000 });
+  if (r.status === 0) castNote = (r.stdout || '').trim().split('\n').pop();
+  else { try { fs.unlinkSync(CAST_FILE); } catch (_e) { } try { fs.unlinkSync(CROWD_FILE); } catch (_e) { }
+    castNote = 'THE BAKE FAILED, the file removed, the demo bakes live: ' + ((r.stderr || r.stdout || '') + '').trim().slice(-300); }
+} else { try { fs.unlinkSync(CAST_FILE); } catch (_e) { } try { fs.unlinkSync(CROWD_FILE); } catch (_e) { } }
 console.log('=== CUT THE DEMO ===');
 console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (notes.removedTabs.length + notes.keptTabs.length) + ' tabs');
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));
@@ -600,4 +638,5 @@ console.log('  hidden   : the tab bar, and the city\'s 🛠 builder drawer');
 console.log('  emptied  : COMBAT_B64, the frozen fight (' + (notes.frozenFightBytes / 1048576).toFixed(2) + ' MB of text the demo never opens; the workshop keeps it)');
 console.log('  wrote    : ' + path.relative(ROOT, DEMO) + '  (' + (src.length / 1048576).toFixed(2) + ' MB)');
 console.log('  manifest : ' + path.relative(ROOT, MANIFEST) + '  (start_url is the DEMO, not the workshop)');
+console.log('  map cast : ' + castNote);
 console.log('  the workshop file was not touched.');

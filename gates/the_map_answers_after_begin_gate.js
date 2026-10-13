@@ -30,6 +30,9 @@
      M9 *** THE LATE LOAD IS NOT A SECOND BOOT *** the map's page finishes loading after its sprites, after his first
         trip: in the demo it no longer puts the save back (2.3 s frozen at 4x, and a save a beat behind moves him back)
         nor sends his body again (his walk baked twice)
+     M10 *** THE CROWD COMES BAKED BY THE CUT *** (10/13, round four): the six later people and the twelve walks come from
+        BOHEMIA_DEMO_CROWD.json (the cut's bake, the same key as the six), none baked on the phone; M7 still proves them
+        the same pictures as the workshop's live bake
      M8 nothing threw
    node gates/the_map_answers_after_begin_gate.js
    ========================================================================== */
@@ -62,6 +65,8 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
     d = await drive.open({ throttle: 4, pages: true, keepCards: true, boot: 200000, door: 5000, settle: 200000, world: 1,
       beforeGoto: async (cdp, page) => { CDP = cdp;
         await page.addInitScript(() => { if (window !== window.top) return; window.__LT = [];
+          /* the page's own record that the map said moving (a poll from here can miss a short trip on a busy box) */
+          window.__SAW_MOVING = 0; window.addEventListener('bohemia-mapstate', (e) => { if (e.detail && e.detail.moving) window.__SAW_MOVING++; });
           try { new PerformanceObserver(l => l.getEntries().forEach(e => __LT.push([Math.round(e.startTime), Math.round(e.duration)]))).observe({ type: 'longtask', buffered: true }); } catch (_e) {} }); },
       beforeTap: async (page) => {
         await T.throughTheTitle(page, 300000);
@@ -88,6 +93,7 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
         R.pending = await page.evaluate(() => ({ breath: CAST_BREATH.queue.length, crowd: !(CREST && CREST.done), walk: !(CWALK && CWALK.done) }));
         for (let i = 0; i < 600; i++) { if (await page.evaluate(() => !!(window.BOH_MAP_STATE && BOH_MAP_STATE.moving))) { R.sawMoving = true; break; } await page.waitForTimeout(50); }
         for (let i = 0; i < 900 && R.sawMoving; i++) { if (!(await page.evaluate(() => !!(window.BOH_MAP_STATE && BOH_MAP_STATE.moving)))) break; await page.waitForTimeout(50); }
+        if (!R.sawMoving) R.sawMoving = (await page.evaluate(() => window.__SAW_MOVING | 0)) > 0;
       } });
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
@@ -119,6 +125,8 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
     for (let i = 0; i < 240; i++) { if (await page.evaluate(bakesDone)) break; await page.waitForTimeout(500); }
     await page.waitForTimeout(800);
     R.demo = await fr.evaluate(CROWD);
+    const crowdFile = await page.evaluate(() => ({ state: window.DEMO_CROWD && DEMO_CROWD.state, used: window.DEMO_CROWD && DEMO_CROWD.used }));
+    ok('*** M10 THE CROWD COMES BAKED BY THE CUT *** (BOHEMIA_DEMO_CROWD.json ' + crowdFile.state + ', ' + crowdFile.used + ' of 18 taken from it: the six later people and the twelve walks; none baked on the phone)', crowdFile.state === 'ready' && crowdFile.used === 18);
     const late = await fr.evaluate(() => ({ ar: window.__AR, loaded: document.readyState, tiles: !!(window.__TILES_LATE && __TILES_LATE.called) }));
     const pw = await page.evaluate(() => ({ gen: PWALK.gen, sent: PWALK.sent }));
     ok('*** M9 THE LATE LOAD IS NOT A SECOND BOOT *** (the map\'s page finished loading: ' + late.loaded + ', its sprites in ' + late.tiles + '; the save put back after BEGIN ' + late.ar + ' times; his body baked ' + pw.gen + ' time(s), sent ' + pw.sent + ')', late.loaded === 'complete' && late.tiles && late.ar === 0 && pw.gen === 1 && pw.sent === 1);

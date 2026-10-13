@@ -23,6 +23,9 @@
      ADDED 10/11 (round two): B1b no street-crowd poll and no street-walk warm-up before BEGIN; B9 the six people's breath
      and his walk are baked after the world is ready (a facing at a time); B10 the map ends with the same 280 frames as
      the workshop's one-piece bake (hashed), and no run frames (nothing draws them)
+     ADDED 10/13 (round four): B11 the six map people come baked by the cut (BOHEMIA_DEMO_CAST.json, its key the cut's),
+     all six taken from it, the cast before BEGIN at most 80 ms (was about 1,000); B9 re-aimed (the breath comes from the
+     cut's file or after the door, never at the boot); B3 measures the live bake on purpose (the path with no file)
      B8 nothing threw
    node gates/the_demo_boots_light_gate.js
    ========================================================================== */
@@ -33,7 +36,7 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fail++; console.log('  FAIL ' + n); } };
 const done = () => { console.log('THE DEMO BOOTS LIGHT: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
-const NAMES = ['renderHuman', 'pplHeard', 'outfitBuild', 'famBuild', 'hairJudgeBuild', 'everyone', 'warmTick'];
+const NAMES = ['renderHuman', 'pplHeard', 'outfitBuild', 'famBuild', 'hairJudgeBuild', 'everyone', 'warmTick', 'citySendCast'];
 /* the frames the map ends up holding: the boot cast's six (stills and breath) and his own (stills and walk), and his run */
 const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const a = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; for (let i = 0; i < a.length; i += 3) { h ^= a[i]; h = Math.imul(h, 16777619) >>> 0; } n++; };
   const D8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']; let runs = 0;
@@ -72,20 +75,31 @@ const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const
     ok('B2 the workshop boards are not built in the demo (outfitBuild ' + ms.outfitBuild + ' ms, famBuild ' + ms.famBuild + ' ms, hairJudgeBuild ' + ms.hairJudgeBuild + ' ms; canvases on the boards ' + boards.join('/') + ')',
       ms.outfitBuild === 0 && ms.famBuild === 0 && ms.hairJudgeBuild === 0 && boards.every(n => n <= 0));
     /* B9: the people's breath and his walk come after the world is ready, and the map ends with every frame */
-    let late = null; for (let i = 0; i < 160; i++) { late = await d.page.evaluate(() => ({ breath: CAST_BREATH.sent, steps: CAST_BREATH.steps, walk: PWALK.sent, last: PWALK.lastSteps, open: PWALK.open })); if (late.breath >= 6 && late.walk >= 1 && !late.open) break; await d.page.waitForTimeout(500); }
+    let late = null; for (let i = 0; i < 160; i++) { late = await d.page.evaluate(() => ({ breath: CAST_BREATH.sent, steps: CAST_BREATH.steps, walk: PWALK.sent, last: PWALK.lastSteps, open: PWALK.open, baked: (window.__DEMO_CAST || {}).adopted | 0, file: (window.__DEMO_CAST || {}).state })); if ((late.breath >= 6 || late.baked === 6) && late.walk >= 1 && !late.open) break; await d.page.waitForTimeout(500); }
     /* he may be asked for more than once (a new ask restarts his walk); what reaches the map is always a whole eight */
-    ok('*** B9 THE BREATH AND HIS WALK COME AFTER THE DOOR *** (the six people\'s breath ' + late.breath + ' of 6 in ' + late.steps + ' facings; his walk sent ' + late.walk + ' time(s), the last a whole ' + late.last + ' facings, none still baking ' + !late.open + ')', late.breath === 6 && late.steps === 48 && late.walk >= 1 && late.last === 8 && !late.open);
+    /* RE-AIMED 10/13 (round four): the six people's breath now comes BAKED BY THE CUT (BOHEMIA_DEMO_CAST.json); without
+       that file it still comes after the door, a facing at a time. Never at the boot, either way. */
+    const breathOk = (late.baked === 6 && late.steps === 0) || (late.baked === 0 && late.breath === 6 && late.steps === 48);
+    ok('*** B9 THE BREATH AND HIS WALK COME AFTER THE DOOR *** (the six people\'s breath: baked by the cut ' + late.baked + ' of 6 (the file ' + late.file + '), baked after the door ' + late.breath + ' in ' + late.steps + ' facings; his walk sent ' + late.walk + ' time(s), the last a whole ' + late.last + ' facings, none still baking ' + !late.open + ')', breathOk && late.walk >= 1 && late.last === 8 && !late.open);
+    /* B11 (10/13, round four): the six people come baked by the cut, and the boot bakes none of them */
+    ok('*** B11 THE MAP PEOPLE COME BAKED BY THE CUT *** (the file ' + late.file + ', ' + late.baked + ' of 6 people taken from it; the cast before BEGIN ' + ms.citySendCast + ' ms, was about 1,000)', late.file === 'ready' && late.baked === 6 && ms.citySendCast <= 80);
     await d.page.waitForTimeout(1200);
     demoFrames = await d.fr.evaluate(FRAMES);
     /* B3, B4: the cast again, counted and caught on its way to the map */
     const c = await d.page.evaluate(() => {
-      const f = document.getElementById('cityFrame'), w = f.contentWindow, op = w.postMessage; let msg = null, n = 0;
+      const f = document.getElementById('cityFrame'), w = f.contentWindow, op = w.postMessage; let msg = null, live = null, n = 0;
+      w.postMessage = function (m, o) { if (m && m.type === 'BOHEMIA_CITY_CAST' && !m.append) { if (!msg) msg = m; else if (!live) live = m; } return op.call(w, m, o); };
+      /* B4: the cast as this boot sends it */
+      try { CCAST = null; citySendCast(); } catch (_e) { }
+      /* B3: the LIVE bake on purpose (the path every boot without the cut's file takes), the baked frames set aside,
+         then the map given its cast back as it was */
       const R = window.rebuildFromRig; window.rebuildFromRig = function () { n++; return R.apply(this, arguments); };
-      w.postMessage = function (m, o) { if (m && m.type === 'BOHEMIA_CITY_CAST' && !m.append && !msg) msg = m; return op.call(w, m, o); };
-      try { CCAST = null; citySendCast(); } finally { window.rebuildFromRig = R; w.postMessage = op; }
+      const keep = CAST_BREATH.got, kd = window.__DEMO_CAST, ks = kd && kd.state; CAST_BREATH.got = {}; if (kd) kd.state = 'late';
+      try { CCAST = null; citySendCast(); } finally { window.rebuildFromRig = R; CAST_BREATH.got = keep; if (kd) kd.state = ks; CAST_BREATH.queue.length = 0; }
+      try { CCAST = null; citySendCast(); } finally { w.postMessage = op; }
       const L = msg && msg.looks || [];
       const still = L.length && L.every(l => Object.keys(l.dirs).length === 8 && Object.keys(l.dirs).every(k => { const x = l.dirs[k]; return x.breathe && x.idle === x.breathe[CAST_PHS.indexOf(0.25)]; }));
-      return { n, looks: L.length, still: !!still };
+      return { n, looks: (live && live.looks || []).length, still: !!still };
     });
     ok('B3 the map\'s six people cost at most two rig rebuilds each (' + c.n + ' rebuilds for ' + c.looks + ' people; it was 96)', c.looks === 6 && c.n > 0 && c.n <= 2 * c.looks + 1);
     ok('B4 each one\'s still is the breath\'s own 0.25 frame (' + c.still + ')', c.still);

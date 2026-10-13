@@ -464,6 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"9edb572125a9018d",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1563,7 +1564,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/11f - THE MAP ANSWERS AFTER BEGIN</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/13b - THE MAP PEOPLE COME BAKED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7748,7 +7749,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,ragdoll:4,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -9248,6 +9249,77 @@ function fallAngles(h,t){
   return {roll:T*body, u:T*body+h*0.18*snap*(1-body), h:T*body+h*0.32*snap*(1-body*0.6), p:T*body,
           t:T*legs, s:T*legs-h*bend, aL:T*body-h*fling, aR:T*body-h*fling*0.8, fL:T*body-h*fling*1.15, fR:T*body-h*fling*0.9,
           lie:Math.abs(Math.sin(T*body))}; }
+/* __RAGDOLL__ A STRUCK MAN FALLS BY PHYSICS, NOT BY A POSE (ANIMATION [ragdoll], 10/13). PAOLO 10/10, NO on the posed
+   fall: 'why is it so hard to get ragdoll physics, bro?'. The 7/17 Verlet ragdoll died of 'a dozen constraint laws
+   fighting each other every frame' (17-20 px single-frame pops), so this one keeps the physics PLAIN and CONSISTENT:
+     the joints of this facing's own rest skeleton are particles; every bone is a RIGID link; the torso and the head
+     are one rigid block (cross links); the knees, the elbows and the hips have ONE limit each, a minimum distance, so
+     they cannot fold past a real joint's range and nothing else argues; a floor with friction; gravity at the body's
+     own scale (a 1.75 m man is ~100 px, so 9.8 m/s/s is ~560 px/s/s); a fixed 1/240 s step with 16 passes.
+   The blow is a SEEDED push on the upper body, away from the way he faces (the same side the posed fall used), so
+   the same hit falls the same way every time and another seed falls another way. The fall is simulated ONCE per
+   body and facing and sampled on the twelve-key grid: 4 beats, twelve drawn pictures, the clip on the 120 beat.
+   DRAWN as the posed fall was (rollFrame): the body is turned upright about the pelvis by the torso's angle, the
+   frame is built (every garment draws right), and the picture is turned back, so a long coat stays a coat. */
+const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,cache:new WeakMap()};   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
+function ragdollSim(R,h,seed){
+  const J=['waC','neck','headTop','shL','shR','elL','elR','handL','handR','waA','waB','knA','knB','footA','footB'];
+  const D=(a,b)=>Math.hypot(R[a][0]-R[b][0],R[a][1]-R[b][1]);
+  let rs=(seed*2654435761)>>>0; const rnd=()=>{rs=(rs*1664525+1013904223)>>>0;return rs/4294967296;};
+  const P={},Q={}; J.forEach(j=>{P[j]=[R[j][0],R[j][1]];Q[j]=[R[j][0],R[j][1]];});
+  const feetY=Math.max(R.footA[1],R.footB[1]), gy=feetY+4, top=R.headTop[1];   /* the floor sits under the soles by the feet's own thickness, so standing is not already inside it (a 4 px kick at the first step threw him over, 10/13) */
+  /* how far each part sits off the floor when it lies there: its own thickness. Feet at 0 and the back at 6 propped every corpse at a tilt and rocked it (looked at 10/13) */
+  const RAD={footA:4,footB:4,knA:5,knB:5,handL:3,handR:3,elL:4,elR:4,shL:2,shR:2,neck:5,headTop:5};   /* the shoulders sit low: in this picture-plane fall a man lies on his side with his wide shoulders stacked, and at 6 they propped his head end up 25 degrees (looked at 10/13); the picture is set on the ground by its lowest pixel, so nothing shows through */
+  const rigid=[['waC','neck'],['neck','headTop'],['neck','shL'],['neck','shR'],['shL','elL'],['shR','elR'],['elL','handL'],['elR','handR'],
+    ['waC','waA'],['waC','waB'],['waA','knA'],['waB','knB'],['knA','footA'],['knB','footB'],
+    ['shL','shR'],['shL','waC'],['shR','waC'],['shL','waA'],['shR','waB'],['neck','waA'],['neck','waB'],['waA','waB'],['headTop','shL'],['headTop','shR']]
+    .map(([a,b])=>[a,b,D(a,b)]);
+  const limits=[['waA','footA',0.85*(D('waA','knA')+D('knA','footA'))],['waB','footB',0.85*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
+    ['shL','handL',0.55*(D('shL','elL')+D('elL','handL'))],['shR','handR',0.55*(D('shR','elR')+D('elR','handR'))],
+    ['neck','knA',0.86*D('neck','knA')],['neck','knB',0.86*D('neck','knB')]];
+  /* the blow: the upper body moves away from his facing, more the higher it is, varied by the seed */
+  const H=80+40*rnd(), U=5+10*rnd(), tw=0.5+1.0*rnd(), ha=[(rnd()-0.5)*40,(rnd()-0.5)*30], hb=[(rnd()-0.5)*40,(rnd()-0.5)*30];   /* a wilder throw put a hand 40 px outside the box */   /* the blow and how each arm is thrown vary with the seed: a narrower range left 23 of 40 seeds resting the same (measured 10/13) */
+  J.forEach(j=>{ const k=Math.max(0,Math.min(1,(feetY-R[j][1])/(feetY-top))); const tws=(j==='shL'||j==='elL'||j==='handL')?tw:(j==='shR'||j==='elR'||j==='handR')?2-tw:1;
+    const hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
+    Q[j]=[P[j][0]-(h*H*k*k*tws+hv[0])*RAGDOLL.dt, P[j][1]+(U*k-hv[1])*RAGDOLL.dt]; });
+  const frames=[], steps=Math.round(RAGDOLL.secs/RAGDOLL.dt), g=RAGDOLL.g*RAGDOLL.dt*RAGDOLL.dt; let sleepT=0, asleep=false, damp=0.998;
+  const snap=()=>{const o={};J.forEach(j=>o[j]=[P[j][0],P[j][1]]);return o;};
+  frames.push(snap());
+  for(let s=1;s<=steps;s++){
+    const tang=Math.abs(Math.atan2(P.neck[0]-P.waC[0],-(P.neck[1]-P.waC[1])));   /* the torso's lean from upright */
+    if(asleep){ if(s%2===0)frames.push(snap()); continue; }   /* asleep, the body still keeps its place on the clock */
+    damp=(tang>1.22&&P.waC[1]>=gy-24)?0.95:0.998;   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
+    J.forEach(j=>{ const p=P[j],q=Q[j], vx=(p[0]-q[0])*damp, vy=(p[1]-q[1])*damp; Q[j]=[p[0],p[1]]; P[j]=[p[0]+vx,p[1]+vy+g]; });
+    for(let it=0;it<RAGDOLL.iters;it++){
+      for(const [a,b,L] of rigid){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6,c=(l-L)/l*0.5;
+        pa[0]+=dx*c;pa[1]+=dy*c;pb[0]-=dx*c;pb[1]-=dy*c; }
+      for(const [a,b,M] of limits){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6; if(l>=M)continue; const c=(l-M)/l*0.5;
+        pa[0]+=dx*c;pa[1]+=dy*c;pb[0]-=dx*c;pb[1]-=dy*c; }
+      J.forEach(j=>{ const p=P[j], r=(RAD[j]!==undefined?RAD[j]:6), fl=gy-r; if(p[1]>fl){ p[1]=fl; const q=Q[j]; q[0]=p[0]-(p[0]-q[0])*0.55; if(q[1]>fl)q[1]=fl; } });
+    }
+    /* SLEEP, as a physics engine sleeps a body at rest: lying, and every joint slower than 12 px/s for a quarter of a
+       second, it stops; the floor and the rigid torso otherwise nudge each other for ever (8-30 px/s, measured 10/13) */
+    if(damp<0.99){ let mv=0; J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
+      sleepT=mv<12?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;
+    if(asleep){ J.forEach(j=>{Q[j]=[P[j][0],P[j][1]];}); }
+    if(s%2===0)frames.push(snap());   /* every 1/120 s */
+  }
+  return frames;
+}
+function ragdollPose(d,ph){
+  const R=RIG[d], h=fallSide(d);
+  let byRig=RAGDOLL.cache.get(R); if(!byRig){byRig={};RAGDOLL.cache.set(R,byRig);}
+  const key=d+'|'+RAGDOLL.seed; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed);
+  const F=byRig[key], t=Math.max(0,Math.min(1,ph)), sk0=F[Math.min(F.length-1,Math.round(t*(F.length-1)))];
+  /* the torso's turn from standing: the picture is drawn upright and turned back (rollFrame) */
+  const ang=(a,b)=>Math.atan2(b[1]-a[1],b[0]-a[0]);
+  const th=ang(sk0.waC,sk0.neck)-ang(R.waC,R.neck), c=Math.cos(-th), s2=Math.sin(-th), o=sk0.waC, sk={};
+  for(const j in sk0){ const dx=sk0[j][0]-o[0], dy=sk0[j][1]-o[1]; sk[j]=[R.waC[0]+dx*c-dy*s2, R.waC[1]+dx*s2+dy*c]; }
+  const placed=fallPlace(sk,R,0,0);
+  for(const j in placed)placed[j]=[Math.round(placed[j][0]),Math.round(placed[j][1])];
+  const sm=(v)=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);};
+  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2))}};
+}
 function fallPose(d,ph){
   /* POSED UPRIGHT, TURNED AS A PICTURE. Every garment in the wardrobe is drawn row by row down the screen on the
      posed body (genCoat's skirt spans rows from the waist to the hem), so any tilted body drew a long coat's
@@ -9640,7 +9712,7 @@ function rgPose(d){
   }
   return {sk:sk, present:{_gun:null,_fire:false,_dial:null}};
 }
-function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);if(clip==='fall-down')return fallPose(d,ph);if(clip==='take-hit')return hitPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
+function posedSkel(d,clip,ph){if(clip==='headshot'){if(HS.variant!==1){HS.variant=1;HS.key=null;}return hsPose(d);}if(clip==='headshot-2')return rgPose(d);if(clip==='sleep')return sleepPose(d,ph);if(clip==='fall-down')return fallPose(d,ph);if(clip==='ragdoll')return ragdollPose(d,ph);if(clip==='take-hit')return hitPose(d,ph);   /* RAGDOLL EXEMPTION: real time, off the grid */
   const raw=POSE[clip]?POSE[clip](d,ph):{};const r=RT.applyPose(d,raw,RIG[d],{FACEANG,DEPTH});
   if(headOn(d)&&!NS_CLAMP_EXEMPT[clip])r.sk=RT.nsArmClamp(r.sk,RIG[d]);   /* N/S ARM WIDTH LAW: engine-enforced, every clip, forever */
   if(SEATED[clip]&&headOn(d)){
@@ -10978,7 +11050,7 @@ function frameLookHash(d){
   return h.toString(36);
 }
 const SEATED={'sit-chair':1,'sit-ground':1};   /* SEATED LAW clips */
-const TERMINAL={headshot:1,'headshot-2':1,'fall-down':1};   /* the fall is not a loop: the frozen-pose resolver read it as one and stood the dead back up on its last picture (6 of 8 facings, looked at 10/11); it is posed straight from its phase, which callers keep on the twelve-key grid */   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
+const TERMINAL={headshot:1,'headshot-2':1,'fall-down':1,ragdoll:1};   /* the fall is not a loop: the frozen-pose resolver read it as one and stood the dead back up on its last picture (6 of 8 facings, looked at 10/11); it is posed straight from its phase, which callers keep on the twelve-key grid */   /* RAGDOLL EXEMPTION: terminal clips are NEVER bucketed or cached */
 /* ===== POSE EDIT (Paolo 7/2/26): rig-for-the-animation. POSE EDIT freezes the
    phase and turns the preview into a rig: drag any joint, its down-chain rides
    along, the delta applies to EVERY frame of that clip+facing, autosaves to
@@ -11369,10 +11441,35 @@ function cityBreathStep(){
       fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_BREATH',w:CAST_PX,h:CAST_PX,packed:true,at:job.at,id:L.id,dirs},'*'); CAST_BREATH.sent++; } }
   cityBreathTick();
 }
+/* __THE_MAP_PEOPLE_COME_BAKED__ (RUN 10/13, [ten seconds to play] round four). The demo's six map people were baked
+   on every boot: their stills 1.0 s at full speed before BEGIN could light (about 4 s on a phone at 4x), their breath
+   1.2 s more after it, and they are the same pictures every boot. The cut now bakes them once
+   (tools/bohemia_bake_the_demo_cast.js) into BOHEMIA_DEMO_CAST.json, the demo asks for it in its first line
+   (window.__DEMO_CAST), and here they go into the breath store the split bake already reads from, so the cast below
+   sends them as baked and the breath after the door finds nothing left to do. A file from another cut (the key), a
+   different frame size or breath clock, or no file at all: nothing is adopted and everything bakes live, as before. */
+function demoFrame(f){
+  const dec=s=>{ const b=atob(s), a=new Uint8Array(b.length); for(let i=0;i<b.length;i++) a[i]=b.charCodeAt(i); return a; };
+  const o={w:f.w,h:f.h}; if(f.pal)o.pal=dec(f.pal); if(f.rle)o.rle=dec(f.rle); if(f.idx)o.idx=dec(f.idx); if(f.raw)o.raw=new Uint8ClampedArray(dec(f.raw)); return o;
+}
+function demoCastAdopt(plan){
+  const D=window.__DEMO_CAST; if(!D||D.state!=='ready'||!D.raw) return 0;
+  const j=D.raw; if(j.w!==CAST_PX||j.h!==CAST_PX||JSON.stringify(j.phs)!==JSON.stringify(CAST_PHS)) return 0;
+  const frame=demoFrame;
+  let n=0;
+  (j.looks||[]).forEach(l=>{ if(!plan.some(L=>L.id===l.id)||CAST_BREATH.got[l.id]) return;
+    const g={}; DIRS.forEach(d=>{ if(l.dirs&&l.dirs[d]&&l.dirs[d].length===CAST_PHS.length) g[d]=l.dirs[d].map(frame); });
+    if(DIRS.every(d=>g[d])){ CAST_BREATH.got[l.id]=g; n++; } });
+  D.adopted=(D.adopted|0)+n; return n;
+}
 function citySendCast(){
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow)return false;
   if(CCAST)return true;
+  /* the baked file is on its way (__THE_MAP_PEOPLE_COME_BAKED__): send when it lands, or when it gives up (6 s) */
+  if(CAST_SPLIT()&&window.__DEMO_CAST&&window.__DEMO_CAST.state==='pending'){
+    if(!window.__DEMO_CAST.waitingCast){ window.__DEMO_CAST.waitingCast=true; window.__DEMO_CAST.wait.push(()=>{ try{ citySendCast(); }catch(_e){} }); }
+    return true; }
   CCAST=true;
   const out={type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,looks:[]};
   const plan=[];
@@ -11414,7 +11511,11 @@ function citySendCast(){
        on and taken off per facing: 96 rig rebuilds for six people, 1.0 s of the boot at full speed), and the still is
        the breath's own 0.25 frame instead of a second bake of it. The message is byte for byte what it was (hashed). */
     const split=CAST_SPLIT();
-    plan.forEach(L=>withLook(L,()=>{ for(const d of DIRS){
+    if(split) demoCastAdopt(plan);
+    const whole=L=>split&&CAST_BREATH.got[L.id]&&DIRS.every(d=>CAST_BREATH.got[L.id][d]);
+    plan.forEach(L=>{ if(whole(L)){ const k=CAST_BREATH.got[L.id];   /* baked by the cut: no body to put on */
+      DIRS.forEach(d=>{ L.dirs[d]={idle:k[d][CAST_PHS.indexOf(0.25)],breathe:k[d]}; }); } });
+    plan.filter(L=>!whole(L)).forEach(L=>withLook(L,()=>{ for(const d of DIRS){
       /* __THE_BREATH_AFTER_THE_DOOR__ (RUN 10/10, [ten seconds to play]): in the demo the boot bakes each person's
          STILL only (the breath's own 0.25 frame) and the four breathing frames are baked after the world is ready, a
          facing at a time, while he reads the title and picks his crew; measured, the breath was 1.8 of the cast's
@@ -11491,6 +11592,25 @@ function CROWD_HOLD(){
   return MAP_MOVING();
 }
 window.CROWD_HOLD=CROWD_HOLD;
+/* __THE_CROWD_COMES_BAKED_TOO__ (RUN 10/13, [ten seconds to play] round four): the six later people and all twelve walks
+   are the same pictures every boot as well (THE MAP ANSWERS AFTER BEGIN M7), about 6 s of baking at full speed after
+   the door. The cut bakes them into BOHEMIA_DEMO_CROWD.json under the same key as the six (__THE_MAP_PEOPLE_COME_BAKED__);
+   the crowd's two passes ask for it on their first step, after the door, and post a baked person the same way they
+   post one they baked. No file, another key, another size or clock: they bake live, as before. */
+const DEMO_CROWD={state:'idle',raw:null,used:0,t0:0}; window.DEMO_CROWD=DEMO_CROWD;
+function demoCrowd(kind,id){
+  const D=window.__DEMO_CAST; if(!CAST_SPLIT()||!D||!D.key) return null;
+  if(DEMO_CROWD.state==='idle'){ DEMO_CROWD.state='pending'; DEMO_CROWD.t0=performance.now();
+    try{ fetch('BOHEMIA_DEMO_CROWD.json').then(r=>r.ok?r.json():null).then(j=>{ if(DEMO_CROWD.state!=='pending') return;
+      if(!j||j.key!==D.key){ DEMO_CROWD.state='stale'; return; } DEMO_CROWD.raw=j; DEMO_CROWD.state='ready'; })
+      .catch(()=>{ DEMO_CROWD.state='none'; }); }catch(_e){ DEMO_CROWD.state='none'; } }
+  if(DEMO_CROWD.state==='pending'){ if(performance.now()-DEMO_CROWD.t0<15000) return 'wait'; DEMO_CROWD.state='late'; }
+  if(DEMO_CROWD.state!=='ready') return null;
+  const j=DEMO_CROWD.raw, phs=kind==='walks'?CAST_WALK_PHS:CAST_PHS;
+  if(j.w!==CAST_PX||j.h!==CAST_PX||JSON.stringify(j[kind==='walks'?'wphs':'phs'])!==JSON.stringify(phs)) return null;
+  const e=(j[kind]||[]).find(x=>x.id===id); if(!e||!DIRS.every(d=>e.dirs&&e.dirs[d]&&e.dirs[d].length===phs.length)) return null;
+  const out={}; DIRS.forEach(d=>{ out[d]=e.dirs[d].map(demoFrame); }); DEMO_CROWD.used++; return out;
+}
 let CREST=null;                                   /* the lazy pass, once per session */
 function cityBakeRestLater(){
   if(CREST) return false;
@@ -11506,6 +11626,11 @@ function cityBakeRestLater(){
     if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.crowd++;
     const src=(window.CITY_CAST_LOOKS||[])[CREST.i];
     if(!src){ CREST.done=true; return; }
+    const pre=demoCrowd('looks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
+    if(pre==='wait'){ idle(step); return; }
+    if(pre){ const at=CAST_PHS.indexOf(0.25), dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:pre[d][at],breathe:pre[d]}; });
+      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks:[{id:src.id,dirs}]},'*'); }catch(_e){}
+      CREST.L=null; CREST.i++; if(CREST.i<all) idle(step); else CREST.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CREST.L||CREST.L.id!==src.id) CREST.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CREST.L, todo=CAST_SPLIT()?DIRS.filter(d=>!L.dirs[d]).slice(0,1):DIRS.filter(d=>!L.dirs[d]);
@@ -11564,6 +11689,10 @@ function cityBakeWalkLater(){
     if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.walk++;
     const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
     if(!src){ CWALK.done=true; return; }
+    const pre=demoCrowd('walks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
+    if(pre==='wait'){ idle(step); return; }
+    if(pre){ try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:src.id,dirs:pre},'*'); }catch(_e){}
+      CWALK.L=null; CWALK.i++; if(CWALK.i<all) idle(step); else CWALK.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CWALK.L||CWALK.L.id!==src.id) CWALK.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CWALK.L, dirs=L.dirs, todo=CAST_SPLIT()?DIRS.filter(d=>!dirs[d]).slice(0,1):DIRS.filter(d=>!dirs[d]);
@@ -24050,6 +24179,162 @@ drawLogoBig();requestAnimationFrame(loop);
     return BARGLASS.play(bus, AC);
   };
 
+  /* === THE ROAD AND DIRT BEDS, WIRED LIVE (SOUNDS, 10/13, row [the map's sounds]). ====
+     sounds-the-road-is-faster-10-5 and sounds-dirt-is-slower-10-5 are BOTH APPROVED.
+     This row has named the gap since round one (10/5): the travel screen posted
+     nothing to the parent, so there was no live state to hang a footstep bed on.
+     RUN's [the map hears] (10/9) fixed that -- BOHEMIA_CITY_WORLD.html's mapState()
+     now posts { moving, speed, surface: 'road'|'dirt', ... } on the beat (500 ms),
+     with its own comment saying outright "what plays to it is SOUNDS' (the beds are
+     his to judge first)." His judge is in on both. This closes it.
+
+     SAME DISCIPLINE AS BARGLASS: footstepModelled/footstepWalk are pure buffer math
+     (no filter node, checked directly), so this duplicates the SAME MATH rather than
+     a filter chain. gates/cooked_sounds_gate.js reads TRAVELBED's own source text
+     against H.TRAVELBED_CONST, constant for constant.
+
+     ONE THING THE MODULE'S OWN FUNCTION DOES THAT MATTERS HERE: footstepWalk renders
+     each footstepModelled call with beat:BEAT/perBeat, not the full BEAT -- a paved
+     road's perBeat 2 (running cadence, the game's own road-is-faster ratio) halves
+     each footstep's own render window to 0.25 s, dirt's perBeat 1 keeps the full
+     0.5 s. Dropping that and reusing one window for both would be a different sound
+     from the one he approved, not a simplification of it. */
+  var TRAVELBED = {
+    BEAT: 0.5, HEEL_TOE: 0.090,
+    GROUND: {
+      asphalt: { E: 3e9, RHO: 2300, V: 0.35, LOSS: 0.60, H: 0.10, A: 1.2, TAU: 0.00110,
+                 GRAINS: 34, SPREAD: 0.016, GRIT: 0.40, PERBEAT: 2 },
+      dirt:    { E: 80e6, RHO: 1700, V: 0.35, LOSS: 2.00, H: 0.10, A: 1.2, TAU: 0.00130,
+                 GRAINS: 26, SPREAD: 0.012, GRIT: 0.50, PERBEAT: 1 }
+    },
+    SEG_BEATS: 16, REL: 0.5,
+    playing: false, surface: null, src: null, endAt: 0, stepN: 0,
+    modesFor: function (g) {
+      var D = g.E * Math.pow(g.H, 3) / (12 * (1 - g.V * g.V));
+      var c = (Math.PI / 2) * Math.sqrt(D / (g.RHO * g.H)) / (g.A * g.A);
+      var out = [], m, n;
+      for (m = 1; m <= 4; m++) for (n = 1; n <= 4; n++) out.push(c * (m * m + n * n));
+      out.sort(function (p, q) { return p - q; });
+      return out.slice(0, 10);
+    },
+    renderStep: function (AC, g, modes, variant, winSec) {
+      var sr = AC.sampleRate, n = Math.round(sr * winSec);
+      var d = new Float32Array(n), i, k;
+      var vseed = 20260930 + variant * 7919;
+      var vrand = function () { vseed = (vseed * 1103515245 + 12345) & 0x7fffffff; return vseed / 0x7fffffff; };
+      var jitTau = 1, jitGain = 1, gritSeedOffset = 0, heelToe = this.HEEL_TOE;
+      if (variant !== 0) {
+        jitTau = 1 + (vrand() * 2 - 1) * 0.08;
+        jitGain = 1 + (vrand() * 2 - 1) * 0.10;
+        gritSeedOffset = Math.round(vrand() * 1e6);
+        heelToe += (vrand() * 2 - 1) * 0.015;
+      }
+      function contact(at, tau, gain, bright) {
+        var t0 = Math.round(at * sr), w = Math.max(2, Math.round(tau * sr)), prev = 0, j;
+        for (j = 0; j < w && t0 + j < n; j++) {
+          var f = Math.sin(Math.PI * j / w);
+          d[t0 + j] += (f - prev) * sr * tau * 0.55 * gain * bright; prev = f;
+        }
+        for (k = 0; k < modes.length; k++) {
+          var hz = modes[k]; if (hz >= sr / 2) continue;
+          var tail = 1 / (Math.PI * hz * g.LOSS);
+          var amp = 0.55 * gain / (1 + Math.pow(hz * tau, 2)) / (1 + k * 0.35);
+          for (j = 0; t0 + j < n; j++) {
+            var t = j / sr, env = Math.exp(-t / tail);
+            if (env < 1e-4) break;
+            d[t0 + j] += Math.sin(2 * Math.PI * hz * t) * amp * env;
+          }
+        }
+      }
+      function grit(at, count, spread, amp) {
+        var seed = 20260924 + gritSeedOffset, q, j2;
+        for (q = 0; q < count; q++) {
+          seed = (seed * 1103515245 + 12345) & 0x7fffffff; var frac = seed / 0x7fffffff;
+          var t0 = Math.round((at + frac * spread) * sr);
+          var w = Math.max(2, Math.round(0.00015 * sr)), prev = 0, lvl = amp * (0.35 + 0.65 * (1 - frac)), j3;
+          for (j3 = 0; j3 < w && t0 + j3 < n; j3++) {
+            var f = Math.sin(Math.PI * j3 / w);
+            d[t0 + j3] += (f - prev) * lvl; prev = f;
+          }
+        }
+      }
+      contact(0.002, g.TAU * jitTau, 1.0 * jitGain, 1.0);
+      grit(0.002, g.GRAINS, g.SPREAD, g.GRIT);
+      if (heelToe > 0) {
+        contact(0.002 + heelToe, g.TAU * 2.2 * jitTau, 0.45 * jitGain, 0.6);
+        grit(0.002 + heelToe, Math.round(g.GRAINS * 0.6), g.SPREAD, g.GRIT * 0.5);
+      }
+      for (i = 0; i < n; i++) d[i] = Math.tanh(d[i] * 1.2) * 0.92;
+      var buf = AC.createBuffer(1, n, sr); buf.getChannelData(0).set(d);
+      return buf;
+    },
+    renderWalk: function (AC, surface, beats, stepOffsetStart) {
+      var g = this.GROUND[surface] || this.GROUND.dirt, perBeat = g.PERBEAT, winSec = this.BEAT / perBeat;
+      var sr = AC.sampleRate, n = Math.round(sr * beats * this.BEAT);
+      var buf = AC.createBuffer(1, n, sr), d = buf.getChannelData(0);
+      var modes = this.modesFor(g), step = stepOffsetStart || 0, i;
+      for (var b = 0; b < beats; b++) {
+        for (var k = 0; k < perBeat; k++) {
+          step++;
+          var t = (b + k / perBeat) * this.BEAT;
+          var one = this.renderStep(AC, g, modes, step, winSec);
+          var src = one.getChannelData(0);
+          var off = Math.round(t * sr);
+          for (i = 0; i < src.length && off + i < n; i++) d[off + i] += src[i];
+        }
+      }
+      var pk = 0; for (i = 0; i < n; i++) { var v = Math.abs(d[i]); if (v > pk) pk = v; }
+      if (pk > 0) for (i = 0; i < n; i++) d[i] = d[i] / pk * 0.85;
+      return { buffer: buf, lastStep: step };
+    },
+    /* STARTED AND RENEWED BY THE TRAVEL CLOCK, NEVER A FIXED LOOP: a looped buffer
+       would repeat the exact same footfalls forever, the one thing footstepModelled's
+       own variant seed exists to prevent. Each segment is 16 beats (8 s); the next
+       segment's own step count picks up where the last one left off, so a long walk
+       never repeats a footfall, matching footstepWalk's own guarantee. */
+    ensure: function (bus, AC, surface) {
+      var now = AC.currentTime;
+      if (this.playing && this.surface === surface && now < this.endAt - 0.05) return;
+      try { if (this.src) this.src.stop(); } catch (_e) {}
+      var r = this.renderWalk(AC, surface, this.SEG_BEATS, this.stepN);
+      this.stepN = r.lastStep;
+      var s = AC.createBufferSource(); s.buffer = r.buffer; s.loop = false;
+      var g = AC.createGain(); g.gain.value = this.REL;
+      s.connect(g); g.connect(bus); s.start();
+      this.src = s; this.surface = surface; this.playing = true;
+      this.endAt = now + this.SEG_BEATS * this.BEAT;
+    },
+    stopBed: function () {
+      if (!this.playing) return;
+      try { if (this.src) this.src.stop(); } catch (_e) {}
+      this.src = null; this.playing = false; this.surface = null;
+    }
+  };
+  window.__TRAVELBED = TRAVELBED;
+  window.__TRAVELBED_PROBE = function (AC) {
+    try {
+      AC = AC || MUS.AC;
+      return { beat: TRAVELBED.BEAT, heelToe: TRAVELBED.HEEL_TOE,
+        asphaltE: TRAVELBED.GROUND.asphalt.E, asphaltRho: TRAVELBED.GROUND.asphalt.RHO,
+        asphaltV: TRAVELBED.GROUND.asphalt.V, asphaltLoss: TRAVELBED.GROUND.asphalt.LOSS,
+        asphaltH: TRAVELBED.GROUND.asphalt.H, asphaltA: TRAVELBED.GROUND.asphalt.A,
+        asphaltTau: TRAVELBED.GROUND.asphalt.TAU, asphaltGrains: TRAVELBED.GROUND.asphalt.GRAINS,
+        asphaltSpread: TRAVELBED.GROUND.asphalt.SPREAD, asphaltGrit: TRAVELBED.GROUND.asphalt.GRIT,
+        asphaltPerBeat: TRAVELBED.GROUND.asphalt.PERBEAT,
+        dirtE: TRAVELBED.GROUND.dirt.E, dirtRho: TRAVELBED.GROUND.dirt.RHO,
+        dirtV: TRAVELBED.GROUND.dirt.V, dirtLoss: TRAVELBED.GROUND.dirt.LOSS,
+        dirtH: TRAVELBED.GROUND.dirt.H, dirtA: TRAVELBED.GROUND.dirt.A,
+        dirtTau: TRAVELBED.GROUND.dirt.TAU, dirtGrains: TRAVELBED.GROUND.dirt.GRAINS,
+        dirtSpread: TRAVELBED.GROUND.dirt.SPREAD, dirtGrit: TRAVELBED.GROUND.dirt.GRIT,
+        dirtPerBeat: TRAVELBED.GROUND.dirt.PERBEAT };
+    } catch (_e) { return null; }
+  };
+  window.__travelBedEnsureCount = 0;
+  window.__travelBedEnsure = function (bus, AC, surface) {
+    window.__travelBedEnsureCount++;
+    return TRAVELBED.ensure(bus, AC, surface);
+  };
+
   window.__pulseStart    = function () { PULSE.start(); };
   window.__pulseNextBeat = function () { return PULSE.nextBeat(); };
   window.__pulseHandOff  = function (t) { PULSE.handOff(t); };
@@ -24842,7 +25127,21 @@ drawLogoBig();requestAnimationFrame(loop);
   window.__AMB=AMB;
   setInterval(function(){ AMB.tick(); }, 1000);
   window.addEventListener('bohemia-mapstate', function(e){
-    var d=e && e.detail; if(d && d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    var d=e && e.detail; if(!d) return;
+    if(d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    /* THE ROAD AND DIRT BEDS (10/13): the mapstate's own `moving`/`surface` fields
+       are the exact signal this row has waited on since round one. inside and the
+       settlement screen both stop the bed the same way they stop every other
+       ambience -- travel is the one surface it belongs to. */
+    try{
+      if(d.moving && !d.settlement){
+        MUS.audio();
+        var bus = sfxBus()||MUS.OUT||MUS.MAST||MUS.AC.destination;
+        window.__travelBedEnsure(bus, MUS.AC, d.surface==='road' ? 'asphalt' : 'dirt');
+      } else {
+        TRAVELBED.stopBed();
+      }
+    }catch(_e){}
   });
   /* the parent's own surfaces: every button on the phone is a UI TAP.
      EXCEPT ON A SURFACE WHOSE JOB IS PLAYING A SOUND (Paolo 8/4: "I CANT HEAR

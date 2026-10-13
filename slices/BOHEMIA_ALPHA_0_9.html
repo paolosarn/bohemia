@@ -1550,7 +1550,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/13a - THE RAGDOLL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/13b - THE MAP PEOPLE COME BAKED</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -11427,10 +11427,35 @@ function cityBreathStep(){
       fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_BREATH',w:CAST_PX,h:CAST_PX,packed:true,at:job.at,id:L.id,dirs},'*'); CAST_BREATH.sent++; } }
   cityBreathTick();
 }
+/* __THE_MAP_PEOPLE_COME_BAKED__ (RUN 10/13, [ten seconds to play] round four). The demo's six map people were baked
+   on every boot: their stills 1.0 s at full speed before BEGIN could light (about 4 s on a phone at 4x), their breath
+   1.2 s more after it, and they are the same pictures every boot. The cut now bakes them once
+   (tools/bohemia_bake_the_demo_cast.js) into BOHEMIA_DEMO_CAST.json, the demo asks for it in its first line
+   (window.__DEMO_CAST), and here they go into the breath store the split bake already reads from, so the cast below
+   sends them as baked and the breath after the door finds nothing left to do. A file from another cut (the key), a
+   different frame size or breath clock, or no file at all: nothing is adopted and everything bakes live, as before. */
+function demoFrame(f){
+  const dec=s=>{ const b=atob(s), a=new Uint8Array(b.length); for(let i=0;i<b.length;i++) a[i]=b.charCodeAt(i); return a; };
+  const o={w:f.w,h:f.h}; if(f.pal)o.pal=dec(f.pal); if(f.rle)o.rle=dec(f.rle); if(f.idx)o.idx=dec(f.idx); if(f.raw)o.raw=new Uint8ClampedArray(dec(f.raw)); return o;
+}
+function demoCastAdopt(plan){
+  const D=window.__DEMO_CAST; if(!D||D.state!=='ready'||!D.raw) return 0;
+  const j=D.raw; if(j.w!==CAST_PX||j.h!==CAST_PX||JSON.stringify(j.phs)!==JSON.stringify(CAST_PHS)) return 0;
+  const frame=demoFrame;
+  let n=0;
+  (j.looks||[]).forEach(l=>{ if(!plan.some(L=>L.id===l.id)||CAST_BREATH.got[l.id]) return;
+    const g={}; DIRS.forEach(d=>{ if(l.dirs&&l.dirs[d]&&l.dirs[d].length===CAST_PHS.length) g[d]=l.dirs[d].map(frame); });
+    if(DIRS.every(d=>g[d])){ CAST_BREATH.got[l.id]=g; n++; } });
+  D.adopted=(D.adopted|0)+n; return n;
+}
 function citySendCast(){
   const fr=document.getElementById('cityFrame');
   if(!fr||!fr.contentWindow)return false;
   if(CCAST)return true;
+  /* the baked file is on its way (__THE_MAP_PEOPLE_COME_BAKED__): send when it lands, or when it gives up (6 s) */
+  if(CAST_SPLIT()&&window.__DEMO_CAST&&window.__DEMO_CAST.state==='pending'){
+    if(!window.__DEMO_CAST.waitingCast){ window.__DEMO_CAST.waitingCast=true; window.__DEMO_CAST.wait.push(()=>{ try{ citySendCast(); }catch(_e){} }); }
+    return true; }
   CCAST=true;
   const out={type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,looks:[]};
   const plan=[];
@@ -11472,7 +11497,11 @@ function citySendCast(){
        on and taken off per facing: 96 rig rebuilds for six people, 1.0 s of the boot at full speed), and the still is
        the breath's own 0.25 frame instead of a second bake of it. The message is byte for byte what it was (hashed). */
     const split=CAST_SPLIT();
-    plan.forEach(L=>withLook(L,()=>{ for(const d of DIRS){
+    if(split) demoCastAdopt(plan);
+    const whole=L=>split&&CAST_BREATH.got[L.id]&&DIRS.every(d=>CAST_BREATH.got[L.id][d]);
+    plan.forEach(L=>{ if(whole(L)){ const k=CAST_BREATH.got[L.id];   /* baked by the cut: no body to put on */
+      DIRS.forEach(d=>{ L.dirs[d]={idle:k[d][CAST_PHS.indexOf(0.25)],breathe:k[d]}; }); } });
+    plan.filter(L=>!whole(L)).forEach(L=>withLook(L,()=>{ for(const d of DIRS){
       /* __THE_BREATH_AFTER_THE_DOOR__ (RUN 10/10, [ten seconds to play]): in the demo the boot bakes each person's
          STILL only (the breath's own 0.25 frame) and the four breathing frames are baked after the world is ready, a
          facing at a time, while he reads the title and picks his crew; measured, the breath was 1.8 of the cast's
@@ -11549,6 +11578,25 @@ function CROWD_HOLD(){
   return MAP_MOVING();
 }
 window.CROWD_HOLD=CROWD_HOLD;
+/* __THE_CROWD_COMES_BAKED_TOO__ (RUN 10/13, [ten seconds to play] round four): the six later people and all twelve walks
+   are the same pictures every boot as well (THE MAP ANSWERS AFTER BEGIN M7), about 6 s of baking at full speed after
+   the door. The cut bakes them into BOHEMIA_DEMO_CROWD.json under the same key as the six (__THE_MAP_PEOPLE_COME_BAKED__);
+   the crowd's two passes ask for it on their first step, after the door, and post a baked person the same way they
+   post one they baked. No file, another key, another size or clock: they bake live, as before. */
+const DEMO_CROWD={state:'idle',raw:null,used:0,t0:0}; window.DEMO_CROWD=DEMO_CROWD;
+function demoCrowd(kind,id){
+  const D=window.__DEMO_CAST; if(!CAST_SPLIT()||!D||!D.key) return null;
+  if(DEMO_CROWD.state==='idle'){ DEMO_CROWD.state='pending'; DEMO_CROWD.t0=performance.now();
+    try{ fetch('BOHEMIA_DEMO_CROWD.json').then(r=>r.ok?r.json():null).then(j=>{ if(DEMO_CROWD.state!=='pending') return;
+      if(!j||j.key!==D.key){ DEMO_CROWD.state='stale'; return; } DEMO_CROWD.raw=j; DEMO_CROWD.state='ready'; })
+      .catch(()=>{ DEMO_CROWD.state='none'; }); }catch(_e){ DEMO_CROWD.state='none'; } }
+  if(DEMO_CROWD.state==='pending'){ if(performance.now()-DEMO_CROWD.t0<15000) return 'wait'; DEMO_CROWD.state='late'; }
+  if(DEMO_CROWD.state!=='ready') return null;
+  const j=DEMO_CROWD.raw, phs=kind==='walks'?CAST_WALK_PHS:CAST_PHS;
+  if(j.w!==CAST_PX||j.h!==CAST_PX||JSON.stringify(j[kind==='walks'?'wphs':'phs'])!==JSON.stringify(phs)) return null;
+  const e=(j[kind]||[]).find(x=>x.id===id); if(!e||!DIRS.every(d=>e.dirs&&e.dirs[d]&&e.dirs[d].length===phs.length)) return null;
+  const out={}; DIRS.forEach(d=>{ out[d]=e.dirs[d].map(demoFrame); }); DEMO_CROWD.used++; return out;
+}
 let CREST=null;                                   /* the lazy pass, once per session */
 function cityBakeRestLater(){
   if(CREST) return false;
@@ -11564,6 +11612,11 @@ function cityBakeRestLater(){
     if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.crowd++;
     const src=(window.CITY_CAST_LOOKS||[])[CREST.i];
     if(!src){ CREST.done=true; return; }
+    const pre=demoCrowd('looks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
+    if(pre==='wait'){ idle(step); return; }
+    if(pre){ const at=CAST_PHS.indexOf(0.25), dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:pre[d][at],breathe:pre[d]}; });
+      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks:[{id:src.id,dirs}]},'*'); }catch(_e){}
+      CREST.L=null; CREST.i++; if(CREST.i<all) idle(step); else CREST.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CREST.L||CREST.L.id!==src.id) CREST.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CREST.L, todo=CAST_SPLIT()?DIRS.filter(d=>!L.dirs[d]).slice(0,1):DIRS.filter(d=>!L.dirs[d]);
@@ -11622,6 +11675,10 @@ function cityBakeWalkLater(){
     if(CAST_SPLIT() && MAP_MOVING()) ROAD_RECEIPT.walk++;
     const src=(window.CITY_CAST_LOOKS||[])[CWALK.i];
     if(!src){ CWALK.done=true; return; }
+    const pre=demoCrowd('walks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
+    if(pre==='wait'){ idle(step); return; }
+    if(pre){ try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST_WALK',w:CAST_PX,h:CAST_PX,packed:true,id:src.id,dirs:pre},'*'); }catch(_e){}
+      CWALK.L=null; CWALK.i++; if(CWALK.i<all) idle(step); else CWALK.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CWALK.L||CWALK.L.id!==src.id) CWALK.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CWALK.L, dirs=L.dirs, todo=CAST_SPLIT()?DIRS.filter(d=>!dirs[d]).slice(0,1):DIRS.filter(d=>!dirs[d]);

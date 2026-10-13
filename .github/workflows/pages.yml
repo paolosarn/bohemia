@@ -62,6 +62,7 @@ on:
       - '_config.yml'          # changes what the other builder publishes
       - '.github/workflows/pages.yml'
       - 'tools/bohemia_cut_the_demo.js'   # the demo is cut AT DEPLOY by this
+      - 'tools/bohemia_bake_the_demo_cast.js'   # and the cut bakes the demo's six map people with this
   workflow_dispatch:
 
 permissions:
@@ -98,6 +99,17 @@ jobs:
       # So the deploy re-cuts it. `set -e` means a cutter that REFUSES (it exits
       # 2 when the alpha changes shape under it) fails this build loudly rather
       # than publishing a half-demo to strangers.
+      # THE DEMO'S SIX MAP PEOPLE ARE BAKED BY THE CUT (RUN 10/13, [ten seconds to play] round four): baking them on
+      # every boot was 1.0 s of a phone's wait for BEGIN at full speed (about 4 s at 4x). The cut bakes them once with
+      # a browser (tools/bohemia_bake_the_demo_cast.js) into slices/BOHEMIA_DEMO_CAST.json, keyed to the workshop it
+      # was cut from, so a re-cut here after any lane's push needs a browser to re-bake. No browser, or a failed bake:
+      # the file is removed and the demo bakes them live, exactly as before; this step can never fail the deploy.
+      - name: a browser for the cut's baked map people
+        continue-on-error: true
+        run: |
+          npm i --no-save --no-package-lock --silent playwright@1.56.1
+          npx playwright install --with-deps chromium
+
       - name: cut the demo from the workshop
         run: node tools/bohemia_cut_the_demo.js
 
