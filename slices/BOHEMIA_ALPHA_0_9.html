@@ -11614,9 +11614,12 @@ function cityBakeRestLater(){
     if(!src){ CREST.done=true; return; }
     const pre=demoCrowd('looks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
     if(pre==='wait'){ idle(step); return; }
-    if(pre){ const at=CAST_PHS.indexOf(0.25), dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:pre[d][at],breathe:pre[d]}; });
-      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks:[{id:src.id,dirs}]},'*'); }catch(_e){}
-      CREST.L=null; CREST.i++; if(CREST.i<all) idle(step); else CREST.done=true; return; }
+    if(pre){ /* every later person the file holds, in ONE message: the map redraws once, not once a person */
+      const at=CAST_PHS.indexOf(0.25), looks=[]; let p=pre, k=CREST.i;
+      while(p&&p!=='wait'){ const dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:p[d][at],breathe:p[d]}; }); looks.push({id:CITY_CAST_LOOKS[k].id,dirs}); k++;
+        p=k<all?demoCrowd('looks',CITY_CAST_LOOKS[k].id):null; }
+      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks},'*'); }catch(_e){}
+      CREST.L=null; CREST.i=k; if(CREST.i<all) idle(step); else CREST.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CREST.L||CREST.L.id!==src.id) CREST.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CREST.L, todo=CAST_SPLIT()?DIRS.filter(d=>!L.dirs[d]).slice(0,1):DIRS.filter(d=>!L.dirs[d]);

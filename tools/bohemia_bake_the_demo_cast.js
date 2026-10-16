@@ -10,6 +10,8 @@
    its first line and uses it only when the key matches; otherwise it bakes live, exactly as before.
    AND THE CROWD (round four, the same key): the six later people and all twelve walks, caught as the shell's two passes
    send them, into slices/BOHEMIA_DEMO_CROWD.json, which the demo asks for after the door.
+   AND THE MORNING RING (round five): how far the first morning's job is, with the key of everything it rests on, into
+   the first file; the ring uses it only when the key is that morning's (__THE_RING_COMES_BAKED__).
 
      node tools/bohemia_bake_the_demo_cast.js     # run by tools/bohemia_cut_the_demo.js after every cut
 */
@@ -39,7 +41,7 @@ const TYPES = { '.html': 'text/html', '.js': 'application/javascript', '.json': 
   });
   await new Promise(r => server.listen(0, '127.0.0.1', r));
   const browser = await chromium.launch();
-  let out = null, err = null, crowd = null;
+  let out = null, err = null, crowd = null, ring = null;
   try {
     const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, hasTouch: true, isMobile: true });
     await ctx.addInitScript(() => {
@@ -91,11 +93,20 @@ const TYPES = { '.html': 'text/html', '.js': 'application/javascript', '.json': 
         return { phs, wphs, looks, walks };
       }).catch(e => { err = e; return null; });
     }
+    /* the morning ring's answer (how far the first job's people are), once it has rung */
+    if (out && !err) {
+      const fr = page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url()));
+      const t2 = Date.now();
+      while (Date.now() - t2 < 120000) {
+        ring = await fr.evaluate(() => (window.__OFFER_RANG && typeof OFFER !== 'undefined' && OFFER && OFFER.ringKey) ? { key: OFFER.ringKey, far: OFFER.far === undefined ? null : OFFER.far } : null).catch(() => null);
+        if (ring) break; await page.waitForTimeout(250);
+      }
+    }
   } finally { await browser.close(); server.close(); }
   if (err) { console.error('the bake failed: ' + err.message); process.exit(1); }
   if (!out) { console.error('the bake failed: the map never received its cast in 180 s'); process.exit(1); }
   const n = out.looks.reduce((s, l) => s + Object.keys(l.dirs).length * out.phs.length, 0);
-  const file = JSON.stringify(Object.assign({ key: KEY, made: 'tools/bohemia_bake_the_demo_cast.js' }, out));
+  const file = JSON.stringify(Object.assign({ key: KEY, made: 'tools/bohemia_bake_the_demo_cast.js' }, out, ring ? { ring } : {}));
   fs.writeFileSync(OUT, file);
   let crowdNote = 'no crowd file';
   if (crowd && crowd.looks.length && crowd.walks.length) {
@@ -104,5 +115,5 @@ const TYPES = { '.html': 'text/html', '.js': 'application/javascript', '.json': 
     const n2 = crowd.looks.length * 8 * crowd.phs.length + crowd.walks.length * 8 * crowd.wphs.length;
     crowdNote = 'the crowd ' + crowd.looks.length + ' people and ' + crowd.walks.length + ' walks, ' + n2 + ' frames, into ' + path.relative(ROOT, OUT2) + ' (' + (f2.length / 1024).toFixed(0) + ' KB)';
   } else { try { fs.unlinkSync(OUT2); } catch (_e) { } }
-  console.log('baked ' + out.looks.length + ' map people, ' + n + ' frames, into ' + path.relative(ROOT, OUT) + ' (' + (file.length / 1024).toFixed(0) + ' KB, key ' + KEY + '); ' + crowdNote);
+  console.log((ring ? 'the morning ring ' + JSON.stringify(ring.far) + ' blocks; ' : 'no morning ring; ') + 'baked ' + out.looks.length + ' map people, ' + n + ' frames, into ' + path.relative(ROOT, OUT) + ' (' + (file.length / 1024).toFixed(0) + ' KB, key ' + KEY + '); ' + crowdNote);
 })().catch(e => { console.error('the bake failed: ' + e.message); process.exit(1); });

@@ -33,6 +33,9 @@
      M10 *** THE CROWD COMES BAKED BY THE CUT *** (10/13, round four): the six later people and the twelve walks come from
         BOHEMIA_DEMO_CROWD.json (the cut's bake, the same key as the six), none baked on the phone; M7 still proves them
         the same pictures as the workshop's live bake
+     M11 *** NO FRAME DRAWS THE MAP TWICE *** (10/16, [the long freeze]): on his first trip at 4x the draws asked for in
+        one frame are folded into one (__ONE_RENDER_A_FRAME__) and no gap between the map's frames passes 1.5 s; four
+        animation loops each drawing the whole map in one frame were the 9.1 and 14.8 s freezes the cord saw
      M8 nothing threw
    node gates/the_map_answers_after_begin_gate.js
    ========================================================================== */
@@ -64,6 +67,12 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
   try {
     d = await drive.open({ throttle: 4, pages: true, keepCards: true, boot: 200000, door: 5000, settle: 200000, world: 1,
       beforeGoto: async (cdp, page) => { CDP = cdp;
+        await page.addInitScript(() => {
+          /* M11: every gap between the map's own frames, in the map */
+          if (/BOHEMIA_CITY_WORLD/.test(location.href)) { window.__FGAPS = []; let last = 0;
+            const tick = (t) => { if (last) window.__FGAPS.push([Math.round(window.parent.performance.now() - (performance.now() - t)), Math.round(t - last)]); last = t; requestAnimationFrame(tick); };
+            requestAnimationFrame(tick); }
+        });
         await page.addInitScript(() => { if (window !== window.top) return; window.__LT = [];
           /* the page's own record that the map said moving (a poll from here can miss a short trip on a busy box) */
           window.__SAW_MOVING = 0; window.addEventListener('bohemia-mapstate', (e) => { if (e.detail && e.detail.moving) window.__SAW_MOVING++; });
@@ -90,10 +99,13 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
         await page.waitForTimeout(1000);
         R.tap = await now(page); await page.touchscreen.tap(fb.x + tgt.x, fb.y + tgt.y);
         /* M3: what was still to bake when he set out (so the trip had something to hold back) */
+        R.one0 = await fr.evaluate(() => window.ONE_RENDER ? ONE_RENDER.skipped : null);
         R.pending = await page.evaluate(() => ({ breath: CAST_BREATH.queue.length, crowd: !(CREST && CREST.done), walk: !(CWALK && CWALK.done) }));
         for (let i = 0; i < 600; i++) { if (await page.evaluate(() => !!(window.BOH_MAP_STATE && BOH_MAP_STATE.moving))) { R.sawMoving = true; break; } await page.waitForTimeout(50); }
         for (let i = 0; i < 900 && R.sawMoving; i++) { if (!(await page.evaluate(() => !!(window.BOH_MAP_STATE && BOH_MAP_STATE.moving)))) break; await page.waitForTimeout(50); }
         if (!R.sawMoving) R.sawMoving = (await page.evaluate(() => window.__SAW_MOVING | 0)) > 0;
+        R.tripEnd = await now(page);
+        R.one1 = await fr.evaluate(() => window.ONE_RENDER ? ONE_RENDER.skipped : null);
       } });
   } catch (e) { ok('the demo boots [' + String(e.message).slice(0, 160) + ']', false); return done(); }
   try {
@@ -109,6 +121,11 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
     const pend = R.pending && (R.pending.breath > 0 || R.pending.crowd || R.pending.walk);
     ok('*** M3 THE CROWD WAITS WHILE HE IS ON THE ROAD *** (he set out with ' + (R.pending ? R.pending.breath + ' breath facings, the crowd ' + (R.pending.crowd ? 'still to bake' : 'done') + ', their walks ' + (R.pending.walk ? 'still to bake' : 'done') : '?') + '; the map said moving ' + !!R.sawMoving + '; steps run while moving: breath ' + (rr && rr.breath) + ', crowd ' + (rr && rr.crowd) + ', walks ' + (rr && rr.walk) + ', the ring\'s street ' + (ww && ww.onRoad) + ')',
       !!R.sawMoving && !!pend && !!rr && rr.breath === 0 && rr.crowd === 0 && rr.walk === 0 && !!ww && ww.onRoad === 0);
+    /* M11: on his first trip the map's animations each asked for a whole draw every frame; one frame draws once */
+    const gaps = await fr.evaluate(() => window.__FGAPS || []);
+    const trip = gaps.filter(x => x[0] >= R.tap && x[0] <= R.tripEnd), worst = trip.reduce((m, x) => Math.max(m, x[1]), 0);
+    ok('*** M11 NO FRAME DRAWS THE MAP TWICE *** (on his first trip at 4x: draws folded into one ' + (R.one1 == null ? 'never (no fold)' : (R.one1 - (R.one0 | 0)) + ' times') + '; the longest gap between the map\'s frames ' + worst + ' ms over ' + trip.length + ' frames; the stacked draws were the 9 and 14 s freezes)',
+      R.one1 != null && R.one1 - (R.one0 | 0) > 0 && trip.length >= 3 && worst <= 1500);
     /* the rest at full speed: the timing legs are done */
     try { await CDP.send('Emulation.setCPUThrottlingRate', { rate: 1 }); } catch (_e) {}
     const m4 = await fr.evaluate(() => { const P = pplPeople; let n = 0; pplPeople = function () { n++; return P.apply(this, arguments); };
@@ -116,7 +133,7 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
       return { n, r }; });
     ok('M4 the act faces never build the street (reading three act faces called the street\'s people ' + m4.n + ' times; they read ' + m4.r.join('/') + ')', m4.n === 0 && m4.r.every(x => x === 'either'));
     let ring = null; for (let i = 0; i < 120; i++) { ring = await fr.evaluate(() => ({ rang: window.__OFFER_RANG || 0, warm: window.WAKE_WARM || null })); if (ring.rang && ring.warm && ring.warm.done) break; await page.waitForTimeout(500); }
-    ok('M5 the morning still rings, once its street is built (rang ' + ring.rang + '; the ring\'s street ' + (ring.warm && ring.warm.built) + ' blocks, a block a task, done ' + (ring.warm && ring.warm.done) + ')', ring.rang >= 1 && !!ring.warm && ring.warm.done);
+    ok('M5 the morning still rings (rang ' + ring.rang + '; its distance from the cut ' + !!(ring.warm && ring.warm.baked) + ', else its street a block a task: ' + (ring.warm && ring.warm.built) + ' blocks, done ' + (ring.warm && ring.warm.done) + ')', ring.rang >= 1 && !!ring.warm && ring.warm.done);
     let spr = null; for (let i = 0; i < 120; i++) { spr = await fr.evaluate(() => { const p = window.__TILES_PUMP ? __TILES_PUMP() : null;
         const fam = Object.keys(TP_TILES).filter(k => TP_IMG[k] && TP_IMG[k].length === TP_TILES[k].length && TP_IMG[k].every(Boolean)).length;
         return { p, fam, fams: Object.keys(TP_TILES).length, hero: Object.keys(HERO_SRC).filter(k => HERO_IMG[k]).length, heroes: Object.keys(HERO_SRC).length, door: DOOR_ANIM_IMG.length, doors: DOOR_ANIM.length }; });

@@ -45112,7 +45112,10 @@ function vbCore(inp){
   var AL = new Uint8Array(K + 2);
   for (var hzi = 0; hzi < K + 2; hzi++) { HZ[hzi] = VB_FAR_HAZE * vbSm(K * 0.3, K * 0.82, hzi); AL[hzi] = Math.round(255 * (1 - vbSm(K * 0.8, K * 0.97, hzi))); }
   var al8 = 255;
-  function put(o, c, sh, hz){ for (var z = 0; z < 3; z++) px8[o + z] = Math.round((c[z] * sh) * (1 - hz) + C2.haze[z] * hz); px8[o + 3] = al8; }
+  /* __THE_REGION__ (RUN 10/16, rule 109): and the same land with no haze, solid to its edge, for the camera pulled out
+     past the old far stop to the whole region; the old far stop keeps the hazed picture he liked (rule 104f) */
+  var pxc = new Uint8ClampedArray(P * P * 4);
+  function put(o, c, sh, hz){ for (var z = 0; z < 3; z++) { px8[o + z] = Math.round((c[z] * sh) * (1 - hz) + C2.haze[z] * hz); pxc[o + z] = Math.round(c[z] * sh); } px8[o + 3] = al8; pxc[o + 3] = 255; }
   for (var dg = -(P - 1); dg <= P - 1; dg++) {
     var ua = Math.max(0, dg), ub = Math.min(P - 1, P - 1 + dg), head = 0, tail = 0;
     for (var uu = ub; uu >= ua; uu--) {
@@ -45197,7 +45200,13 @@ function vbCore(inp){
   labels.push({ txt: 'MT CHARLESTON', x: chx, y: chy, kind: 'peak', ox: 0, oy: -1 });
   if (lake) { var lo2 = Math.hypot(lake.x - mid, lake.y - mid) || 1; labels.push({ txt: 'LAKE MEAD', x: lake.x, y: lake.y, kind: 'lake', ox: (lake.x - mid) / lo2, oy: (lake.y - mid) / lo2 }); }
   roads.forEach(function (r) { if (r.name) { var p = r.pts[Math.min(r.pts.length - 1, 36)]; labels.push({ txt: r.name, x: p[0], y: p[1], kind: 'road' }); } });
-  return { seed: inp.seed, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
+  /* __THE_REGION__ (RUN 10/16, [the map at Battle Brothers' size], rule 109): what a party can do on each block of the land
+     past the valley, read off this same land: 3 the lake or a peak (cannot cross), 1 a road out, 2 hills, 0 open ground.
+     slices/bohemia_region.js walks on it. */
+  var PASS = new Uint8Array(D * D);
+  for (var pj = 0; pj < D; pj++) for (var pi = 0; pi < D; pi++) { var pk = pj * D + pi, ph = H[pk];
+    PASS[pk] = KIND[pk] === 1 ? 3 : ph > 8 ? 3 : (RD[pk] <= RW[pk] + 0.7 ? 1 : (ph > 3.5 ? 2 : 0)); }
+  return { seed: inp.seed, pass: PASS, clear: pxc, D: D, K: K, P: P, S: S, HS: inp.keepHeights ? HS : undefined, day: px8, night: nd, TP: TP, tile: tile, tileNight: tileN, SP: SP, seam: seam, seamNight: seamNt, seamN: seamN, labels: labels, peak: peak, lake: lake, compass: C,
     roads: roads.map(function (r) { return { edge: r.edge, name: r.name || null, c: r.c }; }), ms: Math.round(performance.now() - t0) };
 }
 /* ==== __THE_FAR_END_AT_THE_PHONES_PIXELS__ (RUN 10/10, [the far end at two million pixels], rules 60, 65, 88) ====
@@ -45456,7 +45465,7 @@ function vbLand(r){
   if (!r || r.seed !== om.seed) return;   /* a valley rolled since it was asked for */
   function cv(a, n){ n = n || r.P; var c = document.createElement('canvas'); c.width = n; c.height = n; c.getContext('2d').putImageData(new ImageData(a, n, n), 0, 0); return c; }
   var t = performance.now();
-  VB.day = cv(r.day); VB.night = cv(r.night); VB.tile = cv(r.tile, r.TP); VB.tileNight = cv(r.tileNight, r.TP); VB.seam = cv(r.seam, r.SP); VB.seamNight = cv(r.seamNight, r.SP); VB.seamN = r.seamN; VB.seed = r.seed; VB.P = r.P;
+  VB.day = cv(r.day); VB.clear = r.clear ? cv(r.clear) : null; VB.night = cv(r.night); VB.tile = cv(r.tile, r.TP); VB.tileNight = cv(r.tileNight, r.TP); VB.seam = cv(r.seam, r.SP); VB.seamNight = cv(r.seamNight, r.SP); VB.seamN = r.seamN; VB.seed = r.seed; VB.P = r.P;
   VB.labels = r.labels; VB.peak = r.peak; VB.lake = r.lake; VB.compass = r.compass; VB.roads = r.roads; VB.ms = r.ms;
   VB.landMs = Math.round(performance.now() - t); VB.waitMs = Math.round(performance.now() - VB.asked);
   try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {}
@@ -45556,6 +45565,8 @@ function vbDraw(ox, oy, night, noPattern){
      at the end of renderCity) lights it with everything else. It used to carry its own night (x0.26), so
      at night it sat far darker than the city beside it. */
   var img = VB.day, S = VB_S, sm = g.imageSmoothingEnabled, f0 = oy - VB_K * TH;
+  /* __THE_REGION__: pulled out past the old far stop, the whole region with no haze (the old stop keeps its own picture) */
+  try { if (VB.clear && CZOOM < Math.min(CVW / ((om.n + 1) * TW0), CVH / ((om.n + 1) * TH0)) * 0.96 * 0.98) img = VB.clear; } catch (_e) {}
   g.save(); g.imageSmoothingEnabled = false;
   g.transform(TW / 2 / S, TH / 2 / S, -TW / 2 / S, TH / 2 / S, ox, f0);
   /* the far land first, over the whole glass and the cache's margin, in the picture's own texels */
@@ -63312,6 +63323,36 @@ function toPhone(title, html){
   try{ phonePush(true); }catch(_e){}
   return lines.length;
 }
+/* __THE_RING_COMES_BAKED__ (RUN 10/16, [ten seconds to play] round five). How far the morning job's people are is the
+   street's people found block by block (6 blocks on the demo's first morning, 5 s frozen at 4x after BEGIN even a
+   block a task), and on a new game it is the same answer every time: the same valley, the same first morning, the same
+   doorstep. The cut works it out once (tools/bohemia_bake_the_demo_cast.js, into BOHEMIA_DEMO_CAST.json) under a key
+   of everything the answer rests on; the ring uses it only when that key is this morning's, and finds it live
+   otherwise (a save, another day, another doorstep, other rules). */
+var RING_BAKED = null;
+function ringKey(Q){
+  var b = null; try { b = ctBlockOf(hx, hy); } catch(_e){}
+  var pv = ''; try { pv = BohemiaPopulation.rulesVersion() + '/' + BohemiaPopulation.dial(); } catch(_e){}
+  return [seed, (typeof DAY !== 'undefined' && DAY) ? DAY.day : '', Q && Q.id || '', b ? b.join(',') : '', CT_DAYCAST_R, pv].join('|');
+}
+function ringFarLive(Q){
+  var _cast = BohemiaPeople.castAddresses(Q.roles || [], {
+    peopleAt: ctPeopleAt, originFor: ctOriginFor, radius: CT_DAYCAST_R,
+    questId: Q.id || '', factionOf: function(w){ return ctFactionOf(w.__p); } }) || {};
+  /* THE PART THE JOB REQUIRES, in the quest's own order -- the same rule
+     ctJobRole falls back to before any conversation is open. */
+  var _rs = Q.roles || [], _far = null;
+  for (var _i = 0; _i < _rs.length; _i++) {
+    var _c = _rs[_i].req && _cast[_rs[_i].name];
+    if (_c && _c.block) {
+      var _here = ctBlockOf(hx, hy);
+      _far = Math.max(Math.abs(_c.block[0] - _here[0]), Math.abs(_c.block[1] - _here[1]));
+      break;
+    }
+  }
+  return _far;
+}
+window.ringFarLive = ringFarLive;
 function offerRing(){
   OFFER=null; OFFER_TAKEN=false;
   var spec=DQ.specForDay(DAY.day); if(!spec)return;
@@ -63336,20 +63377,12 @@ function offerRing(){
      the address can never quote two different distances for one person. */
   try {
     OFFER.reach = null; OFFER.how = null;
-    var _cast = BohemiaPeople.castAddresses(Q.roles || [], {
-      peopleAt: ctPeopleAt, originFor: ctOriginFor, radius: CT_DAYCAST_R,
-      questId: Q.id || '', factionOf: function(w){ return ctFactionOf(w.__p); } }) || {};
-    /* THE PART THE JOB REQUIRES, in the quest's own order -- the same rule
-       ctJobRole falls back to before any conversation is open. */
-    var _rs = Q.roles || [], _far = null;
-    for (var _i = 0; _i < _rs.length; _i++) {
-      var _c = _rs[_i].req && _cast[_rs[_i].name];
-      if (_c && _c.block) {
-        var _here = ctBlockOf(hx, hy);
-        _far = Math.max(Math.abs(_c.block[0] - _here[0]), Math.abs(_c.block[1] - _here[1]));
-        break;
-      }
-    }
+    /* __THE_RING_COMES_BAKED__ (RUN 10/16, [ten seconds to play] round five): the same answer, worked out by the
+       cut when everything it rests on is the same (ringKey); otherwise found here as it always was (ringFarLive). */
+    var _rk = ringKey(Q), _far;
+    if (RING_BAKED && RING_BAKED.key === _rk) { _far = RING_BAKED.far; RING_BAKED.used = (RING_BAKED.used | 0) + 1; }
+    else _far = ringFarLive(Q);
+    OFFER.far = _far; OFFER.ringKey = _rk;
     if (_far != null && typeof BohemiaReach !== 'undefined') {
       OFFER.reach = BohemiaReach.insideADay(_far);
       OFFER.how = BohemiaReach.sayIt(_far);                       /* draft:true */
@@ -83068,6 +83101,35 @@ pplPeople=function(nx,ny){
    is a fact about the world and not an event */
 var _ctRender=render;
 render=function(){ var r=_ctRender.apply(this,arguments); try{ ctVerb(); }catch(_e){} return r; };
+/* __ONE_RENDER_A_FRAME__ (RUN 10/16, [the long freeze]). THE STOP (the coordinator, sweeps AK and AL): freezes of 14.8 s
+   and 9.1 s during play on a phone at 4x, and 18 to 34 stalls over a beat every five minutes. MEASURED (the coordinator's
+   own five minutes, three runs on BUILD 10/13b, a CPU profile of each and every unbroken busy stretch over a second listed
+   with what ran in it): during play the long stretches are all the WHOLE MAP DRAWN SEVERAL TIMES IN ONE FRAME. A step on
+   the map starts four animation loops that each draw the map on every frame: the movers' tween (moversAdvance's tw, the
+   cargo and the plane), the party's glide (cityGlideAt), the beat (animate's loop) and the roaming parties' glide; all
+   four run in the same frame and each draws everything. One draw is 0.4 to 0.7 s at 4x, so a frame is 1.6 to 2.8 s
+   (measured 2.1, 2.6 and 1.7 s stretches, 'tw > render' 1.4 to 1.6 s of each), and the heavier views stack to the 9
+   and 14 s the cord saw.
+   NOW a draw asked for from inside an animation frame happens AT MOST ONCE IN THAT FRAME; another ask in the same frame
+   is moved to the next frame (one draw there, for all of them). Every loop's state is time-based, so the one draw shows
+   all of them. A draw asked for anywhere else (a tap, a timer, a message, a check reading the canvas) is untouched. */
+(function(){
+  var raf = window.requestAnimationFrame.bind(window), inRaf = 0, frameT = -1, drew = -2, pend = false;
+  var ONE = window.ONE_RENDER = { drawn: 0, skipped: 0, deferred: 0 };
+  window.requestAnimationFrame = function(cb){
+    return raf(function(t){ inRaf++; frameT = t; try { return cb(t); } finally { inRaf--; } }); };
+  var inner = render;
+  render = function(){
+    if(inRaf && drew === frameT){
+      ONE.skipped++;
+      if(!pend){ pend = true; raf(function(t){ pend = false; frameT = t; drew = t; ONE.deferred++; try { inner(); } catch(_e){} }); }
+      return;
+    }
+    if(inRaf) drew = frameT;
+    ONE.drawn++;
+    return inner.apply(this, arguments);
+  };
+})();
 
 window.__CT={ everyone:function(){ return ctEveryone().map(function(p){
                 var w=ctPerson(p), at=ctAt(p);
@@ -83767,11 +83829,16 @@ function bootWake(){
    pure and visits blocks in a fixed order, so it builds exactly the blocks the real ring would, and the ring that
    follows is the same ring, just a block's work at a time instead of all at once, and none while his party is on
    the road. The demo only. */
-var WAKE_WARM = { built: 0, done: false, onRoad: 0 };
+var WAKE_WARM = { built: 0, done: false, onRoad: 0, baked: false };
 function wakeWarm(then){
   var Q = null;
   try { var spec = DQ.specForDay(DAY.day); Q = spec ? BQ.parse(DEMO_BQ[spec.file]) : null; } catch(_e){ Q = null; }
   if(!Q || !(Q.roles || []).length || typeof PPL_PEOPLE === 'undefined'){ WAKE_WARM.done = true; return then(); }
+  /* __THE_RING_COMES_BAKED__: the cut's answer, when it is this morning's, and no street to build */
+  var DC = null; try { DC = window.parent && window.parent.__DEMO_CAST; } catch(_e){ DC = null; }
+  if(DC && DC.state === 'pending' && !WAKE_WARM.waited){ WAKE_WARM.waited = true; DC.wait.push(function(){ wakeWarm(then); }); return; }
+  try { var rb = DC && DC.state === 'ready' && DC.raw && DC.raw.ring;
+    if(rb && ('far' in rb) && rb.key === ringKey(Q)){ RING_BAKED = { key: rb.key, far: rb.far }; WAKE_WARM.baked = true; WAKE_WARM.done = true; return then(); } } catch(_e){}
   var later = function(fn){ return window.requestIdleCallback ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 60); };
   var step = function(){
     /* and not while his party is on the road: the marker gets the page */
@@ -85991,4 +86058,5 @@ window.BOHEMIA_SKIN = (function(){
 })();
 </script>
 
+<script src="bohemia_region.js"></script>  <!-- RUN [the map at Battle Brothers' size] (rule 109): the region around the valley, walked -->
 </body></html>
