@@ -361,11 +361,20 @@ two confirmation-only rounds.
 Record: records/BOHEMIA_PORTRAIT_THE_BAKED_CAST_CHECKED_10_16_26.md. Board
 note added to [hair match regression gate]'s SHIPPED row.
 NEXT: check whether PLUMBER's [the toolchain]/[the gun in the repo] have
-shipped a callable pipe, whether COOK's [the two holes] has gotten him a
-real pack to buy, or whether his moodboard has landed, before this lane's
-next round opens another study page. If none of the three have moved,
-another short, honestly-different check is right -- not a repeat.
+shipped a callable pipe, whether his moodboard has landed, or whether
+COOK's [the two holes] (claimed this same sweep, f7f13b5b) has shipped its
+PIXEL-level sweep of all 8,674 tiles for faces and people -- a stronger
+check than this lane's own name-based one, and one that could overturn the
+zero if it finds a real face hiding in an unexpectedly-named pack. Read
+that result first thing next round, before opening another study page. If
+none of the three have moved, another short, honestly-different check is
+right -- not a repeat.
 PENDING Paolo: nothing.
+ALSO WORTH KNOWING: RUN TWO shipped [the barber's door] this sweep (93e1ad9f)
+-- the barber's chair in the real settlement screen now opens this lane's
+own face maker, every slider and the haircut shelf, live in the game. Not
+built here, but it is this lane's mechanism reaching a real door; face_maker_
+gate (16/0) and the rest of this lane's suite stayed green through the wiring.
 
 PORTRAIT (portrait-vamily-yke55s): 10/13 LATEST (round nine) -- *** STILL
 BLOCKED, BUT NOW WITH ITS OWN NUMBER: THE QUARTERMASTER'S COUNT, BUILT FRESH
