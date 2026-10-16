@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE RECAP SPEAKS</title>
+<!-- SOUNDS lane, 10/16, row [the narrator], rule 45 and its rule 80b widening.
+     The recap screen plays no voice at all right now. This page is the machine
+     voice (engine/bohemia_narrator.js, the phone's own speechSynthesis, zero
+     new sound content) reading the recap's own headline and summary sentence,
+     exactly the text slices/BOHEMIA_FIGHT.html's showOver() now speaks when the
+     toggle below is on. Off by default, a tap stops it, never two at once.
+     NOT HERE, SAID PLAINLY: the keepers' lines, the board's contracts, a road
+     event, the title's lines (rule 80b's own wider list) and ducking the song
+     (needs a cross-frame bridge to the alpha's music bus) -- named as the next
+     round's work, not built thin to look finished. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --panel:#f2ead6; --dim:#6a5a3e; }
+  html,body{margin:0;background:var(--paper);color:var(--ink);
+    font:15px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 70px}
+  h1{font-size:19px;letter-spacing:2px;margin:0 0 2px}
+  .sub{color:var(--dim);font-size:12px;letter-spacing:1px;margin-bottom:14px}
+  .loud{border:2px solid var(--ink);padding:9px 11px;margin:0 0 14px;font-size:13px}
+  .part{border-top:2px solid var(--line);margin:24px 0 12px;padding-top:12px;
+    font-size:14px;letter-spacing:2px}
+  .card{background:var(--panel);border:1px solid var(--line);padding:14px;margin:0 0 14px}
+  .card h2{font-size:14px;letter-spacing:1.5px;margin:0 0 6px}
+  .why{font-size:13px;margin:0 0 10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button{font:inherit;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+    padding:11px 14px;min-height:48px;cursor:pointer;letter-spacing:1px}
+  button:active{transform:translateY(1px)}
+  button.on{background:var(--ink);color:var(--paper)}
+  button.hero{background:var(--ink);color:var(--paper);min-height:56px;font-size:15px}
+  .num{font-size:12px;color:var(--dim);margin-top:8px;white-space:pre-wrap}
+  textarea{width:100%;box-sizing:border-box;font:inherit;background:var(--paper);
+    color:var(--ink);border:1px solid var(--line);padding:8px;min-height:80px}
+  label{font-size:12px;letter-spacing:1px;color:var(--dim);display:block;margin:10px 0 4px}
+  .foot{border-top:2px solid var(--line);margin-top:22px;padding-top:14px}
+</style></head><body><div class="wrap">
+
+<h1>THE RECAP SPEAKS</h1>
+<div class="sub">SOUNDS &middot; 10/16 &middot; the recap plays no voice at all right now</div>
+
+<div class="loud"><b>THE TOGGLE.</b> Off is how it ships until you hear it and say so
+(rule 45). Turn it on, then play either recap below. Tap anywhere on this page while
+it is talking to stop it mid-sentence -- that is the real behaviour, not a page trick.</div>
+
+<div class="card">
+  <div class="row">
+    <button id="toggle">NARRATE: OFF</button>
+  </div>
+  <div class="num" id="toggleNum"></div>
+</div>
+
+<div class="part">ONE &middot; THE TWO RECAPS, WORD FOR WORD WHAT THE FIGHT SPEAKS</div>
+<div class="card">
+  <h2>WON</h2>
+  <div class="why">"The road crew ran." plus the same summary sentence the recap screen already draws (rounds, how many of theirs went down, how many ran).</div>
+  <div class="row"><button class="hero" data-play="won">PLAY IT</button></div>
+</div>
+<div class="card">
+  <h2>LOST</h2>
+  <div class="why">"Your crew is down." plus the same summary sentence.</div>
+  <div class="row"><button class="hero" data-play="lost">PLAY IT</button></div>
+</div>
+<div class="num" id="speakNum"></div>
+
+<div class="part">TWO &middot; THE VOICE ITSELF</div>
+<div class="card">
+  <div class="why">A machine, never a person: rate 0.95, pitch 0.75, both engines' own flat
+  default is 1 -- slower and lower than normal speech, never the TTS engine's own
+  expressive reading of a line. People in this game keep a portrait mouth with no
+  voice; this voice is never theirs.</div>
+  <div class="num" id="voiceNum"></div>
+</div>
+
+<div class="foot">
+  <label>ANYTHING ABOUT ANY OF IT</label>
+  <textarea id="all"></textarea>
+  <div class="row" style="margin-top:12px">
+    <button id="copy">COPY ALL</button>
+    <button id="exp">SAVE AS .txt</button>
+  </div>
+  <div class="num" id="footnote">What you type is kept in this page, so closing it does not
+lose it. COPY ALL puts it on your clipboard.
+THERE IS NO VOTE ON THIS PAGE ON PURPOSE: you vote once, in the VOTE tab.</div>
+</div>
+
+<script src="../engine/bohemia_narrator.js"></script>
+<script>
+var N = window.BohemiaNarrator;
+function refreshToggle(){
+  var on = N.enabled();
+  var b = document.getElementById('toggle');
+  b.textContent = 'NARRATE: ' + (on ? 'ON' : 'OFF');
+  b.classList.toggle('on', on);
+  document.getElementById('toggleNum').textContent = on
+    ? 'on: the two buttons below will actually speak'
+    : 'off (the ship default): the two buttons below do nothing until you turn this on';
+}
+document.getElementById('toggle').onclick = function(){
+  N.setEnabled(!N.enabled());
+  refreshToggle();
+};
+refreshToggle();
+N.wireTapToStop(document.body);
+document.querySelectorAll('button[data-play]').forEach(function(b){
+  b.onclick = function(){
+    var won = b.dataset.play === 'won';
+    var headline = won ? 'The road crew ran.' : 'Your crew is down.';
+    var summary = '6 rounds. 4 of theirs down, 1 ran.';   /* the same shape showOver() builds, a fixed example */
+    var said = N.speak(headline + ' ' + summary, { force: false });
+    document.getElementById('speakNum').textContent = said
+      ? 'speaking: "' + headline + ' ' + summary + '"'
+      : (N.available() ? 'did nothing: the toggle above is off' : 'this browser has no speechSynthesis at all');
+  };
+});
+document.getElementById('voiceNum').textContent = N.available()
+  ? 'this browser has speechSynthesis: available() is true'
+  : 'this browser has no speechSynthesis: available() is false, and speak() always returns false here';
+
+var KEY='bohemia_the_recap_speaks_notes_v1';
+try{ var v=localStorage.getItem(KEY); if(v) document.getElementById('all').value=v; }catch(e){}
+document.getElementById('all').addEventListener('input', function(){
+  try{ localStorage.setItem(KEY, this.value); }catch(e){} });
+function noteText(){ var a=document.getElementById('all').value.trim();
+  return 'BOHEMIA NOTES -- THE RECAP SPEAKS (SOUNDS, 10/16). NO VOTES HERE: the vote is in the VOTE tab.\n'
+    + 'registry id: sounds-the-recap-speaks-10-16\n\n'
+    + (a || '(nothing written yet)'); }
+function say(msg){ var n=document.getElementById('footnote'), was=n.textContent;
+  n.textContent=msg; setTimeout(function(){ n.textContent=was; },2200); }
+document.getElementById('copy').onclick=function(){ var txt=noteText();
+  function fb(){ var ta=document.createElement('textarea'); ta.value=txt;
+    ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); say('COPIED. Paste it back to me.'); }
+    catch(e){ say('Could not copy. Use SAVE AS .txt.'); } ta.remove(); }
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    navigator.clipboard.writeText(txt).then(function(){ say('COPIED. Paste it back to me.'); }, fb);
+  else fb(); };
+document.getElementById('exp').onclick=function(){
+  var blob=new Blob([noteText()],{type:'text/plain'});
+  var u=URL.createObjectURL(blob), el=document.createElement('a');
+  el.href=u; el.download='BOHEMIA_NOTES_THE_RECAP_SPEAKS.txt';
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(function(){ URL.revokeObjectURL(u); },1500); };
+</script>
+</div></body></html>

@@ -6,6 +6,7 @@
 <title>The Fight</title>
 <script src="bohemia_ui_materials.js"></script>
 <script src="bohemia_screen_class.js"></script>
+<script src="../engine/bohemia_narrator.js"></script>
 <!-- ============================================================================
      THE FIGHT, REBUILT (COMBAT [rebuild], rule 63, Paolo 10/2: "start combat over from the
      ground up; re-create Battle Brothers combat... too far gone").
@@ -2392,6 +2393,18 @@ function showOver(result) {
   html += '</table>';
   document.getElementById('ob').innerHTML = html;
   o.style.display = 'flex';
+  /* THE NARRATOR (rule 45, row [the narrator], 10/16): off by default, a tap on
+     the recap stops it; the headline plus the same summary sentence already
+     drawn above, never the per-man table (numbers read aloud are not speech). */
+  try {
+    if (window.BohemiaNarrator) {
+      window.BohemiaNarrator.wireTapToStop(o);
+      const headline = result === 'won' ? 'The road crew ran.' : 'Your crew is down.';
+      const summary = S.round + ' rounds. ' + theirs.filter(function (v) { return v.dead; }).length
+        + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.';
+      window.BohemiaNarrator.speak(headline + ' ' + summary);
+    }
+  } catch (_e) {}
   try { if (window.parent !== window) window.parent.postMessage(homeMessage(result), '*'); } catch (_e) {}
 }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
