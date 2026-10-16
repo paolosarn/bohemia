@@ -167,7 +167,7 @@
     "side": 0.32,
     "top": 0.12
   },
-  "medianRadius": 3,
+  "medianRadius": 1,
   "foldSlant": 0.35,
   "foldWidth": 1.0,
   "medianClamp": [
@@ -175,6 +175,6 @@
     3.0
   ],
   "samePart": true,
-  "steps": 10,
-  "hiDesat": 0.36
+  "hiDesat": 0.36,
+  "outlineSoft": 0.8
 }

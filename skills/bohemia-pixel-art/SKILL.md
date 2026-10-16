@@ -104,3 +104,8 @@ LESSONS (each one cost a cycle; the before and after are in references/lessons/L
 2. **Never pick a source pixel at random.** A random pick per pixel is noise by construction. Take his pixels in place.
 3. **Zoom or shape a mask, never his pixels, and soften the mask.** A whole-number zoom of a mask shows its grid as
    square steps. Soften the mask; his pixels stay as they are.
+4. **Light a lit side TOWARD the light's colour, multiply only the shade side.** Multiplying a red brighter turns it pink. (COOK THREE, Reds loop L07, records/cook3/loop/REDS_LOOP_LOG.md)
+5. **Smooth inside one body part, never across parts.** A blur that crosses the sleeve erases the arm. (Reds L04)
+6. **Do not snap a pack-style asset's shading to a few steps.** It reads crisp to the eye and fails the card: 113 colours, the top 8 at 49%. His art is not limited-palette. (Reds look 9, look.py cycle 1)
+7. **A paint pass cannot add colours the source does not have.** A code-drawn garment carries 3 shades per ramp; no pass on top reaches his 2,330. Fix the source (the rig, the generator), not the paint. (Reds looks 10-12)
+

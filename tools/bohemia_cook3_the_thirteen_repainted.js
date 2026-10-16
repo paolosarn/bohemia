@@ -146,7 +146,7 @@ const ONLY = process.env.ONLY || '';
         for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const i = y * W + x, q = after[i]; if (!q) continue;
           const g = fr.grid[i]; if (g === 1 || g === 2 || (!g && y <= headBot)) continue;
           if (!after[i - 1] || !after[i + 1] || !after[i - W] || !after[i + W] || x === 0 || x === W - 1)
-            ol[i] = PAINT.outline.concat([255]); }
+            ol[i] = PAINT.outlineSoft ? [q[0] * PAINT.outlineSoft | 0, q[1] * PAINT.outlineSoft | 0, q[2] * PAINT.outlineSoft | 0, 255] : PAINT.outline.concat([255]); }
         out.push({ f: f.faction, W, H, before: fr.px.map(q => q ? [q[0], q[1], q[2]] : 0), after: ol.map(q => q ? [q[0], q[1], q[2]] : 0),
           accent: acc, cloth, keptPct: cloth ? +(100 * kept / cloth).toFixed(1) : 0,
           satBefore: cloth ? +(satB / cloth).toFixed(3) : 0, satAfter: cloth ? +(satA / cloth).toFixed(3) : 0 });
@@ -167,7 +167,11 @@ const ONLY = process.env.ONLY || '';
       for (let y = 0; y < h16; y++) for (let xx = 0; xx < w16; xx++) { let R = 0, G = 0, B = 0, c = 0, a = 0;
         for (let yy = Math.floor(t + y * sc); yy < Math.floor(t + (y + 1) * sc); yy++) for (let x2 = Math.floor(l2 + xx * sc); x2 < Math.floor(l2 + (xx + 1) * sc); x2++) { a++; const q = o.after[yy * o.W + x2]; if (q) { R += q[0]; G += q[1]; B += q[2]; c++; } }
         if (c > a / 2) { x.fillStyle = 'rgb(' + (R / c | 0) + ',' + (G / c | 0) + ',' + (B / c | 0) + ')'; x.fillRect(4 + xx * 4, bh + 12 + y * 4, 4, 4); } }
-      return { png: cv.toDataURL('image/png'), rows: [] }; }
+      /* the candidate itself, 1x, transparent, for the rulebook's look.py */
+      const cc = document.createElement('canvas'); cc.width = bw; cc.height = bh; const cx = cc.getContext('2d');
+      const im = cx.createImageData(bw, bh); for (let y = t; y <= b2; y++) for (let xx = l2; xx <= r2; xx++) { const q = o.after[y * o.W + xx]; if (q) im.data.set([q[0], q[1], q[2], 255], 4 * ((y - t) * bw + xx - l2)); }
+      cx.putImageData(im, 0, 0);
+      return { png: cv.toDataURL('image/png'), cand: cc.toDataURL('image/png'), rows: [] }; }
     /* THE SHEET: two rows of thirteen (before, after), 2x, plus the runway palette card */
     const S = 2, pad = 10, cw = Math.max(...out.map(o => o.W)) * S, ch = Math.max(...out.map(o => o.H)) * S;
     const cv = document.createElement('canvas'); cv.width = out.length * (cw + pad) + pad; cv.height = 2 * (ch + 34) + 120;
@@ -192,6 +196,7 @@ const ONLY = process.env.ONLY || '';
     return { png: cv.toDataURL('image/png'), rows: out.map(o => ({ f: o.f, accent: o.accent, cloth: o.cloth, keptPct: o.keptPct, satBefore: o.satBefore, satAfter: o.satAfter })) };
   }, { PAINT, ONLY, LOOP: !!process.env.LOOP });
   fs.writeFileSync(OUT, Buffer.from(res.png.split(',')[1], 'base64'));
+  if (res.cand && process.env.CAND) fs.writeFileSync(process.env.CAND, Buffer.from(res.cand.split(',')[1], 'base64'));
   console.log(JSON.stringify(res.rows, null, 0).replace(/\},/g, '},\n'));
   await b.close();
 })();
