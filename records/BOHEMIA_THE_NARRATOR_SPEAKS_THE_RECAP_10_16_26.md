@@ -83,6 +83,17 @@ throwing, a real `pointerdown` really cancels speech in progress, and
 drawn on the screen. 7/0. Served over a real local HTTP server (`127.0.0.1:8946`)
 because the fight screen fetches its sourced numbers and `file://` cannot fetch.
 
+CHECKED, NOT ASSUMED, ON THE DIFF'S OWN GATE: COMBAT's `gates/the_rebuilt_fight_plays_gate.js`
+also reads `slices/BOHEMIA_FIGHT.html` and belongs on this round's pre-push pass by rule 13's
+own letter. It stalled twice in a row at the same claim ("THE LIT TILES LOOK LIT"), producing
+no further output for minutes. Rather than assume that away, the suspicion was tested directly:
+`slices/BOHEMIA_FIGHT.html` was swapped for `ccd65a91`'s own version (the file exactly as it
+stood before this round, zero narrator code anywhere in it) and the same gate was run against
+that clean file. It stalled at the IDENTICAL claim, with the identical trailing pattern of
+`[driver] opening BOHEMIA_FIGHT.html` lines and no further output. The stall is pre-existing and
+unrelated to this round's change, not this lane's regression; named here rather than claimed
+clean on a gate that never finished either way. Not this lane's to fix (COMBAT's own gate).
+
 ## Registered
 
 `sounds-the-recap-speaks-10-16`, draft:true, on
