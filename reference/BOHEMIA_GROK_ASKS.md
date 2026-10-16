@@ -130,3 +130,7 @@
     modding community's extracted game scripts (the game's data files are readable by modders; cite the file or the page).
     One page per system, plain sentences, numbers with sources, 'the data does not say' where it does not. Keep going
     system by system until every part of the game has a page; this ask never closes.
+
+
+# ASK 26 (10/16, from his words: 'our map has to be as big as Battle Brothers... a larger grid or something'; rule 109)
+    THE MAP'S SIZE IN NUMBERS: how many hex tiles across and down the Battle Brothers world map is at each map size setting; how many in-game days a company at walking speed takes to cross it corner to corner and edge to edge; how many settlements and how many locations (camps, ruins, legendary places) a map holds at each size; the camera's near and far zoom stops (how many tiles fit on a 1080p screen at each); the party marker's size in pixels against the map. Sources: the wiki, the dev blog, the modders' extracted world generation scripts; cite each number; 'the data does not say' where it does not.
