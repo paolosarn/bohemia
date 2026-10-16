@@ -21255,6 +21255,7 @@ OPPOSITE of what it sounds like -- the FEET travel 1-6px and the hip travels 0. 
 A WEIGHT SHIFT OVER PLANTED FEET IS NOT EXPRESSIBLE ON THIS RIG.
 
 === COOK FOUR: ONE HOUSE THE PACK'S WAY (10/10, cook4)
+ROUND 3 (10/16): the ranch roof from MEASURED pack ratios (roof/wall 1.49, eave 13.7%, lean 5.7%) in VOTE as a PLACEHOLDER (cook4-the-roof-measured-10-16); FINAL? cards retitled PLACEHOLDER (ROUND THIRTEEN); [the house skins back on the map] handed back OPEN. ONE asset per round from here (101d). NEXT: his word, then the corner shop's turn.
 HIS VOTE: ranch UP 'not final... triangle ass roofs'. Round 2 in VOTE: straight roofs (cook4-the-straight-roof-10-13). No hip triangles on anything this lane draws from here. Still waiting: the corner shop, the motel.
 [one at a time] asset: THE MOTEL in VOTE (cook4-the-motel-10-11). Three waiting for his word: the house, the corner shop, the motel. NEXT: the gas station, or his correction first.
 [one at a time] asset: THE CORNER SHOP in VOTE (cook4-the-corner-shop-10-11). Waiting on his word for the house (cook4-a-house-a-man-can-live-in-10-11) and the shop. NEXT: a third kind (the motel or the gas station) at true size, or his correction first.
