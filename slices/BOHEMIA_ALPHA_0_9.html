@@ -20383,6 +20383,15 @@ function buildFaceEditor(){
 document.getElementById('portraitCv').addEventListener('click',()=>{
   faceOpen=!faceOpen;document.getElementById('faceEd').classList.toggle('on',faceOpen);
   if(faceOpen)buildFaceEditor();});
+/* THE BARBER'S DOOR (RUN TWO [the barber's door], 10/16; his third votes 37i, his 9/27 note: 'you can only customize your
+   face and portrait at the barber in the settlement menu'). The settlement screen, two iframes down, posts this to the top
+   window when you sit in the barber's chair: open PORTRAIT's face maker (every dial a slider) on its own tab, the haircut
+   shelf inside it. Nothing else opens it from the settlement. */
+window.addEventListener('message',function(ev){var d=ev&&ev.data;if(!d||d.type!=='BOHEMIA_OPEN_FACE_MAKER')return;
+  try{const t=document.querySelector('[data-p="char"]');if(t)t.click();
+    if(!faceOpen)document.getElementById('portraitCv').dispatchEvent(new Event('click'));
+    setTimeout(function(){const fe=document.getElementById('faceEd');if(fe)fe.scrollIntoView({behavior:'smooth'});},60);
+    window.__faceMakerOpenedBy=(d.from||'?')+':'+(d.what||'face');}catch(_e){}});
 
 /* RIGID_AB_CHIP (Paolo 7/26/26): one tap flips the whole character between the
    renderer with the invented pixels and the one without, so the change is

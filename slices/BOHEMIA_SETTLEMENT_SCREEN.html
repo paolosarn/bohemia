@@ -1010,8 +1010,10 @@ function openB(k, line){
       post('barber',{opens:r.opens}); shelf();
       openB('barber','Bueno. Tell me what you want.');
       var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent='';
-      sb.appendChild(act('Your face', '', function(){ post('barber',{open:'faceEditor'}); heard('The face maker opens.'); }));
-      sb.appendChild(act('Your haircut', '12 cuts', function(){ post('barber',{open:'hairBank'}); heard('The haircut shelf opens.'); }));
+      /* the face maker lives in the alpha, two frames up: ask the top window for it (RUN TWO [the barber's door]) */
+      var faceMaker = function(what){ post('barber',{open:what}); try{ if(window.top && window.top !== window) window.top.postMessage({type:'BOHEMIA_OPEN_FACE_MAKER', from:'settlement', what:what}, '*'); }catch(e){} };
+      sb.appendChild(act('Your face', '', function(){ faceMaker('faceEditor'); heard('The face maker opens.'); }));
+      sb.appendChild(act('Your haircut', '12 cuts', function(){ faceMaker('hairBank'); heard('The haircut shelf opens.'); }));
     }, bats()<1));
   }
   else if(k==='arms' || k==='smith' || k==='armourer'){ shopSheet(k, body, acts, line); }
