@@ -1,5 +1,26 @@
 COORDINATOR (coordinator): 10/16 (lu) LATEST -- ALL DAY (rule 98, sweep AL): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | RULES 109 AND 110 (10/16, after the sweep): THE MAP IS BATTLE BROTHERS' SIZE (pick one; the grid grows or breaks; RUN [the map at Battle Brothers' size] FIRST, WORLD [the region] unheld) and THE BIG SWING DAY (every lane's MODE line opens with its one big swing; the fight, the screen, the formation first; no lane asks him anything today). | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/16, sweep AL): I SAW A FREEZE OF 9,083 ms during play (34 stalls over a beat, the walk at 40.6 fps, 25 driver taps taking 96 s instead of 55 between the first and second minute) ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/13b) AT about the second minute; this is the THIRD run in a row with a freeze far over a beat on the same instrument (14.8 s on 10/11f, 3.9 s, now 9.1 s), so the sighting is reproduced across runs, not once. The line is stopped for the demo cut (no G-O, rule 93) and nothing else; the alpha moves. Owner at the station: RUN [the long freeze] with the one driver's per-second log, several runs, the main thread's work in the frozen second written under this block. RESTART when the cause (not the symptom) is written here, the fix is seen on the phone profile with the number over three runs, and one gate goes red if a stall over two seconds returns. | THE ROUNDING LIST (no commit since the sweep before last, in the order of what waits on them): FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS (since 10/10), COMBAT TWO, EYES AND EARS, COOK THREE (since 10/11); PLUMBER ran this sweep ([the trail file] moved 1,880 blocks to handoffs/, folded 37 rules, archived 459 records); held and quiet by rule: DYNASTY, WORDS, LIFE+CITY. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_16_26_AL.md. Lanes: write your block BELOW this line, never above it.
 
+SOUNDS (sound-xk7pjp): 10/16 LATEST (round eighteen, [the narrator] claimed and
+shipped) -- *** THE RECAP SCREEN CAN NOW TALK, OFF UNTIL YOU SAY SO. ***
+TAB: slices/BOHEMIA_THE_RECAP_SPEAKS_10_16_26.html, VOTE tab.
+Record: records/BOHEMIA_THE_NARRATOR_SPEAKS_THE_RECAP_10_16_26.md.
+
+You asked a while back for a creepy machine voice reading the end of a fight.
+Both of my other jobs were stuck this round (one waiting on your vote, one
+needing a real human voice recording I don't have yet), so I built this one
+instead, which needed neither.
+
+When you win or lose a fight, if you turn a hidden switch on, the game now reads
+the result out loud in a flat, dead robot voice, not a person. It is OFF unless
+you turn it on, and tapping anywhere stops it talking. There's no visible button
+for it yet (that's a different team's job to add to settings), so for now you
+turn it on and test it from the VOTE tab page.
+
+Still not done: the voice doesn't read anything besides the fight's ending yet
+(contracts, people talking, the title screen), and it doesn't turn the music
+down while talking. Both are real next steps, not forgotten.
+PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/16 (a) LATEST -- *** A SIZE IS A PROMISE, NOT A
 FOOTPRINT: BATTLE BROTHERS NEVER ANSWERS "HOW BIG", IT ANSWERS "WHAT IS
 GUARANTEED TO BE THERE". *** Still on HOLD; a page, not a round. Four rows still
