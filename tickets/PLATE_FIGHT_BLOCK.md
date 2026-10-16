@@ -30,3 +30,6 @@ SWEEP AJ (10/11): COMBAT [light that interacts] landed on the alpha (09b7308, ST
 
 
 SWEEP AK (10/13): COMBAT's both-teams camera REFIRED and landed with his numbers (rule 104a met; CUE 9.5 and 9.6 LANDED, live in the demo's fight). COOK TWO's first stretched crossing from his tiles is in VOTE (yellow until the moodboard). COOK FOUR served three buildings in two rounds; the pass says one per round (rule 101d), the ranch's roof next. PLUMBER quiet two days; the pipe's gates wait on it. The plate stays HELD AT THE PASS until his moodboard. ALL DAY: 1 plate, held.
+
+
+SWEEP AL (10/16): COMBAT's zone of control landed live (CUE 9.65). COOK TWO's 47-piece sidewalk set in VOTE (his corners). COOK FOUR's straight roofs in VOTE (his roofs). COOK indexed everything he owns. The plate stays HELD AT THE PASS until his moodboard. PLUMBER quiet six days; the pipe's gates still wait. ALL DAY: 1 plate, held.

@@ -1,5 +1,5 @@
 {
- "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red. Eleventh votes 10/10: 12 verdicts; reds: sounds-dirt-is-slower-10-5, ui-the-maps-bar-10-5, cook4-house-two-the-ranch-10-10, cook2-one-at-a-time-the-corner-10-10. Sweep AI 10/11: the garage-door redo is his ask and goes red; the two older ranch cards gray as superseded. Reds sit at 4, UNDER SIX BY DESIGN: rule 108 ROUND THIRTEEN (10/11, 'until I do this everything is a placeholder, keep cooking') puts no FINAL? art card in front of him before his moodboard lands, so the yellow art items are not promoted this sweep; his own asks and non-art forks still go red at once. Sweep AJ 10/11: the pack card's check (what he already owns) red; the fall (his ask, V2) red; the light yellow behind 104a; the body-formula finding gray with its citation. 6 red. Twelfth votes 10/11: 6 verdicts (417); the six reds consumed; promoted: sounds-the-night-has-insects-10-5. Sweep AK 10/13: ten new items tagged; rule 104(a) met so COMBAT's cards are judged on their own again; 5 red (his asks: the flip, the party walks, both teams and the map, the map answers after BEGIN, the night's insects); the art FINAL? cards stay yellow until his moodboard.",
+ "made": "10/10 sweep AG, the coordinator's school round three (triage): every unjudged item tagged; the VOTE tab shows RED first and alone, YELLOW under a fold, GREEN and GRAY hidden (UI [the triage filter]). A tag is the coordinator's and only the coordinator writes this file. red = he must see it now (one per lane per sweep, twelve at most); yellow = a real fork no lane is stopped by, promoted oldest first when red drops under six; green = the lane's pick stands, he corrects by playing; gray = the team already knows the answer, with the citation. Sweep AH: two new TUNING pages tagged gray. Rule 101 (10/10): every art card in this tab is a placeholder's card; FINAL comes one sheet at a time. Eighth votes 10/10: 26 verdicts; reds re-filled by promotion: ui-the-fights-bar-10-4, sounds-the-ambience-comes-down-10-4, animation-the-fights-clips-10-9, run2-the-bar-10-9, world-places-worth-going-to-10-9, factions-four-with-a-face-10-9, cook-the-building-props-10-10. Ninth votes 10/10: 7 verdicts; promoted: sounds-the-turn-closes-10-4, ui-settings-in-our-materials-10-4, run2-the-clinic-10-9, world-the-roads-10-9, animation-the-parties-walk-10-9, cook-his-block-as-a-place-10-10. Tenth votes 10/10: 6 verdicts; promoted: sounds-the-road-is-faster-10-5, ui-the-settlements-labels-10-5, cook-the-far-end-from-his-picks-10-10. After the tenth votes: the lanes' answers to his 10/10 rulings go red at once (one per lane), 12 red. Eleventh votes 10/10: 12 verdicts; reds: sounds-dirt-is-slower-10-5, ui-the-maps-bar-10-5, cook4-house-two-the-ranch-10-10, cook2-one-at-a-time-the-corner-10-10. Sweep AI 10/11: the garage-door redo is his ask and goes red; the two older ranch cards gray as superseded. Reds sit at 4, UNDER SIX BY DESIGN: rule 108 ROUND THIRTEEN (10/11, 'until I do this everything is a placeholder, keep cooking') puts no FINAL? art card in front of him before his moodboard lands, so the yellow art items are not promoted this sweep; his own asks and non-art forks still go red at once. Sweep AJ 10/11: the pack card's check (what he already owns) red; the fall (his ask, V2) red; the light yellow behind 104a; the body-formula finding gray with its citation. 6 red. Twelfth votes 10/11: 6 verdicts (417); the six reds consumed; promoted: sounds-the-night-has-insects-10-5. Sweep AK 10/13: ten new items tagged; rule 104(a) met so COMBAT's cards are judged on their own again; 5 red (his asks: the flip, the party walks, both teams and the map, the map answers after BEGIN, the night's insects); the art FINAL? cards stay yellow until his moodboard. Sweep AL 10/16: eight new items tagged; 8 red (his asks: the straight roofs, the 47 corners, the whole bank, the party baked, the flip, the party walks, both teams, the night's insects); ragdoll, the six, zone of control yellow behind their lanes' one red.",
  "cap": 12,
  "tags": {
   "run-clouds-and-the-near-stop-10-2": {
@@ -843,8 +843,40 @@
    "why": "his eleventh-vote spec measured: 4.0 tiles north and south, 0 percent black on three screens, the board never cut; rule 104(a) met"
   },
   "run-the-map-answers-after-begin-10-11": {
+   "tag": "gray",
+   "why": "superseded by run-the-map-people-come-baked-10-13 (the same stopwatch, a later build)"
+  },
+  "cook4-the-straight-roof-10-13": {
    "tag": "red",
-   "why": "his load complaint ('I gotta wait 40 seconds'): the party moves about 20 s from the link, was 33; he feels it on the DEMO"
+   "why": "his twelfth-vote ask ('triangle ass roofs') answered, one asset in one round"
+  },
+  "cook2-stretch-the-pack-47-10-13": {
+   "tag": "red",
+   "why": "his ask on the corners that do not connect answered: the full 47-piece sidewalk set from his slabs"
+  },
+  "cook-the-whole-bank-10-13": {
+   "tag": "red",
+   "why": "his 'look again' (82a) answered for good: everything he owns in one scroll, 294 packs, 6,747 tiles never judged"
+  },
+  "character-the-body-in-meters-10-13": {
+   "tag": "gray",
+   "why": "data for the master rig (DIRECTION), not a look; records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md"
+  },
+  "animation-ragdoll-10-13": {
+   "tag": "yellow",
+   "why": "his named row, done; waits behind this lane's one red this sweep (the party walks as one) and promotes next sweep"
+  },
+  "ui-the-six-at-pack-pixels-10-13": {
+   "tag": "yellow",
+   "why": "his two asks answered (the noose gone, the six at pack pixels, a CREW button); waits behind this lane's one red (the flip) and promotes next sweep"
+  },
+  "run-the-map-people-come-baked-10-13": {
+   "tag": "red",
+   "why": "his load complaint: the party moves 16 s after the link (was 33); he feels it on the DEMO; replaces the map-answers card"
+  },
+  "combat-zone-of-control-is-melee-only-10-13": {
+   "tag": "yellow",
+   "why": "his rule 103 built; waits behind this lane's one red (both teams and the map) and promotes next sweep"
   }
  }
 }
