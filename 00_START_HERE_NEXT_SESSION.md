@@ -5470,7 +5470,11 @@ I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
 === DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
-ROUND LOG 10/13a (latest): [see while you draw] SHIPPED: skills/bohemia-pixel-art/scripts/look.py
+ROUND LOG 10/16a (latest): [the master rig] SHIPPED: tools/bohemia_direction_master_rig.py
+(bpy 4.2 in a venv, CPU; 57 ppm; tilt 45, no turn; eight facings; palette snap) + gates/sprite_scale_gate.py
+(PLUMBER: into the suite). Proof: Kenney CC0 truck, records/target/master_rig/. Found: true size = 302 px car vs
+his pack's 96. Next (sweep AI order): (4) the pack-rule sheet with COOK TWO; (5) taste session on his folder.
+ROUND LOG 10/13a: [see while you draw] SHIPPED: skills/bohemia-pixel-art/scripts/look.py
 (look sheet + five stages + log + summary), proven on a burnt car from his parts in 20 cycles
 (records/target/loop_proof/), three lessons in SKILL.md section 8. Next (sweep AI order):
 (3) [the master rig], (4) the pack-rule sheet with COOK TWO, (5) the taste session on his folder.
@@ -5485,7 +5489,7 @@ in records/target/taste/ + key + records/BOHEMIA_THE_TASTE_SESSION_10_11_26.md, 
 VOTE; registers the round his moodboard lands. The coordinator's order for this lane
 now: (1) the skill file, bank page first; (2) [see while you draw]; (3) [the master
 rig]; (4) the pack-rule sheet with COOK TWO; (5) the taste session, on his folder.
-REFERENCE CHECK blocks added at the seam to five COOK TWO tools (corner, no borders, stretch x2,
+REFERENCE CHECK blocks added at the seam to five COOK TWO tools (10/16: two more, the 47 blob set and CHARACTER's body in meters) (corner, no borders, stretch x2,
 curb height).
 ROUND LOG 10/10f: [the floor on the card] SHIPPED: THE CARD OF NUMBERS
 from all 1,927 bank tiles by family (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md),

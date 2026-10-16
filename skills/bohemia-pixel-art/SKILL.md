@@ -42,6 +42,11 @@ and the locked laws. Never our placeholders, never memory. Rules 100, 101, 104, 
 | motion | twelve drawn keys a bar at 120 BPM; no joint turns more than 120 degrees between two keys | the envelope law |
 | the grid | square | the third votes |
 
+## 1b. ANYTHING THAT TURNS: THE MASTER RIG
+A person, a beast, a car: through tools/bohemia_direction_master_rig.py (one camera, tilt 45, never turned, 57 px a
+metre, eight facings, his palette). Its rig.json must pass gates/sprite_scale_gate.py. Never a mirrored half, never a
+hand-drawn facing (records/BOHEMIA_THE_MASTER_RIG_10_16_26.md).
+
 ## 2. THE PALETTES
 `references/palettes/<family>.gpl` (road, ground, marking, settlement, door, lamp, prop): 64 colours each, median cut
 over every opaque pixel of the family, dark to light, with each colour's share. They are a SNAP for anything the rig or

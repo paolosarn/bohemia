@@ -8,6 +8,10 @@ The mask is rounded by a blur-and-threshold (convex and concave corners both sof
 where the nearest walk is straight north (the face the 45 degree eye sees), the lit lip everywhere else.
 Proof: the 47 on one sheet, and a random sidewalk layout tiled from them beside the same layout as hard squares.
   python3 tools/bohemia_cook2_stretch_the_pack_47_10_13_26.py
+
+REFERENCE CHECK (added at the seam by DIRECTION 10/16, the 9/4 standing duty): the compare law
+(laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
+the card of numbers and skills/bohemia-pixel-art, AH-01 and AH-03. The source is his own tiles. No reference game.
 """
 import json, os, sys, itertools
 import numpy as np

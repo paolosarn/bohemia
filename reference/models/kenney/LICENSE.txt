@@ -1,0 +1,5 @@
+vehicle-truck-yellow.glb: Kenney (kenney.nl), from github.com/KenneyNL/Starter-Kit-Racing (models/), whose README
+states "3D Models & sounds (CC0 licensed)". CC0 1.0: no rights reserved; credit optional, given here. Fetched by
+DIRECTION 10/16/26 as the master rig's first proof model (rule 108 ROUND EIGHT b). A placeholder-grade proof; not in
+the game (rule 100).
+Textures/colormap.png: the same kit's models/Textures/colormap.png, CC0, the truck's colour atlas.

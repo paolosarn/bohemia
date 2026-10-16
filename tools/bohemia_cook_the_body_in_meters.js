@@ -36,6 +36,10 @@
  * here, a placeholder measured for its replacement, never edited (rule 101c).
  *
  * Run: node tools/bohemia_cook_the_body_in_meters.js
+  *
+ * REFERENCE CHECK (added at the seam by DIRECTION 10/16, the 9/4 standing duty): the compare law, the approved
+ * asset index, the card of numbers, skills/bohemia-pixel-art, AH-01 and AH-03. A measurement, not a drawing.
+ * No reference game.
  */
 'use strict';
 const fs = require('fs');

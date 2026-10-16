@@ -1,0 +1,42 @@
+{
+ "engine": "CYCLES",
+ "res": 546,
+ "ortho_scale": 9.578947368421053,
+ "real_dims_m": [
+  2.839,
+  5.3,
+  2.934
+ ],
+ "scale_from_model": 1.8929,
+ "model": "reference/models/kenney/vehicle-truck-yellow.glb",
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "prop",
+ "files": [
+  "records/target/master_rig/truck/rig_N.png",
+  "records/target/master_rig/truck/rig_NE.png",
+  "records/target/master_rig/truck/rig_E.png",
+  "records/target/master_rig/truck/rig_SE.png",
+  "records/target/master_rig/truck/rig_S.png",
+  "records/target/master_rig/truck/rig_SW.png",
+  "records/target/master_rig/truck/rig_W.png",
+  "records/target/master_rig/truck/rig_NW.png"
+ ],
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)"
+}
