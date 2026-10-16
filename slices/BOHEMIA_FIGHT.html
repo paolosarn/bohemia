@@ -220,7 +220,13 @@ const FIGHT = (function () {
     if (v === null || v === undefined) return 1;
     const m = String(v).match(/\d+/g); return m ? Math.max.apply(null, m.map(Number)) : 1;
   }
-  function rangeMin(row) { return row.range_min !== undefined && row.range_min !== null ? rangeMax(row.range_min) : 1; }
+  /* the data's range_min is the low end of a range that spreads (the wiki's throwing weapons, 'the minimum range is 2'); where
+     it equals range_max it is the one range the class table gives (a bow's 7, a crossbow's 6), never a minimum: read as one,
+     the RIFLE fired at exactly six tiles and the bow at exactly seven */
+  function rangeMin(row) {
+    const lo = row.range_min, hi = row.range_max;
+    return lo !== undefined && lo !== null && hi !== undefined && hi !== null && rangeMax(lo) < rangeMax(hi) ? rangeMax(lo) : 1;
+  }
   function dist(a, b) { return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)); }
   function inBoard(x, y) { return x >= 0 && y >= 0 && x < S.w && y < S.h; }
   function onField(u) { return !u.dead && !u.down && !u.fled; }
@@ -885,7 +891,8 @@ const FIGHT = (function () {
       return d <= rangeMax(w.range) && Math.abs(level(a.x, a.y) - level(t.x, t.y)) <= R('hit_chance.height.melee_max_height_gap');
     }
     const up = Math.max(0, level(a.x, a.y) - level(t.x, t.y)) * R('hit_chance.height.ranged_range_per_level');
-    return d >= rangeMin(w) && d <= rangeMax(w.range) + up && sees(a, t);
+    const floor = isGun(w) ? R('ours.gun_min_range') : 1;   /* rule 83: a gun never fires at a man beside the shooter */
+    return d >= Math.max(rangeMin(w), floor) && d <= rangeMax(w.range) + up && sees(a, t);
   }
   function hitChance(a, t, skill) {
     const w = a.weapon, parts = [];
@@ -2025,7 +2032,9 @@ function draw(now) {
     });
     S.units.forEach(function (t) {
       if (!FIGHT.canStrike(u, t) || !FIGHT.sideSees('you', t)) return;
-      cx.fillStyle = 'rgba(196,85,63,.32)'; cx.fillRect(sx(t.x * UI.tw) + 1, sy(t.y * UI.th) + 1, tw - 2, th - 2);
+      /* a man he can hit: his tile filled and edged red, so the reach reads at a glance (rule 83: a gun's begins at two) */
+      cx.fillStyle = 'rgba(196,85,63,.42)'; cx.fillRect(sx(t.x * UI.tw) + 1, sy(t.y * UI.th) + 1, tw - 2, th - 2);
+      cx.strokeStyle = 'rgba(236,98,70,.95)'; cx.lineWidth = 2.5; cx.strokeRect(sx(t.x * UI.tw) + 2, sy(t.y * UI.th) + 2, tw - 4, th - 4);
     });
     if (UI.skillMode) {
       FIGHT.skillTargets(u, UI.skillMode).forEach(function (q) {

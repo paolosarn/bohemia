@@ -736,6 +736,34 @@ async function turnPace() {
 /* THE ART AT ITS OWN PIXELS (DIRECTION 10/9, FIGHT VERDICT 22): close in, the ground is drawn from COMBAT TWO's blocks onto
    the device's pixels, so a tile's edges on the glass match its edges in the file. Measured: the fraction of neighbouring
    pixel pairs that differ by more than a step of light, in one board tile on the glass against the same tile in its block. */
+/* MELEE ONE TILE, GUNS TWO (rule 83, Paolo 10/10: 'melee weapons work on one tile away, all guns 2+ minimum'): a gun
+   never fires at a man beside the shooter; a gun fires anywhere from two to its range (the fight had read the bow's and
+   the crossbow's one range as the only distance they could fire: the RIFLE hit at exactly six, the bow at exactly seven);
+   melee reaches the next tile; the PISTOL rides the dagger, the club at one; a shooter beside a man steps back, then fires */
+async function gunsTwo() {
+  const open1 = async (party) => { const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm: 'window.FIGHT_OPTS={seed:3,speed:30,kind:"strip",flat:true,deploy:false,cap:1,auto:true,party:' + JSON.stringify(party) + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.round, null, { timeout: 30000 }); return d; };
+  const d = await open1(['brigand_thug']);
+  const reach = await d.page.evaluate(() => { window.tick = function () {}; const u = FIGHT.alive('you')[0], t = FIGHT.alive('them')[0], W = DB.weapons.rows, out = {};
+    for (const c of ['crossbow', 'firearm', 'bow', 'throwing', 'dagger', 'mace', 'sword']) { const w = W.find(x => x.class === c); u.weapon = w; u.loaded = true; u.ammo = null; out[c] = [];
+      for (let dd = 1; dd <= 8; dd++) { u.x = 2; u.y = 7; t.x = 2 + dd; t.y = 7; u.ap = u.apTurn; u.fat = 0; if (FIGHT.canStrike(u, t)) out[c].push(dd); } }
+    return { out, range: Object.fromEntries(['crossbow', 'firearm', 'bow'].map(c => [c, W.find(x => x.class === c).range])) }; });
+  reach.err = d.errs[0]; await d.close();
+  const d2 = await open1(['brigand_marksman']);
+  const back = await d2.page.evaluate(() => { window.tick = function () {}; const S = FIGHT.S, u = FIGHT.alive('you')[0], m = FIGHT.alive('them')[0];
+    m.weapon = DB.weapons.rows.find(w => w.class === 'crossbow'); m.loaded = true; m.ammo = null; u.x = 5; u.y = 7; m.x = 6; m.y = 7; u.hp = u.hpMax = 999;
+    let g = 0; while (FIGHT.current() !== m && g++ < 50) { const c = FIGHT.current(); if (c === u) FIGHT.endTurn(c); else FIGHT.aiStep(c); }
+    m.ap = m.apTurn; const n0 = S.log.length; for (let i = 0; i < 8 && FIGHT.current() === m; i++) FIGHT.aiStep(m);
+    const L = S.log.slice(n0).filter(e => e.id === m.id); return { stepped: L.some(e => e.t === 'step'), shots: L.filter(e => e.t === 'attack').length, at: Math.max(Math.abs(m.x - u.x), Math.abs(m.y - u.y)) }; });
+  back.err = d2.errs[0]; await d2.close();
+  const o = reach.out, upto = (a, lo, hi) => a.length === hi - lo + 1 && a[0] === lo && a[a.length - 1] === hi;
+  leg(upto(o.crossbow, 2, reach.range.crossbow) && upto(o.firearm, 2, reach.range.firearm) && !reach.err, '*** GUNS TWO (rule 83) ***: the RIFLE fires from two tiles to its range and the SHOTGUN at its two, never at a man beside the shooter (the rifle hit at exactly six before)',
+    'rifle ' + o.crossbow.join(',') + '; shotgun ' + o.firearm.join(','));
+  leg(upto(o.bow, 1, reach.range.bow) && upto(o.throwing, 2, 4), '  the bow fires anywhere inside its reach (it fired at exactly seven), the bottles from the wiki\'s minimum two', 'bow ' + o.bow.join(',') + '; bottles ' + o.throwing.join(','));
+  leg(o.dagger.join() === '1' && o.mace.join() === '1' && o.sword.join() === '1', '  melee reaches the next tile; the PISTOL rides Battle Brothers\' dagger, the club at one, until his guns vote gives it a shot (47b)', 'pistol ' + o.dagger.join(',') + ', pipe ' + o.mace.join(',') + ', blade ' + o.sword.join(','));
+  leg(back.stepped && back.shots > 0 && back.at >= 2 && !back.err, '  a rifleman beside a man steps back before he fires', (back.stepped ? 'stepped back, ' : 'NO STEP, ') + back.shots + ' shot at ' + back.at + ' tiles');
+}
+
 /* ZONE OF CONTROL IS MELEE ONLY (rule 103, Paolo 10/10: 'anyone using a ranged weapon has no zone of control and you can
    just walk left, up, right, down, across their tiles'): our PISTOL (Battle Brothers' dagger underneath), SHOTGUN and RIFLE
    hold no ring; a melee man's eight tiles stop you and cost his free swing; the ring follows the weapon in his hands; on
@@ -870,7 +898,11 @@ async function actFramed() {
       const look = a => { const u = FIGHT.byId(a.e.id); if (!u) return; const x0 = a.k === 'step' ? a.e.x : u.x, y0 = a.k === 'step' ? a.e.y : u.y;
         const tall = MAN_IDLE * FIGHT_UI.zoom / FIGHT_UI.near, feet = sy((y0 + .9) * FIGHT_UI.th), head = feet - tall, x = sx((x0 + .5) * FIGHT_UI.tw);
         window.__hd.push({ off: x < 0 || x > W || feet < TOPH || head > H - BOTH, cut: head < TOPH - 2 || feet > H - BOTH + 2, all: allFramed() }); };
-      const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { look(cur); cur = null; } if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
+      /* an act is judged when it ends with the camera at rest: an act that ends mid-glide (the camera catching up, a frame or
+         three under load) is judged the frame the glide lands */
+      let pend = [];
+      const loop = () => { const a = FIGHT_UI.anim[0]; if (cur && a !== cur) { pend.push(cur); cur = null; } if (pend.length && !FIGHT_UI.glide) { pend.forEach(look); pend = []; }
+        if (a && a.at && (a.k === 'step' || a.k === 'attack')) cur = a; requestAnimationFrame(loop); };
       requestAnimationFrame(loop); });
     await d.page.waitForTimeout(30000);
     const r = await d.page.evaluate(() => ({ n: __hd.length, bad: __hd.filter(h => h.off || h.cut).length, lost: __hd.filter(h => !h.all).length }));
@@ -987,6 +1019,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await gunsTwo();
   await zocMelee();
   await elevenVotes();
   await lightTileByTile();

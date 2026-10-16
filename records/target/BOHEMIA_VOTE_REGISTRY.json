@@ -8550,7 +8550,8 @@
       "src": "BOHEMIA_THE_RECAP_SPEAKS_10_16_26.html"
      },
      "draft": true
-    }
+    },
+  {"id": "combat-guns-need-two-tiles-10-16", "kind": "ui", "lane": "combat", "sha": "pending", "made": "10/16", "title": "GUNS FROM TWO TILES", "why": "A rifle now hits anyone from two squares out to six and never the man right beside the shooter, where before it could only hit a man at exactly six squares, and an enemy rifleman who starts next to your man steps back first and then fires. Put a rifleman in any fight and you see the men he can hit boxed in red, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_GUNS_NEED_TWO_TILES_10_16.jpg"}, "draft": true}
  ],
  "verdicts": [
   {

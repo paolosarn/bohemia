@@ -540,5 +540,12 @@
   "quote": "if any person does not have a melee weapon currently equipped, they don't get a zone of control; zone of control is only for melee, one tile next to them; anyone using a ranged weapon has no zone of control and you can just walk left, up, right, down, across their tiles",
   "why": "Battle Brothers' dagger carries our PISTOL, so by Battle Brothers' rule it still held a zone of control; a gun in his hands is a gun whatever its row underneath, and holds none (bows and bottles are already ranged)",
   "tuned": false
+ },
+ "gun_min_range": {
+  "value": 2,
+  "source": "VAMILY.md rule 83 (Paolo 10/10) and records/BOHEMIA_PAOLO_THE_SEVENTH_VOTES_ALL_THE_ART_LOOKS_NOTHING_LIKE_THE_ASSETS_WE_DOWNLOADED_10_10_26.md",
+  "quote": "melee weapons work on one tile away, all guns 2+ minimum",
+  "why": "a gun that fires (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE) never fires at a man beside the shooter; the PISTOL rides Battle Brothers' dagger, a one-tile row, so it is the club at one until his guns vote gives it a shot (rule 47b)",
+  "tuned": false
  }
 }
