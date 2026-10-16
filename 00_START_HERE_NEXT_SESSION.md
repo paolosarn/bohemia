@@ -335,6 +335,38 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-yke55s): 10/16 LATEST (round ten) -- *** A SHORT
+ROUND ON PURPOSE: STILL BLOCKED THE SAME TWO WAYS, SO THIS ROUND CHECKED
+SOMETHING NEW INSTEAD OF REPEATING ITSELF. ***
+
+RE-SYNCED (22 commits), re-read VAMILY.md's front page and this lane's section
+fresh. Nothing changed on [the twin on the portraits] (still no face pack
+piece, still no pipe) or [the keepers' and hires' bodies] (still waiting on
+another lane). A fourth round saying so again would be the STOP PRODUCING
+tell, so it was not written.
+
+INSTEAD, CHECKED A REAL NEW RISK: RUN shipped a body-baking cache this round
+(tools/bohemia_bake_the_demo_cast.js, [ten seconds to play] round four) that
+caches the map's starter people and crowd as static JSON instead of
+re-rendering them live. Five times this session a cache or a second data
+source has silently drifted from the body it should match, so this was worth
+checking rather than assuming. Read the new file in full: it caches walked
+BODY frames only, zero mentions of face or portrait anywhere in it. Re-ran
+this lane's two drift gates (hair_match_regression_gate, portrait_matches_
+body_gate) and confirmed both still call BOH_PERSONLOOK.lookFor LIVE, never
+the new cache. No new risk; nothing broken, nothing to fix.
+
+TAB: NOT IN VOTE -- a safety check, not a look, same discipline as the last
+two confirmation-only rounds.
+Record: records/BOHEMIA_PORTRAIT_THE_BAKED_CAST_CHECKED_10_16_26.md. Board
+note added to [hair match regression gate]'s SHIPPED row.
+NEXT: check whether PLUMBER's [the toolchain]/[the gun in the repo] have
+shipped a callable pipe, whether COOK's [the two holes] has gotten him a
+real pack to buy, or whether his moodboard has landed, before this lane's
+next round opens another study page. If none of the three have moved,
+another short, honestly-different check is right -- not a repeat.
+PENDING Paolo: nothing.
+
 PORTRAIT (portrait-vamily-yke55s): 10/13 LATEST (round nine) -- *** STILL
 BLOCKED, BUT NOW WITH ITS OWN NUMBER: THE QUARTERMASTER'S COUNT, BUILT FRESH
 FOR THE FACE FAMILY, NOT JUST CITED. ***
@@ -387,65 +419,6 @@ count] have shipped before this lane's next round opens another study page;
 check whether his moodboard Drive folder has landed. If both are still open,
 another honest confirmation round is right, not manufactured pixels.
 PENDING Paolo: nothing.
-
-PORTRAIT (portrait-vamily-yke55s): 10/11 LATEST (round eight) -- *** A
-CONFIRMATION, NOT A DELIVERABLE: THE TWIN BLOCKER RE-CHECKED UNDER THE NEW
-RULE, AND IT HOLDS, DOUBLY. ***
-
-WHAT CHANGED THIS ROUND: rule 100 was amended again by the coordinator's
-school round eleven, THE APPRENTICE COPIES FIRST: before any cook lane
-cuts or stretches a family, it must first reproduce ONE PACK PIECE of that
-family through the real pipe (the rig, the shrink, the snap, Aseprite),
-twin-gate-measured; a lane whose copy misses the family's own spread does
-not touch that family yet.
-
-CHECKED BOTH HALVES, NOT ASSUMED: (1) is there a pack piece of a FACE to
-copy? reference/art_bank/portrait/ and reference/library/face/ still hold
-only a README/INDEX, no real image -- structurally there is none; COOK
-THREE's own section already says "the packs hold no people." (2) does the
-reproduction PIPE even exist yet? checked for tools/aseprite/ and an
-installed Aseprite binary -- neither exists; PLUMBER's toolchain rows are
-still law and research, not a working tool.
-
-THE FINDING: [the twin on the portraits] is blocked twice over, not once.
-Neither half is this lane's to fix -- the pipe is PLUMBER's, a real face
-reference is Paolo's own moodboard (still pending his Drive folder) or
-photos he sends. Updated the row on the board with this re-check so a
-future round does not re-derive it, and so the coordinator's sweep can see
-a pack-less family is a real edge case the new rule did not name.
-
-ALSO CHECKED: whether there was any other zero-pixel, genuinely useful
-thing to cook instead of a bare confirmation. The "two systems drifted"
-bug-class surface (every _np.equipped.* read in faceFor/renderFace) is
-closed -- hat and glasses found and proved two rounds ago, skin tone and
-hair colour confirmed correct sources back on 9/20, nothing else reads
-from that system. Manufacturing a new candidate just to have something
-visual would be the STOP PRODUCING tell (a fourth version of the same
-kind of work); the honest, disciplined move was the confirmation.
-
-NO VOTE ITEM THIS ROUND, NAMED HONESTLY: same precedent as the board-
-housekeeping round -- a confirmation is not "a real thing he can hear or
-see" under rule 22, so nothing was forced into the registry.
-
-HIS VERDICT, STILL THE LAST ONE: portrait-the-real-clothes-reach-the-
-portrait-10-10, UP, "That's good. It's just looking like dog shit the
-direction. I appreciate it." -- already read and answered two rounds ago;
-no new verdict landed this round (still 28 portrait verdicts total,
-checked).
-
-GATES: handoff_gate 10/0, open_row_gate -- PORTRAIT still 7 OPEN rows, the
-one fleet failure (RUN TWO, short of three) is not mine.
-
-NEXT ROUND, FIRST MOVE: check COOK's [generate against the pack] row for
-whether it has reached portraits (hand the generation contract over
-directly if so); check PLUMBER's toolchain rows for whether Aseprite/the
-pipe actually exists yet (unblocks the reproduction exercise); check
-whether Paolo's moodboard Drive folder has landed (unblocks a real face
-twin). If all three are still blocked, the honest move is another
-confirmation round, not manufactured pixels.
-
-PENDING PAOLO: none new -- both blockers are already owned by other lanes
-(PLUMBER, DIRECTION) or by his own pending action (the moodboard folder).
 
 WORDS (words-8dqrnq): 10/10 (m) LATEST -- *** YOU PUT THIS LANE ON HOLD. I STOPPED BEFORE
 SHIPPING ANYTHING, NOT AFTER. ***
