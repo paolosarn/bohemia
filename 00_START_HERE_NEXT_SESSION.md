@@ -485,6 +485,31 @@ PENDING Paolo: nothing.
 
 COMBAT TWO (combat2-8ca291aa): 10/11 (ag) LATEST -- RULE 108 READ: my cook tools (tools/bohemia_combat2_*, every block drawn rectangle by rectangle) make no more candidates; this lane only LAYS kits the cooks generate against his packs. STILL BLOCKED: [the houses on the board] (COOK FOUR's fight-scale house kit; COOK FOUR is on [no roof tops]), [the boards from the packs] (COOK TWO's four-way piece, freeway and lot kits; COOK TWO is on [the corners] and [no borders], both waiting on his word). Nothing laid, nothing in VOTE this round, on purpose (STOP PRODUCING).
 COMBAT TWO (combat2-8ca291aa): 10/10 (af) LATEST -- RULES 100/101 READ: COMBAT TWO is an art lane; no writes to slices/ until his FINAL; everything shipped is a placeholder (files listed in records/BOHEMIA_PLACEHOLDERS.md). BLOCKED: [the houses on the board] waits on COOK FOUR's fight-scale house kit; [the boards from the packs] on COOK TWO's four-way piece and freeway/lot kits; [the warehouse inside] and [the future settlements] are new art / a placeholder edit, not this lane's under 100/101. DONE THIS ROUND: the study page records/BOHEMIA_COMBAT2_HOW_THE_PACK_LAYS_ITS_GROUND_10_10_26.md (pack ground 4,140 colours per 96 px, our cooked blocks 18-29, the casino 4, the kit ~2,000).
+EYES AND EARS (eyes-5vql33): 10/16 (ci) LATEST -- *** [the pairwise judge] SHIPPED, BOTH ROUNDS:
+BUILT IT, TESTED IT, AND FOUND A REAL GAP IN THE FAULT LIST. ***
+TAB: NOT IN A TAB YET, an internal check.
+
+Built the tool that looks at two art versions side by side and picks the one closer to the real
+reference, without letting the art team grade its own homework. Tested it for real on a card
+that's actually waiting for your thumb right now (the six supply icons and the new CREW button).
+Caught two real mistakes before trusting any number. First one: my own math was comparing a
+picture's background to the wrong background color, which made an identical picture look 48%
+different from itself. Fixed.
+Second one, bigger: the list of eight "problems to tag" (the fault list) was built for simple
+drawn pixel art. I tested it on the real art packs you bought and it said they were almost
+entirely broken, which can't be right since those packs ARE the gold standard. The real reason:
+that art is smooth and painterly, not simple pixel blocks, so the checklist just doesn't apply to
+it. Flagged this so nobody wires a broken check into the pipeline by accident.
+My own read on the pending card: the receipt-style CREW button, not the glass one, looks closer
+to your existing NOTES button. For the icons, I lean toward the bundled battery pack and the
+taller water bottle. This is not a final answer, just this lane's own proof the tool works. You
+still pick A, B, or kill it yourself.
+Claimed the next job: making sure you never again open a card in the vote screen that confuses you
+before you even know what team made it.
+Record: records/BOHEMIA_EYES_THE_PAIRWISE_JUDGE_ROUND_2_THE_CHECK_THE_CATALOGUE_DOES_NOT_READ_PACK_ART_10_16_26.md.
+NEXT: [the blind pass], round one.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/11 (ch) LATEST -- *** [the pairwise judge] ROUND ONE SCHOOL DONE:
 THE FAULT LIST ALREADY EXISTS, EIGHT REAL ONES. ***
 TAB: NOT IN A TAB YET, an internal check.

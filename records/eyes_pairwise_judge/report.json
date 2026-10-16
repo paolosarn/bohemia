@@ -1,0 +1,121 @@
+{
+  "crew_button": {
+    "question": "CREW BUTTON: A (bare glass) vs B (a receipt like NOTES) -- which is closer to NOTES (the established style already shipped on this bar) in outline weight / material / silhouette?",
+    "a": {
+      "stats": {
+        "orphan": 0.126,
+        "pillow": 0.42,
+        "light_angle": 224.6,
+        "banding_pct": 37.9
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.126
+        ],
+        [
+          "pillow shading",
+          0.42
+        ],
+        [
+          "banding",
+          37.9
+        ]
+      ],
+      "dist_to_twin_pct": 88.32
+    },
+    "b": {
+      "stats": {
+        "orphan": 0.304,
+        "pillow": -0.37,
+        "light_angle": 247.5,
+        "banding_pct": 0.0
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.304
+        ]
+      ],
+      "dist_to_twin_pct": 90.52
+    }
+  },
+  "batteries": {
+    "question": "BATTERIES: A (pack_11_survival_props_045.png) vs B (pack_11_survival_props_044.png) -- NOT a drawn-vs-reference case (rule 82a: both are direct, uncooked cuts of a real pack tile, each its own twin). The real question here is which pack tile reads more clearly as \"batteries\" at icon size, not which is closer to a shared twin -- named honestly rather than forcing the wrong frame.",
+    "a": {
+      "stats": {
+        "orphan": 0.874,
+        "pillow": 0.45,
+        "light_angle": 268.9,
+        "banding_pct": 0.0
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.874
+        ],
+        [
+          "pillow shading",
+          0.45
+        ]
+      ],
+      "dist_to_own_twin_pct": 0.0
+    },
+    "b": {
+      "stats": {
+        "orphan": 0.89,
+        "pillow": 0.11,
+        "light_angle": 252.0,
+        "banding_pct": 0.0
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.89
+        ]
+      ],
+      "dist_to_own_twin_pct": 0.0
+    }
+  },
+  "water": {
+    "question": "WATER: A (pack_11_survival_props_004.png) vs B (pack_16_loot_and_survival_props_032.png) -- NOT a drawn-vs-reference case (rule 82a: both are direct, uncooked cuts of a real pack tile, each its own twin). The real question here is which pack tile reads more clearly as \"water\" at icon size, not which is closer to a shared twin -- named honestly rather than forcing the wrong frame.",
+    "a": {
+      "stats": {
+        "orphan": 0.933,
+        "pillow": 0.47,
+        "light_angle": 249.5,
+        "banding_pct": 0.0
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.933
+        ],
+        [
+          "pillow shading",
+          0.47
+        ]
+      ],
+      "dist_to_own_twin_pct": 0.0
+    },
+    "b": {
+      "stats": {
+        "orphan": 0.944,
+        "pillow": 0.42,
+        "light_angle": 228.4,
+        "banding_pct": 0.0
+      },
+      "faults": [
+        [
+          "orphan pixels",
+          0.944
+        ],
+        [
+          "pillow shading",
+          0.42
+        ]
+      ],
+      "dist_to_own_twin_pct": 0.0
+    }
+  }
+}
