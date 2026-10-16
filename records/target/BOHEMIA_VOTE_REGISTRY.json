@@ -8466,7 +8466,39 @@
     "scale": "1:1"
    },
    "draft": true
-  }
+  },
+   {
+    "id": "ui-the-phones-crack-10-16",
+    "kind": "ui",
+    "lane": "ui",
+    "sha": "pending",
+    "made": "10/16",
+    "title": "FINAL? THE PHONE'S CRACK, FROM YOUR PACK",
+    "why": "You said the phone's cracks were straight lines a seventh grader coded, so these are the cracks from your own Cracked floor details pack, the lava recoloured to glass with every pixel where the artist put it, running from the corner the phone was dropped on. You see it on the phone on the map; pick F or G, or kill it.",
+    "show": {
+     "how": "image",
+     "src": "../records/target/ui_the_phones_crack/UI_ONE_AT_A_TIME_THE_PHONES_CRACK.png"
+    },
+    "options": [
+     "F",
+     "G",
+     "NO"
+    ],
+    "twin": {
+     "src": "pack:15. Cracked floor details (#3, #4, #8 turned 90, #9 turned 90)",
+     "diffs": [
+      "WHAT IS HIS: every pixel's place and its see-through edge, exactly; the gate re-makes each cut from the pack tile and compares.",
+      "WHAT CHANGED: only the colour, lava to glass at the same brightness, so the white-hot core is the crack's light edge and the dark rim its shadow; two runs turned a quarter turn, which moves no pixel's neighbour.",
+      "WHAT IT COSTS: at most 2% of one line of words under the crack, against the hairline crack now, which runs through the words; the first try from his broken-window pack read as frost and was not sent."
+     ]
+    },
+    "before_after": {
+     "before": "the phone today: straight hairline polylines stretched across the glass",
+     "after": "his pack's crack, recoloured, at the dropped corner and down the right edge, 1:1",
+     "scale": "1:1"
+    },
+    "draft": true
+   }
  ],
  "verdicts": [
   {

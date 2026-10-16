@@ -546,6 +546,12 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-kmqmrf): 10/16 LATEST -- [the phone's crack] CANDIDATE in VOTE (cook only): his two notes on the straight-line cracks, a row of its own.
+Pack 5 broken windows tried first: frost at 8 to 25 pt, not sent (finding sheet kept). Pack 15 'Cracked floor details' (never judged, lossless from the bank) recoloured to glass: F and G at the dropped corner, 1:1, words clear.
+Gate the phone's crack 6/0, 5 mutations; vote tab 35/2 (others' rows). VOTE ui-the-phones-crack-10-16 (F / G / NO). Record records/BOHEMIA_THE_PHONES_CRACK_10_16_26.md.
+FOR EVERY ART LANE: the 6,747 never-judged tiles are in banks/BOHEMIA_HD_TILE_REPO_part*.txt as lossless PNG (packs[name][i]['b64']); the index's sheets are JPG previews only.
+NEXT: [the line on a ground] (the roster and hall on a ground from the packs).
+
 UI (ui-kmqmrf): 10/13 LATEST -- [icons at full pixels] + [the crew button] CANDIDATE in VOTE (cook only, rules 100/108).
 The noose (tape ring) DELETED from the game, graveyarded. Study: records/BOHEMIA_UI_HOW_THE_PACK_DID_IT_THE_SIX_10_13_26.md (all six supplies exist as his survival-pack props).
 Sheet records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png: before / now / A / B at 1:1, the six cut whole at 96 px on a glass strip under the bar, CREW left of NOTES.
