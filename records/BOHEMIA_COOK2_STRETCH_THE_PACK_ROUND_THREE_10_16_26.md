@@ -1,0 +1,8 @@
+# COOK TWO [stretch the pack], round three: the faction recolour (10/16)
+- recipes: S.recolour(a, mask, hex, levels, shift_deg, sat_scale): the masked pixels quantised into 6 luminance bands, each rebuilt on the faction's hue at ITS OWN luminance, hue drifting +/-10 degrees warm-light cool-shadow, saturation peaking mid-ramp; everything outside the mask asserted untouched bit for bit.
+- The four accents read from COOK THREE's file (engine/bohemia_cook3_runway_paint.json): Reds #c0392b, Trades #d07a2a, Caravans #caa05a, Anarchists #c026a0.
+- On his zebra (street 15): only the paint (2,315 of 6,642 px), at 0.45 saturation because road paint is thirty years washed (his 7/14 markings law). FIRST PASS was full saturation and the Anarchists' magenta glowed like neon: caught on the sheet, pulled.
+- On his barricade (barricades 13): only the red stripes (444 px); the white between them stays white, the wood and lamps untouched.
+- HONEST: Caravans' sand sits next to his own paint's bone and barely reads as a claim on the zebra; it reads on the barricade. A faction whose colour is the ground's colour marks its turf with something else (a prop, a flag): routed to the coordinator, not invented here.
+- Sheet: records/target/COOK2_STRETCH_THE_PACK_RECOLOUR.png (x3). In VOTE as cook2-stretch-the-pack-recolour-10-16.
+- The row's end state: recipes (cut, pad, decal, recolour, seven numbers) DONE; the 47 DONE; recolour DONE; one crossing from cut parts DONE. NOT DONE: the seven numbers for props and markings (only road and slab measured) -- the next round of whoever cooks props takes S.family_sheet on them.

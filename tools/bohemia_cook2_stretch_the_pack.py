@@ -97,3 +97,27 @@ if __name__ == '__main__':
     out = {k: family_sheet(k, v) for k, v in fams.items()}
     json.dump(out, open(os.path.join(R, 'records/BOHEMIA_COOK2_THE_SEVEN_NUMBERS_GROUND_10_11_26.json'), 'w'), indent=1, default=list)
     for k, v in out.items(): print(k, v)
+
+def recolour(a, mask, target_hex, levels=6, shift_deg=10, sat_scale=1.0):
+    """FACTION RECOLOUR, shade to shade (the research: 'a palette swap is not a hue filter'). The masked pixels are
+       quantised into `levels` luminance bands; each band is rebuilt on the target's hue keeping ITS OWN luminance,
+       with the hue drifting warm in the lights and cool in the shadows (+/- shift_deg, the field norm 10-20) and
+       saturation peaking mid-ramp. Pixels outside the mask are returned untouched, bit for bit."""
+    t = tuple(int(target_hex[i:i + 2], 16) / 255 for i in (1, 3, 5)); th, ts, tv = colorsys.rgb_to_hsv(*t)
+    out = a.copy(); px = a[mask][..., :3].astype(float) / 255
+    if not len(px): return out
+    lum = px @ np.array([0.299, 0.587, 0.114])
+    edges = np.quantile(lum, np.linspace(0, 1, levels + 1)[1:-1]); band = np.digitize(lum, edges)
+    new = np.zeros_like(px)
+    for b in range(levels):
+        sel = band == b
+        if not sel.any(): continue
+        f = b / max(1, levels - 1)                                   # 0 = darkest band, 1 = lightest
+        h = (th + np.radians(0) + (f - 0.5) * 2 * shift_deg / 360) % 1
+        s = ts * (0.75 + 0.5 * (1 - abs(f - 0.5) * 2)) * 0.9 * sat_scale   # saturation peaks mid-ramp
+        for k in np.nonzero(sel)[0]:
+            r, g, bb = colorsys.hsv_to_rgb(h, min(1, s), 1.0)
+            y = r * 0.299 + g * 0.587 + bb * 0.114
+            sc = lum[k] / max(y, 1e-3); new[k] = np.clip(np.array([r, g, bb]) * sc, 0, 1)
+    o = out[..., :3].astype(float); o[mask] = new * 255; out[..., :3] = o.round().astype(np.uint8)
+    return out

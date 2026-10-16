@@ -1,0 +1,24 @@
+{
+ "factions": [
+  [
+   "Reds",
+   "#c0392b"
+  ],
+  [
+   "Trades",
+   "#d07a2a"
+  ],
+  [
+   "Caravans",
+   "#caa05a"
+  ],
+  [
+   "Anarchists",
+   "#c026a0"
+  ]
+ ],
+ "zebra_paint_px": 2315,
+ "zebra_px": 6642,
+ "barricade_paint_px": 444,
+ "untouched": "asserted bit for bit outside the masks"
+}

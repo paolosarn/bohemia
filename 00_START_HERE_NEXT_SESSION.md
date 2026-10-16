@@ -136832,8 +136832,8 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 - RUN TWO 10/10 [the stash screen] SHIPPED: slices/BOHEMIA_STASH_SCREEN.html (BOHEMIA_STASH_OPEN in, BOHEMIA_STASH out). RUN: open it from the bar's six. ECONOMY: water has no daily rate. Next: [the arrival].
 
 
-## COOK TWO (cook 2, the ground) -- 10/13 cook2-b27d
-COOK ONLY (rules 100/101/108). His word: corner UP 'Not final', no-borders UP 'Not final keep going'. [stretch the pack] round two of three: the 47-tile blob set (+47 road cells, because the curb face falls on the road cell), tools/bohemia_cook2_stretch_the_pack_47_10_13_26.py, in VOTE as cook2-stretch-the-pack-47-10-13. Next: round three, the faction recolour on markings and props (shade-to-shade on quantised tiles, never asphalt). Waiting on his word: curb, crossing, the 47.
+## COOK TWO (cook 2, the ground) -- 10/16 cook2-b27d
+COOK ONLY (rules 100/101/108). Rule 95.1 turned: [the corners], [no borders], [one at a time] SHIPPED as candidates with their shas (his UP 'not final' on two). [stretch the pack] SHIPPED after three rounds (recipes tools/bohemia_cook2_stretch_the_pack.py incl. recolour(); crossing; the 47; faction recolour sheet in VOTE). Still CLAIMED: [the curb has height] (waiting on his word). Next: [the same crossing before and after] (top OPEN), or his moodboard when it lands.
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
 *** 10/11: COOK THREE STOPPED DRAWING. The packs hold 0 people; his 10/11 withdrew drawing in the pack's style; both rows HELD until COOK [the pack card] buys an eight-facing people pack; then this lane does the faction shade remap from its two paint files. records/BOHEMIA_COOK3_STOPS_DRAWING_THE_PACKS_HOLD_NO_PEOPLE_10_11_26.md. His vote on the tiers: good direction, not final. 10/11 round: ROUND TWELVE's loop on ONE body (Reds), 8 looks, log records/cook3/loop/REDS_LOOP_LOG.md, five rules learned; 10/16: looks 9-12 through look.py: 3 of 5 stages pass, ramps and detail stop at the source wall (3 shades a ramp); lessons 4-7 in the skill file. NEXT: the rig page in metres (what DIRECTION's master rig needs for a person). ***

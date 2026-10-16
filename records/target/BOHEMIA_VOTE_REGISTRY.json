@@ -8294,54 +8294,116 @@
    },
    "draft": true
   },
-    {
-     "id": "character-the-body-in-meters-10-13",
-     "kind": "line",
-     "lane": "character",
-     "sha": "pending",
-     "made": "10/13",
-     "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
-     "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
-     "show": {
-      "how": "text",
-      "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
-     }
-    },
-  {"id": "animation-ragdoll-10-13", "kind": "animation", "lane": "animation", "sha": "05f1bee0", "made": "10/13", "title": "FINAL? THE RAGDOLL", "redoOf": "animation-the-fall-10-11", "said": "Why did so hard to get ragdoll physics, bro?", "why": "A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size with the posed fall you voted down beside it, and nothing is in the fight until you say final.", "show": {"how": "page", "src": "vote/ANIMATION_RAGDOLL.html"}, "draft": true},
-   {
-    "id": "ui-the-six-at-pack-pixels-10-13",
-    "kind": "ui",
-    "lane": "ui",
-    "sha": "pending",
-    "made": "10/13",
-    "title": "FINAL? THE SIX SUPPLIES CUT FROM YOUR PACKS, AND A CREW BUTTON",
-    "why": "The six icons on the map's bar were 10 by 10 drawings and the tape one looked like a noose, so the noose is deleted and the six are now your own survival-pack props, whole, at their 96 pixels, with a CREW button that opens your company. You see it on the map's top bar; pick A or B, or kill it.",
-    "show": {
-     "how": "image",
-     "src": "../records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png"
-    },
-    "options": [
-     "A",
-     "B",
-     "NO"
-    ],
-    "twin": {
-     "src": "pack:11. Survival props (045 042 039 004), 12. Weapons and supplies (030 018); B: 044 035 007 031, 12/027, 16/032",
-     "diffs": [
-      "WHAT IS HIS: every one of the twelve pictures, pasted whole at one art pixel to one phone pixel; zero pixels drawn, the sheet proves it pixel for pixel.",
-      "WHAT CHANGED: the stash moves to its own strip of glass under the bar, 40 points tall, because six 96-pixel props do not fit in the bar's 24-point pane.",
-      "WHAT IT COSTS: 40 points of map; the CREW button sits where the empty cardboard was, 52 by 44, left of NOTES."
-     ]
-    },
-    "before_after": {
-     "before": "the bar today: six 10 x 10 drawings at 10 points, the tape ring among them",
-     "after": "the six cut from his packs at 32 points (96 phone pixels, their own size) on a glass strip, plus CREW",
-     "scale": "1:1"
-    },
-    "draft": true
+  {
+   "id": "character-the-body-in-meters-10-13",
+   "kind": "line",
+   "lane": "character",
+   "sha": "pending",
+   "made": "10/13",
+   "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
+   "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
+   "show": {
+    "how": "text",
+    "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
+   }
+  },
+  {
+   "id": "animation-ragdoll-10-13",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "05f1bee0",
+   "made": "10/13",
+   "title": "FINAL? THE RAGDOLL",
+   "redoOf": "animation-the-fall-10-11",
+   "said": "Why did so hard to get ragdoll physics, bro?",
+   "why": "A man struck down now falls by real physics on his own bones: the knees give, he goes over, his back hits and he settles flat, every direction a little differently, and the same hit always falls the same way. You see it in the VOTE tab at the game's own size with the posed fall you voted down beside it, and nothing is in the fight until you say final.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_RAGDOLL.html"
    },
-{"id": "run-the-map-people-come-baked-10-13", "kind": "ui", "lane": "run", "sha": "fbe21f23", "made": "10/13", "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33", "why": "The demo used to draw the map's people from scratch every time it opened; now it brings them already drawn, so BEGIN lights sooner and your party moves about 16 seconds after the link on a slow phone, down from 20 last build and 33 the build before. You see it on the DEMO: open the link, press BEGIN, tap the map.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_PEOPLE_COME_BAKED_10_13.png"}},
-  {"id": "combat-zone-of-control-is-melee-only-10-13", "kind": "ui", "lane": "combat", "sha": "ccd65a9", "made": "10/13", "title": "A GUNMAN HOLDS NO RING", "why": "A man holding a pistol, shotgun or rifle no longer blocks the squares around him, so you walk right past and across him with no free hit, while a man with a pipe, blade or axe still stops you and his squares are ringed in red on your turn. Walk a man past an enemy gunman in any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_ZONE_OF_CONTROL_IS_MELEE_ONLY_10_13.jpg"}, "draft": true}
+   "draft": true
+  },
+  {
+   "id": "ui-the-six-at-pack-pixels-10-13",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "pending",
+   "made": "10/13",
+   "title": "FINAL? THE SIX SUPPLIES CUT FROM YOUR PACKS, AND A CREW BUTTON",
+   "why": "The six icons on the map's bar were 10 by 10 drawings and the tape one looked like a noose, so the noose is deleted and the six are now your own survival-pack props, whole, at their 96 pixels, with a CREW button that opens your company. You see it on the map's top bar; pick A or B, or kill it.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/UI_ONE_AT_A_TIME_THE_SIX_AT_PACK_PIXELS.png"
+   },
+   "options": [
+    "A",
+    "B",
+    "NO"
+   ],
+   "twin": {
+    "src": "pack:11. Survival props (045 042 039 004), 12. Weapons and supplies (030 018); B: 044 035 007 031, 12/027, 16/032",
+    "diffs": [
+     "WHAT IS HIS: every one of the twelve pictures, pasted whole at one art pixel to one phone pixel; zero pixels drawn, the sheet proves it pixel for pixel.",
+     "WHAT CHANGED: the stash moves to its own strip of glass under the bar, 40 points tall, because six 96-pixel props do not fit in the bar's 24-point pane.",
+     "WHAT IT COSTS: 40 points of map; the CREW button sits where the empty cardboard was, 52 by 44, left of NOTES."
+    ]
+   },
+   "before_after": {
+    "before": "the bar today: six 10 x 10 drawings at 10 points, the tape ring among them",
+    "after": "the six cut from his packs at 32 points (96 phone pixels, their own size) on a glass strip, plus CREW",
+    "scale": "1:1"
+   },
+   "draft": true
+  },
+  {
+   "id": "run-the-map-people-come-baked-10-13",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "fbe21f23",
+   "made": "10/13",
+   "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33",
+   "why": "The demo used to draw the map's people from scratch every time it opened; now it brings them already drawn, so BEGIN lights sooner and your party moves about 16 seconds after the link on a slow phone, down from 20 last build and 33 the build before. You see it on the DEMO: open the link, press BEGIN, tap the map.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_MAP_PEOPLE_COME_BAKED_10_13.png"
+   }
+  },
+  {
+   "id": "combat-zone-of-control-is-melee-only-10-13",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "ccd65a9",
+   "made": "10/13",
+   "title": "A GUNMAN HOLDS NO RING",
+   "why": "A man holding a pistol, shotgun or rifle no longer blocks the squares around him, so you walk right past and across him with no free hit, while a man with a pipe, blade or axe still stops you and his squares are ringed in red on your turn. Walk a man past an enemy gunman in any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_ZONE_OF_CONTROL_IS_MELEE_ONLY_10_13.jpg"
+   },
+   "draft": true
+  },
+  {
+   "id": "cook2-stretch-the-pack-recolour-10-16",
+   "kind": "tile",
+   "lane": "cook 2",
+   "sha": "pending",
+   "made": "10/16",
+   "title": "CANDIDATE: WHOSE STREET IS IT, YOUR ZEBRA AND BARRICADE IN EACH FACTION'S COLOUR",
+   "why": "A gang marks its street. Your own zebra crossing and your striped road barricade, with only the paint recoloured into the Reds', the Trades', the Caravans' and the Anarchists' colours, every shade mapped to a shade so it still looks worn, and the asphalt and the wood not touched. You see it in the VOTE tab, three times bigger. A candidate, nothing final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK2_STRETCH_THE_PACK_RECOLOUR.png"
+   },
+   "question": "Can you tell whose street it is from the paint?",
+   "twin": {
+    "src": "pack:1. Cracked street tiles#15",
+    "diffs": [
+     "ONLY THE PAINT: the asphalt and the wood are checked unchanged pixel for pixel.",
+     "WORN, NOT NEON: road paint at under half the colour, because your markings are thirty years faded.",
+     "CARAVANS' SAND is almost your paint's own colour, so on the road it barely reads; it reads on the barricade."
+    ]
+   }
+  }
  ],
  "verdicts": [
   {
