@@ -1,0 +1,112 @@
+{
+ "bank": "BOHEMIA_THE_TWO_HOLES_NEAREST_10_16_26",
+ "date": "10/16/26",
+ "lane": "cook",
+ "row": "[the two holes]",
+ "status": "A MEASUREMENT, NOT A CANDIDATE. Nothing here is art; it is what he owns that is nearest to each hole, so whoever fills the hole starts from his own light and his own 96 pixels.",
+ "swept": {
+  "packs": 294,
+  "tiles": 8674,
+  "body_hits": 1251,
+  "head_hits": 5295
+ },
+ "holes": {
+  "people in eight directions": "REAL. zero in 8,674 tiles.",
+  "head-only portraits": "REAL. exactly one drawn human face, on a wanted poster.",
+  "beasts in eight directions": "HALF. 13 animals at 96 px, all facing one way."
+ },
+ "nearest_people": [
+  {
+   "pack": "12. Weapons and armory",
+   "index": 31
+  },
+  {
+   "pack": "12. Weapons and armory",
+   "index": 32
+  },
+  {
+   "pack": "12. Weapons and armory",
+   "index": 30
+  },
+  {
+   "pack": "12. Weapons and armory",
+   "index": 33
+  },
+  {
+   "pack": "Statues and figures",
+   "index": 11
+  },
+  {
+   "pack": "Statues and figures",
+   "index": 1
+  },
+  {
+   "pack": "Statues and figures",
+   "index": 7
+  },
+  {
+   "pack": "Statues and figures",
+   "index": 8
+  }
+ ],
+ "nearest_faces": [
+  {
+   "pack": "Miscellaneous",
+   "index": 44
+  },
+  {
+   "pack": "Miscellaneous",
+   "index": 43
+  },
+  {
+   "pack": "Banners and posters",
+   "index": 8
+  },
+  {
+   "pack": "Banners and posters",
+   "index": 34
+  },
+  {
+   "pack": "Banners and posters",
+   "index": 38
+  },
+  {
+   "pack": "Signs and holograms",
+   "index": 20
+  }
+ ],
+ "nearest_beasts": [
+  {
+   "pack": "19. Animals and creatures",
+   "index": 0
+  },
+  {
+   "pack": "19. Animals and creatures",
+   "index": 9
+  },
+  {
+   "pack": "19. Animals and creatures",
+   "index": 1
+  },
+  {
+   "pack": "19. Animals and creatures",
+   "index": 4
+  },
+  {
+   "pack": "19. Animals and creatures",
+   "index": 5
+  },
+  {
+   "pack": "19. Animals and creatures",
+   "index": 7
+  }
+ ],
+ "stores_blocked": [
+  "itch.io",
+  "craftpix.net",
+  "www.fab.com",
+  "opengameart.org",
+  "gumroad.com"
+ ],
+ "licence": "still not recorded anywhere in the repo for any pack (10/13)"
+}

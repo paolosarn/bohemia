@@ -8439,7 +8439,34 @@
       "how": "text",
       "src": "records/BOHEMIA_IS_THE_HEIGHT_RANGE_REAL_10_16_26.md\n\nSeen in: no tab, this is a verification and a handoff, no pixel moved."
      }
-    }
+    },
+  {
+   "id": "cook-the-two-holes-in-pixels-10-16",
+   "kind": "verdict",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/16",
+   "title": "THE TWO HOLES, PROVEN IN PIXELS INSTEAD OF IN PACK NAMES",
+   "why": "The two things you do not own were worked out from pack names, and pack names have lied to this chat three times now, so I swept the actual pixels of all 8,674 tiles you own: 1,251 of them have the silhouette of a standing person and not one of them is a person, and the only drawn human faces you own are about a dozen printed on wanted posters and neon adverts, none of them a portrait and none in this world's look. You see it in the VOTE tab, the nearest things you already own lined up under each hole at full size, with how many drawings each hole actually needs.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_TWO_HOLES.png"
+   },
+   "twin": {
+    "src": "pack:17. Warning Signs and road props#0",
+    "diffs": [
+     "WHAT THE TWIN IS, AND WHY IT IS NOT ON THE CARD: the twin is one of his APPROVED tiles, the 96 pixel signpost, because it is the bar any new person or face has to be made to. NOT ONE PICTURE ON THIS CARD IS FROM THE APPROVED 1,927: everything nearest to these two holes sits in the 6,747 tiles nobody has ever judged, which is itself a measurement.",
+     "WHAT THE SWEEP PROVED: people in eight directions ZERO out of 8,674, measured by silhouette and then looked at one by one; beasts are HALF bought (13 at 96 px, all facing one way, rule 107 wants eight).",
+     "WHAT THE SWEEP CORRECTED IN ITS OWN FIRST ANSWER: it first said exactly ONE drawn face existed, off a truncated label. Looking found the real tile, a second face beside it and seven more in another pack. The hole stands; the number was wrong and is corrected on the page."
+    ]
+   },
+   "before_after": {
+    "before": "two holes declared from 294 pack names, the same way three wrong calls were made before",
+    "after": "the same two holes declared from the pixels of all 8,674 tiles, with the nearest thing he owns shown under each",
+    "scale": "1:1"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

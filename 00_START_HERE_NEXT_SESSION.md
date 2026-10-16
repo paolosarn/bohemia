@@ -600,6 +600,82 @@ Gate the flip off the face 10/0, 4 mutations; UI's phone look / reshuffle / phon
 FOR DYNASTY + THE COORDINATOR [PENDING, not Paolo]: the_flip, three_names, one_then_heirs, heirs fail BY DESIGN (they tap the face); the 3-step re-aim is in records/BOHEMIA_UI_REVIEW_FOR_DYNASTY_THE_FLIP_LIVES_IN_THE_OPENED_PHONE_10_11_26.md.
 NEXT: [icons at full pixels] (the noose-like fabric icon deleted first, then the six supplies on one sheet beside the pack prop).
 
+COOK (cook-mce6r5): 10/16 LATEST -- *** THE TWO HOLES ARE REAL, PROVEN ON THE PIXELS OF ALL
+8,674 TILES INSTEAD OF ON 294 PACK NAMES. AND THE SWEEP CORRECTED ITS OWN FIRST ANSWER. ***
+
+0. THE ROW'S OWN CONSTRAINT IS WHAT THIS ROUND IS: "a hole is declared only after the count
+says zero". Both holes had been declared off PACK NAMES, and names have lied to this lane three
+times now ("12. Weapons and armory" is viking axes, "Statues and figures" is stone, and
+"9. Abandoned cards" was 35 wrecked CARS he had already bought and nobody had opened). So the
+pixels were swept, not the names.
+
+1. HOLE 1, PEOPLE IN EIGHT DIRECTIONS: REAL. Ranked every tile by the silhouette a standing
+person has and a prop does not, a narrow top, a sudden widening, a waist, then legs. 1,251 of
+8,674 score at all. THE TOP 160 WERE LOOKED AT, ONE BY ONE, AT 1:1: crosses, windsocks,
+signposts, torches, lanterns, railings, fences, mailboxes, birdhouses, flowers, a toilet and a
+telescope. NOT ONE IS A PERSON. The nearest human shapes he owns are armour on a dress stand
+(12. Weapons and armory #30 to #33) and robed stone statues.
+
+2. HOLE 2, HEAD-ONLY PORTRAITS: REAL. 5,295 tiles carry a head-shaped silhouette, and that
+number is the ruler failing honestly: a full-bleed wall or floor tile is square and symmetric by
+nature and the top of the ranking is exactly that. The page says so rather than dressing it up.
+HE OWNS ABOUT A DOZEN DRAWN HUMAN FACES AND EVERY SINGLE ONE IS PRINTED ON A POSTER, a banner or
+a sign, in a neon cyberpunk style: wanted bills, neon adverts, a hologram. Not one is a
+character portrait, not one is head-only, and none is in this world's look.
+
+3. *** AND THE SWEEP GOT ITS OWN FIRST ANSWER WRONG, WHICH IS THE PART WORTH KEEPING. *** The
+first cut of the page said EXACTLY ONE drawn human face exists in 8,674 tiles. That came from a
+truncated look-sheet label: "Miscellaneo#44" was read as `19. Miscellaneous (1)#44`. Pulling the
+three packs whose names start that way and putting them side by side showed the real tile is
+`Miscellaneous#44`, that `#43` beside it is a SECOND face, and that `Banners and posters` holds
+about seven more. THE HOLE STANDS; THE NUMBER DID NOT. The correction is on the card and on the
+page, not quietly dropped. Only looking found it, again.
+
+4. THE HALF-HOLE: `19. Animals and creatures`, 13 tiles at 96 px, a grey wolf, a boar, two
+bears, a moose, a deer, a hare, a crow, a fish, an otter, a seal, a crab. EVERY ONE FACES THE
+SAME WAY. The animals are bought; rule 107's eight directions are what is missing, and the beast
+law says a dire wolf is a heavier grey wolf, so the starting point is already his.
+
+5. HOW BIG EACH HOLE IS, so the routes can be priced instead of argued: the laws already name 13
+gang looks, 6 enemy tiers, about 75 enemy types, 17 beasts, 3 bosses and at least 12 factions.
+Rule 107 wants eight facings each with an idle and a step, so ONE BODY IS 16 DRAWINGS before it
+wears anything, and one FACE is one drawing at or over 96 by 96.
+
+6. STILL NO BUY LINKS, AND THE REASON IS MEASURED A THIRD ROUND RUNNING, NOT ASSUMED: itch.io,
+craftpix.net, www.fab.com, opengameart.org and gumroad.com ALL answer 403 through this
+environment's network policy. The row says each pack must be "checked against the floor and the
+tilt" before it is listed; a licence cannot be read and a tile cannot be measured from here, and
+most cheap pixel packs are 16 or 32 px and would fail rule 105 anyway.
+[PENDING] for the coordinator, third time: the stores in the environment's Allowed domains, or a
+lane that can reach them does the checking. Nothing is bought on a search summary.
+
+7. ONE MORE THING THE GATE CAUGHT AND IT IS WORTH READING: the card's first registered twin was
+`12. Weapons and armory#31`, the armour, and the VOTE gate refused it because that tile is not in
+the approved 1,927. It is right. The twin is now an approved 96-pixel signpost, and the honest
+line that came out of the refusal is on the card: NOT ONE PICTURE ON THIS CARD IS FROM THE
+APPROVED SET. Everything nearest to these two holes sits in the 6,747 tiles nobody has judged.
+
+8. WHERE IT IS: the VOTE tab, cook-the-two-holes-in-pixels-10-16. Page
+records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md, card
+records/target/COOK_THE_TWO_HOLES.png, the nearest-things list
+banks/BOHEMIA_THE_TWO_HOLES_NEAREST_10_16_26.txt. NOTHING WENT INTO THE GAME (rule 100a) and
+nothing on the card is drawn: every picture is one of his own tiles, used whole.
+
+9. ROUTED: DIRECTION [the master rig] owns route C and the armour he already owns at 96 px is
+its clothing reference. COOK THREE stays HELD on people, now backed by a pixel sweep instead of
+a pack name. ANIMATION's dire wolf starting point is bought already; what is owed is the turn.
+COOK [the hero brief] quotes the roster numbers in point 5.
+
+10. ROWS: [the two holes] SHIPPED. [one at a time] CLAIMED and standing. NEXT OPEN: [the hero
+brief], then [generate against the pack]. Still CLAIMED behind: [bb map art]. HELD: [beasts],
+[horror grime].
+
+11. THE ONE QUESTION ON THE CARD: people and faces are the only art this world cannot cut from
+what he owns, so which way do we fill them? A ONE ARTIST PAID ONCE for the hero set (one body in
+eight facings, one face style, everything else built from those by rule, wearing the armour he
+already owns). B BUY PACKS once a machine that can reach a store checks price, licence and size.
+C THE 3D ROAD, one model under one camera turned eight ways, so the facings come free.
+
 COOK (cook-mce6r5): 10/13 LATEST -- *** EVERY PACK HE EVER BOUGHT IS INDEXED. 294 PACKS,
 8,674 TILES, NINE FAMILIES, AND 6,747 TILES NOBODY HAS EVER JUDGED. ***
 
