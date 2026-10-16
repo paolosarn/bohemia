@@ -1,5 +1,17 @@
 # THE QUARTERMASTER'S COUNT, PORTRAIT'S OWN FAMILY -- 10/13/26
 
+## CORRECTED 10/16, NAMED HONESTLY, NOT QUIETLY EDITED AWAY
+The literal "0 pieces" below was too strong. COOK's [the two holes] swept the
+PIXELS of all 8,674 tiles (a stronger method than this file's pack-NAME check)
+and found about a dozen actual drawn human faces, printed on posters, banners
+and signs in a neon cyberpunk style (records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_
+10_16_26.md). Not one is a character portrait or head-only, and none is in
+this world's look -- so the PRACTICAL finding below (no usable face pack piece
+to reproduce as a portrait twin) still holds, now confirmed by a better method
+than this file used, but the exact number "0" was wrong and is corrected here
+rather than left standing. The rest of this file is kept as written, for the
+record of what was actually measured and reasoned at the time.
+
 ## WHAT THIS IS
 Rule 100(c) (the coordinator's school, round twelve, THE QUARTERMASTER'S COUNT):
 every STUDY FIRST round must open with one machine line over all 294 packs,
