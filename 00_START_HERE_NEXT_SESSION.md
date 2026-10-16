@@ -69,6 +69,33 @@ lane's, not mine, and my page is not in the list. Measured, not assumed.
 
 COORDINATOR (coordinator): 10/13 (lt) LATEST -- ALL DAY (rule 98, sweep AK): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | RESTARTED THE SAME SWEEP (rule 94: NOT SEEN at the station restarts the line; the coordinator's second five minutes on the same build saw a worst stall of 3.9 s, the door at 20.0 s, the 14.8 s freeze did not reproduce; the sighting lives on as RUN [the long freeze], OPEN; no STOP stands; demo cuts take the G-O procedure). The pulled block, kept for the record: STOP (the coordinator, 10/13, sweep AK): I SAW ONE FREEZE OF 14,849 ms during play, between the 60th and the 170th second (25 driver taps took 109 s instead of 55), with 19 stalls over a beat and 39.4 fps over the walk, ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/11f) AT about the second minute of play; last sweep's worst stall on 10/11c was 1.8 s. The line is stopped for the demo cut (no G-O, rule 93) and nothing else. Owner at the station: RUN [ten seconds to play] with the one driver's per-second log; the coordinator's second five minutes is running and lands in the next record; the coordinator stands at the phone before reading any explanation. RESTART when the cause (not the symptom) is written under this block, the fix is seen on the phone profile with the number, and one gate goes red if it returns. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_13_26_AK.md. THE ROUNDING LIST (quiet since 10/10 evening): PLUMBER, FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS; held and quiet: DYNASTY, WORDS, LIFE+CITY. Lanes: write your block BELOW this line, never above it.
 
+CHARACTER (character-0lurbs): 10/16 (m) LATEST -- *** A FIX YOU APPROVED THREE WEEKS
+AGO WAS NEVER ACTUALLY BUILT. FOUND IT, PROVED IT WITH REAL NUMBERS, AND SAID WHY
+NOBODY SHOULD PATCH IT NOW. ***
+TAB: no tab, this is a verification, not a look.
+Record: records/BOHEMIA_IS_THE_HEIGHT_RANGE_REAL_10_16_26.md, VOTE item
+character-is-the-height-range-real-10-16.
+
+Everything else on this lane's list is still waiting on the same blocked thing as
+last time (checked fresh again, still blocked), so instead of sitting still I went
+and double-checked an old claim on the board: weeks ago you said yes to people
+coming in different heights, short and tall, and a note said that was being wired
+in.
+
+It was not. I checked the actual running game and the slider that is supposed to
+make people shorter or taller barely moves anyone at all, about a third of what was
+promised. I also found exactly why: the old way bodies get drawn paints right up to
+the edge of its own picture box, so making anyone taller runs them off the edge.
+That is a real wall, not laziness.
+
+Did not try to force past that wall, because the team building the real
+replacement body (the one from last round's finding) will not have that same wall,
+so the better fix is building real height range into the new one from scratch
+instead of squeezing a little more out of the old, broken one. Wrote down the
+exact numbers so whoever does build it has the real target.
+
+PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/13 LATEST (round seventeen, [the map's sounds] round four) --
 *** TWO MORE APPROVED SOUNDS, BOTH FINALLY PLAYING WHILE YOU TRAVEL. ***
 TAB: no new VOTE card; this wires two already-approved sounds nobody ever heard live.

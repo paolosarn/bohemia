@@ -8426,7 +8426,20 @@
     ]
    },
    "draft": true
-  }
+  },
+    {
+     "id": "character-is-the-height-range-real-10-16",
+     "kind": "line",
+     "lane": "character",
+     "sha": "pending",
+     "made": "10/16",
+     "title": "THE SHORT-TO-TALL SLIDER NEVER ACTUALLY GOT WIDER",
+     "why": "Weeks ago you said yes to people coming in different heights, but I checked the actual game code and that was never built, so I measured exactly how little the slider moves and why the old drawing method cannot go further, for whoever builds your real body model next. You see it in the record, no tab, nothing was drawn or changed.",
+     "show": {
+      "how": "text",
+      "src": "records/BOHEMIA_IS_THE_HEIGHT_RANGE_REAL_10_16_26.md\n\nSeen in: no tab, this is a verification and a handoff, no pixel moved."
+     }
+    }
  ],
  "verdicts": [
   {

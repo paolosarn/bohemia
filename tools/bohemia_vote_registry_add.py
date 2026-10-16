@@ -7,17 +7,17 @@ and every byte around it is left exactly as it was found."""
 import io, json, re, sys
 P = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 s = io.open(P, encoding='utf-8').read()
-MINE_ID = 'character-the-body-in-meters-10-13'
+MINE_ID = 'character-is-the-height-range-real-10-16'
 if MINE_ID in s:
     print('already there'); sys.exit(0)
 obj = {
   "id": MINE_ID, "kind": "line", "lane": "character",
-  "sha": "pending", "made": "10/13",
-  "title": "THE OLD BODY'S REAL MEASUREMENTS, FOR THE TEAM BUILDING THE REAL ONE",
-  "why": "The team building your real 3D body needs to know exactly how tall and wide the old formula's man is, in real meters, so the new one lands in the same spot. I read it straight off the live rig and put a door and a street lamp next to it so the numbers are easy to check by eye. You see it in the record, no tab, nothing was drawn or changed.",
+  "sha": "pending", "made": "10/16",
+  "title": "THE SHORT-TO-TALL SLIDER NEVER ACTUALLY GOT WIDER",
+  "why": "Weeks ago you said yes to people coming in different heights, but I checked the actual game code and that was never built, so I measured exactly how little the slider moves and why the old drawing method cannot go further, for whoever builds your real body model next. You see it in the record, no tab, nothing was drawn or changed.",
   "show": {
     "how": "text",
-    "src": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md\n\nSeen in: no tab, this is a measurement page, no pixel moved."
+    "src": "records/BOHEMIA_IS_THE_HEIGHT_RANGE_REAL_10_16_26.md\n\nSeen in: no tab, this is a verification and a handoff, no pixel moved."
   }
 }
 block = '\n'.join('    ' + ln for ln in json.dumps(obj, indent=1).split('\n'))
