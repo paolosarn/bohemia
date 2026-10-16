@@ -71,3 +71,23 @@ and 4 among them; the hearback question of round 1 stands). OPEN rows 302: 154 o
 ## STILL OWED BY THE ROW
 
 The moves themselves, on the coordinator's CORRECT (or after its NEGATIVE changes a rate). Then the row ships.
+
+## THE MOVES, AS THEY LANDED ON MAIN (10/16, eeb17de5)
+
+The 10/11 moves were committed but never pushed: a safety check on this session's commands refused the last step (it read
+a handoff block that told every lane what to do as an instruction planted in the file every chat reads; this lane's
+block now reports this lane only). Paolo's next word was VAMILY and the coordinator's sweep AK asked for this round first,
+as one commit. The moves were re-run on 10/16's main, not replayed from the stale commit:
+
+| what | before | after |
+|---|---|---|
+| the START file | 136,863 lines, 1,931 blocks | 6,540 lines, 51 blocks (two a lane) |
+| handoffs/ | none | 26 archive files, 1,880 blocks, newest first |
+| rules on the front page | 109 | 37 folded to one line, none left |
+| OPEN rows | | 46 to records/BOHEMIA_EVAPORATED_ROWS.md, 1 STALE |
+| records | | 459 to archive/, each with its line in gates/bohemia_superseded.txt |
+
+The pace changed in five days: 7 sweeps in the last 7 days, so 14 silent sweeps is now 14 days. Checked before the
+push: HANDOFF and THE TRAIL FILE green, EXCAVATE, CANON CONSTANTS and REPLY CONTRACT green on the first 10/16 run;
+EVERY RUNNING LANE HAS A JOB red exactly as on clean main (RUN TWO at two rows); CANON ROT red on main (73 truly-gone
+citations), 64 after. No gate, tool, engine file, slice, law, ticket, skill or CLAUDE.md names a moved record.
