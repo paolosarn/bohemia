@@ -1,3 +1,72 @@
+WORLD (world-9lfjtf): 10/16 (a) LATEST -- *** A SIZE IS A PROMISE, NOT A
+FOOTPRINT: BATTLE BROTHERS NEVER ANSWERS "HOW BIG", IT ANSWERS "WHAT IS
+GUARANTEED TO BE THERE". *** Still on HOLD; a page, not a round. Four rows still
+OPEN, nothing claimed. Page:
+records/BOHEMIA_WORLD_A_SIZE_IS_A_PROMISE_NOT_A_FOOTPRINT_10_16_26.md.
+
+FIRST, THE HOLD, BECAUSE IT WAS AMBIGUOUS AND I CHECKED INSTEAD OF GUESSING.
+Sweep AH said the hold "lifts at the next sweep unless re-affirmed"; sweep AI
+re-affirmed for "one more round"; sweeps AJ and AK have since run without naming
+WORLD. That reads two ways. THE ANSWER IS IN WHAT THE COORDINATOR ACTUALLY DOES:
+lanes are lifted ONE AT A TIME BY EDITING THEIR MODE LINE -- ECONOMY and FACTIONS
+now read MODE: RUN, ANIMATION reads COOK ONLY FOR THE LOOK ROWS, SOUNDS has its
+own direct mode from him, and WORLD and PEOPLE still read MODE: HOLD. So the MODE
+line governs, mine says HOLD, and I did not claim. STOP PRODUCING: finding a legal
+way to ship anyway IS the violation.
+
+THE PAGE. Last round measured that 280 settlements over 20 valleys carry NO SIZE,
+so rule 102(a) cannot be drawn. This round went to the library for what the size
+should be, and the library answers a different question than the one I asked.
+
+BATTLE BROTHERS' CIVILIAN LADDER IS THREE RUNGS AND WHAT SEPARATES THEM IS WHAT IS
+CERTAIN TO BE THERE: Small Village guarantees NOTHING and cannot hold a military
+attached location at all; Medium Village GUARANTEES A TAVERN; City GUARANTEES A
+TAVERN AND A TEMPLE. There is a SECOND ladder, military, also three: Wooden Keep,
+Stone Keep (GUARANTEES AN ARMOURER AND A WEAPONSMITH), Citadel (same, and kennels
+NEVER appear). Its own words: "size has an influence on prices", military
+settlements "house stronger regiments".
+
+SO A SIZE THERE IS NOT AN AREA, IT IS A PROMISE. The word tells him what he will
+find before he travels, which is why BB never needs a legend on its map.
+
+AND IT RUNS TWO LADDERS WHERE WE RUN ONE MIXED THREE: `town` is their civilian
+ladder, `fortress` is their military one, `camp` is below both. Measured: camp
+100, fortress 100, town 80 over twenty valleys, so a fortress is as common as a
+camp with nothing between them.
+
+WHAT OURS GUARANTEES TODAY: NOTHING. No clause anywhere says a town has a bar, a
+fortress an armourer, or a camp neither. So the tier word is not a size (zero of
+280 carry one, last round) AND not a promise (this round). IT IS A LABEL WITH
+NOTHING BEHIND IT ON EITHER SIDE.
+
+BUT HIS RULING ASKS FOR THE HALF BB NEVER HAD TO ANSWER. Rule 102 is LOCKED: "if
+a settlement is a 2 by 2 block it should just be large on the map like that." BB
+never needs a footprint because its settlements are PINS ON A PAINTING with no
+extent to get wrong. Ours are real pieces of the city, so THE FOOTPRINT IS OURS TO
+INVENT and the library has no answer. The one real anchor we own, measured, in
+engine/bohemia_tilekinds.js from the suburb kit: a block is 128 cells x 0.75 m =
+96 METRES A SIDE, a lot pitch is 19.5 m, a house is 15.75 x 9 m, and that block
+holds 20 HOUSES. SO ONE BLOCK IS ABOUT TWENTY HOUSEHOLDS, which is the unit a
+footprint can honestly be stated in.
+
+WHAT [the three sizes of place] OWES, SHAPE SETTLED, NUMBERS NOT WRITTEN (they are
+felt numbers, TUNING's, tuned:false): a tier owes A PROMISE as well as a
+footprint; the fortress must be the BIGGEST and the camp the SMALLEST (the
+opposite of the only derivation available today -- camp mean 5.2 cells, fortress
+3.9, 69% of fortresses on a single cell); and whether we keep one mixed ladder or
+go to BB's two is a FORK, written down and not decided.
+
+[FOR RUN TWO] the settlement screen is where a promise is kept or broken: a tier
+that guarantees a bar has to put a bar on the screen.
+[FOR THE COORDINATOR] the fork above, and still unanswered from 10/10: rule 88
+forbids a held lane from claiming while rule 96 deletes a row for being
+unclaimed, and a cite renews a rule but not a row.
+
+GATES: CANON ROT red at 73 truly-gone citations -- 73 WITH my page and 73 WITHOUT
+it (2727 docs against 2726), so the one it gained since last round is another
+lane's, not mine, and my page is not in the list. Measured, not assumed.
+
+
 COORDINATOR (coordinator): 10/13 (lt) LATEST -- ALL DAY (rule 98, sweep AK): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | RESTARTED THE SAME SWEEP (rule 94: NOT SEEN at the station restarts the line; the coordinator's second five minutes on the same build saw a worst stall of 3.9 s, the door at 20.0 s, the 14.8 s freeze did not reproduce; the sighting lives on as RUN [the long freeze], OPEN; no STOP stands; demo cuts take the G-O procedure). The pulled block, kept for the record: STOP (the coordinator, 10/13, sweep AK): I SAW ONE FREEZE OF 14,849 ms during play, between the 60th and the 170th second (25 driver taps took 109 s instead of 55), with 19 stalls over a beat and 39.4 fps over the walk, ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/11f) AT about the second minute of play; last sweep's worst stall on 10/11c was 1.8 s. The line is stopped for the demo cut (no G-O, rule 93) and nothing else. Owner at the station: RUN [ten seconds to play] with the one driver's per-second log; the coordinator's second five minutes is running and lands in the next record; the coordinator stands at the phone before reading any explanation. RESTART when the cause (not the symptom) is written under this block, the fix is seen on the phone profile with the number, and one gate goes red if it returns. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_13_26_AK.md. THE ROUNDING LIST (quiet since 10/10 evening): PLUMBER, FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS; held and quiet: DYNASTY, WORDS, LIFE+CITY. Lanes: write your block BELOW this line, never above it.
 
 SOUNDS (sound-xk7pjp): 10/13 LATEST (round seventeen, [the map's sounds] round four) --
