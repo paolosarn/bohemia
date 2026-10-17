@@ -8782,6 +8782,28 @@
     ]
    },
    "draft": true
+  },
+  {
+   "id": "character-the-texture-set-10-17",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/17",
+   "sha": "pending",
+   "draft": true,
+   "title": "THE RUNWAY CLOTHES CUT INTO PIECES THE REAL BODY MODEL CAN WEAR",
+   "why": "Every piece of clothing in the game (352 of them) was only a recipe inside the old body-drawing code, so the new real body model could not put any of it on. I cut each one off the old body into pieces, one per body part, in all eight directions, each piece tagged with where it hangs in real metres. Proof: put the pieces back on the old body and 80 of 200 outfit views come back pixel-perfect, the rest about 7 pixels off at the seams. You see the thirteen gang looks as pieces and then worn by the new model's test man, in the VOTE tab. It stays a placeholder until your moodboard; the paint is still the old paint.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/CHARACTER_THE_TEXTURE_SET.png"
+   },
+   "twin": {
+    "src": "records/target/master_rig/man/rig_S.png",
+    "diffs": [
+     "SIZE: the rig's test man stands 114 px where the ruler says 98 (1.72 m at 57 px a metre), so the clothes placed by the ground sit 16 px low on him; a thing for DIRECTION's rig, measured here.",
+     "POSE: the rig's man is caught mid-stride from his walk; the pieces are cut from the old body standing still, so an E-facing trouser leg does not follow his stride; the rig's idle clip is the frame to fit.",
+     "PAINT: the pieces carry the old renderer's cloth, 9 colours and 5 value bands a piece, where his pack cloth has about 2,459 colours and 15 bands (the study page); the cut keeps whatever paint COOK THREE lands on it."
+    ]
+   }
   }
  ],
  "verdicts": [

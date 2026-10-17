@@ -1,0 +1,38 @@
+CHARACTER VOTE VERDICTS, READ BACK (10/17/26, character-0lurbs). NOTES ARE RULINGS (7/19): every vote
+he cast on this lane's cards, his words, and what the lane did with each. The lane's own gate
+(gates/character_in_the_vote_tab_gate.js) was red on main for six cards with nothing written; this is
+the writing. Nothing here re-asks him anything.
+
+character-the-barber-10-1  DOWN  "Bro, the character customization alpha shit will not be the same
+  customization screen that's in the game at least right now in the way it is it's really ugly" (9/30)
+  -> RULING RECORDED on the [barber] row (VAMILY.md, CHARACTER): the alpha's customization screen is
+  not the game's; the barber's mechanism (a visit costs one battery, the face maker and the haircut
+  bank open there) stands on his own words ("your bank and cost stand", the fifth votes); the game's
+  barber screen is RUN TWO's settlement screen with new art. No new screen built by this lane.
+
+character-the-attachments-trade-9-28  UP  "good progress not final not even close" (10/2)
+  -> RULING RECORDED: the mechanism (cloak, padding, spike as a trade of armour vs fatigue vs a
+  special, from the library) is approved as a direction and NOT final. Volume on it waits on
+  DIRECTION's twin for the character family ([the twin on the thirteen]) and his FINAL (rule 100b).
+
+character-the-one-cell-sprite-9-27  DOWN  (no words) (10/2)
+  -> RULING RECORDED: the one-cell sprite was already RETIRED 9/28 (the walk is dead, the fight is on
+  house tiles with the 112 art; [small body] row). Nothing of it ships; the card is closed.
+
+character-the-origin-crews-10-9  UP  "Its decent" (10/9)
+  -> RULING RECORDED: the fifteen origins' starting men dressed by their backgrounds' daily wage stands
+  (records/target/bb/origin_crews_dress.json, read by RUN at the door). Placeholder paint until his
+  FINAL (rule 100e); the dressing table is not added to.
+
+character-armour-you-can-see-10-9  DOWN  "Looking like incredible dog shit good idea, but terrible
+  implementation" (10/9)
+  -> RULING RECORDED: the idea (every armor.json row as a worn piece, four tiers by durability) stands;
+  the implementation (the formula's paint) is what he killed. Rule 82/87 re-aims the look to [the twin
+  on the thirteen] and COOK THREE's repaint; this lane's 10/17 texture set cuts whatever paint lands
+  into the same pieces with the same attach points, so the repaint reaches the armour tiers for free.
+
+character-the-three-bodies-10-10  DOWN  "Looks like dogshit" (10/9)
+  -> RULING RECORDED on the [three bodies] row: the heredity mechanism (the descendants' body dials
+  blended toward the ancestor's by the face's own weights) stands; the body he saw is the formula's and
+  is dead as a look (69d28a0b: every body is a formula; the road out is DIRECTION's master rig). The
+  descendants' bodies come back through the rig, not through the formula, after his FINAL.

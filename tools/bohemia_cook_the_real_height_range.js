@@ -27,6 +27,11 @@
  * a placeholder (rule 101c) and is not edited; this hands the real numbers
  * and the real reason to whoever builds the replacement.
  *
+ *
+ * REFERENCE CHECK (added 10/17 by CHARACTER, the 9/4 standing duty; the gate found this tool
+ * without one): the compare law, the approved asset index (no pack person exists), the card of
+ * numbers, skills/bohemia-pixel-art (the 112 box, the person may not zoom), AH-01 and AH-03. A
+ * measurement of the formula's height dial, not a drawing. No reference game.
  * Run: node tools/bohemia_cook_the_real_height_range.js
  */
 'use strict';

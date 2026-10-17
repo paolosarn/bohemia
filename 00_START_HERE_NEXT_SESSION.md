@@ -1,4 +1,43 @@
 COORDINATOR (coordinator): 10/16 (lu) LATEST -- ALL DAY (rule 98, sweep AL): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | RULES 109 AND 110 (10/16, after the sweep): THE MAP IS BATTLE BROTHERS' SIZE (pick one; the grid grows or breaks; RUN [the map at Battle Brothers' size] FIRST, WORLD [the region] unheld) and THE BIG SWING DAY (every lane's MODE line opens with its one big swing; the fight, the screen, the formation first; no lane asks him anything today). | RULE 111 (10/16, his 'fill the limit, open the chats yourself'): the coordinator opened lane sessions with the repo attached (DIRECTION ran the master rig round two; PLUMBER, RUN, COMBAT, RUN TWO, COMBAT TWO, COOK, COOK TWO, COOK THREE, COOK FOUR, UI, EYES opened 10/17) and an hourly auto-sweep routine fires VAMILY into this session until he says stop or the usage ends. | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/16, sweep AL): I SAW A FREEZE OF 9,083 ms during play (34 stalls over a beat, the walk at 40.6 fps, 25 driver taps taking 96 s instead of 55 between the first and second minute) ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/13b) AT about the second minute; this is the THIRD run in a row with a freeze far over a beat on the same instrument (14.8 s on 10/11f, 3.9 s, now 9.1 s), so the sighting is reproduced across runs, not once. The line is stopped for the demo cut (no G-O, rule 93) and nothing else; the alpha moves. Owner at the station: RUN [the long freeze] with the one driver's per-second log, several runs, the main thread's work in the frozen second written under this block. RESTART when the cause (not the symptom) is written here, the fix is seen on the phone profile with the number over three runs, and one gate goes red if a stall over two seconds returns. | THE ROUNDING LIST (no commit since the sweep before last, in the order of what waits on them): FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS (since 10/10), COMBAT TWO, EYES AND EARS, COOK THREE (since 10/11); PLUMBER ran this sweep ([the trail file] moved 1,880 blocks to handoffs/, folded 37 rules, archived 459 records); held and quiet by rule: DYNASTY, WORDS, LIFE+CITY. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_16_26_AL.md. | RULE 111(d) (10/16, after his 'fourteen approval screens'): .claude/settings.json now carries permissions.allow (60) and deny (3); every lane session opened after this commit runs without a prompt; this session may keep asking until reopened; PLUMBER [the allow list gate] OPEN. | RULE 112 (10/16, 'a new age... I can't be entering the chats ever again'): he talks to this chat and the VOTE tab only; the coordinator opens, reads and archives every lane session each sweep; the hourly wake-up is standing (trig_01YHN76SbxHruPKhZTsuWXNb); finished and hand-opened duplicate chats archived. Lanes: write your block BELOW this line, never above it.
+
+CHARACTER (character-0lurbs): 10/17 (n) LATEST -- *** THE BIG SWING: EVERY PIECE OF CLOTHING
+CUT OFF THE OLD BODY INTO PIECES THE NEW REAL BODY MODEL CAN WEAR, WITH WHERE EACH ONE HANGS
+IN REAL METRES. ***
+TAB: VOTE, the card character-the-texture-set-10-17 (the thirteen gang looks as pieces, then on
+the new model's test man). Record: records/BOHEMIA_THE_TEXTURE_SET_10_17_26.md; the study page
+first, records/BOHEMIA_HOW_THE_PACK_DID_IT_CLOTH_10_17_26.md.
+
+The problem: all 352 clothes in the game were recipes inside the old body-drawing code. The new
+real body model (the art director's rig, landed this round) cannot run a recipe, so it had no
+clothes at all. This round every garment was drawn on the old body one at a time, in all eight
+directions, and the pixels it added were cut off into pieces, one per body part (10,659 pieces),
+each tagged with the joint it hangs from and its place in real metres (57 pixels a metre, the
+same ruler the rig uses). The set lives in records/character/texture_set/ (not published: the
+site folder is already over size); the rig reads manifest.json.
+
+The proof was wrong twice before it was right. Putting the pieces back on the old body and
+comparing with the old body dressed all at once: first try 68 of 200 views exact, the worst one
+496 pixels off, and LOOKING at it showed both sleeves repainted lighter. A probe found the old
+code repaints bare ARMS when it draws TROUSERS (skin shading beside a piece, not cloth). Now every
+piece is cut twice, over bare skin and over a dressed body, and pixels that only exist on bare
+skin are flagged as skin shading: 80 of 200 exact, the rest 7 pixels off on average at the
+seams, worst 63.
+
+FOUND FOR DIRECTION, measured not fixed: the rig's rendered man stands 114 px tall where its own
+rig.json says 98 for 1.72 m, so clothes placed by the ground sit 16 px low on him on the sheet.
+COOK THREE's page this round (records/BOHEMIA_COOK3_WHAT_THE_RIG_NEEDS_FOR_A_PERSON_10_17_26.md)
+asks for the garments as separate meshes by this lane's slots; the manifest is the pixel side of
+that contract (the same fifteen joint names, in metres).
+
+GATES: gates/the_texture_set_gate.js NEW 8/0, no browser, mutation-proven; CHARACTER IN THE VOTE
+TAB 9/0 (it was 8/1 on main: six of his votes on this lane had no written readback, written now
+in records/BOHEMIA_VOTE_VERDICTS_CHARACTER_READBACK_10_17_26.txt); THE VOTE TAB 34/3, the three
+reds are other lanes' (duplicate ids from ANIMATION, UI and COMBAT; TUNING's long whys; COMBAT
+TWO's missing twin); REFERENCE CHECK 467/2, one of the two was mine from last round
+(bohemia_cook_the_real_height_range.js had no check, fixed), the other is COOK TWO's
+bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by one until
+they add it. Nothing to slices/, engine/ or the demo (rule 100).
+PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
 PEOPLE (people-ctqoqx): 10/17 LATEST -- BIG SWING (rule 110e, under the hold):
 [who lives where] SHIPPED as a page, 9f10575e. *** EVERY ONE OF THE 26 PLACES NOW HAS
