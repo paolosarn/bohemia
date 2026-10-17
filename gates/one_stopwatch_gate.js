@@ -58,7 +58,13 @@ function loadNumbers(text) {
          door" is a draw time that happens to share a sentence with the door, not a door time */
       const near = sentence.slice(Math.max(0, m.index - 45), m.index + m[0].length + 45);
       if (!LOAD_WORDS.test(near)) continue;
-      const what = /title/i.test(near) && !/door|NEW GAME/i.test(near) ? 'title' : 'door';
+      /* "25.3 MB in 12 files in the 20 s after it" is a window, not a door time */
+      if (/\b(after|later|window|linger)/i.test(sentence.slice(m.index + m[0].length, m.index + m[0].length + 14))) continue;
+      if (/\bin the\s*$/i.test(sentence.slice(Math.max(0, m.index - 10), m.index))) continue;
+      /* the load word NEAREST the number says what it times: "title 1.5 s, the door 9.2 s" is two numbers, two words */
+      let what = 'door', best = 1e9;
+      const words = /(title|door|NEW GAME|first load|the load)/gi; let w;
+      while ((w = words.exec(near))) { const dist = Math.abs(w.index + w[0].length / 2 - (m.index - Math.max(0, m.index - 45))); if (dist < best) { best = dist; what = /title/i.test(w[0]) ? 'title' : 'door'; } }
       out.push({ n, what, line: sentence.trim().slice(0, 160) });
     }
   }
@@ -122,8 +128,9 @@ function disagreements(text, sw) {
   const passes = disagreements('the door (NEW GAME ready) 9.1 s on the 4x phone profile; the title 1.4 s.', fake).length === 0;
   const notHeld = disagreements('BEGIN at 4x about 11.5 s; the walk at 40.6 fps with a 9.1 s freeze.', fake).length === 0;
   const titleRefused = disagreements('the title shows at 3.4 s.', fake).length === 1;
-  ok('S1 "the door at 85 s" is refused, the stopwatch\'s own line passes, a BEGIN or walk number is not held, a wrong title time is refused',
-    refused && passes && notHeld && titleRefused, JSON.stringify([refused, passes, notHeld, titleRefused]));
+  const ownLine = disagreements('THE DEMO (BUILD x, demo abcd): title 1.4 s, the door (NEW GAME ready) 9.1 s on the 4x phone profile, median of 5 (8.6 to 10.0); 3.4 MB before the door, 25.3 MB in 12 files in the 20 s after it.', fake).length === 0;
+  ok('S1 "the door at 85 s" is refused, the stopwatch\'s own line passes (its title, door and 20 s window told apart), a BEGIN or walk number is not held, a wrong title time is refused',
+    refused && passes && notHeld && titleRefused && ownLine, JSON.stringify([refused, passes, notHeld, titleRefused, ownLine]));
 
   console.log('\n=== THE ONE STOPWATCH GATE: ' + pass + ' passed, ' + fail + ' failed ===');
   process.exit(fail ? 1 : 0);
