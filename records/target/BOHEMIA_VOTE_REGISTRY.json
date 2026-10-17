@@ -8788,7 +8788,7 @@
    "kind": "outfit",
    "lane": "character",
    "made": "10/17",
-   "sha": "pending",
+   "sha": "98500aa",
    "draft": true,
    "title": "THE RUNWAY CLOTHES CUT INTO PIECES THE REAL BODY MODEL CAN WEAR",
    "why": "Every piece of clothing in the game (352 of them) was only a recipe inside the old body-drawing code, so the new real body model could not put any of it on. I cut each one off the old body into pieces, one per body part, in all eight directions, each piece tagged with where it hangs in real metres. Proof: put the pieces back on the old body and 80 of 200 outfit views come back pixel-perfect, the rest about 7 pixels off at the seams. You see the thirteen gang looks as pieces and then worn by the new model's test man, in the VOTE tab. It stays a placeholder until your moodboard; the paint is still the old paint.",
