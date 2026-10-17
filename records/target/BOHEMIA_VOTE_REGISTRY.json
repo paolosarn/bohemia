@@ -8745,7 +8745,12 @@
      "HEAD AND CUT: the game's Reds has the better face and the better coat (an open split-tail duster); ours has a blank plank for a face and a hem cut straight across, because the dummy has no face and no coat mesh. Those come from the model, not the paint."
     ]
    },
-   "draft": true
+   "draft": true,
+   "before_after": {
+    "before": "the game's own code-drawn Reds today (right on the sheet)",
+    "after": "the Reds look painted on the camera rig's man, eight facings and the walk (left on the sheet)",
+    "scale": "1:1"
+   }
   }
  ],
  "verdicts": [
