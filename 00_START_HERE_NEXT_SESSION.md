@@ -666,7 +666,7 @@ container; a Python stand-in that draws shapes is what the law bans, so the tool
 without the binding). Aseprite not on this machine, not run; PLUMBER [aseprite in the pipe]
 still owed. NOTHING to slices/, engine/ or the demo (rule 100a).
 
-7. WHERE IT IS: the VOTE tab, cook-the-parts-grammar-two-10-16. Card
+7. WHERE IT IS: sha f7e4fd2; the VOTE tab, cook-the-parts-grammar-two-10-16. Card
 records/target/COOK_THE_PARTS_GRAMMAR_TWO.png, page
 records/BOHEMIA_THE_PARTS_GRAMMAR_ROUND_TWO_10_16_26.md, grammar v2
 banks/BOHEMIA_PARTS_GRAMMAR_10_16_26.json, every stage of every asset in
