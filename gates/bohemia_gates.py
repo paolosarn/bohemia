@@ -4096,6 +4096,8 @@ GATES = [
      'rule 48 (Paolo 9/29: "the perks need to be translated"): the fifty one for one with our draft names; every perk marked live held to its own wiki number, the same two men with and without it; crew perks obey the row unlocking; enemies carry what their wiki page lists', False),
     ('THE REBUILT FIGHT PLAYS', ['node', 'gates/the_rebuilt_fight_plays_gate.js'],
      'rule 63 (Paolo 10/2: "start combat over... re-create Battle Brothers combat"): two whole fights played start to end on his phone with real taps; whole board on the glass at the open, the pinch, initiative order, the 5-95 cap, head hits, morale, injuries, free swings, YOU never dead, hires dead or laid up 30-40 days, under 15 minutes on the beat', True),
+    ('THE FORMATION IS KEPT', ['node', 'gates/the_formation_is_kept_gate.js'],
+     'COMBAT [formation] (rule 110b, Paolo 10/16: "the team member formation is shit"; Battle Brothers\' deployment): the enemy\'s line drawn while he sets his, a real finger drags a man into his two columns, the line is written down by name and the next fight opens with every man where he left him, AUTO starts on it and walks as a line, a clean start forgets it', True),
     ('ONE FIGHT', ['node', 'gates/one_fight_gate.js'],
      'COMBAT [one fight] (MODS 10/9: two truths for one gun): on the baked demo the sealed old fight is never built (idle, or when the map opens a fight), every fight is slices/BOHEMIA_FIGHT.html, and it reads its guns from records/target/bb/weapons.json', True),
     ('COMBAT RUNS',    ['node', 'gates/combat_runs_smoke.js'],

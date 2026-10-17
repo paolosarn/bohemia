@@ -591,10 +591,16 @@ const FIGHT = (function () {
     S.board = S.boardDef.name;
     /* LEFT TO RIGHT (rule 67): yours on the left facing right, theirs on the right */
     const cols = S.cols;
-    deployCrew(crewUnits, cols[0], -1, opts.formation);
+    /* THE FORMATION IS KEPT (COMBAT [formation], rule 110b, Paolo 10/16: 'the team member formation is shit'; Battle Brothers
+       keeps the company's two rows from fight to fight): a hand-over (opts.formation, RUN TWO's roster) wins; else the line he
+       set last time is read back by name; opts.formation === null forgets it (the test bench's clean start) */
+    const kept = opts.formation === null ? null : (opts.formation || readFormation());
+    S.formationKept = false;
+    deployCrew(crewUnits, cols[0], -1, kept);
+    S.formation = formationNow();
     place(bandUnits, cols[1], 1);
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
-       any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it */
+       any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
     S.deploy = !opts.auto && opts.deploy !== false;
     newRound();
   }
@@ -700,7 +706,7 @@ const FIGHT = (function () {
     return { front: centred(fr), back: centred(bk) };
   }
   function deployCrew(units, col, back, formation) {
-    const rows = rowsOf(units, formation), n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1);
+    const n = R('ours.formation').slots_per_row, mid = (S.h - 1) / (1 + 1), midR = Math.round(mid);
     const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y); };
     const zone = zoneCols();
     function nearest(x, y) {
@@ -713,8 +719,25 @@ const FIGHT = (function () {
       for (let xx = zone[zone.length - 1] + back; !best && xx >= 0 && xx < S.w; xx += back) for (let yy = 0; yy < S.h; yy++) if (free(xx, yy)) { best = { x: xx, y: yy }; break; }
       return best;
     }
+    const later = [], rest = [];
+    /* THE KEPT LINE: a man the memory names stands where he stood, by his line (front or back) and his row off the board's
+       middle; a tile that is a house on this board sends him to the nearest open one of the zone; a man the memory does not
+       know (a new hire) takes his default slot below, in the open tiles that are left */
+    const placed = formation && Array.isArray(formation.placed) ? formation.placed : null;
+    if (placed) {
+      const byName = {}, taken = {};
+      units.forEach(function (u) { byName[u.name] = u; });
+      placed.forEach(function (p) {
+        const u = byName[p.name];
+        if (!u || taken[u.id]) return;
+        taken[u.id] = true; u.slot = 'kept';
+        const x = zone[p.line] === undefined ? zone[0] : zone[p.line], y = midR + (p.off | 0);
+        if (free(x, y)) { u.x = x; u.y = y; S.formationKept = true; } else { u.x = -1; u.y = -1; later.push({ u: u, x: x, y: y }); }
+      });
+      units.forEach(function (u) { if (!taken[u.id]) rest.push(u); });
+    } else rest.push.apply(rest, units);
+    const rows = rowsOf(rest, placed ? null : formation);
     /* every man whose slot is open stands on it first; then a man whose slot is a house takes the nearest open tile */
-    const later = [];
     [['front', col], ['back', col + back]].forEach(function (rw) {
       rows[rw[0]].forEach(function (u, i) {
         if (!u) return;
@@ -723,9 +746,29 @@ const FIGHT = (function () {
         if (free(rw[1], y)) { u.x = rw[1]; u.y = y; } else { u.x = -1; u.y = -1; later.push({ u: u, x: rw[1], y: y }); }
       });
     });
-    later.forEach(function (l) { const at = nearest(l.x, l.y); if (at) { l.u.x = at.x; l.u.y = at.y; } });
+    later.forEach(function (l) { const at = nearest(l.x, l.y); if (at) { l.u.x = at.x; l.u.y = at.y; if (l.u.slot === 'kept') S.formationKept = true; } });
   }
-  /* before turn one: one of your men to a tile of your two columns; onto a friend, they trade places */
+  /* THE MEMORY OF THE LINE (rule 110b): where each of your men stands in your two columns, by name, as his line (0 the front
+     column, 1 the one behind) and his row counted from the board's middle, so the same line comes back on a board of another
+     height. Written the moment he moves a man and when FIGHT is pressed; read by setup; the fight and the alpha share the
+     origin, so the alpha's next fight and the demo's read the same memory. */
+  const FORMATION_KEY = 'bohemia.fight.formation.v1';
+  function readFormation() {
+    try { const s = localStorage.getItem(FORMATION_KEY); const f = s ? JSON.parse(s) : null; return f && Array.isArray(f.placed) ? f : null; } catch (_e) { return null; }
+  }
+  function formationNow() {
+    const zone = zoneCols(), midR = Math.round((S.h - 1) / (1 + 1));
+    return { placed: S.units.filter(function (u) { return u.side === 'you' && onField(u) && zone.indexOf(u.x) >= 0; })
+      .map(function (u) { return { name: u.name, line: zone.indexOf(u.x), off: u.y - midR }; }) };
+  }
+  function saveFormation() {
+    const f = formationNow(); S.formation = f;
+    try { localStorage.setItem(FORMATION_KEY, JSON.stringify(f)); } catch (_e) {}
+    emit({ t: 'formation', placed: f.placed.length });
+    return f;
+  }
+  function forgetFormation() { try { localStorage.removeItem(FORMATION_KEY); } catch (_e) {} }
+  /* before turn one: one of your men to a tile of your two columns; onto a friend, they trade places; the line is kept */
   function deployMove(u, x, y) {
     if (!S.deploy || !u || u.side !== 'you' || !onField(u) || !inZone(x, y) || !passable(x, y)) return false;
     const o = unitAt(x, y);
@@ -733,9 +776,13 @@ const FIGHT = (function () {
     if (o === u) return true;
     if (o) { o.x = u.x; o.y = u.y; }
     u.x = x; u.y = y; emit({ t: 'deploy', id: u.id, x: x, y: y, swap: o ? o.id : null });
+    saveFormation();
     return true;
   }
-  function startFight() { if (!S.deploy) return false; S.deploy = false; emit({ t: 'fight' }); return true; }
+  function startFight() { if (!S.deploy) return false; saveFormation(); S.deploy = false; emit({ t: 'fight' }); return true; }
+  /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b; Battle Brothers shows the enemy's deployment): before FIGHT every
+     man of theirs on the field is drawn; from the first turn only the men his side can see */
+  function shown(t) { return t.side === 'you' || !!S.deploy || sideSees('you', t); }
 
   /* ---------------- THE ROUND ---------------- */
   function newRound() {
@@ -1435,7 +1482,8 @@ const FIGHT = (function () {
     level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    deployMove: deployMove, startFight: startFight, inZone: inZone,
+    deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
+    saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { fall: fall, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes }
   };
@@ -1449,7 +1497,7 @@ const FIGHT = (function () {
    fighter's numbers. The beat (ours.beat_bpm) paces every swing and step. */
 const cv = document.getElementById('cv'), cx = cv.getContext('2d');
 const UI = { zoom: 1, cx: 0, cy: 0, far: 1, near: 1, max: 1, sel: null, pend: null, auto: false, speed: 1,
-  anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0 };
+  anim: [], pops: [], beats: 0, beat: 0, t0: 0, started: false, imgs: {}, board: null, tw: 160, th: 113, nextAI: 0, glide: null, idle: 0, drag: null };
 let W = 0, H = 0, DPR = 1, TOPH = 0, BOTH = 0;
 const MAN_OF_TILE = 0.86, MAN_IDLE = 104, BAR_PT = 3;   /* a man stands most of a house tile tall; at the idle stop that is ~104 px */
 /* BOTH TEAMS ON ONE SCREEN (rule 104a) with THE GROUND MAY ZOOM, THE PERSON MAY NOT (rule 21): the man is drawn MAN_IDLE css px
@@ -1923,8 +1971,8 @@ function tick(now) {
   if (FIGHT.S.over) return;
   if (UI.glide || now < UI.openUntil) return;
   /* YOUR FORMATION: nothing moves before FIGHT (the second votes: nothing is forced, nothing happens in the first second);
-     AUTO means he does not want to set it, so it starts */
-  if (FIGHT.S.deploy) { if (UI.auto) fightNow(); return; }
+     AUTO means he does not want to set it, so it starts on the kept line */
+  if (FIGHT.S.deploy) { if (UI.auto) fightNow(); else if (UI.drag) dragPan(); return; }
   /* as they close, they stay on the glass: a new round refits if any man stands off it (rule 104a) */
   if (UI.fitRound !== FIGHT.S.round) { UI.fitRound = FIGHT.S.round; const f = fitBoth();
     /* a man off the glass, or the lines closed enough to come in closer: the camera takes them all again (it tightens as they meet) */
@@ -2013,6 +2061,14 @@ function draw(now) {
     cx.lineWidth = 2; cx.strokeStyle = 'rgba(20,14,8,.7)'; cx.strokeRect(x0 + 1, sy(0) + 1, x1 - x0, UI.board.height * UI.zoom);
     cx.strokeStyle = '#f0d296'; cx.strokeRect(x0, sy(0), x1 - x0, UI.board.height * UI.zoom);
     if (UI.dsel) { cx.strokeStyle = '#f0d296'; cx.lineWidth = 2; cx.strokeRect(sx(UI.dsel.x * UI.tw) + 1.5, sy(UI.dsel.y * UI.th) + 1.5, tw - 3, th - 3); }
+    /* DRAGGING A MAN INTO HIS LINE (rule 110b): the tile under the finger answers, green where he may stand (a friend there
+       trades places), red where he may not; the tile he left is marked until he lands */
+    if (UI.drag) {
+      const p = dragTile(), ok = FIGHT.inZone(p.x, p.y) && FIGHT._t.passable(p.x, p.y) && !S.units.some(function (v) { return FIGHT.onField(v) && v.side !== 'you' && v.x === p.x && v.y === p.y; });
+      cx.fillStyle = ok ? 'rgba(143,174,106,.45)' : 'rgba(196,85,63,.35)'; cx.fillRect(sx(p.x * UI.tw) + 1, sy(p.y * UI.th) + 1, tw - 2, th - 2);
+      cx.strokeStyle = ok ? '#b9d98a' : '#ec6246'; cx.lineWidth = 2.5; cx.strokeRect(sx(p.x * UI.tw) + 2, sy(p.y * UI.th) + 2, tw - 4, th - 4);
+      cx.setLineDash([6, 4]); cx.strokeStyle = 'rgba(240,210,150,.8)'; cx.lineWidth = 2; cx.strokeRect(sx(UI.drag.u.x * UI.tw) + 2, sy(UI.drag.u.y * UI.th) + 2, tw - 4, th - 4); cx.setLineDash([]);
+    }
   }
   /* reach lit: where the active man can step, and who he can hit */
   if (u && crewControlled(u) && !busy && !S.over && !S.deploy) {
@@ -2054,9 +2110,12 @@ function draw(now) {
   }
   S.units.filter(function (v) { return (v.dead || v.down) && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
   /* the people, back rows first */
-  const live = S.units.filter(function (v) { return FIGHT.onField(v) && (v.side === 'you' || FIGHT.sideSees('you', v)); })
+  /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b): FIGHT.shown draws every man of theirs before FIGHT; the man he is
+     dragging is drawn last, at his finger */
+  const live = S.units.filter(function (v) { return FIGHT.onField(v) && FIGHT.shown(v) && !(UI.drag && UI.drag.u === v); })
     .sort(function (a, b) { return dy(a) - dy(b); });
   live.forEach(function (v) { drawMan(v, tw, th); });
+  if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
   /* what a blow did, as light on the man, never as words on the ground (rule 46f): the words are in the bar */
   UI.pops = UI.pops.filter(function (p) { return now - p.t < beatMs() * 2; });
   UI.pops.forEach(function (p) {
@@ -2107,8 +2166,10 @@ function drawBody(v, tw, th) {
   blitMan(v, X, feet, h, v.side === 'you' ? 1 : -1, performance.now(), true);
 }
 /* where a man is drawn, mid-step included */
-function dx(v) { if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
-function dy(v) { if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
+/* the man he is dragging into his line stands under his finger, his feet a little above it so the finger does not cover him */
+const DRAG_LIFT = 0.45;
+function dx(v) { if (UI.drag && UI.drag.u === v) return wx(UI.drag.px) / UI.tw - .5; if (v._fx === undefined || !UI.anim.length) return v.x; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.x; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fx + (a.e.x - a.e.fx) * k; }
+function dy(v) { if (UI.drag && UI.drag.u === v) return wy(UI.drag.py) / UI.th - .9 - DRAG_LIFT; if (v._fx === undefined || !UI.anim.length) return v.y; const a = UI.anim[0]; if (a.k !== 'step' || a.e.id !== v.id || !a.at) return v.y; const k = Math.min(1, (performance.now() - a.at) / a.dur); return a.e.fy + (a.e.y - a.e.fy) * k; }
 function skinOf(v) { return '#8c6a52'; }
 function drawMan(v, tw, th) {
   const X = sx((dx(v) + .5) * UI.tw), feet = sy((dy(v) + .9) * UI.th);
@@ -2137,7 +2198,7 @@ function drawMan(v, tw, th) {
 }
 /* A FACE for the bar and the turn strip: head and shoulders of the same man the board draws */
 function drawPortrait(g, v, S) {
-  const you = v.side === 'you', unseen = v.side === 'them' && !FIGHT.sideSees('you', v);
+  const you = v.side === 'you', unseen = !FIGHT.shown(v);
   g.clearRect(0, 0, S, S);
   g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
   const img = atlasOf(v);
@@ -2261,7 +2322,7 @@ function hud() {
   document.getElementById('round').textContent = 'R' + S.round + (S.night ? ' NIGHT' : '');
   /* the turn strip: faces in initiative order on the tape, the one acting larger (rule 67a) */
   const ord = document.getElementById('order'), line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9);
-  const okey = line.map(function (v) { return v.id + v.morale[0] + (v.side === 'them' && !FIGHT.sideSees('you', v) ? '?' : ''); }).join(',');
+  const okey = line.map(function (v) { return v.id + v.morale[0] + (FIGHT.shown(v) ? '' : '?'); }).join(',');
   if (ord.dataset.key !== okey) { ord.dataset.key = okey; ord.textContent = ''; line.forEach(function (v, i) { ord.appendChild(faceCanvas(v, i ? 36 : 42, !i)); }); }
   const show = (UI.pend && UI.pend.target) || u || S.units[0];
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
@@ -2364,8 +2425,8 @@ function weaponCard(v) {
 /* who stands under a finger on the board (the man drawn there, or the tile's man) */
 function manAt(px, py) {
   const S = FIGHT.S, p = tileAt(px, py), th = UI.th * UI.zoom, hgt = manH();
-  return S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && (v.side === 'you' || FIGHT.sideSees('you', v)); })[0] || S.units.filter(function (v) {
-    if (!FIGHT.onField(v) || (v.side === 'them' && !FIGHT.sideSees('you', v))) return false;
+  return S.units.filter(function (v) { return FIGHT.onField(v) && v.x === p.x && v.y === p.y && FIGHT.shown(v); })[0] || S.units.filter(function (v) {
+    if (!FIGHT.onField(v) || !FIGHT.shown(v)) return false;
     const X = sx((v.x + .5) * UI.tw), Yf = sy((v.y + .9) * UI.th);
     return Math.abs(px - X) <= Math.max(hgt * .28, UI.tw * UI.zoom * .3) && py <= Yf + th * .1 && py >= Yf - hgt;
   }).sort(function (a, b) { return b.y - a.y; })[0] || null;   /* the man on the tile first (rule 104a), then a body */
@@ -2436,6 +2497,9 @@ cv.addEventListener('pointerdown', function (e) {
   } else {
     gest = { pinch: false, moved: false, cx0: UI.cx, cy0: UI.cy };
     const g0 = gest, px = e.clientX, py = e.clientY;
+    /* SET YOUR LINE BY DRAGGING (rule 110b, Battle Brothers' deployment): before FIGHT a finger down on one of your men picks him
+       up; the ground does not pan under a man; a finger that does not move is still the tap-then-tile way */
+    if (FIGHT.S.deploy && !UI.auto && !FIGHT.S.over) { const v = manAt(px, py); if (v && v.side === 'you') g0.dragMan = v; }
     g0.hold = setTimeout(function () { if (gest !== g0 || g0.moved || g0.pinch) return; const v = manAt(px, py); if (v) { g0.held = true; weaponCard(v); } }, HOLD_MS);
   }
   UI.glide = null;
@@ -2451,15 +2515,40 @@ cv.addEventListener('pointermove', function (e) {
     UI.cx = gest.wx - (mx - W / 2) / z; UI.cy = gest.wy - (my - TOPH - (H - TOPH - BOTH) / 2) / z; clampCam();
   } else if (!gest.pinch) {
     if (Math.hypot(t.x - t.x0, t.y - t.y0) > 8) gest.moved = true;
-    if (gest.moved) { UI.cx = gest.cx0 - (t.x - t.x0) / UI.zoom; UI.cy = gest.cy0 - (t.y - t.y0) / UI.zoom; clampCam(); }
+    if (gest.moved && gest.dragMan && FIGHT.S.deploy && !UI.auto) {
+      if (!UI.drag) { clearTimeout(gest.hold); UI.dsel = gest.dragMan; }
+      UI.drag = { u: gest.dragMan, px: t.x, py: t.y };
+    } else if (gest.moved) { UI.cx = gest.cx0 - (t.x - t.x0) / UI.zoom; UI.cy = gest.cy0 - (t.y - t.y0) / UI.zoom; clampCam(); }
   }
 });
+/* the tile under the dragging finger (the man's feet are DRAG_LIFT above it, so the finger's own tile is what he lands on) */
+function dragTile() { return tileAt(UI.drag.px, UI.drag.py); }
+/* a finger near the edge of the glass pans the ground under the man it carries, so a slot off the glass can still be reached */
+const DRAG_EDGE = 44, DRAG_PAN = 6;
+function dragPan() {
+  const d = UI.drag, step = DRAG_PAN / UI.zoom;
+  let moved = false;
+  if (d.py < TOPH + DRAG_EDGE) { UI.cy -= step; moved = true; } else if (d.py > H - BOTH - DRAG_EDGE) { UI.cy += step; moved = true; }
+  if (d.px < DRAG_EDGE) { UI.cx -= step; moved = true; } else if (d.px > W - DRAG_EDGE) { UI.cx += step; moved = true; }
+  if (moved) clampCam();
+}
+/* the finger lifts: the man lands on the tile under it if it is his to stand on (a friend there trades places), else he is back
+   where he was; either way the line is written down (deployMove saves it) */
+function dragDrop(t) {
+  const u = UI.drag.u, p = tileAt(t.x, t.y);
+  UI.drag = null; UI.dsel = null;
+  if (FIGHT.inZone(p.x, p.y) && FIGHT.deployMove(u, p.x, p.y)) { say(KEPT_SAY); keepLine(); }
+  else say(OUTSIDE_SAY);
+  hud();
+}
 function up(e) {
   const t = touches[e.pointerId]; delete touches[e.pointerId];
   if (!gest) return;
   clearTimeout(gest.hold);
   if (gest.held) { if (!Object.keys(touches).length) gest = null; return; }   /* the hold showed a card; it is not a tap */
   if (UI.wcard) { UI.wcard = null; document.getElementById('drawer').style.display = 'none'; }
+  if (UI.drag && gest.dragMan && t) { dragDrop(t); if (!Object.keys(touches).length) gest = null; return; }
+  if (UI.drag) UI.drag = null;
   if (!gest.pinch && !gest.moved && t) tapAt(t.x, t.y);
   if (!Object.keys(touches).length) gest = null;
 }
@@ -2492,12 +2581,19 @@ function deployTap(px, py) {
   const onTile = S.units.filter(function (v) { return FIGHT.onField(v) && v.side === 'you' && v.x === p.x && v.y === p.y; })[0];
   const pick = onTile || (FIGHT.inZone(p.x, p.y) && UI.dsel && FIGHT._t.passable(p.x, p.y) ? null : who);
   if (UI.dsel && (!pick || pick !== UI.dsel) && FIGHT.inZone(p.x, p.y)) {
-    if (FIGHT.deployMove(UI.dsel, p.x, p.y)) { UI.dsel = null; say(DEPLOY_SAY); hud(); return; }
+    if (FIGHT.deployMove(UI.dsel, p.x, p.y)) { UI.dsel = null; say(KEPT_SAY); keepLine(); hud(); return; }
   }
-  if (pick) { UI.dsel = UI.dsel === pick ? null : pick; say(UI.dsel ? pick.name + ': tap a lit tile of your two columns.' : DEPLOY_SAY); hud(); return; }
-  if (UI.dsel) say('Only inside your two lit columns.');
+  if (pick) { UI.dsel = UI.dsel === pick ? null : pick; say(UI.dsel ? pick.name + ': drag him, or tap a lit tile of your two columns.' : deploySay()); hud(); return; }
+  if (UI.dsel) say(OUTSIDE_SAY);
 }
-const DEPLOY_SAY = 'Set your line: tap a man, then a lit tile. FIGHT when ready.';
+/* the line's words: the first time, how to set it; when it came back from the last fight, that it did; after a move, that it is kept */
+const DEPLOY_SAY = 'Set your line: drag a man to a lit tile. It is kept for the next fight. FIGHT when ready.';
+const KEPT_OPEN_SAY = 'Your line, as you left it. Drag a man to change it. FIGHT when ready.';
+const KEPT_SAY = 'Kept. Drag another, or FIGHT.';
+const OUTSIDE_SAY = 'Only inside your two lit columns.';
+function deploySay() { return FIGHT.S.formationKept ? KEPT_OPEN_SAY : DEPLOY_SAY; }
+/* THE SHELL HEARS THE LINE (rule 110b): the alpha and the demo may keep it with the company's save; the fight keeps its own copy */
+function keepLine() { try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_FIGHT_FORMATION', formation: FIGHT.S.formation }, '*'); } catch (_e) {} }
 const WALK_SAY = 'Tap a lit tile to walk, a red man to aim. Pinch for the board.';
 const RING_FILL = 'rgba(196,85,63,.2)', RING_EDGE = 'rgba(232,104,76,.95)';
 function deployZoom() { return fitBoth().z; }   /* rule 104a: setting the line sees both lines; the man still 112 (rule 21) */
@@ -2532,7 +2628,7 @@ function fitNow(ms) { const f = fitBoth(); if (ms) glideTo(f.cx, f.cy, f.z, ms);
 /* FIGHT: the line is set; the camera goes in on it the way the open always did */
 function fightNow() {
   if (!FIGHT.startFight()) return;
-  UI.dsel = null; say(UI.auto ? '' : WALK_SAY);
+  UI.dsel = null; UI.drag = null; keepLine(); say(UI.auto ? '' : WALK_SAY);
   fitNow(beatMs() * (1 + 1));   /* both teams stay on the glass (rule 104a) */
   hud();
 }
@@ -2604,7 +2700,7 @@ function start() {
     fitNow();   /* BOTH TEAMS ON ONE SCREEN (rule 104a): the open holds every man of both teams, no swipe; the man still 112 */
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
-    say(dep ? DEPLOY_SAY : WALK_SAY); hud();
+    say(dep ? deploySay() : WALK_SAY); hud();
   });
 }
 window.addEventListener('resize', resize);
