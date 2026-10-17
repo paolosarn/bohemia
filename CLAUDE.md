@@ -17,7 +17,11 @@ own link. THE GAMEPLAY VIBE IS MODDED VANILLA++ BATTLE BROTHERS, our twist, our 
 
 ## THE STRUCTURE (9/4, LOCKED): ONE WORD, ONE HALL, ONE MANAGER
 Paolo talks ONLY to the coordinator (the manager). Every other chat gets the one word
-VAMILY and re-reads the front page of VAMILY.md every time; the rules live there. Every
+VAMILY and re-reads the front page of VAMILY.md every time; the rules live there.
+AMENDED 10/16 (Paolo, rule 112 on the VAMILY front page): HE NEVER ENTERS A LANE CHAT AGAIN. The
+coordinator opens every lane session with the repo attached, sends the word, reads the
+session, archives it when its round ends, and an hourly routine wakes the coordinator; his
+two doors are the coordinator chat and the VOTE tab; no chat ever asks him to approve anything. Every
 sentence he says becomes a job there before the reply ends, two words per job. Lanes:
 run, world, life+city, combat, character, direction (the art director), cook (and from 10/10 cook 2 the ground, cook 3 the people, cook 4 the places: THE ART REVAMP, rule 87, DIRECTION runs it) (the
 production artist), sounds, people, factions, ui, words, economy, dynasty, animation,
