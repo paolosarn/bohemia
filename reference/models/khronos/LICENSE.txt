@@ -1,0 +1,11 @@
+Both from github.com/KhronosGroup/glTF-Sample-Assets (Models/<name>/glTF-Binary/), fetched by DIRECTION 10/17/26 as the
+master rig's second proof: a rigged model that MOVES (rule 107: eight facings, each with an idle and a step) and a
+model that gives a FACE (ONE ID, ONE WHOLE PERSON). Reference-grade proofs; not in the game (rule 100).
+
+Fox.glb: model (c) 2014 PixelMannen, CC0 1.0 (no rights reserved); rigging and animation (Survey, Walk, Run)
+  (c) 2014 tomkranis, CC BY 4.0; glTF conversion (c) 2017 @AsoboStudio and @scurest, CC BY 4.0.
+  ANIMATION named it first (records/BOHEMIA_THE_BEAST_IN_EIGHT_IS_BLOCKED_10_16_26.md, stage 1).
+CesiumMan.glb: (c) 2017 Cesium, CC BY 4.0 (everything); the Cesium logo on the shirt is their mark, not ours, and is
+  one more reason this man never ships: he is the pipe's proof, the body and the face from one model.
+Attribution as the licences ask: PixelMannen (fox model), tomkranis (fox rig and animation), AsoboStudio and scurest
+(fox glTF), Cesium (the man).

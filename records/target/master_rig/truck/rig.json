@@ -1,13 +1,16 @@
 {
  "engine": "CYCLES",
- "res": 546,
- "ortho_scale": 9.578947368421053,
+ "res": 614,
+ "ortho_scale": 10.771929824561404,
  "real_dims_m": [
   2.839,
   5.3,
   2.934
  ],
  "scale_from_model": 1.8929,
+ "still_frame": 0,
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
  "model": "reference/models/kenney/vehicle-truck-yellow.glb",
  "ppm": 57.0,
  "metres_per_px": 0.01754,
@@ -38,5 +41,19 @@
   "records/target/master_rig/truck/rig_W.png",
   "records/target/master_rig/truck/rig_NW.png"
  ],
- "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)"
+ "crop_box_px": [
+  151,
+  183,
+  463,
+  474
+ ],
+ "ground_px": [
+  156,
+  124
+ ],
+ "colours": 91,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {}
 }

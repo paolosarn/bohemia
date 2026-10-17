@@ -1,0 +1,127 @@
+{
+ "engine": "CYCLES",
+ "res": 244,
+ "ortho_scale": 4.280701754385965,
+ "real_dims_m": [
+  0.596,
+  1.058,
+  1.72
+ ],
+ "scale_from_model": 1.1799,
+ "still_frame": 0.9999988675117493,
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "model": "reference/models/khronos/CesiumMan.glb",
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "files": [
+  "records/target/master_rig/man/rig_N.png",
+  "records/target/master_rig/man/rig_NE.png",
+  "records/target/master_rig/man/rig_E.png",
+  "records/target/master_rig/man/rig_SE.png",
+  "records/target/master_rig/man/rig_S.png",
+  "records/target/master_rig/man/rig_SW.png",
+  "records/target/master_rig/man/rig_W.png",
+  "records/target/master_rig/man/rig_NW.png"
+ ],
+ "crop_box_px": [
+  89,
+  58,
+  155,
+  187
+ ],
+ "ground_px": [
+  33,
+  64
+ ],
+ "colours": 31728,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {
+  "Anim_0": {
+   "keys": 6,
+   "beats": 2.0,
+   "frame_range": [
+    1.0,
+    48.0
+   ],
+   "frames": [
+    4.92,
+    12.75,
+    20.58,
+    28.42,
+    36.25,
+    44.08
+   ],
+   "files": [
+    "records/target/master_rig/man/rig_Anim_0_N_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_N_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_N_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_N_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_N_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_N_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_NE_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_E_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_SE_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_S_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_SW_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_W_k05.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k00.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k01.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k02.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k03.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k04.png",
+    "records/target/master_rig/man/rig_Anim_0_NW_k05.png"
+   ]
+  }
+ },
+ "portrait": "portrait.json"
+}

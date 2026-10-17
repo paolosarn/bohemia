@@ -1,0 +1,30 @@
+{
+ "head_px": 96,
+ "head_m": 0.24,
+ "ppm": 400.0,
+ "res": 164,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "files": [
+  "records/target/master_rig/man/rig_portrait_S.png",
+  "records/target/master_rig/man/rig_portrait_SE.png",
+  "records/target/master_rig/man/rig_portrait_SW.png"
+ ],
+ "crop_box_px": [
+  0,
+  33,
+  164,
+  164
+ ],
+ "model": "reference/models/khronos/CesiumMan.glb",
+ "body_rig": "rig.json",
+ "colours": 7613
+}

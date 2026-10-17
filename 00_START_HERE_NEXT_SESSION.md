@@ -5589,6 +5589,21 @@ I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
 === DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
+ROUND LOG 10/17a (latest, rule 110's swing, no check-in): [the master rig] ROUND TWO SHIPPED: THE MODEL MOVES AND
+THE FACE COMES FROM THE BODY. tools/bohemia_direction_master_rig.py takes --clip <action>:<keys> (a glTF's own
+animation at the drawn keys only, three a beat, eight facings; one crop box per model so frames never jitter) and
+--portrait 96 (the SAME model's head in S/SE/SW at 400 px a metre). Proof: ANIMATION's fox (CC0 model, CC BY rig) at a
+wolf's 1.5 m, walk 6 + idle 12, beside the game's own dire wolf; CesiumMan (CC BY) at 1.72 m, walk 6 + three heads.
+Sheets records/target/master_rig/DIRECTION_THE_MASTER_RIG_{FOX,MAN,TRUCK}.png. FOUND AND FIXED by the look: N/S swapped
+(base turn 180); a man rendered 61 px not 98 (a 45 tilt foreshortens, his packs draw full height: height x1.414);
+the importer's stray 2 m sphere in the ruler's box. Gate sprite_scale_gate 9/0 with clip + portrait legs (planted
+wrong ones refused). VOTE: direction-the-rig-moves-10-17, PLACEHOLDER. Record
+records/BOHEMIA_THE_MASTER_RIG_ROUND_TWO_THE_MODEL_MOVES_10_17_26.md. FOR ANIMATION: the fox's eight walks and idles
+are on disk with rig.json (ground_px, crop_box_px); a dire wolf is --real-length 1.5 and heavier paint. FOR PORTRAIT: the
+pipe exists; it needs a model with a face. FOR COOK THREE / CHARACTER: a person in eight at 98 px with a stride; the look
+is not in the rig (a toy renders a toy). NOT DONE: a measured palette for people and beasts (--family none for now), a
+rest pose, the free runner. bpy 4.2 needs Python 3.11 (3.13's pip only has bpy 5.x). NEXT (sweep AI order): (4) the
+pack-rule sheet with COOK TWO; (5) the taste session on his folder when it lands.
 ROUND LOG 10/16a (latest): [the master rig] SHIPPED: tools/bohemia_direction_master_rig.py
 (bpy 4.2 in a venv, CPU; 57 ppm; tilt 45, no turn; eight facings; palette snap) + gates/sprite_scale_gate.py
 (PLUMBER: into the suite). Proof: Kenney CC0 truck, records/target/master_rig/. Found: true size = 302 px car vs
