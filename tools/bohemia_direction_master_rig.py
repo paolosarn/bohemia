@@ -4,11 +4,39 @@ everything that turns is made in eight drawn facings; rule 105: never under the 
 ROUND TWO (10/17): THE MODEL ALSO MOVES. A rigged model's clip is drawn at the men's grid (three pictures a beat, twelve
 a bar, AN ENVELOPE RAMPS SLOWER THAN THE GRID), in all eight facings; and the same model gives its head at portrait size
 (ONE ID, ONE WHOLE PERSON: the face and the body come from one model, never two).
+ROUND THREE (10/17): THE LOOK IS MODELLED AT THE SOURCE. The row's own constraint ("analog horror is modelled at the
+source or the render reads as a toy") and the card's check on round two (every render BACK, 3 of 8 out: too few colours,
+a ring too dark, the man lit from below; the truck's 64-colour snap left it 58 colours and 89% in the top eight) are
+answered where the pixels come from, not in a paint pass after:
+  * THE SOURCE PASS (--wear 0..1): inside Blender, every material of the model gains what his packs carry in paint: the
+    plastic highlight gone (roughness up, specular down: the highlight IS the toy), grime in the crevices (from the
+    ambient-occlusion of the model's own shape, authored by its geometry), dust and sun-bleach on the faces that point
+    up (from the surface normal, broken up by a metre-scale mask, never per pixel), and a slow colour drift across the
+    body so no two square centimetres are one colour. The render then carries thousands of colours the way his tiles
+    do, because the SURFACE varies, not because noise was sprinkled on the pixels (lesson 7: fix the source).
+  * THE POPULATION SNAP (--family prop --snap 0..1): a render's colours are pulled toward the nearest colour HIS FAMILY
+    ACTUALLY USES, read from every opaque pixel of the family in reference/art_bank/<family>/ (binned at 32 levels a
+    channel, thousands of bins), never toward a 64-colour list (lesson 6: his art is not limited-palette; round two's
+    snap to 64 is what killed the truck). --snap is the pull, 0.6 by default: the hue lands in his family, the render's
+    own spread survives. --family none pulls nothing (people, beasts: the packs hold none).
+  * THE RING (--ring N): the silhouette's outer pixel N values darker, 8 by default (the card: props end in a soft ring
+    about 5 darker, the band -35 to +7; round two's 20% darker ring measured -45 to -49 on a pale model, OUT).
+  * THE CONTACT SHADOW: a soft ellipse under the feet, down and right, behind the body (the build order's SEAT IT; every
+    standing thing in his packs sits on a shadow), in the sprite's own alpha.
+  * THE STILL (--still pass|rest|<frame>): 'pass' picks the frame of the first clip where the body is narrowest along
+    its walk (feet together, the passing pose: a standing still, not a mid-stride); 'rest' puts every armature in its
+    rest pose; a number is a frame. Round two's still was the clip's first frame, a stride.
+  * THE FACE PERFORMS (--expression <shape key>, repeatable): the portrait is rendered front-on once per named shape
+    key at full weight (the robot's Angry/Surprised/Sad), so PORTRAIT's pipe shows the same head changing its face.
+  * THE CARD, IN THE RIG: after the post, the S still is run through skills/bohemia-pixel-art/scripts/check.py against
+    --judge <family> (prop for anything standing on the ground, the nearest band the packs have) and the rows are
+    written into rig.json; the gate refuses a rig that is BACK (3 or more of 8 out).
 
 Run with Blender's Python (bpy 4.2 needs Python 3.11; CPU only, headless; `python3.11 -m venv v && v/bin/pip install
 bpy==4.2.0 numpy pillow`, or the free runner):
     <venv>/bin/python tools/bohemia_direction_master_rig.py <model.glb> <out_dir> [--real-length 5.3 | --real-height 1.72]
-        [--ppm 57] [--family prop] [--clip Walk:6] [--clip Survey:12] [--portrait 96] [--head-m 0.24]
+        [--ppm 57] [--family prop|none] [--snap 0.6] [--judge prop] [--wear 0.6] [--ring 8] [--no-shadow]
+        [--still pass|rest|<frame>] [--clip Walk:6] [--clip Survey:12] [--portrait 96] [--head-m auto|0.24] [--expression Angry]
 
 THE RIG, every number written to <out_dir>/rig.json so a sheet that disagrees can be refused:
   * PIXELS PER METRE 57: the man is the ruler (records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md: CHARACTER read the
@@ -31,22 +59,21 @@ THE RIG, every number written to <out_dir>/rig.json so a sheet that disagrees ca
     phase (i + 0.5) / keys like engine/bohemia_quadruped.js keys(clip): a walk is 2 beats = 6 keys, an idle 4 beats =
     12 keys at 120 BPM. Nothing between two keys is rendered, because nothing between two keys is ever drawn.
   * THE PORTRAIT (--portrait <px>): the same model's head, front-on and the two front three-quarters (S, SE, SW), the
-    camera tilted 80 (nearly eye level), at the pixels per metre that put a head of --head-m metres at <px> pixels
-    (PORTRAIT: at or over 96). Written beside the body in portrait.json; the body's rig.json names it.
+    camera tilted 80 (nearly eye level), at the pixels per metre that put the head at <px> pixels (PORTRAIT: at or
+    over 96). THE HEAD IS MEASURED FROM THE MODEL (round three): the mesh named head, else the mesh with shape keys,
+    gives its height and its centre; --head-m <m> overrides it for a model with no head mesh. Written beside the body
+    in portrait.json; the body's rig.json names it.
   * CYCLES on the CPU at 128 samples (this bpy build has no Workbench; 16 samples read as grain).
-  * POST (in plain numpy, his palette only): every pixel snapped to the nearest colour of the family's palette
-    (skills/bohemia-pixel-art/references/palettes/<family>.gpl, measured from his tiles; --family none keeps the
-    render's colours, for a family that has no measured palette yet, people and beasts); the silhouette's own outer
-    pixel taken 20% darker (the card: props end in a soft ring about 5 darker, never a black line).
 
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the approved asset index (the twin is his own car from the
 7/13 UP set), the card of numbers, skills/bohemia-pixel-art, AH-01, AH-03. No reference game.
 """
-import os, sys, json, math
+import os, sys, json, math, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 PORTRAIT_FACINGS = ['S', 'SE', 'SW']
+RIG_ROUND = 3
 
 
 def args():
@@ -54,16 +81,39 @@ def args():
     def opt(k, d):
         return type(d)(a[a.index(k) + 1]) if k in a else d
     clips = [(c.split(':')[0], int(c.split(':')[1]) if ':' in c else 6) for i, c in enumerate(a) if i and a[i - 1] == '--clip']
+    expr = [c for i, c in enumerate(a) if i and a[i - 1] == '--expression']
+    fam = opt('--family', 'prop')
     return dict(model=a[0], out=a[1], real_len=opt('--real-length', 0.0), real_h=opt('--real-height', 0.0), ppm=opt('--ppm', 57.0),
-                fam=opt('--family', 'prop'), tilt=opt('--tilt', 45.0), clips=clips, portrait=opt('--portrait', 0), head_m=opt('--head-m', 0.24))
+                fam=fam, snap=opt('--snap', 0.6), judge=opt('--judge', fam if fam != 'none' else 'prop'), wear=opt('--wear', 0.6),
+                ring=opt('--ring', 8.0), shadow='--no-shadow' not in a, still=opt('--still', 'pass'), tilt=opt('--tilt', 45.0),
+                clips=clips, portrait=opt('--portrait', 0), head_m=(0.0 if opt('--head-m', 'auto') == 'auto' else float(opt('--head-m', 'auto'))), expressions=expr)
 
 
-def palette(fam):
-    cols = []
-    for line in open(os.path.join(ROOT, 'skills/bohemia-pixel-art/references/palettes/%s.gpl' % fam)):
-        p = line.split()
-        if len(p) >= 3 and all(x.isdigit() for x in p[:3]): cols.append([int(x) for x in p[:3]])
-    return cols
+def population(fam):
+    """every colour his family actually uses: the opaque pixels of reference/art_bank/<fam>/pack_*.png binned at 32
+    levels a channel; each occupied bin keeps the mean of his pixels in it; every empty bin points at the nearest
+    occupied one (a dilation in bin space), so a render pixel always finds one of his colours"""
+    import glob
+    import numpy as np
+    from PIL import Image
+    files = sorted(glob.glob(os.path.join(ROOT, 'reference/art_bank', fam, 'pack_*.png')))
+    if not files: raise SystemExit('no bank tiles for family %s' % fam)
+    S = np.zeros((32, 32, 32, 3), float); N = np.zeros((32, 32, 32), float)
+    for fn in files:
+        a = np.asarray(Image.open(fn).convert('RGBA')); px = a[a[..., 3] > 127][:, :3].astype(float)
+        b = (px // 8).astype(int)
+        np.add.at(S, (b[:, 0], b[:, 1], b[:, 2]), px); np.add.at(N, (b[:, 0], b[:, 1], b[:, 2]), 1)
+    occ = N > 0
+    mean = np.where(occ[..., None], S / np.maximum(N, 1)[..., None], 0)
+    near = mean.copy(); filled = occ.copy()
+    for _ in range(32):   # dilate: an empty bin takes the colour of a filled neighbour, until every bin is filled
+        if filled.all(): break
+        src = near.copy(); fsrc = filled.copy()
+        for ax in range(3):
+            for sh in (1, -1):
+                nb = np.roll(src, sh, axis=ax); fb = np.roll(fsrc, sh, axis=ax)
+                take = ~filled & fb; near[take] = nb[take]; filled |= take
+    return near, int(occ.sum()), len(files)
 
 
 def bounds(sc, objs):
@@ -99,6 +149,92 @@ def clip_actions(sc, name):
     return f0, f1
 
 
+def source_pass(objs, wear, k):
+    """THE LOOK AT THE SOURCE: what his packs carry in paint, put into the model's materials before the render. Nothing
+    here touches a pixel; it changes the surface the light falls on. k converts the model's units to metres, so every
+    mask is sized in the world (grain about one pixel at 57 ppm, drift 20 cm, dust 50 cm) and the same on a truck and
+    a man. Returns what it did, for rig.json."""
+    done = set()
+    GRIME, DUST = (0.11, 0.085, 0.065, 1), (0.66, 0.60, 0.50, 1)   # crevice dirt, warm and dark; sun-bleached dust, pale and warm
+    GRAIN_PER_M, DRIFT_PER_M, DUST_PER_M = 28.0, 5.0, 2.0
+    for o in objs:
+        for slot in o.material_slots:
+            m = slot.material
+            if not m or m.name in done: continue
+            done.add(m.name)
+            m.use_nodes = True; nt = m.node_tree
+            bsdf = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+            if not bsdf: continue
+            so = float(o.matrix_world.to_scale().x)   # a mesh's own coordinates can carry an object scale (the robot's parts: 100); metres = local x that x k
+            # 1. the plastic highlight is the toy: matte, no specular
+            if not bsdf.inputs['Roughness'].links: bsdf.inputs['Roughness'].default_value = max(bsdf.inputs['Roughness'].default_value, 0.9)
+            for sp in ('Specular IOR Level', 'Specular'):
+                if sp in bsdf.inputs and not bsdf.inputs[sp].links: bsdf.inputs[sp].default_value = 0.15
+            if not bsdf.inputs['Metallic'].links: bsdf.inputs['Metallic'].default_value = min(bsdf.inputs['Metallic'].default_value, 0.2)
+            base = bsdf.inputs['Base Color']
+            src = base.links[0].from_socket if base.links else None
+            if src is None:
+                rgb = nt.nodes.new('ShaderNodeRGB'); rgb.outputs[0].default_value = tuple(base.default_value); src = rgb.outputs[0]
+            # 2. grime where the shape closes on itself: the model's own ambient occlusion
+            ao = nt.nodes.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = 0.25; ao.samples = 8; ao.only_local = True
+            crev = nt.nodes.new('ShaderNodeMath'); crev.operation = 'SUBTRACT'; crev.inputs[0].default_value = 1.0; nt.links.new(ao.outputs['AO'], crev.inputs[1])
+            crevw = nt.nodes.new('ShaderNodeMath'); crevw.operation = 'MULTIPLY'; crevw.inputs[1].default_value = 1.6 * wear; crevw.use_clamp = True
+            nt.links.new(crev.outputs[0], crevw.inputs[0])
+            # every mask in metres, stuck to the surface: the mesh's own coordinates times the model-to-metre scale
+            tc = nt.nodes.new('ShaderNodeTexCoord')
+            def coords(per_m):
+                mp = nt.nodes.new('ShaderNodeMapping'); mp.vector_type = 'POINT'; s = float(so * k * per_m); mp.inputs['Scale'].default_value = (s, s, s)
+                nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); return mp.outputs['Vector']
+            # 3. dust and bleach on what points up, broken by a half-metre mask (a mask is shaped, never his pixels)
+            geo = nt.nodes.new('ShaderNodeNewGeometry'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Normal'], sep.inputs[0])
+            up = nt.nodes.new('ShaderNodeMath'); up.operation = 'MAXIMUM'; up.inputs[1].default_value = 0.0; nt.links.new(sep.outputs['Z'], up.inputs[0])
+            noise = nt.nodes.new('ShaderNodeTexNoise'); noise.inputs['Scale'].default_value = 1.0; noise.inputs['Detail'].default_value = 5.0; noise.inputs['Roughness'].default_value = 0.65
+            nt.links.new(coords(DUST_PER_M), noise.inputs['Vector'])
+            dust = nt.nodes.new('ShaderNodeMath'); dust.operation = 'MULTIPLY'; nt.links.new(up.outputs[0], dust.inputs[0]); nt.links.new(noise.outputs['Fac'], dust.inputs[1])
+            dustw = nt.nodes.new('ShaderNodeMath'); dustw.operation = 'MULTIPLY'; dustw.inputs[1].default_value = 1.1 * wear; dustw.use_clamp = True; nt.links.new(dust.outputs[0], dustw.inputs[0])
+            # 4. a slow drift of colour across the body (20 cm, warm into light and cool into shade): no two square centimetres one colour
+            drift = nt.nodes.new('ShaderNodeTexNoise'); drift.inputs['Scale'].default_value = 1.0; drift.inputs['Detail'].default_value = 4.0; drift.inputs['Roughness'].default_value = 0.6
+            nt.links.new(coords(DRIFT_PER_M), drift.inputs['Vector'])
+            # 5. the grain: a light-dark step about a pixel wide, in value only, the way his tiles' paint is (grain 1.6 to 2.0 px a run)
+            grain = nt.nodes.new('ShaderNodeTexNoise'); grain.inputs['Scale'].default_value = 1.0; grain.inputs["Detail"].default_value = 2.0; grain.inputs['Roughness'].default_value = 0.5
+            nt.links.new(coords(GRAIN_PER_M), grain.inputs['Vector'])
+            wide = nt.nodes.new('ShaderNodeMapRange'); wide.inputs['From Min'].default_value = 0.32; wide.inputs['From Max'].default_value = 0.68; wide.clamp = True   # the noise's middle band stretched to the full step
+            nt.links.new(grain.outputs['Fac'], wide.inputs['Value'])
+            mix1 = nt.nodes.new('ShaderNodeMixRGB'); mix1.blend_type = 'MIX'; mix1.inputs['Color2'].default_value = GRIME
+            nt.links.new(src, mix1.inputs['Color1']); nt.links.new(crevw.outputs[0], mix1.inputs['Fac'])
+            mix2 = nt.nodes.new('ShaderNodeMixRGB'); mix2.blend_type = 'MIX'; mix2.inputs['Color2'].default_value = DUST
+            nt.links.new(mix1.outputs['Color'], mix2.inputs['Color1']); nt.links.new(dustw.outputs[0], mix2.inputs['Fac'])
+            mix3 = nt.nodes.new('ShaderNodeMixRGB'); mix3.blend_type = 'OVERLAY'; mix3.inputs['Fac'].default_value = 0.45 * wear
+            nt.links.new(mix2.outputs['Color'], mix3.inputs['Color1']); nt.links.new(drift.outputs['Color'], mix3.inputs['Color2'])
+            # the grain lives in the wear, never even over a surface (a leopard print, measured cycle 4): heavy in the grime and
+            # the dust patches, light on clean panel; the patch mask is the 20 cm drift's middle band
+            patch = nt.nodes.new('ShaderNodeMapRange'); patch.inputs['From Min'].default_value = 0.42; patch.inputs['From Max'].default_value = 0.62; patch.clamp = True
+            nt.links.new(drift.outputs['Fac'], patch.inputs['Value'])
+            gp = nt.nodes.new('ShaderNodeMath'); gp.operation = 'MULTIPLY_ADD'; gp.inputs[1].default_value = 0.7 * wear; gp.inputs[2].default_value = 0.12 * wear
+            nt.links.new(patch.outputs['Result'], gp.inputs[0])
+            gf = nt.nodes.new('ShaderNodeMath'); gf.operation = 'MULTIPLY_ADD'; gf.inputs[1].default_value = 0.8 * wear; gf.use_clamp = True
+            nt.links.new(crevw.outputs[0], gf.inputs[0]); nt.links.new(gp.outputs[0], gf.inputs[2])
+            mix4 = nt.nodes.new('ShaderNodeMixRGB'); mix4.blend_type = 'OVERLAY'
+            nt.links.new(gf.outputs[0], mix4.inputs['Fac'])
+            nt.links.new(mix3.outputs['Color'], mix4.inputs['Color1']); nt.links.new(wide.outputs['Result'], mix4.inputs['Color2'])
+            for l in list(base.links): nt.links.remove(l)
+            nt.links.new(mix4.outputs['Color'], base)
+    return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= 0.9, specular 0.15, metallic <= 0.2', 'crevice grime from the model\'s own ambient occlusion (0.25 m)',
+                'dust and bleach on up-facing surfaces under a 50 cm mask', 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
+                'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch or a crevice, %.2f on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured' % (GRAIN_PER_M, min(1.0, 0.82 * wear), 0.12 * wear)], masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
+
+
+def passing_frame(sc, objs, f0, f1):
+    """the frame where the body is narrowest along its walk (the passing pose, feet together): a standing still"""
+    best = None
+    for i in range(24):
+        fr = f0 + (f1 - f0) * (i + 0.5) / 24
+        sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
+        lo, hi = bounds(sc, objs); d = min(hi.x - lo.x, hi.y - lo.y)
+        if best is None or d < best[0]: best = (d, fr)
+    return best[1]
+
+
 def render(A):
     global bpy
     import bpy, mathutils
@@ -110,21 +246,28 @@ def render(A):
         if o.name in before or (o.type == 'MESH' and o.name.startswith('Icosphere') and o.parent is None and len(o.data.vertices) == 42):
             bpy.data.objects.remove(o, do_unlink=True)   # was inside the ruler's box (a man read 1.3 m wide); nothing but the model is measured or rendered
     objs = [o for o in sc.objects if o.type == 'MESH']
-    # the still frame: a clip's first frame if there is one, so the ruler is read off the rest pose
-    still = 0
+    arms = [o for o in sc.objects if o.type == 'ARMATURE']
+    # the still frame: the passing pose of the first clip, the rest pose, or a frame; the ruler is read off it
+    still, still_how = 0.0, 'frame 0'
     if A['clips']:
-        f0, f1 = clip_actions(sc, A['clips'][0][0]); still = f0
+        f0, f1 = clip_actions(sc, A['clips'][0][0]); still = f0; still_how = 'frame %g (the clip\'s first)' % f0
+        if A['still'] == 'pass': still = passing_frame(sc, objs, f0, f1); still_how = 'the passing pose of %s, frame %.2f' % (A['clips'][0][0], still)
+        elif A['still'] not in ('rest',): still = float(A['still']); still_how = 'frame %g' % still
     else:
         for o in sc.objects:
             if o.animation_data:
                 for t in o.animation_data.nla_tracks: t.mute = True
                 o.animation_data.action = None
-    sc.frame_set(int(round(still)))
+    if A['still'] == 'rest':
+        for a in arms: a.data.pose_position = 'REST'
+        still_how = 'the rest pose'
+    sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still))
     # one parent at the ground centre, scaled so the long side (or the height) is its real size
     root = bpy.data.objects.new('turntable', None); sc.collection.objects.link(root)
     lo, hi = bounds(sc, objs)
     size = hi - lo
     k = A['real_h'] / size.z if A['real_h'] else (A['real_len'] or 5.3) / max(size.x, size.y)
+    source = source_pass(objs, A['wear'], k) if A['wear'] > 0 else None
     centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z))
     for o in list(sc.objects):
         if o.parent is None and o is not root: o.parent = root; o.location -= centre
@@ -167,6 +310,7 @@ def render(A):
         root.rotation_euler = (0, 0, math.radians(180 - 45 * facing_i))
         sc.render.filepath = fn; bpy.ops.render.render(write_still=True); return fn
     stills = [shot(os.path.join(out, 'raw_%s.png' % f), i) for i, f in enumerate(FACINGS)]
+    for a in arms: a.data.pose_position = 'POSE'
     clips = {}
     for name, keys in A['clips']:
         f0, f1 = clip_actions(sc, name)
@@ -177,36 +321,72 @@ def render(A):
                 sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
                 files.append(shot(os.path.join(out, 'raw_%s_%s_k%02d.png' % (name, f, j)), i))
         clips[name] = dict(keys=keys, beats=keys / 3.0, frame_range=[round(f0, 2), round(f1, 2)], frames=[round(x, 2) for x in frames], raw=files)
-        sc.frame_set(int(round(still))); sc.frame_float = float(still)
+    if A['clips']: clip_actions(sc, A['clips'][0][0])
+    if A['still'] == 'rest':
+        for a in arms: a.data.pose_position = 'REST'
+    sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still))
     portrait = None
     if A['portrait']:
-        head_px = int(A['portrait']); head_m = A['head_m']; pppm = head_px / head_m
-        pres = int(math.ceil((head_m * 1.7) * pppm / 2.0)) * 2   # a canvas 1.7 heads tall and wide: the head, its gear, the neck; head only (the third votes)
+        head_px = int(A['portrait']); head_m = A['head_m']; head_how = '--head-m %g' % head_m
         root.scale = (k, k, k)   # a face is drawn front-on, no 3/4 cheat: no stretch
-        aim(80.0, dims[2] - head_m * 0.55, pres / pppm, pres)
+        head_objs = [o for o in objs if 'head' in o.name.lower()] or [o for o in objs if o.data.shape_keys]
+        if head_objs:   # THE HEAD IS MEASURED FROM THE MODEL (round three: a robot's head is 0.9 m of its 1.72 m; told 0.30, the crop sat on the brow)
+            hlo, hhi = bounds(sc, head_objs); measured = hhi.z - hlo.z; look_z = (hlo.z + hhi.z) / 2
+            if not head_m: head_m = measured; head_how = 'measured from %s: %.3f m' % (', '.join(o.name for o in head_objs), head_m)
+        else:
+            look_z = dims[2] - (head_m or 0.24) * 0.55; head_m = head_m or 0.24; head_how += ' (no head mesh named; the top of the body)'
+        pppm = head_px / head_m
+        pres = int(math.ceil((head_m * 1.7) * pppm / 2.0)) * 2   # a canvas 1.7 heads tall and wide: the head, its gear, the neck; head only (the third votes)
+        aim(80.0, look_z, pres / pppm, pres)
         pfiles = [shot(os.path.join(out, 'raw_portrait_%s.png' % f), FACINGS.index(f)) for f in PORTRAIT_FACINGS]
-        portrait = dict(head_px=head_px, head_m=head_m, ppm=round(pppm, 3), res=pres, camera=dict(tilt_deg=80.0, turn_deg=0, ortho=True), facings=PORTRAIT_FACINGS, raw=pfiles)
-    return dict(engine='CYCLES', res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=still,
-                z_stretch=round(zs, 4), base_turn_deg=180), stills, clips, portrait
+        # THE FACE PERFORMS: the same head, front-on, once per named shape key at full weight
+        efiles = {}
+        keyed = [o for o in objs if o.data.shape_keys]
+        for e in A['expressions']:
+            hit = False
+            for o in keyed:
+                kb = o.data.shape_keys.key_blocks
+                for b in kb: b.value = 0.0
+                if e in kb: kb[e].value = 1.0; hit = True
+            if not hit: raise SystemExit('no shape key named %s; the model has %s' % (e, sorted(set(b.name for o in keyed for b in o.data.shape_keys.key_blocks))))
+            efiles[e] = shot(os.path.join(out, 'raw_portrait_S_%s.png' % e), FACINGS.index('S'))
+            for o in keyed:
+                for b in o.data.shape_keys.key_blocks: b.value = 0.0
+        portrait = dict(head_px=head_px, head_m=round(head_m, 4), head_how=head_how, ppm=round(pppm, 3), res=pres, camera=dict(tilt_deg=80.0, turn_deg=0, ortho=True), facings=PORTRAIT_FACINGS, raw=pfiles,
+                        expressions=list(A['expressions']), raw_expressions=efiles)
+    return dict(engine='CYCLES', res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
+                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source), stills, clips, portrait
 
 
-def post(files, out, fam, one_box=True):
-    """palette snap, the soft ring, and ONE crop box for the whole set so no frame jitters against another"""
+def post(files, out, A, pop=None, shadow=False, one_box=True):
+    """the population snap, the soft ring, the contact shadow, and ONE crop box for the whole set so no frame jitters
+    against another"""
     import numpy as np
     from PIL import Image
-    pal = np.array(palette(fam), float) if fam != 'none' else None
     arrs = []
     for fn in files:
         a = np.asarray(Image.open(fn).convert('RGBA')).astype(float)
         op = a[..., 3] > 127; a[..., 3] = np.where(op, 255, 0)
-        if pal is not None:
-            px = a[..., :3][op]; d = ((px[:, None, :] - pal[None]) ** 2).sum(-1); a[..., :3][op] = pal[d.argmin(1)]
+        if pop is not None and A['snap'] > 0:
+            px = a[..., :3][op]; b = np.clip((px // 8).astype(int), 0, 31)
+            his = pop[b[:, 0], b[:, 1], b[:, 2]]
+            a[..., :3][op] = px + (his - px) * A['snap']
         p = np.pad(op, 1); inner = p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
-        ring = op & ~inner; a[..., :3][ring] *= 0.8
+        ring = op & ~inner; a[..., :3][ring] = np.clip(a[..., :3][ring] - A['ring'], 0, 255)
+        if shadow:
+            ys, xs = np.nonzero(op)
+            if len(ys):
+                foot = ys.max(); band = ys >= foot - max(2, int((foot - ys.min()) * 0.12))
+                x0, x1 = xs[band].min(), xs[band].max(); cx = (x0 + x1) / 2 + 2; rx = max(4.0, (x1 - x0) / 2 * 1.25); ry = max(2.0, rx * 0.38); cy = foot - ry * 0.35 + 1
+                yy, xx = np.mgrid[0:a.shape[0], 0:a.shape[1]]
+                d = ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2
+                sh = np.clip((1.15 - d) / 0.3, 0, 1) * 0.42   # a soft edge two pixels wide, 42% at the centre
+                put = (~op) & (sh > 0.02)
+                a[..., :3][put] = 0; a[..., 3][put] = np.round(sh[put] * 255)
         arrs.append((fn, a, op))
     boxes = []
     for fn, a, op in arrs:
-        ys, xs = np.nonzero(op); boxes.append((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+        ys, xs = np.nonzero(a[..., 3] > 0); boxes.append((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)) if one_box else None
     outs = []
     for (fn, a, op), b in zip(arrs, boxes):
@@ -220,30 +400,46 @@ def colours(files):
     from PIL import Image
     s = set()
     for fn in files:
-        a = np.asarray(Image.open(fn).convert('RGBA')); s |= set(map(tuple, a[a[..., 3] > 0][:, :3].tolist()))
+        a = np.asarray(Image.open(fn).convert('RGBA')); s |= set(map(tuple, a[a[..., 3] > 200][:, :3].tolist()))
     return len(s)
+
+
+def card(png, fam):
+    """the S still through the skill's check, against its family's band; the rows and the count go into rig.json"""
+    r = subprocess.run(['python3', os.path.join(ROOT, 'skills/bohemia-pixel-art/scripts/check.py'), png, fam], capture_output=True, text=True, cwd=ROOT)
+    lines = [l.rstrip() for l in r.stdout.splitlines() if l.strip()]
+    rows = [l for l in lines if l.startswith('OK ') or l.startswith('OUT ')]
+    out = sum(1 for l in rows[:8] if l.startswith('OUT'))
+    verdict = next((l for l in lines if ' of 8 out' in l), '')
+    return dict(family=fam, out=out, rows=rows[:8], craft=rows[8:], verdict=verdict.strip(), file=os.path.relpath(png, ROOT))
 
 
 if __name__ == '__main__':
     A = args()
     os.makedirs(A['out'], exist_ok=True)
     meta, stills, clips, portrait = render(A)
+    pop, bins, ntiles = (population(A['fam']) if A['fam'] != 'none' else (None, 0, 0))
     everything = list(stills) + [f for c in clips.values() for f in c['raw']]
-    outs, box = post(everything, A['out'], A['fam'])
+    outs, box = post(everything, A['out'], A, pop, shadow=A['shadow'])
     rel = lambda o: os.path.relpath(o, ROOT)
     n = len(stills)
-    meta.update(model=rel(A['model']), ppm=A['ppm'], metres_per_px=round(1 / A['ppm'], 5), camera=dict(tilt_deg=A['tilt'], turn_deg=0, ortho=True),
-                sun='upper left, above', facings=FACINGS, family_palette=A['fam'], files=[rel(o) for o in outs[:n]], crop_box_px=box,
+    meta.update(model=rel(A['model']), rig_round=RIG_ROUND, ppm=A['ppm'], metres_per_px=round(1 / A['ppm'], 5), camera=dict(tilt_deg=A['tilt'], turn_deg=0, ortho=True),
+                sun='upper left, above', facings=FACINGS, family_palette=A['fam'],
+                snap=dict(family=A['fam'], pull=A['snap'], bins=bins, tiles=ntiles, how='toward the nearest of the family\'s own colours, 32 levels a channel') if pop is not None else None,
+                ring=A['ring'], contact_shadow=A['shadow'], files=[rel(o) for o in outs[:n]], crop_box_px=box,
                 ground_px=[meta['res'] // 2 - box[0], meta['res'] // 2 - box[1]] if box else None, colours=colours(outs),
                 keys_per_beat=3, bpm=120, ruler='records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)')
     i = n
     for name, c in clips.items():
         k = len(c['raw']); c['files'] = [rel(o) for o in outs[i:i + k]]; i += k; del c['raw']
     meta['clips'] = clips
+    meta['card'] = card(outs[FACINGS.index('S')], A['judge'])
     if portrait:
-        pouts, pbox = post(portrait.pop('raw'), A['out'], A['fam'])
-        portrait.update(files=[rel(o) for o in pouts], crop_box_px=pbox, model=meta['model'], body_rig='rig.json', colours=colours(pouts))
+        praw = portrait.pop('raw'); eraw = portrait.pop('raw_expressions')
+        pouts, pbox = post(praw + list(eraw.values()), A['out'], A, pop, shadow=False)
+        portrait.update(files=[rel(o) for o in pouts[:len(praw)]], expression_files={e: rel(o) for e, o in zip(eraw.keys(), pouts[len(praw):])},
+                        crop_box_px=pbox, model=meta['model'], body_rig='rig.json', colours=colours(pouts))
         json.dump(portrait, open(os.path.join(A['out'], 'portrait.json'), 'w'), indent=1)
         meta['portrait'] = 'portrait.json'
     json.dump(meta, open(os.path.join(A['out'], 'rig.json'), 'w'), indent=1)
-    print(json.dumps({k: v for k, v in meta.items() if k not in ('files',)}))
+    print(json.dumps({k: v for k, v in meta.items() if k not in ('files', 'clips')}, indent=1))

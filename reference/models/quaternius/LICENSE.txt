@@ -1,0 +1,7 @@
+RobotExpressive.glb: model by Tomás Laulhé (Quaternius), CC0 1.0 (no rights reserved). Modifications by Don McCurdy:
+three facial expression morph targets (Angry, Surprised, Sad), FBX2GLTF conversion, duplicate materials removed,
+metalness reduced. Fetched by DIRECTION 10/17/26 from the three.js examples mirror
+(raw.githubusercontent.com/mrdoob/three.js/dev/examples/models/gltf/RobotExpressive/) as the master rig's round-three
+proof: a rigged body with Walking and Idle clips AND a head whose face performs (ONE ID, ONE WHOLE PERSON; THE FACE
+PERFORMS). A reference-grade proof of the pipe; not in the game (rule 100). The creator's note: consider supporting
+the creator's Patreon before using the model on a project (https://www.patreon.com/quaternius).

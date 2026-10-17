@@ -49,9 +49,14 @@ hand-drawn facing (records/BOHEMIA_THE_MASTER_RIG_10_16_26.md).
 
 ## 2. THE PALETTES
 `references/palettes/<family>.gpl` (road, ground, marking, settlement, door, lamp, prop): 64 colours each, median cut
-over every opaque pixel of the family, dark to light, with each colour's share. They are a SNAP for anything the rig or
-the generator makes (so it lands in his colours), and a reading aid. His tiles are not limited-palette art: a cut from
-them keeps all its colours. Never invent a new palette for one asset.
+over every opaque pixel of the family, dark to light, with each colour's share. They are a READING AID. His tiles are
+not limited-palette art: a cut from them keeps all its colours. Never invent a new palette for one asset.
+AMENDED 10/17 (the master rig, round three, measured): a 64-colour list is NOT the snap. Snapping a render to it left
+the truck at 58 colours with 89% in the top eight, BACK 3 of 8. The snap is THE POPULATION: every colour the family
+actually uses in reference/art_bank/<family>/ (binned at 32 levels a channel, about 20,000 bins for props), and the
+render is PULLED toward the nearest of them (0.6 of the way by default), so the hue lands in his family and the
+render's own spread survives (tools/bohemia_direction_master_rig.py --family <fam> --snap 0.6). People and beasts
+have no family in the packs: --family none, no pull, until a twin exists.
 
 ## 3. THE BUILD ORDER (each stage looked at before the next; references/build.md)
 1. **SOURCE**: pick the pack tiles or the model it comes from; write the path down.
@@ -113,6 +118,10 @@ LESSONS (each one cost a cycle; the before and after are in references/lessons/L
 5. **Smooth inside one body part, never across parts.** A blur that crosses the sleeve erases the arm. (Reds L04)
 6. **Do not snap a pack-style asset's shading to a few steps.** It reads crisp to the eye and fails the card: 113 colours, the top 8 at 49%. His art is not limited-palette. (Reds look 9, look.py cycle 1)
 7. **A paint pass cannot add colours the source does not have.** A code-drawn garment carries 3 shades per ramp; no pass on top reaches his 2,330. Fix the source (the rig, the generator), not the paint. (Reds looks 10-12)
+8. **The plastic highlight is the toy.** A clean render fails the card three ways at once (too few colours, a ring too dark, the light wrong) and no post fixes it; the wear goes into the MATERIAL before the render: matte, grime where the shape closes on itself (its own ambient occlusion), dust on what faces up, a slow colour drift. The truck went from 58 colours to 13,000 and from BACK to one row out. (the master rig round three, records/BOHEMIA_THE_MASTER_RIG_ROUND_THREE_THE_LOOK_AT_THE_SOURCE_10_17_26.md)
+9. **Grain finer than a pixel averages to grey.** A 3D grain at half a pixel or one pixel disappears inside the pixel over the render's samples (run 4.8, unchanged at two sizes). His grain is a step every one or two pixels: make the feature about two pixels wide and stretch its middle band to the full step. (rig round three, truck cycles 2-3)
+10. **Even grain is a leopard print.** Grain at one strength over a whole surface reads as static, not wear (truck cycle 4). Drive its strength by the wear masks: heavy in the grime and the dust patches, calm on clean panel. His car's pixel contrast is rust, seams and glass, never salt and pepper. (rig round three, truck cycle 5)
+11. **A soft ring is a number, not a percentage.** Darkening the outer pixel by 20% is -45 on a pale model and nothing on a dark one; the card's ring is about 5 darker (band -35 to +7). Subtract a fixed 8. (rig round three)
 
 8. **Read a render's shading stretched between its own dark and its own white.** A white mannequin read from zero puts every pixel at the top of the ramp (one flat); a clamp at either end makes a flat the top-8 row catches. (COOK THREE, the rig's man L17 to L20)
 9. **When a colour is wrong, test the BASE before the light.** Two light knobs did nothing to the salmon; the accent's value was the fault. (the rig's man L14 to L16)

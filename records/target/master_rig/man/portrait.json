@@ -13,11 +13,13 @@
   "SE",
   "SW"
  ],
+ "expressions": [],
  "files": [
   "records/target/master_rig/man/rig_portrait_S.png",
   "records/target/master_rig/man/rig_portrait_SE.png",
   "records/target/master_rig/man/rig_portrait_SW.png"
  ],
+ "expression_files": {},
  "crop_box_px": [
   0,
   33,
@@ -26,5 +28,5 @@
  ],
  "model": "reference/models/khronos/CesiumMan.glb",
  "body_rig": "rig.json",
- "colours": 7613
+ "colours": 13466
 }

@@ -8,10 +8,26 @@
   2.934
  ],
  "scale_from_model": 1.8929,
- "still_frame": 0,
+ "still_frame": 0.0,
+ "still": "frame 0",
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "colormap"
+  ],
+  "what": [
+   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+  ],
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.8929)"
+ },
  "model": "reference/models/kenney/vehicle-truck-yellow.glb",
+ "rig_round": 3,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -31,6 +47,15 @@
   "NW"
  ],
  "family_palette": "prop",
+ "snap": {
+  "family": "prop",
+  "pull": 0.6,
+  "bins": 20564,
+  "tiles": 784,
+  "how": "toward the nearest of the family's own colours, 32 levels a channel"
+ },
+ "ring": 8.0,
+ "contact_shadow": true,
  "files": [
   "records/target/master_rig/truck/rig_N.png",
   "records/target/master_rig/truck/rig_NE.png",
@@ -42,18 +67,40 @@
   "records/target/master_rig/truck/rig_NW.png"
  ],
  "crop_box_px": [
-  151,
+  149,
   183,
-  463,
-  474
+  469,
+  489
  ],
  "ground_px": [
-  156,
+  158,
   124
  ],
- "colours": 91,
+ "colours": 43619,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
- "clips": {}
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 320",
+   "OK   colours >= 2330: 13047",
+   "OK   top 8 carry <= 11%: 2.2",
+   "OK   value span >= 118: 149",
+   "OK   saturation <= 0.81: 0.415",
+   "OK   light: top minus bottom >= -2.5: 8.7",
+   "OK   edge between -35 and +7: -10.0",
+   "OUT  grain <= 2.22 px a run: 3.29"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 1.4%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 262.3"
+  ],
+  "verdict": "1 of 8 out -> to DIRECTION",
+  "file": "records/target/master_rig/truck/rig_S.png"
+ }
 }

@@ -8863,6 +8863,50 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "direction-the-look-at-the-source-10-17",
+   "kind": "tile",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "PLACEHOLDER: THE RIG'S RENDER STOPS BEING A TOY, BEFORE AND AFTER",
+   "why": "The same camera rig now puts the wear into the 3D model before it draws it (no shine, dirt in the creases, dust on top, grain where the wear is, a shadow under it) and pulls its colours toward your own prop tiles, so the truck went from 58 colours to 13,000 and from three card rows out to one. You see it in the VOTE tab at 1:1, last round's clean toy above, this round's worn one below, your car beside it.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/master_rig/DIRECTION_THE_MASTER_RIG_TRUCK.png"
+   },
+   "twin": {
+    "src": "reference/art_bank/prop/pack_10_abandoned_cars_003.png",
+    "diffs": [
+     "SURFACE: his car's pixel contrast is rust patches, seams and glass; the truck's now comes from grime, dust and a grain that sits in the wear, 13,047 colours against last round's 58, but the model has no seams or glass to wear.",
+     "SIZE: at true size (5.3 m at 57 px a metre) the truck is 320 px long against his car's 96; the rig draws the world's size, his pack drew a car at one tile.",
+     "COLOUR: the pull toward the prop family's own colours turns a teal-grey chassis lavender-grey; his car is teal and rust. A pull is not a paint; the model's base colour still shows through."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-the-face-performs-10-17",
+   "kind": "animation",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "PLACEHOLDER: A FREE ROBOT WALKS IN EIGHT, IDLES ON THE BEAT, AND ITS FACE CHANGES",
+   "why": "A free 3D robot went through the rig and came out worn and dusty in all eight directions with a six-picture walk and a twelve-picture idle on the game's beat, and its own head rendered at portrait size with three faces (angry, surprised, sad) from the same model, which is the pipe the face chat needs. You see it in the VOTE tab at 1:1 beside the game's own man today; it is a stand-in, not the game's robot, and nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png"
+   },
+   "twin": {
+    "src": "slices/vote/CHARACTER_THE_BODY_IN_METERS.png",
+    "diffs": [
+     "SIZE: the robot is 1.72 m on the one ruler like the game's man (98 px tall), so the two stand on the same scale; the robot's head is half its height, the man's a seventh.",
+     "MOTION: the walk's six keys and the idle's twelve are drawn at the beat, three a beat, nothing between them, like the game's man; the robot's clip is the model's own, the man's is the engine's.",
+     "LOOK: the robot carries 5,871 colours, grime in its joints and dust on its head; the game's man is a hand-drawn body with the style card's ramps. One is a worn render, the other a drawing; neither is final."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [

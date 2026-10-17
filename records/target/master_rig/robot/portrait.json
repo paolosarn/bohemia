@@ -1,0 +1,41 @@
+{
+ "head_px": 96,
+ "head_m": 0.7511,
+ "head_how": "measured from Head: 0.751 m",
+ "ppm": 127.818,
+ "res": 164,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [
+  "Angry",
+  "Surprised",
+  "Sad"
+ ],
+ "files": [
+  "records/target/master_rig/robot/rig_portrait_S.png",
+  "records/target/master_rig/robot/rig_portrait_SE.png",
+  "records/target/master_rig/robot/rig_portrait_SW.png"
+ ],
+ "expression_files": {
+  "Angry": "records/target/master_rig/robot/rig_portrait_S_Angry.png",
+  "Surprised": "records/target/master_rig/robot/rig_portrait_S_Surprised.png",
+  "Sad": "records/target/master_rig/robot/rig_portrait_S_Sad.png"
+ },
+ "crop_box_px": [
+  0,
+  34,
+  164,
+  164
+ ],
+ "model": "reference/models/quaternius/RobotExpressive.glb",
+ "body_rig": "rig.json",
+ "colours": 26118
+}

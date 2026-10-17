@@ -11,6 +11,11 @@ ROUND TWO LEGS: every clip is drawn at the men's grid, three keys a beat (a whol
 eight facings times its keys on disk, every sampled frame inside the clip's range (AN ENVELOPE RAMPS SLOWER THAN THE
 GRID: nothing between two keys is ever rendered); a portrait.json names the SAME model as its body's rig.json (ONE ID,
 ONE WHOLE PERSON), its head at or over 96 px (PORTRAIT's floor), an orthographic camera, S/SE/SW on disk.
+ROUND THREE LEGS (10/17, the look at the source): a rig of round three or later carries its SOURCE PASS (the wear
+modelled in the materials before the render, rig.json source_pass), a contact shadow, and THE CARD: its S still run
+through skills/bohemia-pixel-art/scripts/check.py against a family band, with at most two of the eight rows out
+(three or more is BACK before VOTE, the card's own rule; round two's renders were BACK 3 of 8 every one); a portrait
+that names expressions has every expression file on disk (the face performs).
 It plants a wrong rig.json and a wrong portrait.json in memory first and must refuse them, so it cannot pass by
 reading nothing.
 """
@@ -42,6 +47,12 @@ def wrong(m, base):
             w.append('clip %s: sampled frames %s are not %d keys inside %s' % (name, c.get('frames'), k, c.get('frame_range')))
         for f in c.get('files', []):
             if not os.path.exists(os.path.join(ROOT, f)): w.append('clip %s: missing %s' % (name, f))
+    if int(m.get('rig_round', 1)) >= 3:
+        if not (m.get('source_pass') or {}).get('what'): w.append('round %s rig with no source pass (the look is modelled at the source or the render is a toy)' % m.get('rig_round'))
+        if not m.get('contact_shadow'): w.append('no contact shadow (the build order: seat it)')
+        c = m.get('card') or {}
+        if not c.get('rows') or len(c['rows']) != 8: w.append('the card was not run on the S still (8 rows)')
+        elif int(c.get('out', 9)) > 2: w.append('the card says BACK: %d of 8 out on the %s band (%s)' % (c['out'], c.get('family'), '; '.join(r for r in c['rows'] if r.startswith('OUT'))))
     return w
 
 
@@ -54,6 +65,9 @@ def wrong_portrait(p, m):
     if p.get('facings') != PORTRAIT_FACINGS or len(p.get('files', [])) != len(PORTRAIT_FACINGS): w.append('portrait facings %s / %d files' % (p.get('facings'), len(p.get('files', []))))
     for f in p.get('files', []):
         if not os.path.exists(os.path.join(ROOT, f)): w.append('portrait missing ' + f)
+    for e in p.get('expressions', []):
+        f = (p.get('expression_files') or {}).get(e)
+        if not f or not os.path.exists(os.path.join(ROOT, f)): w.append('portrait expression %s has no file on disk' % e)
     return w
 
 
@@ -70,6 +84,11 @@ chk(any('whole number of beats' in x for x in wrong(good, '')) and any('inside' 
     'a planted clip with 5 keys and a frame outside its range is refused (three keys a beat; nothing outside the clip)')
 chk(bool(wrong_portrait({'model': 'y.glb', 'head_px': 64, 'camera': {'ortho': False}, 'facings': ['S'], 'files': []}, good)),
     'a planted portrait.json from another model at 64 px with a perspective camera is refused')
+r3 = dict(good, rig_round=3, clips={}, contact_shadow=True, source_pass={'what': ['x']}, card={'family': 'prop', 'out': 3, 'rows': ['OUT a', 'OK b', 'OK c', 'OUT d', 'OK e', 'OK f', 'OK g', 'OUT h']})
+chk(any('BACK' in x for x in wrong(r3, '')) and any('no source pass' in x for x in wrong(dict(r3, source_pass=None), '')),
+    'a planted round-three rig whose card is BACK (3 of 8 out), and one with no source pass, are refused')
+chk(any('expression' in x for x in wrong_portrait({'model': 'x.glb', 'head_px': 96, 'camera': {'ortho': True, 'turn_deg': 0}, 'facings': PORTRAIT_FACINGS, 'files': [], 'expressions': ['Angry'], 'expression_files': {}}, good)),
+    'a planted portrait naming an expression with no file is refused')
 rigs = glob.glob(os.path.join(ROOT, 'records/target/**/rig.json'), recursive=True)
 chk(len(rigs) > 0, '%d master-rig renders found' % len(rigs))
 moving = 0
@@ -82,4 +101,6 @@ for r in rigs:
         pw = wrong_portrait(json.load(open(pp)), m) if os.path.exists(pp) else ['portrait.json missing']
         chk(not pw, '%s: the face comes from the body%s' % (os.path.relpath(pp, ROOT), (': ' + '; '.join(pw)) if pw else ''))
 chk(moving > 0, '%d rig(s) with a clip drawn at the men\'s grid (the model moves)' % moving)
+r3n = sum(1 for r in rigs if int(json.load(open(r)).get('rig_round', 1)) >= 3)
+chk(r3n > 0, '%d rig(s) of round three or later (the look at the source, the card in the rig)' % r3n)
 print('SPRITE SCALE GATE: %d passed, %d failed' % (ok, fail)); sys.exit(1 if fail else 0)

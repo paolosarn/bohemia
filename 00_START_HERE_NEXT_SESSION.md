@@ -5948,6 +5948,30 @@ I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
 === DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
+ROUND LOG 10/17b (latest, rule 110's swing, no check-in): [the master rig] ROUND THREE SHIPPED: THE LOOK IS MODELLED AT THE
+SOURCE, AND THE FACE PERFORMS. First the card on round two's renders: BACK 3 of 8 every one (too few colours, a ring
+too dark, the 64-colour snap leaving the truck 58 colours). Now tools/bohemia_direction_master_rig.py --wear puts the
+wear into the model's materials before the render (matte, grime from its own ambient occlusion, dust on up-faces, a
+20 cm drift, a grain driven by the wear masks; every mask in metres stuck to the surface, per object scale), --family
+prop --snap 0.6 pulls colours toward the family's WHOLE population (20,564 bins, never a 64 list), the ring is -8 not
+-20%, a contact shadow seats it, --still pass is the standing still, --expression renders the same head per shape
+key, --portrait measures the head from the model, and the card's eight rows are written into rig.json; the gate
+refuses BACK, no source pass, no shadow, an expression with no file (12/0). NUMBERS (S still, prop band): truck 58 ->
+13,047 colours, 3 -> 1 out; man 1,170 -> 1,404, 3 -> 2 (a sprite a quarter of a tile; the model's dark head reads lit
+from below); fox at a dire wolf's real 1.9 m (1.5 m left it 89 px under the floor) 3 -> 2; the new RobotExpressive
+(CC0, reference/models/quaternius/, Walking 6 + Idle 12, Angry/Surprised/Sad on one head) 1 of 8 out, 5,871 colours.
+THE LOOP on the truck, five cycles (records/target/master_rig/truck/rig_S.loop.jsonl): grain finer than a pixel
+averages to grey; even grain is a leopard print, so it is driven by the wear. Skill file: section 2 amended (the
+population is the snap), lessons 8-11. Sheets records/target/master_rig/DIRECTION_THE_MASTER_RIG_{TRUCK,MAN,FOX,ROBOT}.png
+(before/after rows; round two's stills kept in round2_*/). VOTE: direction-the-look-at-the-source-10-17 and
+direction-the-face-performs-10-17, PLACEHOLDERS. Record records/BOHEMIA_THE_MASTER_RIG_ROUND_THREE_THE_LOOK_AT_THE_SOURCE_10_17_26.md.
+FOR PORTRAIT: the pipe shows a face that performs; it needs a HUMAN model with morph targets, and this box reaches one
+model host (raw.githubusercontent.com; quaternius.com, kenney.nl, sketchfab, polyhaven, huggingface refused). FOR
+COOK THREE / CHARACTER: a person from a model comes out worn, seated, in eight, standing and walking; the clothes are
+the model's (a mannequin renders a mannequin): the model with runway clothes is the next thing to find or make. FOR
+ANIMATION: the fox and the robot in eight, worn, with a standing still. NOT DONE: a people/beast palette (--family
+none), the free runner (venv, CPU: about a minute per eight stills, four to six minutes a model with clips). NEXT
+(sweep AI order): (4) the pack-rule sheet with COOK TWO; (5) the taste session on his folder when it lands.
 ROUND LOG 10/17a (latest, rule 110's swing, no check-in): [the master rig] ROUND TWO SHIPPED 564e1b1: THE MODEL MOVES AND
 THE FACE COMES FROM THE BODY. tools/bohemia_direction_master_rig.py takes --clip <action>:<keys> (a glTF's own
 animation at the drawn keys only, three a beat, eight facings; one crop box per model so frames never jitter) and
