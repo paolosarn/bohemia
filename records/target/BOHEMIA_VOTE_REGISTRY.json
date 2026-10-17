@@ -8724,6 +8724,28 @@
     "how": "image",
     "src": "vote/EYES_THE_MAPS_FOUR_NUMBERS.png"
    }
+  },
+  {
+   "id": "cook3-the-reds-loop-on-the-rigs-man-10-17",
+   "kind": "outfit",
+   "lane": "cook 3",
+   "sha": "pending",
+   "made": "10/17",
+   "title": "PLACEHOLDER: THE REDS LOOK ON A BODY THAT TURNS AND WALKS, FROM THE CAMERA RIG",
+   "why": "The people chat took the camera rig's first man (a test dummy, not our man) and painted the Reds look on him: brown taper, pale face, black collar, dark red duster, boots, with a cloth grain from your bought tiles. Eight directions and a six-step walk, beside the game's own Reds today. It is a placeholder until your moodboard: it proves the road, not the face.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook3/COOK3_THE_REDS_LOOP_ON_THE_RIGS_MAN.png"
+   },
+   "twin": {
+    "src": "records/cook3/loop/cook3_person_reds_11.png",
+    "diffs": [
+     "BODY: ours turns in eight directions and walks on six drawn keys from one 3D model; the game's Reds is drawn front-on from code and mirrored.",
+     "CLOTH: ours carries 1,239 colours (0.74 a pixel, near your tiles' 0.81) with a weave from your dirt tile; the game's Reds has 551 colours in flat three-step ramps.",
+     "HEAD AND CUT: the game's Reds has the better face and the better coat (an open split-tail duster); ours has a blank plank for a face and a hem cut straight across, because the dummy has no face and no coat mesh. Those come from the model, not the paint."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [

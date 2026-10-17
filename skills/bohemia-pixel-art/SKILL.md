@@ -114,3 +114,8 @@ LESSONS (each one cost a cycle; the before and after are in references/lessons/L
 6. **Do not snap a pack-style asset's shading to a few steps.** It reads crisp to the eye and fails the card: 113 colours, the top 8 at 49%. His art is not limited-palette. (Reds look 9, look.py cycle 1)
 7. **A paint pass cannot add colours the source does not have.** A code-drawn garment carries 3 shades per ramp; no pass on top reaches his 2,330. Fix the source (the rig, the generator), not the paint. (Reds looks 10-12)
 
+8. **Read a render's shading stretched between its own dark and its own white.** A white mannequin read from zero puts every pixel at the top of the ramp (one flat); a clamp at either end makes a flat the top-8 row catches. (COOK THREE, the rig's man L17 to L20)
+9. **When a colour is wrong, test the BASE before the light.** Two light knobs did nothing to the salmon; the accent's value was the fault. (the rig's man L14 to L16)
+10. **Count a sprite's colours as DENSITY, colours a pixel, against his 0.81.** The card's 2,330 is a 96 x 96 tile's number; a person has about 1,660 opaque pixels. (the rig's man L21, L26)
+11. **A weave is his tile's detail with its fill taken out, laid in place; its colour at a low strength.** Full strength drags the tile's greens onto wool as hot specks. (the rig's man L22, L26, L27)
+12. **Look at every facing before trusting one.** The skin sample hitting the twin's brow and the hand rule reading a hanging forearm as skin were invisible from the front. (the rig's man L29, L32, L33)

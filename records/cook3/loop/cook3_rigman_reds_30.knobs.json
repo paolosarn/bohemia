@@ -1,0 +1,33 @@
+{
+ "decal_sat": 0.12,
+ "white": 1.0,
+ "black": 0.35,
+ "gamma": 1.4,
+ "sun_y": 0.3,
+ "sun_x": 0.0,
+ "hi": 0.3,
+ "shade": 0.15,
+ "tex": "reference/art_bank/ground/pack_2_dirt_path_tiles_001.png",
+ "tex_amp": 0.6,
+ "tex_skin": 0.0,
+ "tex_rgb": 0.4,
+ "skin_floor": 0.5,
+ "skin_band": [
+  0.09,
+  0.17
+ ],
+ "collar_front": 0,
+ "hair_cap": 1.0,
+ "edge_k": 1.0,
+ "head": 0.15,
+ "hair": 0.09,
+ "collar": 0.2,
+ "coat": 0.62,
+ "boot": 0.92,
+ "hw": 11,
+ "hand": 5,
+ "vib": null,
+ "accent": "#7a2a22",
+ "trouser_dark": 0.8,
+ "boot_dark": 0.55
+}
