@@ -2,7 +2,7 @@
 # RESEARCH ONLY (Paolo 9/27, rule 35): nothing here is built. Builders cite these by id.
 # Every design cites the 152-quest library by finding id; gates/quests_library_gate.js proves it.
 
-250 designs.
+260 designs.
 
 ## BY ACT
 ### ACROSS (30)
@@ -36,7 +36,7 @@
 - [QD-T01 THE WOMAN WHO KNOWS WHERE THE PIPES RUN](across/QD_T01_THE_WOMAN_WHO_KNOWS_WHERE_THE_PIPES_RUN.md)  contract | none | bust (act 1) -> either (act 2) | 11 ids
 - [QD-T07 THE RIFLE WITH A NOTCH IN IT](across/QD_T07_THE_RIFLE_WITH_A_NOTCH_IN_IT.md)  contract | none | boom | 11 ids
 - [QD-T12 THE FIRST LOOK THROUGH THE WINDOW](across/QD_T12_THE_FIRST_LOOK_THROUGH_THE_WINDOW.md)  main-beat | none | bust (act 1) -> either (act 2) | 9 ids
-### ACT1 (82)
+### ACT1 (92)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
 - [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
@@ -72,6 +72,16 @@
 - [QD-AQ02 THE MEDIC'S BROTHER AT THE WASH](act1/QD_AQ02_THE_MEDICS_BROTHER_AT_THE_WASH.md)  contract | none | bust | 6 ids
 - [QD-AQ03 THE DRIVER'S DEBT](act1/QD_AQ03_THE_DRIVERS_DEBT.md)  contract | none | bust | 6 ids
 - [QD-AQ04 THE PICKER WHO SAW THE BODY](act1/QD_AQ04_THE_PICKER_WHO_SAW_THE_BODY.md)  contract | the Destroyers | bust | 6 ids
+- [QD-AR01 THE ICE TO HENDERSON](act1/QD_AR01_THE_ICE_TO_HENDERSON.md)  contract | none | bust | 8 ids
+- [QD-AR02 THE RELIEF SHIFT TO THE DAM](act1/QD_AR02_THE_RELIEF_SHIFT_TO_THE_DAM.md)  contract | none | bust | 7 ids
+- [QD-AR03 THE PACK THAT DRINKS AT JEAN](act1/QD_AR03_THE_PACK_THAT_DRINKS_AT_JEAN.md)  contract | none | bust | 6 ids
+- [QD-AR04 THE IMPELLER IN THE SUNK BOATS](act1/QD_AR04_THE_IMPELLER_IN_THE_SUNK_BOATS.md)  contract | none | bust | 6 ids
+- [QD-AR05 THE STATE LINE CARAVAN](act1/QD_AR05_THE_STATE_LINE_CARAVAN.md)  contract | none | bust | 9 ids
+- [QD-AR06 THE LODGE ABOVE THE SNOW LINE](act1/QD_AR06_THE_LODGE_ABOVE_THE_SNOW_LINE.md)  contract | none | bust | 8 ids
+- [QD-AR07 THE GENERATOR AT SEARCHLIGHT](act1/QD_AR07_THE_GENERATOR_AT_SEARCHLIGHT.md)  contract | none | bust | 7 ids
+- [QD-AR08 THE LETTER OVER THE PASS](act1/QD_AR08_THE_LETTER_OVER_THE_PASS.md)  contract | none | bust | 8 ids
+- [QD-AR09 TWO NIGHTS AT THE MOAPA WELL](act1/QD_AR09_TWO_NIGHTS_AT_THE_MOAPA_WELL.md)  contract | none | bust | 8 ids
+- [QD-AR10 THE FAMILY AT MESQUITE](act1/QD_AR10_THE_FAMILY_AT_MESQUITE.md)  contract | none | bust | 8 ids
 - [QD-B01 THE MAN ON THE SHOULDER](act1/QD_B01_THE_MAN_ON_THE_SHOULDER.md)  event | none | bust | 15 ids
 - [QD-B02 THE TRACKS THAT GO TOWARD HOME](act1/QD_B02_THE_TRACKS_THAT_GO_TOWARD_HOME.md)  event | the Destroyers | bust | 15 ids
 - [QD-B03 THE BATTERY IN THE BOOT](act1/QD_B03_THE_BATTERY_IN_THE_BOOT.md)  event | none | either | 13 ids
@@ -282,7 +292,7 @@
 - [QD-Q13 THE TOWN THAT WENT BACKWARDS](across/QD_Q13_THE_TOWN_THAT_WENT_BACKWARDS.md)  across-acts | the earth-side nuke (act 2); the rocket (act 3) | either | 8 ids
 - [QD-Q14 THE TUNE ON THE PUMP HOUSE RADIO](across/QD_Q14_THE_TUNE_ON_THE_PUMP_HOUSE_RADIO.md)  across-acts | none (act 1); the whisper broadcast (act 2); the rocket (act 3) | either | 7 ids
 - [QD-R05 THE WALL THAT HELD](across/QD_R05_THE_WALL_THAT_HELD.md)  across-acts | the Destroyers (plant); the rocket (landing) | bust (act 1) -> boom (act 3) | 9 ids
-### contract (168)
+### contract (178)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
 - [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
@@ -313,6 +323,16 @@
 - [QD-AQ02 THE MEDIC'S BROTHER AT THE WASH](act1/QD_AQ02_THE_MEDICS_BROTHER_AT_THE_WASH.md)  contract | none | bust | 6 ids
 - [QD-AQ03 THE DRIVER'S DEBT](act1/QD_AQ03_THE_DRIVERS_DEBT.md)  contract | none | bust | 6 ids
 - [QD-AQ04 THE PICKER WHO SAW THE BODY](act1/QD_AQ04_THE_PICKER_WHO_SAW_THE_BODY.md)  contract | the Destroyers | bust | 6 ids
+- [QD-AR01 THE ICE TO HENDERSON](act1/QD_AR01_THE_ICE_TO_HENDERSON.md)  contract | none | bust | 8 ids
+- [QD-AR02 THE RELIEF SHIFT TO THE DAM](act1/QD_AR02_THE_RELIEF_SHIFT_TO_THE_DAM.md)  contract | none | bust | 7 ids
+- [QD-AR03 THE PACK THAT DRINKS AT JEAN](act1/QD_AR03_THE_PACK_THAT_DRINKS_AT_JEAN.md)  contract | none | bust | 6 ids
+- [QD-AR04 THE IMPELLER IN THE SUNK BOATS](act1/QD_AR04_THE_IMPELLER_IN_THE_SUNK_BOATS.md)  contract | none | bust | 6 ids
+- [QD-AR05 THE STATE LINE CARAVAN](act1/QD_AR05_THE_STATE_LINE_CARAVAN.md)  contract | none | bust | 9 ids
+- [QD-AR06 THE LODGE ABOVE THE SNOW LINE](act1/QD_AR06_THE_LODGE_ABOVE_THE_SNOW_LINE.md)  contract | none | bust | 8 ids
+- [QD-AR07 THE GENERATOR AT SEARCHLIGHT](act1/QD_AR07_THE_GENERATOR_AT_SEARCHLIGHT.md)  contract | none | bust | 7 ids
+- [QD-AR08 THE LETTER OVER THE PASS](act1/QD_AR08_THE_LETTER_OVER_THE_PASS.md)  contract | none | bust | 8 ids
+- [QD-AR09 TWO NIGHTS AT THE MOAPA WELL](act1/QD_AR09_TWO_NIGHTS_AT_THE_MOAPA_WELL.md)  contract | none | bust | 8 ids
+- [QD-AR10 THE FAMILY AT MESQUITE](act1/QD_AR10_THE_FAMILY_AT_MESQUITE.md)  contract | none | bust | 8 ids
 - [QD-C01 THE CELLS WENT FLAT](act1/QD_C01_THE_CELLS_WENT_FLAT.md)  contract | the Destroyers | bust | 18 ids
 - [QD-C02 THE COLD BOX](act1/QD_C02_THE_COLD_BOX.md)  contract | none | bust | 16 ids
 - [QD-E01 THE SHELF SHE DUSTS](act1/QD_E01_THE_SHELF_SHE_DUSTS.md)  contract | none | bust | 17 ids
@@ -517,7 +537,7 @@
 - [QD-T12 THE FIRST LOOK THROUGH THE WINDOW](across/QD_T12_THE_FIRST_LOOK_THROUGH_THE_WINDOW.md)  main-beat | none | bust (act 1) -> either (act 2) | 9 ids
 
 ## BY ENDGAME CRISIS
-### none (161)
+### none (171)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-A02 THE SALT ROAD ESCORT](act1/QD_A02_THE_SALT_ROAD_ESCORT.md)  contract | none | boom | 20 ids
 - [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
@@ -549,6 +569,16 @@
 - [QD-AQ01 THE COOK'S STOLEN POT](act1/QD_AQ01_THE_COOKS_STOLEN_POT.md)  contract | none | bust | 6 ids
 - [QD-AQ02 THE MEDIC'S BROTHER AT THE WASH](act1/QD_AQ02_THE_MEDICS_BROTHER_AT_THE_WASH.md)  contract | none | bust | 6 ids
 - [QD-AQ03 THE DRIVER'S DEBT](act1/QD_AQ03_THE_DRIVERS_DEBT.md)  contract | none | bust | 6 ids
+- [QD-AR01 THE ICE TO HENDERSON](act1/QD_AR01_THE_ICE_TO_HENDERSON.md)  contract | none | bust | 8 ids
+- [QD-AR02 THE RELIEF SHIFT TO THE DAM](act1/QD_AR02_THE_RELIEF_SHIFT_TO_THE_DAM.md)  contract | none | bust | 7 ids
+- [QD-AR03 THE PACK THAT DRINKS AT JEAN](act1/QD_AR03_THE_PACK_THAT_DRINKS_AT_JEAN.md)  contract | none | bust | 6 ids
+- [QD-AR04 THE IMPELLER IN THE SUNK BOATS](act1/QD_AR04_THE_IMPELLER_IN_THE_SUNK_BOATS.md)  contract | none | bust | 6 ids
+- [QD-AR05 THE STATE LINE CARAVAN](act1/QD_AR05_THE_STATE_LINE_CARAVAN.md)  contract | none | bust | 9 ids
+- [QD-AR06 THE LODGE ABOVE THE SNOW LINE](act1/QD_AR06_THE_LODGE_ABOVE_THE_SNOW_LINE.md)  contract | none | bust | 8 ids
+- [QD-AR07 THE GENERATOR AT SEARCHLIGHT](act1/QD_AR07_THE_GENERATOR_AT_SEARCHLIGHT.md)  contract | none | bust | 7 ids
+- [QD-AR08 THE LETTER OVER THE PASS](act1/QD_AR08_THE_LETTER_OVER_THE_PASS.md)  contract | none | bust | 8 ids
+- [QD-AR09 TWO NIGHTS AT THE MOAPA WELL](act1/QD_AR09_TWO_NIGHTS_AT_THE_MOAPA_WELL.md)  contract | none | bust | 8 ids
+- [QD-AR10 THE FAMILY AT MESQUITE](act1/QD_AR10_THE_FAMILY_AT_MESQUITE.md)  contract | none | bust | 8 ids
 - [QD-B01 THE MAN ON THE SHOULDER](act1/QD_B01_THE_MAN_ON_THE_SHOULDER.md)  event | none | bust | 15 ids
 - [QD-B03 THE BATTERY IN THE BOOT](act1/QD_B03_THE_BATTERY_IN_THE_BOOT.md)  event | none | either | 13 ids
 - [QD-C02 THE COLD BOX](act1/QD_C02_THE_COLD_BOX.md)  contract | none | bust | 16 ids
@@ -872,7 +902,7 @@
 - [QD-M06 HIS GRANDDAUGHTER IN THE HALL](across/QD_M06_HIS_GRANDDAUGHTER_IN_THE_HALL.md)  contract | the rocket | boom | 11 ids
 - [QD-Q10 THE APPRENTICE WHO STARTED HER OWN](across/QD_Q10_THE_APPRENTICE_WHO_STARTED_HER_OWN.md)  across-acts | none (act 2); the rocket (act 3) | boom | 7 ids
 - [QD-T07 THE RIFLE WITH A NOTCH IN IT](across/QD_T07_THE_RIFLE_WITH_A_NOTCH_IN_IT.md)  contract | none | boom | 11 ids
-### bust (105)
+### bust (115)
 - [QD-A01 THE CISTERN NIGHTS](act1/QD_A01_THE_CISTERN_NIGHTS.md)  contract | none | bust | 17 ids
 - [QD-AA01 THE DOGS STILL WEARING TAGS](act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md)  contract | none | bust | 10 ids
 - [QD-AA02 THE PACK ON THE I-15 SHOULDER](act1/QD_AA02_THE_PACK_ON_THE_I15_SHOULDER.md)  contract | none | bust | 12 ids
@@ -894,6 +924,16 @@
 - [QD-AQ02 THE MEDIC'S BROTHER AT THE WASH](act1/QD_AQ02_THE_MEDICS_BROTHER_AT_THE_WASH.md)  contract | none | bust | 6 ids
 - [QD-AQ03 THE DRIVER'S DEBT](act1/QD_AQ03_THE_DRIVERS_DEBT.md)  contract | none | bust | 6 ids
 - [QD-AQ04 THE PICKER WHO SAW THE BODY](act1/QD_AQ04_THE_PICKER_WHO_SAW_THE_BODY.md)  contract | the Destroyers | bust | 6 ids
+- [QD-AR01 THE ICE TO HENDERSON](act1/QD_AR01_THE_ICE_TO_HENDERSON.md)  contract | none | bust | 8 ids
+- [QD-AR02 THE RELIEF SHIFT TO THE DAM](act1/QD_AR02_THE_RELIEF_SHIFT_TO_THE_DAM.md)  contract | none | bust | 7 ids
+- [QD-AR03 THE PACK THAT DRINKS AT JEAN](act1/QD_AR03_THE_PACK_THAT_DRINKS_AT_JEAN.md)  contract | none | bust | 6 ids
+- [QD-AR04 THE IMPELLER IN THE SUNK BOATS](act1/QD_AR04_THE_IMPELLER_IN_THE_SUNK_BOATS.md)  contract | none | bust | 6 ids
+- [QD-AR05 THE STATE LINE CARAVAN](act1/QD_AR05_THE_STATE_LINE_CARAVAN.md)  contract | none | bust | 9 ids
+- [QD-AR06 THE LODGE ABOVE THE SNOW LINE](act1/QD_AR06_THE_LODGE_ABOVE_THE_SNOW_LINE.md)  contract | none | bust | 8 ids
+- [QD-AR07 THE GENERATOR AT SEARCHLIGHT](act1/QD_AR07_THE_GENERATOR_AT_SEARCHLIGHT.md)  contract | none | bust | 7 ids
+- [QD-AR08 THE LETTER OVER THE PASS](act1/QD_AR08_THE_LETTER_OVER_THE_PASS.md)  contract | none | bust | 8 ids
+- [QD-AR09 TWO NIGHTS AT THE MOAPA WELL](act1/QD_AR09_TWO_NIGHTS_AT_THE_MOAPA_WELL.md)  contract | none | bust | 8 ids
+- [QD-AR10 THE FAMILY AT MESQUITE](act1/QD_AR10_THE_FAMILY_AT_MESQUITE.md)  contract | none | bust | 8 ids
 - [QD-B01 THE MAN ON THE SHOULDER](act1/QD_B01_THE_MAN_ON_THE_SHOULDER.md)  event | none | bust | 15 ids
 - [QD-B02 THE TRACKS THAT GO TOWARD HOME](act1/QD_B02_THE_TRACKS_THAT_GO_TOWARD_HOME.md)  event | the Destroyers | bust | 15 ids
 - [QD-C01 THE CELLS WENT FLAT](act1/QD_C01_THE_CELLS_WENT_FLAT.md)  contract | the Destroyers | bust | 18 ids
