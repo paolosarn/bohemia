@@ -161,9 +161,10 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - cook-the-far-end-from-his-picks-10-10
 - cook-the-markers-you-can-find-10-10
 
-## COOK 4 (2 placeholder cards)
+## COOK 4 (3 placeholder cards)
 - cook4-the-settlement-from-the-packs-10-10
 - cook4-the-straight-roof-family-10-17 (five ranch kinds, reference/art_bank/settlement/COOK4_RANCH_*.png; the earlier ranch, shop, motel and roof cards are the same family's placeholders, listed on the board)
+- cook4-the-corner-shop-straight-roof-10-17 (the corner shop under the measured roof, reference/art_bank/settlement/COOK4_CORNER_SHOP_STRAIGHT_ROOF.png; supersedes the flat-roof shop card)
 
 ## DIRECTION (14 placeholder cards)
 - direction-the-car-before-after-9-15
