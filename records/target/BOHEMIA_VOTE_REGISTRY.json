@@ -8841,6 +8841,24 @@
     ]
    },
    "draft": true
+  },
+  {
+   "id": "sounds-the-settlement-heard-whole-10-17",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "pending",
+   "made": "10/17",
+   "title": "THE SETTLEMENT HEARD WHOLE, FROM REAL RECORDINGS",
+   "why": "Every building on the settlement screen now answers your tap with a real recording of the real thing run through the bad-tape-and-room chain (a real door, a real can, a real saw, real people laughing behind the bar door), with a real wind and chickens by day or crickets and a fire barrel by night under the whole screen. Press SOUND ON and tap the buildings on the real screen in the VOTE tab, and you hear it.",
+   "options": [
+    "A, the whole screen heard like this",
+    "B, the beds only, the taps stay as they were"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_SETTLEMENT_HEARD_WHOLE_10_17_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

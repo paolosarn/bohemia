@@ -1,0 +1,1176 @@
+{
+ "_readme": "FROM A RECORDING (SOUNDS 10/17/26): every file here starts from a CC0 Freesound recording (via ESC-50) and goes through the chain in tools/bohemia_from_a_recording.py. before_*.mp3 is the same window of the same recording with nothing but the fades; the other file is after the chain. Licence per source in sources.",
+ "made": "10/17/26",
+ "lane": "sounds",
+ "draft": true,
+ "chain": "window > speed > high-pass 120 Hz > tape (shelf, saturation, wow and flutter, 2:1) > low-pass 9 kHz > modelled room > limiter, peak under -1 dBFS",
+ "rooms": {
+  "small": {
+   "rt60_measured_s": 0.313,
+   "rt60_asked_s": 0.35,
+   "sabine_absorption": 0.281,
+   "ir_seconds": 0.359
+  },
+  "shed": {
+   "rt60_measured_s": 0.252,
+   "rt60_asked_s": 0.25,
+   "sabine_absorption": 0.492,
+   "ir_seconds": 0.499
+  },
+  "hall": {
+   "rt60_measured_s": 1.695,
+   "rt60_asked_s": 1.3,
+   "sabine_absorption": 0.208,
+   "ir_seconds": 2.819
+  },
+  "bar": {
+   "rt60_measured_s": 0.871,
+   "rt60_asked_s": 0.55,
+   "sabine_absorption": 0.27,
+   "ir_seconds": 1.174
+  }
+ },
+ "sounds": [
+  {
+   "id": "hall_who_wants_work",
+   "building": "hall",
+   "title": "THE HALL: A BELL AND BOOTS",
+   "what": "one strike of a real church clock bell, then boots on a real hall floor",
+   "kind": "tap",
+   "room": "hall",
+   "wet": 0.45,
+   "windows": [
+    [
+     0.15,
+     2.4
+    ],
+    [
+     0.3,
+     3.4
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "5-219044-A-46",
+     "speed": 1.0,
+     "db": -4,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
+     "author": "JarredGibb",
+     "licence": "CC0",
+     "category": "Church bells"
+    },
+    {
+     "stem": "1-155858-E-25",
+     "speed": 1.0,
+     "db": -3,
+     "at": 0.35,
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+     "author": "RutgerMuller",
+     "licence": "CC0",
+     "category": "Footsteps"
+    }
+   ],
+   "seconds": 4.95,
+   "peak_db": -1.8,
+   "rms_db": -18.51,
+   "first_1ms_db": -58.7,
+   "last_1ms_db": -109.2
+  },
+  {
+   "id": "board_nail",
+   "building": "board",
+   "title": "THE BOARD: A TACK GOES IN",
+   "what": "a real wood knock, a little smaller and higher, the tack through the paper",
+   "kind": "tap",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     1.7
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "1-103999-A-30",
+     "speed": 1.25,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
+     "author": "RutgerMuller",
+     "licence": "CC0",
+     "category": "Door knock"
+    }
+   ],
+   "seconds": 1.36,
+   "peak_db": -1.8,
+   "rms_db": -25.41,
+   "first_1ms_db": -114.8,
+   "last_1ms_db": -240.0
+  },
+  {
+   "id": "clinic_door_open",
+   "building": "clinic",
+   "title": "THE CLINIC: THE DOOR OPENS",
+   "what": "a real door hinge creaking open, in a small plastered room",
+   "kind": "open",
+   "room": "small",
+   "wet": 0.35,
+   "windows": [
+    [
+     0.0,
+     2.2
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "4-107120-A-33",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/tec%20studios/sounds/107120/",
+     "author": "tec studios",
+     "licence": "CC0",
+     "category": "Door - wood creaks"
+    }
+   ],
+   "seconds": 2.559,
+   "peak_db": -1.8,
+   "rms_db": -13.21,
+   "first_1ms_db": -68.0,
+   "last_1ms_db": -177.7
+  },
+  {
+   "id": "clinic_door_shut",
+   "building": "clinic",
+   "title": "THE CLINIC: THE DOOR SHUTS",
+   "what": "the same recordist's door, its last thump when it closes",
+   "kind": "shut",
+   "room": "small",
+   "wet": 0.35,
+   "windows": [
+    [
+     4.87,
+     5.0
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "2-118624-A-30",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/E-Audio/sounds/118624/",
+     "author": "E-Audio",
+     "licence": "CC0",
+     "category": "Door knock"
+    }
+   ],
+   "seconds": 0.489,
+   "peak_db": -1.8,
+   "rms_db": -18.13,
+   "first_1ms_db": -54.7,
+   "last_1ms_db": -151.2
+  },
+  {
+   "id": "stall_can",
+   "building": "stall",
+   "title": "THE STALL: A CAN ON THE COUNTER",
+   "what": "a real can cracked open on the stall's counter",
+   "kind": "tap",
+   "room": "shed",
+   "wet": 0.15,
+   "windows": [
+    [
+     0.03,
+     1.65
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "2-144031-A-34",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/timgormly/sounds/144031/",
+     "author": "timgormly",
+     "licence": "CC0",
+     "category": "Can opening"
+    }
+   ],
+   "seconds": 2.119,
+   "peak_db": -1.8,
+   "rms_db": -25.39,
+   "first_1ms_db": -183.5,
+   "last_1ms_db": -190.0
+  },
+  {
+   "id": "stall_buy",
+   "building": "stall",
+   "title": "THE STALL: BOUGHT",
+   "what": "a heavier real can set down, the thing you paid for landing in front of you",
+   "kind": "buy",
+   "room": "shed",
+   "wet": 0.15,
+   "windows": [
+    [
+     0.0,
+     1.4
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "5-252248-A-34",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/Reitanna/sounds/252248/",
+     "author": "Reitanna",
+     "licence": "CC0",
+     "category": "Can opening"
+    }
+   ],
+   "seconds": 1.899,
+   "peak_db": -2.0,
+   "rms_db": -24.94,
+   "first_1ms_db": -81.8,
+   "last_1ms_db": -191.1
+  },
+  {
+   "id": "barber_clippers",
+   "building": "barber",
+   "title": "THE BARBER: THE CLIPPERS",
+   "what": "a real electric motor slowed to half speed, the clipper against your head",
+   "kind": "tap",
+   "room": "small",
+   "wet": 0.3,
+   "windows": [
+    [
+     0.3,
+     2.1
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "5-231551-A-36",
+     "speed": 0.5,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/MrAuralization/sounds/231551/",
+     "author": "MrAuralization",
+     "licence": "CC0",
+     "category": "Vacuum cleaner"
+    }
+   ],
+   "seconds": 3.959,
+   "peak_db": -3.0,
+   "rms_db": -14.62,
+   "first_1ms_db": -81.4,
+   "last_1ms_db": -145.3
+  },
+  {
+   "id": "yard_drill",
+   "building": "train",
+   "title": "THE YARD: THE DRILL",
+   "what": "real sneakers on gravel and a man breathing hard, the yard where you swap a mastery",
+   "kind": "tap",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     3.4
+    ],
+    [
+     0.0,
+     3.05
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "4-218304-B-25",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
+     "author": "MentalSanityOff",
+     "licence": "CC0",
+     "category": "Footsteps"
+    },
+    {
+     "stem": "5-238492-A-23",
+     "speed": 1.0,
+     "db": -7,
+     "at": 0.5,
+     "freesound": "http://www.freesound.org/people/mariiao2/sounds/238492/",
+     "author": "mariiao2",
+     "licence": "CC0",
+     "category": "Breathing"
+    }
+   ],
+   "seconds": 3.55,
+   "peak_db": -2.0,
+   "rms_db": -23.27,
+   "first_1ms_db": -65.1,
+   "last_1ms_db": -240.0
+  },
+  {
+   "id": "bar_round",
+   "building": "bar",
+   "title": "THE BAR: A ROUND FOR THE CREW",
+   "what": "a real drink going down and a real man laughing, through the bar",
+   "kind": "buy",
+   "room": "bar",
+   "wet": 0.4,
+   "windows": [
+    [
+     0.0,
+     3.3
+    ],
+    [
+     0.0,
+     2.6
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "1-37226-A-29",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/sagetyrtle/sounds/37226/",
+     "author": "sagetyrtle",
+     "licence": "CC0",
+     "category": "Drinking - sipping"
+    },
+    {
+     "stem": "5-263775-A-26",
+     "speed": 1.0,
+     "db": -9,
+     "at": 0.7,
+     "freesound": "http://www.freesound.org/people/scottemoil/sounds/263775/",
+     "author": "scottemoil",
+     "licence": "CC0",
+     "category": "Laughing"
+    }
+   ],
+   "seconds": 4.474,
+   "peak_db": -2.0,
+   "rms_db": -20.21,
+   "first_1ms_db": -64.5,
+   "last_1ms_db": -177.1
+  },
+  {
+   "id": "arms_counter",
+   "building": "arms",
+   "title": "GUNS AND PLATE: THE COUNTER",
+   "what": "real mechanical clicks slowed into an action being worked, and a real thump on the counter",
+   "kind": "tap",
+   "room": "small",
+   "wet": 0.3,
+   "windows": [
+    [
+     0.0,
+     2.4
+    ],
+    [
+     0.0,
+     1.75
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "2-152895-A-31",
+     "speed": 0.7,
+     "db": -2,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/davidkyoku/sounds/152895/",
+     "author": "davidkyoku",
+     "licence": "CC0",
+     "category": "Mouse click"
+    },
+    {
+     "stem": "1-103995-A-30",
+     "speed": 0.8,
+     "db": -1,
+     "at": 1.1,
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103995/",
+     "author": "RutgerMuller",
+     "licence": "CC0",
+     "category": "Door knock"
+    }
+   ],
+   "seconds": 3.787,
+   "peak_db": -2.0,
+   "rms_db": -20.86,
+   "first_1ms_db": -65.9,
+   "last_1ms_db": -180.6
+  },
+  {
+   "id": "smith_saw",
+   "building": "smith",
+   "title": "THE SMITH: SOMEONE WORKING",
+   "what": "a real hand saw through a stock, in an open shed: the clinking of someone working in the city",
+   "kind": "tap",
+   "room": "shed",
+   "wet": 0.25,
+   "windows": [
+    [
+     0.1,
+     3.2
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "1-9886-A-49",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/Pingel/sounds/9886/",
+     "author": "Pingel",
+     "licence": "CC0",
+     "category": "Hand saw"
+    }
+   ],
+   "seconds": 3.599,
+   "peak_db": -3.0,
+   "rms_db": -15.17,
+   "first_1ms_db": -48.9,
+   "last_1ms_db": -180.9
+  },
+  {
+   "id": "armourer_rivets",
+   "building": "armourer",
+   "title": "THE ARMOURER: RIVETS",
+   "what": "a real knock sped up into a small hammer setting rivets, in the shed",
+   "kind": "tap",
+   "room": "shed",
+   "wet": 0.25,
+   "windows": [
+    [
+     0.0,
+     2.6
+    ],
+    [
+     0.0,
+     2.6
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "5-235644-A-30",
+     "speed": 1.4,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/Coonick/sounds/235644/",
+     "author": "Coonick",
+     "licence": "CC0",
+     "category": "Door knock"
+    },
+    {
+     "stem": "5-235644-A-30",
+     "speed": 1.5,
+     "db": -3,
+     "at": 1.0,
+     "freesound": "http://www.freesound.org/people/Coonick/sounds/235644/",
+     "author": "Coonick",
+     "licence": "CC0",
+     "category": "Door knock"
+    }
+   ],
+   "seconds": 3.232,
+   "peak_db": -3.0,
+   "rms_db": -22.61,
+   "first_1ms_db": -69.8,
+   "last_1ms_db": -185.1
+  },
+  {
+   "id": "lot_scavenge",
+   "building": "lot",
+   "title": "SCAVENGE: GLASS AND A CROW",
+   "what": "real glass going under a boot in the junk lot, and a real crow lifting off",
+   "kind": "tap",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.13,
+     2.05
+    ],
+    [
+     0.0,
+     2.2
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "2-141563-A-39",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/avrahamy/sounds/141563/",
+     "author": "avrahamy",
+     "licence": "CC0",
+     "category": "Glass breaking"
+    },
+    {
+     "stem": "4-173865-B-9",
+     "speed": 1.0,
+     "db": -9,
+     "at": 0.8,
+     "freesound": "http://www.freesound.org/people/conleec/sounds/173865/",
+     "author": "conleec",
+     "licence": "CC0",
+     "category": "Crow"
+    }
+   ],
+   "seconds": 3.0,
+   "peak_db": -2.0,
+   "rms_db": -13.98,
+   "first_1ms_db": -240.0,
+   "last_1ms_db": -76.4
+  },
+  {
+   "id": "build_hammer_and_saw",
+   "building": "build",
+   "title": "BUILD: A HAMMER AND A SAW",
+   "what": "a real saw and real wood knocks, the lot you hold being built on",
+   "kind": "tap",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     3.0
+    ],
+    [
+     0.0,
+     1.7
+    ],
+    [
+     0.0,
+     1.7
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "3-96606-A-49",
+     "speed": 1.0,
+     "db": -5,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/Ohrwurm/sounds/96606/",
+     "author": "Ohrwurm",
+     "licence": "CC0",
+     "category": "Hand saw"
+    },
+    {
+     "stem": "1-103999-A-30",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.4,
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
+     "author": "RutgerMuller",
+     "licence": "CC0",
+     "category": "Door knock"
+    },
+    {
+     "stem": "1-103999-A-30",
+     "speed": 1.0,
+     "db": -2,
+     "at": 1.7,
+     "freesound": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
+     "author": "RutgerMuller",
+     "licence": "CC0",
+     "category": "Door knock"
+    }
+   ],
+   "seconds": 3.4,
+   "peak_db": -3.0,
+   "rms_db": -21.73,
+   "first_1ms_db": -54.3,
+   "last_1ms_db": -240.0
+  }
+ ],
+ "beds": [
+  {
+   "id": "bed_day",
+   "title": "THE BED, DAY: WIND, CHICKENS, BIRDS",
+   "what": "a real wind across the lot, real hens behind a fence, real birds, a rooster once, far",
+   "room": null,
+   "wet": 0.0,
+   "sources": [
+    {
+     "stem": "5-179496-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
+     "author": "toiletrolltube",
+     "licence": "CC0",
+     "category": "Wind"
+    },
+    {
+     "stem": "4-200330-A-6",
+     "db": -9.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/jsbarrett/sounds/200330/",
+     "author": "jsbarrett",
+     "licence": "CC0",
+     "category": "Hen"
+    },
+    {
+     "stem": "4-187769-B-14",
+     "db": -13.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/dwareing/sounds/187769/",
+     "author": "dwareing",
+     "licence": "CC0",
+     "category": "Chirping birds"
+    },
+    {
+     "stem": "4-170078-A-1",
+     "db": -16.0,
+     "mode": "once",
+     "freesound": "http://www.freesound.org/people/dudermensch/sounds/170078/",
+     "author": "dudermensch",
+     "licence": "CC0",
+     "category": "Rooster"
+    }
+   ],
+   "seconds": 23.0,
+   "peak_db": -12.0,
+   "rms_db": -24.48,
+   "first_1ms_db": -18.4,
+   "last_1ms_db": -15.7
+  },
+  {
+   "id": "bed_night",
+   "title": "THE BED, NIGHT: WIND, CRICKETS, A FIRE BARREL",
+   "what": "a thinner real wind, real crickets low, a real fire in a barrel somewhere on the block",
+   "room": null,
+   "wet": 0.0,
+   "sources": [
+    {
+     "stem": "3-117504-A-16",
+     "db": 0.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
+     "author": "klangfabrik",
+     "licence": "CC0",
+     "category": "Wind"
+    },
+    {
+     "stem": "4-202749-A-13",
+     "db": -6.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/rayjensen/sounds/202749/",
+     "author": "rayjensen",
+     "licence": "CC0",
+     "category": "Crickets"
+    },
+    {
+     "stem": "4-181563-A-12",
+     "db": -5.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+     "author": "kingsrow",
+     "licence": "CC0",
+     "category": "Crackling fire"
+    }
+   ],
+   "seconds": 23.0,
+   "peak_db": -12.0,
+   "rms_db": -24.02,
+   "first_1ms_db": -20.8,
+   "last_1ms_db": -14.6
+  },
+  {
+   "id": "bed_bar_murmur",
+   "title": "THE BAR: THE MURMUR THROUGH THE DOOR",
+   "what": "three real people laughing and one sipping, low-passed and through the bar's own room, the murmur this lane could never fake",
+   "room": "bar",
+   "wet": 0.7,
+   "sources": [
+    {
+     "stem": "1-36164-A-26",
+     "db": 0.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/sagetyrtle/sounds/36164/",
+     "author": "sagetyrtle",
+     "licence": "CC0",
+     "category": "Laughing"
+    },
+    {
+     "stem": "3-119459-A-26",
+     "db": -2.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/Eneasz/sounds/119459/",
+     "author": "Eneasz",
+     "licence": "CC0",
+     "category": "Laughing"
+    },
+    {
+     "stem": "5-263775-B-26",
+     "db": -11.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/scottemoil/sounds/263775/",
+     "author": "scottemoil",
+     "licence": "CC0",
+     "category": "Laughing"
+    },
+    {
+     "stem": "4-188191-C-29",
+     "db": -8.0,
+     "mode": "loop",
+     "freesound": "http://www.freesound.org/people/MentalSanityOff/sounds/188191/",
+     "author": "MentalSanityOff",
+     "licence": "CC0",
+     "category": "Drinking - sipping"
+    }
+   ],
+   "seconds": 19.0,
+   "peak_db": -14.0,
+   "rms_db": -30.56,
+   "first_1ms_db": -28.3,
+   "last_1ms_db": -27.6
+  }
+ ],
+ "events": [
+  {
+   "id": "far_horn",
+   "building": null,
+   "title": "FAR: A CAR HORN",
+   "what": "a real car horn, streets away",
+   "kind": "event",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     1.95
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "5-179860-A-43",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/toiletrolltube/sounds/179860/",
+     "author": "toiletrolltube",
+     "licence": "CC0",
+     "category": "Car horn"
+    }
+   ],
+   "seconds": 1.95,
+   "peak_db": -16.0,
+   "rms_db": -28.85,
+   "first_1ms_db": -51.3,
+   "last_1ms_db": -240.0
+  },
+  {
+   "id": "far_helicopter",
+   "building": null,
+   "title": "FAR: A HELICOPTER",
+   "what": "a real helicopter passing over the valley",
+   "kind": "event",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.4,
+     3.2
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "3-154926-A-40",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/kerouac21/sounds/154926/",
+     "author": "kerouac21",
+     "licence": "CC0",
+     "category": "Helicopter"
+    }
+   ],
+   "seconds": 2.8,
+   "peak_db": -14.0,
+   "rms_db": -24.94,
+   "first_1ms_db": -240.0,
+   "last_1ms_db": -240.0
+  },
+  {
+   "id": "far_siren",
+   "building": null,
+   "title": "FAR, NIGHT: A SIREN",
+   "what": "a real civil defence siren, far, at night",
+   "kind": "event",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     4.6
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "1-54084-A-42",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/guitarguy1985/sounds/54084/",
+     "author": "guitarguy1985",
+     "licence": "CC0",
+     "category": "Siren"
+    }
+   ],
+   "seconds": 4.6,
+   "peak_db": -18.0,
+   "rms_db": -23.23,
+   "first_1ms_db": -51.3,
+   "last_1ms_db": -82.8
+  },
+  {
+   "id": "far_crow",
+   "building": null,
+   "title": "FAR: A CROW",
+   "what": "a real crow on a wire",
+   "kind": "event",
+   "room": null,
+   "wet": 0.0,
+   "windows": [
+    [
+     0.0,
+     2.0
+    ]
+   ],
+   "sources": [
+    {
+     "stem": "4-188287-A-9",
+     "speed": 1.0,
+     "db": 0.0,
+     "at": 0.0,
+     "freesound": "http://www.freesound.org/people/pepv/sounds/188287/",
+     "author": "pepv",
+     "licence": "CC0",
+     "category": "Crow"
+    }
+   ],
+   "seconds": 2.0,
+   "peak_db": -16.0,
+   "rms_db": -25.99,
+   "first_1ms_db": -94.0,
+   "last_1ms_db": -79.6
+  }
+ ],
+ "sources": {
+  "1-103995-A-30": {
+   "category": "Door knock",
+   "source": "Bassdrum_Shell_Ticks.aif",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103995/",
+   "author": "RutgerMuller",
+   "licence": "CC0",
+   "file": "1-103995-A-30.wav",
+   "freesound_id": "103995"
+  },
+  "1-103999-A-30": {
+   "category": "Door knock",
+   "source": "Wood_Knocks_2.aif",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/103999/",
+   "author": "RutgerMuller",
+   "licence": "CC0",
+   "file": "1-103999-A-30.wav",
+   "freesound_id": "103999"
+  },
+  "1-155858-E-25": {
+   "category": "Footsteps",
+   "source": "Footsteps in Factory Hall on Wood and Concrete.wav",
+   "url": "http://www.freesound.org/people/RutgerMuller/sounds/155858/",
+   "author": "RutgerMuller",
+   "licence": "CC0",
+   "file": "1-155858-E-25.wav",
+   "freesound_id": "155858"
+  },
+  "1-36164-A-26": {
+   "category": "Laughing",
+   "source": "laughs2.wav",
+   "url": "http://www.freesound.org/people/sagetyrtle/sounds/36164/",
+   "author": "sagetyrtle",
+   "licence": "CC0",
+   "file": "1-36164-A-26.wav",
+   "freesound_id": "36164"
+  },
+  "1-37226-A-29": {
+   "category": "Drinking - sipping",
+   "source": "drinking.wav",
+   "url": "http://www.freesound.org/people/sagetyrtle/sounds/37226/",
+   "author": "sagetyrtle",
+   "licence": "CC0",
+   "file": "1-37226-A-29.wav",
+   "freesound_id": "37226"
+  },
+  "1-54084-A-42": {
+   "category": "Siren",
+   "source": "civildefense.wav",
+   "url": "http://www.freesound.org/people/guitarguy1985/sounds/54084/",
+   "author": "guitarguy1985",
+   "licence": "CC0",
+   "file": "1-54084-A-42.wav",
+   "freesound_id": "54084"
+  },
+  "1-9886-A-49": {
+   "category": "Hand saw",
+   "source": "WoodSaw1.wav",
+   "url": "http://www.freesound.org/people/Pingel/sounds/9886/",
+   "author": "Pingel",
+   "licence": "CC0",
+   "file": "1-9886-A-49.wav",
+   "freesound_id": "9886"
+  },
+  "2-118624-A-30": {
+   "category": "Door knock",
+   "source": "Door Open and Close - Close Mic.wav",
+   "url": "http://www.freesound.org/people/E-Audio/sounds/118624/",
+   "author": "E-Audio",
+   "licence": "CC0",
+   "file": "2-118624-A-30.wav",
+   "freesound_id": "118624"
+  },
+  "2-141563-A-39": {
+   "category": "Glass breaking",
+   "source": "Glass Break",
+   "url": "http://www.freesound.org/people/avrahamy/sounds/141563/",
+   "author": "avrahamy",
+   "licence": "CC0",
+   "file": "2-141563-A-39.wav",
+   "freesound_id": "141563"
+  },
+  "2-144031-A-34": {
+   "category": "Can opening",
+   "source": "Soda Can Open.aif",
+   "url": "http://www.freesound.org/people/timgormly/sounds/144031/",
+   "author": "timgormly",
+   "licence": "CC0",
+   "file": "2-144031-A-34.wav",
+   "freesound_id": "144031"
+  },
+  "2-152895-A-31": {
+   "category": "Mouse click",
+   "source": "Sound of a mouse being clicked ",
+   "url": "http://www.freesound.org/people/davidkyoku/sounds/152895/",
+   "author": "davidkyoku",
+   "licence": "CC0",
+   "file": "2-152895-A-31.wav",
+   "freesound_id": "152895"
+  },
+  "3-117504-A-16": {
+   "category": "Wind",
+   "source": "winter wind 01a.aiff",
+   "url": "http://www.freesound.org/people/klangfabrik/sounds/117504/",
+   "author": "klangfabrik",
+   "licence": "CC0",
+   "file": "3-117504-A-16.wav",
+   "freesound_id": "117504"
+  },
+  "3-119459-A-26": {
+   "category": "Laughing",
+   "source": "Male Laughter.wav",
+   "url": "http://www.freesound.org/people/Eneasz/sounds/119459/",
+   "author": "Eneasz",
+   "licence": "CC0",
+   "file": "3-119459-A-26.wav",
+   "freesound_id": "119459"
+  },
+  "3-154926-A-40": {
+   "category": "Helicopter",
+   "source": "London Exterior  helicopter passes overhead.mp3",
+   "url": "http://www.freesound.org/people/kerouac21/sounds/154926/",
+   "author": "kerouac21",
+   "licence": "CC0",
+   "file": "3-154926-A-40.wav",
+   "freesound_id": "154926"
+  },
+  "3-96606-A-49": {
+   "category": "Hand saw",
+   "source": "Wood saw.wav",
+   "url": "http://www.freesound.org/people/Ohrwurm/sounds/96606/",
+   "author": "Ohrwurm",
+   "licence": "CC0",
+   "file": "3-96606-A-49.wav",
+   "freesound_id": "96606"
+  },
+  "4-107120-A-33": {
+   "category": "Door - wood creaks",
+   "source": "CrDr_005.wav",
+   "url": "http://www.freesound.org/people/tec%20studios/sounds/107120/",
+   "author": "tec studios",
+   "licence": "CC0",
+   "file": "4-107120-A-33.wav",
+   "freesound_id": "107120"
+  },
+  "4-170078-A-1": {
+   "category": "Rooster",
+   "source": "Rooster at Max's.mp3",
+   "url": "http://www.freesound.org/people/dudermensch/sounds/170078/",
+   "author": "dudermensch",
+   "licence": "CC0",
+   "file": "4-170078-A-1.wav",
+   "freesound_id": "170078"
+  },
+  "4-173865-B-9": {
+   "category": "Crow",
+   "source": "ANML_M_Ext_Crows_Flock_Angry2.wav",
+   "url": "http://www.freesound.org/people/conleec/sounds/173865/",
+   "author": "conleec",
+   "licence": "CC0",
+   "file": "4-173865-B-9.wav",
+   "freesound_id": "173865"
+  },
+  "4-181563-A-12": {
+   "category": "Crackling fire",
+   "source": "Fire Crackling 01.wav",
+   "url": "http://www.freesound.org/people/kingsrow/sounds/181563/",
+   "author": "kingsrow",
+   "licence": "CC0",
+   "file": "4-181563-A-12.wav",
+   "freesound_id": "181563"
+  },
+  "4-187769-B-14": {
+   "category": "Chirping birds",
+   "source": "binaural-birds-06-05-2013.flac",
+   "url": "http://www.freesound.org/people/dwareing/sounds/187769/",
+   "author": "dwareing",
+   "licence": "CC0",
+   "file": "4-187769-B-14.wav",
+   "freesound_id": "187769"
+  },
+  "4-188191-C-29": {
+   "category": "Drinking - sipping",
+   "source": "Fast food soda with ice, sip slurp straw.wav",
+   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/188191/",
+   "author": "MentalSanityOff",
+   "licence": "CC0",
+   "file": "4-188191-C-29.wav",
+   "freesound_id": "188191"
+  },
+  "4-188287-A-9": {
+   "category": "Crow",
+   "source": "crow 1",
+   "url": "http://www.freesound.org/people/pepv/sounds/188287/",
+   "author": "pepv",
+   "licence": "CC0",
+   "file": "4-188287-A-9.wav",
+   "freesound_id": "188287"
+  },
+  "4-200330-A-6": {
+   "category": "Hen",
+   "source": "chicken_chatter.aif",
+   "url": "http://www.freesound.org/people/jsbarrett/sounds/200330/",
+   "author": "jsbarrett",
+   "licence": "CC0",
+   "file": "4-200330-A-6.wav",
+   "freesound_id": "200330"
+  },
+  "4-202749-A-13": {
+   "category": "Crickets",
+   "source": "Soft, Chilled Crickets Field Recording",
+   "url": "http://www.freesound.org/people/rayjensen/sounds/202749/",
+   "author": "rayjensen",
+   "licence": "CC0",
+   "file": "4-202749-A-13.wav",
+   "freesound_id": "202749"
+  },
+  "4-218304-B-25": {
+   "category": "Footsteps",
+   "source": "01-21 Footsteps, sneakers on gravel and leaves.wav",
+   "url": "http://www.freesound.org/people/MentalSanityOff/sounds/218304/",
+   "author": "MentalSanityOff",
+   "licence": "CC0",
+   "file": "4-218304-B-25.wav",
+   "freesound_id": "218304"
+  },
+  "5-179496-A-16": {
+   "category": "Wind",
+   "source": "111224_04 wind.WAV",
+   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179496/",
+   "author": "toiletrolltube",
+   "licence": "CC0",
+   "file": "5-179496-A-16.wav",
+   "freesound_id": "179496"
+  },
+  "5-179860-A-43": {
+   "category": "Car horn",
+   "source": "car horn 1 - 9.4.11.wav",
+   "url": "http://www.freesound.org/people/toiletrolltube/sounds/179860/",
+   "author": "toiletrolltube",
+   "licence": "CC0",
+   "file": "5-179860-A-43.wav",
+   "freesound_id": "179860"
+  },
+  "5-219044-A-46": {
+   "category": "Church bells",
+   "source": "Church Clock Strikes 12.wav",
+   "url": "http://www.freesound.org/people/JarredGibb/sounds/219044/",
+   "author": "JarredGibb",
+   "licence": "CC0",
+   "file": "5-219044-A-46.wav",
+   "freesound_id": "219044"
+  },
+  "5-231551-A-36": {
+   "category": "Vacuum cleaner",
+   "source": "Vacuum cleaner",
+   "url": "http://www.freesound.org/people/MrAuralization/sounds/231551/",
+   "author": "MrAuralization",
+   "licence": "CC0",
+   "file": "5-231551-A-36.wav",
+   "freesound_id": "231551"
+  },
+  "5-235644-A-30": {
+   "category": "Door knock",
+   "source": "Door Knock.mp3",
+   "url": "http://www.freesound.org/people/Coonick/sounds/235644/",
+   "author": "Coonick",
+   "licence": "CC0",
+   "file": "5-235644-A-30.wav",
+   "freesound_id": "235644"
+  },
+  "5-238492-A-23": {
+   "category": "Breathing",
+   "source": "3_Breath sport.wav",
+   "url": "http://www.freesound.org/people/mariiao2/sounds/238492/",
+   "author": "mariiao2",
+   "licence": "CC0",
+   "file": "5-238492-A-23.wav",
+   "freesound_id": "238492"
+  },
+  "5-252248-A-34": {
+   "category": "Can opening",
+   "source": "can opening.wav",
+   "url": "http://www.freesound.org/people/Reitanna/sounds/252248/",
+   "author": "Reitanna",
+   "licence": "CC0",
+   "file": "5-252248-A-34.wav",
+   "freesound_id": "252248"
+  },
+  "5-263775-A-26": {
+   "category": "Laughing",
+   "source": "Laughing Man",
+   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/",
+   "author": "scottemoil",
+   "licence": "CC0",
+   "file": "5-263775-A-26.wav",
+   "freesound_id": "263775"
+  },
+  "5-263775-B-26": {
+   "category": "Laughing",
+   "source": "Laughing Man",
+   "url": "http://www.freesound.org/people/scottemoil/sounds/263775/",
+   "author": "scottemoil",
+   "licence": "CC0",
+   "file": "5-263775-B-26.wav",
+   "freesound_id": "263775"
+  }
+ }
+}

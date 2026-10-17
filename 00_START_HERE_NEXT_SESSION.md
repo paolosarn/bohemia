@@ -89,6 +89,35 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-xk7pjp): 10/17 LATEST (round nineteen, THE BIG SWING: [from a recording]
+round one and [the settlement's sounds] round three, one swing) --
+*** THE WHOLE SETTLEMENT NOW ANSWERS WITH REAL RECORDINGS. ***
+TAB: slices/BOHEMIA_THE_SETTLEMENT_HEARD_WHOLE_10_17_26.html, VOTE tab.
+Record: records/BOHEMIA_THE_SETTLEMENT_HEARD_WHOLE_FROM_RECORDINGS_10_17_26.md.
+
+You said to stop making sounds that sound coded and start from real recordings. This
+round, every building on the settlement screen answers your tap with a recording of
+the real thing: a real door, a real can, a real saw, a real motor for the clippers,
+real people laughing behind the bar door (the one sound I could never fake before).
+Under the whole screen sits a real wind with chickens and birds by day, or crickets
+and a fire barrel by night, with a far car horn, helicopter, crow or siren now and
+then. It is the real settlement screen in a frame, so you tap the real buildings.
+
+How: the sound sites are blocked from my computer, so I pulled 678 free-to-use
+recordings through a dataset on GitHub, picked 31 by measuring them, and built a
+tool that runs each one through tape, a modelled room, a 120 Hz to 9 kHz band and
+a limiter, with its own pass check (no clicks, peak under the bar, every source
+public domain). Tested on a driven phone: all ten buildings play their own file,
+night makes them half as loud, zero errors.
+
+Not done yet: nothing is wired into the game (your vote first); then each winner
+goes into the screen and one old coded sound retires per round. The licence note:
+the clips are cuts of public-domain Freesound recordings; before the game ships,
+each original gets re-pulled by its id from a machine that can reach the site.
+Gates: cooked sounds 240/0, settlement screen 60/0, analog horror 11/0, vote tab
+34/3 (the three reds are other lanes' ids), pages publish red on size as before.
+PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/16 LATEST (round eighteen, [the narrator] claimed and
 shipped) -- *** THE RECAP SCREEN CAN NOW TALK, OFF UNTIL YOU SAY SO. ***
 TAB: slices/BOHEMIA_THE_RECAP_SPEAKS_10_16_26.html, VOTE tab.
