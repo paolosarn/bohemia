@@ -1,0 +1,104 @@
+{
+  "at": "2026-10-17T21:53:02.673Z",
+  "profile": "phone_portrait 390x844 @3x (the driver default)",
+  "afterToMap": {
+    "mode": "city",
+    "czoom": 0.167
+  },
+  "regionReady": true,
+  "runsOwnNumbers": {
+    "tilesAcross": 496,
+    "tiles": 246016,
+    "bbTilesAcross": 140,
+    "bbTiles": 19600,
+    "daysAcrossOpen": 3.7,
+    "daysAcrossRoad": 1.9,
+    "bbDaysAcross": null,
+    "settlements": 26,
+    "regionPlaces": 12,
+    "bbSettlements": 17,
+    "zoomFar": 0.107,
+    "zoomNear": 4.74,
+    "farShowsBlocksAcross": 202,
+    "nearShowsBlocksAcross": 4.6
+  },
+  "glass": {
+    "CVW": 390,
+    "CVH": 794,
+    "TW0": 18,
+    "TH0": 9,
+    "dpr": 3,
+    "cvW": 1170,
+    "cvH": 2382
+  },
+  "farStopBySqueezing": {
+    "squeezes": 3,
+    "czoom": 0.1076,
+    "zbFar": 0.1072,
+    "zbNear": 4.7407,
+    "blocksAcrossGlass": 201.3,
+    "blocksDownGlass": 819.6,
+    "blockPx": 1.94,
+    "mode": "city"
+  },
+  "oldFarStop": {
+    "regionFar": 0.1072,
+    "valleyFitZoom": 0.2234,
+    "valleyBlocksAcrossGlassAtFit": 97,
+    "valleyN": 96
+  },
+  "nearStopBySpreading": {
+    "spreads": 6,
+    "czoom": 4.7407,
+    "blocksAcrossGlass": 4.57,
+    "blocksDownGlass": 18.61,
+    "blockPx": 85.3,
+    "mode": "city"
+  },
+  "crossing": {
+    "places": [
+      {
+        "name": "PAHRUMP",
+        "blocks": 245,
+        "mins": 1333.2479999999955,
+        "days": 0.93
+      },
+      {
+        "name": "MESQUITE",
+        "blocks": 266,
+        "mins": 2806.2719999999895,
+        "days": 1.95
+      },
+      {
+        "name": "SEARCHLIGHT",
+        "blocks": 220,
+        "mins": 1666.5599999999943,
+        "days": 1.16
+      },
+      {
+        "name": "PRIMM",
+        "blocks": 202,
+        "mins": 1193.4719999999963,
+        "days": 0.83
+      }
+    ],
+    "settlementsInValley": 14,
+    "placesInRegion": 12,
+    "placeNames": [
+      "HENDERSON",
+      "BOULDER CITY",
+      "HOOVER DAM",
+      "LAKE MEAD MARINA",
+      "JEAN",
+      "PRIMM",
+      "SEARCHLIGHT",
+      "INDIAN SPRINGS",
+      "MT CHARLESTON LODGE",
+      "PAHRUMP",
+      "MOAPA",
+      "MESQUITE"
+    ],
+    "stepMinsOpenBlock": 10.752
+  },
+  "errs": []
+}

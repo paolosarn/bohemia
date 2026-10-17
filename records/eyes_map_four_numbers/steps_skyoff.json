@@ -1,0 +1,81 @@
+{
+  "at": "2026-10-17T21:56:49.710Z",
+  "steps": [
+    {
+      "czoom": 0.5,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 43.3,
+      "regionPxWide": 4464,
+      "regionPxTall": 2232,
+      "darkShare": 0.006,
+      "file": "step_0.5000_skyoff.png"
+    },
+    {
+      "czoom": 0.2234,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 97,
+      "regionPxWide": 1995,
+      "regionPxTall": 997,
+      "darkShare": 0.006,
+      "file": "step_0.2234_skyoff.png"
+    },
+    {
+      "czoom": 0.167,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 129.7,
+      "regionPxWide": 1491,
+      "regionPxTall": 745,
+      "darkShare": 0.006,
+      "file": "step_0.1670_skyoff.png"
+    },
+    {
+      "czoom": 0.14,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 154.8,
+      "regionPxWide": 1250,
+      "regionPxTall": 625,
+      "darkShare": 0.007,
+      "file": "step_0.1400_skyoff.png"
+    },
+    {
+      "czoom": 0.12,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 180.6,
+      "regionPxWide": 1071,
+      "regionPxTall": 536,
+      "darkShare": 0.007,
+      "file": "step_0.1200_skyoff.png"
+    },
+    {
+      "czoom": 0.1072,
+      "panX": 0,
+      "panY": 0,
+      "blocksAcrossGlass": 202.1,
+      "regionPxWide": 957,
+      "regionPxTall": 479,
+      "darkShare": 0.007,
+      "file": "step_0.1072_skyoff.png"
+    }
+  ],
+  "afterSqueezes": {
+    "czoom": 0.1076,
+    "panX": 0,
+    "panY": 0,
+    "city": [
+      48,
+      48
+    ],
+    "mode": "city",
+    "sky": "true"
+  },
+  "zoomBounds": [
+    0.1072,
+    4.7407
+  ],
+  "errs": []
+}

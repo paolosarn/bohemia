@@ -1,0 +1,9 @@
+{
+  "sr": 44100,
+  "seconds": 8,
+  "clicks": 720,
+  "lo": 3000,
+  "hi": 6000,
+  "noiseSources": 0,
+  "why": "many insects as a dense click train (crackleInto, the same mechanism the broadcast's lightning uses), band-limited to 3 to 6 kHz, a field cricket's own range"
+}

@@ -489,6 +489,37 @@ PENDING Paolo: nothing.
 
 COMBAT TWO (combat2-8ca291aa): 10/11 (ag) LATEST -- RULE 108 READ: my cook tools (tools/bohemia_combat2_*, every block drawn rectangle by rectangle) make no more candidates; this lane only LAYS kits the cooks generate against his packs. STILL BLOCKED: [the houses on the board] (COOK FOUR's fight-scale house kit; COOK FOUR is on [no roof tops]), [the boards from the packs] (COOK TWO's four-way piece, freeway and lot kits; COOK TWO is on [the corners] and [no borders], both waiting on his word). Nothing laid, nothing in VOTE this round, on purpose (STOP PRODUCING).
 COMBAT TWO (combat2-8ca291aa): 10/10 (af) LATEST -- RULES 100/101 READ: COMBAT TWO is an art lane; no writes to slices/ until his FINAL; everything shipped is a placeholder (files listed in records/BOHEMIA_PLACEHOLDERS.md). BLOCKED: [the houses on the board] waits on COOK FOUR's fight-scale house kit; [the boards from the packs] on COOK TWO's four-way piece and freeway/lot kits; [the warehouse inside] and [the future settlements] are new art / a placeholder edit, not this lane's under 100/101. DONE THIS ROUND: the study page records/BOHEMIA_COMBAT2_HOW_THE_PACK_LAYS_ITS_GROUND_10_10_26.md (pack ground 4,140 colours per 96 px, our cooked blocks 18-29, the casino 4, the kit ~2,000).
+EYES AND EARS (eyes-5vql33): 10/17 (cj) LATEST -- *** THE BIG SWING (rule 110): THE EIGHT RED CARDS READ, AND
+[the map's four numbers] SHIPPED. THE MAP'S FAR STOP BY FINGER IS THE MOON. ***
+TAB: VOTE tab, two new cards from EYES (the eight red cards read; the map's four numbers).
+
+Job one: I looked at all eight red cards the way you would, on your phone, in the VOTE tab, and said in
+one line each whether a person can see or hear the change. Seven yes (one small, one too small), one is
+only words (the bank card: a table whose letters are about 4 points tall on your phone). The night insects
+really are clicks and not a hiss (measured against a hiss). The "party moves 16 seconds after the link"
+card checks out on my own clock: the game is ready at 14.6 seconds on the same build.
+The thing under all eight: the VOTE tab shrinks any picture wider than your screen before you see it, so
+four of the seven pictures never reach you at full size (the fight card is shown at a third). The makers'
+pictures were fine; the glass was not. Bounced back to UI as one line.
+
+Job two: our map against Battle Brothers' by four numbers, measured with real pinches on your phone's
+profile. Tiles across: ours 496, theirs about 140, MET. Days to cross on foot: ours 1.9 on a road, 3.7
+across open desert; theirs 2 to 4 by players' reports, so MET on open ground and a bit SHORT on a road.
+Settlements: ours 26, theirs about 17, MET. Camps, ruins and legendary places to walk to: ours 0, SHORT.
+Near zoom: 4.6 blocks across the screen; nobody has published theirs. Far zoom: 202 blocks across, wider
+than their whole map, MET. One honest note: a block is crossed four times faster than one of their tiles,
+so in walking time our region is about their map, not three and a half of it.
+THE FINDING: when you pinch out, the pinch that reaches the region's far stop does not stop there. The
+same gesture goes through the clouds to the moon (the moon zoom from 8/15). So the farthest thing your
+finger lands on is the moon, not the whole region. With the moon switched off the region draws fine.
+Battle Brothers' camera never leaves its map. Routed to RUN and DIRECTION; I don't fix, I show.
+Every Battle Brothers web page is blocked from this machine, so their numbers come from search snippets
+and are labelled; Grok ask 26 still owes the two zoom numbers and the location count.
+Records: records/BOHEMIA_EYES_THE_EIGHT_RED_CARDS_READ_THE_TAB_SHRINKS_FOUR_OF_THEM_10_17_26.md,
+records/BOHEMIA_EYES_THE_MAPS_FOUR_NUMBERS_OURS_BESIDE_BATTLE_BROTHERS_10_17_26.md.
+NEXT: [the blind pass], round one (claimed 10/16). [the map's four numbers] re-opens the round RUN's row moves.
+PENDING Paolo: none.
+
 EYES AND EARS (eyes-5vql33): 10/16 (ci) LATEST -- *** [the pairwise judge] SHIPPED, BOTH ROUNDS:
 BUILT IT, TESTED IT, AND FOUND A REAL GAP IN THE FAULT LIST. ***
 TAB: NOT IN A TAB YET, an internal check.

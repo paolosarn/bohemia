@@ -1,0 +1,199 @@
+{
+ "made": "10/17",
+ "lane": "eyes-and-ears",
+ "phone_device_px_for_a_card": 1098,
+ "cards": [
+  {
+   "id": "cook4-the-straight-roof-10-13",
+   "title": "THE STRAIGHT ROOFS",
+   "card_px": [
+    1430,
+    581
+   ],
+   "tab_scale_on_his_phone": 0.768,
+   "pairs": 1,
+   "changed_pct": [
+    20.1
+   ],
+   "changed_pct_mean": 20.1,
+   "changed_pct_min": 20.1,
+   "note": "the before is the card it redoes (cook4-a-house-a-man-can-live-in-10-11)"
+  },
+  {
+   "id": "cook2-stretch-the-pack-47-10-13",
+   "title": "THE 47 CORNERS",
+   "card_px": [
+    1660,
+    1260
+   ],
+   "tab_scale_on_his_phone": 0.661,
+   "pairs": 1,
+   "changed_pct": [
+    63.74
+   ],
+   "changed_pct_mean": 63.74,
+   "changed_pct_min": 63.74,
+   "note": "the card's own left (hard squares) and right (from the 47)"
+  },
+  {
+   "id": "cook-the-whole-bank-10-13",
+   "title": "THE WHOLE BANK",
+   "card_px": [
+    1020,
+    760
+   ],
+   "tab_scale_on_his_phone": 1.076,
+   "pairs": 0,
+   "changed_pct": [],
+   "changed_pct_mean": null,
+   "changed_pct_min": null,
+   "note": "no before picture exists: the card says the before was four unopened files"
+  },
+  {
+   "id": "run-the-map-people-come-baked-10-13",
+   "title": "THE PARTY BAKED",
+   "card_px": [
+    1100,
+    505
+   ],
+   "tab_scale_on_his_phone": 0.998,
+   "pairs": 0,
+   "changed_pct": [],
+   "changed_pct_mean": null,
+   "changed_pct_min": null,
+   "note": "a bar chart: the before and after are the two bars (32.5 s and 16.1 s)"
+  },
+  {
+   "id": "ui-the-flip-off-the-face-10-11",
+   "title": "THE FLIP OFF THE FACE",
+   "card_px": [
+    1230,
+    1874
+   ],
+   "tab_scale_on_his_phone": 0.893,
+   "pairs": 1,
+   "changed_pct": [
+    27.16
+   ],
+   "changed_pct_mean": 27.16,
+   "changed_pct_min": 27.16,
+   "note": "a 22 px label on a 1230 px card"
+  },
+  {
+   "id": "animation-the-party-walks-as-one-10-11",
+   "title": "THE PARTY WALKS AS ONE",
+   "card_px": [
+    5760,
+    1320
+   ],
+   "tab_scale_on_his_phone": 0.191,
+   "pairs": 48,
+   "changed_pct": [
+    2.64,
+    2.58,
+    2.52,
+    2.53,
+    2.48,
+    2.44,
+    2.49,
+    2.37,
+    2.4,
+    2.37,
+    2.52,
+    2.56,
+    2.58,
+    2.65,
+    2.59,
+    2.49,
+    2.54,
+    2.49,
+    2.52,
+    2.55,
+    2.46,
+    2.44,
+    2.5,
+    2.48,
+    2.65,
+    2.64,
+    2.72,
+    2.69,
+    2.66,
+    2.56,
+    2.64,
+    2.61,
+    2.61,
+    2.6,
+    2.76,
+    2.75,
+    2.78,
+    2.88,
+    2.78,
+    2.61,
+    2.56,
+    2.56,
+    2.52,
+    2.63,
+    2.72,
+    2.75,
+    2.79,
+    2.82
+   ],
+   "changed_pct_mean": 2.59,
+   "changed_pct_min": 2.37,
+   "note": "the page plays the two sheets at the game's own size (480 px frames at 3x = 160 pt)"
+  },
+  {
+   "id": "combat-both-teams-the-map-not-black-10-11",
+   "title": "BOTH TEAMS, THE MAP NOT BLACK",
+   "card_px": [
+    2910,
+    6162
+   ],
+   "tab_scale_on_his_phone": 0.377,
+   "pairs": 3,
+   "changed_pct": [
+    87.62,
+    70.9,
+    82.8
+   ],
+   "changed_pct_mean": 80.44,
+   "changed_pct_min": 70.9,
+   "note": "a 30 px label on a 2910 px card"
+  },
+  {
+   "id": "sounds-the-night-has-insects-10-5",
+   "title": "THE NIGHT HAS INSECTS",
+   "before": "silence (the card's own words)",
+   "clip": {
+    "sr": 44100,
+    "seconds": 8,
+    "clicks": 720,
+    "lo": 3000,
+    "hi": 6000,
+    "noiseSources": 0,
+    "why": "many insects as a dense click train (crackleInto, the same mechanism the broadcast's lightning uses), band-limited to 3 to 6 kHz, a field cricket's own range"
+   },
+   "measured": {
+    "insects": {
+     "rms_dbfs": -25.122570110588352,
+     "peak": 0.800000011920929,
+     "crest_db": 23.184369979857063,
+     "kurtosis": 31.171078908350736,
+     "band_3_6k_share": 0.23322089116001424,
+     "quiet_1ms_share": 0.804938887503118,
+     "flatness_in_band": 0.5271040520406438
+    },
+    "hiss_control": {
+     "rms_dbfs": -13.314250125431288,
+     "peak": 0.800000011920929,
+     "crest_db": 11.3760499947,
+     "kurtosis": 2.8322600495422314,
+     "band_3_6k_share": 0.6871506479565177,
+     "quiet_1ms_share": 0.0,
+     "flatness_in_band": 0.03724240548146296
+    }
+   },
+   "note": "kurtosis 3.0 is a Gaussian hiss; a click train is far above it; quiet share = 1 ms windows under -40 dBFS"
+  }
+ ]
+}
