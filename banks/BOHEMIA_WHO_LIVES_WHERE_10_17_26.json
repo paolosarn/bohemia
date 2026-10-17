@@ -1,0 +1,4462 @@
+{
+ "_about": "WHO LIVES WHERE ACROSS THE REGION'S PLACES (PEOPLE, 10/17/26, rule 110 swing, under the hold). A bank, draft:true, NOT read by the game. For each of the 26 places (14 valley seats from engine/bohemia_towns.js derive() on seed 1337, act 1; 12 region places from slices/bohemia_region.js) the Battle Brothers settlement class and terrain it stands in for, the base hire roll copied from the wiki's Character Backgrounds/Sources table for that exact cell (percent = the chance per vacant recruit slot), the +n tilts from the attached locations, buildings and situations our real ground stands in for (+1 is roughly 2-3 / 3-5 / 6-8.5 percent for a large / medium / small settlement, the page's own footnote), and the Bohemia skin of each background name. Numbers are the page's, copied by tools, never typed; the class, terrain and attachment choices are this lane's reading and are draft.",
+ "draft": true,
+ "tuned": false,
+ "source": {
+  "page": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0370_Character Backgrounds_Sources.txt",
+  "page_note": "The table is missing the backgrounds from the Blazing Deserts DLC; Southern Assassin, Nomad, Gladiator, Indebted, Manhunter are hired only in the City-States with very few exceptions (the page's own words).",
+  "attached_page": "bb_all/1765_Settlements and attached locations.txt",
+  "backgrounds": "records/target/bb/backgrounds.json",
+  "valley_seats": "engine/bohemia_towns.js derive(GRAPH, districtsOf(buildOvermap(1337)), 1)",
+  "region_places": "slices/bohemia_region.js TOWNS"
+ },
+ "bb_classes": {
+  "civil": [
+   "City",
+   "Medium Village",
+   "Small Village"
+  ],
+  "military": [
+   "Citadel",
+   "Stone Keep",
+   "Wooden Keep"
+  ],
+  "our_tier_to_class": "fortress -> City or Citadel; town -> Medium Village or Stone Keep; camp -> Small Village or Wooden Keep; military only where the real place is a garrison (Remnants, Hoover Dam, Indian Springs)"
+ },
+ "terrains_used": [
+  "Coastal",
+  "Forest",
+  "Mountain",
+  "Plains",
+  "Steppe"
+ ],
+ "skin": {
+  "_about": "The Bohemia skin of each Battle Brothers background name on the Sources page: who that man is in a Las Vegas economic apocalypse. Words only, draft:true (rule 15 amended 8/11: an attempt, never a decision). 'hire': false means the page gives the background no hire row at all (events only, or a DLC the table does not cover), so no post in this game should offer it by Battle Brothers' own book.",
+  "adventurous_noble": {
+   "is": "a casino family's kid who wants out and brought a rifle",
+   "hire": true
+  },
+  "anatomist": {
+   "is": "a med student out of UNLV who cuts without a licence now",
+   "hire": true
+  },
+  "apprentice": {
+   "is": "a kid out of the trade school, one year in",
+   "hire": true
+  },
+  "assassin": {
+   "is": "a hired killer; no post offers one, the page says events only",
+   "hire": false
+  },
+  "barbarian": {
+   "is": "a raider from the north; only the raiders origin starts with them",
+   "hire": false
+  },
+  "bastard": {
+   "is": "a boss's kid the boss never claimed",
+   "hire": true
+  },
+  "beast_slayer": {
+   "is": "a man who hunts what got out of the lab",
+   "hire": true
+  },
+  "beggar": {
+   "is": "a panhandler off the pedestrian bridges",
+   "hire": true
+  },
+  "bowyer": {
+   "is": "a reloader, hand-loads cartridges in a garage",
+   "hire": true
+  },
+  "brawler": {
+   "is": "a bouncer",
+   "hire": true
+  },
+  "butcher": {
+   "is": "a buffet butcher who still has his knives",
+   "hire": true
+  },
+  "caravan_hand": {
+   "is": "a trucker's loader",
+   "hire": true
+  },
+  "cultist": {
+   "is": "a doomsday church's man",
+   "hire": true
+  },
+  "cripple": {
+   "is": "a man the crash broke and nobody fixed",
+   "hire": true
+  },
+  "crusader": {
+   "is": "a holy soldier; no post offers one, events only",
+   "hire": false
+  },
+  "daytaler": {
+   "is": "a day labourer off the hardware-store lot",
+   "hire": true
+  },
+  "deserter": {
+   "is": "a man who walked off the base",
+   "hire": true
+  },
+  "disowned_noble": {
+   "is": "a casino family's kid who got cut off",
+   "hire": true
+  },
+  "eunuch": {
+   "is": "a rich house's trusted man with no family of his own (the page does give him a hire row, in cities and villages)",
+   "hire": true
+  },
+  "farmhand": {
+   "is": "an alfalfa hand",
+   "hire": true
+  },
+  "fisherman": {
+   "is": "a Lake Mead boat hand",
+   "hire": true
+  },
+  "flagellant": {
+   "is": "a street preacher who punishes his own body",
+   "hire": true
+  },
+  "gambler": {
+   "is": "a gambler",
+   "hire": true
+  },
+  "gravedigger": {
+   "is": "a cemetery hand",
+   "hire": true
+  },
+  "graverobber": {
+   "is": "a house-stripper, copper and anything else",
+   "hire": true
+  },
+  "hedge_knight": {
+   "is": "a private military contractor with his own kit",
+   "hire": true
+  },
+  "historian": {
+   "is": "an archivist from the university library",
+   "hire": true
+  },
+  "houndmaster": {
+   "is": "a K9 handler (the keepers' war-dog craft)",
+   "hire": true
+  },
+  "hunter": {
+   "is": "a desert hunter, bighorn and jackrabbit",
+   "hire": true
+  },
+  "juggler": {
+   "is": "a street performer off the Strip",
+   "hire": true
+  },
+  "killer_on_the_run": {
+   "is": "a man with a warrant and a state line in mind",
+   "hire": true
+  },
+  "kings_guard": {
+   "is": "no skin; no post offers one",
+   "hire": false
+  },
+  "lindwurm_slayer": {
+   "is": "no skin; no post offers one",
+   "hire": false
+  },
+  "lumberjack": {
+   "is": "a Forest Service sawyer",
+   "hire": true
+  },
+  "mason": {
+   "is": "a concrete finisher, the dam's own trade",
+   "hire": true
+  },
+  "messenger": {
+   "is": "a courier on a bike",
+   "hire": true
+  },
+  "militia": {
+   "is": "a block watch man",
+   "hire": true
+  },
+  "miller": {
+   "is": "a grain-elevator hand",
+   "hire": true
+  },
+  "miner": {
+   "is": "a hard-rock miner",
+   "hire": true
+  },
+  "minstrel": {
+   "is": "a lounge singer",
+   "hire": true
+  },
+  "monk": {
+   "is": "a brother from the mission",
+   "hire": true
+  },
+  "oathtaker": {
+   "is": "a promise keeper",
+   "hire": true
+  },
+  "orc_slayer": {
+   "is": "no skin; no post offers one",
+   "hire": false
+  },
+  "peddler": {
+   "is": "a swap-meet seller",
+   "hire": true
+  },
+  "pimp": {
+   "is": "a brothel's man; the page gives him no hire row, events only, so even Pahrump cannot hire one by the book",
+   "hire": false
+  },
+  "poacher": {
+   "is": "a poacher the game warden knows by name",
+   "hire": true
+  },
+  "raider": {
+   "is": "a highway crew's man",
+   "hire": true
+  },
+  "ratcatcher": {
+   "is": "a pest-control man who knows the tunnels",
+   "hire": true
+  },
+  "refugee": {
+   "is": "somebody who came up I-15 with what fit in the car",
+   "hire": true
+  },
+  "retired_soldier": {
+   "is": "a retired airman",
+   "hire": true
+  },
+  "sellsword": {
+   "is": "a security contractor",
+   "hire": true
+  },
+  "servant": {
+   "is": "a hotel housekeeper",
+   "hire": true
+  },
+  "shepherd": {
+   "is": "a cattle hand off the reservation",
+   "hire": true
+  },
+  "squire": {
+   "is": "a cadet",
+   "hire": true
+  },
+  "swordmaster": {
+   "is": "a range master, the gun school's own instructor",
+   "hire": true
+  },
+  "tailor": {
+   "is": "a costume-shop tailor (the runway's own trade)",
+   "hire": true
+  },
+  "thief": {
+   "is": "a thief",
+   "hire": true
+  },
+  "vagabond": {
+   "is": "a drifter",
+   "hire": true
+  },
+  "wildman": {
+   "is": "a mountain hermit",
+   "hire": true
+  },
+  "witchhunter": {
+   "is": "a bounty hunter who works the cults",
+   "hire": true
+  }
+ },
+ "places": [
+  {
+   "id": "mob",
+   "name": "THE STRIP (Mob)",
+   "where": "valley",
+   "tier": "fortress",
+   "ground": "resort",
+   "bb_class": "City",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Brewery",
+     "Winery"
+    ],
+    "buildings": [
+     "Temple"
+    ],
+    "situations": []
+   },
+   "our_ground": "resort, casino, convention, downtown (HOMES); holds the valley dam, 4 cells (minesOf seed 1337)",
+   "real": "the Strip: 150,000 hotel rooms before the crash; the bars, the shows, the buffets; the dam cells the Mob holds inside the valley grid are a canon note (section 6)",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "militia",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beggar",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "minstrel",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "peddler",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "refugee",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beast_slayer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "cripple",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "daytaler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "disowned_noble",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "eunuch",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "graverobber",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "historian",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "hunter",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "raider",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "sellsword",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "servant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "shepherd",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "thief",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "anatomist",
+     "pct": 2.44,
+     "cell": "Cities / Steppe City"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "cripple",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "gambler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "beggar",
+    "minstrel",
+    "peddler"
+   ]
+  },
+  {
+   "id": "remnants",
+   "name": "NELLIS GATE (Remnants)",
+   "where": "valley",
+   "tier": "fortress",
+   "ground": "policestation",
+   "bb_class": "Citadel",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Barracks",
+     "Stone Watchtower",
+     "Militia Barracks",
+     "Blast Furnace"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "arsenal, policestation, prison, firestation (HOMES)",
+   "real": "Nellis AFB, Metro, the fire houses; the graph: military and law-enforcement survivors, military drones",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "militia",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "sellsword",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "deserter",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "hunter",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "raider",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "beggar",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "brawler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "hedge_knight",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "mason",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "messenger",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "refugee",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "servant",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "witchhunter",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "oathtaker",
+     "pct": 2.5,
+     "cell": "Citadels / Steppe Fort"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "militia",
+     "plus": 2,
+     "from": "Militia Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "disowned_noble",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "hedge_knight",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Militia Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "sellsword",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "squire",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "sellsword",
+    "deserter",
+    "hunter"
+   ]
+  },
+  {
+   "id": "network",
+   "name": "THE DATAFORT (Network)",
+   "where": "valley",
+   "tier": "fortress",
+   "ground": "radio",
+   "bb_class": "City",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "datafort, radio, substation (HOMES)",
+   "real": "the Switch data centers off I-15, the broadcast towers on Black Mountain; the graph: a manufactured origin, strongest outside ties",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "militia",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beggar",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "minstrel",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "peddler",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "refugee",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beast_slayer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "cripple",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "daytaler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "disowned_noble",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "eunuch",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "graverobber",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "historian",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "hunter",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "raider",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "sellsword",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "servant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "shepherd",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "thief",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "anatomist",
+     "pct": 2.44,
+     "cell": "Cities / Steppe City"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "beggar",
+    "minstrel",
+    "peddler"
+   ]
+  },
+  {
+   "id": "cartel",
+   "name": "THE YARDS (Cartel)",
+   "where": "valley",
+   "tier": "fortress",
+   "ground": "storage",
+   "bb_class": "City",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Surface Iron Vein",
+     "Gatherer's Hut",
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "boneyard, landfill, quarry, railyard, storage, warehouse, terminal, swapmeet (HOMES); holds 50 solar cells (minesOf)",
+   "real": "the Apex landfill (one of the biggest in the country), the Sloan gravel quarries, the UP railyard; the graph: organized predation, supply chains that mirror the Caravans",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "militia",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beggar",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "minstrel",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "peddler",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "refugee",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beast_slayer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "cripple",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "daytaler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "disowned_noble",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "eunuch",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "graverobber",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "historian",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "hunter",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "raider",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "sellsword",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "servant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "shepherd",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "thief",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "anatomist",
+     "pct": 2.44,
+     "cell": "Cities / Steppe City"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "miner",
+     "plus": 3,
+     "from": "Surface Iron Vein",
+     "kind": "attachment"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Gatherer's Hut",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "militia",
+     "plus": 1,
+     "from": "Surface Iron Vein",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Surface Iron Vein",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "beggar",
+    "minstrel",
+    "peddler"
+   ]
+  },
+  {
+   "id": "caravans",
+   "name": "THE TRUCK STOP (Caravans)",
+   "where": "valley",
+   "tier": "fortress",
+   "ground": "truckstop",
+   "bb_class": "City",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": [
+     "Seasonal Fair"
+    ]
+   },
+   "our_ground": "truckstop, terminal, swapmeet, warehouse (HOMES)",
+   "real": "the I-15 truck stops, the Broadacres swap meet; the graph: neutral outside-world trade, everyone but the Cartel wants them alive",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "militia",
+     "pct": 7.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beggar",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "minstrel",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "peddler",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "refugee",
+     "pct": 5.0,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "beast_slayer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "cripple",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "daytaler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "disowned_noble",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "eunuch",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "graverobber",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "historian",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "hunter",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "raider",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "sellsword",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "servant",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "shepherd",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "thief",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.5,
+     "cell": "Cities / Steppe City"
+    },
+    {
+     "id": "anatomist",
+     "pct": 2.44,
+     "cell": "Cities / Steppe City"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "peddler",
+     "plus": 18,
+     "from": "Seasonal Fair",
+     "kind": "situation"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "beggar",
+    "minstrel",
+    "peddler"
+   ]
+  },
+  {
+   "id": "church",
+   "name": "THE CHAPEL (Church)",
+   "where": "valley",
+   "tier": "town",
+   "ground": "chapel",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [],
+    "buildings": [
+     "Temple"
+    ],
+    "situations": []
+   },
+   "our_ground": "chapel, cemetery, school (HOMES)",
+   "real": "the big evangelical churches, the cemeteries, the parish schools; the graph: best crisis organization, ceiling drops as the world heals",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "cripple",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "reds",
+   "name": "DOWNTOWN (Reds)",
+   "where": "valley",
+   "tier": "town",
+   "ground": "downtown",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "downtown, cityhall, courthouse, mall (HOMES)",
+   "real": "Fremont Street, city hall, the courthouse; the graph: the economic engine, not military",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "blues",
+   "name": "THE PARK (Blues)",
+   "where": "valley",
+   "tier": "town",
+   "ground": "park",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Plains",
+   "stands_in_for": {
+    "attached": [
+     "Wheat Fields",
+     "Orchard",
+     "Herbalist's Grove",
+     "Fishing Huts"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "reservoir, watertreat, farm, park (HOMES)",
+   "real": "the Wetlands Park, the water treatment plant, the last farm lots; the graph: environmentalist, large headcount",
+   "base_roll": [
+    {
+     "id": "farmhand",
+     "pct": 13.64,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "militia",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "miller",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "butcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "juggler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "messenger",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "fisherman",
+     "plus": 3,
+     "from": "Fishing Huts",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "miller",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "anatomist",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Orchard",
+     "kind": "attachment"
+    },
+    {
+     "id": "farmhand",
+     "plus": 1,
+     "from": "Orchard",
+     "kind": "attachment"
+    },
+    {
+     "id": "flagellant",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "farmhand",
+    "daytaler",
+    "militia",
+    "miller",
+    "apprentice"
+   ]
+  },
+  {
+   "id": "anarchists",
+   "name": "THE BLOCK PARTY (Anarchists)",
+   "where": "valley",
+   "tier": "town",
+   "ground": "commercial",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Brewery"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "commercial (derived seat)",
+   "real": "the Arts District bars and the warehouse parties; the graph: absorbed the Rockstar faction, culturally huge",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "gambler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "trades",
+   "name": "THE SHOPS (Trades)",
+   "where": "valley",
+   "tier": "camp",
+   "ground": "industrial",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Workshop",
+     "Ore Smelters",
+     "Blast Furnace"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "industrial, solar, battery, warehouse (HOMES)",
+   "real": "the industrial park off Dean Martin Drive, the union halls; the graph: skilled-worker guild, vehicle, solar and construction",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Ore Smelters",
+     "kind": "attachment"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Ore Smelters",
+     "kind": "attachment"
+    },
+    {
+     "id": "disowned_noble",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "squire",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "volunteers",
+   "name": "THE CLINIC (Volunteers)",
+   "where": "valley",
+   "tier": "camp",
+   "ground": "medical",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Herbalist's Grove",
+     "Wheat Fields"
+    ],
+    "buildings": [
+     "Temple"
+    ],
+    "situations": []
+   },
+   "our_ground": "medical, campus, granary, school (HOMES)",
+   "real": "UMC, UNLV, the food bank warehouses; the graph: healthcare, education, food, knowledge, resource-poor by design",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "miller",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "anatomist",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    },
+    {
+     "id": "cripple",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "flagellant",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Herbalist's Grove",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    }
+   ],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "homeless",
+   "name": "THE TUNNELS (Homeless)",
+   "where": "valley",
+   "tier": "camp",
+   "ground": "suburb",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Gatherer's Hut",
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "intake, pumpstation, reclaim, basin, wash (HOMES); holds 254 solar cells and the battery plant (minesOf)",
+   "real": "the flood-tunnel people under the Strip (a real population of hundreds), the washes; the graph: tunnel HQ under the King Hobo, most Amalgamation-resistant",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Gatherer's Hut",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "colorful",
+   "name": "THE COLORFUL CAMP",
+   "where": "valley",
+   "tier": "camp",
+   "ground": "suburb",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "suburb (derived seat; no HOMES line, falls through to spread)",
+   "real": "the graph: LGBTQ faction, smallest selectable, community-based not territorial, members across friendly factions",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "custom",
+   "name": "YOUR OWN CAMP (Custom)",
+   "where": "valley",
+   "tier": "camp",
+   "ground": "suburb",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "suburb (derived seat; the player faction)",
+   "real": "the graph: the player faction, no preset philosophy; who lives here is who you brought",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "henderson",
+   "name": "HENDERSON",
+   "where": "region",
+   "tier": "town",
+   "ground": "town",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Ore Smelters",
+     "Blast Furnace",
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region town on the road south-east",
+   "real": "born as the Basic Magnesium plant in 1941 (magnesium for bombs, about 14,000 workers at its peak, sited for Hoover Dam power and Lake Mead water); the plant buildings later went to Titanium Metals and Kerr-McGee; now the valley's second city",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Ore Smelters",
+     "kind": "attachment"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Ore Smelters",
+     "kind": "attachment"
+    },
+    {
+     "id": "disowned_noble",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "squire",
+     "plus": 1,
+     "from": "Blast Furnace",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "boulder_city",
+   "name": "BOULDER CITY",
+   "where": "region",
+   "tier": "town",
+   "ground": "town",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Workshop"
+    ],
+    "buildings": [
+     "Temple"
+    ],
+    "situations": [
+     "Disbanded Troops"
+    ]
+   },
+   "our_ground": "a region town on the road to the dam",
+   "real": "built in 1931 by the federal government for the dam workers; gambling banned by the city charter (one of two Nevada towns where it is illegal); the Nevada State Veterans Home is here, which is the Disbanded Troops line",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "militia",
+     "plus": 10,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 8,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "deserter",
+     "plus": 6,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "squire",
+     "plus": 4,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "hedge_knight",
+     "plus": 3,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "sellsword",
+     "plus": 3,
+     "from": "Disbanded Troops",
+     "kind": "situation"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "cripple",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Temple",
+     "kind": "building"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "hoover_dam",
+   "name": "HOOVER DAM",
+   "where": "region",
+   "tier": "fortress",
+   "ground": "dam",
+   "bb_class": "Citadel",
+   "bb_terrain": "Coastal",
+   "stands_in_for": {
+    "attached": [
+     "Stone Watchtower",
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region fortress on the Colorado",
+   "real": "the dam, the powerhouse, a federal security force at the gate since 2001; the water behind it is the valley's",
+   "base_roll": [
+    {
+     "id": "raider",
+     "pct": 8.82,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 5.88,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "deserter",
+     "pct": 5.88,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "fisherman",
+     "pct": 5.88,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "militia",
+     "pct": 5.88,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 5.88,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "brawler",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "cripple",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "daytaler",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "eunuch",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "historian",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "messenger",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "minstrel",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "refugee",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "sellsword",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "servant",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "squire",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "witchhunter",
+     "pct": 2.94,
+     "cell": "Citadels / Coastal Fort"
+    },
+    {
+     "id": "oathtaker",
+     "pct": 2.86,
+     "cell": "Citadels / Coastal Fort"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "raider",
+    "caravan_hand",
+    "deserter",
+    "fisherman",
+    "militia"
+   ]
+  },
+  {
+   "id": "lake_mead_marina",
+   "name": "LAKE MEAD MARINA",
+   "where": "region",
+   "tier": "camp",
+   "ground": "shore",
+   "bb_class": "Small Village",
+   "bb_terrain": "Coastal",
+   "stands_in_for": {
+    "attached": [
+     "Fishing Huts"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region camp on the shore",
+   "real": "Hemenway Harbor: houseboats, the striped-bass fishery, the bathtub ring on the rock as the lake fell; the hippo pod from the beasts rounds lives on this water",
+   "base_roll": [
+    {
+     "id": "fisherman",
+     "pct": 38.46,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 15.38,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 15.38,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 7.69,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 7.69,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Coastal Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Coastal Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "fisherman",
+     "plus": 3,
+     "from": "Fishing Huts",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "fisherman",
+    "beggar",
+    "vagabond",
+    "daytaler",
+    "gravedigger"
+   ]
+  },
+  {
+   "id": "jean",
+   "name": "JEAN",
+   "where": "region",
+   "tier": "camp",
+   "ground": "road",
+   "bb_class": "Small Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region camp on I-15 south",
+   "real": "an exit with two casinos and a state prison conservation camp (the camp closes by July 2026, the inmates moved out); a dry-lake town",
+   "base_roll": [
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Steppe Village"
+    }
+   ],
+   "tilts": [],
+   "top": [
+    "daytaler",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "caravan_hand"
+   ]
+  },
+  {
+   "id": "primm",
+   "name": "PRIMM",
+   "where": "region",
+   "tier": "town",
+   "ground": "road",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Brewery",
+     "Workshop"
+    ],
+    "buildings": [],
+    "situations": [
+     "Refugees"
+    ]
+   },
+   "our_ground": "a region town on the state line",
+   "real": "three casinos and an outlet mall on the California line; the Ivanpah mirror fields next door (built 2014, its owners moving to close it from 2026, the regulator refusing in December 2025); everyone coming up I-15 arrives here first, which is the Refugees line",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 8.33,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "cripple",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "historian",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "mason",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "militia",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "thief",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.17,
+     "cell": "Medium Villages / Steppe Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "refugee",
+     "plus": 35,
+     "from": "Refugees",
+     "kind": "situation"
+    },
+    {
+     "id": "apprentice",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    },
+    {
+     "id": "gambler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Workshop",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "daytaler",
+    "refugee",
+    "apprentice",
+    "beggar"
+   ]
+  },
+  {
+   "id": "searchlight",
+   "name": "SEARCHLIGHT",
+   "where": "region",
+   "tier": "camp",
+   "ground": "hills",
+   "bb_class": "Small Village",
+   "bb_terrain": "Mountain",
+   "stands_in_for": {
+    "attached": [
+     "Surface Copper Vein",
+     "Gem Mine"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region camp in the hills south",
+   "real": "a gold camp from 1897 with over forty working mines, a few thousand people at its 1907 peak and fifty after the highway bypassed it in 1927; a living ghost town",
+   "base_roll": [
+    {
+     "id": "miner",
+     "pct": 28.57,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "brawler",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "graverobber",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "mason",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "messenger",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "peddler",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    },
+    {
+     "id": "thief",
+     "pct": 7.14,
+     "cell": "Small Villages / Mountain Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "miner",
+     "plus": 3,
+     "from": "Gem Mine",
+     "kind": "attachment"
+    },
+    {
+     "id": "miner",
+     "plus": 3,
+     "from": "Surface Copper Vein",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Gem Mine",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Surface Copper Vein",
+     "kind": "attachment"
+    },
+    {
+     "id": "sellsword",
+     "plus": 1,
+     "from": "Gem Mine",
+     "kind": "attachment"
+    },
+    {
+     "id": "thief",
+     "plus": 1,
+     "from": "Gem Mine",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "miner",
+    "apprentice",
+    "beggar",
+    "brawler",
+    "daytaler"
+   ]
+  },
+  {
+   "id": "indian_springs",
+   "name": "INDIAN SPRINGS",
+   "where": "region",
+   "tier": "fortress",
+   "ground": "base",
+   "bb_class": "Citadel",
+   "bb_terrain": "Steppe",
+   "stands_in_for": {
+    "attached": [
+     "Barracks",
+     "Stone Watchtower"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region fortress on US-95 north",
+   "real": "Creech Air Force Base (the drone base, MQ-9 Reapers flown from here, its own command since 2019) and High Desert State Prison (the largest in the state, about 4,000 beds) eight miles south of the town",
+   "base_roll": [
+    {
+     "id": "caravan_hand",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "militia",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "sellsword",
+     "pct": 7.69,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "deserter",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "hunter",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "raider",
+     "pct": 5.13,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "apprentice",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "bastard",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "beggar",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "bowyer",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "brawler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "flagellant",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "gambler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "gravedigger",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "hedge_knight",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "juggler",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "mason",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "messenger",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "refugee",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "servant",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "swordmaster",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "tailor",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "vagabond",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "witchhunter",
+     "pct": 2.56,
+     "cell": "Citadels / Steppe Fort"
+    },
+    {
+     "id": "oathtaker",
+     "pct": 2.5,
+     "cell": "Citadels / Steppe Fort"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "deserter",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "hedge_knight",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Stone Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "sellsword",
+     "plus": 1,
+     "from": "Barracks",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "caravan_hand",
+    "militia",
+    "sellsword",
+    "deserter",
+    "hunter"
+   ]
+  },
+  {
+   "id": "mt_charleston_lodge",
+   "name": "MT CHARLESTON LODGE",
+   "where": "region",
+   "tier": "camp",
+   "ground": "forest",
+   "bb_class": "Small Village",
+   "bb_terrain": "Forest",
+   "stands_in_for": {
+    "attached": [
+     "Lumber Camp",
+     "Hunter's Cabin",
+     "Trapper"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region camp in the Spring Mountains",
+   "real": "Kyle Canyon at 7,700 feet, ponderosa and bristlecone, the lodge itself burned to the ground on 17 September 2021; the Forest Service, the ski hill at Lee Canyon",
+   "base_roll": [
+    {
+     "id": "lumberjack",
+     "pct": 20.0,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 20.0,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "bowyer",
+     "pct": 13.33,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "hunter",
+     "pct": 13.33,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "beast_slayer",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "butcher",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    },
+    {
+     "id": "wildman",
+     "pct": 6.67,
+     "cell": "Small Villages / Forest Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "lumberjack",
+     "plus": 3,
+     "from": "Lumber Camp",
+     "kind": "attachment"
+    },
+    {
+     "id": "butcher",
+     "plus": 2,
+     "from": "Hunter's Cabin",
+     "kind": "attachment"
+    },
+    {
+     "id": "hunter",
+     "plus": 2,
+     "from": "Hunter's Cabin",
+     "kind": "attachment"
+    },
+    {
+     "id": "poacher",
+     "plus": 2,
+     "from": "Hunter's Cabin",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Trapper",
+     "kind": "attachment"
+    },
+    {
+     "id": "peddler",
+     "plus": 1,
+     "from": "Trapper",
+     "kind": "attachment"
+    },
+    {
+     "id": "poacher",
+     "plus": 1,
+     "from": "Lumber Camp",
+     "kind": "attachment"
+    },
+    {
+     "id": "poacher",
+     "plus": 1,
+     "from": "Trapper",
+     "kind": "attachment"
+    },
+    {
+     "id": "wildman",
+     "plus": 1,
+     "from": "Lumber Camp",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "lumberjack",
+    "poacher",
+    "bowyer",
+    "hunter",
+    "apprentice"
+   ]
+  },
+  {
+   "id": "pahrump",
+   "name": "PAHRUMP",
+   "where": "region",
+   "tier": "town",
+   "ground": "valley",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Plains",
+   "stands_in_for": {
+    "attached": [
+     "Winery",
+     "Wheat Fields",
+     "Militia Barracks"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region town over the pass west",
+   "real": "Nye County: legal brothels, the Pahrump Valley Winery, alfalfa on well water, retirees; the Front Sight gun school (260,000 members, bankrupt 2022, sold and reopened as PrairieFire) is the Militia Barracks line",
+   "base_roll": [
+    {
+     "id": "farmhand",
+     "pct": 13.64,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "militia",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "miller",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "butcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "juggler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "messenger",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "militia",
+     "plus": 2,
+     "from": "Militia Barracks",
+     "kind": "attachment"
+    },
+    {
+     "id": "miller",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "caravan_hand",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Winery",
+     "kind": "attachment"
+    },
+    {
+     "id": "retired_soldier",
+     "plus": 1,
+     "from": "Militia Barracks",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "farmhand",
+    "daytaler",
+    "militia",
+    "miller",
+    "apprentice"
+   ]
+  },
+  {
+   "id": "moapa",
+   "name": "MOAPA",
+   "where": "region",
+   "tier": "camp",
+   "ground": "valley",
+   "bb_class": "Small Village",
+   "bb_terrain": "Plains",
+   "stands_in_for": {
+    "attached": [
+     "Goat Pens",
+     "Wheat Fields"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region camp up I-15 north",
+   "real": "the Moapa River Reservation (Southern Paiute), the travel plaza, the alfalfa and dairy of the Moapa Valley, the 250 MW solar plant that opened in 2017 as the first utility-scale solar on tribal land, built where the Reid Gardner coal plant was shutting",
+   "base_roll": [
+    {
+     "id": "farmhand",
+     "pct": 30.77,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 15.38,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "miller",
+     "pct": 15.38,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 7.69,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "poacher",
+     "pct": 7.69,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 7.69,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 7.69,
+     "cell": "Small Villages / Plains Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 7.69,
+     "cell": "Small Villages / Plains Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Goat Pens",
+     "kind": "attachment"
+    },
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "shepherd",
+     "plus": 3,
+     "from": "Goat Pens",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "miller",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "butcher",
+     "plus": 1,
+     "from": "Goat Pens",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Goat Pens",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "farmhand",
+    "daytaler",
+    "miller",
+    "beggar",
+    "poacher"
+   ]
+  },
+  {
+   "id": "mesquite",
+   "name": "MESQUITE",
+   "where": "region",
+   "tier": "town",
+   "ground": "valley",
+   "bb_class": "Medium Village",
+   "bb_terrain": "Plains",
+   "stands_in_for": {
+    "attached": [
+     "Wheat Fields",
+     "Orchard",
+     "Brewery",
+     "Wooden Watchtower"
+    ],
+    "buildings": [],
+    "situations": []
+   },
+   "our_ground": "a region town at the far north end of I-15",
+   "real": "golf and three casinos on the Arizona line, Virgin River farms, retirees; Bunkerville next door is where the 2014 armed standoff over grazing happened, which is the Wooden Watchtower line",
+   "base_roll": [
+    {
+     "id": "farmhand",
+     "pct": 13.64,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "daytaler",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "militia",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "miller",
+     "pct": 9.09,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "apprentice",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "beggar",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "butcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "gambler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "juggler",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "messenger",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "minstrel",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "ratcatcher",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "refugee",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "retired_soldier",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "servant",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "tailor",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    },
+    {
+     "id": "vagabond",
+     "pct": 4.55,
+     "cell": "Medium Villages / Plains Village"
+    }
+   ],
+   "tilts": [
+    {
+     "id": "farmhand",
+     "plus": 3,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "miller",
+     "plus": 2,
+     "from": "Wheat Fields",
+     "kind": "attachment"
+    },
+    {
+     "id": "brawler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "daytaler",
+     "plus": 1,
+     "from": "Orchard",
+     "kind": "attachment"
+    },
+    {
+     "id": "farmhand",
+     "plus": 1,
+     "from": "Orchard",
+     "kind": "attachment"
+    },
+    {
+     "id": "gambler",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "militia",
+     "plus": 1,
+     "from": "Wooden Watchtower",
+     "kind": "attachment"
+    },
+    {
+     "id": "monk",
+     "plus": 1,
+     "from": "Brewery",
+     "kind": "attachment"
+    },
+    {
+     "id": "oathtaker",
+     "plus": 1,
+     "from": "Wooden Watchtower",
+     "kind": "attachment"
+    }
+   ],
+   "top": [
+    "farmhand",
+    "daytaler",
+    "militia",
+    "miller",
+    "apprentice"
+   ]
+  }
+ ]
+}

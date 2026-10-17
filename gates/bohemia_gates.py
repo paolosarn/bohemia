@@ -8921,6 +8921,13 @@ GATES = [
      "fight block's four edges are read from its picture (road, curb, yard, desert, water, and the lines "
      "that cross); every seam on every board and its apron must agree; the freeway and street boards are "
      "clean, the rest ratcheted down; the edge data file is true; the gate proves it bites (COMBAT TWO)", True),
+    ('WHO LIVES WHERE', ['node', 'gates/who_lives_where_gate.js'],
+     "PEOPLE 10/17, rule 110's swing under the hold: a page, backgrounds by place across the 26 places. "
+     "The bank is draft and nothing live reads it; the 14 valley places are the derived seats and the 12 "
+     "region places are the region file's TOWNS, by name and tier; every one of 648 percents and +n tilts "
+     "is found in its own background's block on the wiki's Sources page read out of the tarball at gate "
+     "time; and the measured gap holds: the live post offers six men everywhere and at 26 of 26 places the "
+     "book gives at least one of them no chance (a place-aware post turns leg E red on purpose)", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

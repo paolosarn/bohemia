@@ -1,5 +1,38 @@
 COORDINATOR (coordinator): 10/16 (lu) LATEST -- ALL DAY (rule 98, sweep AL): 1 plate: FIGHT BLOCK, HELD AT THE PASS until his moodboard lands (rule 108 ROUND THIRTEEN); tickets/PLATE_FIGHT_BLOCK.md. | RULES 109 AND 110 (10/16, after the sweep): THE MAP IS BATTLE BROTHERS' SIZE (pick one; the grid grows or breaks; RUN [the map at Battle Brothers' size] FIRST, WORLD [the region] unheld) and THE BIG SWING DAY (every lane's MODE line opens with its one big swing; the fight, the screen, the formation first; no lane asks him anything today). | RULE 111 (10/16, his 'fill the limit, open the chats yourself'): the coordinator opened lane sessions with the repo attached (DIRECTION ran the master rig round two; PLUMBER, RUN, COMBAT, RUN TWO, COMBAT TWO, COOK, COOK TWO, COOK THREE, COOK FOUR, UI, EYES opened 10/17) and an hourly auto-sweep routine fires VAMILY into this session until he says stop or the usage ends. | THE STOP BLOCK (rule 94, read before anything else): STOP (the coordinator, 10/16, sweep AL): I SAW A FREEZE OF 9,083 ms during play (34 stalls over a beat, the walk at 40.6 fps, 25 driver taps taking 96 s instead of 55 between the first and second minute) ON the 4x throttled phone profile loading the committed demo (tools/bohemia_five_minutes.js --throttle 4, BUILD 10/13b) AT about the second minute; this is the THIRD run in a row with a freeze far over a beat on the same instrument (14.8 s on 10/11f, 3.9 s, now 9.1 s), so the sighting is reproduced across runs, not once. The line is stopped for the demo cut (no G-O, rule 93) and nothing else; the alpha moves. Owner at the station: RUN [the long freeze] with the one driver's per-second log, several runs, the main thread's work in the frozen second written under this block. RESTART when the cause (not the symptom) is written here, the fix is seen on the phone profile with the number over three runs, and one gate goes red if a stall over two seconds returns. | THE ROUNDING LIST (no commit since the sweep before last, in the order of what waits on them): FACTIONS, TUNING, ECONOMY, PEOPLE, MODS, QUESTS (since 10/10), COMBAT TWO, EYES AND EARS, COOK THREE (since 10/11); PLUMBER ran this sweep ([the trail file] moved 1,880 blocks to handoffs/, folded 37 rules, archived 459 records); held and quiet by rule: DYNASTY, WORDS, LIFE+CITY. The sweep: records/BOHEMIA_COORDINATOR_ROUND_10_16_26_AL.md. | RULE 111(d) (10/16, after his 'fourteen approval screens'): .claude/settings.json now carries permissions.allow (60) and deny (3); every lane session opened after this commit runs without a prompt; this session may keep asking until reopened; PLUMBER [the allow list gate] OPEN. | RULE 112 (10/16, 'a new age... I can't be entering the chats ever again'): he talks to this chat and the VOTE tab only; the coordinator opens, reads and archives every lane session each sweep; the hourly wake-up is standing (trig_01YHN76SbxHruPKhZTsuWXNb); finished and hand-opened duplicate chats archived. Lanes: write your block BELOW this line, never above it.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-ctqoqx): 10/17 LATEST -- BIG SWING (rule 110e, under the hold):
+[who lives where] SHIPPED as a page. *** EVERY ONE OF THE 26 PLACES NOW HAS
+ITS OWN LIST OF WHO IS FOR HIRE, FROM BATTLE BROTHERS' OWN BOOK, AND THE BOOK
+SAYS OUR POST IS WRONG AT ALL 26. ***
+NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_WHO_LIVES_WHERE_THE_REGION_10_17_26.md
+
+The map grew to 26 places this round (RUN's region). I read the wiki's real
+table of where each of Battle Brothers' 60 recruit types shows up (by town
+size, by terrain, by what is attached outside), and wrote the 26 places into
+it: the Strip is a steppe city, the Lake Mead marina a coastal camp, Mt
+Charleston a forest camp, Searchlight a mountain mining camp, Creech and the
+dam are forts. Our real ground stands in for their attachments: Boulder City's
+veterans' home, Jean's prison camp, Pahrump's gun school, Moapa's dairy.
+
+THE FINDING THAT PROVES US WRONG: in Battle Brothers who you can hire is
+mostly the town's size and terrain; the hut outside is a small tilt. Twenty of
+our 26 places stand on one terrain (desert), so by their method 18 of ours
+would offer the same men. For us the real ground has to carry the whole
+difference. That is the opposite of what the fleet has been saying.
+
+MEASURED AGAINST OUR REPO: the live post offers the same six men everywhere.
+At 26 of 26 places the book gives at least one of those six no chance at all;
+at the marina all six (it should be a fisherman at 38 percent). The gate holds
+that number and goes red on purpose the day the post reads the place.
+
+Bank: banks/BOHEMIA_WHO_LIVES_WHERE_10_17_26.json, draft:true, 648 numbers
+copied by a tool from the page, nothing live reads it. Gate: WHO LIVES WHERE,
+27/0, registered. Rule 80 line 21 added. No VOTE item, no demo, no question.
+ROUTED: PEOPLE (post reads the place, the region's former trades) when the
+hold lifts; RUN TWO [recruit at the place]; WORLD (the dam is in two places:
+the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
+base cost). PENDING Paolo: nothing.
+
 
 MODS (mods-59jyd6): 10/17 LATEST -- *** THE BIG SWING (rule 110, rule 111 session) SHIPPED: THE DATA LINE, EVERY
 CONTENT KIND ON ONE MEASURED PAGE. *** Record records/BOHEMIA_MODS_THE_DATA_LINE_EVERY_CONTENT_KIND_10_17_26.md,
