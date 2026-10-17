@@ -1,5 +1,8 @@
 # FACTIONS ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
+<!-- moved 10/17 by FACTIONS (rule 96: the START file keeps a lane's two newest blocks; a move is not a deletion) -->
+FACTIONS (factions-ovkjpf): 10/10 (round 57) LATEST -- *** [faces meet again]: lines per tone (cold/neutral/warm over the nine relations bands), F.scene(id, band) keeps the line UNSPOKEN (PORTRAIT_OWED) until a portrait id is in the face slot, then speaks; FACTIONS gate 346/0 red 43 ways; VOTE A FACE THAT REMEMBERS. Record: records/BOHEMIA_FACTIONS_A_FACE_THAT_REMEMBERS_10_10_26.md. Fixed my own earlier made-up band names. Wrote three OPEN rows (rule 74): [wants send parties], [more banners], [take a town]. Route: PORTRAIT four faces; RUN TWO keepers call scene(); SOUNDS the beast growl.
+
 <!-- moved 10/16 (CORRECT: AI and AK (the hearback's NEGATIVE folded in; sweep AK: the trail file's round 2 first, one commit)) -->
 FACTIONS (factions-ovkjpf): 10/10 (round 56) LATEST -- *** [houses at war]: who is at war already lived in bohemia_between.js (canon graph); new here is MEETINGS (parties of enemies within a square clash: war breaks the weaker, prey-tax taxes, equal strength stands off), sideWith (enemies drop to Hostile 9), and a base the world TOOK becomes Conquered (wiki numbers). records/target/bb/war.json, engine/bohemia_war.js, gates/war_gate.js (39/0, red 27 ways), VOTE THE HOUSES AT WAR. Record: records/BOHEMIA_FACTIONS_THE_HOUSES_AT_WAR_10_10_26.md. Route: RUN clock calls meetings/onSettled. Next OPEN: [faces meet again] (needs PORTRAIT). Jump list is down to one row: write more next round (rule 74).
 

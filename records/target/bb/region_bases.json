@@ -1,0 +1,577 @@
+{
+ "_about": "THE HOME BASES AND THE ROAMING PARTIES SCALED TO THE REGION (FACTIONS lane, the 10/16 big swing, rules 109d and 110; Paolo 10/16: 'our map has to be as big as fucking Battle Brothers... I'm choosing Battle Brothers'). RUN's slices/bohemia_region.js made the map a 496 by 496 region around the 96 by 96 valley with twelve real places on it; this file says WHO HOLDS each of the twelve, what each SENDS, and where the region's HOSTILE LOCATIONS are (Battle Brothers' camps, crypts and lairs in the wild), in the exact shape the parties module already takes (a seat: faction, tier, kind, x, y, power), so RUN hands these rows to BohemiaParties.all beside the valley's fourteen seats and the region fills with parties the way the valley did. Every rule is Battle Brothers' and quotes its wiki page; every number that is ours is marked ours and draft and named for TUNING's table. A marker built from this file is ids, classes and numbers, never a sentence (rule 37e). Nothing here is drawn, saved or wired: RUN reads it.",
+ "frame": {
+  "source": "slices/bohemia_region.js TOWNS and placeTowns",
+  "how": "east and north are blocks past the city's middle, RUN's own frame (x = mid + east, y = mid - north; north is y = 0). RUN's placer pulls a position onto its road when one runs within twelve blocks, else the nearest open ground, never inside the city's box. The twelve places repeat RUN's bearings exactly and the gate refuses a drift between the two files.",
+  "city_half": 48,
+  "region_half": 248,
+  "placer_margin": 8
+ },
+ "school": {
+  "seventeen_settlements": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0853_Global Map.txt",
+   "quote": "A typical setup involves a total of 17 settlements (2 City Halls, 3 Town Halls, 6 Village Halls, 2 Strongholds, 2 Castles, 2 Fortified Manors)."
+  },
+  "houses_split": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0853_Global Map.txt",
+   "quote": "Settlement distribution amongst Noble Houses can vary considerably, ranging from being roughly equal (6/6/5) to clearly lopsided (10/5/2)."
+  },
+  "camps_in_the_wild": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0853_Global Map.txt",
+   "quote": "Enemy camps which are revealed on taking contracts and on map exploration are locations that can be pillaged and destroyed."
+  },
+  "fortified_send_patrols": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "These settlements will spawn patrols, which secure the streets between the settlements of their house."
+  },
+  "towns_send_caravans": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "From time to time these settlements spawn caravans who trade goods with the other towns or villages."
+  },
+  "watchtowers": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "To a castle usually belongs 1 or more watchtower(s). These also spawn soldiers for a patrol or if a threat comes near."
+  },
+  "brigands_in_the_hills": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "Brigands live in the woods, hills, and wilderness around the human settlements"
+  },
+  "brigands_beside_roads": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "Brigand parties like to hide alongside roads which pass through forests."
+  },
+  "every_location_sends": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+   "quote": "Every location now can send out parties for hunting, raiding and similar, although smaller locations do so less and in fewer numbers, and some factions may be more passive than others."
+  },
+  "active_near_home": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+   "quote": "sending out patrols, hunting or raiding parties, and actively defending their territory against intruders."
+  },
+  "the_dead_sit_in_crypts": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415_News and Dev Blogs.txt",
+   "quote": "the undead are generally content sitting in their crypts and guarding their treasures."
+  },
+  "locations_spread": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+   "quote": "Locations do not respawn. Locations that are active (sending out parties, gathering resources) will send out troops to found a new location once they have accumulated enough resources. This will usually be in the same area as the first one (not across the whole map)."
+  },
+  "resource_points": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+   "quote": "Each location has, say 100 resource points (its not 100, this is just for showcasing) - then it spawns a raiding party worth 30 points. Now the location is down to 70 points if the raiders are killed and so on."
+  },
+  "roster_every_ten_days": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+   "quote": "Non-contract locations update their roster of defenders every 10 days based on the resources available to them."
+  },
+  "fewer_in_the_civilized_part": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+   "quote": "We reduced the amount of roaming parties especially in the \"civilized\" part of the world on purpose."
+  },
+  "distance_to_civilization": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0828_Game Mechanics.txt",
+   "quote": "scales mostly with distance to civilization and time"
+  },
+  "nomads_water_to_water": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1455_Nomads.txt",
+   "quote": "They travel the barren desert from one source of water to the next, hunting and scavenging"
+  },
+  "beasts_roam": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
+   "quote": "Various wild beasts roam the lands."
+  },
+  "rival_companies_roam": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1260_Mercenary Companies.txt",
+   "quote": "Various mercenary companies can be found roaming around on the Global map and are also actively looking for and accepting Contracts from settlements."
+  },
+  "no_fixed_party_count": {
+   "source": "reference/library/battle_brothers/01_WORLDMAP.md",
+   "quote": "PUBLISHED FIXED COUNT of roaming parties at once. It is emergent."
+  }
+ },
+ "the_numbers": {
+  "settlements": {
+   "bb": 17,
+   "bb_source": "school.seventeen_settlements",
+   "valley_seats": 14,
+   "region_places": 12,
+   "ours": 26,
+   "met": true
+  },
+  "hostile_locations": {
+   "bb": null,
+   "bb_note": "the wiki publishes no count of camps per map; 'the data does not say' (rule 109c)",
+   "ours": 8
+  },
+  "parties_at_once": {
+   "bb": null,
+   "bb_note": "no published fixed count; every location buys parties out of what it has (school.no_fixed_party_count, school.resource_points)",
+   "valley_measured": 28,
+   "valley_measured_how": "BohemiaParties.all on the fourteen seats of the real valley, seed 12345 (14 patrol, 10 caravan, 4 crew), the number [home bases] round two measured 9/28",
+   "region_from_places": 21,
+   "region_from_locations": 10,
+   "ours": 59,
+   "how": "each row sends REACH[tier] parties, the parties module's own rule (fortress 3, town 2, camp 1); the gate reads REACH off engine/bohemia_towns.js and recomputes every total, so these numbers can never drift from the table that makes them",
+   "region_from_locations_how": "the eight wild locations by REACH (nine) plus the one company without a base (one)"
+  },
+  "crews_out_of_town": {
+   "valley_crews": 4,
+   "region_crews": 5,
+   "reading": "the valley is the civilized part and sends mostly patrols and caravans (4 crews of 28); the region's wild locations send crews (5 of 9): more roaming trouble the farther out, which is what Battle Brothers did on purpose (school.fewer_in_the_civilized_part, school.distance_to_civilization). MEASURED 10/17: handed to today's parties module a wild row sends CARAVANS, because hostility is read only off the canon graph's between() and the graph has no brigands; the rows carry wild:true so the one-line fix in hostilesOf has its field (routed to WORLD [parties move] and RUN)",
+   "reading_ours": true
+  }
+ },
+ "rules": {
+  "a_place_sends_by_its_tier": {
+   "value": "REACH[tier]",
+   "source": "engine/bohemia_towns.js REACH; engine/bohemia_parties.js sendFrom",
+   "wiki": "school.every_location_sends",
+   "ours": false,
+   "note": "smaller locations send fewer: the table the valley already uses"
+  },
+  "a_hostile_location_is_a_seat_that_sends_crews": {
+   "value": "crew",
+   "source": "engine/bohemia_parties.js AGENDAS (the three frozen agendas: caravan, patrol, crew)",
+   "wiki": "school.camps_in_the_wild",
+   "ours": true,
+   "note": "a camp in the wild is a seat whose parties go to take something; the dead in a crypt and a beast on its range HOLD instead (patrol), off school.the_dead_sit_in_crypts and school.beasts_roam ; every wild row carries wild:true: a seat the canon graph does not know is hostile to every settlement (the fix for hostilesOf, one line, WORLD's file)"
+  },
+  "far_from_civilization_fields_the_late_mix": {
+   "far_blocks": 60,
+   "ours": true,
+   "draft": true,
+   "for": "TUNING's one table",
+   "wiki": "school.distance_to_civilization",
+   "note": "a location whose nearest held settlement is more than far_blocks away (the map's own distance, the larger of the two axes) fields its faction's late make-up from the first day; nearer ones start early and move late with the act. The gate computes each location's band from the positions below and prints it."
+  },
+  "the_roster_turns_over": {
+   "days": 10,
+   "ours": false,
+   "wiki": "school.roster_every_ten_days",
+   "note": "a hostile location's defenders are re-drawn every ten days from its mix; the whole roster, not one more man"
+  },
+  "a_location_that_does_well_spreads": {
+   "raids_home": 3,
+   "spread_blocks": 24,
+   "ours": true,
+   "draft": true,
+   "for": "TUNING's one table",
+   "wiki": "school.locations_spread",
+   "note": "when raids_home crews have come home with something, the location founds a daughter within spread_blocks (the same ring RUN's placer searches), on the same kind of ground, never across the map; a location never respawns once destroyed"
+  },
+  "a_base_that_fell_sends_nobody": {
+   "source": "engine/bohemia_homebases.js partiesLeft",
+   "ours": false,
+   "note": "the rule the valley's fourteen already obey applies to every row here: hand these rows to the same ledger"
+  }
+ },
+ "region_places": [
+  {
+   "id": "henderson",
+   "name": "HENDERSON",
+   "east": 62,
+   "north": -78,
+   "tier": "town",
+   "kind": "industrial",
+   "holder": "Trades",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Henderson: the BMI industrial complex (titanium, magnesium, chemicals), the valley's second city",
+   "why": "the Trades' note: the skilled-worker guild, vehicle, solar and construction; the plant town is theirs"
+  },
+  {
+   "id": "boulder_city",
+   "name": "BOULDER CITY",
+   "east": 122,
+   "north": -128,
+   "tier": "town",
+   "kind": "chapel",
+   "holder": "Church",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Boulder City: the federal company town built for the dam's workers, dry by law, no gambling by law, the gate to the dam",
+   "why": "the Church's note: the best crisis organization; the one town in the region that was built on order keeps it"
+  },
+  {
+   "id": "hoover_dam",
+   "name": "HOOVER DAM",
+   "east": 178,
+   "north": -112,
+   "tier": "fortress",
+   "kind": "substation",
+   "holder": "Network",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Hoover Dam: the biggest power site in the region, 2,080 megawatts when the dollar died",
+   "why": "[light owners] 9/6: the Network holds the lit grid off his own NETWORK rule; the dam is the grid's source, so the fortress at it is theirs (its valley seat is a substation)"
+  },
+  {
+   "id": "lake_mead_marina",
+   "name": "LAKE MEAD MARINA",
+   "east": 150,
+   "north": -30,
+   "tier": "camp",
+   "kind": "pumpstation",
+   "holder": "Anarchists",
+   "agendas": [
+    "patrol"
+   ],
+   "real": "the Lake Mead marina at Hemenway Harbor: the valley's drinking water comes out of this lake",
+   "why": "610805d (9/22): the Anarchists hold all of the valley's live water; the camp on the shore is the water's own"
+  },
+  {
+   "id": "jean",
+   "name": "JEAN",
+   "east": -14,
+   "north": -150,
+   "tier": "camp",
+   "kind": "prison",
+   "holder": "Cartel",
+   "agendas": [
+    "patrol",
+    "crew"
+   ],
+   "real": "Jean: the closed state prison and the two casinos on the I-15 exit south of the city",
+   "why": "the Cartel's note: supply chains mirror Caravan routes; the prison on the one road south to California is where they tax it (the graph: Cartel preys on Caravans)"
+  },
+  {
+   "id": "primm",
+   "name": "PRIMM",
+   "east": -30,
+   "north": -215,
+   "tier": "town",
+   "kind": "warehouse",
+   "holder": "Caravans",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Primm: the state line, three casinos and an outlet mall across I-15 at the California border",
+   "why": "the Caravans' note: neutral outside-world trade; the south door of the region is theirs"
+  },
+  {
+   "id": "searchlight",
+   "name": "SEARCHLIGHT",
+   "east": 64,
+   "north": -228,
+   "tier": "camp",
+   "kind": "mine",
+   "holder": "Reds",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Searchlight: a gold-mining town on US-95 south, the mines reopened and closed with the price of gold",
+   "why": "the Reds' note: the economic engine, compound interest, not military; a mine bought cheap and worked by hired men is their kind of holding"
+  },
+  {
+   "id": "indian_springs",
+   "name": "INDIAN SPRINGS",
+   "east": -150,
+   "north": 150,
+   "tier": "fortress",
+   "kind": "policestation",
+   "holder": "Remnants",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Indian Springs: Creech Air Force Base, the drone base, on US-95 north",
+   "why": "the Remnants' note: military and law-enforcement survivors incl Nellis, military drones; the drone base is the second fortress of the floor of civilization"
+  },
+  {
+   "id": "mt_charleston_lodge",
+   "name": "MT CHARLESTON LODGE",
+   "east": -130,
+   "north": 70,
+   "tier": "camp",
+   "kind": "park",
+   "holder": "Blues",
+   "agendas": [
+    "patrol"
+   ],
+   "real": "the lodge in Kyle Canyon on Mt Charleston, the only forest for a hundred miles, snow in winter",
+   "why": "the Blues' note: environmentalist, large headcount; the mountain's forest is theirs (their valley seat is the park)"
+  },
+  {
+   "id": "pahrump",
+   "name": "PAHRUMP",
+   "east": -222,
+   "north": 10,
+   "tier": "town",
+   "kind": "resort",
+   "holder": "Mob",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Pahrump: the town over the hump, casinos and the legal brothels Clark County never allowed",
+   "why": "the Mob's note: ownership, protection, tribute; the business out there was always tribute business"
+  },
+  {
+   "id": "moapa",
+   "name": "MOAPA",
+   "east": 118,
+   "north": 170,
+   "tier": "camp",
+   "kind": "medical",
+   "holder": "Volunteers",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Moapa: the Paiute reservation, the travel plaza and the farms along the Muddy River",
+   "why": "the Volunteers' note: food and knowledge, resource-poor by design, nobody wants to be seen attacking them; the river farms that feed the valley are the camp everyone leaves alone"
+  },
+  {
+   "id": "mesquite",
+   "name": "MESQUITE",
+   "east": 212,
+   "north": 218,
+   "tier": "town",
+   "kind": "warehouse",
+   "holder": "Caravans",
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "real": "Mesquite: the last town on I-15 before Arizona and Utah, casinos and golf on the Virgin River",
+   "why": "the Caravans' note again: outside-world trade needs both doors, and Battle Brothers' houses hold several settlements each (school.houses_split)"
+  }
+ ],
+ "hostile_locations": [
+  {
+   "id": "railroad_pass_crew",
+   "name": "ROAD CREW AT RAILROAD PASS",
+   "east": 92,
+   "north": -103,
+   "tier": "camp",
+   "kind": "hideout",
+   "faction": "brigands",
+   "banner_of": "brigands",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json brigands",
+   "ground": [
+    "hills",
+    "freeway"
+   ],
+   "real": "Railroad Pass: the gap in the River Mountains that US-93 and US-95 climb between Henderson and Boulder City; the oldest casino in Nevada stands in it",
+   "why": "school.brigands_in_the_hills and school.brigands_beside_roads: a crew hides in the hills where the one road to the dam squeezes through"
+  },
+  {
+   "id": "sloan_quarry_crew",
+   "name": "ROAD CREW AT SLOAN QUARRY",
+   "east": -6,
+   "north": -95,
+   "tier": "camp",
+   "kind": "hideout",
+   "faction": "brigands",
+   "banner_of": "brigands",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json brigands",
+   "ground": [
+    "freeway",
+    "hills"
+   ],
+   "real": "Sloan: the limestone quarry and cement works beside I-15 south of the city, the petroglyph canyon behind it",
+   "why": "the crew's want is the freeway (factions.json): the second hideout sits on I-15 between the city and Jean"
+  },
+  {
+   "id": "apex_dead",
+   "name": "THE DEAD AT APEX LANDFILL",
+   "east": 80,
+   "north": 90,
+   "tier": "camp",
+   "kind": "ruin",
+   "faction": "zombies",
+   "banner_of": "zombies",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json zombies",
+   "ground": [
+    "landfill",
+    "ruin"
+   ],
+   "real": "Apex: the regional landfill north of the city on I-15, the largest in the country by area",
+   "why": "factions.json: the dead hold ruin and landfill; the keeper walks what the dump left unfinished. The one wild location past the far line (71 blocks from the nearest town by the gate's measure): it fields the late mix from day one (rules.far_from_civilization_fields_the_late_mix)"
+  },
+  {
+   "id": "nelson_dead",
+   "name": "THE DEAD AT NELSON",
+   "east": 110,
+   "north": -190,
+   "tier": "camp",
+   "kind": "ruin",
+   "faction": "zombies",
+   "banner_of": "zombies",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json zombies",
+   "ground": [
+    "ruin",
+    "hills"
+   ],
+   "real": "Nelson: the ghost town in Eldorado Canyon and the Techatticup mine, the bloodiest mine in Nevada's history",
+   "why": "a ghost town's dead; by the map's own measure it is 46 blocks from Searchlight and Boulder City, inside the far line, so it fields the early mix first (the gate computes the band, I had guessed it far and was wrong)"
+  },
+  {
+   "id": "lost_city_crypt",
+   "name": "THE LOST CITY",
+   "east": 150,
+   "north": 150,
+   "tier": "town",
+   "kind": "crypt",
+   "faction": "ancient_dead",
+   "banner_of": null,
+   "wild": true,
+   "agenda": "patrol",
+   "mix": {
+    "early": {
+     "ancient_auxiliary": 4,
+     "ancient_legionary": 2
+    },
+    "late": {
+     "ancient_legionary": 4,
+     "ancient_honor_guard": 2,
+     "ancient_priest": 1
+    },
+    "ours": true,
+    "draft": true,
+    "note": "the ancient dead are not one of factions.json's four; make-up from enemies.json ids, COMBAT's enemy_tiers owns the real mix"
+   },
+   "ground": [
+    "ruin",
+    "wash_and_shore"
+   ],
+   "real": "the Lost City (Pueblo Grande de Nevada): the Ancestral Puebloan town the lake drowned near Overton; its museum is on the shore",
+   "why": "school.the_dead_sit_in_crypts: the people who were here before hold their own dead town and go nowhere; a town-sized location because its defenders are many"
+  },
+  {
+   "id": "tule_springs_den",
+   "name": "THE DEN AT TULE SPRINGS",
+   "east": -20,
+   "north": 70,
+   "tier": "camp",
+   "kind": "den",
+   "faction": "beasts",
+   "banner_of": "beasts",
+   "wild": true,
+   "agenda": "patrol",
+   "mix": "records/target/bb/factions.json beasts",
+   "ground": [
+    "open_desert",
+    "wash_and_shore"
+   ],
+   "real": "Tule Springs: the Ice Age fossil beds at the valley's north edge, dire wolf and mammoth bones in the washes",
+   "why": "the beasts law s3: the lab was north of the city at the fossil beds; what broke out dens where it was dug up (laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md)"
+  },
+  {
+   "id": "gypsum_cave_lair",
+   "name": "THE LAIR AT GYPSUM CAVE",
+   "east": 70,
+   "north": -20,
+   "tier": "camp",
+   "kind": "den",
+   "faction": "beasts",
+   "banner_of": "beasts",
+   "wild": true,
+   "agenda": "patrol",
+   "mix": {
+    "early": {
+     "direwolf": 3,
+     "unhold": 1
+    },
+    "late": {
+     "frenzied_direwolf": 2,
+     "unhold": 2
+    },
+    "ours": true,
+    "draft": true,
+    "note": "the giant ground sloth of Gypsum Cave is the Unhold's rule in an animal's skin (the beasts law s6: mechanic first, skin second); ids from enemies.json"
+   },
+   "ground": [
+    "hills",
+    "open_desert"
+   ],
+   "real": "Gypsum Cave: the dry cave in the Frenchman Mountain foothills east of the city where the ground sloth's dung and bones were found in 1930",
+   "why": "the beasts law s3 names the cave as the lab's second site; the sloth came back where its bones were"
+  },
+  {
+   "id": "jean_dry_lake_nomads",
+   "name": "THE NOMADS ON JEAN DRY LAKE",
+   "east": 10,
+   "north": -140,
+   "tier": "camp",
+   "kind": "camp",
+   "faction": "nomads",
+   "banner_of": null,
+   "wild": true,
+   "agenda": "crew",
+   "mix": {
+    "early": {
+     "nomad_cutthroat": 5,
+     "nomad_slinger": 2
+    },
+    "late": {
+     "nomad_outlaw": 3,
+     "nomad_archer": 2,
+     "nomad_cutthroat": 2,
+     "nomad_leader": 1
+    },
+    "ours": true,
+    "draft": true,
+    "note": "the desert's own road crew, Battle Brothers' southern brigands; ids from enemies.json, COMBAT's enemy_tiers owns the real mix"
+   },
+   "ground": [
+    "open_desert"
+   ],
+   "real": "Jean Dry Lake: the playa beside the prison where the desert's people camp between water and water",
+   "why": "school.nomads_water_to_water: the people who left the city for the open desert, moving well to well; they raid the road the way the wiki says nomads do"
+  }
+ ],
+ "roaming_without_a_base": [
+  {
+   "id": "rival_company",
+   "faction": "mercenaries",
+   "agenda": "patrol",
+   "from": "whichever settlement's board hired them (RUN's read)",
+   "ours": true,
+   "draft": true,
+   "wiki": "school.rival_companies_roam",
+   "note": "another company like yours, hired off a settlement's board and walking its contract; no seat of its own; one at a time in act one (ours, for TUNING)"
+  }
+ ],
+ "marker_fields": [
+  "id",
+  "kind",
+  "tier",
+  "holder",
+  "faction",
+  "east",
+  "north",
+  "agenda"
+ ],
+ "gaps": [
+  "the greenskins (orcs and goblins) and the barbarians have no Bohemia skin ruled yet, so no location fields them; the beasts law's gate owes the roster count",
+  "the City States (the Holy War's other side) are not in the canon graph; no southern city holds region ground",
+  "Colorful, Homeless and Custom hold no region place: their notes say community-based not territorial, the sewer HQ under the city, and the player",
+  "the positions are bearings in RUN's frame; RUN's placer pulls each onto its road or open ground at boot, so the drawn marker can sit up to 24 blocks from the bearing",
+  "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'"
+ ],
+ "routed": {
+  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases so a fallen location sends nobody; a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits)",
+  "WORLD [the region]": "the ground kinds under each row (the fifteen terrains) and the places' own districts",
+  "COOK FOUR": "a picture per region place and per wild location kind (hideout, ruin, crypt, den, nomad camp)",
+  "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time",
+  "EYES [the map's four numbers]": "settlements 26 beside 17; parties at once 59 beside 'no published count'",
+  "COMBAT": "the Unhold's rule for the sloth, the ancient dead and the nomads' real mixes"
+ }
+}
