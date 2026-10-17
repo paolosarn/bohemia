@@ -47,7 +47,10 @@ const r2 = v => Math.round(v * 100) / 100;
   const fr = d.fr;
   try {
     for (let i = 0; i < 90; i++) { if (await fr.evaluate(() => !!(window.VB && VB.day && VB.seed === om.seed))) break; await d.page.waitForTimeout(500); }
-    await fr.evaluate(() => { SKY = false; setZoomAt(zoomBounds()[0]); MAP_GROUND.key = ''; render(); });
+    /* RE-AIMED 10/16 ([the map at Battle Brothers' size]): the far stop this protects is the VALLEY'S, the far end he liked
+       (104f); the region's camera now pulls out past it (slices/bohemia_region.js), so the valley's own stop is asked for */
+    const FAR = () => (window.BOH_REGION && BOH_REGION.valleyFar) ? BOH_REGION.valleyFar() : zoomBounds()[0];
+    await fr.evaluate((f) => { SKY = false; setZoomAt(eval(f)()); MAP_GROUND.key = ''; render(); }, FAR.toString());
     /* D0: the default, three seconds still at the far stop */
     await d.page.waitForTimeout(3000);
     const D0 = await fr.evaluate(() => { MAP_GROUND.key = ''; render();
@@ -110,10 +113,10 @@ const r2 = v => Math.round(v * 100) / 100;
     await fr.evaluate(() => { VBV.key = ''; });   /* the test put a blank in it: ask again */
     ok('P5 painted off the page (' + t.where + ', ' + t.paint + ' ms there, ' + t.samples.toLocaleString() + ' samples) and laid in quickly (' + Math.round(t.ms) + ' ms on the page)', t.where === 'worker' && t.ms < 150);
     /* P6: a zoom step; before the sharp layer comes back, the glass's corners are still land */
-    const mv = await fr.evaluate(() => { setZoomAt(zoomBounds()[0] * 1.15); VBV.busy = true; MAP_GROUND.key = ''; render();
+    const mv = await fr.evaluate((f) => { setZoomAt(eval(f)() * 1.15); VBV.busy = true; MAP_GROUND.key = ''; render();
       const c = MAP_GROUND.cv, x = c.getContext('2d'), R = CV_DPR, M = MAP_GROUND.M;
       const pts = [[4, 4], [CVW - 4, 4], [4, CVH - 4], [CVW - 4, CVH - 4]].map(p => x.getImageData(Math.round((p[0] + M) * R), Math.round((p[1] + M) * R), 1, 1).data[3]);
-      VBV.busy = false; return { pts, stale: VBV.key !== vbViewKey() }; });
+      VBV.busy = false; return { pts, stale: VBV.key !== vbViewKey() }; }, FAR.toString());
     ok('P6 while the camera moves the bake covers the land (the sharp layer stale ' + mv.stale + '; alpha at the four corners ' + mv.pts.join('/') + ')', mv.stale && mv.pts.every(a => a > 0));
     ok('P7 nothing threw (' + d.errs.length + (d.errs.length ? ': ' + String(d.errs[0]).slice(0, 120) : '') + ')', d.errs.length === 0);
   } catch (e) { ok('the gate ran without throwing [' + String(e.message).slice(0, 200) + ']', false); }

@@ -180,6 +180,7 @@
      So the far stop shows twice what the valley's did (about 200 blocks across, more than Battle Brothers' whole map is
      wide), and the camera pans to the region's rim. */
   var _zb = zoomBounds;
+  R.valleyFar = function(){ return _zb()[0]; };   /* the valley's own far stop, the far end he liked (rule 104f) */
   zoomBounds = function(){
     var b = _zb();
     if (!R.ready) return b;
