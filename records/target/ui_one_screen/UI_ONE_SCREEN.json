@@ -1,0 +1,2306 @@
+{
+ "upright": {
+  "map": {
+   "y": 390,
+   "h": 420
+  },
+  "settlement": {
+   "y": 1646,
+   "h": 420
+  },
+  "fight": {
+   "y": 2902,
+   "h": 552
+  }
+ },
+ "twins": [
+  {
+   "src": "records/target/ui_one_screen/twin_19_21.png",
+   "x": 16,
+   "y": 4048,
+   "w": 96,
+   "h": 94
+  },
+  {
+   "src": "records/target/ui_one_screen/twin_signage_09.png",
+   "x": 16,
+   "y": 4268,
+   "w": 64,
+   "h": 96
+  },
+  {
+   "src": "records/target/ui_one_screen/twin_6_17.png",
+   "x": 16,
+   "y": 4440,
+   "w": 96,
+   "h": 36
+  },
+  {
+   "src": "records/target/ui_one_screen/twin_19_27.png",
+   "x": 16,
+   "y": 4600,
+   "w": 67,
+   "h": 96
+  }
+ ],
+ "whole": "records/target/ui_one_screen/UI_ONE_SCREEN_THE_FIGHT_WHOLE.png",
+ "sheet": "records/target/ui_one_screen/UI_ONE_AT_A_TIME_ONE_SCREEN.png",
+ "size": [
+  1170,
+  4780
+ ],
+ "sheet_sideways": "records/target/ui_one_screen/UI_ONE_SCREEN_SIDEWAYS.png",
+ "size_sideways": [
+  2532,
+  2563
+ ],
+ "sideways": {
+  "map": {
+   "y": 253,
+   "h": 252
+  },
+  "settlement": {
+   "y": 1088,
+   "h": 252
+  },
+  "fight": {
+   "y": 1923,
+   "h": 252
+  }
+ },
+ "boxes": [
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#cityfeed.on.ring",
+   "box": [
+    227,
+    69,
+    156,
+    338
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "19px",
+   "font": "BohemiaCasing",
+   "replacement": "his phone, kept as he voted it (9/27, one crack); its crack is its own candidate (10/16)"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#cityfeedscreen",
+   "box": [
+    231,
+    73,
+    148,
+    330
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "16px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#cityfeedbatt.dark",
+   "box": [
+    362,
+    80,
+    11,
+    6
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's battery glyph, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#cityfeedfade",
+   "box": [
+    231,
+    381,
+    148,
+    22
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#cityfeedglass",
+   "box": [
+    231,
+    73,
+    148,
+    330
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": ".sp.now",
+   "box": [
+    183,
+    782,
+    44,
+    44
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "2px",
+   "font": "BohemiaCasing",
+   "replacement": "not a box: the lit amber of the speed you are at, the materials' own light"
+  },
+  {
+   "screen": "map",
+   "profile": "portrait",
+   "sel": "#gearbtn.on",
+   "box": [
+    8,
+    69,
+    44,
+    44
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "6px",
+   "font": "BohemiaMono",
+   "replacement": "the gear on the speed pad's cardboard card, under the bar, square corners"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#cityfeed.on.ring",
+   "box": [
+    58,
+    54,
+    150,
+    325
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "19px",
+   "font": "BohemiaCasing",
+   "replacement": "his phone, kept as he voted it (9/27, one crack); its crack is its own candidate (10/16)"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#cityfeedscreen",
+   "box": [
+    62,
+    58,
+    142,
+    317
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "16px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#cityfeedbatt.dark",
+   "box": [
+    187,
+    65,
+    11,
+    6
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's battery glyph, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#cityfeedfade",
+   "box": [
+    62,
+    353,
+    142,
+    22
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#cityfeedglass",
+   "box": [
+    62,
+    58,
+    142,
+    317
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "his phone's glass, kept"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": ".sp.now",
+   "box": [
+    637,
+    328,
+    44,
+    44
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "2px",
+   "font": "BohemiaCasing",
+   "replacement": "not a box: the lit amber of the speed you are at, the materials' own light"
+  },
+  {
+   "screen": "map",
+   "profile": "landscape",
+   "sel": "#gearbtn.on",
+   "box": [
+    8,
+    69,
+    44,
+    44
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "6px",
+   "font": "BohemiaMono",
+   "replacement": "the gear on the speed pad's cardboard card, under the bar, square corners"
+  },
+  {
+   "screen": "settlement",
+   "profile": "portrait",
+   "sel": "#bar",
+   "box": [
+    0,
+    0,
+    390,
+    61
+   ],
+   "bg": "rgb(28, 22, 17)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the one bar: cut cardboard with its flutes along the foot, the place and the day on receipt tags"
+  },
+  {
+   "screen": "settlement",
+   "profile": "portrait",
+   "sel": "#crew",
+   "box": [
+    222,
+    8,
+    64,
+    44
+   ],
+   "bg": "rgb(42, 33, 25)",
+   "radius": "6px",
+   "font": "ui-monospace",
+   "replacement": "CREW as a receipt tag at the bar's right end, 44 points, the same place on all three screens"
+  },
+  {
+   "screen": "settlement",
+   "profile": "portrait",
+   "sel": "#leave",
+   "box": [
+    302,
+    8,
+    76,
+    44
+   ],
+   "bg": "rgb(42, 33, 25)",
+   "radius": "6px",
+   "font": "ui-monospace",
+   "replacement": "LEAVE on the taped cardboard card in the bottom right corner, the speed pad's place"
+  },
+  {
+   "screen": "settlement",
+   "profile": "portrait",
+   "sel": "#sheet",
+   "box": [
+    0,
+    825,
+    390,
+    28
+   ],
+   "bg": "rgba(22, 17, 12, 0.97)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the building's sheet a cardboard card with a strip of tape, no gold rule"
+  },
+  {
+   "screen": "settlement",
+   "profile": "portrait",
+   "sel": "#heard",
+   "box": [
+    0,
+    824,
+    390,
+    20
+   ],
+   "bg": "rgb(28, 22, 17)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the heard line printed on a receipt like the fight's hint; empty, it draws nothing"
+  },
+  {
+   "screen": "settlement",
+   "profile": "landscape",
+   "sel": "#bar",
+   "box": [
+    0,
+    0,
+    844,
+    61
+   ],
+   "bg": "rgb(28, 22, 17)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the one bar: cut cardboard with its flutes along the foot, the place and the day on receipt tags"
+  },
+  {
+   "screen": "settlement",
+   "profile": "landscape",
+   "sel": "#crew",
+   "box": [
+    676,
+    8,
+    64,
+    44
+   ],
+   "bg": "rgb(42, 33, 25)",
+   "radius": "6px",
+   "font": "ui-monospace",
+   "replacement": "CREW as a receipt tag at the bar's right end, 44 points, the same place on all three screens"
+  },
+  {
+   "screen": "settlement",
+   "profile": "landscape",
+   "sel": "#leave",
+   "box": [
+    756,
+    8,
+    76,
+    44
+   ],
+   "bg": "rgb(42, 33, 25)",
+   "radius": "6px",
+   "font": "ui-monospace",
+   "replacement": "LEAVE on the taped cardboard card in the bottom right corner, the speed pad's place"
+  },
+  {
+   "screen": "settlement",
+   "profile": "landscape",
+   "sel": "#sheet",
+   "box": [
+    0,
+    371,
+    844,
+    28
+   ],
+   "bg": "rgba(22, 17, 12, 0.97)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the building's sheet a cardboard card with a strip of tape, no gold rule"
+  },
+  {
+   "screen": "settlement",
+   "profile": "landscape",
+   "sel": "#heard",
+   "box": [
+    0,
+    370,
+    844,
+    20
+   ],
+   "bg": "rgb(28, 22, 17)",
+   "radius": "0px",
+   "font": "ui-monospace",
+   "replacement": "the heard line printed on a receipt like the fight's hint; empty, it draws nothing"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": "#top",
+   "box": [
+    0,
+    0,
+    390,
+    58
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the one bar; the round, the turn strip and AUTO ride on it as the fight's own row"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".bar",
+   "box": [
+    72,
+    736,
+    226,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": "#bhp",
+   "box": [
+    72,
+    736,
+    226,
+    5
+   ],
+   "bg": "rgb(143, 174, 106)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the health meter's fill: colour printed on the receipt meter, not a box"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".bar",
+   "box": [
+    72,
+    744,
+    226,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": "#barm",
+   "box": [
+    72,
+    744,
+    226,
+    5
+   ],
+   "bg": "rgb(154, 166, 176)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the armour meter's fill: colour printed on the receipt meter, not a box"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".bar",
+   "box": [
+    72,
+    752,
+    226,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    72,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    81,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    90,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    99,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    108,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    117,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    126,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    135,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "portrait",
+   "sel": ".on",
+   "box": [
+    144,
+    761,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": "#top",
+   "box": [
+    0,
+    0,
+    844,
+    52
+   ],
+   "bg": "rgba(0, 0, 0, 0)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the one bar; the round, the turn strip and AUTO ride on it as the fight's own row"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".bar",
+   "box": [
+    74,
+    338,
+    200,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": "#bhp",
+   "box": [
+    74,
+    338,
+    200,
+    5
+   ],
+   "bg": "rgb(143, 174, 106)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the health meter's fill: colour printed on the receipt meter, not a box"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".bar",
+   "box": [
+    74,
+    346,
+    200,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": "#barm",
+   "box": [
+    74,
+    346,
+    200,
+    5
+   ],
+   "bg": "rgb(154, 166, 176)",
+   "radius": "0px",
+   "font": "BohemiaROM",
+   "replacement": "the armour meter's fill: colour printed on the receipt meter, not a box"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".bar",
+   "box": [
+    74,
+    354,
+    200,
+    5
+   ],
+   "bg": "rgba(0, 0, 0, 0.55)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the three meters printed on receipt paper, ink and amber on paper"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    74,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    83,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    92,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    101,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    110,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    119,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    128,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    137,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  },
+  {
+   "screen": "fight",
+   "profile": "landscape",
+   "sel": ".on",
+   "box": [
+    146,
+    363,
+    7,
+    5
+   ],
+   "bg": "rgb(217, 168, 90)",
+   "radius": "1px",
+   "font": "BohemiaROM",
+   "replacement": "the action pips, ready: receipt chips lit amber"
+  }
+ ],
+ "hud": {
+  "map_portrait": {
+   "W": 390,
+   "H": 844,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    390,
+    110
+   ],
+   "clock": [
+    8,
+    6,
+    91.56,
+    44
+   ],
+   "place": [
+    105.56,
+    6,
+    57.81,
+    44
+   ],
+   "crew": [
+    272,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    330,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    8,
+    56,
+    374,
+    40
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      16,
+      63.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      98.5,
+      60.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      164.33,
+      60.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      231.73,
+      60.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      283.8,
+      62.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      351.2,
+      60.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": null,
+   "action": [
+    128,
+    774,
+    252,
+    58
+   ],
+   "words": [
+    {
+     "t": "DAY 1 \u00b7 06:00",
+     "box": [
+      8,
+      6,
+      91.56,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "SUBURB",
+     "box": [
+      105.56,
+      6,
+      57.81,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      272,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      330,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "240",
+     "box": [
+      51,
+      67.39,
+      19.52,
+      18.19
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "0",
+     "box": [
+      129.83,
+      67.41,
+      6.52,
+      18.19
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      199.33,
+      67.39,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      251.39,
+      67.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      318.8,
+      67.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      369.53,
+      67.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    }
+   ],
+   "code_left": [
+    "#cityfeed.on.ring",
+    "#cityfeedscreen",
+    "#cityfeedfade",
+    "#cityfeedglass",
+    ".sp.now"
+   ]
+  },
+  "map_landscape": {
+   "W": 844,
+   "H": 390,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    844,
+    64
+   ],
+   "clock": [
+    8,
+    6,
+    91.56,
+    44
+   ],
+   "place": [
+    105.56,
+    6,
+    57.81,
+    44
+   ],
+   "crew": [
+    726,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    784,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    414,
+    6,
+    300,
+    44
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      422,
+      15.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      489.7,
+      12.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      540.73,
+      12.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      593.34,
+      12.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      630.61,
+      14.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      683.22,
+      12.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": null,
+   "action": [
+    582,
+    320,
+    252,
+    58
+   ],
+   "words": [
+    {
+     "t": "DAY 1 \u00b7 06:00",
+     "box": [
+      8,
+      6,
+      91.56,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "SUBURB",
+     "box": [
+      105.56,
+      6,
+      57.81,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "240",
+     "box": [
+      457,
+      19.39,
+      19.52,
+      18.19
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "0",
+     "box": [
+      521.03,
+      19.41,
+      6.52,
+      18.19
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      575.73,
+      19.39,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      613,
+      19.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      665.61,
+      19.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      701.55,
+      19.41,
+      4.42,
+      18.19
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      726,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      784,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "code_left": [
+    "#cityfeed.on.ring",
+    "#cityfeedscreen",
+    "#cityfeedbatt.dark",
+    "#cityfeedfade",
+    "#cityfeedglass",
+    ".sp.now"
+   ]
+  },
+  "settlement_portrait": {
+   "W": 390,
+   "H": 844,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    390,
+    110
+   ],
+   "clock": [
+    8,
+    6,
+    48.64,
+    44
+   ],
+   "place": [
+    62.64,
+    6,
+    170.47,
+    44
+   ],
+   "crew": [
+    272,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    330,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    8,
+    56,
+    374,
+    40
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      16,
+      63.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      88.52,
+      60.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      155.27,
+      60.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      225.69,
+      60.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      280.77,
+      62.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      351.19,
+      60.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": null,
+   "action": [
+    314,
+    774,
+    66,
+    58
+   ],
+   "words": [
+    {
+     "t": "DAY 1",
+     "box": [
+      8,
+      6,
+      48.64,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "THE WASH, NORTH LAS VEGA",
+     "box": [
+      62.64,
+      6,
+      170.47,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      272,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      330,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "3",
+     "box": [
+      51,
+      67.72,
+      6.52,
+      17.55
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      119.84,
+      67.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      190.27,
+      67.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      245.34,
+      67.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      315.77,
+      67.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      369.52,
+      67.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    }
+   ],
+   "code_left": []
+  },
+  "settlement_landscape": {
+   "W": 844,
+   "H": 390,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    844,
+    64
+   ],
+   "clock": [
+    8,
+    6,
+    48.64,
+    44
+   ],
+   "place": [
+    62.64,
+    6,
+    170.47,
+    44
+   ],
+   "crew": [
+    726,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    784,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    414,
+    6,
+    300,
+    44
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      422,
+      15.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      479.72,
+      12.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      531.67,
+      12.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      587.3,
+      12.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      627.58,
+      14.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      683.2,
+      12.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": null,
+   "action": [
+    768,
+    320,
+    66,
+    58
+   ],
+   "words": [
+    {
+     "t": "DAY 1",
+     "box": [
+      8,
+      6,
+      48.64,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "THE WASH, NORTH LAS VEGA",
+     "box": [
+      62.64,
+      6,
+      170.47,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "3",
+     "box": [
+      457,
+      19.72,
+      6.52,
+      17.55
+     ],
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      511.05,
+      19.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      566.67,
+      19.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      606.95,
+      19.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      662.58,
+      19.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      701.53,
+      19.72,
+      4.42,
+      17.55
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      726,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      784,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "code_left": []
+  },
+  "fight_portrait": {
+   "W": 390,
+   "H": 844,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    390,
+    154
+   ],
+   "clock": [
+    8,
+    6,
+    22.25,
+    44
+   ],
+   "place": [
+    36.25,
+    6,
+    57.81,
+    44
+   ],
+   "crew": [
+    272,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    330,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    8,
+    56,
+    374,
+    40
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      16,
+      63.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      86.84,
+      60.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      154.02,
+      60.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      224.86,
+      60.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      280.36,
+      62.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      351.2,
+      60.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": [
+    8,
+    102,
+    374,
+    46
+   ],
+   "action": [
+    305.25,
+    721.02,
+    77.49,
+    59.97
+   ],
+   "words": [
+    {
+     "t": "R1",
+     "box": [
+      8,
+      6,
+      22.25,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "SUBURB",
+     "box": [
+      36.25,
+      6,
+      57.81,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      272,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      330,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      51,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      118.17,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      189.02,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      244.52,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      315.36,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      369.53,
+      68.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    }
+   ],
+   "code_left": []
+  },
+  "fight_landscape": {
+   "W": 844,
+   "H": 390,
+   "dpr": 3,
+   "hud": [
+    0,
+    0,
+    844,
+    64
+   ],
+   "clock": [
+    8,
+    6,
+    22.25,
+    44
+   ],
+   "place": [
+    36.25,
+    6,
+    57.81,
+    44
+   ],
+   "crew": [
+    726,
+    6,
+    52,
+    44
+   ],
+   "notes": [
+    784,
+    6,
+    52,
+    44
+   ],
+   "six": [
+    414,
+    6,
+    300,
+    44
+   ],
+   "icons": [
+    {
+     "s": "batteries",
+     "box": [
+      422,
+      15.83,
+      32,
+      25.33
+     ],
+     "nat": [
+      96,
+      76
+     ]
+    },
+    {
+     "s": "food",
+     "box": [
+      478.05,
+      12.5,
+      28.33,
+      32
+     ],
+     "nat": [
+      85,
+      96
+     ]
+    },
+    {
+     "s": "meds",
+     "box": [
+      530.42,
+      12.83,
+      32,
+      31.33
+     ],
+     "nat": [
+      96,
+      94
+     ]
+    },
+    {
+     "s": "rounds",
+     "box": [
+      586.47,
+      12.5,
+      16.66,
+      32
+     ],
+     "nat": [
+      50,
+      96
+     ]
+    },
+    {
+     "s": "tape",
+     "box": [
+      627.17,
+      14.17,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ]
+    },
+    {
+     "s": "water",
+     "box": [
+      683.22,
+      12.5,
+      15.33,
+      32
+     ],
+     "nat": [
+      46,
+      96
+     ]
+    }
+   ],
+   "turn": [
+    100.06,
+    6,
+    307.94,
+    44
+   ],
+   "action": [
+    757.28,
+    324.01,
+    77.44,
+    57.97
+   ],
+   "words": [
+    {
+     "t": "R1",
+     "box": [
+      8,
+      6,
+      22.25,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "SUBURB",
+     "box": [
+      36.25,
+      6,
+      57.81,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      457,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      509.38,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      565.42,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      606.13,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      662.17,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "\u2013",
+     "box": [
+      701.55,
+      20.05,
+      4.42,
+      16.89
+     ],
+     "ink": "rgb(191, 179, 154)"
+    },
+    {
+     "t": "CREW",
+     "box": [
+      726,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "t": "NOTES",
+     "box": [
+      784,
+      6,
+      52,
+      44
+     ],
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "code_left": [
+    "#bhp",
+    "#barm",
+    ".on",
+    ".on",
+    ".on",
+    ".on",
+    ".on",
+    ".on",
+    ".on",
+    ".on",
+    ".on"
+   ]
+  }
+ }
+}

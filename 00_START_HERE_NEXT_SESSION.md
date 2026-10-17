@@ -799,6 +799,14 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-kmqmrf): 10/17 LATEST -- [one screen] CANDIDATE in VOTE (cook only, rule 110's swing): one bar on the map, the settlement and the fight, laid in the browser only and shot at 1:1 both ways.
+The law of the layout: the top is the one bar (the clock the screen runs on, the place, the six from his packs at 96 px on glass, CREW and NOTES at the same x everywhere); the screen's own row rides under it (the fight's turn strip); the big action keeps the bottom right (speed pad, LEAVE, END TURN).
+Every code-drawn box found by machine (54 rows on six shots) is named with its replacement in the record; after the lay none is left but his phone and the lit amber. Sheets records/target/ui_one_screen/ (2.7 MB upright, 4.0 MB sideways, one whole fight 2.9 MB).
+Gate the one screen 10/0, 7 mutations; vote tab 34/3 (others' rows; main carries animation-ragdoll-10-13 and combat-zone-of-control-is-melee-only-10-13 twice, not mine to cut; my duplicate 10/13 card removed). VOTE ui-one-screen-10-17 (YES / NO). Record records/BOHEMIA_ONE_SCREEN_10_17_26.md.
+FOR RUN TWO + RUN after his FINAL: a dress function in the materials file lays the bar from tools/bohemia_ui_one_screen_hud.js's shape; CREW opens the company screen, NOTES is the shell's door; one include line each, owners' files otherwise untouched.
+NEXT: [the line on a ground] (the roster and hall on a ground from the packs).
+UNDER UI (rule 113a, one line per lane): WORDS: nothing made, no tab, its newest block says it stopped under rule 88's hold and no commit since 10/10: FROZEN. SOUNDS: the whole settlement screen heard from real recordings (0be7141, the big swing), in the VOTE tab: COOKING.
+
 UI (ui-kmqmrf): 10/16 LATEST -- [the phone's crack] CANDIDATE in VOTE (cook only): his two notes on the straight-line cracks, a row of its own.
 Pack 5 broken windows tried first: frost at 8 to 25 pt, not sent (finding sheet kept). Pack 15 'Cracked floor details' (never judged, lossless from the bank) recoloured to glass: F and G at the dropped corner, 1:1, words clear.
 Gate the phone's crack 6/0, 5 mutations; vote tab 35/2 (others' rows). VOTE ui-the-phones-crack-10-16 (F / G / NO). Record records/BOHEMIA_THE_PHONES_CRACK_10_16_26.md.
