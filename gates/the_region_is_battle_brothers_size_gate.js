@@ -12,7 +12,7 @@
 
    LEGS, on the demo's map:
      R1 *** THE MAP IS BIGGER THAN BATTLE BROTHERS' *** (blocks across and in all, against 140 and 19,600)
-     R2 *** THE FAR STOP IS THE WHOLE REGION, THE NEAR STOP A BLOCK *** (blocks across the glass at each stop)
+     R2 *** THE FAR STOP SHOWS MORE THAN BATTLE BROTHERS' WHOLE MAP, AND PANS OVER THE REGION; THE NEAR STOP A BLOCK ***
      R3 *** A CROSSING TAKES DAYS *** (the real route from the city to the far places, summed by the step cost: days)
      R4 *** HE WALKS OUT OF THE VALLEY *** (a tap on a place out there sets a journey that leaves the valley's box, and
         the party stands outside it; the clock moved)
@@ -40,8 +40,13 @@ const done = () => { console.log('THE REGION IS BATTLE BROTHERS\' SIZE: ' + pass
     const N = await fr.evaluate(() => window.BOH_REGION && BOH_REGION.ready ? BOH_REGION.numbers() : null);
     ok('*** R1 THE MAP IS BIGGER THAN BATTLE BROTHERS\' *** (' + (N && N.tilesAcross) + ' blocks across, ' + (N && N.tiles) + ' in all; Battle Brothers about 140 and 19,600; the valley alone was 96 and 9,216)',
       !!N && N.tilesAcross >= 140 && N.tiles >= 19600);
-    ok('*** R2 THE FAR STOP IS THE WHOLE REGION, THE NEAR STOP A BLOCK *** (far: ' + (N && N.farShowsBlocksAcross) + ' blocks across the glass at zoom ' + (N && N.zoomFar) + '; near: ' + (N && N.nearShowsBlocksAcross) + ' blocks at zoom ' + (N && N.zoomNear) + ')',
-      !!N && N.farShowsBlocksAcross >= N.tilesAcross * 0.95 && N.nearShowsBlocksAcross <= 6);
+    /* the camera at the far stop pans to the region's rim: every place can be brought to the middle of the glass */
+    const pan = await fr.evaluate(() => { const zb = zoomBounds(); CZOOM = zb[0]; TW = TW0 * CZOOM; TH = TH0 * CZOOM; let reach = 0;
+      for (const p of BOH_REGION.places) { const want = { x: -((p.x - city.x) - (p.y - city.y)) * TW / 2, y: -((p.x - city.x) + (p.y - city.y)) * TH / 2 };
+        panX = want.x; panY = want.y; clampPan(); if (Math.abs(panX - want.x) < 1 && Math.abs(panY - want.y) < 1) reach++; }
+      panX = 0; panY = 0; return { reach, of: BOH_REGION.places.length }; });
+    ok('*** R2 THE FAR STOP SHOWS MORE THAN BATTLE BROTHERS\' WHOLE MAP, AND PANS OVER THE REGION; THE NEAR STOP A BLOCK *** (far: ' + (N && N.farShowsBlocksAcross) + ' blocks across the glass at zoom ' + (N && N.zoomFar) + ' (the valley\'s old stop 101); the camera brings ' + pan.reach + ' of ' + pan.of + ' places to the middle; near: ' + (N && N.nearShowsBlocksAcross) + ' blocks at zoom ' + (N && N.zoomNear) + ')',
+      !!N && N.farShowsBlocksAcross >= 140 && pan.reach === pan.of && N.nearShowsBlocksAcross <= 6);
     /* R3: the real routes, costed the way a step is costed */
     const X = await fr.evaluate(() => {
       const R = BOH_REGION, far = R.places.slice().sort((a, b) => Math.max(Math.abs(b.x - city.x), Math.abs(b.y - city.y)) - Math.max(Math.abs(a.x - city.x), Math.abs(a.y - city.y)));

@@ -2528,6 +2528,14 @@ GATES = [
      'handfuls, the crowd a facing a task and never while he travels, the late load sends nothing already asked for. HOLDS: the '
      'first tap moves the party (the link to his first block, printed); no freeze over 2.5 s after BEGIN; no bake step while '
      'moving; the crowd\'s frames the same as the whole-person bake; no save put back after BEGIN. Mutations, six, each red.', True),
+    ('THE REGION IS BATTLE BROTHERS\' SIZE', ['node', 'gates/the_region_is_battle_brothers_size_gate.js'],
+     'VAMILY [the map at Battle Brothers\' size], rule 109 (Paolo 10/16: "our map has to be as big as Battle Brothers ... a larger grid '
+     'or more grids ... I\'m choosing Battle Brothers"). MEASURED: the travel grid was the valley, 96 x 96, and the land painted around '
+     'it (496 across) could not be walked; Battle Brothers is about 140 x 140. NOW slices/bohemia_region.js: a region grid of the same '
+     'blocks around the valley, read off the land painter; he walks out; twelve real places are settlements; the far stop is the whole '
+     'region. HOLDS: bigger than Battle Brothers; the far stop the region and the near stop a block; a crossing takes days; he walks '
+     'out and the clock moves; a place opens as a settlement; the places drawn; the valley\'s journeys stay in it. Mutations, three, '
+     'each red.', True),
     ('A FRESH PHONE SEES THE DOOR', ['node', 'gates/a_fresh_phone_sees_the_door_gate.js'],
      'VAMILY [a fresh phone sees the door] (EYES 1bdc7023: a wiped phone read "no title, no picks, a mid-game city in two '
      'seconds"). MEASURED: real touches never got past the title; a script\'s click on the door\'s BEGIN did, and the '

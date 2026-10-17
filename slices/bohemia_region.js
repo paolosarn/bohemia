@@ -23,8 +23,8 @@
        the Lake Mead marina, Jean, Primm, Searchlight, Indian Springs, the Mt Charleston lodge, Pahrump, Moapa,
        Mesquite), set by their real bearing from the city and pulled onto their road or open ground, drawn as the
        map's own settlement art (placeholders, rule 101), and opened as a settlement screen on arrival, like any other.
-     - THE CAMERA PULLS OUT TO THE WHOLE REGION: the far stop fits the region, not the valley; the near stop is
-       unchanged (a block at its art's own pixels).
+     - THE CAMERA PULLS OUT TWICE AS FAR AND PANS OVER THE WHOLE REGION: the far stop shows about 200 blocks across
+       (Battle Brothers' whole map is about 140 wide), the camera pans to the region's rim; the near stop is unchanged.
    ========================================================================== */
 (function(){
   'use strict';
@@ -174,13 +174,17 @@
     return inRegion(x, y) ? [x, y] : null;
   };
 
-  /* ---- the camera reaches the region's rim ---- */
+  /* ---- the camera pulls out twice as far as the valley's stop, and pans over the whole region ----
+     The first cut fit all 496 blocks to the glass: on a phone held upright the region became a thin strip in a sea of
+     sand. Battle Brothers' own camera does not show its whole world either; its far zoom shows part of it and you pan.
+     So the far stop shows twice what the valley's did (about 200 blocks across, more than Battle Brothers' whole map is
+     wide), and the camera pans to the region's rim. */
   var _zb = zoomBounds;
   zoomBounds = function(){
     var b = _zb();
     if (!R.ready) return b;
-    var D = R.D, fit = Math.min(CVW / ((D + 1) * TW0), CVH / ((D + 1) * TH0)) * 0.96;
-    return [Math.max(0.01, Math.min(b[0], fit)), b[1]];
+    var D = R.D, fitAll = Math.min(CVW / ((D + 1) * TW0), CVH / ((D + 1) * TH0)) * 0.96;
+    return [Math.max(fitAll, b[0] * 0.5), b[1]];
   };
   var _cp = clampPan;
   clampPan = function(){

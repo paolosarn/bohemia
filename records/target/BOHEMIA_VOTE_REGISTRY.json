@@ -8532,7 +8532,6 @@
     },
     "draft": true
    },
-{"id": "run-the-map-people-come-baked-10-13", "kind": "ui", "lane": "run", "sha": "fbe21f23", "made": "10/13", "title": "YOUR PARTY MOVES 16 SECONDS AFTER THE LINK, NOT 33", "why": "The demo used to draw the map's people from scratch every time it opened; now it brings them already drawn, so BEGIN lights sooner and your party moves about 16 seconds after the link on a slow phone, down from 20 last build and 33 the build before. You see it on the DEMO: open the link, press BEGIN, tap the map.", "show": {"how": "image", "src": "vote/RUN_THE_MAP_PEOPLE_COME_BAKED_10_13.png"}},
   {"id": "combat-zone-of-control-is-melee-only-10-13", "kind": "ui", "lane": "combat", "sha": "ccd65a9", "made": "10/13", "title": "A GUNMAN HOLDS NO RING", "why": "A man holding a pistol, shotgun or rifle no longer blocks the squares around him, so you walk right past and across him with no free hit, while a man with a pipe, blade or axe still stops you and his squares are ringed in red on your turn. Walk a man past an enemy gunman in any fight and you see it, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_ZONE_OF_CONTROL_IS_MELEE_ONLY_10_13.jpg"}, "draft": true},
     {
      "id": "sounds-the-recap-speaks-10-16",
@@ -8551,7 +8550,8 @@
      },
      "draft": true
     },
-  {"id": "combat-guns-need-two-tiles-10-16", "kind": "ui", "lane": "combat", "sha": "a22bf3e", "made": "10/16", "title": "GUNS FROM TWO TILES", "why": "A rifle now hits anyone from two squares out to six and never the man right beside the shooter, where before it could only hit a man at exactly six squares, and an enemy rifleman who starts next to your man steps back first and then fires. Put a rifleman in any fight and you see the men he can hit boxed in red, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_GUNS_NEED_TWO_TILES_10_16.jpg"}, "draft": true}
+  {"id": "combat-guns-need-two-tiles-10-16", "kind": "ui", "lane": "combat", "sha": "a22bf3e", "made": "10/16", "title": "GUNS FROM TWO TILES", "why": "A rifle now hits anyone from two squares out to six and never the man right beside the shooter, where before it could only hit a man at exactly six squares, and an enemy rifleman who starts next to your man steps back first and then fires. Put a rifleman in any fight and you see the men he can hit boxed in red, in the VOTE tab and the demo, NOT IN A TAB YET.", "show": {"how": "image", "src": "vote/COMBAT_GUNS_NEED_TWO_TILES_10_16.jpg"}, "draft": true},
+{"id": "run-the-region-10-16", "kind": "ui", "lane": "run", "sha": "pending", "made": "10/16", "title": "THE MAP GOES PAST THE CITY: 496 BLOCKS, TWELVE TOWNS", "why": "Your party can now walk out of the city into the desert around it, five times wider than the city and wider than Battle Brothers' whole map, to twelve real towns from Henderson to Mesquite, and a crossing takes days. You see it on the DEMO's map: pinch all the way out, drag around, tap a town out in the desert.", "show": {"how": "image", "src": "vote/RUN_THE_REGION_10_16.png"}}
  ],
  "verdicts": [
   {
