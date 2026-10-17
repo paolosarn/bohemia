@@ -337,6 +337,11 @@ records/BOHEMIA_MODS_HOW_A_MOD_TRAVELS_10_10_26.md; tool tools/bohemia_mods_pack
 one plain sentence; a non-JSON patch file is left out and named. BB/other-game facts are from general knowledge, said so in the record. NEXT
 OPEN: [example for every kind], [read count four], [grok sources]. PENDING Paolo: nothing.
 
+TUNING (tuning-016plz, opened by the coordinator under rule 111): 10/17 (o) LATEST -- THE BIG SWING [the one table seeded] SHIPPED (research, no code touched; a page, no VOTE sheet per rules 88 and 110c). Also closed [the ring] and [the injury table] from the same read.
+TAB: NOT IN A TAB YET (research pages). The table: records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md; the page: records/BOHEMIA_TUNING_THE_ONE_TABLE_SEEDED_FROM_THE_FIGHT_FILE_10_17_26.md; the bank: banks/BOHEMIA_TUNING_THE_ONE_TABLE_SEED_10_17_26.json (draft:true); the instrument: tools/bohemia_tuning_one_table_seed.js --write.
+FINDING: 160 rows read off the live fight and data, every one with a source and a feel line (88 rule keys, 54 columns, 7 typed escapes, 11 unread rows). The veteran's 10 percent death roll (third votes) is in the table and the fight never reads it: every man rolls at 20. The clinic's 20 / 0.2 / 0.5 are typed in the roster with their wiki rows unread.
+NEXT OPEN: [the 32 situations], [origin food and goods], [the settlement's numbers] (added this round). PENDING Paolo: nothing.
+
 TUNING (tuning-f59l1w): 10/10 (n) LATEST -- [origin renown and relations] SHIPPED (research, no code touched).
 TAB: VOTE, item WHAT EACH ORIGIN STARTS KNOWN FOR (draft:true).
 RECORD: records/BOHEMIA_TUNING_ORIGIN_RENOWN_AND_RELATIONS_ORIGINS_JSON_HAS_NONE_OF_THEM_10_10_26.md (+ table JSON, all 15 cited to their pages)
