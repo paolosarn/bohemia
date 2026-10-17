@@ -8648,6 +8648,29 @@
     ]
    },
    "draft": true
+  },
+  {
+   "id": "cook2-the-vegas-block-10-17",
+   "kind": "tile",
+   "lane": "cook 2",
+   "sha": "pending",
+   "made": "10/17",
+   "title": "CANDIDATE: A WHOLE VEGAS BLOCK OF GROUND FROM YOUR OWN TILES, NOTHING DRAWN",
+   "why": "Four streets round one block, the sidewalks raised on a curb at every corner, your zebras and your orange and white paint lifted off your tiles and laid along each street, your cars and your props placed, beside the same block laid with your tiles as bought. You see it in the VOTE tab, a candidate, nothing final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK2_THE_VEGAS_BLOCK.png"
+   },
+   "question": "Does this read as one block of Vegas you could fight on?",
+   "placeholder_of": "kit_street and kit_cover (placeholders since rule 101)",
+   "twin": {
+    "src": "pack:1. Cracked street tiles#15",
+    "diffs": [
+     "NO GRID: the frames cut; the seams are less dark than the cracks inside your tiles (13% against 24%).",
+     "THE PAINT RUNS WITH THE STREET: lifted off your tiles as a layer and laid along every street and across all sixteen approaches; as bought it only goes where a whole tile fits.",
+     "THE CURB STANDS UP AT ALL SIXTEEN CORNERS AND THE DRIVEWAY: your slab's own south face; the pack holds no curb."
+    ]
+   }
   }
  ],
  "verdicts": [

@@ -6742,7 +6742,8 @@ RUN TWO 10/9 c: fixed 10 vote whys from other lanes this round; [PENDING coordin
 - RUN TWO 10/10 [the stash screen] SHIPPED: slices/BOHEMIA_STASH_SCREEN.html (BOHEMIA_STASH_OPEN in, BOHEMIA_STASH out). RUN: open it from the bar's six. ECONOMY: water has no daily rate. Next: [the arrival].
 
 
-## COOK TWO (cook 2, the ground) -- 10/16 cook2-b27d
+## COOK TWO (cook 2, the ground) -- 10/17 cook2-b27d
+10/17 THE BIG SWING (rule 110): A WHOLE VEGAS BLOCK OF GROUND FROM HIS TILES, done, in VOTE as cook2-the-vegas-block-10-17 (records/target/COOK2_THE_VEGAS_BLOCK.png; tools/bohemia_cook2_the_vegas_block_10_17_26.py; records/BOHEMIA_COOK2_THE_VEGAS_BLOCK_10_17_26.md). Four streets round a lot, 16 curb returns from the 47 rule, the paint LIFTED off his tiles as a layer and laid along each street (only the flat paint turns, never the asphalt), five of his cars and fourteen of his props placed, cracks and scorch darken-only; 62/62 untouched cells inside the family range, seams 13% dark against 24% inside. A catch: a transparent pixel is RGB 0 and darken-only read it as black (whitened first in this tool). Nothing to slices/ (rule 100). NEXT: DIRECTION's rule-87 pass on the block; then [the same crossing before and after] (top OPEN) or his moodboard when it lands.
 COOK ONLY (rules 100/101/108). Rule 95.1 turned: [the corners], [no borders], [one at a time] SHIPPED as candidates with their shas (his UP 'not final' on two). [stretch the pack] SHIPPED after three rounds (recipes tools/bohemia_cook2_stretch_the_pack.py incl. recolour(); crossing; the 47; faction recolour sheet in VOTE). Still CLAIMED: [the curb has height] (waiting on his word). Next: [the same crossing before and after] (top OPEN), or his moodboard when it lands.
 
 ## COOK THREE (cook 3, the people, rule 87) -- 10/10 cook3-vamily
