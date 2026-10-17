@@ -107,8 +107,15 @@
     var base = _mins(x, y);   /* the street's own rough-going block, with the scout's multiplier */
     var p = passAt(x, y);
     var m = base * (p === 1 ? COST[1] : p === 2 ? COST[2] : COST[0]);
-    R.steps++; R.mins += m;
     return m;
+  };
+
+  /* ---- a step he actually took out there (counted where the party moves, not where a route is costed) ---- */
+  var _step = stepOnce;
+  stepOnce = function(di){
+    var moved = _step.apply(this, arguments);
+    try { if (moved && !inCity(city.x, city.y)) { R.steps++; R.lastOut = [city.x, city.y]; } } catch(_e){}
+    return moved;
   };
 
   /* ---- the route: inside the valley exactly as before; anything that leaves it, by cost over both grids ---- */

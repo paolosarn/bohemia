@@ -67,12 +67,6 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
   try {
     d = await drive.open({ throttle: 4, pages: true, keepCards: true, boot: 200000, door: 5000, settle: 200000, world: 1,
       beforeGoto: async (cdp, page) => { CDP = cdp;
-        await page.addInitScript(() => {
-          /* M11: every gap between the map's own frames, in the map */
-          if (/BOHEMIA_CITY_WORLD/.test(location.href)) { window.__FGAPS = []; let last = 0;
-            const tick = (t) => { if (last) window.__FGAPS.push([Math.round(window.parent.performance.now() - (performance.now() - t)), Math.round(t - last)]); last = t; requestAnimationFrame(tick); };
-            requestAnimationFrame(tick); }
-        });
         await page.addInitScript(() => { if (window !== window.top) return; window.__LT = [];
           /* the page's own record that the map said moving (a poll from here can miss a short trip on a busy box) */
           window.__SAW_MOVING = 0; window.addEventListener('bohemia-mapstate', (e) => { if (e.detail && e.detail.moving) window.__SAW_MOVING++; });
@@ -82,6 +76,10 @@ const bakesDone = () => !!(window.CROWD_HOLD && typeof CREST !== 'undefined' && 
         let fr = null;
         while (!(fr = page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url()))) || !(await fr.evaluate(() => typeof city !== 'undefined' && !!window.__CITY && typeof TH !== 'undefined').catch(() => false))) await page.waitForTimeout(100);
         const fb = await (await fr.frameElement()).boundingBox();
+        /* M11: every gap between the map's own frames, from here on, on the shell's clock */
+        await fr.evaluate(() => { window.__FGAPS = []; let last = 0;
+          const tick = (t) => { if (last) window.__FGAPS.push([Math.round(window.parent.performance.now() - (performance.now() - t)), Math.round(t - last)]); last = t; requestAnimationFrame(tick); };
+          requestAnimationFrame(tick); });
         /* aimed before BEGIN lights, the way a finger is: three blocks east of the party, open ground */
         const tgt = await fr.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); const q = __CITY.isoAt(city.x + 3, city.y);
           window.__X0 = { x: city.x, y: city.y };
