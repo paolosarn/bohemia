@@ -26,6 +26,7 @@ const { proofShot } = require(path.join(__dirname, '..', 'tools', 'bohemia_proof
 const PORT = 8833;
 const SHOT = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SETTLEMENT_SCREEN_10_1.png'));
 const SHOT2 = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_SETTLEMENT_SCREEN_BARBER_10_1.png'));
+const SHOT3 = proofShot(path.join(ROOT, 'slices/vote/RUN2_THE_OFFER_IS_A_MOUTH_10_17.png'));   /* [the offer is a mouth]: the client speaking under his face */
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json' };
 
 let pass = 0, fail = 0;
@@ -206,6 +207,32 @@ const srv = http.createServer((rq, rs) => {
   await tapB('board'); await p.waitForTimeout(250);
   const skulls = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act em')).map(e => e.textContent));
   ok('the board is where work is: each job shows its skulls and its pay', skulls.length > 0 && skulls.every(t => /\u2620/.test(t) && /batt/.test(t)), skulls.join(' / '));
+
+  /* THE OFFER IS A MOUTH (RUN TWO 10/17, rule 51c and rule 19: 'text comes from a mouth with a portrait',
+     'accepting is at the place'): the people who need the work stand at the board with faces and names; tap
+     one and HE speaks the job in two sentences with the pay in his mouth, under his own face, never the elder's;
+     Take it and Not now are the only answers; Not now costs nothing (rule 35c) */
+  const clients = await p.evaluate(() => [].slice.call(document.querySelectorAll('#sbody .act.client')).map(b => ({
+    face: (b.querySelector('canvas.face') || { dataset: {} }).dataset.face || null, name: (b.querySelector('.cn') || {}).textContent || '',
+    title: (b.querySelector('span') || {}).textContent || '', pay: parseInt(((b.querySelector('em') || {}).textContent || '').replace(/\D+/g, ''), 10) })));
+  ok('THE OFFER IS A MOUTH: every job at the board is a person with a face and a name', clients.length > 0 && clients.every(c => c.face && c.face !== 'none' && c.name.length > 3 && c.title.length > 3),
+     clients.map(c => c.name + ' (' + c.face + ')').join(' / '));
+  const mb0 = await p.evaluate(() => BohemiaSettlement.state.held.length);
+  const mbat0 = await p.evaluate(() => window.BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity'));
+  await p.click('#sbody .act.client'); await p.waitForTimeout(300);
+  const spoke = await p.evaluate(() => { const w = document.querySelector("#sbody .who"); if (!w) return null;
+    const txt = (w.querySelector('p') || {}).textContent || '';
+    return { nm: (w.querySelector('.nm') || {}).textContent || '', txt, face: (w.querySelector('canvas.face') || { dataset: {} }).dataset.face || null,
+      sentences: (txt.match(/[.!?](\s|$)/g) || []).length, acts: [].slice.call(document.querySelectorAll('#sbody .act')).map(b => (b.querySelector('span') || b).textContent.trim()) }; });
+  ok('  tap one and HE speaks it under his own face, not the elder', !!spoke && spoke.nm === clients[0].name && spoke.face && spoke.face !== 'none', spoke && (spoke.nm + ' (' + spoke.face + ')'));
+  ok('  in two sentences, the pay in his mouth', !!spoke && spoke.sentences === 2 && new RegExp('\\b' + clients[0].pay + ' batteries').test(spoke.txt), spoke && (spoke.sentences + ' sentences: ' + spoke.txt.slice(0, 70) + '...'));
+  ok('  and the only answers are Take it and Not now', !!spoke && spoke.acts.join('|') === 'Take it|Not now', spoke && spoke.acts.join('|'));
+  if (SHOT3) await p.screenshot({ path: SHOT3 });
+  await p.click('#sbody .act:has-text("Not now")'); await p.waitForTimeout(300);
+  const nn = await p.evaluate(() => ({ held: BohemiaSettlement.state.held.length, open: BohemiaSettlement.state.open, clients: document.querySelectorAll('#sbody .act.client').length,
+    bats: window.BohemiaPurse.balance(BohemiaSettlement.state.purse, 'electricity'), told: (window.__settleLog || []).filter(m => m.act === 'contract').length }));
+  ok('  Not now is free: nothing held, nothing spent, nothing told to the game, the people still at the board', nn.held === mb0 && nn.bats === mbat0 && nn.told === 0 && nn.open === 'board' && nn.clients === clients.length,
+     'held ' + nn.held + ', batteries ' + mbat0 + ' -> ' + nn.bats + ', ' + nn.clients + ' at the board');
 
   /* A PLACE HAS TRAITS (rule 71): the same town rolled two ways looks different, prices differently,
      and the keeper says why first */

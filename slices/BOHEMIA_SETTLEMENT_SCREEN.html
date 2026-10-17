@@ -83,6 +83,12 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 .act{min-height:48px;text-align:left;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}
 .act[disabled]{opacity:.45}
+/* the client at the board: his face, his name, what he needs, the skulls and pay (RUN TWO 10/17) */
+.act.client{justify-content:flex-start}
+.act.client .face.small{width:48px;height:48px;flex:0 0 48px}
+.act.client .cl{flex:1 1 auto;display:flex;flex-direction:column;gap:2px;min-width:0}
+.act.client .cn{font-style:normal;color:var(--gold);font-size:10px;letter-spacing:1px}
+.act.client em{margin-left:auto}
 .act em{font-style:normal;color:var(--gold);white-space:nowrap}
 .slots{margin-top:10px;color:var(--dim);font-size:12px}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
@@ -365,15 +371,24 @@ var KEEPERS = {
    them, the place offers them from a mouth. Offers per tier from QUESTS round three
    (camp 1, town 2, fortress 3). Pay is ONE battery (EVERYTHING COSTS ONE) until TUNING
    prices a contract. Words are draft:true attempts. */
+/* THE OFFER IS A MOUTH (RUN TWO 10/17, rule 51c and rule 19: 'text comes from a mouth with a portrait',
+   'accepting is at the place'): every contract has a CLIENT, the person who needs it done, with a name,
+   where he is from, and a look (his face is the 64 on that sheet, PORTRAIT's when handed). He speaks the
+   job in TWO sentences and the pay in the second ({pay} is filled from this row's pay, never typed twice).
+   The array stays a pure literal: the phone's board (bohemia_phone_board.js) reads it as text. */
 var OFFERS = [
   {id:'ct-escort-water', skulls:1, title:'Walk the water cart to the pump', pay:30, draft:true,
-   says:'The cart goes to the pump at dawn, mijo. Two hands, one battery when it comes back full.'},
+   client:{name:'Doña Carmen', from:'who runs the pump', look:'cast_apron', draft:true},
+   says:'The cart goes to the pump at dawn, mijo, and the last two boys who walked it came back with nothing. Two hands beside it there and back, and {pay} batteries when it comes home full.'},
   {id:'ct-road-crew', skulls:2,    title:'Run the road crew off the corner', pay:60, draft:true,
-   says:'Six of them on the corner, pipes and one pistol. They leave, you get paid. Simple.'},
+   client:{name:'Beto', from:'from the corner store', look:'cast_shortcoat', draft:true},
+   says:'Six of them sit on my corner with pipes and one pistol, and nobody buys from me while they sit there. They leave, and you get {pay} batteries, simple as that.'},
   {id:'ct-find-the-kid', skulls:2, title:'Find the Ortiz kid', pay:60, draft:true,
-   says:'The Ortiz boy went out for copper and did not come back. Bring him home, alive if you can.'},
+   client:{name:'Marisol Ortiz', from:'the kid\'s mother', look:'cast_skirt', draft:true},
+   says:'My boy went out past the fence for copper three days ago and did not come back. Bring him home, alive if you can, and the {pay} batteries I have are yours.'},
   {id:'ct-dogs', skulls:3,         title:'Clear the dog lot', pay:90, draft:true,
-   says:'The dogs took the lot behind the wash. Not pets no more. Clear it and the lot is ours again.'}
+   client:{name:'Old Tavo', from:'who had the lot', look:'cast_widebrim', draft:true},
+   says:'The dogs took the lot behind the wash and they are not pets no more, carnal. Clear it so it is ours again, and the block pays {pay} batteries the day it is quiet.'}
 ];
 var TIER_OFFERS = {camp:1, town:2, fortress:3};
 /* PAY BY SKULLS (10/5, with the market): a job must buy a gun, so it pays like Battle Brothers' at
@@ -939,6 +954,40 @@ function speak(k, line){
   var p = document.createElement('p'); p.textContent = line; s.appendChild(p);
   w.appendChild(s); return w;
 }
+/* THE CLIENT AT THE BOARD (RUN TWO 10/17, [the offer is a mouth]): a person, not a line of text. The button
+   is his face, his name and where he is from, what he needs in a word, and the skulls and pay at the right
+   (the phone's board and the loop gates read the title span and the em, so they stay first and last). */
+function clientWho(o){ return 'settle-client:' + o.id; }
+function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCase(); }
+function clientAct(o, full){
+  var b = act(o.title, '☠'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){ offerSpeak(o); }, full);
+  b.className = 'act client'; b.dataset.id = o.id;
+  var f = face(null, clientWho(o), o.client.look); f.classList.add('small');
+  var cl = document.createElement('div'); cl.className = 'cl';
+  var cn = document.createElement('i'); cn.className = 'cn'; cn.textContent = clientName(o);
+  cl.appendChild(b.firstChild);   /* the title span moves inside, still the first span */
+  cl.appendChild(cn);
+  b.insertBefore(cl, b.firstChild); b.insertBefore(f, b.firstChild);
+  return b;
+}
+/* HE SPEAKS IT: two sentences, the pay in the second, under his own face; Take it or Not now */
+function offerSpeak(o){
+  S.open = 'board';
+  var body = document.getElementById('sbody'); body.textContent = '';
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(face(null, clientWho(o), o.client.look));
+  var sy = document.createElement('div'); sy.className = 'say';
+  var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
+  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, o.pay); sy.appendChild(pp);
+  w.appendChild(sy); body.appendChild(w);
+  var acts = document.createElement('div'); acts.className = 'acts';
+  acts.appendChild(act('Take it', '', function(){
+    S.held.push(o.id); post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, o.pay)})}); heard('On your phone: '+o.title+', for '+o.client.name+'.'); shelf(); openB('board', 'Bueno. ' + o.client.name + ' will sleep tonight.');
+  }, S.held.length>=SLOTS));
+  acts.appendChild(act('Not now', '', function(){ post('declined',{contract:o.id}); openB('board', 'Ni modo. ' + o.client.name + ' will keep asking around, no hard feelings.'); }));
+  body.appendChild(acts);
+  post('offer', {contract:o.id, who:clientWho(o), look:o.client.look});
+  document.getElementById('sheet').classList.add('on');
+}
 function act(label, right, fn, off){
   var b = document.createElement('button'); b.className = 'act'; b.disabled = !!off;
   var l = document.createElement('span'); l.textContent = label; b.appendChild(l);
@@ -970,20 +1019,16 @@ function openB(k, line){
     }
   }
   else if(k==='board'){
-    var n = TIER_OFFERS[S.place.tier] || 1, shown = 0;
-    body.appendChild(speak(k, line || (S.held.length>=SLOTS ? 'You already carry two jobs. Finish one, then come talk to me.' : 'This is what the block needs. Pay is said now and it does not change.')));
+    /* THE OFFER IS A MOUTH (RUN TWO 10/17, rule 51c, rule 19): the elder keeps the board, he does not
+       offer the work. The people who NEED it stand here with their faces; tap one and HE speaks his job
+       in two sentences with the pay in his mouth; Take it or Not now are the only answers, and Not now
+       costs nothing (rule 35c). The phone only lists (UI's board); accepting happens here, from a face. */
+    var n = TIER_OFFERS[S.place.tier] || 1, shown = 0, full = S.held.length>=SLOTS;
+    body.appendChild(speak(k, line || (full ? 'You already carry two jobs. Finish one, then come talk to these people.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
     for(var i=0;i<OFFERS.length && shown<n;i++){
       (function(o){
         if(S.held.indexOf(o.id)>=0) return; shown++;
-        acts.appendChild(act(o.title, '\u2620'.repeat(o.skulls||1) + '  ' + o.pay + ' batt', function(){
-          openB('board', o.says);
-          var sb = document.getElementById('sbody').querySelector('.acts');
-          sb.textContent = '';
-          sb.appendChild(act('Take it', '', function(){
-            S.held.push(o.id); post('contract',{contract:o}); heard('On your phone: '+o.title+'.'); shelf(); openB('board');
-          }, S.held.length>=SLOTS));
-          sb.appendChild(act('Leave it', '', function(){ openB('board','Nobody will hold it against you.'); }));
-        }, S.held.length>=SLOTS));
+        acts.appendChild(clientAct(o, full));
       })(OFFERS[i]);
     }
     var sl = document.createElement('div'); sl.className = 'slots';
