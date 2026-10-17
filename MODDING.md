@@ -6,6 +6,8 @@ Everything here is help. Nothing refuses your mod, and nothing says what you may
 A folder of small JSON files. Each file changes one of the game's data files. You write only what you change; the rest stays as the game ships it.
 
 ## Where the game's data lives
+Every kind of content, where it lives today (a data file, a table in code, or baked), who reads it and how you see a change, is one measured page: `records/BOHEMIA_MODS_THE_DATA_LINE_EVERY_CONTENT_KIND_10_17_26.md` (47 kinds; 14 are a file you edit and reload).
+
 `records/target/bb/` holds the data files (weapons.json, enemies.json, origins.json, perks.json and more). Open `weapons.json`, find `knife`, and you can see every number a weapon has. The schema page lists every file and field: `records/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.md`.
 
 ## The folder
@@ -29,7 +31,7 @@ It says what changed and, for anything it skipped, what that means and how to fi
 A whole array replaces the whole list.
 
 ## Examples to copy
-Ten working folders are in `tools/mods_reference/example_mods/`, with a README. Start with knife-harder, new-sword and quicker-stab. A page of nine cards is in the VOTE tab list as MODS TO COPY.
+Fifteen working folders are in `tools/mods_reference/example_mods/`, with a README. Start with knife-harder, new-sword and quicker-stab; cheaper-batteries and more-action-points show a settings file; friendlier-crews a table under its own key. A page of nine cards is in the VOTE tab list as MODS TO COPY.
 
 ## When something is wrong
 The loader names the file and field. Every message has a code (M01 to M20) with the fix in plain words: `records/BOHEMIA_MODS_PLAIN_WORDS_WHEN_A_MOD_IS_WRONG_10_10_26.md`.
