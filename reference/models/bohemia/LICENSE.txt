@@ -1,0 +1,6 @@
+dire_wolf.glb (ANIMATION [the beast in eight], 10/17/26): a derivative of the Khronos glTF sample Fox
+(reference/models/khronos/Fox.glb). The fox model is CC0 by PixelMannen; its rig and the Survey, Walk and Run clips are
+CC BY 4.0 by tomkranis (glTF conversion by AsoboStudio and scurest, CC BY 4.0). Attribution owed and given here.
+What is ours (tools/bohemia_animation_the_beast_in_eight_prep.py): the recoloured coat, the wider body and heavier skull,
+and the Bite clip posed on the same bones. Rendered through DIRECTION's master rig (tools/bohemia_direction_master_rig.py).
+A placeholder (ROUND THIRTEEN): the real dire wolf model is a later cook, one at a time, after the moodboard.

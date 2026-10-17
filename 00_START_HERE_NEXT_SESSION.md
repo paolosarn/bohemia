@@ -1156,6 +1156,24 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
+ANIMATION (animation-lr9y9i): 10/17 (a) LATEST -- *** [the beast in eight] IN VOTE AS A PLACEHOLDER (rule 110's swing,
+run to the end, no check-in). TAB: VOTE, PLACEHOLDER: THE DIRE WOLF IN EIGHT, eight facings x idle/step/bite playing on the
+beat at 1:1, the game's one-way wolf and the pack's wolf beside it. *** DIRECTION's rig (564e1b10) unblocked it; measured
+first, nothing else was needed. The fox made a dire wolf IN BLENDER before the camera
+(tools/bohemia_animation_the_beast_in_eight_prep.py: grey coat at the source, 1.2 wider, skull 1.18, a BITE posed on its
+own neck/head/spine/root/front-leg bones from the idle's first frame), reference/models/bohemia/dire_wolf.glb + LICENSE;
+DIRECTION's rig UNCHANGED at 1.6 m: records/target/master_rig/dire_wolf (200 frames, raws not committed); the bake
+(tools/bohemia_animation_the_beast_in_eight_bake.py) to one 16-colour palette, slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.webp
++ .json + _TABLE.js (the page reads a script, fetch is refused on file://) + the sheet
+records/target/master_rig/ANIMATION_THE_BEAST_IN_EIGHT.png. THE RIG'S LOOP: the first bite reached DOWN (re-posed up, a
+man's chest); the spring moved the body 14 px between keys (cut twice, 12.1 now); my invented 'half the silhouette' line
+failed at 50.5 on a thin body shifting 12 px and was REPLACED by FOUR LEGS' older 16 px line, said in the record. Gate
+BEAST IN EIGHT 26/0 (6 mutations), SPRITE SCALE 10/0, filmed in chromium: 26 canvases all change, 0 errors. Known: no jaw
+bone, a fox's silhouette, the still is a sniff pose, no ear tag. records/BOHEMIA_THE_BEAST_IN_EIGHT_10_17_26.md. NEXT:
+the same pipe for [the bestiary walks] (any glTF with a walk and an idle); [eight through the rig] is half done by this
+(the beast half; the person half waits for a model with a face, DIRECTION's note). Still waiting his FINAL: [ragdoll],
+[the party walks as one].
+
 ANIMATION (animation-lr9y9i): 10/16 (a) LATEST -- *** [the beast in eight] NOT CLAIMED: BLOCKED, MEASURED. NOT IN A
 TAB (nothing made). *** Rule 108 (a) kills re-drawing the [four legs] wolf in code; the generator hosts
 (api.retrodiffusion.ai, api.pixellab.ai) are refused by this container's network policy (403 at the proxy) and

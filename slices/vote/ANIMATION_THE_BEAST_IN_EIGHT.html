@@ -1,0 +1,56 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The beast in eight</title>
+<!-- ANIMATION [the beast in eight], 10/17 (rule 107, Paolo 10/10: 'when you create something it has to be made in all eight
+     directions'; rule 110's big swing). PLACEHOLDER until the moodboard (ROUND THIRTEEN). Played LIVE on the 120 beat from
+     ANIMATION_THE_BEAST_IN_EIGHT.webp (lossless, the drawn keys only: idle 12, step 6, bite 6; three keys a beat), eight
+     facings each, ONE ART PIXEL TO ONE PHONE PIXEL; the game's own wolf today (SE only, it never had eight) and the pack's
+     grey wolf beside it. The frames come from DIRECTION's master rig (one camera, 57 px a metre) turning a 3D wolf: rule 108,
+     no pixel drawn in code. Rule 25: an item is asked ONCE, on the row; no vote inside the page. Two sentences. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:10px 0 4px}
+  .grid{display:grid;grid-template-columns:28px repeat(3,max-content);gap:4px 10px;align-items:end}
+  .dir{font-size:9px;color:#6d6656}
+  .h{font-size:9px;color:#6d6656;letter-spacing:1px}
+  canvas,img{display:block;image-rendering:pixelated;background:#2a2219;border-radius:2px}
+  .row{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+  .cap{font-size:9px;color:#6d6656;max-width:22ch}
+</style>
+<h1>PLACEHOLDER: THE DIRE WOLF IN EIGHT</h1>
+<p>The dire wolf now faces all eight ways, with an idle, a step and a bite in each, drawn from a 3D wolf turned under the one camera at the game's true size, so no direction is a mirror of another. You see it here playing on the beat at the game's own pixels, beside the one-way wolf the fight has today and the pack's grey wolf; it is a placeholder until your moodboard.</p>
+<div class="lab">THE DIRE WOLF, EIGHT FACINGS, LIVE</div>
+<div class="grid" id="g"><div></div><div class="h">IDLE</div><div class="h">STEP</div><div class="h">BITE</div></div>
+<div class="lab">BESIDE IT</div>
+<div class="row" id="side"></div>
+<script src="ANIMATION_THE_BEAST_IN_EIGHT_TABLE.js"></script>
+<script>
+(function(){
+  var BEAT=500, DIRS=['S','SE','E','NE','N','NW','W','SW'], T=null, im=new Image(), cells=[];
+  var dpr=window.devicePixelRatio||1;   /* one art pixel to one phone pixel */
+  function canvas(w,h){ var c=document.createElement('canvas'); c.width=w; c.height=h; c.style.width=(w/dpr)+'px'; c.style.height=(h/dpr)+'px'; return c; }
+  (function(t){ T=t;
+    var g=document.getElementById('g'), CW=t.cell[0], CH=t.cell[1];
+    DIRS.forEach(function(d){ var l=document.createElement('div'); l.className='dir'; l.textContent=d; g.appendChild(l);
+      t.clips.forEach(function(c){ var cv=canvas(CW,CH); g.appendChild(cv); cells.push({cv:cv,row:t.rows[d],col:c.col,keys:c.keys,beats:c.beats,gy:t.ground_y}); }); });
+    var side=document.getElementById('side'); var gw=t.game_wolf;
+    gw.clips.forEach(function(c){ var w=document.createElement('div'); var cv=canvas(CW,CH); w.appendChild(cv);
+      var cap=document.createElement('div'); cap.className='cap'; cap.textContent='the game\'s wolf today, SE, '+c.name+' (its only facing)'; w.appendChild(cap); side.appendChild(w);
+      cells.push({cv:cv,row:gw.row,col:c.col,keys:c.keys,beats:c.beats,gy:gw.ground_y}); });
+    var pk=document.createElement('div'); var pi=new Image(); pi.src='ANIMATION_THE_BEAST_IN_EIGHT_PACK.png'; pi.onload=function(){ pi.style.width=(pi.naturalWidth/dpr)+'px'; pi.style.height=(pi.naturalHeight/dpr)+'px'; };
+    pk.appendChild(pi); var pc=document.createElement('div'); pc.className='cap'; pc.textContent='the pack\'s grey wolf (one facing, drawn 96 tall; ours is true size, a 1.6 m animal at 57 px a metre)'; pk.appendChild(pc); side.appendChild(pk);
+    im.src='ANIMATION_THE_BEAST_IN_EIGHT.webp';
+  })(window.BEAST_TABLE);
+  im.onload=function(){ var t0=performance.now(), CW=T.cell[0], CH=T.cell[1];
+    (function tick(){ var b=(performance.now()-t0)/BEAT;
+      cells.forEach(function(c){ var g=c.cv.getContext('2d'); g.imageSmoothingEnabled=false;
+        var k=Math.floor((b%c.beats)/c.beats*c.keys);
+        g.clearRect(0,0,CW,CH); g.fillStyle='#2a2219'; g.fillRect(0,0,CW,CH); g.fillStyle='#3a3024'; g.fillRect(0,c.gy,CW,3);
+        g.drawImage(im,(c.col+k)*CW,c.row*CH,CW,CH,0,0,CW,CH); });
+      requestAnimationFrame(tick); })(); };
+})();
+</script>

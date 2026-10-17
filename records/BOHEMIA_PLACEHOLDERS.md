@@ -1,7 +1,7 @@
 # THE PLACEHOLDERS (rule 101a, Paolo 10/10: 'everything I've ever seen, everything is a placeholder and nothing is fine')
 Every asset in the game today is a placeholder: made fast, never final, never edited again (rule 101c). This list is the first cut, written by the coordinator from the VOTE registry's picture and sheet items; the lanes correct it, add the files each placeholder lives in, and PLUMBER's fence reads it. An asset leaves this list only when he votes FINAL on its own sheet.
 
-## ANIMATION (25 placeholder cards)
+## ANIMATION (26 placeholder cards)
 - animation-the-idle-redone-9-21
 - animation-how-a-step-is-drawn-9-21
 - animation-the-step-drops-a-frame-9-21
@@ -27,6 +27,7 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - animation-the-town-is-alive-10-9
 - animation-the-shot-kicks-10-9
 - animation-four-legs-10-9
+- animation-the-beast-in-eight-10-17 (reference/models/bohemia/dire_wolf.glb, records/target/master_rig/dire_wolf/, slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.webp; a recoloured fox through the rig, the real dire wolf model is a later cook)
 
 ## CHARACTER (18 placeholder cards)
 - character-the-twelve-people-9-18
