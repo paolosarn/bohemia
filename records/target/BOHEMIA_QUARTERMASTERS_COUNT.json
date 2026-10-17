@@ -1,0 +1,5360 @@
+{
+ "what": "THE QUARTERMASTER'S COUNT: everything he owns, per family, and how much of it anybody has opened.",
+ "line_shape": "we own N pieces of <family> in M packs, K never opened",
+ "read_from": [
+  "banks/BOHEMIA_HD_TILE_REPO_part1.txt",
+  "banks/BOHEMIA_HD_TILE_REPO_part2.txt",
+  "banks/BOHEMIA_HD_TILE_REPO_part3.txt",
+  "banks/BOHEMIA_HD_TILE_REPO_part4.txt",
+  "reference/art_bank_index/INDEX.json",
+  "reference/art_bank/CORPUS.json"
+ ],
+ "counted_at": "bb0e387",
+ "opened_means": [
+  "(a) a tile of it is in the approved corpus (7/13 sweep)",
+  "(b) a tool, gate, slice or engine file names it (code that names a pack pulls its tiles), or a VOTE twin does",
+  "(c) a page names it and names at most 20 packs (a page naming more is an inventory, not a look)"
+ ],
+ "inventories_not_counted_as_looks": [
+  "records/BOHEMIA_ACT1_REQUIREMENTS_MATRIX_7_13_26.txt (84 packs named)",
+  "records/BOHEMIA_ACT1_VISION_AUDIT_7_13_26.txt (25 packs named)",
+  "records/BOHEMIA_ITEM_CATEGORY_PROPOSAL_7_10_26.txt (23 packs named)",
+  "records/BOHEMIA_PAOLO_LIST_DIAGNOSED_8_2_26.md (22 packs named)",
+  "records/BOHEMIA_THE_FOUR_HOLES_CHECKED_10_11_26.md (31 packs named)",
+  "records/BOHEMIA_THE_WHOLE_BANK_10_13_26.md (294 packs named)"
+ ],
+ "total": {
+  "pieces": 8674,
+  "packs": 294,
+  "approved": 1927,
+  "never_opened": 151,
+  "line": "we own 8,674 pieces in 294 packs, 151 never opened (1,927 approved in the 7/13 sweep)"
+ },
+ "families": {
+  "prop": {
+   "pieces": 3507,
+   "packs": 115,
+   "approved": 784,
+   "never_opened": 69,
+   "never_opened_packs": [
+    "10. Furnaces and smelters",
+    "10. Storage and containers",
+    "10. Telescope and astronomy tools",
+    "11. Amphoras and pottery",
+    "11. Barrels, Crates and sacks",
+    "11. Chains and hooks",
+    "11. Sci-fi furniture",
+    "11. Village furniture and props",
+    "12. Furniture and study Tables",
+    "12. Laboratory equipment",
+    "12. Treasure and loot",
+    "13. Banners and flags",
+    "13. Chairs and seating",
+    "13. Decorations",
+    "13. Furniture and seating",
+    "14. Shells and small details",
+    "14. Town square decorations",
+    "15. Benches and seating",
+    "15. Mythological Symbols",
+    "15. Robots and drones",
+    "15. winter decorations",
+    "16. Crates and cargo props",
+    "16. Lab equipment",
+    "18. Blacksmith props",
+    "18. Misc objects",
+    "19. Alien tech elements",
+    "19. Decor and homey items",
+    "19. Decorations",
+    "19. Deep sea props",
+    "19. Miscellaneous",
+    "20. Decorative village details",
+    "20. Environment Details",
+    "20. Environment set pieces",
+    "20. Extra cozy details",
+    "20. Special Sci-fi tiles",
+    "3. Bookshelves and bookcases",
+    "4. Spell books and scrolls",
+    "4. Vent and steam",
+    "5. Potion bottles and ingredients",
+    "6. Control panels and consoles",
+    "6. Ship details",
+    "7. Gears and cogs",
+    "8. Machinery parts",
+    "8. Treasure and loot",
+    "9. Boilers and tanks",
+    "9. Cables and wiring",
+    "9. Fire Traps",
+    "Barrels, crates and sacks",
+    "Coffe machines, brewing tools, mugs and drink props",
+    "Containers and items",
+    "Decor and details",
+    "Furniture and seating",
+    "Jars, pots and urns",
+    "Micro tiles",
+    "Miscellaneous props (1)",
+    "Occult and horror elements",
+    "Pastries, desserts, plates and cafe food",
+    "Patch 1 (1)",
+    "Pipes, cables and vents",
+    "Signage, menus and cafe accessories",
+    "Special Tiles (1)",
+    "Special effects",
+    "Special tiles (2)",
+    "Tables, chairs and sitting",
+    "Traps and mechanism",
+    "Traps and mechanism (1)",
+    "furniture and interior",
+    "miscellaneous props",
+    "special tiles"
+   ],
+   "line": "we own 3,507 pieces of prop in 115 packs, 69 never opened"
+  },
+  "settlement": {
+   "pieces": 1936,
+   "packs": 67,
+   "approved": 318,
+   "never_opened": 27,
+   "never_opened_packs": [
+    "10. Altars and offering",
+    "10. Bridges and wooden walkways",
+    "10. Market and stalls",
+    "10. Port decorations",
+    "10. Ruins pillars and columns",
+    "10. Spikes and harzards",
+    "12. Bridges and boardwalks",
+    "12. Cave Entrances",
+    "12. Market props and crates",
+    "13. Bridges and platforms",
+    "16. Interior cabin props",
+    "17. Mailboxes and birdhouses",
+    "17. Safehouse furniture",
+    "2. Sci-fi wall tiles",
+    "3. Wooden bridges and platforms",
+    "4. Cabins and house parts",
+    "5. Platforms",
+    "5. Windows and observation panels",
+    "6. Bridges and walways",
+    "6. building details",
+    "8. Watch towers",
+    "9. Port buildings",
+    "Pillars and columns",
+    "Stone patchs and walkways",
+    "Structures and columns",
+    "Wall and floor details (2)",
+    "bridges and walkways"
+   ],
+   "line": "we own 1,936 pieces of settlement in 67 packs, 27 never opened"
+  },
+  "ground": {
+   "pieces": 1698,
+   "packs": 53,
+   "approved": 391,
+   "never_opened": 31,
+   "never_opened_packs": [
+    "1. Grass tiles",
+    "10. Petals and ground details",
+    "12. Street Props",
+    "13. Garden beds",
+    "14. Garden furniture",
+    "15. Trees and nature",
+    "16. Trees and nature",
+    "18. Crystals and bioluminescense",
+    "18. Nature and plants",
+    "18. Pots and planters",
+    "19. Toxic crystals and mutations",
+    "2. Cliffs and ledges",
+    "20. Nature and environment",
+    "4. Flower paths",
+    "6. Frozen trees and pines",
+    "7. Bushes and shrubs",
+    "7. Windows and flower boxes",
+    "8. Rocks and frozen cliffs",
+    "8. Toxic waste and barrels",
+    "8. Trees (spring)",
+    "8. Volcanic pillars",
+    "9. Flowers and plants",
+    "9. Wells and water structures",
+    "Decorative framed garden tiles",
+    "Flowers and ground cover",
+    "Plants and bushes",
+    "Plants and greenery",
+    "Plants, decor, jars, boxes and small interior props",
+    "plants and flowers",
+    "trees and vegetation",
+    "wall tiles and cliffs"
+   ],
+   "line": "we own 1,698 pieces of ground in 53 packs, 31 never opened"
+  },
+  "road": {
+   "pieces": 600,
+   "packs": 18,
+   "approved": 290,
+   "never_opened": 2,
+   "never_opened_packs": [
+    "2. Dock planks",
+    "3. Pipe tiles"
+   ],
+   "line": "we own 600 pieces of road in 18 packs, 2 never opened"
+  },
+  "door": {
+   "pieces": 394,
+   "packs": 14,
+   "approved": 30,
+   "never_opened": 5,
+   "never_opened_packs": [
+    "10. Wooden fences and gates",
+    "12. Doors and hatches",
+    "12. Iron Gates and doors",
+    "5. Doors and arches",
+    "6. Doors and entrances"
+   ],
+   "line": "we own 394 pieces of door in 14 packs, 5 never opened"
+  },
+  "lamp": {
+   "pieces": 265,
+   "packs": 15,
+   "approved": 47,
+   "never_opened": 12,
+   "never_opened_packs": [
+    "13. Lamps and torches",
+    "13. Lanterns and warmlights",
+    "14. Lamps and lights",
+    "14. Lights and neon elements",
+    "16. Lamps and lights",
+    "16. Lanterns and glow lights",
+    "19. Torches and braziers",
+    "7. Candles and floating Lights",
+    "Lanterns and lights",
+    "Lightning and fx",
+    "Lightning and fx (1)",
+    "lightning fx"
+   ],
+   "line": "we own 265 pieces of lamp in 15 packs, 12 never opened"
+  },
+  "marking": {
+   "pieces": 188,
+   "packs": 8,
+   "approved": 67,
+   "never_opened": 3,
+   "never_opened_packs": [
+    "19. Toxic and infection growths",
+    "20. Special Hazard Tiles",
+    "20. Special hazard tiles (1)"
+   ],
+   "line": "we own 188 pieces of marking in 8 packs, 3 never opened"
+  },
+  "weapon": {
+   "pieces": 73,
+   "packs": 3,
+   "approved": 0,
+   "never_opened": 2,
+   "never_opened_packs": [
+    "16. Weapons and shields",
+    "17. Cannons and weapons"
+   ],
+   "line": "we own 73 pieces of weapon in 3 packs, 2 never opened"
+  },
+  "animal": {
+   "pieces": 13,
+   "packs": 1,
+   "approved": 0,
+   "never_opened": 0,
+   "never_opened_packs": [],
+   "line": "we own 13 pieces of animal in 1 packs, 0 never opened"
+  }
+ },
+ "packs": {
+  "1. Cobblestone floor tiles": {
+   "family": "road",
+   "tiles": 50,
+   "approved": 35,
+   "sizes": [
+    "63x96",
+    "66x94",
+    "67x96",
+    "70x72",
+    "71x94",
+    "72x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 35 tiles",
+    "gates/pack_gate.js",
+    "gates/vote_tab_gate.js",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/target/COOK_ROAD_STUDY_NUMBERS.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "1. Cracked contrete tiles": {
+   "family": "road",
+   "tiles": 45,
+   "approved": 42,
+   "sizes": [
+    "96x79",
+    "96x80",
+    "96x81",
+    "96x82",
+    "96x87",
+    "96x88"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 42 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "laws/BOHEMIA_ADDENDUM_BOUGHT_BEATS_PAINTED_7_31_26.md",
+    "records/BOHEMIA_COOK2_NO_BORDERS_MEASURED_10_10_26.json",
+    "records/BOHEMIA_COOK2_THE_47_10_13_26.json",
+    "records/BOHEMIA_COOK2_THE_CURB_MEASURED_10_11_26.json",
+    "records/BOHEMIA_COOK2_THE_SEVEN_NUMBERS_GROUND_10_11_26.json",
+    "..."
+   ]
+  },
+  "1. Cracked street tiles": {
+   "family": "road",
+   "tiles": 36,
+   "approved": 34,
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96",
+    "95x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 34 tiles",
+    "laws/BOHEMIA_ADDENDUM_BOUGHT_BEATS_PAINTED_7_31_26.md",
+    "records/BOHEMIA_COOK2_NO_BORDERS_MEASURED_10_10_26.json",
+    "records/BOHEMIA_COOK2_THE_47_10_13_26.json",
+    "records/BOHEMIA_COOK2_THE_SEVEN_NUMBERS_GROUND_10_11_26.json",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_SIDEWALK_10_10_26.md",
+    "..."
+   ]
+  },
+  "1. Floor tiles": {
+   "family": "road",
+   "tiles": 24,
+   "approved": 17,
+   "sizes": [
+    "88x96",
+    "89x96",
+    "90x96",
+    "91x96",
+    "92x96",
+    "93x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 17 tiles",
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "1. Floor tiles (1)": {
+   "family": "road",
+   "tiles": 49,
+   "approved": 14,
+   "sizes": [
+    "60x96",
+    "61x96",
+    "62x96",
+    "65x96",
+    "66x96",
+    "72x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 14 tiles",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/target/COOK_ROAD_STUDY_NUMBERS.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "1. Grass tiles": {
+   "family": "ground",
+   "tiles": 14,
+   "approved": 0,
+   "sizes": [
+    "94x96",
+    "95x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "1. Ground Tiles": {
+   "family": "ground",
+   "tiles": 39,
+   "approved": 0,
+   "sizes": [
+    "49x96",
+    "95x96",
+    "96x44",
+    "96x68",
+    "96x69",
+    "96x70"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt",
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/BOHEMIA_RUN_SLICE_7_26_26.html",
+    "tools/BOHEMIA_TERRAIN_PICKER_7_14_26.html",
+    "tools/bohemia_direction_art_bank.py",
+    "..."
+   ]
+  },
+  "1. Marble floor tiles": {
+   "family": "road",
+   "tiles": 1,
+   "approved": 0,
+   "sizes": [
+    "92x92"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "1. Metal floor tiles": {
+   "family": "road",
+   "tiles": 36,
+   "approved": 36,
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x95",
+    "96x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 36 tiles",
+    "records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md",
+    "records/tileforms/TF-RUN-004_corrugated_metal_skin.md",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-002_cook.py"
+   ]
+  },
+  "1. Tower floor tiles": {
+   "family": "road",
+   "tiles": 50,
+   "approved": 0,
+   "sizes": [
+    "96x76",
+    "96x77",
+    "96x78",
+    "96x79",
+    "96x84",
+    "96x85"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md"
+   ]
+  },
+  "1. Water Tiles": {
+   "family": "ground",
+   "tiles": 38,
+   "approved": 36,
+   "sizes": [
+    "58x96",
+    "62x96",
+    "74x96",
+    "84x96",
+    "94x96",
+    "95x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 36 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-006_cook.py"
+   ]
+  },
+  "10. Abandoned cars": {
+   "family": "prop",
+   "tiles": 20,
+   "approved": 20,
+   "sizes": [
+    "41x96",
+    "42x96",
+    "43x96",
+    "44x96",
+    "45x96",
+    "46x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "gates/scale_gate.js",
+    "records/BOHEMIA_COOK2_THE_CARS_AND_PROPS_FROM_THE_PACKS_10_10_26.md",
+    "records/tileforms/TF-CMB-003_dead_car_cover.md",
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+    "tools/bohemia_combat_cars_patch.py",
+    "tools/bohemia_cook2_the_cars_and_props_from_the_packs_10_10_26.py",
+    "..."
+   ]
+  },
+  "10. Altars and offering": {
+   "family": "settlement",
+   "tiles": 11,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "70x96",
+    "74x96",
+    "82x96",
+    "84x96",
+    "85x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Bridges and wooden walkways": {
+   "family": "settlement",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "86x96",
+    "96x36",
+    "96x37",
+    "96x41",
+    "96x49",
+    "96x52"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Furnaces and smelters": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "55x87",
+    "55x89",
+    "59x96",
+    "62x96",
+    "63x77",
+    "64x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Market and stalls": {
+   "family": "settlement",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "70x96",
+    "79x96",
+    "82x96",
+    "88x96",
+    "95x96",
+    "96x41"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Petals and ground details": {
+   "family": "ground",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "72x55",
+    "74x58",
+    "75x53",
+    "77x54",
+    "77x55",
+    "90x60"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Port decorations": {
+   "family": "settlement",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "41x96",
+    "44x96",
+    "46x96",
+    "51x96",
+    "52x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Ruins pillars and columns": {
+   "family": "settlement",
+   "tiles": 41,
+   "approved": 0,
+   "sizes": [
+    "34x96",
+    "36x96",
+    "40x96",
+    "41x96",
+    "43x96",
+    "44x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Spikes and harzards": {
+   "family": "settlement",
+   "tiles": 40,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "44x96",
+    "46x96",
+    "49x96",
+    "50x96",
+    "51x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Storage and containers": {
+   "family": "prop",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "65x96",
+    "67x96",
+    "68x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Telescope and astronomy tools": {
+   "family": "prop",
+   "tiles": 34,
+   "approved": 0,
+   "sizes": [
+    "52x96",
+    "58x96",
+    "62x96",
+    "64x96",
+    "70x96",
+    "74x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Wooden fences and gates": {
+   "family": "door",
+   "tiles": 27,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "66x96",
+    "67x96",
+    "79x80",
+    "82x96",
+    "94x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "10. Zombie bodies and bones": {
+   "family": "marking",
+   "tiles": 34,
+   "approved": 23,
+   "sizes": [
+    "55x96",
+    "58x96",
+    "60x96",
+    "64x96",
+    "68x96",
+    "82x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 23 tiles",
+    "engine/bohemia_dead.js",
+    "records/BOHEMIA_BANK_LAW_INDEX.md",
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/BOHEMIA_THE_DEAD_TELL_YOU_WHERE_THEY_DIED_8_8_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json",
+    "slices/BOHEMIA_CITY_WORLD.html",
+    "..."
+   ]
+  },
+  "11. Amphoras and pottery": {
+   "family": "prop",
+   "tiles": 14,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "68x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "11. Barrels, Crates and sacks": {
+   "family": "prop",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "60x96",
+    "70x96",
+    "71x96",
+    "72x96",
+    "73x96",
+    "76x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "11. Chains and hooks": {
+   "family": "prop",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "17x96",
+    "19x96",
+    "20x96",
+    "30x96",
+    "32x96",
+    "34x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "11. Crates and barrels": {
+   "family": "prop",
+   "tiles": 34,
+   "approved": 34,
+   "sizes": [
+    "54x73",
+    "62x84",
+    "67x96",
+    "69x96",
+    "73x96",
+    "74x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 34 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "11. Crates, barrels and supplies": {
+   "family": "prop",
+   "tiles": 49,
+   "approved": 44,
+   "sizes": [
+    "67x96",
+    "68x96",
+    "69x96",
+    "70x96",
+    "72x96",
+    "74x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 44 tiles",
+    "records/tileforms/TF-LAB-003_field_dressings.md",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "11. Fences and gates": {
+   "family": "door",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "96x40",
+    "96x41",
+    "96x42",
+    "96x44",
+    "96x46",
+    "96x51"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "11. Gauges and meters": {
+   "family": "prop",
+   "tiles": 10,
+   "approved": 6,
+   "sizes": [
+    "65x96",
+    "74x96",
+    "75x96",
+    "77x96",
+    "82x96",
+    "91x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 6 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "11. Industrial doors and gates": {
+   "family": "door",
+   "tiles": 18,
+   "approved": 17,
+   "sizes": [
+    "96x75",
+    "96x79",
+    "96x82",
+    "96x84",
+    "96x85",
+    "96x86"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 17 tiles",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_a_house_a_man_can_live_in.py",
+    "tools/bohemia_cook4_house_true_size.py",
+    "..."
+   ]
+  },
+  "11. Sci-fi furniture": {
+   "family": "prop",
+   "tiles": 12,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "53x96",
+    "62x96",
+    "64x96",
+    "65x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "11. Survival props": {
+   "family": "prop",
+   "tiles": 49,
+   "approved": 49,
+   "sizes": [
+    "44x96",
+    "46x96",
+    "53x96",
+    "56x96",
+    "57x96",
+    "59x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 49 tiles",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "gates/scale_gate.js",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "..."
+   ]
+  },
+  "11. Village furniture and props": {
+   "family": "prop",
+   "tiles": 17,
+   "approved": 0,
+   "sizes": [
+    "46x96",
+    "50x96",
+    "60x96",
+    "64x96",
+    "68x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Bridges and boardwalks": {
+   "family": "settlement",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "73x79",
+    "85x79",
+    "96x39",
+    "96x40",
+    "96x41",
+    "96x42"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Cave Entrances": {
+   "family": "settlement",
+   "tiles": 12,
+   "approved": 0,
+   "sizes": [
+    "96x46",
+    "96x47",
+    "96x54",
+    "96x55",
+    "96x58",
+    "96x61"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Crates, barrels and storage": {
+   "family": "prop",
+   "tiles": 33,
+   "approved": 1,
+   "sizes": [
+    "62x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "73x96",
+    "74x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 1 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "12. Doors and hatches": {
+   "family": "door",
+   "tiles": 41,
+   "approved": 0,
+   "sizes": [
+    "58x88",
+    "60x88",
+    "60x89",
+    "65x79",
+    "65x88",
+    "67x88"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Furniture and study Tables": {
+   "family": "prop",
+   "tiles": 19,
+   "approved": 0,
+   "sizes": [
+    "92x96",
+    "96x71",
+    "96x77",
+    "96x80",
+    "96x82",
+    "96x84"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Iron Gates and doors": {
+   "family": "door",
+   "tiles": 31,
+   "approved": 0,
+   "sizes": [
+    "74x96",
+    "76x96",
+    "77x96",
+    "79x96",
+    "80x96",
+    "81x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Laboratory equipment": {
+   "family": "prop",
+   "tiles": 28,
+   "approved": 0,
+   "sizes": [
+    "44x96",
+    "47x96",
+    "49x96",
+    "51x96",
+    "56x96",
+    "63x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Market props and crates": {
+   "family": "settlement",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "70x96",
+    "76x96",
+    "77x96",
+    "83x96",
+    "85x96",
+    "88x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Ruined building parts": {
+   "family": "settlement",
+   "tiles": 20,
+   "approved": 20,
+   "sizes": [
+    "50x96",
+    "65x96",
+    "69x96",
+    "70x96",
+    "86x96",
+    "92x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "12. Street Props": {
+   "family": "ground",
+   "tiles": 8,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "58x96",
+    "62x96",
+    "64x96",
+    "68x96",
+    "73x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Treasure and loot": {
+   "family": "prop",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "67x96",
+    "75x96",
+    "76x96",
+    "80x96",
+    "81x93",
+    "82x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "12. Weapons and armory": {
+   "family": "weapon",
+   "tiles": 41,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "38x96",
+    "39x96",
+    "48x96",
+    "50x96",
+    "51x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py",
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "12. Weapons and supplies": {
+   "family": "prop",
+   "tiles": 40,
+   "approved": 37,
+   "sizes": [
+    "44x96",
+    "50x96",
+    "51x96",
+    "65x96",
+    "71x96",
+    "73x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 37 tiles",
+    "records/BOHEMIA_ACT1_GAP_QUEUES_7_13_26.txt",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "13. Banners and flags": {
+   "family": "prop",
+   "tiles": 32,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "41x96",
+    "42x96",
+    "44x96",
+    "45x96",
+    "46x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Bridges and platforms": {
+   "family": "settlement",
+   "tiles": 25,
+   "approved": 0,
+   "sizes": [
+    "48x96",
+    "54x96",
+    "79x96",
+    "88x96",
+    "91x96",
+    "94x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Chairs and seating": {
+   "family": "prop",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "42x96",
+    "45x96",
+    "47x96",
+    "49x96",
+    "52x96",
+    "54x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Decorations": {
+   "family": "prop",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "41x96",
+    "49x96",
+    "50x96",
+    "51x96",
+    "55x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Fences and wire": {
+   "family": "settlement",
+   "tiles": 19,
+   "approved": 19,
+   "sizes": [
+    "77x54",
+    "78x72",
+    "96x65",
+    "96x69",
+    "96x70",
+    "96x75"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 19 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-004_cook.py"
+   ]
+  },
+  "13. Furniture and seating": {
+   "family": "prop",
+   "tiles": 19,
+   "approved": 0,
+   "sizes": [
+    "64x96",
+    "65x96",
+    "68x96",
+    "71x96",
+    "76x96",
+    "80x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Garden beds": {
+   "family": "ground",
+   "tiles": 54,
+   "approved": 0,
+   "sizes": [
+    "77x69",
+    "79x76",
+    "90x96",
+    "96x35",
+    "96x36",
+    "96x37"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Lamps and torches": {
+   "family": "lamp",
+   "tiles": 12,
+   "approved": 0,
+   "sizes": [
+    "30x96",
+    "33x96",
+    "34x96",
+    "35x96",
+    "38x96",
+    "39x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Lanterns and warmlights": {
+   "family": "lamp",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "46x96",
+    "48x96",
+    "50x96",
+    "56x96",
+    "57x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "13. Pipes and wiring": {
+   "family": "prop",
+   "tiles": 9,
+   "approved": 8,
+   "sizes": [
+    "90x96",
+    "96x42",
+    "96x47",
+    "96x50",
+    "96x51",
+    "96x55"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 8 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "13. Port market": {
+   "family": "settlement",
+   "tiles": 35,
+   "approved": 29,
+   "sizes": [
+    "56x96",
+    "74x92",
+    "75x96",
+    "76x96",
+    "77x96",
+    "78x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 29 tiles",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "13. crates and barrels": {
+   "family": "prop",
+   "tiles": 34,
+   "approved": 8,
+   "sizes": [
+    "64x96",
+    "65x96",
+    "66x96",
+    "67x96",
+    "68x96",
+    "70x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 8 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "14. Banners and flags": {
+   "family": "prop",
+   "tiles": 11,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "48x96",
+    "49x96",
+    "50x96",
+    "51x96",
+    "52x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "14. Camp and tents": {
+   "family": "settlement",
+   "tiles": 35,
+   "approved": 18,
+   "sizes": [
+    "36x96",
+    "53x96",
+    "56x85",
+    "59x88",
+    "64x84",
+    "67x80"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 18 tiles",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "records/BOHEMIA_ACT1_GAP_QUEUES_7_13_26.txt",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "records/tileforms/TF-LAB-001_camp_deployed.md",
+    "records/tileforms/TF-LAB-002_camp_packed.md",
+    "..."
+   ]
+  },
+  "14. Embers and particles": {
+   "family": "lamp",
+   "tiles": 7,
+   "approved": 7,
+   "sizes": [
+    "61x96",
+    "64x96",
+    "65x92",
+    "71x96",
+    "77x96",
+    "80x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 7 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "14. Garden furniture": {
+   "family": "ground",
+   "tiles": 42,
+   "approved": 0,
+   "sizes": [
+    "54x75",
+    "55x68",
+    "56x63",
+    "59x75",
+    "59x89",
+    "63x87"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "14. Lamps and lights": {
+   "family": "lamp",
+   "tiles": 20,
+   "approved": 0,
+   "sizes": [
+    "26x96",
+    "29x96",
+    "33x96",
+    "34x96",
+    "38x96",
+    "45x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "14. Lights and neon elements": {
+   "family": "lamp",
+   "tiles": 19,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "33x96",
+    "34x96",
+    "57x96",
+    "58x96",
+    "68x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "14. Market and outdoor props": {
+   "family": "door",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "42x96",
+    "53x96",
+    "59x90",
+    "62x96",
+    "65x81",
+    "70x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_ACT1_GAP_QUEUES_7_13_26.txt"
+   ]
+  },
+  "14. Shells and small details": {
+   "family": "prop",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "78x96",
+    "80x96",
+    "81x96",
+    "96x80",
+    "96x82",
+    "96x85"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "14. Town square decorations": {
+   "family": "prop",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "66x96",
+    "67x96",
+    "76x96",
+    "86x96",
+    "94x93",
+    "94x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "14. Trash and junk props": {
+   "family": "prop",
+   "tiles": 16,
+   "approved": 14,
+   "sizes": [
+    "73x96",
+    "75x96",
+    "76x96",
+    "80x96",
+    "88x96",
+    "90x67"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 14 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "records/tileforms/TF-LAB-004_bullet_kit.md",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "14. Warning Signs": {
+   "family": "marking",
+   "tiles": 35,
+   "approved": 14,
+   "sizes": [
+    "95x96",
+    "96x61",
+    "96x65",
+    "96x67",
+    "96x68",
+    "96x71"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 14 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "15. Benches and seating": {
+   "family": "prop",
+   "tiles": 27,
+   "approved": 0,
+   "sizes": [
+    "62x68",
+    "66x56",
+    "68x58",
+    "75x53",
+    "78x96",
+    "81x59"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "15. Cracked floor details": {
+   "family": "prop",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "96x42",
+    "96x45",
+    "96x50",
+    "96x53",
+    "96x56",
+    "96x57"
+   ],
+   "opened": true,
+   "opened_by": [
+    "gates/the_phones_crack_gate.py",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "records/target/ui_the_phones_crack/cuts.json",
+    "tools/bohemia_ui_the_phones_crack_candidate_sheet.py",
+    "tools/bohemia_ui_the_phones_crack_cut.py"
+   ]
+  },
+  "15. Dead Trees and dry plants": {
+   "family": "ground",
+   "tiles": 8,
+   "approved": 8,
+   "sizes": [
+    "50x96",
+    "53x96",
+    "61x96",
+    "66x96",
+    "80x96",
+    "88x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 8 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "15. Mythological Symbols": {
+   "family": "prop",
+   "tiles": 14,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "57x96",
+    "62x96",
+    "69x96",
+    "76x96",
+    "80x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "15. Robots and drones": {
+   "family": "prop",
+   "tiles": 2,
+   "approved": 0,
+   "sizes": [
+    "96x84",
+    "96x94"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "15. Statues and ancient relics": {
+   "family": "settlement",
+   "tiles": 8,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "58x96",
+    "61x96",
+    "64x96",
+    "65x96",
+    "67x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json"
+   ]
+  },
+  "15. Street props": {
+   "family": "prop",
+   "tiles": 44,
+   "approved": 39,
+   "sizes": [
+    "32x96",
+    "34x96",
+    "40x96",
+    "42x96",
+    "48x96",
+    "49x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 39 tiles",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "records/BOHEMIA_ACT1_GAP_QUEUES_7_13_26.txt",
+    "records/BOHEMIA_ATLANTIS_QUARANTINE_7_10_26.txt",
+    "records/BOHEMIA_COOK2_THE_CARS_AND_PROPS_FROM_THE_PACKS_10_10_26.md",
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "..."
+   ]
+  },
+  "15. Trees and nature": {
+   "family": "ground",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "58x96",
+    "82x81",
+    "91x96",
+    "96x68",
+    "96x70"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "15. Workbenches and tools": {
+   "family": "prop",
+   "tiles": 27,
+   "approved": 23,
+   "sizes": [
+    "38x96",
+    "40x96",
+    "45x96",
+    "49x96",
+    "51x96",
+    "55x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 23 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "15. winter decorations": {
+   "family": "prop",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "61x96",
+    "62x96",
+    "64x96",
+    "65x96",
+    "69x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Crates and cargo props": {
+   "family": "prop",
+   "tiles": 28,
+   "approved": 0,
+   "sizes": [
+    "58x96",
+    "60x96",
+    "94x96",
+    "95x96",
+    "96x62",
+    "96x63"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Dead trees and plants": {
+   "family": "ground",
+   "tiles": 40,
+   "approved": 39,
+   "sizes": [
+    "43x96",
+    "44x96",
+    "52x96",
+    "56x96",
+    "57x96",
+    "63x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 39 tiles",
+    "records/BOHEMIA_COOK4_THE_HOUSE_SKINS_ON_THE_MAP_10_10_26.md",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_map_houses.py",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "16. Gardens and crops": {
+   "family": "ground",
+   "tiles": 8,
+   "approved": 7,
+   "sizes": [
+    "40x96",
+    "82x96",
+    "93x92",
+    "96x62",
+    "96x67",
+    "96x68"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 7 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "16. Interior cabin props": {
+   "family": "settlement",
+   "tiles": 35,
+   "approved": 0,
+   "sizes": [
+    "44x96",
+    "53x96",
+    "62x96",
+    "63x96",
+    "64x96",
+    "66x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Lab equipment": {
+   "family": "prop",
+   "tiles": 32,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "57x96",
+    "58x96",
+    "60x96",
+    "61x96",
+    "62x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Lamps and lights": {
+   "family": "lamp",
+   "tiles": 3,
+   "approved": 0,
+   "sizes": [
+    "55x79",
+    "69x89",
+    "71x67"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Lanterns and glow lights": {
+   "family": "lamp",
+   "tiles": 12,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "34x96",
+    "44x96",
+    "47x96",
+    "54x96",
+    "56x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Loot and survival props": {
+   "family": "prop",
+   "tiles": 34,
+   "approved": 33,
+   "sizes": [
+    "35x96",
+    "40x96",
+    "56x95",
+    "63x96",
+    "68x96",
+    "80x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 33 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "16. Staircases and elevation": {
+   "family": "settlement",
+   "tiles": 12,
+   "approved": 0,
+   "sizes": [
+    "73x96",
+    "75x96",
+    "76x96",
+    "78x96",
+    "82x96",
+    "88x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_combat_staircase_patch.py"
+   ]
+  },
+  "16. Trees and nature": {
+   "family": "ground",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "39x96",
+    "52x96",
+    "55x96",
+    "56x96",
+    "76x96",
+    "87x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "16. Weapons and shields": {
+   "family": "weapon",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "24x96",
+    "31x96",
+    "38x96",
+    "43x96",
+    "47x96",
+    "51x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "17. Benches and seating": {
+   "family": "prop",
+   "tiles": 8,
+   "approved": 5,
+   "sizes": [
+    "80x96",
+    "88x87",
+    "96x36",
+    "96x40",
+    "96x45",
+    "96x52"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 5 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "17. Bridges and walkways": {
+   "family": "settlement",
+   "tiles": 35,
+   "approved": 0,
+   "sizes": [
+    "94x96",
+    "96x82",
+    "96x83",
+    "96x84",
+    "96x85",
+    "96x86"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_ATLANTIS_QUARANTINE_7_10_26.txt"
+   ]
+  },
+  "17. Cannons and weapons": {
+   "family": "weapon",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "88x96",
+    "90x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "17. Hazard and warning tiles": {
+   "family": "marking",
+   "tiles": 23,
+   "approved": 10,
+   "sizes": [
+    "92x96",
+    "93x96",
+    "95x96",
+    "96x43",
+    "96x49",
+    "96x50"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 10 tiles",
+    "records/tileforms/TF-ART-010_rail_track_bed.md",
+    "slices/BOHEMIA_STREET_TILE_ROLES_7_13_26.html",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "17. Mailboxes and birdhouses": {
+   "family": "settlement",
+   "tiles": 53,
+   "approved": 0,
+   "sizes": [
+    "45x96",
+    "48x96",
+    "50x96",
+    "51x96",
+    "52x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "17. Ruins and debris": {
+   "family": "settlement",
+   "tiles": 3,
+   "approved": 0,
+   "sizes": [
+    "96x63",
+    "96x88",
+    "96x91"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_street_furniture_cook.py"
+   ]
+  },
+  "17. Safehouse furniture": {
+   "family": "settlement",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "43x96",
+    "56x96",
+    "62x96",
+    "68x96",
+    "78x96",
+    "82x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "17. Warning Signs and road props": {
+   "family": "prop",
+   "tiles": 24,
+   "approved": 18,
+   "sizes": [
+    "40x96",
+    "45x96",
+    "52x96",
+    "53x96",
+    "54x96",
+    "55x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 18 tiles",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "records/BOHEMIA_ACT1_GAP_QUEUES_7_13_26.txt",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_one_at_a_time_the_party_marker_cook_10_10_26.py",
+    "..."
+   ]
+  },
+  "18. Blacksmith props": {
+   "family": "prop",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "33x96",
+    "43x96",
+    "45x96",
+    "74x96",
+    "90x96",
+    "92x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "18. Crystals and bioluminescense": {
+   "family": "ground",
+   "tiles": 11,
+   "approved": 0,
+   "sizes": [
+    "71x96",
+    "74x96",
+    "75x96",
+    "76x96",
+    "80x96",
+    "81x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "18. Light sources and fire barrels": {
+   "family": "lamp",
+   "tiles": 48,
+   "approved": 34,
+   "sizes": [
+    "39x96",
+    "40x96",
+    "41x96",
+    "43x96",
+    "46x96",
+    "47x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 34 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "gates/scale_gate.js",
+    "laws/BOHEMIA_ADDENDUM_STREET_COMPOSITION_LAWS_7_14_26.md",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "..."
+   ]
+  },
+  "18. Lights and emergency props": {
+   "family": "lamp",
+   "tiles": 12,
+   "approved": 6,
+   "sizes": [
+    "58x96",
+    "62x96",
+    "64x96",
+    "72x96",
+    "82x96",
+    "83x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 6 tiles",
+    "gates/BOHEMIA_ACT1_LIGHT_SOURCES_v5_7_16_26.txt",
+    "gates/_norm.json",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "18. Misc objects": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "34x96",
+    "49x96",
+    "51x96",
+    "58x96",
+    "65x96",
+    "68x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "18. Nature and plants": {
+   "family": "ground",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "92x96",
+    "95x96",
+    "96x64",
+    "96x71",
+    "96x73",
+    "96x74"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "18. Pipes and cables": {
+   "family": "prop",
+   "tiles": 23,
+   "approved": 19,
+   "sizes": [
+    "41x96",
+    "64x96",
+    "79x96",
+    "80x96",
+    "96x41",
+    "96x52"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 19 tiles",
+    "records/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_MEASURED_10_10_26.txt",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_markers_you_can_find_cook_10_10_26.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "18. Pots and planters": {
+   "family": "ground",
+   "tiles": 68,
+   "approved": 0,
+   "sizes": [
+    "64x96",
+    "66x87",
+    "67x63",
+    "68x96",
+    "71x62",
+    "72x82"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "18. Space station props": {
+   "family": "prop",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "57x96",
+    "64x96",
+    "82x96",
+    "89x96",
+    "91x96",
+    "96x51"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-010_cook.py"
+   ]
+  },
+  "18. Stairs and lifts": {
+   "family": "settlement",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "64x96",
+    "70x96",
+    "71x96",
+    "74x96",
+    "75x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_combat_staircase_patch.py"
+   ]
+  },
+  "18. Winter food and drinks": {
+   "family": "prop",
+   "tiles": 28,
+   "approved": 27,
+   "sizes": [
+    "58x96",
+    "69x96",
+    "84x96",
+    "89x96",
+    "90x96",
+    "92x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 27 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "19. Alien tech elements": {
+   "family": "prop",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "58x96",
+    "64x96",
+    "75x96",
+    "76x96",
+    "80x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Animals and creatures": {
+   "family": "animal",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "48x96",
+    "49x96",
+    "50x96",
+    "52x96",
+    "56x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py"
+   ]
+  },
+  "19. Decor and homey items": {
+   "family": "prop",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "63x90",
+    "64x80",
+    "66x76",
+    "69x69",
+    "70x75"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Decorations": {
+   "family": "prop",
+   "tiles": 19,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "29x96",
+    "43x96",
+    "44x96",
+    "45x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Deep sea props": {
+   "family": "prop",
+   "tiles": 11,
+   "approved": 0,
+   "sizes": [
+    "59x96",
+    "64x96",
+    "73x96",
+    "76x96",
+    "77x96",
+    "82x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Miscellaneous": {
+   "family": "prop",
+   "tiles": 45,
+   "approved": 0,
+   "sizes": [
+    "41x96",
+    "43x96",
+    "47x96",
+    "48x96",
+    "52x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Miscellaneous (1)": {
+   "family": "prop",
+   "tiles": 65,
+   "approved": 32,
+   "sizes": [
+    "46x96",
+    "50x96",
+    "52x96",
+    "54x87",
+    "54x96",
+    "55x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 32 tiles",
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py"
+   ]
+  },
+  "19. Signs and village boards": {
+   "family": "prop",
+   "tiles": 33,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "55x96",
+    "57x96",
+    "58x96",
+    "63x96",
+    "67x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_ATLANTIS_QUARANTINE_7_10_26.txt"
+   ]
+  },
+  "19. Torches and braziers": {
+   "family": "lamp",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "26x96",
+    "28x96",
+    "30x96",
+    "32x96",
+    "33x96",
+    "37x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Toxic and infection growths": {
+   "family": "marking",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "94x96",
+    "96x57",
+    "96x59",
+    "96x60",
+    "96x65",
+    "96x68"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "19. Toxic crystals and mutations": {
+   "family": "ground",
+   "tiles": 19,
+   "approved": 0,
+   "sizes": [
+    "80x96",
+    "81x96",
+    "84x96",
+    "85x96",
+    "86x96",
+    "87x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "2. Broken building walls": {
+   "family": "settlement",
+   "tiles": 12,
+   "approved": 12,
+   "sizes": [
+    "27x96",
+    "41x96",
+    "44x96",
+    "48x96",
+    "62x96",
+    "65x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 12 tiles",
+    "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-009_cook.py"
+   ]
+  },
+  "2. Cliffs and ledges": {
+   "family": "ground",
+   "tiles": 4,
+   "approved": 0,
+   "sizes": [
+    "78x96",
+    "92x96",
+    "96x40"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "2. Dirt path tiles": {
+   "family": "ground",
+   "tiles": 48,
+   "approved": 46,
+   "sizes": [
+    "57x96",
+    "70x96",
+    "71x96",
+    "72x96",
+    "76x96",
+    "77x77"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 46 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "2. Dock planks": {
+   "family": "road",
+   "tiles": 42,
+   "approved": 0,
+   "sizes": [
+    "63x96",
+    "67x94",
+    "81x96",
+    "87x96",
+    "88x96",
+    "91x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "2. Rusted metal floor tiles": {
+   "family": "road",
+   "tiles": 32,
+   "approved": 10,
+   "sizes": [
+    "90x96",
+    "91x96",
+    "92x96",
+    "93x96",
+    "94x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 10 tiles",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md",
+    "records/target/COOK_ROAD_STUDY_NUMBERS.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_how_the_pack_did_it_road_cook_10_10_26.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "2. Sci-fi wall tiles": {
+   "family": "settlement",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "61x96",
+    "63x96",
+    "66x96",
+    "69x96",
+    "77x95",
+    "89x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "2. Soil and dirt tiles": {
+   "family": "road",
+   "tiles": 24,
+   "approved": 24,
+   "sizes": [
+    "92x96",
+    "94x96",
+    "95x96",
+    "96x83",
+    "96x84",
+    "96x85"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 24 tiles",
+    "gates/bohemia_purity_gate.py",
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+    "records/BOHEMIA_DESERT_POOL_SEAM_FINDING_7_28_26.md",
+    "records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "..."
+   ]
+  },
+  "2. Wall tiles (1)": {
+   "family": "settlement",
+   "tiles": 44,
+   "approved": 0,
+   "sizes": [
+    "49x96",
+    "50x96",
+    "52x96",
+    "53x96",
+    "55x96",
+    "56x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html",
+    "tools/bohemia_bought_audit.py",
+    "tools/bohemia_cmu_cook.py"
+   ]
+  },
+  "2. wall tiles": {
+   "family": "settlement",
+   "tiles": 22,
+   "approved": 0,
+   "sizes": [
+    "83x96",
+    "84x96",
+    "85x96",
+    "86x96",
+    "87x96",
+    "88x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html"
+   ]
+  },
+  "20. Airchip dock props": {
+   "family": "settlement",
+   "tiles": 28,
+   "approved": 4,
+   "sizes": [
+    "45x96",
+    "50x96",
+    "63x96",
+    "64x96",
+    "66x96",
+    "68x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 4 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "20. Decorative village details": {
+   "family": "prop",
+   "tiles": 17,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "64x72",
+    "73x96",
+    "79x82",
+    "92x96",
+    "93x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Environment Details": {
+   "family": "prop",
+   "tiles": 42,
+   "approved": 0,
+   "sizes": [
+    "57x96",
+    "62x96",
+    "67x96",
+    "69x65",
+    "69x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Environment set pieces": {
+   "family": "prop",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "54x96",
+    "68x96",
+    "88x96",
+    "91x96",
+    "92x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Extra cozy details": {
+   "family": "prop",
+   "tiles": 45,
+   "approved": 0,
+   "sizes": [
+    "58x64",
+    "61x79",
+    "62x68",
+    "62x77",
+    "64x56",
+    "67x78"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Nature and environment": {
+   "family": "ground",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "55x96",
+    "58x96",
+    "59x96",
+    "60x96",
+    "76x96",
+    "77x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Special Hazard Tiles": {
+   "family": "marking",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "96x91",
+    "96x92",
+    "96x93",
+    "96x94"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Special Sci-fi tiles": {
+   "family": "prop",
+   "tiles": 34,
+   "approved": 0,
+   "sizes": [
+    "94x96",
+    "96x36",
+    "96x38",
+    "96x39",
+    "96x43",
+    "96x46"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "20. Special hazard tiles (1)": {
+   "family": "marking",
+   "tiles": 30,
+   "approved": 0,
+   "sizes": [
+    "96x77",
+    "96x79",
+    "96x80",
+    "96x81",
+    "96x83",
+    "96x85"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "3. Barricades and blockades": {
+   "family": "prop",
+   "tiles": 24,
+   "approved": 20,
+   "sizes": [
+    "96x65",
+    "96x68",
+    "96x72",
+    "96x75",
+    "96x77",
+    "96x79"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "records/BOHEMIA_COOK2_THE_CARS_AND_PROPS_FROM_THE_PACKS_10_10_26.md",
+    "slices/fight_ground/kit_cover/kit_cover.json",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook2_stretch_the_pack_recolour_10_16_26.py",
+    "tools/bohemia_cook2_the_cars_and_props_from_the_packs_10_10_26.py",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "..."
+   ]
+  },
+  "3. Bookshelves and bookcases": {
+   "family": "prop",
+   "tiles": 42,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "33x96",
+    "41x96",
+    "46x96",
+    "49x96",
+    "55x76"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "3. Broken wall tiles": {
+   "family": "settlement",
+   "tiles": 18,
+   "approved": 18,
+   "sizes": [
+    "70x96",
+    "75x96",
+    "76x96",
+    "96x63",
+    "96x65",
+    "96x72"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 18 tiles",
+    "gates/scale_gate.js",
+    "records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md",
+    "records/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_MEASURED_10_10_26.txt",
+    "records/tileforms/TF-RUN-003_chainlink_fence.md",
+    "records/tileforms/TF-RUN-004_corrugated_metal_skin.md",
+    "records/tileforms/TF-RUN-005_tiltup_concrete_skin.md",
+    "..."
+   ]
+  },
+  "3. Dock objects": {
+   "family": "prop",
+   "tiles": 27,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "41x96",
+    "64x96",
+    "66x96",
+    "68x96",
+    "71x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "3. Grass and ground tiles": {
+   "family": "ground",
+   "tiles": 48,
+   "approved": 47,
+   "sizes": [
+    "77x66",
+    "79x66",
+    "83x66",
+    "84x66",
+    "84x86",
+    "91x79"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 47 tiles",
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-005_cook.py"
+   ]
+  },
+  "3. Pipe tiles": {
+   "family": "road",
+   "tiles": 42,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "39x96",
+    "40x96",
+    "44x96",
+    "47x96",
+    "49x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "3. Stone paths": {
+   "family": "road",
+   "tiles": 24,
+   "approved": 24,
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x91",
+    "96x92",
+    "96x93",
+    "96x94"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 24 tiles",
+    "records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt",
+    "records/tileforms/TF-RUN-002_gravel_ballast_ground.md",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/BOHEMIA_TERRAIN_PICKER_7_14_26.html",
+    "tools/bohemia_ground_pool_cook.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "3. Wall panels and details": {
+   "family": "settlement",
+   "tiles": 32,
+   "approved": 0,
+   "sizes": [
+    "54x71",
+    "66x71",
+    "73x71",
+    "74x71",
+    "88x96",
+    "89x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/bohemia_bought_audit.py",
+    "tools/bohemia_cmu_cook.py"
+   ]
+  },
+  "3. Wooden bridges and platforms": {
+   "family": "settlement",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "58x96",
+    "74x96",
+    "88x96",
+    "89x96",
+    "90x96",
+    "92x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "4. Cabins and house parts": {
+   "family": "settlement",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "59x90",
+    "60x96",
+    "62x92",
+    "62x94",
+    "63x96",
+    "65x88"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "4. Doors and airlocks": {
+   "family": "door",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "63x96",
+    "64x96",
+    "67x96",
+    "68x96",
+    "74x90"
+   ],
+   "opened": true,
+   "opened_by": [
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html"
+   ]
+  },
+  "4. Doors and entrances": {
+   "family": "door",
+   "tiles": 10,
+   "approved": 10,
+   "sizes": [
+    "54x96",
+    "56x96",
+    "57x96",
+    "58x96",
+    "62x96",
+    "63x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 10 tiles",
+    "gates/dooranim_gate.js",
+    "laws/BOHEMIA_ADDENDUM_DOOR_LAW_TWO_TILES_TALL_7_26_26.md",
+    "records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "slices/BOHEMIA_CITY_WORLD.html",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "..."
+   ]
+  },
+  "4. Flower paths": {
+   "family": "ground",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x84",
+    "96x85",
+    "96x86",
+    "96x88"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "4. House wall tiles": {
+   "family": "settlement",
+   "tiles": 34,
+   "approved": 0,
+   "sizes": [
+    "58x68",
+    "60x66",
+    "63x66",
+    "71x96",
+    "76x96",
+    "77x78"
+   ],
+   "opened": true,
+   "opened_by": [
+    "gates/bohemia_graveyard.txt",
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "tools/bohemia_bought_audit.py",
+    "tools/bohemia_cmu_cook.py",
+    "tools/bohemia_direction_art_bank.py",
+    "..."
+   ]
+  },
+  "4. Scrap wall and panels": {
+   "family": "settlement",
+   "tiles": 17,
+   "approved": 12,
+   "sizes": [
+    "95x96",
+    "96x72",
+    "96x73",
+    "96x78",
+    "96x80",
+    "96x81"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 12 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-002_cook.py",
+    "tools/tfcook/TF-ART-009_cook.py"
+   ]
+  },
+  "4. Spell books and scrolls": {
+   "family": "prop",
+   "tiles": 32,
+   "approved": 0,
+   "sizes": [
+    "51x96",
+    "52x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "78x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "4. Vent and steam": {
+   "family": "prop",
+   "tiles": 31,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "60x96",
+    "64x96",
+    "65x96",
+    "70x96",
+    "73x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "4. Water details and foam": {
+   "family": "ground",
+   "tiles": 7,
+   "approved": 7,
+   "sizes": [
+    "82x55",
+    "92x62",
+    "96x68",
+    "96x69",
+    "96x70"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 7 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-006_cook.py"
+   ]
+  },
+  "5. Barricades and defenses": {
+   "family": "prop",
+   "tiles": 17,
+   "approved": 16,
+   "sizes": [
+    "88x96",
+    "90x96",
+    "93x96",
+    "96x49",
+    "96x51",
+    "96x52"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 16 tiles",
+    "laws/BOHEMIA_COVER_INTEGRATION_7_10_26.md",
+    "records/tileforms/TF-CMB-001_low_cover_vaultable.md",
+    "tools/bohemia_combat_cover_that_reads_9_7_26.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-011_cook.py"
+   ]
+  },
+  "5. Doors and arches": {
+   "family": "door",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "70x96",
+    "71x96",
+    "73x96",
+    "76x96",
+    "79x96",
+    "80x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "5. Platforms": {
+   "family": "settlement",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "63x96",
+    "65x96",
+    "69x96",
+    "73x96",
+    "76x96",
+    "81x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "5. Potion bottles and ingredients": {
+   "family": "prop",
+   "tiles": 56,
+   "approved": 0,
+   "sizes": [
+    "64x96",
+    "65x96",
+    "66x96",
+    "67x96",
+    "68x96",
+    "69x85"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "5. Rock Formations": {
+   "family": "ground",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "58x96",
+    "59x96",
+    "70x96",
+    "73x96",
+    "80x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_desert_extract.py"
+   ]
+  },
+  "5. Roof tiles": {
+   "family": "settlement",
+   "tiles": 37,
+   "approved": 36,
+   "sizes": [
+    "60x69",
+    "65x91",
+    "78x96",
+    "81x96",
+    "82x96",
+    "84x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 36 tiles",
+    "gates/scale_gate.js",
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "records/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_MEASURED_10_10_26.txt",
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "..."
+   ]
+  },
+  "5. Water and ponds": {
+   "family": "ground",
+   "tiles": 30,
+   "approved": 0,
+   "sizes": [
+    "91x96",
+    "92x96",
+    "93x96",
+    "94x96",
+    "95x96",
+    "96x93"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-006_cook.py"
+   ]
+  },
+  "5. Windows and broken glass": {
+   "family": "settlement",
+   "tiles": 23,
+   "approved": 22,
+   "sizes": [
+    "64x96",
+    "65x96",
+    "66x96",
+    "68x96",
+    "70x96",
+    "71x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 22 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_DEMO.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "..."
+   ]
+  },
+  "5. Windows and observation panels": {
+   "family": "settlement",
+   "tiles": 33,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "59x96",
+    "73x96",
+    "74x96",
+    "83x55",
+    "92x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Blood and infection tiles": {
+   "family": "marking",
+   "tiles": 18,
+   "approved": 12,
+   "sizes": [
+    "49x96",
+    "80x96",
+    "82x96",
+    "85x96",
+    "87x96",
+    "88x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 12 tiles",
+    "records/BOHEMIA_BANK_LAW_INDEX.md",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "6. Bridges and walways": {
+   "family": "settlement",
+   "tiles": 30,
+   "approved": 0,
+   "sizes": [
+    "53x91",
+    "55x91",
+    "57x92",
+    "58x92",
+    "61x92",
+    "64x91"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Cauldrons and brewing stations": {
+   "family": "prop",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "85x96",
+    "86x96",
+    "87x96",
+    "88x96",
+    "89x96",
+    "90x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-010_cook.py"
+   ]
+  },
+  "6. Chain link fences": {
+   "family": "settlement",
+   "tiles": 11,
+   "approved": 10,
+   "sizes": [
+    "96x41",
+    "96x47",
+    "96x49",
+    "96x50",
+    "96x53",
+    "96x67"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 10 tiles",
+    "gates/scale_gate.js",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/tfcook/TF-ART-004_cook.py"
+   ]
+  },
+  "6. Control panels and consoles": {
+   "family": "prop",
+   "tiles": 20,
+   "approved": 0,
+   "sizes": [
+    "92x96",
+    "96x36",
+    "96x38",
+    "96x42",
+    "96x53",
+    "96x56"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Doors and entrances": {
+   "family": "door",
+   "tiles": 45,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "64x96",
+    "67x96",
+    "69x54",
+    "69x96",
+    "71x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Frozen trees and pines": {
+   "family": "ground",
+   "tiles": 2,
+   "approved": 0,
+   "sizes": [
+    "82x96",
+    "84x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Rock obsidian tiles": {
+   "family": "ground",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "70x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "76x96",
+    "77x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/BOHEMIA_TERRAIN_PICKER_7_14_26.html"
+   ]
+  },
+  "6. Ship details": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "49x96",
+    "50x96",
+    "51x96",
+    "57x96",
+    "61x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "6. Stone paths and roads": {
+   "family": "road",
+   "tiles": 13,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "53x96",
+    "67x96",
+    "70x96",
+    "76x96",
+    "80x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_THE_PACK_IS_THE_TWIN_MEASURED_10_10_26.txt",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "6. building details": {
+   "family": "settlement",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "36x96",
+    "38x96",
+    "39x96",
+    "43x96",
+    "65x96",
+    "66x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "7. Burnt ground tiles": {
+   "family": "ground",
+   "tiles": 28,
+   "approved": 8,
+   "sizes": [
+    "88x96",
+    "89x96",
+    "90x96",
+    "91x96",
+    "92x96",
+    "93x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 8 tiles",
+    "records/BOHEMIA_THE_FAR_END_FROM_HIS_PICKS_MEASURED_10_10_26.txt",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/BOHEMIA_TERRAIN_PICKER_7_14_26.html",
+    "tools/bohemia_cook2_stretch_the_pack.py",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_direction_burnt_car_from_the_pack.py",
+    "..."
+   ]
+  },
+  "7. Bushes and shrubs": {
+   "family": "ground",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "91x96",
+    "92x96",
+    "96x53",
+    "96x55",
+    "96x68",
+    "96x76"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "7. Candles and floating Lights": {
+   "family": "lamp",
+   "tiles": 5,
+   "approved": 0,
+   "sizes": [
+    "86x96",
+    "91x96",
+    "92x96",
+    "96x87"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "7. Computers and screens": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 21,
+   "sizes": [
+    "94x96",
+    "96x35",
+    "96x36",
+    "96x39",
+    "96x41",
+    "96x47"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 21 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "7. Fences and palisades": {
+   "family": "settlement",
+   "tiles": 41,
+   "approved": 16,
+   "sizes": [
+    "68x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "77x96",
+    "80x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 16 tiles",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "7. Gears and cogs": {
+   "family": "prop",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "60x96",
+    "62x96",
+    "65x96",
+    "66x96",
+    "69x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "7. Rock Formations": {
+   "family": "ground",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "68x96",
+    "69x96",
+    "70x96",
+    "74x96",
+    "75x96",
+    "76x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_desert_extract.py"
+   ]
+  },
+  "7. Trash and debris": {
+   "family": "prop",
+   "tiles": 20,
+   "approved": 20,
+   "sizes": [
+    "89x74",
+    "96x61",
+    "96x62",
+    "96x65",
+    "96x68",
+    "96x69"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "records/tileforms/TF-LAB-004_bullet_kit.md",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_street_furniture_cook.py",
+    "..."
+   ]
+  },
+  "7. Water fountains and pools": {
+   "family": "ground",
+   "tiles": 3,
+   "approved": 0,
+   "sizes": [
+    "96x69",
+    "96x77",
+    "96x87"
+   ],
+   "opened": true,
+   "opened_by": [
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+    "tools/tfcook/TF-ART-006_cook.py"
+   ]
+  },
+  "7. Windows and flower boxes": {
+   "family": "ground",
+   "tiles": 25,
+   "approved": 0,
+   "sizes": [
+    "71x96",
+    "72x96",
+    "73x96",
+    "74x96",
+    "76x96",
+    "80x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Burned Ground and fire marks": {
+   "family": "ground",
+   "tiles": 40,
+   "approved": 36,
+   "sizes": [
+    "57x96",
+    "75x60",
+    "85x55",
+    "96x50",
+    "96x51",
+    "96x59"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 36 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_direction_art_bank.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "8. Machinery parts": {
+   "family": "prop",
+   "tiles": 52,
+   "approved": 0,
+   "sizes": [
+    "42x96",
+    "48x96",
+    "49x96",
+    "52x96",
+    "53x96",
+    "54x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Market Stalls": {
+   "family": "settlement",
+   "tiles": 22,
+   "approved": 19,
+   "sizes": [
+    "52x96",
+    "58x56",
+    "77x93",
+    "83x96",
+    "85x85",
+    "90x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 19 tiles",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "records/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_MEASURED_10_10_26.txt",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "slices/settlement_ground_packs/PACK_TILES_USED.txt",
+    "tools/bohemia_cook4_settlement_from_packs.py",
+    "tools/bohemia_cook4_the_corner_shop.py",
+    "..."
+   ]
+  },
+  "8. Pipes and ventilation": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "36x96",
+    "50x96",
+    "55x96",
+    "57x96",
+    "60x96",
+    "62x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-001_cook.py"
+   ]
+  },
+  "8. Rocks and frozen cliffs": {
+   "family": "ground",
+   "tiles": 5,
+   "approved": 0,
+   "sizes": [
+    "61x96",
+    "62x96",
+    "71x96",
+    "83x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Toxic waste and barrels": {
+   "family": "ground",
+   "tiles": 41,
+   "approved": 0,
+   "sizes": [
+    "60x96",
+    "62x96",
+    "63x96",
+    "64x96",
+    "65x96",
+    "67x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Treasure and loot": {
+   "family": "prop",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "66x63",
+    "69x93",
+    "70x62",
+    "77x59",
+    "81x96",
+    "86x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Trees (spring)": {
+   "family": "ground",
+   "tiles": 2,
+   "approved": 0,
+   "sizes": [
+    "83x96",
+    "86x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Volcanic pillars": {
+   "family": "ground",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "45x96",
+    "48x96",
+    "50x96",
+    "51x96",
+    "52x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "8. Watch towers": {
+   "family": "settlement",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "42x96",
+    "43x96",
+    "44x96",
+    "46x96",
+    "47x96",
+    "56x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Abandoned cards": {
+   "family": "prop",
+   "tiles": 35,
+   "approved": 35,
+   "sizes": [
+    "96x54",
+    "96x55",
+    "96x56",
+    "96x57",
+    "96x58",
+    "96x59"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 35 tiles",
+    "records/BOHEMIA_COOK2_THE_CARS_AND_PROPS_FROM_THE_PACKS_10_10_26.md",
+    "records/BOHEMIA_COOK4_THE_HOUSE_SKINS_ON_THE_MAP_10_10_26.md",
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "records/target/BOHEMIA_VOTE_REGISTRY.json",
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+    "slices/fight_ground/kit_cover/kit_cover.json",
+    "..."
+   ]
+  },
+  "9. Boilers and tanks": {
+   "family": "prop",
+   "tiles": 35,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "51x96",
+    "52x96",
+    "53x96",
+    "54x96",
+    "56x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Cables and wiring": {
+   "family": "prop",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "96x58",
+    "96x59",
+    "96x62",
+    "96x63",
+    "96x64",
+    "96x65"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Fire Traps": {
+   "family": "prop",
+   "tiles": 25,
+   "approved": 0,
+   "sizes": [
+    "52x96",
+    "57x96",
+    "60x96",
+    "62x96",
+    "64x96",
+    "67x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Flowers and plants": {
+   "family": "ground",
+   "tiles": 44,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "48x96",
+    "67x96",
+    "68x96",
+    "69x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Port buildings": {
+   "family": "settlement",
+   "tiles": 35,
+   "approved": 0,
+   "sizes": [
+    "54x73",
+    "55x62",
+    "56x59",
+    "58x81",
+    "59x72",
+    "59x85"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "9. Rubble and debris": {
+   "family": "settlement",
+   "tiles": 18,
+   "approved": 18,
+   "sizes": [
+    "96x68",
+    "96x69",
+    "96x70",
+    "96x71",
+    "96x72",
+    "96x74"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 18 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "tools/bohemia_desert_extract.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_street_furniture_cook.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "9. Wells and water structures": {
+   "family": "ground",
+   "tiles": 22,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "37x96",
+    "40x96",
+    "44x96",
+    "48x96",
+    "52x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "BLOOD AND GORE": {
+   "family": "marking",
+   "tiles": 9,
+   "approved": 8,
+   "sizes": [
+    "77x96",
+    "86x96",
+    "92x96",
+    "93x96",
+    "96x59",
+    "96x64"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 8 tiles",
+    "records/BOHEMIA_BANK_LAW_INDEX.md",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Banners and posters": {
+   "family": "prop",
+   "tiles": 52,
+   "approved": 0,
+   "sizes": [
+    "39x96",
+    "40x96",
+    "42x96",
+    "43x96",
+    "61x96",
+    "62x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "tools/bohemia_logo_cook.py",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py"
+   ]
+  },
+  "Barrels, crates and objects": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 27,
+   "sizes": [
+    "64x96",
+    "68x96",
+    "70x96",
+    "72x96",
+    "73x96",
+    "74x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 27 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Barrels, crates and sacks": {
+   "family": "prop",
+   "tiles": 37,
+   "approved": 0,
+   "sizes": [
+    "64x96",
+    "66x96",
+    "68x96",
+    "69x96",
+    "70x96",
+    "73x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Bridges and railings": {
+   "family": "settlement",
+   "tiles": 48,
+   "approved": 0,
+   "sizes": [
+    "68x96",
+    "75x96",
+    "78x96",
+    "83x64",
+    "96x51",
+    "96x52"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-010_cook.py"
+   ]
+  },
+  "Cargo, crates and containers": {
+   "family": "prop",
+   "tiles": 40,
+   "approved": 25,
+   "sizes": [
+    "64x96",
+    "66x96",
+    "70x96",
+    "88x96",
+    "91x96",
+    "93x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 25 tiles",
+    "gates/scale_gate.js",
+    "records/tileforms/TF-LAB-003_field_dressings.md",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Coffe machines, brewing tools, mugs and drink props": {
+   "family": "prop",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "37x96",
+    "44x96",
+    "47x96",
+    "61x96",
+    "62x96",
+    "70x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Containers and items": {
+   "family": "prop",
+   "tiles": 84,
+   "approved": 0,
+   "sizes": [
+    "53x89",
+    "54x89",
+    "55x89",
+    "58x96",
+    "59x62",
+    "59x77"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Decor and details": {
+   "family": "prop",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "19x96",
+    "20x96",
+    "23x96",
+    "26x96",
+    "30x96",
+    "34x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Decorative framed garden tiles": {
+   "family": "ground",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "93x93",
+    "93x96",
+    "94x96",
+    "96x35",
+    "96x37",
+    "96x39"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Doors and Arches!": {
+   "family": "door",
+   "tiles": 20,
+   "approved": 3,
+   "sizes": [
+    "65x96",
+    "67x96",
+    "69x96",
+    "70x96",
+    "71x96",
+    "73x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 3 tiles",
+    "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Doors and arches (1)": {
+   "family": "door",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "82x96",
+    "83x96",
+    "84x96",
+    "85x96",
+    "86x96",
+    "87x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md"
+   ]
+  },
+  "Exterior Cafe Props (awnings, windows, potted plants and more)": {
+   "family": "ground",
+   "tiles": 35,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "64x96",
+    "65x96",
+    "66x96",
+    "67x96",
+    "71x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/tfcook/TF-ART-008_cook.py"
+   ]
+  },
+  "Floor tiles": {
+   "family": "road",
+   "tiles": 40,
+   "approved": 12,
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x94",
+    "96x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 12 tiles",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/BOHEMIA_THE_TASTE_SESSION_10_11_26.md",
+    "records/target/COOK_ROAD_STUDY_NUMBERS.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_city_interior_surfaces_patch.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "Floor tiles (1)": {
+   "family": "road",
+   "tiles": 8,
+   "approved": 6,
+   "sizes": [
+    "92x96",
+    "93x96",
+    "94x96",
+    "96x92"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 6 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_coldopen_set_bake.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Floor tiles (2)": {
+   "family": "road",
+   "tiles": 30,
+   "approved": 0,
+   "sizes": [
+    "86x96",
+    "88x96",
+    "89x96",
+    "90x96",
+    "91x96",
+    "92x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md"
+   ]
+  },
+  "Floor tiles and wall tiles": {
+   "family": "settlement",
+   "tiles": 31,
+   "approved": 20,
+   "sizes": [
+    "74x96",
+    "75x96",
+    "76x96",
+    "77x96",
+    "78x96",
+    "84x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Floor tiles!": {
+   "family": "road",
+   "tiles": 54,
+   "approved": 36,
+   "sizes": [
+    "94x96",
+    "95x96",
+    "96x83",
+    "96x84",
+    "96x85",
+    "96x86"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 36 tiles",
+    "records/BOHEMIA_HOW_THE_PACK_DID_IT_ROAD_10_10_26.md",
+    "records/target/COOK_ROAD_STUDY_NUMBERS.json",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "Floor, walls": {
+   "family": "settlement",
+   "tiles": 50,
+   "approved": 25,
+   "sizes": [
+    "56x82",
+    "57x72",
+    "57x82",
+    "57x85",
+    "58x72",
+    "61x85"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 25 tiles",
+    "gates/bohemia_purity_gate.py",
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt",
+    "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html",
+    "..."
+   ]
+  },
+  "Flowers and ground cover": {
+   "family": "ground",
+   "tiles": 50,
+   "approved": 0,
+   "sizes": [
+    "58x87",
+    "59x85",
+    "61x95",
+    "63x96",
+    "64x84",
+    "64x91"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Food, drink and cafe props": {
+   "family": "prop",
+   "tiles": 41,
+   "approved": 41,
+   "sizes": [
+    "51x96",
+    "53x83",
+    "54x96",
+    "59x93",
+    "63x96",
+    "66x91"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 41 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_DEMO.html",
+    "tools/bohemia_coldopen_set_bake.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Furniture and fixtures": {
+   "family": "prop",
+   "tiles": 17,
+   "approved": 9,
+   "sizes": [
+    "50x96",
+    "53x96",
+    "54x96",
+    "60x96",
+    "65x96",
+    "66x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 9 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    "slices/BOHEMIA_DEMO.html",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_coldopen_set_bake.py",
+    "tools/bohemia_interior_pool_factory.py",
+    "..."
+   ]
+  },
+  "Furniture and fixtures (1)": {
+   "family": "prop",
+   "tiles": 23,
+   "approved": 17,
+   "sizes": [
+    "40x96",
+    "58x96",
+    "60x96",
+    "63x96",
+    "64x96",
+    "65x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 17 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Furniture and seating": {
+   "family": "prop",
+   "tiles": 47,
+   "approved": 0,
+   "sizes": [
+    "54x96",
+    "58x96",
+    "64x71",
+    "66x71",
+    "66x96",
+    "69x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Furtniure and fixtures": {
+   "family": "prop",
+   "tiles": 37,
+   "approved": 0,
+   "sizes": [
+    "48x96",
+    "53x96",
+    "54x96",
+    "58x96",
+    "60x96",
+    "64x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "Interior rooms": {
+   "family": "settlement",
+   "tiles": 53,
+   "approved": 0,
+   "sizes": [
+    "72x96",
+    "90x96",
+    "96x46",
+    "96x47",
+    "96x53",
+    "96x55"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "Jars, bottles and items": {
+   "family": "prop",
+   "tiles": 55,
+   "approved": 47,
+   "sizes": [
+    "55x83",
+    "55x96",
+    "56x90",
+    "56x96",
+    "58x96",
+    "59x82"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 47 tiles",
+    "gates/scale_gate.js",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Jars, pots and items": {
+   "family": "prop",
+   "tiles": 41,
+   "approved": 30,
+   "sizes": [
+    "29x96",
+    "31x96",
+    "34x96",
+    "36x96",
+    "40x96",
+    "41x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 30 tiles",
+    "tools/bohemia_interior_pool_factory.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Jars, pots and urns": {
+   "family": "prop",
+   "tiles": 39,
+   "approved": 0,
+   "sizes": [
+    "55x96",
+    "64x96",
+    "68x96",
+    "69x96",
+    "70x96",
+    "71x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Lanterns and lights": {
+   "family": "lamp",
+   "tiles": 44,
+   "approved": 0,
+   "sizes": [
+    "53x92",
+    "58x96",
+    "59x96",
+    "60x96",
+    "61x96",
+    "62x67"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Lightning and fx": {
+   "family": "lamp",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "43x96",
+    "44x96",
+    "51x96",
+    "58x96",
+    "62x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Lightning and fx (1)": {
+   "family": "lamp",
+   "tiles": 3,
+   "approved": 0,
+   "sizes": [
+    "34x96",
+    "52x96",
+    "62x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Machines and tech": {
+   "family": "prop",
+   "tiles": 40,
+   "approved": 0,
+   "sizes": [
+    "52x96",
+    "57x96",
+    "64x96",
+    "66x96",
+    "74x96",
+    "76x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md"
+   ]
+  },
+  "Micro tiles": {
+   "family": "prop",
+   "tiles": 1,
+   "approved": 0,
+   "sizes": [
+    "67x60"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Miscellaneous": {
+   "family": "prop",
+   "tiles": 46,
+   "approved": 20,
+   "sizes": [
+    "48x96",
+    "51x96",
+    "52x96",
+    "53x79",
+    "53x96",
+    "54x66"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py"
+   ]
+  },
+  "Miscellaneous props (1)": {
+   "family": "prop",
+   "tiles": 40,
+   "approved": 0,
+   "sizes": [
+    "55x96",
+    "57x96",
+    "58x96",
+    "59x93",
+    "61x93",
+    "68x64"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Occult and horror elements": {
+   "family": "prop",
+   "tiles": 26,
+   "approved": 0,
+   "sizes": [
+    "35x96",
+    "42x96",
+    "52x96",
+    "55x96",
+    "58x96",
+    "61x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Pastries, desserts, plates and cafe food": {
+   "family": "prop",
+   "tiles": 44,
+   "approved": 0,
+   "sizes": [
+    "72x83",
+    "74x82",
+    "81x87",
+    "82x87",
+    "83x88",
+    "86x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Patch 1 (1)": {
+   "family": "prop",
+   "tiles": 40,
+   "approved": 0,
+   "sizes": [
+    "86x96",
+    "87x96",
+    "88x96",
+    "89x96",
+    "90x96",
+    "91x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Pillars and columns": {
+   "family": "settlement",
+   "tiles": 1,
+   "approved": 0,
+   "sizes": [
+    "96x64"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Pipes, cables and vents": {
+   "family": "prop",
+   "tiles": 55,
+   "approved": 0,
+   "sizes": [
+    "48x96",
+    "56x96",
+    "58x58",
+    "60x62",
+    "62x59",
+    "62x62"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Plants and bushes": {
+   "family": "ground",
+   "tiles": 52,
+   "approved": 0,
+   "sizes": [
+    "38x96",
+    "46x96",
+    "53x96",
+    "55x96",
+    "56x96",
+    "57x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Plants and greenery": {
+   "family": "ground",
+   "tiles": 63,
+   "approved": 0,
+   "sizes": [
+    "41x96",
+    "42x96",
+    "46x96",
+    "47x96",
+    "51x96",
+    "53x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Plants, decor, jars, boxes and small interior props": {
+   "family": "ground",
+   "tiles": 38,
+   "approved": 0,
+   "sizes": [
+    "49x96",
+    "50x96",
+    "54x96",
+    "59x96",
+    "61x96",
+    "62x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Psychological elements": {
+   "family": "prop",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "46x96",
+    "56x96",
+    "57x96",
+    "64x96",
+    "67x96",
+    "73x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_NIGHTMARE_CONTENT_IDEA_7_10_26.md"
+   ]
+  },
+  "Rocks and stones": {
+   "family": "ground",
+   "tiles": 74,
+   "approved": 74,
+   "sizes": [
+    "53x96",
+    "54x96",
+    "55x96",
+    "62x96",
+    "64x96",
+    "65x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 74 tiles",
+    "records/tileforms/TF-ART-015_landfill_cell.md",
+    "tools/bohemia_bake_factory.py",
+    "tools/bohemia_desert_extract.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Rocks and stones (1)": {
+   "family": "ground",
+   "tiles": 26,
+   "approved": 26,
+   "sizes": [
+    "73x60",
+    "77x78",
+    "81x78",
+    "81x83",
+    "84x70",
+    "84x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 26 tiles",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  },
+  "Roof tiles": {
+   "family": "settlement",
+   "tiles": 14,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "62x96",
+    "63x96",
+    "70x96",
+    "71x96",
+    "76x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_ONE_WORLD_INTERIORS_SPEC_7_31_26.md"
+   ]
+  },
+  "Rooftop and building tops": {
+   "family": "settlement",
+   "tiles": 72,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "51x96",
+    "52x96",
+    "53x96",
+    "55x96",
+    "57x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/bohemia_bought_audit.py",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "Signage, menus and cafe accessories": {
+   "family": "prop",
+   "tiles": 25,
+   "approved": 0,
+   "sizes": [
+    "54x96",
+    "55x96",
+    "57x96",
+    "62x96",
+    "64x96",
+    "65x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Signs and holograms": {
+   "family": "prop",
+   "tiles": 36,
+   "approved": 0,
+   "sizes": [
+    "40x96",
+    "41x96",
+    "42x96",
+    "43x96",
+    "46x96",
+    "48x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_PURITY_GATE_V2_7_16_26.md",
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py"
+   ]
+  },
+  "Signs and misc": {
+   "family": "prop",
+   "tiles": 71,
+   "approved": 0,
+   "sizes": [
+    "48x96",
+    "51x96",
+    "52x96",
+    "54x96",
+    "56x96",
+    "58x80"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "Special Tiles (1)": {
+   "family": "prop",
+   "tiles": 50,
+   "approved": 0,
+   "sizes": [
+    "92x96",
+    "95x96",
+    "96x80",
+    "96x82",
+    "96x85",
+    "96x86"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Special effects": {
+   "family": "prop",
+   "tiles": 50,
+   "approved": 0,
+   "sizes": [
+    "35x96",
+    "41x96",
+    "43x96",
+    "46x96",
+    "49x96",
+    "50x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Special tiles (2)": {
+   "family": "prop",
+   "tiles": 20,
+   "approved": 0,
+   "sizes": [
+    "91x96",
+    "92x96",
+    "94x96",
+    "95x96",
+    "96x95",
+    "96x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Stairs, ladders and Railings": {
+   "family": "settlement",
+   "tiles": 58,
+   "approved": 0,
+   "sizes": [
+    "45x96",
+    "46x96",
+    "47x96",
+    "48x96",
+    "49x96",
+    "50x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "gates/combat_lab_gate.js",
+    "tools/bohemia_combat_staircase_patch.py",
+    "tools/tfcook/TF-ART-010_cook.py"
+   ]
+  },
+  "Statues and figures": {
+   "family": "settlement",
+   "tiles": 18,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "34x96",
+    "35x96",
+    "36x96",
+    "38x96",
+    "39x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/BOHEMIA_THE_TWO_HOLES_IN_PIXELS_10_16_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py",
+    "tools/bohemia_the_two_holes_cook_10_16_26.py",
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "Statues and monuments": {
+   "family": "settlement",
+   "tiles": 46,
+   "approved": 0,
+   "sizes": [
+    "41x96",
+    "48x96",
+    "50x96",
+    "51x96",
+    "52x96",
+    "54x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json",
+    "tools/bohemia_portrait_counts_the_bank_for_faces.py"
+   ]
+  },
+  "Stone patchs and walkways": {
+   "family": "settlement",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "76x96",
+    "77x87",
+    "80x96",
+    "87x96",
+    "90x96",
+    "91x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Stone planers and raised beds": {
+   "family": "prop",
+   "tiles": 21,
+   "approved": 0,
+   "sizes": [
+    "84x96",
+    "88x96",
+    "91x96",
+    "96x36",
+    "96x40",
+    "96x41"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_whole_bank_cook_10_13_26.py"
+   ]
+  },
+  "Streets props and urban": {
+   "family": "ground",
+   "tiles": 54,
+   "approved": 0,
+   "sizes": [
+    "32x96",
+    "35x96",
+    "36x96",
+    "43x96",
+    "45x96",
+    "50x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "laws/BOHEMIA_ADDENDUM_TILEPOOL_LAWS_7_16_26.md",
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/bohemia_street_furniture_cook.py",
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "Structures and columns": {
+   "family": "settlement",
+   "tiles": 16,
+   "approved": 0,
+   "sizes": [
+    "23x96",
+    "27x96",
+    "29x96",
+    "31x96",
+    "39x96",
+    "52x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Tables, chairs and sitting": {
+   "family": "prop",
+   "tiles": 41,
+   "approved": 0,
+   "sizes": [
+    "48x96",
+    "53x95",
+    "55x96",
+    "56x96",
+    "57x77",
+    "59x74"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Traps and mechanism": {
+   "family": "prop",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "44x96",
+    "59x96",
+    "63x96",
+    "66x96",
+    "68x96",
+    "76x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Traps and mechanism (1)": {
+   "family": "prop",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "51x96",
+    "61x96",
+    "65x96",
+    "74x96",
+    "75x96",
+    "76x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Wall and floor details": {
+   "family": "settlement",
+   "tiles": 69,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "50x96",
+    "55x96",
+    "58x96",
+    "59x96",
+    "60x95"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt"
+   ]
+  },
+  "Wall and floor details (2)": {
+   "family": "settlement",
+   "tiles": 29,
+   "approved": 0,
+   "sizes": [
+    "74x96",
+    "77x96",
+    "79x96",
+    "83x96",
+    "86x96",
+    "87x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "Wall and floor details (3)": {
+   "family": "settlement",
+   "tiles": 33,
+   "approved": 0,
+   "sizes": [
+    "39x96",
+    "40x96",
+    "49x96",
+    "50x96",
+    "51x96",
+    "53x95"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt"
+   ]
+  },
+  "Wall tiles (1)": {
+   "family": "settlement",
+   "tiles": 20,
+   "approved": 20,
+   "sizes": [
+    "40x96",
+    "73x96",
+    "74x96",
+    "75x96",
+    "76x96",
+    "77x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 20 tiles",
+    "engine/bohemia_coldopen_set.js",
+    "records/BOHEMIA_COOK4_HOW_THE_PACK_DID_IT_THE_PLACES_10_10_26.md",
+    "records/BOHEMIA_COOK4_THE_SETTLEMENT_FROM_THE_PACKS_10_10_26.md",
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt",
+    "records/BOHEMIA_RUN_DISTRICT_MATERIAL_SURVEY_7_28_26.md",
+    "records/tileforms/TF-RUN-003_chainlink_fence.md",
+    "..."
+   ]
+  },
+  "Wall tiles and edges": {
+   "family": "settlement",
+   "tiles": 15,
+   "approved": 0,
+   "sizes": [
+    "47x96",
+    "55x96",
+    "61x96",
+    "68x63",
+    "73x96",
+    "74x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html"
+   ]
+  },
+  "Wall tiles and edges (1)": {
+   "family": "settlement",
+   "tiles": 28,
+   "approved": 0,
+   "sizes": [
+    "34x96",
+    "36x96",
+    "37x96",
+    "38x96",
+    "74x96",
+    "91x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_BOUGHT_AUDIT_7_31_26.md",
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html"
+   ]
+  },
+  "Water and liquids": {
+   "family": "ground",
+   "tiles": 69,
+   "approved": 0,
+   "sizes": [
+    "53x96",
+    "62x74",
+    "64x96",
+    "65x96",
+    "66x96",
+    "67x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt",
+    "tools/tfcook/TF-ART-006_cook.py"
+   ]
+  },
+  "Water and ponds": {
+   "family": "ground",
+   "tiles": 32,
+   "approved": 0,
+   "sizes": [
+    "57x85",
+    "61x83",
+    "65x96",
+    "81x96",
+    "83x96",
+    "89x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt"
+   ]
+  },
+  "bridges and walkways": {
+   "family": "settlement",
+   "tiles": 57,
+   "approved": 0,
+   "sizes": [
+    "62x96",
+    "65x96",
+    "67x96",
+    "68x96",
+    "72x96",
+    "73x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "doors and arches": {
+   "family": "door",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "79x96",
+    "80x96",
+    "82x96",
+    "87x96",
+    "88x96",
+    "89x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_DEMO_TILE_SOURCES_7_10_26.txt"
+   ]
+  },
+  "doors and structures": {
+   "family": "door",
+   "tiles": 61,
+   "approved": 0,
+   "sizes": [
+    "57x66",
+    "58x78",
+    "61x84",
+    "63x94",
+    "64x96",
+    "67x85"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/bohemia_the_pack_card_cook_10_11_26.py"
+   ]
+  },
+  "furniture and interior": {
+   "family": "prop",
+   "tiles": 82,
+   "approved": 0,
+   "sizes": [
+    "49x96",
+    "50x96",
+    "54x96",
+    "57x88",
+    "58x86",
+    "59x84"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "lightning fx": {
+   "family": "lamp",
+   "tiles": 23,
+   "approved": 0,
+   "sizes": [
+    "33x96",
+    "37x96",
+    "44x96",
+    "46x96",
+    "47x96",
+    "49x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "miscellaneous props": {
+   "family": "prop",
+   "tiles": 24,
+   "approved": 0,
+   "sizes": [
+    "28x96",
+    "40x96",
+    "42x96",
+    "45x96",
+    "58x96",
+    "70x71"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "plants and flowers": {
+   "family": "ground",
+   "tiles": 43,
+   "approved": 0,
+   "sizes": [
+    "52x96",
+    "53x96",
+    "61x96",
+    "63x73",
+    "63x74",
+    "64x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "skeletons and bones": {
+   "family": "prop",
+   "tiles": 39,
+   "approved": 39,
+   "sizes": [
+    "45x96",
+    "53x96",
+    "56x96",
+    "67x81",
+    "70x96",
+    "78x81"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 39 tiles",
+    "engine/bohemia_dead.js",
+    "records/BOHEMIA_BANK_LAW_INDEX.md",
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/BOHEMIA_THE_DEAD_TELL_YOU_WHERE_THEY_DIED_8_8_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json",
+    "slices/BOHEMIA_CITY_WORLD.html",
+    "..."
+   ]
+  },
+  "special tiles": {
+   "family": "prop",
+   "tiles": 31,
+   "approved": 0,
+   "sizes": [
+    "35x96",
+    "52x96",
+    "56x96",
+    "57x96",
+    "58x96",
+    "64x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "statues and gargoyles": {
+   "family": "settlement",
+   "tiles": 11,
+   "approved": 0,
+   "sizes": [
+    "56x96",
+    "57x96",
+    "65x96",
+    "68x96",
+    "70x96",
+    "72x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "records/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT_10_13_26.md",
+    "records/target/BOHEMIA_PORTRAIT_QUARTERMASTERS_COUNT.json"
+   ]
+  },
+  "trees and vegetation": {
+   "family": "ground",
+   "tiles": 51,
+   "approved": 0,
+   "sizes": [
+    "60x96",
+    "62x96",
+    "63x96",
+    "65x96",
+    "67x96",
+    "68x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "wall and floor details (1)": {
+   "family": "settlement",
+   "tiles": 63,
+   "approved": 0,
+   "sizes": [
+    "46x96",
+    "50x96",
+    "53x96",
+    "61x96",
+    "66x96",
+    "67x87"
+   ],
+   "opened": true,
+   "opened_by": [
+    "tools/BOHEMIA_WALL_PICKER_7_14_26.html"
+   ]
+  },
+  "wall tiles": {
+   "family": "settlement",
+   "tiles": 56,
+   "approved": 0,
+   "sizes": [
+    "44x96",
+    "45x96",
+    "46x96",
+    "50x96",
+    "51x96",
+    "54x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "engine/bohemia_story_surface.js",
+    "engine/bohemia_tract.js",
+    "gates/bohemia_gates.py",
+    "gates/bohemia_graveyard.txt",
+    "gates/bought_first_gate.py",
+    "gates/perimeter_gate.py",
+    "..."
+   ]
+  },
+  "wall tiles and cliffs": {
+   "family": "ground",
+   "tiles": 58,
+   "approved": 0,
+   "sizes": [
+    "50x96",
+    "51x96",
+    "52x96",
+    "55x96",
+    "56x96",
+    "58x96"
+   ],
+   "opened": false,
+   "opened_by": []
+  },
+  "wooden and nature props": {
+   "family": "ground",
+   "tiles": 67,
+   "approved": 57,
+   "sizes": [
+    "52x96",
+    "53x93",
+    "63x91",
+    "65x96",
+    "69x96",
+    "70x96"
+   ],
+   "opened": true,
+   "opened_by": [
+    "approved (7/13 sweep): 57 tiles",
+    "slices/BOHEMIA_RUN_CURRENT.html",
+    "tools/bohemia_exterior_pool_cook.py",
+    "tools/bohemia_the_pack_is_the_twin_cook_10_10_26.py"
+   ]
+  }
+ }
+}

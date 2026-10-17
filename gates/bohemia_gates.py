@@ -5326,6 +5326,16 @@ GATES = [
      'over nothing.',
      120),
 
+    ("QUARTERMASTER'S COUNT", ['node', 'gates/quartermasters_count_gate.js'],
+     'COUNT THE STORES BEFORE ANYONE COOKS. 10/17, PLUMBER lane, row [the quartermaster\'s count]; the '
+     'coordinator\'s school round twelve, rule 100c amended; Paolo 10/10 (82a): "LOOK AGAIN". 294 packs bought, '
+     '8,674 tiles, and 35 burnt wrecks sat in the APPROVED bank while a lane ran eight rounds of repainting cars. '
+     'tools/bohemia_quartermasters_count.py reads the four HD chunks and prints, per family, "we own N pieces in M '
+     'packs, K never opened" into records/target/BOHEMIA_QUARTERMASTERS_COUNT.json. This holds it: the count is '
+     'current against the packs on disk; every HOW THE PACK DID IT page born since the count opens with its '
+     'family\'s line with the count\'s numbers; every tile, outfit or face a cook lane registers in VOTE names the '
+     'pack piece it started from (twin.src pack:<pack>#<idx>) or a hole the count says is zero. Self-tests both '
+     'ways on the [car recook] shape. Floor: an unreadable count fails, never passes.', False),
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '
