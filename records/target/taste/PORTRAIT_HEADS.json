@@ -1,0 +1,321 @@
+{
+ "made": "10/17/26",
+ "lane": "portrait",
+ "rule": "110 on 108 ROUND TWELVE (5); 108a: zero new pixels, the shipping faceFor()/renderFace() unmodified",
+ "renderer": "slices/BOHEMIA_ALPHA_0_9.html renderFace() at 64 x 64, a placeholder under rule 108 ROUND THIRTEEN",
+ "settings": {
+  "plain": {},
+  "threeD": {
+   "threeD": true
+  },
+  "feat120": {
+   "feat": 1.2
+  },
+  "brow": {
+   "brow": -0.5
+  }
+ },
+ "gear_shown": "15 of 20",
+ "heads": [
+  {
+   "id": "enemy:brigand_thug",
+   "slug": "brigand-thug",
+   "label": "THUG (brigand)",
+   "hat": "hat/durag",
+   "glasses": "glasses/shades",
+   "hair": "LAYERED FALL",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-thug.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-thug.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-thug.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-thug.brow.png"
+   }
+  },
+  {
+   "id": "enemy:brigand_poacher",
+   "slug": "brigand-poacher",
+   "label": "POACHER (brigand)",
+   "hat": "",
+   "glasses": "",
+   "hair": "HEAVY FRINGE",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-poacher.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-poacher.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-poacher.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-poacher.brow.png"
+   }
+  },
+  {
+   "id": "enemy:brigand_marksman",
+   "slug": "brigand-marksman",
+   "label": "MARKSMAN (brigand)",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "TEMPLE TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-marksman.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-marksman.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-marksman.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-marksman.brow.png"
+   }
+  },
+  {
+   "id": "enemy:brigand_raider",
+   "slug": "brigand-raider",
+   "label": "RAIDER (brigand)",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "DRY TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-raider.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-raider.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-raider.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-raider.brow.png"
+   }
+  },
+  {
+   "id": "enemy:brigand_leader",
+   "slug": "brigand-leader",
+   "label": "LEADER (brigand)",
+   "hat": "",
+   "glasses": "",
+   "hair": "COIL CROWN",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-leader.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-leader.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-leader.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-leader.brow.png"
+   }
+  },
+  {
+   "id": "enemy:brigand_marauder",
+   "slug": "brigand-marauder",
+   "label": "MARAUDER (brigand)",
+   "hat": "",
+   "glasses": "",
+   "hair": "TEMPLE TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/brigand-marauder.png",
+    "threeD": "records/target/taste/portrait_heads/brigand-marauder.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/brigand-marauder.feat120.png",
+    "brow": "records/target/taste/portrait_heads/brigand-marauder.brow.png"
+   }
+  },
+  {
+   "id": "keeper:THE WASH, NORTH LAS VEGAS:smith",
+   "slug": "keeper-smith",
+   "label": "THE SMITH, THE WASH",
+   "hat": "",
+   "glasses": "",
+   "hair": "TEMPLE TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/keeper-smith.png",
+    "threeD": "records/target/taste/portrait_heads/keeper-smith.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/keeper-smith.feat120.png",
+    "brow": "records/target/taste/portrait_heads/keeper-smith.brow.png"
+   }
+  },
+  {
+   "id": "keeper:THE WASH, NORTH LAS VEGAS:armourer",
+   "slug": "keeper-armourer",
+   "label": "THE ARMOURER, THE WASH",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "LAYERED FALL",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/keeper-armourer.png",
+    "threeD": "records/target/taste/portrait_heads/keeper-armourer.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/keeper-armourer.feat120.png",
+    "brow": "records/target/taste/portrait_heads/keeper-armourer.brow.png"
+   }
+  },
+  {
+   "id": "keeper:THE WASH, NORTH LAS VEGAS:barber",
+   "slug": "keeper-barber",
+   "label": "THE BARBER, THE WASH",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "CURTAIN CUT",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/keeper-barber.png",
+    "threeD": "records/target/taste/portrait_heads/keeper-barber.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/keeper-barber.feat120.png",
+    "brow": "records/target/taste/portrait_heads/keeper-barber.brow.png"
+   }
+  },
+  {
+   "id": "keeper:THE WASH, NORTH LAS VEGAS:clinic",
+   "slug": "keeper-clinic",
+   "label": "THE CLINIC, THE WASH",
+   "hat": "",
+   "glasses": "",
+   "hair": "LAYERED FALL",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/keeper-clinic.png",
+    "threeD": "records/target/taste/portrait_heads/keeper-clinic.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/keeper-clinic.feat120.png",
+    "brow": "records/target/taste/portrait_heads/keeper-clinic.brow.png"
+   }
+  },
+  {
+   "id": "keeper:THE WASH, NORTH LAS VEGAS:board",
+   "slug": "keeper-board",
+   "label": "THE BOARD, THE WASH",
+   "hat": "",
+   "glasses": "glasses/shades",
+   "hair": "ROPE LOCKS",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/keeper-board.png",
+    "threeD": "records/target/taste/portrait_heads/keeper-board.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/keeper-board.feat120.png",
+    "brow": "records/target/taste/portrait_heads/keeper-board.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:2",
+   "slug": "crowd-2",
+   "label": "CITIZEN 2",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "DEEP TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-2.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-2.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-2.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-2.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:5",
+   "slug": "crowd-5",
+   "label": "CITIZEN 5",
+   "hat": "",
+   "glasses": "glasses/shades",
+   "hair": "DEEP TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-5.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-5.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-5.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-5.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:10",
+   "slug": "crowd-10",
+   "label": "CITIZEN 10",
+   "hat": "",
+   "glasses": "glasses/shades",
+   "hair": "DRY TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-10.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-10.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-10.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-10.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:14",
+   "slug": "crowd-14",
+   "label": "CITIZEN 14",
+   "hat": "hat/durag",
+   "glasses": "glasses/shades",
+   "hair": "HEAVY FRINGE",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-14.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-14.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-14.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-14.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:21",
+   "slug": "crowd-21",
+   "label": "CITIZEN 21",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "ROPE LOCKS",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-21.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-21.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-21.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-21.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:35",
+   "slug": "crowd-35",
+   "label": "CITIZEN 35",
+   "hat": "hat/durag",
+   "glasses": "glasses/shades",
+   "hair": "SHAG",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-35.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-35.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-35.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-35.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:47",
+   "slug": "crowd-47",
+   "label": "CITIZEN 47",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "DEEP TAPER",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-47.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-47.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-47.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-47.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:63",
+   "slug": "crowd-63",
+   "label": "CITIZEN 63",
+   "hat": "hat/durag",
+   "glasses": "",
+   "hair": "",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-63.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-63.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-63.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-63.brow.png"
+   }
+  },
+  {
+   "id": "gate:crowd:105",
+   "slug": "crowd-105",
+   "label": "CITIZEN 105",
+   "hat": "",
+   "glasses": "glasses/shades",
+   "hair": "CURTAIN CUT",
+   "skin": "fair",
+   "files": {
+    "plain": "records/target/taste/portrait_heads/crowd-105.png",
+    "threeD": "records/target/taste/portrait_heads/crowd-105.threeD.png",
+    "feat120": "records/target/taste/portrait_heads/crowd-105.feat120.png",
+    "brow": "records/target/taste/portrait_heads/crowd-105.brow.png"
+   }
+  }
+ ]
+}

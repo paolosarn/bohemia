@@ -378,6 +378,49 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-yke55s): 10/17 LATEST (round twelve, THE BIG SWING) -- ***
+THE TWENTY FACE PAIRS FOR HIS TASTE SESSION: BUILT, KEYED, PARKED UNTIL THE
+MOODBOARD LANDS. ***
+
+Rule 110 put the swing on this lane's MODE line and rule 111 opened this chat
+through the coordinator; the round ran to the end with no check-in. DIRECTION's
+twenty for the ground (10/11) now has its twin for the face, in the same shape:
+the SAME head twice, ONE measured thing changed, UP = left, DOWN = right, which
+side carries the change seeded (right 7, left 6 of the 13 pairs with a shipping
+face side). Twenty real people the game already draws (six brigand tiers with
+their faction hair, the five keepers of THE WASH, nine crowd citizens with gear),
+through faceFor()/renderFace() UNMODIFIED at 64 px, head only, head gear where the
+spec carries it: 15 of 20 show gear. Nothing drawn (rule 108a): a ring, a median
+cut, saturation, value, warm/cold, grime from his own burnt-ground tiles, the
+gradient swapped for flat near-black or his soil's median, the far side darker,
+a crop, a whole-number zoom, three renderer switches (threeD, feat, brow).
+MEASURED: the unchanged side is byte-identical to the shipping face on every pair
+that has one. The heads are placeholders (rule 108 ROUND THIRTEEN); the knobs
+outlive the renderer. No pack twin for a face (16c80eb7, f3090598); the
+unchanged side is the twin.
+
+TOOLS: tools/bohemia_cook_the_twenty_face_pairs.js (the heads, refuses on a
+non-deterministic render, a shared face or under 12 with gear) and
+tools/bohemia_portrait_taste_session.py (the pairs, the key, the twenty registry
+items; --register appends them the round the coordinator says the moodboard
+landed, stamps the sha, tells you to run vote_tab_gate before pushing).
+FILES: records/target/taste/PORTRAIT_TASTE_01..20.webp (160 KB), PORTRAIT_TASTE_
+KEY.json, PORTRAIT_TASTE_ITEMS_READY.json, portrait_heads/ + PORTRAIT_HEADS.json.
+GATES: reference_check 457/2 (the 2 are a COOK TWO tool and a COOK tool born
+without a block, on main before this round; both new tools here carry theirs),
+vote_tab 34/3 (unchanged, not this lane's), pages_publish red on main already
+(609 MB vs 260, PLUMBER [excavate]); nothing in slices/, engine/ or the demo.
+Record: records/BOHEMIA_THE_TWENTY_FACE_PAIRS_10_17_26.md. Board: the new
+SHIPPED (built and parked) row [the face pairs] in the PORTRAIT section.
+
+TAB: NOT IN A TAB YET, by rule (82/87 and the sweep AI park on DIRECTION's
+session). VOTE the round the moodboard lands: twenty rows, thumbs only.
+PENDING Paolo: nothing.
+NEXT: the moment the coordinator says the moodboard landed, hold the twenty
+axes against it, re-make any axis it says is wrong, run --register, run the
+vote tab gate, push. Until then: [the keepers' and hires' bodies] still waits
+on another lane's assignment; [the twin on the portraits] waits on the pipe.
+
 PORTRAIT (portrait-vamily-yke55s): 10/16 LATEST (round eleven) -- *** CORRECTING
 MY OWN "ZERO" THE SAME ROUND IT WAS FOUND WRONG, THEN STOPPING (RULE 12). ***
 
@@ -406,47 +449,6 @@ lane's to drive.
 
 TAB: NOT IN VOTE -- a correction and a note, not a look.
 PENDING Paolo: nothing.
-PORTRAIT (portrait-vamily-yke55s): 10/16 LATEST (round ten) -- *** A SHORT
-ROUND ON PURPOSE: STILL BLOCKED THE SAME TWO WAYS, SO THIS ROUND CHECKED
-SOMETHING NEW INSTEAD OF REPEATING ITSELF. ***
-
-RE-SYNCED (22 commits), re-read VAMILY.md's front page and this lane's section
-fresh. Nothing changed on [the twin on the portraits] (still no face pack
-piece, still no pipe) or [the keepers' and hires' bodies] (still waiting on
-another lane). A fourth round saying so again would be the STOP PRODUCING
-tell, so it was not written.
-
-INSTEAD, CHECKED A REAL NEW RISK: RUN shipped a body-baking cache this round
-(tools/bohemia_bake_the_demo_cast.js, [ten seconds to play] round four) that
-caches the map's starter people and crowd as static JSON instead of
-re-rendering them live. Five times this session a cache or a second data
-source has silently drifted from the body it should match, so this was worth
-checking rather than assuming. Read the new file in full: it caches walked
-BODY frames only, zero mentions of face or portrait anywhere in it. Re-ran
-this lane's two drift gates (hair_match_regression_gate, portrait_matches_
-body_gate) and confirmed both still call BOH_PERSONLOOK.lookFor LIVE, never
-the new cache. No new risk; nothing broken, nothing to fix.
-
-TAB: NOT IN VOTE -- a safety check, not a look, same discipline as the last
-two confirmation-only rounds.
-Record: records/BOHEMIA_PORTRAIT_THE_BAKED_CAST_CHECKED_10_16_26.md. Board
-note added to [hair match regression gate]'s SHIPPED row.
-NEXT: check whether PLUMBER's [the toolchain]/[the gun in the repo] have
-shipped a callable pipe, whether his moodboard has landed, or whether
-COOK's [the two holes] (claimed this same sweep, f7f13b5b) has shipped its
-PIXEL-level sweep of all 8,674 tiles for faces and people -- a stronger
-check than this lane's own name-based one, and one that could overturn the
-zero if it finds a real face hiding in an unexpectedly-named pack. Read
-that result first thing next round, before opening another study page. If
-none of the three have moved, another short, honestly-different check is
-right -- not a repeat.
-PENDING Paolo: nothing.
-ALSO WORTH KNOWING: RUN TWO shipped [the barber's door] this sweep (93e1ad9f)
--- the barber's chair in the real settlement screen now opens this lane's
-own face maker, every slider and the haircut shelf, live in the game. Not
-built here, but it is this lane's mechanism reaching a real door; face_maker_
-gate (16/0) and the rest of this lane's suite stayed green through the wiring.
-
 WORDS (words-8dqrnq): 10/10 (m) LATEST -- *** YOU PUT THIS LANE ON HOLD. I STOPPED BEFORE
 SHIPPING ANYTHING, NOT AFTER. ***
 TAB: nothing to show; this lane is paused.

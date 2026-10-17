@@ -1,0 +1,476 @@
+{
+ "session": "THE TASTE SESSION: THE FACE",
+ "lane": "portrait",
+ "date": "10/17/26",
+ "rule": "110 on 108 ROUND TWELVE (5)",
+ "read": "thumbs up = the left picture, thumbs down = the right; one knob changes per pair; the same twenty knobs read with DIRECTION's session where the knob is the same",
+ "heads": "records/target/taste/PORTRAIT_HEADS.json",
+ "gear_shown": "15 of 20",
+ "soil_room": [
+  202,
+  139,
+  82
+ ],
+ "pairs": [
+  {
+   "n": 1,
+   "person": "gate:crowd:105",
+   "label": "CITIZEN 105",
+   "gear": "shades",
+   "question": "A LINE ROUND THE HEAD?",
+   "up": {
+    "label": "no line, the face as it ships",
+    "set": {}
+   },
+   "down": {
+    "label": "a 1-pixel dark line round the head",
+    "set": {
+     "outline": 1
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_01.webp"
+  },
+  {
+   "n": 2,
+   "person": "enemy:brigand_poacher",
+   "label": "POACHER (brigand)",
+   "gear": "no gear",
+   "question": "HOW THICK A LINE?",
+   "up": {
+    "label": "a 1-pixel line",
+    "set": {
+     "outline": 1
+    }
+   },
+   "down": {
+    "label": "a 2-pixel line",
+    "set": {
+     "outline": 2
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_02.webp"
+  },
+  {
+   "n": 3,
+   "person": "enemy:brigand_marksman",
+   "label": "MARKSMAN (brigand)",
+   "gear": "durag",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "cut to 16 colours",
+    "set": {
+     "colours": 16
+    }
+   },
+   "down": {
+    "label": "every colour the face has",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_03.webp"
+  },
+  {
+   "n": 4,
+   "person": "enemy:brigand_raider",
+   "label": "RAIDER (brigand)",
+   "gear": "durag",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "every colour",
+    "set": {}
+   },
+   "down": {
+    "label": "cut to 32 colours",
+    "set": {
+     "colours": 32
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_04.webp"
+  },
+  {
+   "n": 5,
+   "person": "enemy:brigand_leader",
+   "label": "LEADER (brigand)",
+   "gear": "no gear",
+   "question": "HOW MANY COLOURS?",
+   "up": {
+    "label": "8 colours",
+    "set": {
+     "colours": 8
+    }
+   },
+   "down": {
+    "label": "32 colours",
+    "set": {
+     "colours": 32
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_05.webp"
+  },
+  {
+   "n": 6,
+   "person": "enemy:brigand_marauder",
+   "label": "MARAUDER (brigand)",
+   "gear": "no gear",
+   "question": "HOW STRONG THE COLOUR?",
+   "up": {
+    "label": "the colour at 55%",
+    "set": {
+     "sat": 0.55
+    }
+   },
+   "down": {
+    "label": "the face's colour",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_06.webp"
+  },
+  {
+   "n": 7,
+   "person": "keeper:THE WASH, NORTH LAS VEGAS:smith",
+   "label": "THE SMITH, THE WASH",
+   "gear": "no gear",
+   "question": "HOW STRONG THE COLOUR?",
+   "up": {
+    "label": "the colour at 45%",
+    "set": {
+     "sat": 0.45
+    }
+   },
+   "down": {
+    "label": "the colour at 80%",
+    "set": {
+     "sat": 0.8
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_07.webp"
+  },
+  {
+   "n": 8,
+   "person": "keeper:THE WASH, NORTH LAS VEGAS:armourer",
+   "label": "THE ARMOURER, THE WASH",
+   "gear": "durag",
+   "question": "HOW DARK?",
+   "up": {
+    "label": "70% as bright",
+    "set": {
+     "value": 0.7
+    }
+   },
+   "down": {
+    "label": "as bright as it ships",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_08.webp"
+  },
+  {
+   "n": 9,
+   "person": "keeper:THE WASH, NORTH LAS VEGAS:barber",
+   "label": "THE BARBER, THE WASH",
+   "gear": "durag",
+   "question": "HOW DARK?",
+   "up": {
+    "label": "60% as bright",
+    "set": {
+     "value": 0.6
+    }
+   },
+   "down": {
+    "label": "as bright as it ships",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_09.webp"
+  },
+  {
+   "n": 10,
+   "person": "keeper:THE WASH, NORTH LAS VEGAS:clinic",
+   "label": "THE CLINIC, THE WASH",
+   "gear": "no gear",
+   "question": "WARM OR COLD LIGHT?",
+   "up": {
+    "label": "warm, a desert afternoon",
+    "set": {
+     "warm": 0.08
+    }
+   },
+   "down": {
+    "label": "cold, a grey dawn",
+    "set": {
+     "warm": -0.08
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_10.webp"
+  },
+  {
+   "n": 11,
+   "person": "keeper:THE WASH, NORTH LAS VEGAS:board",
+   "label": "THE BOARD, THE WASH",
+   "gear": "shades",
+   "question": "WHAT IS BEHIND THE FACE?",
+   "up": {
+    "label": "the blue-grey fade it ships with",
+    "set": {}
+   },
+   "down": {
+    "label": "flat, nearly black",
+    "set": {
+     "room": [
+      12,
+      10,
+      9
+     ]
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_11.webp"
+  },
+  {
+   "n": 12,
+   "person": "gate:crowd:2",
+   "label": "CITIZEN 2",
+   "gear": "durag",
+   "question": "WHAT IS BEHIND THE FACE?",
+   "up": {
+    "label": "the colour of his dirt, flat",
+    "set": {
+     "room": [
+      202,
+      139,
+      82
+     ]
+    }
+   },
+   "down": {
+    "label": "the blue-grey fade",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_12.webp"
+  },
+  {
+   "n": 13,
+   "person": "gate:crowd:5",
+   "label": "CITIZEN 5",
+   "gear": "shades",
+   "question": "HOW DIRTY THE FACE?",
+   "up": {
+    "label": "grime from his burnt ground on the skin",
+    "set": {
+     "grit": 0.35
+    }
+   },
+   "down": {
+    "label": "clean, as it ships",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_13.webp"
+  },
+  {
+   "n": 14,
+   "person": "gate:crowd:10",
+   "label": "CITIZEN 10",
+   "gear": "shades",
+   "question": "HOW DIRTY THE FACE?",
+   "up": {
+    "label": "heavy grime",
+    "set": {
+     "grit": 0.5
+    }
+   },
+   "down": {
+    "label": "a little grime",
+    "set": {
+     "grit": 0.2
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_14.webp"
+  },
+  {
+   "n": 15,
+   "person": "gate:crowd:14",
+   "label": "CITIZEN 14",
+   "gear": "durag",
+   "question": "LIT FROM ONE SIDE OR FLAT?",
+   "up": {
+    "label": "flat, as it ships",
+    "set": {}
+   },
+   "down": {
+    "label": "the far side one step darker",
+    "set": {
+     "side": 0.28
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_15.webp"
+  },
+  {
+   "n": 16,
+   "person": "gate:crowd:21",
+   "label": "CITIZEN 21",
+   "gear": "durag",
+   "question": "FLAT OR 3-D?",
+   "up": {
+    "label": "3-D: a lit, turned head",
+    "set": {
+     "setting": "threeD"
+    }
+   },
+   "down": {
+    "label": "flat",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_16.webp"
+  },
+  {
+   "n": 17,
+   "person": "gate:crowd:35",
+   "label": "CITIZEN 35",
+   "gear": "durag",
+   "question": "HOW BIG THE FEATURES?",
+   "up": {
+    "label": "the features as they ship",
+    "set": {}
+   },
+   "down": {
+    "label": "the features 20% bigger",
+    "set": {
+     "setting": "feat120"
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_17.webp"
+  },
+  {
+   "n": 18,
+   "person": "gate:crowd:47",
+   "label": "CITIZEN 47",
+   "gear": "durag",
+   "question": "HOW MUCH ROOM ROUND THE HEAD?",
+   "up": {
+    "label": "the frame as it ships",
+    "set": {}
+   },
+   "down": {
+    "label": "the frame cut to the head plus 3",
+    "set": {
+     "crop": 3
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    false
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_18.webp"
+  },
+  {
+   "n": 19,
+   "person": "gate:crowd:63",
+   "label": "CITIZEN 63",
+   "gear": "durag",
+   "question": "HOW BIG ON THE PHONE?",
+   "up": {
+    "label": "four pixels to one",
+    "set": {
+     "zoom": 4
+    }
+   },
+   "down": {
+    "label": "six pixels to one",
+    "set": {
+     "zoom": 6
+    }
+   },
+   "unchanged_side_is_the_shipping_face": [
+    true,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_19.webp"
+  },
+  {
+   "n": 20,
+   "person": "enemy:brigand_thug",
+   "label": "THUG (brigand)",
+   "gear": "durag",
+   "question": "AT REST: BLANK OR A LITTLE BROW?",
+   "up": {
+    "label": "the brow down a touch",
+    "set": {
+     "setting": "brow"
+    }
+   },
+   "down": {
+    "label": "the face at rest",
+    "set": {}
+   },
+   "unchanged_side_is_the_shipping_face": [
+    false,
+    true
+   ],
+   "file": "records/target/taste/PORTRAIT_TASTE_20.webp"
+  }
+ ]
+}

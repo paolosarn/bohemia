@@ -1,0 +1,465 @@
+{
+ "readme": "The twenty registry items for the face taste session, ready; appended to records/target/BOHEMIA_VOTE_REGISTRY.json by --register the round the moodboard lands, never before (rule 82/87).",
+ "items": [
+  {
+   "id": "portrait-taste-01-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "1 OF 20: A LINE ROUND THE HEAD?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_01.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-105.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = no line, the face as it ships; DOWN = a 1-pixel dark line round the head; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-02-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "2 OF 20: HOW THICK A LINE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_02.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-poacher.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = a 1-pixel line; DOWN = a 2-pixel line; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-03-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "3 OF 20: HOW MANY COLOURS?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_03.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-marksman.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = cut to 16 colours; DOWN = every colour the face has; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-04-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "4 OF 20: HOW MANY COLOURS?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_04.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-raider.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = every colour; DOWN = cut to 32 colours; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-05-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "5 OF 20: HOW MANY COLOURS?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_05.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-leader.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = 8 colours; DOWN = 32 colours; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-06-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "6 OF 20: HOW STRONG THE COLOUR?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_06.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-marauder.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the colour at 55%; DOWN = the face's colour; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-07-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "7 OF 20: HOW STRONG THE COLOUR?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_07.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/keeper-smith.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the colour at 45%; DOWN = the colour at 80%; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-08-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "8 OF 20: HOW DARK?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_08.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/keeper-armourer.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = 70% as bright; DOWN = as bright as it ships; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-09-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "9 OF 20: HOW DARK?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_09.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/keeper-barber.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = 60% as bright; DOWN = as bright as it ships; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-10-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "10 OF 20: WARM OR COLD LIGHT?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_10.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/keeper-clinic.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = warm, a desert afternoon; DOWN = cold, a grey dawn; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-11-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "11 OF 20: WHAT IS BEHIND THE FACE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_11.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/keeper-board.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the blue-grey fade it ships with; DOWN = flat, nearly black; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-12-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "12 OF 20: WHAT IS BEHIND THE FACE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_12.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-2.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the colour of his dirt, flat; DOWN = the blue-grey fade; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-13-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "13 OF 20: HOW DIRTY THE FACE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_13.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-5.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = grime from his burnt ground on the skin; DOWN = clean, as it ships; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-14-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "14 OF 20: HOW DIRTY THE FACE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_14.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-10.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = heavy grime; DOWN = a little grime; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-15-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "15 OF 20: LIT FROM ONE SIDE OR FLAT?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_15.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-14.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = flat, as it ships; DOWN = the far side one step darker; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-16-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "16 OF 20: FLAT OR 3-D?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_16.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-21.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = 3-D: a lit, turned head; DOWN = flat; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-17-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "17 OF 20: HOW BIG THE FEATURES?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_17.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-35.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the features as they ship; DOWN = the features 20% bigger; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-18-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "18 OF 20: HOW MUCH ROOM ROUND THE HEAD?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_18.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-47.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the frame as it ships; DOWN = the frame cut to the head plus 3; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-19-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "19 OF 20: HOW BIG ON THE PHONE?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_19.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/crowd-63.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = four pixels to one; DOWN = six pixels to one; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  },
+  {
+   "id": "portrait-taste-20-10-17",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/17",
+   "title": "20 OF 20: AT REST: BLANK OR A LITTLE BROW?",
+   "why": "The same face twice with one thing changed. UP picks the left picture, DOWN the right, and your taps become the rule for every face. You see it in the VOTE tab at 1:1 and zoomed.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/taste/PORTRAIT_TASTE_20.webp"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-thug.png",
+    "diffs": [
+     "THE ONE CHANGE: UP = the brow down a touch; DOWN = the face at rest; nothing else differs between the two sides.",
+     "THE CONTROL: the unchanged side is the face as it ships today (the twin), byte-identical to it at 1:1; no pack holds a character face to stand beside it (16c80eb7, f3090598).",
+     "THE HEAD IS A PLACEHOLDER under rule 108 ROUND THIRTEEN; the knob (line, colours, light, grime, strength, darkness, warmth, room, size) outlives the renderer."
+    ]
+   },
+   "draft": true,
+   "parked": "until the moodboard lands (rule 82/87); registered by tools/bohemia_portrait_taste_session.py --register"
+  }
+ ]
+}

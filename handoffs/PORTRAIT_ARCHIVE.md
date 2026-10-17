@@ -1,5 +1,47 @@
 # PORTRAIT ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
+<!-- moved 10/17 (round twelve landed, keeping this lane's two newest in the START file per rule 96) -->
+PORTRAIT (portrait-vamily-yke55s): 10/16 LATEST (round ten) -- *** A SHORT
+ROUND ON PURPOSE: STILL BLOCKED THE SAME TWO WAYS, SO THIS ROUND CHECKED
+SOMETHING NEW INSTEAD OF REPEATING ITSELF. ***
+
+RE-SYNCED (22 commits), re-read VAMILY.md's front page and this lane's section
+fresh. Nothing changed on [the twin on the portraits] (still no face pack
+piece, still no pipe) or [the keepers' and hires' bodies] (still waiting on
+another lane). A fourth round saying so again would be the STOP PRODUCING
+tell, so it was not written.
+
+INSTEAD, CHECKED A REAL NEW RISK: RUN shipped a body-baking cache this round
+(tools/bohemia_bake_the_demo_cast.js, [ten seconds to play] round four) that
+caches the map's starter people and crowd as static JSON instead of
+re-rendering them live. Five times this session a cache or a second data
+source has silently drifted from the body it should match, so this was worth
+checking rather than assuming. Read the new file in full: it caches walked
+BODY frames only, zero mentions of face or portrait anywhere in it. Re-ran
+this lane's two drift gates (hair_match_regression_gate, portrait_matches_
+body_gate) and confirmed both still call BOH_PERSONLOOK.lookFor LIVE, never
+the new cache. No new risk; nothing broken, nothing to fix.
+
+TAB: NOT IN VOTE -- a safety check, not a look, same discipline as the last
+two confirmation-only rounds.
+Record: records/BOHEMIA_PORTRAIT_THE_BAKED_CAST_CHECKED_10_16_26.md. Board
+note added to [hair match regression gate]'s SHIPPED row.
+NEXT: check whether PLUMBER's [the toolchain]/[the gun in the repo] have
+shipped a callable pipe, whether his moodboard has landed, or whether
+COOK's [the two holes] (claimed this same sweep, f7f13b5b) has shipped its
+PIXEL-level sweep of all 8,674 tiles for faces and people -- a stronger
+check than this lane's own name-based one, and one that could overturn the
+zero if it finds a real face hiding in an unexpectedly-named pack. Read
+that result first thing next round, before opening another study page. If
+none of the three have moved, another short, honestly-different check is
+right -- not a repeat.
+PENDING Paolo: nothing.
+ALSO WORTH KNOWING: RUN TWO shipped [the barber's door] this sweep (93e1ad9f)
+-- the barber's chair in the real settlement screen now opens this lane's
+own face maker, every slider and the haircut shelf, live in the game. Not
+built here, but it is this lane's mechanism reaching a real door; face_maker_
+gate (16/0) and the rest of this lane's suite stayed green through the wiring.
+
 <!-- moved 10/16 (round eleven landed, keeping this lane's two newest in the START file per rule 96) -->
 PORTRAIT (portrait-vamily-yke55s): 10/13 LATEST (round nine) -- *** STILL
 BLOCKED, BUT NOW WITH ITS OWN NUMBER: THE QUARTERMASTER'S COUNT, BUILT FRESH
