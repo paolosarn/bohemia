@@ -8609,7 +8609,7 @@
    "id": "direction-the-rig-moves-10-17",
    "kind": "animation",
    "lane": "direction",
-   "sha": "pending",
+   "sha": "564e1b1",
    "made": "10/17",
    "title": "PLACEHOLDER: THE RIG NOW TURNS A BEAST IN EIGHT AND WALKS IT ON THE BEAT",
    "why": "The camera rig that makes every sprite the same size now takes a 3D animal, turns it to all eight directions, and draws its walk at six pictures and its idle at twelve, exactly the beat the game draws on, so the wolf chat and the face chat have a pipe to work through. You see it in the VOTE tab at 1:1 beside the game's own dire wolf today, and it stays a placeholder until your moodboard.",

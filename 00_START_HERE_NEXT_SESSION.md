@@ -5589,7 +5589,7 @@ I will never paste anything to you again. From here on, the one word is the
 whole instruction."
 THIS CHAT IS 06 ART DIRECTION -> DIRECTION (the Art Director).
 === DIRECTION, NEWEST STATE, 10/11 (a new dated block, per sweep AI; older round logs below are history) ===
-ROUND LOG 10/17a (latest, rule 110's swing, no check-in): [the master rig] ROUND TWO SHIPPED: THE MODEL MOVES AND
+ROUND LOG 10/17a (latest, rule 110's swing, no check-in): [the master rig] ROUND TWO SHIPPED 564e1b1: THE MODEL MOVES AND
 THE FACE COMES FROM THE BODY. tools/bohemia_direction_master_rig.py takes --clip <action>:<keys> (a glTF's own
 animation at the drawn keys only, three a beat, eight facings; one crop box per model so frames never jitter) and
 --portrait 96 (the SAME model's head in S/SE/SW at 400 px a metre). Proof: ANIMATION's fox (CC0 model, CC BY rig) at a
