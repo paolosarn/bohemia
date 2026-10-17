@@ -1,0 +1,93 @@
+[project]
+name = "aseprite-mcp"
+version = "0.10.0"
+description = "An extensive Model Context Protocol (MCP) server for driving Aseprite (pixel-art editor) headlessly via Lua scripting and the Aseprite CLI."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Brendan Malloy" }]
+keywords = ["aseprite", "mcp", "pixel-art", "sprite", "model-context-protocol", "animation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    # Per-minor, because PyPI's sidebar and its search filters read these and not
+    # `requires-python`. Kept in step with the CI matrix by
+    # `tests/test_imports.py::test_declared_python_support_matches_what_ci_tests`, since
+    # the defect this replaced was the two drifting apart.
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Graphics :: Editors",
+    "Topic :: Software Development :: Libraries",
+]
+dependencies = [
+    "mcp[cli]>=2.0.0",
+    "pillow>=12.3.0",
+    # Present already as an mcp dependency; declared because the tool layer imports it
+    # directly (BeforeValidator, to normalize an argument before its schema validates).
+    "pydantic>=2",
+]
+
+[project.urls]
+Homepage = "https://github.com/MalloyTheDev/aseprite-mcp"
+Repository = "https://github.com/MalloyTheDev/aseprite-mcp"
+Issues = "https://github.com/MalloyTheDev/aseprite-mcp/issues"
+
+[project.scripts]
+aseprite-mcp = "aseprite_mcp.server:main"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "hypothesis>=6", "ruff>=0.14"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    # Declared so an unknown-marker warning cannot hide a typo: `@pytest.mark.puer`
+    # would silently stop exempting the test and nobody would notice it had gone back
+    # to being skipped on CI.
+    "pure: needs no Aseprite, so it runs even when its module is not on the always-run allowlist (see tests/conftest.py)",
+]
+
+[tool.ruff]
+# 110 matches the codebase's existing style; only a handful of lines ever exceeded it.
+line-length = 110
+target-version = "py310"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = [
+    "E", "W",   # pycodestyle
+    "F",        # pyflakes
+    "I",        # import sorting
+    "B",        # bugbear (mutable defaults, raise-without-from, zip-without-strict)
+    "UP",       # pyupgrade
+    "C4",       # comprehension clarity
+    "SIM",      # simplifications
+    "RUF",      # ruff-specific
+]
+ignore = [
+    # The prose in this codebase deliberately uses typographic characters
+    # (em/en dashes, x). Flagging them as "ambiguous" fights the house style.
+    "RUF001", "RUF002", "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tool modules exist to register @mcp.tool() functions; importing them is the point.
+"src/aseprite_mcp/server.py" = ["F401"]
+"src/aseprite_mcp/__init__.py" = ["F401"]
+# Shim modules re-export the core API for backwards compatibility.
+"src/aseprite_mcp/config.py" = ["F401"]
+"src/aseprite_mcp/errors.py" = ["F401"]
+"src/aseprite_mcp/luagen.py" = ["F401"]
+"src/aseprite_mcp/runner.py" = ["F401"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aseprite_mcp"]

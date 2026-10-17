@@ -5347,6 +5347,25 @@ GATES = [
      'family\'s line with the count\'s numbers; every tile, outfit or face a cook lane registers in VOTE names the '
      'pack piece it started from (twin.src pack:<pack>#<idx>) or a hole the count says is zero. Self-tests both '
      'ways on the [car recook] shape. Floor: an unreadable count fails, never passes.', False),
+    ('THE ONE STOPWATCH', ['node', 'gates/one_stopwatch_gate.js'],
+     'ONE NUMBER FOR THE LOAD, AND EVERY OTHER NUMBER IS REFUSED. 10/17, PLUMBER lane, row [the one stopwatch]; '
+     'rule 94 (the poka-yoke) and rule 90 round 6 (the release line opens with TIME TO PLAY). Four lanes quoted '
+     'four load numbers for one demo (85, 67, 48, 22 s) and he could not tell which was the demo. '
+     'tools/bohemia_one_stopwatch.js opens the COMMITTED demo on the 4x phone profile five times through the one '
+     'instrument (first load, served like Pages) and writes ONE line to records/target/BOHEMIA_THE_ONE_STOPWATCH.json '
+     'stamped with the demo\'s build stamp and file hash. This holds: the file carries three or more readings and a '
+     'median; its hash is the committed demo\'s (a re-cut demo with last cut\'s number is STALE: RUN runs the stopwatch '
+     'in the cut\'s commit); the spread is a spread; and the deploy line, the calling script, the handoff\'s first block '
+     'and every commit since the stopwatch quote no door or title time but the stopwatch\'s. Self-test both ways.', False),
+    ('ART PIPE', ['python3', 'gates/art_pipe_gate.py'],
+     'NO PIXEL WRITTEN AS A NUMBER IN CODE, FROM NOW. 10/17, PLUMBER lane, row [the art pipe gate]; rule 108 round '
+     'eight (a); Paolo 10/10: "all the art assets you made look like AI slop ... the tiniest amount of pixels possible". '
+     'The Aseprite tool server (MalloyTheDev/aseprite-mcp, MIT, 163 tools) is vendored at tools/aseprite_mcp/ with a '
+     'README; this is the fence behind it. Counts literal pixel writes per drawing tool (putpixel, putdata, draw.point/'
+     'line/polygon, filled rectangle/ellipse, fillRect, strokeRect, putImageData, data[i]=) over 1,008 tools; a '
+     'frozen baseline (gates/art_pipe_baseline.json, 150 files, 1,180 writes on 10/17) may only go down; a new tool '
+     'must be zero. Not counted on purpose: a background colour, an outline-only frame, paste/crop/composite of a '
+     'pack tile, text on a sheet. Self-test both ways on planted sources.', False),
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '
