@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: head-only portraits and eight-direction people and beasts | he owns: 54 tiles in 2 packs that match (0 approved, 54 never judged) | packs: 12. Weapons and armory 41/0; 19. Animals and creatures 13/0 | nearest: none named | verdict: OWNS ZERO, BUY OR COMMISSION (people, faces); the 13 animals face one way | index 55a49c3
+
 # THE TWO HOLES, CHECKED IN PIXELS AND NOT IN NAMES
 
 COOK [the two holes], 10/16/26. The row's own constraint: **"a hole is declared only

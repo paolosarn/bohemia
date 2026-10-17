@@ -8671,6 +8671,33 @@
      "THE CURB STANDS UP AT ALL SIXTEEN CORNERS AND THE DRIVEWAY: your slab's own south face; the pack holds no curb."
     ]
    }
+  },
+  {
+   "id": "cook-the-parts-grammar-two-10-16",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "pending",
+   "made": "10/17",
+   "title": "THE PARTS ROAD, ROUND TWO: THREE GUNS AND TWO LAMP POSTS BESIDE YOUR OWN, WITH YOUR OWN GRAIN IN THEM",
+   "why": "Round one's no-drawing road had one gap (a flat shape carries five colours where your tile carries fifteen hundred), so this round fills every part with a patch cut from your own tile instead of a flat colour, your pixels land back one-to-one inside my shapes, and nothing is drawn. You see it in the VOTE tab: a pistol, a revolver, an SMG and two lamp posts, each beside your own at the same size, the old flat road and the new material road side by side, and the number that decided round one: the top eight colours carried 100 percent of the flat one and carry 24 to 46 percent of the material one, against 4 to 15 on yours.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_THE_PARTS_GRAMMAR_TWO.png"
+   },
+   "twin": {
+    "src": "pack:12. Weapons and supplies#6",
+    "diffs": [
+     "WHAT IT FIXES: the grain. Every part is filled with a patch cut from the twin itself (16 by 16 where his surface has room), tiled on the pixel grid and shrunk by exactly four so his pixels land at 1:1; the pistol goes from 9 colours to 752 and its top eight from 100% to 24% (his 2,796 and 14%), and a set test proves every colour on it is one of his: zero that are not, on all five.",
+     "WHAT IT STILL DOES NOT FIX: the form. A trigger guard is a curve on every gun he owns and the law forbids one, so mine is a square U; his finial is a ball and mine is a square. The 2x strip on the card shows the shape composition for what it is.",
+     "WHAT IT IS FOR: things the packs do not have. These five are things he owns, because his own tile is the only honest score; the card asks whether the road stays on what he does not own (A), builds out the gun set the roster needs (B), or is dropped (C). Nothing is final before the moodboard."
+    ]
+   },
+   "before_after": {
+    "before": "round one's flat road: shapes snapped to 24 of his colours, five colours on a lamp, 100% in the top eight",
+    "after": "the same shapes filled with patches cut from his own tile, 278 to 752 colours, 24 to 46% in the top eight, zero colours that are not his",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

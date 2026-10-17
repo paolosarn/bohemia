@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: the first lamp and the first wreck on the parts road | he owns: 83 tiles in 2 packs that match (69 approved, 14 never judged) | packs: 9. Abandoned cards 35/35; 18. Light sources and fire barrels 48/34 | nearest: 18. Light sources and fire barrels#0 56x96 approved; 9. Abandoned cards#1 96x58 approved | verdict: COMPOSE BESIDE IT (he owns both; his tile is the score) | index 55a49c3
+
 # THE PARTS GRAMMAR: NO CHAT DRAWS A CURVE
 
 COOK [the parts grammar], 10/11/26. Rule 108 ROUND EIGHT (a).

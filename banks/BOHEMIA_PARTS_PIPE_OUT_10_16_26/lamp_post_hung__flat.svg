@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="164" height="384"><rect x="56" y="48" width="24" height="320" fill="#3b3429"/>
+<rect x="60" y="48" width="4" height="320" fill="#554025"/>
+<rect x="72" y="48" width="8" height="320" fill="#29261d"/>
+<rect x="40" y="344" width="56" height="16" fill="#3b3429"/>
+<rect x="40" y="344" width="56" height="4" fill="#554025"/>
+<rect x="24" y="360" width="88" height="20" fill="#3b3429"/>
+<rect x="24" y="360" width="88" height="4" fill="#554025"/>
+<rect x="24" y="380" width="88" height="4" fill="#000101"/>
+<rect x="48" y="48" width="40" height="16" fill="#3b3429"/>
+<rect x="48" y="48" width="40" height="4" fill="#554025"/>
+<rect x="48" y="60" width="40" height="4" fill="#000101"/>
+<rect x="48" y="248" width="40" height="16" fill="#3b3429"/>
+<rect x="48" y="248" width="40" height="4" fill="#554025"/>
+<rect x="48" y="260" width="40" height="4" fill="#000101"/>
+<polygon points="56,48 80,48 88,32 80,12 68,8 56,12 48,32" fill="#3b3429"/>
+<polygon points="56,12 68,8 72,16 60,20" fill="#554025"/>
+<rect x="80" y="120" width="48" height="12" fill="#3b3429"/>
+<rect x="80" y="120" width="48" height="4" fill="#554025"/>
+<rect x="116" y="120" width="12" height="40" fill="#3b3429"/>
+<rect x="116" y="120" width="4" height="40" fill="#554025"/>
+<polygon points="88,184 160,184 148,160 100,160" fill="#3b3429"/>
+<rect x="116" y="152" width="16" height="12" fill="#000101"/>
+<rect x="100" y="160" width="48" height="4" fill="#554025"/>
+<rect x="88" y="184" width="72" height="8" fill="#000101"/>
+<rect x="96" y="192" width="56" height="68" fill="#382f21"/>
+<rect x="108" y="204" width="32" height="44" fill="#f8f1a8"/>
+<rect x="108" y="192" width="4" height="68" fill="#000101"/>
+<rect x="124" y="192" width="4" height="68" fill="#000101"/>
+<rect x="140" y="192" width="4" height="68" fill="#000101"/>
+<rect x="96" y="260" width="56" height="12" fill="#3b3429"/>
+<rect x="96" y="272" width="56" height="8" fill="#000101"/></svg>

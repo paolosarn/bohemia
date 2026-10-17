@@ -1,0 +1,1970 @@
+{
+ "version": "BOHEMIA_PARTS_GRAMMAR_v2",
+ "made": "10/16/26",
+ "lane": "cook",
+ "row": "[the parts grammar] round two (rule 110 big swing)",
+ "supersedes": "banks/BOHEMIA_PARTS_GRAMMAR_10_11_26.json",
+ "law": "rule 108 ROUND EIGHT (a): no chat draws a pixel or a curve in code. Parts are rectangles and straight-segment polygons. A curve in this file is a bug. rule 108 ROUND ELEVEN: a material is a patch CUT from a named pack tile, never drawn.",
+ "units": "every number is in FINAL pixels on the 96 floor; the composer multiplies by 4 before it writes the SVG, and shrinks by exactly 4 after",
+ "floor": 96,
+ "patch_sizes": [
+  16,
+  12,
+  8
+ ],
+ "routes": {
+  "flat": "24 colours read off the twin by median cut; one flat ink per role (round one)",
+  "material": "each role is a patch cut from the twin (16x16 where his surface has room, else 12, else 8), tiled on the pixel grid; lit and shade are flat squares at partial opacity laid over it; the result is snapped to the twin's FULL colour set, no dither"
+ },
+ "overlays": {
+  "lit": [
+   "#ffffff",
+   0.22
+  ],
+  "shade": [
+   "#000000",
+   0.3
+  ],
+  "glass": [
+   "#ffffff",
+   0.12
+  ]
+ },
+ "parts": {
+  "slide": {
+   "box": [
+    80,
+    22
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      80,
+      22
+     ],
+     "ink": "steel"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      80,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      19,
+      80,
+      3
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      62,
+      4,
+      2,
+      14
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      66,
+      4,
+      2,
+      14
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      70,
+      4,
+      2,
+      14
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      74,
+      4,
+      2,
+      14
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      0,
+      8,
+      6,
+      8
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "frame": {
+   "box": [
+    78,
+    12
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      78,
+      12
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      10,
+      78,
+      2
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      30,
+      2,
+      14,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "sight_front": {
+   "box": [
+    4,
+    4
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      4,
+      4
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "sight_rear": {
+   "box": [
+    8,
+    4
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      8,
+      4
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      3,
+      0,
+      2,
+      2
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "hammer": {
+   "box": [
+    7,
+    12
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       4
+      ],
+      [
+       4,
+       0
+      ],
+      [
+       7,
+       2
+      ],
+      [
+       5,
+       12
+      ],
+      [
+       1,
+       12
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      1,
+      10,
+      4,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "guard_square": {
+   "box": [
+    22,
+    16
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      3,
+      16
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      13,
+      22,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      19,
+      0,
+      3,
+      16
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      3,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      15,
+      22,
+      1
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      12,
+      2,
+      3,
+      8
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "grip_right": {
+   "box": [
+    40,
+    40
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       28,
+       0
+      ],
+      [
+       40,
+       36
+      ],
+      [
+       12,
+       40
+      ]
+     ],
+     "ink": "wood"
+    },
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       28,
+       0
+      ],
+      [
+       29,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "ink": "shade"
+    },
+    {
+     "poly": [
+      [
+       28,
+       0
+      ],
+      [
+       40,
+       36
+      ],
+      [
+       37,
+       37
+      ],
+      [
+       25,
+       1
+      ]
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      14,
+      12,
+      3,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      12,
+      36,
+      26,
+      4
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "grip_left": {
+   "box": [
+    40,
+    36
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       12,
+       0
+      ],
+      [
+       40,
+       0
+      ],
+      [
+       28,
+       34
+      ],
+      [
+       0,
+       30
+      ]
+     ],
+     "ink": "wood"
+    },
+    {
+     "poly": [
+      [
+       12,
+       0
+      ],
+      [
+       40,
+       0
+      ],
+      [
+       39,
+       3
+      ],
+      [
+       11,
+       3
+      ]
+     ],
+     "ink": "shade"
+    },
+    {
+     "poly": [
+      [
+       12,
+       0
+      ],
+      [
+       0,
+       30
+      ],
+      [
+       3,
+       31
+      ],
+      [
+       15,
+       1
+      ]
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      20,
+      12,
+      3,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      30,
+      28,
+      4
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "barrel_round": {
+   "box": [
+    50,
+    14
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      50,
+      14
+     ],
+     "ink": "steel"
+    },
+    {
+     "rect": [
+      0,
+      2,
+      50,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      11,
+      50,
+      3
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      0,
+      4,
+      4,
+      6
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      50,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "cylinder_block": {
+   "box": [
+    24,
+    26
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      24,
+      26
+     ],
+     "ink": "steel"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      24,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      22,
+      24,
+      4
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      5,
+      2,
+      2,
+      22
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      11,
+      2,
+      2,
+      22
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      17,
+      2,
+      2,
+      22
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "receiver": {
+   "box": [
+    86,
+    18
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      86,
+      18
+     ],
+     "ink": "steel"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      86,
+      3
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      15,
+      86,
+      3
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      0,
+      6,
+      5,
+      6
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      60,
+      4,
+      10,
+      3
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      6,
+      4,
+      30,
+      2
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      6,
+      9,
+      30,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "magazine": {
+   "box": [
+    16,
+    32
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       14,
+       0
+      ],
+      [
+       16,
+       32
+      ],
+      [
+       2,
+       32
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "poly": [
+      [
+       0,
+       0
+      ],
+      [
+       3,
+       0
+      ],
+      [
+       5,
+       32
+      ],
+      [
+       2,
+       32
+      ]
+     ],
+     "ink": "lit"
+    },
+    {
+     "poly": [
+      [
+       11,
+       0
+      ],
+      [
+       14,
+       0
+      ],
+      [
+       16,
+       32
+      ],
+      [
+       13,
+       32
+      ]
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      2,
+      30,
+      14,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "pistol_grip_small": {
+   "box": [
+    18,
+    24
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       2,
+       0
+      ],
+      [
+       18,
+       0
+      ],
+      [
+       16,
+       24
+      ],
+      [
+       0,
+       22
+      ]
+     ],
+     "ink": "wood"
+    },
+    {
+     "poly": [
+      [
+       2,
+       0
+      ],
+      [
+       18,
+       0
+      ],
+      [
+       17,
+       3
+      ],
+      [
+       1,
+       3
+      ]
+     ],
+     "ink": "shade"
+    },
+    {
+     "rect": [
+      0,
+      21,
+      16,
+      3
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "charging_handle": {
+   "box": [
+    8,
+    6
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      8,
+      6
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      1,
+      1,
+      6,
+      2
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "post": {
+   "box": [
+    6,
+    80
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      6,
+      80
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      1,
+      0,
+      1,
+      80
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      4,
+      0,
+      2,
+      80
+     ],
+     "ink": "shade"
+    }
+   ]
+  },
+  "post_collar": {
+   "box": [
+    10,
+    4
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      10,
+      4
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      10,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      3,
+      10,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "finial_square": {
+   "box": [
+    10,
+    10
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       2,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       10,
+       6
+      ],
+      [
+       8,
+       1
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       2,
+       1
+      ],
+      [
+       0,
+       6
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "poly": [
+      [
+       2,
+       1
+      ],
+      [
+       5,
+       0
+      ],
+      [
+       6,
+       2
+      ],
+      [
+       3,
+       3
+      ]
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "arm_straight": {
+   "box": [
+    24,
+    4
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      24,
+      4
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      24,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      3,
+      24,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "hook": {
+   "box": [
+    3,
+    10
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      3,
+      10
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      1,
+      10
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "bracket_short": {
+   "box": [
+    12,
+    3
+   ],
+   "shapes": [
+    {
+     "rect": [
+      0,
+      0,
+      12,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      0,
+      12,
+      1
+     ],
+     "ink": "lit"
+    }
+   ]
+  },
+  "lantern": {
+   "box": [
+    20,
+    30
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       8
+      ],
+      [
+       20,
+       8
+      ],
+      [
+       16,
+       2
+      ],
+      [
+       4,
+       2
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      8,
+      0,
+      4,
+      3
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      4,
+      2,
+      12,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      8,
+      20,
+      2
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      3,
+      10,
+      14,
+      15
+     ],
+     "ink": "glass"
+    },
+    {
+     "rect": [
+      6,
+      13,
+      8,
+      9
+     ],
+     "ink": "glow"
+    },
+    {
+     "rect": [
+      3,
+      25,
+      14,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      3,
+      28,
+      14,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "lantern_caged": {
+   "box": [
+    18,
+    32
+   ],
+   "shapes": [
+    {
+     "poly": [
+      [
+       0,
+       8
+      ],
+      [
+       18,
+       8
+      ],
+      [
+       15,
+       2
+      ],
+      [
+       3,
+       2
+      ]
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      7,
+      0,
+      4,
+      3
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      3,
+      2,
+      12,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      8,
+      18,
+      2
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      2,
+      10,
+      14,
+      17
+     ],
+     "ink": "glass"
+    },
+    {
+     "rect": [
+      5,
+      13,
+      8,
+      11
+     ],
+     "ink": "glow"
+    },
+    {
+     "rect": [
+      5,
+      10,
+      1,
+      17
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      9,
+      10,
+      1,
+      17
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      13,
+      10,
+      1,
+      17
+     ],
+     "ink": "dark"
+    },
+    {
+     "rect": [
+      2,
+      27,
+      14,
+      3
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      2,
+      30,
+      14,
+      2
+     ],
+     "ink": "dark"
+    }
+   ]
+  },
+  "post_foot": {
+   "box": [
+    22,
+    10
+   ],
+   "shapes": [
+    {
+     "rect": [
+      4,
+      0,
+      14,
+      4
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      4,
+      0,
+      14,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      4,
+      22,
+      5
+     ],
+     "ink": "mid"
+    },
+    {
+     "rect": [
+      0,
+      4,
+      22,
+      1
+     ],
+     "ink": "lit"
+    },
+    {
+     "rect": [
+      0,
+      9,
+      22,
+      1
+     ],
+     "ink": "dark"
+    }
+   ]
+  }
+ },
+ "compositions": {
+  "pistol": {
+   "canvas": [
+    96,
+    78
+   ],
+   "twin": "pack:12. Weapons and supplies#6",
+   "place": [
+    [
+     "grip_right",
+     52,
+     36
+    ],
+    [
+     "frame",
+     6,
+     28
+    ],
+    [
+     "guard_square",
+     36,
+     40
+    ],
+    [
+     "slide",
+     4,
+     6
+    ],
+    [
+     "hammer",
+     84,
+     10
+    ],
+    [
+     "sight_front",
+     8,
+     2
+    ],
+    [
+     "sight_rear",
+     72,
+     2
+    ]
+   ]
+  },
+  "revolver": {
+   "canvas": [
+    96,
+    70
+   ],
+   "twin": "pack:12. Weapons and supplies#8",
+   "place": [
+    [
+     "grip_left",
+     22,
+     36
+    ],
+    [
+     "frame",
+     30,
+     32
+    ],
+    [
+     "guard_square",
+     50,
+     42
+    ],
+    [
+     "barrel_round",
+     4,
+     10
+    ],
+    [
+     "cylinder_block",
+     52,
+     8
+    ],
+    [
+     "hammer",
+     76,
+     2
+    ],
+    [
+     "sight_front",
+     6,
+     6
+    ]
+   ]
+  },
+  "smg": {
+   "canvas": [
+    96,
+    62
+   ],
+   "twin": "pack:12. Weapons and supplies#11",
+   "place": [
+    [
+     "magazine",
+     58,
+     30
+    ],
+    [
+     "pistol_grip_small",
+     20,
+     30
+    ],
+    [
+     "guard_square",
+     36,
+     30
+    ],
+    [
+     "receiver",
+     6,
+     12
+    ],
+    [
+     "charging_handle",
+     70,
+     8
+    ],
+    [
+     "sight_front",
+     8,
+     8
+    ],
+    [
+     "sight_rear",
+     80,
+     8
+    ]
+   ]
+  },
+  "lamp_post": {
+   "canvas": [
+    57,
+    96
+   ],
+   "twin": "pack:18. Light sources and fire barrels#3",
+   "place": [
+    [
+     "post",
+     22,
+     12
+    ],
+    [
+     "post_foot",
+     14,
+     86
+    ],
+    [
+     "post_collar",
+     20,
+     12
+    ],
+    [
+     "post_collar",
+     20,
+     60
+    ],
+    [
+     "finial_square",
+     20,
+     2
+    ],
+    [
+     "arm_straight",
+     28,
+     14
+    ],
+    [
+     "hook",
+     49,
+     18
+    ],
+    [
+     "lantern",
+     40,
+     26
+    ]
+   ]
+  },
+  "lamp_post_hung": {
+   "canvas": [
+    41,
+    96
+   ],
+   "twin": "pack:18. Light sources and fire barrels#2",
+   "place": [
+    [
+     "post",
+     14,
+     12
+    ],
+    [
+     "post_foot",
+     6,
+     86
+    ],
+    [
+     "post_collar",
+     12,
+     12
+    ],
+    [
+     "post_collar",
+     12,
+     62
+    ],
+    [
+     "finial_square",
+     12,
+     2
+    ],
+    [
+     "bracket_short",
+     20,
+     30
+    ],
+    [
+     "hook",
+     29,
+     30
+    ],
+    [
+     "lantern_caged",
+     22,
+     38
+    ]
+   ]
+  }
+ },
+ "inks": {
+  "pistol": {
+   "dark": "#000000",
+   "mid": "#312e27",
+   "lit": "#3f3c34",
+   "shade": "#221b15",
+   "glass": "#46200a",
+   "glow": "#e3e0d5",
+   "wood": "#864b1d",
+   "steel": "#3a362f"
+  },
+  "revolver": {
+   "dark": "#000000",
+   "mid": "#25231d",
+   "lit": "#3b2f24",
+   "shade": "#181510",
+   "glass": "#331806",
+   "glow": "#ded9cb",
+   "wood": "#5b3311",
+   "steel": "#2e2d27"
+  },
+  "smg": {
+   "dark": "#000000",
+   "mid": "#26251f",
+   "lit": "#392d1f",
+   "shade": "#1b1a16",
+   "glass": "#221f19",
+   "glow": "#c5c1b4",
+   "wood": "#392d1f",
+   "steel": "#2c2821"
+  },
+  "lamp_post": {
+   "dark": "#000001",
+   "mid": "#342f27",
+   "lit": "#5e3e1b",
+   "shade": "#221e19",
+   "glass": "#2b271f",
+   "glow": "#faf6c6",
+   "wood": "#e7ca63",
+   "steel": "#413628"
+  },
+  "lamp_post_hung": {
+   "dark": "#000101",
+   "mid": "#3b3429",
+   "lit": "#554025",
+   "shade": "#29261d",
+   "glass": "#382f21",
+   "glow": "#f8f1a8",
+   "wood": "#c59334",
+   "steel": "#403b2e"
+  }
+ },
+ "materials": {
+  "pistol": {
+   "tile": "pack:12. Weapons and supplies#6",
+   "patches": {
+    "mid": {
+     "crop": [
+      68,
+      24,
+      16,
+      16
+     ],
+     "value": 46.2,
+     "colours": 251
+    },
+    "steel": {
+     "crop": [
+      75,
+      57,
+      16,
+      16
+     ],
+     "value": 54.5,
+     "colours": 255
+    },
+    "lit": {
+     "crop": [
+      64,
+      56,
+      16,
+      16
+     ],
+     "value": 60.1,
+     "colours": 256
+    },
+    "shade": {
+     "crop": [
+      69,
+      21,
+      16,
+      16
+     ],
+     "value": 40.6,
+     "colours": 244
+    },
+    "glass": {
+     "crop": [
+      69,
+      17,
+      16,
+      16
+     ],
+     "value": 41.1,
+     "colours": 246
+    },
+    "glow": {
+     "crop": [
+      7,
+      9,
+      8,
+      8
+     ],
+     "value": 126.4,
+     "colours": 64
+    },
+    "wood": {
+     "crop": [
+      66,
+      43,
+      16,
+      16
+     ],
+     "value": 69.4,
+     "colours": 252
+    }
+   }
+  },
+  "revolver": {
+   "tile": "pack:12. Weapons and supplies#8",
+   "patches": {
+    "mid": {
+     "crop": [
+      31,
+      19,
+      16,
+      16
+     ],
+     "value": 35.0,
+     "colours": 212
+    },
+    "steel": {
+     "crop": [
+      4,
+      51,
+      16,
+      16
+     ],
+     "value": 44.6,
+     "colours": 254
+    },
+    "lit": {
+     "crop": [
+      9,
+      39,
+      16,
+      16
+     ],
+     "value": 49.3,
+     "colours": 255
+    },
+    "shade": {
+     "crop": [
+      41,
+      16,
+      16,
+      16
+     ],
+     "value": 32.9,
+     "colours": 208
+    },
+    "glass": {
+     "crop": [
+      41,
+      16,
+      16,
+      16
+     ],
+     "value": 32.9,
+     "colours": 208
+    },
+    "glow": {
+     "crop": [
+      70,
+      7,
+      8,
+      8
+     ],
+     "value": 111.6,
+     "colours": 64
+    },
+    "wood": {
+     "crop": [
+      7,
+      41,
+      16,
+      16
+     ],
+     "value": 52.1,
+     "colours": 254
+    }
+   }
+  },
+  "smg": {
+   "tile": "pack:12. Weapons and supplies#11",
+   "patches": {
+    "mid": {
+     "crop": [
+      13,
+      20,
+      16,
+      16
+     ],
+     "value": 36.6,
+     "colours": 242
+    },
+    "steel": {
+     "crop": [
+      24,
+      10,
+      16,
+      16
+     ],
+     "value": 40.2,
+     "colours": 222
+    },
+    "lit": {
+     "crop": [
+      12,
+      10,
+      16,
+      16
+     ],
+     "value": 46.9,
+     "colours": 229
+    },
+    "shade": {
+     "crop": [
+      14,
+      20,
+      16,
+      16
+     ],
+     "value": 34.3,
+     "colours": 241
+    },
+    "glass": {
+     "crop": [
+      14,
+      20,
+      16,
+      16
+     ],
+     "value": 34.3,
+     "colours": 241
+    },
+    "glow": {
+     "crop": [
+      62,
+      8,
+      8,
+      8
+     ],
+     "value": 89.6,
+     "colours": 63
+    },
+    "wood": {
+     "crop": [
+      11,
+      27,
+      16,
+      16
+     ],
+     "value": 37.8,
+     "colours": 236
+    }
+   }
+  },
+  "lamp_post": {
+   "tile": "pack:18. Light sources and fire barrels#3",
+   "patches": {
+    "mid": {
+     "crop": [
+      30,
+      27,
+      16,
+      16
+     ],
+     "value": 58.1,
+     "colours": 254
+    },
+    "steel": {
+     "crop": [
+      30,
+      27,
+      16,
+      16
+     ],
+     "value": 58.1,
+     "colours": 254
+    },
+    "lit": {
+     "crop": [
+      32,
+      35,
+      16,
+      16
+     ],
+     "value": 68.2,
+     "colours": 253
+    },
+    "shade": {
+     "crop": [
+      30,
+      27,
+      16,
+      16
+     ],
+     "value": 58.1,
+     "colours": 254
+    },
+    "glass": {
+     "crop": [
+      30,
+      27,
+      16,
+      16
+     ],
+     "value": 58.1,
+     "colours": 254
+    },
+    "glow": {
+     "crop": [
+      34,
+      50,
+      8,
+      8
+     ],
+     "value": 226.1,
+     "colours": 63
+    },
+    "wood": {
+     "crop": [
+      30,
+      44,
+      16,
+      16
+     ],
+     "value": 139.3,
+     "colours": 254
+    }
+   }
+  },
+  "lamp_post_hung": {
+   "tile": "pack:18. Light sources and fire barrels#2",
+   "patches": {
+    "mid": {
+     "crop": [
+      8,
+      28,
+      16,
+      16
+     ],
+     "value": 54.2,
+     "colours": 251
+    },
+    "steel": {
+     "crop": [
+      15,
+      31,
+      16,
+      16
+     ],
+     "value": 60.8,
+     "colours": 252
+    },
+    "lit": {
+     "crop": [
+      17,
+      32,
+      16,
+      16
+     ],
+     "value": 67.2,
+     "colours": 253
+    },
+    "shade": {
+     "crop": [
+      8,
+      28,
+      16,
+      16
+     ],
+     "value": 54.2,
+     "colours": 251
+    },
+    "glass": {
+     "crop": [
+      8,
+      28,
+      16,
+      16
+     ],
+     "value": 54.2,
+     "colours": 251
+    },
+    "glow": {
+     "crop": [
+      23,
+      47,
+      8,
+      8
+     ],
+     "value": 223.2,
+     "colours": 64
+    },
+    "wood": {
+     "crop": [
+      19,
+      45,
+      16,
+      16
+     ],
+     "value": 138.5,
+     "colours": 256
+    }
+   }
+  }
+ }
+}

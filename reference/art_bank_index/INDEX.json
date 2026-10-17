@@ -1,4 +1,10 @@
 {
+ "quartermaster_line": {
+  "shape": "QUARTERMASTER <m/d> | cooking: <the thing> | he owns: <T> tiles in <P> packs that match (<A> approved, <U> never judged) | packs: <name> <tiles>/<approved>; ... | nearest: <pack>#<i> <WxH> <approved|never judged>; ... | verdict: USE IT | COMPOSE BESIDE IT | LOOK AT THE UNJUDGED FIRST | OWNS ZERO, BUY OR COMMISSION | index <sha>",
+  "how": "Every cook page and every cook card OPENS with this one line (rule 100c as amended, sweeps AJ and AL). It is READ from this index and the approved corpus by tools/bohemia_quartermaster_line.py, never typed: python3 tools/bohemia_quartermaster_line.py \"<the thing>\" --family <f> | --packs \"<name>\" | --words <w> [--nearest \"<pack>#<i>\"] [--verdict \"...\"]. A page that opens without it did not count what he owns.",
+  "example": "QUARTERMASTER 10/17 | cooking: a gun and a lamp post | he owns: 88 tiles in 2 packs that match (71 approved, 17 never judged) | packs: 12. Weapons and supplies 40/37; 18. Light sources and fire barrels 48/34 | nearest: 12. Weapons and supplies#6 96x78 approved; 18. Light sources and fire barrels#3 57x96 approved | verdict: USE IT | index 55a49c3",
+  "made": "10/16/26 COOK, the big swing"
+ },
  "note": "EVERY PACK HE HAS EVER BOUGHT, indexed by family, with how much of each one the 7/13 sweep approved. The approved subset lives as PNGs in reference/art_bank; this index covers ALL of it. Rule 108 ROUND ELEVEN: find the pack piece and USE it, so look here before cooking anything.",
  "date": "10/13/26",
  "lane": "cook",

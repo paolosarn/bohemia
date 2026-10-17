@@ -616,6 +616,72 @@ Gate the flip off the face 10/0, 4 mutations; UI's phone look / reshuffle / phon
 FOR DYNASTY + THE COORDINATOR [PENDING, not Paolo]: the_flip, three_names, one_then_heirs, heirs fail BY DESIGN (they tap the face); the 3-step re-aim is in records/BOHEMIA_UI_REVIEW_FOR_DYNASTY_THE_FLIP_LIVES_IN_THE_OPENED_PHONE_10_11_26.md.
 NEXT: [icons at full pixels] (the noose-like fabric icon deleted first, then the six supplies on one sheet beside the pack prop).
 
+COOK (cook-mce6r5): 10/16 (b) LATEST -- *** THE BIG SWING (rule 110): THE PARTS ROAD ROUND TWO. THREE
+GUNS AND TWO LAMP POSTS BESIDE HIS OWN, AND HIS OWN GRAIN IS INSIDE MY SHAPES NOW. ***
+
+0. THE MODE LINE WAS THE JOB: the grammar's next assets (a gun from his pack, a lamp post) beside
+his own at 1:1, and the quartermaster's line on top of every cook page. Both are done; no
+question was asked (rule 110c).
+
+1. ROUND ONE'S GAP, ANSWERED. Round one (10/11) proved the no-drawing road and scored its one
+gap honestly: his lamp carried 1,521 colours and mine 5; his top eight colours carried 9% of
+the tile and mine 100%. It said grain could only be composed as shapes, which is drawing
+pixels again. THE ONE SOURCE OF GRAIN THE LAW ALLOWS IS HIS OWN TILE (rule 108 ROUND ELEVEN:
+cut, layer, shade-remap the pack piece). So a part is now filled with a MATERIAL: a patch cut
+from the twin itself, 16x16 where his surface has room (else 12, else 8), picked by the job the
+ink does (nearest value, most grain, spread under 40 so no edge is taken for a surface), laid
+as an SVG pattern tiling on the 4x grid so the box shrink by exactly four lands HIS PIXELS AT
+1:1 inside my shapes. Light and shade are flat squares at partial opacity. No gradient, no
+curve, no pixel written as a number. The result snaps to the twin's FULL colour set.
+
+2. MEASURED, both routes side by side on every asset, his tile the ruler:
+   top eight carry   pistol 100% -> 24% (his 14)   revolver 100% -> 33% (15)   smg 99% -> 35% (15)
+                     lamp post 100% -> 43% (7)     hung lantern 100% -> 46% (4)
+   colours           pistol 9 -> 752 (his 2,796)   lamp post 7 -> 322 (his 1,651)
+   colours NOT HIS   zero on all five, as a set test, not a claim
+   contour           all ten at -37 to -75 against his -42 to -58
+   The grammar v2 records the exact crop of the exact tile each part wears.
+
+3. WHAT IT STILL COSTS, ON THE CARD: a trigger guard is a curve on every gun he owns and the
+law forbids one, so mine is a square U; his finial is a ball and mine a square; the form is a
+shape composition and the 2x strip shows it. His colour count is still above mine everywhere.
+This road is for what the packs do not have; these five are things he owns because his own
+tile is the only honest score. Nothing is final before the moodboard (rule 108 ROUND THIRTEEN).
+
+4. THE QUARTERMASTER'S LINE EXISTS AND IS A TOOL, NOT A SENTENCE. tools/bohemia_quartermaster_line.py
+reads reference/art_bank_index/INDEX.json and the approved corpus and prints the one line every
+cook page opens with: he owns N tiles in P packs that match (A approved, U never judged), the
+packs, the nearest piece with its size and whether it is approved, one of four verdicts (USE IT
+/ COMPOSE BESIDE IT / LOOK AT THE UNJUDGED FIRST / OWNS ZERO, BUY OR COMMISSION), the index
+sha. Its exact shape is the FIRST key of INDEX.json and the top of the whole-bank page for the
+four cooks to copy. This round's page and card open with it, generated and guarded; this
+lane's six earlier pages now open with their own.
+
+5. THE TWINS ARE ALL JUDGED UP (the vote gate's rule): 12. Weapons and supplies #6 #8 #11,
+18. Light sources and fire barrels #3 #2. Round one's lamp was #0, the curved arm the law
+cannot draw; #3 is the straight-arm post, the lamp the grammar can actually make.
+
+6. WHAT RAN: resvg as the resvg-py 0.5.0 binding (round one's binary did not survive the fresh
+container; a Python stand-in that draws shapes is what the law bans, so the tool refuses to run
+without the binding). Aseprite not on this machine, not run; PLUMBER [aseprite in the pipe]
+still owed. NOTHING to slices/, engine/ or the demo (rule 100a).
+
+7. WHERE IT IS: the VOTE tab, cook-the-parts-grammar-two-10-16. Card
+records/target/COOK_THE_PARTS_GRAMMAR_TWO.png, page
+records/BOHEMIA_THE_PARTS_GRAMMAR_ROUND_TWO_10_16_26.md, grammar v2
+banks/BOHEMIA_PARTS_GRAMMAR_10_16_26.json, every stage of every asset in
+banks/BOHEMIA_PARTS_PIPE_OUT_10_16_26/, tools/bohemia_the_parts_grammar_two_cook_10_16_26.py.
+
+8. ROUTED: COOK TWO and COOK FOUR (a kerb or a wall composed from the grammar now wears the
+pack's own concrete or brick; name the twin, run the pipe); UI/COMBAT [the inventory] (the
+card's B is the fifty guns the roster needs that the pack does not have); PLUMBER [the art pipe
+gate] (the banned-token check and the image-provenance check are both in to_svg()); DIRECTION
+(swap the twin: new palette, new material, same geometry).
+
+9. ROWS: [the parts grammar] ROUND TWO SHIPPED. [one at a time] CLAIMED and standing. NEXT OPEN:
+[the hero brief], then [generate against the pack]. Still CLAIMED behind: [bb map art]. HELD:
+[beasts], [horror grime]. [PENDING] the coordinator, still: the stores in Allowed domains.
+
 COOK (cook-mce6r5): 10/16 LATEST -- *** THE TWO HOLES ARE REAL, PROVEN ON THE PIXELS OF ALL
 8,674 TILES INSTEAD OF ON 294 PACK NAMES. AND THE SWEEP CORRECTED ITS OWN FIRST ANSWER. ***
 

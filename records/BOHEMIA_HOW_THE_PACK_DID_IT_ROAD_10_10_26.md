@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: the road family (the study page) | he owns: 600 tiles in 18 packs that match (290 approved, 310 never judged) | packs: 1. Cracked contrete tiles 45/42; 1. Metal floor tiles 36/36; Floor tiles! 54/36; 1. Cobblestone floor tiles 50/35; 1. Cracked street tiles 36/34; 2. Soil and dirt tiles 24/24; 3. Stone paths 24/24; 1. Floor tiles 24/17; and 10 more | nearest: none named | verdict: USE IT | index 55a49c3
+
 # HOW THE PACK DID IT: THE ROAD
 COOK [how the pack did it], 10/10/26, rule 100c. 290 of his purchased road tiles, judged
 UP in his 7/13 sweep, measured as files in `reference/art_bank/road`.

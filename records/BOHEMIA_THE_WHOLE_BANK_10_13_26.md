@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: everything he owns, the index itself | he owns: 8674 tiles in 294 packs that match (1927 approved, 6747 never judged) | packs: Rocks and stones 74/74; wooden and nature props 67/57; 11. Survival props 49/49; 3. Grass and ground tiles 48/47; Jars, bottles and items 55/47; 2. Dirt path tiles 48/46; 11. Crates, barrels and supplies 49/44; 1. Cracked contrete tiles 45/42; and 286 more | nearest: none named | verdict: USE IT: 1,927 approved; LOOK AT THE UNJUDGED FIRST: 6,747 | index 55a49c3
+
 # THE WHOLE BANK: EVERYTHING HE OWNS, IN ONE SCROLL
 
 COOK [the whole bank], 10/13/26. **294 packs. 8,674 tiles.** The approved bank holds 1,927 of
@@ -9,6 +11,20 @@ surface is byte-identical with and without this round).
 
 **This replaces `reference/art_bank_unopened/`**, which was a strict subset: the 210 packs
 nobody had opened. One index, not two. The 10/11 page that named it carries a redirect.
+
+## THE QUARTERMASTER'S LINE (10/16, rule 100c amended: every cook page opens with it)
+
+THE SHAPE, copied exactly by the four cooks:
+
+    QUARTERMASTER <m/d> | cooking: <the thing> | he owns: <T> tiles in <P> packs that match (<A> approved, <U> never judged) | packs: <name> <tiles>/<approved>; ... | nearest: <pack>#<i> <WxH> <approved|never judged>; ... | verdict: USE IT | COMPOSE BESIDE IT | LOOK AT THE UNJUDGED FIRST | OWNS ZERO, BUY OR COMMISSION | index <sha>
+
+HOW: Every cook page and every cook card OPENS with this one line (rule 100c as amended, sweeps AJ and AL). It is READ from this index and the approved corpus by tools/bohemia_quartermaster_line.py, never typed: python3 tools/bohemia_quartermaster_line.py "<the thing>" --family <f> | --packs "<name>" | --words <w> [--nearest "<pack>#<i>"] [--verdict "..."]. A page that opens without it did not count what he owns.
+
+EXAMPLE, read live:
+
+    QUARTERMASTER 10/17 | cooking: a gun and a lamp post | he owns: 88 tiles in 2 packs that match (71 approved, 17 never judged) | packs: 12. Weapons and supplies 40/37; 18. Light sources and fire barrels 48/34 | nearest: 12. Weapons and supplies#6 96x78 approved; 18. Light sources and fire barrels#3 57x96 approved | verdict: USE IT | index 55a49c3
+
+The four verdicts: USE IT (an approved piece fits: place, cut or layer it) | COMPOSE BESIDE IT (he owns it and the round composes a version to score against it) | LOOK AT THE UNJUDGED FIRST (the match is in the 6,747 nobody judged; open the sheet before cooking) | OWNS ZERO, BUY OR COMMISSION (the count says zero; the hole goes to the pack card or the hero brief).
 
 ## WHY IT EXISTS
 

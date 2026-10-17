@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: the four holes: wrecks, guns, portraits, eight-direction people | he owns: 75 tiles in 2 packs that match (72 approved, 3 never judged) | packs: 12. Weapons and supplies 40/37; 9. Abandoned cards 35/35 | nearest: none named | verdict: USE IT for wrecks and guns; OWNS ZERO, BUY OR COMMISSION for portraits and people | index 55a49c3
+
 # THE FOUR HOLES, CHECKED
 
 > **MOVED 10/13.** The shelf this page names, `reference/art_bank_unopened/`, was a strict

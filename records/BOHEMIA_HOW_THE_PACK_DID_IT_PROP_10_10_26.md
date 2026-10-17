@@ -1,3 +1,5 @@
+QUARTERMASTER 10/17 | cooking: the standalone object (the study page) | he owns: 3507 tiles in 115 packs that match (784 approved, 2723 never judged) | packs: 11. Survival props 49/49; Jars, bottles and items 55/47; 11. Crates, barrels and supplies 49/44; Food, drink and cafe props 41/41; 15. Street props 44/39; skeletons and bones 39/39; 12. Weapons and supplies 40/37; 9. Abandoned cards 35/35; and 107 more | nearest: none named | verdict: USE IT | index 55a49c3
+
 # HOW THE PACK DID IT: THE STANDALONE OBJECT
 
 COOK, 10/10/26. Rule 100c: the study page before the drawing. Rule 105: the pack is the
