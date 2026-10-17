@@ -59,6 +59,9 @@ async function readOnce(open, o) {
       await d.page.waitForTimeout(500);
     }
     T = T || {};
+    /* [the one stopwatch] 10/17: o.linger (ms) keeps the page open after the door so what loads AFTER
+       it is on the netlog too; without it the reading stops the moment NEW GAME is live. */
+    if (o.linger && T.ready !== null) await d.page.waitForTimeout(o.linger);
     /* THE PAGE'S OWN DOWNLOAD. The browser's network events report every navigated document as 0
        bytes (measured 10/9: the 2.4 MB page and the 1.9 MB map both read 0 KB), so a later full
        re-read of the page had no first copy to match. The page's own timing records know: the
@@ -100,6 +103,9 @@ async function readOnce(open, o) {
     return { says: d.says(), throttle: o.throttle || 4, net: o.net || null,
       fcp: T.fcp, title: T.title, buttons: T.buttons, ready: T.ready,
       bytesBeforeTitle: sum(before(T.title)), bytesBeforeReady: sum(before(T.ready)), bytesAll: sum(net),
+      /* [the one stopwatch] 10/17: how many files cross the wire before and after the door (data: URLs are inline, not files) */
+      filesBeforeReady: before(T.ready) ? before(T.ready).filter(n => !/^data:/.test(n.url)).length : null,
+      filesAll: net.filter(n => !/^data:/.test(n.url)).length,
       filesBeforeTitle: before(T.title) ? before(T.title).length : null,
       biggestBeforeTitle: big(before(T.title)), twice, errs: d.errs.length };
   } finally { await d.close(); }
