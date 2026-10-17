@@ -8849,7 +8849,7 @@
    "id": "combat-the-formation-is-kept-10-16",
    "kind": "ui",
    "lane": "combat",
-   "sha": "pending",
+   "sha": "da85d04",
    "made": "10/16",
    "title": "YOUR LINE IS KEPT FROM FIGHT TO FIGHT",
    "why": "Before a fight you now drag your men where you want them in your two columns while the enemy's line is in view, and the next fight opens with every man where you left him, AUTO starting on that same line. You see it in any fight in the DEMO: drag a man, press FIGHT, and the fight after opens on your line, NOT IN A TAB YET.",
