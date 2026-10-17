@@ -1059,6 +1059,21 @@ GATES = [
      'so a burnt block is a state a suburb cell is in) and casino_floor is an INTERIOR (reached by '
      'going in from a strip cell). What a board LOOKS like is not this lane\'s: ASSETS ships empty '
      'and the module carries no colour, no pixel and no size.', False),
+    ('THE REGION IS REAL GEOGRAPHY', ['node', 'gates/region_land_gate.js'],
+     'ROW [the region], rule 109 (Paolo 10/16: "our map has to be as big as fucking Battle Brothers... '
+     'I\'m choosing Battle Brothers... a larger grid or something"), rules 46, 33, 77, 40g. The whole '
+     'Las Vegas region as DATA on RUN\'s 496-block grid (engine/BOHEMIA_REGION_LAND.json, written by '
+     'tools/bohemia_world_region.py, read by engine/bohemia_region_land.js): every block past the '
+     'valley one of the thirteen map kinds (ruin and casino_floor at zero forever), the real highways '
+     'in three classes faster than the dirt, 35 real places as destinations hours apart, 10 named '
+     'beyond the rim. *** THE LOAD-BEARING LEGS: the scale is the valley\'s own (the overmap says 96 '
+     'cells = 5.73 miles and the real valley is 32 km, so a block is 333 m and the region 165 km), a '
+     'road never ends in sand and the Lego edges agree on every seam on both compasses, every place '
+     'reaches the valley on foot and stands within two blocks of its real coordinates, the four '
+     'numbers meet or beat Battle Brothers\' as the bare minimum, the compass mirrors x and never y, '
+     'the stitch joins the valley\'s rolled exits to the real portals, and the generator writes the '
+     'same bytes again. Mutations each red: an orphan road, a place in the lake, a fourteenth kind. '
+     'Nothing drawn; RUN paints it.', False),
     ('SCAVENGE', ['node', 'gates/scavenge_gate.js'],
      'ROW [scavenge], rule 37(k) (Paolo 9/27: a SCAVENGE button in the settlement screen -- '
      'spend time, test your luck, for materials, for when you are down bad on food, medicine '

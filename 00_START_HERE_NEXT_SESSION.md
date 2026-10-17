@@ -139,6 +139,55 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-fable): 10/17 (a) LATEST -- *** [the region] SHIPPED: THE LAND
+PAST THE VALLEY IS THE REAL LAS VEGAS REGION, AS DATA, ON RUN'S GRID. *** The big
+swing of the day (rule 110), opened by the coordinator (rule 111); the hold lifted
+for this one row (rule 109d). Record:
+records/BOHEMIA_WORLD_THE_REGION_IS_REAL_GEOGRAPHY_10_17_26.md. Tab: NOT IN A TAB
+YET (RUN's map is the taker).
+
+WHAT IT IS. One data file, engine/BOHEMIA_REGION_LAND.json (65 KB), written by
+tools/bohemia_world_region.py (same bytes every run) and read by
+engine/bohemia_region_land.js. RUN's grid as RUN built it: 496 x 496 blocks, the
+valley's own 96 x 96 in the middle left to the valley generator. Every block past
+the rim is one of the thirteen map kinds (ruin and casino_floor stay at zero), the
+real highways run in three classes with their speeds (a road is faster than the
+dirt, the dirt faster than the hills), 35 real places sit where they really are
+with their kilometres and their hours on foot, 10 more are named beyond the rim.
+
+THE ONE THING I MEASURED THAT CHANGES RUN'S ROW: the scale. The overmap's own line
+says the valley is 96 cells = 5.73 miles; the real valley is 32 km. So a map block
+is 333 m of real ground (not the fight's 96 m house block: two scales, one game),
+the region is 165 km across, and everything he named fits on it: Henderson (6 h
+on foot), Boulder City (1.3 days), the dam (1.6), Primm (2.0), Indian Springs
+(2.4), Pahrump (2.8), Mercury at the test site's gate (3.4). RUN's twelve towns
+were at made-up distances (Pahrump at 21 km, real 73). A crossing rim to rim on
+the 15 is 6.8 days. Beside Battle Brothers: 496 tiles across to its 140, 246,016
+to its 19,600, 49 settlements to its 17; its crossing days are still owed (EYES).
+
+FOR RUN (rule 12, measured findings, acted on not waited on): passGrid(compass)
+hands back exactly what slices/bohemia_region.js reads as R.pass, stitched to the
+valley's rolled freeway exits; places(compass) replaces the TOWNS list; a region
+step should cost the data's minutes a block (4.0 road, 5.7 open, 9.1 hills).
+
+FOR [the roll] (my own OPEN row, still held): axisFlip puts the valley's Lake
+Mead rectangle on the SOUTH border on half of all seeds while the real lake is
+east; the region's lake is east on every seed. The fix is the roll's.
+
+GATES: THE REGION IS REAL GEOGRAPHY 56/0 (new, registered). Pre-push pass green
+on my files: BOARD TERRAINS 59/0, LEGIBILITY, DIALOGUE CATALOGUE, ROOM PROGRAM,
+ONE DISTRICT PER BLOB, NOBODY SWEPT THE CLASS, ATTEMPT all green. Red on main
+before me and not mine (re-run on a clean tree to be sure): GATE REGISTRY (67
+unregistered gates, PLUMBER's), ENGINE CENSUS (bohemia_roster.js orphan), BANNER,
+ANSWERED-FOR, DRIVE NETWORK, INVISIBLE SCHEDULE, CANON ROT, REFERENCE CHECK,
+REUSE-FIRST (cook tools), ROADS ARE FAST (the dead day-card selector, known).
+Full suite unmeasured since c8c33b6 (rule 13).
+
+NOT DONE, SAID PLAINLY: nothing drawn, nothing in the demo (rule 110d); the
+coordinates are real to about a kilometre; the valley's 14 seats, the parties and
+the prices are the roll's, FACTIONS' and ECONOMY's. The other three WORLD rows
+stay OPEN under the hold. PENDING Paolo: nothing.
+
 WORLD (world-9lfjtf): 10/16 (a) LATEST -- *** A SIZE IS A PROMISE, NOT A
 FOOTPRINT: BATTLE BROTHERS NEVER ANSWERS "HOW BIG", IT ANSWERS "WHAT IS
 GUARANTEED TO BE THERE". *** Still on HOLD; a page, not a round. Four rows still
