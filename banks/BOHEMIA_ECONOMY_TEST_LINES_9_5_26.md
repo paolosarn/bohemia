@@ -4869,3 +4869,44 @@ SSSSSSSSSSSSSSSSSSSSSSSS8  the one who started paying in batteries instead      
   them him talking.
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## MMMMMMMMMMMMMMMMMMMMMMMMM. A DAY'S TRAVEL IS A PRICE (round 68)
+# Record: records/BOHEMIA_ECONOMY_DAY_68_A_DAYS_TRAVEL_IS_A_PRICE_10_17_26.md
+# Rule 110's swing for this lane, under rule 88's hold: a page, no sheet, nothing in the game.
+
+SSSSSSSSSSSSSSSSSSSSSSSSS1  a salt hauler counting what the walk ate              draft:true
+    "Thirty-four at the flats. Forty-nine in town. The road took its fifteen, mostly in bread."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS2  a stall keeper in the town that digs it                draft:true
+    "Don't sell me salt. I'm standing on it. Bring me something we haven't got."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS3  a mule man who knows the real arithmetic               draft:true
+    "Twelve days out, the animal's eaten its own load. Nobody hauls past day eight."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS4  the one whose road got cut last week                   draft:true
+    "Same shelf, same salt. Price went up because nobody's walked in with any."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS5  a crew boss weighing the sacks against the crew        draft:true
+    "Three of us, five sacks, we eat well. Twelve of us, same sacks, we eat the profit."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS6  a woman who remembers when the valley was one price    draft:true
+    "Used to be the same number everywhere. Trucks did that. Trucks are done."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS7  the far-town buyer who pays full and knows it          draft:true
+    "I pay the walk. You pay the walk back. Everybody's paying the walk."
+
+SSSSSSSSSSSSSSSSSSSSSSSSS8  a kid asking why the far road is the bad road          draft:true
+    "Farther out, worse company. The distance isn't the price, it's who's on it."
+
+## NNNNNNNNNNNNNNNNNNNNNNNNN. WHAT IS NOT HERE, ON PURPOSE (round 68)
+
+- No line names Smith, von Thunen, Engels, a Roman mile or a wiki page. The whole finding is said
+  as a hauler's count, a stall that will not buy its own salt, a mule that eats its load, a cut
+  road, a crew too big for its sacks, the trucks being done, and the far road's company.
+- SSSSSSSSSSSSSSSSSSSSSSSSS1's numbers are the record's worked example at ten to one (34, 49, 15),
+  the wiki's own crowns divided by ten; not a ruling, not a felt number; TUNING's table first.
+- No line names a town, a street, a faction or a real place. MAP LAW.
+- No line has the player speaking. Rule 27: 683 role-place entries in this file now, zero of
+  them him talking.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

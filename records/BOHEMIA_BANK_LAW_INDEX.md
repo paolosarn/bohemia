@@ -50,52 +50,73 @@ bank cannot quietly add a rule nobody checks.
 | 28 | `banks/BOHEMIA_OPENINGS_8_2_26.txt` | `status` | PENDING PAOLO |
 | 29 | `banks/BOHEMIA_PARTICLE_LOOP_BANK_7_14_26.txt` | `law` | type-matched loops, borders machine-frozen |
 | 30 | `banks/BOHEMIA_PARTICLE_LOOP_COOK_7_14_26.txt` | `status` | UNJUDGED |
-| 31 | `banks/BOHEMIA_PERIMETER_8_2_26.txt` | `status` | PENDING PAOLO |
-| 32 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | `law` | 85% tan / 15% original (Paolo); wall height min 2 tiles; W36/W37 seam-flagged \|\| v2 (7/17): +WB4 (batch-2 sole survivor, Paolo label PERIMETER); weights renormalized over 13 keys; tan variant via the pool-derived tan transform. |
-| 33 | `banks/BOHEMIA_POWER_POLE_8_23_26.txt` | `status` | COMMISSIONED ORIGINAL -- cooked because the corpus has none |
-| 34 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.one_wall_per_community` | each plot = ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall shuffle BANNED |
-| 35 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gates_touch_streets` | entrances must align with adjacent street network; entrance segment = suburb road type |
-| 36 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gated_is_rich` | most Vegas communities are walled but NOT gated; gates = boujee/richer pre-apocalypse (story fuel post-apocalypse) |
-| 37 | `banks/BOHEMIA_SOUND_CARD_9_12_26.json` | `ruling` | Paolo 9/6 LOCKED: post-apocalyptic Final Fantasy X, especially that fantasy beach vibe, it was so good |
-| 38 | `banks/BOHEMIA_SOUND_CARD_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md |
-| 39 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | `status` | UNJUDGED — pools only on Paolo UP |
-| 40 | `banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt` | `law` | art-first reset amendment C (the ANTI-BIOSHOCK rule): the picked mockup is CUT into a real starter tileset and the identical frame is REASSEMBLED from those tiles on the real render path. |
-| 41 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | `law` | laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md |
-| 42 | `banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
-| 43 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of for everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 44 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | MIXED - see per-tile verdict |
-| 45 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
-| 46 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
-| 47 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
-| 48 | `banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt` | `ruling` | Paolo 8/27 06:07, THE LETTERS, YES: A ALL TYPEWRITER-WIDTH. "Every letter the same width, everywhere, labels and body alike. A receipt, a ledger, a printout, for a game about money that stopped working." And the same message: "download whatever you need to download or make anything you need to make". |
-| 49 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
-| 50 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
-| 51 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
-| 52 | `records/BOHEMIA_EYES_E26_WALK_9_13_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
-| 53 | `records/BOHEMIA_EYES_E26_WALK_ALPHA_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
-| 54 | `records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
-| 55 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md |
-| 56 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md |
-| 57 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md |
-| 58 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md |
-| 59 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md |
-| 60 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md |
-| 61 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
-| 62 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md |
-| 63 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md |
-| 64 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md |
-| 65 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md |
-| 66 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md |
-| 67 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "ot love you for; a two-month PENDING unblocked without asking " |
-| 68 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA" |
-| 69 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NAME-THE-CIRCUIT-OWNER  (it said "needs Paolo (who holds what)" and who holds what shipped earlier the same round, so the blocker was g" |
-| 70 | `records/BOHEMIA_EYES_SLOP_9_12_26.json` | `law` | laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md |
-| 71 | `records/BOHEMIA_REFERENCE_CHECKS.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4 |
-| 72 | `records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 — the gate ruler |
-| 73 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
-| 74 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
-| 75 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
-| 76 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 31 | `banks/BOHEMIA_PARTS_GRAMMAR_10_11_26.json` | `law` | rule 108 ROUND EIGHT (a): no chat draws a pixel or a curve in code. Parts are rectangles, straight lines and straight-segment polygons. A curve in this file is a bug. |
+| 32 | `banks/BOHEMIA_PERIMETER_8_2_26.txt` | `status` | PENDING PAOLO |
+| 33 | `banks/BOHEMIA_PERIMETER_WALL_POOL_7_14_26.txt` | `law` | 85% tan / 15% original (Paolo); wall height min 2 tiles; W36/W37 seam-flagged \|\| v2 (7/17): +WB4 (batch-2 sole survivor, Paolo label PERIMETER); weights renormalized over 13 keys; tan variant via the pool-derived tan transform. |
+| 34 | `banks/BOHEMIA_PLACES_WORTH_GOING_TO_10_9_26.txt` | `ruling` | Paolo 10/9, rule 79: "12 versus 60" is the biggest fight Battle Brothers gives you |
+| 35 | `banks/BOHEMIA_POWER_POLE_8_23_26.txt` | `status` | COMMISSIONED ORIGINAL -- cooked because the corpus has none |
+| 36 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.one_wall_per_community` | each plot = ONE wall design (seeded per plot); variety BETWEEN plots; per-cell wall shuffle BANNED |
+| 37 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gates_touch_streets` | entrances must align with adjacent street network; entrance segment = suburb road type |
+| 38 | `banks/BOHEMIA_REAL_VEGAS_VERDICTS_R2_7_14_26.txt` | `paolo_laws.gated_is_rich` | most Vegas communities are walled but NOT gated; gates = boujee/richer pre-apocalypse (story fuel post-apocalypse) |
+| 39 | `banks/BOHEMIA_SOUND_CARD_9_12_26.json` | `ruling` | Paolo 9/6 LOCKED: post-apocalyptic Final Fantasy X, especially that fantasy beach vibe, it was so good |
+| 40 | `banks/BOHEMIA_SOUND_CARD_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_WHAT_BOHEMIA_SOUNDS_LIKE_9_6_26.md |
+| 41 | `banks/BOHEMIA_STALL_STRIPE_CANDIDATES_7_14_26.txt` | `status` | UNJUDGED — pools only on Paolo UP |
+| 42 | `banks/BOHEMIA_STARTER_TILESET_ACT1_7_26_26.txt` | `law` | art-first reset amendment C (the ANTI-BIOSHOCK rule): the picked mockup is CUT into a real starter tileset and the identical frame is REASSEMBLED from those tiles on the real render path. |
+| 43 | `banks/BOHEMIA_STARTER_TILESET_ACT1_RECOOK_7_28_26.txt` | `law` | laws/BOHEMIA_PIXEL_CRAFT_LAWS_7_27_26.md |
+| 44 | `banks/BOHEMIA_TERRAIN_PICKS_7_14_26.txt` | `law` | pool membership is a Paolo verdict; pools carry the seamless bank pixels verbatim |
+| 45 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of for everything we need in the game as possible INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 46 | `banks/BOHEMIA_TEXTURE_MATCH_8_1_26.txt` | `status` | MIXED - see per-tile verdict |
+| 47 | `banks/BOHEMIA_THE_BLOCK_THREE_WAYS_9_28_26.txt` | `law` | rule 37a |
+| 48 | `banks/BOHEMIA_THE_BLOCK_WAR_KIT_9_30_26.txt` | `law` | rule 46b and 46e |
+| 49 | `banks/BOHEMIA_THE_BUILDING_PROPS_10_10_26.txt` | `law` | rule 77 TILES ARE LEGOS: four typed edges, and the joint measured not declared |
+| 50 | `banks/BOHEMIA_THE_CELL_TILES_9_27_26.txt` | `law` | rule 34 |
+| 51 | `banks/BOHEMIA_THE_FREEWAY_KIT_10_10_26.txt` | `law` | rule 77 TILES ARE LEGOS: four typed edges, and the joint measured not declared |
+| 52 | `banks/BOHEMIA_THE_HOUSE_TILE_9_28_26.txt` | `law` | rule 38, corrected |
+| 53 | `banks/BOHEMIA_THE_MAP_MARKERS_AT_DENSITY_9_29_26.txt` | `law` | rule 40(f) |
+| 54 | `banks/BOHEMIA_THE_MAP_ROAD_CANDIDATE_10_10_26.txt` | `status` | CANDIDATE, NOT IN THE GAME. Rule 101: everything he has seen is a placeholder and final art comes one at a time with his feedback. This tile enters nothing until he votes FINAL on its sheet. |
+| 55 | `banks/BOHEMIA_THE_MARKERS_YOU_CAN_FIND_10_10_26.txt` | `law` | rule 82a: recoloured inside the pack's palette |
+| 56 | `banks/BOHEMIA_THE_PARTY_MARKER_CANDIDATE_10_10_26.txt` | `status` | CANDIDATE, NOT IN THE GAME. Rule 101: everything he has seen is a placeholder and final art comes one at a time with his feedback. This marker enters nothing until he votes FINAL on its sheet. |
+| 57 | `banks/BOHEMIA_THE_RIG_ON_THE_ROOF_9_22_26.txt` | `ruling` | Paolo 9/21, voting THE RULES RUN WITH THE DIRT down: "Mfs charge batteries bro. i know buildings can help in our game but jesus christ mfs can charge batteries" |
+| 58 | `banks/BOHEMIA_THE_THREE_BLOCKS_10_10_26.txt` | `ruling` | every legend of all 50 district kits that draw (WORLD 10/10) |
+| 59 | `banks/BOHEMIA_THE_TWO_HOLES_NEAREST_10_16_26.txt` | `status` | A MEASUREMENT, NOT A CANDIDATE. Nothing here is art; it is what he owns that is nearest to each hole, so whoever fills the hole starts from his own light and his own 96 pixels. |
+| 60 | `banks/BOHEMIA_THE_VALLEY_AT_NIGHT_9_24_26.txt` | `law` | CLUSTERED POWER (Paolo 7/14, LOCKED, "I like the answers"): "outages/survivals are CLUSTERS, never alternating", 10-15% of lamps, all in clusters, every lit cluster OWNED. |
+| 61 | `banks/BOHEMIA_TRAFFIC_SIGNAL_CANDIDATES_7_17_26.txt` | `status` | UNJUDGED (first commissioned original; Paolo judges on the intersection proof) |
+| 62 | `banks/BOHEMIA_TURN_ARROW_CANDIDATES_7_17_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
+| 63 | `banks/BOHEMIA_TURN_MARKING_CANDIDATES_7_14_26.txt` | `status` | APPROVED (Paolo 7/17/26, all items UP, see records/BOHEMIA_MARKING_VERDICTS_7_17_26.txt) |
+| 64 | `banks/BOHEMIA_TYPEFACE_MONO_8_27_26.txt` | `ruling` | Paolo 8/27 06:07, THE LETTERS, YES: A ALL TYPEWRITER-WIDTH. "Every letter the same width, everywhere, labels and body alike. A receipt, a ledger, a printout, for a game about money that stopped working." And the same message: "download whatever you need to download or make anything you need to make". |
+| 65 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `status` | ACT 3 RESERVED (Paolo 7/21) - AWAITING OTHER ACT 1 WALL CLASSES |
+| 66 | `banks/BOHEMIA_WALL_CANDIDATES_POOL_7_17_26.txt` | `ruling` | Paolo 7/17, verbatim intent: rejected as suburb-perimeter walls only; "there's more walls than just gated communities." These 47 stay ELIGIBLE for every other wall class (building, industrial, whatever canon defines) and re-enter judging when a class exists. Rejection is PER CLASS. WB4 is not here; it lives in PERIMETER_WALL_POOL v2. |
+| 67 | `banks/BOHEMIA_WALL_PICKS_7_14_26.txt` | `paolo_direction` | 85% of Vegas walls are desert yellow tan brick vibes — create tan versions, keep originals; pool weighted 85% tan / 15% original |
+| 68 | `records/BOHEMIA_EYES_E26_WALK_9_13_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 69 | `records/BOHEMIA_EYES_E26_WALK_ALPHA_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 70 | `records/BOHEMIA_EYES_E26_WALK_DEMO_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 71 | `records/BOHEMIA_EYES_E26_WALK_DEPLOY_9_14_26.json` | `law` | THE FIVE MINUTES (Paolo 9/13) |
+| 72 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ACT1_OPENING_VISION_7_19_26.md |
+| 73 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ANIMAL_IS_AN_ERA_NOT_AN_ANIMAL_9_7_26.md |
+| 74 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_120_REQUEST_LAW_7_6_26.md |
+| 75 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md |
+| 76 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_ITEM_SCALE_RESOLVER_7_16_26.md |
+| 77 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_COMBAT_6_27_26.md |
+| 78 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 79 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_LAW_TRENCHCOATS_ARE_RESERVED_8_27_26.md |
+| 80 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_FEED_ON_THE_CITY_SCREEN_9_4_26.md |
+| 81 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_PURPLE_RESERVATION_LAW_7_10_26.md |
+| 82 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_TOP_MENU_BAR_9_7_26.md |
+| 83 | `records/BOHEMIA_EYES_LOCKED_9_12_26.json` | `law` | laws/BOHEMIA_ADDENDUM_THE_BORDER_IS_ONE_PIXEL_8_16_26.md |
+| 84 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "ot love you for; a two-month PENDING unblocked without asking " |
+| 85 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NEVER-WRITTEN -- from the coordinator's locked-rulings sweep (records/BOHEMIA_COORDINA" |
+| 86 | `records/BOHEMIA_EYES_SEEN_9_11_26.json` | `ruling` | the row cites him: "NAME-THE-CIRCUIT-OWNER  (it said "needs Paolo (who holds what)" and who holds what shipped earlier the same round, so the blocker was g" |
+| 87 | `records/BOHEMIA_EYES_SLOP_9_12_26.json` | `law` | laws/BOHEMIA_LAW_THE_UI_MUST_NOT_LOOK_VIBE_CODED_9_11_26.md |
+| 88 | `records/BOHEMIA_REFERENCE_CHECKS.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26, clause 4 |
+| 89 | `records/BOHEMIA_REFERENCE_LIBRARY_INDEX.json` | `law` | COMPARE EVERY PIECE OF ART TO THE WORLD 9/4/26 — the gate ruler |
+| 90 | `records/BOHEMIA_SONG_LOCK.json` | `law` | laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md |
+| 91 | `records/BOHEMIA_SOUND_IS_A_MESSAGE_8_25_26.json` | `law` | records/BOHEMIA_THREE_SOUNDS_ARE_THE_ONLY_COPY_8_25_26.md |
+| 92 | `records/BOHEMIA_STYLE_TARGET_8_1_26.json` | `ruling` | Paolo 8/1: "make as much pixel art that I approve of ... INSPIRED BY THE GRAPHIC ASSETS THAT I BOUGHT TRYING TO REPLICATE THE EXACT LOOK" |
+| 93 | `records/BOHEMIA_TUNING_LIST.json` | `law` | laws/BOHEMIA_ADDENDUM_EVERYTHING_COSTS_ONE_8_15_26.md |
+| 94 | `records/BOHEMIA_TUNING_NUMBERS_TABLE_DRAFT_9_28_26.json` | `status` | live \| proposed \| ruled-not-built |
+| 95 | `records/BOHEMIA_TUNING_NUMBERS_TABLE_DRAFT_9_28_26.json` | `status` | live |
+| 96 | `records/BOHEMIA_TUNING_NUMBERS_TABLE_DRAFT_9_28_26.json` | `status` | proposed |
+| 97 | `records/BOHEMIA_TUNING_NUMBERS_TABLE_DRAFT_9_28_26.json` | `status` | ruled-not-built |
 
-TOTAL: 76 rulings across 48 files.
+TOTAL: 97 rulings across 66 files.
 

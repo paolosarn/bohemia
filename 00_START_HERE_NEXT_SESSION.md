@@ -534,6 +534,30 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-vamily-knxaeh): 10/17 LATEST (l) -- [a day is a price] SHIPPED, THE BIG SWING
+(rule 110; research only, a page without a sheet under rule 88's hold, no code touched, no VOTE
+sheet; rule 109 is why the question exists: a settlement is days away for the first time).
+Record: records/BOHEMIA_ECONOMY_DAY_68_A_DAYS_TRAVEL_IS_A_PRICE_10_17_26.md
+FINDING: Battle Brothers never writes distance on a price tag (the wiki's six price inputs,
+none is 'how far'); the trade loop is MADE HERE (buy unchanged, sell 15%) against NOT MADE HERE
+(buy 150%, sell 110%), and the spread is collected by crossing the ground, paid in wages and
+food (the Game Guide's own player tallies it). Ambushed trade routes (+20% buy, +10% sell,
+already in price_table.json) is the one distance price in disguise: a cut road is a far road.
+Real world: the carrier eats the cargo (Engels' 80 lb man eating 3 a day, the 250 lb mule
+eating 20; Smith's wagon; von Thunen's price minus carriage). OURS, MEASURED: every number a
+day's price needs is already in our data files (wage 1 + food 0.4 plains to 0.8 ranges, so a
+man on the road is 1.4 to 1.8 a day, three men 4 to 6, twelve men 17 to 22) and nothing adds
+them up; no trade good is a GOODS entry. The page's table: salt 34 where dug, 49 where not, a
+15 spread; one to seven days out the road eats 8 to 76 of it for three men, 34 to 302 for
+twelve, which is why the Guide calls trade early-game only. PROVES US WRONG, routed to RUN and
+WORLD: the region's twelve places sit about four times closer than their real kilometres
+(Mesquite 130 km real, about 29 on the grid; 7.6 of our ruled days against 1.9). Eight bank
+lines, draft:true. [bb] and analog horror lines at the page's foot.
+NEXT OPEN (jump list, rule 74): [batteries at the counter] (the top OPEN row), [what a raid
+costs the raided], [the 32 situations] -- all pages without sheets under rule 88's hold.
+PENDING Paolo: none new; the shared food/water pile report from several rounds back still
+stands.
+
 ECONOMY (economy-vamily-knxaeh): 10/10 LATEST (k) -- [the dollar's last month] SHIPPED
 (research only, page without a sheet -- rule 88's hold, no code touched, no VOTE sheet).
 Record: records/BOHEMIA_ECONOMY_DAY_67_THE_DOLLARS_LAST_MONTH_10_10_26.md
