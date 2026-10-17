@@ -33,3 +33,6 @@ SWEEP AK (10/13): COMBAT's both-teams camera REFIRED and landed with his numbers
 
 
 SWEEP AL (10/16): COMBAT's zone of control landed live (CUE 9.65). COOK TWO's 47-piece sidewalk set in VOTE (his corners). COOK FOUR's straight roofs in VOTE (his roofs). COOK indexed everything he owns. The plate stays HELD AT THE PASS until his moodboard. PLUMBER quiet six days; the pipe's gates still wait. ALL DAY: 1 plate, held.
+
+
+COMBAT TWO 10/16 (the big swing, rule 110): 2-out (was 3-out). Three suburb boards cut from the whole bank with COOK FOUR's straight-roof ranch standing on COOK TWO's 1:1 cells, in VOTE (combat2-three-boards-from-the-whole-bank-10-16); terrain, cover and lights per board in the manifest. HEARD, for the pass: the fight reads 515 x 364 cos45 blocks and these boards are 656 x 648 square cells at the body's ruler; one reader change when a FINAL comes. Still out: COOK FOUR's other house kinds, DIRECTION's taste of 2x props on 1x ground.

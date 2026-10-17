@@ -7239,7 +7239,17 @@
    "show": {
     "how": "image",
     "src": "vote/COMBAT2_THE_REST_JOIN_10_10.png"
-   }
+   },
+   "twin": {
+    "src": "pack:1. Cracked street tiles#0",
+    "diffs": [
+     "EVERY PIXEL: these three boards are our cooked ground (flat fills, 18 to 29 colours per 96 px); his street tile has 2,400 to 4,600. This is why the family is a placeholder and not added to (rule 101).",
+     "SEAMS: his tiles meet by texture and never line up exactly; ours were forced to match by a copied 12-px ring, which the no-borders vote now forbids.",
+     "SCALE: the picture is the whole boards shrunk to fit, not 1:1; the 10/16 candidate (combat2-three-boards-from-the-whole-bank-10-16) is the one shown at 1:1."
+    ]
+   },
+   "placeholder": true,
+   "note": "COMBAT TWO 10/16: twin added for the gate (PLUMBER's 10/10 note); the picture is from before rule 89 and stays as it was; the boards it shows are placeholders of the cooked family (rule 101a)."
   },
   {
    "id": "people-the-keepers-10-10",
@@ -8804,6 +8814,33 @@
      "PAINT: the pieces carry the old renderer's cloth, 9 colours and 5 value bands a piece, where his pack cloth has about 2,459 colours and 15 bands (the study page); the cut keeps whatever paint COOK THREE lands on it."
     ]
    }
+  },
+  {
+   "id": "combat2-three-boards-from-the-whole-bank-10-16",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/16",
+   "title": "CANDIDATE: THREE FIGHT BOARDS CUT FROM YOUR PACKS, WITH THE STRAIGHT-ROOF HOUSES",
+   "why": "A small, a middle and a large fight board for a Vegas suburb, every pixel from the tiles you bought: the street and sidewalks the way cook 2 cuts them, the ranch the way cook 4 built it, and the cars, fences, walls, lamps, barrels and junk from your packs. Houses face the street on one side, back walls and chain link on the other, a wreck in most driveways. One thing to know: your packs draw every prop in one small box, so a car and a cone come the same size; the cars are doubled to look right next to the man, and the cones are left out. Not in the game. Look at the 1:1 cuts, not the shrunk maps.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp"
+   },
+   "before_after": {
+    "before": "the suburb block in the game today: our cooked houses on the 2x street, one art pixel to one phone pixel",
+    "after": "the large board at the same cut: his tiles under cook 4's house, same scale",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "SIZE: his props all come in one 96-px box, so a car and a cone are the same size; at the man's ruler a car is doubled with whole pixels and the cones stay off the board.",
+     "THE CURB: his street and slab tiles have no curb; the sidewalk edge is his slab's own south face, cook 2's recipe, on every corner the 47 ways.",
+     "THE HOUSE: his pack house is one tile for a tiny person; ours is his roof, wall, door and window tiles laid at the man's size (cook 4), two tiles wide, the garage a second tile."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [
