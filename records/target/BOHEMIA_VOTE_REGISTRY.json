@@ -10069,6 +10069,49 @@
    }
   },
   {
+   "id": "cook3-the-raider-through-the-rig-10-18",
+   "kind": "outfit",
+   "lane": "cook 3",
+   "sha": "90afb0c",
+   "made": "10/18",
+   "title": "THE RAIDER, A 3D MODEL IN CHAIN MAIL AND A BLACK SURCOAT, WITH A NOSE-GUARD HELMET AND A ROUND SHIELD",
+   "why": "The fourth enemy tier built the robot's way and dressed like Battle Brothers' raiders: chain mail made of real rows that catch the sun and rust at the bottom, a plain black surcoat, a mail hood, a pointed nose-guard helmet, brass cuffs, a round shield cut from a cable spool's end, a machete, and the modelled face on the same body. You see it in the VOTE tab: eight directions and two walks beside the game's flat raider.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook3/COOK3_THE_RAIDER_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "records/cook3/enemy_tiers_repainted.png",
+    "diffs": [
+     "THE MAIL: ours is rows of rings that catch the sun on his hood, shoulders, sleeves and skirt as he turns, rusted dark at the bottom, under a black surcoat; the game's raider has grey stripes painted on, front only.",
+     "THE HEAD: ours wears a mail hood and a pointed helmet with a nose bar over a real modelled face; the game's raider has a flat face and brown hair.",
+     "THE SHIELD: ours carries a round shield on his left arm and a machete in his right hand; the game's raider holds nothing."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own flat raider as last painted (right on the sheet)",
+    "after": "the raider as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+    "scale": "1:1"
+   },
+   "sprites": [
+    "records/target/cook3/rig/raider/rig_N.png",
+    "records/target/cook3/rig/raider/rig_NE.png",
+    "records/target/cook3/rig/raider/rig_E.png",
+    "records/target/cook3/rig/raider/rig_SE.png",
+    "records/target/cook3/rig/raider/rig_S.png",
+    "records/target/cook3/rig/raider/rig_SW.png",
+    "records/target/cook3/rig/raider/rig_W.png",
+    "records/target/cook3/rig/raider/rig_NW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  },
+  {
    "id": "run2-the-starred-faces-10-18",
    "kind": "redo",
    "lane": "run 2",
