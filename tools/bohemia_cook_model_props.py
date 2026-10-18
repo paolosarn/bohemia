@@ -1085,8 +1085,13 @@ def pier(bpy, mathutils):
         g = box(bpy, 'girder_%d' % i, conc, (0.45, 0.6 - yf, GH), (x, (0.6 + yf) / 2, zg + GH / 2))
         cut(bpy, g, (0.9, 0.6, 1.4), (x, yf - 0.1, zg + GH / 2), (math.radians(rnd.uniform(-30, 30)), 0, math.radians(rnd.uniform(-15, 15))))
     deck = box(bpy, 'deck', conc, (5.6, 2.3, 0.26), (0, -0.55, zg + GH + 0.13))
+    # round three: the deck's top was one pale flat (the source pass dusts every up face); a freeway deck carries its
+    # asphalt, broken back from the edge, dark on the pale concrete
+    road = box(bpy, 'asphalt', stain, (5.5, 2.05, 0.07), (0, -0.4, zg + GH + 0.295))
     for k in range(4):   # the break, jagged: four bites out of the near edge
-        cut(bpy, deck, (1.6, 0.9, 1.0), (-2.1 + k * 1.4 + rnd.uniform(-0.2, 0.2), -1.85 + rnd.uniform(-0.25, 0.15), zg + GH + 0.13), (math.radians(rnd.uniform(-25, 25)), 0, math.radians(rnd.uniform(-35, 35))))
+        c = (-2.1 + k * 1.4 + rnd.uniform(-0.2, 0.2), -1.85 + rnd.uniform(-0.25, 0.15), zg + GH + 0.13); a_ = (math.radians(rnd.uniform(-25, 25)), 0, math.radians(rnd.uniform(-35, 35)))
+        cut(bpy, deck, (1.6, 0.9, 1.0), c, a_)
+        cut(bpy, road, (1.6, 1.2, 1.0), (c[0], c[1] + 0.15, c[2]), a_)   # the asphalt broken back further than the slab
     box(bpy, 'deck_edge', stain, (5.62, 0.04, 0.3), (0, 0.6, zg + GH + 0.13))   # the joint behind, black with the years
     bars = []
     for i in range(22):   # the deck's rebar hanging out of the break toward the street, bent down by its own weight
@@ -1098,11 +1103,15 @@ def pier(bpy, mathutils):
     tubes(bpy, 'rebar', steel, bars, 0.018, n=6)
     # the water from the joint, run down the cap and the column's near face in ragged runs, the splash at the foot
     yf = -CY / 2 - 0.006
-    for i, (x, top_, ln, r) in enumerate(((-0.4, CH - 0.05, 3.4, 0.16), (0.15, CH - 0.05, 2.1, 0.11), (0.5, CH - 0.4, 1.3, 0.08))):
+    # round three: a run of overlapping discs read as a chain of beads; each run is now a few long ragged pieces, a
+    # stain stretched down the face (the disc's own Y is the wall's height once it is stood on the face)
+    for i, (x, top_, ln, r) in enumerate(((-0.4, CH - 0.05, 3.4, 0.13), (0.15, CH - 0.05, 2.1, 0.09), (0.5, CH - 0.4, 1.3, 0.07))):
         k = 0; z = top_
         while z > top_ - ln:
-            blotch(bpy, 'run_%d_%d' % (i, k), stain, r * (1 - 0.5 * (top_ - z) / ln), (x + 0.03 * math.sin(k), yf, z), (math.pi / 2, 0, 0), seed=300 + i * 40 + k)
-            z -= r * 0.9; k += 1
+            rr = r * (1 - 0.45 * (top_ - z) / ln)
+            o = blotch(bpy, 'run_%d_%d' % (i, k), stain, rr, (x + 0.025 * math.sin(k * 1.7), yf, z - rr * 2.2), (math.pi / 2, 0, 0), seed=300 + i * 40 + k)
+            o.scale = (1, 4.0, 1)
+            z -= rr * 6.5; k += 1
     for i, x in enumerate((-2.0, -0.9, 0.3, 1.6)):
         blotch(bpy, 'cap_run_%d' % i, stain, 0.16, (x, -0.606, CH + 0.95 - 0.12 * (i % 2)), (math.pi / 2, 0, 0), seed=360 + i)
     for i in range(6):
@@ -1117,7 +1126,7 @@ def pier(bpy, mathutils):
     bl.location = (0.25, -1.75, 0.09); bl.rotation_euler = (0, 0, math.radians(-4))
     for i, (x, y, r, sc) in enumerate(((-0.6, -1.72, 1.0, (0.3, 0.22, 0.12)), (0.95, -1.35, 1.0, (0.2, 0.17, 0.22)))):
         bpy.ops.mesh.primitive_uv_sphere_add(radius=r, segments=12, ring_count=8, location=(x, y, 0.06 + sc[2]))
-        b = put(bpy, bpy.context.active_object, 'bundle_%d' % i, card); b.scale = sc
+        b = put(bpy, bpy.context.active_object, 'bundle_%d' % i, stain); b.scale = sc   # cloth, dark (round three: pale card bundles read as eggs)
         lump(b, rnd, r)
 
 
