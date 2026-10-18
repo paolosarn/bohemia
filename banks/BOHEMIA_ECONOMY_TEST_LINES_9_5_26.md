@@ -5040,3 +5040,45 @@ VVVVVVVVVVVVVVVVVVVVVVVVV8  a stall keeper, the dust coming in                  
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
   keeper or a mouth with a face, at a counter, a hall, a camp or a road.
 - Spanish register: 0 of 8 lines. Under the 15% cap.
+
+## UUUUUUUUUUUUUUUUUUUUUUUUU. A WEEK AT THE COUNTER: WHAT SEVEN DAYS COST A CREW OF THREE (round 72)
+# Record: records/BOHEMIA_ECONOMY_DAY_72_A_WEEK_AT_THE_COUNTER_IS_42_AND_EVERY_PURSE_ON_MAIN_IS_HARDER_THAN_BATTLE_BROTHERS_10_18_26.md
+# Row [a week at the counter], under rule 88's hold: a page, no sheet, nothing in the game.
+
+WWWWWWWWWWWWWWWWWWWWWWWWW1  the stall keeper, one ration on the counter                        draft:true
+    "One. One for the bread, one for the water. Three of you? Do the math before you sit down."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW2  the same keeper, pointing at the sack                                draft:true
+    "The sack's cheaper by the bite. You just can't reach it yet. Come back when you can."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW3  the keeper, the day the crew buys the sack                           draft:true
+    "Look at you. Whole sack. That's a week you're not counting every night."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW4  a man on the hiring corner, end of the week                          draft:true
+    "Seven days. I got picked four. You do the arithmetic, I'm tired of doing it."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW5  a hauler, before the desert road                                      draft:true
+    "Out there you eat half again and you drink more. Buy it here. Nobody sells it out there."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW6  a woman handing over a box at the door                                draft:true
+    "It's not money. It's a week. Rice, water, the tape. Spend the week finding the money."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW7  the clinic, a week with one fight in it                                draft:true
+    "The cut's two. The pills are three days. It's the water that kills your purse, not me."
+
+WWWWWWWWWWWWWWWWWWWWWWWWW8  the stall keeper, to a stranger with nothing                          draft:true
+    "Nothing in your hand? Then you're not buying. Go see who lends. Come back with one."
+
+## VVVVVVVVVVVVVVVVVVVVVVVVV. WHAT IS NOT HERE, ON PURPOSE (round 72)
+
+- No line names a wiki page, a game, a number of batteries for a purse, a city outside the valley
+  or a real event. The finding is said as a keeper who sells by the bite, a sack that is cheaper and
+  out of reach, a box at the door that is a week and not money, and the water as the big line.
+- WWWWWWWWWWWWWWWWWWWWWWWWW2 and 3 carry the poverty premium (the ration costs more than the stack) and rule
+  117(c)'s visible win (the day the crew buys the sack). WWWWWWWWWWWWWWWWWWWWWWWWW6 carries the seeded-stash
+  candidate (a week of food at the door, the CLAP box), not a ruling; TUNING's table first.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
+  keeper or a mouth with a face, at a counter, a corner, a road, a door or a clinic.
+- Spanish register: 0 of 8 lines. Under the 15% cap.

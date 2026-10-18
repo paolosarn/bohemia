@@ -1118,7 +1118,29 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
-ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (o) -- [the 32 situations] SHIPPED, THE NEW AGE
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (p) -- [a week at the counter] SHIPPED, THE NEW AGE
+(rules 112 to 117: the coordinator opened this chat and reads this block as the report; no
+check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
+data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_72_A_WEEK_AT_THE_COUNTER_IS_42_AND_EVERY_PURSE_ON_MAIN_IS_HARDER_THAN_BATTLE_BROTHERS_10_18_26.md
+FINDING: A QUIET PLAINS WEEK FOR A CREW OF THREE AT DAY 69'S RATION COUNTER IS 42 BATTERIES (21
+food, 21 water; desert 53 to 64), against 21 of work at best: 21 SHORT A WEEK. Battle Brothers' A
+New Company on Low pays 294 crowns of wages in week one with the food prepaid (two grain stacks in
+the cart) and lasts about 5 idle weeks (Medium 6.3). By runway, UNDER RULE 117 EVERY PURSE ON MAIN
+IS HARDER THAN BATTLE BROTHERS: the demo's 0 and the settlement screen's 3 by far, and even
+origins.json's 190 and 240 a little (we buy water, by the ration, from night one); the first number
+on main past BB's default is origins.json's 'full' 290 (6.9 idle weeks). Three candidates for
+TUNING, none picked: A 42 (a week, the record's shape: Argentina's cap, Lebanon's cap, the CLAP
+box), B 21 (the gap), C 290 or more (the only default rule 117 allows); plus a seeded stash (a
+week of rations and water at the door, BB's prepaid cart). The ration costs 1.5 to 2 times the
+stack (the poverty premium): a lever and a visible win (rule 117(c)). Routed: TUNING (rows, runway
+table, start purse), RUN (the door seeds from TUNING; 0 and 3 are NOs under 117), RUN TWO (a stack
+beside the ration on the shelf), WORLD (water has no terrain rate on main). Eight bank lines
+draft:true (section U x25).
+NEXT OPEN (jump list, rule 74): [a held road] (now the top), [the rumour], and [the poverty
+premium], written this round.
+PENDING Paolo: none new.
+
+ECONOMY (economy-vamily-knxaeh): 10/18 (o) -- [the 32 situations] SHIPPED, THE NEW AGE
 (rules 112 to 116: the coordinator opened this chat and reads this block as the report; no
 check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
 data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_71_THE_32_SITUATIONS_ARE_44_AND_THIRTEEN_FOOD_PRICES_ARE_NOT_ON_THE_PAGE_10_18_26.md
