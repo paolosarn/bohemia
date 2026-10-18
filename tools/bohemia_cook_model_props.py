@@ -20,6 +20,12 @@ camera sees (glTF front is -Y).
          shape, the cabin sunk, a caved roof, windows gone dark, one front wheel missing so the nose sits on its rim
          (the odd thing), the bonnet sprung open 12 degrees, rust patches as their own panels.
 
+[the block war's cover] 10/18 (his 9/29 'MOST FIGHTS ARE BLOCK WARS'; COVER is the thinnest kind on any board, 389
+against 2,899 blockers): the things a man stands behind in a city fight, each with --real-dims (DIRECTION round six).
+  sandbags  a 2.6 m sandbag wall, 0.85 m high (cover under the 1.3 m chest line), real 0.56 x 0.3 x 0.13 m bags in
+            seven courses, the twin pack:5. Barricades and defenses#2. The odd thing: the right-hand top bag burst, its
+            sand poured into a pile at the foot, and one bag fallen off the top.
+
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
 then
@@ -448,13 +454,86 @@ def tyres(bpy, mathutils):
     one('slid', (-0.18, -0.28, 3 * h + 0.03), (math.radians(-22), math.radians(8), 0.9))
 
 
-BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres}
+def sack(bpy, name, m, size, loc, rot, rnd, tied=1, flat=0.55):
+    """a filled sack (a sandbag): a superellipsoid, boxy in the middle, round at the edges, the tied end pinched to its
+    neck, the bottom pressed flat by the course under it, lumps from what is inside"""
+    L, W, H = size
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=20, ring_count=10, location=(0, 0, 0))
+    o = put(bpy, bpy.context.active_object, name, m)
+    a, b = rnd.uniform(0, 6), rnd.uniform(0, 6)
+    for v in o.data.vertices:
+        c = [math.copysign(abs(x) ** 0.7, x) for x in v.co]                       # pushed out toward the box, round enough that the gaps between bags go dark
+        u = c[0] * tied
+        k = 1 - 0.55 * max(0.0, (u - 0.72) / 0.28)                                  # the tied end gathered to its neck
+        x, y, z = c[0] * L / 2, c[1] * W / 2 * k, c[2] * H / 2 * k
+        z *= 1 + 0.12 * math.sin(4 * c[0] + a) * math.cos(3 * c[1] + b)            # the fill sits lumpy
+        if z < -flat * H / 2: z = -flat * H / 2
+        v.co = (x, y, z)
+    o.location = loc; o.rotation_euler = rot
+    return o
+
+
+def sandbags(bpy, mathutils):
+    # a sandbag wall (pack:5. Barricades and defenses#2 is his twin): real bags of 0.56 x 0.3 x 0.13 m filled (the
+    # standard 14 by 26 inch bag), laid in courses, the bottom four two bags deep and the top three one deep and stepped
+    # back, each course offset half a bag, 0.9 m high: cover a man kneels behind, under the 1.3 m chest line, so it is
+    # COVER and not a blocker. Burlap in two ages (the bottom course rotted dark where the ground's damp wicks up). The odd thing: the top bag at the right end split open, its sand run
+    # down the face in a cone on the ground, and one bag fallen off the top, lying at the foot.
+    import random
+    rnd = random.Random(7)
+    # round two of the loop: the first burlap (masking step 2) dusted to a pale grey-cream beside his warm brown bags,
+    # the bags were boxy slabs with no dark between them (value span 105), two green poly bags read as grey stones, and
+    # the sand run down the face stood up as a pole. Warmer burlap, rounder bags, no poly, the spill a low pile
+    # round three: the rotted course (masking step 1) and the sand (bone step 2) still dusted to grey stones; both are
+    # now the burlap's own clay, a step down for the rot and a step up for the sand
+    burlap, old, sand = mat(bpy, 'burlap', 'clay_mustard', 2), mat(bpy, 'burlap_rotted', 'clay_mustard', 1), mat(bpy, 'sand', 'clay_mustard', 3)
+    L, W, H = 0.56, 0.3, 0.13
+    pitch, step = 0.6, H * 0.9
+    for c in range(7):
+        rows = (-0.16, 0.16) if c < 4 else (0.04,)
+        xs = [-0.9, -0.3, 0.3, 0.9] if c % 2 == 0 else [-0.6, 0.0, 0.6] + ([1.12] if c < 4 else [])
+        if c >= 5: xs = [x for x in xs if abs(x) < 0.95]                         # the top courses stop short of the ends
+        for r, y in enumerate(rows):
+            for i, x in enumerate(xs):
+                if c == 6 and x > 0.25: continue                                   # the burst bag's place, and the fallen one's
+                m = old if c == 0 else burlap
+                sack(bpy, 'bag_%d_%d_%d' % (c, r, i), m, (L * rnd.uniform(0.95, 1.04), W * rnd.uniform(0.95, 1.05), H),
+                     (x + rnd.uniform(-0.03, 0.03), y + rnd.uniform(-0.02, 0.02), H / 2 * 0.55 + c * step),
+                     (rnd.uniform(-0.03, 0.03), rnd.uniform(-0.04, 0.04), rnd.uniform(-0.06, 0.06)), rnd, tied=rnd.choice((-1, 1)))
+    # THE ONE ASYMMETRIC THING: the right-hand top bag split along its seam and slumped, its sand down the face to a cone
+    top = H / 2 * 0.55 + 6 * step
+    sack(bpy, 'bag_burst', burlap, (L, W * 1.15, H * 0.5), (0.55, 0.02, top - 0.03), (0.08, -0.05, 0.1), rnd, flat=0.9)
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=16, ring_count=8, location=(0.6, -0.12, top + 0.005))
+    s = put(bpy, bpy.context.active_object, 'burst_sand', sand); s.scale = (0.2, 0.09, 0.03)
+    bpy.ops.mesh.primitive_cone_add(vertices=20, radius1=0.3, radius2=0.03, depth=0.13, location=(0.62, -0.38, 0.065))
+    cone = put(bpy, bpy.context.active_object, 'sand_pile', sand)
+    for v in cone.data.vertices:   # a pile poured from above, slumped against the foot of the wall
+        v.co.x *= 1 + 0.18 * math.sin(3 * math.atan2(v.co.y, v.co.x)); v.co.y *= 0.8
+    # and one bag off the top, lying on the ground at the foot, turned across the wall
+    sack(bpy, 'bag_fallen', burlap, (L, W, H), (1.08, -0.36, H / 2 * 0.55), (0.0, 0.12, math.radians(35)), rnd, flat=0.6)
+
+
+def dims(bpy):
+    import mathutils
+    lo, hi = [1e9] * 3, [-1e9] * 3
+    for o in bpy.context.scene.objects:
+        if o.type != 'MESH': continue
+        for c in o.bound_box:
+            p = o.matrix_world @ mathutils.Vector(c)
+            lo = [min(a, b) for a, b in zip(lo, p)]; hi = [max(a, b) for a, b in zip(hi, p)]
+    return [round(h - l, 3) for l, h in zip(lo, hi)]
+
+
+BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
+            'sandbags': sandbags}
 
 
 def build(name, out):
     import bpy, mathutils
     bpy.ops.wm.read_factory_settings(use_empty=True)
     BUILDERS[name](bpy, mathutils)
+    bpy.context.view_layer.update()
+    print('DIMS x y z (m):', dims(bpy), 'materials:', len(bpy.data.materials))
     for o in bpy.context.scene.objects: o.select_set(True)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', use_selection=False)
