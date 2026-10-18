@@ -320,6 +320,31 @@ FACE_DIALS = [
     ('mouth.w',        'MOUTH WIDTH',   5, 15, 9),
     ('nose.w',         'NOSE WIDTH',    2,  5, 3),
 ]
+def _hash(*n):
+    """a repeatable 0..1 from integers (the noise's lattice), so the same person always grows the same hair"""
+    h = 2166136261
+    for x in n: h = ((h ^ (x & 0xffffffff)) * 16777619) & 0xffffffff
+    h ^= h >> 15; h = (h * 2246822519) & 0xffffffff; h ^= h >> 13
+    return (h & 0xffffff) / float(0xffffff)
+
+
+def vnoise(x, y, z=0.0, seed=0):
+    """smooth value noise: hashed lattice values eased between, 0..1"""
+    i, j, k = math.floor(x), math.floor(y), math.floor(z); fx, fy, fz = x - i, y - j, z - k
+    u, w, q = fx * fx * (3 - 2 * fx), fy * fy * (3 - 2 * fy), fz * fz * (3 - 2 * fz)
+    def L(a, b, t): return a + (b - a) * t
+    c = [[[_hash(i + a, j + b, k + e, seed) for e in (0, 1)] for b in (0, 1)] for a in (0, 1)]
+    return L(L(L(c[0][0][0], c[1][0][0], u), L(c[0][1][0], c[1][1][0], u), w), L(L(c[0][0][1], c[1][0][1], u), L(c[0][1][1], c[1][1][1], u), w), q)
+
+
+def locks(u, v, width, seed):
+    """the height (0..1) of hair at u across the way it falls and v along it: locks about `width` wide whose edges wander
+    as they run, each its own height, a parting between two"""
+    q = u / width + 0.45 * vnoise(u / (width * 2.3), v / 0.06, seed=seed) + 0.30 * vnoise(v / 0.045, 0.5, seed=seed + 1)
+    cell = math.floor(q); f = q - cell
+    return (0.55 + 0.45 * _hash(cell, seed)) * math.sin(math.pi * f) ** 0.7
+
+
 FACE_PX = 0.0083   # one pixel of the 64 px face, in metres of this head (0.356 m crown to chin over craniumH + len = 43 px)
 FD = None          # the resolved dials of the head being built (None: the starred default, nothing moves)
 
@@ -766,27 +791,36 @@ def build(who, out):
         bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not keep(f.calc_center_median())], context='FACES')
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
         bm.normal_update()
+        # HAIR IS LOCKS, NEVER A MESH (his 10/18 YES on the crew: 'some hair looks like medieval chain-mail armor'; the
+        # coordinator: 'hair as clumps and strands, never a mesh'). Round 1 rippled every cut with cosines on a fixed pitch
+        # in both directions, a regular grid, which is exactly what mail is. Now the shell is split once (4 mm between
+        # points, so a lock is more than two points wide) and lifted as LOCKS: each runs along the way the hair falls
+        # (combed back over the crown, down the sides and the back, down the forehead on a fringe), its width wanders, each
+        # lock its own height, a parting between two; a coil crown is blobs of hashed noise at two sizes. Nothing repeats.
+        bmesh.ops.subdivide_edges(bm, edges=bm.edges[:], cuts=1, use_grid_fill=True)
+        bm.normal_update()
+        seed = sum(ord(ch) for ch in who)
+        W = {'taper': 0.016, 'slick': 0.011, 'long': 0.026, 'fall': 0.028, 'fringe': 0.022, 'shag': 0.024, 'coil': 0.0}[st]
         for v in bm.verts:
-            p = v.co; ang = math.atan2(p.y, p.x)
-            # strands: combed front to back over the crown, hanging down the sides and the back (cycle 1's 2.5 mm grooves
-            # vanished at 128 px; 5 mm on a 12 mm pitch read as hair by the sun's own light)
-            comb = 0.005 * max(0.0, math.cos(2 * math.pi * p.x / 0.012)) ** 3 if p.z > 0.08 else 0.005 * max(0.0, math.cos(2 * math.pi * ang * RX / 0.012)) ** 3
-            lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.022)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.022))
-            if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) - comb
-            elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) - 0.6 * comb      # thin, the comb's lines run back
-            elif st == 'fall':   # the long cut in layers: a step every 35 mm down the fall
-                t = 0.008 + 0.016 * sstep(0.0, -0.15, p.z) - comb + 0.004 * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.035))
-            elif st == 'fringe':   # the long cut, the fringe standing 6 mm proud of the forehead so it reads heavy
-                t = 0.009 + 0.012 * sstep(0.0, -0.13, p.z) - comb + 0.006 * sstep(-0.04, -0.09, p.y) * sstep(0.11, 0.06, p.z)
-            elif st == 'coil':
-                # (cycle 1: the curls' grid lined up in rings round the crown and read as a knit cap) coils on two
-                # crossed, tilted pitches and a third that breaks the rows
-                a1 = ang * RX + 0.6 * p.z; a2 = ang * RX - 0.6 * p.z
-                coil = (0.5 + 0.5 * math.cos(2 * math.pi * a1 / 0.019)) * (0.5 + 0.5 * math.cos(2 * math.pi * a2 / 0.023)) * (0.75 + 0.25 * math.cos(2 * math.pi * (p.x + 1.7 * p.z) / 0.031))
-                t = 0.011 + 0.010 * coil ** 0.8
+            p = v.co; ang = math.atan2(p.y, p.x); rr = math.hypot(p.x, p.y)
+            top = sstep(0.040, 0.100, p.z)                                     # how much this point is on the crown
+            fringe = st == 'fringe' and p.y < -0.05 and p.z < 0.11
+            lk = 0.0
+            if W:
+                down = locks(ang * max(rr, 0.05), p.z, W, seed)                  # the sides and the back fall down
+                back = locks(p.x, p.y, W, seed + 7) if not fringe else locks(p.x, p.z, W, seed + 7)   # the crown combs back
+                lk = down + (back - down) * (1.0 if fringe else top)
+            if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) + 0.0025 * lk
+            elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) + 0.0018 * lk
+            elif st == 'fall':   # layered: lock ends at uneven heights, not rings
+                t = 0.007 + 0.015 * sstep(0.0, -0.15, p.z) + 0.007 * lk + 0.004 * vnoise(ang * 6.0, p.z / 0.032, seed=seed + 3)
+            elif st == 'fringe': t = 0.008 + 0.012 * sstep(0.0, -0.13, p.z) + 0.006 * lk + 0.006 * sstep(-0.04, -0.09, p.y) * sstep(0.11, 0.06, p.z)
+            elif st == 'coil':   # coils clump into blobs of every size: hashed noise at 15 and 7 mm, never a lattice
+                b = 0.62 * vnoise(p.x / 0.015, p.y / 0.015, p.z / 0.015, seed) + 0.38 * vnoise(p.x / 0.007, p.y / 0.007, p.z / 0.007, seed + 1)
+                t = 0.010 + 0.014 * b ** 1.3
             else:
-                t = 0.007 + 0.012 * sstep(0.0, -0.13, p.z) - comb
-                if st == 'shag': t += 0.008 * lump ** 1.5
+                t = 0.007 + 0.012 * sstep(0.0, -0.13, p.z) + 0.007 * lk
+                if st == 'shag': t += 0.008 * vnoise(ang * 9.0, p.z / 0.020, seed=seed + 5) ** 1.5   # choppy, cut at random
             v.co = p + v.normal * t
         for f in bm.faces: f.material_index = 0; f.smooth = True
         hm = bpy.data.meshes.new('portrait_hair'); bm.to_mesh(hm); bm.free()
@@ -842,8 +876,9 @@ def build(who, out):
         lift = []
         for v in bm.verts:
             p = v.co; ang = math.atan2(p.y, p.x)
-            lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.016)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.016))
-            t = {'full': 0.008, 'moustache': 0.006, 'goatee': 0.007}[bd] + 0.004 * lump ** 0.8
+            # tufts of hashed noise at 12 and 6 mm, never a lattice (the chain-mail note, 10/18), longer down the jaw
+            lump = 0.65 * vnoise(p.x / 0.012, p.y / 0.012, p.z / 0.016, 11) + 0.35 * vnoise(p.x / 0.006, p.y / 0.006, p.z / 0.008, 12)
+            t = {'full': 0.008, 'moustache': 0.006, 'goatee': 0.007}[bd] + 0.005 * lump ** 1.2
             if bd == 'full': t += 0.003 * sstep(-0.10, -0.15, p.z)   # fuller under the chin
             if bd != 'moustache': t *= 1.0 - 0.65 * g2(p.x, p.z, 0.0, MOUTH_Z, 0.050, 0.026)   # thin at the mouth, so it shows
             lift.append((v[src], v.normal * t)); v.co = p + v.normal * t
