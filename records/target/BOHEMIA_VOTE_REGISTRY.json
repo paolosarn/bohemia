@@ -10340,6 +10340,42 @@
    }
   },
   {
+   "id": "cook4-the-casino-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "6935013",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE CASINO UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "why": "The last of the six buildings, drawn the way the valley's first casinos really looked: a long low ranch hall with not one window, air conditioners on the roof, glass doors under a marquee whose letters are gone, a blank sign on the roof over the doors, and the middle pair of doors standing open on the dark. You see it in the VOTE tab beside your pack house, the tan ranch and the church at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_CASINO.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the gaming hall wears the same measured shape (1.49 walls tall against one storey) in the tan of his own render wall, three of his condensers on it.",
+     "MASSING: his house is one small box with windows; ours is a 26 m hall at a 4.5 m plate with no window at all, a marquee 3.6 m up over six glass doors, and a 6 by 3 m sign standing 4 m over the ridge on two legs, 29 m in all.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eave and the marquee, the outline and a contact shadow. One wrong thing: the middle pair of doors open on a black room, the only door in the family nobody shut."
+    ]
+   },
+   "before_after": {
+    "before": "no casino drawn the pack's way: the old fight-board casino was cooked art, 4 colours a cell",
+    "after": "the windowless gaming hall under the measured tan roof, the marquee and its empty reader board, the blank sign on the roof, the man at the open doors",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_CASINO_STRAIGHT_ROOF.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
+  },
+  {
    "id": "sounds-the-step-in-the-fight-10-18",
    "kind": "sound",
    "lane": "sounds",
