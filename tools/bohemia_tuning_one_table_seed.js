@@ -223,6 +223,12 @@ const TYPED = [
   { id: 'money.crowns_per_battery', value: 10, unit: 'crowns', feel: 'ten of the wiki\'s crowns make one battery', where: 'slices/BOHEMIA_ROSTER_SCREEN.html clinicPrice() "/ 10" (and the settlement screen, GROK_33)', owner: 'economy', bb: 'origins.json carries both; records/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.md' },
 ];
 for (const t of TYPED) rows.push({ kind: 'typed', id: t.id, value: t.value, unit: t.unit, feel: t.feel, source: t.bb ? 'the wiki number exists in the data: ' + t.bb : 'no source but the code', source_kind: t.bb ? 'wiki (unread)' : 'NO SOURCE', quote: false, read_at: t.where, reads: 0, owner: t.owner, bb_difficulty_moves: null, status: 'typed, not read from the table' });
+/* TUNING [the settlement's numbers] 10/18: the screens around the fight, read by tools/bohemia_tuning_screens_seed.js
+   (each row a pattern matched once in the live file); folded in here so section C is the whole typed list */
+try {
+  const seen = new Set(rows.map(r => r.id));
+  for (const s of require('./bohemia_tuning_screens_seed.js').rows) if (!seen.has(s.id)) rows.push(Object.assign({ quote: false, bb_difficulty_moves: null }, s));
+} catch (e) { console.log('screens seed not folded: ' + e.message); }
 
 /* ---------- ruled or sourced, read by nothing in the fight ---------- */
 const RULED = [
