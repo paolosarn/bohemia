@@ -82,6 +82,29 @@ SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict 
 main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
 their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
+CHARACTER (character-013SW): 10/18 (o) LATEST -- *** THE THIRTEEN GANG LOOKS ARE 3D MODELS NOW, LIKE
+THE ROBOT: EVERY COAT, CAPE AND HAT IS A REAL SHAPE ON THE BODY'S BONES. ***
+TAB: VOTE, the card character-the-thirteen-through-the-rig-10-18 (redo of the texture set he called glitchy).
+Record: records/BOHEMIA_THE_THIRTEEN_THROUGH_THE_RIG_10_18_26.md. Opened by the coordinator (rule 112) on Opus
+because the fleet's Fable usage ran out (rule 116); the chat before me left nothing uncommitted on this row.
+
+His NO on the cut-up clothes killed that road (rule 115a). This round fourteen models were built from the rig's
+man (the body plus the thirteen), each garment modelled: coats and dusters hang as cloth cut to a pattern (the
+Reds duster open at the front with a split tail, the Anarchists' torn hem) and their skirts part round the legs
+when he walks, which is the trenchcoat action he asked for, from all eight sides. Capes, mantles, the rice hat,
+caps, sculpted hair, a round skull instead of the test body's box, a standing pose. Rendered through DIRECTION's
+rig, unedited: person card 0 to 2 of 8 out, none sent back.
+
+FOUND, FOR DIRECTION (second lane to hit it, COOK THREE first): the rig's dust on up-facing surfaces turns any
+dark head grey (every black crown and charcoal cap rendered the same grey). Worked round in the MODEL (hair
+normals, a normal hair technique); the fix belongs in the rig as a per-material wear weight. Also: the card's
+light row reads a dark-haired man in a pale coat as lit from below (a colour fact, not a light fact).
+The .glb models are not committed (49 MB, rebuilt in 5 s a look by the tool); the renders and the sheet are.
+NEXT ON MY BOARD: [the print and the hands] (the pinstripe, plaid and stripes as modelled relief; hands with
+fingers instead of the test body's mitts).
+GATES: CHARACTER IN THE VOTE TAB 9/0, THE TEXTURE SET 8/0, REFERENCE CHECK 482/0; THE VOTE TAB fails one leg
+(four other lanes' whys) and times out in its browser leg, both identical on main without my card.
+Nothing to slices/, engine/ or the demo (rule 100). PENDING Paolo: nothing.
 CHARACTER (character-0lurbs): 10/17 (n) LATEST -- *** THE BIG SWING: EVERY PIECE OF CLOTHING
 CUT OFF THE OLD BODY INTO PIECES THE NEW REAL BODY MODEL CAN WEAR, WITH WHERE EACH ONE HANGS
 IN REAL METRES. ***
