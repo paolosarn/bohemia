@@ -25052,6 +25052,8 @@ drawLogoBig();requestAnimationFrame(loop);
       var tab=document.querySelector('.tab[data-p="run"]');
       var mapTab=document.querySelector('.tab[data-p="map"]');
       if(!(tab && tab.classList.contains('on')) && !(mapTab && mapTab.classList.contains('on'))) return;
+      /* THE MAP HEARS THE DESERT (10/18): while the recorded wind is under the map, the engine-made air, gust and generator stand down (his 10/10: no generator humming everywhere) */
+      if(typeof MAPDESERT!=='undefined' && MAPDESERT && MAPDESERT.playing && MAPDESERT.playing()) return;
       var now=Date.now();
       if(!this.next){ this.next = now + this.gap()*1000; return; }
       if(now < this.next) return;
@@ -25140,17 +25142,94 @@ drawLogoBig();requestAnimationFrame(loop);
          title) has to see the DECISION made, not only its rendered sound. */
       window.__ambArriveLog = window.__ambArriveLog || [];
       window.__ambArriveLog.push({ seq:seq, inside:this.inside });
-      if(this.inside) return;
-      try{
-        placeSound('generator', { dx:(Math.random()*2-1)*7, dist:6+Math.random()*9, inside:false }, this.bus);
-      }catch(e){}
+      /* RETIRED 10/18 (SOUNDS, row [the desert under travel]; PAOLO 10/10: "You don't have to fall in love
+         with this fucked up generator humming noises everywhere"): the arrival no longer plays the engine
+         generator. Reaching a town opens its settlement screen 250 ms later, and that screen now carries its
+         own recorded bed and buildings (engine/bohemia_settlement_heard.js), so the arrival is heard as the
+         town itself. The log above stays: the decision is still made once per new arrival. */
+      return;
     }
   };
   window.__AMB=AMB;
+  /* __THE_MAP_HEARS_THE_DESERT__ (SOUNDS 10/18, row [the desert under travel]).
+     PAOLO 10/10, the eleventh votes, on the travel clip: "The travel clip at night is terrible so just use
+     the day one for the night one too... there's already gonna be music... You don't have to fall in love
+     with this fucked up generator humming noises everywhere." And 10/17, UP on the settlement heard whole:
+     the real recordings, the bed thinned to a desert. So the map now sits on the SAME recorded desert wind
+     the settlement plays (slices/vote/settlement_heard/bed_day.mp3: CC0 Freesound clips through ESC-50,
+     every author in that folder's manifest.json), the DAY clip by day AND by night, his words; a far thing
+     every 25 to 60 s (by night only the helicopter and the siren: no rooster at three in the morning).
+     WHILE IT PLAYS, AMB stands down (tick returns): the engine-made air_day / air_night beds, the gust and
+     the generator never play under the map again; the road and dirt footsteps (his, 10/13) stay on top.
+     ON: the map posted its state in the last 1.5 s, no settlement screen open, the RUN or MAP tab on, the
+     page visible. Anything else fades it out in 0.6 s (a town's own bed takes over on arrival; a fight
+     switches the tab). Through sfxBus(), so the SETTINGS sound knob scales it. Gate: map_heard_gate.js. */
+  var MAPDESERT={
+    DIR:'vote/settlement_heard/', BED:'bed_day', LEVEL:0.45,
+    FAR:{ day:['far_horn','far_helicopter','far_crow'], night:['far_siren','far_helicopter'] },
+    id:null, g:null, timer:null, farT:null, buf:{}, loading:{}, at:0, last:null, log:[],
+    want:function(){
+      var d=this.last; if(!d || Date.now()-this.at > 1500 || d.settlement || document.hidden) return false;
+      var t=document.querySelector('.tab[data-p="run"]'), m=document.querySelector('.tab[data-p="map"]');
+      return !!((t && t.classList.contains('on')) || (m && m.classList.contains('on')));
+    },
+    load:function(AC, id){
+      var self=this; if(this.buf[id]) return Promise.resolve(this.buf[id]); if(this.loading[id]) return this.loading[id];
+      return (this.loading[id]=fetch(this.DIR+id+'.mp3').then(function(r){ if(!r.ok) throw new Error(id+' '+r.status); return r.arrayBuffer(); })
+        .then(function(ab){ return new Promise(function(res,rej){ AC.decodeAudioData(ab,res,rej); }); })
+        .then(function(b){ self.buf[id]=b; return b; })
+        .catch(function(e){ delete self.loading[id]; self.log.push({id:id, err:String(e)}); throw e; }));
+    },
+    start:function(){
+      var self=this; if(this.id) return;
+      if(typeof MUS==='undefined') return; try{ MUS.audio(); }catch(e){} var AC=MUS.AC; if(!AC) return;
+      var out=sfxBus()||MUS.OUT||MUS.MAST||AC.destination, id=this.BED;
+      this.id=id; this.log.push({on:id, night:!!(this.last && this.last.night), t:Date.now()});
+      this.load(AC,id).then(function(b){
+        if(self.id!==id || self.g) return;
+        var g=self.g=AC.createGain(); g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(self.LEVEL,AC.currentTime+1.5); g.connect(out);
+        /* two copies overlapped by one second, equal gain ramps: the codec's padding never clicks, the same loop the settlement uses */
+        var XF=1.0, step=b.duration-XF;
+        (function one(at){
+          if(self.id!==id || self.g!==g) return;
+          var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(g);
+          v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF);
+          v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+          s.start(at);
+          self.timer=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000));
+        })(AC.currentTime+0.05);
+        self.farNext();
+      }).catch(function(){ self.id=null; });
+    },
+    farNext:function(){
+      var self=this; if(this.farT) clearTimeout(this.farT);
+      this.farT=setTimeout(function(){
+        if(!self.g || typeof MUS==='undefined' || !MUS.AC) return;
+        var pool=(self.last && self.last.night) ? self.FAR.night : self.FAR.day, id=pool[(Math.random()*pool.length)|0], AC=MUS.AC, g=self.g;
+        self.log.push({far:id, t:Date.now()});
+        self.load(AC,id).then(function(b){ if(self.g!==g) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); v.gain.value=0.8; s.connect(v); v.connect(g); s.start(); }).catch(function(){});
+        self.farNext();
+      }, 25000+Math.random()*35000);
+    },
+    stop:function(){
+      if(!this.id) return;
+      this.log.push({off:this.id, t:Date.now()});
+      this.id=null; if(this.timer) clearTimeout(this.timer); if(this.farT) clearTimeout(this.farT); this.timer=this.farT=null;
+      var g=this.g; this.g=null;
+      if(g && typeof MUS!=='undefined' && MUS.AC){ var AC=MUS.AC; try{ g.gain.cancelScheduledValues(AC.currentTime); g.gain.setValueAtTime(g.gain.value,AC.currentTime); g.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); }catch(e){}
+        setTimeout(function(){ try{ g.disconnect(); }catch(e){} }, 900); }
+    },
+    update:function(){ try{ if(this.want()) this.start(); else this.stop(); }catch(e){} },
+    hear:function(d){ this.last=d; this.at=Date.now(); this.update(); },
+    playing:function(){ return !!this.id; }
+  };
+  window.__MAPDESERT=MAPDESERT;
+  setInterval(function(){ MAPDESERT.update(); }, 1000);
   setInterval(function(){ AMB.tick(); }, 1000);
   window.addEventListener('bohemia-mapstate', function(e){
     var d=e && e.detail; if(!d) return;
     if(d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    MAPDESERT.hear(d);   /* the recorded desert under travel, day and night (10/18) */
     /* THE ROAD AND DIRT BEDS (10/13): the mapstate's own `moving`/`surface` fields
        are the exact signal this row has waited on since round one. inside and the
        settlement screen both stop the bed the same way they stop every other

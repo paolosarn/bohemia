@@ -464,7 +464,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"9edb572125a9018d",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
+<script id="demo-cast-early">(function(){var D=window.__DEMO_CAST={state:"pending",key:"771bb5bef5ec7759",raw:null,wait:[],at:0};function end(s){if(D.state!=="pending")return;D.state=s;D.at=performance.now();var w=D.wait;D.wait=[];w.forEach(function(f){try{f();}catch(e){}});}D.end=end;setTimeout(function(){end("late");},6000);try{fetch("BOHEMIA_DEMO_CAST.json").then(function(r){return r.ok?r.json():null;}).then(function(j){if(!j||j.key!==D.key)return end("stale");D.raw=j;end("ready");}).catch(function(){end("none");});}catch(e){end("none");}})();</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1564,7 +1564,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/13b - THE MAP PEOPLE COME BAKED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 10/18a - THE RAGDOLL FALLS FOUR WAYS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -7749,7 +7749,7 @@ const spF=d=>_lat(d)?Math.sign(Math.cos(FACEANG[d])):0;
 /* Animations declared COOKED by Paolo 7/2. Rebuilt one at a time on HIS pose
    with his approval per clip. Only idle+walk live for now. */
 const CLIPS=['idle','walk','run','pistol','two-hand','deadeye','lean','sleep','headshot','headshot-2','sneak','drunk','jump','eat','drink','smoke','talk','nod','look-around','stumble','fistpump','point','cheer','sit-ground','pickup','carry','shrug','hands-up','dance','pray','beckon','dig','tired-walk','wander','push','cough','laugh','argue','greet','search','brace','stretch','shiver','throw','dodge','preach','sit-chair','whistle','bow','kick','shadowbox','sigh','startle','shove','taunt','swagger','balance','stomp','shout','rage','crack-neck','pour','inject','tweeze'];   /* 7/2/26 verdicts: melee, reload, hurt, crouch, kneel, lean-x, lean-p, lean-2h, ragdoll, death KILLED, never re-add */
-const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,ragdoll:4,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
+const ANIMBEATS={idle:4,walk:2,run:2,pistol:2,'two-hand':2,'fire-2h':1,'fire-1h':1,'fall-down':2,'take-hit':1,ragdoll:2,deadeye:4,lean:4,sleep:4,headshot:4,'headshot-2':2,sneak:4,drunk:2,jump:2,eat:4,drink:4,smoke:4,talk:2,nod:2,'look-around':4,stumble:2,fistpump:2,point:4,cheer:2,'sit-ground':4,pickup:4,carry:2,shrug:4,'hands-up':4,dance:2,pray:4,beckon:2,dig:4,'tired-walk':4,wander:4,push:2,cough:2,laugh:2,argue:2,greet:2,search:4,brace:2,stretch:4,shiver:2,throw:2,dodge:2,preach:4,'sit-chair':4,whistle:4,bow:4,kick:2,shadowbox:2,sigh:4,startle:2,shove:2,taunt:2,swagger:2,balance:4,stomp:2,shout:2,rage:2,'crack-neck':4,pour:4,inject:4,tweeze:4};
 const RF=12,RR=6;
 const SWF=()=>Math.max(0.1,G.swing*2);   // SWING LAW: slider drives every clip amplitude, 0.5 = 1x
 /* VERBATIM from alpha vault: N/S head-on gait. NO sway, NO bob; legs compress. */
@@ -9261,8 +9261,19 @@ function fallAngles(h,t){
    body and facing and sampled on the twelve-key grid: 4 beats, twelve drawn pictures, the clip on the 120 beat.
    DRAWN as the posed fall was (rollFrame): the body is turned upright about the pelvis by the torso's angle, the
    frame is built (every garment draws right), and the picture is turned back, so a long coat stays a coat. */
-const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,cache:new WeakMap()};   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
-function ragdollSim(R,h,seed){
+/* __THE_CHOPPY_FALL__ (ANIMATION [the shadow line and the choppy fall], 10/18; his note on the ragdoll: 'choppy, not
+   smooth, a little too slow'). MEASURED on the four kinds x eight facings: the fall played over 4 beats (2 s) on twelve
+   pictures, 6 a second; he reached the ground at 0.8 to 1.6 s and the last three to five pictures were him lying still
+   (too slow), and one picture to the next moved a joint up to 54 px, a third of his height, 14 on average (choppy).
+   The physics is NOT touched (heavier gravity was tried: at 840 and 1120 px/s/s some facings never settled, the knobs
+   are tuned to the real 560). THE CLOCK changes: the clip plays the simulation's first PLAY.secs (1.8 s, where every
+   kind and facing has come to rest) in PLAY.beats (2 beats, one second), 1.8x the real speed, and is drawn on
+   PLAY.keys pictures (24, six a beat: a one-shot fall on twos, the claymation cadence; the cycles keep three a beat,
+   style guide field 15). The biggest jump between two pictures 54 -> 25 px, the average 14 -> 7, the blow down at 0.46
+   to 0.70 s and every kind within 0.9 s (a shot or a club slumps on an arm first on two facings); the last picture sits 1.7 px from the body at rest, so the dead pose that follows does not pop. */
+const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,kind:'blow',cache:new WeakMap(),play:{secs:1.8,beats:2,keys:24},
+  hit:{shot:{head:2.6,sh:1.8,low:0.3,hipDown:0,kneeDown:0,kneeSide:0,knee:0.85,settle:0.92,sleep:60,sleepOver:1},club:{push:1.3,floor:0.2,arm:-10,armTw:0,up:0.4,settle:0.92,sleep:60,sleepOver:1},roof:{drop:130,tip:30,drift:10,driftTop:20,sleep:40,sleepOver:1}}};   /* the knobs of each kind, in one place, swept by the probe before they were set (10/17) */   /* kind (ANIMATION [ragdoll hits], 10/17, rule 110's swing: 'the ragdoll's hit variety, a shot, a club, a fall from a roof'): 'blow' is the 10/13 push, byte for byte; 'shot' a sharp snap on the head and the chest, the hips barely moved, so he folds where he stands; 'club' a broad swing from the side, the whole upper body thrown the same way and the arms with it, so he travels; 'roof' no blow at all: the body starts 130 px up (about 2.3 m at his scale, a roof's edge) with a drift off the edge, and falls. The VOTE page sets it; the fight never reads it (rule 100). */   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
+function ragdollSim(R,h,seed,kind){ kind=kind||'blow';
   const J=['waC','neck','headTop','shL','shR','elL','elR','handL','handR','waA','waB','knA','knB','footA','footB'];
   const D=(a,b)=>Math.hypot(R[a][0]-R[b][0],R[a][1]-R[b][1]);
   let rs=(seed*2654435761)>>>0; const rnd=()=>{rs=(rs*1664525+1013904223)>>>0;return rs/4294967296;};
@@ -9274,21 +9285,32 @@ function ragdollSim(R,h,seed){
     ['waC','waA'],['waC','waB'],['waA','knA'],['waB','knB'],['knA','footA'],['knB','footB'],
     ['shL','shR'],['shL','waC'],['shR','waC'],['shL','waA'],['shR','waB'],['neck','waA'],['neck','waB'],['waA','waB'],['headTop','shL'],['headTop','shR']]
     .map(([a,b])=>[a,b,D(a,b)]);
-  const limits=[['waA','footA',0.85*(D('waA','knA')+D('knA','footA'))],['waB','footB',0.85*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
+  const HK=RAGDOLL.hit[kind]||{}; const KNEE=kind==='shot'?HK.knee:0.85;   /* the shot: the knees GIVE (a leg folds to half its length) so he drops into a heap where he stood; a push on the hips alone could not do it, the rigid legs on the floor held him up like a plank (measured 10/17: the shot's hips dropped 7 px in a quarter second, the blow's 7) */
+  const limits=[['waA','footA',KNEE*(D('waA','knA')+D('knA','footA'))],['waB','footB',KNEE*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
     ['shL','handL',0.55*(D('shL','elL')+D('elL','handL'))],['shR','handR',0.55*(D('shR','elR')+D('elR','handR'))],
     ['neck','knA',0.86*D('neck','knA')],['neck','knB',0.86*D('neck','knB')]];
   /* the blow: the upper body moves away from his facing, more the higher it is, varied by the seed */
   const H=80+40*rnd(), U=5+10*rnd(), tw=0.5+1.0*rnd(), ha=[(rnd()-0.5)*40,(rnd()-0.5)*30], hb=[(rnd()-0.5)*40,(rnd()-0.5)*30];   /* a wilder throw put a hand 40 px outside the box */   /* the blow and how each arm is thrown vary with the seed: a narrower range left 23 of 40 seeds resting the same (measured 10/13) */
+  const DROP=kind==='roof'?HK.drop:0;   /* the roof: the whole body starts 130 px above the floor and nothing is pushed but a drift off the edge */
   J.forEach(j=>{ const k=Math.max(0,Math.min(1,(feetY-R[j][1])/(feetY-top))); const tws=(j==='shL'||j==='elL'||j==='handL')?tw:(j==='shR'||j==='elR'||j==='handR')?2-tw:1;
-    const hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
-    Q[j]=[P[j][0]-(h*H*k*k*tws+hv[0])*RAGDOLL.dt, P[j][1]+(U*k-hv[1])*RAGDOLL.dt]; });
+    let hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
+    let vx=h*H*k*k*tws+hv[0], vy=-(U*k-hv[1]);   /* the 10/13 blow: more the higher the part, varied by the seed */
+    if(kind==='shot'){ const head=(j==='neck'||j==='headTop'), sh=(j==='shL'||j==='shR'), hip=(j==='waC'||j==='waA'||j==='waB'), knee=(j==='knA'||j==='knB'), low=hip||knee||j==='footA'||j==='footB';
+      vx=h*H*k*k*tws*(head?HK.head:sh?HK.sh:low?HK.low:0.8)+hv[0]*0.6+(knee?h*HK.kneeSide:0); vy=-(U*k*(head?2.0:1)-hv[1]*0.6)+(hip?HK.hipDown:knee?HK.kneeDown:0); }   /* the knees buckle toward the fall side: a knee pushed straight down cannot fold a vertical leg (measured 10/17, the hips did not drop) */   /* the snap is in the head and the chest; the hips are not pushed, they DROP (the knees give at the shot), so he crumples where he stood instead of toppling like a plank (the first shot measured within 2 px of the blow: a push is a push wherever it lands) */
+    else if(kind==='club'){ const arm=(j==='handL'||j==='elL'||j==='handR'||j==='elR'); vx=h*H*HK.push*(HK.floor+(1-HK.floor)*k)*(0.6+0.4*tws)+(arm?-h*(HK.arm+HK.armTw*tw):0); vy=-(U*HK.up*k); }   /* a swing from the side: the push is broad and carries the hips too (a floor of 0.35 under the linear ramp), the arms fly with the swing, not against it: he is THROWN, not tipped */
+    else if(kind==='roof'){ vx=h*(HK.drift+HK.driftTop*k); vy=0; }   /* a drift off the edge, more at the top; the tip is below */
+    P[j][1]-=DROP; Q[j]=[P[j][0]-vx*RAGDOLL.dt, P[j][1]-vy*RAGDOLL.dt]; });
+  if(kind==='roof'){ /* already tipping as he leaves the edge: the body turned 25 degrees about his feet toward the fall side, so the drop lands him on his side and not on his feet (upright he landed standing and sat down, 5 of 8 facings measured) */
+    const fx=(P.footA[0]+P.footB[0])/2, fy=Math.max(P.footA[1],P.footB[1]), th=h*HK.tip*Math.PI/180, c=Math.cos(th), sn=Math.sin(th);
+    J.forEach(j=>{ for(const A of [P,Q]){ const dx=A[j][0]-fx, dy=A[j][1]-fy; A[j][0]=fx+dx*c-dy*sn; A[j][1]=fy+dx*sn+dy*c; } }); }
   const frames=[], steps=Math.round(RAGDOLL.secs/RAGDOLL.dt), g=RAGDOLL.g*RAGDOLL.dt*RAGDOLL.dt; let sleepT=0, asleep=false, damp=0.998;
   const snap=()=>{const o={};J.forEach(j=>o[j]=[P[j][0],P[j][1]]);return o;};
   frames.push(snap());
   for(let s=1;s<=steps;s++){
     const tang=Math.abs(Math.atan2(P.neck[0]-P.waC[0],-(P.neck[1]-P.waC[1])));   /* the torso's lean from upright */
     if(asleep){ if(s%2===0)frames.push(snap()); continue; }   /* asleep, the body still keeps its place on the clock */
-    damp=(tang>1.22&&P.waC[1]>=gy-24)?0.95:0.998;   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
+    const lying=tang>1.22&&P.waC[1]>=gy-(kind==='blow'?24:(HK.lie||24));   /* the kinds: a harder hit lands him on an arm with the hips propped 25-40 px up and the torso well over; the 10/13 'lying' (hips within 24) never fired there and he rocked for ever (8 of 16 sets, measured 10/17). The torso past 70 degrees stays required: at 60 the shot slept mid-fall on NE and NW, and hips-down alone froze him kneeling (both tried, measured). The blow keeps the 10/13 rule to the letter. */
+    damp=lying?(HK.settle||0.95):0.998;   /* settle: a harder hit lands harder and was still rocking at 2 s (22-51 px/s on 4 to 6 of 16 sets, measured 10/17), so a kind may take its motion to the ground faster once it lies; the blow keeps 0.95 */   /* (10/17: a 'hips down' rule for the kinds was tried and FROZE a shot man kneeling and a roof fall propped at 44 degrees, 16 of 16 sets; the ground takes his motion only once he lies, every kind) */   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
     J.forEach(j=>{ const p=P[j],q=Q[j], vx=(p[0]-q[0])*damp, vy=(p[1]-q[1])*damp; Q[j]=[p[0],p[1]]; P[j]=[p[0]+vx,p[1]+vy+g]; });
     for(let it=0;it<RAGDOLL.iters;it++){
       for(const [a,b,L] of rigid){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6,c=(l-L)/l*0.5;
@@ -9299,8 +9321,8 @@ function ragdollSim(R,h,seed){
     }
     /* SLEEP, as a physics engine sleeps a body at rest: lying, and every joint slower than 12 px/s for a quarter of a
        second, it stops; the floor and the rigid torso otherwise nudge each other for ever (8-30 px/s, measured 10/13) */
-    if(damp<0.99){ let mv=0; J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
-      sleepT=mv<12?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;
+    if(damp<0.99||(kind!=='blow'&&tang>1.22&&HK.sleepOver)){ let mv=0;   /* a kind may also sleep propped (an arm under him, the hips up) once the torso is over and nothing moves: a toppling body moves far faster than its sleep line, so it never catches a fall */ J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
+      sleepT=mv<(HK.sleep||12)?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;   /* sleep: the kinds land harder and the floor and the rigid torso nudge each other at 20-35 px/s (a quarter pixel a picture, invisible) instead of the blow's 8-30, so the 12 px/s rule never slept them (measured 10/17, 4 to 9 of 16 sets rocking at 2 s); a kind sleeps under its own line */
     if(asleep){ J.forEach(j=>{Q[j]=[P[j][0],P[j][1]];}); }
     if(s%2===0)frames.push(snap());   /* every 1/120 s */
   }
@@ -9309,8 +9331,10 @@ function ragdollSim(R,h,seed){
 function ragdollPose(d,ph){
   const R=RIG[d], h=fallSide(d);
   let byRig=RAGDOLL.cache.get(R); if(!byRig){byRig={};RAGDOLL.cache.set(R,byRig);}
-  const key=d+'|'+RAGDOLL.seed; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed);
-  const F=byRig[key], t=Math.max(0,Math.min(1,ph)), sk0=F[Math.min(F.length-1,Math.round(t*(F.length-1)))];
+  const key=d+'|'+RAGDOLL.seed+'|'+RAGDOLL.kind; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed,RAGDOLL.kind);
+  const F=byRig[key], t=Math.max(0,Math.min(1,ph)), sk0=F[Math.min(F.length-1,Math.round(t*RAGDOLL.play.secs*120))];   /* __THE_CHOPPY_FALL__: the clip's phase is PLAY.secs of the simulation (F is one snapshot every 1/120 s) */
+  /* the lift: how far the body's lowest part is above the floor at this key (the roof fall is in the air; the picture is still set on the ground by fallPlace, and the VOTE page lifts it by this) */
+  let low=-1e9; for(const j in sk0)low=Math.max(low,sk0[j][1]+6); const lift=Math.max(0,Math.round(Math.max(R.footA[1],R.footB[1])+4-low));
   /* the torso's turn from standing: the picture is drawn upright and turned back (rollFrame) */
   const ang=(a,b)=>Math.atan2(b[1]-a[1],b[0]-a[0]);
   const th=ang(sk0.waC,sk0.neck)-ang(R.waC,R.neck), c=Math.cos(-th), s2=Math.sin(-th), o=sk0.waC, sk={};
@@ -9318,7 +9342,7 @@ function ragdollPose(d,ph){
   const placed=fallPlace(sk,R,0,0);
   for(const j in placed)placed[j]=[Math.round(placed[j][0]),Math.round(placed[j][1])];
   const sm=(v)=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);};
-  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2))}};
+  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2)),_lift:lift}};
 }
 function fallPose(d,ph){
   /* POSED UPRIGHT, TURNED AS A PICTURE. Every garment in the wardrobe is drawn row by row down the screen on the
@@ -11628,9 +11652,12 @@ function cityBakeRestLater(){
     if(!src){ CREST.done=true; return; }
     const pre=demoCrowd('looks',src.id);                 /* __THE_CROWD_COMES_BAKED_TOO__ */
     if(pre==='wait'){ idle(step); return; }
-    if(pre){ const at=CAST_PHS.indexOf(0.25), dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:pre[d][at],breathe:pre[d]}; });
-      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks:[{id:src.id,dirs}]},'*'); }catch(_e){}
-      CREST.L=null; CREST.i++; if(CREST.i<all) idle(step); else CREST.done=true; return; }
+    if(pre){ /* every later person the file holds, in ONE message: the map redraws once, not once a person */
+      const at=CAST_PHS.indexOf(0.25), looks=[]; let p=pre, k=CREST.i;
+      while(p&&p!=='wait'){ const dirs={}; DIRS.forEach(d=>{ dirs[d]={idle:p[d][at],breathe:p[d]}; }); looks.push({id:CITY_CAST_LOOKS[k].id,dirs}); k++;
+        p=k<all?demoCrowd('looks',CITY_CAST_LOOKS[k].id):null; }
+      try{ fr.contentWindow.postMessage({type:'BOHEMIA_CITY_CAST',w:CAST_PX,h:CAST_PX,packed:true,append:true,looks},'*'); }catch(_e){}
+      CREST.L=null; CREST.i=k; if(CREST.i<all) idle(step); else CREST.done=true; return; }
     /* one facing a task in the demo (__THE_CROWD_WAITS_ITS_TURN__), the whole person a task elsewhere */
     if(!CREST.L||CREST.L.id!==src.id) CREST.L={id:src.id,dials:src.dials,worn:src.worn,age:src.age||'adult',dirs:{}};
     const L=CREST.L, todo=CAST_SPLIT()?DIRS.filter(d=>!L.dirs[d]).slice(0,1):DIRS.filter(d=>!L.dirs[d]);
@@ -20397,6 +20424,15 @@ function buildFaceEditor(){
 document.getElementById('portraitCv').addEventListener('click',()=>{
   faceOpen=!faceOpen;document.getElementById('faceEd').classList.toggle('on',faceOpen);
   if(faceOpen)buildFaceEditor();});
+/* THE BARBER'S DOOR (RUN TWO [the barber's door], 10/16; his third votes 37i, his 9/27 note: 'you can only customize your
+   face and portrait at the barber in the settlement menu'). The settlement screen, two iframes down, posts this to the top
+   window when you sit in the barber's chair: open PORTRAIT's face maker (every dial a slider) on its own tab, the haircut
+   shelf inside it. Nothing else opens it from the settlement. */
+window.addEventListener('message',function(ev){var d=ev&&ev.data;if(!d||d.type!=='BOHEMIA_OPEN_FACE_MAKER')return;
+  try{const t=document.querySelector('[data-p="char"]');if(t)t.click();
+    if(!faceOpen)document.getElementById('portraitCv').dispatchEvent(new Event('click'));
+    setTimeout(function(){const fe=document.getElementById('faceEd');if(fe)fe.scrollIntoView({behavior:'smooth'});},60);
+    window.__faceMakerOpenedBy=(d.from||'?')+':'+(d.what||'face');}catch(_e){}});
 
 /* RIGID_AB_CHIP (Paolo 7/26/26): one tap flips the whole character between the
    renderer with the invented pixels and the one without, so the change is
@@ -25030,6 +25066,8 @@ drawLogoBig();requestAnimationFrame(loop);
       var tab=document.querySelector('.tab[data-p="run"]');
       var mapTab=document.querySelector('.tab[data-p="map"]');
       if(!(tab && tab.classList.contains('on')) && !(mapTab && mapTab.classList.contains('on'))) return;
+      /* THE MAP HEARS THE DESERT (10/18): while the recorded wind is under the map, the engine-made air, gust and generator stand down (his 10/10: no generator humming everywhere) */
+      if(typeof MAPDESERT!=='undefined' && MAPDESERT && MAPDESERT.playing && MAPDESERT.playing()) return;
       var now=Date.now();
       if(!this.next){ this.next = now + this.gap()*1000; return; }
       if(now < this.next) return;
@@ -25118,17 +25156,94 @@ drawLogoBig();requestAnimationFrame(loop);
          title) has to see the DECISION made, not only its rendered sound. */
       window.__ambArriveLog = window.__ambArriveLog || [];
       window.__ambArriveLog.push({ seq:seq, inside:this.inside });
-      if(this.inside) return;
-      try{
-        placeSound('generator', { dx:(Math.random()*2-1)*7, dist:6+Math.random()*9, inside:false }, this.bus);
-      }catch(e){}
+      /* RETIRED 10/18 (SOUNDS, row [the desert under travel]; PAOLO 10/10: "You don't have to fall in love
+         with this fucked up generator humming noises everywhere"): the arrival no longer plays the engine
+         generator. Reaching a town opens its settlement screen 250 ms later, and that screen now carries its
+         own recorded bed and buildings (engine/bohemia_settlement_heard.js), so the arrival is heard as the
+         town itself. The log above stays: the decision is still made once per new arrival. */
+      return;
     }
   };
   window.__AMB=AMB;
+  /* __THE_MAP_HEARS_THE_DESERT__ (SOUNDS 10/18, row [the desert under travel]).
+     PAOLO 10/10, the eleventh votes, on the travel clip: "The travel clip at night is terrible so just use
+     the day one for the night one too... there's already gonna be music... You don't have to fall in love
+     with this fucked up generator humming noises everywhere." And 10/17, UP on the settlement heard whole:
+     the real recordings, the bed thinned to a desert. So the map now sits on the SAME recorded desert wind
+     the settlement plays (slices/vote/settlement_heard/bed_day.mp3: CC0 Freesound clips through ESC-50,
+     every author in that folder's manifest.json), the DAY clip by day AND by night, his words; a far thing
+     every 25 to 60 s (by night only the helicopter and the siren: no rooster at three in the morning).
+     WHILE IT PLAYS, AMB stands down (tick returns): the engine-made air_day / air_night beds, the gust and
+     the generator never play under the map again; the road and dirt footsteps (his, 10/13) stay on top.
+     ON: the map posted its state in the last 1.5 s, no settlement screen open, the RUN or MAP tab on, the
+     page visible. Anything else fades it out in 0.6 s (a town's own bed takes over on arrival; a fight
+     switches the tab). Through sfxBus(), so the SETTINGS sound knob scales it. Gate: map_heard_gate.js. */
+  var MAPDESERT={
+    DIR:'vote/settlement_heard/', BED:'bed_day', LEVEL:0.45,
+    FAR:{ day:['far_horn','far_helicopter','far_crow'], night:['far_siren','far_helicopter'] },
+    id:null, g:null, timer:null, farT:null, buf:{}, loading:{}, at:0, last:null, log:[],
+    want:function(){
+      var d=this.last; if(!d || Date.now()-this.at > 1500 || d.settlement || document.hidden) return false;
+      var t=document.querySelector('.tab[data-p="run"]'), m=document.querySelector('.tab[data-p="map"]');
+      return !!((t && t.classList.contains('on')) || (m && m.classList.contains('on')));
+    },
+    load:function(AC, id){
+      var self=this; if(this.buf[id]) return Promise.resolve(this.buf[id]); if(this.loading[id]) return this.loading[id];
+      return (this.loading[id]=fetch(this.DIR+id+'.mp3').then(function(r){ if(!r.ok) throw new Error(id+' '+r.status); return r.arrayBuffer(); })
+        .then(function(ab){ return new Promise(function(res,rej){ AC.decodeAudioData(ab,res,rej); }); })
+        .then(function(b){ self.buf[id]=b; return b; })
+        .catch(function(e){ delete self.loading[id]; self.log.push({id:id, err:String(e)}); throw e; }));
+    },
+    start:function(){
+      var self=this; if(this.id) return;
+      if(typeof MUS==='undefined') return; try{ MUS.audio(); }catch(e){} var AC=MUS.AC; if(!AC) return;
+      var out=sfxBus()||MUS.OUT||MUS.MAST||AC.destination, id=this.BED;
+      this.id=id; this.log.push({on:id, night:!!(this.last && this.last.night), t:Date.now()});
+      this.load(AC,id).then(function(b){
+        if(self.id!==id || self.g) return;
+        var g=self.g=AC.createGain(); g.gain.setValueAtTime(0,AC.currentTime); g.gain.linearRampToValueAtTime(self.LEVEL,AC.currentTime+1.5); g.connect(out);
+        /* two copies overlapped by one second, equal gain ramps: the codec's padding never clicks, the same loop the settlement uses */
+        var XF=1.0, step=b.duration-XF;
+        (function one(at){
+          if(self.id!==id || self.g!==g) return;
+          var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(g);
+          v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF);
+          v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+          s.start(at);
+          self.timer=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000));
+        })(AC.currentTime+0.05);
+        self.farNext();
+      }).catch(function(){ self.id=null; });
+    },
+    farNext:function(){
+      var self=this; if(this.farT) clearTimeout(this.farT);
+      this.farT=setTimeout(function(){
+        if(!self.g || typeof MUS==='undefined' || !MUS.AC) return;
+        var pool=(self.last && self.last.night) ? self.FAR.night : self.FAR.day, id=pool[(Math.random()*pool.length)|0], AC=MUS.AC, g=self.g;
+        self.log.push({far:id, t:Date.now()});
+        self.load(AC,id).then(function(b){ if(self.g!==g) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); v.gain.value=0.8; s.connect(v); v.connect(g); s.start(); }).catch(function(){});
+        self.farNext();
+      }, 25000+Math.random()*35000);
+    },
+    stop:function(){
+      if(!this.id) return;
+      this.log.push({off:this.id, t:Date.now()});
+      this.id=null; if(this.timer) clearTimeout(this.timer); if(this.farT) clearTimeout(this.farT); this.timer=this.farT=null;
+      var g=this.g; this.g=null;
+      if(g && typeof MUS!=='undefined' && MUS.AC){ var AC=MUS.AC; try{ g.gain.cancelScheduledValues(AC.currentTime); g.gain.setValueAtTime(g.gain.value,AC.currentTime); g.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); }catch(e){}
+        setTimeout(function(){ try{ g.disconnect(); }catch(e){} }, 900); }
+    },
+    update:function(){ try{ if(this.want()) this.start(); else this.stop(); }catch(e){} },
+    hear:function(d){ this.last=d; this.at=Date.now(); this.update(); },
+    playing:function(){ return !!this.id; }
+  };
+  window.__MAPDESERT=MAPDESERT;
+  setInterval(function(){ MAPDESERT.update(); }, 1000);
   setInterval(function(){ AMB.tick(); }, 1000);
   window.addEventListener('bohemia-mapstate', function(e){
     var d=e && e.detail; if(!d) return;
     if(d.arriving && d.arriving.seq!=null) AMB.onArrive(d.arriving.seq);
+    MAPDESERT.hear(d);   /* the recorded desert under travel, day and night (10/18) */
     /* THE ROAD AND DIRT BEDS (10/13): the mapstate's own `moving`/`surface` fields
        are the exact signal this row has waited on since round one. inside and the
        settlement screen both stop the bed the same way they stop every other

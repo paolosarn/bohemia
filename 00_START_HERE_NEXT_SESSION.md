@@ -264,6 +264,27 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18b): 10/18 LATEST (round twenty-two, [the desert under travel]) --
+*** THE MAP NOW SOUNDS LIKE THE DESERT, DAY AND NIGHT. ***
+TAB: the RUN tab's map (and the demo), and the VOTE tab card
+sounds-the-map-hears-the-desert-10-18 (the real map with DAY and NIGHT buttons).
+Record: records/BOHEMIA_THE_MAP_HEARS_THE_DESERT_10_18_26.md.
+
+You said the travel sound at night was terrible, to use the day one at night too,
+and to stop the generator humming everywhere. Now the map plays the same real
+recorded wind as the towns, the day clip both times, with a far horn, crow,
+helicopter or siren every half minute or so. The old made-up wind and the
+generator on arrival are gone. It goes quiet in a town (the town has its own),
+in a fight, or on any other tab. Your footsteps on the road stay.
+
+Files: the alpha (MAPDESERT beside AMB, one stand-down line in AMB.tick, the
+arrival's generator call retired), the demo re-cut by the tool, a new judge page,
+gates/map_heard_gate.js (new), E9 in gates/one_engine_gate.js amended.
+Gates: map heard 17/0 (twice), cooked sounds 240/0, demo build exact.
+SEEN ON MAIN: one engine gate is red before this change too (0/1: the front
+splash eats its first click on COMBAT), measured with my changes stashed; for
+PLUMBER and RUN. NEXT OPEN: [steps from a recording]. PENDING Paolo: nothing.
+
 SOUNDS (sound-opus-10-18): 10/18 LATEST (rounds twenty and twenty-one: [a desert, not a rainforest]
 7e9e31b, whose chat ran out before writing this block, and [the settlement's sounds] round four) --
 *** THE SETTLEMENT IN THE GAME NOW SOUNDS REAL. ***

@@ -267,10 +267,14 @@ function ok(claim, cond, detail) {
       arriveLog: window.__ambArriveLog, dogPool: window.__sfxPool ? window.__sfxPool('dog_far') : null };
   });
   console.log('  arrival sting: ' + JSON.stringify(arriveCheck));
-  ok('E9 *** REACHING A NEW TOWN PLAYS THE GENERATOR ONCE, A REPEAT OF THE SAME ARRIVAL PLAYS NOTHING, AND THE DEAD DOG STAYS DEAD. *** '
+  /* AMENDED 10/18 (SOUNDS, row [the desert under travel]): his 10/10 words ("you don't have to fall in love
+     with this fucked up generator humming noises everywhere") retired the arrival's generator; the town's own
+     settlement screen carries its recorded bed now. The claim keeps its teeth on the other half: one decision
+     per new arrival, none on a repeat, and the dead dog stays dead. */
+  ok('E9 *** REACHING A NEW TOWN IS DECIDED ONCE AND PLAYS NO ENGINE GENERATOR, A REPEAT OF THE SAME ARRIVAL DOES NOTHING, AND THE DEAD DOG STAYS DEAD. *** '
     + arriveCheck.calls.length + ' render call(s) across two real arrivals (' + arriveCheck.calls.join(',') + '), '
     + arriveCheck.afterRepeat + ' call(s) survive a repeated seq, dog_far\'s own pool is ' + JSON.stringify(arriveCheck.dogPool),
-    arriveCheck.calls.length === 2 && arriveCheck.calls.every(c => c === 'generator') && arriveCheck.afterRepeat === 1
+    arriveCheck.calls.indexOf('generator') < 0 && arriveCheck.afterRepeat === arriveCheck.calls.length
       && arriveCheck.arrivedSeq === 43 && Array.isArray(arriveCheck.arriveLog) && arriveCheck.arriveLog.length === 2
       && Array.isArray(arriveCheck.dogPool) && arriveCheck.dogPool.length === 0,
     'the arrival sting is missing, double-fires, or reaches for the graveyarded dog: ' + JSON.stringify(arriveCheck));

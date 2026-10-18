@@ -9583,6 +9583,25 @@
     "src": "vote/ANIMATION_THE_SHADOW_LINE_AND_THE_CHOPPY_FALL.html"
    },
    "draft": true
+  },
+  {
+   "id": "sounds-the-map-hears-the-desert-10-18",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "",
+   "made": "10/18",
+   "title": "THE MAP SOUNDS LIKE THE DESERT",
+   "why": "You said the night travel sound was terrible and the generator hum was everywhere, so the map in the game (RUN tab) now plays the same real recorded desert wind as the towns, day clip day and night, a far horn or siren now and then, no generator. Tap DAY or NIGHT on this page to hear it over the real map.",
+   "options": [
+    "A, keep it like this",
+    "B, quieter under the music",
+    "C, no far sounds, just the wind"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_MAP_HEARS_THE_DESERT_10_18_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
