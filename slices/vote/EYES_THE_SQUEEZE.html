@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WHERE THE SAND IS</title>
+<!-- EYES AND EARS, 10/18, row [the Grok pages, stamped]. The Grok music pages that passed the filter say the
+     'crushed sand' is heavy compression and limiting. The game's sound does end in a compressor and a brickwall
+     limiter, so this page lets him HEAR the measurement of tools/bohemia_eyes_the_squeeze.js: one of his
+     songs rendered by the game's own song engine three ways, 12 s each, over the map by day where it plays:
+     as the game plays it; without the two compressors, raised to the same loudness so louder never wins by
+     being louder; and through the same chain with only the white-noise buffers taken out.
+     Numbers: records/BOHEMIA_EYES_THE_SQUEEZE_10_18_26.json. Nothing in the game changes; SOUNDS decides. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#b9a77e; }
+  html,body{margin:0;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:430px;margin:0 auto;padding:0 16px 24px;box-sizing:border-box}
+  h1{font-size:15px;letter-spacing:2px;margin:14px 0 6px}
+  .shot{width:100%;max-height:34vh;object-fit:cover;object-position:top;display:block;border:1px solid var(--line);margin:8px 0 10px}
+  .row{display:grid;grid-template-columns:1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);
+         padding:10px 8px;min-height:48px;letter-spacing:1px;cursor:pointer;border-radius:0;text-align:left}
+  button.on{background:#6a1d10;color:var(--paper)}
+  #stop{background:#b9a77e;text-align:center}
+  .num{font-size:12px;color:var(--dim);margin-top:12px}
+  .num b{color:var(--paper);font-weight:normal}
+  .line{border-top:1px solid var(--line);margin:12px 0 8px}
+</style></head><body><div class="wrap">
+<h1>WHERE THE SAND IS</h1>
+<img class="shot" src="EYES_THE_SQUEEZE_MAP.webp" alt="the valley map by day, where this song plays">
+<div class="row">
+  <button data-k="GAME">A. THE MARKER ON THE DOOR, AS THE GAME PLAYS IT NOW</button>
+  <button data-k="NOSQUEEZE">B. THE SAME, WITHOUT THE SQUEEZE AT THE END</button>
+  <button data-k="NOISEOUT">C. THE SAME, WITH ONLY THE HISS TAKEN OUT</button>
+  <button id="stop">STOP</button>
+</div>
+<div class="num" id="now">The song that plays on the map by day. Tap A, then B, then C. Same notes; A and B at the same loudness.</div>
+<div class="line"></div>
+<div class="num">
+  Every one of your 142 songs, played through the game's own sound, measured:<br>
+  the squeeze at the end turns the typical song down <b>0.07 dB</b> while it plays
+  (a squeeze you can hear starts around 3 dB), and it only passes 3 dB in the first half second as a song starts.<br>
+  What it really does is make them <b>8.0 dB louder</b>.<br>
+  One song is the exception: <b>THE GAPS IN THE HYMNAL</b> comes in 22 dB louder than the speaker can play,
+  and the squeeze crushes it <b>19 dB</b>, 96 percent of the time. That one is squeezed sand.<br>
+  The hiss: <b>119</b> of 142 songs carry a white-noise layer, about <b>86</b> bursts in 32 seconds.
+  Taking only that out of this song drops its top end by <b>17 dB</b> while its loudness does not move (0.0 dB).<br>
+  The voices: <b>25 percent</b> of every note is a sawtooth, a sound an 8-bit machine cannot make.
+</div>
+</div>
+<script>
+(function(){
+  var files = { GAME:'EYES_THE_SQUEEZE_GAME.mp3', NOSQUEEZE:'EYES_THE_SQUEEZE_NOSQUEEZE.mp3', NOISEOUT:'EYES_THE_SQUEEZE_NOISEOUT.mp3' };
+  var said = { GAME:'A: as the game plays it now.', NOSQUEEZE:'B: the squeeze at the end taken off, raised to the same loudness as A.',
+               NOISEOUT:'C: through the same squeeze as A, with only the white-noise layer taken out.' };
+  var au = new Audio(), on = null;
+  au.preload = 'auto';
+  function stop(){ try{ au.pause(); }catch(e){} on = null;
+    [].forEach.call(document.querySelectorAll('button[data-k]'), function(b){ b.classList.remove('on'); }); }
+  [].forEach.call(document.querySelectorAll('button[data-k]'), function(b){
+    b.addEventListener('click', function(){
+      var k = b.getAttribute('data-k'), at = (on && au.currentTime) || 0;
+      stop(); on = k; b.classList.add('on');
+      au.src = files[k]; au.currentTime = 0;
+      au.addEventListener('loadedmetadata', function f(){ au.removeEventListener('loadedmetadata', f);
+        try{ au.currentTime = Math.min(at, Math.max(0, au.duration - 0.5)); }catch(e){} }, false);
+      au.play().catch(function(){});
+      document.getElementById('now').textContent = said[k];
+    });
+  });
+  au.addEventListener('ended', stop);
+  document.getElementById('stop').addEventListener('click', stop);
+})();
+</script>
+</body></html>

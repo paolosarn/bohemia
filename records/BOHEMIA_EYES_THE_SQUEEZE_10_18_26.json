@@ -1,0 +1,6361 @@
+{
+ "ok": true,
+ "bars": 16,
+ "when": "2026-10-18T19:25:48.615Z",
+ "source": {
+  "comp": {
+   "threshold": -14,
+   "knee": 8,
+   "ratio": 6,
+   "attack": 0.002,
+   "release": 0.12
+  },
+  "lim": {
+   "threshold": -5,
+   "knee": 0,
+   "ratio": 20,
+   "attack": 0.001,
+   "release": 0.08
+  },
+  "mast": 0.8
+ },
+ "live": {
+  "mast": 0.800000011920929,
+  "musvol": 0.4871392846107483,
+  "outbus": 1,
+  "mix": {
+   "master": 1,
+   "music": 0.75,
+   "sfx": 1
+  },
+  "comps": [
+   {
+    "threshold": -14,
+    "knee": 8,
+    "ratio": 6,
+    "attack": 0.002,
+    "release": 0.12
+   },
+   {
+    "threshold": -5,
+    "knee": 0,
+    "ratio": 20,
+    "attack": 0.001,
+    "release": 0.08
+   }
+  ],
+  "limIsLast": true
+ },
+ "chainAgrees": true,
+ "gainIntoTheChain": 0.3897,
+ "songs": [
+  {
+   "n": "DUST CRAWL",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 221,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.11,
+    "maxDb": 6.29,
+    "over1dB": 0.027,
+    "over3dB": 0.013,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.031
+   },
+   "peakDbfs": {
+    "bus": -6.52,
+    "dry": -14.71
+   },
+   "rmsDbfs": {
+    "bus": -21.35,
+    "dry": -29.54
+   },
+   "tally": {
+    "osc": {
+     "sine": 64,
+     "square": 32,
+     "sawtooth": 180
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 5.120000000000003
+   },
+   "crestDb": {
+    "bus": 14.83,
+    "dry": 14.83
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MIDNIGHT ODDS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 176,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 6.29,
+    "over1dB": 0.006,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 7.77,
+    "over1dB": 0.006
+   },
+   "peakDbfs": {
+    "bus": -7.85,
+    "dry": -16.04
+   },
+   "rmsDbfs": {
+    "bus": -27.65,
+    "dry": -35.82
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sawtooth": 80,
+     "sine": 96
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 19.8,
+    "dry": 19.78
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "COPPER DUNES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 220,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.014,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -8.18,
+    "dry": -16.37
+   },
+   "rmsDbfs": {
+    "bus": -23.62,
+    "dry": -31.81
+   },
+   "tally": {
+    "osc": {
+     "sine": 212,
+     "triangle": 84
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 2.560000000000001
+   },
+   "crestDb": {
+    "bus": 15.44,
+    "dry": 15.44
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "IRON CHOIR",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 207,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.01,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.019
+   },
+   "peakDbfs": {
+    "bus": -5.98,
+    "dry": -14.17
+   },
+   "rmsDbfs": {
+    "bus": -21.76,
+    "dry": -29.94
+   },
+   "tally": {
+    "osc": {
+     "sine": 112,
+     "sawtooth": 56
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 2.5599999999999983
+   },
+   "crestDb": {
+    "bus": 15.78,
+    "dry": 15.77
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "RATTLESNAKE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 191,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.02,
+    "maxDb": 1.83,
+    "over1dB": 0.011,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.03,
+    "maxDb": 2.27,
+    "over1dB": 0.011
+   },
+   "peakDbfs": {
+    "bus": -9.86,
+    "dry": -18.05
+   },
+   "rmsDbfs": {
+    "bus": -27.25,
+    "dry": -35.42
+   },
+   "tally": {
+    "osc": {
+     "sine": 92,
+     "sawtooth": 80,
+     "square": 116
+    },
+    "shapers": 0,
+    "buffers": 188,
+    "noise": 188,
+    "noiseSec": 4.462494331065758
+   },
+   "crestDb": {
+    "bus": 17.39,
+    "dry": 17.37
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "PALE RIDER",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 222,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.013,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -5.23,
+    "dry": -13.41
+   },
+   "rmsDbfs": {
+    "bus": -22.67,
+    "dry": -30.86
+   },
+   "tally": {
+    "osc": {
+     "sine": 124,
+     "sawtooth": 28
+    },
+    "shapers": 0,
+    "buffers": 80,
+    "noise": 80,
+    "noiseSec": 10.55999999999999
+   },
+   "crestDb": {
+    "bus": 17.44,
+    "dry": 17.45
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "GHOST ARCADE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 154,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.019
+   },
+   "peakDbfs": {
+    "bus": -7.4,
+    "dry": -15.59
+   },
+   "rmsDbfs": {
+    "bus": -27.95,
+    "dry": -36.13
+   },
+   "tally": {
+    "osc": {
+     "sine": 260,
+     "square": 80
+    },
+    "shapers": 0,
+    "buffers": 364,
+    "noise": 364,
+    "noiseSec": 12.43165532879808
+   },
+   "crestDb": {
+    "bus": 20.55,
+    "dry": 20.54
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "HOLLOW MASS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 337,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -9.02,
+    "dry": -17.21
+   },
+   "rmsDbfs": {
+    "bus": -25.29,
+    "dry": -33.48
+   },
+   "tally": {
+    "osc": {
+     "sine": 136,
+     "sawtooth": 32
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 16.27,
+    "dry": 16.27
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "DEVILS HAND",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 188,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.01,
+    "over3dB": 0.01,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.01
+   },
+   "peakDbfs": {
+    "bus": -8.15,
+    "dry": -16.34
+   },
+   "rmsDbfs": {
+    "bus": -22.42,
+    "dry": -30.61
+   },
+   "tally": {
+    "osc": {
+     "sine": 216,
+     "square": 32,
+     "sawtooth": 20
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 14.27,
+    "dry": 14.27
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "DEAD MANS SLIDE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 180,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.017,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.12,
+    "maxDb": 7.77,
+    "over1dB": 0.022
+   },
+   "peakDbfs": {
+    "bus": -10.1,
+    "dry": -18.29
+   },
+   "rmsDbfs": {
+    "bus": -26.14,
+    "dry": -34.32
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sine": 76,
+     "square": 48
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 2.560000000000001
+   },
+   "crestDb": {
+    "bus": 16.04,
+    "dry": 16.03
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "LULLABY FOR NOBODY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.2,
+    "dry": -15.39
+   },
+   "rmsDbfs": {
+    "bus": -22.58,
+    "dry": -30.77
+   },
+   "tally": {
+    "osc": {
+     "sine": 136,
+     "sawtooth": 64
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 15.38,
+    "dry": 15.38
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "SERVER FARM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 268,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.026
+   },
+   "peakDbfs": {
+    "bus": -9.48,
+    "dry": -17.67
+   },
+   "rmsDbfs": {
+    "bus": -27.44,
+    "dry": -35.61
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "square": 428,
+     "sawtooth": 80
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 4.270566893424033
+   },
+   "crestDb": {
+    "bus": 17.96,
+    "dry": 17.94
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "FLUORESCENT DAWN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 289,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.014,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.68,
+    "dry": -18.87
+   },
+   "rmsDbfs": {
+    "bus": -30.58,
+    "dry": -38.76
+   },
+   "tally": {
+    "osc": {
+     "sine": 192,
+     "square": 96,
+     "sawtooth": 96
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 2.239274376417231
+   },
+   "crestDb": {
+    "bus": 19.9,
+    "dry": 19.89
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "SIX STRING SUNRISE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 114,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.009,
+    "over3dB": 0.009,
+    "over6dB": 0.009
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.36,
+    "dry": -18.55
+   },
+   "rmsDbfs": {
+    "bus": -27.72,
+    "dry": -35.84
+   },
+   "tally": {
+    "osc": {
+     "sine": 96,
+     "square": 48
+    },
+    "shapers": 0,
+    "buffers": 176,
+    "noise": 176,
+    "noiseSec": 6.910476190476174
+   },
+   "crestDb": {
+    "bus": 17.36,
+    "dry": 17.29
+   },
+   "levelChangeDb": 8.12
+  },
+  {
+   "n": "BLUE VACANCY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 196,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.025,
+    "over3dB": 0.01,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -10.18,
+    "dry": -18.37
+   },
+   "rmsDbfs": {
+    "bus": -27.66,
+    "dry": -35.84
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sine": 160,
+     "square": 64
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 28.800000000000047
+   },
+   "crestDb": {
+    "bus": 17.48,
+    "dry": 17.47
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "CAMPFIRE CONFESSION",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.07,
+    "dry": -16.26
+   },
+   "rmsDbfs": {
+    "bus": -22.35,
+    "dry": -30.54
+   },
+   "tally": {
+    "osc": {
+     "sine": 80,
+     "sawtooth": 64
+    },
+    "shapers": 0,
+    "buffers": 136,
+    "noise": 136,
+    "noiseSec": 1.4541496598639458
+   },
+   "crestDb": {
+    "bus": 14.28,
+    "dry": 14.28
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "HANDPAN HOLLOW",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 110,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.009,
+    "over3dB": 0.009,
+    "over6dB": 0.009
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.009
+   },
+   "peakDbfs": {
+    "bus": -9.81,
+    "dry": -18
+   },
+   "rmsDbfs": {
+    "bus": -27.25,
+    "dry": -35.38
+   },
+   "tally": {
+    "osc": {
+     "sine": 264,
+     "square": 48
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 5.120000000000003
+   },
+   "crestDb": {
+    "bus": 17.44,
+    "dry": 17.38
+   },
+   "levelChangeDb": 8.13
+  },
+  {
+   "n": "SILK ROAD GHOST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 193,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.021,
+    "over3dB": 0.011,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -9.77,
+    "dry": -17.96
+   },
+   "rmsDbfs": {
+    "bus": -27.3,
+    "dry": -35.48
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sine": 232,
+     "square": 64
+    },
+    "shapers": 0,
+    "buffers": 204,
+    "noise": 204,
+    "noiseSec": 12.36000000000001
+   },
+   "crestDb": {
+    "bus": 17.53,
+    "dry": 17.52
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "BANKRUPT NEON",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 174,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.017
+   },
+   "peakDbfs": {
+    "bus": -9.66,
+    "dry": -17.85
+   },
+   "rmsDbfs": {
+    "bus": -28.16,
+    "dry": -36.34
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 276,
+     "square": 116
+    },
+    "shapers": 0,
+    "buffers": 236,
+    "noise": 236,
+    "noiseSec": 6.509841269841287
+   },
+   "crestDb": {
+    "bus": 18.5,
+    "dry": 18.49
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "GUTTER GOLD",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 112,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 1.83,
+    "over1dB": 0.018,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 2.27,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -6.89,
+    "dry": -15.08
+   },
+   "rmsDbfs": {
+    "bus": -26.96,
+    "dry": -35.12
+   },
+   "tally": {
+    "osc": {
+     "triangle": 128
+    },
+    "shapers": 0,
+    "buffers": 252,
+    "noise": 252,
+    "noiseSec": 9.239999999999979
+   },
+   "crestDb": {
+    "bus": 20.07,
+    "dry": 20.04
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "PROPHET STATIC",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 116,
+   "compMaxAt": 1.85,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.06,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.08,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -9.76,
+    "dry": -17.95
+   },
+   "rmsDbfs": {
+    "bus": -31.14,
+    "dry": -39.33
+   },
+   "tally": {
+    "osc": {
+     "sine": 176,
+     "sawtooth": 24
+    },
+    "shapers": 0,
+    "buffers": 16,
+    "noise": 16,
+    "noiseSec": 5.99981859410431
+   },
+   "crestDb": {
+    "bus": 21.38,
+    "dry": 21.38
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "TENT REVIVAL FIRE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 188,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.016,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.016
+   },
+   "peakDbfs": {
+    "bus": -9.71,
+    "dry": -17.9
+   },
+   "rmsDbfs": {
+    "bus": -26.96,
+    "dry": -35.14
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sine": 112,
+     "square": 160
+    },
+    "shapers": 0,
+    "buffers": 288,
+    "noise": 288,
+    "noiseSec": 11.51999999999993
+   },
+   "crestDb": {
+    "bus": 17.25,
+    "dry": 17.24
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "PARKING STRUCTURE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 132,
+   "compMaxAt": 1.85,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.06,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.08,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -9.79,
+    "dry": -17.98
+   },
+   "rmsDbfs": {
+    "bus": -31.05,
+    "dry": -39.23
+   },
+   "tally": {
+    "osc": {
+     "sine": 208,
+     "square": 12,
+     "sawtooth": 12
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 21.26,
+    "dry": 21.25
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "POWER OUT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 162,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.11,
+    "maxDb": 6.29,
+    "over1dB": 0.025,
+    "over3dB": 0.018,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -10.18,
+    "dry": -18.37
+   },
+   "rmsDbfs": {
+    "bus": -30.61,
+    "dry": -38.78
+   },
+   "tally": {
+    "osc": {
+     "sine": 80,
+     "sawtooth": 64,
+     "square": 76
+    },
+    "shapers": 0,
+    "buffers": 12,
+    "noise": 12,
+    "noiseSec": 0.23999999999999996
+   },
+   "crestDb": {
+    "bus": 20.43,
+    "dry": 20.41
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "RAVE IN THE RUINS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 204,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.015,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.015
+   },
+   "peakDbfs": {
+    "bus": -9.71,
+    "dry": -17.9
+   },
+   "rmsDbfs": {
+    "bus": -28.96,
+    "dry": -37.13
+   },
+   "tally": {
+    "osc": {
+     "sine": 156,
+     "sawtooth": 196
+    },
+    "shapers": 0,
+    "buffers": 236,
+    "noise": 236,
+    "noiseSec": 6.509841269841287
+   },
+   "crestDb": {
+    "bus": 19.25,
+    "dry": 19.23
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "SOLAR CHURCH",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 208,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.014,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.12,
+    "maxDb": 7.77,
+    "over1dB": 0.024
+   },
+   "peakDbfs": {
+    "bus": -10.61,
+    "dry": -18.8
+   },
+   "rmsDbfs": {
+    "bus": -31.67,
+    "dry": -39.85
+   },
+   "tally": {
+    "osc": {
+     "sine": 132,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 21.06,
+    "dry": 21.05
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "BAYOU FUNERAL",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 168,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.017
+   },
+   "peakDbfs": {
+    "bus": -9.99,
+    "dry": -18.18
+   },
+   "rmsDbfs": {
+    "bus": -27.31,
+    "dry": -35.49
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sine": 96,
+     "square": 80,
+     "sawtooth": 16
+    },
+    "shapers": 0,
+    "buffers": 192,
+    "noise": 192,
+    "noiseSec": 8.158911564625855
+   },
+   "crestDb": {
+    "bus": 17.32,
+    "dry": 17.31
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "FROZEN AISLE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 162,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.11,
+    "maxDb": 6.29,
+    "over1dB": 0.025,
+    "over3dB": 0.018,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -10.7,
+    "dry": -18.88
+   },
+   "rmsDbfs": {
+    "bus": -28.91,
+    "dry": -37.09
+   },
+   "tally": {
+    "osc": {
+     "sine": 112,
+     "triangle": 32,
+     "square": 12,
+     "sawtooth": 32
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 18.21,
+    "dry": 18.21
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "DELTA BLUES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 138,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.007,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.015
+   },
+   "peakDbfs": {
+    "bus": -9.58,
+    "dry": -17.77
+   },
+   "rmsDbfs": {
+    "bus": -26.49,
+    "dry": -34.66
+   },
+   "tally": {
+    "osc": {
+     "triangle": 84,
+     "sine": 64,
+     "square": 64
+    },
+    "shapers": 0,
+    "buffers": 88,
+    "noise": 88,
+    "noiseSec": 5.431836734693877
+   },
+   "crestDb": {
+    "bus": 16.91,
+    "dry": 16.89
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "SPEAKEASY SWING",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 124,
+   "compMaxAt": 1.15,
+   "comp": {
+    "meanDb": 0.01,
+    "maxDb": 0.53,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.01,
+    "maxDb": 0.66,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -9.92,
+    "dry": -18.11
+   },
+   "rmsDbfs": {
+    "bus": -27.05,
+    "dry": -35.22
+   },
+   "tally": {
+    "osc": {
+     "triangle": 92,
+     "sawtooth": 64,
+     "square": 12,
+     "sine": 16
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 28.800000000000047
+   },
+   "crestDb": {
+    "bus": 17.13,
+    "dry": 17.11
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "NASHVILLE GOLD",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 183,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.11,
+    "maxDb": 7.77,
+    "over1dB": 0.022
+   },
+   "peakDbfs": {
+    "bus": -7.95,
+    "dry": -16.14
+   },
+   "rmsDbfs": {
+    "bus": -23.02,
+    "dry": -31.2
+   },
+   "tally": {
+    "osc": {
+     "sine": 88,
+     "triangle": 140
+    },
+    "shapers": 0,
+    "buffers": 144,
+    "noise": 144,
+    "noiseSec": 5.03945578231292
+   },
+   "crestDb": {
+    "bus": 15.07,
+    "dry": 15.06
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "SKANK CITY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 68,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 1.83,
+    "over1dB": 0.03,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 2.27,
+    "over1dB": 0.03
+   },
+   "peakDbfs": {
+    "bus": -15.86,
+    "dry": -24.05
+   },
+   "rmsDbfs": {
+    "bus": -34.74,
+    "dry": -42.9
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sawtooth": 144
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 0.3192743764172335
+   },
+   "crestDb": {
+    "bus": 18.88,
+    "dry": 18.85
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "PARADE GROUND",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 163,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -9.73,
+    "dry": -17.92
+   },
+   "rmsDbfs": {
+    "bus": -22.41,
+    "dry": -30.59
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 96
+    },
+    "shapers": 0,
+    "buffers": 108,
+    "noise": 108,
+    "noiseSec": 5.159999999999992
+   },
+   "crestDb": {
+    "bus": 12.68,
+    "dry": 12.67
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "BORDERTOWN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 96,
+   "compMaxAt": 1.15,
+   "comp": {
+    "meanDb": 0.01,
+    "maxDb": 0.53,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.02,
+    "maxDb": 0.66,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -8.82,
+    "dry": -17.01
+   },
+   "rmsDbfs": {
+    "bus": -27.61,
+    "dry": -35.77
+   },
+   "tally": {
+    "osc": {
+     "triangle": 112,
+     "sine": 12,
+     "sawtooth": 52
+    },
+    "shapers": 0,
+    "buffers": 104,
+    "noise": 104,
+    "noiseSec": 4.719455782312932
+   },
+   "crestDb": {
+    "bus": 18.79,
+    "dry": 18.76
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "MENU \u2014 PURPLE DAWN",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 336,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.07,
+    "dry": -16.26
+   },
+   "rmsDbfs": {
+    "bus": -24.35,
+    "dry": -32.54
+   },
+   "tally": {
+    "osc": {
+     "triangle": 192,
+     "sawtooth": 36,
+     "sine": 48
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 16.28,
+    "dry": 16.28
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MENU \u2014 FIRST MORNING",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 180,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.023
+   },
+   "peakDbfs": {
+    "bus": -9.84,
+    "dry": -18.03
+   },
+   "rmsDbfs": {
+    "bus": -30.61,
+    "dry": -38.78
+   },
+   "tally": {
+    "osc": {
+     "sine": 176,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 20.77,
+    "dry": 20.75
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "REMNANTS \u2014 ASHES OF THE PARADE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 229,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.009,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.017
+   },
+   "peakDbfs": {
+    "bus": -6.66,
+    "dry": -14.85
+   },
+   "rmsDbfs": {
+    "bus": -21.64,
+    "dry": -29.82
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 310
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 14.98,
+    "dry": 14.97
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "NETWORK \u2014 HYMN OF THE AMALGAM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 261,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.02,
+    "maxDb": 1.83,
+    "over1dB": 0.008,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.03,
+    "maxDb": 2.27,
+    "over1dB": 0.011
+   },
+   "peakDbfs": {
+    "bus": -9.13,
+    "dry": -17.32
+   },
+   "rmsDbfs": {
+    "bus": -28.12,
+    "dry": -36.31
+   },
+   "tally": {
+    "osc": {
+     "sine": 268,
+     "square": 192,
+     "sawtooth": 48
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 4.270566893424033
+   },
+   "crestDb": {
+    "bus": 18.99,
+    "dry": 18.99
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MOB \u2014 THE HOUSE REMEMBERS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 275,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.11,
+    "maxDb": 7.77,
+    "over1dB": 0.026
+   },
+   "peakDbfs": {
+    "bus": -9.45,
+    "dry": -17.64
+   },
+   "rmsDbfs": {
+    "bus": -26.64,
+    "dry": -34.83
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sine": 260,
+     "sawtooth": 192,
+     "square": 20
+    },
+    "shapers": 0,
+    "buffers": 80,
+    "noise": 80,
+    "noiseSec": 6.400000000000004
+   },
+   "crestDb": {
+    "bus": 17.19,
+    "dry": 17.19
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "REDS \u2014 INTEREST NEVER SLEEPS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 275,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.014,
+    "over3dB": 0.007,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -6.75,
+    "dry": -14.94
+   },
+   "rmsDbfs": {
+    "bus": -22.16,
+    "dry": -30.34
+   },
+   "tally": {
+    "osc": {
+     "sine": 80,
+     "sawtooth": 320
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 10.559999999999997
+   },
+   "crestDb": {
+    "bus": 15.41,
+    "dry": 15.4
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "RUST ANTHEM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 160,
+   "compMaxAt": 2.25,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -18.04,
+    "dry": -26.23
+   },
+   "rmsDbfs": {
+    "bus": -30.9,
+    "dry": -39.08
+   },
+   "tally": {
+    "osc": {
+     "sawtooth": 360,
+     "sine": 24
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 3.358911564625845
+   },
+   "crestDb": {
+    "bus": 12.86,
+    "dry": 12.85
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "MENU \u2014 DEAD VALLEY DAWN",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 336,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -9.29,
+    "dry": -17.48
+   },
+   "rmsDbfs": {
+    "bus": -26.12,
+    "dry": -34.31
+   },
+   "tally": {
+    "osc": {
+     "triangle": 128,
+     "sine": 72
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 16.83,
+    "dry": 16.83
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "PROCESSION OF ASH",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 219,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -9.38,
+    "dry": -17.57
+   },
+   "rmsDbfs": {
+    "bus": -23.46,
+    "dry": -31.65
+   },
+   "tally": {
+    "osc": {
+     "sine": 132,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 3.1999999999999966
+   },
+   "crestDb": {
+    "bus": 14.08,
+    "dry": 14.08
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "COLD TABLE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 169,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.023
+   },
+   "peakDbfs": {
+    "bus": -9.12,
+    "dry": -17.31
+   },
+   "rmsDbfs": {
+    "bus": -24.28,
+    "dry": -32.47
+   },
+   "tally": {
+    "osc": {
+     "sine": 48,
+     "sawtooth": 84,
+     "square": 20
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 2.239274376417231
+   },
+   "crestDb": {
+    "bus": 15.16,
+    "dry": 15.16
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MOB \u2014 BOSS WALKS IN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 146,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.03,
+    "maxDb": 1.83,
+    "over1dB": 0.014,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.04,
+    "maxDb": 2.27,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -10.39,
+    "dry": -18.58
+   },
+   "rmsDbfs": {
+    "bus": -27.46,
+    "dry": -35.62
+   },
+   "tally": {
+    "osc": {
+     "sine": 96,
+     "sawtooth": 80,
+     "square": 12,
+     "triangle": 20
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 29.711655328798187
+   },
+   "crestDb": {
+    "bus": 17.07,
+    "dry": 17.04
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "THE VAULT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.27,
+    "dry": -15.46
+   },
+   "rmsDbfs": {
+    "bus": -23.2,
+    "dry": -31.39
+   },
+   "tally": {
+    "osc": {
+     "sine": 124,
+     "sawtooth": 192,
+     "square": 12
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 15.93,
+    "dry": 15.93
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "RED LEDGER",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 307,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.02,
+    "over3dB": 0.01,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.023
+   },
+   "peakDbfs": {
+    "bus": -6.71,
+    "dry": -14.9
+   },
+   "rmsDbfs": {
+    "bus": -21.03,
+    "dry": -29.22
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 388
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 7.040000000000007
+   },
+   "crestDb": {
+    "bus": 14.32,
+    "dry": 14.32
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "SLOW BLEED",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 342,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.14,
+    "maxDb": 6.31,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -2.81,
+    "dry": -10.03
+   },
+   "rmsDbfs": {
+    "bus": -11.19,
+    "dry": -19.33
+   },
+   "tally": {
+    "osc": {
+     "sine": 216,
+     "sawtooth": 160
+    },
+    "shapers": 16,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 8.38,
+    "dry": 9.3
+   },
+   "levelChangeDb": 8.14
+  },
+  {
+   "n": "GHOST IN THE GRID",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.21,
+    "dry": -16.4
+   },
+   "rmsDbfs": {
+    "bus": -24.8,
+    "dry": -32.99
+   },
+   "tally": {
+    "osc": {
+     "sine": 216,
+     "sawtooth": 144,
+     "square": 16
+    },
+    "shapers": 0,
+    "buffers": 128,
+    "noise": 128,
+    "noiseSec": 3.455056689342401
+   },
+   "crestDb": {
+    "bus": 16.59,
+    "dry": 16.59
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "LAST BROADCAST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 148,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 1.83,
+    "over1dB": 0.013,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 2.27,
+    "over1dB": 0.02
+   },
+   "peakDbfs": {
+    "bus": -10.2,
+    "dry": -18.38
+   },
+   "rmsDbfs": {
+    "bus": -30.98,
+    "dry": -39.15
+   },
+   "tally": {
+    "osc": {
+     "sine": 84,
+     "square": 80,
+     "sawtooth": 36,
+     "triangle": 16
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.159999999999999
+   },
+   "crestDb": {
+    "bus": 20.78,
+    "dry": 20.77
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "REPO MAN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.44,
+    "dry": -15.63
+   },
+   "rmsDbfs": {
+    "bus": -23.1,
+    "dry": -31.29
+   },
+   "tally": {
+    "osc": {
+     "sine": 304,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 15.66,
+    "dry": 15.66
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "SATELLITE PRAYER",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 337,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.95,
+    "dry": -16.14
+   },
+   "rmsDbfs": {
+    "bus": -23.95,
+    "dry": -32.14
+   },
+   "tally": {
+    "osc": {
+     "sine": 260,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 16,
+    "dry": 16
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "HIGHWAY 15 SOUTH",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 228,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.009,
+    "over3dB": 0.009,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.013
+   },
+   "peakDbfs": {
+    "bus": -10.19,
+    "dry": -18.38
+   },
+   "rmsDbfs": {
+    "bus": -28.22,
+    "dry": -36.4
+   },
+   "tally": {
+    "osc": {
+     "triangle": 160,
+     "sine": 88
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 7.680000000000005
+   },
+   "crestDb": {
+    "bus": 18.03,
+    "dry": 18.02
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "CARAVAN DUST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 184,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.011,
+    "over3dB": 0.011,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.011
+   },
+   "peakDbfs": {
+    "bus": -9.77,
+    "dry": -17.96
+   },
+   "rmsDbfs": {
+    "bus": -29.71,
+    "dry": -37.86
+   },
+   "tally": {
+    "osc": {
+     "triangle": 96,
+     "sine": 108
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 1.2800000000000007
+   },
+   "crestDb": {
+    "bus": 19.94,
+    "dry": 19.9
+   },
+   "levelChangeDb": 8.15
+  },
+  {
+   "n": "ONE CANDLE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 184,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.022
+   },
+   "peakDbfs": {
+    "bus": -9.61,
+    "dry": -17.8
+   },
+   "rmsDbfs": {
+    "bus": -28.98,
+    "dry": -37.15
+   },
+   "tally": {
+    "osc": {
+     "sine": 240
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 19.37,
+    "dry": 19.35
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "SLOW CREEP",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 342,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.24,
+    "maxDb": 6.42,
+    "over1dB": 0.053,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -2.43,
+    "dry": -9.14
+   },
+   "rmsDbfs": {
+    "bus": -9.76,
+    "dry": -17.75
+   },
+   "tally": {
+    "osc": {
+     "sine": 72,
+     "sawtooth": 164
+    },
+    "shapers": 20,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.119637188208617
+   },
+   "crestDb": {
+    "bus": 7.33,
+    "dry": 8.61
+   },
+   "levelChangeDb": 7.99
+  },
+  {
+   "n": "MOJAVE GHOST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.73,
+    "dry": -16.92
+   },
+   "rmsDbfs": {
+    "bus": -24.77,
+    "dry": -32.96
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sawtooth": 144,
+     "sine": 24
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 2.560000000000001
+   },
+   "crestDb": {
+    "bus": 16.04,
+    "dry": 16.04
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "LONG WALK HOME",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 257,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.016,
+    "over3dB": 0.012,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.016
+   },
+   "peakDbfs": {
+    "bus": -6.93,
+    "dry": -15.12
+   },
+   "rmsDbfs": {
+    "bus": -23.16,
+    "dry": -31.35
+   },
+   "tally": {
+    "osc": {
+     "sine": 104,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 16.23,
+    "dry": 16.23
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THRONE OF STATIC",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 206,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.01,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.019
+   },
+   "peakDbfs": {
+    "bus": -8.72,
+    "dry": -16.91
+   },
+   "rmsDbfs": {
+    "bus": -22.56,
+    "dry": -30.75
+   },
+   "tally": {
+    "osc": {
+     "sine": 88,
+     "sawtooth": 276,
+     "triangle": 36,
+     "square": 20
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 13.84,
+    "dry": 13.84
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "CHOIR FOR THE MACHINE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 149,
+   "compMaxAt": 2.25,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -9.66,
+    "dry": -17.85
+   },
+   "rmsDbfs": {
+    "bus": -28.87,
+    "dry": -37.05
+   },
+   "tally": {
+    "osc": {
+     "sine": 192,
+     "square": 96,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 80,
+    "noise": 80,
+    "noiseSec": 1.6954195011337863
+   },
+   "crestDb": {
+    "bus": 19.21,
+    "dry": 19.2
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "FLOWERS ON THE FREEWAY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 215,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.02,
+    "maxDb": 1.83,
+    "over1dB": 0.009,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.03,
+    "maxDb": 2.27,
+    "over1dB": 0.009
+   },
+   "peakDbfs": {
+    "bus": -10.3,
+    "dry": -18.48
+   },
+   "rmsDbfs": {
+    "bus": -30.41,
+    "dry": -38.59
+   },
+   "tally": {
+    "osc": {
+     "triangle": 184,
+     "sine": 220
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 20.11,
+    "dry": 20.11
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "CRYSTAL IN THE RUBBLE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 104,
+   "compMaxAt": 2.25,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.02,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -10.61,
+    "dry": -18.8
+   },
+   "rmsDbfs": {
+    "bus": -29.39,
+    "dry": -37.56
+   },
+   "tally": {
+    "osc": {
+     "sine": 212,
+     "triangle": 88
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 18.78,
+    "dry": 18.76
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "MARCH OF THE UNPAID",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 205,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.014,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -9.49,
+    "dry": -17.68
+   },
+   "rmsDbfs": {
+    "bus": -22.67,
+    "dry": -30.86
+   },
+   "tally": {
+    "osc": {
+     "sine": 92,
+     "sawtooth": 108,
+     "square": 20
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 13.18,
+    "dry": 13.18
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "SOMEWHERE A FOUNTAIN STILL RUNS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 155,
+   "compMaxAt": 1.55,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.16,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.19,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -10.54,
+    "dry": -18.73
+   },
+   "rmsDbfs": {
+    "bus": -29.23,
+    "dry": -37.4
+   },
+   "tally": {
+    "osc": {
+     "triangle": 152,
+     "sine": 148
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 18.69,
+    "dry": 18.67
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "AIRSHIP GRAVE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 133,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.008,
+    "over3dB": 0.008,
+    "over6dB": 0.008
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.008
+   },
+   "peakDbfs": {
+    "bus": -9.76,
+    "dry": -17.95
+   },
+   "rmsDbfs": {
+    "bus": -23.46,
+    "dry": -31.65
+   },
+   "tally": {
+    "osc": {
+     "sine": 96,
+     "sawtooth": 84,
+     "triangle": 32
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 13.7,
+    "dry": 13.7
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MENU \u2014 EMBER VIGIL",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 136,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.007,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.007
+   },
+   "peakDbfs": {
+    "bus": -10.8,
+    "dry": -18.99
+   },
+   "rmsDbfs": {
+    "bus": -30.64,
+    "dry": -38.8
+   },
+   "tally": {
+    "osc": {
+     "sine": 128,
+     "triangle": 36
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 19.84,
+    "dry": 19.81
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "TWO COINS FOR THE FERRYMAN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 152,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.007,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.007
+   },
+   "peakDbfs": {
+    "bus": -10.83,
+    "dry": -19.02
+   },
+   "rmsDbfs": {
+    "bus": -30.31,
+    "dry": -38.48
+   },
+   "tally": {
+    "osc": {
+     "sine": 104,
+     "triangle": 48,
+     "sawtooth": 24
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 19.48,
+    "dry": 19.46
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "NEON NECROPOLIS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 116,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.03,
+    "maxDb": 1.83,
+    "over1dB": 0.018,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.04,
+    "maxDb": 2.27,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.03,
+    "dry": -18.22
+   },
+   "rmsDbfs": {
+    "bus": -27.44,
+    "dry": -35.6
+   },
+   "tally": {
+    "osc": {
+     "sine": 140,
+     "sawtooth": 64,
+     "triangle": 24,
+     "square": 16
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 4.270566893424033
+   },
+   "crestDb": {
+    "bus": 17.41,
+    "dry": 17.38
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "THE GARDEN AT WORLDS END",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 213,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.014,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -10.48,
+    "dry": -18.67
+   },
+   "rmsDbfs": {
+    "bus": -28.29,
+    "dry": -36.47
+   },
+   "tally": {
+    "osc": {
+     "triangle": 140,
+     "sine": 128
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 17.81,
+    "dry": 17.8
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "MENU \u2014 LIGHTS ACROSS THE VALLEY",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 88,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.88,
+    "maxDb": 6.29,
+    "over1dB": 0.348,
+    "over3dB": 0.011,
+    "over6dB": 0.011
+   },
+   "lim": {
+    "meanDb": 0.15,
+    "maxDb": 7.77,
+    "over1dB": 0.011
+   },
+   "peakDbfs": {
+    "bus": -1.99,
+    "dry": -7.64
+   },
+   "rmsDbfs": {
+    "bus": -11.92,
+    "dry": -17.78
+   },
+   "tally": {
+    "osc": {
+     "sine": 112,
+     "triangle": 24
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 9.93,
+    "dry": 10.14
+   },
+   "levelChangeDb": 5.86
+  },
+  {
+   "n": "HYMN FOR RUNNING WATER",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 246,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.013,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -10.9,
+    "dry": -19.09
+   },
+   "rmsDbfs": {
+    "bus": -28.32,
+    "dry": -36.5
+   },
+   "tally": {
+    "osc": {
+     "sine": 116,
+     "sawtooth": 36,
+     "triangle": 20
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 17.42,
+    "dry": 17.41
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "PAWNSHOP PSALM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 111,
+   "compMaxAt": 1.15,
+   "comp": {
+    "meanDb": 0.01,
+    "maxDb": 0.53,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.01,
+    "maxDb": 0.66,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -10.67,
+    "dry": -18.86
+   },
+   "rmsDbfs": {
+    "bus": -27.94,
+    "dry": -36.11
+   },
+   "tally": {
+    "osc": {
+     "triangle": 164,
+     "sine": 40
+    },
+    "shapers": 0,
+    "buffers": 80,
+    "noise": 80,
+    "noiseSec": 24.000000000000036
+   },
+   "crestDb": {
+    "bus": 17.27,
+    "dry": 17.25
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "SUNRISE OVER THE BONEYARD",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 230,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.013,
+    "over3dB": 0.004,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.013
+   },
+   "peakDbfs": {
+    "bus": -10.27,
+    "dry": -18.46
+   },
+   "rmsDbfs": {
+    "bus": -29.93,
+    "dry": -38.11
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sawtooth": 88,
+     "sine": 104
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 19.66,
+    "dry": 19.65
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "CATHEDRAL OF CRANES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 146,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.03,
+    "maxDb": 1.83,
+    "over1dB": 0.014,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.04,
+    "maxDb": 2.27,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -10.56,
+    "dry": -18.75
+   },
+   "rmsDbfs": {
+    "bus": -28.49,
+    "dry": -36.64
+   },
+   "tally": {
+    "osc": {
+     "triangle": 152,
+     "sine": 128
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 17.93,
+    "dry": 17.89
+   },
+   "levelChangeDb": 8.15
+  },
+  {
+   "n": "MOTHS AROUND THE LAST LIGHT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 149,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.11,
+    "maxDb": 6.29,
+    "over1dB": 0.028,
+    "over3dB": 0.014,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.028
+   },
+   "peakDbfs": {
+    "bus": -9.61,
+    "dry": -17.8
+   },
+   "rmsDbfs": {
+    "bus": -28.77,
+    "dry": -36.95
+   },
+   "tally": {
+    "osc": {
+     "sine": 128,
+     "triangle": 52
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 19.16,
+    "dry": 19.15
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE LAST DEALER FOLDS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 331,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -9.06,
+    "dry": -17.25
+   },
+   "rmsDbfs": {
+    "bus": -24.19,
+    "dry": -32.38
+   },
+   "tally": {
+    "osc": {
+     "sine": 274,
+     "sawtooth": 48,
+     "triangle": 54
+    },
+    "shapers": 18,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 5.120000000000003
+   },
+   "crestDb": {
+    "bus": 15.13,
+    "dry": 15.13
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "WHAT THE MIRRORS KEPT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 338,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.58,
+    "dry": -15.77
+   },
+   "rmsDbfs": {
+    "bus": -22.9,
+    "dry": -31.09
+   },
+   "tally": {
+    "osc": {
+     "sine": 120,
+     "sawtooth": 228
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.119637188208617
+   },
+   "crestDb": {
+    "bus": 15.32,
+    "dry": 15.32
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE PIT BOSS IS GONE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 337,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -6.51,
+    "dry": -14.7
+   },
+   "rmsDbfs": {
+    "bus": -22.97,
+    "dry": -31.16
+   },
+   "tally": {
+    "osc": {
+     "sine": 100,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 2.560000000000001
+   },
+   "crestDb": {
+    "bus": 16.46,
+    "dry": 16.46
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "SALT ON THE HIGHWAY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 118,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.03,
+    "maxDb": 1.83,
+    "over1dB": 0.018,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.04,
+    "maxDb": 2.27,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.19,
+    "dry": -18.38
+   },
+   "rmsDbfs": {
+    "bus": -27.34,
+    "dry": -35.48
+   },
+   "tally": {
+    "osc": {
+     "sine": 80,
+     "triangle": 64,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 280,
+    "noise": 280,
+    "noiseSec": 8.879637188208612
+   },
+   "crestDb": {
+    "bus": 17.15,
+    "dry": 17.1
+   },
+   "levelChangeDb": 8.14
+  },
+  {
+   "n": "WHAT GROWS IN THE VAULT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 326,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.08,
+    "dry": -16.27
+   },
+   "rmsDbfs": {
+    "bus": -23.51,
+    "dry": -31.7
+   },
+   "tally": {
+    "osc": {
+     "sine": 350,
+     "triangle": 36,
+     "sawtooth": 72
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 2.239274376417231
+   },
+   "crestDb": {
+    "bus": 15.43,
+    "dry": 15.43
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE LAST TABLE STANDING",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 320,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.022
+   },
+   "peakDbfs": {
+    "bus": -9.72,
+    "dry": -17.91
+   },
+   "rmsDbfs": {
+    "bus": -29.15,
+    "dry": -37.34
+   },
+   "tally": {
+    "osc": {
+     "triangle": 60,
+     "sine": 182,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 19.200000000000024
+   },
+   "crestDb": {
+    "bus": 19.43,
+    "dry": 19.43
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE CANCELLED MAN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 171,
+   "compMaxAt": 1.15,
+   "comp": {
+    "meanDb": 0.01,
+    "maxDb": 0.53,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.01,
+    "maxDb": 0.66,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -10.01,
+    "dry": -18.2
+   },
+   "rmsDbfs": {
+    "bus": -28.7,
+    "dry": -36.88
+   },
+   "tally": {
+    "osc": {
+     "triangle": 104,
+     "sine": 64,
+     "sawtooth": 96
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 18.69,
+    "dry": 18.68
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE WIND LEARNS WORDS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 68,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 1.83,
+    "over1dB": 0.029,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 2.27,
+    "over1dB": 0.029
+   },
+   "peakDbfs": {
+    "bus": -10.73,
+    "dry": -18.92
+   },
+   "rmsDbfs": {
+    "bus": -26.36,
+    "dry": -34.54
+   },
+   "tally": {
+    "osc": {
+     "triangle": 82,
+     "sine": 76,
+     "sawtooth": 76
+    },
+    "shapers": 0,
+    "buffers": 114,
+    "noise": 114,
+    "noiseSec": 16.67999999999999
+   },
+   "crestDb": {
+    "bus": 15.63,
+    "dry": 15.62
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "TAPS FOR THE VALLEY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 276,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.015,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.015
+   },
+   "peakDbfs": {
+    "bus": -10.04,
+    "dry": -18.23
+   },
+   "rmsDbfs": {
+    "bus": -27.86,
+    "dry": -36.05
+   },
+   "tally": {
+    "osc": {
+     "sine": 132,
+     "triangle": 84
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 17.82,
+    "dry": 17.82
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "WHAT THE DAM HELD BACK",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 163,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.006,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.006
+   },
+   "peakDbfs": {
+    "bus": -8.7,
+    "dry": -16.89
+   },
+   "rmsDbfs": {
+    "bus": -23.19,
+    "dry": -31.38
+   },
+   "tally": {
+    "osc": {
+     "sine": 352,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 12,
+    "noise": 12,
+    "noiseSec": 15
+   },
+   "crestDb": {
+    "bus": 14.49,
+    "dry": 14.49
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE SENDING",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 192,
+   "compMaxAt": 1.65,
+   "comp": {
+    "meanDb": 0,
+    "maxDb": 0.12,
+    "over1dB": 0,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0,
+    "maxDb": 0.14,
+    "over1dB": 0
+   },
+   "peakDbfs": {
+    "bus": -10.96,
+    "dry": -19.15
+   },
+   "rmsDbfs": {
+    "bus": -31.16,
+    "dry": -39.34
+   },
+   "tally": {
+    "osc": {
+     "sine": 552,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 9.600000000000001
+   },
+   "crestDb": {
+    "bus": 20.2,
+    "dry": 20.19
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "PYREFLIES RISE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 208,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 3.4,
+    "over1dB": 0.02,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 4.2,
+    "over1dB": 0.02
+   },
+   "peakDbfs": {
+    "bus": -10.72,
+    "dry": -18.91
+   },
+   "rmsDbfs": {
+    "bus": -30.74,
+    "dry": -38.93
+   },
+   "tally": {
+    "osc": {
+     "sine": 268,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 5.120000000000003
+   },
+   "crestDb": {
+    "bus": 20.02,
+    "dry": 20.02
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "NO SENDING LEFT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 208,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 3.4,
+    "over1dB": 0.02,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 4.2,
+    "over1dB": 0.02
+   },
+   "peakDbfs": {
+    "bus": -10.78,
+    "dry": -18.97
+   },
+   "rmsDbfs": {
+    "bus": -32.5,
+    "dry": -40.68
+   },
+   "tally": {
+    "osc": {
+     "sine": 180,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 16,
+    "noise": 16,
+    "noiseSec": 4.799999999999999
+   },
+   "crestDb": {
+    "bus": 21.72,
+    "dry": 21.71
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE ORGAN IN THE DROWNED CHAPEL",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -6.79,
+    "dry": -14.98
+   },
+   "rmsDbfs": {
+    "bus": -23.53,
+    "dry": -31.72
+   },
+   "tally": {
+    "osc": {
+     "sine": 48,
+     "sawtooth": 272
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 16.74,
+    "dry": 16.74
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "WHAT SHATTERED IN THE VAULT DOOR",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 327,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.33,
+    "dry": -15.52
+   },
+   "rmsDbfs": {
+    "bus": -23.48,
+    "dry": -31.67
+   },
+   "tally": {
+    "osc": {
+     "sine": 1936,
+     "sawtooth": 48
+    },
+    "shapers": 0,
+    "buffers": 176,
+    "noise": 176,
+    "noiseSec": 11.519637188208584
+   },
+   "crestDb": {
+    "bus": 16.15,
+    "dry": 16.15
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE SWELL BENEATH THE FLOOR",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 166,
+   "compMaxAt": 0.45,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 4.6,
+    "over1dB": 0.032,
+    "over3dB": 0.013,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 5.68,
+    "over1dB": 0.038
+   },
+   "peakDbfs": {
+    "bus": -9.91,
+    "dry": -18.1
+   },
+   "rmsDbfs": {
+    "bus": -30.44,
+    "dry": -38.62
+   },
+   "tally": {
+    "osc": {
+     "sine": 148,
+     "sawtooth": 256
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 20.53,
+    "dry": 20.52
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE CHOIR UNDER THE RESERVOIR",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 224,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 6.29,
+    "over1dB": 0.027,
+    "over3dB": 0.014,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.032
+   },
+   "peakDbfs": {
+    "bus": -9.23,
+    "dry": -17.42
+   },
+   "rmsDbfs": {
+    "bus": -25.28,
+    "dry": -33.47
+   },
+   "tally": {
+    "osc": {
+     "sine": 440,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 16.05,
+    "dry": 16.05
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "BONE RELIQUARY",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 204,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 3.4,
+    "over1dB": 0.021,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 4.2,
+    "over1dB": 0.026
+   },
+   "peakDbfs": {
+    "bus": -10.28,
+    "dry": -18.47
+   },
+   "rmsDbfs": {
+    "bus": -30.72,
+    "dry": -38.89
+   },
+   "tally": {
+    "osc": {
+     "sine": 128,
+     "triangle": 64,
+     "sawtooth": 48
+    },
+    "shapers": 0,
+    "buffers": 192,
+    "noise": 192,
+    "noiseSec": 15.360000000000005
+   },
+   "crestDb": {
+    "bus": 20.44,
+    "dry": 20.42
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "THE TURBINE STILL TURNS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 327,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.32,
+    "dry": -16.51
+   },
+   "rmsDbfs": {
+    "bus": -26.67,
+    "dry": -34.86
+   },
+   "tally": {
+    "osc": {
+     "sine": 116,
+     "sawtooth": 144,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 124,
+    "noise": 124,
+    "noiseSec": 3.9197278911564584
+   },
+   "crestDb": {
+    "bus": 18.35,
+    "dry": 18.35
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "WHERE THE PROCESSION DROWNED",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 264,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 3.4,
+    "over1dB": 0.015,
+    "over3dB": 0.004,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 4.2,
+    "over1dB": 0.019
+   },
+   "peakDbfs": {
+    "bus": -9.7,
+    "dry": -17.89
+   },
+   "rmsDbfs": {
+    "bus": -31.29,
+    "dry": -39.47
+   },
+   "tally": {
+    "osc": {
+     "sine": 160,
+     "triangle": 64,
+     "sawtooth": 48
+    },
+    "shapers": 0,
+    "buffers": 16,
+    "noise": 16,
+    "noiseSec": 16
+   },
+   "crestDb": {
+    "bus": 21.59,
+    "dry": 21.58
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE HYMN THE STATIC ATE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 326,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.62,
+    "dry": -16.81
+   },
+   "rmsDbfs": {
+    "bus": -25.84,
+    "dry": -34.03
+   },
+   "tally": {
+    "osc": {
+     "sine": 228,
+     "sawtooth": 292
+    },
+    "shapers": 100,
+    "buffers": 200,
+    "noise": 200,
+    "noiseSec": 11.80752834467116
+   },
+   "crestDb": {
+    "bus": 17.22,
+    "dry": 17.22
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE BELL THAT COOLS TO SALT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 326,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.47,
+    "dry": -15.65
+   },
+   "rmsDbfs": {
+    "bus": -23.59,
+    "dry": -31.77
+   },
+   "tally": {
+    "osc": {
+     "triangle": 48,
+     "sine": 376
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 3.1999999999999966
+   },
+   "crestDb": {
+    "bus": 16.12,
+    "dry": 16.12
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "SOMETHING SINGS THROUGH THE PIPES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 211,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 3.4,
+    "over1dB": 0.018,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 4.2,
+    "over1dB": 0.023
+   },
+   "peakDbfs": {
+    "bus": -9.31,
+    "dry": -17.5
+   },
+   "rmsDbfs": {
+    "bus": -28.74,
+    "dry": -36.93
+   },
+   "tally": {
+    "osc": {
+     "sine": 348,
+     "triangle": 64,
+     "sawtooth": 144
+    },
+    "shapers": 0,
+    "buffers": 188,
+    "noise": 188,
+    "noiseSec": 11.663582766439873
+   },
+   "crestDb": {
+    "bus": 19.43,
+    "dry": 19.43
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE SHAPE THE WATER TAKES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 277,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 3.4,
+    "over1dB": 0.015,
+    "over3dB": 0.004,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 4.2,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.81,
+    "dry": -19
+   },
+   "rmsDbfs": {
+    "bus": -31.35,
+    "dry": -39.53
+   },
+   "tally": {
+    "osc": {
+     "sine": 192,
+     "triangle": 64,
+     "sawtooth": 48
+    },
+    "shapers": 32,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 20.54,
+    "dry": 20.53
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "TWO LIGHTS OVER THE FLOOD",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 327,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -6.07,
+    "dry": -14.26
+   },
+   "rmsDbfs": {
+    "bus": -21.71,
+    "dry": -29.9
+   },
+   "tally": {
+    "osc": {
+     "sine": 356,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 3.1999999999999966
+   },
+   "crestDb": {
+    "bus": 15.64,
+    "dry": 15.64
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE STAIRS UNDER THE LAKEBED",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 244,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.024,
+    "over3dB": 0.012,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.12,
+    "maxDb": 7.77,
+    "over1dB": 0.029
+   },
+   "peakDbfs": {
+    "bus": -9.85,
+    "dry": -18.04
+   },
+   "rmsDbfs": {
+    "bus": -25.72,
+    "dry": -33.91
+   },
+   "tally": {
+    "osc": {
+     "sine": 488,
+     "triangle": 48
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 15.87,
+    "dry": 15.87
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE LIGHT THAT WONT DECIDE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 326,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.09,
+    "dry": -16.28
+   },
+   "rmsDbfs": {
+    "bus": -26.75,
+    "dry": -34.94
+   },
+   "tally": {
+    "osc": {
+     "sine": 116,
+     "sawtooth": 192,
+     "triangle": 16,
+     "square": 16
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 4.270566893424033
+   },
+   "crestDb": {
+    "bus": 18.66,
+    "dry": 18.66
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "EVERYTHING FALLS TO PITCH",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.04,
+    "dry": -16.23
+   },
+   "rmsDbfs": {
+    "bus": -24.11,
+    "dry": -32.3
+   },
+   "tally": {
+    "osc": {
+     "triangle": 112,
+     "sawtooth": 192,
+     "sine": 24
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 16.07,
+    "dry": 16.07
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THREE NOTES IN THE DUST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 201,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.025,
+    "over3dB": 0.01,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -8.65,
+    "dry": -16.84
+   },
+   "rmsDbfs": {
+    "bus": -23.38,
+    "dry": -31.56
+   },
+   "tally": {
+    "osc": {
+     "sine": 196,
+     "sawtooth": 256
+    },
+    "shapers": 0,
+    "buffers": 16,
+    "noise": 16,
+    "noiseSec": 9.199818594104304
+   },
+   "crestDb": {
+    "bus": 14.73,
+    "dry": 14.72
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE TEETH THE SONG LOST",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 282,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.11,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -9.04,
+    "dry": -17.23
+   },
+   "rmsDbfs": {
+    "bus": -25.58,
+    "dry": -33.77
+   },
+   "tally": {
+    "osc": {
+     "sine": 404,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 1.6000000000000008
+   },
+   "crestDb": {
+    "bus": 16.54,
+    "dry": 16.54
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "A HARP OF SALVAGED WIRE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 147,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 3.4,
+    "over1dB": 0.026,
+    "over3dB": 0.006,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 4.2,
+    "over1dB": 0.032
+   },
+   "peakDbfs": {
+    "bus": -8.8,
+    "dry": -16.99
+   },
+   "rmsDbfs": {
+    "bus": -28.56,
+    "dry": -36.74
+   },
+   "tally": {
+    "osc": {
+     "triangle": 288,
+     "sine": 484,
+     "square": 96
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 19.76,
+    "dry": 19.75
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "A HAND THAT WONT STOP COUNTING",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 328,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.65,
+    "dry": -16.84
+   },
+   "rmsDbfs": {
+    "bus": -26.17,
+    "dry": -34.36
+   },
+   "tally": {
+    "osc": {
+     "sine": 120,
+     "sawtooth": 192,
+     "triangle": 24,
+     "square": 1248
+    },
+    "shapers": 0,
+    "buffers": 204,
+    "noise": 204,
+    "noiseSec": 11.85551020408159
+   },
+   "crestDb": {
+    "bus": 17.52,
+    "dry": 17.52
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE GAPS IN THE HYMNAL",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 322,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 18.67,
+    "maxDb": 25.71,
+    "over1dB": 0.975,
+    "over3dB": 0.962,
+    "over6dB": 0.931
+   },
+   "lim": {
+    "meanDb": 3.38,
+    "maxDb": 10.64,
+    "over1dB": 0.918
+   },
+   "peakDbfs": {
+    "bus": -1.69,
+    "dry": 21.81
+   },
+   "rmsDbfs": {
+    "bus": -2.14,
+    "dry": 15.3
+   },
+   "tally": {
+    "osc": {
+     "sine": 156,
+     "sawtooth": 100,
+     "triangle": 48
+    },
+    "shapers": 64,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 0.45,
+    "dry": 6.51
+   },
+   "levelChangeDb": -17.44
+  },
+  {
+   "n": "WHAT THE SLOT MACHINE REMEMBERS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 193,
+   "compMaxAt": 0.45,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 4.6,
+    "over1dB": 0.025,
+    "over3dB": 0.01,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 5.68,
+    "over1dB": 0.03
+   },
+   "peakDbfs": {
+    "bus": -8.26,
+    "dry": -16.45
+   },
+   "rmsDbfs": {
+    "bus": -29.48,
+    "dry": -37.66
+   },
+   "tally": {
+    "osc": {
+     "triangle": 180,
+     "sine": 472,
+     "square": 96,
+     "sawtooth": 40
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 21.22,
+    "dry": 21.21
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "A GASP IN THE VAULT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 329,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -7.74,
+    "dry": -15.93
+   },
+   "rmsDbfs": {
+    "bus": -26.27,
+    "dry": -34.46
+   },
+   "tally": {
+    "osc": {
+     "sine": 92,
+     "sawtooth": 192
+    },
+    "shapers": 0,
+    "buffers": 220,
+    "noise": 220,
+    "noiseSec": 27.66358276643979
+   },
+   "crestDb": {
+    "bus": 18.53,
+    "dry": 18.53
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE COUNT NEVER STOPS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 335,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -8.3,
+    "dry": -16.49
+   },
+   "rmsDbfs": {
+    "bus": -23.5,
+    "dry": -31.68
+   },
+   "tally": {
+    "osc": {
+     "sine": 100,
+     "sawtooth": 620
+    },
+    "shapers": 0,
+    "buffers": 236,
+    "noise": 236,
+    "noiseSec": 6.509841269841287
+   },
+   "crestDb": {
+    "bus": 15.2,
+    "dry": 15.19
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "WHAT THE DICE FORGOT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 340,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -5.03,
+    "dry": -13.19
+   },
+   "rmsDbfs": {
+    "bus": -19.8,
+    "dry": -27.99
+   },
+   "tally": {
+    "osc": {
+     "triangle": 124,
+     "sine": 372
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 3.1999999999999966
+   },
+   "crestDb": {
+    "bus": 14.77,
+    "dry": 14.8
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE FORECLOSURE NOTICE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 254,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.023,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.11,
+    "maxDb": 7.77,
+    "over1dB": 0.027
+   },
+   "peakDbfs": {
+    "bus": -8.56,
+    "dry": -16.75
+   },
+   "rmsDbfs": {
+    "bus": -23,
+    "dry": -31.18
+   },
+   "tally": {
+    "osc": {
+     "sine": 272,
+     "triangle": 40
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 3.519999999999999
+   },
+   "crestDb": {
+    "bus": 14.44,
+    "dry": 14.43
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE COUNTING ROOM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 311,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.01,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.022
+   },
+   "peakDbfs": {
+    "bus": -6.34,
+    "dry": -14.53
+   },
+   "rmsDbfs": {
+    "bus": -20.94,
+    "dry": -29.12
+   },
+   "tally": {
+    "osc": {
+     "sine": 80,
+     "sawtooth": 384
+    },
+    "shapers": 0,
+    "buffers": 80,
+    "noise": 80,
+    "noiseSec": 7.840000000000006
+   },
+   "crestDb": {
+    "bus": 14.6,
+    "dry": 14.59
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE BOSS TAKES HIS CUT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 140,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.021,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -10.58,
+    "dry": -18.77
+   },
+   "rmsDbfs": {
+    "bus": -26.24,
+    "dry": -34.43
+   },
+   "tally": {
+    "osc": {
+     "triangle": 96,
+     "sine": 128
+    },
+    "shapers": 0,
+    "buffers": 108,
+    "noise": 108,
+    "noiseSec": 7.920000000000003
+   },
+   "crestDb": {
+    "bus": 15.66,
+    "dry": 15.66
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "THE LAST GOOD CHECK",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 160,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.019,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.019
+   },
+   "peakDbfs": {
+    "bus": -9.56,
+    "dry": -17.75
+   },
+   "rmsDbfs": {
+    "bus": -26.24,
+    "dry": -34.43
+   },
+   "tally": {
+    "osc": {
+     "triangle": 80,
+     "sine": 120,
+     "square": 80
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 3.358911564625845
+   },
+   "crestDb": {
+    "bus": 16.68,
+    "dry": 16.68
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "BROKEN WINDOW ANTHEM",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 248,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 6.29,
+    "over1dB": 0.024,
+    "over3dB": 0.012,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.12,
+    "maxDb": 7.77,
+    "over1dB": 0.029
+   },
+   "peakDbfs": {
+    "bus": -9.13,
+    "dry": -17.32
+   },
+   "rmsDbfs": {
+    "bus": -27.4,
+    "dry": -35.58
+   },
+   "tally": {
+    "osc": {
+     "sine": 300,
+     "square": 312
+    },
+    "shapers": 0,
+    "buffers": 252,
+    "noise": 252,
+    "noiseSec": 18.703582766439823
+   },
+   "crestDb": {
+    "bus": 18.27,
+    "dry": 18.26
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "PARADE OF LOST BALLOONS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 170,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.1,
+    "maxDb": 6.29,
+    "over1dB": 0.025,
+    "over3dB": 0.012,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.12,
+    "maxDb": 7.77,
+    "over1dB": 0.025
+   },
+   "peakDbfs": {
+    "bus": -9.83,
+    "dry": -18.02
+   },
+   "rmsDbfs": {
+    "bus": -26.8,
+    "dry": -34.95
+   },
+   "tally": {
+    "osc": {
+     "sine": 100,
+     "square": 160,
+     "triangle": 38
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 8.591655328798184
+   },
+   "crestDb": {
+    "bus": 16.97,
+    "dry": 16.93
+   },
+   "levelChangeDb": 8.15
+  },
+  {
+   "n": "WHAT THE APPRENTICE BUILDS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 128,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 1.83,
+    "over1dB": 0.016,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 2.27,
+    "over1dB": 0.024
+   },
+   "peakDbfs": {
+    "bus": -8.44,
+    "dry": -16.63
+   },
+   "rmsDbfs": {
+    "bus": -26.35,
+    "dry": -34.51
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sawtooth": 80,
+     "sine": 24
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 7.680000000000005
+   },
+   "crestDb": {
+    "bus": 17.91,
+    "dry": 17.88
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "HANDS THAT STILL BUILD",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 204,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.12,
+    "maxDb": 6.29,
+    "over1dB": 0.03,
+    "over3dB": 0.015,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.15,
+    "maxDb": 7.77,
+    "over1dB": 0.036
+   },
+   "peakDbfs": {
+    "bus": -9.57,
+    "dry": -17.76
+   },
+   "rmsDbfs": {
+    "bus": -27.69,
+    "dry": -35.85
+   },
+   "tally": {
+    "osc": {
+     "sine": 128,
+     "square": 128,
+     "triangle": 16
+    },
+    "shapers": 0,
+    "buffers": 144,
+    "noise": 144,
+    "noiseSec": 4.767709750566887
+   },
+   "crestDb": {
+    "bus": 18.12,
+    "dry": 18.09
+   },
+   "levelChangeDb": 8.16
+  },
+  {
+   "n": "A NAME NOT YET CHOSEN",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 160,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 3.4,
+    "over1dB": 0.027,
+    "over3dB": 0.007,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 4.2,
+    "over1dB": 0.033
+   },
+   "peakDbfs": {
+    "bus": -9.83,
+    "dry": -18.02
+   },
+   "rmsDbfs": {
+    "bus": -27.69,
+    "dry": -35.82
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "triangle": 136,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 172,
+    "noise": 172,
+    "noiseSec": 5.711655328798177
+   },
+   "crestDb": {
+    "bus": 17.86,
+    "dry": 17.8
+   },
+   "levelChangeDb": 8.13
+  },
+  {
+   "n": "NOBODY CASHES OUT",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 213,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 3.4,
+    "over1dB": 0.009,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 4.2,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -9.91,
+    "dry": -18.09
+   },
+   "rmsDbfs": {
+    "bus": -29.89,
+    "dry": -38.08
+   },
+   "tally": {
+    "osc": {
+     "triangle": 156,
+     "sine": 176,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 19.98,
+    "dry": 19.99
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "TITHE FOR THE EMPTY PEWS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 225,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.11,
+    "maxDb": 6.29,
+    "over1dB": 0.027,
+    "over3dB": 0.013,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.13,
+    "maxDb": 7.77,
+    "over1dB": 0.031
+   },
+   "peakDbfs": {
+    "bus": -9.21,
+    "dry": -17.4
+   },
+   "rmsDbfs": {
+    "bus": -23.67,
+    "dry": -31.85
+   },
+   "tally": {
+    "osc": {
+     "sine": 412,
+     "sawtooth": 64
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 9.600000000000001
+   },
+   "crestDb": {
+    "bus": 14.46,
+    "dry": 14.45
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE MARKER ON THE DOOR",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 200,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 3.4,
+    "over1dB": 0.021,
+    "over3dB": 0.005,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 4.2,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -10.47,
+    "dry": -18.66
+   },
+   "rmsDbfs": {
+    "bus": -29.57,
+    "dry": -37.74
+   },
+   "tally": {
+    "osc": {
+     "triangle": 224,
+     "sine": 64,
+     "sawtooth": 36
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 4.799999999999991
+   },
+   "crestDb": {
+    "bus": 19.1,
+    "dry": 19.08
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "MENU \u2014 THE POWER STILL ON SOMEWHERE",
+   "pool": "MLOOPS",
+   "menu": true,
+   "seconds": 34.25,
+   "activeWindows": 336,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.009,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.021
+   },
+   "peakDbfs": {
+    "bus": -10.82,
+    "dry": -19.01
+   },
+   "rmsDbfs": {
+    "bus": -27.02,
+    "dry": -35.2
+   },
+   "tally": {
+    "osc": {
+     "triangle": 128,
+     "sine": 56,
+     "sawtooth": 32
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 16.2,
+    "dry": 16.19
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE VOICE THAT STILL ANNOUNCES FLOORS",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 248,
+   "compMaxAt": 0.55,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 3.4,
+    "over1dB": 0.016,
+    "over3dB": 0.004,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 4.2,
+    "over1dB": 0.02
+   },
+   "peakDbfs": {
+    "bus": -9.63,
+    "dry": -17.82
+   },
+   "rmsDbfs": {
+    "bus": -31.74,
+    "dry": -39.92
+   },
+   "tally": {
+    "osc": {
+     "sine": 160,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 60,
+    "noise": 12,
+    "noiseSec": 12
+   },
+   "crestDb": {
+    "bus": 22.11,
+    "dry": 22.1
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "THE LAST BROADCAST CORRODES",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 142,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.03,
+    "maxDb": 1.83,
+    "over1dB": 0.014,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.04,
+    "maxDb": 2.27,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -10.02,
+    "dry": -18.21
+   },
+   "rmsDbfs": {
+    "bus": -27.6,
+    "dry": -35.74
+   },
+   "tally": {
+    "osc": {
+     "sine": 156,
+     "sawtooth": 86,
+     "triangle": 24
+    },
+    "shapers": 0,
+    "buffers": 210,
+    "noise": 210,
+    "noiseSec": 16.903582766439897
+   },
+   "crestDb": {
+    "bus": 17.58,
+    "dry": 17.53
+   },
+   "levelChangeDb": 8.14
+  },
+  {
+   "n": "THE BELLS DISAGREE",
+   "pool": "MLOOPS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 171,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.006,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.006
+   },
+   "peakDbfs": {
+    "bus": -10.44,
+    "dry": -18.63
+   },
+   "rmsDbfs": {
+    "bus": -30.17,
+    "dry": -38.36
+   },
+   "tally": {
+    "osc": {
+     "triangle": 48,
+     "sawtooth": 88,
+     "sine": 84
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 2.239274376417231
+   },
+   "crestDb": {
+    "bus": 19.73,
+    "dry": 19.73
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "CUSTOM",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 148,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.007,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.007
+   },
+   "peakDbfs": {
+    "bus": -10.31,
+    "dry": -18.5
+   },
+   "rmsDbfs": {
+    "bus": -28.07,
+    "dry": -36.22
+   },
+   "tally": {
+    "osc": {
+     "sine": 148,
+     "triangle": 64
+    },
+    "shapers": 0,
+    "buffers": 144,
+    "noise": 144,
+    "noiseSec": 5.375782312925161
+   },
+   "crestDb": {
+    "bus": 17.76,
+    "dry": 17.72
+   },
+   "levelChangeDb": 8.15
+  },
+  {
+   "n": "REDS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 230,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.009,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.08,
+    "maxDb": 7.77,
+    "over1dB": 0.017
+   },
+   "peakDbfs": {
+    "bus": -8.06,
+    "dry": -16.25
+   },
+   "rmsDbfs": {
+    "bus": -22.63,
+    "dry": -30.81
+   },
+   "tally": {
+    "osc": {
+     "sine": 208,
+     "sawtooth": 84
+    },
+    "shapers": 0,
+    "buffers": 32,
+    "noise": 32,
+    "noiseSec": 3.519999999999999
+   },
+   "crestDb": {
+    "bus": 14.57,
+    "dry": 14.56
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "BLUES",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 196,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.015,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.015
+   },
+   "peakDbfs": {
+    "bus": -9.67,
+    "dry": -17.86
+   },
+   "rmsDbfs": {
+    "bus": -26.99,
+    "dry": -35.18
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sine": 184,
+     "square": 80
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 3.358911564625845
+   },
+   "crestDb": {
+    "bus": 17.32,
+    "dry": 17.32
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "ANARCHISTS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 221,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.014,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.014
+   },
+   "peakDbfs": {
+    "bus": -9.28,
+    "dry": -17.47
+   },
+   "rmsDbfs": {
+    "bus": -26.81,
+    "dry": -35
+   },
+   "tally": {
+    "osc": {
+     "sine": 264,
+     "sawtooth": 124
+    },
+    "shapers": 0,
+    "buffers": 264,
+    "noise": 264,
+    "noiseSec": 18.847528344671108
+   },
+   "crestDb": {
+    "bus": 17.53,
+    "dry": 17.53
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "COLORFUL",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 180,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.017,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.017
+   },
+   "peakDbfs": {
+    "bus": -10.1,
+    "dry": -18.29
+   },
+   "rmsDbfs": {
+    "bus": -27.13,
+    "dry": -35.3
+   },
+   "tally": {
+    "osc": {
+     "sine": 144,
+     "square": 160
+    },
+    "shapers": 0,
+    "buffers": 144,
+    "noise": 144,
+    "noiseSec": 8.25578231292517
+   },
+   "crestDb": {
+    "bus": 17.03,
+    "dry": 17.01
+   },
+   "levelChangeDb": 8.17
+  },
+  {
+   "n": "CHURCH",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 162,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.04,
+    "maxDb": 6.29,
+    "over1dB": 0.006,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.05,
+    "maxDb": 7.77,
+    "over1dB": 0.006
+   },
+   "peakDbfs": {
+    "bus": -9.35,
+    "dry": -17.54
+   },
+   "rmsDbfs": {
+    "bus": -29.54,
+    "dry": -37.72
+   },
+   "tally": {
+    "osc": {
+     "sine": 640,
+     "square": 32
+    },
+    "shapers": 0,
+    "buffers": 0,
+    "noise": 0,
+    "noiseSec": 0
+   },
+   "crestDb": {
+    "bus": 20.19,
+    "dry": 20.18
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "NETWORK",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 151,
+   "compMaxAt": 0.75,
+   "comp": {
+    "meanDb": 0.02,
+    "maxDb": 1.83,
+    "over1dB": 0.013,
+    "over3dB": 0,
+    "over6dB": 0
+   },
+   "lim": {
+    "meanDb": 0.03,
+    "maxDb": 2.27,
+    "over1dB": 0.013
+   },
+   "peakDbfs": {
+    "bus": -10.21,
+    "dry": -18.4
+   },
+   "rmsDbfs": {
+    "bus": -27.3,
+    "dry": -35.44
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 172
+    },
+    "shapers": 0,
+    "buffers": 236,
+    "noise": 236,
+    "noiseSec": 6.509841269841287
+   },
+   "crestDb": {
+    "bus": 17.09,
+    "dry": 17.04
+   },
+   "levelChangeDb": 8.14
+  },
+  {
+   "n": "TRADES",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 178,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.006,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.011
+   },
+   "peakDbfs": {
+    "bus": -8.41,
+    "dry": -16.6
+   },
+   "rmsDbfs": {
+    "bus": -27.65,
+    "dry": -35.83
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sawtooth": 114
+    },
+    "shapers": 0,
+    "buffers": 96,
+    "noise": 96,
+    "noiseSec": 7.680000000000005
+   },
+   "crestDb": {
+    "bus": 19.24,
+    "dry": 19.23
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "CARAVANS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 172,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.018,
+    "over3dB": 0.006,
+    "over6dB": 0.006
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.018
+   },
+   "peakDbfs": {
+    "bus": -10.49,
+    "dry": -18.68
+   },
+   "rmsDbfs": {
+    "bus": -27.19,
+    "dry": -35.38
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sine": 64,
+     "square": 64
+    },
+    "shapers": 0,
+    "buffers": 144,
+    "noise": 144,
+    "noiseSec": 8.255782312925176
+   },
+   "crestDb": {
+    "bus": 16.7,
+    "dry": 16.7
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "VOLUNTEERS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 180,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.06,
+    "maxDb": 6.29,
+    "over1dB": 0.016,
+    "over3dB": 0.005,
+    "over6dB": 0.005
+   },
+   "lim": {
+    "meanDb": 0.07,
+    "maxDb": 7.77,
+    "over1dB": 0.016
+   },
+   "peakDbfs": {
+    "bus": -9.06,
+    "dry": -17.25
+   },
+   "rmsDbfs": {
+    "bus": -27.45,
+    "dry": -35.63
+   },
+   "tally": {
+    "osc": {
+     "sine": 148,
+     "square": 128
+    },
+    "shapers": 0,
+    "buffers": 112,
+    "noise": 112,
+    "noiseSec": 3.775782312925166
+   },
+   "crestDb": {
+    "bus": 18.39,
+    "dry": 18.38
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "REMNANTS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 256,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.09,
+    "maxDb": 6.29,
+    "over1dB": 0.022,
+    "over3dB": 0.011,
+    "over6dB": 0.004
+   },
+   "lim": {
+    "meanDb": 0.11,
+    "maxDb": 7.77,
+    "over1dB": 0.026
+   },
+   "peakDbfs": {
+    "bus": -7.36,
+    "dry": -15.55
+   },
+   "rmsDbfs": {
+    "bus": -24.04,
+    "dry": -32.23
+   },
+   "tally": {
+    "osc": {
+     "triangle": 76,
+     "sawtooth": 254
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 3.1999999999999966
+   },
+   "crestDb": {
+    "bus": 16.68,
+    "dry": 16.68
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "CARTEL",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 303,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.08,
+    "maxDb": 6.29,
+    "over1dB": 0.02,
+    "over3dB": 0.01,
+    "over6dB": 0.003
+   },
+   "lim": {
+    "meanDb": 0.1,
+    "maxDb": 7.77,
+    "over1dB": 0.023
+   },
+   "peakDbfs": {
+    "bus": -6.64,
+    "dry": -14.83
+   },
+   "rmsDbfs": {
+    "bus": -20.97,
+    "dry": -29.16
+   },
+   "tally": {
+    "osc": {
+     "sine": 76,
+     "sawtooth": 388
+    },
+    "shapers": 0,
+    "buffers": 64,
+    "noise": 64,
+    "noiseSec": 7.040000000000007
+   },
+   "crestDb": {
+    "bus": 14.33,
+    "dry": 14.33
+   },
+   "levelChangeDb": 8.19
+  },
+  {
+   "n": "MOB",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 144,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.07,
+    "maxDb": 6.29,
+    "over1dB": 0.02,
+    "over3dB": 0.007,
+    "over6dB": 0.007
+   },
+   "lim": {
+    "meanDb": 0.09,
+    "maxDb": 7.77,
+    "over1dB": 0.02
+   },
+   "peakDbfs": {
+    "bus": -10.61,
+    "dry": -18.8
+   },
+   "rmsDbfs": {
+    "bus": -26.79,
+    "dry": -34.97
+   },
+   "tally": {
+    "osc": {
+     "triangle": 64,
+     "sine": 128
+    },
+    "shapers": 0,
+    "buffers": 130,
+    "noise": 130,
+    "noiseSec": 8.36
+   },
+   "crestDb": {
+    "bus": 16.18,
+    "dry": 16.17
+   },
+   "levelChangeDb": 8.18
+  },
+  {
+   "n": "HOMELESS",
+   "pool": "MFACTIONS",
+   "menu": false,
+   "seconds": 34.25,
+   "activeWindows": 129,
+   "compMaxAt": 0.35,
+   "comp": {
+    "meanDb": 0.05,
+    "maxDb": 6.29,
+    "over1dB": 0.008,
+    "over3dB": 0.008,
+    "over6dB": 0.008
+   },
+   "lim": {
+    "meanDb": 0.06,
+    "maxDb": 7.77,
+    "over1dB": 0.008
+   },
+   "peakDbfs": {
+    "bus": -8.17,
+    "dry": -16.36
+   },
+   "rmsDbfs": {
+    "bus": -24.29,
+    "dry": -32.48
+   },
+   "tally": {
+    "osc": {
+     "sine": 160,
+     "square": 32
+    },
+    "shapers": 0,
+    "buffers": 48,
+    "noise": 48,
+    "noiseSec": 2.3999999999999995
+   },
+   "crestDb": {
+    "bus": 16.12,
+    "dry": 16.12
+   },
+   "levelChangeDb": 8.19
+  }
+ ],
+ "ab": [
+  {
+   "which": "GAME",
+   "song": "THE MARKER ON THE DOOR",
+   "file": "slices/vote/EYES_THE_SQUEEZE_GAME.mp3",
+   "bytes": 98473
+  },
+  {
+   "which": "NOSQUEEZE",
+   "song": "THE MARKER ON THE DOOR",
+   "file": "slices/vote/EYES_THE_SQUEEZE_NOSQUEEZE.mp3",
+   "bytes": 98473
+  },
+  {
+   "which": "NOISEOUT",
+   "song": "THE MARKER ON THE DOOR",
+   "file": "slices/vote/EYES_THE_SQUEEZE_NOISEOUT.mp3",
+   "bytes": 98473
+  }
+ ],
+ "abSong": {
+  "n": "THE MARKER ON THE DOOR",
+  "pool": "MLOOPS",
+  "menu": false,
+  "dryRaisedDb": 8.19,
+  "noiseOutQuieterDb": 0,
+  "noiseBuffers": 96
+ },
+ "pageerrors": [],
+ "summary": {
+  "songs": 142,
+  "failed": 0,
+  "compMeanDb": {
+   "mean": 0.2,
+   "median": 0.07,
+   "max": 18.67
+  },
+  "compOver3dBShare": 0.014,
+  "songsWhereCompWorksOver1dBHalfTheTime": 1,
+  "limMeanDb": 0.1,
+  "songsWhereLimiterEverWorks1dB": 131,
+  "crestLostDb": 0.05,
+  "oscillatorStarts": 47492,
+  "byWave": {
+   "sine": 24206,
+   "square": 4724,
+   "sawtooth": 11780,
+   "triangle": 6782
+  },
+  "sawShare": 0.248,
+  "waveShapersPerSong": 1.8,
+  "buffersPerSong": 86.7,
+  "whiteNoiseBuffersPerSong": 86.3,
+  "songsWithWhiteNoise": 119,
+  "levelChangeDb": {
+   "mean": 7.98,
+   "min": -17.44,
+   "max": 8.19
+  }
+ },
+ "post": {
+  "measuredFrom": "the GAME and NOISEOUT mp3s decoded at 44.1 kHz, energy above 6 kHz",
+  "topEndDropWithNoiseOutDb": 16.9,
+  "nesVoiceShare": 0.242,
+  "sineShare": 0.51,
+  "compMaxAtFirstHalfSecond": 131,
+  "songs": 142,
+  "whenItPasses3dB": {
+   "DUST CRAWL": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "MIDNIGHT ODDS": [
+    0.35
+   ],
+   "COPPER DUNES": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "IRON CHOIR": [
+    0.35,
+    0.45
+   ],
+   "RATTLESNAKE": [],
+   "PALE RIDER": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "GHOST ARCADE": [
+    0.35
+   ],
+   "HOLLOW MASS": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "DEVILS HAND": [
+    0.35,
+    0.45
+   ],
+   "DEAD MANS SLIDE": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "LULLABY FOR NOBODY": [
+    0.35,
+    0.45,
+    0.55
+   ],
+   "SERVER FARM": [
+    0.35,
+    0.45,
+    0.55
+   ]
+  },
+  "whenItPasses3dBNote": "the first 12 songs re-run with the times kept: every window over 3 dB sits at 0.35 to 0.55 s, the song starting; one song has none",
+  "theOneSqueezedSong": {
+   "n": "THE GAPS IN THE HYMNAL",
+   "dryPeakDbfs": 21.81,
+   "compMeanDb": 18.67,
+   "over3dB": 0.962,
+   "limMeanDb": 3.38,
+   "waveShapers": 64
+  }
+ }
+}

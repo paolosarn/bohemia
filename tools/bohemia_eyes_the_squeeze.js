@@ -47,7 +47,7 @@ const ALPHA = path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html');
 const BARS = parseInt(process.argv[2] || '24', 10);
 const LIMIT = process.argv[3] ? parseInt(process.argv[3], 10) : 0;   /* 0 = every song */
 const ABSONG = process.argv[4] || '';                                    /* the A/B song; default the first title song */
-const OUTJSON = path.join(ROOT, 'records', 'BOHEMIA_EYES_THE_SQUEEZE_10_18_26.json');
+const OUTJSON = process.env.EYES_SQUEEZE_OUT || path.join(ROOT, 'records', 'BOHEMIA_EYES_THE_SQUEEZE_10_18_26.json');
 const VOTEDIR = path.join(ROOT, 'slices', 'vote');
 
 /* the chain as the source text writes it; the live nodes must say the same */
@@ -231,6 +231,8 @@ function wav(ch, rate, out) {
         const res = {
           seconds: +(bus.length / SR).toFixed(2), activeWindows: nAct,
           compMaxAt: act.length ? +act[c.indexOf(Math.max(...c))][0].toFixed(2) : null,
+          /* WHEN it squeezes over 3 dB, so a start-up catch is told apart from a squeeze inside the song */
+          compOver3At: act.filter((g, i) => c[i] > 3).map(g => +g[0].toFixed(2)),
           comp: { meanDb: +mean(c).toFixed(2), maxDb: +Math.max(0, ...c).toFixed(2),
                   over1dB: +share(c, 1).toFixed(3), over3dB: +share(c, 3).toFixed(3), over6dB: +share(c, 6).toFixed(3) },
           lim: { meanDb: +mean(l).toFixed(2), maxDb: +Math.max(0, ...l).toFixed(2),
@@ -251,9 +253,13 @@ function wav(ch, rate, out) {
     let prior = [];
     try { const pj = JSON.parse(fs.readFileSync(PART, 'utf8')); if (pj.bars === BARS) prior = pj.songs || []; } catch (e) {}
     out.songs = [];
+    /* EYES_SQUEEZE_ABONLY=1: keep the songs already measured in the output file and only cut the A/B again */
+    const AB_ONLY = process.env.EYES_SQUEEZE_ABONLY === '1';
+    if (AB_ONLY) { const pj = JSON.parse(fs.readFileSync(OUTJSON, 'utf8')); prior = pj.songs || []; }
     for (const s of list) {
       const was = prior.find(x => x.n === s.n && x.pool === s.pool);
       if (was) { out.songs.push(was); continue; }
+      if (AB_ONLY) continue;
       const r = await render(s);
       if (r.fatal) { out.songs.push({ n: s.n, pool: s.pool, fatal: r.fatal }); continue; }
       r.levelChangeDb = +(r.rmsDbfs.bus - r.rmsDbfs.dry).toFixed(2);
@@ -277,7 +283,10 @@ function wav(ch, rate, out) {
       const cut = (x) => x.slice(0, Math.round(a.samples.rate * (SECS + 0.25)));
       const rms = (x) => Math.sqrt(x.reduce((q, v) => q + v * v, 0) / Math.max(1, x.length));
       const game = cut(a.samples.bus), dry = cut(a.samples.dry), noOut = cut(z.samples.bus);
-      const k = rms(game) / Math.max(1e-9, rms(dry));
+      /* same loudness as the game's version, but never over -1 dBFS: a song that runs over full scale (the
+         hymnal) would otherwise come back clipped, and clipping is a sand of its own */
+      const peak = (x) => x.reduce((q, v) => Math.max(q, Math.abs(v)), 0);
+      const k = Math.min(rms(game) / Math.max(1e-9, rms(dry)), 0.891 / Math.max(1e-9, peak(dry)));
       const dryM = dry.map(v => v * k);
       out.abSong = { n: song.n, pool: song.pool, menu: song.menu, dryRaisedDb: +(20 * Math.log10(k)).toFixed(2),
         noiseOutQuieterDb: +(20 * Math.log10(rms(noOut) / Math.max(1e-9, rms(game)))).toFixed(2), noiseBuffers: a.tally.noise };
