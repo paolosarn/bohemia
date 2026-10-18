@@ -164,11 +164,16 @@ for (const s of wanting.filter(s => s.faction === 'brigands')) {
   ok('the house sends no more than REACH[fortress] and one patrol', sent.length <= T.REACH.fortress && sent.filter(p => p.agenda === 'patrol').length === 1, sent.map(p => p.agenda).join());
 }
 {
-  const swapped = JSON.parse(JSON.stringify(WANTS)); swapped.wants['hold-the-freeway'].ground = ['airport'];
+  /* WORLD 10/18 (THE HENDERSON LEG moved three derived seats on this seed): one swapped ground can land on the same
+     mark by coincidence (the airport's nearest mark became the freeway's), so the control tries the grounds in turn
+     and holds that the data moves the mark for at least one; a want the data cannot move fails all of them */
   const s = wanting.filter(s => s.faction === 'brigands')[0];
   const a = W.sendFor(s, all, { data: DATA, cells }).map(p => p.to.x + ',' + p.to.y).join();
-  const b = W.sendFor(s, all, { data: { factions: FACTIONS, wants: swapped }, cells }).map(p => p.to.x + ',' + p.to.y).join();
-  ok('the data file drives it: the road crew wanting the airport instead goes somewhere else', a !== b, a + ' | ' + b);
+  const tried = ['airport', 'industrial', 'medical'].map(g => {
+    const swapped = JSON.parse(JSON.stringify(WANTS)); swapped.wants['hold-the-freeway'].ground = [g];
+    return g + ' ' + W.sendFor(s, all, { data: { factions: FACTIONS, wants: swapped }, cells }).map(p => p.to.x + ',' + p.to.y).join();
+  });
+  ok('the data file drives it: the road crew wanting another ground instead goes somewhere else', tried.some(t => t.split(' ').pop() !== a), a + ' | ' + tried.join('; '));
   const noWant = JSON.parse(JSON.stringify(FACTIONS)); noWant.factions.forEach(f => { delete f.want; });
   ok('a faction stripped of its want falls back to the parties module exactly',
     JSON.stringify(W.all(all, { n: m.n, data: { factions: noWant, wants: WANTS }, cells })) === JSON.stringify(before));
