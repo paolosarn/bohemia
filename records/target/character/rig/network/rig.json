@@ -93,10 +93,10 @@
   "records/target/character/rig/network/rig_NW.png"
  ],
  "crop_box_px": [
-  96,
-  55,
-  127,
-  173
+  66,
+  51,
+  156,
+  182
  ],
  "shadow_files": [
   "records/target/character/rig/network/shadow_N.png",
@@ -109,20 +109,108 @@
   "records/target/character/rig/network/shadow_NW.png"
  ],
  "ground_px": [
-  15,
-  56
+  45,
+  60
  ],
- "colours": 12027,
+ "colours": 46138,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
- "clips": {},
+ "clips": {
+  "Stand": {
+   "keys": 1,
+   "beats": 0.3333333333333333,
+   "frame_range": [
+    1.0,
+    2.0
+   ],
+   "frames": [
+    1.5
+   ],
+   "files": [
+    "records/target/character/rig/network/rig_Stand_N_k00.png",
+    "records/target/character/rig/network/rig_Stand_NE_k00.png",
+    "records/target/character/rig/network/rig_Stand_E_k00.png",
+    "records/target/character/rig/network/rig_Stand_SE_k00.png",
+    "records/target/character/rig/network/rig_Stand_S_k00.png",
+    "records/target/character/rig/network/rig_Stand_SW_k00.png",
+    "records/target/character/rig/network/rig_Stand_W_k00.png",
+    "records/target/character/rig/network/rig_Stand_NW_k00.png"
+   ]
+  },
+  "Anim_0": {
+   "keys": 6,
+   "beats": 2.0,
+   "frame_range": [
+    0.0,
+    48.0
+   ],
+   "frames": [
+    4.0,
+    12.0,
+    20.0,
+    28.0,
+    36.0,
+    44.0
+   ],
+   "files": [
+    "records/target/character/rig/network/rig_Anim_0_N_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_N_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_N_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_N_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_N_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_N_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_NE_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_E_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_SE_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_S_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_SW_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_W_k05.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k00.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k01.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k02.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k03.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k04.png",
+    "records/target/character/rig/network/rig_Anim_0_NW_k05.png"
+   ]
+  }
+ },
  "card": {
   "family": "prop",
   "out": 3,
   "rows": [
-   "OK   long side >= floor 96: 118",
-   "OUT  colours >= 2330: 2092",
+   "OK   long side >= floor 96: 131",
+   "OUT  colours >= 2330: 2090",
    "OK   top 8 carry <= 11%: 2.3",
    "OUT  value span >= 118: 108",
    "OK   saturation <= 0.81: 0.299",
@@ -144,8 +232,8 @@
   "cls": "person",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 118",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2465 px): 2092",
+   "OK   long side >= floor 96: 131",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2465 px): 2090",
    "OK   top 8 carry <= 11%: 2.3",
    "OUT  value span >= 118: 108",
    "OK   saturation <= 0.81: 0.299",
@@ -162,7 +250,7 @@
    112
   ],
   "opaque_px": 2465,
-  "colours": 2092
+  "colours": 2090
  },
  "rig_settings": {
   "engine": "CYCLES",

@@ -9665,6 +9665,33 @@
    }
   },
   {
+   "id": "character-the-walk-of-every-look-10-18",
+   "kind": "animation",
+   "lane": "character",
+   "made": "10/18",
+   "sha": "PENDING",
+   "draft": true,
+   "title": "ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS",
+   "why": "Last round only four of the 3D gang looks could walk; now all thirteen and the body under them walk in all eight directions on the beat, the coats, capes and prints moving with the legs. In the VOTE tab you see it walking beside the flat sprite the game draws today at real size, and you tap a name to watch it walk all eight ways.",
+   "show": {
+    "how": "page",
+    "src": "vote/CHARACTER_THE_WALK_OF_EVERY_LOOK.html"
+   },
+   "twin": {
+    "src": "records/target/character/walk_flat/reds_SE_k00.png",
+    "diffs": [
+     "THE COAT: the game's flat Reds duster is one block that slides with the body; ours is cut cloth on the legs' own bones, so the skirt opens round each stride and closes on the pass.",
+     "THE COLOUR: the game today still walks the old bright paint (the Colorful lime, the Church yellow); ours wears the runway paint the street was repainted to, dusted, under one sun.",
+     "THE FACINGS: the game's sprite is built from one skeleton warped per side; ours is the same model turned under one camera, so every one of the eight is a real side, none a flip."
+    ]
+   },
+   "before_after": {
+    "before": "the game's flat sprite walking SE, six keys (left of each pair)",
+    "after": "the 3D model walking SE at the same six phases (right of each pair), then all eight facings",
+    "scale": "1:1"
+   }
+  },
+  {
    "id": "character-the-print-and-the-hands-10-18",
    "kind": "outfit",
    "lane": "character",

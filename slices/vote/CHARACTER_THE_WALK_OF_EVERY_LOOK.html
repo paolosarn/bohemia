@@ -1,0 +1,59 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · Every look walks</title>
+<!-- CHARACTER [the walk of every look], 10/18 (rule 115c, 115g). CANDIDATES until the moodboard (rule 108). Played LIVE on
+     the 120 beat from CHARACTER_THE_WALK_OF_EVERY_LOOK.png (the drawn keys only: 6 keys = 2 beats, three a beat), ONE ART
+     PIXEL TO ONE PHONE PIXEL. Every frame is DIRECTION's master rig rendering the look's model (rule 115a), no pixel drawn in
+     code. Pattern: ANIMATION_THE_BEAST_IN_EIGHT.html. Rule 25: an item is asked ONCE, on the row; no vote inside the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px 16px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:14px 0 4px}
+  .row{display:flex;gap:6px;align-items:end;flex-wrap:wrap}
+  .pair{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .two{display:flex;gap:2px}
+  .cap{font-size:9px;color:#6d6656;letter-spacing:1px}
+  canvas{display:block;image-rendering:pixelated;background:#766a58;border-radius:1px}
+  button{font:inherit;font-size:10px;letter-spacing:1px;background:#16161d;color:var(--ink);border:1px solid var(--line);padding:4px 7px;margin:0 4px 4px 0;border-radius:1px}
+  button.on{border-color:var(--gold);color:var(--gold)}
+</style>
+<h1>CANDIDATES: ALL FOURTEEN 3D LOOKS WALK, IN ALL EIGHT DIRECTIONS</h1>
+<p>Every one of the thirteen gang looks and the body under them now walks in all eight directions, the coats, capes and prints moving with the legs, where last round only four of them walked. Below, each look walks beside the flat sprite the game draws today, at the game's real pixels; tap a name to see it walk all eight ways.</p>
+<div class="lab">EACH LOOK: THE GAME TODAY (LEFT) AND THE 3D MODEL (RIGHT), WALKING SE</div>
+<div class="row" id="pairs"></div>
+<div class="lab">EIGHT DIRECTIONS: <span id="who"></span></div>
+<div id="pick"></div>
+<div class="row" id="eight"></div>
+<script src="CHARACTER_THE_WALK_OF_EVERY_LOOK_TABLE.js"></script>
+<script>
+(function(){
+  var t=window.WALK_TABLE, im=new Image(), cells=[], eight=[], dpr=window.devicePixelRatio||1;
+  var CW=t.cell[0], CH=t.cell[1], KEYMS=60000/t.bpm*t.beats/t.keys;   /* 6 keys over 2 beats at 120: 167 ms a key */
+  function canvas(){ var c=document.createElement('canvas'); c.width=CW; c.height=CH; c.style.width=(CW/dpr)+'px'; c.style.height=(CH/dpr)+'px'; return c; }
+  var pairs=document.getElementById('pairs');
+  t.looks.forEach(function(n){
+    var w=document.createElement('div'); w.className='pair'; var two=document.createElement('div'); two.className='two';
+    var a=canvas(), b=canvas(); two.appendChild(a); two.appendChild(b); w.appendChild(two);
+    var c=document.createElement('div'); c.className='cap'; c.textContent=n.toUpperCase(); w.appendChild(c); pairs.appendChild(w);
+    cells.push({cv:a,at:t.at[n+':flat']}); cells.push({cv:b,at:t.at[n+':SE']});
+  });
+  var ev=document.getElementById('eight'), pick=document.getElementById('pick'), who=document.getElementById('who');
+  t.facings.forEach(function(f){ var w=document.createElement('div'); w.className='pair'; var cv=canvas(); w.appendChild(cv);
+    var c=document.createElement('div'); c.className='cap'; c.textContent=f; w.appendChild(c); ev.appendChild(w); eight.push({cv:cv,f:f}); });
+  var cur=null, btns={};
+  function choose(n){ cur=n; who.textContent=n.toUpperCase(); for(var k in btns) btns[k].className=(k===n?'on':''); }
+  t.looks.forEach(function(n){ var b=document.createElement('button'); b.textContent=n.toUpperCase(); b.onclick=function(){choose(n);}; btns[n]=b; pick.appendChild(b); });
+  choose(t.looks[7]);
+  function draw(cv,at,k){ var x=cv.getContext('2d'); x.clearRect(0,0,CW,CH); x.drawImage(im,at[0]+k*CW,at[1],CW,CH,0,0,CW,CH); }
+  var t0=performance.now();
+  function tick(now){ var k=Math.floor((now-t0)/KEYMS)%t.keys;
+    cells.forEach(function(c){ draw(c.cv,c.at,k); });
+    eight.forEach(function(e){ draw(e.cv,t.at[cur+':'+e.f],k); });
+    requestAnimationFrame(tick); }
+  im.onload=function(){ requestAnimationFrame(tick); };
+  im.src='CHARACTER_THE_WALK_OF_EVERY_LOOK.png';
+})();
+</script>
