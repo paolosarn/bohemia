@@ -1,0 +1,63 @@
+{
+ "tier": "POACHER",
+ "what": "a knee-length black oilcloth coat open at the front with a back vent, its four tails swinging on the thigh bones, a stand collar, a pale coyote pelt slung over the shoulders, a bone shirt, pale khaki trousers, boots, a rusted hatchet; the head is PORTRAIT's starred head on the same model",
+ "model": "records/cook3/rig/poacher.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "poacher_coat": 23276,
+  "poacher_collar": 1952,
+  "poacher_coat_skirt": 2012,
+  "poacher_pelt": 12320,
+  "poacher_pelt_tail": 90,
+  "poacher_hatchet": 28
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "poacher_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "poacher_coat": [
+   0.0273,
+   0.0242,
+   0.0252
+  ],
+  "poacher_eyes": [
+   0.0212,
+   0.006,
+   0.0052
+  ],
+  "poacher_hatchet": [
+   0.1329,
+   0.1248,
+   0.117
+  ],
+  "poacher_pelt": [
+   0.5906,
+   0.5841,
+   0.5333
+  ],
+  "poacher_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "poacher_sleeves": [
+   0.6724,
+   0.6038,
+   0.3864
+  ],
+  "poacher_trousers": [
+   0.3663,
+   0.3712,
+   0.2789
+  ]
+ }
+}

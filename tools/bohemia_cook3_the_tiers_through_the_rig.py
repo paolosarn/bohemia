@@ -35,6 +35,15 @@ and every garment is GEOMETRY skinned to the man's own bones, so it turns in eig
     told from the thug and the poacher by the stick over his shoulder. One colour is one material (mat() shares them),
     eight a person. The value span is read p5 to p95 (the card of numbers), so the pale khaki trousers carry the light end.
 
+  * THE POACHER'S BODY AGAIN (round 4, after his NO on round 2's body and his first STAR on PORTRAIT's poacher face):
+    a black oilcloth coat (the tails kept on the thigh bones), a pale coyote pelt over the shoulders with its tail down
+    the back on the chest bone, pale khaki trousers, a bone shirt, and NO hat of this lane's: --whole puts PORTRAIT's
+    starred head on this body by calling PORTRAIT's own tool (read, never edited), so the face is the starred face:
+    v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py POACHER records/cook3/rig/poacher_again_body.glb
+    v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py --whole POACHER records/cook3/rig/poacher_again_body.glb records/cook3/rig/poacher_again.glb
+    then the rig on poacher_again.glb into records/target/cook3/rig/poacher_again, then --sheet as below.
+    (bpy 4.2 may segfault on exit AFTER writing its files; the outputs are whole.)
+
 Run with Blender's Python (bpy 4.2; see tools/bohemia_direction_master_rig.py), TIER is THUG, POACHER or MARKSMAN:
     v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py THUG records/cook3/rig/thug.glb
 then the rig, then the sheet (plain python3):
@@ -90,13 +99,22 @@ TIERS = {
     # geometry. The coat stops at the KNEE, not the floor: TRENCHCOATS ARE FOR BADASSES (8/27) reserves the floor-length
     # coat; a poacher's is a hunting coat in the law's THIGH-to-knee band. Its skirt is four panels (open at the front, a
     # vent at the back) each skinned to its own thigh bone, so the tails swing with the legs on the walk.
+    # THE POACHER'S BODY AGAIN (round 4): his NO on round 2's body, no words, while PORTRAIT's poacher FACE on the same
+    # model got his FIRST STAR, and his YES on the thug ('analog horror AI slop and I love it') and the marksman ('finally
+    # they're all pale face from Batman'). Round 2 read as one mud: a saddle coat the colour of the ground, a mushroom hat
+    # on a box head, nothing pale and nothing dark. Round 4 goes the thug's and the marksman's way: the runway's black
+    # (an oilcloth coat, cloth_black, the tails still on the thigh bones), the light end carried by a big PALE piece
+    # (a dead coyote pelt over the shoulders, the poacher's trade worn as the silhouette's one feature; a bone shirt; pale
+    # khaki trousers), and NO hat of this lane's: the head is PORTRAIT's starred head, modelled on this body (whole()).
     'POACHER': dict(
-        what='a knee-length hunting coat of saddle leather, open at the front with a back vent, its four tails swinging on the thigh bones, a stand collar, a wide-brimmed field hat, a bone shirt, olive trousers, boots, a rusted hatchet',
-        coat=dict(colour=step('clay_mustard', 1), z_top=1.17, sleeve_x=0.465, t=0.016, open_from_z=0.80,   # cycle 2: open from the chest, the body's coarse faces cut a jagged V; open from the waist down
+        what='a knee-length black oilcloth coat open at the front with a back vent, its four tails swinging on the thigh bones, a stand collar, a pale coyote pelt slung over the shoulders, a bone shirt, pale khaki trousers, boots, a rusted hatchet; the head is PORTRAIT\'s starred head on the same model',
+        coat=dict(colour=step('cloth_black', 2), z_top=1.17, sleeve_x=0.465, t=0.016, open_from_z=0.80,
                   skirt_top=0.70, hem_z=0.36,
                   vent_z=0.56, flare_x=1.16, flare_y=1.45, swing=0.9, collar=(1.12, 1.20, 0.028)),
-        hat=dict(colour=step('tape_masking', 2), down_m=0.035, crown_h=0.065, crown_r=0.85, brim_r=1.45, brim_t=0.012, droop=0.022),   # cycle 1: brim 1.9 hid the face from the 45-degree camera
-        shirt=True, trousers=step('metal_painted', 2), sleeves=step('clay_bone', 2), boots=step('rubber', 2), skin=step('skin_deep', 3),   # cycle 2: skin_light read pink under the dust
+        pelt=dict(colour=step('tape_grey', 3), z=(0.93, 1.19), x=0.25, front_z=1.06,   # cycle 2: down the front and the upper arms it read as a grey shirt; a pelt sits on the shoulders and hangs down the back
+                  t=0.034, tuft_m=0.03, tuft_d=0.012, tail=(0.20, 0.62)),
+        head='portrait',
+        shirt=True, trousers=step('metal_painted', 3), sleeves=step('clay_bone', 3), boots=step('rubber', 2), skin=step('skin_deep', 3),   # the hands are the starred face's skin: one id, one whole person
         eyes=step('skin_deep', 0),
         weapon=dict(kind='hatchet', colour=step('tape_grey', 1), r=0.014, back=0.06, fore=0.34),
         head_scale=1.2),
@@ -378,6 +396,33 @@ def build(tier, out):
         F = T['scarf']; scm = mat('%s_scarf' % tier.lower(), F['colour'])
         lift('%s_scarf' % tier.lower(), lambda p: F['z'][0] <= p.z <= F['z'][1] and abs(p.x) < 0.13, lambda p: F['t'], None, rim=0.012, subdiv=2, material=scm)
     if 'slung' in T: slung(T['slung'])
+    if 'pelt' in T:
+        # THE PELT: the shoulders and upper chest and back lifted thick, with tufts pressed in (fur reads by its broken
+        # light, a shape the sun falls across), and the tail hanging down the back on the chest bone's skin
+        PL = T['pelt']; pm = mat('%s_pelt' % tier.lower(), PL['colour'], rough=1.0)
+        def tufts(p):
+            u = math.sin(p.x / PL['tuft_m'] * 6.1) * math.sin(p.z / PL['tuft_m'] * 5.3 + p.y * 40)
+            return PL['tuft_d'] * max(0.0, u) ** 3
+        def drape(p):   # deeper at the shoulder's top, thinning down the chest and back
+            return PL['t'] * (0.55 + 0.45 * max(0.0, min(1.0, (p.z - PL['z'][0]) / (PL['z'][1] - PL['z'][0]))))
+        lift('%s_pelt' % tier.lower(), lambda p: PL['z'][0] <= p.z <= PL['z'][1] and abs(p.x) < PL['x'] and (p.y > 0 or p.z > PL['front_z']),
+             drape, None, rim=0.014, subdiv=2, groove=tufts, material=pm)
+        # the tail: a tapered tube down the back from the left shoulder blade, on the chest bone
+        def back_y(z): return max((M @ v.co).y for v in body.data.vertices if abs((M @ v.co).z - z) < 0.04 and abs((M @ v.co).x) < 0.2)
+        x0, z1 = PL['tail']; z0 = 1.02
+        bm = bmesh.new(); rings = []
+        for r in range(9):
+            u = r / 8; z = z0 + (z1 - z0) * u; rad = 0.035 * (1 - 0.7 * u) + 0.006
+            cy = back_y(min(z, 1.0)) + 0.045 + rad * 0.6; cx = x0 - 0.04 * u
+            rings.append([bm.verts.new((cx + rad * math.cos(2 * math.pi * k / 10), cy + rad * 0.8 * math.sin(2 * math.pi * k / 10), z)) for k in range(10)])
+        for r in range(8):
+            for k in range(10): bm.faces.new((rings[r][k], rings[r][(k + 1) % 10], rings[r + 1][(k + 1) % 10], rings[r + 1][k]))
+        bm.faces.new(rings[-1][::-1])
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+        me = bpy.data.meshes.new('%s_pelt_tail' % tier.lower()); bm.to_mesh(me); bm.free()
+        tl = bpy.data.objects.new(me.name, me); sc.collection.objects.link(tl); me.materials.append(pm)
+        for f in me.polygons: f.use_smooth = True
+        skin_to(tl, lambda p: {SPINE: 1.0})
     G = T.get('garment') or dict(z=(0, 0), sleeve_x=0, chest_t=0, skirt_t=0, quilt=None, colour=None)
     z0, z1 = G['z']
     def in_coat(p): return z0 <= p.z <= z1 and abs(p.x) < G['sleeve_x']
@@ -402,9 +447,9 @@ def build(tier, out):
     if B: lift('%s_belt' % tier.lower(), lambda p: B['z'][0] <= p.z <= B['z'][1] and abs(p.x) < 0.25, lambda p: B['t'], B['colour'], rim=0.008, subdiv=1)
 
     # the cap sits from the crown down to the brow, measured from the SCALED head's top (the head grew 1.3x)
-    C = T.get('cap') or T.get('hat') or T['peak']
+    C = T.get('cap') or T.get('hat') or T.get('peak') or {}
     top = max((M @ v.co).z for v in body.data.vertices)
-    cz = top - C['down_m']   # lower at the back of the skull (+y is behind)
+    cz = top - C.get('down_m', 0)   # lower at the back of the skull (+y is behind)
     # THE EYES: two sockets in the brow's shadow, a material on the body's own faces (2 px a socket at the ruler)
     body.data.materials.append(mat('%s_eyes' % tier.lower(), T['eyes']))
     ez = top - 0.075   # the sockets sit at the brow whatever is on the head (cycle 2: a hat's line put them under the brim)
@@ -418,8 +463,8 @@ def build(tier, out):
         lift('%s_cap_brim' % tier.lower(), lambda p: cz - 0.025 * (p.y > 0.0) <= p.z <= cz + C['brim_m'] - 0.025 * (p.y > 0.0), lambda p: C['brim_t'], C['colour'], rim=0.012, subdiv=1, material=capm)
     elif 'peak' in T:
         peaked_cap(C, top)
-    else:
-        hat(C, top)
+    elif 'hat' in T:
+        hat(C, top)   # (a head='portrait' tier wears PORTRAIT's head and its gear instead: whole())
 
     # 3. THE WEAPON: a length of pipe in the right fist, every vertex on the hand bone
     W = T.get('weapon')
@@ -477,6 +522,18 @@ def build(tier, out):
     print(json.dumps(stats, indent=1))
 
 
+def whole(tier, body_glb, out):
+    """ONE ID, ONE WHOLE PERSON: PORTRAIT's head for this tier (the starred poacher face, rule 115h) modelled onto THIS
+    body by PORTRAIT's own tool, read and called, never edited: its table row is copied, its body path pointed at this
+    lane's new body, and the result written to this lane's folder. The face is the starred face, untouched."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('portrait_head', os.path.join(ROOT, 'tools/bohemia_portrait_the_head_from_the_model.py'))
+    ph = importlib.util.module_from_spec(spec); spec.loader.exec_module(ph)
+    row = dict(ph.PEOPLE[tier]); row['body'] = os.path.relpath(body_glb, ROOT)
+    ph.PEOPLE[tier] = row
+    ph.build(tier, out)
+
+
 # the game's own flat sprite of each tier, as last painted (records/cook3/enemy_tiers_repainted.png, row AFTER, 112 cells)
 TWIN_CELL = {'THUG': 0, 'POACHER': 1, 'MARKSMAN': 2, 'RAIDER': 3, 'LEADER': 4, 'MARAUDER': 5}
 
@@ -531,6 +588,8 @@ def sheet(tier, frames, out):
 if __name__ == '__main__':
     if sys.argv[1] == '--sheet':
         sheet(sys.argv[2].upper(), sys.argv[3], sys.argv[4])
+    elif sys.argv[1] == '--whole':
+        whole(sys.argv[2].upper(), os.path.abspath(sys.argv[3]), os.path.abspath(sys.argv[4]))
     else:
         tier = sys.argv[1].upper(); out = sys.argv[2]
         build(tier, os.path.abspath(out))
