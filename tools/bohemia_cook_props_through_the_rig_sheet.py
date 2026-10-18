@@ -9,6 +9,9 @@ the whole sheet is then doubled with nearest neighbour, so there is ONE pixel si
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py          ->  records/target/COOK_PROPS_THROUGH_THE_RIG.png
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py fight    ->  records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png
       ([the fight props through the rig]: the barrier, the dumpster, the cart and the tyres a fight tile stands on)
+    python3 tools/bohemia_cook_props_through_the_rig_sheet.py terrains ->  records/target/COOK_THE_EMPTY_TERRAINS_COVER.png
+      ([the empty terrains' cover]: the freeway's rolled wreck, overpass pier, lane closure and fallen gantry, and the
+      landfill's heap, car bales and dead dozer; the board count's emptiest terrains)
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py blockwar ->  records/target/COOK_THE_BLOCK_WARS_COVER.png
       ([the block war's cover]: the sandbags, the chain-link and its gate, the container, the propane tank, the rubble
       mound and the cart corral; a row may name the facing its MINE picture stands at, the three-quarter his pack
@@ -45,10 +48,20 @@ BLOCKWAR_ROWS = [
     ('rubble', 'THE RUBBLE MOUND, 4.6 m, 1.4 m HIGH (THE MOUND: HIGH GROUND)', 'a rubble mound', ['--packs', '9. Rubble and debris', '--nearest', '9. Rubble and debris#1'], 'pack:9. Rubble and debris#1', None),
     ('corral', 'THE CART CORRAL, 6.3 m, WITH LAST ROUND\'S CART FOUR TIMES (COVER THAT STOPS YOU)', 'a cart corral', ['--words', 'shopping', 'trolley', 'corral', '--nearest', '15. Street props#21', '--verdict', 'OWNS ZERO, BUY OR COMMISSION (no cart and no corral in 294 packs; the twin is his wire bin; the carts are last round\'s model)'], 'pack:15. Street props#21', None, 'SE'),
 ]
+TERRAIN_ROWS = [
+    ('rolled', 'THE FREEWAY: LAST ROUND\'S WRECK ROLLED ONTO ITS ROOF, 4.7 m OF CAR (A BLOCKER YOU CROUCH BEHIND)', 'a car rolled onto its roof', ['--packs', '9. Abandoned cards', '10. Abandoned cars', '--nearest', '9. Abandoned cards#0'], 'pack:9. Abandoned cards#0', None),
+    ('pier', 'THE FREEWAY: AN OVERPASS PIER, 7.3 m, THE DECK SHEARED OFF IT (A BLOCKER)', 'a freeway overpass pier', ['--words', 'pillar', 'column', 'pier', 'bridge', '--nearest', '3. Barricades and blockades#10', '--verdict', 'LOOKED AT THE UNJUDGED FIRST: none is a freeway pier (classical stone columns, wooden walkways, volcanic pillars); COMPOSE BESIDE IT, the twin his concrete barricade (rule 115a)'], 'pack:3. Barricades and blockades#10', None),
+    ('drums', 'THE FREEWAY: THE LANE CLOSURE NOBODY TOOK DOWN, FOUR DRUMS AND FIVE CONES (COVER, KNEE TO WAIST)', 'traffic drums and cones', ['--packs', '17. Warning Signs and road props', 'Streets props and urban', '--words', 'cone', 'drum', '--nearest', '17. Warning Signs and road props#23', '17. Warning Signs and road props#17'], 'pack:17. Warning Signs and road props#23', None),
+    ('gantry', 'THE FREEWAY: THE SIGN GANTRY COME DOWN, 5 m OF TRUSS AND ITS POST (A BLOCKER YOU FIRE THROUGH)', 'an overhead sign gantry', ['--words', 'gantry', 'sign', '--nearest', '17. Warning Signs and road props#10', '--verdict', 'COMPOSE BESIDE IT (he owns signs on posts and boards, no overhead gantry; the model is the source, rule 115a)'], 'pack:17. Warning Signs and road props#10', None),
+    ('heap', 'THE LANDFILL: THE LAST LOAD NOBODY PUSHED IN, A HEAP OF BAGS AND JUNK (THE MOUND: HIGH GROUND)', 'a landfill heap of bags and junk', ['--packs', '7. Trash and debris', '14. Trash and junk props', '--nearest', '7. Trash and debris#0'], 'pack:7. Trash and debris#0', None),
+    ('bales', 'THE LANDFILL: CRUSHED CARS BALED AND STACKED IN STEPS, 2.1 m (COVER YOU CLIMB)', 'crushed-car bales', ['--words', 'bale', 'crushed', 'scrap', '--packs', '7. Trash and debris', '--nearest', '7. Trash and debris#3'], 'pack:7. Trash and debris#3', None),
+    ('dozer', 'THE LANDFILL: THE DOZER THAT PUSHED IT, DEAD WHERE IT STOPPED, ITS TRACK THROWN (A BLOCKER, THE CAGE CLIMBABLE)', 'a bulldozer', ['--words', 'dozer', 'bulldozer', 'tractor', 'excavator', 'construction', '--verdict', 'OWNS ZERO, BUY OR COMMISSION (no dozer and no machine of the kind in 294 packs; the twin is his nearest machine, a wreck; the truck maquette beside it)'], 'pack:9. Abandoned cards#25', 'records/target/direction_the_truck_turned_up/truck/rig_S.png'),
+]
 SETS = {
     'props': (ROWS, 'records/target/COOK_PROPS_THROUGH_THE_RIG.png', 'COOK [props through the rig] 10/18: THREE PROPS MODELLED AT THE SOURCE, RENDERED THROUGH THE MASTER RIG'),
     'fight': (FIGHT_ROWS, 'records/target/COOK_FIGHT_PROPS_THROUGH_THE_RIG.png', 'COOK [the fight props through the rig] 10/18: FOUR THINGS A FIGHT TILE STANDS ON, MODELLED AT THE SOURCE, THROUGH THE MASTER RIG'),
     'blockwar': (BLOCKWAR_ROWS, 'records/target/COOK_THE_BLOCK_WARS_COVER.png', "COOK [the block war's cover] 10/18: SIX THINGS A MAN STANDS BEHIND IN A CITY FIGHT, MODELLED AT THE SOURCE, THROUGH THE MASTER RIG (round six's recipe)", 1),
+    'terrains': (TERRAIN_ROWS, 'records/target/COOK_THE_EMPTY_TERRAINS_COVER.png', "COOK [the empty terrains' cover] 10/18: THE FREEWAY'S AND THE LANDFILL'S COVER, SEVEN THINGS MODELLED AT THE SOURCE, THROUGH THE MASTER RIG", 1),
 }
 BG, INK, DIM = (34, 33, 31, 255), (226, 218, 198, 255), (150, 144, 130, 255)
 WRAP = 1700   # the eight facings of a six-metre box are 3,700 px in one row (a 7,472 px sheet, 5.2 MB on his phone): they wrap
