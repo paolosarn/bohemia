@@ -749,6 +749,28 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-10-18): 10/18 LATEST (round thirteen, [the face from the same model] round 1; Opus 5.5,
+rule 116; opened by the coordinator, rule 112, run to the end, no question) -- *** THE THUG'S FACE IS A MODELLED HEAD
+ON HIS OWN BODY, AND IT TALKS. ***
+The chat before this one stopped with nothing committed on the row; resumed it from the board. COOK THREE's thug had
+the test body's box head ('a person model with a skull, a jaw and hair is what fixes it'). Built
+tools/bohemia_portrait_the_head_from_the_model.py (bpy 4.2): COOK THREE's thug glb read, the box head cut above the
+collar, a MODELLED head on the same head bone: skull with jaw and nape, brow 14 mm over sockets 22 mm, a 32 mm nose,
+cheekbones, lips, chin, ears, eyeballs with bone whites (never white) and lids, a ribbed knit cap with a folded brim
+(oxblood), buzz, stubble. Shape keys A E O M (the speak-along mouth: the mouth line's faces are the dark inside and
+stretch open as the jaw turns 20 deg on its hinge) and Angry Sad Surprised; the lids carry them plus Blink. Rendered
+through DIRECTION's rig UNEDITED (--portrait 128, seven --expression; breaks none): three portraits, seven shapes,
+eight body stills. Body S still card 1 of 8 out under the guide (value span 94).
+FILES: records/portrait/rig/thug_head.glb (8 MB) + .json; records/target/portrait/rig/thug/; sheet
+records/target/portrait/PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL.png (beside his 64 px face today and COOK THREE's
+box-head thug). Record: records/BOHEMIA_PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL_10_18_26.md.
+VOTE: portrait-the-face-from-the-same-model-10-18, a PLACEHOLDER (nothing final before the moodboard). TAB: VOTE.
+FINDINGS TO DIRECTION: --class portrait crashes the rig (the guide's portrait class has no output_floor); the dust pass
+blotches skin and greys the cap (COOK THREE's same finding: a per-material wear weight).
+PENDING Paolo: nothing.
+NEXT: the other five brigand heads as COOK THREE remodels each tier (PEOPLE gets an entry per tier), then the rest of
+the twenty; the speak-along as talking-portrait frames when RUN carries rig people into the demo (rule 115g).
+
 PORTRAIT (portrait-vamily-yke55s): 10/17 LATEST (round twelve, THE BIG SWING) -- ***
 THE TWENTY FACE PAIRS FOR HIS TASTE SESSION: BUILT, KEYED, PARKED UNTIL THE
 MOODBOARD LANDS. ***

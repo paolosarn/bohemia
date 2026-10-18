@@ -1,0 +1,165 @@
+{
+ "person": "THUG",
+ "model": "records/portrait/rig/thug_head.glb",
+ "from_body": "records/cook3/rig/thug.glb",
+ "dropped": [
+  "thug_cap",
+  "thug_cap_brim"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "knit cap",
+ "hair": "buzz",
+ "stubble": true,
+ "meshes": {
+  "Cesium_Man": 1214,
+  "thug_belt": 346,
+  "thug_gambeson": 19814,
+  "thug_pipe": 180,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 11226
+ },
+ "materials": {
+  "portrait_thug_buzz": [
+   0.0273,
+   0.0194,
+   0.0144
+  ],
+  "portrait_thug_cap": [
+   0.0685,
+   0.0116,
+   0.0091
+  ],
+  "portrait_thug_iris": [
+   0.0545,
+   0.0273,
+   0.016
+  ],
+  "portrait_thug_lids": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "portrait_thug_lips": [
+   0.2542,
+   0.107,
+   0.0762
+  ],
+  "portrait_thug_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_thug_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_thug_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_thug_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "portrait_thug_stubble": [
+   0.2159,
+   0.1274,
+   0.0931
+  ],
+  "thug_belt": [
+   0.0685,
+   0.0319,
+   0.0144
+  ],
+  "thug_boots": [
+   0.0194,
+   0.0103,
+   0.006
+  ],
+  "thug_cap": [
+   0.0685,
+   0.0116,
+   0.0091
+  ],
+  "thug_cap_brim": [
+   0.0685,
+   0.0116,
+   0.0091
+  ],
+  "thug_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "thug_gambeson": [
+   0.2016,
+   0.1441,
+   0.0844
+  ],
+  "thug_pipe": [
+   0.107,
+   0.0612,
+   0.0369
+  ],
+  "thug_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "thug_sleeves": [
+   0.016,
+   0.0144,
+   0.013
+  ],
+  "thug_trousers": [
+   0.016,
+   0.0144,
+   0.013
+  ]
+ }
+}

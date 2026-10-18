@@ -7442,7 +7442,7 @@
    "sha": "pending",
    "made": "10/10",
    "title": "A PORTRAIT CAN NO LONGER QUIETLY STOP MATCHING THE BODY",
-   "why": "This lane's own faces have drifted off the body they are supposed to match five separate times this session; now a gate checks every citizen, the six enemy tiers and the twelve hire looks against their real worn hair every round, proved by planting two of those five old bugs back in and watching it catch both. NOT IN A TAB YET: this is a checker, not a look, so there is nothing new to see on screen; it runs every round from now on.",
+   "why": "This lane's own faces have drifted off the body they are supposed to match five separate times this session; now a gate checks every citizen, the six enemy tiers and the twelve hire looks against their real worn hair every round, proved by planting two of those five old bugs back in and watching it catch both. You see it nowhere on screen because it is a checker, not a look (NOT IN A TAB YET), and it runs every round from now on.",
    "show": {
     "how": "text",
     "src": "records/BOHEMIA_THE_HAIR_MATCH_REGRESSION_GATE_10_10_26.md; the gate itself is gates/hair_match_regression_gate.js, 13 passed 0 failed, and neither is an art sheet under rule 82 (zero new pixels, nothing drawn) so no reference twin was invented.\n\nSeen in: the record above; no tab yet, this is a machine checker, not a look."
@@ -7455,7 +7455,7 @@
    "sha": "pending",
    "made": "10/11",
    "title": "THE DATA SHEET COOK'S OWN PORTRAIT CALL WILL NEED",
-   "why": "Rule 108 landed this round and retires last round's fix method (hand-coded pixels); the bug it found still stands, so this writes down the real reference data a future generator call needs instead of drawing anything. NOT A LOOK: zero new pixels, every image is a real citizen's own already-approved walked body.",
+   "why": "Rule 108 landed this round and retires last round's fix method (hand-coded pixels); the bug it found still stands, so this writes down the real reference data a future generator call needs instead of drawing anything. You see it nowhere new because it is not a look (NOT IN A TAB YET): zero new pixels, every image is a real citizen's own already-approved walked body.",
    "show": {
     "how": "text",
     "src": "vote/PORTRAIT_THE_PORTRAIT_GENERATION_CONTRACT.html (the page, with the real four-facing renders and the worn-garment table); records/BOHEMIA_THE_PORTRAIT_GENERATION_CONTRACT_10_11_26.md.\n\nSeen in: the record and the page above; no tab yet, this is reference material for a call COOK owns, not a look for a thumb."
@@ -9268,6 +9268,33 @@
     "src": "BOHEMIA_SETTLEMENT_SCREEN.html"
    },
    "draft": true
+  },
+  {
+   "id": "portrait-the-face-from-the-same-model-10-18",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE THUG'S FACE, BUILT AS A 3D HEAD ON HIS OWN BODY, THAT TALKS AND FROWNS",
+   "why": "The face chat built the thug a real 3D head on the robot's pipe, with a skull, a nose, eyes with lids, ears, a ribbed knit cap and a jaw that opens, put on his own 3D body so the close-up face and the body are one model. You see it in the VOTE tab: three angles, four talking mouths and three moods, next to his flat 64 pixel face today; nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/portrait/PORTRAIT_THE_FACE_FROM_THE_SAME_MODEL.png"
+   },
+   "twin": {
+    "src": "records/target/taste/portrait_heads/brigand-thug.png",
+    "diffs": [
+     "THE FACE: ours is a modelled head the sun falls across (a brow over deep eye sockets, a nose, cheekbones, a chin), 128 pixels tall; the game's face today is a flat drawing 64 pixels square with sunglasses over the eyes.",
+     "IT TALKS: ours opens its jaw on a hinge into four mouth shapes (open, wide, round, closed) and turns its brows and lids for angry, sad and surprised; the game's face moves a drawn mouth only.",
+     "ONE PERSON: ours is the same 3D model as his body below it, so the face matches the body from every side; the game's face is drawn separately. The rig's dust still blotches the skin and greys the red cap, which is DIRECTION's to fix in the rig."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own thug face, renderFace() at 64 px (right of the top row)",
+    "after": "the thug's head modelled and rendered through the rig, S, SE, SW and seven shapes (left)",
+    "scale": "1:1 and 2x"
+   }
   }
  ],
  "verdicts": [
