@@ -314,6 +314,16 @@ function armourItem(kind, r){
    reads the same shelf, a bought piece stays gone until the next delivery, and three days on the shelf is a new roll
    at the same tier, the sold-out slot refilled. Day 0 to 2 keep the old seed, so nothing already shown moves. */
 var RESTOCK_DAYS = 3;
+/* RUN TWO [the sell price by the bar] 10/18: a town that likes you charges less and pays more (the wiki's Market prices
+   page, numbers in settlement_traits.json relation_prices): from Neutral 50 to Allied 100 the buy side drops up to 15% of
+   worth and the sell side gains up to 2% of worth, both added before the situations multiply; below 50 the page is
+   silent, so nothing moves. */
+function relPrice(){
+  var R = TRAITS && TRAITS.relation_prices, out = {buySub:0, sellAdd:0};
+  if(!R || typeof opinionNow !== 'function') return out;
+  var f = Math.max(0, Math.min(1, (opinionNow() - R.from) / (R.to - R.from)));
+  out.buySub = R.buy_sub_at_100 * f; out.sellAdd = R.sell_add_at_100 * f; return out;
+}
 function restockPeriod(){ return Math.floor(((typeof S.mapDay === 'number') ? S.mapDay : 0) / RESTOCK_DAYS); }
 function soldKey(){ return S.place.name + ':' + restockPeriod(); }
 /* the shelf: what a place this size carries, rolled from its name so it is the same every visit */
@@ -334,7 +344,8 @@ function restock(){
   var tm = traitMult(), sm = function(n){ return Math.max(1, Math.round(n * tm.stock)); };
   S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
   /* a trait moves every price on the shelves, never below one battery */
-  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * tm.buy)); });
+  var rp = relPrice();
+  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * (1 - rp.buySub) * tm.buy)); });
   /* what you bought here this delivery stays bought */
   var gone = ((S.sold||{})[soldKey()] || []).slice();
   for(var sk2 in S.stock) S.stock[sk2] = S.stock[sk2].filter(function(it){ var j = gone.indexOf(sk2 + ':' + it.id); if(j >= 0){ gone.splice(j, 1); return false; } return true; });
@@ -396,7 +407,7 @@ function shopSheet(k, body, acts, line){
   var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
   for(var si = 0; si < BAG_SLOTS; si++){
     (function(it){
-      var back = it ? Math.max(1, Math.floor((it.base || it.price) * SELL_CUT * traitMult().sell)) : 0;
+      var back = it ? Math.max(1, Math.floor((it.base || it.price) * (SELL_CUT + relPrice().sellAdd) * traitMult().sell)) : 0;
       bagG.appendChild(iconTile(it, function(){
         openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
         var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
@@ -1388,6 +1399,7 @@ function open(o){
   if(typeof o.opinion === 'number') S.opinion = o.opinion; else if(o.place) S.opinion = undefined;
   if(Array.isArray(o.settled)) o.settled.forEach(function(c){ if(c && c.act) relMove(c.place ? {id:c.place} : null, c.act); });   /* [the opinion moves] */
   if(o.place) relDawn();
+  restock();   /* [the sell price by the bar]: the shelves price on this visit's bar */
   if(o.faction !== undefined) S.faction = o.faction; else if(o.place) S.faction = null;
   hide(); shelf(); layout();
   if(window.BohemiaHeard) BohemiaHeard.night(view.night);   /* SOUNDS 10/18: the bed follows the screen's own hour */

@@ -319,6 +319,26 @@ const srv = http.createServer((rq, rs) => {
      r0.length > 2 && r0b.length === r0.length - 1 && r0b.every(id => r0.includes(id)) && r2.join() === r0b.join() && r3.length === r0.length && r3.join() !== r0.join() && rBack.join() === r0b.join(),
      r0.length + ' -> ' + r0b.length + ' (day 2: ' + r2.length + ') -> day 3: ' + r3.length + ', ' + r3.filter(id => !r0.includes(id)).length + ' new');
   await p.evaluate(() => { BohemiaSettlement.state.mapDay = undefined; });
+  /* THE SELL PRICE BY THE BAR (RUN TWO 10/18, the wiki's Market prices page): Allied buys 15% of worth cheaper and pays 2%
+     of worth more than Neutral; below Neutral the page is silent, so Hostile prices as Neutral */
+  const atBar = async op => {
+    await p.evaluate(op => BohemiaSettlement.open({ place: { tier: 'town', name: 'BAR ROW' }, traits: [], opinion: op, day: 0,
+      bag: [{ id: 'gate_blade', kind: 'weapon', cls: 'sword', name: 'good machete', price: 70, base: 70 }] }), op);
+    await p.waitForTimeout(200);
+    const shelf = await smithIds();
+    const prices = await p.evaluate(() => BohemiaSettlement.state.stock.smith.map(i => i.price));
+    await tapB('smith'); await p.waitForTimeout(200);
+    await p.click('#baggrid .slot.full'); await p.waitForTimeout(150);
+    const offer = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
+    await p.click('#close'); await p.waitForTimeout(150);
+    return { shelf: shelf.join(), prices, offer: +((offer.match(/give you (\d+)/) || [])[1] || 0) };
+  };
+  const hostile = await atBar(5), neutral = await atBar(50), allied = await atBar(100);
+  ok('  THE BAR MOVES THE PRICE: the same shelf, Allied dearest piece cheaper by the page\'s 15% and the blade sells for more; Hostile prices as Neutral (the page is silent below 50)',
+     allied.shelf === neutral.shelf && allied.prices.every((x, i) => x <= neutral.prices[i]) && Math.max(...allied.prices) === Math.max(1, Math.round(Math.max(...neutral.prices) * 0.85))
+     && allied.offer === Math.floor(70 * (1 / 7 + 0.02)) && neutral.offer === Math.floor(70 / 7) && hostile.prices.join() === neutral.prices.join() && hostile.offer === neutral.offer,
+     'dearest ' + Math.max(...neutral.prices) + ' -> ' + Math.max(...allied.prices) + ', the blade sells ' + neutral.offer + ' -> ' + allied.offer + ', hostile ' + hostile.offer);
+  await p.evaluate(() => { BohemiaSettlement.state.opinion = undefined; BohemiaSettlement.open({ bag: [] }); });
   ok('  and a mark in the raid ledger raids that place on its days only (day 9 no, 10 and 12 yes, 13 no; the next town no)', !led[9] && led[10] && led[12] && !led[13] && !led.other, JSON.stringify(led));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
