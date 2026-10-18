@@ -857,9 +857,23 @@ async function outlineFatMap() {
       return { missing, holes: holes / n, rim, ringW: RING_W * 2, fig, all: allFramed(), black: (function () { const c = document.getElementById('cv'), D = c.width / innerWidth, p = c.getContext('2d').getImageData(0, Math.round(TOPH * D), c.width, Math.round((H - TOPH - BOTH) * D)).data;
         let b = 0, m = 0; for (let i = 0; i < p.length; i += 4 * 7) { m++; if (p[i] === 13 && p[i + 1] === 11 && p[i + 2] === 9) b++; } return b / m; })() };
     });
+    /* THE BLUE (his fourteenth votes NO, 'what the fuck is that blue collision'): a block knocked out on purpose shows dirt,
+       never the moonlight on glass, pinched out (the ring canvas) and close in (the art itself) */
+    r.blue = await d.page.evaluate(() => {
+      const U = FIGHT_UI, G = DB.ground, gone = surround().slice(0, 6).map(q => 'fight_ground/' + G.blocks[q.n].src), keep = gone.map(k => U.imgs[k]);
+      const moon = (p, step) => { let b = 0, m = 0; for (let i = 0; i < p.length; i += 4 * step) { m++; if (p[i + 2] > p[i] + 35 && p[i + 2] > 150) b++; } return b / m; };
+      gone.forEach(k => { U.imgs[k] = null; }); U.ringC = null; U.gsheet = null;
+      const rc = ringCanvas(), far = moon(rc.getContext('2d').getImageData(0, 0, rc.width, rc.height).data, 3);
+      U.zoom = U.near; clampCam(); draw(performance.now());
+      const c = document.getElementById('cv'), near = moon(c.getContext('2d').getImageData(0, 0, c.width, c.height).data, 5);
+      gone.forEach((k, i) => { U.imgs[k] = keep[i]; }); U.ringC = null; U.gsheet = null;
+      return { far, near };
+    });
     r.profile = profile + (night ? ' night' : ' day'); r.err = d.errs[0]; rows.push(r); await d.close();
   }
   const pc = v => (100 * v).toFixed(2) + '%';
+  leg(rows.every(r => r.blue.far === 0 && r.blue.near < .0005), '*** NO BLUE HOLE EVEN WHEN A BLOCK FAILS (his fourteenth votes NO: \'what the fuck is that blue collision\') ***: six blocks of the map knocked out on purpose show dirt, never moonlight on glass, pinched out and close in',
+    rows.map(r => r.profile + ' far ' + pc(r.blue.far) + ', near ' + pc(r.blue.near)).join('; '));
   leg(rows.every(r => r.rim.n > 40 && r.rim.bad === 0 && !r.err), '*** NO COLOURED FRINGE ON ANY MAN (rule 115f, his 10/17 NO) ***: every pixel the rim adds round a man is dark ink with no colour, in the dark and in the light (the moon rim was pale blue, 196,212,246)',
     rows.map(r => r.profile + ' ' + r.rim.bad + ' of ' + r.rim.n + ' bad, brightest ' + Math.round(r.rim.worst)).join('; '));
   leg(rows.every(r => r.ringW <= r.fig + .15), 'the side ring sits under his feet, not round him: at most his figure\'s width plus a little (it was 0.72 of his height across a 0.41 figure)',

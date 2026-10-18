@@ -1761,7 +1761,7 @@ function drawGround() {
   }
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.drawImage(UI.gsheet, 0, 0); cx.restore();
 }
-const SURROUND_BLOCKS = 2, SURROUND_DIM = 'rgba(8,6,4,.22)', MIP = 4, RING_K = .5;
+const SURROUND_BLOCKS = 2, SURROUND_DIM = 'rgba(8,6,4,.22)', MIP = 4, RING_K = .5, GROUND_UNDER = '#2a2219';
 /* the ring baked once at half size (it is the map you look at, not the board you fight on), the night's colour on it */
 function ringCanvas() {
   const S = FIGHT.S, G = DB.ground, bt = G.block_tiles, R = SURROUND_BLOCKS, key = UI.ringKey + ':' + !!S.night + ':' + UI.board;
@@ -1769,6 +1769,9 @@ function ringCanvas() {
   const ring = surround(), nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt);
   const c = document.createElement('canvas'); c.width = Math.round((nx + R * (1 + 1)) * bt * UI.tw * RING_K); c.height = Math.round((ny + R * (1 + 1)) * bt * UI.th * RING_K);
   const g = c.getContext('2d'), w = bt * UI.tw * RING_K, h = bt * UI.th * RING_K; g.imageSmoothingQuality = 'high';
+  /* THE BLUE (his fourteenth votes NO: 'what the fuck is that blue collision'): a block that never loaded left glass, and the
+     night's moonlight multiplied onto glass IS the blue; the ring is ground before it is blocks, so a hole is dirt, never blue */
+  g.fillStyle = GROUND_UNDER; g.fillRect(0, 0, c.width, c.height);
   ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) return;
     const x = (q.bx + R) * w, y = (q.by + R) * h; g.drawImage(mipFor(im, w / DPR), x, y, w, h); g.fillStyle = SURROUND_DIM; g.fillRect(x, y, w, h); });
   if (S.night) nightPass(g, c.width, c.height);
@@ -1811,9 +1814,11 @@ function groundOn(cx) {
   /* THE MAP AROUND THE BOARD (his eleventh votes: 'I don't want to see any black... only more of the map'): the same
      district's blocks dealt in a ring past the board's edge, drawn a shade darker, seen and never walked */
   surround().forEach(function (q) {
-    const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) return;
+    const im = UI.imgs['fight_ground/' + G.blocks[q.n].src];
     const x = snap(sx(q.bx * bt * UI.tw)), y = snap(sy(q.by * bt * UI.th)), w = bt * UI.tw * z, h = bt * UI.th * z;
-    if (on(x, y, w, h)) { cx.drawImage(mipFor(im, w), x, y, w, h); cx.fillStyle = SURROUND_DIM; cx.fillRect(x, y, w, h); }
+    if (!on(x, y, w, h)) return;
+    if (im) cx.drawImage(mipFor(im, w), x, y, w, h); else { cx.fillStyle = GROUND_UNDER; cx.fillRect(x, y, w, h); }   /* a hole is dirt (THE BLUE) */
+    cx.fillStyle = SURROUND_DIM; cx.fillRect(x, y, w, h);
   });
   cx.beginPath(); cx.rect(x0, y0, bw, bh); cx.clip();
   cx.fillStyle = '#2a2219'; cx.fillRect(x0, y0, bw, bh);
