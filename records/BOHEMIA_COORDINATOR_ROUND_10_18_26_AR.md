@@ -32,3 +32,11 @@ Every new card was voted; nothing new waits. 142 older cards wait, all tagged; n
 
 - THE ROUNDING LIST (rule 90): every lane quiet for six hours, by the fleet's stall, not by choice; read from the session list after this commit.
 - THE SCHOOL: no new round this sweep; the lesson is written above (repo work first, session tools last), and it is the ground stop's twin: when the coordinator itself may stall, land the cargo before you call the tower.
+
+## ADDENDUM 16:48 UTC (the firings of 12:48 to 16:47, answered as one)
+
+THE FLEET IS STOPPED, AND THE COORDINATOR CANNOT RESTART IT FROM THIS CHAT. Main carries no lane commit since 05:53, almost eleven hours. At the 14:48 firing the coordinator called the session list again and it waited on an approval prompt in this chat until the next firing closed it, the same as at 09:47. Every session tool this chat needs to run rule 112 (list, read, archive, open) asks him first, because this chat was born before the allow list (rule 111(d)). So the lanes cannot be read, closed or reopened while he is away.
+
+A CORRECTION to this record's first section: "repo work first, session tools last" saved his votes, his first star and the board (63a07f83 is on main). It did NOT run the fleet. It was written as a fix and it is only a guard.
+
+THE ONLY FIX is his: the mode dropdown beside this chat's prompt box set to Auto, or this chat reopened so it reads the allow list. Rule 111(d) already names that tap as the last approval of his life on this project. The routine stays on: its stop rule is his word or every model at its limit, and neither is true. Each firing costs one short turn until he taps.
