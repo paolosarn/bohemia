@@ -211,6 +211,41 @@ bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by
 they add it. Nothing to slices/, engine/ or the demo (rule 100).
 PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-faces): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 117):
+[a name for every starred face] SHIPPED as a page (67a6c2cf). *** A FACE IS A PERSON, NOT A COSTUME. ***
+NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_WHO_THE_FACE_IS_10_18_26.md
+Pictures: records/people/WHO_THE_FACE_IS.png (the fifteen at 1:1 with who they are) and
+records/people/WHO_THE_FACE_IS_TALKING.gif (all fifteen saying their lines on PORTRAIT's own mouth keys).
+
+THE FINDING THAT PROVES US WRONG: the face never lacked a name, it had too many. The crew screen hands
+the twelve cast faces out by index (DESI on the bare arms, MARISOL on an old man's apron face), and the
+hire post rolls name and face with two hashes of one key: 1162 of 1274 men at a post (91.2%) wear a
+crewmate's face, every face only ever meets the same four names (the low two bits of the post's hash come
+out tied), and the three faces that read as women only ever meet Beto, Dani, Nacho or Rudy.
+
+THE FIFTEEN (13 crew heads + the thug and poacher heads): one name each from the names mix (census counted
+over the faces, 5/5/2/2/1, dealt by hash, never by skin), a home among the 26 that hires the background by
+BB's book, the crew screen's own background, one line: 12 English, 2 English and Spanish (Xiomara Delgado
+the old butcher, Rogelio Kessler the thug), the player (Minh Duong, a prepared name) English. The row asked
+for Spanglish from every face; his 8/26 ceiling and 9/22 'chill' win. The mouth: PORTRAIT's A E O M keys,
+a syllable an eighth note at 120 BPM; the game's own clock takes 10.4 s a line, this 4.7.
+Also fixed in the bank: the names mix had 3 Hispanic men's names of 28 (ten added, a sex reading for every
+given name); its 'rest' and 'asian' pools mixed peoples (the origin rule: no white man named Amadi).
+
+Bank: banks/BOHEMIA_WHO_THE_FACE_IS_10_18_26.json, draft:true, keyed by PORTRAIT's face ids, nothing live
+reads it. Tool: tools/bohemia_people_who_the_face_is.js (lines apart in _lines.js for WORDS; the sheet _sheet.py).
+Gate: WHO THE FACE IS 44/0, registered, six mutations each red; it goes red the day PORTRAIT ships a face
+nobody is. THE NAMES MIX 37/0, WHO LIVES WHERE 27/0, language 85/0, attempt 15/0, reference check 490/0.
+No VOTE item, no demo, no question.
+ROUTED: RUN TWO (ONE KEY DRAWS THE MAN at the post; a roster face never stands at a post; the crew's names
+by face); COMBAT (ours.json crew names follow the faces); PORTRAIT (skirt, poncho, short coat read as women;
+cape, apron, poncho read old); CHARACTER (visemesOf's 250 ms per letter-sound, one clock not two); TUNING
+(the ten names, the sex reading, the origin rule); WORDS (the fifteen lines); DYNASTY (Minh Duong prepared).
+SEEN RED, NOT MINE: no_orphan_script (slices' bohemia_loading_screen.js), fence_orphan (the alpha's LOOK
+fences), reusefirst (72 old patch tools).
+NEXT OPEN: [recruit at the place] (RUN TWO's settlement screen) and [deeds and memory].
+PENDING Paolo: nothing.
+
 PEOPLE (people-names-mix): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 117):
 [the names mix] SHIPPED as a page. *** A NAME IS TWO WORDS. ***
 NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_THE_NAMES_MIX_10_18_26.md
