@@ -95,13 +95,12 @@ function engine(plain) {
   const ctx = { console, Math, JSON, Date, Object, Array, String, Number, Error, HOOK: null,
     localStorage: { getItem: () => null, setItem: () => {}, removeItem: () => {} } };
   vm.createContext(ctx);
-  vm.runInContext(grab('fight-data') + ';this.DB=DB;this.setSeed=function(s){SEED=s>>>0;};', ctx);
-  const files = ['records/target/bb/rules.json', 'records/target/bb/ours.json', 'records/target/bb/ai.json', 'records/target/bb/enemies.json',
-    'records/target/bb/weapons.json', 'records/target/bb/armor.json', 'records/target/bb/injuries.json', 'records/target/bb/backgrounds.json',
-    'slices/fight_ground/fight_ground.json', 'records/target/bb/perks.json', 'records/target/bb/perk_translation.json',
-    'slices/fight_people/fight_people.json', 'records/target/bb/weapon_lines.json'];
-  const keys = ['rules', 'ours', 'ai', 'enemies', 'weapons', 'armor', 'injuries', 'backgrounds', 'ground', 'perks', 'perkNames', 'people', 'wlines'];
-  files.forEach((f, i) => { ctx.DB[keys[i]] = J(f); });
+  const data = grab('fight-data');
+  vm.runInContext(data + ';this.DB=DB;this.DATA_FILES=DATA_FILES;this.setSeed=function(s){SEED=s>>>0;};', ctx);
+  /* exactly the files the fight's own loadAll() fetches, in its order, under the names it gives them (10/18: the fight
+     gained WORLD's ground table and the bench, typing its own list, stopped on the first board) */
+  const slot = {}; data.replace(/DB\.(\w+) = a\[(\d+)\]/g, (m, k, i) => { slot[i] = k; return m; });
+  ctx.DATA_FILES.forEach((u, i) => { if (!slot[i]) throw new Error('THE FIGHT MOVED: no DB slot for ' + u); ctx.DB[slot[i]] = J(path.join('slices', u)); });
   vm.runInContext(rules + ';this.FIGHT=FIGHT;', ctx);
   return ctx;
 }
