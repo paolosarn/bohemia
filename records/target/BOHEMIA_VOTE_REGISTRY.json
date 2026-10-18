@@ -11043,7 +11043,29 @@
     "scale": "phone one screen at its width, laptop one screen at 0.44"
    },
    "draft": true
-  }
+  },
+ {
+  "id": "cook-the-empty-terrains-cover-10-18",
+  "kind": "tile",
+  "lane": "cook",
+  "sha": "3f196828",
+  "made": "10/18",
+  "title": "PLACEHOLDER: A CAR ON ITS ROOF, A BROKEN OVERPASS PIER, A LANE OF DRUMS AND CONES, A FALLEN SIGN, A TRASH HEAP, CRUSHED CAR BALES AND A DEAD BULLDOZER, MADE THE CLAY WAY",
+  "why": "The freeway and the dump were the emptiest fights in the game, almost nothing to hide behind, so seven things now come off the same table as the truck: last round's wreck rolled onto its roof, a freeway pier with its deck snapped off and someone's bed under it, a lane closure nobody took down, the overhead sign come down, the last load of trash nobody pushed in with an armchair on top, crushed cars baled in steps, and the dozer that died with its track thrown. You see it in the VOTE tab beside your own wreck, concrete, drum, chevron board, trash pile and crushed block at the same pixel size in all eight directions, and nothing is final before your moodboard.",
+  "show": {
+   "how": "image",
+   "src": "../records/target/COOK_THE_EMPTY_TERRAINS_COVER.png"
+  },
+  "twin": {
+   "src": "pack:9. Abandoned cards#0",
+   "diffs": [
+    "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, the way the truck and the last two rounds of props were (rule 115a), the wreck on its roof being last round's wreck itself, rolled over.",
+    "SIZE: true size at 57 px a metre, one ruler with the man: your cone is 96 px tall for a 0.71 m cone and your car 96 px long for a 4.7 m car; mine are 40 and 270, and the pier stands 650 px. Yours are icons; the rig draws each as big as it really is on a house-sized fight tile.",
+    "LOOK: all seven pass the rig's card (0 to 2 of 8 numbers out, never 3). You own no freeway pier, no overhead gantry and no bulldozer in 294 packs, so those twins are your concrete, your chevron board and your nearest machine, a wreck; the dust on the rig still pales anything facing the sky."
+   ]
+  },
+  "draft": true
+ }
  ],
  "verdicts": [
   {
