@@ -1524,6 +1524,39 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-opus-10-18-fh4mn): 10/18 LATEST (t) -- [the free first week] SHIPPED, THE NEW AGE
+(the top OPEN row, the coordinator's rule 117 row; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117;
+research and numbers only, no screen built, no data file touched, no VOTE sheet, rule 88). Record:
+records/BOHEMIA_ECONOMY_DAY_76_THE_FREE_FIRST_WEEK_IS_NINE_DAYS_IN_THE_STASH_AND_HALF_ON_THE_HANDSHAKE_AND_WITH_THE_WAGE_ONLY_THE_STACK_CLEARS_BATTLE_BROTHERS_10_18_26.md (9ef89218)
+THE PICK: NINE DAYS OF KEEPING FOOD AND WATER IN THE STASH AT THE DOOR (three men: 54 units, 108 litres; a food that
+keeps 12 days or more, never grains 7 or bread 8) AND THE FIRST CONTRACT, WHATEVER THE WORLD PUTS ON THE BOARD, PAYS
+HALF ON THE HANDSHAKE (15 at THIN, 22 at FULL; kept if the job goes wrong); NO WAGE HOLIDAY (no BB twin, a cliff from
+6 to 9 a day on day eight, worth 2 days, nothing on the no-wage books). Why nine: BB's cart reads 8 on the bar and its
+grains rot on the seventh; a plain week is a day short of BB (this lane's Day 72 and 74 corrected). Why the handshake:
+BB's advance and the condotta's down payment, offered without the ask; the only option with a choice behind it, so
+the jump is earned (117(c)); 'a starting job' authored by us is the fifth votes' dead first fight. Slider for
+TUNING: EASIEST (10 days, the whole job up front, no wage week one) / THE START (the pick) / BB (8 days, a quarter
+asked) / PAST (today). THE FINDING: the men's wage is canon (his 9/29 five resources, 'batteries per man per day in
+wages'; the roster screen's 'N BATT A DAY'); 'one time purchases, no daily wage' is the RETINUE card. With the wage
+NO free week on main clears BB's 46 at any purse on main (all three on BB's High purse: 44; the burn 9 a day
+against 5.4, water 3 of it). The pick clears BB only with FULL 290 AND the grain stack on the first counter (48 / 44
+against 46 / 41; our BB rung reads 46 / 42 there, the books check) or a purse of 345 (279 with the stack). On the
+no-wage books (the live map today) the pick alone reads 51 at THIN 240. PROVES US WRONG: the row's '41 days' is the
+no-wage reading (27 with the wage); TUNING's rule-117 page 'a daily wage -> bought once' reads the retinue as the
+men, so its 250 / 290 start is 14 to 19 days harder than BB once they are paid; the live map is about five times
+easier than BB today and falls 89 percent (240 to 26) the day the six piles and the wage reach it. Routed: TUNING
+(four rows: seed_days 9, first_handshake 0.5, wage_holiday 0, the 117 check; the bought-once line; the purse with the
+wage), RUN TWO (the seeded stash, the client's half, the stack on the shelf), RUN (nine FOOD at the door so the bar is
+not red in the first second; no cut carries the wage without the free week and the stack), UI (the handshake seen and
+heard; DAYS plain from the first second), PEOPLE + RUN TWO (the men's wage is canon), WORDS (eight lines). Eight bank
+lines draft:true (section C x26, 1 of 8 Spanish). The calculator reproduces Day 74's 41 / 27 / 48 and BB's 46 / 37 / 55.
+GATES (rule 13, by name): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0; OPEN ROW 8/1 (O3: WORLD
+has 2 OPEN rows, from main, not this lane; ECONOMY 3); CANON ROT 12/1 (C3 73 of 62), BANKS-USED 24/2, BANK LAW 2/1, all
+red on main before this diff, this page adds none.
+NEXT OPEN (jump list, rule 74): [the poverty premium] (now the top, and now the other half of rule 117 on day one: the
+stack within a new crew's reach), [made here], [the gap that survives].
+PENDING Paolo: none new.
+
 ECONOMY (economy-opus-10-18): 10/18 LATEST (s) -- [the rumour] SHIPPED, THE NEW AGE
 (the top OPEN row; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117; research only, no
 screen built, no data file touched, no VOTE sheet, rule 88). Record:
