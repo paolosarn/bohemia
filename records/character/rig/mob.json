@@ -1,0 +1,89 @@
+{
+ "look": "Mob",
+ "shape": "lanky / cape / bare head / long hem",
+ "worn": {
+  "hair": "DRY TAPER",
+  "base": "MOB PINSTRIPE SHIRT",
+  "back": "CHARCOAL SHOULDER MANTLE",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/mob.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5357,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7672,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "mob_shoe": 3516,
+  "mob_mantle": 16650,
+  "mob_cape": 5002,
+  "mob_belt": 346,
+  "mob_hair": 17968
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "mob_belt": [
+   0.0452,
+   0.0212,
+   0.013
+  ],
+  "mob_cape": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "mob_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "mob_hair": [
+   0.013,
+   0.0103,
+   0.0091
+  ],
+  "mob_mantle": [
+   0.0319,
+   0.0296,
+   0.0319
+  ],
+  "mob_shirt": [
+   0.1845,
+   0.1441,
+   0.0685
+  ],
+  "mob_shoe": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "mob_shoes": [
+   0.016,
+   0.0097,
+   0.0091
+  ],
+  "mob_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "mob_trousers": [
+   0.0343,
+   0.0232,
+   0.0212
+  ]
+ }
+}

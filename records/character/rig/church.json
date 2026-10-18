@@ -1,0 +1,95 @@
+{
+ "look": "Church",
+ "shape": "tall / mantle / skull cap",
+ "worn": {
+  "hair": "COIL CROWN",
+  "base": "VESTMENT GOLD SHIRT",
+  "back": "GOLD SHOULDER MANTLE",
+  "head": "BONE KNIT CAP",
+  "legs": "GOLD DROP TROUSER",
+  "feet": "BROWN BOOTS"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/church.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5476,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.807,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "church_trouser": 2568,
+  "church_shoe": 3716,
+  "church_vestment": 5852,
+  "church_mantle": 17882,
+  "church_hair": 17968,
+  "church_hat": 1518
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "church_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "church_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "church_hat": [
+   0.3613,
+   0.3231,
+   0.2384
+  ],
+  "church_mantle": [
+   0.5149,
+   0.402,
+   0.1746
+  ],
+  "church_shirt": [
+   0.6172,
+   0.4793,
+   0.1878
+  ],
+  "church_shoe": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "church_shoes": [
+   0.0529,
+   0.0307,
+   0.0262
+  ],
+  "church_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "church_trouser": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "church_trousers": [
+   0.5149,
+   0.4678,
+   0.3712
+  ],
+  "church_vestment": [
+   0.6172,
+   0.4793,
+   0.1878
+  ]
+ }
+}

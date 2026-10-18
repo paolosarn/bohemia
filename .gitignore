@@ -4,3 +4,4 @@ node_modules/
 package-lock.json
 .bohemia_gates.lock
 v/
+records/character/rig/*.glb

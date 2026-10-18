@@ -1,0 +1,88 @@
+{
+ "look": "Network",
+ "shape": "tall / nothing / nothing",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "TEAL WORK SHIRT",
+  "outer": "TEAL COCOON COAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "SLOUCH BOOT"
+ },
+ "dials": {
+  "height": 0.75,
+  "belly": -0.25,
+  "shoulders": 0.25,
+  "hips": -0.1
+ },
+ "model": "records/character/rig/network.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7845,
+ "real_height_for_rig": 1.7908,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "network_trouser": 2568,
+  "network_shoe": 3836,
+  "network_coat": 19050,
+  "network_coat_skirt": 4704,
+  "network_hair": 17968
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "network_coat": [
+   0.0931,
+   0.2961,
+   0.2423
+  ],
+  "network_coat_skirt": [
+   0.0931,
+   0.2961,
+   0.2423
+  ],
+  "network_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "network_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "network_shirt": [
+   0.0782,
+   0.1274,
+   0.107
+  ],
+  "network_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "network_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "network_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "network_trouser": [
+   0.063,
+   0.063,
+   0.0648
+  ],
+  "network_trousers": [
+   0.063,
+   0.063,
+   0.0648
+  ]
+ }
+}

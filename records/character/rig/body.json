@@ -1,0 +1,75 @@
+{
+ "look": "Body",
+ "shape": "the man under every look: no faction",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BLACK TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "WHITE SNEAKERS"
+ },
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/body.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "body_trouser": 2568,
+  "body_shoe": 3148,
+  "body_hair": 17968
+ },
+ "materials": {
+  "body_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "body_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "body_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "body_shoe": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "body_shoes": [
+   0.491,
+   0.4678,
+   0.4125
+  ],
+  "body_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "body_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "body_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ]
+ }
+}

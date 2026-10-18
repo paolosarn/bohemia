@@ -9365,6 +9365,34 @@
     "how": "image",
     "src": "vote/RUN_THE_RIG_TRUCK_ON_THE_MAP_10_18.png"
    }
+  },
+  {
+   "id": "character-the-thirteen-through-the-rig-10-18",
+   "kind": "outfit",
+   "lane": "character",
+   "made": "10/18",
+   "sha": "PENDING",
+   "draft": true,
+   "redoOf": "character-the-texture-set-10-17",
+   "title": "THE THIRTEEN GANG LOOKS, BUILT AS 3D MODELS LIKE THE ROBOT",
+   "why": "You said the cut-up clothes looked glitchy, so that way is dead: every outfit is now a real 3D shape on the body's bones, coats with skirts that swing apart when he walks, capes, mantles and hats, rendered into pixels the robot's way. You see all thirteen plus the plain body standing, eight directions each, four of them walking, next to how the street wears them now, in the VOTE tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/character/CHARACTER_THE_THIRTEEN_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "records/cook3/thirteen_repainted.png",
+    "diffs": [
+     "THE COATS: ours hang as real cut cloth (the Reds duster open at the front with a split tail, the Anarchists' torn hem) that parts round the legs on the walk; the street's thirteen have the coat painted flat on the body, front only.",
+     "THE HEADS: ours have a round skull, sculpted hair and real caps and a rice hat you can see from behind; the street's have a flat block head with hair drawn on.",
+     "THE DETAIL: the street's flat sprites still read the faction's pattern better close up (the Mob pinstripe, the Caravans plaid); ours carry the colour but not yet the print."
+    ]
+   },
+   "before_after": {
+    "before": "the thirteen as the street wears them now, flat sprites in the runway paint (second row on the sheet)",
+    "after": "the same thirteen as models on the rig's man, rendered through the rig (first row, then eight facings and the walk)",
+    "scale": "1:1"
+   }
   }
  ],
  "verdicts": [

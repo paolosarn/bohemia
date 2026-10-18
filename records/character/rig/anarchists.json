@@ -1,0 +1,101 @@
+{
+ "look": "Anarchists",
+ "shape": "lanky / split-tail / knit cap",
+ "worn": {
+  "hair": "LAYERED FALL",
+  "base": "BLACK TANK",
+  "outer": "LEATHER WRAP COAT",
+  "head": "CHARCOAL WATCH CAP",
+  "legs": "LEATHER STACK PANT",
+  "feet": "LEATHER STACK BOOT"
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.25,
+  "hips": -0.25
+ },
+ "model": "records/character/rig/anarchists.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5486,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7821,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "anarchists_shoe": 4036,
+  "anarchists_coat": 17816,
+  "anarchists_coat_skirt": 7528,
+  "anarchists_hair": 30198,
+  "anarchists_hair_fall": 2646,
+  "anarchists_hat": 3444,
+  "anarchists_hat_brim": 2106
+ },
+ "materials": {
+  "anarchists_coat": [
+   0.1248,
+   0.0343,
+   0.0976
+  ],
+  "anarchists_coat_skirt": [
+   0.1248,
+   0.0343,
+   0.0976
+  ],
+  "anarchists_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "anarchists_hair": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "anarchists_hair_fall": [
+   0.0212,
+   0.0144,
+   0.0116
+  ],
+  "anarchists_hat": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "anarchists_hat_brim": [
+   0.0369,
+   0.0343,
+   0.0369
+  ],
+  "anarchists_shirt": [
+   0.0116,
+   0.0103,
+   0.0103
+  ],
+  "anarchists_shoe": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "anarchists_shoes": [
+   0.007,
+   0.006,
+   0.006
+  ],
+  "anarchists_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "anarchists_trousers": [
+   0.0482,
+   0.0212,
+   0.0369
+  ],
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ]
+ }
+}

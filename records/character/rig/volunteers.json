@@ -1,0 +1,88 @@
+{
+ "look": "Volunteers",
+ "shape": "small / nothing / nothing",
+ "worn": {
+  "hair": "HEAVY FRINGE",
+  "base": "WHITE TEE",
+  "outer": "BONE COCOON COAT",
+  "legs": "STACKED JERSEY PANT",
+  "feet": "COLUMN PANT-BOOT"
+ },
+ "dials": {
+  "height": -0.6,
+  "belly": -0.3,
+  "shoulders": -0.4,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/volunteers.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5455,
+ "real_height_m": 1.6684,
+ "real_height_for_rig": 1.6872,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "volunteers_trouser": 2568,
+  "volunteers_shoe": 4116,
+  "volunteers_coat": 18310,
+  "volunteers_coat_skirt": 4160,
+  "volunteers_hair": 21846
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "volunteers_coat": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "volunteers_coat_skirt": [
+   0.2664,
+   0.2582,
+   0.2384
+  ],
+  "volunteers_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "volunteers_hair": [
+   0.006,
+   0.0052,
+   0.0044
+  ],
+  "volunteers_shirt": [
+   0.552,
+   0.5271,
+   0.4678
+  ],
+  "volunteers_shoe": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "volunteers_shoes": [
+   0.0513,
+   0.0382,
+   0.0296
+  ],
+  "volunteers_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "volunteers_trouser": [
+   0.0595,
+   0.0595,
+   0.063
+  ],
+  "volunteers_trousers": [
+   0.0595,
+   0.0595,
+   0.063
+  ]
+ }
+}
