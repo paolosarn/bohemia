@@ -25,19 +25,20 @@
 |---|---|---|---|---|---|---|---|
 | 1 | 22.3 s | 49 / 98 | 0 | 17 | **1,533 ms** | 49.1 | 0 |
 | 2 | 22.8 s | 47 / 97 | 1 (5x) | 13 | **1,500 ms** | 48.4 | 0 |
+| 3, the shipped cut (re-cut after rebasing onto SOUNDS' cut of the desert under travel) | 20.9 s | 48 / 101 | 1 (5x) | 11 | **1,167 ms** | 49.5 | 0 |
 
-Both walks COUNT (20 or more landed taps) and neither stalls near 3 s: the STOP block's rule on the cut is met on the
+All three walks COUNT (20 or more landed taps) and neither stalls near 3 s: the STOP block's rule on the cut is met on the
 cut itself. The row [the long freeze]'s own end state (no stall over a beat) is still NOT met: 13 to 17 whole-map draws
 over 500 ms a walk; the first 15 seconds after the door average 36.9 fps against 49.7 for the rest.
 
 ## THE DEAD TAPS (the coordinator's 3 of 69)
 The coordinator's per-tap file was not committed (records/BOHEMIA_FIVE_MINUTES.json holds RUN's walks only), so its three
-cannot be read by name. What every walk that wrote names has found, six walks on this instrument since the fix:
+cannot be read by name. What every walk that wrote names has found, seven walks on this instrument since the fix:
 
 | walk | dead taps | by name |
 |---|---|---|
 | RUN 10/18a walks 1 to 3 | 0, 0, 2 | 5x, 5x |
-| this round walks 1 and 2 | 0, 1 | 5x |
+| this round walks 1 to 3 | 0, 1, 1 | 5x, 5x |
 
 **Every named dead tap is the speed pad's lit plate pressed again** (5x while already at 5x). The game is right to change
 nothing: the speed is already the speed. It is not RUN's code (the pad is UI's, `__THE_PAD_IS_TRAVEL_SPEED__` in the city
