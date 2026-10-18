@@ -52,6 +52,15 @@ an even table is the tween the show never had); the bite's bite lands ON the sec
 spring; every beat of the step starts on a key; the idle holds a pose at least 400 ms (Grok's idle band) and every
 longest-held key is a pause (stiller than both its neighbours), re-measured here from the frames; the page plays the slots, not the keys evenly,
 and plays all three dogs. Mutations planted: holds that spill a slot past the beat, a bite one slot late, an even table.
+
+--hyena (ROUND THREE's second beast, 10/18; the bestiary's number 3, the HYENA CLAN; rule 42: the cave hyena, whose genome
+was read from Ice Age bone): records/target/master_rig/cave_hyena and ANIMATION_THE_CAVE_HYENA at 1.6 m, every question the
+pack is asked (three tones, the passing-pose still, the card not BACK, the coat 20 levels from the wolf and from each dog,
+THE HOLDS, the page playing the slots, the row naming its stills), and in place of 'taller than the fox' THE SLOPE, the
+hyena's silhouette: side-on (E and W) the top of the back at the withers (65 percent of the way to the head) stands at
+least 8 px over the top at the hips (35 percent), measured: the hyena 13, the wolf 3, the dogs 1 to 2, the fox 3.
+Mutation planted: a level back. HELD 10/18 and NOT in the suite: its coat is 6 levels from the pit's
+(records/BOHEMIA_THE_CAVE_HYENA_HELD_10_18_26.md); it joins the suite the round it reaches a card.
 """
 import os, sys, json
 import numpy as np
@@ -78,15 +87,21 @@ if DOG:
     STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_FERAL_DOG_' + DOG.upper(), 'feral_dog_%s.glb' % DOG, DOGS[DOG], 0.40, 'animation-the-feral-dog-pack-10-18'
     WEBP, TABLE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json'))
     PAGE = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_FERAL_DOG_PACK.html')
-TONES, TALLER, APART = 70, 0.05, 20
+HYENA = '--hyena' in sys.argv
+if HYENA:
+    D = os.path.join(ROOT, 'records/target/master_rig/cave_hyena')
+    STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_CAVE_HYENA', 'cave_hyena.glb', 1.6, 0.40, 'animation-the-cave-hyena-10-18'
+    WEBP, TABLE, PAGE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json', '.html'))
+PACK = bool(DOG) or HYENA   # the questions the remade beasts share (round two and after)
+TONES, TALLER, APART, SLOPE_PX = 70, 0.05, 20, 8
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 CLIPS = {'Survey': 12, 'Walk': 6, 'Bite': 6}
 MIRRORS = (('E', 'W'), ('NE', 'NW'), ('SE', 'SW'))
 SAT_LINE, XOR_LEAST, MOVE_LOOP, MOVE_BITE, RISE_PX, COLOURS = SAT_MAX, 0.01, 14.0, 16.0, 8, 16
 LONG_PX = int(80 * REAL_M / 1.6)
-if DOG:   # the spring's line was set on a 1.7 m wolf; a 1.1 m dog reaches as far for its size (the pit's 7 px is 11 percent of its length, the wolf's 9 is 9)
+if PACK:   # the spring's line was set on a 1.7 m wolf; a 1.1 m dog reaches as far for its size (the pit's 7 px is 11 percent of its length, the wolf's 9 is 9)
     RISE_PX = max(5, int(round(8 * REAL_M / 1.7)))
-NOUN = 'dog' if DOG else 'wolf'
+NOUN = 'dog' if DOG else 'hyena' if HYENA else 'wolf'
 
 ok_n = fail_n = 0
 def ok(name, cond, why=''):
@@ -151,7 +166,7 @@ def coat_apart(A, B):
     ca = np.concatenate([f[f[..., 3] > 0][:, :3] for f in A]).mean(0); cb = np.concatenate([f[f[..., 3] > 0][:, :3] for f in B]).mean(0)
     return float(np.linalg.norm(ca - cb))
 
-if REDONE or DOG:
+if REDONE or PACK:
     flat = blob.copy(); flat[10:30, 5:25] = [110, 100, 90, 255]
     ok('planted: a flat one-tone coat is refused', tones([flat]) < TONES)
     ok('planted: an idle-first-key still is refused', not is_passing({'still_frame': 0.0, 'still': None}))
@@ -173,7 +188,20 @@ def hold_faults(c, per=SLOTS):
     if not bad and c['name'] == 'idle' and max(h) * 500.0 / per < 400: bad.append('no idle pose held 400 ms')
     return bad
 
-if DOG:
+def slope(f, back=0.35, front=0.65):
+    """side-on, how many px the top of the back at the withers stands over the top at the hips"""
+    a = f[..., 3] > 0; xs = np.nonzero(a.any(0))[0]; x0, x1 = xs.min(), xs.max()
+    def top(fr):
+        c = int(round(x0 + fr * (x1 - x0))); band = a[:, max(0, c - 1):c + 2].any(1); return int(np.nonzero(band)[0].min())
+    return top(back) - top(front)
+
+if HYENA:
+    level = np.zeros((40, 80, 4), int); level[10:30, 5:75] = [120, 100, 80, 255]
+    ok('planted: a level back is refused as a hyena', slope(level) < SLOPE_PX)
+    sloped = np.zeros((60, 80, 4), int)
+    for x in range(5, 75): sloped[int(40 - (x - 5) * 0.5):50, x] = [120, 100, 80, 255]   # the withers 10 px over the hips
+    ok('planted: a back that rises to the withers passes', slope(sloped) >= SLOPE_PX)
+if PACK:
     ok('planted: a dog that is the wolf recoloured a little is refused', coat_apart([blob], [blob + [8, 8, 8, 0]]) < APART)
     ok('planted: a rig DIRECTION\'s card sent BACK is refused', 'BACK' in '3 of 8 out -> BACK before VOTE')
     good = dict(name='bite', keys=6, beats=2, holds=[3, 2, 1, 2, 1, 3]); good['slots'] = [j for j, n in enumerate(good['holds']) for _ in range(n)]
@@ -199,7 +227,7 @@ for a, b in MIRRORS:
 if stills:
     s = saturation(list(stills.values()))
     ok('the coat is a %s\'s: mean saturation %.2f under %.2f (the fox was over 0.5)' % (NOUN, s, SAT_LINE), s < SAT_LINE)
-    if DOG:
+    if PACK:
         tn = tones(list(stills.values()))
         ok('three tones, not one: the lightest tenth is %.0f levels over the darkest (line %d)' % (tn, TONES), tn >= TONES)
         ok('the still is the walk\'s passing pose (%s), never the idle\'s first key' % m.get('still'), is_passing(m))
@@ -208,10 +236,15 @@ if stills:
         for other in ['dire_wolf_redone'] + ['feral_dog_' + o for o in DOGS if o != DOG]:
             om = json.load(open(os.path.join(ROOT, 'records/target/master_rig', other, 'rig.json')))
             ap = coat_apart(list(stills.values()), [load(fp) for fp in om['files']])
-            ok('a pack, not one dog recoloured: its coat is %.0f levels from %s (line %d)' % (ap, other, APART), ap >= APART)
+            ok('%s: its coat is %.0f levels from %s (line %d)' % ('a pack, not one dog recoloured' if DOG else 'its own beast, not a dog recoloured', ap, other, APART), ap >= APART)
         fm = json.load(open(os.path.join(ROOT, 'records/target/master_rig/fox/rig.json')))
-        r_new, r_fox = tall_over_long(stills['E']), tall_over_long(load(fm['files'][FACINGS.index('E')]))
-        ok('it stands like a dog, not the fox it came from: facing E tall over long %.2f against the fox\'s %.2f (at least %.2f more)' % (r_new, r_fox, TALLER), r_new - r_fox >= TALLER)
+        if DOG:
+            r_new, r_fox = tall_over_long(stills['E']), tall_over_long(load(fm['files'][FACINGS.index('E')]))
+            ok('it stands like a dog, not the fox it came from: facing E tall over long %.2f against the fox\'s %.2f (at least %.2f more)' % (r_new, r_fox, TALLER), r_new - r_fox >= TALLER)
+        if HYENA:
+            se, sw = slope(stills['E']), slope(stills['W'], 0.65, 0.35)
+            sf = slope(load(fm['files'][FACINGS.index('E')]))
+            ok('THE SLOPE: side-on the withers stand %d px (E) and %d px (W) over the hips, at least %d (the fox it came from: %d)' % (se, sw, SLOPE_PX, sf), se >= SLOPE_PX and sw >= SLOPE_PX)
     if REDONE:
         tn = tones(list(stills.values()))
         ok('three tones, not one: the lightest tenth is %.0f levels over the darkest (line %d)' % (tn, TONES), tn >= TONES)
@@ -247,7 +280,7 @@ if t and sheet is not None:
     a = np.asarray(sheet)[:CH * 8]; n = len(set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())))
     ok('the wolf rows hold %d colours, %d or fewer (one palette, the pack draws its animals in a handful)' % (n, COLOURS), n <= COLOURS)
     ok('the table says three keys a beat at 120 and names the model', t.get('keys_per_beat') == 3 and t.get('bpm') == 120 and t.get('model', '').endswith('/' + MODEL))
-    if DOG:
+    if PACK:
         for c in t['clips']:
             f = hold_faults(c, t.get('slots_per_beat', 0) or 0) if t.get('slots_per_beat') == SLOTS else ['no slots_per_beat of %d' % SLOTS]
             ok('THE HOLDS (CRASHBOX): %s held %s twelfths of a second, %d beats at 120 (%s)' % (c['name'], '-'.join(map(str, c.get('holds', []))), c['beats'], c.get('hold_rule', '')), not f, '; '.join(f))
@@ -262,12 +295,12 @@ if t and sheet is not None:
 page = open(PAGE).read() if os.path.exists(PAGE) else ''
 ok('the VOTE page plays the sheet from its table, says PLACEHOLDER, and asks no vote inside (rule 25)',
    STEM + '.webp' in page and STEM + '_TABLE.js' in page and os.path.exists(os.path.join(ROOT, 'slices/vote/' + STEM + '_TABLE.js')) and 'PLACEHOLDER' in page and 'requestAnimationFrame' in page and 'thumb' not in page.lower())
-if DOG:
-    ok('the page plays the HOLDS (the slots of each twelfth of a second, never the keys evenly) and all three dogs',
-       'c.slots[' in page and 'slots_per_beat' in page and 'c.keys)' not in page and all('ANIMATION_THE_FERAL_DOG_%s_TABLE.js' % d.upper() in page for d in DOGS))
+if PACK:
+    ok('the page plays the HOLDS (the slots of each twelfth of a second, never the keys evenly)%s' % (' and all three dogs' if DOG else ''),
+       'c.slots[' in page and 'slots_per_beat' in page and 'c.keys)' not in page and (HYENA or all('ANIMATION_THE_FERAL_DOG_%s_TABLE.js' % d.upper() in page for d in DOGS)))
 reg = json.load(open(REG)); row = next((r for r in reg.get('items', []) if r.get('id') == ID), None)
 ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/' + os.path.basename(PAGE) and str(row.get('title', '')).startswith('PLACEHOLDER') and (not REDONE or row.get('redoOf') == 'animation-the-beast-in-eight-10-17'))
-if DOG:
-    ok('the registry row names this dog\'s eight stills as its sprites (the cull reads them, rule 114b)', bool(row) and all('records/target/master_rig/feral_dog_%s/rig_%s.png' % (DOG, f) in row.get('sprites', []) for f in FACINGS))
+if PACK:
+    ok('the registry row names this %s\'s eight stills as its sprites (the cull reads them, rule 114b)' % NOUN, bool(row) and all('%s/rig_%s.png' % (os.path.relpath(D, ROOT), f) in row.get('sprites', []) for f in FACINGS))
 ok('the model and its licence are in the repo', os.path.exists(os.path.join(ROOT, 'reference/models/bohemia', MODEL)) and os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/LICENSE.txt')))
-print('\n%s GATE: %d passed, %d failed' % (('THE FERAL DOG PACK (%s)' % DOG) if DOG else 'THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)
+print('\n%s GATE: %d passed, %d failed' % (('THE FERAL DOG PACK (%s)' % DOG) if DOG else 'THE CAVE HYENA' if HYENA else 'THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)
