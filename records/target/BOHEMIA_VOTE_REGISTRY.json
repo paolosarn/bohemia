@@ -11025,6 +11025,26 @@
     "scale": "1:1"
    },
    "draft": true
+  },
+  {
+   "id": "run2-the-crew-screen-at-fourteen-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "e59d34ba",
+   "made": "10/18",
+   "title": "YOUR WHOLE CREW OF FOURTEEN FITS ON YOUR PHONE NOW, NO SIDEWAYS SCROLLING",
+   "why": "You said the crew screen has to work with one person, six, up to fourteen, so on your phone the two battle lines now stand up side by side with every face and whole name, the hurt men show their name and days and are never in the line twice, and on a laptop it is two columns with the man's card and the bag beside the crew. You see it here under LOOK, before on the left and after on the right, and in the demo when you tap CREW.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_CREW_SCREEN_AT_FOURTEEN_BEFORE_AFTER_10_18.png"
+   },
+   "said": "when you got one person... three... six... up to 14 people",
+   "before_after": {
+    "before": "the line ran off the phone's glass, the page scrolled sideways from six men, a laid-up man stood in the line and the hurt strip at once, the laptop one stretched column",
+    "after": "the line stands up on a phone (front beside back, every face and name), the hurt strip with names and days, two columns on a laptop with the card and the bag beside the men",
+    "scale": "phone one screen at its width, laptop one screen at 0.44"
+   },
+   "draft": true
   }
 ],
  "verdicts": [
