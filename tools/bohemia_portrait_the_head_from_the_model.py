@@ -171,15 +171,18 @@ FACTION = {
     'Anarchists': dict(skin=('skin_deep', 2), hair='fall', hair_c=('cloth_black', 2), gear='watch cap', gear_c=('cloth_black', 3), scar='brow',
                        face={'face.len': 38, 'face.cheekW': 27, 'face.jawW': 22, 'face.foreheadW': 22, 'face.chinW': 9, 'nose.w': 2, 'eyes.gap': 5, 'face.craniumH': 12},
                        worn='LAYERED FALL under the CHARCOAL WATCH CAP; a scar splits the left brow'),
-    'Blues':      dict(skin=('skin_deep', 2), hair='taper', hair_c=('cloth_black', 1), gear=None, beard='moustache',
+    # (round 16, the NOT VIBE CODED light row, D3: five heads read lit from below, near-black hair over the paler gang clothes
+    # he voted up; the guide's 'shadows never black' lifts their hair off black, each in its gang's way, the beard a step
+    # darker than the hair so the lower face does not brighten with it)
+    'Blues':      dict(skin=('skin_deep', 2), hair='taper', hair_c=('tape_masking', 1), beard_c=('tape_masking', 0), gear=None, beard='moustache',
                        face={'face.cheekW': 34, 'face.jawW': 31, 'face.chinW': 16, 'face.foreheadW': 27, 'brows.len': 9, 'mouth.w': 11},
                        worn='DRY TAPER, bare head; a moustache'),
-    'Homeless':   dict(skin=('skin_mid', 2), hair='fall', hair_c=('tape_masking', 1), gear=None, beard='full',
+    'Homeless':   dict(skin=('skin_mid', 2), hair='fall', hair_c=('tape_masking', 2), beard_c=('tape_masking', 1), gear=None, beard='full',
                        face={'face.len': 35, 'face.cheekW': 29, 'face.jawW': 24, 'face.chinW': 11, 'face.eyeY': 1, 'nose.w': 4, 'face.craniumH': 9},
                        worn='LAYERED FALL, bare head; a beard grown out the same sand as the hair'),
-    'Church':     dict(skin=('skin_light', 3), lips=('skin_light', 2), hair='coil', hair_c=('cloth_black', 1), gear='skull cap', gear_c=('clay_bone', 2),
+    'Church':     dict(skin=('skin_light', 3), lips=('skin_light', 2), hair='coil', hair_c=('tape_grey', 2), gear='skull cap', gear_c=('clay_bone', 3),
                        face={'face.len': 37, 'face.foreheadW': 27, 'face.cheekW': 30, 'face.jawW': 24, 'face.chinW': 10, 'face.craniumH': 13, 'eyes.gap': 5},
-                       worn='COIL CROWN under the BONE KNIT CAP, worn as a skull cap'),
+                       worn='COIL CROWN, gone silver, under the BONE KNIT CAP, worn as a skull cap'),
     'Reds':       dict(skin=('skin_mid', 2), hair='taper', hair_c=('cloth_black', 1), gear=None, beard='goatee',
                        face={'face.len': 34, 'face.cheekW': 31, 'face.jawW': 28, 'face.chinW': 15, 'face.browY': -1, 'mouth.w': 10},
                        worn='DRY TAPER, bare head; a goatee'),
@@ -192,10 +195,10 @@ FACTION = {
     'Mob':        dict(skin=('skin_light', 2), lips=('skin_light', 1), hair='slick', hair_c=('cloth_black', 1), gear=None, scar='cheek',
                        face={'face.len': 36, 'face.cheekW': 30, 'face.jawW': 27, 'face.chinW': 14, 'face.foreheadW': 25, 'eyes.gap': 5, 'nose.w': 2, 'face.browY': 1},
                        worn='slicked back (CHARACTER\'s cut for the Mob), bare head; a scar across the right cheek'),
-    'Network':    dict(skin=('skin_deep', 2), hair='taper', hair_c=('cloth_black', 1), gear=None,
+    'Network':    dict(skin=('skin_deep', 2), hair='taper', hair_c=('tape_grey', 2), gear=None,
                        face={'face.len': 35, 'face.cheekW': 29, 'face.jawW': 25, 'face.chinW': 11, 'face.foreheadW': 25, 'eyes.gap': 7, 'mouth.w': 8, 'face.craniumH': 11},
-                       worn='TEMPLE TAPER, bare head'),
-    'Volunteers': dict(skin=('skin_deep', 3), hair='fringe', hair_c=('cloth_black', 1), gear=None,
+                       worn='TEMPLE TAPER bleached silver, bare head'),
+    'Volunteers': dict(skin=('skin_deep', 3), hair='fringe', hair_c=('tape_masking', 1), gear=None,
                        face={'face.len': 30, 'face.cheekW': 28, 'face.jawW': 22, 'face.chinW': 9, 'face.craniumH': 11, 'mouth.w': 7},
                        worn='HEAVY FRINGE, bare head'),
     'Remnants':   dict(skin=('skin_mid', 2), hair='taper', hair_c=('cloth_black', 1), gear='knit cap', gear_c=('tape_grey', 1), beard='stubble',
@@ -214,7 +217,7 @@ for _k, _c in FACTION.items():
         look='faction_' + _tag, crew=True, faction=_k, twin='slices/fight_people/faction_%s.webp' % _tag, twin_face=True,
         palette='steps of the style palette (skin %s %d, hair %s %d%s)' % (_c['skin'] + _c['hair_c'] + ((', gear %s %d' % _c['gear_c']) if _c.get('gear') else '',)),
         kit='%s; %s' % (_c['gear'] or 'bare head', CUT_NAME[_c['hair']]),
-        colours=dict(skin=_c['skin'], lips=_c.get('lips', (_c['skin'][0], max(0, _c['skin'][1] - 1))), hair=_c['hair_c'],
+        colours=dict(skin=_c['skin'], lips=_c.get('lips', (_c['skin'][0], max(0, _c['skin'][1] - 1))), hair=_c['hair_c'], beard=_c.get('beard_c', _c['hair_c']),
                      gear=_c.get('gear_c', _c['hair_c']), iris=('skin_deep', 1), stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
 
 
