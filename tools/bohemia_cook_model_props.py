@@ -33,6 +33,9 @@ against 2,899 blockers): the things a man stands behind in a city fight, each wi
             bars and the owner's code stencilled, a BLOCKER a man can climb, the twin pack:Cargo, crates and
             containers#36. The odd thing: a window torch-cut in the side, the panel leaning under it, a blanket for a
             curtain. On the sheet at SW, the three-quarter his pack draws containers at.
+  propane   a 500-gallon propane tank at its real 3.02 m by 0.95 m, 2:1 heads, saddle legs on concrete pads, the valve
+            dome, COVER that stops a man, the twins pack:Cargo, crates and containers#22 (his gas bottles) and
+            9. Boilers and tanks#25. The odd thing: the dome's lid thrown back and a cut hose run off the open valve.
 
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
@@ -741,6 +744,61 @@ def container(bpy, mathutils):
         blotch(bpy, 'roof_rust_%d' % i, rust, r, (x, y_, H - 0.015), (0, 0, 0), seed=61 + i)
 
 
+def propane(bpy, mathutils):
+    # a 500-gallon propane tank at its real size (3.02 m long, 0.95 m across, 1.2 m to the top of its dome), the kind
+    # behind every trailer in the valley; the twins his gas bottles (pack:Cargo, crates and containers#22, approved) and
+    # his horizontal boiler (pack:9. Boilers and tanks#25, never judged): a white shell with 2:1 heads and their weld
+    # seams, two saddle legs on concrete pads, lifting lugs, the valve dome on top. COVER that also stops a man (the
+    # board count's 'propane tank 2.4 x 1.2, cover that stops you'). The odd thing: the dome's lid thrown back and a
+    # hose run off the service valve, over the shell and down to the ground, cut: somebody drained it.
+    L, R = 3.02, 0.475
+    # round two of the loop: the lid stood straight up off its hinge like a lollipop sign (and made the tank 1.6 m),
+    # and five dark rust stains sat on the white like cow spots. The lid thrown all the way back onto the shell, the rust
+    # a step lighter, smaller, gathered where a tank really rusts: at the seams, the lugs and over the legs
+    white, rust, steel = mat(bpy, 'paint_white', 'clay_bone', 3), mat(bpy, 'rust', 'clay_rust', 2), mat(bpy, 'steel', 'tape_grey', 1)
+    pad, hose = mat(bpy, 'concrete', 'tape_grey', 2), mat(bpy, 'hose', 'rubber', 1)
+    zc, hl = 0.13 + R, 0.24                               # the axis height (legs and pads under it), a 2:1 head's depth
+    cyl(bpy, 'shell', white, R, L - 2 * hl, (0, 0, zc), rot=(0, math.pi / 2, 0), verts=32)
+    for sx in (-1, 1):
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=32, ring_count=16, location=(sx * (L / 2 - hl), 0, zc))
+        h = put(bpy, bpy.context.active_object, 'head_%d' % sx, white); h.scale = (hl, R, R)
+        cyl(bpy, 'seam_%d' % sx, rust, R + 0.006, 0.025, (sx * (L / 2 - hl), 0, zc), rot=(0, math.pi / 2, 0), verts=32)
+        # the saddle leg: a plate curved to the shell, a foot, on its concrete pad
+        x = sx * 0.95
+        box(bpy, 'saddle_%d' % sx, steel, (0.08, 0.62, 0.3), (x, 0, 0.22))
+        box(bpy, 'foot_%d' % sx, steel, (0.2, 0.72, 0.02), (x, 0, 0.11))
+        box(bpy, 'pad_%d' % sx, pad, (0.42, 1.0, 0.1), (x + sx * 0.02, 0.0, 0.05), rot=(0, 0, math.radians(3 * sx)), bevel=0.01)
+        cyl(bpy, 'lug_%d' % sx, steel, 0.035, 0.03, (sx * 0.7, 0, zc + R + 0.01), rot=(math.pi / 2, 0, 0), verts=10)
+    cyl(bpy, 'seam_mid', rust, R + 0.005, 0.02, (0, 0, zc), rot=(0, math.pi / 2, 0), verts=32)
+    # rust coming through the white on the upper sides, the dome's weeping first; a stain is laid on the shell's surface
+    def on_shell(x, th, r, seed):
+        blotch(bpy, 'rust_%d' % seed, rust, r, (x, -(R + 0.004) * math.sin(th), zc + (R + 0.004) * math.cos(th)), (th, 0, 0), seed=seed, thick=0.01)
+    for i, (x, th, r) in enumerate(((-1.24, 0.8, 0.06), (-1.27, 1.25, 0.05), (1.25, 0.6, 0.05), (0.02, 0.95, 0.045), (-0.95, 1.5, 0.08),
+                                    (0.95, 1.45, 0.07), (-0.7, 0.2, 0.04), (0.7, 0.15, 0.045), (0.4, 1.1, 0.035), (-0.3, 0.5, 0.03))):
+        on_shell(x, th, r, 71 + i)
+    # the dome: a collar, the valves inside it, and THE ONE ASYMMETRIC THING its lid thrown back on the hinge
+    zt = zc + R
+    cyl(bpy, 'dome_collar', white, 0.24, 0.1, (0, 0, zt + 0.03), verts=24)
+    cyl(bpy, 'dome_well', steel, 0.21, 0.02, (0, 0, zt + 0.075), verts=24)
+    for i, (x, y, h) in enumerate(((-0.08, 0.04, 0.09), (0.06, -0.05, 0.07), (0.1, 0.08, 0.05))):
+        cyl(bpy, 'valve_%d' % i, steel, 0.025, h, (x, y, zt + 0.08 + h / 2), verts=8)
+    cyl(bpy, 'gauge', white, 0.04, 0.02, (-0.1, -0.08, zt + 0.12), verts=12)
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12, location=(0, 0, 0))
+    lid = put(bpy, bpy.context.active_object, 'dome_lid', white); lid.scale = (0.25, 0.25, 0.12)
+    for v in lid.data.vertices:
+        if v.co.z < 0: v.co.z = 0
+    bpy.ops.object.empty_add(location=(-0.25, 0, zt + 0.08)); hinge = bpy.context.active_object; hinge.name = 'dome_hinge'
+    lid.parent = hinge; lid.location = (0.25, 0, 0); hinge.rotation_euler = (0, math.radians(-168), 0)   # over onto the shell, toward -X
+    # the hose: off the service valve, over the collar, down the near side of the shell to the ground, along it, cut
+    pts = [(0.06, -0.05, zt + 0.14), (0.04, -0.2, zt + 0.17), (0.0, -0.3, zt + 0.1)]
+    for k in range(1, 9):
+        th = 0.55 + k * 0.13
+        pts.append((-0.04 * k, -(R + 0.025) * math.sin(th), zc + (R + 0.025) * math.cos(th)))
+    pts += [(-0.4, -0.5, 0.16), (-0.48, -0.52, 0.03), (-0.75, -0.48, 0.025), (-1.0, -0.36, 0.025), (-1.18, -0.42, 0.025), (-1.3, -0.5, 0.03)]
+    tubes(bpy, 'hose', hose, list(zip(pts[:-1], pts[1:])), 0.02, n=8)
+    cyl(bpy, 'hose_cut', steel, 0.024, 0.04, (-1.32, -0.51, 0.03), rot=(0, math.pi / 2, math.radians(-20)), verts=8)
+
+
 def dims(bpy):
     import mathutils
     lo, hi = [1e9] * 3, [-1e9] * 3
@@ -753,7 +811,7 @@ def dims(bpy):
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags, 'fence': fence, 'container': container}
+            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane}
 
 
 def build(name, out):
