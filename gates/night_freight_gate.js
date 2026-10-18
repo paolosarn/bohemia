@@ -160,7 +160,9 @@ const srv = http.createServer((rq, rs) => {
   const yes = (reg.verdicts || []).some(v => v.id === ID && /^(up|yes|star)$/i.test(String(v.vote)));
   const wired = /night_freight\.json/.test(alphaRaw);
   ok('unjudged is silent: the map plays nothing new until his YES', !wired || yes, wired ? (yes ? 'wired after his YES' : 'WIRED WITHOUT A YES') : 'not wired');
-  ok('in the VOTE tab, kind song, on this page, his song as one of the options', !!item && item.kind === 'song' && item.show && item.show.src === path.basename(PAGE) && (item.options || []).some(o => /REPO MAN/.test(o)) && item.draft === true);
+  /* PULLED UNHEARD (10/18, rule 119): his NO on THE LONG ROAD was about both new songs, 'not giving analog horror vibes';
+     this song is his form on the chip engine's pulse, the sound he said NO to, so it never reaches the tab as it is */
+  ok('not in the VOTE tab: pulled by rule 119 before he heard it', !item, item ? 'REGISTERED' : 'pulled');
   ok('  its title and the song\'s own are drafts (a name is an attempt)', song.draft === true);
   ok('his song for the A/B is a recording on disk, an mp3 (his rows untouched: the song lock holds them)', fs.existsSync(path.join(ROOT, HISF)) && fs.statSync(path.join(ROOT, HISF)).size > 100000);
 
