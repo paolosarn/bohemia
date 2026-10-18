@@ -80,12 +80,28 @@ def main(argv):
     d_bake = max(float(np.abs(r - b).max()) for r, b in zip(ref, baked))
     print('baked the 224 grid into pos_embed %s; max |torch - baked| %.2e' % (tuple(pe.shape), d_bake))
 
+    class Cls(torch.nn.Module):
+        """one input, one output: the hub model's forward takes *args and **kwargs, and the tracer named a
+        second graph input 'masks' after forward_features' keyword (run 39152518660)."""
+        def __init__(self, m):
+            super().__init__()
+            self.m = m
+
+        def forward(self, pixel_values):
+            return self.m.head(self.m.forward_features(pixel_values)['x_norm_clstoken'])
+
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     kw = dict(input_names=['pixel_values'], output_names=['cls'], opset_version=17, do_constant_folding=True)
     if 'dynamo' in inspect.signature(torch.onnx.export).parameters:
         kw['dynamo'] = False
-    torch.onnx.export(model, (torch.from_numpy(xs[0]),), a.out, **kw)
+    torch.onnx.export(Cls(model).eval(), (torch.from_numpy(xs[0]),), a.out, **kw)
     sess = ort.InferenceSession(a.out, providers=['CPUExecutionProvider'])
+    ins = [i.name for i in sess.get_inputs()]
+    print('the graph takes %s and gives %s' % (ins, [o.name for o in sess.get_outputs()]))
+    if ins != ['pixel_values']:
+        print('REFUSED: the graph must take one input, pixel_values')
+        os.remove(a.out)
+        return 1
     coss, diffs = [], []
     for x, r in zip(xs, ref):
         o = sess.run(None, {'pixel_values': x})[0].reshape(-1)
