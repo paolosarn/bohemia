@@ -70,6 +70,10 @@ loses between ten and forty-three batteries a week before it ever fights for pay
 'one short every day' scaled to a crew, and it is now a number TUNING can see.
 
 ## 3. THE POOR PAY MORE: BUYING BY THE RATION COSTS 1.5 TO 2 TIMES BUYING BY THE STACK
+*** CORRECTED 10/18 BY DAY 77 (section 6.1): the ration is 2.4 to 2.5 times the grain stack for every crew of two
+or more (1.4 for a man alone, whose stack rots); Bristol's 490 pounds holds no pack-size line (fuel tariffs 233,
+area 84, credit 55, the meter 38); the food record's size premium is about 6 to 9 in 100. 'The real record exactly'
+below is withdrawn: ours is 16 to 25 times it. ***
 Same 42 units of food on plains: 21 batteries by the ration, 10 to 14 by the stack. The floor of one
 battery, applied to a ration, is a premium of half again to double over the wiki's own stack price.
 Nobody designed that; it falls out of Day 69's rule (sell the unit the floor can reach). And it is

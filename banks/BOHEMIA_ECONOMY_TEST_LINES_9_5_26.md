@@ -5256,3 +5256,51 @@ CCCCCCCCCCCCCCCCCCCCCCCCCC8  a woman at the pump, to a crew that just arrived   
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a
   face, at a board, a stash, a stall, a fire, a counter or a pump.
 - Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
+
+## EEEEEEEEEEEEEEEEEEEEEEEEEE. THE POVERTY PREMIUM: THE BOWL AGAINST THE SACK (round 77)
+# Record: records/BOHEMIA_ECONOMY_DAY_77_THE_BOWL_COSTS_TWO_AND_A_HALF_TIMES_THE_SACK_WHERE_THE_RECORD_SAYS_A_TENTH_AND_TUNING_READ_IT_AS_EASIER_10_18_26.md
+# Row [the poverty premium], under rule 88's hold: a page, no sheet, nothing in the game.
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE1  the stall keeper, to a crew that has bought the bowl every night                       draft:true
+    "Every night the bowl. Look at the sack behind me. You've bought it twice already, a bowl at a time."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE2  a crewman, the night the crew carries its first sack out of the stall                   draft:true
+    "Heavier than it looks. Lighter than a week of bowls."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE3  the stall keeper, when a man on his own reaches for the cheap sack                        draft:true
+    "You alone? Half of that goes green before you finish it. Take the bowl, or bring a friend."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE4  a woman at the pump, to a crew filling its cans at the vendor's barrel                    draft:true
+    "The barrel man charges for the walk, not the water. Hold a pump and the walk is yours."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE5  an old man by the stall, watching a crew count its last few batteries                     draft:true
+    "Broke is expensive, mijo. That's the joke nobody laughs at."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE6  the stall keeper, in a town where the harvest came in                                     draft:true
+    "Sacks are cheap this week. The bowl's the same bowl, it doesn't know about the harvest."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE7  a crewman, guarding a full stash at the fire                                              draft:true
+    "Everybody on this road can see we've got a sack. That's the part they don't charge you for."
+
+EEEEEEEEEEEEEEEEEEEEEEEEEE8  the stall keeper, scooping grain into a crewman's own tin                                 draft:true
+    "One battery, one scoop. When the money's thin, I make the scoop thinner, never the price."
+
+## FFFFFFFFFFFFFFFFFFFFFFFFFF. WHAT IS NOT HERE, ON PURPOSE (round 77)
+
+- No line names a wiki page, a game, a law, an agency, a country, a percentage, a number of batteries or a
+  real event. The finding is said as the bowl against the sack, the sack that goes green on a man alone,
+  the walk to the barrel against a pump you hold, broke being expensive, the harvest the bowl does not know
+  about, the pile everybody can see, and the scoop that thins while the price holds.
+- EEEEEEEEEEEEEEEEEEEEEEEEEE1 and 2 carry the premium and the step (the day the crew buys the sack is a felt win: rule 117(c));
+  3 carries the lone man's exception (the sack rots on him, the record's 'buying what you can use'); 4
+  carries water's sack being a pump, not a bigger bottle; 5 carries the trap (under the sack's price the
+  crew pays the premium until a job lands); 6 carries the bowl reading none of the town's food news; 7
+  carries the sack's second cost (a visible pile, the kin and the road); 8 carries ladder D, the coin that
+  holds while the quantity moves. None is a ruling, a pick or a felt number; TUNING's table first.
+- No line picks a ladder: 1, 2 and 3 read true under C or F; 8 reads true only under D or F and is
+  marked as the candidate it voices.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a
+  face, at a stall, a pump, a fire or a stash.
+- Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.

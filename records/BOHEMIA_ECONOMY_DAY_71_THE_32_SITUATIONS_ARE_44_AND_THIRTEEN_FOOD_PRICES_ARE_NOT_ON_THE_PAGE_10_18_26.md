@@ -118,6 +118,10 @@ Every number is the card's own, signs as printed. A blank is 'the wiki does not 
 
 ## 3. WHAT THE TWO TABLES ON MAIN GET WRONG
 **3a. TUNING'S JSON: 17 OF 32 ROWS MATCH, 15 DO NOT.** Checked field by field against the cards:
+*** CORRECTED 10/18 BY DAY 77 (records/BOHEMIA_ECONOMY_DAY_77_THE_BOWL_COSTS_TWO_AND_A_HALF_TIMES_THE_SACK_WHERE_THE_RECORD_SAYS_A_TENTH_AND_TUNING_READ_IT_AS_EASIER_10_18_26.md, section 6.3): the food
+prices ARE on the cards. Fourteen situation pages print a 'food prices' line beside the 'food available' line
+this section read (Besieged +100 and Sickness +100 among them); TUNING's JSON is right on every food row. The
+first two bullets below are WITHDRAWN for food; the Collectors bullet and the missing items and recruits stand. ***
 - 13 rows carry a 'food_price_pct' that NO situation card prints. The cards print FOOD AVAILABLE:
   Drought -50 (JSON: food price +100), Short on Food -50 (JSON +200), Lost at Sea -50 (+100),
   Preparing Feast -75 (+100), Refugees -25 (+25), Good Harvest, Full Nets and Hunting Season +100
