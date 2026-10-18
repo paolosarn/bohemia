@@ -1,0 +1,33 @@
+POST-MORTEM: THE PARTS GRAMMAR (the 2D no-drawing road for props).  KILLED BY PAOLO 10/17/26.
+Two rounds, two DOWN votes in one sitting. Rule 115a then closed the road for good.
+GRAVEYARD IS FINAL. A prop is never again composed from flat 2D parts under any name.
+
+WHAT DIED (moved to graveyard/the_parts_grammar_10_18_26/)
+  tools/bohemia_the_parts_grammar_cook_10_11_26.py       round one: shapes in a file -> SVG at 4x -> resvg -> box shrink -> his palette
+  tools/bohemia_the_parts_grammar_two_cook_10_16_26.py   round two: the same shapes filled with patches cut from his tile
+  banks/BOHEMIA_PARTS_GRAMMAR_10_11_26.json, _10_16_26.json and both PIPE_OUT folders (the grammar and every stage it drew)
+  VOTE: cook-the-parts-grammar-10-11 (DOWN), cook-the-parts-grammar-two-10-16 (DOWN)
+
+HIS WORDS (the VOTE tab, 10/17)
+  round one:  "This is one of the worst cooks you've ever showed me"
+  round two:  "I was fucking with like some of the 3-D directions shit that she was doing previously like analog or
+               like HBO kids show shit like so this isn't that"
+
+WHY IT DIED
+  It was solving the wrong problem well. Both rounds measured honestly against his tiles (contour, colour count, the
+  top-eight share) and closed the numbers they set out to close: round two took the pistol from 9 colours to 752 with
+  every colour provably his. But the number was never what he was judging. In the same sitting he saw DIRECTION's truck
+  and robot come off a model and said it was the first thing that had impressed him visually in a long time. A flat
+  shape filled with his grain is still a flat shape: no form, no light falling on anything, no thickness, a trigger
+  guard that had to be a square U because the grammar could not draw a curve. The model has all of that for free.
+  THE LESSON: when he has just fallen in love with a method in the next card over, a better version of the old method is
+  not a candidate, it is a fourth version. Change road the same round.
+
+WHAT REPLACED IT
+  tools/bohemia_cook_model_props.py (the lamp, the gun, the wreck modelled at the source from DIRECTION's palette) through
+  tools/bohemia_direction_master_rig.py; sheet records/target/COOK_PROPS_THROUGH_THE_RIG.png; VOTE
+  cook-props-through-the-rig-10-18. Rule 115a: every prop is modelled and rendered through the master rig.
+
+WHAT SURVIVES
+  The quartermaster's line (tools/bohemia_quartermaster_line.py) opens every cook page still; it was never part of the
+  grammar. The packs stay the material for the ground (rule 115b).
