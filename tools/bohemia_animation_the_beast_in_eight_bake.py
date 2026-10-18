@@ -15,7 +15,8 @@ not a drawn pixel (rule 108: the pixels come from the render); the palette is wr
 later measured one can replace it.
 REFERENCE CHECK (the 9/4 standing duty): the sheet puts the wolf at 1:1 beside the 1.72 m ruler, the pack's grey wolf (the index thumbnail; the tile is not in the repo) and the game's own wolf, so the size question and the look question are on the page, not in a sentence. No reference game.
 Usage: python3 tools/bohemia_animation_the_beast_in_eight_bake.py [rig dir] [game wolf dir] [--name STEM] [--beside dir:label ...]
-  --name the output stem under slices/vote (default ANIMATION_THE_BEAST_IN_EIGHT); --beside adds that rig's eight stills as
+  --name the output stem under slices/vote (default ANIMATION_THE_BEAST_IN_EIGHT); --title the beast's name on the proof
+  sheet (default THE DIRE WOLF; the feral dog pack, 10/18, bakes three); --beside adds that rig's eight stills as
   a row on the proof sheet (the wolf redone, 10/18, sits beside the fox he named and the grey one he said NO to).
 """
 import os, sys, json, glob
@@ -23,11 +24,12 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-_args, NAME, BESIDE = [], 'ANIMATION_THE_BEAST_IN_EIGHT', []
+_args, NAME, BESIDE, TITLE = [], 'ANIMATION_THE_BEAST_IN_EIGHT', [], 'THE DIRE WOLF'
 _it = iter(sys.argv[1:])
 for _a in _it:
     if _a == '--name': NAME = next(_it)
     elif _a == '--beside': BESIDE.append(next(_it).split(':', 1))
+    elif _a == '--title': TITLE = next(_it)
     else: _args.append(_a)
 D = _args[0] if len(_args) > 0 else os.path.join(ROOT, 'records/target/master_rig/dire_wolf')
 GW = _args[1] if len(_args) > 1 else os.path.join(ROOT, 'records/target/master_rig/game_wolf')
@@ -102,7 +104,7 @@ table = dict(cell=[CW, CH], facings=FACINGS, rows={f: r for r, f in enumerate(FA
 json.dump(table, open(OUT_JSON, 'w'), indent=1)
 open(OUT_JSON.replace('.json', '_TABLE.js'), 'w').write('window.BEAST_TABLE = ' + json.dumps(table) + ';\n')   # the page reads it as a script: fetch() is refused on file:// where the gates film it
 with open(OUT_GPL, 'w') as g:
-    g.write('GIMP Palette\nName: dire wolf, 16 from the wolf\'s own frames (median cut), not yet measured from a pack\n#\n')
+    g.write('GIMP Palette\nName: %s, 16 from its own frames' % TITLE.lower() + ' (median cut), not yet measured from a pack\n#\n')
     for c in pal: g.write('%3d %3d %3d\n' % tuple(c))
 
 # 3. the pack's wolf, from the index thumbnail (the tile is not in the repo)
@@ -113,7 +115,7 @@ pack.save(OUT_PACK)
 F = ImageFont.truetype(os.path.join(ROOT, 'slices/fonts/BohemiaROM-Regular.ttf'), 16)
 INK, DIM, ORANGE, GREEN, BG = (236, 230, 218), (146, 138, 126), (226, 162, 72), (150, 190, 160), (22, 21, 20)
 MAN = 98
-rrows = [('THE DIRE WOLF, EIGHT FACINGS, STILL (%s)' % ('the walk\'s passing pose' if meta.get('still_frame') else 'the idle\'s first key') + ', 16 colours; the 1.72 m man; the pack\'s wolf (index thumbnail, 96 tall); the game\'s wolf today',
+rrows = [(TITLE + ', EIGHT FACINGS, STILL (%s)' % ('the walk\'s passing pose' if meta.get('still_frame') else 'the idle\'s first key') + ', 16 colours; the 1.72 m man; the pack\'s wolf (index thumbnail, 96 tall); the game\'s wolf today',
           [(f, im) for f, im in zip(FACINGS, stills_s)] + [('1.72 m', Image.new('RGBA', (7, MAN), GREEN + (255,))), ('', Image.new('RGBA', (50, 1), (0, 0, 0, 0))), ('the pack', pack), ('', Image.new('RGBA', (30, 1), (0, 0, 0, 0))), ('today', gw['walk'][0])])]
 for bdir, blabel in BESIDE:
     bm = json.load(open(os.path.join(ROOT, bdir, 'rig.json')))
@@ -126,13 +128,13 @@ def row_size(items): return sum(im.width for _, im in items) + GAP * (len(items)
 SW = max(row_size(it)[0] for _, it in rrows) + PAD * 2
 SH = 66 + sum(row_size(it)[1] + 8 for _, it in rrows)
 s = Image.new('RGB', (SW, SH), BG); d = ImageDraw.Draw(s)
-d.text((PAD, 6), '%s (ANIMATION, PLACEHOLDER): THE DIRE WOLF THROUGH DIRECTION\'S RIG, IDLE, STEP AND BITE, N NE E SE S SW W NW, 1:1' % NAME.replace('ANIMATION_', '').replace('_', ' '), font=F, fill=INK)
+d.text((PAD, 6), '%s (ANIMATION, PLACEHOLDER): %s THROUGH DIRECTION\'S RIG, IDLE, STEP AND BITE, N NE E SE S SW W NW, 1:1' % (NAME.replace('ANIMATION_', '').replace('_', ' '), TITLE), font=F, fill=INK)
 d.text((PAD, 26), 'model %s at %.1f m nose to tail, %d px a metre, the one camera; %d render colours -> %d in one 16-colour palette; sprite %dx%d px' % (
     os.path.basename(meta['model']), meta['real_dims_m'][1], meta['ppm'], before_colours, after_colours, W, H), font=F, fill=DIM)
 y = 50
 for title, items in rrows:
     rw, rh = row_size(items); base = y + rh - 20
-    d.text((PAD, y + 2), title, font=F, fill=ORANGE if title.startswith('THE DIRE') else GREEN)
+    d.text((PAD, y + 2), title, font=F, fill=ORANGE if title.startswith(TITLE) else GREEN)
     x = PAD + GAP
     for label, im in items:
         s.paste(im, (x, base - im.height), im); d.text((x, base + 2), label, font=F, fill=DIM); x += im.width + GAP

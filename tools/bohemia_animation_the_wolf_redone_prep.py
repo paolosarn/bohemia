@@ -133,8 +133,9 @@ def reshape(arm, mesh):
     return int(ear.sum()), int(muz.sum()), n_tail
 
 
-def paint_coat(mesh, seed=11):
-    """every texel traced to its point on the body through the UVs; the coat follows the animal"""
+def trace(mesh):
+    """every texel traced to its point on the body through the UVs: (image, pixels, the fox's three classes, the 3D point,
+    the normal and the bone of each texel); the feral dog pack paints from the same trace"""
     import numpy as np
     me = mesh.data
     img = me.materials[0].node_tree.nodes['Image Texture'].image
@@ -175,6 +176,15 @@ def paint_coat(mesh, seed=11):
         iy, ix = (ys[m] - 0.5).astype(int), (xs[m] - 0.5).astype(int)
         P[iy, ix] = L @ pp; nv = L @ nn; N[iy, ix] = nv / np.maximum(np.linalg.norm(nv, axis=1, keepdims=True), 1e-6)
         BONE[iy, ix] = g
+    return img, px, rgb, lum, white, dark, orange, P, N, BONE, names
+
+
+def paint_coat(mesh, seed=11):
+    """every texel traced to its point on the body through the UVs; the coat follows the animal"""
+    import numpy as np
+    img, px, rgb, lum, white, dark, orange, P, N, BONE, names = trace(mesh)
+    tailidx = {i for i, n in names.items() if n in TAILS}
+    headidx = {i for i, n in names.items() if n in ('b_Head_05', 'b_Neck_04')}
     covered = BONE >= 0
     # the saddle: where the back faces up, above the belly, along neck, back and the tail's top; never the face
     up = np.clip((N[..., 2] - 0.25) / 0.55, 0, 1)

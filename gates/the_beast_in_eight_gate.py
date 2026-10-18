@@ -35,6 +35,13 @@ three more, each from what made the grey one ugly:
   * IT STANDS LIKE A WOLF: facing E, tall over long is at least 0.05 more than the grey one's (the legs 1.35 longer);
   * the registry row is a redo of the beast in eight.
 Mutations planted: a flat one-tone coat, an idle-first-key still.
+
+--dog pit|cur (ANIMATION [the beasts through the rig, the wolf redone] ROUND TWO, THE FERAL DOG PACK, 10/18; rule 115c; the
+bestiary's number 1): the same questions of records/target/master_rig/feral_dog_<dog> and ANIMATION_THE_FERAL_DOG_<DOG> at
+its own length (1.1 m the pit, 1.25 m the cur), the page ANIMATION_THE_FERAL_DOG_PACK.html playing both, plus: three tones;
+the passing-pose still; DIRECTION's card did not send it BACK (the shepherd mix it did, so it is not on the card); A PACK,
+NOT ONE DOG RECOLOURED: the mean coat at least 20 levels from the wolf redone and from the other dog; it stands taller than
+the fox it was made from. Mutations planted: a dog that is the wolf recoloured a little, a BACK card.
 """
 import os, sys, json
 import numpy as np
@@ -54,12 +61,22 @@ if REDONE:
     D = os.path.join(ROOT, 'records/target/master_rig/dire_wolf_redone')
     STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_WOLF_REDONE', 'dire_wolf_redone.glb', 1.7, 0.40, 'animation-the-wolf-redone-10-18'
     WEBP, TABLE, PAGE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json', '.html'))
-TONES, TALLER = 70, 0.05
+DOG = sys.argv[sys.argv.index('--dog') + 1] if '--dog' in sys.argv else None
+DOGS = {'pit': 1.1, 'cur': 1.25}
+if DOG:
+    D = os.path.join(ROOT, 'records/target/master_rig/feral_dog_' + DOG)
+    STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_FERAL_DOG_' + DOG.upper(), 'feral_dog_%s.glb' % DOG, DOGS[DOG], 0.40, 'animation-the-feral-dog-pack-10-18'
+    WEBP, TABLE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json'))
+    PAGE = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_FERAL_DOG_PACK.html')
+TONES, TALLER, APART = 70, 0.05, 20
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 CLIPS = {'Survey': 12, 'Walk': 6, 'Bite': 6}
 MIRRORS = (('E', 'W'), ('NE', 'NW'), ('SE', 'SW'))
 SAT_LINE, XOR_LEAST, MOVE_LOOP, MOVE_BITE, RISE_PX, COLOURS = SAT_MAX, 0.01, 14.0, 16.0, 8, 16
 LONG_PX = int(80 * REAL_M / 1.6)
+if DOG:   # the spring's line was set on a 1.7 m wolf; a 1.1 m dog reaches as far for its size (the pit's 7 px is 11 percent of its length, the wolf's 9 is 9)
+    RISE_PX = max(5, int(round(8 * REAL_M / 1.7)))
+NOUN = 'dog' if DOG else 'wolf'
 
 ok_n = fail_n = 0
 def ok(name, cond, why=''):
@@ -119,10 +136,18 @@ ok('planted: a 5-key strip is refused', 5 % 3 != 0)
 low = blob.copy(); low[10:30] = 0; low[25:35, 5:25] = [200, 120, 40, 255]
 ok('planted: a bite that reaches down is refused', top_row(blob) - top_row(low) < RISE_PX)
 
-if REDONE:
+def coat_apart(A, B):
+    """the mean colour of one beast's stills against another's, in RGB levels: a pack is not one dog recoloured a little"""
+    ca = np.concatenate([f[f[..., 3] > 0][:, :3] for f in A]).mean(0); cb = np.concatenate([f[f[..., 3] > 0][:, :3] for f in B]).mean(0)
+    return float(np.linalg.norm(ca - cb))
+
+if REDONE or DOG:
     flat = blob.copy(); flat[10:30, 5:25] = [110, 100, 90, 255]
     ok('planted: a flat one-tone coat is refused', tones([flat]) < TONES)
     ok('planted: an idle-first-key still is refused', not is_passing({'still_frame': 0.0, 'still': None}))
+if DOG:
+    ok('planted: a dog that is the wolf recoloured a little is refused', coat_apart([blob], [blob + [8, 8, 8, 0]]) < APART)
+    ok('planted: a rig DIRECTION\'s card sent BACK is refused', 'BACK' in '3 of 8 out -> BACK before VOTE')
 
 # ---- the real frames
 m = json.load(open(os.path.join(D, 'rig.json'))) if os.path.exists(os.path.join(D, 'rig.json')) else {}
@@ -137,7 +162,20 @@ for a, b in MIRRORS:
         ok('%s is not %s flipped (silhouette differs %.0f%%, light differs %.1f)' % (b, a, sil * 100, col), not mir)
 if stills:
     s = saturation(list(stills.values()))
-    ok('the coat is a wolf\'s: mean saturation %.2f under %.2f (the fox was over 0.5)' % (s, SAT_LINE), s < SAT_LINE)
+    ok('the coat is a %s\'s: mean saturation %.2f under %.2f (the fox was over 0.5)' % (NOUN, s, SAT_LINE), s < SAT_LINE)
+    if DOG:
+        tn = tones(list(stills.values()))
+        ok('three tones, not one: the lightest tenth is %.0f levels over the darkest (line %d)' % (tn, TONES), tn >= TONES)
+        ok('the still is the walk\'s passing pose (%s), never the idle\'s first key' % m.get('still'), is_passing(m))
+        verdict = str((m.get('card') or {}).get('verdict', ''))
+        ok('DIRECTION\'s card did not send it BACK (%s)' % verdict, bool(verdict) and 'BACK' not in verdict)
+        for other in ['dire_wolf_redone'] + ['feral_dog_' + o for o in DOGS if o != DOG]:
+            om = json.load(open(os.path.join(ROOT, 'records/target/master_rig', other, 'rig.json')))
+            ap = coat_apart(list(stills.values()), [load(fp) for fp in om['files']])
+            ok('a pack, not one dog recoloured: its coat is %.0f levels from %s (line %d)' % (ap, other, APART), ap >= APART)
+        fm = json.load(open(os.path.join(ROOT, 'records/target/master_rig/fox/rig.json')))
+        r_new, r_fox = tall_over_long(stills['E']), tall_over_long(load(fm['files'][FACINGS.index('E')]))
+        ok('it stands like a dog, not the fox it came from: facing E tall over long %.2f against the fox\'s %.2f (at least %.2f more)' % (r_new, r_fox, TALLER), r_new - r_fox >= TALLER)
     if REDONE:
         tn = tones(list(stills.values()))
         ok('three tones, not one: the lightest tenth is %.0f levels over the darkest (line %d)' % (tn, TONES), tn >= TONES)
@@ -147,7 +185,7 @@ if stills:
         r_new, r_old = tall_over_long(stills['E']), tall_over_long(old_e)
         ok('it stands like a wolf: facing E tall over long %.2f against the grey one\'s %.2f (at least %.2f more)' % (r_new, r_old, TALLER), r_new - r_old >= TALLER)
     w = (stills['E'][..., 3] > 0).any(0).sum()
-    ok('true size: side-on the wolf is %d px long, over %d (%.1f m at 57 px a metre; the prop floor is 29 by 36)' % (w, LONG_PX, REAL_M), w >= LONG_PX)
+    ok('true size: side-on the %s is %d px long, over %d (%.1f m at 57 px a metre; the prop floor is 29 by 36)' % (NOUN, w, LONG_PX, REAL_M), w >= LONG_PX)
 worst_all = {}
 for clip, k in CLIPS.items():
     c = (m.get('clips') or {}).get(clip, {})
@@ -177,6 +215,6 @@ page = open(PAGE).read() if os.path.exists(PAGE) else ''
 ok('the VOTE page plays the sheet from its table, says PLACEHOLDER, and asks no vote inside (rule 25)',
    STEM + '.webp' in page and STEM + '_TABLE.js' in page and os.path.exists(os.path.join(ROOT, 'slices/vote/' + STEM + '_TABLE.js')) and 'PLACEHOLDER' in page and 'requestAnimationFrame' in page and 'thumb' not in page.lower())
 reg = json.load(open(REG)); row = next((r for r in reg.get('items', []) if r.get('id') == ID), None)
-ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/' + STEM + '.html' and str(row.get('title', '')).startswith('PLACEHOLDER') and (not REDONE or row.get('redoOf') == 'animation-the-beast-in-eight-10-17'))
+ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/' + os.path.basename(PAGE) and str(row.get('title', '')).startswith('PLACEHOLDER') and (not REDONE or row.get('redoOf') == 'animation-the-beast-in-eight-10-17'))
 ok('the model and its licence are in the repo', os.path.exists(os.path.join(ROOT, 'reference/models/bohemia', MODEL)) and os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/LICENSE.txt')))
-print('\n%s GATE: %d passed, %d failed' % ('THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)
+print('\n%s GATE: %d passed, %d failed' % (('THE FERAL DOG PACK (%s)' % DOG) if DOG else 'THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)

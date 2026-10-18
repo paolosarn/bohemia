@@ -19,3 +19,7 @@ dire_wolf_redone.glb (ANIMATION [the beasts through the rig, the wolf redone], 1
 the same attribution as dire_wolf.glb above (model CC0 by PixelMannen; rig and clips CC BY 4.0 by tomkranis; conversion
 CC BY 4.0 by AsoboStudio and scurest). What is ours (tools/bohemia_animation_the_wolf_redone_prep.py): the remodelled
 shape (legs, chest, ruff, ears, muzzle, tail), the coat painted from the 3D shape, and the Bite clip.
+
+feral_dog_pit.glb, feral_dog_shepherd.glb, feral_dog_cur.glb (ANIMATION, 10/18, THE FERAL DOG PACK): derived from the Khronos Fox,
+the same attribution as dire_wolf.glb above. What is ours (tools/bohemia_animation_the_feral_dog_pack_prep.py): the three
+shapes, the three coats painted from the 3D shape (brindle, sable, pied with mange, the collars), and the dog's Bite keys.

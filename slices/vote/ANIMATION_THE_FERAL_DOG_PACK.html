@@ -1,0 +1,57 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The feral dog pack</title>
+<!-- ANIMATION [the beasts through the rig, the wolf redone], ROUND TWO, 10/18 (rule 115c: every beast from the same source;
+     the bestiary's number 1, Vegas's own pets, act one's first fight). PLACEHOLDER until the moodboard (ROUND THIRTEEN).
+     Played LIVE on the 120 beat from ANIMATION_THE_FERAL_DOG_PIT.webp (lossless, the
+     drawn keys only: idle 12, step 6, bite 6; three keys a beat), eight facings each, ONE ART PIXEL TO ONE PHONE PIXEL.
+     The frames come from DIRECTION's master rig (one camera, 57 px a metre) turning a dog remodelled in Blender from the
+     same Fox as the wolf: rule 108, no pixel drawn in code. Three dogs were made; the yellow cur (NOT VIBE CODED D5 on one
+     facing) and the shepherd mix (DIRECTION's card, 3 of 8) are held for the next round, so the page plays the pack's
+     first dog only and its stills sit beside it. Rule 25: an item is asked ONCE, on the row; no vote inside the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--card:#16161d;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:12px 0 4px}
+  .grid{display:grid;grid-template-columns:28px repeat(3,max-content);gap:4px 10px;align-items:end}
+  .dir{font-size:9px;color:#6d6656}
+  .h{font-size:9px;color:#6d6656;letter-spacing:1px}
+  canvas,img{display:block;image-rendering:pixelated;background:#2a2219;border-radius:2px}
+  .row{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+  .cap{font-size:9px;color:#6d6656;max-width:22ch}
+</style>
+<h1>PLACEHOLDER: THE FERAL DOG PACK</h1>
+<p>The first fight of act one is the city's own pets gone wild, so the pack is built from the same 3D fox as the wolf, and its first dog is a dark brindle pit mix still wearing a faded red collar. You see it in all eight directions, playing idle, step and bite on the beat at the game's own pixels, beside the fox they were made from, as a placeholder until your moodboard.</p>
+<div class="lab">THE PIT MIX, EIGHT FACINGS, LIVE</div>
+<div class="grid" id="g0"><div></div><div class="h">IDLE</div><div class="h">STEP</div><div class="h">BITE</div></div>
+<div class="lab">BESIDE IT</div>
+<div class="row" id="side"></div>
+<script src="ANIMATION_THE_FERAL_DOG_PIT_TABLE.js"></script>
+<script>window.DOG_TABLES=[window.BEAST_TABLE];</script>
+<script>
+(function(){
+  var BEAT=500, DIRS=['S','SE','E','NE','N','NW','W','SW'], SHEETS=['ANIMATION_THE_FERAL_DOG_PIT.webp'];
+  var dpr=window.devicePixelRatio||1, cells=[], ims=[], loaded=0;   /* one art pixel to one phone pixel */
+  function canvas(w,h){ var c=document.createElement('canvas'); c.width=w; c.height=h; c.style.width=(w/dpr)+'px'; c.style.height=(h/dpr)+'px'; return c; }
+  window.DOG_TABLES.forEach(function(t,n){
+    var g=document.getElementById('g'+n), CW=t.cell[0], CH=t.cell[1];
+    DIRS.forEach(function(d){ var l=document.createElement('div'); l.className='dir'; l.textContent=d; g.appendChild(l);
+      t.clips.forEach(function(c){ var cv=canvas(CW,CH); g.appendChild(cv); cells.push({n:n,cv:cv,row:t.rows[d],col:c.col,keys:c.keys,beats:c.beats,gy:t.ground_y}); }); });
+    var im=new Image(); im.onload=function(){ if(++loaded===SHEETS.length) go(); }; im.src=SHEETS[n]; ims.push(im);
+  });
+  [['ANIMATION_THE_WOLF_REDONE_FOX.png','the fox, the same source (the one you said was better)']].forEach(function(b){
+    var w=document.createElement('div'); var i=new Image(); i.src=b[0];
+    i.onload=function(){ i.style.width=(i.naturalWidth/dpr)+'px'; i.style.height=(i.naturalHeight/dpr)+'px'; };
+    w.appendChild(i); var c=document.createElement('div'); c.className='cap'; c.textContent=b[1]; w.appendChild(c); document.getElementById('side').appendChild(w); });
+  function go(){ var t0=performance.now();
+    (function tick(){ var b=(performance.now()-t0)/BEAT;
+      cells.forEach(function(c){ var T=window.DOG_TABLES[c.n], CW=T.cell[0], CH=T.cell[1], g=c.cv.getContext('2d'); g.imageSmoothingEnabled=false;
+        var k=Math.floor((b%c.beats)/c.beats*c.keys);
+        g.clearRect(0,0,CW,CH); g.fillStyle='#2a2219'; g.fillRect(0,0,CW,CH); g.fillStyle='#3a3024'; g.fillRect(0,c.gy,CW,3);
+        g.drawImage(ims[c.n],(c.col+k)*CW,c.row*CH,CW,CH,0,0,CW,CH); });
+      requestAnimationFrame(tick); })(); }
+})();
+</script>

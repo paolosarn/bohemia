@@ -9987,6 +9987,45 @@
    }
   },
   {
+   "id": "animation-the-feral-dog-pack-10-18",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE FERAL DOG PACK, IDLE, STEP AND BITE IN EIGHT",
+   "said": "for everything to start looking better it has to come from the same source",
+   "why": "Act one's first fight is the city's own pets gone wild, so the pack's first dog was built from the same 3D fox as the wolf: a dark brindle pit mix still wearing a faded red collar, two more strays coming next. You see it in the VOTE tab in all eight directions, playing idle, step and bite on the beat, and it stays a placeholder until your moodboard.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_FERAL_DOG_PACK.html"
+   },
+   "twin": {
+    "src": "slices/vote/ANIMATION_THE_WOLF_REDONE_PACK.png",
+    "diffs": [
+     "SIZE: the pack's only canine is its grey wolf, drawn 96 px tall facing you; ours is true size at the one ruler (57 px a metre): a 1.1 m pit mix, well under the 1.7 m wolf.",
+     "FACINGS: the pack's animal has one, toward you; ours has eight, lit by the one sun (rule 107).",
+     "LOOK: the pack has no dogs at all; ours is a stray that kept its collar, a dark brindle coat painted on the 3D shape, 16 colours from the render."
+    ]
+   },
+   "draft": true,
+   "sprites": [
+    "records/target/master_rig/feral_dog_pit/rig_N.png",
+    "records/target/master_rig/feral_dog_pit/rig_NE.png",
+    "records/target/master_rig/feral_dog_pit/rig_E.png",
+    "records/target/master_rig/feral_dog_pit/rig_SE.png",
+    "records/target/master_rig/feral_dog_pit/rig_S.png",
+    "records/target/master_rig/feral_dog_pit/rig_SW.png",
+    "records/target/master_rig/feral_dog_pit/rig_W.png",
+    "records/target/master_rig/feral_dog_pit/rig_NW.png"
+   ],
+   "class": "beast",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  },
+  {
    "id": "cook3-the-poachers-body-again-10-18",
    "kind": "outfit",
    "lane": "cook 3",
