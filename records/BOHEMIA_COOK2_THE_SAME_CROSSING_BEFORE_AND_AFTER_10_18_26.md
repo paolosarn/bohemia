@@ -41,7 +41,27 @@ picture shows what is laid.
 One pixel size (both halves 1:1 of the same board); the palette is the board's own; one light (from above, as laid);
 no ramp made by darkening (nothing was shaded); the AFTER's rest areas are the plain asphalt between the cracks.
 
+## THE CULL HELD IT (rule 114b), AND THE RULER IS MEASURED AGAINST HIS OWN TILES
+Registered with its sprites (the kit pieces the AFTER is laid from), NOT VIBE CODED's N3 culled it: every kit piece
+fails D2, D3 or D4. A sheet that fails the first five never reaches the tab, so it is NOT in VOTE. Before touching the
+art, the same held verdict (class tile, family ground, the pack bands, the guide) was run on his own tiles
+(tools/bohemia_cook2_the_ground_against_the_cull_10_18_26.py -> records/target/COOK2_THE_GROUND_AGAINST_THE_CULL.json):
+
+| group | n | D2 fails | D3 fails | D4 fails | all five pass |
+|---|---|---|---|---|---|
+| his road tiles | 278 | 35 (13%) | 256 (92%) | 122 (44%) | 9 (3%) |
+| his ground tiles | 391 | 39 (10%) | 355 (91%) | 119 (30%) | 24 (6%) |
+| kit_street pieces whole | 21 | 18 (86%) | 18 (86%) | 12 (57%) | 0 |
+| kit_street cut to his tile size (88 px) | 63 | 0 (0%) | 51 (81%) | 19 (30%) | 7 (11%) |
+
+Read: D3 (one light direction) fails nine in ten of the tiles he bought: a top-down slab has no light to read. D4
+fails a third to a half of his tiles. D2 fails the kit only because a whole piece (515 x 364, about sixteen of his
+tiles) is counted against the colour band of ONE of his tiles; cut to his tile size it passes 63 of 63. At his tile
+size the kit fails D3 and D4 LESS often than his own tiles do. The ruler, not the art, is what culls the ground.
+
 ## ROUTED
-- COMBAT TWO: findings 1 and 2 (their layout).
-- DIRECTION: the rule-87 pass this row asked for; the sheet is in VOTE as a candidate, as every cook round is
-  since rule 112.
+- PLUMBER [the ground ruler]: for class tile, judge D2 and D5 per pack-tile cell, hold D3 and D4 to the ground
+  packs' band. Until then every ground sheet is culled by a test his own tiles fail. (NOTE in PLUMBER's section.)
+- COMBAT TWO [two layout seams]: findings 1 and 2 (their layout). (NOTE in COMBAT TWO's section.)
+- DIRECTION: the rule-87 pass this row asked for, on the sheet as it stands.
+- The row stays CLAIMED: it registers the round the ruler is fixed or the kit passes it.
