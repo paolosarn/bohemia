@@ -9264,6 +9264,12 @@ GATES = [
      "the map's own dice for that town that day (a planted lie caught); the ledger's raid told first; live on his phone's "
      "profile the bar's first line each visit is the free one under the keeper's fresh talking face, nothing spent, a round "
      "tells the next town, no 'Marked on your map', the bar still pours with the places file blocked", True),
+    ('THE CREW SCREEN AT FOURTEEN', ['node', 'gates/the_crew_screen_at_fourteen_gate.js'],
+     "RUN TWO [the crew screen at fourteen] (his 10/18 'one person... three... six... up to 14 people'; rule 117). On his phone "
+     "at 1, 6 and 14 men nothing is wider than the glass (the line stands up), every man a fresh 44 px face with his whole name, "
+     "laid-up men with name and days, never in the line too, four thumb-sized slots each, a drag still moves a man; on a laptop "
+     "two columns, the card beside the men, the bag 44 to 64, fourteen men inside 1.3 screens; control: the old screen runs off "
+     "the phone at six", True),
     ('THE CLINIC\'S COUGH', ['node', 'gates/the_clinics_cough_gate.js'],
      "RUN TWO [the clinic's cough] (the clinic said 'no room' and treated anyway at the usual price; Battle Brothers' temple has "
      "no queue). The sickness card equals the library's page 1792 (food +100%, medicine +200%, recruits -25%); the same hurt "

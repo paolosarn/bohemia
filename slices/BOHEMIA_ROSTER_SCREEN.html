@@ -99,21 +99,46 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 #picker .none{align-self:center;color:var(--dim);font-size:10px;padding:0 4px}
 #ghost{position:fixed;pointer-events:none;z-index:50;opacity:.85;display:none;padding:4px 6px;background:#2e241a;border:1px solid var(--gold);border-radius:3px;font-size:10px}
 #said{margin:0 12px;color:var(--dim);font-size:11px;min-height:16px}
+/* THE CREW SCREEN AT FOURTEEN (RUN TWO, his 10/18 'when you got one person... three... six... up to 14 people'; rule 117).
+   A full company reads in one look and nothing ever scrolls sideways:
+   - a phone upright cannot hold nine 44-point cells across (9 x 44 = 396 > 390), so THE LINE stands up: FRONT and BACK
+     side by side, the nine places top to bottom, every man a face and his whole name; the laid-up strip wraps the same way
+   - a laptop is the phone's view with room: two columns, the line and who wears what on the left, the man's card and the
+     bag on the right, both at a size a person reads (the bag's slots stop growing past 64) */
+.nmx{display:none}
+@media (max-width:489px){
+  #lines{display:grid;grid-template-columns:1fr 1fr;grid-template-areas:"lf lb" "f b";column-gap:6px;overflow:visible}
+  #lines > .ln:first-child{grid-area:lf} #front{grid-area:f} #lines > .ln:nth-child(3){grid-area:lb} #back{grid-area:b}
+  #front,#back{display:flex;flex-direction:column;gap:4px;width:auto}
+  #hurt{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:auto}
+  #front .cell,#back .cell,#hurt .cell{width:100%;height:48px}
+  #front .cell canvas.head,#back .cell canvas.head,#hurt .cell canvas.head{width:44px;height:44px;top:1px;left:1px}
+  #front .cell b,#back .cell b,#hurt .cell b{left:50px;right:4px;top:0;bottom:0;display:flex;align-items:center;font-size:11px;text-align:left;letter-spacing:.5px;white-space:nowrap;overflow:hidden}
+  .nmx{display:inline;margin-right:6px}
+}
+@media (min-width:1100px){
+  #cols{display:grid;grid-template-columns:minmax(0,640px) 440px;justify-content:center;column-gap:24px;align-items:start}
+  #right{position:sticky;top:64px}
+  #bag{grid-template-columns:repeat(6,minmax(44px,64px));justify-content:start}
+}
 </style>
 </head>
 <body>
 <div id="bar"><span class="t" id="title">YOUR COMPANY</span><button id="done">DONE</button></div>
+<div id="cols"><div id="left">
 <div class="h">THE LINE. DRAG A MAN TO MOVE HIM. FRONT FIGHTS, BACK SHOOTS.</div>
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
 <div class="ln" id="hurth" style="margin:0 12px;display:none">LAID UP. HE HEALS ON THE ROAD; HE CANNOT STAND IN THE LINE.</div>
 <div class="line" id="hurt" style="margin:0 12px 6px"></div>
 <div class="h" id="wearh">WHO IS WEARING WHAT. TAP A SLOT TO SWAP IT FROM THE BAG.</div>
 <div id="wear"></div>
+</div><div id="right">
 <div id="card"></div>
 <div id="said"></div>
 <div class="h" id="bagh">YOUR BAG</div>
 <button id="sortbag" type="button">SORT THE BAG</button>
 <div id="bag"></div>
+</div></div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
 <script src="../engine/bohemia_crew_faces.js"></script>
@@ -231,7 +256,8 @@ function draw(){
   var hu = document.getElementById('hurt'); hu.textContent = ''; var any = false;
   S.crew.forEach(function(m, i){ if(!laid(m)) return; any = true;
     var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i;
-    d.appendChild(headCanvas(m)); var b = document.createElement('b'); b.textContent = m.hurt.days + 'd'; d.appendChild(b); hu.appendChild(d); });
+    d.appendChild(headCanvas(m)); var b = document.createElement('b'); var bn = document.createElement('span'); bn.className = 'nmx'; bn.textContent = m.name; b.appendChild(bn);
+    b.appendChild(document.createTextNode(m.hurt.days + 'd')); d.appendChild(b); hu.appendChild(d); });   /* his name beside his days where there is room (a phone upright) */
   document.getElementById('hurth').style.display = any ? 'block' : 'none';
   drawWear(); drawCard(); drawBag();
 }
@@ -428,7 +454,7 @@ function open(o){
   else defaultForm();
   loadClimb(); benchHurt();
   /* a man who joined since the line was set takes the first empty slot, front first */
-  S.crew.forEach(function(m, i){ if(S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;
+  S.crew.forEach(function(m, i){ if(laid(m) || m.dead || S.front.indexOf(i) >= 0 || S.back.indexOf(i) >= 0) return;   /* never a laid-up or dead man (he stood in the line AND the laid-up strip, measured 10/18) */
     var j = S.front.indexOf(null); if(j >= 0){ S.front[j] = i; return; } j = S.back.indexOf(null); if(j >= 0) S.back[j] = i; });
   S.sel = S.front.concat(S.back).filter(function(i){ return i != null; })[0] || 0;
   S.ready = true; draw();
