@@ -1,0 +1,50 @@
+{
+ "lane": "cook 2",
+ "row": "the same crossing before and after",
+ "made": "10/18",
+ "file": "slices/fight_ground/block_corner_0.webp",
+ "before_sha": "61337a8a",
+ "after": "HEAD (laid by COMBAT TWO 8c1ff703 from kit_street)",
+ "window_px": [
+  667,
+  405,
+  1907,
+  1405
+ ],
+ "board_px": [
+  2575,
+  1820
+ ],
+ "scale": "1:1",
+ "changed_px": 715617,
+ "changed_bbox": [
+  0,
+  0,
+  2574,
+  1819
+ ],
+ "road_band_y": [
+  728,
+  1091
+ ],
+ "road_band_x": [
+  1032,
+  1544
+ ],
+ "changed_outside_roads_px": 0,
+ "changed_outside_share": 0.0,
+ "block_main_0": {
+  "changed_px": 392752,
+  "changed_bbox": [
+   0,
+   728,
+   2574,
+   1091
+  ],
+  "street_band_y": [
+   732,
+   1091
+  ],
+  "note": "the laid street runs over the strip building's roof and the church's tower edge; the BEFORE board stopped the road at the building. A layering order in the board layout (COMBAT TWO's file), routed, not touched here."
+ }
+}
