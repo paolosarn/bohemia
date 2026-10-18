@@ -1,0 +1,124 @@
+# BOHEMIA — THE LOOK RULER ON THE FREE RUNNER (10/18/26, PLUMBER, VAMILY row [the look leg])
+#
+# The twin gate (gates/twin_gate.py) holds every new art piece against the pack piece he bought that it
+# stands beside. Five of its rulers are plain numbers and run anywhere. The sixth, LOOK, is a learned one:
+# DINOv2 ViT-S/14 (Meta, Apache-2.0, licence read 10/18), the cosine between two pictures' embeddings, which
+# tracks style and texture more than subject. Its weights live on dl.fbaipublicfiles.com and huggingface.co,
+# and both answer 403 from the chats' container. GitHub's standard runners are free on this public repo and
+# reach both, so THIS RUNNER IS THE BOX:
+#
+#   1. the ONNX export is cached, keyed on the pinned DINOv2 commit and the export script, so the 200 MB of
+#      torch is installed only when one of the two changes (the weights are NEVER committed: L0 of the gate);
+#   2. the twin gate's lines are re-measured here with LOOK included (the packs' 10th percentile cosine on
+#      the same pieces and pairs as the other rulers), and the other rulers' lines must come out equal to
+#      the committed ones (L4: the calibration is the same on both boxes);
+#   3. the gate runs with LOOK inside every verdict, and LOOK's own legs (L1 to L3) must bite both ways.
+#
+# It runs when a twin-gate file, the registry, the calibration or the packs change, and on demand. It asks
+# for read access only and writes nothing back; what it measured is the job log and the 'look' artifact.
+name: look ruler
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/bohemia_twin_gate.py'
+      - 'tools/bohemia_look_export.py'
+      - 'gates/twin_gate.py'
+      - 'gates/twin_gate_baseline.json'
+      - 'records/target/BOHEMIA_VOTE_REGISTRY.json'
+      - 'records/target/BOHEMIA_TWIN_CALIBRATION.json'
+      - 'reference/art_bank/**'
+      - '.github/workflows/look.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: look
+  cancel-in-progress: false
+
+env:
+  DINOV2_COMMIT: 7764ea0f912e53c92e82eb78a2a1631e92725fc8
+  BOHEMIA_DINOV2_ONNX: ${{ github.workspace }}/tools/models/dinov2_vits14.onnx
+
+jobs:
+  look:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          filter: blob:none
+          sparse-checkout: |
+            .github
+            tools
+            gates
+            records/target
+            records/cook
+            reference/art_bank
+            slices/vote
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: the rulers' libraries (the container's versions)
+        run: python -m pip install --quiet numpy==2.5.3 pillow==12.3.0 onnxruntime==1.29.0
+
+      - name: the cached export
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: tools/models
+          key: dinov2-vits14-onnx-${{ env.DINOV2_COMMIT }}-${{ hashFiles('tools/bohemia_look_export.py') }}
+
+      - name: export DINOv2 ViT-S/14 to ONNX (only when the cache missed)
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          python -m pip install --quiet torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          git clone --quiet https://github.com/facebookresearch/dinov2 "$RUNNER_TEMP/dinov2"
+          git -C "$RUNNER_TEMP/dinov2" checkout --quiet "$DINOV2_COMMIT"
+          python tools/bohemia_look_export.py --repo "$RUNNER_TEMP/dinov2" --out "$BOHEMIA_DINOV2_ONNX"
+
+      - name: keep the export (saved the moment it is verified, whatever the gate says after)
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: tools/models
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+
+      - name: the export on this box
+        run: |
+          ls -l tools/models
+          cat tools/models/dinov2_vits14.json
+
+      - name: the lines, with LOOK (the packs measuring themselves)
+        run: |
+          cp records/target/BOHEMIA_TWIN_CALIBRATION.json "$RUNNER_TEMP/committed_cal.json"
+          python tools/bohemia_twin_gate.py --calibrate
+
+      - name: TWIN GATE with LOOK measured
+        env:
+          BOHEMIA_TWIN_COMMITTED_CAL: ${{ runner.temp }}/committed_cal.json
+        run: |
+          set -o pipefail
+          python gates/twin_gate.py | tee "$RUNNER_TEMP/twin_gate.txt"
+
+      - name: the summary
+        if: always()
+        run: |
+          { echo '## TWIN GATE with LOOK'; echo '```'; cat "$RUNNER_TEMP/twin_gate.txt" 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: the record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: look
+          if-no-files-found: ignore
+          path: |
+            records/target/BOHEMIA_TWIN_CALIBRATION.json
+            tools/models/dinov2_vits14.json
+            records/target/twin_cards/

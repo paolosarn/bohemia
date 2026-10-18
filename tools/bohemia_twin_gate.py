@@ -18,7 +18,10 @@ records/BOHEMIA_RESEARCH_UNLOCK_THE_LIMITS_03_GIVING_THE_CHATS_EYES_10_11_26.md 
   SHAPE    the 8x8 silhouette's ink between the family's 5th and 95th percentile
   LOOK     DINOv2 ViT-S/14 cosine (Apache-2.0: LICENSE and MODEL_CARD.md of facebookresearch/dinov2 read
            10/18), measured only when an ONNX export sits at tools/models/dinov2_vits14.onnx (or
-           $BOHEMIA_DINOV2_ONNX); otherwise UNMEASURED, never a pass
+           $BOHEMIA_DINOV2_ONNX); otherwise UNMEASURED, never a pass. The export and the box are GitHub's free
+           runner (tools/bohemia_look_export.py, .github/workflows/look.yml), because the weights' hosts
+           answer 403 from the container. Its line is the packs' 10th percentile cosine (pair and centroid):
+           IN at or over it on the twin or the family, FAR under the packs' 1st percentile on both
   SSIM     structural similarity to the twin, printed on every card, never a pass condition: the research's
            hack detector (a learned score that climbs while SSIM falls is a hacked score)
 
@@ -43,7 +46,7 @@ from PIL import Image, ImageDraw
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = os.path.join(ROOT, 'reference', 'art_bank')
-CAL = os.path.join(ROOT, 'records', 'target', 'BOHEMIA_TWIN_CALIBRATION.json')
+CAL = os.environ.get('BOHEMIA_TWIN_CAL') or os.path.join(ROOT, 'records', 'target', 'BOHEMIA_TWIN_CALIBRATION.json')
 ONNX = os.environ.get('BOHEMIA_DINOV2_ONNX') or os.path.join(ROOT, 'tools', 'models', 'dinov2_vits14.onnx')
 FAMILIES = ('door', 'ground', 'lamp', 'marking', 'prop', 'road', 'settlement')
 PAINTER_EPS = {'col_kpx': 1.0, 'value_range': 2.0, 'dark_line': 0.005, 'detail': 0.5, 'sat': 0.02}
@@ -227,8 +230,18 @@ def ssim(a, b):
 _SESS = None
 
 
+def look_input(a):
+    """the picture as DINOv2 reads it: on a mid grey, centred on a square (a sprite is never squashed), resized
+    to 224 bicubic, ImageNet mean and std; 1x3x224x224 float32. The export verifies through this same function."""
+    im = Image.fromarray(a.astype(np.uint8), 'RGBA')
+    s = max(im.size)
+    bg = Image.new('RGBA', (s, s), (128, 128, 128, 255)); bg.alpha_composite(im, ((s - im.width) // 2, (s - im.height) // 2))
+    x = np.asarray(bg.convert('RGB').resize((224, 224), Image.BICUBIC)).astype(np.float32) / 255.0
+    return ((x - [0.485, 0.456, 0.406]) / [0.229, 0.224, 0.225]).astype(np.float32).transpose(2, 0, 1)[None]
+
+
 def look_embed(a):
-    """DINOv2 ViT-S/14 CLS embedding through onnxruntime, or None when the weights are not on this box."""
+    """DINOv2 ViT-S/14 CLS embedding through onnxruntime, unit length, or None when the weights are not on this box."""
     global _SESS
     if not os.path.isfile(ONNX):
         return None
@@ -238,12 +251,17 @@ def look_embed(a):
         return None
     if _SESS is None:
         _SESS = ort.InferenceSession(ONNX, providers=['CPUExecutionProvider'])
-    im = Image.fromarray(a.astype(np.uint8), 'RGBA')
-    bg = Image.new('RGBA', im.size, (128, 128, 128, 255)); bg.alpha_composite(im)
-    x = np.asarray(bg.convert('RGB').resize((224, 224), Image.BICUBIC)).astype(np.float32) / 255.0
-    x = ((x - [0.485, 0.456, 0.406]) / [0.229, 0.224, 0.225]).astype(np.float32).transpose(2, 0, 1)[None]
-    out = _SESS.run(None, {_SESS.get_inputs()[0].name: x})[0]
+    out = _SESS.run(None, {_SESS.get_inputs()[0].name: look_input(a)})[0]
     v = out.reshape(out.shape[0], -1, out.shape[-1])[0, 0] if out.ndim == 3 else out.reshape(-1)
+    return (v / (np.linalg.norm(v) + 1e-9)).astype(np.float64)
+
+
+def look_on():
+    return look_embed(np.zeros((8, 8, 4))) is not None
+
+
+def unit(v):
+    v = np.asarray(v, np.float64)
     return v / (np.linalg.norm(v) + 1e-9)
 
 
@@ -273,11 +291,14 @@ def at_twin_size(ours, twin):
 # ---- calibration: the packs against themselves -----------------------------------------------------------
 def calibrate(families=None, per_family=160, pairs=600, log=print):
     rng = np.random.default_rng(108)
+    look = look_on()
+    seen = {}
     out = {'_readme': 'the twin gate\'s lines (tools/bohemia_twin_gate.py --calibrate): per family, the 90th '
                       'percentile of every ruler between two pack pieces (pair) and between a piece and the '
                       'family centroid (centroid); the 5th and 95th percentile of the 8x8 ink; the family\'s '
-                      'median painter numbers and block size. The packs measuring themselves; nobody picked '
-                      'a number.', 'made': '10/18', 'families': {}}
+                      'median painter numbers and block size; on a box with the DINOv2 weights, LOOK\'s 10th '
+                      'percentile cosine on the same pieces and pairs. The packs measuring themselves; nobody '
+                      'picked a number.', 'made': '10/18', 'families': {}}
     for fam in list(families or FAMILIES) + ['all']:
         fs = pack_pieces(fam)
         if len(fs) < 4:
@@ -288,14 +309,20 @@ def calibrate(families=None, per_family=160, pairs=600, log=print):
             a = rgba(f)
             x = features(a); x['block'] = grid(a)['block']
             if x['lab'] is not None and x['lbp'] is not None and x['painter'] is not None:
+                if look:
+                    if f not in seen:
+                        seen[f] = look_embed(a)
+                    x['look'] = seen[f]
                 F.append(x)
         cen_lab = np.mean([x['lab'] for x in F], 0)
         cen_lbp = np.mean([x['lbp'] for x in F], 0)
         med_p = {k: float(np.median([x['painter'][k] for x in F])) for k in PAINTER_EPS}
-        pe, pl, plr, pls = [], [], [], {k: [] for k in PAINTER_EPS}
+        pe, pl, plr, pls, pk = [], [], [], {k: [] for k in PAINTER_EPS}, []
         for _ in range(pairs):
             i, j = rng.choice(len(F), 2, replace=False)
             pe.append(emd(F[i]['lab'], F[j]['lab'])); pl.append(chi2(F[i]['lbp'], F[j]['lbp']))
+            if look:
+                pk.append(float(F[i]['look'] @ F[j]['look']))
             rr = ratios(F[i]['painter'], F[j]['painter'])
             plr.append(max(abs(math.log(r)) for r in rr.values()))
             for k, r in rr.items():
@@ -312,8 +339,21 @@ def calibrate(families=None, per_family=160, pairs=600, log=print):
             'ink8': [round(float(np.percentile(ink, 5)), 4), round(float(np.percentile(ink, 95)), 4)],
             'block': int(np.median([x['block'] for x in F])),
             'centroid': {'lab': np.round(cen_lab, 3).tolist(), 'lbp': np.round(cen_lbp, 5).tolist()}}
-        log('  calibrated %-11s %4d pieces (%d measured)' % (fam, len(fs), len(F)))
+        if look:
+            cen_look = unit(np.mean([x['look'] for x in F], 0))
+            ck = [float(x['look'] @ cen_look) for x in F]
+            p10 = lambda v: round(float(np.percentile(v, 10)), 4)
+            p1 = lambda v: round(float(np.percentile(v, 1)), 4)
+            out['families'][fam]['look'] = {'pair': p10(pk), 'centroid': p10(ck), 'pair_far': p1(pk), 'centroid_far': p1(ck),
+                                            'pair_median': round(float(np.median(pk)), 4),
+                                            'centroid_median': round(float(np.median(ck)), 4),
+                                            'centroid_emb': np.round(cen_look, 5).tolist()}
+        log('  calibrated %-11s %4d pieces (%d measured)%s' % (fam, len(fs), len(F), (
+            '  LOOK 10th pct cos pair %.4f centroid %.4f' % (out['families'][fam]['look']['pair'],
+                                                            out['families'][fam]['look']['centroid'])) if look else ''))
     out['pack_files'] = len(pack_pieces('all'))
+    if look:
+        out['look'] = {'onnx': os.path.basename(ONNX), 'measured': True, 'embedded': len(seen)}
     return out
 
 
@@ -351,11 +391,12 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
     cells = at_twin_size(O, Tw)
     tf = features(Tw)
     cen_lab = np.array(C['centroid']['lab']); cen_lbp = np.array(C['centroid']['lbp'])
-    dte, dce, dtl, dcl, pr_t, pr_f, inks, ss = [], [], [], [], [], [], [], []
+    dte, dce, dtl, dcl, pr_t, pr_f, inks, ss, mc = [], [], [], [], [], [], [], [], []
     for c in cells:
         f = features(c)
         if f['lab'] is None or f['lbp'] is None or f['painter'] is None:
             continue
+        mc.append(c)
         dte.append(emd(f['lab'], tf['lab'])); dce.append(emd(f['lab'], cen_lab))
         dtl.append(chi2(f['lbp'], tf['lbp'])); dcl.append(chi2(f['lbp'], cen_lbp))
         pr_t.append(ratios(f['painter'], tf['painter'])); pr_f.append(ratios(f['painter'], C['painter']['median']))
@@ -400,11 +441,32 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
     grid_ok = g['block'] == C['block'] and not g['fractional']
     rep['rulers']['grid'] = {'block': g['block'], 'family': C['block'], 'fractional': g['fractional'], 'ok': grid_ok}
     rep['ssim'] = round(med(ss), 3) if ss else None
-    e1, e2 = look_embed(O), look_embed(Tw)
-    rep['look'] = 'UNMEASURED: no DINOv2 weights on this box (%s)' % os.path.relpath(ONNX, ROOT) if e1 is None \
-        else round(float(e1 @ e2), 4)
-    names = {'colour': 'COLOUR (Lab EMD)', 'pattern': 'PATTERN (LBP)', 'painter': 'PAINTER (DIRECTION\'s five)'}
-    for k in ('colour', 'pattern', 'painter'):
+    et, L = look_embed(Tw), C.get('look')
+    if et is None:
+        rep['look'] = 'UNMEASURED: no DINOv2 weights on this box (%s); the runner measures it (.github/workflows/look.yml)' \
+            % os.path.relpath(ONNX, ROOT)
+    elif not L:
+        rep['look'] = 'UNCALIBRATED: the weights are here and the lines carry no LOOK; run --calibrate on this box'
+    else:
+        # each cell at his size against his twin and the family's mean look. IN at or over the packs' 10th
+        # percentile cosine, FAR under their 1st (worse than 99 in 100 of his own pairs), on the twin or the
+        # family, whichever is nearer; a cosine cannot double the way a distance does, so FAR is the packs'
+        # own tail, not twice the line (measured 10/18: twice the line needs a cosine under about -0.9)
+        cen = unit(L['centroid_emb']); kt, kc = [], []
+        for c in mc:
+            e = look_embed(c)
+            kt.append(float(e @ et)); kc.append(float(e @ cen))
+        ct, cc = med(kt), med(kc)
+        lv = lambda cos, line, far: 0 if cos >= line else (1 if cos >= far else 2)
+        lk = min(lv(ct, L['pair'], L['pair_far']), lv(cc, L['centroid'], L['centroid_far']))
+        rk = round(min((1 - ct) / max(1 - L['pair'], 1e-9), (1 - cc) / max(1 - L['centroid'], 1e-9)), 2)
+        rep['rulers']['look'] = {'twin': round(ct, 4), 'family': round(cc, 4), 'over_line': rk, 'level': lk,
+                                 'line': {k: L[k] for k in ('pair', 'centroid', 'pair_far', 'centroid_far')}}
+        rep['look'] = round(med(kt), 4)
+    names = {'colour': 'COLOUR (Lab EMD)', 'pattern': 'PATTERN (LBP)', 'painter': 'PAINTER (DIRECTION\'s five)',
+             'look': 'LOOK (DINOv2 cosine)'}
+    held = [k for k in ('colour', 'pattern', 'painter', 'look') if k in rep['rulers']]
+    for k in held:
         lv = rep['rulers'][k]['level']
         if lv == 2:
             rep['why'].append('%s FAR: %s' % (names[k], json.dumps({x: rep['rulers'][k][x] for x in rep['rulers'][k] if x != 'level'})))
@@ -414,7 +476,7 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
         rep['why'].append('GRID: block %d against the family\'s %d%s' % (g['block'], C['block'], ', fractional' if g['fractional'] else ''))
     if not shape_ok:
         rep['why'].append('SHAPE: 8x8 ink %.2f outside the family\'s %.2f to %.2f' % (ink, band[0], band[1]))
-    levels = [rep['rulers'][k]['level'] for k in ('colour', 'pattern', 'painter')]
+    levels = [rep['rulers'][k]['level'] for k in held]
     rep['verdict'] = 'RED' if 2 in levels or not grid_ok else ('AMBER' if 1 in levels or not shape_ok else 'GREEN')
     return rep
 

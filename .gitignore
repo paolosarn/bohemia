@@ -5,3 +5,5 @@ package-lock.json
 .bohemia_gates.lock
 v/
 records/character/rig/*.glb
+# the LOOK ruler's DINOv2 export: built and cached on the free runner, never committed (gates/twin_gate.py L0)
+tools/models/
