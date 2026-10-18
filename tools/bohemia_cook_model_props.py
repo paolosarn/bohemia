@@ -965,19 +965,552 @@ def corral(bpy, mathutils):
     box(bpy, 'sign', red, (0.58, 0.04, 0.4), (x0 - W, -0.05, 1.68), rot=(0, 0, math.radians(-20)), bevel=0.01)   # to the car park, not edge-on to it
 
 
-def dims(bpy):
+def seat(bpy, h, objs=None):
+    """drop a handle so the lowest vertex of its meshes sits on the ground (z 0): a car rolled onto its roof rests on
+    whatever is lowest once it is over"""
     import mathutils
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get(); lo = 1e9
+    for o in objs or [o for o in bpy.context.scene.objects if o.type == 'MESH']:
+        e = o.evaluated_get(dg); me = e.to_mesh()
+        for v in me.vertices: lo = min(lo, (e.matrix_world @ v.co).z)
+        e.to_mesh_clear()
+    h.location.z -= lo
+    bpy.context.view_layer.update()
+
+
+def shards(bpy, name, m, rnd, centre, spread, n, size=(0.03, 0.08)):
+    """broken glass or grit scattered flat on the road round a point, thicker near it (one mesh)"""
+    vs, fs = [], []
+    for i in range(n):
+        a = rnd.uniform(0, 2 * math.pi); d = spread * rnd.random() ** 1.6
+        x, y = centre[0] + d * math.cos(a) * 1.4, centre[1] + d * math.sin(a)
+        s = rnd.uniform(*size); t = rnd.uniform(0, math.pi)
+        b = len(vs)
+        for k in range(3):
+            aa = t + k * 2.1 + rnd.uniform(-0.3, 0.3)
+            vs.append((x + s * math.cos(aa), y + s * math.sin(aa), 0.004 + 0.003 * rnd.random()))
+        fs.append((b, b + 1, b + 2))
+    me = bpy.data.meshes.new(name); me.from_pydata(vs, [], fs); me.update()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o); o.data.materials.append(m)
+    return o
+
+
+def rolled(bpy, mathutils):
+    # [the empty terrains' cover] 10/18: THE FREEWAY. Last round's wreck (reference/models/bohemia/wreck.glb) rolled onto
+    # its roof, imported whole and untouched (rule 115a: one table), its belly and three wheels to the sky, the bare rim
+    # where the fourth was. A BLOCKER a man crouches behind (1.4 m of car on its back). The twin his own wreck
+    # (pack:9. Abandoned cards#0): he draws every car on its wheels. The odd thing: the boot sprung open against the road
+    # and a suitcase slid out of it, burst, and the glass of the rear screen spread out behind in a fan.
+    import random
+    rnd = random.Random(17)
+    h = import_model(bpy, os.path.join(ROOT, 'reference/models/bohemia/wreck.glb'), (0, 0, 0), (0, 0, 0))
+    glass, trim, paint_lo = bpy.data.materials['glass_gone'], bpy.data.materials['trim'], bpy.data.materials['paint_teal_low']
+    under, rubber, rust = bpy.data.materials['rust_dark'], bpy.data.materials['tyre'], bpy.data.materials['rust']
+    # round two of the loop: the belly came out one pale slab (the wreck was modelled to be seen from above, and the
+    # source pass dusts every up face). What a car shows on its back, built in its own upright frame under the 0.26 m
+    # sill and turned over with it: the floor pan, the chassis rails, the exhaust and its silencer, the fuel tank, the
+    # sump, the two axles, all in the wreck's own dark materials (nothing new: the guide's cap)
+    belly = [box(bpy, 'floor_pan', under, (3.9, 1.5, 0.04), (0, 0, 0.245)),
+             box(bpy, 'sump', under, (0.6, 0.5, 0.18), (1.35, 0, 0.17), bevel=0.02),
+             box(bpy, 'fuel_tank', rubber, (0.75, 1.05, 0.2), (-1.65, 0.05, 0.16), bevel=0.03),
+             box(bpy, 'silencer', rust, (0.7, 0.26, 0.17), (-0.6, -0.42, 0.17), bevel=0.04)]
+    for sy in (-1, 1):
+        belly.append(box(bpy, 'rail_%d' % sy, rubber, (4.0, 0.1, 0.12), (0, sy * 0.52, 0.2)))
+    for x in (1.42, -1.42):
+        belly.append(rod(bpy, 'axle_%d' % int(x * 10), rubber, (x, -0.8, 0.34), (x, 0.8, 0.34), 0.045))
+    belly.append(rod(bpy, 'diff', rubber, (-1.42, -0.02, 0.24), (-1.42, 0.02, 0.24), 0.16, verts=12))
+    belly.append(rod(bpy, 'driveshaft', rust, (1.0, 0.0, 0.2), (-1.3, 0.0, 0.22), 0.04))
+    belly.append(rod(bpy, 'exhaust_a', rust, (1.25, -0.3, 0.17), (-0.25, -0.42, 0.16), 0.032))
+    belly.append(rod(bpy, 'exhaust_b', rust, (-0.95, -0.42, 0.16), (-2.4, -0.48, 0.2), 0.032))
+    for o in belly:
+        if o.parent is None: o.parent = h
+    h.rotation_euler = (math.radians(176), math.radians(-4), math.radians(8))
+    seat(bpy, h)
+    # the boot lid, sprung on its hinges and down on the road behind (the wreck's tail is -X, now at the far end)
+    box(bpy, 'boot_lid', paint_lo, (0.86, 1.42, 0.03), (-2.62, 0.04, 0.34), rot=(0, math.radians(-62), math.radians(8)))
+    box(bpy, 'suitcase', rust, (0.62, 0.42, 0.2), (-3.05, -0.55, 0.1), rot=(0, 0, math.radians(32)), bevel=0.02)
+    box(bpy, 'suitcase_lid', rust, (0.6, 0.4, 0.04), (-3.12, -0.98, 0.07), rot=(math.radians(-12), 0, math.radians(18)), bevel=0.01)
+    for i in range(5):   # what was in it, out on the road: folded clothes as small flat slabs
+        box(bpy, 'clothes_%d' % i, paint_lo if i % 2 else trim, (rnd.uniform(0.18, 0.3), rnd.uniform(0.14, 0.24), 0.04),
+            (-3.4 + rnd.uniform(-0.3, 0.3), -0.75 + rnd.uniform(-0.35, 0.35), 0.02), rot=(0, 0, rnd.uniform(0, 3)), bevel=0.01)
+    shards(bpy, 'screen_glass', glass, rnd, (-2.6, 0.2), 1.1, 160)
+
+
+def pier(bpy, mathutils):
+    # THE FREEWAY: an overpass pier, the bent that held the deck where the interchange came down. A hammerhead column at
+    # a real freeway's size: a 1.5 x 1.1 m column with chamfered corners on its footing, 4.9 m to the cap (the 16 ft
+    # clearance a freeway keeps), the cap 5.6 m across and 1.2 m deep, the four girders on their bearing pads, and the
+    # stub of the deck over them broken off toward the street, rebar hanging out of the break. A BLOCKER nothing passes.
+    # No pack twin is a pier: his concrete is his barricade wall (pack:3. Barricades and blockades#10). The odd thing:
+    # under the stub, out of the rain, a bed of flattened boxes and a blanket, somebody's.
+    # round two of the loop: one pale grey everywhere (value span 100), the water stains thin dark stripes like paint,
+    # the deck a plank floating over two stubs. Now the column a step down and the cap a step up (the container's
+    # lesson), the water runs ragged under the joint, a corner spalled to its rebar, the girders full length under a
+    # deck broken toward the camera, and the bed under it big enough to read as a bed.
+    import random
+    rnd = random.Random(23)
+    lo, conc = mat(bpy, 'concrete_shade', 'tape_grey', 1), mat(bpy, 'concrete', 'tape_grey', 2)
+    stain, steel, card = mat(bpy, 'stain_and_pads', 'tape_grey', 0), mat(bpy, 'rebar', 'clay_rust', 1), mat(bpy, 'cardboard_bed', 'tape_masking', 2)
+    CX, CY, CH = 1.5, 1.1, 4.9
+    box(bpy, 'footing', lo, (2.6, 2.1, 0.3), (0, 0, 0.15), bevel=0.02)
+    col = box(bpy, 'column', lo, (CX, CY, CH - 0.3), (0, 0, 0.3 + (CH - 0.3) / 2), bevel=0.12)
+    cut(bpy, col, (0.5, 0.42, 0.75), (-CX / 2 + 0.06, -CY / 2 + 0.05, 1.55), (math.radians(8), math.radians(14), math.radians(40)))   # the corner a truck took off
+    tubes(bpy, 'spall_rebar', steel, [((-CX / 2 + 0.1, -CY / 2 + 0.1, 1.25), (-CX / 2 + 0.1, -CY / 2 + 0.1, 1.88)),
+                                       ((-CX / 2 + 0.1, -CY / 2 + 0.1, 1.4), (-CX / 2 + 0.38, -CY / 2 + 0.1, 1.4)),
+                                       ((-CX / 2 + 0.1, -CY / 2 + 0.1, 1.68), (-CX / 2 + 0.1, -CY / 2 + 0.36, 1.68))], 0.016, n=6)
+    for i in range(5):   # the spall's lumps on the footing under it
+        chunk(bpy, 'spall_%d' % i, lo, (rnd.uniform(0.08, 0.18), rnd.uniform(0.07, 0.15), rnd.uniform(0.05, 0.1)), (-0.9 + rnd.uniform(-0.25, 0.2), -0.75 + rnd.uniform(-0.2, 0.2), 0.33), (rnd.uniform(0, 1), rnd.uniform(0, 1), rnd.uniform(0, 3)), rnd)
+    # the cap: a hammerhead, deep at the column and tapering to its tips
+    half = [(1.0, 1.2), (2.8, 0.7)]
+    prof = [(-x, z) for x, z in reversed(half)] + [(x, z) for x, z in half]
+    pts = [(x, CH + 1.2 - z) for x, z in prof] + [(2.8, CH + 1.2), (-2.8, CH + 1.2)]
+    me = bpy.data.meshes.new('cap')
+    n = len(pts)
+    vs = [(x, y, z) for y in (-0.6, 0.6) for x, z in pts]
+    fs = [tuple(range(n)), tuple(range(2 * n - 1, n - 1, -1))] + [(i, n + i, n + (i + 1) % n, (i + 1) % n) for i in range(n)]
+    me.from_pydata(vs, [], fs); me.update()
+    import bmesh
+    bm = bmesh.new(); bm.from_mesh(me); bmesh.ops.recalc_face_normals(bm, faces=bm.faces); bm.to_mesh(me); bm.free()
+    cap = bpy.data.objects.new('cap', me); bpy.context.collection.objects.link(cap); cap.data.materials.append(conc)
+    bpy.context.view_layer.objects.active = cap; cap.select_set(True)
+    bv = cap.modifiers.new('bevel', 'BEVEL'); bv.width = 0.04; bv.segments = 1; bpy.ops.object.modifier_apply(modifier='bevel')
+    zb = CH + 1.2
+    for x in (-2.1, -0.7, 0.7, 2.1):
+        box(bpy, 'bearing_%d' % int(x * 10), stain, (0.42, 0.42, 0.08), (x, 0, zb + 0.04))
+    # the girders run along the road (Y) over the cap; the far span is gone at the joint behind, the near span broke off
+    # 1.6 m out toward the street, the girder ends at different lengths
+    zg, GH = zb + 0.08, 0.9
+    for i, (x, yf) in enumerate(((-2.1, -1.55), (-0.7, -1.8), (0.7, -1.35), (2.1, -1.65))):
+        g = box(bpy, 'girder_%d' % i, conc, (0.45, 0.6 - yf, GH), (x, (0.6 + yf) / 2, zg + GH / 2))
+        cut(bpy, g, (0.9, 0.6, 1.4), (x, yf - 0.1, zg + GH / 2), (math.radians(rnd.uniform(-30, 30)), 0, math.radians(rnd.uniform(-15, 15))))
+    deck = box(bpy, 'deck', conc, (5.6, 2.3, 0.26), (0, -0.55, zg + GH + 0.13))
+    for k in range(4):   # the break, jagged: four bites out of the near edge
+        cut(bpy, deck, (1.6, 0.9, 1.0), (-2.1 + k * 1.4 + rnd.uniform(-0.2, 0.2), -1.85 + rnd.uniform(-0.25, 0.15), zg + GH + 0.13), (math.radians(rnd.uniform(-25, 25)), 0, math.radians(rnd.uniform(-35, 35))))
+    box(bpy, 'deck_edge', stain, (5.62, 0.04, 0.3), (0, 0.6, zg + GH + 0.13))   # the joint behind, black with the years
+    bars = []
+    for i in range(22):   # the deck's rebar hanging out of the break toward the street, bent down by its own weight
+        x = -2.6 + i * 0.25 + rnd.uniform(-0.05, 0.05)
+        y0 = -1.45 + rnd.uniform(-0.2, 0.2); z0 = zg + GH + 0.13
+        p1 = (x + rnd.uniform(-0.08, 0.08), y0 - rnd.uniform(0.15, 0.35), z0 - rnd.uniform(0.1, 0.3))
+        p2 = (p1[0] + rnd.uniform(-0.1, 0.1), p1[1] - rnd.uniform(0.0, 0.15), p1[2] - rnd.uniform(0.2, 0.6))
+        bars += [((x, y0, z0), p1), (p1, p2)]
+    tubes(bpy, 'rebar', steel, bars, 0.018, n=6)
+    # the water from the joint, run down the cap and the column's near face in ragged runs, the splash at the foot
+    yf = -CY / 2 - 0.006
+    for i, (x, top_, ln, r) in enumerate(((-0.4, CH - 0.05, 3.4, 0.16), (0.15, CH - 0.05, 2.1, 0.11), (0.5, CH - 0.4, 1.3, 0.08))):
+        k = 0; z = top_
+        while z > top_ - ln:
+            blotch(bpy, 'run_%d_%d' % (i, k), stain, r * (1 - 0.5 * (top_ - z) / ln), (x + 0.03 * math.sin(k), yf, z), (math.pi / 2, 0, 0), seed=300 + i * 40 + k)
+            z -= r * 0.9; k += 1
+    for i, x in enumerate((-2.0, -0.9, 0.3, 1.6)):
+        blotch(bpy, 'cap_run_%d' % i, stain, 0.16, (x, -0.606, CH + 0.95 - 0.12 * (i % 2)), (math.pi / 2, 0, 0), seed=360 + i)
+    for i in range(6):
+        blotch(bpy, 'splash_%d' % i, stain, 0.2, (-0.6 + i * 0.25, yf, 0.48 + 0.05 * (i % 2)), (math.pi / 2, 0, 0), seed=380 + i)
+    # THE ONE ASYMMETRIC THING: a bed at its foot under the stub, out of the rain: flattened boxes laid two deep, a
+    # dark blanket thrown over, a bundled pillow, a carrier bag of what he owns
+    for i, (x, y, sx, sy, a) in enumerate(((-0.35, -1.55, 1.15, 0.75, 6), (0.55, -1.6, 1.0, 0.8, -9), (0.1, -1.8, 1.9, 0.95, 2))):
+        box(bpy, 'box_flat_%d' % i, card, (sx, sy, 0.025), (x, y, 0.013 + 0.014 * i), rot=(0, 0, math.radians(a)))
+    bl = box(bpy, 'blanket', stain, (1.35, 0.9, 0.09), (0, 0, 0), bevel=0.035)   # box() bakes its place: rumpled at the origin, then placed
+    for v in bl.data.vertices:
+        v.co.z += 0.035 * math.sin(v.co.x * 5) * math.cos(v.co.y * 4)
+    bl.location = (0.25, -1.75, 0.09); bl.rotation_euler = (0, 0, math.radians(-4))
+    for i, (x, y, r, sc) in enumerate(((-0.6, -1.72, 1.0, (0.3, 0.22, 0.12)), (0.95, -1.35, 1.0, (0.2, 0.17, 0.22)))):
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=r, segments=12, ring_count=8, location=(x, y, 0.06 + sc[2]))
+        b = put(bpy, bpy.context.active_object, 'bundle_%d' % i, card); b.scale = sc
+        lump(b, rnd, r)
+
+
+def drums(bpy, mathutils):
+    # THE FREEWAY: the lane closure nobody took down. Channelizer drums (a real one: 0.46 m across, 0.91 m tall, ribbed,
+    # two white bands, sat in a 0.9 m rubber base ring) and 28-inch cones (0.71 m on a 0.38 m square base, two white
+    # bands) in a taper across a lane, 4.6 m of them. COVER only knee to waist high: the twins his own drum and cone
+    # (pack:17. Warning Signs and road props#23 and #17). The odd thing: the third drum knocked out of its ring and rolled
+    # into the lane, and the cone the truck went over crushed flat.
+    import random
+    rnd = random.Random(29)
+    # round two of the loop: the source pass dusted the orange (rust step 3) to salmon and four thin white bands made
+    # candles of the drums; his drum is a deep red-orange with one broad band. The orange a step down, two broad
+    # bands, the rubber a step darker, half the grit
+    orange, white = mat(bpy, 'plastic_orange', 'clay_rust', 2), mat(bpy, 'reflective_white', 'clay_bone', 3)
+    base, grit = mat(bpy, 'rubber_base', 'rubber', 0), mat(bpy, 'road_grit', 'tape_grey', 1)
+    def drum(name, loc, rot=(0, 0, 0), ring=True):
+        parts = []
+        r0, r1, H = 0.24, 0.215, 0.91
+        bpy.ops.mesh.primitive_cone_add(vertices=20, radius1=r0, radius2=r1, depth=H, location=(0, 0, H / 2 + 0.04))
+        d = put(bpy, bpy.context.active_object, name, orange); parts.append(d)
+        for k, z in enumerate((0.4, 0.67)):   # two broad white bands, orange between and above
+            rr = r0 + (r1 - r0) * (z / H) + 0.006
+            parts.append(cyl(bpy, '%s_band_%d' % (name, k), white, rr, 0.15, (0, 0, z + 0.04), verts=20))
+        for z in (0.2, 0.535, 0.84):
+            rr = r0 + (r1 - r0) * (z / H) + 0.012
+            parts.append(cyl(bpy, '%s_rib_%d' % (name, int(z * 100)), orange, rr, 0.03, (0, 0, z + 0.04), verts=20))
+        parts.append(cyl(bpy, '%s_handle' % name, orange, 0.06, 0.08, (0, 0, H + 0.08), verts=10))
+        parts.append(cyl(bpy, '%s_lid' % name, orange, r1 * 0.9, 0.04, (0, 0, H + 0.04), verts=20))
+        bpy.ops.object.empty_add(location=(0, 0, 0)); e = bpy.context.active_object; e.name = name + '_drum'
+        for p in parts: p.parent = e
+        e.location = loc; e.rotation_euler = rot
+        if ring:
+            bpy.ops.mesh.primitive_torus_add(major_radius=0.36, minor_radius=0.09, major_segments=24, minor_segments=8, location=(loc[0], loc[1], 0.06))
+            t = put(bpy, bpy.context.active_object, name + '_ring', base); t.scale = (1, 1, 0.65)
+        return e
+    def cone(name, loc, rot=(0, 0, 0), crushed=False):
+        H = 0.71
+        bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.15, radius2=0.035, depth=H - 0.04, location=(0, 0, (H - 0.04) / 2 + 0.04))
+        c = put(bpy, bpy.context.active_object, name, orange)
+        bands = [cyl(bpy, '%s_band_%d' % (name, k), white, 0.15 - 0.115 * (z / H) + 0.004, 0.1 if k == 0 else 0.07, (0, 0, z), verts=16) for k, z in enumerate((0.42, 0.6))]
+        b = box(bpy, name + '_base', base, (0.38, 0.38, 0.04), (0, 0, 0.02), bevel=0.02)
+        bpy.ops.object.empty_add(location=(0, 0, 0)); e = bpy.context.active_object; e.name = name + '_cone'
+        for p in [c, b] + bands: p.parent = e
+        if crushed:   # the truck went over it: pressed flat to its base and splayed, the tip folded over
+            for o in [c] + bands:
+                for v in o.data.vertices:
+                    wz = o.location.z + v.co.z
+                    v.co.x *= 1 + 0.9 * (wz / H); v.co.z = 0.05 + wz * 0.1 + 0.015 * math.sin(v.co.x * 9) - o.location.z
+        e.location = loc; e.rotation_euler = rot
+        return e
+    # the taper: drums on the lane line, cones between them, all leaning a little the way the wind has had them
+    drum('drum_0', (-2.0, 0.55, 0), (0, 0, 0.3))
+    drum('drum_1', (-0.9, 0.2, 0), (math.radians(2), 0, 1.1))
+    cone('cone_0', (-1.45, 0.5, 0), (0, 0, 0.4))
+    cone('cone_1', (-0.35, 0.05, 0), (0, math.radians(3), 1.0))
+    cone('cone_2', (0.75, -0.25, 0), (0, 0, 0.2))
+    drum('drum_3', (1.9, -0.6, 0), (0, math.radians(-2), 2.0))
+    cone('cone_4', (1.25, 0.55, 0.16), (0, math.radians(90), math.radians(-30)))   # one cone blown over
+    # THE ONE ASYMMETRIC THING: the third drum out of its ring and rolled into the lane, the ring left where it stood;
+    # and the cone the truck went over, crushed flat
+    bpy.ops.mesh.primitive_torus_add(major_radius=0.36, minor_radius=0.09, major_segments=24, minor_segments=8, location=(0.2, -0.1, 0.06))
+    t = put(bpy, bpy.context.active_object, 'ring_empty', base); t.scale = (1, 1, 0.65)
+    drum('drum_2', (0.35, -0.95, 0.235), (0, math.radians(90), math.radians(-62)), ring=False)
+    cone('cone_crushed', (-1.1, -0.75, 0), (0, 0, 1.4), crushed=True)
+    shards(bpy, 'grit', grit, rnd, (0.0, 0.0), 1.5, 70, size=(0.02, 0.05))
+
+
+def gantry(bpy, mathutils):
+    # THE FREEWAY: the overhead sign gantry come down across the lanes. A box truss of galvanised pipe (four chords, a
+    # real sign bridge's 1.0 x 1.2 m section, braced every 0.9 m), 5 m of it lying on the road with its end post still
+    # bolted on, torn off its footing and tipped over, and the green sign panel (3.6 x 2.1 m, white letters as bars a man cannot read, an
+    # arrow) hung off its front, face up to the sky. A BLOCKER you fire through the truss of. No sign bridge in his
+    # packs: the twin his chevron board (pack:17. Warning Signs and road props#10). The odd thing: the walkway grating
+    # torn free and hanging off one end, and somebody's white paint line struck through the arrow.
+    import random
+    rnd = random.Random(31)
+    # round two of the loop: the sign lay face up to the sky and the source pass dusted its green to a grey board; it now
+    # leans back 45 degrees against the truss, a step brighter, and the truss a step darker so the sign is the light
+    steel, green = mat(bpy, 'galvanised', 'tape_grey', 1), mat(bpy, 'sign_green', 'clay_teal', 2)
+    white, rust = mat(bpy, 'sign_white', 'clay_bone', 4), mat(bpy, 'rust', 'clay_rust', 1)
+    L, Wt, Ht = 5.0, 1.0, 1.2   # a sign bridge spans the road; the span broke at a splice and 5 m of it came down here
+    x0 = -L / 2 + 0.8
+    segs = []
+    ch = [(-Wt / 2, 0.0), (Wt / 2, 0.0), (-Wt / 2, Ht), (Wt / 2, Ht)]   # (y, z) of the four chords, the truss lying down
+    for y, z in ch: segs.append(((x0, y, z + 0.08), (x0 + L, y, z + 0.08)))
+    k = 0; x = x0
+    while x < x0 + L - 0.01:
+        x1 = min(x + 0.9, x0 + L)
+        for y, z in ch[:2]: segs.append(((x, y, 0.08), (x, y, Ht + 0.08)))            # the verticals each side
+        segs.append(((x, -Wt / 2, Ht + 0.08), (x, Wt / 2, Ht + 0.08)))
+        sgn = 1 if k % 2 else -1                                                         # the diagonals, zig-zag
+        segs.append(((x, -Wt / 2, 0.08 if sgn > 0 else Ht + 0.08), (x1, -Wt / 2, Ht + 0.08 if sgn > 0 else 0.08)))
+        segs.append(((x, Wt / 2, 0.08 if sgn > 0 else Ht + 0.08), (x1, Wt / 2, Ht + 0.08 if sgn > 0 else 0.08)))
+        x = x1; k += 1
+    tubes(bpy, 'truss', steel, segs, 0.055, n=8)
+    # the end post at -X, still bolted to the truss, torn off its footing and tipped over onto the road, its base plate
+    # and the anchor bolts that let go on the end of it
+    xp = x0 - 1.9
+    tubes(bpy, 'post', steel, [((x0 - 0.15, -0.35, 0.22), (xp, -0.62, 0.3)), ((x0 - 0.15, 0.35, 0.22), (xp, 0.08, 0.3))], 0.11, n=12)
+    for i in range(4):
+        t = (i + 0.5) / 4
+        a_, b_ = (x0 - 0.15 - 1.75 * t, -0.35 - 0.27 * t, 0.22 + 0.08 * t), (x0 - 0.15 - 1.75 * (t + 0.1), 0.35 - 0.27 * (t + 0.1), 0.24)
+        tubes(bpy, 'post_brace_%d' % i, steel, [(a_, b_)], 0.04, n=6)
+    box(bpy, 'base_plate', rust, (0.04, 1.1, 0.62), (xp - 0.02, -0.27, 0.34), bevel=0.01)
+    tubes(bpy, 'anchor_bolts', rust, [((xp - 0.04, -0.6 + 0.22 * i, 0.12 + 0.4 * (i % 2)), (xp - 0.3 - 0.08 * (i % 3), -0.62 + 0.24 * i, 0.1 + 0.42 * (i % 2))) for i in range(5)], 0.025, n=6)
+    # the sign hung off the S face, tipped up toward the sky (the truss fell on its back, the sign went with it)
+    SW, SH = 3.6, 2.1
+    sx = 0.6
+    panel = box(bpy, 'sign', green, (SW, 0.06, SH), (0, 0, 0), bevel=0.02)
+    parts = [panel]
+    parts.append(box(bpy, 'sign_border', white, (SW - 0.12, 0.065, 0.05), (0, -0.003, SH / 2 - 0.08)))
+    parts.append(box(bpy, 'sign_border_b', white, (SW - 0.12, 0.065, 0.05), (0, -0.003, -SH / 2 + 0.08)))
+    for side in (-1, 1):
+        parts.append(box(bpy, 'sign_border_%d' % side, white, (0.05, 0.065, SH - 0.12), (side * (SW / 2 - 0.08), -0.003, 0)))
+    # the legend: two lines of letters as bars and blocks (no word a man could read), the arrow under them
+    for row, (z, n) in enumerate(((0.55, 9), (0.18, 6))):
+        xx = -1.25
+        for c in range(n):
+            w = rnd.choice((0.13, 0.17, 0.2)); hh = 0.26 if row == 0 else 0.22
+            if rnd.random() < 0.1: xx += 0.12; continue
+            parts.append(box(bpy, 'letter_%d_%d' % (row, c), white, (w, 0.07, hh), (xx + w / 2, -0.006, z)))
+            xx += w + 0.06
+    parts.append(box(bpy, 'arrow_shaft', white, (0.12, 0.07, 0.55), (0.0, -0.006, -0.42)))
+    bpy.ops.mesh.primitive_cone_add(vertices=3, radius1=0.24, depth=0.07, location=(0, -0.006, -0.12), rotation=(math.pi / 2, 0, 0))
+    ah = put(bpy, bpy.context.active_object, 'arrow_head', white, smooth=False); ah.rotation_euler = (math.pi / 2, math.radians(30), 0); parts.append(ah)
+    # THE ONE ASYMMETRIC THING (1): a white paint line struck through the arrow by a hand, a little crooked
+    parts.append(box(bpy, 'struck', white, (0.95, 0.075, 0.07), (0.05, -0.008, -0.38), rot=(0, math.radians(32), 0)))
+    for i in range(4):   # the sign's own rust where it bolts to its brackets
+        parts.append(blotch(bpy, 'sign_rust_%d' % i, rust, 0.09, ((-1.3, 1.3, -1.3, 1.3)[i], -0.035, (0.85, 0.85, -0.85, -0.85)[i]), (math.pi / 2, 0, 0), seed=81 + i))
+    bpy.ops.object.empty_add(location=(0, 0, 0)); sg = bpy.context.active_object; sg.name = 'sign_panel'
+    for p in parts: p.parent = sg
+    sg.location = (sx, -Wt / 2 - 0.8, 0.84); sg.rotation_euler = (math.radians(-45), 0, math.radians(3))
+    tubes(bpy, 'sign_brackets', steel, [((sx + x, -Wt / 2, 0.15 + z), (sx + x, -Wt / 2 - 0.45, 0.3 + z * 0.5)) for x in (-1.3, 1.3) for z in (0.0, 0.6)], 0.035, n=6)
+    # THE ONE ASYMMETRIC THING (2): the walkway grating torn off the truss's +X end, hanging over it down to the road
+    g, xe = [], x0 + L
+    for i in range(9):
+        y = -0.42 + i * 0.105
+        g.append(((xe - 0.05, y, Ht + 0.1), (xe + 0.75, y + 0.06, 0.05)))
+    g += [((xe - 0.05, -0.45, Ht + 0.1), (xe - 0.05, 0.45, Ht + 0.1)), ((xe + 0.38, -0.42, 0.6), (xe + 0.4, 0.48, 0.62)), ((xe + 0.75, -0.42, 0.05), (xe + 0.78, 0.5, 0.05))]
+    tubes(bpy, 'grating', rust, g, 0.016, n=4)
+
+
+def heap(bpy, mathutils):
+    # THE LANDFILL: a heap of bags and junk as a MOUND (high ground, rule 59), what the trucks tipped on the last day
+    # and nobody pushed in: about 5 m across and 1.5 m high, a slumped dome of cover dirt under black and pale bin bags,
+    # boards, a mattress, sheet tin, a door laid across the top where a man stands. The twin his bag-and-junk pile
+    # (pack:7. Trash and debris#0). The odd thing: an armchair sunk into the top of the heap, turned to face the
+    # street, as if somebody sat up there to watch the road.
+    import random
+    rnd = random.Random(37)
+    dirt, black = mat(bpy, 'cover_dirt', 'clay_bone', 0), mat(bpy, 'bags_black', 'cloth_black', 1)
+    pale, wood, rust = mat(bpy, 'bags_pale', 'tape_masking', 3), mat(bpy, 'boards', 'tape_masking', 1), mat(bpy, 'tin_and_chair', 'clay_rust', 1)
+    A, B, Hd = 2.5, 1.9, 1.15
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=40, ring_count=20, location=(0, 0, 0))
+    dome = put(bpy, bpy.context.active_object, 'dirt', dirt, smooth=False)
+    p1, p2 = rnd.uniform(0, 6), rnd.uniform(0, 6)
+    for v in dome.data.vertices:
+        a = math.atan2(v.co.y, v.co.x)
+        k = 1 + 0.12 * math.sin(3 * a + p1) + 0.08 * math.sin(5 * a + p2)
+        z = max(0.0, v.co.z) ** 1.3
+        v.co = (v.co.x * A * k, v.co.y * B * k, z * Hd * (1 + 0.1 * math.sin(3 * v.co.x + 2 * v.co.y)))
+    sub = dome.modifiers.new('cut', 'SUBSURF'); sub.subdivision_type = 'SIMPLE'; sub.levels = 2; bpy.ops.object.modifier_apply(modifier='cut')
+    tex = bpy.data.textures.new('clods', 'VORONOI'); tex.noise_scale = 0.18
+    dsp = dome.modifiers.new('clods', 'DISPLACE'); dsp.texture = tex; dsp.texture_coords = 'GLOBAL'; dsp.strength = 0.08; dsp.mid_level = 0.6
+    bpy.ops.object.modifier_apply(modifier='clods')
+    for v in dome.data.vertices:
+        if v.co.z < 0: v.co.z = 0
+    def top(x, y):
+        u = (x / A) ** 2 + (y / B) ** 2
+        return Hd * max(0.0, 1 - u) ** 0.77
+    # the bags, thick over the whole heap, heavier round the foot where they rolled
+    for i in range(150):
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.0, 1.08) ** 0.65
+        x, y = A * d * math.cos(a), B * d * math.sin(a)
+        r = rnd.uniform(0.17, 0.3)
+        if abs(x - 0.35) < 0.75 and abs(y - 0.1) < 0.5: continue            # the door's place on the top
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=(x, y, top(x, y) + r * 0.25), segments=12, ring_count=8)
+        b = put(bpy, bpy.context.active_object, 'bag_%d' % i, black if rnd.random() < 0.68 else pale)
+        b.scale = (rnd.uniform(0.9, 1.2), rnd.uniform(0.8, 1.0), rnd.uniform(0.6, 0.8)); b.rotation_euler = (rnd.uniform(-0.4, 0.4), rnd.uniform(-0.4, 0.4), rnd.uniform(0, 3))
+        lump(b, rnd, r)
+        if rnd.random() < 0.5:
+            bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.045, radius2=0.0, depth=0.1, location=(x, y, top(x, y) + r * 0.85))
+            put(bpy, bpy.context.active_object, 'knot_%d' % i, b.data.materials[0], smooth=False)
+    # the junk: boards and sheet tin stuck out of the slope at angles, a mattress folded over the right-hand flank
+    for i in range(14):
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.35, 0.95)
+        x, y = A * d * math.cos(a), B * d * math.sin(a)
+        if rnd.random() < 0.6:
+            box(bpy, 'board_%d' % i, wood, (rnd.uniform(0.8, 1.4), 0.14, 0.025), (x, y, top(x, y) + 0.1), rot=(rnd.uniform(-0.35, 0.35), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 3)))
+        else:
+            tin = box(bpy, 'tin_%d' % i, rust, (rnd.uniform(0.6, 1.0), rnd.uniform(0.5, 0.8), 0.012), (x, y, top(x, y) + 0.08), rot=(rnd.uniform(-0.7, 0.7), rnd.uniform(-0.7, 0.7), rnd.uniform(0, 3)))
+            sb = tin.modifiers.new('ribs', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 3; bpy.ops.object.modifier_apply(modifier='ribs')
+            for v in tin.data.vertices: v.co.z += 0.02 * math.sin(v.co.x * 40)                   # corrugated
+    mt = box(bpy, 'mattress', pale, (1.4, 0.95, 0.18), (0, 0, 0), bevel=0.06)   # box() bakes its place into the mesh: bent at the origin, then placed
+    for v in mt.data.vertices: v.co.z -= 0.08 * (v.co.x / 0.7) ** 2                                # folded over the flank
+    mt.location = (1.85, -0.55, 0.5); mt.rotation_euler = (math.radians(-18), math.radians(20), math.radians(18))
+    box(bpy, 'mattress_stain', dirt, (0.5, 0.42, 0.01), (1.78, -0.66, 0.6), rot=(math.radians(-18), math.radians(20), math.radians(18)))
+    # the door laid flat across the top: the place a man stands on the mound
+    box(bpy, 'door', wood, (1.5, 0.78, 0.045), (0.35, 0.1, top(0.35, 0.1) + 0.02), rot=(math.radians(-4), math.radians(5), math.radians(12)), bevel=0.01)
+    box(bpy, 'door_panel', dirt, (0.55, 0.26, 0.01), (0.12, 0.02, top(0.35, 0.1) + 0.05), rot=(math.radians(-4), math.radians(5), math.radians(12)))
+    # THE ONE ASYMMETRIC THING: an armchair sunk into the top at the left, turned to face the street (-Y)
+    cx, cy = -0.95, -0.05; cz = top(cx, cy) - 0.08; tilt = (math.radians(8), math.radians(-6), math.radians(-14))
+    parts = [box(bpy, 'chair_seat', rust, (0.72, 0.66, 0.2), (0, 0, 0.3), bevel=0.06),
+             box(bpy, 'chair_back', rust, (0.72, 0.18, 0.6), (0, 0.3, 0.62), rot=(math.radians(-10), 0, 0), bevel=0.06)]
+    for sx in (-1, 1):
+        parts.append(box(bpy, 'chair_arm_%d' % sx, rust, (0.15, 0.7, 0.32), (sx * 0.4, 0.02, 0.4), bevel=0.05))
+    parts.append(box(bpy, 'chair_cushion_torn', pale, (0.24, 0.2, 0.03), (0.14, -0.08, 0.41), rot=(0, 0, 0.4)))
+    bpy.ops.object.empty_add(location=(0, 0, 0)); ch = bpy.context.active_object; ch.name = 'armchair'
+    for p in parts: p.parent = ch
+    ch.location = (cx, cy, cz); ch.rotation_euler = tilt
+
+
+def crumple(o, rnd, amp):
+    """a crushed car's skin: the box subdivided, then dented by a few big blows and many small folds"""
+    hits = [(rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(0.25, 0.6)) for _ in range(9)]
+    p = [rnd.uniform(0, 6) for _ in range(4)]
+    for v in o.data.vertices:
+        n = v.co.normalized()
+        d = 0.0
+        for hx, hy, hz, w in hits:
+            q = (n.x - hx) ** 2 + (n.y - hy) ** 2 + (n.z - hz) ** 2
+            d += math.exp(-q / (w * w)) * 0.6
+        f = math.sin(v.co.x * 23 + p[0]) * math.sin(v.co.y * 19 + p[1]) + 0.6 * math.sin(v.co.z * 31 + p[2] + v.co.x * 7)
+        v.co -= n * amp * (d + 0.45 * f)
+
+
+def bales(bpy, mathutils):
+    # THE LANDFILL: crushed cars, baled. A car baler presses a stripped car into a block about 1.6 x 0.8 x 0.7 m with
+    # its paint still on the skin; here eleven of them stacked in steps by the scrap pile (2.1, 1.4, 0.7 m high), a
+    # COVER you climb up in three steps to high ground. Each bale its car's own colour, rust and torn glass in the
+    # folds, the strap wire round it. The twin his own crushed block (pack:7. Trash and debris#3). The odd thing: a
+    # steering wheel still standing out of the end of the top bale.
+    import random
+    rnd = random.Random(41)
+    teal, red, bone = mat(bpy, 'paint_teal', 'clay_teal', 2), mat(bpy, 'paint_red', 'clay_rust', 2), mat(bpy, 'paint_white', 'clay_bone', 3)
+    rust, black = mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'rubber_and_glass', 'rubber', 1)
+    BL, BW, BH = 1.6, 0.8, 0.7
+    colours = [teal, red, bone, rust, teal, bone, red, rust, bone, teal, red, bone]
+    spots = []
+    for c, xs in enumerate(((-1.7, 0.0, 1.7), (-1.7, 0.0), (-1.7,))):
+        for i, x in enumerate(xs):
+            for y in ((-0.43, 0.43) if c < 2 else (0.0,)):
+                spots.append((x + rnd.uniform(-0.06, 0.06), y + rnd.uniform(-0.03, 0.03), BH / 2 + c * (BH + 0.01), rnd.uniform(-0.05, 0.05)))
+    for k, (x, y, z, a) in enumerate(spots):
+        m = colours[k % len(colours)]
+        b = box(bpy, 'bale_%d' % k, m, (BL, BW, BH), (0, 0, 0))
+        sb = b.modifiers.new('sub', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 3; bpy.ops.object.modifier_apply(modifier='sub')
+        crumple(b, rnd, 0.035)
+        b.location = (x, y, z); b.rotation_euler = (rnd.uniform(-0.02, 0.02), rnd.uniform(-0.02, 0.02), a)
+        # rust and the dark of torn glass and rubber pressed into the folds, on the faces the camera sees
+        for j in range(4):
+            px, pz = rnd.uniform(-BL / 2 + 0.15, BL / 2 - 0.15), rnd.uniform(-BH / 2 + 0.12, BH / 2 - 0.12)
+            pm = rust if m is not rust else bone
+            p = blotch(bpy, 'bale_%d_patch_%d' % (k, j), pm if j < 3 else black, rnd.uniform(0.08, 0.17), (px, -BW / 2 - 0.02, pz), (math.pi / 2, 0, 0), seed=900 + k * 7 + j)
+            p.parent = b
+        top = blotch(bpy, 'bale_%d_top' % k, rust if m is not rust else black, rnd.uniform(0.14, 0.25), (rnd.uniform(-0.4, 0.4), 0, BH / 2 + 0.01), (0, 0, 0), seed=700 + k)
+        top.parent = b
+        for sx in (-0.45, 0.45):   # the strap wire round it
+            st = box(bpy, 'bale_%d_strap_%d' % (k, int(sx * 10)), rust, (0.025, BW + 0.05, BH + 0.05), (sx, 0, 0))
+            st.parent = b
+    # one bale fallen off the stack and tipped at its foot
+    f = box(bpy, 'bale_fallen', red, (BL, BW, BH), (0, 0, 0))
+    sb = f.modifiers.new('sub', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 3; bpy.ops.object.modifier_apply(modifier='sub')
+    crumple(f, rnd, 0.04)
+    f.location = (1.55, -1.25, 0.42); f.rotation_euler = (math.radians(14), math.radians(-6), math.radians(-24))
+    # THE ONE ASYMMETRIC THING: the steering wheel still standing out of the -X end of the top bale
+    sx_, sz_ = -1.7 - BL / 2 - 0.12, BH / 2 + 2 * (BH + 0.01) + 0.12
+    bpy.ops.mesh.primitive_torus_add(major_radius=0.19, minor_radius=0.025, major_segments=24, minor_segments=8, location=(sx_, 0.06, sz_), rotation=(math.radians(10), math.radians(70), 0))
+    put(bpy, bpy.context.active_object, 'steering_wheel', black)
+    rod(bpy, 'steering_column', black, (sx_ + 0.02, 0.06, sz_), (sx_ + 0.3, 0.04, sz_ - 0.1), 0.03)
+    for a in (0, 2.1, 4.2):
+        rod(bpy, 'spoke_%d' % int(a * 10), black, (sx_, 0.06, sz_), (sx_ - 0.06 * math.cos(a), 0.06 + 0.17 * math.sin(a), sz_ + 0.17 * math.cos(a)), 0.012)
+
+
+def dozer(bpy, mathutils):
+    # THE LANDFILL: the dozer that pushed the trash in, dead where it stopped. A mid-size crawler dozer at its real size
+    # (the class of a D6: 2.6 m of track on the ground, 1.9 m gauge, 0.56 m shoes, a 3.3 m blade, 3.1 m to the roof of
+    # its cage), faded yellow, the engine hood ahead of an open cab, the blade on its push arms, the lift rams, a single
+    # ripper shank behind. A BLOCKER that hides a man, its cage climbable. He owns no dozer (the quartermaster's line
+    # says zero); the truck maquette is beside it. The odd thing: the near track thrown, run off its idler and lying out
+    # flat on the dirt in front of it, the machine sat down on its bare rollers on that side.
+    import random
+    rnd = random.Random(43)
+    yellow, steel = mat(bpy, 'paint_yellow', 'clay_mustard', 2), mat(bpy, 'steel', 'tape_grey', 1)
+    track, rust, glass = mat(bpy, 'track_steel', 'rubber', 2), mat(bpy, 'rust', 'clay_rust', 1), mat(bpy, 'glass_gone', 'glass_eye', 0)
+    G, TL, TH, SW = 1.9, 3.0, 0.82, 0.56
+    def rollers(y, z0):
+        out = []
+        for i, x in enumerate((-1.25, -0.62, 0.0, 0.62, 1.25)):
+            out.append(cyl(bpy, 'roller_%d_%d' % (int(y * 10), i), steel, 0.12, SW * 0.7, (x, y, z0 + 0.12), rot=(math.pi / 2, 0, 0), verts=14))
+        out.append(cyl(bpy, 'idler_%d' % int(y * 10), steel, 0.36, SW * 0.6, (TL / 2 - 0.38, y, z0 + 0.36), rot=(math.pi / 2, 0, 0), verts=20))
+        sp = cyl(bpy, 'sprocket_%d' % int(y * 10), rust, 0.4, SW * 0.6, (-TL / 2 + 0.4, y, z0 + 0.45), rot=(math.pi / 2, 0, 0), verts=11)
+        out.append(sp)
+        out.append(box(bpy, 'track_frame_%d' % int(y * 10), yellow, (TL - 0.9, SW * 0.55, 0.3), (0.05, y, z0 + 0.32)))
+        return out
+    # the far track whole: a loop of shoes round its idler and sprocket
+    yf = G / 2
+    tk = box(bpy, 'track_far', track, (TL, SW, TH), (0, yf, TH / 2), bevel=0.38)
+    for i in range(int(TL / 0.2)):   # the grousers across the top run and the ground run
+        x = -TL / 2 + 0.3 + i * 0.2
+        if x > TL / 2 - 0.3: break
+        box(bpy, 'grouser_top_%d' % i, track, (0.05, SW + 0.02, 0.05), (x, yf, TH + 0.02))
+    rollers(yf - SW / 2 - 0.02, 0.0)
+    # the near track THROWN: its rollers, idler and sprocket bare (the chain is laid out on the dirt last, below)
+    yn = -G / 2
+    rollers(yn, 0.0)
+    # the main frame and the engine hood forward, the radiator guard at the nose
+    root_parts = []
+    root_parts.append(box(bpy, 'mainframe', yellow, (TL - 0.3, G - SW - 0.1, 0.5), (0.1, 0, 0.7)))
+    root_parts.append(box(bpy, 'hood', yellow, (1.75, 1.18, 0.82), (0.72, 0, 1.36), bevel=0.04))
+    for i in range(9):
+        root_parts.append(box(bpy, 'grille_%d' % i, steel, (0.04, 0.03, 0.7), (1.61, -0.48 + i * 0.12, 1.32)))
+    root_parts.append(box(bpy, 'radiator_guard', yellow, (0.08, 1.24, 0.86), (1.64, 0, 1.33), bevel=0.02))
+    root_parts.append(box(bpy, 'grille_back', track, (0.04, 1.05, 0.7), (1.62, 0, 1.32)))
+    root_parts.append(cyl(bpy, 'exhaust', rust, 0.07, 0.75, (1.05, 0.32, 2.12), verts=12))
+    root_parts.append(cyl(bpy, 'precleaner', steel, 0.1, 0.22, (0.85, -0.3, 1.88), verts=12))
+    # the cab: the deck, the seat, the levers, the cage (four posts and a roof), the glass gone but for one cracked pane
+    root_parts.append(box(bpy, 'cab_deck', yellow, (1.5, G + 0.3, 0.12), (-0.6, 0, 1.0)))
+    for sy in (-1, 1):
+        root_parts.append(box(bpy, 'fender_%d' % sy, yellow, (TL - 0.5, SW + 0.12, 0.05), (-0.05, sy * G / 2, TH + 0.12)))
+    root_parts.append(box(bpy, 'seat', track, (0.55, 0.55, 0.16), (-0.75, 0, 1.24), bevel=0.04))
+    root_parts.append(box(bpy, 'seat_back', track, (0.12, 0.55, 0.6), (-1.02, 0, 1.6), rot=(0, math.radians(-12), 0), bevel=0.04))
+    root_parts.append(box(bpy, 'fuel_tank', yellow, (0.5, 1.5, 0.75), (-1.35, 0, 1.45), bevel=0.04))
+    for i, sy in enumerate((-0.25, 0.25)):
+        root_parts.append(rod(bpy, 'lever_%d' % i, steel, (-0.35, sy, 1.1), (-0.48, sy * 1.05, 1.55), 0.018))
+    for sx in (-0.02, -1.45):
+        for sy in (-1, 1):
+            root_parts.append(box(bpy, 'rops_%d_%d' % (int(sx * 10), sy), yellow, (0.12, 0.12, 2.0), (sx, sy * 0.78, 2.06), bevel=0.02))
+    root_parts.append(box(bpy, 'rops_roof', yellow, (1.65, 1.8, 0.1), (-0.73, 0, 3.08), bevel=0.02))
+    root_parts.append(box(bpy, 'pane_cracked', glass, (0.02, 1.0, 0.8), (-0.06, 0.1, 2.5), rot=(0, 0, math.radians(2))))
+    root_parts.append(box(bpy, 'pane_crack', steel, (0.025, 0.6, 0.02), (-0.065, 0.1, 2.55), rot=(math.radians(28), 0, 0)))
+    # the blade, a curved moldboard on its push arms, its cutting edge on the dirt, the two lift rams
+    # the moldboard's section is an arc open to the front: the cutting edge low and forward, the belly back, the top
+    # curled forward over it (centre 0.85 m ahead of the belly)
+    cx, cz, R, n = 3.1, 0.62, 0.85, 14
+    prof = [(cx + R * math.cos(math.pi - 0.8 + 1.6 * i / (n - 1)), cz + R * math.sin(math.pi - 0.8 + 1.6 * i / (n - 1))) for i in range(n)]
+    vs = [(x, y, z) for y in (-1.65, 1.65) for x, z in prof]
+    fs = [(i, i + 1, n + i + 1, n + i) for i in range(n - 1)]
+    me = bpy.data.meshes.new('blade'); me.from_pydata(vs, [], fs); me.update()
+    bl = bpy.data.objects.new('blade', me); bpy.context.collection.objects.link(bl); bl.data.materials.append(yellow)
+    bpy.context.view_layer.objects.active = bl; bl.select_set(True)
+    so = bl.modifiers.new('shell', 'SOLIDIFY'); so.thickness = 0.07; bpy.ops.object.modifier_apply(modifier='shell')
+    box(bpy, 'cutting_edge', rust, (0.08, 3.3, 0.16), (2.55, 0, 0.08))
+    for sy in (-1, 1):
+        box(bpy, 'end_bit_%d' % sy, rust, (0.4, 0.06, 0.95), (2.35, sy * 1.65, 0.5))
+        rod(bpy, 'push_arm_%d' % sy, yellow, (2.2, sy * 1.05, 0.45), (-0.2, sy * 1.05, 0.42), 0.09)
+        rod(bpy, 'lift_ram_%d' % sy, steel, (1.55, sy * 0.68, 1.62), (2.3, sy * 0.72, 1.02), 0.065)
+        rod(bpy, 'lift_rod_%d' % sy, rust, (1.95, sy * 0.71, 1.3), (2.4, sy * 0.73, 0.95), 0.035)
+    # the ripper behind: a frame and one shank, its tooth in the dirt
+    box(bpy, 'ripper_frame', yellow, (0.25, 1.4, 0.22), (-1.9, 0, 0.75))
+    rod(bpy, 'ripper_shank', steel, (-2.0, 0, 0.8), (-2.15, 0, 0.0), 0.06)
+    # rust where the yellow is worn: the hood's edges, the blade's face, the fenders
+    for i, (x, y, z, r, rot) in enumerate(((0.9, -0.6, 1.5, 0.22, (math.pi / 2, 0, 0)), (0.3, 0.0, 1.78, 0.3, (0, 0, 0)), (2.2, -0.9, 0.55, 0.3, (0, math.pi / 2, 0)),
+                                           (2.2, 0.8, 0.4, 0.25, (0, math.pi / 2, 0)), (-0.6, -0.95, 0.85, 0.2, (0, 0, 0)), (-1.35, -0.76, 1.5, 0.18, (math.pi / 2, 0, 0)))):
+        blotch(bpy, 'rust_%d' % i, rust, r, (x, y, z), rot, seed=111 + i)
+    # the near side sits down where the track left it: the whole machine tipped 3 degrees onto its bare rollers (the
+    # far side still rides 0.1 m up on its shoes), then seated on the ground
+    machine = [o for o in bpy.context.scene.objects]
+    bpy.ops.object.empty_add(location=(0, 0, 0)); root = bpy.context.active_object; root.name = 'dozer'
+    for o in machine:
+        if o.parent is None: o.parent = root
+    root.rotation_euler = (math.radians(3.0), 0, 0)
+    seat(bpy, root, [o for o in machine if o.type == 'MESH'])
+    # THE ONE ASYMMETRIC THING: the near track's chain, run off the idler and laid out flat on the dirt toward the
+    # street, a kink in it where it came off
+    for i in range(30):
+        t = i / 29
+        x = TL / 2 - 0.3 - t * 4.2 + 0.25 * math.sin(t * 3.0)
+        y = yn - 0.25 - 0.9 * t + 0.5 * t * t
+        a = math.atan2(-0.9 + t, -4.2)
+        box(bpy, 'shoe_%d' % i, track, (0.19, SW, 0.045), (x, y, 0.025 + 0.012 * (i % 2)), rot=(0, 0, a), bevel=0.01)
+        box(bpy, 'shoe_grouser_%d' % i, rust if i % 7 == 3 else track, (0.04, SW, 0.05), (x + 0.03 * math.cos(a), y + 0.03 * math.sin(a), 0.07), rot=(0, 0, a))
+
+
+def dims(bpy):
+    """the model's size from its real vertices (an object's own box, turned, over-reads a tilted mattress by 0.6 m)"""
+    bpy.context.view_layer.update()
+    dg = bpy.context.evaluated_depsgraph_get()
     lo, hi = [1e9] * 3, [-1e9] * 3
     for o in bpy.context.scene.objects:
         if o.type != 'MESH': continue
-        for c in o.bound_box:
-            p = o.matrix_world @ mathutils.Vector(c)
+        e = o.evaluated_get(dg); me = e.to_mesh()
+        for v in me.vertices:
+            p = e.matrix_world @ v.co
             lo = [min(a, b) for a, b in zip(lo, p)]; hi = [max(a, b) for a, b in zip(hi, p)]
+        e.to_mesh_clear()
     return [round(h - l, 3) for l, h in zip(lo, hi)]
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane, 'rubble': rubble, 'corral': corral}
+            'sandbags': sandbags, 'fence': fence, 'container': container, 'propane': propane, 'rubble': rubble, 'corral': corral,
+            'rolled': rolled, 'pier': pier, 'drums': drums, 'gantry': gantry, 'heap': heap, 'bales': bales, 'dozer': dozer}
 
 
 def build(name, out):
