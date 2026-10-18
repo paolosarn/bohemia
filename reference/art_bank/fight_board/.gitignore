@@ -13,3 +13,10 @@ COMBAT2_CUT_FROM_THE_MAP_LOT_10_18.webp
 # python3 tools/bohemia_combat2_a_board_you_read_in_one_look_cook_10_18_26.py
 COMBAT2_ONE_LOOK_MIDDLE_10_18.webp
 COMBAT2_ONE_LOOK_LARGE_10_18.webp
+# COMBAT TWO 10/18: a board from every district; the five regenerate from the map file and the seeded tool;
+# node tools/bohemia_combat2_read_the_district_cells_10_18_26.js (the map) then python3 tools/bohemia_combat2_a_board_from_every_district_cook_10_18_26.py
+COMBAT2_DISTRICT_STRIP_10_18.webp
+COMBAT2_DISTRICT_DOWNTOWN_10_18.webp
+COMBAT2_DISTRICT_SUBURB_10_18.webp
+COMBAT2_DISTRICT_WASH_10_18.webp
+COMBAT2_DISTRICT_INDUSTRIAL_10_18.webp
