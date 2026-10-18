@@ -731,6 +731,49 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
+WORLD (world-vamily-opus5): 10/18 (f) LATEST -- *** [the news down the road, as data] SHIPPED: the region's
+35 places run their own business and each says what happened there. THE COORDINATOR'S FIRST (the freeway's
+gap to Henderson) IS BUILT AND HELD: the fix moves three faction capitals, the player's among them. ***
+Opened by the coordinator (rules 112, 116; Opus 5.5 Extra). No check-in, no question.
+Records: records/BOHEMIA_WORLD_THE_NEWS_DOWN_THE_ROAD_10_18_26.md,
+records/BOHEMIA_WORLD_THE_FREEWAY_IS_ONE_ROAD_10_18_26.md (section 7),
+records/BOHEMIA_WORLD_THE_DAM_IN_ONE_PLACE_10_18_26.md. Tab: NOT IN A TAB YET (data and checks).
+
+1. [the news down the road, as data] SHIPPED (5984bbec). engine/bohemia_region_news.js: the region had no
+events at all; every place now sends by its tier (BohemiaTowns.REACH) on a timetable, settlements a caravan
+and a patrol by turns, the six fortress-sized legendary places hold and patrol, the seven lairs send crews, on
+the land's real roads and minutes; ambush, stopped, raid, a caravan in, a death (his 20 percent), a price moving
+with the wiki's situations, a party seen from town, the screen's own dice. items(W, place, day), near(W, here,
+day). Game's seed: 5,761 items a year (raid 175, death 33, price 835); 0 of 12,775 place-days quiet after week
+one. NEW GATE THE NEWS DOWN THE ROAD 28/0 (registered). NOTE on RUN TWO's [the bar names the news].
+FINDING: the first cut raided every town weekly (1,254 a year, Indian Springs 100 percent of days); Battle
+Brothers' shape fixed it, no typed number (holds wait, small lairs never take cities, a picked-clean town is
+skipped). Patrols almost never meet a crew (out and back in hours): TUNING's to look at.
+2. THE GAP TO HENDERSON: BUILT ON BRANCH world-henderson-leg (69f58f7c), HELD OFF MAIN (f3737a73, the record).
+THE HENDERSON LEG in the roll: I-515 / US-93 out of the ring's real-east side at the real road's row (80),
+never through the solar field, the water cluster or a mine, no dice called; 0 breaks on the game's seed and on
+210 seeds; THE FREEWAY IS ONE ROAD 35/0 there; the six pages synced there. HELD because the faction seat
+placer's fallback picks by list POSITION (engine/bohemia_towns.js placeHomes 'spread'), so 26 freeway cells
+move three capitals on the game's seed: Anarchists, Colorful, and Custom, the player's faction, 61,73 to 87,73
+(tools/bohemia_city_factions_patch.py --check: SEATS STALE). Every roll change does it. NOTE on FACTIONS' rows:
+the seats hold still, then the leg ships as it is (merge the branch, re-run the freeway gate, push). The first
+cut also split the valley's solar field (PLACES ARE BLOCKS, BB PLACES red): fixed on the branch; FACTIONS'
+WANTS SEND PARTIES control made robust there (one coincidental ground). FROM THE MAP'S CAMERA: RUN's far-land
+painter carries every exit straight on beside the real road, two roads for one; NOTE on RUN's freeway row.
+3. [the dam in one place] CLAIMED, round one SHIPPED (6f090675): the list of every reader (about 40 files,
+eight gates), NEW GATE A PLACE IS NAMED ONCE 7/0 (eight real places stand twice: the dam, Boulder City, Lake
+Mead, Lake Las Vegas, the intake, the Apex landfill, Sloan, Mt Charleston; pinned as owed). FOUND: one dam,
+two holders (valley Caravans, region Network). The VOTE candidate (the corner as Henderson's edge and the River
+Mountains) waits on the same seats.
+SUITE: the full suite ran out of its time on this 4-core box (925 checks, about 60 in 25 minutes). Run instead:
+the news, the once-check, the freeway gate, the registry, the handoff and the board's gates on the pushed tree
+(all listed in the commit); the leg branch's 112 map checks compared against main: three reds, all fixed there.
+WEAK: the region's business does not meet the valley's yet (the box's edge is the seam); nothing saved, pure
+from seed and day.
+NEXT: the leg the moment the seats hold still; then the dam candidate in VOTE; then [the three sizes of place]
+or [the roll]. WORLD holds 3 OPEN (the dam CLAIMED).
+PENDING Paolo: nothing.
+
 WORLD (world-vamily-opus4): 10/18 (e) LATEST -- *** THREE ROWS SHIPPED: [the block size settled] (ONE
 NUMBER FOR A BLOCK, every carrier listed, a check that fails when two disagree), [the freeway as one road
 in the data] (each real freeway ONE road, every valley freeway cell named with its sibling half), and
