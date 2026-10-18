@@ -4,3 +4,8 @@ COMBAT2_BOARD_MIDDLE_10_16.webp
 COMBAT2_BOARD_LARGE_10_16.webp
 COMBAT2_FIVE_HOUSES_MIDDLE_10_18.webp
 COMBAT2_FIVE_HOUSES_LARGE_10_18.webp
+# COMBAT TWO 10/18: the three boards cut from the map regenerate from the map file and the seeded tool;
+# node tools/bohemia_combat2_read_the_map_cell_10_18_26.js (the map) then python3 tools/bohemia_combat2_the_board_cut_from_the_map_cell_cook_10_18_26.py
+COMBAT2_CUT_FROM_THE_MAP_STREET_10_18.webp
+COMBAT2_CUT_FROM_THE_MAP_YARD_10_18.webp
+COMBAT2_CUT_FROM_THE_MAP_LOT_10_18.webp

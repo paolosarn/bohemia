@@ -8929,6 +8929,34 @@
    "draft": true
   },
   {
+   "id": "combat2-the-board-cut-from-the-map-10-18",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "CANDIDATE: THE FIGHT BOARD CUT FROM THE MAP: A STREET, A YARD, A LOT",
+   "said": "for the combat a tile is as big as a house",
+   "why": "Every fight board is now the map block you stood on, not a made-up street pattern: the big road, a block of houses and a strip mall's parking lot from the demo's own map, with houses, lamps and parking exactly where the map has them, and the biggest board exactly one map block wide. You see it here in the VOTE tab, not in the game: each row puts the map, the map's plan and the board side by side at the same scale.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_THE_BOARD_CUT_FROM_THE_MAP_10_18.webp"
+   },
+   "before_after": {
+    "before": "the map block as the map draws it at its closest zoom, and the map's own plan of it",
+    "after": "the fight board laid on that block from his pack tiles and cook 4's houses, at the same scale as the plan, then cut at 1:1",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "SHAPE: his pack house is one tile; the board stands cook 4's tan ranches on the map's own house plots (22 on the block) and his shop pieces along the strip mall.",
+     "GROUND: his house sits on a clear tile; ours sit on his muted soil (#18) with cook 2's roads, walks and curbs exactly where the map's roads and walks run.",
+     "SCALE: the map draws a lane two of its cells wide, so a cell reads as 1.8 m and the largest board, 230 m, is one map block."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "combat2-the-five-houses-on-the-board-10-18",
    "kind": "tile",
    "lane": "combat 2",

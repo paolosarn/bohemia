@@ -1,0 +1,7663 @@
+{
+ "lane": "combat 2",
+ "row": "[the board at Battle Brothers' size]",
+ "rule": "109 the map at Battle Brothers size; 46 the board cut from the map cell; 100 candidates only; 108 nothing drawn",
+ "source_map": "reference/art_bank/fight_board/COMBAT2_MAP_CELLS_10_18.json",
+ "map_seed": 2691674296,
+ "ruler": {
+  "fine_cell_m": 1.8,
+  "why": "the map lane is LANE_W = 2 fine cells; a lane is 3.6 m",
+  "block_m": 230,
+  "world_block_m": 384,
+  "disagreement": 1.67,
+  "cook2_cell_m": 1.44,
+  "cells_per_fine": 1.25,
+  "house_tile_m": 11.5,
+  "large_board_m": [
+   230,
+   172.5
+  ]
+ },
+ "pieces": {
+  "COMBAT2_CUT_FROM_THE_MAP_STREET_10_18": {
+   "src": "COMBAT2_CUT_FROM_THE_MAP_STREET_10_18.webp",
+   "keys": [
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 12
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 38
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 24
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 1
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 15
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 29
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 32
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 40
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 5
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 11
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 13
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 18
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 30
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 13
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 9
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 17
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 20
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 22
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 34
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 0
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 10
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 21
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 25
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 27
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 33
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 48
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 4
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 20
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 25
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 32
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 3
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 4
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 6
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 28
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 2
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 8
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 11
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 1
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 17
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 11
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 7
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 16
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 23
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 31
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 60
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 6
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 8
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 9
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 15
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 16
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 17
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 18
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 19
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 20
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 21
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 5
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 7
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 10
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 19
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 23
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 24
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 39
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 3
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 4
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 6
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 24
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 27
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 29
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 31
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 35
+    },
+    {
+     "pack": "2. Soil and dirt tiles",
+     "idx": 18
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 3
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 4
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 6
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 9
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 10
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 13
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 18
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 1
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 2
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 8
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 9
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 26
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 50
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 64
+    }
+   ]
+  },
+  "COMBAT2_CUT_FROM_THE_MAP_YARD_10_18": {
+   "src": "COMBAT2_CUT_FROM_THE_MAP_YARD_10_18.webp",
+   "keys": [
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 12
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 38
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 24
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 1
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 15
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 29
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 32
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 40
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 5
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 11
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 13
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 18
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 30
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 13
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 9
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 17
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 20
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 22
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 34
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 0
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 10
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 21
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 25
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 27
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 33
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 48
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 4
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 20
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 25
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 32
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 3
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 4
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 6
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 28
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 2
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 8
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 11
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 1
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 17
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 11
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 7
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 16
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 23
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 31
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 60
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 6
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 8
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 9
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 15
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 16
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 17
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 18
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 19
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 20
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 21
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 5
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 7
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 10
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 19
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 23
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 24
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 39
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 3
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 4
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 6
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 24
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 27
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 29
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 31
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 35
+    },
+    {
+     "pack": "2. Soil and dirt tiles",
+     "idx": 18
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 3
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 4
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 6
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 9
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 10
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 13
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 18
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 1
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 2
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 8
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 9
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 26
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 50
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 64
+    }
+   ]
+  },
+  "COMBAT2_CUT_FROM_THE_MAP_LOT_10_18": {
+   "src": "COMBAT2_CUT_FROM_THE_MAP_LOT_10_18.webp",
+   "keys": [
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 12
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 38
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 24
+    },
+    {
+     "pack": "14. Trash and junk props",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 1
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 15
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 29
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 32
+    },
+    {
+     "pack": "15. Street props",
+     "idx": 40
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 5
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 8
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 11
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 13
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 18
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 30
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 3
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 13
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 9
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 17
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 20
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 22
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 34
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 0
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 0
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 2
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 10
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 21
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 25
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 27
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 33
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 48
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 4
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 20
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 1
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 25
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 32
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 19
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 3
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 4
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 6
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 28
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 2
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 8
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 11
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 1
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 17
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 11
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 12
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 7
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 16
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 23
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 31
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 60
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 6
+    },
+    {
+     "pack": "1. Cracked contrete tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 0
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 1
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 2
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 7
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 8
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 9
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 15
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 16
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 17
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 18
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 19
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 20
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 21
+    },
+    {
+     "pack": "1. Cracked street tiles",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 5
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 7
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 10
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 19
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 22
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 23
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 24
+    },
+    {
+     "pack": "16. Dead trees and plants",
+     "idx": 39
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 3
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 4
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 6
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 24
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 27
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 29
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 31
+    },
+    {
+     "pack": "18. Light sources and fire barrels",
+     "idx": 35
+    },
+    {
+     "pack": "2. Soil and dirt tiles",
+     "idx": 18
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 3
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 4
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 6
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 9
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 10
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 13
+    },
+    {
+     "pack": "7. Trash and debris",
+     "idx": 18
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 1
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 2
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 8
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 9
+    },
+    {
+     "pack": "8. Burned Ground and fire marks",
+     "idx": 14
+    },
+    {
+     "pack": "9. Abandoned cards",
+     "idx": 26
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 50
+    },
+    {
+     "pack": "Rocks and stones",
+     "idx": 64
+    }
+   ]
+  }
+ },
+ "keys_used": [
+  [
+   "16. Dead trees and plants",
+   12,
+   14,
+   "UP"
+  ],
+  [
+   "14. Trash and junk props",
+   3,
+   9,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   38,
+   9,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   19,
+   8,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   24,
+   8,
+   "UP"
+  ],
+  [
+   "14. Trash and junk props",
+   8,
+   7,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   1,
+   7,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   15,
+   7,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   29,
+   7,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   32,
+   7,
+   "UP"
+  ],
+  [
+   "15. Street props",
+   40,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   5,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   8,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   11,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   13,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   18,
+   6,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   30,
+   6,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   3,
+   5,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   13,
+   5,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   0,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   9,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   14,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   17,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   20,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   22,
+   5,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   34,
+   5,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   0,
+   4,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   1,
+   4,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   2,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   0,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   2,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   10,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   12,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   21,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   25,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   27,
+   4,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   33,
+   4,
+   "UP"
+  ],
+  [
+   "Rocks and stones",
+   48,
+   4,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   4,
+   3,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   20,
+   3,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   1,
+   3,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   25,
+   3,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   32,
+   3,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   19,
+   3,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   3,
+   3,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   4,
+   3,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   6,
+   3,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   28,
+   3,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   2,
+   2,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   8,
+   2,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   11,
+   2,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   1,
+   2,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   17,
+   2,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   11,
+   2,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   12,
+   2,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   7,
+   2,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   16,
+   2,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   23,
+   2,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   31,
+   2,
+   "UP"
+  ],
+  [
+   "Rocks and stones",
+   60,
+   2,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   0,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   6,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked contrete tiles",
+   7,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   0,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   7,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   8,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   9,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   15,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   16,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   17,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   18,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   19,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   20,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   21,
+   1,
+   "UP"
+  ],
+  [
+   "1. Cracked street tiles",
+   22,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   5,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   7,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   10,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   19,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   22,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   23,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   24,
+   1,
+   "UP"
+  ],
+  [
+   "16. Dead trees and plants",
+   39,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   3,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   4,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   6,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   24,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   27,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   29,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   31,
+   1,
+   "UP"
+  ],
+  [
+   "18. Light sources and fire barrels",
+   35,
+   1,
+   "UP"
+  ],
+  [
+   "2. Soil and dirt tiles",
+   18,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   3,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   4,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   6,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   9,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   10,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   13,
+   1,
+   "UP"
+  ],
+  [
+   "7. Trash and debris",
+   18,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   1,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   2,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   8,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   9,
+   1,
+   "UP"
+  ],
+  [
+   "8. Burned Ground and fire marks",
+   14,
+   1,
+   "UP"
+  ],
+  [
+   "9. Abandoned cards",
+   26,
+   1,
+   "UP"
+  ],
+  [
+   "Rocks and stones",
+   50,
+   1,
+   "UP"
+  ],
+  [
+   "Rocks and stones",
+   64,
+   1,
+   "UP"
+  ]
+ ],
+ "boards": {
+  "street": {
+   "map_block": [
+    48,
+    49
+   ],
+   "district": "arterial",
+   "neighbours": [
+    "suburb",
+    "suburb",
+    "arterial",
+    "arterial",
+    "arterial",
+    "arterial",
+    "chapel",
+    "suburb",
+    "arterial"
+   ],
+   "fine_window": [
+    128,
+    144,
+    128,
+    96
+   ],
+   "tiles_across": 20,
+   "tiles_down": 15,
+   "px": [
+    13120,
+    9720
+   ],
+   "metres": [
+    230,
+    172
+   ],
+   "share_percent": {
+    "roadway": 27.7,
+    "parking": 11.4,
+    "walk": 9.2,
+    "drive": 0.0,
+    "yard": 51.2,
+    "roof": 0.0,
+    "line": 0.0,
+    "zebra": 0.0
+   },
+   "pieces": [],
+   "houses": 0,
+   "shops": 0,
+   "props": 90,
+   "cover": [
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 109.42,
+     "y_m": 26.58,
+     "w_m": 2.42,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 28.7,
+     "y_m": 46.07,
+     "w_m": 1.68,
+     "h_m": 1.65,
+     "tile": [
+      "16. Dead trees and plants",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 8.97,
+     "y_m": 47.84,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 127.36,
+     "y_m": 47.84,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 107.62,
+     "y_m": 49.61,
+     "w_m": 1.47,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      60
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 87.89,
+     "y_m": 51.38,
+     "w_m": 1.43,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      48
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 146.19,
+     "y_m": 49.61,
+     "w_m": 2.62,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 206.28,
+     "y_m": 51.38,
+     "w_m": 2.42,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 96.86,
+     "y_m": 124.03,
+     "w_m": 1.68,
+     "h_m": 1.28,
+     "tile": [
+      "7. Trash and debris",
+      19
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 81.62,
+     "y_m": 124.03,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 17.94,
+     "y_m": 127.57,
+     "w_m": 1.68,
+     "h_m": 1.65,
+     "tile": [
+      "16. Dead trees and plants",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 37.67,
+     "y_m": 129.35,
+     "w_m": 2.62,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 156.06,
+     "y_m": 129.35,
+     "w_m": 1.68,
+     "h_m": 1.33,
+     "tile": [
+      "7. Trash and debris",
+      1
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 175.79,
+     "y_m": 131.12,
+     "w_m": 1.57,
+     "h_m": 1.1,
+     "tile": [
+      "Rocks and stones",
+      64
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 44.84,
+     "y_m": 148.84,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 222.42,
+     "y_m": 157.7,
+     "w_m": 1.43,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      48
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 28.7,
+     "y_m": 163.01,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 43.05,
+     "y_m": 4.25,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 68.88,
+     "y_m": 4.25,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 45.92,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      25
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 54.53,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      10
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 63.14,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 66.01,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      14
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 71.75,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      16
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 74.62,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 88.97,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      12
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 40.18,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 45.92,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      33
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 51.66,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 54.53,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 66.01,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 91.84,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      33
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 57.4,
+     "y_m": 21.26,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      14
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 60.27,
+     "y_m": 21.26,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 63.14,
+     "y_m": 21.26,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 86.1,
+     "y_m": 21.26,
+     "w_m": 3.36,
+     "h_m": 1.92,
+     "tile": [
+      "9. Abandoned cards",
+      34
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 37.31,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 40.18,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 51.66,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 80.36,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      16
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 86.1,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      20
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 88.97,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 60.27,
+     "y_m": 32.6,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 66.01,
+     "y_m": 32.6,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 66.01,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 2.34,
+     "tile": [
+      "9. Abandoned cards",
+      9
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 66.01,
+     "y_m": 55.28,
+     "w_m": 3.36,
+     "h_m": 2.34,
+     "tile": [
+      "9. Abandoned cards",
+      9
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 169.33,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      22
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 166.46,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      17
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      23
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.98,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      12
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 169.33,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 172.2,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      21
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 175.07,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      22
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 192.29,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 198.03,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 149.24,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 152.11,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 166.46,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      20
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 172.2,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      22
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 175.07,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 183.68,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 160.72,
+     "y_m": 157.34,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      17
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 195.16,
+     "y_m": 157.34,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 149.24,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 152.11,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 175.07,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 192.29,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 137.76,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 152.11,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 2.34,
+     "tile": [
+      "9. Abandoned cards",
+      9
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.98,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 166.46,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      14
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 175.07,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 1.92,
+     "tile": [
+      "9. Abandoned cards",
+      34
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 177.94,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      6
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 192.29,
+     "y_m": 168.68,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      33
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 171.48,
+     "y_m": 62.37,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      27
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 40.9,
+     "y_m": 70.88,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      21
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 99.73,
+     "y_m": 109.15,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      27
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 139.91,
+     "y_m": 117.65,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      20
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 48.07,
+     "y_m": 56.7,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 35.16,
+     "y_m": 111.98,
+     "w_m": 0.98,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      32
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 15.07,
+     "y_m": 116.23,
+     "w_m": 0.98,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      29
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 188.7,
+     "y_m": 116.23,
+     "w_m": 1.0,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      24
+     ],
+     "scale": 1
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 18.83,
+     "y_m": 42.52
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 146.19,
+     "y_m": 131.12
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 35.16,
+     "y_m": 111.98
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 15.07,
+     "y_m": 116.23
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 188.7,
+     "y_m": 116.23
+    }
+   ],
+   "terrain": [
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ]
+   ],
+   "colours_per_96px": 3169,
+   "elapsed_s": 9.4
+  },
+  "yard": {
+   "map_block": [
+    57,
+    47
+   ],
+   "district": "suburb",
+   "neighbours": [
+    "suburb",
+    "suburb",
+    "basin",
+    "suburb",
+    "suburb",
+    "suburb",
+    "suburb",
+    "suburb",
+    "suburb"
+   ],
+   "fine_window": [
+    128,
+    144,
+    128,
+    96
+   ],
+   "tiles_across": 20,
+   "tiles_down": 15,
+   "px": [
+    13120,
+    9720
+   ],
+   "metres": [
+    230,
+    172
+   ],
+   "share_percent": {
+    "roadway": 27.0,
+    "parking": 0.0,
+    "walk": 15.9,
+    "drive": 0.8,
+    "yard": 26.3,
+    "roof": 29.5,
+    "line": 0.0,
+    "zebra": 0.0
+   },
+   "pieces": [
+    {
+     "piece": "ranch garage",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      0,
+      0,
+      384,
+      384
+     ],
+     "px": [
+      5911,
+      24290
+     ],
+     "footprint_m": [
+      691.2,
+      691.2
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      157,
+      133,
+      174,
+      145
+     ],
+     "px": [
+      3416,
+      91
+     ],
+     "footprint_m": [
+      30.6,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      207,
+      133,
+      220,
+      145
+     ],
+     "px": [
+      8296,
+      91
+     ],
+     "footprint_m": [
+      23.4,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      240,
+      143,
+      252,
+      164
+     ],
+     "px": [
+      11667,
+      2015
+     ],
+     "footprint_m": [
+      21.6,
+      37.8
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      133,
+      146,
+      145,
+      161
+     ],
+     "px": [
+      660,
+      1711
+     ],
+     "footprint_m": [
+      21.6,
+      27.0
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      159,
+      162,
+      172,
+      174
+     ],
+     "px": [
+      3416,
+      3027
+     ],
+     "footprint_m": [
+      23.4,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      179,
+      162,
+      200,
+      174
+     ],
+     "px": [
+      5654,
+      3027
+     ],
+     "footprint_m": [
+      37.8,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      205,
+      162,
+      222,
+      174
+     ],
+     "px": [
+      8296,
+      3027
+     ],
+     "footprint_m": [
+      30.6,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      133,
+      169,
+      145,
+      190
+     ],
+     "px": [
+      478,
+      4647
+     ],
+     "footprint_m": [
+      21.6,
+      37.8
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      240,
+      170,
+      252,
+      189
+     ],
+     "px": [
+      11667,
+      4546
+     ],
+     "footprint_m": [
+      21.6,
+      34.2
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      159,
+      188,
+      172,
+      200
+     ],
+     "px": [
+      3376,
+      5660
+     ],
+     "footprint_m": [
+      23.4,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      182,
+      188,
+      197,
+      200
+     ],
+     "px": [
+      5876,
+      5660
+     ],
+     "footprint_m": [
+      27.0,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      207,
+      188,
+      220,
+      200
+     ],
+     "px": [
+      8114,
+      5660
+     ],
+     "footprint_m": [
+      23.4,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      240,
+      196,
+      252,
+      215
+     ],
+     "px": [
+      11667,
+      7178
+     ],
+     "footprint_m": [
+      21.6,
+      34.2
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      133,
+      197,
+      145,
+      214
+     ],
+     "px": [
+      478,
+      7077
+     ],
+     "footprint_m": [
+      21.6,
+      30.6
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      158,
+      211,
+      173,
+      223
+     ],
+     "px": [
+      3376,
+      7988
+     ],
+     "footprint_m": [
+      27.0,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      181,
+      214,
+      198,
+      226
+     ],
+     "px": [
+      5654,
+      8292
+     ],
+     "footprint_m": [
+      30.6,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      205,
+      214,
+      222,
+      226
+     ],
+     "px": [
+      8336,
+      8292
+     ],
+     "footprint_m": [
+      30.6,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": true,
+     "district": "suburb",
+     "fine": [
+      133,
+      224,
+      145,
+      239
+     ],
+     "px": [
+      660,
+      9608
+     ],
+     "footprint_m": [
+      21.6,
+      27.0
+     ]
+    },
+    {
+     "piece": "ranch garage",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      240,
+      225,
+      252,
+      238
+     ],
+     "px": [
+      11446,
+      9507
+     ],
+     "footprint_m": [
+      21.6,
+      23.4
+     ]
+    },
+    {
+     "piece": "ranch plain",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      158,
+      240,
+      173,
+      252
+     ],
+     "px": [
+      3376,
+      10925
+     ],
+     "footprint_m": [
+      27.0,
+      21.6
+     ]
+    },
+    {
+     "piece": "ranch carport",
+     "flip": false,
+     "district": "suburb",
+     "fine": [
+      204,
+      240,
+      223,
+      252
+     ],
+     "px": [
+      8336,
+      10925
+     ],
+     "footprint_m": [
+      34.2,
+      21.6
+     ]
+    }
+   ],
+   "houses": 22,
+   "shops": 0,
+   "props": 32,
+   "cover": [
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 194.62,
+     "y_m": 1.77,
+     "w_m": 1.68,
+     "h_m": 1.1,
+     "tile": [
+      "Rocks and stones",
+      50
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 33.18,
+     "y_m": 17.72,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 55.61,
+     "y_m": 31.89,
+     "w_m": 1.68,
+     "h_m": 1.28,
+     "tile": [
+      "7. Trash and debris",
+      19
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 157.85,
+     "y_m": 31.89,
+     "w_m": 1.47,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      60
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 199.11,
+     "y_m": 47.84,
+     "w_m": 1.43,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      48
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 113.01,
+     "y_m": 77.96,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 96.86,
+     "y_m": 124.03,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 64.58,
+     "y_m": 145.29,
+     "w_m": 2.21,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 199.11,
+     "y_m": 157.7,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 194.62,
+     "y_m": 168.33,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "rocks",
+     "fact": "low",
+     "x_m": 69.96,
+     "y_m": 170.1,
+     "w_m": 1.43,
+     "h_m": 0.98,
+     "tile": [
+      "Rocks and stones",
+      48
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 124.13,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 1.92,
+     "tile": [
+      "9. Abandoned cards",
+      34
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 56.68,
+     "y_m": 22.68,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 42.33,
+     "y_m": 117.65,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      17
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 43.77,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 139.91,
+     "y_m": 104.89,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      14
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 167.18,
+     "y_m": 17.01,
+     "w_m": 1.0,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      27
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 114.08,
+     "y_m": 163.01,
+     "w_m": 0.93,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      25
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 165.74,
+     "y_m": 18.43,
+     "w_m": 0.93,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      25
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.26,
+     "y_m": 120.49,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 171.3,
+     "y_m": 8.86
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 171.3,
+     "y_m": 54.93
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 171.3,
+     "y_m": 101.0
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 36.77,
+     "y_m": 141.75
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 176.68,
+     "y_m": 141.75
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 171.3,
+     "y_m": 147.07
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 106.73,
+     "y_m": 164.78
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 167.18,
+     "y_m": 17.01
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 114.08,
+     "y_m": 163.01
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 165.74,
+     "y_m": 18.43
+    }
+   ],
+   "terrain": [
+    [
+     "part blocked",
+     "blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "part blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "part blocked",
+     "blocked",
+     "part blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "part blocked",
+     "blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "part blocked",
+     "blocked",
+     "part blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "part blocked",
+     "part blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "part blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked"
+    ],
+    [
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "blocked",
+     "part blocked"
+    ]
+   ],
+   "colours_per_96px": 3078,
+   "elapsed_s": 94.9
+  },
+  "lot": {
+   "map_block": [
+    48,
+    53
+   ],
+   "district": "commercial",
+   "neighbours": [
+    "suburb",
+    "suburb",
+    "arterial",
+    "commercial",
+    "commercial",
+    "arterial",
+    "arterial",
+    "arterial",
+    "arterial"
+   ],
+   "fine_window": [
+    128,
+    144,
+    128,
+    96
+   ],
+   "tiles_across": 20,
+   "tiles_down": 15,
+   "px": [
+    13120,
+    9720
+   ],
+   "metres": [
+    230,
+    172
+   ],
+   "share_percent": {
+    "roadway": 31.4,
+    "parking": 23.3,
+    "walk": 3.4,
+    "drive": 0.0,
+    "yard": 5.4,
+    "roof": 27.8,
+    "line": 0.0,
+    "zebra": 0.0
+   },
+   "pieces": [
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      136,
+      139,
+      199,
+      175
+     ],
+     "px": [
+      820,
+      3128
+     ],
+     "footprint_m": [
+      113.4,
+      64.8
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      136,
+      139,
+      199,
+      175
+     ],
+     "px": [
+      2582,
+      3128
+     ],
+     "footprint_m": [
+      113.4,
+      64.8
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      136,
+      139,
+      199,
+      175
+     ],
+     "px": [
+      4344,
+      3128
+     ],
+     "footprint_m": [
+      113.4,
+      64.8
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      136,
+      139,
+      199,
+      175
+     ],
+     "px": [
+      6106,
+      3128
+     ],
+     "footprint_m": [
+      113.4,
+      64.8
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      136,
+      139,
+      199,
+      175
+     ],
+     "px": [
+      6802,
+      3128
+     ],
+     "footprint_m": [
+      113.4,
+      64.8
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "row": "back",
+     "px": [
+      820,
+      1133
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "row": "back",
+     "px": [
+      2582,
+      1133
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "row": "back",
+     "px": [
+      4344,
+      1133
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "row": "back",
+     "px": [
+      6106,
+      1133
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "row": "back",
+     "px": [
+      6802,
+      1133
+     ]
+    },
+    {
+     "piece": "motel",
+     "district": "commercial",
+     "fine": [
+      224,
+      142,
+      247,
+      150
+     ],
+     "px": [
+      9840,
+      597
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      142,
+      247,
+      150
+     ],
+     "px": [
+      11560,
+      597
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "motel",
+     "district": "commercial",
+     "fine": [
+      224,
+      152,
+      247,
+      160
+     ],
+     "px": [
+      9840,
+      1610
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      152,
+      247,
+      160
+     ],
+     "px": [
+      11560,
+      1610
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      224,
+      162,
+      247,
+      170
+     ],
+     "px": [
+      9840,
+      2622
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      162,
+      247,
+      170
+     ],
+     "px": [
+      11602,
+      2622
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      224,
+      172,
+      247,
+      180
+     ],
+     "px": [
+      9840,
+      3635
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      172,
+      247,
+      180
+     ],
+     "px": [
+      11602,
+      3635
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "motel",
+     "district": "commercial",
+     "fine": [
+      224,
+      182,
+      247,
+      190
+     ],
+     "px": [
+      9840,
+      4647
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      182,
+      247,
+      190
+     ],
+     "px": [
+      11560,
+      4647
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      224,
+      192,
+      247,
+      200
+     ],
+     "px": [
+      9840,
+      5660
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      192,
+      247,
+      200
+     ],
+     "px": [
+      11602,
+      5660
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "warehouse",
+     "district": "commercial",
+     "fine": [
+      224,
+      202,
+      247,
+      210
+     ],
+     "px": [
+      9840,
+      6672
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      224,
+      202,
+      247,
+      210
+     ],
+     "px": [
+      11602,
+      6672
+     ],
+     "footprint_m": [
+      41.4,
+      14.4
+     ]
+    },
+    {
+     "piece": "motel",
+     "district": "commercial",
+     "fine": [
+      232,
+      230,
+      249,
+      243
+     ],
+     "px": [
+      10660,
+      10013
+     ],
+     "footprint_m": [
+      30.6,
+      23.4
+     ]
+    },
+    {
+     "piece": "motel",
+     "district": "commercial",
+     "fine": [
+      194,
+      238,
+      215,
+      249
+     ],
+     "px": [
+      6765,
+      10621
+     ],
+     "footprint_m": [
+      37.8,
+      19.8
+     ]
+    },
+    {
+     "piece": "corner shop",
+     "district": "commercial",
+     "fine": [
+      194,
+      238,
+      215,
+      249
+     ],
+     "px": [
+      8485,
+      10621
+     ],
+     "footprint_m": [
+      37.8,
+      19.8
+     ]
+    }
+   ],
+   "houses": 0,
+   "shops": 27,
+   "props": 172,
+   "cover": [
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 203.59,
+     "y_m": 31.89,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 50.22,
+     "y_m": 79.73,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 57.4,
+     "y_m": 85.05,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 65.47,
+     "y_m": 76.19,
+     "w_m": 1.68,
+     "h_m": 1.61,
+     "tile": [
+      "7. Trash and debris",
+      18
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 86.1,
+     "y_m": 81.51,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 99.55,
+     "y_m": 76.19,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 133.63,
+     "y_m": 76.19,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 143.5,
+     "y_m": 81.51,
+     "w_m": 1.68,
+     "h_m": 1.4,
+     "tile": [
+      "7. Trash and debris",
+      17
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 71.75,
+     "y_m": 83.28,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 78.92,
+     "y_m": 83.28,
+     "w_m": 1.68,
+     "h_m": 1.33,
+     "tile": [
+      "7. Trash and debris",
+      1
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 150.67,
+     "y_m": 83.28,
+     "w_m": 1.68,
+     "h_m": 1.08,
+     "tile": [
+      "7. Trash and debris",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 35.88,
+     "y_m": 85.05,
+     "w_m": 1.68,
+     "h_m": 1.4,
+     "tile": [
+      "7. Trash and debris",
+      17
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 31.39,
+     "y_m": 106.31,
+     "w_m": 1.68,
+     "h_m": 1.14,
+     "tile": [
+      "7. Trash and debris",
+      10
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 65.47,
+     "y_m": 106.31,
+     "w_m": 0.93,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      25
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 133.63,
+     "y_m": 106.31,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 33.18,
+     "y_m": 115.17,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 101.35,
+     "y_m": 115.17,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 135.43,
+     "y_m": 115.17,
+     "w_m": 1.68,
+     "h_m": 1.19,
+     "tile": [
+      "7. Trash and debris",
+      4
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 35.88,
+     "y_m": 129.35,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 150.67,
+     "y_m": 131.12,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 21.52,
+     "y_m": 132.89,
+     "w_m": 1.68,
+     "h_m": 1.4,
+     "tile": [
+      "7. Trash and debris",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 31.39,
+     "y_m": 127.57,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 65.47,
+     "y_m": 127.57,
+     "w_m": 1.68,
+     "h_m": 1.07,
+     "tile": [
+      "7. Trash and debris",
+      9
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tyres",
+     "fact": "low",
+     "x_m": 99.55,
+     "y_m": 127.57,
+     "w_m": 1.68,
+     "h_m": 1.68,
+     "tile": [
+      "14. Trash and junk props",
+      8
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 78.92,
+     "y_m": 134.66,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "dumpster",
+     "fact": "cover",
+     "x_m": 57.4,
+     "y_m": 136.43,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "14. Trash and junk props",
+      3
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 167.72,
+     "y_m": 152.38,
+     "w_m": 0.98,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      32
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 65.47,
+     "y_m": 155.92,
+     "w_m": 1.68,
+     "h_m": 1.28,
+     "tile": [
+      "7. Trash and debris",
+      19
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "junk",
+     "fact": "low",
+     "x_m": 99.55,
+     "y_m": 155.92,
+     "w_m": 1.68,
+     "h_m": 1.22,
+     "tile": [
+      "7. Trash and debris",
+      6
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 144.4,
+     "y_m": 53.51,
+     "w_m": 1.99,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 167.72,
+     "y_m": 9.21,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 144.4,
+     "y_m": 5.67,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 144.4,
+     "y_m": 19.84,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 167.72,
+     "y_m": 26.93,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 144.4,
+     "y_m": 34.02,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 167.72,
+     "y_m": 44.65,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 144.4,
+     "y_m": 48.2,
+     "w_m": 1.99,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 167.72,
+     "y_m": 62.37,
+     "w_m": 2.62,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 167.72,
+     "y_m": 80.09,
+     "w_m": 2.42,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      4
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 29.6,
+     "y_m": 71.23,
+     "w_m": 1.96,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      10
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 32.03,
+     "y_m": 81.86,
+     "w_m": 2.87,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      7
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 65.47,
+     "y_m": 81.86,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 99.55,
+     "y_m": 81.86,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 133.63,
+     "y_m": 81.86,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 167.72,
+     "y_m": 97.81,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 32.46,
+     "y_m": 115.53,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 66.59,
+     "y_m": 115.53,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 100.77,
+     "y_m": 115.53,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 134.75,
+     "y_m": 115.53,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 167.72,
+     "y_m": 115.53,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 88.79,
+     "y_m": 106.67,
+     "w_m": 1.99,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 92.38,
+     "y_m": 106.67,
+     "w_m": 2.62,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 74.44,
+     "y_m": 108.44,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 149.78,
+     "y_m": 108.44,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 26.01,
+     "y_m": 119.07,
+     "w_m": 1.68,
+     "h_m": 1.65,
+     "tile": [
+      "16. Dead trees and plants",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 85.2,
+     "y_m": 119.07,
+     "w_m": 1.68,
+     "h_m": 1.5,
+     "tile": [
+      "16. Dead trees and plants",
+      12
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 115.7,
+     "y_m": 119.07,
+     "w_m": 1.68,
+     "h_m": 1.35,
+     "tile": [
+      "16. Dead trees and plants",
+      38
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 133.72,
+     "y_m": 131.47,
+     "w_m": 1.54,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 31.39,
+     "y_m": 131.47,
+     "w_m": 1.68,
+     "h_m": 1.65,
+     "tile": [
+      "16. Dead trees and plants",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 65.47,
+     "y_m": 131.47,
+     "w_m": 1.99,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 99.55,
+     "y_m": 131.47,
+     "w_m": 1.54,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 31.39,
+     "y_m": 159.82,
+     "w_m": 1.82,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 65.47,
+     "y_m": 159.82,
+     "w_m": 2.21,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "tree",
+     "fact": "obstacle",
+     "x_m": 99.55,
+     "y_m": 159.82,
+     "w_m": 2.62,
+     "h_m": 3.36,
+     "tile": [
+      "16. Dead trees and plants",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "bush",
+     "fact": "low",
+     "x_m": 133.63,
+     "y_m": 158.05,
+     "w_m": 1.68,
+     "h_m": 1.65,
+     "tile": [
+      "16. Dead trees and plants",
+      13
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 135.61,
+     "y_m": 4.25,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 218.12,
+     "y_m": 4.25,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      25
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 134.89,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 146.37,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.98,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.34,
+     "tile": [
+      "9. Abandoned cards",
+      9
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 220.99,
+     "y_m": 9.92,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 11.48,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      12
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 218.12,
+     "y_m": 15.59,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 134.89,
+     "y_m": 21.26,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      27
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 143.5,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 149.24,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 1.89,
+     "tile": [
+      "9. Abandoned cards",
+      29
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 215.25,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      7
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 220.99,
+     "y_m": 26.93,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.98,
+     "y_m": 32.6,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 175.07,
+     "y_m": 32.6,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 186.55,
+     "y_m": 32.6,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 134.89,
+     "y_m": 38.27,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      31
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 140.63,
+     "y_m": 38.27,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      12
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 149.24,
+     "y_m": 38.27,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      22
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 154.98,
+     "y_m": 43.94,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      25
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 11.48,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 195.16,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      28
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 209.51,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 212.38,
+     "y_m": 49.61,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      20
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 220.99,
+     "y_m": 55.28,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 129.15,
+     "y_m": 60.95,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 152.11,
+     "y_m": 60.95,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      17
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 220.99,
+     "y_m": 60.95,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 60.95,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 22.96,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      10
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 68.88,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 71.75,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 97.58,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 120.54,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      14
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 149.24,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 177.94,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 180.81,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 186.55,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      22
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 192.29,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      20
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 200.9,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 209.51,
+     "y_m": 66.62,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 77.96,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 215.25,
+     "y_m": 83.63,
+     "w_m": 3.36,
+     "h_m": 2.34,
+     "tile": [
+      "9. Abandoned cards",
+      9
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 220.99,
+     "y_m": 83.63,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      27
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 83.63,
+     "w_m": 3.36,
+     "h_m": 2.1,
+     "tile": [
+      "9. Abandoned cards",
+      23
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 89.3,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 215.25,
+     "y_m": 94.97,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 218.12,
+     "y_m": 94.97,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 100.64,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      28
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 218.12,
+     "y_m": 100.64,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 106.31,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 106.31,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      10
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 106.19,
+     "y_m": 111.98,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      6
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 117.65,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      25
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 60.27,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      33
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 86.1,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      26
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 117.67,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      6
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 123.41,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 152.11,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      7
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 186.55,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 198.03,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.13,
+     "tile": [
+      "9. Abandoned cards",
+      3
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 203.77,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 209.51,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      0
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 212.38,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 215.25,
+     "y_m": 123.32,
+     "w_m": 3.36,
+     "h_m": 1.92,
+     "tile": [
+      "9. Abandoned cards",
+      34
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 189.42,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      21
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 215.25,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      2
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      30
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 177.94,
+     "y_m": 134.66,
+     "w_m": 3.36,
+     "h_m": 2.48,
+     "tile": [
+      "9. Abandoned cards",
+      18
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 203.77,
+     "y_m": 134.66,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 8.61,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 172.2,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      32
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 180.81,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.21,
+     "tile": [
+      "9. Abandoned cards",
+      8
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 195.16,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.24,
+     "tile": [
+      "9. Abandoned cards",
+      10
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 198.03,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      15
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 218.12,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      17
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 223.86,
+     "y_m": 140.33,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 166.46,
+     "y_m": 146.0,
+     "w_m": 3.36,
+     "h_m": 2.42,
+     "tile": [
+      "9. Abandoned cards",
+      5
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 151.67,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      1
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 163.59,
+     "y_m": 157.34,
+     "w_m": 3.36,
+     "h_m": 2.45,
+     "tile": [
+      "9. Abandoned cards",
+      24
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 169.33,
+     "y_m": 157.34,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 172.2,
+     "y_m": 163.01,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      19
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 71.03,
+     "y_m": 70.88,
+     "w_m": 3.36,
+     "h_m": 1.96,
+     "tile": [
+      "9. Abandoned cards",
+      21
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 221.71,
+     "y_m": 150.25,
+     "w_m": 3.36,
+     "h_m": 2.06,
+     "tile": [
+      "9. Abandoned cards",
+      13
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 32.29,
+     "y_m": 164.43,
+     "w_m": 3.36,
+     "h_m": 2.17,
+     "tile": [
+      "9. Abandoned cards",
+      11
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 96.86,
+     "y_m": 160.18,
+     "w_m": 3.36,
+     "h_m": 1.99,
+     "tile": [
+      "9. Abandoned cards",
+      31
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 22.24,
+     "y_m": 124.74,
+     "w_m": 3.36,
+     "h_m": 2.03,
+     "tile": [
+      "9. Abandoned cards",
+      28
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "car",
+     "fact": "cover",
+     "x_m": 39.46,
+     "y_m": 128.99,
+     "w_m": 3.36,
+     "h_m": 1.92,
+     "tile": [
+      "9. Abandoned cards",
+      34
+     ],
+     "scale": 2
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 220.27,
+     "y_m": 153.09,
+     "w_m": 0.88,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      35
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 19.37,
+     "y_m": 146.0,
+     "w_m": 1.0,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      31
+     ],
+     "scale": 1
+    },
+    {
+     "kind": "barrel",
+     "fact": "low",
+     "x_m": 52.38,
+     "y_m": 170.1,
+     "w_m": 0.98,
+     "h_m": 1.68,
+     "tile": [
+      "18. Light sources and fire barrels",
+      32
+     ],
+     "scale": 1
+    }
+   ],
+   "lights": [
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 31.39,
+     "y_m": 72.65
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 99.55,
+     "y_m": 72.65
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 61.88,
+     "y_m": 115.17
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 130.05,
+     "y_m": 115.17
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 31.39,
+     "y_m": 161.24
+    },
+    {
+     "kind": "lamp",
+     "power": "grid",
+     "from_map": true,
+     "x_m": 99.55,
+     "y_m": 161.24
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 220.27,
+     "y_m": 153.09
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 19.37,
+     "y_m": 146.0
+    },
+    {
+     "kind": "fire barrel",
+     "power": "fire",
+     "x_m": 52.38,
+     "y_m": 170.1
+    }
+   ],
+   "terrain": [
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "part blocked",
+     "part blocked",
+     "part blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ],
+    [
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "flat",
+     "part blocked",
+     "part blocked",
+     "flat",
+     "flat",
+     "flat",
+     "blocked",
+     "blocked",
+     "blocked",
+     "flat"
+    ]
+   ],
+   "colours_per_96px": 2304,
+   "elapsed_s": 180.7
+  }
+ }
+}
