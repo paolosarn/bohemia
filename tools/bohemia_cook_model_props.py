@@ -290,27 +290,41 @@ def barrier(bpy, mathutils):
     box(bpy, 'splash', grime, (L - 0.06, 0.01, 0.15), (0, -0.268, 0.165), rot=(-lo, 0, 0))
 
 
+def lump(o, rnd, r):
+    """a full bin bag: soft lumps from what is inside, a flat bottom where it sits, pinched to the knot (round two: a
+    sphere with jittered vertices read as a ball)"""
+    a, b, c = rnd.uniform(0, 6), rnd.uniform(0, 6), rnd.uniform(0, 6)
+    for v in o.data.vertices:
+        n = v.co.normalized()
+        k = 1 + 0.14 * math.sin(3 * n.x + a) * math.cos(2.5 * n.y + b) + 0.08 * math.sin(4 * n.z + c)
+        if n.z > 0.6: k *= 1 - (n.z - 0.6) * 0.9          # gathered at the neck
+        v.co *= k
+        if v.co.z < -0.45 * r: v.co.z = -0.45 * r         # sat down on whatever is under it
+
+
 def dumpster(bpy, mathutils):
     # a 2-yard front-load dumpster (1.85 m wide, 1.1 m deep, the back 1.25 m, the front 1.05, the lower front raked in),
     # the twin's family (pack:14. Trash and junk props#3). Painted steel, two black plastic lids, fork pockets on the
     # sides, rust coming through the paint. The odd thing: the right lid thrown back over its hinge and the bin
     # overflowing on that side, bags and a split box, one bag fallen on the ground in front.
     W, D = 1.85, 1.1
-    body, rust = mat(bpy, 'paint', 'metal_painted', 2), mat(bpy, 'rust', 'clay_rust', 1)
-    lid, bag, card = mat(bpy, 'lid', 'rubber', 2), mat(bpy, 'bags', 'cloth_black', 2), mat(bpy, 'cardboard', 'tape_masking', 2)
+    # round two of the loop: the first lid and bags read pale grey (the source pass dusts every up face), the top was a
+    # solid slab, not a bin, and the rust was blood red. Darker steps, the bin hollowed, the rust his orange step
+    body, rust = mat(bpy, 'paint', 'metal_painted', 2), mat(bpy, 'rust', 'clay_rust', 2)
+    lid, bag, card = mat(bpy, 'lid', 'rubber', 0), mat(bpy, 'bags', 'cloth_black', 0), mat(bpy, 'cardboard', 'tape_masking', 2)
     # the side profile (y, z), front is -Y: the foot raked in, the front wall up to 1.05, the top sloping to 1.25
     prof = [(-D / 2 + 0.22, 0.12), (D / 2, 0.12), (D / 2, 1.25), (-D / 2, 1.05), (-D / 2, 0.42)]
     o = prism(bpy, 'body', body, prof, -W / 2, W / 2)
     md = o.modifiers.new('bevel', 'BEVEL'); md.width = 0.025; md.segments = 2; bpy.ops.object.modifier_apply(modifier='bevel')
     # the opening: a dark well under the lids (the inside of a bin from 45 degrees up is mostly shadow)
     slope = math.atan2(0.2, D)
-    box(bpy, 'rim', body, (W - 0.04, D - 0.02, 0.05), (0, 0, 1.17), rot=(-slope, 0, 0), bevel=0.01)
+    cut(bpy, o, (W - 0.09, D - 0.09, 1.1), (0, 0, 1.0), (0, 0, 0))   # hollow: the open half shows a dark well
     for sx in (-1, 1):
         box(bpy, 'fork_pocket_%d' % sx, body, (0.06, D * 0.6, 0.16), (sx * (W / 2 + 0.03), 0.05, 0.78), bevel=0.01)
         cyl(bpy, 'caster_%d_f' % sx, lid, 0.06, 0.05, (sx * 0.75, -D / 2 + 0.3, 0.06), rot=(0, math.pi / 2, 0), verts=12)
         cyl(bpy, 'caster_%d_b' % sx, lid, 0.06, 0.05, (sx * 0.75, D / 2 - 0.1, 0.06), rot=(0, math.pi / 2, 0), verts=12)
     # the left lid shut along the slope; the right lid thrown back past the hinge, hanging down the back
-    box(bpy, 'lid_left', lid, (W / 2 - 0.03, D + 0.06, 0.05), (-W / 4, 0, 1.2), rot=(-slope, 0, 0), bevel=0.012)
+    box(bpy, 'lid_left', lid, (W / 2 - 0.03, D + 0.06, 0.05), (-W / 4, 0, 1.18), rot=(slope, 0, 0), bevel=0.012)   # the back is the high side: +slope lifts +Y
     box(bpy, 'lid_right', lid, (W / 2 - 0.03, D + 0.06, 0.05), (W / 4, D / 2 + 0.12, 0.72), rot=(math.radians(-100), 0, 0), bevel=0.012)
     # the overflow on the open side: bags and a split box heaped over the rim, one bag on the ground in front
     import random
@@ -319,18 +333,17 @@ def dumpster(bpy, mathutils):
         bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=(x, y, z), segments=12, ring_count=8)
         b = put(bpy, bpy.context.active_object, 'bag_%d' % i, bag)
         b.scale = (1.0, 0.9, 0.72); b.rotation_euler = (rnd.uniform(-0.3, 0.3), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 3))
-        for v in b.data.vertices: v.co *= rnd.uniform(0.9, 1.08)   # a bag is never a ball
+        lump(b, rnd, r)
         bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.05, radius2=0.0, depth=0.12, location=(x, y, z + r * 0.72 + 0.04))
         put(bpy, bpy.context.active_object, 'bag_knot_%d' % i, bag, smooth=False)
     box(bpy, 'box_split', card, (0.42, 0.34, 0.3), (0.18, -0.2, 1.3), rot=(math.radians(14), math.radians(-24), math.radians(30)), bevel=0.005)
     box(bpy, 'box_flap', card, (0.4, 0.012, 0.22), (0.22, -0.4, 1.45), rot=(math.radians(-40), math.radians(-24), math.radians(30)))
     bpy.ops.mesh.primitive_uv_sphere_add(radius=0.24, location=(0.55, -D / 2 - 0.32, 0.17), segments=12, ring_count=8)
     b = put(bpy, bpy.context.active_object, 'bag_ground', bag); b.scale = (1.15, 0.95, 0.68)
-    for v in b.data.vertices: v.co *= rnd.uniform(0.9, 1.08)
+    lump(b, rnd, 0.24)
     # the rust: ragged stains on the front wall and the raked foot, and a long run down the left corner
     for i, (x, z, r) in enumerate(((-0.55, 0.85, 0.2), (0.35, 0.62, 0.15), (-0.75, 0.55, 0.12), (0.7, 0.92, 0.1))):
         blotch(bpy, 'rust_%d' % i, rust, r, (x, -D / 2 - 0.006, z), (math.pi / 2, 0, 0), seed=51 + i)
-    blotch(bpy, 'rust_foot', rust, 0.3, (-0.2, -D / 2 + 0.11, 0.27), (math.radians(55), 0, 0), seed=61)
 
 
 def cart(bpy, mathutils):
