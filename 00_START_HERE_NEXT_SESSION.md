@@ -1786,7 +1786,29 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
-ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (a) LATEST -- *** [the shadow line and the choppy
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (b) LATEST -- *** [the beasts through the rig,
+the wolf redone] ROUND ONE IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: THE DIRE WOLF REDONE (eight
+facings, idle, step and bite on the beat, beside the fox he liked and the grey one he said NO to). ***
+WHY THE GREY ONE WAS UGLY, MEASURED: one flat colour (the old recolour caught the saturated dark socks too: lightest tenth
+62 levels over the darkest, the fox 173), the idle's sniff for a still, a fox body 1.2 wider. THE REMODEL, IN BLENDER AT
+THE SOURCE (tools/bohemia_animation_the_wolf_redone_prep.py, bpy 4.2): mesh and bones together, bones translated never
+turned so the fox's clips and our Bite play; legs 1.35 longer and 1.6 thicker, chest 1.2 deeper, a ruff 1.25, ears 0.6,
+muzzle 1.2, a rope tail (0.7) with a BLACK tip, body 1.3 wider, skull 1.16; the coat painted from the 3D shape (401,217
+texels traced to the body through the UVs): a dark saddle where the back faces up, tawny flanks (the ancient-DNA read is a
+reddish wolf), cream belly, dark socks, a 3D grizzle at 6 percent. DIRECTION's rig unchanged at 1.7 m, the walk's passing
+pose for the still, 0 of 8 out under the style guide. Three passes by eye beside the fox, then stopped (rule 97). The bake
+now takes --name and --beside; the gate takes --wolf redone. Gates: THE WOLF REDONE 31/0 (new suite entry; three tones 96
+against line 70, stands 0.70 tall over long against the grey one's 0.53, 96 px long, bite rises 9 px, 16 colours, two new
+mutations), BEAST IN EIGHT 26/0, STYLE GUIDE 0 of 8 out, REFERENCE CHECK 488/0, VOTE TAB (mine clean after the sha line;
+red and not mine: four other rows' whys), NOT VIBE CODED N3 passes for my row (red and not mine: four other lanes' rows
+name no sprites), SPRITE SCALE 4 reds CHARACTER's (Stand clips), PAGES PUBLISH red on main before me (704 MB). THE FULL SUITE DID NOT FINISH, SAID SO: 836 gates, 142 run in 30 minutes on this box before the background limit killed it
+(no red from my files among them); every gate my files touch was run by hand instead, on the rebased tree.
+Said, not hidden: the passing pose is nearly symmetric, so W vs E flipped differs 1 percent in silhouette and the light
+(19 to 30 levels) is what makes a W; no jaw bone yet; the 16-colour snap muddies the saddle's edge.
+records/BOHEMIA_THE_WOLF_REDONE_10_18_26.md.
+NEXT: the same row, round two: 1 THE FERAL DOG PACK (the same Fox source, a dog's proportions and coats), then 3 the hyena.
+
+ANIMATION (animation, opened by the coordinator, rules 112 to 116): 10/18 (a) -- *** [the shadow line and the choppy
 fall] IN VOTE, WAITS THE MOODBOARD (rule 100). TAB: VOTE, PLACEHOLDER: NO SHADOW LINE BEHIND YOU, AND A QUICKER, SMOOTHER FALL
 (the party on the real map, two walks across the glass; the fall before beside now, eight facings, four kinds). ***
 THE LINE: his 22 px ground oval and the two companions' ovals overlapped (they walk 13 and 22 px behind him): one piece of
