@@ -587,6 +587,97 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
   ok('the old ledger still says, at the top, that it is superseded', /SUPERSEDED 9\/28\/26/.test(banner));
 }
 
+/* ---- 12. THE REGION'S PLACES CAN CHANGE HANDS (FACTIONS [region in the ledger], 10/18) --------------------------
+   [take a town]'s first gap: the ledger seeded a base's holder as its own key, so Henderson read 'henderson' and a
+   take there wrote from:'henderson'. The region's holders are seeded from records/target/bb/region_bases.json, read by
+   the module itself; the valley's fourteen answer exactly what they answered before, byte for byte. */
+{
+  const RB = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/region_bases.json'), 'utf8'));
+  const places = RB.region_places || [], wild = RB.hostile_locations || [];
+  const valleyIds = seats.map(s => s.faction), graphIds = Object.keys(G.factions);
+  ok('the data file carries the twelve places and the wild locations, every id distinct',
+     places.length === 12 && wild.length >= 1 && new Set(places.concat(wild).map(r => r.id)).size === places.length + wild.length);
+  ok('NO REGION ID IS A VALLEY OR A GRAPH FACTION: a collision would re-seed a valley base',
+     places.concat(wild).every(r => valleyIds.indexOf(r.id) < 0 && graphIds.indexOf(r.id) < 0));
+  ok('every place\'s holder is a faction of the canon graph', places.every(p => graphIds.indexOf(p.holder) >= 0), places.filter(p => graphIds.indexOf(p.holder) < 0).map(p => p.id).join(', '));
+
+  const empty = H.make();
+  ok('WITH AN EMPTY LEDGER EVERY REGION PLACE IS HELD BY THE FACTION THE FILE NAMES: ' + places.map(p => p.id + ' ' + H.heldBy(empty, p.id)).join(', '),
+     places.every(p => H.heldBy(empty, p.id) === p.holder && H.seedOf(p.id) === p.holder));
+  ok('and every wild location by its own faction', wild.every(w => H.heldBy(empty, w.id) === w.faction));
+  ok('every valley seat is still its own: the seed of a valley key is the key', seats.every(s => H.seedOf(s.faction) === s.faction && H.heldBy(empty, s.faction) === s.faction));
+
+  /* the region's rows, the way RUN will hand them: region_bases_gate's rows with the place id as `base` */
+  const mid = (m.n - 1) / 2;
+  const power = f => (G.factions[f] && typeof G.factions[f].act1_power === 'number') ? G.factions[f].act1_power : null;
+  const rows = places.map(p => ({ base: p.id, faction: p.holder, tier: p.tier, kind: p.kind, x: Math.round(mid + p.east), y: Math.round(mid - p.north), power: power(p.holder) }))
+    .concat(wild.map(w => ({ base: w.id, faction: w.faction, tier: w.tier, kind: w.kind, x: Math.round(mid + w.east), y: Math.round(mid - w.north), power: T.TIERS.length - T.TIERS.indexOf(w.tier) })));
+  const all = seats.concat(rows), both = P.all(all, { n: m.n });
+
+  /* THE VALLEY BYTE FOR BYTE: every answer over the fourteen, with the region's seeds and with none */
+  const valleyAnswers = (rec) => JSON.stringify([
+    H.bases(seats, rec, 1, { progress: 0.5 }), H.markers(seats, parties, rec, 1, { progress: 0.5 }),
+    H.partiesLeft(parties, H.bases(seats, rec, 1)), H.ownedBy(rec, seats, H.YOU, 1),
+    seats.map(s => [H.heldBy(rec, s.faction), H.isRuin(rec, s.faction)]), H.netFor(rec, 1), rec.entries]);
+  const busy = () => { const r = H.make(); H.took(r, { base: seats[0].faction, to: H.YOU, by: 'deal', day: 1 });
+                       H.ruined(r, { base: seats[1].faction, by: 'raid', day: 2 }); H.took(r, { base: seats[2].faction, to: seats[3].faction, by: 'raid', day: 3 }); return r; };
+  const withSeeds = [valleyAnswers(H.make()), valleyAnswers(busy())];
+  H.setRegion({});
+  const without = [valleyAnswers(H.make()), valleyAnswers(busy())];
+  H.setRegion(RB);
+  ok('THE FOURTEEN VALLEY SEATS ANSWER BYTE FOR BYTE WHAT THEY ANSWERED BEFORE THE REGION WAS SEEDED, empty ledger and busy',
+     withSeeds[0] === without[0] && withSeeds[1] === without[1], withSeeds[1].length + ' bytes');
+  ok('and the region rows did not move the valley\'s base rows (the fourteen inside the twenty-six)',
+     JSON.stringify(H.bases(all, H.make(), 1).slice(0, seats.length)) === JSON.stringify(H.bases(seats, H.make(), 1)));
+
+  /* READ FROM THE FILE, NEVER HANDED IN BY A CALLER */
+  const liar = H.bases([{ base: 'henderson', faction: 'Mob', tier: 'town', x: 1, y: 1 }], H.make(), 1)[0];
+  ok('A CALLER THAT SAYS HENDERSON IS THE MOB\'S IS NOT BELIEVED: the row reads the Trades, held', liar.faction === 'Trades' && liar.holder === 'Trades' && liar.state === 'held' && liar.base === 'henderson');
+  const moved = JSON.parse(JSON.stringify(RB)); moved.region_places.find(p => p.id === 'henderson').holder = 'Church';
+  H.setRegion(moved); const fromFile = H.heldBy(H.make(), 'henderson'); H.setRegion(RB);
+  ok('the file is the source: change Henderson\'s holder in the data and the ledger follows it', fromFile === 'Church' && H.heldBy(H.make(), 'henderson') === 'Trades');
+  const logic = stripComments(fs.readFileSync(path.join(ROOT, 'engine/bohemia_homebases.js'), 'utf8'));
+  ok('heldBy takes no holder from its caller: (rec, base, act) and nothing else', /function heldBy\(rec, base, act\)/.test(logic) && /region_bases\.json/.test(logic));
+
+  /* HENDERSON TAKEN FROM THE TRADES */
+  const r = H.make();
+  const t = H.took(r, { base: 'henderson', to: H.YOU, by: 'contract', day: 40, why: 'take:hired' });
+  ok('A TAKE AT HENDERSON WRITES from:\'Trades\', never from:\'henderson\'', t.applied && t.entry.from === 'Trades' && t.entry.to === H.YOU && t.entry.by === 'contract', JSON.stringify(t.entry));
+  ok('the act\'s arithmetic reads it: the company +1, the Trades -1, and no place called henderson', (() => { const n = H.netFor(r, 1); return n[H.YOU] === 1 && n.Trades === -1 && !('henderson' in n); })());
+  const rb = H.make(), fall = H.ruined(rb, { base: 'boulder_city', by: 'raid', day: 9 });
+  ok('a fall at Boulder City is the Church\'s loss', fall.applied && fall.entry.from === 'Church' && H.netFor(rb, 1).Church === -1);
+  const rr = H.make(), raid = H.openRaid(rr, { base: 'pahrump', by: 'Cartel', power: 9, day: 3 });
+  ok('a raid at Pahrump is a raid against the Mob', raid.applied && raid.raid.against === 'Mob');
+  ok('the Trades taking their own Henderson is not a change', H.took(H.make(), { base: 'henderson', to: 'Trades' }).reason === 'NOT_A_CHANGE');
+
+  /* THE ROWS THE MAP READS */
+  const hb = H.bases(all, r, 1).find(b => b.id === 'base:henderson');
+  ok('the base list says it: base:henderson, the Trades\' people, now the company\'s', hb && hb.base === 'henderson' && hb.faction === 'Trades' && hb.holder === H.YOU && hb.state === 'yours');
+  ok('the Trades\' own valley seat stands untouched beside it', H.bases(all, r, 1).find(b => b.id === 'base:Trades').state === 'held');
+  ok('a home of your own in the region counts as yours', H.ownedBy(r, all, H.YOU, 1).indexOf('henderson') >= 0 && H.ownedBy(r, all, 'Trades', 1).indexOf('henderson') < 0);
+  const hx = rows.find(x => x.base === 'henderson');
+  const fromHenderson = both.filter(p => p.from.faction === 'Trades' && p.from.x === hx.x && p.from.y === hx.y);
+  const fromValleyTrades = both.filter(p => p.from.faction === 'Trades' && !(p.from.x === hx.x && p.from.y === hx.y));
+  const left = H.partiesLeft(both, H.bases(all, r, 1));
+  ok('HENDERSON TAKEN SENDS NOBODY, AND THE TRADES\' VALLEY PARTIES STILL WALK (' + fromHenderson.length + ' silenced, ' + fromValleyTrades.length + ' kept)',
+     fromHenderson.length > 0 && fromValleyTrades.length > 0 && fromHenderson.every(p => left.silenced.indexOf(p) >= 0) && fromValleyTrades.every(p => left.kept.indexOf(p) >= 0)
+     && left.silenced.length === fromHenderson.length);
+  ok('with nothing taken, the region and the valley together silence nobody', H.partiesLeft(both, H.bases(all, H.make(), 1)).silenced.length === 0);
+  const raidAt = H.raidsFrom([{ id: 'q', agenda: 'crew', faction: 'Cartel', power: 30, to: { x: hx.x, y: hx.y }, step: 0 }], all, r, H.YOU, { progress: 1 });
+  ok('a crew at the gate of your Henderson is a raid on base henderson', raidAt.length === 1 && raidAt[0].base === 'henderson' && raidAt[0].by === 'Cartel');
+  const rs = H.make(); H.took(rs, { base: 'henderson', to: H.YOU, by: 'contract', day: 1 });
+  H.openRaid(rs, { base: 'henderson', by: 'Cartel', power: hx.power + 1, day: 2 });
+  const st = H.settle(rs, all, 2 + H.RAID_DEFAULTS.prepDays);
+  ok('nobody answers it and the world settles it against HENDERSON\'S power, not the Trades\' valley seat\'s', st.length === 1 && st[0].outcome === 'taken' && H.heldBy(rs, 'henderson') === 'Cartel');
+  const rm = H.make(); H.took(rm, { base: 'henderson', to: H.YOU, by: 'contract', day: 1 });
+  H.openRaid(rm, { base: 'henderson', by: 'Cartel', power: 9, day: 5 });
+  const mk = H.markers(all, both, rm, 1).find(x => x.id === 'base:henderson');
+  ok('the marker carries it with no sentence, the raid at its gate included', mk && mk.holder === H.YOU && mk.state === 'yours'
+     && mk.raid && mk.raid.by === 'Cartel' && mk.raid.due === 5 + H.RAID_DEFAULTS.prepDays
+     && H.markers(all, both, rm, 1).find(x => x.id === 'base:Trades').raid === null
+     && Object.values(mk).every(v => typeof v !== 'string' || !/\s/.test(v)));
+}
+
 console.log('THE HOME BASES GATE: ' + pass + ' ok, ' + fail + ' failed  (fourteen wholes, taken or ruined; '
           + 'the empty ledger is a no-op; a party exists because its base holds it; no text; no cells)');
 process.exit(fail ? 1 : 0);

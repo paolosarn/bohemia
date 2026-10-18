@@ -21,7 +21,8 @@
 //   open(tk, rec, t, ctx)           -> {applied:true, chain} | {applied:false, reason}
 //   step(tk, rec, base, ev, ctx)    -> {applied:true, chain, entry} | {applied:false, reason}
 //   status(tk, base)                -> [{id, state:'done'|'now'|'later'|'skipped'|'lost'}]  (the timeline)
-//   t   = {base, tier, seed}   seed: who holds it while the ledger has no entry (a valley seat is its own faction)
+//   t   = {base, tier}   who holds it is the ledger's answer alone; the ledger seeds a region place from its data file
+//                        (FACTIONS [region in the ledger] 10/18), so a caller's word for the holder is never asked
 //   ctx = {progress (0..1, the CALLER's), day, bases (every ledger key the caller knows), bars (relations rec),
 //          between(a, b), factions (ids that could hire or relieve), inside (ids living on the target's ground),
 //          traits (arrival traits rec, for Conquered)}
@@ -51,11 +52,10 @@
     return ctx.between(a, b) || ctx.between(b, a) || null;
   }
 
-  /* who holds it now: the ledger's answer, or the seed while the ledger has no entry for it; null for a ruin */
+  /* who holds it now: the ledger's answer, which seeds Henderson as the Trades' and a valley seat as its own; null for a ruin */
   function holderOf(rec, t) {
     if (H.isRuin(rec, t.base, rec.act)) return null;
-    var h = H.heldBy(rec, t.base, rec.act);
-    return (h === t.base && t.seed) ? t.seed : h;
+    return H.heldBy(rec, t.base, rec.act);
   }
   function standing(rec, ctx, who, but) {
     var ks = (ctx && ctx.bases) || [], out = [];
@@ -122,7 +122,7 @@
     var o = offer(tk, rec, t, ctx);
     if (!o.ok) return { applied: false, reason: o.reason };
     var day = (ctx && typeof ctx.day === 'number') ? ctx.day : null;
-    var c = { n: tk.chains.length + 1, act: rec.act, base: t.base, tier: t.tier || null, seed: t.seed || null,
+    var c = { n: tk.chains.length + 1, act: rec.act, base: t.base, tier: t.tier || null,
               holder: o.holder, door: o.door, by: o.by, state: 'open', relief: null, steps: {} };
     c.steps.the_ask = { state: 'done', day: day };
     tk.chains.push(c);
@@ -161,7 +161,7 @@
     ev = ev || {};
     var day = (typeof ev.day === 'number') ? ev.day : null, at = STEPS.indexOf(ev.step);
     if (at < 1) return { applied: false, reason: 'BAD_EVENT' };
-    var now = holderOf(rec, { base: c.base, seed: c.seed });
+    var now = holderOf(rec, { base: c.base });
     if (now !== c.holder) { c.state = 'moot'; return { applied: false, reason: 'MOOT' }; }
     if (done(c, ev.step)) return { applied: false, reason: 'OUT_OF_ORDER' };
 

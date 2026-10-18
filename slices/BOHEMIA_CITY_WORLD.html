@@ -11654,9 +11654,40 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return rec.act;
   }
 
+  /* ---- the seed: who holds a base before anybody took it ----------------------
+     A valley seat is keyed by its faction and is its own people's, so its seed is its key. A place in the REGION
+     (FACTIONS [region in the ledger], 10/18) is keyed by its own id, 'henderson', and is held from the first day by
+     the faction records/target/bb/region_bases.json names, the Trades; a wild location by its faction, brigands at
+     Railroad Pass. READ FROM THAT FILE, NEVER HANDED IN BY A CALLER: a ledger that took a caller's word for who held a
+     place wrote from:'henderson' the first time a caller forgot. Under node the file is read on the first ask; a page
+     fetches it and calls setRegion(json), and until it does a region place reads as its own id, the old answer and
+     never a wrong faction. */
+  var SEEDS = null;
+  function setRegion(d) {
+    var s = {}, rows = [].concat((d && d.region_places) || [], (d && d.hostile_locations) || []);
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i], who = r && (r.holder || r.faction);
+      if (r && r.id && who) s[r.id] = who;
+    }
+    SEEDS = s;
+    return Object.keys(s).length;
+  }
+  function seeds() {
+    if (SEEDS === null && typeof module !== 'undefined' && module.exports) {
+      try { setRegion(require('../records/target/bb/region_bases.json')); } catch (_e) { SEEDS = {}; }
+    }
+    return SEEDS || {};
+  }
+  function seedOf(base) {
+    var s = seeds();
+    return Object.prototype.hasOwnProperty.call(s, base) ? s[base] : base;
+  }
+  /* a seat's ledger key: a region row carries its place id as `base`; a valley seat is keyed by its faction */
+  function keyOf(s) { return s ? (s.base || s.faction) : null; }
+
   /* ---- reading -------------------------------------------------------------
      The newest entry at or before `act` says who holds it now. With no entry the
-     base is its own faction's, which is what the seed says. */
+     base is held by its seed: its own faction in the valley, the data file's holder in the region. */
   function lastOf(rec, base, act) {
     var a = clampAct(act == null ? (rec && rec.act) : act), hit = null;
     var list = (rec && rec.entries) || [];
@@ -11670,7 +11701,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   /* who holds it: a faction id, 'you', or null when it is a ruin */
   function heldBy(rec, base, act) {
     var e = lastOf(rec, base, act);
-    return e ? e.to : base;
+    return e ? e.to : seedOf(base);
   }
 
   function isRuin(rec, base, act) {
@@ -11684,7 +11715,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   function ownedBy(rec, seats, who, act) {
     var a = clampAct(act == null ? (rec && rec.act) : act), out = [];
     for (var i = 0; i < (seats || []).length; i++) {
-      var f = seats[i] && seats[i].faction;
+      var f = keyOf(seats[i]);
       if (f && !isRuin(rec, f, a) && heldBy(rec, f, a) === who) out.push(f);
     }
     return out;
@@ -11701,7 +11732,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     if (r.by != null && WAYS.indexOf(r.by) < 0) return { applied: false, reason: 'UNKNOWN_WAY' };
     var now = lastOf(rec, r.base, rec.act);
     var ruinAct = (now && now.how === 'ruined') ? now.act : 0;
-    var holder = now ? now.to : r.base;
+    var holder = now ? now.to : seedOf(r.base);
     if (how === 'taken') {
       if (!r.to) return { applied: false, reason: 'NO_TAKER' };
       /* a ruin can be moved into, but only a generation later: the future goes both
@@ -11794,20 +11825,24 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return 'taken';
   }
 
-  /* seats: BohemiaTowns.derive() rows. One base per seat, in the seats' own order. */
+  /* seats: BohemiaTowns.derive() rows, and the region's rows with their place id as `base`. One base per seat, in the
+     seats' own order. A row's people are its seed, never the caller's word; a region row also says its key as `base`. */
   function bases(seats, rec, act, opts) {
     opts = opts || {};
     var a = clampAct(act == null ? (rec && rec.act) : act), out = [];
     for (var i = 0; i < (seats || []).length; i++) {
       var s = seats[i]; if (!s) continue;
-      var ruin = isRuin(rec, s.faction, a);
-      var holder = ruin ? null : heldBy(rec, s.faction, a);
-      out.push({
-        id: 'base:' + s.faction, faction: s.faction, x: s.x, y: s.y,
+      var k = keyOf(s), own = seedOf(k);
+      var ruin = isRuin(rec, k, a);
+      var holder = ruin ? null : heldBy(rec, k, a);
+      var row = {
+        id: 'base:' + k, faction: own, x: s.x, y: s.y,
         kind: s.kind || null, tier: s.tier, power: s.power,
-        holder: holder, state: stateOf(s.faction, holder, ruin),
+        holder: holder, state: stateOf(own, holder, ruin),
         raidable: raidable(s.tier, opts.progress, ruin)
-      });
+      };
+      if (k !== own) row.base = k;
+      out.push(row);
     }
     return out;
   }
@@ -11841,14 +11876,18 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   /* A PARTY EXISTS BECAUSE ITS BASE STILL HOLDS IT. A base that is a ruin, or held
      by anybody but its own people, sends nobody; what it had out is gone from the
      map. Everything else is untouched, so with an empty ledger this returns the
-     parties it was given, unchanged and in order. */
+     parties it was given, unchanged and in order. A faction can hold a valley seat AND a region place (the Trades, and
+     Henderson), so a region base is found by its people and the cell its parties set out from, never by faction alone. */
   function partiesLeft(parties, baseList) {
-    var byFaction = {}, i;
-    for (i = 0; i < (baseList || []).length; i++) byFaction[baseList[i].faction] = baseList[i];
+    var byFaction = {}, byPlace = {}, i;
+    for (i = 0; i < (baseList || []).length; i++) {
+      var r = baseList[i];
+      if (r.base) byPlace[r.faction + '@' + r.x + ',' + r.y] = r; else byFaction[r.faction] = r;
+    }
     var kept = [], silenced = [];
     for (i = 0; i < (parties || []).length; i++) {
       var p = parties[i]; if (!p) continue;
-      var b = p.from && byFaction[p.from.faction];
+      var b = p.from && (byPlace[p.from.faction + '@' + p.from.x + ',' + p.from.y] || byFaction[p.from.faction]);
       if (b && b.state !== 'held') silenced.push(p); else kept.push(p);
     }
     return { kept: kept, silenced: silenced };
@@ -11952,13 +11991,13 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
       if (!e || e.agenda !== 'crew' || !e.to) continue;
       if (heldBy(rec, e.faction, a) !== e.faction) continue;      /* a ruin answers null, so a fallen home sends nobody */
       for (j = 0; j < (seats || []).length; j++) {
-        var s = seats[j];
-        if (!s || s.x !== e.to.x || s.y !== e.to.y || s.faction === e.faction) continue;
-        if (heldBy(rec, s.faction, a) !== holder) continue;         /* and a ruin is nobody's, so it is never yours to defend */
+        var s = seats[j], k = keyOf(s);
+        if (!s || s.x !== e.to.x || s.y !== e.to.y || seedOf(k) === e.faction) continue;
+        if (heldBy(rec, k, a) !== holder) continue;                 /* and a ruin is nobody's, so it is never yours to defend */
         if (raidable(s.tier, progress, false) !== true) continue;
-        if (raidsOn(rec, s.faction, a) + (seen[s.faction] || 0) >= per) continue;
-        seen[s.faction] = (seen[s.faction] || 0) + 1;
-        out.push({ base: s.faction, by: e.faction, party: e.id, power: e.power, step: e.step });
+        if (raidsOn(rec, k, a) + (seen[k] || 0) >= per) continue;
+        seen[k] = (seen[k] || 0) + 1;
+        out.push({ base: k, by: e.faction, party: e.id, power: e.power, step: e.step });
       }
     }
     return out;
@@ -12021,7 +12060,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   function settle(rec, seats, day, opts) {
     opts = opts || {};
     var out = [], list = (rec && rec.raids) || [], bySeat = {}, i;
-    for (i = 0; i < (seats || []).length; i++) if (seats[i]) bySeat[seats[i].faction] = seats[i];
+    for (i = 0; i < (seats || []).length; i++) if (seats[i]) bySeat[keyOf(seats[i])] = seats[i];
     if (typeof day !== 'number') return out;
     for (i = 0; i < list.length; i++) {
       var r = list[i];
@@ -12053,7 +12092,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     var P = PARTIES();
     for (i = 0; i < bl.length; i++) {
       var b = bl[i];
-      var rd = raidOf(rec, b.faction);
+      var rd = raidOf(rec, b.base || b.faction);
       out.push({ kind: 'base', id: b.id, x: b.x, y: b.y, faction: b.faction, holder: b.holder,
                  state: b.state, tier: b.tier, glyph: b.kind, raidable: b.raidable,
                  threat: threats[b.id], raid: rd ? { by: rd.by, due: rd.due } : null });
@@ -12107,6 +12146,7 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
   var API = {
     V: V, YOU: YOU, WAYS: WAYS.slice(), ACT_MIN: ACT_MIN, ACT_MAX: ACT_MAX,
     clampAct: clampAct, make: make, setAct: setAct,
+    setRegion: setRegion, seedOf: seedOf,
     heldBy: heldBy, isRuin: isRuin, took: took, ruined: ruined,
     netFor: netFor, ruinsThrough: ruinsThrough,
     openAt: openAt, raidable: raidable,

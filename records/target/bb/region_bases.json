@@ -87,6 +87,14 @@
   "no_fixed_party_count": {
    "source": "reference/library/battle_brothers/01_WORLDMAP.md",
    "quote": "PUBLISHED FIXED COUNT of roaming parties at once. It is emergent."
+  },
+  "every_settlement_has_a_house": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "As of the full release version 1.1, all human settlements are now aligned with a noble house. Independent, unaligned settlements which were present in Early Access builds, no longer exist."
+  },
+  "the_flag_says_who": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "Fortified settlements (Fortified Manors/Castles/Strongholds) belong to different noble houses, and the house which controls one can be identified by the flag they wear."
   }
  },
  "the_numbers": {
@@ -122,6 +130,13 @@
   }
  },
  "rules": {
+  "a_place_is_held_from_the_first_day": {
+   "value": "holder",
+   "source": "engine/bohemia_homebases.js seedOf and setRegion (FACTIONS [region in the ledger], 10/18)",
+   "wiki": "school.every_settlement_has_a_house",
+   "ours": false,
+   "note": "the home base ledger reads each place's holder (a wild location's faction) from this file as the seed for a base nobody has taken yet; a caller never says who holds a place. Before 10/18 the ledger seeded a region place as its own id, so the twelve were the unaligned settlements Battle Brothers removed in 1.1, and a take at Henderson wrote from:'henderson'"
+  },
   "a_place_sends_by_its_tier": {
    "value": "REACH[tier]",
    "source": "engine/bohemia_towns.js REACH; engine/bohemia_parties.js sendFrom",
@@ -567,7 +582,7 @@
   "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'"
  ],
  "routed": {
-  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases so a fallen location sends nobody; a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits)",
+  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases WITH base: the row's id (the ledger keys a region place by its id and seeds its holder from this file itself, FACTIONS [region in the ledger] 10/18; a page that runs the ledger fetches this file and calls BohemiaHomeBases.setRegion(json) once, node reads it on its own) so a fallen location sends nobody; the marker wears its holder's banner (school.the_flag_says_who); a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits)",
   "WORLD [the region]": "the ground kinds under each row (the fifteen terrains) and the places' own districts",
   "COOK FOUR": "a picture per region place and per wild location kind (hideout, ruin, crypt, den, nomad camp)",
   "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time",

@@ -282,7 +282,7 @@
     "patience is a win: hold the siege its days and the gate opens with no fight"
   ],
   "gaps": [
-    "THE REGION'S TWELVE PLACES: the home base ledger keys a base by its name and seeds its holder as that name, so Henderson's holder reads 'henderson', not the Trades; the take module takes the seed from the caller (t.seed) but the ledger's entry would record from:'henderson'. One line in engine/bohemia_homebases.js put() (a seed holder for a base with no entry) closes it: FACTIONS [region in the ledger].",
+    "THE REGION'S TWELVE PLACES ARE IN THE LEDGER (closed 10/18, FACTIONS [region in the ledger]): the ledger seeds a region place's holder from records/target/bb/region_bases.json itself (Henderson is the Trades', Jean the Cartel's), the take reads the ledger alone and t.seed is gone. WHAT IS STILL OPEN: nothing live hands a region place to the ledger or the take yet; RUN builds the region rows with base: id, and a page that runs the ledger fetches region_bases.json and calls BohemiaHomeBases.setRegion(json).",
     "THE BESIEGED SITUATION is quoted (siege_besieged) but no trait file carries Besieged's numbers yet; RUN TWO's settlement traits own the list (the Besieged page: +25% buying prices, +100% food prices, -25% items, -50% recruits).",
     "THE TIMELINE IN VOTE is owed the round the rule-88 hold lifts on this lane: the five steps, lit, for one valley town.",
     "THE INSIDE DOOR needs who lives inside whose ground: the hidden four's carriers (row [hidden factions]) are people, not a per-base list; the caller hands the list in (ctx.inside)."

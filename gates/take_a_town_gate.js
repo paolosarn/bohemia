@@ -120,7 +120,7 @@ const keys = seats.map(s => s.faction), tierOf = f => (seats.find(s => s.faction
 const factions = Object.keys(G.factions);
 const between = (a, b) => BT.between(a, b);
 const LATE = H.openAt('fortress'), EARLY = LATE - 0.01;
-const tgt = f => ({ base: f, tier: tierOf(f), seed: f });
+const tgt = f => ({ base: f, tier: tierOf(f) });
 /* the company's home: the camp his first home base sits on in the build screen's way (took to 'you'); Custom is his own faction (8/26), never a target */
 const HOME = 'Custom';
 function world(o) {
@@ -262,6 +262,51 @@ function suite(M, say) {
 console.log('  on the real valley (seed 12345): ' + seats.map(s => s.faction + ' ' + s.tier).join(', '));
 ok('the real module passes the whole suite', suite(TK, true) === 0);
 
+/* ---- G. THE REGION'S TWELVE PLACES (FACTIONS [region in the ledger], 10/18) -------------------------------------
+   The ledger seeds a region place's holder from records/target/bb/region_bases.json, so the take reads Henderson as
+   the Trades' with nobody telling it, and the one entry it writes is from the Trades. */
+const RB = read('records/target/bb/region_bases.json');
+const regionRows = RB.region_places.concat(RB.hostile_locations);
+const tierR = id => (regionRows.find(r => r.id === id) || {}).tier;
+const rworld = o => { const w = world(o); w.ctx.bases = keys.concat(regionRows.map(r => r.id)); return w; };
+const rt = (id, extra) => Object.assign({ base: id, tier: tierR(id) }, extra || {});
+function regionSuite(M, say) {
+  let bad = 0;
+  const chk = (n, c, d) => { if (!c) bad++; if (say) ok(n, c, d); };
+  { const w = rworld({ bars: { Trades: 0 } });
+    const o = M.offer(M.make(), w.rec, rt('henderson'), w.ctx);
+    chk('HENDERSON IS THE TRADES\' WITH NOBODY SAYING SO: the ask reads the ledger\'s seed, and their beef with you opens it', o.ok && o.holder === 'Trades' && o.door === 'beef' && o.by === 'Trades', JSON.stringify(o));
+    const lie = M.offer(M.make(), w.rec, rt('henderson', { seed: 'Mob' }), w.ctx);
+    chk('a caller who says the Mob holds Henderson is never asked: the holder is still the Trades', lie.ok && lie.holder === 'Trades', JSON.stringify(lie)); }
+  { const w = rworld({ bars: { Remnants: 60 } });
+    const o = M.offer(M.make(), w.rec, rt('jean'), w.ctx);
+    chk('JEAN IS THE CARTEL\'S, SO THE REMNANTS HIRE YOU FOR IT: the canon permanent war, read off the seeded holder', o.ok && o.door === 'hired' && o.by === 'Remnants' && o.holder === 'Cartel', JSON.stringify(o)); }
+  { const w = rworld({ progress: EARLY, bars: { Trades: 0 } });
+    chk('the late third binds the region the same: too early at Henderson', M.offer(M.make(), w.rec, rt('henderson'), w.ctx).reason === 'TOO_EARLY'); }
+  { const w = rworld({ bars: { Trades: 0 } }), tk = M.make();
+    M.open(tk, w.rec, rt('henderson'), w.ctx);
+    M.step(tk, w.rec, 'henderson', { step: 'cut_the_roads', partiesOut: 0, day: 31 }, w.ctx);
+    M.step(tk, w.rec, 'henderson', { step: 'the_siege', days: H.RAID_DEFAULTS.prepDays, day: 35 }, w.ctx);
+    const g = M.step(tk, w.rec, 'henderson', { step: 'the_gate', how: 'surrender', day: 36 }, w.ctx);
+    chk('the gate surrenders, and the Trades, still holding their valley seat, send the last force', g.applied && g.chain.relief === 'Trades', JSON.stringify(g.chain && g.chain.relief));
+    const h = M.step(tk, w.rec, 'henderson', { step: 'the_hold', won: true, day: 37 }, w.ctx), e = h.entry || {};
+    chk('HENDERSON TAKEN FROM THE TRADES BY CONTRACT: one entry, from the Trades, to the company, by contract', h.applied && h.chain.state === 'yours' && e.base === 'henderson' && e.from === 'Trades' && e.to === H.YOU && e.by === 'contract', JSON.stringify(e));
+    const net = H.netFor(w.rec, 1);
+    chk('the ledger says it, and the act\'s arithmetic is the Trades\' loss, never a place called henderson', H.heldBy(w.rec, 'henderson') === H.YOU && net.Trades === -1 && !('henderson' in net), JSON.stringify(net));
+    chk('Henderson is Conquered for the wiki\'s days', AT.active(w.ctx.traits, 'henderson', 37).indexOf('conquered') >= 0); }
+  { const w = rworld({ bars: { Church: 0 } }), tk = M.make();
+    M.open(tk, w.rec, rt('boulder_city'), w.ctx);
+    M.step(tk, w.rec, 'boulder_city', { step: 'cut_the_roads', partiesOut: 0, day: 31 }, w.ctx);
+    const b = M.step(tk, w.rec, 'boulder_city', { step: 'the_gate', how: 'burn', day: 32 }, w.ctx), e = b.entry || {};
+    chk('BOULDER CITY BURNED IS THE CHURCH\'S LOSS: a ruin by contract, from the Church', b.applied && e.how === 'ruined' && e.from === 'Church' && e.by === 'contract', JSON.stringify(e)); }
+  { const w = rworld({ bars: { Trades: 0 } }), tk = M.make();
+    M.open(tk, w.rec, rt('henderson'), w.ctx);
+    H.took(w.rec, { base: 'henderson', to: 'Cartel', by: 'raid', day: 32 });
+    chk('the world takes Henderson mid-chain and the take is moot', M.step(tk, w.rec, 'henderson', { step: 'cut_the_roads', partiesOut: 0, day: 33 }, w.ctx).reason === 'MOOT'); }
+  return bad;
+}
+ok('THE REGION: the real module passes the region leg', regionSuite(TK, true) === 0);
+
 /* ---- F. mutations ------------------------------------------------------------ */
 function mutant(from, to) {
   if (SRC.indexOf(from) < 0) return null;
@@ -276,12 +321,13 @@ const MUTANTS = [
   ['one per act', "if (takesIn(tk, rec.act) >= H.RAID_DEFAULTS.perAct) return { ok: false, reason: 'ONE_PER_ACT' };", ''],
   ['the order', "if (!done(c, 'cut_the_roads')) return { applied: false, reason: 'OUT_OF_ORDER' };", ''],
   ['the siege before a surrender', "if (!done(c, 'the_siege')) return { applied: false, reason: 'SIEGE_NOT_HELD' };", ''],
-  ['the write is a contract', "to: H.YOU, by: 'contract'", "to: H.YOU, by: 'raid'"]
+  ['the write is a contract', "to: H.YOU, by: 'contract'", "to: H.YOU, by: 'raid'"],
+  ['the holder is the ledger\'s, never the caller\'s', "return H.heldBy(rec, t.base, rec.act);", "return t.seed || H.heldBy(rec, t.base, rec.act);"]
 ];
 for (const [name, from, to] of MUTANTS) {
   const M = mutant(from, to);
   ok('mutation [' + name + '] applies to the module', !!M);
-  if (M) { let bad = 0; try { bad = suite(M, false); } catch (_e) { bad = 1; } ok('mutation [' + name + '] goes red (' + bad + ' checks)', bad > 0); }
+  if (M) { let bad = 0; try { bad = suite(M, false) + regionSuite(M, false); } catch (_e) { bad = 1; } ok('mutation [' + name + '] goes red (' + bad + ' checks)', bad > 0); }
 }
 
 console.log('TAKE A TOWN GATE ' + pass + ' passed, ' + fail + ' failed');
