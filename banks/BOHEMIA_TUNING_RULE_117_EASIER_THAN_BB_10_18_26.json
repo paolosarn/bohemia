@@ -426,6 +426,90 @@
    "win": "a 95 lands 19 in 20 and the help (combat.miss_streak_help) makes the twentieth rare",
    "owner": "COMBAT",
    "why": "kept: a sure thing is a chess puzzle again (rule 37: quicker, less of a chess puzzle)"
+  },
+  {
+   "id": "life.bad_luck_by_times",
+   "in_table": false,
+   "bb": "Battle Brothers' men never age; the hard end is the REAL curve's bad luck (Gompertz-Makeham): crash 0.005, hard 0.002, good 0.0005 a year",
+   "bb_value": {
+    "crash": 0.005,
+    "hard": 0.002,
+    "good": 0.0005
+   },
+   "start": {
+    "crash": 0,
+    "hard": 0,
+    "good": 0
+   },
+   "slider": [
+    "0 (violence lives in the fight)",
+    "the real curve's"
+   ],
+   "way": "a flat yearly chance a named person dies of 'age' at any age",
+   "mark": "EASIER",
+   "shown": "UNDER the surface",
+   "win": "no one dies of age young, out of nowhere: at the real curve's bad luck 46 in 100 deaths of 'age' land before 60",
+   "owner": "PEOPLE + DYNASTY build; TUNING holds",
+   "why": "records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md (measured by tools/bohemia_tuning_lifespans_sim.js)"
+  },
+  {
+   "id": "life.stress_by_times",
+   "in_table": false,
+   "bb": "the real curve: crash 1.8, hard 1.3, good 1.0 times the base risk (Russia 1990-94: men 25 to 64 carried the loss, Notzon et al., JAMA 1998)",
+   "bb_value": {
+    "crash": 1.8,
+    "hard": 1.3,
+    "good": 1.0
+   },
+   "start": {
+    "crash": 1.4,
+    "hard": 1.15,
+    "good": 1.0
+   },
+   "slider": [
+    "the kind roll's",
+    "the real curve's"
+   ],
+   "way": "how much the times multiply the yearly risk of dying of age",
+   "mark": "EASIER",
+   "shown": "UNDER the surface; the times show in the faces",
+   "win": "80 in 100 people you meet at 40 are there in the next act (the real curve: 55)",
+   "owner": "PEOPLE + DYNASTY; TUNING holds",
+   "why": "records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md (measured by tools/bohemia_tuning_lifespans_sim.js)"
+  },
+  {
+   "id": "life.no_age_death_before",
+   "in_table": false,
+   "bb": "the real curve has no floor",
+   "bb_value": 0,
+   "start": 60,
+   "slider": [
+    60,
+    0
+   ],
+   "way": "nobody named dies of age before this age",
+   "mark": "EASIER",
+   "shown": "never a number",
+   "win": "a death of age is always an old person's, so it reads as a life and not a dice roll",
+   "owner": "PEOPLE",
+   "why": "records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md (measured by tools/bohemia_tuning_lifespans_sim.js)"
+  },
+  {
+   "id": "life.omen_at_yearly_risk",
+   "in_table": false,
+   "bb": "none in Battle Brothers; RimWorld and Crusader Kings show age in the body first (a genre study)",
+   "bb_value": 0.03,
+   "start": 0.02,
+   "slider": [
+    0.02,
+    0.03
+   ],
+   "way": "the yearly risk at which the body shows it (the stoop, the cough, the grey at the barber)",
+   "mark": "EASIER",
+   "shown": "SHOWN as the body, never a number",
+   "win": "you always see it coming at least one act before",
+   "owner": "PEOPLE + ANIMATION",
+   "why": "records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md (measured by tools/bohemia_tuning_lifespans_sim.js)"
   }
  ],
  "shown_rule": {

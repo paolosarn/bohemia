@@ -1,0 +1,180 @@
+{
+ "_readme": "TUNING [how long a life is] 10/18 (rule 38g research only; rules 84, 31, 117). draft:true. NOTHING IN THE GAME READS THIS FILE. Three candidate rule sets for dying of age, measured by tools/bohemia_tuning_lifespans_sim.js (seed 1, 20,000 lives a cell; 2,000 towns of 40 named people). Record: records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md",
+ "draft": true,
+ "schema": 1,
+ "fold_years": 30,
+ "gompertz": {
+  "B": 0.00006,
+  "doubling_years": 8.2
+ },
+ "sets": {
+  "A_THE_REAL_ROLL": {
+   "plain": "a yearly risk that doubles every 8.2 years, plus bad luck; the times set both (my 9/28 page, the real curve)",
+   "times": {
+    "crash": {
+     "A": 0.005,
+     "m": 1.8
+    },
+    "hard": {
+     "A": 0.002,
+     "m": 1.3
+    },
+    "good": {
+     "A": 0.0005,
+     "m": 1
+    }
+   },
+   "floor": 0,
+   "omen": 0.03,
+   "kind": "gompertz"
+  },
+  "B_THE_KIND_ROLL": {
+   "plain": "the same curve with the bad luck taken out (violence lives in the fight, never in the dice), the stress softer, nobody dies of age before 60, and the body shows it at least one act before",
+   "times": {
+    "crash": {
+     "A": 0,
+     "m": 1.4
+    },
+    "hard": {
+     "A": 0,
+     "m": 1.15
+    },
+    "good": {
+     "A": 0,
+     "m": 1
+    }
+   },
+   "floor": 60,
+   "omen": 0.02,
+   "kind": "gompertz"
+  },
+  "C_THE_STORY_SPAN": {
+   "plain": "every person rolls the age they will die at on the day you meet them (a bell around a middle set by the times), never re-rolled, and the stoop comes five years before",
+   "times": {
+    "crash": {
+     "mean": 72
+    },
+    "hard": {
+     "mean": 78
+    },
+    "good": {
+     "mean": 84
+    }
+   },
+   "sd": 7,
+   "clamp": [
+    58,
+    100
+   ],
+   "omenYears": 5,
+   "kind": "span"
+  }
+ },
+ "measured": {
+  "A_THE_REAL_ROLL": {
+   "plain": "a yearly risk that doubles every 8.2 years, plus bad luck; the times set both (my 9/28 page, the real curve)",
+   "well": {
+    "future": "crash > hard > good",
+    "of_100_met_at_20_alive_in_act_2": 79,
+    "of_100_met_at_20_alive_in_act_3": 36,
+    "of_100_met_at_40_alive_in_act_2": 55,
+    "of_100_met_at_40_alive_in_act_3": 1,
+    "of_100_met_at_60_alive_in_act_2": 7,
+    "deaths_of_age_in_one_act_among_40_named": 0.49,
+    "deaths_of_age_across_one_fold_among_40_named": 16.9,
+    "share_of_age_deaths_before_60_pct": 45.9,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     36,
+     74,
+     93
+    ]
+   },
+   "badly": {
+    "future": "crash > crash > hard",
+    "of_100_met_at_20_alive_in_act_2": 79,
+    "of_100_met_at_20_alive_in_act_3": 24,
+    "of_100_met_at_40_alive_in_act_2": 54,
+    "of_100_met_at_40_alive_in_act_3": 0,
+    "of_100_met_at_60_alive_in_act_2": 7,
+    "deaths_of_age_in_one_act_among_40_named": 0.49,
+    "deaths_of_age_across_one_fold_among_40_named": 17,
+    "share_of_age_deaths_before_60_pct": 46.1,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     36,
+     69,
+     89
+    ]
+   }
+  },
+  "B_THE_KIND_ROLL": {
+   "plain": "the same curve with the bad luck taken out (violence lives in the fight, never in the dice), the stress softer, nobody dies of age before 60, and the body shows it at least one act before",
+   "well": {
+    "future": "crash > hard > good",
+    "of_100_met_at_20_alive_in_act_2": 100,
+    "of_100_met_at_20_alive_in_act_3": 55,
+    "of_100_met_at_40_alive_in_act_2": 80,
+    "of_100_met_at_40_alive_in_act_3": 2,
+    "of_100_met_at_60_alive_in_act_2": 15,
+    "deaths_of_age_in_one_act_among_40_named": 0.16,
+    "deaths_of_age_across_one_fold_among_40_named": 8.6,
+    "share_of_age_deaths_before_60_pct": 0,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     67,
+     82,
+     96
+    ]
+   },
+   "badly": {
+    "future": "crash > crash > hard",
+    "of_100_met_at_20_alive_in_act_2": 100,
+    "of_100_met_at_20_alive_in_act_3": 48,
+    "of_100_met_at_40_alive_in_act_2": 80,
+    "of_100_met_at_40_alive_in_act_3": 1,
+    "of_100_met_at_60_alive_in_act_2": 14,
+    "deaths_of_age_in_one_act_among_40_named": 0.16,
+    "deaths_of_age_across_one_fold_among_40_named": 8.6,
+    "share_of_age_deaths_before_60_pct": 0,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     66,
+     80,
+     94
+    ]
+   }
+  },
+  "C_THE_STORY_SPAN": {
+   "plain": "every person rolls the age they will die at on the day you meet them (a bell around a middle set by the times), never re-rolled, and the stoop comes five years before",
+   "well": {
+    "future": "crash > hard > good",
+    "of_100_met_at_20_alive_in_act_2": 100,
+    "of_100_met_at_20_alive_in_act_3": 33,
+    "of_100_met_at_40_alive_in_act_2": 61,
+    "of_100_met_at_40_alive_in_act_3": 0,
+    "of_100_met_at_60_alive_in_act_2": 1,
+    "deaths_of_age_in_one_act_among_40_named": 0.76,
+    "deaths_of_age_across_one_fold_among_40_named": 12.4,
+    "share_of_age_deaths_before_60_pct": 6.4,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     68,
+     78,
+     86
+    ]
+   },
+   "badly": {
+    "future": "crash > crash > hard",
+    "of_100_met_at_20_alive_in_act_2": 100,
+    "of_100_met_at_20_alive_in_act_3": 19,
+    "of_100_met_at_40_alive_in_act_2": 61,
+    "of_100_met_at_40_alive_in_act_3": 0,
+    "of_100_met_at_60_alive_in_act_2": 1,
+    "deaths_of_age_in_one_act_among_40_named": 0.76,
+    "deaths_of_age_across_one_fold_among_40_named": 12.4,
+    "share_of_age_deaths_before_60_pct": 6.4,
+    "met_at_20_dies_of_age_p10_median_p90": [
+     65,
+     75,
+     83
+    ]
+   }
+  }
+ }
+}

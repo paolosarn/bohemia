@@ -41,6 +41,31 @@ bright paint only darkens, the way sun and grime age a real car; the frost was a
 [PENDING Paolo]: none.
 
 
+TUNING (tuning-vamily-opus-117): 10/18 (c) LATEST -- [rule 117 in the table] SHIPPED 0dffb201 and [how long a life is] SHIPPED (research only,
+rule 38g; no game code touched; the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
+READBACK [rule 117 in the table]: every felt number carries a 117 mark, Battle Brothers' value the hard end of its slider, our start easier,
+shown or under; done means the table prints the mark on all rows and a page the lanes cite. Done: 209 rows, 0 unmarked.
+TAB: VOTE, items EASIER THAN BATTLE BROTHERS and HOW LONG A LIFE IS (pages, gray, draft:true).
+RECORDS: records/BOHEMIA_TUNING_RULE_117_EVERY_FELT_NUMBER_STARTS_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md;
+records/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_THREE_SETS_ACROSS_THREE_ACTS_10_18_26.md.
+DATA: banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json (26 levers, one object each, families mark the rest; the table generator
+prints UNMARKED for a row in no family); banks/BOHEMIA_TUNING_LIFESPANS_THREE_SETS_10_18_26.json (tools/bohemia_tuning_lifespans_sim.js, seeded).
+RULE 117 FINDING, THE THREE PLACES THE GAME IS HARDER THAN BATTLE BROTHERS TODAY (a NO before he sees them): the veteran still dies at 0.20 not
+his 0.10 (COMBAT: deathChance() reads the base and the marks, never ours.veteran_death_chance); a hire stars ONE stat not three (PEOPLE,
+RUN TWO); a hire costs up to 225 batteries against the formula's 49 (RUN TWO, ECONOMY). The levers' starts: your roll +5 and theirs -5 (their
+Beginner), a streak breaker inside the shown number, the enemy party 0.85, the better crews later, XP -0.05, breath 18, the enemy's nerve 0.9
+(the rout), stars 50/35/15, loot 20 in 100, 250 starting batteries, Beginner's carry caps.
+LIFESPAN FINDING: an act is a year, so old age takes people between acts. THE KIND ROLL (start): 0.16 of 40 named people die of age in an act,
+none before 60, 80 in 100 met at 40 alive in act 2, act 3 shows the play (55 vs 48). THE REAL ROLL is the hard end; THE STORY SPAN dropped.
+SIDE FIX: RUN TWO moved five settlement prices behind the cards; the screens seed caught all five DRIFTED and is re-pointed (0 drifted).
+ROUTED: COMBAT (the veteran row; the new lever rows), PEOPLE + RUN TWO (stars, hire price, walk-out), ECONOMY (loot, funds, caps), UI (the
+SHOWN list), PEOPLE + DYNASTY + ANIMATION + SOUNDS (the lifespan rows and omens), MODS (both files are one object per lever).
+[PENDING, Paolo's call] (since 9/28, the coordinator carries it): can the main three die of age? Default no.
+NEXT (the jump list, two OPEN rows stand): [the 32 situations] (RUN TWO's settlement_traits.json now holds them as data: read it first),
+[origin food and goods].
+[bb Battle Brothers moves difficulty through the enemy's count and timing, your dice and your money, never the shared rules; we keep that shape one step easier.]
+[analog horror: the rout and the omen are the two loudest moments these numbers make; named for SOUNDS and PEOPLE, not moved.]
+
 TUNING (tuning-vamily-opus): 10/18 (b) LATEST -- [the settlement's numbers] SHIPPED 727ceff (research only, rule 38g; no game code touched;
 the new age, rules 112 to 115: the coordinator opened this chat, no check-in, this block is the report; TUNING reports to COMBAT, rule 113a).
 READBACK [the settlement's numbers]: I read this as: every felt number the screens around the fight type into code, with its source or

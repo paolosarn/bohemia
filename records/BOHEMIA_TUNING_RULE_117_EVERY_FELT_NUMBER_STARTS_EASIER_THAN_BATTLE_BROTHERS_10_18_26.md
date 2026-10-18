@@ -6,7 +6,7 @@
 
 ## 0. WHAT LANDED
 - The one numbers table (records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md, 209 rows) now carries a 117 column on EVERY row,
-  and a new section E: the 22 levers, each with Battle Brothers' value as the HARD END of its slider and our START easier.
+  and a new section E: the 22 levers (26 later the same round: [how long a life is] added four, life.*), each with Battle Brothers' value as the HARD END of its slider and our START easier.
 - The marks: 122 HELD AT BB, BOTH SIDES; 45 PRICE, FRIENDLY END; 28 NOT A HARDNESS NUMBER; 6 EASIER; 5 ALREADY EASIER;
   3 HARDER THAN BB; 0 unmarked. 8 levers are NEW ROWS the table does not hold yet (proposed, section E says so).
 - Data: banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json (draft:true; one object per lever, a modder can edit it).

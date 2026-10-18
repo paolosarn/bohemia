@@ -9302,6 +9302,20 @@
    "draft": true
   },
   {
+   "id": "tuning-how-long-a-life-is-10-18",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "SHA_HERE",
+   "made": "10/18",
+   "draft": true,
+   "title": "HOW LONG A LIFE IS",
+   "why": "Three ways for people to die of old age, each tested on 20,000 lives; the kind one is the pick: nobody dies of age before 60, the body warns you first, and how you played shows in who is alive in act 3. You see it on this page, a table of the three side by side.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_10_18_26.html"
+   }
+  },
+  {
    "id": "tuning-easier-than-battle-brothers-10-18",
    "kind": "tile",
    "lane": "tuning",
