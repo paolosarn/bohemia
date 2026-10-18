@@ -499,12 +499,27 @@
       "brigand_marauder": 3,
       "brigand_leader": 1
      }
+    },
+    "beasts": {
+     "early": {
+      "direwolf": 4,
+      "hyena": 2
+     },
+     "middle": {
+      "direwolf": 4,
+      "hyena": 2
+     },
+     "late": {
+      "direwolf": 3,
+      "frenzied_direwolf": 2,
+      "schrat": 1
+     }
     }
    }
   },
   "source": "bb_all/0299_Brigands.txt (the tactics), bb_all/0290_Brigand Leader.txt, bb_all/0293_Brigand Marauder.txt, bb_all/0297_Brigand Raider.txt, bb_all/0294_Brigand Marksman.txt (Bullseye after day 20); reference/library/grok/GROK_60_ENEMY_MATH_2026_10_02.md",
   "quote": "In the early game Brigand groups usually consist of Thugs and sometimes Raiders. Later, Raiders become more common, ranged attackers appear and their numbers increase, and armored Marauders can spawn. In the late game you will usually see a Brigand Leader and other elite enemies among them. / Brigand Leaders start appearing in the middle game. Late game brigand groups usually have a Leader. It's rare to see simultaneously more than one. / Melee skill is 65 before day 40, 70 after. / (GROK_60) Combat difficulty, set at the start, raises both the count and the tier. Higher tier means more leaders and fewer thugs. Day scaling for those stops at day 100. A few is 2 to 3. Some is 4 to 6. / (Brigand Marksman) Ranged defense is 10 before day 40, 15 after.",
-  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll."
+  "why": "COMBAT [the enemy math] (Paolo 10/5, rule 75b: 'the beginning is a lot different from the end'). The map hands the party (RUN [a few, not twelve]: the count, the days, the difficulty); the fight dresses it by tier. The phase boundaries are the wiki's own day gates (perks after day 20, the raider's skill after day 40, the marauder's best armour after day 60) and Grok's day 100 where roaming scaling stops; each combat difficulty above Veteran moves the tier as if the party were 20 days later (Beginner and Veteran the same); a party of 'some' (4) or more in the late phase brings its one leader. The mix weights are ours from the tactics paragraph; TUNING owns every one. A skill or a defence the wiki gives as a range (65-70, 10-15) is the before-and-after of skill_day, never a roll. THE BEASTS (COMBAT [the fight holds the grid], rule 117(e), 10/18): the pack's make-up is FACTIONS' draft for the lab-made beasts (records/target/bb/factions.json, faction beasts: early four dire wolves to two hyenas, late three dire wolves, two frenzied, one schrat); the middle phase keeps the early pack until a source says when the frenzied ones join; TUNING owns every weight."
  },
  "captain_aura": {
   "value": {
@@ -593,5 +608,22 @@
   "rows_from": "records/target/BOHEMIA_GROUND_EFFECTS.json battleBrothersRows (WORLD's one table; rule 59: never a second list of grounds)",
   "draft": true,
   "why": "every tile kind COMBAT TWO's 35 blocks draw answers to ONE row of WORLD's ground table: flat is Battle Brothers' plains (2 AP, nothing else), rough and rubble its forest floor and snow (3 AP), water its swamp (4 AP, skill and defence x0.75), a roof its hills (+1 AP to climb, +10 to hit down, -10 up for melee, +1 reach a level for guns), a wall or a house its obstacles (no path, no sight). The numbers stay in records/target/bb (TUNING holds every one at Battle Brothers for both sides, rule 117). 'say' is the line he reads when he taps a tile that changes something (an attempt, draft:true); a tile that changes nothing says nothing (rule 117b: one clear next thing)"
+ },
+ "beast_looks": {
+  "value": {
+   "direwolf": "dire_wolf",
+   "frenzied_direwolf": "dire_wolf",
+   "hyena": "dire_wolf",
+   "frenzied_hyena": "dire_wolf",
+   "wolf": "dire_wolf",
+   "goblin_wolf": "dire_wolf",
+   "wardog": "dire_wolf",
+   "armored_wardog": "dire_wolf",
+   "warhound": "dire_wolf"
+  },
+  "source": "slices/fight_beasts/fight_beasts.json (ANIMATION, rules 42 and 69: the dire wolf, the one beast sheet baked) and laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md",
+  "quote": "every beast is a de-extinct animal that broke out of its lab when the dollar died",
+  "why": "COMBAT [the fight holds the grid] (rule 117(e)): which baked beast sheet an enemy wears on the board. The dire wolf is its own; the other four-legged hunters (the hyena, the wolf, the war dog) wear the dire wolf's sheet as a STAND-IN until ANIMATION bakes each, said on every card that shows one. An enemy not listed is drawn from the band's people looks (the schrat, the unhold and the rest have no sheet yet: a stand-in man, named in the record).",
+  "tuned": false
  }
 }

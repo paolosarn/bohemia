@@ -14,8 +14,8 @@
       is a hundredth: the wiki writes 'effectiveness against armor %', and the row holds 60 for 60%);
    2. every R('...') path it reads resolves to a row with a value and a source;
    3. every data row the fight can read names its source;
-   4. the page fetches nothing but records/target/bb/, slices/fight_ground/, slices/fight_people/ and WORLD's ground table and
-      district list (rule 59, 10/18);
+   4. the page fetches nothing but records/target/bb/, slices/fight_ground/, slices/fight_people/, slices/fight_beasts/ (ANIMATION's
+      baked beasts, the people's sibling, COMBAT [the fight holds the grid] 10/18) and WORLD's ground table and district list (rule 59, 10/18);
    5. the drawing script never writes a fighter's numbers (hp, armour, ap, fatigue, morale). */
 'use strict';
 const fs = require('fs');
@@ -96,7 +96,10 @@ if (rules) {
     broke.length + ' broken: ' + broke.slice(0, 6).join(', '));
 
   const unsourced = [];
-  ['enemies', 'weapons', 'perks', 'injuries', 'backgrounds'].forEach(function (k) {
+  /* a beast's bite is a weapon row too (records/target/bb/beast_attacks.json, COMBAT [the fight holds the grid]) */
+  const ba = path.join(BB, 'beast_attacks.json');
+  files.beast_attacks = fs.existsSync(ba) ? JSON.parse(fs.readFileSync(ba, 'utf8')) : null;
+  ['enemies', 'weapons', 'perks', 'injuries', 'backgrounds', 'beast_attacks'].forEach(function (k) {
     const rows = files[k] && files[k].rows;
     if (!rows) { unsourced.push(k + '.json missing'); return; }
     rows.forEach(function (r) { if (!r.source) unsourced.push(k + ':' + r.id); });
@@ -120,9 +123,9 @@ leg(!!loader && /records\/target\/bb\//.test(html), 'the data list names the bb 
 /* rule 59 (COMBAT [the ground fights], 10/18): WORLD's one ground table and its district list are the only files from outside
    bb/, fight_ground/ and fight_people/ the fight may read; every number in them stays beside its source */
 const listed = loader ? (loader[1].replace(/\/\*[\s\S]*?\*\//g, '').match(/'([^']+)'/g) || []).map(function (q) { return q.slice(1, -1); }) : [];
-const outside = listed.filter(function (f) { return !/records\/target\/bb\/|^fight_ground\/|^fight_people\//.test(f)
+const outside = listed.filter(function (f) { return !/records\/target\/bb\/|^fight_ground\/|^fight_people\/|^fight_beasts\//.test(f)
   && ['../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json'].indexOf(f) < 0; });
-leg(listed.length > 0 && outside.length === 0, 'the data list reads bb, the ground, the people, and WORLD\'s ground table and district list, nothing else',
+leg(listed.length > 0 && outside.length === 0, 'the data list reads bb, the ground, the people, the beasts, and WORLD\'s ground table and district list, nothing else',
   outside.join(' | '));
 
 const draw = script('fight-draw');

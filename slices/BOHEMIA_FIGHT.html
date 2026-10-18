@@ -167,7 +167,9 @@ const DATA_FILES = [
   '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json',
   '../records/target/bb/weapon_lines.json',
   /* WORLD's one ground table and its district list (rule 59: every floor tile is a translation; never a second list of grounds) */
-  '../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json'];
+  '../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json',
+  /* a beast's weapon is its bite, copied from the wiki's skill pages, and ANIMATION's baked beasts (COMBAT, the fight holds the grid, rule 117e) */
+  '../records/target/bb/beast_attacks.json', 'fight_beasts/fight_beasts.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -175,7 +177,7 @@ function loadAll() {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
       DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11]; DB.wlines = a[12];
-      DB.groundEffects = a[13]; DB.boardKinds = a[14];
+      DB.groundEffects = a[13]; DB.boardKinds = a[14]; DB.beastAttacks = a[15]; DB.beasts = a[16];
     });
 }
 function R(path) {
@@ -381,8 +383,12 @@ const FIGHT = (function () {
     const b = PK(u, 'brawny');                          /* the armour and helmet weigh less on him */
     return f + (b ? worn * (1 - b.armor_fatigue_initiative_penalty_reduction_pct / 100) : worn);
   }
-  /* what a skill costs his wind: a mastery of the weapon's kind takes a quarter off */
+  /* what a skill costs his wind: a mastery of the weapon's kind takes a quarter off; a man the wiki makes immune to fatigue
+     pays none (enemies.json 'immune': the 30 rows with no fatigue pool, the undead and the golems; read as a pool of none,
+     they could never afford a swing and walked whole fights without one, measured 10/18) */
+  function tires(u) { return !(u.immune && u.immune.indexOf('Fatigue') >= 0); }
   function skillFat(u, s) {
+    if (!tires(u)) return 0;
     const m = mastery(u);
     return (s.fatigue || 0) * (m ? 1 - m.fatigue_reduction_pct / 100 : 1);
   }
@@ -465,21 +471,31 @@ const FIGHT = (function () {
     if (p && p.count) return partyFor(p);
     return opts.band || R('ours.first_band');
   }
+  /* A BEAST'S WEAPON IS ITS BITE (COMBAT [the fight holds the grid], rule 117(e), Paolo 10/18: 'against animals... 36 or 40
+     enemies'): an enemy whose gear holds no weapon fights with its racial skill, copied from the wiki's skill page into
+     records/target/bb/beast_attacks.json the way weapons.json copies a knife; one with no damage page is refused by name */
+  function naturalOf(id) {
+    const n = DB.beastAttacks.by_enemy[id];
+    return n ? DB.beastAttacks.rows.filter(function (r) { return r.id === n.attack; })[0] || null : null;
+  }
   function enemyUnit(id, i) {
     const r = DB.enemies.rows.filter(function (e) { return e.id === id; })[0];
+    if (!r) throw new Error('the fight has no enemy row ' + id);
     const gear = (r.gear || []).slice().sort(function () { return rng() - rng(); });
     const kind = DB.ai.kinds[id] ? R('ai.kinds.' + id) : 'line';
     const wantRanged = kind === 'backline';
     let w = null;
     gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x) && isRanged(x) === wantRanged && x.class !== 'throwing') w = x; });
     if (!w) gear.forEach(function (n) { const x = weaponByName(n); if (x && !w && strikeSkill(x)) w = x; });
+    if (!w) w = naturalOf(id);
+    if (!w) throw new Error('the fight cannot arm ' + id + ': ' + (DB.beastAttacks.refused[id] || 'no weapon in its gear and no attack page'));
     let sh = null;
     if (w && w.hands === 1 && !isRanged(w)) gear.forEach(function (n) { const x = shieldByName(n); if (x && !sh && rng() < rng()) sh = x; });
-    const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'];
-    return makeUnit({ look: pool[i % pool.length], id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
+    const pl = R('ours.people_looks').band, pool = pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
+    return makeUnit({ look: pool[i % pool.length], beast: beast, id: 'e' + i, side: 'them', name: r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').toUpperCase(), kind: id, job: w.class, perks: perksByName(r.perks, S.days),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
-      apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null,
+      apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, immune: r.immune || [],
       captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
       armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind });
   }
@@ -1604,6 +1620,8 @@ function bakeBoard() {
     .concat(covers.map(function (p) { return 'fight_ground/' + (G.cover[p] || G.cover_extra[p]).src; }));
   /* the people: every look a fighter wears, baked from the character bank (rule 69) */
   Object.keys(DB.people.looks).forEach(function (k) { all.push('fight_people/' + DB.people.looks[k].file); });
+  /* the beasts: ANIMATION's baked sheets (slices/fight_beasts), the same 112 frame and ground line as the people */
+  Object.keys(DB.beasts.beasts).forEach(function (k) { all.push('fight_beasts/' + DB.beasts.beasts[k].file); });
   /* the lamps and the drums (COMBAT TWO's lights, every board that has them) */
   (B.lights || []).forEach(function (l) { if (all.indexOf('fight_ground/' + l.src) < 0) all.push('fight_ground/' + l.src); });
   return Promise.all(all.map(function (s) { return UI.imgs[s] ? Promise.resolve(UI.imgs[s]) : load(s).then(function (i) { UI.imgs[s] = i; return i; }); }))
@@ -2284,8 +2302,23 @@ function draw(now) {
 /* the fallen stay where they fell: a body on the ground, no word over it */
 /* THE CHARACTER BANK ON THE BOARD (rule 69): every man is a frame of his own look's atlas, baked from the
    alpha's 112 rig in his clothes (slices/fight_people); nothing on the field is redrawn by hand */
-function atlasOf(v) { const L = DB.people.looks[v.look] || DB.people.looks[Object.keys(DB.people.looks)[0]]; return UI.imgs['fight_people/' + L.file]; }
+function atlasOf(v) { const b = beastOf(v); if (b) return UI.imgs['fight_beasts/' + b.file];
+  const L = DB.people.looks[v.look] || DB.people.looks[Object.keys(DB.people.looks)[0]]; return UI.imgs['fight_people/' + L.file]; }
 function col(name) { return DB.people.cols.indexOf(name); }
+/* A BEAST ON THE BOARD (COMBAT [the fight holds the grid]): the enemy's sheet from ours.beast_looks, ANIMATION's bake; it stands
+   at its true size beside a man (the people's scale: a dire wolf is ~62 px at the ears in the frame a man fills at ~100) */
+function beastOf(v) { return v.beast && DB.beasts.beasts[v.beast] ? DB.beasts.beasts[v.beast] : null; }
+function beastFrame(v, now) {
+  const C = DB.beasts.cols, K = DB.beasts.clips, a = UI.anim[0];
+  const at = function (clip, k) { const cs = K[clip].cols; return C.indexOf(cs[Math.max(0, Math.min(cs.length - 1, Math.floor(k * cs.length)))]); };
+  if (!FIGHT.onField(v)) return at('dead', 0);
+  if (a && a.at) {
+    const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
+    if (a.k === 'step' && a.e.id === v.id) return at('step', k);
+    if (a.k === 'attack' && a.e.id === v.id) return at('bite', k);
+  }
+  return at('idle', ((now / (K.idle.beats * 500)) % 1));
+}
 function frameFor(v, now) {
   const C = DB.people.cols, a = UI.anim[0];
   if (!FIGHT.onField(v)) return C.indexOf('sleep@0');
@@ -2302,6 +2335,14 @@ function blitMan(v, X, feet, h, face, now, fallen) {
   let img = atlasOf(v); if (!img) return;
   img = FIGHT.S.night && !FIGHT._t.litAt(v.x, v.y) ? nightAtlas(img) : dayAtlas(img);
   const F = DB.people.frame, bb = DB.people.figure_bbox, k = h / bb[3], size = F * k;
+  const b = beastOf(v);
+  if (b) {
+    const c = fallen ? DB.beasts.cols.indexOf(DB.beasts.clips.dead.cols[0]) : beastFrame(v, now), row = face > 0 ? 0 : 1, BF = DB.beasts.frame, bs = BF * k;
+    UI.clipSeen = UI.clipSeen || {}; const cn = DB.beasts.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
+    cx.imageSmoothingEnabled = k < 1;
+    cx.drawImage(img, c * BF, row * BF, BF, BF, X - bs / 2, feet - (DB.beasts.ground_y + 1) * k, bs, bs);
+    return;
+  }
   const c = fallen ? DB.people.cols.indexOf('sleep@0') : frameFor(v, now), row = face > 0 ? 0 : 1;
   UI.clipSeen = UI.clipSeen || {}; const cn = DB.people.cols[c].split('@')[0]; UI.clipSeen[cn] = (UI.clipSeen[cn] || 0) + 1;
   cx.imageSmoothingEnabled = k < 1;
@@ -2360,7 +2401,14 @@ function drawPortrait(g, v, S) {
   g.clearRect(0, 0, S, S);
   g.fillStyle = you ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S);
   const img = atlasOf(v);
-  if (img) {
+  if (beastOf(v)) {
+    /* a beast has no face in the bank and a crop of its body is never a portrait (rule 115(h)): the turn strip shows the pen's
+       wolf head (the Lone Wolf glyph's own shape) in their red */
+    const u = S / 24; g.fillStyle = '#c4553f'; g.beginPath();
+    [[5, 4], [9, 9], [15, 9], [19, 4], [19, 13], [12, 21], [5, 13]].forEach(function (p, i) { (i ? g.lineTo : g.moveTo).call(g, p[0] * u, p[1] * u); });
+    g.closePath(); g.fill(); g.fillStyle = '#17120d';
+    [9.5, 14.5].forEach(function (x) { g.beginPath(); g.arc(x * u, 13 * u, 1.2 * u, 0, Math.PI * 2); g.fill(); });
+  } else if (img) {
     /* his face, from the bank (renderFace with his key), at one face pixel to whole screen pixels */
     g.imageSmoothingEnabled = false;
     g.drawImage(img, DB.people.frame * DB.people.cols.length, 0, DB.people.face.size, DB.people.face.size, 0, 0, S, S);
@@ -2572,7 +2620,7 @@ function weaponCard(v) {
   if (w.damage_min !== null && w.damage_max !== null) h += r('Damage', w.damage_min + ' to ' + w.damage_max);
   if (w.armor_damage_pct !== null) h += r('Against armour', w.armor_damage_pct + '%');
   if (w.armor_ignore_pct) h += r('Straight through armour', w.armor_ignore_pct + '%');
-  h += r('Reach', (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : 'one');
+  h += r('Reach', (w.range_max || 1) + (w.range_max > 1 ? ' tiles' : ' tile')) + r('Hands', w.hands === 2 ? 'two' : w.hands === 0 ? 'none, it bites' : 'one');
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
   if (rl) h += r(esc(rl.name), rl.ap + ' AP');
   if (v.shield) { const S2 = DB.wlines.rows.shield || {};
@@ -2858,7 +2906,10 @@ function start() {
     fitNow();   /* BOTH TEAMS ON ONE SCREEN (rule 104a): the open holds every man of both teams, no swipe; the man still 112 */
     UI.t0 = performance.now(); UI.openUntil = UI.t0 + beatMs() * 4.5;
     document.getElementById('load').style.display = 'none';
-    say(dep ? deploySay() : WALK_SAY); hud();
+    /* the open's line names whose move it is: a pack of wolves (initiative 150) moves before his men, and 'tap inside the chalk'
+       under a wolf's turn tells him to do something he cannot (COMBAT [the fight holds the grid]) */
+    const first = FIGHT.current();
+    say(dep ? deploySay() : first && first.side === 'them' && !UI.auto ? THEIRS_SAY : WALK_SAY); hud();
   });
 }
 window.addEventListener('resize', resize);

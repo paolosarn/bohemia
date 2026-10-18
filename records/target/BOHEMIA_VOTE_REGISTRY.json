@@ -11079,7 +11079,21 @@
      "how": "image",
      "src": "vote/PEOPLE_THE_NAMES_WIRED_IN_10_18.png"
    }
- }
+ },
+  {
+   "id": "combat-the-fight-holds-the-grid-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "A PACK OF DIRE WOLVES, AND 14 AGAINST 40",
+   "why": "The fight now holds every fight you asked about: one man up to fourteen against three up to forty, people or beasts, and every beast bites with its Battle Brothers bite (before this, any beast fight crashed). You see it in the COMBAT tab when a pack meets you; hold a finger on a wolf for its bite, and the hyenas wear the dire wolf's picture until ANIMATION draws theirs.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_FIGHT_HOLDS_THE_GRID_10_18.jpg"
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

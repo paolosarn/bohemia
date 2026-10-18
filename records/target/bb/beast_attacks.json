@@ -1,0 +1,1368 @@
+{
+ "_about": "A beast's weapon is its racial skill (Battle Brothers: a Direwolf carries no gear and bites). Copied from the skill pages in the repo, one weapon-shaped row per page (class natural, no hands, reach one unless the page says two); by_enemy names each gearless enemy's lead attack. effects_not_built lists what the page says the attack also does that the fight does not build yet. refused: a gearless enemy with no damage page.",
+ "_source_archive": "reference/library/grok/wiki/PAGES_ALL.tar.gz",
+ "_built_by": "tools/bohemia_combat_beast_attacks.py",
+ "rows": [
+  {
+   "id": "bite_0",
+   "name": "Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0240_Bite (0 fatigue).txt",
+   "page": "Bite (0 fatigue)",
+   "damage_min": 15,
+   "damage_max": 35,
+   "armor_damage_pct": 50,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": 15,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Bite does 15-35 Damage, with 50% Armor Damage and 10% Direct Damage and +15% chance to hit the head",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Bite",
+     "ap": 4,
+     "fatigue": 0,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Bite does 15-35 Damage, with 50% Armor Damage and 10% Direct Damage and +15% chance to hit the head",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0240_Bite (0 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "bite_10",
+   "name": "Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0241_Bite (10 fatigue).txt",
+   "page": "Bite (10 fatigue)",
+   "damage_min": 70,
+   "damage_max": 110,
+   "armor_damage_pct": 100,
+   "armor_ignore_pct": 50,
+   "head_hit_chance": null,
+   "range_max": 2,
+   "shape": "one",
+   "effect": "Bite does 70-110 Damage with 100% Armor Damage, 50% Direct Damage and inflicts 5 bleeding damage each turn for 2 turns (Caused by losing at least 6 Hitpoints and has a range of 2 tiles)",
+   "effects_not_built": [
+    "bleeding"
+   ],
+   "range": 2,
+   "skills": [
+    {
+     "name": "Bite",
+     "ap": 5,
+     "fatigue": 10,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Bite does 70-110 Damage with 100% Armor Damage, 50% Direct Damage and inflicts 5 bleeding damage each turn for 2 turns (Caused by losing at least 6 Hitpoints and has a range of 2 tiles)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0241_Bite (10 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "clout_20",
+   "name": "Clout",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0410_Clout (20 fatigue).txt",
+   "page": "Clout (20 fatigue)",
+   "damage_min": 35,
+   "damage_max": 50,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 25,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Clout does 35-50 Damage with 70% Armor Damage and 25% Direct Damage, stunning the target",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Clout",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Clout does 35-50 Damage with 70% Armor Damage and 25% Direct Damage, stunning the target",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0410_Clout (20 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "corpse_hurl_30",
+   "name": "Corpse Hurl",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0444_Corpse Hurl (30 fatigue).txt",
+   "page": "Corpse Hurl (30 fatigue)",
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 110,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Corpse Hurl is a ranged attack. Does 55-65 Damage with 110% Armor Damage and 40% Direct Damage if hits. Additionally does 20-40 Damage with 50% Armor Damage and 25% Direct Damage, ignoring Nimble, in a 7 tiles area where the corpse landed, even if the attack misses. Creates a corpse and can be used without any corpses nearby. Range is 4 tiles, 5 with height advantage.",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Corpse Hurl",
+     "ap": 8,
+     "fatigue": 30,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Corpse Hurl is a ranged attack. Does 55-65 Damage with 110% Armor Damage and 40% Direct Damage if hits. Additionally does 20-40 Damage with 50% Armor Damage and 25% Direct Damage, ignoring Nimble, in a 7 tiles area where the corpse landed, even if the attack misses. Creates a corpse and can be used without any corpses nearby. Range is 4 tiles, 5 with height advantage.",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0444_Corpse Hurl (30 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "direwolf_bite_6",
+   "name": "Direwolf Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0630_Direwolf Bite (6 fatigue).txt",
+   "page": "Direwolf Bite (6 fatigue)",
+   "damage_min": 30,
+   "damage_max": 50,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 20,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Direwolf Bite does 30-50 Damage with 70% Armor Damage and 20% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Direwolf Bite",
+     "ap": 4,
+     "fatigue": 6,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Direwolf Bite does 30-50 Damage with 70% Armor Damage and 20% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0630_Direwolf Bite (6 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "explode_0",
+   "name": "Explode",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0720_Explode (0 fatigue).txt",
+   "page": "Explode (0 fatigue)",
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 30,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Explode destroys the Screaming Skull and does 20-40Damage to the body with 75% Armor Damage and 30% Direct Damage, ignoring Nimble. Allies take half damage. Skulls also explode when killed.",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Explode",
+     "ap": 2,
+     "fatigue": 0,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Explode destroys the Screaming Skull and does 20-40Damage to the body with 75% Armor Damage and 30% Direct Damage, ignoring Nimble. Allies take half damage. Skulls also explode when killed.",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0720_Explode (0 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "fire_mortar_0",
+   "name": "Fire Mortar",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0769_Fire Mortar (0 fatigue).txt",
+   "page": "Fire Mortar (0 fatigue)",
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 20,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Fire Mortar marks an area of 7 tiles for impact and 1 turn later does 20-40Damage with 70% Armor Damage and 20% Direct Damage in that area, anyone hit becomes Shellshocked, never misses, causes a morale check and can fire every 2 turns if reloaded by an Engineer (has a range of 3-999 tiles)",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Fire Mortar",
+     "ap": 6,
+     "fatigue": 0,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Fire Mortar marks an area of 7 tiles for impact and 1 turn later does 20-40Damage with 70% Armor Damage and 20% Direct Damage in that area, anyone hit becomes Shellshocked, never misses, causes a morale check and can fire every 2 turns if reloaded by an Engineer (has a range of 3-999 tiles)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0769_Fire Mortar (0 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "flurry_30",
+   "name": "Flurry",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0795_Flurry (30 fatigue).txt",
+   "page": "Flurry (30 fatigue)",
+   "damage_min": 40,
+   "damage_max": 65,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 20,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Flurry hits adjacent enemies, starting from the tile to the north and then going clockwise. It can loop and hit same enemies again. After a total of 6 attacks it ends. Each hit does 40-65 Damage with 65% Armor Damage and 20% Direct Damage.",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Flurry",
+     "ap": 12,
+     "fatigue": 30,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Flurry hits adjacent enemies, starting from the tile to the north and then going clockwise. It can loop and hit same enemies again. After a total of 6 attacks it ends. Each hit does 40-65 Damage with 65% Armor Damage and 20% Direct Damage.",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0795_Flurry (30 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "ghastly_touch_0",
+   "name": "Ghastly Touch",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0835_Ghastly Touch (0 fatigue).txt",
+   "page": "Ghastly Touch (0 fatigue)",
+   "damage_min": 15,
+   "damage_max": 25,
+   "armor_damage_pct": null,
+   "armor_ignore_pct": 100,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Ghastly Touch does 15-25 Damage with 100% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Ghastly Touch",
+     "ap": 4,
+     "fatigue": 0,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Ghastly Touch does 15-25 Damage with 100% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0835_Ghastly Touch (0 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "gore_20",
+   "name": "Gore",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0890_Gore (20 fatigue).txt",
+   "page": "Gore (20 fatigue)",
+   "damage_min": 100,
+   "damage_max": 130,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Gore does 100-130 Damage with 75% Armor Damage, 40% Direct Damage, has knockback and staggers the target on hit (has a range of 3 to 6 tiles (except on turn 1 it has a range of 3 to 10 tiles))",
+   "effects_not_built": [
+    "stagger",
+    "knockback"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Gore",
+     "ap": 6,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Gore does 100-130 Damage with 75% Armor Damage, 40% Direct Damage, has knockback and staggers the target on hit (has a range of 3 to 6 tiles (except on turn 1 it has a range of 3 to 10 tiles))",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0890_Gore (20 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "gorge_15",
+   "name": "Gorge",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0891_Gorge (15 fatigue).txt",
+   "page": "Gorge (15 fatigue)",
+   "damage_min": 80,
+   "damage_max": 140,
+   "armor_damage_pct": 150,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 2,
+   "shape": "one",
+   "effect": "Gorge does 80-140 Damage with 150% Armor Damage and 40% Direct Damage (has a range of 2 tiles)",
+   "effects_not_built": [],
+   "range": 2,
+   "skills": [
+    {
+     "name": "Gorge",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Gorge does 80-140 Damage with 150% Armor Damage and 40% Direct Damage (has a range of 2 tiles)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0891_Gorge (15 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "hand_to_hand_attack_5",
+   "name": "Hand-to-Hand Attack",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0933_Hand-to-Hand Attack (5 fatigue).txt",
+   "page": "Hand-to-Hand Attack (5 fatigue)",
+   "damage_min": 5,
+   "damage_max": 10,
+   "armor_damage_pct": 50,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Hand-to-Hand Attack does 5-10Damage with 50% Armor Damage and 10% Direct Damage (has -10Melee Skill)",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Hand-to-Hand Attack",
+     "ap": 4,
+     "fatigue": 5,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Hand-to-Hand Attack does 5-10Damage with 50% Armor Damage and 10% Direct Damage (has -10Melee Skill)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0933_Hand-to-Hand Attack (5 fatigue).txt"
+    }
+   ],
+   "alias": "Hand-To-Hand Attack is Hand-to-Hand Attack for ancient_honor_guard_champion (its size word)"
+  },
+  {
+   "id": "hyena_bite_6",
+   "name": "Hyena Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1055_Hyena Bite (6 fatigue).txt",
+   "page": "Hyena Bite (6 fatigue)",
+   "damage_min": 20,
+   "damage_max": 35,
+   "armor_damage_pct": 100,
+   "armor_ignore_pct": 35,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Hyena Bite does 20-35 Damage with 100% Armor Damage and 35% Direct Damage, causes Bleeding for 5 dmg per turn on Hyenas and 10 dmg per turn on Frenzied Hyenas if at least 6 hitpoints were lost from the attack. Bleeding lasts 2 turns.",
+   "effects_not_built": [
+    "bleeding"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Hyena Bite",
+     "ap": 4,
+     "fatigue": 6,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Hyena Bite does 20-35 Damage with 100% Armor Damage and 35% Direct Damage, causes Bleeding for 5 dmg per turn on Hyenas and 10 dmg per turn on Frenzied Hyenas if at least 6 hitpoints were lost from the attack. Bleeding lasts 2 turns.",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1055_Hyena Bite (6 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "large_ghoul_claws_6",
+   "name": "Large Ghoul Claws",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1139_Large Ghoul Claws (6 fatigue).txt",
+   "page": "Large Ghoul Claws (6 fatigue)",
+   "damage_min": 55,
+   "damage_max": 80,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Large Ghoul Claws does 55-80 Damage with 75% Armor Damage and 10% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Large Ghoul Claws",
+     "ap": 4,
+     "fatigue": 6,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Large Ghoul Claws does 55-80 Damage with 75% Armor Damage and 10% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1139_Large Ghoul Claws (6 fatigue).txt"
+    }
+   ],
+   "alias": "Ghoul Claws is Large Ghoul Claws for nachzehrer_large (its size word)"
+  },
+  {
+   "id": "lightning_storm_0",
+   "name": "Lightning Storm",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1171_Lightning Storm (0 fatigue).txt",
+   "page": "Lightning Storm (0 fatigue)",
+   "damage_min": 20,
+   "damage_max": 50,
+   "armor_damage_pct": 100,
+   "armor_ignore_pct": 75,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Lightning Storm marks a vertical area of tiles from the top of the map to the bottom for impact and 1 turn later does 20-50Damage with 100% Armor Damage and 75% Direct Damage to any enemies in that area (has a range of 1-999 tiles)",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Lightning Storm",
+     "ap": 5,
+     "fatigue": 0,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Lightning Storm marks a vertical area of tiles from the top of the map to the bottom for impact and 1 turn later does 20-50Damage with 100% Armor Damage and 75% Direct Damage to any enemies in that area (has a range of 1-999 tiles)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1171_Lightning Storm (0 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "medium_ghoul_claws_6",
+   "name": "Medium Ghoul Claws",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1254_Medium Ghoul Claws (6 fatigue).txt",
+   "page": "Medium Ghoul Claws (6 fatigue)",
+   "damage_min": 40,
+   "damage_max": 60,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Medium Ghoul Claws does 40-60 Damage with 75% Armor Damage and 10% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Medium Ghoul Claws",
+     "ap": 4,
+     "fatigue": 6,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Medium Ghoul Claws does 40-60 Damage with 75% Armor Damage and 10% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1254_Medium Ghoul Claws (6 fatigue).txt"
+    }
+   ],
+   "alias": "Ghoul Claws is Medium Ghoul Claws for nachzehrer_medium (its size word)"
+  },
+  {
+   "id": "serpent_bite_5",
+   "name": "Serpent Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1758_Serpent Bite (5 fatigue).txt",
+   "page": "Serpent Bite (5 fatigue)",
+   "damage_min": 50,
+   "damage_max": 70,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 30,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Serpent Bite does 50-70 Damage with 75% Armor Damage and 30% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Serpent Bite",
+     "ap": 5,
+     "fatigue": 5,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Serpent Bite does 50-70 Damage with 75% Armor Damage and 30% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1758_Serpent Bite (5 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "size_1_headbutt_15",
+   "name": "Size 1 Headbutt",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1798_Size 1 Headbutt (15 fatigue).txt",
+   "page": "Size 1 Headbutt (15 fatigue)",
+   "damage_min": 35,
+   "damage_max": 45,
+   "armor_damage_pct": 60,
+   "armor_ignore_pct": 50,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Size 1 Headbutt does 35-45 Damage with 60% Armor Damage and 50% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Size 1 Headbutt",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Size 1 Headbutt does 35-45 Damage with 60% Armor Damage and 50% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1798_Size 1 Headbutt (15 fatigue).txt"
+    }
+   ],
+   "alias": "Headbutt is Size 1 Headbutt for ifrit_small (its size word)"
+  },
+  {
+   "id": "size_2_headbutt_15",
+   "name": "Size 2 Headbutt",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1799_Size 2 Headbutt (15 fatigue).txt",
+   "page": "Size 2 Headbutt (15 fatigue)",
+   "damage_min": 70,
+   "damage_max": 90,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 50,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Size 2 Headbutt does 70-90 Damage with 65% Armor Damage and 50% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Size 2 Headbutt",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Size 2 Headbutt does 70-90 Damage with 65% Armor Damage and 50% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1799_Size 2 Headbutt (15 fatigue).txt"
+    }
+   ],
+   "alias": "Headbutt is Size 2 Headbutt for ifrit_medium (its size word)"
+  },
+  {
+   "id": "size_2_throw_living_sand_15",
+   "name": "Size 2 Throw Living Sand",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1800_Size 2 Throw Living Sand (15 fatigue).txt",
+   "page": "Size 2 Throw Living Sand (15 fatigue)",
+   "damage_min": 70,
+   "damage_max": 90,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Size 2 Throw Living Sand does 70-90 Damage with 65% Armor Damage and 40% Direct Damage, the Ifrit will break down into three Ifrits with a lower size, one will be right next to the target of the throw and the other one next to the original Ifrit, the newly created Ifrits will have full health and armor no matter how damaged the original Ifrit was (Has a range of 2 - 5 tiles, can be used when engaged in melee, but the target has to be at least 2 tiles away, can be used over 3 elevation levels)",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Size 2 Throw Living Sand",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Size 2 Throw Living Sand does 70-90 Damage with 65% Armor Damage and 40% Direct Damage, the Ifrit will break down into three Ifrits with a lower size, one will be right next to the target of the throw and the other one next to the original Ifrit, the newly created Ifrits will have full health and armor no matter how damaged the original Ifrit was (Has a range of 2 - 5 tiles, can be used when engaged in melee, but the target has to be at least 2 tiles away, can be used over 3 elevation levels)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1800_Size 2 Throw Living Sand (15 fatigue).txt"
+    }
+   ],
+   "alias": "Throw Living Sand is Size 2 Throw Living Sand for ifrit_medium (its size word)"
+  },
+  {
+   "id": "size_3_headbutt_15",
+   "name": "Size 3 Headbutt",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1801_Size 3 Headbutt (15 fatigue).txt",
+   "page": "Size 3 Headbutt (15 fatigue)",
+   "damage_min": 105,
+   "damage_max": 135,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 50,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Size 3 Headbutt does 105-135 Damage with 70% Armor Damage and 50% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Size 3 Headbutt",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Size 3 Headbutt does 105-135 Damage with 70% Armor Damage and 50% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1801_Size 3 Headbutt (15 fatigue).txt"
+    }
+   ],
+   "alias": "Headbutt is Size 3 Headbutt for ifrit_large (its size word)"
+  },
+  {
+   "id": "size_3_throw_living_sand_15",
+   "name": "Size 3 Throw Living Sand",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1802_Size 3 Throw Living Sand (15 fatigue).txt",
+   "page": "Size 3 Throw Living Sand (15 fatigue)",
+   "damage_min": 105,
+   "damage_max": 135,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Size 3 Throw Living Sand does 105-135 Damage with 70% Armor Damage and 40% Direct Damage, the Ifrit will break down into two size 2 Ifrits and three size 1 Ifrits, one will be right next to the target of the throw and the other 4 next to the original Ifrit, the newly created Ifrits will have full health and armor no matter how damaged the original Ifrit was (Has a range of 2 - 5 tiles, can be used when engaged in melee, but the target has to be at least 2 tiles away, can be used over 3 elevation levels)",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Size 3 Throw Living Sand",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Size 3 Throw Living Sand does 105-135 Damage with 70% Armor Damage and 40% Direct Damage, the Ifrit will break down into two size 2 Ifrits and three size 1 Ifrits, one will be right next to the target of the throw and the other 4 next to the original Ifrit, the newly created Ifrits will have full health and armor no matter how damaged the original Ifrit was (Has a range of 2 - 5 tiles, can be used when engaged in melee, but the target has to be at least 2 tiles away, can be used over 3 elevation levels)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1802_Size 3 Throw Living Sand (15 fatigue).txt"
+    }
+   ],
+   "alias": "Throw Living Sand is Size 3 Throw Living Sand for ifrit_large (its size word)"
+  },
+  {
+   "id": "small_ghoul_claws_6",
+   "name": "Small Ghoul Claws",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1819_Small Ghoul Claws (6 fatigue).txt",
+   "page": "Small Ghoul Claws (6 fatigue)",
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Small Ghoul Claws does 25-40 Damage with 75% Armor Damage and 10% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Small Ghoul Claws",
+     "ap": 4,
+     "fatigue": 6,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Small Ghoul Claws does 25-40 Damage with 75% Armor Damage and 10% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1819_Small Ghoul Claws (6 fatigue).txt"
+    }
+   ],
+   "alias": "Ghoul Claws is Small Ghoul Claws for nachzehrer_small (its size word)"
+  },
+  {
+   "id": "spike_30",
+   "name": "Spike",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1844_Spike (30 fatigue).txt",
+   "page": "Spike (30 fatigue)",
+   "damage_min": 80,
+   "damage_max": 90,
+   "armor_damage_pct": 90,
+   "armor_ignore_pct": 20,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Spike does 80-90 Damage with 90% Armor Damage, 20% Direct Damage and extra 5% Chance to hit head. Hits 3 tiles in straight line.",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Spike",
+     "ap": 12,
+     "fatigue": 30,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Spike does 80-90 Damage with 90% Armor Damage, 20% Direct Damage and extra 5% Chance to hit head. Hits 3 tiles in straight line.",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1844_Spike (30 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "sweep_20",
+   "name": "Sweep",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1906_Sweep (20 fatigue).txt",
+   "page": "Sweep (20 fatigue)",
+   "damage_min": 40,
+   "damage_max": 80,
+   "armor_damage_pct": 80,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "three_beside",
+   "effect": "Sweep does knockback, will stagger the target, can hit up to 3 targets next to each other, does 40-80 Damage with 80% Armor Damage and 40% Direct Damage",
+   "effects_not_built": [
+    "stagger",
+    "knockback",
+    "shape three_beside"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Sweep",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Sweep does knockback, will stagger the target, can hit up to 3 targets next to each other, does 40-80 Damage with 80% Armor Damage and 40% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1906_Sweep (20 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "tail_slam_split_25",
+   "name": "Tail Slam Split",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1921_Tail Slam Split (25 fatigue).txt",
+   "page": "Tail Slam Split (25 fatigue)",
+   "damage_min": 60,
+   "damage_max": 120,
+   "armor_damage_pct": 150,
+   "armor_ignore_pct": 35,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Tail Slam Split does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, will hit 1 target and the entity behind it, causes the target to be dazed for 2 turns or will stun for 1 turn",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Tail Slam Split",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Tail Slam Split does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, will hit 1 target and the entity behind it, causes the target to be dazed for 2 turns or will stun for 1 turn",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1921_Tail Slam Split (25 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "tail_slam_sweep_20",
+   "name": "Tail Slam Sweep",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1922_Tail Slam Sweep (20 fatigue).txt",
+   "page": "Tail Slam Sweep (20 fatigue)",
+   "damage_min": 60,
+   "damage_max": 120,
+   "armor_damage_pct": 150,
+   "armor_ignore_pct": 35,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "three_beside",
+   "effect": "Tail Slam Sweep does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, has -5% chance to hit, will hit up to 3 targets next to each other, causes the target to be dazed for 2 turns or has knockback or will stun for 1 turn",
+   "effects_not_built": [
+    "knockback",
+    "shape three_beside"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Tail Slam Sweep",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Tail Slam Sweep does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, has -5% chance to hit, will hit up to 3 targets next to each other, causes the target to be dazed for 2 turns or has knockback or will stun for 1 turn",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1922_Tail Slam Sweep (20 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "tail_slam_thresh_25",
+   "name": "Tail Slam Thresh",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1923_Tail Slam Thresh (25 fatigue).txt",
+   "page": "Tail Slam Thresh (25 fatigue)",
+   "damage_min": 60,
+   "damage_max": 120,
+   "armor_damage_pct": 150,
+   "armor_ignore_pct": 35,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Tail Slam Thresh does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, has -5% chance to hit, will hit up to 6 targets right next to the tail, causes the target to be dazed for 2 turns or has knockback or will stun for 1 turn",
+   "effects_not_built": [
+    "knockback"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Tail Slam Thresh",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Tail Slam Thresh does 60-120 Damage with 150% Armor Damage, 35% Direct Damage, has -5% chance to hit, will hit up to 6 targets right next to the tail, causes the target to be dazed for 2 turns or has knockback or will stun for 1 turn",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1923_Tail Slam Thresh (25 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "uproot_25",
+   "name": "Uproot",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2156_Uproot (25 fatigue).txt",
+   "page": "Uproot (25 fatigue)",
+   "damage_min": 70,
+   "damage_max": 100,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 50,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "three_in_a_row",
+   "effect": "Uproot does 70-100 Damage with 85% Armor Damage, 50% Direct Damage and staggers the target for a turn (hits 3 tiles in a row)",
+   "effects_not_built": [
+    "stagger",
+    "shape three_in_a_row"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Uproot",
+     "ap": 5,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Uproot does 70-100 Damage with 85% Armor Damage, 50% Direct Damage and staggers the target for a turn (hits 3 tiles in a row)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2156_Uproot (25 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "wardog_bite_10",
+   "name": "Wardog Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2176_Wardog Bite (10 fatigue).txt",
+   "page": "Wardog Bite (10 fatigue)",
+   "damage_min": 20,
+   "damage_max": 35,
+   "armor_damage_pct": 40,
+   "armor_ignore_pct": 10,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Wardog Bite does 20-35 Damage with 40% Armor Damage and 10% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Wardog Bite",
+     "ap": 5,
+     "fatigue": 10,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Wardog Bite does 20-35 Damage with 40% Armor Damage and 10% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2176_Wardog Bite (10 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "warhound_bite_10",
+   "name": "Warhound Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2183_Warhound Bite (10 fatigue).txt",
+   "page": "Warhound Bite (10 fatigue)",
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 40,
+   "armor_ignore_pct": 15,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Warhound Bite does 25-40 Damage with 40% Armor Damage and 15% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Warhound Bite",
+     "ap": 5,
+     "fatigue": 10,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Warhound Bite does 25-40 Damage with 40% Armor Damage and 15% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2183_Warhound Bite (10 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "weak_uproot_25",
+   "name": "Weak Uproot",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2189_Weak Uproot (25 fatigue).txt",
+   "page": "Weak Uproot (25 fatigue)",
+   "damage_min": 40,
+   "damage_max": 60,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 40,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Weak Uproot does 40-60 Damage with 85% Armor Damage, 40% Direct Damage and staggers the target for a turn (hits 1 tile)",
+   "effects_not_built": [
+    "stagger"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Weak Uproot",
+     "ap": 5,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Weak Uproot does 40-60 Damage with 85% Armor Damage, 40% Direct Damage and staggers the target for a turn (hits 1 tile)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2189_Weak Uproot (25 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "webknecht_bite_10",
+   "name": "Webknecht Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2196_Webknecht Bite (10 fatigue).txt",
+   "page": "Webknecht Bite (10 fatigue)",
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 30,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Webknecht Bite does 20-40 Damage with 70% Armor Damage and 30% Direct Damage",
+   "effects_not_built": [],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Webknecht Bite",
+     "ap": 6,
+     "fatigue": 10,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Webknecht Bite does 20-40 Damage with 70% Armor Damage and 30% Direct Damage",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2196_Webknecht Bite (10 fatigue).txt"
+    }
+   ]
+  },
+  {
+   "id": "wolf_bite_10",
+   "name": "Wolf Bite",
+   "class": "natural",
+   "hands": 0,
+   "range_min": 1,
+   "fatigue": 0,
+   "durability": null,
+   "value": 0,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2231_Wolf Bite (10 fatigue).txt",
+   "page": "Wolf Bite (10 fatigue)",
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 40,
+   "armor_ignore_pct": 15,
+   "head_hit_chance": null,
+   "range_max": 1,
+   "shape": "one",
+   "effect": "Wolf Bite does 20-40 Damage with 40% Armor Damage and 15% Direct Damage (Goblin Wolfriders can use it only once per turn and it costs 0 AP for them)",
+   "effects_not_built": [
+    "once a turn"
+   ],
+   "range": 1,
+   "skills": [
+    {
+     "name": "Wolf Bite",
+     "ap": 5,
+     "fatigue": 10,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Wolf Bite does 20-40 Damage with 40% Armor Damage and 15% Direct Damage (Goblin Wolfriders can use it only once per turn and it costs 0 AP for them)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2231_Wolf Bite (10 fatigue).txt"
+    }
+   ]
+  }
+ ],
+ "by_enemy": {
+  "ancient_honor_guard_champion": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "ancient_priest": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "armored_frost_unhold": {
+   "attack": "sweep_20",
+   "also": []
+  },
+  "armored_unhold": {
+   "attack": "sweep_20",
+   "also": []
+  },
+  "armored_wardog": {
+   "attack": "wardog_bite_10",
+   "also": []
+  },
+  "barbarian_king_champion": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "barbarian_madman": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "bog_unhold": {
+   "attack": "sweep_20",
+   "also": []
+  },
+  "direwolf": {
+   "attack": "direwolf_bite_6",
+   "also": []
+  },
+  "envoy": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "firstborn": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "frenzied_direwolf": {
+   "attack": "direwolf_bite_6",
+   "also": []
+  },
+  "frenzied_hyena": {
+   "attack": "hyena_bite_6",
+   "also": []
+  },
+  "frost_unhold": {
+   "attack": "sweep_20",
+   "also": []
+  },
+  "geist": {
+   "attack": "ghastly_touch_0",
+   "also": []
+  },
+  "goblin_wolf": {
+   "attack": "wolf_bite_10",
+   "also": []
+  },
+  "greater_flesh_golem": {
+   "attack": "clout_20",
+   "also": [
+    "corpse_hurl_30",
+    "flurry_30",
+    "spike_30"
+   ]
+  },
+  "hyena": {
+   "attack": "hyena_bite_6",
+   "also": []
+  },
+  "ifrit_large": {
+   "attack": "size_3_headbutt_15",
+   "also": [
+    "size_3_throw_living_sand_15"
+   ]
+  },
+  "ifrit_medium": {
+   "attack": "size_2_headbutt_15",
+   "also": [
+    "size_2_throw_living_sand_15"
+   ]
+  },
+  "ifrit_small": {
+   "attack": "size_1_headbutt_15",
+   "also": []
+  },
+  "kraken_tentacle_enraged": {
+   "attack": "bite_10",
+   "also": []
+  },
+  "lindwurm": {
+   "attack": "gorge_15",
+   "also": []
+  },
+  "lindwurm_tail": {
+   "attack": "tail_slam_split_25",
+   "also": [
+    "tail_slam_thresh_25",
+    "tail_slam_sweep_20"
+   ]
+  },
+  "lorekeepers_apparition": {
+   "attack": "ghastly_touch_0",
+   "also": [
+    "lightning_storm_0"
+   ]
+  },
+  "mortar": {
+   "attack": "fire_mortar_0",
+   "also": []
+  },
+  "nachzehrer_large": {
+   "attack": "large_ghoul_claws_6",
+   "also": []
+  },
+  "nachzehrer_medium": {
+   "attack": "medium_ghoul_claws_6",
+   "also": []
+  },
+  "nachzehrer_small": {
+   "attack": "small_ghoul_claws_6",
+   "also": []
+  },
+  "necromancer_champion": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "rachegeist": {
+   "attack": "bite_0",
+   "also": []
+  },
+  "sapling": {
+   "attack": "weak_uproot_25",
+   "also": []
+  },
+  "schrat": {
+   "attack": "uproot_25",
+   "also": []
+  },
+  "screaming_skull": {
+   "attack": "explode_0",
+   "also": []
+  },
+  "serpent": {
+   "attack": "serpent_bite_5",
+   "also": []
+  },
+  "standard_bearer": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "the_grand_diviner": {
+   "attack": "hand_to_hand_attack_5",
+   "also": []
+  },
+  "the_ijirok": {
+   "attack": "gore_20",
+   "also": []
+  },
+  "the_lorekeeper": {
+   "attack": "lightning_storm_0",
+   "also": []
+  },
+  "unhold": {
+   "attack": "sweep_20",
+   "also": []
+  },
+  "wardog": {
+   "attack": "wardog_bite_10",
+   "also": []
+  },
+  "warhound": {
+   "attack": "warhound_bite_10",
+   "also": []
+  },
+  "webknecht": {
+   "attack": "webknecht_bite_10",
+   "also": []
+  },
+  "wiederganger_brother": {
+   "attack": "bite_0",
+   "also": []
+  },
+  "wolf": {
+   "attack": "wolf_bite_10",
+   "also": []
+  }
+ },
+ "refused": {
+  "alp": "no skill of [\"Nightmare\", \"Sleep\", \"Existing Partly in Dreams\", \"Fade\"] has a page that says it does damage",
+  "donkey": "no skill of [] has a page that says it does damage",
+  "flesh_cradle": "no skill of [] has a page that says it does damage",
+  "greenskin_catapult": "no skill of [] has a page that says it does damage",
+  "hexe": "no skill of [\"Charm\", \"Drink Night Owl Elixir\", \"Hex\"] has a page that says it does damage",
+  "kraken": "no skill of [\"Devour\"] has a page that says it does damage",
+  "kraken_tentacle": "no skill of [\"Ensnare\", \"Move Tentacle\"] has a page that says it does damage",
+  "phylactery": "no skill of [\"Resistant to Ranged Attacks\"] has a page that says it does damage",
+  "rachegeist_ghost": "no skill of [] has a page that says it does damage",
+  "webknecht_eggs": "no skill of [\"Resistant to Ranged Attacks\"] has a page that says it does damage"
+ }
+}

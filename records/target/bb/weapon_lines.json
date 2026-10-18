@@ -128,6 +128,14 @@
    "by": "COMBAT 10/5 [weapons say what they do], a draft for WORDS from the class's weapons.json numbers and its Battle Brothers skills (MECHANISM-MINE, 8/11: every player-facing word ships as an attempt)",
    "why": "nets, acid, fire, smoke and flash pots: no damage of their own, range 3",
    "draft": true
+  },
+  "natural": {
+   "job": null,
+   "name": "TEETH",
+   "base": "Racial skill",
+   "line": "No gear to take off it. It bites, and it bites again.",
+   "by": "COMBAT [the fight holds the grid] 10/18, a draft for WORDS (rule 75e): a beast's weapon is its racial skill (records/target/bb/beast_attacks.json)",
+   "draft": true
   }
  }
 }
