@@ -5210,3 +5210,49 @@ AAAAAAAAAAAAAAAAAAAAAAAAAA8  a patron at the end of the bar, to nobody in partic
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth
   with a face, at a bar, a clinic, a stall or a fire.
 - Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
+
+## CCCCCCCCCCCCCCCCCCCCCCCCCC. THE FREE FIRST WEEK: NINE DAYS IN THE STASH AND HALF ON THE HANDSHAKE (round 76)
+# Record: records/BOHEMIA_ECONOMY_DAY_76_THE_FREE_FIRST_WEEK_IS_NINE_DAYS_IN_THE_STASH_AND_HALF_ON_THE_HANDSHAKE_AND_WITH_THE_WAGE_ONLY_THE_STACK_CLEARS_BATTLE_BROTHERS_10_18_26.md
+# Row [the free first week], under rule 88's hold: a page, no sheet, nothing in the game.
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC1  a client at the board, holding out half the pay before the job      draft:true
+    "Half now, so you eat while you work. The other half when it's done."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC2  a crewman, opening the stash on the first morning                    draft:true
+    "Somebody packed for us. Cans and water, more than a week of it. Somebody wanted us to make it."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC3  the stall keeper, when a crew reaches for the cheap sack for the road  draft:true
+    "Not that one, it turns before the week's out. Take the cans. Cans don't care how long the road is."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC4  the oldest of the crew, at the first fire                             draft:true
+    "The first week is the one that gets people. After that you know where the water is."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC5  a client, when the crew comes back from a job that went wrong        draft:true
+    "Keep the half. You went. That's what the half was for."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC6  a crewman, the moment the half is counted into his hand              draft:true
+    "Just like that. We said yes and we got richer."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC7  a hauler at the first counter, to a new crew buying by the bowl      draft:true
+    "Buy the sack, not the bowl. The bowl costs you double by the end of the week."
+
+CCCCCCCCCCCCCCCCCCCCCCCCCC8  a woman at the pump, to a crew that just arrived                     draft:true
+    "Nobody starts with nothing, mijo. Somebody always leaves a box at the door."
+
+## DDDDDDDDDDDDDDDDDDDDDDDDDD. WHAT IS NOT HERE, ON PURPOSE (round 76)
+
+- No line names a wiki page, a game, a law, an agency, a country, a percentage, a number of batteries or a
+  real event. The finding is said as half the pay before the job, a stash somebody packed, cans that keep
+  where the cheap sack turns, the first week as the one that gets people, a half that is kept when a job
+  goes wrong, a sack against a bowl, and a box at the door.
+- CCCCCCCCCCCCCCCCCCCCCCCCCC1, 5 and 6 carry the handshake (half on taking the job, kept if it goes wrong,
+  the number going up the moment he says yes: rule 117(c)); 2 and 8 carry the nine seeded days (the box
+  at the door, the real record's food in the house); 3 carries the keeping kind (grains turn in seven);
+  4 carries why the first week matters; 7 carries the other half of the answer, the stack (Day 72's
+  poverty premium). None is a ruling or a felt number; TUNING's table first.
+- No line offers a wage holiday: the pick drops it, so no mouth promises it.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth with a
+  face, at a board, a stash, a stall, a fire, a counter or a pump.
+- Spanish register: 1 of 8 lines (12.5 in 100), under the 15% cap.
