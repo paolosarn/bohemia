@@ -1457,7 +1457,33 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
-ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (r) -- [what a day costs, in one number] SHIPPED, THE NEW AGE
+ECONOMY (economy-opus-10-18): 10/18 LATEST (s) -- [the rumour] SHIPPED, THE NEW AGE
+(the top OPEN row; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117; research only, no
+screen built, no data file touched, no VOTE sheet, rule 88). Record:
+records/BOHEMIA_ECONOMY_DAY_75_THE_RUMOUR_THE_NEXT_TOWN_HAS_NEWS_94_PERCENT_OF_THE_TIME_AND_THE_BAR_TELLS_NONE_10_18_26.md (a9fdda48)
+BATTLE BROTHERS: one rumour free a visit, four more at 20 crowns x the buy multiplier (two batteries
+calm, +0.1 relation each); the room's round (news) and the crew's round (morale, priced by heads) are
+two buttons; since 1.4 the rumours carry nearby towns' situations (Dev Blog 138: 'trading, recruiting
+and work opportunities nearby'); item reach 30 of 140 tiles; every town at once is the Agent, 4,000
+crowns, late. REAL RECORD: Kerala's phones, Niger's grain, the 1866 cable, Lebanon's rate apps: news
+faster than goods closes the gap. MEASURED (traitsFor verbatim, WORLD's 22 settlements, 52 weeks):
+69.1% of place-weeks carry a rolled situation; 94.4% have a town in the scaled reach (106 cells,
+40.7 km) with one to tell, 4,433 a year; the bar's 11 fixed lines tell none and name no settlement;
+3 print 'Marked on your map', nothing on main reads the mark, PUMP CAMP and COPPER SHEDS exist nowhere
+on main; the rumour rides the crew's round (a battery a man, 12 for twelve against BB's 2), no free
+one (rule 117); the feed posts one valley price, no town. At our distances the news holds (77 to 83%
+on arrival at worst). Candidates A to G, none picked. Routed: RUN TWO (a situation kind read from
+traitsFor, the free one, two rounds, the mark), RUN (the map's listener reads no mark), TUNING (no
+rumour row; 117 on the free one), LIFE + CITY held (the feed's price has no town), UI and WORDS (C to
+F), QUESTS (the contract rumour), WORLD (the reach against passes). Eight bank lines draft:true
+(section A x26, 1 of 8 Spanish).
+GATES (rule 13, by name): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0; CANON
+ROT 12/1, its C3 (73 of 62) red on main without this round, this page adds none.
+NEXT OPEN (jump list, rule 74): [the poverty premium] (now the top), [made here], [the gap that
+survives] (new: what spread is left when everybody knows).
+PENDING Paolo: none new.
+
+ECONOMY (economy-vamily-knxaeh): 10/18 (r) -- [what a day costs, in one number] SHIPPED, THE NEW AGE
 (the coordinator's rule 117 row, taken as a second round in the same session after (q) was closed and
 pushed; research and a number, no screen built, no data file touched, no VOTE sheet). Record:
 records/BOHEMIA_ECONOMY_DAY_74_WHAT_A_DAY_COSTS_IN_ONE_NUMBER_IS_DAYS_AND_AT_THE_117_START_IT_READS_27_TO_48_AGAINST_BATTLE_BROTHERS_46_10_18_26.md (751330d3)
