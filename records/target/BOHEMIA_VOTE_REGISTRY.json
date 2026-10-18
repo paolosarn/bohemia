@@ -10831,19 +10831,17 @@
    "id": "combat2-a-board-from-every-district-10-18",
    "kind": "tile",
    "lane": "combat 2",
-   "sha": "1e24171e",
+   "sha": "105c5618",
    "made": "10/18",
-   "title": "CANDIDATE: ONE FIGHT BOARD FROM EACH DISTRICT: THE STRIP, DOWNTOWN, THE SUBURBS, THE WASH, THE WORKS",
-   "redoOf": "combat2-the-board-cut-from-the-map-10-18",
-   "said": "Sure better direction not final",
-   "why": "Five fight boards, each cut from a real block of the map: the Strip's boulevard and casino, downtown's packed flat roofs and shops, the suburbs' houses, the wash's concrete channel, and the warehouses and container rows of the works, every house house-sized and nothing standing that does nothing in a fight. You see it here in the VOTE tab, not in the game: the five side by side the way a fight opens on a phone, then each one beside its block on the map.",
+   "title": "CANDIDATE: FIVE FIGHT BOARDS, ONE FROM EACH PART OF THE CITY (THE FLOOR UNDER THEM IS BEING REDRAWN)",
+   "why": "Five fight boards, each cut from a real block of the map (the Strip, downtown, the suburbs, the wash, the warehouses); the floor under them is being redrawn by cook 2 since you said you hate it, so judge where the roads, houses, walls, cars and cover stand, not the ground. You see it here in the VOTE tab, not in the game: each board whole at the size the fight opens on your phone.",
    "show": {
     "how": "image",
-    "src": "../records/target/COMBAT2_A_BOARD_FROM_EVERY_DISTRICT_10_18.webp"
+    "src": "../records/target/COMBAT2_THE_DISTRICT_BOARDS_ON_HIS_SCREEN_10_18.webp"
    },
    "before_after": {
     "before": "each district's block on the map as you see it at its closest zoom, and the map's own plan of it with the board's box",
-    "after": "the board cut from that box, whole at the phone's width the way the fight opens, then a corner of each at 1:1 with the man at 112 px",
+    "after": "the board cut from that box, whole at the phone's width the way the fight opens (the card: one board a row, 1170 px)",
     "scale": "1:1"
    },
    "twin": {
@@ -11046,7 +11044,7 @@
    },
    "draft": true
   }
-],
+ ],
  "verdicts": [
   {
    "id": "people-the-one-who-walks-with-you-9-21",
