@@ -20,6 +20,10 @@ REFERENCE CHECK (the 9/4 standing duty): the compare law (laws/BOHEMIA_LAW_COMPA
 the approved asset index (his 7/13 UP set: road, ground and lamp families), the card of numbers and
 skills/bohemia-pixel-art, AH-01 and AH-03. The source is his own tiles, his lamp and the board as laid; the twin on
 the sheet is the fight's own night pass; no reference game.
+
+REUSE CHECK (REUSE-FIRST, 7/22, written 10/18): his own tiles from the approved set (his HD tile repo and his 7/13 UP list, through the pack readers); every pixel cut, padded, layered or recoloured from them, nothing drawn (rule 108).
+
+TASTE CHECK (written 10/18): his rulings on the ground are the bar: his 10/10 "look again at the tiles we downloaded", his UP on the curb, the crossing and the 47, his NO on the Vegas block (composition); the sheet goes to DIRECTION, then the VOTE tab.
 """
 import glob, json, os, colorsys
 import numpy as np

@@ -19,6 +19,10 @@ nothing on it is new; the dread is the line that keeps going with nobody on it.
 [bb street tiles] Battle Brothers builds its battle ground from small edge-matched texture stamps over a
 whole map, never a painted plate; ours stamps his pack's tiles the same way, at the house scale.
   python3 tools/bohemia_cook2_the_street_kit_from_the_packs_10_10_26.py
+
+REUSE CHECK (REUSE-FIRST, 7/22, written 10/18): his own tiles from the approved set (his HD tile repo and his 7/13 UP list, through the pack readers); every pixel cut, padded, layered or recoloured from them, nothing drawn (rule 108).
+
+TASTE CHECK (written 10/18): his rulings on the ground are the bar: his 10/10 "look again at the tiles we downloaded", his UP on the curb, the crossing and the 47, his NO on the Vegas block (composition); the sheet goes to DIRECTION, then the VOTE tab.
 """
 import json, base64, io, os, random
 import numpy as np

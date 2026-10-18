@@ -1,0 +1,5 @@
+# the raw 3x phone shots (about 4 MB each) regenerate from tools/bohemia_cook2_the_curb_on_the_map_shot_10_18_26.js;
+# the sheet that carries them is records/target/COOK2_THE_CURB_ON_THE_MAP.webp
+*
+!.gitignore
+!shots.json

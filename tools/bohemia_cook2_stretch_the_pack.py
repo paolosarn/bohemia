@@ -16,6 +16,13 @@ REFERENCE CHECK (added at the seam by DIRECTION 10/11, the 9/4 standing duty): t
 (laws/BOHEMIA_LAW_COMPARE_EVERY_PIECE_OF_ART_TO_THE_WORLD_9_4_26.md), the approved asset index (his 7/13 UP set),
 the card of numbers and skills/bohemia-pixel-art (load it first), AH-01 and AH-03. The source is his own tiles.
 No reference game.
+
+REUSE CHECK (REUSE-FIRST, 7/22): this module IS the reuse: it opens his HD tile repo (banks/BOHEMIA_HD_TILE_REPO_part1-4.txt)
+and his 7/13 UP list and refuses any tile that is not UP (pack()); every recipe below cuts, pads, layers or recolours
+his tiles, none draws.
+
+TASTE CHECK: his 10/10 'look again at the tiles we downloaded' and his UP on the crossing, the 47 and the recolour; the
+recolour keeps his luminance and (keep_grain) his grain, never a hue filter.
 """
 import json, base64, io, os, colorsys
 import numpy as np
@@ -98,7 +105,48 @@ if __name__ == '__main__':
     json.dump(out, open(os.path.join(R, 'records/BOHEMIA_COOK2_THE_SEVEN_NUMBERS_GROUND_10_11_26.json'), 'w'), indent=1, default=list)
     for k, v in out.items(): print(k, v)
 
-def recolour(a, mask, target_hex, levels=6, shift_deg=10, sat_scale=1.0):
+def _hsv(x):
+    """vectorised rgb (0-1, n x 3) to hsv"""
+    mx, mn = x.max(1), x.min(1); d = mx - mn; h = np.zeros(len(x))
+    r, g, b = x[:, 0], x[:, 1], x[:, 2]; nz = d > 1e-9
+    i = nz & (mx == r); h[i] = ((g - b)[i] / d[i]) % 6
+    i = nz & (mx == g) & (mx != r); h[i] = (b - r)[i] / d[i] + 2
+    i = nz & (mx == b) & (mx != r) & (mx != g); h[i] = (r - g)[i] / d[i] + 4
+    return np.stack([h / 6, np.where(mx > 0, d / np.maximum(mx, 1e-9), 0), mx], 1)
+
+def _rgb(x):
+    """vectorised hsv (n x 3) to rgb"""
+    h, s, v = x[:, 0] * 6, x[:, 1], x[:, 2]; i = np.floor(h).astype(int) % 6; f = h - np.floor(h)
+    p, q, t = v * (1 - s), v * (1 - s * f), v * (1 - s * (1 - f))
+    return np.select([i[:, None] == k for k in range(6)],
+                     [np.stack(c, 1) for c in ((v, t, p), (q, v, p), (p, v, t), (p, q, v), (t, p, v), (v, p, q))])
+
+def recolour(a, mask, target_hex, levels=6, shift_deg=10, sat_scale=1.0, keep_grain=False):
+    """keep_grain (COOK TWO 10/18, round two of [the street joins for the map]): the bands set the hue and the
+       saturation as before, and each pixel keeps its OWN offset from its band (its hue step and its saturation
+       ratio), so his tile's colour grain survives the recolour. Measured on his soil tile #2: the plain recolour
+       keeps 51 colours per 1,000 px of his 526, the twin gate reads it FAR; off by default, so every sheet made
+       before this line regenerates bit for bit."""
+    out = recolour_bands(a, mask, target_hex, levels, shift_deg, sat_scale)
+    if not keep_grain or not mask.any():
+        return out
+    px = a[mask][..., :3].astype(float) / 255; nb = out[mask][..., :3].astype(float) / 255
+    lum = px @ np.array([0.299, 0.587, 0.114])
+    edges = np.quantile(lum, np.linspace(0, 1, levels + 1)[1:-1]); band = np.digitize(lum, edges)
+    ho, hn = _hsv(px), _hsv(nb)
+    for b in range(levels):
+        sel = band == b
+        if not sel.any(): continue
+        ang = ho[sel, 0] * 2 * np.pi; mh = np.arctan2(np.sin(ang).mean(), np.cos(ang).mean()) / (2 * np.pi)
+        dh = ((ho[sel, 0] - mh + 0.5) % 1 - 0.5) * np.clip(ho[sel, 1] * 4, 0, 1)   # a grey pixel's hue is noise
+        ms = max(ho[sel, 1].mean(), 1e-6)
+        hn[sel, 0] = (hn[sel, 0] + dh) % 1; hn[sel, 1] = np.clip(hn[sel, 1] * ho[sel, 1] / ms, 0, 1)
+    rgb = _rgb(hn); y = rgb @ np.array([0.299, 0.587, 0.114])
+    rgb = np.clip(rgb * (lum / np.maximum(y, 1e-3))[:, None], 0, 1)
+    o = out[..., :3].astype(float); o[mask] = rgb * 255; out[..., :3] = o.round().astype(np.uint8)
+    return out
+
+def recolour_bands(a, mask, target_hex, levels=6, shift_deg=10, sat_scale=1.0):
     """FACTION RECOLOUR, shade to shade (the research: 'a palette swap is not a hue filter'). The masked pixels are
        quantised into `levels` luminance bands; each band is rebuilt on the target's hue keeping ITS OWN luminance,
        with the hue drifting warm in the lights and cool in the shadows (+/- shift_deg, the field norm 10-20) and

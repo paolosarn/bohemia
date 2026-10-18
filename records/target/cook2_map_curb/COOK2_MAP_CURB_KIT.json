@@ -1,0 +1,1101 @@
+{
+ "_what": "COOK TWO [the curb on the map] (10/18): the map's street with the curb's lip, face and shadow, from his tiles, one piece per road block, for RUN to lay in place of the flat band (__THE_STREETS_JOIN__).",
+ "mask_bits": {
+  "1": "east (x+1)",
+  "2": "west (x-1)",
+  "4": "south (y+1)",
+  "8": "north (y-1)",
+  "_how": "RUN's own loop in mapStreetTile: d = 0..3 -> mask |= 1 << d for every road neighbour"
+ },
+ "lay": "atlas = COOK2_MAP_CURB_<FAMILY>_<TW>.png, 16 pieces in a row (mask 0..15), each TW wide and TW/2 + face tall, two rows (the two variants; take row (x * 7 + y * 13) % 2 so a street never shows one piece twice running on a diagonal). For a road block: p = iso(x, y, ox, oy) (the block's top vertex); draw piece `mask` at (p.sx - TW/2, p.sy - face * TW/TWk) at width TW and height (TWk/2 + face) * TW/TWk, smoothing off, in the tile loop where the block's own art is drawn: BLOCK in place of the arterial picture (it is the whole road block), BAND where the band is drawn now (__THE_STREETS_JOIN__). TWk = the largest level at or under the block's device width (TW * CV_DPR), else the smallest: a piece is only ever enlarged (under 2x), never shrunk past its 1 px lip. Streets only (RUN's J value 1); the freeway keeps its band (a freeway has a shoulder, not a curb). A block on a deck or a dip keeps the band.",
+ "source": {
+  "road": [
+   "1. Cracked street tiles",
+   [
+    8,
+    0,
+    9
+   ]
+  ],
+  "sidewalk_top": [
+   "1. Cracked contrete tiles",
+   [
+    28,
+    0,
+    23,
+    1,
+    27
+   ]
+  ],
+  "curb_face": [
+   "1. Cracked contrete tiles",
+   [
+    0,
+    1,
+    2,
+    6,
+    7
+   ],
+   "rows (-7, -6, -5, -4, -3) of each slab (its south face, top to foot)"
+  ],
+  "lip_rgb": [
+   182.2,
+   169.0,
+   148.7
+  ],
+  "shadow_rgb": [
+   23.3,
+   21.2,
+   21.7
+  ],
+  "light": {
+   "screen_deg": 155.4,
+   "toward_on_the_plan": [
+    -0.999,
+    0.044
+   ],
+   "from": "records/target/BOHEMIA_STYLE_GUIDE.json"
+  }
+ },
+ "families": {
+  "block": {
+   "asphalt_half_width_of_P": 0.43,
+   "sidewalk_width_of_P": 0.07,
+   "levels": {
+    "256": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_256.png",
+     "piece_px": [
+      256,
+      131
+     ],
+     "face_px": 3,
+     "shadow_plan_px": 3.3,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 8751,
+       "paint": 0,
+       "top": 3008,
+       "lip": 340,
+       "face": 468,
+       "shadow": 301
+      },
+      {
+       "mask": 1,
+       "road": 11106,
+       "paint": 128,
+       "top": 2528,
+       "lip": 298,
+       "face": 591,
+       "shadow": 301
+      },
+      {
+       "mask": 2,
+       "road": 11085,
+       "paint": 128,
+       "top": 2528,
+       "lip": 298,
+       "face": 261,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 13440,
+       "paint": 256,
+       "top": 2048,
+       "lip": 256,
+       "face": 384,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 11045,
+       "paint": 128,
+       "top": 2528,
+       "lip": 298,
+       "face": 591,
+       "shadow": 362
+      },
+      {
+       "mask": 5,
+       "road": 12816,
+       "paint": 218,
+       "top": 1826,
+       "lip": 220,
+       "face": 714,
+       "shadow": 362
+      },
+      {
+       "mask": 6,
+       "road": 12944,
+       "paint": 206,
+       "top": 1828,
+       "lip": 230,
+       "face": 273,
+       "shadow": 25
+      },
+      {
+       "mask": 7,
+       "road": 14957,
+       "paint": 54,
+       "top": 1126,
+       "lip": 152,
+       "face": 396,
+       "shadow": 25
+      },
+      {
+       "mask": 8,
+       "road": 10762,
+       "paint": 128,
+       "top": 2528,
+       "lip": 298,
+       "face": 261,
+       "shadow": 323
+      },
+      {
+       "mask": 9,
+       "road": 12646,
+       "paint": 206,
+       "top": 1828,
+       "lip": 230,
+       "face": 273,
+       "shadow": 323
+      },
+      {
+       "mask": 10,
+       "road": 12505,
+       "paint": 218,
+       "top": 1826,
+       "lip": 220,
+       "face": 54,
+       "shadow": 29
+      },
+      {
+       "mask": 11,
+       "road": 14631,
+       "paint": 54,
+       "top": 1126,
+       "lip": 152,
+       "face": 66,
+       "shadow": 29
+      },
+      {
+       "mask": 12,
+       "road": 13056,
+       "paint": 256,
+       "top": 2048,
+       "lip": 256,
+       "face": 384,
+       "shadow": 384
+      },
+      {
+       "mask": 13,
+       "road": 14598,
+       "paint": 54,
+       "top": 1126,
+       "lip": 152,
+       "face": 396,
+       "shadow": 384
+      },
+      {
+       "mask": 14,
+       "road": 14606,
+       "paint": 54,
+       "top": 1126,
+       "lip": 152,
+       "face": 66,
+       "shadow": 54
+      },
+      {
+       "mask": 15,
+       "road": 15928,
+       "paint": 72,
+       "top": 204,
+       "lip": 48,
+       "face": 78,
+       "shadow": 54
+      }
+     ]
+    },
+    "128": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_128.png",
+     "piece_px": [
+      128,
+      66
+     ],
+     "face_px": 2,
+     "shadow_plan_px": 2.2,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 2123,
+       "paint": 0,
+       "top": 672,
+       "lip": 172,
+       "face": 156,
+       "shadow": 97
+      },
+      {
+       "mask": 1,
+       "road": 2698,
+       "paint": 64,
+       "top": 560,
+       "lip": 150,
+       "face": 198,
+       "shadow": 97
+      },
+      {
+       "mask": 2,
+       "road": 2689,
+       "paint": 64,
+       "top": 560,
+       "lip": 150,
+       "face": 86,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 3264,
+       "paint": 128,
+       "top": 448,
+       "lip": 128,
+       "face": 128,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 2678,
+       "paint": 64,
+       "top": 560,
+       "lip": 150,
+       "face": 198,
+       "shadow": 117
+      },
+      {
+       "mask": 5,
+       "road": 3119,
+       "paint": 102,
+       "top": 400,
+       "lip": 118,
+       "face": 240,
+       "shadow": 117
+      },
+      {
+       "mask": 6,
+       "road": 3157,
+       "paint": 108,
+       "top": 402,
+       "lip": 110,
+       "face": 90,
+       "shadow": 9
+      },
+      {
+       "mask": 7,
+       "road": 3714,
+       "paint": 30,
+       "top": 242,
+       "lip": 78,
+       "face": 132,
+       "shadow": 9
+      },
+      {
+       "mask": 8,
+       "road": 2581,
+       "paint": 64,
+       "top": 560,
+       "lip": 150,
+       "face": 86,
+       "shadow": 108
+      },
+      {
+       "mask": 9,
+       "road": 3058,
+       "paint": 108,
+       "top": 402,
+       "lip": 110,
+       "face": 90,
+       "shadow": 108
+      },
+      {
+       "mask": 10,
+       "road": 3015,
+       "paint": 102,
+       "top": 400,
+       "lip": 118,
+       "face": 16,
+       "shadow": 9
+      },
+      {
+       "mask": 11,
+       "road": 3608,
+       "paint": 30,
+       "top": 242,
+       "lip": 78,
+       "face": 20,
+       "shadow": 9
+      },
+      {
+       "mask": 12,
+       "road": 3136,
+       "paint": 128,
+       "top": 448,
+       "lip": 128,
+       "face": 128,
+       "shadow": 128
+      },
+      {
+       "mask": 13,
+       "road": 3595,
+       "paint": 30,
+       "top": 242,
+       "lip": 78,
+       "face": 132,
+       "shadow": 128
+      },
+      {
+       "mask": 14,
+       "road": 3599,
+       "paint": 30,
+       "top": 242,
+       "lip": 78,
+       "face": 20,
+       "shadow": 18
+      },
+      {
+       "mask": 15,
+       "road": 3950,
+       "paint": 40,
+       "top": 36,
+       "lip": 28,
+       "face": 24,
+       "shadow": 18
+      }
+     ]
+    },
+    "64": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_64.png",
+     "piece_px": [
+      64,
+      33
+     ],
+     "face_px": 1,
+     "shadow_plan_px": 1.1,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 526,
+       "paint": 0,
+       "top": 124,
+       "lip": 92,
+       "face": 38,
+       "shadow": 24
+      },
+      {
+       "mask": 1,
+       "road": 680,
+       "paint": 16,
+       "top": 94,
+       "lip": 78,
+       "face": 49,
+       "shadow": 24
+      },
+      {
+       "mask": 2,
+       "road": 678,
+       "paint": 16,
+       "top": 94,
+       "lip": 78,
+       "face": 21,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 832,
+       "paint": 32,
+       "top": 64,
+       "lip": 64,
+       "face": 32,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 675,
+       "paint": 16,
+       "top": 94,
+       "lip": 78,
+       "face": 49,
+       "shadow": 29
+      },
+      {
+       "mask": 5,
+       "road": 785,
+       "paint": 28,
+       "top": 64,
+       "lip": 54,
+       "face": 60,
+       "shadow": 29
+      },
+      {
+       "mask": 6,
+       "road": 794,
+       "paint": 28,
+       "top": 64,
+       "lip": 62,
+       "face": 22,
+       "shadow": 2
+      },
+      {
+       "mask": 7,
+       "road": 938,
+       "paint": 6,
+       "top": 34,
+       "lip": 38,
+       "face": 33,
+       "shadow": 2
+      },
+      {
+       "mask": 8,
+       "road": 651,
+       "paint": 16,
+       "top": 94,
+       "lip": 78,
+       "face": 21,
+       "shadow": 27
+      },
+      {
+       "mask": 9,
+       "road": 769,
+       "paint": 28,
+       "top": 64,
+       "lip": 62,
+       "face": 22,
+       "shadow": 27
+      },
+      {
+       "mask": 10,
+       "road": 760,
+       "paint": 28,
+       "top": 64,
+       "lip": 54,
+       "face": 4,
+       "shadow": 2
+      },
+      {
+       "mask": 11,
+       "road": 912,
+       "paint": 6,
+       "top": 34,
+       "lip": 38,
+       "face": 5,
+       "shadow": 2
+      },
+      {
+       "mask": 12,
+       "road": 800,
+       "paint": 32,
+       "top": 64,
+       "lip": 64,
+       "face": 32,
+       "shadow": 32
+      },
+      {
+       "mask": 13,
+       "road": 908,
+       "paint": 6,
+       "top": 34,
+       "lip": 38,
+       "face": 33,
+       "shadow": 32
+      },
+      {
+       "mask": 14,
+       "road": 910,
+       "paint": 6,
+       "top": 34,
+       "lip": 38,
+       "face": 5,
+       "shadow": 4
+      },
+      {
+       "mask": 15,
+       "road": 990,
+       "paint": 8,
+       "top": 4,
+       "lip": 12,
+       "face": 6,
+       "shadow": 4
+      }
+     ]
+    }
+   }
+  },
+  "band": {
+   "asphalt_half_width_of_P": 0.1901,
+   "sidewalk_width_of_P": 0.1118,
+   "levels": {
+    "256": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_256.png",
+     "piece_px": [
+      256,
+      131
+     ],
+     "face_px": 3,
+     "shadow_plan_px": 3.3,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 1531,
+       "paint": 0,
+       "top": 2680,
+       "lip": 148,
+       "face": 204,
+       "shadow": 129
+      },
+      {
+       "mask": 1,
+       "road": 3714,
+       "paint": 0,
+       "top": 3004,
+       "lip": 202,
+       "face": 366,
+       "shadow": 129
+      },
+      {
+       "mask": 2,
+       "road": 3705,
+       "paint": 0,
+       "top": 3004,
+       "lip": 202,
+       "face": 222,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 5888,
+       "paint": 0,
+       "top": 3328,
+       "lip": 256,
+       "face": 384,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 3582,
+       "paint": 0,
+       "top": 3004,
+       "lip": 202,
+       "face": 366,
+       "shadow": 261
+      },
+      {
+       "mask": 5,
+       "road": 5797,
+       "paint": 0,
+       "top": 3056,
+       "lip": 232,
+       "face": 528,
+       "shadow": 261
+      },
+      {
+       "mask": 6,
+       "road": 5906,
+       "paint": 0,
+       "top": 3066,
+       "lip": 228,
+       "face": 291,
+       "shadow": 107
+      },
+      {
+       "mask": 7,
+       "road": 8121,
+       "paint": 0,
+       "top": 3118,
+       "lip": 258,
+       "face": 453,
+       "shadow": 107
+      },
+      {
+       "mask": 8,
+       "road": 3453,
+       "paint": 0,
+       "top": 3004,
+       "lip": 202,
+       "face": 222,
+       "shadow": 252
+      },
+      {
+       "mask": 9,
+       "road": 5761,
+       "paint": 0,
+       "top": 3066,
+       "lip": 228,
+       "face": 291,
+       "shadow": 252
+      },
+      {
+       "mask": 10,
+       "road": 5664,
+       "paint": 0,
+       "top": 3056,
+       "lip": 232,
+       "face": 240,
+       "shadow": 118
+      },
+      {
+       "mask": 11,
+       "road": 7972,
+       "paint": 0,
+       "top": 3118,
+       "lip": 258,
+       "face": 309,
+       "shadow": 118
+      },
+      {
+       "mask": 12,
+       "road": 5504,
+       "paint": 0,
+       "top": 3328,
+       "lip": 256,
+       "face": 384,
+       "shadow": 384
+      },
+      {
+       "mask": 13,
+       "road": 7844,
+       "paint": 0,
+       "top": 3118,
+       "lip": 258,
+       "face": 453,
+       "shadow": 384
+      },
+      {
+       "mask": 14,
+       "road": 7865,
+       "paint": 0,
+       "top": 3118,
+       "lip": 258,
+       "face": 309,
+       "shadow": 225
+      },
+      {
+       "mask": 15,
+       "road": 10205,
+       "paint": 0,
+       "top": 2908,
+       "lip": 260,
+       "face": 378,
+       "shadow": 225
+      }
+     ]
+    },
+    "128": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_128.png",
+     "piece_px": [
+      128,
+      66
+     ],
+     "face_px": 2,
+     "shadow_plan_px": 2.2,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 355,
+       "paint": 0,
+       "top": 636,
+       "lip": 72,
+       "face": 68,
+       "shadow": 41
+      },
+      {
+       "mask": 1,
+       "road": 883,
+       "paint": 0,
+       "top": 734,
+       "lip": 100,
+       "face": 122,
+       "shadow": 41
+      },
+      {
+       "mask": 2,
+       "road": 880,
+       "paint": 0,
+       "top": 734,
+       "lip": 100,
+       "face": 74,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 1408,
+       "paint": 0,
+       "top": 832,
+       "lip": 128,
+       "face": 128,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 837,
+       "paint": 0,
+       "top": 734,
+       "lip": 100,
+       "face": 122,
+       "shadow": 87
+      },
+      {
+       "mask": 5,
+       "road": 1387,
+       "paint": 0,
+       "top": 750,
+       "lip": 110,
+       "face": 176,
+       "shadow": 87
+      },
+      {
+       "mask": 6,
+       "road": 1423,
+       "paint": 0,
+       "top": 746,
+       "lip": 114,
+       "face": 96,
+       "shadow": 37
+      },
+      {
+       "mask": 7,
+       "road": 1973,
+       "paint": 0,
+       "top": 762,
+       "lip": 124,
+       "face": 150,
+       "shadow": 37
+      },
+      {
+       "mask": 8,
+       "road": 798,
+       "paint": 0,
+       "top": 734,
+       "lip": 100,
+       "face": 74,
+       "shadow": 82
+      },
+      {
+       "mask": 9,
+       "road": 1378,
+       "paint": 0,
+       "top": 746,
+       "lip": 114,
+       "face": 96,
+       "shadow": 82
+      },
+      {
+       "mask": 10,
+       "road": 1346,
+       "paint": 0,
+       "top": 750,
+       "lip": 110,
+       "face": 80,
+       "shadow": 40
+      },
+      {
+       "mask": 11,
+       "road": 1926,
+       "paint": 0,
+       "top": 762,
+       "lip": 124,
+       "face": 102,
+       "shadow": 40
+      },
+      {
+       "mask": 12,
+       "road": 1280,
+       "paint": 0,
+       "top": 832,
+       "lip": 128,
+       "face": 128,
+       "shadow": 128
+      },
+      {
+       "mask": 13,
+       "road": 1882,
+       "paint": 0,
+       "top": 762,
+       "lip": 124,
+       "face": 150,
+       "shadow": 128
+      },
+      {
+       "mask": 14,
+       "road": 1889,
+       "paint": 0,
+       "top": 762,
+       "lip": 124,
+       "face": 102,
+       "shadow": 77
+      },
+      {
+       "mask": 15,
+       "road": 2491,
+       "paint": 0,
+       "top": 692,
+       "lip": 120,
+       "face": 124,
+       "shadow": 77
+      }
+     ]
+    },
+    "64": {
+     "file": "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_64.png",
+     "piece_px": [
+      64,
+      33
+     ],
+     "face_px": 1,
+     "shadow_plan_px": 1.1,
+     "lip_px": 1,
+     "counts": [
+      {
+       "mask": 0,
+       "road": 89,
+       "paint": 0,
+       "top": 140,
+       "lip": 40,
+       "face": 18,
+       "shadow": 9
+      },
+      {
+       "mask": 1,
+       "road": 221,
+       "paint": 0,
+       "top": 150,
+       "lip": 52,
+       "face": 31,
+       "shadow": 9
+      },
+      {
+       "mask": 2,
+       "road": 220,
+       "paint": 0,
+       "top": 150,
+       "lip": 52,
+       "face": 19,
+       "shadow": 0
+      },
+      {
+       "mask": 3,
+       "road": 352,
+       "paint": 0,
+       "top": 160,
+       "lip": 64,
+       "face": 32,
+       "shadow": 0
+      },
+      {
+       "mask": 4,
+       "road": 210,
+       "paint": 0,
+       "top": 150,
+       "lip": 52,
+       "face": 31,
+       "shadow": 20
+      },
+      {
+       "mask": 5,
+       "road": 344,
+       "paint": 0,
+       "top": 150,
+       "lip": 60,
+       "face": 44,
+       "shadow": 20
+      },
+      {
+       "mask": 6,
+       "road": 357,
+       "paint": 0,
+       "top": 150,
+       "lip": 56,
+       "face": 25,
+       "shadow": 8
+      },
+      {
+       "mask": 7,
+       "road": 491,
+       "paint": 0,
+       "top": 150,
+       "lip": 64,
+       "face": 38,
+       "shadow": 8
+      },
+      {
+       "mask": 8,
+       "road": 199,
+       "paint": 0,
+       "top": 150,
+       "lip": 52,
+       "face": 19,
+       "shadow": 21
+      },
+      {
+       "mask": 9,
+       "road": 344,
+       "paint": 0,
+       "top": 150,
+       "lip": 56,
+       "face": 25,
+       "shadow": 21
+      },
+      {
+       "mask": 10,
+       "road": 337,
+       "paint": 0,
+       "top": 150,
+       "lip": 60,
+       "face": 20,
+       "shadow": 7
+      },
+      {
+       "mask": 11,
+       "road": 482,
+       "paint": 0,
+       "top": 150,
+       "lip": 64,
+       "face": 26,
+       "shadow": 7
+      },
+      {
+       "mask": 12,
+       "road": 320,
+       "paint": 0,
+       "top": 160,
+       "lip": 64,
+       "face": 32,
+       "shadow": 32
+      },
+      {
+       "mask": 13,
+       "road": 467,
+       "paint": 0,
+       "top": 150,
+       "lip": 64,
+       "face": 38,
+       "shadow": 32
+      },
+      {
+       "mask": 14,
+       "road": 474,
+       "paint": 0,
+       "top": 150,
+       "lip": 64,
+       "face": 26,
+       "shadow": 15
+      },
+      {
+       "mask": 15,
+       "road": 621,
+       "paint": 0,
+       "top": 140,
+       "lip": 64,
+       "face": 32,
+       "shadow": 15
+      }
+     ]
+    }
+   }
+  }
+ },
+ "measured": {
+  "block": {
+   "256": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 8257,
+    "not_his": 0
+   },
+   "128": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 4163,
+    "not_his": 0
+   },
+   "64": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 1637,
+    "not_his": 0
+   }
+  },
+  "band": {
+   "256": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 8190,
+    "not_his": 0
+   },
+   "128": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 4051,
+    "not_his": 0
+   },
+   "64": {
+    "seams": {
+     "east_west": {
+      "pixels_painted_twice": 0
+     },
+     "north_south": {
+      "pixels_painted_twice": 0
+     }
+    },
+    "pinholes_in_the_laid_grid": 0,
+    "colours": 1654,
+    "not_his": 0
+   }
+  },
+  "face_rows_lum": [
+   52.6,
+   47.3,
+   47.8,
+   49.2,
+   24.6
+  ]
+ }
+}

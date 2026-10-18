@@ -45,10 +45,10 @@ draws arterial 9 m and freeway 12 m, written in the kit JSON so RUN matches one 
 - THE CONNECTION: at the suburb-to-works line and the works-to-desert line, 100% of the arterial's rows are road on
   both sides of the line; the tone step across the line is 0.1 of 255 (one asphalt, no seam).
 - 0 sidewalk pixels outside the suburb (the curb stops on the district line).
-- 289 distinct colours (5 bits a channel) across the whole ground.
+- 289 distinct colours (5 bits a channel) across the whole ground (round one; 537 after round two).
 
 ## IN VOTE: cook2-the-street-joins-for-the-map-10-18 (rule 114b; NOT VIBE CODED N3, class tile, family road)
-Measured first under the old ruler: all six pieces passed D1, D2, D4 and D5 and failed D3 alone (a top-down ground
+(Round one.) Measured first under the old ruler: all six pieces passed D1, D2, D4 and D5 and failed D3 alone (a top-down ground
 has no light direction; his own tiles failed it 92%). PLUMBER's ground ruler landed the same round (5d50863,
 records/BOHEMIA_THE_GROUND_RULER_AND_THE_THREE_READINGS_10_18_26.md: a 96 px cell at a time, D3 not held on a slab), and
 under it the six pieces pass the first five; the item is registered with its sprites, class tile, family road, and its
@@ -61,6 +61,13 @@ as a new pack family and the band went stale; moved, N2 green). RUN does not wai
 - The ranch sprites face south only, so every house fronts a street to its south (no backs exist).
 - The yellow double is near-invisible at the near stop (2 px wide at the kit's pixel): right for a rest area, thin
   for a map.
+
+## ROUND TWO (10/18, the same day as [the curb on the map])
+The twin gate (PLUMBER 044890d4) read this card RED on colours per 1,000 px (0.01 to 0.09 of his road tile's). Three
+causes, fixed: the snap to his tile's top 48 colours is gone (the style guide: the ground is never re-palettized); the
+recolour keeps each pixel's own grain (S.recolour keep_grain: his soil 51 -> 222 colours per 1,000 px of his 526); four of
+his soil tiles where one repeated every 21 px. Now: none RED on the twin gate, all six pass NOT VIBE CODED N3. The full
+account is in records/BOHEMIA_COOK2_THE_CURB_ON_THE_MAP_10_18_26.md.
 
 ## CAPTION (rule 114c)
 PIXEL SIZE his pixel reduced 4:1, 14.25 px a metre, one size in the scene; the camera picture at the near stop's

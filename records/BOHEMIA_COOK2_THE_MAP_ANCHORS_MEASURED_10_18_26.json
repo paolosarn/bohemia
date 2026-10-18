@@ -1,0 +1,568 @@
+{
+ "pictures": {
+  "apartment": {
+   "w": 256,
+   "h": 221,
+   "plate": 252,
+   "by": 191,
+   "centre": 157,
+   "off_rows": 34
+  },
+  "arsenal": {
+   "w": 256,
+   "h": 183,
+   "plate": 252,
+   "by": 191,
+   "centre": 119,
+   "off_rows": 72
+  },
+  "arterial": {
+   "w": 256,
+   "h": 158,
+   "plate": 252,
+   "by": 195,
+   "centre": 94,
+   "off_rows": 101
+  },
+  "arterial_x": {
+   "w": 256,
+   "h": 166,
+   "plate": 252,
+   "by": 195,
+   "centre": 102,
+   "off_rows": 93
+  },
+  "ballpark": {
+   "w": 256,
+   "h": 226,
+   "plate": 252,
+   "by": 192,
+   "centre": 162,
+   "off_rows": 30
+  },
+  "basin": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 190,
+   "centre": 68,
+   "off_rows": 122
+  },
+  "battery": {
+   "w": 256,
+   "h": 202,
+   "plate": 252,
+   "by": 192,
+   "centre": 138,
+   "off_rows": 54
+  },
+  "boneyard": {
+   "w": 256,
+   "h": 219,
+   "plate": 252,
+   "by": 192,
+   "centre": 155,
+   "off_rows": 37
+  },
+  "campus": {
+   "w": 256,
+   "h": 222,
+   "plate": 252,
+   "by": 192,
+   "centre": 158,
+   "off_rows": 34
+  },
+  "casino": {
+   "w": 256,
+   "h": 230,
+   "plate": 252,
+   "by": 192,
+   "centre": 166,
+   "off_rows": 26
+  },
+  "cemetery": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 191,
+   "centre": 68,
+   "off_rows": 123
+  },
+  "chapel": {
+   "w": 256,
+   "h": 217,
+   "plate": 252,
+   "by": 192,
+   "centre": 153,
+   "off_rows": 39
+  },
+  "cityhall": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 192,
+   "centre": 195,
+   "off_rows": -3
+  },
+  "commercial": {
+   "w": 256,
+   "h": 197,
+   "plate": 252,
+   "by": 192,
+   "centre": 133,
+   "off_rows": 59
+  },
+  "convention": {
+   "w": 256,
+   "h": 190,
+   "plate": 252,
+   "by": 192,
+   "centre": 126,
+   "off_rows": 66
+  },
+  "courthouse": {
+   "w": 256,
+   "h": 253,
+   "plate": 252,
+   "by": 192,
+   "centre": 189,
+   "off_rows": 3
+  },
+  "dam": {
+   "w": 256,
+   "h": 222,
+   "plate": 252,
+   "by": 192,
+   "centre": 158,
+   "off_rows": 34
+  },
+  "datafort": {
+   "w": 256,
+   "h": 226,
+   "plate": 252,
+   "by": 190,
+   "centre": 162,
+   "off_rows": 28
+  },
+  "desert": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 192,
+   "centre": 68,
+   "off_rows": 124
+  },
+  "downtown": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 192,
+   "centre": 195,
+   "off_rows": -3
+  },
+  "drivein": {
+   "w": 256,
+   "h": 205,
+   "plate": 252,
+   "by": 192,
+   "centre": 141,
+   "off_rows": 51
+  },
+  "farm": {
+   "w": 256,
+   "h": 151,
+   "plate": 252,
+   "by": 192,
+   "centre": 87,
+   "off_rows": 105
+  },
+  "firestation": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 191,
+   "centre": 195,
+   "off_rows": -4
+  },
+  "fort": {
+   "w": 256,
+   "h": 221,
+   "plate": 252,
+   "by": 192,
+   "centre": 157,
+   "off_rows": 35
+  },
+  "freeway": {
+   "w": 256,
+   "h": 144,
+   "plate": 252,
+   "by": 195,
+   "centre": 80,
+   "off_rows": 115
+  },
+  "fueldepot": {
+   "w": 256,
+   "h": 186,
+   "plate": 252,
+   "by": 191,
+   "centre": 122,
+   "off_rows": 69
+  },
+  "golf": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 191,
+   "centre": 68,
+   "off_rows": 123
+  },
+  "granary": {
+   "w": 256,
+   "h": 249,
+   "plate": 252,
+   "by": 191,
+   "centre": 185,
+   "off_rows": 6
+  },
+  "gypsum": {
+   "w": 256,
+   "h": 163,
+   "plate": 252,
+   "by": 191,
+   "centre": 99,
+   "off_rows": 92
+  },
+  "industrial": {
+   "w": 256,
+   "h": 215,
+   "plate": 252,
+   "by": 191,
+   "centre": 151,
+   "off_rows": 40
+  },
+  "intake": {
+   "w": 256,
+   "h": 190,
+   "plate": 252,
+   "by": 192,
+   "centre": 126,
+   "off_rows": 66
+  },
+  "interchange": {
+   "w": 256,
+   "h": 134,
+   "plate": 252,
+   "by": 195,
+   "centre": 70,
+   "off_rows": 125
+  },
+  "jail": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 192,
+   "centre": 195,
+   "off_rows": -3
+  },
+  "landfill": {
+   "w": 256,
+   "h": 138,
+   "plate": 252,
+   "by": 192,
+   "centre": 74,
+   "off_rows": 118
+  },
+  "library": {
+   "w": 256,
+   "h": 193,
+   "plate": 252,
+   "by": 192,
+   "centre": 129,
+   "off_rows": 63
+  },
+  "mall": {
+   "w": 256,
+   "h": 137,
+   "plate": 252,
+   "by": 192,
+   "centre": 73,
+   "off_rows": 119
+  },
+  "medical": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 191,
+   "centre": 195,
+   "off_rows": -4
+  },
+  "minigp": {
+   "w": 256,
+   "h": 159,
+   "plate": 252,
+   "by": 191,
+   "centre": 95,
+   "off_rows": 96
+  },
+  "mountain": {
+   "w": 256,
+   "h": 180,
+   "plate": 252,
+   "by": 192,
+   "centre": 116,
+   "off_rows": 76
+  },
+  "park": {
+   "w": 256,
+   "h": 138,
+   "plate": 252,
+   "by": 192,
+   "centre": 74,
+   "off_rows": 118
+  },
+  "policestation": {
+   "w": 256,
+   "h": 223,
+   "plate": 252,
+   "by": 191,
+   "centre": 159,
+   "off_rows": 32
+  },
+  "prison": {
+   "w": 256,
+   "h": 213,
+   "plate": 252,
+   "by": 192,
+   "centre": 149,
+   "off_rows": 43
+  },
+  "pumpstation": {
+   "w": 256,
+   "h": 176,
+   "plate": 252,
+   "by": 192,
+   "centre": 112,
+   "off_rows": 80
+  },
+  "quarry": {
+   "w": 256,
+   "h": 137,
+   "plate": 252,
+   "by": 192,
+   "centre": 73,
+   "off_rows": 119
+  },
+  "radio": {
+   "w": 256,
+   "h": 258,
+   "plate": 252,
+   "by": 191,
+   "centre": 194,
+   "off_rows": -3
+  },
+  "rail": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 192,
+   "centre": 68,
+   "off_rows": 124
+  },
+  "railyard": {
+   "w": 256,
+   "h": 246,
+   "plate": 252,
+   "by": 191,
+   "centre": 182,
+   "off_rows": 9
+  },
+  "reclaim": {
+   "w": 256,
+   "h": 148,
+   "plate": 252,
+   "by": 192,
+   "centre": 84,
+   "off_rows": 108
+  },
+  "reservoir": {
+   "w": 256,
+   "h": 185,
+   "plate": 252,
+   "by": 191,
+   "centre": 121,
+   "off_rows": 70
+  },
+  "resort": {
+   "w": 256,
+   "h": 259,
+   "plate": 252,
+   "by": 192,
+   "centre": 195,
+   "off_rows": -3
+  },
+  "school": {
+   "w": 256,
+   "h": 194,
+   "plate": 252,
+   "by": 192,
+   "centre": 130,
+   "off_rows": 62
+  },
+  "solar": {
+   "w": 256,
+   "h": 217,
+   "plate": 252,
+   "by": 191,
+   "centre": 153,
+   "off_rows": 38
+  },
+  "speedway": {
+   "w": 256,
+   "h": 195,
+   "plate": 252,
+   "by": 192,
+   "centre": 131,
+   "off_rows": 61
+  },
+  "stadium": {
+   "w": 256,
+   "h": 239,
+   "plate": 252,
+   "by": 191,
+   "centre": 175,
+   "off_rows": 16
+  },
+  "storage": {
+   "w": 256,
+   "h": 141,
+   "plate": 252,
+   "by": 191,
+   "centre": 77,
+   "off_rows": 114
+  },
+  "strip": {
+   "w": 256,
+   "h": 194,
+   "plate": 252,
+   "by": 195,
+   "centre": 130,
+   "off_rows": 65
+  },
+  "strip_x": {
+   "w": 256,
+   "h": 198,
+   "plate": 252,
+   "by": 194,
+   "centre": 134,
+   "off_rows": 60
+  },
+  "substation": {
+   "w": 256,
+   "h": 230,
+   "plate": 252,
+   "by": 191,
+   "centre": 166,
+   "off_rows": 25
+  },
+  "suburb": {
+   "w": 256,
+   "h": 154,
+   "plate": 252,
+   "by": 192,
+   "centre": 90,
+   "off_rows": 102
+  },
+  "swapmeet": {
+   "w": 256,
+   "h": 187,
+   "plate": 252,
+   "by": 192,
+   "centre": 123,
+   "off_rows": 69
+  },
+  "terminal": {
+   "w": 256,
+   "h": 216,
+   "plate": 252,
+   "by": 192,
+   "centre": 152,
+   "off_rows": 40
+  },
+  "town": {
+   "w": 256,
+   "h": 160,
+   "plate": 252,
+   "by": 192,
+   "centre": 96,
+   "off_rows": 96
+  },
+  "trailer": {
+   "w": 256,
+   "h": 138,
+   "plate": 252,
+   "by": 192,
+   "centre": 74,
+   "off_rows": 118
+  },
+  "truckstop": {
+   "w": 256,
+   "h": 183,
+   "plate": 252,
+   "by": 192,
+   "centre": 119,
+   "off_rows": 73
+  },
+  "warehouse": {
+   "w": 256,
+   "h": 172,
+   "plate": 252,
+   "by": 191,
+   "centre": 108,
+   "off_rows": 83
+  },
+  "wash": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 192,
+   "centre": 68,
+   "off_rows": 124
+  },
+  "water": {
+   "w": 256,
+   "h": 132,
+   "plate": 252,
+   "by": 189,
+   "centre": 66,
+   "off_rows": 123
+  },
+  "waterpark": {
+   "w": 256,
+   "h": 161,
+   "plate": 252,
+   "by": 192,
+   "centre": 97,
+   "off_rows": 95
+  },
+  "watertreat": {
+   "w": 256,
+   "h": 175,
+   "plate": 252,
+   "by": 192,
+   "centre": 111,
+   "off_rows": 81
+  }
+ },
+ "near_stop": {
+  "TH_device": 128,
+  "bands": 273,
+  "band_middle_painted_over": 261
+ },
+ "_what": "COOK TWO 10/18: the map's block pictures against their own blocks (tools/bohemia_cook2_the_map_anchors_measured_10_18_26.js). off_rows > 0: the picture draws that many rows above its block; the fix is HERO_ANCH[k].by = centre (RUN).",
+ "summary": {
+  "pictures": 69,
+  "off_rows_median": 66,
+  "off_rows_max": 125,
+  "within_4_rows": 8
+ }
+}
