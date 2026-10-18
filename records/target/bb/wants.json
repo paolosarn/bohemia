@@ -1,0 +1,92 @@
+{
+  "_about": "WHAT A FACTION WANTS DECIDES WHERE ITS PARTIES GO (FACTIONS lane, row [wants send parties], 10/18; WORLD [parties move] BUY half). records/target/bb/factions.json already says what each of the four demo factions WANTS (want.id). This file says, for each want, WHAT KIND OF PLACE OR GROUND that want sends a party at, and quotes the Battle Brothers line it is translated from. engine/bohemia_wants.js reads it; nothing here is a number (the row: 'no new numbers'): who goes first is the map's own distance, how many go is BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain.KINDS. A modder edits this file to change where a faction's parties go (rule 38g). Page: records/BOHEMIA_FACTIONS_WHAT_A_FACTION_WANTS_DECIDES_WHERE_ITS_PARTIES_GO_10_18_26.md.",
+  "school": {
+    "camps_harass_the_nearest_village": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
+      "quote": "You will face either Brigands or Zombies, whichever has a closer distance to the settlement."
+    },
+    "a_spawnpoint_harasses_a_village": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "if you destroy a spawnpoint that sends out parties to harass a village these raids will stop"
+    },
+    "raiders_live_off_the_trade_routes": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "Killing of a spawnpoint of enemies close to trade routes will definitely help the villages as it reduced the frequency of caravans getting raided."
+    },
+    "a_camp_grows_on_what_it_takes": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "An Orc camp sends out raiders that successfully raid a couple of caravans and bring home a lot of supplies. Now the camp buys even more raiders so it can raid more caravans and so on."
+    },
+    "the_roads_ambush": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "which is the reason the AI prefers to lay in ambush in the forest tiles near roads"
+    },
+    "castles_patrol_the_roads": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "the guard towers and castles send out patrols to secure roads and fight off bandits and other evil-doers"
+    },
+    "the_house_lives_on_its_supply": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "watchtowers and castles rely on military supply caravans from towns and villages. If these get intercepted regularly the towers and castles also get into trouble."
+    },
+    "the_dead_raid_for_corpses": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0626_Developer Posts.txt",
+      "quote": "undead will not raid caravans for the money, but to create more corpses for their army"
+    },
+    "the_raid_leaves_the_place_raided": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1626_Raided (Settlement Situation).txt",
+      "quote": "This place has been recently raided! It's suffered damage, has lost valuable goods and supplies, and lives were lost."
+    },
+    "beasts_roam": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0224_Beasts.txt",
+      "quote": "Various wild beasts roam the lands."
+    },
+    "a_raid_hits_the_attached_locations": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
+      "quote": "Defend a settlement against a single or multiple waves of enemies raiding their Attached Locations."
+    }
+  },
+  "wants": {
+    "hold-the-freeway": {
+      "agenda": "crew",
+      "goes_at": "places_by_ground",
+      "ground": ["freeway"],
+      "order": "the trip: the map distance from the camp to the place plus the place's distance to the nearest freeway cell, shortest first; then nearer the camp; then by name",
+      "any_tier": true,
+      "wiki": ["camps_harass_the_nearest_village", "raiders_live_off_the_trade_routes", "the_roads_ambush", "a_raid_hits_the_attached_locations"],
+      "ours": true,
+      "why": "the crew wants the freeway (VAMILY row [a house you give a fuck about]); Battle Brothers' raiders go at the nearest village and live off the trade routes, so a road crew goes at what stands nearest the freeway on its way, whatever its size: a camp by the road is the first thing a crew hits, never only the three fortresses"
+    },
+    "hold-the-depot": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": ["industrial"],
+      "wiki": ["castles_patrol_the_roads", "the_house_lives_on_its_supply"],
+      "ours": true,
+      "why": "the house wants the depot (VAMILY row); Battle Brothers' castles patrol the roads their supply comes along, so the house's first party is a patrol on the nearest depot ground (industrial: the warehouse, the railyard, the storage lot), and the rest of its business is what the parties module already sends"
+    },
+    "finish-the-work": {
+      "agenda": "crew",
+      "goes_at": "nearest_places",
+      "prefer_trait": "raided",
+      "any_tier": true,
+      "wiki": ["the_dead_raid_for_corpses", "the_raid_leaves_the_place_raided", "camps_harass_the_nearest_village"],
+      "ours": true,
+      "why": "the dead's keeper wants to bring back what was left unfinished; Battle Brothers' dead raid for corpses, not money, so they go at the nearest place of any size, and a place already raided (our ruin is a condition, not a ground: bohemia_boardterrain NOT_ON_THE_MAP) goes first"
+    },
+    "keep-the-ground": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": ["open_desert", "wash_and_shore"],
+      "stays_if_on_it": true,
+      "wiki": ["beasts_roam"],
+      "ours": true,
+      "why": "the beasts want their ground and to be left alone; they never go at a place; a den already on its ground holds it (the patrol has arrived), a den off it walks to the nearest of it"
+    }
+  },
+  "gaps": [
+    "the region's wild rows for ancient_dead, nomads and mercenaries carry no want in factions.json (only the four demo factions do), so they keep the parties module's own choice; FACTIONS [more banners] gives them wants",
+    "the valley's fourteen seats carry no want of their own (his canon graph's notes are not wants and this lane does not invent his factions' wants), so their crews still go at the worst canon feud's seat; the camps and towns become reachable through the wild crews that are handed in beside them",
+    "outside the valley the map's ground is RUN's region (slices/bohemia_region.js passAt: 1 is a road); the module takes the grounds as cells the caller hands it, so RUN adds the region's road cells as freeway and nothing here changes"
+  ]
+}

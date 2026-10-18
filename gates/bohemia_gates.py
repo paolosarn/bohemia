@@ -834,6 +834,13 @@ GATES = [
      'counted: 30 more, 58 live, 59 with the one rival company). Also: a holder is a selectable canon faction and never the player; no faction past the wiki\'s lopsided 10 of 17; a wild row\'s faction and every '
      'unit id are enemies.json\'s and belong together; a wild row is inside the region, outside the city, marked wild; the dead and the beasts hold, the crews raid; a marker field is never a sentence '
      '(37e); every ours number is draft and named for TUNING; the between() gap is written in the file (a wild row handed to today\'s parties module sends caravans). Red thirty-two ways by mutation of the data file.', True),
+    ('WANTS SEND PARTIES', ['node', 'gates/wants_send_parties_gate.js'],
+     'ROW [wants send parties] (WORLD [parties move] BUY half): what a faction WANTS (records/target/bb/factions.json) decides where its parties go, by the rules in '
+     'records/target/bb/wants.json, read by engine/bohemia_wants.js, which composes with the parties module and never edits it. Battle Brothers\' rule, every line re-read from the wiki tarball: '
+     'a camp\'s raiders go at the NEAREST village and live off the trade routes, castles patrol the roads, the dead raid for corpses, beasts roam. MEASURED BEFORE: every valley crew goes at a fortress '
+     '(4 of 4, five seeds) and the wild road crews and dead sent caravans; AFTER, on the real valley with the region\'s rows: the road crews and the dead send crews only, at 2 camps, 1 town and 1 fortress '
+     '(a valley camp among them), the beasts hold their own ground, no wild seat goes at another; the road crew\'s first mark has the shortest trip to the freeway; the dead take a raided place first; '
+     'the house patrols the nearest depot ground; a seat with no want is byte for byte what the parties module gave it; no number and no faction typed in the module. Red ten ways by mutation of the module and on a bad quote or ground in the data file.', True),
     ('FACTIONS', ['node', 'gates/factions_gate.js'],
      'ROWS [the parties on the map] and [a house you give a fuck about] (rule 80c): the demo\'s four factions in one data file RUN reads. '
      'Every faction has a face slot (never a person\'s name), a want with a source, a base, a draft voice line, a beef-driven memory, a banner nobody else owns and never purple '
