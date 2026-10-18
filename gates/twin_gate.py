@@ -39,10 +39,13 @@ where LOOK joins the verdict like any ruler and these legs hold:
   L2  THE LINES CARRY LOOK for every family (the packs' 10th percentile cosine, pair and centroid, IN/OUT;
       their 1st percentile, OUT/FAR).
   L3  IT BITES BOTH WAYS ON LOOK ALONE: his piece against itself reads cosine 1 and IN, his car turned the
-      other way IN, his own tiles against each other FAR under 2 in 100; his car cut into 8 px blocks and
-      shuffled (his colours and grain, no car: what COLOUR and PATTERN cannot see) FAR; noise never IN
-      (noise is COLOUR's and PATTERN's: on the runner DINOv2 put it nearer one ground tile than his own
-      roughest 1 in 100 ground pairs, run 39152693910). T2 and T3 then carry LOOK inside every verdict.
+      other way IN, his own tiles against each other FAR under 2 in 100; flat fill (his tile's own mean
+      colour, one value everywhere: the vibe-coded look) FAR; noise never IN (noise is COLOUR's and
+      PATTERN's: on the runner DINOv2 put it nearer one ground tile than his roughest 1 in 100 ground pairs,
+      run 39152693910). PRINTED, NOT HELD: his car cut into 8 px blocks and shuffled reads IN at the props'
+      line (cos 0.423 against 0.137, run 39153198933: his props are too varied for the family line to see a
+      shape destroyed), beside the same reading at his cars pack's own line. T2 and T3 then carry LOOK
+      inside every verdict.
   L4  THE LINES AGREE ACROSS BOXES: the runner's COLOUR, PATTERN, PAINTER, SHAPE and GRID lines equal the
       committed ones (only when $BOHEMIA_TWIN_COMMITTED_CAL names the committed copy; the workflow sets it).
 
@@ -337,17 +340,48 @@ def look_legs(cal, d):
     rm = TG.score(paths['mirror'], car, 'prop', cal)
     ok('L3 his car turned the other way reads IN on LOOK (cos %s)' % rm['rulers']['look']['twin'],
        rm['rulers']['look']['level'] == 0, str(rm['rulers']['look']))
+    # flat fill, the vibe-coded look itself (research tell: the same value everywhere, nobody painted it),
+    # against his ground tile: his tile's own mean colour, a mid grey, a smooth ramp, an 8 px checker
+    g = TG.rgba(tw).astype(np.uint8)
+    fills = {'his tile\'s own mean colour, flat': np.broadcast_to(g[..., :3].reshape(-1, 3).mean(0).astype(np.uint8), g[..., :3].shape),
+             'a flat mid grey': np.full(g[..., :3].shape, 128, np.uint8),
+             'a smooth ramp': np.repeat(np.linspace(40, 200, g.shape[1]).astype(np.uint8)[None, :, None], g.shape[0], 0).repeat(3, 2),
+             'an 8 px checker': ((np.indices(g.shape[:2]).sum(0) // 8 % 2) * 120 + 60).astype(np.uint8)[..., None].repeat(3, 2)}
+    held = None
+    for what, rgb in fills.items():
+        f = os.path.join(d, 'fill_%d.png' % len(what))
+        Image.fromarray(np.dstack([rgb, np.full(rgb.shape[:2], 255, np.uint8)]), 'RGBA').save(f)
+        r = TG.score(f, tw, cal=cal)['rulers'].get('look', {})
+        if held is None:
+            held = (what, r)
+        else:
+            print('  --   LOOK on %s against his ground tile: %s (cos %s to the twin, %s to the family)' % (what, lv(r), r.get('twin'), r.get('family')))
+    ok('L3 %s reads FAR on LOOK against his ground tile (cos %s to the twin, %s to the family)' % (
+        held[0], held[1].get('twin'), held[1].get('family')), held[1].get('level') == 2, str(held[1]))
+    # PRINTED, NOT HELD: the shuffled car, at the family's line and at his cars pack's own line
     rs = TG.score(paths['shuffle'], car, 'prop', cal)
-    ok('L3 his car cut into 8 px blocks and shuffled (his colours, his grain, no car) reads FAR on LOOK '
-       '(cos %s to the twin, %s to the family; COLOUR %s, PATTERN %s)' % (
-           rs['rulers']['look']['twin'], rs['rulers']['look']['family'],
-           {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['colour']['level']], {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['pattern']['level']]),
-       rs['rulers']['look']['level'] == 2, str(rs['rulers']['look']))
+    lk = rs['rulers']['look']
+    packs = (cal.get('look') or {}).get('packs') or {}
+    pk = packs.get(TG.pack_of(car)) or {}
+    at = lambda c: '?' if not pk else ('IN' if c >= pk['p10'] else 'OUT' if c >= pk['p1'] else 'FAR')
+    print('  --   LOOK on his car cut into 8 px blocks and shuffled (his colours and grain, no car; COLOUR %s, PATTERN %s): '
+          '%s at the props\' line (cos %s to the car, line %s); %s at his cars pack\'s own line (%s pieces, 10th %s, 1st %s)' % (
+              {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['colour']['level']], {0: 'IN', 1: 'OUT', 2: 'FAR'}[rs['rulers']['pattern']['level']],
+              lv(lk), lk['twin'], lk['line']['pair'], at(lk['twin']), pk.get('pieces'), pk.get('p10'), pk.get('p1')))
+    for m in ('robot', 'truck'):
+        sp = os.path.join(ROOT, 'records', 'target', 'master_rig', m, 'rig_S.png')
+        if os.path.exists(sp):
+            r = TG.score(sp, car, 'prop', cal, 'vehicle' if m == 'truck' else 'person')['rulers'].get('look', {})
+            print('  --   LOOK on the maquette %s (his YES) against his car: %s at the props\' line, %s at the cars pack\'s (cos %s)' % (
+                m, lv(r), at(r.get('twin', 0)), r.get('twin')))
+    print('  --   LOOK at the cars pack\'s line: his car turned the other way %s (cos %s)' % (at(rm['rulers']['look']['twin']), rm['rulers']['look']['twin']))
     for fam, what in (('lamp', 'a lamp'), ('road', 'a road tile'), ('door', 'a door')):
         q = TG.pack_pieces(fam)[0]
         r = TG.score(q, car, 'prop', cal)
-        print('  --   LOOK on %s against his car: %s (cos %s to the car, %s to the props; verdict %s)' % (
-            what, lv(r['rulers']['look']), r['rulers']['look']['twin'], r['rulers']['look']['family'], r['verdict']))
+        print('  --   LOOK on %s against his car: %s at the props\' line, %s at the cars pack\'s (cos %s; verdict %s)' % (
+            what, lv(r['rulers']['look']), at(r['rulers']['look']['twin']), r['rulers']['look']['twin'], r['verdict']))
+    print('  --   LOOK per pack, printed not held: %d packs; the five loosest: %s' % (len(packs), ', '.join(
+        '%s %s/%s' % (k[5:], v['p10'], v['p1']) for k, v in sorted(packs.items(), key=lambda kv: kv[1]['p10'])[:5])))
     com = os.environ.get('BOHEMIA_TWIN_COMMITTED_CAL')
     if com:
         c = json.load(open(com))

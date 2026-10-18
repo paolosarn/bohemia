@@ -353,7 +353,38 @@ def calibrate(families=None, per_family=160, pairs=600, log=print):
                                                             out['families'][fam]['look']['centroid'])) if look else ''))
     out['pack_files'] = len(pack_pieces('all'))
     if look:
-        out['look'] = {'onnx': os.path.basename(ONNX), 'measured': True, 'embedded': len(seen)}
+        out['look'] = {'onnx': os.path.basename(ONNX), 'measured': True, 'embedded': len(seen),
+                       'packs': look_pack_lines(seen, rng, log)}
+    return out
+
+
+def pack_of(path):
+    m = re.match(r'^(pack_\d+_.+)_\d{3}\.png$', os.path.basename(path or ''))
+    return m.group(1) if m else None
+
+
+def look_pack_lines(seen, rng, log=print, least=8, pairs=400):
+    """PRINTED, NOT HELD (10/18, run 39153198933): each pack he bought measuring itself, the 10th and 1st
+    percentile cosine between two pieces of the same pack, for every pack with at least eight pieces in the
+    bank. At the family's line a shuffled car read IN against his props (cos 0.423, line 0.137); this is the
+    tighter line the coordinator can rule on, measured, before anyone holds a cook to it."""
+    by = {}
+    for fam in FAMILIES:
+        for f in pack_pieces(fam):
+            by.setdefault(pack_of(f), []).append(f)
+    out = {}
+    for k, fs in sorted((k, v) for k, v in by.items() if k):
+        if len(fs) < least:
+            continue
+        E = []
+        for f in fs:
+            if f not in seen:
+                seen[f] = look_embed(rgba(f))
+            E.append(seen[f])
+        cs = [float(E[i] @ E[j]) for i, j in (rng.choice(len(E), 2, replace=False) for _ in range(pairs))]
+        out[k] = {'pieces': len(fs), 'p10': round(float(np.percentile(cs, 10)), 4), 'p1': round(float(np.percentile(cs, 1)), 4),
+                  'median': round(float(np.median(cs)), 4)}
+    log('  LOOK per pack (printed, not held): %d packs with %d+ pieces' % (len(out), least))
     return out
 
 
