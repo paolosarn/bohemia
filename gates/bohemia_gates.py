@@ -955,6 +955,19 @@ GATES = [
      'number; a road kind on the game\'s seed drawn by the CITY frame\'s 2-cell lane; a live page loading the 7/16 '
      'block generator; the canon registry without the block\'s two sizes and the clock; a new VOTE item saying 230 m; '
      'RUN\'s fallback towns drifting further. Never blocks a fix. Eight in-memory mutations inside.', False),
+    ('THE FREEWAY IS ONE ROAD', ['node', 'gates/the_freeway_is_one_road_gate.js'],
+     'ROW [the freeway as one road in the data] (WORLD 10/18; Paolo 10/18 \'the freeway as it runs through the city '
+     'should be unified\'), for RUN\'s [one freeway, and nobody is an icon]. engine/bohemia_freeways.js names every '
+     'valley freeway cell by its real highway (the spine I-15, the cross-town US-95, the ring CC-215, each exit by the '
+     'real road its portal on the box is nearest, around the box, one road to one exit) and joins each into ONE road: '
+     'I-15 California to the Virgin River, US-95 the proving ground to Searchlight, I-11 / US-93 the bowl to Arizona, '
+     'CC-215 a closed loop; engine/BOHEMIA_REGION_LAND.json freewayPaths carries the region\'s blocks. Refuses: a '
+     'region path with a hole or inside the box; an unnamed valley freeway cell; a pair with one half or a half with '
+     'no median side; I-15 with a hole, short of the rim or not through the Spaghetti Bowl; CC-215 not closed; US-95\'s '
+     'north-west leg broken; a class-1 highway joined to a one-cell pass; the breaks growing past the known one (no '
+     'freeway out toward I-515 / US-93, the roll\'s: 14 blocks on the game\'s seed, 16 of 20 seeds, worst 20); twenty '
+     'seeds the same; the joins by name not landing in the loader\'s connector table. Prints today\'s stitch() joins '
+     '(the valley\'s I-15 into NV-159). Six mutations inside.', False),
     ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
      'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
      'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '

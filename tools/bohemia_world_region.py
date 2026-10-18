@@ -530,6 +530,19 @@ def main():
     own, dnames, dletters = DISTRICTS_OF.build_districts(me, grid, road, places, portals)
     line_crossings, road_ends, road_paths = DISTRICTS_OF.roads_across(me, grid, road, own, dnames, places, portals)
     districts = DISTRICTS_OF.describe(me, grid, road, own, dnames, dletters, places, line_crossings, road_paths)
+    # every real freeway past the valley, block by block, from the valley's box outward ([the freeway as one road in
+    # the data], WORLD 10/18): the loader joins these to the valley's own rolled pieces so each is ONE road end to end
+    freeway_paths = {}
+    for name, (cls, cells) in road_paths.items():
+        if cls != 1: continue
+        outside = [c for c in cells if not in_valley(*c)]
+        runs = []
+        for c in outside:
+            dn = dnames[own[idx(*c)]]
+            if runs and runs[-1][0] == dn: runs[-1][1] += 1
+            else: runs.append([dn, 1])
+        freeway_paths[name] = {'cls': cls, 'path': [[x, y] for (x, y) in outside], 'districts': runs,
+                               'startsInValley': bool(cells and in_valley(*cells[0]))}
     counts = {}
     for j in range(D):
         for i in range(D):
@@ -576,6 +589,8 @@ def main():
         'lineCrossingsWhy': 'every place a road leaves one district for the next: the road, the first block on the far side (x, y) and the last on the near side (fromX, fromY), the two districts, and the road\'s real local name on each side. live: the road layer holds a road on both sides (the valley\'s box counts as road: the roll\'s streets).',
         'localNamesWhy': DISTRICTS_OF.LOCAL_NAMES_WHY,
         'roadEnds': road_ends,
+        'freewayPaths': freeway_paths,
+        'freewayPathsWhy': 'THE FREEWAY AS ONE ROAD ([the freeway as one road in the data], WORLD 10/18; Paolo 10/18 \'the freeway as it runs through the city should be unified\'): every class-1 road past the valley as its ordered blocks (REAL x, y; the loader mirrors x), from the valley\'s box outward when it starts there, with the district of every run. engine/bohemia_freeways.js joins them to the valley\'s own rolled freeway pieces into one named road each: I-15 (I-15 S + the valley + I-15 N), US-95 (US-95 NW + the valley + I-515 / US-93 + US-95 S), I-11 / US-93 (Railroad Pass to Arizona), CC-215 (the valley\'s ring).',
         'roadEndsWhy': 'what each end of each road really stops at: rim (the road goes on past the region, the beyond list), valley (the box: the roll\'s streets take it, the loader stitches), junction (another road), place, water (a ramp), gate (a fence, a crest, a canyon head: named one by one), or break (nothing: the defect). atLine: the end touches a district line.',
         'numbers': {
             'tilesAcross': D, 'tiles': D * D, 'kmAcross': km_across,
