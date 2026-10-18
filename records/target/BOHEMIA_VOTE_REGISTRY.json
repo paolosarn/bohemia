@@ -19,6 +19,7 @@
   "  said   (redos only) his words on the one it replaces, quoted back so he is never judging blind",
   "",
   "HOW A LANE READS A VERDICT BACK: look in verdicts[] for your id. up = build it in, down = graveyard",
+  "A STAR (RUN TWO 10/18, rule 115(h)) is vote up with star:true: build it in AND its method becomes the fleet's default the same sweep (the coordinator reads it so).",
   "with a post-mortem (a clip is redone and comes back as a NEW id). NOTES ARE RULINGS: do not ask again.",
   "",
   "A VOTE CONSUMES. An id that appears in verdicts[] NEVER renders in the tab again. The tab also",

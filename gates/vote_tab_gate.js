@@ -259,7 +259,7 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('the tab opens with no script error', errs.length === 0, errs.slice(0, 2).join(' | '));
 
   const live = () => p.evaluate(() =>
-    Array.from(document.querySelectorAll('#list .row')).map(r => r.getAttribute('data-id')));
+    Array.from(document.querySelectorAll('#list .row:not(.gone), #more .row:not(.gone)')).map(r => r.getAttribute('data-id')));   /* the fold's rows once it is open (RUN TWO 10/18: after his sitting nothing is red, so the queue is all behind MORE) */
 
   let rows = await live();
   /* THE SORT (UI [the triage filter], rule 92, 10/10): records/target/BOHEMIA_VOTE_TRIAGE.json, the coordinator's.
@@ -355,9 +355,11 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   ok('the comment box sits under the whole queue', footLast);
 
   /* ---- 6. A VOTE CONSUMES: THE PHONE --------------------------------------- */
+  if (!(await p.$('#list .row'))) { await p.click('#fold'); await p.waitForTimeout(150); }
+  rows = await live();
   const top = rows[0];
-  await p.fill('#list .row textarea.note', 'this is the note on the top one');
-  await p.click('#list .row .tb.up');
+  await p.fill('.row[data-id="' + top + '"] textarea.note', 'this is the note on the top one');
+  await p.click('.row[data-id="' + top + '"] .tb.up');
   await p.waitForTimeout(320);
   rows = await live();
   ok('the thing he voted on leaves the second he taps', rows.indexOf(top) < 0);
@@ -382,6 +384,27 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
   const undoSays = await p.textContent('#saidit');
   ok('after a reload there is nothing to put back, and it says so',
      /nothing to put back/i.test(undoSays || ''), (undoSays || '').slice(0, 40));
+
+  /* THE STAR (RUN TWO [the star], 10/18, rule 115(h)): his first star was a sentence in a note; now every card carries a
+     STAR beside YES and NO, one tap, it leaves like a vote, and the .txt says STAR with his words and "star":true for the
+     registry, the vote still 'up' so every lane reading a YES still reads it */
+  if (!(await p.$('#list .row')) && !(await p.$('#more .row'))) { await p.click('#fold'); await p.waitForTimeout(150); }
+  rows = await live();
+  const allStar = await p.evaluate(() => { const rs = Array.from(document.querySelectorAll('.row')); return rs.length > 0 && rs.every(r => !!r.querySelector('.tb.up') && !!r.querySelector('.tb.star') && !!r.querySelector('.tb.down')); });
+  const starred = rows[0];
+  const starBox = starred ? await p.evaluate(id => { const b = document.querySelector('.row[data-id="' + id + '"] .tb.star').getBoundingClientRect(); return Math.min(b.width, b.height); }, starred) : 0;
+  if (starred) {
+    await p.fill('.row[data-id="' + starred + '"] textarea.note', 'the gate hands out a star');
+    await p.tap('.row[data-id="' + starred + '"] .tb.star'); await p.waitForTimeout(320);
+  }
+  const gone = starred && (await live()).indexOf(starred) < 0;
+  await p.evaluate(() => { window.__blobs = []; const o = URL.createObjectURL; URL.createObjectURL = b => { window.__blobs.push(b); return o.call(URL, b); }; });
+  await p.click('#out'); await p.waitForTimeout(200);
+  const exp = await p.evaluate(async () => window.__blobs.length ? await window.__blobs[window.__blobs.length - 1].text() : '');
+  ok('every card carries a STAR beside YES and NO, 44 points, one tap, and it leaves like a vote', allStar && starBox >= 44 && gone, starred + ', star ' + Math.round(starBox) + ' pt');
+  ok('  the .txt says STAR with his words, and the registry line carries "star":true on a YES',
+     /\nSTAR  ?\S/.test(exp) && exp.indexOf('the gate hands out a star') >= 0 && exp.indexOf('"id":' + JSON.stringify(starred) + ',"vote":"up","star":true') >= 0,
+     (exp.split('\n').filter(l => /^STAR/.test(l))[0] || 'no STAR line').slice(0, 60));
 
   /* ---- 8. A VOTE CONSUMES: THE REGISTRY (the leg that matters) ------------- */
   /* Plant a verdict on a candidate this phone has never seen. A cleared cache must

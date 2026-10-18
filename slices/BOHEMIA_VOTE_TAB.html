@@ -95,6 +95,8 @@
  .tb{ font-size:20px; padding:0 16px }
  .tb.up:hover{ border-color:var(--cool) }
  .tb.down:hover{ border-color:var(--hot) }
+ .tb.star{ color:#c79a3f }
+ .tb.star:hover{ border-color:#c79a3f }
  .look{ margin-left:auto; font-size:13px; letter-spacing:1px }
  .note{ width:100%; min-height:44px; font:14px ui-sans-serif,system-ui,Arial;
         padding:9px 10px; border:2px solid var(--rule); border-radius:4px;
@@ -280,6 +282,12 @@
     var dn = document.createElement('button');
     dn.type = 'button'; dn.className = 'tb down'; dn.textContent = '\u{1F44E}';
     dn.setAttribute('aria-label', 'no');
+    /* RUN TWO [the star], 10/18 (rule 115(h)): his first star was a sentence in a note ('this is the first star I've
+       handed out'); now it is one tap. A star is a YES and more: the card's METHOD becomes the fleet's default the same
+       sweep. It is stored as vote 'up' with star:true, so every lane that reads a YES still reads it. */
+    var sr = document.createElement('button');
+    sr.type = 'button'; sr.className = 'tb star'; sr.textContent = '\u2605';
+    sr.setAttribute('aria-label', 'star');
     var lk = document.createElement('button');
     lk.type = 'button'; lk.className = 'look'; lk.textContent = 'LOOK AT IT';
 
@@ -292,7 +300,7 @@
       }
     });
 
-    j.appendChild(up); j.appendChild(dn); j.appendChild(lk);
+    j.appendChild(up); j.appendChild(sr); j.appendChild(dn); j.appendChild(lk);
     r.appendChild(j);
 
     var n = document.createElement('textarea');
@@ -302,19 +310,22 @@
     n.style.width = 'calc(100% - 24px)';
     r.appendChild(n);
 
-    function vote(v){
+    function vote(v, star){
       mine[it.id] = { vote: v, said: n.value.trim(), when: stamp(),
                       kind: it.kind, lane: it.lane, title: it.title };
+      if(star) mine[it.id].star = true;
       writePhone();
       lastGone = it.id;
       r.classList.add('gone');
       setTimeout(function(){ if(r.parentNode) r.parentNode.removeChild(r); tally(); }, 190);
-      said(v === 'up' ? 'Yes on ' + (it.title || it.id) + '.'
+      said(star ? 'A star on ' + (it.title || it.id) + '. Its way of making things becomes the way.'
+           : v === 'up' ? 'Yes on ' + (it.title || it.id) + '.'
                       : 'No on ' + (it.title || it.id) + '.');
       tally();
     }
     up.addEventListener('click', function(){ vote('up'); });
     dn.addEventListener('click', function(){ vote('down'); });
+    sr.addEventListener('click', function(){ vote('up', true); });
 
     return r;
   }
@@ -376,7 +387,7 @@
     if(!ids.length) out.push('(no votes yet)');
     ids.forEach(function(id){
       var v = mine[id];
-      out.push((v.vote === 'up' ? 'YES  ' : 'NO   ') + (v.title || id));
+      out.push((v.star ? 'STAR ' : v.vote === 'up' ? 'YES  ' : 'NO   ') + (v.title || id));
       out.push('     id    ' + id);
       out.push('     kind  ' + (v.kind || '?') + '   lane ' + (v.lane || '?') + '   on ' + (v.when || '?'));
       if(v.said) out.push('     said  ' + v.said);
@@ -392,6 +403,7 @@
     ids.forEach(function(id){
       var v = mine[id];
       out.push('{"id":' + JSON.stringify(id) + ',"vote":' + JSON.stringify(v.vote) +
+               (v.star ? ',"star":true' : '') +
                ',"said":' + JSON.stringify(v.said || '') + ',"when":' + JSON.stringify(v.when || '') + '},');
     });
     return out.join('\n');
