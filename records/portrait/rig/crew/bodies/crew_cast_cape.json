@@ -1,0 +1,78 @@
+{
+ "look": "crew_cast_cape",
+ "shape": "crew: cast_cape",
+ "worn": "cast_cape",
+ "dials": {
+  "height": 0.0,
+  "belly": 0.0,
+  "shoulders": 0.0,
+  "hips": 0.0
+ },
+ "model": "records/portrait/rig/crew/bodies/crew_cast_cape.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.72,
+ "real_height_for_rig": 1.726,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "crew_cast_cape_trouser": 2568,
+  "crew_cast_cape_shoe": 3916,
+  "crew_cast_cape_cape": 4510,
+  "crew_cast_cape_hair": 17968,
+  "crew_cast_cape_hand_L": 392,
+  "crew_cast_cape_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "crew_cast_cape_cape": [
+   0.0545,
+   0.0482,
+   0.0423
+  ],
+  "crew_cast_cape_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "crew_cast_cape_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "crew_cast_cape_shirt": [
+   0.4793,
+   0.3916,
+   0.2384
+  ],
+  "crew_cast_cape_shoe": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_cape_shoes": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_cape_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "crew_cast_cape_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "crew_cast_cape_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ]
+ }
+}

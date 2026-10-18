@@ -1,0 +1,157 @@
+{
+ "person": "CAST_BEDROLL",
+ "model": "records/portrait/rig/crew/cast_bedroll_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/crew_cast_bedroll.glb",
+ "dropped": [
+  "crew_cast_bedroll_hair",
+  "crew_cast_bedroll_hair_fall",
+  "crew_cast_bedroll_hat",
+  "crew_cast_bedroll_hat_brim",
+  "crew_cast_bedroll_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "work cap",
+ "hair": "taper",
+ "stubble": false,
+ "look": "cast_bedroll",
+ "meshes": {
+  "Cesium_Man": 1232,
+  "crew_cast_bedroll_hand_L": 392,
+  "crew_cast_bedroll_hand_R": 392,
+  "crew_cast_bedroll_shoe": 3916,
+  "crew_cast_bedroll_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_cap": 10488,
+  "portrait_visor": 80,
+  "portrait_hair": 3066
+ },
+ "materials": {
+  "crew_cast_bedroll_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "crew_cast_bedroll_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "crew_cast_bedroll_shirt": [
+   0.1812,
+   0.1274,
+   0.0685
+  ],
+  "crew_cast_bedroll_shoe": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_bedroll_shoes": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_bedroll_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "crew_cast_bedroll_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "crew_cast_bedroll_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "portrait_cast_bedroll_buzz": [
+   0.0685,
+   0.0409,
+   0.0232
+  ],
+  "portrait_cast_bedroll_cap": [
+   0.1878,
+   0.1248,
+   0.0648
+  ],
+  "portrait_cast_bedroll_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_cast_bedroll_lips": [
+   0.0513,
+   0.0144,
+   0.0097
+  ],
+  "portrait_cast_bedroll_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_cast_bedroll_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_cast_bedroll_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_cast_bedroll_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "portrait_cast_bedroll_stubble": [
+   0.0513,
+   0.0144,
+   0.0097
+  ]
+ }
+}

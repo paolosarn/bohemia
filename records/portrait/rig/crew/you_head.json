@@ -1,0 +1,162 @@
+{
+ "person": "YOU",
+ "model": "records/portrait/rig/crew/you_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/crew_you.glb",
+ "dropped": [
+  "crew_you_hair",
+  "crew_you_hair_fall",
+  "crew_you_hat",
+  "crew_you_hat_brim",
+  "crew_you_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "long",
+ "stubble": false,
+ "look": "you",
+ "meshes": {
+  "Cesium_Man": 1232,
+  "crew_you_coat": 17570,
+  "crew_you_coat_skirt": 2352,
+  "crew_you_hand_L": 392,
+  "crew_you_hand_R": 392,
+  "crew_you_shoe": 3916,
+  "crew_you_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 17154
+ },
+ "materials": {
+  "crew_you_coat": [
+   0.0103,
+   0.0091,
+   0.0091
+  ],
+  "crew_you_coat_skirt": [
+   0.0103,
+   0.0091,
+   0.0091
+  ],
+  "crew_you_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "crew_you_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "crew_you_shirt": [
+   0.013,
+   0.0116,
+   0.0116
+  ],
+  "crew_you_shoe": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_you_shoes": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_you_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "crew_you_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "crew_you_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "portrait_you_buzz": [
+   0.8632,
+   0.8148,
+   0.5906
+  ],
+  "portrait_you_iris": [
+   0.0782,
+   0.159,
+   0.1441
+  ],
+  "portrait_you_lips": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "portrait_you_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_you_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_you_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_you_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "portrait_you_stubble": [
+   0.5841,
+   0.3231,
+   0.2016
+  ]
+ }
+}

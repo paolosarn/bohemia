@@ -10150,6 +10150,80 @@
     "how": "image",
     "src": "vote/EYES_THE_NEW_CUT_MEASURED.png"
    }
+  },
+  {
+   "id": "portrait-every-face-from-the-same-model-10-18",
+   "kind": "face",
+   "lane": "portrait",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: YOUR WHOLE CREW GETS THE STARRED FACE, 13 HEADS BUILT ON THEIR OWN BODIES, ALL TALKING",
+   "why": "You gave the poacher's face your first star, so the face chat used the exact same method on the 13 faces you hated on the crew screen and the scavenge screen: you and the 12 people you can have in your company, each a real 3D head on their own 3D body, with their hair cut and hat from what they wear, four talking mouths and three moods. You see it in the VOTE tab next to each one's flat face today, with the whole company line at screen size at the bottom; the crew screen swaps to them when the run wires the files in.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/portrait/PORTRAIT_EVERY_FACE_FROM_THE_SAME_MODEL.png"
+   },
+   "twin": {
+    "src": "slices/fight_people/you.webp",
+    "diffs": [
+     "THE FACE: ours is a modelled head the sun falls across, 128 pixels tall; the game's crew faces today are flat 64 pixel drawings that all share one face shape.",
+     "THE HAIR AND THE HAT: ours models each look's own cut (a taper, a long cut with a fringe, a shag, a coil crown) and its own hat (a knit cap, a watch cap, a slouch beanie, a work cap with a visor, a rice farmer's cone); the game's faces draw a hair cap that ignores the hat the body wears.",
+     "IT TALKS: ours opens its jaw into four mouth shapes and turns its brows and lids for angry, sad and surprised; the game's face moves a drawn mouth only."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own 64 px crew faces (left column, 2x; bottom row, 1:1)",
+    "after": "the same people's heads modelled on their own bodies and rendered through the rig",
+    "scale": "1:1 and 2x"
+   },
+   "sprites": [
+    "records/target/portrait/rig/crew/you/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/you/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/you/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_longcoat/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_longcoat/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_longcoat/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_barearms/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_barearms/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_barearms/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_pack/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_pack/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_pack/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_skirt/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_skirt/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_skirt/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_widebrim/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_widebrim/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_widebrim/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_cape/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_cape/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_cape/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_apron/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_apron/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_apron/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_poncho/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_poncho/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_poncho/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_bedroll/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_bedroll/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_bedroll/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_shorts/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_shorts/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_shorts/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_satchel/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_satchel/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_satchel/rig_portrait_SW.png",
+    "records/target/portrait/rig/crew/cast_shortcoat/rig_portrait_S.png",
+    "records/target/portrait/rig/crew/cast_shortcoat/rig_portrait_SE.png",
+    "records/target/portrait/rig/crew/cast_shortcoat/rig_portrait_SW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
   }
  ],
  "verdicts": [

@@ -1,0 +1,150 @@
+{
+ "person": "CAST_BAREARMS",
+ "model": "records/portrait/rig/crew/cast_barearms_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/crew_cast_barearms.glb",
+ "dropped": [
+  "crew_cast_barearms_hair",
+  "crew_cast_barearms_hair_fall",
+  "crew_cast_barearms_hat",
+  "crew_cast_barearms_hat_brim",
+  "crew_cast_barearms_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "coil",
+ "stubble": false,
+ "look": "cast_barearms",
+ "meshes": {
+  "Cesium_Man": 1247,
+  "crew_cast_barearms_hand_L": 392,
+  "crew_cast_barearms_hand_R": 392,
+  "crew_cast_barearms_shoe": 3916,
+  "crew_cast_barearms_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 12582
+ },
+ "materials": {
+  "crew_cast_barearms_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "crew_cast_barearms_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "crew_cast_barearms_shirt": [
+   0.0296,
+   0.0273,
+   0.0252
+  ],
+  "crew_cast_barearms_shoe": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_barearms_shoes": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_barearms_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "crew_cast_barearms_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "crew_cast_barearms_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "portrait_cast_barearms_buzz": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "portrait_cast_barearms_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_cast_barearms_lips": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_cast_barearms_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_cast_barearms_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_cast_barearms_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_cast_barearms_skin": [
+   0.1441,
+   0.0545,
+   0.0296
+  ],
+  "portrait_cast_barearms_stubble": [
+   0.0545,
+   0.0168,
+   0.0116
+  ]
+ }
+}

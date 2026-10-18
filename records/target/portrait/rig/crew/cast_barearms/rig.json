@@ -1,0 +1,240 @@
+{
+ "engine": "CYCLES",
+ "res": 240,
+ "ortho_scale": 4.2105263157894735,
+ "real_dims_m": [
+  0.596,
+  1.002,
+  1.72
+ ],
+ "scale_from_model": 1.129,
+ "still_frame": 0.0,
+ "still": "frame 0",
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.45,
+  "materials": [
+   "crew_cast_barearms_shirt",
+   "crew_cast_barearms_shoe",
+   "crew_cast_barearms_shoes",
+   "crew_cast_barearms_skin",
+   "crew_cast_barearms_trouser",
+   "crew_cast_barearms_trousers",
+   "portrait_cast_barearms_buzz",
+   "portrait_cast_barearms_iris",
+   "portrait_cast_barearms_lips",
+   "portrait_cast_barearms_mouth",
+   "portrait_cast_barearms_pupil",
+   "portrait_cast_barearms_sclera",
+   "portrait_cast_barearms_skin"
+  ],
+  "what": [
+   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.20)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.45 in a patch, 0.18 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1290)"
+ },
+ "calibration": {
+  "cube_px": 58,
+  "screen_light_deg": 155.4,
+  "sphere_value_span": 111,
+  "sphere_darkest": 88,
+  "cube_px_expected": 57,
+  "cube_ok": true,
+  "light_off_deg": 0.0,
+  "light_ok": true
+ },
+ "id_table": {
+  "crew_cast_barearms_shirt": "#ff1919",
+  "crew_cast_barearms_shoe": "#195cff",
+  "crew_cast_barearms_shoes": "#9fff19",
+  "crew_cast_barearms_skin": "#ff19e2",
+  "crew_cast_barearms_trouser": "#19ffd8",
+  "crew_cast_barearms_trousers": "#ff9519",
+  "portrait_cast_barearms_buzz": "#5219ff",
+  "portrait_cast_barearms_iris": "#23ff19",
+  "portrait_cast_barearms_lips": "#ff1966",
+  "portrait_cast_barearms_mouth": "#19a9ff",
+  "portrait_cast_barearms_pupil": "#ecff19",
+  "portrait_cast_barearms_sclera": "#ce19ff",
+  "portrait_cast_barearms_skin": "#19ff8b"
+ },
+ "model": "records/portrait/rig/crew/cast_barearms_head.glb",
+ "rig_round": 5,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/portrait/rig/crew/cast_barearms/rig_N.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_NE.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_E.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_SE.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_S.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_SW.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_W.png",
+  "records/target/portrait/rig/crew/cast_barearms/rig_NW.png"
+ ],
+ "crop_box_px": [
+  87,
+  64,
+  159,
+  186
+ ],
+ "shadow_files": [
+  "records/target/portrait/rig/crew/cast_barearms/shadow_N.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_NE.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_E.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_SE.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_S.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_SW.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_W.png",
+  "records/target/portrait/rig/crew/cast_barearms/shadow_NW.png"
+ ],
+ "ground_px": [
+  33,
+  56
+ ],
+ "colours": 4879,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 2,
+  "rows": [
+   "OK   long side >= floor 96: 122",
+   "OUT  colours >= 2330: 939",
+   "OK   top 8 carry <= 11%: 6.6",
+   "OUT  value span >= 118: 102",
+   "OK   saturation <= 0.81: 0.119",
+   "OK   light: top minus bottom >= -2.5: 7.1",
+   "OK   edge between -35 and +7: -15.9",
+   "OK   grain <= 2.22 px a run: 2.14"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 3.5%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 294.6"
+  ],
+  "verdict": "2 of 8 out -> to DIRECTION",
+  "file": "records/target/portrait/rig/crew/cast_barearms/rig_S.png"
+ },
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 122",
+   "OK   colours >= 610 (field 5: the class floor, or 370 per 1,000 of 1649 px): 939",
+   "OK   top 8 carry <= 11%: 6.6",
+   "OUT  value span >= 118: 102",
+   "OK   saturation <= 0.81: 0.119",
+   "OK   light: top minus bottom >= -2.5: 7.1",
+   "OK   edge between -35 and +7: -15.9",
+   "OK   grain <= 2.22 px a run: 2.14"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "1 of 8 out under the style guide",
+  "size_px": [
+   34,
+   111
+  ],
+  "opaque_px": 1649,
+  "colours": 939
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.45,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
+ },
+ "breaks": [
+  "wear"
+ ],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "id_files": [
+  "records/target/portrait/rig/crew/cast_barearms/rigid_N.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_NE.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_E.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_SE.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_S.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_SW.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_W.png",
+  "records/target/portrait/rig/crew/cast_barearms/rigid_NW.png"
+ ],
+ "portrait": "portrait.json"
+}

@@ -1,0 +1,3 @@
+# the bodies and heads rebuild in seconds from tools/bohemia_portrait_the_head_from_the_model.py (--crew-body, then the head);
+# 13 x 10 MB of glb is not worth the repo. The .json beside each records what was built.
+*.glb

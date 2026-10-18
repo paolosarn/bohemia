@@ -968,6 +968,23 @@ QUESTS (quests-dvybth): 10/10 (d) LATEST -- [ninth shelf] SHIPPED: QR-AP, 20 des
 
 QUESTS (quests-dvybth): 10/10 (c) LATEST -- [aa lines 29 and 30] SHIPPED: QR-AO, all 20 hunts now 32 of 32 (15 fixed, mostly the trophy paid on top). Rule 88: pages only, no VOTE sheets. NOT IN A TAB. Next: [eighth shelf].
 
+PORTRAIT (portrait-vamily-10-18c): 10/18 LATEST (round fifteen, [every face from the same model] round 1; Opus 5.5,
+opened by the coordinator, rule 112, run to the end, no question) -- *** THE STARRED FACE ON THE WHOLE CREW: 13 HEADS, EACH ON
+ITS OWN BODY, ALL TALKING (rule 115h). ***
+The thirteen faces RUN TWO's crew and scavenge screens show (YOU and the twelve cast looks the roster hands out) are each a
+modelled head on its own body: the bodies built by CHARACTER's tool from each look's worn list (imported, never edited),
+the poacher's head recipe unchanged, four new cuts and four new hats as geometry, strand normals on dark hair, rendered
+through DIRECTION's rig unedited. HAND-OFF: records/target/portrait/crew/BOHEMIA_CREW_FACES.json (rest + four mouths +
+three moods, 64 and 128 squares per look); a NOTE on RUN TWO's section says how to swap them in. speak_along_gate RED to
+GREEN. NOT VIBE CODED clean for this card after lifting four dark tops one step (D3).
+Record: records/BOHEMIA_PORTRAIT_EVERY_FACE_FROM_THE_SAME_MODEL_10_18_26.md. Sheet:
+records/target/portrait/PORTRAIT_EVERY_FACE_FROM_THE_SAME_MODEL.png. VOTE: portrait-every-face-from-the-same-model-10-18,
+a PLACEHOLDER. TAB: VOTE.
+TO DIRECTION (re-sent): the dust pass blotches skin; --class portrait still crashes. TO RUN TWO: the files above.
+Lead line for DIRECTION (rule 113a): PORTRAIT made the crew's 13 faces from the same model, VOTE tab, COOKING.
+PENDING Paolo: nothing.
+NEXT: the face spec's dials onto the skull (all 13 share one skull now); then the enemy tiers as COOK THREE remodels them.
+
 PORTRAIT (portrait-vamily-10-18b): 10/18 LATEST (round fourteen, [the face from the same model] round 2; Opus 5.5,
 opened by the coordinator, rule 112, run to the end, no question) -- *** THE POACHER'S FACE IS A MODELLED HEAD UNDER A
 FIELD HAT ON HIS OWN BODY, AND IT TALKS. ***

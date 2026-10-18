@@ -1,0 +1,156 @@
+{
+ "person": "CAST_PONCHO",
+ "model": "records/portrait/rig/crew/cast_poncho_head.glb",
+ "from_body": "records/portrait/rig/crew/bodies/crew_cast_poncho.glb",
+ "dropped": [
+  "crew_cast_poncho_hair",
+  "crew_cast_poncho_hair_fall",
+  "crew_cast_poncho_hat",
+  "crew_cast_poncho_hat_brim",
+  "crew_cast_poncho_visor"
+ ],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": null,
+ "hair": "long",
+ "stubble": false,
+ "look": "cast_poncho",
+ "meshes": {
+  "Cesium_Man": 1247,
+  "crew_cast_poncho_hand_L": 392,
+  "crew_cast_poncho_hand_R": 392,
+  "crew_cast_poncho_mantle": 18210,
+  "crew_cast_poncho_shoe": 3916,
+  "crew_cast_poncho_trouser": 2568,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48,
+  "portrait_hair": 17154
+ },
+ "materials": {
+  "crew_cast_poncho_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "crew_cast_poncho_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "crew_cast_poncho_mantle": [
+   0.1384,
+   0.0212,
+   0.0176
+  ],
+  "crew_cast_poncho_shirt": [
+   0.0296,
+   0.0273,
+   0.0252
+  ],
+  "crew_cast_poncho_shoe": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_poncho_shoes": [
+   0.0212,
+   0.0176,
+   0.016
+  ],
+  "crew_cast_poncho_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "crew_cast_poncho_trouser": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "crew_cast_poncho_trousers": [
+   0.0212,
+   0.0194,
+   0.0194
+  ],
+  "portrait_cast_poncho_buzz": [
+   0.3712,
+   0.3663,
+   0.3278
+  ],
+  "portrait_cast_poncho_iris": [
+   0.0545,
+   0.0168,
+   0.0116
+  ],
+  "portrait_cast_poncho_lips": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "portrait_cast_poncho_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_cast_poncho_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_cast_poncho_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_cast_poncho_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "portrait_cast_poncho_stubble": [
+   0.1384,
+   0.0467,
+   0.0252
+  ]
+ }
+}

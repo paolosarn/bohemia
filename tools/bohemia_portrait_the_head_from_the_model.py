@@ -96,6 +96,78 @@ PEOPLE = {
 }
 
 
+# [every face from the same model] (rule 115h, HIS FIRST STAR on the poacher's face): the starred recipe on the thirteen
+# faces RUN TWO's crew and scavenge screens show (YOU and the twelve cast looks the roster hands out, engine/bohemia_roster.js
+# manOf). None of them had a model, so each BODY is built by CHARACTER's own tool from the look's worn list
+# (tools/bohemia_character_the_thirteen_through_the_rig.py, imported, never edited: a LOOKS entry is added in memory and its
+# build() runs), and the head goes on that body's head bone exactly as the poacher's did. Skin is the person's own skin
+# from the game's 64 px face (sampled, then a step of the style palette, two steps lighter than the sample on the deep
+# skins because the rig's one sun and the dust pass take about two steps off a face); hair cut and head gear are the
+# look's worn list (fight_people.json); colours of the cloth are the worn names read as palette colours.
+# body keys are CHARACTER's spec (shirt, coat, mantle, cape, trousers, shoes); hair/gear are this tool's head pieces.
+CREW = {
+    'YOU': dict(look='you', name='YOU', skin=('skin_light', 3), lips=('skin_light', 2), hair='long', hair_c=('clay_bone', 4), gear=None,
+                iris=('clay_teal', 2), worn='the player as he stands: platinum hair, black leather jacket over a black longsleeve',
+                body=dict(shirt=dict(colour=(30, 28, 28), sleeve='long'), coat=dict(colour=(26, 24, 24), hem='HIP', flare=0.01, thick=0.014, v=0.05, front_open=0.35))),
+    # (cycle 2, the NOT VIBE CODED light row, D3: a near-black top over a paler shirt read as lit from below on 5 of 39
+    # renders; the four tops lifted one step, as the thug's cap was in round 2)
+    'CAST_LONGCOAT': dict(look='cast_longcoat', skin=('skin_deep', 2), hair='taper', hair_c=('cloth_black', 2), gear=None,
+                          body=dict(shirt=dict(colour=(36, 34, 34), sleeve='long'), coat=dict(colour=(92, 78, 60), hem='ANKLE', flare=0.05, thick=0.016, v=0.06, front_open=0.5, back_slit=0.45))),
+    'CAST_BAREARMS': dict(look='cast_barearms', skin=('skin_deep', 2), hair='coil', hair_c=('cloth_black', 1), gear=None,
+                          body=dict(shirt=dict(colour=(48, 46, 44), sleeve='none'))),
+    'CAST_PACK': dict(look='cast_pack', skin=('skin_deep', 2), hair='taper', hair_c=('tape_masking', 0), gear='knit cap', gear_c=('tape_grey', 1),
+                      body=dict(shirt=dict(colour=(84, 88, 60), sleeve='long'), mantle=dict(colour=(73, 78, 54), low=0.88))),
+    'CAST_SKIRT': dict(look='cast_skirt', skin=('skin_mid', 2), hair='long', hair_c=('tape_masking', 1), gear=None,
+                       body=dict(shirt=dict(colour=(184, 176, 156), sleeve='short'))),
+    'CAST_WIDEBRIM': dict(look='cast_widebrim', skin=('skin_deep', 2), hair='taper', hair_c=('tape_grey', 2), gear='cone hat', gear_c=('tape_masking', 2),
+                          body=dict(shirt=dict(colour=(118, 100, 74), sleeve='long'))),
+    'CAST_CAPE': dict(look='cast_cape', skin=('skin_deep', 3), hair='shag', hair_c=('tape_grey', 2), gear=None,
+                      body=dict(shirt=dict(colour=(184, 168, 134), sleeve='long'), cape=dict(colour=(66, 62, 58), hem='KNEE', top=1.12))),
+    'CAST_APRON': dict(look='cast_apron', skin=('skin_deep', 3), hair='taper', hair_c=('tape_grey', 1), gear=None,
+                       body=dict(shirt=dict(colour=(150, 80, 48), sleeve='long'))),
+    'CAST_PONCHO': dict(look='cast_poncho', skin=('skin_mid', 2), hair='long', hair_c=('tape_grey', 2), gear=None,
+                        body=dict(shirt=dict(colour=(48, 46, 44), sleeve='none'), mantle=dict(colour=(104, 40, 36), low=0.78, thick=0.03))),
+    'CAST_BEDROLL': dict(look='cast_bedroll', skin=('skin_mid', 1), hair='taper', hair_c=('tape_masking', 0), gear='work cap', gear_c=('tape_masking', 1),
+                         body=dict(shirt=dict(colour=(118, 100, 74), sleeve='long'))),
+    'CAST_SHORTS': dict(look='cast_shorts', skin=('skin_deep', 3), hair='coil', hair_c=('tape_masking', 2), gear=None,
+                        body=dict(shirt=dict(colour=(184, 176, 156), sleeve='short'))),
+    'CAST_SATCHEL': dict(look='cast_satchel', skin=('skin_deep', 2), hair='taper', hair_c=('clay_rust', 1), gear='watch cap', gear_c=('cloth_black', 3),
+                         body=dict(shirt=dict(colour=(84, 88, 60), sleeve='long'))),
+    # (cycle 1: skin_mid 1 under a clay_rust 1 beanie and orange hair read as one red-brown lump; a step lighter skin and the
+    # beanie a deep oxblood, clay_rust 1 (blood 0 failed the light row at SE, cycle 2), part the three)
+    'CAST_SHORTCOAT': dict(look='cast_shortcoat', skin=('skin_mid', 2), hair='long', hair_c=('clay_rust', 2), gear='slouch beanie', gear_c=('clay_rust', 1),
+                           body=dict(shirt=dict(colour=(30, 28, 28), sleeve='long'), coat=dict(colour=(70, 48, 38), hem='HIP', flare=0.01, thick=0.016, v=0.05, front_open=0.4))),
+}
+CREW_BODIES = 'records/portrait/rig/crew/bodies'
+for _k, _c in CREW.items():
+    _tag = 'crew_' + _c['look']
+    PEOPLE[_k] = dict(body='%s/%s.glb' % (CREW_BODIES, _tag), drop=tuple('%s_%s' % (_tag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
+                      cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
+                      gear=_c['gear'], hair=_c['hair'], stubble=False, look=_c['look'], crew=True,
+                      twin='slices/fight_people/%s.webp' % _c['look'], twin_face=True,
+                      palette='steps of the style palette (skin %s %d, hair %s %d%s)' % (_c['skin'] + _c['hair_c'] + ((', gear %s %d' % _c['gear_c']) if _c.get('gear') else '',)),
+                      kit='%s; %s' % (_c['gear'] or 'bare head', {'long': 'a long cut to the jaw', 'taper': 'a short taper', 'coil': 'a coil crown', 'shag': 'a choppy shag'}[_c['hair']]),
+                      colours=dict(skin=_c['skin'], lips=_c.get('lips', (_c['skin'][0], max(0, _c['skin'][1] - 1))), hair=_c['hair_c'],
+                                   gear=_c.get('gear_c', _c['hair_c']), iris=_c.get('iris', ('skin_deep', 1)),
+                                   stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
+
+
+def crew_body(who, outdir):
+    """CHARACTER's tool builds the look's body (its LOOKS gains this entry in memory; its file is never written)"""
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import bohemia_character_the_thirteen_through_the_rig as CH
+    c = CREW[who]; spec = {}
+    for k, v in c['body'].items():
+        v = dict(v)
+        if isinstance(v.get('hem'), str): v['hem'] = getattr(CH, v['hem'])
+        spec[k] = v
+    spec.setdefault('trousers', dict(colour=(40, 38, 38), wide=0.012)); spec.setdefault('shoes', dict(colour=(40, 36, 34), kind='boot', top=0.2))
+    name = 'crew_' + c['look']
+    CH.LOOKS[name] = dict(order=99, shape='crew: ' + c['look'], dials=dict(height=0.0, belly=0.0, shoulders=0.0, hips=0.0),
+                          worn=c.get('worn', c['look']), hair=dict(style='taper', colour=CH.HAIR_DARK), **spec)
+    CH.build(name, os.path.join(ROOT, outdir))
+
+
 def palette_step(role, i):
     """a step of a role's ramp in the style palette (records/target/BOHEMIA_STYLE_PALETTE.json, field 5)"""
     h = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles'][role]['ramp'][i].lstrip('#')
@@ -198,6 +270,21 @@ def build(who, out):
     for nm, rgb in (('skin', K['skin']), ('lips', K['lips']), ('mouth', MOUTH), ('stubble', K['stubble']), ('buzz', K['hair'])):
         head.materials.append(mat('portrait_%s_%s' % (who.lower(), nm), rgb, rough=0.85 if nm == 'lips' else 0.92))
     V = head.vertices
+
+    def scalp(x, y, z):
+        """where the hair grows on the skull: the poacher's and the thug's back and sides (rounds 1 and 2), and for the
+        crew's cuts the crown above a hairline 70 mm over the head's centre at the brow, the long cuts down to the jaw"""
+        st = P['hair']
+        back = (z > -0.030 and y > 0.000) or (z > -0.020 and y > -0.026 and abs(x) > RX * 0.8)
+        if st in ('buzz', 'curls'): return back
+        # the front hairline is ragged, never a ruler line (cycle 1: a smooth edge read as a helmet's rim): strands every
+        # 13 mm hang 6 to 22 mm lower on a long cut (a fringe), 4 mm on a short one
+        # (cycle 2: a 26 mm pitch stepped on the skull's rows into a saw; 40 mm clumps read as a fringe)
+        jag = (0.018 if st in ('long', 'shag') else 0.004) * max(0.0, math.cos(math.pi * x / 0.040)) ** 2 * (0.7 + 0.3 * math.cos(2 * math.pi * x / 0.071))
+        crown = z > 0.064 - jag - 0.040 * sstep(-0.10, 0.00, y)
+        if st in ('long', 'shag'):
+            return back or crown or (abs(x) > RX * 0.74 and y > -0.040 and z > -0.118) or (y > 0.010 and z > -0.165)
+        return back or crown
     lower_side = [V[i].co.z < MOUTH_Z for i in range(len(V))]
     for f in head.polygons:
         if f.vertices[0] >= head_verts: continue                  # the ears are skin
@@ -206,7 +293,7 @@ def build(who, out):
         if front and len(sides) == 2 and abs(x) < MOUTH_HALF: f.material_index = 2          # the mouth line
         elif front and abs(x) < MOUTH_HALF + 0.004 and -0.108 < z < -0.072: f.material_index = 1   # the lips
         elif P['stubble'] and z < -0.058 + 0.04 * max(0.0, min(1.0, (y + 0.05) / 0.07)) and y < 0.03 and not (abs(x) < 0.03 and z > -0.072): f.material_index = 3   # the beard line rises from the cheek to the jaw's angle
-        elif P['hair'] in ('buzz', 'curls') and ((z > -0.030 and y > 0.000) or (z > -0.020 and y > -0.026 and abs(x) > RX * 0.8)): f.material_index = 4   # the back, the sides behind the ear, a sideburn
+        elif scalp(x, y, z): f.material_index = 4   # the back, the sides behind the ear, a sideburn (and the crown on the crew's cuts)
 
     # 3. THE SHAPE KEYS: the jaw turns about the hinge in front of the ear; the mouth, the brows and the corners move
     ho.shape_key_add(name='Basis')
@@ -380,6 +467,101 @@ def build(who, out):
             if math.hypot(f.center.x, f.center.y - 0.006) < cr * 1.03 and base_z + 0.012 < f.center.z < base_z + 0.040: f.material_index = 1
         ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
         objs.append(ha)
+    CAP = {'knit cap': 0.0, 'watch cap': 0.020, 'slouch beanie': 0.0, 'work cap': 0.012}
+    def cap_line(y): return 0.080 - 0.085 * sstep(-0.12, 0.14, y) + CAP.get(P['gear'], 0.0)
+    if P['gear'] in ('watch cap', 'slouch beanie', 'work cap'):
+        # the crew's caps: the knit cap's method (the skull's own skin lifted above a line), a watch cap rolled higher on the
+        # brow, a slouch beanie with its crown hanging off the back, a work cap with a flat crown and a visor
+        k = P['gear']
+        bm = bmesh.new(); bm.from_mesh(head)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or f.calc_center_median().z < cap_line(f.calc_center_median().y) - 0.004], context='FACES')
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        bm.normal_update()
+        for v in bm.verts:
+            p = v.co; ln = cap_line(p.y); brim = k != 'work cap' and p.z < ln + 0.030
+            ang = math.atan2(p.y, p.x)
+            rib = 0.0016 * max(0.0, math.cos(ang * 0.165 / 0.011)) ** 4 if (k != 'work cap' and not brim) else 0.0
+            t = (0.022 if brim else (0.009 if k == 'work cap' else 0.012)) - rib
+            if brim and abs(p.z - (ln + 0.030)) < 0.004: t -= 0.004
+            if k == 'slouch beanie': t += 0.034 * sstep(-0.02, 0.15, p.y) * sstep(ln + 0.03, 0.17, p.z)   # the slouch off the back
+            v.co = p + v.normal * t
+        cap = bpy.data.meshes.new('portrait_cap'); bm.to_mesh(cap); bm.free()
+        cap.materials.clear(); cap.materials.append(mat('portrait_%s_cap' % who.lower(), K['gear']))
+        for f in cap.polygons: f.material_index = 0; f.use_smooth = True
+        co_ = bpy.data.objects.new('portrait_cap', cap); sc.collection.objects.link(co_); co_.location = C
+        bpy.context.view_layer.objects.active = co_
+        for o in sc.objects: o.select_set(o is co_)
+        sd = co_.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.008; sd.offset = -1
+        bpy.ops.object.modifier_apply(modifier='rim')
+        objs.append(co_)
+        if k == 'work cap':   # the visor: a flat oval out over the brow, tipped down 10 degrees, the back half inside the crown
+            bm = bmesh.new()
+            vz = cap_line(-0.16) + 0.006
+            bmesh.ops.create_cone(bm, cap_ends=True, segments=40, radius1=1.0, radius2=1.0, depth=1.0,
+                                  matrix=Matrix.Translation((0.0, -RY * 0.92, vz)) @ Matrix.Rotation(math.radians(-10), 4, 'X') @ Matrix.Diagonal((RX * 0.78, 0.085, 0.007, 1.0)))
+            vm = bpy.data.meshes.new('portrait_visor'); bm.to_mesh(vm); bm.free()
+            vm.materials.append(cap.materials[0])
+            vo = bpy.data.objects.new('portrait_visor', vm); sc.collection.objects.link(vo); vo.location = C
+            objs.append(vo)
+    if P['gear'] == 'cone hat':
+        # the rice farmer's hat (CHARACTER's cone, sized to this head): a shallow straw cone wider than the shoulders' half,
+        # its point over the crown, the weave pressed in as rings every 35 mm, its rim well above the eyes (cycle 1: 1.9 x the
+        # head's width ran off the portrait's frame on both sides; 1.5 keeps the cone and the face in one square)
+        bm = bmesh.new()
+        top = RZ - 0.030 + 0.065
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=48, radius1=RX * 1.5, radius2=0.012, depth=0.11,
+                              matrix=Matrix.Translation((0.0, 0.006, top)))
+        bmesh.ops.subdivide_edges(bm, edges=[e for e in bm.edges if abs(e.verts[0].co.z - e.verts[1].co.z) > 0.01], cuts=8)
+        for v in bm.verts:
+            r = math.hypot(v.co.x, v.co.y - 0.006)
+            if v.co.z > top - 0.06: v.co.z -= 0.004 * max(0.0, math.cos(2 * math.pi * r / 0.035)) ** 6
+        bm.normal_update()
+        hat = bpy.data.meshes.new('portrait_hat'); bm.to_mesh(hat); bm.free()
+        hat.materials.append(mat('portrait_%s_hat' % who.lower(), K['gear']))
+        ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
+        bpy.context.view_layer.objects.active = ha
+        for o in sc.objects: o.select_set(o is ha)
+        sd = ha.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.010; sd.offset = -1
+        bpy.ops.object.modifier_apply(modifier='rim')
+        objs.append(ha)
+    if P['hair'] in ('taper', 'long', 'shag', 'coil'):
+        # THE CREW'S CUTS, the curls' method: the skull's own scalp faces lifted. A taper is a 3 to 8 mm shell combed
+        # front to back; a long cut a 10 mm shell that fills to 20 mm toward the jaw; a shag the long cut in choppy lumps;
+        # a coil crown the poacher's curls over the whole scalp. Under a cap only what shows below its line is kept.
+        st = P['hair']; capped = P['gear'] in CAP or P['gear'] == 'knit cap'
+        bm = bmesh.new(); bm.from_mesh(head)
+        def keep(c):
+            if not scalp(c.x, c.y, c.z): return False
+            return not (capped and c.z > cap_line(c.y) + 0.010)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not keep(f.calc_center_median())], context='FACES')
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        bm.normal_update()
+        for v in bm.verts:
+            p = v.co; ang = math.atan2(p.y, p.x)
+            # strands: combed front to back over the crown, hanging down the sides and the back (cycle 1's 2.5 mm grooves
+            # vanished at 128 px; 5 mm on a 12 mm pitch read as hair by the sun's own light)
+            comb = 0.005 * max(0.0, math.cos(2 * math.pi * p.x / 0.012)) ** 3 if p.z > 0.08 else 0.005 * max(0.0, math.cos(2 * math.pi * ang * RX / 0.012)) ** 3
+            lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.022)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.022))
+            if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) - comb
+            elif st == 'coil':
+                # (cycle 1: the curls' grid lined up in rings round the crown and read as a knit cap) coils on two
+                # crossed, tilted pitches and a third that breaks the rows
+                a1 = ang * RX + 0.6 * p.z; a2 = ang * RX - 0.6 * p.z
+                coil = (0.5 + 0.5 * math.cos(2 * math.pi * a1 / 0.019)) * (0.5 + 0.5 * math.cos(2 * math.pi * a2 / 0.023)) * (0.75 + 0.25 * math.cos(2 * math.pi * (p.x + 1.7 * p.z) / 0.031))
+                t = 0.011 + 0.010 * coil ** 0.8
+            else:
+                t = 0.007 + 0.012 * sstep(0.0, -0.13, p.z) - comb
+                if st == 'shag': t += 0.008 * lump ** 1.5
+            v.co = p + v.normal * t
+        for f in bm.faces: f.material_index = 0; f.smooth = True
+        hm = bpy.data.meshes.new('portrait_hair'); bm.to_mesh(hm); bm.free()
+        hm.materials.clear(); hm.materials.append(head.materials[4])
+        hh = bpy.data.objects.new('portrait_hair', hm); sc.collection.objects.link(hh); hh.location = C
+        bpy.context.view_layer.objects.active = hh
+        for o in sc.objects: o.select_set(o is hh)
+        sd = hh.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.004; sd.offset = -1
+        bpy.ops.object.modifier_apply(modifier='rim')
+        objs.append(hh)
     if P['hair'] == 'curls':
         # BLACK CURLS out from under the hat at the sides and the back (the game's own poacher face): the skull's own
         # faces lifted 16 mm, every curl a lump 9 mm high on a 22 mm grid, nothing over the face or the ears' front
@@ -398,6 +580,23 @@ def build(who, out):
         hm.materials.clear(); hm.materials.append(head.materials[4])
         hc = bpy.data.objects.new('portrait_curls', hm); sc.collection.objects.link(hc); hc.location = C
         objs.append(hc)
+
+    # 6b. STRAND NORMALS ON A DARK HEAD (CHARACTER's 8b, reused for the crew): the rig's source pass dusts every up-facing
+    # surface toward a pale warm dust, so black hair and a charcoal cap rendered grey (cycle 1, measured on the longcoat and
+    # the barearms). A strand's normal lies across the head, never straight up: the dark pieces' normals are tilted out
+    # from the skull's axis, z held under 0.5, as CHARACTER measured. The real fix is the rig's per-material wear (routed).
+    if P.get('crew'):
+        for o in objs:
+            if o.name not in ('portrait_hair', 'portrait_cap') or not o.data.materials: continue
+            bc = next(n for n in o.data.materials[0].node_tree.nodes if n.type == 'BSDF_PRINCIPLED').inputs['Base Color'].default_value
+            if 0.2126 * bc[0] + 0.7152 * bc[1] + 0.0722 * bc[2] > 0.12: continue
+            ns = []
+            for v in o.data.vertices:
+                n = v.normal.copy(); r = Vector((v.co.x, v.co.y, 0.0))
+                r = r.normalized() if r.length > 1e-4 else Vector((0, 1, 0))
+                t = max(0.0, n.z - 0.5) / 0.5
+                m = n.lerp(r, t); m.z = min(m.z, 0.5); m.normalize(); ns.append(tuple(m))
+            o.data.normals_split_custom_set_from_vertices(ns)
 
     # 7. SKIN IT: every piece on the head bone; the neck blends down onto the neck bone
     # (round 2: the head's offset is baked into every mesh first; left as an object location, the exporter dropped it
@@ -424,7 +623,7 @@ def build(who, out):
     stats = dict(person=who, model=os.path.relpath(out, ROOT), from_body=P['body'], dropped=list(P['drop']), cut_above_z=P['cut_z'],
                  head=dict(centre=P['centre'], radii=P['radii'], mouth_z=MOUTH_Z, mouth_half=MOUTH_HALF, eye=[EYE_X, EYE_Z, EYE_R], bone=HEAD_BONE),
                  shape_keys=[k.name for k in ho.data.shape_keys.key_blocks][1:], lid_keys=[k.name for k in lo.data.shape_keys.key_blocks][1:],
-                 gear=P['gear'], hair=P['hair'], stubble=P['stubble'],
+                 gear=P['gear'], hair=P['hair'], stubble=P['stubble'], look=P.get('look'),
                  meshes={o.name: len(o.data.vertices) for o in sc.objects if o.type == 'MESH'},
                  materials={m.name: [round(x, 4) for x in next(n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED').inputs['Base Color'].default_value[:3]] for m in bpy.data.materials if m.use_nodes})
     json.dump(stats, open(out.replace('.glb', '.json'), 'w'), indent=1)
@@ -482,8 +681,92 @@ def sheet(who, frames, out):
     os.makedirs(os.path.dirname(out), exist_ok=True); S.save(out); print('sheet', out, S.size)
 
 
+CREW_OUT = 'records/target/portrait/crew'
+CREW_FRAMES = 'records/target/portrait/rig/crew'
+
+
+def crew_faces():
+    """THE HAND-OFF TO RUN TWO: every crew face as square files the screens draw as they are (the roster and the settlement
+    draw a face into a 64 canvas; a 72 px box on a 3x phone shows 216 device pixels, so a 128 is handed too). The square is
+    the rig's portrait frame padded to square on its own background; the 64 and the 128 are BOX-resampled from the 1:1
+    render (the area average a render at that size would take; never nearest, which drops the eyes). Rest, the four
+    speak-along mouths and the three moods, so the talking face is the same model. Manifest: BOHEMIA_CREW_FACES.json."""
+    from PIL import Image
+    man = dict(version='crew-faces-10-18', lane='portrait', rule='115h', method='the face from the same model (HIS FIRST STAR)',
+               draft=True, placeholder='nothing is final before the moodboard (rule 108); the old 64 face stays until RUN TWO swaps',
+               how_to_draw='drawImage(face, 0, 0, box, box): already square, already sized; the 128 for boxes over 64 css px',
+               keys=['rest', 'A', 'E', 'O', 'M', 'Angry', 'Sad', 'Surprised'], faces={})
+    for who, c in CREW.items():
+        l = who.lower(); fr = os.path.join(ROOT, CREW_FRAMES, l)
+        pj = json.load(open(os.path.join(fr, 'portrait.json')))
+        src = dict(rest=pj['files'][0], **pj['expression_files'])
+        od = os.path.join(ROOT, CREW_OUT, c['look']); os.makedirs(od, exist_ok=True)
+        ent = dict(name=c.get('name'), look=c['look'], model='records/portrait/rig/crew/%s_head.glb (rebuilt by this tool; not committed, 7 MB)' % l,
+                   hair=c['hair'], gear=c['gear'], files={})
+        for k in man['keys']:
+            if k not in src: continue
+            im = Image.open(os.path.join(ROOT, src[k])).convert('RGBA')
+            # the square is the head and a little collar, not the shoulders (cycle 1: the whole rig frame boxed to 64 left the
+            # head 38 px in a 64 box, smaller than the drawn face it replaces): a window 1.25 x the head's height from the top,
+            # centred on the head
+            side = min(im.width, int(round(pj['head_px'] * 1.25)))
+            bb = im.split()[3].crop((0, 0, im.width, side)).getbbox() or (0, 0, im.width, side)
+            cx = (bb[0] + bb[2]) // 2; x0 = max(0, min(im.width - side, cx - side // 2))
+            sq = im.crop((x0, 0, x0 + side, side))
+            for n in (64, 128):
+                p = os.path.join(od, '%s_%d.png' % (k, n)); sq.resize((n, n), Image.BOX).save(p)
+            ent['files'][k] = os.path.relpath(os.path.join(od, '%s_{64|128}.png' % k), ROOT)
+        man['faces'][c['look']] = ent
+    json.dump(man, open(os.path.join(ROOT, CREW_OUT, 'BOHEMIA_CREW_FACES.json'), 'w'), indent=1)
+    print('faces', len(man['faces']))
+
+
+def crew_sheet(out):
+    """the thirteen: the game's own 64 face today (at 2x) beside the new head three ways and talking, at 1:1; then the
+    company line as the crew screen draws it, today against the new faces at 64"""
+    from PIL import Image, ImageDraw
+    BG = (22, 21, 20); PANEL = (58, 52, 46); INK = (220, 214, 200); DIM = (160, 154, 140); HEAD = (200, 190, 120)
+    fp = json.load(open(os.path.join(ROOT, 'slices/fight_people/fight_people.json')))
+    rows = []
+    for who, c in CREW.items():
+        l = who.lower(); fr = os.path.join(ROOT, CREW_FRAMES, l)
+        pj = json.load(open(os.path.join(fr, 'portrait.json')))
+        sh = Image.open(os.path.join(ROOT, 'slices/fight_people', fp['looks'][c['look']]['file'])).convert('RGBA')
+        today = sh.crop((sh.width - 64, 0, sh.width, 64))
+        ims = [Image.open(os.path.join(ROOT, f)).convert('RGBA') for f in pj['files']] + \
+              [Image.open(os.path.join(ROOT, pj['expression_files'][k])).convert('RGBA') for k in ('A', 'O', 'M', 'Angry')]
+        rows.append((who, c, today, ims))
+    pw, ph = rows[0][3][0].size
+    Wd = 24 + 150 + 7 * (pw + 6); H = 70 + len(rows) * (ph + 22) + 60 + 2 * (64 + 30)
+    S = Image.new('RGB', (Wd, H), BG); d = ImageDraw.Draw(S)
+    d.text((12, 8), 'PORTRAIT: EVERY FACE FROM THE SAME MODEL (rule 115h, his first star). The thirteen faces RUN TWO\'s crew and scavenge screens show, each a MODELLED head on its own body (CHARACTER\'s tool, the look\'s worn list). A PLACEHOLDER.', fill=INK)
+    d.text((12, 22), 'head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | palette: style palette steps (skin from the game\'s own face, hair and gear from the worn list) | ONE light: the rig\'s sun, upper left, above | wear 0.45', fill=DIM)
+    d.text((12, 36), 'columns: TODAY (the game\'s 64 px face, 2x) | S | SE | SW | talking A | O | M | Angry, all 1:1 straight from DIRECTION\'s rig, unedited', fill=HEAD)
+    y = 56
+    for who, c, today, ims in rows:
+        d.text((12, y), '%s  (%s)  %s, %s' % (c.get('name') or c['look'].replace('cast_', '').upper(), c['look'], c['hair'], c['gear'] or 'bare head'), fill=HEAD); y += 14
+        t2 = today.resize((128, 128), Image.NEAREST); S.paste(PANEL, (12, y, 140, y + 128)); S.paste(t2, (12, y), t2)
+        x = 162
+        for im in ims:
+            S.paste(PANEL, (x, y, x + im.width, y + im.height)); S.paste(im, (x, y), im); x += pw + 6
+        y += ph + 8
+    y += 10
+    d.text((12, y), 'THE COMPANY LINE AT THE SIZE THE CREW SCREEN DRAWS IT (64 px): today, then the new faces (BOX-resampled from the render, the hand-off files)', fill=HEAD); y += 16
+    for i, (who, c, today, ims) in enumerate(rows):
+        x = 12 + i * 70
+        S.paste(PANEL, (x, y, x + 64, y + 64)); S.paste(today, (x, y), today)
+        f = Image.open(os.path.join(ROOT, CREW_OUT, c['look'], 'rest_64.png')).convert('RGBA')
+        S.paste(PANEL, (x, y + 94, x + 64, y + 158)); S.paste(f, (x, y + 94), f)
+    d.text((12, y + 68), 'today', fill=DIM); d.text((12, y + 162), 'from the same model', fill=DIM)
+    os.makedirs(os.path.dirname(os.path.join(ROOT, out)), exist_ok=True); S.save(os.path.join(ROOT, out)); print('sheet', out, S.size)
+
+
 if __name__ == '__main__':
-    if sys.argv[1] == '--sheet':
+    if sys.argv[1] == '--crew-faces':
+        crew_faces(); crew_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_EVERY_FACE_FROM_THE_SAME_MODEL.png'); sys.exit(0)
+    if sys.argv[1] == '--crew-body':
+        crew_body(sys.argv[2].upper(), sys.argv[3] if len(sys.argv) > 3 else CREW_BODIES)
+    elif sys.argv[1] == '--sheet':
         sheet(sys.argv[2].upper(), sys.argv[3], sys.argv[4])
     else:
         build(sys.argv[1].upper(), os.path.abspath(sys.argv[2]))

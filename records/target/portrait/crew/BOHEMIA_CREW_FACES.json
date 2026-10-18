@@ -1,0 +1,242 @@
+{
+ "version": "crew-faces-10-18",
+ "lane": "portrait",
+ "rule": "115h",
+ "method": "the face from the same model (HIS FIRST STAR)",
+ "draft": true,
+ "placeholder": "nothing is final before the moodboard (rule 108); the old 64 face stays until RUN TWO swaps",
+ "how_to_draw": "drawImage(face, 0, 0, box, box): already square, already sized; the 128 for boxes over 64 css px",
+ "keys": [
+  "rest",
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "faces": {
+  "you": {
+   "name": "YOU",
+   "look": "you",
+   "model": "records/portrait/rig/crew/you_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "long",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/you/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/you/A_{64|128}.png",
+    "E": "records/target/portrait/crew/you/E_{64|128}.png",
+    "O": "records/target/portrait/crew/you/O_{64|128}.png",
+    "M": "records/target/portrait/crew/you/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/you/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/you/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/you/Surprised_{64|128}.png"
+   }
+  },
+  "cast_longcoat": {
+   "name": null,
+   "look": "cast_longcoat",
+   "model": "records/portrait/rig/crew/cast_longcoat_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_longcoat/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_longcoat/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_longcoat/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_longcoat/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_longcoat/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_longcoat/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_longcoat/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_longcoat/Surprised_{64|128}.png"
+   }
+  },
+  "cast_barearms": {
+   "name": null,
+   "look": "cast_barearms",
+   "model": "records/portrait/rig/crew/cast_barearms_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "coil",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_barearms/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_barearms/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_barearms/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_barearms/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_barearms/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_barearms/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_barearms/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_barearms/Surprised_{64|128}.png"
+   }
+  },
+  "cast_pack": {
+   "name": null,
+   "look": "cast_pack",
+   "model": "records/portrait/rig/crew/cast_pack_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": "knit cap",
+   "files": {
+    "rest": "records/target/portrait/crew/cast_pack/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_pack/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_pack/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_pack/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_pack/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_pack/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_pack/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_pack/Surprised_{64|128}.png"
+   }
+  },
+  "cast_skirt": {
+   "name": null,
+   "look": "cast_skirt",
+   "model": "records/portrait/rig/crew/cast_skirt_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "long",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_skirt/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_skirt/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_skirt/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_skirt/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_skirt/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_skirt/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_skirt/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_skirt/Surprised_{64|128}.png"
+   }
+  },
+  "cast_widebrim": {
+   "name": null,
+   "look": "cast_widebrim",
+   "model": "records/portrait/rig/crew/cast_widebrim_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": "cone hat",
+   "files": {
+    "rest": "records/target/portrait/crew/cast_widebrim/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_widebrim/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_widebrim/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_widebrim/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_widebrim/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_widebrim/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_widebrim/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_widebrim/Surprised_{64|128}.png"
+   }
+  },
+  "cast_cape": {
+   "name": null,
+   "look": "cast_cape",
+   "model": "records/portrait/rig/crew/cast_cape_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "shag",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_cape/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_cape/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_cape/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_cape/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_cape/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_cape/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_cape/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_cape/Surprised_{64|128}.png"
+   }
+  },
+  "cast_apron": {
+   "name": null,
+   "look": "cast_apron",
+   "model": "records/portrait/rig/crew/cast_apron_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_apron/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_apron/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_apron/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_apron/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_apron/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_apron/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_apron/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_apron/Surprised_{64|128}.png"
+   }
+  },
+  "cast_poncho": {
+   "name": null,
+   "look": "cast_poncho",
+   "model": "records/portrait/rig/crew/cast_poncho_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "long",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_poncho/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_poncho/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_poncho/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_poncho/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_poncho/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_poncho/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_poncho/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_poncho/Surprised_{64|128}.png"
+   }
+  },
+  "cast_bedroll": {
+   "name": null,
+   "look": "cast_bedroll",
+   "model": "records/portrait/rig/crew/cast_bedroll_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": "work cap",
+   "files": {
+    "rest": "records/target/portrait/crew/cast_bedroll/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_bedroll/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_bedroll/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_bedroll/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_bedroll/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_bedroll/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_bedroll/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_bedroll/Surprised_{64|128}.png"
+   }
+  },
+  "cast_shorts": {
+   "name": null,
+   "look": "cast_shorts",
+   "model": "records/portrait/rig/crew/cast_shorts_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "coil",
+   "gear": null,
+   "files": {
+    "rest": "records/target/portrait/crew/cast_shorts/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_shorts/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_shorts/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_shorts/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_shorts/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_shorts/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_shorts/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_shorts/Surprised_{64|128}.png"
+   }
+  },
+  "cast_satchel": {
+   "name": null,
+   "look": "cast_satchel",
+   "model": "records/portrait/rig/crew/cast_satchel_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "taper",
+   "gear": "watch cap",
+   "files": {
+    "rest": "records/target/portrait/crew/cast_satchel/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_satchel/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_satchel/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_satchel/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_satchel/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_satchel/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_satchel/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_satchel/Surprised_{64|128}.png"
+   }
+  },
+  "cast_shortcoat": {
+   "name": null,
+   "look": "cast_shortcoat",
+   "model": "records/portrait/rig/crew/cast_shortcoat_head.glb (rebuilt by this tool; not committed, 7 MB)",
+   "hair": "long",
+   "gear": "slouch beanie",
+   "files": {
+    "rest": "records/target/portrait/crew/cast_shortcoat/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/cast_shortcoat/A_{64|128}.png",
+    "E": "records/target/portrait/crew/cast_shortcoat/E_{64|128}.png",
+    "O": "records/target/portrait/crew/cast_shortcoat/O_{64|128}.png",
+    "M": "records/target/portrait/crew/cast_shortcoat/M_{64|128}.png",
+    "Angry": "records/target/portrait/crew/cast_shortcoat/Angry_{64|128}.png",
+    "Sad": "records/target/portrait/crew/cast_shortcoat/Sad_{64|128}.png",
+    "Surprised": "records/target/portrait/crew/cast_shortcoat/Surprised_{64|128}.png"
+   }
+  }
+ }
+}
