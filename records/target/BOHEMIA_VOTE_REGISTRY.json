@@ -9447,6 +9447,49 @@
    }
   },
   {
+   "id": "cook3-the-marksman-through-the-rig-10-18",
+   "kind": "outfit",
+   "lane": "cook 3",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "THE MARKSMAN, A 3D MODEL WITH HIS RIFLE SLUNG OVER HIS SHOULDER",
+   "why": "The third enemy tier built the robot's way: a dark leather jacket, a strap across his chest, a teal scarf, a peaked cap, and a scoped rifle slung on his back with the barrel over his shoulder. His hands are empty, so in a fight you tell him from the thug and the poacher by the gun over his shoulder. You see him in eight directions and two walks beside the game's flat marksman on the sheet in the VOTE tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook3/COOK3_THE_MARKSMAN_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "records/cook3/enemy_tiers_repainted.png",
+    "diffs": [
+     "THE RIFLE: ours carries a rifle with a scope across his back, the barrel standing over his right shoulder from every side; the game's marksman shows no gun at all.",
+     "THE JACKET: ours is a real leather jacket with a strap across it that catches the sun as he turns; the game's marksman has a flat teal shirt painted on, front only.",
+     "THE HEAD: the game's marksman has hair and a face shape; ours has the test body's boxy head under the cap, fixed in the body model later."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own flat marksman as last painted (right on the sheet)",
+    "after": "the marksman as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+    "scale": "1:1"
+   },
+   "sprites": [
+    "records/target/cook3/rig/marksman/rig_N.png",
+    "records/target/cook3/rig/marksman/rig_NE.png",
+    "records/target/cook3/rig/marksman/rig_E.png",
+    "records/target/cook3/rig/marksman/rig_SE.png",
+    "records/target/cook3/rig/marksman/rig_S.png",
+    "records/target/cook3/rig/marksman/rig_SW.png",
+    "records/target/cook3/rig/marksman/rig_W.png",
+    "records/target/cook3/rig/marksman/rig_NW.png"
+   ],
+   "class": "person",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  },
+  {
    "id": "run-the-rig-truck-on-the-map-10-18",
    "kind": "ui",
    "lane": "run",

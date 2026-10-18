@@ -1,0 +1,64 @@
+{
+ "tier": "MARKSMAN",
+ "what": "a hip-length dark leather jacket with a stand collar, a bandolier strap from the right shoulder to the left hip, a teal scarf wound at the neck, a peaked cap, pale khaki trousers, boots, a scoped rifle slung across his back",
+ "model": "records/cook3/rig/marksman.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "marksman_jacket": 23682,
+  "marksman_collar": 1932,
+  "marksman_strap": 508,
+  "marksman_scarf": 11260,
+  "marksman_rifle": 60,
+  "marksman_cap": 3532,
+  "marksman_peak": 108
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "marksman_boots": [
+   0.0123,
+   0.011,
+   0.011
+  ],
+  "marksman_eyes": [
+   0.0513,
+   0.0144,
+   0.0097
+  ],
+  "marksman_rifle_wood": [
+   0.3231,
+   0.0782,
+   0.0252
+  ],
+  "marksman_scarf": [
+   0.4233,
+   0.6376,
+   0.5457
+  ],
+  "marksman_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "marksman_sleeves": [
+   0.1144,
+   0.0194,
+   0.0086
+  ],
+  "marksman_strap": [
+   0.1878,
+   0.1248,
+   0.0648
+  ],
+  "marksman_trousers": [
+   0.3663,
+   0.3712,
+   0.2789
+  ]
+ }
+}

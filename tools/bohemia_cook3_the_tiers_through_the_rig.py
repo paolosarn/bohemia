@@ -29,8 +29,13 @@ and every garment is GEOMETRY skinned to the man's own bones, so it turns in eig
     panel skinned to its own thigh bone more and more toward the hem (pelvis at the top, 90 percent thigh at the hem),
     so the tails swing with the legs: his 'a trenchcoat and there's no trenchcoat action' answered. Knee length, not the
     floor: TRENCHCOATS ARE FOR BADASSES (8/27). A wide field hat on the head bone is the tier's silhouette feature.
+  * THE MARKSMAN (round 3): a hip-length leather jacket, a bandolier lifted proud of it on a line from the right shoulder
+    to the left hip, a teal scarf (the tier paint file's keepHue 180), a peaked cap, and a scoped rifle slung across the
+    back on the chest bone (torso_joint_3), the muzzle over the right shoulder: the hands are empty, so at 28 px he is
+    told from the thug and the poacher by the stick over his shoulder. One colour is one material (mat() shares them),
+    eight a person. The value span is read p5 to p95 (the card of numbers), so the pale khaki trousers carry the light end.
 
-Run with Blender's Python (bpy 4.2; see tools/bohemia_direction_master_rig.py), TIER is THUG or POACHER:
+Run with Blender's Python (bpy 4.2; see tools/bohemia_direction_master_rig.py), TIER is THUG, POACHER or MARKSMAN:
     v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py THUG records/cook3/rig/thug.glb
 then the rig, then the sheet (plain python3):
     v/bin/python tools/bohemia_direction_master_rig.py records/cook3/rig/thug.glb records/target/cook3/rig/thug \
@@ -95,6 +100,24 @@ TIERS = {
         eyes=step('skin_deep', 0),
         weapon=dict(kind='hatchet', colour=step('tape_grey', 1), r=0.014, back=0.06, fore=0.34),
         head_scale=1.2),
+    # THE MARKSMAN (round 3): the tier paint file's MARKSMAN is leather, a strap, the hue kept at 180 (teal). As a model:
+    # a hip-length dark leather jacket (the body lifted, closed, a stand collar), a bandolier strap over the right
+    # shoulder to the left hip standing proud of the leather, a teal scarf wound at the neck (the one accent above the
+    # waist, the teal the old paint kept), a peaked cap, and the RIFLE SLUNG ACROSS HIS BACK on the spine bone, the
+    # muzzle and scope standing over his right shoulder: the silhouette's one feature, and his hands are empty, so at
+    # 28 px he is the one with a stick over his shoulder, not a stick in his fist like the thug and the poacher.
+    'MARKSMAN': dict(
+        what='a hip-length dark leather jacket with a stand collar, a bandolier strap from the right shoulder to the left hip, a teal scarf wound at the neck, a peaked cap, pale khaki trousers, boots, a scoped rifle slung across his back',
+        jacket=dict(colour=step('clay_rust', 1), z_bot=0.60, z_top=1.17, sleeve_x=0.465, t=0.016, collar=(1.12, 1.19, 0.026)),
+        strap=dict(colour=step('tape_masking', 1), a=(-0.17, 1.13), b=(0.17, 0.66), half_w=0.026, t=0.03),
+        scarf=dict(colour=step('clay_teal', 4), z=(1.115, 1.21), t=0.034),
+        peak=dict(colour=step('cloth_black', 1), down_m=0.07, t=0.012, peak_m=0.07, peak_t=0.012),
+        shirt=False, trousers=step('metal_painted', 3), sleeves=step('clay_rust', 1), boots=step('cloth_black', 1), skin=step('skin_mid', 2),
+        eyes=step('skin_mid', 0),
+        weapon=None,
+        slung=dict(kind='rifle', wood=step('clay_rust', 2), metal=step('cloth_black', 1), low=(0.17, 0.80), high=(-0.22, 1.56), out_m=0.085,
+                   barrel_r=0.019, stock=(0.26, 0.05, 0.09), scope_r=0.026, scope_l=0.18),
+        head_scale=1.2),
 }
 
 
@@ -112,8 +135,13 @@ def build(tier, out):
     world = lambda co: M @ co
     gidx = {g.name: g.index for g in body.vertex_groups}
 
+    made = {}
     def mat(name, rgb, rough=0.95):
+        # one colour, one material (the style guide's field 5 caps a person at 8): a second piece of the same colour
+        # shares the first one's material
+        if rgb is not None and tuple(rgb) in made: return made[tuple(rgb)]
         m = bpy.data.materials.new(name); m.use_nodes = True
+        if rgb is not None: made[tuple(rgb)] = m
         b = next(n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED')
         b.inputs['Base Color'].default_value = lin(rgb); b.inputs['Roughness'].default_value = rough
         return m
@@ -272,7 +300,84 @@ def build(tier, out):
         cr.data.materials.append(mat('%s_hat' % tier.lower(), H['colour']))
         skin_to(cr, lambda p: {hb: 1.0})
 
+    def jacket(K):
+        """THE JACKET: the body from the hip to the shoulder lifted, sleeves to the wrist, closed, and a stand collar"""
+        jm = mat('%s_jacket' % tier.lower(), K['colour'], rough=0.85)
+        lift('%s_jacket' % tier.lower(), lambda p: K['z_bot'] <= p.z <= K['z_top'] and abs(p.x) < K['sleeve_x'], lambda p: K['t'], None, rim=0.01, subdiv=2, material=jm)
+        za, zb, ct = K['collar']
+        lift('%s_collar' % tier.lower(), lambda p: za <= p.z <= zb and abs(p.x) < 0.11, lambda p: ct, None, rim=0.008, subdiv=1, material=jm)
+
+    def strap(S):
+        """THE BANDOLIER: the body's faces within half_w of the line from the right shoulder to the left hip (front and
+        back, the same line in x and z), lifted proud of the jacket"""
+        (ax, az), (bx, bz) = S['a'], S['b']
+        dx, dz = bx - ax, bz - az; L2 = dx * dx + dz * dz
+        def near(p):
+            if abs(p.x) > 0.25 or not (min(az, bz) - 0.03 <= p.z <= max(az, bz) + 0.03): return False
+            u = max(0.0, min(1.0, ((p.x - ax) * dx + (p.z - az) * dz) / L2))
+            return math.hypot(p.x - ax - u * dx, p.z - az - u * dz) < S['half_w']
+        lift('%s_strap' % tier.lower(), near, lambda p: S['t'], S['colour'], rim=0.008, subdiv=1)
+
+    def peaked_cap(P, top):
+        """a peaked cap: the crown is the head's own skin lifted, the peak a disc segment standing out over the brow"""
+        cz = top - P['down_m']
+        cm = mat('%s_cap' % tier.lower(), P['colour'])
+        lift('%s_cap' % tier.lower(), lambda p: p.z >= cz, lambda p: P['t'], None, rim=0.01, subdiv=1, material=cm)
+        hv = [M @ v.co for v in body.data.vertices if (M @ v.co).z > top - 0.12]
+        hx = (min(q.x for q in hv) + max(q.x for q in hv)) / 2; hy = (min(q.y for q in hv) + max(q.y for q in hv)) / 2
+        hr = (max(q.x for q in hv) - min(q.x for q in hv)) / 2
+        front = min(q.y for q in hv)
+        R = (hy - front) + P['peak_m']
+        bm = bmesh.new()
+        bmesh.ops.create_circle(bm, cap_ends=True, cap_tris=True, segments=40, radius=1.0)
+        for v in bm.verts: v.co = mathutils.Vector((hx + v.co.x * hr * 1.05, hy + v.co.y * R, cz + 0.004))
+        bmesh.ops.subdivide_edges(bm, edges=bm.edges[:], cuts=2, use_grid_fill=True)
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.calc_center_median().y > front + 0.02], context='FACES')
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        for v in bm.verts:   # the peak dips toward its edge
+            v.co.z -= 0.25 * max(0.0, front - v.co.y)
+        me = bpy.data.meshes.new('%s_peak' % tier.lower()); bm.to_mesh(me); bm.free()
+        pk = bpy.data.objects.new(me.name, me); sc.collection.objects.link(pk); me.materials.append(cm)
+        bpy.context.view_layer.objects.active = pk
+        for o in sc.objects: o.select_set(o is pk)
+        so = pk.modifiers.new('rim', 'SOLIDIFY'); so.thickness = P['peak_t']; so.offset = 0; so.use_rim = True
+        bpy.ops.object.modifier_apply(modifier='rim')
+        skin_to(pk, lambda p: {'Skeleton_neck_joint_2': 1.0})
+
+    def slung(S):
+        """THE RIFLE ACROSS THE BACK: a stock at the low end by the left hip, the barrel up over the right shoulder, a scope
+        on top; every vertex on the upper spine bone, so it rides the torso and does not swing with an arm"""
+        def back_y(z): return max((M @ v.co).y for v in body.data.vertices if abs((M @ v.co).z - z) < 0.04 and abs((M @ v.co).x) < 0.2)
+        (lx, lz), (hx_, hz) = S['low'], S['high']
+        lo = mathutils.Vector((lx, back_y(lz) + S['out_m'], lz)); hi = mathutils.Vector((hx_, back_y(min(hz, 1.1)) + S['out_m'], hz))
+        ax = (hi - lo).normalized(); L = (hi - lo).length
+        rot = mathutils.Vector((0, 0, 1)).rotation_difference(ax)
+        parts = []
+        def place(o, t_, off=mathutils.Vector((0, 0, 0))):
+            o.rotation_mode = 'QUATERNION'; o.rotation_quaternion = rot; o.location = lo + ax * t_ + off
+            bpy.ops.object.transform_apply(location=True, rotation=True, scale=True); parts.append(o)
+        sl, sw, sh = S['stock']   # the stock: long along the gun, thin across the back, deep away from it
+        bpy.ops.mesh.primitive_cube_add(size=1.0); st = bpy.context.active_object; st.scale = (sw, sh, sl)
+        place(st, sl / 2); st.data.materials.append(mat('%s_rifle_wood' % tier.lower(), S['wood'], rough=0.7))
+        bpy.ops.mesh.primitive_cube_add(size=1.0); fe = bpy.context.active_object; fe.scale = (sw * 0.8, sh * 0.6, L * 0.30)   # the fore-end, wood
+        place(fe, sl + L * 0.15); fe.data.materials.append(st.data.materials[0])
+        bpy.ops.mesh.primitive_cylinder_add(vertices=10, radius=S['barrel_r'], depth=L - sl); br = bpy.context.active_object
+        place(br, sl + (L - sl) / 2); br.data.materials.append(mat('%s_rifle_metal' % tier.lower(), S['metal'], rough=0.6))
+        bpy.ops.mesh.primitive_cylinder_add(vertices=12, radius=S['scope_r'], depth=S['scope_l']); scp = bpy.context.active_object
+        out = mathutils.Vector((0, 1, 0))
+        place(scp, sl + L * 0.10, out * (sh * 0.5 + S['scope_r'])); scp.data.materials.append(br.data.materials[0])
+        for o in sc.objects: o.select_set(o in parts)
+        bpy.context.view_layer.objects.active = st; bpy.ops.object.join(); st.name = '%s_rifle' % tier.lower()
+        skin_to(st, lambda p: {SPINE: 1.0})
+
+    SPINE = 'torso_joint_3'   # the chest bone (CesiumMan names it without the Skeleton_ prefix)
     if 'coat' in T: coat(T['coat'])
+    if 'jacket' in T: jacket(T['jacket'])
+    if 'strap' in T: strap(T['strap'])
+    if 'scarf' in T:
+        F = T['scarf']; scm = mat('%s_scarf' % tier.lower(), F['colour'])
+        lift('%s_scarf' % tier.lower(), lambda p: F['z'][0] <= p.z <= F['z'][1] and abs(p.x) < 0.13, lambda p: F['t'], None, rim=0.012, subdiv=2, material=scm)
+    if 'slung' in T: slung(T['slung'])
     G = T.get('garment') or dict(z=(0, 0), sleeve_x=0, chest_t=0, skirt_t=0, quilt=None, colour=None)
     z0, z1 = G['z']
     def in_coat(p): return z0 <= p.z <= z1 and abs(p.x) < G['sleeve_x']
@@ -297,7 +402,7 @@ def build(tier, out):
     if B: lift('%s_belt' % tier.lower(), lambda p: B['z'][0] <= p.z <= B['z'][1] and abs(p.x) < 0.25, lambda p: B['t'], B['colour'], rim=0.008, subdiv=1)
 
     # the cap sits from the crown down to the brow, measured from the SCALED head's top (the head grew 1.3x)
-    C = T.get('cap') or T['hat']
+    C = T.get('cap') or T.get('hat') or T['peak']
     top = max((M @ v.co).z for v in body.data.vertices)
     cz = top - C['down_m']   # lower at the back of the skull (+y is behind)
     # THE EYES: two sockets in the brow's shadow, a material on the body's own faces (2 px a socket at the ruler)
@@ -311,6 +416,8 @@ def build(tier, out):
         capm = mat('%s_cap' % tier.lower(), C['colour'])   # the crown and the folded brim are one knit: one material
         lift('%s_cap' % tier.lower(), lambda p: p.z >= cz - 0.025 * (p.y > 0.0), lambda p: C['t'], C['colour'], rim=0.01, subdiv=1, material=capm)
         lift('%s_cap_brim' % tier.lower(), lambda p: cz - 0.025 * (p.y > 0.0) <= p.z <= cz + C['brim_m'] - 0.025 * (p.y > 0.0), lambda p: C['brim_t'], C['colour'], rim=0.012, subdiv=1, material=capm)
+    elif 'peak' in T:
+        peaked_cap(C, top)
     else:
         hat(C, top)
 
@@ -404,7 +511,7 @@ def sheet(tier, frames, out):
         for im, lb in zip(ims, labels):
             S.paste(GROUND, (x, y, x + cw, y + ch)); S.paste(im, (x, y), im); d.text((x, y + ch + 2), lb, fill=(160, 154, 140)); x += cw + 6
     y = 58; d.text((12, y), 'EIGHT FACINGS, STILL (the passing pose)', fill=(200, 190, 120)); strip(row1, y + 14, fac)
-    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (the %s swings with the hand: it is on the hand bone)' % TIERS[tier]['weapon']['kind'], fill=(200, 190, 120))
+    y += ch + 34; d.text((12, y), 'THE WALK, S then SE, 6 DRAWN KEYS = 2 BEATS AT 120 (%s)' % (('the %s swings with the hand: it is on the hand bone' % TIERS[tier]['weapon']['kind']) if TIERS[tier].get('weapon') else 'the %s rides the chest bone across his back; his hands are empty' % TIERS[tier]['slung']['kind']), fill=(200, 190, 120))
     strip(row2, y + 14, ['S k%d' % k for k in range(6)] + ['SE k%d' % k for k in range(6)])
     y += ch + 34
     d.text((12, y), 'OURS (the model)  |  HIS TWIN TODAY: the game\'s own flat %s as last painted   at 1:1, then 4x' % tier, fill=(200, 190, 120)); y += 16
