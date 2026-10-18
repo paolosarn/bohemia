@@ -964,10 +964,21 @@ GATES = [
      'CC-215 a closed loop; engine/BOHEMIA_REGION_LAND.json freewayPaths carries the region\'s blocks. Refuses: a '
      'region path with a hole or inside the box; an unnamed valley freeway cell; a pair with one half or a half with '
      'no median side; I-15 with a hole, short of the rim or not through the Spaghetti Bowl; CC-215 not closed; US-95\'s '
-     'north-west leg broken; a class-1 highway joined to a one-cell pass; the breaks growing past the known one (no '
-     'freeway out toward I-515 / US-93, the roll\'s: 14 blocks on the game\'s seed, 16 of 20 seeds, worst 20); twenty '
-     'seeds the same; the joins by name not landing in the loader\'s connector table. Prints today\'s stitch() joins '
-     '(the valley\'s I-15 into NV-159). Six mutations inside.', False),
+     'north-west leg broken; a class-1 highway joined to a one-cell pass; ANY break (10/18, the coordinator\'s first: '
+     'the roll lays THE HENDERSON LEG, I-515 / US-93 out of the ring\'s real-east side, closing the 14 blocks toward '
+     'Henderson that 16 of 20 seeds lacked); the leg\'s row out of step with the region\'s I-515 portal (80); I-515 '
+     'not joined to the leg (3 made blocks on the game\'s seed, 22 on any); twenty seeds the same; the joins by name '
+     'not landing in the loader\'s connector table. Prints today\'s stitch() joins. Seven mutations inside (the leg '
+     'removed brings the break back).', False),
+    ('THE NEWS DOWN THE ROAD', ['node', 'gates/the_news_down_the_road_gate.js'],
+     'ROW [the news down the road, as data] (WORLD 10/18; ECONOMY\'s finding: the next town has news 94 percent of the '
+     'time and the bar names none of it). engine/bohemia_region_news.js runs the region\'s 35 places the Battle '
+     'Brothers way (settlements send caravans and patrols, lairs send crews, holds patrol, on the land\'s real roads '
+     'and minutes) and says what happened at each, as data. Refuses: a number not its table\'s (REACH, the situation '
+     'multipliers, the raid card, the week, his 20 percent, the bar\'s reach); a place with nothing to say on any day '
+     'after a week of play (35 x 365); an item no party, fight or situation stands behind, or a field of words; the '
+     'dice\'s news not the screen\'s own roll; a hold sending a crew, a camp\'s crew raiding a town, a party\'s clock '
+     'off the land\'s minutes; twenty seeds and both compasses; an impure answer. Three mutations inside.', False),
     ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
      'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
      'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '
