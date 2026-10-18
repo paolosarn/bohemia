@@ -9667,6 +9667,28 @@
     "src": "BOHEMIA_THE_MAP_HEARS_THE_DESERT_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "cook-props-through-the-rig-10-18",
+   "kind": "tile",
+   "lane": "cook",
+   "sha": "47e7de8",
+   "made": "10/18",
+   "title": "PLACEHOLDER: A LAMP POST, A MACHINE GUN AND A WRECKED CAR, MADE THE CLAY WAY THE TRUCK WAS",
+   "why": "You said the parts road was not it and the truck and the robot were, so the props now come off a model the same way: a 3.2 metre lamp post with its bulb lit, a heavy machine gun on its tripod with the brass belt coming out of the ammo can, and a dead four-door sedan with a caved roof and one wheel gone, each worn and dusty, in all eight directions, at their real size. You see them in the VOTE tab beside your own lamp, gun and wrecked car at the same pixel size, standing on your cracked street tile, with the truck next to the car so you can tell if they came off the same table; nothing is final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK_PROPS_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "pack:9. Abandoned cards#0",
+    "diffs": [
+     "METHOD: yours are drawn flat; mine are modelled in 3D from the game's own clay palette and rendered by the one master rig, so light falls on them and they turn in eight. Same method as the truck and the robot (rule 115a); the old parts road is in the graveyard.",
+     "SIZE: true size at 57 px a metre, one ruler with the man: the lamp is 222 px tall against your 96, the car 342 px long against your 96, the gun 100 px. Your tiles are icon-sized; the rig draws things as big as they really are beside a person.",
+     "LOOK: all three pass the rig's card (2 of 8 numbers out each, never 3); the car carries 5,049 colours like your tiles, the lamp and gun fewer because they are thin. The gun is a heavy machine gun because a shotgun at its real size is a 60 by 6 pixel stick."
+    ]
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -28,6 +28,11 @@ then
 REFERENCE CHECK (the 9/4 standing law): the twins are his own approved tiles named above, shown whole beside the
 render at 1:1 on the sheet; the palette is DIRECTION's source palette; the card of numbers judges the render. No
 reference game.
+REUSE CHECK: the quartermaster's line counted what he owns first (lamps 237 tiles, 40 approved; guns 40, 37 approved;
+wrecked cars 123, 80 approved; verdict COMPOSE BESIDE IT): his tiles are the score on the sheet, never the source,
+because rule 115a makes the model the source for every prop. The palette reused is DIRECTION's source palette, the rig
+reused is the master rig, the build pattern reused is the drum's modeller. No bank was opened: nothing in banks/ is a
+3D model.
 """
 import json, math, os, sys
 

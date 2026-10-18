@@ -9,6 +9,8 @@ the whole sheet is then doubled with nearest neighbour, so there is ONE pixel si
     python3 tools/bohemia_cook_props_through_the_rig_sheet.py  ->  records/target/COOK_PROPS_THROUGH_THE_RIG.png
 
 REFERENCE CHECK: the twins are his approved tiles named in each row; the cards are the rig's own (rig.json).
+REUSE CHECK: it draws nothing; it lays out his approved tiles from reference/art_bank (the twins and the street tile),
+the rig's renders and the truck maquette, and reuses the quartermaster's tool for each row's line. No bank opened.
 """
 import json, os, subprocess, sys
 from PIL import Image, ImageDraw, ImageFont
