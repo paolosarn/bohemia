@@ -45,10 +45,15 @@ cell 3): grey striped mail, gold cuffs, dark trousers. The packs hold no people 
 - THE HEAD: PORTRAIT's modelled head (rule 115h: the face from the same model is every face's method), called through
   PORTRAIT's own tool (read, never edited) on its THUG row with the raider's colours (skin_light 2, a clay_rust 1
   beard), since PORTRAIT has no raider row yet; its row wins once it exists (HEADS in the tool).
+- THE SURCOAT (cycle 6): a plain black surcoat over the mail from the neck to the hip, narrow at the shoulders, lifted
+  3.2 cm clear of the rows, the trousers' black (one material). Battle Brothers' raider list carries a Rugged Surcoat;
+  here it is the REST AREA the style guide asks for (rule 114, the fifth tell: the same detail everywhere). The mail
+  shows where mail reads best: the hood round the face, the lit shoulders and the sleeves, and the skirt below the
+  surcoat with its rusted dagged hem.
 - UNDER AND BELOW: a padded jack of undyed linen under the mail, showing on the forearms (tape_masking 2, the shield's
   wood step: one material); trousers in the runway black (cloth_black 1); boots (rubber 2).
-- 8 materials on him: skin, eyes, mail and blade, rust, trousers, boots and grip, brass, linen and wood. The head's own
-  are PORTRAIT's.
+- 8 materials on him: skin, eyes, mail and blade, rust, trousers and surcoat, boots and grip, brass, linen and wood.
+  The head's own are PORTRAIT's.
 
 ## The cycles (logged)
 1. First render (mail tape_grey 2, rounded ridges 6 mm deep on 4.5 cm, helmet clay_rust 2, coif 1.8 cm off the skull):
@@ -68,11 +73,20 @@ cell 3): grey striped mail, gold cuffs, dark trousers. The packs hold no people 
 5. A padded jack of undyed linen under the mail (tape_masking 2, the shield's wood step, one material), on the forearms:
    span 117.97, still short (it is p95 minus p5, area counts; the forearms are small in the S still). Then the trousers
    one step down the runway black (cloth_black 1): the dark end under the bright mail. SPAN 121, 0 OF 8 OUT.
+   Committed (8c4d527) and registered, then THE NOT VIBE CODED GATE culled it (N3, D5 against the prop packs: the S
+   still's evenness 0.036 against the packs' 0.057, no rest 0.83 against 0.767; NE 0.053). Measured on all eight
+   facings: the raider 0.036 to 0.105, the thug, marksman and poacher 0.093 to 0.188. All mail is the same detail
+   everywhere, rule 114's fifth tell, and the gate was right.
+6. A plain black surcoat over the chest to the hip (above). D5 on the eight facings: evenness 0.064 to 0.144, no rest
+   0.50 to 0.74 (every facing inside the packs' band); the gate no longer lists him. The card: 0 of 8 out, value span
+   up to 137 (the big black area under the bright mail). Rendered on DIRECTION's rig round 7 (main moved under me).
 
 ## The card (S still, class person)
-long side 133, colours 1,367 vs 648 (370 per 1,000 of 1,750 px), top 8 3.5%, value span 121, saturation 0.131 (the
-vibrance down, his 9/23), light top minus bottom 8.5, edge -12.8, grain 1.39 px a run. 0 of 8 out under the style guide
-(class person). Colours across the whole set 45,700; scale from the model 1.0813; the passing pose of Anim_0, frame 21.
+long side 133, colours 1,302 vs 649 (370 per 1,000 of 1,755 px), top 8 3.5%, value span 137, saturation 0.136 (the
+vibrance down, his 9/23), light top minus bottom 14.9, edge -11.8, grain 1.46 px a run. 0 of 8 out under the style
+guide (class person). Colours across the whole set 44,739; the passing pose of Anim_0, frame 21. THE NOT VIBE CODED
+GATE: the raider passes N3's first five on all eight sprites (29/1; the one red is other lanes' cards: combat2, cook4,
+character, cook).
 
 ## The sheet
 records/target/cook3/COOK3_THE_RAIDER_THROUGH_THE_RIG.png: eight facings, the S and SE walk (6 keys = 2 beats at 120),
@@ -98,6 +112,10 @@ VOTE: cook3-the-raider-through-the-rig-10-18.
 - FOR PLUMBER: the models are big (raider.glb 15.9 MB, raider_body.glb 10.6 MB: the mail is subdivided three times so a
   5 cm row has eight vertices). Draco is not in this bpy build (the exporter logs it missing). Rule 106 stands; the
   numbers are here in case the repo's size becomes a pipe question.
+- FOR DIRECTION (the style guide, field 9, the detail budget): a person in ONE patterned material all over (mail, and
+  next the marauder's plate) fails D5 even when every pixel is honest; the rest area has to be a garment. Worth a row:
+  'an armoured person keeps one plain garment over a third of the torso' (the surcoat here), so the leader and the
+  marauder are cut that way from the start.
 - bpy 4.2 still segfaults on exit after writing its files (build, --whole); the outputs are whole.
 
 ## Next

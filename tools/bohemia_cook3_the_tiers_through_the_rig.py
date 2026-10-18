@@ -49,7 +49,8 @@ and every garment is GEOMETRY skinned to the man's own bones, so it turns in eig
     like a shingle (12 mm in at its top under the lip above, out at its own lip, a row every 5 cm = 3 px), so the lips
     are lit and the tops shadowed from every facing; the shoulder lit because it faces the sun; the skirt the poacher
     coat's rings split front and back on the thigh bones, the hem dagged and its last rows and the cuffs rusted (wear
-    authored). A coif and aventail cut round PORTRAIT's skull (its numbers read, never edited) and hugging the torso; a
+    authored); a plain black surcoat over the chest to the hip (cycle 6: all-mail was the same detail everywhere, D5),
+    so the chest is the rest area. A coif and aventail cut round PORTRAIT's skull (its numbers read, never edited) and hugging the torso; a
     pointed nasal helmet whose bar clears PORTRAIT's nose; brass bracers (the faction's gold); a cable drum's end for a
     round shield on the left forearm bone; a machete for the falchion. The head is PORTRAIT's, by --whole on HEADS:
     v/bin/python tools/bohemia_cook3_the_tiers_through_the_rig.py RAIDER records/cook3/rig/raider_body.glb
@@ -161,13 +162,18 @@ TIERS = {
     # planks, the arbor hole's steel plate for a boss), the falchion a machete. The faction's gold kept as the tell
     # (the tier paint's raider and leader share it; the game's raider wears gold cuffs): brass bracers.
     'RAIDER': dict(
-        what='a mail shirt to mid-thigh with elbow sleeves, its rows of rings modelled, rusted dark at the dagged hem and the cuffs, split front and back on the thigh bones; a mail coif with an aventail over the shoulders; a pointed nasal helmet gone to rust; brass bracers; a round shield cut from a cable drum\'s end on the left forearm; a machete in the right fist; the head is PORTRAIT\'s modelled head on the same model',
+        what='a mail shirt to mid-thigh with elbow sleeves under a plain black surcoat, its rows of rings modelled, rusted dark at the dagged hem and the cuffs, split front and back on the thigh bones; a mail coif with an aventail over the shoulders; a pointed nasal helmet gone to rust; brass bracers; a round shield cut from a cable drum\'s end on the left forearm; a machete in the right fist; the head is PORTRAIT\'s modelled head on the same model',
         mail=dict(colour=step('tape_grey', 2), rust=step('clay_rust', 1), z_bot=0.62, z_top=1.165, sleeve_x=0.36, t=0.016,
                   row_m=0.05, row_d=0.012, link_m=0.02, link_a=0.15, skirt_top=0.70, hem_z=0.47, flare_x=1.10, flare_y=1.25,
                   split_z=0.60, swing=0.8, dag_m=0.06, dag_d=0.026, rust_band=0.055, cuff_x=0.33),
         coif=dict(gap=0.014, open=(0.094, 0.12, -0.04), throat=(0.112, 0.118, 0.020), aventail=(1.06, 0.12, 0.12, 0.012), row_m=0.045, row_d=0.007),
         helmet=dict(rim_zr=0.085, apex_m=0.06, band_m=0.028, rib_m=0.004, nasal=(0.022, -0.046)),
         bracers=dict(colour=step('clay_mustard', 2), x=(0.375, 0.445), t=0.013),
+        # cycle 6: a plain black surcoat over the mail, the chest to the hip, narrow at the shoulders (Battle Brothers'
+        # raider list carries a Rugged Surcoat). All-mail read 'the same detail everywhere' (rule 114's fifth tell; the
+        # not vibe coded gate's D5, evenness 0.036 to 0.105 on the eight facings, the thug, marksman and poacher 0.09 to
+        # 0.19): the chest is the rest area now; the mail shows on the hood, the shoulders, the sleeves and the skirt.
+        surcoat=dict(colour=step('cloth_black', 1), z=(0.645, 1.15), x=0.155, x_top=0.12, t=0.032),
         shield=dict(wood=step('tape_masking', 2), d=0.52, t=0.024, out_m=0.085, fwd=0.6, board_m=0.09, boss_r=0.055),
         head='portrait',
         trousers=step('cloth_black', 1), boots=step('rubber', 2), skin=step('skin_light', 2),   # cycle 5: the runway black one step down, the dark end of the span under the bright mail
@@ -693,6 +699,10 @@ def build(tier, out):
     if 'mail' in T: hauberk(T['mail'])
     if 'coif' in T: coif(T['coif'], T['mail'])
     if 'helmet' in T: helmet(T['helmet'], T['coif'], T['mail'])
+    if 'surcoat' in T:
+        SC = T['surcoat']   # the trousers' black, one material; lifted clear of the mail's rows, straight hem at the hip
+        lift('%s_surcoat' % tier.lower(), lambda p: SC['z'][0] <= p.z <= SC['z'][1] and abs(p.x) < (SC['x'] if p.z < 0.98 else SC['x_top']),
+             lambda p: SC['t'], SC['colour'], rim=0.008, subdiv=2)
     if 'bracers' in T:
         BR = T['bracers']   # brass bracers on both forearms, a raised band at each end: the faction's gold, the tell
         lift('%s_bracers' % tier.lower(), lambda p: BR['x'][0] <= abs(p.x) <= BR['x'][1] and p.z > 0.78, lambda p: BR['t'], BR['colour'],

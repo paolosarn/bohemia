@@ -1,6 +1,6 @@
 {
  "tier": "RAIDER",
- "what": "a mail shirt to mid-thigh with elbow sleeves, its rows of rings modelled, rusted dark at the dagged hem and the cuffs, split front and back on the thigh bones; a mail coif with an aventail over the shoulders; a pointed nasal helmet gone to rust; brass bracers; a round shield cut from a cable drum's end on the left forearm; a machete in the right fist; the head is PORTRAIT's modelled head on the same model",
+ "what": "a mail shirt to mid-thigh with elbow sleeves under a plain black surcoat, its rows of rings modelled, rusted dark at the dagged hem and the cuffs, split front and back on the thigh bones; a mail coif with an aventail over the shoulders; a pointed nasal helmet gone to rust; brass bracers; a round shield cut from a cable drum's end on the left forearm; a machete in the right fist; the head is PORTRAIT's modelled head on the same model",
  "model": "records/cook3/rig/raider_body.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
  "meshes": {
@@ -9,6 +9,7 @@
   "raider_mail_skirt": 12664,
   "raider_coif": 21540,
   "raider_helmet": 10258,
+  "raider_surcoat": 10346,
   "raider_bracers": 2948,
   "raider_shield": 8410,
   "raider_shield_boss": 145,
