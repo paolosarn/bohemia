@@ -263,8 +263,9 @@ const srv = http.createServer((rq, rs) => {
   const common = raided.st.items.map(x => x[0]).filter(id => priceOf(plain.st, id) != null && priceOf(market.st, id) != null);
   /* RUN TWO [the raid is a record] 10/18: the wiki's Raided card (page 1626) is half the items and half the men, NO price */
   const samePrice = common.every(id => priceOf(raided.st, id) === priceOf(plain.st, id));
-  const cheaper = common.every(id => priceOf(market.st, id) <= priceOf(plain.st, id)) && common.some(id => priceOf(market.st, id) < priceOf(plain.st, id));
-  ok('  and the shelves: raided is half the shelf at the same price (the wiki\'s card), market day cheaper and fuller', common.length > 0 && samePrice && cheaper && raided.st.n === Math.max(1, Math.round(plain.st.n * 0.5)) && market.st.n > plain.st.n,
+  /* market day is the wiki's Seasonal Fair (page 1744): +25% buying, so DEARER (ECONOMY day 71: ours ran it backwards) */
+  const cheaper = common.every(id => priceOf(market.st, id) >= priceOf(plain.st, id)) && common.some(id => priceOf(market.st, id) > priceOf(plain.st, id));
+  ok('  and the shelves: raided is half the shelf at the same price (the wiki\'s card), market day dearer and fuller (the Seasonal Fair card)', common.length > 0 && samePrice && cheaper && raided.st.n === Math.max(1, Math.round(plain.st.n * 0.5)) && market.st.n > plain.st.n,
      common.length + ' same rows; ' + common.slice(0, 2).map(id => id + ' ' + priceOf(plain.st, id) + '/' + priceOf(raided.st, id) + '/' + priceOf(market.st, id)).join(', ') + '; counts ' + plain.st.n + '/' + raided.st.n + '/' + market.st.n);
   ok('  and the keeper says it first, out of a mouth', /burned|crew came|raid/i.test(raidLine), raidLine.slice(0, 60));
   ok('  and who stands at the posts: half the men in a raided town (the wiki\'s card), the keeper saying why', /half|raid/i.test(raidHall) && +raidHall.split('|')[1] === Math.round(plainMen * 0.5) && plainMen > 0, raidHall.slice(0, 60) + ' of ' + plainMen);
@@ -291,6 +292,14 @@ const srv = http.createServer((rq, rs) => {
     out.other = BohemiaSettlement.traitsNow().indexOf('raided') >= 0;
     BohemiaSettlement.state.mapDay = undefined; BohemiaSettlement.open({ ledger: null, traits: [] }); return out;
   });
+  /* SICKNESS is the wiki's card (page 1792): medicine buying +200%, nothing else (ECONOMY day 71: ours raised every price) */
+  const sick = await roll(['sickness']);
+  await tapB('stall'); await p.waitForTimeout(250);
+  const stall = await p.evaluate(() => [...document.querySelectorAll('#sbody .act')].map(b => b.textContent.replace(/\s+/g, ' ').trim()));
+  await p.click('#close'); await p.waitForTimeout(300);
+  const meds = stall.find(t => /meds/i.test(t)) || '', food = stall.find(t => /food/i.test(t)) || '';
+  ok('  and a sick town triples the meds at the stall and leaves the blades and the bread alone', /3 batteries/.test(meds) && /1 battery/.test(food) && common.every(id => priceOf(sick.st, id) === priceOf(plain.st, id) || priceOf(sick.st, id) == null),
+     meds + ' / ' + food);
   ok('  and a mark in the raid ledger raids that place on its days only (day 9 no, 10 and 12 yes, 13 no; the next town no)', !led[9] && led[10] && led[12] && !led[13] && !led.other, JSON.stringify(led));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
@@ -422,7 +431,7 @@ const srv = http.createServer((rq, rs) => {
   await p.waitForTimeout(800);
   await p.screenshot({ path: SHOT.replace('_10_1', '_FORTRESS_10_1') });
   /* THE POSTS (Battle Brothers' recruits, PEOPLE's roll): a camp two, a town four, a fortress six,
-     two more on market day; every card shows the man before you pay; hiring puts him on the roster */
+     a quarter more on market day; every card shows the man before you pay; hiring puts him on the roster */
   await p.evaluate(() => { try { localStorage.removeItem('bohemia.hired.v1'); localStorage.removeItem('bohemia.bag.v1'); } catch (e) {} BohemiaSettlement.state.stash.length = 0; });
   const posts = {};
   for (const [t, extra] of [['camp', []], ['town', []], ['fortress', []], ['town', ['market_day']]]) {
@@ -431,7 +440,7 @@ const srv = http.createServer((rq, rs) => {
     await tapB('hall'); await p.waitForTimeout(250);
     posts[t + (extra.length ? '+market' : '')] = await p.evaluate(() => document.querySelectorAll('#sbody .hire').length);
   }
-  ok('the posts: a camp two, a town four, a fortress six, two more on market day', posts.camp === 2 && posts.town === 4 && posts.fortress === 6 && posts['town+market'] === 6, JSON.stringify(posts));
+  ok('the posts: a camp two, a town four, a fortress six, a quarter more on market day (the Seasonal Fair card)', posts.camp === 2 && posts.town === 4 && posts.fortress === 6 && posts['town+market'] === 5, JSON.stringify(posts));
   const card = await p.evaluate(() => { const c = document.querySelector('#sbody .hire'); return { stats: c.querySelectorAll('.hstats span').length, star: c.querySelectorAll('.hstats .star').length, nm: c.querySelector('.nm').textContent, price: c.querySelector('.act em').textContent,
     face: (() => { const d = c.querySelector('canvas.face').getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
   ok('  every hire card shows his face, name, background, eight stats with his star, and the price before you pay', card.stats === 8 && card.star === 1 && card.face > 300 && /batt/.test(card.price), card.nm + ' | ' + card.price);
@@ -440,7 +449,7 @@ const srv = http.createServer((rq, rs) => {
   const h0 = await bat(), price = await p.evaluate(() => parseInt(document.querySelector('#sbody .hire .act em').textContent, 10));
   await p.click('#sbody .hire .act'); await p.waitForTimeout(250);
   const h1 = await bat(), hiredN = await p.evaluate(() => JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]').length), cardsLeft = await p.evaluate(() => document.querySelectorAll('#sbody .hire').length);
-  ok('  hiring takes his price and he leaves the posts for your company', h0 - h1 === price && hiredN === 1 && cardsLeft === 5, (h0 - h1) + ' batteries, ' + cardsLeft + ' left at the posts');
+  ok('  hiring takes his price and he leaves the posts for your company', h0 - h1 === price && hiredN === 1 && cardsLeft === posts['town+market'] - 1, (h0 - h1) + ' batteries, ' + cardsLeft + ' left at the posts');
   const rp = await ctx.newPage(); await rp.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_ROSTER_SCREEN.html');
   await rp.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready, null, { timeout: 30000 });
   const roster = await rp.evaluate(() => { const s = BohemiaRosterScreen.state, m = s.crew[s.crew.length - 1]; return { n: s.crew.length, last: m.name, hired: !!m.hired, onLine: s.front.concat(s.back).indexOf(s.crew.length - 1) >= 0 }; });

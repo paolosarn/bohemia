@@ -134,7 +134,9 @@ var CAUSE_KEYS = ['from', 'cause', 'beast', 'trigger', 'source_beast', 'year', '
 var causeKeys = sick ? CAUSE_KEYS.filter(function (k) { return k in sick; }) : [];
 ok('the live sickness trait carries NO cause field', !!sick && causeKeys.length === 0, causeKeys.join(','));
 ok('the live trait is rolled by chance and week alone', TRAITS.roll && typeof TRAITS.roll.chance_any === 'number' && typeof TRAITS.roll.period_days === 'number' && !('causes' in TRAITS.roll));
-ok("the live numbers are not the book's (1.1 / 0.8 / −1 against +100% / +200% / −25%)", !!sick && sick.price_mult === 1.1 && sick.stock_mult === 0.8 && sick.recruits === -1);
+/* RUN TWO 10/18 (ECONOMY day 71) built the numbers half: the live trait now carries the card's medicine +200% and recruits -25%;
+   the cause half (no cause field, rolled by chance) is still the gap */
+ok("the live numbers are the card's now (medicine x3, recruits x0.75, no blanket price)", !!sick && sick.medicine_buy_mult === 3 && sick.recruits_mult === 0.75 && !('price_mult' in sick));
 function engineFilesWriting(re) {
   return fs.readdirSync('engine').filter(function (f) { return /\.js$/.test(f); })
     .filter(function (f) {

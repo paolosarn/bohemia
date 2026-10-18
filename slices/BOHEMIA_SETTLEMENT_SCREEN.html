@@ -226,14 +226,16 @@ function ledgerTraits(){
 /* the knobs: buy and sell apart (a card can move them opposite ways), the shelf, the men (a multiplier; none is 'nobody
    signs on'). A caused trait reads the ledger file's effects; a rolled one its own fields */
 function traitMult(){
-  var m = {buy:1, sell:1, stock:1, men:1, none:false};
+  var m = {buy:1, sell:1, stock:1, men:1, meds:1, none:false};
   (S.traits||[]).forEach(function(t){
     if(caused(t)){
       var f = (ARR && ARR.traits[t.id] && ARR.traits[t.id].effects) || {}, v = function(k){ return f[k] ? f[k].value : 1; };
       m.buy *= v('buy_price_mult'); m.sell *= v('sell_price_mult'); m.stock *= v('items_mult'); m.men *= v('recruits_mult');
       return;
     }
-    m.buy *= (t.price_mult||1); m.sell *= (t.price_mult||1); m.stock *= (t.stock_mult||1);
+    /* a rolled trait's own card (ECONOMY day 71): buy and sell apart, the shelf, the men, medicine alone (Sickness) */
+    m.buy *= (t.buy_mult || t.price_mult || 1); m.sell *= (t.sell_mult || t.price_mult || 1); m.stock *= (t.stock_mult||1);
+    m.men *= (t.recruits_mult||1); m.meds *= (t.medicine_buy_mult||1);
     if((t.recruits||0) < 0) m.none = true;
   });
   return m;
@@ -916,7 +918,7 @@ var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], b
 function recruitsHere(){
   var tm = traitMult();
   if(!window.BohemiaGoodBros || tm.none) return [];
-  var n = Math.max(0, Math.round(((POST_COUNT[S.place.tier] || 4) + ((S.traits||[]).some(function(t){ return t.id === 'market_day'; }) ? 2 : 0)) * tm.men));
+  var n = Math.max(0, Math.round((POST_COUNT[S.place.tier] || 4) * tm.men));   /* the cards move the men by a share: a fair +25%, a raid -50%, a cough -25% */
   var key = S.place.name + ':' + Math.floor((S.day||0)/7), pk = key + ':' + n;   /* a raid halves the men (the wiki's Raided card) */
   if(S.postKey !== pk){
     S.postKey = pk; S.taken = {};
@@ -1081,13 +1083,16 @@ function openB(k, line){
   }
   else if(k==='stall'){
     body.appendChild(speak(k, line || 'Everything is one battery, mijo. No haggling at this stall.'));
+    var stm = traitMult();
     STALL.forEach(function(g){
-      var ab = act(g.label, '1 battery', function(){
-        if(bats()<1) return openB('stall','You are out of batteries. Come back with one.');
-        P.debit(S.purse,'electricity',1,'stall:'+g.good,S.place.name,S.day);
+      /* one battery each; a card moves it (Sickness triples the meds), never below one */
+      var pr = Math.max(1, Math.round(stm.buy * (g.good === 'meds' ? stm.meds : 1)));
+      var ab = act(g.label, pr + (pr === 1 ? ' battery' : ' batteries'), function(){
+        if(bats()<pr) return openB('stall','You are out of batteries. Come back with ' + pr + '.');
+        P.debit(S.purse,'electricity',pr,'stall:'+g.good,S.place.name,S.day);
         if(g.counts) P.credit(S.purse,g.counts,1,'stall:'+g.good,S.place.name,S.day);
         post('buy',{good:g.good}); sfx('pickup', view.night ? NIGHT_TRIM : null); shelf(); openB('stall','There you go. Gracias.');
-      }, bats()<1);
+      }, bats()<pr);
       var gi = packIcon(g.good); if(gi) ab.insertBefore(gi, ab.firstChild); acts.appendChild(ab);
     });
   }
