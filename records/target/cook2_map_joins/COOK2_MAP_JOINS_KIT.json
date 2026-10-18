@@ -139,105 +139,115 @@
   "J1_suburb_to_works": {
    "road_rows_unbroken": 1.0,
    "tone_step_rgb": [
-    0.0,
-    0.0,
+    -0.1,
+    -0.0,
     -0.0
    ]
   },
   "J4_works_to_desert": {
    "road_rows_unbroken": 1.0,
    "tone_step_rgb": [
+    0.0,
     0.1,
-    0.1,
-    0.0
+    0.1
    ]
   },
   "sidewalk_px_in_works_or_desert": 0,
   "yellow_double_metres": 294.7,
   "houses": [
    [
-    "PORCH",
+    "CARPORT",
     4.0,
     17.0
    ],
    [
     "PORCH",
-    21.3,
+    21.9,
     17.0
    ],
    [
-    "WING",
+    "PORCH",
     57.5,
     17.0
    ],
    [
-    "PORCH",
-    72.3,
-    17.0
-   ],
-   [
-    "WING",
-    89.6,
-    17.0
-   ],
-   [
     "GARAGE",
-    104.4,
-    17.0
-   ],
-   [
-    "GARAGE",
-    4.0,
-    65.0
-   ],
-   [
-    "CARPORT",
-    57.5,
-    65.0
-   ],
-   [
-    "CARPORT",
-    75.4,
-    65.0
-   ],
-   [
-    "PORCH",
-    93.4,
-    65.0
-   ],
-   [
-    "GARAGE",
-    110.7,
-    65.0
-   ],
-   [
-    "CARPORT",
-    4.0,
-    111.0
-   ],
-   [
-    "PORCH",
-    57.5,
-    111.0
-   ],
-   [
-    "PORCH",
     74.8,
+    17.0
+   ],
+   [
+    "PORCH",
+    100.6,
+    17.0
+   ],
+   [
+    "PORCH",
+    117.9,
+    17.0
+   ],
+   [
+    "GARAGE",
+    4.0,
+    65.0
+   ],
+   [
+    "PLAIN",
+    57.5,
+    65.0
+   ],
+   [
+    "WING",
+    76.9,
+    65.0
+   ],
+   [
+    "WING",
+    91.6,
+    65.0
+   ],
+   [
+    "GARAGE",
+    106.4,
+    65.0
+   ],
+   [
+    "WING",
+    4.0,
     111.0
    ],
    [
     "PORCH",
-    92.1,
+    18.8,
     111.0
    ],
    [
-    "PORCH",
-    109.4,
+    "WING",
+    57.5,
+    111.0
+   ],
+   [
+    "GARAGE",
+    72.3,
     111.0
    ],
    [
     "PLAIN",
+    98.0,
+    111.0
+   ],
+   [
+    "PORCH",
+    117.4,
+    111.0
+   ],
+   [
+    "CARPORT",
     4.0,
+    187.0
+   ],
+   [
+    "WING",
+    21.9,
     187.0
    ],
    [
@@ -246,13 +256,18 @@
     187.0
    ],
    [
-    "PORCH",
+    "PLAIN",
     75.4,
     187.0
    ],
    [
-    "GARAGE",
-    92.8,
+    "PORCH",
+    94.8,
+    187.0
+   ],
+   [
+    "PORCH",
+    112.1,
     187.0
    ]
   ],
@@ -270,7 +285,7 @@
     235.0
    ]
   ],
-  "desert_landscape": 142,
+  "desert_landscape": 143,
   "slots_for_the_rig": {
    "_why": "rule 115a: standing props and vehicles are the rig's",
    "chain_link_along_the_works_yards": [

@@ -45,7 +45,7 @@ draws arterial 9 m and freeway 12 m, written in the kit JSON so RUN matches one 
 - THE CONNECTION: at the suburb-to-works line and the works-to-desert line, 100% of the arterial's rows are road on
   both sides of the line; the tone step across the line is 0.1 of 255 (one asphalt, no seam).
 - 0 sidewalk pixels outside the suburb (the curb stops on the district line).
-- 289 distinct colours (5 bits a channel) across the whole ground (round one; 537 after round two).
+- 289 distinct colours (5 bits a channel) across the whole ground.
 
 ## IN VOTE: cook2-the-street-joins-for-the-map-10-18 (rule 114b; NOT VIBE CODED N3, class tile, family road)
 (Round one.) Measured first under the old ruler: all six pieces passed D1, D2, D4 and D5 and failed D3 alone (a top-down ground
@@ -62,12 +62,11 @@ as a new pack family and the band went stale; moved, N2 green). RUN does not wai
 - The yellow double is near-invisible at the near stop (2 px wide at the kit's pixel): right for a rest area, thin
   for a map.
 
-## ROUND TWO (10/18, the same day as [the curb on the map])
-The twin gate (PLUMBER 044890d4) read this card RED on colours per 1,000 px (0.01 to 0.09 of his road tile's). Three
-causes, fixed: the snap to his tile's top 48 colours is gone (the style guide: the ground is never re-palettized); the
-recolour keeps each pixel's own grain (S.recolour keep_grain: his soil 51 -> 222 colours per 1,000 px of his 526); four of
-his soil tiles where one repeated every 21 px. Now: none RED on the twin gate, all six pass NOT VIBE CODED N3. The full
-account is in records/BOHEMIA_COOK2_THE_CURB_ON_THE_MAP_10_18_26.md.
+## HIS VOTE: UP, 'Way better nice!' (10/18). ROUND TWO MEASURED AND SHELVED
+The twin gate read this card RED (colours per 1,000 px); round two removed the snap, kept the grain and laid four soil
+tiles, and passed it; then his UP on round one landed, and round two had turned the smooth tans into a mottle at the
+map's camera. His yes wins: round one's look stands (ROUND_TWO_GRAIN = False). The full account and the note to PLUMBER
+are in records/BOHEMIA_COOK2_THE_CURB_ON_THE_MAP_10_18_26.md.
 
 ## CAPTION (rule 114c)
 PIXEL SIZE his pixel reduced 4:1, 14.25 px a metre, one size in the scene; the camera picture at the near stop's

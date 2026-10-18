@@ -90,11 +90,16 @@ PIXEL SIZE the map's near stop, one art pixel to one device pixel (a block 256 p
 every second pixel | PALETTE records/target/cook2_map_curb/COOK2_MAP_CURB_KIT.json (his road, slab, face and yellow; 0
 colours not his) | LIGHT the style guide's one light, screen 155 degrees, from the left.
 
-## ROUND TWO OF [the street joins for the map] (the same round)
+## [the street joins for the map]: ROUND TWO MEASURED, HIS UP KEPT (the same round)
 The twin gate (PLUMBER 044890d4) read the joins card RED on colours per 1,000 px (0.01 to 0.09 of his road tile's). Three
-causes, measured and fixed: (1) round one snapped every reduced tile to his tile's top 48 colours (the style guide's
-palette field: the ground is never re-palettized): gone; (2) the shade-to-shade recolour flattened each band to one hue
-(his soil 526 colours per 1,000 px -> 51): S.recolour(keep_grain=True) keeps each pixel's own offset (-> 222), off by
-default so every older sheet regenerates bit for bit; (3) the desert was one soil tile repeated every 21 px: four of his.
-Nearest reduction was measured too and dropped (it failed NOT VIBE CODED D5's rest area). Now: the six pieces pass N3's
-first five and none is RED on the twin gate (J1, J2, J3B, J5 GREEN; J3A, J4 AMBER on the dark-line share).
+causes, measured: the snap to his tile's top 48 colours; the shade-to-shade recolour flattening each band to one hue (his
+soil 526 colours per 1,000 px -> 51; S.recolour(keep_grain=True) keeps each pixel's own offset, -> 222, off by default);
+one soil tile repeated every 21 px. Round two fixed all three and passed both gates (N3 and the twin, none RED; nearest
+reduction was measured and dropped, it failed N3's D5 rest area). THEN HIS VOTE ON ROUND ONE LANDED: UP, 'Way better
+nice!'. At the map's camera round two turned his smooth tans into a mottle (mean difference 5.9 of 255, the same mean
+tone), so his yes wins (the style guide's tie-breaker 1): round one's look is back (ROUND_TWO_GRAIN = False in the tool;
+round two stays one switch away), and a voted card is no longer held by the twin gate. Kept from round two: the ramp
+is a distance on the plan, not a drawn line (ART PIPE A2: the tool now writes no pixel by hand).
+FOR PLUMBER (the twin gate): his UP on a card the gate read RED. The gate compares a map-scale kit (his pixel reduced
+4:1, snapped) cell by cell to a 1:1 pack tile; at the map's camera he prefers the smooth one. The map's scale needs its
+own line (his voted joins are the first sample), or colours per 1,000 px is not held on a kit whose look names the map.

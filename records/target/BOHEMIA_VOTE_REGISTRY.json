@@ -29,6 +29,47 @@
  "version": 1,
  "items": [
   {
+   "id": "cook2-the-curb-on-the-map-10-18",
+   "kind": "tile",
+   "lane": "cook 2",
+   "sha": "e2387a9c",
+   "made": "10/18",
+   "title": "CANDIDATE: THE CURB ON THE MAP, FROM YOUR OWN TILES",
+   "why": "You said a sidewalk curb sits a little higher than the street, so the map's streets now have one: the sidewalk's lit edge, its little wall and its shadow on the road, from your own tiles, with your yellow line down the middle. You see it in the VOTE tab from the map's own camera, as it ships, with every block put back on its own spot, and with the curb laid; a candidate, nothing final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK2_THE_CURB_ON_THE_MAP.webp"
+   },
+   "question": "Does the street sit lower than the sidewalk now, on the map?",
+   "caption": "PIXEL SIZE the map's near stop, one art pixel to one device pixel (a block 256 px; kit levels 256, 128, 64), his tiles at every second pixel | PALETTE records/target/cook2_map_curb/COOK2_MAP_CURB_KIT.json (his road, slab, face and yellow; 0 colours not his) | LIGHT the style guide's one light, screen 155 degrees, from the left",
+   "sprites": [
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_256_M03.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_256_M12.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_256_M07.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BLOCK_256_M15.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_256_M03.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_256_M12.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_256_M07.png",
+    "records/target/cook2_map_curb/COOK2_MAP_CURB_BAND_256_M15.png"
+   ],
+   "class": "tile",
+   "family": "road",
+   "look": {
+    "px": 1,
+    "palette": "records/target/cook2_map_curb/COOK2_MAP_CURB_KIT.json",
+    "light": "guide"
+   },
+   "twin": {
+    "src": "pack:1. Cracked street tiles#0",
+    "diffs": [
+     "THE CURB STANDS UP: the map's streets were one flat dark band; now the sidewalk has a lit edge, a little wall under it (your slab's own dark bottom rows) and a shadow on the road where the sun is behind it.",
+     "YOUR TILES AT THE MAP'S PIXEL: your road and your slab, every second pixel, so a crack is half the size it is in the fight; your worn yellow line down the middle.",
+     "EVERY BLOCK ON ITS OWN SPOT: the map's block pictures were drawn up to a block too high, so the streets RUN drew were hidden; the middle picture puts them back (RUN's fix)."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "run2-the-neighbour-takes-the-refugees-10-18",
    "kind": "ui",
    "lane": "run 2",

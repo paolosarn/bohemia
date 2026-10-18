@@ -19,9 +19,8 @@ WHAT IS LAID (four map cells across, three down, 96 m a cell, the map's own cell
     J3 the freeway on-ramp: the arterial leaves the works, curves south and merges into the southbound lanes, a
        white gore hatch (his tile 23's hatch recoloured to his white paint) between ramp and mainline;
     J4 the arterial crossing open desert between the works and the ramp (a road through a different ground).
-SCALE: one pixel size in the scene, his native pixel reduced 4 to 1 (57 -> 14.25 px a metre), never snapped to a smaller
-palette; ROUND TWO (the twin gate read round one FAR): no snap, four of his soil tiles where one repeated, and a recolour
-that keeps each pixel's own grain (S.recolour keep_grain). The map's near stop draws a 96 m block 256 device px wide (EYES' four numbers), so
+SCALE: one pixel size in the scene, his native pixel reduced 4 to 1 (57 -> 14.25 px a metre), every reduced tile snapped
+back to his own tile's colours (round one; his UP 'Way better nice!' keeps it: ROUND_TWO_GRAIN below records round two). The map's near stop draws a 96 m block 256 device px wide (EYES' four numbers), so
 the kit sits 5.3x above the near stop and RUN reduces it, never the other way.
   python3 tools/bohemia_cook2_the_street_joins_for_the_map_10_18_26.py      (~1 min)
 
@@ -53,17 +52,23 @@ W, H = m(CELL * COLS), m(CELL * ROWS)
 OUT_KIT = os.path.join(R, 'records/target/cook2_map_joins'); os.makedirs(OUT_KIT, exist_ok=True)
 
 # ---- his tiles at the scene's one pixel size -----------------------------------------------------------------------
+# HIS UP WINS (10/18, his vote on round one: 'Way better nice!'; the style guide's tie-breaker 1: his YES wins over every
+# number). Round two removed the snap, kept each pixel's grain in the recolour and laid four soil tiles, because the
+# twin gate read round one FAR on colours per 1,000 px; measured at the map's camera the ground went from his smooth
+# tans to a mottle (mean difference 5.9 of 255, the same mean tone), after he had said yes to the smooth one. So round
+# one's look is the look: the snap stays, ROUND_TWO_GRAIN is off, and the finding goes to PLUMBER (the twin gate compares
+# a map-scale kit to a 1:1 tile; his yes says the map's scale needs its own line). The only round-two change kept is the
+# ramp drawn as a distance on the plan (ART PIPE A2), which moves a ramp edge pixel here and there.
+ROUND_TWO_GRAIN = False
 def snap(small, orig, n=48):
-    """ROUND TWO (10/18): NO SNAP. Round one snapped every reduced tile onto his tile's top 48 colours; the twin gate
-    (PLUMBER 044890d4) measured that snap as the one thing that put the kit FAR from his tiles (colours per 1,000 px
-    0.01 to 0.09 of his road tile's), while his tiles reduced 4:1 by the box alone read GREEN (0.64; nearest 0.95);
-    and the style guide's palette field says the ground is his packs' own colours, never re-palettized (82a). So his
-    pixel is kept as the box reduce averages it, the way a camera at that distance sees it."""
-    return np.asarray(small)[..., :3]
+    """reduced pixels back onto his own tile's colours (his top n, no new colour)"""
+    if ROUND_TWO_GRAIN:
+        return np.asarray(small)[..., :3]
+    pal = Image.fromarray(orig[..., :3]).quantize(n, method=Image.Quantize.MEDIANCUT)
+    return np.asarray(Image.fromarray(small[..., :3]).quantize(palette=pal, dither=Image.Dither.NONE).convert('RGB'))
 def reduce_rgba(a, how=Image.BOX):
-    """his tile at the scene's pixel, by the box (ROUND TWO measured NEAREST too: it kept his contrast for the twin gate
-    but every ground cell then failed NOT VIBE CODED D5, no rest area; the box with four soil tiles and the grain kept
-    passes both)."""
+    """his tile at the scene's pixel, by the box, then snapped to his tile's own colours (round two measured NEAREST too:
+    it kept his contrast for the twin gate but every ground cell failed NOT VIBE CODED D5, no rest area)"""
     im = Image.fromarray(a); w, h = max(1, a.shape[1] // K), max(1, a.shape[0] // K)
     rgb = np.asarray(im.convert('RGB').resize((w, h), how)); al = np.asarray(im.getchannel('A').resize((w, h), how))
     return np.dstack([snap(rgb, a), np.where(al > 127, 255, 0).astype(np.uint8)])
@@ -72,7 +77,7 @@ def piece(fam, i, cut=True, tint=None):
     k = (fam, i, cut, tint)
     if k not in _cache:
         a = S.pack(fam, i)
-        if tint: a = S.recolour(a, a[..., 3] > 0, tint, levels=6, shift_deg=10, keep_grain=True)   # round two: his grain kept
+        if tint: a = S.recolour(a, a[..., 3] > 0, tint, levels=6, shift_deg=10, keep_grain=ROUND_TWO_GRAIN)
         a = S.cut_frame(a, fam) if cut else a[11:-11, 11:-11]
         a = S.pad(a, 84, 84)
         _cache[k] = reduce_rgba(a)[..., :3]                          # the box (nearest broke NOT VIBE CODED D5: no rest)
@@ -165,10 +170,11 @@ shoulder = grow(road, 2.0) & ~road & ~walk & (works | desert)
 ROAD_PLAIN = [0, 1, 8, 9, 10, 11]
 road_px = tiled(S.ROAD, ROAD_PLAIN)
 walk_px = tiled(S.SIDEWALK, [0, 1, 2, 6, 7, 16, 3, 13], weights=[.2, .2, .15, .12, .12, .09, .06, .06])
-# round two: four of his soil tiles, not one (one tile repeated every 21 px held a desert cell to 239 colours, a tenth
-# of his tile's richness, the twin gate's FAR, and a repeat tell)
-soil_px = tiled(SOIL, [2, 3, 21, 1], cut=False, tint=VALLEY_TAN)
-gravel_px = tiled(SOIL, [2, 3, 21, 1], cut=False, tint=GRAVEL_GREY)
+# round two measured four of his soil tiles, not one (one tile repeated every 21 px held a desert cell to 239 colours,
+# the twin gate's FAR); his UP is on the one (ROUND_TWO_GRAIN above)
+SOILS = [2, 3, 21, 1] if ROUND_TWO_GRAIN else [2]
+soil_px = tiled(SOIL, SOILS, cut=False, tint=VALLEY_TAN)
+gravel_px = tiled(SOIL, SOILS, cut=False, tint=GRAVEL_GREY)
 track_px = tiled(DIRT, [33, 34], cut=False, tint='#a39478')
 img = soil_px.astype(np.float32)
 img[works] = gravel_px[works]
@@ -445,7 +451,7 @@ sheet.save(os.path.join(R, 'records/target/COOK2_THE_STREET_JOINS_FOR_THE_MAP.we
 
 # ---- the palette and the measurements -------------------------------------------------------------------------------
 q = (out // 8).reshape(-1, 3); uq, cnt = np.unique(q, axis=0, return_counts=True); order = cnt.argsort()[::-1]
-json.dump({'_what': 'COOK TWO, the street joins for the map (10/18, round two): the scene\'s palette. His tiles reduced 4:1 by the box, never re-palettized (the style guide\'s palette field, 82a); darkened (curb, walls, decals) or blended (paint) only.',
+json.dump({'_what': 'COOK TWO, the street joins for the map (10/18): the scene\'s palette. Every reduced tile snapped to his own tile\'s colours (his UP on round one); darkened (curb, walls, decals) or blended (paint) only.',
            'distinct_colours_5bit': int(len(uq)), 'top32_hex': ['#%02x%02x%02x' % tuple(int(v) * 8 + 4 for v in uq[i]) for i in order[:32]],
            'top32_share': round(float(cnt[order[:32]].sum() / cnt.sum()), 4)},
           open(os.path.join(R, 'records/BOHEMIA_COOK2_THE_STREET_JOINS_PALETTE_10_18_26.json'), 'w'), indent=1)
