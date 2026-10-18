@@ -1616,6 +1616,52 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-opus-10-18-qrg2): 10/18 LATEST (u) -- [the poverty premium] SHIPPED, THE NEW AGE
+(the top OPEN row, the new crew's sack cost; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117; research
+and numbers only, no screen, no code, no data file, no VOTE sheet, rule 88). Record:
+records/BOHEMIA_ECONOMY_DAY_77_THE_BOWL_COSTS_TWO_AND_A_HALF_TIMES_THE_SACK_WHERE_THE_RECORD_SAYS_A_TENTH_AND_TUNING_READ_IT_AS_EASIER_10_18_26.md (ecfd3bf6)
+THE FINDING: the poverty premium on main lives in ONE pile of six, food. Meds, tape and rounds sell at the wiki
+bundle's own rate (the stall's 'six rounds' is 17 in 100 UNDER it); water has no sack anywhere on main; the grain
+sack is in price_table.json and on no shelf. Across the rule 117(e) grid (crews 1, 3, 6, 12, 14 and every origin;
+plains, desert, mountains; broke and full purses; village to city; the fourteen food situations) the bowl is 2.4 to
+2.5 times the best sack (always grains) for every crew of two or more: 12 batteries a week for three on plains, 50
+for twelve, 117 for fourteen in the mountains. The lone man is the exception (1.4 on plains): he eats 14 of a sack's
+25 grains before it turns, which is the record's own point (Koenigsberg, Kohli and Montoya 2007: the small pack's
+higher unit price is partly buying what you can use). DAYS at the door with the canon wage: the sack adds 1 (the
+lone wolf) to 7 days (the new crew 26 -> 33 at THIN, 32 -> 40 at FULL); for every origin of two or more the rest of
+the gap to Battle Brothers is water. THE REAL RECORD: the food size premium is about 6 to 9 in 100 (Orhun and
+Palazzolo's toilet paper; Dillon, De Weerdt and O'Donoghue's 8.7 forgone in Tanzania, cash a weak barrier, the reasons
+over-eating a stock and kin asking for a visible pile; Sauer, Reardon and Mason 2023: there the poor do not pay
+more); loose sticks cost more than packs by a denomination effect (Tobacco Control 2023); the coin held and the
+quantity moved (the rupee of detergent, the sachet); the record's huge premium is water from a vendor against the pipe
+(UNDP 2006: 5 to 10 times a litre, Nairobi). PROVES US WRONG: (1) this lane's Day 72 called the bowl 'the real record
+exactly' and read Bristol's 490 pounds as mostly small units and the meter; Bristol holds no pack-size line and the
+meter is 38 of 490; ours is 16 to 25 times the record (corrected in place); (2) TUNING's easier rows mark
+stall.goods_price EASIER THAN BB comparing a 2-unit bowl at 1 with a 25-unit sack at 5; per man-day the bowl is 2.5
+times HARDER, a NO under rule 117; the row also cites EVERYTHING COSTS ONE (8/15) where GROK_33 (his 10/1) makes the one
+the floor; (3) this lane's Day 71 said the situations JSON's food prices are not on the cards; fourteen cards print
+one (Besieged and Sickness among them); TUNING's JSON was right (corrected in place); (4) the bowl reads none of the
+town's food news (traitMult has no food term): in a Short on Food town it is cheaper than the sack, in a Good Harvest
+town six times it; (5) the roster (Math.round, '|| 10') and the price table (floor, a ruled zero) pay different
+wages: the Debt Collectors 6 a day or 2, the Lone Wolf 4 or 3. THE LADDER (section 7, nothing picked): A the bowl only
+(today; +150, a NO when flush), B the sack only (BB; a broke man eats nothing), C the sack beside the bowl (the biggest
+felt step, 117(c)), D the scoop (the coin holds, the quantity moves; no premium; the broke man eats 7 days on 3
+batteries), E the cut scoop (+25, a NO when flush), F the cut scoop beside the sack; rule 117 allows C, D and F;
+realism leads with D or F, 117(c) with C; the trade is his. WATER (section 8): four rungs; only W3, the crew's own pump
+at a held base, clears BB's 46 on the canon wage books without a free week (56 / 50 with the sack at THIN).
+Routed: TUNING (stall.goods_price re-read per man-day and its ruling; the ladder and water rows; the 117 check at both
+ends of the purse; Day 71 withdrawn for the food rows), RUN TWO (the sack is data on no shelf; the bowl reads the
+situation's food price; five rounds not six; the pump on a base's screen when the hold lifts), PEOPLE + RUN TWO (one
+wage rule in both engines), UI (FOOD's days jump on the first sack), WORLD + FACTIONS (a visible pile as a target, named
+not built), WORDS (eight lines). Eight bank lines draft:true (section E x26, 1 of 8 Spanish). The calculator reproduces
+Day 76's 26 / 32 / 33 / 40 exactly and BB's 46 / 37 / 55 within a day (whole sacks).
+GATES (rule 13, by name): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0, OPEN ROW 9/0 (with [the
+pump at home] written; 8/1 between the claim and it); CANON ROT 11/2 and BANKS-USED 24/2 red on main before this diff
+(C2 8 of 6, C3 73 of 62; the house skins), this page adds none. Full suite unmeasured since this diff.
+NEXT OPEN (jump list, rule 74): [made here] (now the top: the attached location that makes the sack 'unusually low'),
+[the gap that survives], [the pump at home] (new, from section 8).
+PENDING Paolo: none new.
+
 ECONOMY (economy-opus-10-18-fh4mn): 10/18 LATEST (t) -- [the free first week] SHIPPED, THE NEW AGE
 (the top OPEN row, the coordinator's rule 117 row; opened by the coordinator on Opus 5.5 Extra, rules 112 to 117;
 research and numbers only, no screen built, no data file touched, no VOTE sheet, rule 88). Record:
