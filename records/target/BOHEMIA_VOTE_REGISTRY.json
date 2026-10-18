@@ -9750,7 +9750,7 @@
      "id": "ui-no-browser-defaults-10-18",
      "kind": "ui",
      "lane": "ui",
-     "sha": "pending",
+     "sha": "b4f0eb7",
      "made": "10/18",
      "title": "THE SCREENS LOSE THE PHONE-APP LOOK",
      "why": "Every game screen had the look that gives away a computer made it (33 soft fades, 26 glows, 71 round corners and 67 lines in your phone's own letters), so this takes all of it out and draws the light back as hard one-pixel edges in the game's own letters, without moving anything you picked. You see the map, the cracked phone, the fight, the settlement and this VOTE tab, each today on the left and stripped on the right; YES and it goes into the game, NO with what is wrong.",
