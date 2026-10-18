@@ -660,8 +660,10 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
-WORLD (world-vamily-opus4): 10/18 (e) LATEST -- *** [the block size settled] SHIPPED: ONE NUMBER FOR A
-BLOCK, EVERY FILE THAT CARRIES IT LISTED, AND A CHECK THAT FAILS WHEN TWO DISAGREE. ***
+WORLD (world-vamily-opus4): 10/18 (e) LATEST -- *** THREE ROWS SHIPPED: [the block size settled] (ONE
+NUMBER FOR A BLOCK, every carrier listed, a check that fails when two disagree), [the freeway as one road
+in the data] (each real freeway ONE road, every valley freeway cell named with its sibling half), and
+[the map's roads as one kit] closed. ***
 Opened by the coordinator (rules 112, 116; Opus 5.5 Extra). No check-in, no question.
 Record: records/BOHEMIA_WORLD_ONE_NUMBER_FOR_A_BLOCK_10_18_26.md. Tab: NOT IN A TAB YET (data and a check).
 
@@ -684,8 +686,25 @@ COMBAT TWO, RUN, FACTIONS (0c0b7520). GATE REGISTRY 7/0.
 Red on main before me, not mine: MAP SIZE 12/1 (a walk is one cell a beat), ROADS ARE FAST (a browser
 selector, #daycardIn .dcgo, not found).
 WEAK: the sweep reads declarations only (a number in arithmetic hides); tools/ swept for map-only names.
-NEXT: [the freeway as one road in the data] CLAIMED (the coordinator's new row for RUN's [one freeway,
-and nobody is an icon]). PENDING Paolo: nothing.
+5. [the freeway as one road in the data] SHIPPED (9024d2af, c1fbca8f). Record:
+records/BOHEMIA_WORLD_THE_FREEWAY_IS_ONE_ROAD_10_18_26.md. engine/BOHEMIA_REGION_LAND.json gains
+freewayPaths (six class-1 roads past the valley, block by block, districts). engine/bohemia_freeways.js:
+of(om, land, compass) names all 968 valley freeway cells by real highway in the real compass (spine I-15,
+cross-town US-95 both ways out of the bowl, ring CC-215, each exit by the real road nearest it AROUND the
+box), gives each cell its sibling half's side (median) so a pair draws as ONE carriageway, and returns
+each freeway as ONE ordered road: I-15 California to the Virgin River 834 steps, 0 holes, 19 ramps, 5
+lanes in the valley; US-95 740; I-11 / US-93 515; CC-215 a closed 280-step loop; districts in order.
+stitch(F, land, compass) joins the rim BY NAME in stitch()'s shape (today stitch() sends the valley's
+I-15 into NV-159 and its US-95 into Lake Mead Blvd). ONE BREAK, the roll's: no freeway out toward
+I-515 / US-93 (Henderson), 14 blocks on the game's seed, 16 of 20 seeds. Gate THE FREEWAY IS ONE ROAD
+31/0, registered, 20 seeds, six mutations. NOTE on RUN's [one freeway] row (c1fbca8f).
+6. [the map's roads as one kit] SHIPPED (50dfdad1): the streets RUN drew joined (his YES, the sixteenth
+votes), the freeway he named carried by item 5. NEW OPEN row [the dam in one place] (the roll draws the
+dam, Boulder City, Lake Mead in the valley's corner; the region puts the real ones 35 to 41 km out).
+Red on main, not mine: GATE REGISTRY 6/1 (the_boards_quests_are_people_gate.js not in the suite).
+NEXT: [the dam in one place], then [the three sizes of place] or [the roll] (the roll now owns two
+measured seams: the I-515 exit, 14 blocks, and the made rim blocks, 31 for I-15 N). WORLD holds 3 OPEN.
+PENDING Paolo: nothing.
 
 WORLD (world-vamily-opus3): 10/18 (d) LATEST -- *** THE ONE RULER SETTLED, AND [the districts as
 data, joined] SHIPPED: 26 REAL DISTRICTS AND EVERY ROAD'S CROSSING, NAMED BOTH SIDES. ***
