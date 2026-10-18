@@ -8,19 +8,19 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: the region shelf, TEN CONTRACTS FOR THE REGION'S DISTANCES; research page QR-AR.
 CORRIDOR: US-95 south. BAND: A DAY (228 blocks, about 20 hours by road; two nights out, the farthest fight on the shelf).
 PAIR: none on this corridor in act 1 (Searchlight is the only place on US-95 south); the pair is the rumour (QR-AH) about the mine's gear, if the bar sold it.
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 3 failed (the new moon was said, not shown), 21 and 30 failed (the haul road paid by the head and the loan road's fee was unstated), 23 failed (the camp fight's loss unstated), all fixed in place)
 
 ## THE SITUATION
 The solar field's night storage is dead and the only diesel generator that size for a hundred kilometres is at the Searchlight mine, where a crew of a dozen has been running it to pump the shaft for two years. The Trades say the crew are squatters on the field's own lease and want them driven off and the generator hauled back. The crew say otherwise, but they are a day away and nobody from the valley has asked them.
 
 ## THE ROAD (QR-AR rule 1)
-THERE: 20 hours by road; two nights out (the first on the road at the half-way, the second at Searchlight after the fight). BACK: 20 hours with a generator on a flatbed at a cart's pace, call it a day and a half; three nights in all. WAITS: the field says "Before the next new moon. After that we buy from the dam at their price." Ten days; the party needs five. Roaming on this road: the US-95 south is empty but for the Searchlight crew's own supply runs, which the party will meet going the other way (FACTIONS).
+THERE: 20 hours by road; two nights out (the first on the road at the half-way, the second at Searchlight after the fight). BACK: 20 hours with a generator on a flatbed at a cart's pace, call it a day and a half; three nights in all. WAITS: the field says "Before the next new moon. After that we buy from the dam at their price." Ten days; the party needs five. (QR-AT, line 3, `Q095.X1`, `Q119.X3`: the moon on the map's sky counts down to new, and the field's pin says the days.) Roaming on this road: the US-95 south is empty but for the Searchlight crew's own supply runs, which the party will meet going the other way (FACTIONS).
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 - SETTLEMENT: the solar field, the inverter shed, a wall of dead batteries and a woman with a torque wrench.
 - CLIENT PORTRAIT: LEAD HAND VUKOVIC, the field's boss, a Rick Owens jacket over a reflective vest, the lease rolled under her arm.
 - THE SCREEN'S LINES: "The mine's generator is ours. It's on our lease. They've been running it two years." / "Drive them off. Haul it back. Per head for anyone who swings." / "It's a day down and two back with the weight. Take water. There is none between here and there."
-- PAY: 90 BATTERIES at home on the generator's arrival, plus 5 a head for the crew driven off, capped at 6 (QR-AF: per head only on CLEAR, capped); the field's own power to the player's base for a week on top. ROAD ALLOWANCE (QR-AR rule 2): 2 FOOD and 2 WATER a head a day for five days, the water line said twice because the road has none. SKULLS: 3 (two nights, no water on the road, a dozen men).
+- PAY: 90 BATTERIES at home on the generator's arrival, whether it comes by the fight or by the loan, and the field's own power to the player's base for a week on top (QR-AT, lines 21 and 30, `Q190.X1`, `Q130.X9`: the per-head bonus is cut, because a head paid is the crueller road paid more; walking away is the priced refusal beside the full-fee loan, `Q139.P2`). ROAD ALLOWANCE (QR-AR rule 2): 2 FOOD and 2 WATER a head a day for five days, the water line said twice because the road has none. SKULLS: 3 (two nights, no water on the road, a dozen men).
 - NEGOTIATION: "More" once: the power runs two weeks. Twice: "It's my generator, and you're pricing it."
 - ACCEPT / DECLINE. Declining is free, writes nothing.
 
@@ -31,7 +31,7 @@ First line after accept: "They'll say it's theirs. Everything's somebody's."
 Night one on the road: one event at most, QR-AG's Deserter (a man walking north from Searchlight who will say what the crew is before you get there, for a price). Night two at Searchlight, after. Night three on the way home with the flatbed, the Broken Cart event's natural home.
 
 ## THE CHOICES AT SEARCHLIGHT
-A. THE FIGHT: a dozen miners with a truck and the generator's own shed for cover; a tough fight on the camp's house tiles, 10 to 15 minutes, the shelf's hardest; chased off counts at six down.
+A. THE FIGHT: a dozen miners with a truck and the generator's own shed for cover; a tough fight on the camp's house tiles, 10 to 15 minutes, the shelf's hardest; chased off counts at six down. A lost fight is a result: the party falls back up the road with its hurt, the crew keeps the generator, and Vukovic hears it from the player (QR-AT, line 23, `Q095.X3`, `Q017.X1`).
 B. THE LEASE: show the lease. The crew's foreman shows his: the mine's own, older, naming the generator as the mine's. A fork the player can read before anyone swings (`Q178.W3`'s honesty): walk away with nothing, fight anyway, or make the crew an offer (the field's power to Searchlight one week a month for the generator's loan, which Vukovic did not authorise and must swallow at hand-in).
 C. THE PUMP: the generator pumps the shaft. Haul it and the shaft floods and the camp dies in a season. The crew says so; the deserter said so; the shaft's water line is drawn on the camp's picture.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36).

@@ -8,13 +8,13 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: the region shelf, TEN CONTRACTS FOR THE REGION'S DISTANCES; research page QR-AR.
 CORRIDOR: NV-160 west over the pass. BAND: A DAY OR TWO (222 blocks; 20 hours if the pass road holds, up to three days if it is hills; two nights out).
 PAIR: a HUNT on NV-160 (the pass's own beasts, QR-AO's shelf) or QD-AR06 THE LODGE ABOVE THE SNOW LINE from the other side of the same mountains, which shares no road and does not pair (the phone draws no line).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 3 failed (the vote day was said, not shown), 18 failed (the act-two landing had no default read), 30 failed (the bribe out-paid the client), all fixed in place)
 
 ## THE SITUATION
 The tower holds the paper on half of Pahrump's wells and wants a sealed letter in the hands of Pahrump's council before their vote on who owns the water. A radio would do it in a minute if Pahrump answered its radio. It does not. The letter goes over the pass on foot, and the tower wants a seal unbroken and a signed receipt back.
 
 ## THE ROAD (QR-AR rule 1)
-THERE: 20 hours by road over the pass, two days if the pass is hills on WORLD's region file; two nights out. BACK: the same with a receipt. WAITS: the council votes in six days; the tower says the day. Roaming on this road: the pass is where the Spring Mountains' lab animals come down to the road at night (rule 42; QR-AO's pass beasts), and Pahrump's own riders.
+THERE: 20 hours by road over the pass, two days if the pass is hills on WORLD's region file; two nights out. BACK: the same with a receipt. WAITS: the council votes in six days; the tower says the day. (QR-AT, line 3, `Q095.X1`, `Q119.X3`: Pahrump's pin on the map counts the days to the vote.) Roaming on this road: the pass is where the Spring Mountains' lab animals come down to the road at night (rule 42; QR-AO's pass beasts), and Pahrump's own riders.
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 - SETTLEMENT: the tower offices, the mail room, pigeonholes, a franking machine, a man in a tie.
@@ -32,15 +32,15 @@ Night one at the pass: one event at most, the pass beasts (a face is the scout w
 
 ## THE CHOICES AT PAHRUMP
 A. DELIVER: the council's clerk signs; the letter is read aloud at the vote the next day while the party is still in town; it says the tower forecloses the wells. Pahrump's price to the valley goes up for a season.
-B. THE BRIBE (the twist): the council's chair meets the party at the inn with 100 BATTERIES and a line: "Lose it on the pass. Tell him the beasts took the bag." The receipt is never signed; the tower's 60 is gone; the 100 is in hand; the ledger writes what the player said at home.
+B. THE BRIBE (the twist): the council's chair meets the party at the inn with 70 BATTERIES, the tower's fee and advance to the battery, counted out (QR-AT, line 30, `Q190.X1`, `Q166.W4`: the money cannot decide it, so the wells and the tower do), and a line: "Lose it on the pass. Tell him the beasts took the bag." The receipt is never signed; the tower's 60 is gone; the 70 is in hand; the ledger writes what the player said at home.
 C. OPEN IT: break the seal at the inn and read it. The receipt is worthless; the player knows what the vote is; the chair's offer, if taken now, is made knowing.
 Fights are on house tiles; the pass beasts are a routine night fight, 3 to 4 minutes, if they come. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36).
 
 ## THE ONE TWIST (T14, THE BRIBE IS REAL; lands at the far end)
-The chair's hundred is real money on the table, more than the tower pays, and nobody at the tower can ever know what happened on the pass unless the player says. The twist is a fork with no clean option, two days from the client, with a seal in the bag (`Q126.W3`: the unpunished no is what makes the yes a choice). Taking it and telling the tower the truth is a third road: the tower's standing drops, the Reds remember, the hundred stays.
+The chair's seventy is real money on the table, exactly what the tower pays, and nobody at the tower can ever know what happened on the pass unless the player says. The twist is a fork with no clean option, two days from the client, with a seal in the bag (`Q126.W3`: the unpunished no is what makes the yes a choice). Taking it and telling the tower the truth is a third road: the tower's standing drops, the Reds remember, the seventy stays.
 
 ## WHAT THE LEDGERS REMEMBER
-Delivered: Pahrump's situation reads "foreclosed" and its board offers the valley nothing for a season; the tower's board opens its second tier to the player (`Q236.W9`). Lost on the pass: the tower's clerk says "the beasts" back to the player in a flat voice and the Reds' standing drops one; Pahrump's situation reads "its wells" and its board opens to the player with a water run (`Q236.W8`). The deed ledger writes "carried the tower's letter over the pass" either way and what the receipt says. Across the acts: a Pahrump that kept its wells is a Pahrump that is standing in act 2 (QR-D's planting).
+Delivered: Pahrump's situation reads "foreclosed" and its board offers the valley nothing for a season; the tower's board opens its second tier to the player (`Q236.W9`). Lost on the pass: the tower's clerk says "the beasts" back to the player in a flat voice and the Reds' standing drops one; Pahrump's situation reads "its wells" and its board opens to the player with a water run (`Q236.W8`). The deed ledger writes "carried the tower's letter over the pass" either way and what the receipt says. Across the acts: a Pahrump that kept its wells is a Pahrump that is standing in act 2 (QR-D's planting). (QR-AT, line 18, `Q121.X1`, `Q096.X1`: never set, act 2 reads the vote as it went without the letter: Pahrump kept half its wells, one line from its council at the door.)
 
 ## THE ONE WRONG DETAIL
 The hot plate warming the seal is plugged into the tower's one live socket, and the clerk unplugs the coffee to use it.

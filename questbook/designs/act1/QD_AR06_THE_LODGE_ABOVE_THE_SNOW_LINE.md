@@ -8,13 +8,13 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: the region shelf, TEN CONTRACTS FOR THE REGION'S DISTANCES; research page QR-AR.
 CORRIDOR: US-95 north, then Kyle Canyon into the Spring Mountains. BAND: A DAY (130 blocks straight, but the last third is hills at 1.8 times: about 12 hours of road and 20 of climb; two nights out).
 PAIR: QD-AR09 TWO NIGHTS AT THE MOAPA WELL is the wrong road; the pair on this corridor is a FIND at Indian Springs (the fortress half a day out on US-95 north; QR-O base 1's kin) or none. Declining the second is free.
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 3 failed (the week was said, not shown), 15 failed (the family was only in a paid line), 23 failed (the lodge fight's loss unstated), 30 failed (the take road won the lodge), all fixed in place)
 
 ## THE SITUATION
 Before the dollar died the lodge on the mountain was a resort with a clinic for ski injuries, and its pharmacy was stocked for a season that never came. The chapel clinic has the valley's winter cough in forty beds and no antibiotics. The lodge is a day up a canyon that is cold at night in a desert that is not.
 
 ## THE ROAD (QR-AR rule 1)
-THERE: 12 hours of road to the canyon mouth, then 20 hours of hills (the 1.8 going); two nights out, one at the canyon mouth, one at the lodge. BACK: the same, downhill is no faster on the file. WAITS: the clinic says "Forty beds. A week before the cough becomes something else." The offer holds seven days; the party needs four. Roaming on this road: nobody above the canyon mouth; the cold is the enemy (one WATER less a head a day in the hills, one FOOD more: TUNING's shape).
+THERE: 12 hours of road to the canyon mouth, then 20 hours of hills (the 1.8 going); two nights out, one at the canyon mouth, one at the lodge. BACK: the same, downhill is no faster on the file. WAITS: the clinic says "Forty beds. A week before the cough becomes something else." The offer holds seven days; the party needs four. (QR-AT, line 3, `Q095.X1`, `Q119.X3`: the chapel town's pin shows the beds filled and the days left.) Roaming on this road: nobody above the canyon mouth; the cold is the enemy (one WATER less a head a day in the hills, one FOOD more: TUNING's shape).
 
 ## THE SETTLEMENT AND THE OFFER SCREEN
 - SETTLEMENT: the chapel town, the clinic's pharmacy counter, a nun in a surgical mask and a Balenciaga habit.
@@ -28,13 +28,13 @@ THERE: 12 hours of road to the canyon mouth, then 20 hours of hills (the 1.8 goi
 First line after accept: "Sealed bottles only. An open one is a guess."
 
 ## THE NIGHTS OUT (QR-AR rule 5)
-Night one at the canyon mouth: one event at most (QR-AG's Man in Forest, a hermit who knows the lodge is not empty, if the player pays for the line). Night two at the lodge itself, which is the twist.
+Night one at the canyon mouth: one event at most (QR-AG's Man in Forest, a hermit who knows the lodge is not empty, if the player pays for the line). (QR-AT, line 15, `Q141.X3`: free and in two channels, the lodge's chimney smokes above the snow line in the canyon mouth's view, and a dog barks up there once at dusk, SOUND NEEDED.) Night two at the lodge itself, which is the twist.
 
 ## THE CHOICES AT THE LODGE
 The lodge is lived in: a family of nine, two of them the resort's old staff, who have kept the pharmacy locked and rationed for three winters.
 A. ASK: the mother opens the pharmacy for a price in FOOD (the hills' own currency), two thirds of what the party carries; the haul is honest and the clinic gets its third.
 B. TRADE THE CLINIC'S CARE: promise the family the clinic's month of treatment instead of the company's (the pay forfeited, the haul whole); Sister Agustina honours it and says so.
-C. TAKE IT: nine people, two with rifles, a tough fight on the lodge's house tiles, 8 to 12 minutes, in the cold; the lodge is yours and empty after, and the ledger writes it in the family's name.
+C. TAKE IT: nine people, two with rifles, a tough fight on the lodge's house tiles, 8 to 12 minutes, in the cold; the lodge is empty after and nobody's, cold and unlit, no camp opens, and the ledger writes it in the family's name (QR-AT, line 30, `Q190.X1`, `Q130.X9`: the crueller road pays the same third and no place on top). A lost fight is a result: the family keeps the door, the party comes down with nothing and a member hurt, and Agustina's week runs out on her pin (QR-AT, line 23, `Q095.X3`).
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36).
 
 ## THE ONE TWIST (T21, THE RESCUED DO NOT WANT RESCUE; lands at the far end)

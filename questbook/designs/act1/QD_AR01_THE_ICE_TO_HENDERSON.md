@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: the region shelf, TEN CONTRACTS FOR THE REGION'S DISTANCES; research page QR-AR.
 CORRIDOR: I-515 / US-93 southeast. BAND: NEAR (78 blocks, about 7 hours by road; there and back in a day, no night out).
 PAIR: QD-AR02 THE RELIEF SHIFT TO THE DAM (the same road, further on; the ice is dropped at Henderson on the way to the dam).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 15 failed (the melting ice was a picture only) and 25 failed (Marisol had no want of her own), both fixed in place)
 
 ## THE SITUATION
 The depot's freezer runs on the one circuit that still holds, and Henderson's clinic pays for ice twice a week. The cart is loaded at dawn. The ice is gone by noon in this heat. Seven hours by road is six and a half too many if the cart stops.
@@ -25,7 +25,7 @@ THERE: 7 hours by road (0.3 days). BACK: the same, empty. WAITS: the ice goes ou
 - ACCEPT / DECLINE. Declining is free, writes nothing (`Q236.P3`).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Keep it moving. That's the whole job."
+First line after accept: "Keep it moving. Two full scales and Henderson signs with my depot for the year." (QR-AT, line 25: the giver's own want in one line, `Q133.X2`)
 
 ## THE CHOICES ON THE ROAD
 A. THE ROAD: 7 hours, the cart's pace. One road crew at the rim junction asks a toll (one priced button: 5 batteries; one free: push through, a routine fight, 2 to 3 minutes, on the junction's house tiles).
@@ -34,7 +34,7 @@ C. DROP THE CART AND CARRY: the party carries blocks on their backs, faster over
 Fights are on house tiles; routine 2 to 4 minutes. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36).
 
 ## THE ONE TWIST (T07, THE TARGET KEEPS A SCHEDULE; built into the kind, not a surprise)
-Noon is the clock. The map's clock is on the HUD; the ice block drawn on the cart shrinks as the sun climbs (an ASSET NEEDED, COOK: three states of the block). Arrive at 11 and the clinic weighs a full load; at 1 it weighs a puddle and pays for water. The timer is generous enough to be made on the road and tight enough to lose to one wrong button (`Q018.W8`, not `Q119.X3`'s invisible timer).
+Noon is the clock. The map's clock is on the HUD; the ice block drawn on the cart shrinks as the sun climbs (an ASSET NEEDED, COOK: three states of the block). (QR-AT, line 15: the melt in two channels, `Q141.X3`: a drip under the cart that quickens with the sun, SOUND NEEDED, SOUNDS; the block and the drip say the same hour.) Arrive at 11 and the clinic weighs a full load; at 1 it weighs a puddle and pays for water. The timer is generous enough to be made on the road and tight enough to lose to one wrong button (`Q018.W8`, not `Q119.X3`'s invisible timer).
 
 ## WHAT THE LEDGERS REMEMBER
 Henderson's clinic flips to "iced" for three days: its MEDS price drops one and its board shows a patient-transport job (QR-O base 6's kind) the next visit (`Q236.W8`). The depot's Marisol knows the weight you landed: "Full scale. Dawn to noon, like I said." (`Q024.W10`). A lost load writes "the ice melted on the road" to the deed ledger and nothing else; the cart runs again in three days.

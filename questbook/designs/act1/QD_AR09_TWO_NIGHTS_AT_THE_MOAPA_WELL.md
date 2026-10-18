@@ -8,7 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: the region shelf, TEN CONTRACTS FOR THE REGION'S DISTANCES; research page QR-AR.
 CORRIDOR: I-15 north. BAND: HALF A DAY TO A DAY (170 blocks, about 15 hours by road; three nights out: one on the road, two on station at the well).
 PAIR: QD-AR10 THE FAMILY AT MESQUITE (further up the same road; Moapa is where that job's clue turns).
-CHECKLIST: not yet run line by line against QR-G and lines 29-32 (owed)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 30 failed (the deal road, the kindest, paid nothing), fixed in place)
 
 ## THE SITUATION
 Moapa's camp has the only sweet well between the valley and Mesquite and a raiding party out of the north has hit it twice at night for the pump's battery bank. The camp knows the party's pattern: every fourth night, from the north, at the dark of the moon. They want a company at the well for the two nights that matter, and they can pay in food and water, which is what a well camp has.
@@ -33,7 +33,7 @@ Night one on the road: one event at most (QR-AG's Raid Farmstead is the fit, a f
 ## THE CHOICES AT THE WELL
 A. HOLD: the company takes the well house's tiles, the sandbags as cover, the solar bank behind the line. The raid is six on the first night they come, a routine fight at night, 3 to 4 minutes, the board's light low (COMBAT's night board). Chased off counts at three down.
 B. THE TRACKS: go north by day on the raiders' prints to their camp, a wash twelve blocks up, and hit them asleep: a routine fight by day, 3 minutes; the well is unguarded that night and nobody comes, because they are dead or running.
-C. THE DEAL: the raiders' leader comes to the sandbags at dusk with a flag and offers to leave the well alone for a cut of its water, monthly; Niles will not hear it; the player may take the leader's word and walk, and the well pays the raiders instead of the player.
+C. THE DEAL: the raiders' leader comes to the sandbags at dusk with a flag and offers to leave the well alone for a cut of its water, monthly; Niles will not hear it; the player may take the leader's word and stay the two nights, and the well pays the raiders a cut instead of losing its bank. If no raid comes, Niles pays the full fee on the morning, cursing: "You were here. They weren't. That was the job." (QR-AT, line 30, `Q139.P2`, `Q108.X2`: the kindest road pays the one fee; its price is the camp's monthly cut and Niles's regard.)
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36).
 
 ## THE ONE TWIST (T10, THE CLOCK ARRIVES; built into the kind, lands on station)
