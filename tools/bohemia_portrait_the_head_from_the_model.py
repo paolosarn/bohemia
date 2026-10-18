@@ -289,7 +289,8 @@ def colours(P):
         c[k] = tuple(v) if len(v) == 3 and all(isinstance(x, int) for x in v) else palette_step(*v)
     c.setdefault('beard', c['hair'])
     sk = P.get('colours', {}).get('skin')
-    c['scar'] = palette_step(sk[0], min(4, sk[1] + 1)) if sk and len(sk) == 2 else tuple(min(255, x + 24) for x in c['skin'])   # a seam heals a step paler
+    # a seam heals paler: two steps (round 16: one step on a light skin vanished at 128 px)
+    c['scar'] = palette_step(sk[0], min(4, sk[1] + 2)) if sk and len(sk) == 2 else tuple(min(255, x + 40) for x in c['skin'])
     return c
 
 MOUTH_Z = -0.089     # the mouth line, metres from the head's centre
@@ -439,7 +440,7 @@ def face_push(x, z):
     d -= 0.005 * g2(x, z, 0.0, MOUTH_Z, 0.031 * mw, 0.004)                # the line between them
     d += 0.014 * g2(x, z, 0.0, -0.146, 0.030 * cw, 0.020)                 # the chin
     for s in SCARS.get(FD.get('scar') if FD else None, ()):               # a scar: a raised seam 6 mm wide (a part, like a hat)
-        d += 0.0022 * math.exp(-(seg_dist(x, z, *s) / 0.0045) ** 2)
+        d += 0.0030 * math.exp(-(seg_dist(x, z, *s) / 0.0045) ** 2)
     return d
 
 
@@ -819,7 +820,7 @@ def build(who, out):
                 else: back = locks(p.x, p.y, W, seed + 7)                       # a short cut combs straight back
                 lk = down + (back - down) * (1.0 if fringe else top)
             if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) + 0.0025 * lk
-            elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) + 0.0018 * lk
+            elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) + 0.0006 * lk   # pomade: the locks lie flat (round 16: 1.8 mm read as a beanie's ribs)
             elif st == 'fall':   # layered: lock ends at uneven heights, not rings
                 t = 0.007 + 0.015 * sstep(0.0, -0.15, p.z) + 0.007 * lk + 0.004 * vnoise(ang * 6.0, p.z / 0.032, seed=seed + 3)
             elif st == 'fringe': t = 0.008 + 0.012 * sstep(0.0, -0.13, p.z) + 0.006 * lk + 0.006 * sstep(-0.04, -0.09, p.y) * sstep(0.11, 0.06, p.z)
