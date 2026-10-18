@@ -8985,6 +8985,13 @@ GATES = [
      "is found in its own background's block on the wiki's Sources page read out of the tarball at gate "
      "time; and the measured gap holds: the live post offers six men everywhere and at 26 of 26 places the "
      "book gives at least one of them no chance (a place-aware post turns leg E red on purpose)", False),
+    ('THE PLAGUE', ['node', 'gates/the_plague_gate.js'],
+     "PEOPLE 10/18, row [the plague] under the hold: a page, a beast with no body. The bank is draft and "
+     "nothing live reads it; four sicknesses each from a real one (anthrax out of the thaw, valley fever, "
+     "hantavirus, plague) in Battle Brothers' shape, every wiki quote found byte for byte on its own page read "
+     "out of the tarball at gate time; every mark a real permanent row, every place one of the 26; and the "
+     "measured gap holds: the live sickness trait carries no cause and no engine file writes 'sick' on a "
+     "person (building either turns leg E red on purpose)", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

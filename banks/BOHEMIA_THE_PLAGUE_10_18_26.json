@@ -1,0 +1,146 @@
+{
+  "_about": "THE PLAGUE: A BEAST WITH NO BODY (PEOPLE, 10/18/26, row [the plague], rule 42 round two, under the hold, rule 88). A bank, draft:true, NOT read by the game. The four sicknesses of the valley, each built from a real one that is in the real Las Vegas ground or came out of real thawed ground, in Battle Brothers' own shape (the Sick status, the Sickness settlement situation, the Ratcatcher event's chance formula, read out of the library's tarball by the gate). THE FINDING THIS BANK CARRIES: none of the four moves person to person like a rumour; they move like MEAT (the carcass), DUST (the dug ground), MICE (the dead houses after a wet winter) and FLEAS (the crowded camp). The clock is the player's hands and the weather, not a date. Numbers marked kind:'wiki' are Battle Brothers' and must be on the page named, byte for byte; numbers marked kind:'real' are the real event's, with its source; numbers marked tuning:true are this lane's DRAFT of a row TUNING owns and verifies. Words are draft:true and every line has a speaker (rule 19c: text comes from a mouth).",
+  "draft": true,
+  "tuned": false,
+  "never_before": ["the first minute (rule 32a)", "the first fight", "a man has handled a carcass, dug a hole, scavenged a closed house or camped crowded"],
+  "bb_shape": {
+    "sick_status": {"page": "bb_all/1790_Sick.txt", "ours": "records/target/bb/injuries.json row sick", "quotes": ["−25%", "−2</span> Vision", "1 to 3 days"], "note": "Battle Brothers' only sickness on a man: a temporary injury that never comes from a hit, only from an event or a potion; −25% to every attribute that levels, −2 vision, heals in 1 to 3 days."},
+    "sickness_situation": {"page": "bb_all/1792_Sickness (Settlement Situation).txt", "ours": "records/target/settlement_traits.json trait sickness", "quotes": ["+100%", "+200%", "−25%"], "note": "food prices +100%, medicine buying prices +200%, recruits available −25%. Ours today: price_mult 1.1, stock_mult 0.8, recruits −1, with no cause."},
+    "chance_formula": {"page": "bb_all/1641_Ratcatcher Spreads Disease.txt", "quotes": ["80 − hitpoints", "20% less likely", "Cooldown in Days]] 90"], "note": "the one Battle Brothers event where an animal in the company makes the men sick: the ratcatcher's rats get loose; % chance to get sick = 80 − hitpoints, Tough or Strong brothers 20% less likely; cooldown 90 days. The keeper's beast is our ratcatcher."},
+    "sickness_event": {"page": "bb_all/1791_Sickness.txt", "quotes": ["80 − hitpoints", "swamp, snow or snow forest terrain", "Cooldown in Days]] 21"], "note": "the ground makes men sick (swamp, snow), 5 tiles from a settlement, cooldown 21 days; the Scout follower prevents it. Our ground is dust, not swamp."},
+    "infected_wound": {"page": "bb_all/1079_Infected Wound.txt", "ours": "records/target/bb/injuries.json row infected_wound", "quotes": ["−25%", "3 to 4 days"], "note": "an untreated cut festers: −25% hitpoints, −25% max fatigue, 3 to 4 days."},
+    "drought_situation": {"page": "bb_all/0671_Drought (Settlement Situation).txt", "quotes": ["−50%", "+100%"], "note": "a situation with a CAUSE written on it (a heatwave burnt the crops): food −50%, prices +100%, farmhands more likely for hire. The model for a trait that says why it is there."}
+  },
+  "sicknesses": [
+    {
+      "id": "the_thaw",
+      "name": "THE THAW",
+      "draft": true,
+      "real": {
+        "model": "anthrax (Bacillus anthracis), the one thawed microbe that has actually killed a person",
+        "what_happened": "Yamal peninsula, summer 2016: a heatwave thawed ground holding a reindeer carcass from the 1940s; the spores were still alive; 2,650 reindeer infected and 2,350 died (88.67 percent of the sick herd); 24 to 36 people infected, one dead, a 12-year-old boy, from eating the meat. Gruinard Island, Scotland: anthrax spores put in the ground in 1942 were still there in 1986 and the island was declared safe only in 1990, 48 years later. Every revived permafrost VIRUS (the 30,000-year giant virus of 2014, the 48,500-year Pandoravirus of 2022-23) infects amoebae only; none has ever infected a mammal.",
+        "numbers": [
+          {"value": 2350, "unit": "reindeer dead", "kind": "real", "source": "Frontiers in Veterinary Science 2021, Reindeer Anthrax in the Russian Arctic 2016 (PMC8264129)"},
+          {"value": 88.67, "unit": "percent of the sick herd died", "kind": "real", "source": "same paper, case fatality in the herd"},
+          {"value": 1, "unit": "human dead of 24 to 36 infected", "kind": "real", "source": "regional reports 8/2016 (The Moscow Times 8/1/2016; Khaosod 8/3/2016)"},
+          {"value": 48, "unit": "years the ground stayed deadly", "kind": "real", "source": "Gruinard Island 1942 to 1990"}
+        ]
+      },
+      "our_skin": "The lab's herd beasts carry it out of the lab's cold rooms: the edited cattle (beast 7), the camelops (5), the feral hogs (4), the horses (6) and the mammoth herd (12) graze, one lies down and dies on its own, and the men who skin it, cut it and eat it are the ones who fall sick. The lab stored tissue from the thawing north to make its animals; the spore came with the tissue. Never a rumour: a man cannot give it to the man beside him.",
+      "spreads": "never person to person; carcass to hands to mouth; the ground where the beast died keeps it for decades",
+      "the_verb": ["BUTCHER (loot meat or hide after a herd-beast fight)", "EAT (meat bought at a place carrying the trait)", "KEEP (a beast-keeper whose animal sickens; the ratcatcher's shape)"],
+      "chance": {"shape": "80 − hitpoints, Tough or Strong 20% less likely, per man who handled it", "source": "bb_all/1641_Ratcatcher Spreads Disease.txt", "tuning": true},
+      "laid_up_days": {"value": [7, 14], "real": "cutaneous and gastrointestinal anthrax run one to two weeks", "tuning": true},
+      "death_roll": {"untreated": 0.4, "treated": 0.05, "real": "gastrointestinal anthrax 25 to 60 percent fatal untreated (CDC range, from memory; TUNING verifies against the CDC page); the 2016 outbreak with hospitals: 1 of about 30", "tuning": true},
+      "marks": ["weakened_heart", "partly_collapsed_lung"],
+      "district": {"trait": "sickness", "cause_field_proposed": "from: the_thaw, beast: <id>, cell: <map cell>", "bb": {"food_price": "+100%", "medicine_price": "+200%", "recruits": "−25%"}},
+      "dead_ground": {"years": 48, "rule": "the map cell where a herd beast died of the thaw is DEAD GROUND for the three acts (35 years apart, the law): every herd that grazes it rolls; a sign on the cell in act 3 for a carcass in act 1; the derive carries it (rule 31)", "real": "Gruinard 48 years; Yamal 70 plus"},
+      "places": ["moapa", "pahrump", "mesquite", "caravans", "lake_mead_marina"],
+      "cure_start": ["the WALL keeps the herd off the lot", "BURN the carcass, never bury it (Yamal buried theirs in the 1940s and it came back)", "the clinic's medicine at +200%", "the keeper who knows the sign: a beast that lies down and bleeds dark from the nose"],
+      "first_appears": {"trigger": "the first herd beast dies at a place or in a fight the party loots", "clock": "act 1, after the first beast fight; never a date", "owner": "DYNASTY's crisis(day) may name the FIRST district-wide outbreak as a crisis; the single carcass is the player's own ledger"},
+      "says": {
+        "clinic": "Don't eat off a cow that dropped on its own, mijo. Burn it. Don't bury it. The ground keeps it.",
+        "keeper": "La vaca just lay down and died. Nobody touched her. Then Chuy skinned her.",
+        "board": "No meat from the Moapa side this week. Ask me why and I'll show you the cots."
+      }
+    },
+    {
+      "id": "the_dust",
+      "name": "THE DUST",
+      "draft": true,
+      "real": {
+        "model": "valley fever (Coccidioides), the sickness that is already in Southern Nevada's dirt",
+        "what_happened": "The Southern Nevada Health District's advisory of 9/8/2025 says the incidence of coccidioidomycosis is increasing in Southern Nevada and the fungus's spores are naturally present in the soil throughout Southern Nevada; its prevention line is to limit dust exposure. A 2021 GeoHealth study of Phoenix and Bakersfield found no consistent link between dust STORMS and case counts: the driver is disturbed ground (digging, building, driving dirt), not the storm itself. About six in ten people who breathe it never feel it; most of the rest have weeks of a lung illness; a few carry it in the lungs for good.",
+        "numbers": [
+          {"value": 60, "unit": "percent who never feel it", "kind": "real", "source": "CDC valley fever page (from memory; TUNING verifies)"},
+          {"value": "2025-09-08", "unit": "date of the SNHD advisory that it is rising", "kind": "real", "source": "media.southernnevadahealthdistrict.org 20250908-han.pdf"}
+        ]
+      },
+      "our_skin": "The builder's sickness. The spore is in the valley's own ground; the day the money died the ground got dug: the wall, the lidded tank, the foundation, the grave. Whoever digs rolls; whoever drives the dirt roads in a sand storm rolls less. Never a rumour: it is in the dirt, not in the man.",
+      "spreads": "never person to person; the dug and blown ground to the lungs",
+      "the_verb": ["DIG (build the wall, the tank, a foundation; LIFE+CITY's building verbs)", "BURY (a grave; bohemia_dead.js)", "TRAVEL through a sand storm (the Sand Storm situation, settlement_traits later)"],
+      "chance": {"shape": "80 − hitpoints, Tough or Strong 20% less likely, per man who dug; a wet rag over the mouth halves it", "source": "bb_all/1641_Ratcatcher Spreads Disease.txt", "tuning": true},
+      "laid_up_days": {"value": [14, 42], "real": "weeks to months; chronic in a share", "tuning": true},
+      "death_roll": {"untreated": 0.02, "treated": 0.01, "real": "about one in a hundred of the sick spreads beyond the lungs (CDC, from memory; TUNING verifies)", "tuning": true},
+      "marks": ["partly_collapsed_lung"],
+      "district": {"trait": "sickness", "cause_field_proposed": "from: the_dust, works: <the building being dug>", "bb": {"food_price": "+100%", "medicine_price": "+200%", "recruits": "−25%"}},
+      "dead_ground": null,
+      "places": ["henderson", "pahrump", "mesquite", "primm", "jean"],
+      "cure_start": ["the LIDDED TANK: water you do not dig open every day", "wet the ground before you dig", "a rag over the mouth (the runway's mask is the valley's bandana)", "the clinic's medicine at +200%, for months"],
+      "first_appears": {"trigger": "the first dig on your lot (the wall or the tank) or the first grave", "clock": "any act, the day you build; never a date", "owner": "LIFE+CITY's building verb hands the dig to the roll"},
+      "says": {
+        "clinic": "You been digging. I can hear it in your chest. Three months of pills, if I had three months of pills.",
+        "keeper": "Wet the dirt first, primo. My uncle dug pools for twenty years and coughed for the last ten.",
+        "board": "Wall job pays double. Bring a rag for your face or don't bring yourself."
+      }
+    },
+    {
+      "id": "the_mouse",
+      "name": "THE MOUSE",
+      "draft": true,
+      "real": {
+        "model": "hantavirus pulmonary syndrome (Sin Nombre), the deer mouse's sickness",
+        "what_happened": "Four Corners, 1993: 17 of 33 people died (52 percent), 27 of 48 nationwide that year. The cause was found 6/14/1993: the deer mouse, whose numbers had exploded after the wet 1991-92 El Nino winter; the lag between a wet year and the cases is one to several years. In Clark County the health district found hantavirus in wild mice in 2006, with one Nevada human case that year. You catch it from dried droppings swept up indoors.",
+        "numbers": [
+          {"value": 52, "unit": "percent dead, Four Corners 1993 (17 of 33)", "kind": "real", "source": "Wikipedia, 1993 Four Corners hantavirus outbreak; CDC"},
+          {"value": 1993, "unit": "the year, after the 1991-92 El Nino", "kind": "real", "source": "University of New Mexico, Sevilleta LTER hantavirus ecology"},
+          {"value": 2006, "unit": "hantavirus found in Clark County wild mice", "kind": "real", "source": "Southern Nevada Health District zoonotic report 2006"}
+        ]
+      },
+      "our_skin": "The scavenger's sickness. Las Vegas had 150,000 hotel rooms and whole tracts of houses, and the day the money died they emptied. After a wet winter the deer mice fill the dead houses. Whoever SCAVENGES a closed house or sweeps a cabin breathes the dust of the droppings. The deadliest of the four, and the one that rides a season: a wet winter means a mouse year next summer.",
+      "spreads": "never person to person; the dead house to the lungs",
+      "the_verb": ["SCAVENGE a closed house (rule 37, the settlement screen's SCAVENGE)", "SWEEP or sleep in a cabin or a dead tower", "OPEN a sealed room"],
+      "chance": {"shape": "80 − hitpoints, Tough or Strong 20% less likely, per man who scavenged; doubled in a mouse year", "source": "bb_all/1641_Ratcatcher Spreads Disease.txt", "tuning": true},
+      "laid_up_days": {"value": [14, 42], "real": "one to eight weeks before it shows, then a week to a month down", "tuning": true},
+      "death_roll": {"untreated": 0.5, "treated": 0.38, "real": "52 percent in 1993; about 38 percent since with hospitals (CDC, from memory; TUNING verifies)", "tuning": true},
+      "marks": ["partly_collapsed_lung", "weakened_heart"],
+      "district": {"trait": "sickness", "cause_field_proposed": "from: the_mouse, year: wet_winter+1", "bb": {"food_price": "+100%", "medicine_price": "+200%", "recruits": "−25%"}},
+      "dead_ground": null,
+      "places": ["mt_charleston_lodge", "mob", "henderson", "boulder_city", "indian_springs"],
+      "cure_start": ["the LIDDED TANK and sealed food: nothing for the mouse to eat on your lot", "the cat (row [cats stay]) and the trap", "wet the floor before you sweep a dead house; never dry-sweep", "the clinic's medicine at +200%, and it barely helps: the real answer is not breathing it"],
+      "first_appears": {"trigger": "the first wet winter in the ledger, then the first scavenge the summer after", "clock": "WORLD's weather clock; a wet winter is a mouse year next summer", "owner": "WORLD (the weather), RUN TWO (the scavenge verb hands the house to the roll)"},
+      "says": {
+        "clinic": "Your lungs are filling, and I can't drain them. Who sent you into the Tropicana towers dry?",
+        "keeper": "It rained all January. By June the dead houses are moving. Don't sweep nothing in there, wet it down.",
+        "board": "Scavenge job in the empty tracts. Pays good. Two of the last crew ain't back on their feet."
+      }
+    },
+    {
+      "id": "the_flea",
+      "name": "THE FLEA",
+      "draft": true,
+      "real": {
+        "model": "plague (Yersinia pestis), the one sickness of the four that moves through a camp",
+        "what_happened": "The desert wood rat of remote Clark County carries plague. A raccoon at Mount Charleston tested positive in 2001; four gray foxes there in 2003, with a public warning. Nevada has had five human cases since 1978, the last near Carson City in 1992; the health district's worry was roof rats mixing with wood rats and carrying the fleas into the city (fleas on one of 125 rats trapped over three years, 2006). In 7/2026 Las Vegas news reported plague confirmed in several animals. Plague moves rat to flea to man and, when it reaches the lungs, man to man.",
+        "numbers": [
+          {"value": 5, "unit": "human Nevada cases since 1978", "kind": "real", "source": "Las Vegas Sun 2003, Plague warning issued; 2006 SNHD zoonotic report"},
+          {"value": 2003, "unit": "four gray foxes positive at Mt Charleston", "kind": "real", "source": "Las Vegas Sun 11/10/2003"},
+          {"value": 1, "unit": "rat with fleas of 125 trapped in three years", "kind": "real", "source": "Las Vegas Sun 11/11/2006"}
+        ]
+      },
+      "our_skin": "The camp's sickness, and the only one that is Battle Brothers' Sickness situation in full: a crowded place (the Tunnels, a refugee town, your own camp when it is full) gets rats, the rats get fleas, the fleas get men. It is the one that spreads, and it spreads through a PLACE, not through talk: the trait sits on the place and every man who sleeps there rolls. The keeper's beast can be the rat: a ratcatcher is a keeper.",
+      "spreads": "rat to flea to man; a crowded place to every man sleeping in it; lungs to lungs only at the end",
+      "the_verb": ["SLEEP in a place carrying the trait", "CROWD your own camp past its beds (the refugees situation)", "KEEP rats or cats (the cat catches it too, and catches the rats)"],
+      "chance": {"shape": "80 − hitpoints, Tough or Strong 20% less likely, per man who slept there; per night", "source": "bb_all/1641_Ratcatcher Spreads Disease.txt", "tuning": true},
+      "laid_up_days": {"value": [7, 14], "real": "two to six days before it shows; a week or two down", "tuning": true},
+      "death_roll": {"untreated": 0.5, "treated": 0.1, "real": "bubonic plague 30 to 60 percent fatal untreated, about 10 percent treated (WHO, from memory; TUNING verifies)", "tuning": true},
+      "marks": ["missing_finger"],
+      "district": {"trait": "sickness", "cause_field_proposed": "from: the_flea, crowd: <beds over capacity>", "bb": {"food_price": "+100%", "medicine_price": "+200%", "recruits": "−25%"}},
+      "dead_ground": null,
+      "places": ["homeless", "primm", "colorful", "custom", "mt_charleston_lodge", "searchlight"],
+      "cure_start": ["the WALL and the lidded tank: nothing for the rat to eat or drink on your lot", "the cat (row [cats stay]) and the ratcatcher's trade", "beds under capacity: a camp over its beds rolls every night", "the clinic's medicine at +200%: this is the one the medicine really saves"],
+      "first_appears": {"trigger": "the first place over its beds for a week (the refugees situation), or the first rat-keeper in the company", "clock": "act 1 when the camps crowd; never a date", "owner": "RUN TWO's settlement traits roll it with a cause; DYNASTY's crisis(day) may name the first district-wide outbreak"},
+      "says": {
+        "clinic": "Lumps under the arm, fever by night. That's the fleas, mijo. Who's sleeping twelve to a room over there?",
+        "keeper": "The gato brought me three rats this morning and I thanked her. Then I saw the fleas on the gato.",
+        "board": "The Tunnels are closed to new beds. If you got a ratter, there's work."
+      }
+    }
+  ],
+  "measured_gap": {
+    "live_trait": "records/target/settlement_traits.json trait sickness: price_mult 1.1, stock_mult 0.8, recruits −1, clinic_busy; rolled by place name and week (chance_any 0.7, max 2, period 7 days) with NO cause field, no beast, no season, no water",
+    "live_person": "records/target/bb/injuries.json carries the Sick row (−25%, −2 vision, 1 to 3 days) and nothing in engine/ ever puts it on a person; engine/bohemia_long_injury.js builds a struck-down man's fact and never a sick man's",
+    "live_numbers": "the trait's 1.1 / 0.8 / −1 are not Battle Brothers' +100% / +200% / −25%",
+    "goes_red_when": "the sickness trait carries a cause, or any engine file writes injury id sick on a person; then this page is rewritten"
+  }
+}
