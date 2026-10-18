@@ -26,7 +26,8 @@ const wikiHas = (src, q) => { try { const n = (src.split('bb_all/')[1] || ''); r
 const hasQuote = o => o && typeof o.source === 'string' && o.source && typeof o.quote === 'string' && o.quote.length > 8;
 const NAMEY = /^face-[a-z]+(-[a-z]+)+$/;
 
-ok('four or more factions', D.factions.length >= 4);
+ok('eight or more factions (row [more banners]: the four demo factions and the next four)', D.factions.length >= 8);
+ok('the next four are the row\'s: mercenaries, bounty hunters, nomads, cultists', ['mercenaries', 'bounty_hunters', 'nomads', 'cultists'].every(i => D.factions.some(f => f.id === i)));
 const seen = new Set(), banners = [];
 for (const f of D.factions) {
   const n = f.id;
@@ -123,7 +124,9 @@ ok('the gaps are written down honestly', D.gaps && D.gaps.length >= 2);
     const two = F.guardFor('k', 3).party;
     ok('largest remainder: 2,1,1 into three men gives one each (b and c outrank a)', JSON.stringify(two) === JSON.stringify({ a: 1, b: 1, c: 1 }), JSON.stringify(two));
     F.set(D, JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/party_math.json'), 'utf8'))); }
-  ok('no faction holds the strip: it answers by name, never a guess', F.guardFor('the_strip', 10).why === 'NO_FACTION_HOLDS_THIS_GROUND');
+  ok('an unheld ground answers by name, never a guess', F.guardFor('nowhere_at_all', 10).why === 'NO_FACTION_HOLDS_THIS_GROUND');
+  ok('every board ground is held since [more banners] (the strip by the hired guns)', BT.KINDS.every(k => D.factions.some(f => f.ground.indexOf(k) >= 0)) && F.guardFor('the_strip', 10).faction === 'mercenaries',
+    BT.KINDS.filter(k => !D.factions.some(f => f.ground.indexOf(k) >= 0)).join());
   ok('a zero or half guard is refused', F.guardFor('industrial', 0).why === 'NO_GUARD' && F.guardFor('industrial', 2.5).why === 'NO_GUARD');
   for (const t of [1, 2, 3, 7, 12, 60]) for (const f of D.factions) { const k = f.ground[0]; ok(f.id + ' at ' + t + ' men sums exactly', F.size(F.guardFor(k, t).party) === t); }
   ok('the same ask gives the same party', JSON.stringify(F.guardFor('freeway', 33)) === JSON.stringify(F.guardFor('freeway', 33)));

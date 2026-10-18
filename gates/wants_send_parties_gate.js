@@ -67,8 +67,8 @@ for (const id of Object.keys(WANTS.wants || {})) {
 for (const f of FACTIONS.factions) {
   ok(f.id + ': its want has a rule (no faction wants something nothing reads)', !!(f.want && WANTS.wants[f.want.id]), f.want && f.want.id);
 }
-ok('the gaps are named (the three wild factions without a want, the valley\'s fourteen, the region\'s roads are RUN\'s)',
-  Array.isArray(WANTS.gaps) && WANTS.gaps.length >= 3 && WANTS.gaps.some(g => /nomads/.test(g)) && WANTS.gaps.some(g => /fourteen/.test(g)) && WANTS.gaps.some(g => /passAt/.test(g)));
+ok('the gaps are named (the wild faction without a want, the valley\'s fourteen, the region\'s roads are RUN\'s)',
+  Array.isArray(WANTS.gaps) && WANTS.gaps.length >= 3 && WANTS.gaps.some(g => /ancient_dead/.test(g)) && WANTS.gaps.some(g => /fourteen/.test(g)) && WANTS.gaps.some(g => /passAt/.test(g)));
 
 /* ---- B. the module ---------------------------------------------------------- */
 {
@@ -172,6 +172,31 @@ for (const s of wanting.filter(s => s.faction === 'brigands')) {
   const noWant = JSON.parse(JSON.stringify(FACTIONS)); noWant.factions.forEach(f => { delete f.want; });
   ok('a faction stripped of its want falls back to the parties module exactly',
     JSON.stringify(W.all(all, { n: m.n, data: { factions: noWant, wants: WANTS }, cells })) === JSON.stringify(before));
+}
+
+/* ---- G. the next four (row [more banners]): each new want sends its parties by its own rule ---- */
+{
+  const nom = wanting.filter(s => s.faction === 'nomads');
+  ok('the region\'s nomad camp now wants something (the water)', nom.length === 1 && W.wantOf('nomads', DATA).id === 'hold-the-water');
+  const pumps = cells.filter(c => c.kind === 'solar_and_pumps');
+  const wtrip = (s, o) => d(s, o) + Math.min.apply(null, pumps.map(c => d(o, c)));
+  for (const s of nom) {
+    const sent = after.filter(p => seatOf(p) === s), marks = W.marksFor(s, all);
+    ok('the water people send crews only', sent.length === T.REACH[s.tier] && sent.every(p => p.agenda === 'crew' && p.want === 'hold-the-water'), sent.map(p => p.agenda).join());
+    ok('their first mark has the shortest trip to the pumps', sent.length && wtrip(s, markOf(sent[0])) === Math.min.apply(null, marks.map(o => wtrip(s, o))));
+  }
+  const probe = (faction, x, y, ground) => W.sendFor({ faction, tier: 'camp', kind: 'camp', x, y, power: 1, wild: true, ground: ground || [] }, seats, { data: DATA, cells, n: m.n });
+  const nearest = (kinds, at) => Math.min.apply(null, cells.filter(c => kinds.indexOf(c.kind) >= 0).map(c => d(at, c)));
+  const merc = probe('mercenaries', 10, 10);
+  ok('the hired guns walk to the nearest ground with money on it (the strip or the casino floor)', merc && merc.length === 1 && merc[0].agenda === 'patrol'
+    && ['the_strip', 'casino_floor'].indexOf(BT.at(m, merc[0].to.x, merc[0].to.y).kind) >= 0 && d({ x: 10, y: 10 }, merc[0].to) === nearest(['the_strip', 'casino_floor'], { x: 10, y: 10 }), merc && JSON.stringify(merc[0].to));
+  const bh = probe('bounty_hunters', 60, 20);
+  ok('the head takers patrol the nearest road crews\' ground (freeway or hills), never a place', bh && bh.length === 1 && bh[0].agenda === 'patrol' && bh[0].toward === null
+    && ['freeway', 'hills'].indexOf(BT.at(m, bh[0].to.x, bh[0].to.y).kind) >= 0 && d({ x: 60, y: 20 }, bh[0].to) === nearest(['freeway', 'hills'], { x: 60, y: 20 }), bh && JSON.stringify(bh[0].to));
+  const off = probe('cultists', 5, 80), on = probe('cultists', 5, 80, ['trailer_park']);
+  ok('a chapel off the trailer park walks to the nearest one', off && BT.at(m, off[0].to.x, off[0].to.y).kind === 'trailer_park' && d({ x: 5, y: 80 }, off[0].to) === nearest(['trailer_park'], { x: 5, y: 80 }), off && JSON.stringify(off[0].to));
+  ok('a chapel on the trailer park holds it', on && on[0].to.x === 5 && on[0].to.y === 80);
+  ok('every one of the eight factions has a want with a rule', FACTIONS.factions.length >= 8 && FACTIONS.factions.every(f => !!W.wantOf(f.id, DATA)));
 }
 
 /* ---- F. the shape ------------------------------------------------------------ */

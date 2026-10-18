@@ -1,5 +1,5 @@
 {
-  "_about": "WHAT A FACTION WANTS DECIDES WHERE ITS PARTIES GO (FACTIONS lane, row [wants send parties], 10/18; WORLD [parties move] BUY half). records/target/bb/factions.json already says what each of the four demo factions WANTS (want.id). This file says, for each want, WHAT KIND OF PLACE OR GROUND that want sends a party at, and quotes the Battle Brothers line it is translated from. engine/bohemia_wants.js reads it; nothing here is a number (the row: 'no new numbers'): who goes first is the map's own distance, how many go is BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain.KINDS. A modder edits this file to change where a faction's parties go (rule 38g). Page: records/BOHEMIA_FACTIONS_WHAT_A_FACTION_WANTS_DECIDES_WHERE_ITS_PARTIES_GO_10_18_26.md.",
+  "_about": "WHAT A FACTION WANTS DECIDES WHERE ITS PARTIES GO (FACTIONS lane, row [wants send parties], 10/18; WORLD [parties move] BUY half). records/target/bb/factions.json already says what each of the demo factions (four, eight since FACTIONS [more banners] 10/18) WANTS (want.id). This file says, for each want, WHAT KIND OF PLACE OR GROUND that want sends a party at, and quotes the Battle Brothers line it is translated from. engine/bohemia_wants.js reads it; nothing here is a number (the row: 'no new numbers'): who goes first is the map's own distance, how many go is BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain.KINDS. A modder edits this file to change where a faction's parties go (rule 38g). Page: records/BOHEMIA_FACTIONS_WHAT_A_FACTION_WANTS_DECIDES_WHERE_ITS_PARTIES_GO_10_18_26.md.",
   "school": {
     "camps_harass_the_nearest_village": {
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
@@ -44,24 +44,52 @@
     "a_raid_hits_the_attached_locations": {
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0553_Defend Settlement Bandits.txt",
       "quote": "Defend a settlement against a single or multiple waves of enemies raiding their Attached Locations."
+    },
+    "nomads_go_from_water_to_water": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1455_Nomads.txt",
+      "quote": "They travel the barren desert from one source of water to the next"
+    },
+    "mercenaries_roam_for_contracts": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1260_Mercenary Companies.txt",
+      "quote": "Various mercenary companies can be found roaming around on the Global map and are also actively looking for and accepting Contracts from settlements."
+    },
+    "bounty_hunters_want_the_head": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0270_Bounty Hunter.txt",
+      "quote": "They demand the bandit leader's head and attack if you refuse."
+    },
+    "cultists_find_followers": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0512_Davkul Cultists.txt",
+      "quote": "Find more followers, acquire riches"
     }
   },
   "wants": {
     "hold-the-freeway": {
       "agenda": "crew",
       "goes_at": "places_by_ground",
-      "ground": ["freeway"],
+      "ground": [
+        "freeway"
+      ],
       "order": "the trip: the map distance from the camp to the place plus the place's distance to the nearest freeway cell, shortest first; then nearer the camp; then by name",
       "any_tier": true,
-      "wiki": ["camps_harass_the_nearest_village", "raiders_live_off_the_trade_routes", "the_roads_ambush", "a_raid_hits_the_attached_locations"],
+      "wiki": [
+        "camps_harass_the_nearest_village",
+        "raiders_live_off_the_trade_routes",
+        "the_roads_ambush",
+        "a_raid_hits_the_attached_locations"
+      ],
       "ours": true,
       "why": "the crew wants the freeway (VAMILY row [a house you give a fuck about]); Battle Brothers' raiders go at the nearest village and live off the trade routes, so a road crew goes at what stands nearest the freeway on its way, whatever its size: a camp by the road is the first thing a crew hits, never only the three fortresses"
     },
     "hold-the-depot": {
       "agenda": "patrol",
       "goes_at": "nearest_ground",
-      "ground": ["industrial"],
-      "wiki": ["castles_patrol_the_roads", "the_house_lives_on_its_supply"],
+      "ground": [
+        "industrial"
+      ],
+      "wiki": [
+        "castles_patrol_the_roads",
+        "the_house_lives_on_its_supply"
+      ],
       "ours": true,
       "why": "the house wants the depot (VAMILY row); Battle Brothers' castles patrol the roads their supply comes along, so the house's first party is a patrol on the nearest depot ground (industrial: the warehouse, the railyard, the storage lot), and the rest of its business is what the parties module already sends"
     },
@@ -70,22 +98,86 @@
       "goes_at": "nearest_places",
       "prefer_trait": "raided",
       "any_tier": true,
-      "wiki": ["the_dead_raid_for_corpses", "the_raid_leaves_the_place_raided", "camps_harass_the_nearest_village"],
+      "wiki": [
+        "the_dead_raid_for_corpses",
+        "the_raid_leaves_the_place_raided",
+        "camps_harass_the_nearest_village"
+      ],
       "ours": true,
       "why": "the dead's keeper wants to bring back what was left unfinished; Battle Brothers' dead raid for corpses, not money, so they go at the nearest place of any size, and a place already raided (our ruin is a condition, not a ground: bohemia_boardterrain NOT_ON_THE_MAP) goes first"
     },
     "keep-the-ground": {
       "agenda": "patrol",
       "goes_at": "nearest_ground",
-      "ground": ["open_desert", "wash_and_shore"],
+      "ground": [
+        "open_desert",
+        "wash_and_shore"
+      ],
       "stays_if_on_it": true,
-      "wiki": ["beasts_roam"],
+      "wiki": [
+        "beasts_roam"
+      ],
       "ours": true,
       "why": "the beasts want their ground and to be left alone; they never go at a place; a den already on its ground holds it (the patrol has arrived), a den off it walks to the nearest of it"
+    },
+    "hold-the-water": {
+      "agenda": "crew",
+      "goes_at": "places_by_ground",
+      "ground": [
+        "solar_and_pumps"
+      ],
+      "order": "the trip: the map distance from the camp to the place plus the place's distance to the nearest pump or solar cell, shortest first; then nearer the camp; then by name",
+      "any_tier": true,
+      "wiki": [
+        "nomads_go_from_water_to_water",
+        "camps_harass_the_nearest_village"
+      ],
+      "ours": true,
+      "why": "the water people want the water; Battle Brothers' nomads are southern brigands who go from one water to the next, so they raid what stands nearest the pumps on their way, the road crews' rule with the water in place of the freeway"
+    },
+    "take-the-contract": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": [
+        "the_strip",
+        "casino_floor"
+      ],
+      "wiki": [
+        "mercenaries_roam_for_contracts"
+      ],
+      "ours": true,
+      "why": "the hired guns want to be paid; Battle Brothers' companies roam and take contracts from settlements, so a company's first party walks to the nearest ground with money on it (the Strip, the casino floor) to be hired, and the rest of its business is the parties module's"
+    },
+    "collect-the-head": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": [
+        "freeway",
+        "hills"
+      ],
+      "wiki": [
+        "bounty_hunters_want_the_head",
+        "the_roads_ambush"
+      ],
+      "ours": true,
+      "why": "the head takers want the crew boss's head; Battle Brothers' bounty hunters turn up where the bandits are and demand the leader's head, so their first party patrols the nearest road crews' ground (the freeway, the hills), never a settlement"
+    },
+    "gather-the-flock": {
+      "agenda": "patrol",
+      "goes_at": "nearest_ground",
+      "ground": [
+        "trailer_park"
+      ],
+      "stays_if_on_it": true,
+      "wiki": [
+        "cultists_find_followers"
+      ],
+      "ours": true,
+      "why": "the flock wants more of the people nobody counts; Battle Brothers' cultists are met only in two events and go at no settlement, so the flock holds the trailer park it gathers in, and a chapel off it walks to the nearest one"
     }
   },
   "gaps": [
-    "the region's wild rows for ancient_dead, nomads and mercenaries carry no want in factions.json (only the four demo factions do), so they keep the parties module's own choice; FACTIONS [more banners] gives them wants",
+    "the region's wild row for ancient_dead (THE LOST CITY) carries no want in factions.json (the ancient dead are not one of the eight), so it keeps the parties module's own choice; the nomads and the mercenaries got wants from FACTIONS [more banners] 10/18",
     "the valley's fourteen seats carry no want of their own (his canon graph's notes are not wants and this lane does not invent his factions' wants), so their crews still go at the worst canon feud's seat; the camps and towns become reachable through the wild crews that are handed in beside them",
     "outside the valley the map's ground is RUN's region (slices/bohemia_region.js passAt: 1 is a road); the module takes the grounds as cells the caller hands it, so RUN adds the region's road cells as freeway and nothing here changes"
   ]

@@ -1,5 +1,5 @@
 {
- "_about": "The demo's factions as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json), a home ground, a behaviour, and a FACE, a WANT and a BASE. Mixes and behaviours are Battle Brothers' and cite the wiki; banner inks, wants, face slots and voice lines are OURS and marked ours/draft. A face id is a SLOT for PEOPLE and PORTRAIT to fill (portrait:null until they do); nothing here names a person. No purple (PURPLE RESERVATION).",
+ "_about": "The demo's factions (four, then eight from FACTIONS [more banners] 10/18) as one table RUN's parties and the map card read (VAMILY rows [the parties on the map] and [a house you give a fuck about], rule 80c). Every faction has a banner ink, a party make-up (enemy ids from enemies.json, counts from party_math.json), a home ground, a behaviour, and a FACE, a WANT and a BASE. Mixes and behaviours are Battle Brothers' and cite the wiki; banner inks, wants, face slots and voice lines are OURS and marked ours/draft. A face id is a SLOT for PEOPLE and PORTRAIT to fill (portrait:null until they do); nothing here names a person. No purple (PURPLE RESERVATION).",
  "banner_rule": {
   "value": "a faction's ink is nobody else's; chosen by CIEDE2000 distance from every shipped faction colour in engine/BOHEMIA_faction_colours.json",
   "ours": true,
@@ -327,14 +327,322 @@
     "ours": true,
     "sound": "a growl, owed to SOUNDS; a beast has no words"
    }
+  },
+  {
+   "id": "nomads",
+   "name": "The water people",
+   "enemy_faction": "nomads",
+   "banner": "#a06400",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "nomad_cutthroat": 6,
+     "nomad_slinger": 2
+    },
+    "late": {
+     "nomad_cutthroat": 2,
+     "nomad_outlaw": 3,
+     "nomad_archer": 2,
+     "nomad_slinger": 1,
+     "nomad_leader": 1
+    }
+   },
+   "ground": [
+    "solar_and_pumps"
+   ],
+   "behaviour": "raid",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1455_Nomads.txt",
+   "behaviour_quote": "Nomads are basically southern Brigands.",
+   "face": {
+    "id": "face-nomads-water-keeper",
+    "role": "the keeper of the pump on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Agua por baterias, amigo. One jug, one cell, no haggle.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "hold-the-water",
+    "text": "to own the water and sell it by the jug",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1455_Nomads.txt",
+    "quote": "They travel the barren desert from one source of water to the next"
+   },
+   "base": {
+    "kind": "camp",
+    "tier": "camp",
+    "note": "a camp with no walls on the dry ground ('Their camps have no walls', bb_all/1455_Nomads.txt); the region's Jean Dry Lake row is one"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, shaped on the wiki's roster (bb_all/1455_Nomads.txt: 'Nomads have a roster of their own, roughly similar to that of northern brigands'): the brigands' early and late split read across, cutthroats for thugs, outlaws for raiders, a leader late",
+   "ground_ours": true,
+   "ground_note": "the pumps and the solar field are the valley's water; Battle Brothers' nomads go from one water to the next (ground_quote), so their ground is where the water is pulled out of the rock",
+   "ground_quote": {
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1455_Nomads.txt",
+    "quote": "They travel the barren desert from one source of water to the next"
+   },
+   "leaders": {
+    "value": [
+     "nomad_leader"
+    ],
+    "ours": true,
+    "why": "one leader to a band, the brigands' rule read across ('In the late game Nomad Leaders and other elite enemies appear', bb_all/1455_Nomads.txt)"
+   },
+   "lines": {
+    "value": {
+     "cold": "El agua es nuestra. You drank from our pump, now you owe the desert.",
+     "neutral": "Agua por baterias, amigo. One jug, one cell, no haggle.",
+     "warm": "Para ti, the cold pump. Fill up, mijo, and tell nadie where it is."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [more banners] 10/18: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the three shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80 so no ink is a screaming primary; never purple; draft, his to swap"
+  },
+  {
+   "id": "mercenaries",
+   "name": "The hired guns",
+   "enemy_faction": "mercenaries",
+   "banner": "#6e7dff",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "mercenary": 4,
+     "mercenary_marksman": 2
+    },
+    "late": {
+     "mercenary": 4,
+     "mercenary_marksman": 2,
+     "hedge_knight": 1,
+     "swordmaster": 1,
+     "master_archer": 1
+    }
+   },
+   "ground": [
+    "the_strip",
+    "casino_floor"
+   ],
+   "behaviour": "roam",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1260_Mercenary Companies.txt",
+   "behaviour_quote": "Various mercenary companies can be found roaming around on the Global map and are also actively looking for and accepting Contracts from settlements.",
+   "face": {
+    "id": "face-mercenaries-captain",
+    "role": "the company's captain on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "We go where the money goes. Pay us more than they do, es simple.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "take-the-contract",
+    "text": "to be paid by whoever holds the money, and to stand where the money is",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1260_Mercenary Companies.txt",
+    "quote": "actively looking for and accepting Contracts from settlements"
+   },
+   "base": {
+    "kind": "company",
+    "tier": "camp",
+    "note": "a company on the road with no seat of its own; it hires out from whichever place pays (the region's rival company row is one)"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours, from the wiki's line 'They consist of highly skilled Mercenaries that are well armed and armored. Some companies spawn together with Hedge Knights, Swordmasters, Master Archers' (bb_all/1260_Mercenary Companies.txt): plain mercenaries early, the named three join late",
+   "ground_ours": true,
+   "ground_note": "the hired guns stand where the money is: the Strip and the casino floor still pay in batteries; Battle Brothers' companies take contracts from settlements (behaviour_quote), and in this valley the settlement with money is the Strip",
+   "leaders": {
+    "value": [],
+    "ours": true,
+    "why": "a mercenary company has no leader unit in the wiki's roster (bb_all/1260_Mercenary Companies.txt names Mercenaries, Hedge Knights, Swordmasters, Master Archers, Wardogs), so none is held to one"
+   },
+   "lines": {
+    "value": {
+     "cold": "Somebody paid for your head, flaco. Es business, nothing personal.",
+     "neutral": "We go where the money goes. Pay us more than they do, es simple.",
+     "warm": "You pay on time, amigo. Next contract, te llamamos first."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [more banners] 10/18: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the three shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80 so no ink is a screaming primary; never purple; draft, his to swap"
+  },
+  {
+   "id": "bounty_hunters",
+   "name": "The head takers",
+   "enemy_faction": "bounty_hunters",
+   "banner": "#aacd32",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "bounty_hunter": 3,
+     "bounty_hunter_marksman": 1
+    },
+    "late": {
+     "bounty_hunter": 4,
+     "bounty_hunter_marksman": 2
+    }
+   },
+   "ground": [
+    "airport"
+   ],
+   "behaviour": "roam",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0270_Bounty Hunter.txt",
+   "behaviour_quote": "They demand the bandit leader's head and attack if you refuse.",
+   "face": {
+    "id": "face-bounty-hunters-marshal",
+    "role": "the head taker who holds the list, on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "We want the crew boss's head, no la tuya. Stay out of the way.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "collect-the-head",
+    "text": "to bring in the crew boss's head for the bounty",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0270_Bounty Hunter.txt",
+    "quote": "They demand the bandit leader's head and attack if you refuse."
+   },
+   "base": {
+    "kind": "office",
+    "tier": "camp",
+    "note": "a hangar office at the airfield where the list is pinned; which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "ours: the wiki's two units (bb_all/0270_Bounty Hunter.txt, bb_all/0271_Bounty Hunter Marksman.txt), three blades to one shooter early, the shooters doubled late",
+   "ground_ours": true,
+   "ground_note": "the airfield is the last door out of the valley and everyone with a price on them tries it, so the head takers keep the field; ours, no wiki line places them",
+   "leaders": {
+    "value": [],
+    "ours": true,
+    "why": "the wiki's head takers have no leader unit, so none is held to one"
+   },
+   "lines": {
+    "value": {
+     "cold": "Tu cara esta en la lista. No running, walk ahead of me.",
+     "neutral": "We want the crew boss's head, no la tuya. Stay out of the way.",
+     "warm": "Bring me a head from the freeway, amigo, and we split the bounty."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [more banners] 10/18: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the three shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80 so no ink is a screaming primary; never purple; draft, his to swap"
+  },
+  {
+   "id": "cultists",
+   "name": "The flock",
+   "enemy_faction": "cultists",
+   "banner": "#ff417d",
+   "banner_ours": true,
+   "mix": {
+    "early": {
+     "cultist": 6
+    },
+    "late": {
+     "cultist": 25
+    }
+   },
+   "ground": [
+    "trailer_park"
+   ],
+   "behaviour": "roam",
+   "behaviour_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0477_Cultist (Enemy).txt",
+   "behaviour_quote": "You can encounter Cultists only in the Religious Peasants and Come Across Ritual events.",
+   "face": {
+    "id": "face-cultists-preacher",
+    "role": "the one who talks for the flock, on the party card",
+    "portrait": null
+   },
+   "voice": {
+    "text": "Nobody counts us, so we count each other. Sientate, vecino.",
+    "draft": true,
+    "ours": true
+   },
+   "want": {
+    "id": "gather-the-flock",
+    "text": "to gather the people nobody counts",
+    "ours": true,
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0512_Davkul Cultists.txt",
+    "quote": "Find more followers, acquire riches"
+   },
+   "base": {
+    "kind": "chapel",
+    "tier": "camp",
+    "note": "a trailer turned into a chapel in the park; which seat is RUN's read"
+   },
+   "memory": {
+    "driven_by": "beef",
+    "tones": [
+     "cold",
+     "neutral",
+     "warm"
+    ],
+    "ours": true
+   },
+   "mix_ours": true,
+   "mix_note": "the late flock is the wiki's own count ('Both feature exactly 25 of them', bb_all/0477_Cultist (Enemy).txt); the early six are ours, a flock before it has grown",
+   "ground_ours": true,
+   "ground_note": "the flock gathers in the trailer park, among the people nobody counts; ours, no wiki line places them",
+   "leaders": {
+    "value": [],
+    "ours": true,
+    "why": "the wiki's cultists come as one kind of man, no leader unit, so none is held to one"
+   },
+   "lines": {
+    "value": {
+     "cold": "The flock sees you, vecino. Nadie leaves the park without giving something.",
+     "neutral": "Nobody counts us, so we count each other. Sientate, vecino.",
+     "warm": "You are one of ours now, mijo. The flock eats first, then you."
+    },
+    "draft": true,
+    "ours": true,
+    "spanglish": true
+   },
+   "banner_note": "FACTIONS [more banners] 10/18: the hex farthest (CIE76, the gate's own metric) from the thirteen canon inks and the three shipped banners inside a hue band that fits the crew, chroma 35 to 75 and lightness 35 to 80 so no ink is a screaming primary; never purple; draft, his to swap"
   }
  ],
  "gaps": [
   "no dead or beast art exists, so the card shows banners and counts only",
   "face portraits are slots, PEOPLE/PORTRAIT fill them",
   "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)",
-  "grounds no faction holds: the_strip, trailer_park, airport, casino_floor, solar_and_pumps (an honest gap, a guarded place there answers NO_FACTION_HOLDS_THIS_GROUND)",
-  "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note"
+  "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note",
+  "every board ground is held since FACTIONS [more banners] (10/18): the_strip and casino_floor by the hired guns, trailer_park by the flock, airport by the head takers, solar_and_pumps by the water people; a made-up ground still answers NO_FACTION_HOLDS_THIS_GROUND",
+  "the four new factions' grounds, wants and banner inks are ours and draft; their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)"
  ],
  "tones": {
   "value": {
