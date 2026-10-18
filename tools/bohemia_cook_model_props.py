@@ -234,7 +234,204 @@ def wreck(bpy, mathutils):
     root.location.z = -0.04
 
 
-BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck}
+def prism(bpy, name, m, prof, x0, x1):
+    """a profile (y, z) pulled along X from x0 to x1: a jersey barrier's section, a dumpster's side"""
+    me = bpy.data.meshes.new(name); n = len(prof)
+    vs = [(x0, y, z) for y, z in prof] + [(x1, y, z) for y, z in prof]
+    fs = [tuple(range(n))[::-1], tuple(range(n, 2 * n))] + [(i, (i + 1) % n, n + (i + 1) % n, n + i) for i in range(n)]
+    me.from_pydata(vs, [], fs); me.update()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o)
+    bpy.context.view_layer.objects.active = o; o.select_set(True)
+    o.data.materials.append(m)
+    return o
+
+
+def cut(bpy, o, size, loc, rot):
+    """take a chunk out of o with a box (a broken corner)"""
+    bpy.ops.mesh.primitive_cube_add(size=1, location=loc, rotation=rot); k = bpy.context.active_object; k.scale = size
+    md = o.modifiers.new('cut', 'BOOLEAN'); md.object = k; md.operation = 'DIFFERENCE'
+    bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='cut')
+    bpy.data.objects.remove(k, do_unlink=True)
+
+
+def barrier(bpy, mathutils):
+    # a 3.0 m concrete F-shape barrier (the real one: 0.81 m high, 0.61 m at the foot, 0.15 at the top, a 7.5 cm
+    # vertical lip, the steep break at 0.33 m), the twin's family (pack:3. Barricades and blockades#4). Forklift slots
+    # at the foot, two lifting loops on top with rust bleeding down the face under each, a faded yellow reflector band.
+    # The odd thing: the +X top corner broken off, three rebar ends bent out of the break.
+    L = 3.0
+    # round two of the loop: the first concrete (bone step 2) read tan and flat beside his grey, value span 89; the
+    # grime was a disc that stood out of the foot like a shield. Now grey concrete, the slots and two segment seams
+    # CUT so their dark is the model's own shadow, and the road's splash a darker band along the foot.
+    conc, grime = mat(bpy, 'concrete', 'tape_grey', 2), mat(bpy, 'concrete_grime', 'tape_grey', 0)
+    rust, rust_d = mat(bpy, 'rust', 'clay_rust', 2), mat(bpy, 'rust_dark', 'clay_rust', 0)
+    half = [(0.305, 0.0), (0.305, 0.075), (0.2, 0.33), (0.075, 0.81)]
+    prof = [(-y, z) for y, z in half] + [(y, z) for y, z in reversed(half)]
+    o = prism(bpy, 'barrier', conc, prof, -L / 2, L / 2)
+    md = o.modifiers.new('bevel', 'BEVEL'); md.width = 0.015; md.segments = 1; bpy.ops.object.modifier_apply(modifier='bevel')
+    cut(bpy, o, (0.55, 0.9, 0.5), (L / 2 - 0.02, 0, 0.84), (math.radians(28), math.radians(-25), math.radians(10)))
+    for sx in (-1, 1):
+        cut(bpy, o, (0.3, 0.8, 0.12), (sx * 0.75, 0, 0.0), (0, 0, 0))            # the forklift slots through the foot
+        cut(bpy, o, (0.035, 0.9, 1.0), (sx * L / 6, -0.2, 0.55), (0, 0, 0))      # the seams of a three-piece casting
+        cyl(bpy, 'loop_%d' % sx, rust_d, 0.035, 0.05, (sx * 0.9, 0, 0.83), rot=(math.pi / 2, 0, 0), verts=10)
+    for i, (y0, z0, a) in enumerate(((-0.05, 0.62, -30), (0.03, 0.58, 15), (-0.02, 0.5, 40))):
+        p0 = (L / 2 - 0.2, y0, z0)
+        rod(bpy, 'rebar_%d' % i, rust_d, p0, (L / 2 - 0.02 + 0.06 * math.cos(math.radians(a)), y0 - 0.1 * math.sin(math.radians(a)), z0 + 0.16), 0.011, verts=6)
+    # the near face is steep (14.6 degrees off vertical), so the stains lie on it: tilted 75.4 degrees about X
+    face = math.radians(75.4)
+    def on_face(z): return -(0.2 - (z - 0.33) / 0.48 * 0.125) - 0.006
+    for i, (x, z, r) in enumerate(((-0.9, 0.66, 0.11), (0.9, 0.64, 0.13), (-0.2, 0.5, 0.08))):
+        blotch(bpy, 'rust_%d' % i, rust, r, (x, on_face(z), z), (face, 0, 0), seed=31 + i)
+        for k in range(3):   # the bleed down the face under each loop
+            zz = z - 0.08 - k * 0.07
+            blotch(bpy, 'bleed_%d_%d' % (i, k), rust, r * (0.6 - k * 0.15), (x + 0.02 * k, on_face(zz), zz), (face, 0, 0), seed=41 + i * 3 + k)
+    # the road's splash: ONE dark band on the lower slope (round three: nine stains along the foot read as polka dots)
+    lo = math.atan2(0.105, 0.255)
+    box(bpy, 'splash', grime, (L - 0.06, 0.01, 0.15), (0, -0.268, 0.165), rot=(-lo, 0, 0))
+
+
+def dumpster(bpy, mathutils):
+    # a 2-yard front-load dumpster (1.85 m wide, 1.1 m deep, the back 1.25 m, the front 1.05, the lower front raked in),
+    # the twin's family (pack:14. Trash and junk props#3). Painted steel, two black plastic lids, fork pockets on the
+    # sides, rust coming through the paint. The odd thing: the right lid thrown back over its hinge and the bin
+    # overflowing on that side, bags and a split box, one bag fallen on the ground in front.
+    W, D = 1.85, 1.1
+    body, rust = mat(bpy, 'paint', 'metal_painted', 2), mat(bpy, 'rust', 'clay_rust', 1)
+    lid, bag, card = mat(bpy, 'lid', 'rubber', 2), mat(bpy, 'bags', 'cloth_black', 2), mat(bpy, 'cardboard', 'tape_masking', 2)
+    # the side profile (y, z), front is -Y: the foot raked in, the front wall up to 1.05, the top sloping to 1.25
+    prof = [(-D / 2 + 0.22, 0.12), (D / 2, 0.12), (D / 2, 1.25), (-D / 2, 1.05), (-D / 2, 0.42)]
+    o = prism(bpy, 'body', body, prof, -W / 2, W / 2)
+    md = o.modifiers.new('bevel', 'BEVEL'); md.width = 0.025; md.segments = 2; bpy.ops.object.modifier_apply(modifier='bevel')
+    # the opening: a dark well under the lids (the inside of a bin from 45 degrees up is mostly shadow)
+    slope = math.atan2(0.2, D)
+    box(bpy, 'rim', body, (W - 0.04, D - 0.02, 0.05), (0, 0, 1.17), rot=(-slope, 0, 0), bevel=0.01)
+    for sx in (-1, 1):
+        box(bpy, 'fork_pocket_%d' % sx, body, (0.06, D * 0.6, 0.16), (sx * (W / 2 + 0.03), 0.05, 0.78), bevel=0.01)
+        cyl(bpy, 'caster_%d_f' % sx, lid, 0.06, 0.05, (sx * 0.75, -D / 2 + 0.3, 0.06), rot=(0, math.pi / 2, 0), verts=12)
+        cyl(bpy, 'caster_%d_b' % sx, lid, 0.06, 0.05, (sx * 0.75, D / 2 - 0.1, 0.06), rot=(0, math.pi / 2, 0), verts=12)
+    # the left lid shut along the slope; the right lid thrown back past the hinge, hanging down the back
+    box(bpy, 'lid_left', lid, (W / 2 - 0.03, D + 0.06, 0.05), (-W / 4, 0, 1.2), rot=(-slope, 0, 0), bevel=0.012)
+    box(bpy, 'lid_right', lid, (W / 2 - 0.03, D + 0.06, 0.05), (W / 4, D / 2 + 0.12, 0.72), rot=(math.radians(-100), 0, 0), bevel=0.012)
+    # the overflow on the open side: bags and a split box heaped over the rim, one bag on the ground in front
+    import random
+    rnd = random.Random(5)
+    for i, (x, y, z, r) in enumerate(((0.45, -0.05, 1.22, 0.3), (0.2, 0.2, 1.28, 0.27), (0.7, 0.18, 1.2, 0.24), (0.55, -0.35, 1.12, 0.2))):
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=(x, y, z), segments=12, ring_count=8)
+        b = put(bpy, bpy.context.active_object, 'bag_%d' % i, bag)
+        b.scale = (1.0, 0.9, 0.72); b.rotation_euler = (rnd.uniform(-0.3, 0.3), rnd.uniform(-0.3, 0.3), rnd.uniform(0, 3))
+        for v in b.data.vertices: v.co *= rnd.uniform(0.9, 1.08)   # a bag is never a ball
+        bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.05, radius2=0.0, depth=0.12, location=(x, y, z + r * 0.72 + 0.04))
+        put(bpy, bpy.context.active_object, 'bag_knot_%d' % i, bag, smooth=False)
+    box(bpy, 'box_split', card, (0.42, 0.34, 0.3), (0.18, -0.2, 1.3), rot=(math.radians(14), math.radians(-24), math.radians(30)), bevel=0.005)
+    box(bpy, 'box_flap', card, (0.4, 0.012, 0.22), (0.22, -0.4, 1.45), rot=(math.radians(-40), math.radians(-24), math.radians(30)))
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.24, location=(0.55, -D / 2 - 0.32, 0.17), segments=12, ring_count=8)
+    b = put(bpy, bpy.context.active_object, 'bag_ground', bag); b.scale = (1.15, 0.95, 0.68)
+    for v in b.data.vertices: v.co *= rnd.uniform(0.9, 1.08)
+    # the rust: ragged stains on the front wall and the raked foot, and a long run down the left corner
+    for i, (x, z, r) in enumerate(((-0.55, 0.85, 0.2), (0.35, 0.62, 0.15), (-0.75, 0.55, 0.12), (0.7, 0.92, 0.1))):
+        blotch(bpy, 'rust_%d' % i, rust, r, (x, -D / 2 - 0.006, z), (math.pi / 2, 0, 0), seed=51 + i)
+    blotch(bpy, 'rust_foot', rust, 0.3, (-0.2, -D / 2 + 0.11, 0.27), (math.radians(55), 0, 0), seed=61)
+
+
+def cart(bpy, mathutils):
+    # a shopping cart (0.95 m long, 0.56 m wide at the handle, 1.0 m to the handle), wire puppet-thick (2.2 cm: a real
+    # 5 mm wire is a third of a pixel at 57 px a metre and vanishes), a basket narrowing to the front, the lower tray,
+    # a red plastic handle, four casters. He owns no shopping cart (the quartermaster's line says zero); the nearest he
+    # owns is the wire bin (pack:15. Street props#21), the same wire. The odd thing: the front left caster gone, the
+    # cart dropped onto that corner, a black bag still in the basket.
+    wire, handle, rub = mat(bpy, 'wire', 'tape_grey', 3), mat(bpy, 'handle_red', 'clay_rust', 2), mat(bpy, 'caster', 'rubber', 1)
+    rust, bag = mat(bpy, 'rust', 'clay_rust', 0), mat(bpy, 'bag', 'cloth_black', 2)
+    R = 0.011
+    xb, xf, zt, zb = -0.42, 0.48, 0.95, 0.55          # back, front, the basket's top and bottom
+    def half_w(x, z):   # the basket narrows to the front and toward the floor
+        u = (x - xb) / (xf - xb); return 0.28 - 0.06 * u - 0.03 * (zt - z) / (zt - zb)
+    xbf = xf - 0.12                                       # the floor of the basket stops short of the front
+    def corner(x, z, s): return (x, s * half_w(x, z), z)
+    for s in (-1, 1):
+        for z in (zt, zt - 0.13, zt - 0.26, zb):
+            xe = xf if z > zb + 0.01 else xbf
+            rod(bpy, 'rail_%d_%d' % (s, int(z * 100)), wire, corner(xb, z, s), corner(xe - (zt - z) * 0.3 * (z < zt), z, s), R)
+        for i in range(10):
+            x = xb + i * (xf - xb) / 9
+            if x > xbf + 0.001:
+                top = corner(x, zt, s); bot = corner(xbf + (x - xbf) * 0.2, zb + (x - xbf) * 1.3, s)
+            else:
+                top, bot = corner(x, zt, s), corner(x, zb, s)
+            rod(bpy, 'side_%d_%d' % (s, i), wire, top, bot, R * 0.8)
+    for i in range(7):   # the front and back grilles, and the floor
+        y = -0.25 + i * 0.5 / 6
+        rod(bpy, 'front_%d' % i, wire, (xf, y * 0.78, zt), (xbf, y * 0.8, zb), R * 0.8)
+        rod(bpy, 'back_%d' % i, wire, (xb, y, zt), (xb + 0.04, y, zb + 0.05), R * 0.8)
+        rod(bpy, 'floor_%d' % i, wire, (xb, y * 0.92, zb), (xbf, y * 0.84, zb), R * 0.7)
+    rod(bpy, 'front_top', wire, corner(xf, zt, -1), corner(xf, zt, 1), R)
+    rod(bpy, 'back_top', wire, corner(xb, zt, -1), corner(xb, zt, 1), R)
+    # the frame: two legs down from the handle to the back casters, the base rails forward, the lower tray
+    for s in (-1, 1):
+        rod(bpy, 'leg_%d' % s, wire, (xb - 0.1, s * 0.27, 1.0), (xb + 0.02, s * 0.25, 0.1), R * 1.4)
+        rod(bpy, 'base_%d' % s, wire, (xb + 0.02, s * 0.25, 0.1), (xf - 0.04, s * 0.2, 0.1), R * 1.4)
+        rod(bpy, 'strut_%d' % s, wire, (xf - 0.04, s * 0.2, 0.1), (xbf, s * 0.22, zb), R * 1.2)
+    for i in range(5):
+        x = xb + 0.08 + i * 0.14
+        rod(bpy, 'tray_%d' % i, wire, (x, -0.22, 0.17), (x, 0.22, 0.17), R * 0.8)
+    box(bpy, 'tray_rust', rust, (0.5, 0.36, 0.008), (xb + 0.33, 0, 0.165))
+    # the handle: a red plastic bar across the top of the legs
+    cyl(bpy, 'handle', handle, 0.022, 0.62, (xb - 0.1, 0, 1.0), rot=(math.pi / 2, 0, 0), verts=10)
+    # the casters: three on; THE ONE ASYMMETRIC THING, the front left gone and the bare fork on the ground
+    for x, y, tag in ((xb + 0.02, 0.25, 'bl'), (xb + 0.02, -0.25, 'br'), (xf - 0.04, 0.2, 'fr')):
+        cyl(bpy, 'caster_' + tag, rub, 0.055, 0.035, (x, y, 0.055), rot=(math.pi / 2, 0, 0), verts=12)
+        box(bpy, 'fork_' + tag, rust, (0.04, 0.05, 0.05), (x, y, 0.1))
+    box(bpy, 'fork_fl_bare', rust, (0.04, 0.05, 0.06), (xf - 0.04, -0.2, 0.06))
+    # a bag left in the basket, slumped against the back
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.18, location=(xb + 0.2, 0.02, zb + 0.2), segments=12, ring_count=8)
+    b = put(bpy, bpy.context.active_object, 'bag', bag); b.scale = (0.9, 1.2, 1.05)
+    bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.04, radius2=0.0, depth=0.1, location=(xb + 0.2, 0.02, zb + 0.43))
+    put(bpy, bpy.context.active_object, 'bag_knot', bag, smooth=False)
+    bpy.ops.object.empty_add(location=(0, 0, 0)); root = bpy.context.active_object; root.name = 'cart'
+    for o in bpy.context.scene.objects:
+        if o is not root: o.parent = root
+    root.rotation_euler = (math.radians(-4.5), math.radians(5.5), 0)   # down on the missing caster, front left
+    root.location.z = -0.01
+
+
+def tyres(bpy, mathutils):
+    # car tyres (0.64 m across, 0.2 m wide) in two stacks, the twin's family (pack:3. Barricades and blockades#5): three
+    # on the left, two on the right, tread blocks round every one, one rusted steel rim still inside the bottom of the
+    # short stack. The odd thing: the top tyre of the tall stack slid half off and tipped, and black water standing in
+    # the tall stack's well.
+    tyre, tread, rim, water = mat(bpy, 'rubber', 'rubber', 1), mat(bpy, 'tread', 'rubber', 2), mat(bpy, 'rim', 'clay_rust', 1), mat(bpy, 'water', 'glass_eye', 0)
+    R, r = 0.23, 0.1
+    def one(name, loc, rot=(0, 0, 0)):
+        bpy.ops.mesh.primitive_torus_add(major_radius=R, minor_radius=r, major_segments=32, minor_segments=10, location=(0, 0, 0))
+        t = put(bpy, bpy.context.active_object, name, tyre)
+        t.scale = (1, 1, 0.95); bpy.ops.object.transform_apply(scale=True)
+        for v in t.data.vertices:   # squared shoulders: a tyre's section is a box with round corners, not a doughnut
+            d = math.hypot(v.co.x, v.co.y); k = (d - R) / r
+            if abs(k) > 0.2:
+                s = 1 + 0.18 * (1 - abs(v.co.z) / r); v.co.x *= (R + (d - R) * s) / d; v.co.y *= (R + (d - R) * s) / d
+        parts = [t]
+        for i in range(26):   # the tread blocks round the outside
+            a = 2 * math.pi * i / 26
+            bpy.ops.mesh.primitive_cube_add(size=1, location=((R + r + 0.012) * math.cos(a), (R + r + 0.012) * math.sin(a), 0), rotation=(0, 0, a))
+            b = bpy.context.active_object; b.scale = (0.028, 0.045, 0.17); bpy.ops.object.transform_apply(scale=True)
+            put(bpy, b, '%s_tread_%d' % (name, i), tread, smooth=False); parts.append(b)
+        bpy.ops.object.select_all(action='DESELECT')
+        for p in parts: p.select_set(True)
+        bpy.context.view_layer.objects.active = t; bpy.ops.object.join()
+        t.location = loc; t.rotation_euler = rot
+        return t
+    h = 2 * r * 0.95 + 0.005
+    for i in range(3):
+        one('tall_%d' % i, (-0.3 + 0.02 * (i % 2), -0.02 * i, h / 2 + i * h), (0, 0, 0.3 * i))
+    for i in range(2):
+        one('short_%d' % i, (0.38, 0.12 + 0.015 * i, h / 2 + i * h), (0, 0, 0.5 + 0.4 * i))
+    cyl(bpy, 'rim', rim, 0.2, 0.15, (0.38, 0.12, h / 2), verts=20)
+    cyl(bpy, 'rim_hub', rim, 0.07, 0.17, (0.38, 0.12, h / 2), verts=10)
+    cyl(bpy, 'water', water, R - 0.01, 0.01, (-0.29, -0.03, 2 * h + 0.04), verts=24)
+    # THE ONE ASYMMETRIC THING: the top of the tall stack slid half off toward the camera and tipped against it
+    one('slid', (-0.18, -0.28, 3 * h + 0.03), (math.radians(-22), math.radians(8), 0.9))
+
+
+BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres}
 
 
 def build(name, out):
