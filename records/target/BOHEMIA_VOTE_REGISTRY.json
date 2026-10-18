@@ -9035,6 +9035,33 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_THE_TWENTY_FIELDS_10_18_26.html"
    }
+  },
+  {
+   "id": "cook3-the-thug-through-the-rig-10-18",
+   "kind": "outfit",
+   "lane": "cook 3",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "THE THUG, BUILT AS A 3D MODEL AND TURNED INTO PIXELS LIKE THE ROBOT",
+   "why": "The people chat built the thug the robot's way: a quilted padded coat, a belt, a knit cap and a rusty pipe, each one a real shape on the body's bones, so they turn and walk with him. You see him in eight directions and two walks, next to the game's flat thug, on the sheet in the VOTE tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/cook3/COOK3_THE_THUG_THROUGH_THE_RIG.png"
+   },
+   "twin": {
+    "src": "records/cook3/enemy_tiers_repainted.png",
+    "diffs": [
+     "THE COAT: ours is a padded coat built as a shape, with stitched channels that catch the sun from every side; the game's thug has the padding painted on as grey stripes, front only.",
+     "THE PIPE: ours carries a rusty pipe in his right hand that swings when he walks; the game's thug has no weapon you can see.",
+     "THE HEAD: the game's thug has the better head (real hair, a face shape); ours has a boxy head from the test body, and the rig's dust turns his dark red cap grey. Both get fixed in the body model, not in paint."
+    ]
+   },
+   "draft": true,
+   "before_after": {
+    "before": "the game's own flat thug as last painted (right on the sheet)",
+    "after": "the thug as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
+    "scale": "1:1"
+   }
   }
  ],
  "verdicts": [

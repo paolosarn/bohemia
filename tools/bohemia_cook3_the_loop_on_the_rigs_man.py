@@ -10,6 +10,9 @@ shading through the Reds runway materials from engine/bohemia_cook3_runway_paint
 shirt, brick trousers and boots, bone light), with his pack tiles' grain laid in place as the cloth's texture. Every
 knob is a number on the command line; every cycle's knobs are saved beside its picture; look.py judges.
 
+REUSE CHECK: the body is DIRECTION's rendered man (read, never redrawn); the materials are the runway paint file's; the
+grain is his own dirt tile laid in place.
+
 REFERENCE CHECK (the 9/4 standing duty): the runway twin (reference/art_bank/character, photographs OWED), the
 wardrobe laws, the card of numbers (records/BOHEMIA_THE_CARD_OF_NUMBERS_10_10_26.md), the body in metres
 (records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md), the master rig (records/BOHEMIA_THE_MASTER_RIG_ROUND_TWO_THE_MODEL_MOVES_10_17_26.md),

@@ -1,0 +1,72 @@
+{
+ "tier": "THUG",
+ "what": "a quilted gambeson to mid-thigh with half sleeves, a wide leather belt, a knit cap with a folded brim, work trousers, boots, a length of rusted pipe",
+ "model": "records/cook3/rig/thug.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "thug_gambeson": 19814,
+  "thug_belt": 346,
+  "thug_cap": 4740,
+  "thug_cap_brim": 2238,
+  "thug_pipe": 60
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "thug_belt": [
+   0.0685,
+   0.0319,
+   0.0144
+  ],
+  "thug_boots": [
+   0.0194,
+   0.0103,
+   0.006
+  ],
+  "thug_cap": [
+   0.0685,
+   0.0116,
+   0.0091
+  ],
+  "thug_cap_brim": [
+   0.0685,
+   0.0116,
+   0.0091
+  ],
+  "thug_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "thug_gambeson": [
+   0.2016,
+   0.1441,
+   0.0844
+  ],
+  "thug_pipe": [
+   0.107,
+   0.0612,
+   0.0369
+  ],
+  "thug_skin": [
+   0.305,
+   0.162,
+   0.0976
+  ],
+  "thug_sleeves": [
+   0.016,
+   0.0144,
+   0.013
+  ],
+  "thug_trousers": [
+   0.016,
+   0.0144,
+   0.013
+  ]
+ }
+}
