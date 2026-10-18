@@ -80,6 +80,19 @@ additions from round two of the research (Section C and E):
     gamma 1, denoise off, written in the scene, not assumed.
     --sun-rot 140,0,-35 (any override) is allowed and is recorded as a break.
 
+ROUND SIX (10/18, DIRECTION [the truck turned up]; his YES on round five with 'the truck looks a little too much like a
+play toy for real, so turn it up'): THE TOY'S FOUR TELLS ARE TAKEN OUT OF THE RECIPE, not out of one truck. Each is a key of
+the guide's rig block, so every render after this loses them:
+  * THE SHINE: roughness 1, specular 0 (round three left 0.15: the last of the plastic highlight).
+  * THE NEW PAINT: every base colour loses saturation to paint_sat_mul, and the faces that point at the sun lose bleach_up
+    more of it, before any wear (a toy's paint is fresh and loud; a thing left in the desert is chalky).
+  * THE PERFECT EDGE: the shape is cut finer and pushed by a 3D cloud of dent_m (dent_pass), and within edge_m of every
+    turn the paint chips through to a dark undercoat in broken patches (chip_per_m, chip_mul), so no edge is one ruled
+    line of one colour.
+  * THE TOY'S PROPORTIONS: --real-dims L,W,H records the model's length to width and length to height against the real
+    thing's (proportion_tolerance); a chunky wide body on big wheels is a toy's, and the model is built true (the truck:
+    tools/bohemia_direction_model_truck.py).
+
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the approved asset index (the twin is his own car from the
 7/13 UP set), the card of numbers, skills/bohemia-pixel-art, AH-01, AH-03. No reference game.
 """
@@ -88,7 +101,7 @@ import os, sys, json, math, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 PORTRAIT_FACINGS = ['S', 'SE', 'SW']
-RIG_ROUND = 5
+RIG_ROUND = 6
 GUIDE_PATH = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')
 GUIDE = json.load(open(GUIDE_PATH))
 G = dict(GUIDE['rig'])   # a copy: --set may move a key for one render, and the break is read against the file
@@ -109,7 +122,7 @@ def args():
                 fam=fam, snap=opt('--snap', 0.6), judge=opt('--judge', fam if fam != 'none' else 'prop'), wear=opt('--wear', float(G['wear'])),
                 ring=opt('--ring', float(G['ring'])), shadow=('--no-shadow' not in a) and bool(G['contact_shadow']), still=opt('--still', 'pass'), tilt=opt('--tilt', float(G['tilt_deg'])),
                 sun_rot=sun, cls=opt('--class', 'prop' if fam == 'prop' else 'person'), seed=int(opt('--seed', 0)), stills_only='--stills-only' in a, calibrate='--no-calibration' not in a, id_pass='--no-id-pass' not in a,
-                clips=clips, portrait=opt('--portrait', 0), head_m=(0.0 if opt('--head-m', 'auto') == 'auto' else float(opt('--head-m', 'auto'))), expressions=expr)
+                clips=clips, real_dims=[float(x) for x in opt('--real-dims', '').split(',')] if '--real-dims' in a else None, portrait=opt('--portrait', 0), head_m=(0.0 if opt('--head-m', 'auto') == 'auto' else float(opt('--head-m', 'auto'))), expressions=expr)
 
 
 def population(fam):
@@ -192,15 +205,25 @@ def source_pass(objs, wear, k, seed=0):
             bsdf = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
             if not bsdf: continue
             so = float(o.matrix_world.to_scale().x)   # a mesh's own coordinates can carry an object scale (the robot's parts: 100); metres = local x that x k
-            # 1. the plastic highlight is the toy: matte, no specular
-            if not bsdf.inputs['Roughness'].links: bsdf.inputs['Roughness'].default_value = max(bsdf.inputs['Roughness'].default_value, 0.9)
+            # 1. the plastic highlight is the toy: matte, no specular (round six, his 'a play toy': the guide's numbers, roughness 1, specular 0)
+            if not bsdf.inputs['Roughness'].links: bsdf.inputs['Roughness'].default_value = max(bsdf.inputs['Roughness'].default_value, float(G['roughness_min']))
             for sp in ('Specular IOR Level', 'Specular'):
-                if sp in bsdf.inputs and not bsdf.inputs[sp].links: bsdf.inputs[sp].default_value = 0.15
+                if sp in bsdf.inputs and not bsdf.inputs[sp].links: bsdf.inputs[sp].default_value = float(G['specular'])
             if not bsdf.inputs['Metallic'].links: bsdf.inputs['Metallic'].default_value = min(bsdf.inputs['Metallic'].default_value, 0.2)
             base = bsdf.inputs['Base Color']
             src = base.links[0].from_socket if base.links else None
             if src is None:
                 rgb = nt.nodes.new('ShaderNodeRGB'); rgb.outputs[0].default_value = tuple(base.default_value); src = rgb.outputs[0]
+            geo = nt.nodes.new('ShaderNodeNewGeometry'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Normal'], sep.inputs[0])
+            up = nt.nodes.new('ShaderNodeMath'); up.operation = 'MAXIMUM'; up.inputs[1].default_value = 0.0; nt.links.new(sep.outputs['Z'], up.inputs[0])
+            # 1b. THE PAINT IS OLD (round six, the toy's second tell: fresh saturated paint): every base loses saturation to
+            # the guide's paint_sat_mul, and what faces the sun loses bleach_up more of it (a desert sun fades the roof
+            # first), before any wear goes on; the hue stays the palette's, the colour goes chalky, never grey
+            sat = nt.nodes.new('ShaderNodeMath'); sat.operation = 'MULTIPLY_ADD'; sat.use_clamp = True
+            sat.inputs[1].default_value = -float(G['paint_sat_mul']) * float(G['bleach_up']) * wear; sat.inputs[2].default_value = float(G['paint_sat_mul'])
+            nt.links.new(up.outputs[0], sat.inputs[0])
+            hsv = nt.nodes.new('ShaderNodeHueSaturation'); nt.links.new(src, hsv.inputs['Color']); nt.links.new(sat.outputs[0], hsv.inputs['Saturation'])
+            src = hsv.outputs['Color']
             # 2. grime where the shape closes on itself: the model's own ambient occlusion
             ao = nt.nodes.new('ShaderNodeAmbientOcclusion'); ao.inputs['Distance'].default_value = 0.25; ao.samples = 8; ao.only_local = True
             crev = nt.nodes.new('ShaderNodeMath'); crev.operation = 'SUBTRACT'; crev.inputs[0].default_value = 1.0; nt.links.new(ao.outputs['AO'], crev.inputs[1])
@@ -213,9 +236,7 @@ def source_pass(objs, wear, k, seed=0):
                 if seed: mp.inputs['Location'].default_value = (seed * 13.7, seed * 7.3, seed * 3.1)   # a second wear seed: the same model, other dirt (guide field 12)
                 nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); return mp.outputs['Vector']
             # 3. dust and bleach on what points up, broken by a half-metre mask (a mask is shaped, never his pixels)
-            geo = nt.nodes.new('ShaderNodeNewGeometry'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Normal'], sep.inputs[0])
-            up = nt.nodes.new('ShaderNodeMath'); up.operation = 'MAXIMUM'; up.inputs[1].default_value = 0.0; nt.links.new(sep.outputs['Z'], up.inputs[0])
-            noise = nt.nodes.new('ShaderNodeTexNoise'); noise.inputs['Scale'].default_value = 1.0; noise.inputs['Detail'].default_value = 5.0; noise.inputs['Roughness'].default_value = 0.65
+            noise =nt.nodes.new('ShaderNodeTexNoise'); noise.inputs['Scale'].default_value = 1.0; noise.inputs['Detail'].default_value = 5.0; noise.inputs['Roughness'].default_value = 0.65
             nt.links.new(coords(DUST_PER_M), noise.inputs['Vector'])
             dust = nt.nodes.new('ShaderNodeMath'); dust.operation = 'MULTIPLY'; nt.links.new(up.outputs[0], dust.inputs[0]); nt.links.new(noise.outputs['Fac'], dust.inputs[1])
             dustw = nt.nodes.new('ShaderNodeMath'); dustw.operation = 'MULTIPLY'; dustw.inputs[1].default_value = 1.1 * wear; dustw.use_clamp = True; nt.links.new(dust.outputs[0], dustw.inputs[0])
@@ -261,11 +282,55 @@ def source_pass(objs, wear, k, seed=0):
             mix4 = nt.nodes.new('ShaderNodeMixRGB'); mix4.blend_type = 'OVERLAY'
             nt.links.new(gf.outputs[0], mix4.inputs['Fac'])
             nt.links.new(mix3.outputs['Color'], mix4.inputs['Color1']); nt.links.new(gdark.outputs['Result'], mix4.inputs['Color2'])
+            # 6. THE EDGES ARE WORN (round six, the toy's third tell: a perfect moulded edge): where the surface turns (a
+            # bevel normal leaning off the true normal within edge_m), the paint is chipped through to a dark warm
+            # undercoat in broken patches (chip_per_m), so no edge is one clean line of one colour
+            bev = nt.nodes.new('ShaderNodeBevel'); bev.samples = 8; bev.inputs['Radius'].default_value = float(G['edge_m']) / max(1e-6, so * k)
+            dot = nt.nodes.new('ShaderNodeVectorMath'); dot.operation = 'DOT_PRODUCT'
+            nt.links.new(bev.outputs['Normal'], dot.inputs[0]); nt.links.new(geo.outputs['True Normal'], dot.inputs[1])
+            edge = nt.nodes.new('ShaderNodeMapRange'); edge.inputs['From Min'].default_value = 0.995; edge.inputs['From Max'].default_value = 0.9; edge.clamp = True
+            nt.links.new(dot.outputs['Value'], edge.inputs['Value'])
+            chipn = nt.nodes.new('ShaderNodeTexNoise'); chipn.inputs['Scale'].default_value = 1.0; chipn.inputs['Detail'].default_value = 3.0; chipn.inputs['Roughness'].default_value = 0.6
+            nt.links.new(coords(float(G['chip_per_m'])), chipn.inputs['Vector'])
+            chipm = nt.nodes.new('ShaderNodeMapRange'); chipm.inputs['From Min'].default_value = 0.36; chipm.inputs['From Max'].default_value = 0.5; chipm.clamp = True
+            nt.links.new(chipn.outputs['Fac'], chipm.inputs['Value'])
+            chip = nt.nodes.new('ShaderNodeMath'); chip.operation = 'MULTIPLY'; nt.links.new(edge.outputs['Result'], chip.inputs[0]); nt.links.new(chipm.outputs['Result'], chip.inputs[1])
+            chipw = nt.nodes.new('ShaderNodeMath'); chipw.operation = 'MULTIPLY'; chipw.inputs[1].default_value = float(G['edge_wear']) * wear; chipw.use_clamp = True
+            nt.links.new(chip.outputs[0], chipw.inputs[0])
+            under = nt.nodes.new('ShaderNodeMixRGB'); under.blend_type = 'MULTIPLY'; under.inputs['Fac'].default_value = 1.0; under.inputs['Color2'].default_value = tuple(G['chip_mul']) + (1,)
+            nt.links.new(mix4.outputs['Color'], under.inputs['Color1'])
+            mix5 = nt.nodes.new('ShaderNodeMixRGB'); mix5.blend_type = 'MIX'
+            nt.links.new(chipw.outputs[0], mix5.inputs['Fac']); nt.links.new(mix4.outputs['Color'], mix5.inputs['Color1']); nt.links.new(under.outputs['Color'], mix5.inputs['Color2'])
             for l in list(base.links): nt.links.remove(l)
-            nt.links.new(mix4.outputs['Color'], base)
-    return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= 0.9, specular 0.15, metallic <= 0.2', 'crevice grime from the model\'s own ambient occlusion (0.25 m)',
+            nt.links.new(mix5.outputs['Color'], base)
+    return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= %g, specular %g, metallic <= 0.2' % (G['roughness_min'], G['specular']),
+                'old paint: saturation x %g, and %g of that again lost on what faces the sun' % (G['paint_sat_mul'], G['bleach_up'] * wear),
+                'worn edges: within %g m of a turn the paint chips (a %g a metre mask) to the base x %s' % (G['edge_m'], G['chip_per_m'], G['chip_mul']),'crevice grime from the model\'s own ambient occlusion (0.25 m)',
                 'dust and bleach on up-facing surfaces under a %g cm mask; on a base brighter than %s the wear is the base times %s (darker, never frost)' % (100.0 / DUST_PER_M, BRIGHT, list(DUST_DARK[:3])), 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
                 'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch, %.2f on clean panel); even grain is a leopard print, measured cycle 4' % (GRAIN_PER_M, GRAIN_WEAR * wear, GRAIN_REST * wear)], seed=seed, masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
+
+
+def dent_pass(objs, k):
+    """THE SHAPE IS HANDMADE (round six, his 'a play toy': a moulded part is ruler-straight, a clay one is not): every mesh
+    is cut finer (a simple subdivision, so the shape is kept, only given vertices to move) and pushed by a 3D cloud of
+    dent_m at dent_per_m, the same push for vertices that share a position, so a hard edge never cracks open. On a
+    skinned mesh the push goes before the armature, so the dents ride the body instead of swimming through it."""
+    import bpy
+    done = []
+    for o in objs:
+        so = float(o.matrix_world.to_scale().x); unit = 1.0 / max(1e-6, so * k)   # one metre in this mesh's own units
+        if len(o.data.vertices) <= int(G['dent_subdiv_max_verts']):
+            sub = o.modifiers.new('bohemia_cut', 'SUBSURF'); sub.subdivision_type = 'SIMPLE'; sub.levels = sub.render_levels = int(G['dent_subdiv'])
+        tex = bpy.data.textures.new('bohemia_dent_' + o.name, 'CLOUDS'); tex.cloud_type = 'COLOR'; tex.noise_scale = unit / float(G['dent_per_m']); tex.noise_depth = 1
+        d = o.modifiers.new('bohemia_dent', 'DISPLACE'); d.texture = tex; d.texture_coords = 'LOCAL'; d.direction = 'RGB_TO_XYZ'
+        d.mid_level = 0.5; d.strength = 2.0 * float(G['dent_m']) * unit
+        names = [m.name for m in o.modifiers]
+        if any(m.type == 'ARMATURE' for m in o.modifiers):
+            for n in ('bohemia_dent', 'bohemia_cut'):
+                if n in o.modifiers:
+                    with bpy.context.temp_override(object=o): bpy.ops.object.modifier_move_to_index(modifier=n, index=0)
+        done.append(o.name)
+    return dict(meshes=len(done), dent_m=G['dent_m'], dent_per_m=G['dent_per_m'], subdiv=G['dent_subdiv'], how='simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh')
 
 
 def passing_frame(sc, objs, f0, f1):
@@ -401,6 +466,16 @@ def render(A):
     size = hi - lo
     k = A['real_h'] / size.z if A['real_h'] else (A['real_len'] or 5.3) / max(size.x, size.y)
     source = source_pass(objs, A['wear'], k, A['seed']) if A['wear'] > 0 else None
+    if source and float(G['dent_m']) > 0: source['dents'] = dent_pass(objs, k)
+    # THE TRUE PROPORTIONS (round six, the toy's first tell: a chunky wide tall body on big wheels): --real-dims L,W,H
+    # is the real thing's length, width and height; each measured ratio is recorded and must sit inside the guide's
+    # proportion_tolerance, or the render is a toy shape and says so in rig.json
+    props = None
+    if A['real_dims']:
+        L, W_, H_ = A['real_dims']; m = sorted([size.x * k, size.y * k]); mL, mW, mH = m[1], m[0], size.z * k
+        off = dict(width=round(mW / mL / (W_ / L) - 1, 3), height=round(mH / mL / (H_ / L) - 1, 3))
+        props = dict(real=[L, W_, H_], model=[round(mL, 3), round(mW, 3), round(mH, 3)], off=off, tolerance=G['proportion_tolerance'],
+                     ok=all(abs(v) <= float(G['proportion_tolerance']) for v in off.values()))
     centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z))
     for o in list(sc.objects):
         if o.parent is None and o is not root: o.parent = root; o.location -= centre
@@ -485,7 +560,7 @@ def render(A):
         aim(A['tilt'], dims[2] * zs / 2, res / ppm, res); sc.render.filepath = os.path.join(out, 'x.png')
         idt, idf = id_pass(sc, objs, root)
     return dict(engine=G['engine'], res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
-                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, calibration=calib, id_table=idt, id_files_raw=idf), stills, clips, portrait
+                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, proportions=props, calibration=calib, id_table=idt, id_files_raw=idf), stills, clips, portrait
 
 
 def post(files, out, A, pop=None, shadow=False, one_box=True):

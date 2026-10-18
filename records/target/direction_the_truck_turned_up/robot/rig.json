@@ -1,0 +1,244 @@
+{
+ "engine": "CYCLES",
+ "res": 276,
+ "ortho_scale": 4.842105263157895,
+ "real_dims_m": [
+  1.371,
+  1.157,
+  1.72
+ ],
+ "scale_from_model": 0.4422,
+ "still_frame": 5.0,
+ "still": "the passing pose of Idle, frame 5.00",
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "Black",
+   "Grey",
+   "Main"
+  ],
+  "what": [
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.4422)",
+  "dents": {
+   "meshes": 14,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
+ },
+ "proportions": null,
+ "calibration": {
+  "cube_px": 58,
+  "screen_light_deg": 155.4,
+  "sphere_value_span": 111,
+  "sphere_darkest": 88,
+  "cube_px_expected": 57,
+  "cube_ok": true,
+  "light_off_deg": 0.0,
+  "light_ok": true
+ },
+ "id_table": {
+  "Black": "#ff1919",
+  "Grey": "#195cff",
+  "Main": "#9fff19"
+ },
+ "model": "reference/models/quaternius/RobotExpressive.glb",
+ "rig_round": 6,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/direction_the_truck_turned_up/robot/rig_N.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_NE.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_E.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_SE.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_S.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_SW.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_W.png",
+  "records/target/direction_the_truck_turned_up/robot/rig_NW.png"
+ ],
+ "crop_box_px": [
+  90,
+  70,
+  190,
+  217
+ ],
+ "shadow_files": [
+  "records/target/direction_the_truck_turned_up/robot/shadow_N.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_NE.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_E.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_SE.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_S.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_SW.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_W.png",
+  "records/target/direction_the_truck_turned_up/robot/shadow_NW.png"
+ ],
+ "ground_px": [
+  48,
+  68
+ ],
+ "colours": 33202,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 0,
+  "rows": [
+   "OK   long side >= floor 96: 147",
+   "OK   colours >= 2330: 5428",
+   "OK   top 8 carry <= 11%: 0.7",
+   "OK   value span >= 118: 123",
+   "OK   saturation <= 0.81: 0.352",
+   "OK   light: top minus bottom >= -2.5: 2.0",
+   "OK   edge between -35 and +7: -15.4",
+   "OK   grain <= 2.22 px a run: 1.95"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 3.8%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 238.5"
+  ],
+  "verdict": "0 of 8 out -> to DIRECTION",
+  "file": "records/target/direction_the_truck_turned_up/robot/rig_S.png"
+ },
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 0,
+  "rows": [
+   "OK   long side >= floor 96: 147",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 6378 px): 5428",
+   "OK   top 8 carry <= 11%: 0.7",
+   "OK   value span >= 118: 123",
+   "OK   saturation <= 0.81: 0.352",
+   "OK   light: top minus bottom >= -2.5: 2.0",
+   "OK   edge between -35 and +7: -15.4",
+   "OK   grain <= 2.22 px a run: 1.95"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "0 of 8 out under the style guide",
+  "size_px": [
+   78,
+   117
+  ],
+  "opaque_px": 6378,
+  "colours": 5428
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12
+ },
+ "breaks": [],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "id_files": [
+  "records/target/direction_the_truck_turned_up/robot/rigid_N.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_NE.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_E.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_SE.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_S.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_SW.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_W.png",
+  "records/target/direction_the_truck_turned_up/robot/rigid_NW.png"
+ ]
+}

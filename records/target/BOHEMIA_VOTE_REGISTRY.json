@@ -10035,38 +10035,81 @@
    },
    "draft": true
   },
-    {
-     "id": "ui-the-phones-front-screen-10-18",
-     "kind": "ui",
-     "lane": "ui",
-     "sha": "33cddfa6",
-     "made": "10/18",
-     "title": "THE PHONE'S FRONT SCREEN, REDONE",
-     "why": "You said the phone's front screen looked like dog shit, so the first thing you see when the phone opens is now one clock, one message from the neighbor with his real face, and one READ button, with no rounded boxes, no phone fonts, and the last owner's lock screen burned faintly into the glass. You see it on the map when you tap the phone, upright and sideways, next to the old one; pick A (the message on a receipt taped to the glass), B (printed straight on the glass), or NO with what is wrong.",
-     "show": {
-      "how": "image",
-      "src": "../records/target/ui_phone_lock/UI_ONE_AT_A_TIME_THE_PHONES_FRONT_SCREEN.png"
-     },
-     "options": [
-      "A",
-      "B",
-      "NO"
-     ],
-     "twin": {
-      "src": "the game: the neighbor's face from the game's own face maker (64 px, shown at 3 phone pixels a face pixel), his real last text from the phone, the HUD's clock; materials: receipt, tape, cardboard",
-      "diffs": [
-       "WHAT IS THE GAME'S: the face is the one the game already draws for the neighbor, the line is his real text, the time is the map's clock; nothing is made up for the picture.",
-       "WHAT CHANGED: one message and one press instead of two cards and a blinking 'tap to unlock'; every word in the game's own CASING face at sharp sizes; the glare drawn as pixels; the last owner's 11:47 and 'MOM (14)' burned into the glass and one dead row of pixels across it.",
-       "WHAT IT COSTS: the '41 quests available near you' card leaves the front screen and lives in JOBS, so the first screen never reads like a to-do list (rule 117)."
-      ]
-     },
-     "before_after": {
-      "before": "the lock screen today: a 62 px clock in a phone font, two rounded see-through cards with coloured squares for faces, a blinking 'tap to unlock'",
-      "after": "one clock, one face with its line, one READ press; zero gradients, blur, glow, rounded corners or phone fonts",
-      "scale": "1:1"
-     },
-     "draft": true
-    }
+  {
+   "id": "ui-the-phones-front-screen-10-18",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "33cddfa6",
+   "made": "10/18",
+   "title": "THE PHONE'S FRONT SCREEN, REDONE",
+   "why": "You said the phone's front screen looked like dog shit, so the first thing you see when the phone opens is now one clock, one message from the neighbor with his real face, and one READ button, with no rounded boxes, no phone fonts, and the last owner's lock screen burned faintly into the glass. You see it on the map when you tap the phone, upright and sideways, next to the old one; pick A (the message on a receipt taped to the glass), B (printed straight on the glass), or NO with what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ui_phone_lock/UI_ONE_AT_A_TIME_THE_PHONES_FRONT_SCREEN.png"
+   },
+   "options": [
+    "A",
+    "B",
+    "NO"
+   ],
+   "twin": {
+    "src": "the game: the neighbor's face from the game's own face maker (64 px, shown at 3 phone pixels a face pixel), his real last text from the phone, the HUD's clock; materials: receipt, tape, cardboard",
+    "diffs": [
+     "WHAT IS THE GAME'S: the face is the one the game already draws for the neighbor, the line is his real text, the time is the map's clock; nothing is made up for the picture.",
+     "WHAT CHANGED: one message and one press instead of two cards and a blinking 'tap to unlock'; every word in the game's own CASING face at sharp sizes; the glare drawn as pixels; the last owner's 11:47 and 'MOM (14)' burned into the glass and one dead row of pixels across it.",
+     "WHAT IT COSTS: the '41 quests available near you' card leaves the front screen and lives in JOBS, so the first screen never reads like a to-do list (rule 117)."
+    ]
+   },
+   "before_after": {
+    "before": "the lock screen today: a 62 px clock in a phone font, two rounded see-through cards with coloured squares for faces, a blinking 'tap to unlock'",
+    "after": "one clock, one face with its line, one READ press; zero gradients, blur, glow, rounded corners or phone fonts",
+    "scale": "1:1"
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-the-truck-turned-up-10-18",
+   "kind": "redo",
+   "redoOf": "direction-the-rig-round-five-10-18",
+   "lane": "direction",
+   "sha": "SHA_PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE TRUCK, NOT A PLAY TOY",
+   "why": "You said the truck looked like a play toy, so the recipe changed for everything: real pickup proportions (it was as tall as it was long), old faded paint, chipped edges and no shine. The robot went through the same new recipe and still looks like itself; you see it in the VOTE tab at 1:1 on your street and at 2x.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/direction_the_truck_turned_up/DIRECTION_THE_TRUCK_TURNED_UP.png"
+   },
+   "question": "Does the truck read as a real truck now, not a toy?",
+   "caption": "PIXEL SIZE 1:1, 57 px a metre | PALETTE records/target/BOHEMIA_STYLE_PALETTE.json | LIGHT one sun, upper left (155.4 deg on screen)",
+   "class": "vehicle",
+   "sprites": [
+    "records/target/direction_the_truck_turned_up/truck/rig_N.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_NE.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_E.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_SE.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_S.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_SW.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_W.png",
+    "records/target/direction_the_truck_turned_up/truck/rig_NW.png",
+    "records/target/direction_the_truck_turned_up/robot/rig_S.png",
+    "records/target/direction_the_truck_turned_up/robot/rig_SE.png"
+   ],
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   },
+   "twin": {
+    "src": "reference/art_bank/prop/pack_10_abandoned_cars_003.png",
+    "diffs": [
+     "THE SHAPE: last round was 1.87 long to wide and 1.8 long to tall on wheels a sixth of its length (a toy's); now 2.72 and 2.86 on real tyres, a real worn pickup's.",
+     "THE PAINT: mean saturation 0.42 to 0.32, no specular left, the roof faded most; the yellow stays yellow (a first try at 0.29 went cream and was thrown out).",
+     "THE EDGES: within 5 cm of every turn the paint chips through to a dark undercoat in patches, and the panels are pushed 2.5 cm by hand-sized dents; the robot wears the same recipe."
+    ]
+   },
+   "draft": true
+  }
  ],
  "verdicts": [
   {

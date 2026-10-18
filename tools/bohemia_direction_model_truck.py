@@ -13,7 +13,9 @@ ONE palette step as its own flat material (roughness 1, specular 0; the rig's so
   chassis, bumpers, bed (pale grey)   clay_teal[1]     dark teal metal, the colour of his own abandoned car (the twin)
   glass (pale, cool)                  glass_eye[1]     dark glass, never a white pane
   tyres and shadow parts (dark)       rubber[2]
-The shape is Kenney's, untouched; the result is ours: reference/models/bohemia/truck.glb (CC0 in, CC0 out).
+ROUND SIX (10/18, [the truck turned up], his 'a little too much like a play toy'): Kenney's proportions are a toy's
+(1.87 long to wide, 1.8 long to tall, wheels a sixth of its length); the body is pulled to a real worn pickup's
+(REAL below) and the wheels shrink to a real tyre and tuck under it. The panels are Kenney's; the result is ours: reference/models/bohemia/truck.glb (CC0 in, CC0 out).
 
 Run with the rig's Blender python:
     <venv>/bin/python tools/bohemia_direction_model_truck.py [--out reference/models/bohemia/truck.glb]
@@ -23,6 +25,7 @@ import colorsys, json, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAL = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles']
 SRC = os.path.join(ROOT, 'reference/models/kenney/vehicle-truck-yellow.glb')
+REAL = (5.3, 1.95, 1.85, 0.75)   # a worn compact pickup: length, width, height, tyre diameter in metres (round six)
 CLASSES = [('paint', 'clay_mustard', 3), ('lamp', 'sodium', 3), ('tail', 'blood', 1), ('metal', 'clay_teal', 1),
            ('glass', 'glass_eye', 1), ('rubber', 'rubber', 2)]
 
@@ -73,9 +76,24 @@ def main():
             p.material_index = [c[0] for c in CLASSES].index(name); count[name] = count.get(name, 0) + 1
     for m in list(bpy.data.materials):
         if m.name == 'colormap': bpy.data.materials.remove(m)
+    # ROUND SIX, THE TRUE PROPORTIONS (his 'a play toy': Kenney's truck is a toy's, 1.87 long to wide and 1.8 long to
+    # tall on wheels a sixth of its length; a real pickup is 2.7 and 2.9 on wheels a seventh): the body is pulled to
+    # REAL's width and height about the ground, the wheels shrink round their own centres to REAL's tyre and tuck under
+    # it; the wheelbase and every face's paint stay
+    L0 = 2.8; sx = REAL[1] / REAL[0] * L0 / 1.5; sz = REAL[2] / REAL[0] * L0 / 1.55; ws = REAL[3] / REAL[0] * L0 / 0.6
+    for o in [o for o in bpy.context.scene.objects if o.type == 'MESH']:
+        M = o.matrix_world.copy(); Mi = M.inverted(); ws_ = [M @ v.co for v in o.data.vertices]
+        if o.name.startswith('wheel'):
+            c = sum(ws_, ws_[0] * 0) / len(ws_); c2 = c.copy(); c2.x *= sx; c2.z = REAL[3] / REAL[0] * L0 / 2
+            new = [c2 + (w - c) * ws for w in ws_]
+        else:
+            new = [w.copy() for w in ws_]
+            for w in new: w.x *= sx; w.z *= sz
+        for v, w in zip(o.data.vertices, new): v.co = Mi @ w
+    shape = dict(real_m=dict(zip(('length', 'width', 'height', 'tyre'), REAL)), body_x=round(sx, 3), body_z=round(sz, 3), wheels=round(ws, 3))
     os.makedirs(os.path.dirname(out), exist_ok=True)
     bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', export_animations=False)
-    print(json.dumps(dict(out=os.path.relpath(out, ROOT), faces=count, palette={n: PAL[r]['ramp'][s] for n, r, s in CLASSES})))
+    print(json.dumps(dict(out=os.path.relpath(out, ROOT), faces=count, shape=shape, palette={n: PAL[r]['ramp'][s] for n, r, s in CLASSES})))
 
 
 if __name__ == '__main__':

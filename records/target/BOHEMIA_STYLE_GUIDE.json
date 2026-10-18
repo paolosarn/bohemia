@@ -45,6 +45,11 @@
    "research_said": "The card of numbers' grain row (round one Section C, field 11): 1.6 to 2.22 px a light-dark run, measured on his 96 px tiles.",
    "decided": "A VEHICLE reads 1.6 to 3.6 (round five, 10/18). Person, beast and prop keep 2.22.",
    "why": "His pack draws a whole car inside one 96 px tile; the rig draws a car at its true 5.3 m, 300 px long, with panels three times as long under the same paint, so a run three times longer is the same grain at the true size. His YES truck measured 3.29 (tie-breaker 1); 3.6 is that plus a tenth. Round five's truck measures 2.95, under the maquette."
+  },
+  {
+   "research_said": "Round two's recipe (Section C): the hand is the highlight pass, the detail restore and the silhouette push; the source sets matte clay.",
+   "decided": "Round six adds four source rules against the toy (10/18): roughness 1 and specular 0; old paint (paint_sat_mul 0.85, bleach_up 0.15); worn edges (edge_m 0.05, chip_per_m 9, chip_mul 0.4/0.33/0.27, edge_wear 0.85); a handmade shape (dent_m 0.025 at dent_per_m 2 after a simple subdivision); and true proportions for vehicles and props within proportion_tolerance 0.12.",
+   "why": "His YES on round five came with 'the truck looks a little too much like a play toy, turn it up'; the row's constraint is the recipe, not one truck, so every render after this one carries them. The first try (paint_sat_mul 0.72, bleach_up 0.3) took the yellow he loved to cream (mean saturation 0.29, measured): the frost again by another road; 0.85 and 0.15 keep the hue and lose the shine of new paint. The biggest single tell was the proportions, not the surface: fixed in the model (tools/bohemia_direction_model_truck.py REAL), gated in the rig."
   }
  ],
  "fields": [
@@ -216,10 +221,10 @@
     "value_span_min": 118,
     "shadow_never_black": "the darkest opaque pixel of a sprite has a value of at least 12 of 255 outside the ring and the contact shadow",
     "surface": {
-     "roughness_min": 0.9,
-     "specular": 0.15,
+     "roughness_min": 1.0,
+     "specular": 0.0,
      "metallic_max": 0.2,
-     "why": "the plastic highlight IS the toy"
+     "why": "the plastic highlight IS the toy; round six (10/18, his 'a play toy') took the last 0.15 of specular out: rig roughness_min, specular"
     },
     "glossy_exceptions": [
      "glass eyes",
@@ -312,6 +317,11 @@
        "reads": "pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8"
       }
      }
+    },
+    "true_proportions": {
+     "rule": "every vehicle and prop is built to the real thing's length to width and length to height within rig proportion_tolerance (12 percent); the rig measures it from --real-dims and writes it to rig.json",
+     "why": "his 'a play toy' (10/18): Kenney's truck was 1.87 long to wide and 1.8 long to tall on wheels a sixth of its length, a toy's; a real pickup is 2.72 and 2.86 on wheels a seventh",
+     "puppet_exception": "a PERSON's puppet proportions (the head share, the hands) stay: a creepy kids' show makes its people puppets, never its trucks"
     }
    },
    "do": "the robot's head and hands read at 8x8",
@@ -342,7 +352,11 @@
     "grain_run_px_vehicle": [
      1.6,
      3.6
-    ]
+    ],
+    "the_toy_tells": {
+     "rule": "IMPLEMENTED round six (DIRECTION [the truck turned up], 10/18): the paint is old (saturation x rig paint_sat_mul 0.85, faces at the sun lose rig bleach_up 0.15 of that more), the edges are worn (within rig edge_m 5 cm of a turn the paint chips through to the base x rig chip_mul under a rig chip_per_m 9 mask, rig edge_wear 0.85), the shape is handmade (a simple subdivision then a 3D cloud push of rig dent_m 2.5 cm at rig dent_per_m 2)",
+     "why": "a toy is fresh loud paint, a moulded perfect edge, a shine and chunky proportions; a thing left in the desert is chalky, chipped and bent"
+    }
    },
    "do": "dirt in patches, a clean panel between them",
    "dont": "even grain over the whole body: a leopard print (round three cycle 4)"
@@ -462,7 +476,8 @@
     "A SOFT FRINGE (half-alpha on the body)",
     "A MIRRORED FACING (the light on the wrong side)",
     "A STICKER RING (an outline far darker than the band)",
-    "A FILTER ON A SPRITE (grain, fringe or scanlines baked into one sprite; the tape belongs to the screen)"
+    "A FILTER ON A SPRITE (grain, fringe or scanlines baked into one sprite; the tape belongs to the screen)",
+    "A TOY (fresh loud paint, a ruled edge of one colour, a shine, chunky proportions on big wheels: his 'a play toy', 10/18)"
    ]
   },
   {
@@ -643,7 +658,24 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12
  },
  "tests": [
   {

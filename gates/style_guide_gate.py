@@ -29,7 +29,9 @@ GUIDE = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')
 PALETTE = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')
 RIG_TOOL = os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')
 RIG_KEYS = ['engine', 'device', 'samples', 'denoise', 'filter_px', 'view_transform', 'film_transparent', 'motion_blur', 'ppm', 'tilt_deg', 'sun_rot_deg', 'sun_angle_deg',
-            'sun_energy', 'fill_rgb', 'fill_strength', 'wear', 'ring', 'contact_shadow', 'shadow_alpha_max', 'alpha_threshold', 'keys_per_beat', 'bpm', 'calibration']
+            'sun_energy', 'fill_rgb', 'fill_strength', 'wear', 'ring', 'contact_shadow', 'shadow_alpha_max', 'alpha_threshold', 'keys_per_beat', 'bpm', 'calibration',
+            # round six, the toy's tells (DIRECTION [the truck turned up], his 'a play toy', 10/18)
+            'roughness_min', 'specular', 'paint_sat_mul', 'bleach_up', 'edge_m', 'edge_wear', 'chip_per_m', 'chip_mul', 'dent_m', 'dent_per_m', 'proportion_tolerance']
 ok = fail = 0
 
 
@@ -101,6 +103,8 @@ def wrong_render(m, base, g):
         if not c.get('cube_ok'): w.append('calibration cube %s px, the guide says %s' % (c.get('cube_px'), c.get('cube_px_expected')))
         if not dont and c.get('light_ok') is False: w.append('the light measured %s degrees, %s off the guide' % (c.get('screen_light_deg'), c.get('light_off_deg')))
     elif not dont: w.append('no calibration (the cube and the sphere render every run)')
+    pr = m.get('proportions')
+    if pr and not pr.get('ok') and not dont: w.append('a toy\'s proportions: length to width and height off the real thing by %s (tolerance %s)' % (pr.get('off'), pr.get('tolerance')))
     cg = m.get('card_guide')
     if not dont:
         if not cg: w.append('no card under the guide')
@@ -123,6 +127,7 @@ chk(any('straight darkening' in x for x in wrong_palette(bp)), 'a planted ramp w
 chk(any('samples' in x for x in wrong_rig_source(open(RIG_TOOL).read() + "\n    sc.cycles.samples = 64\n")), 'a planted literal sample count in the rig is refused')
 chk(any('outside a dont_' in x for x in wrong_render({'rig_settings': {}, 'breaks': ['wear'], 'calibration': {'cube_ok': True}, 'card_guide': {'out': 1}}, '/x/robot', g)), 'a planted render that breaks the guide outside a dont_ folder is refused')
 chk(any('in disguise' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'card_guide': {'out': 1}}, '/x/dont_robot', g)), 'a planted dont_ render that breaks nothing is refused')
+chk(any('toy' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'calibration': {'cube_ok': True, 'light_ok': True}, 'card_guide': {'out': 0}, 'proportions': {'ok': False, 'off': {'width': 0.4}, 'tolerance': 0.12}}, '/x/truck', g)), 'a planted render with a toy\'s proportions is refused')
 chk(any('BACK' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'calibration': {'cube_ok': True, 'light_ok': True}, 'card_guide': {'out': 3, 'verdict': '3 of 8'}}, '/x/robot', g)), 'a planted render BACK under the guide is refused')
 # the real thing
 w = wrong_guide(g); chk(not w, 'the style guide: 20 fields with values, a do and dont for 2 to 15, the rig block, every test key resolves%s' % (': ' + '; '.join(w) if w else ''))

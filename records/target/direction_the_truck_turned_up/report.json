@@ -1,0 +1,338 @@
+{
+ "row": "[the truck turned up]",
+ "made": "10/18",
+ "tool": "tools/bohemia_direction_the_truck_turned_up.py",
+ "subjects": [
+  {
+   "subject": "truck",
+   "cls": "vehicle",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "381.9 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    true,
+    "ok"
+   ],
+   "R8_research": [
+    false,
+    "heights 242 to 291 px; the foot row moves 34 px between facings; the light agrees in 6 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     242,
+     291
+    ],
+    "foot": [
+     256,
+     290
+    ],
+    "lit_facings": 6,
+    "area_spread": 0.235
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": [],
+   "round": "five",
+   "tells": {
+    "saturation_mean": 0.415,
+    "shine": 51.6,
+    "edge_value_spread": 48.0
+   },
+   "proportions": [
+    1.87,
+    1.81
+   ]
+  },
+  {
+   "subject": "robot",
+   "cls": "person",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (1 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "276.0 orphan pixels per 1,000; 1 doubled outline blocks"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "1 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 118 to 138 px; the foot row moves 11 px between facings; the light agrees in 7 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     118,
+     138
+    ],
+    "foot": [
+     126,
+     137
+    ],
+    "lit_facings": 7,
+    "area_spread": 0.057
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": [],
+   "round": "five",
+   "tells": {
+    "saturation_mean": 0.385,
+    "shine": 60.6,
+    "edge_value_spread": 34.3
+   },
+   "proportions": null
+  },
+  {
+   "subject": "truck",
+   "cls": "vehicle",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "343.8 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    true,
+    "ok"
+   ],
+   "R8_research": [
+    false,
+    "heights 157 to 248 px; the foot row moves 47 px between facings; the light agrees in 4 of 8 facings"
+   ],
+   "G6_guide": [
+    false,
+    "light agrees in 4 of 8"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     157,
+     248
+    ],
+    "foot": [
+     200,
+     247
+    ],
+    "lit_facings": 4,
+    "area_spread": 0.213
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": [],
+   "round": "six",
+   "tells": {
+    "saturation_mean": 0.316,
+    "shine": 53.4,
+    "edge_value_spread": 47.6
+   },
+   "proportions": [
+    2.72,
+    2.86
+   ]
+  },
+  {
+   "subject": "robot",
+   "cls": "person",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "283.6 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "1 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 117 to 140 px; the foot row moves 13 px between facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     117,
+     140
+    ],
+    "foot": [
+     126,
+     139
+    ],
+    "lit_facings": 8,
+    "area_spread": 0.06
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": [],
+   "round": "six",
+   "tells": {
+    "saturation_mean": 0.307,
+    "shine": 59.5,
+    "edge_value_spread": 34.8
+   },
+   "proportions": null
+  }
+ ],
+ "real_pickup": "length:width 2.72, length:height 2.86 (5.3 x 1.95 x 1.85 m)"
+}
