@@ -10421,6 +10421,32 @@
     "how": "page",
     "src": "BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.html"
    }
+  },
+  {
+   "id": "run-the-streets-join-10-18",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "3374c9a",
+   "made": "10/18",
+   "title": "THE MAP'S STREETS JOIN UP AND THE NEIGHBOURHOODS GO TAN",
+   "why": "Every street on the map is now one dark line with a tan kerb that runs block to block and out to the towns, and the houses wear the warm tan you asked for, so the districts read apart. You see it on the DEMO's map at the middle zoom and pulled out, before on the left and after on the right.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_STREETS_JOIN_10_18.png"
+   }
+  },
+  {
+   "id": "run-the-gangs-wear-the-rig-10-18",
+   "kind": "ui",
+   "lane": "run",
+   "sha": "3374c9a",
+   "made": "10/18",
+   "title": "THE GANGS ON THE MAP WEAR THEIR 3D MODELS",
+   "why": "The gangs walking the demo's map now wear the 3D models you called a nice direction, the Reds in their duster and the Anarchists in purple, the same height as everyone around them. You see it on the DEMO's map when you zoom in on a party out on the road.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN_THE_GANGS_WEAR_THE_RIG_10_18.png"
+   }
   }
  ],
  "verdicts": [
