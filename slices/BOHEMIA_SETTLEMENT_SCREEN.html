@@ -32,7 +32,7 @@
        {type:'BOHEMIA_SETTLEMENT_OPEN', place:{name, tier:'camp'|'town'|'fortress',
         district, block}, batteries, contracts:[ids already held], hired:{}}
      The page posts back {type:'BOHEMIA_SETTLEMENT', act, ...} for every thing he does:
-       'contract' {contract}, 'hire' {role}, 'barber' {opens}, 'buy' {good},
+       'contract' {contract}, 'hire' {role}, 'barber' {opens}, 'buy' {good}, 'relation' {place, act, before, after, band},
        'scavenge' {result}, 'leave', 'needFace' {who}.
      A face arrives as {type:'BOHEMIA_SETTLEMENT_FACE', who, src(dataURL)}.
      Standalone (no parent) it runs on its own purse with 3 batteries so it can be played.
@@ -145,7 +145,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
 <script src="../engine/bohemia_goodbros.js"></script>
-<script src="../engine/bohemia_arrivaltraits.js"></script>  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
+<script src="../engine/bohemia_arrivaltraits.js"></script>
+<script src="../engine/bohemia_relations.js"></script>  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -1138,6 +1139,7 @@ function openB(k, line){
          a struck tumbler landing on the bar's own wood. Zero new content, no new
          vote -- same precedent as the stall's pickup and the clinic's door. */
       post('round', {morale:1, relation:0.1, price:price, rumour:rm});
+      if(typeof S.opinion !== 'number') relMove(null, 'drink_for_patrons');   /* the wiki's +0.1, kept when the game hands no bar */
       sfx('bar_glass', view.night ? NIGHT_TRIM : null);
       if(rm && rm.mark) post('rumour', {rumour:rm, mark:rm.mark});
       shelf(); openB('bar', rm ? rm.says : 'Nothing new tonight. Drink anyway.');
@@ -1259,7 +1261,31 @@ var TIER_LINE = {
   fortress: 'You are inside the walls now. Behave, and the walls are yours too.'
 };
 var REL = null;
-fetch('../records/target/bb/relations.json').then(function(r){ return r.json(); }).then(function(j){ REL = j; }).catch(function(){});
+fetch('../records/target/bb/relations.json').then(function(r){ return r.json(); }).then(function(j){ REL = j; if(window.BohemiaRelations) BohemiaRelations.set(j); }).catch(function(){});
+/* RUN TWO [the opinion moves] 10/18: Battle Brothers moves a town's bar for what you do there. When the game hands no
+   opinion, the screen keeps one bar per place (bohemia.relations.v1, FACTIONS' engine and file, read only): a round at
+   the bar is the wiki's +0.1, a contract settled (open({settled:[{place, act}]}), act a row of relations.json: done +10,
+   poor +5, failed -20, cancelled -10, betrayed -100) moves the bar of the place it was taken from, and the bar drifts
+   back toward 50 by the wiki's 0.25 a dawn between visits on the game's day. The map's own number wins when handed. */
+var RELKEY = 'bohemia.relations.v1';
+function relRec(){ if(!S.rel){ try{ S.rel = JSON.parse(localStorage.getItem(RELKEY) || 'null'); }catch(e){} if(!S.rel || !S.rel.bars) S.rel = {bars:{}, seen:{}}; S.rel.seen = S.rel.seen || {}; } return S.rel; }
+function relSave(){ try{ localStorage.setItem(RELKEY, JSON.stringify(S.rel)); }catch(e){} }
+function relId(p){ return String((p && (p.id || p.name)) || S.place.id || S.place.name); }
+function relMove(place, act){
+  if(!window.BohemiaRelations || !REL) return null;
+  var r = BohemiaRelations.apply(relRec(), relId(place), act); if(r.applied){ relSave(); post('relation', {place:relId(place), act:act, before:r.before, after:r.after, band:r.band}); } return r;
+}
+function relDawn(){
+  if(!window.BohemiaRelations || !REL || typeof S.mapDay !== 'number') return;
+  var R = relRec(), id = relId(), last = R.seen[id];
+  if(typeof last === 'number' && S.mapDay > last && id in R.bars){ var one = {bars:{}}; one.bars[id] = R.bars[id]; BohemiaRelations.dawn(one, S.mapDay - last); R.bars[id] = one.bars[id]; }
+  R.seen[id] = S.mapDay; relSave();
+}
+function opinionNow(){
+  if(typeof S.opinion === 'number') return Math.max(0, Math.min(100, S.opinion));
+  if(window.BohemiaRelations && REL) return BohemiaRelations.score(relRec(), relId());
+  return (REL && REL.start && REL.start.value) || 50;
+}
 function bandOf(v){
   var b = REL && REL.bands && REL.bands.value;
   var B9 = b || [{id:'hostile',lo:0,hi:9},{id:'threatening',lo:10,hi:19},{id:'unfriendly',lo:20,hi:29},{id:'cold',lo:30,hi:39},
@@ -1300,7 +1326,7 @@ function arrive(){
   var sc = document.getElementById('scene'), old = document.getElementById('arrive'); if(old) old.remove();
   var tier = S.place.tier || 'town', tw = TIER_WORD[tier] || 'A PLACE';
   var traits = (S.traits||[]).map(function(t){ return t.name || t.id; });
-  var op = (typeof S.opinion === 'number') ? Math.max(0, Math.min(100, S.opinion)) : ((REL && REL.start && REL.start.value) || 50);
+  var op = opinionNow();
   var band = bandOf(op), line = arrivalLine();
   var o = document.createElement('div'); o.id = 'arrive'; o.dataset.place = S.place.name; o.dataset.tier = tier; o.dataset.band = band;
   o.appendChild(arrivalTag(String(S.place.name).toUpperCase(), tw + (traits.length ? '  ·  ' + traits.join(', ').toUpperCase() : '')));
@@ -1357,6 +1383,8 @@ function open(o){
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   if(typeof o.opinion === 'number') S.opinion = o.opinion; else if(o.place) S.opinion = undefined;
+  if(Array.isArray(o.settled)) o.settled.forEach(function(c){ if(c && c.act) relMove(c.place ? {id:c.place} : null, c.act); });   /* [the opinion moves] */
+  if(o.place) relDawn();
   if(o.faction !== undefined) S.faction = o.faction; else if(o.place) S.faction = null;
   hide(); shelf(); layout();
   if(window.BohemiaHeard) BohemiaHeard.night(view.night);   /* SOUNDS 10/18: the bed follows the screen's own hour */

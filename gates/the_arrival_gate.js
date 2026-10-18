@@ -90,6 +90,30 @@ const ARRIVALS = [
   ok('the same place again plays nothing', await p.evaluate(() => !document.getElementById('arrive')));
   await send({ place: { name: 'Goodsprings', tier: 'camp', district: 'commercial' }, arrival: false }); await p.waitForTimeout(300);
   ok('arrival:false plays nothing', await p.evaluate(() => !document.getElementById('arrive')));
+  /* RUN TWO [the opinion moves] 10/18: with no number handed, the screen keeps each place's bar on the wiki's acts
+     (relations.json): four rounds at the bar (+0.1 each), a contract done (+10) and a favour (+15) settled from another
+     town, two dawns of drift back toward 50 (0.25 each); the next arrival reads the new band; another place is untouched;
+     a betrayal (-100) makes it hostile; a number the game hands still wins */
+  await p.evaluate(() => { try { localStorage.removeItem('bohemia.relations.v1'); } catch (e) {} BohemiaSettlement.state.rel = null; });
+  const visit = async (o) => { await send(Object.assign({ arrival: true }, o)); await p.waitForTimeout(500); const r = await read(); await p.touchscreen.tap(195, 420); await p.waitForTimeout(300); return r; };
+  const v0 = await visit({ place: { name: 'Blue Diamond', tier: 'town', district: 'commercial' }, traits: [], day: 0 });
+  await p.evaluate(() => BohemiaPurse.credit(BohemiaSettlement.state.purse, 'electricity', 50, 'gate', null, 0));
+  for (let i = 0; i < 4; i++) {
+    const xy = await p.evaluate(() => BohemiaSettlement.where('bar')); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(200);
+    await p.click('#sbody .act:not([disabled])'); await p.waitForTimeout(150); await p.click('#close'); await p.waitForTimeout(200);
+  }
+  const vJ = await visit({ place: { name: 'Jean', tier: 'camp', district: 'commercial' }, traits: [], day: 1, settled: [{ place: 'Blue Diamond', act: 'civilian_contract_done' }, { place: 'Blue Diamond', act: 'favor' }] });
+  const v2 = await visit({ place: { name: 'Blue Diamond', tier: 'town', district: 'commercial' }, traits: [], day: 2 });
+  ok('THE OPINION MOVES: a place starts Neutral at 50; four rounds, a contract done and a favour, two dawns: Friendly at 74.9 on the next arrival',
+     v0 && v0.band === 'neutral' && Math.abs(v0.mark - 50) < 0.01 && v2 && v2.band === 'friendly' && Math.abs(v2.mark - 74.9) < 0.01, (v0 && v0.band + ' ' + v0.mark) + ' -> ' + (v2 && v2.band + ' ' + v2.mark));
+  ok('  and the town next door is untouched', vJ && vJ.band === 'neutral' && Math.abs(vJ.mark - 50) < 0.01, vJ && vJ.band + ' ' + vJ.mark);
+  await visit({ place: { name: 'Jean', tier: 'camp', district: 'commercial' }, traits: [], day: 3, settled: [{ place: 'Blue Diamond', act: 'betray_contract' }] });
+  const vB = await visit({ place: { name: 'Blue Diamond', tier: 'town', district: 'commercial' }, traits: [], day: 3 });
+  await visit({ place: { name: 'Jean', tier: 'camp', district: 'commercial' }, traits: [], day: 4 });
+  const vH = await visit({ place: { name: 'Blue Diamond', tier: 'town', district: 'commercial' }, traits: [], day: 4, opinion: 15 });
+  ok('  a betrayal makes it Hostile, and a number the game hands still wins (15: Threatening)', vB && vB.band === 'hostile' && vH && vH.band === 'threatening', (vB && vB.band) + ' / ' + (vH && vH.band));
+  const relPosts = await p.evaluate(() => JSON.parse(localStorage.getItem('bohemia.relations.v1') || '{}'));
+  ok('  and the bars are kept on the phone by place', relPosts.bars && 'Blue Diamond' in relPosts.bars && !('Jean' in relPosts.bars), JSON.stringify(relPosts.bars));
   ok('every file the screen loads is there', missing.length === 0, missing.slice(0, 2).join(' '));
   ok('nothing threw', errs.length === 0, errs.slice(0, 2).join(' | '));
   if (SHOT && shots.length === 3) {
