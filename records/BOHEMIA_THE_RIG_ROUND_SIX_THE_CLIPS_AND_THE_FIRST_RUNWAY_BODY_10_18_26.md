@@ -111,9 +111,24 @@ Mob card: 1 of 8 out, the value span (102 against 118: a charcoal mantle and pin
 - PLUMBER: D9 as the research wrote it (XOR) counts a path tracer's 1-to-3-value re-noise; the guide now reads more
   than 3 values with the exact count beside it, and the movers' light as motion. NOT VIBE CODED's D9 is the mirror
   check, a different test with the same number; the hold lives in THE STYLE GUIDE GATE leg 8.
+- RUN, CHARACTER, ANIMATION, COOK, PORTRAIT: ground_px in every rig.json before rig round 7 is the look point (the
+  image centre, half the height up); the true ground is ground_px y + real_dims_m[2] x ppm / 2. Round 7 renders write
+  ground_px (the ground) and look_px (the old value).
 - RUN (rule 115g): the robot's idle and walk are on disk in eight the moment the card passes:
   records/target/direction_rig_round_six/robot/rig_{Idle|Walking}_<F>_kNN.png, one crop box (ground_px in rig.json),
   each with its shadow layer.
+
+## FOUND AFTER THE SHIP: ground_px WAS THE LOOK POINT
+
+The VOTE page, checked at 390 px (24 canvases drawing, 0 errors, no sideways scroll), drew its ground line across the
+robot's chest: rig.json's ground_px has been the IMAGE CENTRE since round two, which is the camera's look point at
+half the body's height, not the ground. The model's ground centre sits look_z x sin(tilt) lower on the screen, which
+under the 3/4 stretch is half the real height in pixels (the robot 49 px, the Mob 50). Rig round 7 now writes the
+true ground_px (the world origin projected) and keeps the old value as look_px; the two renders of this round carry
+it by the same formula (robot 53,69 -> 53,118; Mob 41,61 -> 41,111), the renders unchanged. Every render before this
+(CHARACTER's fourteen, ANIMATION's beasts, COOK's props, PORTRAIT's crew, the truck RUN put on the map) carries the old
+number: a lane that placed a sprite by ground_px placed it by its middle. That is CHARACTER's 10/17 finding ('clothes
+placed by the ground sit 16 px low') seen from the other side.
 
 ## NOT DONE, SAID
 

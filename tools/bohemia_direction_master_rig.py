@@ -795,7 +795,11 @@ def render(A):
             for a in arms: a.data.pose_position = 'POSE'
         oidt, oidf = obj_id_pass(sc, objs, root, out, still_set, [] if A['stills_only'] else [(n, clips[n]['_frames'], clips[n]['pins'], clips[n]['repeated_keys']) for n, _ in A['clips']], clip_set)
     else: oidt, oidf = None, []
-    return dict(engine=G['engine'], res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
+    # THE GROUND PIXEL (round seven): the camera looks at the body's middle, so the image centre is the look point, not the
+    # ground; the model's ground centre (the world origin) sits look_z x sin(tilt) below it on the screen. ground_px was
+    # the look point until round seven (CHARACTER's 'clothes sit 16 px low' and RUN's drop-in read it as the ground)
+    ground_screen = [res / 2.0, res / 2.0 + dims[2] * zs / 2.0 * math.sin(math.radians(A['tilt'])) * ppm]
+    return dict(engine=G['engine'], res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how, ground_screen=ground_screen,
                 z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, proportions=props, calibration=calib, id_table=idt, id_files_raw=idf,
                 obj_table=oidt, obj_files_raw=oidf), stills, clips, portrait
 
@@ -937,7 +941,8 @@ if __name__ == '__main__':
                 snap=dict(family=A['fam'], pull=A['snap'], bins=bins, tiles=ntiles, how='toward the nearest of the family\'s own colours, 32 levels a channel') if pop is not None else None,
                 ring=A['ring'], contact_shadow=A['shadow'], files=[rel(o) for o in outs[:n]], crop_box_px=box,
                 shadow_files=[rel(o.replace(os.sep + 'rig_', os.sep + 'shadow_')) for o in outs[:n]] if A['shadow'] else [],
-                ground_px=[meta['res'] // 2 - box[0], meta['res'] // 2 - box[1]] if box else None, colours=colours(outs),
+                ground_px=[int(round(meta['ground_screen'][0] - box[0])), int(round(meta['ground_screen'][1] - box[1]))] if box else None,
+                look_px=[meta['res'] // 2 - box[0], meta['res'] // 2 - box[1]] if box else None, colours=colours(outs),
                 keys_per_beat=3, bpm=120, ruler='records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)')
     i = n
     for name, c in clips.items():

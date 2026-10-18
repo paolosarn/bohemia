@@ -135,7 +135,7 @@
  ],
  "ground_px": [
   41,
-  61
+  111
  ],
  "colours": 25684,
  "keys_per_beat": 3,
@@ -1037,5 +1037,14 @@
   "records/target/direction_rig_round_six/mob/rigobj_Anim_0_NW_k03.png",
   "records/target/direction_rig_round_six/mob/rigobj_Anim_0_NW_k04.png",
   "records/target/direction_rig_round_six/mob/rigobj_Anim_0_NW_k05.png"
- ]
+ ],
+ "look_px": [
+  41,
+  61
+ ],
+ "ground_screen": [
+  109.0,
+  159.35901705007922
+ ],
+ "ground_px_how": "rig round 7: the world origin projected by the one camera (the look point is look_px); written here by the same formula after the render, the renders unchanged"
 }

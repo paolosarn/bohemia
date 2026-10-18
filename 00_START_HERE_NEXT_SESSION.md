@@ -48,6 +48,9 @@ with shadow_ layers, one crop box (ground_px in rig.json); the drop-in once the 
 FOR PORTRAIT: skin and eyes are off the dust and chips now and --class portrait no longer crashes; your crew renders at --wear 0.45 are
 the 13 reds of THE STYLE GUIDE GATE (a break outside a dont_ folder): re-render at the guide's wear and they go green.
 FOR CHARACTER: the Anarchists' coat is purple (the runway accent); their territory is a brown leather #513a27.
+FOR EVERY LANE THAT PLACES A RIG SPRITE (found after the ship, the VOTE page's ground line crossed the robot's chest): ground_px in every
+rig.json before rig round 7 is the LOOK POINT, half the body up; the ground is ground_px y + real_dims_m[2] x 57 / 2. Round 7 writes the
+true ground_px and keeps look_px.
 GATES: STYLE GUIDE 87 passed / 13 failed (PORTRAIT's 13, on main before me); REFERENCE CHECK 494/0; NOT VIBE CODED 29/1 (N3 on
 other lanes' cards, mine passes); VOTE TAB 38/1 (DYNASTY's two whys). Full suite unmeasured (rule 13). Blender: bpy 4.2, py3.11 venv.
 NEXT: [fight verdict 24] is the next OPEN row on my board; the ear plates on the robot after his word.
