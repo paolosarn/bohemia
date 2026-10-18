@@ -1550,7 +1550,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/16c - YOUR LINE IS KEPT FROM FIGHT TO FIGHT</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 10/18a - THE RAGDOLL FALLS FOUR WAYS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -9247,8 +9247,9 @@ function fallAngles(h,t){
    body and facing and sampled on the twelve-key grid: 4 beats, twelve drawn pictures, the clip on the 120 beat.
    DRAWN as the posed fall was (rollFrame): the body is turned upright about the pelvis by the torso's angle, the
    frame is built (every garment draws right), and the picture is turned back, so a long coat stays a coat. */
-const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,cache:new WeakMap()};   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
-function ragdollSim(R,h,seed){
+const RAGDOLL={g:560,dt:1/240,iters:16,secs:2.0,seed:1,kind:'blow',cache:new WeakMap(),
+  hit:{shot:{head:2.6,sh:1.8,low:0.3,hipDown:0,kneeDown:0,kneeSide:0,knee:0.85,settle:0.92,sleep:60,sleepOver:1},club:{push:1.3,floor:0.2,arm:-10,armTw:0,up:0.4,settle:0.92,sleep:60,sleepOver:1},roof:{drop:130,tip:30,drift:10,driftTop:20,sleep:40,sleepOver:1}}};   /* the knobs of each kind, in one place, swept by the probe before they were set (10/17) */   /* kind (ANIMATION [ragdoll hits], 10/17, rule 110's swing: 'the ragdoll's hit variety, a shot, a club, a fall from a roof'): 'blow' is the 10/13 push, byte for byte; 'shot' a sharp snap on the head and the chest, the hips barely moved, so he folds where he stands; 'club' a broad swing from the side, the whole upper body thrown the same way and the arms with it, so he travels; 'roof' no blow at all: the body starts 130 px up (about 2.3 m at his scale, a roof's edge) with a drift off the edge, and falls. The VOTE page sets it; the fight never reads it (rule 100). */   /* 4 beats: at 1.5 s the harder blows were still landing (measured 10/13) */
+function ragdollSim(R,h,seed,kind){ kind=kind||'blow';
   const J=['waC','neck','headTop','shL','shR','elL','elR','handL','handR','waA','waB','knA','knB','footA','footB'];
   const D=(a,b)=>Math.hypot(R[a][0]-R[b][0],R[a][1]-R[b][1]);
   let rs=(seed*2654435761)>>>0; const rnd=()=>{rs=(rs*1664525+1013904223)>>>0;return rs/4294967296;};
@@ -9260,21 +9261,32 @@ function ragdollSim(R,h,seed){
     ['waC','waA'],['waC','waB'],['waA','knA'],['waB','knB'],['knA','footA'],['knB','footB'],
     ['shL','shR'],['shL','waC'],['shR','waC'],['shL','waA'],['shR','waB'],['neck','waA'],['neck','waB'],['waA','waB'],['headTop','shL'],['headTop','shR']]
     .map(([a,b])=>[a,b,D(a,b)]);
-  const limits=[['waA','footA',0.85*(D('waA','knA')+D('knA','footA'))],['waB','footB',0.85*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
+  const HK=RAGDOLL.hit[kind]||{}; const KNEE=kind==='shot'?HK.knee:0.85;   /* the shot: the knees GIVE (a leg folds to half its length) so he drops into a heap where he stood; a push on the hips alone could not do it, the rigid legs on the floor held him up like a plank (measured 10/17: the shot's hips dropped 7 px in a quarter second, the blow's 7) */
+  const limits=[['waA','footA',KNEE*(D('waA','knA')+D('knA','footA'))],['waB','footB',KNEE*(D('waB','knB')+D('knB','footB'))],   /* a stiffer knee (0.93) made him SIT DOWN and stay sitting on one facing (looked at 10/13); the boots' small upright spikes on a bent shin show either way: the boots are drawn for a standing shin */
     ['shL','handL',0.55*(D('shL','elL')+D('elL','handL'))],['shR','handR',0.55*(D('shR','elR')+D('elR','handR'))],
     ['neck','knA',0.86*D('neck','knA')],['neck','knB',0.86*D('neck','knB')]];
   /* the blow: the upper body moves away from his facing, more the higher it is, varied by the seed */
   const H=80+40*rnd(), U=5+10*rnd(), tw=0.5+1.0*rnd(), ha=[(rnd()-0.5)*40,(rnd()-0.5)*30], hb=[(rnd()-0.5)*40,(rnd()-0.5)*30];   /* a wilder throw put a hand 40 px outside the box */   /* the blow and how each arm is thrown vary with the seed: a narrower range left 23 of 40 seeds resting the same (measured 10/13) */
+  const DROP=kind==='roof'?HK.drop:0;   /* the roof: the whole body starts 130 px above the floor and nothing is pushed but a drift off the edge */
   J.forEach(j=>{ const k=Math.max(0,Math.min(1,(feetY-R[j][1])/(feetY-top))); const tws=(j==='shL'||j==='elL'||j==='handL')?tw:(j==='shR'||j==='elR'||j==='handR')?2-tw:1;
-    const hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
-    Q[j]=[P[j][0]-(h*H*k*k*tws+hv[0])*RAGDOLL.dt, P[j][1]+(U*k-hv[1])*RAGDOLL.dt]; });
+    let hv=(j==='handL'||j==='elL')?ha:(j==='handR'||j==='elR')?hb:[0,0];
+    let vx=h*H*k*k*tws+hv[0], vy=-(U*k-hv[1]);   /* the 10/13 blow: more the higher the part, varied by the seed */
+    if(kind==='shot'){ const head=(j==='neck'||j==='headTop'), sh=(j==='shL'||j==='shR'), hip=(j==='waC'||j==='waA'||j==='waB'), knee=(j==='knA'||j==='knB'), low=hip||knee||j==='footA'||j==='footB';
+      vx=h*H*k*k*tws*(head?HK.head:sh?HK.sh:low?HK.low:0.8)+hv[0]*0.6+(knee?h*HK.kneeSide:0); vy=-(U*k*(head?2.0:1)-hv[1]*0.6)+(hip?HK.hipDown:knee?HK.kneeDown:0); }   /* the knees buckle toward the fall side: a knee pushed straight down cannot fold a vertical leg (measured 10/17, the hips did not drop) */   /* the snap is in the head and the chest; the hips are not pushed, they DROP (the knees give at the shot), so he crumples where he stood instead of toppling like a plank (the first shot measured within 2 px of the blow: a push is a push wherever it lands) */
+    else if(kind==='club'){ const arm=(j==='handL'||j==='elL'||j==='handR'||j==='elR'); vx=h*H*HK.push*(HK.floor+(1-HK.floor)*k)*(0.6+0.4*tws)+(arm?-h*(HK.arm+HK.armTw*tw):0); vy=-(U*HK.up*k); }   /* a swing from the side: the push is broad and carries the hips too (a floor of 0.35 under the linear ramp), the arms fly with the swing, not against it: he is THROWN, not tipped */
+    else if(kind==='roof'){ vx=h*(HK.drift+HK.driftTop*k); vy=0; }   /* a drift off the edge, more at the top; the tip is below */
+    P[j][1]-=DROP; Q[j]=[P[j][0]-vx*RAGDOLL.dt, P[j][1]-vy*RAGDOLL.dt]; });
+  if(kind==='roof'){ /* already tipping as he leaves the edge: the body turned 25 degrees about his feet toward the fall side, so the drop lands him on his side and not on his feet (upright he landed standing and sat down, 5 of 8 facings measured) */
+    const fx=(P.footA[0]+P.footB[0])/2, fy=Math.max(P.footA[1],P.footB[1]), th=h*HK.tip*Math.PI/180, c=Math.cos(th), sn=Math.sin(th);
+    J.forEach(j=>{ for(const A of [P,Q]){ const dx=A[j][0]-fx, dy=A[j][1]-fy; A[j][0]=fx+dx*c-dy*sn; A[j][1]=fy+dx*sn+dy*c; } }); }
   const frames=[], steps=Math.round(RAGDOLL.secs/RAGDOLL.dt), g=RAGDOLL.g*RAGDOLL.dt*RAGDOLL.dt; let sleepT=0, asleep=false, damp=0.998;
   const snap=()=>{const o={};J.forEach(j=>o[j]=[P[j][0],P[j][1]]);return o;};
   frames.push(snap());
   for(let s=1;s<=steps;s++){
     const tang=Math.abs(Math.atan2(P.neck[0]-P.waC[0],-(P.neck[1]-P.waC[1])));   /* the torso's lean from upright */
     if(asleep){ if(s%2===0)frames.push(snap()); continue; }   /* asleep, the body still keeps its place on the clock */
-    damp=(tang>1.22&&P.waC[1]>=gy-24)?0.95:0.998;   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
+    const lying=tang>1.22&&P.waC[1]>=gy-(kind==='blow'?24:(HK.lie||24));   /* the kinds: a harder hit lands him on an arm with the hips propped 25-40 px up and the torso well over; the 10/13 'lying' (hips within 24) never fired there and he rocked for ever (8 of 16 sets, measured 10/17). The torso past 70 degrees stays required: at 60 the shot slept mid-fall on NE and NW, and hips-down alone froze him kneeling (both tried, measured). The blow keeps the 10/13 rule to the letter. */
+    damp=lying?(HK.settle||0.95):0.998;   /* settle: a harder hit lands harder and was still rocking at 2 s (22-51 px/s on 4 to 6 of 16 sets, measured 10/17), so a kind may take its motion to the ground faster once it lies; the blow keeps 0.95 */   /* (10/17: a 'hips down' rule for the kinds was tried and FROZE a shot man kneeling and a roof fall propped at 44 degrees, 16 of 16 sets; the ground takes his motion only once he lies, every kind) */   /* once he LIES (torso past 70 degrees, hips down) the body loses its motion to the ground. A 'back on the floor' test never fired lying on his side (the shoulders stack, the neck sits 19 px up) and a hand swung on at 144 px/s (measured 10/13) */   /* once his BACK is on the floor the body loses its motion to the ground (it rested still rocking at up to 21 px/s); counted on any six parts it caught him sitting and froze him propped at 50 degrees (measured 10/13) */
     J.forEach(j=>{ const p=P[j],q=Q[j], vx=(p[0]-q[0])*damp, vy=(p[1]-q[1])*damp; Q[j]=[p[0],p[1]]; P[j]=[p[0]+vx,p[1]+vy+g]; });
     for(let it=0;it<RAGDOLL.iters;it++){
       for(const [a,b,L] of rigid){ const pa=P[a],pb=P[b],dx=pb[0]-pa[0],dy=pb[1]-pa[1],l=Math.hypot(dx,dy)||1e-6,c=(l-L)/l*0.5;
@@ -9285,8 +9297,8 @@ function ragdollSim(R,h,seed){
     }
     /* SLEEP, as a physics engine sleeps a body at rest: lying, and every joint slower than 12 px/s for a quarter of a
        second, it stops; the floor and the rigid torso otherwise nudge each other for ever (8-30 px/s, measured 10/13) */
-    if(damp<0.99){ let mv=0; J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
-      sleepT=mv<12?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;
+    if(damp<0.99||(kind!=='blow'&&tang>1.22&&HK.sleepOver)){ let mv=0;   /* a kind may also sleep propped (an arm under him, the hips up) once the torso is over and nothing moves: a toppling body moves far faster than its sleep line, so it never catches a fall */ J.forEach(j=>{mv=Math.max(mv,Math.hypot(P[j][0]-Q[j][0],P[j][1]-Q[j][1])/RAGDOLL.dt);});
+      sleepT=mv<(HK.sleep||12)?sleepT+RAGDOLL.dt:0; if(sleepT>=0.25){ asleep=true; } } else sleepT=0;   /* sleep: the kinds land harder and the floor and the rigid torso nudge each other at 20-35 px/s (a quarter pixel a picture, invisible) instead of the blow's 8-30, so the 12 px/s rule never slept them (measured 10/17, 4 to 9 of 16 sets rocking at 2 s); a kind sleeps under its own line */
     if(asleep){ J.forEach(j=>{Q[j]=[P[j][0],P[j][1]];}); }
     if(s%2===0)frames.push(snap());   /* every 1/120 s */
   }
@@ -9295,8 +9307,10 @@ function ragdollSim(R,h,seed){
 function ragdollPose(d,ph){
   const R=RIG[d], h=fallSide(d);
   let byRig=RAGDOLL.cache.get(R); if(!byRig){byRig={};RAGDOLL.cache.set(R,byRig);}
-  const key=d+'|'+RAGDOLL.seed; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed);
+  const key=d+'|'+RAGDOLL.seed+'|'+RAGDOLL.kind; if(!byRig[key])byRig[key]=ragdollSim(R,h,RAGDOLL.seed,RAGDOLL.kind);
   const F=byRig[key], t=Math.max(0,Math.min(1,ph)), sk0=F[Math.min(F.length-1,Math.round(t*(F.length-1)))];
+  /* the lift: how far the body's lowest part is above the floor at this key (the roof fall is in the air; the picture is still set on the ground by fallPlace, and the VOTE page lifts it by this) */
+  let low=-1e9; for(const j in sk0)low=Math.max(low,sk0[j][1]+6); const lift=Math.max(0,Math.round(Math.max(R.footA[1],R.footB[1])+4-low));
   /* the torso's turn from standing: the picture is drawn upright and turned back (rollFrame) */
   const ang=(a,b)=>Math.atan2(b[1]-a[1],b[0]-a[0]);
   const th=ang(sk0.waC,sk0.neck)-ang(R.waC,R.neck), c=Math.cos(-th), s2=Math.sin(-th), o=sk0.waC, sk={};
@@ -9304,7 +9318,7 @@ function ragdollPose(d,ph){
   const placed=fallPlace(sk,R,0,0);
   for(const j in placed)placed[j]=[Math.round(placed[j][0]),Math.round(placed[j][1])];
   const sm=(v)=>{v=Math.max(0,Math.min(1,v));return v*v*(3-2*v);};
-  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2))}};
+  return {sk:placed,present:{_gun:null,_fire:false,_dial:null,_roll:th,_rollCentre:sm(Math.abs(th)/(Math.PI/2)),_lift:lift}};
 }
 function fallPose(d,ph){
   /* POSED UPRIGHT, TURNED AS A PICTURE. Every garment in the wardrobe is drawn row by row down the screen on the

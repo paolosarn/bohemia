@@ -1345,6 +1345,27 @@ arm was not captured, so it is written down rather than called clean.
 
 --------------------------------------------------------------------------------
 
+ANIMATION (animation-lr9y9i): 10/17 (b) LATEST -- *** [ragdoll hits] IN VOTE AS A PLACEHOLDER (the MODE line's other half,
+rule 110). TAB: VOTE, PLACEHOLDER: THE RAGDOLL'S HITS: eight facings x (blow, shot, club, roof), YOU and THE REDS, on the beat
+at 1:1, the roof fall lifted by the physics' own height. *** The alpha's __RAGDOLL__ takes RAGDOLL.kind ('blow' default, the
+10/13 fall byte for byte, gate-held) and ONE knob table RAGDOLL.hit; ragdollSim(R,h,seed,kind); ragdollPose carries _lift.
+SHOT = a snap (head 2.6x, chest 1.8x, hips a fifth): the head leads the hips 8-10 px more than the blow's at 0.1 s. CLUB = a
+throw (a floor of 0.2 under the push so the hips are carried 9-11 px further at 0.25 s; the arms with the swing). ROOF = no
+blow, 130 px up, turned 30 degrees about his feet off the edge, lands in 0.65 s. THE SWEEP (knobs swept in the live page,
+~8 runs): a CRUMPLE (knees folding, hips pushed down) cannot settle in the picture-plane physics: a kneeling man is stable
+(6-12 of 16 sets propped at 33-45 degrees, rocking 90-130 px/s); hips-down damping froze him kneeling 16/16 and the roof
+propped at 44; so the shot is a snap and the crumple is the 3-D ragdoll's. 'Travel' tells nothing (a toppled man moves half
+his height whatever hit him). A kind sleeps under its own line (60/60/40 px/s) and may sleep propped once the torso is past
+70; the blow keeps 12. Gate RAGDOLL HITS (gates/the_ragdoll_hits_gate.js, in the suite): the blow identical, no stretch, no
+floor break, no pop (3.3), falls, rests (the kinds under 40 px/s, worst 27.6: a few rock a quarter pixel a step at the 2 s mark,
+said), flat (a kind 1.3 wide to tall and 0.62 of standing height, the blow 1.5 and 0.55: the Reds' coat over bent legs after a
+snap, 82x62 on one of 48), head down, nothing cut, the snap, the throw, the roof's
+start and landing, the four apart at 0.25 s, the table's lifts the physics'; a kind ignored is refused first. Tools:
+tools/bohemia_animation_ragdoll_hits_bake.js (films the alpha's own frames through the driver; process.exit, the driver's
+server kept node alive) + .py (packs slices/vote/ANIMATION_RAGDOLL_HITS.webp + _TABLE.js). Page filmed: 32 canvases, 0
+errors. records/BOHEMIA_THE_RAGDOLLS_HITS_10_17_26.md. Known: no weapon in the picture; the crumple; four kind-sets rock a
+third of a pixel a step at the end. NEXT: his FINAL on [ragdoll] decides which kinds the fight's sheets take.
+
 ANIMATION (animation-lr9y9i): 10/17 (a) LATEST -- *** [the beast in eight] IN VOTE AS A PLACEHOLDER (rule 110's swing,
 run to the end, no check-in). TAB: VOTE, PLACEHOLDER: THE DIRE WOLF IN EIGHT, eight facings x idle/step/bite playing on the
 beat at 1:1, the game's one-way wolf and the pack's wolf beside it. *** DIRECTION's rig (564e1b10) unblocked it; measured
