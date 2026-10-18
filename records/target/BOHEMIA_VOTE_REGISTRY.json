@@ -8949,6 +8949,30 @@
    "draft": true
   },
   {
+   "id": "cook4-the-motel-straight-roof-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE MOTEL UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "redoOf": "cook4-the-motel-10-11",
+   "said": "Definitely not final but OK",
+   "why": "The motel you said OK to, rebuilt like the houses you liked: the office under its own roof, six rooms under one long tan roof, a covered walk on posts along the doors, and it sits on a shadow instead of floating. You see it in the VOTE tab beside your pack house, the tan ranch at the same size and the old flat-roof motel it replaces, all at 1:1, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_MOTEL_STRAIGHT_ROOF.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; ours wear the same measured shape (1.49 walls tall) in the tan of his own render wall, the eave and lean taken in metres from the ranch so a 26 m roof does not overhang 3 m.",
+     "MASSING: his house is one small box; ours is a long low court, the office 0.4 m taller under its own roof, six rooms of 3.6 m, a flat walk roof in his grey-tan on seven of his palisade posts.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves and the walk, the one-pixel outline and a contact shadow so it sits on the ground. One wrong thing: room 4's marked door and boarded window."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "run2-who-is-wearing-what-10-18",
    "kind": "ui",
    "lane": "run 2",

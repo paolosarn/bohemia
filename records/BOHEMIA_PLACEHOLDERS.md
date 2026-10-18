@@ -161,7 +161,8 @@ Every asset in the game today is a placeholder: made fast, never final, never ed
 - cook-the-far-end-from-his-picks-10-10
 - cook-the-markers-you-can-find-10-10
 
-## COOK 4 (4 placeholder cards)
+## COOK 4 (5 placeholder cards)
+- cook4-the-motel-straight-roof-10-18 (the motel under the measured tan roofs with its covered walk, reference/art_bank/settlement/COOK4_MOTEL_STRAIGHT_ROOF.png; supersedes the flat-roof motel card)
 - cook4-the-family-in-the-valley-tans-10-18 (the five ranch kinds with their roofs in the valley's tans from his own tiles, reference/art_bank/settlement/COOK4_RANCH_TAN_*.png and the four recoloured roof fields COOK4_ROOF_TAN_*.png, COOK4_ROOF_GRAVEL_*.png; supersedes the orange family card)
 - cook4-the-settlement-from-the-packs-10-10
 - cook4-the-straight-roof-family-10-17 (five ranch kinds, reference/art_bank/settlement/COOK4_RANCH_*.png; the earlier ranch, shop, motel and roof cards are the same family's placeholders, listed on the board)
