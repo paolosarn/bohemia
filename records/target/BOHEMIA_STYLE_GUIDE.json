@@ -651,7 +651,9 @@
    "head_px_min": 96,
    "camera_tilt_deg": 80,
    "hand_finish": "hero only",
-   "native": true
+   "native": true,
+   "output_floor": 800,
+   "output_floor_why": "the person's floor: a face is a part of the person it comes from (ONE ID, ONE WHOLE PERSON); PORTRAIT 10/18: --class portrait crashed the rig without it"
   },
   "ground": {
    "source": "his packs at 1:1",

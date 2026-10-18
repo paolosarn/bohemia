@@ -870,7 +870,7 @@ def guide_card(c, png, cls):
             if cls == 'prop': good = w >= fl['prop'][0] and h >= fl['prop'][1]; r = '%s  size >= %dx%d (rule 105, a prop): %dx%d' % ('OK ' if good else 'OUT', fl['prop'][0], fl['prop'][1], w, h); why.append('size by rule 105')
             elif cls == 'vehicle': good = max(w, h) >= fl['vehicle_long_side']; r = '%s  long side >= %d (rule 105, a car): %d' % ('OK ' if good else 'OUT', fl['vehicle_long_side'], max(w, h))
         elif name.startswith('colours'):
-            floor = GUIDE['classes'][cls]['output_floor'] if cls in GUIDE['classes'] else 2330
+            floor = GUIDE['classes'].get(cls, {}).get('output_floor', 2330)   # a class with no floor reads the packs' 2,330 (round seven: --class portrait crashed here)
             floor = min(floor, int(round(dens * n / 1000.0)))
             r = '%s  colours >= %d (field 5: the class floor, or %d per 1,000 of %d px): %d' % ('OK ' if colours >= floor else 'OUT', floor, dens, n, colours); why.append('colours by field 5')
         elif name.startswith('grain') and cls == 'vehicle':   # round five: a true-size car's panels are 3x a tile's (decisions_against_the_research[4])
