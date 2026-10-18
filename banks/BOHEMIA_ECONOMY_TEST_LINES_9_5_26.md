@@ -5127,3 +5127,41 @@ XXXXXXXXXXXXXXXXXXXXXXXXX8  the same keeper, the morning after the camp is gone 
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
   keeper or a mouth with a face, at a counter, a rack, a bench, a stop before the climb or the flat.
 - Spanish register: 1 of 8 lines (XXXXXXXXXXXXXXXXXXXXXXXXX5's mijo). Under the 15% cap.
+
+## YYYYYYYYYYYYYYYYYYYYYYYYY. WHAT A DAY COSTS, IN ONE NUMBER: DAYS (round 74)
+# Record: records/BOHEMIA_ECONOMY_DAY_74_WHAT_A_DAY_COSTS_IN_ONE_NUMBER_IS_DAYS_AND_AT_THE_117_START_IT_READS_27_TO_48_AGAINST_BATTLE_BROTHERS_46_10_18_26.md
+# Row [what a day costs, in one number], under rule 88's hold: a page, no sheet, nothing in the game.
+
+YYYYYYYYYYYYYYYYYYYYYYYYY1  a crewman, counting on his fingers at dusk                           draft:true
+    "Don't tell me batteries. Tell me days. How many more nights do we eat?"
+
+YYYYYYYYYYYYYYYYYYYYYYYYY2  the stall keeper, to a crew that just bought the sack                 draft:true
+    "That's a week off your worries. Go on, count it again, it went up."
+
+YYYYYYYYYYYYYYYYYYYYYYYYY3  the oldest of the crew, at the fire, the night it gets low            draft:true
+    "Three days. My mother kept three days of water under the sink. Every house on the street did."
+
+YYYYYYYYYYYYYYYYYYYYYYYYY4  a hauler at the last stop, to a crew about to leave                     draft:true
+    "Two days of water and it's a day and a half to the next tap. You do that sum before I do."
+
+YYYYYYYYYYYYYYYYYYYYYYYYY5  the clinic, handing over the last dose                                draft:true
+    "That's the last one. He needs one a day for four more. You do the counting, I do the stitching."
+
+YYYYYYYYYYYYYYYYYYYYYYYYY6  a crewman, the morning a job pays                                     draft:true
+    "We got paid. Look at that, we just bought ourselves the rest of the week."
+
+## ZZZZZZZZZZZZZZZZZZZZZZZZZ. WHAT IS NOT HERE, ON PURPOSE (round 74)
+
+- No line names a wiki page, a game, a clinic program, an agency, a percentage, a number of batteries
+  or a real event. The finding is said as a crew that wants days instead of batteries, a number that
+  goes up when the sack is bought or a job pays, three days under the sink, a sum about the next tap,
+  and a dose a day.
+- YYYYYYYYYYYYYYYYYYYYYYYYY1 carries the page's one number (days, not batteries); 2 and 6 carry rule
+  117(c)'s visible win (the number goes up); 3 carries the three-day line the record draws; 4 carries
+  the red rule's second half (carried days against the trip). None is a ruling or a felt number;
+  TUNING's table first.
+- No person, town, street or faction is named. MAP LAW; DIALOGUE ALWAYS REFERS TO THE CATALOGUE.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a mouth
+  with a face, at a fire, a stall, a stop, a clinic or a morning.
+- Spanish register: 0 of 6 lines. Under the 15% cap (one mijo in six would be 16.7 in 100, over it).
