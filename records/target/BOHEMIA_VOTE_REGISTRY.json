@@ -9301,6 +9301,20 @@
    "draft": true
   },
   {
+   "id": "tuning-easier-than-battle-brothers-10-18",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "SHA_HERE",
+   "made": "10/18",
+   "draft": true,
+   "title": "EASIER THAN BATTLE BROTHERS",
+   "why": "Your words are in the numbers table: every number that decides how hard the game is starts easier than Battle Brothers, and three places that are harder today are named. You see it on this page, a table of what moves and what you feel when it does.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html"
+   }
+  },
+  {
    "id": "tuning-the-numbers-around-the-fight-10-18",
    "kind": "tile",
    "lane": "tuning",

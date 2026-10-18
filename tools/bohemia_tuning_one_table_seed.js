@@ -106,6 +106,7 @@ const FEEL = {
   'injuries_and_death.temp_injury_multipliers': 'what makes an injury easier to give or take (Crippling Strikes, Iron Jaw, a head hit)',
   'ours.main_character_dies': 'THE MAIN CHARACTER NEVER DIES: struck down, he is only down',
   'ours.struck_down_death_chance': 'THE DEATH ROLL: a man struck down dies this often, else a long injury',
+  'ours.struck_down_death_per_mark': 'EACH SCAR RAISES THE DEATH ROLL: every mark a man carries adds this much to the roll, up to the cap of marks (rule 56: 0.20 plus 0.05 a mark)',
   'ours.struck_down_laid_up_days': 'THE LONG INJURY: a man struck down who lives is out this many game days',
   'ours.struck_down_injury': 'which list the long injury is drawn from (the wiki permanent marks), and that it lasts the laid-up days',
   'experience.kill_split': 'how a kill\'s experience is split between the killer and the rest of the party',
@@ -253,19 +254,35 @@ for (const j of DATA.injuries.rows.filter(x => x.kind === 'permanent')) {
   rows.push({ kind: 'column', id: 'injuries.permanent.' + j.id, value: j.effects, unit: 'percent per stat', feel: 'THE PAIN LINE of ' + j.name + ': ' + (j.effects_text || []).join('; '), source: j.source, source_kind: 'wiki', quote: true, read_at: 'fight-rules fall() draws one of these eleven, each as likely; the roster shows the line', reads: 1, owner: 'tuning (the wiki\'s mark; PEOPLE owns the man)', bb_difficulty_moves: null, status: 'live' });
 }
 
+/* ---------- rule 117 EASIER THAN BATTLE BROTHERS (Paolo 10/18): every row carries a mark ----------
+   banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json holds the levers (Battle Brothers' value is the hard end, our
+   start is easier) and the families every other row falls in; a row in no family prints UNMARKED and is counted */
+const R117 = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json'), 'utf8'));
+const leverById = new Map(R117.levers.map(l => [l.id, l]));
+for (const r of rows) {
+  const l = leverById.get(r.id);
+  if (l) { r.rule_117 = { mark: l.mark, bb: l.bb_value, start: l.start, shown: l.shown, owner: l.owner }; if (l.harder_today) r.rule_117.harder_today = l.harder_today; continue; }
+  const f = R117.families.find(x => new RegExp(x.match).test(r.id));
+  r.rule_117 = f ? { mark: f.mark, note: f.note } : { mark: 'UNMARKED' };
+}
+const leversNotInTable = R117.levers.filter(l => !rows.some(r => r.id === l.id));
+const r117 = {}; rows.forEach(r => r117[r.rule_117.mark] = (r117[r.rule_117.mark] || 0) + 1);
+
 /* ---------- counts and the write ---------- */
 const by = {}; rows.forEach(r => by[r.kind] = (by[r.kind] || 0) + 1);
 const missingFeel = rows.filter(r => /FEEL LINE MISSING/.test(r.feel)).map(r => r.id);
 const unresolved = rows.filter(r => r.kind === 'rule' && r.value === null).map(r => r.id);
 const summary = { rows: rows.length, by_kind: by, rule_keys_read: allKeys.length, unresolved, feel_lines_missing: missingFeel,
   typed_escapes: rows.filter(r => r.kind === 'typed').length, unread_rows: rows.filter(r => r.kind === 'ruled').length,
-  columns_unread_by_name: rows.filter(r => r.kind === 'column' && r.reads === 0).map(r => r.id) };
+  columns_unread_by_name: rows.filter(r => r.kind === 'column' && r.reads === 0).map(r => r.id),
+  rule_117: { by_mark: r117, unmarked: rows.filter(r => r.rule_117.mark === 'UNMARKED').map(r => r.id), harder_than_bb: rows.filter(r => r.rule_117.mark === 'HARDER THAN BB').map(r => r.id), levers_not_in_table_yet: leversNotInTable.map(l => l.id) } };
 console.log('THE ONE TABLE SEED: ' + JSON.stringify(summary));
 if (process.argv.includes('--write')) {
   const out = {
     _readme: 'TUNING [the one table seeded] 10/17 (rule 110 big swing; rule 21 one numbers table; rule 38g research only; rule 88 a page, no sheet). draft:true. NOTHING IN THE GAME READS THIS FILE. Every felt number the rebuilt fight (slices/BOHEMIA_FIGHT.html) reads, with its source, plus the columns it reads off the data files, the numbers typed into scripts instead (typed), and the rulings and wiki rows nothing reads yet (ruled). Regenerate: node tools/bohemia_tuning_one_table_seed.js --write. Record: records/BOHEMIA_TUNING_THE_ONE_TABLE_SEEDED_FROM_THE_FIGHT_FILE_10_17_26.md',
     draft: true, schema: 1, generated_from: { fight: 'slices/BOHEMIA_FIGHT.html', data: 'records/target/bb/' },
-    fields: { kind: 'rule | column | typed | ruled', id: 'the R() key, or file.field, or the typed name', value: 'as the table holds it', unit: 'what it counts', feel: 'what the player feels, plain words (TUNING)', source: 'the wiki page, the law, or the record', source_kind: 'wiki | ruling | record | grok | NO SOURCE', quote: 'a verbatim quote sits beside the value', read_at: 'where the fight reads it', reads: 'how many reads in fight-rules', owner: 'who may change it', bb_difficulty_moves: 'what Battle Brothers\' own difficulty does to it', status: 'live | typed | unread', gap: 'why a ruled row is not felt yet' },
+    fields: { kind: 'rule | column | typed | ruled', id: 'the R() key, or file.field, or the typed name', value: 'as the table holds it', unit: 'what it counts', feel: 'what the player feels, plain words (TUNING)', source: 'the wiki page, the law, or the record', source_kind: 'wiki | ruling | record | grok | NO SOURCE', quote: 'a verbatim quote sits beside the value', read_at: 'where the fight reads it', reads: 'how many reads in fight-rules', owner: 'who may change it', bb_difficulty_moves: 'what Battle Brothers\' own difficulty does to it', status: 'live | typed | unread', gap: 'why a ruled row is not felt yet', rule_117: 'rule 117 EASIER THAN BATTLE BROTHERS: the mark (EASIER, ALREADY EASIER, HARDER THAN BB, HELD AT BB BOTH SIDES, NOT A HARDNESS NUMBER, PRICE FRIENDLY END), and for a lever Battle Brothers\' value (the hard end), our start, shown or under' },
+    rule_117_levers_not_in_table_yet: leversNotInTable,
     summary, rows,
   };
   fs.writeFileSync(path.join(ROOT, 'banks/BOHEMIA_TUNING_THE_ONE_TABLE_SEED_10_17_26.json'), JSON.stringify(out, null, 1) + '\n');
@@ -273,16 +290,39 @@ if (process.argv.includes('--write')) {
   md.push('# THE ONE NUMBERS TABLE, SEEDED FROM THE FIGHT FILE (TUNING, 10/17/26; generated by tools/bohemia_tuning_one_table_seed.js --write)');
   md.push('# Rule 21 (fight-gets-deep law s4): every number a player feels in ONE table with its reason and source. Rule 110: the big swing. Rule 38g and 88: research, a page, no sheet.');
   md.push('# Read from slices/BOHEMIA_FIGHT.html and records/target/bb/. The bank holding the same rows: banks/BOHEMIA_TUNING_THE_ONE_TABLE_SEED_10_17_26.json (draft:true, nothing reads it).');
+  md.push('# RULE 117 (Paolo 10/18): EASIER THAN BATTLE BROTHERS. Every felt number starts easier than Battle Brothers\' and the slider goes up from there; Battle Brothers\' value is the hard end. Every row below carries its mark in the 117 column; section E is the levers. Marks: ' + Object.entries(r117).map(e => e[1] + ' ' + e[0]).join(', ') + '.');
   md.push('# ' + rows.length + ' rows: ' + Object.entries(by).map(e => e[1] + ' ' + e[0]).join(', ') + '. Unresolved keys: ' + unresolved.length + '. Feel lines missing: ' + missingFeel.length + '.');
   md.push('');
+  const r117cell = r => { const m = r.rule_117; return m.start !== undefined ? m.mark + ': BB ' + v(m.bb) + ' -> start ' + v(m.start) + (m.harder_today ? ' (TODAY: ' + m.harder_today + ')' : '') : m.mark; };
   const v = x => { const s = typeof x === 'string' ? x : JSON.stringify(x); return (s || '').replace(/\|/g, '/').replace(/\n/g, ' ').slice(0, 70) + ((s || '').length > 70 ? '...' : ''); };
   for (const k of ['rule', 'column', 'typed', 'ruled']) {
     const title = { rule: 'A. THE RULES THE FIGHT READS THROUGH R() (' + by[k] + ')', column: 'B. THE COLUMNS THE FIGHT READS OFF EVERY DATA ROW, AND THE ELEVEN MARKS (' + by[k] + ')', typed: 'C. FELT NUMBERS TYPED INTO A SCRIPT, NOT READ FROM THE TABLE (' + by[k] + ')', ruled: 'D. IN THE TABLE, READ BY NOTHING IN THE FIGHT: RULINGS AND BATTLE BROTHERS\' OWN RULE BESIDE OURS (' + by[k] + ')' }[k];
     md.push('## ' + title); md.push('');
-    md.push('| id | value | unit | what you feel | source | read at | owner | status |'); md.push('|---|---|---|---|---|---|---|---|');
-    for (const r of rows.filter(x => x.kind === k)) md.push('| ' + [r.id, v(r.value), r.unit, r.feel + (r.gap ? ' GAP: ' + r.gap : ''), v(r.source) + (r.quote ? ' (quoted)' : ''), r.read_at, r.owner, r.status].map(s => String(s).replace(/\|/g, '/')).join(' | ') + ' |');
+    md.push('| id | value | unit | what you feel | source | read at | owner | status | 117 |'); md.push('|---|---|---|---|---|---|---|---|---|');
+    for (const r of rows.filter(x => x.kind === k)) md.push('| ' + [r.id, v(r.value), r.unit, r.feel + (r.gap ? ' GAP: ' + r.gap : ''), v(r.source) + (r.quote ? ' (quoted)' : ''), r.read_at, r.owner, r.status, r117cell(r)].map(s => String(s).replace(/\|/g, '/')).join(' | ') + ' |');
     md.push('');
   }
+  md.push('## E. RULE 117: THE LEVERS, BATTLE BROTHERS\' VALUE AT THE HARD END (' + R117.levers.length + ')'); md.push('');
+  md.push('Paolo 10/18: "I want you to be easier than Battle Brothers... Nintendo simplified... minimalist... make the people feel that they\'re successfully doing it." Data: banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json (draft:true). Record: records/BOHEMIA_TUNING_RULE_117_EVERY_FELT_NUMBER_STARTS_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md.'); md.push('');
+  md.push('| lever | mark | Battle Brothers (the hard end) | our start | the slider | shown or under | the win | owner | in the table |'); md.push('|---|---|---|---|---|---|---|---|---|');
+  for (const l of R117.levers) md.push('| ' + [l.id, l.mark + (l.harder_today ? ' TODAY: ' + l.harder_today : ''), l.bb, v(l.start), v(l.slider), l.shown, l.win, l.owner, l.in_table ? 'yes' : 'NEW ROW (proposed)'].map(s => String(s).replace(/\|/g, '/')).join(' | ') + ' |');
+  md.push('');
+  /* rule 117's VOTE page (rule 88: a page, no sheet), rendered from the lever file so the two cannot disagree */
+  const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const h = [];
+  h.push('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">');
+  h.push('<title>EASIER THAN BATTLE BROTHERS</title>');
+  h.push('<style>:root{--bg:#f4efe4;--ink:#1b1711;--line:#8a7d66;--mark:#7a2e1c}body{margin:0;padding:16px;background:var(--bg);color:var(--ink);font:15px/1.4 Georgia,serif}h1{font-size:20px;margin:0 0 6px}h2{font-size:16px;margin:18px 0 6px}p,li{max-width:72ch}.w{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid var(--line);padding:5px 6px;vertical-align:top;text-align:left}th{background:#e8dfcd}.f{background:#f1dcd4}.k{font-size:11px;color:#5b5244}</style></head><body>');
+  h.push('<h1>EASIER THAN BATTLE BROTHERS</h1>');
+  h.push('<p>TUNING, research only. Your words on the numbers card are now in the one numbers table. All ' + rows.length + ' numbers carry a mark. Where a number decides how hard the game is, Battle Brothers\' number is the HARDEST the slider goes, and ours starts easier.</p>');
+  h.push('<h2>Three places the game is harder than Battle Brothers right now</h2><ol>');
+  for (const l of R117.levers.filter(x => x.mark === 'HARDER THAN BB')) h.push('<li><b>' + esc(l.way) + '.</b> ' + esc(l.harder_today) + '</li>');
+  h.push('</ol><h2>The levers</h2><div class="w"><table><thead><tr><th>What it is</th><th>Battle Brothers (the hard end)</th><th>We start at</th><th>On screen?</th><th>The win you feel</th></tr></thead><tbody>');
+  for (const l of R117.levers) h.push('<tr' + (l.mark === 'HARDER THAN BB' ? ' class="f"' : '') + '><td><b>' + esc(l.way) + '</b><div class="k">' + esc(l.id) + ' / ' + esc(l.mark) + '</div></td><td>' + esc(l.bb) + '</td><td>' + esc(typeof l.start === 'object' ? JSON.stringify(l.start) : l.start) + '</td><td>' + esc(l.shown) + '</td><td>' + esc(l.win) + '</td></tr>');
+  h.push('</tbody></table></div>');
+  h.push('<p class="k">Marks on all rows: ' + esc(Object.entries(r117).map(e => e[1] + ' ' + e[0]).join(', ')) + '. Regenerate: node tools/bohemia_tuning_one_table_seed.js --write. draft:true; nothing in the game reads this page or its data.</p>');
+  h.push('</body></html>');
+  fs.writeFileSync(path.join(ROOT, 'slices/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html'), h.join('\n') + '\n');
   fs.writeFileSync(path.join(ROOT, 'records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md'), md.join('\n') + '\n');
   console.log('wrote banks/BOHEMIA_TUNING_THE_ONE_TABLE_SEED_10_17_26.json and records/BOHEMIA_TUNING_THE_ONE_TABLE_10_17_26.md');
 }
