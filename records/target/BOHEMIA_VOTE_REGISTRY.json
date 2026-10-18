@@ -7083,7 +7083,7 @@
    "made": "10/10",
    "draft": true,
    "title": "HOW FAR EACH WEAPON REACHES",
-   "why": "Every weapon's reach on one chart in the VOTE tab, against your rule that melee hits at 1 and every gun starts at 2. Melee all pass. But a bow can only hit at exactly 7 tiles and our rifle only at exactly 6, because the data copied each weapon's farthest reach into its nearest reach. The pistol is a dagger, so it hits at 1.",
+   "why": "Every weapon's reach against your rule that melee hits at 1 and every gun starts at 2: melee all pass, but a bow can only hit at exactly 7 tiles and our rifle at exactly 6, because the data copied each weapon's farthest reach into its nearest. You see it in the VOTE tab as one chart, with the pistol at 1 because it is a dagger underneath.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_FAR_EACH_WEAPON_REACHES_10_10_26.html"
@@ -7097,7 +7097,7 @@
    "made": "10/10",
    "draft": true,
    "title": "HOW BIG THE BOARD IS",
-   "why": "Battle Brothers never says how big its map is, so every size we use is ours. Slide your party and theirs in the VOTE tab and see the board the fight cuts: a 2 against 2 fight is a 32 tile board, and the middle size is never picked at all.",
+   "why": "Battle Brothers never says how big its map is, so every size we use is ours, and a 2 against 2 fight cuts a 32 tile board while the middle size is never picked at all. You see it in the VOTE tab when you slide your party and theirs and watch the board the fight cuts.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_HOW_BIG_THE_BOARD_IS_10_10_26.html"
@@ -7111,7 +7111,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT EACH ORIGIN STARTS KNOWN FOR",
-   "why": "Every starting story begins with some fame, a good or bad name, and a standing with the nearest powers. The VOTE tab lists all fifteen. Three begin hated, and our data has none of it yet.",
+   "why": "Every starting story begins with some fame, a good or bad name and a standing with the nearest powers, three begin hated, and our data has none of it yet. You see it in the VOTE tab, all fifteen listed.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_EACH_ORIGIN_STARTS_KNOWN_FOR_10_10_26.html"
@@ -7125,7 +7125,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT THE STARTING KIT COSTS",
-   "why": "Only one of the fifteen starting stories lists its gear. The VOTE tab shows that kit priced in batteries: it makes the Deserters the richest start of all, though they are only labelled Medium.",
+   "why": "Only one of the fifteen starting stories lists its gear, and priced in batteries it makes the Deserters the richest start of all though they are only labelled Medium. You see it in the VOTE tab, the kit and its price.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_THE_STARTING_KIT_COSTS_10_10_26.html"
@@ -7139,7 +7139,7 @@
    "made": "10/10",
    "draft": true,
    "title": "WHAT A STARTING COMPANY IS WORTH",
-   "why": "The VOTE tab ranks the fifteen starting stories by money plus what their men cost to hire. The hard ones start richer than the easy ones, so their difficulty is a rule, like losing when one man dies, and no money dial can change it.",
+   "why": "The fifteen starting stories ranked by money plus what their men cost to hire: the hard ones start richer than the easy ones, so their difficulty is a rule, like losing when one man dies, and no money dial can change it. You see it in the VOTE tab as one ranked list.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_WHAT_A_STARTING_COMPANY_IS_WORTH_10_10_26.html"
@@ -7153,7 +7153,7 @@
    "made": "10/10",
    "draft": true,
    "title": "DOES THE MONEY MATCH THE LABEL",
-   "why": "Each of the fifteen starting stories is labelled Easy, Medium or Hard. In the VOTE tab you see the starting money per man for each one. The hard ones are not the poor ones; they are hard because of a rule, like losing if one man dies.",
+   "why": "Each of the fifteen starting stories is labelled Easy, Medium or Hard, and the hard ones are not the poor ones; they are hard because of a rule, like losing if one man dies. You see it in the VOTE tab as the starting money per man for each one.",
    "show": {
     "how": "page",
     "src": "BOHEMIA_TUNING_DOES_THE_MONEY_MATCH_THE_LABEL_10_10_26.html"
@@ -8997,6 +8997,20 @@
     "src": "BOHEMIA_THE_TITLE_IS_THE_DESERT_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "tuning-the-twenty-fields-four-studios-10-18",
+   "kind": "tile",
+   "lane": "tuning",
+   "sha": "8372204",
+   "made": "10/18",
+   "draft": true,
+   "title": "THE TWENTY FIELDS, FOUR STUDIOS",
+   "why": "For each of the twenty look rules the art director must set, this page shows what four real 2D games chose, and that three of them never count colours on a lit sprite. You see it in the VOTE tab as one table, with the one row that would have rejected the robot and the truck marked.",
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_TUNING_THE_TWENTY_FIELDS_10_18_26.html"
+   }
   }
  ],
  "verdicts": [

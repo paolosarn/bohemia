@@ -20,6 +20,13 @@ NEXT (the jump list, three OPEN rows stand): [the settlement's numbers], [the 32
 writes the twenty numbers, each becomes a row of the one table with its FEEL line (the coordinator's 10/16 note).
 [bb Battle Brothers wrote no pixel-art guide because it is painted raster at one painted pixel per screen pixel; its one written rule is
 readability zoomed out.] [analog horror: the look is decided at the source, never by a filter; Eastward's CRT blur is an option on top.]
+GATES: handoff 10/0, attempt 15/0; vote tab: the 22f leg was red on main with four of my 10/10 whys (rule 22g, mine), rewritten to two
+sentences this round; its 'newest at the top' leg goes red for any fresh untagged item while no red is in front (line 290 expects the newest
+waiting item on top while the fold hides every untagged one), green once the coordinator tags it (rule 92); PLUMBER's leg, one line for it.
+Canon rot C3 red on main before this round (64 of 62, lab files from 7/26, not mine).
+SEEN ON MAIN (rule 8, his bugs first): SOUNDS' 7e9e31b committed stash conflict markers into the VOTE registry, so for a few minutes
+main's registry was not JSON and the tab's list could not load; I rebuilt it the same way SOUNDS did one minute earlier (79699f0),
+their fix won the rebase, mine adds only my item and my whys; valid JSON, 614 items, no duplicate ids.
 
 CHARACTER (character-0lurbs): 10/17 (n) LATEST -- *** THE BIG SWING: EVERY PIECE OF CLOTHING
 CUT OFF THE OLD BODY INTO PIECES THE NEW REAL BODY MODEL CAN WEAR, WITH WHERE EACH ONE HANGS
