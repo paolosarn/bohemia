@@ -1,0 +1,610 @@
+{
+ "round": 5,
+ "made": "10/18",
+ "tool": "tools/bohemia_direction_rig_round_five.py",
+ "checks": "tools/bohemia_not_vibe_coded.py (PLUMBER), read through gates/not_vibe_coded_gate.py held_verdict",
+ "subjects": [
+  {
+   "subject": "robot",
+   "cls": "person",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (1 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "276.0 orphan pixels per 1,000; 1 doubled outline blocks"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "1 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 118 to 138 px; the foot row moves 11 px between facings; the light agrees in 7 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     118,
+     138
+    ],
+    "foot": [
+     126,
+     137
+    ],
+    "lit_facings": 7,
+    "area_spread": 0.057
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": []
+  },
+  {
+   "subject": "robot",
+   "cls": "person",
+   "files": "fin",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (1 empty cells)"
+    ],
+    "D7": [
+     false,
+     "values 27%/63%/9%: no three-value read"
+    ],
+    "D8": [
+     false,
+     "253.3 orphan pixels per 1,000; 1 doubled outline blocks"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "1 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 118 to 138 px; the foot row moves 11 px between facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     118,
+     138
+    ],
+    "foot": [
+     126,
+     137
+    ],
+    "lit_facings": 8,
+    "area_spread": 0.057
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": []
+  },
+  {
+   "subject": "truck",
+   "cls": "vehicle",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "381.9 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    true,
+    "ok"
+   ],
+   "R8_research": [
+    false,
+    "heights 242 to 291 px; the foot row moves 34 px between facings; the light agrees in 6 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     242,
+     291
+    ],
+    "foot": [
+     256,
+     290
+    ],
+    "lit_facings": 6,
+    "area_spread": 0.235
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": []
+  },
+  {
+   "subject": "drum",
+   "cls": "prop",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "274.3 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    true,
+    "ok"
+   ],
+   "R8_research": [
+    false,
+    "the light agrees in 6 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     73,
+     73
+    ],
+    "foot": [
+     72,
+     72
+    ],
+    "lit_facings": 6,
+    "area_spread": 0.003
+   },
+   "card": "0 of 8 out under the style guide",
+   "card_out": []
+  },
+  {
+   "subject": "drum_seed2",
+   "cls": "prop",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "275.1 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    true,
+    "ok"
+   ],
+   "R8_research": [
+    false,
+    "the light agrees in 6 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     73,
+     73
+    ],
+    "foot": [
+     72,
+     72
+    ],
+    "lit_facings": 6,
+    "area_spread": 0.003
+   },
+   "card": "1 of 8 out under the style guide",
+   "card_out": [
+    "OUT  grain <= 2.22 px a run: 2.28"
+   ]
+  }
+ ],
+ "last_round": [
+  {
+   "subject": "robot",
+   "cls": "person",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (1 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "363.3 orphan pixels per 1,000; 1 doubled outline blocks"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "1079 half-transparent pixels; 385 colours only on the boundary; 1117 half-transparent pixels; 381 colours only on the boundary; 2173 half-transparent pixels; 486 colours only on the boundary; 342 half-transparent pixels; 385 colours only on the boundary; 368 half-transparent pixels; 372 colours only on the boundary; 660 half-transparent pixels; 420 colours only on the boundary; 699 half-transparent pixels; 410 colours only on the boundary; 738 half-transparent pixels; 422 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 118 to 138 px; the foot row moves 11 px between facings; the light agrees in 7 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     118,
+     138
+    ],
+    "foot": [
+     126,
+     137
+    ],
+    "lit_facings": 7,
+    "area_spread": 0.057
+   },
+   "card": "1 of 8 out under the style guide",
+   "card_out": [
+    "OUT  grain <= 2.22 px a run: 2.26"
+   ]
+  },
+  {
+   "subject": "truck",
+   "cls": "vehicle",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     false,
+     "values 7%/21%/70%: no three-value read"
+    ],
+    "D8": [
+     false,
+     "439.3 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "16101 half-transparent pixels; 440 colours only on the boundary; 16149 half-transparent pixels; 486 colours only on the boundary; 2721 half-transparent pixels; 311 colours only on the boundary; 2735 half-transparent pixels; 272 colours only on the boundary; 3436 half-transparent pixels; 282 colours only on the boundary; 3445 half-transparent pixels; 273 colours only on the boundary; 5432 half-transparent pixels; 270 colours only on the boundary; 5874 half-transparent pixels; 331 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "heights 242 to 291 px; the foot row moves 34 px between facings; the light agrees in 5 of 8 facings"
+   ],
+   "G6_guide": [
+    false,
+    "light agrees in 5 of 8"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     242,
+     291
+    ],
+    "foot": [
+     256,
+     290
+    ],
+    "lit_facings": 5,
+    "area_spread": 0.235
+   },
+   "card": "1 of 8 out under the style guide",
+   "card_out": [
+    "OUT  grain <= 2.22 px a run: 3.3"
+   ]
+  },
+  {
+   "subject": "drum",
+   "cls": "prop",
+   "files": "rig",
+   "held": {
+    "D1": [
+     true,
+     ""
+    ],
+    "D2": [
+     true,
+     "the guide's G2: "
+    ],
+    "D3": [
+     true,
+     "the guide's light row: "
+    ],
+    "D4": [
+     true,
+     "the guide's G4 on the source palette: "
+    ],
+    "D5": [
+     true,
+     "against the prop packs: "
+    ],
+    "D6": [
+     false,
+     "reads as a box at 3x3 (0 empty cells)"
+    ],
+    "D7": [
+     true,
+     ""
+    ],
+    "D8": [
+     false,
+     "277.3 orphan pixels per 1,000"
+    ],
+    "D9": [
+     true,
+     ""
+    ],
+    "D10": [
+     null,
+     "the UI leg; a sprite carries no CSS"
+    ]
+   },
+   "R2": [
+    false,
+    "289 half-transparent pixels; 136 colours only on the boundary; 289 half-transparent pixels; 144 colours only on the boundary; 290 half-transparent pixels; 147 colours only on the boundary; 293 half-transparent pixels; 146 colours only on the boundary; 293 half-transparent pixels; 147 colours only on the boundary; 294 half-transparent pixels; 142 colours only on the boundary; 295 half-transparent pixels; 145 colours only on the boundary; 295 half-transparent pixels; 149 colours only on the boundary"
+   ],
+   "R8_research": [
+    false,
+    "the light agrees in 7 of 8 facings"
+   ],
+   "G6_guide": [
+    true,
+    "ok (pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8)"
+   ],
+   "facings": {
+    "facings": 8,
+    "height": [
+     73,
+     73
+    ],
+    "foot": [
+     72,
+     72
+    ],
+    "lit_facings": 7,
+    "area_spread": 0.003
+   },
+   "card": "1 of 8 out under the style guide",
+   "card_out": [
+    "OUT  grain <= 2.22 px a run: 2.36"
+   ]
+  }
+ ]
+}

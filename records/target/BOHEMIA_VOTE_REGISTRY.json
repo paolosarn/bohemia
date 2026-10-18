@@ -28,6 +28,57 @@
  "version": 1,
  "items": [
   {
+   "id": "direction-the-rig-round-five-10-18",
+   "kind": "redo",
+   "redoOf": "direction-the-look-bible-everything-the-same-10-18",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE TRUCK WITHOUT THE FROST, AND THE ROBOT FINISHED BY HAND",
+   "why": "The truck's frost was its own pale grey paint, so it is repainted from our colours (dark teal metal like your abandoned car, dark glass, the same yellow), and the robot's eight turns sit raw above the hand-finished ones, about 7 percent of it touched. You see it in the VOTE tab at 1:1 on your street and at 2x.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/direction_rig_round_five/DIRECTION_THE_RIG_ROUND_FIVE.png"
+   },
+   "question": "Does the truck still look like the one you loved, without the frost?",
+   "caption": "PIXEL SIZE 1:1, 57 px a metre | PALETTE records/target/BOHEMIA_STYLE_PALETTE.json | LIGHT one sun, upper left (155.4 deg on screen)",
+   "class": "person",
+   "sprites": [
+    "records/target/direction_rig_round_five/robot/fin_N.png",
+    "records/target/direction_rig_round_five/robot/fin_NE.png",
+    "records/target/direction_rig_round_five/robot/fin_E.png",
+    "records/target/direction_rig_round_five/robot/fin_SE.png",
+    "records/target/direction_rig_round_five/robot/fin_S.png",
+    "records/target/direction_rig_round_five/robot/fin_SW.png",
+    "records/target/direction_rig_round_five/robot/fin_W.png",
+    "records/target/direction_rig_round_five/robot/fin_NW.png",
+    "records/target/direction_rig_round_five/truck/rig_N.png",
+    "records/target/direction_rig_round_five/truck/rig_NE.png",
+    "records/target/direction_rig_round_five/truck/rig_E.png",
+    "records/target/direction_rig_round_five/truck/rig_SE.png",
+    "records/target/direction_rig_round_five/truck/rig_S.png",
+    "records/target/direction_rig_round_five/truck/rig_SW.png",
+    "records/target/direction_rig_round_five/truck/rig_W.png",
+    "records/target/direction_rig_round_five/truck/rig_NW.png",
+    "records/target/direction_rig_round_five/drum/rig_S.png",
+    "records/target/direction_rig_round_five/drum_seed2/rig_S.png"
+   ],
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   },
+   "twin": {
+    "src": "reference/art_bank/prop/pack_10_abandoned_cars_003.png",
+    "diffs": [
+     "THE FROST: last round's chassis, bed and glass were the free model's pale lavender grey, so dust on them read as frost; now teal metal and dark glass from the palette, and dust on a bright paint goes darker, never paler.",
+     "THE EDGE: every body pixel is fully solid now and the shadow is its own layer; no edge colour exists that is not also inside the body (last round 216 to 267 a facing after the hand pass, now 1, beside a one-pixel hole in the robot's head).",
+     "STILL OPEN: two of PLUMBER's checks fail on everything the rig makes and on your own pack tiles too (stray single pixels, and 'reads as a box' at 3x3); routed to PLUMBER, not hidden."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "run2-the-arrival-10-18",
    "kind": "ui",
    "lane": "run 2",

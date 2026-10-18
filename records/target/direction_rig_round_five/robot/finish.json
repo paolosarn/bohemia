@@ -19,9 +19,9 @@
    "B7_staircase_flags_left_edge": 0,
    "B8_highlight_px": 6,
    "B9_eye_glints": 0,
-   "pixels_changed": 466,
+   "pixels_changed": 460,
    "body_pixels": 6490,
-   "changed_share_pct": 7.18,
+   "changed_share_pct": 7.09,
    "file": "records/target/direction_rig_round_five/robot/fin_N.png"
   },
   {
@@ -34,9 +34,9 @@
    "B7_staircase_flags_left_edge": 4,
    "B8_highlight_px": 6,
    "B9_eye_glints": 0,
-   "pixels_changed": 457,
+   "pixels_changed": 452,
    "body_pixels": 6274,
-   "changed_share_pct": 7.28,
+   "changed_share_pct": 7.2,
    "file": "records/target/direction_rig_round_five/robot/fin_NE.png"
   },
   {
@@ -49,9 +49,9 @@
    "B7_staircase_flags_left_edge": 2,
    "B8_highlight_px": 6,
    "B9_eye_glints": 1,
-   "pixels_changed": 418,
+   "pixels_changed": 417,
    "body_pixels": 5808,
-   "changed_share_pct": 7.2,
+   "changed_share_pct": 7.18,
    "file": "records/target/direction_rig_round_five/robot/fin_E.png"
   },
   {
@@ -64,9 +64,9 @@
    "B7_staircase_flags_left_edge": 2,
    "B8_highlight_px": 6,
    "B9_eye_glints": 2,
-   "pixels_changed": 409,
+   "pixels_changed": 392,
    "body_pixels": 6197,
-   "changed_share_pct": 6.6,
+   "changed_share_pct": 6.33,
    "file": "records/target/direction_rig_round_five/robot/fin_SE.png"
   },
   {
@@ -79,9 +79,9 @@
    "B7_staircase_flags_left_edge": 0,
    "B8_highlight_px": 6,
    "B9_eye_glints": 2,
-   "pixels_changed": 539,
+   "pixels_changed": 535,
    "body_pixels": 6345,
-   "changed_share_pct": 8.49,
+   "changed_share_pct": 8.43,
    "file": "records/target/direction_rig_round_five/robot/fin_S.png"
   },
   {
@@ -109,9 +109,9 @@
    "B7_staircase_flags_left_edge": 2,
    "B8_highlight_px": 6,
    "B9_eye_glints": 1,
-   "pixels_changed": 422,
+   "pixels_changed": 415,
    "body_pixels": 5818,
-   "changed_share_pct": 7.25,
+   "changed_share_pct": 7.13,
    "file": "records/target/direction_rig_round_five/robot/fin_W.png"
   },
   {
@@ -124,16 +124,16 @@
    "B7_staircase_flags_left_edge": 2,
    "B8_highlight_px": 6,
    "B9_eye_glints": 0,
-   "pixels_changed": 449,
+   "pixels_changed": 443,
    "body_pixels": 6165,
-   "changed_share_pct": 7.28,
+   "changed_share_pct": 7.19,
    "file": "records/target/direction_rig_round_five/robot/fin_NW.png"
   }
  ],
  "total": {
-  "pixels_changed": 3583,
+  "pixels_changed": 3537,
   "body_pixels": 49284,
-  "changed_share_pct": 7.27
+  "changed_share_pct": 7.18
  },
  "tool": "tools/bohemia_direction_hand_finish.py"
 }

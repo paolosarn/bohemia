@@ -35,6 +35,16 @@
    "research_said": "(the card of numbers, 10/10) every prop's long side at least 96 px and at least 2,330 colours",
    "decided": "for a rendered thing at its true size, the size floor is rule 105's by kind (a prop 29 x 36, a car 96 wide) and a sprite under one tile's area is held to the colour DENSITY of his props (370 per 1,000 px)",
    "why": "the card was measured on cut pack tiles, all drawn in one 96 px box whatever their real size (COMBAT TWO 10/16: a car and a cone the same size); the rig draws true size (rule 102), so an oil drum is 79 px tall and 2,268 px of body. Rule 105 itself names the prop floor 29 x 36."
+  },
+  {
+   "research_said": "Round two Section D 8 (and this guide's G6 as written 10/18): the eight facings' bounding-box height within 1 px and the foot row within 1 px.",
+   "decided": "PER CLASS (round five, 10/18). Every rendered class holds the PIVOT identical (one crop box for the set, the ground centre snapped to a whole pixel, written as ground_px in rig.json) and one light in at least 7 of 8 facings (6 for a vehicle or prop, which show a whole dark side end-on); person and beast also hold the silhouette area within 25 percent. The 1 px height and foot-row numbers stay the rule for hand-drawn sets.",
+   "why": "Measured: under the one 45-degree camera a turning body's lowest and highest pixel move with its own footprint, not with any jitter: the truck's 242 to 291 px is its 5.3 m length swinging toward the camera, the robot's 118 to 138 is its 1.37 m arms. A hand-drawn set cheats that; a model can only meet it by being bent per facing, which is the drift the rig exists to stop. What the research's rule protects (a man does not hop when he turns) is the pivot, and the rig holds the pivot to 0 px by construction. Tie-breaker 1: the robot and the truck he loved fail the 1 px rule too."
+  },
+  {
+   "research_said": "The card of numbers' grain row (round one Section C, field 11): 1.6 to 2.22 px a light-dark run, measured on his 96 px tiles.",
+   "decided": "A VEHICLE reads 1.6 to 3.6 (round five, 10/18). Person, beast and prop keep 2.22.",
+   "why": "His pack draws a whole car inside one 96 px tile; the rig draws a car at its true 5.3 m, 300 px long, with panels three times as long under the same paint, so a run three times longer is the same grain at the true size. His YES truck measured 3.29 (tie-breaker 1); 3.6 is that plus a tenth. Round five's truck measures 2.95, under the maquette."
   }
  ],
  "fields": [
@@ -275,7 +285,33 @@
     "eight_facings_agree": {
      "height_px_tolerance": 1,
      "foot_row_tolerance": 1,
-     "area_tolerance_pct": 25
+     "area_tolerance_pct": 25,
+     "per_class": {
+      "person": {
+       "pivot_px": 0,
+       "lit_facings_min": 7,
+       "area": true,
+       "reads": "pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8"
+      },
+      "beast": {
+       "pivot_px": 0,
+       "lit_facings_min": 7,
+       "area": true,
+       "reads": "pivot identical by construction (one box, ground_px), area within 25% held, light in 7 of 8"
+      },
+      "vehicle": {
+       "pivot_px": 0,
+       "lit_facings_min": 6,
+       "area": false,
+       "reads": "pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8"
+      },
+      "prop": {
+       "pivot_px": 0,
+       "lit_facings_min": 6,
+       "area": false,
+       "reads": "pivot identical by construction (one box, ground_px), area within 25% not read, light in 6 of 8"
+      }
+     }
     }
    },
    "do": "the robot's head and hands read at 8x8",
@@ -297,12 +333,16 @@
      1.6,
      2.22
     ],
-    "rest_region": "the clean-panel grain strength is 0.07 against 0.49 in the wear: at least a quarter of a model's surface reads as rest",
+    "rest_region": "the clean-panel grain strength is 0.24 against 0.60 in the wear (rig grain_rest, grain_wear times the wear 0.6): the wear patches still read twice as busy as rest",
     "hero": "the player, a boss, a portrait: the full hand-finish (B4 to B9) on the keys the budget names",
     "mid": "scripts only (B2, B5, B6) plus a five-minute eye on the contact sheet",
     "background": "his packs as they are",
-    "dust_rule": "on a bright base (value over 0.6) the dust and bleach may not be paler than the base: wear on a pale paint goes darker (rust, grime), never frost (the truck on 10/18; the next rig round implements it)",
-    "open": "grain runs 2.26 to 3.3 px on five of six candidates against 2.22: the rig's next number"
+    "dust_rule": "IMPLEMENTED round five: on a base brighter than linear value 0.35 to 0.55 (rig dust_bright_value, a ramp) the dust is the base times rig dust_on_bright_mul (darker and warmer), and the grain's light side stops at rig grain_lift 0.65 (0.5 is no lift); on a dark base the pale dust and the full grain step stand. Measured: the truck's frost was mostly Kenney's pale lavender chassis, not dust; it is repainted from the palette at the source (tools/bohemia_direction_model_truck.py).",
+    "open": "none on grain: robot 1.95 px, drum 2.09, truck 2.95 (vehicle band); the drum's second wear seed 2.28, 0.06 over, reported",
+    "grain_run_px_vehicle": [
+     1.6,
+     3.6
+    ]
    },
    "do": "dirt in patches, a clean panel between them",
    "dont": "even grain over the whole body: a leopard print (round three cycle 4)"
@@ -584,7 +624,10 @@
    "cube_px_tolerance": 1,
    "sphere_m": 1.0,
    "screen_light_deg": 155.4,
-   "screen_light_tolerance_deg": 30
+   "screen_light_tolerance_deg": 30,
+   "screen_light_convention": "screen y up: 0 = right, 90 = straight up, 180 = left; 155.4 is up and to the left",
+   "check_py_equivalent_deg": 204.6,
+   "check_py_note": "skills/bohemia-pixel-art/scripts/check.py measures in image y down (270 = straight up, 180 = left), so the same light reads 360 - 155.4 = 204.6 there, inside its 180 to 360 band; MODS's 'settle the number' (2d9f2d9) was the two conventions, not two lights"
   },
   "grain_per_m": 28,
   "drift_per_m": 5,

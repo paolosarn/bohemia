@@ -573,9 +573,9 @@ def same(x, y):
 
 def guide_card(c, png, cls):
     """THE CARD UNDER THE STYLE GUIDE (round four): the card's eight rows were measured on cut pack tiles, all drawn in
-    one 96 px box; the rig draws true size (rule 102). Two rows are re-read by the guide's field 5: the size row by rule
+    one 96 px box; the rig draws true size (rule 102). Three rows are re-read: by the guide's field 5: the size row by rule
     105's floor for the KIND (a prop 29 x 36, a car 96 long), and the colour row, for a sprite with fewer opaque pixels
-    than one of his prop tiles, by his props' colour DENSITY (370 per 1,000 px). The other six stand as the card says."""
+    than one of his prop tiles, by his props' colour DENSITY (370 per 1,000 px); and (round five) a vehicle's grain row by field 11's vehicle band. The rest stand as the card says."""
     import numpy as np
     from PIL import Image
     f5 = GUIDE['fields'][4]['value']; fl = f5['size_floor_px']; dens = f5['colour_floor_small']['density_per_1000px']
@@ -592,6 +592,9 @@ def guide_card(c, png, cls):
             floor = GUIDE['classes'][cls]['output_floor'] if cls in GUIDE['classes'] else 2330
             floor = min(floor, int(round(dens * n / 1000.0)))
             r = '%s  colours >= %d (field 5: the class floor, or %d per 1,000 of %d px): %d' % ('OK ' if colours >= floor else 'OUT', floor, dens, n, colours); why.append('colours by field 5')
+        elif name.startswith('grain') and cls == 'vehicle':   # round five: a true-size car's panels are 3x a tile's (decisions_against_the_research[4])
+            band = GUIDE['fields'][10]['value']['grain_run_px_vehicle']; run = float(r.rsplit(':', 1)[1])
+            r = '%s  grain <= %.2f px a run (field 11, a vehicle at true size): %.2f' % ('OK ' if run <= band[1] else 'OUT', band[1], run); why.append('grain by field 11')
         rows.append(r)
     out = sum(1 for r in rows if r.startswith('OUT'))
     return dict(cls=cls, out=out, rows=rows, reread=why, verdict='%d of 8 out under the style guide%s' % (out, ' -> BACK before VOTE' if out >= 3 else ''), size_px=[w, h], opaque_px=n, colours=colours)

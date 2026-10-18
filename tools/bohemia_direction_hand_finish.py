@@ -135,6 +135,14 @@ def finish(png, idpng, table, light_deg, main, eye, role, facing):
             y = int(round(y + (cy - y) * 0.4)); x = int(round(x + (cx - x) * 0.4))
             a[y, x, :3] = glint; gl += 1
     rep['B9_eye_glints'] = gl
+    # B6 again, last (round five, research round two D2): the selout's averaged and darkened ring is snapped to the
+    # nearest colour the body already uses inside, so no colour lives only on the edge (measured: 216 to 267 a facing)
+    a[..., :3] = np.round(a[..., :3])
+    pal = np.unique(a[..., :3][inner].reshape(-1, 3), axis=0)
+    want = a[..., :3][ring]; best = np.empty_like(want)
+    for i in range(0, len(want), 256):
+        d = ((want[i:i + 256, None, :] - pal[None, :, :]) ** 2).sum(2); best[i:i + 256] = pal[d.argmin(1)]
+    a[..., :3][ring] = best
     changed = (np.abs(a - before).sum(-1) > 0)
     rep['pixels_changed'] = int(changed.sum()); rep['body_pixels'] = int(body.sum()); rep['changed_share_pct'] = round(100 * changed.sum() / max(1, body.sum()), 2)
     out = os.path.join(os.path.dirname(png), os.path.basename(png).replace('rig_', 'fin_', 1)); Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA').save(out)

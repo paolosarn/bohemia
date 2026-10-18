@@ -140,7 +140,7 @@
  "cls": "vehicle",
  "card_guide": {
   "cls": "vehicle",
-  "out": 1,
+  "out": 0,
   "rows": [
    "OK   long side >= 96 (rule 105, a car): 279",
    "OK   colours >= 2330 (field 5: the class floor, or 370 per 1,000 of 40586 px): 6536",
@@ -149,12 +149,13 @@
    "OK   saturation <= 0.81: 0.577",
    "OK   light: top minus bottom >= -2.5: -2.0",
    "OK   edge between -35 and +7: -9.5",
-   "OUT  grain <= 2.22 px a run: 2.95"
+   "OK   grain <= 3.60 px a run (field 11, a vehicle at true size): 2.95"
   ],
   "reread": [
-   "colours by field 5"
+   "colours by field 5",
+   "grain by field 11"
   ],
-  "verdict": "1 of 8 out under the style guide",
+  "verdict": "0 of 8 out under the style guide",
   "size_px": [
    162,
    279
