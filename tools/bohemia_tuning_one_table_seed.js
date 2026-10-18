@@ -261,7 +261,7 @@ const R117 = JSON.parse(fs.readFileSync(path.join(ROOT, 'banks/BOHEMIA_TUNING_RU
 const leverById = new Map(R117.levers.map(l => [l.id, l]));
 for (const r of rows) {
   const l = leverById.get(r.id);
-  if (l) { r.rule_117 = { mark: l.mark, bb: l.bb_value, start: l.start, shown: l.shown, owner: l.owner }; if (l.harder_today) r.rule_117.harder_today = l.harder_today; continue; }
+  if (l) { r.rule_117 = { mark: l.mark, bb: l.bb_value, start: l.start, shown: l.shown, owner: l.owner }; if (l.harder_today) r.rule_117.harder_today = l.harder_today; if (l.moved) r.rule_117.moved = l.moved; continue; }
   const f = R117.families.find(x => new RegExp(x.match).test(r.id));
   r.rule_117 = f ? { mark: f.mark, note: f.note } : { mark: 'UNMARKED' };
 }
@@ -293,7 +293,7 @@ if (process.argv.includes('--write')) {
   md.push('# RULE 117 (Paolo 10/18): EASIER THAN BATTLE BROTHERS. Every felt number starts easier than Battle Brothers\' and the slider goes up from there; Battle Brothers\' value is the hard end. Every row below carries its mark in the 117 column; section E is the levers. Marks: ' + Object.entries(r117).map(e => e[1] + ' ' + e[0]).join(', ') + '.');
   md.push('# ' + rows.length + ' rows: ' + Object.entries(by).map(e => e[1] + ' ' + e[0]).join(', ') + '. Unresolved keys: ' + unresolved.length + '. Feel lines missing: ' + missingFeel.length + '.');
   md.push('');
-  const r117cell = r => { const m = r.rule_117; return m.start !== undefined ? m.mark + ': BB ' + v(m.bb) + ' -> start ' + v(m.start) + (m.harder_today ? ' (TODAY: ' + m.harder_today + ')' : '') : m.mark; };
+  const r117cell = r => { const m = r.rule_117; return m.start !== undefined ? m.mark + ': BB ' + v(m.bb) + ' -> start ' + v(m.start) + (m.moved ? ' (MOVED ' + m.moved.when + ', was ' + v(m.moved.was) + ')' : '') + (m.harder_today ? ' (TODAY: ' + m.harder_today + ')' : '') : m.mark; };
   const v = x => { const s = typeof x === 'string' ? x : JSON.stringify(x); return (s || '').replace(/\|/g, '/').replace(/\n/g, ' ').slice(0, 70) + ((s || '').length > 70 ? '...' : ''); };
   for (const k of ['rule', 'column', 'typed', 'ruled']) {
     const title = { rule: 'A. THE RULES THE FIGHT READS THROUGH R() (' + by[k] + ')', column: 'B. THE COLUMNS THE FIGHT READS OFF EVERY DATA ROW, AND THE ELEVEN MARKS (' + by[k] + ')', typed: 'C. FELT NUMBERS TYPED INTO A SCRIPT, NOT READ FROM THE TABLE (' + by[k] + ')', ruled: 'D. IN THE TABLE, READ BY NOTHING IN THE FIGHT: RULINGS AND BATTLE BROTHERS\' OWN RULE BESIDE OURS (' + by[k] + ')' }[k];
@@ -305,7 +305,7 @@ if (process.argv.includes('--write')) {
   md.push('## E. RULE 117: THE LEVERS, BATTLE BROTHERS\' VALUE AT THE HARD END (' + R117.levers.length + ')'); md.push('');
   md.push('Paolo 10/18: "I want you to be easier than Battle Brothers... Nintendo simplified... minimalist... make the people feel that they\'re successfully doing it." Data: banks/BOHEMIA_TUNING_RULE_117_EASIER_THAN_BB_10_18_26.json (draft:true). Record: records/BOHEMIA_TUNING_RULE_117_EVERY_FELT_NUMBER_STARTS_EASIER_THAN_BATTLE_BROTHERS_10_18_26.md.'); md.push('');
   md.push('| lever | mark | Battle Brothers (the hard end) | our start | the slider | shown or under | the win | owner | in the table |'); md.push('|---|---|---|---|---|---|---|---|---|');
-  for (const l of R117.levers) md.push('| ' + [l.id, l.mark + (l.harder_today ? ' TODAY: ' + l.harder_today : ''), l.bb, v(l.start), v(l.slider), l.shown, l.win, l.owner, l.in_table ? 'yes' : 'NEW ROW (proposed)'].map(s => String(s).replace(/\|/g, '/')).join(' | ') + ' |');
+  for (const l of R117.levers) md.push('| ' + [l.id, l.mark + (l.harder_today ? ' TODAY: ' + l.harder_today : ''), l.bb, v(l.start) + (l.moved ? ' (MOVED ' + l.moved.when + ', was ' + v(l.moved.was) + ': ' + l.moved.why + ')' : ''), v(l.slider), l.shown, l.win, l.owner, l.in_table ? 'yes' : 'NEW ROW (proposed)'].map(s => String(s).replace(/\|/g, '/')).join(' | ') + ' |');
   md.push('');
   /* rule 117's VOTE page (rule 88: a page, no sheet), rendered from the lever file so the two cannot disagree */
   const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');

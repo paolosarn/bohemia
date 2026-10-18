@@ -16,6 +16,8 @@
 //   node tools/bohemia_tuning_easier_measured.js --write    also writes banks/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.json
 //   --n 300   fights per cell (default 300); --jobs 4   worker processes
 //   --control  the hooks at neutral against the unhooked rules, six seeded fights: they must match event for event
+//   --cell <scenario> <setting id | levers JSON> <n>   one cell; a JSON setting is laid over BASE (tools/bohemia_tuning_slightly_harder.js
+//              uses it: hitThem splits their roll from yours, countMult sizes a party between two picks; both absent = the old numbers)
 // Seeded: cell (scenario, setting) fight k plays seed 1000*scenario + k, so every setting meets the SAME fights.
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm'), cp = require('child_process');
@@ -47,9 +49,9 @@ const SETTINGS = [
 ];
 
 /* ---------- the fights: what a player meets, sized the way the map sizes them (records/target/bb/party_math.json) ---------- */
-function jobCount(men, level, skulls, pick) {
+function jobCount(men, level, skulls, pick, mult) {
   const P = PM.job.value, str = men * (PM.roster_strength.value.per_man + PM.roster_strength.value.per_level * (level - 1));
-  const n = str / P.strength_per_enemy * P.skull_mult[String(skulls)] * PM.difficulty_count_mult.value[pick];
+  const n = str / P.strength_per_enemy * P.skull_mult[String(skulls)] * (mult === undefined ? PM.difficulty_count_mult.value[pick] : mult);
   return Math.max(P.min, Math.min(P.max, Math.floor(n + 0.5)));
 }
 const SCENARIOS = [
@@ -60,18 +62,18 @@ const SCENARIOS = [
       if (!L.gains) return { band: fb.slice() };
       const bg = new Map(J('records/target/bb/backgrounds.json').rows.map(r => [r.id, r]));
       const lv = O.crew.value.map(c => { const s = bg.get(c.background).starting_level; return (s[0] + s[s.length - 1]) / 2; });
-      const n = jobCount(lv.length, lv.reduce((a, b) => a + b, 0) / lv.length, 1, L.pick), band = fb.slice();
+      const n = jobCount(lv.length, lv.reduce((a, b) => a + b, 0) / lv.length, 1, L.pick, L.countMult), band = fb.slice();
       while (band.length > n) band.splice(band.indexOf('brigand_thug'), 1); while (band.length < n) band.unshift('brigand_thug');
       return { band: band }; } },
   { id: 'newcrew', name: 'A NEW CREW\'S FIRST JOB (the door\'s default origin: three men, one skull, day 3)',
     opts: L => ({ company: [{ background: 'companion_2hand', level: 1 }, { background: 'companion_1hand', level: 1 }, { background: 'companion_ranged', level: 1 }], cap: 12,
-      party: { count: jobCount(3, 1, 1, L.pick), days: 3, difficulty: L.pick, faction: 'brigands' } }) },
+      party: { count: jobCount(3, 1, 1, L.pick, L.countMult), days: 3, difficulty: L.pick, faction: 'brigands' } }) },
   { id: 'grown', name: 'THE GROWN COMPANY (eight men at level 3, two skulls, day 22)',
     opts: L => { const c = J('records/target/bb/ours.json').crew.value.slice(0, 8).map(m => ({ background: m.background, level: 3 }));
-      return { company: c, cap: 12, party: { count: jobCount(8, 3, 2, L.pick), days: 22, difficulty: L.pick, faction: 'brigands' } }; } },
+      return { company: c, cap: 12, party: { count: jobCount(8, 3, 2, L.pick, L.countMult), days: 22, difficulty: L.pick, faction: 'brigands' } }; } },
   { id: 'tough', name: 'A TOUGH ONE (the twelve at level 4, three skulls, day 65)',
     opts: L => { const c = J('records/target/bb/ours.json').crew.value.map(m => ({ background: m.background, level: 4 }));
-      return { company: c, cap: 12, party: { count: jobCount(12, 4, 3, L.pick), days: 65, difficulty: L.pick, faction: 'brigands' } }; } }
+      return { company: c, cap: 12, party: { count: jobCount(12, 4, 3, L.pick, L.countMult), days: 65, difficulty: L.pick, faction: 'brigands' } }; } }
 ];
 
 /* ---------- the engine: the live fight's scripts in a node context ---------- */
@@ -107,7 +109,8 @@ function engine(plain) {
 /* ---------- one cell: N fights of one scenario at one setting ---------- */
 function cell(scId, setId, n) {
   const ctx = engine(), F = ctx.FIGHT, DB = ctx.DB;
-  const sc = SCENARIOS.find(s => s.id === scId), st = SETTINGS.find(s => s.id === setId), L = Object.assign({}, BASE, st.L);
+  const sc = SCENARIOS.find(s => s.id === scId), st = setId[0] === '{' ? { L: JSON.parse(setId) } : SETTINGS.find(s => s.id === setId);
+  const L = Object.assign({}, BASE, st.L);
   DB.rules.experience.global_modifier.value = L.xp;
   const ph = DB.ours.enemy_tiers.value.phases; ph[1].from_day = L.tiers[0]; ph[2].from_day = L.tiers[1];
   const T = { fights: 0, won: 0, rounds: 0, beats: 0, yourAtt: 0, yourHit: 0, theirAtt: 0, theirHit: 0, streak3: 0, down: 0, dead: 0,
@@ -115,7 +118,7 @@ function cell(scId, setId, n) {
   ctx.HOOK = {
     breath: function (u, base) { return u.side === 'you' || L.breathBoth ? L.breath : base; },
     hit: function (a, t, ch) {
-      let c = ch + (a.side === 'you' ? L.hit : -L.hit);
+      let c = ch + (a.side === 'you' ? L.hit : -(L.hitThem === undefined ? L.hit : L.hitThem));
       a.__base = c;
       if (L.streak && a.side === 'you' && c >= L.streak.from && a.__ms > 0) c += L.streak.plus * a.__ms;
       return c;
