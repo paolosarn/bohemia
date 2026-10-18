@@ -411,8 +411,11 @@ def tyres(bpy, mathutils):
     # on the left, two on the right, tread blocks round every one, one rusted steel rim still inside the bottom of the
     # short stack. The odd thing: the top tyre of the tall stack slid half off and tipped, and black water standing in
     # the tall stack's well.
-    tyre, tread, rim, water = mat(bpy, 'rubber', 'rubber', 1), mat(bpy, 'tread', 'rubber', 2), mat(bpy, 'rim', 'clay_rust', 1), mat(bpy, 'water', 'glass_eye', 0)
-    R, r = 0.23, 0.1
+    # round two of the loop: the first tyres (0.23 + 0.1) were donuts with a fist-sized hole, 93 px long (under the 96
+    # floor), and the tread blocks stood off the shoulder as a dotted halo. Now a 0.72 m tyre with its real 0.32 m
+    # hole, the tread flush and full width, darker rubber (the source pass dusts the up faces), a third tyre on the ground
+    tyre, tread, rim, water = mat(bpy, 'rubber', 'rubber', 0), mat(bpy, 'tread', 'rubber', 1), mat(bpy, 'rim', 'clay_rust', 1), mat(bpy, 'water', 'glass_eye', 0)
+    R, r = 0.275, 0.09
     def one(name, loc, rot=(0, 0, 0)):
         bpy.ops.mesh.primitive_torus_add(major_radius=R, minor_radius=r, major_segments=32, minor_segments=10, location=(0, 0, 0))
         t = put(bpy, bpy.context.active_object, name, tyre)
@@ -424,8 +427,8 @@ def tyres(bpy, mathutils):
         parts = [t]
         for i in range(26):   # the tread blocks round the outside
             a = 2 * math.pi * i / 26
-            bpy.ops.mesh.primitive_cube_add(size=1, location=((R + r + 0.012) * math.cos(a), (R + r + 0.012) * math.sin(a), 0), rotation=(0, 0, a))
-            b = bpy.context.active_object; b.scale = (0.028, 0.045, 0.17); bpy.ops.object.transform_apply(scale=True)
+            bpy.ops.mesh.primitive_cube_add(size=1, location=((R + r + 0.004) * math.cos(a), (R + r + 0.004) * math.sin(a), 0), rotation=(0, 0, a))
+            b = bpy.context.active_object; b.scale = (0.022, 0.05, 0.13)   # inside the shoulder: taller blocks stood up as a dotted halo from above; bpy.ops.object.transform_apply(scale=True)
             put(bpy, b, '%s_tread_%d' % (name, i), tread, smooth=False); parts.append(b)
         bpy.ops.object.select_all(action='DESELECT')
         for p in parts: p.select_set(True)
@@ -441,6 +444,7 @@ def tyres(bpy, mathutils):
     cyl(bpy, 'rim_hub', rim, 0.07, 0.17, (0.38, 0.12, h / 2), verts=10)
     cyl(bpy, 'water', water, R - 0.01, 0.01, (-0.29, -0.03, 2 * h + 0.04), verts=24)
     # THE ONE ASYMMETRIC THING: the top of the tall stack slid half off toward the camera and tipped against it
+    one('ground', (0.25, -0.62, h / 2 - 0.03), (math.radians(4), 0, 0.2))   # rolled off the pile, lying where it fell
     one('slid', (-0.18, -0.28, 3 * h + 0.03), (math.radians(-22), math.radians(8), 0.9))
 
 
