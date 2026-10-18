@@ -1276,7 +1276,39 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
-ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (p) -- [a week at the counter] SHIPPED, THE NEW AGE
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (q) -- [a held road] SHIPPED, THE NEW AGE
+(rules 112 to 117: the coordinator opened this chat and reads this block as the report; no
+check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
+data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_73_A_HELD_ROAD_ON_OPEN_DESERT_A_CAMP_IS_AN_HOUR_AT_A_PASS_IT_IS_A_DAY_AND_NOTHING_ON_MAIN_CAN_HOLD_EITHER_10_18_26.md (cbfd0ab7)
+FINDING: ON WORLD'S REAL LAND A CAMP ON AN OPEN-DESERT ROAD COSTS A CREW OF THREE ABOUT AN HOUR TO
+WALK ROUND, AT A PASS MOST OF A DAY. Ten of twelve trips from the Strip gain at most 0.17 of a day
+at a 1.2 km berth (about 1.5 batteries or less at Day 72's 6 to 9.1 a day); NV-160's climb to
+Pahrump +0.61 (1.2 km) to +0.95 (5.8 km), the descent to the dam +0.87, Kyle Canyon +0.28; with every
+road held, Pahrump and the lodge cannot be reached at all (939 camp seats, shortest paths at the land
+file's own minutes, method in the page). Battle Brothers: Ambushed Trade Routes (+20 buy, +10 sell,
+-25 items) sits on the cut-off town ONLY, is set by a camp and ends the day the camp dies (four
+contract pages; no day count on the wiki); Safe Roads (+10/+10/+10) follows the player's patrol; the
+wiki itself says 9% and 10% for Safe Roads' sell. The record (the N3 2021, British Columbia 2021,
+Sarajevo, the Via al Llano 2019) adds the end the card leaves out: the supply end gluts (milk poured
+out by the million litres, cattle a quarter cheaper in two weeks) and prices fall fast when the road
+opens (coffee two thirds off in two weeks). PROVES US WRONG: price_table.json (this lane's) carries
+one number of three of each road card and situationMultiplier() has zero callers (Day 68's 'already
+carries this' corrected); bohemia_war.meetings() is BB's interception, loaded by no page; FACTIONS'
+two road crews land 7.3 and 18 km off their roads on WORLD's land. The trader who walks round the
+camp wins on every trip (a visible win, rule 117(c)). Candidates for TUNING, none picked: A the card
+whole and its cause, B both ends, C the ground decides. Routed: TUNING (rows, days, A/B/C), FACTIONS
+(meetings unwired, crews off their roads, nothing sends a crew to a road), WORLD (Railroad Pass is
+no squeeze on the land; 'made here' decides the supply end), RUN TWO (a ledger road trait), RUN (the
+detour readout from regionRoute plus a blocked set). Eight bank lines draft:true (section W, lines X).
+GATES (rule 13, by name): ECONOMY 13/0, ATTEMPT 15/0, LANGUAGE 85/0, DIALOGUE CATALOGUE 63/0, OPEN ROW
+9/0; BANKS-USED 24/2 and BANK LAW 2/1 were red on main before this diff (the house-skins debt row;
+the bank-law index refusing to shrink 105 to 103) and are not this lane's.
+NEXT OPEN (jump list, rule 74): [what a day costs, in one number] (the coordinator's rule 117 row,
+now the top), [the rumour], [the poverty premium], and [made here], written this round (what each of
+WORLD's 34 places makes: Battle Brothers' attached locations to goods, the real valley's output).
+PENDING Paolo: none new.
+
+ECONOMY (economy-vamily-knxaeh): 10/18 (p) -- [a week at the counter] SHIPPED, THE NEW AGE
 (rules 112 to 117: the coordinator opened this chat and reads this block as the report; no
 check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
 data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_72_A_WEEK_AT_THE_COUNTER_IS_42_AND_EVERY_PURSE_ON_MAIN_IS_HARDER_THAN_BATTLE_BROTHERS_10_18_26.md
