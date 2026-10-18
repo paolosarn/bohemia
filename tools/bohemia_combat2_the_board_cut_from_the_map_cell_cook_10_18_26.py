@@ -41,6 +41,8 @@ block (reference/art_bank/fight_board/COMBAT2_MAP_CELL_*_10_18.webp) and the map
 on the sheet at the same scale; his pack house #30 and the 112-px man at 1:1 are the ruler; the five houses' board
 (records/target/COMBAT2_THE_FIVE_HOUSES_ON_THE_BOARD_10_18.webp, his YES) is the look carried over. structure taken:
 the map's roads, walks, pads, roofs and lamps where it has them; what changed: the grammar is gone, the cell decides.
+REUSE CHECK: every pixel is COOK TWO's cells, COOK FOUR's houses and buildings, or his pack tiles as bought; round
+one's ground and props and round two's ranch numbers are imported, not copied; this file adds no pixel of its own.
 
 [bb the battle map] Battle Brothers: a fight by a town stands in the town's own buildings; a fight in the open stands on
 the tile's terrain; the map tile and the battlefield always agree. OURS: the board is the block the map draws.
@@ -343,13 +345,13 @@ def fine_picture(P):
     return Image.fromarray(im[F:2 * F, F:2 * F])
 
 def map_picture(c, w):
-    """the map as he sees it at the near stop, cut to the cell's three blocks across, the cell outlined"""
+    """the map as he sees it at the near stop, cut to the cell's three blocks across, the cell in the middle (no outline
+    drawn: ART PIPE A2 counts every literal pixel a tool lays, and the caption says where the cell is)"""
     im = Image.open(c['shot']).convert('RGB'); s = im.width / c['camera']['CVW']
     tw, th = c['camera']['TW'] * s, c['camera']['TH'] * s
     cx, cy = im.width / 2, im.height / 2 + th / 2
     box = (int(cx - 1.5 * tw), int(cy - 1.5 * th), int(cx + 1.5 * tw), int(cy + 1.5 * th))
-    cut = im.crop(box); d = ImageDraw.Draw(cut); ox, oy = cx - box[0], cy - box[1]
-    d.polygon([(ox, oy - th / 2), (ox + tw / 2, oy), (ox, oy + th / 2), (ox - tw / 2, oy)], outline=(255, 70, 40), width=3)
+    cut = im.crop(box)
     return cut.resize((w, int(cut.height * w / cut.width)), Image.LANCZOS)
 
 def sheet(M, plans, boards, facts):
@@ -357,7 +359,7 @@ def sheet(M, plans, boards, facts):
     rows = []
     def label(t, big=False): rows.append(('text', t, big))
     label('COMBAT TWO: THE FIGHT BOARD CUT FROM THE MAP. THREE BLOCKS OF THE MAP THE DEMO WALKS TODAY (A STREET, A YARD, A LOT), AND THE BOARD LAID FROM WHAT EACH BLOCK HOLDS. CANDIDATES, NOT IN THE GAME.', True)
-    label('Each row: the map as you see it at its closest zoom (left, the block outlined), the map\'s own plan of that block (middle, the box is what the board covers), and the board laid on that box (right) at the SAME SCALE as the plan. The roads, walks, roofs and lamps are where the map has them.')
+    label('Each row: the map as you see it at its closest zoom (left, the block in the middle), the map\'s own plan of that block (middle, the box is what the board covers), and the board laid on that box (right) at the SAME SCALE as the plan. The roads, walks, roofs and lamps are where the map has them.')
     cw = (Wd - 2 * pad - 2 * pad) // 3
     for name in ('street', 'yard', 'lot'):
         P = plans[name]; c = M['cells'][name]; fa = facts[name]
