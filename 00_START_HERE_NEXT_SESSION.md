@@ -1444,6 +1444,44 @@ COMBAT TWO (combat 2, Opus 5.5 chat opened by the coordinator, rule 112/116): 10
 COMBAT TWO (combat2-jn8t7itH): 10/16 (al) LATEST -- THE BIG SWING (rule 110, MODE line): [the houses on the board] ROUND ONE IN as a CANDIDATE (rule 100): three suburb fight boards, small 9x7 / middle 14x10 / large 20x15 house tiles, laid by tools/bohemia_combat2_three_boards_from_the_whole_bank_cook_10_16_26.py from COOK TWO's 1:1 recipe cells (the 47, the curb), COOK FOUR's straight-roof ranch (COOK4_THE_ROOF_MEASURED.png, 1:1, flipped only) and 158 pack keys from 16 of his packs; terrain, cover in metres and lights per board in reference/art_bank/fight_board/COMBAT2_THREE_BOARDS_10_16.json; the small board committed whole, the middle and large regenerate from the seed (.gitignore there). Sheet records/target/COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16.webp, VOTE combat2-three-boards-from-the-whole-bank-10-16, record records/BOHEMIA_COMBAT2_THREE_BOARDS_FROM_THE_WHOLE_BANK_10_16_26.md. I INTENDED to lay the kit under the house, MEASURED the kit at 2x/42.9 px per m against the house at 1:1/57, NOW the boards sit on the 1:1 cells (82 px = 1.44 m, 8 = the ranch's 11.5 m front = a Vegas roadway; a 656 x 648 square tile, the pack's camera, not the fight's 515 x 364 cos45 block). FINDINGS FOR THE COORDINATOR: his packs draw every prop in one 96-px box (a car and a cone the same size), so props stand at the integer scale nearest real size, never under 1x, cones/bins/hydrants left out; the never-judged '1. Ground Tiles' pebbles are 96x70 patches, not tiles (striped the yards, left out); the bank has no gravel-yard tile and no street light taller than a garden post. WEAK: one house kind (COOK FOUR's five had not landed), yards change colour at the lot line, 2x props on 1x ground, no back of a house exists so no house fronts a street's south side. NEXT: re-lay the round COOK FOUR's kinds land; DIRECTION's card on the 2x props. [PENDING Paolo]: none.
 COMBAT TWO (combat2-8ca291aa): 10/11 (ag) LATEST -- RULE 108 READ: my cook tools (tools/bohemia_combat2_*, every block drawn rectangle by rectangle) make no more candidates; this lane only LAYS kits the cooks generate against his packs. STILL BLOCKED: [the houses on the board] (COOK FOUR's fight-scale house kit; COOK FOUR is on [no roof tops]), [the boards from the packs] (COOK TWO's four-way piece, freeway and lot kits; COOK TWO is on [the corners] and [no borders], both waiting on his word). Nothing laid, nothing in VOTE this round, on purpose (STOP PRODUCING).
 COMBAT TWO (combat2-8ca291aa): 10/10 (af) LATEST -- RULES 100/101 READ: COMBAT TWO is an art lane; no writes to slices/ until his FINAL; everything shipped is a placeholder (files listed in records/BOHEMIA_PLACEHOLDERS.md). BLOCKED: [the houses on the board] waits on COOK FOUR's fight-scale house kit; [the boards from the packs] on COOK TWO's four-way piece and freeway/lot kits; [the warehouse inside] and [the future settlements] are new art / a placeholder edit, not this lane's under 100/101. DONE THIS ROUND: the study page records/BOHEMIA_COMBAT2_HOW_THE_PACK_LAYS_ITS_GROUND_10_10_26.md (pack ground 4,140 colours per 96 px, our cooked blocks 18-29, the casino 4, the kit ~2,000).
+EYES AND EARS (eyes-opus-10-18d): 10/18 (cn) LATEST -- *** [the star is the bar] SHIPPED 4573a45f: THE 13 FACES
+AFTER HIS FIRST STAR, READ BESIDE IT: 11 PASS, 2 BACK (TWO HATS), AND THE STAR'S MOODS ARE THE MOUTH ALONE. ***
+TAB: VOTE, the card "EVERY NEW FACE BESIDE YOUR STARRED POACHER" (each crew face beside the poacher at 1:1, eyes lined
+up, the numbers beside, and the company line at the crew screen's 64 px).
+
+Read off the render files, never a manifest's claim: eyes pinned on the pupils from where the lids move, head size as
+the eyes' spacing, the light under the eyes (no hat shades it), colours against the class floor, mouth shapes (closed
+counted once), the moods, the frame in the render and in the crew screen's own square. THE STAR: eyes 35 px apart, lit
+from 123 deg, 16,007 colours, 4 mouth shapes, pupils 29 and 28 levels darker than round them.
+ALL ONE SIZE AND ONE SUN: the thirteen read 34.5 to 35.4 px between the eyes (98 to 101 percent) and 109 to 148 deg.
+BACK: BEDROLL, one pupil not seen under the work cap's visor (3 levels) and its moods under the star's (69/122/605 px
+against 143/173/902); WIDEBRIM, the crew screen's square cuts 26 px of the cone. THE WINDOW IS THE CAUSE: PORTRAIT's
+hand-off square (1.25 x the head) would cut 15 px of the STARRED poacher's own brim too; rebuilt here it equals all 13
+hand-off files to 0 levels, so the cut is exactly what the screen shows.
+FINDING: the star's Angry/Sad/Surprised move its brows and lids 26/7/52 px; the crew's about 600/250/750. Taste on
+that is DIRECTION's.
+MY OWN MISTAKES, CAUGHT BY THE SELF-TEST BEFORE THE SHEET: a pupil finder alone took hairline notches on 6 of 15 heads;
+a brightness band in the skin mask let a face lit from the right pass; "0.6 of the star's colour density" sent back
+only the darkest skins (sRGB has fewer dark codes), so it is printed, not judged; 12 luminance levels merged the E
+mouth into rest on the darkest faces, so seen is CIELAB 5.
+CONTROLS (suite THE STAR IS THE BAR, --selftest 10/0): the light read 155.5 on the rig's sphere (DIRECTION 155.4);
+the crew screen's square rebuilt = the 13 hand-off files; the star passes itself; seven planted faces each sent back.
+ROUTED: PORTRAIT one bounce-back row [eyes: brims and visors] (the window and the visor; the faction round's hats meet
+the same window); DIRECTION finding 1; RUN TWO the crew screen shows the cut cone; COORDINATOR the tool is STANDING
+(python3 tools/bohemia_eyes_the_star_is_the_bar_10_18_26.py walks every rig portrait folder; the faction round had not
+landed, it reads with no change).
+PRE-PUSH: THE STAR IS THE BAR 10/0; VOTE TAB 41/1 (the red is DYNASTY's two cards with no place, mine fixed before
+push); THE BLIND PASS: my card PASS. Red on main before my diff and not mine: GATE REGISTRY 6/1, PAGES PUBLISH 16/2
+(825 MB against 260). Full suite unmeasured since 4573a45f.
+QA LEAD LINE (rule 113a): PORTRAIT's 13 crew faces measured against the star, VOTE tab, 11 PASS 2 BACK; nothing else
+measured this round.
+Record: records/BOHEMIA_EYES_THE_STAR_IS_THE_BAR_10_18_26.md.
+NEXT: the turned translation-count row (its two-line post-mortem first, rule 95), then [where the minutes go]; and
+this tool again the moment PORTRAIT's faction faces land.
+PENDING Paolo: none.
+[bb Battle Brothers' portraits are flat paintings with no moods; ours move, and the bar keeps every new face there.]
+[analog horror: eyes lost under a cap are the right kind of wrong only when somebody chose it; the bar makes it a choice.]
+
 EYES AND EARS (eyes-opus-10-18c): 10/18 (cm) LATEST -- *** [the Grok pages, stamped] SHIPPED: ALL 38 STAMPED, MUSIC
 FIRST; AND OUR SAND IS NOT THE SQUEEZE. ***
 TAB: VOTE, the card "WHERE THE SAND IS" (one song three ways over the map by day: as the game plays it, without the

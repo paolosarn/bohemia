@@ -10967,6 +10967,19 @@
     "scale": "half his phone's 3x"
    },
    "draft": true
+  },
+  {
+   "id": "eyes-the-star-is-the-bar-10-18",
+   "kind": "verdict",
+   "lane": "eyes and ears",
+   "sha": "4573a45f",
+   "made": "10/18",
+   "title": "EVERY NEW FACE BESIDE YOUR STARRED POACHER: 11 OF 13 MATCH IT, TWO HATS DO NOT",
+   "why": "The 13 faces on your crew screen, made after your first star, measured beside the poacher on eye size, light, colours, mouth shapes and moods: 11 match or beat it, the bedroll man's eyes vanish under his cap's visor, and the crew screen cuts the widebrim man's cone hat. You see it in the VOTE tab, each face beside the poacher, and the faces themselves on your crew screen in the game.",
+   "show": {
+    "how": "image",
+    "src": "vote/EYES_THE_STAR_IS_THE_BAR.webp"
+   }
   }
  ],
  "verdicts": [
