@@ -9209,6 +9209,13 @@ GATES = [
      'ECONOMY gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). VAMILY [the price table at ten to one], rule 74 top row. His ruling (GROK_31/32/33, locked 10/1): no crowns in the game; every wiki crown number is. green at registration, 0 s', False),
     ('ROSTER HURT', ['node', 'gates/roster_hurt_gate.js'],
      'RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Strike a man down in the real fight, read him on the roster: the fight (on auto, in a host frame) ends with BOHEMIA_FIGHT_OVER carrying down, laidUpDa. green at registration, 27 s', True),
+    ('EVERY SPEAKER HAS A FACE', ['node', 'gates/every_speaker_has_a_face_gate.js'],
+     "RUN TWO [every speaker has a face] (his 'why can't all our characters that are speaking to us have a portrait'; the "
+     "law A QUEST IS PEOPLE, PLACES AND THINGS; rule 115(h) a fresh portrait, never a crop). On his phone's profile with real "
+     "taps at a camp, a town and a fortress: every keeper, the elder and YOU speak under PORTRAIT's fresh portrait with the "
+     "mouth moving; every person in the picture who speaks has a face (a faction look on the painted 64 only while PORTRAIT's "
+     "manifest lacks its head, printed as WAITING ON PORTRAIT); no spoken line without a face; the arrival's elder; a keeper "
+     "before the street loads never wears the dim head", True),
     ('THE BOARD\'S QUESTS ARE PEOPLE', ['node', 'gates/the_boards_quests_are_people_gate.js'],
      "RUN TWO [the board's quests are people] (his 10/17 'no more cards with quests, make an actual quest'; QUESTS research "
      "only, rule 35, read never asked). The shelf is the bake of QUESTS' act-one contract designs, byte for byte: every row "

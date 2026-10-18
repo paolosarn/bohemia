@@ -1,0 +1,112 @@
+/* EVERY SPEAKER HAS A FACE (RUN TWO [every speaker has a face], 10/18/26).
+   His notes: on the bar 'can these people start getting portraits when you click and talk to them'; on the clinic 'why
+   can't all our characters that are speaking to us have a portrait'; the law A QUEST IS PEOPLE, PLACES AND THINGS: text
+   comes from a mouth with a portrait. Rule 115(h) amended: the face is PORTRAIT's FRESH portrait, never a crop.
+   On his phone's profile with real taps, at a camp, a town and a fortress:
+     - every building's keeper (and YOU at the lot and the build) speaks under a fresh portrait whose mouth moves while
+       the line shows; the arrival's elder too
+     - every person in the picture, tapped, speaks under a face: fresh for a look PORTRAIT has made; a FACTION look
+       (the thirteen faction_* the street wears) shows the old painted 64 portrait until PORTRAIT makes its head, counted
+       and named as WAITING ON PORTRAIT, never a blank or the dim head
+     - a keeper tapped before the street's people load still speaks under a fresh face (never the dim head)
+     - no '.say' line on the screen without a canvas face beside it, anywhere it was opened
+   CONTROL: the classifier calls a dim head and a missing face red.
+   Run: node gates/every_speaker_has_a_face_gate.js */
+'use strict';
+const fs = require('fs'), path = require('path'), http = require('http');
+const ROOT = path.dirname(__dirname), PORT = 8878;
+const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp' };
+let pass = 0, fail = 0;
+const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + x + ']' : '')); };
+let blockFolk = false;
+const srv = http.createServer((rq, rs) => {
+  const u = decodeURIComponent(rq.url.split('?')[0]);
+  if (blockFolk && /settlement_people\.json$/.test(u)) { rs.statusCode = 404; return rs.end(); }
+  const f = path.join(ROOT, u.replace(/^\/+/, ''));
+  if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { rs.statusCode = 404; return rs.end(); }
+  rs.setHeader('content-type', TYPE[path.extname(f)] || 'application/octet-stream'); fs.createReadStream(f).pipe(rs);
+});
+/* what the open sheet shows: every '.say' and the face beside it, and the fresh ones' mouths over a second and a half */
+const READ = () => new Promise(res => {
+  const whos = [].slice.call(document.querySelectorAll('#sheet.on .who, #arrive .who'));
+  const says = document.querySelectorAll('#sheet.on .say, #arrive .say').length;
+  const rows = whos.map(w => { const c = w.querySelector('canvas.face'); return { nm: (w.querySelector('.nm') || {}).textContent || '', k: c ? c.dataset.face : 'NOFACE', look: c ? c.dataset.look || '' : '', has: !!(c && window.BohemiaCrewFaces && BohemiaCrewFaces.has(c.dataset.look)), c }; });
+  const seen = rows.map(() => new Set()), t0 = performance.now();
+  const iv = setInterval(() => { rows.forEach((r, i) => { if (r.c && r.c.dataset.mouth) seen[i].add(r.c.dataset.mouth); });
+    if (performance.now() - t0 > 1500) { clearInterval(iv); res({ says, rows: rows.map((r, i) => ({ nm: r.nm, k: r.k, look: r.look, has: r.has, mouths: [...seen[i]].filter(m => m !== 'rest').length })) }); } }, 40);
+});
+const isBad = r => r.k === 'NOFACE' || r.k === 'none' || r.k === undefined;
+const moved = r => r.k !== 'fresh' || r.mouths >= 2;
+
+(async () => {
+  ok('CONTROL: the classifier calls a dim head and a missing face red, a talking fresh face green',
+     isBad({ k: 'none' }) && isBad({ k: 'NOFACE' }) && !isBad({ k: 'fresh' }) && !moved({ k: 'fresh', mouths: 0 }) && moved({ k: 'fresh', mouths: 3 }));
+  await new Promise(r => srv.listen(PORT, '127.0.0.1', r));
+  const { chromium } = require('playwright');
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 3, isMobile: true, hasTouch: true });
+  const errs = [];
+  const p = await ctx.newPage(); p.on('pageerror', e => errs.push(e.message));
+  await p.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+  await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready() && BohemiaSettlement.folk().length > 0, null, { timeout: 30000 });
+  await p.waitForTimeout(500);
+  const close = async () => { if (await p.evaluate(() => document.getElementById('sheet').classList.contains('on'))) { await p.click('#close'); await p.waitForTimeout(220); } };
+  const waiting = new Set(); let keepers = 0, keepBad = [], crowd = 0, crowdBad = [], fresh = 0, still = [], says = 0, sayNoFace = 0;
+  for (const tier of ['camp', 'town', 'fortress']) {
+    await p.evaluate(t => BohemiaSettlement.open({ place: { name: 'FACES ' + t.toUpperCase(), tier: t }, traits: [], day: 4 }), tier);
+    await p.waitForTimeout(400);
+    for (const k of await p.evaluate(() => BohemiaSettlement.order())) {
+      await close();
+      const xy = await p.evaluate(k => BohemiaSettlement.where(k), k); if (!xy) continue;
+      await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(150);
+      const r = await p.evaluate(READ);
+      says += r.says; sayNoFace += Math.max(0, r.says - r.rows.filter(x => !isBad(x)).length);
+      r.rows.forEach(x => { keepers++; if (isBad(x) || x.k !== 'fresh') keepBad.push(tier + ':' + k + ':' + x.k); if (x.k === 'fresh') { fresh++; if (!moved(x)) still.push(tier + ':' + k); } });
+    }
+    const n = await p.evaluate(() => BohemiaSettlement.folk().length);
+    for (let i = 0; i < n; i++) {
+      await close();
+      const pt = await p.evaluate(i => { const q = BohemiaSettlement.folk()[i], s0 = BohemiaSettlement.scale(); BohemiaSettlement.where(q.keeper ? q.k : 'stall');
+        const v = BohemiaSettlement._view(), r = document.getElementById('scene').getBoundingClientRect();
+        return { x: r.left + v.ox + q.x * v.s, y: r.top + v.oy + (q.y - s0.person * 0.45) * v.s, keeper: !!q.keeper, look: q.look }; }, i);
+      if (pt.keeper) continue;
+      await p.waitForTimeout(120); await p.mouse.click(pt.x, pt.y); await p.waitForTimeout(150);
+      if (await p.evaluate(() => BohemiaSettlement.state.open !== 'person')) continue;
+      const r = await p.evaluate(READ);
+      says += r.says; sayNoFace += Math.max(0, r.says - r.rows.filter(x => !isBad(x)).length);
+      r.rows.forEach(x => { crowd++;
+        if (x.k === 'fresh') { fresh++; if (!moved(x)) still.push(tier + ':crowd:' + x.look); }
+        else if (x.k === 'sheet' && /^faction_/.test(x.look) && !x.has) waiting.add(x.look);   /* once PORTRAIT's manifest names it, only fresh passes */
+        else crowdBad.push(tier + ':crowd:' + x.look + ':' + x.k); });
+    }
+  }
+  ok('every keeper, the elder and YOU speak under a FRESH portrait at a camp, a town and a fortress', keepers >= 20 && keepBad.length === 0, keepers + ' speakers' + (keepBad.length ? ', red ' + keepBad.slice(0, 4).join(' ') : ''));
+  ok('  and every fresh face\'s mouth moves while the line shows (two of PORTRAIT\'s mouths at least)', fresh > 0 && still.length === 0, fresh + ' fresh' + (still.length ? ', still ' + still.slice(0, 4).join(' ') : ''));
+  ok('every person in the picture who speaks has a face: fresh, or the painted portrait while PORTRAIT makes the faction head', crowd >= 3 && crowdBad.length === 0, crowd + ' street speakers' + (crowdBad.length ? ', red ' + crowdBad.slice(0, 3).join(' ') : ''));
+  console.log('    [waiting on PORTRAIT] faction looks still on the painted 64 when they speak: ' + (waiting.size ? [...waiting].sort().join(', ') : 'none'));
+  ok('no spoken line on the screen without a face beside it', says > 0 && sayNoFace === 0, says + ' lines, ' + sayNoFace + ' without a face');
+
+  /* the arrival's elder */
+  await close();
+  await p.evaluate(() => BohemiaSettlement.open({ place: { name: 'A NEW PLACE', tier: 'town' }, traits: [], day: 4, arrival: true }));
+  await p.waitForFunction(() => !!document.querySelector('#arrive .who'), null, { timeout: 8000 }).catch(() => {});
+  const ar = await p.evaluate(READ);
+  ok('the arrival\'s elder speaks under a fresh face, the mouth moving', ar.rows.length === 1 && ar.rows[0].k === 'fresh' && moved(ar.rows[0]), JSON.stringify(ar.rows));
+
+  /* a keeper before the street's people are in */
+  blockFolk = true;
+  const q = await ctx.newPage(); q.on('pageerror', e => errs.push(e.message));
+  await q.goto('http://127.0.0.1:' + PORT + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+  await q.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+  await q.waitForTimeout(500);
+  await q.evaluate(() => BohemiaSettlement.open({ place: { name: 'THE WASH, NORTH LAS VEGAS', tier: 'town' }, traits: [], day: 4 }));
+  await q.waitForTimeout(300);
+  const xy = await q.evaluate(() => BohemiaSettlement.where('bar')); await q.mouse.click(xy.x, xy.y); await q.waitForTimeout(150);
+  const early = await q.evaluate(READ);
+  ok('a keeper tapped before the street\'s people load still speaks under a fresh face, never the dim head', early.rows.length >= 1 && early.rows.every(x => x.k === 'fresh' && moved(x)), JSON.stringify(early.rows));
+  blockFolk = false;
+  ok('no page errors', errs.length === 0, errs.slice(0, 2).join(' | '));
+  await b.close(); srv.close();
+  console.log('\nEVERY SPEAKER HAS A FACE: ' + pass + ' passed, ' + fail + ' failed');
+  process.exit(fail ? 1 : 0);
+})().catch(e => { console.error(e); process.exit(1); });

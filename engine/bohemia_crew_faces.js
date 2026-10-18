@@ -7,7 +7,9 @@
    A crop or zoom of a body sprite or a body render is never a portrait, not even as a stopgap: the old bank that did
    that (slices/rig_faces/, a rig body's head cut out and scaled x4) is gone, and gates/no_face_from_a_body_gate.js
    fails any screen that draws one again.
-     BohemiaCrewFaces.has(look)                 PORTRAIT has made this look's fresh portrait
+     BohemiaCrewFaces.has(look)                 PORTRAIT has made this look's fresh portrait (the thirteen below, and any look
+                                                PORTRAIT adds to its manifest BOHEMIA_CREW_FACES.json: read at load, no code to change)
+     BohemiaCrewFaces.ready(cb)                 cb() once the manifest is read (or failed); the thirteen work before it
      BohemiaCrewFaces.src(look, key, size)      the file, or null
      BohemiaCrewFaces.draw(ctx, look, size, onMiss)   the resting face into ctx at size x size; onMiss() if it fails
      BohemiaCrewFaces.talk(canvas, look, line)  the mouth says the line, one syllable a half beat (120 BPM), then rests
@@ -18,7 +20,19 @@
     'cast_apron', 'cast_poncho', 'cast_bedroll', 'cast_shorts', 'cast_satchel', 'cast_shortcoat'];
   var BASE = '../records/target/portrait/crew/';   /* the screens live in slices/; Pages publishes records/target */
   var SIZE = 128, SOUND_MS = 250;                   /* half a beat at 120 BPM, the alpha's VISEME_MS */
+  var READ = false, WAIT = [];
   function has(look) { return LOOKS.indexOf(look) >= 0; }
+  /* RUN TWO [every speaker has a face], 10/18: a look PORTRAIT adds to its manifest wears its face the moment the file
+     says so (the faction looks the street wears are next on PORTRAIT's board) */
+  function ready(cb) { if (READ) { if (cb) cb(); } else if (cb) WAIT.push(cb); }
+  function read() {
+    var done = function () { READ = true; var w = WAIT; WAIT = []; w.forEach(function (f) { try { f(); } catch (e) {} }); };
+    if (typeof fetch === 'undefined') return done();
+    fetch((root.BOHEMIA_CREW_FACES_BASE || BASE) + 'BOHEMIA_CREW_FACES.json').then(function (r) { return r.json(); }).then(function (j) {
+      Object.keys((j && j.faces) || {}).forEach(function (l) { var f = j.faces[l].files || {}; if (f.rest && f.A && f.E && f.O && f.M && LOOKS.indexOf(l) < 0) LOOKS.push(l); });
+      done();
+    }).catch(done);
+  }
   function src(look, key, size) {
     if (!has(look)) return null;
     return (root.BOHEMIA_CREW_FACES_BASE || BASE) + look + '/' + (key || 'rest') + '_' + ((size || SIZE) > 64 ? 128 : 64) + '.png';
@@ -73,5 +87,6 @@
     }, SOUND_MS);
     return true;
   }
-  root.BohemiaCrewFaces = { LOOKS: LOOKS, SIZE: SIZE, SOUND_MS: SOUND_MS, has: has, src: src, draw: draw, talk: talk, sounds: sounds };
+  root.BohemiaCrewFaces = { LOOKS: LOOKS, SIZE: SIZE, SOUND_MS: SOUND_MS, has: has, ready: ready, src: src, draw: draw, talk: talk, sounds: sounds };
+  read();
 })(typeof window !== 'undefined' ? window : this);

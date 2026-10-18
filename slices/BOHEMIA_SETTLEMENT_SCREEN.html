@@ -1007,6 +1007,14 @@ function crewFace(c, look){
   c.width = c.height = F.SIZE; c.dataset.face = 'fresh'; c.dataset.look = look;
   return F.draw(c.getContext('2d'), look, F.SIZE, function(){ c.dataset.face = 'sheet'; c.width = c.height = 64; flatFace(c.getContext('2d'), look); });
 }
+/* RUN TWO [every speaker has a face], 10/18 (his 'why can't all our characters that are speaking to us have a portrait'):
+   a keeper tapped before the street's people are in (lookOf has nobody yet) still speaks under a fresh face, one of the
+   cast looks by the place and who he is, never the dim head */
+function stand(who){
+  var F = window.BohemiaCrewFaces; if(!F || !who) return null;
+  var cast = F.LOOKS.filter(function(l){ return /^cast_/.test(l); });
+  return cast.length ? cast[seedOf(String(S.place.name) + ':' + who) % cast.length] : null;
+}
 /* and when he speaks, the mouth says the line on the beat */
 function mouth(c, line){ if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line); return c; }
 function flatFace(x, look){
@@ -1019,10 +1027,10 @@ function face(k, who, look){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
   var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null);
+  look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null) || stand(kp.who);
   if(look && crewFace(c, look)) post('needFace',{who:kp.who, look:look});   /* PORTRAIT's fresh portrait first: a handed face is the old one (RUN TWO 10/18, rule 115h amended) */
   else if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
-  else if(look){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
+  else if(look){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; c.dataset.look = look; }
   else {
     /* no face handed over yet: ask the game for it (the same road the city uses) and
        hold a dim head shape meanwhile, never a blank box */
