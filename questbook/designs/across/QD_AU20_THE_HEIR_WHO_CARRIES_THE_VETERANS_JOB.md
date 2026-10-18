@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names, lines and num
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QD-AU04, AU07, AU09, AU10 (any of their D roads lands here).
 DOOR: camp
+BUDGET: ASK (QR-AX), once in the heir's life: the job is carried, the veteran's scene is never re-served (`Q144.X1`). Earliest: the heir's 20th night in the company in the act that carries the job; counted against that act's member asks (one per five in the company, rounded up) and the company's half of the screens; at least 15 nights after the last ASK. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 12, 33; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION

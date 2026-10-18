@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names, lines and num
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QD-Q01 THE RACKS THAT STILL HUM (the same dying hall, a different floor).
 DOOR: camp, then hall
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 3 (and QR-AU rules 1 and 4); every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION

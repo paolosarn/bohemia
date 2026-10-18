@@ -7,6 +7,7 @@ ECONOMY: bust
 PLACE: a map camp under a collapsed freeway overpass on the dirt road south of the valley, the night after a won fight.
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp (a quarrel the player walks into)
+BUDGET: QUARREL (QR-AX). Fires only while its ledger cause is true (QR-M rule 6). At most one QUARREL in 30 nights; never within two nights of a death named; counts against the company's half of the screens. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 
 A COMPANY QUARREL, shaped as a road EVENT SCREEN. It is CAUSED by the ledger (a won fight with a battery find), never rolled from nothing (`Q044.W2`). Names are placeholders.
 

@@ -7,6 +7,7 @@ ECONOMY: boom
 PLACE: the first map camp after a fight in which a gambit-driven company member overrode his own gambit; act 3, the healing city's outskirts, a camp in a reclaimed solar field.
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp (a reckoning after the override)
+BUDGET: CAUSED (QR-AX). Fires at the first fire after its cause, whatever the pace, and takes that night; the next screen waits two nights and is a kind one (`Q044.W7`). Not counted against the company's half of the screens; never skipped. TUNING owns the numbers.
 
 HOW AN AUTOMATED COMPANION EARNS A PERSONALITY, shaped as a camp EVENT SCREEN. The fight runs on gambits (COMBAT [gambits], Final Fantasy XII, combat only). Names are placeholders.
 

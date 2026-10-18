@@ -295,7 +295,8 @@ pass, and the gate leg in section 8 makes it checkable.
    is an abstract, and a quarrel at night is ordinary life too.
 4. The other 213 designs have no DOOR line yet; a later mechanical pass, after PLUMBER's leg exists to hold it.
 5. How many camp scenes a long game holds: the next row, [how many fires], now with the ten ambition tellings in the
-   count.
+   count. (ANSWERED 10/18 by QR-AX: about 220 screens in 100 hours, at most about 110 the company's; an ambition
+   telling is a TELLING in that half, once per ambition opened, never the night after a member's ASK.)
 
 ---
 

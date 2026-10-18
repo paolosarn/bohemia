@@ -7,6 +7,7 @@ ECONOMY: boom
 PLACE: a solar co-op settlement on the east bench (the hall is the co-op office in a former credit union); the job is eleven roofs in a subdivision one map stop west, one roof cluster at a time (a fight board cut from each cluster if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: hall, then camp (the stranger offers; Coco speaks at the first fire after the yes)
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 
 A COMPANY MEMBER REACTING TO A TAKEN CONTRACT. The reaction exists only after the yes (QR-M rule 3). Names are placeholders.
 

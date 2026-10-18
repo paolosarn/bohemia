@@ -7,6 +7,7 @@ ECONOMY: bust
 PLACE: a camp on the map one stop south of a dead hospital on the north side of the valley; the detour's place is the hospital's third floor (a ward, a nurses' station, a stairwell; the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp
+BUDGET: ASK (QR-AX). Once in the member's life, spent for the game when it fires. Earliest: the member's 20th night in the company; likelier the longer they ride (the weight doubles by the 60th night). Counts against the act's member asks (one per five in the company, rounded up: three for twelve) and the company's half of the screens; at least 15 nights after the last ASK, two quiet nights after any screen. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AW 10/18: line 33 run, the first time on this shelf: failed as written (the first line was the place and the thing, no story; the second line, "Una noche. That's all.", put the price in time in her mouth; her badge was never on the ground); fixed in place below. The 32 lines were not re-run this round.)
 
 A COMPANY MEMBER'S OWN ASK, shaped as a camp EVENT SCREEN (the 9/28 ruling). Names are placeholders, Paolo's to change.

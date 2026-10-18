@@ -7,6 +7,7 @@ PLACE: the rail and truck depot (settlement screen: the hall is the dispatch win
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: SIXTEEN AND A SERGEANT (QR-Z no. 2: sixteen in the company, one with the rally skill)
 DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+BUDGET: TELLING, AMBITION (QR-AX). Once per ambition opened, only while it is open; never the night after a member's ASK. Counts against the company's half of the screens; two quiet nights after it. Ambition closed or the job gone: the telling is gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (bends line 8 on purpose: two map days out, but one stop and one board; the return is a road event, not a second leg) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION

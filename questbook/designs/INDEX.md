@@ -116,7 +116,7 @@
 - [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 14 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
-- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 13 ids
+- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 14 ids
 - [QD-O08 THE BARBER'S CHAIR ON THE STRIP](act1/QD_O08_THE_BARBERS_CHAIR_ON_THE_STRIP.md)  contract | the Destroyers | bust | 6 ids
 - [QD-Q15 THE RIDGE BEFORE IT WAS THE MENU](act1/QD_Q15_THE_RIDGE_BEFORE_IT_WAS_THE_MENU.md)  main-beat | none | bust | 7 ids
 - [QD-R01 THE FARM TOWER HOLDS ONE NIGHT](act1/QD_R01_THE_FARM_TOWER_HOLDS_ONE_NIGHT.md)  contract | the Destroyers | bust | 9 ids
@@ -195,7 +195,7 @@
 - [QD-L06 THREE NIGHTS ON THE LINE](act2/QD_L06_THREE_NIGHTS_ON_THE_LINE.md)  contract | none | bust | 9 ids
 - [QD-L07 THE TOOLBOX](act2/QD_L07_THE_TOOLBOX.md)  contract | none | boom | 9 ids
 - [QD-M02 THE TOOL ROLL IN HOCK](act2/QD_M02_THE_TOOL_ROLL_IN_HOCK.md)  contract | none | boom | 16 ids
-- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 14 ids
+- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 15 ids
 - [QD-M05 THE REPO TRUCK ESCORT](act2/QD_M05_THE_REPO_TRUCK_ESCORT.md)  contract | none | boom | 14 ids
 - [QD-O05 THE ONE OFFER AT THE WASH](act2/QD_O05_THE_ONE_OFFER_AT_THE_WASH.md)  contract | the whisper broadcast | bust | 6 ids
 - [QD-Q16 THE COUNT IN THE TUNNEL](act2/QD_Q16_THE_COUNT_IN_THE_TUNNEL.md)  main-beat | the whisper broadcast | either | 8 ids
@@ -263,7 +263,7 @@
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
 - [QD-L09 THE GLASS FOR THE YARD](act3/QD_L09_THE_GLASS_FOR_THE_YARD.md)  contract | the rocket | bust | 9 ids
 - [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
-- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
+- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 14 ids
 - [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-O02 THE SEED ON FLOOR SIX](act3/QD_O02_THE_SEED_ON_FLOOR_SIX.md)  contract | none | bust | 6 ids
 - [QD-O04 THE PATIENT IN BED ELEVEN](act3/QD_O04_THE_PATIENT_IN_BED_ELEVEN.md)  contract | the Network crumbling | either | 6 ids
@@ -527,7 +527,7 @@
 - [QD-K10 THE MOVIE ON THE CASINO WALL](act1/QD_K10_THE_MOVIE_ON_THE_CASINO_WALL.md)  event | none | bust | 9 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 14 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
-- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 13 ids
+- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 14 ids
 - [QD-R03 THE COOKS WITH TOO MANY POTS](act1/QD_R03_THE_COOKS_WITH_TOO_MANY_POTS.md)  event | the Destroyers | bust | 9 ids
 - [QD-T17 THE NIGHT NOBODY REMEMBERS](act1/QD_T17_THE_NIGHT_NOBODY_REMEMBERS.md)  event | none | bust | 9 ids
 - [QD-AA19 THE SKY WENT DARK FOR ELEVEN MINUTES](act2/QD_AA19_THE_SKY_WENT_DARK_FOR_ELEVEN_MINUTES.md)  event | none | either | 8 ids
@@ -541,7 +541,7 @@
 - [QD-K04 THE MAN WHO CAN'T WALK FOR A MONTH](act2/QD_K04_THE_MAN_WHO_CANT_WALK_FOR_A_MONTH.md)  event | none | bust | 11 ids
 - [QD-K08 THE MAN UNDER THE OVERPASS](act2/QD_K08_THE_MAN_UNDER_THE_OVERPASS.md)  event | none | bust | 8 ids
 - [QD-K09 THE SON WITH THE RECEIPT](act2/QD_K09_THE_SON_WITH_THE_RECEIPT.md)  event | none | boom | 12 ids
-- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 14 ids
+- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 15 ids
 - [QD-R04 THE ONE LAMP AT THE CO-OP](act2/QD_R04_THE_ONE_LAMP_AT_THE_COOP.md)  event | none | bust | 9 ids
 - [QD-T09 THE WIDOW WITH THE WAGE CHIT](act2/QD_T09_THE_WIDOW_WITH_THE_WAGE_CHIT.md)  event | none | either | 11 ids
 - [QD-B07 THE MAN SELLING THE ROCKET](act3/QD_B07_THE_MAN_SELLING_THE_ROCKET.md)  event | the rocket | boom | 11 ids
@@ -551,7 +551,7 @@
 - [QD-K03 THE TYRE MARKS INTO THE DRY WASH](act3/QD_K03_THE_TYRE_MARKS_INTO_THE_DRY_WASH.md)  event | the rocket | boom | 10 ids
 - [QD-K06 THE NIGHT SCHOOL ON THE SOLAR ROAD](act3/QD_K06_THE_NIGHT_SCHOOL_ON_THE_SOLAR_ROAD.md)  event | the rocket | boom | 8 ids
 - [QD-K07 THE ONES COMING BACK](act3/QD_K07_THE_ONES_COMING_BACK.md)  event | the Network crumbling | boom | 8 ids
-- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
+- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 14 ids
 - [QD-Q03 THE BOY IN HIS GRANDFATHER'S MASK](act3/QD_Q03_THE_BOY_IN_HIS_GRANDFATHERS_MASK.md)  event | none | boom | 7 ids
 - [QD-Q06 THE GLASS CASE WITH YOUR NAME](act3/QD_Q06_THE_GLASS_CASE_WITH_YOUR_NAME.md)  event | none | boom | 7 ids
 - [QD-T16 THE CHAMPION WITH NOTHING LEFT](act3/QD_T16_THE_CHAMPION_WITH_NOTHING_LEFT.md)  event | none | boom | 9 ids
@@ -645,7 +645,7 @@
 - [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 14 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
-- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 13 ids
+- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 14 ids
 - [QD-Q15 THE RIDGE BEFORE IT WAS THE MENU](act1/QD_Q15_THE_RIDGE_BEFORE_IT_WAS_THE_MENU.md)  main-beat | none | bust | 7 ids
 - [QD-S01 THE TRASH RACK](act1/QD_S01_THE_TRASH_RACK.md)  contract | none | bust | 7 ids
 - [QD-S03 THE WATER FOR THE RACKS](act1/QD_S03_THE_WATER_FOR_THE_RACKS.md)  contract | none | bust | 8 ids
@@ -705,7 +705,7 @@
 - [QD-L06 THREE NIGHTS ON THE LINE](act2/QD_L06_THREE_NIGHTS_ON_THE_LINE.md)  contract | none | bust | 9 ids
 - [QD-L07 THE TOOLBOX](act2/QD_L07_THE_TOOLBOX.md)  contract | none | boom | 9 ids
 - [QD-M02 THE TOOL ROLL IN HOCK](act2/QD_M02_THE_TOOL_ROLL_IN_HOCK.md)  contract | none | boom | 16 ids
-- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 14 ids
+- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 15 ids
 - [QD-M05 THE REPO TRUCK ESCORT](act2/QD_M05_THE_REPO_TRUCK_ESCORT.md)  contract | none | boom | 14 ids
 - [QD-R02 THE ROOF THEY WANT](act2/QD_R02_THE_ROOF_THEY_WANT.md)  contract | none | boom | 9 ids
 - [QD-R04 THE ONE LAMP AT THE CO-OP](act2/QD_R04_THE_ONE_LAMP_AT_THE_COOP.md)  event | none | bust | 9 ids
@@ -814,7 +814,7 @@
 - [QD-J11 THE HOARD COMES OUT](act3/QD_J11_THE_HOARD_COMES_OUT.md)  contract | the Network crumbling | boom | 10 ids
 - [QD-J12 THE HUSBAND WHO STOPPED TALKING](act3/QD_J12_THE_HUSBAND_WHO_STOPPED_TALKING.md)  event | the Network crumbling | either | 9 ids
 - [QD-K07 THE ONES COMING BACK](act3/QD_K07_THE_ONES_COMING_BACK.md)  event | the Network crumbling | boom | 8 ids
-- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
+- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 14 ids
 - [QD-O04 THE PATIENT IN BED ELEVEN](act3/QD_O04_THE_PATIENT_IN_BED_ELEVEN.md)  contract | the Network crumbling | either | 6 ids
 - [QD-O07 THE DRIVES THAT ARE STILL WARM](act3/QD_O07_THE_DRIVES_THAT_ARE_STILL_WARM.md)  contract | the Network crumbling | boom | 6 ids
 - [QD-Q01 THE RACKS THAT STILL HUM](act3/QD_Q01_THE_RACKS_THAT_STILL_HUM.md)  contract | the Network crumbling | boom | 9 ids
@@ -944,7 +944,7 @@
 - [QD-K07 THE ONES COMING BACK](act3/QD_K07_THE_ONES_COMING_BACK.md)  event | the Network crumbling | boom | 8 ids
 - [QD-L08 THE WOMAN ON THE DAWN TRAM](act3/QD_L08_THE_WOMAN_ON_THE_DAWN_TRAM.md)  contract | none | boom | 9 ids
 - [QD-L10 THE COPPER CARS](act3/QD_L10_THE_COPPER_CARS.md)  contract | none | boom | 12 ids
-- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 13 ids
+- [QD-M08 THE ONE TIME HE BROKE ORDERS](act3/QD_M08_THE_ONE_TIME_HE_BROKE_ORDERS.md)  event | the Network crumbling | boom | 14 ids
 - [QD-O01 THE TURBINE HALL NIGHT ROSTER](act3/QD_O01_THE_TURBINE_HALL_NIGHT_ROSTER.md)  contract | the rocket | boom | 9 ids
 - [QD-O07 THE DRIVES THAT ARE STILL WARM](act3/QD_O07_THE_DRIVES_THAT_ARE_STILL_WARM.md)  contract | the Network crumbling | boom | 6 ids
 - [QD-Q01 THE RACKS THAT STILL HUM](act3/QD_Q01_THE_RACKS_THAT_STILL_HUM.md)  contract | the Network crumbling | boom | 9 ids
@@ -1027,7 +1027,7 @@
 - [QD-L03 THE TANK YARD DOGS](act1/QD_L03_THE_TANK_YARD_DOGS.md)  contract | none | bust | 11 ids
 - [QD-M01 THE NAME ON THE WARD BOARD](act1/QD_M01_THE_NAME_ON_THE_WARD_BOARD.md)  event | none | bust | 14 ids
 - [QD-M03 THE SPLIT UNDER THE OVERPASS](act1/QD_M03_THE_SPLIT_UNDER_THE_OVERPASS.md)  event | none | bust | 13 ids
-- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 13 ids
+- [QD-M07 THE MONTH IN THE BACK OF THE TRUCK](act1/QD_M07_THE_MONTH_IN_THE_BACK_OF_THE_TRUCK.md)  event | none | bust | 14 ids
 - [QD-O08 THE BARBER'S CHAIR ON THE STRIP](act1/QD_O08_THE_BARBERS_CHAIR_ON_THE_STRIP.md)  contract | the Destroyers | bust | 6 ids
 - [QD-Q15 THE RIDGE BEFORE IT WAS THE MENU](act1/QD_Q15_THE_RIDGE_BEFORE_IT_WAS_THE_MENU.md)  main-beat | none | bust | 7 ids
 - [QD-R01 THE FARM TOWER HOLDS ONE NIGHT](act1/QD_R01_THE_FARM_TOWER_HOLDS_ONE_NIGHT.md)  contract | the Destroyers | bust | 9 ids
@@ -1121,7 +1121,7 @@
 - [QD-H04 WHO CARRIES IT](act2/QD_H04_WHO_CARRIES_IT.md)  main-beat | the whisper broadcast, and the earth-side nuke behind it | either | 13 ids
 - [QD-I08 THE VOICE AT THREE](act2/QD_I08_THE_VOICE_AT_THREE.md)  main-beat | the whisper broadcast (the build-up) | either | 9 ids
 - [QD-J03 THE WAR THAT PAYS TOO WELL](act2/QD_J03_THE_WAR_THAT_PAYS_TOO_WELL.md)  contract | the earth-side nuke | either | 10 ids
-- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 14 ids
+- [QD-M04 THE BEDROLL NOBODY ROLLS UP](act2/QD_M04_THE_BEDROLL_NOBODY_ROLLS_UP.md)  event | none (fires in any crisis) | either | 15 ids
 - [QD-Q16 THE COUNT IN THE TUNNEL](act2/QD_Q16_THE_COUNT_IN_THE_TUNNEL.md)  main-beat | the whisper broadcast | either | 8 ids
 - [QD-Q17 THE FIRST MORNING WITHOUT THE REACH](act2/QD_Q17_THE_FIRST_MORNING_WITHOUT_THE_REACH.md)  main-beat | the Network crumbling (its first morning) | either | 7 ids
 - [QD-S19 THE PRIEST WHO WANTED TO GO HOME](act2/QD_S19_THE_PRIEST_WHO_WANTED_TO_GO_HOME.md)  contract | none | either | 6 ids

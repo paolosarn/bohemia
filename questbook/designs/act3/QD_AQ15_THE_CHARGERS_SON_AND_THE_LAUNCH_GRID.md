@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ14 WHO CARRIES THE BAG UP (both feed the same launch).
 DOOR: camp
+BUDGET: ASK (QR-AX). Once in the member's life, spent for the game when it fires. Earliest: the member's 20th night in the company; likelier the longer they ride (the weight doubles by the 60th night). Counts against the act's member asks (one per five in the company, rounded up: three for twelve) and the company's half of the screens; at least 15 nights after the last ASK, two quiet nights after any screen. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION

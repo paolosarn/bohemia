@@ -304,6 +304,8 @@ QD-AP and others) or another AQ design. The phone board shows the pair as two pi
 
 - How often should a follower's job appear? The library's companion quests are one per companion per game; ours span
   three acts and up to 24 followers. Draft: at most one follower job on the board at a time; TUNING sets the rate.
+  (ANSWERED 10/18 by QR-AX: once in a follower's life, from the 20th night in the company, at most one per five in the
+  company per act, 15 nights between two asks, and the shelf's twenty each carry a BUDGET line.)
 - Whether a fighter (a company member who fights) should get the same treatment as a follower. Battle Brothers men are
   disposable by design [R]; giving every fighter a job would fight that. Draft: only veterans (about 20 fights) and
   followers get personal jobs.

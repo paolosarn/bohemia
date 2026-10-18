@@ -6,6 +6,7 @@ ECONOMY: either
 PLACE: night camp under a highway overpass, on the map between two faction towns
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp (a quarrel the player walks into)
+BUDGET: QUARREL (QR-AX). Fires only while its ledger cause is true (QR-M rule 6). At most one QUARREL in 30 nights; never within two nights of a death named; counts against the company's half of the screens. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (amended 10/9, QR-AK: QR-G line 21 now exempts an event's or main beat's ONE stated temptation with its number on the button, so the old bend on 21 is a pass) (QR-AC line-by-line run, 10/1; lines 3, 9 and 12 read as not applicable to a road event; 11 is the free KEEP MOVING); line 21 was a bend on 10/1 and passes under the amended line: backing the accuser gets the 2 batteries back, so the harder branch pays more. It is a road-event temptation with the number on the button (QR-X reading 3, QR-L P16, `Q166.W4`), and the kind branch carries its own weight (the widow's settlement). Fixed in place: 28 (flags and saves named). (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: line 33 n/a by its reading: a QUARREL is two members' complaint already under way when the player walks in, QR-M rule 6, `Q121.W9`; a story first would be the game staging it for him. Not a member on a hall card.)
 SHAPE: E4, THE QUARREL IN THE COMPANY (QR-B)
 

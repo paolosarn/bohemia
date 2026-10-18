@@ -239,6 +239,9 @@ padding. `Q054.X5` recycled tropes with no new mechanic. `Q030.X3` rote dilemmas
 2. BATTLE BROTHERS ITSELF. The library has no Battle Brothers study. The recall volume says cooldowns and
    composition keep its events rare; it does not say how many events it ships or how often a player sees a repeat.
    A proper study of its event list would test rule 4 against the reference Paolo named.
+   (ANSWERED 10/18 by QR-AX from the wiki dump: 380 events carry a cooldown, 104 once per game; a man's background
+   events have a median repeatable cooldown of 50 days, the rest 60; the global pace is about one event every three to
+   five days by two mod authors' estimates; the list is three to five times what a year shows.)
 3. THE WRONG DETAIL UNDER REPETITION. QR-B left this open and it stays open: no study tests whether an analog-horror
    detail wears out like a bark. Rule 13 is a guess: never reuse one, and never let one become a tell.
 4. THE FLIP AS VARIATION. Our three acts at once let the same road be met in three eras. The library has recontext

@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE20 THE BOLT OF BLACK WOOL (an across job on the same north pass).
 DOOR: camp (act 1); hall, then camp (act 3)
+BUDGET: ASK in act 1, the driver's (earliest the driver's 20th night in the company; counted against act 1's member asks, one per five in the company); TELLING in act 3, the heir's, after the grandson's hall card (earliest the heir's 10th night in the company) (QR-AX). Both count in the company's half of the screens. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 and 30 (letting them go had no price and only the cruel road paid), 18 (no read if act 1 never ran) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp (act 1); hall, then camp (act 3)), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION

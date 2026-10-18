@@ -7,6 +7,7 @@ ECONOMY: boom
 PLACE: a reclaimed strip-mall settlement on the east side (settlement menu: the hall is the old tax-prep office, the market is the former dollar store); the job is a trailer park one map stop south, one block of the city (the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp, then hall (QR-AW)
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 
 A COMPANY MEMBER'S OWN ASK, shaped as a CONTRACT in a settlement's hall that the member points to (the 9/28 ruling). Names are placeholders. (QR-AW 10/18: the pointing moved from the company bar on arrival to the night camp, QR-AV rule 2: the member tells at the fire, the stranger offers at the hall alone.)
 

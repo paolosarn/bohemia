@@ -7,6 +7,7 @@ ECONOMY: boom
 PLACE: act 3, a reclaimed rail-yard settlement on the north side that supplies the launch site (the hall is the yard office, glass and solar tile); the job is a truck run across the dry lake to the pad, two map days.
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: hall; camp, then hall, when the roster holds her cousin (QR-AW)
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 
 THE COMPANY ACROSS ACTS: a company member's grandchild. Planted by whoever rode in the act 1 company; landed in act 3. Names are placeholders. (Swept 9/29, rule 39d THE COMPANY INHERITS: each act starts with the heirs of the last act's company, prepared from the ledger. So the member's line that carried into the company is already riding with the player; Raquel is the grandchild from the branch that did NOT carry: her parent took other work, and she grew up on the family's stories from outside the roster. That is why she is in a hall, not in the formation.)
 

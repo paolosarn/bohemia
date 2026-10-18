@@ -7,6 +7,7 @@ PLACE: the squat (settlement screen: the hall is a kitchen in a gutted bank); th
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: A ROOM THAT ISN'T RECORDED (QR-Z no. 24: find and hold an unrecorded place)
 DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+BUDGET: TELLING, AMBITION (QR-AX). Once per ambition opened, only while it is open; never the night after a member's ASK. Counts against the company's half of the screens; two quiet nights after it. Ambition closed or the job gone: the telling is gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the door choice sat behind a mandatory fight) and is fixed in place by the noon ladder) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION

@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE01 THE CHILLED TANKERS TO THE DRY LAKE (the same road to the pad).
 DOOR: camp, then hall
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one way through), 12 (no priced refusal) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION

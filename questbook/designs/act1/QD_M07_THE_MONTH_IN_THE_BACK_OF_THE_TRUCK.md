@@ -7,6 +7,7 @@ ECONOMY: bust
 PLACE: the map, on the west road, within one stop of the settlement where an injured member's mother lives (a trailer settlement out toward Pahrump); fires at a camp.
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp
+BUDGET: CAUSED (QR-AX). Fires at the first fire after its cause, whatever the pace, and takes that night; the next screen waits two nights and is a kind one (`Q044.W7`). Not counted against the company's half of the screens; never skipped. TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AW 10/18: line 33 run, the first time on this shelf: failed as written (one line, the place and the bed, no story and nothing of his mother's on the ground); fixed in place below. The 32 lines were not re-run this round.)
 
 THE INJURED (rule 36), shaped as a road EVENT SCREEN: a member struck down who lived, with a debilitating injury of 30 to 40 map days and a permanent mark. Names are placeholders.

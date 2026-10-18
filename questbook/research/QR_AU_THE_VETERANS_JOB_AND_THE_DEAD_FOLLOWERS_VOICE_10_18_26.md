@@ -234,7 +234,9 @@ designs name, between them:
 
 1. How many veteran jobs a long game can hold before they read as filler. The library's companion quests are one per
    companion per game (`Q177.W2`, `Q219.W5`, `Q220.W9`), and Battle Brothers has none [R]. Draft: one per veteran per
-   act, at most one on offer; TUNING.
+   act, at most one on offer; TUNING. (ANSWERED 10/18 by QR-AX: once in the veteran's life, not per act; from the 20th
+   fight; per act at most one per five in the company, shared with the followers' asks; the dead followers' VOICES at
+   most two an act, acts 2 and 3, 30 nights apart.)
 2. Whether a veteran's thing should be chosen by the player (the Nemesis study's player-filled gaps, `Q048.W7`) or
    generated from the background. Draft: generated, then named by the veteran.
 3. Whether the Amalgamation should ever use a dead VETERAN (not a follower). The library's warning on the face being a

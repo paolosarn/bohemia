@@ -277,6 +277,9 @@ builder can test, all draft:
 2. AT MOST ONE event per trip. Never two in a row without an arrival between them.
 3. A GLOBAL COOLDOWN measured in map time, not real seconds: after an event, no event for the next one to two
    in-game days of travel. Early game, aim for roughly one event every two or three trips; mid game, every two.
+   AMENDED 10/18 by QR-AX: one to two days was denser than Battle Brothers' one event in three to five days and
+   against rule 117; the pace is now two quiet nights after any screen and one screen in about five nights on average,
+   the night ceiling kept (QR-AX section 5, TUNING's numbers).
 4. THE STORYTELLER RULE: after an event that cost a person or a large share of batteries, the next event is E10
    or E3, never E1, E2 or E9 (`Q044.W7`, `Q048.W9`).
 5. EVERY EVENT INSTANCE FIRES ONCE. Skeletons repeat; people, places and lines do not. A skeleton cannot fire twice

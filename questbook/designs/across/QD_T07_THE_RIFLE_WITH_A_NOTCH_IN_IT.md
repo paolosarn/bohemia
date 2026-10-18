@@ -8,6 +8,7 @@ SITUATION: THE COMPANY INHERITS (rule 39d): act 2's company are the heirs of act
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
 DOOR: hall, then camp (the base's fire, the night before the pits) (QR-AW)
+BUDGET: TELLING (QR-AX). Once in the teller's life. Earliest: the teller's 10th night in the company; a telling bound to a job already taken goes first. Counts against the company's half of the screens; no teller speaks at a screen twice in 30 nights; two quiet nights after it. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member's own part on a hall card: the card's whole subject is Tavo's father's rifle and Tavo had no word before it left; he now tells at the base's fire between the yes and the pits; line 12 failed (every road after the yes sold the rifle, so the telling could change nothing) and D is added; the telling passes line 33: a story first, the rifle across his knees, no price in the mouth.)
 DEFAULT READ (act 1 never played, or Ruben never shot anyone): the rifle came to Ruben second-hand with the notch already in it, and the sister has the same claim on it; the pay and the choices do not change.
 

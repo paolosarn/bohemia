@@ -7,6 +7,7 @@ ECONOMY: either
 PLACE: the first map camp after a fight in which a company member died (rule 36's 20% roll on a struck-down member); anywhere on the map.
 STATUS: draft:true, research only, nothing built (rule 35)
 DOOR: camp (a reckoning after a death)
+BUDGET: CAUSED (QR-AX). Fires at the first fire after its cause, whatever the pace, and takes that night; the next screen waits two nights and is a kind one (`Q044.W7`). Not counted against the company's half of the screens; never skipped. TUNING owns the numbers.
 
 GRIEF AFTER A DEATH, shaped as a camp EVENT SCREEN. A template: it fires for ANY company member who dies, and reads his ledger. Filed in act 2 as the first shelf copy; the same screen serves all three acts.
 

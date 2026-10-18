@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names, lines and num
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is the Amalgamation's use of a dead follower's job (after the act-1 reveal only; a mouth that is not the follower).
 PAIR: QD-AQ07 THE SARGENTA'S LAST RECRUIT (the act-2 job; the one recruit she never brought in).
 DOOR: place (the recruiting office)
+BUDGET: VOICE (QR-AX). Acts 2 and 3 only, never act 1. At most two VOICES an act, wherever they fire (camp or place), at least 30 nights apart, never within two nights of a death named. Counts against the company's half of the screens when it takes a night. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 8, 12, 18, 21, 30; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION

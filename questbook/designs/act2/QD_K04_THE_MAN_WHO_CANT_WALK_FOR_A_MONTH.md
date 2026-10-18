@@ -7,6 +7,7 @@ PLACE: the road past the dam clinic town, in camp at dusk, the truck parked one 
 STATUS: draft:true, research only, nothing built (rule 35)
 SHAPE: E4 THE QUARREL IN THE COMPANY (QR-B)
 DOOR: camp (a quarrel the player walks into)
+BUDGET: QUARREL (QR-AX). Fires only while its ledger cause is true (QR-M rule 6). At most one QUARREL in 30 nights; never within two nights of a death named; counts against the company's half of the screens. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (lines 3, 9 and 12 read as not applicable to a road event) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: line 33 n/a by its reading: a QUARREL, QR-M rule 6; two mouths argue, nobody asks the player for a job. Not a member on a hall card.)
 NOT A REPEAT OF: QD-B03 (act 1, stolen batteries between a thief and a man robbed by thieves). This quarrel is about RULE 36's injury: what a company owes a man who cannot fight for a month.
 

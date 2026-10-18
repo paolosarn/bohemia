@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names and lines are 
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ04 THE PICKER WHO SAW THE BODY (act 1, the same quarry road).
 DOOR: camp
+BUDGET: ASK, once in each life (QR-AX): the member's in act 1, the heir's in act 3, each counted in its own act (one per five in the company, rounded up) and in the company's half of the screens. Earliest: the teller's 20th night in the company; likelier the longer they ride; at least 15 nights after the last ASK. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (the stop had no price), 18 (no read if act 1 never ran), 23 (lost fight unstated) and 31 (act 1 was only the fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION

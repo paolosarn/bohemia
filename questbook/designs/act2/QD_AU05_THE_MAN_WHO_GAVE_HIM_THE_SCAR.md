@@ -8,6 +8,7 @@ STATUS: draft:true, research only, nothing built (rule 35). Names, lines and num
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QD-AQ05 THE CLINIC THAT WANTS A LICENSE (the same town's hall, the same week).
 DOOR: camp
+BUDGET: ASK (QR-AX). Once in the veteran's life, spent for the game when it fires. Earliest: the veteran's 20th fight (QR-AU); likelier the longer the veteran rides (the weight doubles by the 60th night in the company). Counts against the act's member asks (one per five in the company, rounded up: three for twelve) and the company's half of the screens; at least 15 nights after the last ASK, two quiet nights after any screen. Never fired, declined or its cause gone: gone, never on a list (rule 117). TUNING owns the numbers.
 CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 12, 30, 33; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION

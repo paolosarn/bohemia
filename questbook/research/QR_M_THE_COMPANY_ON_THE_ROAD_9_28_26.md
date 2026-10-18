@@ -283,6 +283,10 @@ says about giving an automated fighter a personality:
    AMENDED 10/18 by QR-AV and QR-AW: the pointing happens at the night camp, never on the company bar as the
    settlement opens and never on the offer screen; the member tells at the fire, the stranger offers at the hall
    alone (QR-AV rule 2). QD-M02 was the one design that used the old second door and is moved.
+   AMENDED 10/18 by QR-AX: "once per member per act" is twelve asks a year for a twelve-man company, about three
+   times Battle Brothers' share and eight to twelve times the real rate. An ask is now ONCE IN A MEMBER'S LIFE, and per
+   act at most one per five in the company (rounded up); the stated minimum is the 20th night in the company (a
+   veteran's 20th fight), and the weight grows the longer the member rides (QR-AX section 5).
 8. EVERY DEATH IS A RECEIPT. When the 20% roll kills a struck-down member, the next camp event names the cause in
    one line in a companion's mouth (the flank left open, the wall he held), shows his face, and offers the burial
    choice. No loot screen, ever, for a named dead member: his gear is handed on by a person at the grave or buried

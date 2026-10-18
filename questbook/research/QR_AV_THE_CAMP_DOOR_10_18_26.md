@@ -107,7 +107,8 @@ card. The correction is line 33 (section 3), and every camp ask on both shelves 
    anyway (`Q236.X1`). A friend's price is what they have. The stranger's card keeps its haggle and advance. Test: a
    camp offer has no NEGOTIATION field.
 7. ONE EVENT A NIGHT. The member's scene is that night's one event (QR-AR); if a road event takes the night, the member
-   speaks at the next fire. Never in the first minute (QR-G line 19, rule 32a).
+   speaks at the next fire. Never in the first minute (QR-G line 19, rule 32a). (QR-AX 10/18: "the next fire" is the
+   next fire the pace allows: two quiet nights after any screen; a telling bound to a taken job goes first.)
 8. WHEN THE STRANGER'S HALL COMES FIRST. The member tells at the first fire after the hall's job is within a day's road;
    if the company reaches the hall before any fire, the member tells at the first fire after the yes. The hall card
    never waits for the camp. Test: the camp scene's trigger names both cases.
@@ -330,7 +331,8 @@ only a fight); QR-AT's correction stuck. Line 12 did not.
    QD-G02); whether any of them is a company member's own part on the hall card is the next row's measurement. (ANSWERED 10/18 by QR-AW: the five were a word match on "beside"; one of the five (M06) and twelve designs
    off the list put the company at the counter; all moved to the fire.)
 4. How many camp scenes a long game can hold. One a night at most is a ceiling, not a number; Battle Brothers keeps
-   events rare with cooldowns [R]. TUNING.
+   events rare with cooldowns [R]. TUNING. (ANSWERED 10/18 by QR-AX: about one screen in five nights, two quiet nights
+   after any, the company at most half; every camp design now names its class in a BUDGET line.)
 
 ---
 
