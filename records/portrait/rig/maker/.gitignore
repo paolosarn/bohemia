@@ -1,0 +1,2 @@
+# the head models are rebuilt by tools/bohemia_portrait_the_head_from_the_model.py (each ~6 MB); their .json stats are kept
+*.glb

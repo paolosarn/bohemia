@@ -152,6 +152,113 @@ for _k, _c in CREW.items():
                                    stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
 
 
+# [every face from the same model] ROUND 2, THE SPEAKERS' FACES (RUN TWO [every speaker has a face]; his notes 'can these people
+# start getting portraits when you click and talk to them', 'why can't all our characters that are speaking to us have a
+# portrait'): the settlement's street draws its people from all 25 looks (slices/settlement_people/settlement_people.json),
+# and the thirteen FACTION looks had no fresh portrait, so anybody in a gang's colours spoke through the old painted 64.
+# Each head goes on THAT GANG'S OWN BODY, the one he voted up (character-the-thirteen-through-the-rig-10-18), built by
+# CHARACTER's tool from its own LOOKS entry (imported, never edited), so the face and the gang on the map are one model.
+# Cut, head gear and colours read off each look's worn list (the colours as style palette steps); skin from the game's
+# own face of that gang (by eye, then the crew's rule: two steps lighter on a deep skin, the rig's sun takes about two);
+# and since these are the first heads with DIALS, no two share a skull: each gets a face shape that says who it is.
+FACTION = {
+    'Caravans':   dict(skin=('skin_deep', 2), hair='coil', hair_c=('tape_grey', 1), gear='cone hat', gear_c=('tape_masking', 1), beard='full',
+                       face={'face.cheekW': 34, 'face.jawW': 30, 'face.foreheadW': 26, 'face.len': 34, 'face.chinW': 14, 'nose.w': 4},
+                       worn='COIL CROWN under the CHINESE RICE FARMER HAT; a grey full beard: the trader who has walked every road'),
+    'Colorful':   dict(skin=('skin_mid', 2), hair='shag', hair_c=('tape_masking', 0), gear='knit cap', gear_c=('blood', 1),
+                       face={'face.len': 30, 'face.cheekW': 28, 'face.jawW': 23, 'face.chinW': 10, 'eyes.gap': 7, 'mouth.w': 8, 'face.craniumH': 11},
+                       worn='SHAG under the ROSE KNIT CAP'),
+    'Anarchists': dict(skin=('skin_deep', 2), hair='fall', hair_c=('cloth_black', 2), gear='watch cap', gear_c=('cloth_black', 3), scar='brow',
+                       face={'face.len': 38, 'face.cheekW': 27, 'face.jawW': 22, 'face.foreheadW': 22, 'face.chinW': 9, 'nose.w': 2, 'eyes.gap': 5, 'face.craniumH': 12},
+                       worn='LAYERED FALL under the CHARCOAL WATCH CAP; a scar splits the left brow'),
+    'Blues':      dict(skin=('skin_deep', 2), hair='taper', hair_c=('cloth_black', 1), gear=None, beard='moustache',
+                       face={'face.cheekW': 34, 'face.jawW': 31, 'face.chinW': 16, 'face.foreheadW': 27, 'brows.len': 9, 'mouth.w': 11},
+                       worn='DRY TAPER, bare head; a moustache'),
+    'Homeless':   dict(skin=('skin_mid', 2), hair='fall', hair_c=('tape_masking', 1), gear=None, beard='full',
+                       face={'face.len': 35, 'face.cheekW': 29, 'face.jawW': 24, 'face.chinW': 11, 'face.eyeY': 1, 'nose.w': 4, 'face.craniumH': 9},
+                       worn='LAYERED FALL, bare head; a beard grown out the same sand as the hair'),
+    'Church':     dict(skin=('skin_light', 3), lips=('skin_light', 2), hair='coil', hair_c=('cloth_black', 1), gear='skull cap', gear_c=('clay_bone', 2),
+                       face={'face.len': 37, 'face.foreheadW': 27, 'face.cheekW': 30, 'face.jawW': 24, 'face.chinW': 10, 'face.craniumH': 13, 'eyes.gap': 5},
+                       worn='COIL CROWN under the BONE KNIT CAP, worn as a skull cap'),
+    'Reds':       dict(skin=('skin_mid', 2), hair='taper', hair_c=('cloth_black', 1), gear=None, beard='goatee',
+                       face={'face.len': 34, 'face.cheekW': 31, 'face.jawW': 28, 'face.chinW': 15, 'face.browY': -1, 'mouth.w': 10},
+                       worn='DRY TAPER, bare head; a goatee'),
+    'Cartel':     dict(skin=('skin_mid', 1), hair='taper', hair_c=('cloth_black', 1), gear='watch cap', gear_c=('cloth_black', 3), beard='moustache',
+                       face={'face.len': 31, 'face.cheekW': 32, 'face.jawW': 29, 'face.chinW': 13, 'eyes.gap': 7, 'brows.len': 9, 'face.mouthY': 1},
+                       worn='DRY TAPER under the CHARCOAL WATCH CAP; a moustache'),
+    'Trades':     dict(skin=('skin_deep', 3), hair='taper', hair_c=('cloth_black', 1), gear='work cap', gear_c=('tape_masking', 1), beard='stubble',
+                       face={'face.cheekW': 35, 'face.jawW': 32, 'face.chinW': 17, 'face.foreheadW': 28, 'face.len': 32, 'nose.w': 5, 'mouth.w': 11},
+                       worn='TEMPLE TAPER under the DUST WORK CAP; stubble'),
+    'Mob':        dict(skin=('skin_light', 2), lips=('skin_light', 1), hair='slick', hair_c=('cloth_black', 1), gear=None, scar='cheek',
+                       face={'face.len': 36, 'face.cheekW': 30, 'face.jawW': 27, 'face.chinW': 14, 'face.foreheadW': 25, 'eyes.gap': 5, 'nose.w': 2, 'face.browY': 1},
+                       worn='slicked back (CHARACTER\'s cut for the Mob), bare head; a scar across the right cheek'),
+    'Network':    dict(skin=('skin_deep', 2), hair='taper', hair_c=('cloth_black', 1), gear=None,
+                       face={'face.len': 35, 'face.cheekW': 29, 'face.jawW': 25, 'face.chinW': 11, 'face.foreheadW': 25, 'eyes.gap': 7, 'mouth.w': 8, 'face.craniumH': 11},
+                       worn='TEMPLE TAPER, bare head'),
+    'Volunteers': dict(skin=('skin_deep', 3), hair='fringe', hair_c=('cloth_black', 1), gear=None,
+                       face={'face.len': 30, 'face.cheekW': 28, 'face.jawW': 22, 'face.chinW': 9, 'face.craniumH': 11, 'mouth.w': 7},
+                       worn='HEAVY FRINGE, bare head'),
+    'Remnants':   dict(skin=('skin_mid', 2), hair='taper', hair_c=('cloth_black', 1), gear='knit cap', gear_c=('tape_grey', 1), beard='stubble',
+                       face={'face.cheekW': 36, 'face.jawW': 33, 'face.chinW': 18, 'face.len': 34, 'face.foreheadW': 28, 'brows.len': 10, 'face.noseY': 1},
+                       worn='TEMPLE TAPER under the STORM KNIT CAP; stubble'),
+}
+FACTION_BODIES = 'records/portrait/rig/crew/bodies'
+CUT_NAME = {'long': 'a long cut to the jaw', 'taper': 'a short taper', 'coil': 'a coil crown', 'shag': 'a choppy shag',
+            'fall': 'a layered fall past the jaw', 'slick': 'slicked straight back', 'fringe': 'a heavy fringe to the brow'}
+for _k, _c in FACTION.items():
+    _tag = _k.lower()
+    PEOPLE['FACTION_' + _k.upper()] = dict(
+        body='%s/%s.glb' % (FACTION_BODIES, _tag), drop=tuple('%s_%s' % (_tag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
+        cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
+        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'],
+        look='faction_' + _tag, crew=True, faction=_k, twin='slices/fight_people/faction_%s.webp' % _tag, twin_face=True,
+        palette='steps of the style palette (skin %s %d, hair %s %d%s)' % (_c['skin'] + _c['hair_c'] + ((', gear %s %d' % _c['gear_c']) if _c.get('gear') else '',)),
+        kit='%s; %s' % (_c['gear'] or 'bare head', CUT_NAME[_c['hair']]),
+        colours=dict(skin=_c['skin'], lips=_c.get('lips', (_c['skin'][0], max(0, _c['skin'][1] - 1))), hair=_c['hair_c'],
+                     gear=_c.get('gear_c', _c['hair_c']), iris=('skin_deep', 1), stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
+
+
+# [the starred face, customisable]: SIX FACES BUILT WITH THE CONTROLS, all on the player's own body (YOU), the same head:
+# the fourteen dials, a skin from the palette, a cut from the library and one of the face maker's 21 hair colours (his own
+# swatches, HAIR_COLORS in the alpha, by name), head gear, a scar and facial hair as parts. Nothing here is new art: each
+# is a setting of the same model, which is the whole of rule 115(a) (everything from one source looks the same).
+HAIR_COLORS = dict(jet=(26, 28, 40), black=(32, 30, 27), ash=(70, 66, 62), brown=(82, 58, 38), auburn=(104, 44, 30), ginger=(158, 80, 28),
+                   rust=(124, 58, 34), sand=(150, 120, 80), platinum=(196, 178, 132), bleach=(210, 202, 178), steel=(112, 112, 116),
+                   grey=(104, 104, 112), white=(186, 186, 194), acid=(110, 164, 52), moss=(98, 104, 54), magenta=(142, 32, 92),
+                   teal=(26, 110, 108), violet=(84, 52, 134), pink=(196, 150, 150), red=(200, 60, 40))
+MAKER = [
+    dict(name='LONG FACE, PLATINUM', skin=('skin_light', 3), hair='taper', hair_colour='platinum', gear=None, scar='brow',
+         face={'face.len': 39, 'face.cheekW': 27, 'face.jawW': 23, 'face.chinW': 9, 'face.foreheadW': 23, 'nose.w': 2, 'face.craniumH': 12}),
+    dict(name='BROAD, FULL BEARD', skin=('skin_deep', 3), hair='coil', hair_colour='black', gear=None, beard='full',
+         face={'face.len': 30, 'face.cheekW': 36, 'face.jawW': 32, 'face.chinW': 16, 'face.foreheadW': 28, 'brows.len': 10, 'mouth.w': 11}),
+    dict(name='HEAVY FRINGE, MAGENTA', skin=('skin_mid', 3), hair='fringe', hair_colour='magenta', gear=None,
+         face={'face.len': 32, 'face.cheekW': 29, 'face.jawW': 24, 'eyes.gap': 8, 'mouth.w': 7, 'nose.w': 2, 'face.chinW': 10}),
+    dict(name='SLICKED, GINGER MOUSTACHE', skin=('skin_light', 2), hair='slick', hair_colour='ginger', gear=None, beard='moustache',
+         face={'face.len': 35, 'face.cheekW': 31, 'face.jawW': 28, 'face.chinW': 14, 'face.browY': -2, 'eyes.gap': 5}),
+    dict(name='WATCH CAP, GREY FALL, GOATEE', skin=('skin_mid', 2), hair='fall', hair_colour='grey', gear='watch cap', gear_c=('clay_teal', 1), beard='goatee',
+         face={'face.len': 34, 'face.cheekW': 30, 'face.jawW': 26, 'face.mouthY': 1, 'face.noseY': 1, 'brows.len': 5}),
+    dict(name='FIELD HAT, AUBURN SHAG, SCARRED', skin=('skin_deep', 2), hair='shag', hair_colour='auburn', gear='field hat', gear_c=('tape_masking', 2), scar='cheek',
+         face={'face.len': 36, 'face.jawW': 30, 'face.cheekW': 33, 'face.eyeY': -1, 'nose.w': 4, 'face.chinW': 15}),
+]
+for _i, _c in enumerate(MAKER):
+    PEOPLE['MAKER_%d' % (_i + 1)] = dict(
+        body='%s/crew_you.glb' % CREW_BODIES, drop=tuple('crew_you_%s' % x for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
+        cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
+        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'], crew=True, maker=_c['name'],
+        twin='slices/fight_people/you.webp', twin_face=True,
+        palette='skin %s %d, hair the face maker\'s %s%s' % (_c['skin'] + (_c['hair_colour'], (', gear %s %d' % _c['gear_c']) if _c.get('gear') else '')),
+        kit='%s; %s' % (_c['gear'] or 'bare head', CUT_NAME[_c['hair']]),
+        colours=dict(skin=_c['skin'], lips=(_c['skin'][0], max(0, _c['skin'][1] - 1)), hair=HAIR_COLORS[_c['hair_colour']],
+                     gear=_c.get('gear_c', HAIR_COLORS[_c['hair_colour']]), iris=('skin_deep', 1), stubble=(_c['skin'][0], max(0, _c['skin'][1] - 1))))
+
+
+def faction_body(name, outdir):
+    """CHARACTER's tool builds the gang's own body from its own LOOKS entry, as he voted it up (nothing added, never written)"""
+    sys.path.insert(0, os.path.join(ROOT, 'tools'))
+    import bohemia_character_the_thirteen_through_the_rig as CH
+    CH.build(name, os.path.join(ROOT, outdir))
+
+
 def crew_body(who, outdir):
     """CHARACTER's tool builds the look's body (its LOOKS gains this entry in memory; its file is never written)"""
     sys.path.insert(0, os.path.join(ROOT, 'tools'))
@@ -177,12 +284,104 @@ def palette_step(role, i):
 def colours(P):
     """the person's face colours: the thug's round-one constants, or a person's palette steps"""
     c = dict(skin=SKIN, stubble=STUBBLE, hair=BUZZ, lips=LIPS, gear=OXBLOOD, iris=IRIS)
-    for k, v in P.get('colours', {}).items(): c[k] = palette_step(*v)
+    for k, v in P.get('colours', {}).items():
+        # a palette step (role, i), or an RGB the player chose (the face maker's 21 hair colours are his, not the palette's)
+        c[k] = tuple(v) if len(v) == 3 and all(isinstance(x, int) for x in v) else palette_step(*v)
+    c.setdefault('beard', c['hair'])
+    sk = P.get('colours', {}).get('skin')
+    c['scar'] = palette_step(sk[0], min(4, sk[1] + 1)) if sk and len(sk) == 2 else tuple(min(255, x + 24) for x in c['skin'])   # a seam heals a step paler
     return c
 
 MOUTH_Z = -0.089     # the mouth line, metres from the head's centre
-MOUTH_HALF = 0.033   # half the mouth's width
+MOUTH_HALF = 0.033   # half the mouth's width (a build sets it from the face's mouth.w dial; 0.033 at the default)
 EYE_X, EYE_Z, EYE_R = 0.047, 0.004, 0.0165
+
+
+# [the starred face, customisable] (Paolo 10/18: 'You got my starred portrait shit I was impressed with? We can customise
+# that shit?'; HE CAN BUILD HIS OWN FACE carried onto the modelled head). THE FACE MAKER'S FOURTEEN SHAPE CONTROLS drive the
+# skull: the same keys, labels and ranges as the alpha's FACE_SLIDERS (slices/BOHEMIA_ALPHA_0_9.html), in the 64 px face's
+# pixels, so CHARACTER wires the panel it already has to this head with no new vocabulary. The last number is the value
+# that leaves the starred head EXACTLY as it was (the poacher, the thug and the crew's thirteen are all the default face).
+# The four heights are offsets from where the anatomy puts the feature (the 2D panel's 0,0 means 'derived'), + is lower,
+# as on the 64 px face, where a row counts down.
+FACE_DIALS = [
+    ('face.len',       'FACE LENGTH',  28, 40, 33),
+    ('face.craniumH',  'CRANIUM',       7, 15, 10),
+    ('face.foreheadW', 'FOREHEAD',     19, 31, 24),
+    ('face.cheekW',    'CHEEKS',       24, 38, 30),
+    ('face.jawW',      'JAW',          20, 34, 26),
+    ('face.chinW',     'CHIN',          7, 20, 12),
+    ('face.browY',     'BROW HEIGHT',  -3,  3, 0),
+    ('face.eyeY',      'EYE HEIGHT',   -3,  3, 0),
+    ('face.noseY',     'NOSE HEIGHT',  -3,  3, 0),
+    ('face.mouthY',    'MOUTH HEIGHT', -3,  3, 0),
+    ('eyes.gap',       'EYE SPACING',   3, 11, 6),
+    ('brows.len',      'BROW LENGTH',   4, 11, 7),
+    ('mouth.w',        'MOUTH WIDTH',   5, 15, 9),
+    ('nose.w',         'NOSE WIDTH',    2,  5, 3),
+]
+FACE_PX = 0.0083   # one pixel of the 64 px face, in metres of this head (0.356 m crown to chin over craniumH + len = 43 px)
+FD = None          # the resolved dials of the head being built (None: the starred default, nothing moves)
+
+
+def face_dials(spec=None, radii=(0.160, 0.165, 0.178)):
+    """a face spec (any of FACE_DIALS' keys) to what the head does: ratios, metres. THE ANATOMY IS MINE, THE FACE IS HIS:
+    the 2D panel's own clamps first (the cheeks the widest part, the jaw under them, the chin under the jaw, the mouth inside
+    the jaw), then every move damped so a dial at its end still makes a head, and every band's shift held under 0.6 of its
+    width so the skin never folds over itself"""
+    v = {k: d for k, _, lo, hi, d in FACE_DIALS}
+    rng = {k: (lo, hi) for k, _, lo, hi, d in FACE_DIALS}
+    for k, x in (spec or {}).items():
+        if k in rng: v[k] = max(rng[k][0], min(rng[k][1], x))
+    v['face.cheekW'] = max(v['face.cheekW'], v['face.foreheadW'] + 2)
+    v['face.jawW'] = min(v['face.jawW'], v['face.cheekW'] - 1)
+    v['face.chinW'] = min(v['face.chinW'], v['face.jawW'] - 6)
+    v['mouth.w'] = max(5, min(v['face.jawW'] - 8, v['mouth.w']))
+    RX, RY, RZ = radii
+    cl = lambda x, m: max(-m, min(m, x))
+    ratio = lambda k, d, damp: 1.0 + damp * (v[k] - d) / float(d)
+    F = dict(v=v, RX=RX, RY=RY, RZ=RZ,
+             forehead=ratio('face.foreheadW', 24, 0.7), cheek=ratio('face.cheekW', 30, 0.7), jaw=ratio('face.jawW', 26, 0.7),
+             chin=ratio('face.chinW', 12, 0.45),
+             up=1.0 + 0.7 * (v['face.craniumH'] - 10) * FACE_PX / RZ, down=1.0 + 0.7 * (v['face.len'] - 33) * FACE_PX / RZ,
+             # a + dial is lower on the face; z is up here
+             brow_dz=cl(-v['face.browY'] * FACE_PX * 0.7, 0.6 * 0.025), eye_dz=cl(-v['face.eyeY'] * FACE_PX * 0.7, 0.6 * 0.022),
+             nose_dz=cl(-v['face.noseY'] * FACE_PX * 0.7, 0.6 * 0.030), mouth_dz=cl(-v['face.mouthY'] * FACE_PX * 0.7, 0.6 * 0.024),
+             eye_dx=cl((v['eyes.gap'] - 6) * 0.0035, 0.6 * 0.030),
+             brow_len=ratio('brows.len', 7, 0.6), mouth=ratio('mouth.w', 9, 0.6), nose=ratio('nose.w', 3, 0.5))
+    F['identity'] = all(v[k] == d for k, _, lo, hi, d in FACE_DIALS)
+    return F
+
+
+def width_at(z):
+    """the face's width ratio at height z: the forehead's above the brow, the cheeks' at the cheekbone, the jaw's at its
+    corner, the chin's under it, eased between"""
+    F = FD
+    pts = [(0.100, F['forehead']), (-0.024, F['cheek']), (-0.105, F['jaw']), (-0.150, F['chin'])]
+    if z >= pts[0][0]: return pts[0][1]
+    for (z0, a), (z1, b) in zip(pts, pts[1:]):
+        if z >= z1: return a + (b - a) * sstep(z0, z1, z)
+    return pts[-1][1]
+
+
+def warp(x, y, z):
+    """THE DIALS ON THE MODEL: a point of the starred head (head-local metres) to the same point on this face. Bands on the
+    front of the face move the brow, the eyes, the nose and the mouth up and down and the eyes apart; then the face's widths
+    by height; then the cranium and the face's length (the neck below the chin stays in its collar)"""
+    F = FD
+    front = sstep(0.0, 0.6, -y / F['RY'])
+    ax = abs(x)
+    dz = front * (F['brow_dz'] * g2(ax, z, 0.045, 0.034, 0.050, 0.025)
+                  + F['eye_dz'] * g2(ax, z, EYE_X, EYE_Z, 0.035, 0.022)
+                  + F['nose_dz'] * g2(x, z, 0.0, -0.025, 0.025, 0.030)
+                  + F['mouth_dz'] * g2(x, z, 0.0, MOUTH_Z, 0.050, 0.024))
+    dx = math.copysign(F['eye_dx'] * front * g2(ax, z, EYE_X, EYE_Z, 0.030, 0.024), x) if x else 0.0
+    nx = (x + dx) * width_at(z)
+    z1 = z + dz; RZ = F['RZ']
+    if z1 > 0: nz = z1 * F['up']
+    elif z1 > -RZ: nz = z1 * F['down']
+    else: nz = z1 + (F['down'] - 1.0) * (-RZ) * sstep(-RZ - 0.08, -RZ, z1)
+    return nx, y, nz
 
 
 def g2(x, z, x0, z0, sx, sz):
@@ -197,28 +396,51 @@ def sstep(a, b, t):
 def face_push(x, z):
     """how far forward (metres) the face stands at (x, z) relative to the head's centre: the features as shapes"""
     ax = abs(x)
+    # the dials that change a feature's own width (1.0 each on the starred default)
+    bl, nw, mw, cw = (FD['brow_len'], FD['nose'], FD['mouth'], FD['chin']) if FD else (1.0, 1.0, 1.0, 1.0)
     d = 0.0
-    d += 0.014 * g2(ax, z, 0.045, 0.034, 0.042, 0.014)                    # the brow ridge
+    d += 0.014 * g2(ax, z, 0.045, 0.034, 0.042 * bl, 0.014)               # the brow ridge
     d -= 0.022 * g2(ax, z, EYE_X, EYE_Z, 0.024, 0.017)                    # the eye sockets
     t = max(0.0, min(1.0, (0.022 - z) / 0.072))                            # the nose: bridge to tip
-    nose = 0.032 * t ** 1.25 * math.exp(-(x / (0.010 + 0.011 * t)) ** 2)
+    nose = 0.032 * t ** 1.25 * math.exp(-(x / ((0.010 + 0.011 * t) * nw)) ** 2)
     if z < -0.050: nose *= math.exp(-((z + 0.050) / 0.007) ** 2)
     d += nose
-    d += 0.010 * g2(ax, z, 0.018, -0.047, 0.010, 0.008)                   # the nostril wings
+    d += 0.010 * g2(ax, z, 0.018 * nw, -0.047, 0.010, 0.008)              # the nostril wings
     d += 0.010 * g2(ax, z, 0.074, -0.024, 0.030, 0.026)                   # the cheekbones
     d -= 0.006 * g2(ax, z, 0.066, -0.078, 0.024, 0.024)                   # the hollow under them
     d -= 0.003 * g2(x, z, 0.0, -0.068, 0.006, 0.009)                      # the philtrum
-    d += 0.010 * g2(x, z, 0.0, -0.080, 0.032, 0.009)                      # the upper lip
-    d += 0.011 * g2(x, z, 0.0, -0.099, 0.028, 0.009)                      # the lower lip
-    d -= 0.005 * g2(x, z, 0.0, MOUTH_Z, 0.031, 0.004)                     # the line between them
-    d += 0.014 * g2(x, z, 0.0, -0.146, 0.030, 0.020)                      # the chin
+    d += 0.010 * g2(x, z, 0.0, -0.080, 0.032 * mw, 0.009)                 # the upper lip
+    d += 0.011 * g2(x, z, 0.0, -0.099, 0.028 * mw, 0.009)                 # the lower lip
+    d -= 0.005 * g2(x, z, 0.0, MOUTH_Z, 0.031 * mw, 0.004)                # the line between them
+    d += 0.014 * g2(x, z, 0.0, -0.146, 0.030 * cw, 0.020)                 # the chin
+    for s in SCARS.get(FD.get('scar') if FD else None, ()):               # a scar: a raised seam 6 mm wide (a part, like a hat)
+        d += 0.0022 * math.exp(-(seg_dist(x, z, *s) / 0.0045) ** 2)
     return d
+
+
+# THE SCARS, parts of the face like a hat (the row's END STATE: 'hats, scars and facial hair as parts'): a raised seam along
+# a line on the face, its own lighter skin step; +x is the right of the picture (the camera looks north from the south)
+SCARS = {
+    'brow': [(-0.050, 0.064, -0.040, 0.012)],                     # down through the left brow, the brow split by it
+    'cheek': [(0.044, -0.004, 0.084, -0.064)],                    # across the right cheek, cheekbone to jaw
+    'lip': [(-0.012, -0.060, -0.004, -0.112)],                    # through the lip, a fighter's
+}
+
+
+def seg_dist(x, z, x0, z0, x1, z1):
+    vx, vz = x1 - x0, z1 - z0; L = vx * vx + vz * vz
+    t = max(0.0, min(1.0, ((x - x0) * vx + (z - z0) * vz) / L)) if L else 0.0
+    return math.hypot(x - x0 - t * vx, z - z0 - t * vz)
 
 
 def build(who, out):
     import bpy, bmesh, mathutils
     from mathutils import Vector, Matrix
     P = PEOPLE[who]
+    # the face's dials and parts (the starred default when the person has none: every number below is the old one)
+    global FD, MOUTH_HALF
+    FD = face_dials(P.get('face'), P['radii']); FD['scar'] = P.get('scar')
+    MOUTH_HALF = 0.033 * FD['mouth']
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     bpy.ops.import_scene.gltf(filepath=os.path.join(ROOT, P['body']))
@@ -269,6 +491,8 @@ def build(who, out):
     ho.location = C
     for nm, rgb in (('skin', K['skin']), ('lips', K['lips']), ('mouth', MOUTH), ('stubble', K['stubble']), ('buzz', K['hair'])):
         head.materials.append(mat('portrait_%s_%s' % (who.lower(), nm), rgb, rough=0.85 if nm == 'lips' else 0.92))
+    if P['hair'] == 'slick': head.materials[4].node_tree.nodes['Principled BSDF'].inputs['Roughness'].default_value = 0.5   # pomade
+    if FD['scar']: head.materials.append(mat('portrait_%s_scar' % who.lower(), K['scar'], rough=0.7))   # index 5, the seam
     V = head.vertices
 
     def scalp(x, y, z):
@@ -280,10 +504,15 @@ def build(who, out):
         # the front hairline is ragged, never a ruler line (cycle 1: a smooth edge read as a helmet's rim): strands every
         # 13 mm hang 6 to 22 mm lower on a long cut (a fringe), 4 mm on a short one
         # (cycle 2: a 26 mm pitch stepped on the skull's rows into a saw; 40 mm clumps read as a fringe)
-        jag = (0.018 if st in ('long', 'shag') else 0.004) * max(0.0, math.cos(math.pi * x / 0.040)) ** 2 * (0.7 + 0.3 * math.cos(2 * math.pi * x / 0.071))
-        crown = z > 0.064 - jag - 0.040 * sstep(-0.10, 0.00, y)
-        if st in ('long', 'shag'):
+        jag = (0.018 if st in ('long', 'shag', 'fall') else 0.004) * max(0.0, math.cos(math.pi * x / 0.040)) ** 2 * (0.7 + 0.3 * math.cos(2 * math.pi * x / 0.071))
+        if st == 'slick': crown = z > 0.072 - 0.040 * sstep(-0.10, 0.00, y)        # a clean high line, combed straight back
+        elif st == 'fringe':   # a heavy blunt fringe down the forehead to just over the brow ridge, its ends a little ragged
+            crown = z > 0.046 + 0.003 * math.cos(2 * math.pi * x / 0.017) + 0.030 * sstep(0.045, 0.080, abs(x)) - 0.040 * sstep(-0.10, 0.00, y)
+        else: crown = z > 0.064 - jag - 0.040 * sstep(-0.10, 0.00, y)
+        if st in ('long', 'shag', 'fringe'):
             return back or crown or (abs(x) > RX * 0.74 and y > -0.040 and z > -0.118) or (y > 0.010 and z > -0.165)
+        if st == 'fall':   # the layered fall: past the jaw at the sides, down the nape
+            return back or crown or (abs(x) > RX * 0.72 and y > -0.045 and z > -0.150) or (y > 0.000 and z > -0.200)
         return back or crown
     lower_side = [V[i].co.z < MOUTH_Z for i in range(len(V))]
     for f in head.polygons:
@@ -292,7 +521,8 @@ def build(who, out):
         sides = set(lower_side[i] for i in f.vertices)
         if front and len(sides) == 2 and abs(x) < MOUTH_HALF: f.material_index = 2          # the mouth line
         elif front and abs(x) < MOUTH_HALF + 0.004 and -0.108 < z < -0.072: f.material_index = 1   # the lips
-        elif P['stubble'] and z < -0.058 + 0.04 * max(0.0, min(1.0, (y + 0.05) / 0.07)) and y < 0.03 and not (abs(x) < 0.03 and z > -0.072): f.material_index = 3   # the beard line rises from the cheek to the jaw's angle
+        elif FD['scar'] and y < -RY * 0.3 and min(seg_dist(x, z, *g) for g in SCARS[FD['scar']]) < 0.0055: f.material_index = 5   # the scar
+        elif (P['stubble'] or P.get('beard') == 'stubble') and z < -0.058 + 0.04 * max(0.0, min(1.0, (y + 0.05) / 0.07)) and y < 0.03 and not (abs(x) < 0.03 and z > -0.072): f.material_index = 3   # the beard line rises from the cheek to the jaw's angle
         elif scalp(x, y, z): f.material_index = 4   # the back, the sides behind the ear, a sideburn (and the crown on the crew's cuts)
 
     # 3. THE SHAPE KEYS: the jaw turns about the hinge in front of the ear; the mouth, the brows and the corners move
@@ -467,9 +697,9 @@ def build(who, out):
             if math.hypot(f.center.x, f.center.y - 0.006) < cr * 1.03 and base_z + 0.012 < f.center.z < base_z + 0.040: f.material_index = 1
         ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
         objs.append(ha)
-    CAP = {'knit cap': 0.0, 'watch cap': 0.020, 'slouch beanie': 0.0, 'work cap': 0.012}
+    CAP = {'knit cap': 0.0, 'watch cap': 0.020, 'slouch beanie': 0.0, 'work cap': 0.012, 'skull cap': 0.050}
     def cap_line(y): return 0.080 - 0.085 * sstep(-0.12, 0.14, y) + CAP.get(P['gear'], 0.0)
-    if P['gear'] in ('watch cap', 'slouch beanie', 'work cap'):
+    if P['gear'] in ('watch cap', 'slouch beanie', 'work cap', 'skull cap'):
         # the crew's caps: the knit cap's method (the skull's own skin lifted above a line), a watch cap rolled higher on the
         # brow, a slouch beanie with its crown hanging off the back, a work cap with a flat crown and a visor
         k = P['gear']
@@ -478,7 +708,7 @@ def build(who, out):
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
         bm.normal_update()
         for v in bm.verts:
-            p = v.co; ln = cap_line(p.y); brim = k != 'work cap' and p.z < ln + 0.030
+            p = v.co; ln = cap_line(p.y); brim = k not in ('work cap', 'skull cap') and p.z < ln + 0.030   # a skull cap has no fold
             ang = math.atan2(p.y, p.x)
             rib = 0.0016 * max(0.0, math.cos(ang * 0.165 / 0.011)) ** 4 if (k != 'work cap' and not brim) else 0.0
             t = (0.022 if brim else (0.009 if k == 'work cap' else 0.012)) - rib
@@ -524,7 +754,7 @@ def build(who, out):
         sd = ha.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.010; sd.offset = -1
         bpy.ops.object.modifier_apply(modifier='rim')
         objs.append(ha)
-    if P['hair'] in ('taper', 'long', 'shag', 'coil'):
+    if P['hair'] in ('taper', 'long', 'shag', 'coil', 'fall', 'slick', 'fringe'):
         # THE CREW'S CUTS, the curls' method: the skull's own scalp faces lifted. A taper is a 3 to 8 mm shell combed
         # front to back; a long cut a 10 mm shell that fills to 20 mm toward the jaw; a shag the long cut in choppy lumps;
         # a coil crown the poacher's curls over the whole scalp. Under a cap only what shows below its line is kept.
@@ -543,6 +773,11 @@ def build(who, out):
             comb = 0.005 * max(0.0, math.cos(2 * math.pi * p.x / 0.012)) ** 3 if p.z > 0.08 else 0.005 * max(0.0, math.cos(2 * math.pi * ang * RX / 0.012)) ** 3
             lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.022)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.022))
             if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) - comb
+            elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) - 0.6 * comb      # thin, the comb's lines run back
+            elif st == 'fall':   # the long cut in layers: a step every 35 mm down the fall
+                t = 0.008 + 0.016 * sstep(0.0, -0.15, p.z) - comb + 0.004 * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.035))
+            elif st == 'fringe':   # the long cut, the fringe standing 6 mm proud of the forehead so it reads heavy
+                t = 0.009 + 0.012 * sstep(0.0, -0.13, p.z) - comb + 0.006 * sstep(-0.04, -0.09, p.y) * sstep(0.11, 0.06, p.z)
             elif st == 'coil':
                 # (cycle 1: the curls' grid lined up in rings round the crown and read as a knit cap) coils on two
                 # crossed, tilted pitches and a third that breaks the rows
@@ -581,13 +816,54 @@ def build(who, out):
         hc = bpy.data.objects.new('portrait_curls', hm); sc.collection.objects.link(hc); hc.location = C
         objs.append(hc)
 
+    if P.get('beard') in ('full', 'moustache', 'goatee'):
+        # FACIAL HAIR AS A PART (the row: 'hats, scars and facial hair as parts'), the hair's method: the skull's own faces where
+        # it grows, lifted 6 to 12 mm in lumps, the lips left bare. Each beard vertex remembers the skull vertex it came from,
+        # so it carries every shape key of the face: the beard drops with the jaw on A and O, the moustache rides the lip on E.
+        bd = P['beard']
+        def beard_at(c):
+            x, y, z = c.x, c.y, c.z
+            if y > 0.03: return False
+            front = y < -RY * 0.45
+            # (cycle 1: a ring 4 mm round the lips and a 12 mm shell hid the mouth, the lower face read as a mask; the ring is
+            # 8 mm and the shell thins to a third at the lips, below)
+            lips = abs(x) < MOUTH_HALF + 0.008 and -0.110 < z < -0.072
+            must = front and abs(x) < MOUTH_HALF + 0.012 and -0.078 < z < -0.059
+            if bd == 'moustache': return must and not lips
+            if bd == 'goatee': return (must or (front and abs(x) < 0.030 and z < -0.104)) and not lips
+            jaw = z < -0.058 + 0.04 * max(0.0, min(1.0, (y + 0.05) / 0.07)) and not (abs(x) < 0.03 and z > -0.072)
+            return (jaw or must) and not lips
+        bm = bmesh.new(); bm.from_mesh(head)
+        src = bm.verts.layers.int.new('src')
+        for v in bm.verts: v[src] = v.index
+        bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not beard_at(f.calc_center_median())], context='FACES')
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
+        bm.normal_update()
+        lift = []
+        for v in bm.verts:
+            p = v.co; ang = math.atan2(p.y, p.x)
+            lump = (0.5 + 0.5 * math.cos(2 * math.pi * ang * RX / 0.016)) * (0.5 + 0.5 * math.cos(2 * math.pi * p.z / 0.016))
+            t = {'full': 0.008, 'moustache': 0.006, 'goatee': 0.007}[bd] + 0.004 * lump ** 0.8
+            if bd == 'full': t += 0.003 * sstep(-0.10, -0.15, p.z)   # fuller under the chin
+            if bd != 'moustache': t *= 1.0 - 0.65 * g2(p.x, p.z, 0.0, MOUTH_Z, 0.050, 0.026)   # thin at the mouth, so it shows
+            lift.append((v[src], v.normal * t)); v.co = p + v.normal * t
+        for f in bm.faces: f.material_index = 0; f.smooth = True
+        bmm = bpy.data.meshes.new('portrait_beard'); bm.to_mesh(bmm); bm.free()
+        bmm.materials.clear(); bmm.materials.append(mat('portrait_%s_beard' % who.lower(), K['beard']))
+        bo = bpy.data.objects.new('portrait_beard', bmm); sc.collection.objects.link(bo); bo.location = C
+        bo.shape_key_add(name='Basis')
+        for kb in ho.data.shape_keys.key_blocks[1:]:
+            k2 = bo.shape_key_add(name=kb.name, from_mix=False)
+            for i, (si, off) in enumerate(lift): k2.data[i].co = kb.data[si].co + off
+        objs.append(bo)
+
     # 6b. STRAND NORMALS ON A DARK HEAD (CHARACTER's 8b, reused for the crew): the rig's source pass dusts every up-facing
     # surface toward a pale warm dust, so black hair and a charcoal cap rendered grey (cycle 1, measured on the longcoat and
     # the barearms). A strand's normal lies across the head, never straight up: the dark pieces' normals are tilted out
     # from the skull's axis, z held under 0.5, as CHARACTER measured. The real fix is the rig's per-material wear (routed).
     if P.get('crew'):
         for o in objs:
-            if o.name not in ('portrait_hair', 'portrait_cap') or not o.data.materials: continue
+            if o.name not in ('portrait_hair', 'portrait_cap', 'portrait_beard') or not o.data.materials: continue
             bc = next(n for n in o.data.materials[0].node_tree.nodes if n.type == 'BSDF_PRINCIPLED').inputs['Base Color'].default_value
             if 0.2126 * bc[0] + 0.7152 * bc[1] + 0.0722 * bc[2] > 0.12: continue
             ns = []
@@ -602,6 +878,29 @@ def build(who, out):
     # (round 2: the head's offset is baked into every mesh first; left as an object location, the exporter dropped it
     # on the pieces added after the skull, and the neck, the hat and the curls landed at the body's feet)
     bpy.context.view_layer.update()
+    if not FD['identity']:
+        # 6c. THE DIALS ON THE MODEL: every piece built on the starred head is moved to this face, every shape key with it.
+        # The skull, the hair, the caps, the beard and the neck bend with the face (warp); the eyeballs and their lids are
+        # rigid, each eye carried whole to where its socket went, so an eye stays round
+        def rigid(o, eyes):
+            for side in (1, -1):
+                c0 = Vector((side * EYE_X, eye_cy, EYE_Z)); w = warp(*c0); off = Vector(w) - c0
+                blocks = o.data.shape_keys.key_blocks if o.data.shape_keys else None
+                for i, v in enumerate(o.data.vertices):
+                    if (v.co.x > 0) != (side > 0): continue
+                    v.co = v.co + off
+                    if blocks:
+                        for kb in blocks: kb.data[i].co = kb.data[i].co + off
+        for o in objs:
+            if o is eo or o is lo: rigid(o, True); continue
+            if o.data.shape_keys:
+                for kb in o.data.shape_keys.key_blocks:
+                    for d_ in kb.data: d_.co = Vector(warp(*d_.co))
+                for v, d_ in zip(o.data.vertices, o.data.shape_keys.key_blocks[0].data): v.co = d_.co
+            else:
+                for v in o.data.vertices: v.co = Vector(warp(*v.co))
+            o.data.update()
+        bpy.context.view_layer.update()
     for o in objs:
         o.data.transform(Matrix.Translation(C), shape_keys=True); o.location = (0.0, 0.0, 0.0)
     bpy.context.view_layer.update()
@@ -623,7 +922,8 @@ def build(who, out):
     stats = dict(person=who, model=os.path.relpath(out, ROOT), from_body=P['body'], dropped=list(P['drop']), cut_above_z=P['cut_z'],
                  head=dict(centre=P['centre'], radii=P['radii'], mouth_z=MOUTH_Z, mouth_half=MOUTH_HALF, eye=[EYE_X, EYE_Z, EYE_R], bone=HEAD_BONE),
                  shape_keys=[k.name for k in ho.data.shape_keys.key_blocks][1:], lid_keys=[k.name for k in lo.data.shape_keys.key_blocks][1:],
-                 gear=P['gear'], hair=P['hair'], stubble=P['stubble'], look=P.get('look'),
+                 gear=P['gear'], hair=P['hair'], stubble=P['stubble'], look=P.get('look'), beard=P.get('beard'), scar=P.get('scar'),
+                 face=dict(dials=FD['v'], identity=FD['identity'], mouth_half=round(MOUTH_HALF, 4)),
                  meshes={o.name: len(o.data.vertices) for o in sc.objects if o.type == 'MESH'},
                  materials={m.name: [round(x, 4) for x in next(n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED').inputs['Base Color'].default_value[:3]] for m in bpy.data.materials if m.use_nodes})
     json.dump(stats, open(out.replace('.glb', '.json'), 'w'), indent=1)
@@ -685,7 +985,15 @@ CREW_OUT = 'records/target/portrait/crew'
 CREW_FRAMES = 'records/target/portrait/rig/crew'
 
 
-def crew_faces():
+def group_rows(group):
+    """(who, entry) for a hand-off group: 'crew' (YOU and the twelve cast looks, round 1) or 'faction' (the thirteen gangs,
+    round 2); an entry carries the look the screens key on, its cut and its head gear"""
+    if group == 'crew': return list(CREW.items())
+    return [('FACTION_' + k.upper(), dict(look='faction_' + k.lower(), name=k.upper(), hair=c['hair'], gear=c['gear'], beard=c.get('beard'),
+                                          scar=c.get('scar'), worn=c['worn'])) for k, c in FACTION.items()]
+
+
+def crew_faces(group='crew'):
     """THE HAND-OFF TO RUN TWO: every crew face as square files the screens draw as they are (the roster and the settlement
     draw a face into a 64 canvas; a 72 px box on a 3x phone shows 216 device pixels, so a 128 is handed too). The square is
     the rig's portrait frame padded to square on its own background; the 64 and the 128 are BOX-resampled from the 1:1
@@ -696,13 +1004,24 @@ def crew_faces():
                draft=True, placeholder='nothing is final before the moodboard (rule 108); the old 64 face stays until RUN TWO swaps',
                how_to_draw='drawImage(face, 0, 0, box, box): already square, already sized; the 128 for boxes over 64 css px',
                keys=['rest', 'A', 'E', 'O', 'M', 'Angry', 'Sad', 'Surprised'], faces={})
-    for who, c in CREW.items():
+    mp = os.path.join(ROOT, CREW_OUT, 'BOHEMIA_CREW_FACES.json')
+    if os.path.exists(mp):   # one manifest for every screen's faces: a group's round adds its looks, the others stand
+        old = json.load(open(mp)); man['faces'] = old.get('faces', {})
+        man['groups'] = old.get('groups', {'crew': 'YOU and the twelve cast looks (round 1, eb12c4a2)'})
+    if group == 'faction':
+        man['version'] = 'crew-faces-10-18d'
+        man.setdefault('groups', {})['faction'] = ("the thirteen gangs' looks the settlement's street draws (round 2): each head on its gang's own "
+                                                   "body (CHARACTER's rig look he voted up) with its own face dials")
+    for who, c in group_rows(group):
         l = who.lower(); fr = os.path.join(ROOT, CREW_FRAMES, l)
         pj = json.load(open(os.path.join(fr, 'portrait.json')))
         src = dict(rest=pj['files'][0], **pj['expression_files'])
         od = os.path.join(ROOT, CREW_OUT, c['look']); os.makedirs(od, exist_ok=True)
         ent = dict(name=c.get('name'), look=c['look'], model='records/portrait/rig/crew/%s_head.glb (rebuilt by this tool; not committed, 7 MB)' % l,
                    hair=c['hair'], gear=c['gear'], files={})
+        if group == 'faction':
+            hj = json.load(open(os.path.join(ROOT, 'records/portrait/rig/crew/%s_head.json' % l)))
+            ent.update(group='faction', beard=c.get('beard'), scar=c.get('scar'), worn=c.get('worn'), dials=hj['face']['dials'])
         for k in man['keys']:
             if k not in src: continue
             im = Image.open(os.path.join(ROOT, src[k])).convert('RGBA')
@@ -761,11 +1080,123 @@ def crew_sheet(out):
     os.makedirs(os.path.dirname(os.path.join(ROOT, out)), exist_ok=True); S.save(os.path.join(ROOT, out)); print('sheet', out, S.size)
 
 
+def dial_text(d):
+    """the dials a face moved off the starred default, in the face maker's own labels"""
+    lab = {k: l for k, l, lo, hi, df in FACE_DIALS}; dfl = {k: df for k, l, lo, hi, df in FACE_DIALS}
+    return ', '.join('%s %+d' % (lab[k].lower(), d[k] - dfl[k]) for k in lab if d.get(k, dfl[k]) != dfl[k]) or 'the starred default'
+
+
+def rows_sheet(out, title, lines, rows, today_label, foot=None):
+    """a VOTE sheet of heads: per row the old 64 face at 2x (or nothing), the head S SE SW and talking A O Angry at 1:1, its
+    words under it; the caption names the pixel size, the palette and the light (rule 114c)"""
+    from PIL import Image, ImageDraw
+    BG = (22, 21, 20); PANEL = (58, 52, 46); INK = (220, 214, 200); DIM = (160, 154, 140); HEAD = (200, 190, 120)
+    loaded = []
+    for label, sub, today, fr in rows:
+        pj = json.load(open(os.path.join(ROOT, fr, 'portrait.json')))
+        ims = [Image.open(os.path.join(ROOT, f)).convert('RGBA') for f in pj['files']] + \
+              [Image.open(os.path.join(ROOT, pj['expression_files'][k])).convert('RGBA') for k in ('A', 'O', 'Angry')]
+        loaded.append((label, sub, today, ims))
+    pw, ph = loaded[0][3][0].size
+    Wd = 24 + 150 + 6 * (pw + 6); H = 30 + 14 * len(lines) + len(loaded) * (ph + 36) + (foot[1] if foot else 0) + 20
+    S = Image.new('RGB', (Wd, H), BG); d = ImageDraw.Draw(S)
+    d.text((12, 8), title, fill=INK); y = 24
+    for ln in lines: d.text((12, y), ln, fill=DIM if not ln.startswith('columns') else HEAD); y += 14
+    y += 4
+    for label, sub, today, ims in loaded:
+        d.text((12, y), label, fill=HEAD); d.text((12, y + 13), sub, fill=DIM); y += 28
+        if today is not None:
+            t2 = today.resize((128, 128), Image.NEAREST); S.paste(PANEL, (12, y, 140, y + 128)); S.paste(t2, (12, y), t2)
+            d.text((12, y + 130), today_label, fill=DIM)
+        x = 162
+        for im in ims:
+            S.paste(PANEL, (x, y, x + im.width, y + im.height)); S.paste(im, (x, y), im); x += pw + 6
+        y += ph + 8
+    if foot: foot[0](S, d, y)
+    os.makedirs(os.path.dirname(os.path.join(ROOT, out)), exist_ok=True); S.save(os.path.join(ROOT, out)); print('sheet', out, S.size)
+
+
+def faction_sheet(out):
+    """the thirteen gangs: the game's 64 face today (2x) beside the new head on the gang's own body, and the street's line
+    at the size the settlement draws a speaker, today against the fresh faces"""
+    from PIL import Image
+    fp = json.load(open(os.path.join(ROOT, 'slices/fight_people/fight_people.json')))
+    rows, todays = [], []
+    for who, c in group_rows('faction'):
+        l = who.lower(); sh = Image.open(os.path.join(ROOT, 'slices/fight_people', fp['looks'][c['look']]['file'])).convert('RGBA')
+        today = sh.crop((sh.width - 64, 0, sh.width, 64)); todays.append((c['look'], today))
+        hj = json.load(open(os.path.join(ROOT, 'records/portrait/rig/crew/%s_head.json' % l)))
+        rows.append(('%s  (%s)' % (c['name'], c['look']), '%s | face: %s' % (c['worn'], dial_text(hj['face']['dials'])), today, os.path.join(CREW_FRAMES, l)))
+
+    def foot(S, d, y):
+        d.text((12, y + 4), 'THE STREET AT THE SIZE THE SETTLEMENT DRAWS A SPEAKER (64 px): today, then the fresh faces (the hand-off files)', fill=(200, 190, 120))
+        y += 20
+        for i, (look, today) in enumerate(todays):
+            x = 12 + i * 70; f = Image.open(os.path.join(ROOT, CREW_OUT, look, 'rest_64.png')).convert('RGBA')
+            S.paste((58, 52, 46), (x, y, x + 64, y + 64)); S.paste(today, (x, y), today)
+            S.paste((58, 52, 46), (x, y + 84, x + 64, y + 148)); S.paste(f, (x, y + 84), f)
+        d.text((12, y + 66), 'today', fill=(160, 154, 140)); d.text((12, y + 150), 'from the same model', fill=(160, 154, 140))
+    rows_sheet(out, 'PORTRAIT: THE SPEAKERS\' FACES (rule 115h, a fresh portrait never a zoom). The thirteen gangs the settlement\'s street draws, each head MODELLED on its gang\'s own body (the rig looks he voted up). A PLACEHOLDER.',
+               ['head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | palette: style palette steps (skin from the game\'s own face, hair and gear from the worn list) | ONE light: the rig\'s sun, upper left, above | wear 0.45',
+                'the first heads with the face maker\'s dials: no two share a skull (each row says what moved); beards and scars are parts of the model',
+                'columns: TODAY (the game\'s 64 px face, 2x) | S | SE | SW | talking A | O | Angry, all 1:1 straight from DIRECTION\'s rig, unedited'],
+               rows, 'today (64 px)', (foot, 190))
+
+
+def maker_sheet(out):
+    """[the starred face, customisable]: six faces built with the controls on the player's own body, beside the starred
+    default they were all dialled from"""
+    rows = [('THE STARRED DEFAULT (YOU, round 1)', 'every dial at its middle: the head all six are dialled from', None, os.path.join(CREW_FRAMES, 'you'))]
+    for i, c in enumerate(MAKER):
+        hj = json.load(open(os.path.join(ROOT, 'records/portrait/rig/maker/maker_%d_head.json' % (i + 1))))
+        rows.append(('%d. %s' % (i + 1, c['name']), 'cut: %s, %s | gear: %s | %s%s | face: %s' % (
+            CUT_NAME[c['hair']], c['hair_colour'], c['gear'] or 'none', 'beard: %s' % c['beard'] if c.get('beard') else 'clean shaven',
+            ', scar: %s' % c['scar'] if c.get('scar') else '', dial_text(hj['face']['dials'])), None, os.path.join('records/target/portrait/rig/maker', 'maker_%d' % (i + 1))))
+    rows_sheet(out, 'PORTRAIT: THE STARRED FACE, CUSTOMISABLE (Paolo 10/18: \'We can customise that shit?\' Yes). Six faces built with the face maker\'s controls on ONE head, the player\'s own body. A PLACEHOLDER.',
+               ['head 128 px chin to crown, camera tilt 80, one pixel size, block 1 | skin: style palette steps; hair: the face maker\'s own 21 colours (his swatches) | ONE light: the rig\'s sun, upper left, above | wear 0.45',
+                'the fourteen controls are the face maker\'s own (length, cranium, forehead, cheeks, jaw, chin, brow / eye / nose / mouth height, eye spacing, brow length, mouth width, nose width)',
+                'the cut, the head gear, the beard and the scar are parts of the same model; the mouth still talks on every face (A, O) and the moods still play (Angry)',
+                'columns: S | SE | SW | talking A | O | Angry, all 1:1 straight from DIRECTION\'s rig, unedited'],
+               rows, '')
+
+
+def dials_spec(out):
+    """THE HAND-OFF TO CHARACTER (it owns the face maker's dials and wires them): the controls, their ranges and defaults,
+    what each moves on the model in metres, and every part the head can wear"""
+    F0 = face_dials(None)
+    spec = dict(version='head-dials-10-18d', lane='portrait', row='[the starred face, customisable]', law='HE CAN BUILD HIS OWN FACE (8/28), on the modelled head (rule 115h)',
+                draft=True, tool='tools/bohemia_portrait_the_head_from_the_model.py (face_dials, warp, face_push)',
+                how='a person\'s face spec is a dict of these keys (any subset; missing keys are the default); the tool clamps it with the 2D panel\'s own anatomy rules, builds the head on the body, and DIRECTION\'s rig renders it. Every default together is the starred head, unchanged.',
+                dials=[dict(key=k, label=l, lo=lo, hi=hi, default=d, units='the 64 px face\'s pixels (the alpha\'s FACE_SLIDERS)',
+                            moves={'face.len': 'the face below the head\'s centre stretches, the chin 5.8 mm a pixel (the neck stays in its collar)', 'face.craniumH': 'the skull above the centre stretches, the crown 5.8 mm a pixel',
+                                   'face.foreheadW': 'the width above the brow, 2.9 percent a pixel', 'face.cheekW': 'the width at the cheekbones, 2.3 percent a pixel',
+                                   'face.jawW': 'the width at the jaw\'s corner, 2.7 percent a pixel', 'face.chinW': 'the chin\'s width, 3.75 percent a pixel',
+                                   'face.browY': 'the brow ridge up or down, 5.8 mm a pixel (held under 15 mm)', 'face.eyeY': 'the eyes and their sockets up or down, 5.8 mm a pixel (13 mm max)',
+                                   'face.noseY': 'the nose up or down, 5.8 mm a pixel (18 mm max)', 'face.mouthY': 'the mouth and lips up or down, 5.8 mm a pixel (14 mm max)',
+                                   'eyes.gap': 'each eye out from the middle, 3.5 mm a pixel (18 mm max)', 'brows.len': 'the brow ridge\'s length, 8.6 percent a pixel',
+                                   'mouth.w': 'the mouth\'s width (and the speak-along shapes with it), 6.7 percent a pixel', 'nose.w': 'the nose and its wings, 16.7 percent a pixel'}[k])
+                       for k, l, lo, hi, d in FACE_DIALS],
+                clamps=['cheeks >= forehead + 2', 'jaw <= cheeks - 1', 'chin <= jaw - 6', '5 <= mouth <= jaw - 8'],
+                parts=dict(cuts=sorted(CUT_NAME), extra_cuts=['buzz (the thug)', 'curls (the poacher)'],
+                           gear=['knit cap', 'watch cap', 'slouch beanie', 'work cap', 'skull cap', 'field hat', 'cone hat', None],
+                           beard=[None, 'stubble', 'moustache', 'goatee', 'full'], scar=[None] + sorted(SCARS),
+                           hair_colours=dict(HAIR_COLORS), skin='a step of skin_light, skin_mid or skin_deep (records/target/BOHEMIA_STYLE_PALETTE.json)'),
+                example=dict((c['name'], dict(face=c['face'], skin=c['skin'], hair=c['hair'], hair_colour=c['hair_colour'], gear=c['gear'], beard=c.get('beard'), scar=c.get('scar'))) for c in MAKER),
+                identity_check='every dial at its default: F[\'identity\'] is %s and the warp is skipped, so the poacher, the thug and the crew\'s thirteen rebuild unchanged (measured 10/18d: the same vertex counts and materials, positions within 1.5e-8 m, the export\'s own run-to-run noise)' % F0['identity'])
+    json.dump(spec, open(os.path.join(ROOT, out), 'w'), indent=1); print('spec', out)
+
+
 if __name__ == '__main__':
+    if sys.argv[1] == '--faction-faces':
+        crew_faces('faction'); faction_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_THE_SPEAKERS_FACES.png'); sys.exit(0)
+    if sys.argv[1] == '--maker-sheet':
+        dials_spec('records/portrait/BOHEMIA_HEAD_DIALS.json'); maker_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_THE_STARRED_FACE_CUSTOMISABLE.png'); sys.exit(0)
     if sys.argv[1] == '--crew-faces':
         crew_faces(); crew_sheet(sys.argv[2] if len(sys.argv) > 2 else 'records/target/portrait/PORTRAIT_EVERY_FACE_FROM_THE_SAME_MODEL.png'); sys.exit(0)
     if sys.argv[1] == '--crew-body':
         crew_body(sys.argv[2].upper(), sys.argv[3] if len(sys.argv) > 3 else CREW_BODIES)
+    elif sys.argv[1] == '--faction-body':
+        faction_body(sys.argv[2].capitalize(), sys.argv[3] if len(sys.argv) > 3 else FACTION_BODIES)
     elif sys.argv[1] == '--sheet':
         sheet(sys.argv[2].upper(), sys.argv[3], sys.argv[4])
     else:
