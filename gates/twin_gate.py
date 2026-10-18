@@ -26,8 +26,8 @@ THE LEGS
 
   L0  NO WEIGHTS IN THE REPO (every box): git tracks no model file (.onnx .pth .pt .safetensors .ckpt), and
       tools/models/ is ignored; a planted tracked export is red. The look workflow (.github/workflows/look.yml)
-      exports with tools/bohemia_look_export.py at the pinned DINOv2 commit, caches the export keyed on that
-      script, calibrates and runs this gate, and asks for nothing but read access.
+      exports with tools/bohemia_look_export.py at the pinned DINOv2 commit and the pinned weights' sha256,
+      caches the export keyed on the three, calibrates and runs this gate, and asks for nothing but read access.
 
 LOOK (DINOv2 ViT-S/14): Apache-2.0, read 10/18 from facebookresearch/dinov2 LICENSE and MODEL_CARD.md
 ('License: Apache License 2.0'). Its weights answer 403 from the container (huggingface.co and
@@ -229,6 +229,8 @@ def l0():
     miss = [k for k, v in need.items() if v not in y]
     if not re.search(r'DINOV2_COMMIT:\s*[0-9a-f]{40}\b', y):
         miss.append('the pinned DINOv2 commit')
+    if not re.search(r'DINOV2_VITS14_SHA256:\s*[0-9a-f]{64}\b', y):
+        miss.append('the pinned weights (sha256)')
     if 'contents: write' in y:
         miss.append('it asks to write')
     ok('L0 the look workflow exports, caches, calibrates and runs this gate on the free runner', bool(y) and not miss,

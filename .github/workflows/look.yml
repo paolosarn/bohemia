@@ -41,6 +41,9 @@ concurrency:
 
 env:
   DINOV2_COMMIT: 7764ea0f912e53c92e82eb78a2a1631e92725fc8
+  # the LVD-142M ViT-S/14 weights as the first run measured them (run 39152357532, 88,283,115 bytes);
+  # the export refuses any other file
+  DINOV2_VITS14_SHA256: b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9
   BOHEMIA_DINOV2_ONNX: ${{ github.workspace }}/tools/models/dinov2_vits14.onnx
 
 jobs:
@@ -73,12 +76,13 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           path: tools/models
-          key: dinov2-vits14-onnx-${{ env.DINOV2_COMMIT }}-${{ hashFiles('tools/bohemia_look_export.py') }}
+          key: dinov2-vits14-onnx-${{ env.DINOV2_COMMIT }}-${{ env.DINOV2_VITS14_SHA256 }}-${{ hashFiles('tools/bohemia_look_export.py') }}
 
       - name: export DINOv2 ViT-S/14 to ONNX (only when the cache missed)
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           python -m pip install --quiet torch==2.8.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --quiet onnx==1.23.2
           git clone --quiet https://github.com/facebookresearch/dinov2 "$RUNNER_TEMP/dinov2"
           git -C "$RUNNER_TEMP/dinov2" checkout --quiet "$DINOV2_COMMIT"
           python tools/bohemia_look_export.py --repo "$RUNNER_TEMP/dinov2" --out "$BOHEMIA_DINOV2_ONNX"
@@ -110,7 +114,7 @@ jobs:
       - name: the summary
         if: always()
         run: |
-          { echo '## TWIN GATE with LOOK'; echo '```'; cat "$RUNNER_TEMP/twin_gate.txt" 2>/dev/null; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          { echo '## TWIN GATE with LOOK'; echo '```'; cat "$RUNNER_TEMP/twin_gate.txt" 2>/dev/null || echo 'the gate did not run'; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       - name: the record
         if: always()
