@@ -1,0 +1,59 @@
+BOHEMIA VOTE -- 10/18 (THE SIXTEENTH VOTES; only the verdicts the registry did not already carry, 11 of 436 lines)
+
+YES  PLACEHOLDER: YOUR WHOLE CREW GETS THE STARRED FACE, 13 HEADS BUILT ON THEIR OWN BODIES, ALL TALKING
+     id    portrait-every-face-from-the-same-model-10-18
+     lane  portrait   on 10/18
+     said  Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.
+
+YES  CANDIDATE: THE STREETS JOIN ACROSS DISTRICTS ON THE MAP, FROM YOUR OWN TILES
+     id    cook2-the-street-joins-for-the-map-10-18
+     lane  cook 2   on 10/18
+     said  Way better nice!
+
+NO   REAL SHOES IN THE FIGHT
+     id    sounds-the-step-in-the-fight-10-18
+     lane  sounds   on 10/18
+     said  Was broke
+
+YES  PLACEHOLDER: THE CHURCH UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS
+     id    cook4-the-church-10-18
+     lane  cook 4   on 10/18
+
+YES  PLACEHOLDER: THE FERAL DOG PACK, IDLE, STEP AND BITE IN EIGHT
+     id    animation-the-feral-dog-pack-10-18
+     lane  animation   on 10/18
+
+YES  A NEW SONG FOR THE TITLE
+     id    sounds-over-the-ridge-10-18
+     lane  sounds   on 10/18
+     said  Awesome I like it, but I just questioned like the aesthetic inspiration of what I'm hearing like I'm questioning whether it really goes with the vibe of bohemia but like I like it I just don't know it like this is the analog horror a bit like AI I do appreciate it though. And it sounds very different than the rest of our songs too. You know like the rest of our songs aren't like in this style kind of they're still 120 BPM you know so I wonder if there's like a middleground to reach for all of this, but yeah, like I like it.
+
+YES  THE MAP'S STREETS JOIN UP AND THE NEIGHBOURHOODS GO TAN
+     id    run-the-streets-join-10-18
+     lane  run   on 10/18
+     said  Looking better, just keep in mind the two make up the freeway as it runs along through the city like it should be unified unified it doesn't look unified. It looks really bad.
+
+YES  FRESH PORTRAITS ON YOUR CREW, NO MORE ZOOM ON THE CLAY MODEL'S FACE
+     id    run2-the-fresh-portraits-10-18
+     lane  run 2   on 10/18
+     said  When we make customizable, but yeah bro, it's good but it's good not final
+
+YES  THE GANGS ON THE MAP WEAR THEIR 3D MODELS
+     id    run-the-gangs-wear-the-rig-10-18
+     lane  run   on 10/18
+     said  If you need, you didn't check some of the people that were at icon tied to a map icon
+
+YES  EASIER, MEASURED
+     id    tuning-easier-measured-10-18
+     lane  tuning   on 10/18
+     said  Make it just slightly hardEr than that
+
+YES  CANDIDATE: THE SAME THREE FIGHT BOARDS, WITH EVERYTHING THAT DOES NOTHING IN A FIGHT TAKEN OFF
+     id    combat2-a-board-you-read-in-one-look-10-18
+     lane  combat 2   on 10/18
+     said  Sure better direction not final
+
+ANYTHING ELSE (unchanged)
+More analog horror no more cards with quest just make an actual actual quiz make make the make the pixels make the sound
+
+COUNT: 11 new verdicts, 10 YES, 1 NO. The registry carries 527 verdicts. Not yet voted: tuning-the-twenty-fields-four-studios-10-18, combat-the-marks-on-the-board-10-18.

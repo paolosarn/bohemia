@@ -10387,27 +10387,27 @@
    },
    "draft": true
   },
-    {
-     "id": "run2-the-fresh-portraits-10-18",
-     "kind": "redo",
-     "lane": "run 2",
-     "sha": "fc0bbbd3",
-     "made": "10/18",
-     "title": "FRESH PORTRAITS ON YOUR CREW, NO MORE ZOOM ON THE CLAY MODEL'S FACE",
-     "why": "You liked the portraits, not the zoom on the creepy model's face, so all 13 faces on the crew screen, the junk lot and the hiring post are now the fresh portraits the face chat made, and their mouths move when they talk. You see it here under LOOK, the old zoom on the left and the new faces talking on the right, and in the demo when you tap CREW or the junk lot.",
-     "show": {
-      "how": "image",
-      "src": "vote/RUN2_THE_FRESH_PORTRAITS_BEFORE_AFTER_10_18.png"
-     },
-     "redoOf": "run2-the-starred-faces-10-18",
-     "said": "I liked it when it was the portrait not when you zoom in on the fucking creepy model's face bro is it's it's a difference it has to be made fresh portrait.",
-     "before_after": {
-      "before": "the rig body's head cut out and zoomed x4 (11 of 13 faces)",
-      "after": "PORTRAIT's 13 fresh portraits (eb12c4a2), the card's man and YOU at the lot talking, a mouth a half beat",
-      "scale": "half his phone's 3x"
-     },
-     "draft": true
-    },
+  {
+   "id": "run2-the-fresh-portraits-10-18",
+   "kind": "redo",
+   "lane": "run 2",
+   "sha": "fc0bbbd3",
+   "made": "10/18",
+   "title": "FRESH PORTRAITS ON YOUR CREW, NO MORE ZOOM ON THE CLAY MODEL'S FACE",
+   "why": "You liked the portraits, not the zoom on the creepy model's face, so all 13 faces on the crew screen, the junk lot and the hiring post are now the fresh portraits the face chat made, and their mouths move when they talk. You see it here under LOOK, the old zoom on the left and the new faces talking on the right, and in the demo when you tap CREW or the junk lot.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_FRESH_PORTRAITS_BEFORE_AFTER_10_18.png"
+   },
+   "redoOf": "run2-the-starred-faces-10-18",
+   "said": "I liked it when it was the portrait not when you zoom in on the fucking creepy model's face bro is it's it's a difference it has to be made fresh portrait.",
+   "before_after": {
+    "before": "the rig body's head cut out and zoomed x4 (11 of 13 faces)",
+    "after": "PORTRAIT's 13 fresh portraits (eb12c4a2), the card's man and YOU at the lot talking, a mouth a half beat",
+    "scale": "half his phone's 3x"
+   },
+   "draft": true
+  },
   {
    "id": "tuning-easier-measured-10-18",
    "kind": "tile",
@@ -13946,6 +13946,83 @@
    "id": "combat2-the-board-cut-from-the-map-10-18",
    "vote": "up",
    "said": "",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "portrait-every-face-from-the-same-model-10-18",
+   "vote": "up",
+   "said": "Awesome like I'm so in love with way this shit looks but keep in mind like it looks like you made some hair look like it was like a medieval Link mesh armor so just keep in mind. All of this has to be customizable and we still have to get the hair approved and shit and the hats approved and shit in the sunglasses approved and shit and all the assets we have we have to coordinate them rename them reapply them in the new art stuff so please don't forget.",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "cook2-the-street-joins-for-the-map-10-18",
+   "vote": "up",
+   "said": "Way better nice!",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "sounds-the-step-in-the-fight-10-18",
+   "vote": "down",
+   "said": "Was broke",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "cook4-the-church-10-18",
+   "vote": "up",
+   "said": "",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "animation-the-feral-dog-pack-10-18",
+   "vote": "up",
+   "said": "",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "sounds-over-the-ridge-10-18",
+   "vote": "up",
+   "said": "Awesome I like it, but I just questioned like the aesthetic inspiration of what I'm hearing like I'm questioning whether it really goes with the vibe of bohemia but like I like it I just don't know it like this is the analog horror a bit like AI I do appreciate it though. And it sounds very different than the rest of our songs too. You know like the rest of our songs aren't like in this style kind of they're still 120 BPM you know so I wonder if there's like a middleground to reach for all of this, but yeah, like I like it.",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "run-the-streets-join-10-18",
+   "vote": "up",
+   "said": "Looking better, just keep in mind the two make up the freeway as it runs along through the city like it should be unified unified it doesn't look unified. It looks really bad.",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "run2-the-fresh-portraits-10-18",
+   "vote": "up",
+   "said": "When we make customizable, but yeah bro, it's good but it's good not final",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "run-the-gangs-wear-the-rig-10-18",
+   "vote": "up",
+   "said": "If you need, you didn't check some of the people that were at icon tied to a map icon",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "tuning-easier-measured-10-18",
+   "vote": "up",
+   "said": "Make it just slightly hardEr than that",
+   "when": "10/18",
+   "at": "2026-10-18"
+  },
+  {
+   "id": "combat2-a-board-you-read-in-one-look-10-18",
+   "vote": "up",
+   "said": "Sure better direction not final",
    "when": "10/18",
    "at": "2026-10-18"
   }
