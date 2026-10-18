@@ -1,0 +1,112 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="ball_on_roof" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Ball on Roof]]</span>
+!style="white-space: nowrap"|
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 140
+|-
+|colspan="3"|A boy is climbing a tree and wants to retrieve his ball from a roof. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"I guess we can help him."
+**70% chance: +1 [[Reputation]] and a [[File:Good_mood.png|21px]] good mood for the brother
+**30% chance: −1 [[Reputation]] and a [[File:Bad_mood.png|21px]] bad mood for the brother
+*"[[File:Trait_icon_05.png|25px]] [[Sure Footing]], you're sure-footed. Give him a hand."
+** +1 [[Reputation]] and a [[File:Good_mood.png|21px]] good mood for the brother
+*"We have no time for this."
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*It has to be day-time
+*You have to be near an allied settlement
+*Have 3 or more brothers
+[[File:Score.png|150px]]
+*Score = 15
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=At {{EventVariable|Townname}}}}
+[[File:event_97.png|left]]
+The company comes across a small boy who has climbed up a tree and out to the edge of a branch. He's reaching for a ball that's gotten stuck on the roof of his home. There's not a parent in sight to help him. When he sees you, he asks if you can help get the ball. Seems simple enough.
+{{EventButtons}}
+{{EventButton|I guess we can help him. (|#Good|70% Good|,{{Sp}}|#Bad|30% Bad|)}}
+{{EventButton||#Surefooted|{{EventVariable|Surefooted}}, you're sure-footed. Give him a hand.|{{Sp}}(requires Sure Footing)}}
+{{EventButton|We have no time for this. (the event ends)}}
+{{EventTabEnd}}
+
+|-|Good=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Otherbrother's token}}
+[[File:event_97.png|left]]
+You send {{EventVariable|Otherbrother}} to try and retrieve the ball. Using {{EventVariable|Otherother}} as a stepstool, he launches himself onto the roof and gets the toy. The boy is ecstatic and the smile on his face warms even the most cynical of your mercenaries.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:asset moral reputation.png|25x25px]] || +1 moral reputation
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Otherbrother}} gets a {{Tooltip|good mood|+1 (Helped a little boy)}}
+ |}
+{{EventButtons}}
+{{EventButton|What a good sword sellin' samaritan. (the event ends)}}
+{{EventTabEnd}}
+
+|-|Bad=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Otherbrother's token|right=Otherother's token}}
+[[File:event_97.png|left]]
+You send {{EventVariable|Otherbrother}} to try and retrieve the ball. He climbs the tree and jumps across a branch to land atop the roof. Mission complete, he tosses the ball to the kid. Unfortunately, the boy lets go of the tree branch to try and catch it. He slips off the branch and falls a good fifteen feet to the earth. The wallop of his landing has the whole company cringing. When you check on him he isn't moving and his back has taken a new shape. {{EventVariable|Otherother}} yells at the idiot still standing in shock on the roof.
+
+{{EventSpeech|What the hell were you thinking? Holy shit, man!}}
+
+The mercenary climbs down off the roof. He looks at the kid and then nervously looks around.
+
+{{EventSpeech|Well he, uh, he's got the ball. Let's get the hell out of here. Our... our work here is done.}}
+
+What a goatfuck of a situation. You and the company quickly leave the scene before the parents get back.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:asset moral reputation.png|25x25px]] || -1 moral reputation
+ |-
+ | [[File:effect mood disgruntled.png|x25px]] || {{EventVariable|Otherbrother}} gets a {{Tooltip|bad mood|-1.5 (Accidentally crippled a little boy)}}
+ |}
+{{EventButtons}}
+{{EventButton|Nobody saw nothing. (the event ends)}}
+{{EventTabEnd}}
+
+|-|Surefooted=
+{{EventTab|header=At {{EventVariable|Townname}}|left=Surefooted's token}}
+[[File:event_97.png|left]]
+{{EventVariable|Surefooted}} clears his throat and steps forward.
+
+{{EventSpeech|I'll be your hero, kid.}}
+
+He opens his arms and the kid jumps down into them. The boy is set aside and the sellsword points a finger to the earth.
+
+{{EventSpeech|Stay down here.}}
+
+The surefooted mercenary easily clambers up the tree and jumps over to the roof. He picks the ball up and spins it on a finger before he pirouettes off the eave like a tornado, landing right on his toes with rather feminine grace. The boy claps excitedly and takes the toy and even the most cynical of men in the company are warmed by his happiness.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:asset moral reputation.png|25x25px]] || +1 moral reputation
+ |-
+ | [[File:effect mood eager.png|x25px]] || {{EventVariable|Surefooted}} gets a {{Tooltip|good mood|+1.5 (Impressed everyone with his talents)}}
+ |}
+{{EventButtons}}
+{{EventButton|Show off. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Ball_on_roof_event_01.png|Start
+Ball_on_roof.png|Success
+Ballonroof.png|Failure
+Ball_on_roof_event_02.png|Sure Footing
+</gallery>
+
+[[Category:Event]]

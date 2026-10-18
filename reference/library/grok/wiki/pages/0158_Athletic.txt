@@ -1,0 +1,14 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" |Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="athletic"| [[Athletic]]<br />[[File:Trait_icon_21.png]]<!-- Trait -->
+|align="center"|[[File:Special.png|25px]]<br />Builds up 2 less [[File:Fatigue.png|25px|Fatigue]] for each tile travelled
+|
+*Can gain +1 [[File:Fatigue.png|25px|Fatigue]] and lose you 300-600 [[File:Crowns.png|25px]] in ([[Horse Race]]).
+*Will never become [[File:Status_effect_53.png|25px]] [[Exhausted (Status Effect)|Exhausted]] from ranged training and is 50% less likely to be [[File:Status_effect_53.png|25px]] [[Exhausted (Status Effect)|Exhausted]] from fatigue/initiative training. ([[Combat Drill]])
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

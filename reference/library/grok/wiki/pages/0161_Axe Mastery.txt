@@ -1,0 +1,9 @@
+{| class="article-table" width="100%"
+!style="width:27%; text-align:center;"|'''Perk'''
+!style="width:73%; text-align:center;"|'''Description'''
+|-<onlyinclude>
+|[[File:Perk_44.png|34px]]&nbsp;&nbsp;&nbsp;'''[[Axe Mastery]]'''
+|id="axe_mastery"|Skills build up <span style="color: green">25%</span> less Fatigue.<br />Split Shield damage to shields is increased by <span style="color: green">50%</span> when used with axes.<br />Round Swing gains <span style="color: green">+5%</span> chance to hit.<br />The Longaxe no longer has a penalty for attacking targets directly adjacent.
+</onlyinclude>
+|}
+[[Category:Perks]]

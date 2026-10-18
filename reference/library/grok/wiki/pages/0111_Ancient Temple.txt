@@ -1,0 +1,49 @@
+{| class="article-table" width="100%"
+|-
+! align="left" id="ancient_temple"|[[File:Ancient_temple.png|50px]] [[Ancient Temple]]
+|-
+! align="center" width="100%" |<!-- Ancient Temple -->[[File:Ancient_temple2.png|left|200px]] The sunken and half buried entrance to some sort of temple or mausoleum that sticks out of the ground.
+|-
+|<div class="mw-collapsible mw-collapsed toggle-center">
+*"We'll go in."
+**"Let's do it." (you gain 1 [[File:Holy_water2.png|20px]] [[Flask of Blessed Water|flask of blessed water]])
+***"Nevermind his tears, watch his hands!"
+***"From the brink a broken man must be saved."
+***"Chirp. Chirp chirp chirp?"
+***"What?"
+****"Might as well see." (you gain 1 [[File:Holy_water2.png|20px]] [[Flask of Blessed Water|flask of blessed water]])
+*****"Dust." (you gain 1 [[File:Holy_water2.png|20px]] ([[Flask of Blessed Water|flask of blessed water]])
+*****"Go fark yourself!" (you suffer a [[File:Pierced_arm_muscle.png|25px]] [[Pierced Arm Muscles|pierced arm muscles]] injury and gain 1 [[File:Holy_water2.png|20px]] [[Flask of Blessed Water|flask of blessed water]])
+*****"Help me kick in that gate, brother!"
+******"Well, fine. You can join us." (the event ends)
+******"No, that's not happening." (the event ends)
+****"Seems dangerous. Let's get out now." (you gain 1 [[File:Holy_water2.png|20px]] [[Flask of Blessed Water|flask of blessed water]] and the event ends)
+*"Forget those ruins, we're moving on." (nothing happens)</div>
+|}
+<noinclude>
+== Start ==
+<div class="res-img">[[File:Temple1.png]]</div>
+
+=== Path 1 ===
+<div class="res-img">[[File:Temple2.png]]</div>
+<div class="res-img">[[File:Temple3.png]]</div>
+<div class="res-img">[[File:Temple4.png]]</div>
+
+==== Path 1.1 ====
+<div class="res-img">[[File:Temple5.png]]</div>
+
+===== Path 1.1.1 =====
+<div class="res-img">[[File:Temple6.png]]</div>
+
+===== Path 1.1.2 =====
+<div class="res-img">[[File:Temple7.png]]</div>
+
+===== Path 1.1.3 =====
+<div class="res-img">[[File:Temple8.png]]</div>
+
+====== Path 1.1.3.1 ======
+<div class="res-img">[[File:Temple9.png]]</div>
+
+====== Path 1.1.3.2 ======
+<div class="res-img">[[File:Temple10.png]]</div></noinclude>
+[[Category:Legendary Locations]]

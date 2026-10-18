@@ -1,0 +1,9 @@
+{{Infobox_bodyarmor|image = Inventory body armor 65.png|worth = 450|durability = 120|maxfatigue = -16}}
+
+== Description ==
+''A heavy and rotten double-layered mail of ancient design. Not comfortable to wear but still usable. ''
+
+== Where can it be found?  ==
+* Looted from [[Ancient Legionary|Ancient Legionaries]].
+[[Category:Body Armor]]
+[[Category:Armor]]

@@ -1,0 +1,28 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="barbarian_volunteer" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Barbarian Volunteer]]</span>
+!style="white-space: nowrap"|[[File:Dlc_4.png|25px|Warriors of the North DLC]] <span style="color:teal">Warriors of the North DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 100
+|-
+|colspan="3"|A [[Barbarian (Background)|Barbarian]] offers to join your company.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"You've found a new tribe, friend."
+**You gain a [[Barbarian (Background)|Barbarian]] brother that has a [[Hounds|Warhound]] equipped
+*"We have no need for you."
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*You have to be on a road
+*You are in the top 30% part (north) of the global map
+*Have a free slot in your roster
+[[File:Score.png|150px]]
+*Score = 5
+*Score = 20 (if you play the [[Northern Raiders]] origin)
+[[File:Other_notes.png|150px]]
+*You can get this event even when you don't play the [[Northern Raiders]] origin, but it is 4 times less likely
+</div>
+|}</onlyinclude>
+
+<div class="res-img">[[File:Barbarian_volunteer.png]]</div>
+[[Category:Event]]

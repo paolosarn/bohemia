@@ -1,0 +1,15 @@
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-<onlyinclude>
+| align="center" |[[File:BowSkillAimedShot.png|center|35px]]
+| align="center" |[[Aimed Shot (25 fatigue)|Aimed Shot]]
+| align="center" |7
+| align="center" |20
+| align="left" |<span style="color:green">+10%</span> chance to hit, <span style="color:red">-2%</span> chance to hit per tile of distance, <span style="color:green">+10%</span> damage, <span style="color:orange">40%</span> [[File:Direct_damage.png|25px|bottom|Direct Damage]]
+</onlyinclude>
+|}
+[[Category:Weapon Skills]]

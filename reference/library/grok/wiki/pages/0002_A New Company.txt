@@ -1,0 +1,59 @@
+{| class="article-table"
+!colspan=1 align="center" id="a_new_company"|[[File:Basic.png|30px]] [[A New Company]]
+!colspan=1 align="center"|[[File:Difficulty_easy.png|80px]]
+|-
+!colspan=1 align="left" |[[File:Event_80.png|200px|center]]
+!colspan=1 align="left" |<span style="color:grey">After years of bloodying your sword for meager pay, you've saved enough crowns to start your very own mercenary company. With you are three experienced mercenaries with whom you've fought side by side in the shieldwall before.</span><br /><br />[[File:Special.png|25px|bottom]] <span style="color:gold">Impatient</span>: A quick start into the world, without any particular advantages or disadvantages.
+|-
+!colspan=2 align="left"|<div class="mw-collapsible mw-collapsed toggle-center">
+
+'''Backgrounds'''
+
+[[File:BackgroundCompanion.png|40px]] [[Character_Backgrounds#companion|Companion]], [[File:BackgroundCompanion.png|40px]] [[Character_Backgrounds#companion|Companion]], [[File:BackgroundCompanion.png|40px]] [[Character_Backgrounds#companion|Companion]]
+
+'''Resources'''
+
+{| class='article-table' width='60%' |
+! width='30%' |Starting Funds
+! align='left' width='10%' |[[File:Crowns.png|40px|center|Crowns]]
+! align='center' width='10%' |[[File:Supplies_icon.png|40px|center|Tools]]
+! align='center' width='10%' |[[File:Ammo_icon.png|40px|center|Ammunition]]
+! align='center' width='10%' |[[File:Medicine_icon.png|40px|center|Medicine]]
+|-
+| High:
+|align='center'|2900
+|align='center'|40
+|align='center'|80
+|align='center'|30
+|-
+| Medium:
+|align='center'|2400
+|align='center'|20
+|align='center'|40
+|align='center'|20
+|-
+| Low:
+|align='center'|1900
+|align='center'|10
+|align='center'|20
+|align='center'|10
+|}
+
+{| class='article-table' width='60%' |
+! align='center' width='10%' |[[File:Asset_business_reputation.png|40px|Renown]]
+! align='center' width='10%' |[[File:Asset_moral_reputation.png|40px|Reputation]]
+! align='center' width='10%' |[[File:Relations.png|40px|Relations]]
+! align='center' width='10%' |[[File:Food.png|40px|center|Provisions]]
+|-
+|align='center'|0
+|align='center'|Neutral
+|align='center'|Neutral
+|align='center'|2x [[File:Ground_Grains.png|bottom|25px|Ground Grains]]
+|}
+
+'''Special'''
+
+*Starts without any tutorial
+</div>
+|}
+[[Category:Origins]]

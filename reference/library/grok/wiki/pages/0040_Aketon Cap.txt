@@ -1,0 +1,24 @@
+{{Infobox helmet
+|title=Aketon Cap
+|image=Inventory helmet 21.png
+|imagewidth=500px
+|imagecaption=
+|worth=70 
+|durability=40
+|maxfatigue=-1
+|vision=
+|misc_1=
+}}
+
+==Description==
+''A padded cloth cap.''
+
+==Where can it be found?==
+* Can be bought at a [[Settlement_buildings#Marketplace|Marketplace]] in settlements with [[Settlements_and_attached_locations#Watchtowers|Wooden Watchtower]], [[Settlements_and_attached_locations#Watchtowers|Stone Watchtower]], [[Settlements_and_attached_locations#Barracks|Militia Barracks]], [[Settlements_and_attached_locations#Barracks|Barracks]].
+* Can be looted from [[Brigand Thug]], [[Mercenary|Mercenary (ranged)]], [[Bounty Hunter|Bounty Hunter (ranged)]], [[Militia]], [[Militia|Militia (ranged)]], [[Militia Veteran]], [[Caravan Hand (Enemy)|Caravan Hand]], [[Caravan Guard]], [[Billman]], [[Arbalester]], [[Wiederganger]], [[Armored Wiederganger]].
+* Possible starting gear of new mercenaries: [[Companion (Background)|Companion (1h)]], [[Deserter (Background)|Deserter]], [[Disowned Noble (Background)|Disowned Noble]], [[Militia (Background)|Militia]], [[Retired Soldier (Background)|Retired Soldier]], [[Squire (Background)|Squire]].
+* Can be found in the [[Dogs Dig up Loot]] event.
+* It is one of the suitable items required to craft the [[Cultist Leather Hood]]. 
+
+[[Category:Headgear]]
+[[Category:Armor]]

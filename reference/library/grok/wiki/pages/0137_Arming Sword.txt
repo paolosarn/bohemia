@@ -1,0 +1,47 @@
+{{Infobox weapon
+|title={{PAGENAME}}
+|image=Sword_02.png
+|imagewidth=500px
+|imagecaption=
+|worth=1.250 
+|damage=40 - 45
+|ignorearmor=20%
+|vsarmor=80%
+|hithead=
+|tilerange=1
+|durability=56
+|maxfatigue=-6
+|usefatigue=
+|misc_1=
+}}
+
+[[File:Arming Sword-0.png|thumb|280x280px]]
+
+== Description ==
+''A lightweight, straight sword suitable for slashing, thrusting and swinging.''
+
+== Where can it be found? ==
+* Can be bought from a [[Settlement_buildings#Weaponsmith|Weaponsmith]].
+** [[Settlements_and_attached_locations#Weaponsmith|Surface Iron Vein]] increases availability.
+* Can be looted from [[Brigand Raider]], [[Disguised Bandit]], [[Brigand Leader]], [[Mercenary]], [[Bounty Hunter]], [[Caravan Guard]], [[Militia Captain]], [[Hedge Knight]], [[Swordmaster]], [[Footman]], [[Sergeant]], [[Fallen Hero]].
+* Can be found in the [[Anatomist Dead Knight]], [[Anatomist Old Patient]], [[Anatomist Exhumes Hero]], [[Civilwar Ambush]], [[Civilwar Refugees]], [[Civilwar Wounded Soldier]], [[Disowned Noble Welcomed Back]], [[Graverobber Heist]], [[Greenskins Investigation]], [[Kid Blacksmith]], [[Sellsword Retires]], [[Spooky Forest]] events.
+* Possible starting weapon of new mercenaries: [[Adventurous Noble (Background)|Adventurous Noble]], [[Oathtaker (Background)|Oathtaker]], [[Swordmaster (Background)|Swordmaster]].
+* Company Origin starting gear: [[Oathtakers]] (1).
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Slash (10 fatigue)}}
+|-
+{{:Riposte (25 fatigue)}}
+|}
+
+__NOTOC__
+
+[[ru:Военный_меч]]
+[[Category:Melee Weapon]]

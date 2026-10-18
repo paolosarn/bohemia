@@ -1,0 +1,52 @@
+{{Infobox accessory
+|title={{PAGENAME}}
+|image=Acid_flask_01_70x70.png
+|imagewidth=
+|imagecaption=
+|worth=400
+|durability=
+|maxfatigue=
+|text=
+|range=3 tiles
+|special1=Reduces the target's armor by 20% each turn
+|special2=Effect lasts for 3 turns
+|special3=Has a 33% chance to hit bystanders at the same or lower height level
+|special4=
+|misc_1=Combat consumable item
+}}
+== Description ==
+''A flask filled with the concentrate of a Lindwurm's acidic blood. It is highly corrosive to many materials and burns through armor quickly. Can be thrown at short ranges.''
+
+== Where Can They Be Found? ==
+* Can be bought from an [[Alchemist]].
+* Can be crafted at a [[Taxidermist]] from [[File:Inventory_lindwurm_blood.png|25px|bottom|Lindwurm Blood (Lindwurm)]] [[Lindwurm Blood]] for 50 [[File:Crowns.png|bottom|25px]].
+
+== Notes ==
+* '''Effect''':
+** Reduces the affected target's current body and head armor value by 20%.
+** Armor damage is dealt after affected unit's turn.
+** Effect lasts for a maximum of 3 turns.
+* '''Protection''':
+** [[File:Upgrade_06.png|25px|bottom]] [[Bone Platings]] armor attachment protects the body armor for 1 turn.
+** [[File:Upgrade_04.png|25px|bottom]] [[Lindwurm Scale Cloak]] armor attachment negates effect for the body armor.
+** [[File:Inventory_body_armor_82.png|20px|bottom]] [[Lindwurm Armor]] and [[File:Inventory_helmet_152.png|25px|bottom]] [[Lindwurm Helmet]] are completely unaffected by the acid.
+** [[File:Perk_03.png|25px|bottom]] [[Battle Forged]] perk doesn't lower armor damage.
+** [[File:Perk 04.png|25px|bottom]] [[Resilient]] perk lowers effect duration to 1 turn.
+* Carried in offhand in shield slot. Shield slot is free again after usage.
+* Can be used while engaged in melee, although risking possible collateral armor damage.
+* [[File:Perk_50.png|25px|bottom]] [[Throwing Mastery]] perk lowers [[File:Fatigue.png|25px|Fatigue]][[Attributes#Fatigue|Fatigue]] build-up to 15.
+
+== Skills ==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Throw Acid Flask (20 fatigue)}}
+|}
+
+__NOTOC__
+[[Category:Consumable (Combat)]]
+[[Category:Throwable Items]]

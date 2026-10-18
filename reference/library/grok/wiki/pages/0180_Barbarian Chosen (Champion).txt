@@ -1,0 +1,114 @@
+{{Combatant3
+|title           =Barbarian Chosen (Champion)
+
+|section-1       =Base stats
+|image           =token-barbarian-chosen-champion.png
+|health          =130
+|head-armor      =<small>145-375</small>
+|body-armor      =<small>140-350</small>
+|fatigue         =140
+|fatigue-recovery=20
+|resolve         =90
+|initiative      =115
+|melee-skill     =75
+|ranged-skill    =<span style="color:gray">60</span>
+|melee-defense   =15
+|ranged-defense  =10
+|action-points   =9
+|xp              =350
+|skills=
+[[File:Status effect 108.png|25px]] Champion<br/>
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk_35.png|25px]] [[Berserk]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk_16.png|25px]] [[Executioner (Perk)|Executioner]]<br/>
+[[File:Perk_27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+
+|section-2         =With Champion applied
+|image-2           =token-barbarian-chosen-champion.png
+|health-2          =236
+|head-armor-2      =<small>145-375</small>
+|body-armor-2      =<small>140-350</small>
+|fatigue-2         =210
+|fatigue-recovery-2=20
+|resolve-2         =135
+|initiative-2      =132
+|melee-skill-2     =86
+|ranged-skill-2    =<span style="color:gray">69</span>
+|melee-defense-2   =18
+|ranged-defense-2  =12
+|action-points-2   =9
+|xp-2              =525
+|stats-2=
+{{SkillInfo|Damage dealt.png|1.15x damage dealt}}
+{{SkillInfo|Special.png|Bonus stats from shields, weapons, skills and perks are increased as well}}
+|skills-2=
+[[File:Status effect 108.png|25px]] Champion<br/>
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk_35.png|25px]] [[Berserk]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk_16.png|25px]] [[Executioner (Perk)|Executioner]]<br/>
+[[File:Perk_27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}This is a [[Champions|Champion]] version of a [[Barbarian Chosen]].
+
+==Equipment==
+
+*A [[Named and Legendary Items|named item]]:
+**1/3 chance of a [[Named Rusty Warblade]], [[Named Two-Handed Skull Hammer]], [[Named Heavy Rusty Axe]] or [[Named Two-Handed Spiked Mace]].
+**1/3 chance of an [[Alloy Plate Armor]] (308-350), [[Skull and Chain Armor]] (209-237) or [[Plated Fur Armor]] (143-162).
+**1/3 chance of a [[Bull Helmet]] (330-375), [[Nose Horned Helmet]] (253-287) or [[Skull Helmet]] (231-262).
+*Regular items (skipped if conflicting with the named one):
+**A [[Rusty Warblade]], [[Heavy Rusty Axe]], [[Two-Handed Skull Hammer]] or [[Two-Handed Spiked Mace]].
+**A [[Thick Plated Barbarian Armor]] (230), [[Heavy Iron Armor]] (170) or [[Rugged Scale Armor]] (140).
+**A [[Closed Scrap Metal Helmet]] (190), [[Crude Faceguard Helmet]] (160), [[Crude Metal Helmet]] (145).
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Champion (HP)}}
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+==Tips==
+
+* Tougher, more brave and accurate and deals more damage than a regular Chosen, especially with a [[Named Weapons|named weapon]], otherwise similar.
+* Usually you see him among many other Chosen. These are numerous but easier to kill, so deal with them first.
+* A named weapon makes him more dangerous. Control him by [[Maces|stunning]] or [[Battle Whip|disarming]]. He counters it by acting ahead of you and waiting, and uses [[Adrenaline (20 fatigue)|Adrenaline]] to get ahead. If he does it, you can only stun to prevent Adrenaline.
+* [[Battle Forged]] brothers must have [[Steel Brow]] to avoid death in one hit.
+* [[Named Rusty Warblade]] is deadly to [[Nimble]] brothers and even to Battle Forged, if generates with very good stats.
+
+{{Navbox Enemies}}
+
+[[Category:Humans]]
+[[Category:Enemies]]
+[[Category:Champions]]
+[[Category:Barbarians]]

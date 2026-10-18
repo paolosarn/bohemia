@@ -1,0 +1,17 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" |Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="acolyte_of_davkul"| [[Acolyte of Davkul]]<br />[[File:Acolyte_of_Davkul.png]]<!-- Trait -->
+|align="center"|
+<span style="color:green">+10</span> [[File:Resolve.png|25px|Resolve]]
+|
+*Only available for the [[Origins#davkul_cultists|Davkul Cultists]] origin.
+*Recovers an extra 2 [[File:Fatigue.png|25px|Fatigue]] every turn.
+*No morale check triggered upon allies dying.
+*No morale check triggered upon losing hitpoints.
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

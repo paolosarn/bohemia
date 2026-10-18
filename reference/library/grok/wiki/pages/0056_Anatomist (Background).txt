@@ -1,0 +1,72 @@
+{| class="article-table" style="text-align:center"
+!colspan=5 id="anatomist"|[[File:Background 70.png|40px]]<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist (Background)|Anatomist]]</span>
+!colspan=2|[[File:Level.png|25px|Starting Level]] 1
+!colspan=2|[[File:Asset_daily_money.png|25px|Base Wage]] 12
+|-
+!
+!align='center'|[[File:Health.png|25px|Hitpoints|bottom]]
+!align='center'|[[File:Melee_skill.png|25px|Melee Skill|bottom]]
+!align='center'|[[File:Ranged_skill.png|25px|Ranged Skill|bottom]]
+!align='center'|[[File:Melee_defense.png|25px|Melee Defense|bottom]]
+!align='center'|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]
+!align='center'|[[File:Fatigue.png|25px|Fatigue|bottom]]
+!align='center'|[[File:Resolve.png|25px|Resolve|bottom]]
+!align='center'|[[File:Initiative.png|25px|Initiative|bottom]]
+|-
+!Attribute<br />Range
+|align='center'|46<br />56
+|align='center'|54<br />64
+|align='center'|41<br />51
+|align='center'|1<br />5
+|align='center'|1<br />5
+|align='center'|90<br />95
+|align='center'|40<br />50
+|align='center'|100<br />110
+|-
+!Attribute<br />Averages
+|align='center'|51
+|align='center'|59
+|align='center'|46
+|align='center'|3
+|align='center'|3
+|align='center'|92,5
+|align='center'|45
+|align='center'|105
+|-
+!Attribute<br />min./max.
+|align='center'| <span style="color:red">-4</span><br /><span style="color:red">-4</span>
+|align='center'| +7<br />+7
+|align='center'| +9<br />+9
+|align='center'| +1<br />-
+|align='center'| +1<br />-
+|align='center'| -<br /><span style="color:red">-5</span>
+|align='center'| +10<br />+10
+|align='center'| -<br />-
+|-
+|colspan=9|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Affiliations'''
+*[[No Affiliation (Affiliation)]]
+'''Events'''
+*Can get a [[File:Good_mood.png|21px]] good mood. ([[Anatomist Demonology Book]])
+
+*Can get a [[File:Good_mood.png|21px]] good mood. ([[Anatomist Dissects Beetles]])
+
+*Can get a [[File:Good_mood.png|21px]] good mood. ([[Anatomist White Nachzehrer]])
+
+*Can give a brother +1-3 [[File:Melee defense.png]]. ([[Anatomist Pulls Splinter]])
+
+*Can give 50% of your brothers a [[File:Good_mood.png|21px]] good mood. ([[Shadow Dissection]])
+
+*Can gain +2-4 [[File:Resolve.png]] and a [[File:Good_mood.png|21px]] good mood. ([[Anatomist Reflects on Nobles]])
+
+*Can cause another brother to gain [[File:Trait_icon_48.png|25px]] [[Fear of Beasts]] and a [[File:Bad mood.png]] bad mood. ([[Anatomist Reflects on Webknechts]])
+
+*Can provide a temporary XP multiplier to an apprentice. ([[Apprentice vs Anatomist]])
+
+
+'''Excluded Traits'''
+*[[File:Trait_icon_59.png|25px|bottom|link=Ailing]][[File:Trait_icon_22.png|25px|bottom|link=Asthmatic]][[File:Trait_icon_16.png|25px|bottom|link=Bleeder]][[File:Trait_icon_61.png|25px|bottom|link=Huge]][[File:Trait_icon_31.png|25px|bottom|link=Determined]][[File:Trait_icon_48.png|25px|bottom|link=Fear of Beasts]][[File:Trait_icon_51.png|25px|bottom|link=Hate for Beasts]][[File:Trait_icon_49.png|25px|bottom|link=Fear of Greenskins]][[File:Trait_icon_52.png|25px|bottom|link=Hate for Greenskins]][[File:Trait_icon_47.png|25px|bottom|link=Fear of Undead]][[File:Trait_icon_50.png|25px|bottom|link=Hate for Undead]][[File:Trait_icon_58.png|25px|bottom|link=Team Player]][[File:Trait_icon_46.png|25px|bottom|link=impatient]][[File:Trait_icon_36.png|25px|bottom|link=Clumsy]][[File:Trait_icon_44.png|25px|bottom|link=Iron Jaw]][[File:Trait_icon_17.png|25px|bottom|link=Dumb]][[File:Trait_icon_21.png|25px|bottom|link=Athletic]][[File:Trait_icon_01.png|25px|bottom|link=Brute]][[File:Trait_icon_04.png|25px|bottom|link=Fragile]][[File:Trait_icon_41.png|25px|bottom|link=Fainthearted]][[File:Trait_icon_33.png|25px|bottom|link=Iron Lungs]][[File:Trait_icon_28.png|25px|bottom|link=Irrational]][[File:Trait_icon_24.png|25px|bottom|link=Cocky]][[File:Trait_icon_15.png|25px|bottom|link=Strong]][[File:Trait_icon_14.png|25px|bottom|link=Tough]][[File:Trait_icon_26.png|25px|bottom|link=Superstitious]]
+</div>
+|}
+<noinclude>{{Navbox Backgrounds}}</noinclude>
+[[Category:Backgrounds]]

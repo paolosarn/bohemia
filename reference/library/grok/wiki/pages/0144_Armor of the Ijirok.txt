@@ -1,0 +1,9 @@
+{{Infobox_bodyarmor|image = [[File:Inventory_body_armor_98.png]]|worth = 12.000|durability = 320|maxfatigue = -32|useforspecial = Heals <font color=#007F0E>10</font> [[File:Health.png|25px|Hitpoints]] of the wearer each turn.|title = Armor of the Ijirok}}
+== Description ==
+Once a barbarian armor broken in battle, this piece has been bathed in the blood of the legendary Ijirok. Powers beyond your understanding mended it whole again, and will likewise mend any wounds of the wearer as well.
+
+==Where can it be found?==
+* As loot after defeating the [[Ijirok]] of the [[Hunting Ground]] legendary location
+[[Category:Legendary Items]]
+[[Category:Body Armor]]
+[[Category:Armor]]

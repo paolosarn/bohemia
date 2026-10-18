@@ -1,0 +1,74 @@
+{{Combatant3
+|title           =Assassin
+
+|image           =token-assassin.png
+|health          =80
+|head-armor      =40-140
+|body-armor      =120
+|fatigue         =125
+|fatigue-recovery=20
+|resolve         =85
+|initiative      =130
+|melee-skill     =80
+|ranged-skill    =<span style="color:gray">70</span>
+|melee-defense   =20
+|ranged-defense  =20
+|action-points   =9
+|xp              =350
+|skills=
+{{SkillInfo|Allmasteries.png|Dagger, Sword and Throwing Masteries}}
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_59.png|25px]] [[Backstabber]]<br/>
+[[File:Perk_01.png|25px]] [[Dodge]]<br/>
+[[File:Perk_41.png|25px]] [[Duelist]]<br/>
+[[File:Perk_16.png|25px]] [[Executioner (Perk)|Executioner]]<br/>
+[[File:Perk_25.png|25px]] [[Footwork (Perk)|Footwork]]<br/>
+[[File:Perk_29.png|25px]] [[Nimble]]<br/>
+[[File:Perk_62.png|25px]] [[Overwhelm]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_39.png|25px]] [[Quick Hands]]<br/>
+[[File:Perk_26.png|25px]] [[Relentless]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Assassin is a dangerous evasive elite unit from the [[City States|Southern]] faction.
+
+== Equipment ==
+
+* A [[Qatal Dagger]] (double chance) or [[Shamshir]].
+* An [[Assassin's Robe]] (120).
+* An [[Assassin's Face Mask]] (140) or [[Assassin's Head Wrap]] (40).
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" | '''''Description'''''
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+Assassins often choose to wait instead of acting immediately when it's their turn. They will use [[Adrenaline (20 fatigue)|Adrenaline]] to get ahead of the enemy if not already faster than them. They will use [[Footwork (Skill)|Footwork]] to get close to someone vulnerable and attack him.
+
+They can throw [[Fire Pot|Fire Pots]] and [[Flash Pot|Flash Pots]], but no more than two in total per Assassin. They don't actually have bombs in the inventory, but create them when they want to throw. If you manage to defeat an Assassin with a bomb in hand, it will even drop as loot!
+
+== Tips==
+
+* They deal high damage, but are also evasive and tough due to [[Nimble]].
+* They will [[Overwhelm]] you, unless you are faster, use [[Adrenaline (20 fatigue)|Adrenaline]], [[Throwing Net|nets]], [[Dazed (Status Effect)|daze]] or [[Staggered (Status Effect)|stagger]].
+* [[Throwing Net|Nets]] make them easier to hit, but [[Taunt (Skill)|Taunt]] is required to prevent them from breaking free. Alternatively, let them waste AP on nets instead of attacks.
+* [[Flash Pot|Flash Pots]] [[Dazed (Status Effect)|daze]] you, so you will tire faster and their [[Deathblow (10 fatigue)|Deathblow]] will deal extra damage.
+* [[Fire Pot|Fire Pots']] damage is not reduced by [[Nimble]] and can't be dodged. Body armor protects from it, taking minor damage.
+* Their light [[Assassin's Head Wrap]] offers little protection from [[flails]], this is also an opportunity to loot their armor.
+* They are especially deadly in the early or middle game, when you don't have [[Nimble]] or heavy [[armor]].
+* Can be [[Daggers|punctured]] for their armor if their [[morale]] breaks or the risk is not too high.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Military]]
+[[Category:City States Forces]]

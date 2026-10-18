@@ -1,0 +1,39 @@
+{{Infobox_weapon
+|image = Wildmen_03.png
+|worth = 800
+|durability = 96
+|damage = 20-30
+|shielddamage=14
+|ignorearmor = 60%
+|vsarmor = 200%
+|tilerange = 1
+|maxfatigue = -10
+|misc_1 = [[File:Dlc_4.png|25px|Warriors of the North DLC]] <span style="color:teal">Warriors of the North DLC</span>
+}}
+
+[[File:Axehammer.png|thumb|280x280px]]
+
+== Description ==
+''A massive, rusty hybrid of hammer and axe. Due to its blunt edge more of the former than the latter.''
+
+== Where can it be found? ==
+* Can be looted from [[Barbarian Reaver]].
+* Possible starting weapon of new mercenaries:  [[Barbarian (Background)|Barbarian]].
+* [[Northern Raiders]] origin possible starting weapon.
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Batter (14 fatigue)}}
+|-
+{{:Split Shield (15 fatigue)}}
+|}
+
+__NOTOC__
+
+[[Category:Melee Weapon]]

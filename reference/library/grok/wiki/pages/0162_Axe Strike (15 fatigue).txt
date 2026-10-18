@@ -1,0 +1,15 @@
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-<onlyinclude>
+| align="center" |[[File:Active_66.png|center|35px]]
+| align="center" |[[Axe Strike (15 fatigue)|Strike]]
+| align="center" |6
+| align="center" |15
+| align="left" |Normal attack; <span style="color:red">-15%</span> chance to hit targets directly adjacent, <span style="color:orange">30%</span> [[File:Direct_damage.png|25px|bottom|Direct Damage]]
+</onlyinclude>
+|}
+[[Category:Weapon Skills]]

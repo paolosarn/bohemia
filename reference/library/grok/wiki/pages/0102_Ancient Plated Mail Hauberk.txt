@@ -1,0 +1,19 @@
+__NOTOC__
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=[[File:Inventory_body_armor_68.png|thumb]]
+|imagewidth=500px
+|imagecaption=
+|worth=2000
+|durability=180
+|maxfatigue=-22
+|useforspecial=
+|misc_1=
+}}
+==Description==
+''An ancient mail armor with plated arm guards. Very heavy and severely limiting the mobility of the wearer.''
+
+==Where can it be found?==
+* Looted from [[Ancient Honor Guard]].
+[[Category:Body Armor]]
+[[Category:Armor]]

@@ -1,0 +1,65 @@
+<onlyinclude>Barbarians are one of many Human factions in Battle Brothers. They inhabit northern part of the world.</onlyinclude>
+
+== Units ==
+<onlyinclude>
+{| class="article-table" style="text-align:center"
+! style="text-align:center" |Icon
+! style="text-align:center" |Name
+! style="text-align:center" |[[File:Health.png|25px|Health]]
+! style="text-align:center" |[[File:Armor head.png|25px|Head armor]]
+! style="text-align:center" |[[File:Armor body.png|25px|Body armor]]
+! style="text-align:center" |[[File:Melee skill.png|25px|Melee skill]]
+! style="text-align:center" |[[File:Ranged skill.png|25px|Ranged skill]]
+! style="text-align:center" |[[File:Melee defense.png|25px|Melee defense]]
+! style="text-align:center" |[[File:Ranged defense.png|25px|Ranged defense]]
+! style="text-align:center" |[[File:Resolve.png|25px|Resolve]]
+! style="text-align:center" |[[File:Initiative.png|25px|Initiative]]
+! style="text-align:center" |[[File:Fatigue.png|25px|Fatigue]]
+! style="text-align:center" |[[File:Fatigue recovery.png|25px|Fatigue recovery]]
+! style="text-align:center" |[[File:Action points.png|25px|Action points]]
+! style="text-align:center" |[[File:Miniboss.png|25px|Champion probability]]
+! style="text-align:center" |[[File:XP.png|25px|XP]]
+|-
+|[[File:Wildman 01 orientation.png]]||[[Barbarian Thrall]]
+|70||0-50||0-45||55||50||0||0||70||115||120||15||9||-||175
+|-
+|[[File:Wildman 02 orientation.png]]||[[Barbarian Reaver]]
+|120||0-145||65-95||65||60||10||10||80||115||130||20||9||-||250
+|-
+|[[File:Wildman 03 orientation.png]]||[[Barbarian Chosen]]
+|130||145-190||140-230||75||60||15||10||90||115||140||20||9||1%||350
+|-
+|[[File:Wildman 06 orientation.png]]||[[Barbarian King]]
+|150||250||270||80||65||15||10||110||115||150||25||9||10%||500
+|-
+|[[File:Wildman 05 orientation.png]]||[[Barbarian Drummer]]
+|90||30-50||30-65||65||40||15||5||80||90||150||15||9||-||250
+|-
+|[[File:Wildman 04 orientation.png]]||[[Barbarian Beastmaster]]
+|70||130||95||65||55||10||10||90||110||120||15||9||-||250
+|-
+|[[File:Unhold 01 orientation.png]]||[[Armored Unhold]]
+|500||35||35||70||-||10||0||130||75||400||30||9||-||400
+|-
+|[[File:Unhold 02 orientation.png]]||[[Armored Frost Unhold]]
+|600||490||490||75||-||10||0||150||85||400||30||9||-||550
+|-
+|[[File:Wildman 07 orientation.png]]||[[Barbarian Madman]]
+|160||300||300||80||-||10||10||-||115||200||25||9||-||500
+|-
+|[[File:Dog 02 orientation.png]]||[[Warhound]]
+|70||0||0||55||-||20||20||40||50||110||140||15||-||100
+|}
+</onlyinclude>
+== Tactics ==
+Barbarians' strategy is simply running towards their enemy and attacking with everything they have. Even their weakest units, [[Barbarian Thrall|Thralls]], often have [[Throwing Weapons|throwing weapons]]. [[Barbarian Reaver|Reavers]] bring many two-handed weapons that can hit hard. In the late game you will encounter armored [[Barbarian Chosen|Chosen]], and entire warbands consisting only of them. Also their [[Armored Unhold|Armored Unholds]] will appear, and [[Barbarian Beastmaster|Beastmasters]] to control them.
+
+Don't believe the tip on the loading screen that says they quickly become fatigued. It only happens if they use [[Adrenaline (20 fatigue)|Adrenaline]] every turn to outspeed you, and it's not going to happen quickly. Barbarians have high max fatigue and are often supported by hard to reach [[Barbarian Drummer|Drummers]], who reduce fatigue they accumulate. Their [[Barbarian Fury (5 fatigue)|Barbarian Fury]] is a variant of [[Rotation (Skill)|Rotation]], but costs much less fatigue.
+
+== Description ==
+In combat, a barbarian warband doesn’t bother with formations, and they have no backline with polearms or dedicated archers. They are a horde of ferocious warriors in a constant shuffle of everyone trying to bring their weapons to bear against the enemy. They’ll shower you with throwing weapons, they run towards your line, and they make ample use of the ‘Adrenaline’ perk to overwhelm you before you can even strike back. They don’t fear death the same as other humans do, so they are not easy to break. They populate the far northen part of the map.
+
+{{Navbox Enemies}}
+
+[[Category:Factions]]
+[[Category:Enemies]]

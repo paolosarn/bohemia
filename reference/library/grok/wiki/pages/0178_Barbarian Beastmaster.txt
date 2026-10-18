@@ -1,0 +1,72 @@
+{{Combatant3
+|title           =Barbarian Beastmaster
+
+|image           =token-barbarian-beastmaster.png
+|health          =70
+|head-armor      =130
+|body-armor      =95
+|fatigue         =120
+|fatigue-recovery=15
+|resolve         =90
+|initiative      =110
+|melee-skill     =65
+|ranged-skill    =<span style="color:gray">55</span>
+|melee-defense   =10
+|ranged-defense  =10
+|action-points   =9
+|xp              =250
+|skills=
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_01.png|25px]] [[Dodge]] after day 30<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 162.png|25px]] [[Crack the Whip (Barbarian Beastmaster)|Crack the Whip]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Beasmaster is a specialist from the [[Barbarians]] faction, who controls [[Armored Unhold|Armored Unholds]].
+
+==Equipment==
+
+*A [[Thorned Whip]].
+* A [[Hide and Bone Armor]] (95).
+* A [[Beastmaster's Headpiece]] (130).
+
+== Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Crack the Whip (Barbarian Beastmaster)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+==Behavior==
+The main job of Beastmasters is controlling [[Armored Unhold|Armored Unholds]]. One use of Crack the Whip whips all Armored Unholds at once without range limit.
+
+Beastmasters may approach under protection of other barbarians and Unholds, and use their [[Thorned Whip|whips]] against you directly.
+
+==Tips==
+
+*Difficult to hit with [[Ranged Weapons|ranged weapons]].
+*Can not [[Crack the Whip (Barbarian Beastmaster)|Crack the Whip]] in melee.
+*They can use [[Barbarian Fury (5 fatigue)|Barbarian Fury]] to escape melee.
+*They can't destroy armor or hurt through it. However they try to use [[Disarm (25 fatigue)|Disarm]] or attack someone whose armor got destroyed in a range of 3 tiles.
+*If not whipped, an [[Armored Unhold]] has a 33% chance to turn wild at the start of its turn.
+*Uncontrolled Armored Unholds are hostile to barbarians and controlled Armored Unholds, but not to each other.
+*Whipped Armored Unholds still retain their wild status until their next turn (verify?).
+*Can be [[Daggers|punctured]] for their armor.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

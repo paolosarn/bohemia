@@ -1,0 +1,33 @@
+{{Infobox shield
+|title={{PAGENAME}}
+|image=<gallery>
+Unique shield 01 icon.png|1
+Unique shield 2 icon.png|2
+Unique shield 3 icon.png|3
+</gallery>
+|imagewidth=500px
+|imagecaption=
+|worth = 600
+|durability = 32 - 51
+|meleedefense = +20 to +28
+|rangeddefense = +15 to +21
+|maxfatigue = -10 to -14
+|uselessfatigue= up to 3
+|misc_1=
+}}
+{{Notice(NamedItemStats)}}
+==Description==
+''A sturdy triangular shield well suited for close combat. This one is an exceptionally well-crafted and balanced exemplar.''
+
+==Where to find it==
+*Possible loot from [[Brigand Leader (Champion)]] and [[Hedge Knight (Champion)]]
+*Possible loot in [[Graverobber Finds Item]] event if you have a [[File:Background_47.png|25px]] [[Historian (Background)|Historian]] brother
+
+==Names==
+Shield, Bulwark, Protector, Board, Wall, Cover, Safeguard, Guardian, Defender, Ward, Barricade, Barrier, Greatshield, Bastion, Fortress, Guard, Rampart, Keeper, Warden, Carapace
+
+{{Navbox Named Shields}}
+__NOTOC__
+[[Category:Shield]]
+[[Category:Armor]]
+[[Category:Named Shield]]

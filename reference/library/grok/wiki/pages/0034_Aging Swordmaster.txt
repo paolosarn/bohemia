@@ -1,0 +1,102 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="aging_swordmaster" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Aging Swordmaster]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 30
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Swordmaster2.png|25px]] Swordmaster
+|colspan="2"|A [[Swordmaster (Background)|Swordmaster]] brother gains the [[Old]] trait.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*The [[Swordmaster (Background)|Swordmaster]] needs to be level 9 or higher
+*The [[Swordmaster (Background)|Swordmaster]] hasn't consumed the [[Water Skin]]
+*The [[Swordmaster (Background)|Swordmaster]] doesn't have the [[Old]] trait yet
+[[File:Score.png|150px]]
+*Score = Level of the [[Swordmaster (Background)|Swordmaster]] - 5. If more than one meets conditions, the game picks randomly each time it calculates score.
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+You find {{EventVariable|Swordmaster}} struggling to set himself down on a tree stump. As he gingerly lowers, you see his legs quaking as though they can barely bend at all. He lets out a long sigh after he takes his seat. His sword is beside him. It is younger than the hands that own it, a replacement of a replacement of a replacement. He shows no fondness for it, but when he touches it you sense there is a reflection in the very idea of a sword, of how a man lengthens himself with it, and how he shortens others by its very blade. You turn to leave, hoping to give the swordmaster time to himself, but he notices your departure and calls out.
+
+{{EventSpeech|Hey there, captain. Didn't mean for you to see that.}}
+{{EventButtons}}
+{{EventButton||#B|How are you doing?}}
+{{EventButton||#E|Well, I saw it. Now get moving.}}
+{{EventTabEnd}}
+
+|-|B=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+He leans back, rubbing one of his knees with a calloused hand. A bit of wind throws his tufts of greyed hair around.
+
+{{EventSpeech|Old. That's how I'm doing. And I don't mean my age. By the years, I've been old for a while now. I mean I'm old in the bones. I suppose I get by on reputation a lot more than skills these days.}}
+
+You immediately disagree, telling him that he's one of the deadliest men you've ever met.
+
+{{EventSpeech|Save the niceties for the women, captain. My vision's going. You probably don't want to hear that, but it is. My lead foot doesn't step like it used to. The knee clicks, seizes up. One day that is going to cost me. My off-hand has no feeling.}}
+
+The swordmaster clenches and unclenches his free-hand.
+{{EventButtons}}
+{{EventButton||#C|Feel anything?}}
+{{EventTabEnd}}
+
+|-|C=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+
+{{EventSpeech|Nothing. I suppose the nerves are dying. And sometimes I forget things. I don't mean where I left my boots, either. I forget if there is someone standing behind me or not. My sense of my surroundings, my real blade, has been dulled. For all my speed and instinct it was time that has crept upon me, slow and steady, with no heat nor cold to give it away, it simply was and is and will be. I always thought I'd be bested by another swordsman. Someone of talent. But I suppose I was too good for that.}}
+
+The swordmaster grins playfully. You ask if he fears a death with no honor.
+
+{{EventSpeech|I realized a long time ago that, when you become someone of my reputation, any route to death is going to be a disappointing one. They'll write it in the books how someone below my stature slew the great swordmaster. It's hogwash. If you want the truth I'll tell ya. I fear what I know is coming. That my body will betray me in the last moments. With time at its side, my body is what is going to kill me. The knee will lock, the grip will loosen, the shoulder will weaken. I don't fear death. I was too good for death, so death'll have to wait. My body is going to kill me first, then death can have what's left, the sorry blackened sod. The writers and historians? Piss on 'em. If I wanted eternal glory I would've fought an army by myself.}}
+{{EventButtons}}
+{{EventButton||#D|From what I heard, you did.}}
+{{EventTabEnd}}
+
+|-|D=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+The old swordmaster smiles.
+
+{{EventSpeech|Oh get off it, captain. Now help me up so we can get back on the road.}}
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Status effect 60.png|x25px]] || {{EventVariable|Swordmaster}} has gotten older
+ |}
+{{EventButtons}}
+{{EventButton|Time marches on. (the event ends)}}
+{{EventTabEnd}}
+
+|-|E=
+{{EventTab|header=Along the way...|left=Swordmaster's token}}
+[[File:event_17.png|left]]
+You hear the old swordmaster sigh as you move away. Keeping up with the rest of the company, it seems, has become a battle in and of itself for him.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Status effect 60.png|x25px]] || {{EventVariable|Swordmaster}} has gotten older
+ |}
+{{EventButtons}}
+{{EventButton|Time marches on. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Aging_Swordmaster_1.jpg
+Aging_Swordmaster_2.jpg
+Aging_Swordmaster_3.jpg
+Aging_Swordmaster_4.jpg
+</gallery>
+
+[[Category:Event]]

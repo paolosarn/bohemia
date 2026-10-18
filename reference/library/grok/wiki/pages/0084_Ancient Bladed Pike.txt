@@ -1,0 +1,35 @@
+{{Infobox_weapon
+|image = Bladed pike 01.png
+|worth = 600
+|durability = 30
+|damage = 55-80
+|ignorearmor = 30%
+|vsarmor = 125%
+|hithead = +5%
+|tilerange =1 - 2
+|maxfatigue = -14
+}}
+
+[[File:Ancient Bladed Pike.png|thumb|280x280px]]
+
+== Description ==
+''A  long, ancient pike used to attack over some distance and keeping the enemy at bay. ''
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Legionary]] and [[Ancient Honor Guard]]
+* Can be found in the [[Obtain Item]] contract
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Impale (15 fatigue)}}
+|-
+{{:Repel (25 fatigue)}}
+|}
+[[Category:Melee Weapon]]

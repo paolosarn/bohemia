@@ -1,0 +1,36 @@
+<onlyinclude>
+{| class="article-table"
+|-
+! id="armor_mastery" align="center"|[[Armor Mastery]]
+! align="center"|[[File:Ambition_goal.png|18px]] Have 3 pieces of armor and 3 helmets with 230+ durability
+|-
+! align="left"  |[[File:Event_35.png|100px]]
+! align="left"  |"We shall outfit a contingent of at least three men with heavy armor to act as a bulwark against dangerous opponents."
+|-
+|
+| align="left"|<div class="mw-collapsible mw-collapsed toggle-center">
+<div class="flex-container" style="">
+
+<br />
+<div class="dialog-panel">[[File:Contract_scroll_disabled.png|center|Instructions]]<ul class="arrow">
+<li>Have 3 pieces of body armor, and 3 helmets, each with 230 durability or more. Whether you buy them or loot them off of the battlefield, they will protect your men equally well.</li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Bag.png|center|Rewards]]<ul class="arrow">
+<li>100 [[File:Asset_business_reputation.png|25px|Renown]]</li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Icon_locked.png|center|Requirements]]<ul class="arrow">
+<li>campaign needs to be more than 40 days old</li>
+<li>[[Make Nobles Aware]] ambition is completed</li>
+<li>have at most 2 pieces of armor and 2 helmets with 230 durability or more</li>
+</ul></div>
+
+</div></div>
+|}
+</onlyinclude>
+
+<div class="res-img">[[File:Armor_mastery.png|810px]]</div>
+[[Category:Ambitions]]

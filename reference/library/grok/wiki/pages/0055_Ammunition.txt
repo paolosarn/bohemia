@@ -1,0 +1,35 @@
+{{Infobox accessory
+|title={{PAGENAME}}
+|image=[[File:ammo.png|thumb]]
+|imagewidth=
+|imagecaption=
+|worth=100
+|durability=
+|maxfatigue=
+|special1=
+|special2=
+|special3=
+|special4=
+|misc_1=
+}}
+
+== Description ==
+''Assorted ammunition: arrows, bolts and throwing weapons. A new bundle of ammo contains 50 units worth of ammunition.'' 
+
+== Where Can They Be Found? ==
+* Can be bought at a [[Settlement_buildings#Market|Marketplace]] and from a [[Settlement_buildings#Fletcher|Fletcher]].
+** [[Settlements_and_attached_locations#Supplies|Arrow Maker's Shed]] increases ammo availability at a lower price.
+* Can be looted after battle.
+* [[The Scavenger (Follower)|The Scavenger]] will recover some [[Ammunition]] used by the player during battle.
+
+== Notes ==
+* Arrow and bolt quivers, powder bags and bundles of throwing weapons are automatically refilled after battle. 
+* Replacing one arrow or bolt will take up one point of ammunition.
+* Replacing one shot of a Handgonne will take up two points.
+* Replacing one throwing weapon (axe, javelin, bola) or charge of a Fire Lance will take up three.
+* Running out of ammunition will leave quivers and bundles empty.
+* Maximum carry capacity is determined by Economic Difficulty of the game: 300 - for Veteran, Expert; 500 - for Beginner.
+* [[The Quartermaster (Follower)|The Quartermaster]] will increase carrying ammo capacity by 100.
+* Some amount can be lost or used in the [[Deserter Origin Volunteer]], [[Shooting Contest]], [[Thief Caught]] events.
+[[Category:Global Map resources]]
+[[Category:Items]]

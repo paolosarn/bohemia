@@ -1,0 +1,43 @@
+<span style="display: none;">[[File:Peasant_orientation.png]]</span>
+
+{| class="article-table" style="text-align:center"
+!id="armed_peasant" colspan=10|[[File:Peasant_orientation.png]]<span style="font-variant: small-caps; font-size: 120%"> [[Armed Peasant]]</span>
+|-
+|[[File:Health.png|25px|Hitpoints|bottom]]<br />50
+|[[File:Melee_skill.png|25px|Melee Skill|bottom]]<br />40
+|[[File:Melee_defense.png|25px|Melee Defense|bottom]]<br />0
+|[[File:Ranged_defense.png|25px|Ranged Defense|bottom]]<br />0
+|[[File:Fatigue.png|25px|Fatigue|bottom]]<br />100
+|[[File:Resolve.png|25px|Resolve|bottom]]<br />35
+|[[File:Initiative.png|25px|Initiative|bottom]]<br />90
+|[[File:Action_points.png|25px|Action Points|bottom]]<br />9
+|[[File:Fatigue_recovery.png|25px|Fatigue Recovery|bottom]]<br />15
+|[[File:XP.png|25px|Experience|bottom]]<br />50
+|-
+|colspan=10 align=left|[[File:Active_08.png|25px|Hand-to-Hand Attack]] <span style="color:green">Hand-to-Hand Attack</span>
+|-
+|colspan=10|<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+'''Equipment'''
+* Has a [https://battlebrothers.fandom.com/wiki/Knife knife], [https://battlebrothers.fandom.com/wiki/Pitchfork pitchfork], [https://battlebrothers.fandom.com/wiki/Wooden_Stick wooden stick] or  [https://battlebrothers.fandom.com/wiki/Pickaxe pickaxe]
+* Has light body armor (5-35)
+* Has light headgear (20-30) or no helmet at all (67% chance)
+* Never has a shield
+'''Skills'''
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+'''Strengths'''
+* None
+'''Tactics'''
+* Crush them, it is impossible to lose a fight against them (as long as you are not totally undergeared, injured and/or outnumbered)
+</div>
+|}
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Civilians]]

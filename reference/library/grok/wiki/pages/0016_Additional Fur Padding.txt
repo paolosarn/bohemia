@@ -1,0 +1,17 @@
+{| class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+! class="unsortable" |
+! style="white-space: nowrap" |Name
+! class="unsortable" style="text-align: center" |Effects
+! style="white-space: nowrap" |Ingredients
+! style="white-space: nowrap" data-sort-type="number" |Cost
+|-
+<onlyinclude>
+|[[File:upgrade_03.png|55px]]
+|[[Additional Fur Padding]]
+|Receive only <span style="color:red">66%</span> of any damage that ignores armor, <span style="color: red">−2</span>[[File:Fatigue.png|24px|Maximum Fatigue]]
+| style="white-space: nowrap" |<div style="position: relative">[[File:Inventory_unhold_frost_fur_01.png|50px|Thick White Fur (Frost Unhold)|link=Thick_White_Fur]][[File:Inventory_wolfpelt_01.png|50px|Unusually Large Wolf Pelt (Direwolf)|link=Unusually_Large_Wolf_Pelt]]<div style="font-size: 6px; color: transparent; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">Thick White Fur Unusually Large Wolf Pelt</div></div>
+| style="white-space: nowrap" |400 [[File:crowns.png|20px]]
+</onlyinclude>
+|}
+[[Category:Items]]
+[[Category:Armor Attachments]]

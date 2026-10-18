@@ -1,0 +1,45 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="alp_nightmare_1" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Alp Nightmare 1]]</span>
+!style="white-space: nowrap"|[[File:Dlc_2.png|25px|Beasts & Exploration DLC]] <span style="color:green">Beasts & Exploration DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 300
+|-
+|colspan="3"|A brother dies horribly in your nightmare. Has no further consequences. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Someone slash it off!"
+**(nothing happens)
+*"Burn it in the fire!"
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*It has to be night-time
+*Your campaign is at least 20 days old
+*Have at least 3 brothers
+*A brother with the [[File:Player_Character.png|25px]] [[Player Character]] trait is excluded from this event
+[[File:Score.png|150px]]
+*Score = 3
+[[File:Other_notes.png|150px]]
+*Both options claim to kill a high-level brother horribly and all brothers get a [[File:Bad_mood.png|21px]] bad mood
+*Don't Alt-F4, you get notified that this was just a dream shortly after
+</div>
+|}</onlyinclude>
+
+==Start==
+
+<div class="res-img">[[File:Alp nightmare.png]]</div>
+
+
+===Path 1===
+
+<div class="res-img">[[File:Alp nightmare2.png]]</div>
+<div class="res-img">[[File:Alp nightmare3.png]]</div>
+
+
+===Path 2===
+
+<div class="res-img">[[File:Alp nightmare4.png]]</div>
+<div class="res-img">[[File:Alp nightmare5.png]]</div>
+
+__FORCETOC__
+[[Category:Event]]

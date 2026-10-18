@@ -1,0 +1,17 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" style="width: 15%"|Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="arena_fighter"| [[Arena Fighter]]<br />[[File:Trait_icon_74.png]]<!-- Trait -->
+|align="center"|
+<span style="color:green">+5</span> [[File:Resolve.png|25px|Resolve]]
+|
+*Starting trait of the [[Gladiators]] origin.
+*You gain this trait by winning 5 fights in the [[Arena]].
+*Also displays the number of arena fights and wins.
+*Will be replaced by [[Arena Veteran]] after winning 12 arena fights.
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

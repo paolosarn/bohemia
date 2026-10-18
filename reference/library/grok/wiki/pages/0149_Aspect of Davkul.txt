@@ -1,0 +1,29 @@
+{{Infobox_bodyarmor|image = inventory_body_armor_81.png|worth = 20.000|durability = 270|maxfatigue = -18|useforspecial = Regenerates itself by <font color=#007F0E>90</font> points of durability each turn.|title = Aspect of Davkul|misc_1 = }}
+== Description ==
+A grisly aspect of Davkul, an ancient power not from this world, and the last remnants of <span style="color:olive">brother name</span> from whose body it has been fashioned. It shall never break, but instead keep regrowing its scarred skin on the spot.
+
+==Where can it be found?==
+* Via the [[Events#cultist_finale|Cultist Finale]] or [[Events#cultist_origin_finale|Cultist Origin Finale]] event with [[Cultist (Background)|Cultist]] brothers.
+
+Requirements for the event:
+
+*it has to be night time
+*201 days or older campaign
+*roster of at least 12 men
+*at least 1 open inventory slot
+*have 6 or more cultists (converted or true)
+*1 level 11+ cultist among them
+*1 level 11+ non-cultists to sacrifice.
+
+Requirements for the event if you play the [[Davkul Cultists]] origin:
+
+*it has to be night time
+*151 days or older campaign
+*roster of at least 12 men
+*at least 1 open inventory slot
+*have 6 or more cultists (converted or true)
+*2 level 11+ cultists (the sacrifice is a random cultist among those excluding the best one)
+
+[[Category:Legendary Items]]
+[[Category:Body Armor]]
+[[Category:Armor]]

@@ -1,0 +1,34 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_dead_knight" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Anatomist Dead Knight]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 99999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] discovers a dead knight with varying outcomes:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*Let's go get it."
+**If you have a [[Noble (Affiliation)|noble]] brother in your company he recognises the dead knight causing him and an [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] to gain a [[File:Bad mood.png]] bad mood, you also gain a [[Decayed Reinforced Mail Hauberk]] & [[Decayed Closed Flat Top with Mail]]
+**If you do not have a noble brother and the undead scourge is ongoing an [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] studies the zombie and gains <span style="color:green">+ 200</span>[[File:Xp_received.png|25px]], you also gain a [[Decayed Reinforced Mail Hauberk]] & [[Decayed Closed Flat Top with Mail]]
+**If neither of the above occur:
+***70% chance: [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] brother gains a [[File:Good mood.png]] good mood, you also gain a [[Decayed Reinforced Mail Hauberk]] or [[Decayed Coat of Scales]] & [[Arming Sword]]
+***30% chance: it is a bandit trap and an [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] suffers a [[Temporary_Injuries#Accident_2_injuries|temporary injury]] and gains a [[File:Good mood.png]] good mood
+*"No."
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*You must have at least one [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] 
+*The events outcome changes if you have a [[Noble (Affiliation)|noble]] brother or the undead scourge is ongoing
+*You must be on a road
+*It must be later than day 25
+*You must not be in the Southern (bottom 20%) of the map if Blazing Deserts is installed
+[[File:Score.png|150px]]
+*Score = 10
+</div>
+|}</onlyinclude>
+==Start==
+<div class="res-img">[[File:Anatomist Dead Knight start.png|796x796px]]</div>
+===Variant 3 (Success)===
+<div class="res-img">[[File:Anatomist Dead Knight 3 success.png|796x796px]]</div>
+[[Category:Event]]

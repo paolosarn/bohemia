@@ -1,0 +1,30 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_vs_dog" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist vs Dog]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] wishes to dissect one of your dogs:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Yes, do it."
+**If you have a [[File:Background_50.png|25px]] [[Houndmaster (Background)|Houndmaster]] the [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] suffers heavy wounds
+**Otherwise 50% chance the [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Level.png|25px]] level up and your dog is killed
+**50% chance the [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] suffers a [[File:injury_permanent_icon_02.png|25px]] [[Missing Finger]] and your dog is killed
+*"No, I don't think so."
+**The [[File:Background_70.png|25px]] [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Hounds|wardog]] or [[Hounds|warhound]]
+[[File:Score.png|150px]]
+*Score = 10
+</div>
+|}</onlyinclude>
+
+==Start==
+<div class="res-img">[[File:Anatomist vs Dog Start.png]]</div>
+
+===Path 2===
+<div class="res-img">[[File:Anatomist vs Dog 2.png]]</div>
+[[Category:Event]]

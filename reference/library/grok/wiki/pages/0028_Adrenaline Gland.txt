@@ -1,0 +1,17 @@
+{|class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+!class="unsortable"|
+!style="white-space: nowrap"|Name
+!style="white-space: nowrap"|Origin
+!style="white-space: nowrap" data-sort-type="number"|Worth
+!style="white-space: nowrap"|Used For
+|-
+<onlyinclude>
+|[[File:Inventory_wolf_adrenaline.png]]
+|[[Adrenaline Gland]]
+|data-sort-value="Direwolf"|[[File:Direwolf_01_orientation.png|Direwolf|link=Direwolf]]
+|400 [[File:Gold_coin.png|13px]]
+|style="white-space: nowrap"|[[File:Potion_06.png|50px|Cat Potion|link=Cat_Potion]] [[File:Potion_07.png|50px|Iron Will Potion|link=Iron_Will_Potion]] [[File:Potion_01.png|50px|Second Wind Potion|link=Second_Wind_Potion]] [[File:Paint_blue_white.png|50px|White and Blue Paint|link=White_and_Blue_Paint]] [[File:Inventory_snake_oil.png|50px|Snake Oil|link=Snake_Oil]]
+</onlyinclude>
+|}
+[[Category:Items]]
+[[Category:Trophies]]

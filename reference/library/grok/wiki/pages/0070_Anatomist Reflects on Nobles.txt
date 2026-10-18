@@ -1,0 +1,20 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_reflects_on_nobles" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Reflects on Nobles]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 999999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background_70.png|25px]] Anatomist
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] gains +2-4 [[File:Resolve.png]] and a [[File:Good_mood.png|21px]] good mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*It must be nighttime
+*You need to have at least 1500 [[Renown]]
+[[File:Score.png|150px]]
+*Score = 3 for every [[Anatomist (Background)|Anatomist]]
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:Anatomist Reflects on Nobles.png|796x796px]]</div>
+
+[[Category:Event]]

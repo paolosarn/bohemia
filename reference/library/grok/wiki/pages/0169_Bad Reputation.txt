@@ -1,0 +1,19 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="bad_reputation" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Bad Reputation]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 14
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_180.png|25px]] [[Oathtakers]]
+|colspan="2"|The company is dissatisfied with its bad reputation. All [[Oathtaker (Background)|Oathtakers]] and 50% of all other brothers gain a [[File:Bad mood.png]] bad mood
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*Your reputation must be below 40
+[[File:Score.png|150px]]
+*Score = 15
+</div>
+|}</onlyinclude>
+
+
+[[Category:Event]]

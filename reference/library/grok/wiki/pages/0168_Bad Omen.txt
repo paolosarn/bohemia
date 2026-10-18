@@ -1,0 +1,51 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="bad_omen" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Bad Omen]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 14
+|-
+!style="white-space: nowrap; border-right:1px dotted #505050"|[[File:Trait icon 26.png|25px]] <span style="color:grey">Superstitous</span>
+|colspan="2"|A [[Superstitious]] brother becomes [[File:Afraid.png|25px]] [[Afraid (Status Effect)]] and gets a [[File:Bad_mood.png|21px]] bad mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*Have at least 2 brothers
+[[File:Score.png|150px]]
+*Score = 10 for every [[Superstitious]] brother you have
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the way...|left=Superstitious's token}}
+{{EventCycler|1=[[File:event_12.png|x210px|left]]
+Cries whip through the party like the howls of the wind. There is not an enemy in sight so you've no idea what is causing this. You walk the ranks to find {{EventVariable|Superstitious}} practically sobbing on the ground. He is clutching his chest with one hand while the other points to the sky, the finger shaking in pointed fear. {{EventVariable|Otherguy}} explains that the man saw a great blaze of fire cross by the stars. Apparently this pathetic fool takes it for an omen and, of course, it isn't a good one. Whatever it is, it isn't going to get you where you need to be so you order the men to march.|2=[[File:event_12.png|x210px|left]]
+Shadows begin to fold in and on themselves in strange ways. You turn around to see the sun darkening, a great rim of black moving over it. Soon there is no sun at all. {{EventVariable|Superstitious}} cries out that the end times are coming, but before his wailing can find a grip on the rest of your men, the great shade unveils the sun once more and there is light again as though nothing happened at all. You tell the pathetic fool to get to his feet. You've places to march and tears sure as hell won't get you there.|3=[[File:event_11.png|left]]
+{{EventVariable|Superstitious}} is poking his sword into a warren when he suddenly cries out. He leaps away from the rabbit hole and screams that there is a two headed bunny within. Apparently this is a bad omen of things to come. All you can think is that two heads just means more meat for the stew.|4=[[File:event_11.png|left]]
+You pass beneath a tree whose branches are occupied by both a black cat and an albino crow. {{EventVariable|Superstitious}} cries at the sight of it, saying that this is surely a sign of the end times. Why yes, of course it is. These things are never a sign of good things, right? Yeesh.|5=[[File:event_11.png|left]]
+You come across a deer skull. At first it means nothing to you, but {{EventVariable|Superstitious}} picks it up with earnest. Muted dust pours out of the cavity as he turns it this way and that. Hands trembling, he throws the head out of his hands. It clatters hollow against the ground, tumbling over onto where the horns should be. The scared man claims that a soothsayer once told him that he would come across a skull such as this.{{EventBreak}}<p>There are many skulls out here, you argue, because things have a tendency to die. Your words do nothing for the man as he slowly, and nervously, shuffles back into the marching rank.</p>|6=[[File:event_11.png|left]] Marching along, a few of the men take up a game of finding shapes in the clouds. They banter back and forth about dogs and fat women and even of home, but the fun takes a wild turn when {{EventVariable|Superstitious}} sees one odd-shaped cloud that brings him to his knees. He cries out that it is a bad omen, this cloud, and that doom will soon be upon the company. Thankfully, the fear does not grip the rest of the company who, instead of trembling, soon start bickering over whether or not the cloud is truly representative of {{EventVariable|Randombrother}}'s impressive endowment.}}
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:status effect 52.png|x25px]] || {{EventVariable|Superstitious}} is afraid
+ |-
+ | [[File:effect mood dissatisfied.png|x25px]] || {{EventVariable|Superstitious}} gets a {{Tooltip|bad mood|-1 (Has seen a bad omen)}}
+ |}
+{{EventButtons}}
+{{EventButton|{{EventCycler|1=Pull yourself together!|2=And I thought only children had such silly fears.}} (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Bad_omen.png
+Bad_Omen-0.png
+Bad_Omen_2.png
+Superstitious_Bad_Omen_3.png
+</gallery>
+
+[[Category:Event]]

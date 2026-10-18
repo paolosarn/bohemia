@@ -1,0 +1,102 @@
+
+Armor Attachments can be used to augment body armor, boosting the stats of the equipment in some way. Attachments are very powerful: they can add durability, reduce stamina penalty, scare enemies, or even prevent incoming damage.
+
+Attachments can be applied to the body armor only, which can benefit from only one attachment at a time. Replacing a current attachment will irrecoverably destroy it in favor of a new one being applied.
+
+To apply an armor attachment, the player must select a character that's wearing a body armor and then either drag the attachment onto the body armor or simply right-click the attachment.
+
+=='''Craftable:'''==
+Many armor attachments can be crafted at a [[Taxidermist]].
+
+(Hint: the Cost column shows crowns required to craft an attachment at a Taxidermist.)
+<onlyinclude>
+{|class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+!class="unsortable"|
+!style="white-space: nowrap; text-align: center"|Name
+!class="unsortable" style="text-align: center"|Effects
+!style="white-space: nowrap; text-align: center"|Ingredients
+!data-sort-type="number" style="white-space: nowrap; text-align: center"|Cost
+|-
+{{:Additional Fur Padding}}
+|-
+{{:Bone Platings}}
+|-
+{{:Direwolf Pelt Mantle}}
+|-
+{{:Horn Plate}}
+|-
+{{:Hyena Fur Mantle}}
+|-
+{{:Light Padding Replacement}}
+|-
+{{:Lindwurm Scale Cloak}}
+|-
+{{:Protective Runes and Sigils}}
+|-
+{{:Serpent Skin Mantle}}
+|-
+{{:Unhold Fur Cloak}}
+|-
+{{:Wardog Armor}}
+|-
+{{:Heavy Wardog Armor}}
+|}
+</onlyinclude><br />
+<nowiki>*</nowiki> [[Wardog Armor]] can also be purchased at the [[Settlement_buildings#Kennel|Kennel]].<br />
+<nowiki>**</nowiki> [[Direwolf Pelt Mantle]] can be looted as already pre-attached with different armor worn by [[Disguised Bandit]]s.
+
+=='''Purchasable:'''==
+These armor attachments can be bought at an [[Settlement_buildings#Armorer|Armorer]]. They can be looted after destroying hostile encampments and can also be found in different events.
+<onlyinclude>
+<div style="display: flex; flex-wrap: wrap; width: 100%">
+{| class="article-table" style="text-align:center; width:48%; border-collapse:collapse;"
+!
+! style="white-space:nowrap; text-align:center;" |Name
+! style="white-space:nowrap; text-align:center;" |[[File:Supplies_icon.png|20px|Durability]]
+! style="white-space:nowrap; text-align:center;" |[[File:Fatigue.png|20px|Maximum Fatigue]]
+! style="white-space:nowrap; text-align:center;" |Worth
+|-
+{{:Leather Neckguard}}
+|-
+{{:Double Mail}}
+|-
+{{:Metal Plates and Rivets}}
+|-
+{{:Metal Pauldrons}}
+|}
+{| class="article-table" style="text-align:center; width:48%; border-collapse:collapse;"
+!
+! style="white-space:nowrap; text-align:center;" |Name
+! style="white-space:nowrap; text-align:center;" |[[File:Supplies_icon.png|20px|Durability]]
+! style="white-space:nowrap; text-align:center;" |[[File:Fatigue.png|20px|Maximum Fatigue]]
+! style="white-space:nowrap; text-align:center;" |Worth
+|-
+{{:Leather Shoulderguards}}
+|-
+{{:Mail Patch}}
+|-
+{{:Metal Joint Covers}}
+|-
+{{:Heraldic Shoulderguards}}
+|}
+</div></onlyinclude>
+
+=='''Pre-attached:'''==
+These armor attachments are already combined with the armor which they are commonly found with. They can be replaced by other armor attachments, but will be destroyed in the process.
+<onlyinclude>
+{| class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+! class="unsortable" |
+! style="white-space: nowrap; text-align: center"|Name
+! data-sort-type="number" style="white-space: nowrap; text-align: center"|[[File:Supplies_icon.png|20px|Durability|link=https://battlebrothers.wikia.com/wiki/File:Supplies_icon.png]]
+! data-sort-type="number" style="white-space: nowrap; text-align: center"|[[File:Fatigue.png|20px|Maximum Fatigue|link=https://battlebrothers.wikia.com/wiki/File:Fatigue.png]]
+! class="unsortable" style="text-align: center" |[[File:Special.png|20px|Special|link=https://battlebrothers.wikia.com/wiki/File:Special.png]]
+|-
+{{:Horn and Bone}}
+|-
+{{:Padded Armor Pieces}}
+|-
+{{:Metal Armor Pieces}}
+|}
+</onlyinclude>
+
+[[Category:Armor Attachments]]

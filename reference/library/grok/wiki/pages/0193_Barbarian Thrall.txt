@@ -1,0 +1,65 @@
+{{Combatant3
+|title           =Barbarian Thrall
+
+|image           =token-barbarian-thrall.png
+|health          =70
+|head-armor      =0-50
+|body-armor      =0-45
+|fatigue         =120
+|fatigue-recovery=15
+|resolve         =70
+|initiative      =115
+|melee-skill     =55
+|ranged-skill    =50
+|melee-defense   =0
+|ranged-defense  =0
+|action-points   =9
+|xp              =175
+|skills=
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_39.png|25px]] [[Quick Hands]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+{{SkillInfo|Perk_26.png|[[Relentless]] after day 20}}
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Thrall is a somewhat weak enemy from the [[Barbarians]] faction.
+
+== Equipment ==
+
+*An [[Antler Cleaver]], [[Claw Club]] or [[Militia Spear]].
+*40% chance of a [[Bundle of Throwing Axes]], [[Bundle of Javelins]] or [[Bundle of Crude Javelins]].
+*60% chance of an [[Animal Hide Armor]] (45) or [[Thick Furs]] (30).
+*50% chance of a [[Bear Headpiece]] (50) or [[Leather Headband]] (30).
+*20% chance of an [[Old Wooden Shield]].
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+==Behavior==
+Like all barbarians, they move forward and switch to [[Throwing Weapons|throwing weapons]] if they have them. They will use [[Adrenaline (20 fatigue)|Adrenaline]] to get ahead of the enemy if not already faster than them. They can [[Barbarian Fury (5 fatigue)|rotate]] with each other to save a wounded ally, attack someone vulnerable, or without a clear purpose.
+
+==Tips==
+
+*They can sometimes hit the head of your backliner with a [[Bundle of Crude Javelins|crude javelin]]. Protect brothers accordingly.
+*Barbarians with [[Throwing Weapons|throwing weapons]] won't charge into Spearwall, and can be problematic if they take a high ground.
+*Prioritize those who have [[Militia Spear|Militia Spears]] because they hit more often.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

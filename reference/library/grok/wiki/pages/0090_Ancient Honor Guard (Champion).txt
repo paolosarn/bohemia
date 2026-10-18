@@ -1,0 +1,103 @@
+{{Combatant3
+|title           =Ancient Honor Guard (Champion)
+
+|section-1       =Base stats
+|image           =token-skeleton-champion.png
+|health          =65
+|head-armor      =180
+|body-armor      =<small>180-210</small>
+|initiative      =70
+|resolve         =130
+|melee-skill     =75
+|melee-defense   =5
+|ranged-defense  =5
+|action-points   =9
+|xp              =350
+|immune=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|stats=
+{{SkillInfo|Damage dealt.png|[[Devastating Strikes|1.2x damage dealt]]}}
+|skills=
+[[File:Status effect 108.png|25px]] Champion<br/>
+{{SkillInfo|Allmasteries.png|Axe and Cleaver Masteries}}
+{{SkillInfo|Perk 58.png|[[Polearm Mastery]] after day 100}}
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 19.png|25px]] [[Reach Advantage]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+
+|section-2         =With Champion applied
+|image-2           =token-skeleton-champion.png
+|health-2          =118
+|head-armor-2      =180
+|body-armor-2      =<small>180-210</small>
+|initiative-2      =80
+|resolve-2         =195
+|melee-skill-2     =86
+|melee-defense-2   =6
+|ranged-defense-2  =6
+|action-points-2   =9
+|xp-2              =525
+|immune-2=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune-2=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|stats-2=
+{{SkillInfo|Damage dealt.png|[[Devastating Strikes|1.38x damage dealt]]}}
+{{SkillInfo|Special.png|Bonus stats from shields, weapons, skills and perks are increased as well}}
+|skills-2=
+[[File:Status effect 108.png|25px]] Champion<br/>
+{{SkillInfo|Allmasteries.png|Axe and Cleaver Masteries}}
+{{SkillInfo|Perk 58.png|[[Polearm Mastery]] after day 100}}
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 19.png|25px]] [[Reach Advantage]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}This is a [[Champions|Champion]] version of an [[Ancient Honor Guard]].
+
+==Equipment==
+
+*A [[Named and Legendary Items|named item]]:
+**A [[Named Bladed Pike]], [[Named Crypt Cleaver]], [[Named Warscythe]] or [[Named Khopesh]].
+*Regular items:
+** An [[Ancient Plated Scale Hauberk]] (210), [[Ancient Plate Harness]] (200), [[Ancient Scale Coat]] (190) or [[Ancient Plated Mail Hauberk]] (180).
+** An [[Ancient Honor Guard Helmet]] (180).
+** If the weapon is one-handed, an [[Ancient Tower Shield]].
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Champion (HP)}}
+|-
+{{:Resistant to Ranged Attacks}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+==Tips==
+
+* Isn't as fragile as a regular Honor Guard and deals more damage with a [[Named Weapons|named weapon]] and damage modifier. Otherwise similar to a non-champion version, wears the same armor and is easy to hit.
+* [[Named Crypt Cleaver]] can be very deadly to [[Nimble]] brothers and even to [[Battle Forged]], if generates with very good stats.
+* If has a [[Khopesh]] and shield, isn't much of a threat.
+* Concentrate damage to kill him before he attacks.
+* Usually you don't want to [[Maces|stun]] or [[Battle Whip|disarm]] [[Ancient Dead]] because killing them is easier, but against this enemy it sometimes may be worthwhile.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Ancient Dead]]
+[[Category:Champions]]

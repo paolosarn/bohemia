@@ -1,0 +1,64 @@
+{{Combatant3
+|title           =Arbalester
+
+|image           =token-arbalester.png
+|health          =60
+|head-armor      =0-80
+|body-armor      =50-65
+|fatigue         =100
+|fatigue-recovery=15
+|resolve         =60
+|initiative      =110
+|melee-skill     =55
+|ranged-skill    =60
+|melee-defense   =5
+|ranged-defense  =5
+|action-points   =9
+|xp              =250
+|skills=
+[[File:Perk_48.png|25px]] [[Crossbow Mastery]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_17.png|25px]] [[Bullseye]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Arbalester is a ranged unit from the [[Noble Houses|Noble]] faction.
+
+== Equipment ==
+
+* A [[Heavy Crossbow]] (34% chance) or [[Crossbow]] (66% chance).
+* A [[Dagger]] or [[Knife]].
+* A [[Gambeson]] (65) or [[Padded Surcoat]] (50).
+* 80% chance of a [[Mail Coif]] (80), [[Full Aketon Cap]] (50), [[Aketon Cap]] (40) or [[Headscarf]] (20).
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" | '''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+Shooting their bolts at enemies, Arbalesters sometimes choose a target directly behind an ally, risking to hit him instead, though it rarely happens. Sometimes they spend a turn repositioning. It is possible for an Arbalester to jump ahead of the formation to shoot, becoming an easy target for enemy arrows.
+
+==Tips==
+
+* Their [[crossbows]] deal armor-piercing damage, causing [[injuries]] and even instant death without defensive [[perks]].
+* Priority targets because of their threat, and vulnerable.
+* They often stand behind [[Billman|Billmen]] or other Arbalesters, making them easier to shoot at.
+* If exposed, they are a priority targets for your archers.
+* If you don't rely on ranged units, prefer nighttime when they are less accurate.
+* They can use [[Rotation (Skill)|Rotation]] to escape melee, but usually don't do it.
+* When fighting on your side, they can [[Rotation (Skill)|rotate]] you into dangerous positions.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Military]]
+[[Category:Noble Houses Forces]]

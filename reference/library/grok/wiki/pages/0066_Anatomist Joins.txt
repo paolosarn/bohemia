@@ -1,0 +1,23 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_joins" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Joins]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 30
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] offers to join your company:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Yes we'll take you."
+**You gain an [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]]
+*"We don't need your help." (nothing happens)
+[[File:Requirements.png|150px]]
+*You must have a free slot in your roster
+[[File:Score.png|150px]]
+*Score = 2 or 10 if you have less than 3 [[Anatomist (Background)|Anatomists]]
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:Anatomist joins 1.png]]</div>
+<div class="res-img">[[File:Anatomist joins 2.png]]</div>
+[[Category:Event]]

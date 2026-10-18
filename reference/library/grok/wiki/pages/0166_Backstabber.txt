@@ -1,0 +1,10 @@
+{| class="article-table" width="100%"
+!style="width:27%; text-align:center;"|'''Perk'''
+!style="width:73%; text-align:center;"|'''Description'''
+|-<onlyinclude>
+|[[File:Perk_59.png|34px]]&nbsp;&nbsp;&nbsp;'''[[Backstabber]]'''
+|id="backstabber"|The bonus to hitchance in melee is doubled to <span style="color: green">+10%</span> for each ally (including your [[Hounds]]) surrounding and distracting your target.
+Note: surrounding starts when two allies are adjacent to an enemy. See this section in [[Combat Mechanics#Surrounding|Combat Mechanics]] and [[Hit_Chance#Surrounding|Hit Chance]].
+</onlyinclude>
+|}
+[[Category:Perks]]

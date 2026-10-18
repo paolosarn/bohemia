@@ -1,0 +1,128 @@
+{{Combatant3
+|title           =Armored Unhold
+
+|section-1       =Unhold
+|image           =token-unhold-armored.png
+|health          =500
+|head-armor      =35
+|body-armor      =35
+|fatigue         =400
+|fatigue-recovery=30
+|resolve         =130
+|initiative      =75
+|melee-skill     =70
+|melee-defense   =10
+|ranged-defense  =0
+|action-points   =9
+|xp              =400
+|immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Knock_Back.png|23px|Forced movement]]
+|not-immune=[[File:Night.png|23px|Nighttime]][[File:Net2.png|23px|Nets]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Status effect 116.png|23px|Fire]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|stats=
+{{SkillInfo|Initiative.png|+40 initiative on the first 2 rounds (3 in scenario mode)}}
+{{SkillInfo|Damage dealt.png|1.1x damage dealt after day 90}}
+|skills=
+[[File:Perk 57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 04.png|25px]] [[Resilient]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+[[File:Status effect 79.png|25px]] [[Regeneration]]<br/>
+[[File:Unhold2.png|25px]] [[Fling Back (20 fatigue)|Fling Back]]<br/>
+[[File:Unhold3.png|25px]] [[Sweep (20 fatigue)|Sweep]]<br/>
+[[File:Unhold1.png|25px]] [[Unstoppable Charge (30 fatigue)|Unstoppable Charge]]
+
+|section-2         =Frost Unhold
+|image-2           =token-unhold-frost-armored.png
+|health-2          =600
+|head-armor-2      =490
+|body-armor-2      =490
+|fatigue-2         =400
+|fatigue-recovery-2=30
+|resolve-2         =150
+|initiative-2      =85*
+|melee-skill-2     =75
+|melee-defense-2   =10
+|ranged-defense-2  =0
+|action-points-2   =9
+|xp-2              =550
+|immune-2=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Knock_Back.png|23px|Forced movement]]
+|not-immune-2=[[File:Night.png|23px|Nighttime]][[File:Net2.png|23px|Nets]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Status effect 116.png|23px|Fire]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|stats-2=
+{{SkillInfo|Initiative.png|+40 initiative on the first 2 rounds (3 in scenario mode)}}
+{{SkillInfo|Damage dealt.png|1.15x damage dealt before day 90, 1.25x after}}
+|skills-2=
+[[File:Perk 57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk 36.png|25px]] [[Killing Frenzy]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 04.png|25px]] [[Resilient]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+[[File:Status effect 79.png|25px]] [[Regeneration]]<br/>
+[[File:Unhold2.png|25px]] [[Fling Back (20 fatigue)|Fling Back]]<br/>
+[[File:Unhold3.png|25px]] [[Sweep (20 fatigue)|Sweep]]<br/>
+[[File:Unhold1.png|25px]] [[Unstoppable Charge (30 fatigue)|Unstoppable Charge]]
+}}Armored Unhold is a beast, used for war by [[Barbarians]] faction, controlled by [[Barbarian Beastmaster|Beastmasters]].
+
+==Equipment==
+<tabber>
+|-|Unhold=
+
+* A body Armor (35).
+* A head Armor (35).
+
+|-|Frost Unhold=
+
+* A body Armor (400).
+* A head Armor (400).
+* Extra 90 natural armor on body and head.
+</tabber>
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP''''' 
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Regeneration}}
+|-
+{{:Fling Back (20 fatigue)}}
+|-
+{{:Sweep (20 fatigue)}}
+|-
+{{:Unstoppable Charge (30 fatigue)}}
+|}
+
+==Loot== 
+<tabber>
+|-|Regular origins=
+
+* A [[Giant Skull and Bones]] (40% chance), [[Unhold Hide]] (40% chance) or [[Unhold's Heart]] (20% chance).
+** Frost Unholds drop [[Thick White Fur]] instead of [[Unhold Hide]].
+* 33% chance of [[Provisions|Strange Meat]].
+* 20% chance of [[Treasures|Deformed Valuables]] (450 crowns).
+
+|-|Beast Slayers=
+
+* A [[Giant Skull and Bones]] (40% chance), [[Unhold Hide]] (40% chance) or [[Unhold's Heart]] (20% chance). 50% chance of another one, rolling separately.
+** Frost Unholds drop [[Thick White Fur]] instead of [[Unhold Hide]].
+* 33% chance of [[Provisions|Strange Meat]].
+* 20% chance of [[Treasures|Deformed Valuables]] (450 crowns).
+</tabber>
+==Behavior==
+Unholds usually approach with their [[Unstoppable Charge (30 fatigue)|Unstoppable Charge]], that can't be repelled by a spearwall. They prefer fighting with a regular attack, but can use [[Fling Back (20 fatigue)|Fling Back]] to get close to a vulnerable brother, take the high ground, cancel a shieldwall, or kill someone with 10 HP or less.
+
+It's impossible to swap places with Unholds with [[Barbarian Fury (5 fatigue)|Barbarian Fury]].
+
+If not [[Crack the Whip (Barbarian Beastmaster)|whipped]], an Armored Unhold has a 33% chance to turn wild at the start of its turn. Uncontrolled Armored Unholds are hostile to barbarians and controlled Armored Unholds, but not to each other, and they are allied with other [[Beasts]] in a three-way fight. Whipped Armored Unholds still retain their wild status until their next turn (verify?).
+
+Controlled and wild Armored Unholds can be distinguished by their tokens' bases. Barbarians' base means it's controlled, and Beasts' base indicates it's wild.
+
+==Tips==
+
+*Normal Armored Unholds are similar to unarmored Unholds, but Armored Frost Unholds have very heavy armor that requires anti-armor weapons to destroy.
+*Low priority targets because of their toughness.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Beasts]]

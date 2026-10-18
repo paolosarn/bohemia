@@ -1,0 +1,31 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_vs_iron_lungs" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist vs Iron Lungs]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] wishes to try and replicate another brothers [[Iron Lungs]] in himself:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Hey, it's your body."
+**50% chance the [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains [[Iron Lungs]] and a [[File:injury_icon_36.png|25px]] [[Pierced Lung]]
+**50% chance the [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] suffers a [[File:injury_icon_36.png|25px]] [[Pierced Lung]] and a [[File:Bad mood.png]] bad mood
+*"Not a chance."
+**The  [[Anatomist (Background)|Anatomist]] gains a [[File:Bad mood.png]] bad mood
+[[File:Requirements.png|150px]]
+*You must have at least one non [[Anatomist (Background)|Anatomist]] with [[Iron Lungs]]
+*You must have at least one [[Anatomist (Background)|Anatomist]] without [[Iron Lungs]]
+[[File:Score.png|150px]]
+*Score = 5 for each non [[Anatomist (Background)|Anatomist]] with [[Iron Lungs]]
+</div>
+|}</onlyinclude>
+==Start==
+<div class="res-img">[[File:Anatomist vs Iron Lungs start.png]]</div>
+===Path 1 Success===
+<div class="res-img">[[File:Anatomist vs Iron Lungs success.png]]</div>
+===Path 1 Failure===
+<div class="res-img">[[File:Anatomist vs Iron Lungs failure.png]]</div>
+
+[[Category:Event]]

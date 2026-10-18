@@ -1,0 +1,26 @@
+{{Infobox accessory
+|title=Apotheosis Potion
+|image=[[File:Potion_10.png|thumb]]
+|imagewidth=
+|imagecaption=
+|worth=nothing
+|durability=
+|maxfatigue=
+|special1=+1 [[File:Health.png|25px]]
+|special2=+1  [[File:Fatigue.png|25px]]
+|special3=
+|special4=
+|misc_1=Non-combat consumable
+}}
+==Description==
+''This fantastic concoction is the pinnacle of what research on human anatomy has yielded. The few that know of its existence claim that to consume it is to ascend to a higher state of being, something beyond a mere human.''
+
+==Where Can They Be Found?==
+*Begin the game with one as part of the [[Anatomists]] origin.
+
+==Notes==
+*Mutates the body, causing [[Sick|sickness]]
+*Unlike the other [[Anatomists]] potions there is no way to regain this if you lose it
+
+__NOTOC__
+[[Category:Anatomists Potions]]

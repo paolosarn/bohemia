@@ -1,0 +1,19 @@
+{|class="article-table"
+! align="center" |Icon
+! align="center" |Name
+! align="center ; width: 15%"|Effect
+! align="center" |Duration
+! align="center" |Notes
+|-<onlyinclude>
+|align="center" id="afraid"|[[File:Status_effect_52.png|35px]]<!-- Status -->
+|align="center"|[[Afraid (Status Effect)|Afraid]]
+|align="center"|
+<span style="color:red">-50%</span> [[File:Resolve.png|25px|Resolve]]
+|align="center" data-sort-value="999"|[[File:Infinity.png|Unlimited|25px]]
+|
+*Caused by the [[Bad Omen]] or [[Bad Curse]] event and there is a 20% chance that a [[Superstitious]] brother becomes afraid after combat in a [[Hunting Hexen]] contract.
+*Doesn't mind being in reserve.
+*There is a 25% chance to lose this status when a new day starts.
+</onlyinclude>
+|}
+[[Category:Status Effects]]

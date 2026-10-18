@@ -1,0 +1,45 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_wants_skull" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Wants Skull]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] wants to steal a skull some townsfolk are praying to:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"Alright take it."
+**50% chance the [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains +1-3 [[File:Resolve.png]], +1-3 [[File:Initiative.png]] and a [[File:Good mood.png]] good mood but suffers light wounds
+**50% chance you lose 100 [[File:Crowns.png|25px]]
+*"I don't think so." (no effect)
+*"What's our [[File:background 11.png|25px]] [[Thief (Background)|Thief]] have to say?"
+**The [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains <span style="color:green">+ 100</span>[[File:Xp_received.png|25px]] and a [[File:Good mood.png]] good mood, the [[File:background 11.png|25px]] [[Thief (Background)|thief]] gains +2-4 [[File:Initiative.png]] and a [[File:Good mood.png]] good mood and you gain 1-2 weapons and 1-2 armours from the loot table
+*"That skull looks like our wildman, [[File:background 31.png|25px]] [[Wildman (Background)|Wildman]]."
+**The [[File:background 70.png|25px]] [[Anatomist (Background)|Anatomist]] gains +1-3 [[File:Initiative.png]] and a [[File:Good mood.png]] good mood, the [[File:background 31.png|25px]] [[Wildman (Background)|wildman]] gains <span style="color:green">+ 75</span>[[File:Xp_received.png|25px]] and a [[File:Good mood.png]] good mood and you gain 1 [[File:Cured Venison.png|25px]] or [[File:Mushroom.png|25px]] or [[File:Roots and berries.png|25px]] and 1 [[File:Cloth Rolls.png|25px]] or [[File:Bricks.png|25px]]
+[[File:Loot table.png|150px]]
+*[[Militia Spear]] (3x as likely)
+*[[Shortsword]]
+*[[Falchion]]
+*[[Light Crossbow]]
+*[[Leather Tunic]] (2x as likely)
+*[[Thick Tunic]] (2x as likely)
+*[[Padded Surcoat]]
+*[[Padded Leather]]
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Anatomist (Background)|Anatomist]]
+[[File:Score.png|150px]]
+*Score = 10
+</div>
+|}</onlyinclude>
+
+==Start==
+<div class="res-img">[[File:Skull.png|796x796px]]</div>
+
+===Path 1 Success===
+<div class="res-img">[[File:Anatomist Wants Skull 1 Success.png|796x796px]]</div>
+
+===Path 4 (Wildman)===
+<div class="res-img">[[File:Anatomist Wants Skull Wildman.png|796x796px]]</div>
+
+[[Category:Event]]

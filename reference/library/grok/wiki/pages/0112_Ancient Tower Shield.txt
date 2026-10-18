@@ -1,0 +1,42 @@
+{{Infobox_shield
+|title={{PAGENAME}}
+|image=
+<gallery>
+Inventory_shield_tower_01.png|1
+Inventory_shield_tower_02.png|2
+Inventory_shield_tower_03.png|3
+Inventory_shield_tower_04.png|4
+Inventory_shield_tower_05.png|5
+</gallery>
+|imagecaption=
+|worth=200 
+|durability=24
+|meleedefense=+20
+|rangeddefense=+20
+|maxfatigue=-20
+}}
+
+== Description ==
+''A tall and heavy tower shield that offers good protection, but is very bulky to handle. It appears to be old and worn down.''
+
+== Where can it be found? ==
+* Used by [[Ancient Legionary|Ancient Legionaries]] and [[Ancient Honor Guard]]s.
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Knock Back (20 fatigue)}}
+|-
+{{:Shieldwall (20 fatigue)}}
+|}
+
+__NOTOC__
+
+[[ru:Древний_башенный_щит]]
+[[Category:Shield]]
+[[Category:Armor]]

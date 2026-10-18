@@ -1,0 +1,20 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="ailing_recovers" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Ailing Recovers]]</span>
+!style="white-space: nowrap"|[[File:Dlc_2.png|25px|Beasts & Exploration DLC]] <span style="color:green">Beasts & Exploration DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 75
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background_13.png|25px]] Monk<br />[[File:Background_57.png|25px]] Beast Slayer<br />[[File:Ailing2.png|25px]] <span style="color:grey">Ailing</span>
+|colspan="2"|A [[Monk (Background)|Monk]] or [[Beast Slayer (Background)|Beast Slayer]] brother removes the [[Ailing]] trait from another brother and gives him a [[File:Good_mood.png|25px]] good mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*The [[Monk (Background)|Monk]] or [[Beast Slayer (Background)|Beast Slayer]] needs to be level 4 or higher
+*The brother with the [[Ailing]] trait needs to be level 4 or higher
+[[File:Score.png|150px]]
+*Score = 5 for every [[Monk (Background)|Monk]], [[Beast Slayer (Background)|Beast Slayer]] and brother with [[Ailing]] that meets the requirements
+</div>
+|}</onlyinclude>
+
+<div class="res-img">[[File:AilingRecovers.png]]</div>
+[[Category:Event]]

@@ -1,0 +1,20 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_okay_with_mutations" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Anatomist Okay With Mutations]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 14
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|An [[Anatomist (Background)|Anatomist]] who has been upset with their mutations gains a [[File:Good_mood.png|21px]] good mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*You must have at least one [[File:Background 70.png|25px]] [[Anatomist (Background)|Anatomist]] who has become [[Anatomist Bummed at Mutations|bummed at their mutations]]
+[[File:Score.png|150px]]
+*Score = 10 for every [[Anatomist (Background)|Anatomist]] who is [[Anatomist Bummed at Mutations|bummed at their mutations]]
+[[File:Other_notes.png|150px]]
+*An [[Anatomist (Background)|Anatomist]] can get this event only once
+</div>
+|}</onlyinclude>
+
+[[Category:Event]]

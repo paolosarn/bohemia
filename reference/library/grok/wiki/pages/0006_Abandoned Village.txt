@@ -1,0 +1,23 @@
+{| class="article-table" width="100%"
+! align="left" id="black_monolith" |[[File:event_178.png|50x50px]] [[Abandoned Village]]
+|-
+! align="center" width="100%" |<!-- Black Monolith -->[[File:Abandoned_village.png|left|200x200px]]A seemingly abandoned village, with a towering statue dominating the square.
+|-
+|<div class="mw-collapsible mw-collapsed toggle-center">
+'''On the first visit:'''
+
+* "To battle!" (the fight starts)
+** You will face:
+*** 6 [[File:Flesh_golem_orientation.png|25x25px]] [[Flesh Golem|Flesh Golems]]
+*** 5 [[File:Flesh_golem_orientation.png|25x25px]] unarmed [[Flesh Golem|Flesh Golems]]
+*** 3 [[File:Flesh_whisperer_orientation.png|25x25px]] [[Fault Finder|Fault Finders]]
+* "Let's get out of here!" (nothing happens)
+
+'''After the battle:'''
+
+* "Hurry it up, too."
+** You gain [[File:Quiver_05.png|50x50px]] [[Bloodletter's Reach]]
+</div>
+|}
+<noinclude>
+[[Category:Legendary Locations]]

@@ -1,0 +1,96 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="adopt_warhound" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Adopt Warhound]]</span>
+!style="white-space: nowrap"|[[File:Dlc_4.png|25px|Warriors of the North DLC]] <span style="color:teal">Warriors of the North DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 120
+|-
+|colspan="3"|You come across a slain shepherd, dead nachzehrer and a warhound. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"He'll fit right in with us."
+**70% chance: You gain a [[Hounds|Warhound]] with the name "Warrior"
+**30% chance: The dog has died
+*"[[File:Background_50.png|25px]] [[Houndmaster (Background)|Houndmaster]] / [[File:Barbarian.png|25px]] [[Barbarian (Background)|Barbarian]], you've dealed with hounds before, right?"
+**You gain a [[Hounds|Warhound]] with the name "Warrior"
+*"Just put it out of its misery."
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*You are in the top 30% part (north) of the global map
+*Have at least 1 free slot in your inventory
+[[File:Score.png|150px]]
+*Score = 5
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+{{Event}}
+<tabber>
+|-|A=
+{{EventTab|header=Along the way...}}
+[[File:event_126.png|left|Image depends on terrain where you are]]
+You come across a caldera the bottom of which you find a few sheep nuzzling something. As you draw close, you see that there is an enormous hound there, its fur matted with blood, its collar shredded, and its paws wiry where the claws have come apart. It regards you with a growl, but can't maintain it for long as it simply puts its head down with an exhausted huff. The sheep depart and beyond them you find a man leaning against a rock. His chest has been ripped open and whatever killed him did it with such force as to spray his innards all along the rocks. Following the trail, you do find a monstrous Nachzehrer whose throat has been ripped out. {{EventVariable|Randombrother}} nods.
+
+{{EventSpeech|I think that pup might be worth having in the company.}}
+{{EventButtons}}
+{{EventButton|He'll fit right in with us. (|#B|70% Success|,{{Sp}}|#C|30% Failure|)}}
+{{EventButton||#D|{{EventVariable|Houndman}}, you've dealt with hounds before, right?|{{Sp}}(requires Houndmaster or Barbarian)}}
+{{EventButton|Just put it out of its misery. (the event ends)}}
+{{EventTabEnd}}
+
+|-|B=
+{{EventTab|header=Along the way...}}
+[[File:event_126.png|left|Image depends on terrain where you are]]
+You reach out to the hound and it lifts it head to you as though you were another threat. Its eyes peer blackly from a long-matted mane that still drips with blood. The sheep, having seen what carnage this beast has already wrought, bay nervously as they watch you. But you won't be deterred. You put your hand forth, palm supinated, and the weary dog slowly lowers into it. You nod.
+
+{{EventSpeech|There's more fight in you yet, friend.}}
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Hound 02 70x70.png|x25px]] || You gain Warrior the Warhound
+ |}
+{{EventButtons}}
+{{EventButton|I'll call you 'Warrior'. (the event ends)}}
+{{EventTabEnd}}
+
+|-|C=
+{{EventTab|header=Along the way...}}
+[[File:event_126.png|left|Image depends on terrain where you are]]
+You move to take the hound, but as you crouch down one of the sheep bays and charges, knocking you over. The men laugh and by the time you get to your knees another sheep crushes you from behind to many cheers. Drawing out your sword emits a sharp twang that sends the sheep scurrying. When you look back at the hound its nose is to the dirt and its eyes peerless. It has died and the sheep slowly collect around it bleating and crying out. You sheathe your sword and tell the company to move on.
+{{EventButtons}}
+{{EventButton|Brave little guy. (the event ends)}}
+{{EventTabEnd}}
+
+|-|D=
+{{EventTab|header=Along the way...|left=Houndman's token}}
+[[File:event_126.png|left|Image depends on terrain where you are]]
+{{EventVariable|Houndman}} steps forward.
+
+{{EventSpeech|I know this breed. It is of northern stock, a sturdy creature. There is one thing it shall respect in a man and it is strength.}}
+
+The sellsword crouches before the dog and without pause puts its hands around the scuff of its neck and starts to scratch. Despite the sudden movements, the dog responds positively and when the man stops scratching the dog lifts up off the ground and lopes forward and follows the man. {{EventVariable|Houndman}} stares back at you as he roughs the dog up with some heavy petting.
+
+{{EventSpeech|Yeah he'll fight for us. Fightin' is what he's made for. He just needed someone to watch him rip and tear.}}
+
+What a lovely creature this is. And the dog is fine, too.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:Hound 02 70x70.png|x25px]] || You gain Warrior the Warhound
+ |}
+{{EventButtons}}
+{{EventButton|Lets call him 'Warrior' then. (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Warhound1.png|Start
+Adopt_warhound2.png|Failure
+Adopt_warhound3.png|Success
+Warhound2.png|Barbarian or Houndmaster
+</gallery>
+
+[[Category:Event]]

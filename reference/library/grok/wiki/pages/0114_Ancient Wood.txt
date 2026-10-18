@@ -1,0 +1,17 @@
+{|class="article-table sortable" style="margin: auto; text-align: center; width:100%;  border-collapse:collapse;"
+!class="unsortable"|
+!style="white-space: nowrap"|Name
+!style="white-space: nowrap"|Origin
+!style="white-space: nowrap" data-sort-type="number"|Worth
+!style="white-space: nowrap"|Used For
+|-
+<onlyinclude>
+|[[File:Inventory_schrat_wood.png]]
+|[[Ancient Wood]]
+|data-sort-value="Schrat"|[[File:Schrat_01_orientation.png|Schrat|link=Schrat]]
+|2900 [[File:Gold_coin.png|13px]]
+|style="white-space: nowrap"|[[File:Inventory_named_shield_08.png|40px|Living Tree Shield|link=Living_Tree_Shield]]
+</onlyinclude>
+|}
+[[Category:Trophies]]
+[[Category:Items]]

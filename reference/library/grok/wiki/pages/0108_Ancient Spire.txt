@@ -1,0 +1,15 @@
+{| class="article-table" width="100%"
+|-
+! align="left" id="ancient_spire"|[[File:Ancient_watchtower.png|50px]] [[Ancient Spire]]
+|-
+! align="center" width="100%" |<!-- Ancient Spire -->[[File:Ancient_watchtower2.png|left|100px]] A thin spire reaching high into the sky. The view from the top must be staggering.
+|-
+|<div class="mw-collapsible mw-collapsed toggle-center">
+*"Well, at least we got a lay of the land." 
+**The fog of war gets cleared in a large circle around the tower.
+</div>
+|}
+<noinclude>
+== Start ==
+<div class="res-img">[[File:Tower.png]]</div></noinclude>
+[[Category:Legendary Locations]]

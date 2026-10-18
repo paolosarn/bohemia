@@ -1,0 +1,22 @@
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=Inventory_body_armor_108.png
+|imagewidth=
+|imagecaption=
+|worth=1600
+|durability=200
+|maxfatigue=-22
+|useforspecial=
+|misc_1=[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+}}
+
+==Description==
+''A long mail shirt covered by a riveted leather gambeson. Heavily worn from extensive use, but adorned with relics and well-maintained.''
+
+==Where can it be found?==
+* Possible starting armor of new mercenaries: [[Oathtaker (Background)|Oathtaker]].
+* Can be obtained in the [[Captured Oathbringer]], [[Oathtaker Joins]] events.
+* [[Oathtakers]] origin starting gear.
+
+[[Category:Armor]]
+[[Category:Body Armor]]

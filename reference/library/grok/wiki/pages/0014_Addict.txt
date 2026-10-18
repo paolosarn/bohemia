@@ -1,0 +1,19 @@
+{|class="article-table sortable"
+! class="unsortable" align="center" |Trait
+! class="unsortable" align="center" style="width: 15%"|Effects
+! class="unsortable" align="center" |Notes & Events
+|-<onlyinclude>
+|align="center" id="addict"| [[Addict]]<br />[[File:Addict.png]]<!-- Trait -->
+|align="center"|
+<span style="color:red">-10%</span> [[File:Resolve.png|25px|Resolve]]<br /><span style="color:red">-10%</span> [[File:Melee_skill.png|25px|Melee Skill]]<br /><span style="color:red">-10%</span> [[File:Ranged_skill.png|25px|Ranged Skill]]<br /><span style="color:red">-10%</span> [[File:Melee_defense.png|25px|Melee Defense]]<br /><span style="color:red">-10%</span> [[File:Ranged_defense.png|25px|Ranged Defense]]
+|
+*The debuff is only active when you stop cosuming potions for 7 days.
+*May injure himself while sorting gear. ([[Training Accident]])
+*Can lose this trait after not drinking potions for 14 or more days. ([[Lose Addiction]])
+*You can become an addict if you consume drugs at least 4 times and at least once in the last 3 days. ([[Gain Addiction]])
+*May destroy 1 Treasure or Trophy or be punished to remove the trait. ([[Addict Steals Potion]])
+*May have the ([[Alp Nightmare 2]]) event that is indistinguishable from the ([[Addict Steals Potion]]) one. This event will claim to kill the brother, but you will realize that he is alive and it was just a dream.
+</onlyinclude>
+|}
+<noinclude>{{Navbox Traits}}</noinclude>
+[[Category:Traits]]

@@ -1,0 +1,79 @@
+{{Combatant3
+|title           =Barbarian Chosen
+
+|image           =token-barbarian-chosen.png
+|health          =130
+|head-armor      =<small>145-190</small>
+|body-armor      =<small>140-230</small>
+|fatigue         =140
+|fatigue-recovery=20
+|resolve         =90
+|initiative      =115
+|melee-skill     =75
+|ranged-skill    =<span style="color:gray">60</span>
+|melee-defense   =15
+|ranged-defense  =10
+|action-points   =9
+|xp              =350
+|skills=
+[[File:Allmasteries.png|25px]] All weapon masteries<br/>
+[[File:Perk_37.png|25px]] [[Adrenaline (Perk)|Adrenaline]]<br/>
+[[File:Perk_10.png|25px]] [[Anticipation]]<br/>
+[[File:Perk_03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk_35.png|25px]] [[Berserk]]<br/>
+[[File:Perk_40.png|25px]] [[Brawny]]<br/>
+[[File:Perk_57.png|25px]] [[Crippling Strikes]]<br/>
+[[File:Perk_16.png|25px]] [[Executioner (Perk)|Executioner]]<br/>
+[[File:Perk_23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk_54.png|25px]] [[Recover (Perk)|Recover]]<br/>
+[[File:Perk_04.png|25px]] [[Resilient]]<br/>
+[[File:Perk_60.png|25px]] [[Underdog]]<br/>
+[[File:Barbarian fury.png|25px]] [[Barbarian Fury (5 fatigue)|Barbarian Fury]]<br/>
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Barbarian Chosen is a heavily armored elite enemy from the [[Barbarians]] faction.
+
+Can become a [[Barbarian Chosen (Champion)|champion]] with a 1% chance.
+
+==Equipment ==
+
+*A [[Rusty Warblade]], [[Heavy Rusty Axe]], [[Two-Handed Skull Hammer]] or [[Two-Handed Spiked Mace]].
+*A [[Thick Plated Barbarian Armor]] (230), [[Heavy Iron Armor]] (170) or [[Rugged Scale Armor]] (140).
+*A [[Closed Scrap Metal Helmet]] (190), [[Crude Faceguard Helmet]] (160), [[Crude Metal Helmet]] (145).
+
+==Skills==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Barbarian Fury (5 fatigue)}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior==
+Like all barbarians, they move forward and attack the enemy. They will use [[Adrenaline (20 fatigue)|Adrenaline]] to get ahead of the enemy if not already faster than them. Usually they wait after acting, and activate it at the very end. They can [[Barbarian Fury (5 fatigue)|rotate]] with each other to save a wounded ally, attack someone vulnerable, or without a clear purpose.
+
+==Tips == 
+
+*Late game enemy. You are supposed to fight them with a strong squad or allies.
+* Armor piercing or anti-armor weapons are required to penetrate their armor.
+*They can come in large numbers.
+*Control them by [[Maces|stunning]], [[Battle Whip|disarming]] or [[Spears|spearwall]].
+*Their two-handed weapons can instantly kill without high HP or defensive [[perks]] even through a helmet.
+*Take [[Nine Lives]] to survive a heavy hit.
+*[[Bone Plating]] absorbs one hit to the body.
+*When they are mixed with [[Barbarian Reaver|Reavers]], kill Reavers with two-handed weapons first as they pose similar threat but are easier to kill.
+*Can be [[Daggers|punctured]] for their armor it you can reliably stun or disarm them.
+*They like to break shields, don't bring fragile shields you don't want to lose. [[Shield Expert]] and extra shields can win more time.
+*If they waited, don't [[Taunt (Skill)|Taunt]] or Disarm them as the effect will instantly go away. Stun goes away but prevents [[Adrenaline (20 fatigue)|Adrenaline]].
+*While a [[Throwing Net|net]] doesn't do much, breaking free makes them unable to attack with a 6 AP weapon.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Humans]]
+[[Category:Barbarians]]

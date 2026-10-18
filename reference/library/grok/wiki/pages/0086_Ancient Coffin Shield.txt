@@ -1,0 +1,41 @@
+{{Infobox shield
+|title={{PAGENAME}}
+|image=
+<gallery>
+Inventory_shield_coffin_01.png|1
+Inventory_shield_coffin_02.png|2
+Inventory_shield_coffin_03.png|3
+Inventory_shield_coffin_04.png|4
+</gallery>
+|imagecaption=
+|worth=100 
+|durability=20
+|meleedefense=+15
+|rangeddefense=+20
+|maxfatigue=-12
+}}
+
+== Description ==
+''An octagonal shield made of wood and reinforced with bronze. Time has taken its toll and the wood has become brittle.''
+
+== Where can it be found? ==
+* Used by [[Ancient Legionary|Ancient Legionaries]]. 
+
+==Skills==
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Knock Back (20 fatigue)}}
+|-
+{{:Shieldwall (20 fatigue)}}
+|}
+
+__NOTOC__
+
+[[ru:Древний гробовидный щит]]
+[[Category:Shield]]
+[[Category:Armor]]

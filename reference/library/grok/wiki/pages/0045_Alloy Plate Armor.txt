@@ -1,0 +1,23 @@
+{{Infobox_bodyarmor
+|image = Inventory_body_armor_103.png
+|worth = 9.000
+|durability = 308 - 350
+|maxfatigue = -26 to -32
+}}
+{{Notice(NamedItemStats)}}
+==Description==
+''This armor is composed of a strange alloy, and well crafted for barbarian standards. A truly rare and remarkable piece.''
+
+==Where to find it==
+Follow [[Collaborative_Game_Guide#On_Enemies|this guide]].
+
+==Names==
+*Tarnished Harness
+*Alloy Plate Armor
+*Tainted Bulwark
+*Tribal Plate
+
+{{Navbox Named Body Armor}}
+[[Category:Armor]]
+[[Category:Body Armor]]
+[[Category:Named Armor]]

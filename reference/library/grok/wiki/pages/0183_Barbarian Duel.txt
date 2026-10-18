@@ -1,0 +1,5 @@
+==Start==
+<div class="res-img">[[File:Barbarian_duel.png]]</div>
+=== Path 2 (Defeat) ===
+<div class="res-img">[[File:Barbarian_duel defeat.png]]</div>
+[[Category:Event]]

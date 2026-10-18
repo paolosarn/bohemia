@@ -1,0 +1,44 @@
+<onlyinclude>
+{| class="article-table"
+|-
+! id="allied_nobles" align="center" |[[Allied Nobles]]
+! align="center"|[[File:Ambition_goal.png|18px]] Get to 'Allied' relations with a noble house
+|-
+! align="left"  |[[File:Event_78.png|100px]]
+! align="left"  |"We shall earn the trust of a noble house and become their ally. Surely they will share the fruits of their well-stocked armories with good friends."
+|-
+|
+| align="left"|<div class="mw-collapsible mw-collapsed toggle-center">
+<div class="flex-container" style="">
+
+<br />
+<div class="dialog-panel">[[File:Contract_scroll_disabled.png|center|Instructions]]<ul class="arrow">
+<li>Increase the relation with any noble house to 'Allied' by fulfilling contracts given by members of the faction. Failing contracts or betraying their trust will lower your relations.</li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Bag.png|center|Rewards]]<ul class="arrow">
+<li>100 [[File:Asset_business_reputation.png|25px|Renown]]</li>
+<li>[[File:Faction_Helmet_07.PNG|25px]] [[Decorated Full Helm]]</li>
+<li>[[File:Inventory_faction_armor_10.png|25px]] [[Heraldic Hauberk]]</li>
+<li>
+[[File:Inventory_faction_shield_heater_10_01.png|25px]] [[File:Inventory_faction_shield_heater_10_01.png|25px]] [[Heater Shield|2 Heater Shields]]</li>
+<li>[[File:Inventory_faction_shield_kite_10_01.png|25px]] [[File:Inventory_faction_shield_kite_10_01.png|25px]] [[Kite Shield|2 Kite Shields]]</li>
+<li></li>
+<li></li>
+<li></li>
+</ul></div>
+
+<br />
+<div class="dialog-panel">[[File:Icon_locked.png|center|Requirements]]<ul class="arrow">
+<li>campaign needs to be at least 30 days old</li>
+<li>[[Make Nobles Aware]] ambition is completed</li>
+<li>no noble house already has 'Allied' relations</li>
+<li>'Open' or higher relations with at least one noble house</li>
+</ul></div>
+
+</div></div>
+|}
+</onlyinclude>
+
+[[Category:Ambitions]]

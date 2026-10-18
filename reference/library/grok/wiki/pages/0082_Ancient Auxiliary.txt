@@ -1,0 +1,66 @@
+{{Combatant3
+|title           =Ancient Auxiliary
+
+|image           =token-skeleton-1.png
+|health          =45
+|head-armor      =0-95
+|body-armor      =0-25
+|initiative      =65
+|resolve         =80
+|melee-skill     =55
+|melee-defense   =0
+|ranged-defense  =0
+|action-points   =9
+|xp              =150
+|immune=[[File:Night.png|23px|Nighttime]][[File:Perk_57.png|23px|Injuries]][[File:Bleeding.png|23px|Bleeding]][[File:Goblin_poison.png|23px|Poison]][[File:Morale.png|23px|Morale]][[File:Fatigue.png|23px|Fatigue]]
+|not-immune=[[File:Stunned.png|23px|Stun]][[File:Status_effect_111.png|23px|Disarm]][[File:Net2.png|23px|Nets]][[File:Knock_Back.png|23px|Forced movement]][[File:Status_effect_116.png|23px|Fire]]
+|skills=
+[[File:Perk 03.png|25px]] [[Battle Forged]]<br/>
+[[File:Perk 27.png|25px]] [[Fearsome]]<br/>
+[[File:Perk 23.png|25px]] [[Pathfinder]]<br/>
+[[File:Perk 11.png|25px]] [[Rotation (Perk)|Rotation]]<br/>
+[[File:Perk 05.png|25px]] [[Shield Expert]]<br/>
+[[File:Perk 09.png|25px]] [[Steel Brow]]<br/>
+{{SkillInfo|Perk 32.png|[[Resistant to Ranged Attacks]]}}
+[[File:Active 08.png|25px]] [[Hand-to-Hand Attack (5 fatigue)|Hand-To-Hand Attack]]
+}}Ancient Auxiliary is a weak enemy from the [[Ancient Dead]] faction.
+
+== Equipment ==
+
+* A [[Broken Ancient Sword]], [[Falx]] or [[Ancient Spear]].
+* 50% chance of a Ripped Cloth (25).
+* 66% chance of an [[Ancient Household Helmet]] (95).
+* 66% chance of an [[Ancient Auxiliary Shield]].
+
+== Skills ==
+
+{| class="article-table" style="font-size:85%;" |
+! align="center" |'''''Icon'''''
+! align="center" |'''''Name'''''
+! align="center" |'''''AP'''''
+! align="center" |'''''Fatigue'''''
+! align="left" |'''''Description'''''
+|-
+{{:Resistant to Ranged Attacks}}
+|-
+{{:Hand-to-Hand Attack (5 fatigue)}}
+|}
+
+== Behavior ==
+These enemies often [[Shieldwall (20 fatigue)|shieldwall]] to protect themselves.
+
+== Tips ==
+
+* Early game enemies.
+* Fragile and unarmored, they rely on shieldwall which they can maintain indefinitely. Low level brothers with poor melee skill have trouble hitting them when they are shieldwalling.
+* [[Flails]] are the best weapons against them because they bypass their shields. [[Swords]] have +10 to hit. [[Spears]] have +20 to hit but deal piercing damage which they resist. [[Ranged Weapons|Ranged weapons]] are almost useless, except [[Bundle of Throwing Axes|throwing axes]].
+* [[Woodcutter's Axe]] does 15 damage to their shield, leaving it with 1 durability, and subsequent hit with any weapon destroys it. [[Hatchet]] needs 4 hits. [[Crude Axe]] and [[Handaxe]] need 3.
+* [[Fast Adaptation]] can help hitting them.
+* They have [[Fearsome]], and in the early game you have nothing to counter it.
+* Wait and move two tiles back on your first turn. Wait on the second turn, enemies will approach with no shieldwall. You have two turns in a row to attack them.
+
+{{Navbox Enemies}}
+
+[[Category:Enemies]]
+[[Category:Undead]]
+[[Category:Ancient Dead]]

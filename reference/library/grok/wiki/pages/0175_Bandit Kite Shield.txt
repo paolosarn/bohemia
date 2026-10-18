@@ -1,0 +1,26 @@
+{{Infobox shield
+|title = {{PAGENAME}}
+|image = Unique shield 4 icon.png
+|worth = 700
+|durability = 48 - 77
+|meleedefense = +15 to +21
+|rangeddefense = +25 to +35
+|maxfatigue = -11 to -16
+|uselessfatigue= up to 3
+|imagewidth = 500px
+}}
+{{Notice(NamedItemStats)}}
+==Description==
+''A long, wooden shield covering the whole body for good protection against ranged attacks. This particular shield shows some unique craftsmanship and is a rare find.''
+
+==Where to find it==
+*Possible loot from [[Brigand Leader (Champion)]] and [[Hedge Knight (Champion)]]
+*Possible loot in [[Graverobber Finds Item]] event if you have a [[File:Background_47.png|25px]] [[Historian (Background)|Historian]] brother
+
+==Names==
+Shield, Bulwark, Protector, Board, Wall, Cover, Safeguard, Guardian, Defender, Ward, Barricade, Barrier, Greatshield, Bastion, Fortress, Guard, Rampart, Keeper, Warden, Carapace
+
+{{Navbox Named Shields}}
+[[Category:Shield]]
+[[Category:Armor]]
+[[Category:Named Shield]]

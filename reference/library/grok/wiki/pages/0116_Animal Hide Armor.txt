@@ -1,0 +1,20 @@
+{{Infobox bodyarmor
+|title={{PAGENAME}}
+|image=Inventory_body_armor_90.png
+|imagewidth=500px
+|imagecaption=
+|worth=80 
+|durability=45
+|maxfatigue=-3
+|useforspecial=
+|misc_1=[[File:Dlc_4.png|25px|Warriors of the North DLC]] <span style="color:teal">Warriors of the North DLC</span>
+}}
+
+==Description==
+''Heavy hides patched together to create a decent makeshift armor.''
+
+==Where can it be found?==
+* Can be looted from [[Barbarian Thrall]], [[Barbarian Drummer]].
+
+[[Category:Armor]]
+[[Category:Body Armor]]

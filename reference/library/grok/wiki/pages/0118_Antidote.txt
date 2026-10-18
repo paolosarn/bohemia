@@ -1,0 +1,27 @@
+{{Infobox accessory
+|title={{PAGENAME}}
+|image=Antidote_01.png
+|imagewidth=
+|imagecaption=
+|worth=150
+|text=Costs 3 AP and builds up <span style="color:teal">5</span> fatigue either to use it on self or give it to an adjacent mercenary with a free bag slot
+|range=0-1
+|maxfatigue=-2
+|special1=Removes any type of Poisoned status effect
+|special2=Can be used before getting Poisoned
+|special3=Grants immunity to any Poison for 3 turns
+|special4=Cannot be used if engaged in melee
+|misc_1=Combat consumable item
+}}
+== Description ==
+''An antidote for various types of poisons. Tastes quite bitter.''
+
+== Where Can They Be Found? ==
+* Can be bought at a [[Settlement_buildings#Marketplace|Marketplace]] in settlements with [[Settlements_and_attached_locations#Supplies|Herbalist's Grove]].
+* Can be bought from an [[Alchemist]] in more quantity.
+* Can be crafted at a [[Taxidermist]] from 2 [[File:Inventory_ghoul_teeth_01.png|25px|bottom|Jagged Fangs (Nachzehrer)]] [[Jagged Fangs]] for 50 [[File:crowns.png|25px|bottom]].
+* Can be created by a [[Witchhunter (Background)|Witchhunter]] [[File:Background_23.png|30px|bottom]] from  [[File:Inventory_ghoul_teeth_01.png|25px|bottom|Jagged Fangs (Nachzehrer)]] [[Jagged Fangs]] in the [[Witchhunter Ghoul Teeth]] event.
+* Can be found in the [[Greenskins Investigation]] and [[Dried Oasis]] events.
+
+__NOTOC__
+[[Category:Consumable (Combat)]]

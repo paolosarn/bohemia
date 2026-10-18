@@ -1,0 +1,9 @@
+{| class="article-table" width="100%"
+!style="width:27%; text-align:center;"|'''Perk'''
+!style="width:73%; text-align:center;"|'''Description'''
+|-<onlyinclude>
+|[[File:Perk_10.png|34px]]&nbsp;&nbsp;&nbsp;'''[[Anticipation]]'''
+|id="anticipation"|When being attacked with ranged weapons, gain <span style="color: green">1 + 10%</span> of your base Ranged Defense as additional [[File:Ranged_defense.png|25px|bottom|Ranged Defense]] per tile that the attacker is away, bonus is minimum <span style="color: green">+10</span> [[File:Ranged_defense.png|25px|bottom|Ranged Defense]].
+</onlyinclude>
+|}
+[[Category:Perks]]

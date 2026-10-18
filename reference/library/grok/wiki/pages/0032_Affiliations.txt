@@ -1,0 +1,26 @@
+The table below shows what affiliation any background belongs to. This is relevant for certain events.
+
+{| class="article-table sortable" style="text-align:center"
+!align='center'|Affiliation
+!class='unsortable' align='center'|Backgrounds
+!class='unsortable' align='center'|Events
+|-
+{{:Combat (Affiliation)}}
+|-
+{{:Laborer (Affiliation)}}
+|-
+{{:Lowborn (Affiliation)}}
+|-
+{{:No Affiliation (Affiliation)}}
+|-
+{{:Noble (Affiliation)}}
+|-
+{{:Offended by Violence (Affiliation)}}
+|-
+{{:Thief (Affiliation)}}
+|-
+{{:Veteran (Affiliation)}}
+|-
+{{:Village (Affiliation)}}
+|}
+[[Category:Backgrounds]]

@@ -1,0 +1,16 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="ambition_failed" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Ambition Failed]]</span>
+!style="white-space: nowrap"|
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 0
+|-
+|colspan="3"|50% of your men get a [[File:Bad_mood.png|21px]] bad mood because you canceled your ambition.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*Cancel your [[Ambitions|Ambition]]
+</div>
+|}</onlyinclude>
+
+<div class="res-img">[[File:Ambition_failed.png]]</div>
+[[Category:Event]]

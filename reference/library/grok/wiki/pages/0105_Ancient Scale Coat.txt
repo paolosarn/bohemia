@@ -1,0 +1,9 @@
+{{Infobox_bodyarmor|image = Inventory body armor 66.png|worth = 2400|durability = 190|maxfatigue = -25}}
+
+== Description ==
+''A heavy and tarnished scale coat of ancient design that belongs into a collection, not on the battlefield.'' [sic]
+
+== Where can it be found? ==
+* Looted from [[Ancient Honor Guard]].
+[[Category:Body Armor]]
+[[Category:Armor]]

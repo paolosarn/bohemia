@@ -1,0 +1,19 @@
+{| class="article-table" width="100%"
+|-
+! align="left" id="ancient_statue"|[[File:Ancient_statue.png|50px]] [[Ancient Statue]]
+|-
+! align="center" width="100%" |<!-- Ancient Statue -->[[File:Ancient_statue2.png|left|200px]] A huge statue glittering in the sun that towers over the surrounding landscape.
+|-
+|<div class="mw-collapsible mw-collapsed toggle-center">
+*"There's no harm in it."
+**"Time to strike gold."
+***"Parry!"
+****"Let's not dwell on this." (all brothers get a large [[File:Large_mood_boost.png|25px]] mood boost)</div>
+|}
+<noinclude>
+== Start ==
+<div class="res-img">[[File:Statue1.png]]</div>
+<div class="res-img">[[File:Statue2.png]]</div>
+<div class="res-img">[[File:Statue3.png]]</div>
+<div class="res-img">[[File:Statue4.png]]</div></noinclude>
+[[Category:Legendary Locations]]

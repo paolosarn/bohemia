@@ -1,0 +1,127 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="apprentice_learns" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Apprentice Learns]]</span>
+!
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 90
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Background_40.png|25px]] Apprentice<br />[[File:Background_24.png|25px]] Retired Soldier<br />[[File:Background_10.png|25px]] Sellsword<br />[[File:Background_33.png|25px]] Hedge Knight<br />[[File:Background_30.png|25px]] Swordmaster
+|colspan="2"|An [[Apprentice (Background)|Apprentice]] brother gets trained by a [[Retired Soldier (Background)|Retired Soldier]], [[Sellsword (Background)|Sellsword]], [[Hedge Knight (Background)|Hedge Knight]] or [[Swordmaster (Background)|Swordmaster]] brother and both get a [[File:Good_mood.png|21px]] good mood.
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Improvement.png|150px]]
+*[[Retired Soldier (Background)|Retired Soldier]] +2-4 [[File:Melee_skill.png|25px|Melee Skill]] and +2-5 [[File:Resolve.png|25px|Resolve]]
+*[[Hedge Knight (Background)|Hedge Knight]] +2-4 [[File:Melee_skill.png|25px|Melee Skill]], +3-5 [[File:Health.png|25px|Hitpoints]] and +3-5 [[File:Fatigue.png|25px|Fatigue]]
+*[[Swordmaster (Background)|Swordmaster]] +2-4 [[File:Melee_skill.png|25px|Melee Skill]] and +2-4 [[File:Melee_defense.png|25px|Melee Defense]]
+*[[Sellsword (Background)|Sellsword]] +2-4 [[File:Melee_skill.png|25px|Melee Skill]], +4-6 [[File:Initiative.png|25px|Initiative]] and +2-4 [[File:Fatigue.png|25px|Fatigue]]
+[[File:Requirements.png|150px]]
+*The [[Apprentice (Background)|Apprentice]] needs to be level 4 or higher
+*The teacher needs to be level 6 or higher
+[[File:Score.png|150px]]
+*Score = 3 for every [[Apprentice (Background)|Apprentice]] and teacher that meets the requirements
+[[File:Other_notes.png|150px]]
+*The [[Apprentice (Background)|Apprentice]] can be trained only once at all
+*The teacher can continue to train other [[Apprentice (Background)|Apprentices]]
+*If you have more than one teacher, the training will be chosen in the following order:
+*[[Swordmaster (Background)|Swordmaster]] > [[Retired Soldier (Background)|Retired Soldier]] > [[Sellsword (Background)|Sellsword]] > [[Hedge Knight (Background)|Hedge Knight]]
+</div>
+|}</onlyinclude>
+
+==Interactive window==
+The teacher's background determines which screen is displayed.
+{{Event}}
+<tabber>
+|-|Swordmaster=
+{{EventTab|header=During camp...|left=Apprentice's token|right=Teacher's token}}
+[[File:event_05.png|left]]
+The apprentice {{EventVariable|Apprentice}} has apparently become a ward to {{EventVariable|Teacher}}. While the swordmaster is long in the tooth, he seems quite eager to help the young man become a better fighter. The apprentice uses a real sword, the swordmaster but a wooden one. It is in this rather large difference of chosen weaponry that the swordmaster displays the usefulness of positioning, finding openings, and getting out of the way of danger.
+
+Even in his old age the man twirls and whirls, becoming impossible for the apprentice to hit. In one particularly brilliant trick, the swordmaster senses that he is about to be struck so he closes distance with the apprentice and steps on his foot. When the apprentice tilts back to give himself space, his foot does not go with him. The sudden imbalance brings the trainee tumbling to the ground wherein he looks up to find a wooden sword prodding his neck.
+
+You find the man patting the dirt off himself pretty often, but he is at least getting up for more. Let's just say he is improving one splinter at a time.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:melee skill.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Melee Skill
+ |-
+ | [[File:melee defense.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Melee Defense
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Apprentice}} gets a {{Tooltip|good mood|+1 (Learned from Teacher)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Teacher}} gets a {{Tooltip|good mood|+0.5 (Has taught Apprentice something)}}
+ |}
+{{EventButtons}}
+{{EventButton|Well done! (the event ends)}}
+{{EventTabEnd}}
+
+|-|Retired Soldier=
+{{EventTab|header=During camp...|left=Apprentice's token|right=Teacher's token}}
+[[File:event_05.png|left]]
+{{EventVariable|Teacher}} the unretired soldier has taking a liking to {{EventVariable|Apprentice}}. You find the two practicing their craft whenever possible. The old grunt believes in the value of the offensive, showing the apprentice how to turn a blade, axe, or mace in such a manner that it inflicts the most damage. Unfortunately, they are using the company dining equipment to set up little dolls to beat up. The young lad has certainly made a mess of those pots and pans in his continuous pursuit of being a better fighter.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:melee skill.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Melee Skill
+ |-
+ | [[File:resolve.png|x25px]] || {{EventVariable|Apprentice}} gains +2-5 Resolve
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Apprentice}} gets a {{Tooltip|good mood|+1 (Learned from Teacher)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Teacher}} gets a {{Tooltip|good mood|+0.25 (Has taught Apprentice something)}}
+ |}
+{{EventButtons}}
+{{EventButton|Well done! (the event ends)}}
+{{EventTabEnd}}
+
+|-|Sellsword=
+{{EventTab|header=During camp...|left=Apprentice's token|right=Teacher's token}}
+[[File:event_05.png|left]]
+It appears as though {{EventVariable|Teacher}} the ol' sellsword has a little bird following him around: young {{EventVariable|Apprentice}}. Now in the company of mercenaries, the apprentice must want to learn from those with plenty of experience on the road earning blood money. While they train, you notice that the sellsword puts most of his emphasis on exercising one's body. Being faster than your opponent and outlasting him are just as important as putting a blade through his brainbox. The earnest lad seems increasingly sturdy, earning some sense of vigor you did not notice before.
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:melee skill.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Melee Skill
+ |-
+ | [[File:initiative.png|x25px]] || {{EventVariable|Apprentice}} gains +4-6 Initiative
+ |-
+ | [[File:fatigue.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Max Fatigue
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Apprentice}} gets a {{Tooltip|good mood|+1 (Learned from Teacher)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Teacher}} gets a {{Tooltip|good mood|+0.25 (Has taught Apprentice something)}}
+ |}
+{{EventButtons}}
+{{EventButton|Well done! (the event ends)}}
+{{EventTabEnd}}
+
+|-|Hedge Knight=
+{{EventTab|header=During camp...|left=Apprentice's token|right=Teacher's token}}
+[[File:event_05.png|left]]
+A couple of times now you've caught {{EventVariable|Apprentice}} watching {{EventVariable|Teacher}} from a distance. The young apprentice seems rather enraptured by the hedge knight's brute violence. After a few days, the knight relents, asking the lad to come and have a chat. You know not what they say, but now you've noticed they have been training together. The hedge knight is not a kind trainer, either. He beats the boy frequently, toughening him up. At first, the apprentice flinches before every strike, but now you see that he is showing a little more resolve in the face of such towering adversity. The hedge knight is also showing the man how to kill fast and efficiently. Little mind is paid to defense in these talks you overhear, but who needs to defend themselves from a dead opponent?
+{{EventSeparator}}
+{| class="event-table" style="margin:auto; max-width:50%"
+ |-
+ | [[File:melee skill.png|x25px]] || {{EventVariable|Apprentice}} gains +2-4 Melee Skill
+ |-
+ | [[File:health.png|x25px]] || {{EventVariable|Apprentice}} gains +3-5 Hitpoints
+ |-
+ | [[File:fatigue.png|x25px]] || {{EventVariable|Apprentice}} gains +3-5 Max Fatigue
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Apprentice}} gets a {{Tooltip|good mood|+1 (Learned from Teacher)}}
+ |-
+ | [[File:effect mood good spirit.png|x25px]] || {{EventVariable|Teacher}} gets a {{Tooltip|good mood|+0.25 (Has taught Apprentice something)}}
+ |}
+{{EventButtons}}
+{{EventButton|Well done! (the event ends)}}
+{{EventTabEnd}}
+
+</tabber>
+{{EventEnd}}
+
+==Screenshots==
+<gallery>
+Event.png|Sellsword
+Apprenticelearnsretiredsoldier.png|Retired Soldier
+Apprenticelearnsswordmaster.png|Swordmaster
+</gallery>
+
+[[Category:Event]]

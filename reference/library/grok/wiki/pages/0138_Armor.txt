@@ -1,0 +1,16 @@
+[[File:ArmorConceptDrawings.jpg|thumb|right|300px|<center>Concept drawings of ingame armor</center>]] See also: [[Named and Legendary Items]].
+
+__TOC__
+
+{{:Headgear}}
+
+{{:Body Armor}}
+
+{{:Shields}}
+
+[[ru:Защита]]
+[[Category:Armor]]
+[[Category:Headgear]]
+[[Category:Body Armor]]
+[[Category:Shield]]
+[[Category:Items]]

@@ -1,0 +1,8 @@
+{| style="background: #141414; margin: 2px; width: 230px; border-spacing: 6px 0px; padding:6px 0px; display: block"
+! style="background: black"|[[Archery Contest (Settlement Situation)|Archery Contest]]<br/>[[File:Settlement_effect_31.png]]
+|-
+| style="border-bottom: 1px dashed #505050"|A contest in archery has attracted anyone proficient with a bow. A good time, perhaps, to look for according recruits available.
+|-
+| style="border-bottom: 1px solid #505050; padding: 6px"|[[File:Asset_brothers.png|25px]] <span style="color:green">+25%</span> recruits available.<br/>[[Hunter (Background)|Hunter]]s, [[Poacher (Background)|Poacher]]s, [[Witchhunter (Background)|Witchhunter]]s, [[Sellsword (Background)|Sellsword]]s or [[Beast Slayer (Background)|Beast Slayer]]s are more likely to be available for hire.
+|}
+[[Category:Settlement Situations]]

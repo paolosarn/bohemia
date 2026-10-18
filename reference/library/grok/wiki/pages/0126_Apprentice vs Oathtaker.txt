@@ -1,0 +1,21 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="apprentice_vs_oathtaker" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Apprentice vs Oathtaker]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 90
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_180.png|25px]] [[Oathtakers]]
+|colspan="2"|An [[Oathtaker (Background)|Oathtaker]] teaches an [[Apprentice (Background)|Apprentice]] giving him +1-3 [[File:Resolve.png|25px]], they each gain a [[File:Good mood.png|25px]] good mood
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Requirements.png|150px]]
+*You must have at least 1 [[Oathtaker (Background)|Oathtaker]]
+*You must have at least 1 [[Apprentice (Background)|Apprentice]] who has not already benefited from this event
+[[File:Score.png|150px]]
+*Score = 3 for each eligible [[Oathtaker (Background)|Oathtaker]] & [[Apprentice (Background)|Apprentice]]
+</div>
+|}</onlyinclude>
+<div class="res-img">[[File:Apprentice vs Oathtaker.jpg]]</div>
+
+
+[[Category:Event]]

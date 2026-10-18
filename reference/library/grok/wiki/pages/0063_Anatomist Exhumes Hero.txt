@@ -1,0 +1,35 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="anatomist_exhumes_hero" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%"> [[Anatomist Exhumes Hero]]</span>
+!style="white-space: nowrap"|[[File:Dlc_8.png|25px|Of Flesh and Faith DLC]] <span style="color:orange">Of Flesh and Faith DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 9999
+|-
+!style="white-space: nowrap" style="border-right:1px dotted #505050"|[[File:Event_181.png|25px]] [[Anatomists]]
+|colspan="2"|Your [[Anatomist (Background)|anatomists]] want to exhume a recently buried local hero. You can choose: 
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog tree.png|150px]]
+*"Alright, let's go dig it up."
+**50% chance your [[File:Background 70.png|25px]] [[Anatomist (Background)|anatomists]] get a [[File:Bad mood.png]] bad mood and the towns opinion of you lowers
+**50% chance your [[File:Background 70.png|25px]] [[Anatomist (Background)|anatomists]] get a [[File:Good mood.png]] good mood and <span style="color:green">+ 150</span>[[File:Xp_received.png|25px]]
+*"No digging up graves today."
+**(nothing happens)
+*"[[File:Background 25.png|25px]] [[Graverobber (Background)|Graverobber]] what are you doing here?"
+**Your [[File:Background 70.png|25px]] [[Anatomist (Background)|anatomists]] get a [[File:Good mood.png]] good mood and <span style="color:green">+ 150</span>[[File:Xp_received.png|25px]], the [[File:Background 25.png|25px]] [[Graverobber (Background)|Graverobber]] also gains a good mood and digs up a weapon from the loot table
+[[File:Loot_table.png|150px]]
+*[[Arming Sword]]
+*[[Handaxe]]
+*[[Military Pick]]
+*[[Boar Spear]]
+[[File:Requirements.png|150px]]
+*You must be within 3 tiles of a town
+*You must have at least 2 [[Anatomist (Background)|anatomists]]
+[[File:Score.png|150px]]
+*Score = 15
+</div>
+|}</onlyinclude>
+==Start==
+<div class="res-img">[[File:Anatomist Exhumes Hero start.png]]</div>
+===Path 3 (Gravedigger)===
+<div class="res-img">[[File:Anatomist Exhumes Hero gravedigger.png]]</div>
+[[Category:Event]]

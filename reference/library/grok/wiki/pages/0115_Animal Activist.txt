@@ -1,0 +1,9 @@
+== Start ==
+<div class="res-img">[[File:Animalactivist1.png]]</div>
+
+=== Path 2 ===
+<div class="res-img">[[File:Animalactivist2.png]]</div>
+
+=== Path 2 Success ===
+<div class="res-img">[[File:Animalactivist3.png]]</div>
+[[Category:Event]]

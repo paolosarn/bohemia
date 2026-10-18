@@ -1,0 +1,39 @@
+<onlyinclude>{| class="article-table" style="text-align:left" width="100%"
+!id="alp_nightmare_2" style="white-space: nowrap"|<span style="font-variant: small-caps; font-size: 120%">[[Alp Nightmare 2]]</span>
+!style="white-space: nowrap"|[[File:Dlc_2.png|25px|Beasts & Exploration DLC]] <span style="color:green">Beasts & Exploration DLC</span>
+!style="white-space: nowrap" style="text-align:right"|[[File:Cooldown.png|bottom|25px|Cooldown in Days]] 100
+|-
+!style="white-space: nowrap; border-right:1px dotted #505050"|[[File:Trait_icon_62.png|25px]] <span style="color:grey">Addict</span>
+|colspan="2"|This event is indistinguishable from the [[Addict Steals Potion]] one. Except that this one is not real, but a nightmare where a brother dies. Has no consequences. You find your addicted brother with some of your potions. You can choose:
+|-
+|colspan="3"|
+<div style="text-align: left" class="mw-collapsible mw-collapsed toggle-center">
+[[File:Dialog_tree.png|150px]]
+*"I just hope you'll heal in time."
+**(nothing happens)
+*"This needs to stop now, [[File:Trait_icon_62.png|25px]] [[Addict]]."
+**(nothing happens)
+*"Enough. I'll have this bloody demon whipped out of you!"
+**(nothing happens)
+[[File:Requirements.png|150px]]
+*Have at least 1 potion or [[Strange Mushrooms|Strange Mushroom]] in your inventory
+*It has to be night-time
+*Your campaign is at least 20 days old
+*Have at least one brother who is [[Addict]] and one who is not
+*A brother with the [[File:Player_Character.png|25px]] [[Player Character]] trait is excluded from this event
+[[File:Score.png|150px]]
+*Score = 10
+[[File:Other_notes.png|150px]]
+*Options 1 and 3 claim to kill a brother and many brothers get a [[File:Bad_mood.png|21px]] bad mood
+*Don't Alt-F4 or avoid these options, you get notified that this was just a dream shortly after
+*You even don't lose the potion
+</div>
+|}</onlyinclude>
+
+
+<div class="res-img">[[File:Alp nightmare 2 1.png]]</div>
+
+
+<div class="res-img">[[File:Alp nightmare 2 2.png]]</div>
+
+[[Category:Event]]

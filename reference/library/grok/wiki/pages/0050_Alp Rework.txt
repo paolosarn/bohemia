@@ -1,0 +1,27 @@
+<noinclude>[[File:B524123e79bb768fc843a0254a027cf27caceaac.jpg|700px]]</noinclude>
+
+We’re back from vacation with a rework of everyone’s favorite opponent, the Alp.
+
+Why do a makeover? The intention is to have Alps provide unique encounters and challenges with a puzzle-esque element that is solved differently each time, unlike with the first iteration of Alps, while also be fun and without the tedium that now plagues the second iteration of Alps. All while staying true to their lore.
+
+What’s changed? Alps now work like this: They no longer spawn any shadows. Instead, they attack themselves at medium range. They get a unique passive ability as well as two familiar spells, each with two tiles range, and any combination of the two can be cast per turn.
+
+Their ‘Sleep’ spell will inflict the ‘Sleeping’ status effect, which works similarly to ‘Stunned’ in that a sleeping character is unable to act. However, sleeping characters can be woken by adjacent allies, just like you can free adjacent allies from webs, and using the ‘Rally’ skill wakes up every ally within 4 tiles as well. The effect of the spell can also be resisted in the first place with a successful Resolve check. Finally, after 2 turns (or 1 with the ‘Resilient’ perk), characters wake up on their own again.
+
+The ‘Nightmare’ spell of Alps can only be cast on targets with the ‘Sleeping’ status effect. It inflicts damage that scales inversely with the Resolve of the target (like attacks from shadows did), but can not be resisted entirely. Once a target receives damage like this, it wakes up and loses the ‘Sleeping’ status effect.
+
+Unique among all opponents in the game is the new passive ability of Alps, which works like this: Each time any Alp receives damage, all Alps on the battlefield, with the exception of those stunned or rooted, shuffle to a different position within 2 tiles range of your men. In other words, each attack on an Alp will change the look of the battlefield and will have you reevaluate your priorities, which mirrors how they’re besieging your mind in the lore.
+
+What does all of that mean? Fighting Alps is now much quicker, it’s different each time, and there’s much less incentive to strip everyone naked before each fight because fatigue is not the deciding factor. The strength of Alps also scales less with their numbers, which makes them viable opponents from the early game until the late game. They’re not the most dangerous opponent in the game, but they can and probably will kill some of your men.
+
+'''Changelog for 1.3.0.24'''
+
+*Changed mechanics of Alp. See above for details.
+*Fixed characters unable to move out of a zone of control when their opponent is armed with a three-headed flail.
+*Fixed exploit that allowed the player to lose effective fatigue by switching to items on the ground.
+*Fixed various minor issues such as typos.<noinclude>.<ref name="Alp Rework">[https://steamcommunity.com/games/365360/announcements/detail/1591378873854538612 Alp Rework]</ref>
+
+==References==
+
+{{reflist}}</noinclude>
+[[Category:Developer Posts]]

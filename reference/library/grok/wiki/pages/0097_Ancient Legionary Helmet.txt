@@ -1,0 +1,24 @@
+{{Infobox_helmet
+|title = Ancient Legionary Helmet
+|worth = 600
+|durability = 130
+|maxfatigue = -10
+|vision = -2
+|image =
+<gallery>
+Inventory helmet 66.png|1
+Inventory helmet 67.png|2
+Inventory helmet 68.png|3
+Inventory helmet 69.png|4
+Inventory helmet 72.png|5
+</gallery>
+}}
+
+== Description ==
+''A well-crafted but partly decayed helmet of ancient design. ''
+
+== Where can it be found? ==
+* Can be looted from [[Ancient Legionary]].
+
+[[Category:Headgear]]
+[[Category:Armor]]

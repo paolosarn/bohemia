@@ -1,0 +1,16 @@
+==Start==
+
+<div class="res-img">[[File:Ancient_weapon2.png]]</div>
+
+
+===Path 1===
+
+<div class="res-img">[[File:Ancient_weapon3.png]]</div>
+
+
+===Path 2 Success===
+
+<div class="res-img">[[File:Ancient_weapon.png]]</div>
+
+__FORCETOC__
+[[Category:Event]]
