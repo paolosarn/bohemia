@@ -64,6 +64,9 @@ const srv = http.createServer((rq, rs) => {
   ok('  and the game gets the formation the fight reads ({front, back} of nine crew indices)', posted && posted.front.length === 9 && posted.back.length === 9 && JSON.stringify(posted) === JSON.stringify(after));
   /* drag the rifle from the bag onto the selected man's main hand */
   const who = await p.evaluate(() => { const s = BohemiaRosterScreen.state; const m = s.crew[s.sel]; return { name: m.name, old: m.gear.main && m.gear.main.name }; });
+  /* WHO IS WEARING WHAT (10/18) put twelve rows above the card, so the card's gear and the bag sit below the glass on
+     his phone until he scrolls: bring the gear row to the top so the bag's first row is on the glass with it */
+  await p.evaluate(() => document.querySelector('#card .gear').scrollIntoView({ block: 'start' })); await p.waitForTimeout(150);
   const bagA = await box('#bag .slot.full'), mainZ = await box('#card .gslot[data-slot="main"]');
   await p.mouse.move(bagA.x, bagA.y); await p.mouse.down(); await p.mouse.move(bagA.x + 10, bagA.y - 10, { steps: 3 }); await p.mouse.move(mainZ.x, mainZ.y, { steps: 10 }); await p.mouse.up();
   await p.waitForTimeout(300);

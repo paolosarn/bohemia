@@ -17,6 +17,9 @@
      with stars, his four gear slots, his perks, his one pain line. YOUR BAG (the same 36 slots the
      market fills) sits under it: drag an item onto a gear slot (or tap it) and he wears it, and what
      he wore goes back in the bag.
+     WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18; his twelfth vote): under the
+     lines every living man is one row with his face and his four slots FILLED; tap a slot and the bag
+     opens inside his row cut to what fits it; tap one and they swap, TAKE OFF empties the slot.
 
      HOW THE GAME PLUGS IT IN: frame this page and post {type:'BOHEMIA_ROSTER_OPEN', crew?, bag?,
      formation?}. It posts back {type:'BOHEMIA_ROSTER', act:'formation', formation:{front:[idx|null x9],
@@ -72,6 +75,26 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .slot{aspect-ratio:1;min-height:44px;background:#16110c;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:9px;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;touch-action:none}
 .slot.full{background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
 .slot i{font-style:normal;font-size:15px;color:var(--gold);line-height:1}
+/* WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18): every man in one row, his four slots filled */
+#wear{margin:0 12px 4px}
+.wrow{display:grid;grid-template-columns:40px 58px repeat(4,1fr);gap:4px;align-items:stretch;margin-bottom:4px;min-height:48px}
+.wrow.laidrow{opacity:.55}
+.wrow.sel .wname{color:var(--gold)}
+.wface{width:40px;height:40px;align-self:center;border:1px solid var(--line);border-radius:3px;image-rendering:pixelated;background:#0b0907}
+.wname{align-self:center;font-size:9px;line-height:1.2;overflow:hidden}
+.wname b{display:block;font-size:10px;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wname i{font-style:normal;color:var(--dim)}
+.wslot{min-height:48px;min-width:44px;background:#16110c;border:1px dashed var(--line);border-radius:3px;color:var(--ink);font:inherit;font-size:8px;line-height:1.1;padding:2px 1px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;overflow:hidden;touch-action:manipulation}
+.wslot.full{border-style:solid;background:linear-gradient(#2e241a,#1d1610);border-color:#4a3b2c}
+.wslot.pick{outline:2px solid var(--gold);outline-offset:-1px}
+.wslot em{font-style:normal;color:var(--dim);font-size:7px;letter-spacing:.5px}
+.wslot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wslot img.pk{width:auto;height:20px;max-width:90%;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 1px 0 #000)}
+.wslot .bm-icon,.wslot canvas{width:22px;height:22px;image-rendering:pixelated}
+#picker{grid-column:1 / -1;display:flex;gap:4px;flex-wrap:wrap;padding:6px;border:1px solid var(--gold);border-radius:4px;background:#1a140e}
+#picker .slot{width:52px;flex:0 0 52px;min-height:52px;font-size:8px;border-color:#4a3b2c}
+#picker .slot.off{border-style:dashed;color:var(--dim)}
+#picker .none{align-self:center;color:var(--dim);font-size:10px;padding:0 4px}
 #ghost{position:fixed;pointer-events:none;z-index:50;opacity:.85;display:none;padding:4px 6px;background:#2e241a;border:1px solid var(--gold);border-radius:3px;font-size:10px}
 #said{margin:0 12px;color:var(--dim);font-size:11px;min-height:16px}
 </style>
@@ -82,6 +105,8 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 <div id="lines"><div class="ln">FRONT</div><div class="line" id="front"></div><div class="ln">BACK</div><div class="line" id="back"></div></div>
 <div class="ln" id="hurth" style="margin:0 12px;display:none">LAID UP. HE HEALS ON THE ROAD; HE CANNOT STAND IN THE LINE.</div>
 <div class="line" id="hurt" style="margin:0 12px 6px"></div>
+<div class="h" id="wearh">WHO IS WEARING WHAT. TAP A SLOT TO SWAP IT FROM THE BAG.</div>
+<div id="wear"></div>
 <div id="card"></div>
 <div id="said"></div>
 <div class="h" id="bagh">YOUR BAG</div>
@@ -197,7 +222,69 @@ function draw(){
     var d = document.createElement('div'); d.className = 'cell full laid' + (i === S.sel ? ' sel' : ''); d.dataset.drag = 'man:hurt:' + i; d.dataset.hurt = i;
     d.appendChild(headCanvas(m)); var b = document.createElement('b'); b.textContent = m.hurt.days + 'd'; d.appendChild(b); hu.appendChild(d); });
   document.getElementById('hurth').style.display = any ? 'block' : 'none';
-  drawCard(); drawBag();
+  drawWear(); drawCard(); drawBag();
+}
+/* WHO IS WEARING WHAT (RUN TWO [the crew screen reads the stash], 10/18; his twelfth vote: 'still not a button for me to
+   view my crew, equip them with items from my storage'). Every living man is one row: his face, his name and level, his
+   four slots FILLED with what he wears (the pack's own tile for a weapon, the materials' icon for the rest, rule 101:
+   placeholders). Tap a slot and the bag opens right under his row, showing ONLY what fits that slot; tap one and they
+   swap: he wears it, what he wore goes back in the bag. TAKE OFF empties the slot into the bag. Nothing pops up over
+   the screen (rule 19a): the picker is a strip inside his row. */
+var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD'};
+var PACK_ICON = {dagger:'w_pistol', mace:'w_pipe', hammer:'w_sledge', crossbow:'w_rifle', firearm:'w_shotgun', throwing:'w_bottles', throwable_item:'w_bottles',
+  sword:'w_machete', axe:'w_axe', spear:'w_spear', cleaver:'w_cleaver', flail:'w_chain', polearm:'w_pole'};
+function shortName(it){ return it.name.replace(/^(a|an) /,'').split(' ').slice(-1)[0]; }
+function itemPic(it, px){
+  var f = it.kind === 'weapon' && PACK_ICON[it.cls];
+  if(f){ var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = 'market_icons/' + f + '.png'; return im; }
+  try{ if(window.BohemiaMaterials && BohemiaMaterials.itemIcon){ var ic = BohemiaMaterials.itemIcon(it, px || 22); ic.dataset.id = it.id; return ic; } }catch(e){}
+  var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; g.style.fontSize = '15px'; g.style.color = 'var(--gold)'; return g;
+}
+function fits(it, slot){ return !!it && C.slotFor(it) === slot; }
+function drawWear(){
+  var el = document.getElementById('wear'); el.textContent = '';
+  S.crew.forEach(function(m, i){
+    if(m.dead) return;
+    var r = document.createElement('div'); r.className = 'wrow' + (i === S.sel ? ' sel' : '') + (laid(m) ? ' laidrow' : ''); r.dataset.man = i;
+    var fc = faceCanvas(m); fc.className = 'wface'; r.appendChild(fc);
+    var nm = document.createElement('div'); nm.className = 'wname';
+    var b = document.createElement('b'); b.textContent = m.name; nm.appendChild(b);
+    var lv = document.createElement('i'); lv.textContent = laid(m) ? 'LAID UP ' + m.hurt.days + 'd' : 'LEVEL ' + m.level; nm.appendChild(lv); r.appendChild(nm);
+    ['main','off','body','head'].forEach(function(s){
+      var it = m.gear[s], d = document.createElement('button'); d.className = 'wslot' + (it ? ' full' : '') + (S.pick && S.pick.man === i && S.pick.slot === s ? ' pick' : '');
+      d.dataset.wslot = s; d.dataset.man = i; d.setAttribute('aria-label', m.name + ' ' + SLOT_NAME[s] + ': ' + (it ? it.name : 'empty'));
+      var lab = document.createElement('em'); lab.textContent = SLOT_NAME[s].replace(' HAND',''); d.appendChild(lab);
+      if(it){ d.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); d.appendChild(n); }
+      else { var e = document.createElement('span'); e.textContent = '—'; e.style.color = 'var(--dim)'; d.appendChild(e); }
+      d.addEventListener('click', function(){ if(S.dragged) return; togglePick(i, s); });
+      r.appendChild(d);
+    });
+    if(S.pick && S.pick.man === i) r.appendChild(pickerFor(m, i, S.pick.slot));
+    el.appendChild(r);
+  });
+}
+function togglePick(i, s){
+  if(S.pick && S.pick.man === i && S.pick.slot === s){ S.pick = null; draw(); return; }
+  S.pick = {man:i, slot:s}; S.sel = i; S.picking = false; draw();
+  var m = S.crew[i], n = S.bag.filter(function(it){ return fits(it, s); }).length;
+  if(!n) say('Nothing in the bag goes on ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '.' + (m.gear[s] ? ' TAKE OFF puts his back in the bag.' : ''));
+  else say(n + ' in the bag ' + (n === 1 ? 'fits' : 'fit') + ' ' + m.name + "'s " + SLOT_NAME[s].toLowerCase() + '. Tap one and they swap.');
+}
+/* the bag, cut to what fits the slot he tapped; a tap swaps */
+function pickerFor(m, i, s){
+  var p = document.createElement('div'); p.id = 'picker'; p.dataset.slot = s; var any = false;
+  S.bag.forEach(function(it, bi){
+    if(!fits(it, s)) return; any = true;
+    var t = document.createElement('button'); t.className = 'slot full'; t.dataset.pick = bi; t.setAttribute('aria-label', it.name);
+    t.appendChild(itemPic(it, 22)); var n = document.createElement('span'); n.textContent = shortName(it); t.appendChild(n);
+    var e2 = document.createElement('em'); e2.textContent = it.nums || ''; e2.style.fontSize = '7px'; e2.style.color = 'var(--dim)'; t.appendChild(e2);
+    t.addEventListener('click', function(){ S.sel = i; S.pick = null; equip(bi, s); });
+    p.appendChild(t);
+  });
+  if(m.gear[s]){ var off = document.createElement('button'); off.className = 'slot off'; off.dataset.pick = 'off'; off.textContent = 'TAKE OFF';
+    off.addEventListener('click', function(){ S.sel = i; S.pick = null; unequip(s); }); p.appendChild(off); }
+  if(!any){ var no = document.createElement('span'); no.className = 'none'; no.textContent = 'Nothing in the bag fits.'; p.appendChild(no); }
+  return p;
 }
 function stars(n){ return n ? '★'.repeat(n) : ''; }
 function drawCard(){

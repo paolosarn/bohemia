@@ -8970,6 +8970,14 @@ GATES = [
      "fight block's four edges are read from its picture (road, curb, yard, desert, water, and the lines "
      "that cross); every seam on every board and its apron must agree; the freeway and street boards are "
      "clean, the rest ratcheted down; the edge data file is true; the gate proves it bites (COMBAT TWO)", True),
+    ('THE CREW SCREEN READS THE STASH', ['node', 'gates/the_crew_screen_reads_the_stash_gate.js'],
+     "RUN TWO [the crew screen reads the stash] (PAOLO's twelfth vote: 'still not a button for me to view my crew, equip "
+     "them with items from my storage'; rule 24 one HUD, rule 76 the fight reads the slots). On his phone's profile with "
+     "real taps: the company screen shows every living man as one row, his face and four slots FILLED with his gear (a "
+     "weapon as the pack's own tile); the stash is the bag; tap a slot and the bag opens inside his row cut to what fits "
+     "it; tap one and they swap, the old piece back in the bag, the count unchanged; TAKE OFF empties a slot; every slot "
+     "thumb-sized on the glass; the company the fight reads carries the ids; the same rows through the one door from the "
+     "settlement's CREW button", True),
     ('WHO LIVES WHERE', ['node', 'gates/who_lives_where_gate.js'],
      "PEOPLE 10/17, rule 110's swing under the hold: a page, backgrounds by place across the 26 places. "
      "The bank is draft and nothing live reads it; the 14 valley places are the derived seats and the 12 "

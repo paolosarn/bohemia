@@ -8947,6 +8947,20 @@
       ]
     },
     "draft": true
+  },
+  {
+   "id": "run2-who-is-wearing-what-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "pending",
+   "made": "10/18",
+   "title": "WHO IS WEARING WHAT: EVERY MAN'S FOUR SLOTS FILLED, TAP ONE TO SWAP FROM THE BAG",
+   "why": "You said there was still no button to view your crew and equip them from your storage, so the company screen now lists every man with his face and his four slots filled with what he wears, and tapping a slot opens your bag inside his row showing only what fits there, one tap to swap it and his old piece goes back in the bag. You see it in the VOTE tab under LOOK, and in the demo when you tap CREW in any place's bar.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_WHO_IS_WEARING_WHAT_10_18.png"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

@@ -287,8 +287,13 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
      all.length + ' drawn, ' + want.length + ' waiting' + (TRI ? ' (' + ((reg.items || []).length - want.length) + ' judged, green or gray)' : ''));
   /* NEWEST FIRST. The registry is appended to, so the LAST item in the file is the
      newest thing anybody made, and it has to be the first thing he sees (the newest red, once sorted). */
-  ok('the newest thing is at the top', rows[0] === (TRI && redsWanted.length ? redsWanted[0] : want[want.length - 1]),
-     'top is ' + rows[0]);
+  /* RUN TWO 10/18: when nothing is red (his votes consumed every red) the front is empty by design and the newest
+     untagged thing waits first behind the fold; the leg read rows[0] (undefined) and went red on the first new item
+     after a full sitting, and passed vacuously on an empty queue. It now reads the first row he sees, in front or
+     behind the fold. */
+  const topRow = rows.length ? rows[0] : all[0];
+  ok('the newest thing is at the top (in front, or first behind the fold when nothing is red)', topRow === (TRI && redsWanted.length ? redsWanted[0] : want[want.length - 1]),
+     'top is ' + topRow);
   /* AND WITHOUT THE SORT FILE THE TAB SHOWS EVERYTHING, NEVER NOTHING (the row's done-test) */
   noSort = true; await open();
   const bare = await p.evaluate(() => ({ n: document.querySelectorAll('#list .row').length, fold: !document.getElementById('fold').hidden }));

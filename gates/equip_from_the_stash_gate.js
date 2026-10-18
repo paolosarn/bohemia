@@ -47,11 +47,14 @@ const srv = http.createServer((rq, rs) => {
   /* 3. drag it onto the selected man's main hand */
   const who = await R.evaluate(() => { const s = BohemiaRosterScreen.state; return s.crew[s.sel].name; });
   const box = async sel => { const q = await fr.locator(sel).first().boundingBox(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; };
+  /* WHO IS WEARING WHAT (10/18) put the rows above the card: scroll the gear row to the top so the bag is on the glass too */
+  await R.evaluate(() => document.querySelector('#card .gear').scrollIntoView({ block: 'start' })); await p.waitForTimeout(150);
   const a = await box('#bag .slot.full'), z = await box('#card .gslot[data-slot="main"]');
   await p.mouse.move(a.x, a.y); await p.mouse.down(); await p.mouse.move(a.x + 10, a.y - 10, { steps: 3 }); await p.mouse.move(z.x, z.y, { steps: 12 }); await p.mouse.up(); await p.waitForTimeout(400);
   const worn = await R.evaluate(() => { const s = BohemiaRosterScreen.state; return s.crew[s.sel].gear.main && s.crew[s.sel].gear.main.id; });
   ok('drag it from the stash onto a man\'s main hand and he wears it', worn === bought[0].id, who + ' wears ' + worn);
-  await p.screenshot({ path: path.join(ROOT, 'slices/vote/RUN2_EQUIP_FROM_THE_STASH_10_13.png') });
+  /* PROOF SHOTS STAY PUT (PLUMBER 10/9): the VOTE picture is refreshed only with --shoot; a plain run shoots to scratch */
+  await p.screenshot({ path: require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js')).proofShot(path.join(ROOT, 'slices/vote/RUN2_EQUIP_FROM_THE_STASH_10_13.png')) });
   /* 4. DONE closes it and hands the company back */
   await fr.locator('#done').click(); await p.waitForTimeout(500);
   const after = await p.evaluate(id => ({ open: !!document.getElementById('crewdoor'), co: JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]'),

@@ -59,7 +59,7 @@
       for (var i = 0; i < rows.length; i++) if (rows[i].id === id) r = rows[i];
       if (!r) return null;
       var c = CLASSNAME[r['class']] || r['class'];
-      return { id: r.id, kind: 'weapon', name: c, was: r.name, price: priceOf(r.value),
+      return { id: r.id, kind: 'weapon', cls: r['class'], name: c, was: r.name, price: priceOf(r.value),
         nums: 'dmg ' + r.damage_min + '-' + r.damage_max + (r.range_max ? '  reach ' + r.range_max : '') };
     }
     var list = kind === 'head' ? D.armor.head : kind === 'shield' ? D.armor.shields : D.armor.body, a = null;
