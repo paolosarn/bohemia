@@ -104,6 +104,9 @@ async function contrasts(page, jobs) {
   const sfh = await fr.waitForSelector('#settleFrame'); const sf = await sfh.contentFrame();
   const t1 = Date.now(); while (Date.now() - t1 < 20000) { if (await sf.evaluate(() => !!(window.BohemiaSettlement && BohemiaSettlement.ready() && BohemiaSettlement.state.place && BohemiaSettlement.where('board'))).catch(() => false)) break; await p.waitForTimeout(300); }
   await p.waitForTimeout(800);
+  /* RUN TWO 10/18: the town's ARRIVAL card ([the arrival], 10/18) holds the glass for two seconds and a tap on it only
+     skips it, as a player's would; wait for it to go so the finger lands on the board */
+  await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
   const sb = await sfh.boundingBox(), wb = await sf.evaluate(() => BohemiaSettlement.where('board'));
   await p.touchscreen.tap(sb.x + wb.x, sb.y + wb.y); await p.waitForTimeout(1000);
   const board = await sf.evaluate(() => ({ place: BohemiaSettlement.state.place.name, open: BohemiaSettlement.state.open,

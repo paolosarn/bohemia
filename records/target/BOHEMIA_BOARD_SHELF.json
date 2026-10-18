@@ -1,0 +1,822 @@
+{
+ "_about": "RUN TWO [the board's quests are people], 10/18/26: the settlement board's people, drawn from QUESTS' act-one designs (research only, rule 35: read, never asked to build). Baked by tools/bohemia_run2_board_shelf.py; picked by slices/bohemia_board_shelf.js for the settlement's board AND the phone's list, so the phone never shows a job the place does not. A modder edits this file: add a row, keep two sentences with {pay} in the second; {crew} is the party that raided the place.",
+ "version": "board-shelf-10-18",
+ "draft": true,
+ "counts": {
+  "camp": 1,
+  "town": 2,
+  "fortress": 3,
+  "raided": 1,
+  "max": 4,
+  "why": "QUESTS QR-O: camp 1, town 2, fortress 3, raid leaves 1, never over 4 (the settlement's TIER_OFFERS)"
+ },
+ "refresh_days": 3,
+ "refresh_why": "QUESTS QR-O's draft, one board per base per 3 map days; TUNING owns it",
+ "pay_per_skull": 30,
+ "pay_why": "the board's rule since 10/5: Battle Brothers' contract line at ten crowns a battery, a skull 30; TUNING owns it",
+ "offers": [
+  {
+   "id": "qd-ae10",
+   "design": "questbook/designs/act1/QD_AE10_THE_WOLVES_THAT_FOLLOW_THE_WATER.md",
+   "design_title": "THE WOLVES THAT FOLLOW THE WATER",
+   "title": "Run off the wolves at the water",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Mama Rosaura",
+    "from": "the camp's eldest",
+    "look": "cast_poncho",
+    "draft": true
+   },
+   "says": "Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only {pay} batteries, and if you say no it is fine, everybody says no.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap01",
+   "design": "questbook/designs/act1/QD_AP01_THE_FIRST_WINDOW.md",
+   "design_title": "THE FIRST WINDOW",
+   "title": "Bring back the light regulator",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Yesi Ortega",
+    "from": "who keeps the one window lit",
+    "look": "cast_shorts",
+    "draft": true
+   },
+   "says": "The regulator for our one window is at the pump station, and six scavs sleep on it. Bring it back so the camp has a light at night again, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap03",
+   "design": "questbook/designs/act1/QD_AP03_THE_PAINTED_HALL_SIGN.md",
+   "design_title": "THE PAINTED HALL SIGN",
+   "title": "Fetch the paint for the hall sign",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Mari Luz",
+    "from": "the sign painter",
+    "look": "cast_skirt",
+    "draft": true
+   },
+   "says": "A place without a name is a place you leave, and my eleven tins of paint sit past the hyenas. Bring them and I name it after whoever you want, plus {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap07",
+   "design": "questbook/designs/act1/QD_AP07_THE_WATER_TOWER_RUNS.md",
+   "design_title": "THE WATER TOWER RUNS",
+   "title": "Get the water tower its valve",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Ingeniero Paco",
+    "from": "who ran the city water",
+    "look": "cast_longcoat",
+    "draft": true
+   },
+   "says": "The tower is full of air because the Canal boys have the valve. Buy it or take it, I am not asking which, and the camp pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap10",
+   "design": "questbook/designs/act1/QD_AP10_THE_SOLAR_ROW.md",
+   "design_title": "THE SOLAR ROW",
+   "title": "Take back three solar panels",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Kenji Molina",
+    "from": "the solar fitter",
+    "look": "cast_satchel",
+    "draft": true
+   },
+   "says": "Twelve panels, they broke nine, and the three good ones sit on their lookout. Three is the difference between a light and none, so bring them home for {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap11",
+   "design": "questbook/designs/act1/QD_AP11_THE_STRING_OF_BULBS.md",
+   "design_title": "THE STRING OF BULBS",
+   "title": "Bring the little bulbs from the church",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Beto and Lupe",
+    "from": "the couple getting married",
+    "look": "cast_shortcoat",
+    "draft": true
+   },
+   "says": "We want to get married under lights, and the church on Lamb has a box of the little bulbs. The people there do not talk, they just watch, so go careful, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap16",
+   "design": "questbook/designs/act1/QD_AP16_THE_BELL_BACK_IN_THE_CHAPEL.md",
+   "design_title": "THE BELL BACK IN THE CHAPEL",
+   "title": "Buy back the chapel bell",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Padre Gil",
+    "from": "the priest",
+    "look": "cast_cape",
+    "draft": true
+   },
+   "says": "We sold the bell for beans and the dealer melts it in four days. I want to ring it once, so bring it back and the chapel pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ae09",
+   "design": "questbook/designs/act1/QD_AE09_THE_WATER_CARTS_TO_THE_WASH.md",
+   "design_title": "THE WATER CARTS TO THE WASH",
+   "title": "Walk the water carts to the wash",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Abuelo Teófilo",
+    "from": "the pump foreman",
+    "look": "cast_widebrim",
+    "draft": true
+   },
+   "says": "Two carts go to the wash camp, and the drivers say something follows them. Bring the mules back, mules cost more than water, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar03",
+   "design": "questbook/designs/act1/QD_AR03_THE_PACK_THAT_DRINKS_AT_JEAN.md",
+   "design_title": "THE PACK THAT DRINKS AT JEAN",
+   "title": "Hunt the pack that drinks here",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Abuela Pina",
+    "from": "who keeps the hose",
+    "look": "cast_apron",
+    "draft": true
+   },
+   "says": "They come every second night, and one of them is not a coyote. Read their prints before noon, the wind takes them, and I pay {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-r01",
+   "design": "questbook/designs/act1/QD_R01_THE_FARM_TOWER_HOLDS_ONE_NIGHT.md",
+   "design_title": "THE FARM TOWER HOLDS ONE NIGHT",
+   "title": "Hold the farm tower one night",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Marisol Okafor",
+    "from": "the grower",
+    "look": "cast_bedroll",
+    "draft": true
+   },
+   "says": "They come in three nights, sixteen of them, maybe more, and the seed cannot run. Hold the ground floor till morning and the farm pays {pay} batteries, the roof is yours to use.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap13",
+   "design": "questbook/designs/act1/QD_AP13_THE_GARDEN_ON_THE_ROOF.md",
+   "design_title": "THE GARDEN ON THE ROOF",
+   "title": "Bring the pump from the nursery",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp"
+   ],
+   "when": null,
+   "client": {
+    "name": "Rosa Kim",
+    "from": "the roof gardener",
+    "look": "cast_barearms",
+    "draft": true
+   },
+   "says": "Food is the leg we do not have, and the pump we need sits in the nursery on Rainbow. The cattle there are wrong, big, not angry, just big, and the roof pays {pay} batteries for that pump.",
+   "draft": true
+  },
+  {
+   "id": "qd-aq03",
+   "design": "questbook/designs/act1/QD_AQ03_THE_DRIVERS_DEBT.md",
+   "design_title": "THE DRIVER'S DEBT",
+   "title": "Find the stolen battery bank",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Señora Garza",
+    "from": "from the tire shop",
+    "look": "cast_skirt",
+    "draft": true
+   },
+   "says": "Somebody took my battery bank up to the parking structure, level three. Bring it back and you get {pay} batteries, and your driver's wheels are paid, both.",
+   "draft": true
+  },
+  {
+   "id": "qd-s08",
+   "design": "questbook/designs/act1/QD_S08_THE_BALLOT_BOX_FROM_BLOCK_SEVEN.md",
+   "design_title": "THE BALLOT BOX FROM BLOCK SEVEN",
+   "title": "Carry the ballot box from block seven",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Abuela Tona",
+    "from": "who runs the count",
+    "look": "cast_shorts",
+    "draft": true
+   },
+   "says": "Block seven votes like everybody else, but the road washed out and their box is still over there. Bring it sealed before the count in three nights, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-s10",
+   "design": "questbook/designs/act1/QD_S10_THE_ROWS_UNDER_THE_SAND.md",
+   "design_title": "THE ROWS UNDER THE SAND",
+   "title": "Sweep the sand off six panel rows",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Ingrid Oyelaran",
+    "from": "the shift lead at the field",
+    "look": "cast_widebrim",
+    "draft": true
+   },
+   "says": "Six rows are under the sand, and people sleep in rows four and five. Two days, sand first, the rest you tell me, and the field pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-s17",
+   "design": "questbook/designs/act1/QD_S17_THE_CARAVAN_FOUR_DAYS_LATE.md",
+   "design_title": "THE CARAVAN FOUR DAYS LATE",
+   "title": "Find the caravan four days late",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "town",
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Old Kasper",
+    "from": "the caravan master",
+    "look": "cast_longcoat",
+    "draft": true
+   },
+   "says": "My drivers are four days late, and they are never late, not with medicine. Find them on the south road and you get {pay} batteries, the load we talk about after.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar10",
+   "design": "questbook/designs/act1/QD_AR10_THE_FAMILY_AT_MESQUITE.md",
+   "design_title": "THE FAMILY AT MESQUITE",
+   "title": "Bring the Salcedo family home",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Compañera Reyes",
+    "from": "the co-op's list keeper",
+    "look": "cast_cape",
+    "draft": true
+   },
+   "says": "Five names, the Salcedos, at the cousin's farm since spring, and the vote is in ten days. Bring them or bring me why not, either is an answer, and the co-op pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar08",
+   "design": "questbook/designs/act1/QD_AR08_THE_LETTER_OVER_THE_PASS.md",
+   "design_title": "THE LETTER OVER THE PASS",
+   "title": "Carry the sealed letter over the pass",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Mr Abernathy",
+    "from": "the tower's clerk",
+    "look": "cast_shortcoat",
+    "draft": true
+   },
+   "says": "A sealed letter goes to the council over the pass, signed for and back here in six days. Do not read it, the seal is the receipt, and the tower pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-aa01",
+   "design": "questbook/designs/act1/QD_AA01_THE_DOGS_STILL_WEARING_TAGS.md",
+   "design_title": "THE DOGS STILL WEARING TAGS",
+   "title": "Clear the dogs off the back wall",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "town"
+   ],
+   "when": null,
+   "client": {
+    "name": "Dolores Pike",
+    "from": "who counts the chickens",
+    "look": "cast_apron",
+    "draft": true
+   },
+   "says": "Eleven dogs come over the back wall after dark, always the same wall. Some of them were ours, do it anyway, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-s01",
+   "design": "questbook/designs/act1/QD_S01_THE_TRASH_RACK.md",
+   "design_title": "THE TRASH RACK",
+   "title": "Clear the crew off the intake deck",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Ofelia Ruiz",
+    "from": "the intake foreman",
+    "look": "cast_pack",
+    "draft": true
+   },
+   "says": "Turbine dos is choking on half the desert, and a hungry crew is taking my steel off the intake deck. Get them off for three nights and the dam pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-s03",
+   "design": "questbook/designs/act1/QD_S03_THE_WATER_FOR_THE_RACKS.md",
+   "design_title": "THE WATER FOR THE RACKS",
+   "title": "Haul two tankers of water",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Ms. Adair",
+    "from": "facilities",
+    "look": "cast_satchel",
+    "draft": true
+   },
+   "says": "Two tankers of water to our loading dock before sundown tomorrow. It pays {pay} batteries, we do not negotiate upward, we are already generous.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap02",
+   "design": "questbook/designs/act1/QD_AP02_THE_PATCHED_WALL.md",
+   "design_title": "THE PATCHED WALL",
+   "title": "Stand in the hole in the wall",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Don Ruben",
+    "from": "the quartermaster",
+    "look": "cast_barearms",
+    "draft": true
+   },
+   "says": "Two nights for the cement to set, and something comes through that hole every second night. Stand in it, that is the job, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap05",
+   "design": "questbook/designs/act1/QD_AP05_THE_STALL_REOPENS.md",
+   "design_title": "THE STALL REOPENS",
+   "title": "Bring the cook's man home",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Doña Remedios",
+    "from": "who fed this place twenty years",
+    "look": "cast_apron",
+    "draft": true
+   },
+   "says": "Twenty years I fed this place, and they took him for a debt that was mine. Bring him home and I light the stove, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap08",
+   "design": "questbook/designs/act1/QD_AP08_THE_CLINIC_S_RED_CROSS.md",
+   "design_title": "THE CLINIC'S RED CROSS",
+   "title": "Bring up the crates from Sunrise",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Enfermera Luna",
+    "from": "the nurse",
+    "look": "cast_skirt",
+    "draft": true
+   },
+   "says": "Nobody comes in because they do not believe there is anything here, and the basement at Sunrise has two crates. Something big lives down there, from the fossil lab, so it pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap09",
+   "design": "questbook/designs/act1/QD_AP09_THE_BARBER_S_POLE_SPINS.md",
+   "design_title": "THE BARBER'S POLE SPINS",
+   "title": "Bring six cells for the barber's pole",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Chuy",
+    "from": "the barber",
+    "look": "cast_shorts",
+    "draft": true
+   },
+   "says": "No power, no fades, only scissors, and six cells sit in the white limo on Koval. Bring them and the pole spins again, plus {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap19",
+   "design": "questbook/designs/act1/QD_AP19_THE_SCAVENGE_PILE_CLEARED.md",
+   "design_title": "THE SCAVENGE PILE CLEARED",
+   "title": "Clear the dogs out of the wrecks",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Capataz Lino",
+    "from": "the foreman",
+    "look": "cast_widebrim",
+    "draft": true
+   },
+   "says": "Under all that trash is a good lot, and a lot of dogs live in the wrecks. Clear it, keep what you dig out, and {pay} batteries on top.",
+   "draft": true
+  },
+  {
+   "id": "qd-aa15",
+   "design": "questbook/designs/act1/QD_AA15_THE_TIGERS_BEHIND_THE_SHOW_DOOR.md",
+   "design_title": "THE TIGERS BEHIND THE SHOW DOOR",
+   "title": "Put down the show's two tigers",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Sal Benedetto",
+    "from": "the floor boss",
+    "look": "cast_longcoat",
+    "draft": true
+   },
+   "says": "Two white tigers were the show, and now they stay in back by the laundry. Do not shoot them in front of the guests, we have guests, and the house pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar02",
+   "design": "questbook/designs/act1/QD_AR02_THE_RELIEF_SHIFT_TO_THE_DAM.md",
+   "design_title": "THE RELIEF SHIFT TO THE DAM",
+   "title": "Walk the relief shift to the dam",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Foreman Dube",
+    "from": "the night foreman",
+    "look": "cast_pack",
+    "draft": true
+   },
+   "says": "Four of mine walk to the dam for the shift change at dawn the day after tomorrow. You watch the road for {pay} batteries, because late is a man asleep on a rail.",
+   "draft": true
+  },
+  {
+   "id": "qd-ap15",
+   "design": "questbook/designs/act1/QD_AP15_THE_MURAL.md",
+   "design_title": "THE MURAL",
+   "title": "Fetch the pigment for the mural",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "fortress"
+   ],
+   "when": null,
+   "client": {
+    "name": "Ofelia Santos",
+    "from": "the muralist",
+    "look": "cast_poncho",
+    "draft": true
+   },
+   "says": "Thirty people died here and nobody can say all their names. The pigment is in the art store on Charleston, on sabre-tooth ground, and it pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-t02",
+   "design": "questbook/designs/act1/QD_T02_THE_WALL_ON_LOT_TWO.md",
+   "design_title": "THE WALL ON LOT TWO",
+   "title": "Hold the wall the night they come back",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "raided",
+   "client": {
+    "name": "Marisol",
+    "from": "the grower boss",
+    "look": "cast_bedroll",
+    "draft": true
+   },
+   "says": "{crew} hit our store, and their tracks bend back toward this lot. Stand on the wall the night they come and the harvest pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-s15",
+   "design": "questbook/designs/act1/QD_S15_THE_COUNTING_ROOM_THEY_CAME_BACK_FOR.md",
+   "design_title": "THE COUNTING ROOM THEY CAME BACK FOR",
+   "title": "Guard the counting room three nights",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "raided",
+   "client": {
+    "name": "Mr. Lucero",
+    "from": "the manager",
+    "look": "cast_shortcoat",
+    "draft": true
+   },
+   "says": "{crew} took the count and two of my men, and they come back for the charge room the night the power is up. Three nights at the door, they leave with nothing and you leave with {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar09",
+   "design": "questbook/designs/act1/QD_AR09_TWO_NIGHTS_AT_THE_MOAPA_WELL.md",
+   "design_title": "TWO NIGHTS AT THE MOAPA WELL",
+   "title": "Sit two nights at the gate",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "raided",
+   "client": {
+    "name": "Niles",
+    "from": "the well keeper",
+    "look": "cast_pack",
+    "draft": true
+   },
+   "says": "{crew} come every fourth night, for our batteries, not the water. Two nights here, you are here and they are not, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-t06",
+   "design": "questbook/designs/act1/QD_T06_THE_ROOF_WITH_THE_LONG_VIEW.md",
+   "design_title": "THE ROOF WITH THE LONG VIEW",
+   "title": "Hit their fire in the dry wash",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "raided",
+   "client": {
+    "name": "Chuy",
+    "from": "the watcher",
+    "look": "cast_barearms",
+    "draft": true
+   },
+   "says": "Six of {crew} sit in the dry wash and light fires at night like they own it. I can see them from here right now, so go, and the block pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-s06",
+   "design": "questbook/designs/act1/QD_S06_THE_FEVER_CAMP_BY_THE_WELL.md",
+   "design_title": "THE FEVER CAMP BY THE WELL",
+   "title": "Move the fever camp off the well",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "sickness",
+   "client": {
+    "name": "Sister Ines",
+    "from": "the nurse",
+    "look": "cast_cape",
+    "draft": true
+   },
+   "says": "The caravan came with the fever, and they sleep ten metres from our only well. Move them up to the old school on the hill, gently, and the clinic pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-aa09",
+   "design": "questbook/designs/act1/QD_AA09_THE_FREEZER_AT_THE_FOSSIL_BEDS.md",
+   "design_title": "THE FREEZER AT THE FOSSIL BEDS",
+   "title": "Bring the freezer from the fossil beds",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "sickness",
+   "client": {
+    "name": "Dr. Yusra Adeyemi",
+    "from": "the children's doctor",
+    "look": "cast_satchel",
+    "draft": true
+   },
+   "says": "The lab at the fossil beds has a freezer on its own panels that never went warm. Bring me the freezer, empty it first if you have to, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar06",
+   "design": "questbook/designs/act1/QD_AR06_THE_LODGE_ABOVE_THE_SNOW_LINE.md",
+   "design_title": "THE LODGE ABOVE THE SNOW LINE",
+   "title": "Bring medicine down from the lodge",
+   "skulls": 2,
+   "pay": 60,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "sickness",
+   "client": {
+    "name": "Sister Agustina",
+    "from": "the pharmacist",
+    "look": "cast_longcoat",
+    "draft": true
+   },
+   "says": "The lodge on the mountain kept a pharmacy, and nobody has been up since the snow. Bring antibiotics, anything in a sealed bottle, and the clinic pays {pay} batteries.",
+   "draft": true
+  },
+  {
+   "id": "qd-c02",
+   "design": "questbook/designs/act1/QD_C02_THE_COLD_BOX.md",
+   "design_title": "THE COLD BOX",
+   "title": "Get the clinic's cold box back",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "sickness",
+   "client": {
+    "name": "Dra. Ines Vela",
+    "from": "the doctor",
+    "look": "cast_skirt",
+    "draft": true
+   },
+   "says": "Somebody took my cold box with the insulin in it, mija. Bring it back and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-s04",
+   "design": "questbook/designs/act1/QD_S04_THE_TYRES_NOBODY_CAN_STORE.md",
+   "design_title": "THE TYRES NOBODY CAN STORE",
+   "title": "Haul eighty tyres to the co-op",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "market_day",
+   "client": {
+    "name": "El Guero Salas",
+    "from": "the yard boss",
+    "look": "cast_barearms",
+    "draft": true
+   },
+   "says": "Four hundred tyres came in for the fair and there is room for two hundred, and the co-op wants eighty. Haul them over, do not sell any on the way, and {pay} batteries are yours.",
+   "draft": true
+  },
+  {
+   "id": "qd-ar05",
+   "design": "questbook/designs/act1/QD_AR05_THE_STATE_LINE_CARAVAN.md",
+   "design_title": "THE STATE LINE CARAVAN",
+   "title": "Ride with three carts to Primm",
+   "skulls": 3,
+   "pay": 90,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "market_day",
+   "client": {
+    "name": "El Contador",
+    "from": "the yards' bookkeeper",
+    "look": "cast_longcoat",
+    "draft": true
+   },
+   "says": "Three carts go to Primm for the fair, and you do not look under the tarps. Primm's market pays you {pay} batteries at the far end, I pay you to be strangers.",
+   "draft": true
+  },
+  {
+   "id": "qd-a02",
+   "design": "questbook/designs/act1/QD_A02_THE_SALT_ROAD_ESCORT.md",
+   "design_title": "THE SALT ROAD ESCORT",
+   "title": "Ride shotgun to the salt camp",
+   "skulls": 1,
+   "pay": 30,
+   "tiers": [
+    "camp",
+    "town",
+    "fortress"
+   ],
+   "when": "market_day",
+   "client": {
+    "name": "Yesenia Ochoa",
+    "from": "the welder",
+    "look": "cast_shorts",
+    "draft": true
+   },
+   "says": "The salt goes out to the camp while the fair is buying. Ride shotgun with me there and back, and {pay} batteries are yours.",
+   "draft": true
+  }
+ ]
+}

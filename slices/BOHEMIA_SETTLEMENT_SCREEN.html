@@ -150,6 +150,7 @@ canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a rende
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="bohemia_board_shelf.js"></script>  <!-- RUN TWO [the board's quests are people]: the board's people from QUESTS' act-one shelf; the phone picks the same -->
 <script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -1075,6 +1076,23 @@ function offerSpeak(o){
   post('offer', {contract:o.id, who:clientWho(o), look:o.client.look});
   document.getElementById('sheet').classList.add('on');
 }
+/* WHO STANDS AT THE BOARD (RUN TWO [the board's quests are people], 10/18; his 10/17 'no more cards with quests, make an
+   actual quest'): QUESTS' act-one shelf, picked by the place's size, what is happening here and the map's day
+   (slices/bohemia_board_shelf.js; the phone's list picks the same, so it never lists a job this board does not offer).
+   A raided place keeps one job, the crew that hit it, named from FACTIONS' raid ledger. The four drafted OFFERS only
+   until the shelf is in. */
+function boardHere(){
+  var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });
+  var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held, crew:raidCrew()});
+  if(list) return list;
+  return OFFERS.filter(function(o){ return S.held.indexOf(o.id) < 0; }).slice(0, TIER_OFFERS[S.place.tier] || 1);
+}
+function raidCrew(){
+  var ms = (S.ledger && S.ledger.marks) || [], at = S.ledgerPlace || S.place.id || S.place.name, d = buildDay();
+  for(var i=0;i<ms.length;i++){ var m = ms[i]; if(m.place === at && m.trait === 'raided' && d >= m.from && d < m.until && m.by) return 'the ' + m.by; }
+  return null;
+}
+if(window.BohemiaBoardShelf) BohemiaBoardShelf.load(null, function(){ if(S.open === 'board') openB('board'); });
 function act(label, right, fn, off){
   var b = document.createElement('button'); b.className = 'act'; b.disabled = !!off;
   var l = document.createElement('span'); l.textContent = label; b.appendChild(l);
@@ -1111,14 +1129,9 @@ function openB(k, line){
        offer the work. The people who NEED it stand here with their faces; tap one and HE speaks his job
        in two sentences with the pay in his mouth; Take it or Not now are the only answers, and Not now
        costs nothing (rule 35c). The phone only lists (UI's board); accepting happens here, from a face. */
-    var n = TIER_OFFERS[S.place.tier] || 1, shown = 0, full = S.held.length>=SLOTS;
+    var full = S.held.length>=SLOTS;
     body.appendChild(speak(k, line || (full ? 'You already carry two jobs. Finish one, then come talk to these people.' : 'These came to the board today and they are still waiting, mijo. Talk to them yourself, the pay is theirs to say.')));
-    for(var i=0;i<OFFERS.length && shown<n;i++){
-      (function(o){
-        if(S.held.indexOf(o.id)>=0) return; shown++;
-        acts.appendChild(clientAct(o, full));
-      })(OFFERS[i]);
-    }
+    boardHere().forEach(function(o){ acts.appendChild(clientAct(o, full)); });
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your phone.';
     body.appendChild(acts); body.appendChild(sl); return show();

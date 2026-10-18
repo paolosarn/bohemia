@@ -9,6 +9,10 @@
    board a mouth offers from), fetched as text and never copied here, so the phone can never offer a job the place does
    not. Which places, where and how big: the map's own ctBases() and mapTierOf(); what is taken: the map's LOOP.held.
    If the settlement's list cannot be read, the board shows nothing rather than inventing a job.
+   RUN TWO [the board's quests are people], 10/18: the places now offer QUESTS' act-one people, picked per place by
+   slices/bohemia_board_shelf.js; this list calls the SAME pick (the place's name and size, the map's day, the dice's
+   traits from BohemiaLivingMap), so it still never offers a job the place does not. The settlement's OFFERS stay the
+   fallback until the shelf is in.
 
    The look (a world post, the handle stamped, the skulls as drawn marks) is the materials' (dressPhone).
    Included by BOHEMIA_CITY_WORLD.html after bohemia_ui_materials.js. Gate: gates/the_phones_board_gate.js */
@@ -17,6 +21,13 @@
   var OFFERS = null, TIERS = null, SEEN = {}, PICK = null, BOX = null, SIG = '', SHOW = 2;
 
   function load() {
+    try {
+      if (!window.BohemiaBoardShelf) {
+        var sc = document.createElement('script'); sc.src = 'bohemia_board_shelf.js';
+        sc.onload = function () { try { BohemiaBoardShelf.load(); } catch (e) {} };
+        document.head.appendChild(sc);
+      } else BohemiaBoardShelf.load();
+    } catch (e) {}
     try {
       fetch('BOHEMIA_SETTLEMENT_SCREEN.html').then(function (r) { return r.text(); }).then(function (t) {
         var m = t.match(/var OFFERS = (\[[\s\S]*?\n\]);/), k = t.match(/var TIER_OFFERS = (\{[^}]*\});/);
@@ -50,9 +61,15 @@
     Object.keys(bs).forEach(function (name) {
       var b = bs[name]; if (!b) return;
       var tier = 'camp'; try { tier = mapTierOf(name) || 'camp'; } catch (e) {}
-      var n = TIERS[tier] || 1, shown = 0;
-      for (var i = 0; i < OFFERS.length && shown < n; i++) {
-        var o = OFFERS[i]; if (held.indexOf(o.id) >= 0) continue; shown++;
+      var n = TIERS[tier] || 1, shown = 0, SH = window.BohemiaBoardShelf, list = null;
+      if (SH && SH.ready()) {   /* the place's own people (RUN TWO 10/18): the same pick the settlement's board makes */
+        var day = Math.floor(t / 1440), tr = [];
+        try { tr = BohemiaLivingMap.traitsFor(LIVING_MAP.traits, name, day).map(function (x) { return x.id; }); } catch (e) {}
+        list = SH.pick({ name: name, tier: tier }, day, { traits: tr, held: held });
+      }
+      if (!list) list = OFFERS.filter(function (o) { return held.indexOf(o.id) < 0; }).slice(0, n);
+      for (var i = 0; i < list.length; i++) {
+        var o = list[i]; shown++;
         var key = name + '|' + o.id; if (SEEN[key] == null) SEEN[key] = t;
         out.push({ key: key, place: name, x: b.x | 0, y: b.y | 0, tier: tier, id: o.id, title: o.title, skulls: o.skulls || 1, pay: o.pay,
           dist: Math.max(Math.abs((b.x | 0) - me[0]), Math.abs((b.y | 0) - me[1])), way: way((b.x | 0) - me[0], (b.y | 0) - me[1]), age: t - SEEN[key] });

@@ -84,13 +84,15 @@ const done = () => { console.log('THE LOOP PLAYS ON THE MAP: ' + pass + ' passed
         const e = els[0]; if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, t: e.textContent.trim() }; }, re.source);
       if (p) await d.page.touchscreen.tap(fb.x + p.x, fb.y + p.y); return p; };
     /* the board is a BUILDING since RUN TWO's rebuild (rule 67: the buildings are the buttons): a finger on its own pixels */
+    /* RUN TWO 10/18: the town's ARRIVAL card ([the arrival]) holds the glass two seconds and a tap only skips it */
+    await sf.waitForFunction(() => !document.getElementById('arrive'), null, { timeout: 6000 }).catch(() => {});
     let bp = null; for (let i = 0; i < 20 && !bp; i++) { bp = await sf.evaluate(() => (window.BohemiaSettlement && BohemiaSettlement.where) ? BohemiaSettlement.where('board') : null); if (!bp) await d.page.waitForTimeout(250); }
     if (bp) await d.page.touchscreen.tap(fb.x + bp.x, fb.y + bp.y);
     else await tapText(/^BOARD/);
     await d.page.waitForTimeout(1000);
-    const offer = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button, #sheet .act, #sheet div')].filter(e => /battery$/i.test((e.textContent || '').trim()) && e.getBoundingClientRect().height > 20)
+    const offer = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button, #sheet .act, #sheet div')].filter(e => /\d+ batt(ery)?$/i.test((e.textContent || '').trim()) && e.classList.contains('client') && e.getBoundingClientRect().height > 20)
         .sort((a, b) => a.getBoundingClientRect().width * a.getBoundingClientRect().height - b.getBoundingClientRect().width * b.getBoundingClientRect().height)[0];
-      return b ? b.textContent.trim().replace(/\d+ battery$/i, '').trim() : null; });
+      return b ? ((b.querySelector('.cl > span') || b.querySelector('span') || b).textContent.trim()) : null; });   /* the job's title, the button's first span (RUN TWO's client buttons, 10/17) */
     if (offer) { await tapText(new RegExp('^' + offer.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))); await d.page.waitForTimeout(800); await tapText(/^Take it/); await d.page.waitForTimeout(800); }
     const held = await fr.evaluate(() => LOOP.held.map(h => ({ id: h.id, title: h.title, t: h.target, pay: h.pay })));
     if (first) ok('*** L4 THE BOARD GIVES HIM A CONTRACT *** ("' + offer + '" -> ' + JSON.stringify(held.map(h => h.title)) + ')', held.length === 1 && held[0].title === offer);

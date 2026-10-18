@@ -9201,6 +9201,14 @@ GATES = [
      'ECONOMY gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). VAMILY [the price table at ten to one], rule 74 top row. His ruling (GROK_31/32/33, locked 10/1): no crowns in the game; every wiki crown number is. green at registration, 0 s', False),
     ('ROSTER HURT', ['node', 'gates/roster_hurt_gate.js'],
      'RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Strike a man down in the real fight, read him on the roster: the fight (on auto, in a host frame) ends with BOHEMIA_FIGHT_OVER carrying down, laidUpDa. green at registration, 27 s', True),
+    ('THE BOARD\'S QUESTS ARE PEOPLE', ['node', 'gates/the_boards_quests_are_people_gate.js'],
+     "RUN TWO [the board's quests are people] (his 10/17 'no more cards with quests, make an actual quest'; QUESTS research "
+     "only, rule 35, read never asked). The shelf is the bake of QUESTS' act-one contract designs, byte for byte: every row "
+     "its design's client and skulls, two sentences with the pay in the second, a fresh talking face. On his phone's profile "
+     "with real taps a camp, a town and a fortress read three boards of 1, 2 and 3; a client speaks the job; take it and "
+     "someone else steps up; a raided town keeps one job naming the crew from FACTIONS' raid ledger; a sick town asks for "
+     "medicine first; three map days on a new board; the four drafted offers stand when the shelf is blocked; the phone's "
+     "list equals each place's board", True),
     ('NO FACE FROM A BODY', ['node', 'gates/no_face_from_a_body_gate.js'],
      "RUN TWO [the fresh portraits wired in] (rule 115(h) amended 10/18, his 'I liked it when it was the portrait, not when "
      "you zoom in on the creepy model's face... it has to be made fresh portrait'). The crop bank and its tool are gone; no "
