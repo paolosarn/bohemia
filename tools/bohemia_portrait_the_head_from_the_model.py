@@ -529,7 +529,9 @@ def build(who, out):
         # the front hairline is ragged, never a ruler line (cycle 1: a smooth edge read as a helmet's rim): strands every
         # 13 mm hang 6 to 22 mm lower on a long cut (a fringe), 4 mm on a short one
         # (cycle 2: a 26 mm pitch stepped on the skull's rows into a saw; 40 mm clumps read as a fringe)
-        jag = (0.018 if st in ('long', 'shag', 'fall') else 0.004) * max(0.0, math.cos(math.pi * x / 0.040)) ** 2 * (0.7 + 0.3 * math.cos(2 * math.pi * x / 0.071))
+        # (round 16: under a cap the ragged ends hung below the brim as drips; a capped cut has a plain line, the brim covers it)
+        capped = P['gear'] in ('knit cap', 'watch cap', 'slouch beanie', 'work cap', 'skull cap')
+        jag = 0.0 if capped else (0.018 if st in ('long', 'shag', 'fall') else 0.004) * max(0.0, math.cos(math.pi * x / 0.040)) ** 2 * (0.7 + 0.3 * math.cos(2 * math.pi * x / 0.071))
         if st == 'slick': crown = z > 0.072 - 0.040 * sstep(-0.10, 0.00, y)        # a clean high line, combed straight back
         elif st == 'fringe':   # a heavy blunt fringe down the forehead to just over the brow ridge, its ends a little ragged
             crown = z > 0.046 + 0.003 * math.cos(2 * math.pi * x / 0.017) + 0.030 * sstep(0.045, 0.080, abs(x)) - 0.040 * sstep(-0.10, 0.00, y)
@@ -787,6 +789,7 @@ def build(who, out):
         bm = bmesh.new(); bm.from_mesh(head)
         def keep(c):
             if not scalp(c.x, c.y, c.z): return False
+            if capped and abs(c.x) < 0.060 and c.y < -0.090: return False   # no band of hair across the forehead under a brim
             return not (capped and c.z > cap_line(c.y) + 0.010)
         bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not keep(f.calc_center_median())], context='FACES')
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
@@ -808,7 +811,12 @@ def build(who, out):
             lk = 0.0
             if W:
                 down = locks(ang * max(rr, 0.05), p.z, W, seed)                  # the sides and the back fall down
-                back = locks(p.x, p.y, W, seed + 7) if not fringe else locks(p.x, p.z, W, seed + 7)   # the crown combs back
+                if fringe: back = locks(p.x, p.z, W, seed + 7)                  # the fringe falls down the forehead
+                elif st in ('long', 'fall', 'shag', 'fringe'):
+                    # a long cut falls from a centre part, out and down to each side (round 16: combed straight back, its
+                    # locks read from the front as a knit cap's ribs), a parting at the middle
+                    back = locks(p.y, abs(p.x), W, seed + 7) * (0.55 + 0.45 * sstep(0.0, 0.014, abs(p.x)))
+                else: back = locks(p.x, p.y, W, seed + 7)                       # a short cut combs straight back
                 lk = down + (back - down) * (1.0 if fringe else top)
             if st == 'taper': t = 0.003 + 0.006 * sstep(0.02, 0.13, p.z) + 0.0025 * lk
             elif st == 'slick': t = 0.004 + 0.004 * sstep(0.02, 0.13, p.z) + 0.0018 * lk
