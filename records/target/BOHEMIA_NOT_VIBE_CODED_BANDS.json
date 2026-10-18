@@ -1,0 +1,247 @@
+{
+ "_readme": "the pack band per family (tools/bohemia_not_vibe_coded.py --bands): the 90th percentile of every pack piece on each number, higher is worse. Rebuilt when the packs change.",
+ "percentile": 90,
+ "families": {
+  "door": {
+   "pieces": 30,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 5220.0
+    },
+    "D3": {
+     "angle_off": 49.9
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.0434,
+     "no_rest": 0.8206
+    },
+    "D7": {
+     "flat": -0.009
+    },
+    "D8": {
+     "orphans_per_1000": 269.298,
+     "jaggies_per_100": 0.066,
+     "banding": 0.001,
+     "pillow_r": 0.0954
+    }
+   }
+  },
+  "ground": {
+   "pieces": 391,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 6562.0
+    },
+    "D3": {
+     "angle_off": 180.0
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.039,
+     "no_rest": 0.834
+    },
+    "D7": {
+     "flat": -0.01
+    },
+    "D8": {
+     "orphans_per_1000": 389.61,
+     "jaggies_per_100": 6.72,
+     "banding": 0.0,
+     "pillow_r": 0.344
+    }
+   }
+  },
+  "lamp": {
+   "pieces": 47,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 4415.2
+    },
+    "D3": {
+     "angle_off": 153.3
+    },
+    "D4": {
+     "straight_share": 0.0
+    },
+    "D5": {
+     "evenness": -0.0502,
+     "no_rest": 0.7908
+    },
+    "D7": {
+     "flat": -0.0148
+    },
+    "D8": {
+     "orphans_per_1000": 252.43,
+     "jaggies_per_100": 5.864,
+     "banding": 0.0,
+     "pillow_r": 0.5204
+    }
+   }
+  },
+  "marking": {
+   "pieces": 67,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 3594.0
+    },
+    "D3": {
+     "angle_off": 121.06
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.0836,
+     "no_rest": 0.6754
+    },
+    "D7": {
+     "flat": -0.0066
+    },
+    "D8": {
+     "orphans_per_1000": 397.152,
+     "jaggies_per_100": 6.616,
+     "banding": 0.002,
+     "pillow_r": 0.371
+    }
+   }
+  },
+  "prop": {
+   "pieces": 784,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 5193.6
+    },
+    "D3": {
+     "angle_off": 115.23
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.057,
+     "no_rest": 0.767
+    },
+    "D7": {
+     "flat": -0.015
+    },
+    "D8": {
+     "orphans_per_1000": 284.775,
+     "jaggies_per_100": 9.102,
+     "banding": 0.0,
+     "pillow_r": 0.416
+    }
+   }
+  },
+  "road": {
+   "pieces": 278,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 6661.1
+    },
+    "D3": {
+     "angle_off": 180.0
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.033,
+     "no_rest": 0.858
+    },
+    "D7": {
+     "flat": -0.0137
+    },
+    "D8": {
+     "orphans_per_1000": 356.41,
+     "jaggies_per_100": 0.6,
+     "banding": 0.001,
+     "pillow_r": 0.3008
+    }
+   }
+  },
+  "settlement": {
+   "pieces": 341,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 5830.0
+    },
+    "D3": {
+     "angle_off": 180.0
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.033,
+     "no_rest": 0.857
+    },
+    "D7": {
+     "flat": -0.012
+    },
+    "D8": {
+     "orphans_per_1000": 336.32,
+     "jaggies_per_100": 4.64,
+     "banding": 0.0,
+     "pillow_r": 0.404
+    }
+   }
+  },
+  "all": {
+   "pieces": 1938,
+   "band": {
+    "D1": {
+     "mixed": 0.0
+    },
+    "D2": {
+     "colours": 5590.2
+    },
+    "D3": {
+     "angle_off": 180.0
+    },
+    "D4": {
+     "straight_share": 1.0
+    },
+    "D5": {
+     "evenness": -0.041,
+     "no_rest": 0.826
+    },
+    "D7": {
+     "flat": -0.012
+    },
+    "D8": {
+     "orphans_per_1000": 324.663,
+     "jaggies_per_100": 7.11,
+     "banding": 0.0,
+     "pillow_r": 0.3883
+    }
+   }
+  }
+ },
+ "pack_files": 1938
+}

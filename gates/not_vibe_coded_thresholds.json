@@ -1,0 +1,25 @@
+{
+  "_readme": "PLUMBER's interim numbers for the NOT VIBE CODED checks (rule 114b), every one copied from records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_ONE_10_16_26.md (Section A's test line or Section C's field, named per key). DIRECTION's style guide data file (rule 114a) replaces any key it sets; until then these are the ruler. Change a number only with the research line it comes from.",
+  "d1_tile": 16, "d1_agree": 0.9,
+  "d2_caps": {"character": 12, "enemy": 12, "beast": 12, "prop": 6, "tile": 5, "portrait": 24, "boss": 20, "vehicle": 12, "building": 24},
+  "d3_within": 30, "d3_min_len": 0.05,
+  "d4_min_shift": 8, "d4_min_share": 0.002, "d4_quantise": 24,
+  "d5_block": 16, "d5_gini": 0.4, "d5_quiet_ratio": 0.4,
+  "d6_iou": 0.85,
+  "d7_min_bin": 0.12, "d7_max_bin": 0.75,
+  "d8_orphans_per_1000": 2, "d8_doubles": 0, "d8_jaggies_per_100": 3, "d8_banding": 0.15, "d8_pillow_r": 0.7,
+  "r2_edge_only": 0, "r2_residue_px": 3, "r8_px": 1, "r8_area": 0.25,
+  "d9_block": 16, "d9_top_share": 0.3, "d9_max_run": 6, "d9_mirror": 0.97,
+  "_sources": {
+    "d1": "tell 1 (one native size; 90% of textured tiles agreeing is PLUMBER's reading of 'a scene with two native sizes is a tell')",
+    "d2_caps": "Section C field 5: character 12, prop 6, tile 5, portrait 24, boss 20; vehicle and building are PLUMBER's, from the character and portrait lines, until DIRECTION sets them",
+    "d3": "tell 9 (within 30 degrees); d3_min_len is PLUMBER's floor so a sprite with no light at all cannot pass by angle",
+    "d4": "tell 6 (8 degrees, over half the ramps); a sprite over 24 colours is median-cut to 24 first, Section C field 5's portrait cap, so a render's ramps are the ones a viewer reads",
+    "d5": "tells 16 and 18 (Gini 0.4, quietest quartile under 40% of the busiest)",
+    "d6": "tell 17 (IoU 0.85, the 3x3 differs from a box by 2 cells)",
+    "d7": "tell 15 (12% each, none over 75%)",
+    "d8": "tells 10 to 13 (pillow r 0.7, banding 15%, jaggies 3 per 100, orphans 2 per 1,000, doubles none)",
+    "r2_r8": "round two Section D 2 and 8: zero half-transparent pixels and zero boundary-only colours; bounding-box height and foot row within 1 px either way; area within 25% of the mean",
+    "d9": "tells 19 and 20 (30% one hash, 6 in a row, 97% mirror over 24 px)"
+  }
+}

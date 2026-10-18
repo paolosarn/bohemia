@@ -72,13 +72,15 @@ function registeredPaths() {
   if (i < 0) return { rows: [], paths: new Set(), why: 'no GATES table found in the registry' };
   const body = src.slice(i);
   /* one row is  ('NAME', ['python3', 'gates/x_gate.py'], ... */
-  const rowRe = /^ {4}\('([^']+)',\s*(\[[^\]]*\])/gm;
+  /* the name may be in double quotes when it carries an apostrophe ("QUARTERMASTER'S COUNT"); the
+     single-quote-only pattern of 9/7 skipped those rows and called their files orphans (10/18) */
+  const rowRe = /^ {4}\((?:'([^']+)'|"([^"]+)"),\s*(\[[^\]]*\])/gm;
   const rows = [];
   const paths = new Set();
   let m;
   while ((m = rowRe.exec(body)) !== null) {
-    rows.push(m[1]);
-    const cmd = m[2];
+    rows.push(m[1] || m[2]);
+    const cmd = m[3];
     const pRe = /'([^']*gates\/[^']+)'/g;
     let p;
     while ((p = pRe.exec(cmd)) !== null) paths.add(p[1]);
