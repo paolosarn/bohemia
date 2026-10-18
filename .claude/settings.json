@@ -88,5 +88,7 @@
       "mcp__github__delete_file",
       "mcp__github__merge_pull_request"
     ]
-  }
+  },
+  "effortLevel": "xhigh",
+  "maxEffortLevel": "xhigh"
 }
