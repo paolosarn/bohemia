@@ -137,7 +137,7 @@ def finish(png, idpng, table, light_deg, main, eye, role, facing):
     rep['B9_eye_glints'] = gl
     changed = (np.abs(a - before).sum(-1) > 0)
     rep['pixels_changed'] = int(changed.sum()); rep['body_pixels'] = int(body.sum()); rep['changed_share_pct'] = round(100 * changed.sum() / max(1, body.sum()), 2)
-    out = png.replace('rig_', 'fin_'); Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA').save(out)
+    out = os.path.join(os.path.dirname(png), os.path.basename(png).replace('rig_', 'fin_', 1)); Image.fromarray(np.clip(a, 0, 255).astype(np.uint8), 'RGBA').save(out)
     return out, rep
 
 

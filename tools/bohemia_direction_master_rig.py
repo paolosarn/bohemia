@@ -88,10 +88,13 @@ import os, sys, json, math, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 PORTRAIT_FACINGS = ['S', 'SE', 'SW']
-RIG_ROUND = 4
+RIG_ROUND = 5
 GUIDE_PATH = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')
 GUIDE = json.load(open(GUIDE_PATH))
-G = GUIDE['rig']
+G = dict(GUIDE['rig'])   # a copy: --set may move a key for one render, and the break is read against the file
+for _i, _k in enumerate(sys.argv):
+    if _i and sys.argv[_i - 1] == '--set':   # --set grain_per_m=40 : one key of the rig block for this render, recorded as a break
+        _n, _v = _k.split('='); G[_n] = json.loads(_v)
 
 
 def args():
@@ -176,7 +179,10 @@ def source_pass(objs, wear, k, seed=0):
     a man. Returns what it did, for rig.json."""
     done = set()
     GRIME, DUST = (0.11, 0.085, 0.065, 1), (0.66, 0.60, 0.50, 1)   # crevice dirt, warm and dark; sun-bleached dust, pale and warm
-    GRAIN_PER_M, DRIFT_PER_M, DUST_PER_M = 28.0, 5.0, 2.0
+    # round five: every mask size and grain strength is the guide's (rig block), so a change is a line in its decisions list
+    GRAIN_PER_M, DRIFT_PER_M, DUST_PER_M = float(G['grain_per_m']), float(G['drift_per_m']), float(G['dust_per_m'])
+    GRAIN_REST, GRAIN_WEAR = float(G['grain_rest']), float(G['grain_wear'])
+    DUST_DARK, BRIGHT = tuple(G['dust_on_bright_mul']) + (1,), G['dust_bright_value']
     for o in objs:
         for slot in o.material_slots:
             m = slot.material
@@ -223,26 +229,43 @@ def source_pass(objs, wear, k, seed=0):
             nt.links.new(grain.outputs['Fac'], wide.inputs['Value'])
             mix1 = nt.nodes.new('ShaderNodeMixRGB'); mix1.blend_type = 'MIX'; mix1.inputs['Color2'].default_value = GRIME
             nt.links.new(src, mix1.inputs['Color1']); nt.links.new(crevw.outputs[0], mix1.inputs['Fac'])
-            mix2 = nt.nodes.new('ShaderNodeMixRGB'); mix2.blend_type = 'MIX'; mix2.inputs['Color2'].default_value = DUST
-            nt.links.new(mix1.outputs['Color'], mix2.inputs['Color1']); nt.links.new(dustw.outputs[0], mix2.inputs['Fac'])
+            # THE DUST RULE (round five, guide field 11; the truck read as frost on 10/18): on a dark base the dust is the
+            # pale warm dust; on a bright base (value over the guide's 0.6) the wear is the base itself gone darker and
+            # warmer (grime and rust), never paler, so a yellow cab dulls instead of frosting
+            lum = nt.nodes.new('ShaderNodeRGBToBW'); nt.links.new(src, lum.inputs['Color'])
+            bright = nt.nodes.new('ShaderNodeMapRange'); bright.inputs['From Min'].default_value = BRIGHT[0]; bright.inputs['From Max'].default_value = BRIGHT[1]; bright.clamp = True
+            nt.links.new(lum.outputs['Val'], bright.inputs['Value'])
+            dark = nt.nodes.new('ShaderNodeMixRGB'); dark.blend_type = 'MULTIPLY'; dark.inputs['Fac'].default_value = 1.0; dark.inputs['Color2'].default_value = DUST_DARK
+            nt.links.new(src, dark.inputs['Color1'])
+            dcol = nt.nodes.new('ShaderNodeMixRGB'); dcol.blend_type = 'MIX'; dcol.inputs['Color1'].default_value = DUST
+            nt.links.new(bright.outputs['Result'], dcol.inputs['Fac']); nt.links.new(dark.outputs['Color'], dcol.inputs['Color2'])
+            mix2 = nt.nodes.new('ShaderNodeMixRGB'); mix2.blend_type = 'MIX'
+            nt.links.new(mix1.outputs['Color'], mix2.inputs['Color1']); nt.links.new(dustw.outputs[0], mix2.inputs['Fac']); nt.links.new(dcol.outputs['Color'], mix2.inputs['Color2'])
             mix3 = nt.nodes.new('ShaderNodeMixRGB'); mix3.blend_type = 'OVERLAY'; mix3.inputs['Fac'].default_value = 0.45 * wear
             nt.links.new(mix2.outputs['Color'], mix3.inputs['Color1']); nt.links.new(drift.outputs['Color'], mix3.inputs['Color2'])
             # the grain lives in the wear, never even over a surface (a leopard print, measured cycle 4): heavy in the grime and
             # the dust patches, light on clean panel; the patch mask is the 20 cm drift's middle band
             patch = nt.nodes.new('ShaderNodeMapRange'); patch.inputs['From Min'].default_value = 0.42; patch.inputs['From Max'].default_value = 0.62; patch.clamp = True
             nt.links.new(drift.outputs['Fac'], patch.inputs['Value'])
-            gp = nt.nodes.new('ShaderNodeMath'); gp.operation = 'MULTIPLY_ADD'; gp.inputs[1].default_value = 0.7 * wear; gp.inputs[2].default_value = 0.12 * wear
+            gp = nt.nodes.new('ShaderNodeMath'); gp.operation = 'MULTIPLY_ADD'; gp.inputs[1].default_value = (GRAIN_WEAR - GRAIN_REST) * wear; gp.inputs[2].default_value = GRAIN_REST * wear
             nt.links.new(patch.outputs['Result'], gp.inputs[0])
             gf = nt.nodes.new('ShaderNodeMath'); gf.operation = 'MULTIPLY_ADD'; gf.inputs[1].default_value = 0.8 * wear; gf.use_clamp = True
             nt.links.new(crevw.outputs[0], gf.inputs[0]); nt.links.new(gp.outputs[0], gf.inputs[2])
+            # round five: the grain leans dark (grime in the paint, never a white fleck): the full overlay lifted pale paint
+            # into frost on 10/18; on a bright base its light side now stops at the guide's grain_lift (0.5 is no lift at all,
+            # 1.0 the old full step), on a dark base it keeps the full step, so the clay keeps its span and pale paint never frosts
+            lift = nt.nodes.new('ShaderNodeMapRange'); lift.inputs['To Min'].default_value = 1.0; lift.inputs['To Max'].default_value = float(G['grain_lift'])
+            nt.links.new(bright.outputs['Result'], lift.inputs['Value'])
+            gdark = nt.nodes.new('ShaderNodeMapRange'); gdark.inputs['To Min'].default_value = 0.0
+            nt.links.new(wide.outputs['Result'], gdark.inputs['Value']); nt.links.new(lift.outputs['Result'], gdark.inputs['To Max'])
             mix4 = nt.nodes.new('ShaderNodeMixRGB'); mix4.blend_type = 'OVERLAY'
             nt.links.new(gf.outputs[0], mix4.inputs['Fac'])
-            nt.links.new(mix3.outputs['Color'], mix4.inputs['Color1']); nt.links.new(wide.outputs['Result'], mix4.inputs['Color2'])
+            nt.links.new(mix3.outputs['Color'], mix4.inputs['Color1']); nt.links.new(gdark.outputs['Result'], mix4.inputs['Color2'])
             for l in list(base.links): nt.links.remove(l)
             nt.links.new(mix4.outputs['Color'], base)
     return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= 0.9, specular 0.15, metallic <= 0.2', 'crevice grime from the model\'s own ambient occlusion (0.25 m)',
-                'dust and bleach on up-facing surfaces under a 50 cm mask', 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
-                'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch or a crevice, %.2f on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured' % (GRAIN_PER_M, min(1.0, 0.82 * wear), 0.12 * wear)], seed=seed, masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
+                'dust and bleach on up-facing surfaces under a %g cm mask; on a base brighter than %s the wear is the base times %s (darker, never frost)' % (100.0 / DUST_PER_M, BRIGHT, list(DUST_DARK[:3])), 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
+                'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch, %.2f on clean panel); even grain is a leopard print, measured cycle 4' % (GRAIN_PER_M, GRAIN_WEAR * wear, GRAIN_REST * wear)], seed=seed, masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
 
 
 def passing_frame(sc, objs, f0, f1):
@@ -479,7 +502,19 @@ def post(files, out, A, pop=None, shadow=False, one_box=True):
             his = pop[b[:, 0], b[:, 1], b[:, 2]]
             a[..., :3][op] = px + (his - px) * A['snap']
         p = np.pad(op, 1); inner = p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
-        ring = op & ~inner; a[..., :3][ring] = np.clip(a[..., :3][ring] - A['ring'], 0, 255)
+        ring = op & ~inner
+        a[..., :3] = np.round(a[..., :3])
+        if ring.any() and inner.any():
+            # THE RING FROM THE SPRITE'S OWN COLOURS (round five; research round two D2, R1: a colour that lives only on the
+            # boundary is a filter's residue): each ring pixel is its colour N values darker, then moved to the nearest
+            # colour the body already uses inside, so the edge is darker by the ring and no colour exists only on it
+            want = np.clip(a[..., :3][ring] - A['ring'], 0, 255)
+            pal = np.unique(a[..., :3][inner].reshape(-1, 3), axis=0)
+            best = np.empty_like(want)
+            for i in range(0, len(want), 256):
+                d = ((want[i:i + 256, None, :] - pal[None, :, :]) ** 2).sum(2); best[i:i + 256] = pal[d.argmin(1)]
+            a[..., :3][ring] = best
+        sh_layer = None
         if shadow:
             ys, xs = np.nonzero(op)
             if len(ys):
@@ -489,16 +524,23 @@ def post(files, out, A, pop=None, shadow=False, one_box=True):
                 d = ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2
                 sh = np.clip((1.15 - d) / 0.3, 0, 1) * float(G['shadow_alpha_max'])   # a soft edge two pixels wide, 42% at the centre
                 put = (~op) & (sh > 0.02)
-                a[..., :3][put] = 0; a[..., 3][put] = np.round(sh[put] * 255)
-        arrs.append((fn, a, op))
+                # THE SHADOW IS ITS OWN LAYER (round five; research round two D2: zero alpha between 1 and 254 on the
+                # sprite): the body ships binary, the shadow ships beside it as shadow_<name>.png, black at alpha, on the
+                # same box, and the screen lays it under the body (guide field 13)
+                sh_layer = np.zeros_like(a); sh_layer[..., 3][put] = np.round(sh[put] * 255)
+        arrs.append((fn, a, op, sh_layer))
     boxes = []
-    for fn, a, op in arrs:
-        ys, xs = np.nonzero(a[..., 3] > 0); boxes.append((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
+    for fn, a, op, sl in arrs:
+        al = a[..., 3] > 0
+        if sl is not None: al = al | (sl[..., 3] > 0)
+        ys, xs = np.nonzero(al); boxes.append((xs.min(), ys.min(), xs.max() + 1, ys.max() + 1))
     box = (min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)) if one_box else None
     outs = []
-    for (fn, a, op), b in zip(arrs, boxes):
+    for (fn, a, op, sl), b in zip(arrs, boxes):
         im = Image.fromarray(a.astype(np.uint8), 'RGBA').crop(box or b)
         o = os.path.join(os.path.dirname(fn), os.path.basename(fn).replace('raw_', 'rig_')); im.save(o); outs.append(o)
+        if sl is not None:
+            Image.fromarray(sl.astype(np.uint8), 'RGBA').crop(box or b).save(o.replace(os.sep + 'rig_', os.sep + 'shadow_'))
     return outs, [int(x) for x in box] if box else None
 
 
@@ -558,7 +600,7 @@ def guide_card(c, png, cls):
 def rejudge(d, cls):
     """python3 tools/bohemia_direction_master_rig.py --rejudge <rig_dir> <class>: the card under the guide, no Blender"""
     m = json.load(open(os.path.join(d, 'rig.json')))
-    if 'rig_settings' in m: m['breaks'] = sorted(k for k in m['rig_settings'] if k in G and not same(m['rig_settings'][k], G[k]))
+    if 'rig_settings' in m: m['breaks'] = sorted(k for k in m['rig_settings'] if k in GUIDE['rig'] and not same(m['rig_settings'][k], GUIDE['rig'][k]))
     m['cls'] = cls; m['card_guide'] = guide_card(m['card'], os.path.join(ROOT, m['files'][FACINGS.index('S')]), cls)
     json.dump(m, open(os.path.join(d, 'rig.json'), 'w'), indent=1); return m['card_guide']
 
@@ -579,6 +621,7 @@ if __name__ == '__main__':
                 sun='upper left, above', facings=FACINGS, family_palette=A['fam'],
                 snap=dict(family=A['fam'], pull=A['snap'], bins=bins, tiles=ntiles, how='toward the nearest of the family\'s own colours, 32 levels a channel') if pop is not None else None,
                 ring=A['ring'], contact_shadow=A['shadow'], files=[rel(o) for o in outs[:n]], crop_box_px=box,
+                shadow_files=[rel(o.replace(os.sep + 'rig_', os.sep + 'shadow_')) for o in outs[:n]] if A['shadow'] else [],
                 ground_px=[meta['res'] // 2 - box[0], meta['res'] // 2 - box[1]] if box else None, colours=colours(outs),
                 keys_per_beat=3, bpm=120, ruler='records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)')
     i = n
@@ -592,7 +635,7 @@ if __name__ == '__main__':
     used = dict(G); used.update(ppm=A['ppm'], tilt_deg=A['tilt'], sun_rot_deg=A['sun_rot'], wear=A['wear'], ring=A['ring'], contact_shadow=A['shadow'])
     used = {k: v for k, v in used.items() if not k.startswith('_') and k != 'calibration'}
     meta['rig_settings'] = used
-    meta['breaks'] = sorted(k for k in used if not same(used[k], G[k]))
+    meta['breaks'] = sorted(k for k in used if k not in GUIDE['rig'] or not same(used[k], GUIDE['rig'][k]))
     meta['guide'] = dict(file=os.path.relpath(GUIDE_PATH, ROOT), schema=GUIDE['schema'])
     if meta.get('id_files_raw'):
         from PIL import Image

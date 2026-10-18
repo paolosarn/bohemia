@@ -585,7 +585,22 @@
    "sphere_m": 1.0,
    "screen_light_deg": 155.4,
    "screen_light_tolerance_deg": 30
-  }
+  },
+  "grain_per_m": 28,
+  "drift_per_m": 5,
+  "dust_per_m": 2,
+  "grain_rest": 0.4,
+  "grain_wear": 1.0,
+  "dust_on_bright_mul": [
+   0.72,
+   0.68,
+   0.62
+  ],
+  "dust_bright_value": [
+   0.35,
+   0.55
+  ],
+  "grain_lift": 0.65
  },
  "tests": [
   {
