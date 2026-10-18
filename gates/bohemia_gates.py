@@ -9188,6 +9188,14 @@ GATES = [
      "verdicts (the card never says where in the game he meets it: 24 percent of his confused cards against 7 of his "
      "clear ones); length and 'what he decides' were measured and do not predict him, so they are notes. Planted wrong "
      "cards each sent back, and red if the predictor stops BACKing his confused cards at twice the clear rate", False),
+    ('THE STAR IS THE BAR', ['python3', 'tools/bohemia_eyes_the_star_is_the_bar_10_18_26.py', '--selftest'],
+     "EYES AND EARS 10/18, row [the star is the bar], rule 115(h) (his first star, the poacher's face from the same "
+     "model: 'you might change the game with this one'): every face made after it is read beside it off the pictures "
+     "(the eyes pinned on the pupils from the lids, the light under the eyes where no hat shades it, colours, mouth "
+     "shapes, the moods, the frame in the render and in the crew screen's own square). The instrument is proved, never "
+     "trusted: the light read gives 155.5 on the rig's calibration sphere (DIRECTION 155.4), the crew screen's square "
+     "rebuilt equals all 13 hand-off files to the pixel, the star passes itself, and seven planted faces (a fifth "
+     "smaller, lit from the right, flat, one mouth, still brows, a cut hat, frozen) are each sent back on their own leg", False),
     # PLUMBER 10/18 [the orphan gates]: 62 gates other lanes wrote and never put in this table, each run
     # once and timed (records/BOHEMIA_THE_ORPHAN_GATES_10_18_26.md). Seven more drive the dead walk and are
     # TOLD_DEAD in gate_registry_gate.js, named to their lane, not run. Red rows stay red; their lane is told.

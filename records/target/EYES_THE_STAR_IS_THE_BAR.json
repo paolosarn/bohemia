@@ -1,0 +1,1811 @@
+{
+ "lane": "eyes and ears",
+ "row": "[the star is the bar]",
+ "rule": "115(h)",
+ "made": "10/18",
+ "tool": "tools/bohemia_eyes_the_star_is_the_bar_10_18_26.py",
+ "the_star": {
+  "w": 214,
+  "h": 203,
+  "painted_px": 20596,
+  "problems": [],
+  "head_px_claimed": 128,
+  "jaw": [
+   156.6,
+   139.8
+  ],
+  "lip_row": 144.1,
+  "mouth_lean_deg": 13.5,
+  "brows_and_lids_px": {
+   "Angry": 26,
+   "Sad": 7,
+   "Surprised": 52
+  },
+  "mood_px": {
+   "Angry": 143,
+   "Sad": 173,
+   "Surprised": 902
+  },
+  "eyes_from": [
+   "pupil",
+   "pupil"
+  ],
+  "pupil_contrast": [
+   29.0,
+   28.5
+  ],
+  "eyes_seen": true,
+  "eyes": [
+   [
+    119.0,
+    110.0
+   ],
+   [
+    110.0,
+    144.0
+   ]
+  ],
+  "eye_spacing_px": 35.2,
+  "eyes_to_jaw_px": 44.0,
+  "roll_deg": 14.8,
+  "skin_px": 5029,
+  "light_px": 2676,
+  "light_deg": 122.9,
+  "skin": {
+   "L": 23.7,
+   "chroma": 12.8,
+   "hue_deg": 53.9
+  },
+  "colours_rest": 11951,
+  "colours_per_1000_px": 580.3,
+  "colours_set": 16007,
+  "mouth_pairs_px": {
+   "rest-A": 953,
+   "rest-E": 328,
+   "rest-O": 878,
+   "rest-M": 70,
+   "A-E": 894,
+   "A-O": 514,
+   "A-M": 999,
+   "E-O": 760,
+   "E-M": 350,
+   "O-M": 935
+  },
+  "mouth_same_below_px": 61.9,
+  "mouth_shapes": 4,
+  "mouth_groups": [
+   "A",
+   "E",
+   "O",
+   "rest+M"
+  ],
+  "frame_cut_px": 0,
+  "screen_cut_px": 15,
+  "screen_eye_spacing_px": 28.1,
+  "who": "poacher",
+  "card": "portrait-the-poachers-face-from-the-same-model-10-18"
+ },
+ "bars": {
+  "size_band": 0.125,
+  "light_tolerance_deg": 30.0,
+  "colour_floor": 800,
+  "mood_share": 0.875,
+  "shape_k": 0.05,
+  "seen_levels": 5.0
+ },
+ "faces": [
+  {
+   "who": "you",
+   "name": "YOU",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (45 and 37 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.2 px apart against the star's 35.2 (100 percent); 28.1 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 128 degrees against the star's 123 (5 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "15,879 colours, 560 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 565/280/744 px (the star 26/7/52) and the whole face 698/448/1450 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (you)",
+   "numbers": {
+    "w": 172,
+    "h": 172,
+    "painted_px": 16435,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     122.4,
+     95.6
+    ],
+    "lip_row": 111.2,
+    "mouth_lean_deg": 13.8,
+    "brows_and_lids_px": {
+     "Angry": 565,
+     "Sad": 280,
+     "Surprised": 744
+    },
+    "mood_px": {
+     "Angry": 698,
+     "Sad": 448,
+     "Surprised": 1450
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     44.8,
+     36.9
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      86.0,
+      67.0
+     ],
+     [
+      77.0,
+      101.0
+     ]
+    ],
+    "eye_spacing_px": 35.2,
+    "eyes_to_jaw_px": 42.5,
+    "roll_deg": 14.8,
+    "skin_px": 3442,
+    "light_px": 2647,
+    "light_deg": 127.8,
+    "skin": {
+     "L": 38.0,
+     "chroma": 13.7,
+     "hue_deg": 55.0
+    },
+    "colours_rest": 9203,
+    "colours_per_1000_px": 560.0,
+    "colours_set": 15879,
+    "mouth_pairs_px": {
+     "rest-A": 873,
+     "rest-E": 296,
+     "rest-O": 719,
+     "rest-M": 72,
+     "A-E": 749,
+     "A-O": 467,
+     "A-M": 923,
+     "E-O": 628,
+     "E-M": 372,
+     "O-M": 762
+    },
+    "mouth_same_below_px": 61.9,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.1
+   }
+  },
+  {
+   "who": "cast_apron",
+   "name": "APRON",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (40 and 35 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 121 degrees against the star's 123 (2 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "11,306 colours, 464 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 548/235/764 px (the star 26/7/52) and the whole face 647/394/1393 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_apron)",
+   "numbers": {
+    "w": 168,
+    "h": 172,
+    "painted_px": 15487,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     123.7,
+     96.3
+    ],
+    "lip_row": 111.5,
+    "mouth_lean_deg": 14.4,
+    "brows_and_lids_px": {
+     "Angry": 548,
+     "Sad": 235,
+     "Surprised": 764
+    },
+    "mood_px": {
+     "Angry": 647,
+     "Sad": 394,
+     "Surprised": 1393
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     40.5,
+     35.3
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      87.0,
+      67.0
+     ],
+     [
+      77.0,
+      101.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 43.5,
+    "roll_deg": 16.4,
+    "skin_px": 3875,
+    "light_px": 2780,
+    "light_deg": 120.6,
+    "skin": {
+     "L": 26.3,
+     "chroma": 14.4,
+     "hue_deg": 53.5
+    },
+    "colours_rest": 7182,
+    "colours_per_1000_px": 463.7,
+    "colours_set": 11306,
+    "mouth_pairs_px": {
+     "rest-A": 781,
+     "rest-E": 248,
+     "rest-O": 663,
+     "rest-M": 76,
+     "A-E": 672,
+     "A-O": 424,
+     "A-M": 870,
+     "E-O": 571,
+     "E-M": 319,
+     "O-M": 728
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_barearms",
+   "name": "BAREARMS",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (32 and 23 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 116 degrees against the star's 123 (6 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "7,494 colours, 305 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 628/269/724 px (the star 26/7/52) and the whole face 689/357/1223 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_barearms)",
+   "numbers": {
+    "w": 173,
+    "h": 176,
+    "painted_px": 16266,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     129.5,
+     101.3
+    ],
+    "lip_row": 118.2,
+    "mouth_lean_deg": 12.1,
+    "brows_and_lids_px": {
+     "Angry": 628,
+     "Sad": 269,
+     "Surprised": 724
+    },
+    "mood_px": {
+     "Angry": 689,
+     "Sad": 357,
+     "Surprised": 1223
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     31.9,
+     22.8
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      91.0,
+      72.0
+     ],
+     [
+      81.0,
+      106.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 45.2,
+    "roll_deg": 16.4,
+    "skin_px": 4289,
+    "light_px": 2974,
+    "light_deg": 116.5,
+    "skin": {
+     "L": 14.5,
+     "chroma": 12.1,
+     "hue_deg": 44.1
+    },
+    "colours_rest": 4965,
+    "colours_per_1000_px": 305.2,
+    "colours_set": 7494,
+    "mouth_pairs_px": {
+     "rest-A": 672,
+     "rest-E": 179,
+     "rest-O": 532,
+     "rest-M": 34,
+     "A-E": 565,
+     "A-O": 336,
+     "A-M": 691,
+     "E-O": 439,
+     "E-M": 213,
+     "O-M": 565
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_bedroll",
+   "name": "BEDROLL",
+   "verdict": "BACK",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": false,
+     "said": "an eye has no pupil you can see (3 and 22 levels against the star's 29 and 28; 10 is the least seen)"
+    },
+    {
+     "leg": "head size",
+     "pass": null,
+     "said": "not read: one eye can not be seen, so the eyes' spacing is not measured"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 148 degrees against the star's 123 (25 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "7,597 colours, 382 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": false,
+     "said": "Angry/Sad/Surprised move the brows and lids 7/15/88 px (the star 26/7/52) and the whole face 69/122/605 px (the star 143/173/902); brows under the star in Angry; the face moves less than the star's in Angry, Sad, Surprised"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_bedroll)",
+   "numbers": {
+    "w": 206,
+    "h": 172,
+    "painted_px": 15567,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     125.6,
+     122.0
+    ],
+    "lip_row": 114.1,
+    "mouth_lean_deg": 14.3,
+    "brows_and_lids_px": {
+     "Angry": 7,
+     "Sad": 15,
+     "Surprised": 88
+    },
+    "mood_px": {
+     "Angry": 69,
+     "Sad": 122,
+     "Surprised": 605
+    },
+    "eyes_from": [
+     "lid",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     2.7,
+     22.4
+    ],
+    "eyes_seen": false,
+    "eyes": [
+     [
+      99.7,
+      89.4
+     ],
+     [
+      77.0,
+      126.0
+     ]
+    ],
+    "eye_spacing_px": 43.1,
+    "eyes_to_jaw_px": 39.9,
+    "roll_deg": 31.8,
+    "skin_px": 5245,
+    "light_px": 2679,
+    "light_deg": 148.1,
+    "skin": {
+     "L": 12.2,
+     "chroma": 11.5,
+     "hue_deg": 40.7
+    },
+    "colours_rest": 5949,
+    "colours_per_1000_px": 382.2,
+    "colours_set": 7597,
+    "mouth_pairs_px": {
+     "rest-A": 684,
+     "rest-E": 206,
+     "rest-O": 557,
+     "rest-M": 42,
+     "A-E": 588,
+     "A-O": 377,
+     "A-M": 714,
+     "E-O": 450,
+     "E-M": 234,
+     "O-M": 593
+    },
+    "mouth_same_below_px": 92.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 34.5
+   }
+  },
+  {
+   "who": "cast_cape",
+   "name": "CAPE",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (41 and 35 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 118 degrees against the star's 123 (5 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "13,368 colours, 518 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 645/266/764 px (the star 26/7/52) and the whole face 782/467/1460 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_cape)",
+   "numbers": {
+    "w": 171,
+    "h": 174,
+    "painted_px": 16640,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     125.5,
+     99.7
+    ],
+    "lip_row": 113.3,
+    "mouth_lean_deg": 14.5,
+    "brows_and_lids_px": {
+     "Angry": 645,
+     "Sad": 266,
+     "Surprised": 764
+    },
+    "mood_px": {
+     "Angry": 782,
+     "Sad": 467,
+     "Surprised": 1460
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     40.6,
+     35.0
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      89.0,
+      70.0
+     ],
+     [
+      79.0,
+      104.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 43.4,
+    "roll_deg": 16.4,
+    "skin_px": 3838,
+    "light_px": 2759,
+    "light_deg": 118.2,
+    "skin": {
+     "L": 26.6,
+     "chroma": 14.2,
+     "hue_deg": 55.3
+    },
+    "colours_rest": 8617,
+    "colours_per_1000_px": 517.8,
+    "colours_set": 13368,
+    "mouth_pairs_px": {
+     "rest-A": 869,
+     "rest-E": 326,
+     "rest-O": 755,
+     "rest-M": 86,
+     "A-E": 766,
+     "A-O": 476,
+     "A-M": 950,
+     "E-O": 664,
+     "E-M": 390,
+     "O-M": 828
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_longcoat",
+   "name": "LONGCOAT",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (32 and 23 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 118 degrees against the star's 123 (5 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "8,210 colours, 345 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 619/235/786 px (the star 26/7/52) and the whole face 681/314/1286 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_longcoat)",
+   "numbers": {
+    "w": 172,
+    "h": 172,
+    "painted_px": 16017,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     125.1,
+     96.5
+    ],
+    "lip_row": 114.1,
+    "mouth_lean_deg": 13.0,
+    "brows_and_lids_px": {
+     "Angry": 619,
+     "Sad": 235,
+     "Surprised": 786
+    },
+    "mood_px": {
+     "Angry": 681,
+     "Sad": 314,
+     "Surprised": 1286
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     32.5,
+     22.6
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      87.0,
+      67.0
+     ],
+     [
+      77.0,
+      101.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 44.9,
+    "roll_deg": 16.4,
+    "skin_px": 4170,
+    "light_px": 3000,
+    "light_deg": 117.5,
+    "skin": {
+     "L": 14.5,
+     "chroma": 12.3,
+     "hue_deg": 44.4
+    },
+    "colours_rest": 5531,
+    "colours_per_1000_px": 345.3,
+    "colours_set": 8210,
+    "mouth_pairs_px": {
+     "rest-A": 654,
+     "rest-E": 171,
+     "rest-O": 510,
+     "rest-M": 29,
+     "A-E": 560,
+     "A-O": 335,
+     "A-M": 665,
+     "E-O": 422,
+     "E-M": 204,
+     "O-M": 549
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_pack",
+   "name": "PACK",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (32 and 22 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 34.5 px apart against the star's 35.2 (98 percent); 27.6 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 127 degrees against the star's 123 (4 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "9,640 colours, 393 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 632/254/731 px (the star 26/7/52) and the whole face 697/356/1335 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_pack)",
+   "numbers": {
+    "w": 185,
+    "h": 174,
+    "painted_px": 17130,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     127.3,
+     98.7
+    ],
+    "lip_row": 116.3,
+    "mouth_lean_deg": 13.6,
+    "brows_and_lids_px": {
+     "Angry": 632,
+     "Sad": 254,
+     "Surprised": 731
+    },
+    "mood_px": {
+     "Angry": 697,
+     "Sad": 356,
+     "Surprised": 1335
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     32.5,
+     21.5
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      89.0,
+      71.0
+     ],
+     [
+      79.0,
+      104.0
+     ]
+    ],
+    "eye_spacing_px": 34.5,
+    "eyes_to_jaw_px": 44.7,
+    "roll_deg": 16.9,
+    "skin_px": 4013,
+    "light_px": 2654,
+    "light_deg": 126.9,
+    "skin": {
+     "L": 14.1,
+     "chroma": 12.3,
+     "hue_deg": 44.6
+    },
+    "colours_rest": 6733,
+    "colours_per_1000_px": 393.1,
+    "colours_set": 9640,
+    "mouth_pairs_px": {
+     "rest-A": 668,
+     "rest-E": 230,
+     "rest-O": 645,
+     "rest-M": 41,
+     "A-E": 601,
+     "A-O": 357,
+     "A-M": 695,
+     "E-O": 515,
+     "E-M": 257,
+     "O-M": 673
+    },
+    "mouth_same_below_px": 59.4,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 27.6
+   }
+  },
+  {
+   "who": "cast_poncho",
+   "name": "PONCHO",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (39 and 34 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 34.5 px apart against the star's 35.2 (98 percent); 27.6 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 132 degrees against the star's 123 (9 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "15,274 colours, 556 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 607/260/804 px (the star 26/7/52) and the whole face 755/458/1624 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_poncho)",
+   "numbers": {
+    "w": 179,
+    "h": 172,
+    "painted_px": 17130,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     123.3,
+     94.5
+    ],
+    "lip_row": 111.0,
+    "mouth_lean_deg": 15.3,
+    "brows_and_lids_px": {
+     "Angry": 607,
+     "Sad": 260,
+     "Surprised": 804
+    },
+    "mood_px": {
+     "Angry": 755,
+     "Sad": 458,
+     "Surprised": 1624
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     38.8,
+     34.5
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      87.0,
+      66.0
+     ],
+     [
+      77.0,
+      99.0
+     ]
+    ],
+    "eye_spacing_px": 34.5,
+    "eyes_to_jaw_px": 43.0,
+    "roll_deg": 16.9,
+    "skin_px": 3247,
+    "light_px": 2379,
+    "light_deg": 131.5,
+    "skin": {
+     "L": 26.0,
+     "chroma": 19.9,
+     "hue_deg": 52.0
+    },
+    "colours_rest": 9528,
+    "colours_per_1000_px": 556.2,
+    "colours_set": 15274,
+    "mouth_pairs_px": {
+     "rest-A": 952,
+     "rest-E": 354,
+     "rest-O": 839,
+     "rest-M": 72,
+     "A-E": 846,
+     "A-O": 517,
+     "A-M": 1027,
+     "E-O": 729,
+     "E-M": 425,
+     "O-M": 920
+    },
+    "mouth_same_below_px": 59.4,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 27.6
+   }
+  },
+  {
+   "who": "cast_satchel",
+   "name": "SATCHEL",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (32 and 24 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 119 degrees against the star's 123 (4 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "9,233 colours, 406 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 625/242/781 px (the star 26/7/52) and the whole face 685/344/1288 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_satchel)",
+   "numbers": {
+    "w": 172,
+    "h": 173,
+    "painted_px": 15874,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     126.4,
+     100.8
+    ],
+    "lip_row": 115.1,
+    "mouth_lean_deg": 14.1,
+    "brows_and_lids_px": {
+     "Angry": 625,
+     "Sad": 242,
+     "Surprised": 781
+    },
+    "mood_px": {
+     "Angry": 685,
+     "Sad": 344,
+     "Surprised": 1288
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     31.9,
+     23.5
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      88.0,
+      71.0
+     ],
+     [
+      78.0,
+      105.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 45.3,
+    "roll_deg": 16.4,
+    "skin_px": 4406,
+    "light_px": 2990,
+    "light_deg": 118.7,
+    "skin": {
+     "L": 15.1,
+     "chroma": 12.6,
+     "hue_deg": 44.7
+    },
+    "colours_rest": 6447,
+    "colours_per_1000_px": 406.1,
+    "colours_set": 9233,
+    "mouth_pairs_px": {
+     "rest-A": 678,
+     "rest-E": 185,
+     "rest-O": 541,
+     "rest-M": 34,
+     "A-E": 578,
+     "A-O": 356,
+     "A-M": 703,
+     "E-O": 437,
+     "E-M": 223,
+     "O-M": 584
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_shortcoat",
+   "name": "SHORTCOAT",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (41 and 32 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 109 degrees against the star's 123 (14 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "12,998 colours, 499 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 652/274/785 px (the star 26/7/52) and the whole face 783/438/1462 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_shortcoat)",
+   "numbers": {
+    "w": 177,
+    "h": 178,
+    "painted_px": 17477,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     128.7,
+     101.6
+    ],
+    "lip_row": 117.2,
+    "mouth_lean_deg": 13.7,
+    "brows_and_lids_px": {
+     "Angry": 652,
+     "Sad": 274,
+     "Surprised": 785
+    },
+    "mood_px": {
+     "Angry": 783,
+     "Sad": 438,
+     "Surprised": 1462
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     40.7,
+     32.5
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      93.0,
+      72.0
+     ],
+     [
+      83.0,
+      106.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 42.6,
+    "roll_deg": 16.4,
+    "skin_px": 3800,
+    "light_px": 2611,
+    "light_deg": 109.4,
+    "skin": {
+     "L": 24.5,
+     "chroma": 19.1,
+     "hue_deg": 51.8
+    },
+    "colours_rest": 8723,
+    "colours_per_1000_px": 499.1,
+    "colours_set": 12998,
+    "mouth_pairs_px": {
+     "rest-A": 850,
+     "rest-E": 287,
+     "rest-O": 677,
+     "rest-M": 72,
+     "A-E": 738,
+     "A-O": 431,
+     "A-M": 928,
+     "E-O": 622,
+     "E-M": 352,
+     "O-M": 750
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_shorts",
+   "name": "SHORTS",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (41 and 34 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 119 degrees against the star's 123 (4 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "12,720 colours, 533 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 610/267/721 px (the star 26/7/52) and the whole face 716/437/1349 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_shorts)",
+   "numbers": {
+    "w": 173,
+    "h": 176,
+    "painted_px": 16265,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     127.8,
+     101.0
+    ],
+    "lip_row": 115.5,
+    "mouth_lean_deg": 13.5,
+    "brows_and_lids_px": {
+     "Angry": 610,
+     "Sad": 267,
+     "Surprised": 721
+    },
+    "mood_px": {
+     "Angry": 716,
+     "Sad": 437,
+     "Surprised": 1349
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     40.6,
+     34.4
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      91.0,
+      72.0
+     ],
+     [
+      81.0,
+      106.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 43.5,
+    "roll_deg": 16.4,
+    "skin_px": 3903,
+    "light_px": 2774,
+    "light_deg": 119.1,
+    "skin": {
+     "L": 26.1,
+     "chroma": 14.1,
+     "hue_deg": 55.2
+    },
+    "colours_rest": 8664,
+    "colours_per_1000_px": 532.7,
+    "colours_set": 12720,
+    "mouth_pairs_px": {
+     "rest-A": 782,
+     "rest-E": 265,
+     "rest-O": 683,
+     "rest-M": 86,
+     "A-E": 686,
+     "A-O": 418,
+     "A-M": 867,
+     "E-O": 580,
+     "E-M": 320,
+     "O-M": 746
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_skirt",
+   "name": "SKIRT",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (39 and 35 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 35.4 px apart against the star's 35.2 (101 percent); 28.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 120 degrees against the star's 123 (2 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "13,734 colours, 532 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 599/269/807 px (the star 26/7/52) and the whole face 748/485/1557 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render and inside the crew screen's square"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_skirt)",
+   "numbers": {
+    "w": 169,
+    "h": 171,
+    "painted_px": 15991,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     122.4,
+     98.5
+    ],
+    "lip_row": 109.8,
+    "mouth_lean_deg": 16.0,
+    "brows_and_lids_px": {
+     "Angry": 599,
+     "Sad": 269,
+     "Surprised": 807
+    },
+    "mood_px": {
+     "Angry": 748,
+     "Sad": 485,
+     "Surprised": 1557
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     39.4,
+     34.6
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      86.0,
+      68.0
+     ],
+     [
+      76.0,
+      102.0
+     ]
+    ],
+    "eye_spacing_px": 35.4,
+    "eyes_to_jaw_px": 43.5,
+    "roll_deg": 16.4,
+    "skin_px": 3927,
+    "light_px": 2618,
+    "light_deg": 120.5,
+    "skin": {
+     "L": 27.1,
+     "chroma": 19.3,
+     "hue_deg": 53.3
+    },
+    "colours_rest": 8499,
+    "colours_per_1000_px": 531.5,
+    "colours_set": 13734,
+    "mouth_pairs_px": {
+     "rest-A": 925,
+     "rest-E": 337,
+     "rest-O": 793,
+     "rest-M": 94,
+     "A-E": 816,
+     "A-O": 518,
+     "A-M": 1014,
+     "E-O": 692,
+     "E-M": 415,
+     "O-M": 862
+    },
+    "mouth_same_below_px": 62.8,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 28.4
+   }
+  },
+  {
+   "who": "cast_widebrim",
+   "name": "WIDEBRIM",
+   "verdict": "BACK",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (33 and 20 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 34.5 px apart against the star's 35.2 (98 percent); 27.6 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 114 degrees against the star's 123 (8 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "11,011 colours, 403 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 346/118/316 px (the star 26/7/52) and the whole face 412/219/855 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": false,
+     "said": "the edge cuts 0 px of the head or hat in the render and 26 px in the square the crew screen draws (the star's own brim would lose 15 there)"
+    }
+   ],
+   "note": "on your crew and scavenge screens (cast_widebrim)",
+   "numbers": {
+    "w": 213,
+    "h": 200,
+    "painted_px": 20253,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     152.9,
+     123.5
+    ],
+    "lip_row": 141.9,
+    "mouth_lean_deg": 13.9,
+    "brows_and_lids_px": {
+     "Angry": 346,
+     "Sad": 118,
+     "Surprised": 316
+    },
+    "mood_px": {
+     "Angry": 412,
+     "Sad": 219,
+     "Surprised": 855
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     32.9,
+     20.0
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      115.0,
+      94.0
+     ],
+     [
+      105.0,
+      127.0
+     ]
+    ],
+    "eye_spacing_px": 34.5,
+    "eyes_to_jaw_px": 44.9,
+    "roll_deg": 16.9,
+    "skin_px": 4460,
+    "light_px": 2915,
+    "light_deg": 114.4,
+    "skin": {
+     "L": 14.3,
+     "chroma": 11.5,
+     "hue_deg": 44.0
+    },
+    "colours_rest": 8160,
+    "colours_per_1000_px": 402.9,
+    "colours_set": 11011,
+    "mouth_pairs_px": {
+     "rest-A": 685,
+     "rest-E": 197,
+     "rest-O": 588,
+     "rest-M": 38,
+     "A-E": 606,
+     "A-O": 332,
+     "A-M": 731,
+     "E-O": 483,
+     "E-M": 234,
+     "O-M": 617
+    },
+    "mouth_same_below_px": 59.4,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 26,
+    "screen_eye_spacing_px": 27.6
+   }
+  },
+  {
+   "who": "thug",
+   "name": "THUG",
+   "verdict": "PASS",
+   "legs": [
+    {
+     "leg": "eyes seen",
+     "pass": true,
+     "said": "both pupils show (39 and 30 levels darker than round them; the star 29 and 28)"
+    },
+    {
+     "leg": "head size",
+     "pass": true,
+     "said": "eyes 34.2 px apart against the star's 35.2 (97 percent); 27.4 on the crew screen's 128 box"
+    },
+    {
+     "leg": "light",
+     "pass": true,
+     "said": "lit from 128 degrees against the star's 123 (5 apart)"
+    },
+    {
+     "leg": "colours",
+     "pass": true,
+     "said": "16,792 colours, 652 per 1,000 px, against the star's 16,007 and 580 (the floor is 800)"
+    },
+    {
+     "leg": "mouth shapes",
+     "pass": true,
+     "said": "4 mouth shapes against the star's 4 (A, E, O, rest+M)"
+    },
+    {
+     "leg": "brows and lids",
+     "pass": true,
+     "said": "Angry/Sad/Surprised move the brows and lids 606/249/731 px (the star 26/7/52) and the whole face 686/386/1319 px (the star 143/173/902)"
+    },
+    {
+     "leg": "frame",
+     "pass": true,
+     "said": "the head and hat sit inside the render"
+    }
+   ],
+   "note": "made before the star (PORTRAIT round 1, the first head from the same model)",
+   "numbers": {
+    "w": 202,
+    "h": 172,
+    "painted_px": 16503,
+    "problems": [],
+    "head_px_claimed": 128,
+    "jaw": [
+     127.4,
+     120.7
+    ],
+    "lip_row": 114.8,
+    "mouth_lean_deg": 16.6,
+    "brows_and_lids_px": {
+     "Angry": 606,
+     "Sad": 249,
+     "Surprised": 731
+    },
+    "mood_px": {
+     "Angry": 686,
+     "Sad": 386,
+     "Surprised": 1319
+    },
+    "eyes_from": [
+     "pupil",
+     "pupil"
+    ],
+    "pupil_contrast": [
+     38.9,
+     29.8
+    ],
+    "eyes_seen": true,
+    "eyes": [
+     [
+      90.0,
+      93.0
+     ],
+     [
+      81.0,
+      126.0
+     ]
+    ],
+    "eye_spacing_px": 34.2,
+    "eyes_to_jaw_px": 43.3,
+    "roll_deg": 15.3,
+    "skin_px": 4057,
+    "light_px": 2813,
+    "light_deg": 128.3,
+    "skin": {
+     "L": 23.4,
+     "chroma": 12.0,
+     "hue_deg": 50.3
+    },
+    "colours_rest": 10765,
+    "colours_per_1000_px": 652.3,
+    "colours_set": 16792,
+    "mouth_pairs_px": {
+     "rest-A": 744,
+     "rest-E": 226,
+     "rest-O": 575,
+     "rest-M": 68,
+     "A-E": 622,
+     "A-O": 390,
+     "A-M": 802,
+     "E-O": 482,
+     "E-M": 269,
+     "O-M": 625
+    },
+    "mouth_same_below_px": 58.5,
+    "mouth_shapes": 4,
+    "mouth_groups": [
+     "A",
+     "E",
+     "O",
+     "rest+M"
+    ],
+    "frame_cut_px": 0,
+    "screen_cut_px": 0,
+    "screen_eye_spacing_px": 27.4
+   }
+  }
+ ],
+ "tally": {
+  "after_the_star": 13,
+  "pass": 11,
+  "back": 2
+ }
+}
