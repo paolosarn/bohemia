@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (idle holds of 400 to 500 ms, a blink on its own clock off the beat); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it (16 to 32 colours); LIGHT: one key light from above, a little left (the card, 114a); flat is out. Right and already ours: cool shadows, warm lights, 10 to 20 degrees of hue a step (114a asks 8 or more; the card's ramps). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # IDLE ROCKET HUE
 
 ## PAOLO SAID IN THIS CHAT

@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. BORDER: a character's border is one black pixel where he sees it (8/14 law, border gate); props soft, buildings 1 px dark brown (the card) (it makes the outline optional, never black, and drops it on faces). Right and already ours: the silhouette test at 1x (114a). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # SILHOUETTE TEN OUTLINE
 
 ## PAOLO SAID IN THIS CHAT

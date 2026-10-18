@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. UI: the alpha's UI is frozen at his picks (rule 28, 9/22) (cartridge plates and stuck-cartridge buttons, which also lift the show's prop); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; ENGINE: the Godot and Unity settings do not apply, the game is one HTML page (the ONE-LINK LAW). Right and already ours: no glow, no rounded candy shapes (114a). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # UI FACTORY GODOT
 
 ## PAOLO SAID IN THIS CHAT

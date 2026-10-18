@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (on twos); METHOD: every character, beast, vehicle and prop is modelled at the source and rendered through the master rig (115a 10/17); hand-drawn sprites, drawn key poses, onion skin and parts on cels are the dead roads (flat doll figures); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; COPY: CRASHBOX is the look's reference, art only (115d amended 10/18); lifting the show's own props or characters (the green clay cartridge, Eddie Bull, Captain Bones, Captain Bob) is copying, not the look (it turns whole segments, Paige and Sage, Riddlesnake, Ten 2nds, into our pieces). NUMBERS: '60 seconds' and 'season 1 only' are (recall), fan-wiki. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CRASHBOX BATCH SEGMENTS
 
 ## PAOLO SAID IN THIS CHAT

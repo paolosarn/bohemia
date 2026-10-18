@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. COPY: CRASHBOX is the look's reference, art only (115d amended 10/18); lifting the show's own props or characters (the green clay cartridge, Eddie Bull, Captain Bones, Captain Bob) is copying, not the look (its cook is 'one Eddie Bull style face, one Captain Bones style body', against its own Grok 158 line 'do not steal a specific character'); GROUND: the ground and the buildings stay on the packs (115b: his YES on the curb, the crossing, the corners, the straight-roof family); junk tiles and cartridge walls redesign both (scrap and wire tiles); LIGHT: one key light from above, a little left (the card, 114a); flat is out. NUMBERS: 'the real Candle Cove' is fan folklore (recall); Eddie Bull's real human mouth is unverified (IMDb lists Eddie Bull, voiced by Greg Eagles). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CRASHBOX ANALOG HORROR DEEPER
 
 ## PAOLO SAID IN THIS CHAT

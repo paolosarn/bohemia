@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none; the four shows (OPAL, The Shivering Truth, Don't Hug Me I'm Scared, Bump in the Night) are candidates only, which is exactly what 115d amended keeps them as. Superseded in purpose: he named CRASHBOX (Grok 160). Its line 'the rest of the analog horror game list stands' points at Grok 158, which FAILED; cite neither for that list. NUMBERS: OPAL's twelve minutes is (recall). records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # WRONG SHOW FIX
 
 ## PAOLO SAID IN THIS CHAT

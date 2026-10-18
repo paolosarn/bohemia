@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. RULINGS: it names Moral Orel as 'the look he named', which Grok 159 retracts and his word ruled out (115d amended 10/18: he named CRASHBOX), and calls Don't Hug Me I'm Scared a reference he asked for, which he never did. GAMES: its ten analog horror games are a genre study at most (115d: no game in that study becomes a reference game; the coordinator's own research page holds it), and this page offers them as the proof to cook against. Not cited. records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # ANALOG HORROR AND CLAYMATION DIRECTION
 
 ## PAOLO SAID IN THIS CHAT

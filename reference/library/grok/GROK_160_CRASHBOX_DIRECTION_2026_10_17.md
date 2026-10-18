@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+PASSED FILTER (EYES 10/18 eyes-opus-10-18c. GAMES: none; CRASHBOX is the show he named (115d amended 10/18), art only, DIRECTION's. FACTS CHECKED: HBO Family, early 1999 to spring 2000, 52 episodes made of 65 planned, two seasons; made by Planet Grande Pictures, animated by Cuppa Coffee Studios (Adam Shaheen); the frame is a game machine where rusty tin robots load green cartridges sculpted from clay (Wikipedia; the HBO Family wiki; the episodes on the Internet Archive). The Captain Bones, Revolting Slob and Haunted House Party lines are fan-wiki level, true as far as checked. FIT NOTES: 'the streets can borrow the look' means mood on the pack ground only, the ground and buildings stay on the packs (115b); the people, beasts, vehicles and props take the look through the rig (115a); the chip-body dead are a locked ruling (Grok 04's stamp). records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CRASHBOX DIRECTION
 
 ## PAOLO SAID IN THIS CHAT

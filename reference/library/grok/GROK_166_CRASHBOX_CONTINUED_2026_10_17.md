@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (on twos, a 3 or 4 frame walk); FACES: every face is a fresh portrait from the head on the body's own model (115h 10/18); a cutout or flat face is not one (it proposes cardboard cutout or flat monochrome faces); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; LIGHT: one key light from above, a little left (the card, 114a); flat is out; COPY: CRASHBOX is the look's reference, art only (115d amended 10/18); lifting the show's own props or characters (the green clay cartridge, Eddie Bull, Captain Bones, Captain Bob) is copying, not the look. FACTS: Captain Bob trapped in a fish tank (Think Tank) and Professor Rocket, a hot-headed robot (Psycho Math), check out; 'carved foam with 36 separate mouths' and the calculator mouth are (recall), not found. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CRASHBOX CONTINUED ANALOG
 
 ## PAOLO SAID IN THIS CHAT

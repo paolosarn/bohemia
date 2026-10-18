@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (12 fps, holds of 200 ms or more); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; LIGHT: one key light from above, a little left (the card, 114a); flat is out. Right: the main character is downed, never dead (9/27); a hire can still die (20 percent struck down, veterans 10, 9/27), so 'no final death' is his alone. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # DOWNED HAUNTED PALETTE
 
 ## PAOLO SAID IN THIS CHAT

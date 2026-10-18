@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. METHOD: every character, beast, vehicle and prop is modelled at the source and rendered through the master rig (115a 10/17); hand-drawn sprites, drawn key poses, onion skin and parts on cels are the dead roads (Aseprite or Pixelorama, authored by hand); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (a 3 or 4 frame walk at 100 to 150 ms); GROUND: the ground and the buildings stay on the packs (115b: his YES on the curb, the crossing, the corners, the straight-roof family); junk tiles and cartridge walls redesign both; UI: the alpha's UI is frozen at his picks (rule 28, 9/22) (cartridge plates). Right but already ours: point filter and integer scale (114a). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # STUDIO ASSET PIPELINE FROM CRASHBOX
 
 ## PAOLO SAID IN THIS CHAT

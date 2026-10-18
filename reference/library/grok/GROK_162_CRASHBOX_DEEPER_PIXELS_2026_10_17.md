@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. SIZE: the person is the 112 px box, about 100 painted (THE PERSON MAY NOT ZOOM 9/21, the numbers card) and the 32 px default is dead (NO ATARI 9/27); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it; TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (its walk is three or four frames); GROUND: the ground and the buildings stay on the packs (115b: his YES on the curb, the crossing, the corners, the straight-roof family); junk tiles and cartridge walls redesign both; UI: the alpha's UI is frozen at his picks (rule 28, 9/22); LIGHT: one key light from above, a little left (the card, 114a); flat is out. NUMBERS: 'seven to eight months for the first block' is (recall), no source found. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # CRASHBOX DEEPER PIXEL DIRECTION
 
 ## PAOLO SAID IN THIS CHAT

@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. BORDER: a character's border is one black pixel where he sees it (8/14 law, border gate); props soft, buildings 1 px dark brown (the card) (it makes outlines optional and skips them on faces); ENGINE: the Godot and Unity settings do not apply, the game is one HTML page (the ONE-LINK LAW); METHOD: every character, beast, vehicle and prop is modelled at the source and rendered through the master rig (115a 10/17); hand-drawn sprites, drawn key poses, onion skin and parts on cels are the dead roads (Aseprite sheets). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # OUTLINES ENGINE MORE CRASHBOX
 
 ## PAOLO SAID IN THIS CHAT

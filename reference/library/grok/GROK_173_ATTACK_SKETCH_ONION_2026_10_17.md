@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (anticipation 80 to 200 ms, impact 40 to 180, recovery 80 to 120, 12 fps); METHOD: every character, beast, vehicle and prop is modelled at the source and rendered through the master rig (115a 10/17); hand-drawn sprites, drawn key poses, onion skin and parts on cels are the dead roads (onion skin, smear frames drawn by hand). The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # ATTACK SKETCH ONION
 
 ## PAOLO SAID IN THIS CHAT

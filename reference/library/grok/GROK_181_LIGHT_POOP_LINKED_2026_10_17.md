@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. LIGHT: one key light from above, a little left (the card, 114a); flat is out (it says flat or one hard source, then 'the Crashbox light is flat and harsh'; its upper-left default and hard edges are right); METHOD: every character, beast, vehicle and prop is modelled at the source and rendered through the master rig (115a 10/17); hand-drawn sprites, drawn key poses, onion skin and parts on cels are the dead roads (linked cels for the body). NUMBERS: Captain Bob's 36 mouths is (recall), not found. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # LIGHT POOP LINKED
 
 ## PAOLO SAID IN THIS CHAT

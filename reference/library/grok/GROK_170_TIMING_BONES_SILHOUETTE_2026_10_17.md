@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. SIZE: the person is the 112 px box, about 100 painted (THE PERSON MAY NOT ZOOM 9/21, the numbers card) and the 32 px default is dead (NO ATARI 9/27) (it sets 32 px items, 64 px people, 128 px bosses); FACES: every face is a fresh portrait from the head on the body's own model (115h 10/18); a cutout or flat face is not one (a 128 px drawn portrait); TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (a 4 frame walk at 100 to 150 ms, 12 fps). Right and already ours: the silhouette test (one flat fill, gaps between limbs, one signature detail), 114a's silhouette field. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # TIMING BONES SILHOUETTE
 
 ## PAOLO SAID IN THIS CHAT

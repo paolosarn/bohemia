@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. DITHER: the card says never a checker dither on a surface (checkerboard or Bayer); GROUND: the ground and the buildings stay on the packs (115b: his YES on the curb, the crossing, the corners, the straight-roof family); junk tiles and cartridge walls redesign both (rusted sheets, stuck cartridges, barbed wire); PALETTE: the palettes are the family palettes cut from his 1,927 tiles, 64 colours each, and the card says never invent one; a whole-game Lospec palette (Soft & Dirty 15, Dry Sea 10, neither found on Lospec by this check) breaks it. Right: grain static across frames so it does not swim. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # TILES SHAKE DITHER
 
 ## PAOLO SAID IN THIS CHAT

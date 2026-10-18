@@ -1,5 +1,5 @@
 source: Grok, unverified, written 2026-10-17
-
+FAILED FILTER (EYES 10/18 eyes-opus-10-18c. TIMING: the body is drawn at twelve keys a bar at 120 BPM, 167 ms a key (the envelope law 9/24, the numbers card); 12 fps and holds of 80 to 150 ms are off that grid (each walk frame held 100 to 150 ms); LIGHT: one key light from above, a little left (the card, 114a); flat is out. Right and standard: contact and passing poses, feet planted, no skating. FACTS: the factory's power outages recur (a Substack retrospective of the show); the flashlight robot is unverified. The Crashbox facts that check out are in the record: records/BOHEMIA_EYES_THE_GROK_PAGES_STAMPED_MUSIC_FIRST_10_18_26.md)
 # WALK OVERLOAD GRAIN
 
 ## PAOLO SAID IN THIS CHAT
