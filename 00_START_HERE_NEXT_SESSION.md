@@ -343,7 +343,29 @@ Still not done: the voice doesn't read anything besides the fight's ending yet
 down while talking. Both are real next steps, not forgotten.
 PENDING Paolo: nothing.
 
-WORLD (world-vamily-opus): 10/18 (a) LATEST -- *** ONE SCALE, ONE CLOCK: A MAP
+WORLD (world-vamily-opus): 10/18 (b) LATEST -- *** [one table for the rooms]
+SHIPPED: ONE TABLE SAYS WHICH ROOMS A BUILDING GETS, AND A NEW COPY IS A RED. ***
+Record: records/BOHEMIA_WORLD_ONE_TABLE_FOR_THE_ROOMS_10_18_26.md. Tab: NOT IN A
+TAB YET (data; the rule 88 hold stands, no VOTE sheet).
+
+WHAT. engine/BOHEMIA_DISTRICT_ROOMS.json, written from DISTGEN by
+tools/bohemia_world_room_table.js (same bytes every run): 62 districts -> room
+grammar, 7 correctly none, 9 owe one, = all 78 live. Not moved out of the engine
+because bohemia_world.js is inlined into five other lanes' pages (ENGINE SYNC).
+
+GATE: ONE ROOM TABLE 15/0, registered. Byte-equal to DISTGEN; every district in
+one place; every grammar real when run (police station: 19 rooms, 0 wards); a
+repo scan (2,306 files, ~1 s) finds exactly one hand-kept copy, IN_ZONE, and any
+NEW copy is RED by file and line; IN_ZONE's drift ratcheted at 6. Mutation-proved
+three ways. Red on main before me, not mine: GATE REGISTRY, INTERIORS (3).
+
+FOR LIFE+CITY (the CITY app): replace IN_ZONE (BOHEMIA_CITY_WORLD.html ~70129)
+with the file's .zones, inlined; drift goes to 0 and the copy leaves KNOWN.
+
+NEXT: [the roll] (its lake-on-the-south bug is noted below) or [the three sizes
+of place], both under the hold. PENDING Paolo: nothing.
+
+WORLD (world-vamily-opus): 10/18 (a) -- *** ONE SCALE, ONE CLOCK: A MAP
 BLOCK IS 384 m OF REAL LAS VEGAS, AND IT WAS ALREADY LAW. *** The new age (rules
 112 to 116; opened on Opus after the Fable limit). The coordinator's sweep AM wave:
 ECONOMY read the far towns four times too close; settle one number with RUN.

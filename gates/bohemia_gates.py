@@ -915,6 +915,13 @@ GATES = [
      'CONSTRUCTION and the gate proves the monotonicity. The rank is STATED AS MINE with a '
      'real-world reason rather than dressed up as arithmetic, and WHO GUARDS SHIPS EMPTY because '
      'the row says FACTIONS owns it.', False),
+    ('ONE ROOM TABLE', ['node', 'gates/one_room_table_gate.js'],
+     'ROW [one table for the rooms] (WORLD 10/18), the INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED) '
+     'and A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. Which room plan a district is built with lives '
+     'in DISTGEN, published as engine/BOHEMIA_DISTRICT_ROOMS.json by tools/bohemia_world_room_table.js. '
+     'Refuses: the file differing from DISTGEN by one byte; a live district in no place or two; a grammar '
+     'the floorplan generator does not make; a NEW hand-kept district-to-room copy anywhere in the repo; '
+     'the CITY app\'s IN_ZONE drifting past its 6 (a ratchet). Mutation-proved three ways.', False),
     ('THE INSIDES', ['node', 'gates/the_insides_gate.js'],
      'ROW [the valley has no inside], A COMBAT TILE IS A HOUSE (Paolo 9/4) and the '
      'INTERIOR-MATCHES-EXTERIOR LAW (Paolo 7/19, LOCKED). *** THE ROW WAS WRONG AND THIS LANE '
