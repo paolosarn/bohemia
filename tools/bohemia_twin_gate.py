@@ -59,7 +59,8 @@ REGISTRY = os.path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json')
 FAMILIES = ('door', 'ground', 'lamp', 'marking', 'prop', 'road', 'settlement')
 SCRAMBLE_SEEDS = (1, 2, 3)
 SCRAMBLE_BLOCK = 8
-SCRAMBLE_HELD = ('pixel',)
+SCRAMBLE_HELD = ()   # measured 10/18 run 39156939522: held at his YES margin it passed the shuffled car and failed his own ground tiles
+STRUCTURE_SCALES = (1, 6, 8, 16)
 PAINTER_EPS = {'col_kpx': 1.0, 'value_range': 2.0, 'dark_line': 0.005, 'detail': 0.5, 'sat': 0.02}
 RATIO_LINE = (0.33, 3.0)
 
@@ -294,7 +295,10 @@ def scramble(a, seed, block=1):
     out = a.copy()
     if h and w:
         sq = a[:h, :w].reshape(h // block, block, w // block, block, -1).swapaxes(1, 2).reshape(-1, block, block, a.shape[-1])
-        sq = sq[rng.permutation(len(sq))]
+        perm = rng.permutation(len(sq))
+        if len(sq) > 1 and (perm == np.arange(len(sq))).all():
+            perm = np.roll(perm, 1)   # a shuffle that put every square back is no scramble (a 2 x 2 box can draw it)
+        sq = sq[perm]
         out[:h, :w] = sq.reshape(h // block, w // block, block, block, -1).swapaxes(1, 2).reshape(h, w, -1)
     return out
 
@@ -311,6 +315,20 @@ def look_scramble(cells, et):
     med = lambda v: float(np.median(v))
     return {'cos': round(med(ct), 4), 'pixel': round(med(cp), 4), 'block': round(med(cb), 4),
             'gap_pixel': round(med(ct) - med(cp), 4), 'gap_block': round(med(ct) - med(cb), 4)}
+
+
+def look_structure(cells):
+    """each cell against ITSELF scrambled: the LOOK cosine between the picture and the most alike of three scrambles of
+    itself at each scale (1: every pixel moved; k: k x k squares shuffled); medians over the cells. A picture that
+    reads like its own scramble has no arrangement to lose: it is a texture, or it is squares already shuffled."""
+    out = {}
+    for k in STRUCTURE_SCALES:
+        v = []
+        for c in cells:
+            e = look_embed(c)
+            v.append(max(float(look_embed(scramble(c, s, k)) @ e) for s in SCRAMBLE_SEEDS))
+        out['self_%d' % k] = round(float(np.median(v)), 4)
+    return out
 
 
 def measured_cells(path, twin_arr):
@@ -363,7 +381,7 @@ def scramble_lines(log=print):
         cells = measured_cells(os.path.join(ROOT, y['sprite']), tw)
         if not cells:
             continue
-        rows.append(dict(y, **look_scramble(cells, look_embed(tw))))
+        rows.append(dict(y, **look_scramble(cells, look_embed(tw)), **look_structure(cells)))
     # he voted on the ITEM, not on each sprite in it: an item's gap is the median of its sprites' (the 10/18 rig
     # round five card names one car as the twin of a robot, a truck and a drum; his YES was the card, not 'a drum
     # is a car'), and the margin is the weakest YES item's, per family of its twin and over all
@@ -372,7 +390,9 @@ def scramble_lines(log=print):
         items.setdefault(r['id'], []).append(r)
     per = [{'id': i, 'family': rs[0]['family'], 'sprites': len(rs),
             'gap_pixel': round(float(np.median([r['gap_pixel'] for r in rs])), 4),
-            'gap_block': round(float(np.median([r['gap_block'] for r in rs])), 4)} for i, rs in items.items()]
+            'gap_block': round(float(np.median([r['gap_block'] for r in rs])), 4),
+            **{'self_%d' % k: round(float(np.median([r['self_%d' % k] for r in rs])), 4) for k in STRUCTURE_SCALES}}
+           for i, rs in items.items()]
     margin = {'pixel': {}, 'block': {}}
     for k in margin:
         for fam in sorted({x['family'] for x in per}) + ['all']:
@@ -382,14 +402,16 @@ def scramble_lines(log=print):
     log('  THE SCRAMBLE (the margin from his YES): %d sprites in %d YES items; the weakest item per family, pixel %s, block %s'
         % (len(rows), len(per), margin['pixel'], margin['block']))
     for x in sorted(per, key=lambda x: x['gap_pixel']):
-        log('     item %-44s %-10s %2d sprites  gap pixel %+.3f  block %+.3f' % (
-            x['id'][:44], x['family'], x['sprites'], x['gap_pixel'], x['gap_block']))
+        log('     item %-44s %-10s %2d sprites  gap pixel %+.3f  block %+.3f  itself scrambled at 1/6/8/16 px %s' % (
+            x['id'][:44], x['family'], x['sprites'], x['gap_pixel'], x['gap_block'],
+            '/'.join('%.3f' % x['self_%d' % k] for k in STRUCTURE_SCALES)))
     for r in sorted(rows, key=lambda r: r['gap_pixel']):
         log('     %-46s %-58s cos %.3f  pixel %.3f (gap %+.3f)  block %.3f (gap %+.3f)' % (
             r['id'][:46], r['sprite'][-58:], r['cos'], r['pixel'], r['gap_pixel'], r['block'], r['gap_block']))
     return {'seeds': list(SCRAMBLE_SEEDS), 'block': SCRAMBLE_BLOCK, 'held': list(SCRAMBLE_HELD), 'margin': margin,
             'items': sorted(per, key=lambda x: x['gap_pixel']),
-            'yes': [{k: r[k] for k in ('id', 'sprite', 'family', 'cos', 'pixel', 'block', 'gap_pixel', 'gap_block')} for r in rows]}
+            'yes': [{k: r[k] for k in ('id', 'sprite', 'family', 'cos', 'pixel', 'block', 'gap_pixel', 'gap_block')
+                     + tuple('self_%d' % s for s in STRUCTURE_SCALES)} for r in rows]}
 
 
 # ---- at the twin's pixel size ---------------------------------------------------------------------------

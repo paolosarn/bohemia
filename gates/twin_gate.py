@@ -60,15 +60,17 @@ where LOOK joins the verdict like any ruler and these legs hold:
       family the margin (tools/bohemia_twin_gate.py scramble_lines). At least five items.
   S2  EVERY YES ITEM PASSES IT through the score itself (the calibration and the verdict read the same); the
       YES sprites under the margin on their own are printed (a drum named against a car).
-  S3  IT TELLS A CAR FROM SCRAMBLED SQUARES: his car cut into 8 px blocks and shuffled is RED on the scramble
-      against his car (the 10/18 finding: every other ruler passed it GREEN); his car turned the other way
-      passes. Printed beside it: a road tile, a door and a lamp named as his car's twin, his cars pack's other
-      pieces against his car, his NO pieces, and the 8 px block scramble's own reading.
+  S3  his car turned the other way passes the scramble. PRINTED, NOT HELD (run 39156939522, the finding): at his
+      YES margin the twin scramble passed his car cut into 8 px squares and shuffled (gap +0.091 against +0.029)
+      and failed 10 of 80 pairs of his own ground tiles, so it holds nothing; beside it STRUCTURE (each picture
+      against itself scrambled at 1, 6, 8 and 16 px) prints for his cars, his YES items, the attacks and his
+      tiles, with a road tile, a door and a lamp named as his car's twin, his cars pack's other pieces and his
+      NO pieces.
   L4  THE LINES AGREE ACROSS BOXES: the runner's COLOUR, PATTERN, PAINTER, SHAPE and GRID lines equal the
       committed ones (only when $BOHEMIA_TWIN_COMMITTED_CAL names the committed copy; the workflow sets it).
 
 RED CASE: T2's planted flat tile, fractional upscale and noise, T3's planted registry row and L0's planted
-tracked export, every run; S0's planted colour change; on the runner L3's noise and S3's shuffled car.
+tracked export, every run; S0's planted colour change; on the runner L3's noise.
 
   python3 gates/twin_gate.py
 """
@@ -340,6 +342,37 @@ def s0():
        sq(bl) == sq(car) and not np.array_equal(bl, car) and np.array_equal(key(bl), key(car)))
 
 
+def structure_lines(cal, d, car, paths):
+    """PRINTED, NOT HELD: STRUCTURE, each picture against itself scrambled at 1, 6, 8 and 16 px (the cosine to the most
+    alike of three scrambles of itself; high means it has no arrangement to lose). The numbers a held line would come
+    from: his cars, his YES items, the attacks, a road tile, a door, a lamp and his ground tiles."""
+    tw = TG.rgba(car)
+    rd = lambda fs: TG.look_structure(TG.measured_cells(fs, tw))
+    fmt = lambda r: '/'.join('%.3f' % r['self_%d' % k] for k in TG.STRUCTURE_SCALES)
+    a = TG.rgba(car).astype(np.uint8)
+    ys, xs = np.nonzero(a[..., 3] >= 128)
+    a = a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    for k in (6, 16):
+        p = os.path.join(d, 'car_shuffled_%d.png' % k)
+        Image.fromarray(TG.scramble(a, 7, k).astype(np.uint8), 'RGBA').save(p)
+        paths['shuffle_%d' % k] = p
+    print('  --   STRUCTURE (itself scrambled at %s px, the cosine to the most alike scramble; high = nothing to lose):' % '/'.join(map(str, TG.STRUCTURE_SCALES)))
+    for what, f in (('his car cut into 8 px blocks and shuffled', paths['shuffle']), ('his car cut into 6 px blocks and shuffled', paths['shuffle_6']),
+                    ('his car cut into 16 px blocks and shuffled', paths['shuffle_16']), ('his car', car),
+                    ('a road tile', TG.pack_pieces('road')[0]), ('a door', TG.pack_pieces('door')[0]), ('a lamp', TG.pack_pieces('lamp')[0])):
+        print('  --     %-44s %s' % (what, fmt(rd(f))))
+    sib = [f for f in TG.pack_pieces('prop') if TG.pack_of(f) == TG.pack_of(car)]
+    rs = [rd(f) for f in sib]
+    print('  --     his cars pack, %d pieces: highest %s, median %s' % (len(rs), '/'.join('%.3f' % max(r['self_%d' % k] for r in rs) for k in TG.STRUCTURE_SCALES),
+                                                                        '/'.join('%.3f' % float(np.median([r['self_%d' % k] for r in rs])) for k in TG.STRUCTURE_SCALES)))
+    gs = [rd(f) for f in TG.pack_pieces('ground')[:12]]
+    print('  --     his ground tiles, 12: lowest %s, median %s' % ('/'.join('%.3f' % min(r['self_%d' % k] for r in gs) for k in TG.STRUCTURE_SCALES),
+                                                                   '/'.join('%.3f' % float(np.median([r['self_%d' % k] for r in gs])) for k in TG.STRUCTURE_SCALES)))
+    for x in (cal.get('look') or {}).get('scramble', {}).get('items', []):
+        if 'self_1' in x:
+            print('  --     YES item %-40s %s' % (x['id'][:40], '/'.join('%.3f' % x['self_%d' % k] for k in TG.STRUCTURE_SCALES)))
+
+
 def scramble_legs(cal, d, car, paths, rm):
     S = (cal.get('look') or {}).get('scramble') or {}
     yes = S.get('yes') or []
@@ -358,16 +391,20 @@ def scramble_legs(cal, d, car, paths, rm):
             under.append('%s (%s, gap %+.3f)' % (os.path.relpath(y['sprite'], 'records/target'), y['id'], sc.get('gap_pixel')))
     m = S['margin']['pixel']
     fam = {x['id']: x['family'] for x in S.get('items', [])}
-    fails = [i for i, g in by.items() if float(np.median(g)) < m.get(fam.get(i), m['all']) - 1e-9]
+    fails = [i for i, g in by.items() if round(float(np.median(g)), 4) < m.get(fam.get(i), m['all']) - 1e-9]
     ok('S2 every YES item passes the scramble through the score itself, on the median of its sprites (%d of %d)' % (
         len(by) - len(fails), len(by)), by and not fails, ', '.join(fails))
     print('  --   YES sprites under the margin on their own (%d of %d; the item passed, the sprite would be RED as a new '
           'piece): %s' % (len(under), len(yes), '; '.join(under[:8]) or 'none'))
     rs = TG.score(paths['shuffle'], car, 'prop', cal)
     sc = rs['rulers']['look'].get('scramble') or {}
-    ok('S3 his car cut into 8 px blocks and shuffled is RED on the scramble (cos %s against %s scrambled, gap %s, margin %s; '
-       'verdict %s)' % (sc.get('cos'), sc.get('pixel'), sc.get('gap_pixel'), sc.get('margin_pixel'), rs['verdict']),
-       sc.get('ok_pixel') is False and rs['verdict'] == 'RED', json.dumps(sc))
+    # THE FINDING, run 39156939522: held at his YES margin the twin scramble PASSED the shuffled car (gap +0.091 against
+    # the props' +0.029) and FAILED 10 of 80 pairs of his own ground tiles (a texture scrambled is still a texture to
+    # DINOv2, nearer another tile than the tile itself); so it is printed, not held (SCRAMBLE_HELD), and STRUCTURE below
+    # is measured beside it
+    print('  --   S3 THE TWIN SCRAMBLE, PRINTED NOT HELD: his car cut into 8 px blocks and shuffled reads gap %+.3f against '
+          'his YES margin %+.3f (%s; verdict %s)' % (sc.get('gap_pixel'), sc.get('margin_pixel'),
+                                                    'it would pass' if sc.get('ok_pixel') else 'it would fail', rs['verdict']))
     sm = rm['rulers']['look'].get('scramble') or {}
     ok('S3 his car turned the other way passes the scramble (gap %s, margin %s)' % (sm.get('gap_pixel'), sm.get('margin_pixel')),
        sm.get('ok_pixel') is True, json.dumps(sm))
@@ -393,6 +430,7 @@ def scramble_legs(cal, d, car, paths, rm):
                 p = os.path.join(ROOT, sp)
                 if os.path.isfile(p):
                     nos.append((it['id'], sp, TG.score(p, t, None, cal, it.get('class'))['rulers'].get('look', {}).get('scramble')))
+    structure_lines(cal, d, car, paths)
     print('  --   SCRAMBLE on his NO pieces (%d sprites): %s' % (len(nos), '; '.join(
         '%s %s %s' % (i, os.path.basename(sp), fmt(sc)) for i, sp, sc in nos if sc) or 'none name a pack twin and sprites'))
 
