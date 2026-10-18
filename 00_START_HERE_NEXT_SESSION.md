@@ -27,34 +27,41 @@ VOTE cook-fight-props-through-the-rig-10-18. He owns NO shopping cart in 294 pac
 black rubber and bin bags pale from above (third lane to hit it); a per-material dust scale is the fix, the rig is yours.
 Blender: python3.11 venv + bpy==4.2.0 installs in ~1 min; bpy segfaults on exit AFTER writing, harmless.
 Record records/BOHEMIA_COOK_FIGHT_PROPS_THROUGH_THE_RIG_10_18_26.md. NEXT: the next OPEN row on the board (the coordinator writes it).
-DIRECTION (direction-vamily-10-18-opus2): 10/18 LATEST -- [the truck turned up] SHIPPED (his fourteenth votes: YES on rig round five, 'the truck
-looks a little too much like a play toy, turn it up'; rules 112 to 117; the coordinator opened this chat, no check-in, this block is the report).
-READBACK: I read [the truck turned up] as: take the toy's tells out of the RECIPE (guide + rig), re-render, before and after in VOTE. Done.
-TAB: VOTE, direction-the-truck-turned-up-10-18 (redo of round five's card). Record: records/BOHEMIA_THE_TRUCK_TURNED_UP_10_18_26.md.
-THE FOUR TELLS, each a rig key in records/target/BOHEMIA_STYLE_GUIDE.json: SHAPE first (Kenney's truck 1.87 long:wide, 1.8 long:tall on wheels a
-sixth of its length; now a real pickup's 2.72 and 2.86, 0.75 m tyres, in tools/bohemia_direction_model_truck.py REAL; the rig's --real-dims L,W,H
-records it, gates/style_guide_gate.py refuses a toy's proportions, proportion_tolerance 0.12); SHINE (roughness 1, specular 0); NEW PAINT
-(paint_sat_mul 0.85, bleach_up 0.15; a first try at 0.72/0.3 went cream, saturation 0.29, thrown out); PERFECT EDGE (chips within edge_m 5 cm,
-chip_per_m 9, chip_mul dark undercoat; dent_m 2.5 cm at 2 a metre after a simple subdivision, before the armature on a skinned body).
-MEASURED (S): truck saturation 0.415 -> 0.316, card 0 of 8 both; robot through the same recipe 0 of 8, still itself; D6/D8 red on all incl. his packs
-(PLUMBER, unchanged). The 'shine' number did not move (51.6 -> 53.4: it reads pale lit faces, not a spot); said so in the record.
-FILES: tools/bohemia_direction_master_rig.py RIG_ROUND 6 (source pass, dent_pass, --real-dims); tools/bohemia_direction_the_truck_turned_up.py
-(report + sheet) -> records/target/direction_the_truck_turned_up/; guide fields 7, 10, 11, 17 (A TOY) and one decision line; the gate's keys.
-FOR RUN (rule 115g): the demo's map truck is round five's; round six's truck/rig_*.png is the drop-in once he thumbs it.
-FOR EVERY ART LANE: every rig render now carries the four rules with no flag; a vehicle or prop passes --real-dims; people keep puppet proportions.
-NEXT: [the rig round six] (the robot's clips under the new recipe, the head's hole, PLUMBER's answer on D6/D7/D8, the first runway body).
-GATES: STYLE GUIDE 58/0, REFERENCE CHECK 490/0; NOT VIBE CODED 26/1 (N3 from character and cook cards naming no sprites); VOTE TAB my card clean,
-two DYNASTY no-where FAILs pre-existing. Blender: bpy 4.2 in a py3.11 venv in the scratchpad (segfaults at exit after writing, harmless).
+DIRECTION (direction-vamily-10-18-opus3): 10/18 LATEST -- [the rig round six] SHIPPED 46737f94 (his YES on rig round five, 'the robot
+finished by hand', opened it; rules 112 to 117; the coordinator opened this chat, no check-in, this block is the report).
+READBACK: I read [the rig round six] as: the robot's idle and walk in eight under the recipe, the hold check measured, the head's hole
+named, PLUMBER's D6/D7/D8 into the guide, CHARACTER's first runway body beside the robot at 1:1 in VOTE. Done.
+TAB: VOTE, direction-the-rig-round-six-10-18 (a page: the robot's idle and walk and the Mob's walk, eight facings, on the beat, 1:1).
+Record: records/BOHEMIA_THE_RIG_ROUND_SIX_THE_CLIPS_AND_THE_FIRST_RUNWAY_BODY_10_18_26.md.
+THE HOLD (research D9, R12): a part drifting a fifth of a pixel resampled its grain, the idle boiled (10.88 percent visibly outside the
+moving parts). RIG ROUND 7: a rigid part under hold_px 0.5 since its last drawn pose keeps it; a skinned part is drawn as a frozen copy of
+its last drawn shape; a whole hold repeats the key before (renders are bit-identical, measured); the movers' light (white clay with and
+without the movers) counts their shadow and bounce as motion. Result: 0.28 percent visible at worst (bar 3), exact 10.55, no dropout.
+Guide: rig keys hold_px, light_mask_samples, light_mask_values, wear_by_material; field 15 hold_check; tests D6 to D9; two decisions.
+THE HOLE: the head is 29 welded pieces; the ray through each hole pixel slips between the shell and a black side plate 1 to 2 cm proud of
+it (NW, NE): the model's design; seating the plates waits on his word (the robot is the bar he loved).
+THE BODY: the Mob (charcoal mantle, pinstripe, cropped trousers, stacked soles), not the Anarchists: their coat renders PURPLE (accent
+#c026a0; PURPLE RESERVATION). The dust no longer greys hair (wear_by_material: hair 0.15, skin 0.25, eyes 0). Cards: robot 0 of 8,
+Mob 1 of 8 (value span 102). D8: robot 283.8, Mob 245.3, both inside the packs' 284.8.
+FOR RUN (rule 115g): the robot's idle and walk are on disk in eight: records/target/direction_rig_round_six/robot/rig_{Idle|Walking}_<F>_kNN.png
+with shadow_ layers, one crop box (ground_px in rig.json); the drop-in once the card passes.
+FOR PORTRAIT: skin and eyes are off the dust and chips now and --class portrait no longer crashes; your crew renders at --wear 0.45 are
+the 13 reds of THE STYLE GUIDE GATE (a break outside a dont_ folder): re-render at the guide's wear and they go green.
+FOR CHARACTER: the Anarchists' coat is purple (the runway accent); their territory is a brown leather #513a27.
+GATES: STYLE GUIDE 87 passed / 13 failed (PORTRAIT's 13, on main before me); REFERENCE CHECK 494/0; NOT VIBE CODED 29/1 (N3 on
+other lanes' cards, mine passes); VOTE TAB 38/1 (DYNASTY's two whys). Full suite unmeasured (rule 13). Blender: bpy 4.2, py3.11 venv.
+NEXT: [fight verdict 24] is the next OPEN row on my board; the ear plates on the robot after his word.
 ART LEAD LINES (rule 113a, from their newest commits):
-- COOK: [the fight props through the rig] SHIPPED 11928908 (barrier, dumpster, cart, tyres beside his pack tiles) in VOTE. COOKING.
-- COOK TWO: [the same crossing before and after] held out of VOTE by N3 (9ec55d2); the ground stays on the packs. STUCK (on the cull).
-- COOK THREE: [the poacher's body again] SHIPPED, remade under the starred face, in VOTE. COOKING.
-- COOK FOUR: [the six buildings from the packs] the school under the straight roof in VOTE. COOKING.
-- PORTRAIT: [every face from the same model] CLAIMED (rule 115h, the first star). COOKING.
-- ANIMATION: [the beasts through the rig] round two, the feral dog pack, CLAIMED. COOKING.
-- CHARACTER: [the walk of every look] SHIPPED 02d1f0f, fourteen looks walking in eight facings, in VOTE. COOKING.
-[bb Battle Brothers draws its carts and wagons at real proportions under painted wear, never a new toy; the same rule here at true size.]
-[analog horror: a toy is clean and new and nothing in a dead city is; the truck now looks left in the sun for ten years.]
+- COOK: [the block war's cover] the container and the propane tank through the rig in VOTE; [the empty terrains' cover] CLAIMED. COOKING.
+- COOK TWO: [the street joins for the map] SHIPPED 2f04f642 in VOTE; [the curb on the map] CLAIMED. COOKING.
+- COOK THREE: [the tiers through the rig] round 4, the raider, SHIPPED 90afb0c in VOTE. COOKING.
+- COOK FOUR: [the six buildings from the packs] the church in VOTE (9e59d37); [the second pass] CLAIMED. COOKING.
+- PORTRAIT: [every face from the same model] the crew's 13 modelled heads (eb12c4a2), round 2 on; 13 gate reds at --wear 0.45. COOKING.
+- ANIMATION: [the beasts through the rig] round three, the whole pack in VOTE, held like stop-motion (70b30075). COOKING.
+- CHARACTER: [the barber on the skull] SHIPPED cac46f42 in VOTE; the Anarchists' purple coat routed. COOKING.
+[bb Battle Brothers draws its men as still paper-doll pieces between moves, so nothing on them shimmers; ours animate, so the bar is the
+same stillness: a part that is not moving never changes a pixel.]
+[analog horror: a stop-motion puppet moves only where a hand moved it and holds dead still everywhere else; the rig now holds the same way.]
 [PENDING Paolo]: none.
 
 

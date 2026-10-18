@@ -4516,3 +4516,33 @@ blend [UNBUILT]; the 8/1 law says BUILT 8/1/26 (a density ramp in the
 same texSkip that draws a cornrow). Stale line in the file every session
 reads first — fixed, and the four fades are held by the E/W defect like
 everything else, not by the fade.
+
+DIRECTION (direction-vamily-10-18-opus2): 10/18 LATEST -- [the truck turned up] SHIPPED (his fourteenth votes: YES on rig round five, 'the truck
+looks a little too much like a play toy, turn it up'; rules 112 to 117; the coordinator opened this chat, no check-in, this block is the report).
+READBACK: I read [the truck turned up] as: take the toy's tells out of the RECIPE (guide + rig), re-render, before and after in VOTE. Done.
+TAB: VOTE, direction-the-truck-turned-up-10-18 (redo of round five's card). Record: records/BOHEMIA_THE_TRUCK_TURNED_UP_10_18_26.md.
+THE FOUR TELLS, each a rig key in records/target/BOHEMIA_STYLE_GUIDE.json: SHAPE first (Kenney's truck 1.87 long:wide, 1.8 long:tall on wheels a
+sixth of its length; now a real pickup's 2.72 and 2.86, 0.75 m tyres, in tools/bohemia_direction_model_truck.py REAL; the rig's --real-dims L,W,H
+records it, gates/style_guide_gate.py refuses a toy's proportions, proportion_tolerance 0.12); SHINE (roughness 1, specular 0); NEW PAINT
+(paint_sat_mul 0.85, bleach_up 0.15; a first try at 0.72/0.3 went cream, saturation 0.29, thrown out); PERFECT EDGE (chips within edge_m 5 cm,
+chip_per_m 9, chip_mul dark undercoat; dent_m 2.5 cm at 2 a metre after a simple subdivision, before the armature on a skinned body).
+MEASURED (S): truck saturation 0.415 -> 0.316, card 0 of 8 both; robot through the same recipe 0 of 8, still itself; D6/D8 red on all incl. his packs
+(PLUMBER, unchanged). The 'shine' number did not move (51.6 -> 53.4: it reads pale lit faces, not a spot); said so in the record.
+FILES: tools/bohemia_direction_master_rig.py RIG_ROUND 6 (source pass, dent_pass, --real-dims); tools/bohemia_direction_the_truck_turned_up.py
+(report + sheet) -> records/target/direction_the_truck_turned_up/; guide fields 7, 10, 11, 17 (A TOY) and one decision line; the gate's keys.
+FOR RUN (rule 115g): the demo's map truck is round five's; round six's truck/rig_*.png is the drop-in once he thumbs it.
+FOR EVERY ART LANE: every rig render now carries the four rules with no flag; a vehicle or prop passes --real-dims; people keep puppet proportions.
+NEXT: [the rig round six] (the robot's clips under the new recipe, the head's hole, PLUMBER's answer on D6/D7/D8, the first runway body).
+GATES: STYLE GUIDE 58/0, REFERENCE CHECK 490/0; NOT VIBE CODED 26/1 (N3 from character and cook cards naming no sprites); VOTE TAB my card clean,
+two DYNASTY no-where FAILs pre-existing. Blender: bpy 4.2 in a py3.11 venv in the scratchpad (segfaults at exit after writing, harmless).
+ART LEAD LINES (rule 113a, from their newest commits):
+- COOK: [the fight props through the rig] SHIPPED 11928908 (barrier, dumpster, cart, tyres beside his pack tiles) in VOTE. COOKING.
+- COOK TWO: [the same crossing before and after] held out of VOTE by N3 (9ec55d2); the ground stays on the packs. STUCK (on the cull).
+- COOK THREE: [the poacher's body again] SHIPPED, remade under the starred face, in VOTE. COOKING.
+- COOK FOUR: [the six buildings from the packs] the school under the straight roof in VOTE. COOKING.
+- PORTRAIT: [every face from the same model] CLAIMED (rule 115h, the first star). COOKING.
+- ANIMATION: [the beasts through the rig] round two, the feral dog pack, CLAIMED. COOKING.
+- CHARACTER: [the walk of every look] SHIPPED 02d1f0f, fourteen looks walking in eight facings, in VOTE. COOKING.
+[bb Battle Brothers draws its carts and wagons at real proportions under painted wear, never a new toy; the same rule here at true size.]
+[analog horror: a toy is clean and new and nothing in a dead city is; the truck now looks left in the sun for ten years.]
+[PENDING Paolo]: none.
