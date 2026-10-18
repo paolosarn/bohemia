@@ -1,0 +1,203 @@
+{
+ "cell": [
+  112,
+  112
+ ],
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "rows": {
+  "N": 0,
+  "NE": 1,
+  "E": 2,
+  "SE": 3,
+  "S": 4,
+  "SW": 5,
+  "W": 6,
+  "NW": 7
+ },
+ "ground_y": 53,
+ "ground_x": 49,
+ "clips": [
+  {
+   "name": "idle",
+   "rig_clip": "Survey",
+   "col": 0,
+   "keys": 12,
+   "beats": 4,
+   "holds": [
+    1,
+    1,
+    1,
+    1,
+    5,
+    1,
+    1,
+    1,
+    5,
+    1,
+    1,
+    5
+   ],
+   "slots": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    6,
+    7,
+    8,
+    8,
+    8,
+    8,
+    8,
+    9,
+    10,
+    11,
+    11,
+    11,
+    11,
+    11
+   ],
+   "slot_ms": 83.33,
+   "stillness": [
+    0.2393,
+    0.3284,
+    0.339,
+    0.2642,
+    0.2213,
+    0.2732,
+    0.2303,
+    0.155,
+    0.1428,
+    0.1935,
+    0.2521,
+    0.2103
+   ],
+   "hold_rule": "its three stillest poses a beat apart (keys 4, 8, 11) held 5 slots (417 ms), every other key one slot"
+  },
+  {
+   "name": "step",
+   "rig_clip": "Walk",
+   "col": 12,
+   "keys": 6,
+   "beats": 2,
+   "holds": [
+    3,
+    2,
+    1,
+    1,
+    2,
+    3
+   ],
+   "slots": [
+    0,
+    0,
+    0,
+    1,
+    1,
+    2,
+    3,
+    4,
+    4,
+    5,
+    5,
+    5
+   ],
+   "slot_ms": 83.33,
+   "stillness": [
+    0.4325,
+    0.4443,
+    0.5172,
+    0.5377,
+    0.5289,
+    0.4966
+   ],
+   "hold_rule": "per beat by stillness: the stillest key 3 slots, the next 2, the quickest 1"
+  },
+  {
+   "name": "bite",
+   "rig_clip": "Bite",
+   "col": 18,
+   "keys": 6,
+   "beats": 2,
+   "holds": [
+    3,
+    2,
+    1,
+    2,
+    1,
+    3
+   ],
+   "slots": [
+    0,
+    0,
+    0,
+    1,
+    1,
+    2,
+    3,
+    3,
+    4,
+    5,
+    5,
+    5
+   ],
+   "slot_ms": 83.33,
+   "stillness": [
+    0.2298,
+    0.6452,
+    0.6889,
+    0.584,
+    0.5669,
+    0.2564
+   ],
+   "hold_rule": "by its authored poses: rest 3, crouch 2, spring 1, the bite 2 on the second beat, recovery 1, settle 3"
+  }
+ ],
+ "slots_per_beat": 6,
+ "rig_round": 7,
+ "game_wolf": {
+  "row": 8,
+  "ground_y": 102,
+  "clips": [
+   {
+    "name": "idle",
+    "col": 0,
+    "keys": 12,
+    "beats": 4
+   },
+   {
+    "name": "step",
+    "col": 12,
+    "keys": 6,
+    "beats": 2
+   }
+  ]
+ },
+ "bpm": 120,
+ "keys_per_beat": 3,
+ "ppm": 57.0,
+ "real_length_m": 1.4,
+ "model": "reference/models/bohemia/feral_dog_shepherd.glb",
+ "palette": 16,
+ "colours_before": 41845,
+ "colours_after": 16,
+ "sprite_px": [
+  98,
+  99
+ ]
+}

@@ -18,6 +18,10 @@ Usage: python3 tools/bohemia_animation_the_beast_in_eight_bake.py [rig dir] [gam
   --name the output stem under slices/vote (default ANIMATION_THE_BEAST_IN_EIGHT); --title the beast's name on the proof
   sheet (default THE DIRE WOLF; the feral dog pack, 10/18, bakes three); --beside adds that rig's eight stills as
   a row on the proof sheet (the wolf redone, 10/18, sits beside the fox he named and the grey one he said NO to).
+THE HOLDS (10/18, round three of [the beasts through the rig]; rule 115(d), CRASHBOX; Grok 170 to 177; the style guide's
+field 15): every clip in the table carries its holds, whole twelfths of a second per drawn key (6 a beat), summing to
+its beats at 120, and the slot-by-slot key list a page or the engine plays; the proof sheet labels each key with its
+hold. The keys are the rig's, unchanged: a hold repeats a key, it never adds one.
 """
 import os, sys, json, glob
 import numpy as np
@@ -74,6 +78,57 @@ def snap(im):
 
 
 snapped = {k: [snap(im) for im in ims] for k, ims in all_frames.items()}
+
+
+# THE HOLDS (10/18, ANIMATION round three; rule 115(d) amended, CRASHBOX: held stop-motion poses, stiffness as the point;
+# Grok 170, 172, 173, 174: frame duration is the secret, holds over tweens, 12 a second; the style guide's field 15:
+# 'holds: declared per clip, a hold repeats the previous key's render'). Every clip keeps its beats at 120; inside them
+# each drawn key is shown for whole SLOTS of 1/12 s (6 a beat, 83 ms, the claymation cadence of the fall), never fewer
+# than one. Nothing new is rendered: a hold repeats the key.
+SLOTS_PER_BEAT = 6
+BITE_POSES = [2.0, 6.0, 10.0, 14.0, 18.0, 22.0]   # the bite's six keys sit on its six authored poses (rest, crouch, spring, bite, recover, return)
+BITE_HOLDS = [3, 2, 1, 2, 1, 3]                    # rest held 250 ms, the crouch held 167 (anticipation), the spring one slot (the fast arc),
+                                                   # THE BITE ON THE SECOND BEAT held 167 (the impact, for weight), recovery 83, the settle 250
+
+
+def stillness(clip, keys):
+    """per key: how far the body moves into it and out of it (the silhouette change, both sides, cyclic), the mean over
+    the eight facings; a small number is a pose the animal pauses in"""
+    m = np.zeros(keys)
+    for f in FACINGS:
+        al = [np.asarray(im)[..., 3] > 0 for im in all_frames[(f, clip)]]
+        d = [(al[j] ^ al[(j + 1) % keys]).sum() / max(1, (al[j] | al[(j + 1) % keys]).sum()) for j in range(keys)]
+        m += np.array([d[j - 1] + d[j] for j in range(keys)])
+    return m / len(FACINGS)
+
+
+def holds_for(name, clip, keys, beats):
+    total = beats * SLOTS_PER_BEAT
+    m = stillness(clip, keys)
+    if name == 'bite' and keys == 6 and [round(x, 1) for x in meta['clips'][clip].get('frames', [])] == BITE_POSES:
+        h, why = list(BITE_HOLDS), 'by its authored poses: rest 3, crouch 2, spring 1, the bite 2 on the second beat, recovery 1, settle 3'
+    elif name == 'step':   # per beat: the stillest key (the weight landing) 3 slots, the next 2, the quickest 1; every beat starts a key
+        per = keys // beats; h = []
+        for b in range(beats):
+            r = np.argsort(m[b * per:(b + 1) * per]); hb = [0] * per
+            for rank, j in enumerate(r): hb[j] = [3, 2, 1][rank] if per == 3 else 2
+            h += hb
+        why = 'per beat by stillness: the stillest key 3 slots, the next 2, the quickest 1'
+    else:                  # the idle: its three stillest poses AT LEAST A BEAT APART held 5 slots (417 ms, Grok 174's 400
+                           # to 500), every other key one slot: the puppet holds where it pauses and moves between (the
+                           # stillest three by rank alone sat side by side, keys 7 to 9: one frozen stretch, then a flurry)
+        gap = max(1, keys // beats); picks = []
+        for j in np.argsort(m):
+            if all(min(abs(j - q), keys - abs(j - q)) >= gap for q in picks): picks.append(int(j))
+            if len(picks) == 3: break
+        h = [1] * keys; spare = total - keys
+        for j in picks: h[j] += spare // len(picks)
+        h[picks[0]] += spare % len(picks)
+        why = 'its three stillest poses a beat apart (keys %s) held %d slots (%d ms), every other key one slot' % (
+            ', '.join(map(str, sorted(picks))), 1 + spare // 3, round((1 + spare // 3) * 500 / SLOTS_PER_BEAT))
+    assert sum(h) == total and min(h) >= 1, (name, h)
+    slots = [j for j, n in enumerate(h) for _ in range(n)]
+    return dict(holds=h, slots=slots, slot_ms=round(500.0 / SLOTS_PER_BEAT, 2), stillness=[round(float(x), 4) for x in m], hold_rule=why)
 stills_s = [snap(im) for im in stills]
 after_colours = len(set(map(tuple, np.concatenate([np.asarray(im)[np.asarray(im)[..., 3] > 0][:, :3] for ims in snapped.values() for im in ims]).tolist())))
 
@@ -97,7 +152,8 @@ os.makedirs(os.path.dirname(OUT_WEBP), exist_ok=True)
 sheet.save(OUT_WEBP, lossless=True, quality=100, method=6)
 gx, gy = meta['ground_px']
 table = dict(cell=[CW, CH], facings=FACINGS, rows={f: r for r, f in enumerate(FACINGS)}, ground_y=int(gy), ground_x=int(gx),
-             clips=[dict(name=n, rig_clip=c, col=sum(k2 for _, _, k2, _ in CLIPS[:i]), keys=k, beats=b) for i, (n, c, k, b) in enumerate(CLIPS)],
+             clips=[dict(name=n, rig_clip=c, col=sum(k2 for _, _, k2, _ in CLIPS[:i]), keys=k, beats=b, **holds_for(n, c, k, b)) for i, (n, c, k, b) in enumerate(CLIPS)],
+             slots_per_beat=SLOTS_PER_BEAT, rig_round=meta.get('rig_round'),
              game_wolf=dict(row=rows - 1, ground_y=102, clips=[dict(name='idle', col=0, keys=len(gw['idle']), beats=4), dict(name='step', col=len(gw['idle']), keys=len(gw['walk']), beats=2)]),
              bpm=meta['bpm'], keys_per_beat=meta['keys_per_beat'], ppm=meta['ppm'], real_length_m=meta['real_dims_m'][1], model=meta['model'],
              palette=COLOURS, colours_before=before_colours, colours_after=after_colours, sprite_px=[W, H])
@@ -122,7 +178,8 @@ for bdir, blabel in BESIDE:
     rrows.append((blabel, [(f, op(fp)) for f, fp in zip(bm['facings'], bm['files'])]))
 for f in FACINGS:
     for name, clip, k, beats in CLIPS:
-        rrows.append(('%s  %s: %d drawn keys = %d beats at 120 (nothing between two keys is rendered)' % (f, name.upper(), k, beats), [('k%d' % j, im) for j, im in enumerate(snapped[(f, clip)])]))
+        hc = next(c for c in table['clips'] if c['name'] == name)
+        rrows.append(('%s  %s: %d drawn keys = %d beats at 120, held %s twelfths of a second (CRASHBOX: a hold repeats the key; nothing between two keys is rendered)' % (f, name.upper(), k, beats, '-'.join(map(str, hc['holds']))), [('k%d x%d' % (j, hc['holds'][j]), im) for j, im in enumerate(snapped[(f, clip)])]))
 GAP, PAD, HEAD = 8, 14, 24
 def row_size(items): return sum(im.width for _, im in items) + GAP * (len(items) + 1), max(im.height for _, im in items) + HEAD + 20
 SW = max(row_size(it)[0] for _, it in rrows) + PAD * 2

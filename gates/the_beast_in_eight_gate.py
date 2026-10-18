@@ -42,6 +42,16 @@ its own length (1.1 m the pit, 1.25 m the cur), the page ANIMATION_THE_FERAL_DOG
 the passing-pose still; DIRECTION's card did not send it BACK (the shepherd mix it did, so it is not on the card); A PACK,
 NOT ONE DOG RECOLOURED: the mean coat at least 20 levels from the wolf redone and from the other dog; it stands taller than
 the fox it was made from. Mutations planted: a dog that is the wolf recoloured a little, a BACK card.
+
+--dog shepherd (ROUND THREE, 10/18): the shepherd mix at 1.4 m joins the pack's questions (held in round two by DIRECTION's
+card, 3 of 8; remade at the source). AND THE HOLDS, for every dog (rule 115(d) amended, CRASHBOX: held stop-motion poses,
+stiffness as the point; Grok 170 to 177; the style guide's field 15, 'holds: declared per clip, a hold repeats the previous
+key's render'), asked of the table the page plays: every clip's holds are whole twelfths of a second, at least one, and fill
+its beats at 120 exactly; the slots list is the holds laid out; the holds VARY (the longest at least twice the shortest:
+an even table is the tween the show never had); the bite's bite lands ON the second beat, its crouch held longer than its
+spring; every beat of the step starts on a key; the idle holds a pose at least 400 ms (Grok's idle band) and every
+longest-held key is a pause (stiller than both its neighbours), re-measured here from the frames; the page plays the slots, not the keys evenly,
+and plays all three dogs. Mutations planted: holds that spill a slot past the beat, a bite one slot late, an even table.
 """
 import os, sys, json
 import numpy as np
@@ -62,7 +72,7 @@ if REDONE:
     STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_WOLF_REDONE', 'dire_wolf_redone.glb', 1.7, 0.40, 'animation-the-wolf-redone-10-18'
     WEBP, TABLE, PAGE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json', '.html'))
 DOG = sys.argv[sys.argv.index('--dog') + 1] if '--dog' in sys.argv else None
-DOGS = {'pit': 1.1, 'cur': 1.25}
+DOGS = {'pit': 1.1, 'cur': 1.25, 'shepherd': 1.4}
 if DOG:
     D = os.path.join(ROOT, 'records/target/master_rig/feral_dog_' + DOG)
     STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_FERAL_DOG_' + DOG.upper(), 'feral_dog_%s.glb' % DOG, DOGS[DOG], 0.40, 'animation-the-feral-dog-pack-10-18'
@@ -145,9 +155,35 @@ if REDONE or DOG:
     flat = blob.copy(); flat[10:30, 5:25] = [110, 100, 90, 255]
     ok('planted: a flat one-tone coat is refused', tones([flat]) < TONES)
     ok('planted: an idle-first-key still is refused', not is_passing({'still_frame': 0.0, 'still': None}))
+SLOTS = 6   # twelfths of a second a beat at 120 (the style guide's field 15, the fall's cadence)
+
+def hold_faults(c, per=SLOTS):
+    """what is wrong with one clip's holds, as a list of words (empty is right)"""
+    h, sl, bad = c.get('holds') or [], c.get('slots') or [], []
+    if len(h) != c.get('keys') or any(int(x) != x or x < 1 for x in h): bad.append('a hold under one slot, or not one per key')
+    elif sum(h) != c['beats'] * per: bad.append('the holds fill %d slots, the beats %d' % (sum(h), c['beats'] * per))
+    elif sl != [j for j, n in enumerate(h) for _ in range(n)]: bad.append('the slots are not the holds laid out')
+    elif max(h) < 2 * min(h): bad.append('even: every key held about the same (%s)' % h)
+    if not bad and c['name'] == 'bite':
+        if sum(h[:3]) != per: bad.append('the bite lands at slot %d, not on the second beat (%d)' % (sum(h[:3]), per))
+        if not (h[1] > h[2] and h[3] >= 2): bad.append('the crouch not held over the spring, or the bite not held')
+    if not bad and c['name'] == 'step':
+        k = c['keys'] // c['beats']
+        if any(sum(h[b * k:(b + 1) * k]) != per for b in range(c['beats'])): bad.append('a beat of the step does not start on a key')
+    if not bad and c['name'] == 'idle' and max(h) * 500.0 / per < 400: bad.append('no idle pose held 400 ms')
+    return bad
+
 if DOG:
     ok('planted: a dog that is the wolf recoloured a little is refused', coat_apart([blob], [blob + [8, 8, 8, 0]]) < APART)
     ok('planted: a rig DIRECTION\'s card sent BACK is refused', 'BACK' in '3 of 8 out -> BACK before VOTE')
+    good = dict(name='bite', keys=6, beats=2, holds=[3, 2, 1, 2, 1, 3]); good['slots'] = [j for j, n in enumerate(good['holds']) for _ in range(n)]
+    ok('planted: the bite\'s own holds pass', not hold_faults(good), str(hold_faults(good)))
+    spill = dict(good, holds=[3, 2, 1, 2, 2, 3]); spill['slots'] = [j for j, n in enumerate(spill['holds']) for _ in range(n)]
+    ok('planted: holds that spill a slot past the beat are refused', bool(hold_faults(spill)))
+    late = dict(good, holds=[3, 2, 2, 2, 1, 2]); late['slots'] = [j for j, n in enumerate(late['holds']) for _ in range(n)]
+    ok('planted: a bite one slot late is refused', bool(hold_faults(late)))
+    even = dict(good, holds=[2] * 6); even['slots'] = [j for j, n in enumerate(even['holds']) for _ in range(n)]
+    ok('planted: an even table (the tween) is refused', bool(hold_faults(even)))
 
 # ---- the real frames
 m = json.load(open(os.path.join(D, 'rig.json'))) if os.path.exists(os.path.join(D, 'rig.json')) else {}
@@ -211,10 +247,27 @@ if t and sheet is not None:
     a = np.asarray(sheet)[:CH * 8]; n = len(set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())))
     ok('the wolf rows hold %d colours, %d or fewer (one palette, the pack draws its animals in a handful)' % (n, COLOURS), n <= COLOURS)
     ok('the table says three keys a beat at 120 and names the model', t.get('keys_per_beat') == 3 and t.get('bpm') == 120 and t.get('model', '').endswith('/' + MODEL))
+    if DOG:
+        for c in t['clips']:
+            f = hold_faults(c, t.get('slots_per_beat', 0) or 0) if t.get('slots_per_beat') == SLOTS else ['no slots_per_beat of %d' % SLOTS]
+            ok('THE HOLDS (CRASHBOX): %s held %s twelfths of a second, %d beats at 120 (%s)' % (c['name'], '-'.join(map(str, c.get('holds', []))), c['beats'], c.get('hold_rule', '')), not f, '; '.join(f))
+        idle = next(c for c in t['clips'] if c['name'] == 'idle'); k = idle['keys']; still = np.zeros(k)
+        for i, fc in enumerate(FACINGS):
+            al = [load(fn)[..., 3] > 0 for fn in m['clips']['Survey']['files'][i * k:(i + 1) * k]]
+            d = [(al[j] ^ al[(j + 1) % k]).sum() / max(1, (al[j] | al[(j + 1) % k]).sum()) for j in range(k)]
+            still += [d[j - 1] + d[j] for j in range(k)]
+        held = [j for j, n in enumerate(idle['holds']) if n == max(idle['holds'])]
+        paused = [j for j in held if still[j] < still[j - 1] and still[j] < still[(j + 1) % k]]
+        ok('the idle holds where the dog pauses: every longest-held key (%s) is stiller than both its neighbours, re-measured from the frames' % held, paused == held, 'not a pause: %s' % sorted(set(held) - set(paused)))
 page = open(PAGE).read() if os.path.exists(PAGE) else ''
 ok('the VOTE page plays the sheet from its table, says PLACEHOLDER, and asks no vote inside (rule 25)',
    STEM + '.webp' in page and STEM + '_TABLE.js' in page and os.path.exists(os.path.join(ROOT, 'slices/vote/' + STEM + '_TABLE.js')) and 'PLACEHOLDER' in page and 'requestAnimationFrame' in page and 'thumb' not in page.lower())
+if DOG:
+    ok('the page plays the HOLDS (the slots of each twelfth of a second, never the keys evenly) and all three dogs',
+       'c.slots[' in page and 'slots_per_beat' in page and 'c.keys)' not in page and all('ANIMATION_THE_FERAL_DOG_%s_TABLE.js' % d.upper() in page for d in DOGS))
 reg = json.load(open(REG)); row = next((r for r in reg.get('items', []) if r.get('id') == ID), None)
 ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/' + os.path.basename(PAGE) and str(row.get('title', '')).startswith('PLACEHOLDER') and (not REDONE or row.get('redoOf') == 'animation-the-beast-in-eight-10-17'))
+if DOG:
+    ok('the registry row names this dog\'s eight stills as its sprites (the cull reads them, rule 114b)', bool(row) and all('records/target/master_rig/feral_dog_%s/rig_%s.png' % (DOG, f) in row.get('sprites', []) for f in FACINGS))
 ok('the model and its licence are in the repo', os.path.exists(os.path.join(ROOT, 'reference/models/bohemia', MODEL)) and os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/LICENSE.txt')))
 print('\n%s GATE: %d passed, %d failed' % (('THE FERAL DOG PACK (%s)' % DOG) if DOG else 'THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)

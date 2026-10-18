@@ -54,7 +54,7 @@ DOGS = {
     'cur': dict(LEG=1.28, LIMB=1.3, WIDTH=1.2, SKULL=1.1, MUZZLE=1.0, EAR=0.78, TAIL=0.62, RUFF=1.0, DEPTH=1.1, real=1.25),
 }
 # the coats (sRGB, the byte texture's own space)
-FAWN, BRINDLE, WHITE = (0.68, 0.52, 0.38), (0.24, 0.19, 0.15), (0.88, 0.86, 0.80)
+FAWN, BRINDLE, WHITE = (0.68, 0.52, 0.38), (0.20, 0.16, 0.13), (0.88, 0.86, 0.80)   # the pit's; round three's brindle darker (0.24 rendered a mid grey-brown 18 levels from the shepherd's black-and-tan, the pack line 20; a dark brindle is near-black: 24.5)
 TAN, BLACK, PALE_TAN = (0.70, 0.53, 0.34), (0.08, 0.07, 0.06), (0.84, 0.72, 0.54)   # the shepherd's. Round two: 0.14 bleached to the wolf grey under the rig sun, 0.06 on a saddle that wrapped the flanks lit the top darker than the belly (light -3.4), a cream (0.95) belly lifted the bottom; round three: the saddle on the back only, so it can be truly dark (0.08), and the throat a light tan (pass D, the front views +1.6 to +8.1)
 OFF_WHITE, LIVER, SKIN = (0.84, 0.80, 0.70), (0.30, 0.20, 0.15), (0.58, 0.50, 0.47)   # the cur's; round three's liver darker (0.36 left the front view's value span at 116, line 118)
 RED_COLLAR, BLUE_COLLAR = (0.50, 0.24, 0.20), (0.26, 0.34, 0.42)
@@ -76,6 +76,7 @@ CUR_MANGE = (14.0, 0.88)                                       # one bigger bald
 SHEP_SADDLE_UP, SHEP_SADDLE_RAMP = -0.2, 0.4                  # up = clip((N.z + UP) / RAMP): only where the back faces up
 SHEP_BELLY, SHEP_LEG = (0.62, 0.44, 0.27), 0.65                # the belly and the legs a deep red-tan, never cream
 SHEP_SADDLE_Y, SHEP_MASK = -36.0, (0.06, 0.05, 0.045)          # the saddle from the withers back; the mask's own black
+PIT_STREAK_NZ = 0.15                                           # the pit's fawn streaks only low on the flanks (round two 0.7: on DIRECTION's rig round 7 its back-left facing read 0.056 on D5, line 0.057; 0.4 gave 0.058; 0.15 gives 0.067, a brindle's back plain dark)
 SHEP_TAIL = (-0.3, (0.08, 0.07, 0.06))                         # (normal z over which, colour): the tail black along its top
 
 
@@ -138,7 +139,7 @@ def painter(kind, seed=7):
             # pass two: a DARK brindle (dark base, sparse fawn streaks broken by a 3D noise), the cat's tabby was pass one
             wav = smooth_noise(P, 9.0, seed) * 7.0
             streak = (np.sin((P[..., 1] + wav) * 2 * math.pi / 8.0) > 0.55) & (smooth_noise(P, 11.0, seed + 1) > 0.42)
-            streak &= orange & (N[..., 2] < 0.7)
+            streak &= orange & (N[..., 2] < PIT_STREAK_NZ)
             coat = np.array(BRINDLE, np.float32) * 1.25 * shade
             coat = np.where(streak[..., None], np.array(FAWN, np.float32) * 0.8 * shade, coat)
             out = np.where(orange[..., None], coat, out)

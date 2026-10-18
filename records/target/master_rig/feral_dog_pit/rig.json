@@ -17,16 +17,27 @@
   "materials": [
    "fox_material"
   ],
+  "wear_by_material": {},
   "what": [
-   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "matte: roughness >= 1, specular 0, metallic <= 0.2",
+   "old paint: saturation x 0.85, and 0.09 of that again lost on what faces the sun",
+   "worn edges: within 0.05 m of a turn the paint chips (a 9 a metre mask) to the base x [0.4, 0.33, 0.27]",
    "crevice grime from the model's own ambient occlusion (0.25 m)",
    "dust and bleach on up-facing surfaces under a 50 cm mask; on a base brighter than [0.35, 0.55] the wear is the base times [0.72, 0.68, 0.62] (darker, never frost)",
    "a 20 cm colour drift across the body (overlay, 0.27)",
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.0068)"
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 0.0068)",
+  "dents": {
+   "meshes": 1,
+   "dent_m": 0.025,
+   "dent_per_m": 2.0,
+   "subdiv": 2,
+   "how": "simple subdivision, then a 3D cloud push in metres; before the armature on a skinned mesh"
+  }
  },
+ "proportions": null,
  "calibration": {
   "cube_px": 58,
   "screen_light_deg": 155.4,
@@ -40,8 +51,11 @@
  "id_table": {
   "fox_material": "#ff1919"
  },
+ "obj_table": {
+  "fox": "#99ff6c"
+ },
  "model": "reference/models/bohemia/feral_dog_pit.glb",
- "rig_round": 5,
+ "rig_round": 7,
  "ppm": 57.0,
  "metres_per_px": 0.01754,
  "camera": {
@@ -94,7 +108,7 @@
   38,
   42
  ],
- "colours": 30199,
+ "colours": 22967,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -120,6 +134,316 @@
     71.75,
     78.58
    ],
+   "motion_px": {
+    "N": [
+     {
+      "fox": 5.385
+     },
+     {
+      "fox": 8.195
+     },
+     {
+      "fox": 12.526
+     },
+     {
+      "fox": 13.078
+     },
+     {
+      "fox": 7.392
+     },
+     {
+      "fox": 8.357
+     },
+     {
+      "fox": 8.971
+     },
+     {
+      "fox": 5.682
+     },
+     {
+      "fox": 5.892
+     },
+     {
+      "fox": 5.019
+     },
+     {
+      "fox": 11.051
+     },
+     {
+      "fox": 11.407
+     }
+    ],
+    "NE": [
+     {
+      "fox": 4.644
+     },
+     {
+      "fox": 6.868
+     },
+     {
+      "fox": 10.616
+     },
+     {
+      "fox": 12.162
+     },
+     {
+      "fox": 7.555
+     },
+     {
+      "fox": 8.451
+     },
+     {
+      "fox": 7.825
+     },
+     {
+      "fox": 4.879
+     },
+     {
+      "fox": 5.162
+     },
+     {
+      "fox": 4.36
+     },
+     {
+      "fox": 10.035
+     },
+     {
+      "fox": 10.239
+     }
+    ],
+    "E": [
+     {
+      "fox": 3.445
+     },
+     {
+      "fox": 6.956
+     },
+     {
+      "fox": 9.276
+     },
+     {
+      "fox": 9.559
+     },
+     {
+      "fox": 5.861
+     },
+     {
+      "fox": 6.379
+     },
+     {
+      "fox": 5.197
+     },
+     {
+      "fox": 4.026
+     },
+     {
+      "fox": 4.106
+     },
+     {
+      "fox": 3.203
+     },
+     {
+      "fox": 9.07
+     },
+     {
+      "fox": 10.304
+     }
+    ],
+    "SE": [
+     {
+      "fox": 4.218
+     },
+     {
+      "fox": 8.253
+     },
+     {
+      "fox": 11.486
+     },
+     {
+      "fox": 10.724
+     },
+     {
+      "fox": 5.38
+     },
+     {
+      "fox": 5.583
+     },
+     {
+      "fox": 5.938
+     },
+     {
+      "fox": 4.954
+     },
+     {
+      "fox": 4.953
+     },
+     {
+      "fox": 3.873
+     },
+     {
+      "fox": 10.488
+     },
+     {
+      "fox": 11.43
+     }
+    ],
+    "S": [
+     {
+      "fox": 5.323
+     },
+     {
+      "fox": 7.769
+     },
+     {
+      "fox": 12.463
+     },
+     {
+      "fox": 13.091
+     },
+     {
+      "fox": 7.156
+     },
+     {
+      "fox": 7.767
+     },
+     {
+      "fox": 8.463
+     },
+     {
+      "fox": 5.683
+     },
+     {
+      "fox": 5.879
+     },
+     {
+      "fox": 4.945
+     },
+     {
+      "fox": 10.855
+     },
+     {
+      "fox": 10.152
+     }
+    ],
+    "SW": [
+     {
+      "fox": 5.05
+     },
+     {
+      "fox": 6.304
+     },
+     {
+      "fox": 10.159
+     },
+     {
+      "fox": 12.122
+     },
+     {
+      "fox": 7.678
+     },
+     {
+      "fox": 8.693
+     },
+     {
+      "fox": 8.81
+     },
+     {
+      "fox": 4.912
+     },
+     {
+      "fox": 5.291
+     },
+     {
+      "fox": 4.74
+     },
+     {
+      "fox": 8.295
+     },
+     {
+      "fox": 7.047
+     }
+    ],
+    "W": [
+     {
+      "fox": 4.244
+     },
+     {
+      "fox": 5.761
+     },
+     {
+      "fox": 8.614
+     },
+     {
+      "fox": 9.469
+     },
+     {
+      "fox": 6.359
+     },
+     {
+      "fox": 7.488
+     },
+     {
+      "fox": 7.683
+     },
+     {
+      "fox": 4.047
+     },
+     {
+      "fox": 4.301
+     },
+     {
+      "fox": 3.983
+     },
+     {
+      "fox": 6.436
+     },
+     {
+      "fox": 6.688
+     }
+    ],
+    "NW": [
+     {
+      "fox": 4.736
+     },
+     {
+      "fox": 7.886
+     },
+     {
+      "fox": 11.164
+     },
+     {
+      "fox": 10.656
+     },
+     {
+      "fox": 5.973
+     },
+     {
+      "fox": 6.983
+     },
+     {
+      "fox": 8.006
+     },
+     {
+      "fox": 4.963
+     },
+     {
+      "fox": 5.057
+     },
+     {
+      "fox": 4.397
+     },
+     {
+      "fox": 9.172
+     },
+     {
+      "fox": 10.312
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/master_rig/feral_dog_pit/rig_Survey_N_k00.png",
     "records/target/master_rig/feral_dog_pit/rig_Survey_N_k01.png",
@@ -217,7 +541,8 @@
     "records/target/master_rig/feral_dog_pit/rig_Survey_NW_k09.png",
     "records/target/master_rig/feral_dog_pit/rig_Survey_NW_k10.png",
     "records/target/master_rig/feral_dog_pit/rig_Survey_NW_k11.png"
-   ]
+   ],
+   "light_files": []
   },
   "Walk": {
    "keys": 6,
@@ -234,6 +559,172 @@
     12.75,
     15.58
    ],
+   "motion_px": {
+    "N": [
+     {
+      "fox": 5.597
+     },
+     {
+      "fox": 11.509
+     },
+     {
+      "fox": 13.211
+     },
+     {
+      "fox": 13.095
+     },
+     {
+      "fox": 11.66
+     },
+     {
+      "fox": 10.987
+     }
+    ],
+    "NE": [
+     {
+      "fox": 6.26
+     },
+     {
+      "fox": 11.572
+     },
+     {
+      "fox": 15.147
+     },
+     {
+      "fox": 12.56
+     },
+     {
+      "fox": 11.994
+     },
+     {
+      "fox": 13.088
+     }
+    ],
+    "E": [
+     {
+      "fox": 7.416
+     },
+     {
+      "fox": 10.406
+     },
+     {
+      "fox": 16.847
+     },
+     {
+      "fox": 12.936
+     },
+     {
+      "fox": 12.206
+     },
+     {
+      "fox": 14.721
+     }
+    ],
+    "SE": [
+     {
+      "fox": 7.234
+     },
+     {
+      "fox": 6.774
+     },
+     {
+      "fox": 14.028
+     },
+     {
+      "fox": 11.92
+     },
+     {
+      "fox": 9.357
+     },
+     {
+      "fox": 12.407
+     }
+    ],
+    "S": [
+     {
+      "fox": 6.621
+     },
+     {
+      "fox": 5.683
+     },
+     {
+      "fox": 11.308
+     },
+     {
+      "fox": 10.736
+     },
+     {
+      "fox": 9.251
+     },
+     {
+      "fox": 11.581
+     }
+    ],
+    "SW": [
+     {
+      "fox": 7.208
+     },
+     {
+      "fox": 6.773
+     },
+     {
+      "fox": 13.997
+     },
+     {
+      "fox": 11.911
+     },
+     {
+      "fox": 9.305
+     },
+     {
+      "fox": 12.413
+     }
+    ],
+    "W": [
+     {
+      "fox": 7.423
+     },
+     {
+      "fox": 10.408
+     },
+     {
+      "fox": 16.843
+     },
+     {
+      "fox": 12.937
+     },
+     {
+      "fox": 12.201
+     },
+     {
+      "fox": 14.722
+     }
+    ],
+    "NW": [
+     {
+      "fox": 6.374
+     },
+     {
+      "fox": 11.572
+     },
+     {
+      "fox": 15.169
+     },
+     {
+      "fox": 12.757
+     },
+     {
+      "fox": 11.999
+     },
+     {
+      "fox": 13.084
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/master_rig/feral_dog_pit/rig_Walk_N_k00.png",
     "records/target/master_rig/feral_dog_pit/rig_Walk_N_k01.png",
@@ -283,7 +774,8 @@
     "records/target/master_rig/feral_dog_pit/rig_Walk_NW_k03.png",
     "records/target/master_rig/feral_dog_pit/rig_Walk_NW_k04.png",
     "records/target/master_rig/feral_dog_pit/rig_Walk_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   },
   "Bite": {
    "keys": 6,
@@ -300,6 +792,172 @@
     18.0,
     22.0
    ],
+   "motion_px": {
+    "N": [
+     {
+      "fox": 1.593
+     },
+     {
+      "fox": 5.136
+     },
+     {
+      "fox": 26.403
+     },
+     {
+      "fox": 4.721
+     },
+     {
+      "fox": 16.981
+     },
+     {
+      "fox": 2.121
+     }
+    ],
+    "NE": [
+     {
+      "fox": 1.457
+     },
+     {
+      "fox": 4.931
+     },
+     {
+      "fox": 25.988
+     },
+     {
+      "fox": 4.537
+     },
+     {
+      "fox": 16.88
+     },
+     {
+      "fox": 2.311
+     }
+    ],
+    "E": [
+     {
+      "fox": 1.148
+     },
+     {
+      "fox": 4.266
+     },
+     {
+      "fox": 22.572
+     },
+     {
+      "fox": 4.602
+     },
+     {
+      "fox": 14.895
+     },
+     {
+      "fox": 2.336
+     }
+    ],
+    "SE": [
+     {
+      "fox": 1.106
+     },
+     {
+      "fox": 4.353
+     },
+     {
+      "fox": 19.082
+     },
+     {
+      "fox": 5.888
+     },
+     {
+      "fox": 11.488
+     },
+     {
+      "fox": 1.991
+     }
+    ],
+    "S": [
+     {
+      "fox": 1.248
+     },
+     {
+      "fox": 4.413
+     },
+     {
+      "fox": 19.758
+     },
+     {
+      "fox": 6.147
+     },
+     {
+      "fox": 9.849
+     },
+     {
+      "fox": 1.624
+     }
+    ],
+    "SW": [
+     {
+      "fox": 1.345
+     },
+     {
+      "fox": 4.353
+     },
+     {
+      "fox": 19.082
+     },
+     {
+      "fox": 6.236
+     },
+     {
+      "fox": 9.264
+     },
+     {
+      "fox": 1.977
+     }
+    ],
+    "W": [
+     {
+      "fox": 1.463
+     },
+     {
+      "fox": 4.266
+     },
+     {
+      "fox": 22.572
+     },
+     {
+      "fox": 6.087
+     },
+     {
+      "fox": 14.895
+     },
+     {
+      "fox": 2.333
+     }
+    ],
+    "NW": [
+     {
+      "fox": 1.593
+     },
+     {
+      "fox": 4.931
+     },
+     {
+      "fox": 25.988
+     },
+     {
+      "fox": 5.159
+     },
+     {
+      "fox": 16.88
+     },
+     {
+      "fox": 2.18
+     }
+    ]
+   },
+   "moving_px": 0.5,
+   "hold_px": 0.5,
+   "held_part_keys": 0,
+   "repeated_keys": {},
    "files": [
     "records/target/master_rig/feral_dog_pit/rig_Bite_N_k00.png",
     "records/target/master_rig/feral_dog_pit/rig_Bite_N_k01.png",
@@ -349,7 +1007,8 @@
     "records/target/master_rig/feral_dog_pit/rig_Bite_NW_k03.png",
     "records/target/master_rig/feral_dog_pit/rig_Bite_NW_k04.png",
     "records/target/master_rig/feral_dog_pit/rig_Bite_NW_k05.png"
-   ]
+   ],
+   "light_files": []
   }
  },
  "card": {
@@ -357,19 +1016,19 @@
   "out": 2,
   "rows": [
    "OUT  long side >= floor 96: 78",
-   "OUT  colours >= 2330: 490",
-   "OK   top 8 carry <= 11%: 6.6",
-   "OK   value span >= 118: 130",
-   "OK   saturation <= 0.81: 0.178",
-   "OK   light: top minus bottom >= -2.5: 8.4",
-   "OK   edge between -35 and +7: -13.0",
-   "OK   grain <= 2.22 px a run: 1.63"
+   "OUT  colours >= 2330: 504",
+   "OK   top 8 carry <= 11%: 7.3",
+   "OK   value span >= 118: 131",
+   "OK   saturation <= 0.81: 0.162",
+   "OK   light: top minus bottom >= -2.5: 7.3",
+   "OK   edge between -35 and +7: -15.2",
+   "OK   grain <= 2.22 px a run: 1.69"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 9.4%",
+   "OK   stray pixels at 8 steps <= 14%: 8.2%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 217.1"
+   "OK   light from above (180 to 360 degrees, or flat): 216.7"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/master_rig/feral_dog_pit/rig_S.png"
@@ -380,13 +1039,13 @@
   "out": 1,
   "rows": [
    "OUT  long side >= floor 96: 78",
-   "OK   colours >= 239 (field 5: the class floor, or 370 per 1,000 of 647 px): 490",
-   "OK   top 8 carry <= 11%: 6.6",
-   "OK   value span >= 118: 130",
-   "OK   saturation <= 0.81: 0.178",
-   "OK   light: top minus bottom >= -2.5: 8.4",
-   "OK   edge between -35 and +7: -13.0",
-   "OK   grain <= 2.22 px a run: 1.63"
+   "OK   colours >= 243 (field 5: the class floor, or 370 per 1,000 of 658 px): 504",
+   "OK   top 8 carry <= 11%: 7.3",
+   "OK   value span >= 118: 131",
+   "OK   saturation <= 0.81: 0.162",
+   "OK   light: top minus bottom >= -2.5: 7.3",
+   "OK   edge between -35 and +7: -15.2",
+   "OK   grain <= 2.22 px a run: 1.69"
   ],
   "reread": [
    "colours by field 5"
@@ -394,10 +1053,10 @@
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
    20,
-   47
+   46
   ],
-  "opaque_px": 647,
-  "colours": 490
+  "opaque_px": 658,
+  "colours": 504
  },
  "rig_settings": {
   "engine": "CYCLES",
@@ -446,7 +1105,32 @@
    0.35,
    0.55
   ],
-  "grain_lift": 0.65
+  "grain_lift": 0.65,
+  "roughness_min": 1.0,
+  "specular": 0.0,
+  "paint_sat_mul": 0.85,
+  "bleach_up": 0.15,
+  "edge_m": 0.05,
+  "edge_wear": 0.85,
+  "chip_per_m": 9,
+  "chip_mul": [
+   0.4,
+   0.33,
+   0.27
+  ],
+  "dent_m": 0.025,
+  "dent_per_m": 2.0,
+  "dent_subdiv": 2,
+  "dent_subdiv_max_verts": 20000,
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "breaks": [],
  "guide": {
@@ -462,5 +1146,207 @@
   "records/target/master_rig/feral_dog_pit/rigid_SW.png",
   "records/target/master_rig/feral_dog_pit/rigid_W.png",
   "records/target/master_rig/feral_dog_pit/rigid_NW.png"
+ ],
+ "obj_files": [
+  "records/target/master_rig/feral_dog_pit/rigobj_N.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_NE.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_E.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_SE.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_S.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_SW.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_W.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_NW.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_N_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NE_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_E_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SE_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_S_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_SW_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_W_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k06.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k07.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k08.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k09.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k10.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Survey_NW_k11.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_N_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_E_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_S_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_SW_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_W_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Walk_NW_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_N_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_E_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SE_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_S_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_SW_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_W_k05.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k00.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k01.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k02.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k03.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k04.png",
+  "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k05.png"
  ]
 }
