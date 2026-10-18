@@ -1,0 +1,588 @@
+{
+ "upright": {
+  "now": {
+   "x": 30,
+   "y": 166,
+   "h": 2532
+  },
+  "A": {
+   "x": 1230,
+   "y": 166,
+   "h": 2532
+  },
+  "B": {
+   "x": 2430,
+   "y": 166,
+   "h": 2532
+  }
+ },
+ "sheet": "records/target/ui_phone_lock/UI_ONE_AT_A_TIME_THE_PHONES_FRONT_SCREEN.png",
+ "size": [
+  3630,
+  2792
+ ],
+ "sheet_sideways": "records/target/ui_phone_lock/UI_THE_PHONES_FRONT_SCREEN_SIDEWAYS.png",
+ "d10_now": {
+  "portrait": {
+   "gradients": 1,
+   "rounded": 4,
+   "blur": 0,
+   "glow": 2,
+   "flicker": 1,
+   "system_font_runs": 9,
+   "cards": 2
+  },
+  "landscape": {
+   "gradients": 1,
+   "rounded": 4,
+   "blur": 0,
+   "glow": 2,
+   "flicker": 1,
+   "system_font_runs": 9,
+   "cards": 2
+  }
+ },
+ "now_text": "06:00\nTHE VALLEY \u00b7 +38\u00b0C \u00b7 post-collapse\nN\nThe Neighbor\nwe gotta talk about the wall between our yards. come by when you can.\n\u25c6\nNetwork\n41 quests available near you\nTAP TO UNLOCK",
+ "msg": {
+  "who": "The Neighbor",
+  "line": "we gotta talk about the wall between our yards. come by when you can."
+ },
+ "laid": {
+  "portrait_A": {
+   "W": 390,
+   "H": 844,
+   "lock": [
+    0,
+    84.59,
+    390,
+    759.41
+   ],
+   "clock": [
+    22,
+    140.59,
+    346,
+    50
+   ],
+   "msg": [
+    22,
+    260.59,
+    346,
+    90
+   ],
+   "go": [
+    111,
+    774,
+    168,
+    48
+   ],
+   "face": {
+    "box": [
+     34,
+     272.59,
+     64,
+     64
+    ],
+    "nat": [
+     64,
+     64
+    ]
+   },
+   "line": "we gotta talk about the wall between our yards. come by when you can.",
+   "who": "THE NEIGHBOR",
+   "presses": 1,
+   "msgs": 1,
+   "sizes": [
+    50,
+    10,
+    10,
+    13.333,
+    13.333
+   ],
+   "css": [
+    {
+     "tag": "A",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkclock",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 3px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwhere",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkmsg",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkface",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lktx",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwho",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkline",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkgo",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ]
+  },
+  "portrait_B": {
+   "W": 390,
+   "H": 844,
+   "lock": [
+    0,
+    84.59,
+    390,
+    759.41
+   ],
+   "clock": [
+    22,
+    140.59,
+    346,
+    50
+   ],
+   "msg": [
+    22,
+    260.59,
+    346,
+    94
+   ],
+   "go": [
+    111,
+    774,
+    168,
+    48
+   ],
+   "face": {
+    "box": [
+     22,
+     275.59,
+     64,
+     64
+    ],
+    "nat": [
+     64,
+     64
+    ]
+   },
+   "line": "we gotta talk about the wall between our yards. come by when you can.",
+   "who": "THE NEIGHBOR",
+   "presses": 1,
+   "msgs": 1,
+   "sizes": [
+    50,
+    10,
+    10,
+    13.333,
+    13.333
+   ],
+   "css": [
+    {
+     "tag": "B",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkclock",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 3px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwhere",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkmsg",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkface",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lktx",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwho",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkline",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkgo",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ]
+  },
+  "landscape_A": {
+   "W": 844,
+   "H": 390,
+   "lock": [
+    0,
+    84.59,
+    844,
+    305.41
+   ],
+   "clock": [
+    40,
+    158.59,
+    314.78,
+    50
+   ],
+   "msg": [
+    394.78,
+    142.59,
+    409.22,
+    92
+   ],
+   "go": [
+    394.78,
+    320,
+    168,
+    48
+   ],
+   "face": {
+    "box": [
+     406.78,
+     154.59,
+     64,
+     64
+    ],
+    "nat": [
+     64,
+     64
+    ]
+   },
+   "line": "we gotta talk about the wall between our yards. come by when you can.",
+   "who": "THE NEIGHBOR",
+   "presses": 1,
+   "msgs": 1,
+   "sizes": [
+    50,
+    10,
+    10,
+    13.333,
+    13.333
+   ],
+   "css": [
+    {
+     "tag": "A flat",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkclock",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 3px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwhere",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkmsg",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkface",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lktx",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwho",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkline",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkgo",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ]
+  },
+  "landscape_B": {
+   "W": 844,
+   "H": 390,
+   "lock": [
+    0,
+    84.59,
+    844,
+    305.41
+   ],
+   "clock": [
+    40,
+    158.59,
+    314.78,
+    51
+   ],
+   "msg": [
+    394.78,
+    142.59,
+    409.22,
+    94
+   ],
+   "go": [
+    394.78,
+    320,
+    168,
+    48
+   ],
+   "face": {
+    "box": [
+     394.78,
+     157.59,
+     64,
+     64
+    ],
+    "nat": [
+     64,
+     64
+    ]
+   },
+   "line": "we gotta talk about the wall between our yards. come by when you can.",
+   "who": "THE NEIGHBOR",
+   "presses": 1,
+   "msgs": 1,
+   "sizes": [
+    50,
+    10,
+    10,
+    13.333,
+    13.333
+   ],
+   "css": [
+    {
+     "tag": "B flat",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkclock",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 3px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwhere",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkmsg",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkface",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lktx",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkwho",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkline",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "lkgo",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ]
+  }
+ }
+}

@@ -1357,6 +1357,14 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-opus-c): 10/18 LATEST -- [the phone's front screen] CANDIDATE in VOTE (cook only): his fourteenth votes, 'the front screen looks like dog shit, the first one'.
+Measured first: the lock screen the phone opens on is a 62 px clock in a phone font, two rounded see-through cards with coloured squares for faces (the neighbor cut off mid-line, '41 quests'), a blinking 'tap to unlock'; 9 lines in phone fonts, 4 corners, 2 glows, 1 gradient, 1 flicker.
+Laid in the browser only (rule 117: one clear next thing): the time only, ONE message with the game's own face (keeperFaceSrc, 64 at 3 phone px) and his real last line, ONE press READ (168 x 48); the panel painted in one canvas with a dithered glare, the last owner's lock screen burned in (11:47, MOM (14), draft) and one dead pixel row; A on a taped receipt, B printed on the glass; the 41 quests move to JOBS.
+Gate THE PHONES FRONT SCREEN 10/0 in the suite, 6 mutations caught. VOTE ui-the-phones-front-screen-10-18 (A / B / NO). Record records/BOHEMIA_THE_PHONES_FRONT_SCREEN_10_18_26.md. Sheets records/target/ui_phone_lock/.
+FOR RUN TWO + RUN after his pick: renderLock() and the .lk-* styles in BOHEMIA_CURRENT_SLICE.html; READ opens the thread, a tap elsewhere opens the home screen.
+NEXT: [the phone's apps], [no browser defaults on the HUD] and this wait on his picks; then the phone's crack, behind [one screen].
+UNDER UI (rule 113a, one line per lane): WORDS: nothing made, no tab, no commit since 10/10: FROZEN. SOUNDS: no new commit seen since the title candidates, in the VOTE tab: COOKING.
+
 UI (ui-opus-b): 10/18 LATEST -- [no browser defaults on the HUD] CANDIDATE in VOTE (cook only): rule 114 D10, his 10/16 'it can't look vibe coded'.
 Measured first, what the browser resolves on six screens on his phone: 33 gradients, 26 glows, 71 corners over 1, 1 purple panel, 67 lines in phone faces (ui-monospace, -apple-system, ui-sans-serif), 0 blur; the opened phone is the worst (107), the fight the cleanest (4).
 The strip laid in the browser only: a fade becomes its middle stop with its own lightest and darkest stops as hard 1 px lines; shadows hard, glows gone, corners 0, words in BohemiaCasing (labels) or BohemiaROM (sentences, text boxes). After: zero on all six; map, fight, settlement boxes unmoved; phone 7 and VOTE 4 boxes shift by word width only.

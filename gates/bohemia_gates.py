@@ -9077,6 +9077,11 @@ GATES = [
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "
      "back: every icon a pack prop at its own pixels, A and B different, every press 44 points, zero gradients, blur, "
      "glow, corners over 1 or system fonts (rule 114 D10), nothing in slices/ or engine/, the VOTE card whole", False),
+    ('THE PHONES FRONT SCREEN', ['python3', 'gates/the_phones_front_screen_gate.py'],
+     "UI 10/18, row [the phone's front screen]: his fourteenth votes, 'the front screen looks like dog shit, the first "
+     "one'. The candidate lock screen laid in the browser only and read back: one message and one press (rule 117), "
+     "the game's own face at a whole scale with the phone's real line, READ 44 points, sharp type sizes, zero "
+     "gradients, blur, glow, corners over 1 or system fonts (rule 114 D10), nothing in slices/ or engine/, the card whole", False),
     ('NO BROWSER DEFAULTS', ['python3', 'gates/no_browser_defaults_gate.py'],
      "UI 10/18, row [no browser defaults on the HUD]: rule 114 tell D10, his 10/16 'it can't look vibe coded'. Six game "
      "screens (map upright and sideways, the opened phone, the fight, the settlement, the VOTE tab) read for what the browser "
