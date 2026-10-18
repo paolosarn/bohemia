@@ -29,6 +29,45 @@
  "version": 1,
  "items": [
   {
+   "id": "cook2-the-street-joins-for-the-map-10-18",
+   "kind": "tile",
+   "lane": "cook 2",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "CANDIDATE: THE STREETS JOIN ACROSS DISTRICTS ON THE MAP, FROM YOUR OWN TILES",
+   "why": "You said nothing on the map looks connected, so these are the pieces where one district's street runs into the next: one road and one yellow line from the houses into the factory yards, a house street running out into desert dirt, and a freeway on-ramp, all from your own tiles. You see it in the VOTE tab from the map's own camera beside the map as it is now, a candidate, nothing final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK2_THE_STREET_JOINS_FOR_THE_MAP.webp"
+   },
+   "question": "Do the two districts and the freeway read as one connected city?",
+   "caption": "PIXEL SIZE his pixel reduced 4:1, 14.25 px a metre, one size in the scene; the camera picture at the map's near stop (a block 256 px) | PALETTE records/BOHEMIA_COOK2_THE_STREET_JOINS_PALETTE_10_18_26.json | LIGHT from above, as his pack paints it",
+   "sprites": [
+    "records/target/cook2_map_joins/J1_SEAM_SUBURB_TO_WORKS_ARTERIAL.png",
+    "records/target/cook2_map_joins/J2_CELL_LOCAL_RUNS_OUT_INTO_DESERT.png",
+    "records/target/cook2_map_joins/J3A_CELL_ARTERIAL_TURNS_ONTO_THE_RAMP.png",
+    "records/target/cook2_map_joins/J3B_CELL_RAMP_MERGES_GORE.png",
+    "records/target/cook2_map_joins/J4_SEAM_WORKS_TO_DESERT_ARTERIAL.png",
+    "records/target/cook2_map_joins/J5_SEAM_TRACT_WALL_SIDEWALK_ENDS.png"
+   ],
+   "class": "tile",
+   "family": "road",
+   "look": {
+    "px": 1,
+    "palette": "records/BOHEMIA_COOK2_THE_STREET_JOINS_PALETTE_10_18_26.json",
+    "light": "top"
+   },
+   "twin": {
+    "src": "pack:1. Cracked street tiles#0",
+    "diffs": [
+     "ONE ROAD ACROSS THE LINE: the map now draws every street as a thin grey line over the same speckle; here the big street keeps one asphalt and one yellow line from the houses into the yards, and only its edges change.",
+     "EACH DISTRICT HAS ITS OWN FLOOR: pale desert dirt and sidewalks for the houses, grey gravel and concrete yards for the works, open desert with rocks and dry brush past them.",
+     "YOUR TILES AS BOUGHT (on the sheet) are orange soil in framed squares; here the frames are cut and the soil is the valley's tan."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "direction-the-rig-round-five-10-18",
    "kind": "redo",
    "redoOf": "direction-the-look-bible-everything-the-same-10-18",

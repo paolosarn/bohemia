@@ -1,0 +1,341 @@
+{
+ "_what": "COOK TWO [the street joins for the map] (10/18): the pieces that join one district's street to the next, cut from his tiles on the map's own 96 m cell lines; a SEAM piece straddles a cell line (12 m each side), a CELL piece is one whole map cell. RUN lays them where the map has that join; COOK TWO owns the pixels.",
+ "px_per_m": 14.25,
+ "cell_m": 96.0,
+ "scale_note": "his native 57 px a metre reduced 4 to 1; the map's near stop is 2.67 px a metre, so RUN reduces",
+ "map_widths_note": "real widths: arterial 14 m, local 11 m, freeway 25 m, ramp 5 m; the map's BW table draws arterial 9 m, freeway 12 m: RUN matches the piece to the road, or the road to the piece",
+ "pieces": [
+  {
+   "file": "records/target/cook2_map_joins/J1_SEAM_SUBURB_TO_WORKS_ARTERIAL.png",
+   "what": "a street crossing a district line: one asphalt, one yellow double, the suburb's sidewalk and curb end on the line, the works' gravel shoulder starts",
+   "metres": [
+    180,
+    96,
+    204,
+    192
+   ],
+   "px": [
+    342,
+    1368
+   ],
+   "edges": {
+    "W": "suburb ground, arterial 14 m centred 48 m down, sidewalks 1.5 m, block walls",
+    "E": "works ground, arterial 14 m centred 48 m down, gravel shoulder 2 m",
+    "N": "none",
+    "S": "none"
+   }
+  },
+  {
+   "file": "records/target/cook2_map_joins/J2_CELL_LOCAL_RUNS_OUT_INTO_DESERT.png",
+   "what": "a road meeting a different ground: the tract's last local street, the sidewalk ends at the tract wall, the pavement crumbles at 48 m into a caliche dirt track",
+   "metres": [
+    0,
+    192,
+    96,
+    288
+   ],
+   "px": [
+    1368,
+    1368
+   ],
+   "edges": {
+    "N": "local 11 m centred 48 m across, sidewalks",
+    "S": "dirt track 6.4 m centred 48 m across, desert",
+    "E": "an E-W local 11 m centred 8 m down, then wall, then desert",
+    "W": "same as E"
+   }
+  },
+  {
+   "file": "records/target/cook2_map_joins/J3A_CELL_ARTERIAL_TURNS_ONTO_THE_RAMP.png",
+   "what": "the freeway on-ramp, top: the arterial arrives from the west, curves south as a 5 m ramp beside the southbound lanes",
+   "metres": [
+    288,
+    96,
+    384,
+    192
+   ],
+   "px": [
+    1368,
+    1368
+   ],
+   "edges": {
+    "W": "arterial 14 m centred 48 m down, desert shoulders",
+    "S": "ramp 5 m at about 34 m across, freeway 25 m centred 48 m across",
+    "N": "freeway 25 m centred 48 m across",
+    "E": "desert"
+   }
+  },
+  {
+   "file": "records/target/cook2_map_joins/J3B_CELL_RAMP_MERGES_GORE.png",
+   "what": "the freeway on-ramp, bottom: the ramp closes on the southbound shoulder, the white gore hatch between them",
+   "metres": [
+    288,
+    192,
+    384,
+    288
+   ],
+   "px": [
+    1368,
+    1368
+   ],
+   "edges": {
+    "N": "ramp 5 m and freeway 25 m",
+    "S": "freeway 25 m centred 48 m across",
+    "E": "desert",
+    "W": "desert"
+   }
+  },
+  {
+   "file": "records/target/cook2_map_joins/J4_SEAM_WORKS_TO_DESERT_ARTERIAL.png",
+   "what": "the arterial leaves the works into open desert: the yards stop, the gravel shoulder runs on, the pavement edge goes bare",
+   "metres": [
+    276,
+    96,
+    300,
+    192
+   ],
+   "px": [
+    342,
+    1368
+   ],
+   "edges": {
+    "W": "works ground, arterial 14 m centred 48 m down",
+    "E": "desert, arterial 14 m centred 48 m down",
+    "N": "none",
+    "S": "none"
+   }
+  },
+  {
+   "file": "records/target/cook2_map_joins/J5_SEAM_TRACT_WALL_SIDEWALK_ENDS.png",
+   "what": "the tract's south wall: the local's sidewalk ends at the last lot, the street runs on into the desert without one",
+   "metres": [
+    0,
+    202,
+    96,
+    226
+   ],
+   "px": [
+    1368,
+    342
+   ],
+   "edges": {
+    "N": "suburb",
+    "S": "desert",
+    "W": "none",
+    "E": "none"
+   }
+  }
+ ],
+ "measured": {
+  "canvas_px": [
+   5472,
+   4104
+  ],
+  "px_per_m": 14.25,
+  "cells": [
+   4,
+   3
+  ],
+  "J1_suburb_to_works": {
+   "road_rows_unbroken": 1.0,
+   "tone_step_rgb": [
+    -0.1,
+    -0.0,
+    -0.0
+   ]
+  },
+  "J4_works_to_desert": {
+   "road_rows_unbroken": 1.0,
+   "tone_step_rgb": [
+    0.0,
+    0.1,
+    0.1
+   ]
+  },
+  "sidewalk_px_in_works_or_desert": 0,
+  "yellow_double_metres": 294.7,
+  "houses": [
+   [
+    "CARPORT",
+    4.0,
+    17.0
+   ],
+   [
+    "PORCH",
+    21.9,
+    17.0
+   ],
+   [
+    "PORCH",
+    57.5,
+    17.0
+   ],
+   [
+    "GARAGE",
+    74.8,
+    17.0
+   ],
+   [
+    "PORCH",
+    100.6,
+    17.0
+   ],
+   [
+    "PORCH",
+    117.9,
+    17.0
+   ],
+   [
+    "GARAGE",
+    4.0,
+    65.0
+   ],
+   [
+    "PLAIN",
+    57.5,
+    65.0
+   ],
+   [
+    "WING",
+    76.9,
+    65.0
+   ],
+   [
+    "WING",
+    91.6,
+    65.0
+   ],
+   [
+    "GARAGE",
+    106.4,
+    65.0
+   ],
+   [
+    "WING",
+    4.0,
+    111.0
+   ],
+   [
+    "PORCH",
+    18.8,
+    111.0
+   ],
+   [
+    "WING",
+    57.5,
+    111.0
+   ],
+   [
+    "GARAGE",
+    72.3,
+    111.0
+   ],
+   [
+    "PLAIN",
+    98.0,
+    111.0
+   ],
+   [
+    "PORCH",
+    117.4,
+    111.0
+   ],
+   [
+    "CARPORT",
+    4.0,
+    187.0
+   ],
+   [
+    "WING",
+    21.9,
+    187.0
+   ],
+   [
+    "CARPORT",
+    57.5,
+    187.0
+   ],
+   [
+    "PLAIN",
+    75.4,
+    187.0
+   ],
+   [
+    "PORCH",
+    94.8,
+    187.0
+   ],
+   [
+    "PORCH",
+    112.1,
+    187.0
+   ]
+  ],
+  "works_buildings": [
+   [
+    198.0,
+    103.0
+   ],
+   [
+    234.5,
+    103.0
+   ],
+   [
+    198.0,
+    235.0
+   ]
+  ],
+  "desert_landscape": 143,
+  "slots_for_the_rig": {
+   "_why": "rule 115a: standing props and vehicles are the rig's",
+   "chain_link_along_the_works_yards": [
+    [
+     196,
+     135.5,
+     284,
+     135.5
+    ],
+    [
+     196,
+     153,
+     250,
+     153
+    ]
+   ],
+   "freeway_sign_at_the_ramp": [
+    308.0,
+    154.0
+   ],
+   "street_lights_on_the_arterial": [
+    [
+     20,
+     136.0
+    ],
+    [
+     60,
+     136.0
+    ],
+    [
+     100,
+     136.0
+    ],
+    [
+     140,
+     136.0
+    ],
+    [
+     180,
+     136.0
+    ],
+    [
+     220,
+     136.0
+    ],
+    [
+     260,
+     136.0
+    ]
+   ]
+  }
+ }
+}
