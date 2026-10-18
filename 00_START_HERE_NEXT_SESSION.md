@@ -365,7 +365,7 @@ with the file's .zones, inlined; drift goes to 0 and the copy leaves KNOWN.
 NEXT: [the roll] (its lake-on-the-south bug is noted below) or [the three sizes
 of place], both under the hold. PENDING Paolo: nothing.
 
-WORLD (world-vamily-opus): 10/18 (a) -- *** ONE SCALE, ONE CLOCK: A MAP
+WORLD (world-vamily-opus): 10/18 (a) LATEST -- *** ONE SCALE, ONE CLOCK: A MAP
 BLOCK IS 384 m OF REAL LAS VEGAS, AND IT WAS ALREADY LAW. *** The new age (rules
 112 to 116; opened on Opus after the Fable limit). The coordinator's sweep AM wave:
 ECONOMY read the far towns four times too close; settle one number with RUN.
