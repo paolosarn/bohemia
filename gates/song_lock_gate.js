@@ -132,10 +132,15 @@ for (const L of LOCKED) {
 /* --write regenerates the manifest. It is a DELIBERATE act that shows up in the
    diff, which is the entire point: a song may change, but never quietly. */
 if (WRITING) {
+  /* THE NEW SONGS LINE IS KEPT (SOUNDS 10/18, [a new song every round]): a new song is added to new_songs by hand,
+     with its file, its hash and why; regenerating the bodies must never drop one quietly */
+  let keep = [];
+  try { keep = (JSON.parse(fs.readFileSync(MANIFEST, 'utf8')).new_songs) || []; } catch (_e) {}
   fs.writeFileSync(MANIFEST, JSON.stringify({
     law: 'laws/BOHEMIA_ADDENDUM_HIS_SONGS_ARE_CANON_7_26_26.md',
     note: 'Paolo 7/26: "I don\'t want you touching the actual songs themselves." If a hash below moves, the build fails until someone updates this file ON PURPOSE and says why. Updating it is allowed (the music lane cooks new songs); doing it silently is not.',
-    bodies: live
+    bodies: live,
+    new_songs: keep
   }, null, 2) + '\n');
   console.log('  WROTE ' + MANIFEST + ' (' + Object.keys(live).length + ' bodies)');
 }
@@ -153,6 +158,15 @@ for (const L of LOCKED) {
     console.log('       IF THIS CHANGE IS INTENDED: run  node gates/song_lock_gate.js --write  and say WHY in the commit.');
     console.log('       IF IT IS NOT: something edited Paolo\'s canon music. Revert it.');
   }
+}
+
+/* THE NEW SONGS ARE LOCKED TOO (SOUNDS 10/18, [a new song every round], Paolo 10/18: 'I haven't heard a new song that
+   was made in a long time'): every song a lane adds outside the alpha's bodies is a line in new_songs, its data file
+   hashed, so it cannot change after he heard it without that line changing in the same diff */
+for (const ns of (manifest.new_songs || [])) {
+  const f = path.join(ROOT, ns.file || '');
+  const got = fs.existsSync(f) ? md5(fs.readFileSync(f)) : null;
+  ok('the new song ' + ns.id + ' is the song he was given (' + ns.file + (ns.why ? '' : ', NO WHY') + ')', !!got && got === ns.md5 && !!ns.why);
 }
 
 /* the lock must not creep: it locks the SONGS, never the layers around them,

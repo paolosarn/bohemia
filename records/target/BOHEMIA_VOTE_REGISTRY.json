@@ -10447,7 +10447,26 @@
     "how": "image",
     "src": "vote/RUN_THE_GANGS_WEAR_THE_RIG_10_18.png"
    }
-  }
+  },
+ {
+  "id": "sounds-over-the-ridge-10-18",
+  "kind": "song",
+  "lane": "sounds",
+  "sha": "pending",
+  "made": "10/18",
+  "title": "A NEW SONG FOR THE TITLE",
+  "why": "You said you have not heard a new song in a long time, so this is one: an 8-bit tune for the start screen, 120 BPM, a minute long, the beat arriving late and one note sung wrong near the end. You hear it on this page over the real start screen and the desert wind you kept, clean (A) or on a worn tape (B), or the wind alone (C), and on the title once you say yes.",
+  "options": [
+   "A, the song, clean 8-bit",
+   "B, the song on a worn tape",
+   "C, the wind alone, no song"
+  ],
+  "show": {
+   "how": "page",
+   "src": "BOHEMIA_OVER_THE_RIDGE_10_18_26.html"
+  },
+  "draft": true
+ }
  ],
  "verdicts": [
   {

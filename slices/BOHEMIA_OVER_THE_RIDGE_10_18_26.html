@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OVER THE RIDGE</title>
+<!-- SOUNDS lane, 10/18, row [a new song every round] (VAMILY, SOUNDS). PAOLO 10/18: 'I haven't heard a new song that
+     was made in a long time... what's up?' and his word on music, 'he likes 8-bit'. His 10/5: 'I wish there was cool
+     main menu music'. His 10/17 NO on the detuned title: 'the hiss way too loud and the music behind it sucks'. His
+     fourteenth votes: YES on the title is the desert (the real wind, 30 dB under full).
+
+     THE SONG: OVER THE RIDGE (a name, draft), the title's song (the ridge is the menu, 7/19). D minor, 120 BPM, 32
+     bars, 64 seconds, loops. Four voices like the NES's four channels: the tune on a 25 percent pulse, the arpeggio
+     on a 12.5 percent pulse, the bass on the console's own 4-bit triangle, the drums from its noise register; every
+     note's volume moves the console's way, one of 16 levels a frame. engine/bohemia_chip_song.js plays the data in
+     slices/vote/songs/over_the_ridge.json on the audio clock. Bars 1 to 4 the arpeggio and the bass alone; the tune
+     at bar 5; the beat arrives late, at bar 13; bar 19 is the wrong chord (E flat over D minor's home); bar 25 sings
+     the tune again remembered wrong (A flat where it sang A) and the drums drop out under it for two bars; bars 29 to
+     32 the last phrase and back to the top. Clean: no crush, no compressor, no hiss but the desert's own.
+
+     WHAT THIS PAGE IS: the real start screen (UI's BohemiaMaterials.startScreen with his logo), the desert wind he
+     kept at its level under it, and A THE SONG, B THE SONG ON A WORN TAPE (a slow pitch drift and a duller top,
+     never a crush), C THE WIND ALONE (what the title plays on his YES so far). The title in the GAME plays nothing new
+     until his YES (unjudged is silent); the swap is CUE 7.3 in BUILD_CALLING_SCRIPT.md, RUN's cut (rule 93).
+     Gate: gates/over_the_ridge_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0b0a09;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  #logobig{display:none}
+  .bm-start{bottom:var(--barh,170px) !important}
+  #bar{position:fixed;left:0;right:0;bottom:0;z-index:400;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<canvas id="logobig" width="400" height="130"></canvas>
+<div id="host"></div>
+<div id="bar">
+  <div class="row">
+    <button id="song">A. THE SONG</button>
+    <button id="tape">B. ON A WORN TAPE</button>
+    <button id="wind" class="old">C. THE WIND ALONE</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap one. The desert wind you kept is under all three, at its level. The song is a minute long and loops.</div>
+</div>
+<script src="bohemia_ui_materials.js"></script>
+<script src="../engine/bohemia_chip_song.js"></script>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), SONG=null, chip=null, mode=null, bed=null, bedT=null, clock=null, BUF={};
+  /* the title, as the game builds it: his logo on #logobig, UI's start screen over it */
+  var logo=new Image(); logo.onload=function(){ var c=document.getElementById('logobig'); c.width=logo.naturalWidth; c.height=logo.naturalHeight; var x=c.getContext('2d'); x.imageSmoothingEnabled=false; x.drawImage(logo,0,0); };
+  logo.src='vote/songs/front_logo.png';
+  try{ document.documentElement.style.setProperty('--barh', document.getElementById('bar').offsetHeight+'px'); BohemiaMaterials.startScreen(document.getElementById('host'), { saved:null }); }catch(e){ n.textContent='the start screen did not build: '+e.message; }
+  fetch('vote/songs/over_the_ridge.json').then(function(r){ return r.json(); }).then(function(s){ SONG=s; }).catch(function(e){ n.textContent='the song did not load: '+e.message; });
+
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(path){ if(BUF[path]) return Promise.resolve(BUF[path]);
+    return fetch(path).then(function(r){ if(!r.ok) throw new Error(path+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[path]=b); }); }
+  /* the wind he kept, the same file and the same two-copy crossfade loop as the title page */
+  function bedOn(level){ if(bed){ bed.gain.setTargetAtTime(level, AC.currentTime, 0.3); return; } var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(level,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/title_heard/title_wind.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  var PART=[[1,'the ridge at night: the arpeggio and the bass'],[5,'the tune'],[13,'the beat arrives'],[19,'the wrong chord'],[21,'the tune again'],[25,'remembered wrong: A flat, and the drums gone'],[27,'the beat back'],[29,'the last phrase, back to the top']];
+  function where(){ if(!chip||!mode||mode==='wind') return; var b=((chip.bar-1)%SONG.order.length)+1, p=PART.filter(function(x){ return x[0]<=b; }).pop();
+    n.textContent=LABEL[mode]+'  Bar '+b+' of '+SONG.order.length+': '+p[1]+'.'; }
+  function songOff(){ if(chip){ chip.stop(); chip=null; } if(clock){ clearInterval(clock); clock=null; } }
+  var LABEL={ song:'Clean 8-bit, the way the NES made it, over the wind.', tape:'The same song on a worn tape: the pitch drifts a hair and the top goes dull. Never crushed.',
+              wind:'The title as you kept it: the desert wind, nothing else.' };
+  function mark(id){ ['song','tape','wind'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){
+    ctx(); if(id!=='wind'&&!SONG){ n.textContent='the song is still loading, tap again'; return; }
+    songOff(); mode=id; mark(id); n.textContent=LABEL[id];
+    bedOn(id==='wind'?1.0:0.7);
+    if(id!=='wind'){ chip=BOH_CHIP.make(AC, OUT, SONG, { tape: id==='tape'?1:0 }); chip.play({ loop:true }); clock=setInterval(where, 250); }
+  }
+  ['song','tape','wind'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; songOff(); bedOff(); mode=null; mark(null); n.textContent='Stopped.'; };
+  window.__ridge=function(){ return { mode:mode, song:!!SONG, bar:chip?chip.bar:0, playing:!!(chip&&chip.playing), notes:chip?chip.log.length:0, bed:!!bed, log:chip?chip.log.slice(-64):[] }; };
+})();
+</script>
+</body></html>

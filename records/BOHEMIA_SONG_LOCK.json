@@ -47,5 +47,15 @@
       "bytes": 5255,
       "what": "the drum voice bank every song is played with"
     }
-  }
+  },
+  "new_songs": [
+    {
+      "id": "over-the-ridge",
+      "file": "slices/vote/songs/over_the_ridge.json",
+      "md5": "774f1a7a9c92b75858e102bcb45e2c0f",
+      "made": "10/18/26",
+      "lane": "sounds",
+      "why": "ADDED ON PURPOSE (SOUNDS 10/18, row [a new song every round]; Paolo 10/18: 'I haven't heard a new song that was made in a long time... what's up?'; his 10/5 'I wish there was cool main menu music'): the title's new song, 8-bit, 120 BPM, 32 bars, played by engine/bohemia_chip_song.js. A new song beside his, none of his touched. In VOTE as sounds-over-the-ridge-10-18; if it changes after he hears it, this hash changes in the same commit with a reason."
+    }
+  ]
 }
