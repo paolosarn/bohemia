@@ -9128,6 +9128,31 @@
     "after": "the thug as a model, rendered through the rig: eight facings and the walk (left on the sheet)",
     "scale": "1:1"
    }
+  },
+  {
+   "id": "cook2-one-real-street-10-18",
+   "kind": "redo",
+   "redoOf": "cook2-the-vegas-block-10-17",
+   "lane": "cook 2",
+   "sha": "c922916",
+   "made": "10/18",
+   "title": "CANDIDATE: ONE REAL LAS VEGAS STREET FROM YOUR OWN TILES, THE HOUSES WITH THE TAN ROOFS",
+   "why": "Your NO on the Vegas block was the layout, so this is one real east-side street: four tan-roof ranch houses on dirt yards, a quiet street with no paint, a block wall across it, and a bigger street at the end with the yellow line. You see it in the VOTE tab, a candidate, nothing final before your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK2_ONE_REAL_STREET.webp"
+   },
+   "question": "Does this read as a real street in Las Vegas?",
+   "placeholder_of": "kit_street and kit_cover (placeholders since rule 101)",
+   "caption": "PIXEL SIZE 1:1, 57 px a metre | PALETTE records/BOHEMIA_COOK2_ONE_REAL_STREET_PALETTE_10_18_26.json | LIGHT from above",
+   "twin": {
+    "src": "pack:2. Soil and dirt tiles#2",
+    "diffs": [
+     "NO GRID, NO PATCHWORK: your yard as bought is four orange soil tones in framed squares; here it is one pale desert dirt with the frames cut.",
+     "THE CURB, THE DRIVEWAYS, THE CORNERS: the pack has none; here the sidewalk stands up on a curb, drops at every driveway and turns four round corners.",
+     "A PLACE, NOT A KIT: walks go to the doors, a wall closes the far side, paint only where Las Vegas paints."
+    ]
+   }
   }
  ],
  "verdicts": [
