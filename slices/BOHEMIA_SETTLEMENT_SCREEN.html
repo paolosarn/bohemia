@@ -138,7 +138,8 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_homebases.js"></script>
 <script src="../engine/bohemia_lotbuild.js"></script>
 <!-- __/BUILD_ON_THE_SCREEN__ scripts -->
-<script src="bohemia_ui_materials.js"></script>  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
+<script src="bohemia_ui_materials.js"></script>
+<script src="../engine/bohemia_settlement_heard.js"></script>  <!-- SOUNDS [the settlement's sounds] round four (10/18): the real recordings and the desert bed, his 10/17 UP -->  <!-- UI [the settlement's labels]: the torn tag and the receipt lines (rule 71a) -->
 <script>
 (function(){
 'use strict';
@@ -474,6 +475,7 @@ function heard(t){ document.getElementById('heard').textContent = t; }
 var NIGHT_TRIM = 0.5;
 function sfx(ev, mul) {
   window.__settleLog = (window.__settleLog||[]); window.__settleLog.push({type:'BOHEMIA_SFX', act:'sfx', ev:ev, mul:mul||null});
+  if (window.BohemiaHeard && BohemiaHeard.handles(ev)) { BohemiaHeard.event(ev, mul); return; }   /* the recording, never the bank sound too (SOUNDS 10/18) */
   try { if (window.parent && window.parent !== window) window.parent.postMessage({ type: 'BOHEMIA_SFX', ev: ev, mul: mul||null }, '*'); } catch (_e) {}
 }
 
@@ -999,6 +1001,7 @@ function act(label, right, fn, off){
 function openB(k, line){
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
   S.open = k;
+  if(window.BohemiaHeard){ BohemiaHeard.night(view.night); BohemiaHeard.opened(k, view.night ? NIGHT_TRIM : null); }   /* SOUNDS 10/18: the building answers with its recording */
   /* a trait is said once per building, first thing, by the one who lives with it */
   if(!line && !(S.traitSaid||{})[k]){ var tl = traitLine(k); if(tl){ line = tl; S.traitSaid[k] = true; } }
   var body = document.getElementById('sbody'); body.textContent = '';
@@ -1133,7 +1136,7 @@ function show(){
   document.getElementById('sheet').classList.add('on');
 
 }
-function hide(){ if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; document.getElementById('sheet').classList.remove('on'); shelf(); }
+function hide(){ if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
 var LOTN = 6;
@@ -1179,6 +1182,7 @@ function open(o){
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   hide(); shelf(); layout();
+  if(window.BohemiaHeard) BohemiaHeard.night(view.night);   /* SOUNDS 10/18: the bed follows the screen's own hour */
 }
 /* THE CREW BUTTON (RUN TWO [equip from the stash]): the company screen over the place, the stash as its bag; closing it
    re-reads the bag the roster changed */
@@ -1192,7 +1196,7 @@ window.addEventListener('message', function(e){
   if(d.type==='BOHEMIA_SETTLEMENT_FACE' && d.who){ S.faces[d.who] = d.src; if(S.open) openB(S.open); }
 });
 document.getElementById('close').addEventListener('click', hide);
-document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); heard('You head back out to the map.'); });
+document.getElementById('leave').addEventListener('click', function(){ post('leave',{}); if(window.BohemiaHeard) BohemiaHeard.left(); heard('You head back out to the map.'); });
 window.addEventListener('resize', layout);
 
 var q = new URLSearchParams(location.search);

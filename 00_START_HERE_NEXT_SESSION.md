@@ -242,6 +242,34 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18): 10/18 LATEST (rounds twenty and twenty-one: [a desert, not a rainforest]
+7e9e31b, whose chat ran out before writing this block, and [the settlement's sounds] round four) --
+*** THE SETTLEMENT IN THE GAME NOW SOUNDS REAL. ***
+TAB: the settlement screen itself (tap a town on the MAP), and the VOTE tab card
+sounds-the-settlement-sounds-real-in-the-game-10-18.
+Record: records/BOHEMIA_THE_SETTLEMENT_HEARD_LIVE_AND_FOUR_POST_MORTEMS_10_18_26.md.
+
+You voted the real recordings up. So now, in the game, every building you tap plays
+its own recorded sound: a real door at the clinic, a real can at the stall, a real
+saw at the smith, real people behind the bar door. Under it sits the desert wind you
+asked for: one hen and one bird every 24 seconds by day (it was about 418 calls a
+minute), one far cricket by night. Night is half as loud. When you leave for the
+map, it goes quiet.
+
+The round before (7e9e31b): the bed thinned, the bad recap voice pulled out of the
+fight, the detuned title song killed and two new title candidates in VOTE (the wind
+alone, or the wind with one slow church bell). The four engine-made sounds you voted
+down (rivets, hammer, paper, can) are graveyarded with their post-mortems; the
+recordings already answer those buildings.
+
+Files: engine/bohemia_settlement_heard.js (new), six sound lines in RUN TWO's
+settlement screen (the script tag, sfx, openB, hide, open, LEAVE; nothing else).
+SEEN ON MAIN: 7e9e31b's registry conflict came from a stash pop over a moved main;
+this round hit the same pop conflict and rebuilt the registry from main plus one item
+(the lesson: never stash-pop the registry, re-append the item to main's copy).
+Gates: settlement heard 21/0 (new), settlement screen 65/0, cooked sounds 240/0.
+NEXT OPEN: [the desert under travel]. PENDING Paolo: nothing.
+
 SOUNDS (sound-xk7pjp): 10/17 LATEST (round nineteen, THE BIG SWING: [from a recording]
 round one and [the settlement's sounds] round three, one swing) --
 *** THE WHOLE SETTLEMENT NOW ANSWERS WITH REAL RECORDINGS. ***
