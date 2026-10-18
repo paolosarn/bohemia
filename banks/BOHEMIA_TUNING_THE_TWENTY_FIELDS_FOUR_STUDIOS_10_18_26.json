@@ -1,0 +1,233 @@
+{
+  "_readme": [
+    "TUNING, research only (rule 38g). The twenty style-guide fields of rule 114a (records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_ONE_10_16_26.md, Section C)",
+    "as four 2D studios set them: Battle Brothers (Overhype), Dead Cells (Motion Twin), Blasphemous (The Game Kitchen), Eastward (Pixpil).",
+    "Every cell is one of three things: a number or rule WITH its source URL; 'not published' when no developer source states it; or an INFERENCE marked as one.",
+    "The web was egress-blocked from this machine (CONNECT 403, 10/18, the same wall DIRECTION hit 9/28), so every cell comes from search snippets of the named page, never a fetched page.",
+    "A cell with confidence 'secondary' or 'community' is not a studio statement. DIRECTION picks; nothing here is a ruling. Nothing in the game reads this file.",
+    "Rendered by tools/bohemia_tuning_twenty_fields_page.py into the record and the VOTE page."
+  ],
+  "draft": true,
+  "lane": "tuning",
+  "made": "10/18",
+  "ours_source": "rule 114a (Section C examples, illustrative), rule 115 (the rig), laws/BOHEMIA_LAW_THE_GROUND_MAY_ZOOM_THE_PERSON_MAY_NOT_9_21_26.md, records/BOHEMIA_THE_MASTER_RIG_ROUND_THREE_THE_LOOK_AT_THE_SOURCE_10_17_26.md, records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md",
+  "sources": {
+    "bb_devblog5": "https://battlebrothersgame.com/dev-blog-5-concept-art-explaining-battle-brothers-character-art-style/",
+    "bb_devblog5_moddb": "https://www.moddb.com/news/dev-blog-on-concept-art-explaining-battle-brothers-character-art-style",
+    "bb_devblog88": "https://battlebrothersgame.com/dev-blog-88-key-visual/",
+    "bb_devblog36": "https://battlebrothersgame.com/dev-blog-36-strategic-worldmap/",
+    "bb_devblog52": "https://battlebrothersgame.com/dev-blog-52-worldmap-rework/",
+    "bb_devblog17": "https://battlebrothersgame.com/dev-blog-17-progress-update-villages-daynight-cycle-banners-and-more/",
+    "bb_paul": "https://battlebrothersgame.com/forums/topic/pauls-art-corner/",
+    "bb_modding_brushes": "https://bbmodding.enduriel.com/docs/concepts/brushes/",
+    "bb_modding_wiki": "https://battlebrothers.fandom.com/wiki/Mods_and_Modding",
+    "bb_lore_art": "https://www.scribd.com/document/403853548/Lore-Art-Book-pdf",
+    "bb_density_record": "records/BOHEMIA_BB_DENSITY_THE_MAP_FLOOR_9_28_26.md",
+    "dc_deepdive_3d": "https://www.gamedeveloper.com/production/art-design-deep-dive-using-a-3d-pipeline-for-2d-animation-in-i-dead-cells-i-",
+    "dc_deepdive_colors": "https://www.gamedeveloper.com/production/art-design-deep-dive-giving-back-colors-to-cryptic-worlds-in-i-dead-cells-i-",
+    "dc_80lv": "https://80.lv/articles/interview-with-the-developers-of-dead-cells",
+    "dc_gameanim": "https://www.gameanim.com/2018/01/31/dead-cells-3d-pipeline-2d-animation/",
+    "dc_resolution_tweet": "https://x.com/desandro/status/971436555201064961",
+    "dc_steam_dev": "https://steamcommunity.com/app/588650/discussions/0/2741975115060630076",
+    "bl_pcgw": "https://www.pcgamingwiki.com/wiki/Blasphemous",
+    "bl_kickstarter_tech": "https://www.kickstarter.com/projects/828401966/blasphemous-dark-and-brutal-2d-non-linear-platform/posts/1901663",
+    "bl_kickstarter_chars": "https://www.kickstarter.com/projects/828401966/blasphemous-dark-and-brutal-2d-non-linear-platform/posts/1899193",
+    "bl_thr": "https://www.hollywoodreporter.com/movies/movie-news/blasphemous-designer-purist-approach-games-pixel-art-style-1238370/",
+    "bl_gameanim": "https://www.gameanim.com/2021/02/19/blasphemous-pixel-art-animation-time-lapses/",
+    "bl_bloody": "https://bloody-disgusting.com/news/3471359/artist-details-process-blasphemous/",
+    "bl_pczone": "https://www.pczone.co.uk/interview-blasphemous-2-art-director-enrique-cabeza/",
+    "bl_playthepast": "https://www.playthepast.org/?p=7842",
+    "ew_gamedeveloper": "https://www.gamedeveloper.com/art/eastward-s-creators-share-insights-on-making-pixel-art-adventures",
+    "ew_80lv": "https://80.lv/articles/eastward-charming-chinese-pixel-art-adventure",
+    "ew_redbull": "https://www.redbull.com/int-en/eastward-interview",
+    "ew_pixpil_2015": "https://twitter.com/pixpilgames/status/671177081515044864",
+    "ew_pixpil_deferred": "https://x.com/pixpilgames/status/659937124372758528",
+    "ew_steam_res": "https://steamcommunity.com/app/977880/discussions/0/4521040918045115545/",
+    "rw_toonboom": "https://docs.toonboom.com/help/harmony-14/essentials/colour/about-palette.html",
+    "rw_modelsheet": "https://brush.ninja/glossary/animation/character-design-sheets/",
+    "rw_colorscript": "https://studionai.substack.com/p/the-glamorous-pre-production",
+    "rw_aardman_clay": "https://also.kottke.org/18/02/behind-the-scenes-look-at-mixing-the-clay-for-wallace-and-gromit"
+  },
+  "fields": [
+    {
+      "n": 1,
+      "field": "Visual identity statement",
+      "bb": {"v": "Painted busts, 'somewhat more serious and gritty, but still exaggerated' (moved there from 'light-hearted comic'); the detailed painted look kept by layering gear instead of animating.", "src": ["bb_devblog88", "bb_devblog5"], "conf": "studio"},
+      "dc": {"v": "Three pillars: 'a saturated color palette, Celtic architecture and the theme of alchemy'; 'a modern take on this art style' with particles, motion, a 3D lighting system and shaders.", "src": ["dc_deepdive_colors", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "'Purist' pixel art: 'there is nothing in Blasphemous that is not pixel art'; no shaders, no 3D elements; Spanish religious art (Ribera, Velazquez, Zurbaran, Murillo) and Seville.", "src": ["bl_thr", "bl_pczone"], "conf": "studio"},
+      "ew": {"v": "'Retro Pixel Art + 3D Lighting' (the studio's own line, 2015); 'a 3D game with a 2D perspective'.", "src": ["ew_pixpil_2015", "ew_gamedeveloper"], "conf": "studio"},
+      "ours": "Rule 114a's example line plus rule 115: modelled at the source, rendered to pixels through the rig; analog horror on every pixel."
+    },
+    {
+      "n": 2,
+      "field": "Native resolution and pixel size",
+      "bb": {"v": "No pixel grid: painted raster at the screen's native resolution, one painted pixel per screen pixel, with separate UI-scale and scene-scale sliders. Icons painted at 500x500 and resized to 48x48. A sprite's size is set by its brush metadata offsets (the 104x142 width/height in the docs' example 'do nothing').", "src": ["bb_density_record", "bb_paul", "bb_modding_brushes"], "conf": "studio"},
+      "dc": {"v": "640x360 (a developer-adjacent list, not a studio page). The hero is 'only about 50 pixels tall'; the mesh is rendered 'in a very small size and without antialiasing'.", "src": ["dc_resolution_tweet", "dc_deepdive_3d"], "conf": "secondary"},
+      "bl": {"v": "640x360 native, pixel-perfect at integer multiples; in development 'a virtual frame resolution of a fixed 360 pixel height' with the width from the monitor's aspect ratio, pixel-perfect or stretched upscaling as a player option.", "src": ["bl_pcgw", "bl_kickstarter_tech"], "conf": "studio"},
+      "ew": {"v": "Not published by Pixpil. Players measure a 360p base, the PC build locked at 720p at launch with linear filtering on non-integer scales (a community thread, not a studio statement).", "src": ["ew_steam_res"], "conf": "community"},
+      "ours": "The person is one size everywhere, a 112 box about 100 px painted; the rig draws 128 px a metre, a 1.72 m man 66x132 px; a 96 px tile floor. No internal canvas is declared; the demo draws at device pixels."
+    },
+    {
+      "n": 3,
+      "field": "Camera and perspective",
+      "bb": {"v": "Hex grid, busts only: 'the top half of each character, without animation', one facing, gear swapped in layers because 'drawing each character in several directions would have multiplied the workload immensely'; the world map painted from above.", "src": ["bb_devblog5", "bb_devblog5_moddb"], "conf": "studio"},
+      "dc": {"v": "Side view platformer; backgrounds drawn as pixel art and 'redrawn in normal maps' so 3D lights work on a flat scene.", "src": ["dc_deepdive_3d", "dc_deepdive_colors"], "conf": "studio"},
+      "bl": {"v": "Side view, no 3D elements anywhere.", "src": ["bl_thr"], "conf": "studio"},
+      "ew": {"v": "Top-down three-quarter; 'smart placing and orientation of the sprite to make it look like 3D'; each asset split by 'its natural structure' and rebuilt in a 3D environment before lighting.", "src": ["ew_redbull", "ew_gamedeveloper"], "conf": "studio"},
+      "ours": "45 degree three-quarter (the 45 DEGREE ART LAW), a square grid (the third votes)."
+    },
+    {
+      "n": 4,
+      "field": "Master palette",
+      "bb": {"v": "Not published. The only palette note is a development one: 'the strong colors are just for differentiating the regions better during development' (placeholders, not the look).", "src": ["bb_devblog52"], "conf": "studio"},
+      "dc": {"v": "No palette file published. The rule is a direction: saturation pushed 'almost exclusively' in the midtones; complementary schemes indoors 'to give a confined feeling', analogous outdoors for depth; the dynamic light tints a level 'while keeping its base colors'.", "src": ["dc_deepdive_colors"], "conf": "studio"},
+      "bl": {"v": "Not published (the 200-page art book is the likely home; not reachable from here).", "src": ["bl_thr"], "conf": "not published"},
+      "ew": {"v": "Not published. The final colours are graded after lighting: the engine adds 'LUT texture' colour grading, SSAO and an optional CRT blur on top of the sprites.", "src": ["ew_80lv"], "conf": "studio"},
+      "ours": "No master palette file yet (rule 114a owes it). The rig snaps a render's colours 0.6 of the way toward the pack family's colours; people and beasts have no family yet."
+    },
+    {
+      "n": 5,
+      "field": "Colour budget per asset class",
+      "bb": {"v": "None. Painted raster, thousands of colours per sprite. The one size rule is for icons: at 48x48 'it all comes down to colors and contrasts when you resize it'.", "src": ["bb_paul"], "conf": "studio"},
+      "dc": {"v": "None fixed per sprite. Each frame ships with a normal map and is lit by a toon shader and dynamic lights, so on-screen colours are the light's, not a count the artist set.", "src": ["dc_deepdive_3d", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "Not published. INFERENCE: hand-placed pixels with no shaders imply a hand-chosen palette per sprite, the only one of the four where a per-sprite count could even be measured on screen.", "src": ["bl_thr"], "conf": "inference"},
+      "ew": {"v": "None published. Deferred lights plus a LUT change every screen colour, so a count on a screenshot is a count of the lighting.", "src": ["ew_gamedeveloper", "ew_80lv"], "conf": "studio"},
+      "ours": "Rule 114a's example caps (12 / 6 / 5 / 24) are illustrative. The rig's round three renders measured 10,146 to 13,047 colours per sheet, and DIRECTION wrote 'his art is not limited-palette'. THE FINDING: see section 3."
+    },
+    {
+      "n": 6,
+      "field": "Light direction",
+      "bb": {"v": "Not published for the busts (static paintings). The map has a day/night cycle that changes the light and the play (night slows parties and cuts sight range); its direction is not stated.", "src": ["bb_devblog17"], "conf": "studio"},
+      "dc": {"v": "No fixed direction: dynamic 3D lights over per-frame normal maps, 'a torch can light a statue from the correct side'. The normal maps for backgrounds are drawn by hand.", "src": ["dc_deepdive_colors", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "Baked into the pixels; no runtime light. Direction not published.", "src": ["bl_thr"], "conf": "not published"},
+      "ew": {"v": "No fixed direction: 'general deferred shading, which enables our designer to put more lights into the level'; a hand-painted bump map per asset part; weather and time of day move the light.", "src": ["ew_gamedeveloper", "ew_pixpil_deferred"], "conf": "studio"},
+      "ours": "One hard light in the rig (rule 115d); the gate measures light top-to-bottom per render (round three: light +8.7 on the truck)."
+    },
+    {
+      "n": 7,
+      "field": "Shading steps",
+      "bb": {"v": "Painted gradients, no step count; after the resize an icon gets 'smart sharpen 35%' and '+20 brightness +20 contrast'.", "src": ["bb_paul"], "conf": "studio"},
+      "dc": {"v": "Stepped by a 'basic toon shader' over the normal map; 'cell shading techniques when rendering models in low resolution and without applying anti-aliasing'.", "src": ["dc_deepdive_3d", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "Hand pixel shading, frame by frame; steps not published.", "src": ["bl_gameanim"], "conf": "not published"},
+      "ew": {"v": "Lit by the bump map and the lights, plus a simulated SSAO pass; steps not published.", "src": ["ew_80lv"], "conf": "studio"},
+      "ours": "Clay shading in the rig: roughness at least 0.9, specular 0.15, metallic at most 0.2, grime from the model's own ambient occlusion (round three)."
+    },
+    {
+      "n": 8,
+      "field": "Outline rule",
+      "bb": {"v": "Not published. INFERENCE: painted busts carry no pixel outline.", "src": ["bb_devblog5"], "conf": "inference"},
+      "dc": {"v": "Not published; no search result describes an outline pass.", "src": ["dc_deepdive_3d"], "conf": "not published"},
+      "bl": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a's example (1 px selout on people, none on tiles). The rig's own measure is an EDGE score (-35 to +7 passes; a ring 20% darker reads -45, a fault)."
+    },
+    {
+      "n": 9,
+      "field": "Anti-aliasing and dithering",
+      "bb": {"v": "Fully anti-aliased by nature (painted raster scaled by the engine).", "src": ["bb_density_record"], "conf": "studio"},
+      "dc": {"v": "No AA: rendered 'without antialiasing'. The named leftover is 'flickering pixels', which 'could be eliminated manually, but the whole point of the process is speed'; 'we still haven't found any solution'.", "src": ["dc_deepdive_3d", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "Hand-placed pixels; no shader AA. Dither rule not published.", "src": ["bl_thr"], "conf": "studio"},
+      "ew": {"v": "Pixel art in Aseprite; an optional CRT blur filter on top; dither rule not published.", "src": ["ew_gamedeveloper", "ew_80lv"], "conf": "studio"},
+      "ours": "The rig's round-three fault list: 'airbrushed at 4x' is a fail; grain finer than a pixel averages to grey; even grain is a leopard print."
+    },
+    {
+      "n": 10,
+      "field": "Proportions and silhouette",
+      "bb": {"v": "Large heads and prominent facial features, 'an exaggerated, almost caricature style'; 'the smaller a figure gets, the more iconic and readable it has to be'; weapon icons 'not drawn to real proportions' so they read from far.", "src": ["bb_lore_art", "bb_devblog5"], "conf": "studio"},
+      "dc": {"v": "Hero about 50 px tall; the models kept simple because of it; attacks are pose-to-pose and 'VFX' carry 'movement, strength, and power'.", "src": ["dc_deepdive_3d"], "conf": "studio"},
+      "bl": {"v": "'Large sprites and smooth animation' (a secondary description; the frame height is not published; one fan comment asks if it is 64x64, unanswered).", "src": ["bl_bloody"], "conf": "secondary"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "A 1.72 m man is 66x132 px, a quarter of a 96x96 tile's area; on a 390x844 phone at 1x the 100 px person is about 12% of the screen's height (Dead Cells' 50 px hero on a 360 frame is 14%)."
+    },
+    {
+      "n": 11,
+      "field": "Detail budget per asset class",
+      "bb": {"v": "Paint small: 'scaling down large images can even result in a lower overall quality. All the downscaled details can make the final icon noisy and hard to read'. The busts' detail is paid for by not animating them.", "src": ["bb_paul", "bb_devblog5"], "conf": "studio"},
+      "dc": {"v": "The model is cheap because 'the character's height in the game is only 50 pixels'; the detail is spent on VFX and particles instead.", "src": ["dc_deepdive_3d", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "'Limited by the pixel art style, by the size of the screen, by the graphics'; no budget number published.", "src": ["bl_thr"], "conf": "studio"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a's example (hero 40%, mid 25%, background 10% with a flat rest region of 25%); not yet a number of ours."
+    },
+    {
+      "n": 12,
+      "field": "Variation rules",
+      "bb": {"v": "World tiles 'completely reworked' together with 'the way they are combined to achieve a more natural look'; characters are stacked layers (head, helmet, weapon swapped independently); a bust ships with damaged and dead variants (bust_body_southern_01 and its damaged and dead files).", "src": ["bb_devblog36", "bb_devblog5", "bb_modding_wiki"], "conf": "studio"},
+      "dc": {"v": "The 3D pipe lets one animation be reused across different models; backgrounds tinted per biome by the light instead of redrawn.", "src": ["dc_gameanim", "dc_deepdive_colors"], "conf": "studio"},
+      "bl": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a's example (two variants per tile 70/20/10, no run over four, two wear decals per prop)."
+    },
+    {
+      "n": 13,
+      "field": "Ground contact",
+      "bb": {"v": "The anchor is written: 'for units on the battlefield, the center point is the tile at the bottom'; a cast shadow rule is not published.", "src": ["bb_modding_brushes"], "conf": "studio"},
+      "dc": {"v": "Not published.", "src": [], "conf": "not published"},
+      "bl": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ew": {"v": "Not published (the deferred lights cast the contact).", "src": ["ew_gamedeveloper"], "conf": "inference"},
+      "ours": "Rule 114a's example (a 1 px contact line one ramp step darker along the footprint); the rig's own shadow is the model's ambient occlusion."
+    },
+    {
+      "n": 14,
+      "field": "UI rules",
+      "bb": {"v": "A UI-scale slider separate from the scene scale; skill icons 48x48 (sharpened and punched after the resize); item icons 70x70 in the stash and 70x140 in the character window; every new icon is checked against the existing ones.", "src": ["bb_density_record", "bb_paul", "bb_modding_wiki"], "conf": "studio"},
+      "dc": {"v": "Not published.", "src": [], "conf": "not published"},
+      "bl": {"v": "Not published (the art director's first job was 'a general UI designer').", "src": ["bl_pczone"], "conf": "not published"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a: the project's pixel font, no gradients, blur or glow, radius 0 or 1, no system fonts, the same HUD at every zoom (UI [no browser defaults on the HUD])."
+    },
+    {
+      "n": 15,
+      "field": "Animation timing",
+      "bb": {"v": "None on the busts: 'without animation' by design.", "src": ["bb_devblog5"], "conf": "studio"},
+      "dc": {"v": "Keys first: 'once, and only once, the animation is convincing and correctly timed with the least amount of frames possible, I add interpolation frames'; attacks 'essentially pose-to-pose' with VFX. A third-party claim of 8 to 12 frames per attack is unverified.", "src": ["dc_deepdive_3d", "dc_gameanim"], "conf": "studio"},
+      "bl": {"v": "Hand drawn frame by frame in Photoshop, new frames 'by manipulating current ones'; pencil drafts by Juan Miguel first; played through Unity's PowerSprite Animator. No frame rate published.", "src": ["bl_gameanim", "bl_kickstarter_chars"], "conf": "studio"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "120 BPM, 12 keys a bar, a joint never reverses more than 120 degrees between drawn keys (the envelope law); the rig steps frames with no motion blur (rule 115d)."
+    },
+    {
+      "n": 16,
+      "field": "Do and don't page",
+      "bb": {"v": "No page published. The live version: the artist 'goes back and forth to check whether the icon is clearly readable and how it compares to the already existing icons'.", "src": ["bb_paul"], "conf": "studio"},
+      "dc": {"v": "Not published.", "src": [], "conf": "not published"},
+      "bl": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a owes one pair per field 4 to 14; none exists."
+    },
+    {
+      "n": 17,
+      "field": "Named common mistakes",
+      "bb": {"v": "'Noisy' (downscaled detail that makes an icon hard to read).", "src": ["bb_paul"], "conf": "studio"},
+      "dc": {"v": "'Flickering pixels' (the one named defect of the 3D-to-pixel pipe, never fully solved).", "src": ["dc_deepdive_3d", "dc_80lv"], "conf": "studio"},
+      "bl": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ew": {"v": "Not published.", "src": [], "conf": "not published"},
+      "ours": "Rule 114a's list of eleven; the rig's round three named three of its own (too few colours under one sun, a ring too dark, airbrushed grain)."
+    },
+    {
+      "n": 18,
+      "field": "Tie-breaker",
+      "bb": {"v": "Readability wins: faces must stay readable at the most zoomed-out level, so figures get more iconic and weapons leave real proportion.", "src": ["bb_devblog5"], "conf": "studio"},
+      "dc": {"v": "Speed wins over cleanup: flickering pixels are left because 'the whole point of the process is speed'.", "src": ["dc_deepdive_3d"], "conf": "studio"},
+      "bl": {"v": "Purity wins: nothing on screen that is not pixel art, even where it costs.", "src": ["bl_thr"], "conf": "studio"},
+      "ew": {"v": "The light wins over the pixel's own colour: the sprite is split and bump-mapped so the lights, weather and time of day decide the final colour.", "src": ["ew_gamedeveloper"], "conf": "inference"},
+      "ours": "Rule 114a's example: readability at 1x, then palette over detail, then silhouette over colour. Rule 115 adds the source: one rig, everything the same."
+    },
+    {
+      "n": 19,
+      "field": "Review procedure",
+      "bb": {"v": "Judge at the final size: paint rough at 500x500, resize to 48x48, compare against the existing icons, then sharpen and punch.", "src": ["bb_paul"], "conf": "studio"},
+      "dc": {"v": "Time the keys with the fewest frames until they convince, then interpolate; clean flickers by hand only where it is worth the time.", "src": ["dc_deepdive_3d"], "conf": "studio"},
+      "bl": {"v": "Concept sketch, pencil animation draft, pixel frames, then tuning in the engine's sprite animator.", "src": ["bl_kickstarter_chars"], "conf": "studio"},
+      "ew": {"v": "Asset in Aseprite, split by structure, rebuilt in 3D, bump map painted per part, then into the engine under the lights.", "src": ["ew_gamedeveloper"], "conf": "studio"},
+      "ours": "Rule 114a's example (contact sheet at 1x, real background, greyscale, 8x8 silhouette row, in the game, the gate report attached); the rig has four sheets at 1:1 and a look sheet (round three)."
+    },
+    {
+      "n": 20,
+      "field": "Reference board and anti-reference",
+      "bb": {"v": "A key visual painted as the target, and the move away from the comic look: the anti-reference is their own first assets, 'made in short late-night sessions and later redone'.", "src": ["bb_devblog88"], "conf": "studio"},
+      "dc": {"v": "Celtic architecture and alchemy as the two visual pillars beside the palette.", "src": ["dc_deepdive_colors"], "conf": "studio"},
+      "bl": {"v": "Spanish religious painting of past centuries, Seville's architecture and processions; 'dark and macabre but also carried a beautiful side'.", "src": ["bl_pczone", "bl_playthepast"], "conf": "studio"},
+      "ew": {"v": "Not published beyond the setting.", "src": [], "conf": "not published"},
+      "ours": "The analog horror bible, the Newgrounds era, the runway names, the creepy claymation kids' show (rule 115d); the anti-reference: the three-card grid, the purple panel, the default pack."
+    }
+  ]
+}
