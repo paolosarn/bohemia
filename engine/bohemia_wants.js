@@ -43,6 +43,10 @@
 // It types no number: who goes first is the map's distance, how many go is
 // BohemiaTowns.REACH, the grounds are BohemiaBoardTerrain's kinds. It never
 // takes the player's position. It invents no want: only factions.json's.
+// FACTIONS [four seated] (10/18) adds ONE thing on top: a faction whose want
+// carries `turns_out` (the block watch) has no seat and is gathered at every
+// town or camp a crew is going at, Battle Brothers' militia (turnOut below);
+// those parties say turned_out:true, so a reader can always tell them apart.
 //
 // node: require('./bohemia_wants.js')   Gate: gates/wants_send_parties_gate.js
 // ============================================================================
@@ -182,9 +186,13 @@
       var spot = onIt ? { cell: { x: town.x, y: town.y } } : nearestOf(r.ground, idx, town);
       if (spot) out.push(mk(town, r.agenda, spot.cell.x, spot.cell.y, null, w.id));
       /* the rest of the seat's business is the parties module's, minus a second
-         patrol (its own rule: one patrol a seat) */
+         patrol (its own rule: one patrol a seat), and only with settlements: a
+         camp in the wild is nobody's trading partner (Battle Brothers' city states
+         send "caravans to trade with other settlements"; the parties module has
+         never heard of a wild seat and would send a caravan to a beast's den) */
       if (out.length < howMany && !town.wild) {
-        var rest = P.sendFrom(town, towns, opts);
+        var settled = (towns || []).filter(function (o) { return o === town || (o && !o.wild); });
+        var rest = P.sendFrom(town, settled, opts);
         for (var j = 0; j < rest.length && out.length < howMany; j++) {
           if (rest[j].agenda === 'patrol' && out.some(function (q) { return q.agenda === 'patrol'; })) continue;
           out.push(rest[j]);
@@ -196,8 +204,54 @@
   }
 
   /* ------------------------------------------------------------------------
+     THE WATCH TURNS OUT (FACTIONS [four seated], 10/18). Battle Brothers'
+     militia have NO SEAT: every non-military settlement gathers them "when a
+     hostile party is sighted close to a settlement" and disbands them "after the
+     threat disappeared" (Factions and Relations; Civilian). A want carrying
+     `turns_out` in wants.json is that kind of faction. 'Close' is no number on
+     the wiki, so it is the crew's own mark: every seat of one of turns_out.tiers
+     that a crew is going at -- never a wild seat, never the watch's own --
+     gathers ONE party of the watch, standing on the place, defending its holder.
+     The disband (the crew gone) is the clock's, not this file's.
+     ------------------------------------------------------------------------ */
+  function watchesOf(data) {
+    var out = [], fs = (data && data.factions && data.factions.factions) || [];
+    for (var i = 0; i < fs.length; i++) {
+      var w = fs[i] && wantOf(fs[i].id, data);
+      if (w && w.rule && w.rule.turns_out) out.push({ faction: fs[i].id, want: w });
+    }
+    return out;
+  }
+  function turnOut(parties, towns, opts) {
+    opts = opts || {};
+    var ws = watchesOf(opts.data); if (!ws.length) return [];
+    var at = {};
+    for (var i = 0; i < (towns || []).length; i++) if (towns[i] && !has(at, keyOf(towns[i]))) at[keyOf(towns[i])] = towns[i];
+    var out = [], seen = {};
+    for (var p = 0; p < (parties || []).length; p++) {
+      var q = parties[p];
+      if (!q || q.agenda !== 'crew' || !q.to || !has(at, q.to.x + ',' + q.to.y)) continue;
+      var place = at[q.to.x + ',' + q.to.y];
+      if (place.wild) continue;
+      for (var k = 0; k < ws.length; k++) {
+        var w = ws[k], rule = w.want.rule;
+        if ((rule.turns_out.tiers || []).indexOf(place.tier) < 0) continue;
+        if (place.faction === w.faction || (q.from && q.from.faction === w.faction)) continue;
+        var key = w.faction + '@' + keyOf(place);
+        if (has(seen, key)) { seen[key].against.push(q.id); continue; }
+        var r = mk({ faction: w.faction, tier: place.tier, power: place.power, x: place.x, y: place.y },
+                   rule.agenda, place.x, place.y, null, w.want.id);
+        r.defends = place.faction; r.against = [q.id]; r.turned_out = true;
+        seen[key] = r; out.push(r);
+      }
+    }
+    return out;
+  }
+
+  /* ------------------------------------------------------------------------
      EVERY PARTY OUT: the parties module's all(), with the want deciding where a
-     wanting seat's parties go. The player is nowhere in the arguments.
+     wanting seat's parties go, then the watch turned out where the crews go.
+     The player is nowhere in the arguments.
      opts: { n, save, data: {factions, wants}, cells: [{x,y,kind}], raided: {'x,y':1} }
      ------------------------------------------------------------------------ */
   function all(towns, opts) {
@@ -210,7 +264,7 @@
       var mine = sendFor(towns[i], towns, o2);
       out = out.concat(mine == null ? P.sendFrom(towns[i], towns, opts) : mine);
     }
-    return out;
+    return out.concat(turnOut(out, towns, opts));
   }
 
   /* THE CELLS OF A VALLEY, as this file wants them, off the one door that names
@@ -227,7 +281,7 @@
   }
 
   var API = { wantOf: wantOf, sendFor: sendFor, all: all, cellsOf: cellsOf,
-              marksFor: marksFor };
+              marksFor: marksFor, turnOut: turnOut };
   if (HASREQ) module.exports = API;
   root.BohemiaWants = API;
 })(typeof window !== 'undefined' ? window

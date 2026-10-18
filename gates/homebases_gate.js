@@ -609,6 +609,9 @@ const stripComments = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:]
   ok('WITH AN EMPTY LEDGER EVERY REGION PLACE IS HELD BY THE FACTION THE FILE NAMES: ' + places.map(p => p.id + ' ' + H.heldBy(empty, p.id)).join(', '),
      places.every(p => H.heldBy(empty, p.id) === p.holder && H.seedOf(p.id) === p.holder));
   ok('and every wild location by its own faction', wild.every(w => H.heldBy(empty, w.id) === w.faction));
+  const settledRows = RB.settled_locations || [];
+  ok('and every settled location by its own faction (FACTIONS [four seated]: the eye\'s lake, the house\'s depot): ' + settledRows.map(w => w.id + ' ' + H.heldBy(empty, w.id)).join(', '),
+     settledRows.length >= 2 && settledRows.every(w => H.heldBy(empty, w.id) === w.faction && valleyIds.indexOf(w.id) < 0 && graphIds.indexOf(w.id) < 0));
   ok('every valley seat is still its own: the seed of a valley key is the key', seats.every(s => H.seedOf(s.faction) === s.faction && H.heldBy(empty, s.faction) === s.faction));
 
   /* the region's rows, the way RUN will hand them: region_bases_gate's rows with the place id as `base` */

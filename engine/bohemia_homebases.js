@@ -106,10 +106,12 @@
      Railroad Pass. READ FROM THAT FILE, NEVER HANDED IN BY A CALLER: a ledger that took a caller's word for who held a
      place wrote from:'henderson' the first time a caller forgot. Under node the file is read on the first ask; a page
      fetches it and calls setRegion(json), and until it does a region place reads as its own id, the old answer and
-     never a wrong faction. */
+     never a wrong faction. A settled location (FACTIONS [four seated], 10/18: the eye's lake, the house's depot) is
+     held by its faction the same way. */
   var SEEDS = null;
   function setRegion(d) {
-    var s = {}, rows = [].concat((d && d.region_places) || [], (d && d.hostile_locations) || []);
+    var s = {}, rows = [].concat((d && d.region_places) || [], (d && d.hostile_locations) || [],
+                                 (d && d.settled_locations) || []);
     for (var i = 0; i < rows.length; i++) {
       var r = rows[i], who = r && (r.holder || r.faction);
       if (r && r.id && who) s[r.id] = who;

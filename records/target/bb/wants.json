@@ -80,6 +80,14 @@
     "goblins_hit_and_run": {
       "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
       "quote": "Instead of brute force they usually ambush their enemies."
+    },
+    "militia_gathered_when_sighted": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+      "quote": "Militia forces can be gathered when a hostile party is sighted close to a settlement and disbanded again after the threat disappeared."
+    },
+    "militia_is_the_settlement": {
+      "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0383_Civilian.txt",
+      "quote": "Each non-military settlement is a separate faction. They send caravans, peasants and, when enemies come close, can send militia squads to fight them."
     }
   },
   "wants": {
@@ -233,7 +241,21 @@
         "militia_defend_their_homes"
       ],
       "ours": true,
-      "why": "the block watch wants the block left standing; Battle Brothers' militia only turn out when somebody raids their homes and never march on anyone, so the watch holds the nearest block of houses, a watch already on one stays, and it goes at no place"
+      "why": "the block watch wants the block left standing; Battle Brothers' militia only turn out when somebody raids their homes and never march on anyone, so the watch holds the nearest block of houses, a watch already on one stays, and it goes at no place",
+      "turns_out": {
+        "at": "a_place_a_crew_goes_at",
+        "tiers": [
+          "town",
+          "camp"
+        ],
+        "wiki": [
+          "militia_gathered_when_sighted",
+          "militia_is_the_settlement",
+          "militia_defend_their_homes"
+        ],
+        "ours": true,
+        "why": "FACTIONS [four seated] 10/18: Battle Brothers' militia have no seat of their own; every non-military settlement (a village, a town, never a castle) gathers them when a hostile party comes close and disbands them after. 'Close' has no number on the wiki, so ours is the crew's own mark: every town or camp a crew is going at gathers one watch party, standing on the place, wearing the watch's banner and defending the place's holder; a fortress has soldiers and never gathers one; a wild seat has no townsfolk. The disband is RUN's clock"
+      }
     },
     "hit-and-run": {
       "agenda": "crew",
@@ -252,7 +274,7 @@
     }
   },
   "gaps": [
-    "the region's wild row for ancient_dead (THE LOST CITY) carries no want in factions.json (the ancient dead are not one of the twelve), so it keeps the parties module's own choice; the nomads and the mercenaries got wants from FACTIONS [more banners] 10/18; no region row carries the keepers, the eye in the sky, the block watch or the runners yet, so their four wants move nobody until a seat or a location does (FACTIONS [home bases] 10/18)",
+    "the region's wild row for ancient_dead (THE LOST CITY) carries no want in factions.json (the ancient dead are not one of the twelve), so it keeps the parties module's own choice; since FACTIONS [four seated] 10/18 every one of the twelve wants moves somebody: the keepers (Corn Creek) and the runners (Valley of Fire) are wild camps that send crews, the eye in the sky (Lake Las Vegas) a settled seat that patrols the money, and the block watch has no seat and turns out where crews go (keep-the-block turns_out); the hired guns roam without a base (region_bases.json roaming_without_a_base)",
     "the valley's fourteen seats carry no want of their own (his canon graph's notes are not wants and this lane does not invent his factions' wants), so their crews still go at the worst canon feud's seat; the camps and towns become reachable through the wild crews that are handed in beside them",
     "outside the valley the map's ground is RUN's region (slices/bohemia_region.js passAt: 1 is a road); the module takes the grounds as cells the caller hands it, so RUN adds the region's road cells as freeway and nothing here changes"
   ]

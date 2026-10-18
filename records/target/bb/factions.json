@@ -138,7 +138,8 @@
    "base": {
     "kind": "fort",
     "tier": "fortress",
-    "note": "the house's own seat"
+    "note": "the house's own seat: the walled truck yard at the Apex depot where I-15 meets US-93 (records/target/bb/region_bases.json settled_locations apex_depot_house, FACTIONS [four seated] 10/18); Battle Brothers' houses hold the fortified settlements ('the house which controls one can be identified by the flag they wear', bb_all/0724)",
+    "seat": "apex_depot_house"
    },
    "memory": {
     "driven_by": "beef",
@@ -453,7 +454,8 @@
    "base": {
     "kind": "company",
     "tier": "camp",
-    "note": "a company on the road with no seat of its own; it hires out from whichever place pays (the region's rival company row is one)"
+    "note": "a company on the road with no seat of its own; it hires out from whichever place pays (the region's rival company row is one)",
+    "seat": null
    },
    "memory": {
     "driven_by": "beef",
@@ -527,7 +529,8 @@
    "base": {
     "kind": "office",
     "tier": "camp",
-    "note": "a hangar office at the airfield where the list is pinned; which seat is RUN's read"
+    "note": "no seat, the Battle Brothers way: met only inside a contract against the bandits ('Bounty Hunter is a dangerous enemy you sometimes encounter doing Drive Away Bandits contracts.', bb_all/0270); the head takers roam to the road crews' camp the company was sent to (records/target/bb/region_bases.json roaming_without_a_base head_takers, FACTIONS [four seated] 10/18); the hangar office at the airfield where the list is pinned is ours, a picture, not a seat",
+    "seat": null
    },
    "memory": {
     "driven_by": "beef",
@@ -599,7 +602,8 @@
    "base": {
     "kind": "chapel",
     "tier": "camp",
-    "note": "a trailer turned into a chapel in the park; which seat is RUN's read"
+    "note": "no seat, the Battle Brothers way: 'You can encounter Cultists only in the Religious Peasants and Come Across Ritual events.' (bb_all/0477); the trailer turned into a chapel in the park is ours, where an event or a quest puts the flock (records/target/bb/region_bases.json no_seat, FACTIONS [four seated] 10/18)",
+    "seat": null
    },
    "memory": {
     "driven_by": "beef",
@@ -678,7 +682,8 @@
    "base": {
     "kind": "camp",
     "tier": "camp",
-    "note": "a camp on the open desert that moves with the herd ('They roam the harsh and infertile lands', bb_all/0594); Battle Brothers sends you to a barbarian camp by contract (bb_all/0667_Drive Away Barbarians.txt); which seat is RUN's read"
+    "note": "the keepers' camp on the open desert below the springs at Corn Creek, the wildlife refuge north of the city (records/target/bb/region_bases.json hostile_locations corn_creek_keepers, FACTIONS [four seated] 10/18); a camp that moves with the herd ('They roam the harsh and infertile lands', bb_all/0594), the camp a contract sends you to (bb_all/0667_Drive Away Barbarians.txt)",
+    "seat": "corn_creek_keepers"
    },
    "memory": {
     "driven_by": "beef",
@@ -764,7 +769,8 @@
    "base": {
     "kind": "casino",
     "tier": "fortress",
-    "note": "a casino that still has its doors, its cameras and its cage (ours); Battle Brothers' city states are its biggest walled cities; which seat is RUN's read"
+    "note": "the gated resort and casino on the made lake at Lake Las Vegas (records/target/bb/region_bases.json settled_locations lake_las_vegas_eye, FACTIONS [four seated] 10/18): a casino that still has its doors, its cameras and its cage (ours); Battle Brothers' city states are its biggest walled cities, where the water is (bb_all/0607)",
+    "seat": "lake_las_vegas_eye"
    },
    "memory": {
     "driven_by": "beef",
@@ -843,7 +849,8 @@
    "base": {
     "kind": "block",
     "tier": "town",
-    "note": "the block itself, no barracks: the watch is the neighbours ('ready to defend their homes and families', bb_all/0724); a richer block fields more ('A rich town can field more militia than a poor town.', the same page); which seat is RUN's read"
+    "note": "no seat, on purpose, the Battle Brothers way: the watch is the neighbours ('ready to defend their homes and families', bb_all/0724) of every town and camp, gathered when a hostile party comes close and disbanded after ('Militia forces can be gathered when a hostile party is sighted close to a settlement', the same page); it turns out at every town or camp a crew is going at (records/target/bb/wants.json keep-the-block turns_out, FACTIONS [four seated] 10/18); a richer block fields more ('A rich town can field more militia than a poor town.', the same page)",
+    "seat": null
    },
    "memory": {
     "driven_by": "beef",
@@ -926,7 +933,8 @@
    "base": {
     "kind": "lot",
     "tier": "camp",
-    "note": "a dead big-box store and its lot, the bikes and the quads inside (ours); Battle Brothers' goblins keep camps a contract sends you to (bb_all/0542_Defeat Goblin Location.txt); which seat is RUN's read"
+    "note": "the runners' lot at the Valley of Fire visitor centre in the red rock past the lake (records/target/bb/region_bases.json hostile_locations valley_of_fire_runners, FACTIONS [four seated] 10/18); a dead lot with the bikes and the quads in it (ours); Battle Brothers' goblins keep camps a contract sends you to (bb_all/0542_Defeat Goblin Location.txt)",
+    "seat": "valley_of_fire_runners"
    },
    "memory": {
     "driven_by": "beef",
@@ -971,8 +979,9 @@
   "the house has no banner ink: its colour is canon (COLOUR IS TERRITORY)",
   "ground lists are ours, draft, except the wilderness and fortified-streets lines quoted in each ground_note",
   "every board ground is held since FACTIONS [more banners] (10/18): the_strip by the hired guns, trailer_park by the flock, airport by the head takers, solar_and_pumps by the water people; since FACTIONS [home bases] (10/18) casino_floor by the eye in the sky, open_desert by the keepers, suburb_block by the block watch, lot_and_bigbox by the runners; a made-up ground still answers NO_FACTION_HOLDS_THIS_GROUND",
-  "the four new factions' grounds, wants and banner inks are ours and draft; their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)",
-  "rule 42a's human floor (FACTIONS [home bases] 10/18): eight human factions with rosters (road crews, the house, the hired guns, the keepers, the eye in the sky, the flock, the block watch, the runners, plus the water people and the head takers); their grounds, wants, inks, skins and lines are ours and draft, their make-ups ours on the wiki's rosters; the greenskins' orcs (the heavy) have no row yet; no portrait, no art, nothing drawn (the rule-88 hold)"
+  "the four new factions' grounds, wants and banner inks are ours and draft (FACTIONS [more banners] 10/18); their make-ups are ours except the flock's 25 (the wiki's); no portrait, no art, nothing drawn (the rule-88 hold)",
+  "rule 42a's human floor (FACTIONS [home bases] 10/18): eight human factions with rosters (road crews, the house, the hired guns, the keepers, the eye in the sky, the flock, the block watch, the runners, plus the water people and the head takers); their grounds, wants, inks, skins and lines are ours and draft, their make-ups ours on the wiki's rosters; the greenskins' orcs (the heavy) have no row yet; no portrait, no art, nothing drawn (the rule-88 hold)",
+  "FACTIONS [four seated] 10/18: every faction's base names its seat (base.seat, a records/target/bb/region_bases.json row id) or carries seat:null with the Battle Brothers reason: the keepers at Corn Creek, the runners at Valley of Fire, the eye in the sky at Lake Las Vegas, the house at the Apex depot; the block watch none (it turns out where crews go), the flock none (met only in events), the hired guns and the head takers none (they roam, roaming_without_a_base); the road crews, the dead, the beasts and the water people are region_bases.json's rows by faction and their base.seat is not written yet (several rows each)"
  ],
  "tones": {
   "value": {

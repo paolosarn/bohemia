@@ -95,6 +95,62 @@
   "the_flag_says_who": {
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
    "quote": "Fortified settlements (Fortified Manors/Castles/Strongholds) belong to different noble houses, and the house which controls one can be identified by the flag they wear."
+  },
+  "barbarians_in_the_north": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0594_Dev Blog 116: The Barbarians, Part I.txt",
+   "quote": "we had this idea for groups of wildmen roaming the northern parts of the map"
+  },
+  "barbarian_camps_are_locations": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0613_Dev Blog 135: Location Environments.txt",
+   "quote": "you\u2019ll get to see barbarian camps and villages"
+  },
+  "goblins_beyond_civilization": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0878_Goblins.txt",
+   "quote": "Goblins live in the lands beyond the reach of human civilization"
+  },
+  "goblin_camp_is_a_location": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0574_Destroy Goblin Camp.txt",
+   "quote": "Destroy an enemy camp or lair."
+  },
+  "goblin_land_is_far_from_a_settlement": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0867_Goblin Land.txt",
+   "quote": "The next settlement is 11 or more tiles away"
+  },
+  "city_states_hold_the_water": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0607_Dev Blog 129: City States, Part I.txt",
+   "quote": "They dot the southern deserts where water is to be found, reigning over a precious resource in the otherwise dry and blazingly hot lands."
+  },
+  "city_states_ruled_by_wealth": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0607_Dev Blog 129: City States, Part I.txt",
+   "quote": "The city states are not ruled by nobility, but by wealth."
+  },
+  "city_states_patrol_and_trade": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0382_City States.txt",
+   "quote": "Southern city states send regiments to patrol surroundings, and caravans to trade with other settlements."
+  },
+  "militia_is_the_settlement": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0383_Civilian.txt",
+   "quote": "Each non-military settlement is a separate faction. They send caravans, peasants and, when enemies come close, can send militia squads to fight them."
+  },
+  "militia_gathered_when_sighted": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "Militia forces can be gathered when a hostile party is sighted close to a settlement and disbanded again after the threat disappeared."
+  },
+  "militia_spawn_at_a_raid": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt",
+   "quote": "If hostile troops raid a village or town, a group of militia soldiers spawn, ready to defend their homes and families."
+  },
+  "houses_send_supply_caravans": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1430_Noble Houses.txt",
+   "quote": "They send Supply Caravans, guarded by their troops."
+  },
+  "bounty_hunters_come_with_a_contract": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0270_Bounty Hunter.txt",
+   "quote": "Bounty Hunter is a dangerous enemy you sometimes encounter doing Drive Away Bandits contracts."
+  },
+  "cultists_only_in_events": {
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0477_Cultist (Enemy).txt",
+   "quote": "You can encounter Cultists only in the Religious Peasants and Come Across Ritual events."
   }
  },
  "the_numbers": {
@@ -109,7 +165,7 @@
   "hostile_locations": {
    "bb": null,
    "bb_note": "the wiki publishes no count of camps per map; 'the data does not say' (rule 109c)",
-   "ours": 8
+   "ours": 10
   },
   "parties_at_once": {
    "bb": null,
@@ -117,16 +173,27 @@
    "valley_measured": 28,
    "valley_measured_how": "BohemiaParties.all on the fourteen seats of the real valley, seed 12345 (14 patrol, 10 caravan, 4 crew), the number [home bases] round two measured 9/28",
    "region_from_places": 21,
-   "region_from_locations": 10,
-   "ours": 59,
+   "region_from_locations": 19,
+   "ours": 68,
    "how": "each row sends REACH[tier] parties, the parties module's own rule (fortress 3, town 2, camp 1); the gate reads REACH off engine/bohemia_towns.js and recomputes every total, so these numbers can never drift from the table that makes them",
-   "region_from_locations_how": "the eight wild locations by REACH (nine) plus the one company without a base (one)"
+   "region_from_locations_how": "the ten wild locations by REACH (eleven), the two settled locations by REACH (six) and the two companies without a base (two); the block watch turns out on top of these where crews go (rules.the_watch_turns_out_where_a_crew_goes), counted live by the gate through BohemiaWants.all, never typed here"
   },
   "crews_out_of_town": {
    "valley_crews": 4,
-   "region_crews": 5,
+   "region_crews": 7,
    "reading": "the valley is the civilized part and sends mostly patrols and caravans (4 crews of 28); the region's wild locations send crews (5 of 9): more roaming trouble the farther out, which is what Battle Brothers did on purpose (school.fewer_in_the_civilized_part, school.distance_to_civilization). MEASURED 10/17: handed to today's parties module a wild row sends CARAVANS, because hostility is read only off the canon graph's between() and the graph has no brigands; the rows carry wild:true so the one-line fix in hostilesOf has its field (routed to WORLD [parties move] and RUN)",
    "reading_ours": true
+  },
+  "settled_locations": {
+   "bb_note": "Battle Brothers' city states and noble houses hold settlements of their own (school.city_states_patrol_and_trade, school.the_flag_says_who); ours are two, the eye in the sky's lake and the house's depot, beside his canon's twelve places",
+   "ours": 2
+  },
+  "factions_on_the_region": {
+   "before": 4,
+   "before_how": "FACTIONS [home bases] 10/18: of factions.json's twelve, the road crews, the dead, the beasts and the water people held a region row; the hired guns roamed without a base; the other seven (the house, the head takers, the flock, the keepers, the eye in the sky, the block watch, the runners) held nothing and had no written reason, so their wants moved nobody (measured by FACTIONS [four seated] through BohemiaWants.all)",
+   "ours": 8,
+   "ours_how": "plus the keepers (Corn Creek), the runners (Valley of Fire), the eye in the sky (Lake Las Vegas) and the house (the Apex depot); the hired guns and the head takers roam without a base (roaming_without_a_base); the block watch and the flock have no seat for a written Battle Brothers reason (no_seat); the gate recounts all of it off the rows",
+   "with_a_reason": 12
   }
  },
  "rules": {
@@ -178,6 +245,18 @@
    "source": "engine/bohemia_homebases.js partiesLeft",
    "ours": false,
    "note": "the rule the valley's fourteen already obey applies to every row here: hand these rows to the same ledger"
+  },
+  "the_watch_turns_out_where_a_crew_goes": {
+   "value": "one watch party at each town or camp a crew is going at",
+   "source": "engine/bohemia_wants.js turnOut, read off records/target/bb/wants.json keep-the-block turns_out",
+   "wiki": "school.militia_gathered_when_sighted",
+   "ours": false,
+   "note": "the block watch has NO SEAT, the Battle Brothers way: militia belong to every non-military settlement (school.militia_is_the_settlement) and are gathered when a hostile party comes close and disbanded after (school.militia_gathered_when_sighted, school.militia_spawn_at_a_raid). Ours: 'close' has no number on the wiki, so the trigger is the crew's own mark, not a distance: a town or a camp (never a fortress, which has soldiers; never a wild seat) a crew is going at gathers one watch party that stands on the place. The disband (the crew gone, dead or settled) is RUN's clock. How many men a watch is (BB: 'A rich town can field more militia than a poor town.') is COMBAT's enemy_tiers"
+  },
+  "a_seat_stands_on_real_land": {
+   "source": "engine/BOHEMIA_REGION_LAND.json places (WORLD [the region], 10/18) read through engine/bohemia_region_land.js at()",
+   "ours": false,
+   "note": "FACTIONS [four seated] 10/18: each of the four new seats is one of WORLD's real places, at its block or the nearest block of its own ground, and the gate reads the ground off WORLD's land; the eight older wild rows were bearings in RUN's round-one frame from before WORLD's land existed and are measured, not yet moved (gaps)"
   }
  },
  "region_places": [
@@ -550,6 +629,44 @@
    ],
    "real": "Jean Dry Lake: the playa beside the prison where the desert's people camp between water and water",
    "why": "school.nomads_water_to_water: the people who left the city for the open desert, moving well to well; they raid the road the way the wiki says nomads do"
+  },
+  {
+   "id": "corn_creek_keepers",
+   "name": "THE KEEPERS AT CORN CREEK",
+   "east": -44,
+   "north": 90,
+   "tier": "camp",
+   "kind": "camp",
+   "faction": "barbarians",
+   "banner_of": "barbarians",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json barbarians",
+   "ground": [
+    "open_desert"
+   ],
+   "world_place": "CORN CREEK",
+   "real": "Corn Creek: the springs and the field station of the Desert National Wildlife Refuge, the biggest refuge in the lower 48, set aside in 1936 to keep the desert bighorn herd; the road into the Sheep Range starts here",
+   "why": "school.barbarians_in_the_north and school.barbarian_camps_are_locations: Battle Brothers' wildmen roam the north and keep camps a contract sends you to (Drive Away Barbarians: 'Destroy an enemy camp.'); the refuge north of the city was built to keep a herd, so the keepers keep the lab's herd at its springs, the camp on the open desert below them (one block off the springs' park ground), 35 blocks up the wash from the lab at Tule Springs the herd broke out of"
+  },
+  {
+   "id": "valley_of_fire_runners",
+   "name": "THE RUNNERS AT VALLEY OF FIRE",
+   "east": 151,
+   "north": 86,
+   "tier": "camp",
+   "kind": "lot",
+   "faction": "goblins",
+   "banner_of": "goblins",
+   "wild": true,
+   "agenda": "crew",
+   "mix": "records/target/bb/factions.json goblins",
+   "ground": [
+    "lot_and_bigbox"
+   ],
+   "world_place": "VALLEY OF FIRE",
+   "real": "Valley of Fire: the red sandstone park north of the lake's Overton Arm, slot canyons and one paved road through it, the visitor centre's lots in the middle of it and nobody living for twenty miles",
+   "why": "school.goblins_beyond_civilization and school.goblin_camp_is_a_location: Battle Brothers' goblins live past the reach of the towns, in camps a contract sends you to ('Destroy an enemy camp or lair.'), and ambush instead of fighting fair; the runners keep the visitor centre's lot (their own ground, WORLD's lot_and_bigbox block) in the canyons, bikes and quads in, out and gone down the one road"
   }
  ],
  "roaming_without_a_base": [
@@ -562,6 +679,16 @@
    "draft": true,
    "wiki": "school.rival_companies_roam",
    "note": "another company like yours, hired off a settlement's board and walking its contract; no seat of its own; one at a time in act one (ours, for TUNING)"
+  },
+  {
+   "id": "head_takers",
+   "faction": "bounty_hunters",
+   "agenda": "patrol",
+   "from": "the road crews' camp a Drive Away Bandits contract sends you to (RUN's read)",
+   "ours": true,
+   "draft": true,
+   "wiki": "school.bounty_hunters_come_with_a_contract",
+   "note": "Battle Brothers' bounty hunters have no seat and are met only inside a contract against the bandits, where they 'demand the bandit leader's head' (factions.json bounty_hunters); the head takers turn up at a road crew's camp the company was sent to, one party, never a place of their own (ours, for TUNING: one at a time)"
   }
  ],
  "marker_fields": [
@@ -575,18 +702,79 @@
   "agenda"
  ],
  "gaps": [
-  "the greenskins' orcs (the heavy) have no Bohemia skin; the goblins and the barbarians have a draft one since FACTIONS [home bases] 10/18 (the runners and the keepers, records/target/bb/factions.json, rule 42a) but no location fields them yet, so their wants move nobody; the beasts law's gate owes the roster count",
-  "the City States (the Holy War's other side) are not in the canon graph; no southern city holds region ground; inside the valley their skin, the eye in the sky, holds the casino floor since FACTIONS [home bases] 10/18",
+  "the greenskins' orcs (the heavy) have no Bohemia skin; the beasts law's gate owes the roster count",
+  "the City States (the Holy War's other side) are not in the canon graph; since FACTIONS [four seated] 10/18 their skin, the eye in the sky, holds one settled location (Lake Las Vegas) and the valley's casino floor; no southern city holds region ground (Laughlin, the river casino town, is past the region's south rim in WORLD's land, engine/BOHEMIA_REGION_LAND.json beyond)",
   "Colorful, Homeless and Custom hold no region place: their notes say community-based not territorial, the sewer HQ under the city, and the player",
   "the positions are bearings in RUN's frame; RUN's placer pulls each onto its road or open ground at boot, so the drawn marker can sit up to 24 blocks from the bearing",
-  "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'"
+  "what a region party is WORTH in a fight is COMBAT's enemy_tiers by tier (rule 75b); this file names units only for the wild locations whose faction is Battle Brothers'",
+  "THE EIGHT OLDER WILD ROWS ARE NOT ON WORLD'S REAL LAND (measured 10/18 by FACTIONS [four seated], the REGION BASES gate prints it every run): they were bearings in RUN's round-one frame, laid before WORLD's land (engine/BOHEMIA_REGION_LAND.json, 384 m a block) existed, so each sits 16 to 68 blocks from the real place it names (Nelson 68, Railroad Pass 56, Jean Dry Lake 48, Sloan and Gypsum Cave 40, Apex and the Lost City 32, Tule Springs 16) and seven of the eight stand on ground their own faction does not hold (the Gypsum Cave lair is in the lake's district, the nomads of Jean Dry Lake on the McCullough Range); the twelve places mirror RUN's TOWNS, which give way to WORLD's places when the land loads. The next row re-aims them (FACTIONS [the wild on real land])",
+  "the block watch and the flock have no seat of their own, on purpose (no_seat): Battle Brothers' militia are the settlement's own people and its cultists are met only in events"
  ],
  "routed": {
-  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases WITH base: the row's id (the ledger keys a region place by its id and seeds its holder from this file itself, FACTIONS [region in the ledger] 10/18; a page that runs the ledger fetches this file and calls BohemiaHomeBases.setRegion(json) once, node reads it on its own) so a fallen location sends nobody; the marker wears its holder's banner (school.the_flag_says_who); a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits)",
+  "RUN": "build seat rows from region_places and hostile_locations (faction = holder or faction, tier, kind, x = mid + east, y = mid - north, power = the holder's act power or the location's tier rank) and pass them to BohemiaParties.all beside the valley's seats; hand the same rows to BohemiaHomebases WITH base: the row's id (the ledger keys a region place by its id and seeds its holder from this file itself, FACTIONS [region in the ledger] 10/18; a page that runs the ledger fetches this file and calls BohemiaHomeBases.setRegion(json) once, node reads it on its own) so a fallen location sends nobody; the marker wears its holder's banner (school.the_flag_says_who); a crew that reaches a region place leaves it Raided (bohemia_arrivaltraits); FACTIONS [four seated] 10/18: hand settled_locations in beside hostile_locations (same row shape, wild:false), take BohemiaWants.all for the parties so the block watch turns out where crews go (turnOut), and disband a watch when the crew that gathered it is gone",
   "WORLD [the region]": "the ground kinds under each row (the fifteen terrains) and the places' own districts",
-  "COOK FOUR": "a picture per region place and per wild location kind (hideout, ruin, crypt, den, nomad camp)",
-  "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time",
+  "COOK FOUR": "a picture per region place and per wild location kind (hideout, ruin, crypt, den, nomad camp); the three new seats (the keepers' camp at the springs, the runners' lot in the red rock, the eye's gated lake)",
+  "TUNING": "far_blocks 60, raids_home 3, spread_blocks 24, one rival company at a time; one head-taker party at a time (ours, draft); the keepers (65.5 blocks out) and the runners (84) are past far_blocks 60 and field their LATE make-ups from the first day by this file's own rule: rule 117 (easier than Battle Brothers) says TUNING decides whether that stands",
   "EYES [the map's four numbers]": "settlements 26 beside 17; parties at once 59 beside 'no published count'",
-  "COMBAT": "the Unhold's rule for the sloth, the ancient dead and the nomads' real mixes"
- }
+  "COMBAT": "the Unhold's rule for the sloth, the ancient dead and the nomads' real mixes; how many men a block watch turns out with (Battle Brothers: a rich town fields more)"
+ },
+ "settled_locations": [
+  {
+   "id": "lake_las_vegas_eye",
+   "name": "THE EYE AT LAKE LAS VEGAS",
+   "east": 55,
+   "north": -9,
+   "tier": "fortress",
+   "kind": "casino",
+   "faction": "city_states",
+   "banner_of": "city_states",
+   "wild": false,
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "mix": "records/target/bb/factions.json city_states",
+   "ground": [
+    "golf_and_park"
+   ],
+   "world_place": "LAKE LAS VEGAS",
+   "real": "Lake Las Vegas: a private lake made by damming the Las Vegas Wash behind an earthen dam, three hundred acres of water in the desert, gated resorts and a casino round it, built for the rich",
+   "why": "school.city_states_hold_the_water and school.city_states_ruled_by_wealth: Battle Brothers' city states sit where the water is and are ruled by money, not blood, and send regiments to patrol and caravans to trade (school.city_states_patrol_and_trade); the made lake with the gate, the cameras and the casino is the one walled money town in the region nobody in his canon holds. A SETTLEMENT, not a camp in the wild: it is hostile to nobody by default (between() has never heard of it, so its other two parties are caravans), its first party patrols the nearest casino floor or Strip (want guard-the-money). The casino floor is a valley ground only (WORLD's region legend has none), so the seat stands on the resort's own park ground"
+  },
+  {
+   "id": "apex_depot_house",
+   "name": "THE HOUSE AT THE APEX DEPOT",
+   "east": 55,
+   "north": 69,
+   "tier": "fortress",
+   "kind": "fort",
+   "faction": "noble_houses",
+   "banner_of": "noble_houses",
+   "wild": false,
+   "agendas": [
+    "patrol",
+    "caravan"
+   ],
+   "mix": "records/target/bb/factions.json noble_houses",
+   "ground": [
+    "industrial"
+   ],
+   "world_place": "APEX",
+   "real": "Apex: the industrial park where I-15 meets US-93 north of the city, the truck yards, the rail spur and the warehouses where the freight turned off before it reached the valley",
+   "why": "school.the_flag_says_who and school.houses_send_supply_caravans: Battle Brothers' noble houses hold the fortified settlements and send supply caravans under guard; the house wants the depot (factions.json, VAMILY row [a house you give a fuck about]) and Apex is the depot every truck into the valley passed, so the house's fort is the walled yard on its own industrial ground. A SETTLEMENT, not a camp: its first party patrols the nearest depot ground (want hold-the-depot), the other two are caravans to settlements"
+  }
+ ],
+ "no_seat": [
+  {
+   "faction": "militia",
+   "why": "the block watch is every town's and camp's own neighbours, gathered when a crew comes and gone after (rules.the_watch_turns_out_where_a_crew_goes); Battle Brothers' militia have no seat",
+   "wiki": "school.militia_is_the_settlement",
+   "rule": "the_watch_turns_out_where_a_crew_goes"
+  },
+  {
+   "faction": "cultists",
+   "why": "Battle Brothers' cultists are never on the map and never hold a place: met only in two events; the flock's want (gather-the-flock) waits for an event or a quest to put them somewhere, and no seat is invented for them (rule 33j: the library first, then our swag, and here the library says none)",
+   "wiki": "school.cultists_only_in_events"
+  }
+ ]
 }

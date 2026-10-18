@@ -87,8 +87,10 @@ ok('the gaps are named (the wild faction without a want, the valley\'s fourteen,
 /* ---- C. no want, no change -------------------------------------------------- */
 for (const seed of [12345, 7, 999]) {
   const m = OM.buildOvermap(seed), seats = T.derive(G, T.districtsOf(m, CE.cat), 1);
-  const a = JSON.stringify(P.all(seats, { n: m.n })), b = JSON.stringify(W.all(seats, { n: m.n, data: DATA, cells: W.cellsOf(m, BT) }));
+  const wb = W.all(seats, { n: m.n, data: DATA, cells: W.cellsOf(m, BT) });
+  const a = JSON.stringify(P.all(seats, { n: m.n })), b = JSON.stringify(wb.filter(p => !p.turned_out));
   ok('seed ' + seed + ': the valley\'s fourteen (no want) get byte for byte what the parties module gives them', a === b);
+  console.log('  seed ' + seed + ': the valley alone turns out ' + wb.filter(p => p.turned_out).length + ' watch (its crews go at fortresses, which have soldiers)');
 }
 
 /* ---- D. the real valley and the region's rows ------------------------------ */
@@ -96,7 +98,9 @@ const m = OM.buildOvermap(12345), seats = T.derive(G, T.districtsOf(m, CE.cat), 
 const power = f => (G.factions[f] && typeof G.factions[f].act1_power === 'number') ? G.factions[f].act1_power : null;
 const rows = REGION.region_places.map(p => ({ faction: p.holder, tier: p.tier, kind: p.kind, x: Math.round(mid + p.east), y: Math.round(mid - p.north), power: power(p.holder) }))
   .concat(REGION.hostile_locations.map(w => ({ faction: w.faction, tier: w.tier, kind: w.kind, x: Math.round(mid + w.east), y: Math.round(mid - w.north),
-    power: T.TIERS.length - T.TIERS.indexOf(w.tier), wild: true, ground: w.ground })));
+    power: T.TIERS.length - T.TIERS.indexOf(w.tier), wild: true, ground: w.ground })))
+  .concat((REGION.settled_locations || []).map(w => ({ faction: w.faction, tier: w.tier, kind: w.kind, x: Math.round(mid + w.east), y: Math.round(mid - w.north),
+    power: T.TIERS.length - T.TIERS.indexOf(w.tier), ground: w.ground })));
 const all = seats.concat(rows), cells = W.cellsOf(m, BT);
 ok('the valley\'s cells all carry a ground (' + cells.length + ' of ' + m.n * m.n + ')', cells.length === m.n * m.n);
 const at = {}; all.forEach(s => { at[s.x + ',' + s.y] = s; });
@@ -133,8 +137,8 @@ ok('AFTER: no wild seat goes at another wild seat', crewMarks.every(t => t && !t
 ok('AFTER: no crew goes at its own faction', wantParties.filter(p => p.agenda === 'crew').every(p => { const t = markOf(p); return !t || t.faction !== p.from.faction; }));
 ok('AFTER: the beasts go at no place (they hold ground)', after.filter(p => (seatOf(p) || {}).faction === 'beasts').every(p => !markOf(p) || markOf(p) === seatOf(p)));
 ok('AFTER: a den already on its own ground holds it (its patrol\'s target is the den)', after.filter(p => (seatOf(p) || {}).faction === 'beasts').every(p => p.to.x === p.from.x && p.to.y === p.from.y));
-ok('AFTER: the seats with no want sent exactly what they sent before',
-  JSON.stringify(after.filter(p => !wantsOf((seatOf(p) || {}).faction))) === JSON.stringify(before.filter(p => !wantsOf((seatOf(p) || {}).faction))));
+ok('AFTER: the seats with no want sent exactly what they sent before (the watch that turned out at them aside)',
+  JSON.stringify(after.filter(p => !p.turned_out && !wantsOf((seatOf(p) || {}).faction))) === JSON.stringify(before.filter(p => !wantsOf((seatOf(p) || {}).faction))));
 ok('AFTER: each wanting seat still sends REACH[tier] parties', wanting.every(s => after.filter(p => seatOf(p) === s).length === T.REACH[s.tier]));
 
 /* ---- E. the rule is the order ---------------------------------------------- */
@@ -232,6 +236,61 @@ for (const s of wanting.filter(s => s.faction === 'brigands')) {
     ok('the data file drives it: a watch wanting the airport walks to the airport instead', moved.length === 1 && kindAt(moved[0]) === 'airport'); }
   ok('every one of the twelve factions has a want with a rule (rule 42a\'s human floor)', FACTIONS.factions.length >= 12
     && ['barbarians', 'city_states', 'militia', 'goblins'].every(f => FACTIONS.factions.some(x => x.id === f) && !!W.wantOf(f, DATA)));
+}
+
+/* ---- I. the four seated (row [four seated], rule 42a, rule 37e 'MANY ROAMING PARTIES'): the human floor's four
+   wanted something and moved nobody, because no row carried them. Now the keepers, the runners and the eye in the sky
+   each have a seat in records/target/bb/region_bases.json and the block watch has none on purpose (Battle Brothers'
+   militia are the settlement's own people) and turns out where the crews go. Measured on the real valley + region. ---- */
+{
+  const seatRows = REGION.hostile_locations.concat(REGION.settled_locations || []);
+  const wantSent = { barbarians: 'crew', goblins: 'crew', city_states: 'patrol', noble_houses: 'patrol' };
+  for (const f of Object.keys(wantSent)) {
+    const row = seatRows.filter(w => w.faction === f);
+    ok(f + ': exactly one region row seats it', row.length === 1, row.length);
+    if (row.length !== 1) continue;
+    const s = all.find(t => t.faction === f && t.x === Math.round(mid + row[0].east) && t.y === Math.round(mid - row[0].north));
+    const sent = after.filter(p => !p.turned_out && seatOf(p) === s);
+    console.log('  ' + f + ' at ' + row[0].id + ': ' + sent.map(p => p.agenda + '->' + ((markOf(p) || {}).kind || (BT.at(m, p.to.x, p.to.y) || {}).kind || p.to.x + ',' + p.to.y)).join(', '));
+    ok(f + ': its seat sends REACH[' + row[0].tier + '] parties and the first is its want\'s (' + wantSent[f] + ')', !!s && sent.length === T.REACH[row[0].tier]
+      && sent[0].agenda === wantSent[f] && sent[0].want === W.wantOf(f, DATA).id, sent.map(p => p.agenda + ':' + p.want).join());
+  }
+  ok('the eye in the sky and the house are settlements, never wild (Battle Brothers\' city states are cities, its houses hold the forts)', ['city_states', 'noble_houses'].every(f => seatRows.some(w => w.faction === f) && seatRows.filter(w => w.faction === f).every(w => w.wild === false)));
+  for (const f of ['city_states', 'noble_houses']) { const st = all.find(t => t.faction === f && !t.wild), trade = after.filter(p => !p.turned_out && seatOf(p) === st && p.agenda === 'caravan');
+    ok(f + ': a settled seat\'s caravans trade with settlements only, never with a camp in the wild (measured first: the eye\'s went to a beast\'s den)', trade.length >= 1 && trade.every(p => markOf(p) && !markOf(p).wild), trade.map(p => (markOf(p) || {}).kind).join()); }
+  ok('the keepers and the runners are wild camps that send crews (Battle Brothers\' camps a contract sends you to)',
+    ['barbarians', 'goblins'].every(f => seatRows.some(w => w.faction === f && w.wild === true && w.tier === 'camp' && w.agenda === 'crew')));
+  ok('the block watch has no seat of its own (Battle Brothers\' militia belong to the settlement)', !seatRows.some(w => w.faction === 'militia'));
+
+  const watch = after.filter(p => p.turned_out);
+  const crews = after.filter(p => p.agenda === 'crew' && !p.turned_out);
+  const due = []; crews.forEach(p => { const t = markOf(p); if (t && !t.wild && (t.tier === 'town' || t.tier === 'camp') && t.faction !== 'militia' && due.indexOf(t) < 0) due.push(t); });
+  console.log('  the watch turns out at ' + watch.length + ' place(s): ' + watch.map(p => (markOf(p) || {}).faction + ' ' + (markOf(p) || {}).tier + ' ' + (markOf(p) || {}).kind + ' (' + p.against.length + ' crew)').join(', '));
+  ok('the watch turns out on the real valley plus the region (its want moves somebody now)', watch.length >= 1, watch.length);
+  ok('one watch at every town or camp a crew is going at, and nowhere else', watch.length === due.length && due.every(t => watch.some(p => p.to.x === t.x && p.to.y === t.y)), watch.length + ' vs ' + due.length);
+  ok('never at a fortress (it has soldiers) and never at a wild seat (no townsfolk)', watch.every(p => { const t = markOf(p); return !!t && !t.wild && t.tier !== 'fortress'; }));
+  ok('the watch stands on the place, wears its own banner, patrols for keep-the-block and says whose place it defends',
+    watch.every(p => p.from.x === p.to.x && p.from.y === p.to.y && p.from.faction === 'militia' && p.agenda === 'patrol' && p.want === 'keep-the-block' && p.defends === (markOf(p) || {}).faction));
+  ok('the watch names every crew it turned out against, and they are real crews going at its place',
+    watch.every(p => p.against.length >= 1 && p.against.every(id => crews.some(q => q.id === id && q.to.x === p.to.x && q.to.y === p.to.y))));
+  ok('every crew going at a town or camp is named by the watch there', crews.filter(q => due.indexOf(markOf(q)) >= 0).every(q => watch.some(p => p.against.indexOf(q.id) >= 0)));
+  { /* probes for the two cases the real map never makes (a crew at a wild seat, the watch's own place or crew) */
+    const town = all.find(t => !t.wild && t.tier === 'town'), den = all.find(t => t.wild && t.tier === 'camp');
+    const crewAt = (from, t) => ({ id: from + ':crew:' + t.x + ',' + t.y, agenda: 'crew', from: { faction: from, x: 0, y: 0 }, to: { x: t.x, y: t.y } });
+    ok('probe: a crew at a camp in the wild gathers no watch (no townsfolk there)', W.turnOut([crewAt('brigands', den)], all, { data: DATA }).length === 0);
+    ok('probe: a crew at a town gathers one', W.turnOut([crewAt('brigands', town)], all, { data: DATA }).length === 1);
+    ok('probe: the watch never turns out against its own crew', W.turnOut([crewAt('militia', town)], all, { data: DATA }).length === 0);
+    const theirs = all.map(t => t === town ? Object.assign({}, t, { faction: 'militia' }) : t);
+    ok('probe: nor at a place it holds itself', W.turnOut([crewAt('brigands', town)], theirs, { data: DATA }).length === 0);
+  }
+  ok('turnOut() alone gives the same watch as all()',JSON.stringify(W.turnOut(after.filter(p => !p.turned_out), all, { data: DATA })) === JSON.stringify(watch));
+  { const sw = JSON.parse(JSON.stringify(WANTS)); delete sw.wants['keep-the-block'].turns_out;
+    const none = W.all(all, { n: m.n, data: { factions: FACTIONS, wants: sw }, cells });
+    ok('the data file drives it: no turns_out, no watch, and every other party unchanged', none.every(p => !p.turned_out) && JSON.stringify(none) === JSON.stringify(after.filter(p => !p.turned_out))); }
+  { const sw = JSON.parse(JSON.stringify(WANTS)); sw.wants['keep-the-block'].turns_out.tiers = ['fortress'];
+    const forts = W.all(all, { n: m.n, data: { factions: FACTIONS, wants: sw }, cells }).filter(p => p.turned_out);
+    const fdue = []; crews.forEach(p => { const t = markOf(p); if (t && !t.wild && t.tier === 'fortress' && fdue.indexOf(t) < 0) fdue.push(t); });
+    ok('the data file drives it: a watch told to stand at fortresses stands at every fortress a crew goes at instead', forts.length === fdue.length && forts.every(p => markOf(p).tier === 'fortress'), forts.length + ' vs ' + fdue.length); }
 }
 
 /* ---- F. the shape ------------------------------------------------------------ */
