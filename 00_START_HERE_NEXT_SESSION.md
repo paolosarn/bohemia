@@ -300,6 +300,23 @@ the Mob's four valley cells and RUN's region fortress); TUNING (the +n and the
 base cost). PENDING Paolo: nothing.
 
 
+MODS (mods-opus-10-18b): 10/18 LATEST (d) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus 5.5 at Extra per rule 116, no check-in) SHIPPED
+[the face apart]. *** Record records/BOHEMIA_MODS_WHAT_THE_FACE_COSTS_INSIDE_THE_SHEET_AND_OUT_10_18_26.md; instruments
+tools/bohemia_mods_face_apart.py (bytes and readers, about 3 min; --split DIR writes outside the repo only) and
+tools/bohemia_mods_face_apart_fetch.js DIR (the phone, about 15 min at 7 runs); draft key a_face_apart in
+banks/BOHEMIA_MODS_SPRITE_DECLARATION_DRAFT_10_18_26.json (draft:true, nothing reads it; fault M26). THE FACE APART IS FREE:
+with the bake's own encoder (byte-identical re-encode 26 of 26) the split is 6,106 bytes LIGHTER (814,008 against 820,114),
+on 26 of 26 looks; on the phone (CPU 4x, LTE) the real first fight bakes its board at 5,079 ms with every face apart
+against 4,983 packed (+96, inside the spread; HTTP/1.1, the driver's server) and the bare fetch over HTTP/2 is 745 against
+790. Three screens find the face three ways (fight: the manifest; settlement and roster: image width minus 64; the
+roster's FACE.x 1,568 is the 14-column sheet's, read by nobody); 13 looks already ship the rig face as a file and only the
+fight still shows the flat 64 for them. PROVES THE ROW WRONG: the pack (rule 69) saves nothing a phone feels; the first
+fight's lever is the 8 of 26 sheets (256,042 bytes) fetched for looks not on the board. github.io refused here, so both
+protocols are written. Routed COMBAT (the bar on the flat 64; the gate leg atlasOf; the 8 sheets), RUN TWO (FACE.x),
+DIRECTION (G1 needs no portrait exception if the face is a file), PLUMBER, PORTRAIT, RUN (lead line). New OPEN row
+[only the board's looks] (rule 74); [a png in the bundle] and [grok sources] stand. Rule 88 kept: no VOTE sheet.
+PENDING Paolo: nothing.
+
 MODS (mods-opus-10-18): 10/18 LATEST (c) -- *** THE NEW AGE (rules 112 to 117; opened by the coordinator, Opus per rule 116, no check-in) SHIPPED
 [a sheet's class]. *** Record records/BOHEMIA_MODS_WHERE_A_SHEET_NAMES_ITS_CLASS_10_18_26.md; instrument
 tools/bohemia_mods_sheet_class.py (reads only, about one minute); draft key a_packed_sheet in

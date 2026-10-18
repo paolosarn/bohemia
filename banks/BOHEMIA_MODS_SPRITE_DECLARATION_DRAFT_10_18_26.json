@@ -125,6 +125,15 @@
     "pose": "optional on a clip: 'standing' (default), 'low' (sitting, crawling), 'lying'. The guide, not the mod, says what each does to a test (DIRECTION's call; the measured split says lying skips the light row and low is reported, not failed). A sheet that declares no pose: the check falls back to the alpha box (wider than tall = lying), which finds dead on 50 of 52 and never finds low."
    },
    "not_added": "a class per frame or per row (every row of a sheet is one body seen from another side; Battle Brothers and Stardew tag the FILE, not the sprite), and a second class word beside 'family' (rig.json's card.family reads 'prop' on 39 of 40 rigs including the man, the thug and the wolf: it names the card band, never the class, so a check must not read it as one)."
+  },
+  "a_face_apart": {
+   "why_this_shape": "[the face apart], 10/18: measured on the 26 fight looks with the bake's own encoder, the face as its own file is 6,106 bytes LIGHTER than packed (814,008 split against 820,114 packed), lighter on 26 of 26 looks; the second fetch is -45 ms on HTTP/2 and LTE and +96 ms at worst on the real first fight over HTTP/1.1. Stardew keeps the 64 x 64 face in its own asset (Portraits/<name>) apart from the body (Characters/<name>). So a look may name its face as a file; the declared block of [a sheet's class] stays for anything else packed off the grid.",
+   "example": { "rows": { "my-mod:drifter": { "file": "drifter.webp", "class": "person", "frame": 112, "rows": ["SE", "SW"],
+     "face": { "file": "drifter_face.webp", "size": 64, "class": "portrait" }, "guide": "bohemia-style-guide@1" } } },
+   "the_key": "face: optional {file, size, class}. file is a WebP next to the sheet, size is its square side in its own pixels, class defaults to portrait. A look with no face key keeps today's behaviour (the 64 at the sheet's right edge, or a declared block). A face file that is missing or not size x size is M26 (the face skipped by name, the body still loads; M21 to M25 are taken), the folder design's way.",
+   "what_the_check_does": "runs the ten tests on the face file as class portrait and on the sheet as the row's class, one pixel size each, so G1 needs no portrait-inside-a-person exception.",
+   "not_added": "a face per facing or per expression: Stardew's cells are expressions, ours are not yet; the rig's portrait.json already carries facings and expression files, so the day the fight shows expressions the face key points at that, not at a new grid.",
+   "record": "records/BOHEMIA_MODS_WHAT_THE_FACE_COSTS_INSIDE_THE_SHEET_AND_OUT_10_18_26.md"
   }
  }
 }
