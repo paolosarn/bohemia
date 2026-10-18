@@ -128,6 +128,11 @@ const KINDS = [
     probes: [{ code: 'engine/bohemia_coldopen_set.js', table: 'TILES' }] },
   { kind: 'the phone\'s feed', change: 'the posts that scroll in the city view', lane: 'UI / WORLD',
     probes: [{ code: 'engine/bohemia_feedstream.js' }] },
+  /* MODS [the screen's word] 10/18: the two kinds the three strangers of [a modder's first hour] looked for here and did not find */
+  { kind: 'building names and who stands in them', change: 'a building\'s name and short line in a town (THE BAR, a round, a rumour), the keeper\'s name and title (MANNY, BEHIND THE BAR)', lane: 'RUN TWO',
+    probes: [{ code: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', table: 'B' }, { code: 'slices/BOHEMIA_SETTLEMENT_SCREEN.html', table: 'KEEPERS' }] },
+  { kind: 'a crew member\'s haircut (two words)', change: 'the body\'s cut, one of the named cuts (LAYERED FALL), and the face\'s cut, one of four classes (long, taper, coil, shag); change both or the man wears two haircuts', lane: 'CHARACTER / PORTRAIT',
+    probes: [{ code: 'slices/BOHEMIA_ALPHA_0_9.html', table: 'CITY_CAST_LOOKS' }, { code: 'tools/bohemia_portrait_the_head_from_the_model.py', table: 'CREW' }] },
   { kind: 'the roads', change: 'the road kinds and their speed', lane: 'WORLD / RUN',
     probes: [{ code: 'engine/bohemia_roads.js' }, { json: 'records/target/BOHEMIA_THE_ROADS.json' }] },
 ];
@@ -135,10 +140,11 @@ const KINDS = [
 /* ------------------------------------------------------------------------ measuring */
 const text = {};
 function read(rel) { if (!(rel in text)) { const p = path.join(ROOT, rel); text[rel] = fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : null; } return text[rel]; }
-function matchClose(t, open) {
+function matchClose(t, open, py) {
   let d = 0;
   for (let i = open; i < t.length; i++) {
     const c = t[i];
+    if (py && c === '#') { i = t.indexOf('\n', i); if (i < 0) return -1; continue; }
     if (c === '/' && t[i + 1] === '*') { i = t.indexOf('*/', i + 2) + 1; if (i < 1) return -1; continue; }
     if (c === '/' && t[i + 1] === '/') { i = t.indexOf('\n', i); if (i < 0) return -1; continue; }
     if (c === '"' || c === "'" || c === '`') { for (i++; i < t.length && t[i] !== c; i++) if (t[i] === '\\') i++; continue; }
@@ -147,18 +153,18 @@ function matchClose(t, open) {
   }
   return -1;
 }
-function tables(t, name, minChars) {
+function tables(t, name, minChars, py) {
   const out = [];
-  const re = name ? new RegExp('(?:^|\\n)\\s{0,4}(?:const|let|var)\\s+(' + name + ')\\s*=\\s*([\\[{])', 'g')
+  const re = name ? new RegExp('(?:^|\\n)\\s{0,4}' + (py ? '' : '(?:const|let|var)\\s+') + '(' + name + ')\\s*=\\s*([\\[{])', 'g')
                   : /(?:^|\n)\s{0,4}(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*([\[{])/g;
   let m;
   while ((m = re.exec(t))) {
     const open = m.index + m[0].length - 1;
-    const close = matchClose(t, open);
+    const close = matchClose(t, open, py);
     if (close < 0) continue;
     const body = t.slice(open, close + 1);
     const lines = body.split('\n').length;
-    if (name || (lines >= 8 && body.length >= (minChars || 2000))) out.push({ name: m[1], chars: body.length, lines, line: t.slice(0, m.index).split('\n').length, head: body.slice(0, 160).replace(/\s+/g, ' ') });
+    if (name || (lines >= 8 && body.length >= (minChars || 2000))) out.push({ name: m[1], chars: body.length, lines, line: t.slice(0, m.index + (m[0][0] === '\n' ? 1 : 0)).split('\n').length, head: body.slice(0, 160).replace(/\s+/g, ' ') });
     re.lastIndex = close;
   }
   return out;
@@ -218,7 +224,8 @@ function measure() {
       } else if (p.code) {
         const t = read(p.code);
         if (t === null) { places.push({ kind: 'code', file: p.code, table: p.table, missing: true }); continue; }
-        let tb = p.table ? tables(t, p.table) : tables(t, null, 2000);
+        const py = /\.py$/.test(p.code);   /* a Python tool's table: NAME = { ... } at the top of the file */
+        let tb = p.table ? tables(t, p.table, 0, py) : tables(t, null, 2000, py);
         if (p.table && tb.length > 1) tb = [tb.sort((a, b) => b.chars - a.chars)[0]]; /* one name, several declarations: the real table is the big one */
         if (!tb.length) { places.push({ kind: 'code', file: p.code, table: p.table, noTable: true, bytes: t.length, lines: t.split('\n').length }); continue; }
         for (const x of tb.slice(0, 6)) places.push({ kind: 'code', file: p.code, table: x.name, chars: x.chars, lines: x.lines, line: x.line, copies: p.code.startsWith('engine/') ? copies(x, p.code) : [], head: x.head });
@@ -256,6 +263,7 @@ function how(place) {
   if (place.kind === 'code') {
     if (place.noTable) return 'no table to edit: the content is built by functions in that file; a lane has to pull it into a table first';
     if (place.file.startsWith('slices/')) return 'edit the table inside the surface itself (it is code, not a file)';
+    if (place.file.startsWith('tools/')) return 'edit the table inside the tool, then run the tool (it renders pictures the game shows)';
     return 'edit the engine file' + (place.copies && place.copies.length ? '; ' + place.copies.join(' and ') + ' carr' + (place.copies.length > 1 ? 'y' : 'ies') + ' a copy, re-cut to see it' : '; the surfaces carry it after a cut');
   }
   return 'do not edit the file: it is baked by ' + place.by + '; change the source and bake again';
