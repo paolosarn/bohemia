@@ -14,17 +14,24 @@ going straight). This file replaces the picture with THE LAND: the real Las Vega
 every block its terrain from rule 46's fifteen, the real roads faster than the dirt, the
 real places as destinations hours apart. NOTHING HERE DRAWS. The land is data; RUN paints it.
 
-THE SCALE, MEASURED, NOT FELT. engine/bohemia_overmap.js line 19, its own words: "The
-valley is 96 cells across = 5.73 miles." The real Las Vegas valley, Summerlin's edge to
-Henderson's, is about 32 km across (lon -115.35 to -114.99 at 36.1 N is 32.4 km). So the
-valley generator already draws a compressed Las Vegas, and the ONE honest scale for the
-whole map is the one its own bones set: 96 blocks stand for 32 km, a block is 333 m of real
-ground. At that scale the 496-block region is 165 km across and holds everything rule 109
-names: Henderson, Boulder City, Lake Mead's whole Boulder Basin, the dam, I-15 south to
-Primm, US-95 north-west to Indian Springs and the test site's gate at Mercury, Pahrump,
-Moapa, Searchlight. (A block in the FIGHT is still a 96-metre house block: the fight is a
-piece of the city, not a map cell. TWO SCALES, ONE GAME; the overmap's own line says "a
-cell is a NEIGHBOURHOOD, not a lot".)
+THE SCALE, ONE NUMBER (10/18, settled with RUN in the record, replacing the 10/17 333 m).
+The valley's own law, laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md (Paolo 7/6, LOCKED):
+"Valley span = 96 x 96m = ~5.7 miles across = Los Santos scale, a 1:4 linear compression of
+the real 22.9 mi valley (GTA's exact proven ratio)." So ONE MAP BLOCK IS 96 m DRAWN AND
+384 m OF REAL LAS VEGAS (22.9 mi = 36.85 km over 96 blocks). The 10/17 round read the
+5.73 miles against a 32 km valley and got 333 m; the law had already written the ratio,
+and RUN's twelve hand-placed towns sat anywhere from 195 to 383 m a block. At 384 m the
+496-block region is 190 km of real ground across and Henderson is INSIDE the valley, which
+is what the 7/6 law says ("the 96x96 overmap IS the whole Las Vegas valley").
+
+ONE CLOCK, THE VALLEY'S: the minutes a block costs are the street's own (MIN_PER_CELL 0.084
+a fine cell x FN 128 = 10.75 an open block; PAVED_SPEED.factor 0.5 on a road; RUN's 1.8 on
+rough ground), so a step past the rim costs exactly what slices/bohemia_region.js charges.
+A day is the game's 1,440 minutes. Read at the real scale that clock is a man walking
+4.3 km/h on a road and 2.1 off it without stopping: the time is compressed the way Battle
+Brothers compresses it, and a crossing lands in its 2 to 4 days (EYES 10/17).
+(A block in the FIGHT is still a house: the fight is a piece of the city, not a map cell.
+TWO SCALES, ONE GAME.)
 
 ORIENTATION. The data is REAL: north is y = 0 (the land painter's own rule), east is +x.
 The valley rolls its east-west mirror per seed (the compass in vbCore: east is x1 when the
@@ -46,7 +53,8 @@ OUT = os.path.join(ROOT, 'engine', 'BOHEMIA_REGION_LAND.json')
 
 N, K = 96, 200
 D = N + 2 * K
-METRES_PER_CELL = 333.0          # 32 km / 96 blocks; the overmap's "96 cells = 5.73 miles" re-read against the real valley
+METRES_PER_CELL = 384.0          # real metres a block: the 7/6 law's 1:4 of the real 22.9 mi valley over 96 blocks
+METRES_DRAWN = 96.0              # game metres a block (TILE_M in engine/bohemia_overmap.js)
 LAT0, LON0 = 36.135, -115.170    # the valley's middle block (47.5, 47.5): the Strip's north end, Sahara and the 15
 KM_PER_DEG_LAT = 111.0
 KM_PER_DEG_LON = 111.0 * math.cos(math.radians(LAT0))   # 89.7 at 36.1 N
@@ -79,16 +87,22 @@ ROADCODE = {0: '-', 1: 'F', 2: 'S', 3: 'D'}   # the road layer's own letters: no
 PASS = {'.': 0, 'b': 0, 'i': 0, 'a': 0, 'p': 0, 'l': 0, 'g': 0, 'x': 0, 't': 0, 'f': 1,
         'h': 2, 's': 2, '~': 3, '^': 3, 'V': 0}
 
-# ---- the walking speeds (TUNING's, tuned:false): a company on foot, loaded, eight marching hours a day ----
-# source: US Army FM 21-18 (foot marches) 4 km/h loaded on a road, Naismith's rule for the climb,
-# desert pavement and creosote flat about 3.5 km/h, dry sand in a wash under 3, broken rock slopes 2 to 2.5.
-SPEED_KMH = {'paved': 5.0, 'dirt': 4.3, 'streets': 4.5, 'open': 3.5, 'wash': 2.8, 'hills': 2.2}
-HOURS_A_DAY = 8
-def mins_per_cell(kmh): return (METRES_PER_CELL / 1000.0) / kmh * 60.0
+# ---- the clock: the valley's own, so a block out here costs what RUN charges for it ----
+# slices/BOHEMIA_CITY_WORLD.html: MIN_PER_CELL 0.084 a fine cell, FN 128 fine cells a block,
+# PAVED_SPEED.factor 0.5; slices/bohemia_region.js: COST [open 1, road PAVED_SPEED.factor, rough 1.8].
+# RUN charges a region block by its pass code only, so dirt is a road (0.5) and a wash is rough (1.8);
+# a finer ladder (a dirt track slower than tarmac, a wash kinder than a slope) is TUNING's row, not this file's.
+MIN_PER_FINE, FN = 0.084, 128
+OPEN_BLOCK_MIN = MIN_PER_FINE * FN          # 10.752
+FACTOR = {'paved': 0.5, 'dirt': 0.5, 'valley': 0.5, 'streets': 1.0, 'open': 1.0, 'wash': 1.8, 'hills': 1.8}
+MINUTES_A_DAY = 1440
+def mins_of(sc): return OPEN_BLOCK_MIN * FACTOR[sc]
+def kmh_of(sc): return (METRES_PER_CELL / 1000.0) / (mins_of(sc) / 60.0)   # the real-ground pace the clock implies
 def speed_class(code, road):
     if road in (1, 2): return 'paved'
     if road == 3: return 'dirt'
-    if code in ('b', 'i', 'a', 'p', 'l', 'g', 'x', 't', 'V'): return 'streets'
+    if code == 'V': return 'valley'
+    if code in ('b', 'i', 'a', 'p', 'l', 'g', 'x', 't'): return 'streets'
     if code == '.': return 'open'
     if code == 's': return 'wash'
     if code == 'h': return 'hills'
@@ -154,14 +168,14 @@ WASHES = [
 ]
 # the roads: name, class (1 freeway or US highway, 2 state route, 3 dirt), polyline
 ROADS = [
-    ('I-15 S',       1, [(36.03, -115.18), (35.94, -115.21), (35.85, -115.29), (35.78, -115.33), (35.68, -115.36), (35.61, -115.39), (35.52, -115.42), (35.30, -115.55)]),
+    ('I-15 S',       1, [(36.03, -115.18), (35.94, -115.21), (35.85, -115.29), (35.78, -115.33), (35.68, -115.36), (35.61, -115.39), (35.52, -115.42), (35.30, -115.55), (35.15, -115.75)]),   # on to Baker: past the rim at 384 m
     ('I-15 N',       1, [(36.24, -115.07), (36.28, -115.02), (36.35, -114.94), (36.42, -114.86), (36.52, -114.76), (36.60, -114.68), (36.72, -114.55), (36.85, -114.40), (37.00, -114.20)]),
-    ('US-95 NW',     1, [(36.24, -115.26), (36.30, -115.37), (36.38, -115.48), (36.46, -115.58), (36.57, -115.67), (36.66, -115.99), (36.72, -116.20)]),
+    ('US-95 NW',     1, [(36.24, -115.26), (36.30, -115.37), (36.38, -115.48), (36.46, -115.58), (36.57, -115.67), (36.66, -115.99), (36.72, -116.20), (36.80, -116.45)]),   # on to Beatty
     ('I-515 / US-93',1, [(36.08, -115.03), (36.04, -114.98), (35.97, -114.92)]),                 # Boulder Highway to Railroad Pass
-    ('I-11 / US-93', 1, [(35.97, -114.92), (35.95, -114.86), (35.97, -114.80), (36.00, -114.76), (36.015, -114.74), (35.99, -114.70), (35.90, -114.62), (35.75, -114.55), (35.45, -114.20)]),   # the Boulder City bypass, the dam bridge, Arizona
+    ('I-11 / US-93', 1, [(35.97, -114.92), (35.95, -114.86), (35.97, -114.80), (36.00, -114.76), (36.015, -114.74), (35.99, -114.70), (35.90, -114.62), (35.75, -114.55), (35.45, -114.20), (35.30, -113.95)]),   # the Boulder City bypass, the dam bridge, Arizona
     ('US-93 OLD',    2, [(35.97, -114.92), (35.98, -114.84), (36.00, -114.80), (36.016, -114.737)]),   # through Boulder City to the dam's crest
-    ('US-95 S',      1, [(35.97, -114.92), (35.90, -114.95), (35.80, -114.95), (35.65, -114.93), (35.47, -114.92), (35.35, -114.90)]),
-    ('NV-160',       2, [(36.03, -115.26), (36.05, -115.40), (36.02, -115.50), (36.08, -115.62), (36.15, -115.80), (36.21, -115.98), (36.25, -116.10)]),
+    ('US-95 S',      1, [(35.97, -114.92), (35.90, -114.95), (35.80, -114.95), (35.65, -114.93), (35.47, -114.92), (35.35, -114.90), (35.10, -114.85)]),
+    ('NV-160',       2, [(36.03, -115.26), (36.05, -115.40), (36.02, -115.50), (36.08, -115.62), (36.15, -115.80), (36.21, -115.98), (36.25, -116.10), (36.30, -116.40)]),
     ('NV-159',       2, [(36.16, -115.33), (36.13, -115.43), (36.07, -115.45), (36.05, -115.40)]),
     ('NV-157 KYLE',  2, [(36.30, -115.37), (36.28, -115.50), (36.26, -115.64)]),
     ('NV-156 LEE',   2, [(36.46, -115.58), (36.40, -115.66), (36.33, -115.68)]),
@@ -181,7 +195,7 @@ ROADS = [
     ('POWERLINE RD',   3, [(36.14, -114.88), (36.20, -114.90), (36.20, -114.75)]),
     ('ELDORADO RANCH RD', 3, [(35.86, -114.95), (35.80, -114.98)]),
     ('GASS PEAK RD',   3, [(36.37, -114.93), (36.42, -115.10), (36.40, -115.18)]),
-    ('MERCURY HWY',    2, [(36.66, -115.99), (36.72, -116.08), (36.78, -116.15)]),
+    ('MERCURY HWY',    2, [(36.66, -115.99), (36.72, -116.08), (36.78, -116.15), (36.95, -116.25)]),   # into the proving ground
     ('CREECH RD',      2, [(36.57, -115.67), (36.59, -115.68)]),
 ]
 # patches of ground: (lat, lon, radius km, code)
@@ -428,7 +442,7 @@ def rle_rows(buf, width, height, as_chr):
 
 def cost_of(code, rd):
     sc = speed_class(code, rd)
-    return None if sc is None else mins_per_cell(SPEED_KMH[sc])
+    return None if sc is None else mins_of(sc)
 
 def dijkstra(grid, road, sources):
     INF = float('inf'); dist = [INF] * (D * D); heap = []
@@ -449,9 +463,16 @@ def dijkstra(grid, road, sources):
 def main():
     grid, road, roadname, portals = build()
     # the places onto the grid, each pulled to the nearest standable block (never into the valley)
-    places = []
+    places, in_valley_places = [], []
     for name, la, lo, tier, role, what in PLACES:
         fx, fy = cell_of(la, lo); x, y = int(math.floor(fx)), int(math.floor(fy))
+        if in_valley(x, y):
+            # at the one scale this place is INSIDE the valley (the 7/6 law: the overmap is the whole valley);
+            # it is the roll's to seat as a district, never this file's to drag out to the rim
+            km, bearing = km_of(la, lo)
+            in_valley_places.append({'name': name, 'lat': la, 'lon': lo, 'x': x, 'y': y, 'tier': tier, 'role': role,
+                                     'km': round(km, 1), 'bearing': round(bearing), 'what': what, 'draft': True})
+            continue
         best, bd = None, 1e9
         for r in range(0, 6):
             for dy in range(-r, r + 1):
@@ -474,7 +495,7 @@ def main():
     for p in places:
         m = dist[idx(p['x'], p['y'])]
         p['hours'] = None if m == float('inf') else round(m / 60.0, 1)
-        p['days'] = None if m == float('inf') else round(m / 60.0 / HOURS_A_DAY, 2)
+        p['days'] = None if m == float('inf') else round(m / MINUTES_A_DAY, 2)
     # beyond the rim: the road's last grid cell
     beyond = []
     for name, la, lo, via, what in BEYOND:
@@ -486,14 +507,14 @@ def main():
         km, bearing = km_of(la, lo)
         m = dist[idx(*rim)] if rim else float('inf')
         rimkm = km_of(*latlon_of(rim[0] + 0.5, rim[1] + 0.5))[0] if rim else None
-        extra_h = ((km - rimkm) / SPEED_KMH['paved']) if rim else None
+        extra_h = ((km - rimkm) / kmh_of('paved')) if rim else None
         beyond.append({'name': name, 'lat': la, 'lon': lo, 'km': round(km), 'bearing': round(bearing), 'via': via,
                        'rimX': rim[0] if rim else None, 'rimY': rim[1] if rim else None, 'what': what, 'draft': True,
-                       'days': None if m == float('inf') else round((m / 60.0 + extra_h) / HOURS_A_DAY, 1)})
+                       'days': None if m == float('inf') else round((m / 60.0 + extra_h) * 60.0 / MINUTES_A_DAY, 1)})
     # the crossings: rim to rim, by the cheapest route, on the real roads and across the open
     def cross(a, b):
         d2 = dijkstra(grid, road, [idx(*a)]); m = d2[idx(*b)]
-        return None if m == float('inf') else round(m / 60.0 / HOURS_A_DAY, 2)
+        return None if m == float('inf') else round(m / MINUTES_A_DAY, 2)
     west_rim = next(((x, y) for (x, y) in [(-K, y) for y in range(-K, N + K)] if cost_of(chr(grid[idx(x, y)]), road[idx(x, y)]) is not None and road[idx(x, y)]), (-K, 0))
     i15s = [c for c in road_cells(ROADS[0][2]) if in_grid(*c)][-1]
     i15n = [c for c in road_cells(ROADS[1][2]) if in_grid(*c)][-1]
@@ -512,13 +533,16 @@ def main():
         if v == 1: road_counts['freeway/US'] += 1
         elif v == 2: road_counts['state route'] += 1
         elif v == 3: road_counts['dirt'] += 1
-    speeds = {k: {'kmh': v, 'minutesPerCell': round(mins_per_cell(v), 2), 'kmPerDay': round(v * HOURS_A_DAY, 1)} for k, v in SPEED_KMH.items()}
+    speeds = {k: {'factor': FACTOR[k], 'minutesPerCell': round(mins_of(k), 3), 'kmh': round(kmh_of(k), 2), 'kmPerDay': round(kmh_of(k) * MINUTES_A_DAY / 60.0, 1)} for k in FACTOR}
     out = {
         'version': 1, 'lane': 'WORLD', 'row': '[the region]', 'rules': [109, 110, 46, 33, 77, '40g'],
         'source': 'tools/bohemia_world_region.py (deterministic; re-run it, the file is the same bytes)',
         'orientation': 'REAL: north is y = 0 (the land painter\'s rule), east is +x. The valley rolls its east-west mirror per seed; engine/bohemia_region_land.js mirrors x when the valley\'s compass says east is x0. y never mirrors.',
         'N': N, 'K': K, 'D': D, 'metresPerCell': METRES_PER_CELL,
-        'metresPerCellWhy': 'engine/bohemia_overmap.js line 19: "The valley is 96 cells across = 5.73 miles", and the real Las Vegas valley, Summerlin\'s edge to Henderson\'s, is 32 km across; the one scale the valley\'s own bones set is 32 km over 96 blocks. The fight\'s house block (96 m) is the other scale: TWO SCALES, ONE GAME.',
+        'metresPerCellWhy': 'ONE NUMBER (WORLD with RUN, 10/18): laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md, Paolo 7/6 LOCKED: the 96 x 96 overmap IS the whole valley, 96 m a block drawn, a 1:4 linear compression of the real 22.9 mi valley (GTA\'s ratio). 36.85 km over 96 blocks is 384 m of real ground a block. The 10/17 cut used 333 m (5.73 miles read against a 32 km valley); the law had the ratio already. The fight\'s house tile is the other scale: TWO SCALES, ONE GAME.', 'metresDrawn': METRES_DRAWN, 'compression': METRES_PER_CELL / METRES_DRAWN,
+        'scale': {'metresReal': METRES_PER_CELL, 'metresDrawn': METRES_DRAWN, 'compression': METRES_PER_CELL / METRES_DRAWN, 'law': 'laws/BOHEMIA_ADDENDUM_VALLEY_SCALE_LAW_7_6_26.md', 'record': 'records/BOHEMIA_WORLD_ONE_SCALE_ONE_CLOCK_10_18_26.md',
+                  'clock': {'minPerFineCell': MIN_PER_FINE, 'fineCellsPerBlock': FN, 'minutesOpenBlock': OPEN_BLOCK_MIN, 'roadFactor': FACTOR['paved'], 'roughFactor': FACTOR['hills'], 'minutesADay': MINUTES_A_DAY},
+                  'readsAs': 'a block is 96 m on the glass and 384 m of the real valley; a day on a road is ' + str(round(MINUTES_A_DAY / mins_of('paved'))) + ' blocks, a day across the open ' + str(round(MINUTES_A_DAY / OPEN_BLOCK_MIN)) + '; the kilometres are Las Vegas\'s, the days are Battle Brothers\''},
         'origin': {'lat': LAT0, 'lon': LON0, 'cell': [(N - 1) / 2, (N - 1) / 2], 'what': 'the valley\'s middle block; the Strip\'s north end at Sahara and the 15'},
         'kmAcross': km_across,
         'legend': {k: v for k, v in CODE.items()},
@@ -526,25 +550,25 @@ def main():
         'pass': PASS, 'passWhy': 'slices/bohemia_region.js (RUN): 0 open ground, 1 a road, 2 rough, 3 cannot be crossed. A block with a road of any class is 1 whatever its ground (a bridge over the water, a cut through a range).',
         'roadCodes': {'-': 'no road', 'F': 'class 1, freeway or US highway', 'S': 'class 2, state route', 'D': 'class 3, dirt track'},
         'roadClasses': {'1': 'freeway or US highway (I-15, I-11, I-515, US-93, US-95, CC-215)', '2': 'state route (NV-160, 159, 157, 156, 147, 564, 146, 161, 165, 604, 167)', '3': 'dirt track'},
-        'speeds': speeds, 'speedsTuned': False, 'hoursADay': HOURS_A_DAY,
-        'speedsSource': 'TUNING\'s numbers, tuned:false. US Army FM 21-18 foot marches (4 to 5 km/h loaded on a road); Naismith\'s rule for the climb; desert pavement and creosote flat about 3.5 km/h; dry sand in a wash under 3; broken rock slopes 2 to 2.5. A day is eight marching hours (Battle Brothers: a day passes as you travel; the company camps).',
+        'speeds': speeds, 'speedsTuned': False, 'minutesADay': MINUTES_A_DAY,
+        'speedsSource': 'THE VALLEY\'S OWN CLOCK, not a second one: slices/BOHEMIA_CITY_WORLD.html MIN_PER_CELL 0.084 x FN 128 = 10.752 minutes an open block, PAVED_SPEED.factor 0.5 on a road, slices/bohemia_region.js COST 1.8 on rough ground; RUN charges a region block by its pass code, so a dirt track is a road and a wash is rough. tuned:false; the finer ladder (dirt slower than tarmac, a wash kinder than a slope: FM 21-18 and Naismith) is TUNING\'s row. kmh is the real-ground pace the clock implies at 384 m a block.',
         'speedClassOf': 'road class 1 or 2 -> paved; 3 -> dirt; suburb, lot, industrial, airport, solar, landfill, golf, trailer and the valley -> streets; open_desert -> open; wash_and_shore -> wash; hills -> hills; water and peak -> none',
         'rows': rle_rows(grid, D, D, chr),
         'roadRows': rle_rows(road, D, D, lambda v: ROADCODE[v]),
         'rowsWhy': 'one string a row, y = -K first; run-length: a count then the code, no count means one. D cells a row.',
         'portals': portals,
         'portalsWhy': 'where each real highway meets the valley box (the first block outside it, on which side). The valley rolls its own exits per seed; the loader stitches each rolled exit to the nearest portal on the same side (Lego, rule 77: a road never ends in sand).',
-        'places': places, 'beyond': beyond, 'crossingsDays': crossings,
+        'places': places, 'inValley': in_valley_places, 'inValleyWhy': 'real places that fall inside the valley box at 384 m a block; the valley generator (the roll) seats them as its own districts, so this file lists them and draws nothing', 'beyond': beyond, 'crossingsDays': crossings,
         'counts': counts, 'roadCounts': road_counts,
         'numbers': {
             'tilesAcross': D, 'tiles': D * D, 'kmAcross': km_across,
             'valleyTiles': N * N, 'regionTiles': D * D - N * N,
-            'places': len(places), 'beyond': len(beyond), 'valleySeats': 14,
+            'places': len(places), 'inValley': len(in_valley_places), 'beyond': len(beyond), 'valleySeats': 14,
             'settlementsInAll': len(places) + 14,
             'daysAcross': crossings,
-            'daysAcrossRoadStraight': round(km_across / (SPEED_KMH['paved'] * HOURS_A_DAY), 1),
-            'daysAcrossOpenStraight': round(km_across / (SPEED_KMH['open'] * HOURS_A_DAY), 1),
-            'battleBrothers': {'tilesAcross': 140, 'tiles': 19600, 'settlements': 17, 'daysAcross': None,
+            'daysAcrossRoadStraight': round(D * mins_of('paved') / MINUTES_A_DAY, 2),
+            'daysAcrossOpenStraight': round(D * mins_of('open') / MINUTES_A_DAY, 2),
+            'battleBrothers': {'tilesAcross': 140, 'tiles': 19600, 'settlements': 17, 'daysAcross': [2, 4], 'daysAcrossSource': 'records/BOHEMIA_EYES_THE_MAPS_FOUR_NUMBERS_OURS_BESIDE_BATTLE_BROTHERS_10_17_26.md (players\' reports, no official figure)',
                                'source': 'reference/library/battle_brothers/01_WORLDMAP.md and records/BOHEMIA_THE_REGION_RUN_10_16_26.md (community-measured; the crossing days are owed, EYES [the map\'s four numbers], Grok ask 26)'},
         },
     }

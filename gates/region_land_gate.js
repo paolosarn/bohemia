@@ -60,9 +60,9 @@ console.log('THE REGION IS REAL GEOGRAPHY  (engine/BOHEMIA_REGION_LAND.json, ' +
 section('A whole', () => {
   ok('A1 RUN\'s grid: N 96, K 200, D 496', N === 96 && K === 200 && D === 496, N + '/' + K + '/' + D);
   ok('A2 one row per block row', json.rows.length === D && json.roadRows.length === D);
-  ok('A3 the scale is stated with its reason', json.metresPerCell > 0 && /overmap/.test(json.metresPerCellWhy || '') && /32 km/.test(json.metresPerCellWhy || ''));
+  ok('A3 ONE scale, the 7/6 law\'s: ' + json.metresPerCell + ' m real a block, ' + json.metresDrawn + ' m drawn, 1:' + json.compression, json.metresPerCell === 384 && json.metresDrawn === 96 && json.compression === 4 && /VALLEY_SCALE_LAW_7_6_26/.test(json.metresPerCellWhy || '') && json.scale && json.scale.metresReal === json.metresPerCell);
   ok('A4 the orientation is stated (north y0, east +x, the loader mirrors)', /north is y = 0/.test(json.orientation || '') && /mirror/.test(json.orientation || ''));
-  ok('A5 the speeds are TUNING\'s, tagged untuned, with a source', json.speedsTuned === false && /FM 21-18|Naismith/.test(json.speedsSource || ''));
+  ok('A5 ONE clock, the valley\'s: tagged untuned, its source the street\'s own MIN_PER_CELL', json.speedsTuned === false && /MIN_PER_CELL/.test(json.speedsSource || '') && json.minutesADay === 1440);
 });
 
 /* B */
@@ -121,7 +121,7 @@ section('D roads', () => {
   ok('D2 every road network reaches the valley box or the rim (' + r.islands + ' islands)', r.islands === 0);
   ok('D3 three classes and the freeway is the most of them', json.roadCounts['freeway/US'] > 1000 && json.roadCounts['dirt'] > 100 && json.roadCounts['state route'] > 500);
   const paved = json.speeds.paved.minutesPerCell, open = json.speeds.open.minutesPerCell, hills = json.speeds.hills.minutesPerCell;
-  ok('D4 roads faster than dirt faster than hills (rule 33): ' + paved + ' < ' + json.speeds.dirt.minutesPerCell + ' < ' + open + ' < ' + hills, paved < json.speeds.dirt.minutesPerCell && json.speeds.dirt.minutesPerCell < open && open < hills);
+  ok('D4 roads faster than the open faster than the hills (rule 33): ' + paved + ' <= ' + json.speeds.dirt.minutesPerCell + ' < ' + open + ' < ' + hills, paved <= json.speeds.dirt.minutesPerCell && json.speeds.dirt.minutesPerCell < open && open < hills);
 });
 
 /* E: the Lego edges agree */
@@ -161,7 +161,9 @@ section('F places', () => {
   ok('F5 every base sits on a road (Battle Brothers: a settlement is on the road network)', baseOffRoad === 0, baseOffRoad + ' bases off the road');
   ok('F6 tiers from the three', badTier === 0);
   const must = ['HENDERSON', 'BOULDER CITY', 'HOOVER DAM', 'INDIAN SPRINGS', 'PAHRUMP', 'PRIMM', 'MERCURY', 'MOAPA', 'SEARCHLIGHT'];
-  ok('F7 rule 109\'s named places are on the grid: ' + must.join(', '), must.every(n => names.has(n)));
+  const inV = new Set((json.inValley || []).map(p => p.name));
+  ok('F7 rule 109\'s named places are on the grid (in the region, or inside the valley at the one scale): ' + must.join(', '), must.every(n => names.has(n) || inV.has(n)));
+  ok('F9 a place listed inside the valley really is inside its box at 384 m (' + [...inV].join(', ') + ')', (json.inValley || []).every(p => p.x >= 0 && p.y >= 0 && p.x < N && p.y < N));
   ok('F8 the beyond list names the roads on, with kilometres', json.beyond.length >= 8 && json.beyond.every(b => b.km > 60 && b.via && b.rimX != null));
 });
 
@@ -171,8 +173,8 @@ section('G reach', () => {
   ok('G1 every place reaches the valley on foot', none.length === 0, none.map(p => p.name).join(', '));
   const farOnes = json.places.filter(p => p.hours != null && p.hours > 6);
   ok('G2 destinations hours apart: ' + farOnes.length + ' places more than six marching hours out, the farthest ' + Math.max(...json.places.map(p => p.hours || 0)) + ' h', farOnes.length >= 10);
-  const near = json.places.find(p => p.name === 'HENDERSON');
-  ok('G3 Henderson is the near one (' + (near && near.hours) + ' h, ' + (near && near.km) + ' km)', near && near.hours > 3 && near.hours < 9);
+  const near = json.places.slice().sort((a, b) => a.hours - b.hours)[0];
+  ok('G3 the nearest region place is a few hours out (' + near.name + ' ' + near.hours + ' h, ' + near.km + ' km) and Henderson is inside the valley', near.hours > 3 && near.hours < 9 && (json.inValley || []).some(p => p.name === 'HENDERSON'));
 });
 
 /* H: the four numbers */
@@ -182,7 +184,7 @@ section('H numbers', () => {
   ok('H2 tiles in all ' + n.tiles + ' >= ' + bb.tiles, n.tiles >= bb.tiles);
   ok('H3 settlements ' + n.settlementsInAll + ' (' + n.places + ' in the region + 14 valley seats) >= ' + bb.settlements, n.settlementsInAll >= bb.settlements);
   const days = Object.values(n.daysAcross);
-  ok('H4 a crossing takes days: ' + JSON.stringify(n.daysAcross) + ' (Battle Brothers\' days are owed, EYES)', days.every(d => d != null && d >= 1));
+  ok('H4 a crossing takes Battle Brothers\' days: ' + JSON.stringify(n.daysAcross) + ' against its ' + bb.daysAcross.join(' to '), days.every(d => d != null && d >= bb.daysAcross[0] && d <= bb.daysAcross[1]));
   ok('H5 the region is ' + n.kmAcross + ' km across and that is the real distance (' + D + ' x ' + json.metresPerCell + ' m)', Math.abs(n.kmAcross - D * json.metresPerCell / 1000) < 0.2);
 });
 
@@ -229,14 +231,31 @@ section('K determinism', () => {
 
 /* L: the page and the row */
 section('L page', () => {
-  const rec = P('records/BOHEMIA_WORLD_THE_REGION_IS_REAL_GEOGRAPHY_10_17_26.md');
+  const rec = P('records/BOHEMIA_WORLD_ONE_SCALE_ONE_CLOCK_10_18_26.md');
   ok('L1 the page exists', fs.existsSync(rec));
   const t = fs.existsSync(rec) ? fs.readFileSync(rec, 'utf8') : '';
-  ok('L2 it names the kilometres, the days and Battle Brothers', /km/.test(t) && /days/.test(t) && /Battle Brothers/.test(t) && /165/.test(t));
+  ok('L2 it names the kilometres, the days and Battle Brothers', /km/.test(t) && /days/.test(t) && /Battle Brothers/.test(t) && /190/.test(t) && /384/.test(t));
   ok('L3 it carries the [bb ...] line and the analog horror line', /\[bb /.test(t) && /analog horror/i.test(t));
   const board = fs.readFileSync(P('VAMILY.md'), 'utf8');
   const row = board.split('\n').find(l => /\[the region\]/.test(l) && /^- (OPEN|CLAIMED|SHIPPED)/.test(l));
   ok('L4 the row keeps the ruling it answered (rule 11: "[the region]" and rule 109 on one line)', !!row && /rule 109/.test(row));
+});
+
+/* N: ONE SCALE, ONE CLOCK WITH RUN (10/18): the data's minutes are what the street and RUN's region charge */
+section('N one scale with RUN', () => {
+  const alpha = fs.readFileSync(P('slices/BOHEMIA_CITY_WORLD.html'), 'utf8'), reg = fs.readFileSync(P('slices/bohemia_region.js'), 'utf8');
+  const mpc = +((alpha.match(/var MIN_PER_CELL = ([0-9.]+)/) || [])[1]), fn = json.scale.clock.fineCellsPerBlock;
+  const pf = +((alpha.match(/var PAVED_SPEED = \{ factor: ([0-9.]+)/) || [])[1]);
+  const rough = +((reg.match(/var COST = \[1, PAVED_SPEED_FACTOR\(\), ([0-9.]+)\]/) || [])[1]);
+  ok('N1 an open block costs the street\'s own ' + mpc + ' x ' + fn + ' = ' + (mpc * fn).toFixed(3) + ' min (data ' + json.speeds.open.minutesPerCell + ')', Math.abs(mpc * fn - json.speeds.open.minutesPerCell) < 0.01);
+  ok('N2 a road block costs the street\'s PAVED_SPEED ' + pf + ' (data ' + json.speeds.paved.factor + ')', pf === json.speeds.paved.factor && json.speeds.valley.factor === pf);
+  ok('N3 a rough block costs RUN\'s ' + rough + ' (data ' + json.speeds.hills.factor + ')', rough === json.speeds.hills.factor && json.speeds.wash.factor === rough);
+  /* RUN's hand-placed towns, read against the one scale: a finding for RUN's row, printed, never a red in RUN's file */
+  const T = [...reg.matchAll(/\['([A-Z .]+)',\s*(-?\d+),\s*(-?\d+),/g)].map(m => [m[1].trim(), +m[2], +m[3]]);
+  const byName = {}; json.places.concat(json.inValley || []).forEach(p => byName[p.name] = p);
+  const rows = T.filter(t => byName[t[0]]).map(t => [t[0], Math.round(byName[t[0]].km * 1000 / Math.hypot(t[1], t[2]))]);
+  if (/BOHEMIA_REGION_LAND/.test(reg)) ok('N4 RUN reads the region land, so its places are the data\'s', true);
+  else console.log('  . N4 (finding for RUN, not a red) RUN\'s ' + T.length + ' hand-placed towns sit at ' + rows.map(r => r[0] + ' ' + r[1] + ' m').join(', ') + ' a block; the one scale is ' + json.metresPerCell + ': places(compass) replaces the list');
 });
 
 /* M: mutations, each red */
@@ -261,7 +280,7 @@ function encodeRow(cells) { let s = '', cur = null, run = 0; for (const c of cel
 console.log('\nTHE FOUR NUMBERS (rule 109c)            ours                      Battle Brothers');
 const n = json.numbers;
 console.log('  tiles across / in all                 ' + (n.tilesAcross + ' / ' + n.tiles).padEnd(26) + n.battleBrothers.tilesAcross + ' / ' + n.battleBrothers.tiles);
-console.log('  a crossing on foot                    ' + Object.entries(n.daysAcross).map(([k, v]) => v + ' d').join(', ').padEnd(26) + 'not measured yet (EYES, Grok ask 26)');
+console.log('  a crossing on foot                    ' + Object.entries(n.daysAcross).map(([k, v]) => v + ' d').join(', ').padEnd(26) + n.battleBrothers.daysAcross.join(' to ') + ' d (EYES 10/17, players\' reports)');
 console.log('  settlements                           ' + (n.settlementsInAll + ' (' + n.places + ' region + 14 valley)').padEnd(26) + n.battleBrothers.settlements);
 console.log('  kilometres across                     ' + (n.kmAcross + ' km').padEnd(26) + 'a painting, no scale');
 console.log('\nREGION LAND: ' + pass + ' passed / ' + fail + ' failed');

@@ -80,6 +80,7 @@
       if (code === 's') return 'wash';
       if (code === 'h') return 'hills';
       if (code === '~' || code === '^') return null;
+      if (code === 'V' && speeds.valley) return 'valley';   /* the valley's own paved streets (10/18, one clock) */
       return 'streets';
     }
     function passOf(code, road) {

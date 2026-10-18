@@ -1,5 +1,7 @@
 # THE REGION IS REAL GEOGRAPHY: THE LAS VEGAS REGION AS DATA ON RUN'S 496-BLOCK GRID
 
+> SUPERSEDED IN ONE PART, 10/18: the scale (333 m a block) and the eight-hour day are replaced by ONE SCALE, ONE CLOCK: 384 m of real ground a block (the 7/6 valley scale law's 1:4) and the valley's own minutes over a 1,440-minute day. records/BOHEMIA_WORLD_ONE_SCALE_ONE_CLOCK_10_18_26.md. The kilometres and days below are the 10/17 cut's.
+
 WORLD lane (chat 02), 10/17/26. Row `[the region]`, rules 109, 110, 111 (the hold on WORLD lifts
 for this one row: a rule he gave is never held), 46 (the fifteen terrains), 33 (roads faster than
 dirt), 77 (tiles are Legos), 40g (the bones never move). The big swing of the day (rule 110).
