@@ -95,11 +95,14 @@ def lamp(bpy, mathutils):
     cyl(bpy, 'hanger', steel, 0.012, 0.16, (L - 0.04, -0.04, H - 0.2), verts=6)
     # the shade, knocked 9 degrees off true, and the sodium bulb under it
     tilt = (math.radians(9), math.radians(-4), 0)
-    bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.24, radius2=0.06, depth=0.2, location=(L - 0.04, -0.04, H - 0.36), rotation=tilt)
-    put(bpy, bpy.context.active_object, 'shade', rust)
-    cyl(bpy, 'shade_rim', mat(bpy, 'rim', 'clay_rust', 1), 0.245, 0.03, (L - 0.04, -0.055, H - 0.455), rot=tilt, verts=16)
-    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.075, location=(L - 0.04, -0.06, H - 0.48), segments=12, ring_count=8)
-    put(bpy, bpy.context.active_object, 'bulb', mat(bpy, 'sodium', 'sodium', 3, glow=6.0))
+    # round two of the loop: the first shade (0.24 m, rust) read as a copper ball from 45 degrees and hid the bulb; the
+    # shade is now smaller, flatter and dark paint, and the bulb hangs below its rim where the camera sees it lit
+    bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.18, radius2=0.05, depth=0.13, location=(L - 0.04, -0.04, H - 0.33), rotation=tilt)
+    put(bpy, bpy.context.active_object, 'shade', mat(bpy, 'shade', 'metal_painted', 1))
+    cyl(bpy, 'shade_rim', rust, 0.185, 0.025, (L - 0.04, -0.05, H - 0.395), rot=tilt, verts=16)
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.075, location=(L - 0.04, -0.1, H - 0.56), segments=12, ring_count=8)
+    put(bpy, bpy.context.active_object, 'bulb', mat(bpy, 'sodium', 'sodium', 3, glow=1.4))
+    cyl(bpy, 'socket', steel, 0.022, 0.16, (L - 0.04, -0.085, H - 0.47), rot=tilt, verts=8)   # the bulb hangs 16 cm under the rim on its socket: from 45 degrees up a bulb inside the shade is never seen
     # THE ONE ASYMMETRIC THING: a flyer taped round the pole at eye height, facing the S camera
     box(bpy, 'flyer', mat(bpy, 'flyer', 'clay_bone', 3), (0.2, 0.012, 0.27), (0.0, -0.06, 1.62), rot=(0, math.radians(3), 0))
     for z in (1.75, 1.49):

@@ -7,3 +7,6 @@ A placeholder (ROUND THIRTEEN): the real dire wolf model is a later cook, one at
 
 oil_drum.glb (DIRECTION [the look bible], 10/18/26): modelled from nothing by tools/bohemia_direction_model_drum.py, every base colour a step of
 records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
+
+lamp.glb (COOK [props through the rig], 10/18/26): modelled from nothing by tools/bohemia_cook_model_props.py lamp, every base colour a step of
+records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
