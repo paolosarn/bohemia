@@ -22,6 +22,13 @@ records/BOHEMIA_RESEARCH_UNLOCK_THE_LIMITS_03_GIVING_THE_CHATS_EYES_10_11_26.md 
            runner (tools/bohemia_look_export.py, .github/workflows/look.yml), because the weights' hosts
            answer 403 from the container. Its line is the packs' 10th percentile cosine (pair and centroid):
            IN at or over it on the twin or the family, FAR under the packs' 1st percentile on both
+  SCRAMBLE THE RULER FOR STRUCTURE (the coordinator's call on [the look leg], 10/18: at the family's line no
+           ruler told his car from his car cut into squares and shuffled). The piece's LOOK cosine to its twin
+           against the best of three pixel-scrambled copies of ITSELF (every pixel moved, none changed: the same
+           colours, the structure gone); the piece must beat its own scramble by the MARGIN his YES pieces beat
+           theirs by (the weakest YES item, per family, an item's gap the median of its sprites'; the
+           registry's newest verdict 'up', a pack twin, its sprites). Under the margin is LOOK FAR. The same against an 8 px block scramble (the 10/18 attack's
+           own scale) is measured and printed beside it
   SSIM     structural similarity to the twin, printed on every card, never a pass condition: the research's
            hack detector (a learned score that climbs while SSIM falls is a hacked score)
 
@@ -48,7 +55,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BANK = os.path.join(ROOT, 'reference', 'art_bank')
 CAL = os.environ.get('BOHEMIA_TWIN_CAL') or os.path.join(ROOT, 'records', 'target', 'BOHEMIA_TWIN_CALIBRATION.json')
 ONNX = os.environ.get('BOHEMIA_DINOV2_ONNX') or os.path.join(ROOT, 'tools', 'models', 'dinov2_vits14.onnx')
+REGISTRY = os.path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json')
 FAMILIES = ('door', 'ground', 'lamp', 'marking', 'prop', 'road', 'settlement')
+SCRAMBLE_SEEDS = (1, 2, 3)
+SCRAMBLE_BLOCK = 8
+SCRAMBLE_HELD = ('pixel',)
 PAINTER_EPS = {'col_kpx': 1.0, 'value_range': 2.0, 'dark_line': 0.005, 'detail': 0.5, 'sat': 0.02}
 RATIO_LINE = (0.33, 3.0)
 
@@ -269,6 +280,118 @@ def features(a):
     return {'lab': lab_quantiles(a), 'lbp': lbp_hist(a), 'painter': painter(a), 'ink8': ink8(a)}
 
 
+# ---- the scramble: the same colours with the structure gone ------------------------------------------------
+def scramble(a, seed, block=1):
+    """the picture with its pixels moved and none changed. block 1: every pixel (its alpha with it) to a random
+    place in the same box, so the colours and their counts are his and nothing is where it was, the silhouette
+    included. block k: the box cut into k x k squares and the squares shuffled (a strip that does not fill a
+    square stays put), the 10/18 attack's own shape."""
+    rng = np.random.default_rng(seed)
+    if block <= 1:
+        flat = a.reshape(-1, a.shape[-1])
+        return flat[rng.permutation(len(flat))].reshape(a.shape)
+    h, w = a.shape[0] // block * block, a.shape[1] // block * block
+    out = a.copy()
+    if h and w:
+        sq = a[:h, :w].reshape(h // block, block, w // block, block, -1).swapaxes(1, 2).reshape(-1, block, block, a.shape[-1])
+        sq = sq[rng.permutation(len(sq))]
+        out[:h, :w] = sq.reshape(h // block, w // block, block, block, -1).swapaxes(1, 2).reshape(h, w, -1)
+    return out
+
+
+def look_scramble(cells, et):
+    """each cell's LOOK cosine to the twin embedding, the best of its three pixel scrambles' and the best of its
+    three block scrambles'; the medians over the cells. The best of three: the piece must beat whatever its own
+    colours could do with the structure thrown away."""
+    ct, cp, cb = [], [], []
+    for c in cells:
+        ct.append(float(look_embed(c) @ et))
+        cp.append(max(float(look_embed(scramble(c, s)) @ et) for s in SCRAMBLE_SEEDS))
+        cb.append(max(float(look_embed(scramble(c, s, SCRAMBLE_BLOCK)) @ et) for s in SCRAMBLE_SEEDS))
+    med = lambda v: float(np.median(v))
+    return {'cos': round(med(ct), 4), 'pixel': round(med(cp), 4), 'block': round(med(cb), 4),
+            'gap_pixel': round(med(ct) - med(cp), 4), 'gap_block': round(med(ct) - med(cb), 4)}
+
+
+def measured_cells(path, twin_arr):
+    return [c for c in at_twin_size(rgba(path), twin_arr)
+            if lab_quantiles(c) is not None and lbp_hist(c) is not None and painter(c) is not None]
+
+
+def verdicts(reg):
+    """each item's newest verdict (the registry's list is appended in order)."""
+    last = {}
+    for v in reg.get('verdicts', []):
+        last[v.get('id')] = v.get('vote')
+    return last
+
+
+def yes_pieces(reg=None):
+    """the pieces he said YES to that the look leg can read: an art item whose newest verdict is 'up', whose twin
+    is a pack piece the bank holds, sprite by sprite as its row lists them; plus the two maquettes the twin gate
+    has held as his YES since it shipped (the robot and the truck, his 10/17 'I fell in love', against his car)."""
+    reg = reg if reg is not None else json.load(open(REGISTRY))
+    last = verdicts(reg)
+    out = []
+    for it in reg['items']:
+        tw = it.get('twin') if isinstance(it.get('twin'), dict) else {}
+        if last.get(it['id']) != 'up' or not tw.get('src') or not it.get('sprites'):
+            continue
+        twin = resolve(tw['src'])
+        if not twin or not os.path.abspath(twin).startswith(BANK + os.sep) or not pack_of(twin):
+            continue
+        for sp in it['sprites']:
+            p = os.path.join(ROOT, sp)
+            if os.path.isfile(p):
+                out.append({'id': it['id'], 'sprite': sp, 'twin': os.path.relpath(twin, ROOT), 'family': family_of(twin),
+                            'cls': it.get('class')})
+    car = resolve('pack:10. Abandoned cars#0')
+    for m in ('robot', 'truck'):
+        sp = os.path.join('records', 'target', 'master_rig', m, 'rig_S.png')
+        if car and os.path.isfile(os.path.join(ROOT, sp)):
+            out.append({'id': 'the maquette %s (T2)' % m, 'sprite': sp, 'twin': os.path.relpath(car, ROOT), 'family': 'prop',
+                        'cls': 'vehicle' if m == 'truck' else 'person'})
+    return out
+
+
+def scramble_lines(log=print):
+    """THE MARGIN, from his YES: every YES piece's gap to its own scramble at its twin's size (the same cells and
+    the same reading the score makes), the weakest per family and over all. Nobody picks it."""
+    rows = []
+    for y in yes_pieces():
+        tw = rgba(os.path.join(ROOT, y['twin']))
+        cells = measured_cells(os.path.join(ROOT, y['sprite']), tw)
+        if not cells:
+            continue
+        rows.append(dict(y, **look_scramble(cells, look_embed(tw))))
+    # he voted on the ITEM, not on each sprite in it: an item's gap is the median of its sprites' (the 10/18 rig
+    # round five card names one car as the twin of a robot, a truck and a drum; his YES was the card, not 'a drum
+    # is a car'), and the margin is the weakest YES item's, per family of its twin and over all
+    items = {}
+    for r in rows:
+        items.setdefault(r['id'], []).append(r)
+    per = [{'id': i, 'family': rs[0]['family'], 'sprites': len(rs),
+            'gap_pixel': round(float(np.median([r['gap_pixel'] for r in rs])), 4),
+            'gap_block': round(float(np.median([r['gap_block'] for r in rs])), 4)} for i, rs in items.items()]
+    margin = {'pixel': {}, 'block': {}}
+    for k in margin:
+        for fam in sorted({x['family'] for x in per}) + ['all']:
+            g = [x['gap_' + k] for x in per if fam == 'all' or x['family'] == fam]
+            if g:
+                margin[k][fam] = round(min(g), 4)
+    log('  THE SCRAMBLE (the margin from his YES): %d sprites in %d YES items; the weakest item per family, pixel %s, block %s'
+        % (len(rows), len(per), margin['pixel'], margin['block']))
+    for x in sorted(per, key=lambda x: x['gap_pixel']):
+        log('     item %-44s %-10s %2d sprites  gap pixel %+.3f  block %+.3f' % (
+            x['id'][:44], x['family'], x['sprites'], x['gap_pixel'], x['gap_block']))
+    for r in sorted(rows, key=lambda r: r['gap_pixel']):
+        log('     %-46s %-58s cos %.3f  pixel %.3f (gap %+.3f)  block %.3f (gap %+.3f)' % (
+            r['id'][:46], r['sprite'][-58:], r['cos'], r['pixel'], r['gap_pixel'], r['block'], r['gap_block']))
+    return {'seeds': list(SCRAMBLE_SEEDS), 'block': SCRAMBLE_BLOCK, 'held': list(SCRAMBLE_HELD), 'margin': margin,
+            'items': sorted(per, key=lambda x: x['gap_pixel']),
+            'yes': [{k: r[k] for k in ('id', 'sprite', 'family', 'cos', 'pixel', 'block', 'gap_pixel', 'gap_block')} for r in rows]}
+
+
 # ---- at the twin's pixel size ---------------------------------------------------------------------------
 def at_twin_size(ours, twin):
     """ours brought to the twin's box, nearest neighbour, never the twin to ours. An opaque sheet bigger
@@ -354,7 +477,7 @@ def calibrate(families=None, per_family=160, pairs=600, log=print):
     out['pack_files'] = len(pack_pieces('all'))
     if look:
         out['look'] = {'onnx': os.path.basename(ONNX), 'measured': True, 'embedded': len(seen),
-                       'packs': look_pack_lines(seen, rng, log)}
+                       'packs': look_pack_lines(seen, rng, log), 'scramble': scramble_lines(log)}
     return out
 
 
@@ -493,12 +616,31 @@ def score(ours_path, twin_path, fam=None, cal=None, cls=None):
         rk = round(min((1 - ct) / max(1 - L['pair'], 1e-9), (1 - cc) / max(1 - L['centroid'], 1e-9)), 2)
         rep['rulers']['look'] = {'twin': round(ct, 4), 'family': round(cc, 4), 'over_line': rk, 'level': lk,
                                  'line': {k: L[k] for k in ('pair', 'centroid', 'pair_far', 'centroid_far')}}
+        # THE SCRAMBLE: nearer his twin than its own colours with the structure thrown away, by his YES's margin
+        S = (cal.get('look') or {}).get('scramble')
+        if S:
+            sc = look_scramble(mc, et)
+            for k in ('pixel', 'block'):
+                m = S['margin'][k].get(fam, S['margin'][k].get('all'))
+                sc['margin_' + k] = m
+                sc['ok_' + k] = m is None or sc['gap_' + k] >= m
+            sc['held'] = list(S.get('held') or SCRAMBLE_HELD)
+            rep['rulers']['look']['scramble'] = sc
+            if not all(sc['ok_' + k] for k in sc['held']):
+                rep['rulers']['look']['line_level'] = lk
+                rep['rulers']['look']['level'] = 2
         rep['look'] = round(med(kt), 4)
     names = {'colour': 'COLOUR (Lab EMD)', 'pattern': 'PATTERN (LBP)', 'painter': 'PAINTER (DIRECTION\'s five)',
              'look': 'LOOK (DINOv2 cosine)'}
     held = [k for k in ('colour', 'pattern', 'painter', 'look') if k in rep['rulers']]
+    sc = (rep['rulers'].get('look') or {}).get('scramble')
     for k in held:
         lv = rep['rulers'][k]['level']
+        if k == 'look' and 'line_level' in rep['rulers'][k]:
+            rep['why'].append('LOOK SCRAMBLE: not nearer his twin than its own pixels scrambled by his YES margin (cos %.3f '
+                              'against %.3f scrambled, gap %+.3f; his YES pieces beat theirs by %+.3f or more)' % (
+                                  sc['cos'], sc['pixel'], sc['gap_pixel'], sc['margin_pixel']))
+            lv = rep['rulers'][k]['line_level']
         if lv == 2:
             rep['why'].append('%s FAR: %s' % (names[k], json.dumps({x: rep['rulers'][k][x] for x in rep['rulers'][k] if x != 'level'})))
         elif lv == 1:

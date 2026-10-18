@@ -15,7 +15,9 @@ THE LEGS
       truck he voted up (his YES, the guide's tie-breaker 1) are never RED against a car; a piece is scored
       in under three seconds.
   T3  THE CULL: an art item registered in VOTE after this gate (its id not in the frozen baseline) that names
-      a twin and its sprites is scored sprite by sprite against the twin; any RED sprite is red here, and its
+      a twin and its sprites, and that he has not voted on yet (once he has, his word is the verdict: 10/18 the
+      street joins he said YES to read RED on PAINTER, a ruler wrong, printed every run, never held), is
+      scored sprite by sprite against the twin; any RED sprite is red here, and its
       card (his twin and ours at his size, the verdict and why) is written to records/target/twin_cards/<id>.png.
       A new item whose pack twin the bank does not hold is red ('name a twin the bank holds'); a twin that is
       our own earlier sheet (a 'before', outside reference/art_bank) is not a pack twin and is not held (on
@@ -49,11 +51,24 @@ where LOOK joins the verdict like any ruler and these legs hold:
       against his cars pack (20 pieces, 10th 0.760, 1st 0.712) the shuffled car, a lamp, a road tile and a
       door are FAR and his car mirrored IN, and the robot and the truck he voted up are FAR too (rig renders:
       rule 115, the rig is the look). Which line holds is the coordinator's to rule; the numbers print here.
+  S0  THE SCRAMBLE IS HONEST (every box): a pixel scramble of his car keeps every pixel he drew (the same
+      colours, the same count of each) and moves nearly all of them; an 8 px block scramble keeps every square
+      whole and moves the squares. A scramble that changed a colour would be a different picture, not his.
+  S1  THE MARGIN IS HIS YES (the runner): the lines carry THE SCRAMBLE, every YES item measured (the
+      registry's newest verdict up, a pack twin the bank holds, its sprites; and T2's two maquettes), an
+      item's gap the median of its sprites' (he voted on the card, not on each sprite), the weakest item per
+      family the margin (tools/bohemia_twin_gate.py scramble_lines). At least five items.
+  S2  EVERY YES ITEM PASSES IT through the score itself (the calibration and the verdict read the same); the
+      YES sprites under the margin on their own are printed (a drum named against a car).
+  S3  IT TELLS A CAR FROM SCRAMBLED SQUARES: his car cut into 8 px blocks and shuffled is RED on the scramble
+      against his car (the 10/18 finding: every other ruler passed it GREEN); his car turned the other way
+      passes. Printed beside it: a road tile, a door and a lamp named as his car's twin, his cars pack's other
+      pieces against his car, his NO pieces, and the 8 px block scramble's own reading.
   L4  THE LINES AGREE ACROSS BOXES: the runner's COLOUR, PATTERN, PAINTER, SHAPE and GRID lines equal the
       committed ones (only when $BOHEMIA_TWIN_COMMITTED_CAL names the committed copy; the workflow sets it).
 
 RED CASE: T2's planted flat tile, fractional upscale and noise, T3's planted registry row and L0's planted
-tracked export, every run; on the runner L3's noise.
+tracked export, every run; S0's planted colour change; on the runner L3's noise and S3's shuffled car.
 
   python3 gates/twin_gate.py
 """
@@ -147,9 +162,14 @@ def t2(cal, d):
     ok('T2 a piece is scored in under three seconds (%.2f s)' % each, each < 3.0)
 
 
-def held_items(reg, base):
+def held_items(reg, base, voted=False):
+    """the new art items that name a twin. The cull is for candidates on their way to the tab; once he has voted
+    on one his word is the verdict (the registry's verdicts are his words), so a voted item is not held, and
+    voted=True lists those instead (a YES the rulers would RED is a ruler wrong, printed every run)."""
+    last = TG.verdicts(reg)
     return [i for i in reg['items'] if i['id'] not in base and i.get('lane', '').lower() in ART_LANES
-            and i.get('kind') not in NOT_ART and isinstance(i.get('twin'), dict) and i['twin'].get('src')]
+            and i.get('kind') not in NOT_ART and isinstance(i.get('twin'), dict) and i['twin'].get('src')
+            and (i['id'] in last) == voted]
 
 
 _TRACKED = None
@@ -171,9 +191,9 @@ def own_before(src):
     return any(r in tracked() and not r.startswith('reference' + os.sep + 'art_bank') for r in rels)
 
 
-def cull(reg, base, cal, cards=CARDS):
+def cull(reg, base, cal, cards=CARDS, voted=False):
     probs, scored = [], 0
-    for it in held_items(reg, base):
+    for it in held_items(reg, base, voted):
         src = it['twin']['src']
         twin = TG.resolve(src)
         if twin and not src.startswith('pack:') and not os.path.abspath(twin).startswith(TG.BANK + os.sep):
@@ -205,8 +225,16 @@ def t3(cal, d):
     base = set(json.load(open(BASELINE))['items'])
     probs, scored = cull(reg, base, cal)
     n = len(held_items(reg, base))
-    ok('T3 the cull: %d new art items name a twin (%d sprites scored), none RED against it' % (n, scored),
+    ok('T3 the cull: %d new art items he has not voted on name a twin (%d sprites scored), none RED against it' % (n, scored),
        not probs, '\n         '.join(probs[:10]))
+    last = TG.verdicts(reg)
+    vp, vs = cull(reg, base, cal, cards=os.path.join(d, 'voted_cards'), voted=True)
+    yes_red = [x.split(':')[0] for x in vp if last.get(x.split(':')[0]) == 'up']
+    no_red = [x.split(':')[0] for x in vp if last.get(x.split(':')[0]) == 'down']
+    print('  --   %d new items he already voted on, not held (his word is the verdict; %d sprites scored): the rulers '
+          'would RED %d he said YES to (a ruler wrong: %s) and %d he said NO to (%s)' % (
+              len(held_items(reg, base, True)), vs, len(yes_red), ', '.join(yes_red) or 'none', len(no_red),
+              ', '.join(no_red) or 'none'))
     # both ways on a planted registry
     tw, p = planted(d)
     rel = lambda x: os.path.relpath(x, ROOT)
@@ -295,6 +323,80 @@ def same(a, b, path=''):
     return None if a == b else path
 
 
+def s0():
+    car = TG.rgba(TG.resolve('pack:10. Abandoned cars#0'))
+    key = lambda a: np.sort(a.reshape(-1, a.shape[-1]).view([('', a.dtype)] * a.shape[-1]).ravel())
+    px = TG.scramble(car, 1)
+    moved = float((px != car).any(-1).mean())
+    ok('S0 a pixel scramble of his car keeps every pixel he drew (%d) and moves %.0f%% of them' % (
+        car.shape[0] * car.shape[1], moved * 100), np.array_equal(key(px), key(car)) and moved > 0.5)
+    bad = px.copy(); bad[0, 0, :3] = (bad[0, 0, :3] + 37) % 256
+    ok('S0 a scramble that changed one colour is caught (planted)', not np.array_equal(key(bad), key(car)))
+    b = TG.SCRAMBLE_BLOCK
+    bl = TG.scramble(car, 1, b)
+    h, w = car.shape[0] // b * b, car.shape[1] // b * b
+    sq = lambda a: {a[y:y + b, x:x + b].tobytes() for y in range(0, h, b) for x in range(0, w, b)}
+    ok('S0 an %d px block scramble keeps every square whole (%d squares) and moves them' % (b, len(sq(car))),
+       sq(bl) == sq(car) and not np.array_equal(bl, car) and np.array_equal(key(bl), key(car)))
+
+
+def scramble_legs(cal, d, car, paths, rm):
+    S = (cal.get('look') or {}).get('scramble') or {}
+    yes = S.get('yes') or []
+    ok('S1 the margin is his YES: %d sprites in %d YES items, the weakest item per family %s' % (
+        len(yes), len(S.get('items', [])), S.get('margin', {}).get('pixel')),
+       len(S.get('items', [])) >= 5 and 'all' in S.get('margin', {}).get('pixel', {}),
+       'no SCRAMBLE in the lines: run python3 tools/bohemia_twin_gate.py --calibrate on this box')
+    if not yes:
+        return
+    by, under = {}, []
+    for y in TG.yes_pieces():
+        r = TG.score(os.path.join(ROOT, y['sprite']), os.path.join(ROOT, y['twin']), None, cal, y['cls'])
+        sc = r['rulers'].get('look', {}).get('scramble') or {}
+        by.setdefault(y['id'], []).append(sc.get('gap_pixel'))
+        if not sc.get('ok_pixel'):
+            under.append('%s (%s, gap %+.3f)' % (os.path.relpath(y['sprite'], 'records/target'), y['id'], sc.get('gap_pixel')))
+    m = S['margin']['pixel']
+    fam = {x['id']: x['family'] for x in S.get('items', [])}
+    fails = [i for i, g in by.items() if float(np.median(g)) < m.get(fam.get(i), m['all']) - 1e-9]
+    ok('S2 every YES item passes the scramble through the score itself, on the median of its sprites (%d of %d)' % (
+        len(by) - len(fails), len(by)), by and not fails, ', '.join(fails))
+    print('  --   YES sprites under the margin on their own (%d of %d; the item passed, the sprite would be RED as a new '
+          'piece): %s' % (len(under), len(yes), '; '.join(under[:8]) or 'none'))
+    rs = TG.score(paths['shuffle'], car, 'prop', cal)
+    sc = rs['rulers']['look'].get('scramble') or {}
+    ok('S3 his car cut into 8 px blocks and shuffled is RED on the scramble (cos %s against %s scrambled, gap %s, margin %s; '
+       'verdict %s)' % (sc.get('cos'), sc.get('pixel'), sc.get('gap_pixel'), sc.get('margin_pixel'), rs['verdict']),
+       sc.get('ok_pixel') is False and rs['verdict'] == 'RED', json.dumps(sc))
+    sm = rm['rulers']['look'].get('scramble') or {}
+    ok('S3 his car turned the other way passes the scramble (gap %s, margin %s)' % (sm.get('gap_pixel'), sm.get('margin_pixel')),
+       sm.get('ok_pixel') is True, json.dumps(sm))
+    fmt = lambda sc: 'gap %+.3f pixel (margin %+.3f) %s, %+.3f block (margin %+.3f) %s' % (
+        sc['gap_pixel'], sc['margin_pixel'], 'ok' if sc['ok_pixel'] else 'FAILS', sc['gap_block'], sc['margin_block'],
+        'ok' if sc['ok_block'] else 'FAILS')
+    print('  --   SCRAMBLE on the shuffled car: %s' % fmt(sc))
+    print('  --   SCRAMBLE on his car turned the other way: %s' % fmt(sm))
+    for fam, what in (('lamp', 'a lamp'), ('road', 'a road tile'), ('door', 'a door')):
+        r = TG.score(TG.pack_pieces(fam)[0], car, 'prop', cal)
+        print('  --   SCRAMBLE on %s named as his car\'s twin: %s (verdict %s)' % (what, fmt(r['rulers']['look']['scramble']), r['verdict']))
+    sib = [f for f in TG.pack_pieces('prop') if TG.pack_of(f) == TG.pack_of(car) and f != car]
+    res = [TG.score(f, car, 'prop', cal)['rulers']['look']['scramble'] for f in sib]
+    print('  --   SCRAMBLE on his cars pack\'s other %d pieces against his car: %d pass pixel, %d pass block; gaps pixel %s' % (
+        len(res), sum(r['ok_pixel'] for r in res), sum(r['ok_block'] for r in res),
+        ' '.join('%+.2f' % r['gap_pixel'] for r in sorted(res, key=lambda r: r['gap_pixel']))))
+    reg = json.load(open(REGISTRY)); last = TG.verdicts(reg); nos = []
+    for it in reg['items']:
+        tw = it.get('twin') if isinstance(it.get('twin'), dict) else {}
+        t = TG.resolve(tw.get('src')) if tw.get('src') else None
+        if last.get(it['id']) == 'down' and t and os.path.abspath(t).startswith(TG.BANK + os.sep) and it.get('sprites'):
+            for sp in it['sprites'][:8]:
+                p = os.path.join(ROOT, sp)
+                if os.path.isfile(p):
+                    nos.append((it['id'], sp, TG.score(p, t, None, cal, it.get('class'))['rulers'].get('look', {}).get('scramble')))
+    print('  --   SCRAMBLE on his NO pieces (%d sprites): %s' % (len(nos), '; '.join(
+        '%s %s %s' % (i, os.path.basename(sp), fmt(sc)) for i, sp, sc in nos if sc) or 'none name a pack twin and sprites'))
+
+
 def look_legs(cal, d):
     side = os.path.splitext(TG.ONNX)[0] + '.json'
     s = json.load(open(side)) if os.path.isfile(side) else {}
@@ -376,6 +478,7 @@ def look_legs(cal, d):
             print('  --   LOOK on the maquette %s (his YES) against his car: %s at the props\' line, %s at the cars pack\'s (cos %s)' % (
                 m, lv(r), at(r.get('twin', 0)), r.get('twin')))
     print('  --   LOOK at the cars pack\'s line: his car turned the other way %s (cos %s)' % (at(rm['rulers']['look']['twin']), rm['rulers']['look']['twin']))
+    scramble_legs(cal, d, car, paths, rm)
     for fam, what in (('lamp', 'a lamp'), ('road', 'a road tile'), ('door', 'a door')):
         q = TG.pack_pieces(fam)[0]
         r = TG.score(q, car, 'prop', cal)
@@ -395,6 +498,7 @@ def look_legs(cal, d):
 def main():
     print('THE TWIN GATE (rule 108 round eight c, the twin law 82): a new picture against its pack twin')
     l0()
+    s0()
     cal = t1()
     if cal is None:
         print('\nTHE TWIN GATE: %d passed, %d failed' % (passed, failed)); return 1
