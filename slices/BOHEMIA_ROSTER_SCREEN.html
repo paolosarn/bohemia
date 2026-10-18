@@ -82,6 +82,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 .wrow.laidrow{opacity:.55}
 .wrow.sel .wname{color:var(--gold)}
 .wface{width:40px;height:40px;align-self:center;border:1px solid var(--line);border-radius:3px;image-rendering:pixelated;background:#0b0907}
+canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 shown at 72 css px scales smooth, never nearest at 1.7x (RUN TWO 10/18) */
 .wname{align-self:center;font-size:9px;line-height:1.2;overflow:hidden}
 .wname b{display:block;font-size:10px;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wname i{font-style:normal;color:var(--dim)}
@@ -115,7 +116,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 <div id="bag"></div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
-<script src="../engine/bohemia_rig_faces.js"></script>
+<script src="../engine/bohemia_crew_faces.js"></script>
 <script src="../engine/bohemia_long_injury.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="bohemia_ui_materials.js"></script>
@@ -203,15 +204,16 @@ function bodyCanvas(m, w, h){
   if(im.complete && im.naturalWidth){ var sc = Math.min(c.width/42, c.height/96); x.drawImage(im, 36, 6, 42, 96, (c.width-42*sc)/2, c.height-96*sc, 42*sc, 96*sc); }
   return c;
 }
-/* RUN TWO [the starred faces on your screens], 10/18 (rule 115(h); his 'the portrait sucks'): the face is the one off
-   the clay rig (engine/bohemia_rig_faces.js), never the old flat 64; the sheet's face only for a look with no rig face */
+/* RUN TWO [the fresh portraits wired in], 10/18 (rule 115(h) amended; his 'I liked it when it was the portrait, not when
+   you zoom in on the creepy model's face... it has to be made fresh portrait'): the face is PORTRAIT's fresh portrait
+   (engine/bohemia_crew_faces.js), never a crop of a body; the sheet's painted 64 only for a look PORTRAIT has not made */
 function faceCanvas(m){
-  var R = window.BohemiaRigFaces, rig = R && R.has(m.look);
-  var c = document.createElement('canvas'); c.width = c.height = rig ? R.SIZE : 64; c.className = 'face'; c.dataset.face = rig ? 'rig' : 'sheet';
+  var F = window.BohemiaCrewFaces, fresh = F && F.has(m.look);
+  var c = document.createElement('canvas'); c.width = c.height = fresh ? F.SIZE : 64; c.className = 'face'; c.dataset.face = fresh ? 'fresh' : 'sheet'; c.dataset.look = m.look;
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  if(rig){ R.draw(x, m.look, '', R.SIZE); return c; }
+  if(fresh){ F.draw(x, m.look, F.SIZE); return c; }
   var im = sheet(m.look);
-  if(im.complete && im.naturalWidth) x.drawImage(im, im.naturalWidth - 64, C.FACE.y, 64, 64, 0, 0, 64, 64);   /* the face is the sheet's right edge */
+  if(im.complete && im.naturalWidth) x.drawImage(im, im.naturalWidth - 64, C.FACE.y, 64, 64, 0, 0, 64, 64);   /* the sheet's right edge is the old painted 64 portrait, not the body */
   return c;
 }
 function draw(){
@@ -299,7 +301,7 @@ function stars(n){ return n ? '★'.repeat(n) : ''; }
 function drawCard(){
   var el = document.getElementById('card'); el.textContent = '';
   var m = S.crew[S.sel]; if(!m) return;
-  var top = document.createElement('div'); top.className = 'top'; top.appendChild(faceCanvas(m));
+  var top = document.createElement('div'); top.className = 'top'; var fc = faceCanvas(m); top.appendChild(fc);
   var t = document.createElement('div');
   t.innerHTML = '<div class="nm"></div><div class="sub"></div><div class="pain"></div>';
   t.querySelector('.nm').textContent = m.name;
@@ -309,6 +311,7 @@ function drawCard(){
   t.querySelector('.sub').appendChild(xb);
   var pl = m.mark && window.BohemiaLongInjury ? BohemiaLongInjury.painLine(m.mark.id) : null;
   t.querySelector('.pain').textContent = '“' + (pl || m.pain) + '”';
+  if(fc.dataset.face === 'fresh') BohemiaCrewFaces.talk(fc, m.look, pl || m.pain);   /* his line, said: the mouth moves on the beat (RUN TWO 10/18) */
   top.appendChild(t); el.appendChild(top);
   var st = document.createElement('div'); st.className = 'stats';
   C.STATS.forEach(function(k){ var r = document.createElement('div'); var a = document.createElement('span'); a.textContent = C.STAT_NAME[k];

@@ -107,6 +107,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 /* the hire card: face, name, background, eight stats, the starred one gold, the price */
 .hire{display:grid;grid-template-columns:64px 1fr;gap:4px 8px;padding:6px;border:1px solid var(--line);border-radius:4px;background:#16110c;margin-top:6px}
 .hire .face{width:64px;height:64px;flex:none}
+canvas[data-face=fresh]{image-rendering:auto}   /* the fresh portrait is a render: a 128 at 72 css px scales smooth, never nearest at 1.7x (RUN TWO 10/18) */
 .hire .nm{color:var(--gold);font-size:11px;letter-spacing:1px}
 .hstats{display:grid;grid-template-columns:repeat(4,auto);gap:1px 8px;font-size:10px;color:var(--dim);margin-top:3px}
 .hstats .star{color:var(--gold)}
@@ -149,7 +150,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
-<script src="../engine/bohemia_rig_faces.js"></script>  <!-- RUN TWO [the starred faces on your screens]: the face off the clay rig (rule 115h) -->
+<script src="../engine/bohemia_crew_faces.js"></script>  <!-- RUN TWO [the fresh portraits wired in]: PORTRAIT's fresh portraits, never a crop of a body (rule 115h amended) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -878,7 +879,7 @@ function openPerson(p){
   var R = rng(seedOf(S.place.name + ':said:' + i + ':' + (S.day||0))), r = R() < .35 ? nextRumour() : null;
   var line = r ? r.says : STREET_LINES[Math.floor(R()*STREET_LINES.length)];
   var who = 'settle-crowd:' + S.place.name + ':' + i;
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(face(null, who, p.look));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, who, p.look), line));
   var sy = document.createElement('div'); sy.className = 'say';
   var n = document.createElement('div'); n.className = 'nm'; n.textContent = 'SOMEBODY ON THE STREET'; sy.appendChild(n);   /* draft:true */
   var pp = document.createElement('p'); pp.textContent = line; sy.appendChild(pp); w.appendChild(sy); body.appendChild(w);
@@ -961,7 +962,7 @@ var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee
 function hireCard(r){
   var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
   var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
-  sheetFace(f.getContext('2d'), r.look); f.dataset.face = window.BohemiaRigFaces && BohemiaRigFaces.has(r.look) ? 'rig' : 'sheet';   /* the rig face, else the sheet's right edge (RUN TWO 10/18, rule 115h) */
+  if(!crewFace(f, r.look)) sheetFace(f.getContext('2d'), r.look);   /* PORTRAIT's fresh portrait, else the sheet's painted 64 (RUN TWO 10/18, rule 115h amended) */
   c.appendChild(f);
   var t = document.createElement('div'); t.className = 'hiret';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
@@ -996,12 +997,17 @@ function hireIntoCompany(def){
    when you click and talk to them'): nobody speaks with a blank head. The game's portrait (PORTRAIT's keeperFaceSrc,
    handed back as BOHEMIA_SETTLEMENT_FACE) wins; until it comes, the face is the one on the speaker's own body sheet
    (slices/fight_people, the 64 face at the sheet's right edge, the same look he wears in the picture) */
-function sheetFace(x, look){
-  /* RUN TWO [the starred faces on your screens], 10/18 (rule 115(h); his 'the portrait is ass, I can't even stare at
-     it' on scavenge): a look with a face off the clay rig wears it; the old flat 64 only where none exists yet */
-  if(window.BohemiaRigFaces && BohemiaRigFaces.draw(x, look, '', 64, function(){ flatFace(x, look); })) return;
-  flatFace(x, look);
+function sheetFace(x, look){ flatFace(x, look); }
+/* RUN TWO [the fresh portraits wired in], 10/18 (rule 115(h) amended; his 'I liked it when it was the portrait, not when
+   you zoom in on the creepy model's face... it has to be made fresh portrait'): a look PORTRAIT has made wears its fresh
+   portrait (engine/bohemia_crew_faces.js, 128 px, its own camera and light), never a crop of a body; true if it does */
+function crewFace(c, look){
+  var F = window.BohemiaCrewFaces; if(!F || !F.has(look)) return false;
+  c.width = c.height = F.SIZE; c.dataset.face = 'fresh'; c.dataset.look = look;
+  return F.draw(c.getContext('2d'), look, F.SIZE, function(){ c.dataset.face = 'sheet'; c.width = c.height = 64; flatFace(c.getContext('2d'), look); });
 }
+/* and when he speaks, the mouth says the line on the beat */
+function mouth(c, line){ if(c && c.dataset.face === 'fresh') BohemiaCrewFaces.talk(c, c.dataset.look, line); return c; }
 function flatFace(x, look){
   var im = new Image(); im.onload = function(){ x.clearRect(0,0,64,64); x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); };
   im.onerror = function(){ if(look !== 'you') flatFace(x, 'you'); };
@@ -1012,8 +1018,10 @@ function face(k, who, look){
   var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
   var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
-  if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
-  else if((look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null))){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = window.BohemiaRigFaces && BohemiaRigFaces.has(look) ? 'rig' : 'sheet'; }
+  look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null);
+  if(look && crewFace(c, look)) post('needFace',{who:kp.who, look:look});   /* PORTRAIT's fresh portrait first: a handed face is the old one (RUN TWO 10/18, rule 115h amended) */
+  else if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
+  else if(look){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
   else {
     /* no face handed over yet: ask the game for it (the same road the city uses) and
        hold a dim head shape meanwhile, never a blank box */
@@ -1027,7 +1035,7 @@ function face(k, who, look){
 }
 function speak(k, line){
   var w = document.createElement('div'); w.className = 'who';
-  w.appendChild(face(k));
+  w.appendChild(mouth(face(k), line));
   var s = document.createElement('div'); s.className = 'say';
   var n = document.createElement('div'); n.className = 'nm'; n.textContent = KEEPERS[k].name; s.appendChild(n);
   var p = document.createElement('p'); p.textContent = line; s.appendChild(p);
@@ -1053,7 +1061,7 @@ function clientAct(o, full){
 function offerSpeak(o){
   S.open = 'board';
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(face(null, clientWho(o), o.client.look));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), o.client.look), o.says.replace(/\{pay\}/g, o.pay)));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
   var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, o.pay); sy.appendChild(pp);

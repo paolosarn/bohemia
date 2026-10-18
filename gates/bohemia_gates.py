@@ -9201,6 +9201,13 @@ GATES = [
      'ECONOMY gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). VAMILY [the price table at ten to one], rule 74 top row. His ruling (GROK_31/32/33, locked 10/1): no crowns in the game; every wiki crown number is. green at registration, 0 s', False),
     ('ROSTER HURT', ['node', 'gates/roster_hurt_gate.js'],
      'RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Strike a man down in the real fight, read him on the roster: the fight (on auto, in a host frame) ends with BOHEMIA_FIGHT_OVER carrying down, laidUpDa. green at registration, 27 s', True),
+    ('NO FACE FROM A BODY', ['node', 'gates/no_face_from_a_body_gate.js'],
+     "RUN TWO [the fresh portraits wired in] (rule 115(h) amended 10/18, his 'I liked it when it was the portrait, not when "
+     "you zoom in on the creepy model's face... it has to be made fresh portrait'). The crop bank and its tool are gone; no "
+     "screen or engine file names a body render as a source; on his phone's profile with real taps every face of the thirteen "
+     "crew looks on the crew screen and the settlement (the lot, the hall, the board) is PORTRAIT's own file pixel for pixel, "
+     "every other face is the painted 64, a handed portrait or the dim head; a planted body crop is caught; YOU, a client and "
+     "the card's man talk through PORTRAIT's mouths on the beat and rest", True),
     ('ROSTER SCREEN', ['node', 'gates/roster_screen_gate.js'],
      "RUN TWO gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). Drives slices/BOHEMIA_ROSTER_SCREEN.html on his phone's profile (390x844 at 3x) with real drags and taps: the company in two lines of nine from the fi. green at registration, 4 s", True),
     ('RUMOURS TRAVEL', ['node', 'gates/rumours_travel_gate.js'],

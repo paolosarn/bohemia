@@ -1,0 +1,77 @@
+/* BOHEMIA CREW FACES -- the fresh portrait, for every screen RUN TWO draws a man on
+   (RUN TWO [the fresh portraits wired in], 10/18/26, rule 115(h) AMENDED: 'I liked it when it was the portrait, not
+   when you zoom in on the creepy model's face... it has to be made fresh portrait').
+   PORTRAIT's thirteen (eb12c4a2): YOU and the twelve cast looks, each a head modelled on that look's own body and
+   rendered FOR THE PORTRAIT with its own camera, framing and light, handed off at
+   records/target/portrait/crew/<look>/<key>_{64|128}.png (keys rest A E O M Angry Sad Surprised; already square).
+   A crop or zoom of a body sprite or a body render is never a portrait, not even as a stopgap: the old bank that did
+   that (slices/rig_faces/, a rig body's head cut out and scaled x4) is gone, and gates/no_face_from_a_body_gate.js
+   fails any screen that draws one again.
+     BohemiaCrewFaces.has(look)                 PORTRAIT has made this look's fresh portrait
+     BohemiaCrewFaces.src(look, key, size)      the file, or null
+     BohemiaCrewFaces.draw(ctx, look, size, onMiss)   the resting face into ctx at size x size; onMiss() if it fails
+     BohemiaCrewFaces.talk(canvas, look, line)  the mouth says the line, one syllable a half beat (120 BPM), then rests
+     BohemiaCrewFaces.sounds(line)              the mouth keys a line is said with, in order */
+(function (root) {
+  'use strict';
+  var LOOKS = ['you', 'cast_longcoat', 'cast_barearms', 'cast_pack', 'cast_skirt', 'cast_widebrim', 'cast_cape',
+    'cast_apron', 'cast_poncho', 'cast_bedroll', 'cast_shorts', 'cast_satchel', 'cast_shortcoat'];
+  var BASE = '../records/target/portrait/crew/';   /* the screens live in slices/; Pages publishes records/target */
+  var SIZE = 128, SOUND_MS = 250;                   /* half a beat at 120 BPM, the alpha's VISEME_MS */
+  function has(look) { return LOOKS.indexOf(look) >= 0; }
+  function src(look, key, size) {
+    if (!has(look)) return null;
+    return (root.BOHEMIA_CREW_FACES_BASE || BASE) + look + '/' + (key || 'rest') + '_' + ((size || SIZE) > 64 ? 128 : 64) + '.png';
+  }
+  var cache = {};
+  function image(u, cb) {
+    var im = cache[u];
+    if (!im) { im = cache[u] = new Image(); im.src = u; }
+    if (im.complete) { cb(im.naturalWidth ? im : null); return; }
+    im.addEventListener('load', function () { cb(im); });
+    im.addEventListener('error', function () { cb(null); });
+  }
+  function paint(x, im, size) {
+    x.imageSmoothingEnabled = true; x.imageSmoothingQuality = 'high';
+    x.clearRect(0, 0, size, size); x.drawImage(im, 0, 0, size, size);
+  }
+  function draw(x, look, size, onMiss) {
+    size = size || SIZE;
+    var u = src(look, 'rest', size);
+    if (!u) { if (onMiss) onMiss(); return false; }
+    image(u, function (im) { if (im) paint(x, im, size); else if (onMiss) onMiss(); });
+    return true;
+  }
+  /* ONE SYLLABLE, ONE SHAPE, A HALF BEAT EACH: the alpha's rule (visemeFor / visemesOf, slices/BOHEMIA_ALPHA_0_9.html,
+     one shape per sound at 250 ms) read onto PORTRAIT's four mouths, counted by the syllable, not the letter: letter by
+     letter a client's two sentences took 24 s of flapping (measured, 95 shapes); a syllable is the beat real speech
+     keeps (about four a second). A vowel run opens the mouth once (a is A, o u are O, e i y are E); m b p close the lips
+     (M); a comma or a stop is the face at rest; every other consonant rides the vowel beside it. */
+  function sounds(line) {
+    var out = [], prev = null, vow = false, i, ch, v;
+    line = String(line || '').toLowerCase();
+    function put(k) { if (k !== prev) { out.push(k); prev = k; } else if (k !== 'rest' && k !== 'M') { out.push(k); } }
+    for (i = 0; i < line.length; i++) {
+      ch = line[i];
+      if ('aá'.indexOf(ch) >= 0) v = 'A'; else if ('oóuú'.indexOf(ch) >= 0) v = 'O'; else if ('eéiíy'.indexOf(ch) >= 0) v = 'E'; else v = null;
+      if (v) { if (!vow) put(v); vow = true; continue; }
+      vow = false;
+      if ('mbpñ'.indexOf(ch) >= 0) put('M');
+      else if ('.,!?;:—'.indexOf(ch) >= 0) put('rest');
+    }
+    return out;
+  }
+  function talk(c, look, line) {
+    if (!c || !has(look)) return false;
+    if (c.__talk) clearInterval(c.__talk);
+    var x = c.getContext('2d'), size = c.width, seq = sounds(line), k = 0, frames = {};
+    ['rest', 'A', 'E', 'O', 'M'].forEach(function (key) { image(src(look, key, size), function (im) { frames[key] = im; }); });
+    function show(key) { var im = frames[key] || frames.rest; c.dataset.mouth = key; if (im) paint(x, im, size); }
+    c.__talk = setInterval(function () {
+      if (k >= seq.length || (k > 0 && !c.isConnected)) { clearInterval(c.__talk); c.__talk = null; show('rest'); c.dataset.said = '1'; return; }
+      show(seq[k++]);
+    }, SOUND_MS);
+    return true;
+  }
+  root.BohemiaCrewFaces = { LOOKS: LOOKS, SIZE: SIZE, SOUND_MS: SOUND_MS, has: has, src: src, draw: draw, talk: talk, sounds: sounds };
+})(typeof window !== 'undefined' ? window : this);
