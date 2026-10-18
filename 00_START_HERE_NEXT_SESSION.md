@@ -424,6 +424,25 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-four, [the step in the fight]) --
+*** REAL SHOES IN THE FIGHT, ON THE FLOOR EACH TILE IS DRAWN AS, IN VOTE. *** The fight's step was one 70 Hz triangle beep
+for every man on every tile (SND.step in slices/BOHEMIA_FIGHT.html, no gate). Now each tile a man crosses is one cut of the
+map's real shoes, laid at the moment the fight starts the step. The floor comes from the tile's own picture:
+tools/bohemia_sounds_fight_floors.py reads all 35 of COMBAT TWO's fight blocks into slices/vote/travel_steps/fight_floors.json
+(road pieces and tiles drawn dark grey asphalt, yards, scrub, wash and roofs gravel, the casino carpet: 182 / 618 / 75; the
+kit plan's key is 'row,col', measured). The casino's carpet is mlsulli's CC0 'Footsteps_Carpet' (ESC-50 5-234855-A-25, fetched
+from GitHub), five footfalls (the sixth's heel lands 120 ms late), 4 dB under the street. engine/bohemia_travel_steps.js:
+STEPS.step() (a man's new step cuts his last in 20 ms, no cut twice in a row on one ground), floorAt() (the deal and the crop).
+VOTE sounds-the-step-in-the-fight-10-18: the real fight playing itself on AUTO, STREET / CASINO / WHAT PLAYS NOW (the beep) /
+STOP. THE FIGHT AND THE ALPHA ARE UNTOUCHED: the demo loads the fight live, so the swap is CUE 7.2 (three lines in the fight's
+sound block, on his YES; COMBAT told in the record). HIS YES ON THE MAP'S REAL SHOES IS IN (vote up 10/18): CUE 7.1 is RUN's
+next cut, the row says so. Gates: fight steps 34/0 (new, registered; mutated 31/3 and restored), travel steps 31/0, from a
+recording --check PASS, gate registry 7/0. Red before me and not mine: vote tab, DYNASTY's two items with no 'where you see
+it'. Gaps named: the shore's wet band plays gravel; the casino board is in the bank but no live deal uses it, so the carpet is
+heard on the VOTE page only. Next row OPEN: [the flee heard]. Record: records/BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.md.
+PENDING Paolo: nothing. FOR RUN: CUE 7.1's YES is in.
+UNDER UI (rule 113a): SOUNDS made real shoes for the fight, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-18c): 10/18 LATEST (round twenty-three, [steps from a recording]) --
 *** REAL SHOES UNDER TRAVEL, IN VOTE, READY FOR ONE CUE. *** Four CC0 Freesound walks via ESC-50's footsteps class
 (asphalt: Ryding's 'Fotsteg pa asfalt', hintringer's 'walking slow on the street'; gravel, never sand: Ryding's 'Fotsteg pa
