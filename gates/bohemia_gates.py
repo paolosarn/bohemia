@@ -977,6 +977,14 @@ GATES = [
      'after a week of play (35 x 365); an item no party, fight or situation stands behind, or a field of words; the '
      'dice\'s news not the screen\'s own roll; a hold sending a crew, a camp\'s crew raiding a town, a party\'s clock '
      'off the land\'s minutes; twenty seeds and both compasses; an impure answer. Three mutations inside.', False),
+    ('A PLACE IS NAMED ONCE', ['node', 'gates/a_place_is_named_once_gate.js'],
+     'ROW [the dam in one place] (WORLD 10/18; routed by WHO LIVES WHERE: \'the dam is in two places\'). The roll lays '
+     'pieces of the valley that ARE real places by its own comments (the dam, Boulder City, Lake Mead, Lake Las Vegas, '
+     'the intake, the Apex landfill, Sloan\'s quarry, Mount Charleston) inside the box, while the region file puts the '
+     'same places where they are, 22 to 45 km out. Refuses: a name twice in the region; a real place the table names '
+     'that the region does not carry; a valley piece carrying a real place\'s name beyond the OWED list (today\'s '
+     'eight, pinned so they can only be fixed; a fixed one is a note, never a red) on the game\'s seed or twenty; a '
+     'piece renamed or removed in the roll without the table knowing.', False),
     ('THE DISTRICTS JOIN', ['node', 'gates/region_districts_gate.js'],
      'ROW [the districts as data, joined] (WORLD 10/18; Paolo 10/18 \'doesn\'t look like shit\'s connected\'). '
      'engine/BOHEMIA_REGION_LAND.json carries the 26 real districts of the Las Vegas region (basins, ranges, the lake, '
