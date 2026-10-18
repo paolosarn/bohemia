@@ -29,6 +29,10 @@ against 2,899 blockers): the things a man stands behind in a city fight, each wi
             arms, a BLOCKER you see through, the twin pack:6. Chain link fences#0 (his gate 13. Fences and wire#10).
             The odd thing: the gate standing open, the chain that held it cut and hanging off the latch post, the
             padlock still shut on it.
+  container a twenty-foot ISO box at its real 6.058 x 2.438 x 2.591 m, trapezoid corrugation, doors with four locking
+            bars and the owner's code stencilled, a BLOCKER a man can climb, the twin pack:Cargo, crates and
+            containers#36. The odd thing: a window torch-cut in the side, the panel leaning under it, a blanket for a
+            curtain. On the sheet at SW, the three-quarter his pack draws containers at.
 
 Run with the rig's Blender python (bpy 4.2):
     <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
@@ -622,6 +626,121 @@ def fence(bpy, mathutils):
     box(bpy, 'sign', sign, (0.48, 0.015, 0.32), (-1.75, -0.025, 1.2), rot=(0, math.radians(4), 0), bevel=0.006)
 
 
+def trap(bpy, name, m, length, base=0.21, top=0.072, depth=0.036):
+    """one corrugation of container steel: a trapezoid section (the flat outer face, the two slopes that catch the sun
+    and shade) pulled along local Z, standing proud of the wall toward local -Y"""
+    a, b, h = base / 2, top / 2, length / 2
+    vs = [(x, y, z) for z in (-h, h) for x, y in ((-a, 0.0), (-b, -depth), (b, -depth), (a, 0.0))]
+    fs = [(0, 1, 5, 4), (1, 2, 6, 5), (2, 3, 7, 6), (0, 4, 7, 3), (3, 2, 1, 0), (4, 5, 6, 7)]
+    me = bpy.data.meshes.new(name); me.from_pydata(vs, [], fs); me.update()
+    o = bpy.data.objects.new(name, me); bpy.context.collection.objects.link(o); o.data.materials.append(m)
+    return o
+
+
+def container(bpy, mathutils):
+    # a twenty-foot ISO shipping container at its real outside size, 6.058 x 2.438 x 2.591 m (the twin pack:Cargo,
+    # crates and containers#36, his red one): a steel frame (corner posts, top and bottom rails, corner castings), thin
+    # walls with the vertical corrugation proud of them every 28 cm, the front wall corrugated across, a flat roof with
+    # shallow ribs, the doors at +X with four locking bars and their handles. It blocks a man and a bullet and a man
+    # can climb it (the board count's 'container 6.1 x 2.4 BLOCKER climbable'). The odd thing: a window torch-cut in
+    # the long side, its edges burnt to rust, the cut-out panel leaning against the wall under it, a blanket hung
+    # inside for a curtain: somebody lived in it.
+    L, W, H = 6.058, 2.438, 2.591
+    # round two of the loop: the straight side read as a plank shed (7.5 cm boxes every 28 cm are boards, not steel:
+    # real corrugation is a trapezoid whose two slopes take the sun and the shade), the roof dusted to a pale pink over
+    # 40% of the picture, and a brown blanket filling the window read as a framed picture. Trapezoid corrugation, the
+    # roof a step darker, the blanket grey and half drawn so the dark inside shows
+    # round three: the walls and the roof landed on one middle value (span 75), the dusted roof and the red sides alike;
+    # the walls a step down (a container's sides in its own shade), the roof a step up where the sun bleached it
+    paint, roofp, rust = mat(bpy, 'paint_red', 'clay_rust', 1), mat(bpy, 'paint_roof', 'clay_rust', 2), mat(bpy, 'rust', 'clay_mustard', 1)
+    # round four: the dark walls were one smooth colour (the card BACK: top eight 11.0%, grain 2.61); the walls now
+    # carry what a real box carries, rust run down the ribs from the roof and up from the sill, and the owner's code
+    # stencilled on the doors (the stencil and the blanket are one pale material: the guide caps a prop at five)
+    bars, pale = mat(bpy, 'steel', 'tape_grey', 1), mat(bpy, 'stencil_and_blanket', 'tape_masking', 3)
+    T, D, pitch = 0.02, 0.036, 0.28                       # wall plate, the corrugation's depth, its pitch
+    yi = W / 2 - 0.06                                     # the side walls' plane, inside the frame
+    # the frame
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            box(bpy, 'post_%d_%d' % (sx, sy), paint, (0.16, 0.16, H - 0.24), (sx * (L / 2 - 0.08), sy * (W / 2 - 0.08), H / 2))
+            for z in (0.06, H - 0.06):
+                box(bpy, 'casting_%d_%d_%d' % (sx, sy, int(z * 10)), rust, (0.18, 0.162, 0.12), (sx * (L / 2 - 0.09), sy * (W / 2 - 0.081), z), bevel=0.01)
+        box(bpy, 'end_sill_%d' % sx, rust, (0.12, W - 0.36, 0.16), (sx * (L / 2 - 0.06), 0, 0.08))
+        box(bpy, 'end_header_%d' % sx, paint, (0.12, W - 0.36, 0.12), (sx * (L / 2 - 0.06), 0, H - 0.06))
+    for sy in (-1, 1):
+        box(bpy, 'sill_%d' % sy, rust, (L - 0.36, 0.12, 0.16), (0, sy * (W / 2 - 0.06), 0.08))         # the bottom rails rot first
+        box(bpy, 'top_rail_%d' % sy, paint, (L - 0.36, 0.1, 0.1), (0, sy * (W / 2 - 0.05), H - 0.05))
+    # the walls: a thin plate, the corrugation proud of it; the -Y wall carries the window
+    win = (-1.05, 1.5, 0.95, 0.62)                        # centre x, centre z, width, height
+    zs, ze = 0.16, H - 0.1
+    for sy in (-1, 1):
+        wall = box(bpy, 'wall_%d' % sy, paint, (L - 0.32, T, ze - zs), (0, sy * yi, (zs + ze) / 2))
+        x = -L / 2 + 0.3
+        i = 0
+        while x < L / 2 - 0.28:
+            spans = [(zs, ze)]
+            if sy < 0 and abs(x - win[0]) < win[2] / 2 + 0.105:
+                spans = [(zs, win[1] - win[3] / 2), (win[1] + win[3] / 2, ze)]
+            for k, (a, b) in enumerate(spans):
+                r = trap(bpy, 'rib_%d_%d_%d' % (sy, i, k), paint, b - a, depth=D)
+                r.location = (x, sy * (yi + T / 2), (a + b) / 2); r.rotation_euler = (0, 0, 0 if sy < 0 else math.pi)
+            x += pitch; i += 1
+        if sy < 0:
+            cut(bpy, wall, (win[2], 0.3, win[3]), (win[0], -yi, win[1]), (0, 0, 0))
+    wall = box(bpy, 'front_wall', paint, (T, W - 0.32, ze - zs), (-L / 2 + 0.06, 0, (zs + ze) / 2))
+    z = zs + 0.12
+    while z < ze - 0.1:   # the front wall corrugated across: the rib's along-axis turned to Y, its outward to -X
+        r = trap(bpy, 'front_rib_%d' % int(z * 100), paint, W - 0.36, depth=D)
+        r.matrix_world = mathutils.Matrix(((0, 1, 0, -L / 2 + 0.06 - T / 2), (0, 0, 1, 0), (1, 0, 0, z), (0, 0, 0, 1)))
+        z += pitch
+    box(bpy, 'roof', roofp, (L - 0.2, W - 0.2, 0.03), (0, 0, H - 0.045))
+    for i in range(18):
+        box(bpy, 'roof_rib_%d' % i, roofp, (0.12, W - 0.24, 0.018), (-L / 2 + 0.4 + i * 0.31, 0, H - 0.025), bevel=0.005)
+    box(bpy, 'floor', bars, (L - 0.2, W - 0.2, 0.04), (0, 0, 0.17))
+    # the doors at +X: two leaves, a seam, four locking bars with their keepers and handles, the hinges at the edges
+    xd = L / 2 - 0.05
+    for sy in (-1, 1):
+        box(bpy, 'door_%d' % sy, paint, (0.03, W / 2 - 0.17, H - 0.32), (xd, sy * (W / 4 - 0.035), H / 2), bevel=0.006)
+        for zz in (0.5, 1.3, 2.1):
+            box(bpy, 'hinge_%d_%d' % (sy, int(zz * 10)), bars, (0.05, 0.1, 0.08), (xd + 0.02, sy * (W / 2 - 0.17), zz))
+        for yy in (0.27, 0.8):
+            cyl(bpy, 'lockbar_%d_%d' % (sy, int(yy * 100)), bars, 0.022, H - 0.42, (xd + 0.05, sy * yy, H / 2), verts=8)
+            for zz in (0.3, H - 0.3):
+                box(bpy, 'keeper_%d_%d_%d' % (sy, int(yy * 100), int(zz * 10)), bars, (0.05, 0.08, 0.06), (xd + 0.05, sy * yy, zz))
+            box(bpy, 'handle_%d_%d' % (sy, int(yy * 100)), bars, (0.04, 0.3, 0.035), (xd + 0.08, sy * (yy - 0.12), 1.15), rot=(math.radians(-8 * sy), 0, 0))
+    # the owner's code and the check digit, stencilled on the right-hand leaf: four letters, six figures, the size code
+    import random
+    rs = random.Random(3)
+    for row, (z, n, h) in enumerate(((2.08, 4, 0.11), (1.92, 7, 0.11), (1.62, 4, 0.08))):
+        for k in range(n):
+            if rs.random() < 0.12: continue                                              # a letter weathered off
+            box(bpy, 'stencil_%d_%d' % (row, k), pale, (0.01, 0.055, h), (xd + 0.02, -0.12 - k * 0.075, z))
+    # THE ONE ASYMMETRIC THING: the window torch-cut in the long side, a burnt rust edge round it, the panel that came
+    # out leaning against the wall below, and a blanket hung inside for a curtain
+    x0, z0, ww, wh = win
+    y = -yi - D - 0.006
+    for (dx, dz, sx_, sz_) in ((0, wh / 2, ww + 0.08, 0.045), (0, -wh / 2, ww + 0.08, 0.045), (ww / 2, 0, 0.045, wh), (-ww / 2, 0, 0.045, wh)):
+        box(bpy, 'burn_%d_%d' % (int(dx * 100), int(dz * 100)), rust, (sx_, 0.012, sz_), (x0 + dx, y + 0.02, z0 + dz))
+    panel = box(bpy, 'cut_panel', paint, (ww, T, wh), (0, 0, 0))
+    for i in range(3):
+        r = trap(bpy, 'cut_panel_rib_%d' % i, paint, wh, depth=D); r.location = (-ww / 2 + 0.2 + i * pitch, -T / 2, 0); r.parent = panel
+    panel.location = (x0 + 0.3, -W / 2 - 0.08, wh / 2 * math.cos(math.radians(12)) + 0.01); panel.rotation_euler = (math.radians(-12), 0, math.radians(4))
+    box(bpy, 'curtain', pale, (ww * 0.45, 0.02, wh * 0.95), (x0 - ww * 0.24, -yi + 0.1, z0 - 0.02), rot=(0, math.radians(2), math.radians(3)), bevel=0.01)
+    # the wear: rust run down a few ribs from the roof, and patches on the roof
+    rr = random.Random(9)
+    for sy in (-1, 1):
+        for i in range(19):
+            x = -L / 2 + 0.3 + i * pitch
+            if sy < 0 and abs(x - win[0]) < win[2] / 2 + 0.105: continue
+            yy = sy * (yi + D + T / 2 + 0.004)
+            if rr.random() < 0.55:                                                      # run down from the roof seam
+                ln = rr.uniform(0.3, 1.5); box(bpy, 'streak_%d_%d' % (sy, i), rust, (rr.uniform(0.03, 0.06), 0.006, ln), (x + rr.uniform(-0.02, 0.02), yy, ze - ln / 2))
+            if rr.random() < 0.6:                                                       # and up from the rotten sill
+                ln = rr.uniform(0.15, 0.6); box(bpy, 'creep_%d_%d' % (sy, i), rust, (0.065, 0.006, ln), (x, yy, zs + ln / 2))
+    for i, (x, y_, r) in enumerate(((-1.8, 0.4, 0.4), (1.2, -0.5, 0.3), (2.3, 0.6, 0.22))):
+        blotch(bpy, 'roof_rust_%d' % i, rust, r, (x, y_, H - 0.015), (0, 0, 0), seed=61 + i)
+
+
 def dims(bpy):
     import mathutils
     lo, hi = [1e9] * 3, [-1e9] * 3
@@ -634,7 +753,7 @@ def dims(bpy):
 
 
 BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck, 'barrier': barrier, 'dumpster': dumpster, 'cart': cart, 'tyres': tyres,
-            'sandbags': sandbags, 'fence': fence}
+            'sandbags': sandbags, 'fence': fence, 'container': container}
 
 
 def build(name, out):
