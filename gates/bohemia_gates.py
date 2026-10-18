@@ -5462,6 +5462,18 @@ GATES = [
      'frozen baseline (gates/art_pipe_baseline.json, 150 files, 1,180 writes on 10/17) may only go down; a new tool '
      'must be zero. Not counted on purpose: a background colour, an outline-only frame, paste/crop/composite of a '
      'pack tile, text on a sheet. Self-test both ways on planted sources.', False),
+    ('ASEPRITE PIPE', ['python3', 'gates/aseprite_pipe_gate.py'],
+     'THE BOUGHT EDITOR, DRIVEN HEADLESS BY THE CHATS. 10/18, PLUMBER lane, row [aseprite in the pipe]; rule 108 '
+     'round six; Paolo 10/11, his one word: "Aseprite". tools/aseprite/ holds one Lua job per task (snap to the pack '
+     'palette indexed, outline on/off, strays, blur-free resize, eight facings split and stack, sheet plus JSON, the '
+     'pixel and palette report), each one line, each writing a JSON of what it did; the binary is built headless '
+     'from the public source on the free runner (.github/workflows/aseprite.yml, cached) and never committed (the '
+     'EULA). Holds: no job types a colour or a coordinate; no build tracked; the workflow pins tag and commit; the '
+     'committed proof (reference/art_pipe/proof_round_two): his pack tile round-tripped with its palette '
+     'byte-identical, and the rig\'s robot cleaned in eight facings with every colour on his car\'s palette, '
+     'stacked into one sheet. Where Aseprite is on the box it runs the jobs fresh and they must agree with the '
+     'committed proof. RED CASE: a typed colour, a typed rectangle, a tracked build, a palette one byte off. '
+     'Under a second without Aseprite.', False),
     ('ALLOW LIST', ['node', 'gates/allow_list_gate.js'],
      'THE APPROVAL SCREENS NEVER COME BACK BY DRIFT. 10/18, PLUMBER lane, row [the allow list gate]; rule 111(d), '
      'amended 10/17; Paolo 10/16: "you put me through like 14 approval screens". Reads .claude/settings.json, never '

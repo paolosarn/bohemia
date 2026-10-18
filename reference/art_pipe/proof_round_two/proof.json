@@ -1,0 +1,703 @@
+{
+ "aseprite": "Aseprite 1.3.18.6-dirty-dev",
+ "made": "10/18",
+ "tile": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png",
+ "round_trip": {
+  "palette_entries": 255,
+  "png_palette_entries": 255,
+  "byte_identical": true,
+  "colours": 244,
+  "colours_off_palette": 0,
+  "outline_pixels": 281,
+  "silhouette": {
+   "snapped": 8532,
+   "outline_on": 8813,
+   "outline_off": 8530
+  }
+ },
+ "generated": {
+  "source": "records/target/master_rig/robot",
+  "palette_from": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+  "facings": {
+   "N": {
+    "colours": [
+     5747,
+     109,
+     91
+    ],
+    "strays": [
+     6058,
+     1194,
+     89
+    ],
+    "strays_replaced": 1194,
+    "opaque": [
+     6286,
+     6332
+    ],
+    "half_transparent": [
+     46,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "NE": {
+    "colours": [
+     5585,
+     110,
+     97
+    ],
+    "strays": [
+     6199,
+     1145,
+     90
+    ],
+    "strays_replaced": 1145,
+    "opaque": [
+     5983,
+     7712
+    ],
+    "half_transparent": [
+     1744,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "E": {
+    "colours": [
+     5198,
+     106,
+     92
+    ],
+    "strays": [
+     5614,
+     1066,
+     114
+    ],
+    "strays_replaced": 1066,
+    "opaque": [
+     5557,
+     6483
+    ],
+    "half_transparent": [
+     926,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "SE": {
+    "colours": [
+     5865,
+     112,
+     99
+    ],
+    "strays": [
+     6157,
+     1305,
+     86
+    ],
+    "strays_replaced": 1305,
+    "opaque": [
+     6316,
+     6497
+    ],
+    "half_transparent": [
+     183,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "S": {
+    "colours": [
+     5965,
+     111,
+     94
+    ],
+    "strays": [
+     6637,
+     1341,
+     83
+    ],
+    "strays_replaced": 1341,
+    "opaque": [
+     6312,
+     8517
+    ],
+    "half_transparent": [
+     2221,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "SW": {
+    "colours": [
+     5680,
+     110,
+     97
+    ],
+    "strays": [
+     5948,
+     1351,
+     132
+    ],
+    "strays_replaced": 1351,
+    "opaque": [
+     6052,
+     6390
+    ],
+    "half_transparent": [
+     340,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "W": {
+    "colours": [
+     5553,
+     106,
+     92
+    ],
+    "strays": [
+     5984,
+     1227,
+     104
+    ],
+    "strays_replaced": 1227,
+    "opaque": [
+     5870,
+     6872
+    ],
+    "half_transparent": [
+     1008,
+     0
+    ],
+    "colours_off_palette": 0
+   },
+   "NW": {
+    "colours": [
+     5637,
+     105,
+     87
+    ],
+    "strays": [
+     5898,
+     1170,
+     97
+    ],
+    "strays_replaced": 1170,
+    "opaque": [
+     6020,
+     6166
+    ],
+    "half_transparent": [
+     148,
+     0
+    ],
+    "colours_off_palette": 0
+   }
+  },
+  "sheet": {
+   "png": "reference/art_pipe/proof_round_two/robot_sheet.png",
+   "cell": [
+    110,
+    149
+   ],
+   "distinct_facings": 8,
+   "mirrored": []
+  }
+ },
+ "seconds": 5.2,
+ "steps": [
+  {
+   "job": "snap",
+   "params": {
+    "in": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png",
+    "palette": "reference/art_bank/road/pack_1_cobblestone_floor_tiles_000.png",
+    "out": "reference/art_pipe/proof_round_two/tile_snapped.png",
+    "palette_out": "reference/art_pipe/proof_round_two/tile_palette.gpl"
+   },
+   "seconds": 0.16,
+   "exit": 0,
+   "said": "{\"palette\": 255, \"snapped\": \"reference/art_pipe/proof_round_two/tile_snapped.png\"}"
+  },
+  {
+   "job": "outline",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/tile_snapped.png",
+    "out": "reference/art_pipe/proof_round_two/tile_outlined.png",
+    "mode": "on"
+   },
+   "seconds": 0.09,
+   "exit": 0,
+   "said": "{\"after\": 8813, \"before\": 8532, \"outline\": \"on\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/tile_outlined.png",
+    "out": "reference/art_pipe/proof_round_two/tile_outlined.report.json",
+    "palette": "reference/art_pipe/proof_round_two/tile_palette.gpl"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 244, \"opaque\": 8813, \"report\": \"reference/art_pipe/proof_round_two/tile_outlined.report.json\", \"strays\": 4784}"
+  },
+  {
+   "job": "outline",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/tile_outlined.png",
+    "out": "reference/art_pipe/proof_round_two/tile_outline_off.png",
+    "mode": "off"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"after\": 8530, \"before\": 8813, \"outline\": \"off\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_N.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_N.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 5747, \"opaque\": 6286, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_N.report.json\", \"strays\": 6058}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_N.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_N.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.09,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_N.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_N.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_N.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 109, \"opaque\": 6332, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_N.report.json\", \"strays\": 1194}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_N.png",
+    "out": "reference/art_pipe/proof_round_two/robot/N.png"
+   },
+   "seconds": 0.24,
+   "exit": 0,
+   "said": "{\"replaced\": 1194, \"strays\": 1194}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/N.png",
+    "out": "reference/art_pipe/proof_round_two/robot/N.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.05,
+   "exit": 0,
+   "said": "{\"colours\": 91, \"opaque\": 6332, \"report\": \"reference/art_pipe/proof_round_two/robot/N.report.json\", \"strays\": 89}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_NE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_NE.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 5585, \"opaque\": 5983, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_NE.report.json\", \"strays\": 6199}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_NE.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_NE.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.1,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_NE.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_NE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_NE.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 110, \"opaque\": 7712, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_NE.report.json\", \"strays\": 1145}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_NE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/NE.png"
+   },
+   "seconds": 0.25,
+   "exit": 0,
+   "said": "{\"replaced\": 1145, \"strays\": 1145}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/NE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/NE.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 97, \"opaque\": 7712, \"report\": \"reference/art_pipe/proof_round_two/robot/NE.report.json\", \"strays\": 90}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_E.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_E.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 5198, \"opaque\": 5557, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_E.report.json\", \"strays\": 5614}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_E.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_E.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.09,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_E.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_E.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_E.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 106, \"opaque\": 6483, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_E.report.json\", \"strays\": 1066}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_E.png",
+    "out": "reference/art_pipe/proof_round_two/robot/E.png"
+   },
+   "seconds": 0.24,
+   "exit": 0,
+   "said": "{\"replaced\": 1066, \"strays\": 1066}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/E.png",
+    "out": "reference/art_pipe/proof_round_two/robot/E.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 92, \"opaque\": 6483, \"report\": \"reference/art_pipe/proof_round_two/robot/E.report.json\", \"strays\": 114}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_SE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_SE.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 5865, \"opaque\": 6316, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_SE.report.json\", \"strays\": 6157}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_SE.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_SE.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.1,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_SE.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_SE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_SE.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 112, \"opaque\": 6497, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_SE.report.json\", \"strays\": 1305}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_SE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/SE.png"
+   },
+   "seconds": 0.26,
+   "exit": 0,
+   "said": "{\"replaced\": 1305, \"strays\": 1305}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/SE.png",
+    "out": "reference/art_pipe/proof_round_two/robot/SE.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 99, \"opaque\": 6497, \"report\": \"reference/art_pipe/proof_round_two/robot/SE.report.json\", \"strays\": 86}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_S.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_S.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 5965, \"opaque\": 6312, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_S.report.json\", \"strays\": 6637}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_S.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_S.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.11,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_S.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_S.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_S.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 111, \"opaque\": 8517, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_S.report.json\", \"strays\": 1341}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_S.png",
+    "out": "reference/art_pipe/proof_round_two/robot/S.png"
+   },
+   "seconds": 0.31,
+   "exit": 0,
+   "said": "{\"replaced\": 1341, \"strays\": 1341}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/S.png",
+    "out": "reference/art_pipe/proof_round_two/robot/S.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 94, \"opaque\": 8517, \"report\": \"reference/art_pipe/proof_round_two/robot/S.report.json\", \"strays\": 83}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_SW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_SW.report.json"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 5680, \"opaque\": 6052, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_SW.report.json\", \"strays\": 5948}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_SW.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_SW.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.11,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_SW.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_SW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_SW.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 110, \"opaque\": 6390, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_SW.report.json\", \"strays\": 1351}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_SW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/SW.png"
+   },
+   "seconds": 0.29,
+   "exit": 0,
+   "said": "{\"replaced\": 1351, \"strays\": 1351}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/SW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/SW.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 97, \"opaque\": 6390, \"report\": \"reference/art_pipe/proof_round_two/robot/SW.report.json\", \"strays\": 132}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_W.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_W.report.json"
+   },
+   "seconds": 0.08,
+   "exit": 0,
+   "said": "{\"colours\": 5553, \"opaque\": 5870, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_W.report.json\", \"strays\": 5984}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_W.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_W.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.09,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_W.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_W.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_W.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 106, \"opaque\": 6872, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_W.report.json\", \"strays\": 1227}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_W.png",
+    "out": "reference/art_pipe/proof_round_two/robot/W.png"
+   },
+   "seconds": 0.31,
+   "exit": 0,
+   "said": "{\"replaced\": 1227, \"strays\": 1227}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/W.png",
+    "out": "reference/art_pipe/proof_round_two/robot/W.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 92, \"opaque\": 6872, \"report\": \"reference/art_pipe/proof_round_two/robot/W.report.json\", \"strays\": 104}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_NW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/raw_NW.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 5637, \"opaque\": 6020, \"report\": \"reference/art_pipe/proof_round_two/robot/raw_NW.report.json\", \"strays\": 5898}"
+  },
+  {
+   "job": "snap",
+   "params": {
+    "in": "records/target/master_rig/robot/rig_NW.png",
+    "palette": "reference/art_bank/prop/pack_10_abandoned_cars_000.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_NW.png",
+    "palette_out": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.11,
+   "exit": 0,
+   "said": "{\"palette\": 253, \"snapped\": \"reference/art_pipe/proof_round_two/robot/snap_NW.png\"}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_NW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/snap_NW.report.json"
+   },
+   "seconds": 0.07,
+   "exit": 0,
+   "said": "{\"colours\": 105, \"opaque\": 6166, \"report\": \"reference/art_pipe/proof_round_two/robot/snap_NW.report.json\", \"strays\": 1170}"
+  },
+  {
+   "job": "strays",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/snap_NW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/NW.png"
+   },
+   "seconds": 0.36,
+   "exit": 0,
+   "said": "{\"replaced\": 1170, \"strays\": 1170}"
+  },
+  {
+   "job": "report",
+   "params": {
+    "in": "reference/art_pipe/proof_round_two/robot/NW.png",
+    "out": "reference/art_pipe/proof_round_two/robot/NW.report.json",
+    "palette": "reference/art_pipe/proof_round_two/robot/car_palette.gpl"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"colours\": 87, \"opaque\": 6166, \"report\": \"reference/art_pipe/proof_round_two/robot/NW.report.json\", \"strays\": 97}"
+  },
+  {
+   "job": "facings",
+   "params": {
+    "mode": "stack",
+    "dir": "reference/art_pipe/proof_round_two/robot",
+    "out": "reference/art_pipe/proof_round_two/robot_sheet.png"
+   },
+   "seconds": 0.06,
+   "exit": 0,
+   "said": "{\"facings\": 8, \"mirrored\": 0, \"sheet\": \"reference/art_pipe/proof_round_two/robot_sheet.png\"}"
+  },
+  {
+   "job": "facings",
+   "params": {
+    "mode": "split",
+    "in": "reference/art_pipe/proof_round_two/robot_sheet.png",
+    "dir": "reference/art_pipe/proof_round_two/robot_split"
+   },
+   "seconds": 0.08,
+   "exit": 0,
+   "said": "{\"split\": 8}"
+  }
+ ]
+}

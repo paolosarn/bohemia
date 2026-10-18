@@ -7,3 +7,6 @@ v/
 records/character/rig/*.glb
 # the LOOK ruler's DINOv2 export: built and cached on the free runner, never committed (gates/twin_gate.py L0)
 tools/models/
+
+# the headless Aseprite build: built and cached on the free runner (or in a scratch folder), never committed (the EULA; gates/aseprite_pipe_gate.py P1)
+tools/aseprite/bin/
