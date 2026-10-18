@@ -9102,6 +9102,15 @@ GATES = [
      "Hispanic sit within five points of the county; and the measured gap holds: the live engine draws the two "
      "words independently (56 percent of names read Hispanic against 33.4) and the post's hire names read "
      "Hispanic 12 of 16 (wiring the bank turns leg C red on purpose)", False),
+    ('WHO THE FACE IS', ['node', 'gates/who_the_face_is_gate.js'],
+     "PEOPLE 10/18, row [a name for every starred face] under the hold: a page, a face is a person, not a "
+     "costume. The bank is draft and nothing live reads it; every face PORTRAIT shipped the starred way (its "
+     "crew manifest and its rig heads, read at gate time) has exactly one person: a name the names mix's rule "
+     "allows that reads as the face reads, a home among the 26 places that hires that background by Battle "
+     "Brothers' book, the crew screen's own background, one line whose Spanish is the engine's closed lexicon "
+     "(none in the player's), the bilingual lines under the valley's share, PORTRAIT's own mouth keys on the "
+     "syllable; and the measured gap holds: 91 percent of men at a post wear a crewmate's face and each face "
+     "meets the same four names (wiring ONE KEY DRAWS THE MAN turns leg G red on purpose)", False),
     ('THE PHONES APPS', ['python3', 'gates/the_phones_apps_gate.py'],
      "UI 10/18, row [the phone's apps]: his 10/17 'there's a whole app on the phone too'. The candidate home screen "
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "
