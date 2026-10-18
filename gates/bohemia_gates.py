@@ -9072,6 +9072,13 @@ GATES = [
      "the tarball, in exactly one class (body .40, mind .20, earned and chance 0); every Apprentice Learns "
      "quote byte for byte; and the measured gap holds: every heir carries the parent's pre-crash trade and a "
      "dead man's kid keeps the skill as often as a living teacher's (building it turns leg E red on purpose)", False),
+    ('THE NAMES MIX', ['node', 'gates/the_names_mix_gate.js'],
+     "PEOPLE 10/18, row [the names mix] under the hold: a page, a name is two words. The bank is draft and "
+     "nothing live reads it; five background shares within two points of the cited Census QuickFacts; every "
+     "given name and surname he voted UP in exactly one pool; under the bank's rule the names that read "
+     "Hispanic sit within five points of the county; and the measured gap holds: the live engine draws the two "
+     "words independently (56 percent of names read Hispanic against 33.4) and the post's hire names read "
+     "Hispanic 12 of 16 (wiring the bank turns leg C red on purpose)", False),
     ('THE PHONES APPS', ['python3', 'gates/the_phones_apps_gate.py'],
      "UI 10/18, row [the phone's apps]: his 10/17 'there's a whole app on the phone too'. The candidate home screen "
      "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "

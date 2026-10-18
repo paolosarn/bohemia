@@ -213,6 +213,31 @@ bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by
 they add it. Nothing to slices/, engine/ or the demo (rule 100).
 PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-names-mix): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 117):
+[the names mix] SHIPPED as a page. *** A NAME IS TWO WORDS. ***
+NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_THE_NAMES_MIX_10_18_26.md
+
+THE FINDING THAT PROVES US WRONG: the 9/22 fix counted the first names and the surnames
+one list at a time, and each list sits near the county (31% and 36% read Hispanic). But
+the engine draws the two words independently, so a name reads Hispanic if either word
+does: 56.0% of 20,000 names drawn by the engine's own hash, against Census QuickFacts'
+33.4% for Clark County. The hire post (RUN TWO's HIRE_NAMES, the men you actually meet)
+reads Hispanic 12 of 16, with Pancho and Nacho on it.
+
+THE DESIGN (draft): background first from the census (Hispanic 33, white 36, Black 13,
+Asian 12, mixed 6), then the first name and surname by background with real crossover
+(TUNING's numbers). Under it 36.3% read Hispanic, the white share 36%. Nothing of his is
+deleted (all 90 + 98 in exactly one pool); 25 added (16 common, 3 Black, 6 Filipino first
+names, 6 Filipino surnames: Las Vegas's biggest Asian group had none). Twenty samples on the page.
+
+Bank: banks/BOHEMIA_THE_NAMES_MIX_10_18_26.json, draft:true, nothing live reads it.
+Gate: THE NAMES MIX 37/0, registered, four mutations each red.
+No VOTE item, no demo, no question.
+ROUTED: RUN TWO (wire the post to the bank; Pancho and Nacho go; 5 of its 16 names read as
+women on men's backgrounds); TUNING [recruit odds] (crossover shares).
+NEXT OPEN: [recruit at the place] (RUN TWO's settlement screen) and [deeds and memory].
+PENDING Paolo: nothing.
+
 PEOPLE (people-0196h6wh): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 116):
 [the plague] closed on the board (the chat before shipped it, 45350d3, and ran out of
 usage before writing its row; the row now says SHIPPED). [heirs backgrounds] SHIPPED as
