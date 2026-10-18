@@ -49,7 +49,7 @@
  ],
  "ground_px": [
   55,
-  67
+  92
  ],
  "colours": 4115,
  "keys_per_beat": 3,
@@ -308,5 +308,14 @@
     "records/target/master_rig/dire_wolf/rig_Bite_NW_k05.png"
    ]
   }
- }
+ },
+ "look_px": [
+  55,
+  67
+ ],
+ "ground_screen": [
+  101.0,
+  125.50976494797291
+ ],
+ "ground_px_why": "ANIMATION 10/18: recomputed by DIRECTION b82807c5's formula (the ground centre sits look_z x sin(tilt) under the look point); renders unchanged"
 }

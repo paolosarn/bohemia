@@ -106,7 +106,7 @@
  ],
  "ground_px": [
   38,
-  42
+  59
  ],
  "colours": 22967,
  "keys_per_beat": 3,
@@ -1348,5 +1348,14 @@
   "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k03.png",
   "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k04.png",
   "records/target/master_rig/feral_dog_pit/rigobj_Bite_NW_k05.png"
- ]
+ ],
+ "look_px": [
+  38,
+  42
+ ],
+ "ground_screen": [
+  74.0,
+  90.7293395633257
+ ],
+ "ground_px_why": "ANIMATION 10/18: recomputed by DIRECTION b82807c5's formula (the ground centre sits look_z x sin(tilt) under the look point); renders unchanged"
 }
