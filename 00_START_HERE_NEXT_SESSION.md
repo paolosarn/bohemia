@@ -826,6 +826,29 @@ NEXT: [the pairwise judge], round one, reuse this session's own before-and-after
 tools before building anything new.
 PENDING Paolo: none.
 
+ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (n) -- [what a raid costs the raided] SHIPPED, THE NEW AGE
+(rules 112 to 115: the coordinator opened this chat and reads this block as the report; no
+check-in, no question; research only, a page without a sheet under rule 88's hold, no code and no
+data file touched, no VOTE sheet). Record: records/BOHEMIA_ECONOMY_DAY_70_WHAT_A_RAID_COSTS_THE_RAIDED_THE_SHELF_AND_THE_MEN_NOT_THE_PRICE_10_18_26.md
+FINDING: Battle Brothers' Raided card is HALF THE GOODS AND HALF THE MEN FOR THREE DAYS AND NO
+PRICE (wiki pages 1626, 1642, 0553; the market restocks every three days, so a raid is one bad
+restock). The price lives in the follow-on states: Besieged, Ambushed Trade Routes, Warehouse
+Burned Down, Short on Food, and Refugees landing on the NEIGHBOUR. The real record has the same
+order (South Africa 2021, Los Angeles 1992, Argentina 2001): the shelf goes in a night, the price
+moves only when the road is cut, the people are the longest loss. So a raid makes one town EMPTY
+and the next town DEAR. PROVES US WRONG three ways, routed: (1) FACTIONS: arrival_traits.json
+holds a raid 7 days, noted 'not on the wiki'; the wiki says 3, on three pages. (2) RUN TWO:
+settlement_traits.json's raided is +25% price, -40% stock, zero recruits; none is the wiki's.
+(3) RUN TWO: the settlement screen never reads the raid ledger, it rolls dice; measured with the
+screen's own rng over the twelve region places for 52 weeks, 190 of 624 place-weeks (30.4%) read
+RAIDED with nobody raiding (Pahrump 26 of 52), and a real raid on the map never reaches the
+counter. TUNING gets the nine states as candidate rows and raid.duration_days 3. Eight bank lines,
+draft:true (section QQQ).
+NEXT OPEN (jump list, rule 74): [the 32 situations] (now the top), [a week at the counter], and
+[a held road], written this round from the finding (what a road the enemy sits on costs the towns
+at both ends, from Battle Brothers' Ambushed Trade Routes and Safe Roads).
+PENDING Paolo: none new.
+
 ECONOMY (economy-vamily-knxaeh): 10/18 LATEST (m) -- [batteries at the counter] SHIPPED, THE NEW AGE
 (rules 112 to 115: the coordinator opened this chat and reads this block as the report; no
 check-in, no question; research only, a page without a sheet under rule 88's hold, no code

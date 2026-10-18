@@ -4953,3 +4953,46 @@ TTTTTTTTTTTTTTTTTTTTTTTTT8  a crew boss doing day-one arithmetic out loud       
 - No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
   keeper or a crew mouth with a face, at a counter.
 - Spanish register: 1 of 8 lines (TTTTTTTTTTTTTTTTTTTTTTTTT2's mijo). Under the 15% cap.
+
+## QQQQQQQQQQQQQQQQQQQQQQQQQ. WHAT A RAID COSTS THE RAIDED (round 70)
+# Record: records/BOHEMIA_ECONOMY_DAY_70_WHAT_A_RAID_COSTS_THE_RAIDED_THE_SHELF_AND_THE_MEN_NOT_THE_PRICE_10_18_26.md
+# Row [what a raid costs the raided], under rule 88's hold: a page, no sheet, nothing in the game.
+
+UUUUUUUUUUUUUUUUUUUUUUUUU1  the smith in the raided town, at a half-empty rack            draft:true
+    "Same price as last week. There's just less of it. Pick from the four I've got."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU2  the stall keeper, asked why nothing went up                    draft:true
+    "Raise it on who? Everybody that could pay left with the crew or after them."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU3  a man at the hall, the only one still sitting there            draft:true
+    "Half of us walked. The ones who stayed are the ones with nowhere to walk to."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU4  the keeper, on when the shelf comes back                        draft:true
+    "Give it three days. The truck comes, if the road's clear. If the road's not clear, ask again."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU5  a keeper in the NEXT town, raising the stack                    draft:true
+    "Bread went up. Not because of me, because of them, sleeping by my wall since Tuesday."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU6  a newcomer at the neighbour's hall, cheap and asking            draft:true
+    "I'll carry for food. I had a shop. Now I've got these two hands, mijo, and they're cheap."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU7  a hauler, on the road the crew still holds                       draft:true
+    "Nobody's bringing anything in while they're camped on the wash. Whatever's on the shelf, that's it."
+
+UUUUUUUUUUUUUUUUUUUUUUUUU8  an old woman at the burnt house, three nights on                  draft:true
+    "The stock comes back. The Ortegas don't. That's the part nobody prices."
+
+## RRRRRRRRRRRRRRRRRRRRRRRRR. WHAT IS NOT HERE, ON PURPOSE (round 70)
+
+- No line names South Africa, Los Angeles, Argentina, a wiki page or a percentage. The finding is
+  said as a rack at the same price with less on it, a hall half empty, a three-day truck, a
+  neighbour's bread going up, a shopkeeper become a hire, a road held, and the family that does
+  not come back.
+- UUUUUUUUUUUUUUUUUUUUUUUUU1, 4 and 5 carry the page's shape (no price rise in the raided town, three days, the
+  neighbour dearer): the wiki's numbers, not a ruling, not a felt number; TUNING's table first.
+- UUUUUUUUUUUUUUUUUUUUUUUUU8 reuses the Ortega house from settlement_traits.json's own raided line (DIALOGUE ALWAYS
+  REFERS TO THE CATALOGUE); no other person, town, street or faction is named. MAP LAW.
+- No line has the player speaking. Rule 27.
+- No line is written for a card, a tooltip or a readout: rule 19(a), rule 29. Every one is a
+  keeper or a mouth with a face, at a counter, a hall or a road.
+- Spanish register: 1 of 8 lines (UUUUUUUUUUUUUUUUUUUUUUUUU6's mijo). Under the 15% cap.
