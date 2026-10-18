@@ -1046,6 +1046,15 @@ NEXT OPEN (jump list, rule 74): none held; the section's OPEN rows are exhausted
 PENDING Paolo: none new; the shared food/water pile report from several rounds back still
 stands.
 
+UI (ui-opus): 10/18 LATEST -- [the phone's apps] CANDIDATE in VOTE (cook only): his 10/17 'a whole app on the phone'.
+Measured first: the opened phone is a lock screen with 10 gradients, 18 rounded corners, 14 glows, 46 lines in system fonts.
+The home screen laid in the browser only: FEED, JOBS, STASH, CREW, SETTINGS, and TIMELINE (the flip) only after the first crisis; twelve pack props at their own pixels; A cardboard tiles taped to the glass, B props straight on the glass; three across upright, six in a row sideways.
+Gate the phone's apps 9/0 in the suite (THE PHONES APPS), 7 mutations. VOTE ui-the-phones-apps-10-18 (A / B / NO). Record records/BOHEMIA_THE_PHONES_APPS_10_18_26.md. Sheets records/target/ui_phone_apps/.
+FOR RUN TWO + RUN after his pick: each app opens the screen it names; one include line; the shell's gear sits over the phone's top 27 points today.
+NOT MINE, FOUND: vote_tab_gate.js times out on main (before my card too) at its note leg: 0 red items in front, so no '#list .row textarea.note'. The tab's owner or PLUMBER.
+NEXT: [no browser defaults on the HUD] (the phone's inside is the worst screen measured so far: 46 system-font lines; the before-and-after sheet for the HUD, the fight bar and the VOTE tab).
+UNDER UI (rule 113a, one line per lane): WORDS: nothing made, no tab, no commit since 10/10: FROZEN. SOUNDS: the desert bed (a tenth of the animal calls), the recap voice pulled, two title candidates from real material (7e9e31b), in the VOTE tab: COOKING.
+
 UI (ui-kmqmrf): 10/17 LATEST -- [one screen] CANDIDATE in VOTE (cook only, rule 110's swing): one bar on the map, the settlement and the fight, laid in the browser only and shot at 1:1 both ways.
 The law of the layout: the top is the one bar (the clock the screen runs on, the place, the six from his packs at 96 px on glass, CREW and NOTES at the same x everywhere); the screen's own row rides under it (the fight's turn strip); the big action keeps the bottom right (speed pad, LEAVE, END TURN).
 Every code-drawn box found by machine (54 rows on six shots) is named with its replacement in the record; after the lay none is left but his phone and the lit amber. Sheets records/target/ui_one_screen/ (2.7 MB upright, 4.0 MB sideways, one whole fight 2.9 MB).

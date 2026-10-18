@@ -1,0 +1,2880 @@
+{
+ "upright": {
+  "now": {
+   "y": 144,
+   "h": 1300
+  },
+  "A": {
+   "y": 1498,
+   "h": 1250
+  },
+  "B": {
+   "y": 2802,
+   "h": 1250
+  },
+  "A_before": {
+   "y": 4106,
+   "h": 1250
+  }
+ },
+ "sheet": "records/target/ui_phone_apps/UI_ONE_AT_A_TIME_THE_PHONES_APPS.png",
+ "size": [
+  1170,
+  5706
+ ],
+ "sheet_sideways": "records/target/ui_phone_apps/UI_THE_PHONES_APPS_SIDEWAYS.png",
+ "d10_now": {
+  "portrait": {
+   "gradients": 10,
+   "rounded": 18,
+   "blur": 0,
+   "glow": 14,
+   "system_font_runs": 46
+  },
+  "landscape": {
+   "gradients": 10,
+   "rounded": 18,
+   "blur": 0,
+   "glow": 14,
+   "system_font_runs": 46
+  }
+ },
+ "laid": {
+  "portrait_A": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      39.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      39.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      55.66,
+      187.42,
+      32,
+      26.33
+     ],
+     "nat": [
+      96,
+      79
+     ],
+     "name": "FEED",
+     "nameBox": [
+      53.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      162.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      162.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      178.98,
+      189.27,
+      32,
+      22.66
+     ],
+     "nat": [
+      96,
+      68
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      176.38,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      286.33,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      286.33,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      302.33,
+      185.92,
+      32,
+      29.33
+     ],
+     "nat": [
+      96,
+      88
+     ],
+     "name": "STASH",
+     "nameBox": [
+      296.83,
+      239.59,
+      43,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      39.66,
+      284.59,
+      64,
+      90
+     ],
+     "tile": [
+      39.66,
+      284.59,
+      64,
+      64
+     ],
+     "img": [
+      62.83,
+      303.42,
+      17.66,
+      26.33
+     ],
+     "nat": [
+      53,
+      79
+     ],
+     "name": "CREW",
+     "nameBox": [
+      53.05,
+      355.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      162.98,
+      284.59,
+      64,
+      90
+     ],
+     "tile": [
+      162.98,
+      284.59,
+      64,
+      64
+     ],
+     "img": [
+      188.31,
+      300.59,
+      13.33,
+      32
+     ],
+     "nat": [
+      40,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      165.58,
+      355.59,
+      58.81,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "timeline",
+     "box": [
+      284.72,
+      284.59,
+      67.2,
+      90
+     ],
+     "tile": [
+      286.31,
+      284.59,
+      64,
+      64
+     ],
+     "img": [
+      302.48,
+      300.59,
+      31.66,
+      32
+     ],
+     "nat": [
+      95,
+      96
+     ],
+     "name": "TIMELINE",
+     "nameBox": [
+      284.72,
+      355.59,
+      67.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "A",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app late",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    390,
+    759.41
+   ],
+   "W": 390,
+   "pick": {
+    "feed": "pack_11_survival_props_021",
+    "jobs": "pack_11_survival_props_033",
+    "stash": "pack_16_loot_and_survival_props_000",
+    "crew": "pack_miscellaneous_043",
+    "settings": "pack_15_workbenches_and_tools_023",
+    "timeline": "pack_11_gauges_and_meters_005"
+   },
+   "crisis": true
+  },
+  "portrait_B": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      39.66,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      39.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      55.66,
+      186.27,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ],
+     "name": "FEED",
+     "nameBox": [
+      60.05,
+      239.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      162.98,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      162.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      185.16,
+      189.09,
+      19.66,
+      23
+     ],
+     "nat": [
+      59,
+      69
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      183.38,
+      239.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      286.33,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      286.33,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      302.83,
+      184.59,
+      31,
+      32
+     ],
+     "nat": [
+      93,
+      96
+     ],
+     "name": "STASH",
+     "nameBox": [
+      303.83,
+      239.59,
+      29,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      39.66,
+      279.59,
+      64,
+      85
+     ],
+     "tile": [
+      39.66,
+      279.59,
+      64,
+      64
+     ],
+     "img": [
+      62.16,
+      295.59,
+      19,
+      32
+     ],
+     "nat": [
+      57,
+      96
+     ],
+     "name": "CREW",
+     "nameBox": [
+      60.05,
+      350.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      162.98,
+      279.59,
+      64,
+      85
+     ],
+     "tile": [
+      162.98,
+      279.59,
+      64,
+      64
+     ],
+     "img": [
+      181.31,
+      295.59,
+      27.33,
+      32
+     ],
+     "nat": [
+      82,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      172.58,
+      350.59,
+      44.81,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "timeline",
+     "box": [
+      286.33,
+      279.59,
+      64,
+      85
+     ],
+     "tile": [
+      286.33,
+      279.59,
+      64,
+      64
+     ],
+     "img": [
+      305.5,
+      295.59,
+      25.66,
+      32
+     ],
+     "nat": [
+      77,
+      96
+     ],
+     "name": "TIMELINE",
+     "nameBox": [
+      291.72,
+      350.59,
+      53.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "B",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app late",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    390,
+    759.41
+   ],
+   "W": 390,
+   "pick": {
+    "feed": "pack_11_survival_props_038",
+    "jobs": "pack_miscellaneous_044",
+    "stash": "pack_16_loot_and_survival_props_016",
+    "crew": "pack_11_survival_props_024",
+    "settings": "pack_11_gauges_and_meters_001",
+    "timeline": "pack_11_gauges_and_meters_000"
+   },
+   "crisis": true
+  },
+  "portrait_A_before": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      39.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      39.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      55.66,
+      187.42,
+      32,
+      26.33
+     ],
+     "nat": [
+      96,
+      79
+     ],
+     "name": "FEED",
+     "nameBox": [
+      53.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      162.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      162.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      178.98,
+      189.27,
+      32,
+      22.66
+     ],
+     "nat": [
+      96,
+      68
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      176.38,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      286.33,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      286.33,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      302.33,
+      185.92,
+      32,
+      29.33
+     ],
+     "nat": [
+      96,
+      88
+     ],
+     "name": "STASH",
+     "nameBox": [
+      296.83,
+      239.59,
+      43,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      39.66,
+      284.59,
+      64,
+      90
+     ],
+     "tile": [
+      39.66,
+      284.59,
+      64,
+      64
+     ],
+     "img": [
+      62.83,
+      303.42,
+      17.66,
+      26.33
+     ],
+     "nat": [
+      53,
+      79
+     ],
+     "name": "CREW",
+     "nameBox": [
+      53.05,
+      355.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      162.98,
+      284.59,
+      64,
+      90
+     ],
+     "tile": [
+      162.98,
+      284.59,
+      64,
+      64
+     ],
+     "img": [
+      188.31,
+      300.59,
+      13.33,
+      32
+     ],
+     "nat": [
+      40,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      165.58,
+      355.59,
+      58.81,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "A",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    390,
+    759.41
+   ],
+   "W": 390,
+   "pick": {
+    "feed": "pack_11_survival_props_021",
+    "jobs": "pack_11_survival_props_033",
+    "stash": "pack_16_loot_and_survival_props_000",
+    "crew": "pack_miscellaneous_043",
+    "settings": "pack_15_workbenches_and_tools_023",
+    "timeline": "pack_11_gauges_and_meters_005"
+   },
+   "crisis": false
+  },
+  "landscape_A": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      46.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      46.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      62.66,
+      187.42,
+      32,
+      26.33
+     ],
+     "nat": [
+      96,
+      79
+     ],
+     "name": "FEED",
+     "nameBox": [
+      60.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      183.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      183.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      199.98,
+      189.27,
+      32,
+      22.66
+     ],
+     "nat": [
+      96,
+      68
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      197.38,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      321.31,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      321.31,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      337.31,
+      185.92,
+      32,
+      29.33
+     ],
+     "nat": [
+      96,
+      88
+     ],
+     "name": "STASH",
+     "nameBox": [
+      331.81,
+      239.59,
+      43,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      458.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      458.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      481.83,
+      187.42,
+      17.66,
+      26.33
+     ],
+     "nat": [
+      53,
+      79
+     ],
+     "name": "CREW",
+     "nameBox": [
+      472.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      595.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      595.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      621.31,
+      184.59,
+      13.33,
+      32
+     ],
+     "nat": [
+      40,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      598.58,
+      239.59,
+      58.81,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "timeline",
+     "box": [
+      731.72,
+      168.59,
+      67.2,
+      90
+     ],
+     "tile": [
+      733.31,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      749.48,
+      184.59,
+      31.66,
+      32
+     ],
+     "nat": [
+      95,
+      96
+     ],
+     "name": "TIMELINE",
+     "nameBox": [
+      731.72,
+      239.59,
+      67.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "A flat",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app late",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    844,
+    305.41
+   ],
+   "W": 844,
+   "pick": {
+    "feed": "pack_11_survival_props_021",
+    "jobs": "pack_11_survival_props_033",
+    "stash": "pack_16_loot_and_survival_props_000",
+    "crew": "pack_miscellaneous_043",
+    "settings": "pack_15_workbenches_and_tools_023",
+    "timeline": "pack_11_gauges_and_meters_005"
+   },
+   "crisis": true
+  },
+  "landscape_B": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      46.66,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      46.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      62.66,
+      186.27,
+      32,
+      28.66
+     ],
+     "nat": [
+      96,
+      86
+     ],
+     "name": "FEED",
+     "nameBox": [
+      67.05,
+      239.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      183.98,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      183.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      206.16,
+      189.09,
+      19.66,
+      23
+     ],
+     "nat": [
+      59,
+      69
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      204.38,
+      239.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      321.31,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      321.31,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      337.81,
+      184.59,
+      31,
+      32
+     ],
+     "nat": [
+      93,
+      96
+     ],
+     "name": "STASH",
+     "nameBox": [
+      338.81,
+      239.59,
+      29,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      458.66,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      458.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      481.16,
+      184.59,
+      19,
+      32
+     ],
+     "nat": [
+      57,
+      96
+     ],
+     "name": "CREW",
+     "nameBox": [
+      479.05,
+      239.59,
+      23.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      595.98,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      595.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      614.31,
+      184.59,
+      27.33,
+      32
+     ],
+     "nat": [
+      82,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      605.58,
+      239.59,
+      44.81,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    },
+    {
+     "k": "timeline",
+     "box": [
+      733.31,
+      168.59,
+      64,
+      85
+     ],
+     "tile": [
+      733.31,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      752.48,
+      184.59,
+      25.66,
+      32
+     ],
+     "nat": [
+      77,
+      96
+     ],
+     "name": "TIMELINE",
+     "nameBox": [
+      738.7,
+      239.59,
+      53.2,
+      14
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(240, 196, 106)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "B flat",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app late",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | rgb(0, 0, 0) 0px 1px 0px",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    844,
+    305.41
+   ],
+   "W": 844,
+   "pick": {
+    "feed": "pack_11_survival_props_038",
+    "jobs": "pack_miscellaneous_044",
+    "stash": "pack_16_loot_and_survival_props_016",
+    "crew": "pack_11_survival_props_024",
+    "settings": "pack_11_gauges_and_meters_001",
+    "timeline": "pack_11_gauges_and_meters_000"
+   },
+   "crisis": true
+  },
+  "landscape_A_before": {
+   "apps": [
+    {
+     "k": "feed",
+     "box": [
+      46.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      46.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      62.66,
+      187.42,
+      32,
+      26.33
+     ],
+     "nat": [
+      96,
+      79
+     ],
+     "name": "FEED",
+     "nameBox": [
+      60.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "jobs",
+     "box": [
+      183.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      183.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      199.98,
+      189.27,
+      32,
+      22.66
+     ],
+     "nat": [
+      96,
+      68
+     ],
+     "name": "JOBS",
+     "nameBox": [
+      197.38,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "stash",
+     "box": [
+      321.31,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      321.31,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      337.31,
+      185.92,
+      32,
+      29.33
+     ],
+     "nat": [
+      96,
+      88
+     ],
+     "name": "STASH",
+     "nameBox": [
+      331.81,
+      239.59,
+      43,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "crew",
+     "box": [
+      458.66,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      458.66,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      481.83,
+      187.42,
+      17.66,
+      26.33
+     ],
+     "nat": [
+      53,
+      79
+     ],
+     "name": "CREW",
+     "nameBox": [
+      472.05,
+      239.59,
+      37.2,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    },
+    {
+     "k": "settings",
+     "box": [
+      595.98,
+      168.59,
+      64,
+      90
+     ],
+     "tile": [
+      595.98,
+      168.59,
+      64,
+      64
+     ],
+     "img": [
+      621.31,
+      184.59,
+      13.33,
+      32
+     ],
+     "nat": [
+      40,
+      96
+     ],
+     "name": "SETTINGS",
+     "nameBox": [
+      598.58,
+      239.59,
+      58.81,
+      19
+     ],
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "ink": "rgb(31, 23, 16)"
+    }
+   ],
+   "css": [
+    {
+     "tag": "A flat",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhtop",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "SPAN",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhgrid",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "app",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "tile",
+     "bgi": "url | url | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgb(0, 0, 0) 0px 2px 0px 0px, rgba(255, 220, 170, 0.22) 0px 1px 0px 0px inset | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "IMG",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "nm",
+     "bgi": "url | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "rgba(0, 0, 0, 0.85) 0px 1px 0px 0px | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    },
+    {
+     "tag": "bmhfoot",
+     "bgi": "none | none | none",
+     "radius": "0px",
+     "filter": "none none",
+     "shadow": "none | none",
+     "font": "BohemiaCasing, ui-sans-serif, sans-serif",
+     "fontReady": true
+    }
+   ],
+   "home": [
+    0,
+    84.59,
+    844,
+    305.41
+   ],
+   "W": 844,
+   "pick": {
+    "feed": "pack_11_survival_props_021",
+    "jobs": "pack_11_survival_props_033",
+    "stash": "pack_16_loot_and_survival_props_000",
+    "crew": "pack_miscellaneous_043",
+    "settings": "pack_15_workbenches_and_tools_023",
+    "timeline": "pack_11_gauges_and_meters_005"
+   },
+   "crisis": false
+  }
+ }
+}

@@ -9029,6 +9029,11 @@ GATES = [
      "the tarball, in exactly one class (body .40, mind .20, earned and chance 0); every Apprentice Learns "
      "quote byte for byte; and the measured gap holds: every heir carries the parent's pre-crash trade and a "
      "dead man's kid keeps the skill as often as a living teacher's (building it turns leg E red on purpose)", False),
+    ('THE PHONES APPS', ['python3', 'gates/the_phones_apps_gate.py'],
+     "UI 10/18, row [the phone's apps]: his 10/17 'there's a whole app on the phone too'. The candidate home screen "
+     "(feed, jobs, stash, crew, settings, the timeline only after the first crisis) laid in the browser only and read "
+     "back: every icon a pack prop at its own pixels, A and B different, every press 44 points, zero gradients, blur, "
+     "glow, corners over 1 or system fonts (rule 114 D10), nothing in slices/ or engine/, the VOTE card whole", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

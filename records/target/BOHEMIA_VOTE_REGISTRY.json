@@ -9196,7 +9196,39 @@
      "A PLACE, NOT A KIT: walks go to the doors, a wall closes the far side, paint only where Las Vegas paints."
     ]
    }
-  }
+  },
+    {
+     "id": "ui-the-phones-apps-10-18",
+     "kind": "ui",
+     "lane": "ui",
+     "sha": "pending",
+     "made": "10/18",
+     "title": "THE PHONE OPENS ON ITS APPS",
+     "why": "You said there is a whole app on the phone to integrate, so tapping the cracked phone now opens a home screen with the screens the game already has as apps (feed, jobs, stash, crew, settings, and the timeline flip once the first crisis hits), every icon cut whole from your packs and no flat rounded boxes or phone fonts left. You see it on the map when you tap the phone, upright and sideways; pick A (cardboard tiles taped to the glass), B (the props straight on the glass), or NO with what is wrong.",
+     "show": {
+      "how": "image",
+      "src": "../records/target/ui_phone_apps/UI_ONE_AT_A_TIME_THE_PHONES_APPS.png"
+     },
+     "options": [
+      "A",
+      "B",
+      "NO"
+     ],
+     "twin": {
+      "src": "pack:11. Survival props (#21 radio, #33 map, #38 camera, #24 lantern), 16. Loot and survival props (#0 chest, #16 pack), Miscellaneous (#43 torn portrait, #44 WANTED), 15. Workbenches and tools (#23 wrench), 11. Gauges and meters (#0, #1, #5)",
+      "diffs": [
+       "WHAT IS HIS: every icon is one of his pack props, cut whole at its own pixels (96 on the long side, the two posters smaller as they are in the pack) and shown at one pack pixel to one phone pixel, never redrawn.",
+       "WHAT CHANGED: the props sit on our materials (A: a cardboard tile with a strip of tape and a receipt name tag; B: straight on the phone's glass with a hard contact line and the name in amber), in the game's CASING face.",
+       "WHAT IT COSTS: the lock screen's big clock and its two message cards go; the clock moves to the home screen's top row, and the messages live inside FEED."
+      ]
+     },
+     "before_after": {
+      "before": "the opened phone today: a lock screen with 10 gradients, 18 rounded corners, 14 glows and 46 lines in phone system fonts",
+      "after": "a home screen of six apps cut from his packs on glass, cardboard and receipt; zero gradients, blur, glow or system fonts",
+      "scale": "1:1"
+     },
+     "draft": true
+    }
  ],
  "verdicts": [
   {
