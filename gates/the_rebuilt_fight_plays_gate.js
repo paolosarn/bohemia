@@ -822,6 +822,52 @@ async function elevenVotes() {
     rows.map(r => r.profile + ' ' + pc(r.black) + ' / ' + pc(r.blackFar) + ', board ' + r.board + (r.full ? '' : ' CUT') + (r.err ? ' ERR ' + r.err : '')).join('; '));
 }
 
+/* THE OUTLINE AND THE FAT MAP (rule 115f, his 10/17 NO on the lit fight: 'a weird blue or orange outline around people'; his
+   note on both teams: 'the map should just be really fat and change the view however the screen is oriented'). THE CAUSES,
+   measured 10/18: (1) blue: a man in the dark was drawn with his silhouette in cold moonlight one art pixel out on five
+   sides, three device pixels on his phone; (2) orange: the side ring was 0.72 of his height across against a 0.41 figure,
+   a gold or orange arc standing past both his sides; (3) the map around the board was dealt from blocks the fight never
+   loaded, holes in the map sideways (moon blue at night, black by day: corner.2 on the strip). Checked at night and by day
+   on the three screens, at the open and pinched all the way out. */
+async function outlineFatMap() {
+  const rows = [];
+  for (const profile of ['phone_portrait', 'phone_landscape', 'computer']) for (const night of [true, false]) {
+    const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, profile, arm: 'window.FIGHT_OPTS={seed:31,speed:1,kind:"strip",night:' + night + '}' });
+    await d.page.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 30000 });
+    await d.page.waitForTimeout(1500);
+    await d.page.evaluate(() => { FIGHT_UI.glide = null; FIGHT_UI.openUntil = 1e12; FIGHT_UI.pinched = true; FIGHT_UI.zoom = FIGHT_UI.far; clampCam(); });
+    await d.page.waitForTimeout(300);
+    const r = await d.page.evaluate(() => {
+      const U = FIGHT_UI, G = DB.ground, S = FIGHT.S, ring = surround();
+      const missing = ring.filter(q => !U.imgs['fight_ground/' + G.blocks[q.n].src]).map(q => q.n);
+      /* a hole in the ring canvas: a transparent pixel outside the board (the night pass paints it moon blue) */
+      const rc = ringCanvas(), a = rc.getContext('2d').getImageData(0, 0, rc.width, rc.height).data, k = RING_K, R = SURROUND_BLOCKS * G.block_tiles;
+      const bx0 = R * U.tw * k, by0 = R * U.th * k, bx1 = bx0 + S.w * U.tw * k, by1 = by0 + S.h * U.th * k;
+      let holes = 0, n = 0;
+      for (let y = 0; y < rc.height; y += 3) for (let x = 0; x < rc.width; x += 3) { if (x >= bx0 && x < bx1 && y >= by0 && y < by1) continue; n++; if (a[(y * rc.width + x) * 4 + 3] < 250) holes++; }
+      /* the rim: every pixel the rim adds outside his silhouette is dark ink with no colour, at night and by day */
+      const img = atlasOf(S.units.filter(FIGHT.onField)[0]), rim = { n: 0, bad: 0, worst: 0 };
+      [nightAtlas(img), dayAtlas(img)].forEach(c => {
+        const w = Math.min(img.width, 112 * 13), h = img.height, o = document.createElement('canvas'); o.width = w; o.height = h;
+        const og = o.getContext('2d'); og.drawImage(img, 0, 0); const A = og.getImageData(0, 0, w, h).data, B = c.getContext('2d').getImageData(0, 0, w, h).data;
+        for (let i = 3; i < A.length; i += 4) if (A[i] === 0 && B[i] > 0) { rim.n++; const L = .3 * B[i - 3] + .59 * B[i - 2] + .11 * B[i - 1], C = Math.max(B[i - 3], B[i - 2], B[i - 1]) - Math.min(B[i - 3], B[i - 2], B[i - 1]);
+          rim.worst = Math.max(rim.worst, L); if (L > 40 || C > 24) rim.bad++; }
+      });
+      const fig = DB.people.figure_bbox[2] / DB.people.figure_bbox[3];
+      return { missing, holes: holes / n, rim, ringW: RING_W * 2, fig, all: allFramed(), black: (function () { const c = document.getElementById('cv'), D = c.width / innerWidth, p = c.getContext('2d').getImageData(0, Math.round(TOPH * D), c.width, Math.round((H - TOPH - BOTH) * D)).data;
+        let b = 0, m = 0; for (let i = 0; i < p.length; i += 4 * 7) { m++; if (p[i] === 13 && p[i + 1] === 11 && p[i + 2] === 9) b++; } return b / m; })() };
+    });
+    r.profile = profile + (night ? ' night' : ' day'); r.err = d.errs[0]; rows.push(r); await d.close();
+  }
+  const pc = v => (100 * v).toFixed(2) + '%';
+  leg(rows.every(r => r.rim.n > 40 && r.rim.bad === 0 && !r.err), '*** NO COLOURED FRINGE ON ANY MAN (rule 115f, his 10/17 NO) ***: every pixel the rim adds round a man is dark ink with no colour, in the dark and in the light (the moon rim was pale blue, 196,212,246)',
+    rows.map(r => r.profile + ' ' + r.rim.bad + ' of ' + r.rim.n + ' bad, brightest ' + Math.round(r.rim.worst)).join('; '));
+  leg(rows.every(r => r.ringW <= r.fig + .15), 'the side ring sits under his feet, not round him: at most his figure\'s width plus a little (it was 0.72 of his height across a 0.41 figure)',
+    'ring ' + rows[0].ringW.toFixed(2) + ' of his height, figure ' + rows[0].fig.toFixed(2));
+  leg(rows.every(r => !r.missing.length && r.holes === 0 && r.black < .001), '*** THE FAT MAP HAS NO HOLES (rule 115f) ***: every block of the map around the board is loaded and drawn, upright, sideways and on a laptop, at night and by day, pinched all the way out (corner.2 never loaded: a moon-blue hole sideways)',
+    rows.map(r => r.profile + ' ' + (r.missing.length ? 'missing ' + r.missing.join(',') : 'all blocks') + ', holes ' + pc(r.holes) + ', black ' + pc(r.black)).join('; '));
+}
+
 /* LIGHT THAT INTERACTS (rule 104g, his NO: 'a bright oval overlay on top of everything, that's not what lighting is'): the
    lamp's light falls tile by tile. Measured as the lamp's own work (each tile against itself with the power off): inside a
    tile the light is even (no oval crossing it); the tiles the rules light are brightest, the ring past them less, the next
@@ -1019,6 +1065,7 @@ async function struckDown() {
 }
 
 (async () => {
+  await outlineFatMap();
   await gunsTwo();
   await zocMelee();
   await elevenVotes();

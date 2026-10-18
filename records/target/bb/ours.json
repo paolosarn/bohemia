@@ -67,7 +67,10 @@
  "veteran_death_chance": {
   "value": 0.1,
   "source": "laws/BOHEMIA_ADDENDUM_THE_THIRD_VOTES_9_28_26.md",
-  "quote": "a veteran of about 20 fights dies at 10%"
+  "quote": "a veteran of about 20 fights dies at 10%",
+  "superseded_by": "laws/BOHEMIA_ADDENDUM_THE_FIFTH_VOTES_10_1_26.md",
+  "superseded_quote": "5. WHO DIES: a flat 20% when no perk is in play; a little more per debilitating trait or injury carried.",
+  "read_by": "nobody, on purpose: the fifth votes (10/1) are newer than the third (9/28) and rule WHO DIES flat; the fight reads ours.struck_down_death_chance (COMBAT 10/18, records/BOHEMIA_COMBAT_THE_OUTLINE_AND_THE_FAT_MAP_10_18_26.md)"
  },
  "weapon_rows": {
   "value": {

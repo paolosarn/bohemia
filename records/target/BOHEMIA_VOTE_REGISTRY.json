@@ -9393,6 +9393,44 @@
     "after": "the same thirteen as models on the rig's man, rendered through the rig (first row, then eight facings and the walk)",
     "scale": "1:1"
    }
+  },
+  {
+   "id": "combat-no-coloured-outline-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "NO BLUE OR ORANGE LINE AROUND YOUR MEN",
+   "why": "The blue line was a moonlight copy of each man drawn behind him in the dark, and the orange was the team ring sticking out past his sides; now every man has the same thin dark edge in any light and the ring sits under his feet. You see it in the COMBAT tab at night, left is before and right is after, on your phone's real pixels.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_NO_COLOURED_OUTLINE_10_18.jpg"
+   },
+   "before_after": {
+    "before": "a pale blue line round every man in the dark, a wide gold or orange ring past his sides",
+    "after": "one dark edge round every man, the ring his feet's width in a quieter team colour",
+    "scale": "1:1"
+   },
+   "draft": true
+  },
+  {
+   "id": "combat-the-fat-map-sideways-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "THE MAP FILLS THE SCREEN SIDEWAYS",
+   "why": "With the phone turned sideways the map around the fight had flat holes in it, because some of its blocks were never loaded; now every block loads and the whole screen is city, upright, sideways and on a laptop. You see it in the COMBAT tab with the phone turned, top is before and bottom is after.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_FAT_MAP_SIDEWAYS_10_18.jpg"
+   },
+   "before_after": {
+    "before": "two flat blue-grey holes left and right of the fight sideways at night",
+    "after": "city blocks edge to edge",
+    "scale": "1:1"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
