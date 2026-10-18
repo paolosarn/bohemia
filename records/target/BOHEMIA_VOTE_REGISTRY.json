@@ -10925,6 +10925,48 @@
     "src": "BOHEMIA_NIGHT_FREIGHT_10_18_26.html"
    },
    "draft": true
+  },
+  {
+   "id": "cook4-the-second-pass-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "",
+   "made": "10/18",
+   "title": "PLACEHOLDER: YOUR FIVE TAN HOUSES, SECOND PASS, ON THE FIGHT BOARD: ONE ROOF, ONE SUN, YOUR DIRT ON IT",
+   "redoOf": "cook4-the-family-in-the-valley-tans-10-18",
+   "said": "That's way better holy shit",
+   "why": "The same five tan houses you said yes to, fixed where they sit on the fight board: every roof is one roof now (no line of ridge caps crossing it every 64 px), the walls stop striping, one sun lights them from the upper left, your yard dirt settles in the roof grooves, and the shadow and the outline match your packs and the style guide. You see it in the VOTE tab, before and after at 1:1 on COMBAT TWO's own board, with the art director's card going from 9 to 11 rows OK a house to 13 of 13.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_SECOND_PASS.webp"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house's roof is one piece with its ridge caps once along the top; ours were a stack of tiles each with its own caps (the seam 4.1 times the inside), now one field cut to meet itself (0.7) with his caps laid once along the ridge.",
+     "LIGHT: his house is lit from above, the shade under its eave; ours now take one sun from the upper left, one hard eave shadow down the wall from the guide's sun angle, and his yard dirt in the shingle grooves, so the top sits over the bottom on all five.",
+     "EDGE AND SHADOW: his ring is a dark brown 1 px line; ours is that colour read off his 318 building pieces, at 1 px (the first pass ringed every roof twice), on a black shadow at most 42 percent, and no black inside the house."
+    ]
+   },
+   "before_after": {
+    "before": "the five tan houses as COMBAT TWO's small board lays them now: a grid of ridge lines on every roof, striped walls, a brown shadow, black rooms behind the glass",
+    "after": "the same five on the same board by COMBAT TWO's own code, nothing else on the board changed (0 pixels outside the houses' boxes): one roof, one sun, his dirt, his outline, the guide's shadow",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_RANCH_PASS2_PLAIN.png",
+    "reference/art_bank/settlement/COOK4_RANCH_PASS2_GARAGE.png",
+    "reference/art_bank/settlement/COOK4_RANCH_PASS2_CARPORT.png",
+    "reference/art_bank/settlement/COOK4_RANCH_PASS2_WING.png",
+    "reference/art_bank/settlement/COOK4_RANCH_PASS2_PORCH.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [

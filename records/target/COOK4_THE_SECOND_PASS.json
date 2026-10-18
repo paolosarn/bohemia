@@ -1,0 +1,938 @@
+{
+ "lane": "cook 4",
+ "row": "[the second pass]",
+ "date": "10/18/26",
+ "sun_on_the_slope": 0.0,
+ "tb_wanted": 0.0,
+ "ring": [
+  17,
+  14,
+  11
+ ],
+ "ring_from_pieces": 318,
+ "cuts": {
+  "wall cracked": {
+   "rows": [
+    8,
+    80
+   ],
+   "windows": [
+    [
+     24,
+     49
+    ],
+    [
+     49,
+     65
+    ],
+    [
+     24,
+     65
+    ]
+   ],
+   "joint_rows": 1.08,
+   "joint_cols": 1.02
+  },
+  "field a421ef5f": {
+   "rows": [
+    23,
+    61
+   ],
+   "windows": [
+    [
+     16,
+     51
+    ],
+    [
+     51,
+     79
+    ],
+    [
+     16,
+     79
+    ]
+   ],
+   "joint_rows": 0.89,
+   "joint_cols": 0.76
+  },
+  "eave tan": {
+   "rows": [
+    0,
+    30
+   ],
+   "windows": [
+    [
+     31,
+     68
+    ],
+    [
+     68,
+     84
+    ],
+    [
+     31,
+     84
+    ]
+   ],
+   "joint_rows": 1.04,
+   "joint_cols": 0.67
+  },
+  "caps a421ef5f": {
+   "rows": [
+    0,
+    11
+   ],
+   "windows": [
+    [
+     18,
+     44
+    ],
+    [
+     44,
+     58
+    ],
+    [
+     18,
+     58
+    ]
+   ],
+   "joint_rows": 1.52,
+   "joint_cols": 0.61
+  },
+  "field ae8ed60d": {
+   "rows": [
+    12,
+    69
+   ],
+   "windows": [
+    [
+     18,
+     44
+    ],
+    [
+     44,
+     71
+    ],
+    [
+     18,
+     71
+    ]
+   ],
+   "joint_rows": 0.71,
+   "joint_cols": 1.12
+  },
+  "caps ae8ed60d": {
+   "rows": [
+    0,
+    11
+   ],
+   "windows": [
+    [
+     39,
+     55
+    ],
+    [
+     55,
+     77
+    ],
+    [
+     39,
+     77
+    ]
+   ],
+   "joint_rows": 1.48,
+   "joint_cols": 0.74
+  },
+  "wall flat": {
+   "rows": [
+    10,
+    72
+   ],
+   "windows": [
+    [
+     3,
+     40
+    ],
+    [
+     40,
+     64
+    ],
+    [
+     3,
+     64
+    ]
+   ],
+   "joint_rows": 1.03,
+   "joint_cols": 0.77
+  },
+  "eave pack_5_roof_tiles_015.png": {
+   "rows": [
+    0,
+    26
+   ],
+   "windows": [
+    [
+     51,
+     72
+    ],
+    [
+     72,
+     88
+    ],
+    [
+     51,
+     88
+    ]
+   ],
+   "joint_rows": 0.65,
+   "joint_cols": 0.57
+  },
+  "wall stone": {
+   "rows": [
+    19,
+    83
+   ],
+   "windows": [
+    [
+     21,
+     38
+    ],
+    [
+     38,
+     59
+    ],
+    [
+     21,
+     59
+    ]
+   ],
+   "joint_rows": 1.13,
+   "joint_cols": 0.72
+  }
+ },
+ "seams": {
+  "roof field": "across/down 4.08/1.85 -> 0.72/1.03",
+  "deck field": "across/down 1.98/3.42 -> 0.86/0.65",
+  "wall cracked": "across/down 1.15/2.83 -> 1.05/1.69",
+  "wall flat": "across/down 1.24/2.01 -> 0.59/1.57",
+  "wall stone": "across/down 0.97/2.99 -> 0.64/1.58"
+ },
+ "board": {
+  "changed_px": 2421531,
+  "changed_outside_houses": 0,
+  "houses": 8
+ },
+ "card": {
+  "plain": {
+   "before": {
+    "tb": -3.3,
+    "lr": 6.0,
+    "edge": -16.5,
+    "colours": 21813,
+    "sat": 0.325,
+    "mean_value": 84.2,
+    "shadow_off": 25516,
+    "red_cells": 0,
+    "d3_off": 61.8,
+    "d4": {
+     "ramps": 1,
+     "straight": 1,
+     "median_shift": 6.4
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "935"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "21813"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "4.8%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "147"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      false,
+      "-3.3"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      false,
+      "6.4 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      false,
+      "25516 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      false,
+      "0"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-16.5"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.90"
+     ]
+    }
+   },
+   "after": {
+    "tb": 1.2,
+    "lr": 4.5,
+    "edge": -16.7,
+    "colours": 23984,
+    "sat": 0.325,
+    "mean_value": 89.4,
+    "shadow_off": 0,
+    "red_cells": 0,
+    "d3_off": 80.1,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 15.1
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "935"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "23984"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "3.3%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "130"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+1.2"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "15.1 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      true,
+      "0 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      true,
+      "12"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-16.7"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.93"
+     ]
+    }
+   }
+  },
+  "garage": {
+   "before": {
+    "tb": -1.0,
+    "lr": 7.6,
+    "edge": -7.2,
+    "colours": 21536,
+    "sat": 0.321,
+    "mean_value": 82.6,
+    "shadow_off": 31023,
+    "red_cells": 0,
+    "d3_off": 53.8,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 13.8
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "1298"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "21536"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "4.7%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.32"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "148"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "-1.0"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "13.8 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      false,
+      "31023 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      false,
+      "0"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-7.2"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.97"
+     ]
+    }
+   },
+   "after": {
+    "tb": 8.0,
+    "lr": 7.5,
+    "edge": -12.7,
+    "colours": 26820,
+    "sat": 0.321,
+    "mean_value": 86.7,
+    "shadow_off": 0,
+    "red_cells": 0,
+    "d3_off": 48.0,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 14.7
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "1298"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "26820"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "3.1%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.32"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "131"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+8.0"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "14.7 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      true,
+      "0 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      true,
+      "12"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-12.7"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.98"
+     ]
+    }
+   }
+  },
+  "carport": {
+   "before": {
+    "tb": 8.8,
+    "lr": -0.0,
+    "edge": -5.7,
+    "colours": 20524,
+    "sat": 0.327,
+    "mean_value": 77.8,
+    "shadow_off": 31459,
+    "red_cells": 0,
+    "d3_off": 42.6,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 9.6
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "855"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "20524"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "5.0%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "148"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+8.8"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "9.6 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      false,
+      "31459 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      false,
+      "0"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-5.7"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.80"
+     ]
+    }
+   },
+   "after": {
+    "tb": 13.4,
+    "lr": -0.2,
+    "edge": -13.5,
+    "colours": 24284,
+    "sat": 0.327,
+    "mean_value": 83.6,
+    "shadow_off": 0,
+    "red_cells": 0,
+    "d3_off": 40.9,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 17.6
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "855"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "24284"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "3.1%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "134"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+13.4"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "17.6 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      true,
+      "0 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      true,
+      "12"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-13.5"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.85"
+     ]
+    }
+   }
+  },
+  "wing": {
+   "before": {
+    "tb": -1.8,
+    "lr": 1.4,
+    "edge": -7.2,
+    "colours": 17539,
+    "sat": 0.327,
+    "mean_value": 83.0,
+    "shadow_off": 18780,
+    "red_cells": 0,
+    "d3_off": 120.9,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 8.8
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "672"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "17539"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "4.8%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "152"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "-1.8"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "8.8 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      false,
+      "18780 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      false,
+      "0"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-7.2"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.81"
+     ]
+    }
+   },
+   "after": {
+    "tb": 1.3,
+    "lr": 2.4,
+    "edge": -14.7,
+    "colours": 21833,
+    "sat": 0.327,
+    "mean_value": 89.6,
+    "shadow_off": 0,
+    "red_cells": 0,
+    "d3_off": 98.0,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 11.5
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "672"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "21833"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "3.3%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "139"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+1.3"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "11.5 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      true,
+      "0 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      true,
+      "12"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-14.7"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.85"
+     ]
+    }
+   }
+  },
+  "porch": {
+   "before": {
+    "tb": -2.8,
+    "lr": -0.8,
+    "edge": -5.7,
+    "colours": 21302,
+    "sat": 0.325,
+    "mean_value": 84.4,
+    "shadow_off": 18409,
+    "red_cells": 0,
+    "d3_off": 132.5,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 16.1
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "819"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "21302"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "4.4%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "147"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      false,
+      "-2.8"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "16.1 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      false,
+      "18409 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      false,
+      "0"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-5.7"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.90"
+     ]
+    }
+   },
+   "after": {
+    "tb": 0.6,
+    "lr": 0.1,
+    "edge": -6.1,
+    "colours": 25066,
+    "sat": 0.325,
+    "mean_value": 89.7,
+    "shadow_off": 0,
+    "red_cells": 0,
+    "d3_off": 114.7,
+    "d4": {
+     "ramps": 1,
+     "straight": 0,
+     "median_shift": 8.1
+    },
+    "rows": {
+     "PIXEL one pixel size (D1)": [
+      true,
+      "native 1"
+     ],
+     "PIXEL long side >= 96": [
+      true,
+      "819"
+     ],
+     "PALETTE colours >= 2126": [
+      true,
+      "25066"
+     ],
+     "PALETTE top 8 carry <= 14%": [
+      true,
+      "2.9%"
+     ],
+     "PALETTE saturation <= 0.84": [
+      true,
+      "0.33"
+     ],
+     "PALETTE value span >= 106": [
+      true,
+      "129"
+     ],
+     "PALETTE no red 96 px cell (D2, D5)": [
+      true,
+      "0 red"
+     ],
+     "LIGHT top over bottom >= -2.1": [
+      true,
+      "+0.6"
+     ],
+     "LIGHT the shade walks its hue (D4)": [
+      true,
+      "8.1 deg"
+     ],
+     "LIGHT shadow black, <= 42% (guide 13)": [
+      true,
+      "0 px off"
+     ],
+     "LIGHT nothing black (guide 7: >= 12)": [
+      true,
+      "12"
+     ],
+     "OUTLINE edge between -48 and +1": [
+      true,
+      "-6.1"
+     ],
+     "OUTLINE grain <= 2.31 px a run": [
+      true,
+      "1.93"
+     ]
+    }
+   }
+  }
+ },
+ "card_reads": "PASS"
+}
