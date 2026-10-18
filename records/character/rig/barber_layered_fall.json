@@ -1,0 +1,39 @@
+{
+ "cut": "LAYERED FALL",
+ "tag": "layered_fall",
+ "bank": {
+  "ramp": "H_SND",
+  "vol": 1,
+  "side": 1.42,
+  "front": 0.26,
+  "flare": 0.12
+ },
+ "worn_by": "Anarchists, Homeless",
+ "model": "records/character/rig/barber_layered_fall.glb",
+ "body": "records/character/rig/barberbody.glb (LOOKS Body in the bank's WRAPPED BOOTS)",
+ "zcap": 1.0,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  2
+ ],
+ "hair_rgb": [
+  201,
+  148,
+  55
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5535,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7484,
+ "pieces": {
+  "barber_layered_fall_cap": 241250,
+  "barber_layered_fall_curtain": 24330,
+  "barber_layered_fall_locks": 15014
+ }
+}

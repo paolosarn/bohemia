@@ -1,0 +1,64 @@
+<!doctype html><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>BOHEMIA · The barber on the skull</title>
+<!-- CHARACTER [the barber on the skull], 10/18 (rule 115c, 115h; his 'we can customise that shit?' on the starred face;
+     rule 37i: customisation at the barber). CANDIDATES until the moodboard (rule 108). Played LIVE on the 120 beat from
+     CHARACTER_THE_BARBER_ON_THE_SKULL.png (the drawn keys only: 6 keys = 2 beats, three a beat), ONE ART PIXEL TO ONE
+     PHONE PIXEL. Every model frame is DIRECTION's master rig rendering the cut's model, every flat frame the game's own
+     buildFrame; no pixel drawn in code. Pattern: CHARACTER_THE_WALK_OF_EVERY_LOOK.html. Rule 25: an item is asked ONCE,
+     on the row; no vote inside the page. -->
+<style>
+  :root{--ink:#e8e0cc;--bg:#0d0d12;--line:#33313d;--gold:#c79a3f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace;padding:14px 16px}
+  h1{font-size:13px;letter-spacing:2px;margin:0 0 6px;color:var(--gold)}
+  p{margin:0 0 10px;color:#b3a890;max-width:60ch}
+  .lab{font-size:10px;letter-spacing:2px;color:#7fa06b;margin:14px 0 4px}
+  .row{display:flex;gap:10px;align-items:end;flex-wrap:wrap}
+  .pair{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .two{display:flex;gap:2px;align-items:end}
+  .cap{font-size:9px;color:#6d6656;letter-spacing:1px;text-align:center}
+  canvas{display:block;image-rendering:pixelated;background:#766a58;border-radius:1px}
+  button{font:inherit;font-size:10px;letter-spacing:1px;background:#16161d;color:var(--ink);border:1px solid var(--line);padding:4px 7px;margin:0 4px 4px 0;border-radius:1px}
+  button.on{border-color:var(--gold);color:var(--gold)}
+</style>
+<h1>CANDIDATES: THE BARBER'S CUTS, SCULPTED ON THE STARRED HEAD</h1>
+<p>The same man, the same starred face, three of the barber's cuts: the temple taper, the coil crown and the layered fall, each one modelled as clay hair on his skull. Below, each cut walks beside the flat cut the game draws today, at the game's real pixels, with its face at portrait size; tap a cut to see it walk all eight ways.</p>
+<div class="lab">EACH CUT: THE GAME TODAY (LEFT) AND THE MODEL (RIGHT), WALKING SE, AND ITS FACE</div>
+<div class="row" id="pairs"></div>
+<div class="lab">EIGHT DIRECTIONS: <span id="who"></span> (THE MODEL ON TOP, THE GAME TODAY UNDER IT)</div>
+<div id="pick"></div>
+<div class="row" id="eight"></div>
+<div class="row" id="eightflat"></div>
+<script src="CHARACTER_THE_BARBER_ON_THE_SKULL_TABLE.js"></script>
+<script>
+(function(){
+  var t=window.BARBER_TABLE, im=new Image(), cells=[], eight=[], dpr=window.devicePixelRatio||1;
+  var CW=t.cell[0], CH=t.cell[1], PW=t.portrait_cell[0], PH=t.portrait_cell[1], KEYMS=60000/t.bpm*t.beats/t.keys;   /* 6 keys over 2 beats at 120: 167 ms a key */
+  function canvas(w,h){ var c=document.createElement('canvas'); c.width=w; c.height=h; c.style.width=(w/dpr)+'px'; c.style.height=(h/dpr)+'px'; return c; }
+  var pairs=document.getElementById('pairs'), stills=[];
+  t.cuts.forEach(function(c){
+    var w=document.createElement('div'); w.className='pair'; var two=document.createElement('div'); two.className='two';
+    var a=canvas(CW,CH), b=canvas(CW,CH), f=canvas(PW,PH); two.appendChild(a); two.appendChild(b); two.appendChild(f); w.appendChild(two);
+    var cap=document.createElement('div'); cap.className='cap'; cap.textContent=c.name+' (worn by '+c.worn_by+')'; w.appendChild(cap); pairs.appendChild(w);
+    cells.push({cv:a,at:t.at[c.tag+':flat:SE']}); cells.push({cv:b,at:t.at[c.tag+':SE']}); stills.push({cv:f,at:t.portrait_at[c.tag+':S']});
+  });
+  var ev=document.getElementById('eight'), evf=document.getElementById('eightflat'), pick=document.getElementById('pick'), who=document.getElementById('who');
+  t.facings.forEach(function(f){
+    [[ev,''],[evf,'flat:']].forEach(function(r){ var w=document.createElement('div'); w.className='pair'; var cv=canvas(CW,CH); w.appendChild(cv);
+      var c=document.createElement('div'); c.className='cap'; c.textContent=f; w.appendChild(c); r[0].appendChild(w); eight.push({cv:cv,f:f,pre:r[1]}); });
+  });
+  var cur=null, btns={};
+  function choose(tag){ cur=tag; t.cuts.forEach(function(c){ if(c.tag===tag) who.textContent=c.name; }); for(var k in btns) btns[k].className=(k===tag?'on':''); }
+  t.cuts.forEach(function(c){ var b=document.createElement('button'); b.textContent=c.name; b.onclick=function(){choose(c.tag);}; btns[c.tag]=b; pick.appendChild(b); });
+  choose(t.cuts[0].tag);
+  function draw(cv,at,k,w,h){ var x=cv.getContext('2d'); x.clearRect(0,0,w,h); x.drawImage(im,at[0]+k*w,at[1],w,h,0,0,w,h); }
+  var t0=performance.now();
+  function tick(now){ var k=Math.floor((now-t0)/KEYMS)%t.keys;
+    cells.forEach(function(c){ draw(c.cv,c.at,k,CW,CH); });
+    eight.forEach(function(e){ draw(e.cv,t.at[cur+':'+e.pre+e.f],k,CW,CH); });
+    requestAnimationFrame(tick); }
+  im.onload=function(){ stills.forEach(function(s){ draw(s.cv,s.at,0,PW,PH); }); requestAnimationFrame(tick); };
+  im.src='CHARACTER_THE_BARBER_ON_THE_SKULL.png';
+})();
+</script>
