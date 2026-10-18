@@ -32,3 +32,8 @@ run2-the-crew-screen-at-fourteen-10-18
 - a new song in his own sound (SOUNDS, rule 119)
 - the tuning grid (TUNING, running)
 - the next demo cut (RUN, running)
+
+## The live check (the 20:33 check-in and the 20:47 wake, answered 20:57)
+- The pages run 95200f2f (SUCCESS, 20:47) carries the triage fix 6dbdca31, RUN TWO's [new cards show first] 3b415b32 and sweep AX c2d11e55: the VOTE tab he opens now shows red, then untagged, newest first.
+- The demo live is BUILD 10/18c (3374c9a6, 18:33): the streets join, the gangs wear the rig. RUN's reopened chat (session_019bxU6rtSQzPQFDWWEbnzbH) has not pushed: it is on branch run-cut, re-running the stopwatch at the door after fixing an extra load (rule 94). The next cut is NOT LIVE YET.
+- The 8 finished lanes were reopened at 20:54 to 20:55 on Opus 5.5 Extra (the coordinator archived them at 20:40 and stalled on its own 'continue' before opening them; 15 minutes lost, its own fault). Every session reads isUsingOverage false.
