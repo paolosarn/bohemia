@@ -62,6 +62,21 @@ const NOT_A_GATE = {
   'vista_definite_probe.js': 'probe: one-off measurement kept for its numbers',
 };
 
+/* TOLD DEAD (PLUMBER 10/18, [the orphan gates]): gates that drive a surface a newer ruling killed (the walk to a
+   fight died 9/28; THE STEP IS A HOUSE, 9/15, is superseded). They are not run and not deleted: the owner lane is
+   told on its own section of VAMILY.md and it decides (rewrite on the map, or retire to archive/). The leg below
+   holds the telling to the board: an entry whose file name is not on VAMILY.md is red, so this list cannot become
+   a quiet way to drop a gate. */
+const TOLD_DEAD = {
+  'dev_strip_gate.js':             { lane: 'COMBAT', why: 'its red legs walk the street to a hostile body on the glass; the walk to a fight died 9/28' },
+  'house_board_gate.js':           { lane: 'COMBAT', why: 'built on rule 16 THE STEP IS A HOUSE (9/15), superseded; red on a hostile body to tap on the walked street' },
+  'house_rulers_gate.js':          { lane: 'COMBAT', why: 'the follow-up to [house board] on THE STEP IS A HOUSE (9/15), superseded; red on a hostile body to tap' },
+  'lot_is_sixteen_tiles_gate.js':  { lane: 'COMBAT', why: "reads the walked street's 44 px tile and walks up to a hostile crew; the walk died 9/28" },
+  'one_mode_gate.js':              { lane: 'COMBAT', why: 'its red leg taps a crew on the walked street to start a fight; the walk died 9/28' },
+  'the_person_is_112_gate.js':     { lane: 'COMBAT', why: 'reads the person on the walked street at the 112 box; the walk died 9/28 and the street draws no person (null)' },
+  'you_can_start_it_gate.js':      { lane: 'COMBAT', why: 'starts a fight by walking the street to a crew (9/15); the walk died 9/28, fights start on the map' },
+};
+
 let pass = 0, fail = 0;
 const ok = (c, m, extra) => { if (c) { pass++; console.log('  ok   ' + m); }
   else { fail++; console.log('  FAIL ' + m + (extra ? '\n         ' + extra : '')); } };
@@ -129,7 +144,7 @@ const looksLikeAGate = f => /_gate\.(js|py)$/.test(f);
   /* ---- THE LAW ITSELF: a gate the suite cannot see ---- */
   const orphans = files.filter(f => looksLikeAGate(f)
                                  && !paths.has('gates/' + f)
-                                 && !NOT_A_GATE[f]).sort();
+                                 && !NOT_A_GATE[f] && !TOLD_DEAD[f]).sort();
   if (orphans.length) {
     console.log('\n    GATES THE SUITE NEVER RUNS:');
     for (const f of orphans) console.log('      ' + f);
@@ -139,6 +154,14 @@ const looksLikeAGate = f => /_gate\.(js|py)$/.test(f);
      + 'runs it by hand, and is never run by the suite is a law without a gate wearing a gate\'s '
      + 'clothes -- and it is cited as proof on SHIPPED lines',
      orphans.length ? orphans.length + ' orphan(s): ' + orphans.join(', ') : '');
+
+  /* ---- a gate told dead is told on the board, and still exists ---- */
+  const board = (() => { try { return fs.readFileSync(path.join(ROOT, 'VAMILY.md'), 'utf8'); } catch (e) { return ''; } })();
+  const untold = Object.keys(TOLD_DEAD).filter(f => !files.includes(f) || board.indexOf(f) < 0).sort();
+  ok(untold.length === 0,
+     'EVERY GATE TOLD DEAD STILL EXISTS AND ITS LANE IS TOLD ON VAMILY.md (' + Object.keys(TOLD_DEAD).length
+     + ' told). A gate that leaves the suite without its owner hearing it is a law deleted in the dark',
+     untold.length ? untold.map(f => f + ' (' + TOLD_DEAD[f].lane + ')').join(', ') : '');
 
   /* ---- and the files that are in gates/ but are not gates, reported ---- */
   const others = files.filter(f => !looksLikeAGate(f) && !paths.has('gates/' + f) && !NOT_A_GATE[f]).sort();
