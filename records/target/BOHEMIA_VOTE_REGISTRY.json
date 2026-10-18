@@ -29,6 +29,25 @@
  "version": 1,
  "items": [
   {
+   "id": "run2-the-bar-names-the-news-10-18",
+   "kind": "ui",
+   "lane": "run 2",
+   "sha": "80780b4c",
+   "made": "10/18",
+   "title": "THE BARTENDER TELLS YOU WHAT IS GOING ON IN THE NEXT TOWN, FREE",
+   "why": "Every time you walk into a bar, the bartender now tells you one true thing happening in a town near you, for free, out of his own talking mouth: who is sick, where it is market day, who just got raided and by which gang, and it is always what you will really find when you go there. You see it here under LOOK, the old bar on the left and the new one on the right, and in the demo when you tap a town's bar.",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_BAR_NAMES_THE_NEWS_BEFORE_AFTER_10_18.png"
+   },
+   "before_after": {
+    "before": "the bar told one of eleven fixed lines only after you paid for a round, about no real town, and promised a map mark nothing draws",
+    "after": "the first line each visit is free news from the nearest town with something going on (the raid ledger first, then the map's own dice), a round tells the next town; Battle Brothers' one free rumour",
+    "scale": "half his phone's 3x"
+   },
+   "draft": true
+  },
+  {
    "id": "cook2-the-street-joins-for-the-map-10-18",
    "kind": "tile",
    "lane": "cook 2",
