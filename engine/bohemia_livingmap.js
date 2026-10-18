@@ -179,7 +179,7 @@
     var per = (file.roll && file.roll.period_days) || 7, R1 = rng(seedOf(name + ':traits:' + Math.floor((day || 0) / per)));
     var out = [];
     if (R1() < ((file.roll && file.roll.chance_any) || 0.7)) {
-      var pool = file.traits.slice(), n = 1 + (R1() < 0.3 ? 1 : 0);
+      var pool = file.traits.filter(function (t) { return !t.caused_by; }), n = 1 + (R1() < 0.3 ? 1 : 0);   /* RUN TWO 10/18: a caused trait (raided) comes from the raid ledger, never the dice */
       for (var i = 0; i < n && pool.length; i++) out.push(pool.splice(Math.floor(R1() * pool.length), 1)[0]);
     }
     return out;

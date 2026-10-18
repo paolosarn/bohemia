@@ -145,6 +145,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_place.js"></script>
 <script src="../engine/bohemia_scavenge.js"></script>
 <script src="../engine/bohemia_goodbros.js"></script>
+<script src="../engine/bohemia_arrivaltraits.js"></script>  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
@@ -193,24 +194,48 @@ var ORDER = TIERS.town.slice();
    random variables'). Battle Brothers' situations, from records/target/settlement_traits.json: rolled
    per place by its name and the week, so a trait comes and goes; each changes the picture, the
    shelves' prices and stock, who stands at the posts, and what the keepers say first. ---------- */
-var TRAITS = null;
-fetch('../records/target/settlement_traits.json').then(function(r){ return r.json(); }).then(function(j){ TRAITS = j; rollTraits(); restock(); }).catch(function(){});
+var TRAITS = null, ARR = null;
+fetch('../records/target/settlement_traits.json').then(function(r){ return r.json(); }).then(function(j){ TRAITS = j; placeTraits(); restock(); }).catch(function(){});
+/* RUN TWO [the raid is a record] 10/18 (ECONOMY day 70: 190 of 624 place-weeks, 30.4 percent, read RAIDED with nobody
+   raiding, and a real raid never reached the counter). A CAUSED trait (caused_by:'ledger' in the file: raided, conquered,
+   well supplied) is never rolled: it stands only when FACTIONS' ledger (open({ledger, ledgerPlace})) has a mark on this
+   place on the map's day, and its numbers are the ledger file's own (records/target/bb/arrival_traits.json, the wiki's
+   cards: raided is half the shelf and half the men, no price). The dice keep the rest (rule 71, his 'random variables'). */
+fetch('../records/target/bb/arrival_traits.json').then(function(r){ return r.json(); }).then(function(j){ ARR = j; if(window.BohemiaArrivalTraits) BohemiaArrivalTraits.set(j); placeTraits(); restock(); }).catch(function(){});
+function caused(t){ return !!(t && t.caused_by); }
+/* the dice (engine/bohemia_livingmap.js traitsFor rolls the same, line for line, for the map's crowd), then the ledger */
+function placeTraits(){ rollTraits(); if(!Array.isArray(S.forceTraits)) ledgerTraits().forEach(function(t){ S.traits.unshift(t); }); }   /* what happened here is said first */
 function rollTraits(){
   S.traits = []; S.traitSaid = {};
   if(!TRAITS) return;
   if(Array.isArray(S.forceTraits)){
     S.traits = TRAITS.traits.filter(function(t){ return S.forceTraits.indexOf(t.id) >= 0; });
-  } else {
-    var per = (TRAITS.roll && TRAITS.roll.period_days) || 7, R1 = rng(seedOf(S.place.name + ':traits:' + Math.floor((S.day||0)/per)));
-    if(R1() < ((TRAITS.roll && TRAITS.roll.chance_any) || .7)){
-      var pool = TRAITS.traits.slice(), n = 1 + (R1() < .3 ? 1 : 0);
-      for(var i=0; i<n && pool.length; i++) S.traits.push(pool.splice(Math.floor(R1()*pool.length), 1)[0]);
-    }
+    return;
+  }
+  var per = (TRAITS.roll && TRAITS.roll.period_days) || 7, R1 = rng(seedOf(S.place.name + ':traits:' + Math.floor((S.day||0)/per)));
+  if(R1() < ((TRAITS.roll && TRAITS.roll.chance_any) || .7)){
+    var pool = TRAITS.traits.filter(function(t){ return !t.caused_by; }), n = 1 + (R1() < .3 ? 1 : 0);
+    for(var i=0; i<n && pool.length; i++) S.traits.push(pool.splice(Math.floor(R1()*pool.length), 1)[0]);
   }
 }
+function ledgerTraits(){
+  if(!S.ledger || !ARR || !window.BohemiaArrivalTraits) return [];
+  var ids = BohemiaArrivalTraits.active(S.ledger, S.ledgerPlace || S.place.id || S.place.name, buildDay());
+  return ids.map(function(id){ return TRAITS.traits.filter(function(t){ return t.id === id; })[0] || {id:id, name:id.replace(/_/g,' ').toUpperCase(), caused_by:'ledger'}; });
+}
+/* the knobs: buy and sell apart (a card can move them opposite ways), the shelf, the men (a multiplier; none is 'nobody
+   signs on'). A caused trait reads the ledger file's effects; a rolled one its own fields */
 function traitMult(){
-  var m = {price:1, stock:1, recruits:0};
-  (S.traits||[]).forEach(function(t){ m.price *= (t.price_mult||1); m.stock *= (t.stock_mult||1); m.recruits += (t.recruits||0); });
+  var m = {buy:1, sell:1, stock:1, men:1, none:false};
+  (S.traits||[]).forEach(function(t){
+    if(caused(t)){
+      var f = (ARR && ARR.traits[t.id] && ARR.traits[t.id].effects) || {}, v = function(k){ return f[k] ? f[k].value : 1; };
+      m.buy *= v('buy_price_mult'); m.sell *= v('sell_price_mult'); m.stock *= v('items_mult'); m.men *= v('recruits_mult');
+      return;
+    }
+    m.buy *= (t.price_mult||1); m.sell *= (t.price_mult||1); m.stock *= (t.stock_mult||1);
+    if((t.recruits||0) < 0) m.none = true;
+  });
   return m;
 }
 function traitLine(k){
@@ -297,7 +322,7 @@ function restock(){
   var tm = traitMult(), sm = function(n){ return Math.max(1, Math.round(n * tm.stock)); };
   S.stock = {arms: W(sm(4),'arms').concat(A(sm(3),'arms')), smith: W(sm(7),'smith'), armourer: A(sm(6),'armourer').concat(pick(BB.armor.shields, 2, 'shields').map(function(r){ return armourItem('shields', r); }))};
   /* a trait moves every price on the shelves, never below one battery */
-  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.price = Math.max(1, Math.round(it.price * tm.price)); });
+  for(var sk in S.stock) S.stock[sk].forEach(function(it){ it.base = it.price; it.price = Math.max(1, Math.round(it.price * tm.buy)); });
 }
 /* ---------- THE BAG (rule 76, Paolo 10/5: 'a standardized way where you buy things and they end up
    in your inventory, inventory space with icons'). Battle Brothers' stash: 36 slots to start. A shop
@@ -353,7 +378,7 @@ function shopSheet(k, body, acts, line){
   var bagG = document.createElement('div'); bagG.className = 'grid bag'; bagG.id = 'baggrid'; acts.appendChild(bagG);
   for(var si = 0; si < BAG_SLOTS; si++){
     (function(it){
-      var back = it ? Math.max(1, Math.floor(it.price * SELL_CUT)) : 0;
+      var back = it ? Math.max(1, Math.floor((it.base || it.price) * SELL_CUT * traitMult().sell)) : 0;
       bagG.appendChild(iconTile(it, function(){
         openB(k, 'Your ' + it.name.replace(/^(a|an) /,'') + '? I give you ' + back + ' for it.');
         var sb = document.getElementById('sbody').querySelector('.acts'); sb.textContent = '';
@@ -438,7 +463,7 @@ function woundedList(){
   });
 }
 function clinicPrice(w){
-  var crowns = 20 * 1 * traitMult().price * w.days * (1 + (w.level - 1) * 0.2);
+  var crowns = 20 * 1 * traitMult().buy * w.days * (1 + (w.level - 1) * 0.2);
   return Math.max(1, Math.round(crowns / 10));
 }
 /* the bar's rumours live in a data file QUESTS and WORLD feed (records/target/settlement_rumours.json);
@@ -646,7 +671,7 @@ function pickVariant(){
   var ab = ARMSBOX[S.place.tier] || {}; for(var ak in ab) VAR.boxes[ak] = ab[ak];
   var vb = BOXBYPIC[VAR.src] || {}; for(var vk in vb) VAR.boxes[vk] = vb[vk];   /* the second picture of a tier lays out differently */
   ORDER = ['hall','board','stall','bar','arms','smith','armourer','barber','clinic','lot','build'].filter(function(k){ return VAR.boxes[k]; });
-  rollTraits(); restock();
+  placeTraits(); restock();
   /* you arrive looking at what happened here: a raided place opens on its burnt house */
   if(view.cx == null && (S.traits||[]).some(function(t){ return t.look === 'burnt'; })){
     var bb2 = LOOKBOX.burnt[S.place.tier] || LOOKBOX.burnt.town; view.cx = (bb2[0] + bb2[2])/2 + 260; }
@@ -889,11 +914,12 @@ var HIRE_NAMES = ['Chuy','Lalo','Neto','Beto','Tavo','Memo','Pancho','Rudy','Lup
 var KIT = {farmhand:['bludgeon','sackcloth'], messenger:['knife','sackcloth'], butcher:['butcher_s_cleaver','leather_wraps'], brawler:[null,'sackcloth'],
            thief:['knife','leather_tunic'], militia:['militia_spear','padded_surcoat']};
 function recruitsHere(){
-  if(!window.BohemiaGoodBros || traitMult().recruits < 0) return [];
-  var key = S.place.name + ':' + Math.floor((S.day||0)/7);
-  if(S.postKey !== key){
-    S.postKey = key; S.taken = {};
-    var n = (POST_COUNT[S.place.tier] || 4) + ((S.traits||[]).some(function(t){ return t.id === 'market_day'; }) ? 2 : 0);
+  var tm = traitMult();
+  if(!window.BohemiaGoodBros || tm.none) return [];
+  var n = Math.max(0, Math.round(((POST_COUNT[S.place.tier] || 4) + ((S.traits||[]).some(function(t){ return t.id === 'market_day'; }) ? 2 : 0)) * tm.men));
+  var key = S.place.name + ':' + Math.floor((S.day||0)/7), pk = key + ':' + n;   /* a raid halves the men (the wiki's Raided card) */
+  if(S.postKey !== pk){
+    S.postKey = pk; S.taken = {};
     var six = BohemiaGoodBros.sixAtThePost(key), more = n > 6 ? BohemiaGoodBros.sixAtThePost(key + ':more') : [];
     S.recruits = six.concat(more).slice(0, n).map(function(r, i){
       r.id = 'rc' + i; r.name = HIRE_NAMES[seedOf(key + ':name:' + i) % HIRE_NAMES.length]; r.look = 'cast_' + ['longcoat','barearms','pack','skirt','widebrim','cape','apron','poncho','bedroll','shorts','satchel','shortcoat'][seedOf(key + ':look:' + i) % 12];
@@ -1023,7 +1049,7 @@ function openB(k, line){
   var acts = document.createElement('div'); acts.className = 'acts';
   if(k==='hall'){
     var F = window.BohemiaFollowers, id = F && F.offerFor(S.hired, S.asked);
-    if(traitMult().recruits < 0) id = null;   /* raided or sick: nobody signs on */
+    if(traitMult().none) id = null;   /* sick: nobody signs on */
     var men = recruitsHere();
     body.appendChild(speak(k, line || (men.length ? 'These want work. Look them over, it costs nothing to look.' : id ? F.askLine(id) : 'Nobody here wants work right now. Come back after the next job, ya sabes.')));
     /* THE POSTS (Battle Brothers' recruits, Grok's 'see the hire'): every man's card before you pay */
@@ -1255,7 +1281,7 @@ function arrive(){
   /* no sound of its own: SOUNDS' arrival cue already fires once per new town on the map (cf9b7d8b) */
   post('arrive', {tier:tier, traits:(S.traits||[]).map(function(t){ return t.id; }), opinion:op, band:band, faction:S.faction ? S.faction.name : null, line:line});
 }
-function arriveWhenReady(){ if(TRAITS || S.arriveTries > 20){ arrive(); return; } S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
+function arriveWhenReady(){ if((TRAITS && ARR) || S.arriveTries > 20){ arrive(); return; } S.arriveTries = (S.arriveTries||0) + 1; setTimeout(arriveWhenReady, 50); }
 
 /* ---------- OPEN ---------- */
 function open(o){
@@ -1280,6 +1306,8 @@ function open(o){
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
   if(o.traits !== undefined) S.forceTraits = o.traits;   /* the game (or the VOTE shot) can name them */
+  if(o.ledger !== undefined) S.ledger = o.ledger;   /* RUN TWO [the raid is a record]: FACTIONS' raid ledger ({marks}) and this place's id in it */
+  if(o.ledgerPlace !== undefined) S.ledgerPlace = o.ledgerPlace; else if(o.place) S.ledgerPlace = null;
   view.cx = null; pickVariant();
   S.scav = S.scav || BohemiaScavenge.create({id:S.place.name});
   if(typeof o.opinion === 'number') S.opinion = o.opinion; else if(o.place) S.opinion = undefined;

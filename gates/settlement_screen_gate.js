@@ -244,12 +244,16 @@ const srv = http.createServer((rq, rs) => {
     const st = await p.evaluate(() => { const s = BohemiaSettlement.state.stock; return { n: s.smith.length, items: s.smith.map(i => [i.id, i.price]), ids: BohemiaSettlement.traitsNow().join() }; });
     return { px, st };
   };
-  const plain = await roll([]), raided = await roll(['raided']);
+  const plain = await roll([]);
+  await tapB('hall'); await p.waitForTimeout(250);
+  const plainMen = await p.evaluate(() => (BohemiaSettlement.state.recruits || []).length);
+  await p.click('#close'); await p.waitForTimeout(300);
+  const raided = await roll(['raided']);
   await p.screenshot({ path: SHOT.replace('_10_1', '_RAIDED_10_5') });
   await tapB('smith'); await p.waitForTimeout(250);
   const raidLine = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
   await tapB('hall'); await p.waitForTimeout(250);
-  const raidHall = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + '|' + document.querySelectorAll('#sbody .act').length);
+  const raidHall = await p.evaluate(() => document.querySelector('#sbody .say p').textContent + '|' + (BohemiaSettlement.state.recruits || []).length);
   await p.click('#close'); await p.waitForTimeout(300);
   const market = await roll(['market_day']);
   await p.screenshot({ path: SHOT.replace('_10_1', '_MARKET_DAY_10_5') });
@@ -257,12 +261,37 @@ const srv = http.createServer((rq, rs) => {
   /* the same rows on each shelf, priced three ways */
   const priceOf = (st, id) => (st.items.find(x => x[0] === id) || [0, null])[1];
   const common = raided.st.items.map(x => x[0]).filter(id => priceOf(plain.st, id) != null && priceOf(market.st, id) != null);
-  const dearer = common.every(id => priceOf(raided.st, id) >= priceOf(plain.st, id)) && common.some(id => priceOf(raided.st, id) > priceOf(plain.st, id));
+  /* RUN TWO [the raid is a record] 10/18: the wiki's Raided card (page 1626) is half the items and half the men, NO price */
+  const samePrice = common.every(id => priceOf(raided.st, id) === priceOf(plain.st, id));
   const cheaper = common.every(id => priceOf(market.st, id) <= priceOf(plain.st, id)) && common.some(id => priceOf(market.st, id) < priceOf(plain.st, id));
-  ok('  and the shelves: raided is dearer and thinner, market day cheaper and fuller', common.length > 0 && dearer && cheaper && raided.st.n < plain.st.n && market.st.n > plain.st.n,
+  ok('  and the shelves: raided is half the shelf at the same price (the wiki\'s card), market day cheaper and fuller', common.length > 0 && samePrice && cheaper && raided.st.n === Math.max(1, Math.round(plain.st.n * 0.5)) && market.st.n > plain.st.n,
      common.length + ' same rows; ' + common.slice(0, 2).map(id => id + ' ' + priceOf(plain.st, id) + '/' + priceOf(raided.st, id) + '/' + priceOf(market.st, id)).join(', ') + '; counts ' + plain.st.n + '/' + raided.st.n + '/' + market.st.n);
   ok('  and the keeper says it first, out of a mouth', /burned|crew came|raid/i.test(raidLine), raidLine.slice(0, 60));
-  ok('  and who stands at the posts: nobody signs on in a raided town', /nobody/i.test(raidHall) && /\|0$/.test(raidHall), raidHall.slice(0, 60));
+  ok('  and who stands at the posts: half the men in a raided town (the wiki\'s card), the keeper saying why', /half|raid/i.test(raidHall) && +raidHall.split('|')[1] === Math.round(plainMen * 0.5) && plainMen > 0, raidHall.slice(0, 60) + ' of ' + plainMen);
+
+  /* THE RAID IS A RECORD (ECONOMY day 70: the dice made 30.4 percent of place-weeks RAIDED with nobody raiding). The dice
+     never roll a caused trait: twelve places over 52 weeks, zero RAIDED. A mark in FACTIONS' ledger raids exactly that
+     place on exactly its days, through the same open() the game calls */
+  const dice = await p.evaluate(async () => {
+    const names = ['PAHRUMP', 'THE WASH, NORTH LAS VEGAS', 'HENDERSON', 'BOULDER CITY', 'MESQUITE', 'PRIMM', 'JEAN', 'GOODSPRINGS', 'BLUE DIAMOND', 'MOAPA', 'INDIAN SPRINGS', 'SEARCHLIGHT'];
+    let raid = 0, any = 0, n = 0;
+    for (const nm of names) for (let w = 0; w < 52; w++) {
+      BohemiaSettlement.state.forceTraits = undefined; BohemiaSettlement.state.day = w * 7; BohemiaSettlement.open({ place: { tier: 'town', name: nm } }); n++;
+      const ids = BohemiaSettlement.traitsNow(); if (ids.length) any++; if (ids.indexOf('raided') >= 0) raid++;
+    }
+    BohemiaSettlement.state.day = 0; return { raid, any, n };
+  });
+  ok('  THE RAID IS A RECORD: the dice never say RAIDED (12 places x 52 weeks), and still roll the rest', dice.raid === 0 && dice.any > dice.n * 0.4, JSON.stringify(dice));
+  const led = await p.evaluate(() => {
+    const L = { marks: [{ place: 'pahrump', trait: 'raided', by: 'ditch_kings', party: 'p1', from: 10, until: 13 }] }, out = {};
+    for (const d of [9, 10, 12, 13]) { BohemiaSettlement.state.forceTraits = undefined;
+      BohemiaSettlement.open({ place: { tier: 'town', name: 'PAHRUMP' }, ledger: L, ledgerPlace: 'pahrump', day: d });
+      out[d] = BohemiaSettlement.traitsNow().indexOf('raided') >= 0; }
+    BohemiaSettlement.open({ place: { tier: 'town', name: 'PRIMM' }, ledger: L, ledgerPlace: 'primm', day: 11 });
+    out.other = BohemiaSettlement.traitsNow().indexOf('raided') >= 0;
+    BohemiaSettlement.state.mapDay = undefined; BohemiaSettlement.open({ ledger: null, traits: [] }); return out;
+  });
+  ok('  and a mark in the raid ledger raids that place on its days only (day 9 no, 10 and 12 yes, 13 no; the next town no)', !led[9] && led[10] && led[12] && !led[13] && !led.other, JSON.stringify(led));
   await p.evaluate(() => BohemiaSettlement.open({ traits: [] }));
   await p.waitForTimeout(400);
 
