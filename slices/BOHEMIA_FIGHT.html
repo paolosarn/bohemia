@@ -165,7 +165,9 @@ const DATA_FILES = [
   '../records/target/bb/enemies.json', '../records/target/bb/weapons.json', '../records/target/bb/armor.json',
   '../records/target/bb/injuries.json', '../records/target/bb/backgrounds.json', 'fight_ground/fight_ground.json',
   '../records/target/bb/perks.json', '../records/target/bb/perk_translation.json', 'fight_people/fight_people.json',
-  '../records/target/bb/weapon_lines.json'];
+  '../records/target/bb/weapon_lines.json',
+  /* WORLD's one ground table and its district list (rule 59: every floor tile is a translation; never a second list of grounds) */
+  '../records/target/BOHEMIA_GROUND_EFFECTS.json', '../records/target/BOHEMIA_BOARD_KINDS.json'];
 const DB = { read: {} };
 function loadAll() {
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u).then(function (r) { return r.json(); }); }))
@@ -173,6 +175,7 @@ function loadAll() {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
       DB.armor = a[5]; DB.injuries = a[6]; DB.backgrounds = a[7]; DB.ground = a[8];
       DB.perks = a[9]; DB.perkNames = a[10]; DB.people = a[11]; DB.wlines = a[12];
+      DB.groundEffects = a[13]; DB.boardKinds = a[14];
     });
 }
 function R(path) {
@@ -273,15 +276,45 @@ const FIGHT = (function () {
     return out;
   }
 
-  /* ---------------- THE GROUND ---------------- */
+  /* ---------------- THE GROUND (rule 59, Paolo 10/1: 'every floor tile from Battle Brothers needs a proper translation') ----------------
+     Every tile kind the board draws answers to ONE row of WORLD's ground table (records/target/BOHEMIA_GROUND_EFFECTS.json,
+     its battleBrothersRows) through ours.ground_rows; the ROW decides what the tile does, records/target/bb holds the numbers.
+     A tile kind with no row, or a row WORLD's table does not carry, stops the deal (the gate deals every block). */
   function terrainAt(x, y) { return S.terrain[y][x]; }
-  function level(x, y) { return terrainAt(x, y) === 'height' ? R('board.height_levels')[1] : R('board.height_levels')[0]; }
-  function passable(x, y) { return inBoard(x, y) && terrainAt(x, y) !== 'blocked' && !S.solid[y][x]; }
-  function sightBlock(x, y) { return terrainAt(x, y) === 'blocked'; }
+  let ROWS = null;   /* kind -> row, read once from ours.ground_rows and checked against WORLD's rows */
+  function rowOf(t) {
+    if (!ROWS) {
+      const g = R('ours.ground_rows'), m = {};
+      Object.keys(g).forEach(function (k) { if (DB.groundEffects.battleBrothersRows.some(function (r) { return r.row === g[k].row; })) m[k] = g[k].row; });
+      ROWS = m;
+    }
+    const r = ROWS[t]; if (!r) throw new Error('no ground row for ' + t);
+    return r;
+  }
+  /* the tile's kind stays the one truth (a test bench or a cut may rewrite it); its row is looked up every time */
+  function rowAt(x, y) { return inBoard(x, y) ? rowOf(S.terrain[y][x]) : null; }   /* off the board: no row (reads as it always did) */
+  function level(x, y) { return rowAt(x, y) === 'height' ? R('board.height_levels')[1] : R('board.height_levels')[0]; }
+  function passable(x, y) { return inBoard(x, y) && rowAt(x, y) !== 'obstacles' && !S.solid[y][x]; }
+  function sightBlock(x, y) { return rowAt(x, y) === 'obstacles'; }
+  /* what standing on a tile does, in his words (ours.ground_rows' say; empty where nothing changes) */
+  function groundSay(x, y) { return inBoard(x, y) ? R('ours.ground_rows')[terrainAt(x, y)].say : ''; }
+  /* THE GROUND THE BOARD STANDS ON, from WORLD's list (rule 59, never a second list of grounds): the district the map hands
+     over names it in records/target/BOHEMIA_BOARD_KINDS.json; a board asked for by kind stands on the ground most of that
+     kind's districts stand on; the bench's own deal names none */
+  function groundOf(opts) {
+    const ds = DB.boardKinds.districts;
+    const d = opts.district ? ds.filter(function (r) { return r.district === opts.district; })[0] : null;
+    if (d) return { ground: d.ground, from: 'district', district: d.district };
+    if (!opts.kind) return { ground: null, from: 'none' };
+    const n = {};
+    ds.forEach(function (r) { if (r.boardKind === opts.kind) n[r.ground] = (n[r.ground] || 0) + 1; });
+    const g = Object.keys(n).sort(function (a, b) { return n[b] - n[a] || (a < b ? -1 : 1); })[0];
+    return g ? { ground: g, from: 'kind' } : { ground: null, from: 'none' };
+  }
   function stepCost(u, ax, ay, bx, by) {
-    const t = terrainAt(bx, by);
-    let c = t === 'water' ? R('ap.move_cost.murky_water_swamp')
-          : (t === 'rough' || t === 'debris') ? R('ap.move_cost.rough') : R('ap.move_cost.flat');
+    const r = rowAt(bx, by);
+    let c = r === 'swamp' ? R('ap.move_cost.murky_water_swamp')
+          : r === 'rough' ? R('ap.move_cost.rough') : R('ap.move_cost.flat');
     const pf = PK(u, 'pathfinder');
     if (pf) c = Math.max(pf.movement_ap_min_per_tile, c - pf.movement_ap_reduction);
     if (level(ax, ay) !== level(bx, by)) c += (pf ? pf.height_change_extra_ap : R('ap.move_cost.height_change_extra')) * Math.abs(level(ax, ay) - level(bx, by));
@@ -481,7 +514,11 @@ const FIGHT = (function () {
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
     const fams = Object.keys(mix.families);
-    let fam = opts.kind ? fams.filter(function (f) { return mix.families[f].indexOf(opts.kind) >= 0; })[0] : null;
+    /* the family that carries the kind, or one of its aliases' kinds (10/18, measured: 'suburb' is an alias and no family lists
+       it by that name, so the family fell to the dice and 53 of 200 suburb fights were dealt on the valley's edge, sand and
+       water, without one suburb block) */
+    const called = opts.kind ? ((mix.aliases || {})[opts.kind] || []).concat([opts.kind]) : [];
+    let fam = opts.kind ? fams.filter(function (f) { return called.some(function (k) { return mix.families[f].indexOf(k) >= 0; }); })[0] : null;
     if (!fam) {
       const tot = fams.reduce(function (t, f) { return t + mix.weights[f]; }, 0);
       let r = rng() * tot; fam = fams.filter(function (f) { r -= mix.weights[f]; return r < 0; })[0] || fams[0];
@@ -521,6 +558,7 @@ const FIGHT = (function () {
   function applyBoard(B) {
     const G = DB.ground;
     S.terrain = B.terrain; S.boardDef = B;
+    B.terrain.forEach(function (r) { r.forEach(rowOf); });   /* a kind with no row stops the deal here, not mid-fight */
     S.solid = []; S.cover = []; S.coverCount = [];
     for (let y = 0; y < S.h; y++) { S.solid.push([]); S.cover.push([]); S.coverCount.push([]); for (let x = 0; x < S.w; x++) { S.solid[y].push(false); S.cover[y].push(null); S.coverCount[y].push(0); } }
     (B.cover || []).forEach(function (c) {
@@ -567,6 +605,7 @@ const FIGHT = (function () {
       for (let tries = 0; tries < 100; tries++) { applyBoard(dealOnce(opts)); if (connected()) break; }
     }
     const dealt = S.boardDef;
+    S.ground = groundOf(opts);
     S.units = []; S.events = []; S.log = []; S.round = 0; S.over = false; S.result = null; S.contact = false;
     /* the field cap is the origin's (rule 75a: Lone Wolf one, Peasant Militia sixteen, twelve else), handed over as cap */
     S.days = (opts.party && opts.party.days) || opts.days || 1; S.difficulty = (opts.party && opts.party.difficulty) || 0;
@@ -625,7 +664,7 @@ const FIGHT = (function () {
     const T0 = S.terrain, solid0 = S.solid, kindAt = function (x, y) { return kindOf(B.blocks[Math.floor(y / bt)][Math.floor(x / bt)]); };
     let best = null, bs = -Infinity;
     for (let oy = 0; oy + h <= H0; oy++) for (let ox = 0; ox + w <= W0; ox++) {
-      const open = function (x, y) { return x >= 0 && y >= 0 && x < w && y < h && T0[oy + y][ox + x] !== 'blocked' && !solid0[oy + y][ox + x]; };
+      const open = function (x, y) { return x >= 0 && y >= 0 && x < w && y < h && rowOf(T0[oy + y][ox + x]) !== 'obstacles' && !solid0[oy + y][ox + x]; };
       /* the two fronts reach each other */
       const seen = {}, q = [];
       for (let y = 0; y < h; y++) if (open(cf, y)) { seen[y * w + cf] = true; q.push([cf, y]); }
@@ -922,7 +961,7 @@ const FIGHT = (function () {
     const c = R('hit_chance.defense_soft_cap');
     return d > c.threshold ? c.threshold + (d - c.threshold) * c.over_threshold_multiplier : d;
   }
-  function inWater(u) { return terrainAt(u.x, u.y) === 'water'; }
+  function inWater(u) { return rowAt(u.x, u.y) === 'swamp'; }
   function shotLine(a, t) {
     /* the wiki's 'blocked target': something stands in the line next to him, or he stands in cover */
     if (R('ours.cover_tile_blocks_line') && S.cover[t.y][t.x] && dist(a, t) > 1) return true;
@@ -1486,7 +1525,7 @@ const FIGHT = (function () {
     S: S, setup: setup, current: current, reach: reach, pathTo: pathTo, moveTo: moveTo, strike: strike,
     canStrike: canStrike, hitChance: hitChance, resolveAttack: resolveAttack, reload: reload, canReload: canReload,
     wait: wait, endTurn: endTurn, aiStep: aiStep, sideSees: sideSees, onField: onField, alive: alive,
-    level: level, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
+    level: level, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown,
@@ -1772,10 +1811,15 @@ function ringCanvas() {
   /* THE BLUE (his fourteenth votes NO: 'what the fuck is that blue collision'): a block that never loaded left glass, and the
      night's moonlight multiplied onto glass IS the blue; the ring is ground before it is blocks, so a hole is dirt, never blue */
   g.fillStyle = GROUND_UNDER; g.fillRect(0, 0, c.width, c.height);
-  ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) return;
+  let holes = 0;
+  ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[q.n].src]; if (!im) { holes++; return; }
     const x = (q.bx + R) * w, y = (q.by + R) * h; g.drawImage(mipFor(im, w / DPR), x, y, w, h); g.fillStyle = SURROUND_DIM; g.fillRect(x, y, w, h); });
   if (S.night) nightPass(g, c.width, c.height);
-  UI.ringC = c; UI.ringCKey = UI.ringKey + ':' + !!S.night + ':' + UI.board; return c;
+  /* A RING WITH A HOLE IS NEVER KEPT (10/18, measured: a second fight from AGAIN drew this ring while its blocks were still
+     loading, kept it, and 35.7% of the glass stayed flat dirt for the whole fight; the key could not tell, because a canvas
+     reads the same as a string every time) */
+  if (!holes) { UI.ringC = c; UI.ringCKey = key; }
+  return c;
 }
 /* the ring: SURROUND_BLOCKS blocks on every side, each a block of the board's own kinds, picked by a hash of the fight's seed
    and its place (its own hash, so the fight's dice are never touched) */
@@ -1920,6 +1964,9 @@ function say(s) { const e = document.getElementById('say'); e.textContent = s; e
 function startAnim(a) {
   const e = a.e;
   if (a.k === 'step') { const u = FIGHT.byId(e.id); u._fx = e.fx; u._fy = e.fy; SND.step();
+    /* HE TAKES THE HIGH GROUND (rule 59's height row; rule 117c: a good choice gets a visible and audible win): a gold ring
+       at his feet and the line in the feed; the sound is the parent's to play (SOUNDS: 'high_ground'), silent until it exists */
+    if (u.side === 'you' && FIGHT.level(e.x, e.y) > FIGHT.level(e.fx, e.fy)) { sfx('high_ground'); pop({ x: e.x, y: e.y }, '', '#f0d296', true, u.name + ' takes the high ground.'); }
     const span = [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }];   /* the step's two ends, so the walk itself stays on the glass */
     if (!(gest && gest.moved) && (UI.pinched ? !framed(e.x, e.y) : !allFramed(span)) && !keepAll(a.dur * GLIDE_AHEAD, span) && UI.zoom > UI.far * 1.05) { const q = aimAt(e.x, e.y); glideTo(q[0], q[1], UI.zoom, a.dur * GLIDE_AHEAD); } }
   if (a.k === 'attack') {
@@ -2775,7 +2822,9 @@ function tapAt(px, py) {
   /* the price of walking past: every tile left inside a man's reach is a free swing */
   let swings = 0, at = { x: u.x, y: u.y };
   path.forEach(function (q) { swings += FIGHT.zocOn(u, at.x, at.y).length; at = q; });
-  say('Walk there, ' + f.best[f.key(p.x, p.y)] + ' AP' + (swings ? ': ' + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '. Tap again.'));
+  /* what standing there does, first (rule 59; rule 117b: only where the ground changes something) */
+  const gs = FIGHT.groundSay(p.x, p.y);
+  say((gs ? gs + ' ' : '') + 'Walk there, ' + f.best[f.key(p.x, p.y)] + ' AP' + (swings ? ': ' + swings + ' free swing' + (swings > 1 ? 's' : '') + ' on the way.' : '. Tap again.'));
 }
 document.getElementById('bstrike').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u) && UI.pend && UI.pend.target) { const t = UI.pend.target; UI.pend = null; FIGHT.strike(u, t); take(); } };
 document.getElementById('bwait').onclick = function () { audio(); const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; UI.skillMode = null; FIGHT.wait(u); take(); } };

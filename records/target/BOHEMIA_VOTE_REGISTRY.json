@@ -10518,6 +10518,20 @@
    "draft": true
   },
   {
+   "id": "combat-the-ground-fights-10-18",
+   "kind": "ui",
+   "lane": "combat",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "WHAT THE GROUND UNDER HIM DOES: ROUGH, WATER, ROOFS, WALLS",
+   "why": "Every tile in the fight now works like its Battle Brothers tile: rough ground and rubble cost more to cross, water makes you fight worse, a roof gives easier hits and longer reach, and when you tap a tile that does something the line tells you before you walk. You see it in the COMBAT tab when you tap a tile, and your man taking a roof rings gold.",
+   "show": {
+    "how": "image",
+    "src": "vote/COMBAT_THE_GROUND_FIGHTS_10_18.jpg"
+   },
+   "draft": true
+  },
+  {
    "id": "cook-the-block-wars-cover-10-18",
    "kind": "tile",
    "lane": "cook",

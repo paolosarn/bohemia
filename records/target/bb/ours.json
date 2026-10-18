@@ -560,5 +560,38 @@
   "quote": "melee weapons work on one tile away, all guns 2+ minimum",
   "why": "a gun that fires (ours.gun_classes that are ranged: the SHOTGUN, the RIFLE) never fires at a man beside the shooter; the PISTOL rides Battle Brothers' dagger, a one-tile row, so it is the club at one until his guns vote gives it a shot (rule 47b)",
   "tuned": false
+ },
+ "ground_rows": {
+  "value": {
+   "flat": {
+    "row": "flat",
+    "say": ""
+   },
+   "rough": {
+    "row": "rough",
+    "say": "Rough ground: slow."
+   },
+   "debris": {
+    "row": "rough",
+    "say": "Rubble: slow."
+   },
+   "water": {
+    "row": "swamp",
+    "say": "Water: you fight worse."
+   },
+   "height": {
+    "row": "height",
+    "say": "High ground: easier hits."
+   },
+   "blocked": {
+    "row": "obstacles",
+    "say": ""
+   }
+  },
+  "source": "records/BOHEMIA_PAOLO_EVERY_FLOOR_TILE_NEEDS_A_TRANSLATION_10_1_26.md",
+  "quote": "every floor tile from Battle Brothers needs a proper translation for our game... how it impacts your accuracy or your defence or the positioning, how many action points it costs to move through",
+  "rows_from": "records/target/BOHEMIA_GROUND_EFFECTS.json battleBrothersRows (WORLD's one table; rule 59: never a second list of grounds)",
+  "draft": true,
+  "why": "every tile kind COMBAT TWO's 35 blocks draw answers to ONE row of WORLD's ground table: flat is Battle Brothers' plains (2 AP, nothing else), rough and rubble its forest floor and snow (3 AP), water its swamp (4 AP, skill and defence x0.75), a roof its hills (+1 AP to climb, +10 to hit down, -10 up for melee, +1 reach a level for guns), a wall or a house its obstacles (no path, no sight). The numbers stay in records/target/bb (TUNING holds every one at Battle Brothers for both sides, rule 117). 'say' is the line he reads when he taps a tile that changes something (an attempt, draft:true); a tile that changes nothing says nothing (rule 117b: one clear next thing)"
  }
 }

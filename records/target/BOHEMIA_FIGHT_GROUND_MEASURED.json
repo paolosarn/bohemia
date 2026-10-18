@@ -1,0 +1,396 @@
+{
+ "_readme": "COMBAT [the ground fights] 10/18 (rule 59): what every floor tile does on the boards the FIGHT really deals, for WORLD. Written by tools/bohemia_combat_the_ground_fights_10_18_26.js, which plays slices/BOHEMIA_FIGHT.html -- do not hand edit. Every one of the 78 districts of records/target/BOHEMIA_BOARD_KINDS.json is dealt by the fight (its board kind and its district) 6 times; every tile is counted by the Battle Brothers row it answers to through ours.ground_rows (records/target/bb/ours.json) in WORLD's records/target/BOHEMIA_GROUND_EFFECTS.json; a ground is the mean of its districts, each weighted the same. share.solid is cover that fills a tile (a dead car, a wall piece) on a tile that is not itself an obstacle; share.cover is every tile with a cover piece. THE HEIGHT ROW WORLD LEFT UNREAD IS share.height: a roof is one level up (board.height_levels). NOTE FOR WORLD: the fight's boards are COMBAT TWO's 35 blocks dealt by board kind, not cut from the district kits, so the numbers here are what a fight on that ground plays on today; the cell's own board is COMBAT [the map hands the board].",
+ "version": "BOHEMIA_FIGHT_GROUND_MEASURED_v1",
+ "built": "2026-10-18",
+ "seeds": 6,
+ "tileKinds": {
+  "flat": {
+   "row": "flat",
+   "say": ""
+  },
+  "rough": {
+   "row": "rough",
+   "say": "Rough ground: slow."
+  },
+  "debris": {
+   "row": "rough",
+   "say": "Rubble: slow."
+  },
+  "water": {
+   "row": "swamp",
+   "say": "Water: you fight worse."
+  },
+  "height": {
+   "row": "height",
+   "say": "High ground: easier hits."
+  },
+  "blocked": {
+   "row": "obstacles",
+   "say": ""
+  }
+ },
+ "worldCanFire": {
+  "obstacles": true,
+  "door": true,
+  "flat": true,
+  "rough": false,
+  "swamp": false,
+  "height": false,
+  "night": false
+ },
+ "grounds": [
+  {
+   "ground": "suburb_block",
+   "districts": 15,
+   "boardKinds": [
+    "culdesac",
+    "ruin",
+    "suburb"
+   ],
+   "named": "90 of 90",
+   "share": {
+    "solid": 0.0173,
+    "cover": 0.238,
+    "obstacles": 0.1941,
+    "door": 0,
+    "flat": 0.6127,
+    "rough": 0.1194,
+    "swamp": 0,
+    "height": 0.0739,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.327,
+    "room": 0.627,
+    "door": 0.003,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "the_strip",
+   "districts": 10,
+   "boardKinds": [
+    "strip"
+   ],
+   "named": "60 of 60",
+   "share": {
+    "solid": 0.0116,
+    "cover": 0.2603,
+    "obstacles": 0.161,
+    "door": 0,
+    "flat": 0.7582,
+    "rough": 0.0145,
+    "swamp": 0,
+    "height": 0.0663,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.345,
+    "room": 0.531,
+    "door": 0.0018,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "industrial",
+   "districts": 15,
+   "boardKinds": [
+    "landfill",
+    "ruin",
+    "strip"
+   ],
+   "named": "90 of 90",
+   "share": {
+    "solid": 0.0037,
+    "cover": 0.2684,
+    "obstacles": 0.101,
+    "door": 0,
+    "flat": 0.4461,
+    "rough": 0.2994,
+    "swamp": 0.0131,
+    "height": 0.1404,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.246,
+    "room": 0.707,
+    "door": 0.0029,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "open_desert",
+   "districts": 3,
+   "boardKinds": [
+    "landfill",
+    "scrub",
+    "shore"
+   ],
+   "named": "18 of 18",
+   "share": {
+    "solid": 0,
+    "cover": 0.2956,
+    "obstacles": 0.07,
+    "door": 0,
+    "flat": 0.3724,
+    "rough": 0.3943,
+    "swamp": 0.03,
+    "height": 0.1333,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.015,
+    "room": 0.985,
+    "door": 0,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "wash_and_shore",
+   "districts": 7,
+   "boardKinds": [
+    "ruin",
+    "shore",
+    "wash"
+   ],
+   "named": "42 of 42",
+   "share": {
+    "solid": 0.0019,
+    "cover": 0.311,
+    "obstacles": 0.112,
+    "door": 0,
+    "flat": 0.3872,
+    "rough": 0.3666,
+    "swamp": 0.035,
+    "height": 0.0992,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.297,
+    "room": 0.702,
+    "door": 0.0002,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "hills",
+   "districts": 1,
+   "boardKinds": [
+    "scrub"
+   ],
+   "named": "6 of 6",
+   "share": {
+    "solid": 0,
+    "cover": 0.3222,
+    "obstacles": 0.0661,
+    "door": 0,
+    "flat": 0.3472,
+    "rough": 0.4933,
+    "swamp": 0.0283,
+    "height": 0.065,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.958,
+    "room": 0.042,
+    "door": 0,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "freeway",
+   "districts": 4,
+   "boardKinds": [
+    "freeway",
+    "ruin"
+   ],
+   "named": "24 of 24",
+   "share": {
+    "solid": 0.0114,
+    "cover": 0.2374,
+    "obstacles": 0.15,
+    "door": 0,
+    "flat": 0.6676,
+    "rough": 0.1113,
+    "swamp": 0,
+    "height": 0.0711,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.166,
+    "room": 0.634,
+    "door": 0.0052,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "lot_and_bigbox",
+   "districts": 5,
+   "boardKinds": [
+    "strip",
+    "suburb",
+    "suburb_stem"
+   ],
+   "named": "30 of 30",
+   "share": {
+    "solid": 0.017,
+    "cover": 0.2424,
+    "obstacles": 0.1746,
+    "door": 0,
+    "flat": 0.7522,
+    "rough": 0.013,
+    "swamp": 0,
+    "height": 0.0602,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.207,
+    "room": 0.734,
+    "door": 0.0024,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "trailer_park",
+   "districts": 1,
+   "boardKinds": [
+    "culdesac"
+   ],
+   "named": "6 of 6",
+   "share": {
+    "solid": 0.0322,
+    "cover": 0.2156,
+    "obstacles": 0.2094,
+    "door": 0,
+    "flat": 0.7633,
+    "rough": 0,
+    "swamp": 0,
+    "height": 0.0272,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.296,
+    "room": 0.659,
+    "door": 0.0003,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "golf_and_park",
+   "districts": 8,
+   "boardKinds": [
+    "ruin",
+    "scrub",
+    "shore",
+    "suburb"
+   ],
+   "named": "48 of 48",
+   "share": {
+    "solid": 0.0081,
+    "cover": 0.2699,
+    "obstacles": 0.1303,
+    "door": 0,
+    "flat": 0.4828,
+    "rough": 0.2858,
+    "swamp": 0.0131,
+    "height": 0.0879,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.107,
+    "room": 0.876,
+    "door": 0.0005,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "airport",
+   "districts": 3,
+   "boardKinds": [
+    "ruin"
+   ],
+   "named": "18 of 18",
+   "share": {
+    "solid": 0.0098,
+    "cover": 0.252,
+    "obstacles": 0.1937,
+    "door": 0,
+    "flat": 0.5346,
+    "rough": 0.2015,
+    "swamp": 0,
+    "height": 0.0702,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.245,
+    "room": 0.569,
+    "door": 0.0056,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "solar_and_pumps",
+   "districts": 5,
+   "boardKinds": [
+    "ruin",
+    "scrub"
+   ],
+   "named": "30 of 30",
+   "share": {
+    "solid": 0.009,
+    "cover": 0.2691,
+    "obstacles": 0.1647,
+    "door": 0,
+    "flat": 0.4893,
+    "rough": 0.2701,
+    "swamp": 0.0023,
+    "height": 0.0736,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.217,
+    "room": 0.773,
+    "door": 0.0003,
+    "height": "UNREAD"
+   }
+  },
+  {
+   "ground": "landfill",
+   "districts": 1,
+   "boardKinds": [
+    "landfill"
+   ],
+   "named": "6 of 6",
+   "share": {
+    "solid": 0,
+    "cover": 0.2806,
+    "obstacles": 0.0661,
+    "door": 0,
+    "flat": 0.3506,
+    "rough": 0.385,
+    "swamp": 0.0283,
+    "height": 0.17,
+    "night": 0
+   },
+   "world": {
+    "cover": 0.15,
+    "room": 0.831,
+    "door": 0.0004,
+    "height": "UNREAD"
+   }
+  }
+ ],
+ "firesOnTheFight": {
+  "solid": 10,
+  "cover": 13,
+  "obstacles": 13,
+  "flat": 13,
+  "rough": 12,
+  "height": 13,
+  "swamp": 7
+ },
+ "door": {
+  "fightTiles": 0,
+  "why": "no fight block draws a door: a fight house is one blocked tile whole (A COMBAT TILE IS A HOUSE), so the DOOR row WORLD measured on nine grounds has no tile to fire on in the fight"
+ }
+}
