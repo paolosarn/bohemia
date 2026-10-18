@@ -9223,6 +9223,8 @@ GATES = [
      'CHARACTER gate, registered by PLUMBER 10/18 [the orphan gates] (it was never in this table). A LAW WITHOUT A MACHINE GATE IS NOT ENFORCED. The texture set is the clothes this lane owns, cut off the formula into pieces a rigged model wears, wit. green at registration, 0 s', False),
     ('MAP HEARD', ['node', 'gates/map_heard_gate.js'],
      'SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 23426c8c). THE MAP HEARD GATE, row [the desert under travel]: the map hears the same recorded desert. green at registration, 17/0, 15 s', True),
+    ('TRAVEL STEPS', ['node', 'gates/travel_steps_gate.js'],
+     "SOUNDS gate, 10/18, row [steps from a recording]: the party's footsteps under travel from real recordings (two CC0 walks per surface, eight cuts each), the engine file's cadence and level equal to TRAVELBED's, the alpha silent on them until his YES, the VOTE page plays them on the beat with no repeat. green at registration, 31/0, 15 s", True),
     ('SETTLEMENT HEARD', ['node', 'gates/settlement_heard_gate.js'],
      "SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 666abb38). THE SETTLEMENT HEARD GATE, row [the settlement's sounds] round four. green at registration, 21/0, 46 s", True),
     ('WHO YOU WERE', ['node', 'gates/who_you_were_gate.js'],

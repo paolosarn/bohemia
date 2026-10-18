@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE STEPS FROM A RECORDING</title>
+<!-- SOUNDS lane, 10/18, row [steps from a recording] (VAMILY, SOUNDS), the next round of [the desert under travel].
+     The map already hears the recorded desert (MAPDESERT, his fourteenth votes: YES). The party's footsteps on top
+     were still the engine's modelled ones he approved on 10/13 (TRAVELBED). These are real shoes: eight footfalls
+     per surface cut out of two CC0 Freesound walks each (via ESC-50; every author in
+     slices/vote/travel_steps/manifest.json), through the same chain as the settlement (high-pass 120 Hz, tape,
+     low-pass), laid on the beat by engine/bohemia_travel_steps.js, the file the alpha loads on his YES: the road two a beat, the dirt one,
+     never the same cut twice in a row.
+
+     WHAT THIS PAGE IS: the real valley map (slices/BOHEMIA_MAP_CURRENT.html, untouched) from its own camera, the
+     recorded desert bed under it at the game's level, and four buttons: the recorded steps on the road and on the
+     dirt, and the engine steps that play in the game now, so he can A/B them. In the GAME the engine steps still
+     play until his YES (unjudged is silent); then RUN's cut wires the same file in (rule 93). Gate: gates/travel_steps_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #map{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b08}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  #stop{grid-column:1 / -1}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="map" src="BOHEMIA_MAP_CURRENT.html" title="the valley map"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="road">ROAD: REAL SHOES</button>
+    <button id="dirt">DIRT: REAL SHOES</button>
+    <button id="roadOld" class="old">ROAD: WHAT PLAYS NOW</button>
+    <button id="dirtOld" class="old">DIRT: WHAT PLAYS NOW</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap one. The desert wind is under all four, like on the map. The road walks twice as fast as the dirt.</div>
+</div>
+<script src="../engine/bohemia_horror_sounds.js"></script>
+<script src="../engine/bohemia_travel_steps.js"></script>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, BUF={}, bed=null, bedT=null, n=document.getElementById('num');
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+  function load(path){ if(BUF[path]) return Promise.resolve(BUF[path]);
+    return fetch(path).then(function(r){ if(!r.ok) throw new Error(path+' '+r.status); return r.arrayBuffer(); }).then(function(ab){ return new Promise(function(res,rej){ ctx().decodeAudioData(ab,res,rej); }); }).then(function(b){ return (BUF[path]=b); }); }
+
+  /* the desert bed, the same file, loop and level as the alpha's MAPDESERT */
+  function bedOn(){ if(bed) return; var my=bed=AC.createGain(); my.gain.setValueAtTime(0,AC.currentTime); my.gain.linearRampToValueAtTime(0.45,AC.currentTime+1.5); my.connect(OUT);
+    load('vote/settlement_heard/bed_day.mp3').then(function(b){ var XF=1.0, step=b.duration-XF;
+      (function one(at){ if(bed!==my) return; var s=AC.createBufferSource(); s.buffer=b; var v=AC.createGain(); s.connect(v); v.connect(my);
+        v.gain.setValueAtTime(0,at); v.gain.linearRampToValueAtTime(1,at+XF); v.gain.setValueAtTime(1,at+b.duration-XF); v.gain.linearRampToValueAtTime(0,at+b.duration);
+        s.start(at); bedT=setTimeout(function(){ one(at+step); }, Math.max(100,(at+step-AC.currentTime-0.5)*1000)); })(AC.currentTime+0.05); }); }
+  function bedOff(){ if(bedT) clearTimeout(bedT); bedT=null; if(bed){ var x=bed; bed=null; x.gain.cancelScheduledValues(AC.currentTime); x.gain.setValueAtTime(x.gain.value,AC.currentTime); x.gain.linearRampToValueAtTime(0,AC.currentTime+0.6); setTimeout(function(){ try{x.disconnect();}catch(e){} },900); } }
+
+  /* the recorded steps: engine/bohemia_travel_steps.js, the one file the alpha will load on his YES */
+  var STEPS=null, stepBus=null;
+  var STEPREC={ start:function(surface){ this.stop(); STEPS=STEPS||BOH_TRAVEL_STEPS.make({ dir:'vote/travel_steps/' }); stepBus=AC.createGain(); stepBus.connect(OUT); STEPS.ensure(stepBus, AC, surface); },
+                stop:function(){ if(STEPS) STEPS.stopBed(); if(stepBus){ var x=stepBus; stepBus=null; setTimeout(function(){ try{x.disconnect();}catch(e){} },500); } } };
+  window.__steps=function(){ return STEPS; };
+
+  /* what plays in the game now: the engine's modelled bed (TRAVELBED's twin in the sound module), 16 beats, looped */
+  var old=null;
+  function oldStart(surface){ oldStop(); var H=window.BOH_HORROR_SOUNDS; if(!H){ n.textContent='the engine module did not load'; return; }
+    var b=(surface==='asphalt'?H.travelRoadBed:H.travelDirtBed)(AC,{beats:16}).buffer; var s=AC.createBufferSource(); s.buffer=b; s.loop=true; var g=AC.createGain(); g.gain.value=0.5; s.connect(g); g.connect(OUT); s.start(); old=s; }
+  function oldStop(){ if(old){ try{ old.stop(); }catch(e){} old=null; } }
+
+  var LABEL={ road:'Real shoes on asphalt, two a beat. Eight footfalls from two recordists, never the same one twice in a row.',
+              dirt:'Real shoes on gravel, one a beat. Grit, never sand. Eight footfalls from two recordists.',
+              roadOld:'What the road plays in the game now: the engine\'s modelled step (your YES, 10/13).',
+              dirtOld:'What the dirt plays in the game now: the engine\'s modelled step (your YES, 10/13).' };
+  function mark(id){ ['road','dirt','roadOld','dirtOld'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id){ ctx(); STEPREC.stop(); oldStop(); bedOn(); mark(id); n.textContent=LABEL[id];
+    if(id==='road') STEPREC.start('asphalt'); else if(id==='dirt') STEPREC.start('dirt'); else oldStart(id==='roadOld'?'asphalt':'dirt'); }
+  ['road','dirt','roadOld','dirtOld'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ if(!AC) return; STEPREC.stop(); oldStop(); bedOff(); mark(null); n.textContent='Stopped.'; };
+})();
+</script>
+</body></html>

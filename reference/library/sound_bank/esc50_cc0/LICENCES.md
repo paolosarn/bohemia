@@ -21,8 +21,12 @@ Nothing from a CC-BY, CC-BY-NC or Sampling+ source is in this folder; tools/bohe
 | 3-117504-A-16 | Wind | winter wind 01a.aiff | klangfabrik | http://www.freesound.org/people/klangfabrik/sounds/117504/ | CC0 |
 | 3-119459-A-26 | Laughing | Male Laughter.wav | Eneasz | http://www.freesound.org/people/Eneasz/sounds/119459/ | CC0 |
 | 3-154926-A-40 | Helicopter | London Exterior  helicopter passes overhead.mp3 | kerouac21 | http://www.freesound.org/people/kerouac21/sounds/154926/ | CC0 |
+| 3-249913-A-25 | Footsteps | walking slow on the street | hintringer | http://www.freesound.org/people/hintringer/sounds/249913/ | CC0 |
+| 3-94343-A-25 | Footsteps | Fotsteg p\xe5 asfalt.wav | Ryding | http://www.freesound.org/people/Ryding/sounds/94343/ | CC0 |
+| 3-94344-A-25 | Footsteps | Fotsteg p\xe5 grus.wav | Ryding | http://www.freesound.org/people/Ryding/sounds/94344/ | CC0 |
 | 3-96606-A-49 | Hand saw | Wood saw.wav | Ohrwurm | http://www.freesound.org/people/Ohrwurm/sounds/96606/ | CC0 |
 | 4-107120-A-33 | Door - wood creaks | CrDr_005.wav | tec studios | http://www.freesound.org/people/tec%20studios/sounds/107120/ | CC0 |
+| 4-117627-A-25 | Footsteps | footsteps - gravel pavement.wav | soundmary | http://www.freesound.org/people/soundmary/sounds/117627/ | CC0 |
 | 4-170078-A-1 | Rooster | Rooster at Max's.mp3 | dudermensch | http://www.freesound.org/people/dudermensch/sounds/170078/ | CC0 |
 | 4-173865-B-9 | Crow | ANML_M_Ext_Crows_Flock_Angry2.wav | conleec | http://www.freesound.org/people/conleec/sounds/173865/ | CC0 |
 | 4-181563-A-12 | Crackling fire | Fire Crackling 01.wav | kingsrow | http://www.freesound.org/people/kingsrow/sounds/181563/ | CC0 |

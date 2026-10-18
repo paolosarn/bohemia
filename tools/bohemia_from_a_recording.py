@@ -41,6 +41,7 @@ because EchoThief's real rooms are behind the same network wall):
   python3 tools/bohemia_from_a_recording.py            # renders everything, writes the manifest
   python3 tools/bohemia_from_a_recording.py --beds     # the beds and the far things only (10/18: the thinned desert beds)
   python3 tools/bohemia_from_a_recording.py --title    # the title candidates into slices/vote/title_heard/
+  python3 tools/bohemia_from_a_recording.py --steps    # the party's footsteps under travel into slices/vote/travel_steps/ (10/18)
   python3 tools/bohemia_from_a_recording.py --check    # re-reads the rendered files and verifies the pass criteria
 """
 import json, os, sys, subprocess, tempfile, math
@@ -376,6 +377,94 @@ TITLES = [
                dict(stem='5-219044-A-46', mode='once', at=19.0, db=-7.0, win=(1.56, 5.0), spd=0.5)]),
 ]
 
+# ----------------------------------------------------------------------------------------
+# THE STEPS UNDER TRAVEL (row [steps from a recording], 10/18). The party's footsteps on the map have
+# been the engine's modelled ones (TRAVELBED, 10/13, his YES on both). Here they start from microphones:
+# two recordings per surface, every footfall cut out of them on its own, so no two steps in a row are
+# the same. ASPHALT: Ryding's 'Fotsteg pa asfalt' and hintringer's 'walking slow on the street'. DIRT:
+# Ryding's 'Fotsteg pa grus' (the same recordist, the same shoes, on gravel) and soundmary's 'footsteps -
+# gravel pavement'. No sand (rule 32e): grit and gravel under a shoe. The road still plays twice the
+# dirt's cadence (his 'the road is faster', 10/5); the alpha lays each cut on the beat.
+# OUT: slices/vote/travel_steps/steps_<surface>.mp3, every cut in its own half-second slot (a sprite, one
+# fetch per surface), and manifest.json with each slot's offset and length.
+# ----------------------------------------------------------------------------------------
+STEPS_OUT = os.path.join(ROOT, 'slices', 'vote', 'travel_steps')
+STEP_SLOT = 0.5
+STEP_LEAD = 0.02
+STEPS = [
+  dict(surface='asphalt', title='THE ROAD: SHOES ON ASPHALT', what='real shoes on a real asphalt street, two recordists, each footfall cut out on its own',
+       sources=['3-94343-A-25', '3-249913-A-25'], keep=4, tail=0.22, tape=0.8, hi=7500, rms=-19.0),
+  dict(surface='dirt', title='THE DIRT: SHOES ON GRAVEL', what='real shoes on a real gravel track, two recordists, each footfall cut out on its own; grit, never sand',
+       sources=['3-94344-A-25', '4-117627-A-25'], keep=4, tail=0.38, tape=0.8, hi=6500, rms=-19.0),
+]
+
+def footfalls(x, dist=0.32, prom=8.0):
+    """Each footfall in a walking recording: a 150 Hz high-passed envelope smoothed at 25 Hz, its peaks at
+    least a third of a second apart; the cut starts where the envelope first came within 15 dB of the peak."""
+    b, a = signal.butter(2, 150 / (SR / 2), 'high'); y = signal.filtfilt(b, a, x)
+    b, a = signal.butter(2, 25 / (SR / 2)); e = signal.filtfilt(b, a, np.abs(y))
+    db = 20 * np.log10(np.maximum(e, 1e-7)); fl = float(np.percentile(db, 15))
+    pk, _ = signal.find_peaks(db, distance=int(dist * SR), prominence=prom)
+    out = []
+    for i in pk:
+        j = i
+        while j > 0 and db[j] > db[i] - 15 and i - j < int(0.12 * SR): j -= 1
+        out.append(dict(at=j / SR, peak=i / SR, prominence=round(float(db[i] - fl), 1)))
+    return out
+
+def render_steps(src):
+    os.makedirs(STEPS_OUT, exist_ok=True)
+    man = dict(_readme='THE STEPS UNDER TRAVEL, FROM A RECORDING (SOUNDS 10/18/26, row [steps from a recording]): every footfall here is cut out of a CC0 Freesound recording (via ESC-50) and goes through the chain (high-pass 120 Hz, tape, low-pass, a level). steps_<surface>.mp3 holds one cut per %.1f s slot; slots[i] is where cut i starts and how long it is. before_steps_<surface>.mp3 is the same cuts with nothing but the fades.' % STEP_SLOT,
+               made='10/18/26', lane='sounds', draft=True, slot_seconds=STEP_SLOT, surfaces={}, sources={})
+    for spec in STEPS:
+        cuts = []
+        for stem in spec['sources']:
+            x = load(stem)
+            every = footfalls(x); starts = [f['at'] for f in every]
+            ff = sorted(every, key=lambda f: -f['prominence'])
+            ff = [f for f in ff if f['at'] > 0.01 and f['at'] + spec['tail'] < len(x) / SR][:spec['keep']]
+            for f in sorted(ff, key=lambda f: f['at']):
+                # a cut never runs into the next footfall of the same walk (two steps in one slot is a double step)
+                nxt = min([t for t in starts if t > f['at'] + 0.05] or [len(x) / SR])
+                a = max(0.0, f['at'] - 0.008); b = min(a + spec['tail'], nxt - 0.012)
+                cuts.append((stem, round(a, 3), round(b, 3), f['prominence'], window(x, a, b, fi=0.003, fo=0.06)))
+        n = int(STEP_SLOT * SR) * len(cuts)
+        sprite = np.zeros(n, dtype=np.float32); before = np.zeros(n, dtype=np.float32); slots = []
+        for k, (stem, a, b, prom, y) in enumerate(cuts):
+            raw = y.copy()
+            y = hp(y, 120.0); y = tape(y, spec['tape']); y = lp(y, spec['hi'])
+            # one level for every cut, read off the loudest 30 ms (a footfall is heard by its hit, not by its
+            # average: measured 10/18, an rms target left the gravel cuts 9 dB apart once the peak cap bit)
+            w = int(0.03 * SR); e = np.convolve(y ** 2, np.ones(w) / w, 'same')
+            y = gain_db(y, spec['rms'] - 10 * math.log10(float(e.max()) + 1e-12))
+            if np.abs(y).max() > 10 ** (-3.0 / 20.0): y = norm_peak(y, -3.0)
+            y = window(y, 0, len(y) / SR, fi=0.002, fo=0.04)
+            at = k * STEP_SLOT + STEP_LEAD
+            place(sprite, y, at); place(before, norm_peak(raw, -3.0), at)
+            slots.append(dict(i=k, offset=round(at, 3), seconds=round(len(y) / SR, 3), stem=stem, window=[a, b], prominence_db=prom))
+        pk = write_mp3(os.path.join(STEPS_OUT, 'steps_' + spec['surface'] + '.mp3'), sprite, 96)
+        write_mp3(os.path.join(STEPS_OUT, 'before_steps_' + spec['surface'] + '.mp3'), before, 96)
+        man['surfaces'][spec['surface']] = dict(title=spec['title'], what=spec['what'], tape=spec['tape'], low_pass_hz=spec['hi'], hit_level_asked_db=spec['rms'],
+                                               per_beat=2 if spec['surface'] == 'asphalt' else 1, peak_db_after_mp3=round(pk, 2), slots=slots,
+                                               sources=[dict(stem=s_, freesound=src[s_]['url'], author=src[s_]['author'], licence=src[s_]['licence'], category=src[s_]['category'], source=src[s_]['source']) for s_ in spec['sources']])
+        for s_ in spec['sources']: man['sources'][s_] = src[s_]
+        print('%-8s %d cuts from %s, peak %.2f dB' % (spec['surface'], len(cuts), ', '.join(spec['sources']), pk))
+    json.dump(man, open(os.path.join(STEPS_OUT, 'manifest.json'), 'w'), indent=1)
+    write_licences(src)
+    return man
+
+def write_licences(src):
+    stems = sorted(src)
+    lines = ['# THE SOUND BANK: CC0 RECORDINGS (SOUNDS 10/17/26)', '',
+             'Every clip here is a five-second cut of a Freesound recording whose author released it under CC0 (public domain dedication).',
+             'The cuts were taken through ESC-50 (github.com/karolpiczak/ESC-50, the dataset as a compilation is CC BY-NC 3.0); before the game ships,',
+             'each original is re-pulled by its Freesound id below on a machine that can reach freesound.org, so the shipped file is the author\'s own.',
+             'Nothing from a CC-BY, CC-BY-NC or Sampling+ source is in this folder; tools/bohemia_from_a_recording.py refuses them.', '',
+             '| stem | category | source file | author | Freesound | licence |', '|---|---|---|---|---|---|']
+    for s in stems:
+        d = src[s]; lines.append('| %s | %s | %s | %s | %s | %s |' % (s, d['category'], d['source'], d['author'], d['url'], d['licence']))
+    open(os.path.join(BANK, 'LICENCES.md'), 'w').write('\n'.join(lines) + '\n')
+
 def count_calls(spec):
     """Animal calls a minute, by construction: the onsets inside each animal layer's window, times how
     often the bed plays that window. A loop plays its clip seconds/len times; a once plays once."""
@@ -495,7 +584,7 @@ def render_titles(src):
         write_mp3(os.path.join(TITLE_OUT, spec['id'] + '.mp3'), y, 96)
         write_mp3(os.path.join(TITLE_OUT, 'before_' + spec['id'] + '.mp3'), raw, 96)
         m = measure(y)
-        e = dict(id=spec['id'], title=spec['title'], what=spec['what'], room=spec.get('room'), wet=spec.get('wet', 0.0), rms_asked_db=spec['rms'],
+        e = dict(id=spec['id'], title=spec['title'], what=spec['what'], room=spec.get('room'), wet=spec.get('wet', 0.0), hit_level_asked_db=spec['rms'],
                  above_2k_db=band_db(y, 2000, 20000), above_4k_db=band_db(y, 4000, 20000),
                  sources=[dict(stem=L['stem'], db=L['db'], mode=L['mode'], speed=L.get('spd', 1.0), at=L.get('at', 0.0), freesound=src[L['stem']]['url'], author=src[L['stem']]['author'], licence=src[L['stem']]['licence'], category=src[L['stem']]['category']) for L in spec['layers']], **m)
         man['titles'].append(e)
@@ -505,9 +594,10 @@ def render_titles(src):
     return man
 
 def main(only=None):
-    stems = sorted({L['stem'] for s in RECIPE + EVENTS + TITLES for L in s['layers']} | {L['stem'] for b in BEDS for L in b['layers']})
+    stems = sorted({L['stem'] for s in RECIPE + EVENTS + TITLES for L in s['layers']} | {L['stem'] for b in BEDS for L in b['layers']} | {x for st in STEPS for x in st['sources']})
     src = freeze_sources(stems)
     if only == 'title': return render_titles(src)
+    if only == 'steps': return render_steps(src)
     os.makedirs(OUT, exist_ok=True)
     if only == 'beds':
         manifest = json.load(open(os.path.join(OUT, 'manifest.json')))
@@ -585,4 +675,4 @@ def check():
     return 1 if bad else 0
 
 if __name__ == '__main__':
-    sys.exit(check() if '--check' in sys.argv else (main('beds' if '--beds' in sys.argv else 'title' if '--title' in sys.argv else None) and 0))
+    sys.exit(check() if '--check' in sys.argv else (main('beds' if '--beds' in sys.argv else 'title' if '--title' in sys.argv else 'steps' if '--steps' in sys.argv else None) and 0))

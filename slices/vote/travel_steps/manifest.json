@@ -1,0 +1,281 @@
+{
+ "_readme": "THE STEPS UNDER TRAVEL, FROM A RECORDING (SOUNDS 10/18/26, row [steps from a recording]): every footfall here is cut out of a CC0 Freesound recording (via ESC-50) and goes through the chain (high-pass 120 Hz, tape, low-pass, a level). steps_<surface>.mp3 holds one cut per 0.5 s slot; slots[i] is where cut i starts and how long it is. before_steps_<surface>.mp3 is the same cuts with nothing but the fades.",
+ "made": "10/18/26",
+ "lane": "sounds",
+ "draft": true,
+ "slot_seconds": 0.5,
+ "surfaces": {
+  "asphalt": {
+   "title": "THE ROAD: SHOES ON ASPHALT",
+   "what": "real shoes on a real asphalt street, two recordists, each footfall cut out on its own",
+   "tape": 0.8,
+   "low_pass_hz": 7500,
+   "hit_level_asked_db": -19.0,
+   "per_beat": 2,
+   "peak_db_after_mp3": -5.23,
+   "slots": [
+    {
+     "i": 0,
+     "offset": 0.02,
+     "seconds": 0.22,
+     "stem": "3-94343-A-25",
+     "window": [
+      1.35,
+      1.57
+     ],
+     "prominence_db": 20.1
+    },
+    {
+     "i": 1,
+     "offset": 0.52,
+     "seconds": 0.22,
+     "stem": "3-94343-A-25",
+     "window": [
+      2.435,
+      2.655
+     ],
+     "prominence_db": 19.2
+    },
+    {
+     "i": 2,
+     "offset": 1.02,
+     "seconds": 0.22,
+     "stem": "3-94343-A-25",
+     "window": [
+      3.554,
+      3.774
+     ],
+     "prominence_db": 20.7
+    },
+    {
+     "i": 3,
+     "offset": 1.52,
+     "seconds": 0.22,
+     "stem": "3-94343-A-25",
+     "window": [
+      4.675,
+      4.895
+     ],
+     "prominence_db": 19.9
+    },
+    {
+     "i": 4,
+     "offset": 2.02,
+     "seconds": 0.22,
+     "stem": "3-249913-A-25",
+     "window": [
+      0.665,
+      0.885
+     ],
+     "prominence_db": 17.3
+    },
+    {
+     "i": 5,
+     "offset": 2.52,
+     "seconds": 0.22,
+     "stem": "3-249913-A-25",
+     "window": [
+      1.513,
+      1.733
+     ],
+     "prominence_db": 18.5
+    },
+    {
+     "i": 6,
+     "offset": 3.02,
+     "seconds": 0.22,
+     "stem": "3-249913-A-25",
+     "window": [
+      2.359,
+      2.579
+     ],
+     "prominence_db": 20.0
+    },
+    {
+     "i": 7,
+     "offset": 3.52,
+     "seconds": 0.22,
+     "stem": "3-249913-A-25",
+     "window": [
+      3.198,
+      3.418
+     ],
+     "prominence_db": 17.3
+    }
+   ],
+   "sources": [
+    {
+     "stem": "3-94343-A-25",
+     "freesound": "http://www.freesound.org/people/Ryding/sounds/94343/",
+     "author": "Ryding",
+     "licence": "CC0",
+     "category": "Footsteps",
+     "source": "Fotsteg p\\xe5 asfalt.wav"
+    },
+    {
+     "stem": "3-249913-A-25",
+     "freesound": "http://www.freesound.org/people/hintringer/sounds/249913/",
+     "author": "hintringer",
+     "licence": "CC0",
+     "category": "Footsteps",
+     "source": "walking slow on the street"
+    }
+   ]
+  },
+  "dirt": {
+   "title": "THE DIRT: SHOES ON GRAVEL",
+   "what": "real shoes on a real gravel track, two recordists, each footfall cut out on its own; grit, never sand",
+   "tape": 0.8,
+   "low_pass_hz": 6500,
+   "hit_level_asked_db": -19.0,
+   "per_beat": 1,
+   "peak_db_after_mp3": -3.42,
+   "slots": [
+    {
+     "i": 0,
+     "offset": 0.02,
+     "seconds": 0.38,
+     "stem": "3-94344-A-25",
+     "window": [
+      0.47,
+      0.85
+     ],
+     "prominence_db": 20.4
+    },
+    {
+     "i": 1,
+     "offset": 0.52,
+     "seconds": 0.38,
+     "stem": "3-94344-A-25",
+     "window": [
+      1.221,
+      1.601
+     ],
+     "prominence_db": 18.1
+    },
+    {
+     "i": 2,
+     "offset": 1.02,
+     "seconds": 0.305,
+     "stem": "3-94344-A-25",
+     "window": [
+      3.77,
+      4.075
+     ],
+     "prominence_db": 19.7
+    },
+    {
+     "i": 3,
+     "offset": 1.52,
+     "seconds": 0.38,
+     "stem": "3-94344-A-25",
+     "window": [
+      4.079,
+      4.459
+     ],
+     "prominence_db": 18.1
+    },
+    {
+     "i": 4,
+     "offset": 2.02,
+     "seconds": 0.38,
+     "stem": "4-117627-A-25",
+     "window": [
+      0.465,
+      0.845
+     ],
+     "prominence_db": 30.4
+    },
+    {
+     "i": 5,
+     "offset": 2.52,
+     "seconds": 0.38,
+     "stem": "4-117627-A-25",
+     "window": [
+      1.395,
+      1.775
+     ],
+     "prominence_db": 26.1
+    },
+    {
+     "i": 6,
+     "offset": 3.02,
+     "seconds": 0.38,
+     "stem": "4-117627-A-25",
+     "window": [
+      2.842,
+      3.222
+     ],
+     "prominence_db": 29.1
+    },
+    {
+     "i": 7,
+     "offset": 3.52,
+     "seconds": 0.38,
+     "stem": "4-117627-A-25",
+     "window": [
+      3.739,
+      4.119
+     ],
+     "prominence_db": 33.0
+    }
+   ],
+   "sources": [
+    {
+     "stem": "3-94344-A-25",
+     "freesound": "http://www.freesound.org/people/Ryding/sounds/94344/",
+     "author": "Ryding",
+     "licence": "CC0",
+     "category": "Footsteps",
+     "source": "Fotsteg p\\xe5 grus.wav"
+    },
+    {
+     "stem": "4-117627-A-25",
+     "freesound": "http://www.freesound.org/people/soundmary/sounds/117627/",
+     "author": "soundmary",
+     "licence": "CC0",
+     "category": "Footsteps",
+     "source": "footsteps - gravel pavement.wav"
+    }
+   ]
+  }
+ },
+ "sources": {
+  "3-94343-A-25": {
+   "category": "Footsteps",
+   "source": "Fotsteg p\\xe5 asfalt.wav",
+   "url": "http://www.freesound.org/people/Ryding/sounds/94343/",
+   "author": "Ryding",
+   "licence": "CC0",
+   "file": "3-94343-A-25.wav",
+   "freesound_id": "94343"
+  },
+  "3-249913-A-25": {
+   "category": "Footsteps",
+   "source": "walking slow on the street",
+   "url": "http://www.freesound.org/people/hintringer/sounds/249913/",
+   "author": "hintringer",
+   "licence": "CC0",
+   "file": "3-249913-A-25.wav",
+   "freesound_id": "249913"
+  },
+  "3-94344-A-25": {
+   "category": "Footsteps",
+   "source": "Fotsteg p\\xe5 grus.wav",
+   "url": "http://www.freesound.org/people/Ryding/sounds/94344/",
+   "author": "Ryding",
+   "licence": "CC0",
+   "file": "3-94344-A-25.wav",
+   "freesound_id": "94344"
+  },
+  "4-117627-A-25": {
+   "category": "Footsteps",
+   "source": "footsteps - gravel pavement.wav",
+   "url": "http://www.freesound.org/people/soundmary/sounds/117627/",
+   "author": "soundmary",
+   "licence": "CC0",
+   "file": "4-117627-A-25.wav",
+   "freesound_id": "117627"
+  }
+ }
+}
