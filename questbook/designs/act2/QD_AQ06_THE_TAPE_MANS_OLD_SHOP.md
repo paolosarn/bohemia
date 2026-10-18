@@ -7,21 +7,22 @@ PLACE: a town-tier settlement in the old arts district, the hall is a print shop
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE16 THE TABLE ON THE THIRD FLOOR (the arts district, the same evening).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 23 (lost fight unstated) and 32 (tearing up the deed was free, kind and paid in full) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 23 (lost fight unstated) and 32 (tearing up the deed was free, kind and paid in full) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The tape-man (act 1) is old now and stayed at a held base. His act-2 heir, his niece, wants his old shop back from a family who moved into it during the bad years and repaired it well. The client is the niece. The other side is not a villain.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the arts district town; the hall (the print shop).
-- CLIENT PORTRAIT: THE NIECE (the tape-man's heir) is the client. A wrench on her belt that was her uncle's.
-- THE SCREEN'S LINES: "My uncle's shop. Corner of the arts block. A family's in it." / "I have the deed. They have the roof they fixed." / "Make them leave. Or make them a deal. 15 batteries."
-- PAY: 15 BATTERIES and 3 TAPE. SKULLS: 1. The fee is locked before the yes.
-- NEGOTIATION: One "more" (17). No advance.
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp. The arts district town; the hall (the print shop) is not used for this job.
+- THE THING, BEFORE: her uncle's wrench rides on the niece's belt in the camp picture for three nights (QR-AV rule 3, `Q108.W1`: the ask comes after the nights, never cold).
+- THE FIRE: The niece lays the wrench across her knees. The portrait shown is the one talking.
+- THE LINES AT THE FIRE (a story, then the thing and the place, then the ask; QR-AV line 33): "My uncle paid me a dollar a day to sweep his shop, back when a dollar was a dollar." / "Corner of the arts block. A family's in it now." / "Make them leave, or make them a deal."
+- THE BUTTONS (the price is on the button, never in the mouth): [THE SHOP: 15 BATTERIES and 3 TAPE, from her pocket] / [NOT THIS TIME]. SKULLS: 1. The fee is locked on the button before the yes. No haggle and no advance: a friend's price is what they have (`Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+- THE MAP: the shop on the arts block lights with the wrench as its mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "I have the deed. They have the roof they fixed."
+First line after the yes (at the same fire): "I have the deed. They have the roof they fixed."
 
 ## THE CHOICES
 A. EVICT: a short fight with their two hired guards; routine; the family leaves.
@@ -44,5 +45,5 @@ The family's child is already wearing her uncle's welding glasses.
 - `Q081.W6`: moderation can be complicity.
 
 ## FLAWS IT AVOIDS
-- `Q125.X10`: the request can be questioned on the screen.
+- `Q125.X10`: the request can be questioned at the door: tearing up the deed is a road (C).
 - `Q132.X8`: no approval meter to please.

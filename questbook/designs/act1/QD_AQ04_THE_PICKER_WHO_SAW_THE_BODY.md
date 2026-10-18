@@ -7,21 +7,22 @@ PLACE: a camp-tier settlement in a strip mall, the hall is a nail salon
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE19 THE CATTLE IN THE INTAKE (the same northern road where the Destroyer scouts ride).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 31 (every road ran through the Destroyer fight) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 31 (every road ran through the Destroyer fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The picker scavenged a fight site and found a dead woman wearing a company armband from a base the Destroyers burned. He kept her ring. Now the dead woman's sister is in the hall offering a job: find who killed her and bring back her things.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the strip mall camp; the hall (the nail salon, the chairs still bolted).
-- CLIENT PORTRAIT: The client is the sister. THE PICKER stands beside her with his hand in his pocket.
-- THE SCREEN'S LINES: SISTER: "My sister went north with a crew. None came back." / SISTER: "Find where. Bring me anything of hers." / PICKER: "...I might already know where."
-- PAY: 8 BATTERIES and 3 RATIONS of FOOD. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (10). Advance: 3 FOOD.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a woman's ring on a bootlace round the picker's neck in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The picker takes the ring off the lace, sets it on a flat stone, and does not look at it. "North of here, after the Destroyers burned that base, I picked a dead woman. Company armband." / "I kept her ring. Her sister's asking at the nail salon." / "Take the sister's job. I'll show you where." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the strip mall camp carries the ring as its mark, so at the hall the player knows which job is the picker's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the picker is not on it, `Q108.P3`): SETTLEMENT: the strip mall camp; the hall (the nail salon, the chairs still bolted). CLIENT PORTRAIT: the sister. THE SCREEN'S LINES: "My sister went north with a crew. None came back." / "Find where. Bring me anything of hers." PAY: 8 BATTERIES and 3 RATIONS of FOOD. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: One "more" (10). Advance: 3 FOOD.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "I might already know where."
+First line after the yes (the picker, at the next fire): "...I might already know where."
 
 ## THE CHOICES
 A. GIVE THE RING NOW: the picker hands it over at accept; the job becomes a short clear of the Destroyer scouts who did it, routine.

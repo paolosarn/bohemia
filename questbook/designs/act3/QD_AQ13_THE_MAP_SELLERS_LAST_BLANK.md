@@ -7,21 +7,22 @@ PLACE: a town-tier settlement at the north solar fields, the hall is a surveyor'
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE02 THE HYENAS UNDER THE LAUNCH FENCE (the same hyena range).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (the seal had no stated price), 23 (lost fight unstated) and 30 (drawing without killing paid 20 of 35) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (the seal had no stated price), 23 (lost fight unstated) and 30 (drawing without killing paid 20 of 35) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 Three generations of map-sellers drew the valley. One square has always been blank: a sealed lab annex at the fossil beds where the beasts came from. The act-3 map-seller wants it drawn. The solar co-op wants the annex cleared of the sabre-tooth that dens there.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the solar fields town; the hall (the trailer).
-- CLIENT PORTRAIT: The client is the co-op foreman. THE MAP-SELLER stands beside him with the family map, one square empty.
-- THE SCREEN'S LINES: FOREMAN: "Something big dens in the old lab annex. It took two panels and a man." / FOREMAN: "35 batteries." / MAP-SELLER: "My grandfather never drew that square. I will."
-- PAY: 35 BATTERIES and 6 MEDS. SKULLS: 3. The fee is locked before the yes.
-- NEGOTIATION: Two "mores" (38, 41). Advance: 10 BATTERIES.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: the family map, rolled, rides in the map-seller's arms in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The map-seller unrolls the family map by the fire, one square empty. "My grandfather drew this valley on a bedsheet. He left one square white and never said why." / "It's the old lab annex at the fossil beds. Something dens there." / "When the co-op's foreman posts it, I'm drawing that square." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the solar fields town carries the rolled map as its mark, so at the hall the player knows which job is the map-seller's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the map-seller is not on it, `Q108.P3`): SETTLEMENT: the solar fields town; the hall (the trailer). CLIENT PORTRAIT: the co-op foreman. THE SCREEN'S LINES: "Something big dens in the old lab annex. It took two panels and a man." / "35 batteries." PAY: 35 BATTERIES and 6 MEDS. SKULLS: 3. The fee is locked before the yes. NEGOTIATION: Two "mores" (38, 41). Advance: 10 BATTERIES.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "My grandfather never drew that square."
+First line after the yes (the map-seller, at the next fire): "My grandfather never drew that square."
 
 ## THE CHOICES
 A. HUNT: a tough beast fight, the sabre-tooth and two hyenas, 10 to 12 minutes.

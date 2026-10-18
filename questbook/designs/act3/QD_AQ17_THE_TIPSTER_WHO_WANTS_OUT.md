@@ -7,21 +7,22 @@ PLACE: a town-tier settlement at a truck stop on the west road, the hall is a di
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE05 THE SEED TRUCK UP THE TOWER ROAD (the caravan she would have tipped).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 30 (warning them paid half) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 30 (warning them paid half) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The tipster's heir grew up on caravan tips. In act 3 caravans are guarded and honest. She wants out of the old trade, and the last crew she tipped for wants her back for one job. The truck stop posts a clear job on that crew.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the truck stop; the hall (the diner booth).
-- CLIENT PORTRAIT: The client is the truck stop owner. THE TIPSTER'S HEIR sits in the booth beside him.
-- THE SCREEN'S LINES: OWNER: "A crew hits the west caravans. Clear them." / OWNER: "24 batteries and water." / HEIR: "They're waiting for my call. I'm not calling."
-- PAY: 24 BATTERIES and 6 WATER. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (27). Advance: 6 BATTERIES.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a handheld radio with a channel number on masking tape is clipped to the heir's collar in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The tipster's heir sets the radio on the sand, switched off. "My mother taught me to tip caravans from a diner booth with this. I counted trucks before I could read." / "The last crew I tipped for hits the west caravans. They're waiting for my call." / "The truck stop's posting a job on them. Take it." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the truck stop carries the radio as its mark, so at the hall the player knows which job is the tipster's heir's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the tipster's heir is not on it, `Q108.P3`): SETTLEMENT: the truck stop; the hall (the diner booth). CLIENT PORTRAIT: the truck stop owner, alone in the booth. THE SCREEN'S LINES: "A crew hits the west caravans. Clear them." / "24 batteries and water." PAY: 24 BATTERIES and 6 WATER. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: One "more" (27). Advance: 6 BATTERIES.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "I'm not calling."
+First line after the yes (the tipster's heir, at the next fire): "I'm not calling."
 
 ## THE CHOICES
 A. CLEAR: a fight at their camp, routine.

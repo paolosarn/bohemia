@@ -7,21 +7,23 @@ PLACE: a home base shed (act 1) that becomes a vehicle bay (act 3)
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE20 THE BOLT OF BLACK WOOL (an across job on the same north pass).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 and 30 (letting them go had no price and only the cruel road paid), 18 (no read if act 1 never ran) and 23 (lost fight unstated) fixed in place)
+DOOR: camp (act 1); hall, then camp (act 3)
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 and 30 (letting them go had no price and only the cruel road paid), 18 (no read if act 1 never ran) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp (act 1); hall, then camp (act 3)), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The driver's cart is stolen in act 1 by a family that needs it to leave the valley. In act 3, the family's grandson shows up at your home base with the cart restored, to sell it back. The act-1 job is to chase it; the act-3 job is his.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the home base; the hall (the shed, later the bay).
-- CLIENT PORTRAIT: Act 1: THE DRIVER is the client. Act 3: the family's grandson, with THE DRIVER'S HEIR beside him.
-- THE SCREEN'S LINES: ACT 1, DRIVER: "My cart. A family. Heading for the north pass." / ACT 3, GRANDSON: "My grandmother took this from your family. I brought it back." / ACT 3, GRANDSON: "I need an escort out of the valley. 20 batteries, and it's yours."
-- PAY: Act 1: 8 BATTERIES. Act 3: the cart and 20 BATTERIES. SKULLS: 1 each. The fee is locked before the yes.
-- NEGOTIATION: Act 3: the grandson takes no "more": "It's a gift with a job on it."
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP IN ACT 1; THE HALL, THEN THE CAMP, IN ACT 3 (QR-AV)
+- DOOR: act 1, camp (the driver's own job, no hall card); act 3, hall (the grandson is a stranger and keeps the home base's bay), then camp (the driver's heir's own part).
+- THE THING, BEFORE (act 1): the shed's empty bay is in the camp picture the morning the cart is gone, and the ask comes at that night's fire; a theft cannot wait three nights, so the empty place is the thing (`Q010.W9`).
+- THE FIRE, ACT 1: the driver holds the cart's empty harness. "My father built that cart out of a pickup bed the year the gas ran out." / "A family took it in the night. They're heading for the north pass." / "Bring it back." THE BUTTONS (the price on the button, never in the mouth; QR-AV line 33): [CHASE THEM: 8 BATTERIES from his pay] / [NOT THIS TIME]. SKULLS: 1. The fee is locked on the button before the yes; no haggle and no advance (`Q236.X3`).
+- THE HALL, ACT 3 (the stranger's own card, the stranger alone, `Q108.P3`): SETTLEMENT: the home base; the hall (the bay). CLIENT PORTRAIT: the family's grandson. THE SCREEN'S LINES: "My grandmother took this from your family. I brought it back." / "I need an escort out of the valley. 20 batteries, and it's yours." PAY: the cart and 20 BATTERIES. SKULLS: 1. The fee is locked before the yes. NEGOTIATION: the grandson takes no "more": "It's a gift with a job on it."
+- THE FIRE, ACT 3 (the first night after the grandson arrives): the driver's heir runs a thumb over the tag on the axle. "Grandpa talked about that cart every night. The pickup bed, the year the gas ran out." / "That's his tag on the axle." / "Whatever you do with it, let me drive it once." One button, [SLEEP] (`Q043.X1`).
+- ACCEPT / DECLINE, both acts. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+- THE MAP: act 1, the north pass road lights with the harness as its mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "My cart."
+First line after the yes (act 1, the driver, at the same fire): "My cart."
 
 ## THE CHOICES
 A. ACT 1: chase them down, routine.

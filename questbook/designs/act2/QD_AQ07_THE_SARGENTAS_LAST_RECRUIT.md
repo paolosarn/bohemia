@@ -7,21 +7,22 @@ PLACE: a village-tier settlement in a tract-home cul-de-sac, the hall is a garag
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE18 ONE NIGHT AT THE PUMP HOUSE (the quarry crew uses the pump-house road).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (the recruit was paid on top of the talk road) and 31 (every road ended in a fight) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (the recruit was paid on top of the talk road) and 31 (every road ended in a fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 La Sargenta was a fighter who retired with a lasting injury and became the drill sergeant. She hears that a kid she trained in act 1, now grown (met only now, rule 84), leads a raider crew that hits this village. The village posts a clear job. She asks to come along to talk first.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the cul-de-sac village; the hall (the garage).
-- CLIENT PORTRAIT: The client is the village's block captain. LA SARGENTA stands beside him, leaning on her cane.
-- THE SCREEN'S LINES: CAPTAIN: "A crew from the quarry hits us every ten days. Clear them." / CAPTAIN: "14 batteries and rounds." / SARGENTA: "Their boss learned to hold a rifle from me. Let me talk to him first."
-- PAY: 14 BATTERIES and 6 ROUNDS. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (16). Advance: 4 ROUNDS.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a folded paper target with five holes in it rides in La Sargenta's breast pocket in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): La Sargenta unfolds the target on her knee, leaning on her cane. "When he was a kid he put five rounds in this paper. All elbows." / "He runs the quarry crew now. They hit the cul-de-sac every ten days." / "When the block captain posts them, take it, and take me." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the cul-de-sac village carries the target as its mark, so at the hall the player knows which job is La Sargenta's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; La Sargenta is not on it, `Q108.P3`): SETTLEMENT: the cul-de-sac village; the hall (the garage). CLIENT PORTRAIT: the village's block captain. THE SCREEN'S LINES: "A crew from the quarry hits us every ten days. Clear them." / "14 batteries and rounds." PAY: 14 BATTERIES and 6 ROUNDS. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: One "more" (16). Advance: 4 ROUNDS.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Let me talk to him first."
+First line after the yes (La Sargenta, at the next fire): "Let me talk to him first."
 
 ## THE CHOICES
 A. SHE TALKS: costs a night; half the crew stands down; the fight is against 4, routine.

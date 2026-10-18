@@ -7,21 +7,22 @@ PLACE: a city-tier settlement downtown, the hall is a casino cage
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE08 THE THIEF IN THE RATION LINE (the same downtown loop).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one way in), 23 (lost fight unstated), 30 (the read paid more and the burn was taxed) and 32 (the free read was the obvious pick) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one way in), 23 (lost fight unstated), 30 (the read paid more and the burn was taxed) and 32 (the free read was the obvious pick) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
-The bookkeeper kept a second ledger for a faction before he joined the company: who borrowed batteries, who never paid back. The faction is hiring someone to steal it from his old office before the whisper broadcast exposes it. He stands beside the faction's man and says nothing until the end.
+The bookkeeper kept a second ledger for a faction before he joined the company: who borrowed batteries, who never paid back. The faction is hiring someone to steal it from his old office before the whisper broadcast exposes it. He tells it at the fire the night before; at the hall the cashier is alone.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the downtown city; the hall (the casino cage).
-- CLIENT PORTRAIT: The client is the faction's cashier. THE BOOKKEEPER stands beside him, looking at the floor.
-- THE SCREEN'S LINES: CASHIER: "A ledger in a back office on Fremont. Bring it to us." / CASHIER: "25 batteries. Nobody reads it." / BOOKKEEPER: "I wrote it. Every line. Ask me what's in it after."
-- PAY: 25 BATTERIES. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: Two "mores" (27, 29), then the cashier withdraws. Advance: 8 BATTERIES.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a green ribbon bookmark is tied round the bookkeeper's pencil in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The bookkeeper unties the ribbon and lays it on his knee. "Before you, I kept a second book for the cage on Fremont. Who borrowed, who never paid." / "The whisper broadcast wants it. The faction's cashier is hiring to get it first." / "Take it if he offers. Ask me what's in it after." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the downtown city carries the ribbon as its mark, so at the hall the player knows which job is the bookkeeper's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the bookkeeper is not on it, `Q108.P3`): SETTLEMENT: the downtown city; the hall (the casino cage). CLIENT PORTRAIT: the faction's cashier. THE SCREEN'S LINES: "A ledger in a back office on Fremont. Bring it to us." / "25 batteries. Nobody reads it." PAY: 25 BATTERIES. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: Two "mores" (27, 29), then the cashier withdraws. Advance: 8 BATTERIES.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "I wrote it. Every line."
+First line after the yes (the bookkeeper, at the next fire): "I wrote it. Every line."
 
 ## THE CHOICES
 A. DELIVER: the faction gets it; paid in full.

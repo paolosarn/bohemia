@@ -7,21 +7,22 @@ PLACE: a city-tier settlement around a dead data center, the hall is a server-ro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE03 THE PAPER BACKUPS (the same racks, the same night).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (destroying her drive paid 15 of 22) and 31 (every road ran through the guard machines) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated), 30 (destroying her drive paid 15 of 22) and 31 (every road ran through the guard machines) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 As the Network crumbles, a data center offers jobs to recover drives before they fail. One drive holds the scan of the first medic (act 1), uploaded without consent when she died. Her apprentice's apprentice, the act-3 medic, wants the drive destroyed. The archive wants it kept.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the data-center city; the hall (the server lobby).
-- CLIENT PORTRAIT: The client is the archivist. THE ACT-3 MEDIC stands beside him and does not shake his hand.
-- THE SCREEN'S LINES: ARCHIVIST: "Drives in rack nine are failing. Pull them before the guards do." / ARCHIVIST: "22 batteries, 4 meds." / MEDIC: "One of those drives has my teacher's teacher in it. She never signed."
-- PAY: 22 BATTERIES and 4 MEDS. SKULLS: 3. The fee is locked before the yes.
-- NEGOTIATION: One "more" (25). No advance.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a hospital wristband, a name in faded marker, rides on the medic's wrist in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The act-3 medic slips the wristband off and sets it on the stone at the fire's edge. "My teacher's teacher died on a cot at the wash. They scanned her before they covered her." / "The data center is pulling drives from rack nine. Hers is one of them." / "If the archivist posts it, I want that drive." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the data-center city carries the wristband as its mark, so at the hall the player knows which job is the act-3 medic's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the act-3 medic is not on it, `Q108.P3`): SETTLEMENT: the data-center city; the hall (the server lobby). CLIENT PORTRAIT: the archivist. THE SCREEN'S LINES: "Drives in rack nine are failing. Pull them before the guards do." / "22 batteries, 4 meds." PAY: 22 BATTERIES and 4 MEDS. SKULLS: 3. The fee is locked before the yes. NEGOTIATION: One "more" (25). No advance.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "She never signed."
+First line after the yes (the act-3 medic, at the next fire): "She never signed."
 
 ## THE CHOICES
 A. PULL AND DELIVER: a fight against the data center's guard machines, tough, 10 minutes.

@@ -7,20 +7,21 @@ PLACE: Railroad Pass, the old truck scale on US-93, where the Mob's collector we
 STATUS: draft:true, research only, nothing built (rule 35). Names, lines and numbers are attempts; Paolo's to change. TUNING owns every number.
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QR-AS's Railroad Pass stop (the collector at the scale, pay by weight); the same road, the same man.
-CHECKLIST: not yet run (owed). Stamped owed at birth by QR-AT's rule; only a later line-by-line round may write "passes all 32".
+DOOR: camp
+CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 8, 33; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION
 Act 2. Lalo is a veteran who deserted the Mob in act 1 to join the company. His older brother, Gil, is the Mob's collector at the Railroad Pass scale. Gil has not seen Lalo in eight years. The Mob still has a price on deserters.
 
 ## THE PERSON, THE PLACE, THE THING (never a card)
-At camp Lalo looks at the map, not at you. LALO: "The scale house. My brother weighs the carts." / LALO: "I want to cross it with my face showing." / LALO: "If he lets us through, the toll is free. If not, I pay it. 8."
+At camp Lalo sets a brass scale chit on the map, the Mob's weight tag he has worn on his belt since he deserted (QR-AV, QR-AU rule 2: the veteran's thing was missing), and looks at the map, not at you. LALO: "Gil taught me to drive a cart on the pass road. He sat on the tailgate and yelled the whole way." / LALO: "He weighs the carts at the scale house now, for the Mob." / LALO: "I want to cross it with my face showing." The price is on the button: [CROSS WITH HIS FACE SHOWING: if Gil waves you through the toll is free; if not, Lalo pays the 8] / [NOT THIS TIME] (QR-AV line 33).
 - THE WANT, ONE LINE: Lalo wants his brother to see him; Gil wants to keep his post.
 - PAY: If Gil waves you through: the toll saved (about 8 batteries by weight). If not, Lalo pays 8 himself. SKULLS: 2. Declining is free and writes nothing.
 
 ## THE CHOICES
 A. CROSS WITH HIS FACE SHOWING: Lalo rides on top of the cart. Gil weighs it, looks up, writes '0' and waves. Three lines between them.
 B. GO AROUND: the bypass priced in hours from QR-AS (half a day); Lalo watches the scale house through binoculars and says nothing for the rest of the night.
-C. GIL COMES WITH YOU: Gil asks to leave the Mob too. The Mob sends two men after him on the next leg; talk them down with the price on his head (12 batteries) or a fight on four house tiles.
+C. GIL COMES WITH YOU: Gil asks to leave the Mob too. Two Mob men come out of the scale house before the cart rolls off, at the same block (QR-AV, line 8: they came on the next leg, a second leg, `Q095.X2`, `Q079.X1`); talk them down with the price on his head (12 batteries) or a fight on four house tiles.
 D. HIDE HIM (`Q131.X7`): Lalo rides under a tarp; the toll is paid by weight; nobody sees anyone.
 IF THE FIGHT IS LOST (`Q095.X3`, `Q093.X2`): the Mob men take Gil back to the scale; next pass, Gil is at the scale with a bruised face and charges double, and he does not look up.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36); a veteran of about 20 fights dies at 10% (the third votes). Followers never fight.
@@ -36,7 +37,7 @@ The scale reads the company's weight before the cart rolls on. Gil wrote it in t
 the Railroad Pass scale house picture (shared with QR-AS's stop); Gil's portrait from the same family face as Lalo's (A FAMILY LOOKS LIKE A FAMILY). PORTRAIT, COOK FOUR. Made the rig way (rule 115) for every person and thing; the places from the packs (rule 115b).
 
 ## SOUND NEEDED (the sound; for SOUNDS, from real material, no sand)
-a truck scale's beam settling (a long creak and a clack); the collector's window sliding open.
+a truck scale's beam settling (a long creak and a clack); the collector's window sliding open; a brass chit dropped on a map table.
 
 ## CITED FROM
 - `Q201.W3`: every road is a betrayal of someone.

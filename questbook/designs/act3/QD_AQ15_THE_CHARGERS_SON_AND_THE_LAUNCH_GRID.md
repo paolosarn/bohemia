@@ -7,21 +7,22 @@ PLACE: a town-tier settlement at the dam, the hall is the turbine control room
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ14 WHO CARRIES THE BAG UP (both feed the same launch).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The launch needs a surge from the dam grid. The charger's son runs the company's batteries; his mother (the act-1 charger) wired the line he must now reroute. A faction holds the switchyard and wants a price. The son brings the offer himself.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the dam town; the hall (the control room).
-- CLIENT PORTRAIT: THE CHARGER'S SON is the client, his mother's crimping tool on a lanyard.
-- THE SCREEN'S LINES: "My mother wired the switchyard in the bad years. Nobody else can read her tags." / "The faction holds it. I can reroute in an hour if you hold the yard." / "25 batteries. Ha. I literally make them."
-- PAY: 25 BATTERIES and 6 ROUNDS. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (28). Advance: 8 BATTERIES.
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp. The dam town; the hall (the control room) is not used for this job.
+- THE THING, BEFORE: his mother's crimping tool hangs on a lanyard round the son's neck in the camp picture for three nights (QR-AV rule 3, `Q108.W1`: the ask comes after the nights, never cold).
+- THE FIRE: The charger's son sets the crimping tool on a battery case. The portrait shown is the one talking.
+- THE LINES AT THE FIRE (a story, then the thing and the place, then the ask; QR-AV line 33): "My mother wired the switchyard in the bad years, at night, me holding the spool." / "The faction holds it now, and nobody else can read her tags." / "Hold the yard an hour and I reroute it."
+- THE BUTTONS (the price is on the button, never in the mouth): [HOLD THE YARD: 25 BATTERIES and 6 ROUNDS, from his own charge] / [NOT THIS TIME]. SKULLS: 2. The fee is locked on the button before the yes. No haggle and no advance: a friend's price is what they have (`Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+- THE MAP: the switchyard at the dam lights with the crimping tool as its mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Nobody else can read her tags."
+First line after the yes (at the same fire): "25. Ha. I literally make them."
 
 ## THE CHOICES
 A. HOLD THE YARD: a hold job on three house tiles for one hour of map time, 5 minutes of fight.

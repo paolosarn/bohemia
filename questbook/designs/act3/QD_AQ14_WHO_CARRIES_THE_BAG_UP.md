@@ -7,21 +7,22 @@ PLACE: a city-tier settlement at the launch site on the dry lake, the hall is a 
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE01 THE CHILLED TANKERS TO THE DRY LAKE (the same road to the pad).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one way through), 12 (no priced refusal) and 23 (lost fight unstated) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one way through), 12 (no priced refusal) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
-The rocket has room for one medic's kit and one person to use it. The mission tent posts a job: escort the last medical crate from the clinic city to the pad. The company's medic stands beside the mission chief; she wants to know if she is the one going up.
+The rocket has room for one medic's kit and one person to use it. The mission tent posts a job: escort the last medical crate from the clinic city to the pad. The company's medic tells it at the fire; at the tent the chief is alone. She wants to know if she is the one going up.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the launch site; the hall (the mission tent).
-- CLIENT PORTRAIT: The client is the mission chief. THE MEDIC stands beside her.
-- THE SCREEN'S LINES: CHIEF: "The last medical crate. Clinic city to the pad. Two days." / CHIEF: "40 batteries, 10 meds." / MEDIC: "Whose hands go up with it? Ask me after."
-- PAY: 40 BATTERIES and 10 MEDS. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (44). Advance: 15 BATTERIES.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: her kit, packed and repacked, sits at the medic's feet in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The medic packs her kit by the fire and unpacks it again. "My first patient was a boy with a nail through his foot. I cried more than he did." / "The rocket has room for one kit and one pair of hands. The chief is posting the crate run." / "Take the crate job. Ask me after." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the launch site carries the kit as its mark, so at the hall the player knows which job is the medic's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the medic is not on it, `Q108.P3`): SETTLEMENT: the launch site; the hall (the mission tent). CLIENT PORTRAIT: the mission chief. THE SCREEN'S LINES: "The last medical crate. Clinic city to the pad. Two days." / "40 batteries, 10 meds." PAY: 40 BATTERIES and 10 MEDS. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: One "more" (44). Advance: 15 BATTERIES.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Whose hands go up with it?"
+First line after the yes (the medic, at the next fire): "Whose hands go up with it?"
 
 ## THE CHOICES
 A. ESCORT: a haul with one road ambush, routine. (QR-AT, line 9: the leg had one way through, `Q087.X4`, `Q084.X2`.) Or the clinic's night convoy road, a day longer and no ambush (the chief says it runs Tuesdays), or pay the ambushers' toll, 6 BATTERIES at the bridge.

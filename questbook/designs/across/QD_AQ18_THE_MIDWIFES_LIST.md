@@ -7,21 +7,22 @@ PLACE: a camp-tier clinic tent (act 1) that becomes a hospital floor in the same
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ04 THE PICKER WHO SAW THE BODY (act 1, the same quarry road).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (the stop had no price), 18 (no read if act 1 never ran), 23 (lost fight unstated) and 31 (act 1 was only the fight) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (the stop had no price), 18 (no read if act 1 never ran), 23 (lost fight unstated) and 31 (act 1 was only the fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The midwife keeps a list of every child she delivered in act 1. Some were taken by a raider crew to work. In act 1 she offers a job to find one. In act 3, through the flip, her heir offers the job to find the rest, now adults, with records the past never had.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the clinic settlement; the hall (the clinic tent, later the hospital lobby).
-- CLIENT PORTRAIT: THE MIDWIFE is the client in act 1; HER HEIR in act 3, holding the same list.
-- THE SCREEN'S LINES: ACT 1: "Eleven names. One of them got taken." / ACT 1: "Find her. 6 food. All I have." / ACT 3, HEIR: "She found one. I want the other ten."
-- PAY: Act 1: 6 FOOD and 2 MEDS. Act 3: 30 BATTERIES and 6 MEDS. SKULLS: 1 then 2. The fee is locked before the yes.
-- NEGOTIATION: Act 1: none. Act 3: one "more" (33).
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP, IN BOTH ACTS (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp (act 1, the midwife; act 3, her heir). The clinic settlement's hall (the clinic tent, later the hospital lobby) is not used for this job.
+- THE THING, BEFORE: the list, eleven names in pencil, folded in the midwife's apron in the camp picture for three nights (act 1); the same list on the heir's clipboard (act 3) (QR-AV rule 3, `Q108.W1`).
+- THE FIRE, ACT 1: the midwife unfolds the list on her knee. "Eleven babies, the winter the grid went down. I wrote every name the night they came." / "The quarry crew has one of them working the crusher." / "Find her." THE BUTTONS: [FIND HER: 6 FOOD and 2 MEDS, all she has] / [NOT THIS TIME]. SKULLS: 1.
+- THE FIRE, ACT 3: her heir sets the same list down, one name ticked. "She found one. She died wanting the other ten." / "They're grown now. The faction records have them." / "I want the other ten." THE BUTTONS: [THE OTHER TEN: 30 BATTERIES and 6 MEDS] / [NOT THIS TIME]. SKULLS: 2. (If act 1 was never played, the list is uncrossed and the heir's first line is the one under THE CHOICES.)
+- BOTH ACTS: a story, then the thing and the place, then the ask (QR-AV line 33); the price is on the button, never in the mouth; the fee is locked on the button before the yes. No haggle and no advance (the act-3 "more" is gone: a friend's price is what they have, `Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and neither of them mentions it. No loyalty meter exists.
+- THE MAP: the quarry (act 1) and the records office (act 3) light with the list as their mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Eleven names. One of them got taken."
+First line after the yes (act 1, at the same fire): "Eleven names. One of them got taken."
 
 ## THE CHOICES
 A. ACT 1: clear the crew's quarry camp, routine. (QR-AT, lines 9 and 31: act 1 had one road and it was a fight, `Q087.X4`, `Q216.X1`.) Or buy her work-debt from the quarry boss, 6 BATTERIES out of your own stores; or the midwife hums the song she hummed at the birth at the shift change, the girl's head turns (heard and seen, `Q141.X3`), and she walks out with the water carriers. Both no fight, same fee.

@@ -7,21 +7,22 @@ PLACE: a village-tier settlement in a library branch, the hall is the reading ro
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE04 THE MAN WHO WALKED OUT OF BED FOUR (the same failing relay line).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (leaving the gap had no price), 23 (lost fight unstated) and 31 (every road ran through the relay fight) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (leaving the gap had no price), 23 (lost fight unstated) and 31 (every road ran through the relay fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
-The chronicler keeps the family's unrecorded history by hand. One year in act 2 is missing: someone tore it out. A collector in the reading room is offering a job to recover a box of torn pages from a Network relay that is failing. The chronicler stands beside him.
+The chronicler keeps the family's unrecorded history by hand. One year in act 2 is missing: someone tore it out. A collector in the reading room is offering a job to recover a box of torn pages from a Network relay that is failing. The chronicler tells it at the fire; at the reading room the collector is alone.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the library village; the hall (the reading room).
-- CLIENT PORTRAIT: The client is the collector. THE CHRONICLER stands beside him holding the book open at the gap.
-- THE SCREEN'S LINES: COLLECTOR: "A relay on the Henderson line is dumping its cache. Paper inside." / COLLECTOR: "20 batteries." / CHRONICLER: "Somebody tore out a year of your family. I think it's in that box."
-- PAY: 20 BATTERIES and 3 TAPE. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (22). No advance.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: the family book rides under the chronicler's arm in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The chronicler opens the book at the gap, the torn stubs showing. "Your family told me this year a page a night, by the stove. Somebody tore it out." / "A relay on the Henderson line is dumping its cache. There's paper inside." / "The collector's hiring. I think your year is in that box." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the library village carries the open book as its mark, so at the hall the player knows which job is the chronicler's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the chronicler is not on it, `Q108.P3`): SETTLEMENT: the library village; the hall (the reading room). CLIENT PORTRAIT: the collector. THE SCREEN'S LINES: "A relay on the Henderson line is dumping its cache. Paper inside." / "20 batteries." PAY: 20 BATTERIES and 3 TAPE. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: One "more" (22). No advance.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Somebody tore out a year of your family."
+First line after the yes (the chronicler, at the next fire): "Bring the whole box. Even the burnt pages."
 
 ## THE CHOICES
 A. RECOVER: a fight at the relay against scavs and one machine, routine to tough.

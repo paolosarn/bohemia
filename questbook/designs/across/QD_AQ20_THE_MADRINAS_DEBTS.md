@@ -7,21 +7,22 @@ PLACE: a tavern in a town-tier settlement off Fremont (act 1) that becomes a mem
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE13 THE DOOR THEY SAID TO SEAL (act 3, the same failing node).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (no priced refusal), 23 (lost fight unstated), 29 (forgiving had no stated pay) and 31 (act 3 was only the fight) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 9 (one act-1 road), 12 (no priced refusal), 23 (lost fight unstated), 29 (forgiving had no stated pay) and 31 (act 3 was only the fight) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 La Madrina recruits for the company because the town owes her. In act 1 she offers a job to collect one debt that turns ugly. In act 3 her granddaughter finds the Network kept a copy of every debt and offers the job to erase them.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the Fremont town; the hall (the tavern, later the club).
-- CLIENT PORTRAIT: LA MADRINA is the client in act 1; HER GRANDDAUGHTER in act 3.
-- THE SCREEN'S LINES: ACT 1: "Everybody in this town owes me. One of them stopped paying." / ACT 3: "The Network kept her book. Every debt. Even the dead ones." / ACT 3: "Erase it. 28 batteries."
-- PAY: Act 1: 10 BATTERIES. Act 3: 28 BATTERIES and 4 MEDS. SKULLS: 1 then 3. The fee is locked before the yes.
-- NEGOTIATION: Act 1: one "more" (12). Act 3: no advance.
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP, IN BOTH ACTS (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp (act 1, La Madrina; act 3, her granddaughter). The Fremont town's hall (the tavern, later the club) is not used for this job.
+- THE THING, BEFORE: her book of debts, a pencil in the spine, on La Madrina's lap in the camp picture for three nights (act 1); her pencil behind the granddaughter's ear (act 3) (QR-AV rule 3, `Q108.W1`).
+- THE FIRE, ACT 1: La Madrina opens the book. "When the banks shut I lent this whole town bread money out of a coffee tin." / "Everybody in this town owes me. One of them stopped paying." / "Go and knock for me." THE BUTTONS: [KNOCK FOR HER: 10 BATTERIES from her tin] / [NOT THIS TIME]. SKULLS: 1.
+- THE FIRE, ACT 3: the granddaughter sets the pencil down by the fire. "Abuela kept that book all her life and never once took a house for it." / "The Network kept a copy. Every debt. Even the dead ones." / "Erase it." THE BUTTONS: [ERASE IT: 28 BATTERIES and 4 MEDS] / [NOT THIS TIME]. SKULLS: 3.
+- BOTH ACTS: a story, then the thing and the place, then the ask (QR-AV line 33); the price is on the button, never in the mouth; the fee is locked on the button before the yes. No haggle and no advance (the act-1 "more" is gone: a friend's price is what they have, `Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and neither of them mentions it. No loyalty meter exists.
+- THE MAP: the debtor's door on Fremont (act 1) and the failing node (act 3) light with the pencil as their mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Everybody in this town owes me."
+First line after the yes (act 1, at the same fire): "Knock twice. He knows what it means."
 
 ## THE CHOICES
 A. ACT 1: collect by force, routine; or forgive it (her call). (QR-AT, lines 9 and 29: act 1 had one road for the player and forgiving had no stated pay, `Q087.X4`, `Q155.X1`.) Or the debtor works it off on the company's roof for a day, no fight. Forgiven, she pays the 10 anyway: "I asked for the job, not the money." Or you will not break his door: she pays 5 for the knock (QR-AT, line 12, `Q131.X7`, `Q139.P2`).

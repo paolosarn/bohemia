@@ -7,21 +7,22 @@ PLACE: a camp-tier settlement on the dry wash, the hall is a shipping container 
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE09 THE WATER CARTS TO THE WASH (the same south road; the pharmacy is a stop on the cart route).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal inside) and 23 (the lost night fight had no result) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal inside) and 23 (the lost night fight had no result) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 La Cocinera's big pot, the one that feeds twelve, was taken in the night by a family of four squatting in a gutted pharmacy two hours south. Without it the company eats in shifts. She wants it back. She does not want the family hurt; she wants them to know whose it was.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the camp on the dry wash; the hall (a shipping container).
-- CLIENT PORTRAIT: LA COCINERA is the client, the company's own cook, flour on her Rick Owens apron, standing in the hall like a stranger would.
-- THE SCREEN'S LINES: "The pot. My pot. Twelve plates come out of it." / "A family took it. Four of them. The pharmacy on the south road." / "Bring it back. Nobody bleeds for a pot."
-- PAY: 6 FOOD and 2 WATER, paid from her stores. SKULLS: 1. The fee is locked before the yes.
-- NEGOTIATION: No "more": "It's my pot, cabron. I'm paying you in my own beans." No advance.
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp. The camp on the dry wash; the hall (the shipping container) is not used for this job.
+- THE THING, BEFORE: the pot's empty hook hangs over the fire in the camp picture for three nights, and the company eats in shifts (QR-AV rule 3, `Q108.W1`: the ask comes after the nights, never cold).
+- THE FIRE: La Cocinera sets the pot's lid on the sand, the one thing the family left. Flour on her Rick Owens apron. The portrait shown is the one talking.
+- THE LINES AT THE FIRE (a story, then the thing and the place, then the ask; QR-AV line 33): "My mother carried that pot out of North Las Vegas the week the money died." / "A family took it. Four of them, the pharmacy on the south road. They left the lid." / "Bring it back. Nobody bleeds for a pot."
+- THE BUTTONS (the price is on the button, never in the mouth): [BRING IT BACK: 6 FOOD and 2 WATER, from her stores] / [NOT THIS TIME]. SKULLS: 1. The fee is locked on the button before the yes. No haggle and no advance: a friend's price is what they have (`Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+- THE MAP: the pharmacy two hours south lights with the lid as its mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "Nobody bleeds for a pot."
+First line after the yes (at the same fire): "Twelve plates come out of it."
 
 ## THE CHOICES
 A. TALK: give the family 4 FOOD for the pot; she gets it back and the family eats one night.

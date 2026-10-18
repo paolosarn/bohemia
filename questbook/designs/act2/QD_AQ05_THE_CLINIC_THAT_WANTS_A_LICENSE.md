@@ -7,21 +7,22 @@ PLACE: a town-tier settlement on the Strip edge, the hall is a former bank lobby
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE07 THE COLLECTOR'S RIDE (the same faction road, the collector rides the morning after).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 29 (the note and the truth room had unsaid effects) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 29 (the note and the truth room had unsaid effects) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 Act 2. The medic is now the heir of the act-1 medic, an apprentice who learned from her. A faction board will license clinics if someone escorts their inspector through a raider-held block to see the old clinic. The apprentice wants the license. The inspector wants the block cleared.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the Strip-edge town; the hall (the bank lobby).
-- CLIENT PORTRAIT: The client is the faction clerk. THE APPRENTICE MEDIC stands beside him holding the old medic's bag.
-- THE SCREEN'S LINES: CLERK: "The board licenses clinics now. The inspector needs to see yours." / CLERK: "The block between is held. Escort her. 20 batteries." / APPRENTICE: "She ran that clinic with tape and prayers. She'd want the paper."
-- PAY: 20 BATTERIES and 4 MEDS. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: Two "mores" (22, 24). Advance: 6 BATTERIES.
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: the old medic's bag, its strap mended with tape, sits at the apprentice's feet in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The apprentice opens the old bag by the fire: tape, a cracked stethoscope. "She ran that clinic with tape and prayers. I held the flashlight." / "The board on the Strip edge licenses clinics now. A clerk in the old bank lobby." / "When he posts the inspector's job, take it." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the Strip-edge town carries the old bag as its mark, so at the hall the player knows which job is the apprentice's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the apprentice is not on it, `Q108.P3`): SETTLEMENT: the Strip-edge town; the hall (the bank lobby). CLIENT PORTRAIT: the faction clerk. THE SCREEN'S LINES: "The board licenses clinics now. The inspector needs to see yours." / "The block between is held. Escort her. 20 batteries." PAY: 20 BATTERIES and 4 MEDS. SKULLS: 2. The fee is locked before the yes. NEGOTIATION: Two "mores" (22, 24). Advance: 6 BATTERIES.
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "She'd want the paper."
+First line after the yes (the apprentice, at the next fire): "She'd want the paper."
 
 ## THE CHOICES
 A. ESCORT THROUGH: a fight on four house tiles with the inspector held back; 4 minutes.

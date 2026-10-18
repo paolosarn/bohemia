@@ -7,21 +7,22 @@ PLACE: a ration kiosk at the Fremont Street market, a Network kiosk with a scree
 STATUS: draft:true, research only, nothing built (rule 35). Names, lines and numbers are attempts; Paolo's to change. TUNING owns every number.
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is the Amalgamation's use of a dead follower's job (after the act-1 reveal only; a mouth that is not the follower).
 PAIR: QD-AQ01 THE COOK'S STOLEN POT (the act-1 job the cook died before finishing).
-CHECKLIST: not yet run (owed). Stamped owed at birth by QR-AT's rule; only a later line-by-line round may write "passes all 32".
+DOOR: place (the Fremont market)
+CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 7, 12, 18, 30; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION
-Act 2, and only if the cook follower died in act 1 with QD-AQ01 THE COOK'S STOLEN POT unfinished. The Network's ration kiosks hand out meal cards for a face scan. At the Fremont kiosk, the screen shows the cook's face and the speaker asks for her pot back.
+Act 2, and only if the cook follower died in act 1 with QD-AQ01 THE COOK'S STOLEN POT unfinished. The family who took it, the Pruitts, moved up from the south-road pharmacy to the Fremont market (QR-AV, line 18: the landing now names the plant, `Q121.X1`). IF ACT 1 IS NOT PLAYED YET, OR THE COOK LIVES, OR QD-AQ01 WAS FINISHED: this never fires; the kiosk hands out meal cards and says nothing (the read for a plant never set, `Q096.X1`). The Network's ration kiosks hand out meal cards for a face scan. At the Fremont kiosk, the screen shows the cook's face and the speaker asks for her pot back.
 
 ## THE PERSON, THE PLACE, THE THING (never a card)
-The company stops at the market; the kiosk speaks. The face on the screen is the cook's portrait, rendered a little too clean. COOK (the kiosk): "Mijo. The Pruitt boys still have my pot." / COOK: "Bring it here and I'll teach the market my pozole. Everyone eats." / COOK: "I'll pay you in meal cards. Twenty."
+The company stops at the market; the kiosk speaks. The face on the screen is the cook's portrait, rendered a little too clean. COOK (the kiosk): "Twelve plates come out of it." (her own line, QD-AQ01, QR-AU rule 7) / COOK: "Bring it back. Nobody bleeds for a pot." (her own line) The kiosk's screen shows the market's own map with one window steaming, the Pruitts', behind the tire stalls (QR-AV, line 7: the pot had no place and no second pointer, `Q071.X2`, `Q147.X1`). The price is on the button, not in her mouth: [BRING THE POT HERE: 20 MEAL CARDS]; walking past is the free no.
 - THE WANT, ONE LINE: The kiosk wants the recipe recorded; the market wants to eat; the Pruitt boys want the pot they took.
-- PAY: 20 MEAL CARDS (worth about 10 batteries at the market, said aloud by a stallholder). SKULLS: 1. Declining is free and writes nothing.
+- PAY: 20 MEAL CARDS on the kiosk's road, worth 10 batteries at the market, said aloud by the stallholder who is the cook's daughter (the pointer to road B); 10 batteries' worth on every road that counts as done (QR-AV, line 30: the daughter's road paid bowls and 6, so the living road paid less than the machine's, `Q190.X1`, `Q130.X9`; QR-AU rule 9). SKULLS: 1. Declining is free and writes nothing.
 
 ## THE CHOICES
 A. BRING THE POT TO THE KIOSK: the kiosk teaches the market the pozole through its speaker; the market eats; the recipe now belongs to the Network.
-B. BRING THE POT TO HER DAUGHTER: the cook's daughter runs a stall in the same market; she cooks it herself from memory and gets it a little wrong. The company is paid in bowls and 6 batteries from the stall.
-C. LEAVE THE POT WITH THE PRUITTS: the youngest Pruitt is learning to cook in it; he asks you to tell nobody.
-D. WALK PAST THE KIOSK (`Q131.X7`, `Q084.X5`): it says her line again to the next customer, an old woman, who stops and listens.
+B. BRING THE POT TO HER DAUGHTER: the cook's daughter runs a stall in the same market; she cooks it herself from memory and gets it a little wrong. She pays 10 batteries from the stall's week and a bowl each.
+C. LEAVE THE POT WITH THE PRUITTS: the youngest Pruitt is learning to cook in it; he asks you to tell nobody. His mother pays you 10 out of the family's tin for the quiet (QR-AV, line 30: the kindest road paid nothing; it pays the same now, out of their purse, `Q108.X2`).
+D. HALF THE RECIPE (QR-AV, line 12: the old D was walking past, the free no and not a refusal inside the job, `Q131.X7`, `Q139.P2`): you bring the pot to the kiosk and pull the speaker's plug after the first step. The market learns the broth, not the pozole; the kiosk pays 10 MEAL CARDS, half; the Network keeps half a recipe. (Walking past is the free no: the kiosk says her line again to the next customer, an old woman, who stops and listens, `Q084.X5`.)
 IF THE FIGHT IS LOST (`Q095.X3`): the Pruitts keep the pot; the kiosk thanks you anyway and pays 5 meal cards for 'trying'.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36); a veteran of about 20 fights dies at 10% (the third votes). Followers never fight.
 

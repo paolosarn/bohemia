@@ -7,21 +7,22 @@ PLACE: Jean, a dark casino off I-15 at the state-line road; a pit boss still kee
 STATUS: draft:true, research only, nothing built (rule 35). Names, lines and numbers are attempts; Paolo's to change. TUNING owns every number.
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QD-AE17 FOUR DRIVERS AT MILE NINETY (the same I-15 south road, the same night).
-CHECKLIST: not yet run (owed). Stamped owed at birth by QR-AT's rule; only a later line-by-line round may write "passes all 32".
+DOOR: camp
+CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 12, 30, 33; every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION
 Act 1. Yesenia dealt blackjack for eleven years before the casinos went dark. She fights with a yellow plastic cut card in her breast pocket. In Jean, the old pit boss, Mr. Arce, still opens one table every night for anyone who will sit. He owes her two weeks' wages from the last pay period, and she owes him the card she walked out with.
 
 ## THE PERSON, THE PLACE, THE THING (never a card)
-At camp she deals a hand of solitaire on a crate lid and talks without looking up. YESENIA: "Jean. Arce still deals the graveyard shift." / YESENIA: "I give him the card back. He gives me my last check." / YESENIA: "Two weeks' wages is 9 batteries now. Half is yours."
+At camp she deals a hand of solitaire on a crate lid and talks without looking up. YESENIA: "The last night the casino was open, Arce said bring the cut card back Monday." / YESENIA: "There was no Monday. He still deals the graveyard shift in Jean." / YESENIA: "I give him the card. He gives me my last check." The price is on the button: [SIT AT HIS TABLE: 4 BATTERIES from her share] / [NOT THIS TIME] (QR-AV line 33).
 - THE WANT, ONE LINE: She wants to close the shift properly; Arce wants someone to sit at his table.
-- PAY: Half of what Arce pays: 4 or 5 BATTERIES, locked as 'half' before the yes, the figure said by her. SKULLS: 0. No fight is planned. Declining is free and writes nothing.
+- PAY: 4 BATTERIES from her own share, on the button before the yes, the same on every road that counts as done (A, B, C); she pays it whether or not the check is torn up: "I said half. Half of my word." (QR-AV, line 30: half of whatever Arce paid made the road that keeps his card pay more than the road that gives it back, `Q190.X1`, `Q108.X2`; QR-AU rule 3, the payer is the member.) SKULLS: 0. No fight is planned. Declining is free and writes nothing.
 
 ## THE CHOICES
 A. SIT A HAND: the company sits at Arce's table; he deals with the real shoe; he pays the wages after one hand, win or lose. Three short lines from him.
 B. TAKE THE CHECK, KEEP THE CARD: Yesenia takes the wages and keeps the card; Arce says nothing and closes the table for the night.
 C. GIVE HIM THE CARD, NO CHECK: she gives the card back and tears up the check; Arce asks her to deal the next shift. If she says yes, she leaves the company for two nights and comes back.
-D. WE DON'T STOP IN JEAN (`Q131.X7`): she shrugs, keeps the card, and the next time the company passes Jean the table's lamp is off.
+D. NOT AT HIS TABLE (QR-AV, line 12: the old D was the no moved after the yes, a drop with no price, `Q131.X7`, `Q139.P2`): you stop in Jean and will not sit. She goes in alone, sets the card on the felt and takes the check from his hand; she pays you 2 for the stop, and the next time the company passes Jean the table's lamp is off.
 IF A FIGHT HAPPENS AND IS LOST (`Q095.X3`, `Q093.X2`): only if raiders on the road catch the company at the casino door; Arce locks the door, pays her through the slot, and the table is dark next visit.
 Fights are on house tiles; routine 2 to 4 minutes, tough never past 15. A member struck down: 20% dead, else 30 to 40 days hurt (rule 36); a veteran of about 20 fights dies at 10% (the third votes). Followers never fight.
 

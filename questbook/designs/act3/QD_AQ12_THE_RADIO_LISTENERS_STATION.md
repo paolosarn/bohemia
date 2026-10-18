@@ -7,21 +7,22 @@ PLACE: a town-tier settlement on Sunrise Mountain, the hall is a transmitter hut
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AE15 THE GROUND TRACK NORTH (the rocket's ground track, one road).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 32 (letting them listen was free and lost nothing) fixed in place)
+DOOR: camp
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal), 23 (lost fight unstated) and 32 (letting them listen was free and lost nothing) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The radio listener's heir runs the company's radio now. The rocket build needs a ground station to track the launch, and the only working dish is the listener family's old one on the mountain, held by squatting dish-cultists who hear voices in it.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the mountain town; the hall (the transmitter hut).
-- CLIENT PORTRAIT: THE LISTENER'S HEIR is the client; the rocket crew's engineer stands beside him.
-- THE SCREEN'S LINES: HEIR: "My father heard everything through that dish." / HEIR: "The rocket needs it. The people on it think it talks to them." / HEIR: "18 batteries. Get them off without breaking it."
-- PAY: 18 BATTERIES and 4 TAPE. SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (20). Advance: 5 BATTERIES.
-- ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+## THE DOOR: THE NIGHT CAMP (QR-AV: a member's own job is told at the fire; there is no hall card)
+- DOOR: camp. The mountain town; the hall (the transmitter hut) is not used for the offer. The rocket crew's engineer is at the hut when the company arrives, the place's person, and says B's price there.
+- THE THING, BEFORE: his father's headphones, the cord cut, hang round the heir's neck in the camp picture for three nights (QR-AV rule 3, `Q108.W1`: the ask comes after the nights, never cold).
+- THE FIRE: The listener's heir sets the headphones on the radio case. The portrait shown is the one talking.
+- THE LINES AT THE FIRE (a story, then the thing and the place, then the ask; QR-AV line 33): "My father heard everything through that dish. He woke me once to hear a plane over Utah." / "The rocket needs it. The people living under it think it talks to them." / "Get them off without breaking it."
+- THE BUTTONS (the price is on the button, never in the mouth): [THE DISH: 18 BATTERIES and 4 TAPE, from his pay] / [NOT THIS TIME]. SKULLS: 2. The fee is locked on the button before the yes. No haggle and no advance: a friend's price is what they have (`Q236.X3`, `Q236.N3`). Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
+- THE MAP: the dish on the mountain lights with the headphones as its mark (the second pointer, QR-G line 7).
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "My father heard everything through that dish."
+First line after the yes (at the same fire): "Don't break it. Please."
 
 ## THE CHOICES
 A. CLEAR: a fight on two roof house tiles, high ground, 4 minutes; the dish may take damage (costs 2 TAPE).

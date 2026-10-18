@@ -7,21 +7,22 @@ PLACE: a town-tier settlement on the old Boulder highway, the hall is a tire sho
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: eighth shelf, THE FOLLOWER WITH A JOB; research page QR-AQ.
 PAIR: QD-AQ01 THE COOK'S STOLEN POT (both jobs run the south roads; the tire town sits between).
-CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place)
+DOOR: camp, then hall
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; lines 12 (no priced refusal) and 23 (lost fight unstated) fixed in place); QR-AV 10/18: the member's own part moved to the night camp (DOOR: camp, then hall), the stranger keeps the hall alone; re-read on lines 2, 7, 11, 13, 14 and 25 and on the camp line (proposed line 33), all pass.
 
 ## THE SITUATION
 The driver owes a tire shop owner for the cart's wheels, a debt from before he joined. The owner now offers a job to anyone: recover a stolen battery bank from a gang in a parking structure. Do it, and the driver's debt is written off on top of the pay.
 
-## THE SETTLEMENT AND THE OFFER SCREEN
-- SETTLEMENT: the highway town; the hall (the tire shop).
-- CLIENT PORTRAIT: The client is the tire shop owner, a woman in a cut-up Balenciaga track jacket. THE DRIVER stands beside her and does not look at her.
-- THE SCREEN'S LINES: OWNER: "Somebody took my battery bank. Parking structure, level three." / OWNER: "12 batteries. And his wheels are paid. Both." / DRIVER: "I was going to pay it. I was."
-- PAY: 12 BATTERIES and the driver's debt (the fee is locked: the debt clears only on finish). SKULLS: 2. The fee is locked before the yes.
-- NEGOTIATION: One "more" (14). No advance: "I already gave him four wheels on credit."
+## THE DOOR: THE NIGHT CAMP, THEN THE HALL (QR-AV: the member's own part at the fire; the stranger keeps the hall)
+- DOOR: camp, then hall.
+- THE THING, BEFORE: a lug nut from her shop rides in the driver's shirt pocket in the camp picture for three nights (QR-AV rule 3, `Q108.W1`).
+- THE FIRE (the first night the hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; it is that night's one event, QR-AR): The driver turns the lug nut over and sets it on the cart's wheel hub. "She rolled four wheels out to me in the rain and said pay when you can." / "I couldn't. My name's still on her chalk wall at the tire shop." / "She's posting a job. If we take it, I want it off that wall." One button, [SLEEP]: a telling is not a choice and writes nothing (`Q043.X1`).
+- THE MAP: the highway town carries the lug nut as its mark, so at the hall the player knows which job is the driver's (the second pointer, QR-G line 7).
+- THE HALL (the stranger's own card, the stranger alone; the driver is not on it, `Q108.P3`): SETTLEMENT: the highway town; the hall (the tire shop, a chalk wall of names behind the counter). CLIENT PORTRAIT: the tire shop owner, Señora Garza, in a cut-up Balenciaga track jacket. THE SCREEN'S LINES: "Somebody took my battery bank. Parking structure, level three." / "12 batteries. And your driver's wheels are paid. Both." PAY: 12 BATTERIES and the driver's debt (the fee is locked: the debt clears only on finish). SKULLS: 2. NEGOTIATION: One "more" (14). No advance: "I already gave him four wheels on credit."
 - ACCEPT / DECLINE. Declining is free, writes nothing, and the follower never mentions it. No loyalty meter exists.
 
 ## THE PERSON AND THE FIRST LINE
-First line after accept: "I was going to pay it. I was."
+First line after the yes (the driver, at the next fire): "I was going to pay it. I was."
 
 ## THE CHOICES
 A. TAKE THE STRUCTURE: a fight on three stacked house tiles, the roof is high ground; 4 minutes.
