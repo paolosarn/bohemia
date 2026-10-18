@@ -1,0 +1,81 @@
+{
+ "cell": [
+  120,
+  116
+ ],
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "rows": {
+  "N": 0,
+  "NE": 1,
+  "E": 2,
+  "SE": 3,
+  "S": 4,
+  "SW": 5,
+  "W": 6,
+  "NW": 7
+ },
+ "ground_y": 61,
+ "ground_x": 60,
+ "clips": [
+  {
+   "name": "idle",
+   "rig_clip": "Survey",
+   "col": 0,
+   "keys": 12,
+   "beats": 4
+  },
+  {
+   "name": "step",
+   "rig_clip": "Walk",
+   "col": 12,
+   "keys": 6,
+   "beats": 2
+  },
+  {
+   "name": "bite",
+   "rig_clip": "Bite",
+   "col": 18,
+   "keys": 6,
+   "beats": 2
+  }
+ ],
+ "game_wolf": {
+  "row": 8,
+  "ground_y": 102,
+  "clips": [
+   {
+    "name": "idle",
+    "col": 0,
+    "keys": 12,
+    "beats": 4
+   },
+   {
+    "name": "step",
+    "col": 12,
+    "keys": 6,
+    "beats": 2
+   }
+  ]
+ },
+ "bpm": 120,
+ "keys_per_beat": 3,
+ "ppm": 57.0,
+ "real_length_m": 1.7,
+ "model": "reference/models/bohemia/dire_wolf_redone.glb",
+ "palette": 16,
+ "colours_before": 64219,
+ "colours_after": 16,
+ "sprite_px": [
+  120,
+  116
+ ]
+}

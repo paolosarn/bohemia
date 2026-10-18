@@ -9746,29 +9746,69 @@
    },
    "draft": true
   },
-    {
-     "id": "ui-no-browser-defaults-10-18",
-     "kind": "ui",
-     "lane": "ui",
-     "sha": "b4f0eb7",
-     "made": "10/18",
-     "title": "THE SCREENS LOSE THE PHONE-APP LOOK",
-     "why": "Every game screen had the look that gives away a computer made it (33 soft fades, 26 glows, 71 round corners and 67 lines in your phone's own letters), so this takes all of it out and draws the light back as hard one-pixel edges in the game's own letters, without moving anything you picked. You see the map, the cracked phone, the fight, the settlement and this VOTE tab, each today on the left and stripped on the right; YES and it goes into the game, NO with what is wrong.",
-     "show": {
-      "how": "image",
-      "src": "../records/target/ui_no_defaults/UI_NO_BROWSER_DEFAULTS.png"
-     },
-     "options": [
-      "YES",
-      "NO"
-     ],
-     "before_after": {
-      "before": "the six screens as they are: 33 gradients, 26 glows, 71 corners over 1 px, 1 purple panel, 67 lines in phone system fonts",
-      "after": "the same six screens with the strip laid in the browser: zero of each; the fades flattened to their middle colour with their own lightest and darkest colours as 1 px edges; every word in BohemiaCasing or BohemiaROM",
-      "scale": "1:1"
-     },
-     "draft": true
-    }
+  {
+   "id": "ui-no-browser-defaults-10-18",
+   "kind": "ui",
+   "lane": "ui",
+   "sha": "b4f0eb7",
+   "made": "10/18",
+   "title": "THE SCREENS LOSE THE PHONE-APP LOOK",
+   "why": "Every game screen had the look that gives away a computer made it (33 soft fades, 26 glows, 71 round corners and 67 lines in your phone's own letters), so this takes all of it out and draws the light back as hard one-pixel edges in the game's own letters, without moving anything you picked. You see the map, the cracked phone, the fight, the settlement and this VOTE tab, each today on the left and stripped on the right; YES and it goes into the game, NO with what is wrong.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ui_no_defaults/UI_NO_BROWSER_DEFAULTS.png"
+   },
+   "options": [
+    "YES",
+    "NO"
+   ],
+   "before_after": {
+    "before": "the six screens as they are: 33 gradients, 26 glows, 71 corners over 1 px, 1 purple panel, 67 lines in phone system fonts",
+    "after": "the same six screens with the strip laid in the browser: zero of each; the fades flattened to their middle colour with their own lightest and darkest colours as 1 px edges; every word in BohemiaCasing or BohemiaROM",
+    "scale": "1:1"
+   },
+   "draft": true
+  },
+  {
+   "id": "animation-the-wolf-redone-10-18",
+   "kind": "animation",
+   "lane": "animation",
+   "sha": "",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE DIRE WOLF REDONE, IDLE, STEP AND BITE IN EIGHT",
+   "redoOf": "animation-the-beast-in-eight-10-17",
+   "said": "the grey one is the ugliest, the fox is better",
+   "why": "The grey wolf was one flat colour on a fox's body, so this one was rebuilt in 3D with longer legs, a deep chest, short ears, a longer face, a rope tail with a black tip and a tawny coat with a dark saddle. You see it in the VOTE tab in all eight directions, playing its idle, step and bite on the beat beside the fox you liked and the grey one, and it stays a placeholder until your moodboard.",
+   "show": {
+    "how": "page",
+    "src": "vote/ANIMATION_THE_WOLF_REDONE.html"
+   },
+   "twin": {
+    "src": "slices/vote/ANIMATION_THE_WOLF_REDONE_PACK.png",
+    "diffs": [
+     "SIZE: the pack draws its grey wolf 96 px tall facing you, as tall as its people; ours is a 1.7 m animal at the one ruler (57 px a metre), 96 px long side-on, standing taller than the grey one did (tall over long 0.70, was 0.53).",
+     "FACINGS: the pack's wolf has one, toward you; ours has eight, each lit by the one sun (rule 107).",
+     "LOOK: the pack's wolf is grey with a white mask and a drawn ruff; ours is tawny with a dark saddle and a cream belly (the ancient-DNA read on the dire wolf is a reddish animal), 16 colours from the render, no fur strokes yet."
+    ]
+   },
+   "draft": true,
+   "sprites": [
+    "records/target/master_rig/dire_wolf_redone/rig_N.png",
+    "records/target/master_rig/dire_wolf_redone/rig_NE.png",
+    "records/target/master_rig/dire_wolf_redone/rig_E.png",
+    "records/target/master_rig/dire_wolf_redone/rig_SE.png",
+    "records/target/master_rig/dire_wolf_redone/rig_S.png",
+    "records/target/master_rig/dire_wolf_redone/rig_SW.png",
+    "records/target/master_rig/dire_wolf_redone/rig_W.png",
+    "records/target/master_rig/dire_wolf_redone/rig_NW.png"
+   ],
+   "class": "beast",
+   "look": {
+    "px": 1,
+    "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "light": "guide"
+   }
+  }
  ],
  "verdicts": [
   {

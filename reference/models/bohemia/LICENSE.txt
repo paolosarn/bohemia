@@ -14,3 +14,8 @@ gun.glb (COOK [props through the rig], 10/18/26): a heavy machine gun on its tri
 every base colour a step of records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
 wreck.glb (COOK [props through the rig], 10/18/26): a dead four-door sedan, modelled from nothing by tools/bohemia_cook_model_props.py wreck,
 every base colour a step of records/target/BOHEMIA_STYLE_PALETTE.json. Ours, CC0.
+
+dire_wolf_redone.glb (ANIMATION [the beasts through the rig, the wolf redone], 10/18/26): the same Khronos Fox source and
+the same attribution as dire_wolf.glb above (model CC0 by PixelMannen; rig and clips CC BY 4.0 by tomkranis; conversion
+CC BY 4.0 by AsoboStudio and scurest). What is ours (tools/bohemia_animation_the_wolf_redone_prep.py): the remodelled
+shape (legs, chest, ruff, ears, muzzle, tail), the coat painted from the 3D shape, and the Bite clip.

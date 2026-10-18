@@ -24,6 +24,17 @@ the VOTE page plays (slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.webp + .json) and 
   * THE PAGE PLAYS THE SHEET and the registry row shows the page, titled PLACEHOLDER (ROUND THIRTEEN).
 Mutations planted in memory first and refused: a flipped facing, a fox-orange coat, a clip with a 5-key strip, a frozen
 clip, a bite that reaches down.
+
+--wolf redone (ANIMATION [the beasts through the rig, the wolf redone], 10/18; rule 115c; his NO on the grey one, 'the
+ugliest', the fox better): the same questions of records/target/master_rig/dire_wolf_redone and ANIMATION_THE_WOLF_REDONE,
+at 1.7 m (so 85 px long side-on), the coat under 0.40 saturation (a tawny wolf, still well under the fox's 0.5), and
+three more, each from what made the grey one ugly:
+  * THREE TONES, NOT ONE: the sprite's lightest tenth is at least 70 levels over its darkest tenth (the grey one
+    measured, the fox measured; one flat grey-brown is what he saw);
+  * THE STILL IS THE WALK'S PASSING POSE, never the idle's first key (the sniff);
+  * IT STANDS LIKE A WOLF: facing E, tall over long is at least 0.05 more than the grey one's (the legs 1.35 longer);
+  * the registry row is a redo of the beast in eight.
+Mutations planted: a flat one-tone coat, an idle-first-key still.
 """
 import os, sys, json
 import numpy as np
@@ -36,10 +47,19 @@ TABLE = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.json')
 PAGE = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.html')
 REG = os.path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json')
 ID = 'animation-the-beast-in-eight-10-17'
+STEM, MODEL, REAL_M, SAT_MAX = 'ANIMATION_THE_BEAST_IN_EIGHT', 'dire_wolf.glb', 1.6, 0.30
+REDONE = '--wolf' in sys.argv and sys.argv[sys.argv.index('--wolf') + 1] == 'redone'
+OLD_D = D
+if REDONE:
+    D = os.path.join(ROOT, 'records/target/master_rig/dire_wolf_redone')
+    STEM, MODEL, REAL_M, SAT_MAX, ID = 'ANIMATION_THE_WOLF_REDONE', 'dire_wolf_redone.glb', 1.7, 0.40, 'animation-the-wolf-redone-10-18'
+    WEBP, TABLE, PAGE = (os.path.join(ROOT, 'slices/vote/' + STEM + x) for x in ('.webp', '.json', '.html'))
+TONES, TALLER = 70, 0.05
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 CLIPS = {'Survey': 12, 'Walk': 6, 'Bite': 6}
 MIRRORS = (('E', 'W'), ('NE', 'NW'), ('SE', 'SW'))
-SAT_LINE, XOR_LEAST, MOVE_LOOP, MOVE_BITE, RISE_PX, LONG_PX, COLOURS = 0.30, 0.01, 14.0, 16.0, 8, 80, 16
+SAT_LINE, XOR_LEAST, MOVE_LOOP, MOVE_BITE, RISE_PX, COLOURS = SAT_MAX, 0.01, 14.0, 16.0, 8, 16
+LONG_PX = int(80 * REAL_M / 1.6)
 
 ok_n = fail_n = 0
 def ok(name, cond, why=''):
@@ -71,6 +91,19 @@ def xor_steps(frames):
         moves.append(float(np.hypot(*(cen[j] - cen[(j + 1) % len(sils)]))))
     return min(out), max(out), max(moves)
 
+def tones(frames):
+    """the lightest tenth over the darkest tenth of the sprite, in luminance levels"""
+    px = np.concatenate([f[f[..., 3] > 0][:, :3] for f in frames]).astype(float)
+    lum = px @ [0.299, 0.587, 0.114]
+    return float(np.percentile(lum, 90) - np.percentile(lum, 10))
+
+def tall_over_long(f):
+    a = f[..., 3] > 0
+    return a.any(1).sum() / max(1, a.any(0).sum())
+
+def is_passing(meta):
+    return bool(meta.get('still_frame')) and 'passing' in str(meta.get('still', ''))
+
 def top_row(f):
     rows = np.nonzero((f[..., 3] > 0).any(1))[0]; return int(rows.min()) if len(rows) else 0
 
@@ -86,6 +119,11 @@ ok('planted: a 5-key strip is refused', 5 % 3 != 0)
 low = blob.copy(); low[10:30] = 0; low[25:35, 5:25] = [200, 120, 40, 255]
 ok('planted: a bite that reaches down is refused', top_row(blob) - top_row(low) < RISE_PX)
 
+if REDONE:
+    flat = blob.copy(); flat[10:30, 5:25] = [110, 100, 90, 255]
+    ok('planted: a flat one-tone coat is refused', tones([flat]) < TONES)
+    ok('planted: an idle-first-key still is refused', not is_passing({'still_frame': 0.0, 'still': None}))
+
 # ---- the real frames
 m = json.load(open(os.path.join(D, 'rig.json'))) if os.path.exists(os.path.join(D, 'rig.json')) else {}
 ok('DIRECTION\'s rig.json beside the frames, eight facings', m.get('facings') == FACINGS, str(m.get('facings')))
@@ -100,8 +138,16 @@ for a, b in MIRRORS:
 if stills:
     s = saturation(list(stills.values()))
     ok('the coat is a wolf\'s: mean saturation %.2f under %.2f (the fox was over 0.5)' % (s, SAT_LINE), s < SAT_LINE)
+    if REDONE:
+        tn = tones(list(stills.values()))
+        ok('three tones, not one: the lightest tenth is %.0f levels over the darkest (line %d)' % (tn, TONES), tn >= TONES)
+        ok('the still is the walk\'s passing pose (%s), never the idle\'s first key' % m.get('still'), is_passing(m))
+        om = json.load(open(os.path.join(OLD_D, 'rig.json')))
+        old_e = load(om['files'][FACINGS.index('E')])
+        r_new, r_old = tall_over_long(stills['E']), tall_over_long(old_e)
+        ok('it stands like a wolf: facing E tall over long %.2f against the grey one\'s %.2f (at least %.2f more)' % (r_new, r_old, TALLER), r_new - r_old >= TALLER)
     w = (stills['E'][..., 3] > 0).any(0).sum()
-    ok('true size: side-on the wolf is %d px long, over %d (1.6 m at 57 px a metre; the prop floor is 29 by 36)' % (w, LONG_PX), w >= LONG_PX)
+    ok('true size: side-on the wolf is %d px long, over %d (%.1f m at 57 px a metre; the prop floor is 29 by 36)' % (w, LONG_PX, REAL_M), w >= LONG_PX)
 worst_all = {}
 for clip, k in CLIPS.items():
     c = (m.get('clips') or {}).get(clip, {})
@@ -126,11 +172,11 @@ if t and sheet is not None:
     ok('the sheet is %d x %d cells of %dx%d (8 facings x idle 12 + step 6 + bite 6, plus the game\'s wolf)' % (cols, rows, CW, CH), sheet.size == (CW * cols, CH * rows) and cols == 24 and rows == 9 and t['facings'] == FACINGS)
     a = np.asarray(sheet)[:CH * 8]; n = len(set(map(tuple, a[a[..., 3] > 0][:, :3].tolist())))
     ok('the wolf rows hold %d colours, %d or fewer (one palette, the pack draws its animals in a handful)' % (n, COLOURS), n <= COLOURS)
-    ok('the table says three keys a beat at 120 and names the model', t.get('keys_per_beat') == 3 and t.get('bpm') == 120 and t.get('model', '').endswith('dire_wolf.glb'))
+    ok('the table says three keys a beat at 120 and names the model', t.get('keys_per_beat') == 3 and t.get('bpm') == 120 and t.get('model', '').endswith('/' + MODEL))
 page = open(PAGE).read() if os.path.exists(PAGE) else ''
 ok('the VOTE page plays the sheet from its table, says PLACEHOLDER, and asks no vote inside (rule 25)',
-   'ANIMATION_THE_BEAST_IN_EIGHT.webp' in page and 'ANIMATION_THE_BEAST_IN_EIGHT_TABLE.js' in page and os.path.exists(os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT_TABLE.js')) and 'PLACEHOLDER' in page and 'requestAnimationFrame' in page and 'thumb' not in page.lower())
+   STEM + '.webp' in page and STEM + '_TABLE.js' in page and os.path.exists(os.path.join(ROOT, 'slices/vote/' + STEM + '_TABLE.js')) and 'PLACEHOLDER' in page and 'requestAnimationFrame' in page and 'thumb' not in page.lower())
 reg = json.load(open(REG)); row = next((r for r in reg.get('items', []) if r.get('id') == ID), None)
-ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/ANIMATION_THE_BEAST_IN_EIGHT.html' and str(row.get('title', '')).startswith('PLACEHOLDER'))
-ok('the model and its licence are in the repo', os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/dire_wolf.glb')) and os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/LICENSE.txt')))
-print('\nTHE BEAST IN EIGHT GATE: %d passed, %d failed' % (ok_n, fail_n)); sys.exit(1 if fail_n else 0)
+ok('the registry row %s shows the page and is titled PLACEHOLDER' % ID, bool(row) and row.get('show', {}).get('src') == 'vote/' + STEM + '.html' and str(row.get('title', '')).startswith('PLACEHOLDER') and (not REDONE or row.get('redoOf') == 'animation-the-beast-in-eight-10-17'))
+ok('the model and its licence are in the repo', os.path.exists(os.path.join(ROOT, 'reference/models/bohemia', MODEL)) and os.path.exists(os.path.join(ROOT, 'reference/models/bohemia/LICENSE.txt')))
+print('\n%s GATE: %d passed, %d failed' % ('THE WOLF REDONE' if REDONE else 'THE BEAST IN EIGHT', ok_n, fail_n)); sys.exit(1 if fail_n else 0)

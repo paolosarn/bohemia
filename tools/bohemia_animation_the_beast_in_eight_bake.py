@@ -14,20 +14,28 @@ it), the outer ring kept one pixel and the darkest of the sixteen (THE BORDER IS
 not a drawn pixel (rule 108: the pixels come from the render); the palette is written beside the sheet as a .gpl so a
 later measured one can replace it.
 REFERENCE CHECK (the 9/4 standing duty): the sheet puts the wolf at 1:1 beside the 1.72 m ruler, the pack's grey wolf (the index thumbnail; the tile is not in the repo) and the game's own wolf, so the size question and the look question are on the page, not in a sentence. No reference game.
-Usage: python3 tools/bohemia_animation_the_beast_in_eight_bake.py [rig dir] [game wolf dir]
+Usage: python3 tools/bohemia_animation_the_beast_in_eight_bake.py [rig dir] [game wolf dir] [--name STEM] [--beside dir:label ...]
+  --name the output stem under slices/vote (default ANIMATION_THE_BEAST_IN_EIGHT); --beside adds that rig's eight stills as
+  a row on the proof sheet (the wolf redone, 10/18, sits beside the fox he named and the grey one he said NO to).
 """
 import os, sys, json, glob
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-D = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'records/target/master_rig/dire_wolf')
-GW = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'records/target/master_rig/game_wolf')
-OUT_WEBP = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.webp')
-OUT_JSON = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT.json')
-OUT_PACK = os.path.join(ROOT, 'slices/vote/ANIMATION_THE_BEAST_IN_EIGHT_PACK.png')
-OUT_SHEET = os.path.join(ROOT, 'records/target/master_rig/ANIMATION_THE_BEAST_IN_EIGHT.png')
-OUT_GPL = os.path.join(ROOT, 'records/target/master_rig/dire_wolf/palette_16.gpl')
+_args, NAME, BESIDE = [], 'ANIMATION_THE_BEAST_IN_EIGHT', []
+_it = iter(sys.argv[1:])
+for _a in _it:
+    if _a == '--name': NAME = next(_it)
+    elif _a == '--beside': BESIDE.append(next(_it).split(':', 1))
+    else: _args.append(_a)
+D = _args[0] if len(_args) > 0 else os.path.join(ROOT, 'records/target/master_rig/dire_wolf')
+GW = _args[1] if len(_args) > 1 else os.path.join(ROOT, 'records/target/master_rig/game_wolf')
+OUT_WEBP = os.path.join(ROOT, 'slices/vote/%s.webp' % NAME)
+OUT_JSON = os.path.join(ROOT, 'slices/vote/%s.json' % NAME)
+OUT_PACK = os.path.join(ROOT, 'slices/vote/%s_PACK.png' % NAME)
+OUT_SHEET = os.path.join(ROOT, 'records/target/master_rig/%s.png' % NAME)
+OUT_GPL = os.path.join(D, 'palette_16.gpl')
 CLIPS = [('idle', 'Survey', 12, 4), ('step', 'Walk', 6, 2), ('bite', 'Bite', 6, 2)]   # (name on the page, the clip in the rig, keys, beats)
 COLOURS = 16
 
@@ -105,8 +113,11 @@ pack.save(OUT_PACK)
 F = ImageFont.truetype(os.path.join(ROOT, 'slices/fonts/BohemiaROM-Regular.ttf'), 16)
 INK, DIM, ORANGE, GREEN, BG = (236, 230, 218), (146, 138, 126), (226, 162, 72), (150, 190, 160), (22, 21, 20)
 MAN = 98
-rrows = [('THE DIRE WOLF, EIGHT FACINGS, STILL (the idle\'s first key), 16 colours; the 1.72 m man; the pack\'s wolf (index thumbnail, 96 tall); the game\'s wolf today',
+rrows = [('THE DIRE WOLF, EIGHT FACINGS, STILL (%s)' % ('the walk\'s passing pose' if meta.get('still_frame') else 'the idle\'s first key') + ', 16 colours; the 1.72 m man; the pack\'s wolf (index thumbnail, 96 tall); the game\'s wolf today',
           [(f, im) for f, im in zip(FACINGS, stills_s)] + [('1.72 m', Image.new('RGBA', (7, MAN), GREEN + (255,))), ('', Image.new('RGBA', (50, 1), (0, 0, 0, 0))), ('the pack', pack), ('', Image.new('RGBA', (30, 1), (0, 0, 0, 0))), ('today', gw['walk'][0])])]
+for bdir, blabel in BESIDE:
+    bm = json.load(open(os.path.join(ROOT, bdir, 'rig.json')))
+    rrows.append((blabel, [(f, op(fp)) for f, fp in zip(bm['facings'], bm['files'])]))
 for f in FACINGS:
     for name, clip, k, beats in CLIPS:
         rrows.append(('%s  %s: %d drawn keys = %d beats at 120 (nothing between two keys is rendered)' % (f, name.upper(), k, beats), [('k%d' % j, im) for j, im in enumerate(snapped[(f, clip)])]))
@@ -115,7 +126,7 @@ def row_size(items): return sum(im.width for _, im in items) + GAP * (len(items)
 SW = max(row_size(it)[0] for _, it in rrows) + PAD * 2
 SH = 66 + sum(row_size(it)[1] + 8 for _, it in rrows)
 s = Image.new('RGB', (SW, SH), BG); d = ImageDraw.Draw(s)
-d.text((PAD, 6), 'THE BEAST IN EIGHT (ANIMATION, 10/17, PLACEHOLDER): THE DIRE WOLF THROUGH DIRECTION\'S RIG, IDLE, STEP AND BITE, N NE E SE S SW W NW, 1:1', font=F, fill=INK)
+d.text((PAD, 6), '%s (ANIMATION, PLACEHOLDER): THE DIRE WOLF THROUGH DIRECTION\'S RIG, IDLE, STEP AND BITE, N NE E SE S SW W NW, 1:1' % NAME.replace('ANIMATION_', '').replace('_', ' '), font=F, fill=INK)
 d.text((PAD, 26), 'model %s at %.1f m nose to tail, %d px a metre, the one camera; %d render colours -> %d in one 16-colour palette; sprite %dx%d px' % (
     os.path.basename(meta['model']), meta['real_dims_m'][1], meta['ppm'], before_colours, after_colours, W, H), font=F, fill=DIM)
 y = 50
