@@ -20,6 +20,10 @@ anything is judged by eye):
      front facing (S, SE, SW) its two eye glints; the finished file exists beside the raw one.
   6. THE SHEETS the guide names exist (do and dont, everything the same, the hand-finish).
   7. A MODEL WE BUILD paints from the palette: every tools/bohemia_direction_model_*.py reads BOHEMIA_STYLE_PALETTE.json.
+  8. THE CLIPS (round seven of the rig, DIRECTION [the rig round six]; research round two D9, R11, R12): every render
+     of rig round seven or later that carries clips holds them with the guide's hold_px, writes the motion table for
+     all eight facings and every key, and the object-ID pass for every still and clip key on the same box; and the round
+     six report holds the robot's declared hold (the idle) under field 15's boil bar with no part dropping out.
 Planted wrong ones first; each must be refused.
 """
 import glob, json, os, re, subprocess, sys
@@ -31,7 +35,10 @@ RIG_TOOL = os.path.join(ROOT, 'tools/bohemia_direction_master_rig.py')
 RIG_KEYS = ['engine', 'device', 'samples', 'denoise', 'filter_px', 'view_transform', 'film_transparent', 'motion_blur', 'ppm', 'tilt_deg', 'sun_rot_deg', 'sun_angle_deg',
             'sun_energy', 'fill_rgb', 'fill_strength', 'wear', 'ring', 'contact_shadow', 'shadow_alpha_max', 'alpha_threshold', 'keys_per_beat', 'bpm', 'calibration',
             # round six, the toy's tells (DIRECTION [the truck turned up], his 'a play toy', 10/18)
-            'roughness_min', 'specular', 'paint_sat_mul', 'bleach_up', 'edge_m', 'edge_wear', 'chip_per_m', 'chip_mul', 'dent_m', 'dent_per_m', 'proportion_tolerance']
+            'roughness_min', 'specular', 'paint_sat_mul', 'bleach_up', 'edge_m', 'edge_wear', 'chip_per_m', 'chip_mul', 'dent_m', 'dent_per_m', 'proportion_tolerance',
+            # round seven, THE HOLD (DIRECTION [the rig round six], research round two R12)
+            'hold_px', 'light_mask_samples', 'light_mask_values', 'wear_by_material']
+ROUND_SIX = os.path.join(ROOT, 'records/target/direction_rig_round_six/report.json')
 ok = fail = 0
 
 
@@ -112,6 +119,31 @@ def wrong_render(m, base, g):
     return w
 
 
+def wrong_clips(m, g):
+    w = []
+    if int(m.get('rig_round', 0)) < 7 or not m.get('clips'): return w
+    F8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
+    for name, c in m['clips'].items():
+        if c.get('hold_px') != g['rig']['hold_px']: w.append('%s held at %s px, the guide says %s' % (name, c.get('hold_px'), g['rig']['hold_px']))
+        mt = c.get('motion_px') or {}
+        if sorted(mt) != sorted(F8) or any(len(mt[f]) != c.get('keys') for f in mt): w.append('%s has no motion table for eight facings and %s keys' % (name, c.get('keys')))
+    want = 8 + sum(8 * c.get('keys', 0) for c in m['clips'].values())
+    if len(m.get('obj_files', [])) != want: w.append('the object-ID pass has %d pictures, not %d' % (len(m.get('obj_files', [])), want))
+    return w
+
+
+def wrong_hold(rep, g):
+    hc = gfield_hold(g); w = []
+    for h in rep.get('holds', []):
+        if h.get('declared_hold') and h['max_outside_seen_pct'] >= hc['boil_max_pct']: w.append('%s %s boils %.2f%% outside its moving parts and their light (bar %s%%)' % (h['subject'], h['clip'], h['max_outside_seen_pct'], hc['boil_max_pct']))
+        if h.get('declared_hold') and len(h.get('dropouts', [])) > hc['dropouts_max']: w.append('%s %s: a part drops out %d times' % (h['subject'], h['clip'], len(h['dropouts'])))
+    return w
+
+
+def gfield_hold(g):
+    return next(f for f in g['fields'] if f['n'] == 15)['value']['hold_check']
+
+
 print('STYLE GUIDE GATE (rules 114a and 115d)')
 g = json.load(open(GUIDE))
 # planted wrong ones first
@@ -129,6 +161,8 @@ chk(any('outside a dont_' in x for x in wrong_render({'rig_settings': {}, 'break
 chk(any('in disguise' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'card_guide': {'out': 1}}, '/x/dont_robot', g)), 'a planted dont_ render that breaks nothing is refused')
 chk(any('toy' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'calibration': {'cube_ok': True, 'light_ok': True}, 'card_guide': {'out': 0}, 'proportions': {'ok': False, 'off': {'width': 0.4}, 'tolerance': 0.12}}, '/x/truck', g)), 'a planted render with a toy\'s proportions is refused')
 chk(any('BACK' in x for x in wrong_render({'rig_settings': {}, 'breaks': [], 'calibration': {'cube_ok': True, 'light_ok': True}, 'card_guide': {'out': 3, 'verdict': '3 of 8'}}, '/x/robot', g)), 'a planted render BACK under the guide is refused')
+chk(any('motion table' in x for x in wrong_clips({'rig_round': 7, 'clips': {'Idle': {'keys': 12, 'hold_px': g['rig']['hold_px'], 'motion_px': {'S': []}}}, 'obj_files': []}, g)), 'a planted clip with no motion table is refused')
+chk(any('boils' in x for x in wrong_hold({'holds': [{'subject': 'robot', 'clip': 'Idle', 'declared_hold': True, 'max_outside_pct': 40.0, 'max_outside_seen_pct': 40.0, 'dropouts': []}]}, g)), 'a planted idle that boils 40 percent is refused')
 # the real thing
 w = wrong_guide(g); chk(not w, 'the style guide: 20 fields with values, a do and dont for 2 to 15, the rig block, every test key resolves%s' % (': ' + '; '.join(w) if w else ''))
 r = subprocess.run([sys.executable, os.path.join(ROOT, 'tools/bohemia_direction_style_palette.py'), '--check'], capture_output=True, text=True)
@@ -140,6 +174,13 @@ chk(len(rigs) >= 5, '%d renders of round four or later' % len(rigs))
 for r in sorted(rigs):
     m = json.load(open(r)); w = wrong_render(m, os.path.dirname(r), g)
     chk(not w, '%s %s%s' % (os.path.relpath(r, ROOT), m.get('card_guide', {}).get('verdict', ''), (': ' + '; '.join(w)) if w else ''))
+for r in sorted(rigs):
+    m = json.load(open(r))
+    if int(m.get('rig_round', 0)) >= 7 and m.get('clips'):
+        w = wrong_clips(m, g); chk(not w, '%s: the clips held at %s px, the motion table and the object-ID pass whole%s' % (os.path.relpath(r, ROOT), g['rig']['hold_px'], (': ' + '; '.join(w)) if w else ''))
+if os.path.exists(ROUND_SIX):
+    w = wrong_hold(json.load(open(ROUND_SIX)), g)
+    chk(not w, 'the round six report: the declared hold under %s%% outside the moving parts, no dropout%s' % (gfield_hold(g)['boil_max_pct'], (': ' + '; '.join(w)) if w else ''))
 fin = os.path.join(ROOT, 'records/target/direction_style_guide/robot/finish.json')
 if os.path.exists(fin):
     f = json.load(open(fin)); fs = {x['facing']: x for x in f['facings']}

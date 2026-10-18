@@ -93,15 +93,24 @@ the guide's rig block, so every render after this loses them:
     thing's (proportion_tolerance); a chunky wide body on big wheels is a toy's, and the model is built true (the truck:
     tools/bohemia_direction_model_truck.py).
 
+ROUND SEVEN (10/18, DIRECTION [the rig round six]: THE CLIPS ARE MEASURED; research round two D9, R11 and R12): a clip is
+judged frame against frame, so the rig now hands a gate what it needs to tell motion from boil:
+  * THE OBJECT-ID PASS: every mesh part becomes one flat colour (obj_table in rig.json) and the eight stills AND every
+    clip key are rendered again at one sample as rigobj_*.png on the same box, so a part's pixels can be counted per
+    frame (R11: a part that vanishes and returns) and the moving parts' pixels masked (R12).
+  * THE MOTION TABLE (clips.<name>.motion_px): for each facing and key, how far each part's furthest vertex moved on
+    the screen since the key before (cyclic, a loop), from the model's own evaluated vertices under the one camera;
+    a part that moved half a pixel or more is inside the moving mask, every other pixel is a hold.
+
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the approved asset index (the twin is his own car from the
 7/13 UP set), the card of numbers, skills/bohemia-pixel-art, AH-01, AH-03. No reference game.
 """
-import os, sys, json, math, subprocess
+import os, sys, json, math, shutil, subprocess
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 PORTRAIT_FACINGS = ['S', 'SE', 'SW']
-RIG_ROUND = 6
+RIG_ROUND = 7
 GUIDE_PATH = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')
 GUIDE = json.load(open(GUIDE_PATH))
 G = dict(GUIDE['rig'])   # a copy: --set may move a key for one render, and the break is read against the file
@@ -190,7 +199,7 @@ def source_pass(objs, wear, k, seed=0):
     here touches a pixel; it changes the surface the light falls on. k converts the model's units to metres, so every
     mask is sized in the world (grain about one pixel at 57 ppm, drift 20 cm, dust 50 cm) and the same on a truck and
     a man. Returns what it did, for rig.json."""
-    done = set()
+    done, weighted = set(), {}
     GRIME, DUST = (0.11, 0.085, 0.065, 1), (0.66, 0.60, 0.50, 1)   # crevice dirt, warm and dark; sun-bleached dust, pale and warm
     # round five: every mask size and grain strength is the guide's (rig block), so a change is a line in its decisions list
     GRAIN_PER_M, DRIFT_PER_M, DUST_PER_M = float(G['grain_per_m']), float(G['drift_per_m']), float(G['dust_per_m'])
@@ -201,6 +210,11 @@ def source_pass(objs, wear, k, seed=0):
             m = slot.material
             if not m or m.name in done: continue
             done.add(m.name)
+            # round seven: THE WEAR BY MATERIAL (CHARACTER and COOK THREE, 10/17 and 10/18: the up-facing dust turned every
+            # black crown and charcoal cap the same grey; PORTRAIT: the chips blotch skin): a material whose name holds a key
+            # of the guide's wear_by_material takes that share of the dust and the chips; hair, skin and eyes are not paint
+            mw = next((float(v) for k, v in G['wear_by_material'].items() if k in m.name.lower()), 1.0)
+            if mw != 1.0: weighted[m.name] = mw
             m.use_nodes = True; nt = m.node_tree
             bsdf = next((n for n in nt.nodes if n.type == 'BSDF_PRINCIPLED'), None)
             if not bsdf: continue
@@ -239,7 +253,7 @@ def source_pass(objs, wear, k, seed=0):
             noise =nt.nodes.new('ShaderNodeTexNoise'); noise.inputs['Scale'].default_value = 1.0; noise.inputs['Detail'].default_value = 5.0; noise.inputs['Roughness'].default_value = 0.65
             nt.links.new(coords(DUST_PER_M), noise.inputs['Vector'])
             dust = nt.nodes.new('ShaderNodeMath'); dust.operation = 'MULTIPLY'; nt.links.new(up.outputs[0], dust.inputs[0]); nt.links.new(noise.outputs['Fac'], dust.inputs[1])
-            dustw = nt.nodes.new('ShaderNodeMath'); dustw.operation = 'MULTIPLY'; dustw.inputs[1].default_value = 1.1 * wear; dustw.use_clamp = True; nt.links.new(dust.outputs[0], dustw.inputs[0])
+            dustw = nt.nodes.new('ShaderNodeMath'); dustw.operation = 'MULTIPLY'; dustw.inputs[1].default_value = 1.1 * wear * mw; dustw.use_clamp = True; nt.links.new(dust.outputs[0], dustw.inputs[0])
             # 4. a slow drift of colour across the body (20 cm, warm into light and cool into shade): no two square centimetres one colour
             drift = nt.nodes.new('ShaderNodeTexNoise'); drift.inputs['Scale'].default_value = 1.0; drift.inputs['Detail'].default_value = 4.0; drift.inputs['Roughness'].default_value = 0.6
             nt.links.new(coords(DRIFT_PER_M), drift.inputs['Vector'])
@@ -295,7 +309,7 @@ def source_pass(objs, wear, k, seed=0):
             chipm = nt.nodes.new('ShaderNodeMapRange'); chipm.inputs['From Min'].default_value = 0.36; chipm.inputs['From Max'].default_value = 0.5; chipm.clamp = True
             nt.links.new(chipn.outputs['Fac'], chipm.inputs['Value'])
             chip = nt.nodes.new('ShaderNodeMath'); chip.operation = 'MULTIPLY'; nt.links.new(edge.outputs['Result'], chip.inputs[0]); nt.links.new(chipm.outputs['Result'], chip.inputs[1])
-            chipw = nt.nodes.new('ShaderNodeMath'); chipw.operation = 'MULTIPLY'; chipw.inputs[1].default_value = float(G['edge_wear']) * wear; chipw.use_clamp = True
+            chipw = nt.nodes.new('ShaderNodeMath'); chipw.operation = 'MULTIPLY'; chipw.inputs[1].default_value = float(G['edge_wear']) * wear * mw; chipw.use_clamp = True
             nt.links.new(chip.outputs[0], chipw.inputs[0])
             under = nt.nodes.new('ShaderNodeMixRGB'); under.blend_type = 'MULTIPLY'; under.inputs['Fac'].default_value = 1.0; under.inputs['Color2'].default_value = tuple(G['chip_mul']) + (1,)
             nt.links.new(mix4.outputs['Color'], under.inputs['Color1'])
@@ -303,7 +317,7 @@ def source_pass(objs, wear, k, seed=0):
             nt.links.new(chipw.outputs[0], mix5.inputs['Fac']); nt.links.new(mix4.outputs['Color'], mix5.inputs['Color1']); nt.links.new(under.outputs['Color'], mix5.inputs['Color2'])
             for l in list(base.links): nt.links.remove(l)
             nt.links.new(mix5.outputs['Color'], base)
-    return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= %g, specular %g, metallic <= 0.2' % (G['roughness_min'], G['specular']),
+    return dict(wear=wear, materials=sorted(done), wear_by_material=weighted, what=['matte: roughness >= %g, specular %g, metallic <= 0.2' % (G['roughness_min'], G['specular']),
                 'old paint: saturation x %g, and %g of that again lost on what faces the sun' % (G['paint_sat_mul'], G['bleach_up'] * wear),
                 'worn edges: within %g m of a turn the paint chips (a %g a metre mask) to the base x %s' % (G['edge_m'], G['chip_per_m'], G['chip_mul']),'crevice grime from the model\'s own ambient occlusion (0.25 m)',
                 'dust and bleach on up-facing surfaces under a %g cm mask; on a base brighter than %s the wear is the base times %s (darker, never frost)' % (100.0 / DUST_PER_M, BRIGHT, list(DUST_DARK[:3])), 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
@@ -432,6 +446,169 @@ def id_pass(sc, objs, root):
     return table, files
 
 
+def clip_holds(sc, objs, root, cam, res, frames, hold_px):
+    """THE HOLD (round seven, research round two R12 and C3; guide field 15, 'a hold repeats the previous key's render'):
+    measured on the robot's idle, a part that drifts a fifth of a pixel between two keys still changes most of its
+    pixels, because the surface's grain is sampled again at a new sub-pixel offset (the sprite 'boils'). A stop-motion
+    animator does not touch a puppet's part that would not read as moving; the rig does the same. Per facing and key, a
+    RIGID part (a mesh carried by a bone, no armature of its own) whose furthest vertex would move under hold_px on the
+    screen since its last DRAWN pose keeps that drawn pose (its world matrix is pinned); once the true pose is hold_px
+    or more away it is drawn where it truly is, so a slow drift still arrives, in whole visible steps. A SKINNED part
+    rides the rigid part nearest it: when that anchor holds, the same correction is carried onto it, so a hand never
+    slides off a held arm. Two passes round the loop so the first key knows the last. Returns the pins per facing and
+    key, and THE MOTION TABLE of what is drawn: each part's furthest vertex movement on the screen since the key before,
+    in pixels, cyclic, from the model's own vertices after every modifier, under the one ortho camera."""
+    import bpy
+    import numpy as np
+    W2C = np.array(cam.matrix_world.inverted()); ortho = cam.data.ortho_scale
+    def px(Mw, v):
+        P = W2C @ Mw; c = v @ P[:3, :3].T + P[:3, 3]
+        return np.stack([(c[:, 0] / ortho + 0.5) * res, (0.5 - c[:, 1] / ortho) * res], 1)
+    rigid = [o for o in objs if not any(m.type == 'ARMATURE' for m in o.modifiers)]
+    skinned = [o for o in objs if o not in rigid]
+    dg = bpy.context.evaluated_depsgraph_get(); loc = {}
+    for o in objs:
+        e = o.evaluated_get(dg); me = e.to_mesh(); co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); e.to_mesh_clear()
+        v = co.reshape(-1, 3); loc[o.name] = np.vstack([v[::max(1, len(v) // 600)], v.min(0), v.max(0)])
+    def centre(o): v = loc[o.name]; return (np.array(o.matrix_world) @ np.append(v.mean(0), 1.0))[:3]
+    def bone_anchor(o):
+        """the skinned part's strongest bone, then up its chain to the first bone a rigid part rides (the robot's hand:
+        LowerArm.L, then UpperArm.L, which carries Arm.L); else the rigid part nearest its centre"""
+        w = {}
+        for v in o.data.vertices:
+            for gr in v.groups: w[o.vertex_groups[gr.group].name] = w.get(o.vertex_groups[gr.group].name, 0.0) + gr.weight
+        arm = next((m.object for m in o.modifiers if m.type == 'ARMATURE' and m.object), None)
+        if w and arm:
+            b = arm.data.bones.get(max(w, key=w.get))
+            while b:
+                r = next((r for r in rigid if r.parent_type == 'BONE' and r.parent_bone == b.name), None)
+                if r: return r.name
+                b = b.parent
+        return min(rigid, key=lambda r: np.linalg.norm(centre(r) - centre(o))).name
+    anchor = {o.name: bone_anchor(o) for o in skinned} if rigid else {}
+    pins, motion = {}, {}
+    for i, f in enumerate(FACINGS):
+        root.rotation_euler = (0, 0, math.radians(180 - 45 * i)); bpy.context.view_layer.update()
+        last, keyed = {}, []
+        for rnd in (0, 1):
+            for j, fr in enumerate(frames):
+                sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
+                hold, drawn = {}, {}
+                for o in rigid:
+                    M = np.array(o.matrix_world); P = last.get(o.name)
+                    if P is not None and np.sqrt(((px(M, loc[o.name]) - px(P, loc[o.name])) ** 2).sum(1)).max() < hold_px: hold[o.name] = P; drawn[o.name] = P
+                    else: last[o.name] = M; drawn[o.name] = M
+                carry = {}
+                for o in skinned:
+                    an = anchor.get(o.name)
+                    if an in hold:
+                        cur = np.array(bpy.data.objects[an].matrix_world); carry[o.name] = hold[an] @ np.linalg.inv(cur)
+                if rnd == 1:
+                    sk = {}
+                    if skinned:
+                        dgk = bpy.context.evaluated_depsgraph_get()
+                        for o in skinned:
+                            e = o.evaluated_get(dgk); me = e.to_mesh(); co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); e.to_mesh_clear()
+                            W = carry.get(o.name, np.eye(4)) @ np.array(o.matrix_world); v = co.reshape(-1, 3); sk[o.name] = px(W, v[::max(1, len(v) // 600)])
+                    keyed.append(dict(hold=hold, carry=carry, scr={**{n: px(M, loc[n]) for n, M in drawn.items()}, **sk}))
+        pins[f] = [dict(hold={n: M.tolist() for n, M in k['hold'].items()}, carry={n: M.tolist() for n, M in k['carry'].items()}) for k in keyed]
+        n = len(frames)
+        motion[f] = [{nm: round(float(np.sqrt(((keyed[j]['scr'][nm] - keyed[j - 1]['scr'][nm]) ** 2).sum(1)).max()), 3) for nm in keyed[j]['scr']} for j in range(n)]
+    return pins, motion
+
+
+def pose_key(sc, root, i, fr, pk):
+    """the facing, the clip's time, then the holds of THE HOLD laid on; returns what to restore after the render"""
+    import bpy, mathutils
+    root.rotation_euler = (0, 0, math.radians(180 - 45 * i)); sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
+    undo = []
+    if pk:
+        for nm, M in list(pk['hold'].items()) + list(pk['carry'].items()):
+            o = bpy.data.objects[nm]; undo.append((o, o.matrix_basis.copy()))
+        for nm, M in pk['hold'].items(): bpy.data.objects[nm].matrix_world = mathutils.Matrix(M)
+        bpy.context.view_layer.update()
+        for nm, M in pk['carry'].items():
+            o = bpy.data.objects[nm]; o.matrix_world = mathutils.Matrix(M) @ o.matrix_world
+        bpy.context.view_layer.update()
+    return undo
+
+
+def light_footprint(sc, root, out, name, f, i, j, poses, movers):
+    """the movers' light on the parts that hold: white clay, the rig's own sun and sky, light_mask_samples a pixel, once
+    with every part in the light and once with the movers seen by the camera only (no shadow, no bounce); every pixel
+    that differs by more than light_mask_values in either pose is the movers' light. Writes light_<clip>_<F>_kNN.png"""
+    import bpy
+    import numpy as np
+    from PIL import Image
+    white = bpy.data.materials.get('bohemia_light_white')
+    if white is None:
+        white = bpy.data.materials.new('bohemia_light_white'); white.use_nodes = True
+        b = white.node_tree.nodes['Principled BSDF']; b.inputs['Base Color'].default_value = (0.8, 0.8, 0.8, 1); b.inputs['Roughness'].default_value = 1.0
+        for sp in ('Specular IOR Level', 'Specular'):
+            if sp in b.inputs: b.inputs[sp].default_value = float(G['specular'])
+    vl = bpy.context.view_layer; keep = sc.cycles.samples
+    vl.material_override = white; sc.cycles.samples = int(G['light_mask_samples'])
+    foot = None; tmp = os.path.join(out, '_light_tmp.png')
+    for fr, pk in poses:
+        pics = []
+        for lit in (True, False):
+            for nm in movers:
+                o = bpy.data.objects[nm]
+                o.visible_shadow = o.visible_diffuse = o.visible_glossy = o.visible_transmission = lit
+            undo = pose_key(sc, root, i, fr, pk); sc.render.filepath = tmp; bpy.ops.render.render(write_still=True); unpose(undo)
+            pics.append(np.asarray(Image.open(tmp).convert('RGBA')).astype(np.int16))
+        d = np.abs(pics[0] - pics[1])[..., :3].max(2) > int(G['light_mask_values'])
+        foot = d if foot is None else (foot | d)
+    for nm in movers:
+        o = bpy.data.objects[nm]; o.visible_shadow = o.visible_diffuse = o.visible_glossy = o.visible_transmission = True
+    vl.material_override = None; sc.cycles.samples = keep
+    fn = os.path.join(out, 'light_%s_%s_k%02d.png' % (name, f, j))
+    Image.fromarray(np.where(foot, 255, 0).astype(np.uint8), 'L').save(fn); os.remove(tmp)
+    return fn
+
+
+def unpose(undo):
+    import bpy
+    for o, B in undo: o.matrix_basis = B
+    if undo: bpy.context.view_layer.update()
+
+
+def obj_id_pass(sc, objs, root, out, still_set, clips, clip_set):
+    """THE OBJECT-ID PASS (round seven, research round two R11 and D9): every mesh part one flat colour, one sample, the
+    eight stills and every clip key, so a gate counts a part's pixels per frame and masks the parts that moved. Runs
+    after the material-ID pass: it overwrites the materials again. Returns the table and the files."""
+    import bpy, colorsys
+    table = {}
+    for i, o in enumerate(sorted(objs, key=lambda o: o.name)):
+        r, g, b = colorsys.hsv_to_rgb((i * 0.61803 + 0.3) % 1.0, 0.85, 1.0)
+        enc = lambda c: 12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055   # the PNG holds the Standard view's sRGB, not the linear value set
+        table[o.name] = '#%02x%02x%02x' % tuple(int(round(enc(c) * 255)) for c in (r, g, b))
+        m = bpy.data.materials.new('bohemia_obj_' + o.name); m.use_nodes = True; nt = m.node_tree
+        for n in list(nt.nodes):
+            if n.type != 'OUTPUT_MATERIAL': nt.nodes.remove(n)
+        em = nt.nodes.new('ShaderNodeEmission'); em.inputs['Color'].default_value = (r, g, b, 1)
+        nt.links.new(em.outputs[0], next(n for n in nt.nodes if n.type == 'OUTPUT_MATERIAL').inputs['Surface'])
+        for s in o.material_slots: s.link = 'OBJECT'; s.material = m
+        if not o.material_slots: o.data.materials.append(m)
+    sc.cycles.samples = 1; sc.world.node_tree.nodes['Background'].inputs[1].default_value = 0.0
+    files = []
+    def shot(fn, i):
+        root.rotation_euler = (0, 0, math.radians(180 - 45 * i)); sc.render.filepath = fn; bpy.ops.render.render(write_still=True); files.append(fn)
+    still_set()
+    for i, f in enumerate(FACINGS): shot(os.path.join(out, 'obj_%s.png' % f), i)
+    for name, frames, pins, repeats in clips:
+        clip_actions(sc, name); clip_set()
+        for i, f in enumerate(FACINGS):
+            rep = set(repeats.get(f, []))
+            for j, fr in enumerate(frames):
+                fn = os.path.join(out, 'obj_%s_%s_k%02d.png' % (name, f, j)); files.append(fn)
+                if j in rep: continue
+                undo = pose_key(sc, root, i, fr, pins[f][j] if pins else None); sc.render.filepath = fn; bpy.ops.render.render(write_still=True); unpose(undo)
+            for j in repeats.get(f, []):   # the same order the colour copies ran in, so a chain of holds resolves
+                shutil.copyfile(os.path.join(out, 'obj_%s_%s_k%02d.png' % (name, f, (j - 1) % len(frames))), os.path.join(out, 'obj_%s_%s_k%02d.png' % (name, f, j)))
+    return table, files
+
+
 def render(A):
     global bpy
     import bpy, mathutils
@@ -514,11 +691,31 @@ def render(A):
         f0, f1 = clip_actions(sc, name)
         frames = [f0 + (f1 - f0) * (i + 0.5) / keys for i in range(keys)]
         files = []
+        hold_px = float(G['hold_px'])
+        pins, motion = clip_holds(sc, objs, root, cam, res, frames, hold_px)   # round seven: THE HOLD, and the motion table of what is drawn
+        repeats, lights = {}, []
         for i, f in enumerate(FACINGS):
+            still_key = [all(v < hold_px for v in motion[f][j].values()) for j in range(keys)]
             for j, fr in enumerate(frames):
-                sc.frame_set(int(math.floor(fr)), subframe=fr - math.floor(fr))
-                files.append(shot(os.path.join(out, 'raw_%s_%s_k%02d.png' % (name, f, j)), i))
-        clips[name] = dict(keys=keys, beats=keys / 3.0, frame_range=[round(f0, 2), round(f1, 2)], frames=[round(x, 2) for x in frames], raw=files)
+                fn = os.path.join(out, 'raw_%s_%s_k%02d.png' % (name, f, j)); files.append(fn)
+                if still_key[j] and not all(still_key): continue   # A WHOLE HOLD REPEATS THE KEY BEFORE (field 15): copied below, never re-rendered
+                undo = pose_key(sc, root, i, fr, pins[f][j]); sc.render.filepath = fn; bpy.ops.render.render(write_still=True); unpose(undo)
+            if all(still_key): continue
+            first = next(j for j in range(keys) if not still_key[j])
+            for t in range(1, keys + 1):
+                j = (first + t) % keys
+                if still_key[j]:
+                    shutil.copyfile(os.path.join(out, 'raw_%s_%s_k%02d.png' % (name, f, (j - 1) % keys)), os.path.join(out, 'raw_%s_%s_k%02d.png' % (name, f, j))); repeats.setdefault(f, []).append(j)
+            # THE MOVERS' LIGHT (round seven): what a moving part does to the light on the parts that hold (its cast shadow,
+            # its bounce) is motion, not boil; for each key where some parts move and some hold, the same white clay is
+            # rendered with and without the movers in the light (camera rays only), at the key and the key before
+            for j, fr in enumerate(frames):
+                movers = [n for n, v in motion[f][j].items() if v >= hold_px]
+                if not movers or len(movers) == len(motion[f][j]): continue
+                lights.append(light_footprint(sc, root, out, name, f, i, j, [(fr, pins[f][j]), (frames[j - 1], pins[f][j - 1])], movers))
+        held = sum(len(k['hold']) for f in FACINGS for k in pins[f])
+        clips[name] = dict(keys=keys, beats=keys / 3.0, frame_range=[round(f0, 2), round(f1, 2)], frames=[round(x, 2) for x in frames], raw=files,
+                           motion_px=motion, moving_px=hold_px, hold_px=hold_px, held_part_keys=held, repeated_keys=repeats, light_files_raw=lights, pins=pins, _frames=frames)
     if A['clips']: clip_actions(sc, A['clips'][0][0])
     if A['still'] == 'rest':
         for a in arms: a.data.pose_position = 'REST'
@@ -559,8 +756,17 @@ def render(A):
         sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still)); root.scale = (k, k, k * zs)
         aim(A['tilt'], dims[2] * zs / 2, res / ppm, res); sc.render.filepath = os.path.join(out, 'x.png')
         idt, idf = id_pass(sc, objs, root)
+        def still_set():
+            if A['clips']: clip_actions(sc, A['clips'][0][0])
+            for a in arms: a.data.pose_position = 'REST' if A['still'] == 'rest' else 'POSE'
+            sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still))
+        def clip_set():
+            for a in arms: a.data.pose_position = 'POSE'
+        oidt, oidf = obj_id_pass(sc, objs, root, out, still_set, [] if A['stills_only'] else [(n, clips[n]['_frames'], clips[n]['pins'], clips[n]['repeated_keys']) for n, _ in A['clips']], clip_set)
+    else: oidt, oidf = None, []
     return dict(engine=G['engine'], res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
-                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, proportions=props, calibration=calib, id_table=idt, id_files_raw=idf), stills, clips, portrait
+                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, proportions=props, calibration=calib, id_table=idt, id_files_raw=idf,
+                obj_table=oidt, obj_files_raw=oidf), stills, clips, portrait
 
 
 def post(files, out, A, pop=None, shadow=False, one_box=True):
@@ -704,7 +910,12 @@ if __name__ == '__main__':
                 keys_per_beat=3, bpm=120, ruler='records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)')
     i = n
     for name, c in clips.items():
-        k = len(c['raw']); c['files'] = [rel(o) for o in outs[i:i + k]]; i += k; del c['raw']
+        k = len(c['raw']); c['files'] = [rel(o) for o in outs[i:i + k]]; i += k; del c['raw']; c.pop('pins', None); c.pop('_frames', None)
+        lf = []
+        for fn in c.pop('light_files_raw', []):   # round seven: the movers' light on the same box as the colour
+            from PIL import Image
+            o = os.path.join(os.path.dirname(fn), 'rig' + os.path.basename(fn)); Image.open(fn).crop(tuple(box)).save(o); lf.append(rel(o))
+        c['light_files'] = lf
     meta['clips'] = clips
     meta['card'] = card(outs[FACINGS.index('S')], A['judge'])
     meta['cls'] = A['cls']; meta['card_guide'] = guide_card(meta['card'], outs[FACINGS.index('S')], A['cls'])
@@ -722,6 +933,13 @@ if __name__ == '__main__':
             im = Image.open(fn).convert('RGBA'); im = im.crop(tuple(box)); o = fn.replace('id_', 'rigid_'); im.save(o); ids.append(rel(o))
         meta['id_files'] = ids
     else: meta.pop('id_files_raw', None)
+    if meta.get('obj_files_raw'):   # round seven: the object-ID pass on the same box as the colour, stills and clip keys
+        from PIL import Image
+        objf = []
+        for fn in meta.pop('obj_files_raw'):
+            o = os.path.join(os.path.dirname(fn), 'rig' + os.path.basename(fn)); Image.open(fn).convert('RGBA').crop(tuple(box)).save(o); objf.append(rel(o))
+        meta['obj_files'] = objf
+    else: meta.pop('obj_files_raw', None)
     if portrait:
         praw = portrait.pop('raw'); eraw = portrait.pop('raw_expressions')
         pouts, pbox = post(praw + list(eraw.values()), A['out'], A, pop, shadow=False)

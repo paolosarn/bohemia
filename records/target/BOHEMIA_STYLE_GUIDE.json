@@ -50,6 +50,16 @@
    "research_said": "Round two's recipe (Section C): the hand is the highlight pass, the detail restore and the silhouette push; the source sets matte clay.",
    "decided": "Round six adds four source rules against the toy (10/18): roughness 1 and specular 0; old paint (paint_sat_mul 0.85, bleach_up 0.15); worn edges (edge_m 0.05, chip_per_m 9, chip_mul 0.4/0.33/0.27, edge_wear 0.85); a handmade shape (dent_m 0.025 at dent_per_m 2 after a simple subdivision); and true proportions for vehicles and props within proportion_tolerance 0.12.",
    "why": "His YES on round five came with 'the truck looks a little too much like a play toy, turn it up'; the row's constraint is the recipe, not one truck, so every render after this one carries them. The first try (paint_sat_mul 0.72, bleach_up 0.3) took the yellow he loved to cream (mean saturation 0.29, measured): the frost again by another road; 0.85 and 0.15 keep the hue and lose the shine of new paint. The biggest single tell was the proportions, not the surface: fixed in the model (tools/bohemia_direction_model_truck.py REAL), gated in the rig."
+  },
+  {
+   "research_said": "Round two D9 (R12): XOR each frame against the previous; changed pixels outside the declared moving mask under 3 percent.",
+   "decided": "TAKEN WITH TWO READINGS. A change is a move of more than 3 values on a channel (or an alpha flip), the exact count printed beside it; and the moving mask holds the moving parts AND their light (their cast shadow and bounce on the parts that hold, from the rig's light pass).",
+   "why": "Measured (round six): the rig renders the same frame twice bit for bit, so a held key that repeats the key before is exact (keys 0 and 6 of the idle are copies); but when the head turns, a path tracer re-lights every part it bounces onto by 1 to 3 values (the exact count stays at 25.94% on those keys while the visible count is 4.71%), and the head's own shadow sweeping the torso is the head's motion, which a stop-motion head turn also throws."
+  },
+  {
+   "research_said": "Round two C3: snap the model root to the pixel grid every frame, so a sub-pixel move never resamples the sprite (R12, pixel creep).",
+   "decided": "TAKEN PER PART, NOT AT THE ROOT. Every rigid part that would move under half a pixel since its last drawn pose holds that pose (rig.hold_px); a skinned part rides its bone's rigid part.",
+   "why": "Measured on the robot's idle (round six): the hips bob 0.7 to 1.0 px while the feet stay planted, so snapping the root makes the planted feet creep instead; a 0.27 px head drift alone changed 10.88% of the idle's pixels by more than 3 values. Holding each part is what a stop-motion animator does (a part that would not read as moving is not touched), and it leaves the bob, a real move, alone."
   }
  ],
  "fields": [
@@ -232,7 +242,15 @@
      "wet blood",
      "a lit lamp"
     ],
-    "banding": 0
+    "banding": 0,
+    "value_thirds": {
+     "percentiles": [
+      1,
+      99
+     ],
+     "test": "D7 (PLUMBER 10/18): the value thirds read between the 1st and 99th percentile, never min to max, so the two eye glints (research B9, the stare) do not squeeze the light third",
+     "measured": "the finished robot 25/34/41 (was 27/63/9 on min to max)"
+    }
    },
    "do": "the robot's clay: one soft terminator, matte, the dark side a cool grey-brown",
    "dont": "the robot put through a 4-step toon ramp: banded, cel, a toy"
@@ -322,6 +340,12 @@
      "rule": "every vehicle and prop is built to the real thing's length to width and length to height within rig proportion_tolerance (12 percent); the rig measures it from --real-dims and writes it to rig.json",
      "why": "his 'a play toy' (10/18): Kenney's truck was 1.87 long to wide and 1.8 long to tall on wheels a sixth of its length, a toy's; a real pickup is 2.72 and 2.86 on wheels a seventh",
      "puppet_exception": "a PERSON's puppet proportions (the head share, the hands) stay: a creepy kids' show makes its people puppets, never its trucks"
+    },
+    "silhouette_box": {
+     "grid": 8,
+     "empty_cells_min": 4,
+     "test": "D6 (PLUMBER 10/18, d6_box_empty 4): the silhouette cut to 8 x 8 cells; under 4 of 64 empty is a box. Read at 3 x 3 every render was a box, the truck and the drum included",
+     "measured": "the planted box 0, the truck and the drum 4, the robot 18 to 19, the man 26 (PLUMBER, round five renders)"
     }
    },
    "do": "the robot's head and hands read at 8x8",
@@ -356,6 +380,21 @@
     "the_toy_tells": {
      "rule": "IMPLEMENTED round six (DIRECTION [the truck turned up], 10/18): the paint is old (saturation x rig paint_sat_mul 0.85, faces at the sun lose rig bleach_up 0.15 of that more), the edges are worn (within rig edge_m 5 cm of a turn the paint chips through to the base x rig chip_mul under a rig chip_per_m 9 mask, rig edge_wear 0.85), the shape is handmade (a simple subdivision then a 3D cloud push of rig dent_m 2.5 cm at rig dent_per_m 2)",
      "why": "a toy is fresh loud paint, a moulded perfect edge, a shine and chunky proportions; a thing left in the desert is chalky, chipped and bent"
+    },
+    "wear_by_material": {
+     "keys": "rig.wear_by_material",
+     "how": "a material whose name holds a key takes that share of the dust and the edge chips (hair 0.15, skin 0.25, eye 0)",
+     "why": "CHARACTER and COOK THREE (10/17, 10/18): the up-facing dust turned every black crown and charcoal cap the same grey; PORTRAIT: the chips blotch skin; hair, skin and eyes are not paint",
+     "measured": "the Mob's crown charcoal again (round six), grey in round five"
+    },
+    "orphans": {
+     "per_1000_max": 284.775,
+     "band": "the prop packs' D8 band (records/target/BOHEMIA_NOT_VIBE_CODED_BANDS.json, prop)",
+     "test": "D8 (PLUMBER 10/18): one-pixel islands of a colour none of its 8 neighbours has, anti-aliasing excepted, per 1,000 opaque pixels, against his packs' band (not a fixed number)",
+     "measured": {
+      "robot": 283.79,
+      "anarchists": null
+     }
     }
    },
    "do": "dirt in patches, a clean panel between them",
@@ -441,11 +480,39 @@
     "motion_blur": false,
     "phase": "(i + 0.5) / keys",
     "reversal_max_deg": 120,
-    "holds": "declared per clip, a hold repeats the previous key's render",
+    "holds": "a rigid part that would move under rig.hold_px (half a pixel) since its last drawn pose keeps that pose (the rig pins it); a skinned part rides its strongest bone's rigid part; so a hold repeats the previous key's render for every part that does not read as moving",
     "puppet_jitter_cm": 0,
     "face_swap": "one render per expression at full weight, swapped on a beat",
     "one_shot_keys_per_beat": 6,
-    "one_shot_why": "ANIMATION 10/18 (his 'choppy, not smooth, a little too slow' on the ragdoll): a physics one-shot (the fall) is drawn on twos, six keys a beat (12 a second, the claymation cadence), because at three a beat one picture to the next moved a joint up to 54 px; the cycles keep three. The ragdoll plays 1.8 s of its simulation in two beats on 24 keys (slices/BOHEMIA_ALPHA_0_9.html RAGDOLL.play; gates/the_choppy_fall_gate.js)."
+    "one_shot_why": "ANIMATION 10/18 (his 'choppy, not smooth, a little too slow' on the ragdoll): a physics one-shot (the fall) is drawn on twos, six keys a beat (12 a second, the claymation cadence), because at three a beat one picture to the next moved a joint up to 54 px; the cycles keep three. The ragdoll plays 1.8 s of its simulation in two beats on 24 keys (slices/BOHEMIA_ALPHA_0_9.html RAGDOLL.play; gates/the_choppy_fall_gate.js).",
+    "hold_check": {
+     "test": "research round two D9 (R12 pixel creep, R11 dropouts): every key against the key before, the clip looping; the moving mask is every part the rig's motion table moves hold_px or more, in either frame, grown one pixel",
+     "boil_max_pct": 3.0,
+     "counts": "a pixel whose colour moved more than visible_values on a channel, or whose alpha flipped; the exact count (any change) is printed beside it",
+     "mask_grow_px": 1,
+     "visible_values": 3,
+     "dropouts_max": 0,
+     "movers_light": "the rig's light pass (rig.light_mask_samples, rig.light_mask_values): white clay rendered with and without the moving parts in the light; what they change by more than 3 values (their shadow, their bounce) is motion, not boil",
+     "hidden": "a part a moving part covers is hidden, not dropped (R11 is a thin part lost to sampling)",
+     "declared": "the idle of every rendered person or beast",
+     "tool": "tools/bohemia_direction_rig_round_six.py",
+     "gate": "gates/style_guide_gate.py leg 8",
+     "measured": {
+      "robot_idle_before_the_hold": {
+       "worst_pct": 71.79,
+       "mean_pct": 14.89,
+       "visible_worst_pct": 10.88,
+       "dropouts": 1
+      },
+      "robot_idle_held": {
+       "worst_pct": 25.94,
+       "mean_pct": 4.29,
+       "visible_worst_pct": 4.71,
+       "dropouts": 1,
+       "hidden_by_a_mover": 0
+      }
+     }
+    }
    },
    "do": "six drawn keys a walk, nothing rendered between them",
    "dont": "a smooth 30-frame walk with motion blur: a render, not a puppet"
@@ -675,7 +742,15 @@
   "dent_per_m": 2.0,
   "dent_subdiv": 2,
   "dent_subdiv_max_verts": 20000,
-  "proportion_tolerance": 0.12
+  "proportion_tolerance": 0.12,
+  "hold_px": 0.5,
+  "light_mask_samples": 16,
+  "light_mask_values": 3,
+  "wear_by_material": {
+   "hair": 0.15,
+   "skin": 0.25,
+   "eye": 0.0
+  }
  },
  "tests": [
   {
@@ -771,6 +846,39 @@
     "rig"
    ],
    "what": "every rig.json carries rig_settings equal to this file's rig block, or names the field it breaks on purpose (a DON'T render)"
+  },
+  {
+   "id": "D6",
+   "name": "not a box",
+   "reads": [
+    "fields.proportions.value.silhouette_box"
+   ],
+   "what": "8x8 silhouette; at least 4 of 64 cells empty (PLUMBER's reading, 10/18)"
+  },
+  {
+   "id": "D7",
+   "name": "three values",
+   "reads": [
+    "fields.shading.value.value_thirds"
+   ],
+   "what": "the value thirds between the 1st and 99th percentile, each third present (PLUMBER's reading, 10/18)"
+  },
+  {
+   "id": "D8",
+   "name": "orphans",
+   "reads": [
+    "fields.detail.value.orphans"
+   ],
+   "what": "one-pixel islands per 1,000 at or under the prop packs' band (PLUMBER's reading, 10/18)"
+  },
+  {
+   "id": "D9",
+   "name": "hold stability and dropouts",
+   "reads": [
+    "fields.animation.value.hold_check",
+    "rig.hold_px"
+   ],
+   "what": "on the declared hold, under 3 percent of the opaque pixels change outside the parts that moved; no part drops out (gates/style_guide_gate.py leg 8)"
   }
  ],
  "sheets": {
