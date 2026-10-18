@@ -1278,8 +1278,12 @@ def heap(bpy, mathutils):
     # street, as if somebody sat up there to watch the road.
     import random
     rnd = random.Random(37)
-    dirt, black = mat(bpy, 'cover_dirt', 'clay_bone', 0), mat(bpy, 'bags_black', 'cloth_black', 1)
-    pale, wood, rust = mat(bpy, 'bags_pale', 'tape_masking', 3), mat(bpy, 'boards', 'tape_masking', 1), mat(bpy, 'tin_and_chair', 'clay_rust', 1)
+    # round two of the loop: a pile of stones and bread rolls. The bags were small, round and even (150 of them at
+    # 0.17 to 0.3 m), the pale ones cream, the dirt dusted grey. Now 95 bags, bigger, flatter and half sunk in the
+    # dirt, the black a step darker, the pale ones a dirty grey-white and fewer, the dirt brown, and a fridge on its
+    # side and two tyres to break the dome's line
+    dirt, black = mat(bpy, 'cover_dirt', 'clay_mustard', 0), mat(bpy, 'bags_black', 'cloth_black', 0)
+    pale, wood, rust = mat(bpy, 'bags_pale', 'tape_grey', 2), mat(bpy, 'boards', 'tape_masking', 1), mat(bpy, 'tin_and_chair', 'clay_rust', 1)
     A, B, Hd = 2.5, 1.9, 1.15
     bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=40, ring_count=20, location=(0, 0, 0))
     dome = put(bpy, bpy.context.active_object, 'dirt', dirt, smooth=False)
@@ -1299,18 +1303,28 @@ def heap(bpy, mathutils):
         u = (x / A) ** 2 + (y / B) ** 2
         return Hd * max(0.0, 1 - u) ** 0.77
     # the bags, thick over the whole heap, heavier round the foot where they rolled
-    for i in range(150):
-        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.0, 1.08) ** 0.65
+    for i in range(95):
+        a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.0, 1.05) ** 0.7
         x, y = A * d * math.cos(a), B * d * math.sin(a)
-        r = rnd.uniform(0.17, 0.3)
-        if abs(x - 0.35) < 0.75 and abs(y - 0.1) < 0.5: continue            # the door's place on the top
-        bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=(x, y, top(x, y) + r * 0.25), segments=12, ring_count=8)
-        b = put(bpy, bpy.context.active_object, 'bag_%d' % i, black if rnd.random() < 0.68 else pale)
-        b.scale = (rnd.uniform(0.9, 1.2), rnd.uniform(0.8, 1.0), rnd.uniform(0.6, 0.8)); b.rotation_euler = (rnd.uniform(-0.4, 0.4), rnd.uniform(-0.4, 0.4), rnd.uniform(0, 3))
+        r = rnd.uniform(0.24, 0.4)
+        if abs(x - 0.35) < 0.8 and abs(y - 0.1) < 0.55: continue            # the door's place on the top
+        if (x + 0.95) ** 2 + (y + 0.05) ** 2 < 0.3: continue                  # the chair's
+        sz = rnd.uniform(0.5, 0.68)
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=r, location=(x, y, top(x, y) + r * sz * 0.1), segments=14, ring_count=9)
+        b = put(bpy, bpy.context.active_object, 'bag_%d' % i, black if rnd.random() < 0.78 else pale)
+        b.scale = (rnd.uniform(1.0, 1.35), rnd.uniform(0.8, 1.05), sz); b.rotation_euler = (rnd.uniform(-0.35, 0.35), rnd.uniform(-0.35, 0.35), rnd.uniform(0, 3))
         lump(b, rnd, r)
-        if rnd.random() < 0.5:
-            bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.045, radius2=0.0, depth=0.1, location=(x, y, top(x, y) + r * 0.85))
-            put(bpy, bpy.context.active_object, 'knot_%d' % i, b.data.materials[0], smooth=False)
+        bpy.ops.mesh.primitive_cone_add(vertices=6, radius1=0.06, radius2=0.01, depth=0.14, location=(x + r * 0.3, y, top(x, y) + r * sz * 0.95), rotation=(0, rnd.uniform(0.3, 0.9), rnd.uniform(0, 3)))
+        put(bpy, bpy.context.active_object, 'knot_%d' % i, b.data.materials[0], smooth=False)
+    # a fridge on its back on the near flank, its door hanging, and two tyres on the slope (rubber is the black bags'
+    # own material: the guide caps a prop at five)
+    fr = box(bpy, 'fridge', pale, (0.68, 1.6, 0.7), (0, 0, 0), bevel=0.04)
+    fr.location = (0.95, -1.15, 0.42); fr.rotation_euler = (math.radians(14), math.radians(-8), math.radians(-25))
+    fd = box(bpy, 'fridge_door', pale, (0.04, 1.5, 0.66), (0, 0, 0), bevel=0.02)
+    fd.location = (1.45, -1.45, 0.32); fd.rotation_euler = (math.radians(12), math.radians(-38), math.radians(-25))
+    for i, (x, y, rot) in enumerate(((-1.7, -0.9, (math.radians(62), 0, 0.4)), (1.9, 0.55, (math.radians(35), math.radians(20), 1.2)))):
+        bpy.ops.mesh.primitive_torus_add(major_radius=0.27, minor_radius=0.1, major_segments=24, minor_segments=8, location=(x, y, top(x, y) + 0.2), rotation=rot)
+        put(bpy, bpy.context.active_object, 'tyre_%d' % i, black)
     # the junk: boards and sheet tin stuck out of the slope at angles, a mattress folded over the right-hand flank
     for i in range(14):
         a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.35, 0.95)
@@ -1340,10 +1354,12 @@ def heap(bpy, mathutils):
     ch.location = (cx, cy, cz); ch.rotation_euler = tilt
 
 
-def crumple(o, rnd, amp):
-    """a crushed car's skin: the box subdivided, then dented by a few big blows and many small folds"""
+def crumple(o, rnd, amp, folds=0.0):
+    """a crushed car's skin: the box subdivided, then dented by a few big blows and many small folds; folds > 0 adds the
+    horizontal creases a baler's ram leaves on the sides (every 11 cm, pressed in by folds metres)"""
     hits = [(rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(-1, 1), rnd.uniform(0.25, 0.6)) for _ in range(9)]
     p = [rnd.uniform(0, 6) for _ in range(4)]
+    ph = rnd.uniform(0, 0.11)
     for v in o.data.vertices:
         n = v.co.normalized()
         d = 0.0
@@ -1352,6 +1368,10 @@ def crumple(o, rnd, amp):
             d += math.exp(-q / (w * w)) * 0.6
         f = math.sin(v.co.x * 23 + p[0]) * math.sin(v.co.y * 19 + p[1]) + 0.6 * math.sin(v.co.z * 31 + p[2] + v.co.x * 7)
         v.co -= n * amp * (d + 0.45 * f)
+        if folds:
+            c = abs(math.sin(math.pi * (v.co.z + ph + 0.02 * math.sin(v.co.x * 6 + p[3])) / 0.11)) ** 4
+            v.co.x -= math.copysign(folds * c, v.co.x) * (abs(v.co.x) > 0.6)
+            v.co.y -= math.copysign(folds * c, v.co.y) * (abs(v.co.y) > 0.28)
 
 
 def bales(bpy, mathutils):
@@ -1360,10 +1380,14 @@ def bales(bpy, mathutils):
     # COVER you climb up in three steps to high ground. Each bale its car's own colour, rust and torn glass in the
     # folds, the strap wire round it. The twin his own crushed block (pack:7. Trash and debris#3). The odd thing: a
     # steering wheel still standing out of the end of the top bale.
+    # round two of the loop: foam blocks with polka dots. The crumple was a tenth of a bale's skin (3.5 cm), the paint
+    # pastel, the rust round spots like the propane tank's first cow spots, a grey disc on every top read as a stone.
+    # Twice the crumple, the baler's horizontal creases on the sides, the paint a step down, dark seams pressed along
+    # the creases, the rust in ragged runs along them, no disc
     import random
     rnd = random.Random(41)
-    teal, red, bone = mat(bpy, 'paint_teal', 'clay_teal', 2), mat(bpy, 'paint_red', 'clay_rust', 2), mat(bpy, 'paint_white', 'clay_bone', 3)
-    rust, black = mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'rubber_and_glass', 'rubber', 1)
+    teal, red, bone = mat(bpy, 'paint_teal', 'clay_teal', 1), mat(bpy, 'paint_red', 'clay_rust', 1), mat(bpy, 'paint_white', 'clay_bone', 2)
+    rust, black = mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'rubber_and_glass', 'rubber', 0)
     BL, BW, BH = 1.6, 0.8, 0.7
     colours = [teal, red, bone, rust, teal, bone, red, rust, bone, teal, red, bone]
     spots = []
@@ -1371,28 +1395,33 @@ def bales(bpy, mathutils):
         for i, x in enumerate(xs):
             for y in ((-0.43, 0.43) if c < 2 else (0.0,)):
                 spots.append((x + rnd.uniform(-0.06, 0.06), y + rnd.uniform(-0.03, 0.03), BH / 2 + c * (BH + 0.01), rnd.uniform(-0.05, 0.05)))
-    for k, (x, y, z, a) in enumerate(spots):
-        m = colours[k % len(colours)]
-        b = box(bpy, 'bale_%d' % k, m, (BL, BW, BH), (0, 0, 0))
-        sb = b.modifiers.new('sub', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 3; bpy.ops.object.modifier_apply(modifier='sub')
-        crumple(b, rnd, 0.035)
-        b.location = (x, y, z); b.rotation_euler = (rnd.uniform(-0.02, 0.02), rnd.uniform(-0.02, 0.02), a)
-        # rust and the dark of torn glass and rubber pressed into the folds, on the faces the camera sees
-        for j in range(4):
-            px, pz = rnd.uniform(-BL / 2 + 0.15, BL / 2 - 0.15), rnd.uniform(-BH / 2 + 0.12, BH / 2 - 0.12)
+    def bale(name, m, loc, rot):
+        b = box(bpy, name, m, (BL, BW, BH), (0, 0, 0))
+        sb = b.modifiers.new('sub', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 4; bpy.ops.object.modifier_apply(modifier='sub')
+        crumple(b, rnd, 0.07, folds=0.035)
+        parts = []
+        # the seams: torn glass, rubber and the dark inside pressed out along the creases, on the long faces and the ends
+        for face in (-1, 1):
+            for j in range(rnd.randint(3, 5)):
+                z = rnd.uniform(-BH / 2 + 0.08, BH / 2 - 0.08); ln = rnd.uniform(0.3, 1.1); x = rnd.uniform(-BL / 2 + ln / 2, BL / 2 - ln / 2)
+                parts.append(box(bpy, '%s_seam_%d_%d' % (name, face, j), black, (ln, 0.02, rnd.uniform(0.025, 0.05)), (x, face * (BW / 2 - 0.035), z), rot=(0, rnd.uniform(-0.06, 0.06), 0)))
+            for j in range(2):
+                z = rnd.uniform(-BH / 2 + 0.1, BH / 2 - 0.1)
+                parts.append(box(bpy, '%s_end_seam_%d_%d' % (name, face, j), black, (0.02, rnd.uniform(0.25, 0.6), 0.04), (face * (BL / 2 - 0.06), rnd.uniform(-0.15, 0.15), z)))
+        # the rust, in ragged runs along the creases (a disc stood on the face, stretched along it)
+        for j in range(3):
             pm = rust if m is not rust else bone
-            p = blotch(bpy, 'bale_%d_patch_%d' % (k, j), pm if j < 3 else black, rnd.uniform(0.08, 0.17), (px, -BW / 2 - 0.02, pz), (math.pi / 2, 0, 0), seed=900 + k * 7 + j)
-            p.parent = b
-        top = blotch(bpy, 'bale_%d_top' % k, rust if m is not rust else black, rnd.uniform(0.14, 0.25), (rnd.uniform(-0.4, 0.4), 0, BH / 2 + 0.01), (0, 0, 0), seed=700 + k)
-        top.parent = b
+            o = blotch(bpy, '%s_rust_%d' % (name, j), pm, rnd.uniform(0.07, 0.12), (rnd.uniform(-0.5, 0.5), -BW / 2 - 0.02, rnd.uniform(-0.22, 0.22)), (math.pi / 2, 0, 0), seed=900 + len(name) * 13 + j * 7 + int(loc[0] * 10))
+            o.scale = (rnd.uniform(2.0, 3.5), 1, 1); parts.append(o)
         for sx in (-0.45, 0.45):   # the strap wire round it
-            st = box(bpy, 'bale_%d_strap_%d' % (k, int(sx * 10)), rust, (0.025, BW + 0.05, BH + 0.05), (sx, 0, 0))
-            st.parent = b
+            parts.append(box(bpy, '%s_strap_%d' % (name, int(sx * 10)), rust, (0.025, BW + 0.02, BH + 0.02), (sx, 0, 0)))
+        for q in parts: q.parent = b
+        b.location = loc; b.rotation_euler = rot
+        return b
+    for k, (x, y, z, a) in enumerate(spots):
+        bale('bale_%d' % k, colours[k % len(colours)], (x, y, z), (rnd.uniform(-0.02, 0.02), rnd.uniform(-0.02, 0.02), a))
     # one bale fallen off the stack and tipped at its foot
-    f = box(bpy, 'bale_fallen', red, (BL, BW, BH), (0, 0, 0))
-    sb = f.modifiers.new('sub', 'SUBSURF'); sb.subdivision_type = 'SIMPLE'; sb.levels = 3; bpy.ops.object.modifier_apply(modifier='sub')
-    crumple(f, rnd, 0.04)
-    f.location = (1.55, -1.25, 0.42); f.rotation_euler = (math.radians(14), math.radians(-6), math.radians(-24))
+    bale('bale_fallen', red, (1.55, -1.25, 0.42), (math.radians(14), math.radians(-6), math.radians(-24)))
     # THE ONE ASYMMETRIC THING: the steering wheel still standing out of the -X end of the top bale
     sx_, sz_ = -1.7 - BL / 2 - 0.12, BH / 2 + 2 * (BH + 0.01) + 0.12
     bpy.ops.mesh.primitive_torus_add(major_radius=0.19, minor_radius=0.025, major_segments=24, minor_segments=8, location=(sx_, 0.06, sz_), rotation=(math.radians(10), math.radians(70), 0))
@@ -1456,7 +1485,18 @@ def dozer(bpy, mathutils):
     for sx in (-0.02, -1.45):
         for sy in (-1, 1):
             root_parts.append(box(bpy, 'rops_%d_%d' % (int(sx * 10), sy), yellow, (0.12, 0.12, 2.0), (sx, sy * 0.78, 2.06), bevel=0.02))
-    root_parts.append(box(bpy, 'rops_roof', yellow, (1.65, 1.8, 0.1), (-0.73, 0, 3.08), bevel=0.02))
+    # round two of the loop: a cork toy. The dust took the yellow to tan everywhere, the canopy was one big pale table
+    # top, the blade a flat board. The canopy now dark steel with its lip, the blade's face worn to rust by what it
+    # pushed, louvres down the hood's sides and two lamps on its nose, soot round the stack, the wear bigger and ragged
+    root_parts.append(box(bpy, 'rops_roof', steel, (1.65, 1.8, 0.06), (-0.73, 0, 3.06), bevel=0.015))
+    root_parts.append(box(bpy, 'rops_lip', steel, (1.7, 1.85, 0.05), (-0.73, 0, 3.0)))
+    for sy in (-1, 1):
+        for i in range(7):
+            root_parts.append(box(bpy, 'louvre_%d_%d' % (sy, i), track, (0.9, 0.02, 0.045), (0.75, sy * 0.6, 1.12 + i * 0.075)))
+    for sy in (-0.42, 0.42):
+        root_parts.append(cyl(bpy, 'lamp_%d' % int(sy * 10), glass, 0.075, 0.1, (1.62, sy, 1.83), rot=(0, math.pi / 2, 0), verts=12))
+    for i, (x, y, r) in enumerate(((1.0, 0.3, 0.22), (0.75, 0.15, 0.16), (1.25, 0.45, 0.12))):
+        o = blotch(bpy, 'soot_%d' % i, track, r, (x, y, 1.775), (0, 0, 0), seed=150 + i); root_parts.append(o)
     root_parts.append(box(bpy, 'pane_cracked', glass, (0.02, 1.0, 0.8), (-0.06, 0.1, 2.5), rot=(0, 0, math.radians(2))))
     root_parts.append(box(bpy, 'pane_crack', steel, (0.025, 0.6, 0.02), (-0.065, 0.1, 2.55), rot=(math.radians(28), 0, 0)))
     # the blade, a curved moldboard on its push arms, its cutting edge on the dirt, the two lift rams
@@ -1467,10 +1507,13 @@ def dozer(bpy, mathutils):
     vs = [(x, y, z) for y in (-1.65, 1.65) for x, z in prof]
     fs = [(i, i + 1, n + i + 1, n + i) for i in range(n - 1)]
     me = bpy.data.meshes.new('blade'); me.from_pydata(vs, [], fs); me.update()
-    bl = bpy.data.objects.new('blade', me); bpy.context.collection.objects.link(bl); bl.data.materials.append(yellow)
+    bl = bpy.data.objects.new('blade', me); bpy.context.collection.objects.link(bl); bl.data.materials.append(rust)
     bpy.context.view_layer.objects.active = bl; bl.select_set(True)
     so = bl.modifiers.new('shell', 'SOLIDIFY'); so.thickness = 0.07; bpy.ops.object.modifier_apply(modifier='shell')
-    box(bpy, 'cutting_edge', rust, (0.08, 3.3, 0.16), (2.55, 0, 0.08))
+    box(bpy, 'blade_top', yellow, (0.12, 3.3, 0.14), (2.38, 0, 1.24))
+    for z in (0.35, 0.8):
+        box(bpy, 'blade_back_%d' % int(z * 10), yellow, (0.08, 3.2, 0.12), (2.18, 0, z))
+    box(bpy, 'cutting_edge', track, (0.08, 3.3, 0.16), (2.55, 0, 0.08))
     for sy in (-1, 1):
         box(bpy, 'end_bit_%d' % sy, rust, (0.4, 0.06, 0.95), (2.35, sy * 1.65, 0.5))
         rod(bpy, 'push_arm_%d' % sy, yellow, (2.2, sy * 1.05, 0.45), (-0.2, sy * 1.05, 0.42), 0.09)
@@ -1482,7 +1525,8 @@ def dozer(bpy, mathutils):
     # rust where the yellow is worn: the hood's edges, the blade's face, the fenders
     for i, (x, y, z, r, rot) in enumerate(((0.9, -0.6, 1.5, 0.22, (math.pi / 2, 0, 0)), (0.3, 0.0, 1.78, 0.3, (0, 0, 0)), (2.2, -0.9, 0.55, 0.3, (0, math.pi / 2, 0)),
                                            (2.2, 0.8, 0.4, 0.25, (0, math.pi / 2, 0)), (-0.6, -0.95, 0.85, 0.2, (0, 0, 0)), (-1.35, -0.76, 1.5, 0.18, (math.pi / 2, 0, 0)))):
-        blotch(bpy, 'rust_%d' % i, rust, r, (x, y, z), rot, seed=111 + i)
+        o = blotch(bpy, 'rust_%d' % i, rust, r * 1.3, (x, y, z), rot, seed=111 + i)
+        o.scale = (1, 1.8, 1) if rot[1] else (1.8, 1, 1)   # stretched along the face, never down it into the dirt
     # the near side sits down where the track left it: the whole machine tipped 3 degrees onto its bare rollers (the
     # far side still rides 0.1 m up on its shoes), then seated on the ground
     machine = [o for o in bpy.context.scene.objects]
