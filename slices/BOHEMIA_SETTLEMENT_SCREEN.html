@@ -149,6 +149,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
 <script src="../engine/bohemia_relations.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>  <!-- RUN TWO [the bag sorts]: one sort for both bags -->  <!-- FACTIONS [beef]: the wiki's relation bar; RUN TWO [the opinion moves] keeps one per place -->  <!-- FACTIONS [raids make traits]: the raid ledger; RAIDED comes from it, never the dice (ECONOMY day 70) -->
 <script src="../engine/bohemia_crew_door.js"></script>  <!-- PEOPLE [good bros]: the recruits at the post, the wiki's stats and prices -->
+<script src="../engine/bohemia_rig_faces.js"></script>  <!-- RUN TWO [the starred faces on your screens]: the face off the clay rig (rule 115h) -->
 <!-- __BUILD_ON_THE_SCREEN__ scripts (LIFE+CITY 10/9) -->
 <script src="../engine/bohemia_century.js"></script>
 <script src="../engine/bohemia_housing.js"></script>
@@ -960,7 +961,7 @@ var STAT_SHORT = {hp:'HP', fatigue:'FAT', resolve:'RES', initiative:'INI', melee
 function hireCard(r){
   var c = document.createElement('div'); c.className = 'hire'; c.dataset.id = r.id;
   var f = document.createElement('canvas'); f.width = 64; f.height = 64; f.className = 'face';
-  var im = new Image(); im.onload = function(){ var x = f.getContext('2d'); x.imageSmoothingEnabled = false; x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); }; im.src = 'fight_people/' + r.look + '.webp';   /* the face sits at the sheet's right edge, however many frames it carries */
+  sheetFace(f.getContext('2d'), r.look); f.dataset.face = window.BohemiaRigFaces && BohemiaRigFaces.has(r.look) ? 'rig' : 'sheet';   /* the rig face, else the sheet's right edge (RUN TWO 10/18, rule 115h) */
   c.appendChild(f);
   var t = document.createElement('div'); t.className = 'hiret';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = r.name + '  ·  ' + r.backgroundName.toUpperCase(); t.appendChild(nm);
@@ -996,8 +997,14 @@ function hireIntoCompany(def){
    handed back as BOHEMIA_SETTLEMENT_FACE) wins; until it comes, the face is the one on the speaker's own body sheet
    (slices/fight_people, the 64 face at the sheet's right edge, the same look he wears in the picture) */
 function sheetFace(x, look){
+  /* RUN TWO [the starred faces on your screens], 10/18 (rule 115(h); his 'the portrait is ass, I can't even stare at
+     it' on scavenge): a look with a face off the clay rig wears it; the old flat 64 only where none exists yet */
+  if(window.BohemiaRigFaces && BohemiaRigFaces.draw(x, look, '', 64, function(){ flatFace(x, look); })) return;
+  flatFace(x, look);
+}
+function flatFace(x, look){
   var im = new Image(); im.onload = function(){ x.clearRect(0,0,64,64); x.drawImage(im, im.naturalWidth - 64, 0, 64, 64, 0, 0, 64, 64); };
-  im.onerror = function(){ if(look !== 'you') sheetFace(x, 'you'); };
+  im.onerror = function(){ if(look !== 'you') flatFace(x, 'you'); };
   im.src = 'fight_people/' + look + '.webp';
 }
 function lookOf(k){ var L = folkList(), p = L.filter(function(q){ return q.keeper && q.k === k; })[0]; return p ? p.look : null; }
@@ -1006,7 +1013,7 @@ function face(k, who, look){
   var kp = KEEPERS[k] || {who:who}, f = S.faces[kp.who];
   var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
   if(f){ var im = new Image(); im.onload = function(){ x.drawImage(im,0,0,64,64); }; im.src = f; c.dataset.face = 'portrait'; }
-  else if((look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null))){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = 'sheet'; }
+  else if((look = look || lookOf(k) || (kp.who === 'you' ? 'you' : null))){   /* YOU wear your own sheet's face (fight_people/you), never the dim head */ post('needFace',{who:kp.who, look:look}); sheetFace(x, look); c.dataset.face = window.BohemiaRigFaces && BohemiaRigFaces.has(look) ? 'rig' : 'sheet'; }
   else {
     /* no face handed over yet: ask the game for it (the same road the city uses) and
        hold a dim head shape meanwhile, never a blank box */

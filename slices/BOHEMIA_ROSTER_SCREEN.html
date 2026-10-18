@@ -115,6 +115,7 @@ html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13
 <div id="bag"></div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
+<script src="../engine/bohemia_rig_faces.js"></script>
 <script src="../engine/bohemia_long_injury.js"></script>
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="bohemia_ui_materials.js"></script>
@@ -202,9 +203,14 @@ function bodyCanvas(m, w, h){
   if(im.complete && im.naturalWidth){ var sc = Math.min(c.width/42, c.height/96); x.drawImage(im, 36, 6, 42, 96, (c.width-42*sc)/2, c.height-96*sc, 42*sc, 96*sc); }
   return c;
 }
+/* RUN TWO [the starred faces on your screens], 10/18 (rule 115(h); his 'the portrait sucks'): the face is the one off
+   the clay rig (engine/bohemia_rig_faces.js), never the old flat 64; the sheet's face only for a look with no rig face */
 function faceCanvas(m){
-  var c = document.createElement('canvas'); c.width = 64; c.height = 64; c.className = 'face';
-  var x = c.getContext('2d'); x.imageSmoothingEnabled = false; var im = sheet(m.look);
+  var R = window.BohemiaRigFaces, rig = R && R.has(m.look);
+  var c = document.createElement('canvas'); c.width = c.height = rig ? R.SIZE : 64; c.className = 'face'; c.dataset.face = rig ? 'rig' : 'sheet';
+  var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  if(rig){ R.draw(x, m.look, '', R.SIZE); return c; }
+  var im = sheet(m.look);
   if(im.complete && im.naturalWidth) x.drawImage(im, im.naturalWidth - 64, C.FACE.y, 64, 64, 0, 0, 64, 64);   /* the face is the sheet's right edge */
   return c;
 }

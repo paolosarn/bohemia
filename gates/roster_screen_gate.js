@@ -43,9 +43,16 @@ const srv = http.createServer((rq, rs) => {
   const drawn = await p.evaluate(() => [].slice.call(document.querySelectorAll('.cell.full canvas')).every(c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n > 200; }));
   ok('  each is drawn from the fight\'s own people sheets, not a box', drawn);
   /* PORTRAITS ON THE ROSTER (his YES with a note, 104h): the line shows faces, never the tiny full body */
-  const heads = await p.evaluate(() => { const cs = [].slice.call(document.querySelectorAll('.cell.full canvas')); return { n: cs.length, head: cs.filter(c => c.classList.contains('head') && c.width === 64 && c.height === 64).length,
+  const heads = await p.evaluate(() => { const cs = [].slice.call(document.querySelectorAll('.cell.full canvas')); return { n: cs.length, head: cs.filter(c => c.classList.contains('head') && c.width === c.height && c.width >= 64).length,   /* 64 the sheet's face, 128 the rig's (RUN TWO 10/18) */
     big: cs.every(c => c.getBoundingClientRect().width >= 44) }; });
   ok('  every man on the line is his face, not his full body, the face the width of his slot', heads.n > 0 && heads.head === heads.n && heads.big, heads.head + ' of ' + heads.n + ' faces');
+  /* THE STARRED FACES (RUN TWO [the starred faces on your screens], 10/18, rule 115(h); his 'the portrait sucks'): every
+     face on the line, the wear rows and the card is the one off the clay rig, drawn, never the old flat 64 */
+  await p.waitForTimeout(600);
+  const rig = await p.evaluate(() => { const cs = [].slice.call(document.querySelectorAll('canvas.head, canvas.wface, #card canvas.face'));
+    const drawn = c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n > c.width * c.height * 0.5; };
+    return { n: cs.length, rig: cs.filter(c => c.dataset.face === 'rig').length, drawn: cs.filter(drawn).length }; });
+  ok('  every face on the screen is off the clay rig and drawn, never the old flat portrait', rig.n >= 25 && rig.rig === rig.n && rig.drawn === rig.n, rig.rig + ' rig of ' + rig.n + ', ' + rig.drawn + ' drawn');
   const card = await p.evaluate(() => { const c = document.getElementById('card'); return { stats: c.querySelectorAll('.stats > div').length, stars: c.querySelectorAll('.stars').length, gear: c.querySelectorAll('.gslot').length,
     pain: (c.querySelector('.pain') || {}).textContent || '', sub: (c.querySelector('.sub') || {}).textContent || '', face: (() => { const f = c.querySelector('canvas.face'); if (!f) return 0; const d = f.getContext('2d').getImageData(0, 0, 64, 64).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; })() }; });
   ok('a man\'s card: his face, background, level, wage, eight stats, stars, four gear slots, one pain line',

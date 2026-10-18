@@ -9905,6 +9905,22 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
+  },
+  {
+   "id": "run2-the-starred-faces-10-18",
+   "kind": "redo",
+   "lane": "run 2",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "THE OLD FACES ARE OUT: YOUR CREW AND THE LOT WEAR THE CLAY RIG",
+   "why": "You said the portrait sucks and the scavenge portrait is ass, so every face on the crew screen and the scavenge sheet is now the face off the clay rig: LUPE wears the poacher head you starred, RAUL the thug, the rest a rig body's head until PORTRAIT makes theirs. You see it here under LOOK, old faces on the left and new on the right, and in the demo when you tap CREW or the junk lot (128 px faces, the style palette, one light from the upper left).",
+   "show": {
+    "how": "image",
+    "src": "vote/RUN2_THE_STARRED_FACES_BEFORE_AFTER_10_18.png"
+   },
+   "redoOf": "run2-the-scavenge-button-10-18",
+   "said": "So ass, bro, I can't hear The portrait is ass, bro. I can't even stare at it anymore.",
+   "draft": true
   }
  ],
  "verdicts": [

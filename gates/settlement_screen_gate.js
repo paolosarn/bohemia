@@ -430,6 +430,13 @@ const srv = http.createServer((rq, rs) => {
   const again = await p.evaluate(() => document.querySelector('#sbody .say p').textContent);
   ok('  and where two men fell, two searches find their rounds for certain, then the picked lot again (a searched body stays searched)', fk[0] === 'body:ammo' && fk[1] === 'body:ammo' && fk[2] === 'shut' && !/bodies|body/.test(again),
      fk.join(',') + ' | ' + again.slice(0, 50));
+  /* THE STARRED FACES (RUN TWO [the starred faces on your screens], 10/18, rule 115(h); his 'the portrait is ass, I can't
+     even stare at it' on scavenge): YOU speak the lot under the face off the clay rig, drawn, never the old flat 64 */
+  await p.waitForTimeout(500);
+  const lotFace = await p.evaluate(() => { const c = document.querySelector('#sbody canvas.face'); if (!c) return { k: 'none', n: 0 };
+    const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++;
+    return { k: c.dataset.face, n: n, w: c.width }; });
+  ok('  YOU speak the lot under your face off the clay rig, drawn, never the old flat portrait', lotFace.k === 'rig' && lotFace.n >= lotFace.w * lotFace.w * 0.9, lotFace.k + ', ' + lotFace.n + ' pixels');
 
   await p.click('#close'); await p.waitForTimeout(300);
 
