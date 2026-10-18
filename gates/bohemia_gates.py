@@ -5514,7 +5514,10 @@ GATES = [
      'RED; an art item registered after this gate with a pack twin and sprites is RED here if any sprite is RED, '
      'and its card (both crops at his size) is written to records/target/twin_cards. RED CASE: a flat six-step '
      'ramp tile, a 1.5x upscale and noise against his ground tile, and a planted registry row, every run; his own '
-     'tiles against each other 1 of 80 RED; the robot and the truck (his YES) never RED. About 4 s.', False),
+     'tiles against each other 1 of 80 RED; the robot and the truck (his YES) never RED. On the runner, STRUCTURE '
+     '(row [the scramble test]): a thing (twin a prop, door or lamp) that reads more like its own 8 px scramble than '
+     'anything in his twin\'s pack or his YES is RED (his car shuffled in squares RED, his cars and his YES pass); an '
+     'item he has already voted on is never culled (his word is the verdict). About 4 s.', False),
     ('NEVER WORSE', ['node', 'tools/bohemia_never_worse.js'],
      'THE RATCHET AS A MACHINE. 9/20, PLUMBER lane, row [never worse], PAOLO rule 18c. He said '
      '"I just want to restart all of this... we were closer to being able to play before, right now '
