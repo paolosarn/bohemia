@@ -160,7 +160,11 @@ Pre-push pass (rule 13), run by name on the files this round touches:
 - REUSE-FIRST: both of my tools PASS (the map cut's tool had no REUSE CHECK block; added); 36 reds on main, none mine.
 - ART PIPE A2: this tool lays 0 literal pixels; the map cut's tool laid 1 (the outline on its sheet's map picture, a
   draw.polygon) and is off the list now (20 -> 19); the 19 left are other lanes' tools, red on main before me.
-- NOT VIBE CODED N3 and VOTE TAB: run after the card lands; their lines are in the next commit's handoff.
+- VOTE TAB 38/1 with the card registered: the card is on top and clean; the one red is DYNASTY's two whys with no
+  'where', red on main before me.
+- NOT VIBE CODED 29/1 with the card registered: N3 names none of my four cards (before this round it named exactly my
+  three); its red now is other lanes' new rows (COOK FOUR's gas station, warehouse and school fail D5 on a roof cell;
+  CHARACTER's two and COOK's three rig cards name no sprites).
 Full suite unmeasured (rule 13).
 
 ## THE CARD'S SPRITES (rule 114c), AND MY THREE EARLIER CARDS

@@ -9031,7 +9031,18 @@
      "SCALE: the map draws a lane two of its cells wide, so a cell reads as 1.8 m and the largest board, 230 m, is one map block."
     ]
    },
-   "draft": true
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/fight_board/sprites/COMBAT2_CUT_FROM_THE_MAP_STREET_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_CUT_FROM_THE_MAP_YARD_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_CUT_FROM_THE_MAP_LOT_1TO1_10_18.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/fight_board/COMBAT2_CUT_FROM_THE_MAP_10_18.json",
+    "light": "upper-left"
+   }
   },
   {
    "id": "combat2-the-five-houses-on-the-board-10-18",
@@ -9060,7 +9071,16 @@
      "GROUND: his house floats on a clear tile; ours stand on one yard per block with a drive to the garage or carport and a car under the carport."
     ]
    },
-   "draft": true
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/fight_board/sprites/COMBAT2_FIVE_HOUSES_SMALL_1TO1_10_18.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/fight_board/COMBAT2_FIVE_HOUSES_10_18.json",
+    "light": "upper-left"
+   }
   },
   {
    "id": "sounds-the-settlement-heard-whole-10-17",
@@ -10518,7 +10538,16 @@
      "HOUSE: his pack house #30 stands alone on its tile; cook 4's five tan houses stand on the board exactly as in round two, all 52 kept."
     ]
    },
-   "draft": true
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/fight_board/sprites/COMBAT2_ONE_LOOK_SMALL_1TO1_10_18.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/fight_board/COMBAT2_ONE_LOOK_10_18.json",
+    "light": "upper-left"
+   }
   },
   {
    "id": "run2-the-fresh-portraits-10-18",
@@ -10794,6 +10823,48 @@
     "after": "the robot's idle and walk and the Mob's walk, eight facings, on the beat",
     "scale": "1:1"
    }
+  },
+  {
+   "id": "combat2-a-board-from-every-district-10-18",
+   "kind": "tile",
+   "lane": "combat 2",
+   "sha": "1e24171e",
+   "made": "10/18",
+   "title": "CANDIDATE: ONE FIGHT BOARD FROM EACH DISTRICT: THE STRIP, DOWNTOWN, THE SUBURBS, THE WASH, THE WORKS",
+   "redoOf": "combat2-the-board-cut-from-the-map-10-18",
+   "said": "Sure better direction not final",
+   "why": "Five fight boards, each cut from a real block of the map: the Strip's boulevard and casino, downtown's packed flat roofs and shops, the suburbs' houses, the wash's concrete channel, and the warehouses and container rows of the works, every house house-sized and nothing standing that does nothing in a fight. You see it here in the VOTE tab, not in the game: the five side by side the way a fight opens on a phone, then each one beside its block on the map.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COMBAT2_A_BOARD_FROM_EVERY_DISTRICT_10_18.webp"
+   },
+   "before_after": {
+    "before": "each district's block on the map as you see it at its closest zoom, and the map's own plan of it with the board's box",
+    "after": "the board cut from that box, whole at the phone's width the way the fight opens, then a corner of each at 1:1 with the man at 112 px",
+    "scale": "1:1"
+   },
+   "twin": {
+    "src": "pack:Cargo, crates and containers#32",
+    "diffs": [
+     "GROUND: his pack sells 24 soils, all warm (saturation 0.33 to 0.44), and one concrete and one asphalt; the Strip and downtown are laid on his concrete, the suburbs on the soil you said yes to, the wash on his sand between concrete banks.",
+     "PROPS: his container, boulder, creosote, dead tree and chain link stand at x2 where the map has a trailer row, a rock, brush, a median or a fence line; nothing stands where the map has nothing.",
+     "BUILDINGS: his pack has no tower, no resort and no palm; the Strip is cook 4's casino in front of a flat roof, downtown cook 4's two-storey shop, the works cook 4's warehouse."
+    ]
+   },
+   "sprites": [
+    "reference/art_bank/fight_board/sprites/COMBAT2_DISTRICT_STRIP_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_DISTRICT_DOWNTOWN_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_DISTRICT_SUBURB_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_DISTRICT_WASH_1TO1_10_18.png",
+    "reference/art_bank/fight_board/sprites/COMBAT2_DISTRICT_INDUSTRIAL_1TO1_10_18.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/fight_board/COMBAT2_DISTRICTS_10_18.json",
+    "light": "upper-left"
+   },
+   "draft": true
   }
  ],
  "verdicts": [
