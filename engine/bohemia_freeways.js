@@ -379,9 +379,13 @@ function of(om, land, compass) {
   }); }); });
   /* the pieces no through-road takes (a stub, a pass): named by the road their exit meets, still one pair */
   segs.forEach(function (s) {
-    var nA = nodes[s.a], nB = nodes[s.b], nm = (nA && nA.road) || (nB && nB.road) || (s.kind === 'pass' ? 'a mountain pass' : s.kind === 'exit' ? 'an exit stub' : s.piece);
+    /* the spine's corridor is I-15 the whole way (north of the bowl too: the real I-15 and US-93 run on north of the
+       Spaghetti Bowl); the ring is CC-215 */
+    var nA = nodes[s.a], nB = nodes[s.b], nm = (nA && nA.road) || (nB && nB.road) ||
+      (s.kind === 'spine' ? 'I-15' : s.kind === 'ring' ? 'CC-215' : s.kind === 'cross-town' ? 'US-95' : s.kind === 'pass' ? 'a mountain pass' : s.kind === 'exit' ? 'an exit stub' : s.piece);
+    var ln0 = (LANES[nm] || [s.w === 2 ? 2 : 1])[0];
     s.steps.forEach(function (c) { c.forEach(function (q) { var k = key(q[0], q[1]); if (cells[k]) return;
-      var cc = cells[k] = { names: [nm], seg: s.id, axis: s.axis, junction: false, lanes: s.w === 2 ? 2 : 1, ramp: null };
+      var cc = cells[k] = { names: [nm], seg: s.id, axis: s.axis, junction: false, lanes: ln0, ramp: null, spur: true };
       if (c.length === 2) { var o = c[0] === q ? c[1] : c[0]; cc.median = o[0] > q[0] ? 'E' : o[0] < q[0] ? 'W' : o[1] > q[1] ? 'S' : 'N'; } }); });
   });
   Object.keys(nodes).forEach(function (k) { var n = nodes[k]; if (n.kind !== 'junction' && n.kind !== 'bowl') return;
