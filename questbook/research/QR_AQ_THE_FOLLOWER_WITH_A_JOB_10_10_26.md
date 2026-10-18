@@ -1,5 +1,7 @@
 # QR-AQ: THE FOLLOWER WITH A JOB. WHEN A MEMBER OF YOUR COMPANY IS THE CLIENT, AND WHEN THEIR OWN TROUBLE IS THE CONTRACT
 
+CORRECTED 10/18 (QR-AU, QR-AV): a follower's OWN job is not offered on the hall's offer screen. It is told at the night camp, in their mouth, with their thing on the ground; the hall card is the stranger's alone. All twenty designs on this shelf now carry a DOOR line (camp, or camp then hall) and the new camp scene; see questbook/research/QR_AV_THE_CAMP_DOOR_10_18_26.md sections 2 and 4. Where this page says "the hall's offer screen" for a follower, read the camp.
+
 QUESTION: row [eighth shelf] (QUESTS, research only). Followers (QR-AD) and company members already exist on paper as
 people who change a rule. This page asks four things the library can answer:
 1. How should a member of your company (a fighter or a follower) bring a job to the settlement offer screen?

@@ -8,13 +8,13 @@ STATUS: draft:true, research only, nothing built (rule 35). Names, lines and num
 SHELF: tenth shelf, VETERANS AND THE DEAD FOLLOWER'S JOB; research page QR-AU. This design is a veteran's own job (about 20 fights; offered by the veteran's mouth at the night camp, never from the hall board).
 PAIR: QD-F05 THE SAME KITCHEN TWENTY YEARS ON (the same idea at the scale of a house).
 DOOR: camp
-CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 12, 18, 30, 33; every fix marked in place "(QR-AV, line N: ...)")
+CHECKLIST: passes all 32 and line 33 (QR-AV 10/18: run line by line; failed as written on 12, 18, 30, 33 (and QR-AU rule 2); every fix marked in place "(QR-AV, line N: ...)")
 
 ## THE SITUATION
 Act 3. Pepa is the last fighter left alive who was in the company's first fight, in act 1. She is old now. The block where that first fight was cut from has been rebuilt by the reclaimers: glass, solar, a market. She wants to stand on the house tile where she first killed a man and see what is there now. IF ACT 1 WAS NEVER PLAYED: this never fires; nobody in the company remembers a first fight in this valley (QR-AV, line 18: the design reads the save's first board, `Q096.X1`, `Q121.X1`).
 
 ## THE PERSON, THE PLACE, THE THING (never a card)
-At camp she draws the old block in the sand with a stick, the way it was. PEPA: "First fight of the first company, I was behind the house on the corner, and I wet myself." / PEPA: "They built over it. I want to stand there." / PEPA: "I'm not paying. I'm asking." The buttons carry no price: [WALK HER THERE] / [NOT THIS TIME] (QR-AV line 33).
+At camp she takes a brass shell casing off the cord round her neck, the first she ever fired, sets it in the sand, and draws the old block round it with a stick, the way it was (QR-AV, QR-AU rule 2: the veteran's thing was missing; a drawing is not a thing on the body). PEPA: "First fight of the first company, I was behind the house on the corner, and I wet myself." / PEPA: "They built over it. I want to stand there." / PEPA: "I'm not paying. I'm asking." The buttons carry no price: [WALK HER THERE] / [NOT THIS TIME] (QR-AV line 33).
 - THE WANT, ONE LINE: Pepa wants to see what her first fight bought; the new owners want their shop open.
 - PAY: None, on every road (she asks; the yes is free and the no is free). (QR-AV, line 30: the shop owner's 5 batteries of goods came only on the road where she tells the story, a tilt on a fork about how an old woman meets her past, `Q190.X1`, `Q164.W4`.) SKULLS: 0. Declining is free and writes nothing.
 
@@ -34,7 +34,7 @@ The block picture: a brass plate (B) or nothing; Pepa's camp line changes. Decli
 In the clinic's waiting room a boy has the face of the man she killed. He is reading a comic and does not look up.
 
 ## ASSET NEEDED (the pixels; for the art lanes, nothing drawn here)
-the save's own first fight board shown for one beat under the new building (the derive, rule 31); a children's clinic as a settlement screen; Pepa's portrait old, from the same rig face as act 1. COOK FOUR, PORTRAIT, DYNASTY (the derive). Made the rig way (rule 115) for every person and thing; the places from the packs (rule 115b).
+the save's own first fight board shown for one beat under the new building (the derive, rule 31); a children's clinic as a settlement screen; Pepa's portrait old, from the same rig face as act 1; the brass casing on a cord, on the rig body (COOK THREE). COOK FOUR, PORTRAIT, DYNASTY (the derive). Made the rig way (rule 115) for every person and thing; the places from the packs (rule 115b).
 
 ## SOUND NEEDED (the sound; for SOUNDS, from real material, no sand)
 the act-1 fight's own beat, one bar of it, under the clinic's quiet; a children's waiting room (a toy, a TV on low).

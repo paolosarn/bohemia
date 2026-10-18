@@ -240,7 +240,7 @@ designs name, between them:
 3. Whether the Amalgamation should ever use a dead VETERAN (not a follower). The library's warning on the face being a
    person first (`Q200.X2`) says only if the veteran had a job and lines; this shelf does not do it, and DYNASTY's
    ending study may want it.
-4. QR-AQ's 20 designs moved to camp for the member's part: owed, next round (one line each).
+4. QR-AQ's 20 designs moved to camp for the member's part: owed, next round (one line each). DONE 10/18 by QR-AV (questbook/research/QR_AV_THE_CAMP_DOOR_10_18_26.md), with a correction: the door was right and the words were not; a camp ask opens on a story and the price sits on the button (line 33). QR-AV also ran this shelf's twenty line by line: 0 passed as written, 18 D roads were the free no moved after the yes, 5 of the 7 dead followers' jobs contradicted the job they land.
 
 ---
 
