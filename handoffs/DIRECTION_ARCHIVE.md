@@ -1,6 +1,38 @@
 # DIRECTION ARCHIVE (rule 96: the blocks older than the lane's two newest, newest first; moved by tools/bohemia_trail_sweep.js, nothing deleted)
 
 <!-- moved 10/16 (CORRECT: AI and AK (the hearback's NEGATIVE folded in; sweep AK: the trail file's round 2 first, one commit)) -->
+DIRECTION (direction-vamily-10-18-opus): 10/18 LATEST -- [the rig round five] SHIPPED (research round two Section E; rules 114, 115, 116d;
+the new age: the coordinator opened this chat, the chat before it said 'fixing 3 known issues' and left nothing committed; no check-in, this block is the report).
+READBACK: I read [the rig round five] as: grain and frost fixed in the model or the rig, the robot through PLUMBER's ten checks, the finished eight
+beside the raw in VOTE. Done. THE THREE ISSUES were: the grain row, the truck's frost, the robot not yet through the ten (plus MODS's light number).
+TAB: VOTE, direction-the-rig-round-five-10-18 (draft, redo of the look-bible card). Record: records/BOHEMIA_THE_RIG_ROUND_FIVE_10_18_26.md.
+FILES: tools/bohemia_direction_master_rig.py round 5 (grain, dust, lift from the guide's rig block; --set k=v for one render, recorded as a break;
+the dust rule in the source pass; the ring from inside colours; shadow_<facing>.png its own layer, body alpha binary; vehicle grain band in the card);
+tools/bohemia_direction_model_truck.py -> reference/models/bohemia/truck.glb (Kenney's shape, palette paint: teal chassis like his car, dark glass);
+tools/bohemia_direction_hand_finish.py (selout snapped to inside colours; path bug fixed); tools/bohemia_direction_rig_round_five.py (report + sheet);
+records/target/direction_rig_round_five/ (robot, truck, drum, drum_seed2, report.json, the sheet); the guide: two decisions, the dust rule, light conventions.
+MEASURED: card under the guide: robot 0 of 8 (grain 1.95), truck 0 (2.95, vehicle band 3.6), drum 0 (2.09), drum seed 2 1 out (2.28). Ten checks:
+D1-D5, D9 green on all; D6 and D8 red on every render incl. his packs (routed to PLUMBER); D7 red on the finished robot only (eye glints vs a min-max
+scale; raw passes); R2: edge residue 267 a facing to 1 (a pixel by a hole in the robot's head), soft alpha 5,874 to 0. Frost: grain and frost pull
+against each other on a pale base; the frost was Kenney's pale chassis, fixed by repainting the model.
+DECISIONS in the guide: field 10 per class (pivot identical, light 7 of 8, area for person/beast; 1 px height stays for hand-drawn sets); a vehicle's
+grain 1.6 to 3.6; light 155.4 y-up = check.py's 204.6 (MODS answered).
+NEXT: [the rig round six] (clips under round five, the head's hole, PLUMBER's answer read back, the first runway body once he thumbs the eight).
+GATES: style_guide 32/0; not_vibe_coded N3 red on main from four other lanes' cards (combat2 five houses, cook4 gas station, portrait face, character
+thirteen: no sprites named), mine passes; vote_tab red on main from other lanes' whys (dynasty x2, character x2), mine fixed to two sentences.
+Blender: bpy 4.2 in a py3.11 venv in the scratchpad, segfaults at exit after writing (harmless).
+ART LEAD LINES (rule 113a, from their newest commits):
+- COOK: [props through the rig] CLAIMED c3ca26b (lamp, gun, wreck from the palette), redo after a lost chat. COOKING.
+- COOK TWO: [the same crossing before and after] held out of VOTE by N3 (9ec55d2); the ground stays on the packs. STUCK (on the cull).
+- COOK THREE: [the tiers through the rig] round 2 in VOTE (021822b): the thug fixed, the poacher's coat tails on the thigh bones. COOKING.
+- COOK FOUR: the gas station under the straight roof in VOTE (57a9ec3), names no sprites for N3. COOKING.
+- PORTRAIT: [the face from the same model] round 1 in VOTE (fe97919): the thug's head from his own body, talking; names no sprites for N3. COOKING.
+- ANIMATION: [the shadow line and the choppy fall] in VOTE (1fbcfe3). COOKING.
+- CHARACTER: [the thirteen through the rig] SHIPPED c39ddf4/9ebddcc in VOTE; next [the print and the hands]. COOKING.
+[bb Battle Brothers wrote no style guide; readability zoomed out is the guide's tie-breaker 2, the sheet's 2x rows.] [analog horror: wear on a
+bright paint only darkens, the way sun and grime age a real car; the frost was a clean toy's paint showing through.]
+[PENDING Paolo]: none.
+
 DIRECTION (art-f3eu53): 9/5 (k) -- *** THIS CHAT IS THE DIRECTION LANE
 NOW: Paolo typed "ART DIRECTION VAMILY" into it, and the ledger's DIRECTION row
 is its queue. SHIPPED 9/5 (09c83ba): REFERENCE-BESIDE-EVERY-CANDIDATE -- the
