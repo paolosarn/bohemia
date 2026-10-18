@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE STEP IN THE FIGHT</title>
+<!-- SOUNDS lane, 10/18, row [the step in the fight] (VAMILY, SOUNDS), the next round of [steps from a recording].
+     The fight's step is one 70 Hz triangle beep for every man on every tile (SND.step in slices/BOHEMIA_FIGHT.html).
+     These are the same real shoes as the map (slices/vote/travel_steps/, CC0 Freesound walks via ESC-50, every
+     author in manifest.json), one cut per tile a man crosses, laid by the fight's own move, the floor named by the
+     tile's own picture (fight_floors.json, tools/bohemia_sounds_fight_floors.py): the road and the parking lot are
+     the asphalt walk, the yards, the scrub, the wash and the roofs the gravel walk, the casino the carpet walk.
+
+     WHAT THIS PAGE IS: the real fight (slices/BOHEMIA_FIGHT.html, untouched) from its own camera, playing itself on
+     AUTO, and four buttons: the street with real shoes, the casino with real shoes, the street with WHAT PLAYS NOW
+     (the fight's own beep, the same call), and STOP. The page listens to the fight's own 'step' (it wraps startAnim
+     in the frame, the way the alpha already reads FIGHT through the frame) and lays the step here; the fight's beep
+     stands down on this page only. Only the steps play here, so they are what you hear.
+     In the GAME the beep still plays until his YES (unjudged is silent); then the swap is COMBAT's two lines in the
+     fight and RUN's cut (rule 93): CUE 7.2 in BUILD_CALLING_SCRIPT.md. Gate: gates/fight_steps_gate.js. -->
+<style>
+  :root{ --ink:#1b1408; --paper:#e8dfc9; --line:#8a7a52; --dim:#6a5a3e; }
+  html,body{margin:0;height:100%;background:#0d0b08;color:var(--paper);font:14px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+  body{display:flex;flex-direction:column}
+  #fight{flex:1 1 auto;min-height:0;width:100%;border:0;background:#0d0b09}
+  #bar{flex:0 0 auto;box-sizing:border-box;padding:10px 16px 12px;background:var(--ink);border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  button{font:inherit;font-size:13px;background:var(--paper);color:var(--ink);border:1px solid var(--line);padding:8px 6px;min-height:44px;letter-spacing:1px;cursor:pointer;border-radius:0}
+  #stop{grid-column:2 / 3}
+  button.on{background:#6a1d10;color:var(--paper)}
+  button.old{background:#b9a77e}
+  .num{font-size:12px;color:#b9a77e;margin-top:8px;min-height:3em}
+</style></head><body>
+<iframe id="fight" title="the fight"></iframe>
+<div id="bar">
+  <div class="row">
+    <button id="street">STREET: REAL SHOES</button>
+    <button id="casino">CASINO: REAL SHOES</button>
+    <button id="now" class="old">STREET: WHAT PLAYS NOW</button>
+    <button id="stop">STOP</button>
+  </div>
+  <div class="num" id="num">Tap one. The fight plays itself. Only the footsteps make a sound here, so they are what you hear.</div>
+</div>
+<script src="../engine/bohemia_travel_steps.js"></script>
+<script>
+(function(){
+  'use strict';
+  var AC=null, OUT=null, n=document.getElementById('num'), fr=document.getElementById('fight');
+  function ctx(){ if(!AC){ var C=window.AudioContext||window.webkitAudioContext; AC=new C(); OUT=AC.createGain(); OUT.connect(AC.destination); } if(AC.state==='suspended') AC.resume(); return AC; }
+
+  /* the same fight for the A/B: one seed, a clean line (formation null), on AUTO */
+  var BOARD={ street:{ kind:'suburb', auto:true, seed:7, formation:null }, casino:{ board:'casino', auto:true, seed:7, formation:null } };
+  var STEPS=BOH_TRAVEL_STEPS.make({ dir:'vote/travel_steps/' }), bus=null, mode=null, heard={ asphalt:0, dirt:0, carpet:0, beep:0 }, seen=0, opened=0, where=[];
+  STEPS.loadFloors().catch(function(e){ n.textContent='the floor table did not load: '+e.message; });
+
+  /* what plays in the game now: the fight's own SND.step, the same call, here (tone(70, 0.05, 0.05, 'triangle')) */
+  function beep(){ var o=AC.createOscillator(), g=AC.createGain(); o.type='triangle'; o.frequency.value=70; g.gain.value=0.05;
+    g.gain.exponentialRampToValueAtTime(0.0001, AC.currentTime+0.05); o.connect(g); g.connect(OUT); o.start(); o.stop(AC.currentTime+0.05); }
+
+  /* the frame calls this on every tile a man crosses, at the moment its own step starts */
+  window.__fightStep=function(e, S){
+    seen++;
+    if(!mode||!AC) return;
+    if(mode==='now'){ heard.beep++; beep(); return; }
+    var f=STEPS.floorAt(S, e.x, e.y);
+    if(STEPS.step(AC, bus, f, AC.currentTime, e.id)) heard[f]++;
+    where.push({ x:e.x, y:e.y, floor:f }); if(where.length>256) where.shift();
+    say();
+  };
+  function say(){ if(mode==='street'||mode==='casino') n.textContent=LABEL[mode]+'  Steps: road '+heard.asphalt+', gravel '+heard.dirt+(heard.carpet?', carpet '+heard.carpet:'')+'.'; }
+
+  function fightOf(cw){ try{ return cw && cw.eval('typeof FIGHT!=="undefined"?FIGHT:null'); }catch(_e){ return null; } }
+  /* the hook, in the frame: every 'step' the fight starts is also told to this page; the fight's beep stands down here */
+  var HOOK='(function(){ if (window.__soundsStepHook) return true; var o = window.startAnim; if (typeof o !== "function" || typeof SND === "undefined") return false;'+
+           ' window.startAnim = function (a) { if (a && a.k === "step") { try { parent.__fightStep(a.e, FIGHT.S); } catch (_e) {} } return o.apply(this, arguments); };'+
+           ' SND.step = function () {}; window.__soundsStepHook = true; return true; })()';
+  function open(id, extra){
+    var opts=Object.assign({}, BOARD[id==='now'?'street':id], extra||{}); opened=performance.now();
+    fr.src='about:blank';
+    setTimeout(function(){
+      fr.src='BOHEMIA_FIGHT.html';
+      /* the options go on the fight's window before it reads them (the alpha's nfOpen does the same) */
+      var iv=setInterval(function(){ try{ var cw=fr.contentWindow; if(cw&&cw.location&&/BOHEMIA_FIGHT/.test(cw.location.href)&&!cw.FIGHT_OPTS) cw.FIGHT_OPTS=opts; }catch(_e){} }, 4);
+      var t=setInterval(function(){ try{
+        var cw=fr.contentWindow, F=fightOf(cw);
+        if(!F||!F.S||!F.S.board){ if(performance.now()-opened>30000) clearInterval(t); return; }
+        clearInterval(t); clearInterval(iv);
+        var want=opts.board||opts.kind, kinds=(F.S.boardDef&&F.S.boardDef.kinds)||[];
+        if(kinds.indexOf(want)<0&&!(opts.kind==='suburb'&&F.S.boardDef.family==='city')&&typeof cw.start==='function'){ cw.FIGHT_OPTS=opts; cw.start(); }
+        cw.eval(HOOK);
+      }catch(_e){ clearInterval(t); } }, 50);
+    }, 30);
+  }
+
+  var LABEL={ street:'Real shoes in the fight: asphalt on the road and the parking lot, gravel on the yards and the roofs, one step for every tile a man crosses.',
+              casino:'Real shoes on the casino carpet: soft, the hit eaten by the floor. One recordist, five footfalls, never the same one twice in a row.',
+              now:'What the fight plays now: one low beep for every tile, the same on every floor.' };
+  function mark(id){ ['street','casino','now'].forEach(function(k){ document.getElementById(k).classList.toggle('on',k===id); }); }
+  function go(id, extra){ ctx();
+    ['asphalt','dirt','carpet'].forEach(function(f){ STEPS.load(AC, f).catch(function(){}); });   /* loaded before the first step, so none is dropped */
+    if(bus){ var x=bus; setTimeout(function(){ try{x.disconnect();}catch(_e){} },400); }
+    bus=AC.createGain(); bus.connect(OUT); STEPS.voice={};
+    heard={ asphalt:0, dirt:0, carpet:0, beep:0 }; where=[]; seen=0; STEPS.fightLog=[]; mode=id; mark(id); n.textContent=LABEL[id]; open(id, extra); }
+  ['street','casino','now'].forEach(function(k){ document.getElementById(k).onclick=function(){ go(k); }; });
+  document.getElementById('stop').onclick=function(){ mode=null; mark(null); fr.src='about:blank'; if(bus){ try{bus.disconnect();}catch(_e){} bus=null; } n.textContent='Stopped.'; };
+
+  window.__fightSteps=function(){ return { mode:mode, seen:seen, heard:heard, log:STEPS.fightLog.slice(), picks:STEPS.picks.slice(), floors:!!STEPS.floors, where:where.slice(),
+    hooked:(function(){ try{ return !!fr.contentWindow.__soundsStepHook; }catch(_e){ return false; } })() }; };
+  window.__STEPS=STEPS;
+  window.__go=go;   /* the gate's door: go('street', { speed: 3 }) plays the same fight three times as fast */
+  /* on open the street fight is on the glass, silent, until a tap gives the page its sound */
+  open('street');
+})();
+</script>
+</body></html>

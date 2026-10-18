@@ -10338,6 +10338,25 @@
     "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
     "light": "top"
    }
+  },
+  {
+   "id": "sounds-the-step-in-the-fight-10-18",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "e2afb17b",
+   "made": "10/18",
+   "title": "REAL SHOES IN THE FIGHT",
+   "why": "In a fight every step was one low beep on every floor; now each tile a man crosses is a real shoe on what that tile is drawn as, asphalt on the road and the parking lot, gravel on the yards and roofs, carpet in the casino. You hear it on this page over the real fight playing itself (STREET or CASINO), with WHAT PLAYS NOW to compare, and in the COMBAT tab once you say yes.",
+   "options": [
+    "A, use the real shoes in the fight",
+    "B, real shoes, but quieter",
+    "C, keep the beep"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html"
+   },
+   "draft": true
   }
  ],
  "verdicts": [

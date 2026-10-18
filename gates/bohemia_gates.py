@@ -9269,6 +9269,8 @@ GATES = [
      'SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 23426c8c). THE MAP HEARD GATE, row [the desert under travel]: the map hears the same recorded desert. green at registration, 17/0, 15 s', True),
     ('TRAVEL STEPS', ['node', 'gates/travel_steps_gate.js'],
      "SOUNDS gate, 10/18, row [steps from a recording]: the party's footsteps under travel from real recordings (two CC0 walks per surface, eight cuts each), the engine file's cadence and level equal to TRAVELBED's, the alpha silent on them until his YES, the VOTE page plays them on the beat with no repeat. green at registration, 31/0, 15 s", True),
+    ('FIGHT STEPS', ['node', 'gates/fight_steps_gate.js'],
+     "SOUNDS gate, 10/18, row [the step in the fight]: the fight's step from the map's real shoes, one cut per tile a man crosses, the floor read off the tile's own picture (fight_floors.json: road and parking asphalt, yards, scrub, wash and roofs gravel, the casino carpet), the fight silent on them until his YES, the VOTE page over the real fight playing itself. green at registration, 34/0, 63 s", True),
     ('SETTLEMENT HEARD', ['node', 'gates/settlement_heard_gate.js'],
      "SOUNDS gate, registered by PLUMBER 10/18 [the orphan gates] (it landed on main mid-round without a row, 666abb38). THE SETTLEMENT HEARD GATE, row [the settlement's sounds] round four. green at registration, 21/0, 46 s", True),
     ('WHO YOU WERE', ['node', 'gates/who_you_were_gate.js'],

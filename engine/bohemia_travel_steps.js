@@ -37,7 +37,7 @@
     PERBEAT: { asphalt: 2, dirt: 1 },  /* the road is faster (10/5), TRAVELBED's PERBEAT */
     CUT: { asphalt: 0.22, dirt: 0.38, carpet: 0.22 }, /* each cut's length, the tool's tail per surface */
     FIGHT: { REL: 0.5, CHOKE: 0.02 },  /* the fight: the map's level; a man's new step chokes his last in 20 ms */
-    N: { asphalt: 8, dirt: 8, carpet: 6 },  /* cuts per surface: four from each of two recordings; the carpet is one walk, all six of its footfalls */
+    N: { asphalt: 8, dirt: 8, carpet: 5 },  /* cuts per surface: four from each of two recordings; the carpet is one walk, five of its six footfalls */
     RATE: 0.03, DB: 1.5,               /* the per-step wobble */
     AHEAD: 0.25, TICK: 100             /* the look-ahead clock */
   };

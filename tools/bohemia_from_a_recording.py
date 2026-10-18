@@ -399,9 +399,10 @@ STEPS = [
        sources=['3-94344-A-25', '4-117627-A-25'], keep=4, tail=0.38, tape=0.8, hi=6500, rms=-19.0, per_beat=1, used_by='the map and the fight'),
   # THE CASINO FLOOR (row [the step in the fight], 10/18): the fight's casino block is drawn as one carpet, wall to wall,
   # and a gravel crunch there would be a lie. mlsulli's 'Footsteps_Carpet' (CC0) is the one carpet walk in ESC-50's
-  # footsteps class; it holds six footfalls, all six kept. Softer than the street by 4 dB: carpet eats the hit.
-  dict(surface='carpet', title='THE CASINO FLOOR: SHOES ON CARPET', what='real shoes on a real carpet, one recordist, six footfalls cut out on their own; the casino floor in the fight',
-       sources=['5-234855-A-25'], keep=6, tail=0.22, tape=0.8, hi=6000, rms=-23.0, per_beat=None, used_by='the fight'),
+  # footsteps class; it holds six footfalls and five are kept: the sixth (1.79 s) is a scuff whose heel lands 120 ms
+  # after the cut starts, and in the fight that is a step landing late. Softer than the street by 4 dB: carpet eats the hit.
+  dict(surface='carpet', title='THE CASINO FLOOR: SHOES ON CARPET', what='real shoes on a real carpet, one recordist, five footfalls cut out on their own; the casino floor in the fight',
+       sources=['5-234855-A-25'], keep=5, tail=0.22, tape=0.8, hi=6000, rms=-23.0, per_beat=None, used_by='the fight'),
 ]
 
 def footfalls(x, dist=0.32, prom=8.0):
