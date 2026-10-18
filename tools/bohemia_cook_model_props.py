@@ -1,0 +1,201 @@
+#!/usr/bin/env python3
+"""BOHEMIA -- COOK [props through the rig]: THE LAMP, THE GUN AND THE WRECK, MODELLED AT THE SOURCE (rule 115a: every
+prop is modelled and rendered through DIRECTION's master rig, the clay-and-tape way the truck and the drum were made;
+his two NOs on the parts grammar, 'this isn't that' and 'one of the worst cooks', closed the 2D road).
+
+Built like DIRECTION's drum (tools/bohemia_direction_model_drum.py): puppet shapes, not CAD bodies; every base colour a
+step of one role of records/target/BOHEMIA_STYLE_PALETTE.json; roughness 1, specular 0 (the rig's source pass puts the
+wear on top); real sizes in metres; and ONE asymmetric thing each (the guide's silhouette rule), on the side the S
+camera sees (glTF front is -Y).
+
+  lamp   a 3.2 m pedestrian lamp post, the twin's family (pack:18. Light sources and fire barrels#3, the straight-arm
+         post): an octagonal plinth, a pole with a collar, a straight arm with its brace, a cone shade hung from the arm
+         on a short chain link, a sodium bulb (the only self-lit colour). The odd thing: a strip of masking tape and a
+         paper flyer wrapped round the pole at eye height, and the shade knocked 9 degrees off true.
+  gun    a 1.05 m pump shotgun lying on its side, the twin's set (pack:12. Weapons and supplies#6): a wooden stock and
+         pump, a painted receiver, a steel barrel and tube, a trigger guard that is a real ring. The odd thing: grey duct
+         tape wound round the stock's wrist where it split.
+  wreck  a 4.7 m four-door sedan, dead (pack:9. Abandoned cards#0): a body shell from boxes pulled into a puppet's
+         shape, the cabin sunk, a caved roof, windows gone dark, one front wheel missing so the nose sits on its rim
+         (the odd thing), the bonnet sprung open 12 degrees, rust patches as their own panels.
+
+Run with the rig's Blender python (bpy 4.2):
+    <venv>/bin/python tools/bohemia_cook_model_props.py lamp|gun|wreck [--out reference/models/bohemia/<name>.glb]
+then
+    <venv>/bin/python tools/bohemia_direction_master_rig.py reference/models/bohemia/<name>.glb records/target/master_rig/cook_<name> --real-height 3.2 | --real-length 1.05 | 4.7
+
+REFERENCE CHECK (the 9/4 standing law): the twins are his own approved tiles named above, shown whole beside the
+render at 1:1 on the sheet; the palette is DIRECTION's source palette; the card of numbers judges the render. No
+reference game.
+"""
+import json, math, os, sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PAL = json.load(open(os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_PALETTE.json')))['roles']
+
+
+def lin(h):
+    def c(v):
+        v = int(h[v:v + 2], 16) / 255
+        return v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+    return (c(1), c(3), c(5), 1.0)
+
+
+def mat(bpy, name, role, step=2, glow=0.0):
+    m = bpy.data.materials.new(name); m.use_nodes = True
+    b = m.node_tree.nodes['Principled BSDF']; b.inputs['Base Color'].default_value = lin(PAL[role]['ramp'][step])
+    b.inputs['Roughness'].default_value = 1.0; b.inputs['Metallic'].default_value = 0.0
+    for sp in ('Specular IOR Level', 'Specular'):
+        if sp in b.inputs: b.inputs[sp].default_value = 0.0
+    if glow:
+        b.inputs['Emission Color'].default_value = lin(PAL[role]['ramp'][step]); b.inputs['Emission Strength'].default_value = glow
+    m['palette_role'] = role; m['palette_step'] = step
+    return m
+
+
+def put(bpy, o, name, m, smooth=True):
+    o.name = name; o.data.materials.append(m)
+    if smooth: bpy.ops.object.shade_smooth()
+    return o
+
+
+def cyl(bpy, name, m, r, depth, loc, rot=(0, 0, 0), verts=16, smooth=True):
+    bpy.ops.mesh.primitive_cylinder_add(vertices=verts, radius=r, depth=depth, location=loc, rotation=rot)
+    return put(bpy, bpy.context.active_object, name, m, smooth)
+
+
+def box(bpy, name, m, size, loc, rot=(0, 0, 0), bevel=0.0):
+    bpy.ops.mesh.primitive_cube_add(size=1, location=loc, rotation=rot)
+    o = bpy.context.active_object; o.scale = size
+    bpy.ops.object.transform_apply(scale=True)
+    if bevel:
+        md = o.modifiers.new('bevel', 'BEVEL'); md.width = bevel; md.segments = 2
+        bpy.ops.object.modifier_apply(modifier='bevel')
+    return put(bpy, o, name, m, smooth=bool(bevel))
+
+
+def lamp(bpy, mathutils):
+    H = 3.2
+    paint, rust, steel = mat(bpy, 'paint_olive', 'metal_painted'), mat(bpy, 'rust', 'clay_rust'), mat(bpy, 'steel', 'tape_grey', 1)
+    cyl(bpy, 'plinth', paint, 0.17, 0.34, (0, 0, 0.17), verts=8, smooth=False)
+    cyl(bpy, 'plinth_cap', rust, 0.13, 0.06, (0, 0, 0.37), verts=8, smooth=False)
+    cyl(bpy, 'base_grime', mat(bpy, 'grime', 'clay_rust', 0), 0.176, 0.07, (0, 0, 0.035), verts=8, smooth=False)
+    pole = cyl(bpy, 'pole', paint, 0.05, H - 0.4, (0, 0, 0.4 + (H - 0.4) / 2), verts=16)
+    for v in pole.data.vertices:   # a pole a truck leaned on once: 4 cm of lean toward the camera, mostly up high
+        t = (v.co.z + (H - 0.4) / 2) / (H - 0.4); v.co.y -= 0.04 * t * t
+    cyl(bpy, 'collar', rust, 0.07, 0.08, (0, 0, 1.25))
+    cyl(bpy, 'finial', rust, 0.06, 0.1, (0, -0.04, H + 0.03), verts=8)
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.045, location=(0, -0.04, H + 0.11), segments=10, ring_count=6)
+    put(bpy, bpy.context.active_object, 'finial_ball', rust)
+    # the straight arm and its brace, out to +X (the S camera sees it whole)
+    L = 0.78
+    cyl(bpy, 'arm', paint, 0.028, L, (L / 2, -0.04, H - 0.12), rot=(0, math.pi / 2, 0), verts=10)
+    br = math.hypot(L * 0.55, 0.42)
+    cyl(bpy, 'brace', paint, 0.018, br, (L * 0.275, -0.035, H - 0.12 - 0.21), rot=(0, math.atan2(L * 0.55, 0.42), 0), verts=8)
+    cyl(bpy, 'hanger', steel, 0.012, 0.16, (L - 0.04, -0.04, H - 0.2), verts=6)
+    # the shade, knocked 9 degrees off true, and the sodium bulb under it
+    tilt = (math.radians(9), math.radians(-4), 0)
+    bpy.ops.mesh.primitive_cone_add(vertices=16, radius1=0.24, radius2=0.06, depth=0.2, location=(L - 0.04, -0.04, H - 0.36), rotation=tilt)
+    put(bpy, bpy.context.active_object, 'shade', rust)
+    cyl(bpy, 'shade_rim', mat(bpy, 'rim', 'clay_rust', 1), 0.245, 0.03, (L - 0.04, -0.055, H - 0.455), rot=tilt, verts=16)
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=0.075, location=(L - 0.04, -0.06, H - 0.48), segments=12, ring_count=8)
+    put(bpy, bpy.context.active_object, 'bulb', mat(bpy, 'sodium', 'sodium', 3, glow=6.0))
+    # THE ONE ASYMMETRIC THING: a flyer taped round the pole at eye height, facing the S camera
+    box(bpy, 'flyer', mat(bpy, 'flyer', 'clay_bone', 3), (0.2, 0.012, 0.27), (0.0, -0.06, 1.62), rot=(0, math.radians(3), 0))
+    for z in (1.75, 1.49):
+        cyl(bpy, 'tape_%d' % int(z * 100), mat(bpy, 'masking', 'tape_masking'), 0.056, 0.04, (0, -0.002, z), verts=16)
+
+
+def gun(bpy, mathutils):
+    wood, wood_d = mat(bpy, 'wood', 'clay_rust', 2), mat(bpy, 'wood_dark', 'clay_rust', 1)
+    recv, steel, tape = mat(bpy, 'receiver', 'rubber', 2), mat(bpy, 'barrel', 'metal_painted', 1), mat(bpy, 'tape', 'tape_grey')
+    Z = 0.03   # it lies on its left side: the profile faces up, the long side runs along X
+    # the stock: a wedge from the wrist to the butt, built as a box with its far end pulled wide and down
+    st = box(bpy, 'stock', wood, (0.36, 0.04, 0.06), (-0.33, 0, Z), bevel=0.008)
+    for v in st.data.vertices:
+        if v.co.x < 0: v.co.y *= 2.1; v.co.y -= 0.02
+    box(bpy, 'butt_pad', mat(bpy, 'pad', 'rubber', 1), (0.025, 0.14, 0.065), (-0.52, -0.02, Z), bevel=0.006)
+    # the receiver and the trigger guard, a real ring
+    box(bpy, 'receiver', recv, (0.2, 0.06, 0.07), (-0.06, 0.005, Z), bevel=0.006)
+    bpy.ops.mesh.primitive_torus_add(major_radius=0.03, minor_radius=0.006, location=(-0.07, -0.05, Z), major_segments=16, minor_segments=6)
+    put(bpy, bpy.context.active_object, 'guard', recv)
+    box(bpy, 'trigger', steel, (0.008, 0.03, 0.02), (-0.065, -0.04, Z))
+    # the barrel over the magazine tube, and the pump on the tube
+    cyl(bpy, 'barrel', steel, 0.012, 0.6, (0.33, 0.022, Z + 0.005), rot=(0, math.pi / 2, 0), verts=12)
+    cyl(bpy, 'tube', steel, 0.011, 0.46, (0.26, -0.006, Z), rot=(0, math.pi / 2, 0), verts=12)
+    pump = cyl(bpy, 'pump', wood_d, 0.02, 0.18, (0.2, -0.004, Z), rot=(0, math.pi / 2, 0), verts=12)
+    cyl(bpy, 'bead', mat(bpy, 'bead', 'chrome', 1), 0.005, 0.01, (0.62, 0.038, Z + 0.005), verts=6)
+    # THE ONE ASYMMETRIC THING: duct tape wound round the stock's wrist where it split
+    for i, dx in enumerate((-0.19, -0.215, -0.24)):
+        cyl(bpy, 'tape_%d' % i, tape, 0.038 + 0.004 * i, 0.024, (dx, -0.004, Z), rot=(0, math.pi / 2, math.radians(4 * i)), verts=12)
+
+
+def wreck(bpy, mathutils):
+    L, W = 4.7, 1.78
+    paint, paint_lo = mat(bpy, 'paint_teal', 'clay_teal', 2), mat(bpy, 'paint_teal_low', 'clay_teal', 1)
+    rust, rust_d, glass = mat(bpy, 'rust', 'clay_rust', 2), mat(bpy, 'rust_dark', 'clay_rust', 0), mat(bpy, 'glass_gone', 'glass_eye', 0)
+    rubber, trim = mat(bpy, 'tyre', 'rubber', 1), mat(bpy, 'trim', 'tape_grey', 1)
+    # the lower body: one long box, its ends tucked in and down like a sedan's nose and tail
+    lo = box(bpy, 'body_low', paint, (L, W, 0.62), (0, 0, 0.62), bevel=0.06)
+    bm_sub = lo.modifiers.new('sub', 'SUBSURF'); bm_sub.levels = 1; bpy.ops.object.modifier_apply(modifier='sub')
+    for v in lo.data.vertices:
+        ex = abs(v.co.x) / (L / 2)
+        if ex > 0.8 and v.co.z > 0.62: v.co.z -= (ex - 0.8) * 0.5   # the bonnet and the boot lid fall away to the bumpers
+        if ex > 0.9: v.co.y *= 1 - (ex - 0.9) * 0.6
+    # the cabin, sunk and the roof caved where something sat on it
+    cab = box(bpy, 'cabin', paint, (2.3, W * 0.86, 0.5), (-0.25, 0, 1.17), bevel=0.05)
+    cs = cab.modifiers.new('sub', 'SUBSURF'); cs.levels = 2; bpy.ops.object.modifier_apply(modifier='sub')
+    for v in cab.data.vertices:
+        top = v.co.z > 1.17
+        if top: v.co.x *= 0.78   # the screens raked in
+        d = math.hypot(v.co.x + 0.35, v.co.y - 0.1)
+        if top and d < 0.75: v.co.z -= (0.75 - d) * 0.22   # the cave-in
+    # dark holes where the glass was: thin panels just proud of each cabin face
+    box(bpy, 'screen_front', glass, (0.04, W * 0.72, 0.36), (0.67, 0, 1.16), rot=(0, math.radians(-34), 0))
+    box(bpy, 'screen_rear', glass, (0.04, W * 0.72, 0.32), (-1.17, 0, 1.15), rot=(0, math.radians(30), 0))
+    for side in (-1, 1):
+        for x0, w in ((0.2, 0.72), (-0.6, 0.72)):
+            box(bpy, 'window_%d_%d' % (side, int(x0 * 10)), glass, (w, 0.03, 0.3), (x0 - 0.25, side * W * 0.43, 1.18))
+    # rust as its own panels, laid on the paint (his car's patches, not a noise)
+    for i, (x, y, z, sx, sy) in enumerate(((1.6, 0.2, 0.9, 0.7, 0.9), (-0.2, -0.3, 1.39, 0.9, 0.6), (-1.9, -0.1, 0.86, 0.5, 0.7))):
+        box(bpy, 'rust_top_%d' % i, rust, (sx, sy, 0.012), (x, y, z), rot=(0, math.radians(-6 if x > 0 else 4), 0))
+    box(bpy, 'rust_side', rust_d, (1.3, 0.012, 0.28), (0.6, -W / 2 - 0.004, 0.48))
+    box(bpy, 'sill_rot', rust_d, (3.2, W + 0.02, 0.1), (0, 0, 0.36))
+    # the bonnet, sprung 12 degrees from its catch
+    box(bpy, 'bonnet', paint_lo, (1.15, W * 0.86, 0.035), (1.55, 0, 0.98), rot=(0, math.radians(-12), 0))
+    # bumpers and the light holes
+    for sx in (-1, 1):
+        box(bpy, 'bumper_%d' % sx, trim, (0.12, W * 0.96, 0.16), (sx * (L / 2 + 0.01), 0, 0.42), bevel=0.03)
+        for sy in (-1, 1):
+            box(bpy, 'lamp_%d_%d' % (sx, sy), rust_d, (0.04, 0.3, 0.12), (sx * (L / 2 - 0.02), sy * 0.62, 0.66))
+    # the wheels: three on, THE ONE ASYMMETRIC THING the front left gone, the nose down on its rim
+    for x, y in ((1.42, W / 2 - 0.08), (-1.42, W / 2 - 0.08), (-1.42, -W / 2 + 0.08)):
+        cyl(bpy, 'tyre_%d_%d' % (int(x * 10), int(y * 10)), rubber, 0.33, 0.22, (x, y, 0.33), rot=(math.pi / 2, 0, 0), verts=20)
+        cyl(bpy, 'hub_%d_%d' % (int(x * 10), int(y * 10)), rust_d, 0.16, 0.235, (x, y, 0.33), rot=(math.pi / 2, 0, 0), verts=12)
+    cyl(bpy, 'rim_bare', rust, 0.2, 0.12, (1.42, -W / 2 + 0.12, 0.2), rot=(math.pi / 2, 0, 0), verts=14)
+    # sit the whole car down on the missing wheel: nose-left drop and a roll, as one parent
+    bpy.ops.object.empty_add(location=(0, 0, 0)); root = bpy.context.active_object; root.name = 'wreck'
+    for o in bpy.context.scene.objects:
+        if o is not root: o.parent = root
+    root.rotation_euler = (math.radians(-2.5), math.radians(3.0), 0)
+    root.location.z = -0.05
+
+
+BUILDERS = {'lamp': lamp, 'gun': gun, 'wreck': wreck}
+
+
+def build(name, out):
+    import bpy, mathutils
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    BUILDERS[name](bpy, mathutils)
+    for o in bpy.context.scene.objects: o.select_set(True)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    bpy.ops.export_scene.gltf(filepath=out, export_format='GLB', use_selection=False)
+    return out
+
+
+if __name__ == '__main__':
+    a = sys.argv[1:]
+    name = a[0]
+    out = a[a.index('--out') + 1] if '--out' in a else os.path.join(ROOT, 'reference/models/bohemia/%s.glb' % name)
+    print(build(name, out))
