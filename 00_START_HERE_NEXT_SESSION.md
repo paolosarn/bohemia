@@ -292,6 +292,42 @@ bohemia_cook2_stretch_the_pack_recolour_10_16_26.py and the ratchet stays red by
 they add it. Nothing to slices/, engine/ or the demo (rule 100).
 PENDING Paolo: nothing.
 CAUSE (RUN, 10/16, [the long freeze], measured, not guessed; records/BOHEMIA_THE_LONG_FREEZE_RUN_10_16_26.md): the coordinator's own five minutes at 4x, unchanged, with a CPU profile of the whole walk, three runs on BUILD 10/13b, every unbroken busy stretch over a second listed with what ran in it: DURING PLAY THE MAIN THREAD WAS DRAWING THE WHOLE MAP SEVERAL TIMES IN ONE FRAME. A step on the map starts four animation loops that each draw the whole map every frame (the movers' tween in moversAdvance, the party's glide, the beat's animate loop, the roaming parties' glide); one draw is 0.4-0.7 s at 4x, so one frame stacks to 1.6-2.8 s (measured 2.6 s = tw 1,645 ms + loop 444 + parties 377; 2.1; 1.7), and a heavier view or one more loop stacks to the 9.1 and 14.8 s. FIXED in the map page (__ONE_RENDER_A_FRAME__, e546b533, live on the demo with no cut): a draw asked for inside an animation frame happens at most once in it, the rest fold into one draw next frame; draws from taps, timers, messages and checks untouched. SEEN ON THE PHONE PROFILE, five minutes at 4x, three runs each: main 18/21/24 stalls, worst 2.9/2.4/1.65 s; now 11/18/12, worst 1.2/1.2/1.07 s. GATE: THE MAP ANSWERS AFTER BEGIN M11 (the folds happen on his first trip and no frame gap passes 1.5 s; the fold removed: 1,433 ms, red). Left over a beat: one whole draw at 4x (0.6-0.9 s, PLUMBER's map budget), the phone's first open, his body before the door. The demo cut waits for the station's restart.
+PEOPLE (people-names-wired): 10/18 LATEST -- the new age (rules 112 to 117), the lane released at sweep AR:
+[the names wired in] SHIPPED IN THE GAME (b553810d, VOTE 80044059). *** THE SHORT LIST WAS LOSING HIM MEN HE PAID FOR. ***
+WHERE HE SEES IT: the demo, any town, tap the hall (the men at the post) or any building (the keeper's name over
+his mouth); the VOTE tab, WHO STANDS AT THE POST (twelve real hire cards, the old name under each).
+
+ONE ROLL, engine/bohemia_names.js: the names mix's pools plus who-the-face-is's ten Hispanic men, who first from
+the census (33/36/13/12/6), then the name by who, every first name's reading, every face's reading. It names:
+the man at the post (settlement screen hireName, two words, reads as his face; HIRE_NAMES, Pancho, Nacho gone),
+the keeper in each building (keeperName, keyed by place and building, reads as the face the place drew, his
+role after it: 'SHANNON PIKE, AT THE HALL'), the stranger (people engine generatedName(key, sex) rolls through
+it; readsAs knows the new names; the city frame carries the roller in front of the people engine, put there by
+tools/bohemia_people_resync.py). The company slot (RUN TWO's roster, one line, told) shows a hire's first word.
+
+MEASURED on the real settlement screen, 26 places (tools/bohemia_people_names_wired_in.js, local server):
+98/98 recruits and 198/198 keepers read as their face (before 80 of 146 keepers), 196 different keepers
+(before 9), 0 page errors. THE FINDING: the company keeps a hire by his NAME (roster open() skips a hired man
+whose name a hired man has; saveClimb by name), so with sixteen one-word names a company of eight hires
+repeated a name 87.7% of the time (two CHUYs hired, the company shows one); now 0.34%.
+
+Gates: THE NAMES WIRED IN 65/0 registered (1,000 rolls through each surface's own code: post 34.4%, keepers
+36.9%, strangers 33.7% read Hispanic vs 33.4%; name reads as face 1,000 of 1,000), seven mutations each red.
+THE NAMES MIX 38/0 and WHO THE FACE IS 46/0: their before kept as history (legs C, E, G, H rewritten as their
+own text said to the day the bank was wired; G2 the post today, each face ~100 names, not 4).
+Record: records/BOHEMIA_PEOPLE_THE_NAMES_WIRED_IN_10_18_26.md.
+FOR THE COORDINATOR: my MODE line still reads HOLD (rule 88, last re-affirmed 10/11 'one more round'); your
+sweep AR released this lane and this row asked for the game to roll and a VOTE sheet, so I wired it in. The
+MODE line is yours to rewrite.
+ROUTED: RUN TWO (key a hire by an id, 0.34% left; ONE KEY DRAWS THE MAN still open, 91.2% of men at a post
+wear a crewmate's face; the four contract clients are written people, the same everywhere, left as written);
+DYNASTY (the three prepared names roll from the mix now); PORTRAIT (a new face needs its reading in
+MIX.faces); TUNING (the crossover); MODS (the MIX block is the content).
+SEEN RED, NOT MINE: VOTE TAB (dynasty-flip-at-crisis-10-9 and dynasty-animal-era-10-10 have no 'you see it').
+NEXT OPEN: [who wears what, by name] (the coordinator's), [ask the crowd] (mine: the crowd speaks as SOMEBODY
+ON THE STREET forever; a name is earned by asking), [recruit at the place], [deeds and memory].
+PENDING Paolo: nothing.
+
 PEOPLE (people-faces): 10/18 LATEST -- under the hold (rule 88), the new age (rules 112 to 117):
 [a name for every starred face] SHIPPED as a page (67a6c2cf). *** A FACE IS A PERSON, NOT A COSTUME. ***
 NOT IN A TAB (a page, rule 88): records/BOHEMIA_PEOPLE_WHO_THE_FACE_IS_10_18_26.md
