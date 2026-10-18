@@ -451,6 +451,25 @@ MODDING.md points at the page. PLUMBER's 10/10 note on mods-patch-inside-a-list:
 list names no mods item. Rule 88 kept: no VOTE sheet. NEXT OPEN: [grok sources] (cite the stamped Grok pages when a number in
 my pages came from memory; the data line page has none). PENDING Paolo: nothing.
 
+SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-five, [a new song every round] round one) --
+*** A NEW SONG FOR THE TITLE, 8-BIT, IN VOTE: OVER THE RIDGE. *** His 10/18 'I haven't heard a new song in a long time' and
+'he likes 8-bit'. engine/bohemia_chip_song.js (new) plays the NES's four voices at the 2A03's own numbers: pulse PeriodicWaves
+at its four duty widths in closed form, the 32-step 4-bit triangle, the 15-bit LFSR noise at the NTSC clock over its period
+table, every volume one of 16 levels a frame at 60 Hz; a look-ahead scheduler on the audio clock; option B a worn tape (a few
+cents of drift, a 6 kHz top), never a crush. The song, slices/vote/songs/over_the_ridge.json, is a tracker grid a modder can
+read: D minor, 120 BPM, 32 bars, a minute, loops; the arpeggio and the bass alone for four bars, the tune at bar 5, the beat
+late at bar 13, the E flat chord at bar 19, the tune remembered wrong at bar 25 (A flat) with the drums gone for two bars.
+Measured offline: peak -6.55 dB, no compressor, the tune 4 dB over every voice on a phone, above 8 kHz 23.8 dB under the whole,
+the written pitches sound. VOTE sounds-over-the-ridge-10-18 over the REAL start screen (UI's startScreen, his logo copied to
+slices/vote/songs/front_logo.png) and the desert wind he kept: A clean, B worn tape, C the wind alone. LOCKED OUT LOUD:
+records/BOHEMIA_SONG_LOCK.json new_songs (file, md5, why); the song lock gate checks it and --write keeps it (21/0). The Grok
+pages 184 to 195 are not cited (no PASSED FILTER line yet); two of their claims are wrong and named in the record. The alpha is
+untouched: CUE 7.3 for RUN (the title's wind already has his YES and is not wired either; the cue carries both). Gates: over
+the ridge 31/0 (new, registered; mutated 28/3, restored), song lock 21/0, gate registry 7/0, attempt 15/0; vote tab red only on
+DYNASTY's two items as before. Next row OPEN: [the map's song], first on the board. Record:
+records/BOHEMIA_OVER_THE_RIDGE_10_18_26.md. PENDING Paolo: nothing. FOR RUN: CUE 7.1 (his YES in) and CUE 7.3.
+UNDER UI (rule 113a): SOUNDS made a new 8-bit song for the title, VOTE tab, COOKING.
+
 SOUNDS (sound-opus-10-18d): 10/18 LATEST (round twenty-four, [the step in the fight]) --
 *** REAL SHOES IN THE FIGHT, ON THE FLOOR EACH TILE IS DRAWN AS, IN VOTE. *** The fight's step was one 70 Hz triangle beep
 for every man on every tile (SND.step in slices/BOHEMIA_FIGHT.html, no gate). Now each tile a man crosses is one cut of the
