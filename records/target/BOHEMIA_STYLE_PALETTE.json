@@ -1,0 +1,286 @@
+{
+ "palette": "BOHEMIA_STYLE_PALETTE",
+ "schema": 1,
+ "lane": "direction",
+ "date": "10/18/26",
+ "status": "LIVE: the source palette (style guide field 4)",
+ "rule": "rule 114a field 4 and rule 115d: the colours a model is painted with before the rig; never an output cap (the output is judged by the card of numbers)",
+ "how": "each ramp: values [0.38, 0.62, 1.0, 1.22, 1.42] of the anchor, saturation x[1.12, 1.06, 1.0, 0.8, 0.58], hue walking toward 245 (cool) into the shadow and 50 (warm) into the light",
+ "limits": {
+  "hue_shift_deg_min": 8,
+  "darkest_value_min": 20,
+  "adjacent_lum_gap_min": 0.08,
+  "steps": 5,
+  "steps_glossy": 3
+ },
+ "roles": {
+  "clay_mustard": {
+   "ramp": [
+    "#4c270e",
+    "#7d4d1d",
+    "#c99437",
+    "#e0c15e",
+    "#f3e28d"
+   ],
+   "mid": "#c99437",
+   "anchor": "#c99437",
+   "what": "the hero clay, the robot's body",
+   "anchor_from": "RobotExpressive.glb material Main, linear (0.59, 0.291, 0.038)",
+   "hue_shift_deg": 25.8,
+   "darkest_value": 76,
+   "min_lum_gap": 0.139,
+   "glint": null
+  },
+  "clay_bone": {
+   "ramp": [
+    "#463b31",
+    "#726451",
+    "#b8a886",
+    "#d6cca7",
+    "#efe9ca"
+   ],
+   "mid": "#b8a886",
+   "anchor": "#b8a886",
+   "what": "pale clay, bleached things, bone",
+   "anchor_from": "the bible's bleached desert; the card's warm share 0.93",
+   "hue_shift_deg": 21.7,
+   "darkest_value": 70,
+   "min_lum_gap": 0.123,
+   "glint": null
+  },
+  "clay_rust": {
+   "ramp": [
+    "#3b110c",
+    "#5f2617",
+    "#9a4f2c",
+    "#c48454",
+    "#e9ba88"
+   ],
+   "mid": "#9a4f2c",
+   "anchor": "#9a4f2c",
+   "what": "rust, faded red paint",
+   "anchor_from": "his abandoned car, the rust patches",
+   "hue_shift_deg": 24.5,
+   "darkest_value": 59,
+   "min_lum_gap": 0.261,
+   "glint": null
+  },
+  "clay_teal": {
+   "ramp": [
+    "#1d292a",
+    "#304544",
+    "#4f6f6a",
+    "#7ea499",
+    "#aed1c3"
+   ],
+   "mid": "#4f6f6a",
+   "anchor": "#4f6f6a",
+   "what": "old teal paint, the truck's chassis",
+   "anchor_from": "his abandoned car, the teal body",
+   "hue_shift_deg": 28.6,
+   "darkest_value": 42,
+   "min_lum_gap": 0.226,
+   "glint": null
+  },
+  "tape_grey": {
+   "ramp": [
+    "#3e3c3a",
+    "#666360",
+    "#a4a39b",
+    "#cac9c1",
+    "#ebeae4"
+   ],
+   "mid": "#a4a39b",
+   "anchor": "#a4a39b",
+   "what": "duct tape, grey metal trim",
+   "anchor_from": "RobotExpressive.glb material Grey, linear (0.374, 0.371, 0.335)",
+   "hue_shift_deg": 21.4,
+   "darkest_value": 62,
+   "min_lum_gap": 0.142,
+   "glint": null
+  },
+  "tape_masking": {
+   "ramp": [
+    "#4a392a",
+    "#786348",
+    "#c2a878",
+    "#dcca99",
+    "#f2e8bc"
+   ],
+   "mid": "#c2a878",
+   "anchor": "#c2a878",
+   "what": "masking tape, cardboard",
+   "anchor_from": "the UI materials' tape (slices/bohemia_ui_materials.js)",
+   "hue_shift_deg": 20.8,
+   "darkest_value": 74,
+   "min_lum_gap": 0.124,
+   "glint": null
+  },
+  "metal_painted": {
+   "ramp": [
+    "#282a23",
+    "#42453a",
+    "#6d6f5e",
+    "#a3a490",
+    "#d1d0be"
+   ],
+   "mid": "#6d6f5e",
+   "anchor": "#6d6f5e",
+   "what": "painted metal, olive drab",
+   "anchor_from": "the military surplus on the runway (Rick Owens' drab)",
+   "hue_shift_deg": 20.3,
+   "darkest_value": 42,
+   "min_lum_gap": 0.215,
+   "glint": null
+  },
+  "rubber": {
+   "ramp": [
+    "#161514",
+    "#242221",
+    "#3a3836",
+    "#605e5a",
+    "#807f7b"
+   ],
+   "mid": "#3a3836",
+   "anchor": "#3a3836",
+   "what": "tyres, boots, the robot's black, never black",
+   "anchor_from": "RobotExpressive.glb material Black, lifted off 0.046",
+   "hue_shift_deg": 18.0,
+   "darkest_value": 22,
+   "min_lum_gap": 0.258,
+   "glint": null
+  },
+  "cloth_black": {
+   "ramp": [
+    "#141313",
+    "#1d1b1b",
+    "#2e2b2c",
+    "#4e4a4b",
+    "#696566"
+   ],
+   "mid": "#2e2b2c",
+   "anchor": "#2e2b2c",
+   "what": "the runway black (Rick Owens, Balenciaga), never black",
+   "anchor_from": "rule 114a: shadows never black",
+   "hue_shift_deg": 15.0,
+   "darkest_value": 20,
+   "min_lum_gap": 0.265,
+   "glint": null
+  },
+  "skin_light": {
+   "ramp": [
+    "#4c322c",
+    "#7d584a",
+    "#c99a7c",
+    "#e0bd9b",
+    "#f3ddbd"
+   ],
+   "mid": "#c99a7c",
+   "anchor": "#c99a7c",
+   "what": "light skin",
+   "anchor_from": "the portrait lane's light tone",
+   "hue_shift_deg": 24.3,
+   "darkest_value": 76,
+   "min_lum_gap": 0.132,
+   "glint": null
+  },
+  "skin_mid": {
+   "ramp": [
+    "#402019",
+    "#683d2c",
+    "#a8704c",
+    "#cda073",
+    "#eccda1"
+   ],
+   "mid": "#a8704c",
+   "anchor": "#a8704c",
+   "what": "mid skin",
+   "anchor_from": "the portrait lane's mid tone",
+   "hue_shift_deg": 24.4,
+   "darkest_value": 64,
+   "min_lum_gap": 0.202,
+   "glint": null
+  },
+  "skin_deep": {
+   "ramp": [
+    "#281210",
+    "#42231c",
+    "#6a4230",
+    "#9e7659",
+    "#cbab8a"
+   ],
+   "mid": "#6a4230",
+   "anchor": "#6a4230",
+   "what": "deep skin",
+   "anchor_from": "the portrait lane's deep tone",
+   "hue_shift_deg": 25.5,
+   "darkest_value": 40,
+   "min_lum_gap": 0.291,
+   "glint": null
+  },
+  "glass_eye": {
+   "ramp": [
+    "#13161a",
+    "#3a4447",
+    "#dff0eb"
+   ],
+   "mid": "#13161a",
+   "anchor": "#20262a",
+   "what": "glass eyes and lenses: two steps and a glint",
+   "anchor_from": "the analog-horror stare (bible R6)",
+   "hue_shift_deg": 51.9,
+   "darkest_value": 26,
+   "min_lum_gap": 0.672,
+   "glint": "#dff0eb"
+  },
+  "chrome": {
+   "ramp": [
+    "#57595c",
+    "#b9bdc1",
+    "#ecf0ef"
+   ],
+   "mid": "#57595c",
+   "anchor": "#8c9094",
+   "what": "chrome and bare steel: two steps and a glint",
+   "anchor_from": "rule 115: matte everywhere but four glossy exceptions",
+   "hue_shift_deg": 51.0,
+   "darkest_value": 92,
+   "min_lum_gap": 0.212,
+   "glint": "#ecf0ef"
+  },
+  "blood": {
+   "ramp": [
+    "#440d11",
+    "#a3473f",
+    "#f0ddb9"
+   ],
+   "mid": "#440d11",
+   "anchor": "#6e1a1a",
+   "what": "wet blood: two steps and a glint",
+   "anchor_from": "the four glossy exceptions",
+   "hue_shift_deg": 43.6,
+   "darkest_value": 68,
+   "min_lum_gap": 0.595,
+   "glint": "#f0ddb9"
+  },
+  "sodium": {
+   "ramp": [
+    "#4e290f",
+    "#7e4d1d",
+    "#cc8f38",
+    "#e1b75f",
+    "#f4db8d"
+   ],
+   "mid": "#cc8f38",
+   "anchor": "#cc8f38",
+   "what": "a lit lamp, a fire, the only self-lit colour",
+   "anchor_from": "COMBAT's night pools (sodium under a lamp)",
+   "hue_shift_deg": 20.7,
+   "darkest_value": 78,
+   "min_lum_gap": 0.151,
+   "glint": null
+  }
+ },
+ "colours": 74,
+ "built_by": "tools/bohemia_direction_style_palette.py"
+}

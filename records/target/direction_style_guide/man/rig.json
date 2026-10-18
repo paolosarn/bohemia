@@ -1,0 +1,188 @@
+{
+ "engine": "CYCLES",
+ "res": 244,
+ "ortho_scale": 4.280701754385965,
+ "real_dims_m": [
+  0.417,
+  1.151,
+  1.72
+ ],
+ "scale_from_model": 1.1784,
+ "still_frame": 23.521,
+ "still": "the passing pose of Anim_0, frame 23.52",
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": {
+  "wear": 0.6,
+  "materials": [
+   "Cesium_Man-effect"
+  ],
+  "what": [
+   "matte: roughness >= 0.9, specular 0.15, metallic <= 0.2",
+   "crevice grime from the model's own ambient occlusion (0.25 m)",
+   "dust and bleach on up-facing surfaces under a 50 cm mask",
+   "a 20 cm colour drift across the body (overlay, 0.27)",
+   "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.49 in a patch or a crevice, 0.07 on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured"
+  ],
+  "seed": 0,
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1784)"
+ },
+ "calibration": {
+  "cube_px": 58,
+  "screen_light_deg": 155.4,
+  "sphere_value_span": 111,
+  "sphere_darkest": 88,
+  "cube_px_expected": 57,
+  "cube_ok": true,
+  "light_off_deg": 0.0,
+  "light_ok": true
+ },
+ "id_table": {
+  "Cesium_Man-effect": "#ff1919"
+ },
+ "model": "reference/models/khronos/CesiumMan.glb",
+ "rig_round": 4,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/direction_style_guide/man/rig_N.png",
+  "records/target/direction_style_guide/man/rig_NE.png",
+  "records/target/direction_style_guide/man/rig_E.png",
+  "records/target/direction_style_guide/man/rig_SE.png",
+  "records/target/direction_style_guide/man/rig_S.png",
+  "records/target/direction_style_guide/man/rig_SW.png",
+  "records/target/direction_style_guide/man/rig_W.png",
+  "records/target/direction_style_guide/man/rig_NW.png"
+ ],
+ "crop_box_px": [
+  82,
+  62,
+  161,
+  189
+ ],
+ "ground_px": [
+  40,
+  60
+ ],
+ "colours": 9163,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 2,
+  "rows": [
+   "OK   long side >= floor 96: 127",
+   "OUT  colours >= 2330: 1412",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OK   value span >= 118: 156",
+   "OK   saturation <= 0.81: 0.064",
+   "OUT  light: top minus bottom >= -2.5: -7.5",
+   "OK   edge between -35 and +7: -24.0",
+   "OK   grain <= 2.22 px a run: 1.42"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 10.0%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 230.7"
+  ],
+  "verdict": "2 of 8 out -> to DIRECTION",
+  "file": "records/target/direction_style_guide/man/rig_S.png"
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0
+ },
+ "breaks": [],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "id_files": [
+  "records/target/direction_style_guide/man/rigid_N.png",
+  "records/target/direction_style_guide/man/rigid_NE.png",
+  "records/target/direction_style_guide/man/rigid_E.png",
+  "records/target/direction_style_guide/man/rigid_SE.png",
+  "records/target/direction_style_guide/man/rigid_S.png",
+  "records/target/direction_style_guide/man/rigid_SW.png",
+  "records/target/direction_style_guide/man/rigid_W.png",
+  "records/target/direction_style_guide/man/rigid_NW.png"
+ ],
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 1,
+  "rows": [
+   "OK   long side >= floor 96: 127",
+   "OK   colours >= 579 (field 5: the class floor, or 370 per 1,000 of 1564 px): 1412",
+   "OK   top 8 carry <= 11%: 2.9",
+   "OK   value span >= 118: 156",
+   "OK   saturation <= 0.81: 0.064",
+   "OUT  light: top minus bottom >= -2.5: -7.5",
+   "OK   edge between -35 and +7: -24.0",
+   "OK   grain <= 2.22 px a run: 1.42"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "1 of 8 out under the style guide",
+  "size_px": [
+   24,
+   113
+  ],
+  "opaque_px": 1564,
+  "colours": 1412
+ }
+}

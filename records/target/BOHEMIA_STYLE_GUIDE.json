@@ -1,0 +1,689 @@
+{
+ "guide": "bohemia-style-guide",
+ "schema": 1,
+ "lane": "direction",
+ "date": "10/18/26",
+ "status": "LIVE. Rule 114a (the style guide is law) and rule 115d (the look bible). Every number here is read by tools/bohemia_direction_master_rig.py at render time and by gates/style_guide_gate.py; a number that lives anywhere else is a copy and a copy drifts. Rule 108 stands: these numbers make a candidate honest, they do not make it final.",
+ "why": "Paolo 10/16: 'it can't look like it's vibe coded'. Round one of the research found the AI look is about thirty measurable tells with one root: nobody decided the numbers. Paolo 10/17: 'you made a truck and a robot and I fell in love, this analog 3-D, HBO early kids show kind of vibe... for everything to start looking better it has to come from the same source'. This file is the numbers, and the robot and the truck are the maquettes they were read off.",
+ "sources": [
+  "records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_ONE_10_16_26.md (Section C: the twenty fields)",
+  "records/BOHEMIA_RESEARCH_HOW_NOT_TO_LOOK_VIBE_CODED_ROUND_TWO_THE_RIG_10_18_26.md (Sections B to E: the rig)",
+  "records/BOHEMIA_RESEARCH_THE_CREEPY_CLAYMATION_KIDS_SHOW_LOOK_AND_HOW_A_RIG_GETS_IT_10_17_26.md (Part 4: the ten-line recipe; a genre study, no show is a reference until he names it)",
+  "records/BOHEMIA_RESEARCH_THE_TOP_TEN_ANALOG_HORROR_GAMES_WHAT_THEIR_LOOK_IS_MADE_OF_10_17_26.md (a genre study, nothing copied)",
+  "records/BOHEMIA_TUNING_THE_TWENTY_STYLE_GUIDE_FIELDS_AS_FOUR_STUDIOS_SET_THEM_10_18_26.md (cap the SOURCE palette, never the output)",
+  "records/BOHEMIA_MODS_THE_STYLE_GUIDE_AS_DATA_10_18_26.md (one JSON, classes keyed, tests keyed, bands referenced not copied, in records/target/)",
+  "records/target/DIRECTION_THE_CARD_OF_NUMBERS.json (his packs, measured: the output bands)",
+  "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md (the bible this file sits beside)"
+ ],
+ "decisions_against_the_research": [
+  {
+   "research_said": "Round two C5: stepped toon shading, a Constant colour ramp of 3 to 5 palette steps per material, so the render leaves the lamp already in palette.",
+   "decided": "NOT TAKEN. The clay keeps its smooth light from one hard sun, rendered in Cycles, thousands of colours a sprite.",
+   "why": "His YES (10/17) was on exactly that render: the robot at 5,871 colours and the truck at 13,047. A stepped ramp is the toy-and-cel look; it would be a new look he never saw. The hue shift the ramp was for is put at the SOURCE instead (field 4: the model is painted from hue-shifted ramps) and at the LIGHT (field 6: a warm sun, a cool sky fill, so the shadow side walks cool by itself). The stepped version is shown ONCE as the DON'T of field 7 so he can see what was turned down. Also measured: this box's Blender has no EEVEE (no GPU), and Shader-to-RGB is EEVEE-only."
+  },
+  {
+   "research_said": "Round one Section C example: 12 colours a character, 6 a prop, 5 a tile, a 48-colour master palette.",
+   "decided": "NOT TAKEN as output caps. The cap is on the SOURCE (materials per model, every base colour from the palette); the OUTPUT is held inside the card of numbers' bands, which are floors.",
+   "why": "His packs measure 2,330 to 6,600 colours a tile; three of four studios never cap a lit sprite (TUNING 10/18); a 64-colour snap sent the truck BACK 3 of 8 (round three)."
+  },
+  {
+   "research_said": "Claymation Part 4 line 7: 0 to 1 cm seeded puppet jitter per key.",
+   "decided": "OFF (0 cm) until ANIMATION rules it with his eyes on it.",
+   "why": "His 9/21 'tweaking' was a body that jumped between drawn keys; a deliberate jitter is the same symptom, and D9 (hold stability) would have to whitelist it. One thing at a time."
+  },
+  {
+   "research_said": "(the card of numbers, 10/10) every prop's long side at least 96 px and at least 2,330 colours",
+   "decided": "for a rendered thing at its true size, the size floor is rule 105's by kind (a prop 29 x 36, a car 96 wide) and a sprite under one tile's area is held to the colour DENSITY of his props (370 per 1,000 px)",
+   "why": "the card was measured on cut pack tiles, all drawn in one 96 px box whatever their real size (COMBAT TWO 10/16: a car and a cone the same size); the rig draws true size (rule 102), so an oil drum is 79 px tall and 2,268 px of body. Rule 105 itself names the prop floor 29 x 36."
+  }
+ ],
+ "fields": [
+  {
+   "n": 1,
+   "key": "identity",
+   "field": "Visual identity statement",
+   "value": "Economic-apocalypse Las Vegas as an early-HBO creepy kids' show made of clay and tape: every person, beast, vehicle and prop is a worn, matte, hand-made model under one hard desert sun, rendered to pixels at its true size; the ground is his packs; analog horror is put in at the source and on the screen, never as a filter on a sprite.",
+   "do": "the robot at 5,871 colours: matte, dirt in the creases, dust on top, a shadow under it",
+   "dont": "round two's clean truck: 58 colours, 89 percent in the top eight, a toy"
+  },
+  {
+   "n": 2,
+   "key": "pixel_size",
+   "field": "Native resolution and pixel size",
+   "value": {
+    "ppm": 57,
+    "metres_per_px": 0.01754,
+    "ruler": "a 1.72 m man is 98 px (records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md)",
+    "person_box_px": 112,
+    "display_scale": "integer only (1, 2, 3, 4); never a fractional scale on a sprite",
+    "sub_pixel": "never: the model's ground centre is snapped to a whole pixel; every frame of one model is cut with ONE box",
+    "pack_tiles": "his packs at 1:1 (a 96 px tile); a pack prop at the integer scale nearest its real size at 57 ppm, never under 1x (COMBAT TWO 10/16)",
+    "calibration": "every rig run renders a 1 m cube first and must measure 57 px across, plus or minus 1"
+   },
+   "do": "the robot and the man at 57 ppm beside his 96 px tile, both at 1:1",
+   "dont": "the same robot at 2x beside a 1x tile: two pixel sizes on one screen (mixels, round one tell 1)"
+  },
+  {
+   "n": 3,
+   "key": "camera",
+   "field": "Camera and perspective",
+   "value": {
+    "type": "orthographic",
+    "tilt_deg": 45,
+    "turn_deg": 0,
+    "facings": [
+     "N",
+     "NE",
+     "E",
+     "SE",
+     "S",
+     "SW",
+     "W",
+     "NW"
+    ],
+    "facing_step_deg": 45,
+    "base_turn_deg": 180,
+    "turns": "the MODEL turns under a still camera and a still sun; facings are rendered, never mirrored",
+    "z_stretch": 1.4142,
+    "z_stretch_why": "1/cos(45): his packs draw a standing thing at full height over a ground seen from above (the 3/4 cheat); without it a 1.72 m man is 61 px",
+    "portrait_tilt_deg": 80
+   },
+   "do": "eight rendered facings, the light on the same screen side in all eight",
+   "dont": "W made by mirroring E: the light flips to the wrong side"
+  },
+  {
+   "n": 4,
+   "key": "palette",
+   "field": "Master palette (the source palette)",
+   "value": {
+    "file": "records/target/BOHEMIA_STYLE_PALETTE.json",
+    "built_by": "tools/bohemia_direction_style_palette.py",
+    "roles": 16,
+    "steps": 5,
+    "steps_glossy": "2 plus one glint (glass eyes, chrome, wet blood)",
+    "hue_shift_deg_min": 8,
+    "hue_walk": "toward 245 degrees (cool) into the shadow, toward 50 degrees (warm) into the light",
+    "darkest_value_min": 20,
+    "applies_to": "the base colour of every material of a model we build; an imported model with painted textures is held to its family's colours by the population snap (field 5) instead",
+    "ground_and_buildings": "his packs' own colours (reference/art_bank, 20,564 occupied bins); never re-palettized (82a)"
+   },
+   "do": "the clay_mustard ramp: #4c270e #7d4d1d #c99437 #e0c15e #f3e28d, the shadow walks red-brown, the light walks yellow",
+   "dont": "the same base darkened and lightened by multiplying: no hue shift, the shade() signature (round one tell 5)"
+  },
+  {
+   "n": 5,
+   "key": "colour_budget",
+   "field": "Colour budget per asset class",
+   "value": {
+    "source_cap": {
+     "materials_per_model_max": {
+      "person": 8,
+      "beast": 5,
+      "vehicle": 8,
+      "prop": 5
+     },
+     "rule": "every base colour is a step of one role's ramp in the source palette"
+    },
+    "output_band": "the card of numbers, by family: records/target/DIRECTION_THE_CARD_OF_NUMBERS.json families.<family>.band (colours, top8, span); people and beasts by the rig's own measured floor below",
+    "output_floor_rendered": {
+     "person": 800,
+     "beast": 800,
+     "vehicle": 2330,
+     "prop": 2330,
+     "_small": "see colour_floor_small"
+    },
+    "top8_share_max_pct": 11.1,
+    "never": "an output snap to a short list (round two: the truck at 58 colours)",
+    "size_floor_px": {
+     "_rule": "rule 105 (THE PIXEL FLOOR IS THE PACKS), by kind; the card's 96 long side is the TILE's floor and is not used for a true-size thing smaller than a tile",
+     "prop": [
+      29,
+      36
+     ],
+     "vehicle_long_side": 96,
+     "person_box": 112,
+     "portrait": [
+      96,
+      96
+     ],
+     "icon": [
+      32,
+      32
+     ],
+     "map_marker": [
+      40,
+      40
+     ]
+    },
+    "colour_floor_small": {
+     "density_per_1000px": 370,
+     "how": "his prop family's tenth-percentile colours (2,330) over a median prop tile's opaque pixels (93.5 x 91 x 0.74 = 6,296 px) = 370 colours per 1,000 opaque px; a sprite with fewer opaque pixels than one tile is held to that density, never to 2,330 (a 0.88 m drum at true size is 2,268 px and cannot hold 2,330 colours); a bigger sprite keeps the class floor",
+     "floor": "min(class floor, 370 x opaque_px / 1000)"
+    }
+   },
+   "do": "the truck: one painted texture at the source, 13,047 colours rendered, 0.5 percent in the top eight",
+   "dont": "the truck snapped to 64 colours: 58 survive, 89 percent in the top eight"
+  },
+  {
+   "n": 6,
+   "key": "light",
+   "field": "Light direction",
+   "value": {
+    "sun": {
+     "rot_x_deg": 40,
+     "rot_y_deg": 0,
+     "rot_z_deg": -35,
+     "angle_deg": 3,
+     "energy": 3.0,
+     "parented": "fixed in the world; the camera never moves and the model turns, so the light keeps its screen side in every facing"
+    },
+    "fill": {
+     "kind": "sky",
+     "rgb": [
+      0.55,
+      0.55,
+      0.6
+     ],
+     "strength": 0.35,
+     "why": "a cool sky so the shadow side is one step down and walks cool, never black"
+    },
+    "other_lamps": 0,
+    "screen_light_deg": 155.4,
+    "card_row": "light: top minus bottom >= -2.5 (the card)",
+    "exception": "a lit lamp, a fire or a muzzle flash casts its own sodium colour (palette role sodium)",
+    "screen_light_how": "measured on the calibration sphere (records/target/direction_style_guide/robot/calibration.json): the lit side sits 155 degrees round from screen-right, 90 being straight up: the light comes from the left and a little above, the side his card measured on his packs (top minus bottom 1.0, left over right); every run re-measures and must land within 30 degrees"
+   },
+   "do": "the robot lit from the upper left in all eight facings",
+   "dont": "the robot lit from below (round two's man): a light from elsewhere"
+  },
+  {
+   "n": 7,
+   "key": "shading",
+   "field": "Shading",
+   "value": {
+    "model": "smooth clay: one hard sun, a cool fill, Cycles path tracing, no toon ramp (decisions_against_the_research[0])",
+    "values_min": 3,
+    "value_span_min": 118,
+    "shadow_never_black": "the darkest opaque pixel of a sprite has a value of at least 12 of 255 outside the ring and the contact shadow",
+    "surface": {
+     "roughness_min": 0.9,
+     "specular": 0.15,
+     "metallic_max": 0.2,
+     "why": "the plastic highlight IS the toy"
+    },
+    "glossy_exceptions": [
+     "glass eyes",
+     "chrome",
+     "wet blood",
+     "a lit lamp"
+    ],
+    "banding": 0
+   },
+   "do": "the robot's clay: one soft terminator, matte, the dark side a cool grey-brown",
+   "dont": "the robot put through a 4-step toon ramp: banded, cel, a toy"
+  },
+  {
+   "n": 8,
+   "key": "outline",
+   "field": "Outline rule",
+   "value": {
+    "rendered_things": "no drawn outline; the silhouette's outer pixel ring is 8 values darker (ring 8), so the edge sits in the card's band, -35 to +7 edge minus inside",
+    "selout": "the hand-finish moves the light half of the ring up to the inside colour (the edge is darker only on the shadow side)",
+    "interior_lines": "none drawn; seams are modelled",
+    "tiles": "none (his packs carry their own edge)",
+    "ui": "1 px, the UI materials' own dark"
+   },
+   "do": "a ring 8 darker: the edge between -35 and +7, his packs' band",
+   "dont": "a ring 45 darker, or a black line: a sticker"
+  },
+  {
+   "n": 9,
+   "key": "aa_dither",
+   "field": "Anti-aliasing and dithering",
+   "value": {
+    "render_filter_px": 0.01,
+    "alpha": "binary: 0 or 255 on the body (threshold 127); the only partial alpha is the contact shadow, black, at most 42 percent",
+    "dither": "none, at any step",
+    "aa_after_render": "never",
+    "upscale": "nearest only",
+    "downscale": "never in this pipeline (native render: the model is rendered at its sprite size)",
+    "view_transform": "Standard",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1,
+    "denoise": false,
+    "samples": 128
+   },
+   "do": "a hard pixel edge on the alpha, nothing between 1 and 254 on the body",
+   "dont": "a soft fringe of half-alpha pixels: the render's anti-aliasing kept (round two tell R1)"
+  },
+  {
+   "n": 10,
+   "key": "proportions",
+   "field": "Proportions and silhouette",
+   "value": {
+    "true_size": "every model at its real size in metres (rule 102); the ruler is the man",
+    "puppet": {
+     "head_share_of_height": [
+      0.2,
+      0.25
+     ],
+     "hands_scale": 1.3,
+     "why": "the claymation recipe line 1: a puppet, not a mannequin (a model rule, CHARACTER's)"
+    },
+    "silhouette_feature": "every enemy class owns one feature (a pack, a long gun, a hood, a limp) that survives an 8x8 downsample of its S still",
+    "eight_facings_agree": {
+     "height_px_tolerance": 1,
+     "foot_row_tolerance": 1,
+     "area_tolerance_pct": 25
+    }
+   },
+   "do": "the robot's head and hands read at 8x8",
+   "dont": "a man whose 8x8 is a filled rectangle"
+  },
+  {
+   "n": 11,
+   "key": "detail",
+   "field": "Detail budget",
+   "value": {
+    "wear": 0.6,
+    "masks_m": {
+     "crevice_ao": 0.25,
+     "grain_per_m": 28,
+     "drift_per_m": 5,
+     "dust_per_m": 2
+    },
+    "grain_run_px": [
+     1.6,
+     2.22
+    ],
+    "rest_region": "the clean-panel grain strength is 0.07 against 0.49 in the wear: at least a quarter of a model's surface reads as rest",
+    "hero": "the player, a boss, a portrait: the full hand-finish (B4 to B9) on the keys the budget names",
+    "mid": "scripts only (B2, B5, B6) plus a five-minute eye on the contact sheet",
+    "background": "his packs as they are",
+    "dust_rule": "on a bright base (value over 0.6) the dust and bleach may not be paler than the base: wear on a pale paint goes darker (rust, grime), never frost (the truck on 10/18; the next rig round implements it)",
+    "open": "grain runs 2.26 to 3.3 px on five of six candidates against 2.22: the rig's next number"
+   },
+   "do": "dirt in patches, a clean panel between them",
+   "dont": "even grain over the whole body: a leopard print (round three cycle 4)"
+  },
+  {
+   "n": 12,
+   "key": "variation",
+   "field": "Variation rules",
+   "value": {
+    "tile_variants_min": 2,
+    "tile_weights": [
+     70,
+     20,
+     10
+    ],
+    "identical_run_max": 4,
+    "prop_variants": "a second wear seed per prop (the masks offset), never a recolour of the same pixels",
+    "buildings": "asymmetric by at least one window or door"
+   },
+   "do": "two drums, the same model, two wear seeds",
+   "dont": "the same drum stamped five times in a row"
+  },
+  {
+   "n": 13,
+   "key": "contact",
+   "field": "Ground contact",
+   "value": {
+    "contact_shadow": true,
+    "shape": "an ellipse 1.25 times the foot band's width, height 0.38 of its width",
+    "offset_px": [
+     2,
+     1
+    ],
+    "alpha_max": 0.42,
+    "edge_px": 2,
+    "colour": "black at alpha (it darkens his ground's own colour)",
+    "cast": "down and right, away from the sun"
+   },
+   "do": "the robot standing on its own shadow",
+   "dont": "the robot floating on his ground with no shadow"
+  },
+  {
+   "n": 14,
+   "key": "ui",
+   "field": "UI rules",
+   "value": {
+    "fonts": [
+     "slices/fonts/BohemiaROM-Regular.woff2",
+     "BohemiaCasing",
+     "BohemiaMono"
+    ],
+    "never_fonts": [
+     "Inter",
+     "Arial",
+     "Helvetica",
+     "system-ui",
+     "Segoe UI",
+     "Roboto"
+    ],
+    "gradients": 0,
+    "blur": 0,
+    "glow": 0,
+    "radius_px_max": 1,
+    "materials": "slices/bohemia_ui_materials.js (cardboard, tape, receipt, glass), drawn once with light and form (ALL THE UI LOOKS 3-D)",
+    "hud": "the same HUD at every zoom",
+    "owner": "UI"
+   },
+   "do": "a receipt-paper button in BohemiaROM, square corners",
+   "dont": "a purple gradient card with 12 px corners in Inter"
+  },
+  {
+   "n": 15,
+   "key": "animation",
+   "field": "Animation timing",
+   "value": {
+    "bpm": 120,
+    "keys_per_beat": 3,
+    "keys_per_bar": 12,
+    "walk_keys": 6,
+    "idle_keys": 12,
+    "in_betweens": 0,
+    "motion_blur": false,
+    "phase": "(i + 0.5) / keys",
+    "reversal_max_deg": 120,
+    "holds": "declared per clip, a hold repeats the previous key's render",
+    "puppet_jitter_cm": 0,
+    "face_swap": "one render per expression at full weight, swapped on a beat"
+   },
+   "do": "six drawn keys a walk, nothing rendered between them",
+   "dont": "a smooth 30-frame walk with motion blur: a render, not a puppet"
+  },
+  {
+   "n": 16,
+   "key": "do_and_dont",
+   "field": "Do and don't page",
+   "value": {
+    "sheet": "records/target/direction_style_guide/DIRECTION_THE_STYLE_GUIDE_DO_AND_DONT.png",
+    "pairs": "one per field 2 to 15, rendered by the rig itself with one setting turned the wrong way",
+    "built_by": "tools/bohemia_direction_style_guide_sheets.py"
+   }
+  },
+  {
+   "n": 17,
+   "key": "mistakes",
+   "field": "Named common mistakes",
+   "value": [
+    "A SHINE (a specular hotspot on clay, cloth or fur)",
+    "A SMOOTH MOVE (an in-between, a blur, a face that slides)",
+    "A LIGHT FROM ELSEWHERE (a lit underside, two shadows)",
+    "A CLEAN SURFACE (under the colour floor, or even grain everywhere)",
+    "TWO WORLDS IN ONE FRAME (a flat old sprite beside a clay one)",
+    "MIXELS (two pixel sizes on one screen)",
+    "STRAIGHT DARKENING (no hue shift)",
+    "FLOATING (no contact shadow)",
+    "A SOFT FRINGE (half-alpha on the body)",
+    "A MIRRORED FACING (the light on the wrong side)",
+    "A STICKER RING (an outline far darker than the band)",
+    "A FILTER ON A SPRITE (grain, fringe or scanlines baked into one sprite; the tape belongs to the screen)"
+   ]
+  },
+  {
+   "n": 18,
+   "key": "tie_breaker",
+   "field": "Tie-breaker",
+   "value": [
+    "1. HIS YES wins over every number in this file: the robot and the truck are the maquettes; a number that would have failed them is the wrong number.",
+    "2. Readability at 1x on his phone (1170 x 2532).",
+    "3. One source: a thing that did not come out of the rig is the odd one out, however good.",
+    "4. The silhouette over the colour.",
+    "5. The palette over the detail."
+   ]
+  },
+  {
+   "n": 19,
+   "key": "review",
+   "field": "Review procedure",
+   "value": [
+    "1. The rig's own report: calibration, the source settings, the card (rig.json); BACK at 3 of 8 out never reaches VOTE.",
+    "2. The contact sheet at 1:1 on flat dark grey, all eight facings in one row.",
+    "3. The same at 1:1 on his ground tile (reference/art_bank/road or ground).",
+    "4. In greyscale (the value read).",
+    "5. The 8x8 silhouette row.",
+    "6. Beside the maquettes (the robot, the truck) at the same pixel size: does it look like it came from the same table?",
+    "7. The not-vibe-coded gates' report (PLUMBER), attached to the VOTE item.",
+    "8. DIRECTION passes it or sends it back with three differences in plain words (rule 87)."
+   ]
+  },
+  {
+   "n": 20,
+   "key": "reference",
+   "field": "Reference board and anti-reference",
+   "value": {
+    "maquettes": [
+     "records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png",
+     "records/target/master_rig/DIRECTION_THE_MASTER_RIG_TRUCK.png"
+    ],
+    "ground_and_places": "reference/art_bank/ (his packs, CORPUS.json, 1,927 tiles)",
+    "runway": [
+     "Rick Owens",
+     "Balenciaga",
+     "Bottega Veneta"
+    ],
+    "bible": "records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md",
+    "era": "Newgrounds, the look's era only (records/BOHEMIA_NEWGROUNDS_THE_FLASH_ERA_INSIDE_THE_BIBLE_9_27_26.md)",
+    "anti": [
+     "the 2D parts grammar sprites (his NO twice, 10/17)",
+     "flat garments cut into pieces for the rig (his NO: 'glitchy and fucked up')",
+     "the grey dire wolf (his NO: the ugliest)",
+     "round two's clean toy renders",
+     "the three-card grid, the purple panel, Inter",
+     "a trenchcoat that reads as paint, not a shape (his NO)"
+    ]
+   }
+  }
+ ],
+ "classes": {
+  "person": {
+   "judge_family": "prop",
+   "output_floor": 800,
+   "materials_max": 8,
+   "snap": "none",
+   "hand_finish": "hero only",
+   "native": true
+  },
+  "beast": {
+   "judge_family": "prop",
+   "output_floor": 800,
+   "materials_max": 5,
+   "snap": "none",
+   "hand_finish": "boss only",
+   "native": true
+  },
+  "vehicle": {
+   "judge_family": "prop",
+   "output_floor": 2330,
+   "materials_max": 8,
+   "snap": {
+    "family": "prop",
+    "pull": 0.6
+   },
+   "hand_finish": "none",
+   "native": true,
+   "size_floor_long_side": 96
+  },
+  "prop": {
+   "judge_family": "prop",
+   "output_floor": 2330,
+   "materials_max": 5,
+   "snap": {
+    "family": "prop",
+    "pull": 0.6
+   },
+   "hand_finish": "none",
+   "native": true,
+   "size_floor_px": [
+    29,
+    36
+   ]
+  },
+  "portrait": {
+   "judge_family": "prop",
+   "head_px_min": 96,
+   "camera_tilt_deg": 80,
+   "hand_finish": "hero only",
+   "native": true
+  },
+  "ground": {
+   "source": "his packs at 1:1",
+   "rig": false
+  },
+  "building": {
+   "source": "his packs and house skins until DIRECTION rules from the two research pages (rule 115b)",
+   "rig": false
+  },
+  "ui": {
+   "source": "slices/bohemia_ui_materials.js",
+   "rig": false
+  }
+ },
+ "rig": {
+  "_what": "THE LOOK BIBLE as numbers (rule 115d): the clay-and-tape recipe every render follows. tools/bohemia_direction_master_rig.py reads every key below as its default and writes what it used into rig.json; gates/style_guide_gate.py diffs every rig.json under records/target/master_rig/ against these (round two D1: one drift fails).",
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57,
+  "tilt_deg": 45,
+  "sun_rot_deg": [
+   40,
+   0,
+   -35
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.6,
+  "ring": 8,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0,
+  "calibration": {
+   "cube_m": 1.0,
+   "cube_px_expected": 57,
+   "cube_px_tolerance": 1,
+   "sphere_m": 1.0,
+   "screen_light_deg": 155.4,
+   "screen_light_tolerance_deg": 30
+  }
+ },
+ "tests": [
+  {
+   "id": "G1",
+   "name": "pixel size",
+   "reads": [
+    "fields.pixel_size.value.ppm",
+    "rig.calibration"
+   ],
+   "what": "the calibration cube measures ppm plus or minus 1; no sprite in a sheet is scaled by a non-integer"
+  },
+  {
+   "id": "G2",
+   "name": "palette and colour count",
+   "reads": [
+    "fields.palette.value.file",
+    "classes.<class>.output_floor",
+    "fields.colour_budget.value.top8_share_max_pct"
+   ],
+   "what": "every built model's base colours are palette steps; the rendered S still is at or over its class floor, top eight at or under 11.1 percent"
+  },
+  {
+   "id": "G3",
+   "name": "light direction",
+   "reads": [
+    "rig.sun_rot_deg",
+    "rig.calibration.screen_light_deg"
+   ],
+   "what": "highlight-minus-shadow vector within 30 degrees of the calibration's screen light, per facing"
+  },
+  {
+   "id": "G4",
+   "name": "hue shift",
+   "reads": [
+    "fields.palette.value.hue_shift_deg_min"
+   ],
+   "what": "every ramp of the source palette walks at least 8 degrees end to end"
+  },
+  {
+   "id": "G5",
+   "name": "detail distribution",
+   "reads": [
+    "fields.detail.value.grain_run_px"
+   ],
+   "what": "the card's grain row inside 1.6 to 2.22 px a run"
+  },
+  {
+   "id": "G6",
+   "name": "silhouette",
+   "reads": [
+    "fields.proportions.value.eight_facings_agree"
+   ],
+   "what": "eight facings agree in height (1 px), foot row (1 px) and area (25 percent)"
+  },
+  {
+   "id": "G7",
+   "name": "three-value read",
+   "reads": [
+    "fields.shading.value.values_min",
+    "fields.shading.value.value_span_min"
+   ],
+   "what": "value span at least 118; no opaque body pixel under value 12 outside the ring"
+  },
+  {
+   "id": "G8",
+   "name": "clean lines",
+   "reads": [
+    "fields.aa_dither.value.alpha",
+    "rig.ring"
+   ],
+   "what": "body alpha binary; ring 8"
+  },
+  {
+   "id": "G9",
+   "name": "repetition and variation",
+   "reads": [
+    "fields.variation.value"
+   ],
+   "what": "a tile family carries two variants; no run over four"
+  },
+  {
+   "id": "G10",
+   "name": "UI defaults",
+   "reads": [
+    "fields.ui.value"
+   ],
+   "what": "no never-font, no gradient, blur or glow, radius at most 1 px (UI's leg)"
+  },
+  {
+   "id": "D1",
+   "name": "source settings",
+   "reads": [
+    "rig"
+   ],
+   "what": "every rig.json carries rig_settings equal to this file's rig block, or names the field it breaks on purpose (a DON'T render)"
+  }
+ ],
+ "sheets": {
+  "do_and_dont": "records/target/direction_style_guide/DIRECTION_THE_STYLE_GUIDE_DO_AND_DONT.png",
+  "everything_the_same": "records/target/direction_style_guide/DIRECTION_THE_LOOK_BIBLE_EVERYTHING_THE_SAME.png",
+  "hand_finish": "records/target/direction_style_guide/DIRECTION_THE_HAND_FINISH_RAW_AND_FINISHED.png"
+ }
+}

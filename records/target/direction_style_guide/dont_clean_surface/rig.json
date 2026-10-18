@@ -1,0 +1,155 @@
+{
+ "engine": "CYCLES",
+ "res": 276,
+ "ortho_scale": 4.842105263157895,
+ "real_dims_m": [
+  1.371,
+  1.157,
+  1.72
+ ],
+ "scale_from_model": 0.4422,
+ "still_frame": 5.0,
+ "still": "the passing pose of Idle, frame 5.00",
+ "z_stretch": 1.4142,
+ "base_turn_deg": 180,
+ "source_pass": null,
+ "calibration": null,
+ "id_table": null,
+ "model": "reference/models/quaternius/RobotExpressive.glb",
+ "rig_round": 4,
+ "ppm": 57.0,
+ "metres_per_px": 0.01754,
+ "camera": {
+  "tilt_deg": 45.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "sun": "upper left, above",
+ "facings": [
+  "N",
+  "NE",
+  "E",
+  "SE",
+  "S",
+  "SW",
+  "W",
+  "NW"
+ ],
+ "family_palette": "none",
+ "snap": null,
+ "ring": 8.0,
+ "contact_shadow": true,
+ "files": [
+  "records/target/direction_style_guide/dont_clean_surface/rig_N.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_NE.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_E.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_SE.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_S.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_SW.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_W.png",
+  "records/target/direction_style_guide/dont_clean_surface/rig_NW.png"
+ ],
+ "crop_box_px": [
+  90,
+  70,
+  190,
+  215
+ ],
+ "ground_px": [
+  48,
+  68
+ ],
+ "colours": 10488,
+ "keys_per_beat": 3,
+ "bpm": 120,
+ "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
+ "clips": {},
+ "card": {
+  "family": "prop",
+  "out": 3,
+  "rows": [
+   "OK   long side >= floor 96: 145",
+   "OK   colours >= 2330: 2646",
+   "OK   top 8 carry <= 11%: 9.9",
+   "OUT  value span >= 118: 102",
+   "OK   saturation <= 0.81: 0.667",
+   "OUT  light: top minus bottom >= -2.5: -7.6",
+   "OK   edge between -35 and +7: -13.8",
+   "OUT  grain <= 2.22 px a run: 3.39"
+  ],
+  "craft": [
+   "OK   stray pixels at 8 steps <= 14%: 2.1%",
+   "OK   one pixel size (block 1): 1",
+   "OK   no banding: 0.0",
+   "OK   light from above (180 to 360 degrees, or flat): 261.9"
+  ],
+  "verdict": "3 of 8 out -> BACK before VOTE",
+  "file": "records/target/direction_style_guide/dont_clean_surface/rig_S.png"
+ },
+ "rig_settings": {
+  "engine": "CYCLES",
+  "device": "CPU",
+  "samples": 128,
+  "denoise": false,
+  "filter_px": 0.01,
+  "view_transform": "Standard",
+  "film_transparent": true,
+  "motion_blur": false,
+  "depth_of_field": false,
+  "ppm": 57.0,
+  "tilt_deg": 45.0,
+  "sun_rot_deg": [
+   40.0,
+   0.0,
+   -35.0
+  ],
+  "sun_angle_deg": 3,
+  "sun_energy": 3.0,
+  "fill_rgb": [
+   0.55,
+   0.55,
+   0.6
+  ],
+  "fill_strength": 0.35,
+  "wear": 0.0,
+  "ring": 8.0,
+  "contact_shadow": true,
+  "shadow_alpha_max": 0.42,
+  "alpha_threshold": 127,
+  "keys_per_beat": 3,
+  "bpm": 120,
+  "puppet_jitter_cm": 0
+ },
+ "breaks": [
+  "wear"
+ ],
+ "guide": {
+  "file": "records/target/BOHEMIA_STYLE_GUIDE.json",
+  "schema": 1
+ },
+ "cls": "person",
+ "card_guide": {
+  "cls": "person",
+  "out": 3,
+  "rows": [
+   "OK   long side >= floor 96: 145",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 6345 px): 2646",
+   "OK   top 8 carry <= 11%: 9.9",
+   "OUT  value span >= 118: 102",
+   "OK   saturation <= 0.81: 0.667",
+   "OUT  light: top minus bottom >= -2.5: -7.6",
+   "OK   edge between -35 and +7: -13.8",
+   "OUT  grain <= 2.22 px a run: 3.39"
+  ],
+  "reread": [
+   "colours by field 5"
+  ],
+  "verdict": "3 of 8 out under the style guide -> BACK before VOTE",
+  "size_px": [
+   78,
+   118
+  ],
+  "opaque_px": 6345,
+  "colours": 2646
+ }
+}

@@ -28,6 +28,72 @@
  "version": 1,
  "items": [
   {
+   "id": "direction-the-look-bible-everything-the-same-10-18",
+   "kind": "tile",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE ROBOT, THE TRUCK, A MAN, A BEAST AND A DRUM FROM ONE TABLE",
+   "why": "The robot and truck you loved now set the numbers for everything, and a man, a fox and an oil drum made from scratch went through the exact same camera, sun and dirt. You see it in the VOTE tab, all five at true size on your own street tiles, then at 2x like your phone shows them.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/direction_style_guide/DIRECTION_THE_LOOK_BIBLE_EVERYTHING_THE_SAME.png"
+   },
+   "twin": {
+    "src": "reference/art_bank/prop/pack_10_abandoned_cars_003.png",
+    "diffs": [
+     "SIZE: at true size the truck is 320 px long and his pack car, laid at 1:1 on the same street, about 150; the rig draws the world's size, his pack drew every car in one box.",
+     "THE MAN: the free test model wears a white and blue suit that comes from no table of ours; it is the one TWO WORLDS IN ONE FRAME on the sheet, and CHARACTER's runway bodies replace it.",
+     "THE DUST: on the yellow truck the sun-bleach reads as frost; his car's wear is rust and grime, darker than the paint, never paler."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-the-style-guide-do-and-dont-10-18",
+   "kind": "tile",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE STYLE GUIDE, ONE RIGHT AND ONE WRONG FOR EVERY RULE",
+   "why": "Every rule of the look is now a number in one file, and this sheet shows each one done right next to the same robot with that one number turned wrong. You see it in the VOTE tab, fourteen pairs: right on the left, wrong on the right.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/direction_style_guide/DIRECTION_THE_STYLE_GUIDE_DO_AND_DONT.png"
+   },
+   "twin": {
+    "src": "records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png",
+    "diffs": [
+     "SAME SOURCE: every DO is the robot you liked, rendered by the rig from the new file; every DON'T changes one setting, so the pair shows what that number buys.",
+     "TURNED DOWN: the stepped toon shading the research suggested is shown as a DON'T (field 7); it is the toy look, and the smooth clay you said yes to stays.",
+     "WEAK PAIRS: the soft-edge pair (field 9) barely shows at this size and the mirrored pair (field 3) is subtle on a side view; both are true, neither is loud."
+    ]
+   },
+   "draft": true
+  },
+  {
+   "id": "direction-the-hand-finish-10-18",
+   "kind": "tile",
+   "lane": "direction",
+   "sha": "PENDING",
+   "made": "10/18",
+   "title": "PLACEHOLDER: HOW MUCH A HAND CHANGES THE ROBOT AFTER THE RENDER",
+   "why": "The robot's eight turns straight from the rig, then after the finishing pass (a glint in each eye, the edge lit on the sunny side, three clay highlights, stray specks out), with every moved pixel in red. You see it in the VOTE tab: about 7 percent of the robot moved, so the look comes from the rig, not the touch-up.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/direction_style_guide/DIRECTION_THE_HAND_FINISH_RAW_AND_FINISHED.png"
+   },
+   "twin": {
+    "src": "records/target/master_rig/DIRECTION_THE_MASTER_RIG_ROBOT.png",
+    "diffs": [
+     "THE EYES: the rig's lenses are dead grey; one glint pixel each makes the stare read at 1x.",
+     "THE EDGE: the rig darkens the whole outline 8 steps; the finish keeps it dark only on the shadow side.",
+     "THE SIZE OF IT: 3,592 of 49,283 body pixels (7.3 percent) moved; research says a good rig leaves about a tenth to the hand, and this one sits inside that."
+    ]
+   },
+   "draft": true
+  },
+  {
    "id": "ui-how-a-label-is-spaced-9-12",
    "kind": "ui",
    "lane": "ui",

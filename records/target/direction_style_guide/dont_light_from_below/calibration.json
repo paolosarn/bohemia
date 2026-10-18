@@ -1,0 +1,10 @@
+{
+ "cube_px": 58,
+ "screen_light_deg": 247.8,
+ "sphere_value_span": 108,
+ "sphere_darkest": 87,
+ "cube_px_expected": 57,
+ "cube_ok": true,
+ "light_off_deg": 92.4,
+ "light_ok": false
+}

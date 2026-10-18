@@ -46,6 +46,12 @@ and the locked laws. Never our placeholders, never memory. Rules 100, 101, 104, 
 A person, a beast, a car: through tools/bohemia_direction_master_rig.py (one camera, tilt 45, never turned, 57 px a
 metre, eight facings, his palette). Its rig.json must pass gates/sprite_scale_gate.py. Never a mirrored half, never a
 hand-drawn facing (records/BOHEMIA_THE_MASTER_RIG_10_16_26.md).
+ROUND FOUR (10/18, rules 114a and 115d): THE NUMBERS LIVE IN records/target/BOHEMIA_STYLE_GUIDE.json (the twenty fields,
+the classes, the tests and the rig block, the look bible as numbers); the rig reads them and writes rig_settings, and
+gates/style_guide_gate.py refuses a render that breaks them outside a dont_ folder. A model you build paints its base
+colours from records/target/BOHEMIA_STYLE_PALETTE.json (16 roles, 5 steps, the hue shift in the hex; never an output
+snap). Pass --class person|beast|vehicle|prop so the card is read under the guide (rule 105's floor by kind, the colour
+density for a sprite under one tile). Where this skill and the guide disagree, the guide wins.
 
 ## 2. THE PALETTES
 `references/palettes/<family>.gpl` (road, ground, marking, settlement, door, lamp, prop): 64 colours each, median cut

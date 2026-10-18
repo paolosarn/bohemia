@@ -65,6 +65,21 @@ THE RIG, every number written to <out_dir>/rig.json so a sheet that disagrees ca
     in portrait.json; the body's rig.json names it.
   * CYCLES on the CPU at 128 samples (this bpy build has no Workbench; 16 samples read as grain).
 
+ROUND FOUR (10/18, DIRECTION [the style guide] and [the look bible], rules 114a and 115d): THE RIG READS THE STYLE GUIDE.
+Every setting above is no longer a literal in this file: it is read from records/target/BOHEMIA_STYLE_GUIDE.json's rig
+block (the look bible as numbers), and what was actually used is written into rig.json as rig_settings, with any key
+that differs from the guide listed under breaks (a DON'T render for the do-and-don't sheet, never a candidate). Three
+additions from round two of the research (Section C and E):
+  * THE CALIBRATION (C2, C4): before the model, the same camera and the same sun render a 1 m cube (it must measure the
+    guide's ppm across, plus or minus 1) and a 1 m grey sphere (the highlight-minus-shadow vector gives the light's
+    angle ON THE SCREEN, in degrees, 90 = straight up). Written to calibration.json and rig.json.
+  * THE MATERIAL-ID PASS (C11, B0): after the colour renders, every material is swapped for a flat emission of its own
+    colour and the eight stills are rendered again as id_<facing>.png with one sample, so a gate or the hand-finish
+    can select a material exactly. The id table is in rig.json.
+  * SETTINGS SPELLED OUT (C6, C7): motion blur off, depth of field off, view transform Standard, look None, exposure 0,
+    gamma 1, denoise off, written in the scene, not assumed.
+    --sun-rot 140,0,-35 (any override) is allowed and is recorded as a break.
+
 REFERENCE CHECK (the 9/4 standing duty): the compare law, the approved asset index (the twin is his own car from the
 7/13 UP set), the card of numbers, skills/bohemia-pixel-art, AH-01, AH-03. No reference game.
 """
@@ -73,7 +88,10 @@ import os, sys, json, math, subprocess
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FACINGS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW']
 PORTRAIT_FACINGS = ['S', 'SE', 'SW']
-RIG_ROUND = 3
+RIG_ROUND = 4
+GUIDE_PATH = os.path.join(ROOT, 'records/target/BOHEMIA_STYLE_GUIDE.json')
+GUIDE = json.load(open(GUIDE_PATH))
+G = GUIDE['rig']
 
 
 def args():
@@ -83,9 +101,11 @@ def args():
     clips = [(c.split(':')[0], int(c.split(':')[1]) if ':' in c else 6) for i, c in enumerate(a) if i and a[i - 1] == '--clip']
     expr = [c for i, c in enumerate(a) if i and a[i - 1] == '--expression']
     fam = opt('--family', 'prop')
-    return dict(model=a[0], out=a[1], real_len=opt('--real-length', 0.0), real_h=opt('--real-height', 0.0), ppm=opt('--ppm', 57.0),
-                fam=fam, snap=opt('--snap', 0.6), judge=opt('--judge', fam if fam != 'none' else 'prop'), wear=opt('--wear', 0.6),
-                ring=opt('--ring', 8.0), shadow='--no-shadow' not in a, still=opt('--still', 'pass'), tilt=opt('--tilt', 45.0),
+    sun = [float(x) for x in opt('--sun-rot', ','.join(str(x) for x in G['sun_rot_deg'])).split(',')]
+    return dict(model=a[0], out=a[1], real_len=opt('--real-length', 0.0), real_h=opt('--real-height', 0.0), ppm=opt('--ppm', float(G['ppm'])),
+                fam=fam, snap=opt('--snap', 0.6), judge=opt('--judge', fam if fam != 'none' else 'prop'), wear=opt('--wear', float(G['wear'])),
+                ring=opt('--ring', float(G['ring'])), shadow=('--no-shadow' not in a) and bool(G['contact_shadow']), still=opt('--still', 'pass'), tilt=opt('--tilt', float(G['tilt_deg'])),
+                sun_rot=sun, cls=opt('--class', 'prop' if fam == 'prop' else 'person'), seed=int(opt('--seed', 0)), stills_only='--stills-only' in a, calibrate='--no-calibration' not in a, id_pass='--no-id-pass' not in a,
                 clips=clips, portrait=opt('--portrait', 0), head_m=(0.0 if opt('--head-m', 'auto') == 'auto' else float(opt('--head-m', 'auto'))), expressions=expr)
 
 
@@ -149,7 +169,7 @@ def clip_actions(sc, name):
     return f0, f1
 
 
-def source_pass(objs, wear, k):
+def source_pass(objs, wear, k, seed=0):
     """THE LOOK AT THE SOURCE: what his packs carry in paint, put into the model's materials before the render. Nothing
     here touches a pixel; it changes the surface the light falls on. k converts the model's units to metres, so every
     mask is sized in the world (grain about one pixel at 57 ppm, drift 20 cm, dust 50 cm) and the same on a truck and
@@ -184,6 +204,7 @@ def source_pass(objs, wear, k):
             tc = nt.nodes.new('ShaderNodeTexCoord')
             def coords(per_m):
                 mp = nt.nodes.new('ShaderNodeMapping'); mp.vector_type = 'POINT'; s = float(so * k * per_m); mp.inputs['Scale'].default_value = (s, s, s)
+                if seed: mp.inputs['Location'].default_value = (seed * 13.7, seed * 7.3, seed * 3.1)   # a second wear seed: the same model, other dirt (guide field 12)
                 nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); return mp.outputs['Vector']
             # 3. dust and bleach on what points up, broken by a half-metre mask (a mask is shaped, never his pixels)
             geo = nt.nodes.new('ShaderNodeNewGeometry'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Normal'], sep.inputs[0])
@@ -221,7 +242,7 @@ def source_pass(objs, wear, k):
             nt.links.new(mix4.outputs['Color'], base)
     return dict(wear=wear, materials=sorted(done), what=['matte: roughness >= 0.9, specular 0.15, metallic <= 0.2', 'crevice grime from the model\'s own ambient occlusion (0.25 m)',
                 'dust and bleach on up-facing surfaces under a 50 cm mask', 'a 20 cm colour drift across the body (overlay, %.2f)' % (0.45 * wear),
-                'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch or a crevice, %.2f on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured' % (GRAIN_PER_M, min(1.0, 0.82 * wear), 0.12 * wear)], masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
+                'value grain at %g a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (%.2f in a patch or a crevice, %.2f on clean panel); finer grain averages to grey inside a pixel and even grain is a leopard print, both measured' % (GRAIN_PER_M, min(1.0, 0.82 * wear), 0.12 * wear)], seed=seed, masks_in='metres, stuck to the surface (each mesh\'s own coordinates x its object scale x %.4f)' % k)
 
 
 def passing_frame(sc, objs, f0, f1):
@@ -235,9 +256,98 @@ def passing_frame(sc, objs, f0, f1):
     return best[1]
 
 
+def light_and_film(sc, A):
+    """THE ONE LAMP AND THE FILM, every number from the style guide's rig block (round four): one sun bolted to the
+    world (the camera never moves and the model turns), a cool sky fill, Cycles on the CPU, no blur of any kind, the
+    Standard view so a hex set in a material comes out as that hex"""
+    import bpy
+    sun_d = bpy.data.lights.new('sun', 'SUN'); sun_d.energy = float(G['sun_energy']); sun_d.angle = math.radians(G['sun_angle_deg'])
+    sun = bpy.data.objects.new('sun', sun_d); sc.collection.objects.link(sun); sun.rotation_euler = tuple(math.radians(x) for x in A['sun_rot'])
+    world = bpy.data.worlds.new('w'); sc.world = world; world.use_nodes = True
+    world.node_tree.nodes['Background'].inputs[0].default_value = tuple(G['fill_rgb']) + (1,); world.node_tree.nodes['Background'].inputs[1].default_value = float(G['fill_strength'])
+    sc.render.resolution_percentage = 100
+    sc.render.film_transparent = bool(G['film_transparent']); sc.render.image_settings.file_format = 'PNG'; sc.render.image_settings.color_mode = 'RGBA'
+    sc.render.image_settings.color_depth = '8'
+    sc.render.filter_size = float(G['filter_px'])   # no blur at the edge: one pixel is one pixel
+    sc.render.use_motion_blur = bool(G['motion_blur'])
+    sc.view_settings.view_transform = G['view_transform']; sc.view_settings.look = 'None'; sc.view_settings.exposure = 0.0; sc.view_settings.gamma = 1.0
+    sc.render.dither_intensity = 0.0
+    sc.render.engine = G['engine']; sc.cycles.device = G['device']; sc.cycles.samples = int(G['samples']); sc.cycles.use_denoising = bool(G['denoise'])   # 16 samples read as grain on the sheet (the rig's own loop, cycle 1)
+    return sun
+
+
+def calibrate(A):
+    """THE CALIBRATION (round four, research round two C2 and C4): the same camera and the same sun on a 1 m cube and a
+    1 m sphere, before the model. The cube must be the guide's ppm wide; the sphere's lit-minus-dark vector is the
+    light's angle on the screen. Nothing here is the model; it proves the rig before the rig draws anything."""
+    import bpy, mathutils
+    import numpy as np
+    from PIL import Image
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    sc = bpy.context.scene
+    ppm = A['ppm']; res = int(math.ceil(2.4 * ppm / 2.0)) * 2
+    cam_d = bpy.data.cameras.new('cam'); cam_d.type = 'ORTHO'; cam_d.ortho_scale = res / ppm
+    cam = bpy.data.objects.new('cam', cam_d); sc.collection.objects.link(cam); sc.camera = cam
+    t = math.radians(A['tilt']); cam.rotation_euler = (t, 0, 0)
+    cam.location = mathutils.Vector((0, 0, 0.5)) - mathutils.Vector((0, math.sin(t), -math.cos(t))) * 30
+    sc.render.resolution_x = sc.render.resolution_y = res
+    light_and_film(sc, A)
+    mat = bpy.data.materials.new('clay'); mat.use_nodes = True
+    b = mat.node_tree.nodes['Principled BSDF']; b.inputs['Base Color'].default_value = (0.5, 0.5, 0.5, 1); b.inputs['Roughness'].default_value = 1.0
+    for sp in ('Specular IOR Level', 'Specular'):
+        if sp in b.inputs: b.inputs[sp].default_value = 0.0
+    out = {}
+    for kind in ('cube', 'sphere'):
+        for o in [o for o in sc.objects if o.type == 'MESH']: bpy.data.objects.remove(o, do_unlink=True)
+        if kind == 'cube': bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0.5))
+        else: bpy.ops.mesh.primitive_uv_sphere_add(radius=0.5, location=(0, 0, 0.5), segments=64, ring_count=32); bpy.ops.object.shade_smooth()
+        o = bpy.context.active_object; o.data.materials.append(mat)
+        fn = os.path.join(A['out'], 'calibration_%s.png' % kind); sc.render.filepath = fn; bpy.ops.render.render(write_still=True)
+        a = np.asarray(Image.open(fn).convert('RGBA')).astype(float); op = a[..., 3] > G['alpha_threshold']
+        ys, xs = np.nonzero(op)
+        if kind == 'cube':
+            out['cube_px'] = int(xs.max() - xs.min() + 1)
+        else:
+            v = a[..., :3].mean(2)[op]; hi = v >= np.percentile(v, 85); lo = v <= np.percentile(v, 15)
+            dx = xs[hi].mean() - xs[lo].mean(); dy = -(ys[hi].mean() - ys[lo].mean())   # screen y up
+            out['screen_light_deg'] = round(math.degrees(math.atan2(dy, dx)) % 360, 1)
+            out['sphere_value_span'] = int(v.max() - v.min()); out['sphere_darkest'] = int(v.min())
+    c = G['calibration']
+    out['cube_px_expected'] = int(round(c['cube_m'] * ppm)); out['cube_ok'] = abs(out['cube_px'] - out['cube_px_expected']) <= c['cube_px_tolerance']
+    if c.get('screen_light_deg') is not None:
+        d = abs((out['screen_light_deg'] - c['screen_light_deg'] + 540) % 360 - 180); out['light_off_deg'] = round(d, 1); out['light_ok'] = d <= c['screen_light_tolerance_deg']
+    json.dump(out, open(os.path.join(A['out'], 'calibration.json'), 'w'), indent=1)
+    if not out['cube_ok']: raise SystemExit('CALIBRATION FAILED: the 1 m cube is %d px, the guide says %d' % (out['cube_px'], out['cube_px_expected']))
+    return out
+
+
+def id_pass(sc, objs, root):
+    """THE MATERIAL-ID PASS (round four, research round two B0 and C11): every material becomes a flat emission of its
+    own colour, one sample, and the eight stills are rendered again, so the hand-finish and the gates select a material
+    exactly. Runs last: it overwrites the materials."""
+    import bpy, colorsys
+    names = sorted({s.material.name for o in objs for s in o.material_slots if s.material})
+    table = {}
+    for i, n in enumerate(names):
+        r, g, b = colorsys.hsv_to_rgb((i * 0.61803) % 1.0, 0.9, 1.0); table[n] = '#%02x%02x%02x' % (int(r * 255), int(g * 255), int(b * 255))
+        m = bpy.data.materials[n]; m.use_nodes = True; nt = m.node_tree
+        for l in list(nt.links): nt.links.remove(l)
+        em = nt.nodes.new('ShaderNodeEmission'); em.inputs['Color'].default_value = (r, g, b, 1); em.inputs['Strength'].default_value = 1.0
+        mo = next(n2 for n2 in nt.nodes if n2.type == 'OUTPUT_MATERIAL'); nt.links.new(em.outputs[0], mo.inputs['Surface'])
+    sc.cycles.samples = 1; sc.world.node_tree.nodes['Background'].inputs[1].default_value = 0.0
+    sc.view_settings.view_transform = 'Standard'
+    files = []
+    for i, f in enumerate(FACINGS):
+        root.rotation_euler = (0, 0, math.radians(180 - 45 * i))
+        fn = os.path.join(sc.render.filepath and os.path.dirname(sc.render.filepath) or '.', 'id_%s.png' % f); sc.render.filepath = fn
+        bpy.ops.render.render(write_still=True); files.append(fn)
+    return table, files
+
+
 def render(A):
     global bpy
     import bpy, mathutils
+    calib = calibrate(A) if A['calibrate'] else None
     bpy.ops.wm.read_factory_settings(use_empty=True)
     sc = bpy.context.scene
     before = set(o.name for o in sc.objects)
@@ -267,7 +377,7 @@ def render(A):
     lo, hi = bounds(sc, objs)
     size = hi - lo
     k = A['real_h'] / size.z if A['real_h'] else (A['real_len'] or 5.3) / max(size.x, size.y)
-    source = source_pass(objs, A['wear'], k) if A['wear'] > 0 else None
+    source = source_pass(objs, A['wear'], k, A['seed']) if A['wear'] > 0 else None
     centre = mathutils.Vector(((lo.x + hi.x) / 2, (lo.y + hi.y) / 2, lo.z))
     for o in list(sc.objects):
         if o.parent is None and o is not root: o.parent = root; o.location -= centre
@@ -293,17 +403,7 @@ def render(A):
         sc.render.resolution_x = sc.render.resolution_y = resolution
     aim(A['tilt'], dims[2] * zs / 2, res / ppm, res)
     # one sun from the upper left, above; a dim sky fill
-    sun_d = bpy.data.lights.new('sun', 'SUN'); sun_d.energy = 3.0; sun_d.angle = math.radians(3)
-    sun = bpy.data.objects.new('sun', sun_d); sc.collection.objects.link(sun); sun.rotation_euler = (math.radians(40), 0, math.radians(-35))
-    world = bpy.data.worlds.new('w'); sc.world = world; world.use_nodes = True
-    world.node_tree.nodes['Background'].inputs[0].default_value = (0.55, 0.55, 0.6, 1); world.node_tree.nodes['Background'].inputs[1].default_value = 0.35
-    sc.render.resolution_percentage = 100
-    sc.render.film_transparent = True; sc.render.image_settings.file_format = 'PNG'; sc.render.image_settings.color_mode = 'RGBA'
-    sc.render.filter_size = 0.01   # no blur at the edge: one pixel is one pixel
-    try:
-        sc.view_settings.view_transform = 'Standard'
-    except Exception: pass
-    sc.render.engine = 'CYCLES'; sc.cycles.device = 'CPU'; sc.cycles.samples = 128; sc.cycles.use_denoising = False   # 16 samples read as grain on the sheet (the rig's own loop, cycle 1)
+    light_and_film(sc, A)
     out = A['out']
     def shot(fn, facing_i):
         # a glTF's front comes in facing -Y (south, at the camera); facing 0 is NORTH, away from it, so the base turn is 180
@@ -312,7 +412,7 @@ def render(A):
     stills = [shot(os.path.join(out, 'raw_%s.png' % f), i) for i, f in enumerate(FACINGS)]
     for a in arms: a.data.pose_position = 'POSE'
     clips = {}
-    for name, keys in A['clips']:
+    for name, keys in ([] if A['stills_only'] else A['clips']):   # --stills-only: the clip poses the still, its keys are not rendered
         f0, f1 = clip_actions(sc, name)
         frames = [f0 + (f1 - f0) * (i + 0.5) / keys for i in range(keys)]
         files = []
@@ -354,8 +454,15 @@ def render(A):
                 for b in o.data.shape_keys.key_blocks: b.value = 0.0
         portrait = dict(head_px=head_px, head_m=round(head_m, 4), head_how=head_how, ppm=round(pppm, 3), res=pres, camera=dict(tilt_deg=80.0, turn_deg=0, ortho=True), facings=PORTRAIT_FACINGS, raw=pfiles,
                         expressions=list(A['expressions']), raw_expressions=efiles)
-    return dict(engine='CYCLES', res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
-                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source), stills, clips, portrait
+    idt, idf = (None, [])
+    if A['id_pass']:
+        if A['still'] == 'rest':
+            for a in arms: a.data.pose_position = 'REST'
+        sc.frame_set(int(math.floor(still)), subframe=still - math.floor(still)); root.scale = (k, k, k * zs)
+        aim(A['tilt'], dims[2] * zs / 2, res / ppm, res); sc.render.filepath = os.path.join(out, 'x.png')
+        idt, idf = id_pass(sc, objs, root)
+    return dict(engine=G['engine'], res=res, ortho_scale=res / ppm, real_dims_m=[round(x, 3) for x in dims], scale_from_model=round(k, 4), still_frame=round(still, 3), still=still_how,
+                z_stretch=round(zs, 4), base_turn_deg=180, source_pass=source, calibration=calib, id_table=idt, id_files_raw=idf), stills, clips, portrait
 
 
 def post(files, out, A, pop=None, shadow=False, one_box=True):
@@ -366,7 +473,7 @@ def post(files, out, A, pop=None, shadow=False, one_box=True):
     arrs = []
     for fn in files:
         a = np.asarray(Image.open(fn).convert('RGBA')).astype(float)
-        op = a[..., 3] > 127; a[..., 3] = np.where(op, 255, 0)
+        op = a[..., 3] > G['alpha_threshold']; a[..., 3] = np.where(op, 255, 0)
         if pop is not None and A['snap'] > 0:
             px = a[..., :3][op]; b = np.clip((px // 8).astype(int), 0, 31)
             his = pop[b[:, 0], b[:, 1], b[:, 2]]
@@ -380,7 +487,7 @@ def post(files, out, A, pop=None, shadow=False, one_box=True):
                 x0, x1 = xs[band].min(), xs[band].max(); cx = (x0 + x1) / 2 + 2; rx = max(4.0, (x1 - x0) / 2 * 1.25); ry = max(2.0, rx * 0.38); cy = foot - ry * 0.35 + 1
                 yy, xx = np.mgrid[0:a.shape[0], 0:a.shape[1]]
                 d = ((xx - cx) / rx) ** 2 + ((yy - cy) / ry) ** 2
-                sh = np.clip((1.15 - d) / 0.3, 0, 1) * 0.42   # a soft edge two pixels wide, 42% at the centre
+                sh = np.clip((1.15 - d) / 0.3, 0, 1) * float(G['shadow_alpha_max'])   # a soft edge two pixels wide, 42% at the centre
                 put = (~op) & (sh > 0.02)
                 a[..., :3][put] = 0; a[..., 3][put] = np.round(sh[put] * 255)
         arrs.append((fn, a, op))
@@ -414,6 +521,51 @@ def card(png, fam):
     return dict(family=fam, out=out, rows=rows[:8], craft=rows[8:], verdict=verdict.strip(), file=os.path.relpath(png, ROOT))
 
 
+def same(x, y):
+    """a setting used equals the guide's (40 and 40.0 are the same number)"""
+    if isinstance(x, (list, tuple)) and isinstance(y, (list, tuple)): return len(x) == len(y) and all(same(i, j) for i, j in zip(x, y))
+    if isinstance(x, bool) or isinstance(y, bool): return x == y
+    if isinstance(x, (int, float)) and isinstance(y, (int, float)): return float(x) == float(y)
+    return x == y
+
+
+def guide_card(c, png, cls):
+    """THE CARD UNDER THE STYLE GUIDE (round four): the card's eight rows were measured on cut pack tiles, all drawn in
+    one 96 px box; the rig draws true size (rule 102). Two rows are re-read by the guide's field 5: the size row by rule
+    105's floor for the KIND (a prop 29 x 36, a car 96 long), and the colour row, for a sprite with fewer opaque pixels
+    than one of his prop tiles, by his props' colour DENSITY (370 per 1,000 px). The other six stand as the card says."""
+    import numpy as np
+    from PIL import Image
+    f5 = GUIDE['fields'][4]['value']; fl = f5['size_floor_px']; dens = f5['colour_floor_small']['density_per_1000px']
+    a = np.asarray(Image.open(png).convert('RGBA')); op = a[..., 3] > 200
+    ys, xs = np.nonzero(op); w, h = int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1); n = int(op.sum())
+    colours = len(set(map(tuple, a[op][:, :3].tolist())))
+    rows, why = [], []
+    for r in c['rows']:
+        name = r.split(None, 1)[1]
+        if name.startswith('long side'):
+            if cls == 'prop': good = w >= fl['prop'][0] and h >= fl['prop'][1]; r = '%s  size >= %dx%d (rule 105, a prop): %dx%d' % ('OK ' if good else 'OUT', fl['prop'][0], fl['prop'][1], w, h); why.append('size by rule 105')
+            elif cls == 'vehicle': good = max(w, h) >= fl['vehicle_long_side']; r = '%s  long side >= %d (rule 105, a car): %d' % ('OK ' if good else 'OUT', fl['vehicle_long_side'], max(w, h))
+        elif name.startswith('colours'):
+            floor = GUIDE['classes'][cls]['output_floor'] if cls in GUIDE['classes'] else 2330
+            floor = min(floor, int(round(dens * n / 1000.0)))
+            r = '%s  colours >= %d (field 5: the class floor, or %d per 1,000 of %d px): %d' % ('OK ' if colours >= floor else 'OUT', floor, dens, n, colours); why.append('colours by field 5')
+        rows.append(r)
+    out = sum(1 for r in rows if r.startswith('OUT'))
+    return dict(cls=cls, out=out, rows=rows, reread=why, verdict='%d of 8 out under the style guide%s' % (out, ' -> BACK before VOTE' if out >= 3 else ''), size_px=[w, h], opaque_px=n, colours=colours)
+
+
+def rejudge(d, cls):
+    """python3 tools/bohemia_direction_master_rig.py --rejudge <rig_dir> <class>: the card under the guide, no Blender"""
+    m = json.load(open(os.path.join(d, 'rig.json')))
+    if 'rig_settings' in m: m['breaks'] = sorted(k for k in m['rig_settings'] if k in G and not same(m['rig_settings'][k], G[k]))
+    m['cls'] = cls; m['card_guide'] = guide_card(m['card'], os.path.join(ROOT, m['files'][FACINGS.index('S')]), cls)
+    json.dump(m, open(os.path.join(d, 'rig.json'), 'w'), indent=1); return m['card_guide']
+
+
+if __name__ == '__main__' and sys.argv[1:2] == ['--rejudge']:
+    print(json.dumps(rejudge(sys.argv[2], sys.argv[3]), indent=1)); sys.exit(0)
+
 if __name__ == '__main__':
     A = args()
     os.makedirs(A['out'], exist_ok=True)
@@ -434,6 +586,21 @@ if __name__ == '__main__':
         k = len(c['raw']); c['files'] = [rel(o) for o in outs[i:i + k]]; i += k; del c['raw']
     meta['clips'] = clips
     meta['card'] = card(outs[FACINGS.index('S')], A['judge'])
+    meta['cls'] = A['cls']; meta['card_guide'] = guide_card(meta['card'], outs[FACINGS.index('S')], A['cls'])
+    # THE SETTINGS USED, against the guide (round four; research round two D1): a key that differs is a break, and a
+    # rig with a break is a DON'T render, never a candidate (gates/style_guide_gate.py)
+    used = dict(G); used.update(ppm=A['ppm'], tilt_deg=A['tilt'], sun_rot_deg=A['sun_rot'], wear=A['wear'], ring=A['ring'], contact_shadow=A['shadow'])
+    used = {k: v for k, v in used.items() if not k.startswith('_') and k != 'calibration'}
+    meta['rig_settings'] = used
+    meta['breaks'] = sorted(k for k in used if not same(used[k], G[k]))
+    meta['guide'] = dict(file=os.path.relpath(GUIDE_PATH, ROOT), schema=GUIDE['schema'])
+    if meta.get('id_files_raw'):
+        from PIL import Image
+        ids = []
+        for fn in meta.pop('id_files_raw'):
+            im = Image.open(fn).convert('RGBA'); im = im.crop(tuple(box)); o = fn.replace('id_', 'rigid_'); im.save(o); ids.append(rel(o))
+        meta['id_files'] = ids
+    else: meta.pop('id_files_raw', None)
     if portrait:
         praw = portrait.pop('raw'); eraw = portrait.pop('raw_expressions')
         pouts, pbox = post(praw + list(eraw.values()), A['out'], A, pop, shadow=False)

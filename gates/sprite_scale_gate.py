@@ -11,6 +11,10 @@ ROUND TWO LEGS: every clip is drawn at the men's grid, three keys a beat (a whol
 eight facings times its keys on disk, every sampled frame inside the clip's range (AN ENVELOPE RAMPS SLOWER THAN THE
 GRID: nothing between two keys is ever rendered); a portrait.json names the SAME model as its body's rig.json (ONE ID,
 ONE WHOLE PERSON), its head at or over 96 px (PORTRAIT's floor), an orthographic camera, S/SE/SW on disk.
+ROUND FOUR (10/18, DIRECTION [the style guide]): a rig.json that carries card_guide is judged on it (the card with its
+size and colour rows re-read by the style guide's field 5: rule 105's floor by kind, his props' colour density for a
+sprite under one tile); a rig with breaks inside a dont_ folder is a DON'T render and skips the look legs (the style
+guide gate holds those).
 ROUND THREE LEGS (10/17, the look at the source): a rig of round three or later carries its SOURCE PASS (the wear
 modelled in the materials before the render, rig.json source_pass), a contact shadow, and THE CARD: its S still run
 through skills/bohemia-pixel-art/scripts/check.py against a family band, with at most two of the eight rows out
@@ -47,10 +51,12 @@ def wrong(m, base):
             w.append('clip %s: sampled frames %s are not %d keys inside %s' % (name, c.get('frames'), k, c.get('frame_range')))
         for f in c.get('files', []):
             if not os.path.exists(os.path.join(ROOT, f)): w.append('clip %s: missing %s' % (name, f))
+    if m.get('breaks') and os.path.basename(base).startswith('dont_'):
+        return w   # ROUND FOUR: a DON'T render for the style guide's do-and-don't sheet breaks the look on purpose; gates/style_guide_gate.py holds it
     if int(m.get('rig_round', 1)) >= 3:
         if not (m.get('source_pass') or {}).get('what'): w.append('round %s rig with no source pass (the look is modelled at the source or the render is a toy)' % m.get('rig_round'))
         if not m.get('contact_shadow'): w.append('no contact shadow (the build order: seat it)')
-        c = m.get('card') or {}
+        c = m.get('card_guide') or m.get('card') or {}   # round four: the card under the style guide's field 5 when the rig wrote it
         if not c.get('rows') or len(c['rows']) != 8: w.append('the card was not run on the S still (8 rows)')
         elif int(c.get('out', 9)) > 2: w.append('the card says BACK: %d of 8 out on the %s band (%s)' % (c['out'], c.get('family'), '; '.join(r for r in c['rows'] if r.startswith('OUT'))))
     return w
