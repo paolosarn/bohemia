@@ -10302,6 +10302,42 @@
     "palette": "records/target/BOHEMIA_STYLE_PALETTE.json",
     "light": "guide"
    }
+  },
+  {
+   "id": "cook4-the-church-10-18",
+   "kind": "tile",
+   "lane": "cook 4",
+   "sha": "9e59d37",
+   "made": "10/18",
+   "title": "PLACEHOLDER: THE CHURCH UNDER THE STRAIGHT ROOF, IN THE VALLEY'S TANS",
+   "why": "The next building of the family you said yes to: an old valley church, a long stucco hall with five round-topped windows, a stone bell tower at the doors with a cross set in it and the bell's louvres up top, the parish hall on the far end, the same tan roofs, and its benches out front in rows, empty, facing the road instead of the doors. You see it in the VOTE tab beside your pack house, the tan ranch and the gas station at the same size, a placeholder until your moodboard.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK4_THE_CHURCH.png"
+   },
+   "twin": {
+    "src": "pack:5. Roof tiles#30",
+    "diffs": [
+     "ROOF: his pack house wears a straight roof seen from above at 45 degrees; the nave and the hall wear the same measured shape (1.49 walls tall) in the tan of his own render wall; the tower's cap is the same roof at the tower's own depth with a 0.6 m eave.",
+     "MASSING: his house is one small box; ours is an 18 m nave at 5 m, a 4.2 m square bell tower 12 m to its plate standing 1 m proud at the doors, and a 7 m parish hall at one storey on the far end, 29 m in all: the family's first vertical.",
+     "LIGHT AND GROUND: as his, from above; we add only the shade under the eaves, the bays' seams, the outline and a contact shadow. One wrong thing: six benches set out on the forecourt in rows with an aisle, empty, facing the road."
+    ]
+   },
+   "before_after": {
+    "before": "no church: the town had none drawn the pack's way",
+    "after": "the nave of five arched windows, the bell tower with his cross niche and louvred belfry, the parish hall, under the measured tan roofs, the man at the tower doors",
+    "scale": "1:1"
+   },
+   "draft": true,
+   "sprites": [
+    "reference/art_bank/settlement/COOK4_CHURCH_STRAIGHT_ROOF.png"
+   ],
+   "class": "tile",
+   "look": {
+    "px": 1,
+    "palette": "reference/art_bank/settlement/COOK4_THE_VALLEY_TANS.json",
+    "light": "top"
+   }
   }
  ],
  "verdicts": [
