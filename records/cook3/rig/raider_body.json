@@ -1,0 +1,65 @@
+{
+ "tier": "RAIDER",
+ "what": "a mail shirt to mid-thigh with elbow sleeves, its rows of rings modelled, rusted dark at the dagged hem and the cuffs, split front and back on the thigh bones; a mail coif with an aventail over the shoulders; a pointed nasal helmet gone to rust; brass bracers; a round shield cut from a cable drum's end on the left forearm; a machete in the right fist; the head is PORTRAIT's modelled head on the same model",
+ "model": "records/cook3/rig/raider_body.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "meshes": {
+  "Cesium_Man": 3273,
+  "raider_mail": 69046,
+  "raider_mail_skirt": 12664,
+  "raider_coif": 21540,
+  "raider_helmet": 10258,
+  "raider_bracers": 2948,
+  "raider_shield": 8410,
+  "raider_shield_boss": 145,
+  "raider_machete": 36
+ },
+ "head_scale": 1.2,
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "raider_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "raider_bracers": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "raider_eyes": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "raider_mail": [
+   0.3712,
+   0.3663,
+   0.3278
+  ],
+  "raider_rust": [
+   0.1144,
+   0.0194,
+   0.0086
+  ],
+  "raider_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "raider_sleeves": [
+   0.5395,
+   0.3916,
+   0.1878
+  ],
+  "raider_trousers": [
+   0.0123,
+   0.011,
+   0.011
+  ]
+ }
+}

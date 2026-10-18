@@ -1,0 +1,147 @@
+{
+ "person": "RAIDER",
+ "model": "records/cook3/rig/raider.glb",
+ "from_body": "records/cook3/rig/raider_body.glb",
+ "dropped": [],
+ "cut_above_z": 1.165,
+ "head": {
+  "centre": [
+   0.0,
+   0.004,
+   1.352
+  ],
+  "radii": [
+   0.16,
+   0.165,
+   0.178
+  ],
+  "mouth_z": -0.089,
+  "mouth_half": 0.033,
+  "eye": [
+   0.047,
+   0.004,
+   0.0165
+  ],
+  "bone": "Skeleton_neck_joint_2"
+ },
+ "shape_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised"
+ ],
+ "lid_keys": [
+  "A",
+  "E",
+  "O",
+  "M",
+  "Angry",
+  "Sad",
+  "Surprised",
+  "Blink"
+ ],
+ "gear": "mail coif",
+ "hair": "buzz",
+ "stubble": true,
+ "look": null,
+ "meshes": {
+  "Cesium_Man": 1214,
+  "raider_bracers": 2948,
+  "raider_coif": 21540,
+  "raider_helmet": 41264,
+  "raider_machete": 108,
+  "raider_mail": 69733,
+  "raider_mail_skirt": 13080,
+  "raider_shield": 18916,
+  "raider_shield_boss": 552,
+  "portrait_head": 13198,
+  "portrait_head_eyes": 1068,
+  "portrait_head_lids": 1296,
+  "portrait_neck": 48
+ },
+ "materials": {
+  "portrait_raider_buzz": [
+   0.1144,
+   0.0194,
+   0.0086
+  ],
+  "portrait_raider_iris": [
+   0.0545,
+   0.0273,
+   0.016
+  ],
+  "portrait_raider_lips": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "portrait_raider_mouth": [
+   0.0252,
+   0.008,
+   0.007
+  ],
+  "portrait_raider_pupil": [
+   0.006,
+   0.0044,
+   0.0037
+  ],
+  "portrait_raider_sclera": [
+   0.5029,
+   0.4233,
+   0.314
+  ],
+  "portrait_raider_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "portrait_raider_stubble": [
+   0.1144,
+   0.0194,
+   0.0086
+  ],
+  "raider_boots": [
+   0.0423,
+   0.0395,
+   0.0369
+  ],
+  "raider_bracers": [
+   0.5841,
+   0.2961,
+   0.0382
+  ],
+  "raider_eyes": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "raider_mail": [
+   0.3712,
+   0.3663,
+   0.3278
+  ],
+  "raider_rust": [
+   0.1144,
+   0.0194,
+   0.0086
+  ],
+  "raider_skin": [
+   0.5841,
+   0.3231,
+   0.2016
+  ],
+  "raider_sleeves": [
+   0.5395,
+   0.3916,
+   0.1878
+  ],
+  "raider_trousers": [
+   0.0123,
+   0.011,
+   0.011
+  ]
+ }
+}
