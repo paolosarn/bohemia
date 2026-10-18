@@ -7,7 +7,7 @@ PLACE: a camp settlement on a flat roof complex near the dam road
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0 and night: the roof row, nine broken black panels -> three intact blue panels at the left with glints; B: one. Night: one more lit window per panel. C: MAP picture: the warehouse gets a black scorch.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated; fixed in place)
 
 ## THE SITUATION
 The camp's solar row was smashed by Destroyers. Three intact panels lie on a warehouse roof the Destroyers use as a lookout.
@@ -26,6 +26,7 @@ Kenji Molina, 38, a solar fitter, a Rick Owens jacket with the sleeves taped on.
 ## THE CHOICES
 A. FIGHT FOR THE ROOF. B. TAKE ONLY ONE PANEL quietly. C. BURN THE LOOKOUT instead and leave the panels (the Destroyers lose the roof; the camp gets nothing visible).
 THE FIGHT: A routine fight, 3 to 4 minutes, six Destroyers on the warehouse roof tiles (a roof is high ground, 3rd votes). On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the company comes down the ladder with one panel (route B's result); the lookout stays manned on the map. The job closes at B's fee.
 
 ## WHAT THE LEDGERS REMEMBER
 A: three panels back. B: one. C: the camp stays dark, the map shows the lookout burned. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

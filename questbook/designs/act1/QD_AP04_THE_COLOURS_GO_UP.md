@@ -7,7 +7,7 @@ PLACE: a camp on a freeway off-ramp between two factions' grounds
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0 and night: the bare antenna mast at the camp's centre -> a cloth in the chosen faction's territory colour, hanging still; night: lit from below by a barrel fire. Map: the camp's map picture gains a one-pixel colour pip of that faction.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal, 31 the only no-fight road unstated; fixed in place)
 
 ## THE SITUATION
 The camp has kept no colours, which means everyone raids it. The elders voted to fly one faction's colours. The faction will accept only if the company carries the cloth in past the other faction's road party.
@@ -24,8 +24,10 @@ The camp has kept no colours, which means everyone raids it. The elders voted to
 Abuela Chayo, 72, the camp's speaker, a black Rick Owens shroud and a cane made of rebar. First line after accept: "The cloth is at their post. Their enemies sit on the road."
 
 ## THE CHOICES
-A. FIGHT THROUGH. B. GO AROUND by dirt (a day longer, a beast fight with dire wolves instead). C. BRING BACK THE OTHER FACTION'S COLOURS instead and tell the camp (the camp flies those; the client is furious but pays).
+A. FIGHT THROUGH. B. GO AROUND by dirt (a day longer, a beast fight with dire wolves instead). C. BRING BACK THE OTHER FACTION'S COLOURS instead and tell the camp (the camp flies those; the client is furious but pays). (QR-AT, line 31: this road is a talk with the road party, who hand over their own cloth to be flown; no fight, `Q183.X3`.)
 THE FIGHT: A routine fight, 3 to 4 minutes, against the rival road party of seven on two tiles of off-ramp. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. TO THE EDGE OF THE ROAD AND NO FURTHER (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): the company carries the cloth to the last culvert and Chayo's grandsons run it the rest; half the fee; one of them limps in the after picture.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the cloth is taken; the mast stays bare and the next raid on the map comes from both sides. The job closes.
 
 ## WHAT THE LEDGERS REMEMBER
 The camp flies a faction's colours (COLOUR IS TERRITORY law); raids from that faction stop, the other's double (Q151.W3). No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

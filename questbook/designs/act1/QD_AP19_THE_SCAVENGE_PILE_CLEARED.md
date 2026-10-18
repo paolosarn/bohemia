@@ -7,7 +7,7 @@ PLACE: a fortress settlement whose central lot is a mountain of trash and wrecks
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and night: the central lot, a wreck pile with a SCAVENGE tag -> bare levelled dirt with stake lines and string (an empty build lot, matching COOK's lot slot art). C: a dog den in the corner with two eyes at night.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 32 sparing the dogs cost nothing; fixed in place)
 
 ## THE SITUATION
 The fortress wants its central lot back to build on (rule 86: builds live in the base's settlement screen). The lot is a wreck pile with a nest of feral dogs inside, and the pile itself is SCAVENGE.
@@ -24,8 +24,9 @@ The fortress wants its central lot back to build on (rule 86: builds live in the
 Capataz Lino, 50, a foreman in a hard hat and a Rick Owens skirt over work pants. First line after accept: "Clear it and you can keep what you dig out."
 
 ## THE CHOICES
-A. CLEAR IT. B. CLEAR HALF (half the lot, no fight, a quieter dig). C. LEAVE THE DOGS a corner (the lot is clear, a dog den stays, the dogs guard at night).
+A. CLEAR IT. B. CLEAR HALF (half the lot, no fight, a quieter dig). C. LEAVE THE DOGS a corner (the lot is clear, a dog den stays, the dogs guard at night; they eat 2 FOOD a week and the corner is one build slot less) (QR-AT, line 32: C was free, kind and the most useful at once, `Q226.X2`, `Q157.X1`).
 THE FIGHT: A routine fight, 3 to 4 minutes, ten feral dogs among the wrecks on the lot's two tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the dogs keep the pile; Lino clears the near half himself (route B's picture) and the job closes at B's fee.
 
 ## WHAT THE LEDGERS REMEMBER
 The lot is clear and buildable for the act (if the company holds the base). No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

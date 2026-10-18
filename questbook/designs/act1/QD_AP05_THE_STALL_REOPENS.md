@@ -7,7 +7,7 @@ PLACE: a fortress settlement in a mall's food court, the market is the old food 
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and night: the market, the second stall from the left, shutter down with a padlock -> shutter up, a steaming pot, a hand-lettered price card; night: a lantern. If B: the same, plus a small IOU paper taped on the shutter.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal; fixed in place)
 
 ## THE SITUATION
 The tamale stall closed when its owner's son was taken by a debt crew. She will reopen if he comes back. The crew holds him in a laundromat.
@@ -26,6 +26,8 @@ Doña Remedios, 55, flour on a Balenciaga parka, a steel pot on her hip. First l
 ## THE CHOICES
 A. FIGHT. B. PAY THE DEBT (25 BATTERIES, no fight, she pays you back half). C. TAKE THE DEBT BOOK and burn it (a fight, and the crew's ledger of every debt in the valley is gone).
 THE FIGHT: A routine fight, 3 to 4 minutes, against six debt collectors on the laundromat's two tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. FIND HIM AND TELL HER WHERE (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): no rescue; Remedios goes herself with the pot money; half the fee; the stall opens a week later and her son serves with one arm in a sling.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the crew moves him; the shutter stays down and Remedios takes route B herself, at 25 of her own batteries, a week late. The job closes.
 
 ## WHAT THE LEDGERS REMEMBER
 The stall is open for the act; the market building's menu shows food cheaper by one. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

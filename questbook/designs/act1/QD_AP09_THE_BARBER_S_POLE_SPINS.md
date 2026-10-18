@@ -7,7 +7,7 @@ PLACE: a fortress settlement on the old Strip, the barber in a jewellery store
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and night: the barber's door, a still pole with faded stripes -> the pole spinning (a 4-frame loop) and a lit window; night: the pole glows.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal; fixed in place)
 
 ## THE SITUATION
 The barber has scissors and no power for the clippers or the pole. A cell of six car batteries sits in a wrecked limousine in raider ground.
@@ -26,6 +26,8 @@ Chuy the barber, 28, bleached buzz, a Bottega leather apron. First line after ac
 ## THE CHOICES
 A. FIGHT. B. SWAP: leave 6 ROUNDS for the cells. C. PULL THE CELLS FROM THE COMPANY'S OWN CART (costs 4 BATTERIES of your own, no fight).
 THE FIGHT: A routine fight, 2 to 3 minutes, five raiders sleeping in the limo's lot tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. BRING TWO CELLS (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): the clippers run, the pole does not; half the fee, one free cut.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the raiders wake and drive the limo off; Chuy keeps cutting with scissors, and the pole stays dark. The job closes.
 
 ## WHAT THE LEDGERS REMEMBER
 The barber is open for the act; the barber building lights up on the settlement screen. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

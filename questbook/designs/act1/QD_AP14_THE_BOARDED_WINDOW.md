@@ -7,7 +7,7 @@ PLACE: any camp settlement, the hall
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0 and night: Efrain's house, the right window, plain -> success: a pink curtain and a lit window; failure: two planks nailed across, no light. Declining: no change at all.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 12 no priced refusal; fixed in place)
 
 ## THE SITUATION
 A failure that shows. A father hires the company to bring his daughter back from a crew that took her to work a battery mill. The job is hard and can be failed; if it is, the town shows it.
@@ -26,6 +26,7 @@ Don Efrain, 45, a welder, a burned Rick Owens jacket. First line after accept: "
 ## THE CHOICES
 A. STORM THE MILL. B. BUY HER (40 BATTERIES, no fight). C. TRADE A COMPANY MEMBER'S labour for her for a month (the member is gone 30 days).
 THE FIGHT: A tough fight, 10 to 12 minutes, twelve guards on the mill's four house tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. CARRY THE LETTER (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): the company will not storm or buy; it carries Efrain's letter in and Nayeli's answer out, and the date her work ends, 60 map days; half the fee; the after picture is a curtain half drawn.
 
 ## WHAT THE LEDGERS REMEMBER
 Success: a curtain in Efrain's window. A taken contract failed: the window boarded for the act (THE FUTURE GOES BOTH WAYS). No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

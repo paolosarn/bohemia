@@ -7,7 +7,7 @@ PLACE: on the road at night, near an unnamed hamlet on the map
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: MAP picture: a dark cluster of three roofs -> one warm pixel cluster at night, and a tiny pale line of a path to the road by day.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line, nothing failed)
 
 ## THE SITUATION
 A hamlet with no name shows no light on the map. A woman walks out to the road with a dead lantern and asks for kerosene or a cell.

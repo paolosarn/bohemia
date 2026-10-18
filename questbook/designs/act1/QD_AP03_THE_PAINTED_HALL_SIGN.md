@@ -7,7 +7,7 @@ PLACE: a camp settlement around a gutted drive-through, the hall is the old orde
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0 and night: the drive-through order window above the hall, blank board -> a hand-painted sign, two colours, letters slightly uneven. Variant B: half the board painted, half bare.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 9 only two ways through (the naming is not a road); fixed in place)
 
 ## THE SITUATION
 The hall has no name. The sign painter will paint one if the company escorts her paint, eleven tins from a hardware store, through hyena ground.
@@ -24,8 +24,10 @@ The hall has no name. The sign painter will paint one if the company escorts her
 Mari Luz, 30, a sign painter, paint to the elbows, a Bottega Veneta woven bag full of brushes. First line after accept: "You bring them, I name it after whoever you want."
 
 ## THE CHOICES
-A. ESCORT AND FIGHT. B. CARRY ONLY SIX TINS and run (no fight, the sign is smaller). C. LET HER NAME IT AFTER THE COMPANY'S DEAD (the sign carries a name; costs nothing, it is just a choice).
+A. ESCORT AND FIGHT. B. CARRY ONLY SIX TINS and run (no fight, the sign is smaller). C. FEED THEM PAST (QR-AT, line 9: a third way through, `Q087.X4`, `Q084.X2`): leave 3 FOOD on the far lot at dusk and walk all eleven tins past while the hyenas eat; no fight, the full sign, the food is the price.
+THE NAME (on any road, not a road of its own): let her name it after the company's dead, or leave it to her; costs nothing, it is just a choice.
 THE FIGHT: A routine fight, 2 to 3 minutes, against four hyenas (lab-made, rule 42) on the store's lot tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the tins spill on the lot; the company carries back what it can and Mari paints half the board (variant B); the job closes at half the fee.
 
 ## WHAT THE LEDGERS REMEMBER
 The hall has a painted sign for the act; its name is the player's choice in C, or Mari's (draft name: LA VENTANA). No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

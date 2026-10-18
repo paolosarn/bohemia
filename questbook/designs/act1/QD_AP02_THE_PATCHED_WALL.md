@@ -7,7 +7,7 @@ PLACE: a fortress-tier settlement in an old casino parking structure
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and fortress_0_night: the south wall, bottom right, a breach (rubble, rebar) -> a grey cement patch, lighter than the old wall, with handprints. A second patch later in the act adds a second shade (the count shows).
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 12 no priced refusal, 26 no warm beat, 31 the no-fight road unstated; fixed in place)
 
 ## THE SITUATION
 The south wall of the parking structure has a breach a truck could drive through. The quartermaster has the cement but not the people to stand guard while it sets.
@@ -24,8 +24,10 @@ The south wall of the parking structure has a breach a truck could drive through
 Don Ruben, 60, a quartermaster with a Rick Owens apron over body armour. First line after accept: "Stand in it. That's the job."
 
 ## THE CHOICES
-A. HOLD THE HOLE. B. BAIT THE DOGS AWAY with 4 FOOD and hold a quieter night. C. HELP POUR THE CEMENT FASTER (costs 2 TAPE, one night instead of two, one fight).
+A. HOLD THE HOLE. B. BAIT THE DOGS AWAY with 4 FOOD and hold a quieter night (QR-AT, line 31: no fight on this road, the dogs eat on the far ramp, `Q216.X1`). C. HELP POUR THE CEMENT FASTER (costs 2 TAPE, one night instead of two, one fight).
 THE FIGHT: A routine fight, 3 to 4 minutes, on the fight board cut from the breach: feral dogs, eight, at the hole's two house tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. ONE NIGHT ONLY (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): stand the first night and leave; the patch sets thin and a crack shows in the after picture; half the fee.
+THE WARM BEAT (QR-AT, line 26: one warm beat, `Q030.X2`): when the cement is wet Ruben presses his own hand in beside the company's, and says nothing about it.
 
 ## WHAT THE LEDGERS REMEMBER
 The wall is patched; on a failed job it stays open and the next raid comes through it. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

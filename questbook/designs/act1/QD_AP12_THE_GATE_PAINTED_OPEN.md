@@ -7,7 +7,7 @@ PLACE: a fortress settlement whose gate has been chained since the crash
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and night: the gate, two chained steel leaves -> A/B: leaves open, the chain hanging cut, two refugee tents just inside; C: a fresh second chain, brighter steel. Map: B shows a short line of tiny figures on the road in.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal, 31 every road to the gate ran through the wolf fight; fixed in place)
 
 ## THE SITUATION
 The fortress's council is split: open the gate to refugees or keep it chained. The refugee speaker hires the company to clear the road of beasts so the council has no excuse.
@@ -26,6 +26,9 @@ Señora Ixchel, 50, the refugees' speaker, a dusty Rick Owens tunic. First line 
 ## THE CHOICES
 A. CLEAR IT and let the council choose. B. CLEAR IT AND CUT THE CHAIN yourself (the gate opens, the council hates the company). C. CLEAR IT AND STAY QUIET while the council chains it anyway (the refugees leave east).
 THE FIGHT: A routine fight, 3 to 4 minutes, nine dire wolves at the culvert's two tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. SMOKE THE CULVERT (QR-AT, line 31: the theme behind a fight the player had to win, `Q216.X1`, `Q183.X3`): 2 TAPE of burning tyres at noon and the pack moves east; no fight, the full fee; the gate choice (A, B or C) follows the same way.
+E. WALK THE COLUMN PAST AND LEAVE IT (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): the company walks the refugees past the culvert by day; the road is not cleared, the council keeps its excuse; half the fee.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the wolves hold the culvert; the gate stays chained and Ixchel's people camp outside it on the map. The job closes.
 
 ## WHAT THE LEDGERS REMEMBER
 The gate's state for the act. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

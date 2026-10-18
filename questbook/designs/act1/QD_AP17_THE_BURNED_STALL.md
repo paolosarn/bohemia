@@ -7,7 +7,7 @@ PLACE: on the road near a camp the company helped earlier
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: MAP picture: a black smoke column over the camp for the night of the event. Settlement screen market: a stall -> A/B a scorch mark up one side; C: a black frame, no awning.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated; fixed in place)
 
 ## THE SITUATION
 The company passes the camp's market at dusk. A Destroyer crew is setting fire to a stall. The company can intervene now or keep its schedule.
@@ -23,6 +23,7 @@ The company passes the camp's market at dusk. A Destroyer crew is setting fire t
 ## THE CHOICES
 A. FIGHT. B. PUT OUT THE FIRE ONLY (2 WATER, the crew escapes). C. KEEP MOVING.
 THE FIGHT: A routine fight, 2 to 3 minutes, four Destroyers at the market's two tiles, if A. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the crew runs off with the till; the stall stands scorched, as in B, and the owner sweeps it while the company passes.
 
 ## WHAT THE LEDGERS REMEMBER
 A/B: a scorched but standing stall. C: the stall burned black for the act (the future goes both ways). No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

@@ -7,7 +7,7 @@ PLACE: a camp settlement in a trailer park, the hall is a picnic table
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0_night: the lot between trailers, dark -> a sagging string of 12 warm bulbs between two trailer roofs. Day: the wire and unlit bulbs visible. C: three still figures at the picture's edge for one visit, then gone.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal, 32 inviting the cult cost nothing; fixed in place)
 
 ## THE SITUATION
 The camp wants a party, the first in years: a wedding. The groom wants a string of bulbs across the lot. The bulbs are in a church store a cult guards.
@@ -24,8 +24,10 @@ The camp wants a party, the first in years: a wedding. The groom wants a string 
 Beto and Lupe, 22 and 21, the couple, he in a thrifted Balenciaga suit two sizes big. First line after accept: "The people there don't talk. They just watch."
 
 ## THE CHOICES
-A. FIGHT FOR THE BOX. B. BUY IT (6 BATTERIES). C. INVITE THE CULT to the wedding (they come, they give the bulbs, they stay one night and stand at the edge).
+A. FIGHT FOR THE BOX. B. BUY IT (6 BATTERIES). C. INVITE THE CULT to the wedding (they come, they give the bulbs, they stay one night and stand at the edge, and they eat the wedding meal: the 4 FOOD of the pay is theirs) (QR-AT, line 32: C was free, kind and fully paid at once, `Q226.X2`, `Q157.X1`).
 THE FIGHT: A routine fight, 2 to 3 minutes, or none (see C). On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. CANDLES INSTEAD (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): leave the church alone; the couple marries under candles, wax on the lot in the after picture; half the pay.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the box stays at the church; the wedding goes on under candles (route D's picture) and Lupe says one line: "We're married anyway, man."
 
 ## WHAT THE LEDGERS REMEMBER
 The bulbs stay strung for the act. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

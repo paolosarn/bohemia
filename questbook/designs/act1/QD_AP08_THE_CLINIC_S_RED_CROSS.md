@@ -7,7 +7,7 @@ PLACE: a fortress settlement, the clinic in a former nail salon
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: fortress_0 and night: the clinic, a blank shop sign -> a red cross painted on a white board, and a queue of three small figures outside by day; night: the cross lit by one bulb. C: the cross painted in the dealer's colour.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated; fixed in place)
 
 ## THE SITUATION
 The clinic has a nurse and no meds. Everyone walks past it to the dealer on the corner. A shipment of antibiotics sits in a hospital basement held by a lab-made beast.
@@ -26,6 +26,7 @@ Enfermera Luna, 34, scrubs under a cropped Balenciaga bomber. First line after a
 ## THE CHOICES
 A. FIGHT. B. LURE IT OUT WITH MEAT (6 FOOD) and take one crate. C. LEAVE THE MEDS, take the nurse to the dealer and make him stock the clinic (a talk, no fight, and the clinic is the dealer's front).
 THE FIGHT: A tough fight, 8 to 10 minutes: a short-faced bear and its four hyenas on the basement's house tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the company drags itself out with one crate (route B's result) and the bear's claw marks on the basement door show on the map. The job closes at B's fee.
 
 ## WHAT THE LEDGERS REMEMBER
 The clinic is believed in; the clinic building's menu sells MEDS for the act. C: it sells them at the dealer's price. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.

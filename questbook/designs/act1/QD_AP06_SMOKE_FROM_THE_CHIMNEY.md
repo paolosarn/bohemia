@@ -7,7 +7,7 @@ PLACE: on the road, passing a farmhouse tied to a camp settlement
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: MAP picture: the farmhouse near the camp, no smoke -> a thin grey smoke line, three pixels high, drifting. Settlement screen of the near camp: the farmhouse edge visible at the picture's left gets the same smoke.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line, nothing failed)
 
 ## THE SITUATION
 An old man sits outside a farmhouse with no smoke from its chimney in a cold month. His wood is wet; his stove pipe is cracked.

@@ -7,7 +7,7 @@ PLACE: a camp settlement on a parking garage top, food is the weak leg
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 SHELF: ninth shelf, LOOKS FIRST (rule 88); research page QR-AP.
 ASSET NEEDED: camp_0 and night: the garage top's corner, bare concrete -> stage 1 grow trays with a purple light at night; stage 2 green; stage 3 tall green with a scarecrow in runway clothes. C: a calf in a pen at the corner.
-CHECKLIST: passes all 32
+CHECKLIST: passes all 32 (QR-AT 10/18: run line by line; 1 and 23 the lost fight unstated, 12 no priced refusal; fixed in place)
 
 ## THE SITUATION
 The camp eats rations. A hydroponics woman has seeds and grow lights; she needs a pump from a nursery overrun by feral cattle.
@@ -26,6 +26,8 @@ Rosa Kim, 40, a hydroponics grower, a hydro-stained Bottega knit. First line aft
 ## THE CHOICES
 A. FIGHT. B. HERD THEM OUT (slow; no kills, 2 hours more). C. TAKE A CALF back too (the camp gets milk later; costs FOOD to feed it).
 THE FIGHT: A routine fight, 3 to 4 minutes, against feral cattle on the nursery's greenhouse tiles. On house tiles; routine fights 2 to 4 minutes, tough never past 15.
+D. THE LIGHTS ONLY (QR-AT, line 12: the priced refusal, `Q131.X7`, `Q139.P2`): leave the pump; Rosa grows on hand-carried water and the garden stops at its first stage; half the fee.
+A LOST FIGHT (QR-AT, lines 1 and 23: a result, not a reload, `Q095.X3`, `Q098.X2`): the cattle trample the pump; the roof stays bare and Rosa takes route D's half garden. The job closes.
 
 ## WHAT THE LEDGERS REMEMBER
 The roof garden grows over the act in three stages. No pop-up, no number: the change is simply there the next time the settlement screen opens, and the client stands in front of it for one visit with one portrait line.
