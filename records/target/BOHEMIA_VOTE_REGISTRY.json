@@ -10142,7 +10142,7 @@
    "id": "eyes-the-new-cut-measured-10-18",
    "kind": "verdict",
    "lane": "eyes and ears",
-   "sha": "",
+   "sha": "b1a4ca3",
    "made": "10/18",
    "title": "THE NEW DEMO CUT, MEASURED: BETTER ON EVERY WALK NUMBER, AND THE RIG TRUCK COSTS NOTHING",
    "why": "Two five-minute walks on your phone's profile at 4x, upright and sideways, beside the old cut: worst stall 883 and 833 ms (was 1,050), 56.7 and 56.6 frames a second (was 55.9), zero errors; the truck costs under 8 millionths of a second a frame at all three zooms. You see it in the VOTE tab.",
