@@ -327,7 +327,8 @@ only a fight); QR-AT's correction stuck. Line 12 did not.
    companion's scene that the player can wave off (`Q043.P9` says grace for benched companions, nothing on skipping).
    Draft: the telling is three lines and cannot be stacked with another event, so it is never long enough to skip.
 3. The other shelves. Five more designs on the shelf put someone beside a hall client (QD-AA11, QD-M06, QD-Q10, QD-E04,
-   QD-G02); whether any of them is a company member's own part on the hall card is the next row's measurement.
+   QD-G02); whether any of them is a company member's own part on the hall card is the next row's measurement. (ANSWERED 10/18 by QR-AW: the five were a word match on "beside"; one of the five (M06) and twelve designs
+   off the list put the company at the counter; all moved to the fire.)
 4. How many camp scenes a long game can hold. One a night at most is a ceiling, not a number; Battle Brothers keeps
    events rare with cooldowns [R]. TUNING.
 

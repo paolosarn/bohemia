@@ -6,7 +6,8 @@ ECONOMY: either
 PLACE: the squat (settlement screen: the hall is a kitchen in a gutted bank); the job runs under the city in the storm tunnels, the fight board cut from the tunnel junction block below the old convention centre
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: A ROOM THAT ISN'T RECORDED (QR-Z no. 24: find and hold an unrecorded place)
-CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the door choice sat behind a mandatory fight) and is fixed in place by the noon ladder)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (QR-AM 10/10: line 31 failed (the door choice sat behind a mandatory fight) and is fixed in place by the noon ladder) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 3. The new council wants the storm tunnels sealed before the rains: people live down there, dogs breed there, and the council cannot see what it cannot count. The squat's crew took the sealing job for the pay and wants guns beside them. One junction under the convention centre has never had a signal in it, not once, not even when the Network was whole.
@@ -18,7 +19,14 @@ Act 3. The new council wants the storm tunnels sealed before the rains: people l
 - PAY: 18 batteries and 6 TAPE. SKULLS: 2.
 - NEGOTIATION: one "more" (21); ceiling: "The council doesn't haggle. I'm the one who'd be eating it." Advance: 3 TAPE.
 - ACCEPT / DECLINE. Declining writes nothing; the crew goes down short-handed and the phone says how it went.
-- THE COMPANY'S LINE (only if A ROOM THAT ISN'T RECORDED is the open ambition): the senior member, quietly: "A door nobody hears behind. That's the room."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); the line stood on the stranger's card.
+- DOOR: hall. Camp, then hall, only if A ROOM THAT ISN'T RECORDED is the open ambition: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: the senior member's dead phone, screen cracked, set face down on the sand (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "My father said the only time he told my mother the truth was in a stairwell with no bars." / "Under the convention center there's a junction no phone ever heard. The squat's crew is welding the doors down there." / "Their lead posts the job at the bank kitchen. Get in before the welds do." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: the tunnel junction under the convention centre carries the face-down phone as its mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE PERSON AND THE FIRST LINE
 Nico, snapping the mask down and up: "The council wants it shut because they can't see in. Same reason I want it open."

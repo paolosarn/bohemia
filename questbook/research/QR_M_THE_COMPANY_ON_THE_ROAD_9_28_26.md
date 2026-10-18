@@ -280,6 +280,9 @@ says about giving an automated fighter a personality:
    per act, only after the member has been in the company for a stated minimum of map days, and only when the route
    passes a place from their background. It is an EVENT SCREEN at camp, or a CONTRACT in a settlement's hall that
    the member points to. Declining it is free and nobody mentions it again. (`Q108.W1`, `Q076.W4`, `Q043.W7`)
+   AMENDED 10/18 by QR-AV and QR-AW: the pointing happens at the night camp, never on the company bar as the
+   settlement opens and never on the offer screen; the member tells at the fire, the stranger offers at the hall
+   alone (QR-AV rule 2). QD-M02 was the one design that used the old second door and is moved.
 8. EVERY DEATH IS A RECEIPT. When the 20% roll kills a struck-down member, the next camp event names the cause in
    one line in a companion's mouth (the flank left open, the wall he held), shows his face, and offers the burial
    choice. No loot screen, ever, for a named dead member: his gear is handed on by a person at the grave or buried

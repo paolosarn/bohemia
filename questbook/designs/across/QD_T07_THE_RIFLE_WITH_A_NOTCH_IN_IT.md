@@ -7,7 +7,8 @@ PLACE: the Strip casino block home base (fortress tier) in act 2; the cashier's 
 SITUATION: THE COMPANY INHERITS (rule 39d): act 2's company are the heirs of act 1's, and gear stays in the family. Tavo, 19, carries his father Ruben's rifle; in act 1 Ruben shot a Strip collector named Lalo Vega with it, and cut a notch -> Lalo's sister, now the pit boss, wants to buy the rifle, and the heir decides what the family's gear is for
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall, then camp (the base's fire, the night before the pits) (QR-AW)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member's own part on a hall card: the card's whole subject is Tavo's father's rifle and Tavo had no word before it left; he now tells at the base's fire between the yes and the pits; line 12 failed (every road after the yes sold the rifle, so the telling could change nothing) and D is added; the telling passes line 33: a story first, the rifle across his knees, no price in the mouth.)
 DEFAULT READ (act 1 never played, or Ruben never shot anyone): the rifle came to Ruben second-hand with the notch already in it, and the sister has the same claim on it; the pay and the choices do not change.
 
 ## THE SITUATION
@@ -16,10 +17,17 @@ The Strip in act 2 is richer and quieter. Rosa Vega runs the pits. Her brother d
 ## THE SETTLEMENT AND THE OFFER SCREEN
 - SETTLEMENT: the Strip. Buildings: the hall (the cashier's cage), the market, the barber, the pits.
 - CLIENT PORTRAIT: Rosa Vega, pit boss, a long black coat buttoned to the throat, her brother's lighter on a chain.
-- THE SCREEN'S LINES: "That sling on your boy's rifle. I braided it." / "I'm not asking how. I'm buying it. Thirty-five." / "Bring it to the pits tonight. In person."
+- THE SCREEN'S LINES: "That sling on your boy's rifle. I braided it." / "I'm not asking how. I'm buying it. Thirty-five." / "Bring it to the pits tomorrow night. In person." (QR-AW: tomorrow, so one fire falls between the yes and the pits.)
 - PAY: 35 batteries. SKULLS: 0 (the screen says so: no fight is expected).
 - NEGOTIATION: one "more" lands (40); the second: "It's not for sale twice." No advance.
 - ACCEPT / DECLINE. Declining writes nothing. Rosa never mentions it again; the rifle stays in the family.
+
+## THE DOOR: THE HALL, THEN THE BASE'S FIRE (QR-AW: a company member's own stake is told at the fire; the stranger keeps the hall)
+The Strip is the family's base, so the company is home and the hall comes first (QR-AV rule 8: then the member tells at the first fire after the yes). Before this round the rifle was sold at a counter in front of the boy whose father left it, and his first word came at the pits, after (QR-AW, the finding; `Q108.P3`, QR-M rule 3).
+- DOOR: hall, then camp (the base's fire is the camp when the company is home, QR-Z 3.1).
+- THE THING, BEFORE: the rifle and its red sling are on Tavo's body sheet from the act's first day; at the fire it lies across his knees (QR-AV rule 3).
+- THE FIRE (the night after the yes; that night's one event, QR-AR): Tavo runs his thumb along the stock. "My dad oiled this on the truck hood every Sunday. He cut that notch the night the power came back, and he never sanded it out." / "The pit boss braided this cord. She wants it on her wall by tomorrow night." / "Whatever you say at the pits, I'll be standing next to you." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`); the choice is at the pits, A to D.
+- THE MAP: the pits on the Strip carry the red cord as their mark (the second pointer, QR-G line 7, `Q071.X2`).
 
 ## THE PERSON AND THE FIRST LINE
 Rosa, at the pits, when Tavo arrives: "You have his hands. Your father's. Not mine to say, I know."
@@ -28,10 +36,11 @@ Rosa, at the pits, when Tavo arrives: "You have his hands. Your father's. Not mi
 A. HAND IT OVER AND SAY NOTHING. She pays; Tavo loses the rifle and its accuracy; the company re-arms at the market.
 B. HAND IT OVER AND SAY WHAT HAPPENED. Tavo tells her what the ledger says Ruben did, in his own words. She pays. She keeps the rifle on the wall of the pits. The shoulder costs more than silence (QR-D rule 17 amended, `Q215.X3`): the pits hear it, and the family's standing on the Strip drops one step for the act; nobody made him say it.
 C. ASK HER TO BREAK IT. Tavo hands it over and asks her to break it in front of him. She pays. The rifle is gone from the world.
-Same pay on every road.
+D. THE CORD, NOT THE RIFLE (QR-AW, line 12: the priced refusal inside the taken job, `Q139.P2`, `Q131.X7`, `Q134.X2`): Tavo cuts the red cord off at the pits and puts it in her hand; the rifle stays in the family on a plain strap. She pays 8 and says why: "I braided the cord. The rest was never mine." It finishes the contract.
+Same pay on A, B and C; D pays less for less (QR-G line 30's house rule: a priced refusal pays less for less work).
 
 ## WHAT THE LEDGERS REMEMBER
-A: the Strip's board is unchanged. B: Rosa becomes a client with a line of her own; in act 3 the Strip's pits have the rifle on the wall, and the heir there can ask for it back. C: nothing on the wall; Rosa's line in act 3 is "Your family pays its debts." Declining leaves nothing, and the rifle goes to Tavo's heir in act 3.
+A: the Strip's board is unchanged. B: Rosa becomes a client with a line of her own; in act 3 the Strip's pits have the rifle on the wall, and the heir there can ask for it back. C: nothing on the wall; Rosa's line in act 3 is "Your family pays its debts." D: the cord hangs on Rosa's lighter chain in her portrait for the rest of the act, and the rifle goes to Tavo's heir in act 3 on its plain strap. Declining leaves nothing, and the rifle goes to Tavo's heir in act 3.
 
 ## THE ONE WRONG DETAIL
 There are two notches on the stock, and the ledger only knows about one.

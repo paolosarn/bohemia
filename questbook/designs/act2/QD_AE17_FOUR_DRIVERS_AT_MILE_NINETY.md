@@ -6,7 +6,8 @@ ECONOMY: bust
 PLACE: the rail and truck depot (settlement screen: the hall is the dispatch window); the rescue runs two map days north on the old highway to a broken truck at mile ninety, the fight board cut from the rest stop block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: SIXTEEN AND A SERGEANT (QR-Z no. 2: sixteen in the company, one with the rally skill)
-CHECKLIST: passes all 32 (bends line 8 on purpose: two map days out, but one stop and one board; the return is a road event, not a second leg) (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (bends line 8 on purpose: two map days out, but one stop and one board; the return is a road event, not a second leg) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 2, a bust. A depot truck broke an axle at mile ninety with four drivers and no radio. The depot cannot send another truck; it can send people. The rest stop at mile ninety has been a raiders' stop since the crash.
@@ -18,7 +19,14 @@ Act 2, a bust. A depot truck broke an axle at mile ninety with four drivers and 
 - PAY: 18 batteries and 6 FOOD. SKULLS: 2. Deadline said aloud: "Day six they're out of water. Day seven they walk, and nobody walks from ninety."
 - NEGOTIATION: one "more" (21); ceiling: "I'm paying you their wages. They don't get paid this week." Advance: 6 FOOD.
 - ACCEPT / DECLINE. Declining writes nothing; Ines drives out herself and the phone says how it went.
-- THE COMPANY'S LINE (only if SIXTEEN AND A SERGEANT is the open ambition): the senior member: "Four drivers who've been through a week out there. That's four who don't run."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); the line stood on the stranger's card.
+- DOOR: hall. Camp, then hall, only if SIXTEEN AND A SERGEANT is the open ambition: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: a sergeant's whistle on a cord that nobody wears, set on the sand (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "The first crew I rode with had a sergeant who could count us in the dark by our coughs." / "Four drivers are stuck at mile ninety on the old highway north. A week out there by now." / "The dispatcher at the depot posts it. Four who don't run." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: mile ninety carries the whistle as its mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE PERSON AND THE FIRST LINE
 Ines, writing four names at the top of a page: "I write them down so the page has to give them back."

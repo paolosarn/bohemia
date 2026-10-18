@@ -6,6 +6,8 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a camp on the map one stop south of a dead hospital on the north side of the valley; the detour's place is the hospital's third floor (a ward, a nurses' station, a stairwell; the fight board if it comes to a fight).
 STATUS: draft:true, research only, nothing built (rule 35)
+DOOR: camp
+CHECKLIST: passes all 32 and line 33 (QR-AW 10/18: line 33 run, the first time on this shelf: failed as written (the first line was the place and the thing, no story; the second line, "Una noche. That's all.", put the price in time in her mouth; her badge was never on the ground); fixed in place below. The 32 lines were not re-run this round.)
 
 A COMPANY MEMBER'S OWN ASK, shaped as a camp EVENT SCREEN (the 9/28 ruling). Names are placeholders, Paolo's to change.
 
@@ -13,9 +15,9 @@ A COMPANY MEMBER'S OWN ASK, shaped as a camp EVENT SCREEN (the 9/28 ruling). Nam
 LUPE has been in the company for at least 20 map days. Before the money died she was a nurse on a medical ward. She walked out on the shift the power went, and she has never been back. The ask fires only when the route passes within one stop of that hospital (the world triggers it, not a menu, `Q076.W4`), and only once in act 1. She has never asked the player for anything before this (`Q108.W1`).
 
 ## THE PERSON AND THE FIRST LINE
-The event screen at camp, night. Lupe's portrait, the fire's light on one side of her face, scrubs under a cut-up Balenciaga puffer.
-"The ward's one stop north. My name's still on the board. Probably."
-Second line, only if the player waits: "Una noche. That's all."
+The event screen at camp, night. Lupe's portrait, the fire's light on one side of her face, scrubs under a cut-up Balenciaga puffer. Her old ward badge, the photo faded white, has been clipped inside the puffer since she joined (her body sheet); tonight she unclips it and sets it on the sand (QR-AV rule 3).
+THE LINES AT THE FIRE (QR-AW, line 33: a story, then the thing and the place, then the ask; `Q125.P25`, `Q085.W2`, `Q063.W2`): "The night the power went I had six on vents and one flashlight. I held it for Dr. Ruiz till it died." / "That's my badge. The ward's one stop north. My name's still on the board. Probably." / "I want to see it. With you, or by myself."
+THE BUTTONS (the price is on the button, never in the mouth; QR-AW, line 33: the old second line, "Una noche. That's all.", was the price in time): [GO WITH HER: 1 day, 1 FOOD each] / [GIVE HER THE NIGHT: half a day] / [NOT THIS TRIP].
 
 ## THE CHOICES
 A. GO WITH HER. One map day off the route. The company goes through the dead ward, room by room, a thing to tap in each. No fight is planned; squatters on the second floor may be met and talked past or fought (a group, as always, on the fight board). She finds the whiteboard. Cost: 1 day, 1 FOOD per member (rule 47).

@@ -6,7 +6,8 @@ ECONOMY: bust
 PLACE: a pump house on the dam road (settlement screen: the hall is the pump room door); the job is a HOLD, one named night, the fight board cut from the pump house block
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: PAY THE LOAN OFF (QR-Z no. 10: clear a standing debt)
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 2. The company owes the pump people for water drawn on credit through a dry season. A roaming party has told the pump house it will come on the night of the new moon. The pump people would rather have the company on the roof than the batteries in the drawer.
@@ -18,7 +19,14 @@ Act 2. The company owes the pump people for water drawn on credit through a dry 
 - PAY: the company's debt struck from the book (shown as its battery amount), and 6 WATER. If no debt: 20 batteries and 6 WATER. SKULLS: 2. The night is fixed: said aloud, shown on the phone.
 - NEGOTIATION: none on the debt ("It's the book. The book doesn't haggle."); one "more" on the water (8).
 - ACCEPT / DECLINE. Declining writes nothing: the debt stays a debt, no worse.
-- THE COMPANY'S LINE (only if PAY THE LOAN OFF is the open ambition): the senior member: "One night and we don't owe nobody. I'd stand on a roof for that."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); it stated the fee, "we don't owe nobody", the debt struck, in the mouth before the yes.
+- DOOR: hall. Camp, then hall, only if PAY THE LOAN OFF is the open ambition: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: the page torn from the pump house's water book with the company's draws stamped on it, weighed down with a rock (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "My mother owed the company store eleven years. The day she paid it off she bought a soda and didn't drink it." / "That's our page in the pump house book. A roaming party says it's coming on the new moon." / "Amparo posts the job at the pump room door. I'd stand on a roof for that page." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: the pump house carries the stamped page as its mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE PERSON AND THE FIRST LINE
 Amparo, a hand on the valve wheel: "My father lent you that water. He'd want it paid like this. Not in batteries. In standing here."

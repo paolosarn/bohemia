@@ -224,7 +224,7 @@ QR-Z rule 15 keeps the two tables apart: ambitions are never offered in the hall
 may still TOUCH: a contract's condition can be the step an open ambition counts (a held block, meds in the box, the
 name at a gate). The library's lesson is that the heir's estate should be denominated in experiences and places, not
 grind (`Q144.X2`, `Q144.W2`), and that what crosses generations best is what was learned. So an ambition-advancing
-contract is shown on the offer screen by ONE spoken line from the company's senior member standing beside the player
+contract is shown on the offer screen (AMENDED 10/18 by QR-AW: at the fire the night before, never on the offer screen; see rule 16) by ONE spoken line from the company's senior member standing beside the player
 ("That's the pump house, jefe. The one you keep looking at."), never by a tick box, and the contract pays the same with
 or without the ambition open. If no ambition is open, the line is not said.
 
@@ -296,6 +296,10 @@ shows the days and the other job ends first on the same road. never: the board n
 15. The phone never accepts, never negotiates, never shows the full offer text. Test: no accept handler in the phone.
 16. Ambition-advancing contracts are marked only by one spoken line from the company's senior member at the offer,
     and pay the same with or without the ambition. Test: no ambition field on any pay row; the line has a speaker.
+    AMENDED 10/18 by QR-AW (newest date wins): the line is NOT said at the offer. It broke this library's own QR-M
+    rule 3 (no company member speaks on the offer screen before the yes, 9/28) and QR-Z rule 15 (ambitions never in
+    the hall, 9/30). The company's voice tells it at the fire the night the job is within a day's road, three lines
+    and one [SLEEP] button (QR-G line 33), and the town's pin carries the ambition's thing. The pay half stands.
 17. Two tough fights are never paired on one road by the board. Test: the pairing table's "never" cells are never
     drawn as a line.
 18. Every paired trip's completion links the two places once on the map and in one feed post. Test: completing both

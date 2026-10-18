@@ -6,6 +6,7 @@ CRISIS: the Network crumbling
 ECONOMY: boom
 PLACE: the first map camp after a fight in which a gambit-driven company member overrode his own gambit; act 3, the healing city's outskirts, a camp in a reclaimed solar field.
 STATUS: draft:true, research only, nothing built (rule 35)
+DOOR: camp (a reckoning after the override)
 
 HOW AN AUTOMATED COMPANION EARNS A PERSONALITY, shaped as a camp EVENT SCREEN. The fight runs on gambits (COMBAT [gambits], Final Fantasy XII, combat only). Names are placeholders.
 
@@ -42,4 +43,4 @@ He is still breathing hard two hours after the fight, and nobody else is.
 ## FLAWS IT AVOIDS
 `Q131.X4` (a follower who cannot fear: he breathes hard), `Q086.X5` and `Q101.X3` (stupid or random companion AI: the override is rare, readable and in character), `Q121.X2` (no meter decides the choice), `Q137.X1` (the rule is shown in the fight, not hidden).
 
-CHECKLIST: passes all 32. Line 12 is not applicable to an event; line 23 is met because the scene follows a fight but needs none. (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32. Line 12 is not applicable to an event; line 23 is met because the scene follows a fight but needs none. (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: line 33 n/a by its reading: a RECKONING, the player answers for a fight, nobody asks for a job. Not a member on a hall card.)

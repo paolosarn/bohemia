@@ -6,7 +6,8 @@ ECONOMY: boom
 PLACE: the tower offices, now part hospital (settlement screen: the hall is the ninth-floor pharmacy window); the carry runs a loop of three clinics in one map day, the fight board cut from the parking ramp block at the second clinic
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: MEDS IN THE BOX (QR-Z no. 7: a reserve of meds kept untouched for 20 days)
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 3, the valley healing. Floor nine of the tower made its first batch of antibiotics that did not come from before the crash. Three clinics are waiting. Everyone in the valley knows what is in the case.
@@ -18,7 +19,14 @@ Act 3, the valley healing. Floor nine of the tower made its first batch of antib
 - PAY: 12 MEDS and 10 batteries. SKULLS: 1.
 - NEGOTIATION: one "more" (14 MEDS); ceiling: "Every one you ask for is a patient I tell to wait." Advance: none; the case is counted.
 - ACCEPT / DECLINE. Declining writes nothing; she walks it herself with two orderlies.
-- THE COMPANY'S LINE (only if MEDS IN THE BOX is the open ambition): the senior member, beside the player at the window: "Twelve, jefe. Twelve in the box and we stop counting."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); it stated the fee, "Twelve, jefe. Twelve in the box", in the mouth before the yes.
+- DOOR: hall. Camp, then hall, only if MEDS IN THE BOX is the open ambition: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: the meds box itself, an old ammo can with a red cross painted on the lid, open by the fire with its empty slots showing (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "My mother kept one vial of insulin in a coffee can for a whole year. She never opened it. She just liked knowing it was there." / "That's the box, jefe, half empty. Floor nine at the tower made a batch nobody's touched yet." / "The pharmacist posts the carry at the ninth-floor window. That's the one." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: the tower offices carry the red-cross lid as their mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE PERSON AND THE FIRST LINE
 Halima, holding a vial to the window: "Clear. Not yellow. Forty years and it's finally clear."

@@ -5,7 +5,8 @@ CRISIS: none (act 2); the rocket (act 3)
 ECONOMY: boom
 PLACE: act 2, the family's home base (rule 43: a base is the parts of the city the family holds); act 3, the roads around the rocket yards, where her company roams
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
-CHECKLIST: passes all 32. Line 18 met by the reads below. (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: place (act 2: Nadia asks at the family's base), then road (act 3: her party met on the map)
+CHECKLIST: passes all 32. Line 18 met by the reads below. (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member's own part on a hall card: none. There is no hall card; Nadia is a stranger when she asks and a former member when she is met, on the road. Listed for 'beside' in two citations. Line 33 n/a: no camp door.)
 
 ## THE SITUATION
 In act 2 a girl of fifteen asks to ride with the company as an apprentice (a road event at the family's base: a face, three choices). If taken, she rides for the act. In act 3 she runs her own mercenary company, a roaming party on the map with her own banner. How she treats the family depends on how the family treated her.

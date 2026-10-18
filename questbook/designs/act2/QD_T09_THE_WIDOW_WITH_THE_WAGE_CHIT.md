@@ -7,8 +7,10 @@ PLACE: the map, the canal road between the co-op blocks and the dam; the event s
 SITUATION: THE COMPANY INHERITS, the debt side: in act 1 a company member, Lalo Paz, died owed four weeks' wages (the ledger holds the unpaid days). His widow Irma kept the chit. The heir of the family, leading the act-2 company, owes it by blood, not by memory
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 TWIST: none
-CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: road (the bus shelter on the canal road)
+CHECKLIST: passes all 32 (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member's own part: a road stop, no hall card; one guard added below, so a riding member's own mother never stops his company as a stranger.)
 DEFAULT READ (act 1 never played, or no one died owed): Irma's husband is the act-1 default roster's first dead, and the chit is for the default four weeks. Never fires in the first minute of an act.
+WHO WEARS THE HELMET (QR-AW, line 18; QR-AV rule 1): the heir who wears Lalo's helmet is another line's, carried down with the company's gear (37g). If Lalo had a child and that child rides in the act 2 company (the law's s12: "no heir unless he already had a kid"), Irma is a member's mother; this stop never fires for that company, because a member's own family does not stop his company as a stranger on the road, and the open wages stay in the ledger for act 3's read below (`Q121.X1`, `Q108.W1`).
 
 ## THE SITUATION
 A woman in a bus shelter holds up a square of card with a stamp on it. It is the family's stamp, the one the act-1 lead used on wage chits. The picture on it is her husband. One of the company's heirs is wearing his helmet.

@@ -6,7 +6,8 @@ ECONOMY: bust (act 1) -> boom (act 3)
 PLACE: the colourful market (settlement screen: the hall is a tailor's stall under a parachute); act 1's guard runs one leg from the depot to the market, the fight board cut from the underpass block; act 3's offer is at the same stall, rebuilt
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE COAT THAT OUTLIVES US (QR-Z no. 26: a named coat made, never sold, worn by the heir)
-CHECKLIST: passes all 32 (bends line 5 on purpose: act 3 reads act 1; the default read, "the bolt never came", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (bends line 5 on purpose: act 3 reads act 1; the default read, "the bolt never came", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 1. A tailor at the colourful market bought the last bolt of real black wool in the valley, off a truck at the depot. Wool, not plastic. She needs it carried across the underpass, where people get robbed for less.
@@ -18,7 +19,14 @@ Act 1. A tailor at the colourful market bought the last bolt of real black wool 
 - PAY: 8 batteries and 3 TAPE, and her word: the coat is the company's at cost when it is done. SKULLS: 1.
 - NEGOTIATION: one "more" (10); ceiling: "The wool cost me a year. You cost me a day." Advance: none.
 - ACCEPT / DECLINE. Declining writes nothing; she waits for someone else.
-- THE COMPANY'S LINE (only if THE COAT THAT OUTLIVES US is the open ambition): "One coat. The kind you leave to somebody."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); the line stood on the stranger's card.
+- DOOR: hall. Camp, then hall, only if THE COAT THAT OUTLIVES US is the open ambition: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: the senior member's own coat, patched at both elbows, folded on the sand (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "My grandmother had one good coat. She wore it to every funeral and every wedding, and they buried her in it." / "A tailor at the colourful market bought the last bolt of real wool, off a truck at the depot." / "She'll post the carry at her stall. One coat. The kind you leave to somebody." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: the colourful market carries the folded coat as its mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE CHOICES (ACT 1)
 A. UNDER THE UNDERPASS. A crew of four waits: the fight board is the underpass block, routine, 2 to 3 minutes.

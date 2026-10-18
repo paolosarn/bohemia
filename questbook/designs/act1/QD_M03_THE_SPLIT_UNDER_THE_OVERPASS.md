@@ -6,6 +6,7 @@ CRISIS: none
 ECONOMY: bust
 PLACE: a map camp under a collapsed freeway overpass on the dirt road south of the valley, the night after a won fight.
 STATUS: draft:true, research only, nothing built (rule 35)
+DOOR: camp (a quarrel the player walks into)
 
 A COMPANY QUARREL, shaped as a road EVENT SCREEN. It is CAUSED by the ledger (a won fight with a battery find), never rolled from nothing (`Q044.W2`). Names are placeholders.
 
@@ -46,4 +47,4 @@ There are six cells in the pile when the screen opens, and the fight's log said 
 ## FLAWS IT AVOIDS
 `Q126.X5` (the chorus), `Q109.X4` (a company that never collides), `Q137.X2` (loyalty as a forever fuse: every effect lasts three fights), `Q043.X2` (no nagging, one line each).
 
-CHECKLIST: passes all 32. Line 12 reads as choice C (walking away from the fire costs nothing and finishes the scene); line 18 not triggered. (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32. Line 12 reads as choice C (walking away from the fire costs nothing and finishes the scene); line 18 not triggered. (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: line 33 n/a by its reading: a QUARREL, QR-M rule 6, started without him, `Q121.W9`. Not a member on a hall card.)

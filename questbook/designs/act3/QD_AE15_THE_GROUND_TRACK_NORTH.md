@@ -6,7 +6,8 @@ ECONOMY: boom
 PLACE: the launch yard on the dry lake (settlement screen: the hall is the site office); the escort runs north across the valley floor to the Tule Springs fossil beds, the fight board cut from the spring-mound block if a fight comes
 STATUS: draft:true, research only, nothing built (rule 35). Names and lines are attempts; Paolo's to change.
 ADVANCES AMBITION: THE MAMMOTH (QR-Z no. 22, heirs only: find the one mammoth and choose)
-CHECKLIST: passes all 32 (bends line 5 on purpose: the heir-only line reads an act 1 sighting; the default read, "no one in the family saw it", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written)
+DOOR: hall; camp, then hall, when the ambition is open (QR-AW)
+CHECKLIST: passes all 32 (bends line 5 on purpose: the heir-only line reads an act 1 sighting; the default read, "no one in the family saw it", is below) (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: read for a company member on a hall card: the company's line stood on the offer screen, against QR-M rule 3 and QR-Z rule 15; moved to the fire as a telling, which passes line 33: a story first, the thing on the sand, no price in the mouth.)
 
 ## THE SITUATION
 Act 3. If the rocket fails on the way up, it falls along its ground track. The track runs north over the Tule Springs beds, where the lab's one mammoth walks. The surveyor has to walk the track and mark where nobody should live.
@@ -18,7 +19,14 @@ Act 3. If the rocket fails on the way up, it falls along its ground track. The t
 - PAY: 28 batteries and 6 FOOD. SKULLS: 2 (3 if the mammoth is fought; said: "If you shoot it, I'm not standing next to you.").
 - NEGOTIATION: one "more" (31); ceiling: "The rocket people count everything twice." Advance: 6 FOOD.
 - ACCEPT / DECLINE. Declining writes nothing; Benedikt goes alone and marks less.
-- THE COMPANY'S LINE (only if a prior generation saw the mammoth, and the ambition is open): "Your grandfather saw it once and never said a word after. Go see why."
+
+## THE DOOR: THE HALL, AND THE FIRE BEFORE IT WHEN THE AMBITION IS OPEN (QR-AW: no company member speaks on the offer screen, QR-M rule 3; ambitions live at the fire, QR-Z rule 15)
+Before this round the company's line stood on the stranger's card, against QR-M rule 3 and QR-Z rule 15 (QR-AE rule 16 put it there; QR-AW reverses it); the line stood on the stranger's card.
+- DOOR: hall. Camp, then hall, only if a prior generation saw the mammoth, and the ambition is open: a TELLING by the company's voice, the most senior living member (QR-Z 3.1). If no ambition is open, there is no telling and the card is the whole door.
+- THE THING, AT THE FIRE: a drawing on the back of a ration card, something as big as a building walking at the springs, in the grandfather's hand (QR-AV rule 3; the ambition's own thing, `Q144.X2`: a thing you can see, not a tick).
+- THE FIRE (the first night this hall's job is within a day's road; if the company reaches the hall first, the first night after the yes; that night's one event, QR-AR): "Your grandfather came back from the springs one night and sat in the truck till morning. He never said a word about it." / "He drew this the next day. The launch yard's surveyor walks the ground track right past the springs." / "His walk starts at the site office. Go see why." One button, [SLEEP]: a telling is not a choice, and it writes nothing (QR-AV rule 10, `Q043.X1`). The price stays on the card, never in the mouth (QR-G line 33).
+- THE MAP: the Tule Springs beds carry the ration-card drawing as their mark, beside the open ambition's one line in the top bar (QR-Z 3.2 item 5; the second pointer, QR-G line 7, `Q071.X2`).
+- THE HALL: the stranger alone on the card (`Q108.P3`); the contract pays the same with or without the ambition (QR-AE rule 16's half that stands).
 
 ## THE PERSON AND THE FIRST LINE
 Benedikt, sighting along the dry lake: "Everything north of this line, if it falls, it falls on."

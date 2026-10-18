@@ -6,6 +6,7 @@ CRISIS: none (fires in any crisis)
 ECONOMY: either
 PLACE: the first map camp after a fight in which a company member died (rule 36's 20% roll on a struck-down member); anywhere on the map.
 STATUS: draft:true, research only, nothing built (rule 35)
+DOOR: camp (a reckoning after a death)
 
 GRIEF AFTER A DEATH, shaped as a camp EVENT SCREEN. A template: it fires for ANY company member who dies, and reads his ledger. Filed in act 2 as the first shelf copy; the same screen serves all three acts.
 
@@ -47,4 +48,4 @@ That night in the city view, the feed shows a new post from his account: a photo
 ## FLAWS IT AVOIDS
 `Q105.X5` (the offscreen goodbye), `Q137.X5` (the plaque funeral), `Q129.X9` (the company says nothing), `Q125.X7` (loot in the grave), `Q144.X2` (death as lost progress: no stat talk on this screen at all).
 
-CHECKLIST: passes all 32. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event. (QR-AM 10/10: lines 31 and 32 run, pass as written)
+CHECKLIST: passes all 32. Line 26 (one warm or funny beat) is carried by choice C's jacket and the passing road line; line 12 is not applicable to an event. (QR-AM 10/10: lines 31 and 32 run, pass as written) (QR-AW 10/18: a RECKONING, not an ask, so line 33 reads n/a; it would pass anyway: the receipt is a past moment with a person in it, the bedroll is on the ground, and every cost is on its button.)

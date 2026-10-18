@@ -6,6 +6,8 @@ CRISIS: none
 ECONOMY: bust
 PLACE: the map, on the west road, within one stop of the settlement where an injured member's mother lives (a trailer settlement out toward Pahrump); fires at a camp.
 STATUS: draft:true, research only, nothing built (rule 35)
+DOOR: camp
+CHECKLIST: passes all 32 and line 33 (QR-AW 10/18: line 33 run, the first time on this shelf: failed as written (one line, the place and the bed, no story and nothing of his mother's on the ground); fixed in place below. The 32 lines were not re-run this round.)
 
 THE INJURED (rule 36), shaped as a road EVENT SCREEN: a member struck down who lived, with a debilitating injury of 30 to 40 map days and a permanent mark. Names are placeholders.
 
@@ -13,8 +15,9 @@ THE INJURED (rule 36), shaped as a road EVENT SCREEN: a member struck down who l
 NENE was struck down and the 80% came up: he lives, with a shattered knee. He is out of fights for 30 to 40 map days and will limp forever (the mark: a slower step on the fight board, one tile less every few beats, and his portrait ages with it, `Q055.W4`). He has been riding in the truck bed, eating his ration, not in the formation, talking. The event fires only if the route passes near his mother's settlement during his injury term.
 
 ## THE PERSON AND THE FIRST LINE
-The event screen. Nene's face, from above, lying in the truck bed on a folded tarp, a Rick Owens cargo leg cut open at the knee around the splint.
-"My mom's is two hours west. She's got a bed that doesn't move."
+The event screen. Nene's face, from above, lying in the truck bed on a folded tarp, a Rick Owens cargo leg cut open at the knee around the splint. The splint is tied with his mother's dish towel, the one he packed when he joined; it has been on the truck-bed picture every night of his term (QR-AV rule 3).
+THE LINES AT THE FIRE (QR-AW, line 33: a story, then the thing and the place, then the ask; `Q125.P25`, `Q085.W2`, `Q063.W2`): "When I was ten I came off the trailer roof, and my mom drove me to Pahrump with my leg in her lap the whole way." / "That's her towel. Her place is two hours west. She's got a bed that doesn't move." / "Leave me there. Or don't, and I'll ride."
+THE BUTTONS (the price is on the button, never in the mouth): [LEAVE HIM AT HIS MOTHER'S: nothing now, off the roster for his term] / [KEEP HIM IN THE TRUCK: 1 FOOD a day] / [LEAVE HIM WITH DOCTOR MONEY: 4 batteries].
 
 ## THE CHOICES
 A. LEAVE HIM AT HIS MOTHER'S. No cost now. He is off the roster for his injury term. When it ends, he is at his mother's settlement; if the company passes there, he rejoins with one line. If it never passes, he stays, and nothing counts against the player.
